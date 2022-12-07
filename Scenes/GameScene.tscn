@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/Towers/GunT2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Towers/towerDefense_tile251.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/DefaultMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Towers/towerDefense_tile249.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Towers/towerDefense_tile228.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/HUD/blue_button12.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Towers/GunT1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Towers/MissleT1.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/Canvas.gd" type="Script" id=10]
+
+[node name="GameScene" type="Node2D"]
+script = ExtResource( 9 )
+
+[node name="DefaultMap" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, 1 )
+script = null
+
+[node name="Towers" type="Node2D" parent="."]
+
+[node name="GunT1" parent="Towers" instance=ExtResource( 7 )]
+position = Vector2( 655, 179 )
+
+[node name="GunT2" parent="Towers" instance=ExtResource( 1 )]
+position = Vector2( 828, 377 )
+
+[node name="MissleT1" parent="Towers" instance=ExtResource( 8 )]
+position = Vector2( 447, 344 )
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+script = ExtResource( 10 )
+
+[node name="HUD" type="Control" parent="Canvas"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -118.0
+margin_right = 1276.0
+
+[node name="BuildBar" type="VBoxContainer" parent="Canvas/HUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -48.0
+margin_bottom = -2.0
+
+[node name="MissleT1" type="TextureButton" parent="Canvas/HUD/BuildBar" groups=["build_buttons"]]
+margin_left = 598.0
+margin_right = 678.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 80, 80 )
+rect_pivot_offset = Vector2( -785, -267 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 6 )
+expand = true
+
+[node name="Icon1" type="TextureRect" parent="Canvas/HUD/BuildBar/MissleT1"]
+margin_left = 7.0
+margin_top = 15.0
+margin_right = 71.0
+margin_bottom = 79.0
+texture = ExtResource( 5 )
+
+[node name="Icon2" type="TextureRect" parent="Canvas/HUD/BuildBar/MissleT1"]
+margin_left = -3.0
+margin_top = 8.0
+margin_right = 61.0
+margin_bottom = 72.0
+texture = ExtResource( 2 )
+
+[node name="Icon3" type="TextureRect" parent="Canvas/HUD/BuildBar/MissleT1"]
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 80.0
+margin_bottom = 72.0
+texture = ExtResource( 2 )
+
+[node name="GunT1" type="TextureButton" parent="Canvas/HUD/BuildBar" groups=["build_buttons"]]
+margin_left = 598.0
+margin_top = 84.0
+margin_right = 678.0
+margin_bottom = 164.0
+rect_min_size = Vector2( 80, 80 )
+rect_pivot_offset = Vector2( -785, -267 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 6 )
+expand = true
+
+[node name="Icon" type="TextureRect" parent="Canvas/HUD/BuildBar/GunT1"]
+margin_left = 8.0
+margin_top = 9.0
+margin_right = 72.0
+margin_bottom = 73.0
+texture = ExtResource( 4 )
