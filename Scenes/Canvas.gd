@@ -9,6 +9,7 @@ func set_tower_preview(tower_type, mouse_position):
 	control.add_child(drag_tower)
 	control.rect_position = mouse_position
 	control.set_name("TowerPreview")
+	control.set_meta("type", tower_type)
 	add_child(control, true)
 	move_child(get_node("TowerPreview"), 0)
 

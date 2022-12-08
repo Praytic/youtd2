@@ -3,6 +3,7 @@ extends Node2D
 var map_node: Node
 var build_mode: bool
 var build_location: Vector2
+var buildable: bool
 
 func _ready():
 	map_node = get_node("DefaultMap")
@@ -12,6 +13,15 @@ func _ready():
 func _physics_process(delta: float):
 	if build_mode:
 		update_tower_preview()
+
+func _unhandled_input(event):
+	if event.is_action_released("ui_cancel") and build_mode == true:
+		print("ui_cancel")
+		cancel_build_mode()
+	elif event.is_action_released("ui_accept") and build_mode == true:
+		print("ui_accept")
+		verify_and_build()
+		cancel_build_mode()
 	
 func initiate_build_mode(tower_type: String):
 	build_mode = true
@@ -26,12 +36,28 @@ func update_tower_preview():
 	tile_pos = map_node.get_node("Ground").map_to_world(tile_pos)
 	if space.intersect_point(mouse_position, 1):
 		get_node("Canvas").update_tower_preview(tile_pos, "adff4545")
-		print("Tile at %s is unbuildable." % tile_pos)
+		buildable = false
 	else:
 		get_node("Canvas").update_tower_preview(tile_pos, "ad54ff3c")
-		print("Tile at %s is buildable." % tile_pos)
+		buildable = true
 	build_location = tile_pos
-		
+	
+func verify_and_build():
+	var tower_preview = get_node("Canvas/TowerPreview")
+	var tower_type = tower_preview.get_meta("type")
+	if build_mode and buildable:
+		print("Build tower %s at %s" % [tower_type, build_location])
+		var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
+		drag_tower.position = build_location
+		get_node("Towers").add_child(drag_tower, true)
+	else:
+		print("Can't build tower %s at %s" % [tower_type, build_location])
+
+func cancel_build_mode():
+	build_mode = false
+	var tower_preview = get_node("Canvas/TowerPreview")
+	if not tower_preview.is_queued_for_deletion(): 
+		tower_preview.queue_free()
 
 # update_tower_preview based on tile map
 #func update_tower_preview2():
