@@ -1,5 +1,8 @@
 extends Node2D
 
+const mob_scene: PackedScene = preload("res://Scenes/Mob.tscn")
+
+
 var map_node: Node
 var build_mode: bool
 var build_location: Vector2
@@ -80,3 +83,9 @@ func cancel_build_mode():
 #		build_valid = false
 #	build_location = tile_pos
 		
+
+
+func _on_MobSpawnTimer_timeout():
+	var mob: Mob = mob_scene.instance()
+	
+	$MobPath1.add_child(mob)

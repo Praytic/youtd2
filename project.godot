@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "PathFollow2D",
+"class": "Mob",
+"language": "GDScript",
+"path": "res://Scenes/Mob.gd"
+} ]
+_global_script_class_icons={
+"Mob": ""
+}
+
 [application]
 
 config/name="YouTD"
