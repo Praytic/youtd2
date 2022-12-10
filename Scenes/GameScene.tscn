@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/Towers/GunT2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Towers/towerDefense_tile251.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scenes/Towers/MissleT1.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/Canvas.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/MobSpawner.gd" type="Script" id=11]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -100,10 +101,49 @@ margin_right = 72.0
 margin_bottom = 73.0
 texture = ExtResource( 4 )
 
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/HUD"]
+anchor_bottom = 1.0
+
+[node name="StartWaveButton" type="Button" parent="Canvas/HUD/VBoxContainer"]
+margin_right = 198.0
+margin_bottom = 20.0
+text = "Start wave"
+
+[node name="StopWaveButton" type="Button" parent="Canvas/HUD/VBoxContainer"]
+margin_top = 24.0
+margin_right = 198.0
+margin_bottom = 44.0
+text = "Stop wave"
+
+[node name="WaveProgressLabel" type="Label" parent="Canvas/HUD/VBoxContainer"]
+margin_top = 48.0
+margin_right = 198.0
+margin_bottom = 62.0
+text = "Wave progress (PLACEHOLDER)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/HUD/VBoxContainer"]
+margin_top = 66.0
+margin_right = 198.0
+margin_bottom = 90.0
+
+[node name="WaveLabel" type="Label" parent="Canvas/HUD/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 39.0
+margin_bottom = 19.0
+text = "Wave:"
+
+[node name="WaveEdit" type="SpinBox" parent="Canvas/HUD/VBoxContainer/HBoxContainer"]
+margin_left = 43.0
+margin_right = 117.0
+margin_bottom = 24.0
+
 [node name="MobPath1" type="Path2D" parent="."]
 curve = SubResource( 1 )
 
-[node name="MobSpawnTimer" type="Timer" parent="."]
-autostart = true
+[node name="MobSpawner" type="Node" parent="."]
+script = ExtResource( 11 )
 
-[connection signal="timeout" from="MobSpawnTimer" to="." method="_on_MobSpawnTimer_timeout"]
+[connection signal="pressed" from="Canvas/HUD/VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
+[connection signal="pressed" from="Canvas/HUD/VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]
+[connection signal="progress_changed" from="MobSpawner" to="." method="_on_MobSpawner_progress_changed"]
+[connection signal="spawned" from="MobSpawner" to="." method="_on_MobSpawner_spawned"]
