@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Mob",
 "language": "GDScript",
 "path": "res://Scenes/Mob.gd"
+}, {
+"base": "Node",
+"class": "MobSpawner",
+"language": "GDScript",
+"path": "res://Scenes/MobSpawner.gd"
 } ]
 _global_script_class_icons={
-"Mob": ""
+"Mob": "",
+"MobSpawner": ""
 }
 
 [application]
