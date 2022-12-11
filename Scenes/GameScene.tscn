@@ -44,16 +44,17 @@ anchor_bottom = 1.0
 margin_top = -118.0
 margin_right = 1276.0
 
-[node name="BuildBar" type="VBoxContainer" parent="Canvas/HUD"]
+[node name="BuildBar" type="HBoxContainer" parent="Canvas/HUD"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 274.0
 margin_top = -48.0
 margin_bottom = -2.0
 
 [node name="MissleT1" type="TextureButton" parent="Canvas/HUD/BuildBar" groups=["build_buttons"]]
-margin_left = 598.0
-margin_right = 678.0
-margin_bottom = 80.0
+margin_top = 42.0
+margin_right = 80.0
+margin_bottom = 122.0
 rect_min_size = Vector2( 80, 80 )
 rect_pivot_offset = Vector2( -785, -267 )
 size_flags_horizontal = 4
@@ -83,10 +84,10 @@ margin_bottom = 72.0
 texture = ExtResource( 2 )
 
 [node name="GunT1" type="TextureButton" parent="Canvas/HUD/BuildBar" groups=["build_buttons"]]
-margin_left = 598.0
-margin_top = 84.0
-margin_right = 678.0
-margin_bottom = 164.0
+margin_left = 84.0
+margin_top = 42.0
+margin_right = 164.0
+margin_bottom = 122.0
 rect_min_size = Vector2( 80, 80 )
 rect_pivot_offset = Vector2( -785, -267 )
 size_flags_horizontal = 4

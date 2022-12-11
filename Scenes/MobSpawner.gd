@@ -5,6 +5,7 @@ class_name MobSpawner
 signal spawned(mob_name)
 signal progress_changed(progress_string)
 
+
 var timer: Timer
 
 var group_list: Array = []
