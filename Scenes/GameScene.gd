@@ -38,6 +38,8 @@ func _unhandled_input(event):
 		cancel_build_mode()
 	
 func initiate_build_mode(tower_type: String):
+	if build_mode:
+		cancel_build_mode()
 	build_mode = true
 	get_node("Canvas").set_tower_preview(tower_type, get_global_mouse_position())
 
@@ -71,7 +73,7 @@ func cancel_build_mode():
 	build_mode = false
 	var tower_preview = get_node("Canvas/TowerPreview")
 	if not tower_preview.is_queued_for_deletion(): 
-		tower_preview.queue_free()
+		tower_preview.free()
 
 # update_tower_preview based on tile map
 #func update_tower_preview2():
