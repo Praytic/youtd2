@@ -1,8 +1,8 @@
 tool
 extends Node2D
 
-var radius: float
-var resolution: float
+export var radius: float
+export var resolution: float
 
 func _init(radius: float, position: Vector2):
 	var aoe_sprite = Sprite.new()
