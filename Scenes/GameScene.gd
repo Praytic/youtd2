@@ -9,6 +9,9 @@ var map_node: Node
 var build_mode: bool
 var build_location: Vector2
 var buildable: bool
+var mobs_exit_count: int = 0
+export var mobs_game_over_count: int = 10
+export var ignore_game_over: bool = true
 
 func _ready():
 	map_node = get_node("DefaultMap")
@@ -17,6 +20,9 @@ func _ready():
 	
 	$Canvas/HUD/VBoxContainer/HBoxContainer/WaveEdit.value = 1
 	$MobSpawner.start(1)
+	
+	update_mob_exit_count(0)
+
 
 func _physics_process(delta: float):
 	if build_mode:
@@ -108,3 +114,30 @@ func _on_StopWaveButton_pressed():
 
 func _on_MobSpawner_progress_changed(progress_string):
 	$Canvas/HUD/VBoxContainer/WaveProgressLabel.text = progress_string
+
+
+func _on_MobExit_body_entered(body):
+	var body_owner: Node = body.get_owner()
+	
+	if body_owner is Mob:
+		update_mob_exit_count(mobs_exit_count + 1)
+		
+		var game_over = mobs_exit_count >= mobs_game_over_count
+		
+		if game_over && !ignore_game_over:
+			do_game_over()
+
+
+# Updates variable and changes value in label
+func update_mob_exit_count(new_value):
+	mobs_exit_count = new_value
+	
+	var mob_count_right_text = "%d/%d" % \
+	[mobs_exit_count, mobs_game_over_count]
+		
+	$Canvas/HUD/VBoxContainer/HBoxContainer2/MobCountRight.text = \
+	mob_count_right_text
+
+
+func do_game_over():
+	$Canvas/HUD/GameOverLabel.visible = true
