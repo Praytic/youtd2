@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name RotatingTower
+
 var initialRotation
 
 func _ready():

@@ -1,1 +1,1 @@
-extends "res://Scenes/Towers/RotatingTower.gd"
+extends RotatingTower
