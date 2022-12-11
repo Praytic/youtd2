@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "MobSpawner",
 "language": "GDScript",
 "path": "res://Scenes/MobSpawner.gd"
+}, {
+"base": "Node2D",
+"class": "RotatingTower",
+"language": "GDScript",
+"path": "res://Scenes/Towers/RotatingTower.gd"
 } ]
 _global_script_class_icons={
 "Mob": "",
-"MobSpawner": ""
+"MobSpawner": "",
+"RotatingTower": ""
 }
 
 [application]
@@ -36,6 +42,10 @@ window/size/width=1280
 window/size/height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray(  )
 
 [gui]
 
