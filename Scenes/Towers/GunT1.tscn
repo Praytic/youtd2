@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/Towers/towerDefense_tile249.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Towers/towerDefense_tile181.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Towers/GunT1.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Towers/AreaOfEffect.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26, 26.5 )
@@ -26,3 +27,6 @@ position = Vector2( -3.8147e-06, -45 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 32, 32.5 )
 shape = SubResource( 1 )
+
+[node name="AreaOfEffect" parent="." instance=ExtResource( 4 )]
+radius = 100.0
