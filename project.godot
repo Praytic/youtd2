@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Towers/AreaOfEffect.gd"
 }, {
+"base": "PathFollow2D",
+"class": "Mob",
+"language": "GDScript",
+"path": "res://Scenes/Mob.gd"
+}, {
+"base": "Node",
+"class": "MobSpawner",
+"language": "GDScript",
+"path": "res://Scenes/MobSpawner.gd"
+}, {
 "base": "Node2D",
 "class": "RotatingTower",
 "language": "GDScript",
@@ -21,6 +31,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AreaOfEffect": "",
+"Mob": "",
+"MobSpawner": "",
 "RotatingTower": ""
 }
 
