@@ -1,5 +1,10 @@
 extends Node2D
 
+const mob_scene_map: Dictionary = {
+	"Mob": preload("res://Scenes/Mob.tscn")
+}
+
+
 var map_node: Node
 var build_mode: bool
 var build_location: Vector2
@@ -9,6 +14,9 @@ func _ready():
 	map_node = get_node("DefaultMap")
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
+	
+	$Canvas/HUD/VBoxContainer/HBoxContainer/WaveEdit.value = 1
+	$MobSpawner.start(1)
 
 func _physics_process(delta: float):
 	if build_mode:
@@ -82,3 +90,23 @@ func cancel_build_mode():
 #		build_valid = false
 #	build_location = tile_pos
 		
+
+
+func _on_MobSpawner_spawned(mob_name):
+	var mob_scene = mob_scene_map[mob_name]
+	var mob: Mob = mob_scene.instance()
+	
+	$MobPath1.add_child(mob)
+
+
+func _on_StartWaveButton_pressed():
+	var wave_index: int = $Canvas/HUD/VBoxContainer/HBoxContainer/WaveEdit.value
+	$MobSpawner.start(wave_index)
+
+
+func _on_StopWaveButton_pressed():
+	$MobSpawner.stop()
+
+
+func _on_MobSpawner_progress_changed(progress_string):
+	$Canvas/HUD/VBoxContainer/WaveProgressLabel.text = progress_string
