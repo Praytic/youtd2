@@ -10,11 +10,17 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "AreaOfEffect",
+"language": "GDScript",
+"path": "res://Scenes/Towers/AreaOfEffect.gd"
+}, {
+"base": "Node2D",
 "class": "RotatingTower",
 "language": "GDScript",
 "path": "res://Scenes/Towers/RotatingTower.gd"
 } ]
 _global_script_class_icons={
+"AreaOfEffect": "",
 "RotatingTower": ""
 }
 
@@ -33,7 +39,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/area_of_effect/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [gui]
 
