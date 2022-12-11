@@ -4,7 +4,6 @@ const mob_scene_map: Dictionary = {
 	"Mob": preload("res://Scenes/Mob.tscn")
 }
 
-
 var map_node: Node
 var build_mode: bool
 var build_location: Vector2
@@ -41,7 +40,8 @@ func initiate_build_mode(tower_type: String):
 	if build_mode:
 		cancel_build_mode()
 	build_mode = true
-	get_node("Canvas").set_tower_preview(tower_type, get_global_mouse_position())
+	var tower_preview: Control = get_node("Canvas").set_tower_preview(tower_type, get_global_mouse_position())
+	tower_preview.get_node("DragTower").emit_signal("build_init")
 
 # update tower preview based on collision map
 func update_tower_preview():
@@ -66,6 +66,7 @@ func verify_and_build():
 		var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
 		drag_tower.position = build_location
 		get_node("Towers").add_child(drag_tower, true)
+		drag_tower.emit_signal("build_complete")
 	else:
 		print("Can't build tower %s at %s" % [tower_type, build_location])
 
