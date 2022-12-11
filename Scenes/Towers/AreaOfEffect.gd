@@ -1,31 +1,20 @@
-tool
 extends Node2D
 
 class_name AreaOfEffect
 
-var radius: float
-var resolution: float
+export(float) var radius
+onready var texture: Texture = load("res://Resources/PulsingDot.tres")
 
-func _init(radius: float, position: Vector2):
-	var aoe_sprite = Sprite.new()
-	aoe_sprite.texture = load("res://Resources/PulsingDot.tres")
-	self.radius = radius
-	self.resolution = resolution
+func _draw():
+	draw_circle_arc(self.position, radius, 0, 360, Color.aqua)
 
-func _get_property_list():
-	var properties = []
-	properties.append({
-		name = "Debug",
-		type = TYPE_NIL,
-		usage = PROPERTY_USAGE_CATEGORY | PROPERTY_USAGE_SCRIPT_VARIABLE
-	})
+func draw_circle_arc(center, radius, angle_from, angle_to, color):
+	var nb_points = radius/5
+	var points_arc = PoolVector2Array()
 
-	# Example of adding a property to the script category
-	properties.append({
-		name = "Logging_Enabled",
-		type = TYPE_BOOL
-	})
-	return properties
+	for i in range(nb_points + 1):
+		var angle_point = deg2rad(angle_from + i * (angle_to - angle_from) / nb_points - 90)
+		points_arc.push_back(center + Vector2(cos(angle_point), sin(angle_point)) * radius)
 
-func _ready():
-	pass
+	for index_point in range(nb_points):
+		draw_texture(texture, points_arc[index_point] - texture.get_size() / 2, color)

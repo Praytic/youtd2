@@ -1,4 +1,4 @@
-[gd_resource type="AnimatedTexture" load_steps=6 format=2]
+[gd_resource type="AnimatedTexture" load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Towers/circle_03.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Towers/circle_05.png" type="Texture" id=2]
@@ -6,8 +6,13 @@
 [ext_resource path="res://Assets/Towers/circle_02.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Towers/circle_01.png" type="Texture" id=5]
 
+[sub_resource type="GDScript" id=1]
+script/source = "extends AnimatedTexture
+
+"
+
 [resource]
-flags = 4
+flags = 20
 frames = 5
 fps = 10.0
 frame_0/texture = ExtResource( 2 )
@@ -19,3 +24,4 @@ frame_3/texture = ExtResource( 5 )
 frame_3/delay_sec = 0.0
 frame_4/texture = ExtResource( 3 )
 frame_4/delay_sec = 0.0
+script = SubResource( 1 )
