@@ -32,7 +32,6 @@ jobs:
         godot_executable_download_url: https://github.com/godotengine/godot/releases/download/3.4.4-stable/Godot_v3.4.4-stable_linux_headless.64.zip
         godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/3.4.4-stable/Godot_v3.4.4-stable_export_templates.tpz
         relative_project_path: ./
-        create_release: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Set env NEED
@@ -47,7 +46,6 @@ jobs:
       with:
         name: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}
         path: ${{ steps.export.outputs.build_directory }}/*
-        script: echo "Current commit doesn't have a tag, no deployment needed"
     outputs:
       tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
       need_release: ${{ env.NEED }}
@@ -55,8 +53,9 @@ jobs:
   create_release:
     runs-on: ubuntu-latest
     name: Create Release
-    if: needs.build_client.outputs.need_release == 'true'
     steps:
+    - name: Check
+      if: needs.build_client.outputs.need_release == 'true'
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
       with:
