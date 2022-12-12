@@ -53,6 +53,7 @@ jobs:
   create_release:
     runs-on: ubuntu-latest
     name: Create Release
+    needs: build_client
     steps:
     - name: Check
       if: needs.build_client.outputs.need_release == 'true'
