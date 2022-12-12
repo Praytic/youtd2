@@ -3,7 +3,7 @@ name: YouTD
 on:
   push:
     branches:
-      - main
+      - v*
 
 jobs:
   build_client:
