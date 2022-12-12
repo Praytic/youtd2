@@ -11,7 +11,7 @@ var aoe: AreaOfEffect
 var _internal_name = get_script().resource_path.get_file().get_basename() setget _private_set, _private_get
 
 onready var _properties = Properties.towers[_internal_name] setget _private_set, _private_get
-onready var attack_type: String = _properties["description"]
+onready var attack_type: String = _properties["attack_type"]
 onready var attack_range: float = _properties["attack_range"]
 onready var attack_cd: float = _properties["attack_cd"]
 onready var id: int = _properties["id"]
@@ -34,11 +34,11 @@ func _ready():
 	aoe.hide()
 	
 func _on_build_complete():
-	print("Build complete [%]" % _internal_name)
+	print("Build complete [%s]" % _internal_name)
 	aoe.hide()
 
 func _on_build_init():
-	print("Build init [%]" % _internal_name)
+	print("Build init [%s]" % _internal_name)
 	aoe.show()
 
 func _private_set(val = null):

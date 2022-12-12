@@ -4,7 +4,7 @@ class_name MobSpawner
 
 signal spawned(mob_name)
 signal progress_changed(progress_string)
-
+signal wave_ended(wave_index)
 
 var timer: Timer
 
@@ -24,14 +24,10 @@ func _ready():
 
 
 func start(wave_index: int):
-	var wave_file: File = File.new()
-	var wave_file_name = "res://Assets/Waves/wave%d.json" % wave_index
-	wave_file.open(wave_file_name, File.READ)
-	var wave_text: String = wave_file.get_as_text()
-	var parsed_json = JSON.parse(wave_text)
+	var parsed_json = Properties.waves[wave_index]
 	
 	if parsed_json == null || parsed_json.result == null:
-		print("wave json file is malformed, file=", wave_file_name)
+		print("wave json file is malformed, file=wave%s.json" % wave_index)
 		return
 		
 	group_list = parsed_json.result
@@ -77,7 +73,8 @@ func _on_timer_timeout():
 		var wave_ended = group_index == group_list.size() - 1
 		
 		if wave_ended:
-			print("stop, wave is over!")
+			print("stop, wave %s is over!" % group_index)
+			emit_signal("wave_ended", group_index)
 			return
 		
 		group_index += 1
