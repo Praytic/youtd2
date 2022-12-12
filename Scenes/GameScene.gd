@@ -108,12 +108,11 @@ func _on_MobSpawner_spawned(mob_name):
 	$MobPath1.add_child(mob)
 
 
-func _on_StartWaveButton_pressed():
-	var wave_index: int = $Canvas/HUD/VBoxContainer/HBoxContainer/WaveEdit.value
+func _on_HUD_start_wave(wave_index):
 	$MobSpawner.start(wave_index)
 
 
-func _on_StopWaveButton_pressed():
+func _on_HUD_stop_wave():
 	$MobSpawner.stop()
 
 

@@ -53,6 +53,8 @@ script = ExtResource( 11 )
 position = Vector2( 621, 805 )
 shape = SubResource( 2 )
 
+[connection signal="start_wave" from="Canvas/HUD" to="." method="_on_HUD_start_wave"]
+[connection signal="stop_wave" from="Canvas/HUD" to="." method="_on_HUD_stop_wave"]
 [connection signal="progress_changed" from="MobSpawner" to="." method="_on_MobSpawner_progress_changed"]
 [connection signal="spawned" from="MobSpawner" to="." method="_on_MobSpawner_spawned"]
 [connection signal="body_entered" from="MobExit" to="." method="_on_MobExit_body_entered"]
