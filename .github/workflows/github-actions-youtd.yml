@@ -45,7 +45,7 @@ jobs:
       if: env.NEED == 'true'
       with:
         name: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}
-        path: ${{ steps.export.outputs.build_directory }}/*
+        path: ${{ steps.export.outputs.build_directory }}/HTML5/*
     outputs:
       tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
       need_release: ${{ env.NEED }}
@@ -70,8 +70,7 @@ jobs:
         tag: ${{ needs.build_client.outputs.tag_version }} # Note that the 'v' in front was necessary to get this action attach artifacts to the tag
         artifacts: ./*
     - name: Deploy to github pages
-      if: needs.build_client.result == 'success'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./Build
+        publish_dir: ./*
