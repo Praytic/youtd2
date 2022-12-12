@@ -54,10 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Create Release
     needs: build_client
+    if: needs.build_client.outputs.need_release == 'true'
     steps:
-    - name: Check
-      if: needs.build_client.outputs.need_release == 'true'
-      run: echo "No need for release"
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
       with:
