@@ -19,7 +19,7 @@ jobs:
     - name: Get tag from version
       id: tag_version
       run: |
-          echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          echo "TAG_VERSION=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
     - name: Export game
       id: export
       # Use latest version (see releases for all versions)
