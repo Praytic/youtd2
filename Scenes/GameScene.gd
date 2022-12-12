@@ -19,7 +19,7 @@ func _ready():
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
 	
 	$Canvas/HUD/VBoxContainer/HBoxContainer/WaveEdit.value = 1
-	$MobSpawner.start(1)
+	$MobSpawner.start(0)
 	$MobSpawner.connect("wave_ended", self, "_on_wave_end")
 	
 	update_mob_exit_count(0)
@@ -151,3 +151,7 @@ func _on_wave_end(wave_index: int):
 	GoldManager.add_gold()
 	KnowledgeTomesManager.add_knowledge_tomes()
 	
+
+
+func _on_MobSpawner_wave_ended(wave_index):
+	pass # Replace with function body.
