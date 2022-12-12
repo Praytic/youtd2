@@ -1,5 +1,27 @@
 extends Node
 
+var waves = []
+
+func _init():
+	waves.resize(3)
+	for wave_index in range(0, 3):
+		var wave_file: File = File.new()
+		var wave_file_name = "res://Assets/Waves/wave%d.json" % wave_index
+		wave_file.open(wave_file_name, File.READ)
+		var wave_text: String = wave_file.get_as_text()
+		var parsed_json = JSON.parse(wave_text)
+		waves[wave_index] = parsed_json
+
+var globals = {
+	"max_food": 99,
+	"ini_food": 55,
+	"max_gold": 999999,
+	"ini_gold": 70,
+	"max_knowledge_tomes": 999999,
+	"ini_knowledge_tomes": 90,
+	"max_income": 999999,
+	"ini_income": 10
+}
 var towers = { 
 	"GunT1": {
 		"id": 1,
