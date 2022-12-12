@@ -2,8 +2,12 @@ name: YouTD
 
 on:
   push:
-    branches:
-      - v*
+    # Sequence of patterns matched against refs/heads
+    branches:    
+      - main
+    # Sequence of patterns matched against refs/tags
+    tags:        
+      - v.*
 
 jobs:
   build_client:
