@@ -1,3 +1,5 @@
+name: YouTD
+
 on:
   push:
     branches:
@@ -36,3 +38,8 @@ jobs:
         generateReleaseNotes: true
         tag: v${{ steps.tag_version.outputs.TAG_VERSION }} # Note that the 'v' in front was necessary to get this action attach artifacts to the tag
         artifacts: ${{ steps.export.outputs.archive_directory }}/*
+    - name: deploy to github pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./Build
