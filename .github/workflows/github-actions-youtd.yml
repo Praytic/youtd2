@@ -6,21 +6,22 @@ on:
       - main
 
 jobs:
-  export_client:
+  build_client:
     runs-on: ubuntu-latest
     name: Build Client
     steps:
-    - name: checkout
+    - name: Checkout
       uses: actions/checkout@v3.0.2
       # Ensure that you get the entire project history
       with:
         fetch-depth: 0
     # Automatically stores the tag name for later use
-    - name: get tag from version
+    - name: Get tag from version
       id: tag_version
       run: |
           echo "TAG_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
-    - name: export game
+    - name: Export game
+      id: export
       # Use latest version (see releases for all versions)
       uses: firebelley/godot-export@v4.4.0
       with:
@@ -28,17 +29,44 @@ jobs:
         godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/3.4.4-stable/Godot_v3.4.4-stable_export_templates.tpz
         relative_project_path: ./
         create_release: true
-        base_version: 1.0.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: create release
+    - uses: actions/upload-artifact@v3
+      with:
+        name: youtd-v${{ steps.tag_version.outputs.TAG_VERSION }}
+        path: ${{ steps.export.outputs.archive_directory }}/*
+    outputs:
+      tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
+  create_release:
+    runs-on: ubuntu-latest
+    name: Create Release
+    steps:
+    - name: Set env NEED
+      run: |
+        if [[ ${{ needs.build_client.outputs.TAG_VERSION }} == 'refs/heads/main' ]]; then
+            echo "NEED=false" >> "$GITHUB_ENV"
+        else
+            echo "NEED=true" >> "$GITHUB_ENV"
+        fi
+    - name: Skip Deploy?
+      if: env.NEED != 'true'
+      run: |
+        echo "Current commit doesn't have a tag, no deployment needed"
+        exit 1;
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: youtd
+    - name: Release client
+      if: ${{ needs.build_client.outputs.TAG_VERSION != 'refs/heads/main' }}
       uses: ncipollo/release-action@v1.11.2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         generateReleaseNotes: true
-        tag: v${{ steps.tag_version.outputs.TAG_VERSION }} # Note that the 'v' in front was necessary to get this action attach artifacts to the tag
-        artifacts: ${{ steps.export.outputs.archive_directory }}/*
-    - name: deploy to github pages
+        tag: v${{ needs.build_client.outputs.TAG_VERSION }} # Note that the 'v' in front was necessary to get this action attach artifacts to the tag
+        artifacts: ./*
+    - name: Deploy to github pages
+      if: needs.build_client.result == 'success'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
