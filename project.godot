@@ -51,7 +51,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Properties="*res://Singletons/Properties.gd"
-Util="*res://Singletons/Util.gd"
+FoodManager="*res://Singletons/Managers/FoodManager.gd"
+GoldManager="*res://Singletons/Managers/GoldManager.gd"
+KnowledgeTomesManager="*res://Singletons/Managers/KnowledgeTomesManager.gd"
 
 [display]
 
