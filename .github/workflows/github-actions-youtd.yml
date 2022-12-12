@@ -33,7 +33,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Set env NEED
       run: |
-        if [[ ${{ steps.tag_version.outputs.TAG_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ }} ]] ; then
+        if [[ ${{ steps.tag_version.outputs.TAG_VERSION }} =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
             echo "NEED=false" >> "$GITHUB_ENV"
         else
             echo "NEED=true" >> "$GITHUB_ENV"
