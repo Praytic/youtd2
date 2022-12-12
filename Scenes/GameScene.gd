@@ -9,11 +9,6 @@ var build_mode: bool
 var build_location: Vector2
 var buildable: bool
 var mobs_exit_count: int = 0
-var gold: float = Properties.globals["ini_gold"]
-var income: float = Properties.globals["ini_income"]
-var knowledge_tomes: int = Properties.globals["ini_knowledge_tomes"]
-var cur_food: int = 0
-var max_food: int = Properties.globals["ini_food"]
 
 export var mobs_game_over_count: int = 10
 export var ignore_game_over: bool = true
@@ -153,6 +148,6 @@ func do_game_over():
 	$Canvas/HUD/GameOverLabel.visible = true
 
 func _on_wave_end(wave_index: int):
-	gold += income
-	print("Income: %s | Total gold: %s" % [income, gold])
+	GoldManager.add_gold()
+	KnowledgeTomesManager.add_knowledge_tomes()
 	
