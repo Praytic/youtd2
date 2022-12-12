@@ -48,6 +48,10 @@ config/name="YouTD"
 run/main_scene="res://Scenes/GameScene.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Properties="*res://Singletons/Properties.gd"
+
 [display]
 
 window/size/width=1280
