@@ -38,9 +38,9 @@ jobs:
     - name: Set env NEED
       run: |
         if [[ ${{ steps.tag_version.outputs.TAG_VERSION }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
-            echo "NEED=false" >> "$GITHUB_ENV"
-        else
             echo "NEED=true" >> "$GITHUB_ENV"
+        else
+            echo "NEED=false" >> "$GITHUB_ENV"
         fi
     - uses: actions/upload-artifact@v3
       if: env.NEED == 'true'
@@ -55,7 +55,7 @@ jobs:
   create_release:
     runs-on: ubuntu-latest
     name: Create Release
-    if: ${{ needs.build_client.outputs.need_release == 'true' }}
+    if: needs.build_client.outputs.need_release == 'true'
     steps:
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
