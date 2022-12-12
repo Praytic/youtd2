@@ -47,6 +47,7 @@ jobs:
     outputs:
       tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
       need_release: ${{ env.NEED }}
+
       
   create_release:
     runs-on: ubuntu-latest
