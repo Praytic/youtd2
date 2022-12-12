@@ -31,39 +31,37 @@ jobs:
         create_release: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - uses: actions/upload-artifact@v3
-      with:
-        name: youtd-v${{ steps.tag_version.outputs.TAG_VERSION }}
-        path: ${{ steps.export.outputs.archive_directory }}/*
-    outputs:
-      tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
-  create_release:
-    runs-on: ubuntu-latest
-    name: Create Release
-    steps:
     - name: Set env NEED
       run: |
-        if [[ ${{ needs.build_client.outputs.TAG_VERSION }} == 'refs/heads/main' ]]; then
+        if [[ ${{ steps.tag_version.outputs.TAG_VERSION }} == 'refs/heads/main' ]]; then
             echo "NEED=false" >> "$GITHUB_ENV"
         else
             echo "NEED=true" >> "$GITHUB_ENV"
         fi
-    - name: Skip Deploy?
-      if: env.NEED != 'true'
-      run: |
-        echo "Current commit doesn't have a tag, no deployment needed"
-        exit 1;
+    - uses: actions/upload-artifact@v3
+      if: env.NEED == 'true'
+      with:
+        name: youtd-v${{ steps.tag_version.outputs.TAG_VERSION }}
+        path: ${{ steps.export.outputs.build_directory }}/*
+        script: echo "Current commit doesn't have a tag, no deployment needed"
+    outputs:
+      tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
+      need_release: ${{ env.NEED }}
+  create_release:
+    runs-on: ubuntu-latest
+    name: Create Release
+    if: needs.build_client.outputs.need_release == 'true'
+    steps:
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
       with:
         name: youtd
     - name: Release client
-      if: ${{ needs.build_client.outputs.TAG_VERSION != 'refs/heads/main' }}
       uses: ncipollo/release-action@v1.11.2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         generateReleaseNotes: true
-        tag: v${{ needs.build_client.outputs.TAG_VERSION }} # Note that the 'v' in front was necessary to get this action attach artifacts to the tag
+        tag: v${{ needs.build_client.outputs.tag_version }} # Note that the 'v' in front was necessary to get this action attach artifacts to the tag
         artifacts: ./*
     - name: Deploy to github pages
       if: needs.build_client.result == 'success'
