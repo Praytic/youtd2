@@ -7,7 +7,7 @@ on:
       - main
     # Sequence of patterns matched against refs/tags
     tags:        
-      - v.*
+      - v*
 
 jobs:
   build_client:
