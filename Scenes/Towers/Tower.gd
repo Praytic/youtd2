@@ -5,20 +5,25 @@ class_name Tower
 signal build_complete
 signal build_init
 
-var aoe: AreaOfEffect
-onready var _properties = Properties.towers[_internal_name]
-onready var attack_range: float = properties["attack_range"]
-onready var attack_cd: float = properties["attack_cd"]
-onready var id: float = properties["id"]
-onready var name: float = properties["name"]
-onready var family_id: float = properties["family_id"]
-onready var author: float = properties["author"]
-onready var rarity: float = properties["rarity"]
-onready var attack_cd: float = properties["attack_cd"]
-onready var attack_cd: float = properties["attack_cd"]
-var _internal_name = get_script().resource_path.get_file().get_basename()
+export(int, 32, 64) var size = 32
 
-export(int) var size = 32
+var aoe: AreaOfEffect
+var _internal_name = get_script().resource_path.get_file().get_basename() setget _private_set, _private_get
+
+onready var _properties = Properties.towers[_internal_name] setget _private_set, _private_get
+onready var attack_type: String = _properties["description"]
+onready var attack_range: float = _properties["attack_range"]
+onready var attack_cd: float = _properties["attack_cd"]
+onready var id: int = _properties["id"]
+onready var ingame_name: String = _properties["name"]
+onready var family_id: int = _properties["family_id"]
+onready var author: String = _properties["author"]
+onready var rarity: String = _properties["rarity"]
+onready var element: String = _properties["element"]
+onready var damage_l: float = _properties["damage_l"]
+onready var damage_r: float = _properties["damage_r"]
+onready var cost: float = _properties["cost"]
+onready var description: String = _properties["description"]
 
 func _ready():
 	aoe = AreaOfEffect.new(attack_range)
@@ -29,9 +34,15 @@ func _ready():
 	aoe.hide()
 	
 func _on_build_complete():
-	print("Build complete")
+	print("Build complete [%]" % _internal_name)
 	aoe.hide()
 
 func _on_build_init():
-	print("Build init")
+	print("Build init [%]" % _internal_name)
 	aoe.show()
+
+func _private_set(val = null):
+	pass
+	
+func _private_get():
+	pass
