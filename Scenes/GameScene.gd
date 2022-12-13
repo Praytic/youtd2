@@ -43,7 +43,7 @@ func initiate_build_mode(tower_type: String):
 		cancel_build_mode()
 	build_mode = true
 	var tower_preview: Control = $Canvas/HUD.set_tower_preview(tower_type, get_global_mouse_position())
-	tower_preview.get_node("DragTower").emit_signal("build_init")
+	tower_preview.get_node("DragTower").build_init()
 
 # update tower preview based on collision map
 func update_tower_preview():
