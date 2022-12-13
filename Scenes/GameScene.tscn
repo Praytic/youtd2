@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/DefaultCamera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/DefaultMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/BuilderControl.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/Canvas.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/MobSpawner.gd" type="Script" id=11]
@@ -58,6 +59,11 @@ gui_snap_controls_to_pixels = false
 [node name="Camera2D" type="Camera2D" parent="Canvas/Minimap/ViewportContainer/Viewport"]
 zoom = Vector2( 4, 4 )
 
+[node name="BuilderControl" type="Control" parent="Canvas"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+
 [node name="MobPath1" type="Path2D" parent="."]
 curve = SubResource( 1 )
 
@@ -71,9 +77,15 @@ position = Vector2( 621, 805 )
 shape = SubResource( 2 )
 
 [node name="DefaultCamera" type="Camera2D" parent="."]
-position = Vector2( 305, 390 )
+position = Vector2( 639, 362 )
 current = true
+limit_left = 0
+limit_top = 0
+limit_right = 2000
+limit_bottom = 2000
+limit_smoothed = true
 smoothing_enabled = true
+editor_draw_limits = true
 script = ExtResource( 1 )
 
 [connection signal="start_wave" from="Canvas/HUD" to="." method="_on_HUD_start_wave"]
