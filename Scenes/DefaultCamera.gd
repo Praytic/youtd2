@@ -10,9 +10,10 @@ func _ready():
 
 func _physics_process(delta):
 	if (move_direction != Vector2.ZERO):
-		if move_direction.abs() == Vector2.ONE:
-			position += move_direction * delta * cam_move_speed
+		var old_pos = position
 		position += move_direction * delta * cam_move_speed
+		print("%s | %s" % [get_camera_position(), position])
+	
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_right"):
