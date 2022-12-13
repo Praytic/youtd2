@@ -40,8 +40,8 @@ func _physics_process(delta):
 	var clamped_world_pos = map.map_to_world(map_pos)
 
 	var camera_center_pos = cam.get_camera_screen_center()
-	var viewport_size = get_viewport().size
-	var camera_pos = camera_center_pos - viewport_size / 2
+	var screen_size = get_viewport().get_visible_rect().size
+	var camera_pos = camera_center_pos - screen_size / 2
 	var clamped_mouse_pos = clamped_world_pos - camera_pos
 	
 	update()
