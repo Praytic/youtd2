@@ -1,13 +1,16 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Scenes/Towers/GunT2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/DefaultCamera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/DefaultMap.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Towers/GunT1.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/Towers/MissleT1.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/Canvas.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/MobSpawner.gd" type="Script" id=11]
+
+[sub_resource type="Environment" id=3]
+
+[sub_resource type="World" id=4]
+environment = SubResource( 3 )
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -26,20 +29,34 @@ script = null
 
 [node name="Towers" type="Node2D" parent="."]
 
-[node name="GunT1" parent="Towers" instance=ExtResource( 7 )]
-position = Vector2( 655, 179 )
-
-[node name="GunT2" parent="Towers" instance=ExtResource( 1 )]
-position = Vector2( 828, 377 )
-
-[node name="MissleT1" parent="Towers" instance=ExtResource( 8 )]
-position = Vector2( 447, 344 )
-
 [node name="Canvas" type="CanvasLayer" parent="."]
 script = ExtResource( 10 )
 
 [node name="HUD" parent="Canvas" instance=ExtResource( 2 )]
 mouse_filter = 2
+
+[node name="Minimap" type="Control" parent="Canvas"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -150.0
+margin_top = -150.0
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Canvas/Minimap"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Viewport" type="Viewport" parent="Canvas/Minimap/ViewportContainer"]
+size = Vector2( 150, 150 )
+own_world = true
+world = SubResource( 4 )
+handle_input_locally = false
+render_target_update_mode = 3
+gui_snap_controls_to_pixels = false
+
+[node name="Camera2D" type="Camera2D" parent="Canvas/Minimap/ViewportContainer/Viewport"]
+zoom = Vector2( 4, 4 )
 
 [node name="MobPath1" type="Path2D" parent="."]
 curve = SubResource( 1 )
@@ -52,6 +69,12 @@ script = ExtResource( 11 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MobExit"]
 position = Vector2( 621, 805 )
 shape = SubResource( 2 )
+
+[node name="DefaultCamera" type="Camera2D" parent="."]
+position = Vector2( 305, 390 )
+current = true
+smoothing_enabled = true
+script = ExtResource( 1 )
 
 [connection signal="start_wave" from="Canvas/HUD" to="." method="_on_HUD_start_wave"]
 [connection signal="stop_wave" from="Canvas/HUD" to="." method="_on_HUD_stop_wave"]
