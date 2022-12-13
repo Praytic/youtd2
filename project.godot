@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "Tower",
 "language": "GDScript",
 "path": "res://Scenes/Towers/Tower.gd"
+}, {
+"base": "Control",
+"class": "TowerPreview",
+"language": "GDScript",
+"path": "res://Scenes/Towers/TowerPreview.gd"
 } ]
 _global_script_class_icons={
 "AreaOfEffect": "",
 "Mob": "",
 "MobSpawner": "",
 "RotatingTower": "",
-"Tower": ""
+"Tower": "",
+"TowerPreview": ""
 }
 
 [application]
