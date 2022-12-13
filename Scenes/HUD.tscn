@@ -31,6 +31,7 @@ margin_right = 80.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 80, 80 )
 rect_pivot_offset = Vector2( -785, -267 )
+focus_mode = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
@@ -63,6 +64,7 @@ margin_right = 164.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 80, 80 )
 rect_pivot_offset = Vector2( -785, -267 )
+focus_mode = 0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource( 4 )
@@ -84,12 +86,16 @@ margin_right = 198.0
 [node name="StartWaveButton" type="Button" parent="VBoxContainer"]
 margin_right = 198.0
 margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Start wave"
 
 [node name="StopWaveButton" type="Button" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 198.0
 margin_bottom = 44.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Stop wave"
 
 [node name="WaveProgressLabel" type="Label" parent="VBoxContainer"]

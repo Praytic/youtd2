@@ -42,7 +42,7 @@ func initiate_build_mode(tower_type: String):
 	if build_mode:
 		cancel_build_mode()
 	build_mode = true
-	var tower_preview: Control = get_node("Canvas").set_tower_preview(tower_type, get_global_mouse_position())
+	var tower_preview: Control = $Canvas/HUD.set_tower_preview(tower_type, get_global_mouse_position())
 	tower_preview.get_node("DragTower").emit_signal("build_init")
 
 # update tower preview based on collision map
@@ -50,18 +50,22 @@ func update_tower_preview():
 	#var tile_pos: Vector2
 	var space: Physics2DDirectSpaceState = get_world_2d().direct_space_state
 	var mouse_position = get_global_mouse_position()
+	var cam: Camera2D = $DefaultCamera
+	var cam_global_mouse_pos = cam.get_global_mouse_position()
+	var world_to_map_tile_cam_global_pos = map_node.get_node("Ground").world_to_map(cam_global_mouse_pos)
+	var map_to_world_cam_global_pos = map_node.get_node("Ground").map_to_world(world_to_map_tile_cam_global_pos)
 	var tile_pos: Vector2 = map_node.get_node("Ground").world_to_map(mouse_position)
 	tile_pos = map_node.get_node("Ground").map_to_world(tile_pos)
 	if space.intersect_point(mouse_position, 1):
-		get_node("Canvas").update_tower_preview(tile_pos, "adff4545")
+		$Canvas/HUD.color = Color("adff4545")
 		buildable = false
 	else:
-		get_node("Canvas").update_tower_preview(tile_pos, "ad54ff3c")
+		$Canvas/HUD.color = Color("ad54ff3c")
 		buildable = true
 	build_location = tile_pos
 	
 func verify_and_build():
-	var tower_preview = get_node("Canvas/TowerPreview")
+	var tower_preview = $Canvas/HUD/TowerPreview
 	var tower_type = tower_preview.get_meta("type")
 	if build_mode and buildable:
 		print("Build tower %s at %s" % [tower_type, build_location])
@@ -74,7 +78,7 @@ func verify_and_build():
 
 func cancel_build_mode():
 	build_mode = false
-	var tower_preview = get_node("Canvas/TowerPreview")
+	var tower_preview = $Canvas/HUD/TowerPreview
 	if not tower_preview.is_queued_for_deletion(): 
 		tower_preview.free()
 
