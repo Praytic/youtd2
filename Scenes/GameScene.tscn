@@ -15,17 +15,17 @@ environment = SubResource( 3 )
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1117, -144, 0, 0, 0, 0, 1113, 220, 0, 0, 0, 0, 939, 228, 0, 0, 0, 0, 928, 477, 0, 0, 0, 0, 1111, 494, 0, 0, 0, 0, 1112, 921 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1247, -51, 0, 0, 0, 0, 1250, 282, 0, 0, 0, 0, 1369, 285, 0, 0, 0, 0, 1378, 100, 0, 0, 0, 0, 1505, 96, 0, 0, 0, 0, 1502, 415, 0, 0, 0, 0, 1319, 419, 0, 0, 0, 0, 1316, 536, 0, 0, 0, 0, 1505, 546, 0, 0, 0, 0, 1503, 865 )
 }
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 789, 74 )
+extents = Vector2( 174.232, 166.15 )
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( 9 )
 
 [node name="DefaultMap" parent="." instance=ExtResource( 3 )]
-position = Vector2( 0, 1 )
+position = Vector2( -448, 64 )
 script = null
 
 [node name="Towers" type="Node2D" parent="."]
@@ -41,8 +41,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -150.0
+margin_left = -151.0
 margin_top = -150.0
+margin_right = -1.0
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Canvas/Minimap"]
 margin_right = 40.0
@@ -60,29 +61,34 @@ gui_snap_controls_to_pixels = false
 zoom = Vector2( 4, 4 )
 
 [node name="BuilderControl" type="Control" parent="Canvas"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1280.0
+margin_bottom = 720.0
+mouse_filter = 2
 script = ExtResource( 4 )
 
 [node name="MobPath1" type="Path2D" parent="."]
+position = Vector2( -445, 65 )
 curve = SubResource( 1 )
 
 [node name="MobSpawner" type="Node" parent="."]
 script = ExtResource( 11 )
 
 [node name="MobExit" type="Area2D" parent="."]
+position = Vector2( 469, -113 )
+scale = Vector2( 0.845244, 0.890764 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MobExit"]
-position = Vector2( 621, 805 )
+position = Vector2( 695.657, 1311.23 )
+scale = Vector2( 1.03213, 1 )
 shape = SubResource( 2 )
 
 [node name="DefaultCamera" type="Camera2D" parent="."]
-position = Vector2( 639, 362 )
+position = Vector2( 640, 360 )
 current = true
 limit_left = 0
 limit_top = 0
-limit_right = 2000
-limit_bottom = 2000
+limit_right = 2112
+limit_bottom = 2176
 limit_smoothed = true
 smoothing_enabled = true
 editor_draw_limits = true
