@@ -32,9 +32,11 @@ func verify_and_build():
 	var tower_preview = $TowerPreview
 	var tower_type = tower_preview.get_meta("type")
 	if build_mode and buildable:
-		print("Build tower %s at %s" % [tower_type, tower_preview_pos])
+		var buld_pos = CameraManager.get_mouse_pos_on_map_clamped(cam, map)
+
+		print("Build tower %s at %s" % [tower_type, buld_pos])
 		var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
-		drag_tower.position = tower_preview_pos
+		drag_tower.position = buld_pos
 		towers.add_child(drag_tower, true)
 		drag_tower.emit_signal("build_complete")
 	else:
