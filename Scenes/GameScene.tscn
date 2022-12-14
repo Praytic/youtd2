@@ -25,7 +25,6 @@ extents = Vector2( 174.232, 166.15 )
 script = ExtResource( 9 )
 
 [node name="DefaultMap" parent="." instance=ExtResource( 3 )]
-position = Vector2( -448, 64 )
 script = null
 
 [node name="Towers" type="Node2D" parent="."]
@@ -67,23 +66,22 @@ mouse_filter = 2
 script = ExtResource( 4 )
 
 [node name="MobPath1" type="Path2D" parent="."]
-position = Vector2( -445, 65 )
 curve = SubResource( 1 )
 
 [node name="MobSpawner" type="Node" parent="."]
 script = ExtResource( 11 )
 
 [node name="MobExit" type="Area2D" parent="."]
-position = Vector2( 469, -113 )
+position = Vector2( 21, -107 )
 scale = Vector2( 0.845244, 0.890764 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MobExit"]
-position = Vector2( 695.657, 1311.23 )
+position = Vector2( 1755.71, 1234.89 )
 scale = Vector2( 1.03213, 1 )
 shape = SubResource( 2 )
 
 [node name="DefaultCamera" type="Camera2D" parent="."]
-position = Vector2( 640, 360 )
+position = Vector2( 1640, 360 )
 current = true
 limit_left = 0
 limit_top = 0
