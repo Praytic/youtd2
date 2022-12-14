@@ -75,6 +75,9 @@ func find_new_target() -> Mob:
 func try_to_shoot():
 	if !have_target():
 		return
+
+	if building_in_progress:
+		return
 	
 	var shoot_on_cd = shoot_timer.time_left > 0
 	
