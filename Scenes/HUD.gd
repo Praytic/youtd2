@@ -4,8 +4,6 @@ extends Control
 signal start_wave(wave_index)
 signal stop_wave()
 
-var color = Color.white
-
 
 func _on_StartWaveButton_pressed():
 	var wave_index: int = $VBoxContainer/HBoxContainer/WaveEdit.value

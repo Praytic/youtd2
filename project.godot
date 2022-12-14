@@ -60,6 +60,8 @@ Properties="*res://Singletons/Properties.gd"
 FoodManager="*res://Singletons/Managers/FoodManager.gd"
 GoldManager="*res://Singletons/Managers/GoldManager.gd"
 KnowledgeTomesManager="*res://Singletons/Managers/KnowledgeTomesManager.gd"
+BuildManager="*res://Singletons/Managers/BuildManager.gd"
+CameraManager="*res://Singletons/Managers/CameraManager.gd"
 
 [display]
 
@@ -67,6 +69,7 @@ window/size/width=1280
 window/size/height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+window/default_environment="res://default_env.tres"
 
 [editor_plugins]
 
