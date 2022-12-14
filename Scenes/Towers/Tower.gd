@@ -4,6 +4,8 @@ class_name Tower
 
 signal build_complete
 
+var building_in_progress: bool = false
+
 export(int, 32, 64) var size = 32
 
 var aoe: AreaOfEffect
@@ -34,10 +36,12 @@ func _ready():
 func _on_build_complete():
 	print("Build complete [%s]" % _internal_name)
 	aoe.hide()
+	building_in_progress = false
 
 func build_init():
 	print("Build init [%s]" % _internal_name)
 	aoe.show()
+	building_in_progress = true
 
 func _private_set(val = null):
 	pass
