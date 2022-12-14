@@ -70,9 +70,9 @@ func update_tower_preview():
 	update()
 
 func _physics_process(delta):
-	
 	if build_mode:
 		tower_preview_pos = CameraManager.get_tile_pos_on_cam(cam, map)
+		print("%s | %s" % [tower_preview_pos, cam.get_global_mouse_position(),])
 		if space.intersect_point(cam.get_global_mouse_position(), 1):
 			buildable = false
 		else:
