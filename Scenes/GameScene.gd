@@ -4,6 +4,7 @@ const mob_scene_map: Dictionary = {
 	"Mob": preload("res://Scenes/Mob.tscn")
 }
 
+
 var map_node: Node
 var mobs_exit_count: int = 0
 
