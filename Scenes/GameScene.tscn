@@ -15,7 +15,7 @@ environment = SubResource( 3 )
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1247, -51, 0, 0, 0, 0, 1250, 282, 0, 0, 0, 0, 1369, 285, 0, 0, 0, 0, 1378, 100, 0, 0, 0, 0, 1505, 96, 0, 0, 0, 0, 1502, 415, 0, 0, 0, 0, 1319, 419, 0, 0, 0, 0, 1316, 536, 0, 0, 0, 0, 1505, 546, 0, 0, 0, 0, 1503, 865 )
+"points": PoolVector2Array( 0, 0, 0, 0, 1240, -260, 0, 0, 0, 0, 1250, 282, 0, 0, 0, 0, 1369, 285, 0, 0, 0, 0, 1378, 100, 0, 0, 0, 0, 1505, 96, 0, 0, 0, 0, 1505.81, 336.825, 0, 0, 0, 0, 1502, 415, 0, 0, 0, 0, 1319, 419, 0, 0, 0, 0, 1316, 536, 0, 0, 0, 0, 1417.81, 548.504, 0, 0, 0, 0, 1505, 546, 0, 0, 0, 0, 1500, 899 )
 }
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -66,6 +66,7 @@ mouse_filter = 2
 script = ExtResource( 4 )
 
 [node name="MobPath1" type="Path2D" parent="."]
+position = Vector2( -252, 180 )
 curve = SubResource( 1 )
 
 [node name="MobSpawner" type="Node" parent="."]
@@ -76,7 +77,7 @@ position = Vector2( 21, -107 )
 scale = Vector2( 0.845244, 0.890764 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MobExit"]
-position = Vector2( 1755.71, 1234.89 )
+position = Vector2( 1450.47, 1448.2 )
 scale = Vector2( 1.03213, 1 )
 shape = SubResource( 2 )
 
