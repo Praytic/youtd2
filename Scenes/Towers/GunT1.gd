@@ -92,7 +92,7 @@ func try_to_shoot():
 	
 #		TODO: move this to utils as get_game_scene()
 	var game_scene = get_tree().get_root().get_node("GameScene")
-	game_scene.add_child(projectile)
+	game_scene.call_deferred("add_child", projectile)
 	
 	shoot_timer.start(shoot_cd)
 	
