@@ -15,7 +15,7 @@ environment = SubResource( 3 )
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1240, -260, 0, 0, 0, 0, 1250, 282, 0, 0, 0, 0, 1369, 285, 0, 0, 0, 0, 1378, 100, 0, 0, 0, 0, 1505, 96, 0, 0, 0, 0, 1505.81, 336.825, 0, 0, 0, 0, 1502, 415, 0, 0, 0, 0, 1319, 419, 0, 0, 0, 0, 1316, 536, 0, 0, 0, 0, 1417.81, 548.504, 0, 0, 0, 0, 1505, 546, 0, 0, 0, 0, 1500, 899 )
+"points": PoolVector2Array( 0, 0, 0, 0, 969, -85, 0, 0, 0, 0, 993, 476, 0, 0, 0, 0, 1110, 474, 0, 0, 0, 0, 1120, 296, 0, 0, 0, 0, 1246, 293, 0, 0, 0, 0, 1252, 404, 0, 0, 0, 0, 1249, 603, 0, 0, 0, 0, 1063, 615, 0, 0, 0, 0, 1066, 738, 0, 0, 0, 0, 1244, 741, 0, 0, 0, 0, 1238, 1014, 0, 0, 0, 0, 1241, 1115 )
 }
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -66,7 +66,6 @@ mouse_filter = 2
 script = ExtResource( 4 )
 
 [node name="MobPath1" type="Path2D" parent="."]
-position = Vector2( -252, 180 )
 curve = SubResource( 1 )
 
 [node name="MobSpawner" type="Node" parent="."]
