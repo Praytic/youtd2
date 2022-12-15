@@ -30,12 +30,12 @@ func verify_and_build():
 	var tower_preview = $TowerPreview
 	var tower_type = tower_preview.get_meta("type")
 	if build_mode and buildable:
-		var buld_pos = CameraManager.get_mouse_pos_on_map_clamped(cam, map)
+		var buld_pos = CameraManager.get_mouse_pos_on_map_clamped(map)
 
 		var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
 		drag_tower.position = buld_pos
 		towers.add_child(drag_tower, true)
-		drag_tower.emit_signal("build_complete")
+		drag_tower.complete_build()
 
 func cancel_build_mode():
 	build_mode = false
@@ -66,7 +66,7 @@ func update_tower_preview():
 		$TowerPreview/DragTower.modulate = Color("adff4545")
 	update()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if build_mode:
 		tower_preview_pos = CameraManager.get_tile_pos_on_cam(cam, map)
 		if space.intersect_point(cam.get_global_mouse_position(), 1):

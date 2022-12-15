@@ -16,7 +16,7 @@ func _ready():
 	
 	$Canvas/HUD/VBoxContainer/HBoxContainer/WaveEdit.value = 1
 	$MobSpawner.start(0)
-	$MobSpawner.connect("wave_ended", self, "_on_wave_end")
+	var _connect_error = $MobSpawner.connect("wave_ended", self, "_on_wave_end")
 	
 	update_mob_exit_count(0)
 
@@ -65,11 +65,11 @@ func update_mob_exit_count(new_value):
 func do_game_over():
 	$Canvas/HUD/GameOverLabel.visible = true
 
-func _on_wave_end(wave_index: int):
+func _on_wave_end(_wave_index: int):
 	GoldManager.add_gold()
 	KnowledgeTomesManager.add_knowledge_tomes()
 	
 
 
-func _on_MobSpawner_wave_ended(wave_index):
+func _on_MobSpawner_wave_ended(_wave_index):
 	pass # Replace with function body.
