@@ -7,7 +7,12 @@ func _init():
 	for wave_index in range(0, 3):
 		var wave_file: File = File.new()
 		var wave_file_name = "res://Assets/Waves/wave%d.json" % wave_index
-		wave_file.open(wave_file_name, File.READ)
+		var open_error = wave_file.open(wave_file_name, File.READ)
+		
+		if open_error != OK:
+			push_error("Failed to open wave file at path: %s" % wave_file_name)
+			continue
+			
 		var wave_text: String = wave_file.get_as_text()
 		var parsed_json = JSON.parse(wave_text)
 		waves[wave_index] = parsed_json
