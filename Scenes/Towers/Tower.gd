@@ -34,12 +34,10 @@ func _ready():
 	aoe.hide()
 	
 func _on_build_complete():
-	print("Build complete [%s]" % _internal_name)
 	aoe.hide()
 	building_in_progress = false
 
 func build_init():
-	print("Build init [%s]" % _internal_name)
 	aoe.show()
 	building_in_progress = true
 

@@ -27,7 +27,7 @@ func start(wave_index: int):
 	var parsed_json = Properties.waves[wave_index]
 	
 	if parsed_json == null || parsed_json.result == null:
-		print("wave json file is malformed, file=wave%s.json" % wave_index)
+		push_error("wave json file is malformed, file=wave%s.json" % wave_index)
 		return
 		
 	group_list = parsed_json.result
@@ -73,7 +73,6 @@ func _on_timer_timeout():
 		var wave_ended = group_index == group_list.size() - 1
 		
 		if wave_ended:
-			print("stop, wave %s is over!" % group_index)
 			emit_signal("wave_ended", group_index)
 			return
 		
