@@ -5,13 +5,13 @@ class_name AreaOfEffect
 export(float) var radius
 onready var texture: Texture = load("res://Resources/PulsingDot.tres")
 
-func _init(radius: float):
-	self.radius = radius
+func _init(radius_arg: float):
+	radius = radius_arg
 
 func _draw():
-	draw_circle_arc(self.position, radius, 0, 360, Color.aqua)
+	draw_circle_arc(self.position, 0, 360, Color.aqua)
 
-func draw_circle_arc(center, radius, angle_from, angle_to, color):
+func draw_circle_arc(center, angle_from, angle_to, color):
 	var nb_points = radius/5
 	var points_arc = PoolVector2Array()
 

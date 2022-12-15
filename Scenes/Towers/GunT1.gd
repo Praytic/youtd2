@@ -12,7 +12,7 @@ var shoot_timer: Timer
 func _ready():
 	shoot_timer = Timer.new()
 	shoot_timer.one_shot = true
-	shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
+	var _connect_error = shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
 	add_child(shoot_timer)
 
 
@@ -56,14 +56,14 @@ func _on_shoot_timer_timeout():
 func find_new_target() -> Mob:
 	var body_list: Array = $Area2D.get_overlapping_bodies()
 	var closest_mob: Mob = null
-	var distance_min: int = 1000000
+	var distance_min: float = 1000000.0
 	
 	for body in body_list:
 		var owner: Node = body.get_owner()
 	
 		if owner is Mob:
 			var mob: Mob = owner
-			var distance: int = (mob.position - position).length()
+			var distance: float = (mob.position - position).length()
 			
 			if distance < distance_min:
 				closest_mob = mob
@@ -92,7 +92,7 @@ func try_to_shoot():
 	
 #		TODO: move this to utils as get_game_scene()
 	var game_scene = get_tree().get_root().get_node("GameScene")
-	game_scene.add_child(projectile)
+	game_scene.call_deferred("add_child", projectile)
 	
 	shoot_timer.start(shoot_cd)
 	
