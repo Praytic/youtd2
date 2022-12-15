@@ -2,7 +2,6 @@ extends Node2D
 
 class_name Tower
 
-signal build_complete
 
 var building_in_progress: bool = false
 
@@ -29,21 +28,18 @@ onready var description: String = _properties["description"]
 func _ready():
 	aoe = AreaOfEffect.new(attack_range)
 	aoe.position = Vector2(size, size) / 2
-	connect("build_complete", self, "_on_build_complete")
 	add_child(aoe)
 	aoe.hide()
 	
-func _on_build_complete():
-	print("Build complete [%s]" % _internal_name)
+func complete_build():
 	aoe.hide()
 	building_in_progress = false
 
 func build_init():
-	print("Build init [%s]" % _internal_name)
 	aoe.show()
 	building_in_progress = true
 
-func _private_set(val = null):
+func _private_set(_val = null):
 	pass
 	
 func _private_get():
