@@ -14,10 +14,8 @@ func _ready():
 
 func _unhandled_input(event):
 	if event.is_action_released("ui_cancel") and build_mode == true:
-		print("ui_cancel")
 		cancel_build_mode()
 	elif event.is_action_released("ui_accept") and build_mode == true:
-		print("ui_accept")
 		verify_and_build()
 		cancel_build_mode()
 
@@ -34,13 +32,10 @@ func verify_and_build():
 	if build_mode and buildable:
 		var buld_pos = CameraManager.get_mouse_pos_on_map_clamped(cam, map)
 
-		print("Build tower %s at %s" % [tower_type, buld_pos])
 		var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
 		drag_tower.position = buld_pos
 		towers.add_child(drag_tower, true)
 		drag_tower.emit_signal("build_complete")
-	else:
-		print("Can't build tower %s at %s" % [tower_type, tower_preview_pos])
 
 func cancel_build_mode():
 	build_mode = false
@@ -74,7 +69,6 @@ func update_tower_preview():
 func _physics_process(delta):
 	if build_mode:
 		tower_preview_pos = CameraManager.get_tile_pos_on_cam(cam, map)
-		print("%s | %s" % [tower_preview_pos, cam.get_global_mouse_position(),])
 		if space.intersect_point(cam.get_global_mouse_position(), 1):
 			buildable = false
 		else:
