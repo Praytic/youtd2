@@ -22,9 +22,7 @@ func _process(delta):
 
 func apply_damage(damage):
 	health -= damage
-	print("mob was shot, current hp:", health)
 	
 	if health < 0:
-		print("mob is dead!")
 		queue_free()
 	
