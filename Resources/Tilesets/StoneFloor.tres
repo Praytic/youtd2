@@ -1,0 +1,76 @@
+[gd_resource type="TileSet" load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Atlas/Floor2.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Atlas/Floor.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Atlas/Dirt.png" type="Texture" id=3]
+
+[resource]
+0/name = "Floor2.png 0"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 4, 4, 784, 1032 )
+0/tile_mode = 1
+0/autotile/bitmask_mode = 1
+0/autotile/bitmask_flags = [ Vector2( 0, 0 ), 511, Vector2( 0, 1 ), 511, Vector2( 1, 0 ), 511, Vector2( 2, 0 ), 511 ]
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 256, 512 )
+0/autotile/spacing = 8
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "Floor.png 1"
+1/texture = ExtResource( 2 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 4, 4, 1840, 3632 )
+1/tile_mode = 1
+1/autotile/bitmask_mode = 1
+1/autotile/bitmask_flags = [ Vector2( 0, 0 ), 63, Vector2( 0, 1 ), 504, Vector2( 0, 2 ), 511, Vector2( 0, 3 ), 511, Vector2( 0, 4 ), 511, Vector2( 0, 5 ), 511, Vector2( 0, 6 ), 219, Vector2( 1, 0 ), 438, Vector2( 1, 1 ), 438, Vector2( 1, 2 ), 511, Vector2( 1, 3 ), 27, Vector2( 1, 4 ), 511, Vector2( 1, 5 ), 511, Vector2( 1, 6 ), 504, Vector2( 2, 0 ), 219, Vector2( 2, 1 ), 504, Vector2( 2, 2 ), 511, Vector2( 2, 3 ), 216, Vector2( 2, 4 ), 216, Vector2( 2, 5 ), 511, Vector2( 3, 0 ), 504, Vector2( 3, 1 ), 219, Vector2( 3, 2 ), 511, Vector2( 3, 3 ), 54, Vector2( 3, 4 ), 432, Vector2( 3, 5 ), 27, Vector2( 4, 0 ), 63, Vector2( 4, 1 ), 504, Vector2( 4, 2 ), 511, Vector2( 4, 3 ), 432, Vector2( 4, 4 ), 27, Vector2( 4, 5 ), 216, Vector2( 5, 0 ), 438, Vector2( 5, 1 ), 438, Vector2( 5, 2 ), 511, Vector2( 5, 3 ), 511, Vector2( 5, 4 ), 54, Vector2( 5, 5 ), 54, Vector2( 6, 0 ), 219, Vector2( 6, 1 ), 504, Vector2( 6, 2 ), 511, Vector2( 6, 3 ), 511, Vector2( 6, 4 ), 511, Vector2( 6, 5 ), 432 ]
+1/autotile/icon_coordinate = Vector2( 0, 0 )
+1/autotile/tile_size = Vector2( 256, 512 )
+1/autotile/spacing = 8
+1/autotile/occluder_map = [  ]
+1/autotile/navpoly_map = [  ]
+1/autotile/priority_map = [ Vector3( 2, 0, 4 ), Vector3( 2, 4, 4 ), Vector3( 3, 0, 4 ), Vector3( 3, 4, 4 ), Vector3( 3, 5, 4 ), Vector3( 4, 0, 4 ), Vector3( 4, 4, 4 ), Vector3( 4, 5, 4 ), Vector3( 5, 0, 4 ), Vector3( 5, 4, 4 ), Vector3( 5, 5, 4 ), Vector3( 6, 5, 4 ) ]
+1/autotile/z_index_map = [  ]
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "Dirt.png 2"
+2/texture = ExtResource( 3 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 4, 4, 784, 1552 )
+2/tile_mode = 1
+2/autotile/bitmask_mode = 1
+2/autotile/bitmask_flags = [ Vector2( 0, 0 ), 511, Vector2( 0, 1 ), 511, Vector2( 0, 2 ), 511, Vector2( 1, 0 ), 511, Vector2( 1, 1 ), 511, Vector2( 1, 2 ), 511, Vector2( 2, 0 ), 511, Vector2( 2, 1 ), 511 ]
+2/autotile/icon_coordinate = Vector2( 0, 0 )
+2/autotile/tile_size = Vector2( 256, 512 )
+2/autotile/spacing = 8
+2/autotile/occluder_map = [  ]
+2/autotile/navpoly_map = [  ]
+2/autotile/priority_map = [ Vector3( 0, 0, 2 ), Vector3( 0, 1, 2 ), Vector3( 0, 2, 5 ), Vector3( 1, 0, 2 ), Vector3( 1, 1, 5 ), Vector3( 1, 2, 5 ), Vector3( 2, 0, 2 ), Vector3( 2, 1, 5 ) ]
+2/autotile/z_index_map = [  ]
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
