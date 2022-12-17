@@ -8,6 +8,7 @@ onready var towers: Node2D = get_tree().current_scene.get_node("Towers")
 var build_mode: bool
 var tower_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 var tower_preview: TowerPreview = null
+var tower_type: String = ""
 
 func _ready():
 	for i in get_tree().get_nodes_in_group("build_buttons"):
@@ -23,10 +24,12 @@ func _unhandled_input(event):
 			cancel_build_mode()
 
 
-func initiate_build_mode(tower_type: String):
+func initiate_build_mode(tower_type_arg: String):
 	if build_mode:
 		cancel_build_mode()
 	build_mode = true
+
+    tower_type = tower_type_arg
 
 	tower_preview = TowerPreview.new(tower_type)
 	var game_scene = get_tree().get_root().get_node("GameScene")
@@ -34,8 +37,6 @@ func initiate_build_mode(tower_type: String):
 
 
 func verify_and_build():
-	var tower_type = tower_preview.get_meta("type")
-	
 	var world_pos = ground_map.get_local_mouse_position()
 	var map_pos = ground_map.world_to_map(world_pos)
 	var can_build = Utils.map_pos_is_free(map_parent, map_pos)
