@@ -12,7 +12,7 @@ var tower_type: String = ""
 
 func _ready():
 	for i in get_tree().get_nodes_in_group("build_buttons"):
-		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
+		i.connect("pressed", self, "on_build_button_pressed", [i.get_name()])
 
 
 func _unhandled_input(event):
@@ -24,12 +24,12 @@ func _unhandled_input(event):
 			cancel_build_mode()
 
 
-func initiate_build_mode(tower_type_arg: String):
+func on_build_button_pressed(tower_type_arg: String):
 	if build_mode:
 		cancel_build_mode()
 	build_mode = true
 
-    tower_type = tower_type_arg
+	tower_type = tower_type_arg
 
 	tower_preview = TowerPreview.new(tower_type)
 	var game_scene = get_tree().get_root().get_node("GameScene")
