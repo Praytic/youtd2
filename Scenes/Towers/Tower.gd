@@ -34,6 +34,7 @@ onready var texture_path: String = _properties["texture_path"]
 export(int, 32, 64) var size = 32
 var target_mob: Mob = null
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
+var explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 var shoot_timer: Timer
 var aoe_timer: Timer
 var building_in_progress: bool = false
@@ -70,7 +71,7 @@ func _ready():
 
 
 func attack_style_from_string(string: String):
-	match attack_style_string:
+	match string:
 		"shoot": return AttackStyle.Shoot
 		"aoe": return AttackStyle.Aoe
 		_: return AttackStyle.None
@@ -175,7 +176,12 @@ func _on_aoe_timer_timeout():
 		if owner is Mob:
 			var mob: Mob = owner
 			mob.apply_damage(4)
-			print(mob)
+			
+			var explosion = explosion_scene.instance()
+			explosion.position = mob.position
+			var game_scene = get_tree().get_root().get_node("GameScene")
+			game_scene.call_deferred("add_child", explosion)
+			
 
 
 func _private_set(_val = null):
