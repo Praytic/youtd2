@@ -31,11 +31,9 @@ var aoe: AreaOfEffect
 # Must be called before add_child()
 func init_internal_name(internal_name_arg: String):
 	_internal_name = internal_name_arg
-	print("init_internal_name")
 
 
 func _ready():
-	print("_ready")
 	aoe = AreaOfEffect.new(attack_range)
 	aoe.position = Vector2(size, size) / 2
 	add_child(aoe)
@@ -45,11 +43,6 @@ func _ready():
 	shoot_timer.one_shot = true
 	var _connect_error = shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
 	add_child(shoot_timer)
-
-
-func complete_build():
-	aoe.hide()
-	building_in_progress = false
 
 
 func build_init():
