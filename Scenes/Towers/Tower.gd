@@ -1,6 +1,9 @@
 extends StaticBody2D
 
 
+class_name Tower
+
+
 var _internal_name: String = "" setget _private_set, _private_get
 
 

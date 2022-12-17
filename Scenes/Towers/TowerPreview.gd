@@ -12,23 +12,23 @@ var tile_size = 64
 
 const opaque_red := Color("adff4545")
 const opaque_green := Color("ad54ff3c")
+var tower: Tower = null
 
 
 func _init(tower_type):
-	var drag_tower = load("res://Scenes/Towers/Tower.tscn").instance()
-	drag_tower.init_internal_name(tower_type)
-	drag_tower.set_name("DragTower")
+	tower = load("res://Scenes/Towers/Tower.tscn").instance()
+	tower.init_internal_name(tower_type)
 
-	add_child(drag_tower)
+	add_child(tower)
 	set_meta("type", tower_type)
 
 
 func _ready():
-	$DragTower.build_init()
+	tower.build_init()
 
 
 func _physics_process(_delta):
-	$DragTower.modulate = get_current_color()
+	tower.modulate = get_current_color()
 	position = get_current_pos()
 
 
