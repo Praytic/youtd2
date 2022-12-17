@@ -24,7 +24,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/MobSpawner.gd"
 }, {
-"base": "Control",
+"base": "Node2D",
 "class": "TowerPreview",
 "language": "GDScript",
 "path": "res://Scenes/Towers/TowerPreview.gd"
@@ -49,6 +49,7 @@ FoodManager="*res://Singletons/Managers/FoodManager.gd"
 GoldManager="*res://Singletons/Managers/GoldManager.gd"
 KnowledgeTomesManager="*res://Singletons/Managers/KnowledgeTomesManager.gd"
 CameraManager="*res://Singletons/Managers/CameraManager.gd"
+Utils="*res://Scenes/Utils.gd"
 
 [display]
 
