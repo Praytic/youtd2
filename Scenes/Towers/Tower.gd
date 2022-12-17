@@ -3,6 +3,12 @@ extends StaticBody2D
 
 class_name Tower
 
+enum AttackStyle {
+	Shoot,
+	Aoe,
+	None,
+}
+
 
 var _internal_name: String = "" setget _private_set, _private_get
 
@@ -11,6 +17,7 @@ onready var _properties = Properties.towers[_internal_name] setget _private_set,
 onready var attack_type: String = _properties["attack_type"]
 onready var attack_range: float = _properties["attack_range"]
 onready var attack_cd: float = _properties["attack_cd"]
+onready var attack_style_string: String = _properties["attack_style"]
 onready var id: int = _properties["id"]
 onready var ingame_name: String = _properties["name"]
 onready var family_id: int = _properties["family_id"]
@@ -28,8 +35,10 @@ export(int, 32, 64) var size = 32
 var target_mob: Mob = null
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var shoot_timer: Timer
+var aoe_timer: Timer
 var building_in_progress: bool = false
 var aoe: AreaOfEffect
+var attack_style = AttackStyle.None
 
 
 # Must be called before add_child()
@@ -47,9 +56,24 @@ func _ready():
 	shoot_timer.one_shot = true
 	var _connect_error = shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
 	add_child(shoot_timer)
+
+	aoe_timer = Timer.new()
+	aoe_timer.one_shot = false
+	var _connect_error2 = aoe_timer.connect("timeout", self, "_on_aoe_timer_timeout")
+	add_child(aoe_timer)
+	aoe_timer.start(attack_cd)
 	
 	var texture = load(texture_path)
 	$Sprite.set_texture(texture)
+
+	attack_style = attack_style_from_string(attack_style_string)
+
+
+func attack_style_from_string(string: String):
+	match attack_style_string:
+		"shoot": return AttackStyle.Shoot
+		"aoe": return AttackStyle.Aoe
+		_: return AttackStyle.None
 
 
 func build_init():
@@ -93,6 +117,9 @@ func find_new_target() -> Mob:
 
 
 func try_to_shoot():
+	if attack_style != AttackStyle.Shoot:
+		return
+
 	if !have_target():
 		return
 
@@ -137,6 +164,18 @@ func _on_ShootingArea_body_exited(body):
 #		Target has gone out of range
 		target_mob = find_new_target()
 		try_to_shoot()
+
+
+func _on_aoe_timer_timeout():
+	var body_list: Array = $ShootingArea.get_overlapping_bodies()
+	
+	for body in body_list:
+		var owner: Node = body.get_owner()
+	
+		if owner is Mob:
+			var mob: Mob = owner
+			mob.apply_damage(4)
+			print(mob)
 
 
 func _private_set(_val = null):
