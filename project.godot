@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/MobSpawner.gd"
 }, {
+"base": "StaticBody2D",
+"class": "Tower",
+"language": "GDScript",
+"path": "res://Scenes/Towers/Tower.gd"
+}, {
 "base": "Node2D",
 "class": "TowerPreview",
 "language": "GDScript",
@@ -33,6 +38,7 @@ _global_script_class_icons={
 "AreaOfEffect": "",
 "Mob": "",
 "MobSpawner": "",
+"Tower": "",
 "TowerPreview": ""
 }
 
