@@ -43,7 +43,8 @@ const towers = {
 		"damage_l": 26,
 		"damage_r": 26,
 		"cost": 30,
-		"description": "Basic nature tower with a slightly increased chance to critical strike."
+		"description": "Basic nature tower with a slightly increased chance to critical strike.",
+		"texture_path": "res://Assets/Towers/towerDefense_tile249.png"
 	},
 	"GunT2": {
 		"id": 439,
@@ -58,7 +59,8 @@ const towers = {
 		"damage_l": 113,
 		"damage_r": 113,
 		"cost": 30,
-		"description": "Common nature tower with an increased critical strike chance and damage."
+		"description": "Common nature tower with an increased critical strike chance and damage.",
+		"texture_path": "res://Assets/Towers/towerDefense_tile249.png"		
 	},
 	"MissleT1": {
 		"id": 439,
@@ -73,6 +75,7 @@ const towers = {
 		"damage_l": 58,
 		"damage_r": 58,
 		"cost": 30,
-		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans."
+		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
+		"texture_path": "res://Assets/Towers/towerDefense_tile250.png"		
 	}
 }
