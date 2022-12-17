@@ -8,6 +8,9 @@ var build_mode: bool
 var tower_preview_pos: Vector2
 var buildable: bool
 
+var tower_scene = preload("res://Scenes/Towers/Tower.tscn")
+
+
 func _ready():
 	for i in get_tree().get_nodes_in_group("build_buttons"):
 		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
@@ -32,8 +35,9 @@ func verify_and_build():
 	if build_mode and buildable:
 		var buld_pos = CameraManager.get_mouse_pos_on_map_clamped(map)
 
-		var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
-		drag_tower.position = buld_pos
+		var drag_tower = tower_scene.instance()
+		drag_tower.init_internal_name("GunT1")
+		drag_tower.position = buld_pos + Vector2(32, 32)
 		towers.add_child(drag_tower, true)
 		drag_tower.complete_build()
 
@@ -44,7 +48,8 @@ func cancel_build_mode():
 		tower_preview.free()
 
 func set_tower_preview(tower_type):
-	var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
+	var drag_tower = tower_scene.instance()
+	drag_tower.init_internal_name("GunT1")
 	drag_tower.set_name("DragTower")
 	drag_tower.modulate = Color("ab54ff3c")
 	
@@ -59,7 +64,7 @@ func set_tower_preview(tower_type):
 
 func update_tower_preview():
 	if tower_preview_pos:
-		$TowerPreview.rect_position = tower_preview_pos
+		$TowerPreview.rect_position = tower_preview_pos + Vector2(32, 32)
 	if buildable:
 		$TowerPreview/DragTower.modulate = Color("ad54ff3c")
 	else:
