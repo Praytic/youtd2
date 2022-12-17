@@ -18,6 +18,7 @@ onready var damage_l: float = _properties["damage_l"]
 onready var damage_r: float = _properties["damage_r"]
 onready var cost: float = _properties["cost"]
 onready var description: String = _properties["description"]
+onready var texture_path: String = _properties["texture_path"]
 
 
 export(int, 32, 64) var size = 32
@@ -43,6 +44,9 @@ func _ready():
 	shoot_timer.one_shot = true
 	var _connect_error = shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
 	add_child(shoot_timer)
+	
+	var texture = load(texture_path)
+	$Sprite.set_texture(texture)
 
 
 func build_init():

@@ -16,7 +16,7 @@ const opaque_green := Color("ad54ff3c")
 
 func _init(tower_type):
 	var drag_tower = load("res://Scenes/Towers/Tower.tscn").instance()
-	drag_tower.init_internal_name("GunT1")
+	drag_tower.init_internal_name(tower_type)
 	drag_tower.set_name("DragTower")
 
 	add_child(drag_tower)
