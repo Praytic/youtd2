@@ -16,7 +16,7 @@ var tower: Tower = null
 
 
 func _init(tower_type):
-    tower = load("res://Scenes/Towers/Tower.tscn").instance()
+	tower = load("res://Scenes/Towers/Tower.tscn").instance()
 	tower.init_internal_name(tower_type)
 	add_child(tower)
 
