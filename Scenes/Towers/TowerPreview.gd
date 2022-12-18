@@ -1,58 +1,51 @@
-extends Control
+extends Node2D
 
 
 class_name TowerPreview
 
 
-var tilemap: TileMap
-var cam: Camera2D
+onready var map_parent: Node2D = get_tree().current_scene.get_node("DefaultMap")
+onready var ground_map: Node2D = get_tree().current_scene.get_node("DefaultMap").get_node("Ground")
 
-func _init(tilemap_arg: TileMap, cam_arg: Camera2D, tower_type):
-	tilemap = tilemap_arg
-	cam = cam_arg
 
-	var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
-	drag_tower.set_name("DragTower")
-	drag_tower.modulate = Color("ab54ff3c")
+var tile_size = 64
 
-	add_child(drag_tower)
-	set_meta("type", tower_type)
+const opaque_red := Color("adff4545")
+const opaque_green := Color("ad54ff3c")
+var tower: Tower = null
+
+
+func _init(tower_type):
+	tower = load("res://Scenes/Towers/Tower.tscn").instance()
+	tower.init_internal_name(tower_type)
+	add_child(tower)
 
 
 func _ready():
-	$DragTower.build_init()
+	tower.build_init()
 
 
-# TODO: fix color changing, currently wrong
-# maybe get_world_2d() for this node is offset?
-func _process(delta):
-	var space: Physics2DDirectSpaceState = get_world_2d().direct_space_state
-	var mouse_position = get_global_mouse_position()
-	var cam_global_mouse_pos = cam.get_global_mouse_position()
-	var tile_pos: Vector2 = tilemap.world_to_map(mouse_position)
-	tile_pos = tilemap.map_to_world(tile_pos)
-	if space.intersect_point(mouse_position, 1):
-		$DragTower.modulate = Color("adff4545")
+func _physics_process(_delta):
+	tower.modulate = get_current_color()
+	position = get_current_pos()
+
+
+func get_current_color() -> Color:
+	var world_pos = ground_map.get_local_mouse_position()
+	var map_pos = ground_map.world_to_map(world_pos)
+
+	if Utils.map_pos_is_free(map_parent, map_pos):
+		return opaque_green
 	else:
-		$DragTower.modulate = Color("ad54ff3c")
+		return opaque_red
 
 
-func _physics_process(delta):
-	var space: Physics2DDirectSpaceState = get_world_2d().direct_space_state
-	var cam: Camera2D = get_tree().current_scene.get_node("DefaultCamera")
-	var map = get_tree().current_scene.get_node("DefaultMap").get_node("Ground")
+func get_current_pos() -> Vector2:
+	var world_pos = ground_map.get_local_mouse_position()
+	var map_pos = ground_map.world_to_map(world_pos)
+	var clamped_world_pos = ground_map.map_to_world(map_pos)
+
+#	Add half-tile because tower sprite position is at center
+	var out: Vector2 = clamped_world_pos + Vector2(tile_size / 2, tile_size / 2)
 	
-	var world_pos = map.get_local_mouse_position()
-	var map_pos = map.world_to_map(world_pos)
-	var clamped_world_pos = map.map_to_world(map_pos)
-
-	var camera_center_pos = cam.get_camera_screen_center()
-	var viewport_size = get_viewport().size
-	var camera_pos = camera_center_pos - viewport_size / 2
-	var clamped_mouse_pos = clamped_world_pos - camera_pos
-	
-
-	rect_position = clamped_mouse_pos
-
-	# if $TowerPreview/DragTower.modulate != Color(color):
-	#     $TowerPreview/DragTower.modulate = Color(color)
+	return out

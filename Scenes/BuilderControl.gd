@@ -1,77 +1,58 @@
 extends Control
 
-onready var space: Physics2DDirectSpaceState = get_world_2d().direct_space_state
-onready var cam: Camera2D = get_tree().current_scene.get_node("DefaultCamera")
-onready var map: TileMap = get_tree().current_scene.get_node("DefaultMap").get_node("Ground")
+onready var map_parent: Node2D = get_tree().current_scene.get_node("DefaultMap")
+onready var ground_map: TileMap = get_tree().current_scene.get_node("DefaultMap").get_node("Ground")
 onready var towers: Node2D = get_tree().current_scene.get_node("Towers")
+
+
 var build_mode: bool
-var tower_preview_pos: Vector2
-var buildable: bool
+var tower_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
+var tower_preview: TowerPreview = null
+var tower_type: String = ""
 
 func _ready():
 	for i in get_tree().get_nodes_in_group("build_buttons"):
-		i.connect("pressed", self, "initiate_build_mode", [i.get_name()])
+		i.connect("pressed", self, "on_build_button_pressed", [i.get_name()])
+
 
 func _unhandled_input(event):
-	if event.is_action_released("ui_cancel") and build_mode == true:
-		cancel_build_mode()
-	elif event.is_action_released("ui_accept") and build_mode == true:
-		verify_and_build()
-		cancel_build_mode()
+	if build_mode:
+		if event.is_action_released("ui_cancel"):
+			cancel_build_mode()
+		elif event.is_action_released("ui_accept"):
+			verify_and_build()
+			cancel_build_mode()
 
-func initiate_build_mode(tower_type: String):
+
+func on_build_button_pressed(tower_type_arg: String):
 	if build_mode:
 		cancel_build_mode()
 	build_mode = true
-	set_tower_preview(tower_type)
-	$TowerPreview/DragTower.build_init()
+
+	tower_type = tower_type_arg
+
+	tower_preview = TowerPreview.new(tower_type)
+	var game_scene = get_tree().get_root().get_node("GameScene")
+	game_scene.add_child(tower_preview)
+
 
 func verify_and_build():
-	var tower_preview = $TowerPreview
-	var tower_type = tower_preview.get_meta("type")
-	if build_mode and buildable:
-		var buld_pos = CameraManager.get_mouse_pos_on_map_clamped(map)
+	var world_pos = ground_map.get_local_mouse_position()
+	var map_pos = ground_map.world_to_map(world_pos)
+	var can_build = Utils.map_pos_is_free(map_parent, map_pos)
 
-		var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
-		drag_tower.position = buld_pos
-		towers.add_child(drag_tower, true)
-		drag_tower.complete_build()
+	if build_mode and can_build:
+		var buld_pos = ground_map.map_to_world(map_pos)
+
+		var new_tower = tower_scene.instance()
+		new_tower.init_internal_name(tower_type)
+		new_tower.position = buld_pos + Vector2(32, 32)
+		towers.add_child(new_tower, true)
+
+		tower_preview.queue_free()
+
 
 func cancel_build_mode():
 	build_mode = false
-	var tower_preview = $TowerPreview
-	if not tower_preview.is_queued_for_deletion(): 
-		tower_preview.free()
 
-func set_tower_preview(tower_type):
-	var drag_tower = load("res://Scenes/Towers/" + tower_type + ".tscn").instance()
-	drag_tower.set_name("DragTower")
-	drag_tower.modulate = Color("ab54ff3c")
-	
-	var control = Control.new()
-	control.add_child(drag_tower)
-	control.set_name("TowerPreview")
-	control.set_meta("type", tower_type)
-	add_child(control, true)
-	move_child(get_node("TowerPreview"), 0)
-	
-	return control
-
-func update_tower_preview():
-	if tower_preview_pos:
-		$TowerPreview.rect_position = tower_preview_pos
-	if buildable:
-		$TowerPreview/DragTower.modulate = Color("ad54ff3c")
-	else:
-		$TowerPreview/DragTower.modulate = Color("adff4545")
-	update()
-
-func _physics_process(_delta):
-	if build_mode:
-		tower_preview_pos = CameraManager.get_tile_pos_on_cam(cam, map)
-		if space.intersect_point(cam.get_global_mouse_position(), 1):
-			buildable = false
-		else:
-			buildable = true
-		update_tower_preview()
-	
+	tower_preview.queue_free()
