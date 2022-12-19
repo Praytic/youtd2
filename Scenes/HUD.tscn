@@ -9,7 +9,6 @@
 [ext_resource path="res://Scenes/HUD/Gold.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/HUD/KnowledgeTome.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/HUD.gd" type="Script" id=11]
-[ext_resource path="res://Scenes/MissleT1.gd" type="Script" id=12]
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -35,7 +34,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource( 1 )
 expand = true
-script = ExtResource( 12 )
 
 [node name="GunT1" type="TextureButton" parent="BuildBar" groups=["build_buttons"]]
 margin_left = 84.0
