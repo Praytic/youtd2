@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Towers/Tower.gd"
 }, {
-"base": "Node2D",
+"base": "Control",
 "class": "TowerPreview",
 "language": "GDScript",
 "path": "res://Scenes/Towers/TowerPreview.gd"
@@ -54,6 +54,7 @@ Properties="*res://Singletons/Properties.gd"
 FoodManager="*res://Singletons/Managers/FoodManager.gd"
 GoldManager="*res://Singletons/Managers/GoldManager.gd"
 KnowledgeTomesManager="*res://Singletons/Managers/KnowledgeTomesManager.gd"
+BuildManager="*res://Singletons/Managers/BuildManager.gd"
 CameraManager="*res://Singletons/Managers/CameraManager.gd"
 Utils="*res://Singletons/Utils.gd"
 
