@@ -45,6 +45,8 @@ var attack_style = AttackStyle.None
 # Must be called before add_child()
 func init_internal_name(internal_name_arg: String):
 	_internal_name = internal_name_arg
+	# TODO: Change it
+	z_index = 999
 
 
 func _ready():
