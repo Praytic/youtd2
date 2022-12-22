@@ -1,7 +1,7 @@
 extends Control
 
-onready var map_parent: Node2D = get_tree().current_scene.get_node("DefaultMap")
-onready var ground_map: TileMap = get_tree().current_scene.get_node("DefaultMap").get_node("Floor")
+onready var map_parent: Node2D = get_tree().current_scene.get_node("DefaultMap").get_node("Floor")
+onready var ground_map: TileMap = get_tree().current_scene.get_node("DefaultMap").get_node("Floor").get_node("BuildableArea")
 onready var towers: Node2D = get_tree().current_scene.get_node("Towers")
 
 
@@ -39,7 +39,7 @@ func on_build_button_pressed(tower_type_arg: String):
 func verify_and_build():
 	var world_pos = ground_map.get_local_mouse_position()
 	var map_pos = ground_map.world_to_map(world_pos)
-	var can_build = Utils.map_pos_is_free(map_parent, map_pos)
+	var can_build = Utils.map_pos_is_free(map_parent, ground_map, map_pos)
 
 	if build_mode and can_build:
 		var buld_pos = ground_map.map_to_world(map_pos)

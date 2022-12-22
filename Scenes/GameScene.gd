@@ -12,7 +12,7 @@ export var mobs_game_over_count: int = 10
 export var ignore_game_over: bool = true
 
 func _ready():
-	map_node = get_node("DefaultMap")
+	map_node = $DefaultMap
 	
 	$Canvas/HUD/VBoxContainer/HBoxContainer/WaveEdit.value = 1
 	$MobSpawner.start(0)
