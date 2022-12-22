@@ -4,6 +4,7 @@
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/DefaultMap.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/BuilderControl.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Landscape.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/Canvas.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/MobSpawner.gd" type="Script" id=11]
@@ -15,16 +16,16 @@ environment = SubResource( 3 )
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 969, -85, 0, 0, 0, 0, 993, 476, 0, 0, 0, 0, 1110, 474, 0, 0, 0, 0, 1120, 296, 0, 0, 0, 0, 1246, 293, 0, 0, 0, 0, 1252, 404, 0, 0, 0, 0, 1249, 603, 0, 0, 0, 0, 1063, 615, 0, 0, 0, 0, 1066, 738, 0, 0, 0, 0, 1244, 741, 0, 0, 0, 0, 1238, 1014, 0, 0, 0, 0, 1241, 1115 )
+"points": PoolVector2Array( 0, 0, 0, 0, 4200, 2136, 0, 0, 0, 0, 1248, 3608, 0, 0, 0, 0, 2432, 4200, 0, 0, 0, 0, 4096, 3368, 0, 0, 0, 0, 5216, 3936, 0, 0, 0, 0, 2560, 5264, 0, 0, 0, 0, 1024, 4496, 0, 0, 0, 0, 624, 4688, 0, 0, 0, 0, 320, 4648, 0, 0, 0, 0, 232, 4696 )
 }
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 174.232, 166.15 )
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource( 9 )
 
+[node name="Landscape" parent="." instance=ExtResource( 5 )]
+
 [node name="DefaultMap" parent="." instance=ExtResource( 3 )]
+visible = false
 script = null
 
 [node name="Towers" type="Node2D" parent="."]
@@ -66,31 +67,34 @@ mouse_filter = 2
 script = ExtResource( 4 )
 
 [node name="MobPath1" type="Path2D" parent="."]
+z_index = 999
 curve = SubResource( 1 )
 
 [node name="MobSpawner" type="Node" parent="."]
 script = ExtResource( 11 )
 
 [node name="MobExit" type="Area2D" parent="."]
-position = Vector2( 21, -107 )
+position = Vector2( 356, -524 )
 scale = Vector2( 0.845244, 0.890764 )
+z_index = 999
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MobExit"]
-position = Vector2( 1450.47, 1448.2 )
-scale = Vector2( 1.03213, 1 )
-shape = SubResource( 2 )
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="MobExit"]
+position = Vector2( 216.741, 6410.23 )
+scale = Vector2( 60.716, -28.6271 )
+polygon = PoolVector2Array( -7.0187, -2.90195, -22.9385, 13.2941, -11.6758, 25.0196, 70.6315, -58.4313, 59.3883, -69.7646 )
 
 [node name="DefaultCamera" type="Camera2D" parent="."]
 position = Vector2( 1640, 360 )
 current = true
-limit_left = 128
+limit_left = -2368
 limit_top = 64
-limit_right = 2368
-limit_bottom = 2368
+limit_right = 23680
+limit_bottom = 23680
 limit_smoothed = true
 smoothing_enabled = true
 editor_draw_limits = true
 script = ExtResource( 1 )
+cam_move_speed = 5000.0
 
 [connection signal="start_wave" from="Canvas/HUD" to="." method="_on_HUD_start_wave"]
 [connection signal="stop_wave" from="Canvas/HUD" to="." method="_on_HUD_stop_wave"]
