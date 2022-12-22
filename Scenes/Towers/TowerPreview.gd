@@ -4,8 +4,8 @@ extends Node2D
 class_name TowerPreview
 
 
-onready var map_parent: Node2D = get_tree().current_scene.get_node("DefaultMap")
-onready var ground_map: Node2D = get_tree().current_scene.get_node("DefaultMap").get_node("Floor")
+onready var map_parent: Node2D = get_tree().current_scene.get_node("DefaultMap").get_node("Floor")
+onready var ground_map: TileMap = get_tree().current_scene.get_node("DefaultMap").get_node("Floor").get_node("BuildableArea")
 
 
 var tile_size = 64
@@ -28,17 +28,22 @@ func _ready():
 func _physics_process(_delta):
 	tower.modulate = get_current_color()
 	position = get_current_pos()
+	update()
 
 
 func get_current_color() -> Color:
 	var world_pos = ground_map.get_local_mouse_position()
 	var map_pos = ground_map.world_to_map(world_pos)
 
-	if Utils.map_pos_is_free(map_parent, map_pos):
+	if Utils.map_pos_is_free(map_parent, ground_map, map_pos):
 		return opaque_green
 	else:
 		return opaque_red
 
+onready var iso_to_cart: Transform2D = Transform2D().scaled(Vector2(1, 0.5)) * Transform2D(PI/4, Vector2())
+# Scale a transformation then rotate it (or maybe rotate then scale, not sure how it worked exactly..)
+onready var cart_to_iso: Transform2D = iso_to_cart.affine_inverse()
+onready var map_to_world: Transform2D = Transform2D().scaled(Vector2(256.0, 256.0))
 
 func get_current_pos() -> Vector2:
 	var world_pos = ground_map.get_local_mouse_position()
