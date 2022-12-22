@@ -1,7 +1,7 @@
 extends Control
 
 onready var map_parent: Node2D = get_tree().current_scene.get_node("DefaultMap")
-onready var ground_map: TileMap = get_tree().current_scene.get_node("DefaultMap").get_node("Ground")
+onready var ground_map: TileMap = get_tree().current_scene.get_node("DefaultMap").get_node("Floor")
 onready var towers: Node2D = get_tree().current_scene.get_node("Towers")
 
 
