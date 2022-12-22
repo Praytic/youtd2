@@ -58,6 +58,11 @@ BuildManager="*res://Singletons/Managers/BuildManager.gd"
 CameraManager="*res://Singletons/Managers/CameraManager.gd"
 Utils="*res://Singletons/Utils.gd"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+settings/physics_interpolation/enable_warnings=false
+
 [display]
 
 window/size/width=1280
@@ -69,6 +74,10 @@ window/default_environment="res://default_env.tres"
 [editor_plugins]
 
 enabled=PoolStringArray(  )
+
+[global]
+
+warning=false
 
 [gui]
 

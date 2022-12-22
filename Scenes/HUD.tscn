@@ -185,5 +185,15 @@ text = "Creators"
 clip_text = true
 align = 2
 
+[node name="Hints" type="RichTextLabel" parent="."]
+margin_left = 401.0
+margin_top = 298.0
+margin_right = 701.0
+margin_bottom = 398.0
+visible_characters = 1024
+percent_visible = 20.0784
+text = "Move camera: WASD
+Zoom camera: Mouse wheel, touchpad"
+
 [connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]
