@@ -2,11 +2,14 @@
 
 [ext_resource path="res://Scenes/DefaultCamera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/BuilderControl.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Lib/Build/BuilderControl.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Landscape.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
-[ext_resource path="res://Scenes/Canvas.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/MobSpawner.gd" type="Script" id=11]
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends CanvasLayer
+"
 
 [sub_resource type="Environment" id=3]
 
@@ -26,7 +29,7 @@ script = ExtResource( 9 )
 [node name="Towers" type="Node2D" parent="."]
 
 [node name="Canvas" type="CanvasLayer" parent="."]
-script = ExtResource( 10 )
+script = SubResource( 5 )
 
 [node name="HUD" parent="Canvas" instance=ExtResource( 2 )]
 mouse_filter = 2
