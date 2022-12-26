@@ -55,7 +55,8 @@ func get_current_pos() -> Vector2:
 		if tile_cell != TileMap.INVALID_CELL:
 			var clamped_world_pos = tile_map.map_to_world(map_pos)
 			#	Add half-tile because tower sprite position is at center
-			cur_pos_dict[tile_map] = clamped_world_pos + Vector2(tower.size, tower.size)
+			#	Add tilemap position because it might not start at (0, 0) coordinates
+			cur_pos_dict[tile_map] = clamped_world_pos + Vector2(tower.size, tower.size) + tile_map.position
 	
 	var cur_pos_dict_size = cur_pos_dict.size()
 	var cur_pos: Vector2
