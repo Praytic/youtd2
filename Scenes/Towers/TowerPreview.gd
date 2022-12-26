@@ -23,7 +23,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	tower.modulate = get_current_color()
+	modulate = get_current_color()
 	position = get_current_pos()
 
 
