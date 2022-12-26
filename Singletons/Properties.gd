@@ -29,6 +29,11 @@ const globals = {
 	"max_knowledge_tomes_income": 999999,
 	"ini_knowledge_tomes_income": 8
 }
+const tower_families = {
+	1: {
+		"sprite_path": "res://Resources/Sprites/Towers/BasicTower.tscn"
+	}
+}
 const towers = { 
 	"GunT1": {
 		"id": 1,
@@ -45,7 +50,7 @@ const towers = {
 		"damage_r": 26,
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
-		"texture_path": "res://Assets/Towers/towerDefense_tile249.png"
+		"tier": 1
 	},
 	"GunT2": {
 		"id": 439,
@@ -60,9 +65,26 @@ const towers = {
 		"attack_style": "shoot",
 		"damage_l": 113,
 		"damage_r": 113,
-		"cost": 30,
+		"cost": 140,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"texture_path": "res://Assets/Towers/towerDefense_tile249.png"		
+		"tier": 2
+	},
+	"GunT3": {
+		"id": 511,
+		"name": "Greater Shrub",
+		"family_id": 1,
+		"author": "gex",
+		"rarity": "common",
+		"element": "nature",
+		"attack_type": "physical",
+		"attack_range": 880,
+		"attack_cd": 0.9,
+		"attack_style": "shoot",
+		"damage_l": 299,
+		"damage_r": 299,
+		"cost": 400,
+		"description": "Common nature tower with an increased critical strike chance and damage.",
+		"tier": 3
 	},
 	"MissleT1": {
 		"id": 439,
@@ -79,6 +101,6 @@ const towers = {
 		"damage_r": 58,
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
-		"texture_path": "res://Assets/Towers/towerDefense_tile250.png"		
+		"tier": 1		
 	}
 }
