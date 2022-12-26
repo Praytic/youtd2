@@ -52,18 +52,18 @@ func init_internal_name(internal_name_arg: String):
 func _ready():
 	aoe = AreaOfEffect.new(attack_range)
 	aoe.position = Vector2(size, size) / 2
-	add_child(aoe)
+	add_child(aoe, true)
 	aoe.hide()
 
 	shoot_timer = Timer.new()
 	shoot_timer.one_shot = true
 	var _connect_error = shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
-	add_child(shoot_timer)
+	add_child(shoot_timer, true)
 
 	aoe_timer = Timer.new()
 	aoe_timer.one_shot = false
 	var _connect_error2 = aoe_timer.connect("timeout", self, "_on_aoe_timer_timeout")
-	add_child(aoe_timer)
+	add_child(aoe_timer, true)
 	aoe_timer.start(attack_cd)
 	
 	var texture = load(texture_path)

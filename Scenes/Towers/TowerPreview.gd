@@ -16,7 +16,7 @@ var tower: Tower
 
 func _init(tower: Tower):
 	self.tower = tower
-	add_child(tower)
+	add_child(tower, true)
 
 
 func _ready():
@@ -51,7 +51,8 @@ func get_current_pos() -> Vector2:
 	for tile_map in buildable_areas:
 		var world_pos = tile_map.get_local_mouse_position()
 		var map_pos = tile_map.world_to_map(world_pos)
-		if tile_map.get_cellv(map_pos) != TileMap.INVALID_CELL:
+		var tile_cell = tile_map.get_cellv(map_pos)
+		if tile_cell != TileMap.INVALID_CELL:
 			var clamped_world_pos = tile_map.map_to_world(map_pos)
 			#	Add half-tile because tower sprite position is at center
 			cur_pos_dict[tile_map] = clamped_world_pos + Vector2(tower.size, tower.size)
