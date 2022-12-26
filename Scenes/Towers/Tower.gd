@@ -14,13 +14,15 @@ var _internal_name: String = "" setget _private_set, _private_get
 
 
 onready var _properties = Properties.towers[_internal_name] setget _private_set, _private_get
+onready var _family_properties = Properties.tower_families[_properties["family_id"]] setget _private_set, _private_get
+
+
 onready var attack_type: String = _properties["attack_type"]
 onready var attack_range: float = _properties["attack_range"]
 onready var attack_cd: float = _properties["attack_cd"]
 onready var attack_style_string: String = _properties["attack_style"]
 onready var id: int = _properties["id"]
 onready var ingame_name: String = _properties["name"]
-onready var family_id: int = _properties["family_id"]
 onready var author: String = _properties["author"]
 onready var rarity: String = _properties["rarity"]
 onready var element: String = _properties["element"]
@@ -28,7 +30,8 @@ onready var damage_l: float = _properties["damage_l"]
 onready var damage_r: float = _properties["damage_r"]
 onready var cost: float = _properties["cost"]
 onready var description: String = _properties["description"]
-onready var texture_path: String = _properties["texture_path"]
+onready var tier: int = _properties["tier"]
+onready var sprite_path: String = _family_properties["sprite_path"]
 
 
 export(int, 32, 64) var size = 32
@@ -66,8 +69,9 @@ func _ready():
 	add_child(aoe_timer, true)
 	aoe_timer.start(attack_cd)
 	
-	var texture = load(texture_path)
-	$Sprite.set_texture(texture)
+	var tower_scene: Node2D = load(sprite_path).instance()
+	add_child(tower_scene)
+	tower_scene.update_tier(tier)
 
 	attack_style = attack_style_from_string(attack_style_string)
 
@@ -137,7 +141,6 @@ func try_to_shoot():
 	var projectile = projectile_scene.instance()
 	projectile.target_mob = target_mob
 	
-#	var tower_center = position + $Base.texture.get_size() / 2
 	projectile.position = position
 	
 #		TODO: move this to utils as get_game_scene()
