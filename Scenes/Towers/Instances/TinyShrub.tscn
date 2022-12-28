@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Towers/Building.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Towers/castle_towerPurpleBase_N.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Towers/Instances/TinyShrub.gd" type="Script" id=5]
+
+[node name="TinyShrub" instance=ExtResource( 2 )]
+script = ExtResource( 5 )
+id = 1
+
+[node name="Tier1" type="Node2D" parent="." index="2"]
+position = Vector2( 0, -193 )
+
+[node name="Sprite" type="Sprite" parent="Tier1" index="0"]
+position = Vector2( 0, 85 )
+texture = ExtResource( 4 )
+
+[node name="Muzzle" type="Position2D" parent="Tier1" index="1"]
+position = Vector2( 0, 88 )

@@ -10,16 +10,14 @@ onready var buildable_areas: Array = get_tree().get_nodes_in_group(Constants.Gro
 const opaque_red := Color("adff4545")
 const opaque_green := Color("ad54ff3c")
 
+var tower_id: int
 
-var tower: Tower
-
-func _init(tower: Tower):
-	self.tower = tower
-	add_child(tower, true)
+func _init(tower_id: int):
+	self.tower_id = tower_id
 
 
 func _ready():
-	tower.build_init()
+	$Tower.build_init()
 
 
 func _physics_process(_delta):
@@ -55,7 +53,7 @@ func get_current_pos() -> Vector2:
 			var clamped_world_pos = tile_map.map_to_world(map_pos)
 			#	Add half-tile because tower sprite position is at center
 			#	Add tilemap position because it might not start at (0, 0) coordinates
-			cur_pos_dict[tile_map] = clamped_world_pos + Vector2(tower.size, tower.size) + tile_map.position
+			cur_pos_dict[tile_map] = clamped_world_pos + Vector2(32, 32) + tile_map.position
 	
 	var cur_pos_dict_size = cur_pos_dict.size()
 	var cur_pos: Vector2
