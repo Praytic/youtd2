@@ -1,7 +1,8 @@
-extends StaticBody2D
+extends Building
 
 
 class_name Tower
+
 
 enum AttackStyle {
 	Shoot,
@@ -10,70 +11,64 @@ enum AttackStyle {
 }
 
 
-var _internal_name: String = "" setget _private_set, _private_get
+export(int) var id
 
 
-onready var _properties = Properties.towers[_internal_name] setget _private_set, _private_get
-onready var _family_properties = Properties.tower_families[_properties["family_id"]] setget _private_set, _private_get
+var attack_type: String
+var attack_range: float setget set_attack_range
+var attack_cd: float
+var attack_style_string: String
+var ingame_name: String
+var author: String
+var rarity: String
+var element: String
+var damage_l: float
+var damage_r: float
+var cost: float
+var description: String
+var tier: int
 
 
-onready var attack_type: String = _properties["attack_type"]
-onready var attack_range: float = _properties["attack_range"]
-onready var attack_cd: float = _properties["attack_cd"]
-onready var attack_style_string: String = _properties["attack_style"]
-onready var id: int = _properties["id"]
-onready var ingame_name: String = _properties["name"]
-onready var author: String = _properties["author"]
-onready var rarity: String = _properties["rarity"]
-onready var element: String = _properties["element"]
-onready var damage_l: float = _properties["damage_l"]
-onready var damage_r: float = _properties["damage_r"]
-onready var cost: float = _properties["cost"]
-onready var description: String = _properties["description"]
-onready var tier: int = _properties["tier"]
-onready var sprite_path: String = _family_properties["sprite_path"]
-
-
-export(int, 32, 64) var size = 32
 var target_mob: Mob = null
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 var shoot_timer: Timer
 var aoe_timer: Timer
-var building_in_progress: bool = false
-var aoe: AreaOfEffect
 var attack_style = AttackStyle.None
-
-
-# Must be called before add_child()
-func init_internal_name(internal_name_arg: String):
-	_internal_name = internal_name_arg
-	# TODO: Change it
-	z_index = 999
+var aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 
 
 func _ready():
-	aoe = AreaOfEffect.new(attack_range)
-	aoe.position = Vector2(size, size) / 2
-	add_child(aoe, true)
-	aoe.hide()
-
+	add_child(aoe_scene.instance(), true)
 	shoot_timer = Timer.new()
+	aoe_timer = Timer.new()
+	
+	var properties = TowerManager.tower_props[id]
+	attack_type = properties["attack_type"]
+	set_attack_range(properties["attack_range"])
+	attack_cd = properties["attack_cd"]
+	attack_style_string = properties["attack_style"]
+	ingame_name = properties["name"]
+	author = properties["author"]
+	rarity = properties["rarity"]
+	element = properties["element"]
+	damage_l = properties["damage_l"]
+	damage_r = properties["damage_r"]
+	cost = properties["cost"]
+	description = properties["description"]
+
 	shoot_timer.one_shot = true
 	var _connect_error = shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
-	add_child(shoot_timer, true)
+	add_child(shoot_timer)
 
-	aoe_timer = Timer.new()
 	aoe_timer.one_shot = false
 	var _connect_error2 = aoe_timer.connect("timeout", self, "_on_aoe_timer_timeout")
-	add_child(aoe_timer, true)
+	add_child(aoe_timer)
 	aoe_timer.start(attack_cd)
-	
-	var tower_scene: Node2D = load(sprite_path).instance()
-	add_child(tower_scene)
-	tower_scene.update_tier(tier)
 
 	attack_style = attack_style_from_string(attack_style_string)
+	
+	$AreaOfEffect.hide()
 
 
 func attack_style_from_string(string: String):
@@ -81,11 +76,6 @@ func attack_style_from_string(string: String):
 		"shoot": return AttackStyle.Shoot
 		"aoe": return AttackStyle.Aoe
 		_: return AttackStyle.None
-
-
-func build_init():
-	aoe.show()
-	building_in_progress = true
 
 
 func have_target() -> bool:
@@ -105,7 +95,7 @@ func _on_shoot_timer_timeout():
 # TODO: prioritizing closest mob here, but maybe change behavior
 # based on tower properties or other game design considerations
 func find_new_target() -> Mob:
-	var body_list: Array = $ShootingArea.get_overlapping_bodies()
+	var body_list: Array = $AreaOfEffect/CollisionArea.get_overlapping_bodies()
 	var closest_mob: Mob = null
 	var distance_min: float = 1000000.0
 	
@@ -114,7 +104,7 @@ func find_new_target() -> Mob:
 	
 		if owner is Mob:
 			var mob: Mob = owner
-			var distance: float = (mob.position - position).length()
+			var distance: float = (mob.position - self.position).length()
 			
 			if distance < distance_min:
 				closest_mob = mob
@@ -130,7 +120,7 @@ func try_to_shoot():
 	if !have_target():
 		return
 
-	if building_in_progress:
+	if self.building_in_progress:
 		return
 	
 	var shoot_on_cd = shoot_timer.time_left > 0
@@ -141,10 +131,10 @@ func try_to_shoot():
 	var projectile = projectile_scene.instance()
 	projectile.target_mob = target_mob
 	
-	projectile.position = position
+	projectile.position = self.position
 	
 #		TODO: move this to utils as get_game_scene()
-	var game_scene = get_tree().get_root().get_node("GameScene")
+	var game_scene = .get_tree().get_root().get_node("GameScene")
 	game_scene.call_deferred("add_child", projectile)
 	
 	shoot_timer.start(attack_cd)
@@ -173,7 +163,7 @@ func _on_ShootingArea_body_exited(body):
 
 
 func _on_aoe_timer_timeout():
-	var body_list: Array = $ShootingArea.get_overlapping_bodies()
+	var body_list: Array = $AreaOfEffect/CollisionArea.get_overlapping_bodies()
 	
 	for body in body_list:
 		var owner: Node = body.get_owner()
@@ -184,14 +174,15 @@ func _on_aoe_timer_timeout():
 			
 			var explosion = explosion_scene.instance()
 			explosion.position = mob.position
-			var game_scene = get_tree().get_root().get_node("GameScene")
+			var game_scene = .get_tree().get_root().get_node("GameScene")
 			game_scene.call_deferred("add_child", explosion)
-			
 
 
-func _private_set(_val = null):
-   pass
-   
+func build_init():
+	.build_init()
+	$AreaOfEffect.show()
 
-func _private_get():
-   pass
+
+func set_attack_range(radius: float):
+	attack_range = radius
+	$AreaOfEffect.set_radius(radius)
