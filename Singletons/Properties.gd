@@ -31,11 +31,16 @@ const globals = {
 }
 const tower_families = {
 	1: {
-		"sprite_path": "res://Resources/Sprites/Towers/BasicTower.tscn"
+		"todo": "todo"
+	},
+	41: {
+		"todo": "todo"
 	}
 }
+# TODO: Replace filenames with IDs when switching to Godot 4 with first-class functions
+# TODO: Think of the way to load tower properties without loading the Scene or GDScript 
 const towers = { 
-	"GunT1": {
+	"TinyShrub": {
 		"id": 1,
 		"name": "Tiny Shrub",
 		"family_id": 1,
@@ -50,9 +55,9 @@ const towers = {
 		"damage_r": 26,
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
-		"tier": 1
+		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd"
 	},
-	"GunT2": {
+	"Shrub": {
 		"id": 439,
 		"name": "Shrub",
 		"family_id": 1,
@@ -67,9 +72,9 @@ const towers = {
 		"damage_r": 113,
 		"cost": 140,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"tier": 2
+		"resource": "res://Scenes/Towers/Instances/Shrub.gd"
 	},
-	"GunT3": {
+	"GreaterShrub": {
 		"id": 511,
 		"name": "Greater Shrub",
 		"family_id": 1,
@@ -84,10 +89,10 @@ const towers = {
 		"damage_r": 299,
 		"cost": 400,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"tier": 3
+		"resource": "res://Scenes/Towers/Instances/GreaterShrub.gd"
 	},
-	"MissleT1": {
-		"id": 439,
+	"SmallCactus": {
+		"id": 41,
 		"name": "Small Cactus",
 		"family_id": 41,
 		"author": "Lapsus",
@@ -101,6 +106,6 @@ const towers = {
 		"damage_r": 58,
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
-		"tier": 1		
+		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd"
 	}
 }

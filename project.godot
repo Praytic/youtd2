@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Towers/AreaOfEffect.gd"
 }, {
+"base": "StaticBody2D",
+"class": "Building",
+"language": "GDScript",
+"path": "res://Scenes/Towers/Building.gd"
+}, {
 "base": "PathFollow2D",
 "class": "Mob",
 "language": "GDScript",
@@ -24,10 +29,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/MobSpawner.gd"
 }, {
-"base": "StaticBody2D",
+"base": "Building",
 "class": "Tower",
 "language": "GDScript",
 "path": "res://Scenes/Towers/Tower.gd"
+}, {
+"base": "TextureButton",
+"class": "TowerButton",
+"language": "GDScript",
+"path": "res://Scenes/HUD/TowerButton.gd"
 }, {
 "base": "Node2D",
 "class": "TowerPreview",
@@ -36,9 +46,11 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AreaOfEffect": "",
+"Building": "",
 "Mob": "",
 "MobSpawner": "",
 "Tower": "",
+"TowerButton": "",
 "TowerPreview": ""
 }
 
@@ -57,6 +69,7 @@ KnowledgeTomesManager="*res://Singletons/Managers/KnowledgeTomesManager.gd"
 BuildManager="*res://Singletons/Managers/BuildManager.gd"
 Utils="*res://Singletons/Utils.gd"
 Constants="*res://Singletons/Constants.gd"
+TowerManager="*res://Singletons/Managers/TowerManager.gd"
 
 [debug]
 
