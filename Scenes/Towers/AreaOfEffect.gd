@@ -11,6 +11,7 @@ onready var texture: Texture = load("res://Resources/PulsingDot.tres")
 func _draw():
 	draw_circle_arc(self.position, 0, 360, Color.aqua)
 
+
 func draw_circle_arc(center, angle_from, angle_to, color):
 	var nb_points = radius/20
 	var points_arc = PoolVector2Array()
