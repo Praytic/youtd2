@@ -5,6 +5,7 @@
 [sub_resource type="CircleShape2D" id=1]
 
 [node name="AreaOfEffect" type="Node2D"]
+scale = Vector2( 1, 0.5 )
 script = ExtResource( 1 )
 
 [node name="CollisionArea" type="Area2D" parent="."]
