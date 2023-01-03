@@ -4,6 +4,9 @@ extends Building
 class_name Tower
 
 
+signal upgraded
+
+
 enum AttackStyle {
 	Shoot,
 	Aoe,
@@ -12,7 +15,7 @@ enum AttackStyle {
 
 
 export(int) var id
-
+export(int) var next_tier_id
 
 var attack_type: String
 var attack_range: float setget set_attack_range
@@ -26,7 +29,6 @@ var damage_l: float
 var damage_r: float
 var cost: float
 var description: String
-var tier: int
 
 
 var target_mob: Mob = null
@@ -186,3 +188,19 @@ func build_init():
 func set_attack_range(radius: float):
 	attack_range = radius
 	$AreaOfEffect.set_radius(radius)
+
+
+func _select():
+	._select()
+	print("Tower %s has been selected." % id)
+
+
+func _unselect():
+	._unselect()
+	print("Tower %s has been unselected." % id)
+
+
+func upgrade() -> PackedScene:
+	var next_tier_tower = TowerManager.get_tower(next_tier_id)
+	emit_signal("upgraded")
+	return next_tier_tower
