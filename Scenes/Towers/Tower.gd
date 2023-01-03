@@ -192,12 +192,12 @@ func set_attack_range(radius: float):
 
 func _select():
 	._select()
-	print("Tower %s has been selected." % id)
+	print_debug("Tower %s has been selected." % id)
 
 
 func _unselect():
 	._unselect()
-	print("Tower %s has been unselected." % id)
+	print_debug("Tower %s has been unselected." % id)
 
 
 func upgrade() -> PackedScene:
