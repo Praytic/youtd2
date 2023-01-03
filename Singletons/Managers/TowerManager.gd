@@ -35,8 +35,10 @@ func _flattened_properties() -> Dictionary:
 			flattened_tower_props[key] = family_props[flattened_tower_props.family_id][key]
 		flattened_props[tower_name] = flattened_tower_props
 	return flattened_props
-	
+
 
 # Return new unique instance of the Tower by its ID
 func get_tower(id: int) -> PackedScene:
-	return preloaded_towers[id].instance()
+	var tower = preloaded_towers[id].instance()
+	connect("selected", tower, "_on_tower_selected")
+	return tower
