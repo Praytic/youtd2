@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/HUD/TowerTooltip.gd" type="Script" id=2]
+
+[node name="TowerTooltip" type="Control"]
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 400.0
+margin_bottom = 69.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 33.0
+theme = ExtResource( 1 )
+text = "foo"
+autowrap = true
