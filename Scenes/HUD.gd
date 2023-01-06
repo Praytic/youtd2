@@ -25,5 +25,5 @@ func _on_StopWaveButton_pressed():
 func _on_camera_moved(_vector):
 	$Hints.hide()
 
-func _on_camera_zoomed(_factor):
+func _on_camera_zoomed():
 	$Hints.hide()
