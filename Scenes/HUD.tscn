@@ -12,10 +12,12 @@
 [ext_resource path="res://Scenes/HUD/KnowledgeTome.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/HUD.gd" type="Script" id=11]
 [ext_resource path="res://Scenes/HUD/TowerTooltip.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/UI/HUD/day_time_icon.png" type="Texture" id=13]
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 7 )
 script = ExtResource( 11 )
 
 [node name="BuildBar" type="HBoxContainer" parent="."]
@@ -60,58 +62,59 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -108.0
 margin_right = 198.0
+rect_scale = Vector2( 0.5, 0.5 )
 
 [node name="StartWaveButton" type="Button" parent="VBoxContainer"]
-margin_right = 198.0
-margin_bottom = 20.0
+margin_right = 450.0
+margin_bottom = 65.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Start wave"
 
 [node name="StopWaveButton" type="Button" parent="VBoxContainer"]
-margin_top = 24.0
-margin_right = 198.0
-margin_bottom = 44.0
+margin_top = 69.0
+margin_right = 450.0
+margin_bottom = 134.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Stop wave"
 
 [node name="WaveProgressLabel" type="Label" parent="VBoxContainer"]
-margin_top = 48.0
-margin_right = 198.0
-margin_bottom = 62.0
+margin_top = 138.0
+margin_right = 450.0
+margin_bottom = 171.0
 text = "Wave progress (PLACEHOLDER)"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 66.0
-margin_right = 198.0
-margin_bottom = 90.0
+margin_top = 175.0
+margin_right = 450.0
+margin_bottom = 218.0
 
 [node name="WaveLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 margin_top = 5.0
-margin_right = 39.0
-margin_bottom = 19.0
+margin_right = 88.0
+margin_bottom = 38.0
 text = "Wave:"
 
 [node name="WaveEdit" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
-margin_left = 43.0
-margin_right = 117.0
-margin_bottom = 24.0
+margin_left = 92.0
+margin_right = 226.0
+margin_bottom = 43.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 94.0
-margin_right = 198.0
-margin_bottom = 108.0
+margin_top = 222.0
+margin_right = 450.0
+margin_bottom = 255.0
 
 [node name="MobCountLeft" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 83.0
-margin_bottom = 14.0
+margin_right = 183.0
+margin_bottom = 33.0
 text = "Mobs exited:"
 
 [node name="MobCountRight" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 87.0
-margin_right = 179.0
-margin_bottom = 14.0
+margin_left = 187.0
+margin_right = 401.0
+margin_bottom = 33.0
 text = "PLACEHOLDER"
 
 [node name="GameOverLabel" type="Label" parent="."]
@@ -126,14 +129,83 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -1280.0
 margin_bottom = 40.0
+rect_scale = Vector2( 0.734717, 0.732588 )
+theme = ExtResource( 7 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TopBar"]
-margin_right = 1280.0
-margin_bottom = 40.0
+margin_right = 1818.0
+margin_bottom = 80.0
 
-[node name="Gold" type="MenuButton" parent="TopBar/HBoxContainer"]
+[node name="LeftTopBar" type="HBoxContainer" parent="TopBar/HBoxContainer"]
+margin_right = 1090.0
+margin_bottom = 80.0
+custom_constants/separation = 30
+
+[node name="Button1" type="Button" parent="TopBar/HBoxContainer/LeftTopBar"]
+margin_right = 250.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 250, 80 )
+focus_mode = 0
+theme = ExtResource( 7 )
+shortcut_in_tooltip = false
+button_mask = 0
+enabled_focus_mode = 0
+text = "Settings"
+clip_text = true
+
+[node name="Button2" type="Button" parent="TopBar/HBoxContainer/LeftTopBar"]
+margin_left = 280.0
+margin_right = 530.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 250, 80 )
+focus_mode = 0
+theme = ExtResource( 7 )
+shortcut_in_tooltip = false
+button_mask = 0
+enabled_focus_mode = 0
+text = "Menu"
+clip_text = true
+
+[node name="Button3" type="Button" parent="TopBar/HBoxContainer/LeftTopBar"]
+margin_left = 560.0
+margin_right = 810.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 250, 80 )
+focus_mode = 0
+theme = ExtResource( 7 )
+shortcut_in_tooltip = false
+button_mask = 0
+enabled_focus_mode = 0
+text = "Quests"
+clip_text = true
+
+[node name="Button4" type="Button" parent="TopBar/HBoxContainer/LeftTopBar"]
+margin_left = 840.0
+margin_right = 1090.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 250, 80 )
+focus_mode = 0
+theme = ExtResource( 7 )
+shortcut_in_tooltip = false
+button_mask = 0
+enabled_focus_mode = 0
+text = "About"
+clip_text = true
+
+[node name="TextureRect" type="TextureRect" parent="TopBar/HBoxContainer"]
+margin_left = 1094.0
+margin_right = 1202.0
+margin_bottom = 80.0
+texture = ExtResource( 12 )
+
+[node name="RightTopBar" type="HBoxContainer" parent="TopBar/HBoxContainer"]
+margin_left = 1206.0
+margin_right = 1818.0
+margin_bottom = 80.0
+
+[node name="Gold" type="MenuButton" parent="TopBar/HBoxContainer/RightTopBar"]
 margin_right = 150.0
-margin_bottom = 40.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 150, 40 )
 theme = ExtResource( 7 )
 toggle_mode = false
@@ -146,10 +218,10 @@ clip_text = true
 align = 2
 script = ExtResource( 9 )
 
-[node name="KnowledgeTome" type="MenuButton" parent="TopBar/HBoxContainer"]
+[node name="KnowledgeTome" type="MenuButton" parent="TopBar/HBoxContainer/RightTopBar"]
 margin_left = 154.0
 margin_right = 304.0
-margin_bottom = 40.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 150, 40 )
 theme = ExtResource( 7 )
 toggle_mode = false
@@ -162,10 +234,10 @@ clip_text = true
 align = 2
 script = ExtResource( 10 )
 
-[node name="Food" type="MenuButton" parent="TopBar/HBoxContainer"]
+[node name="Food" type="MenuButton" parent="TopBar/HBoxContainer/RightTopBar"]
 margin_left = 308.0
 margin_right = 458.0
-margin_bottom = 40.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 150, 40 )
 theme = ExtResource( 7 )
 toggle_mode = false
@@ -177,10 +249,10 @@ icon = ExtResource( 6 )
 clip_text = true
 align = 2
 
-[node name="AboutCreators" type="MenuButton" parent="TopBar/HBoxContainer"]
+[node name="AboutCreators" type="MenuButton" parent="TopBar/HBoxContainer/RightTopBar"]
 margin_left = 462.0
 margin_right = 612.0
-margin_bottom = 40.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 150, 40 )
 hint_tooltip = "Remake developers: Praytic & kevl
 Original idea by: geX"
@@ -194,10 +266,11 @@ clip_text = true
 align = 2
 
 [node name="Hints" type="RichTextLabel" parent="."]
-margin_left = 401.0
-margin_top = 298.0
-margin_right = 701.0
-margin_bottom = 398.0
+margin_left = 563.0
+margin_top = 301.0
+margin_right = 1163.0
+margin_bottom = 401.0
+rect_scale = Vector2( 0.525227, 0.545393 )
 text = "Move camera: WASD
 Zoom camera: Mouse wheel, touchpad"
 
