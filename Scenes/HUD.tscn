@@ -11,7 +11,8 @@
 [ext_resource path="res://Scenes/HUD/Gold.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/HUD/KnowledgeTome.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/HUD.gd" type="Script" id=11]
-[ext_resource path="res://Assets/UI/HUD/day_time_icon.png" type="Texture" id=12]
+[ext_resource path="res://Scenes/HUD/TowerTooltip.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/UI/HUD/day_time_icon.png" type="Texture" id=13]
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -273,5 +274,12 @@ rect_scale = Vector2( 0.525227, 0.545393 )
 text = "Move camera: WASD
 Zoom camera: Mouse wheel, touchpad"
 
+[node name="TowerTooltip" parent="." instance=ExtResource( 12 )]
+margin_top = 100.0
+
+[connection signal="mouse_entered" from="BuildBar/MissleT1" to="." method="_on_MissleT1_mouse_entered"]
+[connection signal="mouse_exited" from="BuildBar/MissleT1" to="." method="_on_MissleT1_mouse_exited"]
+[connection signal="mouse_entered" from="BuildBar/GunT1" to="." method="_on_GunT1_mouse_entered"]
+[connection signal="mouse_exited" from="BuildBar/GunT1" to="." method="_on_GunT1_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]
