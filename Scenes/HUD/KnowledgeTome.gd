@@ -1,3 +1,4 @@
+tool
 extends "res://Scenes/HUD/ResourceStatusPanel.gd"
 
 func _init():
