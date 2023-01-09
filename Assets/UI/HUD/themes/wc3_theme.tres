@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=2]
+[gd_resource type="Theme" load_steps=10 format=2]
 
 [ext_resource path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/UI/HUD/day_time_icon.png" type="Texture" id=2]
@@ -7,55 +7,36 @@
 [ext_resource path="res://Resources/Theme/button_styleboxflat_hover.tres" type="StyleBox" id=5]
 [ext_resource path="res://Resources/Theme/button_styleboxflat_pressed.tres" type="StyleBox" id=6]
 
-[sub_resource type="StyleBoxEmpty" id=7]
-
 [sub_resource type="DynamicFont" id=1]
-size = 32
+size = 40
 use_mipmaps = true
+extra_spacing_top = 8
 font_data = ExtResource( 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxEmpty" id=7]
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.396078, 0.854902, 0.478431, 1 )
-
-[sub_resource type="StyleBoxFlat" id=5]
-bg_color = Color( 0.407843, 0.643137, 0.894118, 1 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.156863, 0.14902, 0.14902, 1 )
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color( 1, 0.964706, 0.619608, 1 )
-border_blend = true
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.0470319, 0.0470319, 0.0664062, 1 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
-shadow_color = Color( 0.105882, 0.0941176, 0.0941176, 0.6 )
-shadow_size = 10
-shadow_offset = Vector2( 10, 10 )
-
-[sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.905882, 0.52549, 0.52549, 1 )
 
 [resource]
 default_font = SubResource( 1 )
 Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 0.894118 )
 Button/colors/font_color_disabled = Color( 0.360784, 0.360784, 0.360784, 0.517647 )
 Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
+Button/fonts/font = SubResource( 1 )
 Button/styles/disabled = ExtResource( 3 )
 Button/styles/focus = SubResource( 7 )
 Button/styles/hover = ExtResource( 5 )
 Button/styles/normal = ExtResource( 4 )
 Button/styles/pressed = ExtResource( 6 )
+HudMarginContainer/base_type = "MarginContainer"
+HudMarginContainer/constants/margin_left = 40
+HudMarginContainer/constants/margin_right = 40
 Icons/icons/DayTime = ExtResource( 2 )
 Label/fonts/font = SubResource( 1 )
-MenuButton/colors/font_color = Color( 0.780392, 0.780392, 0.780392, 1 )
-MenuButton/styles/disabled = SubResource( 3 )
-MenuButton/styles/focus = SubResource( 4 )
-MenuButton/styles/hover = SubResource( 5 )
-MenuButton/styles/normal = SubResource( 2 )
-MenuButton/styles/pressed = SubResource( 6 )
+ResourceTab/base_type = "Panel"
+ResourceTab/styles/panel = SubResource( 8 )
