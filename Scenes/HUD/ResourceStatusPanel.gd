@@ -1,3 +1,4 @@
+tool
 extends Panel
 
 export(Texture) var icon_texture

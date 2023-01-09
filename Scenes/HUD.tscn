@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Towers/towerDefense_tile250.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Towers/towerDefense_tile249.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Lib/Build/BuildBar.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/HUD/TowerButton.gd" type="Script" id=4]
-[ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture" id=5]
 [ext_resource path="res://Scenes/HUD/TopMenuBar.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=7]
 [ext_resource path="res://Scenes/HUD.gd" type="Script" id=11]
@@ -129,27 +128,6 @@ text = "GAME OVER"
 
 [node name="TopMenuBar" parent="." instance=ExtResource( 6 )]
 anchor_bottom = 0.077
-
-[node name="TopBar" type="MarginContainer" parent="."]
-visible = false
-margin_right = 2295.0
-margin_bottom = 81.0
-rect_scale = Vector2( 0.836644, 0.931985 )
-theme = ExtResource( 7 )
-
-[node name="ColorRect" type="TextureRect" parent="TopBar"]
-visible = false
-self_modulate = Color( 0.192157, 0.192157, 0.207843, 1 )
-margin_right = 2295.0
-margin_bottom = 81.0
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="TopBar"]
-margin_right = 2295.0
-margin_bottom = 81.0
-theme_type_variation = "HudMarginContainer"
 
 [node name="Hints" type="RichTextLabel" parent="."]
 margin_left = 798.0
