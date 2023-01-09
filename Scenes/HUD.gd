@@ -7,7 +7,7 @@ signal stop_wave()
 
 onready var camera: Camera2D = get_node(@"/root/GameScene/DefaultCamera")
 
-
+	
 func _ready():
 	camera.connect("camera_moved", self, "_on_camera_moved")
 	camera.connect("camera_zoomed", self, "_on_camera_zoomed")

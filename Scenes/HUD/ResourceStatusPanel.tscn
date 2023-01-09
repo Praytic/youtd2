@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=2]
+[ext_resource path="res://Scenes/HUD/ResourceStatusPanel.gd" type="Script" id=3]
+
+[node name="ResourceStatusPanel" type="Panel"]
+margin_right = 250.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 250, 80 )
+theme = ExtResource( 2 )
+theme_type_variation = "ResourceTab"
+script = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 0
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 10.0
+margin_right = 230.0
+margin_bottom = 80.0
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+margin_right = 64.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+margin_left = 68.0
+margin_top = 15.0
+margin_right = 220.0
+margin_bottom = 64.0
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 8.0
+text = "0"
+align = 2
+valign = 1
+clip_text = true
