@@ -3,7 +3,7 @@ extends Control
 
 onready var map_parent: Node2D = get_tree().current_scene.get_node("DefaultMap").get_node("Floor")
 onready var buildable_areas: Array = get_tree().get_nodes_in_group(Constants.Groups.BUILD_AREA_GROUP)
-onready var towers: Node2D = get_tree().current_scene.get_node("Towers")
+onready var object_ysort: Node2D = get_tree().current_scene.get_node("ObjectYSort")
 
 
 var build_mode: bool
@@ -38,7 +38,7 @@ func verify_and_build():
 	if build_mode and tower_preview.is_buildable():
 		var new_tower = TowerManager.get_tower(tower_preview.tower_id)
 		new_tower.position = tower_preview.get_current_pos()
-		towers.add_child(new_tower, true)
+		object_ysort.add_child(new_tower, true)
 
 		tower_preview.queue_free()
 
