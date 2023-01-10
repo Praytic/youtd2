@@ -6,14 +6,10 @@
 [sub_resource type="CircleShape2D" id=1]
 radius = 39.0128
 
-[node name="Mob" type="PathFollow2D"]
-rotate = false
-loop = false
+[node name="Mob" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+[node name="Sprite" parent="." instance=ExtResource( 1 )]
 
-[node name="Sprite" parent="KinematicBody2D" instance=ExtResource( 1 )]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
