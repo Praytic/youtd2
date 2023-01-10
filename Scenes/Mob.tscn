@@ -1,10 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Resources/Sprites/Mobs/MobTemplateSprite.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Mob.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 39.0128
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.176471, 0.486275, 0.239216, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.207843, 0.635294, 0.34902, 0.0784314 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.572549, 0.164706, 0.164706, 1 )
 
 [node name="Mob" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -13,3 +24,12 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+margin_left = -50.0
+margin_top = -70.0
+margin_right = 50.0
+margin_bottom = -56.0
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
+percent_visible = false
