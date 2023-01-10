@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 class_name Mob
 
+export var health_max: int = 10
 export var health: int = 10
 export var mob_move_speed: int = 500
 
@@ -22,6 +23,9 @@ func _process(delta):
 	var reached_path_point: bool = (position == path_point)
 	
 	if reached_path_point:
+# 		Apply damage every time mob turns for debug purposes
+# 		to show how health bars work. Tower damge doesn't work atm.
+		apply_damage(2)
 		current_path_index += 1
 		
 		var mob_animation: String = get_mob_animation()
@@ -37,6 +41,7 @@ func _process(delta):
 func apply_damage(damage):
 	health -= damage
 	
+	$HealthBar.set_as_ratio(float(health) / float(health_max))
 	if health < 0:
 		queue_free()
 
