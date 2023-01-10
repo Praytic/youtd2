@@ -95,6 +95,8 @@ editor_draw_limits = true
 script = ExtResource( 1 )
 cam_move_speed = 5000.0
 
+[node name="MobYSort" type="YSort" parent="."]
+
 [connection signal="start_wave" from="Canvas/HUD" to="." method="_on_HUD_start_wave"]
 [connection signal="stop_wave" from="Canvas/HUD" to="." method="_on_HUD_stop_wave"]
 [connection signal="progress_changed" from="MobSpawner" to="." method="_on_MobSpawner_progress_changed"]
