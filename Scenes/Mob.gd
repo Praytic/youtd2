@@ -23,9 +23,10 @@ func _process(delta):
 	var reached_path_point: bool = (position == path_point)
 	
 	if reached_path_point:
-# 		Apply damage every time mob turns for debug purposes
+# 		DEBUG: Apply damage every time mob turns for debug purposes
 # 		to show how health bars work. Tower damge doesn't work atm.
-		apply_damage(2)
+		# apply_damage(2)
+
 		current_path_index += 1
 		
 		var mob_animation: String = get_mob_animation()
