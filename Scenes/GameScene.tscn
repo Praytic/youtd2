@@ -70,14 +70,15 @@ curve = SubResource( 1 )
 script = ExtResource( 11 )
 
 [node name="MobExit" type="Area2D" parent="."]
+visible = false
 position = Vector2( 356, -524 )
 scale = Vector2( 0.845244, 0.890764 )
 z_index = 999
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="MobExit"]
-position = Vector2( 216.741, 6410.23 )
+position = Vector2( -3532.71, 7757.39 )
 scale = Vector2( 60.716, -28.6271 )
-polygon = PoolVector2Array( -7.0187, -2.90195, -22.9385, 13.2941, -11.6758, 25.0196, 70.6315, -58.4313, 59.3883, -69.7646 )
+polygon = PoolVector2Array( -0.643028, -29.2941, 25.8964, -1.5686, 53.3322, -29.6863, 26.9097, -57.098 )
 
 [node name="DefaultCamera" type="Camera2D" parent="."]
 position = Vector2( 2834, 3291 )
