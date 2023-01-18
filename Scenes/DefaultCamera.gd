@@ -5,7 +5,7 @@ signal camera_zoomed()
 
 export(float) var cam_move_speed = 500.0
 export(float) var maximum_zoom_in = 0.15
-export(float) var minimum_zoom_out = 10
+export(float) var minimum_zoom_out = 10.0
 export(float) var zoom_sensitivity = 1.0
 export(float) var mousewheel_zoom_speed = 0.4
 var move_direction: Vector2

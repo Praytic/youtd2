@@ -40,5 +40,4 @@ func _flattened_properties() -> Dictionary:
 # Return new unique instance of the Tower by its ID
 func get_tower(id: int) -> PackedScene:
 	var tower = preloaded_towers[id].instance()
-	connect("selected", tower, "_on_tower_selected")
 	return tower

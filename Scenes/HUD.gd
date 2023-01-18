@@ -36,7 +36,7 @@ func _on_MissleT1_mouse_entered():
 
 
 func _on_MissleT1_mouse_exited():
-	_on_GenericButton_mouse_exited($BuildBar/MissleT1)
+	_on_GenericButton_mouse_exited()
 
 
 func _on_GunT1_mouse_entered():
@@ -44,7 +44,7 @@ func _on_GunT1_mouse_entered():
 
 
 func _on_GunT1_mouse_exited():
-	_on_GenericButton_mouse_exited($BuildBar/GunT1)
+	_on_GenericButton_mouse_exited()
 
 
 # TODO: connect button signals directly to the general entered/exited slots,
@@ -55,6 +55,5 @@ func _on_TowerButton_mouse_entered(tower_button):
 	$TowerTooltip.show()
 
 
-func _on_GenericButton_mouse_exited(tower_button):
-	var tower_id = tower_button.tower_id
+func _on_GenericButton_mouse_exited():
 	$TowerTooltip.hide()
