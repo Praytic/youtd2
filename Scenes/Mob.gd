@@ -28,15 +28,17 @@ func _process(delta):
 		# apply_damage(2)
 
 		current_path_index += 1
-		
-		var mob_animation: String = get_mob_animation()
-		_sprite.play(mob_animation)
 
-#		Delete mob once it has reached the end of the path
+		#		Delete mob once it has reached the end of the path
 		var reached_end_of_path: bool = (current_path_index >= path_curve.get_point_count())
 
 		if reached_end_of_path:
 			queue_free()
+
+			return
+		
+		var mob_animation: String = get_mob_animation()
+		_sprite.play(mob_animation)
 
 
 func apply_damage(damage):
