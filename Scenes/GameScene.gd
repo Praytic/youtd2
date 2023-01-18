@@ -16,7 +16,7 @@ func _ready():
 	
 	$Canvas/HUD/VBoxContainer/HBoxContainer/WaveEdit.value = 1
 	$MobSpawner.start(0)
-	var _connect_error = $MobSpawner.connect("wave_ended", self, "_on_wave_end")
+	$MobSpawner.connect("wave_ended", self, "_on_wave_end")
 	
 	update_mob_exit_count(0)
 
