@@ -62,11 +62,11 @@ func _ready():
 	description = properties["description"]
 
 	shoot_timer.one_shot = true
-	var _connect_error = shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
+	shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
 	add_child(shoot_timer)
 
 	aoe_timer.one_shot = false
-	var _connect_error2 = aoe_timer.connect("timeout", self, "_on_aoe_timer_timeout")
+	aoe_timer.connect("timeout", self, "_on_aoe_timer_timeout")
 	add_child(aoe_timer)
 	aoe_timer.start(attack_cd)
 
