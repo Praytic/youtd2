@@ -1,8 +1,6 @@
 extends Control
 
 
-onready var map_parent: Node2D = get_tree().current_scene.get_node("DefaultMap").get_node("Floor")
-onready var buildable_areas: Array = get_tree().get_nodes_in_group(Constants.Groups.BUILD_AREA_GROUP)
 onready var object_ysort: Node2D = get_tree().current_scene.get_node("ObjectYSort")
 
 
