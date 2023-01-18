@@ -12,8 +12,8 @@ const opaque_green := Color("ad54ff3c")
 
 var tower_id: int
 
-func _init(tower_id: int):
-	self.tower_id = tower_id
+func _init(tower_id_arg: int):
+	tower_id = tower_id_arg
 
 
 func _ready():
