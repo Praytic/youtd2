@@ -83,17 +83,6 @@ curve = SubResource( 1 )
 [node name="MobSpawner" type="Node" parent="."]
 script = ExtResource( 11 )
 
-[node name="MobExit" type="Area2D" parent="."]
-visible = false
-position = Vector2( 356, -524 )
-scale = Vector2( 0.845244, 0.890764 )
-z_index = 999
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="MobExit"]
-position = Vector2( -3532.71, 7757.39 )
-scale = Vector2( 60.716, -28.6271 )
-polygon = PoolVector2Array( -0.643028, -29.2941, 25.8964, -1.5686, 53.3322, -29.6863, 26.9097, -57.098 )
-
 [node name="DefaultCamera" type="Camera2D" parent="."]
 position = Vector2( -8, 7774 )
 z_index = 1000
@@ -115,6 +104,16 @@ z_index = 5
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 6 )
+
+[node name="MobExit" type="Area2D" parent="."]
+position = Vector2( 356, -524 )
+scale = Vector2( 0.845244, 0.890764 )
+z_index = 999
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="MobExit"]
+position = Vector2( -1993.51, 8648.76 )
+scale = Vector2( 60.716, -28.6271 )
+polygon = PoolVector2Array( -0.44817, -27.7647, 25.8964, -1.41174, 52.241, -27.7647, 25.8964, -54.1176 )
 
 [connection signal="start_wave" from="Canvas/HUD" to="." method="_on_HUD_start_wave"]
 [connection signal="stop_wave" from="Canvas/HUD" to="." method="_on_HUD_stop_wave"]
