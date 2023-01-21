@@ -11,6 +11,7 @@ var mobs_exit_count: int = 0
 export var mobs_game_over_count: int = 10
 export var ignore_game_over: bool = true
 
+
 func _ready():
 	map_node = $DefaultMap
 	
@@ -41,10 +42,9 @@ func _on_MobSpawner_progress_changed(progress_string):
 
 
 func _on_MobExit_body_entered(body):
-	var body_owner: Node = body.get_owner()
-	
-	if body_owner is Mob:
+	if body is Mob:
 		update_mob_exit_count(mobs_exit_count + 1)
+		body.queue_free()
 		
 		var game_over = mobs_exit_count >= mobs_game_over_count
 		
@@ -70,7 +70,3 @@ func _on_wave_end(_wave_index: int):
 	GoldManager.add_gold()
 	KnowledgeTomesManager.add_knowledge_tomes()
 	
-
-
-func _on_MobSpawner_wave_ended(_wave_index):
-	pass # Replace with function body.
