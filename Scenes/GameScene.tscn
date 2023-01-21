@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/DefaultCamera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/MinimapLandscape.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Lib/Build/BuilderControl.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Landscape.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
@@ -10,11 +11,6 @@
 [sub_resource type="GDScript" id=5]
 script/source = "extends CanvasLayer
 "
-
-[sub_resource type="Environment" id=3]
-
-[sub_resource type="World" id=4]
-environment = SubResource( 3 )
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -42,24 +38,36 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -151.0
-margin_top = -150.0
-margin_right = -1.0
+margin_left = -399.0
+margin_top = -232.0
+margin_right = -183.0
+margin_bottom = -16.0
+rect_min_size = Vector2( 216, 216 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Canvas/Minimap"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_left = 0.852
+anchor_top = 0.06
+anchor_right = 0.852
+anchor_bottom = 0.06
+margin_left = -0.0320129
+margin_top = 0.039999
+margin_right = 215.968
+margin_bottom = 216.04
+rect_min_size = Vector2( 216, 216 )
 
 [node name="Viewport" type="Viewport" parent="Canvas/Minimap/ViewportContainer"]
-size = Vector2( 150, 150 )
-own_world = true
-world = SubResource( 4 )
+size = Vector2( 216, 216 )
 handle_input_locally = false
 render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
 
-[node name="Camera2D" type="Camera2D" parent="Canvas/Minimap/ViewportContainer/Viewport"]
-zoom = Vector2( 4, 4 )
+[node name="MinimapCamera" type="Camera2D" parent="Canvas/Minimap/ViewportContainer/Viewport"]
+unique_name_in_owner = true
+position = Vector2( 3904, 3904 )
+current = true
+zoom = Vector2( 37, 37 )
+
+[node name="MinimapLandscape" parent="Canvas/Minimap/ViewportContainer/Viewport" instance=ExtResource( 3 )]
 
 [node name="BuilderControl" type="Control" parent="Canvas"]
 margin_right = 1280.0
@@ -73,22 +81,6 @@ curve = SubResource( 1 )
 
 [node name="MobSpawner" type="Node" parent="."]
 script = ExtResource( 11 )
-
-[node name="DefaultCamera" type="Camera2D" parent="."]
-position = Vector2( -8, 7774 )
-z_index = 1000
-current = true
-zoom = Vector2( 3, 3 )
-limit_left = -10368
-limit_top = 2560
-limit_right = 10368
-limit_bottom = 12928
-limit_smoothed = true
-smoothing_enabled = true
-editor_draw_screen = false
-editor_draw_limits = true
-script = ExtResource( 1 )
-cam_move_speed = 5000.0
 
 [node name="ObjectYSort" type="YSort" parent="."]
 z_index = 5
@@ -105,6 +97,22 @@ z_index = 999
 position = Vector2( -1993.51, 8648.76 )
 scale = Vector2( 60.716, -28.6271 )
 polygon = PoolVector2Array( -0.44817, -27.7647, 25.8964, -1.41174, 52.241, -27.7647, 25.8964, -54.1176 )
+
+[node name="DefaultCamera" type="Camera2D" parent="."]
+position = Vector2( 0, 7774 )
+z_index = 1000
+current = true
+zoom = Vector2( 3, 3 )
+limit_left = -10368
+limit_top = 2560
+limit_right = 10368
+limit_bottom = 12928
+limit_smoothed = true
+smoothing_enabled = true
+editor_draw_screen = false
+editor_draw_limits = true
+script = ExtResource( 1 )
+cam_move_speed = 5000.0
 
 [connection signal="start_wave" from="Canvas/HUD" to="." method="_on_HUD_start_wave"]
 [connection signal="stop_wave" from="Canvas/HUD" to="." method="_on_HUD_stop_wave"]
