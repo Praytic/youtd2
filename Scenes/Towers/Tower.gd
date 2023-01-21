@@ -39,6 +39,8 @@ var aoe_timer: Timer
 var attack_style = AttackStyle.None
 var aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 
+onready var shooting_area: Area2D = get_node("ShootingArea")
+onready var shooting_area_shape: CollisionShape2D = get_node("ShootingArea/CollisionShape2D")
 
 func _ready():
 	add_child(aoe_scene.instance(), true)
@@ -60,17 +62,20 @@ func _ready():
 	description = properties["description"]
 
 	shoot_timer.one_shot = true
-	var _connect_error = shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
+	shoot_timer.connect("timeout", self, "_on_shoot_timer_timeout")
 	add_child(shoot_timer)
 
 	aoe_timer.one_shot = false
-	var _connect_error2 = aoe_timer.connect("timeout", self, "_on_aoe_timer_timeout")
+	aoe_timer.connect("timeout", self, "_on_aoe_timer_timeout")
 	add_child(aoe_timer)
 	aoe_timer.start(attack_cd)
 
 	attack_style = attack_style_from_string(attack_style_string)
 	
 	$AreaOfEffect.hide()
+	
+	shooting_area.connect("body_entered", self, "_on_ShootingArea_body_entered")
+	shooting_area.connect("body_exited", self, "_on_ShootingArea_body_exited")
 
 
 func attack_style_from_string(string: String):
@@ -102,10 +107,8 @@ func find_new_target() -> Mob:
 	var distance_min: float = 1000000.0
 	
 	for body in body_list:
-		var owner: Node = body.get_owner()
-	
-		if owner is Mob:
-			var mob: Mob = owner
+		if body is Mob:
+			var mob: Mob = body
 			var distance: float = (mob.position - self.position).length()
 			
 			if distance < distance_min:
@@ -143,22 +146,18 @@ func try_to_shoot():
 	
 
 
-func _on_ShootingArea_body_entered(body):
+func _on_ShootingArea_body_entered(body: Node):
 	if have_target():
 		return
 		
-	var owner = body.get_owner()
-
-	if owner is Mob:
+	if body is Mob:
 #		New target acquired
-		target_mob = owner
+		target_mob = body
 		try_to_shoot()
 
 
-func _on_ShootingArea_body_exited(body):
-	var owner = body.get_owner()
-
-	if owner == target_mob:
+func _on_ShootingArea_body_exited(body: Node):
+	if body == target_mob:
 #		Target has gone out of range
 		target_mob = find_new_target()
 		try_to_shoot()
@@ -188,6 +187,15 @@ func build_init():
 func set_attack_range(radius: float):
 	attack_range = radius
 	$AreaOfEffect.set_radius(radius)
+	
+	var shape: Shape2D = shooting_area_shape.shape
+	var circle_shape: CircleShape2D = shape as CircleShape2D
+	
+	if circle_shape == null:
+		print_debug("Failed to cast shooting area shape to circle")
+		return
+	
+	circle_shape.radius = attack_range
 
 
 func _select():

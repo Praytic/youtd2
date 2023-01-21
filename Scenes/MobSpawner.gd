@@ -19,7 +19,7 @@ var mob_total_count: int = 0
 func _ready():
 	timer = Timer.new()
 	timer.one_shot = true
-	var _connect_error = timer.connect("timeout", self, "_on_timer_timeout")
+	timer.connect("timeout", self, "_on_timer_timeout")
 	add_child(timer, true)
 
 
