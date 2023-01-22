@@ -1,12 +1,11 @@
 extends Node
 
-class_name MobSpawner
 
 signal spawned(mob_name)
 signal progress_changed(progress_string)
 signal wave_ended(wave_index)
 
-var timer: Timer
+onready var timer: Timer = $Timer
 
 var group_list: Array = []
 var group_index: int = 0
@@ -14,14 +13,8 @@ var mob_index: int = 0
 var mob_spawned_count: int = 0
 var mob_total_count: int = 0
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	timer = Timer.new()
-	timer.one_shot = true
-	timer.connect("timeout", self, "_on_timer_timeout")
-	add_child(timer, true)
-
+	start(0)
 
 func start(wave_index: int):
 	var parsed_json = Properties.waves[wave_index]
@@ -60,7 +53,7 @@ func get_mob_total_count() -> int:
 	return out
 
 
-func _on_timer_timeout():
+func _on_Timer_timeout():
 	var group: Dictionary = group_list[group_index]
 	var time_between_mobs: float = group["time_between_mobs"]
 	var mob_list: Array = group["mob_list"]
