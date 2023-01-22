@@ -25,3 +25,14 @@ func list_files_in_directory(path: String, regex_search: RegEx = null) -> Array:
 	dir.list_dir_end()
 
 	return files
+
+
+func circle_shape_set_radius(collision_shape: CollisionShape2D, radius: float):
+	var shape: Shape2D = collision_shape.shape
+	var circle_shape: CircleShape2D = shape as CircleShape2D
+	
+	if circle_shape == null:
+		print_debug("Failed to cast area shape to circle")
+		return
+	
+	circle_shape.radius = radius
