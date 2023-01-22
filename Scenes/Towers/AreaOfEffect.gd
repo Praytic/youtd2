@@ -4,7 +4,7 @@ extends Node2D
 class_name AreaOfEffect
 
 
-export(float) var radius setget set_radius
+export(float) var radius
 onready var texture: Texture = load("res://Resources/PulsingDot.tres")
 
 
@@ -26,4 +26,3 @@ func draw_circle_arc(center, angle_from, angle_to, color):
 
 func set_radius(value: float):
 	radius = value
-	$CollisionArea/CollisionShape2D.shape.radius = radius
