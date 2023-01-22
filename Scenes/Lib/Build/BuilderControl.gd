@@ -1,7 +1,7 @@
 extends Control
 
 
-onready var object_ysort: Node2D = get_tree().current_scene.get_node("ObjectYSort")
+onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
 
 
 var build_mode: bool
@@ -28,7 +28,7 @@ func on_build_button_pressed(tower_id: int):
 	tower_preview = TowerPreview.new(tower_id)
 	tower_preview.set_name("TowerPreview")
 	tower_preview.add_child(tower_instance, true)
-	var game_scene = get_node(@"/root/GameScene")
+	var game_scene = $"/root/GameScene"
 	game_scene.add_child(tower_preview, true)
 
 
@@ -36,7 +36,7 @@ func verify_and_build():
 	if build_mode and tower_preview.is_buildable():
 		var new_tower = TowerManager.get_tower(tower_preview.tower_id)
 		new_tower.position = tower_preview.get_current_pos()
-		object_ysort.add_child(new_tower, true)
+		mob_ysort.add_child(new_tower, true)
 
 		tower_preview.queue_free()
 
