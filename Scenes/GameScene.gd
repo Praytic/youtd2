@@ -17,7 +17,7 @@ func _on_MobSpawner_spawned(mob_name):
 	var mob: Mob = mob_scene.instance()
 	mob.set_path($MobPath1)
 	
-	$ObjectYSort.add_child(mob)
+	$MobYSort.add_child(mob)
 
 
 func _on_HUD_start_wave(wave_index):

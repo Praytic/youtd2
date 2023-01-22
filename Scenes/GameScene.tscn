@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/DefaultCamera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
@@ -15,11 +15,6 @@ script/source = "extends CanvasLayer
 [sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 5610, 2975, 0, 0, 0, 0, 2825, 4367, 0, 0, 0, 0, 2766, 4428, 0, 0, 0, 0, 2816, 4499, 0, 0, 0, 0, 3626, 4904, 0, 0, 0, 0, 3711, 4922, 0, 0, 0, 0, 3788, 4909, 0, 0, 0, 0, 5288, 4152, 0, 0, 0, 0, 5376, 4131, 0, 0, 0, 0, 5456, 4152, 0, 0, 0, 0, 6370, 4609, 0, 0, 0, 0, 6415, 4662, 0, 0, 0, 0, 6368, 4709, 0, 0, 0, 0, 3846, 5965, 0, 0, 0, 0, 3779, 5978, 0, 0, 0, 0, 3707, 5968, 0, 0, 0, 0, 2258, 5242, 0, 0, 0, 0, 2176, 5221, 0, 0, 0, 0, 2095, 5241, 0, 0, 0, 0, 1232, 5674, 0, 0, 0, 0, 1194, 5712, 0, 0, 0, 0, 1230, 5755, 0, 0, 0, 0, 2611, 6444, 0, 0, 0, 0, 2644, 6482, 0, 0, 0, 0, 2609, 6522, 0, 0, 0, 0, -93, 7840 )
-}
-
-[sub_resource type="Curve2D" id=6]
-_data = {
-"points": PoolVector2Array(  )
 }
 
 [node name="GameScene" type="Node2D"]
@@ -79,11 +74,8 @@ script = ExtResource( 4 )
 z_index = 999
 curve = SubResource( 1 )
 
-[node name="ObjectYSort" type="YSort" parent="."]
+[node name="MobYSort" type="YSort" parent="."]
 z_index = 5
-
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource( 6 )
 
 [node name="MobExit" type="Area2D" parent="."]
 position = Vector2( 356, -524 )
