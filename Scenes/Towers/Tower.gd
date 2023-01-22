@@ -167,10 +167,8 @@ func _on_aoe_timer_timeout():
 	var body_list: Array = $AreaOfEffect/CollisionArea.get_overlapping_bodies()
 	
 	for body in body_list:
-		var owner: Node = body.get_owner()
-	
-		if owner is Mob:
-			var mob: Mob = owner
+		if body is Mob:
+			var mob: Mob = body as Mob
 			mob.apply_damage(4)
 			
 			var explosion = explosion_scene.instance()
