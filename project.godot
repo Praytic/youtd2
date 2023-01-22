@@ -22,12 +22,7 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Mob",
 "language": "GDScript",
-"path": "res://Scenes/Mob.gd"
-}, {
-"base": "Node",
-"class": "MobSpawner",
-"language": "GDScript",
-"path": "res://Scenes/MobSpawner.gd"
+"path": "res://Scenes/Mobs/Mob.gd"
 }, {
 "base": "Building",
 "class": "Tower",
@@ -48,7 +43,6 @@ _global_script_class_icons={
 "AreaOfEffect": "",
 "Building": "",
 "Mob": "",
-"MobSpawner": "",
 "Tower": "",
 "TowerButton": "",
 "TowerPreview": ""

@@ -1,25 +1,16 @@
 extends Node2D
 
 const mob_scene_map: Dictionary = {
-	"Mob": preload("res://Scenes/Mob.tscn")
+	"Mob": preload("res://Scenes/Mobs/Mob.tscn")
 }
 
 
-var map_node: Node
+onready var map_node: Node = $DefaultMap
 var mobs_exit_count: int = 0
 
 export var mobs_game_over_count: int = 10
 export var ignore_game_over: bool = true
 
-
-func _ready():
-	map_node = $DefaultMap
-	
-	$Canvas/HUD/VBoxContainer/HBoxContainer/WaveEdit.value = 1
-	$MobSpawner.start(0)
-	$MobSpawner.connect("wave_ended", self, "_on_wave_end")
-	
-	update_mob_exit_count(0)
 
 func _on_MobSpawner_spawned(mob_name):
 	var mob_scene = mob_scene_map[mob_name]
@@ -66,7 +57,7 @@ func update_mob_exit_count(new_value):
 func do_game_over():
 	$Canvas/HUD/GameOverLabel.visible = true
 
-func _on_wave_end(_wave_index: int):
+
+func _on_MobSpawner_wave_ended(wave_index: int):
 	GoldManager.add_gold()
 	KnowledgeTomesManager.add_knowledge_tomes()
-	
