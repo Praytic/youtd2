@@ -5,7 +5,7 @@ const mob_scene_map: Dictionary = {
 }
 
 
-onready var map_node: Node = $DefaultMap
+onready var map_node: Node = $Map
 var mobs_exit_count: int = 0
 
 export var mobs_game_over_count: int = 10
@@ -15,21 +15,21 @@ export var ignore_game_over: bool = true
 func _on_MobSpawner_spawned(mob_name):
 	var mob_scene = mob_scene_map[mob_name]
 	var mob: Mob = mob_scene.instance()
-	mob.set_path($MobPath1)
+	mob.set_path($Map/MobPath1)
 	
-	$MobYSort.add_child(mob)
+	$Map/MobYSort.add_child(mob)
 
 
 func _on_HUD_start_wave(wave_index):
-	$MobSpawner.start(wave_index)
+	$Map/MobSpawner.start(wave_index)
 
 
 func _on_HUD_stop_wave():
-	$MobSpawner.stop()
+	$Map/MobSpawner.stop()
 
 
 func _on_MobSpawner_progress_changed(progress_string):
-	$Canvas/HUD/VBoxContainer/WaveProgressLabel.text = progress_string
+	$UI/HUD/VBoxContainer/WaveProgressLabel.text = progress_string
 
 
 func _on_MobExit_body_entered(body):
@@ -50,12 +50,12 @@ func update_mob_exit_count(new_value):
 	var mob_count_right_text = "%d/%d" % \
 	[mobs_exit_count, mobs_game_over_count]
 		
-	$Canvas/HUD/VBoxContainer/HBoxContainer2/MobCountRight.text = \
+	$UI/HUD/VBoxContainer/HBoxContainer2/MobCountRight.text = \
 	mob_count_right_text
 
 
 func do_game_over():
-	$Canvas/HUD/GameOverLabel.visible = true
+	$UI/HUD/GameOverLabel.visible = true
 
 
 func _on_MobSpawner_wave_ended(wave_index: int):
