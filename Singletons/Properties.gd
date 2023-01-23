@@ -49,13 +49,22 @@ const towers = {
 		"element": "nature",
 		"attack_type": "physical",
 		"attack_range": 800,
-		"attack_cd": 0.9,
+		"attack_cd": 3,
 		"attack_style": "shoot",
+		"projectile_range": 0,
 		"damage_l": 26,
 		"damage_r": 26,
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
-		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd"
+		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+		"aura_list": [
+			{
+				"type": "slow",
+				"value": 200,
+				"duration": 5,
+				"period": 0,
+			}
+		]
 	},
 	"Shrub": {
 		"id": 439,
@@ -107,5 +116,66 @@ const towers = {
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd"
+	}
+}
+
+var example_towers = {
+	"Frost Tower": {
+		"id": 2,
+		"name": "Frost Tower",
+		"family_id": 1,
+		"author": "gex",
+		"rarity": "common",
+		"element": "nature",
+		"attack_type": "physical",
+		"attack_range": 800,
+		"attack_cd": 0.9,
+		"attack_style": "shoot",
+		"projectile_range": 100,
+		"damage_l": 26,
+		"damage_r": 26,
+		"cost": 30,
+		"description": "Frost tower that deals frost damage and slows mobs.",
+		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+		"aura_list": [
+			{
+				"type": "change health",
+				"value": [-1, -2],
+				"duration": 0,
+				"period": 0,
+			},
+			{
+				"type": "slow",
+				"value": 100,
+				"duration": 1,
+				"period": 0,
+			}
+		]
+	},
+	"Stunner": {
+		"id": 3,
+		"name": "Stunner",
+		"family_id": 1,
+		"author": "gex",
+		"rarity": "common",
+		"element": "nature",
+		"attack_type": "physical",
+		"attack_range": 800,
+		"attack_cd": 0.9,
+		"attack_style": "shoot",
+		"projectile_range": 100,
+		"damage_l": 26,
+		"damage_r": 26,
+		"cost": 30,
+		"description": "Tower that shoots and stuns, but deals no damage.",
+		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+		"aura_list": [
+			{
+				"type": "slow",
+				"value": 10000,
+				"duration": 1,
+				"period": 0,
+			}
+		]
 	}
 }
