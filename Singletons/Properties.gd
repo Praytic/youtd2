@@ -81,7 +81,9 @@ const towers = {
 		"damage_r": 113,
 		"cost": 140,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"resource": "res://Scenes/Towers/Instances/Shrub.gd"
+		"resource": "res://Scenes/Towers/Instances/Shrub.gd",
+		"projectile_range": 0,
+		"aura_list": []
 	},
 	"GreaterShrub": {
 		"id": 511,
@@ -98,7 +100,9 @@ const towers = {
 		"damage_r": 299,
 		"cost": 400,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"resource": "res://Scenes/Towers/Instances/GreaterShrub.gd"
+		"resource": "res://Scenes/Towers/Instances/GreaterShrub.gd",
+		"projectile_range": 0,
+		"aura_list": []
 	},
 	"SmallCactus": {
 		"id": 41,
@@ -115,7 +119,9 @@ const towers = {
 		"damage_r": 58,
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
-		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd"
+		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+		"projectile_range": 0,
+		"aura_list": []
 	}
 }
 
