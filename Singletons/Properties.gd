@@ -64,6 +64,12 @@ const towers = {
 				"duration": 10,
 				"period": 1,
 			},
+			{
+				"type": "slow",
+				"value": 100,
+				"duration": 10,
+				"period": 0,
+			}
 		]
 	},
 	"Shrub": {
@@ -145,8 +151,8 @@ var example_towers = {
 				"period": 0,
 			},
 			{
-				"type": "change speed",
-				"value": -100,
+				"type": "slow",
+				"value": 100,
 				"duration": 1,
 				"period": 0,
 			}
@@ -171,8 +177,8 @@ var example_towers = {
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
 		"aura_list": [
 			{
-				"type": "change speed",
-				"value": -10000,
+				"type": "slow",
+				"value": 10000,
 				"duration": 1,
 				"period": 0,
 			}
