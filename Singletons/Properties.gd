@@ -49,9 +49,9 @@ const towers = {
 		"element": "nature",
 		"attack_type": "physical",
 		"attack_range": 800,
-		"attack_cd": 0.9,
+		"attack_cd": 3,
 		"attack_style": "shoot",
-		"projectile_range": 100,
+		"projectile_range": 0,
 		"damage_l": 26,
 		"damage_r": 26,
 		"cost": 30,
@@ -60,16 +60,10 @@ const towers = {
 		"aura_list": [
 			{
 				"type": "change health",
-				"value_range": [-1, -2],
-				"duration": 0,
-				"period": 0,
+				"value_fixed": -1,
+				"duration": 10,
+				"period": 1,
 			},
-			{
-				"type": "change speed",
-				"value_fixed": -1000,
-				"duration": 2,
-				"period": 0,
-			}
 		]
 	},
 	"Shrub": {

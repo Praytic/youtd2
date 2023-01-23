@@ -7,8 +7,8 @@ signal moved(delta)
 signal dead
 
 
-export var health_max: int = 10
-export var health: int = 10
+export var health_max: int = 100
+export var health: int = 100
 export var default_mob_move_speed: int = 500
 var mob_move_speed: int
 
@@ -85,12 +85,52 @@ func die():
 func add_aura_list(aura_info_list: Array):
 	for aura_info in aura_info_list:
 		var aura = Aura.new(aura_info)
-#		NOTE: important to connect before calling
-#		add_child(), so because first signal can be emitted
-#		when add_child() is called
 		aura.connect("applied", self, "on_aura_applied")
 		aura.connect("expired", self, "on_aura_expired")
 		$AuraContainer.add_child(aura)
+
+		var aura_is_periodic: bool = aura.period > 0
+
+		if aura_is_periodic:
+			process_periodic_auras(aura.type)
+		else:
+			aura.run()
+
+
+# Periodic aura's have special stacking behavior. If
+# multiple periodic auras of same type are added, then only
+# the strongest aura will be running. Other aura's will be
+# paused until the strongest aura expires. Note that if a
+# stronger aura is added while another aura is running, the
+# stronger one will take over.
+func process_periodic_auras(type: String):
+	var aura_list: Array = get_aura_list()
+
+	var strongest_aura: Aura = null
+	var running_aura: Aura = null
+	
+	for aura in aura_list:
+		if aura.type != type:
+			continue
+		
+		var this_dps: float = aura.get_dps()
+
+		if strongest_aura != null:
+			if this_dps > strongest_aura.get_dps():
+				strongest_aura = aura
+		else:
+			strongest_aura = aura
+
+		if aura.is_running:
+			running_aura = aura
+
+	if running_aura == null:
+		if strongest_aura != null:
+			strongest_aura.run()
+	else:
+		if running_aura != strongest_aura:
+			running_aura.pause()
+			strongest_aura.run()
 
 
 func on_aura_applied(aura: Aura):
@@ -111,15 +151,9 @@ func update_speed_auras():
 	var strongest_negative: int = 0
 	var strongest_positive: int = 0
 	
-	for aura_node in $AuraContainer.get_children():
-		if !(aura_node is Aura):
-			continue
-		
-		var aura: Aura = aura_node as Aura
-		
-		if aura.is_expired:
-			continue
-		
+	var aura_list: Array = get_aura_list()
+
+	for aura in aura_list:
 		if aura.type != "change speed":
 			continue
 		
@@ -130,3 +164,21 @@ func update_speed_auras():
 			strongest_positive = int(aura.get_value())
 	
 	mob_move_speed = int(max(0, default_mob_move_speed + strongest_negative + strongest_positive))
+
+
+# Get list of active aura's (including paused)
+func get_aura_list() -> Array:
+	var aura_list: Array = []
+
+	for aura_node in $AuraContainer.get_children():
+		if !(aura_node is Aura):
+			continue
+		
+		var aura: Aura = aura_node as Aura
+		
+		if aura.is_expired:
+			continue
+
+		aura_list.append(aura)
+
+	return aura_list
