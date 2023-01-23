@@ -4,6 +4,7 @@ extends KinematicBody2D
 var target_mob: Mob = null
 export var speed: int = 100
 export var contact_distance: int = 30
+var aura_list: Array = []
 
 
 # TODO: duplicated in GunT1.gd, move somewhere to share in both places
@@ -23,7 +24,7 @@ func _process(delta):
 	
 	if reached_mob:
 #		TODO: read damage number from tower parameters
-		target_mob.apply_damage(4)
+		target_mob.add_aura_list(aura_list)
 		queue_free()
 		return
 	

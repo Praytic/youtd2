@@ -55,7 +55,21 @@ const towers = {
 		"damage_r": 26,
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
-		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd"
+		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+		"aura_list": [
+			{
+				"type": "change health",
+				"value": -1,
+				"duration": 0,
+				"period": 0,
+			},
+			{
+				"type": "change speed",
+				"value": -1000,
+				"duration": 2,
+				"period": 0,
+			}
+		]
 	},
 	"Shrub": {
 		"id": 439,

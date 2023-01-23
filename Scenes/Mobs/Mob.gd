@@ -9,7 +9,8 @@ signal dead
 
 export var health_max: int = 10
 export var health: int = 10
-export var mob_move_speed: int = 500
+export var default_mob_move_speed: int = 500
+var mob_move_speed: int
 
 
 var path_curve: Curve2D
@@ -20,7 +21,8 @@ onready var _sprite = $Sprite
 
 
 func _ready():
-	pass
+	mob_move_speed = default_mob_move_speed
+
 
 func _process(delta):
 	var path_point: Vector2 = path_curve.get_point_position(current_path_index)
@@ -30,10 +32,6 @@ func _process(delta):
 	var reached_path_point: bool = (position == path_point)
 	
 	if reached_path_point:
-# 		DEBUG: Apply damage every time mob turns for debug purposes
-# 		to show how health bars work. Tower damge doesn't work atm.
-		# apply_damage(2)
-
 		current_path_index += 1
 
 		#		Delete mob once it has reached the end of the path
@@ -47,8 +45,8 @@ func _process(delta):
 		_sprite.play(mob_animation)
 
 
-func apply_damage(damage):
-	health -= damage
+func change_health(damage):
+	health += damage
 	
 	$HealthBar.set_as_ratio(float(health) / float(health_max))
 	if health < 0:
@@ -82,3 +80,57 @@ func get_mob_animation() -> String:
 func die():
 	emit_signal("dead")
 	queue_free()
+
+
+func add_aura_list(aura_info_list: Array):
+	for aura_info in aura_info_list:
+		var aura = Aura.new(aura_info)
+#		NOTE: important to connect before calling
+#		add_child(), so because first signal can be emitted
+#		when add_child() is called
+		aura.connect("applied", self, "on_aura_applied")
+		aura.connect("expired", self, "on_aura_expired")
+		$AuraContainer.add_child(aura)
+
+
+func on_aura_applied(aura: Aura):
+	match aura.type:
+		"change health": change_health(aura.value)
+		"change speed": update_speed_auras()
+		_: print_debug("unhandled aura.type in on_aura_applied():", aura.type)
+
+
+func on_aura_expired(aura: Aura):
+	match aura.type:
+		"change health": return
+		"change speed": update_speed_auras()
+		_: print_debug("unhandled aura.type on_aura_expired():", aura.type)
+
+
+func expire_aura_change_speed(aura):
+	pass
+
+
+func update_speed_auras():
+	var strongest_negative: float = 0
+	var strongest_positive: float = 0
+	
+	for aura_node in $AuraContainer.get_children():
+		if !(aura_node is Aura):
+			continue
+		
+		var aura: Aura = aura_node as Aura
+		
+		if aura.is_expired:
+			continue
+		
+		if aura.type != "change speed":
+			continue
+		
+		if aura.value < strongest_negative:
+			strongest_negative = aura.value
+		
+		if aura.value > strongest_positive:
+			strongest_positive = aura.value
+	
+	mob_move_speed = max(0, default_mob_move_speed + strongest_negative + strongest_positive)
