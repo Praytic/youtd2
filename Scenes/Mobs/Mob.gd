@@ -141,6 +141,11 @@ func on_aura_applied(aura: Aura):
 
 
 func on_aura_expired(aura: Aura):
+	var aura_is_periodic: bool = aura.period > 0
+
+	if aura_is_periodic:
+		process_periodic_auras(aura.type)
+			
 	match aura.type:
 		"change health": return
 		"slow": update_speed_auras()
