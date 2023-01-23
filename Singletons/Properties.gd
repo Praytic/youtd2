@@ -51,6 +51,7 @@ const towers = {
 		"attack_range": 800,
 		"attack_cd": 0.9,
 		"attack_style": "shoot",
+		"projectile_range": 100,
 		"damage_l": 26,
 		"damage_r": 26,
 		"cost": 30,
