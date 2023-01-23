@@ -3,7 +3,8 @@ extends KinematicBody2D
 class_name Mob
 
 
-signal moved(mob, delta)
+signal moved(delta)
+signal dead
 
 
 export var health_max: int = 10
@@ -24,7 +25,7 @@ func _ready():
 func _process(delta):
 	var path_point: Vector2 = path_curve.get_point_position(current_path_index)
 	position = position.move_toward(path_point, mob_move_speed * delta)
-	emit_signal("moved", self, delta)
+	emit_signal("moved", delta)
 	
 	var reached_path_point: bool = (position == path_point)
 	
@@ -39,8 +40,7 @@ func _process(delta):
 		var reached_end_of_path: bool = (current_path_index >= path_curve.get_point_count())
 
 		if reached_end_of_path:
-			queue_free()
-
+			die()
 			return
 		
 		var mob_animation: String = get_mob_animation()
@@ -52,7 +52,7 @@ func apply_damage(damage):
 	
 	$HealthBar.set_as_ratio(float(health) / float(health_max))
 	if health < 0:
-		queue_free()
+		die()
 
 
 func set_path(path: Path2D):
@@ -78,3 +78,7 @@ func get_mob_animation() -> String:
 		return "run_n"
 	else:
 		return "stand"
+
+func die():
+	emit_signal("dead")
+	queue_free()
