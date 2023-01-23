@@ -5,7 +5,8 @@ const mob_scene_map: Dictionary = {
 }
 
 
-onready var map_node: Node = $Map
+onready var map_node: Node2D = $Map
+onready var minimap_node: Node2D = get_node(@"%Minimap")
 var mobs_exit_count: int = 0
 
 export var mobs_game_over_count: int = 10
@@ -18,6 +19,7 @@ func _on_MobSpawner_spawned(mob_name):
 	mob.set_path($Map/MobPath1)
 	
 	$Map/MobYSort.add_child(mob)
+	minimap_node.spawn(mob)
 
 
 func _on_HUD_start_wave(wave_index):
