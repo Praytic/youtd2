@@ -136,34 +136,30 @@ func process_periodic_auras(type: String):
 func on_aura_applied(aura: Aura):
 	match aura.type:
 		"change health": change_health(aura.get_value())
-		"change speed": update_speed_auras()
+		"slow": update_speed_auras()
 		_: print_debug("unhandled aura.type in on_aura_applied():", aura.type)
 
 
 func on_aura_expired(aura: Aura):
 	match aura.type:
 		"change health": return
-		"change speed": update_speed_auras()
+		"slow": update_speed_auras()
 		_: print_debug("unhandled aura.type on_aura_expired():", aura.type)
 
 
 func update_speed_auras():
-	var strongest_negative: int = 0
-	var strongest_positive: int = 0
+	var strongest_value: int = 0
 	
 	var aura_list: Array = get_aura_list()
 
 	for aura in aura_list:
-		if aura.type != "change speed":
+		if aura.type != "slow":
 			continue
 		
-		if aura.get_value() < strongest_negative:
-			strongest_negative = int(aura.get_value())
-		
-		if aura.get_value() > strongest_positive:
-			strongest_positive = int(aura.get_value())
+		if aura.get_value() > strongest_value:
+			strongest_value = int(aura.get_value())
 	
-	mob_move_speed = int(max(0, default_mob_move_speed + strongest_negative + strongest_positive))
+	mob_move_speed = int(max(0, default_mob_move_speed - strongest_value))
 
 
 # Get list of active aura's (including paused)
