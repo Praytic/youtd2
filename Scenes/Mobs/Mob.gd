@@ -95,7 +95,7 @@ func add_aura_list(aura_info_list: Array):
 
 func on_aura_applied(aura: Aura):
 	match aura.type:
-		"change health": change_health(aura.value)
+		"change health": change_health(aura.get_value())
 		"change speed": update_speed_auras()
 		_: print_debug("unhandled aura.type in on_aura_applied():", aura.type)
 
@@ -107,13 +107,9 @@ func on_aura_expired(aura: Aura):
 		_: print_debug("unhandled aura.type on_aura_expired():", aura.type)
 
 
-func expire_aura_change_speed(aura):
-	pass
-
-
 func update_speed_auras():
-	var strongest_negative: float = 0
-	var strongest_positive: float = 0
+	var strongest_negative: int = 0
+	var strongest_positive: int = 0
 	
 	for aura_node in $AuraContainer.get_children():
 		if !(aura_node is Aura):
@@ -127,10 +123,10 @@ func update_speed_auras():
 		if aura.type != "change speed":
 			continue
 		
-		if aura.value < strongest_negative:
-			strongest_negative = aura.value
+		if aura.get_value() < strongest_negative:
+			strongest_negative = int(aura.get_value())
 		
-		if aura.value > strongest_positive:
-			strongest_positive = aura.value
+		if aura.get_value() > strongest_positive:
+			strongest_positive = int(aura.get_value())
 	
-	mob_move_speed = max(0, default_mob_move_speed + strongest_negative + strongest_positive)
+	mob_move_speed = int(max(0, default_mob_move_speed + strongest_negative + strongest_positive))

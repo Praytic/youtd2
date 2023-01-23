@@ -59,13 +59,13 @@ const towers = {
 		"aura_list": [
 			{
 				"type": "change health",
-				"value": -1,
+				"value_range": [-1, -2],
 				"duration": 0,
 				"period": 0,
 			},
 			{
 				"type": "change speed",
-				"value": -1000,
+				"value_fixed": -1000,
 				"duration": 2,
 				"period": 0,
 			}
