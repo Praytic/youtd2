@@ -9,9 +9,10 @@ func _ready():
 	pass
 
 
-func init(attack_range: float, attack_cd: float):
-	$AttackTimer.wait_time = attack_cd
+func init(properties):
+	$AttackTimer.wait_time = properties["attack_cd"]
 
+	var attack_range = properties["attack_range"]
 	Utils.circle_shape_set_radius($AttackArea/CollisionShape2D, attack_range)
 
 
