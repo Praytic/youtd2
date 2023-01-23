@@ -37,7 +37,7 @@ func _on_MobSpawner_progress_changed(progress_string):
 func _on_MobExit_body_entered(body):
 	if body is Mob:
 		update_mob_exit_count(mobs_exit_count + 1)
-		body.queue_free()
+		body.die()
 		
 		var game_over = mobs_exit_count >= mobs_game_over_count
 		
