@@ -124,3 +124,64 @@ const towers = {
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd"
 	}
 }
+
+var example_towers = {
+	"Frost Tower": {
+		"id": 2,
+		"name": "Frost Tower",
+		"family_id": 1,
+		"author": "gex",
+		"rarity": "common",
+		"element": "nature",
+		"attack_type": "physical",
+		"attack_range": 800,
+		"attack_cd": 0.9,
+		"attack_style": "shoot",
+		"projectile_range": 100,
+		"damage_l": 26,
+		"damage_r": 26,
+		"cost": 30,
+		"description": "Frost tower that deals frost damage and slows mobs.",
+		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+		"aura_list": [
+			{
+				"type": "change health",
+				"value_range": [-1, -2],
+				"duration": 0,
+				"period": 0,
+			},
+			{
+				"type": "change speed",
+				"value_fixed": -100,
+				"duration": 1,
+				"period": 0,
+			}
+		]
+	},
+	"Stunner": {
+		"id": 3,
+		"name": "Stunner",
+		"family_id": 1,
+		"author": "gex",
+		"rarity": "common",
+		"element": "nature",
+		"attack_type": "physical",
+		"attack_range": 800,
+		"attack_cd": 0.9,
+		"attack_style": "shoot",
+		"projectile_range": 100,
+		"damage_l": 26,
+		"damage_r": 26,
+		"cost": 30,
+		"description": "Tower that shoots and stuns, but deals no damage.",
+		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+		"aura_list": [
+			{
+				"type": "change speed",
+				"value_fixed": -10000,
+				"duration": 1,
+				"period": 0,
+			}
+		]
+	}
+}
