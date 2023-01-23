@@ -59,15 +59,9 @@ const towers = {
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
 		"aura_list": [
 			{
-				"type": "change health",
-				"value": -1,
-				"duration": 10,
-				"period": 1,
-			},
-			{
 				"type": "slow",
-				"value": 100,
-				"duration": 10,
+				"value": 200,
+				"duration": 5,
 				"period": 0,
 			}
 		]
