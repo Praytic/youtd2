@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/DefaultCamera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/MinimapLandscape.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/HUD/Minimap.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Lib/Build/BuilderControl.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Landscape.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Mobs/MobSpawner.tscn" type="PackedScene" id=6]
@@ -10,7 +10,7 @@
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 5610, 2975, 0, 0, 0, 0, 2825, 4367, 0, 0, 0, 0, 2766, 4428, 0, 0, 0, 0, 2816, 4499, 0, 0, 0, 0, 3626, 4904, 0, 0, 0, 0, 3711, 4922, 0, 0, 0, 0, 3788, 4909, 0, 0, 0, 0, 5288, 4152, 0, 0, 0, 0, 5376, 4131, 0, 0, 0, 0, 5456, 4152, 0, 0, 0, 0, 6370, 4609, 0, 0, 0, 0, 6415, 4662, 0, 0, 0, 0, 6368, 4709, 0, 0, 0, 0, 3846, 5965, 0, 0, 0, 0, 3779, 5978, 0, 0, 0, 0, 3707, 5968, 0, 0, 0, 0, 2258, 5242, 0, 0, 0, 0, 2176, 5221, 0, 0, 0, 0, 2095, 5241, 0, 0, 0, 0, 1232, 5674, 0, 0, 0, 0, 1194, 5712, 0, 0, 0, 0, 1230, 5755, 0, 0, 0, 0, 2611, 6444, 0, 0, 0, 0, 2644, 6482, 0, 0, 0, 0, 2609, 6522, 0, 0, 0, 0, -93, 7840 )
+"points": PoolVector2Array( 0, 0, 0, 0, 5610, 2975, 0, 0, 0, 0, 2825, 4367, 3.76354, -42.3398, -3.76354, 42.3398, 2766, 4428, 0, 0, 0, 0, 2816, 4499, 0, 0, 0, 0, 3626, 4904, -36.6945, -0.470442, 36.6945, 0.470442, 3711, 4922, 0, 0, 0, 0, 3788, 4909, 0, 0, 0, 0, 5288, 4152, -52.6896, -0.470442, 52.6896, 0.470442, 5376, 4131, 0, 0, 0, 0, 5456, 4152, 0, 0, 0, 0, 6370, 4609, 3.2931, -33.4014, -3.2931, 33.4014, 6415, 4662, 0, 0, 0, 0, 6368, 4709, 0, 0, 0, 0, 3846, 5965, 40.458, 0.470442, -40.458, -0.470442, 3779, 5978, 0, 0, 0, 0, 3707, 5968, 0, 0, 0, 0, 2258, 5242, 46.1034, 0.470442, -46.1034, -0.470442, 2176, 5221, 0, 0, 0, 0, 2095, 5241, 0, 0, 0, 0, 1232, 5674, 0, -26.3448, 0, 26.3448, 1194, 5712, 0, 0, 0, 0, 1230, 5755, 0, 0, 0, 0, 2611, 6444, 0.940885, -27.7561, -0.940885, 27.7561, 2644, 6482, 0, 0, 0, 0, 2609, 6522, 0, 0, 0, 0, -93, 7840 )
 }
 
 [sub_resource type="GDScript" id=5]
@@ -53,21 +53,11 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -399.0
-margin_top = -232.0
-margin_right = -183.0
-margin_bottom = -16.0
+margin_left = -216.0
+margin_top = -216.0
 rect_min_size = Vector2( 216, 216 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="UI/Minimap"]
-anchor_left = 0.852
-anchor_top = 0.06
-anchor_right = 0.852
-anchor_bottom = 0.06
-margin_left = -0.0320129
-margin_top = 0.039999
-margin_right = 215.968
-margin_bottom = 216.04
 rect_min_size = Vector2( 216, 216 )
 
 [node name="Viewport" type="Viewport" parent="UI/Minimap/ViewportContainer"]
@@ -82,7 +72,8 @@ position = Vector2( 3904, 3904 )
 current = true
 zoom = Vector2( 37, 37 )
 
-[node name="MinimapLandscape" parent="UI/Minimap/ViewportContainer/Viewport" instance=ExtResource( 3 )]
+[node name="Minimap" parent="UI/Minimap/ViewportContainer/Viewport" instance=ExtResource( 3 )]
+unique_name_in_owner = true
 
 [node name="BuilderControl" type="Control" parent="UI"]
 unique_name_in_owner = true

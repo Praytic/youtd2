@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/HUD/MinimapLandscape.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/HUD/Minimap.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Atlas/MinimapTiles.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 1408, 704, 64, 64 )
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 2848.19, 64, 0, 0, 0, 0, 2846.97, 1513, -18.0898, -18.501, 18.0898, 18.501, 2863.77, 1555.55, 0, 0, 0, 0, 2901.82, 1570.85, 0, 0, 0, 0, 3294.17, 1573.35, -11.9228, 11.9228, 11.9228, -11.9228, 3337.16, 1556.66, 0, 0, 0, 0, 3356.09, 1507.26, 0, 0, 0, 0, 3355.37, 533.579, -18.0898, 18.501, 18.0898, -18.501, 3375.39, 497.197, 0, 0, 0, 0, 3415.73, 479.462, 0, 0, 0, 0, 3824, 477.589, -13.1562, -16.4453, 13.1562, 16.4453, 3863.23, 502.753, 0, 0, 0, 0, 3884.88, 538.47, 0, 0, 0, 0, 3885.29, 2016.79, 14.3896, -16.4453, -14.3896, 16.4453, 3872.16, 2062.01, 0, 0, 0, 0, 3821.81, 2081.84, 0, 0, 0, 0, 3184.48, 2078.3, 20.1455, -19.7344, -20.1455, 19.7344, 3128.58, 2095.06, 0, 0, 0, 0, 3109.65, 2148.65, 0, 0, 0, 0, 3112.46, 2519.35, -20.9678, -18.9121, 20.9678, 18.9121, 3134.18, 2566.71, 0, 0, 0, 0, 3185.83, 2588.56, 0, 0, 0, 0, 3822.85, 2591.99, -16.4453, -19.7344, 16.4453, 19.7344, 3868.63, 2610.87, 0, 0, 0, 0, 3882.69, 2649.75, 0, 0, 0, 0, 3883.75, 3584 )
+}
+
+[node name="Minimap" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="MinimapLandscape" parent="." instance=ExtResource( 1 )]
+
+[node name="MobIcon" type="Sprite" parent="."]
+visible = false
+modulate = Color( 1, 0, 0, 1 )
+position = Vector2( 1408, 1344 )
+scale = Vector2( 10, 10 )
+texture = SubResource( 1 )
+
+[node name="MobPath1" type="Path2D" parent="."]
+curve = SubResource( 2 )
