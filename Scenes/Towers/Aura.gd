@@ -27,15 +27,15 @@ func _init(aura_info):
 	duration = aura_info["duration"]
 	period = aura_info["period"]
 
-	value_is_range = aura_info.has("value_range")
+	value_is_range = aura_info["value"] is Array
 
 	if value_is_range:
-		var value_range: Array = aura_info["value_range"] as Array
+		var value_range: Array = aura_info["value"] as Array
 
 		value_min = min(value_range[0], value_range[1])
 		value_max = max(value_range[0], value_range[1])
 	else:
-		value_fixed = aura_info["value_fixed"]
+		value_fixed = aura_info["value"] as float
 
 
 # Called when the node enters the scene tree for the first time.

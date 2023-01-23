@@ -60,7 +60,7 @@ const towers = {
 		"aura_list": [
 			{
 				"type": "change health",
-				"value_fixed": -1,
+				"value": -1,
 				"duration": 10,
 				"period": 1,
 			},
@@ -140,13 +140,13 @@ var example_towers = {
 		"aura_list": [
 			{
 				"type": "change health",
-				"value_range": [-1, -2],
+				"value": [-1, -2],
 				"duration": 0,
 				"period": 0,
 			},
 			{
 				"type": "change speed",
-				"value_fixed": -100,
+				"value": -100,
 				"duration": 1,
 				"period": 0,
 			}
@@ -172,7 +172,7 @@ var example_towers = {
 		"aura_list": [
 			{
 				"type": "change speed",
-				"value_fixed": -10000,
+				"value": -10000,
 				"duration": 1,
 				"period": 0,
 			}
