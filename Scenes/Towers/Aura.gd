@@ -17,6 +17,9 @@ var duration: float
 var period: float
 
 var is_expired: bool = false
+var timer_list: Array = []
+var run_called_first_time: bool = true
+var is_running: bool = false
 
 
 func _init(aura_info):
@@ -37,26 +40,7 @@ func _init(aura_info):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-#	NOTE: apply aura when it is created
-#	This means that for periodic aura's, their first tick happens
-#	when aura is created.
-	apply()
-	
-	if duration > 0:
-		var duration_timer: Timer = Timer.new()
-		add_child(duration_timer)
-		duration_timer.connect("timeout", self, "on_duration_timer_timeout")
-		duration_timer.start(duration)
-	else:
-#		Aura's with duration of 0 are "instant", meaning that they apply
-# 		once when created and then expire
-		expire()
-
-	if period > 0:
-		var period_timer: Timer = Timer.new()
-		add_child(period_timer)
-		period_timer.connect("timeout", self, "on_period_timer_timeout")
-		period_timer.start(period)
+	pass
 
 
 func on_duration_timer_timeout():
@@ -65,7 +49,6 @@ func on_duration_timer_timeout():
 
 func on_period_timer_timeout():
 	apply()
-
 
 func apply():
 	emit_signal("applied", self)
@@ -86,3 +69,43 @@ func get_value() -> float:
 		return out
 	else:
 		return value_fixed
+
+
+func run():
+	is_running = true
+
+	if run_called_first_time:
+		run_called_first_time = false
+
+		var aura_is_instant = (duration == 0)
+
+		if aura_is_instant:
+			apply()
+			expire()
+		else:
+			var duration_timer: Timer = Timer.new()
+			timer_list.append(duration_timer)
+			add_child(duration_timer)
+			duration_timer.connect("timeout", self, "on_duration_timer_timeout")
+			duration_timer.start(duration)
+
+			if period > 0:
+				var period_timer: Timer = Timer.new()
+				timer_list.append(period_timer)
+				add_child(period_timer)
+				period_timer.connect("timeout", self, "on_period_timer_timeout")
+				period_timer.start(period)
+	else:
+		for timer in timer_list:
+			timer.set_paused(false)
+
+
+func pause():
+	is_running = false
+	
+	for timer in timer_list:
+		timer.set_paused(true)
+
+
+func get_dps() -> float:
+	return get_value() / period
