@@ -2,6 +2,10 @@ extends KinematicBody2D
 
 class_name Mob
 
+
+signal moved(mob, delta)
+
+
 export var health_max: int = 10
 export var health: int = 10
 export var mob_move_speed: int = 500
@@ -9,6 +13,7 @@ export var mob_move_speed: int = 500
 
 var path_curve: Curve2D
 var current_path_index: int = 0
+
 
 onready var _sprite = $Sprite
 
@@ -19,6 +24,7 @@ func _ready():
 func _process(delta):
 	var path_point: Vector2 = path_curve.get_point_position(current_path_index)
 	position = position.move_toward(path_point, mob_move_speed * delta)
+	emit_signal("moved", self, delta)
 	
 	var reached_path_point: bool = (position == path_point)
 	
