@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 
-onready var builder_control = get_tree().current_scene.get_node(@"Canvas/BuilderControl")
+onready var builder_control = get_tree().current_scene.get_node(@"%BuilderControl")
 
 
 func _ready():
