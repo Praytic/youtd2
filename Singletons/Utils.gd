@@ -36,3 +36,7 @@ func circle_shape_set_radius(collision_shape: CollisionShape2D, radius: float):
 		return
 	
 	circle_shape.radius = radius
+
+func randi_range(value_min: int, value_max: int):
+	var out = randi() % (value_max - value_min + 1) + value_min
+	return out

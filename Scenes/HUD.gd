@@ -5,13 +5,7 @@ signal start_wave(wave_index)
 signal stop_wave()
 
 
-onready var camera: Camera2D = get_node(@"/root/GameScene/DefaultCamera")
-
-	
 func _ready():
-	camera.connect("camera_moved", self, "_on_camera_moved")
-	camera.connect("camera_zoomed", self, "_on_camera_zoomed")
-	
 	$TowerTooltip.hide()
 
 
@@ -22,13 +16,6 @@ func _on_StartWaveButton_pressed():
 
 func _on_StopWaveButton_pressed():
 	emit_signal("stop_wave")
-
-
-func _on_camera_moved(_vector):
-	$Hints.hide()
-
-func _on_camera_zoomed():
-	$Hints.hide()
 
 
 func _on_MissleT1_mouse_entered():
@@ -57,3 +44,11 @@ func _on_TowerButton_mouse_entered(tower_button):
 
 func _on_GenericButton_mouse_exited():
 	$TowerTooltip.hide()
+
+
+func _on_Camera_camera_moved(direction):
+	$Hints.hide()
+
+
+func _on_Camera_camera_zoomed():
+	$Hints.hide()

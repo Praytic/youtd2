@@ -8,16 +8,22 @@ onready var attack_timer: Timer = $AttackTimer
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var target_mob: Mob = null
 var attack_cd: float
+var aura_list: Array = []
+var projectile_range: float
 
 
 func _ready():
 	pass # Replace with function body.
 
 
-func init(attack_range: float, attack_cd_arg: float):
-	attack_cd = attack_cd_arg
+func init(properties):
+	attack_cd = properties["attack_cd"]
 
+	var attack_range = properties["attack_range"]
 	Utils.circle_shape_set_radius($AttackArea/CollisionShape2D, attack_range)
+
+	aura_list = properties["aura_list"]
+	projectile_range = properties["projectile_range"]
 
 
 func _on_AttackTimer_timeout():
@@ -76,6 +82,8 @@ func try_to_shoot():
 	var projectile = projectile_scene.instance()
 	projectile.target_mob = target_mob
 	projectile.position = global_position
+	projectile.aura_list = aura_list
+	projectile.projectile_range = projectile_range
 	
 	game_scene.call_deferred("add_child", projectile)
 	

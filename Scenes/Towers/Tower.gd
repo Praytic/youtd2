@@ -53,7 +53,7 @@ func _ready():
 
 	attack_node = make_attack_node(attack_style_string)
 	add_child(attack_node)
-	attack_node.init(attack_range, attack_cd)
+	attack_node.init(properties)
 	
 
 func make_attack_node(attack_style: String) -> Node:
