@@ -77,24 +77,25 @@ func run():
 	if run_called_first_time:
 		run_called_first_time = false
 
-		var aura_is_instant = (duration == 0)
-
-		if aura_is_instant:
+		if is_instant():
 			apply()
 			expire()
-		else:
+		elif is_status():
+			apply()
+
+		if duration > 0:
 			var duration_timer: Timer = Timer.new()
 			timer_list.append(duration_timer)
 			add_child(duration_timer)
 			duration_timer.connect("timeout", self, "on_duration_timer_timeout")
 			duration_timer.start(duration)
 
-			if period > 0:
-				var period_timer: Timer = Timer.new()
-				timer_list.append(period_timer)
-				add_child(period_timer)
-				period_timer.connect("timeout", self, "on_period_timer_timeout")
-				period_timer.start(period)
+		if period > 0:
+			var period_timer: Timer = Timer.new()
+			timer_list.append(period_timer)
+			add_child(period_timer)
+			period_timer.connect("timeout", self, "on_period_timer_timeout")
+			period_timer.start(period)
 	else:
 		for timer in timer_list:
 			timer.set_paused(false)
@@ -108,4 +109,19 @@ func pause():
 
 
 func get_dps() -> float:
-	return get_value() / period
+	if period > 0:
+		return get_value() / period
+	else:
+		return get_value()
+
+
+func is_instant() -> bool:
+	return duration == 0 && period == 0
+
+
+func is_status() -> bool:
+	return duration > 0 && period == 0
+
+
+func is_poison() -> bool:
+	return duration > 0 && period > 0
