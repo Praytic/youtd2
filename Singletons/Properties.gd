@@ -76,6 +76,8 @@ enum AuraType {
 	DECREASE_CAST_CD,
 	MODIFY_VALUE_FOR_DAMAGE_AURA,
 	MODIFY_DURATION_FOR_POISON_AURA,
+	MODIFY_CRIT_CHANCE,
+	MODIFY_CRIT_MODIFIER
 }
 
 
@@ -116,8 +118,8 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
 				SpellParameter.AURA_INFO_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA,
-						AuraParameter.VALUE: 10.0,
+						AuraParameter.TYPE: AuraType.MODIFY_CRIT_CHANCE,
+						AuraParameter.VALUE: 0.25,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0
@@ -285,6 +287,21 @@ var example_spells = {
 			{
 				AuraParameter.TYPE: AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA,
 				AuraParameter.VALUE: 10.0,
+				AuraParameter.DURATION: 1.01,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0
+			}
+		]
+	},
+	"Buff critical chance for self by 25% (additive)": {
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 10,
+		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
+		SpellParameter.AURA_INFO_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.MODIFY_CRIT_CHANCE,
+				AuraParameter.VALUE: 0.25,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0
