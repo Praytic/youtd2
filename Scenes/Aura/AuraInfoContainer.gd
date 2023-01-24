@@ -6,8 +6,10 @@ class_name AuraInfoContainer
 
 var default_aura_info_list: Array
 
-var mod_value_for_damage_aura: float = 0.0
-var mod_duration_for_poison_aura: float = 0.0
+var mod_map: Dictionary = {
+	Properties.AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA: 0.0,
+	Properties.AuraType.MODIFY_DURATION_FOR_POISON_AURA: 0.0
+}
 
 
 func _init(default_aura_info_list_arg: Array):
@@ -19,18 +21,11 @@ func _ready():
 
 
 func apply_aura(aura: Aura):
-	match aura.type:
-		Properties.AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA:
-			if aura.is_expired:
-				mod_value_for_damage_aura = 0.0
-			else:
-				mod_value_for_damage_aura = aura.get_value()
-		Properties.AuraType.MODIFY_DURATION_FOR_POISON_AURA:
-			if aura.is_expired:
-				mod_duration_for_poison_aura = 0.0
-			else:
-				mod_duration_for_poison_aura = aura.get_value()
-
+	if mod_map.has(aura.type):
+		if aura.is_expired:
+			mod_map[aura.type] = 0.0
+		else:
+			mod_map[aura.type] = aura.get_value()
 
 
 # Returns aura info list with all mods applied
@@ -46,10 +41,10 @@ func get_modded() -> Array:
 		var is_poison_aura = type == Properties.AuraType.DAMAGE && duration > 0 && period > 0
 
 		if is_damage_aura:
-			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + mod_value_for_damage_aura)
+			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + mod_map[Properties.AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA])
 		
 		if is_poison_aura:
-			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, 1.0 + mod_duration_for_poison_aura)
+			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, 1.0 + mod_map[Properties.AuraType.MODIFY_DURATION_FOR_POISON_AURA])
 
 
 	return modded_aura_list
