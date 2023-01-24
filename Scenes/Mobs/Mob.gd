@@ -83,117 +83,15 @@ func die():
 
 
 func add_aura_list(aura_info_list: Array):
-	for aura_info in aura_info_list:
-		var aura = Aura.new(aura_info)
-		aura.connect("applied", self, "on_aura_applied")
-		aura.connect("expired", self, "on_aura_expired")
-		$AuraContainer.add_child(aura)
-
-		if aura.is_poison():
-			process_poison_auras(aura.type)
-		else:
-			aura.run()
+	$AuraContainer.add_aura_list(aura_info_list)
 
 
-# Poison aura's have special stacking behavior. If
-# multiple poison auras of same type are added, then only
-# the strongest aura will be running. Other aura's will be
-# paused until the strongest aura expires. Note that if a
-# stronger aura is added while another aura is running, the
-# stronger one will take over. Note that auras are compared
-# by DPS, not by value!
-func process_poison_auras(type: String):
-	var aura_list: Array = get_aura_list()
-
-	var strongest_aura: Aura = null
-	var running_aura: Aura = null
-	
-	for aura in aura_list:
-		if aura.type != type:
-			continue
-		
-		var this_dps: float = aura.get_dps()
-
-		if strongest_aura != null:
-			if this_dps > strongest_aura.get_dps():
-				strongest_aura = aura
-		else:
-			strongest_aura = aura
-
-		if aura.is_running:
-			running_aura = aura
-
-	if running_aura == null:
-		if strongest_aura != null:
-			strongest_aura.run()
-	else:
-		if running_aura != strongest_aura:
-			running_aura.pause()
-			strongest_aura.run()
-
-
-# Status auras of the same type run and expire in parallel.
-# Only the strongest aura of type has an effect. For
-# example, if there are multiple slow aura's, then final
-# slow effect will be equal to the strongest slow aura.
-func process_status_auras(type: String):
-	var aura_list: Array = get_aura_list()
-
-	var strongest_aura: Aura = null
-	
-	for aura in aura_list:
-		if aura.type != type:
-			continue
-		
-		var this_value: float = aura.get_value()
-
-		if strongest_aura != null:
-			if this_value > strongest_aura.get_value():
-				strongest_aura = aura
-		else:
-			strongest_aura = aura
-
-	match type:
-		"slow":
-			if strongest_aura != null:
-				mob_move_speed = default_mob_move_speed - strongest_aura.get_value()
-			else:
-				mob_move_speed = default_mob_move_speed
-		"change health": return
-		_: print_debug("unhandled aura.type in process_status_auras():", type)
-
-
-func on_aura_applied(aura: Aura):
-	if aura.is_status():
-		process_status_auras(aura.type)
-
+func _on_AuraContainer_applied(aura):
 	match aura.type:
 		"change health": change_health(aura.get_value())
-		"slow": return
-		_: print_debug("unhandled aura.type in on_aura_applied():", aura.type)
-
-
-func on_aura_expired(aura: Aura):
-	if aura.is_poison():
-		process_poison_auras(aura.type)
-
-	if aura.is_status():
-		process_status_auras(aura.type)
-
-
-# Get list of active aura's (including paused)
-func get_aura_list() -> Array:
-	var aura_list: Array = []
-
-	for aura_node in $AuraContainer.get_children():
-		if !(aura_node is Aura):
-			continue
-		
-		var aura: Aura = aura_node as Aura
-		
-		if aura.is_expired:
-			continue
-
-		aura_list.append(aura)
-
-	return aura_list
+		"slow":
+			if aura.is_expired:
+				mob_move_speed = default_mob_move_speed
+			else:
+				mob_move_speed = default_mob_move_speed - aura.get_value()
+		_: print_debug("unhandled aura.type in _on_AuraContainer_applied():", aura.type)
