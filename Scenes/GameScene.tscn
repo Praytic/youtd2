@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/DefaultCamera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Scenes/Lib/Build/BuilderControl.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Landscape.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Mobs/MobSpawner.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/MobMinimap.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
 
 [sub_resource type="Curve2D" id=1]
@@ -83,34 +82,7 @@ margin_bottom = 720.0
 mouse_filter = 2
 script = ExtResource( 4 )
 
-[node name="MobMinimap" type="TextureRect" parent="Canvas"]
-margin_left = 1695.0
-margin_top = 863.0
-margin_right = 1735.0
-margin_bottom = 903.0
-script = ExtResource( 7 )
-
-[node name="MobPath1" type="Path2D" parent="."]
-z_index = 999
-curve = SubResource( 1 )
-
-[node name="ObjectYSort" type="YSort" parent="."]
-z_index = 5
-
-[node name="Path2D" type="Path2D" parent="."]
-curve = SubResource( 6 )
-
-[node name="MobExit" type="Area2D" parent="."]
-position = Vector2( 356, -524 )
-scale = Vector2( 0.845244, 0.890764 )
-z_index = 999
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="MobExit"]
-position = Vector2( -1993.51, 8648.76 )
-scale = Vector2( 60.716, -28.6271 )
-polygon = PoolVector2Array( -0.44817, -27.7647, 25.8964, -1.41174, 52.241, -27.7647, 25.8964, -54.1176 )
-
-[node name="DefaultCamera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 0, 7774 )
 z_index = 1000
 current = true
