@@ -59,6 +59,10 @@ func is_valid_target(node: Node) -> bool:
 			var this_tower = get_parent()
 
 			return node is Tower && node != this_tower
+		Properties.SpellTargetType.TOWER_SELF:
+			var this_tower = get_parent()
+
+			return node is Tower && node == this_tower
 
 	return false
 

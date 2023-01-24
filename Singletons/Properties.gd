@@ -59,6 +59,7 @@ enum SpellTargetType {
 	MOBS,
 	ALL_TOWERS,
 	OTHER_TOWERS,
+	TOWER_SELF
 }
 
 enum AuraParameter {
@@ -94,7 +95,7 @@ const towers = {
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
 		"spell_list": [
 			{
-				SpellParameter.CAST_CD: 3,
+				SpellParameter.CAST_CD: 1,
 				SpellParameter.TYPE: SpellType.PROJECTILE,
 				SpellParameter.CAST_RANGE: 1000,
 				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
@@ -102,12 +103,27 @@ const towers = {
 					{
 						AuraParameter.TYPE: AuraType.DAMAGE,
 						AuraParameter.VALUE: 2,
-						AuraParameter.DURATION: 3,
-						AuraParameter.PERIOD: 1,
+						AuraParameter.DURATION: 0,
+						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0
 					}
 				]
 			},
+			{
+				SpellParameter.CAST_CD: 1.0,
+				SpellParameter.TYPE: SpellType.PROXIMITY,
+				SpellParameter.CAST_RANGE: 10,
+				SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
+				SpellParameter.AURA_INFO_LIST: [
+					{
+						AuraParameter.TYPE: AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA,
+						AuraParameter.VALUE: 10.0,
+						AuraParameter.DURATION: 1.01,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0
+					}
+				]
+			}
 		]
 	},
 	"Shrub": {
@@ -253,6 +269,22 @@ var example_spells = {
 			{
 				AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
 				AuraParameter.VALUE: 3.0,
+				AuraParameter.DURATION: 1.01,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0
+			}
+		]
+	},
+	"Buff own damage by 1000% (11x increase)":
+	{
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 10,
+		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
+		SpellParameter.AURA_INFO_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA,
+				AuraParameter.VALUE: 10.0,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0
