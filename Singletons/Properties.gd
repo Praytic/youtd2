@@ -77,7 +77,8 @@ enum AuraType {
 	MODIFY_VALUE_FOR_DAMAGE_AURA,
 	MODIFY_DURATION_FOR_POISON_AURA,
 	MODIFY_CRIT_CHANCE,
-	MODIFY_CRIT_MODIFIER
+	MODIFY_CRIT_MODIFIER,
+	MODIFY_MISS_CHANCE
 }
 
 
@@ -104,7 +105,7 @@ const towers = {
 				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.DAMAGE,
-						AuraParameter.VALUE: 2,
+						AuraParameter.VALUE: 10,
 						AuraParameter.DURATION: 0,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0
@@ -118,8 +119,8 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
 				SpellParameter.AURA_INFO_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.MODIFY_CRIT_CHANCE,
-						AuraParameter.VALUE: 0.25,
+						AuraParameter.TYPE: AuraType.MODIFY_MISS_CHANCE,
+						AuraParameter.VALUE: 0.90,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0
@@ -302,6 +303,21 @@ var example_spells = {
 			{
 				AuraParameter.TYPE: AuraType.MODIFY_CRIT_CHANCE,
 				AuraParameter.VALUE: 0.25,
+				AuraParameter.DURATION: 1.01,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0
+			}
+		]
+	},
+	"Increase miss chance for self by 90%": {
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 10,
+		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
+		SpellParameter.AURA_INFO_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.MODIFY_MISS_CHANCE,
+				AuraParameter.VALUE: 0.90,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0
