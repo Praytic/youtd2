@@ -57,7 +57,6 @@ func get_modded() -> Array:
 	var modded_aura_info_list: Array = default_aura_info_list.duplicate(true)
 
 	var crit_modifier: float = DEFAULT_CRIT_MODIFIER + mod_map[Properties.AuraType.MODIFY_CRIT_MODIFIER]
-	var crit_chance: float = DEFAULT_CRIT_CHANCE + mod_map[Properties.AuraType.MODIFY_CRIT_CHANCE]
 	var is_critical: bool = get_is_critical()
 
 	for aura_info in modded_aura_info_list:
@@ -95,8 +94,7 @@ func modify_aura_info_value(aura_info: Dictionary, value_key: int, mod_value: fl
 
 
 func get_is_critical() -> bool:
-	var crit_modifier: float = DEFAULT_CRIT_MODIFIER + mod_map[Properties.AuraType.MODIFY_CRIT_MODIFIER]
-	var crit_chance: float = DEFAULT_CRIT_CHANCE + mod_map[Properties.AuraType.MODIFY_CRIT_CHANCE]
+	var crit_chance: float = min(1.0, DEFAULT_CRIT_CHANCE + mod_map[Properties.AuraType.MODIFY_CRIT_CHANCE])
 	var out: bool = Utils.rand_chance(crit_chance)
 
 	return out
