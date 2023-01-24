@@ -88,13 +88,6 @@ const tower_families = {
 # tower will do nothing for first 10s if there's mob in
 # range. Need to change behavior of ProjectileSpell so that
 # it casts first projectile and then starts cast cd.
-#
-# Aura specific add chance. For example projectile spell
-# that deals damage and has 10% chance to slow. Damage
-# always applies while slow applies sometimes, so this needs
-# to be per aura. So add AuraParameter.INDIVIDUAL_ADD_CHANCE
-# This is a separate from concept from spell miss chance.
-# Default value is 1.0.
 
 enum SpellParameter {
 	CAST_CD,
@@ -119,12 +112,22 @@ enum SpellTargetType {
 	TOWER_SELF
 }
 
+# NOTE:
+# 
+# ADD_CHANCE - determines the chance that the aura is added
+# when it's parent spell is cast. Note that there's a weird
+# special case for aura's with same add chance. For such
+# cases, the chance is shared. So for example, if there is a
+# projectile spell that deals damage and has a 10% chance to
+# poison and 10% slow, then slow and poison will always
+# occur together.
 enum AuraParameter {
 	TYPE,
 	VALUE,
 	DURATION,
 	PERIOD,
-	ADD_RANGE
+	ADD_RANGE,
+	ADD_CHANCE
 }
 
 enum AuraType {
@@ -165,7 +168,8 @@ const towers = {
 						AuraParameter.VALUE: 10,
 						AuraParameter.DURATION: 0,
 						AuraParameter.PERIOD: 0,
-						AuraParameter.ADD_RANGE: 0
+						AuraParameter.ADD_RANGE: 0,
+						AuraParameter.ADD_CHANCE: 1.0
 					}
 				]
 			},
@@ -180,7 +184,8 @@ const towers = {
 						AuraParameter.VALUE: 0.90,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
-						AuraParameter.ADD_RANGE: 0
+						AuraParameter.ADD_RANGE: 0,
+						AuraParameter.ADD_CHANCE: 1.0
 					}
 				]
 			}
@@ -209,7 +214,8 @@ const towers = {
 						AuraParameter.VALUE: 3.0,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
-						AuraParameter.ADD_RANGE: 0
+						AuraParameter.ADD_RANGE: 0,
+						AuraParameter.ADD_CHANCE: 1.0
 					}
 				]
 			}
@@ -238,7 +244,8 @@ const towers = {
 						AuraParameter.VALUE: 3.0,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
-						AuraParameter.ADD_RANGE: 0
+						AuraParameter.ADD_RANGE: 0,
+						AuraParameter.ADD_CHANCE: 1.0
 					}
 				]
 			}
@@ -271,7 +278,8 @@ var example_spells = {
 				AuraParameter.VALUE: [1, 2],
 				AuraParameter.DURATION: 0,
 				AuraParameter.PERIOD: 0,
-				AuraParameter.ADD_RANGE: 0
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	},
@@ -286,7 +294,8 @@ var example_spells = {
 				AuraParameter.VALUE: [1, 2],
 				AuraParameter.DURATION: 10,
 				AuraParameter.PERIOD: 1,
-				AuraParameter.ADD_RANGE: 0
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	},
@@ -301,7 +310,8 @@ var example_spells = {
 				AuraParameter.VALUE: 1.0,
 				AuraParameter.DURATION: 10,
 				AuraParameter.PERIOD: 0,
-				AuraParameter.ADD_RANGE: 0
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	},
@@ -316,7 +326,8 @@ var example_spells = {
 				AuraParameter.VALUE: 0.5,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
-				AuraParameter.ADD_RANGE: 0
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	},
@@ -331,7 +342,8 @@ var example_spells = {
 				AuraParameter.VALUE: 3.0,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
-				AuraParameter.ADD_RANGE: 0
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	},
@@ -347,7 +359,8 @@ var example_spells = {
 				AuraParameter.VALUE: 10.0,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
-				AuraParameter.ADD_RANGE: 0
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	},
@@ -362,7 +375,8 @@ var example_spells = {
 				AuraParameter.VALUE: 0.25,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
-				AuraParameter.ADD_RANGE: 0
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	},
@@ -377,7 +391,8 @@ var example_spells = {
 				AuraParameter.VALUE: 0.90,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
-				AuraParameter.ADD_RANGE: 0
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	}
