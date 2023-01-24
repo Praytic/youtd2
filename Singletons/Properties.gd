@@ -88,6 +88,13 @@ const tower_families = {
 # tower will do nothing for first 10s if there's mob in
 # range. Need to change behavior of ProjectileSpell so that
 # it casts first projectile and then starts cast cd.
+#
+# Aura specific add chance. For example projectile spell
+# that deals damage and has 10% chance to slow. Damage
+# always applies while slow applies sometimes, so this needs
+# to be per aura. So add AuraParameter.INDIVIDUAL_ADD_CHANCE
+# This is a separate from concept from spell miss chance.
+# Default value is 1.0.
 
 enum SpellParameter {
 	CAST_CD,
