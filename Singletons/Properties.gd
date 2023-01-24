@@ -39,6 +39,56 @@ const tower_families = {
 }
 
 
+# TODO: for spells and auras
+# 
+# Leveling. Add level parameters to aura's? For example
+# "change_value_per_level". Then need to pass tower's
+# current level and change value of aura when it's created.
+# 
+# Event triggers. For example casting spell on kill. I think
+# this should be implemented as another Spell class, like
+# ProjectileSpell and ProximitySpell. Name it
+# "KillingBlowSpell". KillingBlowSpell will detect when
+# tower lands a killing blow on a mob and cast it's spell.
+#
+# Tower speicific modifiers for experience gain, item
+# chance, item quality, etc. Needs to be implemented
+# directly in tower's apply_aura().
+# 
+# Damage types: increased dmg vs X type of mob
+# Probably add another aura parameter and implement mob types.
+#
+# Misses for aura's
+#
+# Modifying mob armor. Maybe mob armor can be implemented as
+# self aura that reduces damage?
+# 
+# Weird projectile behavior. Shooting up to two mobs at the
+# same time. Currently if there are two projectile spells on
+# tower, they just shoot the same target. Will need to add
+# special targeting logic.
+#
+# Chain projectiles. Projectiles that create a new
+# projectile on impact. Repeat N times. Projectiles need to
+# avoid visiting mobs that are already in chain.
+#
+# Graphical effects for aura's and projectiles. Add as
+# parameter to aura's.
+# 
+# Aura apply types. For example slow that only affects land
+# mobs. Or frost attack that doesn't affect fire mobs.
+# Implement as parameter (AuraParameter.IMMUNE_MOB_TYPE_LIST)
+#
+# Chained aura's. For example poison that stuns target when
+# it expires. (AuraParameter.FOLLOWUP_AURA)
+#
+# Every 7th/8th/9th/10th attack deals more damage. Can
+# implement as multiple spells that are cast every 10s, with
+# 7/8/9/10 having higher value. But that would mean that
+# tower will do nothing for first 10s if there's mob in
+# range. Need to change behavior of ProjectileSpell so that
+# it casts first projectile and then starts cast cd.
+
 enum SpellParameter {
 	CAST_CD,
 	TYPE,
