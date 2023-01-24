@@ -37,6 +37,41 @@ const tower_families = {
 		"todo": "todo"
 	}
 }
+
+
+enum SpellParameter {
+	CAST_CD,
+	TYPE,
+	CAST_RANGE,
+	TARGET_TYPE,
+	AURA_LIST
+}
+
+enum SpellType {
+	PROJECTILE,
+	PROXIMITY
+}
+
+enum SpellTargetType {
+	MOBS,
+	TOWERS
+}
+
+enum AuraParameter {
+	TYPE,
+	VALUE,
+	DURATION,
+	PERIOD,
+	ADD_RANGE
+}
+
+enum AuraType {
+	DAMAGE,
+	SLOW,
+	DECREASE_CAST_CD
+}
+
+
 # TODO: Replace filenames with IDs when switching to Godot 4 with first-class functions
 # TODO: Think of the way to load tower properties without loading the Scene or GDScript 
 const towers = { 
@@ -53,35 +88,20 @@ const towers = {
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
 		"spell_list": [
 			{
-				"cast_cd": 1,
-				"type": "projectile",
-				"cast_range": 1000,
-				"target_type": "mobs",
-				"aura_list": [
+				SpellParameter.CAST_CD: 1,
+				SpellParameter.TYPE: SpellType.PROJECTILE,
+				SpellParameter.CAST_RANGE: 1000,
+				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+				SpellParameter.AURA_LIST: [
 					{
-						"type": "damage",
-						"value": 2,
-						"duration": 0,
-						"period": 0,
-						"add_range": 0
+						AuraParameter.TYPE: AuraType.DAMAGE,
+						AuraParameter.VALUE: 2,
+						AuraParameter.DURATION: 0,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0
 					}
 				]
 			},
-			{
-				"cast_cd": 1,
-				"type": "proximity",
-				"target_type": "towers",
-				"cast_range": 100,
-				"aura_list": [
-					{
-						"type": "reduce cast cd",
-						"value": 0.5,
-						"duration": 1.01,
-						"period": 0,
-						"add_range": 0
-					}
-				]
-			}
 		]
 	},
 	"Shrub": {
@@ -92,41 +112,37 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "physical",
-		"attack_range": 840,
-		"attack_cd": 0.9,
-		"damage_l": 113,
-		"damage_r": 113,
 		"cost": 140,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
 		"resource": "res://Scenes/Towers/Instances/Shrub.gd",
 		"spell_list": [
 			{
-				"cast_cd": 0.5,
-				"type": "projectile",
-				"cast_range": 500,
-				"target_type": "mobs",
-				"aura_list": [
+				SpellParameter.CAST_CD: 0.5,
+				SpellParameter.TYPE: SpellType.PROJECTILE,
+				SpellParameter.CAST_RANGE: 500,
+				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+				SpellParameter.AURA_LIST: [
 					{
-						"type": "damage",
-						"value": 1,
-						"duration": 0,
-						"period": 0,
-						"add_range": 0
+						AuraParameter.TYPE: AuraType.DAMAGE,
+						AuraParameter.VALUE: 1,
+						AuraParameter.DURATION: 0,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0
 					}
 				]
 			},
 			{
-				"cast_cd": 1.5,
-				"type": "projectile",
-				"cast_range": 300,
-				"target_type": "mobs",
-				"aura_list": [
+				SpellParameter.CAST_CD: 1.5,
+				SpellParameter.TYPE: SpellType.PROJECTILE,
+				SpellParameter.CAST_RANGE: 300,
+				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+				SpellParameter.AURA_LIST: [
 					{
-						"type": "damage",
-						"value": 2,
-						"duration": 0,
-						"period": 0,
-						"add_range": 0
+						AuraParameter.TYPE: AuraType.DAMAGE,
+						AuraParameter.VALUE: 2,
+						AuraParameter.DURATION: 0,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0
 					}
 				]
 			}
@@ -140,41 +156,37 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "physical",
-		"attack_range": 880,
-		"attack_cd": 0.9,
-		"damage_l": 299,
-		"damage_r": 299,
 		"cost": 400,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
 		"resource": "res://Scenes/Towers/Instances/GreaterShrub.gd",
 		"spell_list": [
 			{
-				"cast_cd": 0.5,
-				"type": "projectile",
-				"cast_range": 500,
-				"target_type": "mobs",
-				"aura_list": [
+				SpellParameter.CAST_CD: 0.5,
+				SpellParameter.TYPE: SpellType.PROJECTILE,
+				SpellParameter.CAST_RANGE: 500,
+				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+				SpellParameter.AURA_LIST: [
 					{
-						"type": "damage",
-						"value": 1,
-						"duration": 0,
-						"period": 0,
-						"add_range": 0
+						AuraParameter.TYPE: AuraType.DAMAGE,
+						AuraParameter.VALUE: 1,
+						AuraParameter.DURATION: 0,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0
 					}
 				]
 			},
 			{
-				"cast_cd": 1.5,
-				"type": "projectile",
-				"cast_range": 300,
-				"target_type": "mobs",
-				"aura_list": [
+				SpellParameter.CAST_CD: 1.5,
+				SpellParameter.TYPE: SpellType.PROJECTILE,
+				SpellParameter.CAST_RANGE: 300,
+				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+				SpellParameter.AURA_LIST: [
 					{
-						"type": "damage",
-						"value": 2,
-						"duration": 0,
-						"period": 0,
-						"add_range": 0
+						AuraParameter.TYPE: AuraType.DAMAGE,
+						AuraParameter.VALUE: 2,
+						AuraParameter.DURATION: 0,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0
 					}
 				]
 			}
@@ -188,10 +200,6 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "essence",
-		"attack_range": 820,
-		"attack_cd": 0.5,
-		"damage_l": 58,
-		"damage_r": 58,
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
@@ -201,47 +209,47 @@ const towers = {
 
 var example_spells = {
 	"Fire ball": {
-		"cast_cd": 1,
-		"type": "projectile",
-		"cast_range": 300,
-		"target_type": "mobs",
-		"aura_list": [
+		SpellParameter.CAST_CD: 1,
+		SpellParameter.TYPE: SpellType.PROJECTILE,
+		SpellParameter.CAST_RANGE: 300,
+		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+		SpellParameter.AURA_LIST: [
 			{
-				"type": "damage",
-				"value": [1, 2],
-				"duration": 0,
-				"period": 0,
-				"add_range": 0
+				AuraParameter.TYPE: AuraType.DAMAGE,
+				AuraParameter.VALUE: [1, 2],
+				AuraParameter.DURATION: 0,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0
 			}
 		]
 	},
 	"Poison": {
-		"cast_cd": 1,
-		"type": "projectile",
-		"cast_range": 300,
-		"target_type": "mobs",
-		"aura_list": [
+		SpellParameter.CAST_CD: 1,
+		SpellParameter.TYPE: SpellType.PROJECTILE,
+		SpellParameter.CAST_RANGE: 300,
+		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+		SpellParameter.AURA_LIST: [
 			{
-				"type": "damage",
-				"value": [1, 2],
-				"duration": 10,
-				"period": 1,
-				"add_range": 0
+				AuraParameter.TYPE: AuraType.DAMAGE,
+				AuraParameter.VALUE: [1, 2],
+				AuraParameter.DURATION: 10,
+				AuraParameter.PERIOD: 1,
+				AuraParameter.ADD_RANGE: 0
 			}
 		]
 	},
 	"Stun projectile": {
-		"cast_cd": 1,
-		"type": "projectile",
-		"cast_range": 300,
-		"target_type": "mobs",
-		"aura_list": [
+		SpellParameter.CAST_CD: 1,
+		SpellParameter.TYPE: SpellType.PROJECTILE,
+		SpellParameter.CAST_RANGE: 300,
+		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+		SpellParameter.AURA_LIST: [
 			{
-				"type": "slow",
-				"value": 1.0,
-				"duration": 10,
-				"period": 0,
-				"add_range": 0
+				AuraParameter.TYPE: AuraType.SLOW,
+				AuraParameter.VALUE: 1.0,
+				AuraParameter.DURATION: 10,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0
 			}
 		]
 	}
