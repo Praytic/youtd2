@@ -1,5 +1,22 @@
 extends Node
 
+# AuraInfoContainer stores the aura info list. It is used by
+# ProximitySpell and ProjectileSpell. Aura info is the
+# description of an aura, which is used to make the actual
+# aura instance. This container handles aura's modifying
+# other aura's.
+
+# Aura modifying another aura is implemented like this:
+# 
+# 1. A tower applies an aura to another the tower.
+# 2. The affected tower calls apply_aura() on it's AuraInfoContainer.
+# 3. AuraInfoContainer remembers the modifier from given aura.
+# 4. Affected tower needs to pass it's aura info list to a projectile.
+# 5. Affected tower calls get_modded() on it's AuraInfoContainer.
+# 6. get_modded() returns the aura info list with modifiers applied.
+# 7. Projectile stores the modified aura info list.
+# 8. Projectile reaches the mob and passes modified aura info list to the mob.
+# 9. Mob creates aura's based on the modified aura info list.
 
 class_name AuraInfoContainer
 

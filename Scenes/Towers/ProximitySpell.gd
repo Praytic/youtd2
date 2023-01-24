@@ -1,5 +1,11 @@
 extends Node2D
 
+# ProximitySpell periodically applies aura's to targets in
+# range. Whenever the cast timer times out, ProximitySpell
+# passes aura info list to all targets that are in range.
+# Note that depending on aura parameters, aura's may be
+# passed to Mobs or Towers.
+
 
 var explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
