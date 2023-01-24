@@ -45,8 +45,8 @@ func _process(delta):
 		_sprite.play(mob_animation)
 
 
-func change_health(damage):
-	health += damage
+func apply_damage(damage):
+	health -= damage
 	
 	$HealthBar.set_as_ratio(float(health) / float(health_max))
 	if health < 0:
@@ -88,10 +88,10 @@ func add_aura_list(aura_info_list: Array):
 
 func _on_AuraContainer_applied(aura):
 	match aura.type:
-		"change health": change_health(aura.get_value())
+		"damage": apply_damage(aura.get_value())
 		"slow":
 			if aura.is_expired:
 				mob_move_speed = default_mob_move_speed
 			else:
-				mob_move_speed = default_mob_move_speed - aura.get_value()
+				mob_move_speed = default_mob_move_speed * (1.0 - aura.get_value())
 		_: print_debug("unhandled aura.type in _on_AuraContainer_applied():", aura.type)
