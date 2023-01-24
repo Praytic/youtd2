@@ -25,8 +25,6 @@ func get_tower_tooltip_text(tower_id: int) -> String:
 			+ "Tower ID: %s\n" % tower["id"] \
 			+ "Element: %s\n" % tower["element"] \
 			+ "Attack type: %s\n" % tower["attack_type"] \
-			+ "Attack range: %s\n" % tower["attack_range"] \
-			+ "Attack style: %s\n" % tower["attack_style"] \
 			+ "Cost: %s\n" % tower["cost"] \
 			+ "Description: %s\n" % tower["description"] \
 			+ ""
