@@ -21,11 +21,11 @@ func init(properties):
 
 
 func _on_AttackTimer_timeout():
-	var body_list: Array = $AttackArea.get_overlapping_bodies()
-	
-	for body in body_list:
-		if body is Mob:
-			var mob: Mob = body as Mob
+	for aura_info in aura_list:
+		var aura_add_range: float = aura_info["add_range"]
+		var mob_list: Array = Utils.get_mob_list_in_range(global_position, aura_add_range)
+
+		for mob in mob_list:
 			mob.add_aura_list(aura_list)
 			
 			var explosion = explosion_scene.instance()

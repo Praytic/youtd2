@@ -50,8 +50,7 @@ const towers = {
 		"attack_type": "physical",
 		"attack_range": 800,
 		"attack_cd": 3,
-		"attack_style": "shoot",
-		"projectile_range": 0,
+		"attack_style": "aoe",
 		"damage_l": 26,
 		"damage_r": 26,
 		"cost": 30,
@@ -61,8 +60,9 @@ const towers = {
 			{
 				"type": "slow",
 				"value": 200,
-				"duration": 5,
+				"duration": 3,
 				"period": 0,
+				"add_range": 1000
 			}
 		]
 	},
