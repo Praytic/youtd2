@@ -15,8 +15,6 @@ var ingame_name: String
 var author: String
 var rarity: String
 var element: String
-var damage_l: float
-var damage_r: float
 var cost: float
 var description: String
 
@@ -47,7 +45,7 @@ func _ready():
 	var spell_list: Array = properties["spell_list"]
 
 	for spell_info in spell_list:
-		var spell_type: String = spell_info["type"]
+		var spell_type = spell_info[Properties.SpellParameter.TYPE]
 		var spell_node: Node = make_spell(spell_type)
 		spell_node.init(spell_info)
 		add_child(spell_node)
@@ -58,16 +56,16 @@ func _ready():
 #		multiple indicators for each aura? Draw only the
 #		largest one? Draw only the range for projectile
 #		spell?
-		cast_range = spell_info["cast_range"]
+		cast_range = spell_info[Properties.SpellParameter.CAST_RANGE]
 
 	$AreaOfEffect.set_radius(cast_range)
 	$AreaOfEffect.hide()
 	
 
-func make_spell(type: String) -> Node:
+func make_spell(type: int) -> Node:
 	match type:
-		"projectile": return projectile_spell_scene.instance()
-		"proximity": return proximity_spell_scene.instance()
+		Properties.SpellType.PROJECTILE: return projectile_spell_scene.instance()
+		Properties.SpellType.PROXIMITY: return proximity_spell_scene.instance()
 		_:
 			print_debug("Unknown spell type: %s. Defaulting to projectile." % type)
 			return projectile_spell_scene.instance()

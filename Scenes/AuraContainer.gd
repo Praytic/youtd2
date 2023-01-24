@@ -39,7 +39,7 @@ func add_aura_list(aura_info_list: Array):
 # stronger aura is added while another aura is running, the
 # stronger one will take over. Note that auras are compared
 # by DPS, not by value!
-func process_poison_auras(type: String):
+func process_poison_auras(type: int):
 	var aura_list: Array = get_aura_list()
 
 	var strongest_aura: Aura = null
@@ -73,7 +73,7 @@ func process_poison_auras(type: String):
 # Only the strongest aura of type has an effect. For
 # example, if there are multiple slow aura's, then final
 # slow effect will be equal to the strongest slow aura.
-func get_strongest_status_aura(type: String) -> Aura:
+func get_strongest_status_aura(type: int) -> Aura:
 	var aura_list: Array = get_aura_list()
 
 	var strongest_aura: Aura = null
