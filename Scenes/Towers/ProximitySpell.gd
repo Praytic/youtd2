@@ -4,11 +4,10 @@ extends Node2D
 var explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
 
-var aura_list: Array
 var target_type: int
 var default_cast_cd: float
 var cast_cd_mod: float = 0.0
-
+var aura_info_container: AuraInfoContainer
 
 func _ready():
 	pass
@@ -21,18 +20,22 @@ func init(spell_info: Dictionary):
 	var cast_range = spell_info[Properties.SpellParameter.CAST_RANGE]
 	Utils.circle_shape_set_radius($CastArea/CollisionShape2D, cast_range)
 
-	aura_list = spell_info[Properties.SpellParameter.AURA_LIST]
 	target_type = spell_info[Properties.SpellParameter.TARGET_TYPE]
+
+	var aura_info_list = spell_info[Properties.SpellParameter.AURA_LIST]
+	aura_info_container = AuraInfoContainer.new(aura_info_list)
 
 
 func _on_CastTimer_timeout():
 	var body_list: Array = $CastArea.get_overlapping_bodies()
 
+	var aura_info_list: Array = aura_info_container.get_modded()
+
 	for body in body_list:
 		var body_is_valid_target = is_valid_target(body)
 
 		if body_is_valid_target:
-			body.add_aura_list(aura_list)
+			body.add_aura_list(aura_info_list)
 
 			if body is Mob:
 				var explosion = explosion_scene.instance()
@@ -63,4 +66,5 @@ func apply_aura(aura: Aura):
 				cast_cd_mod = aura.get_value()
 
 			$CastTimer.wait_time = default_cast_cd * (1.0 - cast_cd_mod)
-		_: print_debug("unhandled aura.type in ProximitySpell.apply_aura():", aura.type)
+
+	aura_info_container.apply_aura(aura)

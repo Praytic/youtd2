@@ -10,7 +10,7 @@ var target_mob: Mob = null
 var default_cast_cd: float
 var cast_cd: float
 var cast_cd_mod: float = 0.0
-var aura_list: Array = []
+var aura_info_container: AuraInfoContainer
 
 
 func _ready():
@@ -24,7 +24,8 @@ func init(properties):
 	var cast_range = properties[Properties.SpellParameter.CAST_RANGE]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 
-	aura_list = properties[Properties.SpellParameter.AURA_LIST]
+	var aura_info_list = properties[Properties.SpellParameter.AURA_LIST]
+	aura_info_container = AuraInfoContainer.new(aura_info_list)
 
 
 func _on_CastTimer_timeout():
@@ -83,8 +84,8 @@ func try_to_shoot():
 	var projectile = projectile_scene.instance()
 	projectile.target_mob = target_mob
 	projectile.position = global_position
-	projectile.aura_list = aura_list
-	
+	projectile.aura_list = aura_info_container.get_modded()
+
 	game_scene.call_deferred("add_child", projectile)
 	
 	cast_timer.start(cast_cd)
@@ -105,4 +106,5 @@ func apply_aura(aura: Aura):
 				cast_cd_mod = aura.get_value()
 
 			cast_cd = default_cast_cd * (1.0 - cast_cd_mod)
-		_: print_debug("unhandled aura.type in ProximitySpell.apply_aura():", aura.type)
+
+	aura_info_container.apply_aura(aura)
