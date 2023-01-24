@@ -28,6 +28,9 @@ var mod_map: Dictionary = {
 	Properties.AuraType.MODIFY_DURATION_FOR_POISON_AURA: 0.0
 }
 
+const CRIT_CHANCE: float = 0.25
+const CRIT_MODIFIER: float = 1.0
+
 
 func _init(default_aura_info_list_arg: Array):
 	default_aura_info_list = default_aura_info_list_arg
@@ -47,6 +50,7 @@ func apply_aura(aura: Aura):
 
 # Returns aura info list with all mods applied
 # NOTE: have to be careful not to modify default aura list, so use duplicate()
+# NOTE: get_modded() also implements critical damage, even though basic criticals don't come from aura's
 func get_modded() -> Array:
 	var modded_aura_info_list: Array = default_aura_info_list.duplicate(true)
 
@@ -59,6 +63,11 @@ func get_modded() -> Array:
 
 		if is_damage_aura:
 			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + mod_map[Properties.AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA])
+
+			var crit_happened: bool = Utils.rand_chance(CRIT_CHANCE)
+
+			if crit_happened:
+				modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + CRIT_MODIFIER)
 		
 		if is_poison_aura:
 			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, 1.0 + mod_map[Properties.AuraType.MODIFY_DURATION_FOR_POISON_AURA])

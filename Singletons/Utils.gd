@@ -43,6 +43,14 @@ func randi_range(value_min: int, value_max: int):
 	return out
 
 
+# Chance should be in range [0.0, 1.0]
+# To get chance for event with 10% occurence, call rand_chance(0.1)
+func rand_chance(chance: float) -> bool:
+	var random_float: float = randf()
+	var chance_success = random_float <= chance
+
+	return chance_success
+
 func get_mob_list_in_range(position: Vector2, range_value: float) -> Array:
 	var mob_list: Array = []
 
