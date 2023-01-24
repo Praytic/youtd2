@@ -2,12 +2,12 @@ extends Node2D
 
 
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
-onready var attack_timer: Timer = $AttackTimer
+onready var cast_timer: Timer = $CastTimer
 
 
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var target_mob: Mob = null
-var attack_cd: float
+var cast_cd: float
 var aura_list: Array = []
 
 
@@ -16,22 +16,22 @@ func _ready():
 
 
 func init(properties):
-	attack_cd = properties["attack_cd"]
+	cast_cd = properties["cast_cd"]
 
-	var attack_range = properties["attack_range"]
-	Utils.circle_shape_set_radius($AttackArea/CollisionShape2D, attack_range)
+	var cast_range = properties["cast_range"]
+	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 
 	aura_list = properties["aura_list"]
 
 
-func _on_AttackTimer_timeout():
+func _on_CastTimer_timeout():
 	if !have_target():
 		target_mob = find_new_target()
 		
 	try_to_shoot()
 
 
-func _on_AttackArea_body_entered(body):
+func _on_TargetingArea_body_entered(body):
 	if have_target():
 		return
 		
@@ -41,7 +41,7 @@ func _on_AttackArea_body_entered(body):
 		try_to_shoot()
 
 
-func _on_AttackArea_body_exited(body):
+func _on_TargetingArea_body_exited(body):
 	if body == target_mob:
 #		Target has gone out of range
 		target_mob = find_new_target()
@@ -52,7 +52,7 @@ func _on_AttackArea_body_exited(body):
 # TODO: prioritizing closest mob here, but maybe change behavior
 # based on tower properties or other game design considerations
 func find_new_target() -> Mob:
-	var body_list: Array = $AttackArea.get_overlapping_bodies()
+	var body_list: Array = $TargetingArea.get_overlapping_bodies()
 	var closest_mob: Mob = null
 	var distance_min: float = 1000000.0
 	
@@ -72,7 +72,7 @@ func try_to_shoot():
 	if !have_target():
 		return
 
-	var shoot_on_cd = attack_timer.time_left > 0
+	var shoot_on_cd = cast_timer.time_left > 0
 	
 	if shoot_on_cd:
 		return
@@ -84,7 +84,7 @@ func try_to_shoot():
 	
 	game_scene.call_deferred("add_child", projectile)
 	
-	attack_timer.start(attack_cd)
+	cast_timer.start(cast_cd)
 
 
 func have_target() -> bool:
