@@ -117,30 +117,15 @@ const towers = {
 		"resource": "res://Scenes/Towers/Instances/Shrub.gd",
 		"spell_list": [
 			{
-				SpellParameter.CAST_CD: 0.5,
-				SpellParameter.TYPE: SpellType.PROJECTILE,
-				SpellParameter.CAST_RANGE: 500,
-				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+				SpellParameter.CAST_CD: 1.0,
+				SpellParameter.TYPE: SpellType.PROXIMITY,
+				SpellParameter.CAST_RANGE: 1000,
+				SpellParameter.TARGET_TYPE: SpellTargetType.TOWERS,
 				SpellParameter.AURA_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.DAMAGE,
-						AuraParameter.VALUE: 1,
-						AuraParameter.DURATION: 0,
-						AuraParameter.PERIOD: 0,
-						AuraParameter.ADD_RANGE: 0
-					}
-				]
-			},
-			{
-				SpellParameter.CAST_CD: 1.5,
-				SpellParameter.TYPE: SpellType.PROJECTILE,
-				SpellParameter.CAST_RANGE: 300,
-				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-				SpellParameter.AURA_LIST: [
-					{
-						AuraParameter.TYPE: AuraType.DAMAGE,
-						AuraParameter.VALUE: 2,
-						AuraParameter.DURATION: 0,
+						AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
+						AuraParameter.VALUE: 0.5,
+						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0
 					}
@@ -161,30 +146,15 @@ const towers = {
 		"resource": "res://Scenes/Towers/Instances/GreaterShrub.gd",
 		"spell_list": [
 			{
-				SpellParameter.CAST_CD: 0.5,
-				SpellParameter.TYPE: SpellType.PROJECTILE,
-				SpellParameter.CAST_RANGE: 500,
-				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+				SpellParameter.CAST_CD: 1.0,
+				SpellParameter.TYPE: SpellType.PROXIMITY,
+				SpellParameter.CAST_RANGE: 1000,
+				SpellParameter.TARGET_TYPE: SpellTargetType.TOWERS,
 				SpellParameter.AURA_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.DAMAGE,
-						AuraParameter.VALUE: 1,
-						AuraParameter.DURATION: 0,
-						AuraParameter.PERIOD: 0,
-						AuraParameter.ADD_RANGE: 0
-					}
-				]
-			},
-			{
-				SpellParameter.CAST_CD: 1.5,
-				SpellParameter.TYPE: SpellType.PROJECTILE,
-				SpellParameter.CAST_RANGE: 300,
-				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-				SpellParameter.AURA_LIST: [
-					{
-						AuraParameter.TYPE: AuraType.DAMAGE,
-						AuraParameter.VALUE: 2,
-						AuraParameter.DURATION: 0,
+						AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
+						AuraParameter.VALUE: 0.5,
+						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0
 					}
@@ -248,6 +218,21 @@ var example_spells = {
 				AuraParameter.TYPE: AuraType.SLOW,
 				AuraParameter.VALUE: 1.0,
 				AuraParameter.DURATION: 10,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0
+			}
+		]
+	},
+	"Buff speed of other towers": {
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 1000,
+		SpellParameter.TARGET_TYPE: SpellTargetType.TOWERS,
+		SpellParameter.AURA_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
+				AuraParameter.VALUE: 0.5,
+				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0
 			}

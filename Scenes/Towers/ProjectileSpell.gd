@@ -102,7 +102,7 @@ func apply_aura(aura: Aura):
 			if aura.is_expired:
 				cast_cd_mod = 0.0
 			else:
-				cast_cd_mod = aura.value
+				cast_cd_mod = aura.get_value()
 
 			cast_cd = default_cast_cd * (1.0 - cast_cd_mod)
 		_: print_debug("unhandled aura.type in ProximitySpell.apply_aura():", aura.type)

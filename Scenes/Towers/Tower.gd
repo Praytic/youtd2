@@ -19,8 +19,6 @@ var cost: float
 var description: String
 
 
-var projectile_spell_scene: PackedScene = preload("res://Scenes/Towers/ProjectileSpell.tscn")
-var proximity_spell_scene: PackedScene = preload("res://Scenes/Towers/ProximitySpell.tscn")
 var aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 
 var spell_node_list: Array = []
@@ -64,10 +62,19 @@ func _ready():
 
 func make_spell(type: int) -> Node:
 	match type:
-		Properties.SpellType.PROJECTILE: return projectile_spell_scene.instance()
-		Properties.SpellType.PROXIMITY: return proximity_spell_scene.instance()
+		Properties.SpellType.PROJECTILE:
+			var projectile_spell_scene: PackedScene = load("res://Scenes/Towers/ProjectileSpell.tscn")
+
+			return projectile_spell_scene.instance()
+		Properties.SpellType.PROXIMITY:
+			var proximity_spell_scene: PackedScene = load("res://Scenes/Towers/ProximitySpell.tscn")
+
+			return proximity_spell_scene.instance()
 		_:
 			print_debug("Unknown spell type: %s. Defaulting to projectile." % type)
+			
+			var projectile_spell_scene: PackedScene = load("res://Scenes/Towers/ProximitySpell.tscn")
+			
 			return projectile_spell_scene.instance()
 
 
