@@ -17,7 +17,7 @@ func _ready():
 
 
 # Call this function in object to add auras
-func add_aura_list(aura_info_list: Array):
+func create_and_add_auras(aura_info_list: Array):
 	for aura_info in aura_info_list:
 		var aura = Aura.new(aura_info)
 		aura.connect("applied", self, "on_aura_applied")

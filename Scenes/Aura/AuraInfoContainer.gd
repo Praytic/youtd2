@@ -31,9 +31,9 @@ func apply_aura(aura: Aura):
 # Returns aura info list with all mods applied
 # NOTE: have to be careful not to modify default aura list, so use duplicate()
 func get_modded() -> Array:
-	var modded_aura_list: Array = default_aura_info_list.duplicate(true)
+	var modded_aura_info_list: Array = default_aura_info_list.duplicate(true)
 
-	for aura_info in modded_aura_list:
+	for aura_info in modded_aura_info_list:
 		var type: int = aura_info[Properties.AuraParameter.TYPE]
 		var duration: int = aura_info[Properties.AuraParameter.DURATION]
 		var period: int = aura_info[Properties.AuraParameter.PERIOD]
@@ -47,7 +47,7 @@ func get_modded() -> Array:
 			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, 1.0 + mod_map[Properties.AuraType.MODIFY_DURATION_FOR_POISON_AURA])
 
 
-	return modded_aura_list
+	return modded_aura_info_list
 
 
 func modify_aura_info_value(aura_info: Dictionary, value_key: int, mod_value: float):
