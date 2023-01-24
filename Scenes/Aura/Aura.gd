@@ -1,6 +1,11 @@
 extends Node
 
 
+# Aura contains information about it's parameters and timers
+# that determine when the aura applies and expires. Aura's
+# should be used via AuraContainer, which manages their
+# lifetime and application logic.
+
 class_name Aura
 
 

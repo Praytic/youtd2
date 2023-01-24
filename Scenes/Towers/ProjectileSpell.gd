@@ -1,6 +1,16 @@
 extends Node2D
 
 
+# ProjectileSpell periodically fires projectiles on targets
+# When a valid target enters tower's range, tower will stick
+# to that same target until it goes out of range or dies.
+# Whenever timer times out, ProximitySpell creates a
+# projectile and passes aura info list to it. The projectile
+# begins travelling to the tower's target. When the
+# projectile reaches the target, aura info list is passed to
+# the target.
+
+
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var cast_timer: Timer = $CastTimer
 
