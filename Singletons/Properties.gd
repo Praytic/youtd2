@@ -52,9 +52,13 @@ enum SpellType {
 	PROXIMITY
 }
 
+# NOTE:
+# ALL_TOWERS = self and neighbors
+# OTHER_TOWERS = only neighbors
 enum SpellTargetType {
 	MOBS,
-	TOWERS
+	ALL_TOWERS,
+	OTHER_TOWERS,
 }
 
 enum AuraParameter {
@@ -120,7 +124,7 @@ const towers = {
 				SpellParameter.CAST_CD: 1.0,
 				SpellParameter.TYPE: SpellType.PROXIMITY,
 				SpellParameter.CAST_RANGE: 1000,
-				SpellParameter.TARGET_TYPE: SpellTargetType.TOWERS,
+				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 				SpellParameter.AURA_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
@@ -149,7 +153,7 @@ const towers = {
 				SpellParameter.CAST_CD: 1.0,
 				SpellParameter.TYPE: SpellType.PROXIMITY,
 				SpellParameter.CAST_RANGE: 1000,
-				SpellParameter.TARGET_TYPE: SpellTargetType.TOWERS,
+				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 				SpellParameter.AURA_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
@@ -227,7 +231,7 @@ var example_spells = {
 		SpellParameter.CAST_CD: 1.0,
 		SpellParameter.TYPE: SpellType.PROXIMITY,
 		SpellParameter.CAST_RANGE: 1000,
-		SpellParameter.TARGET_TYPE: SpellTargetType.TOWERS,
+		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 		SpellParameter.AURA_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
