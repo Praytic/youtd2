@@ -6,7 +6,8 @@ class_name AuraInfoContainer
 
 var default_aura_info_list: Array
 
-var damage_aura_value_mod: float = 0.0
+var mod_value_for_damage_aura: float = 0.0
+var mod_duration_for_poison_aura: float = 0.0
 
 
 func _init(default_aura_info_list_arg: Array):
@@ -19,11 +20,17 @@ func _ready():
 
 func apply_aura(aura: Aura):
 	match aura.type:
-		Properties.AuraType.MODIFY_DAMAGE_AURA_VALUE:
+		Properties.AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA:
 			if aura.is_expired:
-				damage_aura_value_mod = 0.0
+				mod_value_for_damage_aura = 0.0
 			else:
-				damage_aura_value_mod = aura.get_value()
+				mod_value_for_damage_aura = aura.get_value()
+		Properties.AuraType.MODIFY_DURATION_FOR_POISON_AURA:
+			if aura.is_expired:
+				mod_duration_for_poison_aura = 0.0
+			else:
+				mod_duration_for_poison_aura = aura.get_value()
+
 
 
 # Returns aura info list with all mods applied
@@ -32,25 +39,29 @@ func get_modded() -> Array:
 	var modded_aura_list: Array = default_aura_info_list.duplicate(true)
 
 	for aura_info in modded_aura_list:
-		var is_damage_aura = aura_info[Properties.AuraParameter.TYPE] == Properties.AuraType.DAMAGE
+		var type: int = aura_info[Properties.AuraParameter.TYPE]
+		var duration: int = aura_info[Properties.AuraParameter.DURATION]
+		var period: int = aura_info[Properties.AuraParameter.PERIOD]
+		var is_damage_aura = type == Properties.AuraType.DAMAGE
+		var is_poison_aura = type == Properties.AuraType.DAMAGE && duration > 0 && period > 0
 
-		if !is_damage_aura:
-			continue
+		if is_damage_aura:
+			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + mod_value_for_damage_aura)
 		
-		modify_aura_info_value(aura_info, 1.0 + damage_aura_value_mod)
+		if is_poison_aura:
+			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, 1.0 + mod_duration_for_poison_aura)
+
 
 	return modded_aura_list
 
 
-func modify_aura_info_value(aura_info: Dictionary, mod_value: float):
-	if aura_info[Properties.AuraParameter.VALUE] is Array:
-		var modded_value_range: Array = (aura_info[Properties.AuraParameter.VALUE] as Array).duplicate(true)
+func modify_aura_info_value(aura_info: Dictionary, value_key: int, mod_value: float):
+	if aura_info[value_key] is Array:
+		var modded_value_range: Array = (aura_info[value_key] as Array).duplicate(true)
 		
 		for value in modded_value_range:
 			value *= mod_value
 
-		aura_info[Properties.AuraParameter.VALUE] = modded_value_range
+		aura_info[value_key] = modded_value_range
 	else:
-		aura_info[Properties.AuraParameter.VALUE] *= mod_value
-
-
+		aura_info[value_key] *= mod_value

@@ -73,7 +73,8 @@ enum AuraType {
 	DAMAGE,
 	SLOW,
 	DECREASE_CAST_CD,
-	MODIFY_DAMAGE_AURA_VALUE
+	MODIFY_VALUE_FOR_DAMAGE_AURA,
+	MODIFY_DURATION_FOR_POISON_AURA,
 }
 
 
@@ -93,16 +94,16 @@ const towers = {
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
 		"spell_list": [
 			{
-				SpellParameter.CAST_CD: 1,
-				SpellParameter.TYPE: SpellType.PROXIMITY,
+				SpellParameter.CAST_CD: 3,
+				SpellParameter.TYPE: SpellType.PROJECTILE,
 				SpellParameter.CAST_RANGE: 1000,
 				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
 				SpellParameter.AURA_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.DAMAGE,
 						AuraParameter.VALUE: 2,
-						AuraParameter.DURATION: 0,
-						AuraParameter.PERIOD: 0,
+						AuraParameter.DURATION: 3,
+						AuraParameter.PERIOD: 1,
 						AuraParameter.ADD_RANGE: 0
 					}
 				]
@@ -128,8 +129,8 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 				SpellParameter.AURA_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
-						AuraParameter.VALUE: 0.5,
+						AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
+						AuraParameter.VALUE: 3.0,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0
@@ -157,7 +158,7 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 				SpellParameter.AURA_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.MODIFY_DAMAGE_AURA_VALUE,
+						AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
 						AuraParameter.VALUE: 3.0,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
@@ -237,6 +238,21 @@ var example_spells = {
 			{
 				AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
 				AuraParameter.VALUE: 0.5,
+				AuraParameter.DURATION: 1.01,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0
+			}
+		]
+	},
+	"Buff poison duration by 300% (4x increase) for other towers": {
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 1000,
+		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
+		SpellParameter.AURA_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
+				AuraParameter.VALUE: 3.0,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0
