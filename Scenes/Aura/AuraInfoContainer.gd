@@ -64,7 +64,22 @@ func get_modded() -> Array:
 	if is_miss:
 		return []
 	
-	var modded_aura_info_list: Array = default_aura_info_list.duplicate(true)
+	var modded_aura_info_list: Array = []
+
+	# Add aura's based on their ADD_CHANCE
+	# NOTE: ADD_CHANCE is handled in a weird way like this to
+	# implement the behavior of aura's with same ADD_CHANCE
+	# succeeding together. If we processed ADD_CHANCE values
+	# individually, then aura's with same add chance would
+	# succeed independently.
+	var add_success_map: Dictionary = get_add_success_map()
+
+	for aura_info in default_aura_info_list:
+		var add_chance: float = aura_info[Properties.AuraParameter.ADD_CHANCE]
+		var add_success: bool = add_success_map[add_chance]
+
+		if add_success:
+			modded_aura_info_list.append(aura_info.duplicate(true))
 
 	var crit_modifier: float = DEFAULT_CRIT_MODIFIER + mod_map[Properties.AuraType.MODIFY_CRIT_MODIFIER]
 	var is_critical: bool = get_is_critical()
@@ -113,5 +128,21 @@ func get_is_critical() -> bool:
 func get_is_miss() -> bool:
 	var miss_chance: float = min(1.0, DEFAULT_MISS_CHANCE + mod_map[Properties.AuraType.MODIFY_MISS_CHANCE])
 	var out: bool = Utils.rand_chance(miss_chance)
+
+	return out
+
+
+# Returns a map that contains chance values of aura's mapped to
+# whether the chance succeeded or not. Note that aura's with same chance value always succeed together.
+func get_add_success_map() -> Dictionary:
+	var out: Dictionary = {}
+
+	for aura_info in default_aura_info_list:
+		var add_chance: float = aura_info[Properties.AuraParameter.ADD_CHANCE]
+		var already_rolled: bool = out.has(add_chance)
+
+		if !already_rolled:
+			var add_success: bool = Utils.rand_chance(add_chance)
+			out[add_chance] = add_success
 
 	return out
