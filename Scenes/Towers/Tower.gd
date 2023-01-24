@@ -103,8 +103,8 @@ func upgrade() -> PackedScene:
 	return next_tier_tower
 
 
-func add_aura_list(aura_info_list: Array):
-	$AuraContainer.add_aura_list(aura_info_list)
+func add_aura_info_list(aura_info_list: Array):
+	$AuraContainer.create_and_add_auras(aura_info_list)
 
 
 func _on_AuraContainer_applied(aura: Aura):
