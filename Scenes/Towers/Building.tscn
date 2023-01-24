@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Towers/Building.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Environment/Props/floor.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/AuraContainer.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Towers/Selection.gd" type="Script" id=4]
 
 [node name="Building" type="StaticBody2D"]
@@ -17,5 +18,8 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2( 1, 0.5 )
 polygon = PoolVector2Array( 0, -128, 128, 0, 0, 128, -128, 0 )
+
+[node name="AuraContainer" type="Node" parent="."]
+script = ExtResource( 3 )
 
 [connection signal="input_event" from="." to="." method="_on_Building_input_event"]

@@ -56,24 +56,26 @@ const towers = {
 				"cast_cd": 1,
 				"type": "projectile",
 				"cast_range": 1000,
+				"target_type": "mobs",
 				"aura_list": [
 					{
-						"type": "slow",
-						"value": 0.25,
-						"duration": 1.01,
+						"type": "damage",
+						"value": 2,
+						"duration": 0,
 						"period": 0,
-						"add_range": 100
+						"add_range": 0
 					}
 				]
 			},
 			{
 				"cast_cd": 1,
 				"type": "proximity",
+				"target_type": "towers",
 				"cast_range": 100,
 				"aura_list": [
 					{
-						"type": "slow",
-						"value": 0.25,
+						"type": "reduce cast cd",
+						"value": 0.5,
 						"duration": 1.01,
 						"period": 0,
 						"add_range": 0
@@ -102,6 +104,7 @@ const towers = {
 				"cast_cd": 0.5,
 				"type": "projectile",
 				"cast_range": 500,
+				"target_type": "mobs",
 				"aura_list": [
 					{
 						"type": "damage",
@@ -116,6 +119,7 @@ const towers = {
 				"cast_cd": 1.5,
 				"type": "projectile",
 				"cast_range": 300,
+				"target_type": "mobs",
 				"aura_list": [
 					{
 						"type": "damage",
@@ -148,6 +152,7 @@ const towers = {
 				"cast_cd": 0.5,
 				"type": "projectile",
 				"cast_range": 500,
+				"target_type": "mobs",
 				"aura_list": [
 					{
 						"type": "damage",
@@ -162,6 +167,7 @@ const towers = {
 				"cast_cd": 1.5,
 				"type": "projectile",
 				"cast_range": 300,
+				"target_type": "mobs",
 				"aura_list": [
 					{
 						"type": "damage",
@@ -198,6 +204,7 @@ var example_spells = {
 		"cast_cd": 1,
 		"type": "projectile",
 		"cast_range": 300,
+		"target_type": "mobs",
 		"aura_list": [
 			{
 				"type": "damage",
@@ -212,6 +219,7 @@ var example_spells = {
 		"cast_cd": 1,
 		"type": "projectile",
 		"cast_range": 300,
+		"target_type": "mobs",
 		"aura_list": [
 			{
 				"type": "damage",
@@ -226,6 +234,7 @@ var example_spells = {
 		"cast_cd": 1,
 		"type": "projectile",
 		"cast_range": 300,
+		"target_type": "mobs",
 		"aura_list": [
 			{
 				"type": "slow",
