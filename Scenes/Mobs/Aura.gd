@@ -8,7 +8,7 @@ signal applied(aura)
 signal expired(aura)
 
 
-var type: String
+var type: int
 var value_is_range: bool
 var value_fixed: float
 var value_min: float
@@ -23,19 +23,19 @@ var is_running: bool = false
 
 
 func _init(aura_info):
-	type = aura_info["type"]
-	duration = aura_info["duration"]
-	period = aura_info["period"]
+	type = aura_info[Properties.AuraParameter.TYPE]
+	duration = aura_info[Properties.AuraParameter.DURATION]
+	period = aura_info[Properties.AuraParameter.PERIOD]
 
-	value_is_range = aura_info["value"] is Array
+	value_is_range = aura_info[Properties.AuraParameter.VALUE] is Array
 
 	if value_is_range:
-		var value_range: Array = aura_info["value"] as Array
+		var value_range: Array = aura_info[Properties.AuraParameter.VALUE] as Array
 
 		value_min = min(value_range[0], value_range[1])
 		value_max = max(value_range[0], value_range[1])
 	else:
-		value_fixed = aura_info["value"] as float
+		value_fixed = aura_info[Properties.AuraParameter.VALUE] as float
 
 
 # Called when the node enters the scene tree for the first time.

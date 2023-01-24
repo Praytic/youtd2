@@ -18,13 +18,13 @@ func _ready():
 
 
 func init(properties):
-	default_cast_cd = properties["cast_cd"]
+	default_cast_cd = properties[Properties.SpellParameter.CAST_CD]
 	cast_cd = default_cast_cd
 
-	var cast_range = properties["cast_range"]
+	var cast_range = properties[Properties.SpellParameter.CAST_RANGE]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 
-	aura_list = properties["aura_list"]
+	aura_list = properties[Properties.SpellParameter.AURA_LIST]
 
 
 func _on_CastTimer_timeout():
@@ -98,7 +98,7 @@ func have_target() -> bool:
 
 func apply_aura(aura: Aura):
 	match aura.type:
-		"reduce cast cd":
+		Properties.AuraType.DECREASE_CAST_CD:
 			if aura.is_expired:
 				cast_cd_mod = 0.0
 			else:

@@ -38,7 +38,7 @@ func _process(delta):
 
 
 func get_affected_mob_list(aura_info: Dictionary) -> Array:
-	var aura_add_range: float = aura_info["add_range"]
+	var aura_add_range: float = aura_info[Properties.AuraParameter.ADD_RANGE]
 	var apply_to_target_only: bool = aura_add_range == 0
 
 	if apply_to_target_only:
