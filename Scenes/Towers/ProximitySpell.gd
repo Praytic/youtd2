@@ -36,9 +36,8 @@ func _on_CastTimer_timeout():
 			var explosion = explosion_scene.instance()
 			explosion.position = mob.position
 			game_scene.call_deferred("add_child", explosion)
-		elif target_type == Properties.SpellTargetType.TOWERS && body.is_class("Tower"):
-#			Can't use "is Tower" here because of circular
-#			dependency
+		elif target_type == Properties.SpellTargetType.TOWERS && body is Tower:
+			var tower: Tower = body as Tower
 			body.add_aura_list(aura_list)
 
 
@@ -48,7 +47,7 @@ func apply_aura(aura: Aura):
 			if aura.is_expired:
 				cast_cd_mod = 0.0
 			else:
-				cast_cd_mod = aura.value
+				cast_cd_mod = aura.get_value()
 
 			$CastTimer.wait_time = default_cast_cd * (1.0 - cast_cd_mod)
 		_: print_debug("unhandled aura.type in ProximitySpell.apply_aura():", aura.type)
