@@ -59,7 +59,7 @@ const towers = {
 				"aura_list": [
 					{
 						"type": "slow",
-						"value": 200,
+						"value": 0.25,
 						"duration": 1.01,
 						"period": 0,
 						"add_range": 100
@@ -73,7 +73,7 @@ const towers = {
 				"aura_list": [
 					{
 						"type": "slow",
-						"value": 200,
+						"value": 0.25,
 						"duration": 1.01,
 						"period": 0,
 						"add_range": 0
@@ -104,8 +104,8 @@ const towers = {
 				"cast_range": 500,
 				"aura_list": [
 					{
-						"type": "change health",
-						"value": -1,
+						"type": "damage",
+						"value": 1,
 						"duration": 0,
 						"period": 0,
 						"add_range": 0
@@ -118,8 +118,8 @@ const towers = {
 				"cast_range": 300,
 				"aura_list": [
 					{
-						"type": "change health",
-						"value": -2,
+						"type": "damage",
+						"value": 2,
 						"duration": 0,
 						"period": 0,
 						"add_range": 0
@@ -150,8 +150,8 @@ const towers = {
 				"cast_range": 500,
 				"aura_list": [
 					{
-						"type": "change health",
-						"value": -1,
+						"type": "damage",
+						"value": 1,
 						"duration": 0,
 						"period": 0,
 						"add_range": 0
@@ -164,8 +164,8 @@ const towers = {
 				"cast_range": 300,
 				"aura_list": [
 					{
-						"type": "change health",
-						"value": -2,
+						"type": "damage",
+						"value": 2,
 						"duration": 0,
 						"period": 0,
 						"add_range": 0
@@ -200,8 +200,8 @@ var example_spells = {
 		"cast_range": 300,
 		"aura_list": [
 			{
-				"type": "change health",
-				"value": [-1, -2],
+				"type": "damage",
+				"value": [1, 2],
 				"duration": 0,
 				"period": 0,
 				"add_range": 0
@@ -214,8 +214,8 @@ var example_spells = {
 		"cast_range": 300,
 		"aura_list": [
 			{
-				"type": "change health",
-				"value": [-1, -2],
+				"type": "damage",
+				"value": [1, 2],
 				"duration": 10,
 				"period": 1,
 				"add_range": 0
@@ -229,7 +229,7 @@ var example_spells = {
 		"aura_list": [
 			{
 				"type": "slow",
-				"value": -10000,
+				"value": 1.0,
 				"duration": 10,
 				"period": 0,
 				"add_range": 0
