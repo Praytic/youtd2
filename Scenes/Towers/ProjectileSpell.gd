@@ -24,7 +24,7 @@ func init(properties):
 	var cast_range = properties[Properties.SpellParameter.CAST_RANGE]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 
-	var aura_info_list = properties[Properties.SpellParameter.AURA_LIST]
+	var aura_info_list: Array = properties[Properties.SpellParameter.AURA_INFO_LIST]
 	aura_info_container = AuraInfoContainer.new(aura_info_list)
 
 
@@ -82,9 +82,7 @@ func try_to_shoot():
 		return
 	
 	var projectile = projectile_scene.instance()
-	projectile.target_mob = target_mob
-	projectile.position = global_position
-	projectile.aura_list = aura_info_container.get_modded()
+	projectile.init(target_mob, global_position, aura_info_container.get_modded())
 
 	game_scene.call_deferred("add_child", projectile)
 	

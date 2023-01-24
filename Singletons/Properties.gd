@@ -44,7 +44,7 @@ enum SpellParameter {
 	TYPE,
 	CAST_RANGE,
 	TARGET_TYPE,
-	AURA_LIST
+	AURA_INFO_LIST
 }
 
 enum SpellType {
@@ -98,7 +98,7 @@ const towers = {
 				SpellParameter.TYPE: SpellType.PROJECTILE,
 				SpellParameter.CAST_RANGE: 1000,
 				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-				SpellParameter.AURA_LIST: [
+				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.DAMAGE,
 						AuraParameter.VALUE: 2,
@@ -127,7 +127,7 @@ const towers = {
 				SpellParameter.TYPE: SpellType.PROXIMITY,
 				SpellParameter.CAST_RANGE: 1000,
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
-				SpellParameter.AURA_LIST: [
+				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
 						AuraParameter.VALUE: 3.0,
@@ -156,7 +156,7 @@ const towers = {
 				SpellParameter.TYPE: SpellType.PROXIMITY,
 				SpellParameter.CAST_RANGE: 1000,
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
-				SpellParameter.AURA_LIST: [
+				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
 						AuraParameter.VALUE: 3.0,
@@ -189,7 +189,7 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROJECTILE,
 		SpellParameter.CAST_RANGE: 300,
 		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-		SpellParameter.AURA_LIST: [
+		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.DAMAGE,
 				AuraParameter.VALUE: [1, 2],
@@ -204,7 +204,7 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROJECTILE,
 		SpellParameter.CAST_RANGE: 300,
 		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-		SpellParameter.AURA_LIST: [
+		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.DAMAGE,
 				AuraParameter.VALUE: [1, 2],
@@ -219,7 +219,7 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROJECTILE,
 		SpellParameter.CAST_RANGE: 300,
 		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-		SpellParameter.AURA_LIST: [
+		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.SLOW,
 				AuraParameter.VALUE: 1.0,
@@ -234,7 +234,7 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROXIMITY,
 		SpellParameter.CAST_RANGE: 1000,
 		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
-		SpellParameter.AURA_LIST: [
+		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
 				AuraParameter.VALUE: 0.5,
@@ -249,7 +249,7 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROXIMITY,
 		SpellParameter.CAST_RANGE: 1000,
 		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
-		SpellParameter.AURA_LIST: [
+		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
 				AuraParameter.VALUE: 3.0,
