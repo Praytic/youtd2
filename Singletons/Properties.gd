@@ -72,7 +72,8 @@ enum AuraParameter {
 enum AuraType {
 	DAMAGE,
 	SLOW,
-	DECREASE_CAST_CD
+	DECREASE_CAST_CD,
+	MODIFY_DAMAGE_AURA_VALUE
 }
 
 
@@ -93,7 +94,7 @@ const towers = {
 		"spell_list": [
 			{
 				SpellParameter.CAST_CD: 1,
-				SpellParameter.TYPE: SpellType.PROJECTILE,
+				SpellParameter.TYPE: SpellType.PROXIMITY,
 				SpellParameter.CAST_RANGE: 1000,
 				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
 				SpellParameter.AURA_LIST: [
@@ -156,8 +157,8 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 				SpellParameter.AURA_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
-						AuraParameter.VALUE: 0.5,
+						AuraParameter.TYPE: AuraType.MODIFY_DAMAGE_AURA_VALUE,
+						AuraParameter.VALUE: 3.0,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0
