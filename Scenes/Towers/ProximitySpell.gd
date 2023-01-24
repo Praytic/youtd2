@@ -29,16 +29,29 @@ func _on_CastTimer_timeout():
 	var body_list: Array = $CastArea.get_overlapping_bodies()
 
 	for body in body_list:
-		if target_type == Properties.SpellTargetType.MOBS && body is Mob:
-			var mob: Mob = body as Mob
-			mob.add_aura_list(aura_list)
-			
-			var explosion = explosion_scene.instance()
-			explosion.position = mob.position
-			game_scene.call_deferred("add_child", explosion)
-		elif target_type == Properties.SpellTargetType.TOWERS && body is Tower:
-			var tower: Tower = body as Tower
+		var body_is_valid_target = is_valid_target(body)
+
+		if body_is_valid_target:
 			body.add_aura_list(aura_list)
+
+			if body is Mob:
+				var explosion = explosion_scene.instance()
+				explosion.position = body.position
+				game_scene.call_deferred("add_child", explosion)
+
+
+func is_valid_target(node: Node) -> bool:
+	match target_type:
+		Properties.SpellTargetType.MOBS:
+			return node is Mob
+		Properties.SpellTargetType.ALL_TOWERS:
+			return node is Tower
+		Properties.SpellTargetType.OTHER_TOWERS:
+			var this_tower = get_parent()
+
+			return node is Tower && node != this_tower
+
+	return false
 
 
 func apply_aura(aura: Aura):
