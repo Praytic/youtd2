@@ -1,14 +1,55 @@
 extends Node
 
 
+# AuraContainer stores aura instances. It is used by Mob and
+# Tower. User of AuraContainer should call
+# create_and_add_auras() to add auras and connect to
+# applied() signal to apply effects of aura's. User of
+# AuraContainer is responsible for the actual implementation
+# of the effects, AuraContainer only passes the aura which
+# contains basic information about it's effect. Note that
+# for status auras(duration > 0, period == 0), applied()
+# signal will be emitted when aura expires, so that you can
+# reset status effects. For such cases check for
+# "aura.is_expired" flag.
+
+# Lifecycle of an aura:
+# 
+# 1. Aura info is passed to AuraContainer by parent.
+# 2. AuraContainer creates the Aura based on aura info and stores it.
+# 3. Aura enters the running state.
+# 4. Aura may emit applied() signal during the running state.
+# 5. AuraContainer may pass applied() signal to parent, but there is extra logic for different aura's.
+# 6. Aura expires and is destroyed.
+# 
+# Different aura cases:
+# 
+# Instant aura's emit applied() and expire instantly when run for the first time.
+# Periodic (poison) aura's emit applied multiple times during it's running time.
+# Status aura's emit applied() instantly when run for the first time. When they expire, they emit applied() again to notify the user of the aura to reset aura effects.
+#
+# Poison aura's have special stacking behavior. If
+# multiple poison auras of same type are added, then only
+# the strongest aura will be running. Other aura's will be
+# paused until the strongest aura expires. Note that if a
+# stronger aura is added while another aura is running, the
+# stronger one will take over. Note that auras are compared
+# by DPS, not by value!
+# 
+# Status auras of the same type run and expire in parallel.
+# Only the strongest aura of type has an effect. For
+# example, if there are multiple slow aura's, then final
+# slow effect will be equal to the strongest slow aura. If
+# two slow aura's are running and one of them is stronger
+# and shorter, then when the stronger one expires,
+# AuraContainer will emit applied() signal with the weaker
+# slow aura passed as a parameter. The end result is that
+# the slow effect is reduced when stronger slow aura
+# expires.
+
 class_name AuraContainer
 
 
-# Connect to this signal to respond to aura applications.
-# Note that for status auras(duration > 0, period == 0),
-# this signal will be emitted when aura expires, so that you
-# can reset status effects. For such cases check for
-# "aura.is_expired" flag.
 signal applied(aura)
 
 
@@ -32,13 +73,6 @@ func create_and_add_auras(aura_info_list: Array):
 			aura.run()
 
 
-# Poison aura's have special stacking behavior. If
-# multiple poison auras of same type are added, then only
-# the strongest aura will be running. Other aura's will be
-# paused until the strongest aura expires. Note that if a
-# stronger aura is added while another aura is running, the
-# stronger one will take over. Note that auras are compared
-# by DPS, not by value!
 func process_poison_auras(type: int):
 	var aura_list: Array = get_aura_list()
 
@@ -69,10 +103,6 @@ func process_poison_auras(type: int):
 			strongest_aura.run()
 
 
-# Status auras of the same type run and expire in parallel.
-# Only the strongest aura of type has an effect. For
-# example, if there are multiple slow aura's, then final
-# slow effect will be equal to the strongest slow aura.
 func get_strongest_status_aura(type: int) -> Aura:
 	var aura_list: Array = get_aura_list()
 

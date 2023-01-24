@@ -1,6 +1,11 @@
 extends KinematicBody2D
 
 
+# Projectile travels towards the target. When it reaches the
+# target, it passes aura info list to the target and
+# destroys itself.
+
+
 var target_mob: Mob = null
 export var speed: int = 100
 export var contact_distance: int = 30
@@ -13,9 +18,9 @@ func init(target_mob_arg: Mob, position_arg: Vector2, aura_info_list_arg: Array)
 	aura_info_list = aura_info_list_arg
 
 
-# TODO: duplicated in GunT1.gd, move somewhere to share in both places
 func have_target() -> bool:
 	return target_mob != null and is_instance_valid(target_mob)
+
 
 func _process(delta):
 	if !have_target():
