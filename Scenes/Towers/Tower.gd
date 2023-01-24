@@ -40,6 +40,8 @@ func _ready():
 	cost = properties["cost"]
 	description = properties["description"]
 
+	$AuraContainer.connect("applied", self, "_on_AuraContainer_applied")
+
 	var cast_range: float = 100.0
 
 	var spell_list: Array = properties["spell_list"]
@@ -94,3 +96,12 @@ func upgrade() -> PackedScene:
 	var next_tier_tower = TowerManager.get_tower(next_tier_id)
 	emit_signal("upgraded")
 	return next_tier_tower
+
+
+func add_aura_list(aura_info_list: Array):
+	$AuraContainer.add_aura_list(aura_info_list)
+
+
+func _on_AuraContainer_applied(aura: Aura):
+	for spell_node in spell_node_list:
+		spell_node.apply_aura(aura)

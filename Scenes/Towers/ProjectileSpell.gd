@@ -7,7 +7,9 @@ onready var cast_timer: Timer = $CastTimer
 
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var target_mob: Mob = null
+var default_cast_cd: float
 var cast_cd: float
+var cast_cd_mod: float = 0.0
 var aura_list: Array = []
 
 
@@ -16,7 +18,8 @@ func _ready():
 
 
 func init(properties):
-	cast_cd = properties["cast_cd"]
+	default_cast_cd = properties["cast_cd"]
+	cast_cd = default_cast_cd
 
 	var cast_range = properties["cast_range"]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
@@ -92,3 +95,14 @@ func have_target() -> bool:
 #	which free's them and makes them invalid
 	return target_mob != null and is_instance_valid(target_mob)
 
+
+func apply_aura(aura: Aura):
+	match aura.type:
+		"reduce cast cd":
+			if aura.is_expired:
+				cast_cd_mod = 0.0
+			else:
+				cast_cd_mod = aura.value
+
+			cast_cd = default_cast_cd * (1.0 - cast_cd_mod)
+		_: print_debug("unhandled aura.type in ProximitySpell.apply_aura():", aura.type)
