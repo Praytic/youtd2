@@ -11,9 +11,6 @@ export(int) var id
 export(int) var next_tier_id
 
 var attack_type: String
-var attack_range: float
-var attack_cd: float
-var attack_style_string: String
 var ingame_name: String
 var author: String
 var rarity: String
@@ -24,11 +21,11 @@ var cost: float
 var description: String
 
 
-var attack_shoot_scene: PackedScene = preload("res://Scenes/Towers/AttackShoot.tscn")
-var attack_aoe_scene: PackedScene = preload("res://Scenes/Towers/AttackAoe.tscn")
+var projectile_spell_scene: PackedScene = preload("res://Scenes/Towers/ProjectileSpell.tscn")
+var proximity_spell_scene: PackedScene = preload("res://Scenes/Towers/ProximitySpell.tscn")
 var aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 
-var attack_node: Node = null
+var spell_node_list: Array = []
 
 
 func _ready():
@@ -36,42 +33,51 @@ func _ready():
 	
 	var properties = TowerManager.tower_props[id]
 	attack_type = properties["attack_type"]
-	attack_range = properties["attack_range"]
-	attack_cd = properties["attack_cd"]
-	attack_style_string = properties["attack_style"]
 	ingame_name = properties["name"]
 	author = properties["author"]
 	rarity = properties["rarity"]
 	element = properties["element"]
-	damage_l = properties["damage_l"]
-	damage_r = properties["damage_r"]
 	cost = properties["cost"]
 	description = properties["description"]
 
-	$AreaOfEffect.set_radius(attack_range)
-	$AreaOfEffect.hide()
+	var cast_range: float = 100.0
 
-	attack_node = make_attack_node(attack_style_string)
-	add_child(attack_node)
-	attack_node.init(properties)
+	var spell_list: Array = properties["spell_list"]
+
+	for spell_info in spell_list:
+		var spell_type: String = spell_info["type"]
+		var spell_node: Node = make_spell(spell_type)
+		spell_node.init(spell_info)
+		add_child(spell_node)
+		spell_node_list.append(spell_node)
+
+#		HACK: to set some radius for areaofeffect indicator.
+#		Don't know what to do for multiple aura's. Draw
+#		multiple indicators for each aura? Draw only the
+#		largest one? Draw only the range for projectile
+#		spell?
+		cast_range = spell_info["cast_range"]
+
+	$AreaOfEffect.set_radius(cast_range)
+	$AreaOfEffect.hide()
 	
 
-func make_attack_node(attack_style: String) -> Node:
-	match attack_style:
-		"shoot": return attack_shoot_scene.instance()
-		"aoe": return attack_aoe_scene.instance()
+func make_spell(type: String) -> Node:
+	match type:
+		"projectile": return projectile_spell_scene.instance()
+		"proximity": return proximity_spell_scene.instance()
 		_:
-			print_debug("Unknown attack style: %s. Defaulting to shoot." % attack_style)
-			return attack_shoot_scene.instance()
+			print_debug("Unknown spell type: %s. Defaulting to projectile." % type)
+			return projectile_spell_scene.instance()
 
 
 func build_init():
 	.build_init()
 	$AreaOfEffect.show()
 
-	# NOTE: removing attack node so that tower preview doesn't shoot, a bit hacky, can be improved with refactoring
-	if attack_node != null:
-		attack_node.queue_free()
+	# NOTE: removing spell nodes so that tower preview doesn't cast, a bit hacky, can be improved with refactoring
+	for spell_node in spell_node_list:
+		spell_node.queue_free()
 
 
 func _select():

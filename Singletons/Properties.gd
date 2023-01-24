@@ -48,21 +48,37 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "physical",
-		"attack_range": 800,
-		"attack_cd": 3,
-		"attack_style": "aoe",
-		"damage_l": 26,
-		"damage_r": 26,
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
-		"aura_list": [
+		"spell_list": [
 			{
-				"type": "slow",
-				"value": 200,
-				"duration": 3,
-				"period": 0,
-				"add_range": 1000
+				"cast_cd": 1,
+				"type": "projectile",
+				"cast_range": 1000,
+				"aura_list": [
+					{
+						"type": "slow",
+						"value": 200,
+						"duration": 1.01,
+						"period": 0,
+						"add_range": 100
+					}
+				]
+			},
+			{
+				"cast_cd": 1,
+				"type": "proximity",
+				"cast_range": 100,
+				"aura_list": [
+					{
+						"type": "slow",
+						"value": 200,
+						"duration": 1.01,
+						"period": 0,
+						"add_range": 0
+					}
+				]
 			}
 		]
 	},
@@ -76,13 +92,41 @@ const towers = {
 		"attack_type": "physical",
 		"attack_range": 840,
 		"attack_cd": 0.9,
-		"attack_style": "shoot",
 		"damage_l": 113,
 		"damage_r": 113,
 		"cost": 140,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
 		"resource": "res://Scenes/Towers/Instances/Shrub.gd",
-		"aura_list": []
+		"spell_list": [
+			{
+				"cast_cd": 0.5,
+				"type": "projectile",
+				"cast_range": 500,
+				"aura_list": [
+					{
+						"type": "change health",
+						"value": -1,
+						"duration": 0,
+						"period": 0,
+						"add_range": 0
+					}
+				]
+			},
+			{
+				"cast_cd": 1.5,
+				"type": "projectile",
+				"cast_range": 300,
+				"aura_list": [
+					{
+						"type": "change health",
+						"value": -2,
+						"duration": 0,
+						"period": 0,
+						"add_range": 0
+					}
+				]
+			}
+		]
 	},
 	"GreaterShrub": {
 		"id": 511,
@@ -94,13 +138,41 @@ const towers = {
 		"attack_type": "physical",
 		"attack_range": 880,
 		"attack_cd": 0.9,
-		"attack_style": "shoot",
 		"damage_l": 299,
 		"damage_r": 299,
 		"cost": 400,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
 		"resource": "res://Scenes/Towers/Instances/GreaterShrub.gd",
-		"aura_list": []
+		"spell_list": [
+			{
+				"cast_cd": 0.5,
+				"type": "projectile",
+				"cast_range": 500,
+				"aura_list": [
+					{
+						"type": "change health",
+						"value": -1,
+						"duration": 0,
+						"period": 0,
+						"add_range": 0
+					}
+				]
+			},
+			{
+				"cast_cd": 1.5,
+				"type": "projectile",
+				"cast_range": 300,
+				"aura_list": [
+					{
+						"type": "change health",
+						"value": -2,
+						"duration": 0,
+						"period": 0,
+						"add_range": 0
+					}
+				]
+			}
+		]
 	},
 	"SmallCactus": {
 		"id": 41,
@@ -112,70 +184,55 @@ const towers = {
 		"attack_type": "essence",
 		"attack_range": 820,
 		"attack_cd": 0.5,
-		"attack_style": "aoe",
 		"damage_l": 58,
 		"damage_r": 58,
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
-		"aura_list": []
+		"spell_list": []
 	}
 }
 
-var example_towers = {
-	"Frost Tower": {
-		"id": 2,
-		"name": "Frost Tower",
-		"family_id": 1,
-		"author": "gex",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "physical",
-		"attack_range": 800,
-		"attack_cd": 0.9,
-		"attack_style": "shoot",
-		"damage_l": 26,
-		"damage_r": 26,
-		"cost": 30,
-		"description": "Frost tower that deals frost damage and slows mobs.",
-		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+var example_spells = {
+	"Fire ball": {
+		"cast_cd": 1,
+		"type": "projectile",
+		"cast_range": 300,
 		"aura_list": [
 			{
 				"type": "change health",
 				"value": [-1, -2],
 				"duration": 0,
 				"period": 0,
-			},
-			{
-				"type": "slow",
-				"value": 100,
-				"duration": 1,
-				"period": 0,
+				"add_range": 0
 			}
 		]
 	},
-	"Stunner": {
-		"id": 3,
-		"name": "Stunner",
-		"family_id": 1,
-		"author": "gex",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "physical",
-		"attack_range": 800,
-		"attack_cd": 0.9,
-		"attack_style": "shoot",
-		"damage_l": 26,
-		"damage_r": 26,
-		"cost": 30,
-		"description": "Tower that shoots and stuns, but deals no damage.",
-		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+	"Poison": {
+		"cast_cd": 1,
+		"type": "projectile",
+		"cast_range": 300,
+		"aura_list": [
+			{
+				"type": "change health",
+				"value": [-1, -2],
+				"duration": 10,
+				"period": 1,
+				"add_range": 0
+			}
+		]
+	},
+	"Stun projectile": {
+		"cast_cd": 1,
+		"type": "projectile",
+		"cast_range": 300,
 		"aura_list": [
 			{
 				"type": "slow",
-				"value": 10000,
-				"duration": 1,
+				"value": -10000,
+				"duration": 10,
 				"period": 0,
+				"add_range": 0
 			}
 		]
 	}
