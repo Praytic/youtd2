@@ -17,7 +17,17 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Aura",
 "language": "GDScript",
-"path": "res://Scenes/Mobs/Aura.gd"
+"path": "res://Scenes/Aura/Aura.gd"
+}, {
+"base": "Node",
+"class": "AuraContainer",
+"language": "GDScript",
+"path": "res://Scenes/Aura/AuraContainer.gd"
+}, {
+"base": "Node",
+"class": "AuraInfoContainer",
+"language": "GDScript",
+"path": "res://Scenes/Aura/AuraInfoContainer.gd"
 }, {
 "base": "StaticBody2D",
 "class": "Building",
@@ -47,6 +57,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AreaOfEffect": "",
 "Aura": "",
+"AuraContainer": "",
+"AuraInfoContainer": "",
 "Building": "",
 "Mob": "",
 "Tower": "",

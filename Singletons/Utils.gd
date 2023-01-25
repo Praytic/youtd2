@@ -4,6 +4,7 @@ extends Node
 # Map position is free if it contains only ground tiles
 static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 	return buildable_area.get_cellv(pos) != TileMap.INVALID_CELL
+onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("MobYSort")
 
 
 func list_files_in_directory(path: String, regex_search: RegEx = null) -> Array:
@@ -40,3 +41,26 @@ func circle_shape_set_radius(collision_shape: CollisionShape2D, radius: float):
 func randi_range(value_min: int, value_max: int):
 	var out = randi() % (value_max - value_min + 1) + value_min
 	return out
+
+
+# Chance should be in range [0.0, 1.0]
+# To get chance for event with 10% occurence, call rand_chance(0.1)
+func rand_chance(chance: float) -> bool:
+	var random_float: float = randf()
+	var chance_success = random_float <= chance
+
+	return chance_success
+
+func get_mob_list_in_range(position: Vector2, range_value: float) -> Array:
+	var mob_list: Array = []
+
+	for node in object_container.get_children():
+		if node is Mob:
+			var mob: Mob = node as Mob
+			var distance: float = position.distance_to(mob.position)
+			var mob_is_in_range = distance < range_value
+
+			if mob_is_in_range:
+				mob_list.append(mob)
+
+	return mob_list
