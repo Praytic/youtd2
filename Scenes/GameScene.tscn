@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/DefaultCamera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/HUD/Minimap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/UI/HUD/minimap.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Lib/Build/BuilderControl.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Landscape.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Mobs/MobSpawner.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/HUD/MobsProjection.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/HUD/Minimap.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
+[ext_resource path="res://Scenes/HUD/CameraProjection.gd" type="Script" id=11]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -42,47 +45,8 @@ polygon = PoolVector2Array( -0.44817, -27.7647, 25.8964, -1.41174, 52.241, -27.7
 
 [node name="MobSpawner" parent="Map" instance=ExtResource( 6 )]
 
-[node name="UI" type="CanvasLayer" parent="."]
-script = SubResource( 5 )
-
-[node name="HUD" parent="UI" instance=ExtResource( 2 )]
-mouse_filter = 2
-
-[node name="Minimap" type="Control" parent="UI"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -216.0
-margin_top = -216.0
-rect_min_size = Vector2( 216, 216 )
-
-[node name="ViewportContainer" type="ViewportContainer" parent="UI/Minimap"]
-rect_min_size = Vector2( 216, 216 )
-
-[node name="Viewport" type="Viewport" parent="UI/Minimap/ViewportContainer"]
-size = Vector2( 216, 216 )
-handle_input_locally = false
-render_target_update_mode = 3
-gui_snap_controls_to_pixels = false
-
-[node name="MinimapCamera" type="Camera2D" parent="UI/Minimap/ViewportContainer/Viewport"]
+[node name="Camera" type="Camera2D" parent="Map"]
 unique_name_in_owner = true
-position = Vector2( 3904, 3904 )
-current = true
-zoom = Vector2( 37, 37 )
-
-[node name="Minimap" parent="UI/Minimap/ViewportContainer/Viewport" instance=ExtResource( 3 )]
-unique_name_in_owner = true
-
-[node name="BuilderControl" type="Control" parent="UI"]
-unique_name_in_owner = true
-margin_right = 1280.0
-margin_bottom = 720.0
-mouse_filter = 2
-script = ExtResource( 4 )
-
-[node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 0, 7774 )
 z_index = 1000
 current = true
@@ -98,11 +62,73 @@ editor_draw_limits = true
 script = ExtResource( 1 )
 cam_move_speed = 5000.0
 
+[node name="UI" type="CanvasLayer" parent="."]
+script = SubResource( 5 )
+
+[node name="HUD" parent="UI" instance=ExtResource( 2 )]
+mouse_filter = 2
+
+[node name="Minimap" type="Control" parent="UI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -216.0
+margin_top = -216.0
+rect_min_size = Vector2( 216, 216 )
+script = ExtResource( 8 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="UI/Minimap"]
+rect_min_size = Vector2( 216, 216 )
+
+[node name="Viewport" type="Viewport" parent="UI/Minimap/ViewportContainer"]
+size = Vector2( 216, 216 )
+handle_input_locally = false
+render_target_update_mode = 3
+gui_snap_controls_to_pixels = false
+
+[node name="MinimapCamera" type="Camera2D" parent="UI/Minimap/ViewportContainer/Viewport"]
+current = true
+zoom = Vector2( 3, 3 )
+limit_left = -772
+limit_top = 193
+limit_right = 772
+limit_bottom = 965
+limit_smoothed = true
+smoothing_enabled = true
+
+[node name="MinimapTexture" type="TextureRect" parent="UI/Minimap/ViewportContainer/Viewport"]
+margin_left = -772.0
+margin_top = 193.0
+margin_right = 772.0
+margin_bottom = 965.0
+rect_min_size = Vector2( 1544, 772 )
+texture = ExtResource( 3 )
+stretch_mode = 4
+
+[node name="CameraProjection" type="Node2D" parent="UI/Minimap/ViewportContainer/Viewport"]
+z_index = 2000
+script = ExtResource( 11 )
+
+[node name="MobsProjection" type="Node2D" parent="UI/Minimap/ViewportContainer/Viewport"]
+script = ExtResource( 7 )
+
+[node name="BuilderControl" type="Control" parent="UI"]
+unique_name_in_owner = true
+margin_right = 1280.0
+margin_bottom = 720.0
+mouse_filter = 2
+script = ExtResource( 4 )
+
+[connection signal="child_entered_tree" from="Map/MobYSort" to="UI/Minimap" method="_on_MobYSort_child_entered_tree"]
+[connection signal="child_exiting_tree" from="Map/MobYSort" to="UI/Minimap" method="_on_MobYSort_child_exiting_tree"]
 [connection signal="body_entered" from="Map/MobExit" to="." method="_on_MobExit_body_entered"]
 [connection signal="progress_changed" from="Map/MobSpawner" to="." method="_on_MobSpawner_progress_changed"]
 [connection signal="spawned" from="Map/MobSpawner" to="." method="_on_MobSpawner_spawned"]
 [connection signal="wave_ended" from="Map/MobSpawner" to="." method="_on_MobSpawner_wave_ended"]
+[connection signal="camera_moved" from="Map/Camera" to="UI/HUD" method="_on_Camera_camera_moved"]
+[connection signal="camera_moved" from="Map/Camera" to="UI/Minimap" method="_on_Camera_camera_moved"]
+[connection signal="camera_zoomed" from="Map/Camera" to="UI/HUD" method="_on_Camera_camera_zoomed"]
+[connection signal="camera_zoomed" from="Map/Camera" to="UI/Minimap" method="_on_Camera_camera_zoomed"]
 [connection signal="start_wave" from="UI/HUD" to="." method="_on_HUD_start_wave"]
 [connection signal="stop_wave" from="UI/HUD" to="." method="_on_HUD_stop_wave"]
-[connection signal="camera_moved" from="Camera" to="UI/HUD" method="_on_Camera_camera_moved"]
-[connection signal="camera_zoomed" from="Camera" to="UI/HUD" method="_on_Camera_camera_zoomed"]
