@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scenes/DefaultCamera.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/Lib/Build/BuilderControl.gd" type="Script" id=4]
 [ext_resource path="res://Scenes/Landscape.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Mobs/MobSpawner.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/HUD/MobsProjection.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/HUD/Minimap.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/GameScene.gd" type="Script" id=9]
 [ext_resource path="res://Scenes/HUD/CameraProjection.gd" type="Script" id=11]
@@ -89,6 +90,10 @@ gui_snap_controls_to_pixels = false
 [node name="MinimapCamera" type="Camera2D" parent="UI/Minimap/ViewportContainer/Viewport"]
 current = true
 zoom = Vector2( 3, 3 )
+limit_left = -772
+limit_top = 193
+limit_right = 772
+limit_bottom = 965
 limit_smoothed = true
 smoothing_enabled = true
 
@@ -105,6 +110,9 @@ stretch_mode = 4
 z_index = 2000
 script = ExtResource( 11 )
 
+[node name="MobsProjection" type="Node2D" parent="UI/Minimap/ViewportContainer/Viewport"]
+script = ExtResource( 7 )
+
 [node name="BuilderControl" type="Control" parent="UI"]
 unique_name_in_owner = true
 margin_right = 1280.0
@@ -112,6 +120,8 @@ margin_bottom = 720.0
 mouse_filter = 2
 script = ExtResource( 4 )
 
+[connection signal="child_entered_tree" from="Map/MobYSort" to="UI/Minimap" method="_on_MobYSort_child_entered_tree"]
+[connection signal="child_exiting_tree" from="Map/MobYSort" to="UI/Minimap" method="_on_MobYSort_child_exiting_tree"]
 [connection signal="body_entered" from="Map/MobExit" to="." method="_on_MobExit_body_entered"]
 [connection signal="progress_changed" from="Map/MobSpawner" to="." method="_on_MobSpawner_progress_changed"]
 [connection signal="spawned" from="Map/MobSpawner" to="." method="_on_MobSpawner_spawned"]
