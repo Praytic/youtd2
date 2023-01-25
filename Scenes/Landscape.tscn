@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/GroupingTileMap.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Environment/Tilesets/Dungeon.tres" type="TileSet" id=2]
 [ext_resource path="res://Scenes/Lib/Build/BuildableArea.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Landscape.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10367.2, 5184 )
 
 [node name="Landscape" type="Node2D"]
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
@@ -1419,3 +1424,10 @@ polygon = PoolVector2Array( -10368, 12928, 10368, 12928, 10368, 2560, -10368, 25
 
 [node name="poly2" type="Polygon2D" parent="BlackBorder"]
 polygon = PoolVector2Array( -10368, 2560, -10240, 2688, -10240, 12800, -10368, 12928 )
+
+[node name="PlayArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayArea"]
+position = Vector2( -0.25, 7744 )
+shape = SubResource( 1 )
