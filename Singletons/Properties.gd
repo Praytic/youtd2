@@ -37,6 +37,111 @@ const tower_families = {
 		"todo": "todo"
 	}
 }
+
+
+# TODO: for spells and auras
+# 
+# Leveling. Add level parameters to aura's? For example
+# "change_value_per_level". Then need to pass tower's
+# current level and change value of aura when it's created.
+# 
+# Event triggers. For example casting spell on kill. I think
+# this should be implemented as another Spell class, like
+# ProjectileSpell and ProximitySpell. Name it
+# "KillingBlowSpell". KillingBlowSpell will detect when
+# tower lands a killing blow on a mob and cast it's spell.
+#
+# Tower speicific modifiers for experience gain, item
+# chance, item quality, etc. Needs to be implemented
+# directly in tower's apply_aura().
+# 
+# Damage types: increased dmg vs X type of mob
+# Probably add another aura parameter and implement mob types.
+#
+# Misses for aura's
+#
+# Modifying mob armor. Maybe mob armor can be implemented as
+# self aura that reduces damage?
+# 
+# Weird projectile behavior. Shooting up to two mobs at the
+# same time. Currently if there are two projectile spells on
+# tower, they just shoot the same target. Will need to add
+# special targeting logic.
+#
+# Chain projectiles. Projectiles that create a new
+# projectile on impact. Repeat N times. Projectiles need to
+# avoid visiting mobs that are already in chain.
+#
+# Graphical effects for aura's and projectiles. Add as
+# parameter to aura's.
+# 
+# Aura apply types. For example slow that only affects land
+# mobs. Or frost attack that doesn't affect fire mobs.
+# Implement as parameter (AuraParameter.IMMUNE_MOB_TYPE_LIST)
+#
+# Chained aura's. For example poison that stuns target when
+# it expires. (AuraParameter.FOLLOWUP_AURA)
+#
+# Every 7th/8th/9th/10th attack deals more damage. Can
+# implement as multiple spells that are cast every 10s, with
+# 7/8/9/10 having higher value. But that would mean that
+# tower will do nothing for first 10s if there's mob in
+# range. Need to change behavior of ProjectileSpell so that
+# it casts first projectile and then starts cast cd.
+
+enum SpellParameter {
+	CAST_CD,
+	TYPE,
+	CAST_RANGE,
+	TARGET_TYPE,
+	AURA_INFO_LIST
+}
+
+enum SpellType {
+	PROJECTILE,
+	PROXIMITY
+}
+
+# NOTE:
+# ALL_TOWERS = self and neighbors
+# OTHER_TOWERS = only neighbors
+enum SpellTargetType {
+	MOBS,
+	ALL_TOWERS,
+	OTHER_TOWERS,
+	TOWER_SELF
+}
+
+# NOTE:
+# 
+# ADD_CHANCE - determines the chance that the aura is added
+# when it's parent spell is cast. Note that there's a weird
+# special case for aura's with same add chance. For such
+# cases, the chance is shared. So for example, if there is a
+# projectile spell that deals damage and has a 10% chance to
+# poison and 10% slow, then slow and poison will always
+# occur together.
+enum AuraParameter {
+	TYPE,
+	VALUE,
+	DURATION,
+	PERIOD,
+	ADD_RANGE,
+	ADD_CHANCE
+}
+
+enum AuraType {
+	DAMAGE,
+	SLOW,
+	DECREASE_CAST_CD,
+	MODIFY_VALUE_FOR_DAMAGE_AURA,
+	MODIFY_DURATION_FOR_POISON_AURA,
+	MODIFY_CRIT_CHANCE,
+	MODIFY_CRIT_MODIFIER,
+	MODIFY_MISS_CHANCE
+}
+
+
 # TODO: Replace filenames with IDs when switching to Godot 4 with first-class functions
 # TODO: Think of the way to load tower properties without loading the Scene or GDScript 
 const towers = { 
@@ -48,21 +153,41 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "physical",
-		"attack_range": 800,
-		"attack_cd": 3,
-		"attack_style": "shoot",
-		"projectile_range": 0,
-		"damage_l": 26,
-		"damage_r": 26,
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
-		"aura_list": [
+		"spell_list": [
 			{
-				"type": "slow",
-				"value": 200,
-				"duration": 5,
-				"period": 0,
+				SpellParameter.CAST_CD: 1,
+				SpellParameter.TYPE: SpellType.PROJECTILE,
+				SpellParameter.CAST_RANGE: 1000,
+				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+				SpellParameter.AURA_INFO_LIST: [
+					{
+						AuraParameter.TYPE: AuraType.DAMAGE,
+						AuraParameter.VALUE: 10,
+						AuraParameter.DURATION: 0,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0,
+						AuraParameter.ADD_CHANCE: 1.0
+					}
+				]
+			},
+			{
+				SpellParameter.CAST_CD: 1.0,
+				SpellParameter.TYPE: SpellType.PROXIMITY,
+				SpellParameter.CAST_RANGE: 10,
+				SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
+				SpellParameter.AURA_INFO_LIST: [
+					{
+						AuraParameter.TYPE: AuraType.MODIFY_MISS_CHANCE,
+						AuraParameter.VALUE: 0.90,
+						AuraParameter.DURATION: 1.01,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0,
+						AuraParameter.ADD_CHANCE: 1.0
+					}
+				]
 			}
 		]
 	},
@@ -74,16 +199,27 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "physical",
-		"attack_range": 840,
-		"attack_cd": 0.9,
-		"attack_style": "shoot",
-		"damage_l": 113,
-		"damage_r": 113,
 		"cost": 140,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
 		"resource": "res://Scenes/Towers/Instances/Shrub.gd",
-		"projectile_range": 0,
-		"aura_list": []
+		"spell_list": [
+			{
+				SpellParameter.CAST_CD: 1.0,
+				SpellParameter.TYPE: SpellType.PROXIMITY,
+				SpellParameter.CAST_RANGE: 1000,
+				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
+				SpellParameter.AURA_INFO_LIST: [
+					{
+						AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
+						AuraParameter.VALUE: 3.0,
+						AuraParameter.DURATION: 1.01,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0,
+						AuraParameter.ADD_CHANCE: 1.0
+					}
+				]
+			}
+		]
 	},
 	"GreaterShrub": {
 		"id": 511,
@@ -93,16 +229,27 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "physical",
-		"attack_range": 880,
-		"attack_cd": 0.9,
-		"attack_style": "shoot",
-		"damage_l": 299,
-		"damage_r": 299,
 		"cost": 400,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
 		"resource": "res://Scenes/Towers/Instances/GreaterShrub.gd",
-		"projectile_range": 0,
-		"aura_list": []
+		"spell_list": [
+			{
+				SpellParameter.CAST_CD: 1.0,
+				SpellParameter.TYPE: SpellType.PROXIMITY,
+				SpellParameter.CAST_RANGE: 1000,
+				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
+				SpellParameter.AURA_INFO_LIST: [
+					{
+						AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
+						AuraParameter.VALUE: 3.0,
+						AuraParameter.DURATION: 1.01,
+						AuraParameter.PERIOD: 0,
+						AuraParameter.ADD_RANGE: 0,
+						AuraParameter.ADD_CHANCE: 1.0
+					}
+				]
+			}
+		]
 	},
 	"SmallCactus": {
 		"id": 41,
@@ -112,75 +259,140 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "essence",
-		"attack_range": 820,
-		"attack_cd": 0.5,
-		"attack_style": "aoe",
-		"damage_l": 58,
-		"damage_r": 58,
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
-		"projectile_range": 0,
-		"aura_list": []
+		"spell_list": []
 	}
 }
 
-var example_towers = {
-	"Frost Tower": {
-		"id": 2,
-		"name": "Frost Tower",
-		"family_id": 1,
-		"author": "gex",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "physical",
-		"attack_range": 800,
-		"attack_cd": 0.9,
-		"attack_style": "shoot",
-		"projectile_range": 100,
-		"damage_l": 26,
-		"damage_r": 26,
-		"cost": 30,
-		"description": "Frost tower that deals frost damage and slows mobs.",
-		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
-		"aura_list": [
+var example_spells = {
+	"Fire ball": {
+		SpellParameter.CAST_CD: 1,
+		SpellParameter.TYPE: SpellType.PROJECTILE,
+		SpellParameter.CAST_RANGE: 300,
+		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+		SpellParameter.AURA_INFO_LIST: [
 			{
-				"type": "change health",
-				"value": [-1, -2],
-				"duration": 0,
-				"period": 0,
-			},
-			{
-				"type": "slow",
-				"value": 100,
-				"duration": 1,
-				"period": 0,
+				AuraParameter.TYPE: AuraType.DAMAGE,
+				AuraParameter.VALUE: [1, 2],
+				AuraParameter.DURATION: 0,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	},
-	"Stunner": {
-		"id": 3,
-		"name": "Stunner",
-		"family_id": 1,
-		"author": "gex",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "physical",
-		"attack_range": 800,
-		"attack_cd": 0.9,
-		"attack_style": "shoot",
-		"projectile_range": 100,
-		"damage_l": 26,
-		"damage_r": 26,
-		"cost": 30,
-		"description": "Tower that shoots and stuns, but deals no damage.",
-		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
-		"aura_list": [
+	"Poison": {
+		SpellParameter.CAST_CD: 1,
+		SpellParameter.TYPE: SpellType.PROJECTILE,
+		SpellParameter.CAST_RANGE: 300,
+		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+		SpellParameter.AURA_INFO_LIST: [
 			{
-				"type": "slow",
-				"value": 10000,
-				"duration": 1,
-				"period": 0,
+				AuraParameter.TYPE: AuraType.DAMAGE,
+				AuraParameter.VALUE: [1, 2],
+				AuraParameter.DURATION: 10,
+				AuraParameter.PERIOD: 1,
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
+			}
+		]
+	},
+	"Stun projectile": {
+		SpellParameter.CAST_CD: 1,
+		SpellParameter.TYPE: SpellType.PROJECTILE,
+		SpellParameter.CAST_RANGE: 300,
+		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
+		SpellParameter.AURA_INFO_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.SLOW,
+				AuraParameter.VALUE: 1.0,
+				AuraParameter.DURATION: 10,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
+			}
+		]
+	},
+	"Buff speed of other towers": {
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 1000,
+		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
+		SpellParameter.AURA_INFO_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
+				AuraParameter.VALUE: 0.5,
+				AuraParameter.DURATION: 1.01,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
+			}
+		]
+	},
+	"Buff poison duration by 300% (4x increase) for other towers": {
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 1000,
+		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
+		SpellParameter.AURA_INFO_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
+				AuraParameter.VALUE: 3.0,
+				AuraParameter.DURATION: 1.01,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
+			}
+		]
+	},
+	"Buff own damage by 1000% (11x increase)":
+	{
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 10,
+		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
+		SpellParameter.AURA_INFO_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA,
+				AuraParameter.VALUE: 10.0,
+				AuraParameter.DURATION: 1.01,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
+			}
+		]
+	},
+	"Buff critical chance for self by 25% (additive)": {
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 10,
+		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
+		SpellParameter.AURA_INFO_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.MODIFY_CRIT_CHANCE,
+				AuraParameter.VALUE: 0.25,
+				AuraParameter.DURATION: 1.01,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
+			}
+		]
+	},
+	"Increase miss chance for self by 90%": {
+		SpellParameter.CAST_CD: 1.0,
+		SpellParameter.TYPE: SpellType.PROXIMITY,
+		SpellParameter.CAST_RANGE: 10,
+		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
+		SpellParameter.AURA_INFO_LIST: [
+			{
+				AuraParameter.TYPE: AuraType.MODIFY_MISS_CHANCE,
+				AuraParameter.VALUE: 0.90,
+				AuraParameter.DURATION: 1.01,
+				AuraParameter.PERIOD: 0,
+				AuraParameter.ADD_RANGE: 0,
+				AuraParameter.ADD_CHANCE: 1.0
 			}
 		]
 	}
