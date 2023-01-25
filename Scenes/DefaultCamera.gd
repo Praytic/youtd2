@@ -1,7 +1,7 @@
 extends Camera2D
 
-signal camera_moved(direction)
-signal camera_zoomed()
+signal camera_moved(shift_vector)
+signal camera_zoomed(zoom_value)
 
 export(float) var cam_move_speed = 500.0
 export(float) var maximum_zoom_in = 0.15
@@ -72,4 +72,4 @@ func _zoom(event):
 		new_zoom = minimum_zoom_out
 	zoom = Vector2(new_zoom, new_zoom)
 	
-	emit_signal("camera_zoomed")
+	emit_signal("camera_zoomed", zoom)
