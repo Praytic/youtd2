@@ -24,11 +24,11 @@ class_name AuraInfoContainer
 var default_aura_info_list: Array
 
 var mod_map: Dictionary = {
-	Properties.AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA: 0.0,
-	Properties.AuraType.MODIFY_DURATION_FOR_POISON_AURA: 0.0,
-	Properties.AuraType.MODIFY_CRIT_CHANCE: 0.0,
-	Properties.AuraType.MODIFY_CRIT_MODIFIER: 0.0,
-	Properties.AuraType.MODIFY_MISS_CHANCE: 0.0
+	Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE: 0.0,
+	Properties.AuraType.INCREASE_POISON_AURA_DURATION: 0.0,
+	Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE: 0.0,
+	Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER: 0.0,
+	Properties.AuraType.INCREASE_SPELL_MISS_CHANCE: 0.0
 }
 
 const DEFAULT_CRIT_CHANCE: float = 0.25
@@ -81,26 +81,26 @@ func get_modded() -> Array:
 		if add_success:
 			modded_aura_info_list.append(aura_info.duplicate(true))
 
-	var crit_modifier: float = DEFAULT_CRIT_MODIFIER + mod_map[Properties.AuraType.MODIFY_CRIT_MODIFIER]
+	var crit_modifier: float = DEFAULT_CRIT_MODIFIER + mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER]
 	var is_critical: bool = get_is_critical()
 
 	for aura_info in modded_aura_info_list:
 		var type: int = aura_info[Properties.AuraParameter.TYPE]
 		var duration: int = aura_info[Properties.AuraParameter.DURATION]
 		var period: int = aura_info[Properties.AuraParameter.PERIOD]
-		var is_damage_aura = type == Properties.AuraType.DAMAGE
-		var is_poison_aura = type == Properties.AuraType.DAMAGE && duration > 0 && period > 0
+		var is_damage_aura = type == Properties.AuraType.DAMAGE_MOB_HEALTH
+		var is_poison_aura = type == Properties.AuraType.DAMAGE_MOB_HEALTH && duration > 0 && period > 0
 
 		if is_damage_aura:
 # 			Apply damage modifier from aura's
-			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + mod_map[Properties.AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA])
+			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE])
 
 #			Apply crit modifier
 			if is_critical:
 				modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + crit_modifier)
 
 		if is_poison_aura:
-			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, 1.0 + mod_map[Properties.AuraType.MODIFY_DURATION_FOR_POISON_AURA])
+			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, 1.0 + mod_map[Properties.AuraType.INCREASE_POISON_AURA_DURATION])
 
 
 	return modded_aura_info_list
@@ -119,14 +119,14 @@ func modify_aura_info_value(aura_info: Dictionary, value_key: int, mod_value: fl
 
 
 func get_is_critical() -> bool:
-	var crit_chance: float = min(1.0, DEFAULT_CRIT_CHANCE + mod_map[Properties.AuraType.MODIFY_CRIT_CHANCE])
+	var crit_chance: float = min(1.0, DEFAULT_CRIT_CHANCE + mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE])
 	var out: bool = Utils.rand_chance(crit_chance)
 
 	return out
 
 
 func get_is_miss() -> bool:
-	var miss_chance: float = min(1.0, DEFAULT_MISS_CHANCE + mod_map[Properties.AuraType.MODIFY_MISS_CHANCE])
+	var miss_chance: float = min(1.0, DEFAULT_MISS_CHANCE + mod_map[Properties.AuraType.INCREASE_SPELL_MISS_CHANCE])
 	var out: bool = Utils.rand_chance(miss_chance)
 
 	return out

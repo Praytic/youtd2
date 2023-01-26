@@ -69,7 +69,7 @@ func is_valid_target(node: Node) -> bool:
 
 func apply_aura(aura: Aura):
 	match aura.type:
-		Properties.AuraType.DECREASE_CAST_CD:
+		Properties.AuraType.DECREASE_SPELL_CAST_CD:
 			if aura.is_expired:
 				cast_cd_mod = 0.0
 			else:
