@@ -41,10 +41,6 @@ const tower_families = {
 
 # TODO: for spells and auras
 # 
-# Leveling. Add level parameters to aura's? For example
-# "change_value_per_level". Then need to pass tower's
-# current level and change value of aura when it's created.
-# 
 # Event triggers. For example casting spell on kill. I think
 # this should be implemented as another Spell class, like
 # ProjectileSpell and ProximitySpell. Name it
@@ -129,7 +125,11 @@ enum AuraParameter {
 	DURATION,
 	PERIOD,
 	ADD_RANGE,
-	ADD_CHANCE
+	ADD_CHANCE,
+	LEVEL_INCREASE_VALUE,
+	LEVEL_INCREASE_DURATION,
+	LEVEL_INCREASE_ADD_RANGE,
+	LEVEL_INCREASE_ADD_CHANCE
 }
 
 # TODO: DECREASE_SPELL_CAST_CD needs to not apply to spells
@@ -152,6 +152,13 @@ enum AuraType {
 # selective, for example only applying to damaging spells.
 # Changing cast range of buffs to other towers doesn't make
 # sense.
+var aura_level_mod_sign_map: Dictionary = {
+	AuraParameter.LEVEL_INCREASE_VALUE: 1,
+	AuraParameter.LEVEL_INCREASE_DURATION: 1,
+	AuraParameter.LEVEL_INCREASE_ADD_RANGE: 1,
+	AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 1
+}
+
 var spell_level_mod_sign_map: Dictionary = {
 	SpellParameter.DECREASE_CAST_CD_PER_LEVEL: -1,
 	SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 1
@@ -167,6 +174,21 @@ var aura_value_sign_map: Dictionary = {
 	AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER: 1,
 	AuraType.INCREASE_SPELL_MISS_CHANCE: 1,
 	AuraType.INCREASE_SPELL_CAST_RANGE: 1
+}
+
+var aura_level_parameter_list: Array = [
+	AuraParameter.LEVEL_INCREASE_VALUE,
+	AuraParameter.LEVEL_INCREASE_DURATION,
+	AuraParameter.LEVEL_INCREASE_ADD_RANGE,
+	AuraParameter.LEVEL_INCREASE_ADD_CHANCE
+]
+
+# Map aura level parameter to the parameter that it modifies
+var aura_level_parameter_map: Dictionary = {
+	AuraParameter.LEVEL_INCREASE_VALUE: AuraParameter.VALUE,
+	AuraParameter.LEVEL_INCREASE_DURATION: AuraParameter.DURATION,
+	AuraParameter.LEVEL_INCREASE_ADD_RANGE: AuraParameter.ADD_RANGE,
+	AuraParameter.LEVEL_INCREASE_ADD_CHANCE: AuraParameter.ADD_CHANCE
 }
 
 
@@ -195,29 +217,15 @@ const towers = {
 				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.DAMAGE_MOB_HEALTH,
-						AuraParameter.VALUE: 150,
+						AuraParameter.VALUE: 60,
 						AuraParameter.DURATION: 0,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0,
-						AuraParameter.ADD_CHANCE: 1.0
-					}
-				]
-			},
-			{
-				SpellParameter.CAST_CD: 1.0,
-				SpellParameter.TYPE: SpellType.PROXIMITY,
-				SpellParameter.CAST_RANGE: 10,
-				SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
-				SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-				SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
-				SpellParameter.AURA_INFO_LIST: [
-					{
-						AuraParameter.TYPE: AuraType.INCREASE_SPELL_MISS_CHANCE,
-						AuraParameter.VALUE: 0.10,
-						AuraParameter.DURATION: 1.01,
-						AuraParameter.PERIOD: 0,
-						AuraParameter.ADD_RANGE: 0,
-						AuraParameter.ADD_CHANCE: 1.0
+						AuraParameter.ADD_CHANCE: 1.0,
+						AuraParameter.LEVEL_INCREASE_VALUE: 0,
+						AuraParameter.LEVEL_INCREASE_DURATION: 0,
+						AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+						AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 					}
 				]
 			}
@@ -249,7 +257,11 @@ const towers = {
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0,
-						AuraParameter.ADD_CHANCE: 1.0
+						AuraParameter.ADD_CHANCE: 1.0,
+						AuraParameter.LEVEL_INCREASE_VALUE: 0,
+						AuraParameter.LEVEL_INCREASE_DURATION: 0,
+						AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+						AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 					}
 				]
 			}
@@ -281,7 +293,11 @@ const towers = {
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0,
-						AuraParameter.ADD_CHANCE: 1.0
+						AuraParameter.ADD_CHANCE: 1.0,
+						AuraParameter.LEVEL_INCREASE_VALUE: 0,
+						AuraParameter.LEVEL_INCREASE_DURATION: 0,
+						AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+						AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 					}
 				]
 			}
@@ -317,7 +333,11 @@ var example_spells = {
 				AuraParameter.DURATION: 0,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0,
-				AuraParameter.ADD_CHANCE: 1.0
+				AuraParameter.ADD_CHANCE: 1.0,
+				AuraParameter.LEVEL_INCREASE_VALUE: 0,
+				AuraParameter.LEVEL_INCREASE_DURATION: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 			}
 		]
 	},
@@ -335,7 +355,11 @@ var example_spells = {
 				AuraParameter.DURATION: 10,
 				AuraParameter.PERIOD: 1,
 				AuraParameter.ADD_RANGE: 0,
-				AuraParameter.ADD_CHANCE: 1.0
+				AuraParameter.ADD_CHANCE: 1.0,
+				AuraParameter.LEVEL_INCREASE_VALUE: 0,
+				AuraParameter.LEVEL_INCREASE_DURATION: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 			}
 		]
 	},
@@ -353,7 +377,11 @@ var example_spells = {
 				AuraParameter.DURATION: 10,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0,
-				AuraParameter.ADD_CHANCE: 1.0
+				AuraParameter.ADD_CHANCE: 1.0,
+				AuraParameter.LEVEL_INCREASE_VALUE: 0,
+				AuraParameter.LEVEL_INCREASE_DURATION: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 			}
 		]
 	},
@@ -371,7 +399,11 @@ var example_spells = {
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0,
-				AuraParameter.ADD_CHANCE: 1.0
+				AuraParameter.ADD_CHANCE: 1.0,
+				AuraParameter.LEVEL_INCREASE_VALUE: 0,
+				AuraParameter.LEVEL_INCREASE_DURATION: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 			}
 		]
 	},
@@ -389,7 +421,11 @@ var example_spells = {
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0,
-				AuraParameter.ADD_CHANCE: 1.0
+				AuraParameter.ADD_CHANCE: 1.0,
+				AuraParameter.LEVEL_INCREASE_VALUE: 0,
+				AuraParameter.LEVEL_INCREASE_DURATION: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 			}
 		]
 	},
@@ -408,7 +444,11 @@ var example_spells = {
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0,
-				AuraParameter.ADD_CHANCE: 1.0
+				AuraParameter.ADD_CHANCE: 1.0,
+				AuraParameter.LEVEL_INCREASE_VALUE: 0,
+				AuraParameter.LEVEL_INCREASE_DURATION: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 			}
 		]
 	},
@@ -426,7 +466,11 @@ var example_spells = {
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0,
-				AuraParameter.ADD_CHANCE: 1.0
+				AuraParameter.ADD_CHANCE: 1.0,
+				AuraParameter.LEVEL_INCREASE_VALUE: 0,
+				AuraParameter.LEVEL_INCREASE_DURATION: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 			}
 		]
 	},
@@ -444,7 +488,11 @@ var example_spells = {
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
 				AuraParameter.ADD_RANGE: 0,
-				AuraParameter.ADD_CHANCE: 1.0
+				AuraParameter.ADD_CHANCE: 1.0,
+				AuraParameter.LEVEL_INCREASE_VALUE: 0,
+				AuraParameter.LEVEL_INCREASE_DURATION: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
+				AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
 			}
 		]
 	}
