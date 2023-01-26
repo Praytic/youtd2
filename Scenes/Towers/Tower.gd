@@ -45,8 +45,8 @@ func _ready():
 	for spell_info in spell_list:
 		var spell_type = spell_info[Properties.SpellParameter.TYPE]
 		var spell_node: Node = make_spell(spell_type)
-		spell_node.init(spell_info)
 		add_child(spell_node)
+		spell_node.init(spell_info)
 		spell_node_list.append(spell_node)
 
 #		HACK: to set some radius for areaofeffect indicator.
@@ -63,19 +63,19 @@ func _ready():
 func make_spell(type: int) -> Node:
 	match type:
 		Properties.SpellType.PROJECTILE:
-			var projectile_spell_scene: PackedScene = load("res://Scenes/Towers/ProjectileSpell.tscn")
+			var projectile_spell_script = load("res://Scenes/Spell/ProjectileSpell.gd")
 
-			return projectile_spell_scene.instance()
+			return projectile_spell_script.new()
 		Properties.SpellType.PROXIMITY:
-			var proximity_spell_scene: PackedScene = load("res://Scenes/Towers/ProximitySpell.tscn")
+			var proximity_spell_script = load("res://Scenes/Spell/ProximitySpell.gd")
 
-			return proximity_spell_scene.instance()
+			return proximity_spell_script.new()
 		_:
 			print_debug("Unknown spell type: %s. Defaulting to projectile." % type)
 			
-			var projectile_spell_scene: PackedScene = load("res://Scenes/Towers/ProximitySpell.tscn")
+			var projectile_spell_script = load("res://Scenes/Spell/ProximitySpell.tscn")
 			
-			return projectile_spell_scene.instance()
+			return projectile_spell_script.new()
 
 
 func build_init():

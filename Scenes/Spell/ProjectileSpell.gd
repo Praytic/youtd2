@@ -12,30 +12,32 @@ extends Node2D
 
 
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
-onready var cast_timer: Timer = $CastTimer
 
-
+var spell_scene: PackedScene = preload("res://Scenes/Spell/Spell.tscn")
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var target_mob: Mob = null
-var default_cast_cd: float
-var cast_cd: float
-var cast_cd_mod: float = 0.0
-var aura_info_container: AuraInfoContainer
+var spell: Spell
 
 
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
-func init(properties):
-	default_cast_cd = properties[Properties.SpellParameter.CAST_CD]
-	cast_cd = default_cast_cd
+func init(spell_info: Dictionary):
+	spell = spell_scene.instance()
+	add_child(spell)
+	spell.init(spell_info)
 
-	var cast_range = properties[Properties.SpellParameter.CAST_RANGE]
-	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
+	var cast_timer: Timer = spell.get_cast_timer()
+	cast_timer.connect("timeout", self, "_on_CastTimer_timeout")
+# 	NOTE: cast timer starts in expired state and is started
+# 	after every cast
+	cast_timer.one_shot = true
+	cast_timer.start()
 
-	var aura_info_list: Array = properties[Properties.SpellParameter.AURA_INFO_LIST]
-	aura_info_container = AuraInfoContainer.new(aura_info_list)
+	var cast_area: Area2D = spell.get_cast_area()
+	cast_area.connect("body_entered", self, "_on_CastArea_body_entered")
+	cast_area.connect("body_exited", self, "_on_CastArea_body_exited")
 
 
 func _on_CastTimer_timeout():
@@ -45,7 +47,7 @@ func _on_CastTimer_timeout():
 	try_to_shoot()
 
 
-func _on_TargetingArea_body_entered(body):
+func _on_CastArea_body_entered(body):
 	if have_target():
 		return
 		
@@ -55,7 +57,7 @@ func _on_TargetingArea_body_entered(body):
 		try_to_shoot()
 
 
-func _on_TargetingArea_body_exited(body):
+func _on_CastArea_body_exited(body):
 	if body == target_mob:
 #		Target has gone out of range
 		target_mob = find_new_target()
@@ -66,7 +68,8 @@ func _on_TargetingArea_body_exited(body):
 # TODO: prioritizing closest mob here, but maybe change behavior
 # based on tower properties or other game design considerations
 func find_new_target() -> Mob:
-	var body_list: Array = $TargetingArea.get_overlapping_bodies()
+	var cast_area: Area2D = spell.get_cast_area()
+	var body_list: Array = cast_area.get_overlapping_bodies()
 	var closest_mob: Mob = null
 	var distance_min: float = 1000000.0
 	
@@ -85,18 +88,19 @@ func find_new_target() -> Mob:
 func try_to_shoot():
 	if !have_target():
 		return
-
+	
+	var cast_timer: Timer = spell.get_cast_timer()
 	var shoot_on_cd = cast_timer.time_left > 0
 	
 	if shoot_on_cd:
 		return
 	
 	var projectile = projectile_scene.instance()
-	projectile.init(target_mob, global_position, aura_info_container.get_modded())
+	projectile.init(target_mob, global_position, spell.get_modded_aura_info())
 
 	game_scene.call_deferred("add_child", projectile)
 	
-	cast_timer.start(cast_cd)
+	cast_timer.start()
 
 
 func have_target() -> bool:
@@ -106,13 +110,4 @@ func have_target() -> bool:
 
 
 func apply_aura(aura: Aura):
-	match aura.type:
-		Properties.AuraType.DECREASE_CAST_CD:
-			if aura.is_expired:
-				cast_cd_mod = 0.0
-			else:
-				cast_cd_mod = aura.get_value()
-
-			cast_cd = default_cast_cd * (1.0 - cast_cd_mod)
-
-	aura_info_container.apply_aura(aura)
+	spell.apply_aura(aura)

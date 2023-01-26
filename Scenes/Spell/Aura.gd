@@ -14,10 +14,7 @@ signal expired(aura)
 
 
 var type: int
-var value_is_range: bool
-var value_fixed: float
-var value_min: float
-var value_max: float
+var value_abs: float
 var duration: float
 var period: float
 
@@ -32,15 +29,14 @@ func _init(aura_info):
 	duration = aura_info[Properties.AuraParameter.DURATION]
 	period = aura_info[Properties.AuraParameter.PERIOD]
 
-	value_is_range = aura_info[Properties.AuraParameter.VALUE] is Array
+	var value_is_range: bool = aura_info[Properties.AuraParameter.VALUE] is Array
 
 	if value_is_range:
 		var value_range: Array = aura_info[Properties.AuraParameter.VALUE] as Array
 
-		value_min = min(value_range[0], value_range[1])
-		value_max = max(value_range[0], value_range[1])
+		value_abs = Utils.randi_range(int(value_range[0]), int(value_range[1]))
 	else:
-		value_fixed = aura_info[Properties.AuraParameter.VALUE] as float
+		value_abs = aura_info[Properties.AuraParameter.VALUE] as float
 
 
 # Called when the node enters the scene tree for the first time.
@@ -65,15 +61,12 @@ func expire():
 	queue_free()
 
 
-# NOTE: not sure what to do here about float vs int
-# It seems like values need to be float sometimes (when?)
-# But want to do randomization as ints.
+# Get value with sign applied
 func get_value() -> float:
-	if value_is_range:
-		var out = Utils.randi_range(int(value_min), int(value_max))
-		return out
-	else:
-		return value_fixed
+	var value_sign: int = Properties.aura_value_sign_map[type]
+	var value: float = value_sign * value_abs
+
+	return value
 
 
 func run():
@@ -113,11 +106,11 @@ func pause():
 		timer.set_paused(true)
 
 
-func get_dps() -> float:
+func get_abs_dps() -> float:
 	if period > 0:
-		return get_value() / period
+		return value_abs / period
 	else:
-		return get_value()
+		return value_abs
 
 
 func is_instant() -> bool:
@@ -130,3 +123,21 @@ func is_status() -> bool:
 
 func is_poison() -> bool:
 	return duration > 0 && period > 0
+
+
+# NOTE: important to compare absolute values because if the
+# aura sign is negative, the most negative aura will be the
+# strongest
+func is_stronger_than(other: Aura) -> bool:
+	if is_poison():
+		var this_dps: float = self.get_abs_dps()
+		var other_dps: float = other.get_abs_dps()
+		var is_stronger: bool = this_dps > other_dps
+
+		return is_stronger
+	else:
+		var this_value: float = self.value_abs
+		var other_value: float = other.value_abs
+		var is_stronger: bool = this_value > other_value
+
+		return is_stronger

@@ -130,15 +130,36 @@ enum AuraParameter {
 	ADD_CHANCE
 }
 
+# TODO: DECREASE_SPELL_CAST_CD needs to not apply to spells
+# which are buffs to towers and maybe other kinds of spells
+# as well. Definitely should apply to projectile spells and
+# damaging proximity spells.
 enum AuraType {
-	DAMAGE,
-	SLOW,
-	DECREASE_CAST_CD,
-	MODIFY_VALUE_FOR_DAMAGE_AURA,
-	MODIFY_DURATION_FOR_POISON_AURA,
-	MODIFY_CRIT_CHANCE,
-	MODIFY_CRIT_MODIFIER,
-	MODIFY_MISS_CHANCE
+	DAMAGE_MOB_HEALTH,
+	DECREASE_MOB_SPEED,
+	DECREASE_SPELL_CAST_CD,
+	INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE,
+	INCREASE_POISON_AURA_DURATION,
+	INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE,
+	INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER,
+	INCREASE_SPELL_MISS_CHANCE
+	INCREASE_SPELL_CAST_RANGE
+}
+
+# NOTE: modifiers to spell cast range and cd need to be
+# selective, for example only applying to damaging spells.
+# Changing cast range of buffs to other towers doesn't make
+# sense.
+var aura_value_sign_map: Dictionary = {
+	AuraType.DAMAGE_MOB_HEALTH: -1,
+	AuraType.DECREASE_MOB_SPEED: -1,
+	AuraType.DECREASE_SPELL_CAST_CD: -1,
+	AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE: 1,
+	AuraType.INCREASE_POISON_AURA_DURATION: 1,
+	AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE: 1,
+	AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER: 1,
+	AuraType.INCREASE_SPELL_MISS_CHANCE: 1,
+	AuraType.INCREASE_SPELL_CAST_RANGE: 1
 }
 
 
@@ -164,7 +185,7 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
 				SpellParameter.AURA_INFO_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.DAMAGE,
+						AuraParameter.TYPE: AuraType.DAMAGE_MOB_HEALTH,
 						AuraParameter.VALUE: 10,
 						AuraParameter.DURATION: 0,
 						AuraParameter.PERIOD: 0,
@@ -180,7 +201,7 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
 				SpellParameter.AURA_INFO_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.MODIFY_MISS_CHANCE,
+						AuraParameter.TYPE: AuraType.INCREASE_SPELL_MISS_CHANCE,
 						AuraParameter.VALUE: 0.90,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
@@ -210,7 +231,7 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 				SpellParameter.AURA_INFO_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
+						AuraParameter.TYPE: AuraType.INCREASE_POISON_AURA_DURATION,
 						AuraParameter.VALUE: 3.0,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
@@ -240,8 +261,8 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 				SpellParameter.AURA_INFO_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
-						AuraParameter.VALUE: 3.0,
+						AuraParameter.TYPE: AuraType.INCREASE_SPELL_CAST_RANGE,
+						AuraParameter.VALUE: 0.5,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0,
@@ -274,7 +295,7 @@ var example_spells = {
 		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
 		SpellParameter.AURA_INFO_LIST: [
 			{
-				AuraParameter.TYPE: AuraType.DAMAGE,
+				AuraParameter.TYPE: AuraType.DAMAGE_MOB_HEALTH,
 				AuraParameter.VALUE: [1, 2],
 				AuraParameter.DURATION: 0,
 				AuraParameter.PERIOD: 0,
@@ -290,7 +311,7 @@ var example_spells = {
 		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
 		SpellParameter.AURA_INFO_LIST: [
 			{
-				AuraParameter.TYPE: AuraType.DAMAGE,
+				AuraParameter.TYPE: AuraType.DAMAGE_MOB_HEALTH,
 				AuraParameter.VALUE: [1, 2],
 				AuraParameter.DURATION: 10,
 				AuraParameter.PERIOD: 1,
@@ -306,7 +327,7 @@ var example_spells = {
 		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
 		SpellParameter.AURA_INFO_LIST: [
 			{
-				AuraParameter.TYPE: AuraType.SLOW,
+				AuraParameter.TYPE: AuraType.DECREASE_MOB_SPEED,
 				AuraParameter.VALUE: 1.0,
 				AuraParameter.DURATION: 10,
 				AuraParameter.PERIOD: 0,
@@ -322,7 +343,7 @@ var example_spells = {
 		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 		SpellParameter.AURA_INFO_LIST: [
 			{
-				AuraParameter.TYPE: AuraType.DECREASE_CAST_CD,
+				AuraParameter.TYPE: AuraType.DECREASE_SPELL_CAST_CD,
 				AuraParameter.VALUE: 0.5,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
@@ -338,7 +359,7 @@ var example_spells = {
 		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 		SpellParameter.AURA_INFO_LIST: [
 			{
-				AuraParameter.TYPE: AuraType.MODIFY_DURATION_FOR_POISON_AURA,
+				AuraParameter.TYPE: AuraType.INCREASE_POISON_AURA_DURATION,
 				AuraParameter.VALUE: 3.0,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
@@ -355,7 +376,7 @@ var example_spells = {
 		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
 		SpellParameter.AURA_INFO_LIST: [
 			{
-				AuraParameter.TYPE: AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA,
+				AuraParameter.TYPE: AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE,
 				AuraParameter.VALUE: 10.0,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
@@ -371,7 +392,7 @@ var example_spells = {
 		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
 		SpellParameter.AURA_INFO_LIST: [
 			{
-				AuraParameter.TYPE: AuraType.MODIFY_CRIT_CHANCE,
+				AuraParameter.TYPE: AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE,
 				AuraParameter.VALUE: 0.25,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
@@ -387,7 +408,7 @@ var example_spells = {
 		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
 		SpellParameter.AURA_INFO_LIST: [
 			{
-				AuraParameter.TYPE: AuraType.MODIFY_MISS_CHANCE,
+				AuraParameter.TYPE: AuraType.INCREASE_SPELL_MISS_CHANCE,
 				AuraParameter.VALUE: 0.90,
 				AuraParameter.DURATION: 1.01,
 				AuraParameter.PERIOD: 0,
