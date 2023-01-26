@@ -186,7 +186,7 @@ const towers = {
 				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.DAMAGE_MOB_HEALTH,
-						AuraParameter.VALUE: 10,
+						AuraParameter.VALUE: 60,
 						AuraParameter.DURATION: 0,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0,
@@ -202,7 +202,7 @@ const towers = {
 				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.INCREASE_SPELL_MISS_CHANCE,
-						AuraParameter.VALUE: 0.90,
+						AuraParameter.VALUE: 0.10,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0,
