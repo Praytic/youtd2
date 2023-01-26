@@ -97,32 +97,37 @@ func get_modded_aura_info() -> Array:
 		if add_success:
 			modded_aura_info_list.append(aura_info.duplicate(true))
 
-	var crit_modifier: float = DEFAULT_CRIT_MODIFIER + parameter_mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER]
+# 	NOTE: roll critical chance once and use it for all
+# 	aura's in the spell, otherwise aura's would have
+# 	mismatched criticals
 	var is_critical: bool = get_is_critical()
 
 	for aura_info in modded_aura_info_list:
-		apply_level_modifiers(aura_info)
-	
-		var type: int = aura_info[Properties.AuraParameter.TYPE]
-		var duration: int = aura_info[Properties.AuraParameter.DURATION]
-		var period: int = aura_info[Properties.AuraParameter.PERIOD]
-		var is_damage_aura = type == Properties.AuraType.DAMAGE_MOB_HEALTH
-		var is_poison_aura = type == Properties.AuraType.DAMAGE_MOB_HEALTH && duration > 0 && period > 0
-
-		if is_damage_aura:
-# 			Apply damage modifier from aura's
-			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, parameter_mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE], ModifyType.MULTIPLICATIVE)
-
-#			Apply crit modifier
-			if is_critical:
-				modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, crit_modifier, ModifyType.MULTIPLICATIVE)
-
-		if is_poison_aura:
-			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, parameter_mod_map[Properties.AuraType.INCREASE_POISON_AURA_DURATION], ModifyType.MULTIPLICATIVE)
-
+		apply_level_modifiers_to_aura_values(aura_info)
+		apply_aura_modifiers_to_aura_values(aura_info, is_critical)
 
 	return modded_aura_info_list
 
+
+func apply_aura_modifiers_to_aura_values(aura_info: Dictionary, is_critical: bool):
+	var type: int = aura_info[Properties.AuraParameter.TYPE]
+	var duration: int = aura_info[Properties.AuraParameter.DURATION]
+	var period: int = aura_info[Properties.AuraParameter.PERIOD]
+	var is_damage_aura = type == Properties.AuraType.DAMAGE_MOB_HEALTH
+	var is_poison_aura = type == Properties.AuraType.DAMAGE_MOB_HEALTH && duration > 0 && period > 0
+
+	if is_damage_aura:
+# 			Apply damage modifier from aura's
+		modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, parameter_mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE], ModifyType.MULTIPLICATIVE)
+
+#			Apply crit modifier
+		if is_critical:
+			var crit_modifier_modifier: float = parameter_mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER]
+			var crit_modifier: float = DEFAULT_CRIT_MODIFIER + crit_modifier_modifier
+			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, crit_modifier, ModifyType.MULTIPLICATIVE)
+
+	if is_poison_aura:
+		modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, parameter_mod_map[Properties.AuraType.INCREASE_POISON_AURA_DURATION], ModifyType.MULTIPLICATIVE)
 
 func modify_aura_info_value(aura_info: Dictionary, value_key: int, mod_value: float, modifyType: int):
 	if aura_info[value_key] is Array:
@@ -215,7 +220,7 @@ func change_level(new_level: int):
 	load_spell_parameters()
 
 
-func apply_level_modifiers(aura_info: Dictionary):
+func apply_level_modifiers_to_aura_values(aura_info: Dictionary):
 	for level_parameter in Properties.aura_level_parameter_list:
 		var affected_parameter: int = Properties.aura_level_parameter_map[level_parameter]
 		var level_modifier_value: float = aura_info[level_parameter]
