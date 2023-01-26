@@ -88,8 +88,8 @@ func add_aura_info_list(aura_info_list: Array):
 
 func _on_AuraContainer_applied(aura):
 	match aura.type:
-		Properties.AuraType.DAMAGE: change_health(aura.get_value())
-		Properties.AuraType.SLOW:
+		Properties.AuraType.DAMAGE_MOB_HEALTH: change_health(aura.get_value())
+		Properties.AuraType.DECREASE_MOB_SPEED:
 			if aura.is_expired:
 				mob_move_speed = default_mob_move_speed
 			else:
