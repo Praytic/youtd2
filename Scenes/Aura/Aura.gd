@@ -61,8 +61,12 @@ func expire():
 	queue_free()
 
 
+# Get value with sign applied
 func get_value() -> float:
-	return value_abs
+	var value_sign: int = Properties.aura_value_sign_map[type]
+	var value: float = value_sign * value_abs
+
+	return value
 
 
 func run():
