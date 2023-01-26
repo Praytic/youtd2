@@ -27,13 +27,11 @@ var mod_map: Dictionary = {
 	Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE: 0.0,
 	Properties.AuraType.INCREASE_POISON_AURA_DURATION: 0.0,
 	Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE: 0.0,
-	Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER: 0.0,
-	Properties.AuraType.INCREASE_SPELL_MISS_CHANCE: 0.0
+	Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER: 0.0
 }
 
 const DEFAULT_CRIT_CHANCE: float = 0.25
 const DEFAULT_CRIT_MODIFIER: float = 1.0
-const DEFAULT_MISS_CHANCE: float = 0.0
 
 
 func _init(default_aura_info_list_arg: Array):
@@ -56,14 +54,6 @@ func apply_aura(aura: Aura):
 # NOTE: have to be careful not to modify default aura list, so use duplicate()
 # NOTE: get_modded() also implements critical damage, even though basic criticals don't come from aura's
 func get_modded() -> Array:
-# 	DESIGN DECISION: it makes sense that if spell misses
-# 	then none of the aura's are applied, but maybe there are
-# 	some exceptions?
-	var is_miss: bool = get_is_miss()
-
-	if is_miss:
-		return []
-	
 	var modded_aura_info_list: Array = []
 
 	# Add aura's based on their ADD_CHANCE
@@ -121,13 +111,6 @@ func modify_aura_info_value(aura_info: Dictionary, value_key: int, mod_value: fl
 func get_is_critical() -> bool:
 	var crit_chance: float = min(1.0, DEFAULT_CRIT_CHANCE + mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE])
 	var out: bool = Utils.rand_chance(crit_chance)
-
-	return out
-
-
-func get_is_miss() -> bool:
-	var miss_chance: float = min(1.0, DEFAULT_MISS_CHANCE + mod_map[Properties.AuraType.INCREASE_SPELL_MISS_CHANCE])
-	var out: bool = Utils.rand_chance(miss_chance)
 
 	return out
 
