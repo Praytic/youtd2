@@ -24,6 +24,7 @@ class_name Spell
 const DEFAULT_MISS_CHANCE: float = 0.0
 const DEFAULT_CRIT_CHANCE: float = 0.25
 const DEFAULT_CRIT_MODIFIER: float = 1.0
+const CAST_RANGE_MAX: float = 10000.0
 
 var level: int = 1
 var spell_info: Dictionary
@@ -163,10 +164,13 @@ func get_spell_parameter(parameter: int):
 	return spell_info[parameter]
 
 
-func get_modded_spell_parameter(spell_parameter: int, mod_aura_type: int) -> float:
+func get_modded_spell_parameter(spell_parameter: int, mod_aura_type: int, level_mod_type: int) -> float:
 	var default_value: float = spell_info[spell_parameter]
-	var modifier: float = parameter_mod_map[mod_aura_type]
-	var modded = default_value * (1.0 + modifier)
+	var aura_modifier: float = parameter_mod_map[mod_aura_type]
+	var level_modifier_value: float = spell_info[level_mod_type]
+	var level_modifier_sign: int = Properties.spell_level_mod_sign_map[level_mod_type]
+	var level_modifier: float = level_modifier_sign * (level - 1) * level_modifier_value
+	var modded: float = default_value * (1.0 + aura_modifier + level_modifier)
 
 	return modded
 
@@ -179,10 +183,10 @@ func get_is_miss() -> bool:
 
 
 func load_spell_parameters():
-	var cast_cd: float = get_modded_spell_parameter(Properties.SpellParameter.CAST_CD, Properties.AuraType.DECREASE_SPELL_CAST_CD)
+	var cast_cd: float = max(0, get_modded_spell_parameter(Properties.SpellParameter.CAST_CD, Properties.AuraType.DECREASE_SPELL_CAST_CD, Properties.SpellParameter.DECREASE_CAST_CD_PER_LEVEL))
 	$CastTimer.wait_time = cast_cd
 
-	var cast_range: float = get_modded_spell_parameter(Properties.SpellParameter.CAST_RANGE, Properties.AuraType.INCREASE_SPELL_CAST_RANGE)
+	var cast_range: float = min(CAST_RANGE_MAX, get_modded_spell_parameter(Properties.SpellParameter.CAST_RANGE, Properties.AuraType.INCREASE_SPELL_CAST_RANGE, Properties.SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL))
 	Utils.circle_shape_set_radius($CastArea/CollisionShape2D, cast_range)
 
 
