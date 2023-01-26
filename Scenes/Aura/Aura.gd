@@ -14,10 +14,7 @@ signal expired(aura)
 
 
 var type: int
-var value_is_range: bool
-var value_fixed: float
-var value_min: float
-var value_max: float
+var value_abs: float
 var duration: float
 var period: float
 
@@ -32,15 +29,14 @@ func _init(aura_info):
 	duration = aura_info[Properties.AuraParameter.DURATION]
 	period = aura_info[Properties.AuraParameter.PERIOD]
 
-	value_is_range = aura_info[Properties.AuraParameter.VALUE] is Array
+	var value_is_range: bool = aura_info[Properties.AuraParameter.VALUE] is Array
 
 	if value_is_range:
 		var value_range: Array = aura_info[Properties.AuraParameter.VALUE] as Array
 
-		value_min = min(value_range[0], value_range[1])
-		value_max = max(value_range[0], value_range[1])
+		value_abs = Utils.randi_range(int(value_range[0]), int(value_range[1]))
 	else:
-		value_fixed = aura_info[Properties.AuraParameter.VALUE] as float
+		value_abs = aura_info[Properties.AuraParameter.VALUE] as float
 
 
 # Called when the node enters the scene tree for the first time.
@@ -65,15 +61,8 @@ func expire():
 	queue_free()
 
 
-# NOTE: not sure what to do here about float vs int
-# It seems like values need to be float sometimes (when?)
-# But want to do randomization as ints.
 func get_value() -> float:
-	if value_is_range:
-		var out = Utils.randi_range(int(value_min), int(value_max))
-		return out
-	else:
-		return value_fixed
+	return value_abs
 
 
 func run():
