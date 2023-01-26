@@ -12,13 +12,11 @@ extends Node2D
 
 
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
-onready var cast_timer: Timer = $CastTimer
 
 
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var target_mob: Mob = null
 var default_cast_cd: float
-var cast_cd: float
 var cast_cd_mod: float = 0.0
 var aura_info_container: AuraInfoContainer
 
@@ -29,7 +27,7 @@ func _ready():
 
 func init(properties):
 	default_cast_cd = properties[Properties.SpellParameter.CAST_CD]
-	cast_cd = default_cast_cd
+	$CastTimer.wait_time = default_cast_cd
 
 	var cast_range = properties[Properties.SpellParameter.CAST_RANGE]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
@@ -86,7 +84,7 @@ func try_to_shoot():
 	if !have_target():
 		return
 
-	var shoot_on_cd = cast_timer.time_left > 0
+	var shoot_on_cd = $CastTimer.time_left > 0
 	
 	if shoot_on_cd:
 		return
@@ -96,7 +94,7 @@ func try_to_shoot():
 
 	game_scene.call_deferred("add_child", projectile)
 	
-	cast_timer.start(cast_cd)
+	$CastTimer.start()
 
 
 func have_target() -> bool:
@@ -113,6 +111,6 @@ func apply_aura(aura: Aura):
 			else:
 				cast_cd_mod = aura.get_value()
 
-			cast_cd = default_cast_cd * (1.0 + cast_cd_mod)
+			$CastTimer.wait_time = default_cast_cd * (1.0 + cast_cd_mod)
 
 	aura_info_container.apply_aura(aura)
