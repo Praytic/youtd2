@@ -49,8 +49,7 @@ func init(spell_info_arg: Dictionary):
 	spell_info = spell_info_arg
 	default_aura_info_list = spell_info[Properties.SpellParameter.AURA_INFO_LIST]
 
-	$CastTimer.wait_time = spell_info[Properties.SpellParameter.CAST_CD]
-	Utils.circle_shape_set_radius($CastArea/CollisionShape2D, spell_info[Properties.SpellParameter.CAST_RANGE])
+	load_spell_parameters()
 
 
 func get_cast_timer() -> Timer:
@@ -155,12 +154,8 @@ func apply_aura(aura: Aura):
 		else:
 			parameter_mod_map[aura.type] = aura.get_value()
 
-	match aura.type:
-		Properties.AuraType.DECREASE_SPELL_CAST_CD:
-			$CastTimer.wait_time = get_modded_spell_parameter(Properties.SpellParameter.CAST_CD, Properties.AuraType.DECREASE_SPELL_CAST_CD)
-		Properties.AuraType.INCREASE_SPELL_CAST_RANGE:			
-			var cast_range: float = get_modded_spell_parameter(Properties.SpellParameter.CAST_RANGE, Properties.AuraType.INCREASE_SPELL_CAST_RANGE)
-			Utils.circle_shape_set_radius($CastArea/CollisionShape2D, cast_range)
+#		Parameter mod map changed so reload spell parameters
+		load_spell_parameters()
 
 
 func get_spell_parameter(parameter: int):
@@ -180,3 +175,11 @@ func get_is_miss() -> bool:
 	var out: bool = Utils.rand_chance(miss_chance)
 
 	return out
+
+
+func load_spell_parameters():
+	var cast_cd: float = get_modded_spell_parameter(Properties.SpellParameter.CAST_CD, Properties.AuraType.DECREASE_SPELL_CAST_CD)
+	$CastTimer.wait_time = cast_cd
+
+	var cast_range: float = get_modded_spell_parameter(Properties.SpellParameter.CAST_RANGE, Properties.AuraType.INCREASE_SPELL_CAST_RANGE)
+	Utils.circle_shape_set_radius($CastArea/CollisionShape2D, cast_range)
