@@ -75,6 +75,6 @@ func apply_aura(aura: Aura):
 			else:
 				cast_cd_mod = aura.get_value()
 
-			$CastTimer.wait_time = default_cast_cd * (1.0 - cast_cd_mod)
+			$CastTimer.wait_time = default_cast_cd * (1.0 + cast_cd_mod)
 
 	aura_info_container.apply_aura(aura)

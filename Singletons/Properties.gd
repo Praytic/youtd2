@@ -141,6 +141,21 @@ enum AuraType {
 	MODIFY_MISS_CHANCE
 }
 
+# NOTE: AuraParameter.VALUE is defined as positive in the
+# aura description. The sign is separately defined here for
+# each type and used when the aura is applied to make the
+# effect of the aura positive or negative.
+var aura_value_sign_map: Dictionary = {
+	AuraType.DAMAGE: -1,
+	AuraType.SLOW: -1,
+	AuraType.DECREASE_CAST_CD: -1,
+	AuraType.MODIFY_VALUE_FOR_DAMAGE_AURA: 1,
+	AuraType.MODIFY_DURATION_FOR_POISON_AURA: 1,
+	AuraType.MODIFY_CRIT_CHANCE: 1,
+	AuraType.MODIFY_CRIT_MODIFIER: 1,
+	AuraType.MODIFY_MISS_CHANCE: 1
+}
+
 
 # TODO: Replace filenames with IDs when switching to Godot 4 with first-class functions
 # TODO: Think of the way to load tower properties without loading the Scene or GDScript 
