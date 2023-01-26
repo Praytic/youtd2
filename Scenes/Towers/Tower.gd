@@ -17,6 +17,7 @@ var rarity: String
 var element: String
 var cost: float
 var description: String
+var level: int = 0
 
 
 var aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
@@ -118,5 +119,12 @@ func _on_AuraContainer_applied(aura: Aura):
 # and signal-slot connections. Originates from an Aura
 # instance.
 func on_killing_blow():
-	print("killing blow!")
+	change_level(level + 1)
 	pass
+
+
+func change_level(new_level: int):
+	level = new_level
+
+	for spell_node in spell_node_list:
+		spell_node.change_level(level)

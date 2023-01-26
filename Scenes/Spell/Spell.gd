@@ -25,6 +25,7 @@ const DEFAULT_MISS_CHANCE: float = 0.0
 const DEFAULT_CRIT_CHANCE: float = 0.25
 const DEFAULT_CRIT_MODIFIER: float = 1.0
 
+var level: int = 1
 var spell_info: Dictionary
 var default_aura_info_list: Array
 var parameter_mod_map: Dictionary = {
@@ -183,3 +184,11 @@ func load_spell_parameters():
 
 	var cast_range: float = get_modded_spell_parameter(Properties.SpellParameter.CAST_RANGE, Properties.AuraType.INCREASE_SPELL_CAST_RANGE)
 	Utils.circle_shape_set_radius($CastArea/CollisionShape2D, cast_range)
+
+
+func change_level(new_level: int):
+	level = new_level
+
+#	Spell parameters could be affected by level change so
+#	reload them.
+	load_spell_parameters()
