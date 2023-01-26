@@ -7,35 +7,34 @@ extends Node2D
 # passed to Mobs or Towers.
 
 
+var spell_scene: PackedScene = preload("res://Scenes/Spell/Spell.tscn")
 var explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
 
-var target_type: int
-var default_cast_cd: float
-var cast_cd_mod: float = 0.0
-var aura_info_container: AuraInfoContainer
+var spell: Spell
+
 
 func _ready():
 	pass
 
 
 func init(spell_info: Dictionary):
-	default_cast_cd = spell_info[Properties.SpellParameter.CAST_CD]
-	$CastTimer.wait_time = default_cast_cd
+	spell = spell_scene.instance()
+	add_child(spell)
+	spell.init(spell_info)
 
-	var cast_range = spell_info[Properties.SpellParameter.CAST_RANGE]
-	Utils.circle_shape_set_radius($CastArea/CollisionShape2D, cast_range)
-
-	target_type = spell_info[Properties.SpellParameter.TARGET_TYPE]
-
-	var aura_info_list: Array = spell_info[Properties.SpellParameter.AURA_INFO_LIST]
-	aura_info_container = AuraInfoContainer.new(aura_info_list)
+	var cast_timer: Timer = spell.get_cast_timer()
+	cast_timer.connect("timeout", self, "_on_CastTimer_timeout")
+# 	NOTE: cast timer starts in running state and loops
+	cast_timer.one_shot = false
+	cast_timer.start()
 
 
 func _on_CastTimer_timeout():
-	var body_list: Array = $CastArea.get_overlapping_bodies()
+	var cast_area: Area2D = spell.get_cast_area()
+	var body_list: Array = cast_area.get_overlapping_bodies()
 
-	var aura_info_list: Array = aura_info_container.get_modded()
+	var aura_info_list: Array = spell.get_modded_aura_info()
 
 	for body in body_list:
 		var body_is_valid_target = is_valid_target(body)
@@ -50,6 +49,8 @@ func _on_CastTimer_timeout():
 
 
 func is_valid_target(node: Node) -> bool:
+	var target_type = spell.get_spell_parameter(Properties.SpellParameter.TARGET_TYPE)
+	
 	match target_type:
 		Properties.SpellTargetType.MOBS:
 			return node is Mob
@@ -68,13 +69,4 @@ func is_valid_target(node: Node) -> bool:
 
 
 func apply_aura(aura: Aura):
-	match aura.type:
-		Properties.AuraType.DECREASE_CAST_CD:
-			if aura.is_expired:
-				cast_cd_mod = 0.0
-			else:
-				cast_cd_mod = aura.get_value()
-
-			$CastTimer.wait_time = default_cast_cd * (1.0 - cast_cd_mod)
-
-	aura_info_container.apply_aura(aura)
+	spell.apply_aura(aura)
