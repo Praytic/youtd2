@@ -7,9 +7,11 @@ class_name Spell
 # and ProjectileSpell, which includes cast timer, cast area
 # and spell parameters.
 
-var cast_cd_mod: float = 0.0
 var spell_info: Dictionary
 var aura_info_container: AuraInfoContainer
+var spell_parameter_mod_map: Dictionary = {
+	Properties.AuraType.DECREASE_SPELL_CAST_CD: 0.0
+}
 
 
 func _ready():
@@ -40,17 +42,25 @@ func get_modded_aura_info() -> Array:
 
 
 func apply_aura(aura: Aura):
-	match aura.type:
-		Properties.AuraType.DECREASE_SPELL_CAST_CD:
-			if aura.is_expired:
-				cast_cd_mod = 0.0
-			else:
-				cast_cd_mod = aura.get_value()
+	if spell_parameter_mod_map.has(aura.type):
+		if aura.is_expired:
+			spell_parameter_mod_map[aura.type] = 0.0
+		else:
+			spell_parameter_mod_map[aura.type] = aura.get_value()
 
-			$CastTimer.wait_time = spell_info[Properties.SpellParameter.CAST_CD] * (1.0 + cast_cd_mod)
+		$CastTimer.wait_time = get_modded_spell_parameter(Properties.SpellParameter.CAST_CD, Properties.AuraType.DECREASE_SPELL_CAST_CD)
 
 	aura_info_container.apply_aura(aura)
 
 
 func get_spell_parameter(parameter: int):
 	return spell_info[parameter]
+
+
+func get_modded_spell_parameter(parameter: int, mod_aura_type: int) -> float:
+	$CastTimer.wait_time
+	var default_value: float = spell_info[Properties.SpellParameter.CAST_CD]
+	var modifier: float = spell_parameter_mod_map[mod_aura_type]
+	var modded = default_value * (1.0 + modifier)
+
+	return modded
