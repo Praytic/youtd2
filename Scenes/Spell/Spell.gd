@@ -93,6 +93,8 @@ func get_modded_aura_info() -> Array:
 	var is_critical: bool = get_is_critical()
 
 	for aura_info in modded_aura_info_list:
+		apply_level_modifiers(aura_info)
+	
 		var type: int = aura_info[Properties.AuraParameter.TYPE]
 		var duration: int = aura_info[Properties.AuraParameter.DURATION]
 		var period: int = aura_info[Properties.AuraParameter.PERIOD]
@@ -196,3 +198,12 @@ func change_level(new_level: int):
 #	Spell parameters could be affected by level change so
 #	reload them.
 	load_spell_parameters()
+
+
+func apply_level_modifiers(aura_info: Dictionary):
+	for level_parameter in Properties.aura_level_parameter_list:
+		var affected_parameter: int = Properties.aura_level_parameter_map[level_parameter]
+		var level_modifier_value: float = aura_info[level_parameter]
+		var level_modifier_sign: int = Properties.aura_level_mod_sign_map[level_parameter]
+		var level_modifier: float = level_modifier_sign * (level - 1) * level_modifier_value
+		modify_aura_info_value(aura_info, affected_parameter, 1.0 + level_modifier)
