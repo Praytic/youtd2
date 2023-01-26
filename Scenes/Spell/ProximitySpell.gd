@@ -77,3 +77,7 @@ func apply_aura(aura: Aura):
 func on_killing_blow():
 	emit_signal("killing_blow")
 	pass
+
+
+func change_level(new_level: int):
+	spell.change_level(new_level)
