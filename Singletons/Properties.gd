@@ -91,8 +91,8 @@ enum SpellParameter {
 	CAST_RANGE,
 	TARGET_TYPE,
 	AURA_INFO_LIST,
-	DECREASE_CAST_CD_PER_LEVEL,
-	INCREASE_CAST_RANGE_PER_LEVEL
+	LEVEL_DECREASE_CAST_CD,
+	LEVEL_INCREASE_CAST_RANGE
 }
 
 enum SpellType {
@@ -160,8 +160,8 @@ var aura_level_mod_sign_map: Dictionary = {
 }
 
 var spell_level_mod_sign_map: Dictionary = {
-	SpellParameter.DECREASE_CAST_CD_PER_LEVEL: -1,
-	SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 1
+	SpellParameter.LEVEL_DECREASE_CAST_CD: -1,
+	SpellParameter.LEVEL_INCREASE_CAST_RANGE: 1
 }
 
 var aura_value_sign_map: Dictionary = {
@@ -212,8 +212,8 @@ const towers = {
 				SpellParameter.TYPE: SpellType.PROJECTILE,
 				SpellParameter.CAST_RANGE: 1000,
 				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-				SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0.05,
-				SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0.05,
+				SpellParameter.LEVEL_DECREASE_CAST_CD: 0.05,
+				SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0.05,
 				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.DAMAGE_MOB_HEALTH,
@@ -248,8 +248,8 @@ const towers = {
 				SpellParameter.TYPE: SpellType.PROXIMITY,
 				SpellParameter.CAST_RANGE: 1000,
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
-				SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-				SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+				SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+				SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.INCREASE_POISON_AURA_DURATION,
@@ -284,8 +284,8 @@ const towers = {
 				SpellParameter.TYPE: SpellType.PROXIMITY,
 				SpellParameter.CAST_RANGE: 1000,
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
-				SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-				SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+				SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+				SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 				SpellParameter.AURA_INFO_LIST: [
 					{
 						AuraParameter.TYPE: AuraType.INCREASE_SPELL_CAST_RANGE,
@@ -324,8 +324,8 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROJECTILE,
 		SpellParameter.CAST_RANGE: 300,
 		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-		SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-		SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+		SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+		SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.DAMAGE_MOB_HEALTH,
@@ -346,8 +346,8 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROJECTILE,
 		SpellParameter.CAST_RANGE: 300,
 		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-		SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-		SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+		SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+		SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.DAMAGE_MOB_HEALTH,
@@ -368,8 +368,8 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROJECTILE,
 		SpellParameter.CAST_RANGE: 300,
 		SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-		SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-		SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+		SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+		SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.DECREASE_MOB_SPEED,
@@ -390,8 +390,8 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROXIMITY,
 		SpellParameter.CAST_RANGE: 1000,
 		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
-		SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-		SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+		SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+		SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.DECREASE_SPELL_CAST_CD,
@@ -412,8 +412,8 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROXIMITY,
 		SpellParameter.CAST_RANGE: 1000,
 		SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
-		SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-		SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+		SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+		SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.INCREASE_POISON_AURA_DURATION,
@@ -435,8 +435,8 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROXIMITY,
 		SpellParameter.CAST_RANGE: 10,
 		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
-		SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-		SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+		SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+		SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE,
@@ -457,8 +457,8 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROXIMITY,
 		SpellParameter.CAST_RANGE: 10,
 		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
-		SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-		SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+		SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+		SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE,
@@ -479,8 +479,8 @@ var example_spells = {
 		SpellParameter.TYPE: SpellType.PROXIMITY,
 		SpellParameter.CAST_RANGE: 10,
 		SpellParameter.TARGET_TYPE: SpellTargetType.TOWER_SELF,
-		SpellParameter.DECREASE_CAST_CD_PER_LEVEL: 0,
-		SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL: 0,
+		SpellParameter.LEVEL_DECREASE_CAST_CD: 0,
+		SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0,
 		SpellParameter.AURA_INFO_LIST: [
 			{
 				AuraParameter.TYPE: AuraType.INCREASE_SPELL_MISS_CHANCE,

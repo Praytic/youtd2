@@ -185,10 +185,10 @@ func get_is_miss() -> bool:
 
 
 func load_spell_parameters():
-	var cast_cd: float = max(0, get_modded_spell_parameter(Properties.SpellParameter.CAST_CD, Properties.AuraType.DECREASE_SPELL_CAST_CD, Properties.SpellParameter.DECREASE_CAST_CD_PER_LEVEL))
+	var cast_cd: float = max(0, get_modded_spell_parameter(Properties.SpellParameter.CAST_CD, Properties.AuraType.DECREASE_SPELL_CAST_CD, Properties.SpellParameter.LEVEL_DECREASE_CAST_CD))
 	$CastTimer.wait_time = cast_cd
 
-	var cast_range: float = min(CAST_RANGE_MAX, get_modded_spell_parameter(Properties.SpellParameter.CAST_RANGE, Properties.AuraType.INCREASE_SPELL_CAST_RANGE, Properties.SpellParameter.INCREASE_CAST_RANGE_PER_LEVEL))
+	var cast_range: float = min(CAST_RANGE_MAX, get_modded_spell_parameter(Properties.SpellParameter.CAST_RANGE, Properties.AuraType.INCREASE_SPELL_CAST_RANGE, Properties.SpellParameter.LEVEL_INCREASE_CAST_RANGE))
 	Utils.circle_shape_set_radius($CastArea/CollisionShape2D, cast_range)
 
 
