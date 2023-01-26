@@ -83,10 +83,8 @@ func process_poison_auras(type: int):
 		if aura.type != type:
 			continue
 		
-		var this_dps: float = aura.get_dps()
-
 		if strongest_aura != null:
-			if this_dps > strongest_aura.get_dps():
+			if aura.is_stronger_than(strongest_aura):
 				strongest_aura = aura
 		else:
 			strongest_aura = aura
@@ -112,10 +110,8 @@ func get_strongest_status_aura(type: int) -> Aura:
 		if aura.type != type:
 			continue
 		
-		var this_value: float = aura.get_value()
-
 		if strongest_aura != null:
-			if this_value > strongest_aura.get_value():
+			if aura.is_stronger_than(strongest_aura):
 				strongest_aura = aura
 		else:
 			strongest_aura = aura
