@@ -19,7 +19,7 @@ func _on_StopWaveButton_pressed():
 
 
 func _on_MissleT1_mouse_entered():
-	_on_TowerButton_mouse_entered($BuildBar/MissleT1)
+	_on_TowerButton_mouse_entered($RightMenuBar/MarginContainer/BuildBar/MissleT1)
 
 
 func _on_MissleT1_mouse_exited():
@@ -27,7 +27,7 @@ func _on_MissleT1_mouse_exited():
 
 
 func _on_GunT1_mouse_entered():
-	_on_TowerButton_mouse_entered($BuildBar/GunT1)
+	_on_TowerButton_mouse_entered($RightMenuBar/MarginContainer/BuildBar/GunT1)
 
 
 func _on_GunT1_mouse_exited():
