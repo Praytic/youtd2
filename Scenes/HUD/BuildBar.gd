@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends GridContainer
 
 
 onready var builder_control = get_tree().current_scene.get_node(@"%BuilderControl")

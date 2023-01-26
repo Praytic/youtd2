@@ -1,7 +1,3 @@
-extends TextureButton
-
-
-class_name TowerButton
-
+extends Button
 
 export(int) var tower_id

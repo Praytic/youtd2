@@ -30,15 +30,9 @@ func _update_view_rect():
 	var ctrans = default_camera.get_canvas_transform()
 	var view_size = default_camera.get_viewport_rect().size / ctrans.get_scale()
 	var view_pos = -ctrans.get_origin() / ctrans.get_scale()
-#	print("Orig: %s %s" % [view_pos, view_size])
-	
+#
 	var projection_size = view_size * minimap_scale
 	var projection_pos = view_pos * minimap_scale
-	
-	var minimap_ctrans = minimap_camera.get_canvas_transform()
-	var minimap_view_size = minimap_camera.get_viewport_rect().size / minimap_ctrans.get_scale()
-	var minimap_view_pos = -minimap_ctrans.get_origin() / minimap_ctrans.get_scale()
-	var minimap_view_center = minimap_view_pos + minimap_view_size / 2
 	
 	camera_projection.position = projection_pos
 	camera_projection.set_size(projection_size)
