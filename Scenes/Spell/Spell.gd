@@ -25,6 +25,9 @@ const DEFAULT_MISS_CHANCE: float = 0.0
 const DEFAULT_CRIT_CHANCE: float = 0.25
 const DEFAULT_CRIT_MODIFIER: float = 1.0
 const CAST_RANGE_MAX: float = 10000.0
+# NOTE: godot timers are unreliable at durations close to
+# frame duration (0.16s), so don't go below 0.3
+const CAST_CD_MIN: float = 0.3
 
 var level: int = 1
 var spell_info: Dictionary
@@ -197,7 +200,7 @@ func get_is_miss() -> bool:
 
 
 func load_spell_parameters():
-	var cast_cd: float = max(0, get_modded_spell_parameter(Properties.SpellParameter.CAST_CD, Properties.AuraType.DECREASE_SPELL_CAST_CD, Properties.SpellParameter.LEVEL_DECREASE_CAST_CD))
+	var cast_cd: float = max(CAST_CD_MIN, get_modded_spell_parameter(Properties.SpellParameter.CAST_CD, Properties.AuraType.DECREASE_SPELL_CAST_CD, Properties.SpellParameter.LEVEL_DECREASE_CAST_CD))
 	$CastTimer.wait_time = cast_cd
 
 	var cast_range: float = min(CAST_RANGE_MAX, get_modded_spell_parameter(Properties.SpellParameter.CAST_RANGE, Properties.AuraType.INCREASE_SPELL_CAST_RANGE, Properties.SpellParameter.LEVEL_INCREASE_CAST_RANGE))
