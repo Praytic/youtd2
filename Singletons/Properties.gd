@@ -130,6 +130,10 @@ enum AuraParameter {
 	ADD_CHANCE
 }
 
+# TODO: DECREASE_SPELL_CAST_CD needs to not apply to spells
+# which are buffs to towers and maybe other kinds of spells
+# as well. Definitely should apply to projectile spells and
+# damaging proximity spells.
 enum AuraType {
 	DAMAGE_MOB_HEALTH,
 	DECREASE_MOB_SPEED,
@@ -139,12 +143,13 @@ enum AuraType {
 	INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE,
 	INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER,
 	INCREASE_SPELL_MISS_CHANCE
+	INCREASE_SPELL_CAST_RANGE
 }
 
-# NOTE: AuraParameter.VALUE is defined as positive in the
-# aura description. The sign is separately defined here for
-# each type and used when the aura is applied to make the
-# effect of the aura positive or negative.
+# NOTE: modifiers to spell cast range and cd need to be
+# selective, for example only applying to damaging spells.
+# Changing cast range of buffs to other towers doesn't make
+# sense.
 var aura_value_sign_map: Dictionary = {
 	AuraType.DAMAGE_MOB_HEALTH: -1,
 	AuraType.DECREASE_MOB_SPEED: -1,
@@ -153,7 +158,8 @@ var aura_value_sign_map: Dictionary = {
 	AuraType.INCREASE_POISON_AURA_DURATION: 1,
 	AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_CHANCE: 1,
 	AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER: 1,
-	AuraType.INCREASE_SPELL_MISS_CHANCE: 1
+	AuraType.INCREASE_SPELL_MISS_CHANCE: 1,
+	AuraType.INCREASE_SPELL_CAST_RANGE: 1
 }
 
 
@@ -255,7 +261,7 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 				SpellParameter.AURA_INFO_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.DECREASE_SPELL_CAST_CD,
+						AuraParameter.TYPE: AuraType.INCREASE_SPELL_CAST_RANGE,
 						AuraParameter.VALUE: 0.5,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
