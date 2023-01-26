@@ -102,11 +102,11 @@ func pause():
 		timer.set_paused(true)
 
 
-func get_dps() -> float:
+func get_abs_dps() -> float:
 	if period > 0:
-		return get_value() / period
+		return value_abs / period
 	else:
-		return get_value()
+		return value_abs
 
 
 func is_instant() -> bool:
@@ -119,3 +119,21 @@ func is_status() -> bool:
 
 func is_poison() -> bool:
 	return duration > 0 && period > 0
+
+
+# NOTE: important to compare absolute values because if the
+# aura sign is negative, the most negative aura will be the
+# strongest
+func is_stronger_than(other: Aura) -> bool:
+	if is_poison():
+		var this_dps: float = self.get_abs_dps()
+		var other_dps: float = other.get_abs_dps()
+		var is_stronger: bool = this_dps > other_dps
+
+		return is_stronger
+	else:
+		var this_value: float = self.value_abs
+		var other_value: float = other.value_abs
+		var is_stronger: bool = this_value > other_value
+
+		return is_stronger
