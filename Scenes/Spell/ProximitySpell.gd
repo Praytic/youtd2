@@ -7,7 +7,7 @@ extends Node2D
 # passed to Mobs or Towers.
 
 
-var spell_scene: PackedScene = preload("res://Scenes/Towers/Spell.tscn")
+var spell_scene: PackedScene = preload("res://Scenes/Spell/Spell.tscn")
 var explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
 
