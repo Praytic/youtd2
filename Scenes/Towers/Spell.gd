@@ -7,11 +7,14 @@ class_name Spell
 # and ProjectileSpell, which includes cast timer, cast area
 # and spell parameters.
 
+const DEFAULT_MISS_CHANCE: float = 0.0
+
 var spell_info: Dictionary
 var aura_info_container: AuraInfoContainer
 var spell_parameter_mod_map: Dictionary = {
 	Properties.AuraType.DECREASE_SPELL_CAST_CD: 0.0,
 	Properties.AuraType.INCREASE_SPELL_CAST_RANGE: 0.0,
+	Properties.AuraType.INCREASE_SPELL_MISS_RANGE: 0.0
 }
 
 
@@ -39,7 +42,16 @@ func get_cast_area() -> Area2D:
 
 
 func get_modded_aura_info() -> Array:
-	return aura_info_container.get_modded()
+#	NOTE: implement missing spells by returning empty aura
+#	info list. For example, a projectile spell would create
+#	a projectile with no aura's and it would have no effect
+#	when it reaches the mob.
+	var is_miss: bool = get_is_miss()
+
+	if is_miss:
+		return []
+	else
+		return aura_info_container.get_modded()
 
 
 func apply_aura(aura: Aura):
@@ -64,9 +76,15 @@ func get_spell_parameter(parameter: int):
 
 
 func get_modded_spell_parameter(spell_parameter: int, mod_aura_type: int) -> float:
-	$CastTimer.wait_time
 	var default_value: float = spell_info[spell_parameter]
 	var modifier: float = spell_parameter_mod_map[mod_aura_type]
 	var modded = default_value * (1.0 + modifier)
 
 	return modded
+
+
+func get_is_miss() -> bool:
+	var miss_chance: float = min(1.0, DEFAULT_MISS_CHANCE + mod_map[Properties.AuraType.INCREASE_SPELL_MISS_CHANCE])
+	var out: bool = Utils.rand_chance(miss_chance)
+
+	return out
