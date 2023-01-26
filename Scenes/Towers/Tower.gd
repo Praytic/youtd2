@@ -63,17 +63,17 @@ func _ready():
 func make_spell(type: int) -> Node:
 	match type:
 		Properties.SpellType.PROJECTILE:
-			var projectile_spell_script = load("res://Scenes/Towers/ProjectileSpell.gd")
+			var projectile_spell_script = load("res://Scenes/Spell/ProjectileSpell.gd")
 
 			return projectile_spell_script.new()
 		Properties.SpellType.PROXIMITY:
-			var proximity_spell_script = load("res://Scenes/Towers/ProximitySpell.gd")
+			var proximity_spell_script = load("res://Scenes/Spell/ProximitySpell.gd")
 
 			return proximity_spell_script.new()
 		_:
 			print_debug("Unknown spell type: %s. Defaulting to projectile." % type)
 			
-			var projectile_spell_script = load("res://Scenes/Towers/ProximitySpell.tscn")
+			var projectile_spell_script = load("res://Scenes/Spell/ProximitySpell.tscn")
 			
 			return projectile_spell_script.new()
 
