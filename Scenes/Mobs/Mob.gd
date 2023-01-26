@@ -82,13 +82,23 @@ func die():
 	queue_free()
 
 
-func add_aura_info_list(aura_info_list: Array):
-	$AuraContainer.create_and_add_auras(aura_info_list)
+func add_aura_info_list(aura_info_list: Array, aura_creator: Node):
+	$AuraContainer.create_and_add_auras(aura_info_list, aura_creator)
 
 
 func _on_AuraContainer_applied(aura):
 	match aura.type:
-		Properties.AuraType.DAMAGE_MOB_HEALTH: change_health(aura.get_value())
+		Properties.AuraType.DAMAGE_MOB_HEALTH:
+			var alive_before_apply: bool = health > 0
+
+			change_health(aura.get_value())
+
+			var alive_after_apply: bool = health > 0
+
+			var killing_blow: bool = alive_before_apply && !alive_after_apply
+
+			if killing_blow:
+				aura.notify_about_killing_blow()
 		Properties.AuraType.DECREASE_MOB_SPEED:
 			if aura.is_expired:
 				mob_move_speed = default_mob_move_speed

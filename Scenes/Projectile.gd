@@ -10,12 +10,14 @@ var target_mob: Mob = null
 export var speed: int = 100
 export var contact_distance: int = 30
 var aura_info_list: Array = []
+var aura_creator: Node
 
 
-func init(target_mob_arg: Mob, position_arg: Vector2, aura_info_list_arg: Array):
+func init(target_mob_arg: Mob, position_arg: Vector2, aura_info_list_arg: Array, aura_creator_arg: Node):
 	target_mob = target_mob_arg
 	position = position_arg
 	aura_info_list = aura_info_list_arg
+	aura_creator = aura_creator_arg
 
 
 func have_target() -> bool:
@@ -32,13 +34,13 @@ func _process(delta):
 	var pos_diff = target_pos - position
 	
 	var reached_mob = pos_diff.length() < contact_distance
-	
+
 	if reached_mob:
 		for aura_info in aura_info_list:
 			var mob_list: Array = get_affected_mob_list(aura_info)
 			
 			for mob in mob_list:
-				mob.add_aura_info_list([aura_info])
+				mob.add_aura_info_list([aura_info], aura_creator)
 
 		queue_free()
 		return

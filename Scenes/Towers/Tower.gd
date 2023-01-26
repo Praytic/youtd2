@@ -49,6 +49,8 @@ func _ready():
 		spell_node.init(spell_info)
 		spell_node_list.append(spell_node)
 
+		spell_node.connect("killing_blow", self, "on_killing_blow")
+
 #		HACK: to set some radius for areaofeffect indicator.
 #		Don't know what to do for multiple aura's. Draw
 #		multiple indicators for each aura? Draw only the
@@ -103,10 +105,18 @@ func upgrade() -> PackedScene:
 	return next_tier_tower
 
 
-func add_aura_info_list(aura_info_list: Array):
-	$AuraContainer.create_and_add_auras(aura_info_list)
+func add_aura_info_list(aura_info_list: Array, _unused: Node):
+	$AuraContainer.create_and_add_auras(aura_info_list, null)
 
 
 func _on_AuraContainer_applied(aura: Aura):
 	for spell_node in spell_node_list:
 		spell_node.apply_aura(aura)
+
+
+# NOTE: this slot is setup via a long chain of f-n calls
+# and signal-slot connections. Originates from an Aura
+# instance.
+func on_killing_blow():
+	print("killing blow!")
+	pass
