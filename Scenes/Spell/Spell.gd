@@ -42,6 +42,11 @@ var parameter_mod_map: Dictionary = {
 	Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER: 0.0
 }
 
+enum ModifyType {
+	MULTIPLICATIVE,
+	ADDITIVE
+}
+
 
 func _ready():
 	pass
@@ -103,29 +108,36 @@ func get_modded_aura_info() -> Array:
 
 		if is_damage_aura:
 # 			Apply damage modifier from aura's
-			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + parameter_mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE])
+			modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, parameter_mod_map[Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_VALUE], ModifyType.MULTIPLICATIVE)
 
 #			Apply crit modifier
 			if is_critical:
-				modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, 1.0 + crit_modifier)
+				modify_aura_info_value(aura_info, Properties.AuraParameter.VALUE, crit_modifier, ModifyType.MULTIPLICATIVE)
 
 		if is_poison_aura:
-			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, 1.0 + parameter_mod_map[Properties.AuraType.INCREASE_POISON_AURA_DURATION])
+			modify_aura_info_value(aura_info, Properties.AuraParameter.DURATION, parameter_mod_map[Properties.AuraType.INCREASE_POISON_AURA_DURATION], ModifyType.MULTIPLICATIVE)
 
 
 	return modded_aura_info_list
 
 
-func modify_aura_info_value(aura_info: Dictionary, value_key: int, mod_value: float):
+func modify_aura_info_value(aura_info: Dictionary, value_key: int, mod_value: float, modifyType: int):
 	if aura_info[value_key] is Array:
 		var modded_value_range: Array = (aura_info[value_key] as Array).duplicate(true)
 		
-		for value in modded_value_range:
-			value *= mod_value
+		for i in range(modded_value_range.size()):
+			modded_value_range[i] = modify_aura_info_value_helper(modded_value_range[i], mod_value, modifyType)
 
 		aura_info[value_key] = modded_value_range
 	else:
-		aura_info[value_key] *= mod_value
+		aura_info[value_key] = modify_aura_info_value_helper(aura_info[value_key], mod_value, modifyType)
+
+
+func modify_aura_info_value_helper(value: float, mod_value: float, modifyType: int) -> float:
+	match modifyType:
+		ModifyType.MULTIPLICATIVE: return value * (1.0 + mod_value)
+		ModifyType.ADDITIVE: return value + mod_value
+		_: return 0.0
 
 
 func get_is_critical() -> bool:
@@ -206,4 +218,4 @@ func apply_level_modifiers(aura_info: Dictionary):
 		var level_modifier_value: float = aura_info[level_parameter]
 		var level_modifier_sign: int = Properties.aura_level_mod_sign_map[level_parameter]
 		var level_modifier: float = level_modifier_sign * (level - 1) * level_modifier_value
-		modify_aura_info_value(aura_info, affected_parameter, 1.0 + level_modifier)
+		modify_aura_info_value(aura_info, affected_parameter, level_modifier, ModifyType.ADDITIVE)
