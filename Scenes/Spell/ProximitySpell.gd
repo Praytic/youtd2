@@ -6,6 +6,8 @@ extends Node2D
 # Note that depending on aura parameters, aura's may be
 # passed to Mobs or Towers.
 
+signal killing_blow()
+
 
 var spell_scene: PackedScene = preload("res://Scenes/Spell/Spell.tscn")
 var explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
@@ -40,7 +42,7 @@ func _on_CastTimer_timeout():
 		var body_is_valid_target = is_valid_target(body)
 
 		if body_is_valid_target:
-			body.add_aura_info_list(aura_info_list)
+			body.add_aura_info_list(aura_info_list, self)
 
 			if body is Mob:
 				var explosion = explosion_scene.instance()
@@ -70,3 +72,8 @@ func is_valid_target(node: Node) -> bool:
 
 func apply_aura(aura: Aura):
 	spell.apply_aura(aura)
+
+
+func on_killing_blow():
+	emit_signal("killing_blow")
+	pass

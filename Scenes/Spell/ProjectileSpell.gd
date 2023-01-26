@@ -10,6 +10,8 @@ extends Node2D
 # projectile reaches the target, aura info list is passed to
 # the target.
 
+signal killing_blow()
+
 
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
 
@@ -96,7 +98,7 @@ func try_to_shoot():
 		return
 	
 	var projectile = projectile_scene.instance()
-	projectile.init(target_mob, global_position, spell.get_modded_aura_info())
+	projectile.init(target_mob, global_position, spell.get_modded_aura_info(), self)
 
 	game_scene.call_deferred("add_child", projectile)
 	
@@ -111,3 +113,8 @@ func have_target() -> bool:
 
 func apply_aura(aura: Aura):
 	spell.apply_aura(aura)
+
+
+func on_killing_blow():
+	emit_signal("killing_blow")
+	pass

@@ -58,11 +58,13 @@ func _ready():
 
 
 # Call this function in object to add auras
-func create_and_add_auras(aura_info_list: Array):
+func create_and_add_auras(aura_info_list: Array, aura_creator: Node):
 	for aura_info in aura_info_list:
 		var aura = Aura.new(aura_info)
 		aura.connect("applied", self, "on_aura_applied")
 		aura.connect("expired", self, "on_aura_expired")
+		if aura_creator != null:
+			aura.connect("killing_blow", aura_creator, "on_killing_blow")
 		add_child(aura)
 
 		if aura.is_poison():

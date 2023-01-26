@@ -11,6 +11,7 @@ class_name Aura
 
 signal applied(aura)
 signal expired(aura)
+signal killing_blow()
 
 
 var type: int
@@ -141,3 +142,7 @@ func is_stronger_than(other: Aura) -> bool:
 		var is_stronger: bool = this_value > other_value
 
 		return is_stronger
+
+
+func notify_about_killing_blow():
+	emit_signal("killing_blow")
