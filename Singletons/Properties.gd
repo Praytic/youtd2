@@ -255,8 +255,8 @@ const towers = {
 				SpellParameter.TARGET_TYPE: SpellTargetType.OTHER_TOWERS,
 				SpellParameter.AURA_INFO_LIST: [
 					{
-						AuraParameter.TYPE: AuraType.INCREASE_POISON_AURA_DURATION,
-						AuraParameter.VALUE: 3.0,
+						AuraParameter.TYPE: AuraType.DECREASE_SPELL_CAST_CD,
+						AuraParameter.VALUE: 0.5,
 						AuraParameter.DURATION: 1.01,
 						AuraParameter.PERIOD: 0,
 						AuraParameter.ADD_RANGE: 0,
