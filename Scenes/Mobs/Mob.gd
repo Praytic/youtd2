@@ -105,3 +105,11 @@ func _on_AuraContainer_applied(aura):
 			else:
 				mob_move_speed = default_mob_move_speed * (1.0 + aura.get_value())
 		_: print_debug("unhandled aura.type in _on_AuraContainer_applied():", aura.type)
+
+
+func apply_damage(damage: Array):
+	var damage_min: int = damage[0]
+	var damage_max: int = damage[1]
+	var damage_value: int = Utils.randi_range(damage_min, damage_max)
+
+	change_health(-damage_value)
