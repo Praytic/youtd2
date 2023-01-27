@@ -16,6 +16,7 @@ var author: String
 var rarity: String
 var element: String
 var damage: Array
+var splash: Dictionary
 var cost: float
 var description: String
 var target_mob: Mob = null
@@ -37,6 +38,7 @@ func _ready():
 	rarity = properties["rarity"]
 	element = properties["element"]
 	damage = properties["damage"]
+	splash = properties["splash"]
 	cost = properties["cost"]
 	description = properties["description"]
 
@@ -109,8 +111,9 @@ func try_to_attack():
 		return
 	
 	var projectile = projectile_scene.instance()
-	projectile.init(target_mob, global_position, damage)
-	game_scene.add_child(projectile)
+	projectile.init(target_mob, global_position)
+	projectile.connect("reached_mob", self, "on_projectile_reached_mob")
+	game_scene.call_deferred("add_child", projectile)
 
 	attack_cooldown_timer.start()
 
@@ -140,3 +143,43 @@ func upgrade() -> PackedScene:
 	var next_tier_tower = TowerManager.get_tower(next_tier_id)
 	emit_signal("upgraded")
 	return next_tier_tower
+
+
+func on_projectile_reached_mob(mob: Mob):
+	print("on_projectile_reached_mob")
+	apply_damage_to_mob(mob, damage, 1.0)
+	do_splash_attack(mob)
+
+
+func do_splash_attack(mob: Mob):
+	if splash.empty():
+		return
+
+	var splash_pos: Vector2 = target_mob.position
+	var splash_range_list: Array = splash.keys()
+	
+#	Process splash ranges from closest to furthers,
+#	so that strongest damage is applied
+	splash_range_list.sort()
+
+	var splash_range_max: float = splash_range_list.back()
+	var mob_list: Array = Utils.get_mob_list_in_range(splash_pos, splash_range_max)
+
+	for mob in mob_list:
+		if mob == target_mob:
+			continue
+		
+		var distance: float = splash_pos.distance_to(mob.position)
+
+		for splash_range in splash_range_list:
+			var mob_is_in_range: bool = distance < splash_range
+			var damage_mod: float = splash[splash_range]
+			apply_damage_to_mob(mob, damage, damage_mod)
+			break
+
+
+# TODO: need to handle application of all bonuses, for both
+# normal damage and splash attack and handle bonuses
+# incoming from spell scripts
+func apply_damage_to_mob(mob: Mob, damage: Array, damage_mod: float):
+	mob.apply_damage(damage, damage_mod)

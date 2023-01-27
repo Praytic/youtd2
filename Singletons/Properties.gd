@@ -204,6 +204,9 @@ const towers = {
 		"element": "nature",
 		"attack_type": "physical",
 		"damage": [10, 20],
+		"splash": {
+			320: 0.5
+		},
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
