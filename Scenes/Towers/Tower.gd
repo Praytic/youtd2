@@ -137,11 +137,20 @@ func try_to_attack():
 	
 	if attack_on_cooldown:
 		return
-	
-	var projectile = projectile_scene.instance()
-	projectile.init(target_mob, global_position)
-	projectile.connect("reached_mob", self, "on_projectile_reached_mob")
-	game_scene.call_deferred("add_child", projectile)
+
+	var event: Event = Event.new()
+	event.target = target_mob
+
+	var on_attack_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_ATTACK_CHANCE, Properties.ScriptParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
+
+	if on_attack_is_called:
+		script_node.on_attack(self, event)
+
+	if event.can_attack:
+		var projectile = projectile_scene.instance()
+		projectile.init(target_mob, global_position)
+		projectile.connect("reached_mob", self, "on_projectile_reached_mob")
+		game_scene.call_deferred("add_child", projectile)
 
 	attack_cooldown_timer.start()
 
@@ -181,19 +190,10 @@ func on_projectile_reached_mob(mob: Mob):
 
 	var damage_base: float = get_rand_damage_base()
 
-	var event: Event = Event.new()
-	event.damage = damage_base
-	event.target = mob
-
-	var on_attack_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_ATTACK_CHANCE, Properties.ScriptParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
-
-	if on_attack_is_called:
-		script_node.on_attack(self, event)
-
 #	NOTE: apply event's damage, so that any changes done by
 #	scripts in on_damage() apply
-	apply_damage_to_mob(mob, event.damage)
-	do_splash_attack(mob, event.damage)
+	apply_damage_to_mob(mob, damage_base)
+	do_splash_attack(mob, damage_base)
 
 
 func do_splash_attack(splash_target: Mob, damage_base: float):
