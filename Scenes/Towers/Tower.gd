@@ -33,6 +33,8 @@ var stat_map: Dictionary = {
 	Properties.TowerStat.MISS_CHANCE: 0.0,
 }
 
+var script_node: Node
+
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
 onready var targeting_area: Area2D = $TargetingArea
@@ -68,6 +70,16 @@ func _ready():
 
 	targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
 	targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
+
+	var script_path: String = properties["script"]
+	var script_loaded = load(script_path)
+
+	if script_loaded == null:
+		print_debug("Failed to load tower script:", script_path)
+		return
+
+	script_node = script_loaded.new()
+	add_child(script_node)
 
 
 func _on_AttackCooldownTimer_timeout():
@@ -168,6 +180,15 @@ func on_projectile_reached_mob(mob: Mob):
 		return
 
 	var damage_base: float = get_rand_damage_base()
+
+	var on_damage_chance_base: float = script_node.parameters[Properties.ResourceParameter.ON_DAMAGE_CHANCE]
+	var on_damage_chance_per_level: float = script_node.parameters[Properties.ResourceParameter.ON_DAMAGE_CHANCE_LEVEL_ADD]
+	var on_damage_chance: float = on_damage_chance_base + on_damage_chance_per_level * level
+	var call_on_damage: bool = Utils.rand_chance(on_damage_chance)
+
+	if call_on_damage:
+		script_node.on_damage(self)
+
 	apply_damage_to_mob(mob, damage_base)
 	do_splash_attack(mob, damage_base)
 
