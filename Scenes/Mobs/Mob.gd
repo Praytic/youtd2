@@ -107,9 +107,9 @@ func _on_AuraContainer_applied(aura):
 		_: print_debug("unhandled aura.type in _on_AuraContainer_applied():", aura.type)
 
 
-func apply_damage(damage: Array):
-	var damage_min: int = damage[0]
-	var damage_max: int = damage[1]
+func apply_damage(damage: Array, damage_mod: float):
+	var damage_min: int = damage[0] * damage_mod
+	var damage_max: int = damage[1] * damage_mod
 	var damage_value: int = Utils.randi_range(damage_min, damage_max)
 
 	change_health(-damage_value)
