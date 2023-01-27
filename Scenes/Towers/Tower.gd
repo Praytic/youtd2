@@ -181,13 +181,19 @@ func on_projectile_reached_mob(mob: Mob):
 
 	var damage_base: float = get_rand_damage_base()
 
+	var event: Event = Event.new()
+	event.damage = damage_base
+	event.target = mob
+
 	var on_attack_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_ATTACK_CHANCE, Properties.ScriptParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
-		script_node.on_attack(self)
+		script_node.on_attack(self, event)
 
-	apply_damage_to_mob(mob, damage_base)
-	do_splash_attack(mob, damage_base)
+#	NOTE: apply event's damage, so that any changes done by
+#	scripts in on_damage() apply
+	apply_damage_to_mob(mob, event.damage)
+	do_splash_attack(mob, event.damage)
 
 
 func do_splash_attack(splash_target: Mob, damage_base: float):
@@ -231,12 +237,18 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 
 	var damage_modded: float = damage_base + damage_mod
 
+	var event: Event = Event.new()
+	event.damage = damage_modded
+	event.target = mob
+
 	var on_damage_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_DAMAGE_CHANCE, Properties.ScriptParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
 	if on_damage_is_called:
-		script_node.on_damage(self)
+		script_node.on_damage(self, event)
 
-	mob.apply_damage(damage_modded)
+#	NOTE: apply event's damage, so that any changes done by
+#	scripts in on_damage() apply
+	mob.apply_damage(event.damage)
 
 
 func get_tower_stat(tower_stat: int) -> float:
