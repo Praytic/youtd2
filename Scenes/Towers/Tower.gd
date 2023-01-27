@@ -97,6 +97,9 @@ func find_new_target() -> Mob:
 
 
 func try_to_attack():
+	if building_in_progress:
+		return
+
 	if !have_target():
 		return
 	
