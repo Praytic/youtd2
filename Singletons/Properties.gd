@@ -88,7 +88,8 @@ const tower_families = {
 enum TowerStat {
 	ATTACK_RANGE,
 	ATTACK_CD,
-	ATTACK_DAMAGE,
+	ATTACK_DAMAGE_MIN,
+	ATTACK_DAMAGE_MAX,
 	CRIT_CHANCE,
 	CRIT_BONUS,
 }
@@ -225,7 +226,8 @@ const towers = {
 		"base_stats": {
 			TowerStat.ATTACK_RANGE: 600.0,
 			TowerStat.ATTACK_CD: 1.0,
-			TowerStat.ATTACK_DAMAGE: [10, 20],
+			TowerStat.ATTACK_DAMAGE_MIN: 10,
+			TowerStat.ATTACK_DAMAGE_MAX: 20
 		},
 		"splash": {
 			320: 0.5
