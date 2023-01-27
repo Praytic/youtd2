@@ -30,6 +30,7 @@ var stat_map: Dictionary = {
 	Properties.TowerStat.ATTACK_DAMAGE_MAX: 0,
 	Properties.TowerStat.CRIT_CHANCE: 0.0,
 	Properties.TowerStat.CRIT_BONUS: 1.0,
+	Properties.TowerStat.MISS_CHANCE: 0.0,
 }
 
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
@@ -161,7 +162,11 @@ func upgrade() -> PackedScene:
 
 
 func on_projectile_reached_mob(mob: Mob):
-	print("on_projectile_reached_mob")
+	var is_miss: bool = get_is_miss()
+
+	if is_miss:
+		return
+
 	var damage_base: float = get_rand_damage_base()
 	apply_damage_to_mob(mob, damage_base)
 	do_splash_attack(mob, damage_base)
@@ -244,6 +249,13 @@ func get_is_critical() -> bool:
 	var is_critical: bool = Utils.rand_chance(crit_chance)
 
 	return is_critical
+
+
+func get_is_miss() -> bool:
+	var miss_chance: float = get_tower_stat(Properties.TowerStat.MISS_CHANCE)
+	var out: bool = Utils.rand_chance(miss_chance)
+
+	return out
 
 
 func multiply_damage_range_by_mod(damage_range: Array, damage_mod: float) -> Array:
