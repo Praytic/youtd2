@@ -83,7 +83,7 @@ func _on_AuraContainer_applied(aura):
 		Properties.AuraType.DAMAGE_MOB_HEALTH:
 			var alive_before_apply: bool = health > 0
 
-			apply_damage(aura.get_value(), 0.0)
+			apply_damage(aura.get_value())
 
 			var alive_after_apply: bool = health > 0
 
@@ -99,12 +99,8 @@ func _on_AuraContainer_applied(aura):
 		_: print_debug("unhandled aura.type in _on_AuraContainer_applied():", aura.type)
 
 
-func apply_damage(damage: Array, damage_mod: float):
-	var damage_min: int = damage[0] * (1.0 + damage_mod)
-	var damage_max: int = damage[1] * (1.0 + damage_mod)
-	var damage_value: int = Utils.randi_range(damage_min, damage_max)
-
-	health -= damage_value
+func apply_damage(damage: float):
+	health -= damage
 
 	$HealthBar.set_as_ratio(float(health) / float(health_max))
 
