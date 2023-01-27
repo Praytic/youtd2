@@ -85,6 +85,11 @@ const tower_families = {
 # range. Need to change behavior of ProjectileSpell so that
 # it casts first projectile and then starts cast cd.
 
+enum ResourceParameter {
+	ON_DAMAGE_CHANCE,
+	ON_DAMAGE_CHANCE_LEVEL_ADD,
+}
+
 enum TowerStat {
 	ATTACK_RANGE,
 	ATTACK_CD,
@@ -235,7 +240,7 @@ const towers = {
 		},
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
-		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+		"script": "res://Scenes/Towers/TestTowerScript.gd",
 		"effects": [
 			{
 				EffectParameter.TYPE: EffectType.MOD_TOWER_STAT,
@@ -244,30 +249,6 @@ const towers = {
 				EffectParameter.VALUE_PER_LEVEL: 0.0035,
 			}
 		],
-		"spell_list": [
-			{
-				SpellParameter.CAST_CD: 1,
-				SpellParameter.TYPE: SpellType.PROJECTILE,
-				SpellParameter.CAST_RANGE: 1000,
-				SpellParameter.TARGET_TYPE: SpellTargetType.MOBS,
-				SpellParameter.LEVEL_DECREASE_CAST_CD: 0.05,
-				SpellParameter.LEVEL_INCREASE_CAST_RANGE: 0.05,
-				SpellParameter.AURA_INFO_LIST: [
-					{
-						AuraParameter.TYPE: AuraType.DAMAGE_MOB_HEALTH,
-						AuraParameter.VALUE: 60,
-						AuraParameter.DURATION: 0,
-						AuraParameter.PERIOD: 0,
-						AuraParameter.ADD_RANGE: 0,
-						AuraParameter.ADD_CHANCE: 1.0,
-						AuraParameter.LEVEL_INCREASE_VALUE: 0,
-						AuraParameter.LEVEL_INCREASE_DURATION: 0,
-						AuraParameter.LEVEL_INCREASE_ADD_RANGE: 0,
-						AuraParameter.LEVEL_INCREASE_ADD_CHANCE: 0
-					}
-				]
-			}
-		]
 	},
 	"Shrub": {
 		"id": 439,
