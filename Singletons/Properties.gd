@@ -92,6 +92,7 @@ enum TowerStat {
 	ATTACK_DAMAGE_MAX,
 	CRIT_CHANCE,
 	CRIT_BONUS,
+	MISS_CHANCE,
 }
 
 enum EffectParameter {
