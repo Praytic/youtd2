@@ -15,6 +15,7 @@ var ingame_name: String
 var author: String
 var rarity: String
 var element: String
+var damage: Array
 var cost: float
 var description: String
 var target_mob: Mob = null
@@ -35,10 +36,11 @@ func _ready():
 	author = properties["author"]
 	rarity = properties["rarity"]
 	element = properties["element"]
+	damage = properties["damage"]
 	cost = properties["cost"]
 	description = properties["description"]
 
-	var cast_range: float = Utils.randi_range(300)
+	var cast_range: float = 3000
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 	$AreaOfEffect.set_radius(cast_range)
 	$AreaOfEffect.hide()
@@ -104,7 +106,7 @@ func try_to_attack():
 		return
 	
 	var projectile = projectile_scene.instance()
-	projectile.init(target_mob, global_position)
+	projectile.init(target_mob, global_position, damage)
 	game_scene.add_child(projectile)
 
 	attack_cooldown_timer.start()

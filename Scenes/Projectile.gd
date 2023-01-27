@@ -7,11 +7,13 @@ extends KinematicBody2D
 var target_mob: Mob = null
 export var speed: int = 100
 export var contact_distance: int = 30
+var damage: Array
 
 
-func init(target_mob_arg: Mob, tower_position: Vector2):
+func init(target_mob_arg: Mob, tower_position: Vector2, damage_arg: Array):
 	target_mob = target_mob_arg
 	position = tower_position
+	damage = damage_arg
 
 
 func have_target() -> bool:
@@ -30,6 +32,8 @@ func _process(delta):
 	var reached_mob = pos_diff.length() < contact_distance
 
 	if reached_mob:
+		target_mob.apply_damage(damage)
+
 		queue_free()
 		return
 	
