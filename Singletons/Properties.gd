@@ -86,6 +86,9 @@ const tower_families = {
 # it casts first projectile and then starts cast cd.
 
 enum TowerStat {
+	ATTACK_RANGE,
+	ATTACK_CD,
+	ATTACK_DAMAGE,
 	CRIT_CHANCE,
 	CRIT_BONUS,
 }
@@ -219,7 +222,11 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "physical",
-		"damage": [10, 20],
+		"base_stats": {
+			TowerStat.ATTACK_RANGE: 600.0,
+			TowerStat.ATTACK_CD: 1.0,
+			TowerStat.ATTACK_DAMAGE: [10, 20],
+		},
 		"splash": {
 			320: 0.5
 		},

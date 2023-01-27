@@ -15,7 +15,6 @@ var ingame_name: String
 var author: String
 var rarity: String
 var element: String
-var damage: Array
 var splash: Dictionary
 var cost: float
 var description: String
@@ -25,6 +24,9 @@ var level: int = 1
 var aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var stat_map: Dictionary = {
+	Properties.TowerStat.ATTACK_RANGE: 0.0,
+	Properties.TowerStat.ATTACK_CD: 0.0,
+	Properties.TowerStat.ATTACK_DAMAGE: [0, 0],
 	Properties.TowerStat.CRIT_CHANCE: 0.0,
 	Properties.TowerStat.CRIT_BONUS: 1.0,
 }
@@ -43,15 +45,20 @@ func _ready():
 	author = properties["author"]
 	rarity = properties["rarity"]
 	element = properties["element"]
-	damage = properties["damage"]
 	splash = properties["splash"]
 	cost = properties["cost"]
 	description = properties["description"]
 	effects = properties["effects"]
 
-	var cast_range: float = 3000
-	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
-	$AreaOfEffect.set_radius(cast_range)
+	var base_stats: Dictionary = properties["base_stats"]
+	
+# 	NOTE: iterate over keys in properties not stat_map
+# 	because map in properties may not define all keys
+	for stat in base_stats.keys():
+		stat_map[stat] = base_stats[stat]
+
+	load_stats()
+
 	$AreaOfEffect.hide()
 
 	attack_cooldown_timer.connect("timeout", self, "_on_AttackCooldownTimer_timeout")
@@ -154,6 +161,7 @@ func upgrade() -> PackedScene:
 
 func on_projectile_reached_mob(mob: Mob):
 	print("on_projectile_reached_mob")
+	var damage: Array = get_tower_stat(Properties.TowerStat.ATTACK_DAMAGE)
 	apply_damage_to_mob(mob, damage)
 	do_splash_attack(mob)
 
@@ -180,8 +188,9 @@ func do_splash_attack(mob: Mob):
 
 		for splash_range in splash_range_list:
 			var mob_is_in_range: bool = distance < splash_range
+			var damage: Array = get_tower_stat(Properties.TowerStat.ATTACK_DAMAGE)
 			var damage_mod: float = splash[splash_range]
-			var splash_damage: Array = get_modded_damage_range(damage, damage_mod)
+			var splash_damage: Array = multiply_damage_range_by_mod(damage, damage_mod)
 			apply_damage_to_mob(mob, splash_damage)
 
 			break
@@ -197,12 +206,34 @@ func apply_damage_to_mob(mob: Mob, damage: Array):
 	if is_critical:
 		damage_mod += get_tower_stat(Properties.TowerStat.CRIT_BONUS)
 
-	mob.apply_damage(damage, damage_mod)
+	var modded_damage_range: Array = multiply_damage_range_by_mod(damage, damage_mod)
+	var final_damage_value: int = Utils.randi_range(modded_damage_range[0], modded_damage_range[1])
+
+	mob.apply_damage(final_damage_value)
 
 
-func get_tower_stat(tower_stat: int) -> float:
+func get_tower_stat_range(tower_stat: int) -> Array:
+	var default_value: Array = stat_map[tower_stat]
+	var effect_mod: float = get_effect_mod_for_stat(tower_stat)
+
+	var modded_value = default_value
+
+	for i in range(modded_value.size()):
+		modded_value[i] += effect_mod
+
+	return modded_value
+
+
+func get_tower_stat_float(tower_stat: int) -> float:
 	var default_value: float = stat_map[tower_stat]
-	var modded_value: float = default_value
+	var effect_mod: float = get_effect_mod_for_stat(tower_stat)
+	var modded_value = default_value + effect_mod
+
+	return modded_value
+
+
+func get_effect_mod_for_stat(tower_stat: int) -> float:
+	var effect_mod: float = 0.0
 
 	for effect in effects:
 		var effect_is_mod_tower_stat: bool = effect[Properties.EffectParameter.TYPE] == Properties.EffectType.MOD_TOWER_STAT
@@ -216,9 +247,21 @@ func get_tower_stat(tower_stat: int) -> float:
 		var effect_value_per_level: float = effect[Properties.EffectParameter.VALUE_PER_LEVEL]
 		var effect_value: float = effect_value_base + effect_value_per_level * (level - 1)
 
-		modded_value += effect_value
+		effect_mod += effect_value
 
-	return modded_value
+	return effect_mod
+
+
+func get_tower_stat(tower_stat: int):
+	var default_value = stat_map[tower_stat]
+	var modded_value = default_value
+
+	if default_value is Array:
+		return get_tower_stat_range(tower_stat)
+	elif default_value is float:
+		return get_tower_stat_float(tower_stat)
+	else:
+		return null
 
 
 func get_is_critical() -> bool:
@@ -228,7 +271,7 @@ func get_is_critical() -> bool:
 	return is_critical
 
 
-func get_modded_damage_range(damage_range: Array, damage_mod: float) -> Array:
+func multiply_damage_range_by_mod(damage_range: Array, damage_mod: float) -> Array:
 	var damage_range_modded: Array = []
 
 	for damage_base in damage_range:
@@ -236,3 +279,17 @@ func get_modded_damage_range(damage_range: Array, damage_mod: float) -> Array:
 		damage_range_modded.append(modded_damage)
 
 	return damage_range_modded
+
+
+func level_up():
+#	Stats could've changed after level up so re-load stats
+	load_stats()
+
+
+func load_stats():
+	var cast_range: float = get_tower_stat(Properties.TowerStat.ATTACK_RANGE)
+	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
+	$AreaOfEffect.set_radius(cast_range)
+
+	var attack_cd: float = get_tower_stat(Properties.TowerStat.ATTACK_CD)
+	attack_cooldown_timer.wait_time = attack_cd

@@ -45,18 +45,6 @@ var parameter_mod_map: Dictionary = {
 	Properties.AuraType.INCREASE_DAMAGE_MOB_HEALTH_AURA_CRIT_MODIFIER: 0.0
 }
 
-enum TowerState {
-	TowerStat.CRIT_CHANCE,
-	TowerStat.CRIT_MOD,
-}
-
-enum EffectParameter {
-	EffectParameter.TYPE,
-	EffectParameter.AFFECTED_TOWER_STAT,
-	EffectParameter.VALUE_BASE,
-	EffectParameter.VALUE_PER_LEVEL,
-}
-
 enum ModifyType {
 	MULTIPLICATIVE,
 	ADDITIVE
