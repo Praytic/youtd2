@@ -85,6 +85,22 @@ const tower_families = {
 # range. Need to change behavior of ProjectileSpell so that
 # it casts first projectile and then starts cast cd.
 
+enum TowerStat {
+	CRIT_CHANCE,
+	CRIT_BONUS,
+}
+
+enum EffectParameter {
+	TYPE,
+	AFFECTED_TOWER_STAT,
+	VALUE_BASE,
+	VALUE_PER_LEVEL,
+}
+
+enum EffectType {
+	MOD_TOWER_STAT,
+}
+
 enum SpellParameter {
 	CAST_CD,
 	TYPE,
@@ -210,6 +226,14 @@ const towers = {
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
 		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd",
+		"effects": [
+			{
+				EffectParameter.TYPE: EffectType.MOD_TOWER_STAT,
+				EffectParameter.AFFECTED_TOWER_STAT: TowerStat.CRIT_CHANCE,
+				EffectParameter.VALUE_BASE: 0.2,
+				EffectParameter.VALUE_PER_LEVEL: 0.0035,
+			}
+		],
 		"spell_list": [
 			{
 				SpellParameter.CAST_CD: 1,
