@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Towers/Building.gd"
 }, {
+"base": "Node",
+"class": "Event",
+"language": "GDScript",
+"path": "res://Scenes/Towers/Event.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Mob",
 "language": "GDScript",
@@ -54,6 +59,7 @@ _global_script_class_icons={
 "Aura": "",
 "AuraContainer": "",
 "Building": "",
+"Event": "",
 "Mob": "",
 "Spell": "",
 "Tower": "",

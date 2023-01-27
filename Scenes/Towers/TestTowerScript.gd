@@ -12,9 +12,9 @@ func _ready():
 	pass
 
 
-func on_attack(tower: Tower):
+func on_attack(tower: Tower, event: Event):
 	print("on_attack!")
 
 
-func on_damage(tower: Tower):
+func on_damage(tower: Tower, event: Event):
 	print("on_damage!")
