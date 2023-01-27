@@ -181,6 +181,11 @@ func on_projectile_reached_mob(mob: Mob):
 
 	var damage_base: float = get_rand_damage_base()
 
+	var on_attack_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_ATTACK_CHANCE, Properties.ScriptParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
+
+	if on_attack_is_called:
+		script_node.on_attack(self)
+
 	apply_damage_to_mob(mob, damage_base)
 	do_splash_attack(mob, damage_base)
 
@@ -226,12 +231,9 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 
 	var damage_modded: float = damage_base + damage_mod
 
-	var on_damage_chance_base: float = script_node.parameters[Properties.ResourceParameter.ON_DAMAGE_CHANCE]
-	var on_damage_chance_per_level: float = script_node.parameters[Properties.ResourceParameter.ON_DAMAGE_CHANCE_LEVEL_ADD]
-	var on_damage_chance: float = on_damage_chance_base + on_damage_chance_per_level * level
-	var on_damaged_is_called: bool = Utils.rand_chance(on_damage_chance)
+	var on_damage_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_DAMAGE_CHANCE, Properties.ScriptParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
-	if on_damaged_is_called:
+	if on_damage_is_called:
 		script_node.on_damage(self)
 
 	mob.apply_damage(damage_modded)
@@ -300,3 +302,12 @@ func get_rand_damage_base() -> float:
 	var damage: float = float(Utils.randi_range(damage_min, damage_max))
 
 	return damage
+
+
+func get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
+	var chance_base: float = script_node.parameters[trigger_chance]
+	var chance_per_level: float = script_node.parameters[trigger_chance_level_add]
+	var chance: float = chance_base + chance_per_level * level
+	var trigger_is_called: bool = Utils.rand_chance(chance)
+
+	return trigger_is_called
