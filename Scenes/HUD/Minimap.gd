@@ -40,7 +40,8 @@ func _update_view_rect():
 
 
 func _on_MobYSort_child_entered_tree(mob):
-	mob.connect("moved", self, "_on_Mob_moved", [mob])
+	pass
+#	mob.connect("moved", self, "_on_Mob_moved", [mob])
 
 
 func _on_MobYSort_child_exiting_tree(mob):

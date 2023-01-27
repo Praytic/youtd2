@@ -172,11 +172,11 @@ func on_projectile_reached_mob(mob: Mob):
 	do_splash_attack(mob, damage_base)
 
 
-func do_splash_attack(mob: Mob, damage_base: float):
+func do_splash_attack(splash_target: Mob, damage_base: float):
 	if splash.empty():
 		return
 
-	var splash_pos: Vector2 = target_mob.position
+	var splash_pos: Vector2 = splash_target.position
 	var splash_range_list: Array = splash.keys()
 	
 #	Process splash ranges from closest to furthers,
@@ -187,7 +187,7 @@ func do_splash_attack(mob: Mob, damage_base: float):
 	var mob_list: Array = Utils.get_mob_list_in_range(splash_pos, splash_range_max)
 
 	for mob in mob_list:
-		if mob == target_mob:
+		if mob == splash_target:
 			continue
 		
 		var distance: float = splash_pos.distance_to(mob.position)
@@ -256,16 +256,6 @@ func get_is_miss() -> bool:
 	var out: bool = Utils.rand_chance(miss_chance)
 
 	return out
-
-
-func multiply_damage_range_by_mod(damage_range: Array, damage_mod: float) -> Array:
-	var damage_range_modded: Array = []
-
-	for damage_base in damage_range:
-		var modded_damage = damage_base * (1.0 + damage_mod)
-		damage_range_modded.append(modded_damage)
-
-	return damage_range_modded
 
 
 func level_up():
