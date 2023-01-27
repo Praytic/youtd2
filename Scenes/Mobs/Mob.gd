@@ -45,14 +45,6 @@ func _process(delta):
 		_sprite.play(mob_animation)
 
 
-func change_health(value):
-	health += value
-	
-	$HealthBar.set_as_ratio(float(health) / float(health_max))
-	if health < 0:
-		die()
-
-
 func set_path(path: Path2D):
 	path_curve = path.curve
 	position = path_curve.get_point_position(0)
@@ -112,4 +104,9 @@ func apply_damage(damage: Array, damage_mod: float):
 	var damage_max: int = damage[1] * damage_mod
 	var damage_value: int = Utils.randi_range(damage_min, damage_max)
 
-	change_health(-damage_value)
+	health -= damage_value
+
+	$HealthBar.set_as_ratio(float(health) / float(health_max))
+
+	if health < 0:
+		die()
