@@ -85,9 +85,11 @@ const tower_families = {
 # range. Need to change behavior of ProjectileSpell so that
 # it casts first projectile and then starts cast cd.
 
-enum ResourceParameter {
+enum ScriptParameter {
 	ON_DAMAGE_CHANCE,
 	ON_DAMAGE_CHANCE_LEVEL_ADD,
+	ON_ATTACK_CHANCE,
+	ON_ATTACK_CHANCE_LEVEL_ADD,
 }
 
 enum TowerStat {
