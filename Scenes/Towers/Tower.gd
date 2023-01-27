@@ -181,14 +181,6 @@ func on_projectile_reached_mob(mob: Mob):
 
 	var damage_base: float = get_rand_damage_base()
 
-	var on_damage_chance_base: float = script_node.parameters[Properties.ResourceParameter.ON_DAMAGE_CHANCE]
-	var on_damage_chance_per_level: float = script_node.parameters[Properties.ResourceParameter.ON_DAMAGE_CHANCE_LEVEL_ADD]
-	var on_damage_chance: float = on_damage_chance_base + on_damage_chance_per_level * level
-	var call_on_damage: bool = Utils.rand_chance(on_damage_chance)
-
-	if call_on_damage:
-		script_node.on_damage(self)
-
 	apply_damage_to_mob(mob, damage_base)
 	do_splash_attack(mob, damage_base)
 
@@ -233,6 +225,14 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 		damage_mod += get_tower_stat(Properties.TowerStat.CRIT_BONUS)
 
 	var damage_modded: float = damage_base + damage_mod
+
+	var on_damage_chance_base: float = script_node.parameters[Properties.ResourceParameter.ON_DAMAGE_CHANCE]
+	var on_damage_chance_per_level: float = script_node.parameters[Properties.ResourceParameter.ON_DAMAGE_CHANCE_LEVEL_ADD]
+	var on_damage_chance: float = on_damage_chance_base + on_damage_chance_per_level * level
+	var on_damaged_is_called: bool = Utils.rand_chance(on_damage_chance)
+
+	if on_damaged_is_called:
+		script_node.on_damage(self)
 
 	mob.apply_damage(damage_modded)
 
