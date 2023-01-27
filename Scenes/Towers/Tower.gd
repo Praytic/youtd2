@@ -1,11 +1,11 @@
 extends Building
 
-
 class_name Tower
 
+# Tower attacks by periodically firing projectiles at mobs
+# that are in range.
 
 signal upgraded
-
 
 export(int) var id
 export(int) var next_tier_id
@@ -17,12 +17,13 @@ var rarity: String
 var element: String
 var cost: float
 var description: String
-var level: int = 0
-
-
+var target_mob: Mob = null
 var aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
+var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 
-var spell_node_list: Array = []
+onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
+onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
+onready var targeting_area: Area2D = $TargetingArea
 
 
 func _ready():
@@ -37,57 +38,87 @@ func _ready():
 	cost = properties["cost"]
 	description = properties["description"]
 
-	$AuraContainer.connect("applied", self, "_on_AuraContainer_applied")
-
-	var cast_range: float = 100.0
-
-	var spell_list: Array = properties["spell_list"]
-
-	for spell_info in spell_list:
-		var spell_type = spell_info[Properties.SpellParameter.TYPE]
-		var spell_node: Node = make_spell(spell_type)
-		add_child(spell_node)
-		spell_node.init(spell_info)
-		spell_node_list.append(spell_node)
-
-		spell_node.connect("killing_blow", self, "on_killing_blow")
-
-#		HACK: to set some radius for areaofeffect indicator.
-#		Don't know what to do for multiple aura's. Draw
-#		multiple indicators for each aura? Draw only the
-#		largest one? Draw only the range for projectile
-#		spell?
-		cast_range = spell_info[Properties.SpellParameter.CAST_RANGE]
-
+	var cast_range: float = Utils.randi_range(300)
+	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 	$AreaOfEffect.set_radius(cast_range)
 	$AreaOfEffect.hide()
+
+	attack_cooldown_timer.connect("timeout", self, "_on_AttackCooldownTimer_timeout")
+	attack_cooldown_timer.one_shot = true
+
+	targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
+	targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
+
+
+func _on_AttackCooldownTimer_timeout():
+	if !have_target():
+		target_mob = find_new_target()
+		
+	try_to_attack()
+
+
+func _on_TargetingArea_body_entered(body):
+	if have_target():
+		return
+		
+	if body is Mob:
+#		New target acquired
+		target_mob = body
+		try_to_attack()
+
+
+func _on_TargetingArea_body_exited(body):
+	if body == target_mob:
+#		Target has gone out of range
+		target_mob = find_new_target()
+		try_to_attack()
+
+
+# Find a target that is currently in range
+# TODO: prioritizing closest mob here, but maybe change behavior
+# based on tower properties or other game design considerations
+func find_new_target() -> Mob:
+	var body_list: Array = targeting_area.get_overlapping_bodies()
+	var closest_mob: Mob = null
+	var distance_min: float = 1000000.0
 	
-
-func make_spell(type: int) -> Node:
-	match type:
-		Properties.SpellType.PROJECTILE:
-			var projectile_spell_script = load("res://Scenes/Spell/ProjectileSpell.gd")
-
-			return projectile_spell_script.new()
-		Properties.SpellType.PROXIMITY:
-			var proximity_spell_script = load("res://Scenes/Spell/ProximitySpell.gd")
-
-			return proximity_spell_script.new()
-		_:
-			print_debug("Unknown spell type: %s. Defaulting to projectile." % type)
+	for body in body_list:
+		if body is Mob:
+			var mob: Mob = body
+			var distance: float = (mob.position - self.position).length()
 			
-			var projectile_spell_script = load("res://Scenes/Spell/ProximitySpell.tscn")
-			
-			return projectile_spell_script.new()
+			if distance < distance_min:
+				closest_mob = mob
+				distance_min = distance
+	
+	return closest_mob
+
+
+func try_to_attack():
+	if !have_target():
+		return
+	
+	var attack_on_cooldown: bool = attack_cooldown_timer.time_left > 0
+	
+	if attack_on_cooldown:
+		return
+	
+	var projectile = projectile_scene.instance()
+	projectile.init(target_mob, global_position)
+	game_scene.add_child(projectile)
+
+	attack_cooldown_timer.start()
+
+
+func have_target() -> bool:
+#	NOTE: have to check validity because mobs can get killed by other towers
+#	which free's them and makes them invalid
+	return target_mob != null and is_instance_valid(target_mob)
 
 
 func build_init():
 	.build_init()
 	$AreaOfEffect.show()
-
-	# NOTE: removing spell nodes so that tower preview doesn't cast, a bit hacky, can be improved with refactoring
-	for spell_node in spell_node_list:
-		spell_node.queue_free()
 
 
 func _select():
@@ -104,27 +135,3 @@ func upgrade() -> PackedScene:
 	var next_tier_tower = TowerManager.get_tower(next_tier_id)
 	emit_signal("upgraded")
 	return next_tier_tower
-
-
-func add_aura_info_list(aura_info_list: Array, _unused: Node):
-	$AuraContainer.create_and_add_auras(aura_info_list, null)
-
-
-func _on_AuraContainer_applied(aura: Aura):
-	for spell_node in spell_node_list:
-		spell_node.apply_aura(aura)
-
-
-# NOTE: this slot is setup via a long chain of f-n calls
-# and signal-slot connections. Originates from an Aura
-# instance.
-func on_killing_blow():
-	change_level(level + 1)
-	pass
-
-
-func change_level(new_level: int):
-	level = new_level
-
-	for spell_node in spell_node_list:
-		spell_node.change_level(level)
