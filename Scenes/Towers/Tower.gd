@@ -218,11 +218,13 @@ func do_splash_attack(splash_target: Mob, damage_base: float):
 
 		for splash_range in splash_range_list:
 			var mob_is_in_range: bool = distance < splash_range
-			var splash_damage_ratio: float = splash[splash_range]
-			var splash_damage: float = damage_base * splash_damage_ratio
-			apply_damage_to_mob(mob, splash_damage)
 
-			break
+			if mob_is_in_range:
+				var splash_damage_ratio: float = splash[splash_range]
+				var splash_damage: float = damage_base * splash_damage_ratio
+				apply_damage_to_mob(mob, splash_damage)
+
+				break
 
 
 # TODO: need to handle application of all bonuses, for both
