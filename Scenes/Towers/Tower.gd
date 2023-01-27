@@ -26,7 +26,8 @@ var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var stat_map: Dictionary = {
 	Properties.TowerStat.ATTACK_RANGE: 0.0,
 	Properties.TowerStat.ATTACK_CD: 0.0,
-	Properties.TowerStat.ATTACK_DAMAGE: [0, 0],
+	Properties.TowerStat.ATTACK_DAMAGE_MIN: 0,
+	Properties.TowerStat.ATTACK_DAMAGE_MAX: 0,
 	Properties.TowerStat.CRIT_CHANCE: 0.0,
 	Properties.TowerStat.CRIT_BONUS: 1.0,
 }
@@ -161,12 +162,12 @@ func upgrade() -> PackedScene:
 
 func on_projectile_reached_mob(mob: Mob):
 	print("on_projectile_reached_mob")
-	var damage: Array = get_tower_stat(Properties.TowerStat.ATTACK_DAMAGE)
-	apply_damage_to_mob(mob, damage)
-	do_splash_attack(mob)
+	var damage_base: float = get_rand_damage_base()
+	apply_damage_to_mob(mob, damage_base)
+	do_splash_attack(mob, damage_base)
 
 
-func do_splash_attack(mob: Mob):
+func do_splash_attack(mob: Mob, damage_base: float):
 	if splash.empty():
 		return
 
@@ -188,9 +189,8 @@ func do_splash_attack(mob: Mob):
 
 		for splash_range in splash_range_list:
 			var mob_is_in_range: bool = distance < splash_range
-			var damage: Array = get_tower_stat(Properties.TowerStat.ATTACK_DAMAGE)
-			var damage_mod: float = splash[splash_range]
-			var splash_damage: Array = multiply_damage_range_by_mod(damage, damage_mod)
+			var splash_damage_ratio: float = splash[splash_range]
+			var splash_damage: float = damage_base * splash_damage_ratio
 			apply_damage_to_mob(mob, splash_damage)
 
 			break
@@ -199,32 +199,19 @@ func do_splash_attack(mob: Mob):
 # TODO: need to handle application of all bonuses, for both
 # normal damage and splash attack and handle bonuses
 # incoming from spell scripts
-func apply_damage_to_mob(mob: Mob, damage: Array):
+func apply_damage_to_mob(mob: Mob, damage_base: float):
 	var damage_mod: float = 0.0
 	
 	var is_critical: bool = get_is_critical()
 	if is_critical:
 		damage_mod += get_tower_stat(Properties.TowerStat.CRIT_BONUS)
 
-	var modded_damage_range: Array = multiply_damage_range_by_mod(damage, damage_mod)
-	var final_damage_value: int = Utils.randi_range(modded_damage_range[0], modded_damage_range[1])
+	var damage_modded: float = damage_base + damage_mod
 
-	mob.apply_damage(final_damage_value)
-
-
-func get_tower_stat_range(tower_stat: int) -> Array:
-	var default_value: Array = stat_map[tower_stat]
-	var effect_mod: float = get_effect_mod_for_stat(tower_stat)
-
-	var modded_value = default_value
-
-	for i in range(modded_value.size()):
-		modded_value[i] += effect_mod
-
-	return modded_value
+	mob.apply_damage(damage_modded)
 
 
-func get_tower_stat_float(tower_stat: int) -> float:
+func get_tower_stat(tower_stat: int) -> float:
 	var default_value: float = stat_map[tower_stat]
 	var effect_mod: float = get_effect_mod_for_stat(tower_stat)
 	var modded_value = default_value + effect_mod
@@ -250,18 +237,6 @@ func get_effect_mod_for_stat(tower_stat: int) -> float:
 		effect_mod += effect_value
 
 	return effect_mod
-
-
-func get_tower_stat(tower_stat: int):
-	var default_value = stat_map[tower_stat]
-	var modded_value = default_value
-
-	if default_value is Array:
-		return get_tower_stat_range(tower_stat)
-	elif default_value is float:
-		return get_tower_stat_float(tower_stat)
-	else:
-		return null
 
 
 func get_is_critical() -> bool:
@@ -293,3 +268,12 @@ func load_stats():
 
 	var attack_cd: float = get_tower_stat(Properties.TowerStat.ATTACK_CD)
 	attack_cooldown_timer.wait_time = attack_cd
+
+
+# NOTE: returns random damage within range without any mods applied
+func get_rand_damage_base() -> float:
+	var damage_min: int = get_tower_stat(Properties.TowerStat.ATTACK_DAMAGE_MIN)
+	var damage_max: int = get_tower_stat(Properties.TowerStat.ATTACK_DAMAGE_MAX)
+	var damage: float = float(Utils.randi_range(damage_min, damage_max))
+
+	return damage
