@@ -33,7 +33,7 @@ var stat_map: Dictionary = {
 	Properties.TowerStat.MISS_CHANCE: 0.0,
 }
 
-var script_node: Node
+var script_instance: Node
 
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
@@ -72,14 +72,7 @@ func _ready():
 	targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
 
 	var script_path: String = properties["script"]
-	var script_loaded = load(script_path)
-
-	if script_loaded == null:
-		print_debug("Failed to load tower script:", script_path)
-		return
-
-	script_node = script_loaded.new()
-	add_child(script_node)
+	script_instance = TowerScriptManager.get_script_instance(script_path)
 
 
 func _on_AttackCooldownTimer_timeout():
@@ -144,7 +137,7 @@ func try_to_attack():
 	var on_attack_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_ATTACK_CHANCE, Properties.ScriptParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
-		script_node.on_attack(self, event)
+		script_instance.on_attack(self, event)
 
 	if event.can_attack:
 		var projectile = projectile_scene.instance()
@@ -246,7 +239,7 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 	var on_damage_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_DAMAGE_CHANCE, Properties.ScriptParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
 	if on_damage_is_called:
-		script_node.on_damage(self, event)
+		script_instance.on_damage(self, event)
 
 #	NOTE: apply event's damage, so that any changes done by
 #	scripts in on_damage() apply
@@ -319,8 +312,8 @@ func get_rand_damage_base() -> float:
 
 
 func get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
-	var chance_base: float = script_node.parameters[trigger_chance]
-	var chance_per_level: float = script_node.parameters[trigger_chance_level_add]
+	var chance_base: float = script_instance.parameters[trigger_chance]
+	var chance_per_level: float = script_instance.parameters[trigger_chance_level_add]
 	var chance: float = chance_base + chance_per_level * level
 	var trigger_is_called: bool = Utils.rand_chance(chance)
 
