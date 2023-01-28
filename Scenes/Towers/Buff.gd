@@ -81,8 +81,9 @@ func apply_custom_timed_internal(tower: Tower, target: Mob, value_modifier: floa
 
 
 func on_duration_timer_timeout(tower: Tower, target: Mob, value_modifier: float, duration_timer: Timer):
-
 	duration_timer.queue_free()
 
 	if modifier != null:
 		modifier.undo_apply(target, value_modifier)
+
+	apply_map.erase(target)
