@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Mobs/Mob.gd" type="Script" id=1]
 [ext_resource path="res://Resources/Sprites/Mobs/MobTemplateSprite.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Spell/AuraContainer.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 39.0128
@@ -35,8 +34,3 @@ custom_styles/fg = SubResource( 2 )
 custom_styles/bg = SubResource( 3 )
 value = 100.0
 percent_visible = false
-
-[node name="AuraContainer" type="Node" parent="."]
-script = ExtResource( 3 )
-
-[connection signal="applied" from="AuraContainer" to="." method="_on_AuraContainer_applied"]
