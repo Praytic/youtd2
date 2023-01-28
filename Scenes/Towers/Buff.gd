@@ -1,6 +1,11 @@
 extends Node
 
-# Buff does stuff
+# Buff stores information about modifiers and handles the
+# application state on units. It should be created once in
+# tower script's _init() function and used inside trigger
+# functions to apply modifiers on units. Call apply() or
+# apply_custom_timed() to apply the buff on a unit. You must
+# call add_child() on the buff after creating it.
 
 class_name Buff
 
@@ -20,6 +25,7 @@ class ApplyData:
 
 var duration_default: float
 
+var modifier: Modifier = null
 # Mapping of target->apply data. This map is used to know when
 # a buff is already applied on target.
 var apply_map: Dictionary = {}
@@ -29,8 +35,8 @@ func _init(duration_default_arg: float):
 	duration_default = duration_default_arg
 
 
-func _ready():
-	pass
+func set_modifier(modifier_arg: Modifier):
+	modifier = modifier_arg
 
 
 func apply(tower: Tower, target: Mob, value_modifier: float):
@@ -42,9 +48,6 @@ func apply(tower: Tower, target: Mob, value_modifier: float):
 #	Current stacking behavior is simplistic with only
 #	stronger or equal buffs being able to override weaker
 #	buffs and prolong the effect.
-# 	TODO: do stuff that should happen when buff is applied
-# 	here. For example if buff has modifier MOD_ARMOR, apply
-# 	it here.
 func apply_custom_timed(tower: Tower, target: Mob, value_modifier: float, duration: float):
 	var is_already_applied_to_target: bool = apply_map.has(target)
 
@@ -70,12 +73,16 @@ func apply_custom_timed_internal(tower: Tower, target: Mob, value_modifier: floa
 	var apply_data: ApplyData = ApplyData.new(tower, target, value_modifier, duration_timer)
 	apply_map[target] = apply_data
 
+	if modifier != null:
+		modifier.apply(target, value_modifier)
+
 	duration_timer.connect("timeout", self, "on_duration_timer_timeout", [tower, target, value_modifier, duration_timer])
 	duration_timer.start(duration)
 
 
-# 	TODO: do stuff that should happen when buff is expired
-# 	here. For example if buff has modifier MOD_ARMOR, undo
-# 	application# 	it here.
 func on_duration_timer_timeout(tower: Tower, target: Mob, value_modifier: float, duration_timer: Timer):
+
 	duration_timer.queue_free()
+
+	if modifier != null:
+		modifier.undo_apply(target, value_modifier)
