@@ -15,6 +15,7 @@ var ingame_name: String
 var author: String
 var rarity: String
 var element: String
+var trigger_parameters: Dictionary
 var splash: Dictionary
 var cost: float
 var description: String
@@ -32,8 +33,6 @@ var stat_map: Dictionary = {
 	Properties.TowerStat.CRIT_BONUS: 1.0,
 	Properties.TowerStat.MISS_CHANCE: 0.0,
 }
-
-var script_instance: Node
 
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
@@ -53,6 +52,7 @@ func _ready():
 	cost = properties["cost"]
 	description = properties["description"]
 	effects = properties["effects"]
+	trigger_parameters = properties["trigger_parameters"]
 
 	var base_stats: Dictionary = properties["base_stats"]
 	
@@ -70,9 +70,6 @@ func _ready():
 
 	targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
 	targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
-
-	var script_path: String = properties["script"]
-	script_instance = TowerScriptManager.get_script_instance(script_path)
 
 
 func _on_AttackCooldownTimer_timeout():
@@ -134,10 +131,10 @@ func try_to_attack():
 	var event: Event = Event.new()
 	event.target = target_mob
 
-	var on_attack_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_ATTACK_CHANCE, Properties.ScriptParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
+	var on_attack_is_called: bool = get_trigger_is_called(Properties.TriggerParameter.ON_ATTACK_CHANCE, Properties.TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
-		script_instance.on_attack(self, event)
+		on_attack(event)
 
 	if event.can_attack:
 		var projectile = projectile_scene.instance()
@@ -236,10 +233,10 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 	event.damage = damage_modded
 	event.target = mob
 
-	var on_damage_is_called: bool = get_trigger_is_called(Properties.ScriptParameter.ON_DAMAGE_CHANCE, Properties.ScriptParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
+	var on_damage_is_called: bool = get_trigger_is_called(Properties.TriggerParameter.ON_DAMAGE_CHANCE, Properties.TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
 	if on_damage_is_called:
-		script_instance.on_damage(self, event)
+		on_damage(event)
 
 #	NOTE: apply event's damage, so that any changes done by
 #	scripts in on_damage() apply
@@ -312,9 +309,17 @@ func get_rand_damage_base() -> float:
 
 
 func get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
-	var chance_base: float = script_instance.parameters[trigger_chance]
-	var chance_per_level: float = script_instance.parameters[trigger_chance_level_add]
+	var chance_base: float = trigger_parameters[trigger_chance]
+	var chance_per_level: float = trigger_parameters[trigger_chance_level_add]
 	var chance: float = chance_base + chance_per_level * level
 	var trigger_is_called: bool = Utils.rand_chance(chance)
 
 	return trigger_is_called
+
+
+func on_attack(_event: Event):
+	pass
+
+
+func on_damage(_event: Event):
+	pass
