@@ -1,36 +1,60 @@
 extends Node
 
-# Buff represents an applied BuffType with a duration timer.
-# It applies modifications when it starts and undoes
-# modifications when it expires.
+
+# Buff stores buff parameters and applies them to target
+# while it is active. Subclasses should be defined in
+# separate scripts because script path is used to get the
+# unique identifier for buff. If you want to define a
+# subclass as inner class, you must override get_id() and
+# return something unique.
 
 class_name Buff
 
 
-signal expired(buff)
+signal expired()
 
 var tower: Tower
 var target: Mob
 var modifier: Modifier
 var value_modifier: float
 var duration_timer: Timer
+var power_level: int
+var duration: float
 
 
-func _init(tower_arg: Tower, target_arg: Mob, value_modifier_arg: float, duration: float, modifier_arg: Modifier):
+func _init(tower_arg: Tower, duration_arg: float, value_modifier_arg: float, power_level_arg: int):
 	tower = tower_arg
-	target = target_arg
 	value_modifier = value_modifier_arg
-	modifier = modifier_arg
+	duration = duration_arg
+	power_level = power_level_arg
 
 	duration_timer = Timer.new()
 	add_child(duration_timer)
-	duration_timer.one_shot = true
-	duration_timer.autostart = true
-	duration_timer.wait_time = duration
 	duration_timer.connect("timeout", self, "on_duration_timer_timeout")
+
+
+func set_modifier(modifier_arg: Modifier):
+	modifier = modifier_arg
+
+
+func get_id() -> String:
+	var script: Reference = get_script()
+	var id: String = script.get_path()
+
+	return id
+
+
+func stop():
+	on_duration_timer_timeout()
+
+
+func on_applied_by_mob(target_arg: Mob):
+	target = target_arg
 
 	if modifier != null:
 		modifier.apply(target, value_modifier)
+
+	duration_timer.start(duration)
 
 
 func on_duration_timer_timeout():
@@ -39,10 +63,6 @@ func on_duration_timer_timeout():
 	if modifier != null && is_instance_valid(target):
 		modifier.undo_apply(target, value_modifier)
 
-	emit_signal("expired", self)
+	emit_signal("expired")
 
 	queue_free()
-
-
-func stop():
-	on_duration_timer_timeout()
