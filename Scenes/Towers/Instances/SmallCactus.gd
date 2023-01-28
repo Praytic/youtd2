@@ -1,17 +1,15 @@
-extends Tower
-
-# Skills go here
+extends StaticBody2D
 
 
 func get_properties() -> Dictionary:
 	return {
-		"id": 511,
-		"name": "Greater Shrub",
-		"family_id": 1,
-		"author": "gex",
+		"id": 41,
+		"name": "Small Cactus",
+		"family_id": 41,
+		"author": "Lapsus",
 		"rarity": "common",
 		"element": "nature",
-		"attack_type": "physical",
+		"attack_type": "essence",
 		"base_stats": {
 			Properties.TowerStat.ATTACK_RANGE: 600.0,
 			Properties.TowerStat.ATTACK_CD: 1.0,
@@ -25,8 +23,8 @@ func get_properties() -> Dictionary:
 			Properties.TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
 		},
 		"splash": {},
-		"cost": 400,
-		"description": "Common nature tower with an increased critical strike chance and damage.",
+		"cost": 30,
+		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
 		"effects": [],
-	}
 	
+	}
