@@ -13,6 +13,11 @@ var test_buff: Buff
 
 func _init():
 	test_buff = Buff.new(5.0)
+	add_child(test_buff)
+
+	var slow: Modifier = Modifier.new()
+	slow.add_modification(Modifier.ModificationType.MOD_MOVE_SPEED, 0, -100.0)
+	test_buff.set_modifier(slow)
 
 
 func _ready():
