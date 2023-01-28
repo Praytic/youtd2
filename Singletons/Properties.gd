@@ -129,10 +129,10 @@ const towers = {
 			TowerStat.ATTACK_RANGE: 600.0,
 			TowerStat.ATTACK_CD: 1.0,
 			TowerStat.ATTACK_DAMAGE_MIN: 10,
-			TowerStat.ATTACK_DAMAGE_MAX: 20
+			TowerStat.ATTACK_DAMAGE_MAX: 20,
 		},
 		"splash": {
-			320: 0.5
+			320: 0.5,
 		},
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
@@ -154,9 +154,17 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "physical",
+		"base_stats": {
+			TowerStat.ATTACK_RANGE: 600.0,
+			TowerStat.ATTACK_CD: 1.0,
+			TowerStat.ATTACK_DAMAGE_MIN: 10,
+			TowerStat.ATTACK_DAMAGE_MAX: 20,
+		},
+		"splash": {},
 		"cost": 140,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"resource": "res://Scenes/Towers/Instances/Shrub.gd"
+		"script": "res://Scenes/Towers/TestTowerScript.gd",
+		"effects": [],
 	},
 	"GreaterShrub": {
 		"id": 511,
@@ -166,9 +174,17 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "physical",
+		"base_stats": {
+			TowerStat.ATTACK_RANGE: 600.0,
+			TowerStat.ATTACK_CD: 1.0,
+			TowerStat.ATTACK_DAMAGE_MIN: 10,
+			TowerStat.ATTACK_DAMAGE_MAX: 20,
+		},
+		"splash": {},
 		"cost": 400,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"resource": "res://Scenes/Towers/Instances/GreaterShrub.gd"
+		"script": "res://Scenes/Towers/TestTowerScript.gd",
+		"effects": [],
 	},
 	"SmallCactus": {
 		"id": 41,
@@ -178,8 +194,16 @@ const towers = {
 		"rarity": "common",
 		"element": "nature",
 		"attack_type": "essence",
+		"base_stats": {
+			TowerStat.ATTACK_RANGE: 600.0,
+			TowerStat.ATTACK_CD: 1.0,
+			TowerStat.ATTACK_DAMAGE_MIN: 10,
+			TowerStat.ATTACK_DAMAGE_MAX: 20,
+		},
+		"splash": {},
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
-		"resource": "res://Scenes/Towers/Instances/TinyShrub.gd"
+		"script": "res://Scenes/Towers/TestTowerScript.gd",
+		"effects": [],
 	}
 }
