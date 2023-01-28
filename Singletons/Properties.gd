@@ -97,116 +97,17 @@ enum EffectType {
 }
 
 
+# NOTE: these TODO's are talking about tower properties which are now located in tower scripts
 # TODO: Replace filenames with IDs when switching to Godot 4 with first-class functions
 # TODO: Think of the way to load tower properties without loading the Scene or GDScript 
-const towers = { 
-	"TinyShrub": {
-		"id": 1,
-		"name": "Tiny Shrub",
-		"family_id": 1,
-		"author": "gex",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "physical",
-		"base_stats": {
-			TowerStat.ATTACK_RANGE: 600.0,
-			TowerStat.ATTACK_CD: 1.0,
-			TowerStat.ATTACK_DAMAGE_MIN: 10,
-			TowerStat.ATTACK_DAMAGE_MAX: 20,
-		},
-		"trigger_parameters": {
-			TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
-			TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-			TriggerParameter.ON_ATTACK_CHANCE: 1.0,
-			TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
-		},
-		"splash": {
-			320: 0.5,
-		},
-		"cost": 30,
-		"description": "Basic nature tower with a slightly increased chance to critical strike.",
-		"effects": [
-			{
-				EffectParameter.TYPE: EffectType.MOD_TOWER_STAT,
-				EffectParameter.AFFECTED_TOWER_STAT: TowerStat.CRIT_CHANCE,
-				EffectParameter.VALUE_BASE: 0.2,
-				EffectParameter.VALUE_PER_LEVEL: 0.0035,
-			}
-		],
-	},
-	"Shrub": {
-		"id": 439,
-		"name": "Shrub",
-		"family_id": 1,
-		"author": "gex",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "physical",
-		"base_stats": {
-			TowerStat.ATTACK_RANGE: 600.0,
-			TowerStat.ATTACK_CD: 1.0,
-			TowerStat.ATTACK_DAMAGE_MIN: 10,
-			TowerStat.ATTACK_DAMAGE_MAX: 20,
-		},
-		"trigger_parameters": {
-			TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
-			TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-			TriggerParameter.ON_ATTACK_CHANCE: 1.0,
-			TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
-		},
-		"splash": {},
-		"cost": 140,
-		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"effects": [],
-	},
-	"GreaterShrub": {
-		"id": 511,
-		"name": "Greater Shrub",
-		"family_id": 1,
-		"author": "gex",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "physical",
-		"base_stats": {
-			TowerStat.ATTACK_RANGE: 600.0,
-			TowerStat.ATTACK_CD: 1.0,
-			TowerStat.ATTACK_DAMAGE_MIN: 10,
-			TowerStat.ATTACK_DAMAGE_MAX: 20,
-		},
-		"trigger_parameters": {
-			TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
-			TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-			TriggerParameter.ON_ATTACK_CHANCE: 1.0,
-			TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
-		},
-		"splash": {},
-		"cost": 400,
-		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"effects": [],
-	},
-	"SmallCactus": {
-		"id": 41,
-		"name": "Small Cactus",
-		"family_id": 41,
-		"author": "Lapsus",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "essence",
-		"base_stats": {
-			TowerStat.ATTACK_RANGE: 600.0,
-			TowerStat.ATTACK_CD: 1.0,
-			TowerStat.ATTACK_DAMAGE_MIN: 10,
-			TowerStat.ATTACK_DAMAGE_MAX: 20,
-		},
-		"trigger_parameters": {
-			TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
-			TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-			TriggerParameter.ON_ATTACK_CHANCE: 1.0,
-			TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
-		},
-		"splash": {},
-		"cost": 30,
-		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
-		"effects": [],
-	}
+
+# TODO: this used to contain tower properties. Had to
+# redefine id here so TowerManager can use it. Figure out
+# what should be done with this. Maybe can use tower name
+# from script path instead of id?
+var tower_id_map: Dictionary = {
+	"TinyShrub": 1,
+	"Shrub": 439,
+	"GreaterShrub": 511,
+	"SmallCactus": 41,
 }

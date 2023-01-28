@@ -42,7 +42,7 @@ onready var targeting_area: Area2D = $TargetingArea
 func _ready():
 	add_child(aoe_scene.instance(), true)
 	
-	var properties = TowerManager.tower_props[id]
+	var properties: Dictionary = get_properties()
 	attack_type = properties["attack_type"]
 	ingame_name = properties["name"]
 	author = properties["author"]
@@ -316,6 +316,10 @@ func get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -
 
 	return trigger_is_called
 
+
+func get_properties() -> Dictionary:
+	return {}
+	
 
 func on_attack(_event: Event):
 	pass
