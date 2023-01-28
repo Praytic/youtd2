@@ -8,11 +8,11 @@ const parameters: Dictionary = {
 	Properties.ScriptParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
 }
 
-var test_buff: Buff
+var test_buff: BuffType
 
 
 func _init():
-	test_buff = Buff.new(5.0)
+	test_buff = BuffType.new(5.0)
 	add_child(test_buff)
 
 	var slow: Modifier = Modifier.new()

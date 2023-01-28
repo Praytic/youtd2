@@ -15,9 +15,9 @@ _global_script_classes=[ {
 "path": "res://Scenes/Towers/AreaOfEffect.gd"
 }, {
 "base": "Node",
-"class": "Buff",
+"class": "BuffType",
 "language": "GDScript",
-"path": "res://Scenes/Towers/Buff.gd"
+"path": "res://Scenes/Towers/BuffType.gd"
 }, {
 "base": "StaticBody2D",
 "class": "Building",
@@ -51,7 +51,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AreaOfEffect": "",
-"Buff": "",
+"BuffType": "",
 "Building": "",
 "Event": "",
 "Mob": "",
