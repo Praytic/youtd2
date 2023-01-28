@@ -17,12 +17,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Buff",
 "language": "GDScript",
-"path": "res://Scenes/Towers/Buff.gd"
-}, {
-"base": "Node",
-"class": "BuffType",
-"language": "GDScript",
-"path": "res://Scenes/Towers/BuffType.gd"
+"path": "res://Scenes/Buffs/Buff.gd"
 }, {
 "base": "StaticBody2D",
 "class": "Building",
@@ -42,7 +37,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Modifier",
 "language": "GDScript",
-"path": "res://Scenes/Towers/Modifier.gd"
+"path": "res://Scenes/Buffs/Modifier.gd"
+}, {
+"base": "Buff",
+"class": "Slow",
+"language": "GDScript",
+"path": "res://Scenes/Buffs/Slow.gd"
 }, {
 "base": "Building",
 "class": "Tower",
@@ -57,11 +57,11 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AreaOfEffect": "",
 "Buff": "",
-"BuffType": "",
 "Building": "",
 "Event": "",
 "Mob": "",
 "Modifier": "",
+"Slow": "",
 "Tower": "",
 "TowerPreview": ""
 }
@@ -81,7 +81,6 @@ KnowledgeTomesManager="*res://Singletons/Managers/KnowledgeTomesManager.gd"
 Utils="*res://Singletons/Utils.gd"
 Constants="*res://Singletons/Constants.gd"
 TowerManager="*res://Singletons/Managers/TowerManager.gd"
-TowerScriptManager="*res://Singletons/Managers/TowerScriptManager.gd"
 
 [debug]
 
