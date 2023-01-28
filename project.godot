@@ -15,16 +15,6 @@ _global_script_classes=[ {
 "path": "res://Scenes/Towers/AreaOfEffect.gd"
 }, {
 "base": "Node",
-"class": "Aura",
-"language": "GDScript",
-"path": "res://Scenes/Spell/Aura.gd"
-}, {
-"base": "Node",
-"class": "AuraContainer",
-"language": "GDScript",
-"path": "res://Scenes/Spell/AuraContainer.gd"
-}, {
-"base": "Node",
 "class": "Buff",
 "language": "GDScript",
 "path": "res://Scenes/Towers/Buff.gd"
@@ -49,11 +39,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Towers/Modifier.gd"
 }, {
-"base": "Node2D",
-"class": "Spell",
-"language": "GDScript",
-"path": "res://Scenes/Spell/Spell.gd"
-}, {
 "base": "Building",
 "class": "Tower",
 "language": "GDScript",
@@ -66,14 +51,11 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "AreaOfEffect": "",
-"Aura": "",
-"AuraContainer": "",
 "Buff": "",
 "Building": "",
 "Event": "",
 "Mob": "",
 "Modifier": "",
-"Spell": "",
 "Tower": "",
 "TowerPreview": ""
 }
