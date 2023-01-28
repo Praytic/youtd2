@@ -39,51 +39,34 @@ const tower_families = {
 }
 
 
-# TODO: for spells and auras
+# TODO: for spells, effects and debuffs
 # 
-# Event triggers. For example casting spell on kill. I think
-# this should be implemented as another Spell class, like
-# ProjectileSpell and ProximitySpell. Name it
-# "KillingBlowSpell". KillingBlowSpell will detect when
-# tower lands a killing blow on a mob and cast it's spell.
-#
-# Tower speicific modifiers for experience gain, item
-# chance, item quality, etc. Needs to be implemented
-# directly in tower's apply_aura().
+# Tower aura.
 # 
-# Damage types: increased dmg vs X type of mob
-# Probably add another aura parameter and implement mob types.
-#
-# Misses for aura's
-#
-# Modifying mob armor. Maybe mob armor can be implemented as
-# self aura that reduces damage?
+# Periodic trigger function
 # 
-# Weird projectile behavior. Shooting up to two mobs at the
-# same time. Currently if there are two projectile spells on
-# tower, they just shoot the same target. Will need to add
-# special targeting logic.
+# Tower creation trigger function
 #
-# Chain projectiles. Projectiles that create a new
-# projectile on impact. Repeat N times. Projectiles need to
-# avoid visiting mobs that are already in chain.
+# Killing blow trigger function
 #
-# Graphical effects for aura's and projectiles. Add as
-# parameter to aura's.
+# Implement modifications:
+# experience gain, item chance, item quality, etc.
 # 
-# Aura apply types. For example slow that only affects land
-# mobs. Or frost attack that doesn't affect fire mobs.
-# Implement as parameter (AuraParameter.IMMUNE_MOB_TYPE_LIST)
+# Increased dmg vs X type of mob. Implement mob types, tower
+# stats for dmg bonus to mob types and tower effects that
+# change those stats.
 #
-# Chained aura's. For example poison that stuns target when
-# it expires. (AuraParameter.FOLLOWUP_AURA)
+# Mob armor and modification for mob armor.
+# 
+# One tower shooting at two different targest at the same
+# time.
 #
-# Every 7th/8th/9th/10th attack deals more damage. Can
-# implement as multiple spells that are cast every 10s, with
-# 7/8/9/10 having higher value. But that would mean that
-# tower will do nothing for first 10s if there's mob in
-# range. Need to change behavior of ProjectileSpell so that
-# it casts first projectile and then starts cast cd.
+# Chain attack.
+#
+# Graphical effects for buffs and projectiles.
+# 
+# Mob immunity.
+
 
 enum ScriptParameter {
 	ON_DAMAGE_CHANCE,
