@@ -1,30 +1,16 @@
 extends Node
 
-# BuffType stores information about modifiers and handles
-# the application state on units. It should be created once
-# in tower script's _init() function and used inside trigger
-# functions to apply modifiers on units. Call apply() or
+# BuffType stores buff description, creates buff instances
+# and applies them to mobs. It should be created once in
+# tower script's _init() function and used inside trigger
+# functions to apply buffs on mobs. Call apply() or
 # apply_custom_timed() to apply the buff on a unit. You must
 # call add_child() on the buff after creating it.
 
 class_name BuffType
 
 
-class Buff:
-	var tower: Tower
-	var target: Mob
-	var value_modifier: float
-	var duration_timer: Timer
-
-	func _init(tower_arg: Tower, target_arg: Mob, value_modifier_arg: float, duration_timer_arg: Timer):
-		tower = tower_arg
-		target = target_arg
-		value_modifier = value_modifier_arg
-		duration_timer = duration_timer_arg
-
-
 var duration_default: float
-
 var modifier: Modifier = null
 # Mapping of target->Buff
 var active_buff_map: Dictionary = {}
@@ -57,37 +43,19 @@ func apply_custom_timed(tower: Tower, target: Mob, value_modifier: float, durati
 		var should_override: bool = new_buff_level >= current_buff_level
 
 		if should_override:
-			on_duration_timer_timeout(current_buff)
+			current_buff.stop()
 
-			apply_custom_timed_internal(tower, target, value_modifier, duration_default)
+			apply_custom_timed_internal(tower, target, value_modifier, duration)
 	else:
-		apply_custom_timed_internal(tower, target, value_modifier, duration_default)
+		apply_custom_timed_internal(tower, target, value_modifier, duration)
 
 
 func apply_custom_timed_internal(tower: Tower, target: Mob, value_modifier: float, duration: float):
-	var duration_timer: Timer = Timer.new()
-	add_child(duration_timer)
-
-#	Record that the buff is active on the target
-	var buff: Buff = Buff.new(tower, target, value_modifier, duration_timer)
+	var buff: Buff = Buff.new(tower, target, value_modifier, duration, modifier)
+	add_child(buff)
 	active_buff_map[target] = buff
-
-	if modifier != null:
-		modifier.apply(target, value_modifier)
-
-	duration_timer.connect("timeout", self, "on_duration_timer_timeout", [buff])
-	duration_timer.start(duration)
+	buff.connect("expired", self, "on_buff_expired")
 
 
-func on_duration_timer_timeout(buff: Buff):
-	var duration_timer: Timer = buff.duration_timer
-	duration_timer.queue_free()
-
-#	NOTE: target can become invalid if it dies before the
-#	buff expires.
-	var target: Mob = buff.target
-	if modifier != null && is_instance_valid(target):
-		var value_modifier: float = buff.value_modifier
-		modifier.undo_apply(target, value_modifier)
-
-	active_buff_map.erase(target)
+func on_buff_expired(buff: Buff):
+	active_buff_map.erase(buff.target)
