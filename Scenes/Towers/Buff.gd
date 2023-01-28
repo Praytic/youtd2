@@ -58,7 +58,7 @@ func apply_custom_timed(tower: Tower, target: Mob, value_modifier: float, durati
 		var should_override: bool = new_apply_level >= old_apply_level
 
 		if should_override:
-			on_duration_timer_timeout(old_apply.tower, old_apply.target, old_apply.value_modifier, old_apply.duration_timer)
+			on_duration_timer_timeout(old_apply.target, old_apply.value_modifier, old_apply.duration_timer)
 
 			apply_custom_timed_internal(tower, target, value_modifier, duration_default)
 	else:
@@ -76,14 +76,16 @@ func apply_custom_timed_internal(tower: Tower, target: Mob, value_modifier: floa
 	if modifier != null:
 		modifier.apply(target, value_modifier)
 
-	duration_timer.connect("timeout", self, "on_duration_timer_timeout", [tower, target, value_modifier, duration_timer])
+	duration_timer.connect("timeout", self, "on_duration_timer_timeout", [target, value_modifier, duration_timer])
 	duration_timer.start(duration)
 
 
-func on_duration_timer_timeout(tower: Tower, target: Mob, value_modifier: float, duration_timer: Timer):
+func on_duration_timer_timeout(target: Mob, value_modifier: float, duration_timer: Timer):
 	duration_timer.queue_free()
 
-	if modifier != null:
+#	NOTE: target can become invalid if it dies before the
+#	buff expires.
+	if modifier != null && is_instance_valid(target):
 		modifier.undo_apply(target, value_modifier)
 
 	apply_map.erase(target)
