@@ -2,6 +2,6 @@ extends Tower
 
 
 func on_attack(event: Event):
-	var test_buff: BuffType = BuffTypeStorage.test_buff
+	var slow: Buff = Slow.new(self, 5.0, 1.0, 0)
 	var target: Mob = event.target
-	test_buff.apply(self, target, 1.0)
+	target.apply_buff(slow)
