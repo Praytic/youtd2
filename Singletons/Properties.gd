@@ -68,7 +68,7 @@ const tower_families = {
 # Mob immunity.
 
 
-enum ScriptParameter {
+enum TriggerParameter {
 	ON_DAMAGE_CHANCE,
 	ON_DAMAGE_CHANCE_LEVEL_ADD,
 	ON_ATTACK_CHANCE,
@@ -114,12 +114,17 @@ const towers = {
 			TowerStat.ATTACK_DAMAGE_MIN: 10,
 			TowerStat.ATTACK_DAMAGE_MAX: 20,
 		},
+		"trigger_parameters": {
+			TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
+			TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
+			TriggerParameter.ON_ATTACK_CHANCE: 1.0,
+			TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
+		},
 		"splash": {
 			320: 0.5,
 		},
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
-		"script": "res://Scenes/Towers/TestTowerScript.gd",
 		"effects": [
 			{
 				EffectParameter.TYPE: EffectType.MOD_TOWER_STAT,
@@ -143,10 +148,15 @@ const towers = {
 			TowerStat.ATTACK_DAMAGE_MIN: 10,
 			TowerStat.ATTACK_DAMAGE_MAX: 20,
 		},
+		"trigger_parameters": {
+			TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
+			TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
+			TriggerParameter.ON_ATTACK_CHANCE: 1.0,
+			TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
+		},
 		"splash": {},
 		"cost": 140,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"script": "res://Scenes/Towers/TestTowerScript.gd",
 		"effects": [],
 	},
 	"GreaterShrub": {
@@ -163,10 +173,15 @@ const towers = {
 			TowerStat.ATTACK_DAMAGE_MIN: 10,
 			TowerStat.ATTACK_DAMAGE_MAX: 20,
 		},
+		"trigger_parameters": {
+			TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
+			TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
+			TriggerParameter.ON_ATTACK_CHANCE: 1.0,
+			TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
+		},
 		"splash": {},
 		"cost": 400,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"script": "res://Scenes/Towers/TestTowerScript.gd",
 		"effects": [],
 	},
 	"SmallCactus": {
@@ -183,10 +198,15 @@ const towers = {
 			TowerStat.ATTACK_DAMAGE_MIN: 10,
 			TowerStat.ATTACK_DAMAGE_MAX: 20,
 		},
+		"trigger_parameters": {
+			TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
+			TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
+			TriggerParameter.ON_ATTACK_CHANCE: 1.0,
+			TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
+		},
 		"splash": {},
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
-		"script": "res://Scenes/Towers/TestTowerScript.gd",
 		"effects": [],
 	}
 }
