@@ -25,11 +25,9 @@ func _ready():
 
 
 func on_attack(tower: Tower, event: Event):
-	print("on_attack!")
-
 	var target: Mob = event.target
 	test_buff.apply(tower, target, 1.0)
 
 
 func on_damage(tower: Tower, event: Event):
-	print("on_damage!")
+	pass
