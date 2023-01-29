@@ -13,7 +13,7 @@ extends Node
 signal expired()
 
 var _tower: Tower
-var _modifier: Modifier setget , get_modifier
+var _modifier: Modifier setget set_modifier, get_modifier
 var value_modifier: float
 var _timer: Timer
 var _level: int setget _set_level , get_level
@@ -34,16 +34,9 @@ func _init(tower: Tower, time: float, time_level_add: float, value_modifier_arg:
 	_timer.connect("timeout", self, "_on_timer_timeout")
 
 
-# Sets modifier which depends on tower level
 func set_modifier(modifier: Modifier):
 	_modifier = modifier
-	_modifier.level = _tower.get_level()
-
-
-# Sets modifier which depends on buff level
-func set_buff_modifier(modifier: Modifier):
-	_modifier = modifier
-	_modifier.level = get_level()
+	_modifier.set_levels(_tower.get_level(), get_level())
 
 
 func get_modifier() -> Modifier:
