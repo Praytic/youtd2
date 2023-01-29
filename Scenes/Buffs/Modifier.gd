@@ -1,9 +1,8 @@
+class_name Modifier
 extends Node
 
 # Modifier stores a list of modifications. Can apply and
 # undo apply of such modifications on a unit.
-
-class_name Modifier
 
 
 var modification_list: Array

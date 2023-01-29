@@ -1,6 +1,6 @@
+class_name Unit
 extends KinematicBody2D
 
-class_name Unit
 
 # Unit implements application of buffs and modifications.
 

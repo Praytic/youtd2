@@ -1,7 +1,5 @@
-extends Buff
-
-
 class_name Slow
+extends Buff
 
 
 func _init(tower_arg: Tower, time: float, time_level_add: float, value_modifier: float, power_level: int).(tower_arg, time, time_level_add, value_modifier, power_level):

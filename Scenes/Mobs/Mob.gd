@@ -1,6 +1,5 @@
-extends Unit
-
 class_name Mob
+extends Unit
 
 
 signal moved(delta)

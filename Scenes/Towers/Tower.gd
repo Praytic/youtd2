@@ -1,6 +1,6 @@
+class_name Tower
 extends Building
 
-class_name Tower
 
 # Tower attacks by periodically firing projectiles at mobs
 # that are in range.

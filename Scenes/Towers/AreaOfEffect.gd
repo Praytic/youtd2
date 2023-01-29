@@ -1,7 +1,5 @@
-extends Node2D
-
-
 class_name AreaOfEffect
+extends Node2D
 
 
 export(float) var radius
