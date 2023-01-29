@@ -24,7 +24,7 @@ enum ModifierLevelType {
 var _tower: Tower
 var _modifier: Modifier setget set_modifier, get_modifier
 var _timer: Timer
-var _level: int setget _set_level , get_level
+var _level: int
 var _modifier_level_type: int = ModifierLevelType.TOWER
 var _friendly: bool
 
@@ -65,10 +65,6 @@ func _get_modifier_level() -> int:
 		ModifierLevelType.TOWER: return _tower.get_level()
 		ModifierLevelType.BUFF: return get_level()
 	return 0
-
-
-func _set_level(_level: int):
-	pass
 
 
 func get_level() -> int:
