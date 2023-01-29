@@ -12,40 +12,50 @@ extends Node
 
 signal expired()
 
-var tower: Tower
-var target: Unit
-var modifier: Modifier
+var _tower: Tower
+var _modifier: Modifier setget , get_modifier
 var value_modifier: float
-var timer: Timer
-var level: int
-var time: float
+var _timer: Timer
+var _level: int setget _set_level , get_level
 
 
-func _init(tower_arg: Tower, time_arg: float, time_level_add: float, value_modifier_arg: float, level_arg: int):
-	tower = tower_arg
+func _init(tower: Tower, time: float, time_level_add: float, value_modifier_arg: float, level: int):
+	_tower = tower
 	value_modifier = value_modifier_arg
-	time = time_arg + time_level_add * level_arg
-	level = level_arg
+	_level = level
 
-	timer = Timer.new()
-	add_child(timer)
+	_timer = Timer.new()
+	add_child(_timer)
 # 	Set autostart so timer starts when add_child() is called
 # 	on buff
-	timer.autostart = true
-	timer.wait_time = time
-	timer.connect("timeout", self, "_on_timer_timeout")
+	_timer.autostart = true
+	var total_time: float = time + time_level_add * _level
+	_timer.wait_time = total_time
+	_timer.connect("timeout", self, "_on_timer_timeout")
 
 
 # Sets modifier which depends on tower level
-func set_modifier(modifier_arg: Modifier):
-	modifier = modifier_arg
-	modifier.level = tower.level
+func set_modifier(modifier: Modifier):
+	_modifier = modifier
+	_modifier.level = _tower.get_level()
 
 
 # Sets modifier which depends on buff level
-func set_buff_modifier(modifier_arg: Modifier):
-	modifier = modifier_arg
-	modifier.level = level
+func set_buff_modifier(modifier: Modifier):
+	_modifier = modifier
+	_modifier.level = get_level()
+
+
+func get_modifier() -> Modifier:
+	return _modifier
+
+
+func _set_level(_level: int):
+	pass
+
+
+func get_level() -> int:
+	return _level
 
 
 func get_id() -> String:
@@ -53,6 +63,10 @@ func get_id() -> String:
 	var id: String = script.get_path()
 
 	return id
+
+
+func get_target() -> Unit:
+	return get_parent() as Unit
 
 
 func stop():

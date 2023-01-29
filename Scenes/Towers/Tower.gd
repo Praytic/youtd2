@@ -278,8 +278,8 @@ func get_is_miss() -> bool:
 	return out
 
 
-func _change_level(new_level: int):
-	._change_level(new_level)
+func change_level(new_level: int):
+	set_level(new_level)
 
 # 	NOTE: stats could've change due to level up so re-load them
 	load_stats()
@@ -306,7 +306,7 @@ func get_rand_damage_base() -> float:
 func get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
 	var chance_base: float = trigger_parameters[trigger_chance]
 	var chance_per_level: float = trigger_parameters[trigger_chance_level_add]
-	var chance: float = chance_base + chance_per_level * level
+	var chance: float = chance_base + chance_per_level * get_level()
 	var trigger_is_called: bool = Utils.rand_chance(chance)
 
 	return trigger_is_called

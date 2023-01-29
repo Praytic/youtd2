@@ -5,10 +5,14 @@ extends Node
 # undo apply of such modifications on a unit.
 
 
-var modification_list: Array
-var level: int
+var _modification_list: Array = [] setget , get_modification_list
+var level: int = 0
 
 
 func add_modification(modification_type: int, value_base: float, level_add: float):
 	var modification: Modification = Modification.new(modification_type, value_base, level_add)
-	modification_list.append(modification)
+	_modification_list.append(modification)
+
+
+func get_modification_list()-> Array:
+	return _modification_list.duplicate(true)
