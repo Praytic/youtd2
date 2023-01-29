@@ -3,7 +3,11 @@ extends Node
 
 
 enum Type {
+# For mobs:
 	MOD_MOVE_SPEED,
+
+# For towers:
+	MOD_ATTACK_CRIT_CHANCE,
 }
 
 
