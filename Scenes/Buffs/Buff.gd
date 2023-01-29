@@ -9,6 +9,9 @@ extends Node
 # subclass as inner class, you must override get_id() and
 # return something unique.
 
+# TODO: what is friendly used for? It's not used as sign
+# multiplier on value (confirmed by original tower scripts).
+# Maybe used for stacking behavior?
 
 signal expired()
 
@@ -23,11 +26,13 @@ var _modifier: Modifier setget set_modifier, get_modifier
 var _timer: Timer
 var _level: int setget _set_level , get_level
 var _modifier_level_type: int = ModifierLevelType.TOWER
+var _friendly: bool
 
 
-func _init(tower: Tower, time: float, time_level_add: float, level: int):
+func _init(tower: Tower, time: float, time_level_add: float, level: int, friendly: bool):
 	_tower = tower
 	_level = level
+	_friendly = friendly
 
 	_timer = Timer.new()
 	add_child(_timer)
