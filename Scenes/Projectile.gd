@@ -18,12 +18,12 @@ func init(target_mob_arg: Mob, tower_position: Vector2):
 	position = tower_position
 
 
-func have_target() -> bool:
+func _have_target() -> bool:
 	return target_mob != null and is_instance_valid(target_mob)
 
 
 func _process(delta):
-	if !have_target():
+	if !_have_target():
 		queue_free()
 		return
 	
