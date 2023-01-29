@@ -18,7 +18,7 @@ func apply(target: Unit, value_modifier: float):
 	apply_internal(target, value_modifier, 1)
 
 
-func undo_apply(target: Unit, value_modifier: float):
+func remove(target: Unit, value_modifier: float):
 	apply_internal(target, value_modifier, -1)
 
 

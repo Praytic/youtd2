@@ -61,7 +61,7 @@ func on_duration_timer_timeout():
 #	NOTE: target can become invalid if it dies before the
 #	buff expires.
 	if modifier != null && is_instance_valid(target):
-		modifier.undo_apply(target, value_modifier)
+		modifier.remove(target, value_modifier)
 
 	emit_signal("expired")
 
