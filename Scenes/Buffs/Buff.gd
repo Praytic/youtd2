@@ -35,6 +35,9 @@ func _init(tower_arg: Tower, time_arg: float, time_level_add: float, value_modif
 
 	timer = Timer.new()
 	add_child(timer)
+# 	Set autostart so timer starts when add_child() is called
+# 	on buff
+	timer.autostart = true
 	timer.connect("timeout", self, "_on_timer_timeout")
 
 
@@ -57,29 +60,11 @@ func stop():
 	_on_timer_timeout()
 
 
-func on_apply_success(target_arg: Unit):
-	target = target_arg
-
-	if modifier != null:
-		var level_for_modifier: int = _get_level_for_modifier()
-		target.apply_modifier(modifier, level_for_modifier)
-
-	timer.start(time)
-
-
 func _on_timer_timeout():
-#	NOTE: target can become invalid if it dies before the
-#	buff expires.
-	if modifier != null && is_instance_valid(target):
-		var level_for_modifier: int = _get_level_for_modifier()
-		target.remove_modifier(modifier, level_for_modifier)
-
 	emit_signal("expired")
 
-	queue_free()
 
-
-func _get_level_for_modifier() -> int:
+func get_modifier_level() -> int:
 	match modifier_level_type:
 		ModifierLevelType.TOWER: return tower.level
 		ModifierLevelType.BUFF: return power_level
