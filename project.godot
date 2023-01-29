@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://Scenes/Mobs/Mob.gd"
 }, {
 "base": "Node",
+"class": "Modification",
+"language": "GDScript",
+"path": "res://Scenes/Buffs/Modification.gd"
+}, {
+"base": "Node",
 "class": "Modifier",
 "language": "GDScript",
 "path": "res://Scenes/Buffs/Modifier.gd"
@@ -65,6 +70,7 @@ _global_script_class_icons={
 "Building": "",
 "Event": "",
 "Mob": "",
+"Modification": "",
 "Modifier": "",
 "Slow": "",
 "Tower": "",
