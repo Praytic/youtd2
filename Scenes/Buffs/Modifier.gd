@@ -6,19 +6,6 @@ extends Node
 class_name Modifier
 
 
-enum ModificationType {
-	MOD_MOVE_SPEED,
-}
-
-class Modification:
-	var type: int
-	var value_base: float
-	
-	func _init(type_arg: int, value_base_arg: int):
-		type = type_arg
-		value_base = value_base_arg
-
-
 var modification_list: Array
 
 
@@ -28,19 +15,14 @@ func add_modification(modification_type: int, _mystery_arg: int, value_base: flo
 
 
 func apply(target: Unit, value_modifier: float):
-	for modification in modification_list:
-		apply_mod(modification, target, value_modifier)
+	apply_internal(target, value_modifier, 1)
 
 
-# TODO: multiplying by -1 is a nice trick but it might not
-# work for some cases
 func undo_apply(target: Unit, value_modifier: float):
+	apply_internal(target, value_modifier, -1)
+
+
+func apply_internal(target: Unit, value_modifier: float, apply_direction: int):
 	for modification in modification_list:
-		apply_mod(modification, target, -1 * value_modifier)
-
-
-func apply_mod(modification: Modification, target: Unit, value_modifier: float):
-	match modification.type:
-		ModificationType.MOD_MOVE_SPEED:
-			var modification_value: float = modification.value_base * value_modifier
-			target.mob_move_speed = max(0, target.mob_move_speed + modification_value)
+		var final_value: float = apply_direction * modification.value * value_modifier
+		target.modify_property(modification.type, final_value)
