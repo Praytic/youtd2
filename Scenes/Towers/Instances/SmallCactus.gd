@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 
-func get_properties() -> Dictionary:
+func _get_properties() -> Dictionary:
 	return {
 		"id": 41,
 		"name": "Small Cactus",
