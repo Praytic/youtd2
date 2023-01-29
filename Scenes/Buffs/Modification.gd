@@ -9,9 +9,11 @@ enum Type {
 
 
 var type: int
-var value: float
+var value_base: float
+var level_add: float
 
 
-func _init(type_arg: int, value_arg: int):
+func _init(type_arg: int, value_base_arg: int, level_add_arg: float):
 	type = type_arg
-	value = value_arg
+	value_base = value_base_arg
+	level_add = level_add_arg

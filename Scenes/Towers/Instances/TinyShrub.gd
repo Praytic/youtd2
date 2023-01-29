@@ -38,6 +38,6 @@ func get_properties() -> Dictionary:
 	}
 
 func on_attack(event: Event):
-	var slow: Buff = Slow.new(self, 5.0, 1.0, 0)
+	var slow: Buff = Slow.new(self, 5.0, 0.0, 1.0, level)
 	var target: Unit = event.target
 	target.apply_buff(slow)
