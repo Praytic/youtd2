@@ -12,11 +12,18 @@ extends Node
 
 signal expired()
 
+enum ModifierLevelType {
+	TOWER,
+	BUFF,
+}
+
+
 var _tower: Tower
 var _modifier: Modifier setget set_modifier, get_modifier
 var value_modifier: float
 var _timer: Timer
 var _level: int setget _set_level , get_level
+var _modifier_level_type: int = ModifierLevelType.TOWER
 
 
 func _init(tower: Tower, time: float, time_level_add: float, value_modifier_arg: float, level: int):
@@ -34,13 +41,27 @@ func _init(tower: Tower, time: float, time_level_add: float, value_modifier_arg:
 	_timer.connect("timeout", self, "_on_timer_timeout")
 
 
+func set_modifier_level_type(level_type: int):
+	_modifier_level_type = level_type
+	
+	if _modifier != null:
+		_modifier.level = _get_modifier_level()
+
+
 func set_modifier(modifier: Modifier):
 	_modifier = modifier
-	_modifier.set_levels(_tower.get_level(), get_level())
+	_modifier.level = _get_modifier_level()
 
 
 func get_modifier() -> Modifier:
 	return _modifier
+
+
+func _get_modifier_level() -> int:
+	match _modifier_level_type:
+		ModifierLevelType.TOWER: return _tower.get_level()
+		ModifierLevelType.BUFF: return get_level()
+	return 0
 
 
 func _set_level(_level: int):
