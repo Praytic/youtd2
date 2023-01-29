@@ -37,6 +37,6 @@ func _get_specials_modifier() -> Modifier:
 
 
 func _on_attack(event: Event):
-	var slow: Buff = Slow.new(self, 5.0, 0.0, get_level())
+	var slow: Buff = Slow.new(self, 5.0, 0.0, get_level(), false)
 	var target: Unit = event.target
 	target.apply_buff(slow)
