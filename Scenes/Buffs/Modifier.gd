@@ -27,19 +27,19 @@ func add_modification(modification_type: int, _mystery_arg: int, value_base: flo
 	modification_list.append(modification)
 
 
-func apply(target: Mob, value_modifier: float):
+func apply(target: Unit, value_modifier: float):
 	for modification in modification_list:
 		apply_mod(modification, target, value_modifier)
 
 
 # TODO: multiplying by -1 is a nice trick but it might not
 # work for some cases
-func undo_apply(target: Mob, value_modifier: float):
+func undo_apply(target: Unit, value_modifier: float):
 	for modification in modification_list:
 		apply_mod(modification, target, -1 * value_modifier)
 
 
-func apply_mod(modification: Modification, target: Mob, value_modifier: float):
+func apply_mod(modification: Modification, target: Unit, value_modifier: float):
 	match modification.type:
 		ModificationType.MOD_MOVE_SPEED:
 			var modification_value: float = modification.value_base * value_modifier
