@@ -20,15 +20,13 @@ enum ModifierLevelType {
 
 var _tower: Tower
 var _modifier: Modifier setget set_modifier, get_modifier
-var value_modifier: float
 var _timer: Timer
 var _level: int setget _set_level , get_level
 var _modifier_level_type: int = ModifierLevelType.TOWER
 
 
-func _init(tower: Tower, time: float, time_level_add: float, value_modifier_arg: float, level: int):
+func _init(tower: Tower, time: float, time_level_add: float, level: int):
 	_tower = tower
-	value_modifier = value_modifier_arg
 	_level = level
 
 	_timer = Timer.new()
