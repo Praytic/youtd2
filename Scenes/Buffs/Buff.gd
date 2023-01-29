@@ -17,15 +17,15 @@ var target: Unit
 var modifier: Modifier
 var value_modifier: float
 var timer: Timer
-var power_level: int
+var level: int
 var time: float
 
 
-func _init(tower_arg: Tower, time_arg: float, time_level_add: float, value_modifier_arg: float, power_level_arg: int):
+func _init(tower_arg: Tower, time_arg: float, time_level_add: float, value_modifier_arg: float, level_arg: int):
 	tower = tower_arg
 	value_modifier = value_modifier_arg
-	time = time_arg + time_level_add * power_level_arg
-	power_level = power_level_arg
+	time = time_arg + time_level_add * level_arg
+	level = level_arg
 
 	timer = Timer.new()
 	add_child(timer)
@@ -44,7 +44,7 @@ func set_modifier(modifier_arg: Modifier):
 # Sets modifier which depends on buff level
 func set_buff_modifier(modifier_arg: Modifier):
 	modifier = modifier_arg
-	modifier.level = power_level
+	modifier.level = level
 
 
 func get_id() -> String:

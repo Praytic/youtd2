@@ -25,7 +25,7 @@ func apply_buff(buff):
 
 	if is_already_applied_to_target:
 		var current_buff = buff_map[buff_id]
-		var should_override: bool = buff.power_level >= current_buff.power_level
+		var should_override: bool = buff.level >= current_buff.level
 
 		if should_override:
 			current_buff.stop()
