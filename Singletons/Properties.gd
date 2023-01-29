@@ -85,17 +85,6 @@ enum TowerStat {
 	MISS_CHANCE,
 }
 
-enum EffectParameter {
-	TYPE,
-	AFFECTED_TOWER_STAT,
-	VALUE_BASE,
-	VALUE_PER_LEVEL,
-}
-
-enum EffectType {
-	MOD_TOWER_STAT,
-}
-
 
 # NOTE: these TODO's are talking about tower properties which are now located in tower scripts
 # TODO: Replace filenames with IDs when switching to Godot 4 with first-class functions
