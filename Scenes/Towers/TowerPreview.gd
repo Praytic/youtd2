@@ -1,7 +1,5 @@
-extends Node2D
-
-
 class_name TowerPreview
+extends Node2D
 
 
 onready var buildable_areas: Array = get_tree().get_nodes_in_group(Constants.Groups.BUILD_AREA_GROUP)

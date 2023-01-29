@@ -1,6 +1,5 @@
-extends Node
-
 class_name Modification
+extends Node
 
 
 enum Type {

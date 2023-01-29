@@ -1,6 +1,6 @@
+class_name Event
 extends Node
 
-class_name Event
 
 var damage: float
 var target: Unit

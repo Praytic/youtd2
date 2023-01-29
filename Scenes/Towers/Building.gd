@@ -1,7 +1,5 @@
-extends KinematicBody2D
-
-
 class_name Building
+extends KinematicBody2D
 
 
 var building_in_progress: bool = false
