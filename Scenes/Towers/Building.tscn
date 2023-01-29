@@ -4,7 +4,7 @@
 [ext_resource path="res://Assets/Environment/Props/floor.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Towers/Selection.gd" type="Script" id=4]
 
-[node name="Building" type="StaticBody2D"]
+[node name="Building" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
 [node name="Selection" type="Node2D" parent="."]
@@ -17,5 +17,3 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2( 1, 0.5 )
 polygon = PoolVector2Array( 0, -128, 128, 0, 0, 128, -128, 0 )
-
-[connection signal="input_event" from="." to="." method="_on_Building_input_event"]

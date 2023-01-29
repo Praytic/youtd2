@@ -14,7 +14,7 @@ class_name Buff
 signal expired()
 
 var tower: Tower
-var target: Mob
+var target: Unit
 var modifier: Modifier
 var value_modifier: float
 var duration_timer: Timer
@@ -48,7 +48,7 @@ func stop():
 	on_duration_timer_timeout()
 
 
-func on_applied_by_mob(target_arg: Mob):
+func on_apply_success(target_arg: Unit):
 	target = target_arg
 
 	if modifier != null:

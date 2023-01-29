@@ -3,7 +3,7 @@ extends Node
 class_name Event
 
 var damage: float
-var target: Mob
+var target: Unit
 var can_attack: bool = true
 
 

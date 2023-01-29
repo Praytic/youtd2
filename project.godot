@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Buffs/Buff.gd"
 }, {
-"base": "StaticBody2D",
+"base": "KinematicBody2D",
 "class": "Building",
 "language": "GDScript",
 "path": "res://Scenes/Towers/Building.gd"
@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Towers/Event.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Unit",
 "class": "Mob",
 "language": "GDScript",
 "path": "res://Scenes/Mobs/Mob.gd"
@@ -53,6 +53,11 @@ _global_script_classes=[ {
 "class": "TowerPreview",
 "language": "GDScript",
 "path": "res://Scenes/Towers/TowerPreview.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Unit",
+"language": "GDScript",
+"path": "res://Scenes/Unit.gd"
 } ]
 _global_script_class_icons={
 "AreaOfEffect": "",
@@ -63,7 +68,8 @@ _global_script_class_icons={
 "Modifier": "",
 "Slow": "",
 "Tower": "",
-"TowerPreview": ""
+"TowerPreview": "",
+"Unit": ""
 }
 
 [application]
