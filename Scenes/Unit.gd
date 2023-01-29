@@ -23,26 +23,30 @@ func apply_buff(buff):
 
 		if should_override:
 			current_buff.stop()
-			apply_buff_internal(buff)
+			_apply_buff_internal(buff)
 	else:
-		apply_buff_internal(buff)
+		_apply_buff_internal(buff)
 
 
 # NOTE: applies buff without any checks for overriding
-func apply_buff_internal(buff):
+func _apply_buff_internal(buff):
 	var buff_id: String = buff.get_id()
 	print("buff_id=", buff_id)
 	buff_map[buff_id] = buff
 	add_child(buff)
 	buff.on_apply_success(self)
 
-	buff.connect("expired", self, "on_buff_expired", [buff])
+	buff.connect("expired", self, "_on_buff_expired", [buff])
 
 
-func on_buff_expired(buff):
+func _on_buff_expired(buff):
 	var buff_id: String = buff.get_id()
 	buff_map.erase(buff_id)
 
 
-func modify_property(_modification_type: int, _value: float):
+func modify_property(modification_type: int, value: float):
+	_modify_property(modification_type, value)
+
+
+func _modify_property(_modification_type: int, _value: float):
 	pass

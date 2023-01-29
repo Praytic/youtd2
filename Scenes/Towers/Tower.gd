@@ -42,7 +42,7 @@ onready var targeting_area: Area2D = $TargetingArea
 func _ready():
 	add_child(aoe_scene.instance(), true)
 	
-	var properties: Dictionary = get_properties()
+	var properties: Dictionary = _get_properties()
 	attack_type = properties["attack_type"]
 	ingame_name = properties["name"]
 	author = properties["author"]
@@ -134,7 +134,7 @@ func try_to_attack():
 	var on_attack_is_called: bool = get_trigger_is_called(Properties.TriggerParameter.ON_ATTACK_CHANCE, Properties.TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
-		on_attack(event)
+		_on_attack(event)
 
 	if event.can_attack:
 		var projectile = projectile_scene.instance()
@@ -181,7 +181,7 @@ func on_projectile_reached_mob(mob: Mob):
 	var damage_base: float = get_rand_damage_base()
 
 #	NOTE: apply event's damage, so that any changes done by
-#	scripts in on_damage() apply
+#	scripts in _on_damage() apply
 	apply_damage_to_mob(mob, damage_base)
 	do_splash_attack(mob, damage_base)
 
@@ -236,10 +236,10 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 	var on_damage_is_called: bool = get_trigger_is_called(Properties.TriggerParameter.ON_DAMAGE_CHANCE, Properties.TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
 	if on_damage_is_called:
-		on_damage(event)
+		_on_damage(event)
 
 #	NOTE: apply event's damage, so that any changes done by
-#	scripts in on_damage() apply
+#	scripts in _on_damage() apply
 	mob.apply_damage(event.damage)
 
 
@@ -317,13 +317,13 @@ func get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -
 	return trigger_is_called
 
 
-func get_properties() -> Dictionary:
+func _get_properties() -> Dictionary:
 	return {}
 	
 
-func on_attack(_event: Event):
+func _on_attack(_event: Event):
 	pass
 
 
-func on_damage(_event: Event):
+func _on_damage(_event: Event):
 	pass

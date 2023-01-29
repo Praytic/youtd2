@@ -1,7 +1,7 @@
 extends Tower
 
 
-func get_properties() -> Dictionary:
+func _get_properties() -> Dictionary:
 	return {
 		"id": 1,
 		"name": "Tiny Shrub",
@@ -37,7 +37,7 @@ func get_properties() -> Dictionary:
 		],
 	}
 
-func on_attack(event: Event):
+func _on_attack(event: Event):
 	var slow: Buff = Slow.new(self, 5.0, 0.0, 1.0, level)
 	var target: Unit = event.target
 	target.apply_buff(slow)

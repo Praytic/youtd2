@@ -27,7 +27,7 @@ func start(wave_index: int):
 	group_index = 0
 	mob_index = 0
 	mob_spawned_count = 0
-	mob_total_count = get_mob_total_count()
+	mob_total_count = _get_mob_total_count()
 	
 	if group_list.size() == 0:
 		emit_signal("progress_changed", "wave is empty, do nothing")
@@ -43,7 +43,7 @@ func stop():
 	emit_signal("progress_changed", "wave stopped")
 
 
-func get_mob_total_count() -> int:
+func _get_mob_total_count() -> int:
 	var out: int = 0
 	
 	for group in group_list:

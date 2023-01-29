@@ -41,7 +41,7 @@ func _process(delta):
 			die()
 			return
 		
-		var mob_animation: String = get_mob_animation()
+		var mob_animation: String = _get_mob_animation()
 		_sprite.play(mob_animation)
 
 
@@ -50,7 +50,7 @@ func set_path(path: Path2D):
 	position = path_curve.get_point_position(0)
 
 
-func get_mob_animation() -> String:
+func _get_mob_animation() -> String:
 	var path_point: Vector2 = path_curve.get_point_position(current_path_index)
 	var move_direction: Vector2 = path_point - position
 	var move_angle: float = rad2deg(move_direction.angle())
@@ -83,7 +83,7 @@ func apply_damage(damage: float):
 		die()
 
 
-func modify_property(modification_type: int, value: float):
+func _modify_property(modification_type: int, value: float):
 	match modification_type:
 		Modification.Type.MOD_MOVE_SPEED:
 			# var modification_value: float = modification.value_base * value_modifier

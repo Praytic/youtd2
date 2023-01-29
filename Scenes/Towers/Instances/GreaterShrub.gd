@@ -3,7 +3,7 @@ extends Tower
 # Skills go here
 
 
-func get_properties() -> Dictionary:
+func _get_properties() -> Dictionary:
 	return {
 		"id": 511,
 		"name": "Greater Shrub",
