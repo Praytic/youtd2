@@ -35,7 +35,7 @@ func apply_buff(buff):
 		buff_map[buff_id] = buff
 		buff.target = self
 		buff.connect("expired", self, "_on_buff_expired", [buff])
-		_apply_buff_internal(buff, 1)
+		_apply_modifier(buff.modifier, 1)
 		add_child(buff)
 
 
@@ -61,7 +61,7 @@ func _change_level(new_level: int):
 
 
 func _on_buff_expired(buff):
-	_apply_buff_internal(buff, -1)
+	_apply_modifier(buff.modifier, -1)
 
 	var buff_id: String = buff.get_id()
 	buff_map.erase(buff_id)
@@ -74,11 +74,6 @@ func modify_property(modification_type: int, value: float):
 
 func _modify_property(_modification_type: int, _value: float):
 	pass
-
-
-func _apply_buff_internal(buff, apply_direction: int):
-	var modifier: Modifier = buff.modifier
-	_apply_modifier(modifier, apply_direction)
 
 
 func _apply_modifier(modifier: Modifier, apply_direction: int):
