@@ -1,3 +1,4 @@
+class_name Buff
 extends Node
 
 
@@ -7,8 +8,6 @@ extends Node
 # unique identifier for buff. If you want to define a
 # subclass as inner class, you must override get_id() and
 # return something unique.
-
-class_name Buff
 
 
 signal expired()
