@@ -32,6 +32,7 @@ func _init(tower_arg: Tower, time_arg: float, time_level_add: float, value_modif
 # 	Set autostart so timer starts when add_child() is called
 # 	on buff
 	timer.autostart = true
+	timer.wait_time = time
 	timer.connect("timeout", self, "_on_timer_timeout")
 
 
