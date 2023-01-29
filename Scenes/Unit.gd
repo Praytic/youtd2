@@ -40,7 +40,7 @@ func apply_buff(buff):
 
 
 func add_modifier(modifier: Modifier):
-	_apply_modifier(modifier, level, 1)
+	_apply_modifier(modifier, 1)
 	modifier_list.append(modifier)
 
 
@@ -53,10 +53,11 @@ func add_modifier(modifier: Modifier):
 func _change_level(new_level: int):
 	level = new_level
 
-#	NOTE: re-add all modifiers to apply level bonus
+#	NOTE: apply level change to modifiers
 	for modifier in modifier_list:
-		_apply_modifier(modifier, level, -1)
-		_apply_modifier(modifier, level, 1)
+		_apply_modifier(modifier, -1)
+		modifier.level = new_level
+		_apply_modifier(modifier, 1)
 
 
 func _on_buff_expired(buff):
@@ -77,14 +78,13 @@ func _modify_property(_modification_type: int, _value: float):
 
 func _apply_buff_internal(buff, apply_direction: int):
 	var modifier: Modifier = buff.modifier
-	var modifier_level: int = buff.get_modifier_level()
-	_apply_modifier(modifier, modifier_level, apply_direction)
+	_apply_modifier(modifier, apply_direction)
 
 
-func _apply_modifier(modifier: Modifier, modifier_level: int, apply_direction: int):
+func _apply_modifier(modifier: Modifier, apply_direction: int):
 	var modification_list: Array = modifier.modification_list
 
 	for modification in modification_list:
-		var level_bonus: float = 1.0 + modification.level_add * (modifier_level - 1)
+		var level_bonus: float = 1.0 + modification.level_add * (modifier.level - 1)
 		var value: float = apply_direction * modification.value_base * level_bonus
 		_modify_property(modification.type, value)

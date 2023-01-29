@@ -6,6 +6,7 @@ extends Node
 
 
 var modification_list: Array
+var level: int
 
 
 func add_modification(modification_type: int, value_base: float, level_add: float):
