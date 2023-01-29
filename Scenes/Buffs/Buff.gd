@@ -62,7 +62,7 @@ func on_apply_success(target_arg: Unit):
 
 	if modifier != null:
 		var level_for_modifier: int = _get_level_for_modifier()
-		modifier.apply(target, level_for_modifier)
+		target.apply_modifier(modifier, level_for_modifier)
 
 	timer.start(time)
 
@@ -72,7 +72,7 @@ func _on_timer_timeout():
 #	buff expires.
 	if modifier != null && is_instance_valid(target):
 		var level_for_modifier: int = _get_level_for_modifier()
-		modifier.remove(target, level_for_modifier)
+		target.remove_modifier(modifier, level_for_modifier)
 
 	emit_signal("expired")
 
