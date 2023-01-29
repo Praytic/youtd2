@@ -5,8 +5,9 @@ extends KinematicBody2D
 # Unit implements application of buffs and modifications.
 
 
+var level: int = 1
 var buff_map: Dictionary
-
+var modifier_list: Array
 
 func _ready():
 	pass
@@ -26,6 +27,26 @@ func apply_buff(buff):
 			_apply_buff_internal(buff)
 	else:
 		_apply_buff_internal(buff)
+
+
+func add_modifier(modifier: Modifier):
+	modifier.apply(self, level)
+	modifier_list.append(modifier)
+
+
+# TODO: not sure how to implement remove_modifier(). Maybe
+# assign modifiers an id in add_modifier()? Need to see
+# concrete use case for removing modifiers first. Will
+# probably encounter it when implementing items.
+
+
+func _change_level(new_level: int):
+	level = new_level
+
+#	NOTE: re-add all modifiers to apply level bonus
+	for modifier in modifier_list:
+		modifier.remove(self, level)
+		modifier.apply(self, level)
 
 
 # NOTE: applies buff without any checks for overriding

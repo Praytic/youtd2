@@ -25,6 +25,4 @@ func _get_properties() -> Dictionary:
 		"splash": {},
 		"cost": 30,
 		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
-		"effects": [],
-	
 	}

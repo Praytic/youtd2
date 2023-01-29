@@ -27,15 +27,14 @@ func _get_properties() -> Dictionary:
 		},
 		"cost": 30,
 		"description": "Basic nature tower with a slightly increased chance to critical strike.",
-		"effects": [
-			{
-				Properties.EffectParameter.TYPE: Properties.EffectType.MOD_TOWER_STAT,
-				Properties.EffectParameter.AFFECTED_TOWER_STAT: Properties.TowerStat.CRIT_CHANCE,
-				Properties.EffectParameter.VALUE_BASE: 0.2,
-				Properties.EffectParameter.VALUE_PER_LEVEL: 0.0035,
-			}
-		],
 	}
+
+func _get_specials_modifier() -> Modifier:
+	var specials_modifier: Modifier = Modifier.new()
+	specials_modifier.add_modification(Modification.Type.MOD_MOVE_SPEED, 0.2, 0.0035)
+
+	return specials_modifier
+
 
 func _on_attack(event: Event):
 	var slow: Buff = Slow.new(self, 5.0, 0.0, 1.0, level)

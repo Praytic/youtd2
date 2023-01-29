@@ -27,6 +27,5 @@ func _get_properties() -> Dictionary:
 		"splash": {},
 		"cost": 400,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
-		"effects": [],
 	}
 	
