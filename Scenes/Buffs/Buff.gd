@@ -17,20 +17,20 @@ var tower: Tower
 var target: Unit
 var modifier: Modifier
 var value_modifier: float
-var duration_timer: Timer
+var timer: Timer
 var power_level: int
-var duration: float
+var time: float
 
 
-func _init(tower_arg: Tower, duration_arg: float, value_modifier_arg: float, power_level_arg: int):
+func _init(tower_arg: Tower, time_arg: float, value_modifier_arg: float, power_level_arg: int):
 	tower = tower_arg
 	value_modifier = value_modifier_arg
-	duration = duration_arg
+	time = time_arg
 	power_level = power_level_arg
 
-	duration_timer = Timer.new()
-	add_child(duration_timer)
-	duration_timer.connect("timeout", self, "on_duration_timer_timeout")
+	timer = Timer.new()
+	add_child(timer)
+	timer.connect("timeout", self, "on_timer_timeout")
 
 
 func set_modifier(modifier_arg: Modifier):
@@ -45,7 +45,7 @@ func get_id() -> String:
 
 
 func stop():
-	on_duration_timer_timeout()
+	on_timer_timeout()
 
 
 func on_apply_success(target_arg: Unit):
@@ -54,10 +54,10 @@ func on_apply_success(target_arg: Unit):
 	if modifier != null:
 		modifier.apply(target, value_modifier)
 
-	duration_timer.start(duration)
+	timer.start(time)
 
 
-func on_duration_timer_timeout():
+func on_timer_timeout():
 #	NOTE: target can become invalid if it dies before the
 #	buff expires.
 	if modifier != null && is_instance_valid(target):
