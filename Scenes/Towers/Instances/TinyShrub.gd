@@ -31,7 +31,7 @@ func _get_properties() -> Dictionary:
 
 func _get_specials_modifier() -> Modifier:
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_MOVE_SPEED, 0.2, 0.0035)
+	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_CRIT_CHANCE, 0.2, 0.0035)
 
 	return specials_modifier
 
