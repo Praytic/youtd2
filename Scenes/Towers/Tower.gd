@@ -7,6 +7,25 @@ extends Building
 
 signal upgraded
 
+
+enum Stat {
+	ATTACK_RANGE,
+	ATTACK_CD,
+	ATTACK_DAMAGE_MIN,
+	ATTACK_DAMAGE_MAX,
+	CRIT_CHANCE,
+	CRIT_BONUS,
+	MISS_CHANCE,
+}
+
+enum TriggerParameter {
+	ON_DAMAGE_CHANCE,
+	ON_DAMAGE_CHANCE_LEVEL_ADD,
+	ON_ATTACK_CHANCE,
+	ON_ATTACK_CHANCE_LEVEL_ADD,
+}
+
+
 export(int) var id
 export(int) var next_tier_id
 
@@ -23,13 +42,13 @@ var target_mob: Mob = null
 var aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var stat_map: Dictionary = {
-	Properties.TowerStat.ATTACK_RANGE: 0.0,
-	Properties.TowerStat.ATTACK_CD: 0.0,
-	Properties.TowerStat.ATTACK_DAMAGE_MIN: 0,
-	Properties.TowerStat.ATTACK_DAMAGE_MAX: 0,
-	Properties.TowerStat.CRIT_CHANCE: 0.0,
-	Properties.TowerStat.CRIT_BONUS: 1.0,
-	Properties.TowerStat.MISS_CHANCE: 0.0,
+	Stat.ATTACK_RANGE: 0.0,
+	Stat.ATTACK_CD: 0.0,
+	Stat.ATTACK_DAMAGE_MIN: 0,
+	Stat.ATTACK_DAMAGE_MAX: 0,
+	Stat.CRIT_CHANCE: 0.0,
+	Stat.CRIT_BONUS: 1.0,
+	Stat.MISS_CHANCE: 0.0,
 }
 
 onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
@@ -133,7 +152,7 @@ func try_to_attack():
 	var event: Event = Event.new()
 	event.target = target_mob
 
-	var on_attack_is_called: bool = get_trigger_is_called(Properties.TriggerParameter.ON_ATTACK_CHANCE, Properties.TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
+	var on_attack_is_called: bool = get_trigger_is_called(TriggerParameter.ON_ATTACK_CHANCE, TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
 		_on_attack(event)
@@ -227,7 +246,7 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 	
 	var is_critical: bool = get_is_critical()
 	if is_critical:
-		damage_mod += stat_map[Properties.TowerStat.CRIT_BONUS]
+		damage_mod += stat_map[Stat.CRIT_BONUS]
 
 	var damage_modded: float = damage_base + damage_mod
 
@@ -235,7 +254,7 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 	event.damage = damage_modded
 	event.target = mob
 
-	var on_damage_is_called: bool = get_trigger_is_called(Properties.TriggerParameter.ON_DAMAGE_CHANCE, Properties.TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
+	var on_damage_is_called: bool = get_trigger_is_called(TriggerParameter.ON_DAMAGE_CHANCE, TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
 	if on_damage_is_called:
 		_on_damage(event)
@@ -246,14 +265,14 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 
 
 func get_is_critical() -> bool:
-	var crit_chance: float = stat_map[Properties.TowerStat.CRIT_CHANCE]
+	var crit_chance: float = stat_map[Stat.CRIT_CHANCE]
 	var is_critical: bool = Utils.rand_chance(crit_chance)
 
 	return is_critical
 
 
 func get_is_miss() -> bool:
-	var miss_chance: float = stat_map[Properties.TowerStat.MISS_CHANCE]
+	var miss_chance: float = stat_map[Stat.MISS_CHANCE]
 	var out: bool = Utils.rand_chance(miss_chance)
 
 	return out
@@ -267,18 +286,18 @@ func _change_level(new_level: int):
 
 
 func load_stats():
-	var cast_range: float = stat_map[Properties.TowerStat.ATTACK_RANGE]
+	var cast_range: float = stat_map[Stat.ATTACK_RANGE]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 	$AreaOfEffect.set_radius(cast_range)
 
-	var attack_cd: float = stat_map[Properties.TowerStat.ATTACK_CD]
+	var attack_cd: float = stat_map[Stat.ATTACK_CD]
 	attack_cooldown_timer.wait_time = attack_cd
 
 
 # NOTE: returns random damage within range without any mods applied
 func get_rand_damage_base() -> float:
-	var damage_min: int = stat_map[Properties.TowerStat.ATTACK_DAMAGE_MIN]
-	var damage_max: int = stat_map[Properties.TowerStat.ATTACK_DAMAGE_MAX]
+	var damage_min: int = stat_map[Stat.ATTACK_DAMAGE_MIN]
+	var damage_max: int = stat_map[Stat.ATTACK_DAMAGE_MAX]
 	var damage: float = float(Utils.randi_range(damage_min, damage_max))
 
 	return damage
@@ -312,7 +331,7 @@ func _on_damage(_event: Event):
 func _modify_property(modification_type: int, value: float):
 	match modification_type:
 		Modification.Type.MOD_ATTACK_CRIT_CHANCE:
-			var current_crit_chance: float = stat_map[Properties.TowerState.CRIT_CHANCE]
+			var current_crit_chance: float = stat_map[Stat.CRIT_CHANCE]
 			var new_crit_chance: float = min(1.0, current_crit_chance + value)
 
-			stat_map[Properties.TowerState.CRIT_CHANCE] = new_crit_chance
+			stat_map[Stat.CRIT_CHANCE] = new_crit_chance

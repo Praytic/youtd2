@@ -68,24 +68,6 @@ const tower_families = {
 # Mob immunity.
 
 
-enum TriggerParameter {
-	ON_DAMAGE_CHANCE,
-	ON_DAMAGE_CHANCE_LEVEL_ADD,
-	ON_ATTACK_CHANCE,
-	ON_ATTACK_CHANCE_LEVEL_ADD,
-}
-
-enum TowerStat {
-	ATTACK_RANGE,
-	ATTACK_CD,
-	ATTACK_DAMAGE_MIN,
-	ATTACK_DAMAGE_MAX,
-	CRIT_CHANCE,
-	CRIT_BONUS,
-	MISS_CHANCE,
-}
-
-
 # NOTE: these TODO's are talking about tower properties which are now located in tower scripts
 # TODO: Replace filenames with IDs when switching to Godot 4 with first-class functions
 # TODO: Think of the way to load tower properties without loading the Scene or GDScript 
