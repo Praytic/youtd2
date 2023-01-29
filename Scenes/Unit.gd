@@ -42,3 +42,7 @@ func apply_buff_internal(buff):
 func on_buff_expired(buff):
 	var buff_id: String = buff.get_id()
 	buff_map.erase(buff_id)
+
+
+func modify_property(_modification_type: int, _value: float):
+	pass

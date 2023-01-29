@@ -81,3 +81,10 @@ func apply_damage(damage: float):
 
 	if health < 0:
 		die()
+
+
+func modify_property(modification_type: int, value: float):
+	match modification_type:
+		Modification.Type.MOD_MOVE_SPEED:
+			# var modification_value: float = modification.value_base * value_modifier
+			mob_move_speed = max(0, mob_move_speed + value)
