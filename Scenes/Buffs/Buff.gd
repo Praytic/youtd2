@@ -15,16 +15,10 @@ signal expired()
 var tower: Tower
 var target: Unit
 var modifier: Modifier
-var modifier_level_type: int = ModifierLevelType.TOWER
 var value_modifier: float
 var timer: Timer
 var power_level: int
 var time: float
-
-enum ModifierLevelType {
-	TOWER,
-	BUFF
-}
 
 
 func _init(tower_arg: Tower, time_arg: float, time_level_add: float, value_modifier_arg: float, power_level_arg: int):
@@ -41,12 +35,16 @@ func _init(tower_arg: Tower, time_arg: float, time_level_add: float, value_modif
 	timer.connect("timeout", self, "_on_timer_timeout")
 
 
+# Sets modifier which depends on tower level
 func set_modifier(modifier_arg: Modifier):
 	modifier = modifier_arg
+	modifier.level = tower.level
 
 
-func set_modifier_level_type(modifier_level_type_arg: int):
-	modifier_level_type = modifier_level_type_arg
+# Sets modifier which depends on buff level
+func set_buff_modifier(modifier_arg: Modifier):
+	modifier = modifier_arg
+	modifier.level = power_level
 
 
 func get_id() -> String:
@@ -62,11 +60,3 @@ func stop():
 
 func _on_timer_timeout():
 	emit_signal("expired")
-
-
-func get_modifier_level() -> int:
-	match modifier_level_type:
-		ModifierLevelType.TOWER: return tower.level
-		ModifierLevelType.BUFF: return power_level
-
-	return 1
