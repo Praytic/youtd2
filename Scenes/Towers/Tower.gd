@@ -194,7 +194,7 @@ func upgrade() -> PackedScene:
 
 
 func on_projectile_reached_mob(mob: Mob):
-	var is_miss: bool = get_is_miss()
+	var is_miss: bool = get_stat_chance(Stat.MISS_CHANCE)
 
 	if is_miss:
 		return
@@ -244,7 +244,7 @@ func do_splash_attack(splash_target: Mob, damage_base: float):
 func apply_damage_to_mob(mob: Mob, damage_base: float):
 	var damage_mod: float = 0.0
 	
-	var is_critical: bool = get_is_critical()
+	var is_critical: bool = get_stat_chance(Stat.CRIT_CHANCE)
 	if is_critical:
 		damage_mod += stat_map[Stat.CRIT_BONUS]
 
@@ -264,18 +264,12 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 	mob.apply_damage(event.damage)
 
 
-func get_is_critical() -> bool:
-	var crit_chance: float = stat_map[Stat.CRIT_CHANCE]
-	var is_critical: bool = Utils.rand_chance(crit_chance)
+func get_stat_chance(stat: int) -> bool:
+	var unbounded_chance: float = stat_map[stat]
+	var chance: float = _get_bounded_chance(unbounded_chance)
+	var is_critical: bool = Utils.rand_chance(chance)
 
 	return is_critical
-
-
-func get_is_miss() -> bool:
-	var miss_chance: float = stat_map[Stat.MISS_CHANCE]
-	var out: bool = Utils.rand_chance(miss_chance)
-
-	return out
 
 
 func change_level(new_level: int):
@@ -332,6 +326,12 @@ func _modify_property(modification_type: int, value: float):
 	match modification_type:
 		Modification.Type.MOD_ATTACK_CRIT_CHANCE:
 			var current_crit_chance: float = stat_map[Stat.CRIT_CHANCE]
-			var new_crit_chance: float = min(1.0, current_crit_chance + value)
+			var new_crit_chance: float = current_crit_chance + value
 
 			stat_map[Stat.CRIT_CHANCE] = new_crit_chance
+
+
+func _get_bounded_chance(chance: float) -> float:
+	var bounded_chance: float = min(1.0, max(0.0, chance))
+
+	return bounded_chance

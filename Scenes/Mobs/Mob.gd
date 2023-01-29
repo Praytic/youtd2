@@ -25,7 +25,8 @@ func _ready():
 
 func _process(delta):
 	var path_point: Vector2 = path_curve.get_point_position(current_path_index)
-	position = position.move_toward(path_point, mob_move_speed * delta)
+	var move_speed: float = max(0, mob_move_speed)
+	position = position.move_toward(path_point, move_speed * delta)
 	emit_signal("moved", delta)
 	
 	var reached_path_point: bool = (position == path_point)
@@ -86,4 +87,4 @@ func _modify_property(modification_type: int, value: float):
 	match modification_type:
 		Modification.Type.MOD_MOVE_SPEED:
 			# var modification_value: float = modification.value_base * value_modifier
-			mob_move_speed = max(0, mob_move_speed + value)
+			mob_move_speed = mob_move_speed + value
