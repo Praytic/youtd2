@@ -5,8 +5,8 @@ extends Building
 # Tower attacks by periodically firing projectiles at mobs
 # that are in range.
 
-signal upgraded
 
+signal upgraded
 
 enum Stat {
 	ATTACK_RANGE,
@@ -24,7 +24,6 @@ enum TriggerParameter {
 	ON_ATTACK_CHANCE,
 	ON_ATTACK_CHANCE_LEVEL_ADD,
 }
-
 
 export(int) var id
 export(int) var next_tier_id
@@ -91,6 +90,24 @@ func _ready():
 
 	_targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
 	_targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
+
+
+func build_init():
+	.build_init()
+	$AreaOfEffect.show()
+
+
+func upgrade() -> PackedScene:
+	var next_tier_tower = TowerManager.get_tower(next_tier_id)
+	emit_signal("upgraded")
+	return next_tier_tower
+
+
+func change_level(new_level: int):
+	set_level(new_level)
+
+# 	NOTE: stats could've change due to level up so re-load them
+	_load_stats()
 
 
 func _on_AttackCooldownTimer_timeout():
@@ -172,11 +189,6 @@ func _have_target() -> bool:
 	return _target_mob != null and is_instance_valid(_target_mob)
 
 
-func build_init():
-	.build_init()
-	$AreaOfEffect.show()
-
-
 func _select():
 	._select()
 	print_debug("Tower %s has been selected." % id)
@@ -185,12 +197,6 @@ func _select():
 func _unselect():
 	._unselect()
 	print_debug("Tower %s has been unselected." % id)
-
-
-func upgrade() -> PackedScene:
-	var next_tier_tower = TowerManager.get_tower(next_tier_id)
-	emit_signal("upgraded")
-	return next_tier_tower
 
 
 func _on_projectile_reached_mob(mob: Mob):
@@ -270,13 +276,6 @@ func _get_stat_chance(stat: int) -> bool:
 	var is_critical: bool = Utils.rand_chance(chance)
 
 	return is_critical
-
-
-func change_level(new_level: int):
-	set_level(new_level)
-
-# 	NOTE: stats could've change due to level up so re-load them
-	_load_stats()
 
 
 func _load_stats():

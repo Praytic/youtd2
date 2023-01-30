@@ -20,7 +20,6 @@ enum ModifierLevelType {
 	BUFF,
 }
 
-
 var _tower: Tower
 var _modifier: Modifier setget set_modifier, get_modifier
 var _timer: Timer
@@ -60,13 +59,6 @@ func get_modifier() -> Modifier:
 	return _modifier
 
 
-func _get_modifier_level() -> int:
-	match _modifier_level_type:
-		ModifierLevelType.TOWER: return _tower.get_level()
-		ModifierLevelType.BUFF: return get_level()
-	return 0
-
-
 func get_level() -> int:
 	return _level
 
@@ -84,6 +76,13 @@ func get_target() -> Unit:
 
 func stop():
 	_on_timer_timeout()
+
+
+func _get_modifier_level() -> int:
+	match _modifier_level_type:
+		ModifierLevelType.TOWER: return _tower.get_level()
+		ModifierLevelType.BUFF: return get_level()
+	return 0
 
 
 func _on_timer_timeout():
