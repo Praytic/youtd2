@@ -5,37 +5,34 @@ extends Unit
 signal moved(delta)
 signal dead
 
+const HEALTH_MAX: float = 100.0
+const DEFAULT_MOB_MOVE_SPEED: float = 500.0
 
-export var health_max: float = 100.0
-export var health: float = 100.0
-export var default_mob_move_speed: float = 500.0
-var mob_move_speed: float
-
-
-var path_curve: Curve2D
-var current_path_index: int = 0
-
+var _health: float = 100.0
+var _mob_move_speed: float
+var _path_curve: Curve2D
+var _current_path_index: int = 0
 
 onready var _sprite = $Sprite
 
 
 func _ready():
-	mob_move_speed = default_mob_move_speed
+	_mob_move_speed = DEFAULT_MOB_MOVE_SPEED
 
 
 func _process(delta):
-	var path_point: Vector2 = path_curve.get_point_position(current_path_index)
-	var move_speed: float = max(0, mob_move_speed)
+	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
+	var move_speed: float = max(0, _mob_move_speed)
 	position = position.move_toward(path_point, move_speed * delta)
 	emit_signal("moved", delta)
 	
 	var reached_path_point: bool = (position == path_point)
 	
 	if reached_path_point:
-		current_path_index += 1
+		_current_path_index += 1
 
 		#		Delete mob once it has reached the end of the path
-		var reached_end_of_path: bool = (current_path_index >= path_curve.get_point_count())
+		var reached_end_of_path: bool = (_current_path_index >= _path_curve.get_point_count())
 
 		if reached_end_of_path:
 			die()
@@ -46,12 +43,12 @@ func _process(delta):
 
 
 func set_path(path: Path2D):
-	path_curve = path.curve
-	position = path_curve.get_point_position(0)
+	_path_curve = path.curve
+	position = _path_curve.get_point_position(0)
 
 
 func _get_mob_animation() -> String:
-	var path_point: Vector2 = path_curve.get_point_position(current_path_index)
+	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
 	var move_direction: Vector2 = path_point - position
 	var move_angle: float = rad2deg(move_direction.angle())
 
@@ -75,11 +72,11 @@ func die():
 
 
 func apply_damage(damage: float):
-	health -= damage
+	_health -= damage
 
-	$HealthBar.set_as_ratio(health / health_max)
+	$HealthBar.set_as_ratio(_health / HEALTH_MAX)
 
-	if health < 0:
+	if _health < 0:
 		die()
 
 
@@ -87,4 +84,4 @@ func _modify_property(modification_type: int, value: float):
 	match modification_type:
 		Modification.Type.MOD_MOVE_SPEED:
 			# var modification_value: float = modification.value_base * value_modifier
-			mob_move_speed = mob_move_speed + value
+			_mob_move_speed = _mob_move_speed + value
