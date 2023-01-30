@@ -16,6 +16,17 @@ enum Stat {
 	CRIT_CHANCE,
 	MOD_ATK_CRIT_DAMAGE,
 	MISS_CHANCE,
+
+	MOD_DMG_TO_MASS,
+	MOD_DMG_TO_NORMAL,
+	MOD_DMG_TO_CHAMPION,
+	MOD_DMG_TO_BOSS,
+
+	MOD_DMG_TO_UNDEAD,
+	MOD_DMG_TO_MAGIC,
+	MOD_DMG_TO_NATURE,
+	MOD_DMG_TO_ORC,
+	MOD_DMG_TO_HUMANOID,
 }
 
 enum TriggerParameter {
@@ -27,6 +38,38 @@ enum TriggerParameter {
 
 export(int) var id
 export(int) var next_tier_id
+
+# Mapping of modification type to the tower stat that it
+# modifies.
+const _modification_type_to_stat_map: Dictionary = {
+	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Stat.MOD_ATK_CRIT_DAMAGE, 
+
+	Modification.Type.MOD_DMG_TO_MASS: Stat.MOD_DMG_TO_MASS, 
+	Modification.Type.MOD_DMG_TO_NORMAL: Stat.MOD_DMG_TO_NORMAL, 
+	Modification.Type.MOD_DMG_TO_CHAMPION: Stat.MOD_DMG_TO_CHAMPION, 
+	Modification.Type.MOD_DMG_TO_BOSS: Stat.MOD_DMG_TO_BOSS, 
+
+	Modification.Type.MOD_DMG_TO_UNDEAD: Stat.MOD_DMG_TO_UNDEAD, 
+	Modification.Type.MOD_DMG_TO_MAGIC: Stat.MOD_DMG_TO_MAGIC, 
+	Modification.Type.MOD_DMG_TO_NATURE: Stat.MOD_DMG_TO_NATURE, 
+	Modification.Type.MOD_DMG_TO_ORC: Stat.MOD_DMG_TO_ORC, 
+	Modification.Type.MOD_DMG_TO_HUMANOID: Stat.MOD_DMG_TO_HUMANOID, 
+}
+
+const _mob_type_to_stat_map: Dictionary = {
+	Mob.Type.UNDEAD: Stat.MOD_DMG_TO_MASS,
+	Mob.Type.MAGIC: Stat.MOD_DMG_TO_MAGIC,
+	Mob.Type.NATURE: Stat.MOD_DMG_TO_NATURE,
+	Mob.Type.ORC: Stat.MOD_DMG_TO_ORC,
+	Mob.Type.HUMANOID: Stat.MOD_DMG_TO_HUMANOID,
+}
+
+const _mob_size_to_stat_map: Dictionary = {
+	Mob.Size.MASS: Stat.MOD_DMG_TO_MASS,
+	Mob.Size.NORMAL: Stat.MOD_DMG_TO_NORMAL,
+	Mob.Size.CHAMPION: Stat.MOD_DMG_TO_CHAMPION,
+	Mob.Size.BOSS: Stat.MOD_DMG_TO_BOSS,
+}
 
 var _attack_type: String
 var _ingame_name: String
@@ -48,6 +91,17 @@ var _stat_map: Dictionary = {
 	Stat.CRIT_CHANCE: 0.0,
 	Stat.MOD_ATK_CRIT_DAMAGE: 0.0,
 	Stat.MISS_CHANCE: 0.0,
+
+	Stat.MOD_DMG_TO_MASS: 0.0,
+	Stat.MOD_DMG_TO_NORMAL: 0.0,
+	Stat.MOD_DMG_TO_CHAMPION: 0.0,
+	Stat.MOD_DMG_TO_BOSS: 0.0,
+
+	Stat.MOD_DMG_TO_UNDEAD: 0.0,
+	Stat.MOD_DMG_TO_MAGIC: 0.0,
+	Stat.MOD_DMG_TO_NATURE: 0.0,
+	Stat.MOD_DMG_TO_ORC: 0.0,
+	Stat.MOD_DMG_TO_HUMANOID: 0.0,
 }
 
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
@@ -317,13 +371,14 @@ func _on_damage(_event: Event):
 	pass
 
 
-func _modify_property(modification_type: int, value: float):
-	match modification_type:
-		Modification.Type.MOD_ATTACK_CRIT_CHANCE:
-			var current_crit_chance: float = _stat_map[Stat.CRIT_CHANCE]
-			var new_crit_chance: float = current_crit_chance + value
+func _modify_property(modification_type: int, modification_value: float):
+	var can_modify_stat: bool = _modification_type_to_stat_map.has(modification_type)
 
-			_stat_map[Stat.CRIT_CHANCE] = new_crit_chance
+	if can_modify_stat:
+		var stat: int = _modification_type_to_stat_map[modification_type]
+		var current_value: float = _stat_map[stat]
+		var new_value: float = current_value + modification_value
+		_stat_map[stat] = new_value
 
 
 func _get_bounded_chance(chance: float) -> float:
@@ -332,7 +387,7 @@ func _get_bounded_chance(chance: float) -> float:
 	return bounded_chance
 
 
-func _get_crit_mod() -> float:
+func _get_damage_mod_from_crit() -> float:
 	var is_critical: bool = _get_stat_chance(Stat.CRIT_CHANCE)
 
 	if is_critical:
@@ -344,9 +399,36 @@ func _get_crit_mod() -> float:
 		return 1.0
 
 
-func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
-	var crit_mod: float = _get_crit_mod()
+func _get_damage_mod_for_mob_type(mob: Mob) -> float:
+	var mob_type: int = mob.get_type()
+	var stat_for_type: int = _mob_type_to_stat_map[mob_type]
+	var stat_value: float = _stat_map[stat_for_type]
 
-	var damage: float = damage_base * crit_mod
+	return stat_value
+
+
+func _get_damage_mod_for_mob_size(mob: Mob) -> float:
+	var mob_size: int = mob.get_size()
+	var stat_for_size: int = _mob_size_to_stat_map[mob_size]
+	var stat_value: float = _stat_map[stat_for_size]
+
+	return stat_value
+
+
+func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
+	var damage: float = damage_base
+	
+	var damage_mod_list: Array = [
+		_get_damage_mod_for_mob_size(mob),
+		_get_damage_mod_for_mob_type(mob),
+		_get_damage_mod_from_crit(),
+	]
+
+#	NOTE: clamp at 0.0 to prevent damage from turning
+#	negative
+	for damage_mod in damage_mod_list:
+		damage *= max(0.0, (1.0 + damage_mod))
+	
+	print(damage)
 
 	return damage
