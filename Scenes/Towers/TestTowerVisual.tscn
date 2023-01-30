@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/Towers/castle_towerPurpleBase_N.png" type="Texture" id=2]
+
+[node name="TestTowerVisual" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -108 )
+texture = ExtResource( 2 )
