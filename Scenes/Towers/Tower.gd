@@ -252,16 +252,8 @@ func _do_splash_attack(splash_target: Mob, damage_base: float):
 # normal damage and splash attack and handle bonuses
 # incoming from spell scripts
 func _apply_damage_to_mob(mob: Mob, damage_base: float):
-	var damage_mod: float = 0.0
-	
-	var is_critical: bool = _get_stat_chance(Stat.CRIT_CHANCE)
-	if is_critical:
-		damage_mod += 1.0 + _stat_map[Stat.MOD_ATK_CRIT_DAMAGE]
-
-	var damage_modded: float = damage_base * damage_mod
-
 	var event: Event = Event.new()
-	event.damage = damage_modded
+	event.damage = _get_damage_to_mob(mob, damage_base)
 	event.target = mob
 
 	var on_damage_is_called: bool = _get_trigger_is_called(TriggerParameter.ON_DAMAGE_CHANCE, TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
@@ -338,3 +330,23 @@ func _get_bounded_chance(chance: float) -> float:
 	var bounded_chance: float = min(1.0, max(0.0, chance))
 
 	return bounded_chance
+
+
+func _get_crit_mod() -> float:
+	var is_critical: bool = _get_stat_chance(Stat.CRIT_CHANCE)
+
+	if is_critical:
+		var mod_attack_crit_damage: float =  _stat_map[Stat.MOD_ATK_CRIT_DAMAGE]
+		var crit_mod: float = 1.0 + mod_attack_crit_damage
+		
+		return crit_mod
+	else:
+		return 1.0
+
+
+func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
+	var crit_mod: float = _get_crit_mod()
+
+	var damage: float = damage_base * crit_mod
+
+	return damage
