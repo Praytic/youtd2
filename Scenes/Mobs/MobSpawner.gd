@@ -5,16 +5,18 @@ signal spawned(mob_name)
 signal progress_changed(progress_string)
 signal wave_ended(wave_index)
 
-onready var _timer: Timer = $Timer
-
 var _group_list: Array = []
 var _group_index: int = 0
 var _mob_index: int = 0
 var _mob_spawned_count: int = 0
 var _mob_total_count: int = 0
 
+onready var _timer: Timer = $Timer
+
+
 func _ready():
 	start(0)
+
 
 func start(wave_index: int):
 	var parsed_json = Properties.waves[wave_index]
