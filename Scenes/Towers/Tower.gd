@@ -15,6 +15,7 @@ enum Stat {
 	ATTACK_DAMAGE_MAX,
 	CRIT_CHANCE,
 	MOD_ATK_CRIT_DAMAGE,
+	MOD_MULTICRIT_COUNT,
 	MISS_CHANCE,
 
 	MOD_DMG_TO_MASS,
@@ -43,6 +44,7 @@ export(int) var next_tier_id
 # modifies.
 const _modification_type_to_stat_map: Dictionary = {
 	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Stat.MOD_ATK_CRIT_DAMAGE, 
+	Modification.Type.MOD_MULTICRIT_COUNT: Stat.MOD_MULTICRIT_COUNT, 
 
 	Modification.Type.MOD_DMG_TO_MASS: Stat.MOD_DMG_TO_MASS, 
 	Modification.Type.MOD_DMG_TO_NORMAL: Stat.MOD_DMG_TO_NORMAL, 
@@ -71,6 +73,11 @@ const _mob_size_to_stat_map: Dictionary = {
 	Mob.Size.BOSS: Stat.MOD_DMG_TO_BOSS,
 }
 
+# NOTE: crit damage default means the default bonus damage
+# from crits, so default value of 1.0 means +100%
+const CRIT_DAMAGE_DEFAULT: float = 1.0
+const MULTICRIT_COUNT_DEFAULT: int = 1
+
 var _attack_type: String
 var _ingame_name: String
 var _author: String
@@ -90,6 +97,7 @@ var _stat_map: Dictionary = {
 	Stat.ATTACK_DAMAGE_MAX: 0,
 	Stat.CRIT_CHANCE: 0.0,
 	Stat.MOD_ATK_CRIT_DAMAGE: 0.0,
+	Stat.MOD_MULTICRIT_COUNT: 0.0,
 	Stat.MISS_CHANCE: 0.0,
 
 	Stat.MOD_DMG_TO_MASS: 0.0,
@@ -323,9 +331,9 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 func _get_stat_chance(stat: int) -> bool:
 	var unbounded_chance: float = _stat_map[stat]
 	var chance: float = _get_bounded_chance(unbounded_chance)
-	var is_critical: bool = Utils.rand_chance(chance)
+	var chance_success: bool = Utils.rand_chance(chance)
 
-	return is_critical
+	return chance_success
 
 
 func _load_stats():
@@ -387,16 +395,28 @@ func _get_bounded_chance(chance: float) -> float:
 	return bounded_chance
 
 
-func _get_damage_mod_from_crit() -> float:
-	var is_critical: bool = _get_stat_chance(Stat.CRIT_CHANCE)
+func _get_crit_count() -> int:
+	var crit_count: int = 0
 
-	if is_critical:
-		var mod_attack_crit_damage: float =  _stat_map[Stat.MOD_ATK_CRIT_DAMAGE]
-		var crit_mod: float = 1.0 + mod_attack_crit_damage
-		
-		return crit_mod
-	else:
-		return 1.0
+	var mod_multicrit_count: int = int(_stat_map[Stat.MOD_MULTICRIT_COUNT])
+	var multicrit_count: int = int(max(0, MULTICRIT_COUNT_DEFAULT + mod_multicrit_count))
+
+	for i in range(multicrit_count):
+		var is_critical: bool = _get_stat_chance(Stat.CRIT_CHANCE)
+
+		if is_critical:
+			crit_count += 1
+		else:
+			break
+
+	return crit_count
+
+
+func _get_damage_mod_from_crit() -> float:
+	var mod_attack_crit_damage: float =  _stat_map[Stat.MOD_ATK_CRIT_DAMAGE]
+	var crit_mod: float = CRIT_DAMAGE_DEFAULT + mod_attack_crit_damage
+
+	return crit_mod
 
 
 func _get_damage_mod_for_mob_type(mob: Mob) -> float:
@@ -421,14 +441,19 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 	var damage_mod_list: Array = [
 		_get_damage_mod_for_mob_size(mob),
 		_get_damage_mod_for_mob_type(mob),
-		_get_damage_mod_from_crit(),
 	]
+
+# 	NOTE: crit count can go above 1 because of the multicrit
+# 	stat
+	var crit_count: int = _get_crit_count()
+	var crit_mod: float = _get_damage_mod_from_crit()
+
+	for i in range(crit_count):
+		damage_mod_list.append(crit_mod)
 
 #	NOTE: clamp at 0.0 to prevent damage from turning
 #	negative
 	for damage_mod in damage_mod_list:
 		damage *= max(0.0, (1.0 + damage_mod))
-	
-	print(damage)
 
 	return damage
