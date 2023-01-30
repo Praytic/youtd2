@@ -29,19 +29,19 @@ enum TriggerParameter {
 export(int) var id
 export(int) var next_tier_id
 
-var attack_type: String
-var ingame_name: String
-var author: String
-var rarity: String
-var element: String
-var trigger_parameters: Dictionary
-var splash: Dictionary
-var cost: float
-var description: String
-var target_mob: Mob = null
-var aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
-var projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
-var stat_map: Dictionary = {
+var _attack_type: String
+var _ingame_name: String
+var _author: String
+var _rarity: String
+var _element: String
+var _trigger_parameters: Dictionary
+var _splash: Dictionary
+var _cost: float
+var _description: String
+var _target_mob: Mob = null
+var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
+var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
+var _stat_map: Dictionary = {
 	Stat.ATTACK_RANGE: 0.0,
 	Stat.ATTACK_CD: 0.0,
 	Stat.ATTACK_DAMAGE_MIN: 0,
@@ -51,24 +51,24 @@ var stat_map: Dictionary = {
 	Stat.MISS_CHANCE: 0.0,
 }
 
-onready var game_scene: Node = get_tree().get_root().get_node("GameScene")
-onready var attack_cooldown_timer: Timer = $AttackCooldownTimer
-onready var targeting_area: Area2D = $TargetingArea
+onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
+onready var _attack_cooldown_timer: Timer = $AttackCooldownTimer
+onready var _targeting_area: Area2D = $TargetingArea
 
 
 func _ready():
-	add_child(aoe_scene.instance(), true)
+	add_child(_aoe_scene.instance(), true)
 	
 	var properties: Dictionary = _get_properties()
-	attack_type = properties["attack_type"]
-	ingame_name = properties["name"]
-	author = properties["author"]
-	rarity = properties["rarity"]
-	element = properties["element"]
-	splash = properties["splash"]
-	cost = properties["cost"]
-	description = properties["description"]
-	trigger_parameters = properties["trigger_parameters"]
+	_attack_type = properties["attack_type"]
+	_ingame_name = properties["name"]
+	_author = properties["author"]
+	_rarity = properties["rarity"]
+	_element = properties["element"]
+	_splash = properties["splash"]
+	_cost = properties["cost"]
+	_description = properties["description"]
+	_trigger_parameters = properties["trigger_parameters"]
 	
 	var specials_modifier: Modifier = _get_specials_modifier()
 
@@ -80,48 +80,48 @@ func _ready():
 # 	NOTE: iterate over keys in properties not stat_map[
 # 	because map in properties may not define all keys
 	for stat in base_stats.keys():
-		stat_map[stat] = base_stats[stat]
+		_stat_map[stat] = base_stats[stat]
 
-	load_stats()
+	_load_stats()
 
 	$AreaOfEffect.hide()
 
-	attack_cooldown_timer.connect("timeout", self, "_on_AttackCooldownTimer_timeout")
-	attack_cooldown_timer.one_shot = true
+	_attack_cooldown_timer.connect("timeout", self, "_on_AttackCooldownTimer_timeout")
+	_attack_cooldown_timer.one_shot = true
 
-	targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
-	targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
+	_targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
+	_targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
 
 
 func _on_AttackCooldownTimer_timeout():
-	if !have_target():
-		target_mob = find_new_target()
+	if !_have_target():
+		_target_mob = _find_new_target()
 		
-	try_to_attack()
+	_try_to_attack()
 
 
 func _on_TargetingArea_body_entered(body):
-	if have_target():
+	if _have_target():
 		return
 		
 	if body is Mob:
 #		New target acquired
-		target_mob = body
-		try_to_attack()
+		_target_mob = body
+		_try_to_attack()
 
 
 func _on_TargetingArea_body_exited(body):
-	if body == target_mob:
+	if body == _target_mob:
 #		Target has gone out of range
-		target_mob = find_new_target()
-		try_to_attack()
+		_target_mob = _find_new_target()
+		_try_to_attack()
 
 
 # Find a target that is currently in range
 # TODO: prioritizing closest mob here, but maybe change behavior
 # based on tower properties or other game design considerations
-func find_new_target() -> Mob:
-	var body_list: Array = targeting_area.get_overlapping_bodies()
+func _find_new_target() -> Mob:
+	var body_list: Array = _targeting_area.get_overlapping_bodies()
 	var closest_mob: Mob = null
 	var distance_min: float = 1000000.0
 	
@@ -137,39 +137,39 @@ func find_new_target() -> Mob:
 	return closest_mob
 
 
-func try_to_attack():
+func _try_to_attack():
 	if building_in_progress:
 		return
 
-	if !have_target():
+	if !_have_target():
 		return
 	
-	var attack_on_cooldown: bool = attack_cooldown_timer.time_left > 0
+	var attack_on_cooldown: bool = _attack_cooldown_timer.time_left > 0
 	
 	if attack_on_cooldown:
 		return
 
 	var event: Event = Event.new()
-	event.target = target_mob
+	event.target = _target_mob
 
-	var on_attack_is_called: bool = get_trigger_is_called(TriggerParameter.ON_ATTACK_CHANCE, TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
+	var on_attack_is_called: bool = _get_trigger_is_called(TriggerParameter.ON_ATTACK_CHANCE, TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
 		_on_attack(event)
 
 	if event.can_attack:
-		var projectile = projectile_scene.instance()
-		projectile.init(target_mob, global_position)
-		projectile.connect("reached_mob", self, "on_projectile_reached_mob")
-		game_scene.call_deferred("add_child", projectile)
+		var projectile = _projectile_scene.instance()
+		projectile.init(_target_mob, global_position)
+		projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
+		_game_scene.call_deferred("add_child", projectile)
 
-	attack_cooldown_timer.start()
+	_attack_cooldown_timer.start()
 
 
-func have_target() -> bool:
+func _have_target() -> bool:
 #	NOTE: have to check validity because mobs can get killed by other towers
 #	which free's them and makes them invalid
-	return target_mob != null and is_instance_valid(target_mob)
+	return _target_mob != null and is_instance_valid(_target_mob)
 
 
 func build_init():
@@ -193,26 +193,26 @@ func upgrade() -> PackedScene:
 	return next_tier_tower
 
 
-func on_projectile_reached_mob(mob: Mob):
-	var is_miss: bool = get_stat_chance(Stat.MISS_CHANCE)
+func _on_projectile_reached_mob(mob: Mob):
+	var is_miss: bool = _get_stat_chance(Stat.MISS_CHANCE)
 
 	if is_miss:
 		return
 
-	var damage_base: float = get_rand_damage_base()
+	var damage_base: float = _get_rand_damage_base()
 
 #	NOTE: apply event's damage, so that any changes done by
 #	scripts in _on_damage() apply
-	apply_damage_to_mob(mob, damage_base)
-	do_splash_attack(mob, damage_base)
+	_apply_damage_to_mob(mob, damage_base)
+	_do_splash_attack(mob, damage_base)
 
 
-func do_splash_attack(splash_target: Mob, damage_base: float):
-	if splash.empty():
+func _do_splash_attack(splash_target: Mob, damage_base: float):
+	if _splash.empty():
 		return
 
 	var splash_pos: Vector2 = splash_target.position
-	var splash_range_list: Array = splash.keys()
+	var splash_range_list: Array = _splash.keys()
 	
 #	Process splash ranges from closest to furthers,
 #	so that strongest damage is applied
@@ -231,9 +231,9 @@ func do_splash_attack(splash_target: Mob, damage_base: float):
 			var mob_is_in_range: bool = distance < splash_range
 
 			if mob_is_in_range:
-				var splash_damage_ratio: float = splash[splash_range]
+				var splash_damage_ratio: float = _splash[splash_range]
 				var splash_damage: float = damage_base * splash_damage_ratio
-				apply_damage_to_mob(mob, splash_damage)
+				_apply_damage_to_mob(mob, splash_damage)
 
 				break
 
@@ -241,12 +241,12 @@ func do_splash_attack(splash_target: Mob, damage_base: float):
 # TODO: need to handle application of all bonuses, for both
 # normal damage and splash attack and handle bonuses
 # incoming from spell scripts
-func apply_damage_to_mob(mob: Mob, damage_base: float):
+func _apply_damage_to_mob(mob: Mob, damage_base: float):
 	var damage_mod: float = 0.0
 	
-	var is_critical: bool = get_stat_chance(Stat.CRIT_CHANCE)
+	var is_critical: bool = _get_stat_chance(Stat.CRIT_CHANCE)
 	if is_critical:
-		damage_mod += stat_map[Stat.CRIT_BONUS]
+		damage_mod += _stat_map[Stat.CRIT_BONUS]
 
 	var damage_modded: float = damage_base + damage_mod
 
@@ -254,7 +254,7 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 	event.damage = damage_modded
 	event.target = mob
 
-	var on_damage_is_called: bool = get_trigger_is_called(TriggerParameter.ON_DAMAGE_CHANCE, TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
+	var on_damage_is_called: bool = _get_trigger_is_called(TriggerParameter.ON_DAMAGE_CHANCE, TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
 	if on_damage_is_called:
 		_on_damage(event)
@@ -264,8 +264,8 @@ func apply_damage_to_mob(mob: Mob, damage_base: float):
 	mob.apply_damage(event.damage)
 
 
-func get_stat_chance(stat: int) -> bool:
-	var unbounded_chance: float = stat_map[stat]
+func _get_stat_chance(stat: int) -> bool:
+	var unbounded_chance: float = _stat_map[stat]
 	var chance: float = _get_bounded_chance(unbounded_chance)
 	var is_critical: bool = Utils.rand_chance(chance)
 
@@ -276,30 +276,30 @@ func change_level(new_level: int):
 	set_level(new_level)
 
 # 	NOTE: stats could've change due to level up so re-load them
-	load_stats()
+	_load_stats()
 
 
-func load_stats():
-	var cast_range: float = stat_map[Stat.ATTACK_RANGE]
+func _load_stats():
+	var cast_range: float = _stat_map[Stat.ATTACK_RANGE]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 	$AreaOfEffect.set_radius(cast_range)
 
-	var attack_cd: float = stat_map[Stat.ATTACK_CD]
-	attack_cooldown_timer.wait_time = attack_cd
+	var attack_cd: float = _stat_map[Stat.ATTACK_CD]
+	_attack_cooldown_timer.wait_time = attack_cd
 
 
 # NOTE: returns random damage within range without any mods applied
-func get_rand_damage_base() -> float:
-	var damage_min: float = stat_map[Stat.ATTACK_DAMAGE_MIN]
-	var damage_max: float = stat_map[Stat.ATTACK_DAMAGE_MAX]
+func _get_rand_damage_base() -> float:
+	var damage_min: float = _stat_map[Stat.ATTACK_DAMAGE_MIN]
+	var damage_max: float = _stat_map[Stat.ATTACK_DAMAGE_MAX]
 	var damage: float = rand_range(damage_min, damage_max)
 
 	return damage
 
 
-func get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
-	var chance_base: float = trigger_parameters[trigger_chance]
-	var chance_per_level: float = trigger_parameters[trigger_chance_level_add]
+func _get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
+	var chance_base: float = _trigger_parameters[trigger_chance]
+	var chance_per_level: float = _trigger_parameters[trigger_chance_level_add]
 	var chance: float = chance_base + chance_per_level * get_level()
 	var trigger_is_called: bool = Utils.rand_chance(chance)
 
@@ -325,10 +325,10 @@ func _on_damage(_event: Event):
 func _modify_property(modification_type: int, value: float):
 	match modification_type:
 		Modification.Type.MOD_ATTACK_CRIT_CHANCE:
-			var current_crit_chance: float = stat_map[Stat.CRIT_CHANCE]
+			var current_crit_chance: float = _stat_map[Stat.CRIT_CHANCE]
 			var new_crit_chance: float = current_crit_chance + value
 
-			stat_map[Stat.CRIT_CHANCE] = new_crit_chance
+			_stat_map[Stat.CRIT_CHANCE] = new_crit_chance
 
 
 func _get_bounded_chance(chance: float) -> float:

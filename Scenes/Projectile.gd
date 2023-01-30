@@ -6,20 +6,18 @@ extends KinematicBody2D
 
 signal reached_mob(mob)
 
-onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("MobYSort")
-
-var target_mob: Mob = null
-export var speed: int = 100
-export var contact_distance: int = 30
+var _target_mob: Mob = null
+const SPEED: int = 1000
+const CONTACT_DISTANCE: int = 30
 
 
-func init(target_mob_arg: Mob, tower_position: Vector2):
-	target_mob = target_mob_arg
+func init(target_mob: Mob, tower_position: Vector2):
+	_target_mob = target_mob
 	position = tower_position
 
 
 func _have_target() -> bool:
-	return target_mob != null and is_instance_valid(target_mob)
+	return _target_mob != null and is_instance_valid(_target_mob)
 
 
 func _process(delta):
@@ -28,13 +26,13 @@ func _process(delta):
 		return
 	
 #	Move towards mob
-	var target_pos = target_mob.position
+	var target_pos = _target_mob.position
 	var pos_diff = target_pos - position
-	var move_vector = speed * pos_diff.normalized() * delta
+	var move_vector = SPEED * pos_diff.normalized() * delta
 	position += move_vector
 
-	var reached_mob = pos_diff.length() < contact_distance
+	var reached_mob = pos_diff.length() < CONTACT_DISTANCE
 
 	if reached_mob:
-		emit_signal("reached_mob", target_mob)
+		emit_signal("reached_mob", _target_mob)
 		queue_free()
