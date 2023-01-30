@@ -4,7 +4,11 @@ extends Node
 
 enum Type {
 # For mobs:
+	
+#	0.01 = +1%
 	MOD_MOVE_SPEED,
+#	1.0 = +1
+	MOD_MOVE_SPEED_ABSOLUTE,
 
 # For towers:
 	MOD_ATTACK_CRIT_CHANCE,
