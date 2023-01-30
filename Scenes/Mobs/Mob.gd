@@ -110,5 +110,6 @@ func _get_mob_animation() -> String:
 func _modify_property(modification_type: int, value: float):
 	match modification_type:
 		Modification.Type.MOD_MOVE_SPEED:
-			# var modification_value: float = modification.value_base * value_modifier
+			_mob_move_speed = _mob_move_speed * (1.0 + value)
+		Modification.Type.MOD_MOVE_SPEED_ABSOLUTE:
 			_mob_move_speed = _mob_move_speed + value
