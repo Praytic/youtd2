@@ -6,10 +6,10 @@ signal moved(delta)
 signal dead
 
 
-export var health_max: int = 100
-export var health: int = 100
-export var default_mob_move_speed: int = 500
-var mob_move_speed: int
+export var health_max: float = 100.0
+export var health: float = 100.0
+export var default_mob_move_speed: float = 500.0
+var mob_move_speed: float
 
 
 var path_curve: Curve2D
@@ -77,7 +77,7 @@ func die():
 func apply_damage(damage: float):
 	health -= damage
 
-	$HealthBar.set_as_ratio(float(health) / float(health_max))
+	$HealthBar.set_as_ratio(health / health_max)
 
 	if health < 0:
 		die()
