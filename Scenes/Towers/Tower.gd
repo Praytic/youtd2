@@ -258,7 +258,7 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 	if is_critical:
 		damage_mod += 1.0 + _stat_map[Stat.MOD_ATK_CRIT_DAMAGE]
 
-	var damage_modded: float = damage_base + damage_mod
+	var damage_modded: float = damage_base * damage_mod
 
 	var event: Event = Event.new()
 	event.damage = damage_modded
