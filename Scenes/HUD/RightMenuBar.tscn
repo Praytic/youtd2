@@ -83,4 +83,5 @@ margin_right = 128.0
 margin_bottom = 350.0
 text = "Build"
 
+[connection signal="item_selected" from="VBoxContainer/TowerOptionButton" to="VBoxContainer/TowerOptionButton" method="_on_TowerOptionButton_item_selected"]
 [connection signal="pressed" from="VBoxContainer/BuildSelectedTowerButton" to="." method="_on_BuildSelectedTowerButton_pressed"]

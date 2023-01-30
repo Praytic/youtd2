@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Tower
 
 
 func _get_properties() -> Dictionary:
