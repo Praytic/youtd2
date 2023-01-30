@@ -14,7 +14,7 @@ enum Stat {
 	ATTACK_DAMAGE_MIN,
 	ATTACK_DAMAGE_MAX,
 	CRIT_CHANCE,
-	CRIT_BONUS,
+	MOD_ATK_CRIT_DAMAGE,
 	MISS_CHANCE,
 }
 
@@ -46,7 +46,7 @@ var _stat_map: Dictionary = {
 	Stat.ATTACK_DAMAGE_MIN: 0,
 	Stat.ATTACK_DAMAGE_MAX: 0,
 	Stat.CRIT_CHANCE: 0.0,
-	Stat.CRIT_BONUS: 1.0,
+	Stat.MOD_ATK_CRIT_DAMAGE: 0.0,
 	Stat.MISS_CHANCE: 0.0,
 }
 
@@ -256,7 +256,7 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 	
 	var is_critical: bool = _get_stat_chance(Stat.CRIT_CHANCE)
 	if is_critical:
-		damage_mod += _stat_map[Stat.CRIT_BONUS]
+		damage_mod += 1.0 + _stat_map[Stat.MOD_ATK_CRIT_DAMAGE]
 
 	var damage_modded: float = damage_base + damage_mod
 
