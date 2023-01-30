@@ -1,9 +1,26 @@
 class_name Mob
 extends Unit
 
+# TODO: is AIR part of Mob.Size? or should it be a separate
+# enum IsAir { YES, NO }?
 
 signal moved(delta)
 signal dead
+
+enum Size {
+	MASS,
+	NORMAL,
+	CHAMPION,
+	BOSS,
+}
+
+enum Type {
+	UNDEAD,
+	MAGIC,
+	NATURE,
+	ORC,
+	HUMANOID,
+}
 
 const HEALTH_MAX: float = 100.0
 const DEFAULT_MOB_MOVE_SPEED: float = 500.0
@@ -12,6 +29,8 @@ var _health: float = 100.0
 var _mob_move_speed: float
 var _path_curve: Curve2D
 var _current_path_index: int = 0
+var _size: int = Size.NORMAL
+var _type: int = Type.HUMANOID
 
 onready var _sprite = $Sprite
 
@@ -40,6 +59,14 @@ func _process(delta):
 		
 		var mob_animation: String = _get_mob_animation()
 		_sprite.play(mob_animation)
+
+
+func get_size() -> int:
+	return _size
+
+
+func get_type() -> int:
+	return _type
 
 
 func set_path(path: Path2D):
