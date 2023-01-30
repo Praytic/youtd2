@@ -14,7 +14,7 @@ func _on_Button_pressed():
 
 
 func _unhandled_input(event):
-	if event.is_action_released("ui_cancel") or event.is_action_released("ui_accept"):
+	if event.is_action_released("ui_cancel"):
 		hide()
 
 
