@@ -290,9 +290,9 @@ func load_stats():
 
 # NOTE: returns random damage within range without any mods applied
 func get_rand_damage_base() -> float:
-	var damage_min: int = stat_map[Stat.ATTACK_DAMAGE_MIN]
-	var damage_max: int = stat_map[Stat.ATTACK_DAMAGE_MAX]
-	var damage: float = float(Utils.randi_range(damage_min, damage_max))
+	var damage_min: float = stat_map[Stat.ATTACK_DAMAGE_MIN]
+	var damage_max: float = stat_map[Stat.ATTACK_DAMAGE_MAX]
+	var damage: float = rand_range(damage_min, damage_max)
 
 	return damage
 
