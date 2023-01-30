@@ -23,7 +23,8 @@ enum Type {
 }
 
 const HEALTH_MAX: float = 100.0
-const DEFAULT_MOB_MOVE_SPEED: float = 500.0
+const MOB_MOVE_SPEED_MIN: float = 100.0
+const MOB_MOVE_SPEED_MAX: float = 500.0
 
 var _health: float = 100.0
 var _mob_move_speed: float
@@ -36,12 +37,12 @@ onready var _sprite = $Sprite
 
 
 func _ready():
-	_mob_move_speed = DEFAULT_MOB_MOVE_SPEED
+	_mob_move_speed = MOB_MOVE_SPEED_MAX
 
 
 func _process(delta):
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
-	var move_speed: float = max(0, _mob_move_speed)
+	var move_speed: float = min(MOB_MOVE_SPEED_MAX, max(MOB_MOVE_SPEED_MIN, _mob_move_speed))
 	position = position.move_toward(path_point, move_speed * delta)
 	emit_signal("moved", delta)
 	
