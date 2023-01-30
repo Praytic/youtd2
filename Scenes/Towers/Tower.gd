@@ -92,6 +92,10 @@ func _ready():
 	_targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
 
 
+func get_name() -> String:
+	return _ingame_name
+
+
 func build_init():
 	.build_init()
 	$AreaOfEffect.show()
