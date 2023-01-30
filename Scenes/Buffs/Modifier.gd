@@ -5,8 +5,8 @@ extends Node
 # undo apply of such modifications on a unit.
 
 
-var _modification_list: Array = []
 var level: int = 0
+var _modification_list: Array = []
 
 
 func add_modification(modification_type: int, value_base: float, level_add: float):

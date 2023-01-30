@@ -10,7 +10,6 @@ enum Type {
 	MOD_ATTACK_CRIT_CHANCE,
 }
 
-
 var type: int
 var value_base: float
 var level_add: float

@@ -47,6 +47,19 @@ func set_path(path: Path2D):
 	position = _path_curve.get_point_position(0)
 
 
+func die():
+	emit_signal("dead")
+	queue_free()
+
+
+func apply_damage(damage: float):
+	_health -= damage
+
+	$HealthBar.set_as_ratio(_health / HEALTH_MAX)
+
+	if _health < 0:
+		die()
+
 func _get_mob_animation() -> String:
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
 	var move_direction: Vector2 = path_point - position
@@ -65,19 +78,6 @@ func _get_mob_animation() -> String:
 		return "run_n"
 	else:
 		return "stand"
-
-func die():
-	emit_signal("dead")
-	queue_free()
-
-
-func apply_damage(damage: float):
-	_health -= damage
-
-	$HealthBar.set_as_ratio(_health / HEALTH_MAX)
-
-	if _health < 0:
-		die()
 
 
 func _modify_property(modification_type: int, value: float):
