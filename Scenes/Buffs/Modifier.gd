@@ -5,7 +5,7 @@ extends Node
 # undo apply of such modifications on a unit.
 
 
-var _modification_list: Array = [] setget , get_modification_list
+var _modification_list: Array = []
 var level: int = 0
 
 
