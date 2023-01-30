@@ -8,6 +8,7 @@ enum Type {
 
 # For towers:
 	MOD_ATTACK_CRIT_CHANCE,
+	MOD_MULTICRIT_COUNT,
 
 	MOD_DMG_TO_MASS,
 	MOD_DMG_TO_NORMAL,
