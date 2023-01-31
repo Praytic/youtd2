@@ -82,13 +82,6 @@ const _mob_size_to_property_map: Dictionary = {
 	Mob.Size.BOSS: Property.DMG_TO_BOSS,
 }
 
-# NOTE: crit damage default means the default bonus damage
-# from crits, so default value of 1.0 means +100%
-const ATTACK_CRIT_DAMAGE_DEFAULT: float = 1.0
-const ATTACK_CRIT_CHANCE_DEFAULT: float = 0.0
-const ATTACK_MISS_CHANCE_DEFAULT: float = 0.0
-const MULTICRIT_COUNT_DEFAULT: int = 1
-
 var _attack_type: String
 var _ingame_name: String
 var _author: String
@@ -117,8 +110,10 @@ var _properties: Dictionary = {
 	Property.ATTACK_DAMAGE_MIN: 0,
 	Property.ATTACK_DAMAGE_MAX: 0,
 	Property.ATTACK_CRIT_CHANCE: 0.0,
-	Property.ATTACK_CRIT_DAMAGE: 0.0,
-	Property.MULTICRIT_COUNT: 0.0,
+# NOTE: crit damage default means the default bonus damage
+# from crits, so default value of 1.0 means +100%
+	Property.ATTACK_CRIT_DAMAGE: 1.0,
+	Property.MULTICRIT_COUNT: 1.0,
 	Property.ATTACK_MISS_CHANCE: 0.0,
 
 	Property.DMG_TO_MASS: 0.0,
@@ -285,7 +280,7 @@ func _unselect():
 
 
 func _on_projectile_reached_mob(mob: Mob):
-	var attack_miss_chance: float = ATTACK_MISS_CHANCE_DEFAULT + _properties[Property.ATTACK_MISS_CHANCE]
+	var attack_miss_chance: float = _properties[Property.ATTACK_MISS_CHANCE]
 	var is_miss: bool = Utils.rand_chance(attack_miss_chance)
 
 	if is_miss:
@@ -404,10 +399,10 @@ func _modify_property(modification_type: int, modification_value: float):
 func _get_crit_count() -> int:
 	var crit_count: int = 0
 
-	var multicrit_count: int = int(max(0, MULTICRIT_COUNT_DEFAULT + _properties[Property.MULTICRIT_COUNT]))
+	var multicrit_count: int = int(max(0, _properties[Property.MULTICRIT_COUNT]))
 
 	for _i in range(multicrit_count):
-		var attack_crit_chance: float = ATTACK_CRIT_CHANCE_DEFAULT + _properties[Property.ATTACK_CRIT_CHANCE]
+		var attack_crit_chance: float = _properties[Property.ATTACK_CRIT_CHANCE]
 		var is_critical: bool = Utils.rand_chance(attack_crit_chance)
 
 		if is_critical:
@@ -416,12 +411,6 @@ func _get_crit_count() -> int:
 			break
 
 	return crit_count
-
-
-func _get_damage_mod_from_crit() -> float:
-	var crit_mod: float = ATTACK_CRIT_DAMAGE_DEFAULT + _properties[Property.ATTACK_CRIT_DAMAGE]
-
-	return crit_mod
 
 
 func _get_damage_mod_for_mob_type(mob: Mob) -> float:
@@ -451,7 +440,7 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 # 	NOTE: crit count can go above 1 because of the multicrit
 # 	property
 	var crit_count: int = _get_crit_count()
-	var crit_mod: float = _get_damage_mod_from_crit()
+	var crit_mod: float = _properties[Property.ATTACK_CRIT_DAMAGE]
 
 	for _i in range(crit_count):
 		damage_mod_list.append(crit_mod)
