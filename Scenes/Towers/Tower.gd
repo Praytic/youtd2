@@ -83,7 +83,6 @@ var _ingame_name: String
 var _author: String
 var _rarity: String
 var _element: String
-var _trigger_parameters: Dictionary
 var _splash: Dictionary
 var _cost: float
 var _description: String
@@ -111,6 +110,13 @@ var _stat_map: Dictionary = {
 	Stat.MOD_DMG_TO_ORC: 0.0,
 	Stat.MOD_DMG_TO_HUMANOID: 0.0,
 }
+var _trigger_parameters: Dictionary = {
+	TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
+	TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
+	TriggerParameter.ON_ATTACK_CHANCE: 1.0,
+	TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
+}
+
 
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var _attack_cooldown_timer: Timer = $AttackCooldownTimer
@@ -129,19 +135,24 @@ func _ready():
 	_splash = properties["splash"]
 	_cost = properties["cost"]
 	_description = properties["description"]
-	_trigger_parameters = properties["trigger_parameters"]
 	
 	var specials_modifier: Modifier = _get_specials_modifier()
 
 	if specials_modifier != null:
 		add_modifier(specials_modifier)
 
+# 	NOTE: dicts for stats and trigger parameters may omit
+# 	keys for convenience, so need to iterate over keys in
+# 	properties to avoid triggering "invalid key" error
 	var base_stats: Dictionary = properties["base_stats"]
 	
-# 	NOTE: iterate over keys in properties not stat_map[
-# 	because map in properties may not define all keys
 	for stat in base_stats.keys():
 		_stat_map[stat] = base_stats[stat]
+
+	var trigger_parameters = properties["trigger_parameters"]
+
+	for parameter in trigger_parameters.keys():
+		_trigger_parameters[parameter] = trigger_parameters[parameter]
 
 	_load_stats()
 
