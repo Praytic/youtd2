@@ -4,6 +4,7 @@ extends Node
 var preloaded_towers: Dictionary
 const towers_dir: String = "res://Scenes/Towers/Instances"
 var _tower_name_to_id_map: Dictionary = {}
+var _tower_id_to_name_map: Dictionary = {}
 # var tower_props: Dictionary
 
 
@@ -28,6 +29,7 @@ func _init():
 		preloaded_towers[tower_id] = tower_scene
 
 		_tower_name_to_id_map[tower_name] = tower_id
+		_tower_id_to_name_map[tower_id] = tower_name
 	
 	# # Change the key of the tower_props dict to ID instead of Filename
 	# for key in tower_props_flattened:
@@ -53,6 +55,16 @@ func get_tower_id(tower_name: String) -> int:
 	var tower_id: int = _tower_name_to_id_map[tower_name]
 
 	return tower_id
+
+
+func get_tower_name(tower_id: int) -> String:
+	var tower_name: String = _tower_id_to_name_map[tower_id]
+
+	return tower_name
+
+
+func get_tower_id_list() -> Array:
+	return _tower_id_to_name_map.keys()
 
 
 # Merge JSON props with references to other JSON props into one
