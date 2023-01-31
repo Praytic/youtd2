@@ -13,8 +13,8 @@ enum Stat {
 	ATTACK_CD,
 	ATTACK_DAMAGE_MIN,
 	ATTACK_DAMAGE_MAX,
-	MOD_ATK_CRIT_CHANCE,
-	MOD_ATK_CRIT_DAMAGE,
+	MOD_ATTACK_CRIT_CHANCE,
+	MOD_ATTACK_CRIT_DAMAGE,
 	MOD_MULTICRIT_COUNT,
 	MISS_CHANCE,
 
@@ -43,7 +43,7 @@ export(int) var next_tier_id
 # Mapping of modification type to the tower stat that it
 # modifies.
 const _modification_type_to_stat_map: Dictionary = {
-	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Stat.MOD_ATK_CRIT_CHANCE, 
+	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Stat.MOD_ATTACK_CRIT_CHANCE, 
 	Modification.Type.MOD_MULTICRIT_COUNT: Stat.MOD_MULTICRIT_COUNT, 
 
 	Modification.Type.MOD_DMG_TO_MASS: Stat.MOD_DMG_TO_MASS, 
@@ -95,8 +95,8 @@ var _stat_map: Dictionary = {
 	Stat.ATTACK_CD: 0.0,
 	Stat.ATTACK_DAMAGE_MIN: 0,
 	Stat.ATTACK_DAMAGE_MAX: 0,
-	Stat.MOD_ATK_CRIT_CHANCE: 0.0,
-	Stat.MOD_ATK_CRIT_DAMAGE: 0.0,
+	Stat.MOD_ATTACK_CRIT_CHANCE: 0.0,
+	Stat.MOD_ATTACK_CRIT_DAMAGE: 0.0,
 	Stat.MOD_MULTICRIT_COUNT: 0.0,
 	Stat.MISS_CHANCE: 0.0,
 
@@ -414,7 +414,7 @@ func _get_crit_count() -> int:
 	var multicrit_count: int = int(max(0, MULTICRIT_COUNT_DEFAULT + mod_multicrit_count))
 
 	for i in range(multicrit_count):
-		var mod_attack_crit_chance: float = _stat_map[Stat.MOD_ATK_CRIT_CHANCE]
+		var mod_attack_crit_chance: float = _stat_map[Stat.MOD_ATTACK_CRIT_CHANCE]
 		var crit_chance: float = CRIT_CHANCE_DEFAULT + mod_attack_crit_chance
 		var bounded_crit_chance: float = _get_bounded_chance(crit_chance)
 		var is_critical: bool = Utils.rand_chance(bounded_crit_chance)
@@ -428,7 +428,7 @@ func _get_crit_count() -> int:
 
 
 func _get_damage_mod_from_crit() -> float:
-	var mod_attack_crit_damage: float =  _stat_map[Stat.MOD_ATK_CRIT_DAMAGE]
+	var mod_attack_crit_damage: float =  _stat_map[Stat.MOD_ATTACK_CRIT_DAMAGE]
 	var crit_mod: float = CRIT_DAMAGE_DEFAULT + mod_attack_crit_damage
 
 	return crit_mod
