@@ -8,7 +8,7 @@ extends Building
 
 signal upgraded
 
-enum Stat {
+enum Property {
 	ID,
 	NAME,
 	FAMILY_ID,
@@ -49,37 +49,37 @@ enum Stat {
 export(int) var id
 export(int) var next_tier_id
 
-# Mapping of modification type to the tower stat that it
+# Mapping of modification type to the tower property that it
 # modifies.
-const _modification_type_to_stat_map: Dictionary = {
-	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Stat.MOD_ATTACK_CRIT_CHANCE, 
-	Modification.Type.MOD_MULTICRIT_COUNT: Stat.MOD_MULTICRIT_COUNT, 
+const _modification_type_to_property_map: Dictionary = {
+	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Property.MOD_ATTACK_CRIT_CHANCE, 
+	Modification.Type.MOD_MULTICRIT_COUNT: Property.MOD_MULTICRIT_COUNT, 
 
-	Modification.Type.MOD_DMG_TO_MASS: Stat.MOD_DMG_TO_MASS, 
-	Modification.Type.MOD_DMG_TO_NORMAL: Stat.MOD_DMG_TO_NORMAL, 
-	Modification.Type.MOD_DMG_TO_CHAMPION: Stat.MOD_DMG_TO_CHAMPION, 
-	Modification.Type.MOD_DMG_TO_BOSS: Stat.MOD_DMG_TO_BOSS, 
+	Modification.Type.MOD_DMG_TO_MASS: Property.MOD_DMG_TO_MASS, 
+	Modification.Type.MOD_DMG_TO_NORMAL: Property.MOD_DMG_TO_NORMAL, 
+	Modification.Type.MOD_DMG_TO_CHAMPION: Property.MOD_DMG_TO_CHAMPION, 
+	Modification.Type.MOD_DMG_TO_BOSS: Property.MOD_DMG_TO_BOSS, 
 
-	Modification.Type.MOD_DMG_TO_UNDEAD: Stat.MOD_DMG_TO_UNDEAD, 
-	Modification.Type.MOD_DMG_TO_MAGIC: Stat.MOD_DMG_TO_MAGIC, 
-	Modification.Type.MOD_DMG_TO_NATURE: Stat.MOD_DMG_TO_NATURE, 
-	Modification.Type.MOD_DMG_TO_ORC: Stat.MOD_DMG_TO_ORC, 
-	Modification.Type.MOD_DMG_TO_HUMANOID: Stat.MOD_DMG_TO_HUMANOID, 
+	Modification.Type.MOD_DMG_TO_UNDEAD: Property.MOD_DMG_TO_UNDEAD, 
+	Modification.Type.MOD_DMG_TO_MAGIC: Property.MOD_DMG_TO_MAGIC, 
+	Modification.Type.MOD_DMG_TO_NATURE: Property.MOD_DMG_TO_NATURE, 
+	Modification.Type.MOD_DMG_TO_ORC: Property.MOD_DMG_TO_ORC, 
+	Modification.Type.MOD_DMG_TO_HUMANOID: Property.MOD_DMG_TO_HUMANOID, 
 }
 
-const _mob_type_to_stat_map: Dictionary = {
-	Mob.Type.UNDEAD: Stat.MOD_DMG_TO_MASS,
-	Mob.Type.MAGIC: Stat.MOD_DMG_TO_MAGIC,
-	Mob.Type.NATURE: Stat.MOD_DMG_TO_NATURE,
-	Mob.Type.ORC: Stat.MOD_DMG_TO_ORC,
-	Mob.Type.HUMANOID: Stat.MOD_DMG_TO_HUMANOID,
+const _mob_type_to_property_map: Dictionary = {
+	Mob.Type.UNDEAD: Property.MOD_DMG_TO_MASS,
+	Mob.Type.MAGIC: Property.MOD_DMG_TO_MAGIC,
+	Mob.Type.NATURE: Property.MOD_DMG_TO_NATURE,
+	Mob.Type.ORC: Property.MOD_DMG_TO_ORC,
+	Mob.Type.HUMANOID: Property.MOD_DMG_TO_HUMANOID,
 }
 
-const _mob_size_to_stat_map: Dictionary = {
-	Mob.Size.MASS: Stat.MOD_DMG_TO_MASS,
-	Mob.Size.NORMAL: Stat.MOD_DMG_TO_NORMAL,
-	Mob.Size.CHAMPION: Stat.MOD_DMG_TO_CHAMPION,
-	Mob.Size.BOSS: Stat.MOD_DMG_TO_BOSS,
+const _mob_size_to_property_map: Dictionary = {
+	Mob.Size.MASS: Property.MOD_DMG_TO_MASS,
+	Mob.Size.NORMAL: Property.MOD_DMG_TO_NORMAL,
+	Mob.Size.CHAMPION: Property.MOD_DMG_TO_CHAMPION,
+	Mob.Size.BOSS: Property.MOD_DMG_TO_BOSS,
 }
 
 # NOTE: crit damage default means the default bonus damage
@@ -100,42 +100,42 @@ var _description: String
 var _target_mob: Mob = null
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
-var _stat_map: Dictionary = {
-	Stat.ID: 0,
-	Stat.NAME: "unknown",
-	Stat.FAMILY_ID: 0,
-	Stat.AUTHOR: "unknown",
-	Stat.RARITY: "unknown",
-	Stat.ELEMENT: "unknown",
-	Stat.ATTACK_TYPE: "unknown",
-	Stat.COST: 0,
-	Stat.DESCRIPTION: "unknown",
-	Stat.SPLASH: {},
+var _properties: Dictionary = {
+	Property.ID: 0,
+	Property.NAME: "unknown",
+	Property.FAMILY_ID: 0,
+	Property.AUTHOR: "unknown",
+	Property.RARITY: "unknown",
+	Property.ELEMENT: "unknown",
+	Property.ATTACK_TYPE: "unknown",
+	Property.COST: 0,
+	Property.DESCRIPTION: "unknown",
+	Property.SPLASH: {},
 
-	Stat.ATTACK_RANGE: 0.0,
-	Stat.ATTACK_CD: 0.0,
-	Stat.ATTACK_DAMAGE_MIN: 0,
-	Stat.ATTACK_DAMAGE_MAX: 0,
-	Stat.MOD_ATTACK_CRIT_CHANCE: 0.0,
-	Stat.MOD_ATTACK_CRIT_DAMAGE: 0.0,
-	Stat.MOD_MULTICRIT_COUNT: 0.0,
-	Stat.MOD_ATTACK_MISS_CHANCE: 0.0,
+	Property.ATTACK_RANGE: 0.0,
+	Property.ATTACK_CD: 0.0,
+	Property.ATTACK_DAMAGE_MIN: 0,
+	Property.ATTACK_DAMAGE_MAX: 0,
+	Property.MOD_ATTACK_CRIT_CHANCE: 0.0,
+	Property.MOD_ATTACK_CRIT_DAMAGE: 0.0,
+	Property.MOD_MULTICRIT_COUNT: 0.0,
+	Property.MOD_ATTACK_MISS_CHANCE: 0.0,
 
-	Stat.MOD_DMG_TO_MASS: 0.0,
-	Stat.MOD_DMG_TO_NORMAL: 0.0,
-	Stat.MOD_DMG_TO_CHAMPION: 0.0,
-	Stat.MOD_DMG_TO_BOSS: 0.0,
+	Property.MOD_DMG_TO_MASS: 0.0,
+	Property.MOD_DMG_TO_NORMAL: 0.0,
+	Property.MOD_DMG_TO_CHAMPION: 0.0,
+	Property.MOD_DMG_TO_BOSS: 0.0,
 
-	Stat.MOD_DMG_TO_UNDEAD: 0.0,
-	Stat.MOD_DMG_TO_MAGIC: 0.0,
-	Stat.MOD_DMG_TO_NATURE: 0.0,
-	Stat.MOD_DMG_TO_ORC: 0.0,
-	Stat.MOD_DMG_TO_HUMANOID: 0.0,
+	Property.MOD_DMG_TO_UNDEAD: 0.0,
+	Property.MOD_DMG_TO_MAGIC: 0.0,
+	Property.MOD_DMG_TO_NATURE: 0.0,
+	Property.MOD_DMG_TO_ORC: 0.0,
+	Property.MOD_DMG_TO_HUMANOID: 0.0,
 
-	Stat.ON_DAMAGE_CHANCE: 1.0,
-	Stat.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-	Stat.ON_ATTACK_CHANCE: 1.0,
-	Stat.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
+	Property.ON_DAMAGE_CHANCE: 1.0,
+	Property.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
+	Property.ON_ATTACK_CHANCE: 1.0,
+	Property.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
 }
 
 
@@ -146,22 +146,22 @@ onready var _targeting_area: Area2D = $TargetingArea
 
 func _ready():
 	add_child(_aoe_scene.instance(), true)
-	
-	var properties: Dictionary = _get_properties()
-	
-	var specials_modifier: Modifier = _get_specials_modifier()
-
-	if specials_modifier != null:
-		add_modifier(specials_modifier)
 
 # 	NOTE: tower properties may omit keys for convenience, so
 # 	need to iterate over keys in properties to avoid
 # 	triggering "invalid key" error
 	
-	for stat in properties.keys():
-		_stat_map[stat] = properties[stat]
+	var base_properties: Dictionary = _get_base_properties()
 
-	_load_stats()
+	for property in base_properties.keys():
+		_properties[property] = base_properties[property]
+
+	var specials_modifier: Modifier = _get_specials_modifier()
+
+	if specials_modifier != null:
+		add_modifier(specials_modifier)
+
+	_apply_properties_to_scene_children()
 
 	$AreaOfEffect.hide()
 
@@ -190,8 +190,9 @@ func upgrade() -> PackedScene:
 func change_level(new_level: int):
 	set_level(new_level)
 
-# 	NOTE: stats could've change due to level up so re-load them
-	_load_stats()
+# 	NOTE: properties could've change due to level up so
+# 	re-apply them
+	_apply_properties_to_scene_children()
 
 
 func _on_AttackCooldownTimer_timeout():
@@ -253,7 +254,7 @@ func _try_to_attack():
 	var event: Event = Event.new()
 	event.target = _target_mob
 
-	var on_attack_is_called: bool = _get_trigger_is_called(Stat.ON_ATTACK_CHANCE, Stat.ON_ATTACK_CHANCE_LEVEL_ADD)
+	var on_attack_is_called: bool = _get_trigger_is_called(Property.ON_ATTACK_CHANCE, Property.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
 		_on_attack(event)
@@ -284,7 +285,7 @@ func _unselect():
 
 
 func _on_projectile_reached_mob(mob: Mob):
-	var mod_attack_miss_chance: float = _stat_map[Stat.MOD_ATTACK_MISS_CHANCE]
+	var mod_attack_miss_chance: float = _properties[Property.MOD_ATTACK_MISS_CHANCE]
 	var attack_miss_chance: float = ATTACK_MISS_CHANCE_DEFAULT + mod_attack_miss_chance
 	var is_miss: bool = Utils.rand_chance(attack_miss_chance)
 
@@ -338,7 +339,7 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 	event.damage = _get_damage_to_mob(mob, damage_base)
 	event.target = mob
 
-	var on_damage_is_called: bool = _get_trigger_is_called(Stat.ON_DAMAGE_CHANCE, Stat.ON_DAMAGE_CHANCE_LEVEL_ADD)
+	var on_damage_is_called: bool = _get_trigger_is_called(Property.ON_DAMAGE_CHANCE, Property.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
 	if on_damage_is_called:
 		_on_damage(event)
@@ -348,34 +349,34 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 	mob.apply_damage(event.damage)
 
 
-func _load_stats():
-	var cast_range: float = _stat_map[Stat.ATTACK_RANGE]
+func _apply_properties_to_scene_children():
+	var cast_range: float = _properties[Property.ATTACK_RANGE]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 	$AreaOfEffect.set_radius(cast_range)
 
-	var attack_cd: float = _stat_map[Stat.ATTACK_CD]
+	var attack_cd: float = _properties[Property.ATTACK_CD]
 	_attack_cooldown_timer.wait_time = attack_cd
 
 
 # NOTE: returns random damage within range without any mods applied
 func _get_rand_damage_base() -> float:
-	var damage_min: float = _stat_map[Stat.ATTACK_DAMAGE_MIN]
-	var damage_max: float = _stat_map[Stat.ATTACK_DAMAGE_MAX]
+	var damage_min: float = _properties[Property.ATTACK_DAMAGE_MIN]
+	var damage_max: float = _properties[Property.ATTACK_DAMAGE_MAX]
 	var damage: float = rand_range(damage_min, damage_max)
 
 	return damage
 
 
 func _get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
-	var chance_base: float = _stat_map[trigger_chance]
-	var chance_per_level: float = _stat_map[trigger_chance_level_add]
+	var chance_base: float = _properties[trigger_chance]
+	var chance_per_level: float = _properties[trigger_chance_level_add]
 	var chance: float = chance_base + chance_per_level * get_level()
 	var trigger_is_called: bool = Utils.rand_chance(chance)
 
 	return trigger_is_called
 
 
-func _get_properties() -> Dictionary:
+func _get_base_properties() -> Dictionary:
 	return {}
 
 
@@ -392,23 +393,23 @@ func _on_damage(_event: Event):
 
 
 func _modify_property(modification_type: int, modification_value: float):
-	var can_modify_stat: bool = _modification_type_to_stat_map.has(modification_type)
+	var can_modify: bool = _modification_type_to_property_map.has(modification_type)
 
-	if can_modify_stat:
-		var stat: int = _modification_type_to_stat_map[modification_type]
-		var current_value: float = _stat_map[stat]
+	if can_modify:
+		var property: int = _modification_type_to_property_map[modification_type]
+		var current_value: float = _properties[property]
 		var new_value: float = current_value + modification_value
-		_stat_map[stat] = new_value
+		_properties[property] = new_value
 
 
 func _get_crit_count() -> int:
 	var crit_count: int = 0
 
-	var mod_multicrit_count: int = int(_stat_map[Stat.MOD_MULTICRIT_COUNT])
+	var mod_multicrit_count: int = int(_properties[Property.MOD_MULTICRIT_COUNT])
 	var multicrit_count: int = int(max(0, MULTICRIT_COUNT_DEFAULT + mod_multicrit_count))
 
 	for _i in range(multicrit_count):
-		var mod_attack_crit_chance: float = _stat_map[Stat.MOD_ATTACK_CRIT_CHANCE]
+		var mod_attack_crit_chance: float = _properties[Property.MOD_ATTACK_CRIT_CHANCE]
 		var crit_chance: float = ATTACK_CRIT_CHANCE_DEFAULT + mod_attack_crit_chance
 		var is_critical: bool = Utils.rand_chance(crit_chance)
 
@@ -421,7 +422,7 @@ func _get_crit_count() -> int:
 
 
 func _get_damage_mod_from_crit() -> float:
-	var mod_attack_crit_damage: float =  _stat_map[Stat.MOD_ATTACK_CRIT_DAMAGE]
+	var mod_attack_crit_damage: float =  _properties[Property.MOD_ATTACK_CRIT_DAMAGE]
 	var crit_mod: float = ATTACK_CRIT_DAMAGE_DEFAULT + mod_attack_crit_damage
 
 	return crit_mod
@@ -429,18 +430,18 @@ func _get_damage_mod_from_crit() -> float:
 
 func _get_damage_mod_for_mob_type(mob: Mob) -> float:
 	var mob_type: int = mob.get_type()
-	var stat_for_type: int = _mob_type_to_stat_map[mob_type]
-	var stat_value: float = _stat_map[stat_for_type]
+	var property: int = _mob_type_to_property_map[mob_type]
+	var damage_mod: float = _properties[property]
 
-	return stat_value
+	return damage_mod
 
 
 func _get_damage_mod_for_mob_size(mob: Mob) -> float:
 	var mob_size: int = mob.get_size()
-	var stat_for_size: int = _mob_size_to_stat_map[mob_size]
-	var stat_value: float = _stat_map[stat_for_size]
+	var property: int = _mob_size_to_property_map[mob_size]
+	var damage_mod: float = _properties[property]
 
-	return stat_value
+	return damage_mod
 
 
 func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
@@ -452,7 +453,7 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 	]
 
 # 	NOTE: crit count can go above 1 because of the multicrit
-# 	stat
+# 	property
 	var crit_count: int = _get_crit_count()
 	var crit_mod: float = _get_damage_mod_from_crit()
 
