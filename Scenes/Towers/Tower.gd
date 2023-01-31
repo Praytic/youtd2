@@ -75,8 +75,8 @@ const _mob_size_to_stat_map: Dictionary = {
 
 # NOTE: crit damage default means the default bonus damage
 # from crits, so default value of 1.0 means +100%
-const CRIT_DAMAGE_DEFAULT: float = 1.0
-const CRIT_CHANCE_DEFAULT: float = 0.0
+const ATTACK_CRIT_DAMAGE_DEFAULT: float = 1.0
+const ATTACK_CRIT_CHANCE_DEFAULT: float = 0.0
 const ATTACK_MISS_CHANCE_DEFAULT: float = 0.0
 const MULTICRIT_COUNT_DEFAULT: int = 1
 
@@ -404,7 +404,7 @@ func _get_crit_count() -> int:
 
 	for i in range(multicrit_count):
 		var mod_attack_crit_chance: float = _stat_map[Stat.MOD_ATTACK_CRIT_CHANCE]
-		var crit_chance: float = CRIT_CHANCE_DEFAULT + mod_attack_crit_chance
+		var crit_chance: float = ATTACK_CRIT_CHANCE_DEFAULT + mod_attack_crit_chance
 		var is_critical: bool = Utils.rand_chance(crit_chance)
 
 		if is_critical:
@@ -417,7 +417,7 @@ func _get_crit_count() -> int:
 
 func _get_damage_mod_from_crit() -> float:
 	var mod_attack_crit_damage: float =  _stat_map[Stat.MOD_ATTACK_CRIT_DAMAGE]
-	var crit_mod: float = CRIT_DAMAGE_DEFAULT + mod_attack_crit_damage
+	var crit_mod: float = ATTACK_CRIT_DAMAGE_DEFAULT + mod_attack_crit_damage
 
 	return crit_mod
 
