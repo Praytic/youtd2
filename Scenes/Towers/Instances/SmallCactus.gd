@@ -1,28 +1,28 @@
 extends Tower
 
 
-func _get_properties() -> Dictionary:
+func _get_base_properties() -> Dictionary:
 	return {
-		Tower.Stat.ID: 41,
-		Tower.Stat.NAME: "Small Cactus",
-		Tower.Stat.FAMILY_ID: 41,
-		Tower.Stat.AUTHOR: "Lapsus",
-		Tower.Stat.RARITY: "common",
-		Tower.Stat.ELEMENT: "nature",
-		Tower.Stat.ATTACK_TYPE: "essence",
-		Tower.Stat.ATTACK_RANGE: 600.0,
-		Tower.Stat.ATTACK_CD: 1.0,
-		Tower.Stat.ATTACK_DAMAGE_MIN: 10,
-		Tower.Stat.ATTACK_DAMAGE_MAX: 20,
-		Tower.Stat.ON_DAMAGE_CHANCE: 1.0,
-		Tower.Stat.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-		Tower.Stat.ON_ATTACK_CHANCE: 1.0,
-		Tower.Stat.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
-		Tower.Stat.SPLASH: {
+		Tower.Property.ID: 41,
+		Tower.Property.NAME: "Small Cactus",
+		Tower.Property.FAMILY_ID: 41,
+		Tower.Property.AUTHOR: "Lapsus",
+		Tower.Property.RARITY: "common",
+		Tower.Property.ELEMENT: "nature",
+		Tower.Property.ATTACK_TYPE: "essence",
+		Tower.Property.ATTACK_RANGE: 600.0,
+		Tower.Property.ATTACK_CD: 1.0,
+		Tower.Property.ATTACK_DAMAGE_MIN: 10,
+		Tower.Property.ATTACK_DAMAGE_MAX: 20,
+		Tower.Property.ON_DAMAGE_CHANCE: 1.0,
+		Tower.Property.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
+		Tower.Property.ON_ATTACK_CHANCE: 1.0,
+		Tower.Property.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
+		Tower.Property.SPLASH: {
 			320: 0.5,
 		},
-		Tower.Stat.COST: 30,
-		Tower.Stat.DESCRIPTION: "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
+		Tower.Property.COST: 30,
+		Tower.Property.DESCRIPTION: "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
 	}
 
 func _get_specials_modifier() -> Modifier:
