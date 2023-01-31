@@ -24,21 +24,21 @@ enum Property {
 	ATTACK_CD,
 	ATTACK_DAMAGE_MIN,
 	ATTACK_DAMAGE_MAX,
-	MOD_ATTACK_CRIT_CHANCE,
-	MOD_ATTACK_CRIT_DAMAGE,
-	MOD_MULTICRIT_COUNT,
-	MOD_ATTACK_MISS_CHANCE,
+	ATTACK_CRIT_CHANCE,
+	ATTACK_CRIT_DAMAGE,
+	MULTICRIT_COUNT,
+	ATTACK_MISS_CHANCE,
 
-	MOD_DMG_TO_MASS,
-	MOD_DMG_TO_NORMAL,
-	MOD_DMG_TO_CHAMPION,
-	MOD_DMG_TO_BOSS,
+	DMG_TO_MASS,
+	DMG_TO_NORMAL,
+	DMG_TO_CHAMPION,
+	DMG_TO_BOSS,
 
-	MOD_DMG_TO_UNDEAD,
-	MOD_DMG_TO_MAGIC,
-	MOD_DMG_TO_NATURE,
-	MOD_DMG_TO_ORC,
-	MOD_DMG_TO_HUMANOID,
+	DMG_TO_UNDEAD,
+	DMG_TO_MAGIC,
+	DMG_TO_NATURE,
+	DMG_TO_ORC,
+	DMG_TO_HUMANOID,
 
 	ON_DAMAGE_CHANCE,
 	ON_DAMAGE_CHANCE_LEVEL_ADD,
@@ -52,34 +52,34 @@ export(int) var next_tier_id
 # Mapping of modification type to the tower property that it
 # modifies.
 const _modification_type_to_property_map: Dictionary = {
-	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Property.MOD_ATTACK_CRIT_CHANCE, 
-	Modification.Type.MOD_MULTICRIT_COUNT: Property.MOD_MULTICRIT_COUNT, 
+	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Property.ATTACK_CRIT_CHANCE, 
+	Modification.Type.MOD_MULTICRIT_COUNT: Property.MULTICRIT_COUNT, 
 
-	Modification.Type.MOD_DMG_TO_MASS: Property.MOD_DMG_TO_MASS, 
-	Modification.Type.MOD_DMG_TO_NORMAL: Property.MOD_DMG_TO_NORMAL, 
-	Modification.Type.MOD_DMG_TO_CHAMPION: Property.MOD_DMG_TO_CHAMPION, 
-	Modification.Type.MOD_DMG_TO_BOSS: Property.MOD_DMG_TO_BOSS, 
+	Modification.Type.MOD_DMG_TO_MASS: Property.DMG_TO_MASS, 
+	Modification.Type.MOD_DMG_TO_NORMAL: Property.DMG_TO_NORMAL, 
+	Modification.Type.MOD_DMG_TO_CHAMPION: Property.DMG_TO_CHAMPION, 
+	Modification.Type.MOD_DMG_TO_BOSS: Property.DMG_TO_BOSS, 
 
-	Modification.Type.MOD_DMG_TO_UNDEAD: Property.MOD_DMG_TO_UNDEAD, 
-	Modification.Type.MOD_DMG_TO_MAGIC: Property.MOD_DMG_TO_MAGIC, 
-	Modification.Type.MOD_DMG_TO_NATURE: Property.MOD_DMG_TO_NATURE, 
-	Modification.Type.MOD_DMG_TO_ORC: Property.MOD_DMG_TO_ORC, 
-	Modification.Type.MOD_DMG_TO_HUMANOID: Property.MOD_DMG_TO_HUMANOID, 
+	Modification.Type.MOD_DMG_TO_UNDEAD: Property.DMG_TO_UNDEAD, 
+	Modification.Type.MOD_DMG_TO_MAGIC: Property.DMG_TO_MAGIC, 
+	Modification.Type.MOD_DMG_TO_NATURE: Property.DMG_TO_NATURE, 
+	Modification.Type.MOD_DMG_TO_ORC: Property.DMG_TO_ORC, 
+	Modification.Type.MOD_DMG_TO_HUMANOID: Property.DMG_TO_HUMANOID, 
 }
 
 const _mob_type_to_property_map: Dictionary = {
-	Mob.Type.UNDEAD: Property.MOD_DMG_TO_MASS,
-	Mob.Type.MAGIC: Property.MOD_DMG_TO_MAGIC,
-	Mob.Type.NATURE: Property.MOD_DMG_TO_NATURE,
-	Mob.Type.ORC: Property.MOD_DMG_TO_ORC,
-	Mob.Type.HUMANOID: Property.MOD_DMG_TO_HUMANOID,
+	Mob.Type.UNDEAD: Property.DMG_TO_MASS,
+	Mob.Type.MAGIC: Property.DMG_TO_MAGIC,
+	Mob.Type.NATURE: Property.DMG_TO_NATURE,
+	Mob.Type.ORC: Property.DMG_TO_ORC,
+	Mob.Type.HUMANOID: Property.DMG_TO_HUMANOID,
 }
 
 const _mob_size_to_property_map: Dictionary = {
-	Mob.Size.MASS: Property.MOD_DMG_TO_MASS,
-	Mob.Size.NORMAL: Property.MOD_DMG_TO_NORMAL,
-	Mob.Size.CHAMPION: Property.MOD_DMG_TO_CHAMPION,
-	Mob.Size.BOSS: Property.MOD_DMG_TO_BOSS,
+	Mob.Size.MASS: Property.DMG_TO_MASS,
+	Mob.Size.NORMAL: Property.DMG_TO_NORMAL,
+	Mob.Size.CHAMPION: Property.DMG_TO_CHAMPION,
+	Mob.Size.BOSS: Property.DMG_TO_BOSS,
 }
 
 # NOTE: crit damage default means the default bonus damage
@@ -116,21 +116,21 @@ var _properties: Dictionary = {
 	Property.ATTACK_CD: 0.0,
 	Property.ATTACK_DAMAGE_MIN: 0,
 	Property.ATTACK_DAMAGE_MAX: 0,
-	Property.MOD_ATTACK_CRIT_CHANCE: 0.0,
-	Property.MOD_ATTACK_CRIT_DAMAGE: 0.0,
-	Property.MOD_MULTICRIT_COUNT: 0.0,
-	Property.MOD_ATTACK_MISS_CHANCE: 0.0,
+	Property.ATTACK_CRIT_CHANCE: 0.0,
+	Property.ATTACK_CRIT_DAMAGE: 0.0,
+	Property.MULTICRIT_COUNT: 0.0,
+	Property.ATTACK_MISS_CHANCE: 0.0,
 
-	Property.MOD_DMG_TO_MASS: 0.0,
-	Property.MOD_DMG_TO_NORMAL: 0.0,
-	Property.MOD_DMG_TO_CHAMPION: 0.0,
-	Property.MOD_DMG_TO_BOSS: 0.0,
+	Property.DMG_TO_MASS: 0.0,
+	Property.DMG_TO_NORMAL: 0.0,
+	Property.DMG_TO_CHAMPION: 0.0,
+	Property.DMG_TO_BOSS: 0.0,
 
-	Property.MOD_DMG_TO_UNDEAD: 0.0,
-	Property.MOD_DMG_TO_MAGIC: 0.0,
-	Property.MOD_DMG_TO_NATURE: 0.0,
-	Property.MOD_DMG_TO_ORC: 0.0,
-	Property.MOD_DMG_TO_HUMANOID: 0.0,
+	Property.DMG_TO_UNDEAD: 0.0,
+	Property.DMG_TO_MAGIC: 0.0,
+	Property.DMG_TO_NATURE: 0.0,
+	Property.DMG_TO_ORC: 0.0,
+	Property.DMG_TO_HUMANOID: 0.0,
 
 	Property.ON_DAMAGE_CHANCE: 1.0,
 	Property.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
@@ -285,8 +285,7 @@ func _unselect():
 
 
 func _on_projectile_reached_mob(mob: Mob):
-	var mod_attack_miss_chance: float = _properties[Property.MOD_ATTACK_MISS_CHANCE]
-	var attack_miss_chance: float = ATTACK_MISS_CHANCE_DEFAULT + mod_attack_miss_chance
+	var attack_miss_chance: float = ATTACK_MISS_CHANCE_DEFAULT + _properties[Property.ATTACK_MISS_CHANCE]
 	var is_miss: bool = Utils.rand_chance(attack_miss_chance)
 
 	if is_miss:
@@ -405,13 +404,11 @@ func _modify_property(modification_type: int, modification_value: float):
 func _get_crit_count() -> int:
 	var crit_count: int = 0
 
-	var mod_multicrit_count: int = int(_properties[Property.MOD_MULTICRIT_COUNT])
-	var multicrit_count: int = int(max(0, MULTICRIT_COUNT_DEFAULT + mod_multicrit_count))
+	var multicrit_count: int = int(max(0, MULTICRIT_COUNT_DEFAULT + _properties[Property.MULTICRIT_COUNT]))
 
 	for _i in range(multicrit_count):
-		var mod_attack_crit_chance: float = _properties[Property.MOD_ATTACK_CRIT_CHANCE]
-		var crit_chance: float = ATTACK_CRIT_CHANCE_DEFAULT + mod_attack_crit_chance
-		var is_critical: bool = Utils.rand_chance(crit_chance)
+		var attack_crit_chance: float = ATTACK_CRIT_CHANCE_DEFAULT + _properties[Property.ATTACK_CRIT_CHANCE]
+		var is_critical: bool = Utils.rand_chance(attack_crit_chance)
 
 		if is_critical:
 			crit_count += 1
@@ -422,8 +419,7 @@ func _get_crit_count() -> int:
 
 
 func _get_damage_mod_from_crit() -> float:
-	var mod_attack_crit_damage: float =  _properties[Property.MOD_ATTACK_CRIT_DAMAGE]
-	var crit_mod: float = ATTACK_CRIT_DAMAGE_DEFAULT + mod_attack_crit_damage
+	var crit_mod: float = ATTACK_CRIT_DAMAGE_DEFAULT + _properties[Property.ATTACK_CRIT_DAMAGE]
 
 	return crit_mod
 
