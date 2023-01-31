@@ -9,21 +9,39 @@ extends Building
 signal upgraded
 
 enum Property {
-	ID,
+#	Properties below should be defined for all
+#	towers in Tower._get_base_properties()
 	NAME,
+	ID,
 	FAMILY_ID,
 	AUTHOR,
 	RARITY,
 	ELEMENT,
 	ATTACK_TYPE,
-	COST,
-	DESCRIPTION,
-	SPLASH,
-
 	ATTACK_RANGE,
 	ATTACK_CD,
 	ATTACK_DAMAGE_MIN,
 	ATTACK_DAMAGE_MAX,
+	COST,
+	DESCRIPTION,
+
+# 	Splash is a dictionary mapping distance->damage ratio to
+# 	define how much splash damage the tower deals. For
+# 	example, a splash value of {100: 0.5, 300: 0.2} will
+# 	deal 50% splash damage to units within 100yd of target
+# 	and 20% to units within 300yd of target. This property
+# 	is optional.
+	SPLASH,
+
+#	Properties for tower triggers. Define these if you're
+#	using a particular tower trigger.
+	ON_DAMAGE_CHANCE,
+	ON_DAMAGE_CHANCE_LEVEL_ADD,
+	ON_ATTACK_CHANCE,
+	ON_ATTACK_CHANCE_LEVEL_ADD,
+
+#	These properties shouldn't be defined directly. Use a
+#	Modifier.
 	ATTACK_CRIT_CHANCE,
 	ATTACK_CRIT_DAMAGE,
 	MULTICRIT_COUNT,
@@ -39,11 +57,6 @@ enum Property {
 	DMG_TO_NATURE,
 	DMG_TO_ORC,
 	DMG_TO_HUMANOID,
-
-	ON_DAMAGE_CHANCE,
-	ON_DAMAGE_CHANCE_LEVEL_ADD,
-	ON_ATTACK_CHANCE,
-	ON_ATTACK_CHANCE_LEVEL_ADD,
 }
 
 export(int) var id
@@ -82,14 +95,6 @@ const _mob_size_to_property_map: Dictionary = {
 	Mob.Size.BOSS: Property.DMG_TO_BOSS,
 }
 
-var _attack_type: String
-var _ingame_name: String
-var _author: String
-var _rarity: String
-var _element: String
-var _splash: Dictionary = {}
-var _cost: float
-var _description: String
 var _target_mob: Mob = null
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
@@ -168,7 +173,7 @@ func _ready():
 
 
 func get_name() -> String:
-	return _ingame_name
+	return _properties[Property.NAME]
 
 
 func build_init():
@@ -295,11 +300,13 @@ func _on_projectile_reached_mob(mob: Mob):
 
 
 func _do_splash_attack(splash_target: Mob, damage_base: float):
-	if _splash.empty():
+	var splash: Dictionary = _properties[Property.SPLASH]
+
+	if splash.empty():
 		return
 
 	var splash_pos: Vector2 = splash_target.position
-	var splash_range_list: Array = _splash.keys()
+	var splash_range_list: Array = splash.keys()
 	
 #	Process splash ranges from closest to furthers,
 #	so that strongest damage is applied
@@ -318,7 +325,7 @@ func _do_splash_attack(splash_target: Mob, damage_base: float):
 			var mob_is_in_range: bool = distance < splash_range
 
 			if mob_is_in_range:
-				var splash_damage_ratio: float = _splash[splash_range]
+				var splash_damage_ratio: float = splash[splash_range]
 				var splash_damage: float = damage_base * splash_damage_ratio
 				_apply_damage_to_mob(mob, splash_damage)
 
