@@ -85,7 +85,7 @@ var _ingame_name: String
 var _author: String
 var _rarity: String
 var _element: String
-var _splash: Dictionary
+var _splash: Dictionary = {}
 var _cost: float
 var _description: String
 var _target_mob: Mob = null
@@ -134,9 +134,11 @@ func _ready():
 	_author = properties["author"]
 	_rarity = properties["rarity"]
 	_element = properties["element"]
-	_splash = properties["splash"]
 	_cost = properties["cost"]
 	_description = properties["description"]
+
+	if properties.has("splash"):
+		_splash = properties["splash"]
 	
 	var specials_modifier: Modifier = _get_specials_modifier()
 
@@ -151,10 +153,11 @@ func _ready():
 	for stat in base_stats.keys():
 		_stat_map[stat] = base_stats[stat]
 
-	var trigger_parameters = properties["trigger_parameters"]
+	if properties.has("trigger_parameters"):
+		var trigger_parameters = properties["trigger_parameters"]
 
-	for parameter in trigger_parameters.keys():
-		_trigger_parameters[parameter] = trigger_parameters[parameter]
+		for parameter in trigger_parameters.keys():
+			_trigger_parameters[parameter] = trigger_parameters[parameter]
 
 	_load_stats()
 
