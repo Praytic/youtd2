@@ -341,8 +341,7 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 
 
 func _get_stat_chance(stat: int) -> bool:
-	var unbounded_chance: float = _stat_map[stat]
-	var chance: float = _get_bounded_chance(unbounded_chance)
+	var chance: float = _stat_map[stat]
 	var chance_success: bool = Utils.rand_chance(chance)
 
 	return chance_success
@@ -401,12 +400,6 @@ func _modify_property(modification_type: int, modification_value: float):
 		_stat_map[stat] = new_value
 
 
-func _get_bounded_chance(chance: float) -> float:
-	var bounded_chance: float = min(1.0, max(0.0, chance))
-
-	return bounded_chance
-
-
 func _get_crit_count() -> int:
 	var crit_count: int = 0
 
@@ -416,8 +409,7 @@ func _get_crit_count() -> int:
 	for i in range(multicrit_count):
 		var mod_attack_crit_chance: float = _stat_map[Stat.MOD_ATTACK_CRIT_CHANCE]
 		var crit_chance: float = CRIT_CHANCE_DEFAULT + mod_attack_crit_chance
-		var bounded_crit_chance: float = _get_bounded_chance(crit_chance)
-		var is_critical: bool = Utils.rand_chance(bounded_crit_chance)
+		var is_critical: bool = Utils.rand_chance(crit_chance)
 
 		if is_critical:
 			crit_count += 1
