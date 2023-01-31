@@ -2,8 +2,10 @@ extends Node
 
 
 var preloaded_towers: Dictionary
-var towers_dir: String = "res://Scenes/Towers/Instances"
+const towers_dir: String = "res://Scenes/Towers/Instances"
+var _tower_name_to_id_map: Dictionary = {}
 # var tower_props: Dictionary
+
 
 
 func _init():
@@ -11,18 +13,46 @@ func _init():
 	# var tower_props_flattened = _flattened_properties()
 	
 	# Load all tower resources to dict and associate them with tower IDs
-	var regex = RegEx.new()
-	regex.compile("^(?!\\.).*\\.tscn$")
-	var tower_files = Utils.list_files_in_directory(towers_dir, regex)
-	for tower_file in tower_files:
-		var tower_template = load("%s/%s" % [towers_dir, tower_file])
-		var tower_name = tower_file.get_slice(".", 0)
-		var tower_id: int = Properties.tower_id_map[tower_name]
-		preloaded_towers[tower_id] = tower_template
+
+#	NOTE: yes, this is very hacky way to get id.
+#	Couldn't find a better solution without having to
+#	duplicate id's outside tower scripts
+	var tower_name_list: Array = get_tower_name_list()
+	
+	for tower_name in tower_name_list:
+		var tower_script: String = "%s/%s.tscn" % [towers_dir, tower_name]
+		var tower_scene: PackedScene = load(tower_script)
+		var tower_instance: Tower = tower_scene.instance()
+		var tower_id: int = tower_instance._get_properties()["id"]
+
+		preloaded_towers[tower_id] = tower_scene
+
+		_tower_name_to_id_map[tower_name] = tower_id
 	
 	# # Change the key of the tower_props dict to ID instead of Filename
 	# for key in tower_props_flattened:
 	# 	tower_props[tower_props_flattened[key].id] = tower_props_flattened[key]
+
+
+static func get_tower_name_list() -> Array:
+	var regex = RegEx.new()
+	regex.compile("^(?!\\.).*\\.tscn$")
+
+	var tower_script_list: Array = Utils.list_files_in_directory(towers_dir, regex)
+
+	var tower_name_list: Array = []
+
+	for tower_script in tower_script_list:
+		var tower_name: String = tower_script.trim_suffix(".tscn")
+		tower_name_list.append(tower_name)
+
+	return tower_name_list
+
+
+func get_tower_id(tower_name: String) -> int:
+	var tower_id: int = _tower_name_to_id_map[tower_name]
+
+	return tower_id
 
 
 # Merge JSON props with references to other JSON props into one
