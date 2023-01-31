@@ -6,10 +6,11 @@ const SETTINGS_PATH: String = "user://settings.cfg"
 
 
 func _ready():
-	var tower_name_list: Array = TowerManager.get_tower_name_list()
+	var tower_id_list: Array = TowerManager.get_tower_id_list()
+	tower_id_list.sort()
 
-	for tower_name in tower_name_list:
-		var tower_id: int = TowerManager.get_tower_id(tower_name)
+	for tower_id in tower_id_list:
+		var tower_name: String = TowerManager.get_tower_name(tower_id)
 		add_item(tower_name, tower_id)
 	
 	var saved_tower_id: int = _get_saved_tower_id()
