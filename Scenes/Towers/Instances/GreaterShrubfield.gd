@@ -3,8 +3,8 @@ extends Tower
 
 func _get_base_properties() -> Dictionary:
 	return {
-		Tower.Property.ID: 542,
 		Tower.Property.NAME: "Greater Shrubfield",
+		Tower.Property.ID: 542,
 		Tower.Property.FAMILY_ID: 1,
 		Tower.Property.AUTHOR: "gex",
 		Tower.Property.RARITY: "common",
