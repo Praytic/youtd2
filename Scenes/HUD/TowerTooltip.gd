@@ -9,7 +9,7 @@ func get_tower_properties(tower_id: int) -> Dictionary:
 	var tower_list: Dictionary = Properties.towers
 
 	for tower in tower_list.values():
-		var this_id = tower["id"]
+		var this_id = tower[Tower.Stat.ID]
 		
 		if this_id == tower_id:
 			return tower
@@ -22,11 +22,11 @@ func get_tower_tooltip_text(tower_id: int) -> String:
 
 	if !tower.empty():
 		return "" \
-			+ "Tower ID: %s\n" % tower["id"] \
-			+ "Element: %s\n" % tower["element"] \
-			+ "Attack type: %s\n" % tower["attack_type"] \
-			+ "Cost: %s\n" % tower["cost"] \
-			+ "Description: %s\n" % tower["description"] \
+			+ "Tower ID: %s\n" % tower[Tower.Stat.ID] \
+			+ "Element: %s\n" % tower[Tower.Stat.ELEMENT] \
+			+ "Attack type: %s\n" % tower[Tower.Stat.ATTACK_TYPE] \
+			+ "Cost: %s\n" % tower[Tower.Stat.COST] \
+			+ "Description: %s\n" % tower[Tower.Stat.DESCRIPTION] \
 			+ ""
 	else:
 		return "No data for tower id: %d" % tower_id

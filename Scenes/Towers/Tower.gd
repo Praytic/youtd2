@@ -9,6 +9,17 @@ extends Building
 signal upgraded
 
 enum Stat {
+	ID,
+	NAME,
+	FAMILY_ID,
+	AUTHOR,
+	RARITY,
+	ELEMENT,
+	ATTACK_TYPE,
+	COST,
+	DESCRIPTION,
+	SPLASH,
+
 	ATTACK_RANGE,
 	ATTACK_CD,
 	ATTACK_DAMAGE_MIN,
@@ -28,9 +39,7 @@ enum Stat {
 	MOD_DMG_TO_NATURE,
 	MOD_DMG_TO_ORC,
 	MOD_DMG_TO_HUMANOID,
-}
 
-enum TriggerParameter {
 	ON_DAMAGE_CHANCE,
 	ON_DAMAGE_CHANCE_LEVEL_ADD,
 	ON_ATTACK_CHANCE,
@@ -92,6 +101,17 @@ var _target_mob: Mob = null
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _stat_map: Dictionary = {
+	Stat.ID: 0,
+	Stat.NAME: "unknown",
+	Stat.FAMILY_ID: 0,
+	Stat.AUTHOR: "unknown",
+	Stat.RARITY: "unknown",
+	Stat.ELEMENT: "unknown",
+	Stat.ATTACK_TYPE: "unknown",
+	Stat.COST: 0,
+	Stat.DESCRIPTION: "unknown",
+	Stat.SPLASH: {},
+
 	Stat.ATTACK_RANGE: 0.0,
 	Stat.ATTACK_CD: 0.0,
 	Stat.ATTACK_DAMAGE_MIN: 0,
@@ -111,12 +131,11 @@ var _stat_map: Dictionary = {
 	Stat.MOD_DMG_TO_NATURE: 0.0,
 	Stat.MOD_DMG_TO_ORC: 0.0,
 	Stat.MOD_DMG_TO_HUMANOID: 0.0,
-}
-var _trigger_parameters: Dictionary = {
-	TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
-	TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-	TriggerParameter.ON_ATTACK_CHANCE: 1.0,
-	TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
+
+	Stat.ON_DAMAGE_CHANCE: 1.0,
+	Stat.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
+	Stat.ON_ATTACK_CHANCE: 1.0,
+	Stat.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
 }
 
 
@@ -129,35 +148,18 @@ func _ready():
 	add_child(_aoe_scene.instance(), true)
 	
 	var properties: Dictionary = _get_properties()
-	_attack_type = properties["attack_type"]
-	_ingame_name = properties["name"]
-	_author = properties["author"]
-	_rarity = properties["rarity"]
-	_element = properties["element"]
-	_cost = properties["cost"]
-	_description = properties["description"]
-
-	if properties.has("splash"):
-		_splash = properties["splash"]
 	
 	var specials_modifier: Modifier = _get_specials_modifier()
 
 	if specials_modifier != null:
 		add_modifier(specials_modifier)
 
-# 	NOTE: dicts for stats and trigger parameters may omit
-# 	keys for convenience, so need to iterate over keys in
-# 	properties to avoid triggering "invalid key" error
-	var base_stats: Dictionary = properties["base_stats"]
+# 	NOTE: tower properties may omit keys for convenience, so
+# 	need to iterate over keys in properties to avoid
+# 	triggering "invalid key" error
 	
-	for stat in base_stats.keys():
-		_stat_map[stat] = base_stats[stat]
-
-	if properties.has("trigger_parameters"):
-		var trigger_parameters = properties["trigger_parameters"]
-
-		for parameter in trigger_parameters.keys():
-			_trigger_parameters[parameter] = trigger_parameters[parameter]
+	for stat in properties.keys():
+		_stat_map[stat] = properties[stat]
 
 	_load_stats()
 
@@ -251,7 +253,7 @@ func _try_to_attack():
 	var event: Event = Event.new()
 	event.target = _target_mob
 
-	var on_attack_is_called: bool = _get_trigger_is_called(TriggerParameter.ON_ATTACK_CHANCE, TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD)
+	var on_attack_is_called: bool = _get_trigger_is_called(Stat.ON_ATTACK_CHANCE, Stat.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
 		_on_attack(event)
@@ -336,7 +338,7 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 	event.damage = _get_damage_to_mob(mob, damage_base)
 	event.target = mob
 
-	var on_damage_is_called: bool = _get_trigger_is_called(TriggerParameter.ON_DAMAGE_CHANCE, TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD)
+	var on_damage_is_called: bool = _get_trigger_is_called(Stat.ON_DAMAGE_CHANCE, Stat.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
 	if on_damage_is_called:
 		_on_damage(event)
@@ -365,8 +367,8 @@ func _get_rand_damage_base() -> float:
 
 
 func _get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
-	var chance_base: float = _trigger_parameters[trigger_chance]
-	var chance_per_level: float = _trigger_parameters[trigger_chance_level_add]
+	var chance_base: float = _stat_map[trigger_chance]
+	var chance_per_level: float = _stat_map[trigger_chance_level_add]
 	var chance: float = chance_base + chance_per_level * get_level()
 	var trigger_is_called: bool = Utils.rand_chance(chance)
 
