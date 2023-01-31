@@ -71,17 +71,3 @@ const tower_families = {
 # NOTE: these TODO's are talking about tower properties which are now located in tower scripts
 # TODO: Replace filenames with IDs when switching to Godot 4 with first-class functions
 # TODO: Think of the way to load tower properties without loading the Scene or GDScript 
-
-# TODO: this used to contain tower properties. Had to
-# redefine id here so TowerManager can use it. Figure out
-# what should be done with this. Maybe can use tower name
-# from script path instead of id?
-var tower_id_map: Dictionary = {
-	"TinyShrub": 1,
-	"Shrub": 439,
-	"GreaterShrub": 459,
-	"Shrubfield": 511,
-	"GreaterShrubfield": 542,
-	"XtremeShrubfield": 565,
-	"SmallCactus": 41,
-}
