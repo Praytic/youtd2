@@ -13,7 +13,7 @@ enum Stat {
 	ATTACK_CD,
 	ATTACK_DAMAGE_MIN,
 	ATTACK_DAMAGE_MAX,
-	CRIT_CHANCE,
+	MOD_ATK_CRIT_CHANCE,
 	MOD_ATK_CRIT_DAMAGE,
 	MOD_MULTICRIT_COUNT,
 	MISS_CHANCE,
@@ -43,7 +43,7 @@ export(int) var next_tier_id
 # Mapping of modification type to the tower stat that it
 # modifies.
 const _modification_type_to_stat_map: Dictionary = {
-	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Stat.MOD_ATK_CRIT_DAMAGE, 
+	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Stat.MOD_ATK_CRIT_CHANCE, 
 	Modification.Type.MOD_MULTICRIT_COUNT: Stat.MOD_MULTICRIT_COUNT, 
 
 	Modification.Type.MOD_DMG_TO_MASS: Stat.MOD_DMG_TO_MASS, 
@@ -76,6 +76,7 @@ const _mob_size_to_stat_map: Dictionary = {
 # NOTE: crit damage default means the default bonus damage
 # from crits, so default value of 1.0 means +100%
 const CRIT_DAMAGE_DEFAULT: float = 1.0
+const CRIT_CHANCE_DEFAULT: float = 0.0
 const MULTICRIT_COUNT_DEFAULT: int = 1
 
 var _attack_type: String
@@ -94,7 +95,7 @@ var _stat_map: Dictionary = {
 	Stat.ATTACK_CD: 0.0,
 	Stat.ATTACK_DAMAGE_MIN: 0,
 	Stat.ATTACK_DAMAGE_MAX: 0,
-	Stat.CRIT_CHANCE: 0.0,
+	Stat.MOD_ATK_CRIT_CHANCE: 0.0,
 	Stat.MOD_ATK_CRIT_DAMAGE: 0.0,
 	Stat.MOD_MULTICRIT_COUNT: 0.0,
 	Stat.MISS_CHANCE: 0.0,
@@ -413,7 +414,10 @@ func _get_crit_count() -> int:
 	var multicrit_count: int = int(max(0, MULTICRIT_COUNT_DEFAULT + mod_multicrit_count))
 
 	for i in range(multicrit_count):
-		var is_critical: bool = _get_stat_chance(Stat.CRIT_CHANCE)
+		var mod_attack_crit_chance: float = _stat_map[Stat.MOD_ATK_CRIT_CHANCE]
+		var crit_chance: float = CRIT_CHANCE_DEFAULT + mod_attack_crit_chance
+		var bounded_crit_chance: float = _get_bounded_chance(crit_chance)
+		var is_critical: bool = Utils.rand_chance(bounded_crit_chance)
 
 		if is_critical:
 			crit_count += 1
