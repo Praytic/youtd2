@@ -46,8 +46,9 @@ func randi_range(value_min: int, value_max: int):
 # Chance should be in range [0.0, 1.0]
 # To get chance for event with 10% occurence, call rand_chance(0.1)
 func rand_chance(chance: float) -> bool:
+	var clamped_chance: float = min(1.0, max(0.0, chance))
 	var random_float: float = randf()
-	var chance_success = random_float <= chance
+	var chance_success = random_float <= clamped_chance
 
 	return chance_success
 
