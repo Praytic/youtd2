@@ -60,6 +60,6 @@ func do_game_over():
 	$UI/HUD/GameOverLabel.visible = true
 
 
-func _on_MobSpawner_wave_ended(wave_index: int):
+func _on_MobSpawner_wave_ended(_wave_index: int):
 	GoldManager.add_gold()
 	KnowledgeTomesManager.add_knowledge_tomes()
