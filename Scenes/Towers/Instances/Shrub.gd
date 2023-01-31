@@ -1,6 +1,5 @@
 extends Tower
 
-# Skills go here
 
 func _get_properties() -> Dictionary:
 	return {
@@ -12,19 +11,19 @@ func _get_properties() -> Dictionary:
 		"element": "nature",
 		"attack_type": "physical",
 		"base_stats": {
-			Tower.Stat.ATTACK_RANGE: 600.0,
-			Tower.Stat.ATTACK_CD: 1.0,
-			Tower.Stat.ATTACK_DAMAGE_MIN: 10,
-			Tower.Stat.ATTACK_DAMAGE_MAX: 20,
+			Tower.Stat.ATTACK_RANGE: 840.0,
+			Tower.Stat.ATTACK_CD: 0.9,
+			Tower.Stat.ATTACK_DAMAGE_MIN: 113,
+			Tower.Stat.ATTACK_DAMAGE_MAX: 113,
 		},
-		"trigger_parameters": {
-			Tower.TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
-			Tower.TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-			Tower.TriggerParameter.ON_ATTACK_CHANCE: 1.0,
-			Tower.TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
-		},
-		"splash": {},
 		"cost": 140,
 		"description": "Common nature tower with an increased critical strike chance and damage.",
 	}
-	
+
+
+func _get_specials_modifier() -> Modifier:
+	var specials_modifier: Modifier = Modifier.new()
+	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_CRIT_CHANCE, 0.04, 0.003)
+	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_CRIT_DAMAGE, 1.4, 0.03)
+
+	return specials_modifier

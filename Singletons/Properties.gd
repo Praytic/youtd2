@@ -79,6 +79,9 @@ const tower_families = {
 var tower_id_map: Dictionary = {
 	"TinyShrub": 1,
 	"Shrub": 439,
-	"GreaterShrub": 511,
+	"GreaterShrub": 459,
+	"Shrubfield": 511,
+	"GreaterShrubfield": 542,
+	"XtremeShrubfield": 565,
 	"SmallCactus": 41,
 }
