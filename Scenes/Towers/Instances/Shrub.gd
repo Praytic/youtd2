@@ -3,21 +3,19 @@ extends Tower
 
 func _get_properties() -> Dictionary:
 	return {
-		"id": 439,
-		"name": "Shrub",
-		"family_id": 1,
-		"author": "gex",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "physical",
-		"base_stats": {
-			Tower.Stat.ATTACK_RANGE: 840.0,
-			Tower.Stat.ATTACK_CD: 0.9,
-			Tower.Stat.ATTACK_DAMAGE_MIN: 113,
-			Tower.Stat.ATTACK_DAMAGE_MAX: 113,
-		},
-		"cost": 140,
-		"description": "Common nature tower with an increased critical strike chance and damage.",
+		Tower.Stat.ID: 439,
+		Tower.Stat.NAME: "Shrub",
+		Tower.Stat.FAMILY_ID: 1,
+		Tower.Stat.AUTHOR: "gex",
+		Tower.Stat.RARITY: "common",
+		Tower.Stat.ELEMENT: "nature",
+		Tower.Stat.ATTACK_TYPE: "physical",
+		Tower.Stat.ATTACK_RANGE: 840.0,
+		Tower.Stat.ATTACK_CD: 0.9,
+		Tower.Stat.ATTACK_DAMAGE_MIN: 113,
+		Tower.Stat.ATTACK_DAMAGE_MAX: 113,
+		Tower.Stat.COST: 140,
+		Tower.Stat.DESCRIPTION: "Common nature tower with an increased critical strike chance and damage.",
 	}
 
 

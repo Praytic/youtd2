@@ -3,30 +3,26 @@ extends Tower
 
 func _get_properties() -> Dictionary:
 	return {
-		"id": 41,
-		"name": "Small Cactus",
-		"family_id": 41,
-		"author": "Lapsus",
-		"rarity": "common",
-		"element": "nature",
-		"attack_type": "essence",
-		"base_stats": {
-			Tower.Stat.ATTACK_RANGE: 600.0,
-			Tower.Stat.ATTACK_CD: 1.0,
-			Tower.Stat.ATTACK_DAMAGE_MIN: 10,
-			Tower.Stat.ATTACK_DAMAGE_MAX: 20,
-		},
-		"trigger_parameters": {
-			Tower.TriggerParameter.ON_DAMAGE_CHANCE: 1.0,
-			Tower.TriggerParameter.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-			Tower.TriggerParameter.ON_ATTACK_CHANCE: 1.0,
-			Tower.TriggerParameter.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
-		},
-		"splash": {
+		Tower.Stat.ID: 41,
+		Tower.Stat.NAME: "Small Cactus",
+		Tower.Stat.FAMILY_ID: 41,
+		Tower.Stat.AUTHOR: "Lapsus",
+		Tower.Stat.RARITY: "common",
+		Tower.Stat.ELEMENT: "nature",
+		Tower.Stat.ATTACK_TYPE: "essence",
+		Tower.Stat.ATTACK_RANGE: 600.0,
+		Tower.Stat.ATTACK_CD: 1.0,
+		Tower.Stat.ATTACK_DAMAGE_MIN: 10,
+		Tower.Stat.ATTACK_DAMAGE_MAX: 20,
+		Tower.Stat.ON_DAMAGE_CHANCE: 1.0,
+		Tower.Stat.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
+		Tower.Stat.ON_ATTACK_CHANCE: 1.0,
+		Tower.Stat.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
+		Tower.Stat.SPLASH: {
 			320: 0.5,
 		},
-		"cost": 30,
-		"description": "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
+		Tower.Stat.COST: 30,
+		Tower.Stat.DESCRIPTION: "A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.",
 	}
 
 func _get_specials_modifier() -> Modifier:
