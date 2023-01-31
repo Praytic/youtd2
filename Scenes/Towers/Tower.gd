@@ -16,7 +16,7 @@ enum Stat {
 	MOD_ATTACK_CRIT_CHANCE,
 	MOD_ATTACK_CRIT_DAMAGE,
 	MOD_MULTICRIT_COUNT,
-	MISS_CHANCE,
+	MOD_ATTACK_MISS_CHANCE,
 
 	MOD_DMG_TO_MASS,
 	MOD_DMG_TO_NORMAL,
@@ -77,6 +77,7 @@ const _mob_size_to_stat_map: Dictionary = {
 # from crits, so default value of 1.0 means +100%
 const CRIT_DAMAGE_DEFAULT: float = 1.0
 const CRIT_CHANCE_DEFAULT: float = 0.0
+const ATTACK_MISS_CHANCE_DEFAULT: float = 0.0
 const MULTICRIT_COUNT_DEFAULT: int = 1
 
 var _attack_type: String
@@ -98,7 +99,7 @@ var _stat_map: Dictionary = {
 	Stat.MOD_ATTACK_CRIT_CHANCE: 0.0,
 	Stat.MOD_ATTACK_CRIT_DAMAGE: 0.0,
 	Stat.MOD_MULTICRIT_COUNT: 0.0,
-	Stat.MISS_CHANCE: 0.0,
+	Stat.MOD_ATTACK_MISS_CHANCE: 0.0,
 
 	Stat.MOD_DMG_TO_MASS: 0.0,
 	Stat.MOD_DMG_TO_NORMAL: 0.0,
@@ -278,8 +279,9 @@ func _unselect():
 
 
 func _on_projectile_reached_mob(mob: Mob):
-	var miss_chance: float = _stat_map[Stat.MISS_CHANCE]
-	var is_miss: bool = Utils.rand_chance(miss_chance)
+	var mod_attack_miss_chance: float = _stat_map[Stat.MOD_ATTACK_MISS_CHANCE]
+	var attack_miss_chance: float = ATTACK_MISS_CHANCE_DEFAULT + mod_attack_miss_chance
+	var is_miss: bool = Utils.rand_chance(attack_miss_chance)
 
 	if is_miss:
 		return
