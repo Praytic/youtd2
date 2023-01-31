@@ -23,7 +23,7 @@ func _on_Camera_camera_moved(shift_vector):
 	_update_view_rect()
 
 
-func _on_Camera_camera_zoomed(zoom_value):
+func _on_Camera_camera_zoomed(_zoom_value):
 	_update_view_rect()
 
 func _update_view_rect():
@@ -39,16 +39,16 @@ func _update_view_rect():
 	camera_projection.update()
 
 
-func _on_MobYSort_child_entered_tree(mob):
+func _on_MobYSort_child_entered_tree(_mob):
 	pass
 #	mob.connect("moved", self, "_on_Mob_moved", [mob])
 
 
 func _on_MobYSort_child_exiting_tree(mob):
-	mob.disconnect("moved", self, "_on_Mob_moved")
+	# mob.disconnect("moved", self, "_on_Mob_moved")
 	mobs_projection.pos_dict.erase(mob)
 
 
-func _on_Mob_moved(delta, mob):
+func _on_Mob_moved(_delta, mob):
 	mobs_projection.pos_dict[mob] = mob.position * minimap_scale
 	mobs_projection.update()
