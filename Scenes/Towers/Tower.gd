@@ -278,7 +278,8 @@ func _unselect():
 
 
 func _on_projectile_reached_mob(mob: Mob):
-	var is_miss: bool = _get_stat_chance(Stat.MISS_CHANCE)
+	var miss_chance: float = _stat_map[Stat.MISS_CHANCE]
+	var is_miss: bool = Utils.rand_chance(miss_chance)
 
 	if is_miss:
 		return
@@ -338,13 +339,6 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 #	NOTE: apply event's damage, so that any changes done by
 #	scripts in _on_damage() apply
 	mob.apply_damage(event.damage)
-
-
-func _get_stat_chance(stat: int) -> bool:
-	var chance: float = _stat_map[stat]
-	var chance_success: bool = Utils.rand_chance(chance)
-
-	return chance_success
 
 
 func _load_stats():
