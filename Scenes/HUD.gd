@@ -46,7 +46,7 @@ func _on_GenericButton_mouse_exited():
 	$TowerTooltip.hide()
 
 
-func _on_Camera_camera_moved(direction):
+func _on_Camera_camera_moved(_direction):
 	$Hints.hide()
 
 

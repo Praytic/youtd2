@@ -405,7 +405,7 @@ func _get_crit_count() -> int:
 	var mod_multicrit_count: int = int(_stat_map[Stat.MOD_MULTICRIT_COUNT])
 	var multicrit_count: int = int(max(0, MULTICRIT_COUNT_DEFAULT + mod_multicrit_count))
 
-	for i in range(multicrit_count):
+	for _i in range(multicrit_count):
 		var mod_attack_crit_chance: float = _stat_map[Stat.MOD_ATTACK_CRIT_CHANCE]
 		var crit_chance: float = ATTACK_CRIT_CHANCE_DEFAULT + mod_attack_crit_chance
 		var is_critical: bool = Utils.rand_chance(crit_chance)
@@ -454,7 +454,7 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 	var crit_count: int = _get_crit_count()
 	var crit_mod: float = _get_damage_mod_from_crit()
 
-	for i in range(crit_count):
+	for _i in range(crit_count):
 		damage_mod_list.append(crit_mod)
 
 #	NOTE: clamp at 0.0 to prevent damage from turning
