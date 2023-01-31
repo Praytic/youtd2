@@ -24,7 +24,7 @@ func _init():
 		var tower_script: String = "%s/%s.tscn" % [towers_dir, tower_name]
 		var tower_scene: PackedScene = load(tower_script)
 		var tower_instance: Tower = tower_scene.instance()
-		var tower_id: int = tower_instance._get_properties()["id"]
+		var tower_id: int = tower_instance._get_properties()[Tower.Stat.ID]
 
 		preloaded_towers[tower_id] = tower_scene
 
