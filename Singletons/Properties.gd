@@ -59,38 +59,6 @@ const CsvColumn = {
 	COUNT = 13,
 }
 
-# TODO: for spells, effects and debuffs
-# 
-# Tower aura.
-# 
-# Periodic trigger function
-# 
-# Tower creation trigger function
-#
-# Killing blow trigger function
-#
-# Implement modifications:
-# experience gain, item chance, item quality, etc.
-# 
-# Increased dmg vs X type of mob. Implement mob types, tower
-# stats for dmg bonus to mob types and tower effects that
-# change those stats.
-#
-# Mob armor and modification for mob armor.
-# 
-# One tower shooting at two different targest at the same
-# time.
-#
-# Chain attack.
-#
-# Graphical effects for buffs and projectiles.
-# 
-# Mob immunity.
-
-
-# NOTE: these TODO's are talking about tower properties which are now located in tower scripts
-# TODO: Replace filenames with IDs when switching to Godot 4 with first-class functions
-# TODO: Think of the way to load tower properties without loading the Scene or GDScript 
 
 var _csv_properties: Dictionary = {}
 var _tower_filename_to_id_map: Dictionary = {}
