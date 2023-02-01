@@ -9,8 +9,8 @@ extends Building
 signal upgraded
 
 enum Property {
-#	Properties below should be defined for all
-#	towers in Tower._get_base_properties()
+#	Properties below should be defined in the .csv file
+	FILENAME,
 	NAME,
 	ID,
 	FAMILY_ID,
@@ -34,7 +34,8 @@ enum Property {
 	SPLASH,
 
 #	Properties for tower triggers. Define these if you're
-#	using a particular tower trigger.
+#	using a particular tower trigger. Define in
+#	_get_base_properties().
 	ON_DAMAGE_CHANCE,
 	ON_DAMAGE_CHANCE_LEVEL_ADD,
 	ON_ATTACK_CHANCE,
@@ -147,10 +148,25 @@ onready var _targeting_area: Area2D = $TargetingArea
 func _ready():
 	add_child(_aoe_scene.instance(), true)
 
+#	NOTE: Load properties from csv first, then load from
+#	subclass script to add additional values or override csv
+#	values
+	var script: Reference = get_script()
+	var script_file: String = script.get_path().get_file()
+	var script_filename: String = script_file.rstrip(".gd")
+
+	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(script_filename)
+
+	for property in csv_properties.keys():
+		_properties[property] = csv_properties[property]
+
 # 	NOTE: tower properties may omit keys for convenience, so
 # 	need to iterate over keys in properties to avoid
 # 	triggering "invalid key" error
 	
+	# Most properties should be defined in the .csv file.
+	# Override _get_base_properties() to define splash and
+	# trigger parameters.
 	var base_properties: Dictionary = _get_base_properties()
 
 	for property in base_properties.keys():
@@ -377,6 +393,9 @@ func _get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) 
 	return trigger_is_called
 
 
+# Most properties should be defined in the .csv file.
+# Override _get_base_properties() to define splash and
+# trigger parameters.
 func _get_base_properties() -> Dictionary:
 	return {}
 
