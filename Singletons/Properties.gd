@@ -1,45 +1,5 @@
 extends Node
 
-var waves = []
-
-func _init():
-	waves.resize(3)
-	for wave_index in range(0, 3):
-		var wave_file: File = File.new()
-		var wave_file_name = "res://Assets/Waves/wave%d.json" % wave_index
-		var open_error = wave_file.open(wave_file_name, File.READ)
-		
-		if open_error != OK:
-			push_error("Failed to open wave file at path: %s" % wave_file_name)
-			continue
-			
-		var wave_text: String = wave_file.get_as_text()
-		var parsed_json = JSON.parse(wave_text)
-		waves[wave_index] = parsed_json
-	
-	_load_csv_properties()
-
-
-const globals = {
-	"max_food": 99,
-	"ini_food": 55,
-	"max_gold": 999999,
-	"ini_gold": 70,
-	"max_income": 999999,
-	"ini_income": 10,
-	"max_knowledge_tomes": 999999,
-	"ini_knowledge_tomes": 90,
-	"max_knowledge_tomes_income": 999999,
-	"ini_knowledge_tomes_income": 8
-}
-const tower_families = {
-	1: {
-		"todo": "todo"
-	},
-	41: {
-		"todo": "todo"
-	}
-}
 
 const CsvColumn = {
 	FILENAME = 0,
@@ -59,9 +19,49 @@ const CsvColumn = {
 	COUNT = 13,
 }
 
+const globals = {
+	"max_food": 99,
+	"ini_food": 55,
+	"max_gold": 999999,
+	"ini_gold": 70,
+	"max_income": 999999,
+	"ini_income": 10,
+	"max_knowledge_tomes": 999999,
+	"ini_knowledge_tomes": 90,
+	"max_knowledge_tomes_income": 999999,
+	"ini_knowledge_tomes_income": 8
+}
 
+const tower_families = {
+	1: {
+		"todo": "todo"
+	},
+	41: {
+		"todo": "todo"
+	}
+}
+
+var waves = []
 var _csv_properties: Dictionary = {}
 var _tower_filename_to_id_map: Dictionary = {}
+
+
+func _init():
+	waves.resize(3)
+	for wave_index in range(0, 3):
+		var wave_file: File = File.new()
+		var wave_file_name = "res://Assets/Waves/wave%d.json" % wave_index
+		var open_error = wave_file.open(wave_file_name, File.READ)
+		
+		if open_error != OK:
+			push_error("Failed to open wave file at path: %s" % wave_file_name)
+			continue
+			
+		var wave_text: String = wave_file.get_as_text()
+		var parsed_json = JSON.parse(wave_text)
+		waves[wave_index] = parsed_json
+	
+	_load_csv_properties()
 
 
 func get_csv_properties(tower_id: int) -> Dictionary:
