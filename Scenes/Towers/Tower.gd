@@ -156,7 +156,7 @@ func _ready():
 #	values
 	var script: Reference = get_script()
 	var script_file: String = script.get_path().get_file()
-	var script_filename: String = script_file.rstrip(".gd")
+	var script_filename: String = script_file.trim_suffix(".gd")
 
 	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(script_filename)
 
