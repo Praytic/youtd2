@@ -1,6 +1,9 @@
 extends Control
 
 
+signal tower_built(tower_id)
+
+
 onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
 
 
@@ -37,7 +40,7 @@ func verify_and_build():
 		var new_tower = TowerManager.get_tower(tower_preview.tower_id)
 		new_tower.position = tower_preview.get_current_pos()
 		mob_ysort.add_child(new_tower, true)
-
+		emit_signal("tower_built", tower_preview.tower_id)
 		tower_preview.queue_free()
 
 

@@ -220,6 +220,10 @@ func get_name() -> String:
 	return _properties[Property.NAME]
 
 
+func get_id() -> int:
+	return _properties[Property.ID]
+
+
 func build_init():
 	.build_init()
 	$AreaOfEffect.show()

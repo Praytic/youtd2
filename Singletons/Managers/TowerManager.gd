@@ -49,3 +49,12 @@ func _init():
 func get_tower(id: int) -> PackedScene:
 	var tower = preloaded_towers[id].instance()
 	return tower
+
+
+func get_tower_properties(id: int) -> Dictionary:
+	return Properties.get_csv_properties(id)
+
+
+func get_tower_family_id(id: int) -> int:
+	var tower_properties: Dictionary = Properties.get_csv_properties(id)
+	return tower_properties[Tower.Property.FAMILY_ID]
