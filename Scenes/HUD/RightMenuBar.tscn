@@ -83,5 +83,8 @@ margin_right = 128.0
 margin_bottom = 350.0
 text = "Build"
 
+[connection signal="child_entered_tree" from="VBoxContainer/MarginContainer/BuildBar" to="." method="_on_BuildBar_child_entered_tree"]
+[connection signal="item_selected" from="VBoxContainer/TowerOptionButton" to="VBoxContainer/MarginContainer/BuildBar" method="_on_TowerOptionButton_item_selected"]
 [connection signal="item_selected" from="VBoxContainer/TowerOptionButton" to="VBoxContainer/TowerOptionButton" method="_on_TowerOptionButton_item_selected"]
+[connection signal="tower_selected" from="VBoxContainer/TowerOptionButton" to="VBoxContainer/MarginContainer/BuildBar" method="_on_TowerOptionButton_tower_selected"]
 [connection signal="pressed" from="VBoxContainer/BuildSelectedTowerButton" to="." method="_on_BuildSelectedTowerButton_pressed"]

@@ -1,5 +1,8 @@
 extends OptionButton
 
+
+signal tower_selected(tower_id)
+
 const HUD_SECTION: String = "hud"
 const SELECTED_TOWER: String = "selected_tower"
 const SETTINGS_PATH: String = "user://settings.cfg"
@@ -33,5 +36,6 @@ func _get_saved_tower_id() -> int:
 
 func _on_TowerOptionButton_item_selected(_index):
 	var config = ConfigFile.new()
-	config.set_value(Constants.SettingsSection.HUD, Constants.SettingsKey.SELECTED_TOWER, get_selected_id())
+	config.set_value(Constants.SettingsSection.HUD, Constants.SettingsKey.SELECTED_TOWER, get_item_id(_index))
 	config.save(SETTINGS_PATH)
+	emit_signal("tower_selected", get_item_id(_index))

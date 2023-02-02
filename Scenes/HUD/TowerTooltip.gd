@@ -5,20 +5,8 @@ func _ready():
 	pass # Replace with function body.
 
 
-func get_tower_properties(tower_id: int) -> Dictionary:
-	var tower_list: Dictionary = Properties.towers
-
-	for tower in tower_list.values():
-		var this_id = tower[Tower.Property.ID]
-		
-		if this_id == tower_id:
-			return tower
-	
-	return {}
-
-
 func get_tower_tooltip_text(tower_id: int) -> String:
-	var tower = get_tower_properties(tower_id)
+	var tower = TowerManager.get_tower_properties(tower_id)
 
 	if !tower.empty():
 		return "" \

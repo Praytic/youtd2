@@ -18,37 +18,33 @@ func _on_StopWaveButton_pressed():
 	emit_signal("stop_wave")
 
 
-func _on_MissleT1_mouse_entered():
-	_on_TowerButton_mouse_entered($RightMenuBar/MarginContainer/BuildBar/MissleT1)
-
-
-func _on_MissleT1_mouse_exited():
-	_on_GenericButton_mouse_exited()
-
-
-func _on_GunT1_mouse_entered():
-	_on_TowerButton_mouse_entered($RightMenuBar/MarginContainer/BuildBar/GunT1)
-
-
-func _on_GunT1_mouse_exited():
-	_on_GenericButton_mouse_exited()
-
-
-# TODO: connect button signals directly to the general entered/exited slots,
-# without using specific slots for each button.
-func _on_TowerButton_mouse_entered(tower_button):
-	var tower_id = tower_button.tower_id
-	$TowerTooltip.set_tower_id(tower_id)
-	$TowerTooltip.show()
-
-
-func _on_GenericButton_mouse_exited():
-	$TowerTooltip.hide()
-
-
 func _on_Camera_camera_moved(_direction):
 	$Hints.hide()
 
 
 func _on_Camera_camera_zoomed():
 	$Hints.hide()
+
+
+func _on_RightMenuBar_tower_info_requested(tower_id):
+	$TowerTooltip.set_tower_id(tower_id)
+	$TowerTooltip.show()
+
+
+func _on_RightMenuBar_tower_info_canceled():
+	$TowerTooltip.hide()
+
+
+func _on_MobYSort_child_entered_tree(node):
+	if node is Tower:
+		node.connect("selected", self, "_on_Tower_selected", [node])
+		node.connect("unselected", self, "_on_Tower_unselected")
+
+
+func _on_Tower_selected(tower_node):
+	$TowerTooltip.set_tower_id(tower_node.get_id())
+	$TowerTooltip.show()
+
+
+func _on_Tower_unselected():
+	$TowerTooltip.hide()

@@ -2,6 +2,9 @@ class_name Unit
 extends KinematicBody2D
 
 
+signal selected
+signal unselected
+
 # Unit implements application of buffs and modifications.
 
 # NOTE: can't use static typing for Buff because of cyclic
