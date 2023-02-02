@@ -33,7 +33,7 @@ func _unhandled_input(event):
 func _select():
 	$Selection.show()
 	is_selected = true
-#	emit_signal("")
+	emit_signal("selected")
 
 
 func _unselect():

@@ -49,15 +49,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Buffs/Slow.gd"
 }, {
-"base": "Node2D",
-"class": "TestTowerVisual",
-"language": "GDScript",
-"path": "res://Scenes/Towers/TestTowerVisual.gd"
-}, {
 "base": "Building",
 "class": "Tower",
 "language": "GDScript",
 "path": "res://Scenes/Towers/Tower.gd"
+}, {
+"base": "Button",
+"class": "TowerButton",
+"language": "GDScript",
+"path": "res://Scenes/HUD/TowerButton.gd"
 }, {
 "base": "Node2D",
 "class": "TowerPreview",
@@ -78,8 +78,8 @@ _global_script_class_icons={
 "Modification": "",
 "Modifier": "",
 "Slow": "",
-"TestTowerVisual": "",
 "Tower": "",
+"TowerButton": "",
 "TowerPreview": "",
 "Unit": ""
 }
