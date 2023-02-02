@@ -61,7 +61,7 @@ func get_csv_properties_by_filename(tower_name: String) -> Dictionary:
 
 		return get_csv_properties(tower_id)
 	else:
-		print_debug("Failed to find tower_name:", _tower_filename_to_id_map, " Check for typos in tower .csv file.")
+		print_debug("Failed to find tower_name:", tower_name, ". Check for typos in tower .csv file.")
 
 		return {}
 
