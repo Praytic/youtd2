@@ -1,24 +1,6 @@
 extends Node
 
 
-const CsvColumn = {
-	FILENAME = 0,
-	NAME = 1,
-	ID = 2,
-	FAMILY_ID = 3,
-	AUTHOR = 4,
-	RARITY = 5,
-	ELEMENT = 6,
-	ATTACK_TYPE = 7,
-	ATTACK_RANGE = 8,
-	ATTACK_CD = 9,
-	ATTACK_DAMAGE = 10,
-	COST = 11,
-	DESCRIPTION = 12,
-
-	COUNT = 13,
-}
-
 const globals = {
 	"max_food": 99,
 	"ini_food": 55,
@@ -113,36 +95,14 @@ func _load_csv_properties():
 
 
 func _load_csv_line(csv_line) -> Dictionary:
-	if csv_line.size() != CsvColumn.COUNT:
+	if csv_line.size() != Tower.Property.CSV_COLUMN_COUNT:
 		return {}
 
 	var out: Dictionary = {}
 
-	out[Tower.Property.FILENAME] = csv_line[CsvColumn.FILENAME]
-	out[Tower.Property.NAME] = csv_line[CsvColumn.NAME]
-	out[Tower.Property.ID] = csv_line[CsvColumn.ID].to_int()
-	out[Tower.Property.FAMILY_ID] = csv_line[CsvColumn.FAMILY_ID].to_int()
-	out[Tower.Property.AUTHOR] = csv_line[CsvColumn.AUTHOR]
-	out[Tower.Property.RARITY] = csv_line[CsvColumn.RARITY]
-	out[Tower.Property.ELEMENT] = csv_line[CsvColumn.ELEMENT]
-	out[Tower.Property.ATTACK_TYPE] = csv_line[CsvColumn.ATTACK_TYPE]
-	out[Tower.Property.ATTACK_RANGE] = csv_line[CsvColumn.ATTACK_RANGE].to_float()
-	out[Tower.Property.ATTACK_CD] = csv_line[CsvColumn.ATTACK_CD].to_float()
-
-	var attack_damage: String = csv_line[CsvColumn.ATTACK_DAMAGE]
-	var attack_damage_split: Array = attack_damage.split("-")
-
-	if attack_damage_split.size() == 2:
-		var attack_damage_min = attack_damage_split[0].to_int()
-		var attack_damage_max = attack_damage_split[1].to_int()
-
-		out[Tower.Property.ATTACK_DAMAGE_MIN] = attack_damage_min
-		out[Tower.Property.ATTACK_DAMAGE_MAX] = attack_damage_max
-	else:
-		out[Tower.Property.ATTACK_DAMAGE_MIN] = 0
-		out[Tower.Property.ATTACK_DAMAGE_MAX] = 0
-
-	out[Tower.Property.COST] = csv_line[CsvColumn.COST].to_float()
-	out[Tower.Property.DESCRIPTION] = csv_line[CsvColumn.DESCRIPTION]
+	for property in range(Tower.Property.CSV_COLUMN_COUNT):
+		var csv_string: String = csv_line[property]
+		var property_value = Tower.convert_csv_string_to_property_value(csv_string, property)
+		out[property] = property_value
 
 	return out
