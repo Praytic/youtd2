@@ -9,21 +9,24 @@ extends Building
 signal upgraded
 
 enum Property {
-#	Properties below should be defined in the .csv file
-	FILENAME,
-	NAME,
-	ID,
-	FAMILY_ID,
-	AUTHOR,
-	RARITY,
-	ELEMENT,
-	ATTACK_TYPE,
-	ATTACK_RANGE,
-	ATTACK_CD,
-	ATTACK_DAMAGE_MIN,
-	ATTACK_DAMAGE_MAX,
-	COST,
-	DESCRIPTION,
+#	Properties below should be defined in the .csv file and
+# 	the integer values must match the columns in csv file.
+	FILENAME = 0,
+	NAME = 1,
+	ID = 2,
+	FAMILY_ID = 3,
+	AUTHOR = 4,
+	RARITY = 5,
+	ELEMENT = 6,
+	ATTACK_TYPE = 7,
+	ATTACK_RANGE = 8,
+	ATTACK_CD = 9,
+	ATTACK_DAMAGE_MIN = 10,
+	ATTACK_DAMAGE_MAX = 11,
+	COST = 12,
+	DESCRIPTION = 13,
+
+	CSV_COLUMN_COUNT = 14,
 
 # 	Splash is a dictionary mapping distance->damage ratio to
 # 	define how much splash damage the tower deals. For
@@ -186,6 +189,31 @@ func _ready():
 
 	_targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
 	_targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
+
+
+static func convert_csv_string_to_property_value(csv_string: String, property: int):
+	if property > Property.CSV_COLUMN_COUNT:
+		return csv_string
+
+	match property:
+		Property.FILENAME: return csv_string
+		Property.NAME: return csv_string
+		Property.ID: return csv_string.to_int()
+		Property.FAMILY_ID: return csv_string.to_int()
+		Property.AUTHOR: return csv_string
+		Property.RARITY: return csv_string
+		Property.ELEMENT: return csv_string
+		Property.ATTACK_TYPE: return csv_string
+		Property.ATTACK_RANGE: return csv_string.to_float()
+		Property.ATTACK_CD: return csv_string.to_float()
+		Property.ATTACK_DAMAGE_MIN : return csv_string.to_float()
+		Property.ATTACK_DAMAGE_MAX : return csv_string.to_float()
+		Property.COST : return csv_string.to_int()
+		Property.DESCRIPTION : return csv_string
+		_:
+			print_debug("Unhandled property in Tower.convert_csv_string_to_property_value(): ", property)
+
+			return csv_string
 
 
 func get_name() -> String:
