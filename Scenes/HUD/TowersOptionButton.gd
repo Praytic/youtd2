@@ -26,7 +26,7 @@ func _ready():
 func _get_saved_tower_id() -> int:
 	var config = ConfigFile.new()
 	config.load(SETTINGS_PATH)
-	var saved_tower_id = config.get_value(Constants.SettingsSection.HUD, Constants.SettingsKey.SELECTED_TOWER)
+	var saved_tower_id = config.get_value(Constants.SettingsSection.HUD, Constants.SettingsKey.SELECTED_TOWER, 0)
 	
 	if saved_tower_id == null:
 		return -1
