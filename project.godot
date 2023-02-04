@@ -102,8 +102,6 @@ TowerManager="*res://Singletons/Managers/TowerManager.gd"
 
 [debug]
 
-settings/stdout/verbose_stdout=true
-settings/physics_interpolation/enable_warnings=false
 gdscript/warnings/return_value_discarded=false
 
 [display]
@@ -118,11 +116,6 @@ window/default_environment="res://default_env.tres"
 [editor_plugins]
 
 enabled=PoolStringArray(  )
-
-[global]
-
-warning=false
-max_remote_stdout_chars_per_second=false
 
 [gui]
 
@@ -208,7 +201,3 @@ vram_compression/import_etc=true
 vram_compression/import_etc2=false
 quality/filters/msaa=1
 environment/default_environment="res://default_env.tres"
-
-[world]
-
-2d/cell_size=64
