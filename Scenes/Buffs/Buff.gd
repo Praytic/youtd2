@@ -86,6 +86,7 @@ func applied_successfully(target: Unit):
 	_target = target
 	_target.connect("dead", self, "_on_target_dead")
 	_target.connect("level_up", self, "_on_target_level_up")
+	_target.connect("damaged", self, "_on_target_damaged")
 
 	_call_event_handler_list(EventType.CREATE)
 
@@ -192,3 +193,8 @@ func _on_target_dead():
 
 func _on_target_level_up():
 	_call_event_handler_list(EventType.LEVEL_UP)
+
+
+func _on_target_damaged():
+	_call_event_handler_list(EventType.DAMAGED)
+
