@@ -33,6 +33,11 @@ func _init(tower: Tower, time: float, time_level_add: float, level: int, friendl
 	_level = level
 	_friendly = friendly
 
+#	NOTE: set a default empty modifier for convenience so that
+# 	buffs that don't use modifiers don't need to set it
+	var default_modifier: Modifier = Modifier.new()
+	set_modifier(default_modifier)
+
 	_timer = Timer.new()
 	add_child(_timer)
 # 	Set autostart so timer starts when add_child() is called
