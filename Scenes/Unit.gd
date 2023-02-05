@@ -40,6 +40,7 @@ func apply_buff(buff):
 		var buff_modifier: Modifier = buff.get_modifier()
 		_apply_modifier(buff_modifier, 1)
 		add_child(buff)
+		buff.applied_successfully()
 
 
 func add_modifier(modifier: Modifier):

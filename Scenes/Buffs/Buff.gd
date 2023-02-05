@@ -71,6 +71,11 @@ func _init(tower: Tower, time: float, time_level_add: float, level: int, friendl
 	_timer.connect("timeout", self, "_on_timer_timeout")
 
 
+# Called by Unit when buff is applied successfully
+func applied_successfully():
+	_call_event_handler_list(EventType.CREATE)
+
+
 func set_modifier_level_type(level_type: int):
 	_modifier_level_type = level_type
 	
