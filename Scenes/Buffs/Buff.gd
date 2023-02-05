@@ -85,6 +85,7 @@ func _init(tower: Tower, time: float, time_level_add: float, level: int, friendl
 func applied_successfully(target: Unit):
 	_target = target
 	_target.connect("dead", self, "_on_target_dead")
+	_target.connect("level_up", self, "_on_target_level_up")
 
 	_call_event_handler_list(EventType.CREATE)
 
@@ -187,3 +188,7 @@ func _on_timer_timeout():
 func _on_target_dead():
 	_call_event_handler_list(EventType.DEATH)
 	_call_event_handler_list(EventType.CLEANUP)
+
+
+func _on_target_level_up():
+	_call_event_handler_list(EventType.LEVEL_UP)
