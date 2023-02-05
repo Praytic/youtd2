@@ -127,6 +127,15 @@ func stop():
 	_on_timer_timeout()
 
 
+func add_event_handler_periodic(handler_function: String, period: float):
+	var timer: Timer = Timer.new()
+	add_child(timer)
+	timer.wait_time = period
+	timer.one_shot = false
+	timer.autostart = true
+	timer.connect("timeout", self, "on_periodic_event_timer_timeout", [handler_function])
+
+
 func add_event_handler(event_type: int, handler_function: String):
 	var handler: EventHandler = EventHandler.new()
 	handler.handler_function = handler_function
@@ -199,3 +208,6 @@ func _on_target_level_up():
 func _on_target_damaged():
 	_call_event_handler_list(EventType.DAMAGED)
 
+
+func on_periodic_event_timer_timeout(handler_function: String):
+	_tower.call(handler_function, self)
