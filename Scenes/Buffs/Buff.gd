@@ -185,4 +185,5 @@ func _on_timer_timeout():
 
 
 func _on_target_dead():
+	_call_event_handler_list(EventType.DEATH)
 	_call_event_handler_list(EventType.CLEANUP)
