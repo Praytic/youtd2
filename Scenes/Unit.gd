@@ -5,6 +5,7 @@ extends KinematicBody2D
 signal selected
 signal unselected
 signal dead
+signal level_up
 
 # Unit implements application of buffs and modifications.
 
@@ -63,6 +64,8 @@ func set_level(new_level: int):
 		_apply_modifier(modifier, -1)
 		modifier.level = new_level
 		_apply_modifier(modifier, 1)
+
+	emit_signal("level_up")
 
 
 func get_level() -> int:
