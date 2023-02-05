@@ -21,11 +21,10 @@ enum Type {
 	HUMANOID,
 }
 
-const HEALTH_MAX: float = 100.0
+const MOB_HEALTH_MAX: float = 100.0
 const MOB_MOVE_SPEED_MIN: float = 100.0
 const MOB_MOVE_SPEED_MAX: float = 500.0
 
-var _health: float = 100.0
 var _mob_move_speed: float
 var _path_curve: Curve2D
 var _current_path_index: int = 0
@@ -75,12 +74,10 @@ func set_path(path: Path2D):
 
 
 func apply_damage(damage: float):
-	_health -= damage
+	.apply_damage(damage)
 
-	$HealthBar.set_as_ratio(_health / HEALTH_MAX)
+	$HealthBar.set_as_ratio(_health / MOB_HEALTH_MAX)
 
-	if _health < 0:
-		die()
 
 func _get_mob_animation() -> String:
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)

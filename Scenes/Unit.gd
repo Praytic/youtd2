@@ -6,6 +6,7 @@ signal selected
 signal unselected
 signal dead
 signal level_up
+signal damaged
 
 # Unit implements application of buffs and modifications.
 
@@ -16,6 +17,8 @@ signal level_up
 var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
 var _modifier_list: Array
+var _health: float = 100.0
+
 
 func _ready():
 	pass
@@ -75,6 +78,15 @@ func get_level() -> int:
 func die():
 	emit_signal("dead")
 	queue_free()
+
+
+func apply_damage(damage: float):
+	_health -= damage
+
+	emit_signal("damaged")
+
+	if _health < 0:
+		die()
 
 
 func _on_buff_expired(buff):
