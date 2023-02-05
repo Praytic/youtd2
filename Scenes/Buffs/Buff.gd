@@ -20,12 +20,35 @@ enum ModifierLevelType {
 	BUFF,
 }
 
+enum EventType {
+	CLEANUP,
+	CREATE,
+	SPELL_CAST,
+	SPELL_TARGET,
+	DEATH,
+	KILL,
+	LEVEL_UP,
+	ATTACK,
+	ATTACKED,
+	DAMAGE,
+	DAMAGED,
+}
+
+class EventHandler:
+	var handler_function: String
+	var has_chance: bool
+	var chance: float
+	var chance_level_add: float
+
+
 var _tower: Tower
 var _modifier: Modifier setget set_modifier, get_modifier
 var _timer: Timer
 var _level: int
 var _modifier_level_type: int = ModifierLevelType.TOWER
 var _friendly: bool
+# Map of EventType -> list of EventHandler's
+var event_handler_map: Dictionary = {}
 
 
 func _init(tower: Tower, time: float, time_level_add: float, level: int, friendly: bool):
@@ -81,6 +104,53 @@ func get_target() -> Unit:
 
 func stop():
 	_on_timer_timeout()
+
+
+func add_event_handler(event_type: int, handler_function: String):
+	var handler: EventHandler = EventHandler.new()
+	handler.handler_function = handler_function
+	handler.has_chance = false
+	handler.chance = 0.0
+	handler.chance_level_add = 0.0
+
+	_add_event_handler_internal(event_type, handler)
+
+
+# NOTE: in original, only events of type
+# attack/attacked/damage/damaged could have chance, but for
+# convenience allow setting chance to all types of events
+func add_event_handler_with_chance(event_type: int, handler_function: String, chance: float, chance_level_add: float):
+	var handler: EventHandler = EventHandler.new()
+	handler.handler_function = handler_function
+	handler.has_chance = true
+	handler.chance = chance
+	handler.chance_level_add = chance_level_add
+
+	_add_event_handler_internal(event_type, handler)
+
+
+func _add_event_handler_internal(event_type: int, handler: EventHandler):
+	if !event_handler_map.has(event_type):
+		event_handler_map[event_type] = []
+
+	event_handler_map[event_type].append(handler)
+
+
+func _call_event_handler_list(event_type: int):
+	if !event_handler_map.has(event_type):
+		return
+
+	var event_handler_list: Array = event_handler_map[event_type]
+
+	for event_handler in event_handler_list:
+		if event_handler.has_chance:
+			var chance: float = min(1.0, event_handler.chance + event_handler.chance_level_add * _level)	
+			var chance_success: bool = Utils.rand_chance(chance)
+
+			if !chance_success:
+				continue
+
+		_tower.call(event_handler.handler_function, self)
 
 
 func _get_modifier_level() -> int:
