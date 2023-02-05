@@ -29,17 +29,18 @@ enum ModifierLevelType {
 	BUFF,
 }
 
+# TODO: commented out event types are not implemented
 enum EventType {
 	CLEANUP,
 	CREATE,
-	SPELL_CAST,
-	SPELL_TARGET,
+	# SPELL_CAST,
+	# SPELL_TARGET,
 	DEATH,
-	KILL,
+	# KILL,
 	LEVEL_UP,
-	ATTACK,
-	ATTACKED,
-	DAMAGE,
+	# ATTACK,
+	# ATTACKED,
+	# DAMAGE,
 	DAMAGED,
 }
 
