@@ -5,7 +5,6 @@ extends Unit
 # enum IsAir { YES, NO }?
 
 signal moved(delta)
-signal dead
 
 enum Size {
 	MASS,
@@ -73,11 +72,6 @@ func get_type() -> int:
 func set_path(path: Path2D):
 	_path_curve = path.curve
 	position = _path_curve.get_point_position(0)
-
-
-func die():
-	emit_signal("dead")
-	queue_free()
 
 
 func apply_damage(damage: float):
