@@ -4,6 +4,7 @@ extends KinematicBody2D
 
 signal selected
 signal unselected
+signal dead
 
 # Unit implements application of buffs and modifications.
 
@@ -40,7 +41,7 @@ func apply_buff(buff):
 		var buff_modifier: Modifier = buff.get_modifier()
 		_apply_modifier(buff_modifier, 1)
 		add_child(buff)
-		buff.applied_successfully()
+		buff.applied_successfully(self)
 
 
 func add_modifier(modifier: Modifier):
@@ -66,6 +67,11 @@ func set_level(new_level: int):
 
 func get_level() -> int:
 	return _level
+
+
+func die():
+	emit_signal("dead")
+	queue_free()
 
 
 func _on_buff_expired(buff):

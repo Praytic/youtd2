@@ -13,6 +13,15 @@ extends Node
 # multiplier on value (confirmed by original tower scripts).
 # Maybe used for stacking behavior?
 
+# TODO: EventType.CLEANUP is currently fired when buff is
+# overriden. Need to figure out how cleanup works together
+# with REFRESH and UPGRADED event types. If a buff is
+# refreshed, should both CLEANUP and REFRESH fire or just
+# REFRESH? If so, then refresh needs to reuse current buff
+# instance instead of current behavior which is replacing
+# with new instance.
+
+
 signal expired()
 
 enum ModifierLevelType {
@@ -42,6 +51,7 @@ class EventHandler:
 
 
 var _tower: Tower
+var _target: Unit
 var _modifier: Modifier setget set_modifier, get_modifier
 var _timer: Timer
 var _level: int
@@ -72,7 +82,10 @@ func _init(tower: Tower, time: float, time_level_add: float, level: int, friendl
 
 
 # Called by Unit when buff is applied successfully
-func applied_successfully():
+func applied_successfully(target: Unit):
+	_target = target
+	_target.connect("dead", self, "_on_target_dead")
+
 	_call_event_handler_list(EventType.CREATE)
 
 
@@ -166,4 +179,10 @@ func _get_modifier_level() -> int:
 
 
 func _on_timer_timeout():
+	_call_event_handler_list(EventType.CLEANUP)
+
 	emit_signal("expired")
+
+
+func _on_target_dead():
+	_call_event_handler_list(EventType.CLEANUP)
