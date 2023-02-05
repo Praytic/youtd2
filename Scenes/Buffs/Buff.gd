@@ -21,6 +21,18 @@ extends Node
 # instance instead of current behavior which is replacing
 # with new instance.
 
+# TODO: implement the following event types
+# SPELL_CAST
+# SPELL_TARGET
+# KILL
+# ATTACK
+# ATTACKED
+# DAMAGE
+# EXPIRE
+# UPGRADE
+# REFRESH
+# PURGED
+# UNIT_IN_RANGE
 
 signal expired()
 
@@ -29,18 +41,11 @@ enum ModifierLevelType {
 	BUFF,
 }
 
-# TODO: commented out event types are not implemented
 enum EventType {
 	CLEANUP,
 	CREATE,
-	# SPELL_CAST,
-	# SPELL_TARGET,
 	DEATH,
-	# KILL,
 	LEVEL_UP,
-	# ATTACK,
-	# ATTACKED,
-	# DAMAGE,
 	DAMAGED,
 }
 
@@ -170,17 +175,17 @@ func _call_event_handler_list(event_type: int):
 	if !event_handler_map.has(event_type):
 		return
 
-	var event_handler_list: Array = event_handler_map[event_type]
+	var handler_list: Array = event_handler_map[event_type]
 
-	for event_handler in event_handler_list:
-		if event_handler.has_chance:
-			var chance: float = min(1.0, event_handler.chance + event_handler.chance_level_add * _level)	
+	for handler in handler_list:
+		if handler.has_chance:
+			var chance: float = min(1.0, handler.chance + handler.chance_level_add * _level)	
 			var chance_success: bool = Utils.rand_chance(chance)
 
 			if !chance_success:
 				continue
 
-		_tower.call(event_handler.handler_function, self)
+		_tower.call(handler.handler_function, self)
 
 
 func _get_modifier_level() -> int:
