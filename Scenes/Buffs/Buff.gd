@@ -62,7 +62,7 @@ class EventHandler:
 	var chance_level_add: float
 
 
-var _tower: Tower
+var _caster: Unit
 var _target: Unit
 var _modifier: Modifier setget set_modifier, get_modifier
 var _timer: Timer
@@ -73,8 +73,8 @@ var _friendly: bool
 var event_handler_map: Dictionary = {}
 
 
-func _init(tower: Tower, time: float, time_level_add: float, level: int, friendly: bool):
-	_tower = tower
+func _init(caster: Unit, time: float, time_level_add: float, level: int, friendly: bool):
+	_caster = caster
 	_level = level
 	_friendly = friendly
 
@@ -162,7 +162,7 @@ func add_event_handler_unit_comes_in_range(handler_function: String, radius: flo
 
 
 func _on_unit_came_in_range(handler_function: String, unit: Unit):
-	_tower.call(handler_function, self, unit)
+	_caster.call(handler_function, self, unit)
 
 
 func add_event_handler(event_type: int, handler_function: String):
@@ -209,12 +209,12 @@ func _call_event_handler_list(event_type: int):
 			if !chance_success:
 				continue
 
-		_tower.call(handler.handler_function, self)
+		_caster.call(handler.handler_function, self)
 
 
 func _get_modifier_level() -> int:
 	match _modifier_level_type:
-		ModifierLevelType.TOWER: return _tower.get_level()
+		ModifierLevelType.TOWER: return _caster.get_level()
 		ModifierLevelType.BUFF: return get_level()
 	return 0
 
@@ -239,4 +239,4 @@ func _on_target_damaged():
 
 
 func on_periodic_event_timer_timeout(handler_function: String):
-	_tower.call(handler_function, self)
+	_caster.call(handler_function, self)
