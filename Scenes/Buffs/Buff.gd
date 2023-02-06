@@ -1,5 +1,5 @@
 class_name Buff
-extends Node
+extends Node2D
 
 
 # Buff stores buff parameters and applies them to target
@@ -47,6 +47,12 @@ enum EventType {
 	DEATH,
 	LEVEL_UP,
 	DAMAGED,
+}
+
+enum TargetType {
+	TOWER,
+	MOB,
+	ALL,
 }
 
 class EventHandler:
@@ -139,6 +145,24 @@ func add_event_handler_periodic(handler_function: String, period: float):
 	timer.one_shot = false
 	timer.autostart = true
 	timer.connect("timeout", self, "on_periodic_event_timer_timeout", [handler_function])
+
+
+# Handler will be called with the following arguments:
+# (buff: Buff, unit: Unit) unit is the unit that came in
+# range and triggered the event
+func add_event_handler_unit_comes_in_range(handler_function: String, radius: float, target_type: int):
+	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
+	var buff_range_area = buff_range_area_scene.instance()
+#	NOTE: use call_deferred() adding child immediately causes an error about
+# 	setting shape during query flushing
+	call_deferred("add_child", buff_range_area)
+	buff_range_area.init(radius, target_type, handler_function)
+
+	buff_range_area.connect("unit_came_in_range", self, "_on_unit_came_in_range")
+
+
+func _on_unit_came_in_range(handler_function: String, unit: Unit):
+	_tower.call(handler_function, self, unit)
 
 
 func add_event_handler(event_type: int, handler_function: String):

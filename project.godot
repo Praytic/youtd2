@@ -14,10 +14,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Towers/AreaOfEffect.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
 "class": "Buff",
 "language": "GDScript",
 "path": "res://Scenes/Buffs/Buff.gd"
+}, {
+"base": "Area2D",
+"class": "BuffRangeArea",
+"language": "GDScript",
+"path": "res://Scenes/Buffs/BuffRangeArea.gd"
 }, {
 "base": "Unit",
 "class": "Building",
@@ -72,6 +77,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AreaOfEffect": "",
 "Buff": "",
+"BuffRangeArea": "",
 "Building": "",
 "Event": "",
 "Mob": "",
@@ -121,8 +127,8 @@ enabled=PoolStringArray(  )
 
 [global]
 
-warning=false
-max_remote_stdout_chars_per_second=false
+warning=true
+max_remote_stdout_chars_per_second=true
 
 [gui]
 
