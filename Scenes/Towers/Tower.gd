@@ -25,8 +25,11 @@ enum Property {
 	ATTACK_DAMAGE_MAX = 11,
 	COST = 12,
 	DESCRIPTION = 13,
+	TIER = 14,
+	REQUIRED_ELEMENT_LEVEL = 15,
+	REQUIRED_WAVE_LEVEL = 16,
 
-	CSV_COLUMN_COUNT = 14,
+	CSV_COLUMN_COUNT = 17,
 
 # 	Splash is a dictionary mapping distance->damage ratio to
 # 	define how much splash damage the tower deals. For
@@ -210,6 +213,9 @@ static func convert_csv_string_to_property_value(csv_string: String, property: i
 		Property.ATTACK_DAMAGE_MAX : return csv_string.to_float()
 		Property.COST : return csv_string.to_int()
 		Property.DESCRIPTION : return csv_string
+		Property.TIER : return csv_string.to_int()
+		Property.REQUIRED_ELEMENT_LEVEL : return csv_string.to_int()
+		Property.REQUIRED_WAVE_LEVEL : return csv_string.to_int()
 		_:
 			print_debug("Unhandled property in Tower.convert_csv_string_to_property_value(): ", property)
 

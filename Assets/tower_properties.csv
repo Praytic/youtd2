@@ -1,7 +1,119 @@
-filename,name,id,family id,author,rarity,element,attack type,attack range,attack cd,dmg min,dmg max,cost,description
-TinyShrub,Tiny Shrub,1,1,gex,common,nature,physical,800,0.9,26,26,30,Basic nature tower with a slightly increased chance to critical strike.
-SmallCactus,Small Cactus,41,41,Lapsus,common,nature,essence,600,1,58,58,30,A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.
-Shrub,Shrub,439,1,gex,common,nature,physical,840,0.9,113,113,140,Common nature tower with an increased critical strike chance and damage.
-GreaterShrub,Greater Shrub,459,1,gex,common,nature,physical,880,0.9,299,299,400,Common nature tower with an increased critical strike chance and damage.
-Shrubfield,Shrubfield,511,1,gex,common,nature,physical,920,0.9,552,552,800,Common nature tower with an increased critical strike chance and damage.
-XtremeShrubfield,Xtreme Shrubfield,565,1,gex,common,nature,physical,1000,0.9,1360,1360,2300,Common nature tower with an increased critical strike chance and damage.
+filename,name,id,family id,author,rarity,element,attack type,attack range,attack cd,dmg min,dmg max,cost,description,tier,required element level,required wave level
+ObeliskofFortuity,Obelisk of Fortuity,205,205,D1000,common,iron,physical,800,1.5,62,66,30,"An ancient Obelisk. Some powers are hidden here, but something seems wrong. Maybe it just has to warm up a bit.",1,0,0
+AltarofFortuity,Altar of Fortuity,206,205,Neotopia,common,iron,physical,800,1.5,337,347,140,"A very old Altar of an ancient religion. Still imbued with the power of the gods, maybe you should wake them up.",2,1,8
+ShrineofFortuity,Shrine of Fortuity,207,205,Neotopia,common,iron,physical,800,1.5,1396,1415,400,"An old Shrine of an ancient religion. Numerous humans prayed on this, leading to immense power. Maybe you should pray!",3,3,23
+DomeofFortuity,Dome of Fortuity,208,205,Neotopia,common,iron,physical,800,1.5,4934,4973,1450,"An old Dome of an ancient religion. Numerous congregations were hold in this, enchanting it with immense power. Congregate and awake the ancient powers!",4,8,44
+SanctuaryofFortuity,Sanctuary of Fortuity,209,205,Neotopia,common,iron,physical,800,1.5,10732,10791,2450,The Sanctuary of an old religion. Uncountable prayers led to the power of this. Even more prayers needed to awake the powers!,5,12,59
+TrashHeap,Trash Heap,458,458,geX,common,iron,physical,1000,2.5,86,96,35,Basic Tower with an increased chance to find items and some bonus damage against bosses.,1,0,0
+SparePartHeap,Spare Part Heap,460,458,geX,common,iron,physical,1000,2.5,398,450,165,Basic Tower with an increased chance to find items and some bonus damage against bosses.,2,1,10
+SupplyHeap,Supply Heap,462,458,geX,common,iron,physical,1000,2.5,838,968,350,Basic Tower with an increased chance to find items and some bonus damage against bosses.,3,3,18
+WeaponHeap,Weapon Heap,463,458,geX,common,iron,physical,1000,2.5,1908,2208,800,Basic Tower with an increased chance to find items and some bonus damage against bosses.,4,5,31
+TreasureHeap,Treasure Heap,464,458,geX,common,iron,physical,1000,2.5,3314,3864,1400,Basic Tower with an increased chance to find items and some bonus damage against bosses.,5,8,44
+PreciousTreasureHeap,Precious Treasure Heap,465,458,geX,common,iron,physical,1000,2.5,5216,6016,2200,Basic Tower with an increased chance to find items and some bonus damage against bosses.,6,11,54
+MossyAcidSprayer,Mossy Acid Sprayer,161,161,cedi,common,iron,decay,800,1,11,31,40,"Careful, corrosive.",1,0,0
+ToxicMossyAcidSprayer,Toxic Mossy Acid Sprayer,162,161,cedi,common,iron,decay,800,1,70,90,160,"Careful, corrosive.",2,1,9
+ToxicAcidFactory,Toxic Acid Factory,163,161,cedi,common,iron,decay,800,1,223,243,400,"Careful, corrosive.",3,3,23
+MutatingAcidFactory,Mutating Acid Factory,164,161,cedi,common,iron,decay,800,1,452,472,1000,"Careful, corrosive.",4,6,36
+InfestedMutatingAcidFactory,Infested Mutating Acid Factory,337,161,cedi,common,iron,decay,800,1,879,899,2000,"Careful, corrosive.",5,10,53
+WoodenTrap,Wooden Trap,325,325,Boekie,uncommon,iron,physical,950,1.3,38,38,50,This trap is used to capture beasts but it works on other stuff too.,1,0,0
+AdvancedWoodenTrap,Advanced Wooden Trap,623,325,Boekie,uncommon,iron,physical,950,1.3,141,141,200,This trap is used to capture beasts but it works on other stuff too.,2,1,12
+IronTrap,Iron Trap,624,325,Boekie,uncommon,iron,physical,950,1.3,441,441,650,This trap is used to capture beasts but it works on other stuff too.,3,4,28
+AdvancedIronTrap,Advanced Iron Trap,625,325,Boekie,uncommon,iron,physical,950,1.3,942,942,1500,This trap is used to capture beasts but it works on other stuff too.,4,8,45
+SteelTrap,Steel Trap,626,325,Boekie,uncommon,iron,physical,950,1.3,1409,1409,2500,This trap is used to capture beasts but it works on other stuff too.,5,12,60
+SmallPocketRocket,Small Pocket Rocket,544,544,Boekie,common,iron,physical,700,1.65,75,96,55,This tower attacks with rockets that deal splash damage and deal extra damage to mass.,1,0,0
+PocketRocket,Pocket Rocket,545,544,Boekie,common,iron,physical,700,1.65,249,270,170,This tower attacks with rockets that deal splash damage and deal extra damage to mass.,2,1,10
+UpgradedPocketRocket,Upgraded Pocket Rocket,546,544,Boekie,common,iron,physical,700,1.65,711,754,485,This tower attacks with rockets that deal splash damage and deal extra damage to mass.,3,3,23
+AdvancedPocketRocket,Advanced Pocket Rocket,547,544,Boekie,common,iron,physical,700,1.65,1863,1884,1255,This tower attacks with rockets that deal splash damage and deal extra damage to mass.,4,7,41
+UltimatePocketRocket,Ultimate Pocket Rocket,548,544,Boekie,common,iron,physical,700,1.65,3133,3154,2130,This tower attacks with rockets that deal splash damage and deal extra damage to mass.,5,11,55
+AbandonedPit,Abandoned Pit,125,125,drol,common,iron,decay,700,1.85,107,118,60,Sometimes even the most fruitless places still have some treasure left.,1,0,0
+DiggingHole,Digging Hole,126,125,drol,common,iron,decay,700,1.85,508,542,280,Sometimes even the most fruitless places still have some treasure left.,2,2,15
+SmallQuarry,Small Quarry,127,125,drol,common,iron,decay,700,1.85,1417,1488,775,Sometimes even the most fruitless places still have some treasure left.,3,5,31
+MiningGrounds,Mining Grounds,128,125,drol,common,iron,decay,700,1.85,2534,2659,1400,Sometimes even the most fruitless places still have some treasure left.,4,8,44
+GoldMine,Gold Mine,129,125,drol,common,iron,decay,700,1.85,4391,4693,2450,Sometimes even the most fruitless places still have some treasure left.,5,12,59
+LesserIronDefender,Lesser Iron Defender,515,515,Matac,common,iron,physical,800,1,65,65,65,Common elementar defender.,1,0,0
+SmallIronDefender,Small Iron Defender,518,515,Matac,common,iron,physical,800,1,220,220,220,Common elementar defender.,2,2,13
+MediumIronDefender,Medium Iron Defender,519,515,Matac,common,iron,physical,800,1,650,650,650,Common elementar defender.,3,4,28
+GrandIronDefender,Grand Iron Defender,516,515,Matac,common,iron,physical,800,1,1350,1350,1350,Common elementar defender.,4,8,43
+SuperiorIronDefender,Superior Iron Defender,517,515,Matac,common,iron,physical,800,1,2500,2500,2500,Common elementar defender.,5,12,60
+Burrow,Burrow,186,186,tolleder,uncommon,iron,physical,700,3,289,289,70,"A burrow with Peons inside, which will try to break through every armor.",1,0,0
+ReinforcedBurrow,Reinforced Burrow,189,186,tolleder,uncommon,iron,physical,700,3,1546,1546,400,"A burrow with elite Peons inside, which will try to break through every armor.",2,3,20
+FortifiedBurrow,Fortified Burrow,187,186,tolleder,uncommon,iron,physical,700,3,4274,4274,1200,"A burrow with Troll Head Hunters inside, which will try to break through every armor.",3,7,40
+MagicEnhancedBurrow,Magic Enhanced Burrow,188,186,tolleder,uncommon,iron,physical,700,3,8035,8035,2500,"A burrow with Troll Berserkers inside, which will break through every armor.",4,12,60
+SmallRayBlaster,Small Ray Blaster,305,305,i_m0ck_death,uncommon,iron,energy,800,1.4,79,98,150,Uncommon iron tower that leaves a debuff on the enemy unit that increases item drop quality and chance of an item drop.,1,0,0
+RayBlaster,Ray Blaster,308,305,i_m0ck_death,uncommon,iron,energy,800,1.4,268,287,800,Uncommon iron tower that leaves a debuff on the enemy unit that increases item drop quality and chance of an item drop.,2,2,10
+LargeRayBlaster,Large Ray Blaster,309,305,i_m0ck_death,uncommon,iron,energy,800,1.4,743,762,1800,Uncommon iron tower that leaves a debuff on the enemy unit that increases item drop quality and chance of an item drop.,3,5,29
+CustomRayBlaster,Custom Ray Blaster,310,305,i_m0ck_death,uncommon,iron,energy,800,1.4,1377,1396,2600,Uncommon iron tower that leaves a debuff on the enemy unit that increases item drop quality and chance of an item drop.,4,8,43
+RayBlaster20,Ray Blaster 2.0,311,305,i_m0ck_death,uncommon,iron,energy,800,1.4,2370,2409,3200,Uncommon iron tower that leaves a debuff on the enemy unit that increases item drop quality and chance of an item drop.,5,12,62
+SewerConnection,Sewer Connection,654,654,D1000,uncommon,iron,essence,800,1.2,163,163,200,A connection to the canalization. Toxic vapors are leaking out.,1,1,12
+BrokenPipeline,Broken Pipeline,655,654,D1000,uncommon,iron,essence,800,1.2,489,489,600,A pipeline which transports poisonous substances. Toxic vapors and other dangerous things are leaking out at the broken spot.,2,4,26
+ChemicalCenter,Chemical Center,656,654,D1000,uncommon,iron,essence,800,1.2,979,979,1200,An assembly point for a lot of pipelines. Not less leaky spots were formed during the years. Everthing is contaminated by toxic substances.,3,7,40
+ContaminatedHitch,Contaminated Hitch,657,654,D1000,uncommon,iron,essence,800,1.2,1794,1794,2200,An extremly inhospitable place. Stinking and toxic fluids and gases are everywhere. It seems that somewhere in the middle of the construct something is glowing....,4,11,56
+MilitiaWatchtower,Militia Watchtower,417,417,ShyGnome,uncommon,iron,physical,850,0.7,71,71,250,"Militia guardians rain axes at the heads of the enemies. However, they are not very accurate, and afraid of undead and large creeps.",1,2,14
+MilitiaOutpost,Militia Outpost,418,417,ShyGnome,uncommon,iron,physical,850,0.7,213,213,750,"Militia guardians rain axes at the heads of the enemies. However, they are not very accurate, and afraid of undead and large creeps.",2,5,30
+MilitiaForepost,Militia Forepost,419,417,ShyGnome,uncommon,iron,physical,850,0.7,426,426,1500,"Militia guardians rain axes at the heads of the enemies. However, they are not very accurate, and afraid of undead and large creeps.",3,8,45
+MilitiaBlockpost,Militia Blockpost,420,417,ShyGnome,uncommon,iron,physical,850,0.7,853,853,3000,"Militia guardians rain axes at the heads of the enemies. However, they are not very accurate, and afraid of undead and large creeps.",4,13,66
+RowingBoat,Rowing Boat,608,608,Matac,uncommon,iron,physical,900,1.7,434,434,300,A small rowing boat with two seamen.,1,2,16
+Frigate,Frigate,609,608,Matac,uncommon,iron,physical,900,1.7,1345,1345,900,A small ship with less weapons.,2,6,34
+Battleship,Battleship,610,608,Matac,uncommon,iron,physical,900,1.7,2342,2342,1500,A big ship for naval battles.,3,8,45
+Destroyer,Destroyer,611,608,Matac,uncommon,iron,physical,900,1.7,3932,3932,2400,The pride of the navy.,4,11,59
+Sniper,Sniper,662,662,cedi,uncommon,iron,physical,1400,2.5,425,425,300,"A long ranged tower which is good against bosses, but weak against mass creeps.",1,2,16
+SkilledSniper,Skilled Sniper,663,662,cedi,uncommon,iron,physical,1400,2.5,1276,1276,900,"A long ranged tower which is good against bosses, but weak against mass creeps.",2,6,34
+SniperNest,Sniper Nest,664,662,cedi,uncommon,iron,physical,1400,2.5,2551,2551,1800,"A long ranged tower which is good against bosses, but weak against mass creeps.",3,9,50
+FortifiedSniperNest,Fortified Sniper Nest,665,662,cedi,uncommon,iron,physical,1400,2.5,4252,4252,3000,"A long ranged tower which is good against bosses, but weak against mass creeps.",4,13,66
+EnergyJunction,Energy Junction,99,99,SirCoqalot.,uncommon,iron,energy,500,0.7,455,455,500,Support tower which only attacks air. Buffs other units attackspeed and adds some spell and normal damage.,1,4,23
+EnergyCrossing,Energy Crossing,177,99,SirCoqalot.,uncommon,iron,energy,500,0.7,1182,1182,1300,Support tower which only attacks air. Buffs other units attackspeed and adds some spell and normal damage.,2,8,42
+EnergyMagnifier,Energy Magnifier,178,99,SirCoqalot.,uncommon,iron,energy,500,0.7,1910,1910,2100,Support tower which only attacks air. Buffs other units attackspeed and adds some spell and normal damage.,3,10,55
+Miner,Miner,622,622,drol,rare,iron,decay,1000,1.8,614,633,500,This loner has been searching for gold and treasure his entire life.,1,4,23
+LonelyMiner,Lonely Miner,687,622,drol,rare,iron,decay,1000,1.8,1717,1771,1400,This loner has been searching for gold and treasure his entire life.,2,8,44
+FortunateMiner,Fortunate Miner,688,622,drol,rare,iron,decay,1000,1.8,3304,3423,2700,This loner has been searching for gold and treasure his entire life.,3,12,63
+ParticleAccelerator,Particle Accelerator,400,400,the_red_terror,rare,iron,energy,900,1,426,426,600,"Gains a lot of speed and damage on each attack, while losing the bonus on kill.",1,4,26
+AtomSmasher,Atom Smasher,402,400,the_red_terror,rare,iron,energy,900,1,780,780,1200,"Gains a lot of speed and damage on each attack, while losing the bonus on kill.",2,7,40
+Supercollider,Supercollider,403,400,the_red_terror,rare,iron,energy,900,1,1413,1413,2400,"Gains a lot of speed and damage on each attack, while losing the bonus on kill.",3,11,59
+SolarCollector,Solar Collector,197,197,Boekie/D1000,rare,iron,energy,800,1,468,468,850,A tower which transforms solar-energy in to pure force.,1,5,33
+SolarConductor,Solar Conductor,198,197,Boekie/D1001,rare,iron,energy,800,1,1375,1375,2500,A tower which transforms solar-energy in to pure force.,2,12,60
+RundownIronSentry,Rundown Iron Sentry,31,31,Glowackos,rare,iron,physical,925,1.4,710,710,950,A powerful iron tower that will go to great lengths to defend its territory.,1,6,35
+SolidIronSentry,Solid Iron Sentry,32,31,Glowackos,rare,iron,physical,925,1.4,1195,1195,1600,A powerful iron tower that will go to great lengths to defend its territory.,2,9,47
+ModernIronSentry,Modern Iron Sentry,33,31,Glowackos,rare,iron,physical,925,1.4,1942,1942,2600,A powerful iron tower that will go to great lengths to defend its territory.,3,12,61
+BombTurret,Bomb Turret,217,217,DaveMatthews,rare,iron,physical,900,2.6,2429,2429,950,Can fire different bombs for a great versatility.,1,6,35
+GrandBombTurret,Grand Bomb Turret,218,217,DaveMatthews,rare,iron,physical,900,2.6,5113,5113,2000,Can fire different bombs for a great versatility.,2,10,53
+SilverKnight,Silver Knight,39,39,SirCoqalot.,rare,iron,physical,875,1.35,939,1019,1200,Rare tower with a chance to turn lesser creeps into gold instantly. Gains additional gold for each kill and will do more damage the more gold you have.,1,7,40
+GoldenQueen,Golden Queen,40,39,SirCoqalot.,rare,iron,physical,875,1.35,2557,2637,3500,Rare tower with a chance to turn lesser creeps into gold instantly. Gains additional gold for each kill and will do more damage the more gold you have.,2,15,72
+Marine,Marine,201,201,Boekie,rare,iron,decay,1200,0.6,336,336,1500,A highly esteemed footsoldier with low self esteem.,1,8,45
+ExperiencedMarine,Experienced Marine,294,201,Boekie,rare,iron,decay,1200,0.6,560,560,2500,A highly esteemed footsoldier with moderate self esteem.,2,12,60
+DwarvenForgery,Dwarven Forgery,469,469,geX,unique,iron,physical,675,2.5,4225,4825,1500,"Hidden in the mountains, the dwarven master smiths polish found items to release their true power.",1,8,45
+BronzeDragonRoost,Bronze Dragon Roost,63,63,cedi,unique,iron,essence,800,2,1186,1190,1600,The mechanical version of the other two dragon roosts.,1,9,47
+CoinMachine,Coin Machine,556,556,Boekie,rare,iron,physical,1200,2.5,2955,2955,1700,This machine is used to make money.,1,9,49
+GoldMachine,Gold Machine,557,556,Boekie,rare,iron,physical,1200,2.5,4867,4867,2800,This machine is used to make money.,2,13,64
+XenoResearchFacility,Xeno Research Facility,158,158,Palandu,unique,iron,physical,1200,1.8,1812,1812,1984,Empowers you against the alien menace. Model credits: SirCoqaLot plus mOck and MasterCassim.,1,10,53
+BallLightningAccelerator,Ball Lightning Accelerator,123,123,cedi,unique,iron,magic,1000,0.8,1,1,2200,"This deadly thing was invented by the dwarves to aid them in the long war against the orcs. However they never ended up using it, as it consumes far too much energy.",1,11,56
+ElectricDeath,Electric Death,124,123,cedi,unique,iron,magic,1000,0.8,1,1,4400,"This deadly thing was invented by the dwarves to aid them in the long war against the orcs. However they never ended up using it, as it consumes far too much energy.The second generation can be the end of the world...",2,15,80
+GoblinStronghold,Goblin Stronghold,373,373,cedi,unique,iron,physical,800,0.8,897,906,2500,"You should always consider goblin-made items to be a nuclear weapon with a faulty trigger, you just might live to see another day.",1,12,60
+GatlingGun,Gatling Gun,141,141,Boekie,unique,iron,physical,1000,1,795,795,2750,A very powerful gun created by the dwarves. It has a chance to fire a burst of projectiles.,1,13,63
+Valor,Valor,262,262,cedi,unique,iron,,,,,,3000,A truly inspiring sight.,1,13,66
+NuclearMissileLauncher,Nuclear Missile Launcher,596,596,Matac,unique,iron,essence,2400,10,17777,17778,3400,Pure manmade destruction.,1,14,71
+Grab-o-Bot,Grab-o-Bot,34,34,cedi,unique,iron,decay,2400,0.4,659,659,3500,"When you think it looks very fragile, you're right. But its also a devastating machine.",1,15,72
+GlaiveMaster,Glaive Master,435,435,Ashbringer,unique,iron,physical,2400,1.4,1855,1855,3600,"Eviscerate them all, make them bleed.",1,15,73
+TheSteamEngine,The Steam Engine,391,391,Glowackos/cedi,unique,iron,,,,,,4000,One of the greatest inventions of the dwarves.,1,15,77
+TinyShrub,Tiny Shrub,1,1,gex,common,nature,physical,800,0.9,26,26,30,Basic nature tower with a slightly increased chance to critical strike.,1,1,1
+Shrub,Shrub,439,1,gex,common,nature,physical,840,0.9,113,113,140,Common nature tower with an increased critical strike chance and damage.,2,1,8
+GreaterShrub,Greater Shrub,459,1,gex,common,nature,physical,880,0.9,299,299,400,Common nature tower with an increased critical strike chance and damage.,3,3,20
+Shrubfield,Shrubfield,511,1,gex,common,nature,physical,920,0.9,552,552,800,Common nature tower with an increased critical strike chance and damage.,4,5,31
+GreaterShrubfield,Greater Shrubfield,,1,gex,common,nature,physical,960,0.9,901,901,1400,Common nature tower with an increased critical strike chance and damage.,5,8,44
+XtremeShrubfield,Xtreme Shrubfield,565,1,gex,common,nature,physical,1000,0.9,1360,1360,2300,Common nature tower with an increased critical strike chance and damage.,6,11,57
+SmallCactus,Small Cactus,41,41,Lapsus,common,nature,essence,820,2.5,58,58,30,A tiny desert plant with a high AoE. Slightly more efficient against mass creeps and humans.,1,1,1
+BuddingCactus,Budding Cactus,52,41,Lapsus,common,nature,essence,820,2.5,287,287,150,A prickly desert plant with a high AoE. Slightly more efficient against mass creeps and humans.,2,1,9
+AverageCactus,Average Cactus,42,41,Lapsus,common,nature,essence,820,2.5,719,719,380,A pricklier desert plant with a high AoE. Moderately more efficient against mass creeps and humans.,3,3,19
+GrownCactus,Grown Cactus,43,41,Lapsus,common,nature,essence,820,2.5,1422,1422,760,A troublesome desert plant with a high AoE. Moderately more efficient against mass creeps and humans.,4,5,30
+BloominCactus,Blooming Cactus,44,41,Lapsus,common,nature,essence,820,2.5,2496,2496,1350,A troublesome desert plant with a high AoE. Efficient against mass creeps and humans.,5,8,43
+FullyFloweredCactus,Fully-Flowered Cactus,45,41,Lapsus,common,nature,essence,820,2.5,4063,4063,2250,A lethal desert plant with a high AoE. Very efficient against mass creeps and humans.,6,11,57
+LesserDarkDefender,Lesser Dark Defender,487,487,Natac,common,darkness,decay,825,1.1,68,76,65,Common elementar defender.,1,1,1
+SmallDarkDefender,Small Dark Defender,488,487,Natac,common,darkness,decay,825,1.1,228,257,220,Common elementar defender.,2,2,13
+MediumDarkDefender,Medium Dark Defender,490,487,Natac,common,darkness,decay,825,1.1,672,759,650,Common elementar defender.,3,4,28
+GrandDarkDefender,Grand Dark Defender,492,487,Natac,common,darkness,decay,825,1.1,1395,1577,1350,Common elementar defender.,4,8,43
+SuperiorDarkDefender,Superior Dark Defender,491,487,Natac,common,darkness,decay,825,1.1,2584,2921,2500,Common elementar defender.,5,12,60
+FrostRoot,Frost Root,150,150,drol,common,ice,energy,750,0.75,17,21,30,Can still grow even in the coldest places.,1,1,1
+IceWeed,Ice Weed,151,150,drol,common,ice,energy,750,0.75,48,67,100,Can still grow even in the coldest places.,2,1,5
+FrozenVines,Frozen Vines,152,150,drol,common,ice,energy,750,0.75,146,195,300,Can still grow even in the coldest places.,3,2,16
+CrystalizedTendrils,Crystalized Tendrils,153,150,drol,common,ice,energy,750,0.75,291,390,600,Can still grow even in the coldest places.,4,4,26
+GlacialCreeper,Glacial Creeper,154,150,drol,common,ice,energy,750,0.75,592,766,1200,Can still grow even in the coldest places.,5,7,40
+PolarIvy,Polar Ivy,155,150,drol,common,ice,energy,750,0.75,1020,1244,2000,Can still grow even in the coldest places.,6,10,53
