@@ -21,8 +21,19 @@ func _init():
 		var tower_properties: Dictionary = Properties.get_csv_properties(tower_id)
 		var tower_filename: String = tower_properties[Tower.Property.FILENAME]
 
-		var tower_script_path: String = "%s/%s.tscn" % [towers_dir, tower_filename]
-		var tower_scene: PackedScene = load(tower_script_path)
+		var tower_scene_path: String = "%s/%s.tscn" % [towers_dir, tower_filename]
+		var tower_scene_exists: bool = File.new().file_exists(tower_scene_path)
+
+		var tower_scene: PackedScene
+		if tower_scene_exists:
+			tower_scene = load(tower_scene_path)
+		else:
+#			NOTE: use a fallback scene if scene wasn't
+#			defined. After most tower scripts are added
+#			should replace this with a print_debug() warning
+#			about missing scene.
+			var fallback_script_path: String = "%s/%s.tscn" % [towers_dir, "SmallCactus"]
+			tower_scene = load(fallback_script_path)
 
 		preloaded_towers[tower_id] = tower_scene
 
