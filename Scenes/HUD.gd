@@ -22,7 +22,7 @@ func _on_Camera_camera_moved(_direction):
 	$Hints.hide()
 
 
-func _on_Camera_camera_zoomed():
+func _on_Camera_camera_zoomed(_zoom_value):
 	$Hints.hide()
 
 
