@@ -3,11 +3,12 @@ extends Node2D
 
 
 # Buff stores buff parameters and applies them to target
-# while it is active. Subclasses should be defined in
-# separate scripts because script path is used to get the
-# unique identifier for buff. If you want to define a
-# subclass as inner class, you must override get_id() and
-# return something unique.
+# while it is active. Define custom buffs by creating a
+# subclass.
+# 
+# Buffs can have event handlers. To add an event handler,
+# define a handler function in your subclass and call the
+# appropriate add_event_handler function.
 
 # TODO: what is friendly used for? It's not used as sign
 # multiplier on value (confirmed by original tower scripts).
@@ -140,6 +141,9 @@ func stop():
 
 
 func add_event_handler_periodic(handler_function: String, period: float):
+	if !_check_handler_exists(handler_function):
+		return
+
 	var timer: Timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = period
@@ -149,9 +153,12 @@ func add_event_handler_periodic(handler_function: String, period: float):
 
 
 # Handler will be called with the following arguments:
-# (buff: Buff, unit: Unit) unit is the unit that came in
-# range and triggered the event
+# (unit: Unit) unit is the unit that came in range and
+# triggered the event
 func add_event_handler_unit_comes_in_range(handler_function: String, radius: float, target_type: int):
+	if !_check_handler_exists(handler_function):
+		return
+
 	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
 	var buff_range_area = buff_range_area_scene.instance()
 #	NOTE: use call_deferred() adding child immediately causes an error about
@@ -163,10 +170,13 @@ func add_event_handler_unit_comes_in_range(handler_function: String, radius: flo
 
 
 func _on_unit_came_in_range(handler_function: String, unit: Unit):
-	_caster.call(handler_function, self, unit)
+	call(handler_function, unit)
 
 
 func add_event_handler(event_type: int, handler_function: String):
+	if !_check_handler_exists(handler_function):
+		return
+
 	var handler: EventHandler = EventHandler.new()
 	handler.handler_function = handler_function
 	handler.has_chance = false
@@ -210,7 +220,7 @@ func _call_event_handler_list(event_type: int):
 			if !chance_success:
 				continue
 
-		_caster.call(handler.handler_function, self)
+		call(handler.handler_function)
 
 
 func _get_modifier_level() -> int:
@@ -240,4 +250,13 @@ func _on_target_damaged():
 
 
 func on_periodic_event_timer_timeout(handler_function: String):
-	_caster.call(handler_function, self)
+	call(handler_function)
+
+
+func _check_handler_exists(handler_function: String) -> bool:
+	var exists: bool = has_method(handler_function)
+
+	if !exists:
+		print_debug("Attempted to register an event handler that doesn't exist: ", handler_function)
+
+	return exists
