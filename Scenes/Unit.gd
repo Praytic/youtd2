@@ -83,15 +83,37 @@ func die():
 	queue_free()
 
 
-func apply_damage(damage: float):
+func do_attack(target: Unit):
+	var attack_event: Event = Event.new()
+	attack_event.target = target
+	emit_signal("attack", attack_event)
+
+	target.receive_attack()
+
+
+func receive_attack():
+	var attacked_event: Event = Event.new()
+	attacked_event.target = self
+	emit_signal("attacked", attacked_event)
+
+
+func do_damage(target: Unit, damage: float):
+	var damage_event: Event = Event.new()
+	damage_event.damage = damage
+	damage_event.target = target
+	emit_signal("damage", damage_event)
+
+	target.receive_damage(damage_event.damage)
+
+
+func receive_damage(damage: float):
 #	TODO: should the target of "damaged" event be the unit
 #	that caused damage to the mob?
-	var event: Event = Event.new()
-	event.damage = damage
-
-	emit_signal("damaged", event)
+	var damaged_event: Event = Event.new()
+	damaged_event.damage = damage
+	emit_signal("damaged", damaged_event)
 	
-	_health -= event.damage
+	_health -= damaged_event.damage
 
 	if _health < 0:
 		die()

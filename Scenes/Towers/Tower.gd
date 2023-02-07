@@ -308,22 +308,17 @@ func _try_to_attack():
 	var event: Event = Event.new()
 	event.target = _target_mob
 
-	emit_signal("attack", event)
-
-	var mob_attacked_event: Event = Event.new()
-	mob_attacked_event.target = self
-	_target_mob.emit_signal("attacked", mob_attacked_event)
+	.do_attack(_target_mob as Unit)
 
 	var on_attack_is_called: bool = _get_trigger_is_called(Property.ON_ATTACK_CHANCE, Property.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
 		_on_attack(event)
 
-	if event.can_attack:
-		var projectile = _projectile_scene.instance()
-		projectile.init(_target_mob, global_position)
-		projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
-		_game_scene.call_deferred("add_child", projectile)
+	var projectile = _projectile_scene.instance()
+	projectile.init(_target_mob, global_position)
+	projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
+	_game_scene.call_deferred("add_child", projectile)
 
 	_attack_cooldown_timer.start()
 
@@ -400,7 +395,9 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 	event.damage = _get_damage_to_mob(mob, damage_base)
 	event.target = mob
 
-	emit_signal("damage", event)
+	var damage: float = _get_damage_to_mob(mob, damage_base)
+	
+	.do_damage(mob, damage)
 
 	var on_damage_is_called: bool = _get_trigger_is_called(Property.ON_DAMAGE_CHANCE, Property.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
@@ -409,7 +406,7 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 
 #	NOTE: apply event's damage, so that any changes done by
 #	scripts in _on_damage() apply
-	mob.apply_damage(event.damage)
+	.do_damage(mob, damage)
 
 
 func _apply_properties_to_scene_children():
