@@ -49,6 +49,9 @@ enum EventType {
 	CREATE,
 	DEATH,
 	LEVEL_UP,
+	ATTACK,
+	ATTACKED,
+	DAMAGE,
 	DAMAGED,
 }
 
@@ -102,9 +105,13 @@ func applied_successfully(target: Unit):
 	_target = target
 	_target.connect("dead", self, "_on_target_dead")
 	_target.connect("level_up", self, "_on_target_level_up")
+	_target.connect("attack", self, "_on_target_attack")
+	_target.connect("attacked", self, "_on_target_attacked")
+	_target.connect("damage", self, "_on_target_damage")
 	_target.connect("damaged", self, "_on_target_damaged")
 
-	_call_event_handler_list(EventType.CREATE)
+	var event: Event = Event.new()
+	_call_event_handler_list(EventType.CREATE, event)
 
 
 func set_modifier_level_type(level_type: int):
@@ -208,13 +215,11 @@ func _add_event_handler_internal(event_type: int, handler: EventHandler):
 	event_handler_map[event_type].append(handler)
 
 
-func _call_event_handler_list(event_type: int):
+func _call_event_handler_list(event_type: int, event: Event):
 	if !event_handler_map.has(event_type):
 		return
 
 	var handler_list: Array = event_handler_map[event_type]
-
-	var event: Event = Event.new()
 
 	for handler in handler_list:
 		if handler.has_chance:
@@ -235,22 +240,39 @@ func _get_modifier_level() -> int:
 
 
 func _on_timer_timeout():
-	_call_event_handler_list(EventType.CLEANUP)
+	var cleanup_event: Event = Event.new()
+	_call_event_handler_list(EventType.CLEANUP, cleanup_event)
 
 	emit_signal("expired")
 
 
 func _on_target_dead():
-	_call_event_handler_list(EventType.DEATH)
-	_call_event_handler_list(EventType.CLEANUP)
+	var death_event: Event = Event.new()
+	_call_event_handler_list(EventType.DEATH, death_event)
+
+	var cleanup_event: Event = Event.new()
+	_call_event_handler_list(EventType.CLEANUP, cleanup_event)
 
 
 func _on_target_level_up():
-	_call_event_handler_list(EventType.LEVEL_UP)
+	var event: Event = Event.new()
+	_call_event_handler_list(EventType.LEVEL_UP, event)
 
 
-func _on_target_damaged():
-	_call_event_handler_list(EventType.DAMAGED)
+func _on_target_attack(event: Event):
+	_call_event_handler_list(EventType.ATTACK, event)
+
+
+func _on_target_attacked(event: Event):
+	_call_event_handler_list(EventType.ATTACKED, event)
+
+
+func _on_target_damage(event: Event):
+	_call_event_handler_list(EventType.DAMAGE, event)
+
+
+func _on_target_damaged(event: Event):
+	_call_event_handler_list(EventType.DAMAGED, event)
 
 
 func on_periodic_event_timer_timeout(handler_function: String):

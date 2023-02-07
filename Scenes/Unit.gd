@@ -6,7 +6,10 @@ signal selected
 signal unselected
 signal dead
 signal level_up
-signal damaged
+signal attack(event)
+signal attacked(event)
+signal damage(event)
+signal damaged(event)
 
 # Unit implements application of buffs and modifications.
 
@@ -80,13 +83,44 @@ func die():
 	queue_free()
 
 
-func apply_damage(damage: float):
-	_health -= damage
+func do_attack(target: Unit):
+	var attack_event: Event = Event.new()
+	attack_event.target = target
+	emit_signal("attack", attack_event)
 
-	emit_signal("damaged")
+	target.receive_attack()
+
+
+func receive_attack():
+	var attacked_event: Event = Event.new()
+	attacked_event.target = self
+	emit_signal("attacked", attacked_event)
+
+
+func do_damage(target: Unit, damage: float, is_main_target: int):
+	var damage_event: Event = Event.new()
+	damage_event.damage = damage
+	damage_event.target = target
+	damage_event.is_main_target = is_main_target
+	emit_signal("damage", damage_event)
+
+	target.receive_damage(damage_event.damage, is_main_target)
+
+
+func receive_damage(damage: float, is_main_target: int):
+	_health -= damage
 
 	if _health < 0:
 		die()
+
+		return
+
+#	TODO: should the target of "damaged" event be the unit
+#	that caused damage to the mob?
+	var damaged_event: Event = Event.new()
+	damaged_event.damage = damage
+	damaged_event.is_main_target = is_main_target
+	emit_signal("damaged", damaged_event)
 
 
 func _on_buff_expired(buff):
