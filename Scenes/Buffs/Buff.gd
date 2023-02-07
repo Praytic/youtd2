@@ -27,11 +27,13 @@ extends Node2D
 # TODO: implement the following event types
 # SPELL_CAST
 # SPELL_TARGET
-# EXPIRE
 # UPGRADE
 # REFRESH
 # PURGED
 
+# NOTE: this signal is separate from the EXPIRE event type
+# and used by Unit to undo buff modifiers. Do not use this
+# in Tower scripts. Use EXPIRE event handler.
 signal expired()
 
 enum ModifierLevelType {
@@ -49,6 +51,7 @@ enum EventType {
 	ATTACKED,
 	DAMAGE,
 	DAMAGED,
+	EXPIRE,
 }
 
 enum TargetType {
@@ -241,6 +244,9 @@ func _on_timer_timeout():
 	_call_event_handler_list(EventType.CLEANUP, cleanup_event)
 
 	emit_signal("expired")
+
+	var event: Event = Event.new()
+	_call_event_handler_list(EventType.EXPIRE, event)
 
 
 func _on_target_dead(event: Event):
