@@ -107,16 +107,18 @@ func do_damage(target: Unit, damage: float):
 
 
 func receive_damage(damage: float):
+	_health -= damage
+
+	if _health < 0:
+		die()
+
+		return
+
 #	TODO: should the target of "damaged" event be the unit
 #	that caused damage to the mob?
 	var damaged_event: Event = Event.new()
 	damaged_event.damage = damage
 	emit_signal("damaged", damaged_event)
-	
-	_health -= damaged_event.damage
-
-	if _health < 0:
-		die()
 
 
 func _on_buff_expired(buff):
