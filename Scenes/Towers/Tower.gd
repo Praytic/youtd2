@@ -397,15 +397,11 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 
 	var damage: float = _get_damage_to_mob(mob, damage_base)
 	
-	.do_damage(mob, damage)
-
 	var on_damage_is_called: bool = _get_trigger_is_called(Property.ON_DAMAGE_CHANCE, Property.ON_DAMAGE_CHANCE_LEVEL_ADD)
 
 	if on_damage_is_called:
 		_on_damage(event)
 
-#	NOTE: apply event's damage, so that any changes done by
-#	scripts in _on_damage() apply
 	.do_damage(mob, damage)
 
 
