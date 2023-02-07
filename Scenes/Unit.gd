@@ -6,7 +6,10 @@ signal selected
 signal unselected
 signal dead
 signal level_up
-signal damaged
+signal attack(event)
+signal attacked(event)
+signal damage(event)
+signal damaged(event)
 
 # Unit implements application of buffs and modifications.
 
@@ -81,9 +84,14 @@ func die():
 
 
 func apply_damage(damage: float):
-	_health -= damage
+#	TODO: should the target of "damaged" event be the unit
+#	that caused damage to the mob?
+	var event: Event = Event.new()
+	event.damage = damage
 
-	emit_signal("damaged")
+	emit_signal("damaged", event)
+	
+	_health -= event.damage
 
 	if _health < 0:
 		die()
