@@ -3,6 +3,7 @@ extends Control
 
 signal tower_info_requested(tower_id)
 signal tower_info_canceled
+signal element_changed(element)
 
 
 onready var builder_control = get_tree().current_scene.get_node(@"%BuilderControl")
@@ -13,7 +14,8 @@ func _ready():
 	self.hide()
 
 
-func _on_Button_pressed():
+func _on_Button_pressed(element):
+	emit_signal("element_changed", element)
 	show()
 
 

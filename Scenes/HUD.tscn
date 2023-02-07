@@ -1,11 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://Assets/UI/HUD/blue_button12.png" type="Texture" id=1]
+[ext_resource path="res://Assets/UI/HUD/Elements/fire_small.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/HUD/ElementGroupButton.gd" type="Script" id=2]
+[ext_resource path="res://Assets/UI/HUD/Elements/storm_small.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/HUD/Elements/ice_small.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/HUD/RightMenuBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/HUD/TopMenuBar.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=7]
+[ext_resource path="res://Assets/UI/HUD/Elements/iron_small.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/HUD/Elements/astral_small.png" type="Texture" id=9]
+[ext_resource path="res://Assets/UI/HUD/Elements/nature_small.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/HUD.gd" type="Script" id=11]
 [ext_resource path="res://Scenes/HUD/TowerTooltip.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Assets/UI/HUD/Elements/darkness_small.png" type="Texture" id=13]
+[ext_resource path="res://Assets/UI/HUD/blue_boxTick.png" type="Texture" id=14]
+[ext_resource path="res://Scenes/HUD/ElementButtonsContainer.gd" type="Script" id=15]
 
 [node name="HUD" type="Control"]
 anchor_left = 0.5
@@ -100,27 +109,146 @@ rect_scale = Vector2( 0.525227, 0.545393 )
 text = "Move camera: WASD
 Zoom camera: Mouse wheel, touchpad"
 
+[node name="Hints2" type="RichTextLabel" parent="."]
+margin_left = 1596.0
+margin_top = 1007.0
+margin_right = 2296.0
+margin_bottom = 1107.0
+rect_scale = Vector2( 0.525227, 0.545393 )
+text = "Build towers here
+--------------------->"
+
 [node name="TowerTooltip" parent="." instance=ExtResource( 12 )]
 margin_top = 100.0
 rect_scale = Vector2( 0.5, 0.5 )
 
-[node name="RightMenuBar" parent="." instance=ExtResource( 5 )]
-rect_scale = Vector2( 1.01082, 1.01833 )
-mouse_filter = 1
-
-[node name="Button" type="Button" parent="."]
+[node name="BuildingMenuButton" type="Button" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -111.0
-margin_top = -102.0
-margin_right = -22.0
-margin_bottom = -21.0
+margin_left = -76.0
+margin_top = -81.0
+icon = ExtResource( 14 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -235.0
+margin_top = -510.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+script = ExtResource( 15 )
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 230.0
+margin_bottom = 505.0
+
+[node name="FireButton" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_right = 225.0
+margin_bottom = 68.0
+theme_type_variation = "TowerButton"
+text = "Fire"
 icon = ExtResource( 1 )
+align = 0
+script = ExtResource( 2 )
+element = "fire"
+
+[node name="IronButton" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_top = 72.0
+margin_right = 225.0
+margin_bottom = 140.0
+theme_type_variation = "TowerButton"
+text = "Iron"
+icon = ExtResource( 8 )
+align = 0
+script = ExtResource( 2 )
+element = "iron"
+
+[node name="NatureButton" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_top = 144.0
+margin_right = 225.0
+margin_bottom = 212.0
+theme_type_variation = "TowerButton"
+text = "Nature"
+icon = ExtResource( 10 )
+align = 0
+script = ExtResource( 2 )
+element = "nature"
+
+[node name="IceButton" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_top = 216.0
+margin_right = 225.0
+margin_bottom = 284.0
+theme_type_variation = "TowerButton"
+text = "Ice"
+icon = ExtResource( 4 )
+align = 0
+script = ExtResource( 2 )
+element = "ice"
+
+[node name="StormButton" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_top = 288.0
+margin_right = 225.0
+margin_bottom = 356.0
+theme_type_variation = "TowerButton"
+text = "Storm"
+icon = ExtResource( 3 )
+align = 0
+script = ExtResource( 2 )
+element = "storm"
+
+[node name="DarknessButton" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_top = 360.0
+margin_right = 225.0
+margin_bottom = 428.0
+theme_type_variation = "TowerButton"
+text = "Darkness"
+icon = ExtResource( 13 )
+align = 0
+script = ExtResource( 2 )
+element = "darkness"
+
+[node name="AstralButton" type="Button" parent="MarginContainer/HBoxContainer"]
+margin_top = 432.0
+margin_right = 225.0
+margin_bottom = 500.0
+theme_type_variation = "TowerButton"
+text = "Astral"
+icon = ExtResource( 9 )
+align = 0
+script = ExtResource( 2 )
+element = "astral"
+
+[node name="RightMenuBar" parent="." instance=ExtResource( 5 )]
+margin_top = 83.0
+rect_min_size = Vector2( 300, 0 )
+mouse_filter = 1
 
 [connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]
+[connection signal="pressed" from="BuildingMenuButton" to="." method="_on_BuildingMenuButton_pressed"]
+[connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FireButton" to="MarginContainer" method="_on_Button_pressed" binds= [ "element" ]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/FireButton" to="RightMenuBar" method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/IronButton" to="MarginContainer" method="_on_Button_pressed" binds= [ "element" ]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/IronButton" to="RightMenuBar" method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/NatureButton" to="MarginContainer" method="_on_Button_pressed" binds= [ "element" ]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/NatureButton" to="RightMenuBar" method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/IceButton" to="MarginContainer" method="_on_Button_pressed" binds= [ "element" ]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/IceButton" to="RightMenuBar" method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/StormButton" to="MarginContainer" method="_on_Button_pressed" binds= [ "element" ]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/StormButton" to="RightMenuBar" method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/DarknessButton" to="MarginContainer" method="_on_Button_pressed" binds= [ "element" ]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/DarknessButton" to="RightMenuBar" method="_on_Button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/AstralButton" to="MarginContainer" method="_on_Button_pressed" binds= [ "element" ]]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/AstralButton" to="RightMenuBar" method="_on_Button_pressed"]
 [connection signal="tower_info_canceled" from="RightMenuBar" to="." method="_on_RightMenuBar_tower_info_canceled"]
 [connection signal="tower_info_requested" from="RightMenuBar" to="." method="_on_RightMenuBar_tower_info_requested"]
-[connection signal="pressed" from="Button" to="RightMenuBar" method="_on_Button_pressed"]
