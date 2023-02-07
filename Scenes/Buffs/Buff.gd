@@ -49,6 +49,9 @@ enum EventType {
 	CREATE,
 	DEATH,
 	LEVEL_UP,
+	ATTACK,
+	ATTACKED,
+	DAMAGE,
 	DAMAGED,
 }
 
@@ -102,6 +105,9 @@ func applied_successfully(target: Unit):
 	_target = target
 	_target.connect("dead", self, "_on_target_dead")
 	_target.connect("level_up", self, "_on_target_level_up")
+	_target.connect("attack", self, "_on_target_attack")
+	_target.connect("attacked", self, "_on_target_attacked")
+	_target.connect("damage", self, "_on_target_damage")
 	_target.connect("damaged", self, "_on_target_damaged")
 
 	_call_event_handler_list(EventType.CREATE)
@@ -247,6 +253,18 @@ func _on_target_dead():
 
 func _on_target_level_up():
 	_call_event_handler_list(EventType.LEVEL_UP)
+
+
+func _on_target_attack(_event: Event):
+	_call_event_handler_list(EventType.ATTACK)
+
+
+func _on_target_attacked(_event: Event):
+	_call_event_handler_list(EventType.ATTACKED)
+
+
+func _on_target_damage(_event: Event):
+	_call_event_handler_list(EventType.DAMAGE)
 
 
 func _on_target_damaged(_event: Event):
