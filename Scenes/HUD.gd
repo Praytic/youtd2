@@ -19,11 +19,11 @@ func _on_StopWaveButton_pressed():
 
 
 func _on_Camera_camera_moved(_direction):
-	$Hints.hide()
+	remove_child($Hints)
 
 
 func _on_Camera_camera_zoomed(_zoom_value):
-	$Hints.hide()
+	remove_child($Hints)
 
 
 func _on_RightMenuBar_tower_info_requested(tower_id):
@@ -48,3 +48,7 @@ func _on_Tower_selected(tower_node):
 
 func _on_Tower_unselected():
 	$TowerTooltip.hide()
+
+
+func _on_BuildingMenuButton_pressed():
+	remove_child($Hints2)
