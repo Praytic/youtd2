@@ -37,6 +37,8 @@ onready var _sprite = $Sprite
 func _ready():
 	_mob_move_speed = MOB_MOVE_SPEED_MAX
 
+	connect("damaged", self, "on_damaged")
+
 
 func _process(delta):
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
@@ -73,9 +75,7 @@ func set_path(path: Path2D):
 	position = _path_curve.get_point_position(0)
 
 
-func apply_damage(damage: float):
-	.apply_damage(damage)
-
+func on_damaged(_event: Event):
 	$HealthBar.set_as_ratio(_health / MOB_HEALTH_MAX)
 
 
