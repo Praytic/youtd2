@@ -97,16 +97,17 @@ func receive_attack():
 	emit_signal("attacked", attacked_event)
 
 
-func do_damage(target: Unit, damage: float):
+func do_damage(target: Unit, damage: float, is_main_target: int):
 	var damage_event: Event = Event.new()
 	damage_event.damage = damage
 	damage_event.target = target
+	damage_event.is_main_target = is_main_target
 	emit_signal("damage", damage_event)
 
-	target.receive_damage(damage_event.damage)
+	target.receive_damage(damage_event.damage, is_main_target)
 
 
-func receive_damage(damage: float):
+func receive_damage(damage: float, is_main_target: int):
 	_health -= damage
 
 	if _health < 0:
@@ -118,6 +119,7 @@ func receive_damage(damage: float):
 #	that caused damage to the mob?
 	var damaged_event: Event = Event.new()
 	damaged_event.damage = damage
+	damaged_event.is_main_target = is_main_target
 	emit_signal("damaged", damaged_event)
 
 

@@ -326,7 +326,7 @@ func _on_projectile_reached_mob(mob: Mob):
 	var damage_base: float = _get_rand_damage_base()
 	var damage: float = _get_damage_to_mob(mob, damage_base)
 	
-	.do_damage(mob, damage)
+	.do_damage(mob, damage, Event.IsMainTarget.YES)
 
 
 func _apply_properties_to_scene_children():
