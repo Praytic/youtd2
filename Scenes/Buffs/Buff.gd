@@ -249,7 +249,7 @@ func _on_target_level_up():
 	_call_event_handler_list(EventType.LEVEL_UP)
 
 
-func _on_target_damaged():
+func _on_target_damaged(_event: Event):
 	_call_event_handler_list(EventType.DAMAGED)
 
 
