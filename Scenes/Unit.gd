@@ -45,7 +45,7 @@ func apply_buff(buff):
 
 	if !is_already_applied_to_target || override_success:
 		_buff_map[buff_id] = buff
-		buff.connect("expired", self, "_on_buff_expired", [buff])
+		buff.connect("removed", self, "_on_buff_removed", [buff])
 		var buff_modifier: Modifier = buff.get_modifier()
 		_apply_modifier(buff_modifier, 1)
 		add_child(buff)
@@ -142,7 +142,7 @@ func _accept_kill(target: Unit, is_main_target: int):
 	emit_signal("kill", kill_event)
 
 
-func _on_buff_expired(buff):
+func _on_buff_removed(buff):
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, -1)
 
