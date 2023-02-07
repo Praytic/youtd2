@@ -151,39 +151,6 @@ func stop():
 	_on_timer_timeout()
 
 
-func add_event_handler_periodic(handler_function: String, period: float):
-	if !_check_handler_exists(handler_function):
-		return
-
-	var timer: Timer = Timer.new()
-	add_child(timer)
-	timer.wait_time = period
-	timer.one_shot = false
-	timer.autostart = true
-	timer.connect("timeout", self, "on_periodic_event_timer_timeout", [handler_function])
-
-
-func add_event_handler_unit_comes_in_range(handler_function: String, radius: float, target_type: int):
-	if !_check_handler_exists(handler_function):
-		return
-
-	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
-	var buff_range_area = buff_range_area_scene.instance()
-#	NOTE: use call_deferred() adding child immediately causes an error about
-# 	setting shape during query flushing
-	call_deferred("add_child", buff_range_area)
-	buff_range_area.init(radius, target_type, handler_function)
-
-	buff_range_area.connect("unit_came_in_range", self, "_on_unit_came_in_range")
-
-
-func _on_unit_came_in_range(handler_function: String, unit: Unit):
-	var event = Event.new()
-	event.target = unit
-
-	call(handler_function, event)
-
-
 func add_event_handler(event_type: int, handler_function: String):
 	if !_check_handler_exists(handler_function):
 		return
@@ -208,6 +175,39 @@ func add_event_handler_with_chance(event_type: int, handler_function: String, ch
 	handler.chance_level_add = chance_level_add
 
 	_add_event_handler_internal(event_type, handler)
+
+
+func add_event_handler_periodic(handler_function: String, period: float):
+	if !_check_handler_exists(handler_function):
+		return
+
+	var timer: Timer = Timer.new()
+	add_child(timer)
+	timer.wait_time = period
+	timer.one_shot = false
+	timer.autostart = true
+	timer.connect("timeout", self, "_on_periodic_event_timer_timeout", [handler_function])
+
+
+func add_event_handler_unit_comes_in_range(handler_function: String, radius: float, target_type: int):
+	if !_check_handler_exists(handler_function):
+		return
+
+	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
+	var buff_range_area = buff_range_area_scene.instance()
+#	NOTE: use call_deferred() adding child immediately causes an error about
+# 	setting shape during query flushing
+	call_deferred("add_child", buff_range_area)
+	buff_range_area.init(radius, target_type, handler_function)
+
+	buff_range_area.connect("unit_came_in_range", self, "_on_unit_came_in_range")
+
+
+func _on_unit_came_in_range(handler_function: String, unit: Unit):
+	var event = Event.new()
+	event.target = unit
+
+	call(handler_function, event)
 
 
 func _add_event_handler_internal(event_type: int, handler: EventHandler):
@@ -278,7 +278,7 @@ func _on_target_damaged(event: Event):
 	_call_event_handler_list(EventType.DAMAGED, event)
 
 
-func on_periodic_event_timer_timeout(handler_function: String):
+func _on_periodic_event_timer_timeout(handler_function: String):
 	var event: Event = Event.new()
 	call(handler_function, event)
 

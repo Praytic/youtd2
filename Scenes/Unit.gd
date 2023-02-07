@@ -83,6 +83,10 @@ func kill_instantly(target: Unit):
 	_do_damage(target, target._health, Event.IsMainTarget.YES)
 
 
+func modify_property(modification_type: int, value: float):
+	_modify_property(modification_type, value)
+
+
 func _do_attack(target: Unit):
 	var attack_event: Event = Event.new()
 	attack_event.target = target
@@ -145,10 +149,6 @@ func _on_buff_expired(buff):
 	var buff_id: String = buff.get_id()
 	_buff_map.erase(buff_id)
 	buff.queue_free()
-
-
-func modify_property(modification_type: int, value: float):
-	_modify_property(modification_type, value)
 
 
 func _modify_property(_modification_type: int, _value: float):
