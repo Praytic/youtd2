@@ -27,15 +27,10 @@ extends Node2D
 # TODO: implement the following event types
 # SPELL_CAST
 # SPELL_TARGET
-# KILL
-# ATTACK
-# ATTACKED
-# DAMAGE
 # EXPIRE
 # UPGRADE
 # REFRESH
 # PURGED
-# UNIT_IN_RANGE
 
 signal expired()
 
