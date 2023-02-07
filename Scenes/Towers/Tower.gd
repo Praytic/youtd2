@@ -31,22 +31,6 @@ enum Property {
 
 	CSV_COLUMN_COUNT = 17,
 
-# 	Splash is a dictionary mapping distance->damage ratio to
-# 	define how much splash damage the tower deals. For
-# 	example, a splash value of {100: 0.5, 300: 0.2} will
-# 	deal 50% splash damage to units within 100yd of target
-# 	and 20% to units within 300yd of target. This property
-# 	is optional.
-	SPLASH,
-
-#	Properties for tower triggers. Define these if you're
-#	using a particular tower trigger. Define in
-#	_get_base_properties().
-	ON_DAMAGE_CHANCE,
-	ON_DAMAGE_CHANCE_LEVEL_ADD,
-	ON_ATTACK_CHANCE,
-	ON_ATTACK_CHANCE_LEVEL_ADD,
-
 #	These properties shouldn't be defined directly. Use a
 #	Modifier.
 	ATTACK_CRIT_CHANCE,
@@ -115,7 +99,6 @@ var _properties: Dictionary = {
 	Property.ATTACK_TYPE: "unknown",
 	Property.COST: 0,
 	Property.DESCRIPTION: "unknown",
-	Property.SPLASH: {},
 
 	Property.ATTACK_RANGE: 0.0,
 	Property.ATTACK_CD: 0.0,
@@ -138,11 +121,6 @@ var _properties: Dictionary = {
 	Property.DMG_TO_NATURE: 0.0,
 	Property.DMG_TO_ORC: 0.0,
 	Property.DMG_TO_HUMANOID: 0.0,
-
-	Property.ON_DAMAGE_CHANCE: 1.0,
-	Property.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-	Property.ON_ATTACK_CHANCE: 1.0,
-	Property.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
 }
 
 
@@ -171,8 +149,6 @@ func _ready():
 # 	triggering "invalid key" error
 	
 	# Most properties should be defined in the .csv file.
-	# Override _get_base_properties() to define splash and
-	# trigger parameters.
 	var base_properties: Dictionary = _get_base_properties()
 
 	for property in base_properties.keys():
@@ -192,6 +168,12 @@ func _ready():
 
 	_targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
 	_targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
+
+	init()
+
+
+func init():
+	pass
 
 
 static func convert_csv_string_to_property_value(csv_string: String, property: int):
@@ -308,16 +290,12 @@ func _try_to_attack():
 	var event: Event = Event.new()
 	event.target = _target_mob
 
-	var on_attack_is_called: bool = _get_trigger_is_called(Property.ON_ATTACK_CHANCE, Property.ON_ATTACK_CHANCE_LEVEL_ADD)
+	.do_attack(_target_mob as Unit)
 
-	if on_attack_is_called:
-		_on_attack(event)
-
-	if event.can_attack:
-		var projectile = _projectile_scene.instance()
-		projectile.init(_target_mob, global_position)
-		projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
-		_game_scene.call_deferred("add_child", projectile)
+	var projectile = _projectile_scene.instance()
+	projectile.init(_target_mob, global_position)
+	projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
+	_game_scene.call_deferred("add_child", projectile)
 
 	_attack_cooldown_timer.start()
 
@@ -346,62 +324,9 @@ func _on_projectile_reached_mob(mob: Mob):
 		return
 
 	var damage_base: float = _get_rand_damage_base()
-
-#	NOTE: apply event's damage, so that any changes done by
-#	scripts in _on_damage() apply
-	_apply_damage_to_mob(mob, damage_base)
-	_do_splash_attack(mob, damage_base)
-
-
-func _do_splash_attack(splash_target: Mob, damage_base: float):
-	var splash: Dictionary = _properties[Property.SPLASH]
-
-	if splash.empty():
-		return
-
-	var splash_pos: Vector2 = splash_target.position
-	var splash_range_list: Array = splash.keys()
+	var damage: float = _get_damage_to_mob(mob, damage_base)
 	
-#	Process splash ranges from closest to furthers,
-#	so that strongest damage is applied
-	splash_range_list.sort()
-
-	var splash_range_max: float = splash_range_list.back()
-	var mob_list: Array = Utils.get_mob_list_in_range(splash_pos, splash_range_max)
-
-	for mob in mob_list:
-		if mob == splash_target:
-			continue
-		
-		var distance: float = splash_pos.distance_to(mob.position)
-
-		for splash_range in splash_range_list:
-			var mob_is_in_range: bool = distance < splash_range
-
-			if mob_is_in_range:
-				var splash_damage_ratio: float = splash[splash_range]
-				var splash_damage: float = damage_base * splash_damage_ratio
-				_apply_damage_to_mob(mob, splash_damage)
-
-				break
-
-
-# TODO: need to handle application of all bonuses, for both
-# normal damage and splash attack and handle bonuses
-# incoming from spell scripts
-func _apply_damage_to_mob(mob: Mob, damage_base: float):
-	var event: Event = Event.new()
-	event.damage = _get_damage_to_mob(mob, damage_base)
-	event.target = mob
-
-	var on_damage_is_called: bool = _get_trigger_is_called(Property.ON_DAMAGE_CHANCE, Property.ON_DAMAGE_CHANCE_LEVEL_ADD)
-
-	if on_damage_is_called:
-		_on_damage(event)
-
-#	NOTE: apply event's damage, so that any changes done by
-#	scripts in _on_damage() apply
-	mob.apply_damage(event.damage)
+	.do_damage(mob, damage, Event.IsMainTarget.YES)
 
 
 func _apply_properties_to_scene_children():
@@ -422,32 +347,12 @@ func _get_rand_damage_base() -> float:
 	return damage
 
 
-func _get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
-	var chance_base: float = _properties[trigger_chance]
-	var chance_per_level: float = _properties[trigger_chance_level_add]
-	var chance: float = chance_base + chance_per_level * get_level()
-	var trigger_is_called: bool = Utils.rand_chance(chance)
-
-	return trigger_is_called
-
-
-# Most properties should be defined in the .csv file.
-# Override _get_base_properties() to define splash and
-# trigger parameters.
 func _get_base_properties() -> Dictionary:
 	return {}
 
 
 func _get_specials_modifier() -> Modifier:
 	return null
-
-
-func _on_attack(_event: Event):
-	pass
-
-
-func _on_damage(_event: Event):
-	pass
 
 
 func _modify_property(modification_type: int, modification_value: float):
