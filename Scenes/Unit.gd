@@ -80,34 +80,34 @@ func get_level() -> int:
 
 
 func kill_instantly(target: Unit):
-	do_damage(target, target._health, Event.IsMainTarget.YES)
+	_do_damage(target, target._health, Event.IsMainTarget.YES)
 
 
-func do_attack(target: Unit):
+func _do_attack(target: Unit):
 	var attack_event: Event = Event.new()
 	attack_event.target = target
 	emit_signal("attack", attack_event)
 
-	target.receive_attack()
+	target._receive_attack()
 
 
-func receive_attack():
+func _receive_attack():
 	var attacked_event: Event = Event.new()
 	attacked_event.target = self
 	emit_signal("attacked", attacked_event)
 
 
-func do_damage(target: Unit, damage: float, is_main_target: int):
+func _do_damage(target: Unit, damage: float, is_main_target: int):
 	var damage_event: Event = Event.new()
 	damage_event.damage = damage
 	damage_event.target = target
 	damage_event.is_main_target = is_main_target
 	emit_signal("damage", damage_event)
 
-	target.receive_damage(self, damage_event.damage, is_main_target)
+	target._receive_damage(self, damage_event.damage, is_main_target)
 
 
-func receive_damage(caster: Unit, damage: float, is_main_target: int):
+func _receive_damage(caster: Unit, damage: float, is_main_target: int):
 	_health -= damage
 
 	var damaged_event: Event = Event.new()
@@ -123,7 +123,7 @@ func receive_damage(caster: Unit, damage: float, is_main_target: int):
 		death_event.is_main_target = is_main_target
 		emit_signal("death", death_event)
 
-		caster.accept_kill(self, is_main_target)
+		caster._accept_kill(self, is_main_target)
 
 		queue_free()
 
@@ -131,7 +131,7 @@ func receive_damage(caster: Unit, damage: float, is_main_target: int):
 
 
 # Called when unit kills another unit
-func accept_kill(target: Unit, is_main_target: int):
+func _accept_kill(target: Unit, is_main_target: int):
 	var kill_event: Event = Event.new()
 	kill_event.target = target
 	kill_event.is_main_target = is_main_target
