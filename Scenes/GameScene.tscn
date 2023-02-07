@@ -73,10 +73,10 @@ mouse_filter = 2
 script = ExtResource( 4 )
 
 [node name="Minimap" parent="UI" instance=ExtResource( 3 )]
-margin_left = -526.0
-margin_top = -240.0
-margin_right = -310.0
-margin_bottom = -24.0
+margin_left = -1886.0
+margin_top = -404.0
+margin_right = -1670.0
+margin_bottom = -188.0
 
 [connection signal="child_entered_tree" from="Map/MobYSort" to="UI/HUD" method="_on_MobYSort_child_entered_tree"]
 [connection signal="child_entered_tree" from="Map/MobYSort" to="UI/Minimap" method="_on_MobYSort_child_entered_tree"]

@@ -68,6 +68,14 @@ func get_csv_properties_by_filename(tower_name: String) -> Dictionary:
 
 func get_tower_id_list() -> Array:
 	return _csv_properties.keys()
+	
+	
+func get_tower_id_list_for_element(element) -> Array:
+	var filtered_tower_ids: Array = []
+	for tower_id in _csv_properties.keys():
+		if _csv_properties[tower_id][Tower.Property.ELEMENT] == element:
+			filtered_tower_ids.append(tower_id)
+	return filtered_tower_ids
 
 
 func _load_csv_properties():
