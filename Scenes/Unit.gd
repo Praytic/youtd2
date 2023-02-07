@@ -79,6 +79,10 @@ func get_level() -> int:
 	return _level
 
 
+func kill_instantly(target: Unit):
+	do_damage(target, target._health, Event.IsMainTarget.YES)
+
+
 func do_attack(target: Unit):
 	var attack_event: Event = Event.new()
 	attack_event.target = target
