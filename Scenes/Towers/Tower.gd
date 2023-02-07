@@ -39,14 +39,6 @@ enum Property {
 # 	is optional.
 	SPLASH,
 
-#	Properties for tower triggers. Define these if you're
-#	using a particular tower trigger. Define in
-#	_get_base_properties().
-	ON_DAMAGE_CHANCE,
-	ON_DAMAGE_CHANCE_LEVEL_ADD,
-	ON_ATTACK_CHANCE,
-	ON_ATTACK_CHANCE_LEVEL_ADD,
-
 #	These properties shouldn't be defined directly. Use a
 #	Modifier.
 	ATTACK_CRIT_CHANCE,
@@ -138,11 +130,6 @@ var _properties: Dictionary = {
 	Property.DMG_TO_NATURE: 0.0,
 	Property.DMG_TO_ORC: 0.0,
 	Property.DMG_TO_HUMANOID: 0.0,
-
-	Property.ON_DAMAGE_CHANCE: 1.0,
-	Property.ON_DAMAGE_CHANCE_LEVEL_ADD: 0.0,
-	Property.ON_ATTACK_CHANCE: 1.0,
-	Property.ON_ATTACK_CHANCE_LEVEL_ADD: 0.0,
 }
 
 
@@ -171,8 +158,6 @@ func _ready():
 # 	triggering "invalid key" error
 	
 	# Most properties should be defined in the .csv file.
-	# Override _get_base_properties() to define splash and
-	# trigger parameters.
 	var base_properties: Dictionary = _get_base_properties()
 
 	for property in base_properties.keys():
@@ -310,11 +295,6 @@ func _try_to_attack():
 
 	.do_attack(_target_mob as Unit)
 
-	var on_attack_is_called: bool = _get_trigger_is_called(Property.ON_ATTACK_CHANCE, Property.ON_ATTACK_CHANCE_LEVEL_ADD)
-
-	if on_attack_is_called:
-		_on_attack(event)
-
 	var projectile = _projectile_scene.instance()
 	projectile.init(_target_mob, global_position)
 	projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
@@ -397,11 +377,6 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 
 	var damage: float = _get_damage_to_mob(mob, damage_base)
 	
-	var on_damage_is_called: bool = _get_trigger_is_called(Property.ON_DAMAGE_CHANCE, Property.ON_DAMAGE_CHANCE_LEVEL_ADD)
-
-	if on_damage_is_called:
-		_on_damage(event)
-
 	.do_damage(mob, damage)
 
 
@@ -423,32 +398,12 @@ func _get_rand_damage_base() -> float:
 	return damage
 
 
-func _get_trigger_is_called(trigger_chance: int, trigger_chance_level_add: int) -> bool:
-	var chance_base: float = _properties[trigger_chance]
-	var chance_per_level: float = _properties[trigger_chance_level_add]
-	var chance: float = chance_base + chance_per_level * get_level()
-	var trigger_is_called: bool = Utils.rand_chance(chance)
-
-	return trigger_is_called
-
-
-# Most properties should be defined in the .csv file.
-# Override _get_base_properties() to define splash and
-# trigger parameters.
 func _get_base_properties() -> Dictionary:
 	return {}
 
 
 func _get_specials_modifier() -> Modifier:
 	return null
-
-
-func _on_attack(_event: Event):
-	pass
-
-
-func _on_damage(_event: Event):
-	pass
 
 
 func _modify_property(modification_type: int, modification_value: float):
