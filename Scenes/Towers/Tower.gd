@@ -290,7 +290,7 @@ func _try_to_attack():
 	var event: Event = Event.new()
 	event.target = _target_mob
 
-	.do_attack(_target_mob as Unit)
+	._do_attack(_target_mob as Unit)
 
 	var projectile = _projectile_scene.instance()
 	projectile.init(_target_mob, global_position)
@@ -326,7 +326,7 @@ func _on_projectile_reached_mob(mob: Mob):
 	var damage_base: float = _get_rand_damage_base()
 	var damage: float = _get_damage_to_mob(mob, damage_base)
 	
-	.do_damage(mob, damage, Event.IsMainTarget.YES)
+	._do_damage(mob, damage, Event.IsMainTarget.YES)
 
 
 func _apply_properties_to_scene_children():
