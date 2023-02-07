@@ -8,7 +8,9 @@ extends Node2D
 # 
 # Buffs can have event handlers. To add an event handler,
 # define a handler function in your subclass and call the
-# appropriate add_event_handler function.
+# appropriate add_event_handler function. All handler
+# functions are called with one parameter Event which passes
+# information about the event.
 
 # TODO: what is friendly used for? It's not used as sign
 # multiplier on value (confirmed by original tower scripts).
@@ -152,9 +154,6 @@ func add_event_handler_periodic(handler_function: String, period: float):
 	timer.connect("timeout", self, "on_periodic_event_timer_timeout", [handler_function])
 
 
-# Handler will be called with the following arguments:
-# (unit: Unit) unit is the unit that came in range and
-# triggered the event
 func add_event_handler_unit_comes_in_range(handler_function: String, radius: float, target_type: int):
 	if !_check_handler_exists(handler_function):
 		return
@@ -170,7 +169,10 @@ func add_event_handler_unit_comes_in_range(handler_function: String, radius: flo
 
 
 func _on_unit_came_in_range(handler_function: String, unit: Unit):
-	call(handler_function, unit)
+	var event = Event.new()
+	event.target = unit
+
+	call(handler_function, event)
 
 
 func add_event_handler(event_type: int, handler_function: String):
@@ -212,6 +214,8 @@ func _call_event_handler_list(event_type: int):
 
 	var handler_list: Array = event_handler_map[event_type]
 
+	var event: Event = Event.new()
+
 	for handler in handler_list:
 		if handler.has_chance:
 			var chance: float = min(1.0, handler.chance + handler.chance_level_add * _level)	
@@ -220,7 +224,7 @@ func _call_event_handler_list(event_type: int):
 			if !chance_success:
 				continue
 
-		call(handler.handler_function)
+		call(handler.handler_function, event)
 
 
 func _get_modifier_level() -> int:
@@ -250,7 +254,8 @@ func _on_target_damaged():
 
 
 func on_periodic_event_timer_timeout(handler_function: String):
-	call(handler_function)
+	var event: Event = Event.new()
+	call(handler_function, event)
 
 
 func _check_handler_exists(handler_function: String) -> bool:
