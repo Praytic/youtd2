@@ -308,6 +308,12 @@ func _try_to_attack():
 	var event: Event = Event.new()
 	event.target = _target_mob
 
+	emit_signal("attack", event)
+
+	var mob_attacked_event: Event = Event.new()
+	mob_attacked_event.target = self
+	_target_mob.emit_signal("attacked", mob_attacked_event)
+
 	var on_attack_is_called: bool = _get_trigger_is_called(Property.ON_ATTACK_CHANCE, Property.ON_ATTACK_CHANCE_LEVEL_ADD)
 
 	if on_attack_is_called:
@@ -393,6 +399,8 @@ func _apply_damage_to_mob(mob: Mob, damage_base: float):
 	var event: Event = Event.new()
 	event.damage = _get_damage_to_mob(mob, damage_base)
 	event.target = mob
+
+	emit_signal("damage", event)
 
 	var on_damage_is_called: bool = _get_trigger_is_called(Property.ON_DAMAGE_CHANCE, Property.ON_DAMAGE_CHANCE_LEVEL_ADD)
 

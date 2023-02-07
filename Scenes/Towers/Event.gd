@@ -3,7 +3,8 @@ extends Node
 
 
 var damage: float
-var target: Unit
+# target is of type Unit, can't use typing because of cyclic dependency...
+var target
 var can_attack: bool = true
 
 
