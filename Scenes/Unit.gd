@@ -4,12 +4,13 @@ extends KinematicBody2D
 
 signal selected
 signal unselected
-signal dead
 signal level_up
 signal attack(event)
 signal attacked(event)
 signal damage(event)
 signal damaged(event)
+signal kill(event)
+signal death(event)
 
 # Unit implements application of buffs and modifications.
 
@@ -78,11 +79,6 @@ func get_level() -> int:
 	return _level
 
 
-func die():
-	emit_signal("dead")
-	queue_free()
-
-
 func do_attack(target: Unit):
 	var attack_event: Event = Event.new()
 	attack_event.target = target
@@ -104,23 +100,38 @@ func do_damage(target: Unit, damage: float, is_main_target: int):
 	damage_event.is_main_target = is_main_target
 	emit_signal("damage", damage_event)
 
-	target.receive_damage(damage_event.damage, is_main_target)
+	target.receive_damage(self, damage_event.damage, is_main_target)
 
 
-func receive_damage(damage: float, is_main_target: int):
+func receive_damage(caster: Unit, damage: float, is_main_target: int):
 	_health -= damage
 
-	if _health < 0:
-		die()
-
-		return
-
-#	TODO: should the target of "damaged" event be the unit
-#	that caused damage to the mob?
 	var damaged_event: Event = Event.new()
+	damaged_event.target = caster
 	damaged_event.damage = damage
 	damaged_event.is_main_target = is_main_target
 	emit_signal("damaged", damaged_event)
+
+	if _health < 0:
+		var death_event: Event = Event.new()
+		death_event.target = caster
+		death_event.damage = damage
+		death_event.is_main_target = is_main_target
+		emit_signal("death", death_event)
+
+		caster.accept_kill(self, is_main_target)
+
+		queue_free()
+
+		return
+
+
+# Called when unit kills another unit
+func accept_kill(target: Unit, is_main_target: int):
+	var kill_event: Event = Event.new()
+	kill_event.target = target
+	kill_event.is_main_target = is_main_target
+	emit_signal("kill", kill_event)
 
 
 func _on_buff_expired(buff):

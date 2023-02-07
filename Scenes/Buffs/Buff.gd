@@ -48,6 +48,7 @@ enum EventType {
 	CLEANUP,
 	CREATE,
 	DEATH,
+	KILL,
 	LEVEL_UP,
 	ATTACK,
 	ATTACKED,
@@ -103,7 +104,8 @@ func _init(caster: Unit, time: float, time_level_add: float, level: int, friendl
 # Called by Unit when buff is applied successfully
 func applied_successfully(target: Unit):
 	_target = target
-	_target.connect("dead", self, "_on_target_dead")
+	_target.connect("death", self, "_on_target_death")
+	_target.connect("kill", self, "_on_target_kill")
 	_target.connect("level_up", self, "_on_target_level_up")
 	_target.connect("attack", self, "_on_target_attack")
 	_target.connect("attacked", self, "_on_target_attacked")
@@ -246,12 +248,13 @@ func _on_timer_timeout():
 	emit_signal("expired")
 
 
-func _on_target_dead():
-	var death_event: Event = Event.new()
-	_call_event_handler_list(EventType.DEATH, death_event)
+func _on_target_dead(event: Event):
+	_call_event_handler_list(EventType.DEATH, event)
+	_call_event_handler_list(EventType.CLEANUP, event)
 
-	var cleanup_event: Event = Event.new()
-	_call_event_handler_list(EventType.CLEANUP, cleanup_event)
+
+func _on_target_kill(event: Event):
+	_call_event_handler_list(EventType.KILL, event)
 
 
 func _on_target_level_up():

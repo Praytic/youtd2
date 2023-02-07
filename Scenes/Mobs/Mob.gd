@@ -55,7 +55,7 @@ func _process(delta):
 		var reached_end_of_path: bool = (_current_path_index >= _path_curve.get_point_count())
 
 		if reached_end_of_path:
-			die()
+			queue_free()
 			return
 		
 		var mob_animation: String = _get_mob_animation()
