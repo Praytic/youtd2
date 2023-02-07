@@ -23,6 +23,9 @@ func on_damage(event: Event):
 	if _splash_map.empty():
 		return
 
+	if event.is_main_target == Event.IsMainTarget.NO:
+		return
+
 	var splash_target: Unit = event.target
 	var damage_base: float = event.damage
 	var splash_pos: Vector2 = splash_target.position
@@ -48,6 +51,6 @@ func on_damage(event: Event):
 			if mob_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage_base * splash_damage_ratio
-				mob.receive_damage(splash_damage)
+				_caster.do_damage(mob, splash_damage, Event.IsMainTarget.NO)
 
 				break
