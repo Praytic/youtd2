@@ -83,14 +83,15 @@ func _init(caster: Unit, time: float, time_level_add: float, level: int, friendl
 	var default_modifier: Modifier = Modifier.new()
 	set_modifier(default_modifier)
 
-	_timer = Timer.new()
-	add_child(_timer)
-# 	Set autostart so timer starts when add_child() is called
-# 	on buff
-	_timer.autostart = true
-	var total_time: float = time + time_level_add * _level
-	_timer.wait_time = total_time
-	_timer.connect("timeout", self, "_on_timer_timeout")
+	if time > 0.0:
+		_timer = Timer.new()
+		add_child(_timer)
+# 		Set autostart so timer starts when add_child() is called
+# 		on buff
+		_timer.autostart = true
+		var total_time: float = time + time_level_add * _level
+		_timer.wait_time = total_time
+		_timer.connect("timeout", self, "_on_timer_timeout")
 
 
 # Called by Unit when buff is applied successfully
