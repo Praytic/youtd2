@@ -77,7 +77,7 @@ func calc_spell_crit_no_bonus() -> float:
 
 # TODO: implement. is_main_target parameter doesn't exist in
 # original api, not sure how to do without it
-func do_spell_damage(target: Unit, damage: float, _crit_mod: float, is_main_target: int):
+func do_spell_damage(target: Unit, damage: float, _crit_mod: float, is_main_target: bool):
 	_do_damage(target, damage, is_main_target)
 
 
@@ -109,7 +109,7 @@ func get_level() -> int:
 
 
 func kill_instantly(target: Unit):
-	_do_damage(target, target._health, Event.IsMainTarget.YES)
+	_do_damage(target, target._health, true)
 
 
 func modify_property(modification_type: int, value: float):
@@ -130,7 +130,7 @@ func _receive_attack():
 	emit_signal("attacked", attacked_event)
 
 
-func _do_damage(target: Unit, damage: float, is_main_target: int):
+func _do_damage(target: Unit, damage: float, is_main_target: bool):
 	var damage_event: Event = Event.new()
 	damage_event.damage = damage
 	damage_event.target = target
@@ -140,7 +140,7 @@ func _do_damage(target: Unit, damage: float, is_main_target: int):
 	target._receive_damage(self, damage_event.damage, is_main_target)
 
 
-func _receive_damage(caster: Unit, damage: float, is_main_target: int):
+func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
 	_health -= damage
 
 	var damaged_event: Event = Event.new()
@@ -164,7 +164,7 @@ func _receive_damage(caster: Unit, damage: float, is_main_target: int):
 
 
 # Called when unit kills another unit
-func _accept_kill(target: Unit, is_main_target: int):
+func _accept_kill(target: Unit, is_main_target: bool):
 	var kill_event: Event = Event.new()
 	kill_event.target = target
 	kill_event.is_main_target = is_main_target

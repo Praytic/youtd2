@@ -1,11 +1,6 @@
 class_name Event
 extends Node
 
-enum IsMainTarget {
-	YES,
-	NO,
-}
-
 var damage: float
 # target is of type Unit, can't use typing because of cyclic dependency...
 var target
@@ -14,7 +9,7 @@ var target
 # damage to mobs around the mob it attacks, then the target
 # of the attack will be the main target, while mobs hit by
 # splash will not.
-var is_main_target: int = IsMainTarget.NO
+var is_main_target: bool = false
 
 
 func _ready():
