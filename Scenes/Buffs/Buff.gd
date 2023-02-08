@@ -69,8 +69,7 @@ class EventHandler:
 
 var _caster: Unit
 var _target: Unit
-var _modifier: Modifier setget set_modifier, get_modifier
-var _timer: Timer
+var _modifier: Modifier = Modifier.new() setget set_modifier, get_modifier
 var _level: int
 var _modifier_level_type: int = ModifierLevelType.TOWER
 var _friendly: bool
@@ -78,29 +77,17 @@ var _friendly: bool
 var event_handler_map: Dictionary = {}
 
 
-func _init(caster: Unit, time: float, time_level_add: float, level: int, friendly: bool):
+# Call this after creating the buff and before applying
+func apply_to_unit(caster: Unit, target: Unit, time: float, time_level_add: float, level: int, friendly: bool):
 	_caster = caster
 	_level = level
 	_friendly = friendly
 
-#	NOTE: set a default empty modifier for convenience so that
-# 	buffs that don't use modifiers don't need to set it
-	var default_modifier: Modifier = Modifier.new()
-	set_modifier(default_modifier)
+	var apply_success: bool = target._apply_buff(self)
 
-	if time > 0.0:
-		_timer = Timer.new()
-		add_child(_timer)
-# 		Set autostart so timer starts when add_child() is called
-# 		on buff
-		_timer.autostart = true
-		var total_time: float = time + time_level_add * _level
-		_timer.wait_time = total_time
-		_timer.connect("timeout", self, "_on_timer_timeout")
+	if !apply_success:
+		return
 
-
-# Called by Unit when buff is applied successfully
-func applied_successfully(target: Unit):
 	_target = target
 	_target.connect("death", self, "_on_target_death")
 	_target.connect("kill", self, "_on_target_kill")
@@ -110,15 +97,23 @@ func applied_successfully(target: Unit):
 	_target.connect("damage", self, "_on_target_damage")
 	_target.connect("damaged", self, "_on_target_damaged")
 
-	var event: Event = Event.new()
-	_call_event_handler_list(EventType.CREATE, event)
+	if time > 0.0:
+		var timer: Timer = Timer.new()
+		add_child(timer)
+		timer.connect("timeout", self, "_on_timer_timeout")
+		var total_time: float = time + time_level_add * _level
+		timer.start(total_time)
+
+	var create_event: Event = Event.new()
+	_call_event_handler_list(EventType.CREATE, create_event)
+
+
+func apply_to_unit_permanent(caster: Unit, target: Unit, level: int, friendly: bool):
+	apply_to_unit(caster, target, -1.0, 0.0, level, friendly)
 
 
 func set_modifier_level_type(level_type: int):
 	_modifier_level_type = level_type
-	
-	if _modifier != null:
-		_modifier.level = _get_modifier_level()
 
 
 func set_modifier(modifier: Modifier):
