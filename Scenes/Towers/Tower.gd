@@ -291,7 +291,7 @@ func _try_to_attack():
 	var event: Event = Event.new()
 	event.target = _target_mob
 
-	._do_attack(_target_mob as Unit)
+	._do_attack(_target_mob)
 
 	var projectile = _projectile_scene.instance()
 	projectile.init(_target_mob, global_position)
