@@ -83,6 +83,9 @@ func apply_to_unit(caster: Unit, target: Unit, time: float, time_level_add: floa
 	_level = level
 	_friendly = friendly
 
+#	TODO: implement using tower level as modifier level
+	_modifier.level = level
+
 	var apply_success: bool = target._apply_buff(self)
 
 	if !apply_success:
@@ -112,13 +115,8 @@ func apply_to_unit_permanent(caster: Unit, target: Unit, level: int, friendly: b
 	apply_to_unit(caster, target, -1.0, 0.0, level, friendly)
 
 
-func set_modifier_level_type(level_type: int):
-	_modifier_level_type = level_type
-
-
 func set_modifier(modifier: Modifier):
 	_modifier = modifier
-	_modifier.level = _get_modifier_level()
 
 
 func get_modifier() -> Modifier:
@@ -225,13 +223,6 @@ func _call_event_handler_list(event_type: int, event: Event):
 				continue
 
 		call(handler.handler_function, event)
-
-
-func _get_modifier_level() -> int:
-	match _modifier_level_type:
-		ModifierLevelType.TOWER: return _caster.get_level()
-		ModifierLevelType.BUFF: return get_level()
-	return 0
 
 
 func _on_timer_timeout():
