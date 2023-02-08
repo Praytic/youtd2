@@ -28,7 +28,11 @@ func _ready():
 	pass
 
 
-func apply_buff(buff):
+# This shouldn't be used directly, use Buff.apply_to_unit().
+# Returns true if the buff was applied successfully. Buff
+# can fail to apply if a stronger buff of same type is
+# already active.
+func _apply_buff(buff) -> bool:
 	var buff_id: String = buff.get_id()
 
 	var is_already_applied_to_target: bool = _buff_map.has(buff_id)
@@ -49,7 +53,10 @@ func apply_buff(buff):
 		var buff_modifier: Modifier = buff.get_modifier()
 		_apply_modifier(buff_modifier, 1)
 		add_child(buff)
-		buff.applied_successfully(self)
+
+		return true
+	else:
+		return false
 
 
 func add_modifier(modifier: Modifier):
