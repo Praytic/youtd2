@@ -59,6 +59,28 @@ func _apply_buff(buff) -> bool:
 		return false
 
 
+# TODO: implement
+func is_immune() -> bool:
+	return false
+
+
+# TODO: implement, needs to be affected by bonuses to chance
+func calc_chance(chance: float) -> bool:
+	return Utils.rand_chance(chance)
+
+
+# TODO: implement, probably calculates total modifier from
+# crit without multi-crit?
+func calc_spell_crit_no_bonus() -> float:
+	return 0.0
+
+
+# TODO: implement. is_main_target parameter doesn't exist in
+# original api, not sure how to do without it
+func do_spell_damage(target: Unit, damage: float, _crit_mod: float, is_main_target: int):
+	_do_damage(target, damage, is_main_target)
+
+
 func add_modifier(modifier: Modifier):
 	_apply_modifier(modifier, 1)
 	_modifier_list.append(modifier)
