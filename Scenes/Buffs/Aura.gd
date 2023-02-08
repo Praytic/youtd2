@@ -62,7 +62,7 @@ func _on_Timer_timeout():
 		var mob: Mob = body as Mob
 		# NOTE: use 0.21 duration so that buff is refreshed
 		# right before it expires
-		aura_effect.apply_to_unit(caster, mob, 0.21, 0.0, power, false)
+		aura_effect.apply_to_unit(caster, mob, 0.21, 0.0, get_level(), false)
 
 
 func _create_aura_effect() -> Buff:
@@ -79,3 +79,11 @@ func _create_aura_effect() -> Buff:
 	var aura_effect = caster.call(create_aura_effect_function)
 
 	return aura_effect
+
+
+func get_power() -> int:
+	return power + caster.get_level() * power_add
+
+
+func get_level() -> int:
+	return level + caster.get_level() * level_add
