@@ -169,10 +169,11 @@ func _ready():
 	_targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
 	_targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
 
-	init()
+	_init_tower()
 
 
-func init():
+# Override this f-n to initialize Tower subclasses.
+func _init_tower():
 	pass
 
 
