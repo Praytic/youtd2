@@ -212,6 +212,10 @@ func get_id() -> int:
 	return _properties[Property.ID]
 
 
+func get_tier() -> int:
+	return _properties[Property.TIER]
+
+
 func build_init():
 	.build_init()
 	$AreaOfEffect.show()
