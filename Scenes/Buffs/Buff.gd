@@ -233,7 +233,7 @@ func _call_event_handler_list(event_type: int, event: Event):
 			if !chance_success:
 				continue
 
-		call(handler.handler_function, event)
+		handler.object.call(handler.handler_function, event)
 
 
 func _on_timer_timeout():
