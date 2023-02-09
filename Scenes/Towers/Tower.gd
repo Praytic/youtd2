@@ -8,6 +8,7 @@ extends Building
 
 signal upgraded
 
+
 enum Property {
 #	Properties below should be defined in the .csv file and
 # 	the integer values must match the columns in csv file.
@@ -52,6 +53,7 @@ enum Property {
 
 export(int) var id
 export(int) var next_tier_id
+export(AudioStreamMP3) var attack_sound
 
 # Mapping of modification type to the tower property that it
 # modifies.
@@ -127,6 +129,7 @@ var _properties: Dictionary = {
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var _attack_cooldown_timer: Timer = $AttackCooldownTimer
 onready var _targeting_area: Area2D = $TargetingArea
+onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 
 
 func _ready():
@@ -168,6 +171,9 @@ func _ready():
 
 	_targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
 	_targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
+
+	_attack_sound.set_stream(attack_sound)
+	add_child(_attack_sound)
 
 	_init_tower()
 
@@ -276,17 +282,17 @@ func _find_new_target() -> Mob:
 	return closest_mob
 
 
-func _try_to_attack():
+func _try_to_attack() -> bool:
 	if building_in_progress:
-		return
+		return false
 
 	if !_have_target():
-		return
+		return false
 	
 	var attack_on_cooldown: bool = _attack_cooldown_timer.time_left > 0
 	
 	if attack_on_cooldown:
-		return
+		return false
 
 	var event: Event = Event.new()
 	event.target = _target_mob
@@ -298,7 +304,10 @@ func _try_to_attack():
 	projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
 	_game_scene.call_deferred("add_child", projectile)
 
+	_attack_sound.play()
+	
 	_attack_cooldown_timer.start()
+	return true
 
 
 func _have_target() -> bool:
