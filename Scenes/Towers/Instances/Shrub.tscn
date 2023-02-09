@@ -24,15 +24,8 @@ shape = SubResource( 1 )
 position = Vector2( 0, -193 )
 
 [node name="Sprite" type="Sprite" parent="Model" index="0"]
-position = Vector2( -8, 154 )
+position = Vector2( 5, 143 )
 texture = SubResource( 2 )
 
 [node name="Muzzle" type="Position2D" parent="Model" index="1"]
 position = Vector2( -1, 130 )
-
-[node name="Label" type="Label" parent="Model" index="2"]
-margin_left = -30.0
-margin_top = 107.0
-margin_right = 29.0
-margin_bottom = 121.0
-text = "ASDASDS"
