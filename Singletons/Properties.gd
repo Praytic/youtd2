@@ -78,6 +78,14 @@ func get_tower_id_list() -> Array:
 	return _csv_properties.keys()
 
 
+func get_tower_id_list_by_filter(tower_property: int, filter_value) -> Array:
+	var result_list = []
+	for tower_id in _csv_properties.keys():
+		if _csv_properties[tower_id][tower_property] == filter_value:
+			result_list.append(tower_id)
+	return result_list
+
+
 func _load_csv_properties():
 	var file: File = File.new()
 	file.open("res://Assets/tower_properties.csv", file.READ)
