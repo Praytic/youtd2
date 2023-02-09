@@ -175,13 +175,6 @@ func _ready():
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
 
-	_init_tower()
-
-
-# Override this f-n to initialize Tower subclasses.
-func _init_tower():
-	pass
-
 
 static func convert_csv_string_to_property_value(csv_string: String, property: int):
 	if property > Property.CSV_COLUMN_COUNT:
