@@ -7,6 +7,6 @@ func _ready():
 
 
 func _get_specials_modifier() -> Modifier:
-	var specials_modifier: Modifier = SmallCactus.get_cactus_special(0.19, 0.012)
+	var specials_modifier: Modifier = SmallCactus1.get_cactus_special(0.25, 0.016)
 
 	return specials_modifier
