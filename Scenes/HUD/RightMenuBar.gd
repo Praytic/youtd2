@@ -11,6 +11,7 @@ onready var builder_control = get_tree().current_scene.get_node(@"%BuilderContro
 
 func _ready():
 	self.hide()
+	builder_control.connect("tower_built", self, "_on_Tower_built")
 
 
 func _on_Button_pressed(element):
@@ -35,3 +36,7 @@ func _on_TowerButton_mouse_entered(tower_id):
 
 func _on_TowerButton_mouse_exited():
 	emit_signal("tower_info_canceled")
+
+
+func _on_Tower_built(_tower_id):
+	hide()
