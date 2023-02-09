@@ -12,13 +12,13 @@ const _tier_stats_map: Dictionary = {
 
 func _ready():
 	var frozen_thorn_buff: Buff = Buff.new("frozen_thorn")
-	frozen_thorn_buff.add_event_handler_with_chance(Buff.EventType.DAMAGE, self, "_on_damage", 0.15, 0.0)
+	frozen_thorn_buff.add_event_handler_with_chance(Buff.EventType.DAMAGE, self, "_on_damage", 1.0, 0.0)
 
 	frozen_thorn_buff.apply_to_unit_permanent(self, self, 0, false)
 
 
 func _on_damage(event: Event):
-	if event.is_main_target && !event.target.is_immune():
+	if event.is_main_target && calc_chance(0.15) && !event.target.is_immune():
 		Utils.sfx_at_unit("Abilities\\Spells\\Undead\\FrostArmor\\FrostArmorDamage.mdl", event.target)
 
 		var tier: int = get_tier()
