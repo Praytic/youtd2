@@ -61,6 +61,7 @@ enum TargetType {
 }
 
 class EventHandler:
+	var object: Node
 	var handler_function: String
 	var has_chance: bool
 	var chance: float
@@ -150,11 +151,12 @@ func stop():
 	_on_timer_timeout()
 
 
-func add_event_handler(event_type: int, handler_function: String):
-	if !_check_handler_exists(handler_function):
+func add_event_handler(event_type: int, handler_object: Node, handler_function: String):
+	if !_check_handler_exists(handler_object, handler_function):
 		return
 
 	var handler: EventHandler = EventHandler.new()
+	handler.object = handler_object
 	handler.handler_function = handler_function
 	handler.has_chance = false
 	handler.chance = 0.0
@@ -166,8 +168,9 @@ func add_event_handler(event_type: int, handler_function: String):
 # NOTE: in original, only events of type
 # attack/attacked/damage/damaged could have chance, but for
 # convenience allow setting chance to all types of events
-func add_event_handler_with_chance(event_type: int, handler_function: String, chance: float, chance_level_add: float):
+func add_event_handler_with_chance(event_type: int, handler_object, handler_function: String, chance: float, chance_level_add: float):
 	var handler: EventHandler = EventHandler.new()
+	handler.object = handler_object
 	handler.handler_function = handler_function
 	handler.has_chance = true
 	handler.chance = chance
@@ -176,8 +179,8 @@ func add_event_handler_with_chance(event_type: int, handler_function: String, ch
 	_add_event_handler_internal(event_type, handler)
 
 
-func add_event_handler_periodic(handler_function: String, period: float):
-	if !_check_handler_exists(handler_function):
+func add_event_handler_periodic(handler_object: Node, handler_function: String, period: float):
+	if !_check_handler_exists(handler_object, handler_function):
 		return
 
 	var timer: Timer = Timer.new()
@@ -185,11 +188,11 @@ func add_event_handler_periodic(handler_function: String, period: float):
 	timer.wait_time = period
 	timer.one_shot = false
 	timer.autostart = true
-	timer.connect("timeout", self, "_on_periodic_event_timer_timeout", [handler_function])
+	timer.connect("timeout", self, "_on_periodic_event_timer_timeout", [handler_object, handler_function])
 
 
-func add_event_handler_unit_comes_in_range(handler_function: String, radius: float, target_type: int):
-	if !_check_handler_exists(handler_function):
+func add_event_handler_unit_comes_in_range(handler_object: Node, handler_function: String, radius: float, target_type: int):
+	if !_check_handler_exists(handler_object, handler_function):
 		return
 
 	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
@@ -197,16 +200,16 @@ func add_event_handler_unit_comes_in_range(handler_function: String, radius: flo
 #	NOTE: use call_deferred() adding child immediately causes an error about
 # 	setting shape during query flushing
 	call_deferred("add_child", buff_range_area)
-	buff_range_area.init(radius, target_type, handler_function)
+	buff_range_area.init(radius, target_type, handler_object, handler_function)
 
 	buff_range_area.connect("unit_came_in_range", self, "_on_unit_came_in_range")
 
 
-func _on_unit_came_in_range(handler_function: String, unit: Unit):
+func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
 	var event = Event.new()
 	event.target = unit
 
-	call(handler_function, event)
+	handler_object.call(handler_function, event)
 
 
 func _add_event_handler_internal(event_type: int, handler: EventHandler):
@@ -273,13 +276,13 @@ func _on_target_damaged(event: Event):
 	_call_event_handler_list(EventType.DAMAGED, event)
 
 
-func _on_periodic_event_timer_timeout(handler_function: String):
+func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String):
 	var event: Event = Event.new()
-	call(handler_function, event)
+	handler_object.call(handler_function, event)
 
 
-func _check_handler_exists(handler_function: String) -> bool:
-	var exists: bool = has_method(handler_function)
+func _check_handler_exists(handler_object: Node, handler_function: String) -> bool:
+	var exists: bool = handler_object.has_method(handler_function)
 
 	if !exists:
 		print_debug("Attempted to register an event handler that doesn't exist: ", handler_function)

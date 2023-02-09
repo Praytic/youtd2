@@ -8,7 +8,7 @@ func _init(damage: float, damage_add: float):
 	_damage = damage
 	_damage_add = damage_add
 
-	add_event_handler_with_chance(Buff.EventType.DAMAGE, "_on_damage", 0.15, 0.0)
+	add_event_handler_with_chance(Buff.EventType.DAMAGE, self, "_on_damage", 0.15, 0.0)
 
 
 func _on_damage(event: Event):

@@ -16,7 +16,7 @@ var _splash_map: Dictionary = {}
 
 func _init(splash_map: Dictionary):
 	_splash_map = splash_map
-	add_event_handler(Buff.EventType.DAMAGE, "on_damage")
+	add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")
 
 
 func on_damage(event: Event):
