@@ -32,7 +32,7 @@ func _init():
 #			defined. After most tower scripts are added
 #			should replace this with a print_debug() warning
 #			about missing scene.
-			var fallback_script_path: String = "%s/%s.tscn" % [towers_dir, "SmallCactus"]
+			var fallback_script_path: String = "%s/%s.tscn" % [towers_dir, "SmallCactus1"]
 			tower_scene = load(fallback_script_path)
 
 		preloaded_towers[tower_id] = tower_scene
