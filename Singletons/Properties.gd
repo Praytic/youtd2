@@ -55,6 +55,14 @@ func get_csv_properties(tower_id: int) -> Dictionary:
 		return {}
 
 
+func get_csv_properties_by_filter(tower_property: int, filter_value) -> Array:
+	var result_list_of_dicts = []
+	for tower_id in _csv_properties.keys():
+		if _csv_properties[tower_id][tower_property] == filter_value:
+			result_list_of_dicts.append(_csv_properties[tower_id])
+	return result_list_of_dicts
+
+
 func get_csv_properties_by_filename(tower_name: String) -> Dictionary:
 	if _tower_filename_to_id_map.has(tower_name):
 		var tower_id: int = _tower_filename_to_id_map[tower_name]
@@ -68,14 +76,6 @@ func get_csv_properties_by_filename(tower_name: String) -> Dictionary:
 
 func get_tower_id_list() -> Array:
 	return _csv_properties.keys()
-	
-	
-func get_tower_id_list_for_element(element) -> Array:
-	var filtered_tower_ids: Array = []
-	for tower_id in _csv_properties.keys():
-		if _csv_properties[tower_id][Tower.Property.ELEMENT] == element:
-			filtered_tower_ids.append(tower_id)
-	return filtered_tower_ids
 
 
 func _load_csv_properties():
