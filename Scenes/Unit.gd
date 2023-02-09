@@ -21,6 +21,7 @@ signal death(event)
 var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
 var _modifier_list: Array
+var _specials_modifier_list: Array
 var _health: float = 100.0
 
 
@@ -86,6 +87,18 @@ func add_modifier(modifier: Modifier):
 	_modifier_list.append(modifier)
 
 
+# NOTE: this is for modifiers that tower applies to itself,
+# modifiers applied like this will level together with the
+# tower
+# 
+# TODO: might be a better way to do this. Maybe as part of a
+# buff? But buffs aren't supposed to change level after
+# creation.
+func add_specials_modifier(modifier: Modifier):
+	_apply_modifier(modifier, 1)
+	_specials_modifier_list.append(modifier)
+
+
 # TODO: not sure how to implement remove_modifier(). Maybe
 # assign modifiers an id in add_modifier()? Need to see
 # concrete use case for removing modifiers first. Will
@@ -95,8 +108,8 @@ func add_modifier(modifier: Modifier):
 func set_level(new_level: int):
 	_level = new_level
 
-#	NOTE: apply level change to modifiers
-	for modifier in _modifier_list:
+#	NOTE: apply level change to specials modifiers
+	for modifier in _specials_modifier_list:
 		_apply_modifier(modifier, -1)
 		modifier.level = new_level
 		_apply_modifier(modifier, 1)
