@@ -371,6 +371,9 @@ func _modify_property(modification_type: int, modification_value: float):
 		var new_value: float = current_value + modification_value
 		_properties[property] = new_value
 
+		if property == Property.ATTACK_RANGE || property == Property.ATTACK_CD:
+			_apply_properties_to_scene_children()
+
 
 func _get_crit_count() -> int:
 	var crit_count: int = 0
