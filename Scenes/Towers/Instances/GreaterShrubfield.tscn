@@ -26,6 +26,7 @@ position = Vector2( 0, -193 )
 [node name="Sprite" type="Sprite" parent="Model" index="0"]
 position = Vector2( 2, 112 )
 texture = SubResource( 2 )
+script = ExtResource( 3 )
 
 [node name="Muzzle" type="Position2D" parent="Model" index="1"]
 position = Vector2( -1, 153 )
