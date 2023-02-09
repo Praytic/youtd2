@@ -1,4 +1,4 @@
-class_name SmallCactus
+class_name SmallCactus1
 extends Tower
 
 
