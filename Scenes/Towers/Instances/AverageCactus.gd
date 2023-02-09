@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _init_tower():
+func _ready():
 	var splash_attack_buff = SplashAttack.new({320: 0.5})
 	splash_attack_buff.apply_to_unit_permanent(self, self, 0, true)
 
