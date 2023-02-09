@@ -73,6 +73,7 @@ var _modifier: Modifier = Modifier.new() setget set_modifier, get_modifier
 var _level: int
 var _modifier_level_type: int = ModifierLevelType.TOWER
 var _friendly: bool
+var _custom_id: String = ""
 # Map of EventType -> list of EventHandler's
 var event_handler_map: Dictionary = {}
 
@@ -127,11 +128,18 @@ func get_level() -> int:
 	return _level
 
 
-func get_id() -> String:
-	var script: Reference = get_script()
-	var id: String = script.get_path()
+func set_id(custom_id: String):
+	_custom_id = custom_id
 
-	return id
+
+func get_id() -> String:
+	if _custom_id != "":
+		return _custom_id
+	else:
+		var script: Reference = get_script()
+		var id: String = script.get_path()
+
+		return id
 
 
 func get_target() -> Unit:
