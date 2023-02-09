@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=3]
 [ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture" id=5]
 [ext_resource path="res://Scenes/HUD/RightMenuBar.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/HUD/BuildBar.gd" type="Script" id=7]
-[ext_resource path="res://Scenes/HUD/TowersOptionButton.gd" type="Script" id=8]
 
 [node name="RightMenuBar" type="Control"]
 anchor_left = 1.0
@@ -27,11 +26,11 @@ expand = true
 stretch_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_right = 128.0
+margin_right = 256.0
 margin_bottom = 40.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
@@ -41,26 +40,10 @@ custom_constants/margin_bottom = 20
 [node name="BuildBar" type="GridContainer" parent="VBoxContainer/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 108.0
+margin_right = 236.0
 margin_bottom = 20.0
-columns = 3
+columns = 4
 script = ExtResource( 7 )
 
-[node name="TowerOptionButton" type="OptionButton" parent="VBoxContainer"]
-margin_top = 44.0
-margin_right = 128.0
-margin_bottom = 125.0
-script = ExtResource( 8 )
-
-[node name="BuildSelectedTowerButton" type="Button" parent="VBoxContainer"]
-margin_top = 129.0
-margin_right = 128.0
-margin_bottom = 210.0
-text = "Build"
-
-[connection signal="element_changed" from="." to="VBoxContainer/TowerOptionButton" method="_on_RightMenuBar_element_changed"]
+[connection signal="element_changed" from="." to="VBoxContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
 [connection signal="child_entered_tree" from="VBoxContainer/MarginContainer/BuildBar" to="." method="_on_BuildBar_child_entered_tree"]
-[connection signal="item_selected" from="VBoxContainer/TowerOptionButton" to="VBoxContainer/MarginContainer/BuildBar" method="_on_TowerOptionButton_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/TowerOptionButton" to="VBoxContainer/TowerOptionButton" method="_on_TowerOptionButton_item_selected"]
-[connection signal="tower_selected" from="VBoxContainer/TowerOptionButton" to="VBoxContainer/MarginContainer/BuildBar" method="_on_TowerOptionButton_tower_selected"]
-[connection signal="pressed" from="VBoxContainer/BuildSelectedTowerButton" to="." method="_on_BuildSelectedTowerButton_pressed"]

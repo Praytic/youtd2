@@ -7,11 +7,11 @@ signal element_changed(element)
 
 
 onready var builder_control = get_tree().current_scene.get_node(@"%BuilderControl")
-onready var tower_option_button: OptionButton = $VBoxContainer/TowerOptionButton
 
 
 func _ready():
 	self.hide()
+	builder_control.connect("tower_built", self, "_on_Tower_built")
 
 
 func _on_Button_pressed(element):
@@ -24,20 +24,19 @@ func _unhandled_input(event):
 		hide()
 
 
-func _on_BuildSelectedTowerButton_pressed():
-	var selected_tower_id: int = tower_option_button.get_selected_id()
-	builder_control.on_build_button_pressed(selected_tower_id)
-	hide()
-
-
 func _on_BuildBar_child_entered_tree(tower_button):
 	var tower_id = tower_button.tower_id
 	tower_button.connect("mouse_entered", self, "_on_TowerButton_mouse_entered", [tower_id])
 	tower_button.connect("mouse_exited", self, "_on_TowerButton_mouse_exited")
-	
+
+
 func _on_TowerButton_mouse_entered(tower_id):
 	emit_signal("tower_info_requested", tower_id)
-	
-	
+
+
 func _on_TowerButton_mouse_exited():
 	emit_signal("tower_info_canceled")
+
+
+func _on_Tower_built(_tower_id):
+	hide()
