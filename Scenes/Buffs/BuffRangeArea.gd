@@ -4,9 +4,10 @@ extends Area2D
 # BuffRangeArea wraps an Area2D  with circle shape. Used by
 # Buff to implement the "unit comes in range" event.
 
-signal unit_came_in_range(handler_function, unit)
+signal unit_came_in_range(handler_object, handler_function, unit)
 
 var _target_type: int
+var _handler_object: Node
 var _handler_function: String
 
 
@@ -14,9 +15,10 @@ func _init():
 	connect("body_entered", self, "_on_body_entered")
 
 
-func init(radius: float, target_type: int, handler_function: String):
+func init(radius: float, target_type: int, handler_object: Node, handler_function: String):
 	Utils.circle_shape_set_radius($CollisionShape2D, radius)
 	_target_type = target_type
+	_handler_object = handler_object
 	_handler_function = handler_function
 
 
@@ -25,7 +27,7 @@ func _on_body_entered(body: Node):
 
 	if target_match:
 		var unit: Unit = body as Unit
-		emit_signal("unit_came_in_range", _handler_function, unit)
+		emit_signal("unit_came_in_range", _handler_object, _handler_function, unit)
 
 
 func _check_target_matc(body: Node) -> bool:
