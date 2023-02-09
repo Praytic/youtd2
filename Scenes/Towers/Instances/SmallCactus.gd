@@ -15,8 +15,8 @@ func _get_specials_modifier() -> Modifier:
 
 static func get_cactus_special(value: float, value_add: float) -> Modifier:
 	var cactus_special: Modifier = Modifier.new()
-	cactus_special.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.15, 0.01)
-	cactus_special.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.15, 0.01)
+	cactus_special.add_modification(Modification.Type.MOD_DMG_TO_MASS, value, value_add)
+	cactus_special.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, value, value_add)
 
 	return cactus_special
 
