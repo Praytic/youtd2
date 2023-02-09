@@ -74,9 +74,14 @@ var _modifier: Modifier = Modifier.new() setget set_modifier, get_modifier
 var _level: int
 var _modifier_level_type: int = ModifierLevelType.TOWER
 var _friendly: bool
-var _custom_id: String = ""
+var _id: String
 # Map of EventType -> list of EventHandler's
 var event_handler_map: Dictionary = {}
+
+
+func _init(id: String):
+	_id = id
+
 
 
 # Call this after creating the buff and before applying
@@ -129,18 +134,8 @@ func get_level() -> int:
 	return _level
 
 
-func set_id(custom_id: String):
-	_custom_id = custom_id
-
-
 func get_id() -> String:
-	if _custom_id != "":
-		return _custom_id
-	else:
-		var script: Reference = get_script()
-		var id: String = script.get_path()
-
-		return id
+	return _id
 
 
 func get_target() -> Unit:

@@ -11,8 +11,7 @@ const _tier_stats_map: Dictionary = {
 }
 
 func _ready():
-	var frozen_thorn_buff: Buff = Buff.new()
-	frozen_thorn_buff.set_id("frozen_thorn")
+	var frozen_thorn_buff: Buff = Buff.new("frozen_thorn")
 	frozen_thorn_buff.add_event_handler_with_chance(Buff.EventType.DAMAGE, self, "_on_damage", 0.15, 0.0)
 
 	frozen_thorn_buff.apply_to_unit_permanent(self, self, 0, false)
