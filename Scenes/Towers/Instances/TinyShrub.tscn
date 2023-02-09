@@ -1,12 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Assets/Towers/Instances/Shrub/shrub_lvl1.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Towers/Instances/Shrub/all_levels.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Towers/Instances/TinyShrub.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Towers/Tower.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/SFX/swosh-08.mp3" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 resource_local_to_scene = true
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 58, 70, 185, 160 )
 
 [node name="TinyShrub" instance=ExtResource( 3 )]
 script = ExtResource( 2 )
@@ -21,12 +26,8 @@ shape = SubResource( 1 )
 position = Vector2( 0, -193 )
 
 [node name="Sprite" type="Sprite" parent="Model" index="0"]
-position = Vector2( 0, 15 )
-texture = ExtResource( 1 )
+position = Vector2( -11, 155 )
+texture = SubResource( 2 )
 
 [node name="Muzzle" type="Position2D" parent="Model" index="1"]
 position = Vector2( -1, 153 )
-
-[node name="AttackSound" type="AudioStreamPlayer2D" parent="." index="6"]
-stream = ExtResource( 4 )
-volume_db = -17.385
