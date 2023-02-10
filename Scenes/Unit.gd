@@ -19,7 +19,12 @@ signal death(event)
 
 enum UnitProperty {
 	TRIGGER_CHANCES,
+	MOVE_SPEED,
 }
+
+
+const MOVE_SPEED_MIN: float = 100.0
+const MOVE_SPEED_MAX: float = 500.0
 
 var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
@@ -28,10 +33,16 @@ var _specials_modifier_list: Array
 var _health: float = 100.0
 var _unit_properties: Dictionary = {
 	UnitProperty.TRIGGER_CHANCES: 0.0,
+	UnitProperty.MOVE_SPEED: MOVE_SPEED_MAX,
 }
 
-const _modification_type_to_unit_property_map: Dictionary = {
+const _unit_add_mod_map: Dictionary = {
 	Modification.Type.MOD_TRIGGER_CHANCES: UnitProperty.TRIGGER_CHANCES,
+	Modification.Type.MOD_MOVE_SPEED_ABSOLUTE: UnitProperty.MOVE_SPEED,
+}
+
+const _unit_percent_mod_map: Dictionary = {
+	Modification.Type.MOD_MOVE_SPEED: UnitProperty.MOVE_SPEED,
 }
 
 func _ready():
@@ -150,16 +161,33 @@ func kill_instantly(target: Unit):
 
 
 func modify_property(modification_type: int, modification_value: float):
-	var can_modify: bool = _modification_type_to_unit_property_map.has(modification_type)
+	var is_percent_mod: bool = _unit_percent_mod_map.has(modification_type)
+	var is_add_mod: bool = _unit_add_mod_map.has(modification_type)
 
-	if can_modify:
-		var property: int = _modification_type_to_unit_property_map[modification_type]
+	if is_add_mod:
+		var property: int = _unit_add_mod_map[modification_type]
 		var current_value: float = _unit_properties[property]
 		var new_value: float = current_value + modification_value
 		_unit_properties[property] = new_value
 
+	if is_percent_mod:
+		var property: int = _unit_percent_mod_map[modification_type]
+		var current_value: float = _unit_properties[property]
+		var new_value: float = current_value * (1.0 + modification_value)
+		_unit_properties[property] = new_value
+
 #	Call subclass version
 	_modify_property(modification_type, modification_value)
+
+
+# NOTE: important to store move speed without clamping and
+# clamp only the value that is returned by getter to avoid
+# overflow issues.
+func get_move_speed() -> float:
+	var unclamped_value: float = _unit_properties[UnitProperty.MOVE_SPEED]
+	var move_speed: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped_value))
+
+	return move_speed
 
 
 func _do_attack(target: Unit):
