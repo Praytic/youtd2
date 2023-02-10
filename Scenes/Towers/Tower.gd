@@ -93,7 +93,7 @@ const _mob_size_to_property_map: Dictionary = {
 var _target_mob: Mob = null
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
-var _properties: Dictionary = {
+var _tower_properties: Dictionary = {
 	TowerProperty.ID: 0,
 	TowerProperty.NAME: "unknown",
 	TowerProperty.FAMILY_ID: 0,
@@ -147,7 +147,7 @@ func _ready():
 	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(scene_filename)
 
 	for property in csv_properties.keys():
-		_properties[property] = csv_properties[property]
+		_tower_properties[property] = csv_properties[property]
 
 # 	NOTE: tower properties may omit keys for convenience, so
 # 	need to iterate over keys in properties to avoid
@@ -157,7 +157,7 @@ func _ready():
 	var base_properties: Dictionary = _get_base_properties()
 
 	for property in base_properties.keys():
-		_properties[property] = base_properties[property]
+		_tower_properties[property] = base_properties[property]
 
 	var specials_modifier: Modifier = _get_specials_modifier()
 
@@ -207,15 +207,15 @@ static func convert_csv_string_to_property_value(csv_string: String, property: i
 
 
 func get_name() -> String:
-	return _properties[TowerProperty.NAME]
+	return _tower_properties[TowerProperty.NAME]
 
 
 func get_id() -> int:
-	return _properties[TowerProperty.ID]
+	return _tower_properties[TowerProperty.ID]
 
 
 func get_tier() -> int:
-	return _properties[TowerProperty.TIER]
+	return _tower_properties[TowerProperty.TIER]
 
 
 func build_init():
@@ -323,7 +323,7 @@ func _unselect():
 
 
 func _on_projectile_reached_mob(mob: Mob):
-	var attack_miss_chance: float = _properties[TowerProperty.ATTACK_MISS_CHANCE]
+	var attack_miss_chance: float = _tower_properties[TowerProperty.ATTACK_MISS_CHANCE]
 	var is_miss: bool = Utils.rand_chance(attack_miss_chance)
 
 	if is_miss:
@@ -336,18 +336,18 @@ func _on_projectile_reached_mob(mob: Mob):
 
 
 func _apply_properties_to_scene_children():
-	var cast_range: float = _properties[TowerProperty.ATTACK_RANGE]
+	var cast_range: float = _tower_properties[TowerProperty.ATTACK_RANGE]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 	$AreaOfEffect.set_radius(cast_range)
 
-	var attack_cd: float = _properties[TowerProperty.ATTACK_CD]
+	var attack_cd: float = _tower_properties[TowerProperty.ATTACK_CD]
 	_attack_cooldown_timer.wait_time = attack_cd
 
 
 # NOTE: returns random damage within range without any mods applied
 func _get_rand_damage_base() -> float:
-	var damage_min: float = _properties[TowerProperty.ATTACK_DAMAGE_MIN]
-	var damage_max: float = _properties[TowerProperty.ATTACK_DAMAGE_MAX]
+	var damage_min: float = _tower_properties[TowerProperty.ATTACK_DAMAGE_MIN]
+	var damage_max: float = _tower_properties[TowerProperty.ATTACK_DAMAGE_MAX]
 	var damage: float = rand_range(damage_min, damage_max)
 
 	return damage
@@ -362,7 +362,7 @@ func _get_specials_modifier() -> Modifier:
 
 
 func _modify_property(modification_type: int, modification_value: float):
-	_modify_property_general(_properties, _tower_add_mod_map, _tower_percent_mod_map, modification_type, modification_value)
+	_modify_property_general(_tower_properties, _tower_add_mod_map, _tower_percent_mod_map, modification_type, modification_value)
 
 	_apply_properties_to_scene_children()
 
@@ -370,10 +370,10 @@ func _modify_property(modification_type: int, modification_value: float):
 func _get_crit_count() -> int:
 	var crit_count: int = 0
 
-	var multicrit_count: int = int(max(0, _properties[TowerProperty.MULTICRIT_COUNT]))
+	var multicrit_count: int = int(max(0, _tower_properties[TowerProperty.MULTICRIT_COUNT]))
 
 	for _i in range(multicrit_count):
-		var attack_crit_chance: float = _properties[TowerProperty.ATTACK_CRIT_CHANCE]
+		var attack_crit_chance: float = _tower_properties[TowerProperty.ATTACK_CRIT_CHANCE]
 		var is_critical: bool = Utils.rand_chance(attack_crit_chance)
 
 		if is_critical:
@@ -387,7 +387,7 @@ func _get_crit_count() -> int:
 func _get_damage_mod_for_mob_type(mob: Mob) -> float:
 	var mob_type: int = mob.get_type()
 	var property: int = _mob_type_to_property_map[mob_type]
-	var damage_mod: float = _properties[property]
+	var damage_mod: float = _tower_properties[property]
 
 	return damage_mod
 
@@ -395,7 +395,7 @@ func _get_damage_mod_for_mob_type(mob: Mob) -> float:
 func _get_damage_mod_for_mob_size(mob: Mob) -> float:
 	var mob_size: int = mob.get_size()
 	var property: int = _mob_size_to_property_map[mob_size]
-	var damage_mod: float = _properties[property]
+	var damage_mod: float = _tower_properties[property]
 
 	return damage_mod
 
@@ -411,7 +411,7 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 # 	NOTE: crit count can go above 1 because of the multicrit
 # 	property
 	var crit_count: int = _get_crit_count()
-	var crit_mod: float = _properties[TowerProperty.ATTACK_CRIT_DAMAGE]
+	var crit_mod: float = _tower_properties[TowerProperty.ATTACK_CRIT_DAMAGE]
 
 	for _i in range(crit_count):
 		damage_mod_list.append(crit_mod)
