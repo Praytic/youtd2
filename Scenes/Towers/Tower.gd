@@ -138,11 +138,11 @@ func _ready():
 #	NOTE: Load properties from csv first, then load from
 #	subclass script to add additional values or override csv
 #	values
-	var script: Reference = get_script()
-	var script_file: String = script.get_path().get_file()
-	var script_filename: String = script_file.trim_suffix(".gd")
+	var scene_path: String = filename
+	var scene_file: String = scene_path.get_file()
+	var scene_filename: String = scene_file.trim_suffix(".tscn")
 
-	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(script_filename)
+	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(scene_filename)
 
 	for property in csv_properties.keys():
 		_properties[property] = csv_properties[property]
