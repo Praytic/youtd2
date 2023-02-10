@@ -44,6 +44,8 @@ var _health: float = 100.0
 var _unit_properties: Dictionary = {
 	UnitProperty.TRIGGER_CHANCES: 0.0,
 	UnitProperty.MOVE_SPEED: MOVE_SPEED_MAX,
+	UnitProperty.BUFF_DURATION: 0.0,
+	UnitProperty.DEBUFF_DURATION: 0.0,
 }
 
 const _unit_add_mod_map: Dictionary = {
