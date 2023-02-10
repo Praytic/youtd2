@@ -25,6 +25,9 @@ enum Type {
 	MOD_DMG_TO_NATURE,
 	MOD_DMG_TO_ORC,
 	MOD_DMG_TO_HUMANOID,
+
+# For all units:
+	MOD_TRIGGER_CHANCES,
 }
 
 var type: int
