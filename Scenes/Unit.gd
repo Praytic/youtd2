@@ -27,6 +27,7 @@ var _modifier_list: Array
 var _specials_modifier_list: Array
 var _health: float = 100.0
 var _unit_properties: Dictionary = {
+	UnitProperty.TRIGGER_CHANCES: 0.0,
 }
 
 const _modification_type_to_unit_property_map: Dictionary = {
