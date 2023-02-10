@@ -19,7 +19,7 @@ var current_element: String
 
 func add_tower_button(tower_id):
 	available_tower_buttons.append(tower_id)
-	var element = Properties.get_csv_properties(tower_id)[Tower.Property.ELEMENT]
+	var element = Properties.get_csv_properties(tower_id)[Tower.TowerProperty.ELEMENT]
 	if element == current_element:
 		_tower_buttons[tower_id].show()
 
@@ -46,7 +46,7 @@ func _ready():
 
 func _on_RightMenuBar_element_changed(element):
 	current_element = element
-	var tower_id_list = Properties.get_tower_id_list_by_filter(Tower.Property.ELEMENT, element)
+	var tower_id_list = Properties.get_tower_id_list_by_filter(Tower.TowerProperty.ELEMENT, element)
 	
 	for tower_button in _tower_buttons.values():
 		tower_button.hide()

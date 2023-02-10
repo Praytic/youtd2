@@ -10,11 +10,11 @@ func get_tower_tooltip_text(tower_id: int) -> String:
 
 	if !tower.empty():
 		return "" \
-			+ "Tower ID: %s\n" % tower[Tower.Property.ID] \
-			+ "Element: %s\n" % tower[Tower.Property.ELEMENT] \
-			+ "Attack type: %s\n" % tower[Tower.Property.ATTACK_TYPE] \
-			+ "Cost: %s\n" % tower[Tower.Property.COST] \
-			+ "Description: %s\n" % tower[Tower.Property.DESCRIPTION] \
+			+ "Tower ID: %s\n" % tower[Tower.TowerProperty.ID] \
+			+ "Element: %s\n" % tower[Tower.TowerProperty.ELEMENT] \
+			+ "Attack type: %s\n" % tower[Tower.TowerProperty.ATTACK_TYPE] \
+			+ "Cost: %s\n" % tower[Tower.TowerProperty.COST] \
+			+ "Description: %s\n" % tower[Tower.TowerProperty.DESCRIPTION] \
 			+ ""
 	else:
 		return "No data for tower id: %d" % tower_id
