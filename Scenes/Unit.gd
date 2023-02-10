@@ -182,21 +182,25 @@ func kill_instantly(target: Unit):
 	_do_damage(target, target._health, true)
 
 
-func modify_property(modification_type: int, modification_value: float):
-	var is_percent_mod: bool = _unit_percent_mod_map.has(modification_type)
-	var is_add_mod: bool = _unit_add_mod_map.has(modification_type)
+func _modify_property_general(property_map: Dictionary, add_mod_map: Dictionary, percent_mod_map: Dictionary, modification_type: int, modification_value: float):
+	var is_percent_mod: bool = percent_mod_map.has(modification_type)
+	var is_add_mod: bool = add_mod_map.has(modification_type)
 
 	if is_add_mod:
-		var property: int = _unit_add_mod_map[modification_type]
-		var current_value: float = _unit_properties[property]
+		var property: int = add_mod_map[modification_type]
+		var current_value: float = property_map[property]
 		var new_value: float = current_value + modification_value
-		_unit_properties[property] = new_value
+		property_map[property] = new_value
 
 	if is_percent_mod:
-		var property: int = _unit_percent_mod_map[modification_type]
-		var current_value: float = _unit_properties[property]
+		var property: int = percent_mod_map[modification_type]
+		var current_value: float = property_map[property]
 		var new_value: float = current_value * (1.0 + modification_value)
-		_unit_properties[property] = new_value
+		property_map[property] = new_value
+
+
+func modify_property(modification_type: int, modification_value: float):
+	_modify_property_general(_unit_properties, _unit_add_mod_map, _unit_percent_mod_map, modification_type, modification_value)
 
 #	Call subclass version
 	_modify_property(modification_type, modification_value)
