@@ -109,7 +109,13 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 		var timer: Timer = Timer.new()
 		add_child(timer)
 		timer.connect("timeout", self, "_on_timer_timeout")
-		var total_time: float = time_base + time_level_add * _level
+
+		var buff_duration_mod: float = _caster.get_buff_duration_mod()
+		var debuff_duration_mod: float = _target.get_debuff_duration_mode()
+		if _friendly:
+			debuff_duration_mod = 0.0
+
+		var total_time: float = (time_base + time_level_add * _level) * (1.0 + buff_duration_mod) * (1.0 + debuff_duration_mod)
 		timer.start(total_time)
 
 	var create_event: Event = make_buff_event(_target, 0, true)
