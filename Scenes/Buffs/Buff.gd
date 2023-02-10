@@ -140,7 +140,7 @@ func get_id() -> String:
 
 
 func get_target() -> Unit:
-	return get_parent() as Unit
+	return _target
 
 
 func stop():
