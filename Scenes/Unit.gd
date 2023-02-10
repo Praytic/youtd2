@@ -20,6 +20,16 @@ signal death(event)
 enum UnitProperty {
 	TRIGGER_CHANCES,
 	MOVE_SPEED,
+
+#	Modifies buff durations for buffs cast by this unit
+#	Applies to both friendly and unfriendly buffs
+#	0.01 = +1% duration
+	BUFF_DURATION,
+
+#	Modifies buff durations for debuffs cast ONTO this unit
+#	Debuffs are those with "friednly" set to false
+#	0.01 = -1% duration
+	DEBUFF_DURATION,
 }
 
 
@@ -42,6 +52,8 @@ const _unit_add_mod_map: Dictionary = {
 }
 
 const _unit_percent_mod_map: Dictionary = {
+	Modification.Type.MOD_BUFF_DURATION: UnitProperty.BUFF_DURATION,
+	Modification.Type.MOD_DEBUFF_DURATION: UnitProperty.DEBUFF_DURATION,
 	Modification.Type.MOD_MOVE_SPEED: UnitProperty.MOVE_SPEED,
 }
 
@@ -150,6 +162,14 @@ func set_level(new_level: int):
 		_apply_modifier(modifier, 1)
 
 	emit_signal("level_up")
+
+
+func get_buff_duration_mod() -> float:
+	return _unit_properties[UnitProperty.BUFF_DURATION]
+
+
+func get_debuff_duration_mod() -> float:
+	return _unit_properties[UnitProperty.DEBUFF_DURATION]
 
 
 func get_level() -> int:
