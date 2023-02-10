@@ -139,7 +139,11 @@ func get_id() -> String:
 	return _id
 
 
-func get_target() -> Unit:
+func get_caster() -> Unit:
+	return _caster
+
+
+func get_buffed_unit() -> Unit:
 	return _target
 
 
