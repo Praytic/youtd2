@@ -1,6 +1,11 @@
 class_name Unit
 extends KinematicBody2D
 
+# Unit is a base class for Towers and Mobs. Keeps track of
+# buffs and modifications. Emits signals for events which are used by buffs.
+
+# NOTE: can't use static typing for Buff because of cyclic
+# dependency
 
 signal selected
 signal unselected
@@ -15,12 +20,6 @@ signal death(event)
 enum UnitProperty {
 	TRIGGER_CHANCES,
 }
-
-# Unit implements application of buffs and modifications.
-
-# NOTE: can't use static typing for Buff because of cyclic
-# dependency
-
 
 var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
