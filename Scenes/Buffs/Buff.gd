@@ -111,7 +111,7 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 		timer.connect("timeout", self, "_on_timer_timeout")
 
 		var buff_duration_mod: float = _caster.get_buff_duration_mod()
-		var debuff_duration_mod: float = _target.get_debuff_duration_mode()
+		var debuff_duration_mod: float = _target.get_debuff_duration_mod()
 		if _friendly:
 			debuff_duration_mod = 0.0
 
