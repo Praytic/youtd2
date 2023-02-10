@@ -19,7 +19,7 @@ func _init():
 	
 	for tower_id in tower_id_list:
 		var tower_properties: Dictionary = Properties.get_csv_properties(tower_id)
-		var tower_filename: String = tower_properties[Tower.Property.FILENAME]
+		var tower_filename: String = tower_properties[Tower.TowerProperty.FILENAME]
 
 		var tower_scene_path: String = "%s/%s.tscn" % [towers_dir, tower_filename]
 		var tower_scene_exists: bool = File.new().file_exists(tower_scene_path)
@@ -68,4 +68,4 @@ func get_tower_properties(id: int) -> Dictionary:
 
 func get_tower_family_id(id: int) -> int:
 	var tower_properties: Dictionary = Properties.get_csv_properties(id)
-	return tower_properties[Tower.Property.FAMILY_ID]
+	return tower_properties[Tower.TowerProperty.FAMILY_ID]

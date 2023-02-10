@@ -52,7 +52,7 @@ func _populate_TowerOptionButton_list(tower_id_list):
 
 	for tower_id in tower_id_list:
 		var tower_properties: Dictionary = Properties.get_csv_properties(tower_id)
-		var tower_name: String = tower_properties[Tower.Property.NAME]
+		var tower_name: String = tower_properties[Tower.Tower.Property.NAME]
 	
 		tower_name_to_id_map[tower_name] = tower_id
 		tower_name_list.append(tower_name)
