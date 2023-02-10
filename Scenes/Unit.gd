@@ -12,6 +12,9 @@ signal damaged(event)
 signal kill(event)
 signal death(event)
 
+enum UnitProperty {
+}
+
 # Unit implements application of buffs and modifications.
 
 # NOTE: can't use static typing for Buff because of cyclic
@@ -23,7 +26,11 @@ var _buff_map: Dictionary
 var _modifier_list: Array
 var _specials_modifier_list: Array
 var _health: float = 100.0
+var _unit_properties: Dictionary = {
+}
 
+const _modification_type_to_unit_property_map: Dictionary = {
+}
 
 func _ready():
 	pass
@@ -125,8 +132,17 @@ func kill_instantly(target: Unit):
 	_do_damage(target, target._health, true)
 
 
-func modify_property(modification_type: int, value: float):
-	_modify_property(modification_type, value)
+func modify_property(modification_type: int, modification_value: float):
+	var can_modify: bool = _modification_type_to_unit_property_map.has(modification_type)
+
+	if can_modify:
+		var property: int = _modification_type_to_unit_property_map[modification_type]
+		var current_value: float = _unit_properties[property]
+		var new_value: float = current_value + modification_value
+		_unit_properties[property] = new_value
+
+#	Call subclass version
+	_modify_property(modification_type, modification_value)
 
 
 func _do_attack(target: Unit):
@@ -180,7 +196,7 @@ func _on_buff_removed(buff):
 	buff.queue_free()
 
 
-func _modify_property(_modification_type: int, _value: float):
+func _modify_property(_modification_type: int, _modification_value: float):
 	pass
 
 
@@ -190,4 +206,4 @@ func _apply_modifier(modifier: Modifier, apply_direction: int):
 	for modification in modification_list:
 		var level_bonus: float = 1.0 + modification.level_add * (modifier.level - 1)
 		var value: float = apply_direction * modification.value_base * level_bonus
-		_modify_property(modification.type, value)
+		modify_property(modification.type, value)
