@@ -37,7 +37,7 @@ extends Node2D
 signal removed()
 
 enum ModifierLevelType {
-	TOWER,
+	CASTER,
 	BUFF,
 }
 
@@ -70,9 +70,9 @@ class EventHandler:
 
 var _caster: Unit
 var _target: Unit
-var _modifier: Modifier = Modifier.new() setget set_modifier, get_modifier
+var _modifier: Modifier = Modifier.new()
 var _level: int
-var _modifier_level_type: int = ModifierLevelType.TOWER
+var _modifier_level_type: int = ModifierLevelType.CASTER
 var _friendly: bool
 var _id: String
 # Map of EventType -> list of EventHandler's
@@ -90,8 +90,9 @@ func apply_to_unit(caster: Unit, target: Unit, time: float, time_level_add: floa
 	_level = level
 	_friendly = friendly
 
-#	TODO: implement using tower level as modifier level
-	_modifier.level = level
+	match _modifier_level_type:
+		ModifierLevelType.CASTER: _modifier.level = _caster.get_level()
+		ModifierLevelType.BUFF: _modifier.level = _level
 
 	var apply_success: bool = target._apply_buff(self)
 
@@ -124,6 +125,12 @@ func apply_to_unit_permanent(caster: Unit, target: Unit, level: int, friendly: b
 
 func set_modifier(modifier: Modifier):
 	_modifier = modifier
+	_modifier_level_type = ModifierLevelType.CASTER
+
+
+func set_buff_modifier(modifier: Modifier):
+	_modifier = modifier
+	_modifier_level_type = ModifierLevelType.BUFF
 
 
 func get_modifier() -> Modifier:
