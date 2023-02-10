@@ -291,9 +291,6 @@ func _try_to_attack() -> bool:
 	if attack_on_cooldown:
 		return false
 
-	var event: Event = Event.new()
-	event.target = _target_mob
-
 	._do_attack(_target_mob)
 
 	var projectile = _projectile_scene.instance()
