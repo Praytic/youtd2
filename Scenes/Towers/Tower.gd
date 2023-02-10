@@ -9,7 +9,7 @@ extends Building
 signal upgraded
 
 
-enum Property {
+enum TowerProperty {
 #	Properties below should be defined in the .csv file and
 # 	the integer values must match the columns in csv file.
 	FILENAME = 0,
@@ -58,71 +58,71 @@ export(AudioStreamMP3) var attack_sound
 # Mapping of modification type to the tower property that it
 # modifies.
 const _modification_type_to_property_map: Dictionary = {
-	Modification.Type.MOD_ATTACK_CRIT_CHANCE: Property.ATTACK_CRIT_CHANCE, 
-	Modification.Type.MOD_MULTICRIT_COUNT: Property.MULTICRIT_COUNT, 
+	Modification.Type.MOD_ATTACK_CRIT_CHANCE: TowerProperty.ATTACK_CRIT_CHANCE, 
+	Modification.Type.MOD_MULTICRIT_COUNT: TowerProperty.MULTICRIT_COUNT, 
 
-	Modification.Type.MOD_DMG_TO_MASS: Property.DMG_TO_MASS, 
-	Modification.Type.MOD_DMG_TO_NORMAL: Property.DMG_TO_NORMAL, 
-	Modification.Type.MOD_DMG_TO_CHAMPION: Property.DMG_TO_CHAMPION, 
-	Modification.Type.MOD_DMG_TO_BOSS: Property.DMG_TO_BOSS, 
+	Modification.Type.MOD_DMG_TO_MASS: TowerProperty.DMG_TO_MASS, 
+	Modification.Type.MOD_DMG_TO_NORMAL: TowerProperty.DMG_TO_NORMAL, 
+	Modification.Type.MOD_DMG_TO_CHAMPION: TowerProperty.DMG_TO_CHAMPION, 
+	Modification.Type.MOD_DMG_TO_BOSS: TowerProperty.DMG_TO_BOSS, 
 
-	Modification.Type.MOD_DMG_TO_UNDEAD: Property.DMG_TO_UNDEAD, 
-	Modification.Type.MOD_DMG_TO_MAGIC: Property.DMG_TO_MAGIC, 
-	Modification.Type.MOD_DMG_TO_NATURE: Property.DMG_TO_NATURE, 
-	Modification.Type.MOD_DMG_TO_ORC: Property.DMG_TO_ORC, 
-	Modification.Type.MOD_DMG_TO_HUMANOID: Property.DMG_TO_HUMANOID, 
+	Modification.Type.MOD_DMG_TO_UNDEAD: TowerProperty.DMG_TO_UNDEAD, 
+	Modification.Type.MOD_DMG_TO_MAGIC: TowerProperty.DMG_TO_MAGIC, 
+	Modification.Type.MOD_DMG_TO_NATURE: TowerProperty.DMG_TO_NATURE, 
+	Modification.Type.MOD_DMG_TO_ORC: TowerProperty.DMG_TO_ORC, 
+	Modification.Type.MOD_DMG_TO_HUMANOID: TowerProperty.DMG_TO_HUMANOID, 
 }
 
 const _mob_type_to_property_map: Dictionary = {
-	Mob.Type.UNDEAD: Property.DMG_TO_MASS,
-	Mob.Type.MAGIC: Property.DMG_TO_MAGIC,
-	Mob.Type.NATURE: Property.DMG_TO_NATURE,
-	Mob.Type.ORC: Property.DMG_TO_ORC,
-	Mob.Type.HUMANOID: Property.DMG_TO_HUMANOID,
+	Mob.Type.UNDEAD: TowerProperty.DMG_TO_MASS,
+	Mob.Type.MAGIC: TowerProperty.DMG_TO_MAGIC,
+	Mob.Type.NATURE: TowerProperty.DMG_TO_NATURE,
+	Mob.Type.ORC: TowerProperty.DMG_TO_ORC,
+	Mob.Type.HUMANOID: TowerProperty.DMG_TO_HUMANOID,
 }
 
 const _mob_size_to_property_map: Dictionary = {
-	Mob.Size.MASS: Property.DMG_TO_MASS,
-	Mob.Size.NORMAL: Property.DMG_TO_NORMAL,
-	Mob.Size.CHAMPION: Property.DMG_TO_CHAMPION,
-	Mob.Size.BOSS: Property.DMG_TO_BOSS,
+	Mob.Size.MASS: TowerProperty.DMG_TO_MASS,
+	Mob.Size.NORMAL: TowerProperty.DMG_TO_NORMAL,
+	Mob.Size.CHAMPION: TowerProperty.DMG_TO_CHAMPION,
+	Mob.Size.BOSS: TowerProperty.DMG_TO_BOSS,
 }
 
 var _target_mob: Mob = null
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _properties: Dictionary = {
-	Property.ID: 0,
-	Property.NAME: "unknown",
-	Property.FAMILY_ID: 0,
-	Property.AUTHOR: "unknown",
-	Property.RARITY: "unknown",
-	Property.ELEMENT: "unknown",
-	Property.ATTACK_TYPE: "unknown",
-	Property.COST: 0,
-	Property.DESCRIPTION: "unknown",
+	TowerProperty.ID: 0,
+	TowerProperty.NAME: "unknown",
+	TowerProperty.FAMILY_ID: 0,
+	TowerProperty.AUTHOR: "unknown",
+	TowerProperty.RARITY: "unknown",
+	TowerProperty.ELEMENT: "unknown",
+	TowerProperty.ATTACK_TYPE: "unknown",
+	TowerProperty.COST: 0,
+	TowerProperty.DESCRIPTION: "unknown",
 
-	Property.ATTACK_RANGE: 0.0,
-	Property.ATTACK_CD: 0.0,
-	Property.ATTACK_DAMAGE_MIN: 0,
-	Property.ATTACK_DAMAGE_MAX: 0,
-	Property.ATTACK_CRIT_CHANCE: 0.0,
+	TowerProperty.ATTACK_RANGE: 0.0,
+	TowerProperty.ATTACK_CD: 0.0,
+	TowerProperty.ATTACK_DAMAGE_MIN: 0,
+	TowerProperty.ATTACK_DAMAGE_MAX: 0,
+	TowerProperty.ATTACK_CRIT_CHANCE: 0.0,
 # NOTE: crit damage default means the default bonus damage
 # from crits, so default value of 1.0 means +100%
-	Property.ATTACK_CRIT_DAMAGE: 1.0,
-	Property.MULTICRIT_COUNT: 1.0,
-	Property.ATTACK_MISS_CHANCE: 0.0,
+	TowerProperty.ATTACK_CRIT_DAMAGE: 1.0,
+	TowerProperty.MULTICRIT_COUNT: 1.0,
+	TowerProperty.ATTACK_MISS_CHANCE: 0.0,
 
-	Property.DMG_TO_MASS: 0.0,
-	Property.DMG_TO_NORMAL: 0.0,
-	Property.DMG_TO_CHAMPION: 0.0,
-	Property.DMG_TO_BOSS: 0.0,
+	TowerProperty.DMG_TO_MASS: 0.0,
+	TowerProperty.DMG_TO_NORMAL: 0.0,
+	TowerProperty.DMG_TO_CHAMPION: 0.0,
+	TowerProperty.DMG_TO_BOSS: 0.0,
 
-	Property.DMG_TO_UNDEAD: 0.0,
-	Property.DMG_TO_MAGIC: 0.0,
-	Property.DMG_TO_NATURE: 0.0,
-	Property.DMG_TO_ORC: 0.0,
-	Property.DMG_TO_HUMANOID: 0.0,
+	TowerProperty.DMG_TO_UNDEAD: 0.0,
+	TowerProperty.DMG_TO_MAGIC: 0.0,
+	TowerProperty.DMG_TO_NATURE: 0.0,
+	TowerProperty.DMG_TO_ORC: 0.0,
+	TowerProperty.DMG_TO_HUMANOID: 0.0,
 }
 
 
@@ -177,27 +177,27 @@ func _ready():
 
 
 static func convert_csv_string_to_property_value(csv_string: String, property: int):
-	if property > Property.CSV_COLUMN_COUNT:
+	if property > TowerProperty.CSV_COLUMN_COUNT:
 		return csv_string
 
 	match property:
-		Property.FILENAME: return csv_string
-		Property.NAME: return csv_string
-		Property.ID: return csv_string.to_int()
-		Property.FAMILY_ID: return csv_string.to_int()
-		Property.AUTHOR: return csv_string
-		Property.RARITY: return csv_string
-		Property.ELEMENT: return csv_string
-		Property.ATTACK_TYPE: return csv_string
-		Property.ATTACK_RANGE: return csv_string.to_float()
-		Property.ATTACK_CD: return csv_string.to_float()
-		Property.ATTACK_DAMAGE_MIN : return csv_string.to_float()
-		Property.ATTACK_DAMAGE_MAX : return csv_string.to_float()
-		Property.COST : return csv_string.to_int()
-		Property.DESCRIPTION : return csv_string
-		Property.TIER : return csv_string.to_int()
-		Property.REQUIRED_ELEMENT_LEVEL : return csv_string.to_int()
-		Property.REQUIRED_WAVE_LEVEL : return csv_string.to_int()
+		TowerProperty.FILENAME: return csv_string
+		TowerProperty.NAME: return csv_string
+		TowerProperty.ID: return csv_string.to_int()
+		TowerProperty.FAMILY_ID: return csv_string.to_int()
+		TowerProperty.AUTHOR: return csv_string
+		TowerProperty.RARITY: return csv_string
+		TowerProperty.ELEMENT: return csv_string
+		TowerProperty.ATTACK_TYPE: return csv_string
+		TowerProperty.ATTACK_RANGE: return csv_string.to_float()
+		TowerProperty.ATTACK_CD: return csv_string.to_float()
+		TowerProperty.ATTACK_DAMAGE_MIN : return csv_string.to_float()
+		TowerProperty.ATTACK_DAMAGE_MAX : return csv_string.to_float()
+		TowerProperty.COST : return csv_string.to_int()
+		TowerProperty.DESCRIPTION : return csv_string
+		TowerProperty.TIER : return csv_string.to_int()
+		TowerProperty.REQUIRED_ELEMENT_LEVEL : return csv_string.to_int()
+		TowerProperty.REQUIRED_WAVE_LEVEL : return csv_string.to_int()
 		_:
 			print_debug("Unhandled property in Tower.convert_csv_string_to_property_value(): ", property)
 
@@ -205,15 +205,15 @@ static func convert_csv_string_to_property_value(csv_string: String, property: i
 
 
 func get_name() -> String:
-	return _properties[Property.NAME]
+	return _properties[TowerProperty.NAME]
 
 
 func get_id() -> int:
-	return _properties[Property.ID]
+	return _properties[TowerProperty.ID]
 
 
 func get_tier() -> int:
-	return _properties[Property.TIER]
+	return _properties[TowerProperty.TIER]
 
 
 func build_init():
@@ -321,7 +321,7 @@ func _unselect():
 
 
 func _on_projectile_reached_mob(mob: Mob):
-	var attack_miss_chance: float = _properties[Property.ATTACK_MISS_CHANCE]
+	var attack_miss_chance: float = _properties[TowerProperty.ATTACK_MISS_CHANCE]
 	var is_miss: bool = Utils.rand_chance(attack_miss_chance)
 
 	if is_miss:
@@ -334,18 +334,18 @@ func _on_projectile_reached_mob(mob: Mob):
 
 
 func _apply_properties_to_scene_children():
-	var cast_range: float = _properties[Property.ATTACK_RANGE]
+	var cast_range: float = _properties[TowerProperty.ATTACK_RANGE]
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 	$AreaOfEffect.set_radius(cast_range)
 
-	var attack_cd: float = _properties[Property.ATTACK_CD]
+	var attack_cd: float = _properties[TowerProperty.ATTACK_CD]
 	_attack_cooldown_timer.wait_time = attack_cd
 
 
 # NOTE: returns random damage within range without any mods applied
 func _get_rand_damage_base() -> float:
-	var damage_min: float = _properties[Property.ATTACK_DAMAGE_MIN]
-	var damage_max: float = _properties[Property.ATTACK_DAMAGE_MAX]
+	var damage_min: float = _properties[TowerProperty.ATTACK_DAMAGE_MIN]
+	var damage_max: float = _properties[TowerProperty.ATTACK_DAMAGE_MAX]
 	var damage: float = rand_range(damage_min, damage_max)
 
 	return damage
@@ -368,17 +368,17 @@ func _modify_property(modification_type: int, modification_value: float):
 		var new_value: float = current_value + modification_value
 		_properties[property] = new_value
 
-		if property == Property.ATTACK_RANGE || property == Property.ATTACK_CD:
+		if property == TowerProperty.ATTACK_RANGE || property == TowerProperty.ATTACK_CD:
 			_apply_properties_to_scene_children()
 
 
 func _get_crit_count() -> int:
 	var crit_count: int = 0
 
-	var multicrit_count: int = int(max(0, _properties[Property.MULTICRIT_COUNT]))
+	var multicrit_count: int = int(max(0, _properties[TowerProperty.MULTICRIT_COUNT]))
 
 	for _i in range(multicrit_count):
-		var attack_crit_chance: float = _properties[Property.ATTACK_CRIT_CHANCE]
+		var attack_crit_chance: float = _properties[TowerProperty.ATTACK_CRIT_CHANCE]
 		var is_critical: bool = Utils.rand_chance(attack_crit_chance)
 
 		if is_critical:
@@ -416,7 +416,7 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 # 	NOTE: crit count can go above 1 because of the multicrit
 # 	property
 	var crit_count: int = _get_crit_count()
-	var crit_mod: float = _properties[Property.ATTACK_CRIT_DAMAGE]
+	var crit_mod: float = _properties[TowerProperty.ATTACK_CRIT_DAMAGE]
 
 	for _i in range(crit_count):
 		damage_mod_list.append(crit_mod)
