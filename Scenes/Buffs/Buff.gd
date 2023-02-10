@@ -118,7 +118,7 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 		var total_time: float = (time_base + time_level_add * _level) * (1.0 + buff_duration_mod) * (1.0 + debuff_duration_mod)
 		timer.start(total_time)
 
-	var create_event: Event = make_buff_event(_target, 0, true)
+	var create_event: Event = _make_buff_event(_target, 0, true)
 	_call_event_handler_list(EventType.CREATE, create_event)
 
 
@@ -198,7 +198,7 @@ func add_event_handler_unit_comes_in_range(handler_object: Node, handler_functio
 
 
 func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
-	var range_event: Event = make_buff_event(unit, 0, true)
+	var range_event: Event = _make_buff_event(unit, 0, true)
 
 	handler_object.call(handler_function, range_event)
 
@@ -223,12 +223,12 @@ func _call_event_handler_list(event_type: int, event: Event):
 
 
 func _on_timer_timeout():
-	var cleanup_event: Event = make_buff_event(_target, 0, true)
+	var cleanup_event: Event = _make_buff_event(_target, 0, true)
 	_call_event_handler_list(EventType.CLEANUP, cleanup_event)
 
 	emit_signal("removed")
 
-	var expire_event: Event = make_buff_event(_target, 0, true)
+	var expire_event: Event = _make_buff_event(_target, 0, true)
 	_call_event_handler_list(EventType.EXPIRE, expire_event)
 
 
@@ -242,7 +242,7 @@ func _on_target_kill(event: Event):
 
 
 func _on_target_level_up():
-	var level_up_event: Event = make_buff_event(_target, 0, true)
+	var level_up_event: Event = _make_buff_event(_target, 0, true)
 	_call_event_handler_list(EventType.LEVEL_UP, level_up_event)
 
 
@@ -263,7 +263,7 @@ func _on_target_damaged(event: Event):
 
 
 func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String):
-	var periodic_event: Event = make_buff_event(_target, 0, true)
+	var periodic_event: Event = _make_buff_event(_target, 0, true)
 	handler_object.call(handler_function, periodic_event)
 
 
@@ -277,7 +277,7 @@ func _check_handler_exists(handler_object: Node, handler_function: String) -> bo
 
 
 # Convenience function to make an event with "_buff" variable set to self
-func make_buff_event(target_arg: Unit, damage_arg: float, is_main_target_arg: bool) -> Event:
+func _make_buff_event(target_arg: Unit, damage_arg: float, is_main_target_arg: bool) -> Event:
 	var event: Event = Event.new(target_arg, damage_arg, is_main_target_arg)
 	event._buff = self
 
