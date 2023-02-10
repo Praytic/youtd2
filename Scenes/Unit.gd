@@ -13,6 +13,7 @@ signal kill(event)
 signal death(event)
 
 enum UnitProperty {
+	TRIGGER_CHANCES,
 }
 
 # Unit implements application of buffs and modifications.
@@ -30,6 +31,7 @@ var _unit_properties: Dictionary = {
 }
 
 const _modification_type_to_unit_property_map: Dictionary = {
+	Modification.Type.MOD_TRIGGER_CHANCES: UnitProperty.TRIGGER_CHANCES,
 }
 
 func _ready():
@@ -72,9 +74,24 @@ func is_immune() -> bool:
 	return false
 
 
-# TODO: implement, needs to be affected by bonuses to chance
-func calc_chance(chance: float) -> bool:
-	return Utils.rand_chance(chance)
+func calc_chance(chance_base: float) -> bool:
+	var chance_mod: float = _unit_properties[UnitProperty.TRIGGER_CHANCES]
+	var chance: float = chance_base + chance_mod
+	var success: bool = Utils.rand_chance(chance)
+
+	return success
+
+
+# "Bad" chance is for events that decrease tower's
+# perfomance, for example missing attack. In such cases the
+# "trigger chances" property decreases the chance of the
+# event occuring.
+func calc_bad_chance(chance_base: float) -> bool:
+	var chance_mod: float = _unit_properties[UnitProperty.TRIGGER_CHANCES]
+	var chance: float = chance_base - chance_mod
+	var success: bool = Utils.rand_chance(chance)
+
+	return success
 
 
 # TODO: implement, probably calculates total modifier from
