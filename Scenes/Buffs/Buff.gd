@@ -85,7 +85,7 @@ func _init(id: String):
 
 
 # Call this after creating the buff and before applying
-func apply_to_unit(caster: Unit, target: Unit, time: float, time_level_add: float, level: int, friendly: bool):
+func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, time_level_add: float, friendly: bool):
 	_caster = caster
 	_level = level
 	_friendly = friendly
@@ -108,11 +108,11 @@ func apply_to_unit(caster: Unit, target: Unit, time: float, time_level_add: floa
 	_target.connect("damage", self, "_on_target_damage")
 	_target.connect("damaged", self, "_on_target_damaged")
 
-	if time > 0.0:
+	if time_base > 0.0:
 		var timer: Timer = Timer.new()
 		add_child(timer)
 		timer.connect("timeout", self, "_on_timer_timeout")
-		var total_time: float = time + time_level_add * _level
+		var total_time: float = time_base + time_level_add * _level
 		timer.start(total_time)
 
 	var create_event: Event = make_buff_event(_target, 0, true)
@@ -120,7 +120,7 @@ func apply_to_unit(caster: Unit, target: Unit, time: float, time_level_add: floa
 
 
 func apply_to_unit_permanent(caster: Unit, target: Unit, level: int, friendly: bool):
-	apply_to_unit(caster, target, -1.0, 0.0, level, friendly)
+	apply_to_unit(caster, target, level, -1.0, 0.0, friendly)
 
 
 func set_modifier(modifier: Modifier):
