@@ -57,7 +57,7 @@ export(AudioStreamMP3) var attack_sound
 
 # Mapping of modification type to the tower property that it
 # modifies.
-const _modification_type_to_property_map: Dictionary = {
+const _tower_add_mod_map: Dictionary = {
 	Modification.Type.MOD_ATTACK_CRIT_CHANCE: TowerProperty.ATTACK_CRIT_CHANCE, 
 	Modification.Type.MOD_MULTICRIT_COUNT: TowerProperty.MULTICRIT_COUNT, 
 
@@ -72,6 +72,8 @@ const _modification_type_to_property_map: Dictionary = {
 	Modification.Type.MOD_DMG_TO_ORC: TowerProperty.DMG_TO_ORC, 
 	Modification.Type.MOD_DMG_TO_HUMANOID: TowerProperty.DMG_TO_HUMANOID, 
 }
+
+const _tower_percent_mod_map: Dictionary = {}
 
 const _mob_type_to_property_map: Dictionary = {
 	Mob.Type.UNDEAD: TowerProperty.DMG_TO_MASS,
@@ -360,16 +362,9 @@ func _get_specials_modifier() -> Modifier:
 
 
 func _modify_property(modification_type: int, modification_value: float):
-	var can_modify: bool = _modification_type_to_property_map.has(modification_type)
+	_modify_property_general(_properties, _tower_add_mod_map, _tower_percent_mod_map, modification_type, modification_value)
 
-	if can_modify:
-		var property: int = _modification_type_to_property_map[modification_type]
-		var current_value: float = _properties[property]
-		var new_value: float = current_value + modification_value
-		_properties[property] = new_value
-
-		if property == TowerProperty.ATTACK_RANGE || property == TowerProperty.ATTACK_CD:
-			_apply_properties_to_scene_children()
+	_apply_properties_to_scene_children()
 
 
 func _get_crit_count() -> int:
