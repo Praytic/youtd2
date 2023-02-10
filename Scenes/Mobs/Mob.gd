@@ -22,10 +22,7 @@ enum Type {
 }
 
 const MOB_HEALTH_MAX: float = 100.0
-const MOB_MOVE_SPEED_MIN: float = 100.0
-const MOB_MOVE_SPEED_MAX: float = 500.0
 
-var _mob_move_speed: float
 var _path_curve: Curve2D
 var _current_path_index: int = 0
 var _size: int = Size.NORMAL
@@ -35,15 +32,12 @@ onready var _sprite = $Sprite
 
 
 func _ready():
-	_mob_move_speed = MOB_MOVE_SPEED_MAX
-
 	connect("damaged", self, "on_damaged")
 
 
 func _process(delta):
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
-	var move_speed: float = min(MOB_MOVE_SPEED_MAX, max(MOB_MOVE_SPEED_MIN, _mob_move_speed))
-	position = position.move_toward(path_point, move_speed * delta)
+	position = position.move_toward(path_point, get_move_speed() * delta)
 	emit_signal("moved", delta)
 	
 	var reached_path_point: bool = (position == path_point)
@@ -97,11 +91,3 @@ func _get_mob_animation() -> String:
 		return "run_n"
 	else:
 		return "stand"
-
-
-func _modify_property(modification_type: int, value: float):
-	match modification_type:
-		Modification.Type.MOD_MOVE_SPEED:
-			_mob_move_speed = _mob_move_speed * (1.0 + value)
-		Modification.Type.MOD_MOVE_SPEED_ABSOLUTE:
-			_mob_move_speed = _mob_move_speed + value
