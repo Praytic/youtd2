@@ -63,9 +63,6 @@ enum TargetType {
 class EventHandler:
 	var object: Node
 	var handler_function: String
-	var has_chance: bool
-	var chance: float
-	var chance_level_add: float
 
 
 var _caster: Unit
@@ -164,23 +161,6 @@ func add_event_handler(event_type: int, handler_object: Node, handler_function: 
 	var handler: EventHandler = EventHandler.new()
 	handler.object = handler_object
 	handler.handler_function = handler_function
-	handler.has_chance = false
-	handler.chance = 0.0
-	handler.chance_level_add = 0.0
-
-	_add_event_handler_internal(event_type, handler)
-
-
-# NOTE: in original, only events of type
-# attack/attacked/damage/damaged could have chance, but for
-# convenience allow setting chance to all types of events
-func add_event_handler_with_chance(event_type: int, handler_object, handler_function: String, chance: float, chance_level_add: float):
-	var handler: EventHandler = EventHandler.new()
-	handler.object = handler_object
-	handler.handler_function = handler_function
-	handler.has_chance = true
-	handler.chance = chance
-	handler.chance_level_add = chance_level_add
 
 	_add_event_handler_internal(event_type, handler)
 
@@ -233,13 +213,6 @@ func _call_event_handler_list(event_type: int, event: Event):
 	var handler_list: Array = event_handler_map[event_type]
 
 	for handler in handler_list:
-		if handler.has_chance:
-			var chance: float = min(1.0, handler.chance + handler.chance_level_add * _level)	
-			var chance_success: bool = Utils.rand_chance(chance)
-
-			if !chance_success:
-				continue
-
 		handler.object.call(handler.handler_function, event)
 
 
