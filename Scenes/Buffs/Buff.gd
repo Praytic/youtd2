@@ -115,6 +115,7 @@ func apply_to_unit(caster: Unit, target: Unit, time: float, time_level_add: floa
 		timer.start(total_time)
 
 	var create_event: Event = Event.new()
+	create_event.buff = self
 	_call_event_handler_list(EventType.CREATE, create_event)
 
 
@@ -202,6 +203,7 @@ func add_event_handler_unit_comes_in_range(handler_object: Node, handler_functio
 
 func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
 	var event = Event.new()
+	event.buff = self
 	event.target = unit
 
 	handler_object.call(handler_function, event)
@@ -233,11 +235,13 @@ func _call_event_handler_list(event_type: int, event: Event):
 
 func _on_timer_timeout():
 	var cleanup_event: Event = Event.new()
+	cleanup_event.buff = self
 	_call_event_handler_list(EventType.CLEANUP, cleanup_event)
 
 	emit_signal("removed")
 
 	var event: Event = Event.new()
+	event.buff = self
 	_call_event_handler_list(EventType.EXPIRE, event)
 
 
@@ -252,6 +256,7 @@ func _on_target_kill(event: Event):
 
 func _on_target_level_up():
 	var event: Event = Event.new()
+	event.buff = self
 	_call_event_handler_list(EventType.LEVEL_UP, event)
 
 
@@ -273,6 +278,7 @@ func _on_target_damaged(event: Event):
 
 func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String):
 	var event: Event = Event.new()
+	event.buff = self
 	handler_object.call(handler_function, event)
 
 
