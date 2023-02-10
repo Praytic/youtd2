@@ -114,8 +114,7 @@ func apply_to_unit(caster: Unit, target: Unit, time: float, time_level_add: floa
 		var total_time: float = time + time_level_add * _level
 		timer.start(total_time)
 
-	var create_event: Event = Event.new()
-	create_event.buff = self
+	var create_event: Event = make_buff_event(_target, 0, true)
 	_call_event_handler_list(EventType.CREATE, create_event)
 
 
@@ -206,11 +205,9 @@ func add_event_handler_unit_comes_in_range(handler_object: Node, handler_functio
 
 
 func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
-	var event = Event.new()
-	event.buff = self
-	event.target = unit
+	var range_event: Event = make_buff_event(unit, 0, true)
 
-	handler_object.call(handler_function, event)
+	handler_object.call(handler_function, range_event)
 
 
 func _add_event_handler_internal(event_type: int, handler: EventHandler):
@@ -223,6 +220,8 @@ func _add_event_handler_internal(event_type: int, handler: EventHandler):
 func _call_event_handler_list(event_type: int, event: Event):
 	if !event_handler_map.has(event_type):
 		return
+
+	event._buff = self
 
 	var handler_list: Array = event_handler_map[event_type]
 
@@ -238,15 +237,13 @@ func _call_event_handler_list(event_type: int, event: Event):
 
 
 func _on_timer_timeout():
-	var cleanup_event: Event = Event.new()
-	cleanup_event.buff = self
+	var cleanup_event: Event = make_buff_event(_target, 0, true)
 	_call_event_handler_list(EventType.CLEANUP, cleanup_event)
 
 	emit_signal("removed")
 
-	var event: Event = Event.new()
-	event.buff = self
-	_call_event_handler_list(EventType.EXPIRE, event)
+	var expire_event: Event = make_buff_event(_target, 0, true)
+	_call_event_handler_list(EventType.EXPIRE, expire_event)
 
 
 func _on_target_dead(event: Event):
@@ -259,9 +256,8 @@ func _on_target_kill(event: Event):
 
 
 func _on_target_level_up():
-	var event: Event = Event.new()
-	event.buff = self
-	_call_event_handler_list(EventType.LEVEL_UP, event)
+	var level_up_event: Event = make_buff_event(_target, 0, true)
+	_call_event_handler_list(EventType.LEVEL_UP, level_up_event)
 
 
 func _on_target_attack(event: Event):
@@ -281,9 +277,8 @@ func _on_target_damaged(event: Event):
 
 
 func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String):
-	var event: Event = Event.new()
-	event.buff = self
-	handler_object.call(handler_function, event)
+	var periodic_event: Event = make_buff_event(_target, 0, true)
+	handler_object.call(handler_function, periodic_event)
 
 
 func _check_handler_exists(handler_object: Node, handler_function: String) -> bool:
@@ -293,3 +288,11 @@ func _check_handler_exists(handler_object: Node, handler_function: String) -> bo
 		print_debug("Attempted to register an event handler that doesn't exist: ", handler_function)
 
 	return exists
+
+
+# Convenience function to make an event with "_buff" variable set to self
+func make_buff_event(target_arg: Unit, damage_arg: float, is_main_target_arg: bool) -> Event:
+	var event: Event = Event.new(target_arg, damage_arg, is_main_target_arg)
+	event._buff = self
+
+	return event

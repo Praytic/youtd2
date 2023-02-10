@@ -130,24 +130,19 @@ func modify_property(modification_type: int, value: float):
 
 
 func _do_attack(target: Unit):
-	var attack_event: Event = Event.new()
-	attack_event.target = target
+	var attack_event: Event = Event.new(target, 0, true)
 	emit_signal("attack", attack_event)
 
 	target._receive_attack()
 
 
 func _receive_attack():
-	var attacked_event: Event = Event.new()
-	attacked_event.target = self
+	var attacked_event: Event = Event.new(self, 0, true)
 	emit_signal("attacked", attacked_event)
 
 
 func _do_damage(target: Unit, damage: float, is_main_target: bool):
-	var damage_event: Event = Event.new()
-	damage_event.damage = damage
-	damage_event.target = target
-	damage_event.is_main_target = is_main_target
+	var damage_event: Event = Event.new(target, damage, is_main_target)
 	emit_signal("damage", damage_event)
 
 	target._receive_damage(self, damage_event.damage, is_main_target)
@@ -156,17 +151,11 @@ func _do_damage(target: Unit, damage: float, is_main_target: bool):
 func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
 	_health -= damage
 
-	var damaged_event: Event = Event.new()
-	damaged_event.target = caster
-	damaged_event.damage = damage
-	damaged_event.is_main_target = is_main_target
+	var damaged_event: Event = Event.new(caster, damage, is_main_target)
 	emit_signal("damaged", damaged_event)
 
 	if _health < 0:
-		var death_event: Event = Event.new()
-		death_event.target = caster
-		death_event.damage = damage
-		death_event.is_main_target = is_main_target
+		var death_event: Event = Event.new(caster, damage, is_main_target)
 		emit_signal("death", death_event)
 
 		caster._accept_kill(self, is_main_target)
@@ -178,9 +167,7 @@ func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
 
 # Called when unit kills another unit
 func _accept_kill(target: Unit, is_main_target: bool):
-	var kill_event: Event = Event.new()
-	kill_event.target = target
-	kill_event.is_main_target = is_main_target
+	var kill_event: Event = Event.new(target, 0, is_main_target)
 	emit_signal("kill", kill_event)
 
 
