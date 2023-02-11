@@ -51,6 +51,16 @@ enum TowerProperty {
 	DMG_TO_HUMANOID,
 }
 
+enum Element {
+	ASTRAL,
+	DARKNESS,
+	NATURE,
+	FIRE,
+	ICE,
+	STORM,
+	IRON,
+}
+
 export(int) var id
 export(int) var next_tier_id
 export(AudioStreamMP3) var attack_sound
@@ -127,6 +137,15 @@ var _tower_properties: Dictionary = {
 	TowerProperty.DMG_TO_HUMANOID: 0.0,
 }
 
+const _element_string_to_enum: Dictionary = {
+	"astral": Element.ASTRAL,
+	"darkness": Element.DARKNESS,
+	"nature": Element.NATURE,
+	"fire": Element.FIRE,
+	"ice": Element.ICE,
+	"storm": Element.STORM,
+	"iron": Element.IRON,
+}
 
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var _attack_cooldown_timer: Timer = $AttackCooldownTimer
@@ -216,6 +235,16 @@ func get_id() -> int:
 
 func get_tier() -> int:
 	return _tower_properties[TowerProperty.TIER]
+
+
+# TODO: store element as enum in _tower_properties
+func get_element() -> int:
+	var element_string: String = _tower_properties[TowerProperty.ELEMENT]
+
+	if _element_string_to_enum.has(element_string):
+		return _element_string_to_enum[element_string]
+	else:
+		return Element.ASTRAL
 
 
 func build_init():
