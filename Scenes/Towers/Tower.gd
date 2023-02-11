@@ -109,7 +109,7 @@ var _tower_properties: Dictionary = {
 	TowerProperty.FAMILY_ID: 0,
 	TowerProperty.AUTHOR: "unknown",
 	TowerProperty.RARITY: "unknown",
-	TowerProperty.ELEMENT: "unknown",
+	TowerProperty.ELEMENT: Element.ASTRAL,
 	TowerProperty.ATTACK_TYPE: "unknown",
 	TowerProperty.COST: 0,
 	TowerProperty.DESCRIPTION: "unknown",
@@ -208,7 +208,7 @@ static func convert_csv_string_to_property_value(csv_string: String, property: i
 		TowerProperty.FAMILY_ID: return csv_string.to_int()
 		TowerProperty.AUTHOR: return csv_string
 		TowerProperty.RARITY: return csv_string
-		TowerProperty.ELEMENT: return csv_string
+		TowerProperty.ELEMENT: return _element_string_to_enum.get(csv_string, Element.ASTRAL)
 		TowerProperty.ATTACK_TYPE: return csv_string
 		TowerProperty.ATTACK_RANGE: return csv_string.to_float()
 		TowerProperty.ATTACK_CD: return csv_string.to_float()
@@ -237,14 +237,8 @@ func get_tier() -> int:
 	return _tower_properties[TowerProperty.TIER]
 
 
-# TODO: store element as enum in _tower_properties
 func get_element() -> int:
-	var element_string: String = _tower_properties[TowerProperty.ELEMENT]
-
-	if _element_string_to_enum.has(element_string):
-		return _element_string_to_enum[element_string]
-	else:
-		return Element.ASTRAL
+	return _tower_properties[TowerProperty.ELEMENT]
 
 
 func build_init():
