@@ -6,6 +6,10 @@ extends Unit
 
 signal moved(delta)
 
+enum MobProperty {
+
+}
+
 enum Size {
 	MASS,
 	NORMAL,
@@ -21,12 +25,22 @@ enum Type {
 	HUMANOID,
 }
 
+const _mob_add_mod_map: Dictionary = {
+	
+}
+const _mob_percent_mod_map: Dictionary = {
+	
+}
+
 const MOB_HEALTH_MAX: float = 100.0
 
 var _path_curve: Curve2D
 var _current_path_index: int = 0
 var _size: int = Size.NORMAL
 var _type: int = Type.HUMANOID
+var _mob_properties: Dictionary = {
+
+}
 
 onready var _sprite = $Sprite
 
@@ -91,3 +105,6 @@ func _get_mob_animation() -> String:
 		return "run_n"
 	else:
 		return "stand"
+
+func _modify_property(modification_type: int, modification_value: float):
+	_modify_property_general(_mob_properties, _mob_add_mod_map, _mob_percent_mod_map, modification_type, modification_value)
