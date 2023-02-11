@@ -54,11 +54,6 @@ enum EventType {
 	EXPIRE,
 }
 
-enum TargetType {
-	TOWER,
-	MOB,
-	ALL,
-}
 
 class EventHandler:
 	var object: Node
@@ -183,7 +178,7 @@ func add_event_handler_periodic(handler_object: Node, handler_function: String, 
 	timer.connect("timeout", self, "_on_periodic_event_timer_timeout", [handler_object, handler_function])
 
 
-func add_event_handler_unit_comes_in_range(handler_object: Node, handler_function: String, radius: float, target_type: int):
+func add_event_handler_unit_comes_in_range(handler_object: Node, handler_function: String, radius: float, target_type: TargetType):
 	if !_check_handler_exists(handler_object, handler_function):
 		return
 
