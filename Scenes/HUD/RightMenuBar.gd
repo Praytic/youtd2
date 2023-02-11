@@ -14,7 +14,7 @@ func _ready():
 	builder_control.connect("tower_built", self, "_on_Tower_built")
 
 
-func _on_Button_pressed(element):
+func _on_Button_pressed(element: int):
 	emit_signal("element_changed", element)
 	show()
 

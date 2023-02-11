@@ -14,12 +14,12 @@ onready var _tower_buttons: Dictionary = {}
 onready var available_tower_buttons: Array
 
 
-var current_element: String
+var current_element: int
 
 
 func add_tower_button(tower_id):
 	available_tower_buttons.append(tower_id)
-	var element = Properties.get_csv_properties(tower_id)[Tower.TowerProperty.ELEMENT]
+	var element: int = Properties.get_csv_properties(tower_id)[Tower.TowerProperty.ELEMENT]
 	if element == current_element:
 		_tower_buttons[tower_id].show()
 
@@ -44,7 +44,7 @@ func _ready():
 		available_tower_buttons.append(tower_id)
 
 
-func _on_RightMenuBar_element_changed(element):
+func _on_RightMenuBar_element_changed(element: int):
 	current_element = element
 	var tower_id_list = Properties.get_tower_id_list_by_filter(Tower.TowerProperty.ELEMENT, element)
 	

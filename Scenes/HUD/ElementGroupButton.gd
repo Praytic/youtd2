@@ -1,7 +1,6 @@
 extends Button
 
-
-export(String) var element
+export(Tower.Element) var element = Tower.Element.ASTRAL
 
 
 func _pressed():

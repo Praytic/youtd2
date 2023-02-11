@@ -187,7 +187,7 @@ text = "Iron"
 icon = SubResource( 2 )
 align = 0
 script = ExtResource( 2 )
-element = "iron"
+element = 6
 
 [node name="FireButton" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_top = 72.0
@@ -198,7 +198,7 @@ text = "Fire"
 icon = SubResource( 8 )
 align = 0
 script = ExtResource( 2 )
-element = "fire"
+element = 3
 
 [node name="NatureButton" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_top = 144.0
@@ -209,7 +209,7 @@ text = "Nature"
 icon = SubResource( 3 )
 align = 0
 script = ExtResource( 2 )
-element = "nature"
+element = 2
 
 [node name="IceButton" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_top = 216.0
@@ -220,7 +220,7 @@ text = "Ice"
 icon = SubResource( 4 )
 align = 0
 script = ExtResource( 2 )
-element = "ice"
+element = 4
 
 [node name="StormButton" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_top = 288.0
@@ -231,7 +231,7 @@ text = "Storm"
 icon = SubResource( 5 )
 align = 0
 script = ExtResource( 2 )
-element = "storm"
+element = 5
 
 [node name="DarknessButton" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_top = 360.0
@@ -242,7 +242,7 @@ text = "Darkness"
 icon = SubResource( 6 )
 align = 0
 script = ExtResource( 2 )
-element = "darkness"
+element = 1
 
 [node name="AstralButton" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_top = 432.0
