@@ -1,6 +1,8 @@
 extends Node
 
 
+onready var floating_text_scene: PackedScene = preload("res://Scenes/FloatingText.tscn")
+
 # Map position is free if it contains only ground tiles
 static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 	return buildable_area.get_cellv(pos) != TileMap.INVALID_CELL
@@ -70,3 +72,12 @@ func get_mob_list_in_range(position: Vector2, range_value: float) -> Array:
 				mob_list.append(mob)
 
 	return mob_list
+
+
+# TODO: figure out what are the mystery float parameters,
+# probably related to tween
+func display_floating_text_x(text: String, unit: Unit, color: Color, mystery_float_1: float, mystery_float_2: float, time: float):
+	var floating_text = floating_text_scene.instance()
+	floating_text.text = text
+	floating_text.duration = time
+	unit.add_child(floating_text)
