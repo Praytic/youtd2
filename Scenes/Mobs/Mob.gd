@@ -1,8 +1,6 @@
 class_name Mob
 extends Unit
 
-# TODO: is AIR part of Mob.Size? or should it be a separate
-# enum IsAir { YES, NO }?
 
 signal moved(delta)
 
@@ -10,11 +8,14 @@ enum MobProperty {
 
 }
 
+# NOTE: order is important to be able to compare
 enum Size {
 	MASS,
 	NORMAL,
+	AIR,
 	CHAMPION,
 	BOSS,
+	CHALLENGE,
 }
 
 enum Type {
