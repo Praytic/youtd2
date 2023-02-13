@@ -15,5 +15,8 @@ func _ready():
 	tier_icon = load(resource_path)
 
 
+# TODO: removed drawing of tier for now so that id can be
+# drawn, better for testing
 func _draw():
-	draw_texture(tier_icon, Vector2.ZERO)
+	pass
+	# draw_texture(tier_icon, Vector2.ZERO)
