@@ -1,0 +1,39 @@
+extends Tower
+
+# TODO: find out "required element level" and "required wave level" for .csv file
+# TODO: add sprites and icons
+# TODO: instant kill looks weird because mob disappears and projectile doesn't fly to it. Confirm what is the concept of "attack". Currently "attack" is the moment before projectile is shot.
+
+const _tier_stats_map: Dictionary = {
+	1: {chance_base = 0.008, chance_add = 0.0015},
+	2: {chance_base = 0.010, chance_add = 0.0017},
+	3: {chance_base = 0.012, chance_add = 0.0020},
+	4: {chance_base = 0.014, chance_add = 0.0022},
+	5: {chance_base = 0.016, chance_add = 0.0024},
+	6: {chance_base = 0.020, chance_add = 0.0025},
+}
+
+
+func _ready():
+	var tombs_curse = Buff.new("tombs_curse")
+	tombs_curse.add_event_handler(Buff.EventType.ATTACK, self, "on_attack")
+	tombs_curse.apply_to_unit_permanent(self, self, 0, true)
+
+
+func on_attack(event: Event):
+	var tier: int = get_tier()
+	var tier_data = _tier_stats_map[tier]
+	var chance_base: float = tier_data.chance_base
+	var chance_add: float = tier_data.chance_add
+	var chance: float = chance_base + get_level() * chance_add
+	var trigger_success: bool = calc_bad_chance(chance)
+
+	if !trigger_success:
+		return
+
+	var mob: Mob = event.get_target() as Mob
+	var mob_size: int = mob.get_size()
+
+	if mob_size < Mob.Size.CHAMPION:
+		kill_instantly(mob)
+		Utils.sfx_at_unit("Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", mob)
