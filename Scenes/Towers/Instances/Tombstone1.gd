@@ -4,7 +4,7 @@ extends Tower
 # TODO: add sprites and icons
 # TODO: instant kill looks weird because mob disappears and projectile doesn't fly to it. Confirm what is the concept of "attack". Currently "attack" is the moment before projectile is shot.
 
-const _tier_stats_map: Dictionary = {
+const _stats_map: Dictionary = {
 	1: {chance_base = 0.008, chance_add = 0.0015},
 	2: {chance_base = 0.010, chance_add = 0.0017},
 	3: {chance_base = 0.012, chance_add = 0.0020},
@@ -22,7 +22,7 @@ func _ready():
 
 func on_damage(event: Event):
 	var tier: int = get_tier()
-	var stats = _tier_stats_map[tier]
+	var stats = _stats_map[tier]
 	var chance: float = stats.chance_base + get_level() * stats.chance_add
 	var trigger_success: bool = calc_bad_chance(chance)
 

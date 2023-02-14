@@ -2,7 +2,7 @@ class_name SmallCactus1
 extends Tower
 
 
-const _tier_stats_map: Dictionary = {
+const _stats_map: Dictionary = {
 	1: {value = 0.15, value_add = 0.01},
 	2: {value = 0.17, value_add = 0.011},
 	3: {value = 0.19, value_add = 0.012},
@@ -20,7 +20,7 @@ func _ready():
 
 func _get_specials_modifier() -> Modifier:
 	var tier: int = get_tier()
-	var stats = _tier_stats_map[tier]
+	var stats = _stats_map[tier]
 
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, stats.value, stats.value_add)
