@@ -2,7 +2,7 @@ extends Tower
 
 # TODO: implement visual
 
-const _tier_stats_map: Dictionary = {
+const _stats_map: Dictionary = {
 	1: {slow_value = -0.15, chance = 0.15, chance_add = 0.0015},
 	2: {slow_value = -0.18, chance = 0.12, chance_add = 0.0012},
 	3: {slow_value = -0.21, chance = 0.15, chance_add = 0.0014},
@@ -19,7 +19,7 @@ func _ready():
 
 func _on_attack(event: Event):
 	var tier: int = get_tier()
-	var stats = _tier_stats_map[tier]
+	var stats = _stats_map[tier]
 
 	var tower: Unit = self
 	var mob: Unit = event.get_target()

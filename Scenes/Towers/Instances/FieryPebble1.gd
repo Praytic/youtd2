@@ -1,6 +1,6 @@
 extends Tower
 
-const _tier_stats_map: Dictionary = {
+const _stats_map: Dictionary = {
 	1: {splash_radius = 150},
 	2: {splash_radius = 160},
 	3: {splash_radius = 170},
@@ -12,7 +12,7 @@ const _tier_stats_map: Dictionary = {
 
 func _ready():
 	var tier: int = get_tier()
-	var stats = _tier_stats_map[tier]
+	var stats = _stats_map[tier]
 
 	var splash_attack_buff = SplashAttack.new({stats.splash_radius: 0.25})
 	splash_attack_buff.apply_to_unit_permanent(self, self, 0, true)
