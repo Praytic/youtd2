@@ -2,7 +2,7 @@ extends Tower
 
 # TODO: implement visual
 
-const _tier_stats_map: Dictionary = {
+const _stats_map: Dictionary = {
 	1: {dmg_to_mass = 0.30, dmg_to_mass_add = 0.01},
 	2: {dmg_to_mass = 0.33, dmg_to_mass_add = 0.011},
 	3: {dmg_to_mass = 0.36, dmg_to_mass_add = 0.012},
@@ -20,7 +20,7 @@ func _ready():
 
 func _get_specials_modifier() -> Modifier:
 	var tier: int = get_tier()
-	var stats = _tier_stats_map[tier]
+	var stats = _stats_map[tier]
 
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, stats.dmg_to_mass, stats.dmg_to_mass_add)

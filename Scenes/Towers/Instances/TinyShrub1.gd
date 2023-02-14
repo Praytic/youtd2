@@ -1,7 +1,7 @@
 extends Tower
 
 
-const _tier_stats_map: Dictionary = {
+const _stats_map: Dictionary = {
 	1: {crit_chance = 0.02, crit_chance_add = 0.0035, crit_damage = 0.0, crit_damage_add = 0.0},
 	2: {crit_chance = 0.04, crit_chance_add = 0.003, crit_damage = 1.4, crit_damage_add = 0.03},
 	3: {crit_chance = 0.05, crit_chance_add = 0.004, crit_damage = 1.5, crit_damage_add = 0.04},
@@ -13,7 +13,7 @@ const _tier_stats_map: Dictionary = {
 
 func _get_specials_modifier() -> Modifier:
 	var tier: int = get_tier()
-	var stats = _tier_stats_map[tier]
+	var stats = _stats_map[tier]
 
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_CRIT_CHANCE, stats.crit_chance, stats.crit_chance_add)
