@@ -6,10 +6,12 @@ onready var label: Label = $Label
 
 var text: String = "placeholder"
 var duration: float = 1.0
+var color: Color = Color.white
 
 
 func _ready():
 	label.text = text
+	modulate = color
 
 # 	Text pops out at the start
 	tween.interpolate_property(self, "scale",
@@ -19,8 +21,8 @@ func _ready():
 
 # 	Text fades to transparent after popping out
 	tween.interpolate_property(self, "modulate",
-		Color.white,
-		Color(1, 1, 1, 0),
+		color,
+		Color(color.r, color.g, color.b, 0),
 		0.3 * duration, Tween.TRANS_LINEAR, Tween.EASE_OUT, 0.7 * duration)
 
 # 	Text shrinks while fading
