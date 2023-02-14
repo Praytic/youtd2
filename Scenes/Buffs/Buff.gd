@@ -131,6 +131,16 @@ func set_buff_modifier(modifier: Modifier):
 	_modifier_level_type = ModifierLevelType.BUFF
 
 
+# TODO: implement
+func set_buff_icon(_buff_icon: String):
+	pass
+
+
+# TODO: implement
+func set_stacking_group(_stacking_group: String):
+	pass
+
+
 func get_modifier() -> Modifier:
 	return _modifier
 
