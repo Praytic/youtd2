@@ -19,16 +19,13 @@ func _ready():
 
 func _on_attack(event: Event):
 	var tier: int = get_tier()
-	var tier_data = _tier_stats_map[tier]
-	var slow_value: float = tier_data.slow_value
-	var chance: float = tier_data.chance
-	var chance_add: float = tier_data.chance_add
+	var stats = _tier_stats_map[tier]
 
 	var tower: Unit = self
 	var mob: Unit = event.get_target()
 	var size: int = mob.get_size()
 
-	var apply_chance: float = (chance + tower.get_level() * chance_add)
+	var apply_chance: float = (stats.chance + tower.get_level() * stats.chance_add)
 
 	if size == Mob.Size.BOSS:
 		apply_chance *= 2 / 3
@@ -38,7 +35,7 @@ func _on_attack(event: Event):
 	if chance_success:
 		var atrophy: Buff = Buff.new("velex_slow")
 		var slow: Modifier = Modifier.new()
-		slow.add_modification(Modification.Type.MOD_MOVE_SPEED, slow_value, 0.0)
+		slow.add_modification(Modification.Type.MOD_MOVE_SPEED, stats.slow_value, 0.0)
 		atrophy.set_buff_icon("@@0@@")
 		atrophy.set_buff_modifier(slow)
 		atrophy.set_stacking_group("velex_slow1")
