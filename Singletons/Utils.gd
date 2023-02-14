@@ -76,7 +76,7 @@ func get_mob_list_in_range(position: Vector2, range_value: float) -> Array:
 
 # TODO: figure out what are the mystery float parameters,
 # probably related to tween
-func display_floating_text_x(text: String, unit: Unit, color: Color, mystery_float_1: float, mystery_float_2: float, time: float):
+func display_floating_text_x(text: String, unit: Unit, color: Color, _mystery_float_1: float, _mystery_float_2: float, time: float):
 	var floating_text = floating_text_scene.instance()
 	floating_text.text = text
 	floating_text.color = color
