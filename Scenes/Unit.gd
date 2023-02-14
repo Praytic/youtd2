@@ -241,6 +241,8 @@ func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
 	var damaged_event: Event = Event.new(caster, damage, is_main_target)
 	emit_signal("damaged", damaged_event)
 
+	Utils.display_floating_text_x(String(int(damage)), self, Color.red, 0.0, 0.0, 1.0)
+
 	if _health <= 0:
 		var death_event: Event = Event.new(caster, damage, is_main_target)
 		emit_signal("death", death_event)
