@@ -79,5 +79,6 @@ func get_mob_list_in_range(position: Vector2, range_value: float) -> Array:
 func display_floating_text_x(text: String, unit: Unit, color: Color, mystery_float_1: float, mystery_float_2: float, time: float):
 	var floating_text = floating_text_scene.instance()
 	floating_text.text = text
+	floating_text.color = color
 	floating_text.duration = time
 	unit.add_child(floating_text)
