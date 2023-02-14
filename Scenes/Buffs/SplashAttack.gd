@@ -23,10 +23,10 @@ func on_damage(event: Event):
 	if _splash_map.empty():
 		return
 
-	if !event.is_main_target:
+	if !event.is_main_target():
 		return
 
-	var splash_target: Unit = event.target
+	var splash_target: Unit = event.get_target()
 	var damage_base: float = event.damage
 	var splash_pos: Vector2 = splash_target.position
 
