@@ -58,11 +58,12 @@ func _on_RightMenuBar_element_changed(element: int):
 
 func _create_TowerButton(tower_id) -> TowerButton:
 	var tower_family_id = TowerManager.get_tower_family_id(tower_id)
-	var tower_button_texture = load("res://Assets/Towers/Icons/icon_min_%s.png" % tower_family_id)
-	
+	var tower_button_texture_path: String = "res://Assets/Towers/Icons/icon_min_%s.png" % tower_family_id
+
 	var tower_button = TowerButton.new()
 
-	if tower_button_texture != null:
+	if ResourceLoader.exists(tower_button_texture_path):
+		var tower_button_texture = load(tower_button_texture_path)
 		tower_button.set_button_icon(tower_button_texture)
 	else:
 		tower_button.text = String(tower_id)
