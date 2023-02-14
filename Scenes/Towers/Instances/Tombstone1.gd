@@ -22,10 +22,8 @@ func _ready():
 
 func on_damage(event: Event):
 	var tier: int = get_tier()
-	var tier_data = _tier_stats_map[tier]
-	var chance_base: float = tier_data.chance_base
-	var chance_add: float = tier_data.chance_add
-	var chance: float = chance_base + get_level() * chance_add
+	var stats = _tier_stats_map[tier]
+	var chance: float = stats.chance_base + get_level() * stats.chance_add
 	var trigger_success: bool = calc_bad_chance(chance)
 
 	if !trigger_success:

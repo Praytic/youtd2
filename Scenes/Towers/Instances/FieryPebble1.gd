@@ -12,8 +12,7 @@ const _tier_stats_map: Dictionary = {
 
 func _ready():
 	var tier: int = get_tier()
-	var tier_data = _tier_stats_map[tier]
-	var splash_radius: float = tier_data.splash_radius
+	var stats = _tier_stats_map[tier]
 
-	var splash_attack_buff = SplashAttack.new({splash_radius: 0.25})
+	var splash_attack_buff = SplashAttack.new({stats.splash_radius: 0.25})
 	splash_attack_buff.apply_to_unit_permanent(self, self, 0, true)

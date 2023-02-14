@@ -2,11 +2,11 @@ extends Tower
 
 
 const _tier_stats_map: Dictionary = {
-	1: {miss_chance = 30},
-	2: {miss_chance = 40},
-	3: {miss_chance = 50},
-	4: {miss_chance = 60},
-	5: {miss_chance = 70},
+	1: {miss_chance_base = 30},
+	2: {miss_chance_base = 40},
+	3: {miss_chance_base = 50},
+	4: {miss_chance_base = 60},
+	5: {miss_chance_base = 70},
 }
 
 
@@ -18,9 +18,8 @@ func _ready():
 
 func on_damage(event: Event):
 	var tier: int = get_tier()
-	var miss_chance_base: float = _tier_stats_map[tier].miss_chance
-	var miss_chance_add: float = -0.006
-	var miss_chance: float = miss_chance_base + get_level() * miss_chance_add
+	var stats = _tier_stats_map[tier]
+	var miss_chance: float = stats.miss_chance_base + get_level() * -0.006
 	var missed: bool = calc_bad_chance(miss_chance)
 
 	if missed:
