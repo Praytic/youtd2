@@ -16,11 +16,11 @@ const _tier_stats_map: Dictionary = {
 
 func _ready():
 	var tombs_curse = Buff.new("tombs_curse")
-	tombs_curse.add_event_handler(Buff.EventType.ATTACK, self, "on_attack")
+	tombs_curse.add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")
 	tombs_curse.apply_to_unit_permanent(self, self, 0, true)
 
 
-func on_attack(event: Event):
+func on_damage(event: Event):
 	var tier: int = get_tier()
 	var tier_data = _tier_stats_map[tier]
 	var chance_base: float = tier_data.chance_base
