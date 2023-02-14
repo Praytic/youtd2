@@ -20,11 +20,9 @@ func _ready():
 
 func _get_specials_modifier() -> Modifier:
 	var tier: int = get_tier()
-	var tier_data = _tier_stats_map[tier]
-	var dmg_to_mass: float = tier_data.dmg_to_mass
-	var dmg_to_mass_add: float = tier_data.dmg_to_mass_add
+	var stats = _tier_stats_map[tier]
 
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, dmg_to_mass, dmg_to_mass_add)
+	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, stats.dmg_to_mass, stats.dmg_to_mass_add)
 
 	return specials_modifier
