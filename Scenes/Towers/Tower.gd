@@ -102,6 +102,8 @@ const _mob_size_to_property_map: Dictionary = {
 	Mob.Size.BOSS: TowerProperty.DMG_TO_BOSS,
 }
 
+const ATTACK_CD_MIN: float = 0.2
+
 var _target_mob: Mob = null
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
@@ -366,6 +368,7 @@ func _apply_properties_to_scene_children():
 	$AreaOfEffect.set_radius(cast_range)
 
 	var attack_cd: float = _tower_properties[TowerProperty.ATTACK_CD]
+	attack_cd = max(ATTACK_CD_MIN, attack_cd)
 	_attack_cooldown_timer.wait_time = attack_cd
 
 
