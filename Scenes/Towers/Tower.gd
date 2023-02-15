@@ -83,7 +83,9 @@ const _tower_add_mod_map: Dictionary = {
 	Modification.Type.MOD_DMG_TO_HUMANOID: TowerProperty.DMG_TO_HUMANOID, 
 }
 
-const _tower_percent_mod_map: Dictionary = {}
+const _tower_percent_mod_map: Dictionary = {
+	Modification.Type.MOD_ATTACK_SPEED: TowerProperty.ATTACK_CD,
+}
 
 const _mob_type_to_property_map: Dictionary = {
 	Mob.Type.UNDEAD: TowerProperty.DMG_TO_MASS,
