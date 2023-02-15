@@ -277,6 +277,6 @@ func _apply_modifier(modifier: Modifier, apply_direction: int):
 	var modification_list: Array = modifier.get_modification_list()
 
 	for modification in modification_list:
-		var level_bonus: float = 1.0 + modification.level_add * (modifier.level - 1)
-		var value: float = apply_direction * modification.value_base * level_bonus
+		var level_bonus: float = modification.level_add * (modifier.level - 1)
+		var value: float = apply_direction * (modification.value_base + level_bonus)
 		modify_property(modification.type, value)
