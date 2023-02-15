@@ -126,6 +126,13 @@ func calc_spell_crit_no_bonus() -> float:
 
 
 # TODO: implement _crit_mod.
+# 
+# TODO: is it safe to call _receive_damage()? That f-n
+# triggers DAMAGED event. If there's a tower which somehow
+# debuffs a unit so that everytime it's DAMAGED, the tower
+# damages it again, then there will be infinite recursion.
+# So far only saw that towers deal additional damaged in
+# event handlers for DAMAGE.
 func do_spell_damage(target: Unit, damage: float, _crit_mod: float, is_main_target: bool):
 	# NOTE: do not call _do_damage(), that can cause infinite recursion
 	target._receive_damage(self, damage, is_main_target)
