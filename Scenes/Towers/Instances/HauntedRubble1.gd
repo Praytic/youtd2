@@ -3,11 +3,11 @@ extends Tower
 # TODO: implement visual
 
 const _stats_map: Dictionary = {
-	1: {slow_value = -0.15, chance = 0.15, chance_add = 0.0015},
-	2: {slow_value = -0.18, chance = 0.12, chance_add = 0.0012},
-	3: {slow_value = -0.21, chance = 0.15, chance_add = 0.0014},
-	4: {slow_value = -0.24, chance = 0.16, chance_add = 0.0016},
-	5: {slow_value = -0.27, chance = 0.18, chance_add = 0.0018},
+	1: {slow_value = 0.15, chance = 0.15, chance_add = 0.0015},
+	2: {slow_value = 0.18, chance = 0.12, chance_add = 0.0012},
+	3: {slow_value = 0.21, chance = 0.15, chance_add = 0.0014},
+	4: {slow_value = 0.24, chance = 0.16, chance_add = 0.0016},
+	5: {slow_value = 0.27, chance = 0.18, chance_add = 0.0018},
 }
 
 
@@ -35,10 +35,9 @@ func _on_attack(event: Event):
 	if chance_success:
 		var atrophy: Buff = Buff.new("velex_slow")
 		var slow: Modifier = Modifier.new()
-		slow.add_modification(Modification.Type.MOD_MOVE_SPEED, stats.slow_value, 0.0)
+		slow.add_modification(Modification.Type.MOD_MOVE_SPEED, 0, -0.001)
 		atrophy.set_buff_icon("@@0@@")
 		atrophy.set_buff_modifier(slow)
 		atrophy.set_stacking_group("velex_slow1")
 
-		var power_level: int = tier
-		atrophy.apply_to_unit(tower, mob, power_level, 5.0, 0.0, false)
+		atrophy.apply_to_unit(tower, mob, int(stats.slow_value * 1000), 5.0, 0.0, false)
