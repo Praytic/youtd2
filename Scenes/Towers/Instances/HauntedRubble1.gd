@@ -22,22 +22,21 @@ func _on_attack(event: Event):
 	var stats = _stats_map[tier]
 
 	var tower: Unit = self
-	var mob: Unit = event.get_target()
-	var size: int = mob.get_size()
-
-	var apply_chance: float = (stats.chance + tower.get_level() * stats.chance_add)
+	var creep: Unit = event.get_target()
+	var size: int = creep.get_size()
+	var calc: bool
 
 	if size == Mob.Size.BOSS:
-		apply_chance *= 2 / 3
+		calc = tower.calc_chance((stats.chance + tower.get_level() * stats.chance_add) * 2 / 3)
+	else:
+		calc = tower.calc_chance(stats.chance + tower.get_level() * stats.chance_add)
 
-	var chance_success: bool = tower.calc_chance(apply_chance)
-
-	if chance_success:
-		var atrophy: Buff = Buff.new("velex_slow")
+	if calc == true:
+		var velex_slow: Buff = Buff.new("velex_slow")
 		var slow: Modifier = Modifier.new()
 		slow.add_modification(Modification.Type.MOD_MOVE_SPEED, 0, -0.001)
-		atrophy.set_buff_icon("@@0@@")
-		atrophy.set_buff_modifier(slow)
-		atrophy.set_stacking_group("velex_slow1")
+		velex_slow.set_buff_icon("@@0@@")
+		velex_slow.set_buff_modifier(slow)
+		velex_slow.set_stacking_group("velex_slow1")
 
-		atrophy.apply_to_unit(tower, mob, int(stats.slow_value * 1000), 5.0, 0.0, false)
+		velex_slow.apply_to_unit(tower, event.get_target(), int(stats.slow_value * 1000), 5.0, 0.0, false)
