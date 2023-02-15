@@ -21,6 +21,6 @@ func on_damage(event: Event):
 	var tier: int = get_tier()
 	var stats = _stats_map[tier]
 
-	if tower.calc_bad_chance(stats.miss_chance_base + tower.get_level() * 0.006):
+	if tower.calc_bad_chance(stats.miss_chance_base - tower.get_level() * 0.006):
 		event.damage = 0
 		Utils.display_floating_text_x("Miss", tower, Color.red, 0.05, 0.0, 2.0)
