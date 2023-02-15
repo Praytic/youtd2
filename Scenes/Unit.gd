@@ -151,6 +151,7 @@ func add_modifier(modifier: Modifier):
 # buff? But buffs aren't supposed to change level after
 # creation.
 func add_specials_modifier(modifier: Modifier):
+	modifier.level = _level
 	_apply_modifier(modifier, 1)
 	_specials_modifier_list.append(modifier)
 
