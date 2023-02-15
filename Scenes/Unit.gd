@@ -179,7 +179,7 @@ func get_level() -> int:
 
 
 func kill_instantly(target: Unit):
-	_do_damage(target, target._health, true)
+	target._killed_by_unit(self, true)
 
 
 func _modify_property_general(property_map: Dictionary, add_mod_map: Dictionary, percent_mod_map: Dictionary, modification_type: int, modification_value: float):
@@ -244,14 +244,18 @@ func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
 	Utils.display_floating_text_x(String(int(damage)), self, Color.red, 0.0, 0.0, 1.0)
 
 	if _health <= 0:
-		var death_event: Event = Event.new(caster, damage, is_main_target)
-		emit_signal("death", death_event)
-
-		caster._accept_kill(self, is_main_target)
-
-		queue_free()
+		_killed_by_unit(caster, is_main_target)
 
 		return
+
+
+func _killed_by_unit(caster: Unit, is_main_target: bool):
+	var death_event: Event = Event.new(caster, 0, is_main_target)
+	emit_signal("death", death_event)
+
+	caster._accept_kill(self, is_main_target)
+
+	queue_free()
 
 
 # Called when unit kills another unit
