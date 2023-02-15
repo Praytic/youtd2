@@ -125,10 +125,10 @@ func calc_spell_crit_no_bonus() -> float:
 	return 0.0
 
 
-# TODO: implement. is_main_target parameter doesn't exist in
-# original api, not sure how to do without it
+# TODO: implement _crit_mod.
 func do_spell_damage(target: Unit, damage: float, _crit_mod: float, is_main_target: bool):
-	_do_damage(target, damage, is_main_target)
+	# NOTE: do not call _do_damage(), that can cause infinite recursion
+	target._receive_damage(self, damage, is_main_target)
 
 
 func add_modifier(modifier: Modifier):
@@ -228,6 +228,10 @@ func _receive_attack():
 	emit_signal("attacked", attacked_event)
 
 
+# NOTE: this function should not be called in any event
+# handlers or public Unit functions that can be called from
+# event handlers because that can cause an infinite
+# recursion of DAMAGE events causing infinite DAMAGE events.
 func _do_damage(target: Unit, damage: float, is_main_target: bool):
 	var damage_event: Event = Event.new(target, damage, is_main_target)
 	emit_signal("damage", damage_event)
