@@ -21,17 +21,13 @@ func _ready():
 
 
 func on_damage(event: Event):
+	var tower = self
 	var tier: int = get_tier()
 	var stats = _stats_map[tier]
-	var chance: float = stats.chance_base + get_level() * stats.chance_add
-	var trigger_success: bool = calc_bad_chance(chance)
 
-	if !trigger_success:
-		return
+	var creep: Unit = event.get_target()
+	var size: int = creep.get_size()
 
-	var mob: Mob = event.get_target() as Mob
-	var mob_size: int = mob.get_size()
-
-	if mob_size < Mob.Size.CHAMPION:
-		kill_instantly(mob)
-		Utils.sfx_at_unit("Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", mob)
+	if size < Mob.Size.CHAMPION:
+		tower.kill_instantly(creep)
+		Utils.sfx_at_unit("Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", creep)

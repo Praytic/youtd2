@@ -18,14 +18,10 @@ func _ready():
 
 
 func _on_damage(event: Event):
-	var event_target: Unit = event.get_target()
+	var tower = self
+	var tier: int = get_tier()
+	var stats = _stats_map[tier]
 
-	if event.is_main_target() && calc_chance(0.15) && !event_target.is_immune():
-		Utils.sfx_at_unit("Abilities\\Spells\\Undead\\FrostArmor\\FrostArmorDamage.mdl", event_target)
-
-		var tier: int = get_tier()
-		var stats = _stats_map[tier]
-
-		var damage: float = stats.damage + stats.damage_add * get_level()
-
-		do_spell_damage(event_target, damage, calc_spell_crit_no_bonus(), false)
+	if event.is_main_target() && tower.calc_chance(0.15) && !event.get_target().is_immune():
+		Utils.sfx_at_unit("Abilities\\Spells\\Undead\\FrostArmor\\FrostArmorDamage.mdl", event.get_target())
+		tower.do_spell_damage(event.get_target(), stats.damage + stats.damage_add * get_level(), tower.calc_spell_crit_no_bonus(), false)
