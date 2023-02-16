@@ -2,6 +2,10 @@ class_name Building
 extends Unit
 
 
+signal selected
+signal unselected
+
+
 var building_in_progress: bool = false
 var is_selected: bool = false
 const cell_size: int = 128
