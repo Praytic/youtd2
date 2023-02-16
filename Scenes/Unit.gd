@@ -7,8 +7,6 @@ extends KinematicBody2D
 # NOTE: can't use static typing for Buff because of cyclic
 # dependency
 
-signal selected
-signal unselected
 signal level_up
 signal attack(event)
 signal attacked(event)
