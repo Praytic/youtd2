@@ -25,6 +25,9 @@ func on_damage(event: Event):
 	var tier: int = get_tier()
 	var stats = _stats_map[tier]
 
+	if !tower.calc_chance(stats.chance_base + stats.chance_add * tower.get_level()):
+		return
+
 	var creep: Unit = event.get_target()
 	var size: int = creep.get_size()
 
