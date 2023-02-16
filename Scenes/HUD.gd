@@ -4,8 +4,13 @@ extends Control
 signal start_wave(wave_index)
 signal stop_wave()
 
+onready var element_buttons_parent = $MarginContainer/HBoxContainer
+
 
 func _ready():
+	for element_button in element_buttons_parent.get_children():
+		element_button.connect("pressed", self, "_on_element_button_pressed", [element_button])
+	
 	$TowerTooltip.hide()
 
 
@@ -52,3 +57,10 @@ func _on_Tower_unselected():
 
 func _on_BuildingMenuButton_pressed():
 	$Hints2.hide()
+
+
+func _on_element_button_pressed(element_button):
+	$MarginContainer.hide()
+	
+	var element: int = element_button.element
+	$RightMenuBar.set_element(element)
