@@ -224,6 +224,11 @@ func get_move_speed() -> float:
 	return move_speed
 
 
+# TODO: implement
+func is_invisible() -> bool:
+	return false
+
+
 func _do_attack(target: Unit):
 	var attack_event: Event = Event.new(target, 0, true)
 	emit_signal("attack", attack_event)
