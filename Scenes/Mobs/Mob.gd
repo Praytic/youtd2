@@ -43,7 +43,7 @@ var _current_path_index: int = 0
 var _size: int = Size.NORMAL
 var _type: int = Type.HUMANOID
 var _mob_properties: Dictionary = {
-	ARMOR = 0.0,
+	MobProperty.ARMOR: 0.0,
 }
 
 onready var _sprite = $Sprite
