@@ -2,10 +2,13 @@ class_name Mob
 extends Unit
 
 
+# TODO: implement armor
+
+
 signal moved(delta)
 
 enum MobProperty {
-
+	ARMOR,
 }
 
 # NOTE: order is important to be able to compare
@@ -27,10 +30,10 @@ enum Type {
 }
 
 const _mob_add_mod_map: Dictionary = {
-	
+	Modification.Type.MOD_ARMOR: MobProperty.ARMOR
 }
 const _mob_percent_mod_map: Dictionary = {
-	
+	Modification.Type.MOD_ARMOR_PERC: MobProperty.ARMOR
 }
 
 const MOB_HEALTH_MAX: float = 100.0
@@ -40,7 +43,7 @@ var _current_path_index: int = 0
 var _size: int = Size.NORMAL
 var _type: int = Type.HUMANOID
 var _mob_properties: Dictionary = {
-
+	ARMOR = 0.0,
 }
 
 onready var _sprite = $Sprite
