@@ -237,7 +237,7 @@ func _on_timer_timeout():
 	_call_event_handler_list(EventType.EXPIRE, expire_event)
 
 
-func _on_target_dead(event: Event):
+func _on_target_death(event: Event):
 	_call_event_handler_list(EventType.DEATH, event)
 	_call_event_handler_list(EventType.CLEANUP, event)
 
