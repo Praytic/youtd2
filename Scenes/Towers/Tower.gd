@@ -49,6 +49,10 @@ enum TowerProperty {
 	DMG_TO_NATURE,
 	DMG_TO_ORC,
 	DMG_TO_HUMANOID,
+
+# 	TODO: implement
+	ITEM_CHANCE_ON_KILL,
+	ITEM_QUALITY_ON_KILL,
 }
 
 enum Element {
@@ -81,6 +85,9 @@ const _tower_add_mod_map: Dictionary = {
 	Modification.Type.MOD_DMG_TO_NATURE: TowerProperty.DMG_TO_NATURE, 
 	Modification.Type.MOD_DMG_TO_ORC: TowerProperty.DMG_TO_ORC, 
 	Modification.Type.MOD_DMG_TO_HUMANOID: TowerProperty.DMG_TO_HUMANOID, 
+
+	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: TowerProperty.ITEM_CHANCE_ON_KILL, 
+	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: TowerProperty.ITEM_QUALITY_ON_KILL, 
 }
 
 const _tower_percent_mod_map: Dictionary = {
@@ -139,6 +146,11 @@ var _tower_properties: Dictionary = {
 	TowerProperty.DMG_TO_NATURE: 0.0,
 	TowerProperty.DMG_TO_ORC: 0.0,
 	TowerProperty.DMG_TO_HUMANOID: 0.0,
+
+# 	TODO: these should probably default to something
+# 	non-zero
+	TowerProperty.ITEM_CHANCE_ON_KILL: 0.0,
+	TowerProperty.ITEM_QUALITY_ON_KILL: 0.0,
 }
 
 const _element_string_to_enum: Dictionary = {
