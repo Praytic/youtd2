@@ -193,7 +193,7 @@ func _ready():
 	var specials_modifier: Modifier = _get_specials_modifier()
 
 	if specials_modifier != null:
-		add_specials_modifier(specials_modifier)
+		add_modifier(specials_modifier)
 
 	_apply_properties_to_scene_children()
 
