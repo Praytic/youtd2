@@ -58,37 +58,6 @@ func _ready():
 	pass
 
 
-# This shouldn't be used directly, use Buff.apply_to_unit().
-# Returns true if the buff was applied successfully. Buff
-# can fail to apply if a stronger buff of same type is
-# already active.
-func _apply_buff(buff) -> bool:
-	var buff_id: String = buff.get_id()
-
-	var is_already_applied_to_target: bool = _buff_map.has(buff_id)
-	
-	var override_success: bool = false
-
-	if is_already_applied_to_target:
-		var current_buff = _buff_map[buff_id]
-		var should_override: bool = buff.get_level() >= current_buff.get_level()
-
-		if should_override:
-			current_buff.stop()
-			override_success = true
-
-	if !is_already_applied_to_target || override_success:
-		_buff_map[buff_id] = buff
-		buff.connect("removed", self, "_on_buff_removed", [buff])
-		var buff_modifier: Modifier = buff.get_modifier()
-		_apply_modifier(buff_modifier, 1)
-		add_child(buff)
-
-		return true
-	else:
-		return false
-
-
 # TODO: implement
 func is_immune() -> bool:
 	return false
@@ -185,29 +154,6 @@ func kill_instantly(target: Unit):
 	target._killed_by_unit(self, true)
 
 
-# This f-n is used by Unit and Unit subclasses, because they
-# have separate property maps and mod_to_property maps.
-static func _modify_property_general(property_map: Dictionary, mod_to_property_map: Dictionary, modification_type: int, modification_value: float):
-	var can_process_modification: bool = mod_to_property_map.has(modification_type)
-
-	if !can_process_modification:
-		return
-
-	var property: int = mod_to_property_map[modification_type]
-	var current_value: float = property_map[property]
-	var new_value: float = 0.0
-
-	var math_type: int = Modification.get_math_type(modification_type)
-
-	match math_type:
-		Modification.MathType.ADD:
-			new_value = current_value + modification_value
-		Modification.MathType.MULTIPLY:
-			new_value = current_value * (1.0 + modification_value)
-
-	property_map[property] = new_value
-
-
 func modify_property(modification_type: int, modification_value: float):
 	_modify_property_general(_unit_properties, _unit_mod_to_property_map, modification_type, modification_value)
 
@@ -291,8 +237,62 @@ func _on_buff_removed(buff):
 	buff.queue_free()
 
 
+# This shouldn't be used directly, use Buff.apply_to_unit().
+# Returns true if the buff was applied successfully. Buff
+# can fail to apply if a stronger buff of same type is
+# already active.
+func _apply_buff(buff) -> bool:
+	var buff_id: String = buff.get_id()
+
+	var is_already_applied_to_target: bool = _buff_map.has(buff_id)
+	
+	var override_success: bool = false
+
+	if is_already_applied_to_target:
+		var current_buff = _buff_map[buff_id]
+		var should_override: bool = buff.get_level() >= current_buff.get_level()
+
+		if should_override:
+			current_buff.stop()
+			override_success = true
+
+	if !is_already_applied_to_target || override_success:
+		_buff_map[buff_id] = buff
+		buff.connect("removed", self, "_on_buff_removed", [buff])
+		var buff_modifier: Modifier = buff.get_modifier()
+		_apply_modifier(buff_modifier, 1)
+		add_child(buff)
+
+		return true
+	else:
+		return false
+
+
 func _modify_property_subclass(_modification_type: int, _modification_value: float):
 	pass
+
+
+# This f-n is used by Unit and Unit subclasses, because they
+# have separate property maps and mod_to_property maps.
+static func _modify_property_general(property_map: Dictionary, mod_to_property_map: Dictionary, modification_type: int, modification_value: float):
+	var can_process_modification: bool = mod_to_property_map.has(modification_type)
+
+	if !can_process_modification:
+		return
+
+	var property: int = mod_to_property_map[modification_type]
+	var current_value: float = property_map[property]
+	var new_value: float = 0.0
+
+	var math_type: int = Modification.get_math_type(modification_type)
+
+	match math_type:
+		Modification.MathType.ADD:
+			new_value = current_value + modification_value
+		Modification.MathType.MULTIPLY:
+			new_value = current_value * (1.0 + modification_value)
+
+	property_map[property] = new_value
 
 
 func _apply_modifier(modifier: Modifier, apply_direction: int):
