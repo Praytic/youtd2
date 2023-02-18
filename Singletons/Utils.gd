@@ -74,6 +74,19 @@ func get_mob_list_in_range(position: Vector2, range_value: float) -> Array:
 	return mob_list
 
 
+class DistanceSorter:
+	var origin = Vector2.ZERO
+
+	func sort(a: Unit, b: Unit):
+		return a.position.distance_to(origin) < b.position.distance_to(origin)
+
+
+func sort_unit_list_by_distance(unit_list: Array, position: Vector2):
+	var sorter: DistanceSorter = DistanceSorter.new()
+	sorter.origin = position
+	unit_list.sort_custom(sorter, "sort")
+
+
 # TODO: figure out what are the mystery float parameters,
 # probably related to tween
 func display_floating_text_x(text: String, unit: Unit, color: Color, _mystery_float_1: float, _mystery_float_2: float, time: float):
