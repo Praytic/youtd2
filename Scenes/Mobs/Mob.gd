@@ -29,11 +29,9 @@ enum Type {
 	HUMANOID,
 }
 
-const _mob_add_mod_map: Dictionary = {
-	Modification.Type.MOD_ARMOR: MobProperty.ARMOR
-}
-const _mob_percent_mod_map: Dictionary = {
-	Modification.Type.MOD_ARMOR_PERC: MobProperty.ARMOR
+const _mob_mod_to_property_map: Dictionary = {
+	Modification.Type.MOD_ARMOR: MobProperty.ARMOR,
+	Modification.Type.MOD_ARMOR_PERC: MobProperty.ARMOR,
 }
 
 const MOB_HEALTH_MAX: float = 100.0
@@ -110,5 +108,6 @@ func _get_mob_animation() -> String:
 	else:
 		return "stand"
 
+
 func _modify_property(modification_type: int, modification_value: float):
-	_modify_property_general(_mob_properties, _mob_add_mod_map, _mob_percent_mod_map, modification_type, modification_value)
+	_modify_property_general(_mob_properties, _mob_mod_to_property_map, modification_type, modification_value)
