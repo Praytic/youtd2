@@ -66,13 +66,13 @@ var _modifier: Modifier = Modifier.new()
 var _level: int
 var _modifier_level_type: int = ModifierLevelType.CASTER
 var _friendly: bool
-var _id: String
+var _type: String
 # Map of EventType -> list of EventHandler's
 var event_handler_map: Dictionary = {}
 
 
-func _init(id: String):
-	_id = id
+func _init(type: String):
+	_type = type
 
 
 
@@ -91,7 +91,7 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 	if !can_apply:
 		return
 
-	var active_buff = target.get_buff_of_type(get_id())
+	var active_buff = target.get_buff_of_type(get_type())
 
 	if active_buff != null:
 		active_buff._stop()
@@ -155,8 +155,8 @@ func get_level() -> int:
 	return _level
 
 
-func get_id() -> String:
-	return _id
+func get_type() -> String:
+	return _type
 
 
 func get_caster() -> Unit:
@@ -296,7 +296,7 @@ func _make_buff_event(target_arg: Unit, damage_arg: float, is_main_target_arg: b
 
 
 func _check_can_apply_to_unit(unit: Unit) -> bool:
-	var active_buff = unit.get_buff_of_type(get_id())
+	var active_buff = unit.get_buff_of_type(get_type())
 
 	if active_buff != null:
 		var should_override: bool = get_level() >= active_buff.get_level()
