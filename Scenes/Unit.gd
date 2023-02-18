@@ -144,11 +144,11 @@ func kill_instantly(target: Unit):
 	target._killed_by_unit(self, true)
 
 
-func modify_property(modification_type: int, modification_value: float):
-	_modify_property_general(_unit_properties, _unit_mod_to_property_map, modification_type, modification_value)
+func modify_property(modification_type: int, modification_value: float, modify_direction: int):
+	_modify_property_general(_unit_properties, _unit_mod_to_property_map, modification_type, modification_value, modify_direction)
 
 #	Call subclass version
-	_modify_property_subclass(modification_type, modification_value)
+	_modify_property_subclass(modification_type, modification_value, modify_direction)
 
 
 # NOTE: important to store move speed without clamping and
@@ -244,13 +244,13 @@ func _on_buff_removed(buff):
 	buff.queue_free()
 
 
-func _modify_property_subclass(_modification_type: int, _modification_value: float):
+func _modify_property_subclass(_modification_type: int, _modification_value: float, _modify_direction: int):
 	pass
 
 
 # This f-n is used by Unit and Unit subclasses, because they
 # have separate property maps and mod_to_property maps.
-static func _modify_property_general(property_map: Dictionary, mod_to_property_map: Dictionary, modification_type: int, modification_value: float):
+static func _modify_property_general(property_map: Dictionary, mod_to_property_map: Dictionary, modification_type: int, modification_value: float, modify_direction: int):
 	var can_process_modification: bool = mod_to_property_map.has(modification_type)
 
 	if !can_process_modification:
@@ -264,17 +264,23 @@ static func _modify_property_general(property_map: Dictionary, mod_to_property_m
 
 	match math_type:
 		Modification.MathType.ADD:
-			new_value = current_value + modification_value
+			new_value = current_value + modify_direction * modification_value
 		Modification.MathType.MULTIPLY:
-			new_value = current_value * (1.0 + modification_value)
+			if modify_direction == 1:
+				new_value = current_value * (1.0 + modification_value)
+			elif modify_direction == -1:
+				new_value = current_value / (1.0 + modification_value)
+			else:
+				new_value = current_value
 
 	property_map[property] = new_value
 
 
-func _apply_modifier(modifier: Modifier, level: int, apply_direction: int):
+func _apply_modifier(modifier: Modifier, level: int, modify_direction: int):
 	var modification_list: Array = modifier.get_modification_list()
 
 	for modification in modification_list:
 		var level_bonus: float = modification.level_add * (level - 1)
-		var value: float = apply_direction * (modification.value_base + level_bonus)
-		modify_property(modification.type, value)
+		var value: float = modification.value_base + level_bonus
+
+		modify_property(modification.type, value, modify_direction)
