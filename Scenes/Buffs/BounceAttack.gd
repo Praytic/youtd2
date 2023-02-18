@@ -34,6 +34,9 @@ func on_damage(event: Event):
 
 		var mob_list: Array = Utils.get_mob_list_in_range(current_target.position, BOUNCE_RANGE)
 
+#		NOTE: sort list to prioritize closest units
+		Utils.sort_unit_list_by_distance(mob_list, current_target.position)
+
 		for mob in mob_list:
 			var already_visited: bool = visited_list.has(mob)
 			
