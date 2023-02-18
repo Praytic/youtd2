@@ -397,7 +397,7 @@ func _get_specials_modifier() -> Modifier:
 	return null
 
 
-func _modify_property(modification_type: int, modification_value: float):
+func _modify_property_subclass(modification_type: int, modification_value: float):
 	_modify_property_general(_tower_properties, _tower_mod_to_property_map, modification_type, modification_value)
 
 	_apply_properties_to_scene_children()

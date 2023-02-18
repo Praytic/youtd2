@@ -185,6 +185,8 @@ func kill_instantly(target: Unit):
 	target._killed_by_unit(self, true)
 
 
+# This f-n is used by Unit and Unit subclasses, because they
+# have separate property maps and mod_to_property maps.
 static func _modify_property_general(property_map: Dictionary, mod_to_property_map: Dictionary, modification_type: int, modification_value: float):
 	var can_process_modification: bool = mod_to_property_map.has(modification_type)
 
@@ -210,7 +212,7 @@ func modify_property(modification_type: int, modification_value: float):
 	_modify_property_general(_unit_properties, _unit_mod_to_property_map, modification_type, modification_value)
 
 #	Call subclass version
-	_modify_property(modification_type, modification_value)
+	_modify_property_subclass(modification_type, modification_value)
 
 
 # NOTE: important to store move speed without clamping and
@@ -289,7 +291,7 @@ func _on_buff_removed(buff):
 	buff.queue_free()
 
 
-func _modify_property(_modification_type: int, _modification_value: float):
+func _modify_property_subclass(_modification_type: int, _modification_value: float):
 	pass
 
 
