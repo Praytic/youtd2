@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/HUD/Gold.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD/KnowledgeTome.gd" type="Script" id=2]
@@ -7,9 +7,22 @@
 [ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture" id=5]
 [ext_resource path="res://Scenes/HUD/TopMenuBar.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/HUD/ResourceStatusPanel.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/UI/HUD/food.png" type="Texture" id=8]
-[ext_resource path="res://Assets/UI/HUD/coin_01.png" type="Texture" id=9]
-[ext_resource path="res://Assets/UI/HUD/purple_book.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Towers/tower_icons.png" type="Texture" id=9]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 448, 192, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 448, 256, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 9 )
+region = Rect2( 448, 128, 64, 64 )
 
 [node name="TopMenuBar" type="Control"]
 anchor_right = 1.0
@@ -133,14 +146,14 @@ custom_constants/separation = 30
 [node name="Gold" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
 margin_bottom = 81.0
 script = ExtResource( 1 )
-icon_texture = ExtResource( 9 )
+icon_texture = SubResource( 1 )
 label_text = "0"
 
 [node name="Food" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
 margin_left = 280.0
 margin_right = 530.0
 margin_bottom = 81.0
-icon_texture = ExtResource( 8 )
+icon_texture = SubResource( 2 )
 label_text = "0"
 
 [node name="KnowledgeTome" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
@@ -148,7 +161,7 @@ margin_left = 560.0
 margin_right = 810.0
 margin_bottom = 81.0
 script = ExtResource( 2 )
-icon_texture = ExtResource( 10 )
+icon_texture = SubResource( 3 )
 label_text = "0"
 
 [node name="AboutCreators" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
