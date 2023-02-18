@@ -237,8 +237,8 @@ func _accept_kill(target: Unit, is_main_target: bool):
 # This is for internal use in Buff.gd only. For external
 # use, call Buff.apply_to_unit().
 func _add_buff_internal(buff):
-	var buff_id: String = buff.get_id()
-	_buff_map[buff_id] = buff
+	var buff_type: String = buff.get_type()
+	_buff_map[buff_type] = buff
 	buff.connect("removed", self, "_on_buff_removed", [buff])
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, 1)
@@ -249,8 +249,8 @@ func _on_buff_removed(buff):
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, -1)
 
-	var buff_id: String = buff.get_id()
-	_buff_map.erase(buff_id)
+	var buff_type: String = buff.get_type()
+	_buff_map.erase(buff_type)
 	buff.queue_free()
 
 
