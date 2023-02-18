@@ -111,10 +111,10 @@ func add_modifier(modifier: Modifier):
 	_modifier_list.append(modifier)
 
 
-# TODO: not sure how to implement remove_modifier(). Maybe
-# assign modifiers an id in add_modifier()? Need to see
-# concrete use case for removing modifiers first. Will
-# probably encounter it when implementing items.
+func remove_modifier(modifier: Modifier):
+	if _modifier_list.has(modifier):
+		_apply_modifier(modifier, -1)
+		_modifier_list.append(modifier)
 
 
 func set_level(new_level: int):
