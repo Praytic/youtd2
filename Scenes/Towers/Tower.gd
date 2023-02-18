@@ -267,9 +267,26 @@ func change_level(new_level: int):
 	_apply_properties_to_scene_children()
 
 
+func _set_target(new_target: Mob):
+	var old_target = _target_mob
+
+	if old_target != null:
+		_target_mob.disconnect("death", self, "_on_target_death")
+
+	if new_target != null:
+		new_target.connect("death", self, "_on_target_death")
+
+	_target_mob = new_target
+
+
+func _on_target_death(_event: Event):
+	_set_target(null)
+
+
 func _on_AttackCooldownTimer_timeout():
 	if !_have_target():
-		_target_mob = _find_new_target()
+		var new_target: Mob = _find_new_target()
+		_set_target(new_target)
 		
 	_try_to_attack()
 
@@ -279,15 +296,17 @@ func _on_TargetingArea_body_entered(body):
 		return
 		
 	if body is Mob:
-#		New target acquired
-		_target_mob = body
+		var new_target: Mob = body as Mob
+		_set_target(body)
 		_try_to_attack()
 
 
 func _on_TargetingArea_body_exited(body):
-	if body == _target_mob:
-#		Target has gone out of range
-		_target_mob = _find_new_target()
+	var target_went_out_of_range: bool = body == _target_mob
+
+	if target_went_out_of_range:
+		var new_target: Mob = _find_new_target()
+		_set_target(new_target)
 		_try_to_attack()
 
 
@@ -337,9 +356,7 @@ func _try_to_attack() -> bool:
 
 
 func _have_target() -> bool:
-#	NOTE: have to check validity because mobs can get killed by other towers
-#	which free's them and makes them invalid
-	return _target_mob != null and is_instance_valid(_target_mob)
+	return _target_mob != null
 
 
 func _select():
