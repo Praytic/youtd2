@@ -31,24 +31,20 @@ func on_damage(event: Event):
 	var visited_list: Array = [current_target]
 
 	for _i in range(_bounce_count - 1):
-
 		var mob_list: Array = Utils.get_mob_list_in_range(current_target.position, BOUNCE_RANGE)
+
+		for unit in visited_list:
+			mob_list.erase(unit)
 
 #		NOTE: sort list to prioritize closest units
 		Utils.sort_unit_list_by_distance(mob_list, current_target.position)
 
-		for mob in mob_list:
-			var already_visited: bool = visited_list.has(mob)
-			
-			if already_visited:
-				continue
-
-			var new_target: Unit = mob
+		if !mob_list.empty():
+			var new_target = mob_list[0]
 			current_damage *= (1.0 - _bounce_damage_decrease)
-		
 			_caster.do_spell_damage(new_target, current_damage, 0.0, false)
 			visited_list.append(new_target)
 
 			current_target = new_target
-
+		else:
 			break
