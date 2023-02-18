@@ -412,8 +412,8 @@ func _get_base_properties() -> Dictionary:
 	return {}
 
 
-func _modify_property_subclass(modification_type: int, modification_value: float):
-	_modify_property_general(_tower_properties, _tower_mod_to_property_map, modification_type, modification_value)
+func _modify_property_subclass(modification_type: int, modification_value: float, modify_direction: int):
+	_modify_property_general(_tower_properties, _tower_mod_to_property_map, modification_type, modification_value, modify_direction)
 
 	_apply_properties_to_scene_children()
 
