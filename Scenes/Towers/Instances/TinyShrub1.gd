@@ -11,12 +11,11 @@ const _stats_map: Dictionary = {
 }
 
 
-func _get_specials_modifier() -> Modifier:
+func _ready():
 	var tier: int = get_tier()
 	var stats = _stats_map[tier]
 
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_CRIT_CHANCE, stats.crit_chance, stats.crit_chance_add)
 	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_CRIT_DAMAGE, stats.crit_damage, stats.crit_damage_add)
-
-	return specials_modifier
+	add_modifier(specials_modifier)
