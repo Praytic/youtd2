@@ -12,7 +12,6 @@ extends Buff
 
 const BOUNCE_RANGE: float = 200.0
 
-var _bounce_: Dictionary = {}
 var _bounce_count: int = 0
 var _bounce_damage_decrease: float = 0.0
 
