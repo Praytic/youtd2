@@ -36,7 +36,7 @@ const MOVE_SPEED_MAX: float = 500.0
 
 var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
-var _modifier_list: Array
+var _direct_modifier_list: Array
 var _health: float = 100.0
 var _unit_properties: Dictionary = {
 	UnitProperty.TRIGGER_CHANCES: 0.0,
@@ -108,20 +108,20 @@ func do_spell_damage(target: Unit, damage: float, _crit_mod: float, is_main_targ
 func add_modifier(modifier: Modifier):
 	modifier.level = _level
 	_apply_modifier(modifier, 1)
-	_modifier_list.append(modifier)
+	_direct_modifier_list.append(modifier)
 
 
 func remove_modifier(modifier: Modifier):
-	if _modifier_list.has(modifier):
+	if _direct_modifier_list.has(modifier):
 		_apply_modifier(modifier, -1)
-		_modifier_list.append(modifier)
+		_direct_modifier_list.append(modifier)
 
 
 func set_level(new_level: int):
 	_level = new_level
 
 #	NOTE: apply level change to modifiers
-	for modifier in _modifier_list:
+	for modifier in _direct_modifier_list:
 		_apply_modifier(modifier, -1)
 		modifier.level = new_level
 		_apply_modifier(modifier, 1)
