@@ -37,7 +37,6 @@ const MOVE_SPEED_MAX: float = 500.0
 var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
 var _modifier_list: Array
-var _specials_modifier_list: Array
 var _health: float = 100.0
 var _unit_properties: Dictionary = {
 	UnitProperty.TRIGGER_CHANCES: 0.0,
@@ -102,22 +101,14 @@ func do_spell_damage(target: Unit, damage: float, _crit_mod: float, is_main_targ
 	target._receive_damage(self, damage, is_main_target)
 
 
+# Adds modifier directly to unit. Modifier will
+# automatically scale with this unit's level. If you need to
+# make a modifier that scales with another unit's level, use
+# buffs.
 func add_modifier(modifier: Modifier):
-	_apply_modifier(modifier, 1)
-	_modifier_list.append(modifier)
-
-
-# NOTE: this is for modifiers that tower applies to itself,
-# modifiers applied like this will level together with the
-# tower
-# 
-# TODO: might be a better way to do this. Maybe as part of a
-# buff? But buffs aren't supposed to change level after
-# creation.
-func add_specials_modifier(modifier: Modifier):
 	modifier.level = _level
 	_apply_modifier(modifier, 1)
-	_specials_modifier_list.append(modifier)
+	_modifier_list.append(modifier)
 
 
 # TODO: not sure how to implement remove_modifier(). Maybe
@@ -130,7 +121,7 @@ func set_level(new_level: int):
 	_level = new_level
 
 #	NOTE: apply level change to specials modifiers
-	for modifier in _specials_modifier_list:
+	for modifier in _modifier_list:
 		_apply_modifier(modifier, -1)
 		modifier.level = new_level
 		_apply_modifier(modifier, 1)
