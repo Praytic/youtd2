@@ -9,8 +9,6 @@ enum MathType {
 
 enum Type {
 # For mobs:
-	MOD_MOVE_SPEED,
-	MOD_MOVE_SPEED_ABSOLUTE,
 	MOD_ARMOR,
 	MOD_ARMOR_PERC,
 
@@ -38,12 +36,12 @@ enum Type {
 	MOD_BUFF_DURATION,
 	MOD_DEBUFF_DURATION,
 	MOD_TRIGGER_CHANCES,
+	MOD_MOVE_SPEED,
+	MOD_MOVE_SPEED_ABSOLUTE,
 }
 
 const _math_type_map: Dictionary = {
 # For mobs:
-	Type.MOD_MOVE_SPEED: MathType.MULTIPLY,
-	Type.MOD_MOVE_SPEED_ABSOLUTE: MathType.ADD,
 	Type.MOD_ARMOR: MathType.ADD,
 	Type.MOD_ARMOR_PERC: MathType.MULTIPLY,
 
@@ -71,6 +69,8 @@ const _math_type_map: Dictionary = {
 	Type.MOD_BUFF_DURATION: MathType.MULTIPLY,
 	Type.MOD_DEBUFF_DURATION: MathType.MULTIPLY,
 	Type.MOD_TRIGGER_CHANCES: MathType.ADD,
+	Type.MOD_MOVE_SPEED: MathType.MULTIPLY,
+	Type.MOD_MOVE_SPEED_ABSOLUTE: MathType.ADD,
 }
 
 var type: int
