@@ -36,11 +36,6 @@ extends Node2D
 # in Tower scripts. Use EXPIRE event handler.
 signal removed()
 
-enum ModifierLevelType {
-	CASTER,
-	BUFF,
-}
-
 enum EventType {
 	CLEANUP,
 	CREATE,
@@ -64,7 +59,6 @@ var _caster: Unit
 var _target: Unit
 var _modifier: Modifier = Modifier.new()
 var _level: int
-var _modifier_level_type: int = ModifierLevelType.CASTER
 var _friendly: bool
 var _type: String
 # Map of EventType -> list of EventHandler's
@@ -123,14 +117,9 @@ func apply_to_unit_permanent(caster: Unit, target: Unit, level: int, friendly: b
 	apply_to_unit(caster, target, level, -1.0, 0.0, friendly)
 
 
-func set_modifier(modifier: Modifier):
-	_modifier = modifier
-	_modifier_level_type = ModifierLevelType.CASTER
-
 
 func set_buff_modifier(modifier: Modifier):
 	_modifier = modifier
-	_modifier_level_type = ModifierLevelType.BUFF
 
 
 # TODO: implement
@@ -148,10 +137,6 @@ func get_modifier() -> Modifier:
 
 
 func get_level() -> int:
-	match _modifier_level_type:
-		ModifierLevelType.CASTER: return _caster.get_level()
-		ModifierLevelType.BUFF: return _level
-	
 	return _level
 
 
