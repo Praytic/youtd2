@@ -9,6 +9,7 @@ signal moved(delta)
 
 enum MobProperty {
 	ARMOR,
+	EXP_GRANTED,
 }
 
 # NOTE: order is important to be able to compare
@@ -32,6 +33,7 @@ enum Type {
 const _mob_mod_to_property_map: Dictionary = {
 	Modification.Type.MOD_ARMOR: MobProperty.ARMOR,
 	Modification.Type.MOD_ARMOR_PERC: MobProperty.ARMOR,
+	Modification.Type.MOD_EXP_GRANTED: MobProperty.EXP_GRANTED,
 }
 
 const MOB_HEALTH_MAX: float = 100.0
@@ -42,6 +44,7 @@ var _size: int = Size.NORMAL
 var _type: int = Type.HUMANOID
 var _mob_properties: Dictionary = {
 	MobProperty.ARMOR: 0.0,
+	MobProperty.EXP_GRANTED: 0.0,
 }
 
 onready var _sprite = $Sprite
