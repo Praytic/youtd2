@@ -120,7 +120,7 @@ func add_modifier(modifier: Modifier):
 func set_level(new_level: int):
 	_level = new_level
 
-#	NOTE: apply level change to specials modifiers
+#	NOTE: apply level change to modifiers
 	for modifier in _modifier_list:
 		_apply_modifier(modifier, -1)
 		modifier.level = new_level

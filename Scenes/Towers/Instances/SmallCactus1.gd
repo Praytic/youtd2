@@ -13,17 +13,14 @@ const _stats_map: Dictionary = {
 
 
 func _ready():
+	var tier: int = get_tier()
+	var stats = _stats_map[tier]
+
 #	NOTE: splash values are the same for all tiers
 	var splash_attack_buff = SplashAttack.new({320: 0.5})
 	splash_attack_buff.apply_to_unit_permanent(self, self, 0, true)
 
-
-func _get_specials_modifier() -> Modifier:
-	var tier: int = get_tier()
-	var stats = _stats_map[tier]
-
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, stats.value, stats.value_add)
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, stats.value, stats.value_add)
-
-	return specials_modifier
+	add_modifier(specials_modifier)

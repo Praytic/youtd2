@@ -190,11 +190,6 @@ func _ready():
 	for property in base_properties.keys():
 		_tower_properties[property] = base_properties[property]
 
-	var specials_modifier: Modifier = _get_specials_modifier()
-
-	if specials_modifier != null:
-		add_modifier(specials_modifier)
-
 	_apply_properties_to_scene_children()
 
 	$AreaOfEffect.hide()
@@ -391,10 +386,6 @@ func _get_rand_damage_base() -> float:
 
 func _get_base_properties() -> Dictionary:
 	return {}
-
-
-func _get_specials_modifier() -> Modifier:
-	return null
 
 
 func _modify_property_subclass(modification_type: int, modification_value: float):
