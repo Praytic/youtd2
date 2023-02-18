@@ -106,25 +106,24 @@ func do_spell_damage(target: Unit, damage: float, _crit_mod: float, is_main_targ
 # make a modifier that scales with another unit's level, use
 # buffs.
 func add_modifier(modifier: Modifier):
-	modifier.level = _level
-	_apply_modifier(modifier, 1)
+	_apply_modifier(modifier, _level, 1)
 	_direct_modifier_list.append(modifier)
 
 
 func remove_modifier(modifier: Modifier):
 	if _direct_modifier_list.has(modifier):
-		_apply_modifier(modifier, -1)
+		_apply_modifier(modifier, _level, -1)
 		_direct_modifier_list.append(modifier)
 
 
 func set_level(new_level: int):
+	var old_level: int = _level
 	_level = new_level
 
 #	NOTE: apply level change to modifiers
 	for modifier in _direct_modifier_list:
-		_apply_modifier(modifier, -1)
-		modifier.level = new_level
-		_apply_modifier(modifier, 1)
+		_apply_modifier(modifier, old_level, -1)
+		_apply_modifier(modifier, new_level, 1)
 
 	emit_signal("level_up")
 
@@ -232,13 +231,13 @@ func _add_buff_internal(buff):
 	_buff_map[buff_type] = buff
 	buff.connect("removed", self, "_on_buff_removed", [buff])
 	var buff_modifier: Modifier = buff.get_modifier()
-	_apply_modifier(buff_modifier, 1)
+	_apply_modifier(buff_modifier, buff.get_level(), 1)
 	add_child(buff)
 
 
 func _on_buff_removed(buff):
 	var buff_modifier: Modifier = buff.get_modifier()
-	_apply_modifier(buff_modifier, -1)
+	_apply_modifier(buff_modifier, buff.get_level(), -1)
 
 	var buff_type: String = buff.get_type()
 	_buff_map.erase(buff_type)
@@ -272,10 +271,10 @@ static func _modify_property_general(property_map: Dictionary, mod_to_property_m
 	property_map[property] = new_value
 
 
-func _apply_modifier(modifier: Modifier, apply_direction: int):
+func _apply_modifier(modifier: Modifier, level: int, apply_direction: int):
 	var modification_list: Array = modifier.get_modification_list()
 
 	for modification in modification_list:
-		var level_bonus: float = modification.level_add * (modifier.level - 1)
+		var level_bonus: float = modification.level_add * (level - 1)
 		var value: float = apply_direction * (modification.value_base + level_bonus)
 		modify_property(modification.type, value)
