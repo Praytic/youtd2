@@ -25,7 +25,6 @@ const tower_families = {
 
 var waves = []
 var _csv_properties: Dictionary = {}
-var _tower_filename_to_id_map: Dictionary = {}
 
 
 func _init():
@@ -60,6 +59,10 @@ func get_csv_properties_by_filter(tower_property: int, filter_value) -> Array:
 	for tower_id in _csv_properties.keys():
 		if _csv_properties[tower_id][tower_property] == filter_value:
 			result_list_of_dicts.append(_csv_properties[tower_id])
+	if result_list_of_dicts.empty():
+		print_debug("Failed to find tower by property [%s=%s]. ", \
+			"Check for typos in tower .csv file." % \
+			[Tower.TowerProperty.keys()[tower_property], filter_value])
 	return result_list_of_dicts
 
 

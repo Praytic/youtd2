@@ -13,3 +13,10 @@ const SettingsKey = {
 }
 
 const SETTINGS_PATH: String = "user://settings.cfg"
+
+enum Rarity {
+	COMMON,
+	UNCOMMON,
+	RARE,
+	UNIQUE,
+}
