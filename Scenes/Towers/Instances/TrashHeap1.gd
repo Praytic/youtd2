@@ -14,10 +14,6 @@ const _stats_map: Dictionary = {
 
 
 func _ready():
-	pass
-
-
-func _get_specials_modifier() -> Modifier:
 	var tier: int = get_tier()
 	var stats = _stats_map[tier]
 
@@ -25,5 +21,4 @@ func _get_specials_modifier() -> Modifier:
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_BOSS, 0.10, 0.006)
 	specials_modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.20, stats.item_chance_add)
 	specials_modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.20, stats.item_quality_add)
-
-	return specials_modifier
+	add_modifier(specials_modifier)

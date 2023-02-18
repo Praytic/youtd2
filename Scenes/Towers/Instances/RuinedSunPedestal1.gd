@@ -16,15 +16,12 @@ const _stats_map: Dictionary = {
 
 
 func _ready():
-	var bounce_attack_buff = BounceAttack.new(3, 0.5)
-	bounce_attack_buff.apply_to_unit_permanent(self, self, 0, true)
-
-
-func _get_specials_modifier() -> Modifier:
 	var tier: int = get_tier()
 	var stats = _stats_map[tier]
 
+	var bounce_attack_buff = BounceAttack.new(3, 0.5)
+	bounce_attack_buff.apply_to_unit_permanent(self, self, 0, true)
+
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, stats.undead_damage, stats.undead_damage_add)
-
-	return specials_modifier
+	add_modifier(specials_modifier)

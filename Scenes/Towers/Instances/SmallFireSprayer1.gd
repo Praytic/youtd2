@@ -13,19 +13,16 @@ const _stats_map: Dictionary = {
 
 
 func _ready():
+	var tier: int = get_tier()
+	var stats = _stats_map[tier]
+
 	var spray_and_pray = Buff.new("spray_and_pray")
 	spray_and_pray.add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")
 	spray_and_pray.apply_to_unit_permanent(self, self, 0, true)
 
-
-func _get_specials_modifier() -> Modifier:
-	var tier: int = get_tier()
-	var stats = _stats_map[tier]
-
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_SPEED, 0, -stats.attack_speed)
-
-	return specials_modifier
+	add_modifier(specials_modifier)
 
 
 func on_damage(event: Event):
