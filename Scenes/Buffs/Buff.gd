@@ -86,12 +86,18 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 		ModifierLevelType.CASTER: _modifier.level = _caster.get_level()
 		ModifierLevelType.BUFF: _modifier.level = _level
 
-	var apply_success: bool = target._apply_buff(self)
+	var can_apply: bool = _check_can_apply_to_unit(target)
 
-	if !apply_success:
+	if !can_apply:
 		return
 
+	var active_buff = target.get_buff_of_type(get_id())
+
+	if active_buff != null:
+		active_buff._stop()
+
 	_target = target
+	_target._add_buff_internal(self)
 	_target.connect("death", self, "_on_target_death")
 	_target.connect("kill", self, "_on_target_kill")
 	_target.connect("level_up", self, "_on_target_level_up")
@@ -161,7 +167,7 @@ func get_buffed_unit() -> Unit:
 	return _target
 
 
-func stop():
+func _stop():
 	_on_timer_timeout()
 
 
@@ -287,3 +293,17 @@ func _make_buff_event(target_arg: Unit, damage_arg: float, is_main_target_arg: b
 	event._buff = self
 
 	return event
+
+
+func _check_can_apply_to_unit(unit: Unit) -> bool:
+	var active_buff = unit.get_buff_of_type(get_id())
+
+	if active_buff != null:
+		var should_override: bool = get_level() >= active_buff.get_level()
+
+		if should_override:
+			return true
+		else:
+			return false
+	else:
+		return true
