@@ -178,7 +178,8 @@ func _ready():
 	var scene_file: String = scene_path.get_file()
 	var scene_filename: String = scene_file.trim_suffix(".tscn")
 
-	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(scene_filename)
+	var csv_properties: Dictionary = Properties \
+	.get_csv_properties_by_filter(Tower.TowerProperty.FILENAME, scene_filename)
 
 	for property in csv_properties.keys():
 		_tower_properties[property] = csv_properties[property]
