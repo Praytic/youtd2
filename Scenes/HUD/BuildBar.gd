@@ -1,24 +1,23 @@
 extends GridContainer
 
 
-export (bool) var unlimited_towers = false
+export (bool) var unlimited_items = false
 
-onready var builder_control = get_tree().current_scene.get_node(@"%BuilderControl")
-# Dictionary of all in-game towers with the associated buttons
-onready var _tower_buttons: Dictionary = {}
-# Adds every tower button possible to the list.
+# Dictionary of all in-game items with the associated buttons
+onready var _item_buttons: Dictionary = {}
+# Adds every item button possible to the list.
 # Although, this is a mutable list, so every time
-# you build a tower, the ID of the tower is removed from this list.
-# If you want unlimited tower buttons in the panel, switch the flag
-# 'unlimited towers' to 'true'.
-onready var available_tower_buttons: Array
+# you use an item, the ID of the item is removed from this list.
+# If you want unlimited item buttons in the panel, switch the flag
+# 'unlimited items' to 'true'.
+onready var available_item_buttons: Array
 
 
 var current_element: int
 
 
-func add_tower_button(tower_id):
-	available_tower_buttons.append(tower_id)
+func add_item_button(item_id):
+	available_item_buttons.append(item_id)
 	var element: int = Properties.get_csv_properties(tower_id)[Tower.TowerProperty.ELEMENT]
 	if element == current_element:
 		_tower_buttons[tower_id].show()
