@@ -82,10 +82,6 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 	_level = level
 	_friendly = friendly
 
-	match _modifier_level_type:
-		ModifierLevelType.CASTER: _modifier.level = _caster.get_level()
-		ModifierLevelType.BUFF: _modifier.level = _level
-
 	var can_apply: bool = _check_can_apply_to_unit(target)
 
 	if !can_apply:
@@ -152,6 +148,10 @@ func get_modifier() -> Modifier:
 
 
 func get_level() -> int:
+	match _modifier_level_type:
+		ModifierLevelType.CASTER: return _caster.get_level()
+		ModifierLevelType.BUFF: return _level
+	
 	return _level
 
 
