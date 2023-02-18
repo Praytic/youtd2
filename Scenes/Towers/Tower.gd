@@ -107,7 +107,10 @@ const _mob_size_to_property_map: Dictionary = {
 
 const ATTACK_CD_MIN: float = 0.2
 
-var _target_mob: Mob = null
+var _target_list: Array = []
+# NOTE: if your tower needs to attack more than 1 target,
+# set this var once in _ready() method of subclass
+var _target_count_max: int = 1
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _tower_properties: Dictionary = {
@@ -267,46 +270,53 @@ func change_level(new_level: int):
 	_apply_properties_to_scene_children()
 
 
-func _set_target(new_target: Mob):
-	var old_target = _target_mob
+func _add_target(new_target: Mob):
+	if new_target == null:
+		return
 
-	if old_target != null:
-		_target_mob.disconnect("death", self, "_on_target_death")
-
-	if new_target != null:
-		new_target.connect("death", self, "_on_target_death")
-
-	_target_mob = new_target
+	new_target.connect("death", self, "_on_target_death", [new_target])
+	_target_list.append(new_target)
 
 
-func _on_target_death(_event: Event):
-	_set_target(null)
+func _remove_target(target: Mob):
+	target.disconnect("death", self, "_on_target_death")
+	_target_list.erase(target)
+
+
+func _on_target_death(_event: Event, target: Mob):
+	_remove_target(target)
 
 
 func _on_AttackCooldownTimer_timeout():
-	if !_have_target():
+	if _have_target_space():
 		var new_target: Mob = _find_new_target()
-		_set_target(new_target)
+		_add_target(new_target)
 		
 	_try_to_attack()
 
 
+func _have_target_space() -> bool:
+	return _target_list.size() < _target_count_max
+
+
 func _on_TargetingArea_body_entered(body):
-	if _have_target():
+	if !body is Mob:
 		return
-		
-	if body is Mob:
+
+	if _have_target_space():
 		var new_target: Mob = body as Mob
-		_set_target(body)
+		_add_target(new_target)
 		_try_to_attack()
 
 
 func _on_TargetingArea_body_exited(body):
-	var target_went_out_of_range: bool = body == _target_mob
+	var target_went_out_of_range: bool = _target_list.has(body)
 
 	if target_went_out_of_range:
 		var new_target: Mob = _find_new_target()
-		_set_target(new_target)
+		var old_target: Mob = body as Mob
+		_remove_target(old_target)
+		_add_target(new_target)
 		_try_to_attack()
 
 
@@ -317,6 +327,10 @@ func _find_new_target() -> Mob:
 	var body_list: Array = _targeting_area.get_overlapping_bodies()
 	var closest_mob: Mob = null
 	var distance_min: float = 1000000.0
+
+#	NOTE: can't use existing targets as new targets
+	for target in _target_list:
+		body_list.erase(target)
 	
 	for body in body_list:
 		if body is Mob:
@@ -330,33 +344,26 @@ func _find_new_target() -> Mob:
 	return closest_mob
 
 
-func _try_to_attack() -> bool:
+func _try_to_attack():
 	if building_in_progress:
-		return false
+		return
 
-	if !_have_target():
-		return false
-	
 	var attack_on_cooldown: bool = _attack_cooldown_timer.time_left > 0
 	
 	if attack_on_cooldown:
-		return false
+		return
 
-	._do_attack(_target_mob)
+	for target in _target_list:
+		._do_attack(target)
 
-	var projectile = _projectile_scene.instance()
-	projectile.init(_target_mob, global_position)
-	projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
-	_game_scene.call_deferred("add_child", projectile)
+		var projectile = _projectile_scene.instance()
+		projectile.init(target, global_position)
+		projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
+		_game_scene.call_deferred("add_child", projectile)
 
-	_attack_sound.play()
-	
-	_attack_cooldown_timer.start()
-	return true
-
-
-func _have_target() -> bool:
-	return _target_mob != null
+		_attack_sound.play()
+		
+		_attack_cooldown_timer.start()
 
 
 func _select():
