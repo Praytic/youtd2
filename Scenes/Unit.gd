@@ -176,6 +176,12 @@ func is_invisible() -> bool:
 	return false
 
 
+func get_buff_of_type(type: String):
+	var buff = _buff_map.get(type, null)
+
+	return buff
+
+
 func _do_attack(target: Unit):
 	var attack_event: Event = Event.new(target, 0, true)
 	emit_signal("attack", attack_event)
@@ -228,6 +234,17 @@ func _accept_kill(target: Unit, is_main_target: bool):
 	emit_signal("kill", kill_event)
 
 
+# This is for internal use in Buff.gd only. For external
+# use, call Buff.apply_to_unit().
+func _add_buff_internal(buff):
+	var buff_id: String = buff.get_id()
+	_buff_map[buff_id] = buff
+	buff.connect("removed", self, "_on_buff_removed", [buff])
+	var buff_modifier: Modifier = buff.get_modifier()
+	_apply_modifier(buff_modifier, 1)
+	add_child(buff)
+
+
 func _on_buff_removed(buff):
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, -1)
@@ -235,37 +252,6 @@ func _on_buff_removed(buff):
 	var buff_id: String = buff.get_id()
 	_buff_map.erase(buff_id)
 	buff.queue_free()
-
-
-# This shouldn't be used directly, use Buff.apply_to_unit().
-# Returns true if the buff was applied successfully. Buff
-# can fail to apply if a stronger buff of same type is
-# already active.
-func _apply_buff(buff) -> bool:
-	var buff_id: String = buff.get_id()
-
-	var is_already_applied_to_target: bool = _buff_map.has(buff_id)
-	
-	var override_success: bool = false
-
-	if is_already_applied_to_target:
-		var current_buff = _buff_map[buff_id]
-		var should_override: bool = buff.get_level() >= current_buff.get_level()
-
-		if should_override:
-			current_buff.stop()
-			override_success = true
-
-	if !is_already_applied_to_target || override_success:
-		_buff_map[buff_id] = buff
-		buff.connect("removed", self, "_on_buff_removed", [buff])
-		var buff_modifier: Modifier = buff.get_modifier()
-		_apply_modifier(buff_modifier, 1)
-		add_child(buff)
-
-		return true
-	else:
-		return false
 
 
 func _modify_property_subclass(_modification_type: int, _modification_value: float):
