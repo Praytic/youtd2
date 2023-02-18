@@ -46,12 +46,9 @@ var _unit_properties: Dictionary = {
 	UnitProperty.DEBUFF_DURATION: 0.0,
 }
 
-const _unit_add_mod_map: Dictionary = {
+const _unit_mod_to_property_map: Dictionary = {
 	Modification.Type.MOD_TRIGGER_CHANCES: UnitProperty.TRIGGER_CHANCES,
 	Modification.Type.MOD_MOVE_SPEED_ABSOLUTE: UnitProperty.MOVE_SPEED,
-}
-
-const _unit_percent_mod_map: Dictionary = {
 	Modification.Type.MOD_BUFF_DURATION: UnitProperty.BUFF_DURATION,
 	Modification.Type.MOD_DEBUFF_DURATION: UnitProperty.DEBUFF_DURATION,
 	Modification.Type.MOD_MOVE_SPEED: UnitProperty.MOVE_SPEED,
@@ -188,25 +185,29 @@ func kill_instantly(target: Unit):
 	target._killed_by_unit(self, true)
 
 
-func _modify_property_general(property_map: Dictionary, add_mod_map: Dictionary, percent_mod_map: Dictionary, modification_type: int, modification_value: float):
-	var is_percent_mod: bool = percent_mod_map.has(modification_type)
-	var is_add_mod: bool = add_mod_map.has(modification_type)
+static func _modify_property_general(property_map: Dictionary, mod_to_property_map: Dictionary, modification_type: int, modification_value: float):
+	var can_process_modification: bool = mod_to_property_map.has(modification_type)
 
-	if is_add_mod:
-		var property: int = add_mod_map[modification_type]
-		var current_value: float = property_map[property]
-		var new_value: float = current_value + modification_value
-		property_map[property] = new_value
+	if !can_process_modification:
+		return
 
-	if is_percent_mod:
-		var property: int = percent_mod_map[modification_type]
-		var current_value: float = property_map[property]
-		var new_value: float = current_value * (1.0 + modification_value)
-		property_map[property] = new_value
+	var property: int = mod_to_property_map[modification_type]
+	var current_value: float = property_map[property]
+	var new_value: float = 0.0
+
+	var math_type: int = Modification.get_math_type(modification_type)
+
+	match math_type:
+		Modification.MathType.ADD:
+			new_value = current_value + modification_value
+		Modification.MathType.MULTIPLY:
+			new_value = current_value * (1.0 + modification_value)
+
+	property_map[property] = new_value
 
 
 func modify_property(modification_type: int, modification_value: float):
-	_modify_property_general(_unit_properties, _unit_add_mod_map, _unit_percent_mod_map, modification_type, modification_value)
+	_modify_property_general(_unit_properties, _unit_mod_to_property_map, modification_type, modification_value)
 
 #	Call subclass version
 	_modify_property(modification_type, modification_value)
