@@ -120,13 +120,16 @@ func _load_properties(properties_path, properties_dict):
 			push_error("No properties found for line [%s]" % line_num)
 
 
-func get_csv_properties_by_filename(tower_name: String) -> Dictionary:
-	if _tower_filename_to_id_map.has(tower_name):
-		var tower_id: int = _tower_filename_to_id_map[tower_name]
+func get_csv_properties_by_filename(filename: String) -> Dictionary:
+	var scene_file: String = filename.get_file()
+	var scene_name: String = scene_file.trim_suffix(".tscn")
+
+	if _tower_filename_to_id_map.has(scene_name):
+		var tower_id: int = _tower_filename_to_id_map[scene_name]
 
 		return get_csv_properties(tower_id)
 	else:
-		print_debug("Failed to find tower_name:", tower_name, ". Check for typos in tower .csv file.")
+		print_debug("Failed to find scene_name:", scene_name, ". Check for typos in tower .csv file.")
 
 		return {}
 
