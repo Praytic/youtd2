@@ -5,11 +5,12 @@ extends KinematicBody2D
 enum CsvProperty {
 	ID = 0,
 	NAME = 1,
-	AUTHOR = 2,
-	RARITY = 3,
-	COST = 4,
-	DESCRIPTION = 5,
-	REQUIRED_WAVE_LEVEL = 6,
+	SCENE_NAME = 2,
+	AUTHOR = 3,
+	RARITY = 4,
+	COST = 5,
+	DESCRIPTION = 6,
+	REQUIRED_WAVE_LEVEL = 7,
 }
 
 const cell_size = 32
