@@ -13,6 +13,10 @@ onready var object_container = get_tree().get_root().get_node("GameScene").get_n
 func sfx_at_unit(_sfx_name: String, _unit: Unit):
 	pass
 
+# TODO: implement
+func sfx_on_unit(_sfx_name: String, _unit: Unit, _mystery_string: String):
+	pass
+
 
 func list_files_in_directory(path: String, regex_search: RegEx = null) -> Array:
 	var files = []
@@ -95,3 +99,8 @@ func display_floating_text_x(text: String, unit: Unit, color: Color, _mystery_fl
 	floating_text.color = color
 	floating_text.duration = time
 	unit.add_child(floating_text)
+
+
+# TODO: implement, not sure what the difference is between this and then _x version
+func display_floating_text(text: String, unit: Unit, color: Color):
+	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
