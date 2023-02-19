@@ -147,26 +147,6 @@ var _tower_properties: Dictionary = {
 	TowerProperty.ITEM_QUALITY_ON_KILL: 0.0,
 }
 
-const _element_string_to_enum: Dictionary = {
-	"astral": Element.ASTRAL,
-	"darkness": Element.DARKNESS,
-	"nature": Element.NATURE,
-	"fire": Element.FIRE,
-	"ice": Element.ICE,
-	"storm": Element.STORM,
-	"iron": Element.IRON,
-}
-
-const _element_enum_to_string: Dictionary = {
-	Element.ASTRAL: "astral",
-	Element.DARKNESS: "darkness",
-	Element.NATURE: "nature",
-	Element.FIRE: "fire",
-	Element.ICE: "ice",
-	Element.STORM: "storm",
-	Element.IRON: "iron",
-}
-
 
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var _attack_cooldown_timer: Timer = $AttackCooldownTimer
@@ -195,11 +175,6 @@ func _ready():
 
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
-
-
-
-static func element_enum_to_string(element: int) -> String:
-	return _element_enum_to_string[element]
 
 
 func get_name() -> String:
