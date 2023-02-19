@@ -2,13 +2,6 @@ class_name Tower
 extends Building
 
 
-# Tower attacks by periodically firing projectiles at mobs
-# that are in range.
-
-
-signal upgraded
-
-
 enum TowerProperty {
 #	Properties below should be defined in the .csv file and
 # 	the integer values must match the columns in csv file.
@@ -65,8 +58,6 @@ enum Element {
 	IRON,
 }
 
-export(int) var id
-export(int) var next_tier_id
 export(AudioStreamMP3) var attack_sound
 
 const _tower_mod_to_property_map: Dictionary = {
@@ -171,7 +162,26 @@ onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 func _ready():
 	add_child(_aoe_scene.instance(), true)
 
-	var csv_properties: Dictionary = Properties.get_tower_properties()[id]
+	
+#	NOTE: Load properties from csv first, then load from
+#	subclass script to add additional values or override csv
+#	values
+	var scene_path: String = filename
+	var scene_file: String = scene_path.get_file()
+	var scene_filename: String = scene_file.trim_suffix(".tscn")
+
+	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(scene_filename)
+
+# NOTE: tower properties may omit keys for convenience, so
+# 	need to iterate over keys in properties to avoid
+# 	triggering "invalid key" error
+
+	# Most properties should be defined in the .csv file.
+	var base_properties: Dictionary = _get_base_properties()
+
+	for property in base_properties.keys():
+		_tower_properties[property] = base_properties[property]
+	
 	for property in csv_properties.keys():
 		_tower_properties[property] = csv_properties[property]
 
@@ -236,12 +246,6 @@ func get_element() -> int:
 func build_init():
 	.build_init()
 	$AreaOfEffect.show()
-
-
-func upgrade() -> PackedScene:
-	var next_tier_tower = TowerManager.get_tower(next_tier_id)
-	emit_signal("upgraded")
-	return next_tier_tower
 
 
 func change_level(new_level: int):
