@@ -1,9 +1,6 @@
 extends KinematicBody2D
 
 
-const properties_path = "res://Assets/item_properties.csv"
-
-
 var _id: int setget ,get_id
 var _name: String setget ,get_name
 var _author: String setget ,get_author
@@ -23,7 +20,7 @@ func _init(item_id: int):
 
 
 func _ready():
-	var props: Dictionary = Properties.get_item_properies(_id)
+	var props: Dictionary = Properties.get_properies(properties_path)[_id]
 	_name = props[0]
 	_author = props[1]
 	_rarity = Constants.Rarity.get(props[2].to_upper())
