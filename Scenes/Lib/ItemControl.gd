@@ -13,19 +13,27 @@ onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
 ### Code starts here  ###
 #########################
 
-func _ready():
-	random.randomize()
-
-
 func _on_Mob_death(event):
 	# TODO: Implement proper item drop chance caclculation
-	if random.randf() > .5:
-		var scene_name_list: Array = Properties.get_item_scene_name_list()
-		var item_idx = random.randi_range(0, scene_name_list.size() - 1)
-		var item_scene_name = scene_name_list[item_idx]
-		var item_scene_path: String = "res://Scenes/Items/Instances/%s.tscn" % [item_scene_name]
-		var item_scene = load(item_scene_path)
-		var item_instance = item_scene.instance()
-		item_instance.position = event.get_target().position
-		mob_ysort.add_child(item_instance, true)
-		emit_signal("item_dropped", item_instance.get_id())
+	if Utils.rand_chance(0.5):
+		var item_id_list: Array = Properties.get_item_id_list()
+		var random_index: int = random.randi_range(0, item_id_list.size() - 1)
+		var item_id: int = item_id_list[random_index]
+		var item_properties: Dictionary = Properties.get_item_csv_properties()[item_id]
+		var rarity: int = item_properties[Item.CsvProperty.RARITY].to_int()
+
+		var rarity_name: String = ""
+
+		match rarity:
+			Constants.Rarity.COMMON: rarity_name = "CommonItem"
+			Constants.Rarity.UNCOMMON: rarity_name = "UncommonItem"
+			Constants.Rarity.RARE: rarity_name = "RareItem"
+			Constants.Rarity.UNIQUE: rarity_name = "UniqueItem"
+		
+		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % [rarity_name]
+		var item_drop_scene = load(item_drop_scene_path)
+		var item_drop = item_drop_scene.instance()
+		item_drop.set_id(item_id)
+		item_drop.position = event.get_target().position
+		mob_ysort.add_child(item_drop, true)
+		emit_signal("item_dropped", item_drop.get_id())

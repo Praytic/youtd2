@@ -2,18 +2,20 @@ class_name Item
 extends KinematicBody2D
 
 
+# Item represents item when it's attached to a tower.
+# Implements application of item effects on tower.
+
+
 enum CsvProperty {
 	ID = 0,
 	NAME = 1,
-	SCENE_NAME = 2,
+	SCRIPT_NAME = 2,
 	AUTHOR = 3,
 	RARITY = 4,
 	COST = 5,
 	DESCRIPTION = 6,
 	REQUIRED_WAVE_LEVEL = 7,
 }
-
-const cell_size = 32
 
 var _carrier: Tower = null
 
@@ -92,7 +94,8 @@ func get_required_wave_level() -> int:
 	return get_property(CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
 
 func get_property(property: int) -> String:
-	var properties: Dictionary = Properties.get_item_csv_properties_by_filename(filename)
+	var script_path: String = get_script().get_path()
+	var properties: Dictionary = Properties.get_item_csv_properties_by_filename(script_path)
 
 	return properties[property]
 
