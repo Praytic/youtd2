@@ -354,12 +354,10 @@ func _try_to_attack():
 
 func _select():
 	._select()
-	print_debug("Tower %s has been selected." % id)
 
 
 func _unselect():
 	._unselect()
-	print_debug("Tower %s has been unselected." % id)
 
 
 func _on_projectile_reached_mob(mob: Mob):
