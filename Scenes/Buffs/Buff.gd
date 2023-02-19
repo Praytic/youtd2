@@ -176,7 +176,7 @@ func add_event_handler_periodic(handler_object: Node, handler_function: String, 
 	timer.wait_time = period
 	timer.one_shot = false
 	timer.autostart = true
-	timer.connect("timeout", self, "_on_periodic_event_timer_timeout", [handler_object, handler_function])
+	timer.connect("timeout", self, "_on_periodic_event_timer_timeout", [handler_object, handler_function, timer])
 
 
 func add_event_handler_unit_comes_in_range(handler_object: Node, handler_function: String, radius: float, target_type: TargetType):
@@ -258,8 +258,9 @@ func _on_target_damaged(event: Event):
 	_call_event_handler_list(EventType.DAMAGED, event)
 
 
-func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String):
+func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String, timer: Timer):
 	var periodic_event: Event = _make_buff_event(_target, 0, true)
+	periodic_event._timer = timer
 	handler_object.call(handler_function, periodic_event)
 
 
