@@ -30,6 +30,7 @@ func _ready():
 # TODO: implement checks for max item count
 func add_to_tower(tower: Tower):
 	_carrier = tower
+	_carrier.add_child(self)
 	_add_to_tower_subclass()
 
 
@@ -38,7 +39,11 @@ func remove_from_tower():
 		return
 
 	_remove_from_tower_subclass()
+	_carrier.remove_child(self)
 	_carrier = null
+
+# 	TODO: where does item go after it's removed from
+# 	carrier? queue_free() or reparent to some new node?
 
 
 # Override in subclass to define what effect item adds
