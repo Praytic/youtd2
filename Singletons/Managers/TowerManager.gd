@@ -19,9 +19,9 @@ func _init():
 	
 	for tower_id in tower_id_list:
 		var tower_properties: Dictionary = Properties.get_csv_properties(tower_id)
-		var tower_filename: String = tower_properties[Tower.TowerProperty.FILENAME]
+		var tower_scene_name: String = tower_properties[Tower.TowerProperty.SCENE_NAME]
 
-		var tower_scene_path: String = "%s/%s.tscn" % [towers_dir, tower_filename]
+		var tower_scene_path: String = "%s/%s.tscn" % [towers_dir, tower_scene_name]
 		var tower_scene_exists: bool = File.new().file_exists(tower_scene_path)
 
 		var tower_scene: PackedScene
