@@ -81,6 +81,10 @@ func get_csv_properties_by_filter(tower_property: int, filter_value: String) -> 
 	return result_list_of_dicts
 
 
+func get_item_scene_name_list() -> Array:
+	return _item_scene_name_to_id_map.keys()
+
+
 func get_tower_id_list() -> Array:
 	return _tower_properties.keys()
 
