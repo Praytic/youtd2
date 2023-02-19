@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Towers/Selection.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Atlas/Barrels.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Items/Item.gd" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
@@ -10,7 +9,6 @@ atlas = ExtResource( 2 )
 region = Rect2( 84, 382, 79, 83 )
 
 [node name="Item" type="KinematicBody2D"]
-script = ExtResource( 3 )
 
 [node name="Selection" type="Node2D" parent="."]
 script = ExtResource( 1 )

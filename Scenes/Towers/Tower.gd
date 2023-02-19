@@ -171,28 +171,9 @@ onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 func _ready():
 	add_child(_aoe_scene.instance(), true)
 
-#	NOTE: Load properties from csv first, then load from
-#	subclass script to add additional values or override csv
-#	values
-	var scene_path: String = filename
-	var scene_file: String = scene_path.get_file()
-	var scene_filename: String = scene_file.trim_suffix(".tscn")
-
-	var csv_properties: Dictionary = Properties \
-	.get_csv_properties_by_filter(Tower.TowerProperty.FILENAME, scene_filename)
-
+	var csv_properties: Dictionary = Properties.get_tower_properties()[id]
 	for property in csv_properties.keys():
 		_tower_properties[property] = csv_properties[property]
-
-# 	NOTE: tower properties may omit keys for convenience, so
-# 	need to iterate over keys in properties to avoid
-# 	triggering "invalid key" error
-	
-	# Most properties should be defined in the .csv file.
-	var base_properties: Dictionary = _get_base_properties()
-
-	for property in base_properties.keys():
-		_tower_properties[property] = base_properties[property]
 
 	_apply_properties_to_scene_children()
 

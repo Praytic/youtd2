@@ -1,4 +1,8 @@
+class_name Item
 extends KinematicBody2D
+
+
+const cell_size = 32
 
 
 var _id: int setget ,get_id
@@ -20,25 +24,13 @@ func _init(item_id: int):
 
 
 func _ready():
-	var props: Dictionary = Properties.get_properies(properties_path)[_id]
+	var props: Dictionary = Properties.get_item_properties()[_id]
 	_name = props[0]
 	_author = props[1]
 	_rarity = Constants.Rarity.get(props[2].to_upper())
 	_cost = props[3].to_int()
 	_description = props[4]
 	_required_wave_level = props[5]
-	
-	var item_scene
-	match _rarity:
-		Constants.Rarity.COMMON: 
-			item_scene = load("res://Scenes/Items/CommonItem.tscn")
-		Constants.Rarity.UNCOMMON: 
-			item_scene = load("res://Scenes/Items/UncommonItem.tscn")
-		Constants.Rarity.RARE: 
-			item_scene = load("res://Scenes/Items/RareItem.tscn")
-		Constants.Rarity.UNIQUE: 
-			item_scene = load("res://Scenes/Items/UniqueItem.tscn")
-	add_child(item_scene.instance())
 
 
 #########################
