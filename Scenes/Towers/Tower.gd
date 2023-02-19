@@ -203,26 +203,26 @@ static func element_enum_to_string(element: int) -> String:
 
 
 func get_name() -> String:
-	return get_csv_property(TowerProperty.NAME)
+	return get_csv_property(CsvProperty.NAME)
 
 
 func get_id() -> int:
-	return get_csv_property(TowerProperty.ID).to_int()
+	return get_csv_property(CsvProperty.ID).to_int()
 
 
 func get_tier() -> int:
-	return get_csv_property(TowerProperty.TIER).to_int()
+	return get_csv_property(CsvProperty.TIER).to_int()
 
 
 func get_element() -> int:
-	var element_string: String = get_csv_property(TowerProperty.ELEMENT)
+	var element_string: String = get_csv_property(CsvProperty.ELEMENT)
 	var element: int = Element.get(element_string.to_upper())
 
 	return element
 
 
 func get_csv_property(csv_property: int) -> String:
-	var properties: Dictionary = Properties.get_tower_properties_by_filename(filename)
+	var properties: Dictionary = Properties.get_tower_csv_properties_by_filename(filename)
 	var value: String = properties[csv_property]
 
 	return value

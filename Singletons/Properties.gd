@@ -23,12 +23,12 @@ const tower_families = {
 	}
 }
 
-const item_properties_path = "res://Assets/item_properties.csv"
-const tower_properties_path = "res://Assets/tower_properties.csv"
+const item_csv_properties_path = "res://Assets/item_properties.csv"
+const tower_csv_properties_path = "res://Assets/tower_properties.csv"
 
 var waves = []
-var _tower_properties: Dictionary = {} setget ,get_tower_properties
-var _item_properties: Dictionary = {} setget ,get_item_properties
+var _tower_csv_properties: Dictionary = {} setget ,get_tower_csv_properties
+var _item_csv_properties: Dictionary = {} setget ,get_item_csv_properties
 var _tower_scene_name_to_id_map: Dictionary = {}
 var _item_scene_name_to_id_map: Dictionary = {}
 
@@ -52,28 +52,28 @@ func _init():
 		var parsed_json = JSON.parse(wave_text)
 		waves[wave_index] = parsed_json
 	
-	_load_csv_properties(tower_properties_path, _tower_properties, _tower_scene_name_to_id_map, Tower.CsvProperty.ID, Tower.CsvProperty.SCENE_NAME)
-	_load_csv_properties(item_properties_path, _item_properties, _item_scene_name_to_id_map, Item.CsvProperty.ID, Item.CsvProperty.SCENE_NAME)
+	_load_csv_properties(tower_csv_properties_path, _tower_csv_properties, _tower_scene_name_to_id_map, Tower.CsvProperty.ID, Tower.CsvProperty.SCENE_NAME)
+	_load_csv_properties(item_csv_properties_path, _item_csv_properties, _item_scene_name_to_id_map, Item.CsvProperty.ID, Item.CsvProperty.SCENE_NAME)
 
 
 #########################
 ###       Public      ###
 #########################
 
-func get_csv_properties(tower_id: int) -> Dictionary:
-	if _tower_properties.has(tower_id):
-		var out: Dictionary = _tower_properties[tower_id]
+func get_tower_csv_properties_by_id(tower_id: int) -> Dictionary:
+	if _tower_csv_properties.has(tower_id):
+		var out: Dictionary = _tower_csv_properties[tower_id]
 
 		return out
 	else:
 		return {}
 
 
-func get_csv_properties_by_filter(tower_property: int, filter_value: String) -> Array:
+func get_tower_csv_properties_by_filter(tower_property: int, filter_value: String) -> Array:
 	var result_list_of_dicts = []
-	for tower_id in _tower_properties.keys():
-		if _tower_properties[tower_id][tower_property] == filter_value:
-			result_list_of_dicts.append(_tower_properties[tower_id])
+	for tower_id in _tower_csv_properties.keys():
+		if _tower_csv_properties[tower_id][tower_property] == filter_value:
+			result_list_of_dicts.append(_tower_csv_properties[tower_id])
 	if result_list_of_dicts.empty():
 		print_debug("Failed to find tower by property [%s=%s]. ", \
 			"Check for typos in tower .csv file." % \
@@ -86,13 +86,13 @@ func get_item_scene_name_list() -> Array:
 
 
 func get_tower_id_list() -> Array:
-	return _tower_properties.keys()
+	return _tower_csv_properties.keys()
 
 
 func get_tower_id_list_by_filter(tower_property: int, filter_value: String) -> Array:
 	var result_list = []
-	for tower_id in _tower_properties.keys():
-		if _tower_properties[tower_id][tower_property] == filter_value:
+	for tower_id in _tower_csv_properties.keys():
+		if _tower_csv_properties[tower_id][tower_property] == filter_value:
 			result_list.append(tower_id)
 	return result_list
 
@@ -125,12 +125,12 @@ func _load_csv_properties(properties_path: String, properties_dict: Dictionary, 
 		scene_name_to_id_map[scene_name] = id
 
 
-func get_item_properties_by_filename(filename: String) -> Dictionary:
-	return get_csv_properties_by_filename(_item_properties, _item_scene_name_to_id_map, filename)
+func get_item_csv_properties_by_filename(filename: String) -> Dictionary:
+	return get_csv_properties_by_filename(_item_csv_properties, _item_scene_name_to_id_map, filename)
 
 
-func get_tower_properties_by_filename(filename: String) -> Dictionary:
-	return get_csv_properties_by_filename(_tower_properties, _tower_scene_name_to_id_map, filename)
+func get_tower_csv_properties_by_filename(filename: String) -> Dictionary:
+	return get_csv_properties_by_filename(_tower_csv_properties, _tower_scene_name_to_id_map, filename)
 
 
 func get_csv_properties_by_filename(properties_dict: Dictionary, scene_name_to_id_map: Dictionary, filename: String) -> Dictionary:
@@ -161,8 +161,8 @@ func _load_csv_line(csv_line) -> Dictionary:
 ### Setters / Getters ###
 #########################
 
-func get_item_properties():
-	return _item_properties
+func get_item_csv_properties():
+	return _item_csv_properties
 
-func get_tower_properties():
-	return _tower_properties
+func get_tower_csv_properties():
+	return _tower_csv_properties

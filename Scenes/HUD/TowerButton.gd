@@ -10,7 +10,7 @@ export(int) var tower_id
 onready var tier_icon: StreamTexture
 
 func _ready():
-	var tower_tier = Properties.get_csv_properties(tower_id)[Tower.CsvProperty.TIER]
+	var tower_tier = Properties.get_tower_csv_properties_by_id(tower_id)[Tower.CsvProperty.TIER]
 	var resource_path = "res://Assets/UI/HUD/level%s.png" % tower_tier
 	tier_icon = load(resource_path)
 

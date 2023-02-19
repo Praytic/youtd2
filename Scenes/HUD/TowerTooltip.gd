@@ -6,15 +6,15 @@ func _ready():
 
 
 func get_tower_tooltip_text(tower_id: int) -> String:
-	var tower = Properties.get_tower_properties()[tower_id]
+	var tower: Dictionary = Properties.get_tower_csv_properties_by_id(tower_id)
 
 	if !tower.empty():
 		return "" \
-			+ "Tower ID: %s\n" % tower[Tower.TowerProperty.ID] \
-			+ "Element: %s\n" % tower[Tower.TowerProperty.ELEMENT] \
-			+ "Attack type: %s\n" % tower[Tower.TowerProperty.ATTACK_TYPE] \
-			+ "Cost: %s\n" % tower[Tower.TowerProperty.COST] \
-			+ "Description: %s\n" % tower[Tower.TowerProperty.DESCRIPTION] \
+			+ "Tower ID: %s\n" % tower[Tower.CsvProperty.ID] \
+			+ "Element: %s\n" % tower[Tower.CsvProperty.ELEMENT] \
+			+ "Attack type: %s\n" % tower[Tower.CsvProperty.ATTACK_TYPE] \
+			+ "Cost: %s\n" % tower[Tower.CsvProperty.COST] \
+			+ "Description: %s\n" % tower[Tower.CsvProperty.DESCRIPTION] \
 			+ ""
 	else:
 		return "No data for tower id: %d" % tower_id

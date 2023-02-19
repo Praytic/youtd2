@@ -87,7 +87,7 @@ func get_required_wave_level() -> int:
 	return get_property(CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
 
 func get_property(property: int) -> String:
-	var properties: Dictionary = Properties.get_item_properties_by_filename(filename)
+	var properties: Dictionary = Properties.get_item_csv_properties_by_filename(filename)
 
 	return properties[property]
 
