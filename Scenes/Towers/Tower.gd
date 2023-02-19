@@ -200,6 +200,31 @@ func get_base_attack_speed() -> float:
 	return get_csv_property(CsvProperty.ATTACK_CD).to_float()
 
 
+# TODO: implement
+func get_exp() -> float:
+	return 0.0
+
+
+# TODO: implement
+func remove_exp_flat(_amount: float):
+	pass
+
+
+# TODO: i think this is supposed to return the player that
+# owns the tower? Implement later. For now implementing
+# owner's function in tower itself and returning tower from
+# get_owner()
+func get_owner():
+	return self
+
+
+# TODO: implement. Also move to the "owner" class that is
+# returned by get_owner(), when owner gets implemented. Find
+# out what mystery bools are for.
+func give_gold(_amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
+	pass
+
+
 func get_csv_property(csv_property: int) -> String:
 	var properties: Dictionary = Properties.get_tower_csv_properties_by_filename(filename)
 	var value: String = properties[csv_property]
