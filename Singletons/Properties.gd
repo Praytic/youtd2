@@ -114,7 +114,7 @@ func _load_item_properties(properties_path, properties_dict):
 			continue
 
 		var properties: Dictionary = _load_csv_line(csv_line)
-		var id = properties[0].to_int()
+		var id = properties[Item.CsvProperty.ID].to_int()
 		properties_dict[id] = properties
 
 		var scene_name: String = properties[Item.CsvProperty.SCENE_NAME]
