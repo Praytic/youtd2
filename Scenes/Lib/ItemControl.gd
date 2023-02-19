@@ -17,7 +17,7 @@ onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
 func _ready():
 	random.randomize()
 	for item_id in Properties.get_item_properties().keys():
-		items.append(Item.new(item_id))
+		items.append(Item.new())
 
 
 func _on_Mob_death(event):

@@ -30,12 +30,10 @@ var _required_wave_level: int setget ,get_required_wave_level
 ### Code starts here  ###
 #########################
 
-func _init(item_id: int):
-	_id = item_id
-
 
 func _ready():
-	var props: Dictionary = Properties.get_item_properties()[_id]
+	var props: Dictionary = Properties.get_item_properties_by_filename(filename)
+	_id = props[CsvProperty.ID]
 	_name = props[CsvProperty.NAME]
 	_author = props[CsvProperty.AUTHOR]
 	_rarity = Constants.Rarity.get(props[CsvProperty.RARITY].to_upper())

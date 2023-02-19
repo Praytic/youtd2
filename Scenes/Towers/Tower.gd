@@ -177,7 +177,7 @@ func _ready():
 #	NOTE: Load properties from csv first, then load from
 #	subclass script to add additional values or override csv
 #	values
-	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(filename)
+	var csv_properties: Dictionary = Properties.get_tower_properties_by_filename(filename)
 
 # NOTE: tower properties may omit keys for convenience, so
 # 	need to iterate over keys in properties to avoid
@@ -190,7 +190,7 @@ func _ready():
 		_tower_properties[property] = base_properties[property]
 	
 	for property in csv_properties.keys():
-		_tower_properties[property] = csv_properties[property]
+		_tower_properties[property] = convert_csv_string_to_property_value(csv_properties[property], property)
 
 	_apply_properties_to_scene_children()
 
