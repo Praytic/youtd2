@@ -12,9 +12,9 @@ const _stats_map: Dictionary = {
 
 
 func _ready():
-	var atrophy_trigger: Buff = Buff.new("atrophy_trigger")
-	atrophy_trigger.add_event_handler(Buff.EventType.ATTACK, self, "_on_attack")
-	atrophy_trigger.apply_to_unit_permanent(self, self, 0, false)
+	var on_attack_buff: Buff = Buff.new("")
+	on_attack_buff.add_event_handler(Buff.EventType.ATTACK, self, "_on_attack")
+	on_attack_buff.apply_to_unit_permanent(self, self, 0, false)
 
 
 func _on_attack(event: Event):

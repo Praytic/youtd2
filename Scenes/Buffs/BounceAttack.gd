@@ -16,7 +16,7 @@ var _bounce_count: int = 0
 var _bounce_damage_decrease: float = 0.0
 
 
-func _init(bounce_count: int, bounce_damage_multiplier: float).("bounce_attack"):
+func _init(bounce_count: int, bounce_damage_multiplier: float).(""):
 	_bounce_count = bounce_count
 	_bounce_damage_decrease = bounce_damage_multiplier
 	add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")

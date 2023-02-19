@@ -11,7 +11,7 @@ const _stats_map: Dictionary = {
 
 
 func _ready():
-	var warming_up = Buff.new("warming_up")
+	var warming_up = Buff.new("")
 	warming_up.add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")
 	warming_up.apply_to_unit_permanent(self, self, 0, true)
 

@@ -11,10 +11,10 @@ const _stats_map: Dictionary = {
 }
 
 func _ready():
-	var frozen_thorn_buff: Buff = Buff.new("frozen_thorn")
-	frozen_thorn_buff.add_event_handler(Buff.EventType.DAMAGE, self, "_on_damage")
+	var on_damage_buff: Buff = Buff.new("")
+	on_damage_buff.add_event_handler(Buff.EventType.DAMAGE, self, "_on_damage")
 
-	frozen_thorn_buff.apply_to_unit_permanent(self, self, 0, false)
+	on_damage_buff.apply_to_unit_permanent(self, self, 0, false)
 
 
 func _on_damage(event: Event):

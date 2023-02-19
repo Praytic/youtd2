@@ -12,7 +12,7 @@ const _stats_map: Dictionary = {
 
 
 func _ready():
-	var on_damage_buff: Buff = Buff.new("on_damage_buff")
+	var on_damage_buff: Buff = Buff.new("")
 	on_damage_buff.add_event_handler(Buff.EventType.DAMAGE, self, "_on_damage")
 	on_damage_buff.apply_to_unit_permanent(self, self, 0, false)
 

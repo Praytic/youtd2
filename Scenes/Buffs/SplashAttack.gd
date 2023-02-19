@@ -14,7 +14,7 @@ extends Buff
 var _splash_map: Dictionary = {}
 
 
-func _init(splash_map: Dictionary).("splash"):
+func _init(splash_map: Dictionary).(""):
 	_splash_map = splash_map
 	add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")
 

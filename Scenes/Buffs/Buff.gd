@@ -65,6 +65,16 @@ var _type: String
 var event_handler_map: Dictionary = {}
 
 
+# NOTE: type is used for override logic. Only one buff of a
+# type can be active on a unit at any given time and when a
+# buff of a type is applied to a unit while it already has
+# an active buff of a type, there's override logic for which
+# buff will remain on the unit.
+# 
+# Pass empty string if override logic doesn't matter for
+# your buff and multiple active instances of the buff on one
+# unit are allowed. For example, buffs that are used solely
+# to add event handlers should have empty type.
 func _init(type: String):
 	_type = type
 
@@ -76,15 +86,20 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 	_level = level
 	_friendly = friendly
 
-	var can_apply: bool = _check_can_apply_to_unit(target)
+# 	Don't do any override logic for buffs with empty type
+# 	and allow stacking multiple instances of same type.
+	var need_override_logic: bool = !get_type().empty()
 
-	if !can_apply:
-		return
+	if need_override_logic:
+		var can_apply: bool = _check_can_apply_to_unit(target)
 
-	var active_buff = target.get_buff_of_type(get_type())
+		if !can_apply:
+			return
 
-	if active_buff != null:
-		active_buff.expire()
+		var active_buff = target.get_buff_of_type(get_type())
+
+		if active_buff != null:
+			active_buff.expire()
 
 	_target = target
 	_target._add_buff_internal(self)

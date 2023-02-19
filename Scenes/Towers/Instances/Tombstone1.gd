@@ -15,9 +15,9 @@ const _stats_map: Dictionary = {
 
 
 func _ready():
-	var tombs_curse = Buff.new("tombs_curse")
-	tombs_curse.add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")
-	tombs_curse.apply_to_unit_permanent(self, self, 0, true)
+	var on_damage_buff = Buff.new("")
+	on_damage_buff.add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")
+	on_damage_buff.apply_to_unit_permanent(self, self, 0, true)
 
 
 func on_damage(event: Event):
