@@ -24,7 +24,7 @@ func _on_attack(event: Event):
 	var itm = self
 
 	var m: Modifier = Modifier.new() 
-    
+	
 	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
 	var boekie_spiderling_slow: Buff = Buff.new(boekie_spiderling_slow)
 	boekie_spiderling_slow.set_buff_icon("@@0@@") 

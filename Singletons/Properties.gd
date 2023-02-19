@@ -53,7 +53,7 @@ func _init():
 		waves[wave_index] = parsed_json
 	
 	_load_csv_properties(tower_csv_properties_path, _tower_csv_properties, _tower_scene_name_to_id_map, Tower.CsvProperty.ID, Tower.CsvProperty.SCENE_NAME)
-	_load_csv_properties(item_csv_properties_path, _item_csv_properties, _item_scene_name_to_id_map, Item.CsvProperty.ID, Item.CsvProperty.SCENE_NAME)
+	_load_csv_properties(item_csv_properties_path, _item_csv_properties, _item_scene_name_to_id_map, Item.CsvProperty.ID, Item.CsvProperty.SCRIPT_NAME)
 
 
 #########################
@@ -83,6 +83,10 @@ func get_tower_csv_properties_by_filter(tower_property: int, filter_value: Strin
 
 func get_item_scene_name_list() -> Array:
 	return _item_scene_name_to_id_map.keys()
+
+
+func get_item_id_list() -> Array:
+	return _item_csv_properties.keys()
 
 
 func get_tower_id_list() -> Array:
@@ -133,9 +137,18 @@ func get_tower_csv_properties_by_filename(filename: String) -> Dictionary:
 	return get_csv_properties_by_filename(_tower_csv_properties, _tower_scene_name_to_id_map, filename)
 
 
+# Filename can be scene path or script path
 func get_csv_properties_by_filename(properties_dict: Dictionary, scene_name_to_id_map: Dictionary, filename: String) -> Dictionary:
 	var scene_file: String = filename.get_file()
-	var scene_name: String = scene_file.trim_suffix(".tscn")
+	var scene_name: String
+
+	if filename.ends_with(".tscn"):
+		scene_name = scene_file.trim_suffix(".tscn")
+	elif filename.ends_with(".gd"):
+		scene_name = scene_file.trim_suffix(".gd")
+	else:
+		print_debug("Unknown filename extension in get_csv_properties_by_filename(): ", filename)
+		scene_name = ""
 
 	if scene_name_to_id_map.has(scene_name):
 		var id: int = scene_name_to_id_map[scene_name]
