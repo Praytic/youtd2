@@ -23,9 +23,17 @@ const tower_families = {
 	}
 }
 
-var waves = []
-var _csv_properties: Dictionary = {}
+const item_properties_path = "res://Assets/item_properties.csv"
+const tower_properties_path = "res://Assets/tower_properties.csv"
 
+var waves = []
+var _tower_properties: Dictionary = {} setget ,get_tower_properties
+var _item_properties: Dictionary = {} setget ,get_item_properties
+
+
+#########################
+### Code starts here  ###
+#########################
 
 func _init():
 	waves.resize(3)
@@ -43,11 +51,16 @@ func _init():
 		waves[wave_index] = parsed_json
 	
 	_load_csv_properties()
+	_load_properties(item_properties_path)
 
+
+#########################
+###       Public      ###
+#########################
 
 func get_csv_properties(tower_id: int) -> Dictionary:
-	if _csv_properties.has(tower_id):
-		var out: Dictionary = _csv_properties[tower_id]
+	if _tower_properties.has(tower_id):
+		var out: Dictionary = _tower_properties[tower_id]
 
 		return out
 	else:
@@ -56,9 +69,9 @@ func get_csv_properties(tower_id: int) -> Dictionary:
 
 func get_csv_properties_by_filter(tower_property: int, filter_value) -> Array:
 	var result_list_of_dicts = []
-	for tower_id in _csv_properties.keys():
-		if _csv_properties[tower_id][tower_property] == filter_value:
-			result_list_of_dicts.append(_csv_properties[tower_id])
+	for tower_id in _tower_properties.keys():
+		if _tower_properties[tower_id][tower_property] == filter_value:
+			result_list_of_dicts.append(_tower_properties[tower_id])
 	if result_list_of_dicts.empty():
 		print_debug("Failed to find tower by property [%s=%s]. ", \
 			"Check for typos in tower .csv file." % \
@@ -78,15 +91,43 @@ func get_csv_properties_by_filename(tower_name: String) -> Dictionary:
 
 
 func get_tower_id_list() -> Array:
-	return _csv_properties.keys()
+	return _tower_properties.keys()
 
 
 func get_tower_id_list_by_filter(tower_property: int, filter_value) -> Array:
 	var result_list = []
-	for tower_id in _csv_properties.keys():
-		if _csv_properties[tower_id][tower_property] == filter_value:
+	for tower_id in _tower_properties.keys():
+		if _tower_properties[tower_id][tower_property] == filter_value:
 			result_list.append(tower_id)
 	return result_list
+
+
+#########################
+###      Private      ###
+#########################
+
+func _load_properties(properties_path):
+	var file: File = File.new()
+	file.open(properties_path, file.READ)
+
+	var skip_title_row: bool = true
+	var columns_count: int = 0
+	var line_num: int = 0
+	while !file.eof_reached():
+		var csv_line: PoolStringArray = file.get_csv_line()
+
+		if line_num:
+			columns_count = csv_line.size()
+		if skip_title_row:
+			skip_title_row = false
+			continue
+
+		var properties: Dictionary = _load_csv_line(csv_line, columns_count)
+		if properties.size() > 0:
+			var id = properties[0]
+			_tower_properties[id] = properties
+		else:
+			push_error("No properties found for line [%s]" % line_num)
 
 
 func _load_csv_properties():
@@ -103,17 +144,30 @@ func _load_csv_properties():
 
 			continue
 
-		var properties: Dictionary = _load_csv_line(csv_line)
+		var properties: Dictionary = _load_csv_line_typed(csv_line)
 
 		if properties.size() > 0:
 			var id: int = properties[Tower.TowerProperty.ID]
 			var script_name: String = properties[Tower.TowerProperty.FILENAME]
 
-			_csv_properties[id] = properties
+			_tower_properties[id] = properties
 			_tower_filename_to_id_map[script_name] = id
 
 
-func _load_csv_line(csv_line) -> Dictionary:
+func _load_csv_line(csv_line, columns_count) -> Dictionary:
+	if csv_line.size() != columns_count:
+		return {}
+
+	var out: Dictionary = {}
+
+	for property in range(Tower.TowerProperty.CSV_COLUMN_COUNT):
+		var csv_string: String = csv_line[property]
+		out[property] = csv_string
+
+	return out
+
+
+func _load_csv_line_typed(csv_line) -> Dictionary:
 	if csv_line.size() != Tower.TowerProperty.CSV_COLUMN_COUNT:
 		return {}
 
@@ -125,3 +179,14 @@ func _load_csv_line(csv_line) -> Dictionary:
 		out[property] = property_value
 
 	return out
+
+
+#########################
+### Setters / Getters ###
+#########################
+
+func get_item_properties():
+	return _item_properties
+
+func get_tower_properties():
+	return _tower_properties
