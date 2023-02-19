@@ -23,16 +23,16 @@ func _remove_from_tower_subclass():
 func _on_attack(event: Event):
 	var itm = self
 
-    var m: Modifier = Modifier.new() 
+	var m: Modifier = Modifier.new() 
     
-    m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
-    var boekie_spiderling_slow: Buff = Buff.new(boekie_spiderling_slow)
-    boekie_spiderling_slow.set_buff_icon("@@0@@") 
-    boekie_spiderling_slow.set_buff_modifier(m) 
-    boekie_spiderling_slow.set_stacking_group("boekieSpiderlingSlow")
+	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
+	var boekie_spiderling_slow: Buff = Buff.new(boekie_spiderling_slow)
+	boekie_spiderling_slow.set_buff_icon("@@0@@") 
+	boekie_spiderling_slow.set_buff_modifier(m) 
+	boekie_spiderling_slow.set_stacking_group("boekieSpiderlingSlow")
 
 	var tower: Tower = itm.get_carrier() 
 	var speed: float = tower.get_base_attack_speed()  
 
-    if tower.calc_chance(0.25 * speed) == true:
-    	boekie_spiderling_slow.apply_to_unit(tower, event.get_target(), 1, 4, 0, false)    
+	if tower.calc_chance(0.25 * speed) == true:
+		boekie_spiderling_slow.apply_to_unit(tower, event.get_target(), 1, 4, 0, false)
