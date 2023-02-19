@@ -30,6 +30,7 @@ var waves = []
 var _tower_properties: Dictionary = {} setget ,get_tower_properties
 var _item_properties: Dictionary = {} setget ,get_item_properties
 var _tower_scene_name_to_id_map: Dictionary = {}
+var _item_scene_name_to_id_map: Dictionary = {}
 
 
 #########################
@@ -51,8 +52,8 @@ func _init():
 		var parsed_json = JSON.parse(wave_text)
 		waves[wave_index] = parsed_json
 	
-	_load_csv_properties()
-	_load_properties(item_properties_path, _item_properties)
+	_load_tower_properties()
+	_load_item_properties(item_properties_path, _item_properties)
 
 
 #########################
@@ -96,7 +97,7 @@ func get_tower_id_list_by_filter(tower_property: int, filter_value) -> Array:
 ###      Private      ###
 #########################
 
-func _load_properties(properties_path, properties_dict):
+func _load_item_properties(properties_path, properties_dict):
 	var file: File = File.new()
 	file.open(properties_path, file.READ)
 
@@ -116,6 +117,9 @@ func _load_properties(properties_path, properties_dict):
 		if properties.size() > 0:
 			var id = properties[0].to_int()
 			properties_dict[id] = properties
+
+			var scene_name: String = properties[Item.CsvProperty.SCENE_NAME]
+			_item_scene_name_to_id_map[scene_name] = id
 		else:
 			push_error("No properties found for line [%s]" % line_num)
 
@@ -134,7 +138,7 @@ func get_csv_properties_by_filename(filename: String) -> Dictionary:
 		return {}
 
 
-func _load_csv_properties():
+func _load_tower_properties():
 	var file: File = File.new()
 	file.open("res://Assets/tower_properties.csv", file.READ)
 
