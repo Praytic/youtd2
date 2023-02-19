@@ -46,7 +46,8 @@ func _ready():
 
 func _on_RightMenuBar_element_changed(element: int):
 	current_element = element
-	var tower_id_list = Properties.get_tower_id_list_by_filter(Tower.TowerProperty.ELEMENT, element)
+	var element_string: String = Tower.element_enum_to_string(element)
+	var tower_id_list = Properties.get_tower_id_list_by_filter(Tower.TowerProperty.ELEMENT, element_string)
 	
 	for tower_button in _tower_buttons.values():
 		tower_button.hide()
