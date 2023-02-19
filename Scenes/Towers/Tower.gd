@@ -166,11 +166,7 @@ func _ready():
 #	NOTE: Load properties from csv first, then load from
 #	subclass script to add additional values or override csv
 #	values
-	var scene_path: String = filename
-	var scene_file: String = scene_path.get_file()
-	var scene_filename: String = scene_file.trim_suffix(".tscn")
-
-	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(scene_filename)
+	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(filename)
 
 # NOTE: tower properties may omit keys for convenience, so
 # 	need to iterate over keys in properties to avoid
