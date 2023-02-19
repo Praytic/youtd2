@@ -46,6 +46,7 @@ enum TowerProperty {
 # 	TODO: implement
 	ITEM_CHANCE_ON_KILL,
 	ITEM_QUALITY_ON_KILL,
+	EXP_RECEIVED,
 }
 
 enum Element {
@@ -77,6 +78,8 @@ const _tower_mod_to_property_map: Dictionary = {
 
 	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: TowerProperty.ITEM_CHANCE_ON_KILL, 
 	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: TowerProperty.ITEM_QUALITY_ON_KILL, 
+
+	Modification.Type.MOD_EXP_RECEIVED: TowerProperty.EXP_RECEIVED, 
 
 	Modification.Type.MOD_ATTACK_SPEED: TowerProperty.ATTACK_CD,
 }
