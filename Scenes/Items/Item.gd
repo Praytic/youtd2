@@ -15,6 +15,8 @@ enum CsvProperty {
 
 const cell_size = 32
 
+var _carrier: Tower = null
+
 
 #########################
 ### Code starts here  ###
@@ -22,6 +24,32 @@ const cell_size = 32
 
 
 func _ready():
+	pass
+
+
+# TODO: implement checks for max item count
+func add_to_tower(tower: Tower):
+	_carrier = tower
+	_add_to_tower_subclass()
+
+
+func remove_from_tower():
+	if _carrier == null:
+		return
+
+	_remove_from_tower_subclass()
+	_carrier = null
+
+
+# Override in subclass to define what effect item adds
+# to the carrier
+func _add_to_tower_subclass():
+	pass
+
+
+# Override in subclass to define removal of effects from
+# carrier
+func _remove_from_tower_subclass():
 	pass
 
 
@@ -57,3 +85,7 @@ func get_property(property: int) -> String:
 	var properties: Dictionary = Properties.get_item_properties_by_filename(filename)
 
 	return properties[property]
+
+
+func get_carrier() -> Tower:
+	return _carrier
