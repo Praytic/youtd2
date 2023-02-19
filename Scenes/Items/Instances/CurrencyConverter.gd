@@ -11,7 +11,7 @@ func _add_to_tower_subclass():
 	on_periodic_buff.apply_to_unit_permanent(get_carrier(), get_carrier(), 0, false)
 
 
-func _remove_to_tower_subclass():
+func _remove_from_tower_subclass():
 	if on_periodic_buff != null:
 		on_periodic_buff.expire()
 
