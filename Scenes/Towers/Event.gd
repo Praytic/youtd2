@@ -13,6 +13,7 @@ var _target
 # of the attack will be the main target, while mobs hit by
 # splash will not.
 var _is_main_target: bool = false
+var _timer: Timer = null
 
 
 #########################
@@ -40,3 +41,11 @@ func get_target():
 
 func is_main_target() -> bool:
 	return _is_main_target
+
+
+func enable_advanced(wait_time: float, one_shot: bool):
+	if _timer == null:
+		return
+
+	_timer.wait_time = wait_time
+	_timer.one_shot = one_shot
