@@ -102,26 +102,23 @@ func _load_item_properties(properties_path, properties_dict):
 	file.open(properties_path, file.READ)
 
 	var skip_title_row: bool = true
-	var columns_count: int = 0
-	var line_num: int = 0
 	while !file.eof_reached():
 		var csv_line: PoolStringArray = file.get_csv_line()
 
-		if line_num == 0:
-			columns_count = csv_line.size()
 		if skip_title_row:
 			skip_title_row = false
 			continue
 
-		var properties: Dictionary = _load_csv_line(csv_line, columns_count)
-		if properties.size() > 0:
-			var id = properties[0].to_int()
-			properties_dict[id] = properties
+# 		NOTE: skip last line which has size of 1
+		if csv_line.size() <= 1:
+			continue
 
-			var scene_name: String = properties[Item.CsvProperty.SCENE_NAME]
-			_item_scene_name_to_id_map[scene_name] = id
-		else:
-			push_error("No properties found for line [%s]" % line_num)
+		var properties: Dictionary = _load_csv_line(csv_line)
+		var id = properties[0].to_int()
+		properties_dict[id] = properties
+
+		var scene_name: String = properties[Item.CsvProperty.SCENE_NAME]
+		_item_scene_name_to_id_map[scene_name] = id
 
 
 func get_csv_properties_by_filename(filename: String) -> Dictionary:
@@ -162,13 +159,10 @@ func _load_tower_properties():
 			_tower_scene_name_to_id_map[script_name] = id
 
 
-func _load_csv_line(csv_line, columns_count) -> Dictionary:
-	if csv_line.size() != columns_count:
-		return {}
-
+func _load_csv_line(csv_line) -> Dictionary:
 	var out: Dictionary = {}
 
-	for property in range(columns_count):
+	for property in range(csv_line.size()):
 		var csv_string: String = csv_line[property]
 		out[property] = csv_string
 
