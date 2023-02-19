@@ -84,7 +84,7 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 	var active_buff = target.get_buff_of_type(get_type())
 
 	if active_buff != null:
-		active_buff._stop()
+		active_buff.expire()
 
 	_target = target
 	_target._add_buff_internal(self)
@@ -152,7 +152,7 @@ func get_buffed_unit() -> Unit:
 	return _target
 
 
-func _stop():
+func expire():
 	_on_timer_timeout()
 
 
