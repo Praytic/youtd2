@@ -153,6 +153,17 @@ const _element_string_to_enum: Dictionary = {
 	"iron": Element.IRON,
 }
 
+const _element_enum_to_string: Dictionary = {
+	Element.ASTRAL: "astral",
+	Element.DARKNESS: "darkness",
+	Element.NATURE: "nature",
+	Element.FIRE: "fire",
+	Element.ICE: "ice",
+	Element.STORM: "storm",
+	Element.IRON: "iron",
+}
+
+
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var _attack_cooldown_timer: Timer = $AttackCooldownTimer
 onready var _targeting_area: Area2D = $TargetingArea
@@ -193,6 +204,11 @@ func _ready():
 
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
+
+
+
+static func element_enum_to_string(element: int) -> String:
+	return _element_enum_to_string[element]
 
 
 static func convert_csv_string_to_property_value(csv_string: String, property: int):
