@@ -208,9 +208,9 @@ func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
 
 		return
 
-
+# Called when unit killed by caster unit
 func _killed_by_unit(caster: Unit, is_main_target: bool):
-	var death_event: Event = Event.new(caster, 0, is_main_target)
+	var death_event: Event = Event.new(self, 0, is_main_target)
 	emit_signal("death", death_event)
 
 	caster._accept_kill(self, is_main_target)
@@ -218,7 +218,7 @@ func _killed_by_unit(caster: Unit, is_main_target: bool):
 	queue_free()
 
 
-# Called when unit kills another unit
+# Called when unit kills target unit
 func _accept_kill(target: Unit, is_main_target: bool):
 	var kill_event: Event = Event.new(target, 0, is_main_target)
 	emit_signal("kill", kill_event)

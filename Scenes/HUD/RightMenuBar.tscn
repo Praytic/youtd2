@@ -45,5 +45,14 @@ margin_bottom = 20.0
 columns = 4
 script = ExtResource( 7 )
 
+[node name="ItemBar" type="GridContainer" parent="VBoxContainer/MarginContainer"]
+visible = false
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 236.0
+margin_bottom = 20.0
+columns = 4
+
 [connection signal="element_changed" from="." to="VBoxContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
 [connection signal="child_entered_tree" from="VBoxContainer/MarginContainer/BuildBar" to="." method="_on_BuildBar_child_entered_tree"]
+[connection signal="child_entered_tree" from="VBoxContainer/MarginContainer/ItemBar" to="." method="_on_BuildBar_child_entered_tree"]

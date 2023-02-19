@@ -2,17 +2,10 @@ class_name Tower
 extends Building
 
 
-# Tower attacks by periodically firing projectiles at mobs
-# that are in range.
-
-
-signal upgraded
-
-
 enum TowerProperty {
 #	Properties below should be defined in the .csv file and
 # 	the integer values must match the columns in csv file.
-	FILENAME = 0,
+	SCENE_NAME = 0,
 	NAME = 1,
 	ID = 2,
 	FAMILY_ID = 3,
@@ -53,6 +46,7 @@ enum TowerProperty {
 # 	TODO: implement
 	ITEM_CHANCE_ON_KILL,
 	ITEM_QUALITY_ON_KILL,
+	EXP_RECEIVED,
 }
 
 enum Element {
@@ -65,8 +59,6 @@ enum Element {
 	IRON,
 }
 
-export(int) var id
-export(int) var next_tier_id
 export(AudioStreamMP3) var attack_sound
 
 const _tower_mod_to_property_map: Dictionary = {
@@ -86,6 +78,8 @@ const _tower_mod_to_property_map: Dictionary = {
 
 	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: TowerProperty.ITEM_CHANCE_ON_KILL, 
 	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: TowerProperty.ITEM_QUALITY_ON_KILL, 
+
+	Modification.Type.MOD_EXP_RECEIVED: TowerProperty.EXP_RECEIVED, 
 
 	Modification.Type.MOD_ATTACK_SPEED: TowerProperty.ATTACK_CD,
 }
@@ -162,6 +156,17 @@ const _element_string_to_enum: Dictionary = {
 	"iron": Element.IRON,
 }
 
+const _element_enum_to_string: Dictionary = {
+	Element.ASTRAL: "astral",
+	Element.DARKNESS: "darkness",
+	Element.NATURE: "nature",
+	Element.FIRE: "fire",
+	Element.ICE: "ice",
+	Element.STORM: "storm",
+	Element.IRON: "iron",
+}
+
+
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var _attack_cooldown_timer: Timer = $AttackCooldownTimer
 onready var _targeting_area: Area2D = $TargetingArea
@@ -171,27 +176,24 @@ onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 func _ready():
 	add_child(_aoe_scene.instance(), true)
 
+	
 #	NOTE: Load properties from csv first, then load from
 #	subclass script to add additional values or override csv
 #	values
-	var scene_path: String = filename
-	var scene_file: String = scene_path.get_file()
-	var scene_filename: String = scene_file.trim_suffix(".tscn")
+	var csv_properties: Dictionary = Properties.get_tower_properties_by_filename(filename)
 
-	var csv_properties: Dictionary = Properties.get_csv_properties_by_filename(scene_filename)
-
-	for property in csv_properties.keys():
-		_tower_properties[property] = csv_properties[property]
-
-# 	NOTE: tower properties may omit keys for convenience, so
+# NOTE: tower properties may omit keys for convenience, so
 # 	need to iterate over keys in properties to avoid
 # 	triggering "invalid key" error
-	
+
 	# Most properties should be defined in the .csv file.
 	var base_properties: Dictionary = _get_base_properties()
 
 	for property in base_properties.keys():
 		_tower_properties[property] = base_properties[property]
+	
+	for property in csv_properties.keys():
+		_tower_properties[property] = convert_csv_string_to_property_value(csv_properties[property], property)
 
 	_apply_properties_to_scene_children()
 
@@ -207,12 +209,17 @@ func _ready():
 	add_child(_attack_sound)
 
 
+
+static func element_enum_to_string(element: int) -> String:
+	return _element_enum_to_string[element]
+
+
 static func convert_csv_string_to_property_value(csv_string: String, property: int):
 	if property > TowerProperty.CSV_COLUMN_COUNT:
 		return csv_string
 
 	match property:
-		TowerProperty.FILENAME: return csv_string
+		TowerProperty.SCENE_NAME: return csv_string
 		TowerProperty.NAME: return csv_string
 		TowerProperty.ID: return csv_string.to_int()
 		TowerProperty.FAMILY_ID: return csv_string.to_int()
@@ -254,12 +261,6 @@ func get_element() -> int:
 func build_init():
 	.build_init()
 	$AreaOfEffect.show()
-
-
-func upgrade() -> PackedScene:
-	var next_tier_tower = TowerManager.get_tower(next_tier_id)
-	emit_signal("upgraded")
-	return next_tier_tower
 
 
 func change_level(new_level: int):
@@ -368,12 +369,10 @@ func _try_to_attack():
 
 func _select():
 	._select()
-	print_debug("Tower %s has been selected." % id)
 
 
 func _unselect():
 	._unselect()
-	print_debug("Tower %s has been unselected." % id)
 
 
 func _on_projectile_reached_mob(mob: Mob):

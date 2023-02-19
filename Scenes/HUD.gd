@@ -58,6 +58,8 @@ func _on_Tower_unselected():
 func _on_BuildingMenuButton_pressed():
 	$Hints2.hide()
 
+func _on_ItemMenuButton_pressed():
+	$Hints2.hide()
 
 func _on_element_button_pressed(element_button):
 	$MarginContainer.hide()
