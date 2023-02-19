@@ -121,16 +121,24 @@ func _load_csv_properties(properties_path: String, properties_dict: Dictionary, 
 		scene_name_to_id_map[scene_name] = id
 
 
-func get_csv_properties_by_filename(filename: String) -> Dictionary:
+func get_item_properties_by_filename(filename: String) -> Dictionary:
+	return get_csv_properties_by_filename(_item_properties, _item_scene_name_to_id_map, filename)
+
+
+func get_tower_properties_by_filename(filename: String) -> Dictionary:
+	return get_csv_properties_by_filename(_tower_properties, _tower_scene_name_to_id_map, filename)
+
+
+func get_csv_properties_by_filename(properties_dict: Dictionary, scene_name_to_id_map: Dictionary, filename: String) -> Dictionary:
 	var scene_file: String = filename.get_file()
 	var scene_name: String = scene_file.trim_suffix(".tscn")
 
-	if _tower_scene_name_to_id_map.has(scene_name):
-		var tower_id: int = _tower_scene_name_to_id_map[scene_name]
+	if scene_name_to_id_map.has(scene_name):
+		var id: int = scene_name_to_id_map[scene_name]
 
-		return get_csv_properties(tower_id)
+		return properties_dict[id]
 	else:
-		print_debug("Failed to find scene_name:", scene_name, ". Check for typos in tower .csv file.")
+		print_debug("Failed to find scene_name:", scene_name, ". Check for typos in .csv file.")
 
 		return {}
 
