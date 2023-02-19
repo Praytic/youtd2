@@ -1,9 +1,5 @@
 extends Node2D
 
-const mob_scene_map: Dictionary = {
-	"Mob": preload("res://Scenes/Mobs/Mob.tscn")
-}
-
 
 onready var map_node: Node2D = $Map
 var mobs_exit_count: int = 0
@@ -13,13 +9,6 @@ export var ignore_game_over: bool = true
 
 func _ready():
 	randomize()
-
-func _on_MobSpawner_spawned(mob_name):
-	var mob_scene = mob_scene_map[mob_name]
-	var mob: Mob = mob_scene.instance()
-	mob.set_path($Map/MobPath1)
-	
-	$Map/MobYSort.add_child(mob)
 
 
 func _on_HUD_start_wave(wave_index):

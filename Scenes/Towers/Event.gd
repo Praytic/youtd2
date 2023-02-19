@@ -15,24 +15,28 @@ var _target
 var _is_main_target: bool = false
 
 
+#########################
+### Code starts here  ###
+#########################
+
 func _init(target, damage_arg, is_main_target_arg: bool):
 	_target = target
 	damage = damage_arg
 	_is_main_target = is_main_target_arg
 
 
+#########################
+### Setters / Getters ###
+#########################
 
 func _ready():
 	pass
 
-
 func get_buff():
 	return _buff
 
-
 func get_target():
 	return _target
-
 
 func is_main_target() -> bool:
 	return _is_main_target

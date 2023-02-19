@@ -51,7 +51,7 @@ func _init():
 		waves[wave_index] = parsed_json
 	
 	_load_csv_properties()
-	_load_properties(item_properties_path)
+	_load_properties(item_properties_path, _item_properties)
 
 
 #########################
@@ -79,17 +79,6 @@ func get_csv_properties_by_filter(tower_property: int, filter_value) -> Array:
 	return result_list_of_dicts
 
 
-func get_csv_properties_by_filename(tower_name: String) -> Dictionary:
-	if _tower_filename_to_id_map.has(tower_name):
-		var tower_id: int = _tower_filename_to_id_map[tower_name]
-
-		return get_csv_properties(tower_id)
-	else:
-		print_debug("Failed to find tower_name:", tower_name, ". Check for typos in tower .csv file.")
-
-		return {}
-
-
 func get_tower_id_list() -> Array:
 	return _tower_properties.keys()
 
@@ -106,7 +95,7 @@ func get_tower_id_list_by_filter(tower_property: int, filter_value) -> Array:
 ###      Private      ###
 #########################
 
-func _load_properties(properties_path):
+func _load_properties(properties_path, properties_dict):
 	var file: File = File.new()
 	file.open(properties_path, file.READ)
 
@@ -116,7 +105,7 @@ func _load_properties(properties_path):
 	while !file.eof_reached():
 		var csv_line: PoolStringArray = file.get_csv_line()
 
-		if line_num:
+		if line_num == 0:
 			columns_count = csv_line.size()
 		if skip_title_row:
 			skip_title_row = false
@@ -124,8 +113,8 @@ func _load_properties(properties_path):
 
 		var properties: Dictionary = _load_csv_line(csv_line, columns_count)
 		if properties.size() > 0:
-			var id = properties[0]
-			_tower_properties[id] = properties
+			var id = properties[0].to_int()
+			properties_dict[id] = properties
 		else:
 			push_error("No properties found for line [%s]" % line_num)
 
@@ -147,11 +136,10 @@ func _load_csv_properties():
 		var properties: Dictionary = _load_csv_line_typed(csv_line)
 
 		if properties.size() > 0:
-			var id: int = properties[Tower.TowerProperty.ID]
-			var script_name: String = properties[Tower.TowerProperty.FILENAME]
+			var id: int = properties[2]
+			var script_name: String = properties[0]
 
 			_tower_properties[id] = properties
-			_tower_filename_to_id_map[script_name] = id
 
 
 func _load_csv_line(csv_line, columns_count) -> Dictionary:
@@ -160,7 +148,7 @@ func _load_csv_line(csv_line, columns_count) -> Dictionary:
 
 	var out: Dictionary = {}
 
-	for property in range(Tower.TowerProperty.CSV_COLUMN_COUNT):
+	for property in range(columns_count):
 		var csv_string: String = csv_line[property]
 		out[property] = csv_string
 
