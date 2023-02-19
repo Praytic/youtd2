@@ -29,7 +29,7 @@ const tower_properties_path = "res://Assets/tower_properties.csv"
 var waves = []
 var _tower_properties: Dictionary = {} setget ,get_tower_properties
 var _item_properties: Dictionary = {} setget ,get_item_properties
-var _tower_filename_to_id_map: Dictionary = {}
+var _tower_scene_name_to_id_map: Dictionary = {}
 
 
 #########################
@@ -124,8 +124,8 @@ func get_csv_properties_by_filename(filename: String) -> Dictionary:
 	var scene_file: String = filename.get_file()
 	var scene_name: String = scene_file.trim_suffix(".tscn")
 
-	if _tower_filename_to_id_map.has(scene_name):
-		var tower_id: int = _tower_filename_to_id_map[scene_name]
+	if _tower_scene_name_to_id_map.has(scene_name):
+		var tower_id: int = _tower_scene_name_to_id_map[scene_name]
 
 		return get_csv_properties(tower_id)
 	else:
@@ -155,7 +155,7 @@ func _load_csv_properties():
 			var script_name: String = properties[0]
 
 			_tower_properties[id] = properties
-			_tower_filename_to_id_map[script_name] = id
+			_tower_scene_name_to_id_map[script_name] = id
 
 
 func _load_csv_line(csv_line, columns_count) -> Dictionary:

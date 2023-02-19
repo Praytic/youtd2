@@ -5,7 +5,7 @@ extends Building
 enum TowerProperty {
 #	Properties below should be defined in the .csv file and
 # 	the integer values must match the columns in csv file.
-	FILENAME = 0,
+	SCENE_NAME = 0,
 	NAME = 1,
 	ID = 2,
 	FAMILY_ID = 3,
@@ -200,7 +200,7 @@ static func convert_csv_string_to_property_value(csv_string: String, property: i
 		return csv_string
 
 	match property:
-		TowerProperty.FILENAME: return csv_string
+		TowerProperty.SCENE_NAME: return csv_string
 		TowerProperty.NAME: return csv_string
 		TowerProperty.ID: return csv_string.to_int()
 		TowerProperty.FAMILY_ID: return csv_string.to_int()
