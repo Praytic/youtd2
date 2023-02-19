@@ -52,7 +52,7 @@ func _init():
 		var parsed_json = JSON.parse(wave_text)
 		waves[wave_index] = parsed_json
 	
-	_load_csv_properties(tower_properties_path, _tower_properties, _tower_scene_name_to_id_map, Tower.TowerProperty.ID, Tower.TowerProperty.SCENE_NAME)
+	_load_csv_properties(tower_properties_path, _tower_properties, _tower_scene_name_to_id_map, Tower.CsvProperty.ID, Tower.CsvProperty.SCENE_NAME)
 	_load_csv_properties(item_properties_path, _item_properties, _item_scene_name_to_id_map, Item.CsvProperty.ID, Item.CsvProperty.SCENE_NAME)
 
 
@@ -77,7 +77,7 @@ func get_csv_properties_by_filter(tower_property: int, filter_value: String) -> 
 	if result_list_of_dicts.empty():
 		print_debug("Failed to find tower by property [%s=%s]. ", \
 			"Check for typos in tower .csv file." % \
-			[Tower.TowerProperty.keys()[tower_property], filter_value])
+			[Tower.CsvProperty.keys()[tower_property], filter_value])
 	return result_list_of_dicts
 
 
