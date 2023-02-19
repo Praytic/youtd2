@@ -7,8 +7,8 @@ var on_attack_buff: Buff = null
 
 
 func _add_to_tower_subclass():
-	var on_attack_buff: Buff = Buff.new("spiderling_buff")
-	on_attack_buff.add_event_handler(self, "_on_attack", 1.0)
+	on_attack_buff = Buff.new("spiderling_buff")
+	on_attack_buff.add_event_handler(Buff.EventType.ATTACK, self, "_on_attack")
 	on_attack_buff.apply_to_unit_permanent(get_carrier(), get_carrier(), 0, false)
 
 
