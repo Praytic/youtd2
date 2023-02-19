@@ -6,7 +6,7 @@ func _ready():
 
 
 func get_tower_tooltip_text(tower_id: int) -> String:
-	var tower = TowerManager.get_tower_properties(tower_id)
+	var tower = Properties.get_tower_properties()[tower_id]
 
 	if !tower.empty():
 		return "" \

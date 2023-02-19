@@ -33,6 +33,8 @@ enum Type {
 	MOD_ITEM_CHANCE_ON_KILL,
 	MOD_ITEM_QUALITY_ON_KILL,
 
+	MOD_EXP_RECEIVED,
+
 # For all units:
 	MOD_BUFF_DURATION,
 	MOD_DEBUFF_DURATION,
@@ -66,6 +68,8 @@ const _math_type_map: Dictionary = {
 
 	Type.MOD_ITEM_CHANCE_ON_KILL: MathType.ADD,
 	Type.MOD_ITEM_QUALITY_ON_KILL: MathType.ADD,
+	
+	Type.MOD_EXP_RECEIVED: MathType.ADD,
 
 # For all units:
 	Type.MOD_BUFF_DURATION: MathType.MULTIPLY,

@@ -23,10 +23,19 @@ const tower_families = {
 	}
 }
 
-var waves = []
-var _csv_properties: Dictionary = {}
-var _tower_filename_to_id_map: Dictionary = {}
+const item_properties_path = "res://Assets/item_properties.csv"
+const tower_properties_path = "res://Assets/tower_properties.csv"
 
+var waves = []
+var _tower_properties: Dictionary = {} setget ,get_tower_properties
+var _item_properties: Dictionary = {} setget ,get_item_properties
+var _tower_scene_name_to_id_map: Dictionary = {}
+var _item_scene_name_to_id_map: Dictionary = {}
+
+
+#########################
+### Code starts here  ###
+#########################
 
 func _init():
 	waves.resize(3)
@@ -43,82 +52,117 @@ func _init():
 		var parsed_json = JSON.parse(wave_text)
 		waves[wave_index] = parsed_json
 	
-	_load_csv_properties()
+	_load_csv_properties(tower_properties_path, _tower_properties, _tower_scene_name_to_id_map, Tower.TowerProperty.ID, Tower.TowerProperty.SCENE_NAME)
+	_load_csv_properties(item_properties_path, _item_properties, _item_scene_name_to_id_map, Item.CsvProperty.ID, Item.CsvProperty.SCENE_NAME)
 
+
+#########################
+###       Public      ###
+#########################
 
 func get_csv_properties(tower_id: int) -> Dictionary:
-	if _csv_properties.has(tower_id):
-		var out: Dictionary = _csv_properties[tower_id]
+	if _tower_properties.has(tower_id):
+		var out: Dictionary = _tower_properties[tower_id]
 
 		return out
 	else:
 		return {}
 
 
-func get_csv_properties_by_filter(tower_property: int, filter_value) -> Array:
+func get_csv_properties_by_filter(tower_property: int, filter_value: String) -> Array:
 	var result_list_of_dicts = []
-	for tower_id in _csv_properties.keys():
-		if _csv_properties[tower_id][tower_property] == filter_value:
-			result_list_of_dicts.append(_csv_properties[tower_id])
+	for tower_id in _tower_properties.keys():
+		if _tower_properties[tower_id][tower_property] == filter_value:
+			result_list_of_dicts.append(_tower_properties[tower_id])
+	if result_list_of_dicts.empty():
+		print_debug("Failed to find tower by property [%s=%s]. ", \
+			"Check for typos in tower .csv file." % \
+			[Tower.TowerProperty.keys()[tower_property], filter_value])
 	return result_list_of_dicts
 
 
-func get_csv_properties_by_filename(tower_name: String) -> Dictionary:
-	if _tower_filename_to_id_map.has(tower_name):
-		var tower_id: int = _tower_filename_to_id_map[tower_name]
-
-		return get_csv_properties(tower_id)
-	else:
-		print_debug("Failed to find tower_name:", tower_name, ". Check for typos in tower .csv file.")
-
-		return {}
+func get_item_scene_name_list() -> Array:
+	return _item_scene_name_to_id_map.keys()
 
 
 func get_tower_id_list() -> Array:
-	return _csv_properties.keys()
+	return _tower_properties.keys()
 
 
-func get_tower_id_list_by_filter(tower_property: int, filter_value) -> Array:
+func get_tower_id_list_by_filter(tower_property: int, filter_value: String) -> Array:
 	var result_list = []
-	for tower_id in _csv_properties.keys():
-		if _csv_properties[tower_id][tower_property] == filter_value:
+	for tower_id in _tower_properties.keys():
+		if _tower_properties[tower_id][tower_property] == filter_value:
 			result_list.append(tower_id)
 	return result_list
 
 
-func _load_csv_properties():
+#########################
+###      Private      ###
+#########################
+
+func _load_csv_properties(properties_path: String, properties_dict: Dictionary, scene_name_to_id_map: Dictionary, id_column: int, scene_name_column: int):
 	var file: File = File.new()
-	file.open("res://Assets/tower_properties.csv", file.READ)
+	file.open(properties_path, file.READ)
 
 	var skip_title_row: bool = true
-
 	while !file.eof_reached():
-		var csv_line = file.get_csv_line()
+		var csv_line: PoolStringArray = file.get_csv_line()
 
 		if skip_title_row:
 			skip_title_row = false
+			continue
 
+# 		NOTE: skip last line which has size of 1
+		if csv_line.size() <= 1:
 			continue
 
 		var properties: Dictionary = _load_csv_line(csv_line)
+		var id = properties[id_column].to_int()
+		properties_dict[id] = properties
 
-		if properties.size() > 0:
-			var id: int = properties[Tower.TowerProperty.ID]
-			var script_name: String = properties[Tower.TowerProperty.FILENAME]
+		var scene_name: String = properties[scene_name_column]
+		scene_name_to_id_map[scene_name] = id
 
-			_csv_properties[id] = properties
-			_tower_filename_to_id_map[script_name] = id
+
+func get_item_properties_by_filename(filename: String) -> Dictionary:
+	return get_csv_properties_by_filename(_item_properties, _item_scene_name_to_id_map, filename)
+
+
+func get_tower_properties_by_filename(filename: String) -> Dictionary:
+	return get_csv_properties_by_filename(_tower_properties, _tower_scene_name_to_id_map, filename)
+
+
+func get_csv_properties_by_filename(properties_dict: Dictionary, scene_name_to_id_map: Dictionary, filename: String) -> Dictionary:
+	var scene_file: String = filename.get_file()
+	var scene_name: String = scene_file.trim_suffix(".tscn")
+
+	if scene_name_to_id_map.has(scene_name):
+		var id: int = scene_name_to_id_map[scene_name]
+
+		return properties_dict[id]
+	else:
+		print_debug("Failed to find scene_name:", scene_name, ". Check for typos in .csv file.")
+
+		return {}
 
 
 func _load_csv_line(csv_line) -> Dictionary:
-	if csv_line.size() != Tower.TowerProperty.CSV_COLUMN_COUNT:
-		return {}
-
 	var out: Dictionary = {}
 
-	for property in range(Tower.TowerProperty.CSV_COLUMN_COUNT):
+	for property in range(csv_line.size()):
 		var csv_string: String = csv_line[property]
-		var property_value = Tower.convert_csv_string_to_property_value(csv_string, property)
-		out[property] = property_value
+		out[property] = csv_string
 
 	return out
+
+
+#########################
+### Setters / Getters ###
+#########################
+
+func get_item_properties():
+	return _item_properties
+
+func get_tower_properties():
+	return _tower_properties
