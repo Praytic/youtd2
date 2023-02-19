@@ -29,6 +29,7 @@ const tower_properties_path = "res://Assets/tower_properties.csv"
 var waves = []
 var _tower_properties: Dictionary = {} setget ,get_tower_properties
 var _item_properties: Dictionary = {} setget ,get_item_properties
+var _tower_filename_to_id_map: Dictionary = {}
 
 
 #########################
@@ -119,6 +120,17 @@ func _load_properties(properties_path, properties_dict):
 			push_error("No properties found for line [%s]" % line_num)
 
 
+func get_csv_properties_by_filename(tower_name: String) -> Dictionary:
+	if _tower_filename_to_id_map.has(tower_name):
+		var tower_id: int = _tower_filename_to_id_map[tower_name]
+
+		return get_csv_properties(tower_id)
+	else:
+		print_debug("Failed to find tower_name:", tower_name, ". Check for typos in tower .csv file.")
+
+		return {}
+
+
 func _load_csv_properties():
 	var file: File = File.new()
 	file.open("res://Assets/tower_properties.csv", file.READ)
@@ -140,6 +152,7 @@ func _load_csv_properties():
 			var script_name: String = properties[0]
 
 			_tower_properties[id] = properties
+			_tower_filename_to_id_map[script_name] = id
 
 
 func _load_csv_line(csv_line, columns_count) -> Dictionary:
