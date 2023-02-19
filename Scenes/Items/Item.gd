@@ -95,7 +95,7 @@ func get_required_wave_level() -> int:
 
 func get_property(property: int) -> String:
 	var script_path: String = get_script().get_path()
-	var properties: Dictionary = Properties.get_item_csv_properties_by_filename(script_path)
+	var properties: Dictionary = Properties.get_item_csv_properties_by_file_path(script_path)
 
 	return properties[property]
 

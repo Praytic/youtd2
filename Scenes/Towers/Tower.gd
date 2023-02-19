@@ -226,7 +226,7 @@ func give_gold(_amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2
 
 
 func get_csv_property(csv_property: int) -> String:
-	var properties: Dictionary = Properties.get_tower_csv_properties_by_filename(filename)
+	var properties: Dictionary = Properties.get_tower_csv_properties_by_file_path(filename)
 	var value: String = properties[csv_property]
 
 	return value
