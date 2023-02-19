@@ -2,6 +2,16 @@ class_name Item
 extends KinematicBody2D
 
 
+enum CsvProperty {
+	ID = 0,
+	NAME = 1,
+	AUTHOR = 2,
+	RARITY = 3,
+	COST = 4,
+	DESCRIPTION = 5,
+	REQUIRED_WAVE_LEVEL = 6,
+}
+
 const cell_size = 32
 
 
@@ -25,12 +35,12 @@ func _init(item_id: int):
 
 func _ready():
 	var props: Dictionary = Properties.get_item_properties()[_id]
-	_name = props[0]
-	_author = props[1]
-	_rarity = Constants.Rarity.get(props[2].to_upper())
-	_cost = props[3].to_int()
-	_description = props[4]
-	_required_wave_level = props[5]
+	_name = props[CsvProperty.NAME]
+	_author = props[CsvProperty.AUTHOR]
+	_rarity = Constants.Rarity.get(props[CsvProperty.RARITY].to_upper())
+	_cost = props[CsvProperty.COST].to_int()
+	_description = props[CsvProperty.DESCRIPTION]
+	_required_wave_level = props[CsvProperty.REQUIRED_WAVE_LEVEL]
 
 
 #########################
