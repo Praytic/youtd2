@@ -29,8 +29,8 @@ const tower_csv_properties_path = "res://Assets/tower_properties.csv"
 var waves = []
 var _tower_csv_properties: Dictionary = {} setget ,get_tower_csv_properties
 var _item_csv_properties: Dictionary = {} setget ,get_item_csv_properties
-var _tower_scene_name_to_id_map: Dictionary = {}
-var _item_scene_name_to_id_map: Dictionary = {}
+var _tower_file_name_to_id_map: Dictionary = {}
+var _item_file_name_to_id_map: Dictionary = {}
 
 
 #########################
@@ -52,8 +52,8 @@ func _init():
 		var parsed_json = JSON.parse(wave_text)
 		waves[wave_index] = parsed_json
 	
-	_load_csv_properties(tower_csv_properties_path, _tower_csv_properties, _tower_scene_name_to_id_map, Tower.CsvProperty.ID, Tower.CsvProperty.SCENE_NAME)
-	_load_csv_properties(item_csv_properties_path, _item_csv_properties, _item_scene_name_to_id_map, Item.CsvProperty.ID, Item.CsvProperty.SCRIPT_NAME)
+	_load_csv_properties(tower_csv_properties_path, _tower_csv_properties, _tower_file_name_to_id_map, Tower.CsvProperty.ID, Tower.CsvProperty.SCENE_NAME)
+	_load_csv_properties(item_csv_properties_path, _item_csv_properties, _item_file_name_to_id_map, Item.CsvProperty.ID, Item.CsvProperty.SCRIPT_NAME)
 
 
 #########################
@@ -81,8 +81,8 @@ func get_tower_csv_properties_by_filter(tower_property: int, filter_value: Strin
 	return result_list_of_dicts
 
 
-func get_item_scene_name_list() -> Array:
-	return _item_scene_name_to_id_map.keys()
+func get_item_file_name_list() -> Array:
+	return _item_file_name_to_id_map.keys()
 
 
 func get_item_id_list() -> Array:
@@ -105,7 +105,7 @@ func get_tower_id_list_by_filter(tower_property: int, filter_value: String) -> A
 ###      Private      ###
 #########################
 
-func _load_csv_properties(properties_path: String, properties_dict: Dictionary, scene_name_to_id_map: Dictionary, id_column: int, scene_name_column: int):
+func _load_csv_properties(properties_path: String, properties_dict: Dictionary, file_name_to_id_map: Dictionary, id_column: int, file_name_column: int):
 	var file: File = File.new()
 	file.open(properties_path, file.READ)
 
@@ -125,37 +125,37 @@ func _load_csv_properties(properties_path: String, properties_dict: Dictionary, 
 		var id = properties[id_column].to_int()
 		properties_dict[id] = properties
 
-		var scene_name: String = properties[scene_name_column]
-		scene_name_to_id_map[scene_name] = id
+		var file_name: String = properties[file_name_column]
+		file_name_to_id_map[file_name] = id
 
 
-func get_item_csv_properties_by_filename(filename: String) -> Dictionary:
-	return get_csv_properties_by_filename(_item_csv_properties, _item_scene_name_to_id_map, filename)
+func get_item_csv_properties_by_file_path(file_name: String) -> Dictionary:
+	return get_csv_properties_by_file_path(_item_csv_properties, _item_file_name_to_id_map, file_name)
 
 
-func get_tower_csv_properties_by_filename(filename: String) -> Dictionary:
-	return get_csv_properties_by_filename(_tower_csv_properties, _tower_scene_name_to_id_map, filename)
+func get_tower_csv_properties_by_file_path(file_name: String) -> Dictionary:
+	return get_csv_properties_by_file_path(_tower_csv_properties, _tower_file_name_to_id_map, file_name)
 
 
-# Filename can be scene path or script path
-func get_csv_properties_by_filename(properties_dict: Dictionary, scene_name_to_id_map: Dictionary, filename: String) -> Dictionary:
-	var scene_file: String = filename.get_file()
-	var scene_name: String
+# File path can be either scene path or script path
+func get_csv_properties_by_file_path(properties_dict: Dictionary, file_name_to_id_map: Dictionary, file_path: String) -> Dictionary:
+	var file: String = file_path.get_file()
+	var file_name: String
 
-	if filename.ends_with(".tscn"):
-		scene_name = scene_file.trim_suffix(".tscn")
-	elif filename.ends_with(".gd"):
-		scene_name = scene_file.trim_suffix(".gd")
+	if file_path.ends_with(".tscn"):
+		file_name = file.trim_suffix(".tscn")
+	elif file_path.ends_with(".gd"):
+		file_name = file.trim_suffix(".gd")
 	else:
-		print_debug("Unknown filename extension in get_csv_properties_by_filename(): ", filename)
-		scene_name = ""
+		print_debug("Unknown file_name extension in get_csv_properties_by_file_path(): ", file_path)
+		file_name = ""
 
-	if scene_name_to_id_map.has(scene_name):
-		var id: int = scene_name_to_id_map[scene_name]
+	if file_name_to_id_map.has(file_name):
+		var id: int = file_name_to_id_map[file_name]
 
 		return properties_dict[id]
 	else:
-		print_debug("Failed to find scene_name:", scene_name, ". Check for typos in .csv file.")
+		print_debug("Failed to find file_name:", file_name, ". Check for typos in .csv file.")
 
 		return {}
 
