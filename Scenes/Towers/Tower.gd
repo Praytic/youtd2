@@ -2,9 +2,7 @@ class_name Tower
 extends Building
 
 
-enum TowerProperty {
-#	Properties below should be defined in the .csv file and
-# 	the integer values must match the columns in csv file.
+enum CsvProperty {
 	SCENE_NAME = 0,
 	NAME = 1,
 	ID = 2,
@@ -22,8 +20,13 @@ enum TowerProperty {
 	TIER = 14,
 	REQUIRED_ELEMENT_LEVEL = 15,
 	REQUIRED_WAVE_LEVEL = 16,
+}
 
-	CSV_COLUMN_COUNT = 17,
+enum TowerProperty {
+	ATTACK_RANGE,
+	ATTACK_CD,
+	ATTACK_DAMAGE_MIN,
+	ATTACK_DAMAGE_MAX,
 
 #	These properties shouldn't be defined directly. Use a
 #	Modifier.
@@ -99,6 +102,14 @@ const _mob_size_to_property_map: Dictionary = {
 	Mob.Size.BOSS: TowerProperty.DMG_TO_BOSS,
 }
 
+const _csv_property_to_tower_property_map: Dictionary = {
+	CsvProperty.ATTACK_RANGE: TowerProperty.ATTACK_RANGE,
+	CsvProperty.ATTACK_CD: TowerProperty.ATTACK_CD,
+	CsvProperty.ATTACK_DAMAGE_MIN: TowerProperty.ATTACK_DAMAGE_MIN,
+	CsvProperty.ATTACK_DAMAGE_MAX: TowerProperty.ATTACK_DAMAGE_MAX,
+}
+
+
 const ATTACK_CD_MIN: float = 0.2
 
 var _target_list: Array = []
@@ -108,16 +119,6 @@ var _target_count_max: int = 1
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _tower_properties: Dictionary = {
-	TowerProperty.ID: 0,
-	TowerProperty.NAME: "unknown",
-	TowerProperty.FAMILY_ID: 0,
-	TowerProperty.AUTHOR: "unknown",
-	TowerProperty.RARITY: "unknown",
-	TowerProperty.ELEMENT: Element.ASTRAL,
-	TowerProperty.ATTACK_TYPE: "unknown",
-	TowerProperty.COST: 0,
-	TowerProperty.DESCRIPTION: "unknown",
-
 	TowerProperty.ATTACK_RANGE: 0.0,
 	TowerProperty.ATTACK_CD: 0.0,
 	TowerProperty.ATTACK_DAMAGE_MIN: 0,
@@ -176,24 +177,11 @@ onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 func _ready():
 	add_child(_aoe_scene.instance(), true)
 
-	
-#	NOTE: Load properties from csv first, then load from
-#	subclass script to add additional values or override csv
-#	values
-	var csv_properties: Dictionary = Properties.get_tower_properties_by_filename(filename)
-
-# NOTE: tower properties may omit keys for convenience, so
-# 	need to iterate over keys in properties to avoid
-# 	triggering "invalid key" error
-
-	# Most properties should be defined in the .csv file.
-	var base_properties: Dictionary = _get_base_properties()
-
-	for property in base_properties.keys():
-		_tower_properties[property] = base_properties[property]
-	
-	for property in csv_properties.keys():
-		_tower_properties[property] = convert_csv_string_to_property_value(csv_properties[property], property)
+# 	Load some default property values from csv
+	for csv_property in _csv_property_to_tower_property_map.keys():
+		var tower_property: int = _csv_property_to_tower_property_map[csv_property]
+		var value: float = get_csv_property(csv_property).to_float()
+		_tower_properties[tower_property] = value
 
 	_apply_properties_to_scene_children()
 
@@ -214,48 +202,30 @@ static func element_enum_to_string(element: int) -> String:
 	return _element_enum_to_string[element]
 
 
-static func convert_csv_string_to_property_value(csv_string: String, property: int):
-	if property > TowerProperty.CSV_COLUMN_COUNT:
-		return csv_string
-
-	match property:
-		TowerProperty.SCENE_NAME: return csv_string
-		TowerProperty.NAME: return csv_string
-		TowerProperty.ID: return csv_string.to_int()
-		TowerProperty.FAMILY_ID: return csv_string.to_int()
-		TowerProperty.AUTHOR: return csv_string
-		TowerProperty.RARITY: return csv_string
-		TowerProperty.ELEMENT: return _element_string_to_enum.get(csv_string, Element.ASTRAL)
-		TowerProperty.ATTACK_TYPE: return csv_string
-		TowerProperty.ATTACK_RANGE: return csv_string.to_float()
-		TowerProperty.ATTACK_CD: return csv_string.to_float()
-		TowerProperty.ATTACK_DAMAGE_MIN : return csv_string.to_float()
-		TowerProperty.ATTACK_DAMAGE_MAX : return csv_string.to_float()
-		TowerProperty.COST : return csv_string.to_int()
-		TowerProperty.DESCRIPTION : return csv_string
-		TowerProperty.TIER : return csv_string.to_int()
-		TowerProperty.REQUIRED_ELEMENT_LEVEL : return csv_string.to_int()
-		TowerProperty.REQUIRED_WAVE_LEVEL : return csv_string.to_int()
-		_:
-			print_debug("Unhandled property in Tower.convert_csv_string_to_property_value(): ", property)
-
-			return csv_string
-
-
 func get_name() -> String:
-	return _tower_properties[TowerProperty.NAME]
+	return get_csv_property(TowerProperty.NAME)
 
 
 func get_id() -> int:
-	return _tower_properties[TowerProperty.ID]
+	return get_csv_property(TowerProperty.ID).to_int()
 
 
 func get_tier() -> int:
-	return _tower_properties[TowerProperty.TIER]
+	return get_csv_property(TowerProperty.TIER).to_int()
 
 
 func get_element() -> int:
-	return _tower_properties[TowerProperty.ELEMENT]
+	var element_string: String = get_csv_property(TowerProperty.ELEMENT)
+	var element: int = Element.get(element_string.to_upper())
+
+	return element
+
+
+func get_csv_property(csv_property: int) -> String:
+	var properties: Dictionary = Properties.get_tower_properties_by_filename(filename)
+	var value: String = properties[csv_property]
+
+	return value
 
 
 func build_init():
