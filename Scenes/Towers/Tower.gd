@@ -196,6 +196,10 @@ func get_element() -> int:
 	return element
 
 
+func get_base_attack_speed() -> float:
+	return get_csv_property(CsvProperty.ATTACK_CD).to_float()
+
+
 func get_csv_property(csv_property: int) -> String:
 	var properties: Dictionary = Properties.get_tower_csv_properties_by_filename(filename)
 	var value: String = properties[csv_property]
