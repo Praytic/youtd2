@@ -5,6 +5,10 @@ signal spawned(mob_name)
 signal progress_changed(progress_string)
 signal wave_ended(wave_index)
 
+const mob_scene_map: Dictionary = {
+	"Mob": preload("res://Scenes/Mobs/Mob.tscn")
+}
+
 var _group_list: Array = []
 var _group_index: int = 0
 var _mob_index: int = 0
@@ -12,7 +16,9 @@ var _mob_spawned_count: int = 0
 var _mob_total_count: int = 0
 
 onready var _timer: Timer = $Timer
-
+onready var item_control = get_tree().current_scene.get_node(@"%ItemControl")
+onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
+onready var mob_path: Node2D = get_node(@"%Map").get_node(@"MobPath1")
 
 func _ready():
 	start(0)
@@ -82,6 +88,10 @@ func _on_Timer_timeout():
 		
 		_mob_spawned_count += 1
 		
+		var mob_scene: Mob = mob_scene_map[mob].instance()
+		mob_scene.set_path(mob_path)
+		mob_ysort.add_child(mob_scene)
+		mob_scene.connect("death", item_control, "_on_Mob_death")
 		emit_signal("spawned", mob)
 	
 	var progress_string: String = "Group: %d/%d; Mob: %d/%d" % [_group_index + 1, _group_list.size(), _mob_spawned_count, _mob_total_count]
