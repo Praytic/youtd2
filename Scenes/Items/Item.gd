@@ -17,6 +17,9 @@ const cell_size = 32
 
 var _carrier: Tower = null
 
+# Call add_modification() on _modifier in subclass to add item effects
+var _modifier: Modifier = Modifier.new()
+
 
 #########################
 ### Code starts here  ###
@@ -31,6 +34,7 @@ func _ready():
 func add_to_tower(tower: Tower):
 	_carrier = tower
 	_carrier.add_child(self)
+	_carrier.add_modifier(_modifier)
 	_add_to_tower_subclass()
 
 
@@ -39,6 +43,7 @@ func remove_from_tower():
 		return
 
 	_remove_from_tower_subclass()
+	_carrier.remove_modifier(_modifier)
 	_carrier.remove_child(self)
 	_carrier = null
 
@@ -46,7 +51,7 @@ func remove_from_tower():
 # 	carrier? queue_free() or reparent to some new node?
 
 
-# Override in subclass to define what effect item adds
+# Override in subclass to define adding of effects from
 # to the carrier
 func _add_to_tower_subclass():
 	pass
