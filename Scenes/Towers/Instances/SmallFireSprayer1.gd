@@ -4,12 +4,12 @@ extends Tower
 
 func _get_tier_stats() -> Dictionary:
 	return {
-		1: {attack_speed = 0.03, miss_chance_add = 0.008},
-		2: {attack_speed = 0.03, miss_chance_add = 0.009},
-		3: {attack_speed = 0.03, miss_chance_add = 0.010},
-		4: {attack_speed = 0.03, miss_chance_add = 0.011},
-		5: {attack_speed = 0.03, miss_chance_add = 0.012},
-		6: {attack_speed = 0.03, miss_chance_add = 0.013},
+		1: {miss_chance_add = 0.008},
+		2: {miss_chance_add = 0.009},
+		3: {miss_chance_add = 0.010},
+		4: {miss_chance_add = 0.011},
+		5: {miss_chance_add = 0.012},
+		6: {miss_chance_add = 0.013},
 	}
 
 
@@ -19,7 +19,7 @@ func _ready():
 	on_damage_buff.apply_to_unit_permanent(self, self, 0, true)
 
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_SPEED, 0, -_stats.attack_speed)
+	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_SPEED, 0, -0.03)
 	add_modifier(specials_modifier)
 
 
