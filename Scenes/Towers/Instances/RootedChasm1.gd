@@ -7,13 +7,13 @@ extends Tower
 # so duration never changes. Leaving it as in original.
 
 
-const _stats_map: Dictionary = {
-	1: {entangle_duration = 1.50, base_entangle_dps = 120},
-	2: {entangle_duration = 2.25, base_entangle_dps = 660},
-	3: {entangle_duration = 3.00, base_entangle_dps = 1800},
-	4: {entangle_duration = 3.75, base_entangle_dps = 4300},
-}
-var _stats: Dictionary
+func _get_tier_stats() -> Dictionary:
+	return {
+		1: {entangle_duration = 1.50, base_entangle_dps = 120},
+		2: {entangle_duration = 2.25, base_entangle_dps = 660},
+		3: {entangle_duration = 3.00, base_entangle_dps = 1800},
+		4: {entangle_duration = 3.75, base_entangle_dps = 4300},
+	}
 
 
 const on_damage_chance: float = 0.125
@@ -21,9 +21,6 @@ const on_damage_chance_add: float = 0.002
 
 
 func _ready():
-	var tier: int = get_tier()
-	_stats = _stats_map[tier]
-
 	var triggers_buff: Buff = Buff.new("")
 	triggers_buff.add_event_handler(Buff.EventType.CREATE, self, "_on_create")
 	triggers_buff.add_event_handler(Buff.EventType.DAMAGE, self, "_on_damage")

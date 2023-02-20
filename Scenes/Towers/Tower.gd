@@ -112,6 +112,7 @@ const _csv_property_to_tower_property_map: Dictionary = {
 
 const ATTACK_CD_MIN: float = 0.2
 
+var _stats: Dictionary
 var _target_list: Array = []
 # NOTE: if your tower needs to attack more than 1 target,
 # set this var once in _ready() method of subclass
@@ -164,6 +165,12 @@ func _ready():
 		_tower_properties[tower_property] = value
 
 	_apply_properties_to_scene_children()
+
+# 	Load stats for current tier. Stats are defined in
+# 	subclass.
+	var tier: int = get_tier()
+	var tier_stats: Dictionary = _get_tier_stats()
+	_stats = tier_stats[tier]
 
 	$AreaOfEffect.hide()
 
@@ -243,6 +250,18 @@ func change_level(new_level: int):
 # 	NOTE: properties could've change due to level up so
 # 	re-apply them
 	_apply_properties_to_scene_children()
+
+
+# Override this in subclass to define custom stats for each
+# tower tier. Access as _stats.
+func _get_tier_stats() -> Dictionary:
+	var tier: int = get_tier()
+	var default_out: Dictionary
+
+	for i in range(1, tier + 1):
+		default_out[i] = {}
+
+	return default_out
 
 
 func _add_target(new_target: Mob):
