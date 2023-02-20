@@ -48,10 +48,12 @@ animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
 "loop": false,
 "name": "default",
-"speed": 60.0
+"speed": 20.0
 } ]
 
 [node name="AnimatedSprite" type="AnimatedSprite"]
+modulate = Color( 0.0784314, 0.121569, 0.584314, 1 )
+scale = Vector2( 10, 6 )
 frames = SubResource( 1 )
 script = ExtResource( 4 )
 

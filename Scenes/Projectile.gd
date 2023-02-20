@@ -9,6 +9,8 @@ signal reached_mob(mob)
 var _target_mob: Mob = null
 const SPEED: int = 1000
 const CONTACT_DISTANCE: int = 30
+var _explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
+onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 
 
 func init(target_mob: Mob, tower_position: Vector2):
@@ -35,4 +37,9 @@ func _process(delta):
 
 	if reached_mob:
 		emit_signal("reached_mob", _target_mob)
+
+		var explosion = _explosion_scene.instance()
+		explosion.position = global_position
+		_game_scene.call_deferred("add_child", explosion)
+
 		queue_free()
