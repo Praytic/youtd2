@@ -7,9 +7,9 @@
 radius = 33.0151
 
 [node name="Projectile" type="KinematicBody2D"]
+scale = Vector2( 2, 1.7 )
 z_index = 100
 script = ExtResource( 2 )
-speed = 1000
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
