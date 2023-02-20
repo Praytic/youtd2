@@ -3,22 +3,20 @@ extends Tower
 # TODO: implement visual
 
 
-const _stats_map: Dictionary = {
-	1: {splash_125_damage = 0.45, splash_225_damage = 0.15, armor_decrease = 2},
-	2: {splash_125_damage = 0.45, splash_225_damage = 0.20, armor_decrease = 3},
-	3: {splash_125_damage = 0.50, splash_225_damage = 0.25, armor_decrease = 5},
-	4: {splash_125_damage = 0.50, splash_225_damage = 0.30, armor_decrease = 7},
-	5: {splash_125_damage = 0.55, splash_225_damage = 0.35, armor_decrease = 10},
-}
+func _get_tier_stats() -> Dictionary:
+	return {
+		1: {splash_125_damage = 0.45, splash_225_damage = 0.15, armor_decrease = 2},
+		2: {splash_125_damage = 0.45, splash_225_damage = 0.20, armor_decrease = 3},
+		3: {splash_125_damage = 0.50, splash_225_damage = 0.25, armor_decrease = 5},
+		4: {splash_125_damage = 0.50, splash_225_damage = 0.30, armor_decrease = 7},
+		5: {splash_125_damage = 0.55, splash_225_damage = 0.35, armor_decrease = 10},
+	}
 
 
 func _ready():
-	var tier: int = get_tier()
-	var stats = _stats_map[tier]
-
 	var splash_map: Dictionary = {
-		125: stats.splash_125_damage,
-		225: stats.splash_225_damage,
+		125: _stats.splash_125_damage,
+		225: _stats.splash_225_damage,
 	}
 	var splash_attack_buff = SplashAttack.new(splash_map)
 	splash_attack_buff.apply_to_unit_permanent(self, self, 0, true)
@@ -34,8 +32,6 @@ func _ready():
 
 func _on_damage(event: Event):
 	var tower = self
-	var tier: int = get_tier()
-	var stats = _stats_map[tier]
 
 	var armor: Modifier = Modifier.new()
 	armor.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
@@ -52,4 +48,4 @@ func _on_damage(event: Event):
 		size_factor = 2.0
 
 	if tower.calc_chance((0.05 + lvl * 0.006) * size_factor):
-		cassim_armor.apply_to_unit(tower, creep, stats.armor_decrease, 5 + lvl * 0.25, 0, false)
+		cassim_armor.apply_to_unit(tower, creep, _stats.armor_decrease, 5 + lvl * 0.25, 0, false)
