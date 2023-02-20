@@ -42,6 +42,7 @@ var _path_curve: Curve2D
 var _current_path_index: int = 0
 var _size: int = Size.NORMAL
 var _type: int = Type.HUMANOID
+var movement_enabled: bool = true 
 var _mob_properties: Dictionary = {
 	MobProperty.ARMOR: 0.0,
 	MobProperty.EXP_GRANTED: 0.0,
@@ -55,6 +56,9 @@ func _ready():
 
 
 func _process(delta):
+	if !movement_enabled:
+		return
+
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
 	position = position.move_toward(path_point, get_move_speed() * delta)
 	emit_signal("moved", delta)
