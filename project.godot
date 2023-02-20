@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Towers/Building.gd"
 }, {
+"base": "Buff",
+"class": "CbStun",
+"language": "GDScript",
+"path": "res://Scenes/Buffs/CbStun.gd"
+}, {
 "base": "Node",
 "class": "Event",
 "language": "GDScript",
@@ -100,6 +105,7 @@ _global_script_class_icons={
 "Buff": "",
 "BuffRangeArea": "",
 "Building": "",
+"CbStun": "",
 "Event": "",
 "Item": "",
 "Mob": "",
