@@ -256,7 +256,7 @@ func change_level(new_level: int):
 # tower tier. Access as _stats.
 func _get_tier_stats() -> Dictionary:
 	var tier: int = get_tier()
-	var default_out: Dictionary
+	var default_out: Dictionary = {}
 
 	for i in range(1, tier + 1):
 		default_out[i] = {}
