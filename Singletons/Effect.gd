@@ -63,6 +63,11 @@ func destroy_effect(effect_id: int):
 	effect.connect("animation_finished", self, "_on_effect_animation_finished", [effect])
 
 
+# TODO: implement, no idea what this is supposed to do
+func no_death_animation(effect_id: int):
+	pass
+
+
 func _make_effect_id() -> int:
 	if !_free_id_list.empty():
 		var id: int = _free_id_list.pop_back()
