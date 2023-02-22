@@ -1,7 +1,7 @@
 extends Node
 
 
-const placeholder_effect_path: String = "res://Scenes/Effects/GenericMagic.tscn"
+const _placeholder_effect_path: String = "res://Scenes/Effects/GenericMagic.tscn"
 
 # NOTE: Enable to check if any effects do not have scenes.
 # Disabling for now because at this point most effects won't
@@ -12,9 +12,9 @@ const PRINT_INVALID_PATH_ERROR: bool = false
 # 
 # NOTE: this is for compatibility with original tower script
 # API
-var id_max: int = 0
+var _id_max: int = 0
 var _effect_map: Dictionary = {}
-var free_id_list: Array = []
+var _free_id_list: Array = []
 
 onready var _effects_container: Node = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("EffectsContainer")
 
@@ -29,7 +29,7 @@ func create_animated(effect_path: String, x: float, y: float, _mystery1: float, 
 	var effect_path_exists: bool = directory.file_exists(effect_path)
 
 	if !effect_path_exists:
-		effect_path = placeholder_effect_path
+		effect_path = _placeholder_effect_path
 
 		if PRINT_INVALID_PATH_ERROR:
 			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
@@ -40,7 +40,7 @@ func create_animated(effect_path: String, x: float, y: float, _mystery1: float, 
 
 	effect_scene.play()
 
-	var id: int = make_effect_id()
+	var id: int = _make_effect_id()
 
 	_effect_map[id] = effect_scene
 
@@ -63,14 +63,14 @@ func destroy_effect(effect_id: int):
 	effect.connect("animation_finished", self, "_on_effect_animation_finished", [effect])
 
 
-func make_effect_id() -> int:
-	if !free_id_list.empty():
-		var id: int = free_id_list.pop_back()
+func _make_effect_id() -> int:
+	if !_free_id_list.empty():
+		var id: int = _free_id_list.pop_back()
 
 		return id
 	else:
-		var id: int = id_max
-		id_max += 1
+		var id: int = _id_max
+		_id_max += 1
 
 		return id
 
