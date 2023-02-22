@@ -60,7 +60,7 @@ func destroy_effect(effect_id: int):
 # 	NOTE: destroy effect after animation is finished so that
 # 	this function can be used to create an effect that is
 # 	destroyed after it's done animating
-	effect.connect("animation_finished", self, "_on_effect_animation_finished", [effect])
+	effect.connect("animation_finished", self, "_on_effect_animation_finished", [effect, effect_id])
 
 
 # TODO: implement, no idea what this is supposed to do
@@ -80,5 +80,8 @@ func _make_effect_id() -> int:
 		return id
 
 
-func _on_effect_animation_finished(effect):
+func _on_effect_animation_finished(effect, effect_id: int):
+	_effect_map.erase(effect)
 	effect.queue_free()
+
+	_free_id_list.append(effect_id)
