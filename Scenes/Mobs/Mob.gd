@@ -48,7 +48,10 @@ var _mob_properties: Dictionary = {
 	MobProperty.EXP_GRANTED: 0.0,
 }
 
-onready var _sprite = $Sprite
+
+onready var _visual = $Visual
+onready var _sprite = $Visual/Sprite
+onready var _health_bar = $Visual/HealthBar
 
 
 func _ready():
@@ -87,13 +90,20 @@ func get_type() -> int:
 	return _type
 
 
+# NOTE: use this instead of regular Node2D.position for
+# anything involving visual effects, so projectiles and spell
+# effects.
+func get_visual_position() -> Vector2:
+	return _visual.global_position
+
+
 func set_path(path: Path2D):
 	_path_curve = path.curve
 	position = _path_curve.get_point_position(0)
 
 
 func on_damaged(_event: Event):
-	$HealthBar.set_as_ratio(_health / MOB_HEALTH_MAX)
+	_health_bar.set_as_ratio(_health / MOB_HEALTH_MAX)
 
 
 func _get_mob_animation() -> String:
