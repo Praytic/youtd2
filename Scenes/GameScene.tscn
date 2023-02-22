@@ -31,6 +31,9 @@ curve = SubResource( 1 )
 [node name="MobYSort" type="YSort" parent="Map"]
 z_index = 5
 
+[node name="EffectsContainer" type="Node2D" parent="Map"]
+z_index = 6
+
 [node name="MobExit" type="Area2D" parent="Map"]
 position = Vector2( 356, -524 )
 scale = Vector2( 0.845244, 0.890764 )
