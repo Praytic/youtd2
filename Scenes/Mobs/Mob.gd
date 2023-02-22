@@ -135,7 +135,7 @@ func adjust_height(height: float, speed: float):
 	_height_tween.stop_all()
 	_height_tween.remove_all()
 
-	var duration: float = height / speed
+	var duration: float = abs(height / speed)
 
 	_height_tween.interpolate_property(_visual, "position",
 		_visual.position,
