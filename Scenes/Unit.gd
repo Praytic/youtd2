@@ -108,6 +108,23 @@ func do_spell_damage(target: Unit, damage: float, _crit_mod: float, is_main_targ
 	target._receive_damage(self, damage, is_main_target)
 
 
+# TODO: finish implementation. Need to implement crit, find
+# out what myster float does. Also implement the difference
+# between spell/attack damage
+func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, _crit: float, _mystery_float: float):
+	var mob_list: Array = Utils.get_mob_list_in_range(target.position, radius)
+
+	for mob in mob_list:
+		mob._receive_damage(self, damage, false)
+
+
+func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, _crit: float, _mystery_float: float):
+	var mob_list: Array = Utils.get_mob_list_in_range(target.position, radius)
+
+	for mob in mob_list:
+		mob._receive_damage(self, damage, false)
+
+
 # Adds modifier directly to unit. Modifier will
 # automatically scale with this unit's level. If you need to
 # make a modifier that scales with another unit's level, use
