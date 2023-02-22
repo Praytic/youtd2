@@ -3,7 +3,7 @@ extends Buff
 
 var stun_effect: int
 
-func _init().("cb_stun"):
+func _init(type).(type):
 	add_event_handler(Buff.EventType.CREATE, self, "_on_create")
 	add_event_handler(Buff.EventType.CLEANUP, self, "_on_cleanup")
 
