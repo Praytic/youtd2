@@ -39,6 +39,7 @@ enum TowerProperty {
 	DMG_TO_NORMAL,
 	DMG_TO_CHAMPION,
 	DMG_TO_BOSS,
+	DMG_TO_AIR,
 
 	DMG_TO_UNDEAD,
 	DMG_TO_MAGIC,
@@ -72,6 +73,7 @@ const _tower_mod_to_property_map: Dictionary = {
 	Modification.Type.MOD_DMG_TO_NORMAL: TowerProperty.DMG_TO_NORMAL, 
 	Modification.Type.MOD_DMG_TO_CHAMPION: TowerProperty.DMG_TO_CHAMPION, 
 	Modification.Type.MOD_DMG_TO_BOSS: TowerProperty.DMG_TO_BOSS, 
+	Modification.Type.MOD_DMG_TO_AIR: TowerProperty.DMG_TO_AIR, 
 
 	Modification.Type.MOD_DMG_TO_UNDEAD: TowerProperty.DMG_TO_UNDEAD, 
 	Modification.Type.MOD_DMG_TO_MAGIC: TowerProperty.DMG_TO_MAGIC, 
@@ -100,6 +102,7 @@ const _mob_size_to_property_map: Dictionary = {
 	Mob.Size.NORMAL: TowerProperty.DMG_TO_NORMAL,
 	Mob.Size.CHAMPION: TowerProperty.DMG_TO_CHAMPION,
 	Mob.Size.BOSS: TowerProperty.DMG_TO_BOSS,
+	Mob.Size.AIR: TowerProperty.DMG_TO_AIR,
 }
 
 const _csv_property_to_tower_property_map: Dictionary = {
@@ -135,6 +138,7 @@ var _tower_properties: Dictionary = {
 	TowerProperty.DMG_TO_NORMAL: 0.0,
 	TowerProperty.DMG_TO_CHAMPION: 0.0,
 	TowerProperty.DMG_TO_BOSS: 0.0,
+	TowerProperty.DMG_TO_AIR: 0.0,
 
 	TowerProperty.DMG_TO_UNDEAD: 0.0,
 	TowerProperty.DMG_TO_MAGIC: 0.0,
