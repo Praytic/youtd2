@@ -28,7 +28,7 @@ func _process(delta):
 		return
 	
 #	Move towards mob
-	var target_pos = _target_mob.position
+	var target_pos = _target_mob.get_visual_position()
 	var pos_diff = target_pos - position
 	var move_vector = SPEED * pos_diff.normalized() * delta
 	position += move_vector
