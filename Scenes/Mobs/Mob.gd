@@ -52,6 +52,7 @@ var _mob_properties: Dictionary = {
 onready var _visual = $Visual
 onready var _sprite = $Visual/Sprite
 onready var _health_bar = $Visual/HealthBar
+onready var _height_tween = $HeightTween
 
 
 func _ready():
@@ -104,6 +105,21 @@ func set_path(path: Path2D):
 
 func on_damaged(_event: Event):
 	_health_bar.set_as_ratio(_health / MOB_HEALTH_MAX)
+
+
+func adjust_height(height: float, speed: float):
+#	NOTE: stop and clear tween in case it's already running
+	_height_tween.stop_all()
+	_height_tween.remove_all()
+
+	var duration: float = height / speed
+
+	_height_tween.interpolate_property(_visual, "position",
+		_visual.position,
+		Vector2(_visual.position.x, _visual.position.y - height),
+		duration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+
+	_height_tween.start()
 
 
 func _get_mob_animation() -> String:
