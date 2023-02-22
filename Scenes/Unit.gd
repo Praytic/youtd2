@@ -95,6 +95,11 @@ func calc_spell_crit_no_bonus() -> float:
 	return 0.0
 
 
+# TODO: implement
+func calc_attack_multicrit(_mystery1: float, _mystery2: float, _mystery3: float) -> float:
+	return 0.0
+
+
 # TODO: implement _crit_mod.
 # 
 # TODO: is it safe to call _receive_damage()? That f-n
