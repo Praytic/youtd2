@@ -35,7 +35,11 @@ const MOVE_SPEED_MIN: float = 100.0
 const MOVE_SPEED_MAX: float = 500.0
 
 var user_int: int = 0
+var user_int2: int = 0
+var user_int3: int = 0
 var user_real: float = 0.0
+var user_real2: float = 0.0
+var user_real3: float = 0.0
 
 var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
