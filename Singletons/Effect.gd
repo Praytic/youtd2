@@ -64,7 +64,7 @@ func destroy_effect(effect_id: int):
 
 
 # TODO: implement, no idea what this is supposed to do
-func no_death_animation(effect_id: int):
+func no_death_animation(_effect_id: int):
 	pass
 
 
