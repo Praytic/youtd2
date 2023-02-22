@@ -159,6 +159,10 @@ onready var _targeting_area: Area2D = $TargetingArea
 onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 
 
+#########################
+### Code starts here  ###
+#########################
+
 func _ready():
 	add_child(_aoe_scene.instance(), true)
 
@@ -188,46 +192,9 @@ func _ready():
 	add_child(_attack_sound)
 
 
-func get_name() -> String:
-	return get_csv_property(CsvProperty.NAME)
-
-
-func get_id() -> int:
-	return get_csv_property(CsvProperty.ID).to_int()
-
-
-func get_tier() -> int:
-	return get_csv_property(CsvProperty.TIER).to_int()
-
-
-func get_element() -> int:
-	var element_string: String = get_csv_property(CsvProperty.ELEMENT)
-	var element: int = Element.get(element_string.to_upper())
-
-	return element
-
-
-func get_base_attack_speed() -> float:
-	return get_csv_property(CsvProperty.ATTACK_CD).to_float()
-
-
-# TODO: implement
-func get_exp() -> float:
-	return 0.0
-
-
-# TODO: implement
-func remove_exp_flat(_amount: float):
-	pass
-
-
-# TODO: i think this is supposed to return the player that
-# owns the tower? Implement later. For now implementing
-# owner's function in tower itself and returning tower from
-# get_owner()
-func get_owner():
-	return self
-
+#########################
+###       Public      ###
+#########################
 
 # TODO: implement. Also move to the "owner" class that is
 # returned by get_owner(), when owner gets implemented. Find
@@ -235,18 +202,9 @@ func get_owner():
 func give_gold(_amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
 	pass
 
-
-func get_csv_property(csv_property: int) -> String:
-	var properties: Dictionary = Properties.get_tower_csv_properties_by_file_path(filename)
-	var value: String = properties[csv_property]
-
-	return value
-
-
 func build_init():
 	.build_init()
 	$AreaOfEffect.show()
-
 
 func change_level(new_level: int):
 	set_level(new_level)
@@ -254,6 +212,10 @@ func change_level(new_level: int):
 # 	NOTE: properties could've change due to level up so
 # 	re-apply them
 	_apply_properties_to_scene_children()
+
+#########################
+###      Private      ###
+#########################
 
 
 # Override this in subclass to define custom stats for each
@@ -281,41 +243,8 @@ func _remove_target(target: Mob):
 	_target_list.erase(target)
 
 
-func _on_target_death(_event: Event, target: Mob):
-	_remove_target(target)
-
-
-func _on_AttackCooldownTimer_timeout():
-	if _have_target_space():
-		var new_target: Mob = _find_new_target()
-		_add_target(new_target)
-		
-	_try_to_attack()
-
-
 func _have_target_space() -> bool:
 	return _target_list.size() < _target_count_max
-
-
-func _on_TargetingArea_body_entered(body):
-	if !body is Mob:
-		return
-
-	if _have_target_space():
-		var new_target: Mob = body as Mob
-		_add_target(new_target)
-		_try_to_attack()
-
-
-func _on_TargetingArea_body_exited(body):
-	var target_went_out_of_range: bool = _target_list.has(body)
-
-	if target_went_out_of_range:
-		var new_target: Mob = _find_new_target()
-		var old_target: Mob = body as Mob
-		_remove_target(old_target)
-		_add_target(new_target)
-		_try_to_attack()
 
 
 # Find a target that is currently in range
@@ -370,19 +299,6 @@ func _select():
 
 func _unselect():
 	._unselect()
-
-
-func _on_projectile_reached_mob(mob: Mob):
-	var attack_miss_chance: float = _tower_properties[TowerProperty.ATTACK_MISS_CHANCE]
-	var is_miss: bool = Utils.rand_chance(attack_miss_chance)
-
-	if is_miss:
-		return
-
-	var damage_base: float = _get_rand_damage_base()
-	var damage: float = _get_damage_to_mob(mob, damage_base)
-	
-	._do_damage(mob, damage, true)
 
 
 func _apply_properties_to_scene_children():
@@ -469,3 +385,112 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 		damage *= max(0.0, (1.0 + damage_mod))
 
 	return damage
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_target_death(_event: Event, target: Mob):
+	_remove_target(target)
+
+
+func _on_AttackCooldownTimer_timeout():
+	if _have_target_space():
+		var new_target: Mob = _find_new_target()
+		_add_target(new_target)
+		
+	_try_to_attack()
+
+
+func _on_projectile_reached_mob(mob: Mob):
+	var attack_miss_chance: float = _tower_properties[TowerProperty.ATTACK_MISS_CHANCE]
+	var is_miss: bool = Utils.rand_chance(attack_miss_chance)
+
+	if is_miss:
+		return
+
+	var damage_base: float = _get_rand_damage_base()
+	var damage: float = _get_damage_to_mob(mob, damage_base)
+	
+	._do_damage(mob, damage, true)
+
+
+func _on_TargetingArea_body_entered(body):
+	if !body is Mob:
+		return
+
+	if _have_target_space():
+		var new_target: Mob = body as Mob
+		_add_target(new_target)
+		_try_to_attack()
+
+
+func _on_TargetingArea_body_exited(body):
+	var target_went_out_of_range: bool = _target_list.has(body)
+
+	if target_went_out_of_range:
+		var new_target: Mob = _find_new_target()
+		var old_target: Mob = body as Mob
+		_remove_target(old_target)
+		_add_target(new_target)
+		_try_to_attack()
+
+
+#########################
+### Setters / Getters ###
+#########################
+
+func get_name() -> String:
+	return get_csv_property(CsvProperty.NAME)
+
+
+func get_id() -> int:
+	return get_csv_property(CsvProperty.ID).to_int()
+
+
+func get_tier() -> int:
+	return get_csv_property(CsvProperty.TIER).to_int()
+
+
+func get_element() -> int:
+	var element_string: String = get_csv_property(CsvProperty.ELEMENT)
+	var element: int = Element.get(element_string.to_upper())
+
+	return element
+
+
+func get_base_cooldown() -> float:
+	return get_csv_property(CsvProperty.ATTACK_CD).to_float()
+
+
+# TODO: implement
+func get_exp() -> float:
+	return 0.0
+
+
+# TODO: implement
+func remove_exp_flat(_amount: float):
+	pass
+
+
+# TODO: i think this is supposed to return the player that
+# owns the tower? Implement later. For now implementing
+# owner's function in tower itself and returning tower from
+# get_owner()
+func get_owner():
+	return self
+
+
+func get_csv_property(csv_property: int) -> String:
+	var properties: Dictionary = Properties.get_tower_csv_properties_by_file_path(filename)
+	var value: String = properties[csv_property]
+
+	return value
+
+func get_damage_min():
+	return get_csv_property(CsvProperty.ATTACK_DAMAGE_MIN).to_int()
+
+
+func get_damage_max():
+	return get_csv_property(CsvProperty.ATTACK_DAMAGE_MAX).to_int()

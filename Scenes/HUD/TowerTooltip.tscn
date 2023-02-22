@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/HUD/TowerTooltip.gd" type="Script" id=2]
-[ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture" id=3]
 
-[node name="TowerTooltip" type="Control"]
+[node name="InfoPanel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
@@ -13,105 +12,1252 @@ script = ExtResource( 2 )
 [node name="VBoxContainer" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 1.0
+margin_bottom = 475.0
 theme_type_variation = "TooltipPanel"
 
-[node name="ColorRect" type="TextureRect" parent="VBoxContainer"]
-visible = false
-modulate = Color( 0.00392157, 0, 0.443137, 0.360784 )
-self_modulate = Color( 0.192157, 0.192157, 0.207843, 1 )
+[node name="MarginContainer" type="CenterContainer" parent="VBoxContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1911.0
+margin_bottom = 1545.0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+margin_left = 90.0
+margin_top = 65.0
+margin_right = 1811.0
+margin_bottom = 1470.0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+margin_right = 558.0
+margin_bottom = 1405.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 1900.0
-margin_bottom = 1060.0
-texture = ExtResource( 3 )
-expand = true
-stretch_mode = 2
+margin_right = 538.0
+margin_bottom = 1385.0
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_left = 100.0
-margin_top = 50.0
-margin_right = 1820.0
-margin_bottom = 980.0
-
-[node name="Container" type="GridContainer" parent="VBoxContainer/MarginContainer"]
-margin_right = 1720.0
-margin_bottom = 930.0
-custom_constants/vseparation = 20
-custom_constants/hseparation = 20
-columns = 6
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_right = 177.0
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_right = 518.0
 margin_bottom = 49.0
-text = "asdsadsad"
+size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 197.0
-margin_right = 305.0
+[node name="Attack" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
+modulate = Color( 1, 0.32549, 0.32549, 1 )
+margin_right = 518.0
 margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Attack:"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 53.0
+margin_right = 518.0
+margin_bottom = 397.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="AttackContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+margin_right = 518.0
+margin_bottom = 314.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label5" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+margin_right = 275.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Base damage"
+
+[node name="BaseDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+unique_name_in_owner = true
+margin_left = 375.0
+margin_right = 518.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "4,522"
+align = 2
+
+[node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+margin_top = 53.0
+margin_right = 275.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Base bonus"
+
+[node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+margin_left = 375.0
+margin_top = 53.0
+margin_right = 518.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "0"
+align = 2
+
+[node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+margin_top = 106.0
+margin_right = 275.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Base bonus %"
+
+[node name="Label18" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 375.0
+margin_top = 106.0
+margin_right = 518.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "+717%"
+align = 2
+
+[node name="Label23" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+margin_top = 159.0
+margin_right = 275.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "Damage add"
+
+[node name="Label24" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 375.0
+margin_top = 159.0
+margin_right = 518.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "38,881"
+align = 2
+
+[node name="Label29" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+margin_top = 212.0
+margin_right = 275.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "Damage add %"
+
+[node name="Label30" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 375.0
+margin_top = 212.0
+margin_right = 518.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "+423%"
+align = 2
+
+[node name="Label34" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+margin_top = 265.0
+margin_right = 275.0
+margin_bottom = 314.0
+rect_pivot_offset = Vector2( -216, 603 )
+size_flags_horizontal = 3
+text = "Overall damage"
+
+[node name="Label35" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 375.0
+margin_top = 265.0
+margin_right = 518.0
+margin_bottom = 314.0
+size_flags_horizontal = 3
+text = "396,416"
+align = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 401.0
+margin_right = 518.0
+margin_bottom = 586.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3"]
+margin_right = 518.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label38" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
+margin_right = 306.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Base cooldown"
+
+[node name="BaseCooldown" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
+unique_name_in_owner = true
+margin_left = 406.0
+margin_right = 518.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "160"
+align = 2
+
+[node name="Label44" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
+margin_top = 53.0
+margin_right = 306.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Attackspeed"
+
+[node name="Attackspeed" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
+unique_name_in_owner = true
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 406.0
+margin_top = 53.0
+margin_right = 518.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "493%"
+align = 2
+
+[node name="Label50" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
+margin_top = 106.0
+margin_right = 306.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Overall cooldown"
+
+[node name="OverallCooldown" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
+unique_name_in_owner = true
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 406.0
+margin_top = 106.0
+margin_right = 518.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "0.33"
+align = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 590.0
+margin_right = 518.0
+margin_bottom = 669.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer5"]
+margin_right = 518.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+columns = 2
+
+[node name="Label62" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer"]
+margin_right = 257.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Overall DPS"
+
+[node name="Label63" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer"]
+margin_left = 261.0
+margin_right = 518.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "122M"
+align = 2
+
+[node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 673.0
+margin_right = 518.0
+margin_bottom = 858.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6"]
+margin_right = 518.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label68" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
+margin_right = 253.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Crit chance"
+
+[node name="Label69" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 353.0
+margin_right = 518.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "106.6%"
+align = 2
+
+[node name="Label74" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
+margin_top = 53.0
+margin_right = 253.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Crit damage"
+
+[node name="Label75" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 353.0
+margin_top = 53.0
+margin_right = 518.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "x7.30"
+align = 2
+
+[node name="Label80" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
+margin_top = 106.0
+margin_right = 253.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Multicrit count"
+
+[node name="Label81" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 353.0
+margin_top = 106.0
+margin_right = 518.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "10"
+align = 2
+
+[node name="MarginContainer7" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 862.0
+margin_right = 518.0
+margin_bottom = 941.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7"]
+margin_right = 518.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label68" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer"]
+margin_right = 221.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "DPS with crit"
+
+[node name="Label69" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 321.0
+margin_right = 518.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "18.67M"
+align = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 945.0
+margin_right = 518.0
+margin_bottom = 994.0
+size_flags_horizontal = 3
+
+[node name="Attack" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer4"]
+modulate = Color( 0.145098, 0.831373, 1, 1 )
+margin_right = 518.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Spells:"
+
+[node name="MarginContainer8" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 998.0
+margin_right = 518.0
+margin_bottom = 1183.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="AttackContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8"]
+margin_right = 518.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label5" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
+margin_right = 235.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Spell damage"
+
+[node name="Label6" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 335.0
+margin_right = 518.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "651%"
+align = 2
+
+[node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
+margin_top = 53.0
+margin_right = 235.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Crit chance"
+
+[node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 335.0
+margin_top = 53.0
+margin_right = 518.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "114.0%"
+align = 2
+
+[node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
+margin_top = 106.0
+margin_right = 235.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Crit damage"
+
+[node name="Label18" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 335.0
+margin_top = 106.0
+margin_right = 518.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "x10.63"
+align = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+margin_left = 562.0
+margin_right = 1199.0
+margin_bottom = 1405.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 617.0
+margin_bottom = 1385.0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
+margin_right = 597.0
+margin_bottom = 49.0
+
+[node name="Veteran" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_right = 597.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Veteran:"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
+margin_top = 53.0
+margin_right = 597.0
+margin_bottom = 344.0
+custom_constants/margin_bottom = 30
+
+[node name="VeteranContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2"]
+margin_right = 597.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label7" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+margin_right = 340.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Damage"
+
+[node name="Label8" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+margin_left = 440.0
+margin_right = 597.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "12.19G"
+align = 2
+
+[node name="Label13" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+margin_top = 53.0
+margin_right = 340.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Best Hit"
+
+[node name="Label14" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+margin_left = 440.0
+margin_top = 53.0
+margin_right = 597.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "292.87M"
+align = 2
+
+[node name="Label19" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+margin_top = 106.0
+margin_right = 340.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Kills"
+
+[node name="Label20" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+margin_left = 440.0
+margin_top = 106.0
+margin_right = 597.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "1957"
+align = 2
+
+[node name="Label25" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+margin_top = 159.0
+margin_right = 340.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "Experience"
+
+[node name="Label26" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+margin_left = 440.0
+margin_top = 159.0
+margin_right = 597.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "9136"
+align = 2
+
+[node name="Label31" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+margin_top = 212.0
+margin_right = 340.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "Max Level reached!"
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
+margin_top = 348.0
+margin_right = 597.0
+margin_bottom = 397.0
+
+[node name="Mana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer3"]
+modulate = Color( 0.423529, 0.458824, 1, 1 )
+margin_right = 597.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Mana:"
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
+margin_top = 401.0
+margin_right = 597.0
+margin_bottom = 851.0
+custom_constants/margin_bottom = 30
+
+[node name="ManaContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4"]
+margin_right = 597.0
+margin_bottom = 420.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label40" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_right = 298.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Base mana"
+
+[node name="Label41" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_left = 398.0
+margin_right = 597.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "0"
+align = 2
+
+[node name="Label46" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_top = 53.0
+margin_right = 298.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Bonus"
+
+[node name="Label47" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_left = 398.0
+margin_top = 53.0
+margin_right = 597.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "0"
+align = 2
+
+[node name="Label52" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_top = 106.0
+margin_right = 298.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Percent bonus"
+
+[node name="Label53" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 398.0
+margin_top = 106.0
+margin_right = 597.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "+32%"
+align = 2
+
+[node name="Label58" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_top = 159.0
+margin_right = 298.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "Overall mana"
+
+[node name="Label59" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_left = 398.0
+margin_top = 159.0
+margin_right = 597.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "0"
+align = 2
+
+[node name="Label66" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_top = 212.0
+margin_right = 298.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "Base mana regen"
+
+[node name="Label67" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_left = 398.0
+margin_top = 212.0
+margin_right = 597.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "0.0"
+align = 2
+
+[node name="Label70" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_top = 265.0
+margin_right = 298.0
+margin_bottom = 314.0
+size_flags_horizontal = 3
+text = "Bonus regen"
+
+[node name="Label71" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_left = 398.0
+margin_top = 265.0
+margin_right = 597.0
+margin_bottom = 314.0
+size_flags_horizontal = 3
+text = "0.0"
+align = 2
+
+[node name="Label76" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_top = 318.0
+margin_right = 298.0
+margin_bottom = 367.0
+size_flags_horizontal = 3
+text = "Percent bonus"
+
+[node name="Label77" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+modulate = Color( 1, 0.32549, 0.32549, 1 )
+margin_left = 398.0
+margin_top = 318.0
+margin_right = 597.0
+margin_bottom = 367.0
+size_flags_horizontal = 3
+text = "-27%"
+align = 2
+
+[node name="Label78" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_top = 371.0
+margin_right = 298.0
+margin_bottom = 420.0
+size_flags_horizontal = 3
+text = "Overall mana reg"
+
+[node name="Label79" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+margin_left = 398.0
+margin_top = 371.0
+margin_right = 597.0
+margin_bottom = 420.0
+size_flags_horizontal = 3
+text = "0.0"
+align = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
+margin_top = 855.0
+margin_right = 597.0
+margin_bottom = 904.0
+
+[node name="Mana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer5"]
+modulate = Color( 1, 0.733333, 0.129412, 1 )
+margin_right = 597.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Misc:"
+
+[node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
+margin_top = 908.0
+margin_right = 597.0
+margin_bottom = 1275.0
+
+[node name="ManaContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6"]
+margin_right = 597.0
+margin_bottom = 367.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label40" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+margin_right = 294.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Bounty ratio"
+
+[node name="Label41" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 394.0
+margin_right = 597.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "160%"
+align = 2
+
+[node name="Label46" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+margin_top = 53.0
+margin_right = 294.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Exp ratio"
+
+[node name="Label47" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 394.0
+margin_top = 53.0
+margin_right = 597.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "186%"
+align = 2
+
+[node name="Label52" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+margin_top = 106.0
+margin_right = 294.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Item drop ratio"
+
+[node name="Label53" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+modulate = Color( 1, 0.32549, 0.32549, 1 )
+margin_left = 394.0
+margin_top = 106.0
+margin_right = 597.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "80%"
+align = 2
+
+[node name="Label58" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+margin_top = 159.0
+margin_right = 294.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "Item quality ratio"
+
+[node name="Label59" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+margin_left = 394.0
+margin_top = 159.0
+margin_right = 597.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
 text = "100%"
+align = 2
 
-[node name="Label3" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 325.0
-margin_right = 502.0
+[node name="Label66" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+margin_top = 212.0
+margin_right = 294.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "Trigger chances"
+
+[node name="Label67" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 394.0
+margin_top = 212.0
+margin_right = 597.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "160%"
+align = 2
+
+[node name="Label70" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+margin_top = 265.0
+margin_right = 294.0
+margin_bottom = 314.0
+size_flags_horizontal = 3
+text = "Buff duration"
+
+[node name="Label71" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 394.0
+margin_top = 265.0
+margin_right = 597.0
+margin_bottom = 314.0
+size_flags_horizontal = 3
+text = "170%"
+align = 2
+
+[node name="Label76" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+margin_top = 318.0
+margin_right = 294.0
+margin_bottom = 367.0
+size_flags_horizontal = 3
+text = "Debuff duration"
+
+[node name="Label77" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+modulate = Color( 1, 0.32549, 0.32549, 1 )
+margin_left = 394.0
+margin_top = 318.0
+margin_right = 597.0
+margin_bottom = 367.0
+size_flags_horizontal = 3
+text = "31%"
+align = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
+margin_left = 1203.0
+margin_right = 1721.0
+margin_bottom = 1405.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 498.0
+margin_bottom = 1385.0
+size_flags_horizontal = 3
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_right = 478.0
 margin_bottom = 49.0
-text = "sd"
+size_flags_horizontal = 3
 
-[node name="Label4" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 522.0
-margin_right = 643.0
+[node name="DamageRace" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer3"]
+modulate = Color( 0.6, 0.341176, 0.113725, 1 )
+margin_right = 478.0
 margin_bottom = 49.0
-text = "2.0"
+size_flags_horizontal = 3
+text = "Damage to race:"
 
-[node name="Label5" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 663.0
-margin_right = 840.0
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 53.0
+margin_right = 478.0
+margin_bottom = 344.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="DamageRaceContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer"]
+margin_right = 478.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+margin_right = 189.0
 margin_bottom = 49.0
-text = "asdsadsad"
+size_flags_horizontal = 3
+text = "Undead"
 
-[node name="Label6" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 860.0
-margin_right = 992.0
+[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 289.0
+margin_right = 478.0
 margin_bottom = 49.0
-text = "+100.0"
+size_flags_horizontal = 3
+text = "114%"
+align = 2
 
-[node name="Label7" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_top = 69.0
-margin_right = 177.0
-margin_bottom = 118.0
-text = "asdsadsad"
+[node name="Label15" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+margin_top = 53.0
+margin_right = 189.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Magical"
 
-[node name="Label8" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 197.0
-margin_top = 69.0
-margin_right = 305.0
-margin_bottom = 118.0
-text = "0.33%"
+[node name="Label16" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+margin_left = 289.0
+margin_top = 53.0
+margin_right = 478.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "100%"
+align = 2
 
-[node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 325.0
-margin_top = 69.0
-margin_right = 502.0
-margin_bottom = 118.0
-text = "asdsadsad"
+[node name="Label21" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+margin_top = 106.0
+margin_right = 189.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Nature"
 
-[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 522.0
-margin_top = 69.0
-margin_right = 643.0
-margin_bottom = 118.0
-text = "1000.0"
+[node name="Label22" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+modulate = Color( 1, 0.32549, 0.32549, 1 )
+margin_left = 289.0
+margin_top = 106.0
+margin_right = 478.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "80%"
+align = 2
 
-[node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 663.0
-margin_top = 69.0
-margin_right = 840.0
-margin_bottom = 118.0
-text = "asdsadsad"
+[node name="Label27" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+margin_top = 159.0
+margin_right = 189.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "Orc"
 
-[node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/Container"]
-margin_left = 860.0
-margin_top = 69.0
-margin_right = 992.0
-margin_bottom = 118.0
-text = "999999"
+[node name="Label28" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 289.0
+margin_top = 159.0
+margin_right = 478.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "126%"
+align = 2
+
+[node name="Label32" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+margin_top = 212.0
+margin_right = 189.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "Humanoid"
+
+[node name="Label33" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+margin_left = 289.0
+margin_top = 212.0
+margin_right = 478.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "100%"
+align = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 348.0
+margin_right = 478.0
+margin_bottom = 397.0
+size_flags_horizontal = 3
+
+[node name="DamageSize" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer4"]
+modulate = Color( 0.6, 0.341176, 0.113725, 1 )
+margin_right = 478.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Damage to size:"
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 401.0
+margin_right = 478.0
+margin_bottom = 692.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="DamageSizeContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2"]
+margin_right = 478.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label42" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+margin_right = 189.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Mass"
+
+[node name="Label43" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+modulate = Color( 0.47451, 1, 0.470588, 1 )
+margin_left = 289.0
+margin_right = 478.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "125%"
+align = 2
+
+[node name="Label48" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+margin_top = 53.0
+margin_right = 189.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Normal"
+
+[node name="Label49" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+margin_left = 289.0
+margin_top = 53.0
+margin_right = 478.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "100%"
+align = 2
+
+[node name="Label54" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+margin_top = 106.0
+margin_right = 189.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Air"
+
+[node name="Label55" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+modulate = Color( 1, 0.32549, 0.32549, 1 )
+margin_left = 289.0
+margin_top = 106.0
+margin_right = 478.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "95%"
+align = 2
+
+[node name="Label60" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+margin_top = 159.0
+margin_right = 189.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "Champion"
+
+[node name="Label61" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+margin_left = 289.0
+margin_top = 159.0
+margin_right = 478.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "100%"
+align = 2
+
+[node name="Label64" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+margin_top = 212.0
+margin_right = 189.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "Boss"
+
+[node name="Label65" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+margin_left = 289.0
+margin_top = 212.0
+margin_right = 478.0
+margin_bottom = 261.0
+size_flags_horizontal = 3
+text = "100%"
+align = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 696.0
+margin_right = 478.0
+margin_bottom = 745.0
+size_flags_horizontal = 3
+
+[node name="DamageRace" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer5"]
+modulate = Color( 0.6, 0.341176, 0.113725, 1 )
+margin_right = 478.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Item Specific"
+
+[node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 749.0
+margin_right = 478.0
+margin_bottom = 987.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="DamageRaceContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6"]
+margin_right = 478.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+margin_right = 202.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Damage"
+
+[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+margin_left = 302.0
+margin_right = 478.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "1,032,268"
+align = 2
+
+[node name="Label15" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+margin_top = 53.0
+margin_right = 202.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "DPS Gained"
+
+[node name="Label16" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+margin_left = 302.0
+margin_top = 53.0
+margin_right = 478.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "4,000"
+align = 2
+
+[node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+margin_top = 106.0
+margin_right = 202.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Crit Bonus"
+
+[node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+margin_left = 302.0
+margin_top = 106.0
+margin_right = 478.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "x3.005"
+align = 2
+
+[node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+margin_top = 159.0
+margin_right = 202.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "Crit Bonus"
+
+[node name="Label18" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+margin_left = 302.0
+margin_top = 159.0
+margin_right = 478.0
+margin_bottom = 208.0
+size_flags_horizontal = 3
+text = "x3.005"
+align = 2
+
+[node name="MarginContainer9" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 991.0
+margin_right = 478.0
+margin_bottom = 1040.0
+size_flags_horizontal = 3
+
+[node name="DamageRace" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer9"]
+modulate = Color( 0.6, 0.341176, 0.113725, 1 )
+margin_right = 478.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Unit Specific"
+
+[node name="MarginContainer10" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 1044.0
+margin_right = 478.0
+margin_bottom = 1123.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="DamageRaceContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10"]
+margin_right = 478.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10/DamageRaceContainer"]
+margin_right = 217.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Skill Name 2"
+
+[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10/DamageRaceContainer"]
+margin_left = 317.0
+margin_right = 478.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "160"
+align = 2
+
+[node name="MarginContainer7" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 1127.0
+margin_right = 478.0
+margin_bottom = 1176.0
+size_flags_horizontal = 3
+
+[node name="DamageSize" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer7"]
+modulate = Color( 0.6, 0.341176, 0.113725, 1 )
+margin_right = 478.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Display ranges:"
+
+[node name="MarginContainer8" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
+margin_top = 1180.0
+margin_right = 478.0
+margin_bottom = 1365.0
+size_flags_horizontal = 3
+custom_constants/margin_bottom = 30
+
+[node name="DamageSizeContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8"]
+margin_right = 478.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+custom_constants/hseparation = 100
+columns = 2
+
+[node name="Label42" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+margin_right = 253.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "Attack range"
+
+[node name="Label43" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+margin_left = 353.0
+margin_right = 478.0
+margin_bottom = 49.0
+size_flags_horizontal = 3
+text = "830"
+align = 2
+
+[node name="Label48" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+margin_top = 53.0
+margin_right = 253.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "Skill Name 1"
+
+[node name="Label49" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+margin_left = 353.0
+margin_top = 53.0
+margin_right = 478.0
+margin_bottom = 102.0
+size_flags_horizontal = 3
+text = "300"
+align = 2
+
+[node name="Label54" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+margin_top = 106.0
+margin_right = 253.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "Passive Aura 1"
+
+[node name="Label55" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+margin_left = 353.0
+margin_top = 106.0
+margin_right = 478.0
+margin_bottom = 155.0
+size_flags_horizontal = 3
+text = "200"
+align = 2
