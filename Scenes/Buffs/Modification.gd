@@ -23,6 +23,7 @@ enum Type {
 	MOD_DMG_TO_NORMAL,
 	MOD_DMG_TO_CHAMPION,
 	MOD_DMG_TO_BOSS,
+	MOD_DMG_TO_AIR,
 
 	MOD_DMG_TO_UNDEAD,
 	MOD_DMG_TO_MAGIC,
@@ -59,6 +60,7 @@ const _math_type_map: Dictionary = {
 	Type.MOD_DMG_TO_NORMAL: MathType.ADD,
 	Type.MOD_DMG_TO_CHAMPION: MathType.ADD,
 	Type.MOD_DMG_TO_BOSS: MathType.ADD,
+	Type.MOD_DMG_TO_AIR: MathType.ADD,
 
 	Type.MOD_DMG_TO_UNDEAD: MathType.ADD,
 	Type.MOD_DMG_TO_MAGIC: MathType.ADD,
