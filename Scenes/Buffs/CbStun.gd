@@ -13,7 +13,7 @@ func _on_create(_event: Event):
 
 	target.movement_enabled = false 
 
-	stun_effect = Effect.create_animated("res://Scenes/StunVisual.tscn", target.position.x, target.position.y, 0, 0)
+	stun_effect = Effect.create_animated("res://Scenes/Effects/StunVisual.tscn", target.position.x, target.position.y, 0, 0)
 
 
 func _on_cleanup(_event: Event):
