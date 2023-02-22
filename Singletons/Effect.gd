@@ -3,6 +3,11 @@ extends Node
 
 const placeholder_effect_path: String = "res://Scenes/Effects/GenericMagic.tscn"
 
+# NOTE: Enable to check if any effects do not have scenes.
+# Disabling for now because at this point most effects won't
+# have scenes.
+const PRINT_INVALID_PATH_ERROR: bool = false
+
 # Map active effects to integer id's
 # 
 # NOTE: this is for compatibility with original tower script
@@ -24,7 +29,9 @@ func create_animated(effect_path: String, x: float, y: float, _mystery1: float, 
 
 	if !effect_path_exists:
 		effect_path = placeholder_effect_path
-		print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
+
+		if PRINT_INVALID_PATH_ERROR:
+			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
 	
 	var effect_scene = load(effect_path).instance()
 	effect_scene.position = Vector2(x, y)
