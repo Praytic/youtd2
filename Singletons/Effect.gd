@@ -23,6 +23,7 @@ func _ready():
 	pass
 
 
+# NOTE: effect must be an AnimatedSprite scene
 func create_animated(effect_path: String, x: float, y: float, _mystery1: float, _mystery2: float) -> int:
 	var directory = Directory.new();
 	var effect_path_exists: bool = directory.file_exists(effect_path)
@@ -37,6 +38,8 @@ func create_animated(effect_path: String, x: float, y: float, _mystery1: float, 
 	effect_scene.position = Vector2(x, y)
 	_effects_container.call_deferred("add_child", effect_scene)
 
+	effect_scene.play()
+
 	var id: int = make_effect_id()
 
 	_effect_map[id] = effect_scene
@@ -44,12 +47,20 @@ func create_animated(effect_path: String, x: float, y: float, _mystery1: float, 
 	return id
 
 
+func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
+	return create_animated(effect_path, unit.position.x, unit.position.y, 0.0, 0.0)
+
+
 func destroy_effect(effect_id: int):
 	if !_effect_map.has(effect_id):
 		return
 
 	var effect = _effect_map[effect_id]
-	effect.queue_free()
+
+# 	NOTE: destroy effect after animation is finished so that
+# 	this function can be used to create an effect that is
+# 	destroyed after it's done animating
+	effect.connect("animation_finished", self, "_on_effect_animation_finished", [effect])
 
 
 func make_effect_id() -> int:
@@ -62,3 +73,7 @@ func make_effect_id() -> int:
 		id_max += 1
 
 		return id
+
+
+func _on_effect_animation_finished(effect):
+	effect.queue_free()
