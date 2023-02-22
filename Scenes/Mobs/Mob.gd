@@ -47,6 +47,7 @@ var _mob_properties: Dictionary = {
 	MobProperty.ARMOR: 0.0,
 	MobProperty.EXP_GRANTED: 0.0,
 }
+var _facing_angle: float = 0.0
 
 
 onready var _visual = $Visual
@@ -60,27 +61,45 @@ func _ready():
 
 
 func _process(delta):
-	if !movement_enabled:
-		return
+	if movement_enabled:
+		_move(delta)
 
+	var mob_animation: String = _get_mob_animation()
+	_sprite.play(mob_animation)
+
+
+func _move(delta):
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
 	position = position.move_toward(path_point, get_move_speed() * delta)
 	emit_signal("moved", delta)
 	
 	var reached_path_point: bool = (position == path_point)
+
+	var move_direction: Vector2 = path_point - position
+	var move_angle: float = rad2deg(move_direction.angle())
+	set_unit_facing(move_angle)
 	
 	if reached_path_point:
 		_current_path_index += 1
 
-		#		Delete mob once it has reached the end of the path
+#		Delete mob once it has reached the end of the path
 		var reached_end_of_path: bool = (_current_path_index >= _path_curve.get_point_count())
 
 		if reached_end_of_path:
 			queue_free()
 			return
-		
-		var mob_animation: String = _get_mob_animation()
-		_sprite.play(mob_animation)
+
+
+func set_unit_facing(angle: float):
+# 	NOTE: limit facing angle to (0, 360) range
+	_facing_angle = int(angle + 360) % 360
+
+	var animation: String = _get_mob_animation()
+	_sprite.play(animation)
+
+
+func get_unit_facing() -> float:
+	return _facing_angle
 
 
 func get_size() -> int:
@@ -123,22 +142,19 @@ func adjust_height(height: float, speed: float):
 
 
 func _get_mob_animation() -> String:
-	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
-	var move_direction: Vector2 = path_point - position
-	var move_angle: float = rad2deg(move_direction.angle())
-
 #	NOTE: the actual angles for 4-directional isometric movement are around
 #   +- 27 degrees from x axis but checking for which quadrant the movement vector
 #	falls into works just as well
-	if 0 < move_angle && move_angle < 90:
+	if 0 <= _facing_angle && _facing_angle < 90:
 		return "run_e"
-	elif 90 < move_angle && move_angle < 180:
+	elif 90 <= _facing_angle && _facing_angle < 180:
 		return "run_s"
-	elif -180 < move_angle && move_angle < -90:
+	elif 180 <= _facing_angle && _facing_angle < 270:
 		return "run_w"
-	elif -90 < move_angle && move_angle < 0:
+	elif 270 <= _facing_angle && _facing_angle <= 360:
 		return "run_n"
 	else:
+		print(_facing_angle)
 		return "stand"
 
 
