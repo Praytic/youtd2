@@ -157,7 +157,10 @@ text = "Build towers here
 --------------------->"
 
 [node name="TowerTooltip" parent="." instance=ExtResource( 12 )]
-margin_top = 100.0
+margin_left = 25.0
+margin_top = 103.0
+margin_right = 25.0
+margin_bottom = 3.0
 rect_scale = Vector2( 0.5, 0.5 )
 
 [node name="BuildingMenuButton" type="Button" parent="."]
