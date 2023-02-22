@@ -225,6 +225,8 @@ func _do_damage(target: Unit, damage: float, is_main_target: bool):
 
 
 func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
+	var health_before_damage: float = _health
+
 	_health -= damage
 
 	var damaged_event: Event = Event.new(caster, damage, is_main_target)
@@ -232,7 +234,9 @@ func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
 
 	Utils.display_floating_text_x(String(int(damage)), self, Color.red, 0.0, 0.0, 1.0)
 
-	if _health <= 0:
+	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0
+
+	if damage_killed_unit:
 		_killed_by_unit(caster, is_main_target)
 
 		return
