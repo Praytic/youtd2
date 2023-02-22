@@ -131,9 +131,10 @@ func on_damaged(_event: Event):
 
 
 func adjust_height(height: float, speed: float):
-#	NOTE: stop and clear tween in case it's already running
-	_height_tween.stop_all()
-	_height_tween.remove_all()
+	if _height_tween.is_active():
+		var tween_runtime: float = _height_tween.get_runtime()
+		_height_tween.seek(tween_runtime)
+		_height_tween.remove_all()
 
 	var duration: float = abs(height / speed)
 
