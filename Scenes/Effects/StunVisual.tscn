@@ -50,12 +50,8 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="StunVisual" type="Node2D"]
+[node name="StunVisual" type="AnimatedSprite"]
 modulate = Color( 0.376471, 0.831373, 0.921569, 1 )
 position = Vector2( 0, -150 )
 scale = Vector2( 3, 2 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 9 )
-frame = 4
-playing = true
