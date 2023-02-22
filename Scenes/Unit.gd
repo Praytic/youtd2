@@ -157,6 +157,14 @@ func set_level(new_level: int):
 	emit_signal("level_up")
 
 
+func get_x() -> float:
+	return position.x
+
+
+func get_y() -> float:
+	return position.y
+
+
 func get_buff_duration_mod() -> float:
 	return _unit_properties[UnitProperty.BUFF_DURATION]
 
