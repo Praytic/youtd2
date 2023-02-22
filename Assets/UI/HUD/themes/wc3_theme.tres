@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=2]
+[gd_resource type="Theme" load_steps=16 format=2]
 
 [ext_resource path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/UI/HUD/day_time_icon.png" type="Texture" id=2]
@@ -20,6 +20,25 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=14]
+content_margin_left = 100.0
+content_margin_right = 100.0
+content_margin_top = 50.0
+content_margin_bottom = 100.0
+bg_color = Color( 0.0980392, 0.0980392, 0.141176, 0.45098 )
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color( 0.8, 0.784314, 0.0156863, 1 )
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 10
+expand_margin_left = 10.0
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id=10]
 content_margin_left = 2.0
@@ -115,6 +134,7 @@ Label/constants/shadow_offset_y = 2
 Label/fonts/font = SubResource( 1 )
 ResourceTab/base_type = "Panel"
 ResourceTab/styles/panel = SubResource( 8 )
+TooltipPanel/styles/panel = SubResource( 14 )
 TowerButton/styles/disabled = SubResource( 10 )
 TowerButton/styles/focus = SubResource( 11 )
 TowerButton/styles/hover = SubResource( 12 )

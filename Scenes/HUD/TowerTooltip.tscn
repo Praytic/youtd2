@@ -1,18 +1,117 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scenes/HUD/TowerTooltip.gd" type="Script" id=2]
+[ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture" id=3]
 
 [node name="TowerTooltip" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_right = 686.0
-margin_bottom = 71.0
+[node name="VBoxContainer" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_type_variation = "TooltipPanel"
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-margin_right = 686.0
+[node name="ColorRect" type="TextureRect" parent="VBoxContainer"]
+visible = false
+modulate = Color( 0.00392157, 0, 0.443137, 0.360784 )
+self_modulate = Color( 0.192157, 0.192157, 0.207843, 1 )
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1900.0
+margin_bottom = 1060.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_left = 100.0
+margin_top = 50.0
+margin_right = 1820.0
+margin_bottom = 980.0
+
+[node name="Container" type="GridContainer" parent="VBoxContainer/MarginContainer"]
+margin_right = 1720.0
+margin_bottom = 930.0
+custom_constants/vseparation = 20
+custom_constants/hseparation = 20
+columns = 6
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_right = 177.0
 margin_bottom = 49.0
-theme = ExtResource( 1 )
-text = "foo"
-autowrap = true
+text = "asdsadsad"
+
+[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 197.0
+margin_right = 305.0
+margin_bottom = 49.0
+text = "100%"
+
+[node name="Label3" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 325.0
+margin_right = 502.0
+margin_bottom = 49.0
+text = "sd"
+
+[node name="Label4" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 522.0
+margin_right = 643.0
+margin_bottom = 49.0
+text = "2.0"
+
+[node name="Label5" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 663.0
+margin_right = 840.0
+margin_bottom = 49.0
+text = "asdsadsad"
+
+[node name="Label6" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 860.0
+margin_right = 992.0
+margin_bottom = 49.0
+text = "+100.0"
+
+[node name="Label7" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_top = 69.0
+margin_right = 177.0
+margin_bottom = 118.0
+text = "asdsadsad"
+
+[node name="Label8" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 197.0
+margin_top = 69.0
+margin_right = 305.0
+margin_bottom = 118.0
+text = "0.33%"
+
+[node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 325.0
+margin_top = 69.0
+margin_right = 502.0
+margin_bottom = 118.0
+text = "asdsadsad"
+
+[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 522.0
+margin_top = 69.0
+margin_right = 643.0
+margin_bottom = 118.0
+text = "1000.0"
+
+[node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 663.0
+margin_top = 69.0
+margin_right = 840.0
+margin_bottom = 118.0
+text = "asdsadsad"
+
+[node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/Container"]
+margin_left = 860.0
+margin_top = 69.0
+margin_right = 992.0
+margin_bottom = 118.0
+text = "999999"
