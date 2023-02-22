@@ -77,7 +77,11 @@ func _move(delta):
 
 	var move_direction: Vector2 = path_point - position
 	var move_angle: float = rad2deg(move_direction.angle())
-	set_unit_facing(move_angle)
+
+#	NOTE: on path turns, the move angle becomes 0 for some
+#	reason so don't update unit facing during that period
+	if int(move_angle) > 0:
+		set_unit_facing(move_angle)
 	
 	if reached_path_point:
 		_current_path_index += 1
@@ -154,7 +158,6 @@ func _get_mob_animation() -> String:
 	elif 270 <= _facing_angle && _facing_angle <= 360:
 		return "run_n"
 	else:
-		print(_facing_angle)
 		return "stand"
 
 
