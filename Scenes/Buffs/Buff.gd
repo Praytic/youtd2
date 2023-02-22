@@ -55,6 +55,13 @@ class EventHandler:
 	var handler_function: String
 
 
+var user_int: int = 0
+var user_int2: int = 0
+var user_int3: int = 0
+var user_real: float = 0.0
+var user_real2: float = 0.0
+var user_real3: float = 0.0
+
 var _caster: Unit
 var _target: Unit
 var _modifier: Modifier = Modifier.new()
@@ -153,6 +160,10 @@ func get_modifier() -> Modifier:
 
 func get_level() -> int:
 	return _level
+
+
+func set_type(type: String):
+	_type = type
 
 
 func get_type() -> String:
