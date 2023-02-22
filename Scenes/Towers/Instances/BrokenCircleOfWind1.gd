@@ -26,8 +26,7 @@ func _ready():
 func _on_attack(event: Event):
 	var tower: Unit = self
 
-	var sternbogen_broken_wind: Buff = CbStun.new()
-	sternbogen_broken_wind.set_type("sternbogen_broken_wind")
+	var sternbogen_broken_wind: Buff = CbStun.new("sternbogen_broken_wind")
 	sternbogen_broken_wind.set_buff_icon("@@0@@")
 	sternbogen_broken_wind.add_event_handler(Buff.EventType.CREATE, self, "_cyclone_creep_up")
 	sternbogen_broken_wind.add_event_handler_periodic(self, "_cyclone_creep_turn", 0.1)

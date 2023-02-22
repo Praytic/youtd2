@@ -43,7 +43,7 @@ func _on_damage(event: Event):
 	var target: Mob = event.get_target()
 
 	if target.get_size() < Mob.Size.BOSS && target.get_size() != Mob.Size.AIR:
-		var chasm_entangle = CbStun.new()
+		var chasm_entangle = CbStun.new("chasm_entangle")
 		chasm_entangle.set_buff_icon('@@0@@')
 		chasm_entangle.add_event_handler_periodic(self, "_chasm_entangle_damage", 1.0)
 		chasm_entangle.apply_to_unit(tower, target, 0, _stats.entangle_duration, 0.75, false)
