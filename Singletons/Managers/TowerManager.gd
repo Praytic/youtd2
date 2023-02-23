@@ -66,6 +66,7 @@ func get_tower(id: int) -> PackedScene:
 	var tower_script_path: String = _get_tower_script_path(id)
 	var tower_script = load(tower_script_path)
 	tower.set_script(tower_script)
+	tower.set_id(id)
 
 	return tower
 
