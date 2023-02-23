@@ -6,6 +6,9 @@
 [node name="InfoPanel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 5.0
+margin_right = 5.0
+mouse_filter = 1
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
@@ -14,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1.0
 margin_bottom = 475.0
+mouse_filter = 1
 theme_type_variation = "TooltipPanel"
 
 [node name="MarginContainer" type="CenterContainer" parent="VBoxContainer"]
@@ -21,6 +25,7 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 1911.0
 margin_bottom = 1545.0
+mouse_filter = 1
 
 [node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
 margin_left = 90.0
@@ -31,6 +36,7 @@ margin_bottom = 1470.0
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 margin_right = 558.0
 margin_bottom = 1405.0
+mouse_filter = 1
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
@@ -45,12 +51,14 @@ margin_bottom = 1385.0
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 margin_right = 518.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="Attack" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
 modulate = Color( 1, 0.32549, 0.32549, 1 )
 margin_right = 518.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Attack:"
 
@@ -58,6 +66,7 @@ text = "Attack:"
 margin_top = 53.0
 margin_right = 518.0
 margin_bottom = 397.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -71,6 +80,8 @@ columns = 2
 [node name="Label5" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 margin_right = 275.0
 margin_bottom = 49.0
+hint_tooltip = "The standard attack damage the tower deals without any bonuses at level 0."
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base damage"
 
@@ -79,6 +90,7 @@ unique_name_in_owner = true
 margin_left = 375.0
 margin_right = 518.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "4,522"
 align = 2
@@ -87,14 +99,18 @@ align = 2
 margin_top = 53.0
 margin_right = 275.0
 margin_bottom = 102.0
+hint_tooltip = "This value is added on the base damage. It is calculated into the white numbers of the tower's attack damage."
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base bonus"
 
-[node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+[node name="BaseDamageBonus" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+unique_name_in_owner = true
 margin_left = 375.0
 margin_top = 53.0
 margin_right = 518.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "0"
 align = 2
@@ -103,15 +119,18 @@ align = 2
 margin_top = 106.0
 margin_right = 275.0
 margin_bottom = 155.0
+hint_tooltip = "After adding the Base Bonus, this percentage is added to the damage. It is also calculated in the white numbers. Bonus damage granted by oils and damage the tower gains by leveling is added to this value."
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base bonus %"
 
-[node name="Label18" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
+[node name="BaseDamageBonusPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+unique_name_in_owner = true
 margin_left = 375.0
 margin_top = 106.0
 margin_right = 518.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "+717%"
 align = 2
@@ -120,15 +139,18 @@ align = 2
 margin_top = 159.0
 margin_right = 275.0
 margin_bottom = 208.0
+hint_tooltip = "This value is added to the towers damage after the Base Damage calculation. It will be displayed as green/red numbers behind the white numbers of the tower's damage. DPS gain by special abilities and items is usually added to this value."
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage add"
 
-[node name="Label24" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
+[node name="DamageAdd" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+unique_name_in_owner = true
 margin_left = 375.0
 margin_top = 159.0
 margin_right = 518.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "38,881"
 align = 2
@@ -137,15 +159,18 @@ align = 2
 margin_top = 212.0
 margin_right = 275.0
 margin_bottom = 261.0
+hint_tooltip = "After the Damage Add was added to the Base Damage, this percentage is added to the damage, it is also shown as green numbers. Percent bonuses from permanent items, buffs, auras and special abilities is ususally added to this value."
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage add %"
 
-[node name="Label30" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
+[node name="DamageAddPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+unique_name_in_owner = true
 margin_left = 375.0
 margin_top = 212.0
 margin_right = 518.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "+423%"
 align = 2
@@ -155,15 +180,17 @@ margin_top = 265.0
 margin_right = 275.0
 margin_bottom = 314.0
 rect_pivot_offset = Vector2( -216, 603 )
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall damage"
 
-[node name="Label35" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
+[node name="OverallDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
+unique_name_in_owner = true
 margin_left = 375.0
 margin_top = 265.0
 margin_right = 518.0
 margin_bottom = 314.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "396,416"
 align = 2
@@ -172,6 +199,7 @@ align = 2
 margin_top = 401.0
 margin_right = 518.0
 margin_bottom = 586.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -185,6 +213,7 @@ columns = 2
 [node name="Label38" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 margin_right = 306.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base cooldown"
 
@@ -193,6 +222,7 @@ unique_name_in_owner = true
 margin_left = 406.0
 margin_right = 518.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "160"
 align = 2
@@ -201,16 +231,17 @@ align = 2
 margin_top = 53.0
 margin_right = 306.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Attackspeed"
 
 [node name="Attackspeed" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 unique_name_in_owner = true
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 406.0
 margin_top = 53.0
 margin_right = 518.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "493%"
 align = 2
@@ -219,16 +250,17 @@ align = 2
 margin_top = 106.0
 margin_right = 306.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall cooldown"
 
 [node name="OverallCooldown" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 unique_name_in_owner = true
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 406.0
 margin_top = 106.0
 margin_right = 518.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "0.33"
 align = 2
@@ -237,6 +269,7 @@ align = 2
 margin_top = 590.0
 margin_right = 518.0
 margin_bottom = 669.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -249,6 +282,7 @@ columns = 2
 [node name="Label62" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer"]
 margin_right = 257.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall DPS"
 
@@ -256,6 +290,7 @@ text = "Overall DPS"
 margin_left = 261.0
 margin_right = 518.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "122M"
 align = 2
@@ -264,6 +299,7 @@ align = 2
 margin_top = 673.0
 margin_right = 518.0
 margin_bottom = 858.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -277,14 +313,15 @@ columns = 2
 [node name="Label68" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 margin_right = 253.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit chance"
 
 [node name="Label69" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 353.0
 margin_right = 518.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "106.6%"
 align = 2
@@ -293,15 +330,16 @@ align = 2
 margin_top = 53.0
 margin_right = 253.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit damage"
 
 [node name="Label75" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 353.0
 margin_top = 53.0
 margin_right = 518.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "x7.30"
 align = 2
@@ -310,15 +348,16 @@ align = 2
 margin_top = 106.0
 margin_right = 253.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Multicrit count"
 
 [node name="Label81" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 353.0
 margin_top = 106.0
 margin_right = 518.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "10"
 align = 2
@@ -327,6 +366,7 @@ align = 2
 margin_top = 862.0
 margin_right = 518.0
 margin_bottom = 941.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -340,14 +380,15 @@ columns = 2
 [node name="Label68" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer"]
 margin_right = 221.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "DPS with crit"
 
 [node name="Label69" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 321.0
 margin_right = 518.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "18.67M"
 align = 2
@@ -356,12 +397,14 @@ align = 2
 margin_top = 945.0
 margin_right = 518.0
 margin_bottom = 994.0
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="Attack" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer4"]
 modulate = Color( 0.145098, 0.831373, 1, 1 )
 margin_right = 518.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Spells:"
 
@@ -369,6 +412,7 @@ text = "Spells:"
 margin_top = 998.0
 margin_right = 518.0
 margin_bottom = 1183.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -382,14 +426,15 @@ columns = 2
 [node name="Label5" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
 margin_right = 235.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Spell damage"
 
 [node name="Label6" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 335.0
 margin_right = 518.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "651%"
 align = 2
@@ -398,15 +443,16 @@ align = 2
 margin_top = 53.0
 margin_right = 235.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit chance"
 
 [node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 335.0
 margin_top = 53.0
 margin_right = 518.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "114.0%"
 align = 2
@@ -415,15 +461,16 @@ align = 2
 margin_top = 106.0
 margin_right = 235.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit damage"
 
 [node name="Label18" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 335.0
 margin_top = 106.0
 margin_right = 518.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "x10.63"
 align = 2
@@ -432,6 +479,7 @@ align = 2
 margin_left = 562.0
 margin_right = 1199.0
 margin_bottom = 1405.0
+mouse_filter = 1
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
@@ -446,11 +494,13 @@ margin_bottom = 1385.0
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
 margin_right = 597.0
 margin_bottom = 49.0
+mouse_filter = 1
 
 [node name="Veteran" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer"]
 modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_right = 597.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Veteran:"
 
@@ -458,6 +508,7 @@ text = "Veteran:"
 margin_top = 53.0
 margin_right = 597.0
 margin_bottom = 344.0
+mouse_filter = 1
 custom_constants/margin_bottom = 30
 
 [node name="VeteranContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2"]
@@ -470,6 +521,7 @@ columns = 2
 [node name="Label7" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 margin_right = 340.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage"
 
@@ -477,6 +529,7 @@ text = "Damage"
 margin_left = 440.0
 margin_right = 597.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "12.19G"
 align = 2
@@ -485,6 +538,7 @@ align = 2
 margin_top = 53.0
 margin_right = 340.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Best Hit"
 
@@ -493,6 +547,7 @@ margin_left = 440.0
 margin_top = 53.0
 margin_right = 597.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "292.87M"
 align = 2
@@ -501,6 +556,7 @@ align = 2
 margin_top = 106.0
 margin_right = 340.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Kills"
 
@@ -509,6 +565,7 @@ margin_left = 440.0
 margin_top = 106.0
 margin_right = 597.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "1957"
 align = 2
@@ -517,6 +574,7 @@ align = 2
 margin_top = 159.0
 margin_right = 340.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Experience"
 
@@ -525,6 +583,7 @@ margin_left = 440.0
 margin_top = 159.0
 margin_right = 597.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "9136"
 align = 2
@@ -533,6 +592,7 @@ align = 2
 margin_top = 212.0
 margin_right = 340.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Max Level reached!"
 
@@ -540,11 +600,13 @@ text = "Max Level reached!"
 margin_top = 348.0
 margin_right = 597.0
 margin_bottom = 397.0
+mouse_filter = 1
 
 [node name="Mana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer3"]
 modulate = Color( 0.423529, 0.458824, 1, 1 )
 margin_right = 597.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Mana:"
 
@@ -552,6 +614,7 @@ text = "Mana:"
 margin_top = 401.0
 margin_right = 597.0
 margin_bottom = 851.0
+mouse_filter = 1
 custom_constants/margin_bottom = 30
 
 [node name="ManaContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4"]
@@ -564,6 +627,7 @@ columns = 2
 [node name="Label40" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 margin_right = 298.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base mana"
 
@@ -571,6 +635,7 @@ text = "Base mana"
 margin_left = 398.0
 margin_right = 597.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "0"
 align = 2
@@ -579,6 +644,7 @@ align = 2
 margin_top = 53.0
 margin_right = 298.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Bonus"
 
@@ -587,6 +653,7 @@ margin_left = 398.0
 margin_top = 53.0
 margin_right = 597.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "0"
 align = 2
@@ -595,15 +662,16 @@ align = 2
 margin_top = 106.0
 margin_right = 298.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Percent bonus"
 
 [node name="Label53" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 398.0
 margin_top = 106.0
 margin_right = 597.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "+32%"
 align = 2
@@ -612,6 +680,7 @@ align = 2
 margin_top = 159.0
 margin_right = 298.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall mana"
 
@@ -620,6 +689,7 @@ margin_left = 398.0
 margin_top = 159.0
 margin_right = 597.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "0"
 align = 2
@@ -628,6 +698,7 @@ align = 2
 margin_top = 212.0
 margin_right = 298.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base mana regen"
 
@@ -636,6 +707,7 @@ margin_left = 398.0
 margin_top = 212.0
 margin_right = 597.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "0.0"
 align = 2
@@ -644,6 +716,7 @@ align = 2
 margin_top = 265.0
 margin_right = 298.0
 margin_bottom = 314.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Bonus regen"
 
@@ -652,6 +725,7 @@ margin_left = 398.0
 margin_top = 265.0
 margin_right = 597.0
 margin_bottom = 314.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "0.0"
 align = 2
@@ -660,15 +734,16 @@ align = 2
 margin_top = 318.0
 margin_right = 298.0
 margin_bottom = 367.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Percent bonus"
 
 [node name="Label77" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-modulate = Color( 1, 0.32549, 0.32549, 1 )
 margin_left = 398.0
 margin_top = 318.0
 margin_right = 597.0
 margin_bottom = 367.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "-27%"
 align = 2
@@ -677,6 +752,7 @@ align = 2
 margin_top = 371.0
 margin_right = 298.0
 margin_bottom = 420.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall mana reg"
 
@@ -685,6 +761,7 @@ margin_left = 398.0
 margin_top = 371.0
 margin_right = 597.0
 margin_bottom = 420.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "0.0"
 align = 2
@@ -693,11 +770,13 @@ align = 2
 margin_top = 855.0
 margin_right = 597.0
 margin_bottom = 904.0
+mouse_filter = 1
 
 [node name="Mana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer5"]
 modulate = Color( 1, 0.733333, 0.129412, 1 )
 margin_right = 597.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Misc:"
 
@@ -705,6 +784,7 @@ text = "Misc:"
 margin_top = 908.0
 margin_right = 597.0
 margin_bottom = 1275.0
+mouse_filter = 1
 
 [node name="ManaContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6"]
 margin_right = 597.0
@@ -716,14 +796,15 @@ columns = 2
 [node name="Label40" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 margin_right = 294.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Bounty ratio"
 
 [node name="Label41" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 394.0
 margin_right = 597.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "160%"
 align = 2
@@ -732,15 +813,16 @@ align = 2
 margin_top = 53.0
 margin_right = 294.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Exp ratio"
 
 [node name="Label47" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 394.0
 margin_top = 53.0
 margin_right = 597.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "186%"
 align = 2
@@ -749,15 +831,16 @@ align = 2
 margin_top = 106.0
 margin_right = 294.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Item drop ratio"
 
 [node name="Label53" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-modulate = Color( 1, 0.32549, 0.32549, 1 )
 margin_left = 394.0
 margin_top = 106.0
 margin_right = 597.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "80%"
 align = 2
@@ -766,6 +849,7 @@ align = 2
 margin_top = 159.0
 margin_right = 294.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Item quality ratio"
 
@@ -774,6 +858,7 @@ margin_left = 394.0
 margin_top = 159.0
 margin_right = 597.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "100%"
 align = 2
@@ -782,15 +867,16 @@ align = 2
 margin_top = 212.0
 margin_right = 294.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Trigger chances"
 
 [node name="Label67" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 394.0
 margin_top = 212.0
 margin_right = 597.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "160%"
 align = 2
@@ -799,15 +885,16 @@ align = 2
 margin_top = 265.0
 margin_right = 294.0
 margin_bottom = 314.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Buff duration"
 
 [node name="Label71" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 394.0
 margin_top = 265.0
 margin_right = 597.0
 margin_bottom = 314.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "170%"
 align = 2
@@ -816,15 +903,16 @@ align = 2
 margin_top = 318.0
 margin_right = 294.0
 margin_bottom = 367.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Debuff duration"
 
 [node name="Label77" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-modulate = Color( 1, 0.32549, 0.32549, 1 )
 margin_left = 394.0
 margin_top = 318.0
 margin_right = 597.0
 margin_bottom = 367.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "31%"
 align = 2
@@ -833,6 +921,7 @@ align = 2
 margin_left = 1203.0
 margin_right = 1721.0
 margin_bottom = 1405.0
+mouse_filter = 1
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
@@ -848,12 +937,14 @@ size_flags_horizontal = 3
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="DamageRace" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer3"]
 modulate = Color( 0.6, 0.341176, 0.113725, 1 )
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage to race:"
 
@@ -861,6 +952,7 @@ text = "Damage to race:"
 margin_top = 53.0
 margin_right = 478.0
 margin_bottom = 344.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -874,14 +966,15 @@ columns = 2
 [node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 margin_right = 189.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Undead"
 
 [node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 289.0
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "114%"
 align = 2
@@ -890,6 +983,7 @@ align = 2
 margin_top = 53.0
 margin_right = 189.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Magical"
 
@@ -898,6 +992,7 @@ margin_left = 289.0
 margin_top = 53.0
 margin_right = 478.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "100%"
 align = 2
@@ -906,15 +1001,16 @@ align = 2
 margin_top = 106.0
 margin_right = 189.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Nature"
 
 [node name="Label22" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
-modulate = Color( 1, 0.32549, 0.32549, 1 )
 margin_left = 289.0
 margin_top = 106.0
 margin_right = 478.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "80%"
 align = 2
@@ -923,15 +1019,16 @@ align = 2
 margin_top = 159.0
 margin_right = 189.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Orc"
 
 [node name="Label28" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 289.0
 margin_top = 159.0
 margin_right = 478.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "126%"
 align = 2
@@ -940,6 +1037,7 @@ align = 2
 margin_top = 212.0
 margin_right = 189.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Humanoid"
 
@@ -948,6 +1046,7 @@ margin_left = 289.0
 margin_top = 212.0
 margin_right = 478.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "100%"
 align = 2
@@ -956,12 +1055,14 @@ align = 2
 margin_top = 348.0
 margin_right = 478.0
 margin_bottom = 397.0
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="DamageSize" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer4"]
 modulate = Color( 0.6, 0.341176, 0.113725, 1 )
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage to size:"
 
@@ -969,6 +1070,7 @@ text = "Damage to size:"
 margin_top = 401.0
 margin_right = 478.0
 margin_bottom = 692.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -982,14 +1084,15 @@ columns = 2
 [node name="Label42" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 margin_right = 189.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Mass"
 
 [node name="Label43" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
 margin_left = 289.0
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "125%"
 align = 2
@@ -998,6 +1101,7 @@ align = 2
 margin_top = 53.0
 margin_right = 189.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Normal"
 
@@ -1006,6 +1110,7 @@ margin_left = 289.0
 margin_top = 53.0
 margin_right = 478.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "100%"
 align = 2
@@ -1014,15 +1119,16 @@ align = 2
 margin_top = 106.0
 margin_right = 189.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Air"
 
 [node name="Label55" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
-modulate = Color( 1, 0.32549, 0.32549, 1 )
 margin_left = 289.0
 margin_top = 106.0
 margin_right = 478.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "95%"
 align = 2
@@ -1031,6 +1137,7 @@ align = 2
 margin_top = 159.0
 margin_right = 189.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Champion"
 
@@ -1039,6 +1146,7 @@ margin_left = 289.0
 margin_top = 159.0
 margin_right = 478.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "100%"
 align = 2
@@ -1047,6 +1155,7 @@ align = 2
 margin_top = 212.0
 margin_right = 189.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Boss"
 
@@ -1055,6 +1164,7 @@ margin_left = 289.0
 margin_top = 212.0
 margin_right = 478.0
 margin_bottom = 261.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "100%"
 align = 2
@@ -1063,12 +1173,14 @@ align = 2
 margin_top = 696.0
 margin_right = 478.0
 margin_bottom = 745.0
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="DamageRace" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer5"]
 modulate = Color( 0.6, 0.341176, 0.113725, 1 )
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Item Specific"
 
@@ -1076,6 +1188,7 @@ text = "Item Specific"
 margin_top = 749.0
 margin_right = 478.0
 margin_bottom = 987.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -1089,6 +1202,7 @@ columns = 2
 [node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
 margin_right = 202.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage"
 
@@ -1096,6 +1210,7 @@ text = "Damage"
 margin_left = 302.0
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "1,032,268"
 align = 2
@@ -1104,6 +1219,7 @@ align = 2
 margin_top = 53.0
 margin_right = 202.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "DPS Gained"
 
@@ -1112,6 +1228,7 @@ margin_left = 302.0
 margin_top = 53.0
 margin_right = 478.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "4,000"
 align = 2
@@ -1120,6 +1237,7 @@ align = 2
 margin_top = 106.0
 margin_right = 202.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit Bonus"
 
@@ -1128,6 +1246,7 @@ margin_left = 302.0
 margin_top = 106.0
 margin_right = 478.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "x3.005"
 align = 2
@@ -1136,6 +1255,7 @@ align = 2
 margin_top = 159.0
 margin_right = 202.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit Bonus"
 
@@ -1144,6 +1264,7 @@ margin_left = 302.0
 margin_top = 159.0
 margin_right = 478.0
 margin_bottom = 208.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "x3.005"
 align = 2
@@ -1152,12 +1273,14 @@ align = 2
 margin_top = 991.0
 margin_right = 478.0
 margin_bottom = 1040.0
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="DamageRace" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer9"]
 modulate = Color( 0.6, 0.341176, 0.113725, 1 )
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Unit Specific"
 
@@ -1165,6 +1288,7 @@ text = "Unit Specific"
 margin_top = 1044.0
 margin_right = 478.0
 margin_bottom = 1123.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -1178,6 +1302,7 @@ columns = 2
 [node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10/DamageRaceContainer"]
 margin_right = 217.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Skill Name 2"
 
@@ -1185,6 +1310,7 @@ text = "Skill Name 2"
 margin_left = 317.0
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "160"
 align = 2
@@ -1193,12 +1319,14 @@ align = 2
 margin_top = 1127.0
 margin_right = 478.0
 margin_bottom = 1176.0
+mouse_filter = 1
 size_flags_horizontal = 3
 
 [node name="DamageSize" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer7"]
 modulate = Color( 0.6, 0.341176, 0.113725, 1 )
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Display ranges:"
 
@@ -1206,6 +1334,7 @@ text = "Display ranges:"
 margin_top = 1180.0
 margin_right = 478.0
 margin_bottom = 1365.0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
@@ -1219,6 +1348,7 @@ columns = 2
 [node name="Label42" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
 margin_right = 253.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Attack range"
 
@@ -1226,6 +1356,7 @@ text = "Attack range"
 margin_left = 353.0
 margin_right = 478.0
 margin_bottom = 49.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "830"
 align = 2
@@ -1234,6 +1365,7 @@ align = 2
 margin_top = 53.0
 margin_right = 253.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Skill Name 1"
 
@@ -1242,6 +1374,7 @@ margin_left = 353.0
 margin_top = 53.0
 margin_right = 478.0
 margin_bottom = 102.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "300"
 align = 2
@@ -1250,6 +1383,7 @@ align = 2
 margin_top = 106.0
 margin_right = 253.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "Passive Aura 1"
 
@@ -1258,6 +1392,7 @@ margin_left = 353.0
 margin_top = 106.0
 margin_right = 478.0
 margin_bottom = 155.0
+mouse_filter = 1
 size_flags_horizontal = 3
 text = "200"
 align = 2
