@@ -3,6 +3,7 @@ extends Node
 
 var preloaded_towers: Dictionary
 const towers_dir: String = "res://Scenes/Towers/Instances"
+const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 var _tower_name_to_id_map: Dictionary = {}
 var _tower_id_to_name_map: Dictionary = {}
 # var tower_props: Dictionary
@@ -32,8 +33,8 @@ func _init():
 #			defined. After most tower scripts are added
 #			should replace this with a print_debug() warning
 #			about missing scene.
-			var fallback_script_path: String = "%s/%s.tscn" % [towers_dir, "SmallCactus1"]
-			tower_scene = load(fallback_script_path)
+			var fallback_scene_path: String = "%s/%s.tscn" % [towers_dir, "SmallCactus1"]
+			tower_scene = load(fallback_scene_path)
 
 		preloaded_towers[tower_id] = tower_scene
 
@@ -56,12 +57,40 @@ func _init():
 # 	return flattened_props
 
 
-# Return new unique instance of the Tower by its ID
+# Return new unique instance of the Tower by its ID. Get
+# script for tower and attach to scene. Script name matches
+# with scene name so this can be done automatically instead
+# of having to do it by hand in scene editor.
 func get_tower(id: int) -> PackedScene:
 	var tower = preloaded_towers[id].instance()
+	var tower_script_path: String = _get_tower_script_path(id)
+	var tower_script = load(tower_script_path)
+	tower.set_script(tower_script)
+
 	return tower
 
 
 func get_tower_family_id(id: int) -> int:
 	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
 	return csv_properties[Tower.CsvProperty.FAMILY_ID]
+
+
+# Get path of tower script based on tower scene name. If
+# scene name is TinyShrub4.tscn, then script name will be
+# TinyShrub1.gd
+func _get_tower_script_path(id: int) -> String:
+	var properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
+	var scene_name: String = properties[Tower.CsvProperty.SCENE_NAME]
+# 	NOTE: strip the tier digit from scene name
+	var script_name: String = scene_name.substr(0, scene_name.length() - 1)
+	var path: String = "%s/%s1.gd" % [towers_dir, script_name]
+
+	var script_exists: bool = File.new().file_exists(path)
+
+	if script_exists:
+		return path
+	else:
+		if PRINT_SCRIPT_NOT_FOUND_ERROR:
+			print_debug("No script found for id:", id, ". Tried at path:", path)
+
+		return "res://Scenes/Towers/Tower.gd"
