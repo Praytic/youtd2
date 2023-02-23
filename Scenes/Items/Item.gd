@@ -17,6 +17,7 @@ enum CsvProperty {
 	REQUIRED_WAVE_LEVEL = 7,
 }
 
+var _id: int = 0
 var _carrier: Tower = null
 
 # Call add_modification() on _modifier in subclass to add item effects
@@ -69,8 +70,13 @@ func _remove_from_tower_subclass():
 ### Setters / Getters ###
 #########################
 
+# NOTE: this must be called once after the item is created
+# but before it's added to game scene.
+func set_id(id: int):
+	_id = id
+
 func get_id() -> int:
-	return get_property(CsvProperty.ID).to_int()
+	return _id
 
 func get_name() -> String:
 	return get_property(CsvProperty.NAME)
@@ -94,8 +100,7 @@ func get_required_wave_level() -> int:
 	return get_property(CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
 
 func get_property(property: int) -> String:
-	var script_path: String = get_script().get_path()
-	var properties: Dictionary = Properties.get_item_csv_properties_by_file_path(script_path)
+	var properties: Dictionary = Properties.get_item_csv_properties_by_id(_id)
 
 	return properties[property]
 

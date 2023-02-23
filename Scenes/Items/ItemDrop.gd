@@ -10,6 +10,8 @@ const cell_size = 32
 var _id: int = 0 setget set_id, get_id
 
 
+# NOTE: this must be called once after the itemdrop is created
+# but before it's added to game scene.
 func set_id(id: int):
 	_id = id
 
@@ -26,5 +28,6 @@ func make_item() -> Item:
 	var script_name: String = item_properties[Item.CsvProperty.SCRIPT_NAME]
 	var script_path: String = "res://Scenes/Items/Instances/%s.gd" % [script_name]
 	var item: Item = load(script_path).new()
+	item.set_id(_id)
 
 	return item

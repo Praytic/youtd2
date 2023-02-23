@@ -114,6 +114,7 @@ const _csv_property_to_tower_property_map: Dictionary = {
 
 const ATTACK_CD_MIN: float = 0.2
 
+var _id: int = 0
 var _stats: Dictionary
 var _target_list: Array = []
 # NOTE: if your tower needs to attack more than 1 target,
@@ -442,8 +443,14 @@ func get_name() -> String:
 	return get_csv_property(CsvProperty.NAME)
 
 
+# NOTE: this must be called once after the tower is created
+# but before it's added to game scene
+func set_id(id: int):
+	_id = id
+
+
 func get_id() -> int:
-	return get_csv_property(CsvProperty.ID).to_int()
+	return _id
 
 
 func get_tier() -> int:
@@ -493,7 +500,7 @@ func get_owner():
 
 
 func get_csv_property(csv_property: int) -> String:
-	var properties: Dictionary = Properties.get_tower_csv_properties_by_file_path(filename)
+	var properties: Dictionary = Properties.get_tower_csv_properties_by_id(_id)
 	var value: String = properties[csv_property]
 
 	return value
