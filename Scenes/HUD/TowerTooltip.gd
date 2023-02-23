@@ -25,8 +25,8 @@ func set_tower_tooltip_text(tower_id: int):
 	var damage_add = 0.0
 	var damage_add_percent = 0.0
 	var base_cooldown = tower.get_base_cooldown()
-	var attackspeed = 1.0
-	var overall_cooldown = base_cooldown / attackspeed
+	var attackspeed = tower.get_base_attack_speed()
+	var overall_cooldown = tower.get_overall_cooldown()
 	var overall_base_damage = (base_damage + base_damage_bonus) * (1 + base_damage_bonus_percent)
 	var overall_damage = (overall_base_damage + damage_add) * (1 + damage_add_percent)
 

@@ -24,7 +24,7 @@ enum CsvProperty {
 
 enum TowerProperty {
 	ATTACK_RANGE,
-	ATTACK_CD,
+	ATTACK_SPEED,
 	ATTACK_DAMAGE_MIN,
 	ATTACK_DAMAGE_MAX,
 
@@ -86,7 +86,7 @@ const _tower_mod_to_property_map: Dictionary = {
 
 	Modification.Type.MOD_EXP_RECEIVED: TowerProperty.EXP_RECEIVED, 
 
-	Modification.Type.MOD_ATTACK_SPEED: TowerProperty.ATTACK_CD,
+	Modification.Type.MOD_ATTACK_SPEED: TowerProperty.ATTACK_SPEED,
 }
 
 const _mob_type_to_property_map: Dictionary = {
@@ -107,7 +107,6 @@ const _mob_size_to_property_map: Dictionary = {
 
 const _csv_property_to_tower_property_map: Dictionary = {
 	CsvProperty.ATTACK_RANGE: TowerProperty.ATTACK_RANGE,
-	CsvProperty.ATTACK_CD: TowerProperty.ATTACK_CD,
 	CsvProperty.ATTACK_DAMAGE_MIN: TowerProperty.ATTACK_DAMAGE_MIN,
 	CsvProperty.ATTACK_DAMAGE_MAX: TowerProperty.ATTACK_DAMAGE_MAX,
 }
@@ -124,7 +123,7 @@ var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _tower_properties: Dictionary = {
 	TowerProperty.ATTACK_RANGE: 0.0,
-	TowerProperty.ATTACK_CD: 0.0,
+	TowerProperty.ATTACK_SPEED: 1.0,
 	TowerProperty.ATTACK_DAMAGE_MIN: 0,
 	TowerProperty.ATTACK_DAMAGE_MAX: 0,
 	TowerProperty.ATTACK_CRIT_CHANCE: 0.0,
@@ -306,9 +305,7 @@ func _apply_properties_to_scene_children():
 	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
 	$AreaOfEffect.set_radius(cast_range)
 
-	var attack_cd: float = _tower_properties[TowerProperty.ATTACK_CD]
-	attack_cd = max(ATTACK_CD_MIN, attack_cd)
-	_attack_cooldown_timer.wait_time = attack_cd
+	_attack_cooldown_timer.wait_time = get_overall_cooldown()
 
 
 # NOTE: returns random damage within range without any mods applied
@@ -460,8 +457,21 @@ func get_element() -> int:
 	return element
 
 
+func get_base_attack_speed() -> float:
+	return _tower_properties[TowerProperty.ATTACK_SPEED]
+
+
 func get_base_cooldown() -> float:
 	return get_csv_property(CsvProperty.ATTACK_CD).to_float()
+
+
+func get_overall_cooldown() -> float:
+	var attack_cooldown: float = get_base_cooldown()
+	var attack_speed: float = get_base_attack_speed()
+	var overall_cooldown: float = attack_cooldown * attack_speed
+	overall_cooldown = max(ATTACK_CD_MIN, overall_cooldown)
+
+	return overall_cooldown
 
 
 # TODO: implement
