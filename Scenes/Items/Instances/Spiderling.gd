@@ -32,7 +32,7 @@ func _on_attack(event: Event):
 	boekie_spiderling_slow.set_stacking_group("boekieSpiderlingSlow")
 
 	var tower: Tower = itm.get_carrier() 
-	var speed: float = tower.get_base_cooldown()  
+	var speed: float = tower.get_base_attack_speed()  
 
 	if tower.calc_chance(0.25 * speed) == true:
 		boekie_spiderling_slow.apply_to_unit(tower, event.get_target(), 1, 4, 0, false)
