@@ -80,7 +80,7 @@ func _move(delta):
 
 #	NOTE: on path turns, the move angle becomes 0 for some
 #	reason so don't update unit facing during that period
-	if int(move_angle) > 0:
+	if int(abs(move_angle)) > 0:
 		set_unit_facing(move_angle)
 	
 	if reached_path_point:
