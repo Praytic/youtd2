@@ -49,6 +49,9 @@ func circle_shape_set_radius(collision_shape: CollisionShape2D, radius: float):
 	
 	circle_shape.radius = radius
 
+
+# Returns random number in [value_min, value_max] range,
+# inclusive
 func randi_range(value_min: int, value_max: int):
 	var out = randi() % (value_max - value_min + 1) + value_min
 	return out
@@ -104,3 +107,19 @@ func display_floating_text_x(text: String, unit: Unit, color: Color, _mystery_fl
 # TODO: implement, not sure what the difference is between this and then _x version
 func display_floating_text(text: String, unit: Unit, color: Color):
 	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
+
+
+func shuffle_list(list) -> Array:
+	var index_list: Array = []
+
+	for i in range(0, list.size()):
+		index_list.append(i)
+
+	var sorted: Array = []
+
+	while !index_list.empty():
+		var random_index_of_index: int = randi_range(0, index_list.size() - 1)
+		var random_index: int = index_list.pop_at(random_index_of_index)
+		sorted.append(list[random_index])
+
+	return sorted
