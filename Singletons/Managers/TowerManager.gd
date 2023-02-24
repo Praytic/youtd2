@@ -4,8 +4,10 @@ extends Node
 var preloaded_towers: Dictionary
 const towers_dir: String = "res://Scenes/Towers/Instances"
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
+const PRINT_SCENE_NOT_FOUND_ERROR: bool = false
 var _tower_name_to_id_map: Dictionary = {}
 var _tower_id_to_name_map: Dictionary = {}
+var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 # var tower_props: Dictionary
 
 
@@ -29,12 +31,10 @@ func _init():
 		if tower_scene_exists:
 			tower_scene = load(tower_scene_path)
 		else:
-#			NOTE: use a fallback scene if scene wasn't
-#			defined. After most tower scripts are added
-#			should replace this with a print_debug() warning
-#			about missing scene.
-			var fallback_scene_path: String = "%s/%s.tscn" % [towers_dir, "SmallCactus1"]
-			tower_scene = load(fallback_scene_path)
+			if PRINT_SCENE_NOT_FOUND_ERROR:
+				print_debug("No scene found for id:", tower_id, ". Tried at path:", tower_scene_path)
+
+			tower_scene = _fallback_scene
 
 		preloaded_towers[tower_id] = tower_scene
 

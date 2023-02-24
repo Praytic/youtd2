@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Towers/Selection.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Towers/Tower.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Environment/Props/floor.png" type="Texture" id=3]
+[ext_resource path="res://Assets/icon.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 resource_local_to_scene = true
@@ -27,3 +28,7 @@ polygon = PoolVector2Array( 0, -128, 128, 0, 0, 128, -128, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingArea"]
 shape = SubResource( 1 )
+
+[node name="DefaultSprite" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
