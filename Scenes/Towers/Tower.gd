@@ -4,22 +4,23 @@ extends Building
 
 enum CsvProperty {
 	SCENE_NAME = 0,
-	NAME = 1,
-	ID = 2,
-	FAMILY_ID = 3,
-	AUTHOR = 4,
-	RARITY = 5,
-	ELEMENT = 6,
-	ATTACK_TYPE = 7,
-	ATTACK_RANGE = 8,
-	ATTACK_CD = 9,
-	ATTACK_DAMAGE_MIN = 10,
-	ATTACK_DAMAGE_MAX = 11,
-	COST = 12,
-	DESCRIPTION = 13,
-	TIER = 14,
-	REQUIRED_ELEMENT_LEVEL = 15,
-	REQUIRED_WAVE_LEVEL = 16,
+	TEXTURE_ATLAS_NAME = 1,
+	NAME = 2,
+	ID = 3,
+	FAMILY_ID = 4,
+	AUTHOR = 5,
+	RARITY = 6,
+	ELEMENT = 7,
+	ATTACK_TYPE = 8,
+	ATTACK_RANGE = 9,
+	ATTACK_CD = 10,
+	ATTACK_DAMAGE_MIN = 11,
+	ATTACK_DAMAGE_MAX = 12,
+	COST = 13,
+	DESCRIPTION = 14,
+	TIER = 15,
+	REQUIRED_ELEMENT_LEVEL = 16,
+	REQUIRED_WAVE_LEVEL = 17,
 }
 
 enum TowerProperty {
@@ -190,6 +191,34 @@ func _ready():
 
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
+
+	load_atlas()
+
+
+var TEXTURE_HEIGHT = 300
+var TEXTURE_WIDTH = 300
+var TEXTURES_PER_ROW = 3
+
+func load_atlas():
+	var atlas_texture_name: String = get_csv_property(CsvProperty.TEXTURE_ATLAS_NAME)
+	var atlas_texture_path = "res://Assets/Towers/Instances/%s.png" % [atlas_texture_name]
+	var atlas_texture_exists: bool = File.new().file_exists(atlas_texture_path)
+
+	if !atlas_texture_exists:
+		return
+
+	var atlas_texture = AtlasTexture.new()
+	atlas_texture.atlas = load(atlas_texture_path)
+	var atlas_index: int = get_tier() - 1
+	atlas_texture.region = Rect2(
+		(atlas_index % TEXTURES_PER_ROW) * TEXTURE_WIDTH, 
+		(atlas_index / TEXTURES_PER_ROW) * TEXTURE_HEIGHT, 
+		TEXTURE_WIDTH, 
+		TEXTURE_HEIGHT
+	)
+
+	$TowerSprite.texture = atlas_texture
+	$DefaultSprite.hide()
 
 
 #########################
