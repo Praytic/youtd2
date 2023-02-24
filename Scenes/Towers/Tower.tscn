@@ -30,5 +30,6 @@ polygon = PoolVector2Array( 0, -128, 128, 0, 0, 128, -128, 0 )
 shape = SubResource( 1 )
 
 [node name="DefaultSprite" type="Sprite" parent="."]
+visible = false
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )

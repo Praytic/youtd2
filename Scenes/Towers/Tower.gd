@@ -213,8 +213,8 @@ func change_level(new_level: int):
 # 	re-apply them
 	_apply_properties_to_scene_children()
 
-func hide_default_sprite():
-	$DefaultSprite.hide()
+func enable_default_sprite():
+	$DefaultSprite.show()
 
 #########################
 ###      Private      ###

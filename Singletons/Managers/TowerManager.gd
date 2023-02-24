@@ -69,9 +69,9 @@ func get_tower(id: int) -> PackedScene:
 	tower.set_script(tower_script)
 	tower.set_id(id)
 
-	var tower_has_inherited_scene: bool = scene != _fallback_scene
-	if tower_has_inherited_scene:
-		tower.hide_default_sprite()
+	var using_fallback_scene: bool = scene == _fallback_scene
+	if using_fallback_scene:
+		tower.enable_default_sprite()
 
 	return tower
 
