@@ -15,14 +15,12 @@ region = Rect2( 58, 70, 185, 160 )
 
 [node name="TinyShrub1" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
-id = 1
-next_tier_id = 439
 attack_sound = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="TargetingArea" index="0"]
 shape = SubResource( 1 )
 
-[node name="Model" type="Node2D" parent="." index="5"]
+[node name="Model" type="Node2D" parent="." index="6"]
 position = Vector2( 0, -193 )
 
 [node name="Sprite" type="Sprite" parent="Model" index="0"]

@@ -14,13 +14,11 @@ region = Rect2( 71, 51, 159, 198 )
 
 [node name="LesserDarkDefender1" instance=ExtResource( 3 )]
 script = ExtResource( 2 )
-id = 487
-next_tier_id = 488
 
 [node name="CollisionShape2D" parent="TargetingArea" index="0"]
 shape = SubResource( 1 )
 
-[node name="Model" type="Node2D" parent="." index="5"]
+[node name="Model" type="Node2D" parent="." index="6"]
 position = Vector2( 0, -193 )
 
 [node name="Muzzle" type="Position2D" parent="Model" index="0"]

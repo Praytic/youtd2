@@ -14,13 +14,11 @@ region = Rect2( 43, 313, 201, 275 )
 
 [node name="ObeliskOfFortuity" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-id = 208
-next_tier_id = 209
 
 [node name="CollisionShape2D" parent="TargetingArea" index="0"]
 shape = SubResource( 1 )
 
-[node name="Model" type="Node2D" parent="." index="5"]
+[node name="Model" type="Node2D" parent="." index="6"]
 
 [node name="Sprite" type="Sprite" parent="Model" index="0"]
 position = Vector2( -1, -85 )
