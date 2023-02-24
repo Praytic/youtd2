@@ -109,6 +109,11 @@ func display_floating_text(text: String, unit: Unit, color: Color):
 	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
 
 
+func display_small_floating_text(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, _mystery_float: float):
+	var color: Color = Color(color_r / 255.0, color_g / 255.0, color_b / 255.0)
+	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
+
+
 func shuffle_list(list) -> Array:
 	var index_list: Array = []
 
