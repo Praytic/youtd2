@@ -62,11 +62,16 @@ func _init():
 # with scene name so this can be done automatically instead
 # of having to do it by hand in scene editor.
 func get_tower(id: int) -> PackedScene:
-	var tower = preloaded_towers[id].instance()
+	var scene: PackedScene = preloaded_towers[id]
+	var tower = scene.instance()
 	var tower_script_path: String = _get_tower_script_path(id)
 	var tower_script = load(tower_script_path)
 	tower.set_script(tower_script)
 	tower.set_id(id)
+
+	var tower_has_inherited_scene: bool = scene != _fallback_scene
+	if tower_has_inherited_scene:
+		tower.hide_default_sprite()
 
 	return tower
 
