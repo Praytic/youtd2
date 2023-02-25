@@ -76,7 +76,7 @@ func _load_data_for_scene_nodes():
 
 
 func _add_target(new_target: Mob):
-	if new_target == null && !new_target.is_dead():
+	if new_target == null || new_target.is_dead():
 		return
 
 	new_target.connect("death", self, "_on_target_death", [new_target])
@@ -105,7 +105,7 @@ func _find_new_target() -> Mob:
 		body_list.erase(target)
 	
 	for body in body_list:
-		if body is Mob || !body.is_dead():
+		if body is Mob && !body.is_dead():
 			var mob: Mob = body
 			var distance: float = (mob.position - self.position).length()
 			
