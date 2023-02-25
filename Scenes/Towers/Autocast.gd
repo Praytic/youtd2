@@ -125,11 +125,15 @@ func _try_to_cast():
 	if attack_on_cooldown:
 		return
 
+	var casted_on_target: bool = false
+
 	for target in _target_list:
 		var event = Event.new(target, 0, true)
 		_handler_object.call(_handler_function, event)
+
+		casted_on_target = true
 	
-	if !_target_list.empty():
+	if casted_on_target:
 		_cooldown_timer.start()
 
 
