@@ -34,7 +34,7 @@ func _trap(event: Event, tower, cooldown: float, base_damage: float, damage_add:
 		num_targets = num_targets + 1
 		var cb_stun: Buff = CbStun.new("cb_stun", 0, 0, false)
 		cb_stun.apply_only_timed(tower, next, stun_duration)
-		tower.do_spell_damage(next, base_damage + lvl * damage_add, tower.calc_spell_crit_no_bonus(), false)
+		tower.do_spell_damage(next, base_damage + lvl * damage_add, tower.calc_spell_crit_no_bonus())
 		Utils.sfx_at_unit("Abilities\\Spells\\Orc\\ReinforcedTrollBurrow\\ReinforcedTrollBurrowTarget.mdl", next)
 
 		if num_targets >= max_targets:

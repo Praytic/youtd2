@@ -57,4 +57,4 @@ func _chasm_entangle_damage(event: Event):
 
 	var t = buff.get_caster()
 	var c: Mob = buff.get_buffed_unit()
-	t.do_spell_damage(c, t.user_int + t.user_int * t.get_level() / 20, t.calc_spell_crit_no_bonus(), true)
+	t.do_spell_damage(c, t.user_int + t.user_int * t.get_level() / 20, t.calc_spell_crit_no_bonus())
