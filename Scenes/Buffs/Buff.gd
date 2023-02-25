@@ -195,7 +195,7 @@ func add_event_handler(event_type: int, handler_object: Node, handler_function: 
 	_add_event_handler_internal(event_type, handler)
 
 
-func add_event_handler_periodic(handler_object: Node, handler_function: String, period: float):
+func add_periodic_event(handler_object: Node, handler_function: String, period: float):
 	if !_check_handler_exists(handler_object, handler_function):
 		return
 
@@ -229,7 +229,7 @@ func add_autocast(autocast_data: Autocast.Data, handler_object, handler_function
 	return autocast_scene
 
 
-func add_event_on_cleanup(handler_object: Node, handler_function: String):
+func set_event_on_cleanup(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.CLEANUP, handler_object, handler_function)
 
 
@@ -265,7 +265,7 @@ func add_event_on_damaged(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.DAMAGED, handler_object, handler_function)
 
 
-func add_event_on_expired(handler_object: Node, handler_function: String):
+func add_event_on_expire(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.EXPIRED, handler_object, handler_function)
 
 
