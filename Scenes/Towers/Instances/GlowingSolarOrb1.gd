@@ -19,15 +19,15 @@ func _ready():
 		225: _stats.splash_225_damage,
 	}
 	var splash_attack_buff = SplashAttack.new(splash_map)
-	splash_attack_buff.apply_to_unit_permanent(self, self, 0, true)
+	splash_attack_buff.apply_to_unit_permanent(self, self, 0)
 
 	var dmg_to_undead_modifier: Modifier = Modifier.new()
 	dmg_to_undead_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.15, 0.0)
 	add_modifier(dmg_to_undead_modifier)
 
-	var on_damage_buff: Buff = Buff.new("")
-	on_damage_buff.add_event_handler(Buff.EventType.DAMAGE, self, "_on_damage")
-	on_damage_buff.apply_to_unit_permanent(self, self, 0, false)
+	var on_damage_buff: Buff = TriggersBuff.new()
+	on_damage_buff.add_event_on_damage(self, "_on_damage")
+	on_damage_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func _on_damage(event: Event):
@@ -35,7 +35,7 @@ func _on_damage(event: Event):
 
 	var armor: Modifier = Modifier.new()
 	armor.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
-	var cassim_armor: Buff = Buff.new("cassim_armor")
+	var cassim_armor: Buff = Buff.new("cassim_armor", 0, 0, false)
 	cassim_armor.set_buff_icon("@@0@@")
 	cassim_armor.set_buff_modifier(armor)
 	cassim_armor.set_stacking_group("astral_armor")
@@ -48,4 +48,4 @@ func _on_damage(event: Event):
 		size_factor = 2.0
 
 	if tower.calc_chance((0.05 + lvl * 0.006) * size_factor):
-		cassim_armor.apply_to_unit(tower, creep, _stats.armor_decrease, 5 + lvl * 0.25, 0, false)
+		cassim_armor.apply_custom_timed(tower, creep, _stats.armor_decrease, 5 + lvl * 0.25)

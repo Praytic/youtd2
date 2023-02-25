@@ -7,9 +7,9 @@ var on_attack_buff: Buff = null
 
 
 func _add_to_tower_subclass():
-	on_attack_buff = Buff.new("")
-	on_attack_buff.add_event_handler(Buff.EventType.ATTACK, self, "_on_attack")
-	on_attack_buff.apply_to_unit_permanent(get_carrier(), get_carrier(), 0, false)
+	on_attack_buff = TriggersBuff.new()
+	on_attack_buff.add_event_on_attack(self, "_on_attack")
+	on_attack_buff.apply_to_unit_permanent(get_carrier(), get_carrier(), 0)
 
 
 func _remove_from_tower_subclass():
@@ -26,7 +26,7 @@ func _on_attack(event: Event):
 	var m: Modifier = Modifier.new() 
 	
 	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
-	var boekie_spiderling_slow: Buff = Buff.new(boekie_spiderling_slow)
+	var boekie_spiderling_slow: Buff = Buff.new("boekie_spiderling_slow", 4, 0, false)
 	boekie_spiderling_slow.set_buff_icon("@@0@@") 
 	boekie_spiderling_slow.set_buff_modifier(m) 
 	boekie_spiderling_slow.set_stacking_group("boekieSpiderlingSlow")
@@ -35,4 +35,4 @@ func _on_attack(event: Event):
 	var speed: float = tower.get_base_attack_speed()  
 
 	if tower.calc_chance(0.25 * speed) == true:
-		boekie_spiderling_slow.apply_to_unit(tower, event.get_target(), 1, 4, 0, false)
+		boekie_spiderling_slow.apply(tower, event.get_target(), 1)

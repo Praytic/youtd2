@@ -12,9 +12,9 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _ready():
-	var warming_up = Buff.new("")
-	warming_up.add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")
-	warming_up.apply_to_unit_permanent(self, self, 0, true)
+	var warming_up = TriggersBuff.new()
+	warming_up.add_event_on_damage(self, "on_damage")
+	warming_up.apply_to_unit_permanent(self, self, 0)
 
 
 func on_damage(event: Event):

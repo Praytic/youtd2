@@ -6,9 +6,9 @@ var on_periodic_buff: Buff = null
 
 
 func _add_to_tower_subclass():
-	on_periodic_buff = Buff.new("")
-	on_periodic_buff.add_event_handler_periodic(self, "_on_periodic", 1.0)
-	on_periodic_buff.apply_to_unit_permanent(get_carrier(), get_carrier(), 0, false)
+	on_periodic_buff = TriggersBuff.new()
+	on_periodic_buff.add_periodic_event(self, "_on_periodic", 1.0)
+	on_periodic_buff.apply_to_unit_permanent(get_carrier(), get_carrier(), 0)
 
 
 func _remove_from_tower_subclass():

@@ -18,19 +18,19 @@ func _ready():
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.70, 0.02)
 	add_modifier(specials_modifier)
 
-	var triggers_buff: Buff = Buff.new("")
-	triggers_buff.add_event_handler(Buff.EventType.ATTACK, self, "_on_attack")
-	triggers_buff.apply_to_unit_permanent(self, self, 0, false)
+	var triggers_buff: Buff = TriggersBuff.new()
+	triggers_buff.add_event_on_attack(self, "_on_attack")
+	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func _on_attack(event: Event):
 	var tower: Unit = self
 
-	var sternbogen_broken_wind: Buff = CbStun.new("sternbogen_broken_wind")
+	var sternbogen_broken_wind: Buff = CbStun.new("sternbogen_broken_wind", 1.0, 0, false)
 	sternbogen_broken_wind.set_buff_icon("@@0@@")
-	sternbogen_broken_wind.add_event_handler(Buff.EventType.CREATE, self, "_cyclone_creep_up")
-	sternbogen_broken_wind.add_event_handler_periodic(self, "_cyclone_creep_turn", 0.1)
-	sternbogen_broken_wind.add_event_handler(Buff.EventType.CLEANUP, self, "_cyclone_creep_down")
+	sternbogen_broken_wind.add_event_on_create(self, "_cyclone_creep_up")
+	sternbogen_broken_wind.add_periodic_event(self, "_cyclone_creep_turn", 0.1)
+	sternbogen_broken_wind.set_event_on_cleanup(self, "_cyclone_creep_down")
 
 	var target: Unit = event.get_target()
 	var damage: float = _stats.cyclone_damage + _stats.cyclone_damage_add * tower.get_level()
@@ -43,7 +43,7 @@ func _on_attack(event: Event):
 			if b != null:
 				damage = max(b.user_real3, damage)
 
-			b = sternbogen_broken_wind.apply_to_unit(tower, target, tower.get_level(), _stats.cyclone_duration, 0.0, false)
+			b = sternbogen_broken_wind.apply_custom_timed(tower, target, tower.get_level(), _stats.cyclone_duration)
 
 			if b != null:
 				b.user_real3 = damage

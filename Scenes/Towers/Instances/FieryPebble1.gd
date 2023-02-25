@@ -13,4 +13,4 @@ func _get_tier_stats() -> Dictionary:
 
 func _ready():
 	var splash_attack_buff = SplashAttack.new({_stats.splash_radius: 0.25})
-	splash_attack_buff.apply_to_unit_permanent(self, self, 0, true)
+	splash_attack_buff.apply_to_unit_permanent(self, self, 0)

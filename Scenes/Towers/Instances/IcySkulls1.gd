@@ -13,15 +13,15 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _ready():
-	var on_damage_buff: Buff = Buff.new("")
-	on_damage_buff.add_event_handler(Buff.EventType.DAMAGE, self, "_on_damage")
-	on_damage_buff.apply_to_unit_permanent(self, self, 0, false)
+	var on_damage_buff: Buff = TriggersBuff.new()
+	on_damage_buff.add_event_on_damage(self, "_on_damage")
+	on_damage_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func _on_damage(event: Event):
 	var tower = self
 
-	var cassim_slow = Buff.new("cassim_slow")
+	var cassim_slow = Buff.new("cassim_slow", 0, 0, false)
 	var slow_mod: Modifier = Modifier.new()
 	slow_mod.add_modification(Modification.Type.MOD_MOVE_SPEED, 0, -0.001)
 	cassim_slow.set_buff_icon("@@0@@")
@@ -31,4 +31,4 @@ func _on_damage(event: Event):
 	var slow: int = int((_stats.slow_base + lvl * _stats.slow_add) * 1000)
 	var dur: int = int(_stats.duration_base + lvl * _stats.duration_add)
 
-	cassim_slow.apply_to_unit(tower, event.get_target(), slow, dur, 0.0, false)
+	cassim_slow.apply_custom_timed(tower, event.get_target(), slow, dur)
