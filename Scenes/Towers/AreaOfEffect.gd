@@ -6,7 +6,7 @@ export(float) var radius
 onready var texture: Texture = load("res://Resources/PulsingDot.tres")
 
 
-func draw():
+func _draw():
 	_draw_circle_arc(self.position, 0, 360, Color.aqua)
 
 
