@@ -66,6 +66,8 @@ var _caster: Unit
 var _target: Unit
 var _modifier: Modifier = Modifier.new()
 var _level: int
+var _time_base: float
+var _time_level_add: float
 var _friendly: bool
 var _type: String
 # Map of EventType -> list of EventHandler's
@@ -82,16 +84,17 @@ var event_handler_map: Dictionary = {}
 # your buff and multiple active instances of the buff on one
 # unit are allowed. For example, buffs that are used solely
 # to add event handlers should have empty type.
-func _init(type: String):
+func _init(type: String, time_base: float, time_level_add: float, friendly: bool):
 	_type = type
+	_time_base = time_base
+	_time_level_add = time_level_add
+	_friendly = friendly
 
 
-
-# Call this after creating the buff and before applying
-func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, time_level_add: float, friendly: bool):
+# Base apply function. Overrides time parameters from init().
+func apply_custom_timed(caster: Unit, target: Unit, level: int, time: float):
 	_caster = caster
 	_level = level
-	_friendly = friendly
 
 # 	Don't do any override logic for buffs with empty type
 # 	and allow stacking multiple instances of same type.
@@ -118,7 +121,7 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 	_target.connect("damage", self, "_on_target_damage")
 	_target.connect("damaged", self, "_on_target_damaged")
 
-	if time_base > 0.0:
+	if time > 0.0:
 		var timer: Timer = Timer.new()
 		add_child(timer)
 		timer.connect("timeout", self, "_on_timer_timeout")
@@ -128,16 +131,28 @@ func apply_to_unit(caster: Unit, target: Unit, level: int, time_base: float, tim
 		if _friendly:
 			debuff_duration_mod = 0.0
 
-		var total_time: float = (time_base + time_level_add * _level) * (1.0 + buff_duration_mod) * (1.0 + debuff_duration_mod)
+		var total_time: float = time * (1.0 + buff_duration_mod) * (1.0 + debuff_duration_mod)
 		timer.start(total_time)
 
 	var create_event: Event = _make_buff_event(_target, 0, true)
 	_call_event_handler_list(EventType.CREATE, create_event)
 
 
-func apply_to_unit_permanent(caster: Unit, target: Unit, level: int, friendly: bool):
-	apply_to_unit(caster, target, level, -1.0, 0.0, friendly)
+# Apply using time parameters that were defined in init()
+func apply(caster: Unit, target: Unit, level: int):
+	var time: float = _time_base + _time_level_add * _level
 
+	apply_custom_timed(caster, target, level, time)
+
+
+# Apply overriding time parameters from init() and without
+# specifying level. This is a convenience function
+func apply_only_timed(caster: Unit, target: Unit, time: float):
+	apply_custom_timed(caster, target, 0, time)
+
+
+func apply_to_unit_permanent(caster: Unit, target: Unit, level: int):
+	apply_custom_timed(caster, target, level, -1.0)
 
 
 func set_buff_modifier(modifier: Modifier):

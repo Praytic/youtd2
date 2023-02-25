@@ -197,9 +197,9 @@ func _ready():
 	attack_autocast_data.target_type = TargetType.new(TargetType.UnitType.MOBS)
 	attack_autocast_data.auto_range = 0
 
-	var attack_buff = Buff.new("")
+	var attack_buff = TriggersBuff.new()
 	_attack_autocast = attack_buff.add_autocast(attack_autocast_data, self, "_on_attack_autocast")
-	attack_buff.apply_to_unit_permanent(self, self, 0, true)
+	attack_buff.apply_to_unit_permanent(self, self, 0)
 
 	_apply_properties_to_scene_children()
 
