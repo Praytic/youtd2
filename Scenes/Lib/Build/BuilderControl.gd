@@ -26,7 +26,7 @@ func on_build_button_pressed(tower_id: int):
 		cancel_build_mode()
 	build_mode = true
 
-	var tower_instance = TowerManager.get_tower(tower_id)
+	var tower_instance = TowerManager.get_tower_visual_only(tower_id)
 	tower_instance.set_name("Tower")
 	tower_preview = TowerPreview.new(tower_id)
 	tower_preview.set_name("TowerPreview")
