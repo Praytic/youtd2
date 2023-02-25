@@ -34,6 +34,10 @@ enum UnitProperty {
 const MOVE_SPEED_MIN: float = 100.0
 const MOVE_SPEED_MAX: float = 500.0
 
+# HACK: to fix cyclic dependency between Tower<->TargetType
+var _is_mob: bool = false
+var _is_tower: bool = false
+
 var user_int: int = 0
 var user_int2: int = 0
 var user_int3: int = 0
@@ -155,6 +159,14 @@ func set_level(new_level: int):
 		_apply_modifier(modifier, new_level, 1)
 
 	emit_signal("level_up")
+
+
+func is_mob() -> bool:
+	return _is_mob
+
+
+func is_tower() -> bool:
+	return _is_tower
 
 
 func get_x() -> float:
