@@ -99,5 +99,3 @@ margin_bottom = -188.0
 [connection signal="camera_moved" from="Map/Camera" to="UI/Minimap" method="_on_Camera_camera_moved"]
 [connection signal="camera_zoomed" from="Map/Camera" to="UI/HUD" method="_on_Camera_camera_zoomed"]
 [connection signal="camera_zoomed" from="Map/Camera" to="UI/Minimap" method="_on_Camera_camera_zoomed"]
-[connection signal="start_wave" from="UI/HUD" to="." method="_on_HUD_start_wave"]
-[connection signal="stop_wave" from="UI/HUD" to="." method="_on_HUD_stop_wave"]
