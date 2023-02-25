@@ -117,9 +117,6 @@ const ATTACK_CD_MIN: float = 0.2
 var _id: int = 0
 var _stats: Dictionary
 var _attack_autocast = null
-# NOTE: if your tower needs to attack more than 1 target,
-# set this var once in _ready() method of subclass
-var _target_count_max: int = 1
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _tower_properties: Dictionary = {
@@ -233,6 +230,12 @@ func enable_default_sprite():
 #########################
 ###      Private      ###
 #########################
+
+
+# NOTE: if your tower needs to attack more than 1 target,
+# call this f-n once in _ready() method of subclass
+func _set_target_count(count: int):
+	_attack_autocast._target_count_max = count
 
 
 func _on_attack_autocast(event: Event):
