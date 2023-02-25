@@ -12,7 +12,7 @@ enum Type {
 	MOD_ARMOR,
 	MOD_ARMOR_PERC,
 	MOD_EXP_GRANTED,
-	MOD_EXP_GRANTED,
+	MOD_SPELL_DAMAGE_RECEIVED,
 
 # For towers:
 	MOD_ATTACK_CRIT_CHANCE,
@@ -50,6 +50,7 @@ const _math_type_map: Dictionary = {
 	Type.MOD_ARMOR: MathType.ADD,
 	Type.MOD_ARMOR_PERC: MathType.MULTIPLY,
 	Type.MOD_EXP_GRANTED: MathType.ADD,
+	Type.MOD_SPELL_DAMAGE_RECEIVED: MathType.ADD,
 
 # For towers:
 	Type.MOD_ATTACK_CRIT_CHANCE: MathType.ADD,

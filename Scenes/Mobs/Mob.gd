@@ -10,6 +10,7 @@ signal moved(delta)
 enum MobProperty {
 	ARMOR,
 	EXP_GRANTED,
+	SPELL_DAMAGE_RECEIVED,
 }
 
 # NOTE: order is important to be able to compare
@@ -34,6 +35,7 @@ const _mob_mod_to_property_map: Dictionary = {
 	Modification.Type.MOD_ARMOR: MobProperty.ARMOR,
 	Modification.Type.MOD_ARMOR_PERC: MobProperty.ARMOR,
 	Modification.Type.MOD_EXP_GRANTED: MobProperty.EXP_GRANTED,
+	Modification.Type.MOD_SPELL_DAMAGE_RECEIVED: MobProperty.SPELL_DAMAGE_RECEIVED,
 }
 
 const MOB_HEALTH_MAX: float = 100.0
@@ -43,9 +45,11 @@ var _current_path_index: int = 0
 var _size: int = Size.NORMAL
 var _type: int = Type.HUMANOID
 var movement_enabled: bool = true 
+# TODO: implement SPELL_DAMAGE_RECEIVED
 var _mob_properties: Dictionary = {
 	MobProperty.ARMOR: 0.0,
 	MobProperty.EXP_GRANTED: 0.0,
+	MobProperty.SPELL_DAMAGE_RECEIVED: 1.0,
 }
 var _facing_angle: float = 0.0
 
