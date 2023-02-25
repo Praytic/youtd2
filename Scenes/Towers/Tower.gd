@@ -23,6 +23,12 @@ enum CsvProperty {
 	ICON_ATLAS_NUM = 17,
 }
 
+enum AttackStyle {
+	NORMAL,
+	SPLASH,
+	BOUNCE,
+}
+
 enum TowerProperty {
 	ATTACK_RANGE,
 	ATTACK_SPEED,
@@ -34,7 +40,6 @@ enum TowerProperty {
 	ATTACK_CRIT_CHANCE,
 	ATTACK_CRIT_DAMAGE,
 	MULTICRIT_COUNT,
-	ATTACK_MISS_CHANCE,
 
 	DMG_TO_MASS,
 	DMG_TO_NORMAL,
@@ -119,6 +124,10 @@ var _id: int = 0
 var _stats: Dictionary
 var _attack_autocast = null
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
+var _splash_map: Dictionary = {}
+var _bounce_count_max: int = 0
+var _bounce_damage_multiplier: float = 0.0
+var _attack_style: int = AttackStyle.NORMAL
 var _tower_properties: Dictionary = {
 	TowerProperty.ATTACK_RANGE: 0.0,
 	TowerProperty.ATTACK_SPEED: 1.0,
@@ -129,7 +138,6 @@ var _tower_properties: Dictionary = {
 # from crits, so default value of 1.0 means +100%
 	TowerProperty.ATTACK_CRIT_DAMAGE: 1.0,
 	TowerProperty.MULTICRIT_COUNT: 1.0,
-	TowerProperty.ATTACK_MISS_CHANCE: 0.0,
 
 	TowerProperty.DMG_TO_MASS: 0.0,
 	TowerProperty.DMG_TO_NORMAL: 0.0,
@@ -224,6 +232,17 @@ func enable_default_sprite():
 #########################
 ###      Private      ###
 #########################
+
+
+func _set_attack_style_splash(splash_map: Dictionary):
+	_attack_style = AttackStyle.SPLASH
+	_splash_map = splash_map
+
+
+func _set_attack_style_bounce(bounce_count_max: int, bounce_damage_multiplier: float):
+	_attack_style = AttackStyle.BOUNCE
+	_bounce_count_max = bounce_count_max
+	_bounce_damage_multiplier = bounce_damage_multiplier
 
 
 # NOTE: if your tower needs to attack more than 1 target,
@@ -359,16 +378,101 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 
 
 func _on_projectile_reached_mob(mob: Mob):
-	var attack_miss_chance: float = _tower_properties[TowerProperty.ATTACK_MISS_CHANCE]
-	var is_miss: bool = Utils.rand_chance(attack_miss_chance)
+	match _attack_style:
+		AttackStyle.NORMAL:
+			_on_projectile_reached_mob_normal(mob)
+		AttackStyle.SPLASH:
+			_on_projectile_reached_mob_splash(mob)
+		AttackStyle.BOUNCE:
+			_on_projectile_reached_mob_bounce(mob)
 
-	if is_miss:
-		return
 
+func _on_projectile_reached_mob_normal(mob: Mob):
 	var damage_base: float = _get_rand_damage_base()
 	var damage: float = _get_damage_to_mob(mob, damage_base)
 	
 	._do_damage(mob, damage, true)
+
+
+func _on_projectile_reached_mob_splash(mob: Mob):
+	if _splash_map.empty():
+		return
+
+	var damage_base: float = _get_rand_damage_base()
+	var damage: float = _get_damage_to_mob(mob, damage_base)
+	var splash_target: Unit = mob
+	var splash_pos: Vector2 = splash_target.position
+
+#	Process splash ranges from closest to furthers,
+#	so that strongest damage is applied
+	var splash_range_list: Array = _splash_map.keys()
+	splash_range_list.sort()
+
+	var splash_range_max: float = splash_range_list.back()
+
+	var mob_list: Array = Utils.get_mob_list_in_range(splash_pos, splash_range_max)
+
+	for mob in mob_list:
+		if mob == splash_target:
+			continue
+		
+		var distance: float = splash_pos.distance_to(mob.position)
+
+		for splash_range in splash_range_list:
+			var mob_is_in_range: bool = distance < splash_range
+
+			if mob_is_in_range:
+				var splash_damage_ratio: float = _splash_map[splash_range]
+				var splash_damage: float = damage * splash_damage_ratio
+				_do_damage(mob, splash_damage, true)
+
+				break
+
+
+
+func _on_projectile_reached_mob_bounce(mob: Mob):
+	var damage_base: float = _get_rand_damage_base()
+	var damage: float = _get_damage_to_mob(mob, damage_base)
+	
+	_on_projectile_bounce_in_progress(mob, damage, _bounce_count_max)
+
+
+func _on_projectile_bounce_in_progress(prev_mob: Mob, prev_damage: float, current_bounce_count: int):
+	._do_damage(prev_mob, prev_damage, true)
+
+# 	Launch projectile for next bounce, if bounce isn't over
+	var bounce_end: bool = current_bounce_count == 0
+
+	if bounce_end:
+		return
+
+	var next_damage: float = prev_damage * (1.0 - _bounce_damage_multiplier)
+	var next_bounce_count: int = current_bounce_count - 1
+
+	var next_target: Mob = _get_next_bounce_target(prev_mob)
+
+	if next_target == null:
+		return
+
+	var projectile = _projectile_scene.instance()
+	projectile.init(next_target, prev_mob.position)
+	projectile.connect("reached_mob", self, "_on_projectile_bounce_in_progress", [next_damage, next_bounce_count])
+	_game_scene.call_deferred("add_child", projectile)
+
+
+func _get_next_bounce_target(prev_target: Mob) -> Mob:
+	var attack_range: float = _tower_properties[TowerProperty.ATTACK_RANGE]
+	var mob_list: Array = Utils.get_mob_list_in_range(prev_target.position, attack_range)
+	mob_list.erase(prev_target)
+
+	Utils.sort_unit_list_by_distance(mob_list, prev_target.position)
+
+	if !mob_list.empty():
+		var next_target = mob_list[0]
+
+		return next_target
+	else:
+		return null
 
 
 #########################
