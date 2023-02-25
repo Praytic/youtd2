@@ -38,7 +38,6 @@ func _ready():
 
 
 func _on_autocast(event: Event):
-	print("lunar sentinel _on_autocast")
 	var tower = self
 
 	var m: Modifier = Modifier.new()
