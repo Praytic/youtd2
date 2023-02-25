@@ -40,6 +40,8 @@ signal removed()
 class EventHandler:
 	var object: Node
 	var handler_function: String
+	var chance: float
+	var chance_level_add: float
 
 
 var user_int: int = 0
@@ -207,13 +209,15 @@ func expire():
 	_on_timer_timeout()
 
 
-func add_event_handler(event_type: int, handler_object: Node, handler_function: String):
+func add_event_handler(event_type: int, handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
 	if !_check_handler_exists(handler_object, handler_function):
 		return
 
 	var handler: EventHandler = EventHandler.new()
 	handler.object = handler_object
 	handler.handler_function = handler_function
+	handler.chance = chance
+	handler.chance_level_add = chance_level_add
 
 	_add_event_handler_internal(event_type, handler)
 
@@ -253,43 +257,43 @@ func add_autocast(autocast_data: Autocast.Data, handler_object, handler_function
 
 
 func set_event_on_cleanup(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.CLEANUP, handler_object, handler_function)
+	add_event_handler(Event.Type.CLEANUP, handler_object, handler_function, 1.0, 0.0)
 
 
 func add_event_on_create(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.CREATE, handler_object, handler_function)
+	add_event_handler(Event.Type.CREATE, handler_object, handler_function, 1.0, 0.0)
 
 
 func add_event_on_death(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.DEATH, handler_object, handler_function)
+	add_event_handler(Event.Type.DEATH, handler_object, handler_function, 1.0, 0.0)
 
 
 func add_event_on_kill(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.KILL, handler_object, handler_function)
+	add_event_handler(Event.Type.KILL, handler_object, handler_function, 1.0, 0.0)
 
 
 func add_event_on_level_up(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.LEVEL_UP, handler_object, handler_function)
+	add_event_handler(Event.Type.LEVEL_UP, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_attack(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.ATTACK, handler_object, handler_function)
+func add_event_on_attack(handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
+	add_event_handler(Event.Type.ATTACK, handler_object, handler_function, chance, chance_level_add)
 
 
-func add_event_on_attacked(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.ATTACKED, handler_object, handler_function)
+func add_event_on_attacked(handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
+	add_event_handler(Event.Type.ATTACKED, handler_object, handler_function, chance, chance_level_add)
 
 
-func add_event_on_damage(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.DAMAGE, handler_object, handler_function)
+func add_event_on_damage(handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
+	add_event_handler(Event.Type.DAMAGE, handler_object, handler_function, chance, chance_level_add)
 
 
-func add_event_on_damaged(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.DAMAGED, handler_object, handler_function)
+func add_event_on_damaged(handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
+	add_event_handler(Event.Type.DAMAGED, handler_object, handler_function, chance, chance_level_add)
 
 
 func add_event_on_expire(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.EXPIRED, handler_object, handler_function)
+	add_event_handler(Event.Type.EXPIRED, handler_object, handler_function, 1.0, 0.0)
 
 
 func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
@@ -314,6 +318,13 @@ func _call_event_handler_list(event_type: int, event: Event):
 	var handler_list: Array = event_handler_map[event_type]
 
 	for handler in handler_list:
+		var caster_level: int = _caster.get_level()
+		var total_chance: float = handler.chance + handler.chance_level_add * (1 - caster_level)
+		var chance_success: bool = _caster.calc_chance(total_chance)
+
+		if !chance_success:
+			continue
+
 		handler.object.call(handler.handler_function, event)
 
 
