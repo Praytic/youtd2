@@ -5,11 +5,11 @@ signal tower_built(tower_id)
 
 
 onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
+onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 
-
-var build_mode: bool
-var tower_preview: TowerPreview
-var tower_type: String
+var build_mode: bool = false
+var tower_preview: TowerPreview = null
+var _tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 
 
 func _unhandled_input(event):
@@ -26,13 +26,9 @@ func on_build_button_pressed(tower_id: int):
 		cancel_build_mode()
 	build_mode = true
 
-	var tower_instance = TowerManager.get_tower_visual_only(tower_id)
-	tower_instance.set_name("Tower")
-	tower_preview = TowerPreview.new(tower_id)
-	tower_preview.set_name("TowerPreview")
-	tower_preview.add_child(tower_instance, true)
-	var game_scene = $"/root/GameScene"
-	game_scene.add_child(tower_preview, true)
+	tower_preview = _tower_preview_scene.instance()
+	tower_preview.tower_id = tower_id
+	_game_scene.add_child(tower_preview)
 
 
 func verify_and_build():
