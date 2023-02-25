@@ -17,8 +17,7 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _ready():
-	var bounce_attack_buff = BounceAttack.new(3, 0.5)
-	bounce_attack_buff.apply_to_unit_permanent(self, self, 0)
+	_set_attack_style_bounce(3, 0.5)
 
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, _stats.undead_damage, _stats.undead_damage_add)

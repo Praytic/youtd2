@@ -15,8 +15,7 @@ func _get_tier_stats() -> Dictionary:
 
 func _ready():
 #	NOTE: splash values are the same for all tiers
-	var splash_attack_buff = SplashAttack.new({600: 0.1})
-	splash_attack_buff.apply_to_unit_permanent(self, self, 0)
+	_set_attack_style_splash({600: 0.1})
 
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, _stats.dmg_to_mass, _stats.dmg_to_mass_add)
