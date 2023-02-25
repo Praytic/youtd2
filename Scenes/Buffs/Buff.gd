@@ -242,6 +242,46 @@ func add_autocast(autocast_data: Autocast.Data, handler_object, handler_function
 	return autocast_scene
 
 
+func add_event_on_cleanup(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.CLEANUP, handler_object, handler_function)
+
+
+func add_event_on_create(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.CREATE, handler_object, handler_function)
+
+
+func add_event_on_death(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.DEATH, handler_object, handler_function)
+
+
+func add_event_on_kill(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.KILL, handler_object, handler_function)
+
+
+func add_event_on_level_up(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.LEVEL_UP, handler_object, handler_function)
+
+
+func add_event_on_attack(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.ATTACK, handler_object, handler_function)
+
+
+func add_event_on_attacked(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.ATTACKED, handler_object, handler_function)
+
+
+func add_event_on_damage(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.DAMAGE, handler_object, handler_function)
+
+
+func add_event_on_damaged(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.DAMAGED, handler_object, handler_function)
+
+
+func add_event_on_expired(handler_object: Node, handler_function: String):
+	add_event_handler(EventType.EXPIRED, handler_object, handler_function)
+
+
 func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
 	var range_event: Event = _make_buff_event(unit, 0, true)
 
