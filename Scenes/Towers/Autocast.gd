@@ -129,6 +129,7 @@ func _try_to_cast():
 		var event = Event.new(target, 0, true)
 		_handler_object.call(_handler_function, event)
 	
+	if !_target_list.empty():
 		_cooldown_timer.start()
 
 
