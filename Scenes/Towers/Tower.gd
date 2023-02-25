@@ -20,6 +20,7 @@ enum CsvProperty {
 	TIER = 14,
 	REQUIRED_ELEMENT_LEVEL = 15,
 	REQUIRED_WAVE_LEVEL = 16,
+	ICON_ATLAS_NUM = 17,
 }
 
 enum TowerProperty {
@@ -54,13 +55,13 @@ enum TowerProperty {
 }
 
 enum Element {
-	ASTRAL,
-	DARKNESS,
+	ICE ,
 	NATURE,
 	FIRE,
-	ICE,
-	STORM,
+	ASTRAL,
+	DARKNESS,
 	IRON,
+	STORM,
 }
 
 export(AudioStreamMP3) var attack_sound
@@ -466,6 +467,8 @@ func get_element() -> int:
 
 	return element
 
+func get_icon_atlas_num() -> int:
+	return get_csv_property(CsvProperty.ICON_ATLAS_NUM).to_int()
 
 func get_base_attack_speed() -> float:
 	return _tower_properties[TowerProperty.ATTACK_SPEED]
