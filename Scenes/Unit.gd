@@ -221,10 +221,10 @@ func get_buff_of_type(type: String):
 	return buff
 
 
-func _do_attack(target: Unit):
-	var attack_event: Event = Event.new(target, 0, true)
+func _do_attack(attack_event: Event):
 	emit_signal("attack", attack_event)
 
+	var target = attack_event.get_target()
 	target._receive_attack()
 
 
