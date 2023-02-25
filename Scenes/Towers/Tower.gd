@@ -152,6 +152,7 @@ var _tower_properties: Dictionary = {
 
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+onready var _area_of_effect: AreaOfEffect = $AreaOfEffect
 
 
 #########################
@@ -259,9 +260,13 @@ func _get_tier_stats() -> Dictionary:
 func _select():
 	._select()
 
+	_area_of_effect.show()
+
 
 func _unselect():
 	._unselect()
+
+	_area_of_effect.hide()
 
 
 func _apply_properties_to_scene_children():
@@ -269,6 +274,7 @@ func _apply_properties_to_scene_children():
 	var attack_cooldown: float = get_overall_cooldown()
 
 	_attack_autocast.update_data(cast_range, attack_cooldown)
+	_area_of_effect.set_radius(cast_range)
 
 
 # NOTE: returns random damage within range without any mods applied
