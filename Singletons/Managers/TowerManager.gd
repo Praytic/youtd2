@@ -76,6 +76,15 @@ func get_tower(id: int) -> PackedScene:
 	return tower
 
 
+func get_tower_visual_only(id: int) -> PackedScene:
+	var tower = get_tower(id)
+	var dummy_script = load("res://Scenes/Towers/Building.gd")
+
+	tower.set_script(dummy_script)
+
+	return tower
+
+
 func get_tower_family_id(id: int) -> int:
 	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
 	return csv_properties[Tower.CsvProperty.FAMILY_ID]
