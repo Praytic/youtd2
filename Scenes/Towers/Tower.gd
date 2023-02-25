@@ -117,10 +117,7 @@ const ATTACK_CD_MIN: float = 0.2
 
 var _id: int = 0
 var _stats: Dictionary
-var _target_list: Array = []
-# NOTE: if your tower needs to attack more than 1 target,
-# set this var once in _ready() method of subclass
-var _target_count_max: int = 1
+var _attack_autocast = null
 var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _tower_properties: Dictionary = {
@@ -155,8 +152,6 @@ var _tower_properties: Dictionary = {
 
 
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
-onready var _attack_cooldown_timer: Timer = $AttackCooldownTimer
-onready var _targeting_area: Area2D = $TargetingArea
 onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 
 
@@ -165,6 +160,8 @@ onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 #########################
 
 func _ready():
+	_is_tower = true
+
 	add_child(_aoe_scene.instance(), true)
 
 # 	Load some default property values from csv
@@ -172,8 +169,6 @@ func _ready():
 		var tower_property: int = _csv_property_to_tower_property_map[csv_property]
 		var value: float = get_csv_property(csv_property).to_float()
 		_tower_properties[tower_property] = value
-
-	_apply_properties_to_scene_children()
 
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
@@ -183,14 +178,30 @@ func _ready():
 
 	$AreaOfEffect.hide()
 
-	_attack_cooldown_timer.connect("timeout", self, "_on_AttackCooldownTimer_timeout")
-	_attack_cooldown_timer.one_shot = true
-
-	_targeting_area.connect("body_entered", self, "_on_TargetingArea_body_entered")
-	_targeting_area.connect("body_exited", self, "_on_TargetingArea_body_exited")
-
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
+
+# 	NOTE: settings for attack autocast will be fully loaded
+# 	_apply_properties_to_scene_children() is called
+	var attack_autocast_data = Autocast.Data.new()
+	attack_autocast_data.caster_art = ""
+	attack_autocast_data.num_buffs_before_idle = 0
+	attack_autocast_data.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
+	attack_autocast_data.the_range = 0
+	attack_autocast_data.target_self = false
+	attack_autocast_data.target_art = ""
+	attack_autocast_data.cooldown = 1
+	attack_autocast_data.is_extended = true
+	attack_autocast_data.mana_cost = 0
+	attack_autocast_data.buff_type = 0
+	attack_autocast_data.target_type = TargetType.new(TargetType.UnitType.MOBS)
+	attack_autocast_data.auto_range = 0
+
+	var attack_buff = Buff.new("")
+	_attack_autocast = attack_buff.add_autocast(attack_autocast_data, self, "_on_attack_autocast")
+	attack_buff.apply_to_unit_permanent(self, self, 0, true)
+
+	_apply_properties_to_scene_children()
 
 
 #########################
@@ -222,6 +233,25 @@ func enable_default_sprite():
 #########################
 
 
+# NOTE: if your tower needs to attack more than 1 target,
+# call this f-n once in _ready() method of subclass
+func _set_target_count(count: int):
+	_attack_autocast._target_count_max = count
+
+
+func _on_attack_autocast(event: Event):
+	var target = event.get_target()
+
+	var projectile = _projectile_scene.instance()
+	projectile.init(target, global_position)
+	projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
+	_game_scene.call_deferred("add_child", projectile)
+
+	._do_attack(event)
+
+	_attack_sound.play()
+
+
 # Override this in subclass to define custom stats for each
 # tower tier. Access as _stats.
 func _get_tier_stats() -> Dictionary:
@@ -234,69 +264,6 @@ func _get_tier_stats() -> Dictionary:
 	return default_out
 
 
-func _add_target(new_target: Mob):
-	if new_target == null:
-		return
-
-	new_target.connect("death", self, "_on_target_death", [new_target])
-	_target_list.append(new_target)
-
-
-func _remove_target(target: Mob):
-	target.disconnect("death", self, "_on_target_death")
-	_target_list.erase(target)
-
-
-func _have_target_space() -> bool:
-	return _target_list.size() < _target_count_max
-
-
-# Find a target that is currently in range
-# TODO: prioritizing closest mob here, but maybe change behavior
-# based on tower properties or other game design considerations
-func _find_new_target() -> Mob:
-	var body_list: Array = _targeting_area.get_overlapping_bodies()
-	var closest_mob: Mob = null
-	var distance_min: float = 1000000.0
-
-#	NOTE: can't use existing targets as new targets
-	for target in _target_list:
-		body_list.erase(target)
-	
-	for body in body_list:
-		if body is Mob:
-			var mob: Mob = body
-			var distance: float = (mob.position - self.position).length()
-			
-			if distance < distance_min:
-				closest_mob = mob
-				distance_min = distance
-	
-	return closest_mob
-
-
-func _try_to_attack():
-	if building_in_progress:
-		return
-
-	var attack_on_cooldown: bool = _attack_cooldown_timer.time_left > 0
-	
-	if attack_on_cooldown:
-		return
-
-	for target in _target_list:
-		._do_attack(target)
-
-		var projectile = _projectile_scene.instance()
-		projectile.init(target, global_position)
-		projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
-		_game_scene.call_deferred("add_child", projectile)
-
-		_attack_sound.play()
-		
-		_attack_cooldown_timer.start()
-
-
 func _select():
 	._select()
 
@@ -307,10 +274,11 @@ func _unselect():
 
 func _apply_properties_to_scene_children():
 	var cast_range: float = _tower_properties[TowerProperty.ATTACK_RANGE]
-	Utils.circle_shape_set_radius($TargetingArea/CollisionShape2D, cast_range)
+	var attack_cooldown: float = get_overall_cooldown()
+	
 	$AreaOfEffect.set_radius(cast_range)
 
-	_attack_cooldown_timer.wait_time = get_overall_cooldown()
+	_attack_autocast.update_data(cast_range, attack_cooldown)
 
 
 # NOTE: returns random damage within range without any mods applied
@@ -393,17 +361,6 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 ###     Callbacks     ###
 #########################
 
-func _on_target_death(_event: Event, target: Mob):
-	_remove_target(target)
-
-
-func _on_AttackCooldownTimer_timeout():
-	if _have_target_space():
-		var new_target: Mob = _find_new_target()
-		_add_target(new_target)
-		
-	_try_to_attack()
-
 
 func _on_projectile_reached_mob(mob: Mob):
 	var attack_miss_chance: float = _tower_properties[TowerProperty.ATTACK_MISS_CHANCE]
@@ -416,27 +373,6 @@ func _on_projectile_reached_mob(mob: Mob):
 	var damage: float = _get_damage_to_mob(mob, damage_base)
 	
 	._do_damage(mob, damage, true)
-
-
-func _on_TargetingArea_body_entered(body):
-	if !body is Mob:
-		return
-
-	if _have_target_space():
-		var new_target: Mob = body as Mob
-		_add_target(new_target)
-		_try_to_attack()
-
-
-func _on_TargetingArea_body_exited(body):
-	var target_went_out_of_range: bool = _target_list.has(body)
-
-	if target_went_out_of_range:
-		var new_target: Mob = _find_new_target()
-		var old_target: Mob = body as Mob
-		_remove_target(old_target)
-		_add_target(new_target)
-		_try_to_attack()
 
 
 #########################

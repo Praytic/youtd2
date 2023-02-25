@@ -34,6 +34,10 @@ enum UnitProperty {
 const MOVE_SPEED_MIN: float = 100.0
 const MOVE_SPEED_MAX: float = 500.0
 
+# HACK: to fix cyclic dependency between Tower<->TargetType
+var _is_mob: bool = false
+var _is_tower: bool = false
+
 var user_int: int = 0
 var user_int2: int = 0
 var user_int3: int = 0
@@ -41,6 +45,7 @@ var user_real: float = 0.0
 var user_real2: float = 0.0
 var user_real3: float = 0.0
 
+var _is_dead: bool = false
 var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
 var _direct_modifier_list: Array
@@ -157,6 +162,18 @@ func set_level(new_level: int):
 	emit_signal("level_up")
 
 
+func is_dead() -> bool:
+	return _is_dead
+
+
+func is_mob() -> bool:
+	return _is_mob
+
+
+func is_tower() -> bool:
+	return _is_tower
+
+
 func get_x() -> float:
 	return position.x
 
@@ -209,10 +226,10 @@ func get_buff_of_type(type: String):
 	return buff
 
 
-func _do_attack(target: Unit):
-	var attack_event: Event = Event.new(target, 0, true)
+func _do_attack(attack_event: Event):
 	emit_signal("attack", attack_event)
 
+	var target = attack_event.get_target()
 	target._receive_attack()
 
 
@@ -251,6 +268,14 @@ func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
 
 # Called when unit killed by caster unit
 func _killed_by_unit(caster: Unit, is_main_target: bool):
+# 	NOTE: need to use explicit "is_dead" flag. Calling
+# 	queue_free() makes is_instance_valid(unit) return false
+# 	but that happens only at the end of the current frame.
+# 	Other signals/slots might fire before that point and
+# 	they need to know if the unit is dead to avoid
+# 	processing it.
+	_is_dead = true
+
 	var death_event: Event = Event.new(self, 0, is_main_target)
 	emit_signal("death", death_event)
 

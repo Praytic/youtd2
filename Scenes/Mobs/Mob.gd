@@ -57,6 +57,8 @@ onready var _height_tween = $HeightTween
 
 
 func _ready():
+	_is_mob = true
+
 	connect("damaged", self, "on_damaged")
 
 

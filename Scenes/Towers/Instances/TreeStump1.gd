@@ -14,4 +14,4 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _ready():
-	_target_count_max = _stats.target_count_max
+	_set_target_count(_stats.target_count_max)
