@@ -53,6 +53,7 @@ var _caster: Unit
 var _target: Unit
 var _modifier: Modifier = Modifier.new()
 var _level: int
+var _power: int
 var _time_base: float
 var _time_level_add: float
 var _friendly: bool
@@ -79,9 +80,10 @@ func _init(type: String, time_base: float, time_level_add: float, friendly: bool
 
 
 # Base apply function. Overrides time parameters from init().
-func apply_custom_timed(caster: Unit, target: Unit, level: int, time: float):
+func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: float):
 	_caster = caster
 	_level = level
+	_power = power
 
 # 	Don't do any override logic for buffs with empty type
 # 	and allow stacking multiple instances of same type.
@@ -125,9 +127,20 @@ func apply_custom_timed(caster: Unit, target: Unit, level: int, time: float):
 	_call_event_handler_list(Event.Type.CREATE, create_event)
 
 
+func apply_custom_power(caster: Unit, target: Unit, level: int, power: int):
+	var time: float = _time_base + _time_level_add * _power
+
+	apply_advanced(caster, target, level, power, time)
+
+
+# Base apply function. Overrides time parameters from init().
+func apply_custom_timed(caster: Unit, target: Unit, level: int, time: float):
+	apply_advanced(caster, target, level, level, time)
+
+
 # Apply using time parameters that were defined in init()
 func apply(caster: Unit, target: Unit, level: int):
-	var time: float = _time_base + _time_level_add * _level
+	var time: float = _time_base + _time_level_add * _power
 
 	apply_custom_timed(caster, target, level, time)
 
@@ -160,8 +173,18 @@ func get_modifier() -> Modifier:
 	return _modifier
 
 
+# Level is used to compare this buff with another buff of
+# same type that is active on target and determine which
+# buff is stronger. Stronger buff will end up remaining
+# active on the target.
 func get_level() -> int:
 	return _level
+
+
+# Power level is used to calculate the total time and total
+# value of modifiers.
+func get_power() -> int:
+	return _power
 
 
 func set_type(type: String):
