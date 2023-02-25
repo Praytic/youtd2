@@ -14,7 +14,7 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _ready():
-	set_target_count(_stats.target_count_max)
+	_set_target_count(_stats.target_count_max)
 
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.20, _stats.dmg_to_undead_add)
