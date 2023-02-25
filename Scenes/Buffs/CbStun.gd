@@ -5,7 +5,7 @@ var stun_effect: int
 
 func _init(type: String, time_base: float, time_level_add: float, friendly: bool).(type, time_base, time_level_add, friendly):
 	add_event_on_create(self, "_on_create")
-	add_event_on_cleanup(self, "_on_cleanup")
+	set_event_on_cleanup(self, "_on_cleanup")
 
 
 func _on_create(_event: Event):
