@@ -18,8 +18,7 @@ func _ready():
 		125: _stats.splash_125_damage,
 		225: _stats.splash_225_damage,
 	}
-	var splash_attack_buff = SplashAttack.new(splash_map)
-	splash_attack_buff.apply_to_unit_permanent(self, self, 0)
+	_set_attack_style_splash(splash_map)
 
 	var dmg_to_undead_modifier: Modifier = Modifier.new()
 	dmg_to_undead_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.15, 0.0)

@@ -17,8 +17,7 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _ready():
-	var bounce_attack_buff = BounceAttack.new(3, 0.15)
-	bounce_attack_buff.apply_to_unit_permanent(self, self, 0)
+	_set_attack_style_bounce(1, 0.15)
 
 	var on_damage_buff: Buff = TriggersBuff.new()
 	on_damage_buff.add_event_on_damage(self, "_on_damage")
