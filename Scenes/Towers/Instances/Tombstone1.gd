@@ -17,9 +17,9 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _ready():
-	var on_damage_buff = Buff.new("")
-	on_damage_buff.add_event_handler(Buff.EventType.DAMAGE, self, "on_damage")
-	on_damage_buff.apply_to_unit_permanent(self, self, 0, true)
+	var on_damage_buff = TriggersBuff.new()
+	on_damage_buff.add_event_on_damage(self, "on_damage")
+	on_damage_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func on_damage(event: Event):

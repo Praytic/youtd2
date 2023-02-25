@@ -21,10 +21,10 @@ const on_damage_chance_add: float = 0.002
 
 
 func _ready():
-	var triggers_buff: Buff = Buff.new("")
-	triggers_buff.add_event_handler(Buff.EventType.CREATE, self, "_on_create")
-	triggers_buff.add_event_handler(Buff.EventType.DAMAGE, self, "_on_damage")
-	triggers_buff.apply_to_unit_permanent(self, self, 0, true)
+	var triggers_buff: Buff = TriggersBuff.new()
+	triggers_buff.add_event_on_create(self, "_on_create")
+	triggers_buff.add_event_on_damage(self, "_on_damage")
+	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func _on_create(_event: Event):
@@ -43,10 +43,10 @@ func _on_damage(event: Event):
 	var target: Mob = event.get_target()
 
 	if target.get_size() < Mob.Size.BOSS && target.get_size() != Mob.Size.AIR:
-		var chasm_entangle = CbStun.new("chasm_entangle")
+		var chasm_entangle = CbStun.new("chasm_entangle", _stats.entangle_duration, 0.75, false)
 		chasm_entangle.set_buff_icon('@@0@@')
-		chasm_entangle.add_event_handler_periodic(self, "_chasm_entangle_damage", 1.0)
-		chasm_entangle.apply_to_unit(tower, target, 0, _stats.entangle_duration, 0.75, false)
+		chasm_entangle.add_periodic_event(self, "_chasm_entangle_damage", 1.0)
+		chasm_entangle.apply(tower, target, 0)
 
 #		TODO: not sure what reorder() does
 #		target.reorder()

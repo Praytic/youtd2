@@ -18,11 +18,11 @@ func _get_tier_stats() -> Dictionary:
 
 func _ready():
 	var bounce_attack_buff = BounceAttack.new(3, 0.15)
-	bounce_attack_buff.apply_to_unit_permanent(self, self, 0, true)
+	bounce_attack_buff.apply_to_unit_permanent(self, self, 0)
 
-	var on_damage_buff: Buff = Buff.new("")
-	on_damage_buff.add_event_handler(Buff.EventType.DAMAGE, self, "_on_damage")
-	on_damage_buff.apply_to_unit_permanent(self, self, 0, false)
+	var on_damage_buff: Buff = TriggersBuff.new()
+	on_damage_buff.add_event_on_damage(self, "_on_damage")
+	on_damage_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func _on_damage(event: Event):
@@ -30,8 +30,8 @@ func _on_damage(event: Event):
 
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
-	var cedi_acidarmor = Buff.new("cedi_acidarmor")
+	var cedi_acidarmor = Buff.new("cedi_acidarmor", 3.0, 0.12, false)
 	cedi_acidarmor.set_buff_icon("@@0@@")
 	cedi_acidarmor.set_buff_modifier(m)
 
-	cedi_acidarmor.apply_to_unit(tower, event.get_target(), _stats.armor_base + tower.get_level() * _stats.armor_add, 3.0 + 0.12 * tower.get_level(), 0.0, false)
+	cedi_acidarmor.apply_custom_timed(tower, event.get_target(), _stats.armor_base + tower.get_level() * _stats.armor_add, 3.0 + 0.12 * tower.get_level())

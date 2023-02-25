@@ -18,4 +18,4 @@ func _ready():
 	add_modifier(specials_modifier)
 
 	var splash_attack_buff = SplashAttack.new({125: 0.55})
-	splash_attack_buff.apply_to_unit_permanent(self, self, 0, true)
+	splash_attack_buff.apply_to_unit_permanent(self, self, 0)
