@@ -164,6 +164,8 @@ onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 #########################
 
 func _ready():
+	_is_tower = true
+
 	add_child(_aoe_scene.instance(), true)
 
 # 	Load some default property values from csv

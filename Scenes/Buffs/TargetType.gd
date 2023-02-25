@@ -36,8 +36,8 @@ func set_tower_element_list(tower_element_list: Array):
 
 
 func match(unit: Unit) -> bool:
-	var is_mob = unit is Mob
-	var is_tower = unit is Tower
+	var is_mob = unit.is_mob()
+	var is_tower = unit.is_tower()
 
 	if is_mob && !_unit_type == UnitType.MOBS:
 		return false
