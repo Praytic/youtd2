@@ -12,6 +12,8 @@ onready var _tower_buttons: Dictionary = {}
 # If you want unlimited tower buttons in the panel, switch the flag
 # 'unlimited towers' to 'true'.
 onready var available_tower_buttons: Array
+onready var _tower_buttons_texture = preload("res://Assets/Towers/tower_icons.png")
+onready var _tower_buttons_atlas_texture: AtlasTexture
 
 
 var current_element: int
@@ -30,6 +32,9 @@ func remove_tower_button(tower_id):
 
 
 func _ready():
+	_tower_buttons_atlas_texture = AtlasTexture.new()
+	_tower_buttons_atlas_texture.set_atlas(_tower_buttons_texture)
+	
 	if not unlimited_towers:
 		builder_control.connect("tower_built", self, "_on_Tower_built")
 		
@@ -58,17 +63,15 @@ func _on_RightMenuBar_element_changed(element: int):
 
 
 func _create_TowerButton(tower_id) -> TowerButton:
-	var tower_family_id = TowerManager.get_tower_family_id(tower_id)
-	var tower_button_texture_path: String = "res://Assets/Towers/Icons/icon_min_%s.png" % tower_family_id
-
-	var tower_button = TowerButton.new()
-
-	if ResourceLoader.exists(tower_button_texture_path):
-		var tower_button_texture = load(tower_button_texture_path)
-		tower_button.set_button_icon(tower_button_texture)
-	else:
-		tower_button.text = String(tower_id)
+	var tower = TowerManager.get_tower(tower_id)
+	var region: Rect2 =  Rect2(tower.get_element() * 64, tower.get_icon_atlas_num() * 64, 64, 64)
 	
+	var atlas = _tower_buttons_atlas_texture.duplicate()
+	atlas.set_region(region)
+	
+	var tower_button = TowerButton.new()
+	tower_button.set_button_icon(atlas)
+	tower_button.text = String(tower_id)
 	tower_button.tower_id = tower_id
 	tower_button.set_theme_type_variation("TowerButton")
 	tower_button.connect("pressed", builder_control, "on_build_button_pressed", [tower_id])
