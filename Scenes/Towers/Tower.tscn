@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Towers/Tower.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Environment/Props/floor.png" type="Texture" id=3]
 [ext_resource path="res://Assets/icon.png" type="Texture" id=4]
-[ext_resource path="res://Scenes/Towers/AreaOfEffect.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Towers/RangeIndicator.gd" type="Script" id=5]
 
 [node name="Tower" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -25,6 +25,6 @@ visible = false
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
-[node name="AreaOfEffect" type="Node2D" parent="."]
+[node name="RangeIndicator" type="Node2D" parent="."]
 visible = false
 script = ExtResource( 5 )

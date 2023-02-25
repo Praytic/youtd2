@@ -1,6 +1,7 @@
-class_name AreaOfEffect
+class_name RangeIndicator
 extends Node2D
 
+# Shows range of a tower by drawing a circle of pulsing dots.
 
 export(float) var radius
 onready var texture: Texture = load("res://Resources/PulsingDot.tres")
