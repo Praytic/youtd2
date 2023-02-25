@@ -1,6 +1,21 @@
 class_name Event
 extends Node
 
+
+enum Type {
+	CLEANUP,
+	CREATE,
+	DEATH,
+	KILL,
+	LEVEL_UP,
+	ATTACK,
+	ATTACKED,
+	DAMAGE,
+	DAMAGED,
+	EXPIRE,
+}
+
+
 var _buff
 # NOTE: damage may be modified in event handlers to change
 # the final effect of the event

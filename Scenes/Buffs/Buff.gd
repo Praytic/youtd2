@@ -16,7 +16,7 @@ extends Node2D
 # multiplier on value (confirmed by original tower scripts).
 # Maybe used for stacking behavior?
 
-# TODO: EventType.CLEANUP is currently fired when buff is
+# TODO: Event.Type.CLEANUP is currently fired when buff is
 # overriden. Need to figure out how cleanup works together
 # with REFRESH and UPGRADED event types. If a buff is
 # refreshed, should both CLEANUP and REFRESH fire or just
@@ -35,19 +35,6 @@ extends Node2D
 # and used by Unit to undo buff modifiers. Do not use this
 # in Tower scripts. Use EXPIRE event handler.
 signal removed()
-
-enum EventType {
-	CLEANUP,
-	CREATE,
-	DEATH,
-	KILL,
-	LEVEL_UP,
-	ATTACK,
-	ATTACKED,
-	DAMAGE,
-	DAMAGED,
-	EXPIRE,
-}
 
 
 class EventHandler:
@@ -70,7 +57,7 @@ var _time_base: float
 var _time_level_add: float
 var _friendly: bool
 var _type: String
-# Map of EventType -> list of EventHandler's
+# Map of Event.Type -> list of EventHandler's
 var event_handler_map: Dictionary = {}
 
 
@@ -135,7 +122,7 @@ func apply_custom_timed(caster: Unit, target: Unit, level: int, time: float):
 		timer.start(total_time)
 
 	var create_event: Event = _make_buff_event(_target, 0, true)
-	_call_event_handler_list(EventType.CREATE, create_event)
+	_call_event_handler_list(Event.Type.CREATE, create_event)
 
 
 # Apply using time parameters that were defined in init()
@@ -243,43 +230,43 @@ func add_autocast(autocast_data: Autocast.Data, handler_object, handler_function
 
 
 func add_event_on_cleanup(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.CLEANUP, handler_object, handler_function)
+	add_event_handler(Event.Type.CLEANUP, handler_object, handler_function)
 
 
 func add_event_on_create(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.CREATE, handler_object, handler_function)
+	add_event_handler(Event.Type.CREATE, handler_object, handler_function)
 
 
 func add_event_on_death(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.DEATH, handler_object, handler_function)
+	add_event_handler(Event.Type.DEATH, handler_object, handler_function)
 
 
 func add_event_on_kill(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.KILL, handler_object, handler_function)
+	add_event_handler(Event.Type.KILL, handler_object, handler_function)
 
 
 func add_event_on_level_up(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.LEVEL_UP, handler_object, handler_function)
+	add_event_handler(Event.Type.LEVEL_UP, handler_object, handler_function)
 
 
 func add_event_on_attack(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.ATTACK, handler_object, handler_function)
+	add_event_handler(Event.Type.ATTACK, handler_object, handler_function)
 
 
 func add_event_on_attacked(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.ATTACKED, handler_object, handler_function)
+	add_event_handler(Event.Type.ATTACKED, handler_object, handler_function)
 
 
 func add_event_on_damage(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.DAMAGE, handler_object, handler_function)
+	add_event_handler(Event.Type.DAMAGE, handler_object, handler_function)
 
 
 func add_event_on_damaged(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.DAMAGED, handler_object, handler_function)
+	add_event_handler(Event.Type.DAMAGED, handler_object, handler_function)
 
 
 func add_event_on_expired(handler_object: Node, handler_function: String):
-	add_event_handler(EventType.EXPIRED, handler_object, handler_function)
+	add_event_handler(Event.Type.EXPIRED, handler_object, handler_function)
 
 
 func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
@@ -309,42 +296,42 @@ func _call_event_handler_list(event_type: int, event: Event):
 
 func _on_timer_timeout():
 	var cleanup_event: Event = _make_buff_event(_target, 0, true)
-	_call_event_handler_list(EventType.CLEANUP, cleanup_event)
+	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
 	emit_signal("removed")
 
 	var expire_event: Event = _make_buff_event(_target, 0, true)
-	_call_event_handler_list(EventType.EXPIRE, expire_event)
+	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
 
 
 func _on_target_death(event: Event):
-	_call_event_handler_list(EventType.DEATH, event)
-	_call_event_handler_list(EventType.CLEANUP, event)
+	_call_event_handler_list(Event.Type.DEATH, event)
+	_call_event_handler_list(Event.Type.CLEANUP, event)
 
 
 func _on_target_kill(event: Event):
-	_call_event_handler_list(EventType.KILL, event)
+	_call_event_handler_list(Event.Type.KILL, event)
 
 
 func _on_target_level_up():
 	var level_up_event: Event = _make_buff_event(_target, 0, true)
-	_call_event_handler_list(EventType.LEVEL_UP, level_up_event)
+	_call_event_handler_list(Event.Type.LEVEL_UP, level_up_event)
 
 
 func _on_target_attack(event: Event):
-	_call_event_handler_list(EventType.ATTACK, event)
+	_call_event_handler_list(Event.Type.ATTACK, event)
 
 
 func _on_target_attacked(event: Event):
-	_call_event_handler_list(EventType.ATTACKED, event)
+	_call_event_handler_list(Event.Type.ATTACKED, event)
 
 
 func _on_target_damage(event: Event):
-	_call_event_handler_list(EventType.DAMAGE, event)
+	_call_event_handler_list(Event.Type.DAMAGE, event)
 
 
 func _on_target_damaged(event: Event):
-	_call_event_handler_list(EventType.DAMAGED, event)
+	_call_event_handler_list(Event.Type.DAMAGED, event)
 
 
 func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String, timer: Timer):
