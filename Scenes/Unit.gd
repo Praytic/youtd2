@@ -83,12 +83,9 @@ func calc_chance(chance_base: float) -> bool:
 
 
 # "Bad" chance is for events that decrease tower's
-# perfomance, for example missing attack. In such cases the
-# "trigger chances" property decreases the chance of the
-# event occuring.
-func calc_bad_chance(chance_base: float) -> bool:
-	var chance_mod: float = _unit_properties[UnitProperty.TRIGGER_CHANCES]
-	var chance: float = chance_base - chance_mod
+# perfomance, for example missing attack. Bad chances are
+# unaffected by UnitProperty.TRIGGER_CHANCES.
+func calc_bad_chance(chance: float) -> bool:
 	var success: bool = Utils.rand_chance(chance)
 
 	return success
