@@ -13,6 +13,7 @@ onready var _tower_buttons: Dictionary = {}
 # 'unlimited towers' to 'true'.
 onready var available_tower_buttons: Array
 onready var _tower_buttons_texture = preload("res://Assets/Towers/tower_icons.png")
+onready var _tower_button_fallback_icon = preload("res://Assets/icon.png")
 onready var _tower_buttons_atlas_texture: AtlasTexture
 
 
@@ -63,19 +64,29 @@ func _on_RightMenuBar_element_changed(element: int):
 
 
 func _create_TowerButton(tower_id) -> TowerButton:
-	var tower = TowerManager.get_tower(tower_id)
-	var region: Rect2 =  Rect2(tower.get_element() * 64, tower.get_icon_atlas_num() * 64, 64, 64)
-	
-	var atlas = _tower_buttons_atlas_texture.duplicate()
-	atlas.set_region(region)
-	
 	var tower_button = TowerButton.new()
-	tower_button.set_button_icon(atlas)
+	var button_icon: Texture = _get_tower_button_icon(tower_id)
+	tower_button.set_button_icon(button_icon)
 	tower_button.text = String(tower_id)
 	tower_button.tower_id = tower_id
 	tower_button.set_theme_type_variation("TowerButton")
 	tower_button.connect("pressed", builder_control, "on_build_button_pressed", [tower_id])
 	return tower_button
+
+
+func _get_tower_button_icon(tower_id: int) -> Texture:
+	var tower = TowerManager.get_tower(tower_id)
+	var icon_atlas_num: int = tower.get_icon_atlas_num()
+	var icon_is_defined: bool = icon_atlas_num != -1
+
+	if icon_is_defined:
+		var region: Rect2 = Rect2(tower.get_element() * 64, icon_atlas_num * 64, 64, 64)
+		var atlas: AtlasTexture = _tower_buttons_atlas_texture.duplicate()
+		atlas.set_region(region)
+
+		return atlas
+	else:
+		return _tower_button_fallback_icon
 
 
 func _on_TowerButton_mouse_entered(tower_id):

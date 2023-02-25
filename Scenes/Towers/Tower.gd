@@ -400,7 +400,15 @@ func get_element() -> int:
 	return element
 
 func get_icon_atlas_num() -> int:
-	return get_csv_property(CsvProperty.ICON_ATLAS_NUM).to_int()
+	var icon_atlas_num_string: String = get_csv_property(CsvProperty.ICON_ATLAS_NUM)
+
+	if !icon_atlas_num_string.empty():
+		var icon_atlas_num: int = icon_atlas_num_string.to_int()
+
+		return icon_atlas_num
+	else:
+		return -1
+
 
 func get_base_attack_speed() -> float:
 	return _tower_properties[TowerProperty.ATTACK_SPEED]
