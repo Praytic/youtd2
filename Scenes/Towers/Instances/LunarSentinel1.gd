@@ -50,12 +50,12 @@ func _on_autocast(event: Event):
 	var target: Unit = event.get_target()
 
 	if level < 15:
-		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.spell_damage_add, tower.calc_spell_crit_no_bonus(), false)
+		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.spell_damage_add, tower.calc_spell_crit_no_bonus())
 	else:
-		tower.do_spell_damage(target, _stats.spell_damage_15 + level * _stats.spell_damage_add, tower.calc_spell_crit_no_bonus(), false)
+		tower.do_spell_damage(target, _stats.spell_damage_15 + level * _stats.spell_damage_add, tower.calc_spell_crit_no_bonus())
 
 	if tower.calc_chance(0.125 + level * 0.005) == true:
-		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.spell_damage_chance_add, tower.calc_spell_crit_no_bonus(), false)
+		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.spell_damage_chance_add, tower.calc_spell_crit_no_bonus())
 
 		var cb_stun: Buff = CbStun.new("cb_stun", 0, 0, false)
 
