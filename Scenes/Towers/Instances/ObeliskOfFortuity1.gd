@@ -3,17 +3,17 @@ extends Tower
 
 func _get_tier_stats() -> Dictionary:
 	return {
-		1: {miss_chance_base = 30},
-		2: {miss_chance_base = 40},
-		3: {miss_chance_base = 50},
-		4: {miss_chance_base = 60},
-		5: {miss_chance_base = 70},
+		1: {miss_chance_base = 0.3},
+		2: {miss_chance_base = 0.4},
+		3: {miss_chance_base = 0.5},
+		4: {miss_chance_base = 0.6},
+		5: {miss_chance_base = 0.7},
 	}
 
 
 func _ready():
 	var warming_up = TriggersBuff.new()
-	warming_up.add_event_on_damage(self, "on_damage")
+	warming_up.add_event_on_damage(self, "on_damage", 1.0, 0.0)
 	warming_up.apply_to_unit_permanent(self, self, 0)
 
 

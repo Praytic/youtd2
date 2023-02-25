@@ -8,7 +8,7 @@ var on_attack_buff: Buff = null
 
 func _add_to_tower_subclass():
 	on_attack_buff = TriggersBuff.new()
-	on_attack_buff.add_event_on_attack(self, "_on_attack")
+	on_attack_buff.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 	on_attack_buff.apply_to_unit_permanent(get_carrier(), get_carrier(), 0)
 
 
