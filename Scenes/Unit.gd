@@ -297,13 +297,13 @@ func _add_buff_internal(buff):
 	_buff_map[buff_type] = buff
 	buff.connect("removed", self, "_on_buff_removed", [buff])
 	var buff_modifier: Modifier = buff.get_modifier()
-	_apply_modifier(buff_modifier, buff.get_level(), 1)
+	_apply_modifier(buff_modifier, buff.get_power(), 1)
 	add_child(buff)
 
 
 func _on_buff_removed(buff):
 	var buff_modifier: Modifier = buff.get_modifier()
-	_apply_modifier(buff_modifier, buff.get_level(), -1)
+	_apply_modifier(buff_modifier, buff.get_power(), -1)
 
 	var buff_type: String = buff.get_type()
 	_buff_map.erase(buff_type)
@@ -342,11 +342,11 @@ static func _modify_property_general(property_map: Dictionary, mod_to_property_m
 	property_map[property] = new_value
 
 
-func _apply_modifier(modifier: Modifier, level: int, modify_direction: int):
+func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
 	var modification_list: Array = modifier.get_modification_list()
 
 	for modification in modification_list:
-		var level_bonus: float = modification.level_add * (level - 1)
-		var value: float = modification.value_base + level_bonus
+		var power_bonus: float = modification.level_add * (power - 1)
+		var value: float = modification.value_base + power_bonus
 
 		modify_property(modification.type, value, modify_direction)
