@@ -11,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
-rect_min_size = Vector2( 256, 0 )
+rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 3 )
@@ -29,30 +29,35 @@ stretch_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_right = 256.0
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+margin_right = 400.0
+margin_bottom = 1000.0
+rect_min_size = Vector2( 400, 1000 )
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer"]
+margin_right = 40.0
 margin_bottom = 40.0
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
 
-[node name="BuildBar" type="GridContainer" parent="VBoxContainer/MarginContainer"]
+[node name="ItemBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
+visible = false
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 236.0
+margin_right = 20.0
+margin_bottom = 20.0
+columns = 4
+
+[node name="BuildBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 20.0
 margin_bottom = 20.0
 columns = 2
 script = ExtResource( 7 )
 
-[node name="ItemBar" type="GridContainer" parent="VBoxContainer/MarginContainer"]
-visible = false
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 236.0
-margin_bottom = 20.0
-columns = 4
-
-[connection signal="element_changed" from="." to="VBoxContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
-[connection signal="child_entered_tree" from="VBoxContainer/MarginContainer/BuildBar" to="." method="_on_BuildBar_child_entered_tree"]
-[connection signal="child_entered_tree" from="VBoxContainer/MarginContainer/ItemBar" to="." method="_on_BuildBar_child_entered_tree"]
+[connection signal="element_changed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
+[connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/ItemBar" to="." method="_on_BuildBar_child_entered_tree"]
+[connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" to="." method="_on_BuildBar_child_entered_tree"]
