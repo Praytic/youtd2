@@ -16,14 +16,10 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-const on_damage_chance: float = 0.125
-const on_damage_chance_add: float = 0.002
-
-
 func _ready():
 	var triggers_buff: Buff = TriggersBuff.new()
 	triggers_buff.add_event_on_create(self, "_on_create")
-	triggers_buff.add_event_on_damage(self, "_on_damage")
+	triggers_buff.add_event_on_damage(self, "_on_damage", 0.125, 0.002)
 	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 
@@ -36,9 +32,6 @@ func _on_create(_event: Event):
 
 func _on_damage(event: Event):
 	var tower = self
-
-	if !tower.calc_chance(on_damage_chance + tower.get_level() * on_damage_chance_add):
-		return
 
 	var target: Mob = event.get_target()
 

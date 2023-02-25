@@ -19,7 +19,7 @@ func _ready():
 	add_modifier(specials_modifier)
 
 	var triggers_buff: Buff = TriggersBuff.new()
-	triggers_buff.add_event_on_attack(self, "_on_attack")
+	triggers_buff.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 

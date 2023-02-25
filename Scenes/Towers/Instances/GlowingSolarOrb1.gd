@@ -25,7 +25,7 @@ func _ready():
 	add_modifier(dmg_to_undead_modifier)
 
 	var on_damage_buff: Buff = TriggersBuff.new()
-	on_damage_buff.add_event_on_damage(self, "_on_damage")
+	on_damage_buff.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 	on_damage_buff.apply_to_unit_permanent(self, self, 0)
 
 

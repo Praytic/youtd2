@@ -18,15 +18,12 @@ func _get_tier_stats() -> Dictionary:
 
 func _ready():
 	var on_damage_buff = TriggersBuff.new()
-	on_damage_buff.add_event_on_damage(self, "on_damage")
+	on_damage_buff.add_event_on_damage(self, "on_damage", _stats.chance_base, _stats.chance_add)
 	on_damage_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func on_damage(event: Event):
 	var tower = self
-
-	if !tower.calc_chance(_stats.chance_base + _stats.chance_add * tower.get_level()):
-		return
 
 	var creep: Unit = event.get_target()
 	var size: int = creep.get_size()
