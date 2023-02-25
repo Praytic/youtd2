@@ -10,12 +10,17 @@ const opaque_green := Color("ad54ff3c")
 
 var tower_id: int
 
-func _init(tower_id_arg: int):
-	tower_id = tower_id_arg
+onready var _area_of_effect: AreaOfEffect = $AreaOfEffect
 
 
 func _ready():
-	$Tower.build_init()
+	var tower_properties: Dictionary = Properties.get_tower_csv_properties_by_id(tower_id)
+	var attack_range: float = tower_properties[Tower.CsvProperty.ATTACK_RANGE].to_float()
+
+	_area_of_effect.set_radius(attack_range)
+
+	var tower_instance = TowerManager.get_tower_visual_only(tower_id)
+	add_child(tower_instance)
 
 
 func _physics_process(_delta):

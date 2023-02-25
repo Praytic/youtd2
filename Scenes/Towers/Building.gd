@@ -6,7 +6,6 @@ signal selected
 signal unselected
 
 
-var building_in_progress: bool = false
 var is_selected: bool = false
 const cell_size: int = 128
 
@@ -17,12 +16,8 @@ func _ready():
 	z_index = 999
 
 
-func build_init():
-	building_in_progress = true
-
-
 func _unhandled_input(event):
-	if event is InputEventMouseButton and not building_in_progress:
+	if event is InputEventMouseButton:
 		if event.get_button_index() == BUTTON_LEFT or event.get_button_index() == BUTTON_RIGHT:
 			var is_inside: bool = Geometry.is_point_in_polygon(
 				$CollisionShape2D.get_local_mouse_position(), 

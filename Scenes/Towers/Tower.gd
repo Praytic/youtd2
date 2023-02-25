@@ -118,7 +118,6 @@ const ATTACK_CD_MIN: float = 0.2
 var _id: int = 0
 var _stats: Dictionary
 var _attack_autocast = null
-var _aoe_scene: PackedScene = preload("res://Scenes/Towers/AreaOfEffect.tscn")
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _tower_properties: Dictionary = {
 	TowerProperty.ATTACK_RANGE: 0.0,
@@ -162,8 +161,6 @@ onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 func _ready():
 	_is_tower = true
 
-	add_child(_aoe_scene.instance(), true)
-
 # 	Load some default property values from csv
 	for csv_property in _csv_property_to_tower_property_map.keys():
 		var tower_property: int = _csv_property_to_tower_property_map[csv_property]
@@ -175,8 +172,6 @@ func _ready():
 	var tier: int = get_tier()
 	var tier_stats: Dictionary = _get_tier_stats()
 	_stats = tier_stats[tier]
-
-	$AreaOfEffect.hide()
 
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
@@ -214,9 +209,6 @@ func _ready():
 func give_gold(_amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
 	pass
 
-func build_init():
-	.build_init()
-	$AreaOfEffect.show()
 
 func change_level(new_level: int):
 	set_level(new_level)
@@ -275,8 +267,6 @@ func _unselect():
 func _apply_properties_to_scene_children():
 	var cast_range: float = _tower_properties[TowerProperty.ATTACK_RANGE]
 	var attack_cooldown: float = get_overall_cooldown()
-	
-	$AreaOfEffect.set_radius(cast_range)
 
 	_attack_autocast.update_data(cast_range, attack_cooldown)
 
