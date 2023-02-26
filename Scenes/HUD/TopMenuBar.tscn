@@ -147,14 +147,14 @@ custom_constants/separation = 30
 margin_bottom = 81.0
 script = ExtResource( 1 )
 icon_texture = SubResource( 1 )
-label_text = "0"
+default_label_text = "0"
 
 [node name="Food" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
 margin_left = 280.0
 margin_right = 530.0
 margin_bottom = 81.0
 icon_texture = SubResource( 2 )
-label_text = "0"
+default_label_text = "0"
 
 [node name="KnowledgeTome" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
 margin_left = 560.0
@@ -162,7 +162,7 @@ margin_right = 810.0
 margin_bottom = 81.0
 script = ExtResource( 2 )
 icon_texture = SubResource( 3 )
-label_text = "0"
+default_label_text = "0"
 
 [node name="AboutCreators" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
 margin_left = 840.0
@@ -170,4 +170,4 @@ margin_right = 1090.0
 margin_bottom = 81.0
 hint_tooltip = "Remake developers: Praytic & kevl
 Original idea by: geX"
-label_text = "Creators"
+default_label_text = "Creators"

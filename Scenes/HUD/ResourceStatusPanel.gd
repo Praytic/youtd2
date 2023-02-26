@@ -2,8 +2,16 @@ tool
 extends Panel
 
 export(Texture) var icon_texture
-export(String) var label_text
+export(String) var default_label_text
+
+onready var _label: Label = $MarginContainer/HBoxContainer/Label
+
 
 func _ready():
 	$MarginContainer/HBoxContainer/Icon.texture = icon_texture
-	$MarginContainer/HBoxContainer/Label.text = label_text
+	_label.text = default_label_text
+
+
+func set_label_text(text: String):
+	_label.text = text
+
