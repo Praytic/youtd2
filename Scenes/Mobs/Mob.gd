@@ -11,6 +11,7 @@ enum MobProperty {
 	ARMOR,
 	EXP_GRANTED,
 	SPELL_DAMAGE_RECEIVED,
+	BOUNTY_GRANTED,
 }
 
 # NOTE: order is important to be able to compare
@@ -36,6 +37,7 @@ const _mob_mod_to_property_map: Dictionary = {
 	Modification.Type.MOD_ARMOR_PERC: MobProperty.ARMOR,
 	Modification.Type.MOD_EXP_GRANTED: MobProperty.EXP_GRANTED,
 	Modification.Type.MOD_SPELL_DAMAGE_RECEIVED: MobProperty.SPELL_DAMAGE_RECEIVED,
+	Modification.Type.MOD_BOUNTY_GRANTED: MobProperty.BOUNTY_GRANTED,
 }
 
 const MOB_HEALTH_MAX: float = 100.0
@@ -50,6 +52,7 @@ var _mob_properties: Dictionary = {
 	MobProperty.ARMOR: 0.0,
 	MobProperty.EXP_GRANTED: 0.0,
 	MobProperty.SPELL_DAMAGE_RECEIVED: 1.0,
+	MobProperty.BOUNTY_GRANTED: 0.0,
 }
 var _facing_angle: float = 0.0
 
@@ -118,6 +121,15 @@ func get_size() -> int:
 
 func get_type() -> int:
 	return _type
+
+
+func get_bounty() -> int:
+# 	TODO: load base bounty amount from somewhere
+	var bounty_base: int = 10
+	var bounty_granted: float = 1.0 + _mob_properties[MobProperty.BOUNTY_GRANTED]
+	var bounty: int = int(bounty_base * bounty_granted)
+
+	return bounty
 
 
 # NOTE: use this instead of regular Node2D.position for

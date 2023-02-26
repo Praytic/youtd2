@@ -14,6 +14,10 @@ enum Type {
 	MOD_EXP_GRANTED,
 	MOD_SPELL_DAMAGE_RECEIVED,
 
+#	Modifies the bounty the unit grants upon being killed
+#	0.01 = +1% duration
+	MOD_BOUNTY_GRANTED,
+
 # For towers:
 	MOD_ATTACK_CRIT_CHANCE,
 	MOD_ATTACK_CRIT_DAMAGE,
@@ -35,6 +39,8 @@ enum Type {
 	MOD_ITEM_CHANCE_ON_KILL,
 	MOD_ITEM_QUALITY_ON_KILL,
 
+#	Modifies the bounty the unit receives upon killing
+#	0.01 = +1% duration
 	MOD_EXP_RECEIVED,
 
 # For all units:
@@ -43,6 +49,7 @@ enum Type {
 	MOD_TRIGGER_CHANCES,
 	MOD_MOVE_SPEED,
 	MOD_MOVE_SPEED_ABSOLUTE,
+	MOD_BOUNTY_RECEIVED,
 }
 
 const _math_type_map: Dictionary = {
@@ -51,6 +58,7 @@ const _math_type_map: Dictionary = {
 	Type.MOD_ARMOR_PERC: MathType.MULTIPLY,
 	Type.MOD_EXP_GRANTED: MathType.ADD,
 	Type.MOD_SPELL_DAMAGE_RECEIVED: MathType.ADD,
+	Type.MOD_BOUNTY_GRANTED: MathType.ADD,
 
 # For towers:
 	Type.MOD_ATTACK_CRIT_CHANCE: MathType.ADD,
@@ -81,6 +89,7 @@ const _math_type_map: Dictionary = {
 	Type.MOD_TRIGGER_CHANCES: MathType.ADD,
 	Type.MOD_MOVE_SPEED: MathType.MULTIPLY,
 	Type.MOD_MOVE_SPEED_ABSOLUTE: MathType.ADD,
+	Type.MOD_BOUNTY_RECEIVED: MathType.ADD,
 }
 
 var type: int
