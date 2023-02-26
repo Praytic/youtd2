@@ -28,6 +28,8 @@ enum UnitProperty {
 #	Debuffs are those with "friednly" set to false
 #	0.01 = -1% duration
 	DEBUFF_DURATION,
+
+	BOUNTY_RECEIVED,
 }
 
 
@@ -55,6 +57,7 @@ var _unit_properties: Dictionary = {
 	UnitProperty.MOVE_SPEED: MOVE_SPEED_MAX,
 	UnitProperty.BUFF_DURATION: 0.0,
 	UnitProperty.DEBUFF_DURATION: 0.0,
+	UnitProperty.BOUNTY_RECEIVED: 0.0,
 }
 
 const _unit_mod_to_property_map: Dictionary = {
@@ -63,6 +66,7 @@ const _unit_mod_to_property_map: Dictionary = {
 	Modification.Type.MOD_BUFF_DURATION: UnitProperty.BUFF_DURATION,
 	Modification.Type.MOD_DEBUFF_DURATION: UnitProperty.DEBUFF_DURATION,
 	Modification.Type.MOD_MOVE_SPEED: UnitProperty.MOVE_SPEED,
+	Modification.Type.MOD_BOUNTY_RECEIVED: UnitProperty.BOUNTY_RECEIVED,
 }
 
 func _ready():
@@ -183,6 +187,10 @@ func get_level() -> int:
 	return _level
 
 
+func get_bounty() -> int:
+	return 0
+
+
 func kill_instantly(target: Unit):
 	target._killed_by_unit(self, true)
 
@@ -275,6 +283,11 @@ func _killed_by_unit(caster: Unit, is_main_target: bool):
 
 # Called when unit kills target unit
 func _accept_kill(target: Unit, is_main_target: bool):
+	var bounty_base: int = target.get_bounty()
+	var bounty_received: float = 1.0 + _unit_properties[UnitProperty.BOUNTY_RECEIVED]
+	var bounty: int = int(bounty_base * bounty_received)
+	GoldManager.add_gold(bounty)
+
 	var kill_event: Event = Event.new(target, 0, is_main_target)
 	emit_signal("kill", kill_event)
 
