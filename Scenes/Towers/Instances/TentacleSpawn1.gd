@@ -32,7 +32,7 @@ func _on_damage(event: Event):
 	var tower = self
 
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.02, 0.01)
+	m.add_modification(Unit.ModType.MOD_SPELL_DAMAGE_RECEIVED, 0.02, 0.01)
 
 	var drol_tentacleDot = Buff.new("drol_tentacleDot", 6, 0, false)
 	drol_tentacleDot.set_buff_icon("@@0@@")

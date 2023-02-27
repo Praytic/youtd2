@@ -18,5 +18,5 @@ func _ready():
 	_set_attack_style_bounce(3, _stats.bounce_damage_multiplier)
 
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.10, 0.01)
+	specials_modifier.add_modification(Unit.ModType.MOD_DMG_TO_AIR, 0.10, 0.01)
 	add_modifier(specials_modifier)
