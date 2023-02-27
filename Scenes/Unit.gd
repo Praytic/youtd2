@@ -30,6 +30,8 @@ enum UnitProperty {
 	DEBUFF_DURATION,
 
 	BOUNTY_RECEIVED,
+	SPELL_DAMAGE_DEALT,
+	SPELL_DAMAGE_RECEIVED,
 }
 
 
@@ -58,6 +60,8 @@ var _unit_properties: Dictionary = {
 	UnitProperty.BUFF_DURATION: 0.0,
 	UnitProperty.DEBUFF_DURATION: 0.0,
 	UnitProperty.BOUNTY_RECEIVED: 0.0,
+	UnitProperty.SPELL_DAMAGE_DEALT: 1.0,
+	UnitProperty.SPELL_DAMAGE_RECEIVED: 1.0,
 }
 
 const _unit_mod_to_property_map: Dictionary = {
@@ -67,6 +71,8 @@ const _unit_mod_to_property_map: Dictionary = {
 	Modification.Type.MOD_DEBUFF_DURATION: UnitProperty.DEBUFF_DURATION,
 	Modification.Type.MOD_MOVE_SPEED: UnitProperty.MOVE_SPEED,
 	Modification.Type.MOD_BOUNTY_RECEIVED: UnitProperty.BOUNTY_RECEIVED,
+	Modification.Type.MOD_SPELL_DAMAGE_DEALT: UnitProperty.SPELL_DAMAGE_DEALT,
+	Modification.Type.MOD_SPELL_DAMAGE_RECEIVED: UnitProperty.SPELL_DAMAGE_RECEIVED,
 }
 
 func _ready():
@@ -108,7 +114,10 @@ func calc_attack_multicrit(_mystery1: float, _mystery2: float, _mystery3: float)
 
 # TODO: implement _crit_mod.
 func do_spell_damage(target: Unit, damage: float, _crit_mod: float):
-	_do_damage(target, damage, false)
+	var mod_dealt: float = _unit_properties[UnitProperty.SPELL_DAMAGE_DEALT]
+	var mod_received: float = target._unit_properties[UnitProperty.SPELL_DAMAGE_RECEIVED]
+	var damage_total: float = damage * mod_dealt * mod_received
+	_do_damage(target, damage_total, false)
 
 
 # TODO: finish implementation. Need to implement crit, find
