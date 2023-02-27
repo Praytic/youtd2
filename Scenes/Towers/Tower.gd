@@ -29,36 +29,6 @@ enum AttackStyle {
 	BOUNCE,
 }
 
-enum TowerProperty {
-	ATTACK_RANGE,
-	ATTACK_SPEED,
-	ATTACK_DAMAGE_MIN,
-	ATTACK_DAMAGE_MAX,
-
-#	These properties shouldn't be defined directly. Use a
-#	Modifier.
-	ATTACK_CRIT_CHANCE,
-	ATTACK_CRIT_DAMAGE,
-	MULTICRIT_COUNT,
-
-	DMG_TO_MASS,
-	DMG_TO_NORMAL,
-	DMG_TO_CHAMPION,
-	DMG_TO_BOSS,
-	DMG_TO_AIR,
-
-	DMG_TO_UNDEAD,
-	DMG_TO_MAGIC,
-	DMG_TO_NATURE,
-	DMG_TO_ORC,
-	DMG_TO_HUMANOID,
-
-# 	TODO: implement
-	ITEM_CHANCE_ON_KILL,
-	ITEM_QUALITY_ON_KILL,
-	EXP_RECEIVED,
-}
-
 enum Element {
 	ICE ,
 	NATURE,
@@ -69,54 +39,23 @@ enum Element {
 	STORM,
 }
 
+const _mob_type_to_mod_map: Dictionary = {
+	Unit.MobType.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
+	Unit.MobType.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
+	Unit.MobType.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
+	Unit.MobType.ORC: Unit.ModType.MOD_DMG_TO_ORC,
+	Unit.MobType.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
+}
+
+const _mob_size_to_mod_map: Dictionary = {
+	Unit.MobSize.MASS: Unit.ModType.MOD_DMG_TO_MASS,
+	Unit.MobSize.NORMAL: Unit.ModType.MOD_DMG_TO_NORMAL,
+	Unit.MobSize.CHAMPION: Unit.ModType.MOD_DMG_TO_CHAMPION,
+	Unit.MobSize.BOSS: Unit.ModType.MOD_DMG_TO_BOSS,
+	Unit.MobSize.AIR: Unit.ModType.MOD_DMG_TO_AIR,
+}
+
 export(AudioStreamMP3) var attack_sound
-
-const _tower_mod_to_property_map: Dictionary = {
-	Modification.Type.MOD_ATTACK_CRIT_CHANCE: TowerProperty.ATTACK_CRIT_CHANCE, 
-	Modification.Type.MOD_MULTICRIT_COUNT: TowerProperty.MULTICRIT_COUNT, 
-
-	Modification.Type.MOD_DMG_TO_MASS: TowerProperty.DMG_TO_MASS, 
-	Modification.Type.MOD_DMG_TO_NORMAL: TowerProperty.DMG_TO_NORMAL, 
-	Modification.Type.MOD_DMG_TO_CHAMPION: TowerProperty.DMG_TO_CHAMPION, 
-	Modification.Type.MOD_DMG_TO_BOSS: TowerProperty.DMG_TO_BOSS, 
-	Modification.Type.MOD_DMG_TO_AIR: TowerProperty.DMG_TO_AIR, 
-
-	Modification.Type.MOD_DMG_TO_UNDEAD: TowerProperty.DMG_TO_UNDEAD, 
-	Modification.Type.MOD_DMG_TO_MAGIC: TowerProperty.DMG_TO_MAGIC, 
-	Modification.Type.MOD_DMG_TO_NATURE: TowerProperty.DMG_TO_NATURE, 
-	Modification.Type.MOD_DMG_TO_ORC: TowerProperty.DMG_TO_ORC, 
-	Modification.Type.MOD_DMG_TO_HUMANOID: TowerProperty.DMG_TO_HUMANOID, 
-
-	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: TowerProperty.ITEM_CHANCE_ON_KILL, 
-	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: TowerProperty.ITEM_QUALITY_ON_KILL, 
-
-	Modification.Type.MOD_EXP_RECEIVED: TowerProperty.EXP_RECEIVED, 
-
-	Modification.Type.MOD_ATTACK_SPEED: TowerProperty.ATTACK_SPEED,
-}
-
-const _mob_type_to_property_map: Dictionary = {
-	Mob.Type.UNDEAD: TowerProperty.DMG_TO_MASS,
-	Mob.Type.MAGIC: TowerProperty.DMG_TO_MAGIC,
-	Mob.Type.NATURE: TowerProperty.DMG_TO_NATURE,
-	Mob.Type.ORC: TowerProperty.DMG_TO_ORC,
-	Mob.Type.HUMANOID: TowerProperty.DMG_TO_HUMANOID,
-}
-
-const _mob_size_to_property_map: Dictionary = {
-	Mob.Size.MASS: TowerProperty.DMG_TO_MASS,
-	Mob.Size.NORMAL: TowerProperty.DMG_TO_NORMAL,
-	Mob.Size.CHAMPION: TowerProperty.DMG_TO_CHAMPION,
-	Mob.Size.BOSS: TowerProperty.DMG_TO_BOSS,
-	Mob.Size.AIR: TowerProperty.DMG_TO_AIR,
-}
-
-const _csv_property_to_tower_property_map: Dictionary = {
-	CsvProperty.ATTACK_RANGE: TowerProperty.ATTACK_RANGE,
-	CsvProperty.ATTACK_DAMAGE_MIN: TowerProperty.ATTACK_DAMAGE_MIN,
-	CsvProperty.ATTACK_DAMAGE_MAX: TowerProperty.ATTACK_DAMAGE_MAX,
-}
-
 
 const ATTACK_CD_MIN: float = 0.2
 
@@ -128,34 +67,6 @@ var _splash_map: Dictionary = {}
 var _bounce_count_max: int = 0
 var _bounce_damage_multiplier: float = 0.0
 var _attack_style: int = AttackStyle.NORMAL
-var _tower_properties: Dictionary = {
-	TowerProperty.ATTACK_RANGE: 0.0,
-	TowerProperty.ATTACK_SPEED: 1.0,
-	TowerProperty.ATTACK_DAMAGE_MIN: 0,
-	TowerProperty.ATTACK_DAMAGE_MAX: 0,
-	TowerProperty.ATTACK_CRIT_CHANCE: 0.0,
-# NOTE: crit damage default means the default bonus damage
-# from crits, so default value of 1.0 means +100%
-	TowerProperty.ATTACK_CRIT_DAMAGE: 1.0,
-	TowerProperty.MULTICRIT_COUNT: 1.0,
-
-	TowerProperty.DMG_TO_MASS: 0.0,
-	TowerProperty.DMG_TO_NORMAL: 0.0,
-	TowerProperty.DMG_TO_CHAMPION: 0.0,
-	TowerProperty.DMG_TO_BOSS: 0.0,
-	TowerProperty.DMG_TO_AIR: 0.0,
-
-	TowerProperty.DMG_TO_UNDEAD: 0.0,
-	TowerProperty.DMG_TO_MAGIC: 0.0,
-	TowerProperty.DMG_TO_NATURE: 0.0,
-	TowerProperty.DMG_TO_ORC: 0.0,
-	TowerProperty.DMG_TO_HUMANOID: 0.0,
-
-# 	TODO: these should probably default to something
-# 	non-zero
-	TowerProperty.ITEM_CHANCE_ON_KILL: 0.0,
-	TowerProperty.ITEM_QUALITY_ON_KILL: 0.0,
-}
 
 
 onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
@@ -169,12 +80,6 @@ onready var _range_indicator: RangeIndicator = $RangeIndicator
 
 func _ready():
 	_is_tower = true
-
-# 	Load some default property values from csv
-	for csv_property in _csv_property_to_tower_property_map.keys():
-		var tower_property: int = _csv_property_to_tower_property_map[csv_property]
-		var value: float = get_csv_property(csv_property).to_float()
-		_tower_properties[tower_property] = value
 
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
@@ -276,6 +181,12 @@ func _get_tier_stats() -> Dictionary:
 	return default_out
 
 
+func _get_attack_range() -> float:
+	var attack_range: float = get_csv_property(CsvProperty.ATTACK_RANGE).to_float()
+
+	return attack_range
+
+
 func _select():
 	._select()
 
@@ -289,17 +200,17 @@ func _unselect():
 
 
 func _apply_properties_to_scene_children():
-	var cast_range: float = _tower_properties[TowerProperty.ATTACK_RANGE]
+	var attack_range: float = _get_attack_range()
 	var attack_cooldown: float = get_overall_cooldown()
 
-	_attack_autocast.update_data(cast_range, attack_cooldown)
-	_range_indicator.set_radius(cast_range)
+	_attack_autocast.update_data(attack_range, attack_cooldown)
+	_range_indicator.set_radius(attack_range)
 
 
 # NOTE: returns random damage within range without any mods applied
 func _get_rand_damage_base() -> float:
-	var damage_min: float = _tower_properties[TowerProperty.ATTACK_DAMAGE_MIN]
-	var damage_max: float = _tower_properties[TowerProperty.ATTACK_DAMAGE_MAX]
+	var damage_min: float = get_damage_min()
+	var damage_max: float = get_damage_max()
 	var damage: float = rand_range(damage_min, damage_max)
 
 	return damage
@@ -309,20 +220,18 @@ func _get_base_properties() -> Dictionary:
 	return {}
 
 
-func _modify_property_subclass(modification_type: int, modification_value: float, modify_direction: int):
-	_modify_property_general(_tower_properties, _tower_mod_to_property_map, modification_type, modification_value, modify_direction)
-
+func _on_modify_property():
 	_apply_properties_to_scene_children()
 
 
 func _get_crit_count() -> int:
 	var crit_count: int = 0
 
-	var multicrit_count: int = int(max(0, _tower_properties[TowerProperty.MULTICRIT_COUNT]))
+	var multicrit_count: int = int(max(0, 1.0 + _mod_value_map[Unit.ModType.MOD_MULTICRIT_COUNT]))
 
 	for _i in range(multicrit_count):
-		var attack_crit_chance: float = _tower_properties[TowerProperty.ATTACK_CRIT_CHANCE]
-		var is_critical: bool = Utils.rand_chance(attack_crit_chance)
+		var attack_crit_chance_mod: float = _mod_value_map[Unit.ModType.MOD_ATTACK_CRIT_CHANCE]
+		var is_critical: bool = Utils.rand_chance(attack_crit_chance_mod)
 
 		if is_critical:
 			crit_count += 1
@@ -334,16 +243,16 @@ func _get_crit_count() -> int:
 
 func _get_damage_mod_for_mob_type(mob: Mob) -> float:
 	var mob_type: int = mob.get_type()
-	var property: int = _mob_type_to_property_map[mob_type]
-	var damage_mod: float = _tower_properties[property]
+	var mod_type: int = _mob_type_to_mod_map[mob_type]
+	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
 
 
 func _get_damage_mod_for_mob_size(mob: Mob) -> float:
 	var mob_size: int = mob.get_size()
-	var property: int = _mob_size_to_property_map[mob_size]
-	var damage_mod: float = _tower_properties[property]
+	var mod_type: int = _mob_type_to_mod_map[mob_size]
+	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
 
@@ -359,7 +268,8 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 # 	NOTE: crit count can go above 1 because of the multicrit
 # 	property
 	var crit_count: int = _get_crit_count()
-	var crit_mod: float = _tower_properties[TowerProperty.ATTACK_CRIT_DAMAGE]
+#	NOTE: crits start at 200% damage without any modifiers
+	var crit_mod: float = 2.0 + _mod_value_map[Unit.ModType.MOD_ATTACK_CRIT_DAMAGE]
 
 	for _i in range(crit_count):
 		damage_mod_list.append(crit_mod)
@@ -461,7 +371,7 @@ func _on_projectile_bounce_in_progress(prev_mob: Mob, prev_damage: float, curren
 
 
 func _get_next_bounce_target(prev_target: Mob) -> Mob:
-	var attack_range: float = _tower_properties[TowerProperty.ATTACK_RANGE]
+	var attack_range: float = _get_attack_range()
 	var mob_list: Array = Utils.get_mob_list_in_range(prev_target.position, attack_range)
 	mob_list.erase(prev_target)
 
@@ -515,7 +425,7 @@ func get_icon_atlas_num() -> int:
 
 
 func get_base_attack_speed() -> float:
-	return _tower_properties[TowerProperty.ATTACK_SPEED]
+	return _mod_value_map[Unit.ModType.MOD_ATTACK_SPEED]
 
 
 func get_base_cooldown() -> float:
@@ -524,8 +434,8 @@ func get_base_cooldown() -> float:
 
 func get_overall_cooldown() -> float:
 	var attack_cooldown: float = get_base_cooldown()
-	var attack_speed: float = get_base_attack_speed()
-	var overall_cooldown: float = attack_cooldown * attack_speed
+	var attack_speed_mod: float = get_base_attack_speed()
+	var overall_cooldown: float = attack_cooldown * (1.0 + attack_speed_mod)
 	overall_cooldown = max(ATTACK_CD_MIN, overall_cooldown)
 
 	return overall_cooldown

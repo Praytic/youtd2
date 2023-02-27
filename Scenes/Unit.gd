@@ -15,28 +15,80 @@ signal damaged(event)
 signal kill(event)
 signal death(event)
 
-enum UnitProperty {
-	TRIGGER_CHANCES,
-	MOVE_SPEED,
 
-#	Modifies buff durations for buffs cast by this unit
-#	Applies to both friendly and unfriendly buffs
+# TODO: implement these mod types
+# MOD_ARMOR
+# MOD_ARMOR_PERC
+# MOD_EXP_GRANTED
+# MOD_ITEM_CHANCE_ON_KILL
+# MOD_ITEM_QUALITY_ON_KILL
+# MOD_EXP_RECEIVED
+
+enum ModType {
+# For mobs:
+	MOD_ARMOR,
+	MOD_ARMOR_PERC,
+	MOD_EXP_GRANTED,
+	MOD_SPELL_DAMAGE_RECEIVED,
+
+#	Modifies the bounty the unit grants upon being killed
 #	0.01 = +1% duration
-	BUFF_DURATION,
+	MOD_BOUNTY_GRANTED,
 
-#	Modifies buff durations for debuffs cast ONTO this unit
-#	Debuffs are those with "friednly" set to false
-#	0.01 = -1% duration
-	DEBUFF_DURATION,
+# For towers:
+	MOD_ATTACK_CRIT_CHANCE,
+	MOD_ATTACK_CRIT_DAMAGE,
+	MOD_ATTACK_SPEED,
+	MOD_MULTICRIT_COUNT,
 
-	BOUNTY_RECEIVED,
-	SPELL_DAMAGE_DEALT,
-	SPELL_DAMAGE_RECEIVED,
+	MOD_DMG_TO_MASS,
+	MOD_DMG_TO_NORMAL,
+	MOD_DMG_TO_CHAMPION,
+	MOD_DMG_TO_BOSS,
+	MOD_DMG_TO_AIR,
+
+	MOD_DMG_TO_UNDEAD,
+	MOD_DMG_TO_MAGIC,
+	MOD_DMG_TO_NATURE,
+	MOD_DMG_TO_ORC,
+	MOD_DMG_TO_HUMANOID,
+
+	MOD_ITEM_CHANCE_ON_KILL,
+	MOD_ITEM_QUALITY_ON_KILL,
+
+#	Modifies the bounty the unit receives upon killing
+#	0.01 = +1% duration
+	MOD_EXP_RECEIVED,
+
+	MOD_SPELL_DAMAGE_DEALT,
+
+# For all units:
+	MOD_BUFF_DURATION,
+	MOD_DEBUFF_DURATION,
+	MOD_TRIGGER_CHANCES,
+	MOD_MOVE_SPEED,
+	MOD_MOVE_SPEED_ABSOLUTE,
+	MOD_BOUNTY_RECEIVED,
 }
 
+# NOTE: order is important to be able to compare
+enum MobSize {
+	MASS,
+	NORMAL,
+	AIR,
+	CHAMPION,
+	BOSS,
+	CHALLENGE,
+}
 
-const MOVE_SPEED_MIN: float = 100.0
-const MOVE_SPEED_MAX: float = 500.0
+enum MobType {
+	UNDEAD,
+	MAGIC,
+	NATURE,
+	ORC,
+	HUMANOID,
+}
+
 
 # HACK: to fix cyclic dependency between Tower<->TargetType
 var _is_mob: bool = false
@@ -54,29 +106,12 @@ var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
 var _direct_modifier_list: Array
 var _health: float = 0.0
-var _unit_properties: Dictionary = {
-	UnitProperty.TRIGGER_CHANCES: 0.0,
-	UnitProperty.MOVE_SPEED: MOVE_SPEED_MAX,
-	UnitProperty.BUFF_DURATION: 0.0,
-	UnitProperty.DEBUFF_DURATION: 0.0,
-	UnitProperty.BOUNTY_RECEIVED: 0.0,
-	UnitProperty.SPELL_DAMAGE_DEALT: 1.0,
-	UnitProperty.SPELL_DAMAGE_RECEIVED: 1.0,
-}
+var _mod_value_map: Dictionary = {}
 
-const _unit_mod_to_property_map: Dictionary = {
-	Modification.Type.MOD_TRIGGER_CHANCES: UnitProperty.TRIGGER_CHANCES,
-	Modification.Type.MOD_MOVE_SPEED_ABSOLUTE: UnitProperty.MOVE_SPEED,
-	Modification.Type.MOD_BUFF_DURATION: UnitProperty.BUFF_DURATION,
-	Modification.Type.MOD_DEBUFF_DURATION: UnitProperty.DEBUFF_DURATION,
-	Modification.Type.MOD_MOVE_SPEED: UnitProperty.MOVE_SPEED,
-	Modification.Type.MOD_BOUNTY_RECEIVED: UnitProperty.BOUNTY_RECEIVED,
-	Modification.Type.MOD_SPELL_DAMAGE_DEALT: UnitProperty.SPELL_DAMAGE_DEALT,
-	Modification.Type.MOD_SPELL_DAMAGE_RECEIVED: UnitProperty.SPELL_DAMAGE_RECEIVED,
-}
 
-func _ready():
-	pass
+func _init():
+	for mod_type in ModType.values():
+		_mod_value_map[mod_type] = 0.0
 
 
 # TODO: implement
@@ -85,7 +120,7 @@ func is_immune() -> bool:
 
 
 func calc_chance(chance_base: float) -> bool:
-	var chance_mod: float = _unit_properties[UnitProperty.TRIGGER_CHANCES]
+	var chance_mod: float = _mod_value_map[ModType.MOD_TRIGGER_CHANCES]
 	var chance: float = chance_base + chance_mod
 	var success: bool = Utils.rand_chance(chance)
 
@@ -94,7 +129,7 @@ func calc_chance(chance_base: float) -> bool:
 
 # "Bad" chance is for events that decrease tower's
 # perfomance, for example missing attack. Bad chances are
-# unaffected by UnitProperty.TRIGGER_CHANCES.
+# unaffected by ModType.MOD_TRIGGER_CHANCES.
 func calc_bad_chance(chance: float) -> bool:
 	var success: bool = Utils.rand_chance(chance)
 
@@ -114,9 +149,9 @@ func calc_attack_multicrit(_mystery1: float, _mystery2: float, _mystery3: float)
 
 # TODO: implement _crit_mod.
 func do_spell_damage(target: Unit, damage: float, _crit_mod: float):
-	var mod_dealt: float = _unit_properties[UnitProperty.SPELL_DAMAGE_DEALT]
-	var mod_received: float = target._unit_properties[UnitProperty.SPELL_DAMAGE_RECEIVED]
-	var damage_total: float = damage * mod_dealt * mod_received
+	var dealt_mod: float = _mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT]
+	var received_mod: float = target._mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED]
+	var damage_total: float = damage * (1.0 + dealt_mod) * (1.0 + received_mod)
 	_do_damage(target, damage_total, false)
 
 
@@ -185,40 +220,27 @@ func get_y() -> float:
 
 
 func get_buff_duration_mod() -> float:
-	return _unit_properties[UnitProperty.BUFF_DURATION]
+	return 1.0 + _mod_value_map[ModType.MOD_BUFF_DURATION]
 
 
 func get_debuff_duration_mod() -> float:
-	return _unit_properties[UnitProperty.DEBUFF_DURATION]
+	return 1.0 + _mod_value_map[ModType.MOD_DEBUFF_DURATION]
 
 
 func get_level() -> int:
 	return _level
 
 
-func get_bounty() -> int:
-	return 0
-
-
 func kill_instantly(target: Unit):
 	target._killed_by_unit(self, true)
 
 
-func modify_property(modification_type: int, modification_value: float, modify_direction: int):
-	_modify_property_general(_unit_properties, _unit_mod_to_property_map, modification_type, modification_value, modify_direction)
+func modify_property(mod_type: int, value: float, direction: int):
+	var current_value: float = _mod_value_map[mod_type]
+	var new_value: float = current_value + direction * value
+	_mod_value_map[mod_type] = new_value
 
-#	Call subclass version
-	_modify_property_subclass(modification_type, modification_value, modify_direction)
-
-
-# NOTE: important to store move speed without clamping and
-# clamp only the value that is returned by getter to avoid
-# overflow issues.
-func get_move_speed() -> float:
-	var unclamped_value: float = _unit_properties[UnitProperty.MOVE_SPEED]
-	var move_speed: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped_value))
-
-	return move_speed
+	_on_modify_property()
 
 
 # TODO: implement
@@ -292,9 +314,11 @@ func _killed_by_unit(caster: Unit, is_main_target: bool):
 
 # Called when unit kills target unit
 func _accept_kill(target: Unit, is_main_target: bool):
-	var bounty_base: int = target.get_bounty()
-	var bounty_received: float = 1.0 + _unit_properties[UnitProperty.BOUNTY_RECEIVED]
-	var bounty: int = int(bounty_base * bounty_received)
+# 	TODO: load bounty_base from somewhere
+	var bounty_base: float = 10.0
+	var granted_mod: float = target._mod_value_map[ModType.MOD_BOUNTY_GRANTED]
+	var received_mod: float = _mod_value_map[ModType.MOD_BOUNTY_RECEIVED]
+	var bounty: int = int(bounty_base * (1.0 + granted_mod) * (1.0 + received_mod))
 	GoldManager.add_gold(bounty)
 
 	var kill_event: Event = Event.new(target, 0, is_main_target)
@@ -321,36 +345,8 @@ func _on_buff_removed(buff):
 	buff.queue_free()
 
 
-func _modify_property_subclass(_modification_type: int, _modification_value: float, _modify_direction: int):
+func _on_modify_property():
 	pass
-
-
-# This f-n is used by Unit and Unit subclasses, because they
-# have separate property maps and mod_to_property maps.
-static func _modify_property_general(property_map: Dictionary, mod_to_property_map: Dictionary, modification_type: int, modification_value: float, modify_direction: int):
-	var can_process_modification: bool = mod_to_property_map.has(modification_type)
-
-	if !can_process_modification:
-		return
-
-	var property: int = mod_to_property_map[modification_type]
-	var current_value: float = property_map[property]
-	var new_value: float = 0.0
-
-	var math_type: int = Modification.get_math_type(modification_type)
-
-	match math_type:
-		Modification.MathType.ADD:
-			new_value = current_value + modify_direction * modification_value
-		Modification.MathType.MULTIPLY:
-			if modify_direction == 1:
-				new_value = current_value * (1.0 + modification_value)
-			elif modify_direction == -1:
-				new_value = current_value / (1.0 + modification_value)
-			else:
-				new_value = current_value
-
-	property_map[property] = new_value
 
 
 func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
