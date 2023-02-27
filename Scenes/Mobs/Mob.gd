@@ -38,7 +38,7 @@ const _mob_mod_to_property_map: Dictionary = {
 	Modification.Type.MOD_BOUNTY_GRANTED: MobProperty.BOUNTY_GRANTED,
 }
 
-const MOB_HEALTH_MAX: float = 100.0
+const MOB_HEALTH_MAX: float = 200.0
 
 var _path_curve: Curve2D
 var _current_path_index: int = 0
@@ -61,6 +61,7 @@ onready var _height_tween = $HeightTween
 
 func _ready():
 	_is_mob = true
+	_health = MOB_HEALTH_MAX
 
 	connect("damaged", self, "on_damaged")
 

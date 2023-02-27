@@ -53,7 +53,7 @@ var _is_dead: bool = false
 var _level: int = 1 setget set_level, get_level
 var _buff_map: Dictionary
 var _direct_modifier_list: Array
-var _health: float = 100.0
+var _health: float = 0.0
 var _unit_properties: Dictionary = {
 	UnitProperty.TRIGGER_CHANCES: 0.0,
 	UnitProperty.MOVE_SPEED: MOVE_SPEED_MAX,
