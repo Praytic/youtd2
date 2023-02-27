@@ -90,27 +90,26 @@ func _ready():
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
 
-# 	NOTE: settings for attack autocast will be fully loaded
-# 	_apply_properties_to_scene_children() is called
+	var attack_range: float = _get_attack_range()
+	_range_indicator.set_radius(attack_range)
+
 	var attack_autocast_data = Autocast.Data.new()
 	attack_autocast_data.caster_art = ""
 	attack_autocast_data.num_buffs_before_idle = 0
 	attack_autocast_data.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	attack_autocast_data.the_range = 0
+	attack_autocast_data.the_range = attack_range
 	attack_autocast_data.target_self = false
 	attack_autocast_data.target_art = ""
-	attack_autocast_data.cooldown = 1
+	attack_autocast_data.cooldown = get_overall_cooldown()
 	attack_autocast_data.is_extended = true
 	attack_autocast_data.mana_cost = 0
 	attack_autocast_data.buff_type = 0
 	attack_autocast_data.target_type = TargetType.new(TargetType.UnitType.MOBS)
-	attack_autocast_data.auto_range = 0
+	attack_autocast_data.auto_range = attack_range
 
 	var attack_buff = TriggersBuff.new()
 	_attack_autocast = attack_buff.add_autocast(attack_autocast_data, self, "_on_attack_autocast")
 	attack_buff.apply_to_unit_permanent(self, self, 0)
-
-	_apply_properties_to_scene_children()
 
 
 #########################
@@ -123,13 +122,6 @@ func _ready():
 func give_gold(_amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
 	pass
 
-
-func change_level(new_level: int):
-	set_level(new_level)
-
-# 	NOTE: properties could've change due to level up so
-# 	re-apply them
-	_apply_properties_to_scene_children()
 
 func enable_default_sprite():
 	$DefaultSprite.show()
@@ -199,14 +191,6 @@ func _unselect():
 	_range_indicator.hide()
 
 
-func _apply_properties_to_scene_children():
-	var attack_range: float = _get_attack_range()
-	var attack_cooldown: float = get_overall_cooldown()
-
-	_attack_autocast.update_data(attack_range, attack_cooldown)
-	_range_indicator.set_radius(attack_range)
-
-
 # NOTE: returns random damage within range without any mods applied
 func _get_rand_damage_base() -> float:
 	var damage_min: float = get_damage_min()
@@ -221,7 +205,8 @@ func _get_base_properties() -> Dictionary:
 
 
 func _on_modify_property():
-	_apply_properties_to_scene_children()
+	var attack_cooldown: float = get_overall_cooldown()
+	_attack_autocast.set_cooldown(attack_cooldown)
 
 
 func _get_crit_count() -> int:
