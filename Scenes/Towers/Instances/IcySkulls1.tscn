@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Towers/Instances/IcySkulls1.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Towers/Instances/icy_skulls_atlas.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Towers/Tower.tscn" type="PackedScene" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 300, 300 )
+
+[node name="IcySkulls" instance=ExtResource( 3 )]
+script = ExtResource( 1 )
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2( 0, -193 )
+
+[node name="Muzzle" type="Position2D" parent="Model" index="0"]
+position = Vector2( -1, 153 )
+
+[node name="Sprite" type="Sprite" parent="Model" index="1"]
+position = Vector2( 1, 126 )
+texture = SubResource( 1 )
