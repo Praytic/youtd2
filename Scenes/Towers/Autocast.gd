@@ -44,7 +44,9 @@ onready var _cooldown_timer: Timer = $CooldownTimer
 
 
 func _ready():
-	_load_data_for_scene_nodes()
+	Utils.circle_shape_set_radius(_collision_shape, _data.auto_range)
+
+	set_cooldown(_data.cooldown)
 
 
 func set_data(data: Data, handler_object, handler_function: String):
@@ -58,21 +60,11 @@ func set_data(data: Data, handler_object, handler_function: String):
 		print_debug("Attempted to register an autocast handler function that doesn't exist: ", handler_function)
 
 
-# NOTE: this should be used only by Tower.gd to update range
-# and cooldown of attack autocast when tower's properties
-# are modified.
-func update_data(new_range: float, new_cooldown: float):
-	_data.the_range = new_range
-	_data.auto_range = new_range
-
-	_data.cooldown = new_cooldown
-
-	_load_data_for_scene_nodes()
-
-
-func _load_data_for_scene_nodes():
-	Utils.circle_shape_set_radius(_collision_shape, _data.auto_range)
-	_cooldown_timer.wait_time = _data.cooldown
+# NOTE: this should be used only by Tower.gd to update
+# cooldown because for towers cooldown may be changed
+# dynamically by buffs, items and other effects.
+func set_cooldown(new_cooldown: float):
+	_cooldown_timer.wait_time = new_cooldown
 
 
 func _add_target(new_target: Mob):
