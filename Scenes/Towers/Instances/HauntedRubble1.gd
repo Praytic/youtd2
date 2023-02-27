@@ -24,7 +24,7 @@ func _on_attack(event: Event):
 	var size: int = creep.get_size()
 	var calc: bool
 
-	if size == Mob.Size.BOSS:
+	if size == Unit.MobSize.BOSS:
 		calc = tower.calc_chance((_stats.chance + tower.get_level() * _stats.chance_add) * 2 / 3)
 	else:
 		calc = tower.calc_chance(_stats.chance + tower.get_level() * _stats.chance_add)
@@ -32,7 +32,7 @@ func _on_attack(event: Event):
 	if calc == true:
 		var velex_slow: Buff = Buff.new("velex_slow", 0, 0, false)
 		var slow: Modifier = Modifier.new()
-		slow.add_modification(Modification.Type.MOD_MOVE_SPEED, 0, -0.001)
+		slow.add_modification(Unit.ModType.MOD_MOVE_SPEED, 0, -0.001)
 		velex_slow.set_buff_icon("@@0@@")
 		velex_slow.set_buff_modifier(slow)
 		velex_slow.set_stacking_group("velex_slow1")

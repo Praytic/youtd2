@@ -26,7 +26,7 @@ func _on_damage(event: Event):
 
 	var astral_mod: Modifier = Modifier.new()
 	var drol_magic_ruin = Buff.new("drol_magic_ruin", 5, 0, false)
-	astral_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
+	astral_mod.add_modification(Unit.ModType.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
 	drol_magic_ruin.set_buff_modifier(astral_mod)
 	drol_magic_ruin.set_buff_icon("@@0@@")
 

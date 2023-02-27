@@ -23,7 +23,7 @@ func _on_damage(event: Event):
 
 	var cassim_slow = Buff.new("cassim_slow", 0, 0, false)
 	var slow_mod: Modifier = Modifier.new()
-	slow_mod.add_modification(Modification.Type.MOD_MOVE_SPEED, 0, -0.001)
+	slow_mod.add_modification(Unit.ModType.MOD_MOVE_SPEED, 0, -0.001)
 	cassim_slow.set_buff_icon("@@0@@")
 	cassim_slow.set_buff_modifier(slow_mod)
 

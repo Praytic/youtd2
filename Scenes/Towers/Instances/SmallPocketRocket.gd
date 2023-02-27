@@ -14,7 +14,7 @@ func _get_tier_stats() -> Dictionary:
 
 func _ready():
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, _stats.dmg_to_mass, 0.02)
+	specials_modifier.add_modification(Unit.ModType.MOD_DMG_TO_MASS, _stats.dmg_to_mass, 0.02)
 	add_modifier(specials_modifier)
 
 	var splash_attack_buff = SplashAttack.new({125: 0.55})

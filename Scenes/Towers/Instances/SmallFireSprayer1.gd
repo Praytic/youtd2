@@ -19,7 +19,7 @@ func _ready():
 	on_damage_buff.apply_to_unit_permanent(self, self, 0)
 
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_ATTACK_SPEED, 0, -0.03)
+	specials_modifier.add_modification(Unit.ModType.MOD_ATTACK_SPEED, 0, -0.03)
 	add_modifier(specials_modifier)
 
 

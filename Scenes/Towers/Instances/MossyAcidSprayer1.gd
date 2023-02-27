@@ -28,7 +28,7 @@ func _on_damage(event: Event):
 	var tower = self
 
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
+	m.add_modification(Unit.ModType.MOD_ARMOR, 0.0, -0.001)
 	var cedi_acidarmor = Buff.new("cedi_acidarmor", 3.0, 0.12, false)
 	cedi_acidarmor.set_buff_icon("@@0@@")
 	cedi_acidarmor.set_buff_modifier(m)

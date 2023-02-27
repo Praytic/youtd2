@@ -18,5 +18,5 @@ func _ready():
 	_set_attack_style_splash({600: 0.1})
 
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, _stats.dmg_to_mass, _stats.dmg_to_mass_add)
+	specials_modifier.add_modification(Unit.ModType.MOD_DMG_TO_MASS, _stats.dmg_to_mass, _stats.dmg_to_mass_add)
 	add_modifier(specials_modifier)

@@ -15,7 +15,7 @@ func _get_tier_stats() -> Dictionary:
 
 func _ready():
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.70, 0.02)
+	specials_modifier.add_modification(Unit.ModType.MOD_DMG_TO_AIR, 0.70, 0.02)
 	add_modifier(specials_modifier)
 
 	var triggers_buff: Buff = TriggersBuff.new()
@@ -36,7 +36,7 @@ func _on_attack(event: Event):
 	var damage: float = _stats.cyclone_damage + _stats.cyclone_damage_add * tower.get_level()
 	var b: Buff
 
-	if (target.get_size() == Mob.Size.MASS || target.get_size() == Mob.Size.NORMAL || target.get_size() == Mob.Size.CHAMPION):
+	if (target.get_size() == Unit.MobSize.MASS || target.get_size() == Unit.MobSize.NORMAL || target.get_size() == Unit.MobSize.CHAMPION):
 		if (tower.calc_chance(_stats.catch_chance + (_stats.catch_chance_add * tower.get_level()))):
 			b = target.get_buff_of_type("sternbogen_broken_wind")
 			
@@ -85,7 +85,7 @@ func _cyclone_creep_down(event: Event):
 	var bolt_impact: int = Effect.create_simple_at_unit("res://Scenes/Effects/BoltImpact.tscn", c)
 	Effect.destroy_effect(bolt_impact)
 #   do damage
-	if c.get_size() == Mob.Size.CHAMPION:
+	if c.get_size() == Unit.MobSize.CHAMPION:
 		ratio = 1.25
 
 	t.do_attack_damage_aoe_unit(c, ratio * 300.0, b.user_real3, t.calc_attack_multicrit(0, 0, 0), 0.0)
