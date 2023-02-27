@@ -7,49 +7,16 @@ extends Unit
 
 signal moved(delta)
 
-enum MobProperty {
-	ARMOR,
-	EXP_GRANTED,
-	BOUNTY_GRANTED,
-}
-
-# NOTE: order is important to be able to compare
-enum Size {
-	MASS,
-	NORMAL,
-	AIR,
-	CHAMPION,
-	BOSS,
-	CHALLENGE,
-}
-
-enum Type {
-	UNDEAD,
-	MAGIC,
-	NATURE,
-	ORC,
-	HUMANOID,
-}
-
-const _mob_mod_to_property_map: Dictionary = {
-	Modification.Type.MOD_ARMOR: MobProperty.ARMOR,
-	Modification.Type.MOD_ARMOR_PERC: MobProperty.ARMOR,
-	Modification.Type.MOD_EXP_GRANTED: MobProperty.EXP_GRANTED,
-	Modification.Type.MOD_BOUNTY_GRANTED: MobProperty.BOUNTY_GRANTED,
-}
-
 const MOB_HEALTH_MAX: float = 200.0
+const MOVE_SPEED_MIN: float = 100.0
+const MOVE_SPEED_MAX: float = 500.0
+const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
 
 var _path_curve: Curve2D
 var _current_path_index: int = 0
-var _size: int = Size.NORMAL
-var _type: int = Type.HUMANOID
+var _size: int = Unit.MobSize.NORMAL
+var _type: int = Unit.MobType.HUMANOID
 var movement_enabled: bool = true 
-var _mob_properties: Dictionary = {
-	MobProperty.ARMOR: 0.0,
-	MobProperty.EXP_GRANTED: 0.0,
-	MobProperty.BOUNTY_GRANTED: 0.0,
-}
 var _facing_angle: float = 0.0
 
 
@@ -76,7 +43,7 @@ func _process(delta):
 
 func _move(delta):
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
-	position = position.move_toward(path_point, get_move_speed() * delta)
+	position = position.move_toward(path_point, _get_move_speed() * delta)
 	emit_signal("moved", delta)
 	
 	var reached_path_point: bool = (position == path_point)
@@ -118,15 +85,6 @@ func get_size() -> int:
 
 func get_type() -> int:
 	return _type
-
-
-func get_bounty() -> int:
-# 	TODO: load base bounty amount from somewhere
-	var bounty_base: int = 10
-	var bounty_granted: float = 1.0 + _mob_properties[MobProperty.BOUNTY_GRANTED]
-	var bounty: int = int(bounty_base * bounty_granted)
-
-	return bounty
 
 
 # NOTE: use this instead of regular Node2D.position for
@@ -177,5 +135,11 @@ func _get_mob_animation() -> String:
 		return "stand"
 
 
-func _modify_property_subclass(modification_type: int, modification_value: float, modify_direction: int):
-	_modify_property_general(_mob_properties, _mob_mod_to_property_map, modification_type, modification_value, modify_direction)
+func _get_move_speed() -> float:
+	var base: float = DEFAULT_MOVE_SPEED
+	var mod: float = _mod_value_map[Unit.ModType.MOD_MOVE_SPEED]
+	var mod_absolute: float = _mod_value_map[ModType.MOD_MOVE_SPEED_ABSOLUTE]
+	var unclamped: float = base * (1.0 + mod) + mod_absolute
+	var clamped: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped))
+
+	return clamped
