@@ -152,6 +152,8 @@ func _init():
 	_mod_value_map[ModType.MOD_ATK_CRIT_CHANCE] = 0.01
 	_mod_value_map[ModType.MOD_ATK_CRIT_DAMAGE] = 0.5
 	_mod_value_map[ModType.MOD_TRIGGER_CHANCES] = 1.0
+	_mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT] = 1.0
+	_mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED] = 1.0
 
 
 #########################
@@ -188,9 +190,9 @@ func calc_attack_multicrit(_mystery1: float, _mystery2: float, _mystery3: float)
 
 # TODO: implement _crit_mod.
 func do_spell_damage(target: Unit, damage: float, _crit_mod: float):
-	var dealt_mod: float = _mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT]
-	var received_mod: float = target._mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED]
-	var damage_total: float = damage * (1.0 + dealt_mod) * (1.0 + received_mod)
+	var dealt_mod: float = get_prop_spell_damage_dealt()
+	var received_mod: float = target.get_prop_spell_damage_received()
+	var damage_total: float = damage * dealt_mod * received_mod
 	_do_damage(target, damage_total, false)
 
 
@@ -461,8 +463,11 @@ func get_prop_trigger_chances() -> float:
 func get_multicrit_count() -> int:
 	return int(max(0, 1.0 + _mod_value_map[ModType.MOD_MULTICRIT_COUNT]))
 
-func get_base_spell_damage() -> float:
+func get_prop_spell_damage_dealt() -> float:
 	return _mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT]
+
+func get_prop_spell_damage_received() -> float:
+	return _mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED]
 
 # TODO: implement
 func get_spell_crit_chance() -> float:
