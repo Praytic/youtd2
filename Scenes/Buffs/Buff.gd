@@ -117,8 +117,8 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 		add_child(timer)
 		timer.connect("timeout", self, "_on_timer_timeout")
 
-		var buff_duration_mod: float = _caster.get_buff_duration_mod()
-		var debuff_duration_mod: float = _target.get_debuff_duration_mod()
+		var buff_duration_mod: float = _caster.get_buff_duration()
+		var debuff_duration_mod: float = _target.get_debuff_duration()
 		if _friendly:
 			debuff_duration_mod = 0.0
 

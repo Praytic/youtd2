@@ -93,8 +93,6 @@ margin_bottom = -188.0
 [connection signal="child_entered_tree" from="Map/MobYSort" to="UI/Minimap" method="_on_MobYSort_child_entered_tree"]
 [connection signal="child_exiting_tree" from="Map/MobYSort" to="UI/Minimap" method="_on_MobYSort_child_exiting_tree"]
 [connection signal="body_entered" from="Map/MobExit" to="." method="_on_MobExit_body_entered"]
-[connection signal="progress_changed" from="Map/MobSpawner" to="." method="_on_MobSpawner_progress_changed"]
-[connection signal="wave_ended" from="Map/MobSpawner" to="." method="_on_MobSpawner_wave_ended"]
 [connection signal="camera_moved" from="Map/Camera" to="UI/HUD" method="_on_Camera_camera_moved"]
 [connection signal="camera_moved" from="Map/Camera" to="UI/Minimap" method="_on_Camera_camera_moved"]
 [connection signal="camera_zoomed" from="Map/Camera" to="UI/HUD" method="_on_Camera_camera_zoomed"]
