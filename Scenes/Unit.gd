@@ -150,7 +150,7 @@ func _init():
 	for mod_type in ModType.values():
 		_mod_value_map[mod_type] = 0.0
 	_mod_value_map[ModType.MOD_ATK_CRIT_CHANCE] = 0.01
-	_mod_value_map[ModType.MOD_ATK_CRIT_DAMAGE] = 0.5
+	_mod_value_map[ModType.MOD_ATK_CRIT_DAMAGE] = 1.5
 	_mod_value_map[ModType.MOD_TRIGGER_CHANCES] = 1.0
 	_mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT] = 1.0
 	_mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED] = 1.0
@@ -159,6 +159,7 @@ func _init():
 	_mod_value_map[ModType.MOD_BUFF_DURATION] = 1.0
 	_mod_value_map[ModType.MOD_DEBUFF_DURATION] = 1.0
 	_mod_value_map[ModType.MOD_MOVESPEED] = 1.0
+	_mod_value_map[ModType.MOD_MULTICRIT_COUNT] = 1.0
 
 
 #########################
@@ -408,17 +409,17 @@ func get_prop_buff_duration() -> float:
 func get_prop_debuff_duration() -> float:
 	return _mod_value_map[ModType.MOD_DEBUFF_DURATION]
 
-func get_attack_crit_chance() -> float:
+func get_prop_atk_crit_chance() -> float:
 	return _mod_value_map[ModType.MOD_ATK_CRIT_CHANCE]
 
-func get_attack_crit_damage() -> float:
+func get_prop_atk_crit_damage() -> float:
 	return _mod_value_map[ModType.MOD_ATK_CRIT_DAMAGE]
 
 # TODO: implement
 # Returns the value of the average damage multipler based on crit chance, crit damage
 # and multicrit count of the tower
 func get_crit_multiplier() -> float:
-	return 1 + get_attack_crit_chance() * get_attack_crit_damage()
+	return 1 + get_prop_atk_crit_chance() * get_prop_atk_crit_damage()
 
 func get_prop_bounty_received() -> float:
 	return _mod_value_map[ModType.MOD_BOUNTY_RECEIVED]
@@ -468,8 +469,8 @@ func get_item_quality_ratio() -> float:
 func get_prop_trigger_chances() -> float:
 	return _mod_value_map[ModType.MOD_TRIGGER_CHANCES]
 
-func get_multicrit_count() -> int:
-	return int(max(0, 1.0 + _mod_value_map[ModType.MOD_MULTICRIT_COUNT]))
+func get_prop_multicrit_count() -> int:
+	return int(max(0, _mod_value_map[ModType.MOD_MULTICRIT_COUNT]))
 
 func get_prop_spell_damage_dealt() -> float:
 	return _mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT]
