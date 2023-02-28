@@ -308,7 +308,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit chance"
 
-[node name="AttackCritChance" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_percent"]]
+[node name="PropAtkCritChance" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_percent"]]
 margin_left = 353.0
 margin_right = 518.0
 margin_bottom = 49.0
@@ -325,7 +325,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit damage"
 
-[node name="AttackCritDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_multiplier"]]
+[node name="PropAtkCritDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_multiplier"]]
 margin_left = 353.0
 margin_top = 53.0
 margin_right = 518.0
@@ -343,7 +343,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Multicrit count"
 
-[node name="MulticritCount" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_int"]]
+[node name="PropMulticritCount" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_int"]]
 margin_left = 353.0
 margin_top = 106.0
 margin_right = 518.0
