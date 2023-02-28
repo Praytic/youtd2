@@ -889,7 +889,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Buff duration"
 
-[node name="BuffDuration" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
+[node name="PropBuffDuration" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
 margin_left = 394.0
 margin_top = 265.0
 margin_right = 597.0
@@ -907,7 +907,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Debuff duration"
 
-[node name="DebuffDuration" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
+[node name="PropDebuffDuration" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
 margin_left = 394.0
 margin_top = 318.0
 margin_right = 597.0
