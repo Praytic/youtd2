@@ -158,6 +158,7 @@ func _init():
 	_mod_value_map[ModType.MOD_BOUNTY_RECEIVED] = 1.0
 	_mod_value_map[ModType.MOD_BUFF_DURATION] = 1.0
 	_mod_value_map[ModType.MOD_DEBUFF_DURATION] = 1.0
+	_mod_value_map[ModType.MOD_MOVESPEED] = 1.0
 
 
 #########################
@@ -531,3 +532,9 @@ func get_base_mana_regen_bonus_percent():
 
 func get_overall_mana_regen():
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * (1 + get_base_mana_regen_bonus_percent())
+
+func get_prop_move_speed() -> float:
+	return _mod_value_map[ModType.MOD_MOVESPEED]
+
+func get_prop_move_speed_absolute() -> float:
+	return _mod_value_map[ModType.MOD_MOVESPEED_ABSOLUTE]
