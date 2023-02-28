@@ -151,6 +151,7 @@ func _init():
 		_mod_value_map[mod_type] = 0.0
 	_mod_value_map[ModType.MOD_ATK_CRIT_CHANCE] = 0.01
 	_mod_value_map[ModType.MOD_ATK_CRIT_DAMAGE] = 0.5
+	_mod_value_map[ModType.MOD_TRIGGER_CHANCES] = 1.0
 
 
 #########################
@@ -158,8 +159,8 @@ func _init():
 #########################
 
 func calc_chance(chance_base: float) -> bool:
-	var chance_mod: float = _mod_value_map[ModType.MOD_TRIGGER_CHANCES]
-	var chance: float = chance_base + chance_mod
+	var mod_trigger_chances: float = get_prop_trigger_chances()
+	var chance: float = chance_base * mod_trigger_chances
 	var success: bool = Utils.rand_chance(chance)
 
 	return success
@@ -448,7 +449,7 @@ func get_item_drop_ratio() -> float:
 func get_item_quality_ratio() -> float:
 	return _mod_value_map[ModType.MOD_ITEM_QUALITY_ON_KILL]
 
-func get_trigger_chances() -> float:
+func get_prop_trigger_chances() -> float:
 	return _mod_value_map[ModType.MOD_TRIGGER_CHANCES]
 
 func get_multicrit_count() -> int:
