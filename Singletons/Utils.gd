@@ -127,3 +127,17 @@ func shuffle_list(list) -> Array:
 		sorted.append(list[random_index])
 
 	return sorted
+
+
+# Converts CamelCaseSTR_Name to camel_case_str_name
+func camel_to_snake(camel_string: String) -> String:
+	var snake_string = ""
+	var previous_char = ""
+	
+	for c in camel_string:
+		if c.to_upper() == c and previous_char != "" and previous_char.to_upper() != previous_char:
+			snake_string += "_"
+		snake_string += c.to_lower()
+		previous_char = c
+	
+	return snake_string

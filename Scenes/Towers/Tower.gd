@@ -126,10 +126,10 @@ func give_gold(_amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2
 func enable_default_sprite():
 	$DefaultSprite.show()
 
+
 #########################
 ###      Private      ###
 #########################
-
 
 func _set_attack_style_splash(splash_map: Dictionary):
 	_attack_style = AttackStyle.SPLASH
@@ -267,6 +267,21 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 	return damage
 
 
+func _get_next_bounce_target(prev_target: Mob) -> Mob:
+	var attack_range: float = _get_attack_range()
+	var mob_list: Array = Utils.get_mob_list_in_range(prev_target.position, attack_range)
+	mob_list.erase(prev_target)
+
+	Utils.sort_unit_list_by_distance(mob_list, prev_target.position)
+
+	if !mob_list.empty():
+		var next_target = mob_list[0]
+
+		return next_target
+	else:
+		return null
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -324,7 +339,6 @@ func _on_projectile_reached_mob_splash(mob: Mob):
 				break
 
 
-
 func _on_projectile_reached_mob_bounce(mob: Mob):
 	var damage_base: float = _get_rand_damage_base()
 	var damage: float = _get_damage_to_mob(mob, damage_base)
@@ -353,21 +367,6 @@ func _on_projectile_bounce_in_progress(prev_mob: Mob, prev_damage: float, curren
 	projectile.init(next_target, prev_mob.position)
 	projectile.connect("reached_mob", self, "_on_projectile_bounce_in_progress", [next_damage, next_bounce_count])
 	_game_scene.call_deferred("add_child", projectile)
-
-
-func _get_next_bounce_target(prev_target: Mob) -> Mob:
-	var attack_range: float = _get_attack_range()
-	var mob_list: Array = Utils.get_mob_list_in_range(prev_target.position, attack_range)
-	mob_list.erase(prev_target)
-
-	Utils.sort_unit_list_by_distance(mob_list, prev_target.position)
-
-	if !mob_list.empty():
-		var next_target = mob_list[0]
-
-		return next_target
-	else:
-		return null
 
 
 #########################
@@ -408,15 +407,14 @@ func get_icon_atlas_num() -> int:
 	else:
 		return -1
 
-
-func get_base_attack_speed() -> float:
-	return _mod_value_map[Unit.ModType.MOD_ATTACK_SPEED]
-
-
+# How many the seconds the tower needs to reload without modifications.
 func get_base_cooldown() -> float:
 	return get_csv_property(CsvProperty.ATTACK_CD).to_float()
 
-
+# The result of the calculation of the Base Cooldown and the Attack Speed. 
+# This is the real rate with which the tower will attack. 
+# Example: If the Base Cooldown is 2.0 seconds and the tower has 125% attackspeed, 
+# then the real attack cooldown will be 2.0/1.25 == 1.6 seconds.
 func get_overall_cooldown() -> float:
 	var attack_cooldown: float = get_base_cooldown()
 	var attack_speed_mod: float = get_base_attack_speed()
@@ -453,6 +451,64 @@ func get_csv_property(csv_property: int) -> String:
 func get_damage_min():
 	return get_csv_property(CsvProperty.ATTACK_DAMAGE_MIN).to_int()
 
-
 func get_damage_max():
 	return get_csv_property(CsvProperty.ATTACK_DAMAGE_MAX).to_int()
+
+func get_base_damage():
+	return (get_damage_min() + get_damage_max()) / 2
+
+# TODO: implement
+func get_base_damage_bonus():
+	return 0
+
+# TODO: implement
+func get_base_damage_bonus_percent():
+	return 0
+
+# TODO: implement
+func get_damage_add():
+	return 0
+
+# TODO: implement
+func get_damage_add_percent():
+	return 0
+
+func get_overall_base_damage():
+	return (get_base_damage() + get_base_damage_bonus()) * (1 + get_base_damage_bonus_percent())
+
+func get_overall_damage():
+	return (get_overall_base_damage() + get_damage_add()) * (1 + get_damage_add_percent())
+
+# How much damage the tower deals with its attack per second on average (not counting in any crits). 
+func get_overall_dps():
+	return get_overall_damage() / get_overall_cooldown()
+
+# How much damage the tower deals with its attack per second on average when 
+# counting attack crits and multicrits.
+func get_dps_with_crit():
+	return get_overall_dps() * get_crit_multiplier()
+
+# TODO: implement
+# How much damage the tower dealt in total
+func get_damage():
+	return 1.0
+
+# TODO: implement
+# How much kills the tower has in total
+func get_kills():
+	return 1.0
+
+# TODO: implement
+# What was the max hit damage the tower dealt
+func get_best_hit():
+	return 1.0
+
+# TODO: implement
+# How much experience the tower has
+func get_experience():
+	return 1.0
+
+# TODO: implement
+# How much experience the tower needs for the next level
+func get_experience_for_next_level():
+	return 1.0

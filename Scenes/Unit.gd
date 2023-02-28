@@ -109,15 +109,20 @@ var _health: float = 0.0
 var _mod_value_map: Dictionary = {}
 
 
+#########################
+### Code starts here  ###
+#########################
+
 func _init():
 	for mod_type in ModType.values():
 		_mod_value_map[mod_type] = 0.0
+	_mod_value_map[ModType.MOD_ATTACK_CRIT_CHANCE] = 0.01
+	_mod_value_map[ModType.MOD_ATTACK_CRIT_DAMAGE] = 0.5
 
 
-# TODO: implement
-func is_immune() -> bool:
-	return false
-
+#########################
+###       Public      ###
+#########################
 
 func calc_chance(chance_base: float) -> bool:
 	var chance_mod: float = _mod_value_map[ModType.MOD_TRIGGER_CHANCES]
@@ -171,66 +176,6 @@ func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, _crit:
 	for mob in mob_list:
 		mob._receive_damage(self, damage, false)
 
-
-# Adds modifier directly to unit. Modifier will
-# automatically scale with this unit's level. If you need to
-# make a modifier that scales with another unit's level, use
-# buffs.
-func add_modifier(modifier: Modifier):
-	_apply_modifier(modifier, _level, 1)
-	_direct_modifier_list.append(modifier)
-
-
-func remove_modifier(modifier: Modifier):
-	if _direct_modifier_list.has(modifier):
-		_apply_modifier(modifier, _level, -1)
-		_direct_modifier_list.append(modifier)
-
-
-func set_level(new_level: int):
-	var old_level: int = _level
-	_level = new_level
-
-#	NOTE: apply level change to modifiers
-	for modifier in _direct_modifier_list:
-		_apply_modifier(modifier, old_level, -1)
-		_apply_modifier(modifier, new_level, 1)
-
-	emit_signal("level_up")
-
-
-func is_dead() -> bool:
-	return _is_dead
-
-
-func is_mob() -> bool:
-	return _is_mob
-
-
-func is_tower() -> bool:
-	return _is_tower
-
-
-func get_x() -> float:
-	return position.x
-
-
-func get_y() -> float:
-	return position.y
-
-
-func get_buff_duration_mod() -> float:
-	return 1.0 + _mod_value_map[ModType.MOD_BUFF_DURATION]
-
-
-func get_debuff_duration_mod() -> float:
-	return 1.0 + _mod_value_map[ModType.MOD_DEBUFF_DURATION]
-
-
-func get_level() -> int:
-	return _level
-
-
 func kill_instantly(target: Unit):
 	target._killed_by_unit(self, true)
 
@@ -243,16 +188,9 @@ func modify_property(mod_type: int, value: float, direction: int):
 	_on_modify_property()
 
 
-# TODO: implement
-func is_invisible() -> bool:
-	return false
-
-
-func get_buff_of_type(type: String):
-	var buff = _buff_map.get(type, null)
-
-	return buff
-
+#########################
+###      Private      ###
+#########################
 
 func _do_attack(attack_event: Event):
 	emit_signal("attack", attack_event)
@@ -336,19 +274,6 @@ func _add_buff_internal(buff):
 	add_child(buff)
 
 
-func _on_buff_removed(buff):
-	var buff_modifier: Modifier = buff.get_modifier()
-	_apply_modifier(buff_modifier, buff.get_power(), -1)
-
-	var buff_type: String = buff.get_type()
-	_buff_map.erase(buff_type)
-	buff.queue_free()
-
-
-func _on_modify_property():
-	pass
-
-
 func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
 	var modification_list: Array = modifier.get_modification_list()
 
@@ -357,3 +282,200 @@ func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
 		var value: float = modification.value_base + power_bonus
 
 		modify_property(modification.type, value, modify_direction)
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_buff_removed(buff):
+	var buff_modifier: Modifier = buff.get_modifier()
+	_apply_modifier(buff_modifier, buff.get_power(), -1)
+
+	var buff_type: String = buff.get_type()
+	_buff_map.erase(buff_type)
+	buff.queue_free()
+
+func _on_modify_property():
+	pass
+
+
+#########################
+### Setters / Getters ###
+#########################
+
+# TODO: implement
+func is_immune() -> bool:
+	return false
+
+# Adds modifier directly to unit. Modifier will
+# automatically scale with this unit's level. If you need to
+# make a modifier that scales with another unit's level, use
+# buffs.
+func add_modifier(modifier: Modifier):
+	_apply_modifier(modifier, _level, 1)
+	_direct_modifier_list.append(modifier)
+
+
+func remove_modifier(modifier: Modifier):
+	if _direct_modifier_list.has(modifier):
+		_apply_modifier(modifier, _level, -1)
+		_direct_modifier_list.append(modifier)
+
+
+func set_level(new_level: int):
+	var old_level: int = _level
+	_level = new_level
+
+#	NOTE: apply level change to modifiers
+	for modifier in _direct_modifier_list:
+		_apply_modifier(modifier, old_level, -1)
+		_apply_modifier(modifier, new_level, 1)
+
+	emit_signal("level_up")
+
+
+func is_dead() -> bool:
+	return _is_dead
+
+
+func is_mob() -> bool:
+	return _is_mob
+
+
+func is_tower() -> bool:
+	return _is_tower
+
+
+func get_x() -> float:
+	return position.x
+
+
+func get_y() -> float:
+	return position.y
+
+
+func get_buff_duration() -> float:
+	return _mod_value_map[ModType.MOD_BUFF_DURATION]
+
+func get_debuff_duration() -> float:
+	return _mod_value_map[ModType.MOD_DEBUFF_DURATION]
+
+func get_attack_crit_chance() -> float:
+	return _mod_value_map[ModType.MOD_ATTACK_CRIT_CHANCE]
+
+func get_attack_crit_damage() -> float:
+	return _mod_value_map[ModType.MOD_ATTACK_CRIT_DAMAGE]
+
+# TODO: implement
+# Returns the value of the average damage multipler based on crit chance, crit damage
+# and multicrit count of the tower
+func get_crit_multiplier() -> float:
+	return 1 + get_attack_crit_chance() * get_attack_crit_damage()
+
+func get_bounty_ratio() -> float:
+	return _mod_value_map[ModType.MOD_BOUNTY_RECEIVED]
+
+func get_damage_to_air() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_AIR]
+
+func get_damage_to_boss() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_BOSS]
+
+func get_damage_to_mass() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_MASS]
+
+func get_damage_to_normal() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_NORMAL]
+
+func get_damage_to_champion() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_CHAMPION]
+
+func get_damage_to_undead() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_UNDEAD]
+
+func get_damage_to_humanoid() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_HUMANOID]
+
+func get_damage_to_nature() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_NATURE]
+
+func get_damage_to_magic() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_MAGIC]
+
+func get_damage_to_orc() -> float:
+	return _mod_value_map[ModType.MOD_DMG_TO_ORC]
+
+func get_exp_ratio() -> float:
+	return _mod_value_map[ModType.MOD_EXP_RECEIVED]
+
+func get_item_drop_ratio() -> float:
+	return _mod_value_map[ModType.MOD_ITEM_CHANCE_ON_KILL]
+
+func get_item_quality_ratio() -> float:
+	return _mod_value_map[ModType.MOD_ITEM_QUALITY_ON_KILL]
+
+func get_trigger_chances() -> float:
+	return _mod_value_map[ModType.MOD_TRIGGER_CHANCES]
+
+func get_multicrit_count() -> int:
+	return int(max(0, 1.0 + _mod_value_map[ModType.MOD_MULTICRIT_COUNT]))
+
+func get_base_spell_damage() -> float:
+	return _mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT]
+
+# TODO: implement
+func get_spell_crit_chance() -> float:
+	return 0.0
+
+# TODO: implement
+func get_spell_crit_damage() -> float:
+	return 0.0
+
+# The Base Cooldown is divided by this value. Towers gain some attackspeed per level and items, 
+# buffs and auras can grant attackspeed.
+func get_base_attack_speed() -> float:
+	return _mod_value_map[ModType.MOD_ATTACK_SPEED]
+
+func get_level() -> int:
+	return _level
+
+# TODO: implement
+func is_invisible() -> bool:
+	return false
+
+
+func get_buff_of_type(type: String):
+	var buff = _buff_map.get(type, null)
+
+	return buff
+
+# TODO: implement
+func get_base_mana():
+	return 0.0
+
+# TODO: implement
+func get_base_mana_bonus():
+	return 0.0
+
+# TODO: implement
+func get_base_mana_bonus_percent():
+	return 0.0
+
+func get_overall_mana():
+	return (get_base_mana() + get_base_mana_bonus()) * (1 + get_base_mana_bonus_percent())
+
+# TODO: implement
+func get_base_mana_regen():
+	return 0.0
+
+# TODO: implement
+func get_base_mana_regen_bonus():
+	return 0.0
+
+# TODO: implement
+func get_base_mana_regen_bonus_percent():
+	return 0.0
+
+func get_overall_mana_regen():
+	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * (1 + get_base_mana_regen_bonus_percent())

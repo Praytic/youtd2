@@ -85,8 +85,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base damage"
 
-[node name="BaseDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-unique_name_in_owner = true
+[node name="BaseDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
 margin_left = 375.0
 margin_right = 518.0
 margin_bottom = 49.0
@@ -104,8 +103,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base bonus"
 
-[node name="BaseDamageBonus" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-unique_name_in_owner = true
+[node name="BaseDamageBonus" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
 margin_left = 375.0
 margin_top = 53.0
 margin_right = 518.0
@@ -124,8 +122,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base bonus %"
 
-[node name="BaseDamageBonusPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-unique_name_in_owner = true
+[node name="BaseDamageBonusPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_percent_signed"]]
 margin_left = 375.0
 margin_top = 106.0
 margin_right = 518.0
@@ -144,8 +141,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage add"
 
-[node name="DamageAdd" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-unique_name_in_owner = true
+[node name="DamageAdd" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
 margin_left = 375.0
 margin_top = 159.0
 margin_right = 518.0
@@ -164,8 +160,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage add %"
 
-[node name="DamageAddPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-unique_name_in_owner = true
+[node name="DamageAddPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_percent_signed"]]
 margin_left = 375.0
 margin_top = 212.0
 margin_right = 518.0
@@ -184,8 +179,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall damage"
 
-[node name="OverallDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-unique_name_in_owner = true
+[node name="OverallBaseDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
 margin_left = 375.0
 margin_top = 265.0
 margin_right = 518.0
@@ -217,8 +211,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base cooldown"
 
-[node name="BaseCooldown" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
-unique_name_in_owner = true
+[node name="BaseCooldown" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer" groups=["tower_stat_int"]]
 margin_left = 406.0
 margin_right = 518.0
 margin_bottom = 49.0
@@ -235,8 +228,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Attackspeed"
 
-[node name="Attackspeed" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
-unique_name_in_owner = true
+[node name="BaseAttackSpeed" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer" groups=["tower_stat_percent"]]
 margin_left = 406.0
 margin_top = 53.0
 margin_right = 518.0
@@ -254,8 +246,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall cooldown"
 
-[node name="OverallCooldown" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
-unique_name_in_owner = true
+[node name="OverallCooldown" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer" groups=["tower_stat_float"]]
 margin_left = 406.0
 margin_top = 106.0
 margin_right = 518.0
@@ -286,7 +277,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall DPS"
 
-[node name="Label63" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer"]
+[node name="OverallDPS" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer" groups=["tower_stat_int"]]
 margin_left = 261.0
 margin_right = 518.0
 margin_bottom = 49.0
@@ -317,7 +308,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit chance"
 
-[node name="Label69" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
+[node name="AttackCritChance" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_percent"]]
 margin_left = 353.0
 margin_right = 518.0
 margin_bottom = 49.0
@@ -334,7 +325,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit damage"
 
-[node name="Label75" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
+[node name="AttackCritDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_multiplier"]]
 margin_left = 353.0
 margin_top = 53.0
 margin_right = 518.0
@@ -352,7 +343,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Multicrit count"
 
-[node name="Label81" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
+[node name="MulticritCount" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_int"]]
 margin_left = 353.0
 margin_top = 106.0
 margin_right = 518.0
@@ -384,7 +375,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "DPS with crit"
 
-[node name="Label69" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer"]
+[node name="DPS_WithCrit" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer" groups=["tower_stat_int"]]
 margin_left = 321.0
 margin_right = 518.0
 margin_bottom = 49.0
@@ -400,7 +391,7 @@ margin_bottom = 994.0
 mouse_filter = 1
 size_flags_horizontal = 3
 
-[node name="Attack" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer4"]
+[node name="Spells" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer4"]
 modulate = Color( 0.145098, 0.831373, 1, 1 )
 margin_right = 518.0
 margin_bottom = 49.0
@@ -430,7 +421,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Spell damage"
 
-[node name="Label6" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
+[node name="BaseSpellDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer" groups=["tower_stat_percent"]]
 margin_left = 335.0
 margin_right = 518.0
 margin_bottom = 49.0
@@ -447,7 +438,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit chance"
 
-[node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
+[node name="SpellCritChance" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer" groups=["tower_stat_percent"]]
 margin_left = 335.0
 margin_top = 53.0
 margin_right = 518.0
@@ -465,7 +456,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit damage"
 
-[node name="Label18" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
+[node name="SpellCritDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer" groups=["tower_stat_multiplier"]]
 margin_left = 335.0
 margin_top = 106.0
 margin_right = 518.0
@@ -525,7 +516,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage"
 
-[node name="Label8" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+[node name="Damage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
 margin_left = 440.0
 margin_right = 597.0
 margin_bottom = 49.0
@@ -542,7 +533,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Best Hit"
 
-[node name="Label14" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+[node name="BestHit" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
 margin_left = 440.0
 margin_top = 53.0
 margin_right = 597.0
@@ -560,7 +551,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Kills"
 
-[node name="Label20" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+[node name="Kills" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
 margin_left = 440.0
 margin_top = 106.0
 margin_right = 597.0
@@ -578,7 +569,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Experience"
 
-[node name="Label26" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+[node name="Experience" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
 margin_left = 440.0
 margin_top = 159.0
 margin_right = 597.0
@@ -588,13 +579,22 @@ size_flags_horizontal = 3
 text = "9136"
 align = 2
 
-[node name="Label31" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+[node name="Level" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+unique_name_in_owner = true
 margin_top = 212.0
 margin_right = 340.0
 margin_bottom = 261.0
 mouse_filter = 1
 size_flags_horizontal = 3
 text = "Max Level reached!"
+
+[node name="ExperienceForNextLevel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
+margin_left = 440.0
+margin_top = 212.0
+margin_right = 597.0
+margin_bottom = 261.0
+mouse_filter = 1
+size_flags_horizontal = 3
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
 margin_top = 348.0
@@ -631,7 +631,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base mana"
 
-[node name="Label41" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+[node name="BaseMana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_int"]]
 margin_left = 398.0
 margin_right = 597.0
 margin_bottom = 49.0
@@ -648,7 +648,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Bonus"
 
-[node name="Label47" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+[node name="BaseManaBonus" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_int"]]
 margin_left = 398.0
 margin_top = 53.0
 margin_right = 597.0
@@ -666,7 +666,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Percent bonus"
 
-[node name="Label53" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+[node name="BaseManaBonusPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_percent_signed"]]
 margin_left = 398.0
 margin_top = 106.0
 margin_right = 597.0
@@ -684,7 +684,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall mana"
 
-[node name="Label59" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+[node name="OverallMana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_int"]]
 margin_left = 398.0
 margin_top = 159.0
 margin_right = 597.0
@@ -702,7 +702,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Base mana regen"
 
-[node name="Label67" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+[node name="BaseManaRegen" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_float"]]
 margin_left = 398.0
 margin_top = 212.0
 margin_right = 597.0
@@ -720,7 +720,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Bonus regen"
 
-[node name="Label71" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+[node name="BaseManaRegenBonus" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_float"]]
 margin_left = 398.0
 margin_top = 265.0
 margin_right = 597.0
@@ -738,7 +738,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Percent bonus"
 
-[node name="Label77" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+[node name="BaseManaRegenBonusPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_percent_signed"]]
 margin_left = 398.0
 margin_top = 318.0
 margin_right = 597.0
@@ -756,7 +756,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Overall mana reg"
 
-[node name="Label79" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
+[node name="OverallManaRegen" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_float"]]
 margin_left = 398.0
 margin_top = 371.0
 margin_right = 597.0
@@ -772,7 +772,7 @@ margin_right = 597.0
 margin_bottom = 904.0
 mouse_filter = 1
 
-[node name="Mana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer5"]
+[node name="Misc" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer5"]
 modulate = Color( 1, 0.733333, 0.129412, 1 )
 margin_right = 597.0
 margin_bottom = 49.0
@@ -800,7 +800,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Bounty ratio"
 
-[node name="Label41" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+[node name="BountyRatio" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
 margin_left = 394.0
 margin_right = 597.0
 margin_bottom = 49.0
@@ -817,7 +817,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Exp ratio"
 
-[node name="Label47" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+[node name="ExpRatio" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
 margin_left = 394.0
 margin_top = 53.0
 margin_right = 597.0
@@ -835,7 +835,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Item drop ratio"
 
-[node name="Label53" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+[node name="ItemDropRatio" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
 margin_left = 394.0
 margin_top = 106.0
 margin_right = 597.0
@@ -853,7 +853,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Item quality ratio"
 
-[node name="Label59" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+[node name="ItemQualityRatio" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
 margin_left = 394.0
 margin_top = 159.0
 margin_right = 597.0
@@ -871,7 +871,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Trigger chances"
 
-[node name="Label67" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+[node name="TriggerChances" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
 margin_left = 394.0
 margin_top = 212.0
 margin_right = 597.0
@@ -889,7 +889,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Buff duration"
 
-[node name="Label71" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+[node name="BuffDuration" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
 margin_left = 394.0
 margin_top = 265.0
 margin_right = 597.0
@@ -907,7 +907,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Debuff duration"
 
-[node name="Label77" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
+[node name="DebuffDuration" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
 margin_left = 394.0
 margin_top = 318.0
 margin_right = 597.0
@@ -970,7 +970,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Undead"
 
-[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+[node name="DamageToUndead" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_right = 478.0
 margin_bottom = 49.0
@@ -987,7 +987,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Magical"
 
-[node name="Label16" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+[node name="DamageToMagic" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_top = 53.0
 margin_right = 478.0
@@ -1005,7 +1005,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Nature"
 
-[node name="Label22" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+[node name="DamageToNature" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_top = 106.0
 margin_right = 478.0
@@ -1023,7 +1023,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Orc"
 
-[node name="Label28" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+[node name="DamageToOrc" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_top = 159.0
 margin_right = 478.0
@@ -1041,7 +1041,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Humanoid"
 
-[node name="Label33" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
+[node name="DamageToHumanoid" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_top = 212.0
 margin_right = 478.0
@@ -1088,7 +1088,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Mass"
 
-[node name="Label43" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+[node name="DamageToMass" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_right = 478.0
 margin_bottom = 49.0
@@ -1105,7 +1105,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Normal"
 
-[node name="Label49" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+[node name="DamageToNormal" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_top = 53.0
 margin_right = 478.0
@@ -1123,7 +1123,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Air"
 
-[node name="Label55" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+[node name="DamageToAir" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_top = 106.0
 margin_right = 478.0
@@ -1141,7 +1141,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Champion"
 
-[node name="Label61" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+[node name="DamageToChampion" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_top = 159.0
 margin_right = 478.0
@@ -1159,7 +1159,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Boss"
 
-[node name="Label65" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
+[node name="DamageToBoss" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
 margin_left = 289.0
 margin_top = 212.0
 margin_right = 478.0
@@ -1176,7 +1176,7 @@ margin_bottom = 745.0
 mouse_filter = 1
 size_flags_horizontal = 3
 
-[node name="DamageRace" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer5"]
+[node name="ItemSpecific" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer5"]
 modulate = Color( 0.6, 0.341176, 0.113725, 1 )
 margin_right = 478.0
 margin_bottom = 49.0
@@ -1192,21 +1192,21 @@ mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
-[node name="DamageRaceContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6"]
+[node name="ItemSpecificContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6"]
 margin_right = 478.0
 margin_bottom = 208.0
 size_flags_horizontal = 3
 custom_constants/hseparation = 100
 columns = 2
 
-[node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+[node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
 margin_right = 202.0
 margin_bottom = 49.0
 mouse_filter = 1
 size_flags_horizontal = 3
 text = "Damage"
 
-[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
 margin_left = 302.0
 margin_right = 478.0
 margin_bottom = 49.0
@@ -1215,7 +1215,7 @@ size_flags_horizontal = 3
 text = "1,032,268"
 align = 2
 
-[node name="Label15" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+[node name="Label15" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
 margin_top = 53.0
 margin_right = 202.0
 margin_bottom = 102.0
@@ -1223,7 +1223,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "DPS Gained"
 
-[node name="Label16" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+[node name="Label16" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
 margin_left = 302.0
 margin_top = 53.0
 margin_right = 478.0
@@ -1233,7 +1233,7 @@ size_flags_horizontal = 3
 text = "4,000"
 align = 2
 
-[node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+[node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
 margin_top = 106.0
 margin_right = 202.0
 margin_bottom = 155.0
@@ -1241,7 +1241,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit Bonus"
 
-[node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+[node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
 margin_left = 302.0
 margin_top = 106.0
 margin_right = 478.0
@@ -1251,7 +1251,7 @@ size_flags_horizontal = 3
 text = "x3.005"
 align = 2
 
-[node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+[node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
 margin_top = 159.0
 margin_right = 202.0
 margin_bottom = 208.0
@@ -1259,7 +1259,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Crit Bonus"
 
-[node name="Label18" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/DamageRaceContainer"]
+[node name="Label18" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
 margin_left = 302.0
 margin_top = 159.0
 margin_right = 478.0
@@ -1276,7 +1276,7 @@ margin_bottom = 1040.0
 mouse_filter = 1
 size_flags_horizontal = 3
 
-[node name="DamageRace" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer9"]
+[node name="UnitSpecific" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer9"]
 modulate = Color( 0.6, 0.341176, 0.113725, 1 )
 margin_right = 478.0
 margin_bottom = 49.0
@@ -1292,21 +1292,21 @@ mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
-[node name="DamageRaceContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10"]
+[node name="UnitSpecificContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10"]
 margin_right = 478.0
 margin_bottom = 49.0
 size_flags_horizontal = 3
 custom_constants/hseparation = 100
 columns = 2
 
-[node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10/DamageRaceContainer"]
+[node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10/UnitSpecificContainer"]
 margin_right = 217.0
 margin_bottom = 49.0
 mouse_filter = 1
 size_flags_horizontal = 3
 text = "Skill Name 2"
 
-[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10/DamageRaceContainer"]
+[node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10/UnitSpecificContainer"]
 margin_left = 317.0
 margin_right = 478.0
 margin_bottom = 49.0
@@ -1322,7 +1322,7 @@ margin_bottom = 1176.0
 mouse_filter = 1
 size_flags_horizontal = 3
 
-[node name="DamageSize" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer7"]
+[node name="DisplayRanges" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer7"]
 modulate = Color( 0.6, 0.341176, 0.113725, 1 )
 margin_right = 478.0
 margin_bottom = 49.0
@@ -1338,21 +1338,21 @@ mouse_filter = 1
 size_flags_horizontal = 3
 custom_constants/margin_bottom = 30
 
-[node name="DamageSizeContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8"]
+[node name="DisplayRangesContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8"]
 margin_right = 478.0
 margin_bottom = 155.0
 size_flags_horizontal = 3
 custom_constants/hseparation = 100
 columns = 2
 
-[node name="Label42" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+[node name="Label42" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
 margin_right = 253.0
 margin_bottom = 49.0
 mouse_filter = 1
 size_flags_horizontal = 3
 text = "Attack range"
 
-[node name="Label43" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+[node name="Label43" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
 margin_left = 353.0
 margin_right = 478.0
 margin_bottom = 49.0
@@ -1361,7 +1361,7 @@ size_flags_horizontal = 3
 text = "830"
 align = 2
 
-[node name="Label48" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+[node name="Label48" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
 margin_top = 53.0
 margin_right = 253.0
 margin_bottom = 102.0
@@ -1369,7 +1369,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Skill Name 1"
 
-[node name="Label49" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+[node name="Label49" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
 margin_left = 353.0
 margin_top = 53.0
 margin_right = 478.0
@@ -1379,7 +1379,7 @@ size_flags_horizontal = 3
 text = "300"
 align = 2
 
-[node name="Label54" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+[node name="Label54" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
 margin_top = 106.0
 margin_right = 253.0
 margin_bottom = 155.0
@@ -1387,7 +1387,7 @@ mouse_filter = 1
 size_flags_horizontal = 3
 text = "Passive Aura 1"
 
-[node name="Label55" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DamageSizeContainer"]
+[node name="Label55" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
 margin_left = 353.0
 margin_top = 106.0
 margin_right = 478.0
