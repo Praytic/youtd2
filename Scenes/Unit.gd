@@ -156,6 +156,8 @@ func _init():
 	_mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED] = 1.0
 	_mod_value_map[ModType.MOD_BOUNTY_GRANTED] = 1.0
 	_mod_value_map[ModType.MOD_BOUNTY_RECEIVED] = 1.0
+	_mod_value_map[ModType.MOD_BUFF_DURATION] = 1.0
+	_mod_value_map[ModType.MOD_DEBUFF_DURATION] = 1.0
 
 
 #########################
@@ -399,10 +401,10 @@ func get_y() -> float:
 # get_prop_trigger_chances(), then label name must be
 # PropTriggerChances.
 
-func get_buff_duration() -> float:
+func get_prop_buff_duration() -> float:
 	return _mod_value_map[ModType.MOD_BUFF_DURATION]
 
-func get_debuff_duration() -> float:
+func get_prop_debuff_duration() -> float:
 	return _mod_value_map[ModType.MOD_DEBUFF_DURATION]
 
 func get_attack_crit_chance() -> float:
