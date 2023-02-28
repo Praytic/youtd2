@@ -33,9 +33,9 @@ enum ModType {
 	MOD_SPELL_DAMAGE_DEALT,
 	MOD_BOUNTY_GRANTED,
 	MOD_BOUNTY_RECEIVED,
-	MOD_ATTACK_CRIT_CHANCE,
-	MOD_ATTACK_CRIT_DAMAGE,
-	MOD_ATTACK_SPEED,
+	MOD_ATK_CRIT_CHANCE,
+	MOD_ATK_CRIT_DAMAGE,
+	MOD_ATTACKSPEED,
 	MOD_MULTICRIT_COUNT,
 	MOD_ITEM_CHANCE_ON_KILL,
 	MOD_ITEM_QUALITY_ON_KILL,
@@ -103,8 +103,8 @@ var _mod_value_map: Dictionary = {}
 func _init():
 	for mod_type in ModType.values():
 		_mod_value_map[mod_type] = 0.0
-	_mod_value_map[ModType.MOD_ATTACK_CRIT_CHANCE] = 0.01
-	_mod_value_map[ModType.MOD_ATTACK_CRIT_DAMAGE] = 0.5
+	_mod_value_map[ModType.MOD_ATK_CRIT_CHANCE] = 0.01
+	_mod_value_map[ModType.MOD_ATK_CRIT_DAMAGE] = 0.5
 
 
 #########################
@@ -349,10 +349,10 @@ func get_debuff_duration() -> float:
 	return _mod_value_map[ModType.MOD_DEBUFF_DURATION]
 
 func get_attack_crit_chance() -> float:
-	return _mod_value_map[ModType.MOD_ATTACK_CRIT_CHANCE]
+	return _mod_value_map[ModType.MOD_ATK_CRIT_CHANCE]
 
 func get_attack_crit_damage() -> float:
-	return _mod_value_map[ModType.MOD_ATTACK_CRIT_DAMAGE]
+	return _mod_value_map[ModType.MOD_ATK_CRIT_DAMAGE]
 
 # TODO: implement
 # Returns the value of the average damage multipler based on crit chance, crit damage
@@ -422,7 +422,7 @@ func get_spell_crit_damage() -> float:
 # The Base Cooldown is divided by this value. Towers gain some attackspeed per level and items, 
 # buffs and auras can grant attackspeed.
 func get_base_attack_speed() -> float:
-	return _mod_value_map[ModType.MOD_ATTACK_SPEED]
+	return _mod_value_map[ModType.MOD_ATTACKSPEED]
 
 func get_level() -> int:
 	return _level
