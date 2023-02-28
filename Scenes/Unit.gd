@@ -154,6 +154,8 @@ func _init():
 	_mod_value_map[ModType.MOD_TRIGGER_CHANCES] = 1.0
 	_mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT] = 1.0
 	_mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED] = 1.0
+	_mod_value_map[ModType.MOD_BOUNTY_GRANTED] = 1.0
+	_mod_value_map[ModType.MOD_BOUNTY_RECEIVED] = 1.0
 
 
 #########################
@@ -290,9 +292,9 @@ func _killed_by_unit(caster: Unit, is_main_target: bool):
 func _accept_kill(target: Unit, is_main_target: bool):
 # 	TODO: load bounty_base from somewhere
 	var bounty_base: float = 10.0
-	var granted_mod: float = target._mod_value_map[ModType.MOD_BOUNTY_GRANTED]
-	var received_mod: float = _mod_value_map[ModType.MOD_BOUNTY_RECEIVED]
-	var bounty: int = int(bounty_base * (1.0 + granted_mod) * (1.0 + received_mod))
+	var granted_mod: float = target.get_prop_bounty_granted()
+	var received_mod: float = get_prop_bounty_received()
+	var bounty: int = int(bounty_base * granted_mod * received_mod)
 	GoldManager.add_gold(bounty)
 
 	var kill_event: Event = Event.new(target, 0, is_main_target)
@@ -415,8 +417,11 @@ func get_attack_crit_damage() -> float:
 func get_crit_multiplier() -> float:
 	return 1 + get_attack_crit_chance() * get_attack_crit_damage()
 
-func get_bounty_ratio() -> float:
+func get_prop_bounty_received() -> float:
 	return _mod_value_map[ModType.MOD_BOUNTY_RECEIVED]
+
+func get_prop_bounty_granted() -> float:
+	return _mod_value_map[ModType.MOD_BOUNTY_GRANTED]
 
 func get_damage_to_air() -> float:
 	return _mod_value_map[ModType.MOD_DMG_TO_AIR]
