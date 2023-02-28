@@ -137,8 +137,8 @@ func _get_mob_animation() -> String:
 
 func _get_move_speed() -> float:
 	var base: float = DEFAULT_MOVE_SPEED
-	var mod: float = _mod_value_map[Unit.ModType.MOD_MOVE_SPEED]
-	var mod_absolute: float = _mod_value_map[ModType.MOD_MOVE_SPEED_ABSOLUTE]
+	var mod: float = _mod_value_map[Unit.ModType.MOD_MOVESPEED]
+	var mod_absolute: float = _mod_value_map[ModType.MOD_MOVESPEED_ABSOLUTE]
 	var unclamped: float = base * (1.0 + mod) + mod_absolute
 	var clamped: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped))
 
