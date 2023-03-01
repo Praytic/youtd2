@@ -2,7 +2,7 @@ class_name TowerButton
 extends Button
 
 
-const tier_icon_size = 30
+const tier_icon_size = 32
 
 
 export(int) var tower_id
