@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/HUD/TooltipHeader.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/HUD/ElementGroupButton.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Towers/tower_icons.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Towers/tower_icons_s.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/HUD/RightMenuBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/HUD/TopMenuBar.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=7]
@@ -12,47 +12,47 @@
 
 [sub_resource type="AtlasTexture" id=16]
 flags = 4
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 448, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=17]
 flags = 4
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 448, 64, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
 flags = 4
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=12]
 flags = 4
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 128, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=18]
 flags = 4
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
 flags = 4
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=13]
 flags = 4
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 384, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=14]
 flags = 4
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=15]
 flags = 4
-atlas = ExtResource( 3 )
+atlas = ExtResource( 4 )
 region = Rect2( 192, 0, 64, 64 )
 
 [node name="HUD" type="Control"]
@@ -243,7 +243,7 @@ margin_right = 225.0
 margin_bottom = 206.0
 theme_type_variation = "TowerButton"
 text = "Nature"
-icon = SubResource( 10 )
+icon = SubResource( 18 )
 align = 0
 script = ExtResource( 2 )
 element = 1

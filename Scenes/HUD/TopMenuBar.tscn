@@ -7,21 +7,21 @@
 [ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture" id=5]
 [ext_resource path="res://Scenes/HUD/TopMenuBar.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/HUD/ResourceStatusPanel.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/Towers/tower_icons.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Towers/tower_icons_s.png" type="Texture" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
-atlas = ExtResource( 9 )
+atlas = ExtResource( 8 )
 region = Rect2( 448, 192, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
-atlas = ExtResource( 9 )
+atlas = ExtResource( 8 )
 region = Rect2( 448, 256, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 4
-atlas = ExtResource( 9 )
+atlas = ExtResource( 8 )
 region = Rect2( 448, 128, 64, 64 )
 
 [node name="TopMenuBar" type="Control"]
