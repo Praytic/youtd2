@@ -508,3 +508,6 @@ func get_experience_for_next_level():
 
 func get_attack_range() -> float:
 	return get_csv_property(CsvProperty.ATTACK_RANGE).to_float()
+
+func get_rarity_num() -> int:
+	return get_csv_property(CsvProperty.RARITY).to_int()
