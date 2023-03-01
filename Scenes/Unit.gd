@@ -163,6 +163,18 @@ func _init():
 	_mod_value_map[ModType.MOD_MOVESPEED] = 1.0
 	_mod_value_map[ModType.MOD_MULTICRIT_COUNT] = 1.0
 
+	_mod_value_map[ModType.MOD_DMG_TO_MASS] = 1.0
+	_mod_value_map[ModType.MOD_DMG_TO_NORMAL] = 1.0
+	_mod_value_map[ModType.MOD_DMG_TO_CHAMPION] = 1.0
+	_mod_value_map[ModType.MOD_DMG_TO_BOSS] = 1.0
+	_mod_value_map[ModType.MOD_DMG_TO_AIR] = 1.0
+
+	_mod_value_map[ModType.MOD_DMG_TO_UNDEAD] = 1.0
+	_mod_value_map[ModType.MOD_DMG_TO_MAGIC] = 1.0
+	_mod_value_map[ModType.MOD_DMG_TO_NATURE] = 1.0
+	_mod_value_map[ModType.MOD_DMG_TO_ORC] = 1.0
+	_mod_value_map[ModType.MOD_DMG_TO_HUMANOID] = 1.0
+
 
 #########################
 ###       Public      ###

@@ -219,6 +219,11 @@ func _get_damage_mod_for_mob_size(mob: Mob) -> float:
 	return damage_mod
 
 
+# TODO: should bonus from multiple crits add with each other
+# or multiply? For example: if there are 3 crits should
+# total bonus be (1.5 + 1.5 + 1.5) or (1.5 * 1.5 * 1.5)?
+# TODO: is base crit bonus from one crit +50% dmg or + 100%
+# dmg?
 func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 	var damage: float = damage_base
 	
@@ -238,7 +243,9 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 #	NOTE: clamp at 0.0 to prevent damage from turning
 #	negative
 	for damage_mod in damage_mod_list:
-		damage *= max(0.0, (1.0 + damage_mod))
+		damage *= damage_mod
+
+	damage = max(0.0, damage)
 
 	return damage
 
