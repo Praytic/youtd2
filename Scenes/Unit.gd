@@ -14,6 +14,8 @@ signal damage(event)
 signal damaged(event)
 signal kill(event)
 signal death(event)
+signal became_invisible()
+signal became_visible()
 
 
 # TODO: implement these mod types
@@ -121,6 +123,7 @@ enum MobCategory {
 }
 
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
+const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 
 
 # HACK: to fix cyclic dependency between Tower<->TargetType
@@ -140,6 +143,8 @@ var _buff_map: Dictionary
 var _direct_modifier_list: Array
 var _health: float = 0.0
 var _mod_value_map: Dictionary = {}
+var _invisible: bool = false
+var _invisible_watcher_count: int = 0
 
 
 #########################
@@ -174,6 +179,9 @@ func _init():
 	_mod_value_map[ModType.MOD_DMG_TO_ORC] = 1.0
 	_mod_value_map[ModType.MOD_DMG_TO_HUMANOID] = 1.0
 
+
+func _ready():
+	_update_invisible_modulate()
 
 #########################
 ###       Public      ###
@@ -277,6 +285,24 @@ func modify_property(mod_type: int, value: float, direction: int):
 	_on_modify_property()
 
 
+# These two functions are used to implement magical sight
+# effects.
+func add_invisible_watcher():
+	_invisible_watcher_count += 1
+	_update_invisible_modulate()
+
+	if !is_invisible():
+		emit_signal("became_visible")
+
+
+func remove_invisible_watcher():
+	_invisible_watcher_count -= 1
+	_update_invisible_modulate()
+
+	if is_invisible():
+		emit_signal("became_invisible")
+
+
 #########################
 ###      Private      ###
 #########################
@@ -371,6 +397,13 @@ func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
 		var value: float = modification.value_base + power_bonus
 
 		modify_property(modification.type, value, modify_direction)
+
+
+func _update_invisible_modulate():
+	if is_invisible():
+		modulate = INVISIBLE_MODULATE
+	else:
+		modulate = Color(1, 1, 1, 1)
 
 
 #########################
@@ -543,8 +576,7 @@ func get_level() -> int:
 
 # TODO: implement
 func is_invisible() -> bool:
-	return false
-
+	return _invisible && _invisible_watcher_count == 0
 
 func get_buff_of_type(type: String):
 	var buff = _buff_map.get(type, null)

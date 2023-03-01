@@ -68,15 +68,18 @@ func set_cooldown(new_cooldown: float):
 
 
 func _add_target(new_target: Mob):
-	if new_target == null || new_target.is_dead():
+	if new_target == null || new_target.is_dead() || new_target.is_invisible():
 		return
 
 	new_target.connect("death", self, "_on_target_death", [new_target])
+	new_target.connect("became_invisible", self, "_on_target_became_invisible", [new_target])
 	_target_list.append(new_target)
 
 
 func _remove_target(target: Mob):
 	target.disconnect("death", self, "_on_target_death")
+	target.disconnect("became_invisible", self, "_on_target_became_invisible")
+
 	_target_list.erase(target)
 
 
@@ -97,7 +100,7 @@ func _find_new_target() -> Mob:
 		body_list.erase(target)
 	
 	for body in body_list:
-		if body is Mob && !body.is_dead():
+		if body is Mob && !body.is_dead() && !body.is_invisible():
 			var mob: Mob = body
 			var distance: float = (mob.position - self.position).length()
 			
@@ -147,6 +150,16 @@ func _on_TargetingArea_body_entered(body):
 	if !body is Mob:
 		return
 
+# 	If invisible mob comes in range, don't add it as target,
+# 	but remember it by connecting to it's signal. If the mob
+# 	becomes visible (while still in range), it may become a
+# 	target.
+	if !body.is_connected("became_visible", self, "_on_mob_in_range_became_visible"):
+		body.connect("became_visible", self, "_on_mob_in_range_became_visible", [body])
+
+	if body.is_invisible():
+		return
+
 	if _have_target_space():
 		var new_target: Mob = body as Mob
 		_add_target(new_target)
@@ -154,8 +167,21 @@ func _on_TargetingArea_body_entered(body):
 
 
 func _on_TargetingArea_body_exited(body):
+	if !body is Mob:
+		return
+
+	body.disconnect("became_visible", self, "_on_mob_in_range_became_visible")
+
 	var target_went_out_of_range: bool = _target_list.has(body)
 
 	if target_went_out_of_range:
 		var old_target: Mob = body as Mob
 		_remove_target(old_target)
+
+
+func _on_target_became_invisible(target: Mob):
+	_remove_target(target)
+
+
+func _on_mob_in_range_became_visible(mob):
+	_on_TargetingArea_body_entered(mob)
