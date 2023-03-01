@@ -75,7 +75,7 @@ func get_mob_list_in_range(position: Vector2, range_value: float) -> Array:
 			var distance: float = position.distance_to(mob.position)
 			var mob_is_in_range = distance < range_value
 
-			if mob_is_in_range:
+			if mob_is_in_range && !mob.is_invisible():
 				mob_list.append(mob)
 
 	return mob_list
