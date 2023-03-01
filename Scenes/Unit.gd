@@ -144,6 +144,11 @@ var _direct_modifier_list: Array
 var _health: float = 0.0
 var _mod_value_map: Dictionary = {}
 var _invisible: bool = false
+
+# This is the count of towers that are currently able to see
+# this invisible mob. If there any towers that can see this
+# mob, then it is considered to be visible to all towers.
+# See Unit.is_invisible() f-n and MagicalSightBuff.
 var _invisible_watcher_count: int = 0
 
 
@@ -574,7 +579,6 @@ func get_base_attack_speed() -> float:
 func get_level() -> int:
 	return _level
 
-# TODO: implement
 func is_invisible() -> bool:
 	return _invisible && _invisible_watcher_count == 0
 
