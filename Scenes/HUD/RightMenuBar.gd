@@ -4,6 +4,7 @@ extends Control
 signal tower_info_requested(tower_id)
 signal tower_info_canceled
 signal element_changed(element)
+signal resize_icons
 
 
 onready var builder_control = get_tree().current_scene.get_node(@"%BuilderControl")
@@ -25,7 +26,7 @@ func _unhandled_input(event):
 
 
 func _on_BuildBar_child_entered_tree(tower_button):
-	var tower_id = tower_button.tower_id
+	var tower_id = tower_button.get_tower().get_id()
 	tower_button.connect("mouse_entered", self, "_on_TowerButton_mouse_entered", [tower_id])
 	tower_button.connect("mouse_exited", self, "_on_TowerButton_mouse_exited", [tower_id])
 
@@ -40,3 +41,4 @@ func _on_TowerButton_mouse_exited(_tower_id):
 
 func _on_Tower_built(_tower_id):
 	hide()
+

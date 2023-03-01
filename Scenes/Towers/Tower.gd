@@ -383,13 +383,6 @@ func get_id() -> int:
 func get_tier() -> int:
 	return get_csv_property(CsvProperty.TIER).to_int()
 
-
-func get_element() -> int:
-	var element_string: String = get_csv_property(CsvProperty.ELEMENT)
-	var element: int = Element.get(element_string.to_upper())
-
-	return element
-
 func get_icon_atlas_num() -> int:
 	var icon_atlas_num_string: String = get_csv_property(CsvProperty.ICON_ATLAS_NUM)
 
@@ -399,6 +392,12 @@ func get_icon_atlas_num() -> int:
 		return icon_atlas_num
 	else:
 		return -1
+
+func get_element() -> int:
+	var element_string: String = get_csv_property(CsvProperty.ELEMENT)
+	var element: int = Element.get(element_string.to_upper())
+
+	return element
 
 # How many the seconds the tower needs to reload without modifications.
 func get_base_cooldown() -> float:
