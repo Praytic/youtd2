@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Aura",
+"language": "GDScript",
+"path": "res://Scenes/Buffs/Aura.gd"
+}, {
 "base": "Node",
 "class": "Autocast",
 "language": "GDScript",
@@ -43,6 +48,11 @@ _global_script_classes=[ {
 "class": "Item",
 "language": "GDScript",
 "path": "res://Scenes/Items/Item.gd"
+}, {
+"base": "Buff",
+"class": "MagicalSightBuff",
+"language": "GDScript",
+"path": "res://Scenes/Buffs/MagicalSightBuff.gd"
 }, {
 "base": "Unit",
 "class": "Mob",
@@ -100,6 +110,7 @@ _global_script_classes=[ {
 "path": "res://Scenes/Unit.gd"
 } ]
 _global_script_class_icons={
+"Aura": "",
 "Autocast": "",
 "Buff": "",
 "BuffRangeArea": "",
@@ -107,6 +118,7 @@ _global_script_class_icons={
 "CbStun": "",
 "Event": "",
 "Item": "",
+"MagicalSightBuff": "",
 "Mob": "",
 "Modification": "",
 "Modifier": "",

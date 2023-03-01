@@ -1,3 +1,4 @@
+class_name Aura
 extends Node2D
 
 # Aura applies an effect to targets in range of caster.
@@ -25,7 +26,7 @@ extends Node2D
 
 
 var aura_range: float = 10.0
-var target_type: int = 0
+var target_type: TargetType = TargetType.new(TargetType.UnitType.MOBS)
 var target_self: bool = false
 var level: int = 0
 var level_add: int = 0
@@ -34,6 +35,7 @@ var power_add: int = 0
 var aura_effect_is_friendly: bool = false
 var create_aura_effect_function: String = ""
 var caster: Unit = null
+var create_aura_effect_object = null
 
 onready var _timer = $Timer
 onready var _area = $Area2D
@@ -66,17 +68,17 @@ func _on_Timer_timeout():
 
 
 func _create_aura_effect() -> Buff:
-	if caster == null:
-		print_debug("Failed to create aura effect because caster variable is not set.")
+	if create_aura_effect_object == null:
+		print_debug("Failed to create aura effect because create_aura_effect_object variable is not set.")
 
 		return null
 
-	if !caster.has_method(create_aura_effect_function):
-		print_debug("Failed to create aura effect because caster doesn't have the create_aura_effect_function.")
+	if !create_aura_effect_object.has_method(create_aura_effect_function):
+		print_debug("Failed to create aura effect because create_aura_effect_object doesn't have the create_aura_effect_function.")
 
 		return null
 
-	var aura_effect = caster.call(create_aura_effect_function)
+	var aura_effect = create_aura_effect_object.call(create_aura_effect_function)
 
 	return aura_effect
 
