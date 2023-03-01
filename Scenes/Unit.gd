@@ -24,8 +24,6 @@ signal death(event)
 # MOD_ITEM_QUALITY_ON_KILL
 # MOD_EXP_RECEIVED
 # MOD_SPELL_CRIT_CHANCE
-# MOD_ATK_DAMAGE_RECEIVED
-# MOD_ATK_DAMAGE_RECEIVED
 # MOD_DAMAGE_BASE
 # MOD_DAMAGE_BASE_PERC
 # MOD_DAMAGE_ADD
@@ -162,6 +160,7 @@ func _init():
 	_mod_value_map[ModType.MOD_DEBUFF_DURATION] = 1.0
 	_mod_value_map[ModType.MOD_MOVESPEED] = 1.0
 	_mod_value_map[ModType.MOD_MULTICRIT_COUNT] = 1.0
+	_mod_value_map[ModType.MOD_ATK_DAMAGE_RECEIVED] = 1.0
 
 	_mod_value_map[ModType.MOD_DMG_TO_MASS] = 1.0
 	_mod_value_map[ModType.MOD_DMG_TO_NORMAL] = 1.0
@@ -227,10 +226,25 @@ func calc_attack_multicrit(_mystery1: float, _mystery2: float, _mystery3: float)
 	return crit_count
 
 
+# TODO: are dealt and received mods multiplied or added?
+# (1.2 * 0.7) = 0.84
+# or
+# (1.2 - 0.3) = 0.9
+# Might also apply to do_attack_damage() and mods for each attack element.
+# 
 # TODO: implement _crit_mod.
 func do_spell_damage(target: Unit, damage: float, _crit_mod: float):
 	var dealt_mod: float = get_prop_spell_damage_dealt()
 	var received_mod: float = target.get_prop_spell_damage_received()
+	var damage_total: float = damage * dealt_mod * received_mod
+	_do_damage(target, damage_total, false)
+
+
+# TODO: implement _crit_mod. Example call:
+# doAttackDamage(creep, 100, tower.calcAttackMulticrit(0, 0, 0))
+func do_attack_damage(target: Unit, damage: float, _crit_mod: float):
+	var dealt_mod: float = get_prop_spell_damage_dealt()
+	var received_mod: float = target.get_prop_atk_damage_received()
 	var damage_total: float = damage * dealt_mod * received_mod
 	_do_damage(target, damage_total, false)
 
@@ -572,3 +586,6 @@ func get_prop_move_speed() -> float:
 
 func get_prop_move_speed_absolute() -> float:
 	return _mod_value_map[ModType.MOD_MOVESPEED_ABSOLUTE]
+
+func get_prop_atk_damage_received() -> float:
+	return _mod_value_map[ModType.MOD_ATK_DAMAGE_RECEIVED]
