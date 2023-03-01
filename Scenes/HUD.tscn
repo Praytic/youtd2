@@ -214,6 +214,7 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = 230.0
 margin_bottom = 505.0
+mouse_filter = 0
 
 [node name="IronButton" type="Button" parent="MarginContainer/HBoxContainer"]
 margin_right = 225.0
@@ -294,7 +295,6 @@ script = ExtResource( 2 )
 visible = false
 margin_top = 83.0
 rect_min_size = Vector2( 300, 0 )
-mouse_filter = 1
 
 [connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]
