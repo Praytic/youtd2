@@ -122,6 +122,8 @@ enum MobType {
 	HUMANOID,
 }
 
+const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
+
 
 # HACK: to fix cyclic dependency between Tower<->TargetType
 var _is_mob: bool = false
@@ -189,9 +191,28 @@ func calc_spell_crit_no_bonus() -> float:
 	return 0.0
 
 
-# TODO: implement
-func calc_attack_multicrit(_mystery1: float, _mystery2: float, _mystery3: float) -> float:
-	return 0.0
+# Returns a randomly calculated multicrit count.
+# 
+# TODO: figure out what mystery float parameters are for. In
+# all tower scripts seen so far they were just 0's.
+func calc_attack_multicrit(_mystery1: float, _mystery2: float, _mystery3: float) -> int:
+	var crit_count: int = 0
+	var multicrit_count_max: int = get_prop_multicrit_count()
+	var current_crit_chance: float = get_prop_atk_crit_chance()
+
+	for _i in range(multicrit_count_max):
+		var is_critical: bool = Utils.rand_chance(current_crit_chance)
+
+		if is_critical:
+			crit_count += 1
+
+#			Decrease chance of each subsequent multicrit to
+#			implement diminishing returns.
+			current_crit_chance *= MULTICRIT_DIMINISHING_CHANCE
+		else:
+			break
+
+	return crit_count
 
 
 # TODO: implement _crit_mod.
