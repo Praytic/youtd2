@@ -4,7 +4,6 @@ extends Control
 signal tower_info_requested(tower_id)
 signal tower_info_canceled
 signal element_changed(element)
-signal resize_icons
 
 
 onready var builder_control = get_tree().current_scene.get_node(@"%BuilderControl")

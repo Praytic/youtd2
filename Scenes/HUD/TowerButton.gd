@@ -49,19 +49,19 @@ func _get_tower_button_tier_icon(icon_size: String) -> Texture:
 	var tower_tier = _tower.get_tier() - 1
 	var tower_rarity = _tower.get_rarity_num()
 	
-	var tier_icon = AtlasTexture.new()
+	var icon = AtlasTexture.new()
 	var size: int
 	if icon_size == "S":
-		tier_icon.set_atlas(_tier_icons_s)
+		icon.set_atlas(_tier_icons_s)
 		size = TIER_ICON_SIZE_S
 	elif icon_size == "M":
-		tier_icon.set_atlas(_tier_icons_m)
+		icon.set_atlas(_tier_icons_m)
 		size = TIER_ICON_SIZE_M
 	else:
 		return _tower_button_fallback_icon
 	
-	tier_icon.set_region(Rect2(tower_tier * size, tower_rarity * size, size, size))
-	return tier_icon
+	icon.set_region(Rect2(tower_tier * size, tower_rarity * size, size, size))
+	return icon
 
 func _get_tower_button_icon(icon_size: String) -> Texture:
 	var icon_atlas_num: int = _tower.get_icon_atlas_num()
