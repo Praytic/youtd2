@@ -67,7 +67,6 @@ func _create_TowerButton(tower_id) -> TowerButton:
 	var tower_button = TowerButton.new()
 	var button_icon: Texture = _get_tower_button_icon(tower_id)
 	tower_button.set_button_icon(button_icon)
-	tower_button.text = String(tower_id)
 	tower_button.tower_id = tower_id
 	tower_button.set_theme_type_variation("TowerButton")
 	tower_button.connect("pressed", builder_control, "on_build_button_pressed", [tower_id])

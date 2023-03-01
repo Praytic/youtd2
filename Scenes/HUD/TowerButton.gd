@@ -18,8 +18,8 @@ func _ready():
 	var tower_rarity = tower.get_rarity_num()
 	tier_icon = AtlasTexture.new()
 	tier_icon.set_atlas(_tier_icons)
-	var x = tower_tier
-	var y = tower_rarity
+	var x = tower_tier * tier_icon_size
+	var y = tower_rarity * tier_icon_size
 	tier_icon.set_region(Rect2(x, y, tier_icon_size, tier_icon_size))
 
 
