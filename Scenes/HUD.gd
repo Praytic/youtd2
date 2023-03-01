@@ -12,6 +12,7 @@ func _ready():
 		element_button.connect("pressed", self, "_on_element_button_pressed", [element_button])
 	
 	$TowerTooltip.hide()
+	$TooltipHeader.hide()
 
 
 func _on_StartWaveButton_pressed():
@@ -32,12 +33,18 @@ func _on_Camera_camera_zoomed(_zoom_value):
 
 
 func _on_RightMenuBar_tower_info_requested(tower_id):
-	$TowerTooltip.set_tower(TowerManager.get_tower(tower_id))
-	$TowerTooltip.show()
+	var tower = TowerManager.get_tower(tower_id)
+	
+	$TowerTooltip.set_tower_tooltip_text(tower)
+	$TowerTooltip.hide()
+	
+	$TooltipHeader.set_header_unit(tower)
+	$TooltipHeader.show()
 
 
 func _on_RightMenuBar_tower_info_canceled():
 	$TowerTooltip.hide()
+	$TooltipHeader.hide()
 
 
 func _on_MobYSort_child_entered_tree(node):
@@ -47,12 +54,16 @@ func _on_MobYSort_child_entered_tree(node):
 
 
 func _on_Tower_selected(tower_node):
-	$TowerTooltip.set_tower(tower_node)
-	$TowerTooltip.show()
+	$TowerTooltip.set_tower_tooltip_text(tower_node)
+	$TowerTooltip.hide()
+	
+	$TooltipHeader.set_header_unit(tower_node)
+	$TooltipHeader.show()
 
 
 func _on_Tower_unselected():
 	$TowerTooltip.hide()
+	$TooltipHeader.hide()
 
 
 func _on_BuildingMenuButton_pressed():
@@ -66,3 +77,10 @@ func _on_element_button_pressed(element_button):
 	
 	var element: int = element_button.element
 	$RightMenuBar.set_element(element)
+
+
+func _on_TooltipHeader_expanded(expand):
+	if expand:
+		$TowerTooltip.show()
+	else:
+		$TowerTooltip.hide()

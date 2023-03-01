@@ -90,7 +90,7 @@ func _ready():
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
 
-	var attack_range: float = _get_attack_range()
+	var attack_range: float = get_attack_range()
 	_range_indicator.set_radius(attack_range)
 
 	var attack_autocast_data = Autocast.Data.new()
@@ -171,12 +171,6 @@ func _get_tier_stats() -> Dictionary:
 		default_out[i] = {}
 
 	return default_out
-
-
-func _get_attack_range() -> float:
-	var attack_range: float = get_csv_property(CsvProperty.ATTACK_RANGE).to_float()
-
-	return attack_range
 
 
 func _select():
@@ -267,7 +261,7 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 
 
 func _get_next_bounce_target(prev_target: Mob) -> Mob:
-	var attack_range: float = _get_attack_range()
+	var attack_range: float = get_attack_range()
 	var mob_list: Array = Utils.get_mob_list_in_range(prev_target.position, attack_range)
 	mob_list.erase(prev_target)
 
@@ -511,3 +505,6 @@ func get_experience():
 # How much experience the tower needs for the next level
 func get_experience_for_next_level():
 	return 1.0
+
+func get_attack_range() -> float:
+	return get_csv_property(CsvProperty.ATTACK_RANGE).to_float()

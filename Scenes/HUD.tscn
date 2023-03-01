@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
+[ext_resource path="res://Scenes/HUD/TooltipHeader.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/HUD/ElementGroupButton.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Towers/tower_icons.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/HUD/RightMenuBar.tscn" type="PackedScene" id=5]
@@ -156,11 +157,18 @@ rect_scale = Vector2( 0.525227, 0.545393 )
 text = "Build towers here
 --------------------->"
 
+[node name="TooltipHeader" parent="." instance=ExtResource( 1 )]
+margin_left = 14.0
+margin_top = 88.0
+margin_right = 14.0
+margin_bottom = 88.0
+rect_scale = Vector2( 0.567118, 0.567118 )
+
 [node name="TowerTooltip" parent="." instance=ExtResource( 12 )]
-margin_left = 25.0
-margin_top = 103.0
-margin_right = 25.0
-margin_bottom = 3.0
+margin_left = 15.0
+margin_top = 167.0
+margin_right = 15.0
+margin_bottom = 67.0
 rect_scale = Vector2( 0.5, 0.5 )
 
 [node name="BuildingMenuButton" type="Button" parent="."]
@@ -290,6 +298,7 @@ mouse_filter = 1
 
 [connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]
+[connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="." method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="ItemMenuButton2" to="." method="_on_BuildingMenuButton_pressed"]
