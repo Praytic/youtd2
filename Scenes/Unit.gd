@@ -114,7 +114,7 @@ enum MobSize {
 	CHALLENGE,
 }
 
-enum MobType {
+enum MobCategory {
 	UNDEAD,
 	MAGIC,
 	NATURE,

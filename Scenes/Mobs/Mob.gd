@@ -15,7 +15,7 @@ const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
 var _path_curve: Curve2D
 var _current_path_index: int = 0
 var _size: int = Unit.MobSize.NORMAL
-var _type: int = Unit.MobType.HUMANOID
+var _category: int = Unit.MobCategory.HUMANOID
 var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
 
@@ -83,8 +83,8 @@ func get_size() -> int:
 	return _size
 
 
-func get_type() -> int:
-	return _type
+func get_category() -> int:
+	return _category
 
 
 # NOTE: use this instead of regular Node2D.position for
