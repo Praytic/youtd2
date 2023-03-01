@@ -23,8 +23,15 @@ func init(radius: float, target_type: TargetType, handler_object: Node, handler_
 
 
 func _on_body_entered(body: Node):
-	var target_match: bool = _target_type.match(body as Unit)
+	if !body is Unit:
+		return
+	
+	var unit: Unit = body as Unit
+
+	if unit.is_invisible():
+		return
+
+	var target_match: bool = _target_type.match(unit)
 
 	if target_match:
-		var unit: Unit = body as Unit
 		emit_signal("unit_came_in_range", _handler_object, _handler_function, unit)
