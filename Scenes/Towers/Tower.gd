@@ -203,23 +203,6 @@ func _on_modify_property():
 	_attack_autocast.set_cooldown(attack_cooldown)
 
 
-func _get_crit_count() -> int:
-	var crit_count: int = 0
-
-	var multicrit_count: int = get_prop_multicrit_count()
-
-	for _i in range(multicrit_count):
-		var attack_crit_chance_mod: float = get_prop_atk_crit_chance()
-		var is_critical: bool = Utils.rand_chance(attack_crit_chance_mod)
-
-		if is_critical:
-			crit_count += 1
-		else:
-			break
-
-	return crit_count
-
-
 func _get_damage_mod_for_mob_type(mob: Mob) -> float:
 	var mob_type: int = mob.get_type()
 	var mod_type: int = _mob_type_to_mod_map[mob_type]
@@ -246,7 +229,7 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 
 # 	NOTE: crit count can go above 1 because of the multicrit
 # 	property
-	var crit_count: int = _get_crit_count()
+	var crit_count: int = calc_attack_multicrit(0, 0, 0)
 	var crit_mod: float = get_prop_atk_crit_damage()
 
 	for _i in range(crit_count):
