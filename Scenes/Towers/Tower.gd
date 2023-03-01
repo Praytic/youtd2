@@ -512,5 +512,5 @@ func get_attack_range() -> float:
 func get_rarity() -> String:
 	return get_csv_property(CsvProperty.RARITY)
 	
-func get_rarity_num() -> String:
+func get_rarity_num() -> int:
 	return Constants.Rarity.get(get_rarity().to_upper())
