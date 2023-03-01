@@ -2,7 +2,7 @@ class_name TargetType
 
 # Filters units by various properties. Leave a property set
 # empty if you want to accept any type. For example, if you
-# to target all mob types, leave mob_type_list empty.
+# to target all mob types, leave mob_category_list empty.
 
 # TODO: implement UnitType.PLAYER_TOWERS which should apply
 # to player towers and not apply to team towers.
@@ -15,7 +15,7 @@ enum UnitType {
 
 var _unit_type: int
 var _mob_size_list: Array = []
-var _mob_type_list: Array = []
+var _mob_category_list: Array = []
 var _tower_element_list: Array = []
 
 
@@ -27,8 +27,8 @@ func set_mob_size_list(mob_size_list: Array):
 	_mob_size_list = mob_size_list
 
 
-func set_mob_type_list(mob_type_list: Array):
-	_mob_type_list = mob_type_list
+func set_mob_category_list(mob_category_list: Array):
+	_mob_category_list = mob_category_list
 
 
 func set_tower_element_list(tower_element_list: Array):
@@ -47,12 +47,12 @@ func match(unit: Unit) -> bool:
 
 	if is_mob:
 		var mob_size: int = unit.get_size()
-		var mob_type: int = unit.get_type()
+		var mob_category: int = unit.get_category()
 
 		if !_mob_size_list.empty() && !_mob_size_list.has(mob_size):
 			return false
 
-		if !_mob_type_list.empty() && !_mob_type_list.has(mob_type):
+		if !_mob_category_list.empty() && !_mob_category_list.has(mob_category):
 			return false
 
 	if is_tower:

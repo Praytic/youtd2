@@ -39,12 +39,12 @@ enum Element {
 	STORM,
 }
 
-const _mob_type_to_mod_map: Dictionary = {
-	Unit.MobType.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
-	Unit.MobType.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
-	Unit.MobType.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
-	Unit.MobType.ORC: Unit.ModType.MOD_DMG_TO_ORC,
-	Unit.MobType.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
+const _mob_category_to_mod_map: Dictionary = {
+	Unit.MobCategory.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
+	Unit.MobCategory.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
+	Unit.MobCategory.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
+	Unit.MobCategory.ORC: Unit.ModType.MOD_DMG_TO_ORC,
+	Unit.MobCategory.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
 }
 
 const _mob_size_to_mod_map: Dictionary = {
@@ -203,9 +203,9 @@ func _on_modify_property():
 	_attack_autocast.set_cooldown(attack_cooldown)
 
 
-func _get_damage_mod_for_mob_type(mob: Mob) -> float:
-	var mob_type: int = mob.get_type()
-	var mod_type: int = _mob_type_to_mod_map[mob_type]
+func _get_damage_mod_for_mob_category(mob: Mob) -> float:
+	var mob_category: int = mob.get_category()
+	var mod_type: int = _mob_category_to_mod_map[mob_category]
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
@@ -213,7 +213,7 @@ func _get_damage_mod_for_mob_type(mob: Mob) -> float:
 
 func _get_damage_mod_for_mob_size(mob: Mob) -> float:
 	var mob_size: int = mob.get_size()
-	var mod_type: int = _mob_type_to_mod_map[mob_size]
+	var mod_type: int = _mob_category_to_mod_map[mob_size]
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
@@ -229,7 +229,7 @@ func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
 	
 	var damage_mod_list: Array = [
 		_get_damage_mod_for_mob_size(mob),
-		_get_damage_mod_for_mob_type(mob),
+		_get_damage_mod_for_mob_category(mob),
 	]
 
 # 	NOTE: crit count can go above 1 because of the multicrit
