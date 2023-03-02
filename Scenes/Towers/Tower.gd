@@ -70,7 +70,6 @@ var _bounce_damage_multiplier: float = 0.0
 var _attack_style: int = AttackStyle.NORMAL
 
 
-onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 onready var _range_indicator: RangeIndicator = $RangeIndicator
 
@@ -153,9 +152,9 @@ func _on_attack_autocast(event: Event):
 	var target = event.get_target()
 
 	var projectile = _projectile_scene.instance()
-	projectile.init(target, global_position)
-	projectile.connect("reached_mob", self, "_on_projectile_reached_mob")
-	_game_scene.call_deferred("add_child", projectile)
+	projectile.create("placeholder", 0, 1000)
+	projectile.create_from_unit_to_unit(self, 0, 0, self, target, true, false, true)
+	projectile.set_event_on_target_hit(self, "_on_projectile_target_hit")
 
 	._do_attack(event)
 
@@ -271,30 +270,36 @@ func _get_next_bounce_target(prev_target: Mob) -> Mob:
 #########################
 
 
-func _on_projectile_reached_mob(mob: Mob):
+func _on_projectile_target_hit(projectile: Projectile):
 	match _attack_style:
 		AttackStyle.NORMAL:
-			_on_projectile_reached_mob_normal(mob)
+			_on_projectile_target_hit_normal(projectile)
 		AttackStyle.SPLASH:
-			_on_projectile_reached_mob_splash(mob)
+			_on_projectile_target_hit_splash(projectile)
 		AttackStyle.BOUNCE:
-			_on_projectile_reached_mob_bounce(mob)
+			_on_projectile_target_hit_bounce(projectile)
 
 
-func _on_projectile_reached_mob_normal(mob: Mob):
+func _on_projectile_target_hit_normal(projectile: Projectile):
+	var target: Unit = projectile.get_target()
+	var mob: Mob = target as Mob
+
 	var damage_base: float = _get_rand_damage_base()
 	var damage: float = _get_damage_to_mob(mob, damage_base)
 	
-	._do_damage(mob, damage, true)
+	._do_damage(target, damage, true)
 
 
-func _on_projectile_reached_mob_splash(mob: Mob):
+func _on_projectile_target_hit_splash(projectile: Projectile):
+	var target: Unit = projectile.get_target()
+	var mob: Mob = target as Mob
+
 	if _splash_map.empty():
 		return
 
 	var damage_base: float = _get_rand_damage_base()
 	var damage: float = _get_damage_to_mob(mob, damage_base)
-	var splash_target: Unit = mob
+	var splash_target: Unit = target
 	var splash_pos: Vector2 = splash_target.position
 
 #	Process splash ranges from closest to furthers,
@@ -306,11 +311,11 @@ func _on_projectile_reached_mob_splash(mob: Mob):
 
 	var mob_list: Array = Utils.get_mob_list_in_range(splash_pos, splash_range_max)
 
-	for mob in mob_list:
-		if mob == splash_target:
+	for neighbor in mob_list:
+		if neighbor == splash_target:
 			continue
 		
-		var distance: float = splash_pos.distance_to(mob.position)
+		var distance: float = splash_pos.distance_to(neighbor.position)
 
 		for splash_range in splash_range_list:
 			var mob_is_in_range: bool = distance < splash_range
@@ -318,20 +323,30 @@ func _on_projectile_reached_mob_splash(mob: Mob):
 			if mob_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
-				_do_damage(mob, splash_damage, true)
+				_do_damage(neighbor, splash_damage, true)
 
 				break
 
 
-func _on_projectile_reached_mob_bounce(mob: Mob):
+func _on_projectile_target_hit_bounce(projectile: Projectile):
+	var target: Unit = projectile.get_target()
+	var mob: Mob = target as Mob
+
 	var damage_base: float = _get_rand_damage_base()
 	var damage: float = _get_damage_to_mob(mob, damage_base)
-	
-	_on_projectile_bounce_in_progress(mob, damage, _bounce_count_max)
+
+	projectile.user_real = damage
+	projectile.user_int = _bounce_count_max
+
+	_on_projectile_bounce_in_progress(projectile)
 
 
-func _on_projectile_bounce_in_progress(prev_mob: Mob, prev_damage: float, current_bounce_count: int):
-	._do_damage(prev_mob, prev_damage, true)
+func _on_projectile_bounce_in_progress(projectile: Projectile):
+	var current_target: Unit = projectile.get_target()
+	var current_damage: float = projectile.user_real
+	var current_bounce_count: int = projectile.user_int
+
+	._do_damage(current_target, current_damage, true)
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_count == 0
@@ -339,18 +354,20 @@ func _on_projectile_bounce_in_progress(prev_mob: Mob, prev_damage: float, curren
 	if bounce_end:
 		return
 
-	var next_damage: float = prev_damage * (1.0 - _bounce_damage_multiplier)
+	var next_damage: float = current_damage * (1.0 - _bounce_damage_multiplier)
 	var next_bounce_count: int = current_bounce_count - 1
 
-	var next_target: Mob = _get_next_bounce_target(prev_mob)
+	var next_target: Mob = _get_next_bounce_target(current_target)
 
 	if next_target == null:
 		return
 
-	var projectile = _projectile_scene.instance()
-	projectile.init(next_target, prev_mob.position)
-	projectile.connect("reached_mob", self, "_on_projectile_bounce_in_progress", [next_damage, next_bounce_count])
-	_game_scene.call_deferred("add_child", projectile)
+	var next_projectile = _projectile_scene.instance()
+	next_projectile.create("placeholder", 0, 1000)
+	next_projectile.create_from_unit_to_unit(self, 0, 0, current_target, next_target, true, false, true)
+	next_projectile.user_real = next_damage
+	next_projectile.user_int = next_bounce_count
+	next_projectile.set_event_on_interpolation_finished(self, "_on_projectile_bounce_in_progress")
 
 
 #########################

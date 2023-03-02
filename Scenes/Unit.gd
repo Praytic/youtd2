@@ -510,6 +510,10 @@ func is_tower() -> bool:
 	return _is_tower
 
 
+func get_visual_position() -> Vector2:
+	return position
+
+
 func get_x() -> float:
 	return position.x
 
