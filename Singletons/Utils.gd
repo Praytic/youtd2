@@ -141,3 +141,8 @@ func camel_to_snake(camel_string: String) -> String:
 		previous_char = c
 	
 	return snake_string
+
+
+# TODO: maybe won't need this at all
+func add_unit_animation_properties(_unit: Unit, _mystery_string: String, _mystery_bool: bool):
+	pass
