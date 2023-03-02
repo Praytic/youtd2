@@ -17,6 +17,8 @@ signal death(event)
 signal became_invisible()
 signal became_visible()
 
+signal selected
+signal unselected
 
 # TODO: implement these mod types
 # MOD_ARMOR
@@ -129,6 +131,8 @@ const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 # HACK: to fix cyclic dependency between Tower<->TargetType
 var _is_mob: bool = false
 var _is_tower: bool = false
+# TODO: Implement
+var _is_item_drop: bool = false
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -144,6 +148,8 @@ var _direct_modifier_list: Array
 var _health: float = 0.0
 var _mod_value_map: Dictionary = {}
 var _invisible: bool = false
+var _selection_size: int setget , get_selection_size
+var _selected: bool = false setget , is_selected
 
 # This is the count of towers that are currently able to see
 # this invisible mob. If there any towers that can see this
@@ -187,6 +193,25 @@ func _init():
 
 func _ready():
 	_update_invisible_modulate()
+	var selection = Node2D.new()
+	selection.name = "Selection"
+	selection.hide()
+	selection.set_script(load("res://Scenes/Selection.gd"))
+	add_child(selection)
+
+
+func _unhandled_input(event):
+	if event is InputEventMouseButton:
+		if event.get_button_index() == BUTTON_LEFT or event.get_button_index() == BUTTON_RIGHT:
+			var is_inside: bool = Geometry.is_point_in_polygon(
+				$CollisionShape2D.get_local_mouse_position(), 
+				$CollisionShape2D.polygon)
+			if is_inside:
+				_select()
+			else:
+				if _selected:
+					_unselect()
+
 
 #########################
 ###       Public      ###
@@ -410,6 +435,17 @@ func _update_invisible_modulate():
 	else:
 		modulate = Color(1, 1, 1, 1)
 
+func _select():
+	$Selection.show()
+	_selected = true
+	emit_signal("selected")
+
+
+func _unselect():
+	$Selection.hide()
+	_selected = false
+	emit_signal("unselected")
+
 
 #########################
 ###     Callbacks     ###
@@ -625,3 +661,15 @@ func get_prop_move_speed_absolute() -> float:
 
 func get_prop_atk_damage_received() -> float:
 	return _mod_value_map[ModType.MOD_ATK_DAMAGE_RECEIVED]
+
+func get_selection_size():
+	pass
+
+func is_selected() -> bool:
+	return _selected
+
+func set_selected(selected: bool):
+	if selected:
+		_select()
+	else:
+		_unselect()

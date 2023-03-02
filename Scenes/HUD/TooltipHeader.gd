@@ -12,9 +12,9 @@ onready var _expand_button: Button = get_node("%ExpandButton")
 ###       Public      ###
 #########################
 
-func set_header_unit(tower):
+func set_header_unit(unit):
 	for label in _tooltip_labels:
-		var stat = _get_stat(label, tower)
+		var stat = _get_stat(label, unit)
 		label.text = str(stat)
 
 
@@ -22,10 +22,10 @@ func set_header_unit(tower):
 ###      Private      ###
 #########################
 
-func _get_stat(tower_stat_label: Label, tower):
-	var stat_name = tower_stat_label.get_name()
+func _get_stat(label: Label, unit):
+	var stat_name = label.get_name()
 	var getter_name = "get_" + Utils.camel_to_snake(stat_name)
-	var stat = tower.call(getter_name)
+	var stat = unit.call(getter_name)
 	return stat
 
 

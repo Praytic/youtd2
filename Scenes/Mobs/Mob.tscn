@@ -1,10 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Mobs/Mob.gd" type="Script" id=1]
 [ext_resource path="res://Resources/Sprites/Mobs/MobTemplateSprite.tscn" type="PackedScene" id=2]
-
-[sub_resource type="CircleShape2D" id=1]
-radius = 39.0128
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.176471, 0.486275, 0.239216, 1 )
@@ -19,9 +16,6 @@ bg_color = Color( 0.572549, 0.164706, 0.164706, 1 )
 
 [node name="Mob" type="KinematicBody2D"]
 script = ExtResource( 1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
 
 [node name="Visual" type="Node2D" parent="."]
 
@@ -38,3 +32,7 @@ value = 100.0
 percent_visible = false
 
 [node name="HeightTween" type="Tween" parent="."]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2( 1, 0.5 )
+polygon = PoolVector2Array( 51, -202, 45, 86, -45, 88, -50, -202 )

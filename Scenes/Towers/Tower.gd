@@ -58,6 +58,7 @@ const _mob_size_to_mod_map: Dictionary = {
 export(AudioStreamMP3) var attack_sound
 
 const ATTACK_CD_MIN: float = 0.2
+const SELECTION_SIZE: int = 128
 
 var _id: int = 0
 var _stats: Dictionary
@@ -503,3 +504,6 @@ func get_rarity() -> String:
 	
 func get_rarity_num() -> int:
 	return Constants.Rarity.get(get_rarity().to_upper())
+
+func get_selection_size() -> int:
+	return SELECTION_SIZE

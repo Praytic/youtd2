@@ -1,5 +1,5 @@
 class_name Item
-extends KinematicBody2D
+extends Node
 
 
 # Item represents item when it's attached to a tower.

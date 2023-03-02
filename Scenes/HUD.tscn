@@ -111,6 +111,10 @@ text = "Wave:"
 margin_left = 114.0
 margin_right = 272.0
 margin_bottom = 59.0
+focus_next = NodePath("../../..")
+focus_previous = NodePath("../../..")
+focus_mode = 1
+min_value = 1.0
 value = 1.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
@@ -298,6 +302,7 @@ rect_min_size = Vector2( 300, 0 )
 
 [connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer/WaveEdit" to="VBoxContainer/HBoxContainer/WaveEdit" method="_on_WaveEdit_value_changed"]
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="." method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]

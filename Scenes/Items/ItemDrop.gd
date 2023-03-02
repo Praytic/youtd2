@@ -1,11 +1,14 @@
-extends Node
+class_name ItemDrop
+extends Unit
 
 # ItemDrop represents item after it's dropped but before it's given to a tower.
 
 # TODO: implement giving item to tower. Use id from ItemDrop
 # to get create the Item that needs to have
 
-const cell_size = 32
+
+const SELECTION_SIZE = 32
+
 
 var _id: int = 0 setget set_id, get_id
 
@@ -31,3 +34,6 @@ func make_item() -> Item:
 	item.set_id(_id)
 
 	return item
+
+func get_selection_size() -> int:
+	return SELECTION_SIZE
