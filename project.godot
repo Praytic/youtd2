@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Buffs/Modifier.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Projectile",
+"language": "GDScript",
+"path": "res://Scenes/Projectile.gd"
+}, {
 "base": "Node2D",
 "class": "RangeIndicator",
 "language": "GDScript",
@@ -128,6 +133,7 @@ _global_script_class_icons={
 "Mob": "",
 "Modification": "",
 "Modifier": "",
+"Projectile": "",
 "RangeIndicator": "",
 "SmallCactus1": "",
 "TargetType": "",
