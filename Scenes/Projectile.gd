@@ -9,6 +9,7 @@ extends KinematicBody2D
 signal target_hit(projectile)
 signal interpolation_finished(projectile)
 
+var _caster: Unit = null
 var _target: Unit = null
 var _last_known_position: Vector2 = Vector2.ZERO
 var _speed: float = 100
@@ -47,6 +48,7 @@ func create_interpolate(_model: String, speed: float):
 # matter if lifetime is shorter or longer than the time it
 # takes to reach the target
 func create_from_unit_to_unit(caster: Unit, _damage_ratio: float, _crit_ratio: float, from: Unit, target: Unit, _targeted: bool, _ignore_target_z: bool, _expire_when_reached: bool):
+	_caster = caster
 	_target = target
 	position = from.get_visual_position()
 	_game_scene = caster.get_tree().get_root().get_node("GameScene")
@@ -87,6 +89,10 @@ func _process(delta):
 
 func get_target() -> Unit:
 	return _target
+
+
+func get_caster() -> Unit:
+	return _caster
 
 
 # NOTE: unlike buff and unit events, there's no weird stuff
