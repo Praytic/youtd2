@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scenes/Towers/Selection.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Selection.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Atlas/Barrels.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Items/ItemDrop.gd" type="Script" id=3]
 
@@ -21,7 +21,6 @@ position = Vector2( -6, -13 )
 scale = Vector2( 0.553798, 0.553798 )
 texture = SubResource( 2 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
-position = Vector2( 10, 0 )
-polygon = PoolVector2Array( 6, -15, 2, -30, -10, -37, -24, -31, -28, -15, -24, 5, -10, 9, 3, 4 )
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2( 1, 0.5 )
+polygon = PoolVector2Array( 13, -68, 14, 18, -15, 12, -17, -66 )

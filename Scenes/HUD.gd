@@ -48,21 +48,23 @@ func _on_RightMenuBar_tower_info_canceled():
 
 
 func _on_MobYSort_child_entered_tree(node):
-	if node is Tower:
-		node.connect("selected", self, "_on_Tower_selected", [node])
-		node.connect("unselected", self, "_on_Tower_unselected")
+		node.connect("selected", self, "_on_Unit_selected", [node])
+		node.connect("unselected", self, "_on_Unit_unselected", [node])
 
 
-func _on_Tower_selected(tower_node):
-	$TowerTooltip.set_tower_tooltip_text(tower_node)
-	$TowerTooltip.hide()
+func _on_Unit_selected(unit):
+	if unit is Tower:
+		$TowerTooltip.set_tower_tooltip_text(unit)
+		$TowerTooltip.hide()
 	
-	$TooltipHeader.set_header_unit(tower_node)
+	$TooltipHeader.set_header_unit(unit)
 	$TooltipHeader.show()
 
 
-func _on_Tower_unselected():
-	$TowerTooltip.hide()
+func _on_Unit_unselected(unit):
+	if unit is Tower:
+		$TowerTooltip.hide()
+	
 	$TooltipHeader.hide()
 
 

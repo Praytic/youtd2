@@ -44,10 +44,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scenes/Towers/Event.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "Node",
 "class": "Item",
 "language": "GDScript",
 "path": "res://Scenes/Items/Item.gd"
+}, {
+"base": "Unit",
+"class": "ItemDrop",
+"language": "GDScript",
+"path": "res://Scenes/Items/ItemDrop.gd"
 }, {
 "base": "Buff",
 "class": "MagicalSightBuff",
@@ -118,6 +123,7 @@ _global_script_class_icons={
 "CbStun": "",
 "Event": "",
 "Item": "",
+"ItemDrop": "",
 "MagicalSightBuff": "",
 "Mob": "",
 "Modification": "",

@@ -11,6 +11,7 @@ const MOB_HEALTH_MAX: float = 200.0
 const MOVE_SPEED_MIN: float = 100.0
 const MOVE_SPEED_MAX: float = 500.0
 const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
+const SELECTION_SIZE: int = 64
 
 var _path_curve: Curve2D
 var _current_path_index: int = 0
@@ -143,3 +144,11 @@ func _get_move_speed() -> float:
 	var clamped: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped))
 
 	return clamped
+
+
+func get_selection_size():
+	return SELECTION_SIZE
+
+# TODO: Do mobs need IDs?
+func get_id():
+	return 1
