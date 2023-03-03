@@ -1,16 +1,39 @@
 class_name MultiboardValues
 extends Node
 
-# TODO: no idea how to implement this. Adding as stub so it
-# can be used in tower script.
 
-func _init(_mystery_int: int):
-	pass
-
-
-func set_key(_key: int, _label_text: String):
-	pass
+var _size: int = 0
+var _key_map: Dictionary = {}
+var _value_map: Dictionary = {}
 
 
-func set_value(_key, _value_text: String):
-	pass
+func _init(size: int):
+	_size = size
+
+	for index in range(0, _size):
+		_key_map[index] = ""
+		_value_map[index] = ""
+
+
+func set_key(index: int, key: String):
+	_key_map[index] = key
+
+
+func set_value(index: int, value: String):
+	_value_map[index] = value
+
+
+func size() -> int:
+	return _size
+
+
+func get_key(index: int) -> String:
+	var key: String = _key_map[index]
+
+	return key
+
+
+func get_value(index: int) -> String:
+	var value: String = _value_map[index]
+
+	return value
