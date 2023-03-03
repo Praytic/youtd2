@@ -127,6 +127,14 @@ func enable_default_sprite():
 	$DefaultSprite.show()
 
 
+# Called by TowerTooltip to get the part of the tooltip that
+# is specific to the subclass
+func on_tower_details() -> MultiboardValues:
+	var empty_multiboard: MultiboardValues = MultiboardValues.new(0)
+
+	return empty_multiboard
+
+
 #########################
 ###      Private      ###
 #########################
