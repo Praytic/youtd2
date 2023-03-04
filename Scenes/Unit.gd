@@ -197,6 +197,7 @@ func _ready():
 	selection.name = "Selection"
 	selection.hide()
 	selection.set_script(load("res://Scenes/Selection.gd"))
+	selection.z_index = -1
 	add_child(selection)
 
 
