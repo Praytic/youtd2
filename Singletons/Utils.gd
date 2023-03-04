@@ -7,15 +7,34 @@ onready var floating_text_scene: PackedScene = preload("res://Scenes/FloatingTex
 static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 	return buildable_area.get_cellv(pos) != TileMap.INVALID_CELL
 onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("MobYSort")
+onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
+
+var _loaded_sfx_map: Dictionary = {}
+var _sfx_player_list: Array = []
 
 
-# TODO: implement
-func sfx_at_unit(_sfx_name: String, _unit: Unit):
-	pass
+func sfx_at_unit(sfx_name: String, unit: Unit):
+	var sfx_exists: bool = File.new().file_exists(sfx_name)
 
-# TODO: implement
-func sfx_on_unit(_sfx_name: String, _unit: Unit, _mystery_string: String):
-	pass
+	if !sfx_exists:
+		return
+
+	if !_loaded_sfx_map.has(sfx_name):
+		var sfx_stream: AudioStreamMP3 = _load_sfx(sfx_name)
+		_loaded_sfx_map[sfx_name] = sfx_stream
+
+	var sfx_player: AudioStreamPlayer2D = _get_sfx_player()
+
+	var sfx_stream: AudioStreamMP3 = _loaded_sfx_map[sfx_name]
+	sfx_player.set_stream(sfx_stream)
+	sfx_player.global_position = unit.get_visual_position()
+	sfx_player.play()
+
+
+# TODO: implement _body_part parameter. Example body parts:
+# "chest", "head", "origin".
+func sfx_on_unit(sfx_name: String, unit: Unit, _body_part: String):
+	sfx_at_unit(sfx_name, unit)
 
 
 func list_files_in_directory(path: String, regex_search: RegEx = null) -> Array:
@@ -146,3 +165,41 @@ func camel_to_snake(camel_string: String) -> String:
 # TODO: maybe won't need this at all
 func add_unit_animation_properties(_unit: Unit, _mystery_string: String, _mystery_bool: bool):
 	pass
+
+
+func _load_sfx(sfx_name: String) -> AudioStreamMP3:
+	if !sfx_name.ends_with(".mp3"):
+		print_debug("Attempted to call _load_sfx on non-mp3:", sfx_name)
+
+		return AudioStreamMP3.new()
+
+	var file: File = File.new()
+	var open_error = file.open(sfx_name, File.READ)
+
+	if open_error != OK:
+		print_debug("Failed to open sfx file. Error: ", open_error)
+		file.close()
+
+		return AudioStreamMP3.new()
+
+	var bytes = file.get_buffer(file.get_len())
+	var stream: AudioStreamMP3 = AudioStreamMP3.new()
+	stream.data = bytes
+
+# 	TODO: need to close file or no?
+
+	return stream
+
+
+# This is a way to recycle existing players
+# TODO: maybe there's a better way
+func _get_sfx_player() -> AudioStreamPlayer2D:
+	for sfx_player in _sfx_player_list:
+		if !sfx_player.playing:
+			return sfx_player
+
+	var new_sfx_player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+	_sfx_player_list.append(new_sfx_player)
+	_game_scene.add_child(new_sfx_player)
+
+	return new_sfx_player
