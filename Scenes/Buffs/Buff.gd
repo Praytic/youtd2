@@ -74,7 +74,7 @@ var event_handler_map: Dictionary = {}
 # your buff and multiple active instances of the buff on one
 # unit are allowed. For example, buffs that are used solely
 # to add event handlers should have empty type.
-func _init(type: String,time_base: float,time_level_add: float,friendly: bool):
+func _init(type: String, time_base: float, time_level_add: float, friendly: bool):
 	_type = type
 	_time_base = time_base
 	_time_level_add = time_level_add
@@ -293,7 +293,7 @@ func add_event_on_damaged(handler_object: Node, handler_function: String, chance
 
 
 func add_event_on_expire(handler_object: Node, handler_function: String):
-	add_event_handler(Event.Type.EXPIRED, handler_object, handler_function, 1.0, 0.0)
+	add_event_handler(Event.Type.EXPIRE, handler_object, handler_function, 1.0, 0.0)
 
 
 func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
