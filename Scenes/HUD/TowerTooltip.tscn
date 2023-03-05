@@ -1,1424 +1,959 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cb3g6yfe66prg"]
 
-[ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=1]
-[ext_resource path="res://Scenes/HUD/TowerTooltip.gd" type="Script" id=2]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="1"]
+[ext_resource type="Script" path="res://Scenes/HUD/TowerTooltip.gd" id="2"]
 
 [node name="TowerTooltip" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 5.0
 offset_right = 5.0
 mouse_filter = 1
-theme = ExtResource( 1 )
-script = ExtResource( 2 )
+theme = ExtResource("1")
+script = ExtResource("2")
 
 [node name="VBoxContainer" type="PanelContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -271.0
 offset_bottom = 255.0
 mouse_filter = 1
-theme_type_variation = "TooltipPanel"
+theme_type_variation = &"TooltipPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 2194.0
-offset_bottom = 1325.0
-mouse_filter = 1
+layout_mode = 2
 
 [node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
-offset_right = 2184.0
-offset_bottom = 1315.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
-offset_right = 558.0
-offset_bottom = 1315.0
-mouse_filter = 1
-custom_constants/offset_right = 20
-custom_constants/offset_top = 20
-custom_constants/offset_left = 20
-custom_constants/offset_bottom = 20
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 538.0
-offset_bottom = 1295.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-offset_right = 518.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Attack" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
-modulate = Color( 1, 0.32549, 0.32549, 1 )
-offset_right = 518.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(1, 0.32549, 0.32549, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Attack:"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-offset_top = 53.0
-offset_right = 518.0
-offset_bottom = 397.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="AttackContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2"]
-offset_right = 518.0
-offset_bottom = 314.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label5" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-offset_right = 275.0
-offset_bottom = 49.0
+layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "The standard attack damage the tower deals without any bonuses at level 0."
 mouse_filter = 1
-size_flags_horizontal = 3
 text = "Base damage"
 
 [node name="BaseDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
-offset_left = 375.0
-offset_right = 518.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "4,522"
-align = 2
 
 [node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-offset_top = 53.0
-offset_right = 275.0
-offset_bottom = 102.0
+layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "This value is added on the base damage. It is calculated into the white numbers of the tower's attack damage."
 mouse_filter = 1
-size_flags_horizontal = 3
 text = "Base bonus"
 
 [node name="BaseDamageBonus" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
-offset_left = 375.0
-offset_top = 53.0
-offset_right = 518.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "0"
-align = 2
 
 [node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-offset_top = 106.0
-offset_right = 275.0
-offset_bottom = 155.0
+layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "After adding the Base Bonus, this percentage is added to the damage. It is also calculated in the white numbers. Bonus damage granted by oils and damage the tower gains by leveling is added to this value."
 mouse_filter = 1
-size_flags_horizontal = 3
 text = "Base bonus %"
 
 [node name="BaseDamageBonusPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_percent_signed"]]
-offset_left = 375.0
-offset_top = 106.0
-offset_right = 518.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "+717%"
-align = 2
 
 [node name="Label23" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-offset_top = 159.0
-offset_right = 275.0
-offset_bottom = 208.0
+layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "This value is added to the towers damage after the Base Damage calculation. It will be displayed as green/red numbers behind the white numbers of the tower's damage. DPS gain by special abilities and items is usually added to this value."
 mouse_filter = 1
-size_flags_horizontal = 3
 text = "Damage add"
 
 [node name="DamageAdd" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
-offset_left = 375.0
-offset_top = 159.0
-offset_right = 518.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "38,881"
-align = 2
 
 [node name="Label29" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-offset_top = 212.0
-offset_right = 275.0
-offset_bottom = 261.0
+layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "After the Damage Add was added to the Base Damage, this percentage is added to the damage, it is also shown as green numbers. Percent bonuses from permanent items, buffs, auras and special abilities is ususally added to this value."
 mouse_filter = 1
-size_flags_horizontal = 3
 text = "Damage add %"
 
 [node name="DamageAddPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_percent_signed"]]
-offset_left = 375.0
-offset_top = 212.0
-offset_right = 518.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "+423%"
-align = 2
 
 [node name="Label34" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
-offset_top = 265.0
-offset_right = 275.0
-offset_bottom = 314.0
-pivot_offset = Vector2( -216, 603 )
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Overall damage"
 
 [node name="OverallBaseDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
-offset_left = 375.0
-offset_top = 265.0
-offset_right = 518.0
-offset_bottom = 314.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "396,416"
-align = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-offset_top = 401.0
-offset_right = 518.0
-offset_bottom = 586.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3"]
-offset_right = 518.0
-offset_bottom = 155.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label38" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
-offset_right = 306.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Base cooldown"
 
 [node name="BaseCooldown" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer" groups=["tower_stat_int"]]
-offset_left = 406.0
-offset_right = 518.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "160"
-align = 2
 
 [node name="Label44" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
-offset_top = 53.0
-offset_right = 306.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Attackspeed"
 
 [node name="BaseAttackSpeed" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer" groups=["tower_stat_percent"]]
-offset_left = 406.0
-offset_top = 53.0
-offset_right = 518.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "493%"
-align = 2
 
 [node name="Label50" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
-offset_top = 106.0
-offset_right = 306.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Overall cooldown"
 
 [node name="OverallCooldown" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer" groups=["tower_stat_float"]]
-offset_left = 406.0
-offset_top = 106.0
-offset_right = 518.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "0.33"
-align = 2
 
 [node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-offset_top = 590.0
-offset_right = 518.0
-offset_bottom = 669.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer5"]
-offset_right = 518.0
-offset_bottom = 49.0
+layout_mode = 2
 size_flags_horizontal = 3
 columns = 2
 
 [node name="Label62" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer"]
-offset_right = 257.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Overall DPS"
 
 [node name="OverallDPS" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer" groups=["tower_stat_int"]]
-offset_left = 261.0
-offset_right = 518.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "122M"
-align = 2
 
 [node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-offset_top = 673.0
-offset_right = 518.0
-offset_bottom = 858.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6"]
-offset_right = 518.0
-offset_bottom = 155.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label68" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
-offset_right = 253.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Crit chance"
 
 [node name="PropAtkCritChance" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_percent"]]
-offset_left = 353.0
-offset_right = 518.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "106.6%"
-align = 2
 
 [node name="Label74" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
-offset_top = 53.0
-offset_right = 253.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Crit damage"
 
 [node name="PropAtkCritDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_multiplier"]]
-offset_left = 353.0
-offset_top = 53.0
-offset_right = 518.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "x7.30"
-align = 2
 
 [node name="Label80" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
-offset_top = 106.0
-offset_right = 253.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Multicrit count"
 
 [node name="PropMulticritCount" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_int"]]
-offset_left = 353.0
-offset_top = 106.0
-offset_right = 518.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "10"
-align = 2
 
 [node name="MarginContainer7" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-offset_top = 862.0
-offset_right = 518.0
-offset_bottom = 941.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7"]
-offset_right = 518.0
-offset_bottom = 49.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label68" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer"]
-offset_right = 221.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "DPS with crit"
 
 [node name="DPS_WithCrit" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer" groups=["tower_stat_int"]]
-offset_left = 321.0
-offset_right = 518.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "18.67M"
-align = 2
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-offset_top = 945.0
-offset_right = 518.0
-offset_bottom = 994.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Spells" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer4"]
-modulate = Color( 0.145098, 0.831373, 1, 1 )
-offset_right = 518.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(0.145098, 0.831373, 1, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Spells:"
 
 [node name="MarginContainer8" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-offset_top = 998.0
-offset_right = 518.0
-offset_bottom = 1183.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="AttackContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8"]
-offset_right = 518.0
-offset_bottom = 155.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label5" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
-offset_right = 235.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Spell damage"
 
 [node name="PropSpellDamageDealt" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer" groups=["tower_stat_percent"]]
-offset_left = 335.0
-offset_right = 518.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "651%"
-align = 2
 
 [node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
-offset_top = 53.0
-offset_right = 235.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Crit chance"
 
 [node name="SpellCritChance" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer" groups=["tower_stat_percent"]]
-offset_left = 335.0
-offset_top = 53.0
-offset_right = 518.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "114.0%"
-align = 2
 
 [node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
-offset_top = 106.0
-offset_right = 235.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Crit damage"
 
 [node name="SpellCritDamage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer" groups=["tower_stat_multiplier"]]
-offset_left = 335.0
-offset_top = 106.0
-offset_right = 518.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "x10.63"
-align = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
-offset_left = 562.0
-offset_right = 1199.0
-offset_bottom = 1315.0
-mouse_filter = 1
-custom_constants/offset_right = 20
-custom_constants/offset_top = 20
-custom_constants/offset_left = 20
-custom_constants/offset_bottom = 20
+layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2"]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 617.0
-offset_bottom = 1295.0
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
-offset_right = 597.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 
 [node name="Veteran" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer"]
-modulate = Color( 0.47451, 1, 0.470588, 1 )
-offset_right = 597.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(0.47451, 1, 0.470588, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Veteran:"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
-offset_top = 53.0
-offset_right = 597.0
-offset_bottom = 344.0
-mouse_filter = 1
-custom_constants/offset_bottom = 30
+layout_mode = 2
 
 [node name="VeteranContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2"]
-offset_right = 597.0
-offset_bottom = 261.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label7" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
-offset_right = 340.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Damage"
 
 [node name="Damage" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
-offset_left = 440.0
-offset_right = 597.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "12.19G"
-align = 2
 
 [node name="Label13" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
-offset_top = 53.0
-offset_right = 340.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Best Hit"
 
 [node name="BestHit" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
-offset_left = 440.0
-offset_top = 53.0
-offset_right = 597.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "292.87M"
-align = 2
 
 [node name="Label19" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
-offset_top = 106.0
-offset_right = 340.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Kills"
 
 [node name="Kills" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
-offset_left = 440.0
-offset_top = 106.0
-offset_right = 597.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "1957"
-align = 2
 
 [node name="Label25" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
-offset_top = 159.0
-offset_right = 340.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Experience"
 
 [node name="Experience" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
-offset_left = 440.0
-offset_top = 159.0
-offset_right = 597.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "9136"
-align = 2
 
 [node name="Level" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 unique_name_in_owner = true
-offset_top = 212.0
-offset_right = 340.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Max Level reached!"
 
 [node name="ExperienceForNextLevel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
-offset_left = 440.0
-offset_top = 212.0
-offset_right = 597.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
-offset_top = 348.0
-offset_right = 597.0
-offset_bottom = 397.0
-mouse_filter = 1
+layout_mode = 2
 
 [node name="Mana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer3"]
-modulate = Color( 0.423529, 0.458824, 1, 1 )
-offset_right = 597.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(0.423529, 0.458824, 1, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Mana:"
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
-offset_top = 401.0
-offset_right = 597.0
-offset_bottom = 851.0
-mouse_filter = 1
-custom_constants/offset_bottom = 30
+layout_mode = 2
 
 [node name="ManaContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4"]
-offset_right = 597.0
-offset_bottom = 420.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label40" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-offset_right = 298.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Base mana"
 
 [node name="BaseMana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_int"]]
-offset_left = 398.0
-offset_right = 597.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "0"
-align = 2
 
 [node name="Label46" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-offset_top = 53.0
-offset_right = 298.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Bonus"
 
 [node name="BaseManaBonus" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_int"]]
-offset_left = 398.0
-offset_top = 53.0
-offset_right = 597.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "0"
-align = 2
 
 [node name="Label52" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-offset_top = 106.0
-offset_right = 298.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Percent bonus"
 
 [node name="BaseManaBonusPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_percent_signed"]]
-offset_left = 398.0
-offset_top = 106.0
-offset_right = 597.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "+32%"
-align = 2
 
 [node name="Label58" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-offset_top = 159.0
-offset_right = 298.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Overall mana"
 
 [node name="OverallMana" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_int"]]
-offset_left = 398.0
-offset_top = 159.0
-offset_right = 597.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "0"
-align = 2
 
 [node name="Label66" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-offset_top = 212.0
-offset_right = 298.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Base mana regen"
 
 [node name="BaseManaRegen" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_float"]]
-offset_left = 398.0
-offset_top = 212.0
-offset_right = 597.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "0.0"
-align = 2
 
 [node name="Label70" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-offset_top = 265.0
-offset_right = 298.0
-offset_bottom = 314.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Bonus regen"
 
 [node name="BaseManaRegenBonus" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_float"]]
-offset_left = 398.0
-offset_top = 265.0
-offset_right = 597.0
-offset_bottom = 314.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "0.0"
-align = 2
 
 [node name="Label76" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-offset_top = 318.0
-offset_right = 298.0
-offset_bottom = 367.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Percent bonus"
 
 [node name="BaseManaRegenBonusPercent" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_percent_signed"]]
-offset_left = 398.0
-offset_top = 318.0
-offset_right = 597.0
-offset_bottom = 367.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "-27%"
-align = 2
 
 [node name="Label78" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
-offset_top = 371.0
-offset_right = 298.0
-offset_bottom = 420.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Overall mana reg"
 
 [node name="OverallManaRegen" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_float"]]
-offset_left = 398.0
-offset_top = 371.0
-offset_right = 597.0
-offset_bottom = 420.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "0.0"
-align = 2
 
 [node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
-offset_top = 855.0
-offset_right = 597.0
-offset_bottom = 904.0
-mouse_filter = 1
+layout_mode = 2
 
 [node name="Misc" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer5"]
-modulate = Color( 1, 0.733333, 0.129412, 1 )
-offset_right = 597.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(1, 0.733333, 0.129412, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Misc:"
 
 [node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
-offset_top = 908.0
-offset_right = 597.0
-offset_bottom = 1275.0
-mouse_filter = 1
+layout_mode = 2
 
 [node name="ManaContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6"]
-offset_right = 597.0
-offset_bottom = 367.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label40" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-offset_right = 294.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Bounty ratio"
 
 [node name="PropBountyReceived" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
-offset_left = 394.0
-offset_right = 597.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "160%"
-align = 2
 
 [node name="Label46" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-offset_top = 53.0
-offset_right = 294.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Exp ratio"
 
 [node name="ExpRatio" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
-offset_left = 394.0
-offset_top = 53.0
-offset_right = 597.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "186%"
-align = 2
 
 [node name="Label52" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-offset_top = 106.0
-offset_right = 294.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Item drop ratio"
 
 [node name="ItemDropRatio" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
-offset_left = 394.0
-offset_top = 106.0
-offset_right = 597.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "80%"
-align = 2
 
 [node name="Label58" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-offset_top = 159.0
-offset_right = 294.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Item quality ratio"
 
 [node name="ItemQualityRatio" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
-offset_left = 394.0
-offset_top = 159.0
-offset_right = 597.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "100%"
-align = 2
 
 [node name="Label66" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-offset_top = 212.0
-offset_right = 294.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Trigger chances"
 
 [node name="PropTriggerChances" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
-offset_left = 394.0
-offset_top = 212.0
-offset_right = 597.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "160%"
-align = 2
 
 [node name="Label70" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-offset_top = 265.0
-offset_right = 294.0
-offset_bottom = 314.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Buff duration"
 
 [node name="PropBuffDuration" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
-offset_left = 394.0
-offset_top = 265.0
-offset_right = 597.0
-offset_bottom = 314.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "170%"
-align = 2
 
 [node name="Label76" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
-offset_top = 318.0
-offset_right = 294.0
-offset_bottom = 367.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Debuff duration"
 
 [node name="PropDebuffDuration" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
-offset_left = 394.0
-offset_top = 318.0
-offset_right = 597.0
-offset_bottom = 367.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "31%"
-align = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
-offset_left = 1203.0
-offset_right = 1629.0
-offset_bottom = 1315.0
-mouse_filter = 1
-custom_constants/offset_right = 20
-custom_constants/offset_top = 20
-custom_constants/offset_left = 20
-custom_constants/offset_bottom = 20
+layout_mode = 2
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3"]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 406.0
-offset_bottom = 1295.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
-offset_right = 386.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="DamageRace" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer3"]
-modulate = Color( 0.6, 0.341176, 0.113725, 1 )
-offset_right = 386.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(0.6, 0.341176, 0.113725, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Damage to race:"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
-offset_top = 53.0
-offset_right = 386.0
-offset_bottom = 344.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="DamageRaceContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer"]
-offset_right = 386.0
-offset_bottom = 261.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
-offset_right = 181.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Undead"
 
 [node name="DamageToUndead" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
-offset_left = 281.0
-offset_right = 386.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "114%"
-align = 2
 
 [node name="Label15" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
-offset_top = 53.0
-offset_right = 181.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Magical"
 
 [node name="DamageToMagic" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
-offset_left = 281.0
-offset_top = 53.0
-offset_right = 386.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "100%"
-align = 2
 
 [node name="Label21" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
-offset_top = 106.0
-offset_right = 181.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Nature"
 
 [node name="DamageToNature" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
-offset_left = 281.0
-offset_top = 106.0
-offset_right = 386.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "80%"
-align = 2
 
 [node name="Label27" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
-offset_top = 159.0
-offset_right = 181.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Orc"
 
 [node name="DamageToOrc" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
-offset_left = 281.0
-offset_top = 159.0
-offset_right = 386.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "126%"
-align = 2
 
 [node name="Label32" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
-offset_top = 212.0
-offset_right = 181.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Humanoid"
 
 [node name="DamageToHumanoid" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
-offset_left = 281.0
-offset_top = 212.0
-offset_right = 386.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "100%"
-align = 2
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
-offset_top = 348.0
-offset_right = 386.0
-offset_bottom = 397.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="DamageSize" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer4"]
-modulate = Color( 0.6, 0.341176, 0.113725, 1 )
-offset_right = 386.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(0.6, 0.341176, 0.113725, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Damage to size:"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
-offset_top = 401.0
-offset_right = 386.0
-offset_bottom = 692.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="DamageSizeContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2"]
-offset_right = 386.0
-offset_bottom = 261.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label42" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
-offset_right = 176.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Mass"
 
 [node name="DamageToMass" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
-offset_left = 276.0
-offset_right = 386.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "125%"
-align = 2
 
 [node name="Label48" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
-offset_top = 53.0
-offset_right = 176.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Normal"
 
 [node name="DamageToNormal" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
-offset_left = 276.0
-offset_top = 53.0
-offset_right = 386.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "100%"
-align = 2
 
 [node name="Label54" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
-offset_top = 106.0
-offset_right = 176.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Air"
 
 [node name="DamageToAir" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
-offset_left = 276.0
-offset_top = 106.0
-offset_right = 386.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "95%"
-align = 2
 
 [node name="Label60" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
-offset_top = 159.0
-offset_right = 176.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Champion"
 
 [node name="DamageToChampion" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
-offset_left = 276.0
-offset_top = 159.0
-offset_right = 386.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "100%"
-align = 2
 
 [node name="Label64" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
-offset_top = 212.0
-offset_right = 176.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Boss"
 
 [node name="DamageToBoss" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
-offset_left = 276.0
-offset_top = 212.0
-offset_right = 386.0
-offset_bottom = 261.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "100%"
-align = 2
 
 [node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
 visible = false
-offset_top = 696.0
-offset_right = 478.0
-offset_bottom = 745.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="ItemSpecific" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer5"]
-modulate = Color( 0.6, 0.341176, 0.113725, 1 )
-offset_right = 478.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(0.6, 0.341176, 0.113725, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Item Specific"
 
 [node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
 visible = false
-offset_top = 696.0
-offset_right = 478.0
-offset_bottom = 934.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="ItemSpecificContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6"]
-offset_right = 478.0
-offset_bottom = 208.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
-offset_right = 202.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Damage"
 
 [node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
-offset_left = 302.0
-offset_right = 478.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "1,032,268"
-align = 2
 
 [node name="Label15" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
-offset_top = 53.0
-offset_right = 202.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "DPS Gained"
 
 [node name="Label16" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
-offset_left = 302.0
-offset_top = 53.0
-offset_right = 478.0
-offset_bottom = 102.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "4,000"
-align = 2
 
 [node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
-offset_top = 106.0
-offset_right = 202.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Crit Bonus"
 
 [node name="Label12" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
-offset_left = 302.0
-offset_top = 106.0
-offset_right = 478.0
-offset_bottom = 155.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "x3.005"
-align = 2
 
 [node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
-offset_top = 159.0
-offset_right = 202.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Crit Bonus"
 
 [node name="Label18" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer6/ItemSpecificContainer"]
-offset_left = 302.0
-offset_top = 159.0
-offset_right = 478.0
-offset_bottom = 208.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "x3.005"
-align = 2
 
 [node name="MarginContainer9" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
 visible = false
-offset_top = 696.0
-offset_right = 386.0
-offset_bottom = 745.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="UnitSpecific" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer9"]
-modulate = Color( 0.6, 0.341176, 0.113725, 1 )
-offset_right = 386.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(0.6, 0.341176, 0.113725, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Unit Specific"
 
 [node name="MarginContainer10" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
 visible = false
-offset_top = 696.0
-offset_right = 386.0
-offset_bottom = 775.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="UnitSpecificContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10"]
-offset_right = 386.0
-offset_bottom = 49.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label9" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10/UnitSpecificContainer"]
-offset_right = 217.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Skill Name 2"
 
 [node name="Label10" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer10/UnitSpecificContainer"]
-offset_left = 317.0
-offset_right = 386.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "160"
-align = 2
 
 [node name="MarginContainer7" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
-offset_top = 696.0
-offset_right = 386.0
-offset_bottom = 745.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="DisplayRanges" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer7"]
-modulate = Color( 0.6, 0.341176, 0.113725, 1 )
-offset_right = 386.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(0.6, 0.341176, 0.113725, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Display ranges:"
 
 [node name="MarginContainer8" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
-offset_top = 749.0
-offset_right = 386.0
-offset_bottom = 828.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="DisplayRangesContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8"]
-offset_right = 386.0
-offset_bottom = 49.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="Label42" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
-offset_right = 220.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Attack range"
 
 [node name="AttackRange" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer" groups=["tower_stat_int"]]
-offset_left = 320.0
-offset_right = 386.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "830"
-align = 2
 
 [node name="MultiboardContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
-offset_left = 1633.0
-offset_right = 2184.0
-offset_bottom = 1315.0
-mouse_filter = 1
-custom_constants/offset_right = 20
-custom_constants/offset_top = 20
-custom_constants/offset_left = 20
-custom_constants/offset_bottom = 20
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer"]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 531.0
-offset_bottom = 1295.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer"]
-offset_right = 511.0
-offset_bottom = 49.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer"]
-modulate = Color( 0.996078, 1, 0.596078, 1 )
-offset_right = 511.0
-offset_bottom = 49.0
-mouse_filter = 1
+modulate = Color(0.996078, 1, 0.596078, 1)
+layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 text = "Special:"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer"]
-offset_top = 53.0
-offset_right = 511.0
-offset_bottom = 132.0
-mouse_filter = 1
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/offset_bottom = 30
 
 [node name="MultiboardGrid" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2"]
-offset_right = 511.0
-offset_bottom = 49.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/h_separation = 100
 columns = 2
 
 [node name="ExampleKeyLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid"]
-offset_right = 211.0
-offset_bottom = 49.0
+layout_mode = 2
 text = "Placeholder:"
-__meta__ = {
-"_editor_description_": ""
-}
 
 [node name="ExampleValueLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid"]
-offset_left = 311.0
-offset_right = 511.0
-offset_bottom = 49.0
+layout_mode = 2
 text = "Placeholder"

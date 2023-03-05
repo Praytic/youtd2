@@ -1,33 +1,39 @@
-[gd_resource type="Theme" load_steps=16 format=2]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bql5sxaowafw3"]
 
-[ext_resource path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" type="FontFile" id=1]
-[ext_resource path="res://Assets/UI/HUD/day_time_icon.png" type="Texture2D" id=2]
-[ext_resource path="res://Resources/Theme/button_styleboxflat_disabled.tres" type="StyleBox" id=3]
-[ext_resource path="res://Resources/Theme/button_styleboxflat.tres" type="StyleBox" id=4]
-[ext_resource path="res://Resources/Theme/button_styleboxflat_hover.tres" type="StyleBox" id=5]
-[ext_resource path="res://Resources/Theme/button_styleboxflat_pressed.tres" type="StyleBox" id=6]
-[ext_resource path="res://Resources/Theme/button_styleboxflat_focus.tres" type="StyleBox" id=7]
+[ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
+[ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="2"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_disabled.tres" id="3"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat.tres" id="4"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_hover.tres" id="5"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_pressed.tres" id="6"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_focus.tres" id="7"]
 
-[sub_resource type="FontFile" id=1]
-size = 40
-use_mipmaps = true
-extra_spacing_top = 8
-font_data = ExtResource( 1 )
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("1")])
+face_index = null
+embolden = null
+transform = null
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.0470319, 0.0470319, 0.0664062, 1 )
+[sub_resource type="StyleBoxFlat" id="8"]
+bg_color = Color(0.0470319, 0.0470319, 0.0664062, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id=14]
-bg_color = Color( 0.0980392, 0.0980392, 0.141176, 0.45098 )
+[sub_resource type="StyleBoxFlat" id="14"]
+bg_color = Color(0.0980392, 0.0980392, 0.141176, 0.45098)
 border_width_left = 10
 border_width_top = 10
 border_width_right = 10
 border_width_bottom = 10
-border_color = Color( 0.8, 0.784314, 0.0156863, 1 )
+border_color = Color(0.8, 0.784314, 0.0156863, 1)
 corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
@@ -36,15 +42,15 @@ corner_detail = 10
 expand_margin_left = 10.0
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id=10]
+[sub_resource type="StyleBoxFlat" id="10"]
 content_margin_left = 2.0
-content_margin_right = 2.0
 content_margin_top = 2.0
+content_margin_right = 2.0
 content_margin_bottom = 2.0
-bg_color = Color( 0.137255, 0.133333, 0.152941, 1 )
+bg_color = Color(0.137255, 0.133333, 0.152941, 1)
 border_width_top = 2
 border_width_right = 2
-border_color = Color( 0.458824, 0.45098, 0, 1 )
+border_color = Color(0.458824, 0.45098, 0, 1)
 border_blend = true
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -52,19 +58,19 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 3
 shadow_size = 2
-shadow_offset = Vector2( 2, -2 )
+shadow_offset = Vector2(2, -2)
 
-[sub_resource type="StyleBoxEmpty" id=11]
+[sub_resource type="StyleBoxEmpty" id="11"]
 
-[sub_resource type="StyleBoxFlat" id=12]
+[sub_resource type="StyleBoxFlat" id="12"]
 content_margin_left = 2.0
-content_margin_right = 2.0
 content_margin_top = 2.0
+content_margin_right = 2.0
 content_margin_bottom = 4.0
-bg_color = Color( 0.0980392, 0.0980392, 0.141176, 1 )
+bg_color = Color(0.0980392, 0.0980392, 0.141176, 1)
 border_width_top = 2
 border_width_right = 2
-border_color = Color( 0.898039, 0.882353, 0, 1 )
+border_color = Color(0.898039, 0.882353, 0, 1)
 border_blend = true
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -72,13 +78,13 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 3
 shadow_size = 2
-shadow_offset = Vector2( 2, -2 )
+shadow_offset = Vector2(2, -2)
 
-[sub_resource type="StyleBoxFlat" id=9]
-bg_color = Color( 0.0980392, 0.0980392, 0.141176, 1 )
+[sub_resource type="StyleBoxFlat" id="9"]
+bg_color = Color(0.0980392, 0.0980392, 0.141176, 1)
 border_width_top = 2
 border_width_right = 2
-border_color = Color( 0.705882, 0.694118, 0, 1 )
+border_color = Color(0.705882, 0.694118, 0, 1)
 border_blend = true
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -86,53 +92,53 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 3
 shadow_size = 2
-shadow_offset = Vector2( 2, -2 )
+shadow_offset = Vector2(2, -2)
 
-[sub_resource type="StyleBoxFlat" id=13]
+[sub_resource type="StyleBoxFlat" id="13"]
 content_margin_left = 4.0
-content_margin_right = 2.0
 content_margin_top = 2.0
+content_margin_right = 2.0
 content_margin_bottom = 4.0
-bg_color = Color( 0.0980392, 0.0980392, 0.141176, 1 )
+bg_color = Color(0.0980392, 0.0980392, 0.141176, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color( 0.898039, 0.882353, 0, 1 )
+border_color = Color(0.898039, 0.882353, 0, 1)
 border_blend = true
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 3
-expand_margin_right = 2.0
 expand_margin_top = 2.0
+expand_margin_right = 2.0
 shadow_size = 1
 
 [resource]
-default_font = SubResource( 1 )
-Button/colors/font_color = Color( 0.878431, 0.878431, 0.878431, 0.894118 )
-Button/colors/font_color_disabled = Color( 0.360784, 0.360784, 0.360784, 0.517647 )
-Button/colors/font_color_hover = Color( 0.941176, 0.941176, 0.941176, 1 )
-Button/fonts/font = SubResource( 1 )
-Button/styles/disabled = ExtResource( 3 )
-Button/styles/focus = ExtResource( 7 )
-Button/styles/hover = ExtResource( 5 )
-Button/styles/normal = ExtResource( 4 )
-Button/styles/pressed = ExtResource( 6 )
-HudMarginContainer/base_type = "MarginContainer"
+default_font = SubResource("1")
+Button/colors/font_color = Color(0.878431, 0.878431, 0.878431, 0.894118)
+Button/colors/font_color_disabled = Color(0.360784, 0.360784, 0.360784, 0.517647)
+Button/colors/font_color_hover = Color(0.941176, 0.941176, 0.941176, 1)
+Button/fonts/font = SubResource("1")
+Button/styles/disabled = ExtResource("3")
+Button/styles/focus = ExtResource("7")
+Button/styles/hover = ExtResource("5")
+Button/styles/normal = ExtResource("4")
+Button/styles/pressed = ExtResource("6")
+HudMarginContainer/base_type = &"MarginContainer"
 HudMarginContainer/constants/margin_left = 40
 HudMarginContainer/constants/margin_right = 40
-Icons/icons/DayTime = ExtResource( 2 )
-Label/colors/font_color_shadow = Color( 0, 0, 0, 1 )
+Icons/icons/DayTime = ExtResource("2")
+Label/colors/font_color_shadow = Color(0, 0, 0, 1)
 Label/constants/shadow_offset_x = 2
 Label/constants/shadow_offset_y = 2
-Label/fonts/font = SubResource( 1 )
-ResourceTab/base_type = "Panel"
-ResourceTab/styles/panel = SubResource( 8 )
-TooltipPanel/styles/panel = SubResource( 14 )
-TowerButton/styles/disabled = SubResource( 10 )
-TowerButton/styles/focus = SubResource( 11 )
-TowerButton/styles/hover = SubResource( 12 )
-TowerButton/styles/normal = SubResource( 9 )
-TowerButton/styles/pressed = SubResource( 13 )
+Label/fonts/font = SubResource("1")
+ResourceTab/base_type = &"Panel"
+ResourceTab/styles/panel = SubResource("8")
+TooltipPanel/styles/panel = SubResource("14")
+TowerButton/styles/disabled = SubResource("10")
+TowerButton/styles/focus = SubResource("11")
+TowerButton/styles/hover = SubResource("12")
+TowerButton/styles/normal = SubResource("9")
+TowerButton/styles/pressed = SubResource("13")
