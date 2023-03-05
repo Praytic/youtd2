@@ -1,151 +1,18 @@
-; Project was converted by built-in tool to Godot 4.0
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
 config_version=5
-_global_script_classes=[{
-"base": "Node2D",
-"class": "Aura",
-"language": "GDScript",
-"path": "res://Scenes/Buffs/Aura.gd"
-}, {
-"base": "Node",
-"class": "Autocast",
-"language": "GDScript",
-"path": "res://Scenes/Towers/Autocast.gd"
-}, {
-"base": "Node2D",
-"class": "Buff",
-"language": "GDScript",
-"path": "res://Scenes/Buffs/Buff.gd"
-}, {
-"base": "Area2D",
-"class": "BuffRangeArea",
-"language": "GDScript",
-"path": "res://Scenes/Buffs/BuffRangeArea.gd"
-}, {
-"base": "Unit",
-"class": "Building",
-"language": "GDScript",
-"path": "res://Scenes/Towers/Building.gd"
-}, {
-"base": "Buff",
-"class": "CbStun",
-"language": "GDScript",
-"path": "res://Scenes/Buffs/CbStun.gd"
-}, {
-"base": "Node",
-"class": "Event",
-"language": "GDScript",
-"path": "res://Scenes/Towers/Event.gd"
-}, {
-"base": "Node",
-"class": "Item",
-"language": "GDScript",
-"path": "res://Scenes/Items/Item.gd"
-}, {
-"base": "Unit",
-"class": "ItemDrop",
-"language": "GDScript",
-"path": "res://Scenes/Items/ItemDrop.gd"
-}, {
-"base": "Buff",
-"class": "MagicalSightBuff",
-"language": "GDScript",
-"path": "res://Scenes/Buffs/MagicalSightBuff.gd"
-}, {
-"base": "Unit",
-"class": "Mob",
-"language": "GDScript",
-"path": "res://Scenes/Mobs/Mob.gd"
-}, {
-"base": "Node",
-"class": "Modification",
-"language": "GDScript",
-"path": "res://Scenes/Buffs/Modification.gd"
-}, {
-"base": "Node",
-"class": "Modifier",
-"language": "GDScript",
-"path": "res://Scenes/Buffs/Modifier.gd"
-}, {
-"base": "Node",
-"class": "MultiboardValues",
-"language": "GDScript",
-"path": "res://Scenes/MultiboardValues.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Projectile",
-"language": "GDScript",
-"path": "res://Scenes/Projectile.gd"
-}, {
-"base": "Node2D",
-"class": "RangeIndicator",
-"language": "GDScript",
-"path": "res://Scenes/Towers/RangeIndicator.gd"
-}, {
-"base": "Tower",
-"class": "SmallCactus1",
-"language": "GDScript",
-"path": "res://Scenes/Towers/Instances/SmallCactus1.gd"
-}, {
-"base": "Reference",
-"class": "TargetType",
-"language": "GDScript",
-"path": "res://Scenes/Buffs/TargetType.gd"
-}, {
-"base": "Building",
-"class": "Tower",
-"language": "GDScript",
-"path": "res://Scenes/Towers/Tower.gd"
-}, {
-"base": "Button",
-"class": "TowerButton",
-"language": "GDScript",
-"path": "res://Scenes/HUD/TowerButton.gd"
-}, {
-"base": "Node2D",
-"class": "TowerPreview",
-"language": "GDScript",
-"path": "res://Scenes/Towers/TowerPreview.gd"
-}, {
-"base": "Buff",
-"class": "TriggersBuff",
-"language": "GDScript",
-"path": "res://Scenes/Buffs/TriggersBuff.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Unit",
-"language": "GDScript",
-"path": "res://Scenes/Unit.gd"
-}]
-_global_script_class_icons={
-"Aura": "",
-"Autocast": "",
-"Buff": "",
-"BuffRangeArea": "",
-"Building": "",
-"CbStun": "",
-"Event": "",
-"Item": "",
-"ItemDrop": "",
-"MagicalSightBuff": "",
-"Mob": "",
-"Modification": "",
-"Modifier": "",
-"MultiboardValues": "",
-"Projectile": "",
-"RangeIndicator": "",
-"SmallCactus1": "",
-"TargetType": "",
-"Tower": "",
-"TowerButton": "",
-"TowerPreview": "",
-"TriggersBuff": "",
-"Unit": ""
-}
 
 [application]
 
 config/name="YouTD"
 run/main_scene="res://Scenes/GameScene.tscn"
+config/features=PackedStringArray("4.0")
 boot_splash/image="res://Assets/load_screen.png"
 config/icon="res://Assets/icon.png"
 
@@ -168,9 +35,8 @@ gdscript/warnings/return_value_discarded=false
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/fullscreen=true
 window/stretch/mode="2d"
-window/stretch/aspect="keep"
+window/size/fullscreen=true
 window/default_environment="res://default_env.tres"
 
 [editor_plugins]
@@ -257,7 +123,6 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-vram_compression/import_etc=true
-textures/vram_compression/import_etc2_astc=false
-quality/filters/msaa=1
 environment/defaults/default_environment="res://Resources/default_env.tres"
+vram_compression/import_etc=true
+quality/filters/msaa=1
