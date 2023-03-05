@@ -25,7 +25,7 @@ func _init():
 		var tower_scene_name: String = csv_properties[Tower.CsvProperty.SCENE_NAME]
 
 		var tower_scene_path: String = "%s/%s.tscn" % [towers_dir, tower_scene_name]
-		var tower_scene_exists: bool = File.new().file_exists(tower_scene_path)
+		var tower_scene_exists: bool = FileAccess.file_exists(tower_scene_path)
 
 		var tower_scene: PackedScene
 		if tower_scene_exists:
@@ -100,7 +100,7 @@ func _get_tower_script_path(id: int) -> String:
 	var script_name: String = scene_name.substr(0, scene_name.length() - 1)
 	var path: String = "%s/%s1.gd" % [towers_dir, script_name]
 
-	var script_exists: bool = File.new().file_exists(path)
+	var script_exists: bool = FileAccess.file_exists(path)
 
 	if script_exists:
 		return path

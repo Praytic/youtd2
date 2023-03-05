@@ -38,11 +38,11 @@ var _item_csv_properties: Dictionary = {} : get = get_item_csv_properties
 func _init():
 	waves.resize(3)
 	for wave_index in range(0, 3):
-		var wave_file: File = File.new()
 		var wave_file_name = "res://Assets/Waves/wave%d.json" % wave_index
-		var open_error = wave_file.open(wave_file_name, File.READ)
+		var wave_file: FileAccess = FileAccess.open(wave_file_name, FileAccess.READ)
 		
-		if open_error != OK:
+		if wave_file == null:
+			var open_error: Error = FileAccess.get_open_error()
 			push_error("Failed to open wave file at path: %s" % wave_file_name)
 			continue
 			
@@ -102,8 +102,7 @@ func get_tower_id_list_by_filter(tower_property: int, filter_value: String) -> A
 #########################
 
 func _load_csv_properties(properties_path: String, properties_dict: Dictionary, id_column: int):
-	var file: File = File.new()
-	file.open(properties_path, file.READ)
+	var file: FileAccess = FileAccess.open(properties_path, FileAccess.READ)
 
 	var skip_title_row: bool = true
 	while !file.eof_reached():

@@ -14,7 +14,7 @@ var _sfx_player_list: Array = []
 
 
 func sfx_at_unit(sfx_name: String, unit: Unit):
-	var sfx_exists: bool = File.new().file_exists(sfx_name)
+	var sfx_exists: bool = FileAccess.file_exists(sfx_name)
 
 	if !sfx_exists:
 		return
@@ -39,8 +39,7 @@ func sfx_on_unit(sfx_name: String, unit: Unit, _body_part: String):
 
 func list_files_in_directory(path: String, regex_search: RegEx = null) -> Array:
 	var files = []
-	var dir = Directory.new()
-	dir.open(path)
+	var dir = DirAccess.open(path)
 	dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	if not regex_search:
 		regex_search = RegEx.new()
@@ -173,10 +172,10 @@ func _load_sfx(sfx_name: String) -> AudioStreamMP3:
 
 		return AudioStreamMP3.new()
 
-	var file: File = File.new()
-	var open_error = file.open(sfx_name, File.READ)
+	var file: FileAccess = FileAccess.open(sfx_name, FileAccess.READ)
 
-	if open_error != OK:
+	if file == null:
+		var open_error: Error = FileAccess.get_open_error()
 		print_debug("Failed to open sfx file. Error: ", open_error)
 		file.close()
 
