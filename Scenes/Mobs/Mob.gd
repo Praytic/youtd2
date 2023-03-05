@@ -12,6 +12,7 @@ const MOVE_SPEED_MIN: float = 100.0
 const MOVE_SPEED_MAX: float = 500.0
 const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
 const SELECTION_SIZE: int = 64
+const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 
 var _path_curve: Curve2D
 var _current_path_index: int = 0
@@ -19,6 +20,7 @@ var _size: int = Unit.MobSize.NORMAL
 var _category: int = Unit.MobCategory.HUMANOID
 var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
+var _height_tween: Tween = null
 
 
 @onready var _visual = $Visual
@@ -103,22 +105,23 @@ func on_damaged(_event: Event):
 	_health_bar.set_as_ratio(_health / MOB_HEALTH_MAX)
 
 
-# TODO: update to new tween API
 func adjust_height(height: float, speed: float):
-	pass
-	# if _height_tween.is_active():
-	# 	var tween_runtime: float = _height_tween.get_runtime()
-	# 	_height_tween.seek(tween_runtime)
-	# 	_height_tween.remove_all()
+#	If a tween is already running, complete it instantly
+#	before starting new one.
+	if _height_tween != null:
+		if _height_tween.is_running():
+			_height_tween.custom_step(HEIGHT_TWEEN_FAST_FORWARD_DELTA)
 
-	# var duration: float = abs(height / speed)
+		_height_tween.kill()
+		_height_tween = null
 
-	# _height_tween.interpolate_property(_visual, "position",
-	# 	_visual.position,
-	# 	Vector2(_visual.position.x, _visual.position.y - height),
-	# 	duration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	_height_tween = create_tween()
 
-	# _height_tween.start()
+	var duration: float = abs(height / speed)
+
+	_height_tween.tween_property(_visual, "position",
+		Vector2(_visual.position.x, _visual.position.y - height),
+		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
 
 func _get_mob_animation() -> String:

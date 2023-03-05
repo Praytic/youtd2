@@ -1,9 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6jet2t80ftgv"]
+[gd_scene load_steps=2 format=3 uid="uid://vgeirnu7ramn"]
 
 [ext_resource type="Script" path="res://Scenes/FloatingText.gd" id="2"]
 
 [node name="FloatingText" type="Node2D"]
-scale = Vector2(1e-05, 1e-05)
 script = ExtResource("2")
 
 [node name="Label" type="Label" parent="."]
