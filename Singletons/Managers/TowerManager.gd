@@ -61,7 +61,7 @@ func _init():
 # script for tower and attach to scene. Script name matches
 # with scene name so this can be done automatically instead
 # of having to do it by hand in scene editor.
-func get_tower(id: int) -> PackedScene:
+func get_tower(id: int) -> Tower:
 	var scene: PackedScene = preloaded_towers[id]
 	var tower = scene.instantiate()
 	var tower_script_path: String = _get_tower_script_path(id)
@@ -76,9 +76,9 @@ func get_tower(id: int) -> PackedScene:
 	return tower
 
 
-func get_tower_visual_only(id: int) -> PackedScene:
+func get_tower_visual_only(id: int) -> Node:
 	var tower = get_tower(id)
-	var dummy_script = load("res://Scenes/Towers/Building.gd")
+	var dummy_script = load("res://Scenes/Towers/DummyScript.gd")
 
 	tower.set_script(dummy_script)
 
