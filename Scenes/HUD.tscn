@@ -1,13 +1,13 @@
 [gd_scene load_steps=19 format=3 uid="uid://bykghja01dyql"]
 
-[ext_resource type="PackedScene" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://dejhjhxmq2n2s" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://durx36ipud8jw" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="7"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://cb3g6yfe66prg" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
 
 [sub_resource type="AtlasTexture" id="16"]
@@ -54,6 +54,7 @@ anchor_right = 0.5
 offset_left = -960.0
 offset_right = 960.0
 offset_bottom = 1080.0
+grow_horizontal = 2
 theme = ExtResource("7")
 script = ExtResource("11")
 
@@ -115,8 +116,11 @@ offset_bottom = 367.0
 text = "GAME OVER"
 
 [node name="TopMenuBar" parent="." instance=ExtResource("6")]
-anchors_preset = 0
+layout_mode = 1
+anchor_right = 0.0
 anchor_bottom = 0.077
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Hints" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -139,7 +143,6 @@ text = "Build towers here
 --------------------->"
 
 [node name="TooltipHeader" parent="." instance=ExtResource("1")]
-anchors_preset = 0
 offset_left = 14.0
 offset_top = 88.0
 offset_right = 14.0
@@ -148,6 +151,8 @@ scale = Vector2(0.567118, 0.567118)
 
 [node name="TowerTooltip" parent="." instance=ExtResource("12")]
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = 15.0
 offset_top = 167.0
 offset_right = 15.0
@@ -254,7 +259,13 @@ script = ExtResource("2")
 visible = false
 custom_minimum_size = Vector2(300, 0)
 anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_top = 83.0
+offset_right = 400.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]
