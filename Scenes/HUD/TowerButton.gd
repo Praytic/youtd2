@@ -60,7 +60,7 @@ func _get_tower_button_tier_icon(icon_size: String) -> Texture2D:
 	else:
 		return _tower_button_fallback_icon
 	
-	icon.set_region_enabled(Rect2(tower_tier * size, tower_rarity * size, size, size))
+	icon.set_region(Rect2(tower_tier * size, tower_rarity * size, size, size))
 	return icon
 
 func _get_tower_button_icon(icon_size: String) -> Texture2D:
@@ -80,7 +80,7 @@ func _get_tower_button_icon(icon_size: String) -> Texture2D:
 		return _tower_button_fallback_icon
 	
 	var region: Rect2 = Rect2(_tower.get_element() * size, icon_atlas_num * size, size, size)
-	tower_icon.set_region_enabled(region)
+	tower_icon.set_region(region)
 
 	return tower_icon
 
