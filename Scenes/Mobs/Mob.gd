@@ -24,7 +24,6 @@ var _facing_angle: float = 0.0
 @onready var _visual = $Visual
 @onready var _sprite = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar
-@onready var _height_tween = $HeightTween
 
 
 func _ready():
@@ -104,20 +103,22 @@ func on_damaged(_event: Event):
 	_health_bar.set_as_ratio(_health / MOB_HEALTH_MAX)
 
 
+# TODO: update to new tween API
 func adjust_height(height: float, speed: float):
-	if _height_tween.is_active():
-		var tween_runtime: float = _height_tween.get_runtime()
-		_height_tween.seek(tween_runtime)
-		_height_tween.remove_all()
+	pass
+	# if _height_tween.is_active():
+	# 	var tween_runtime: float = _height_tween.get_runtime()
+	# 	_height_tween.seek(tween_runtime)
+	# 	_height_tween.remove_all()
 
-	var duration: float = abs(height / speed)
+	# var duration: float = abs(height / speed)
 
-	_height_tween.interpolate_property(_visual, "position",
-		_visual.position,
-		Vector2(_visual.position.x, _visual.position.y - height),
-		duration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	# _height_tween.interpolate_property(_visual, "position",
+	# 	_visual.position,
+	# 	Vector2(_visual.position.x, _visual.position.y - height),
+	# 	duration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 
-	_height_tween.start()
+	# _height_tween.start()
 
 
 func _get_mob_animation() -> String:
