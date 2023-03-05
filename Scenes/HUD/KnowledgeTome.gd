@@ -2,6 +2,8 @@
 extends "res://Scenes/HUD/ResourceStatusPanel.gd"
 
 func _ready():
+	super()
+
 	KnowledgeTomesManager.connect("knowledge_tomes_change",Callable(self,"_on_knowledge_tomes_change"))
 
 	var initial_value: int = KnowledgeTomesManager.knowledge_tomes

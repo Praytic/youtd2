@@ -18,6 +18,8 @@ func _init(radius: float):
 
 
 func _ready():
+	super()
+
 	var magical_sight_aura = magical_sight_aura_scene.instantiate()
 	magical_sight_aura.aura_range = _radius
 	magical_sight_aura.target_type = TargetType.new(TargetType.UnitType.MOBS)

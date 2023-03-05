@@ -17,7 +17,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	var tower = self
 
 	var specials_modifier: Modifier = Modifier.new()

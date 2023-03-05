@@ -13,7 +13,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Unit.ModType.MOD_DMG_TO_AIR, 0.70, 0.02)
 	add_modifier(specials_modifier)
