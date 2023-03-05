@@ -43,7 +43,7 @@ func _ready():
 # called by tooltip i guess?
 func on_tower_details() -> MultiboardValues:
 	var tower = self
-	m0ck_thief_multiboard.set_value(0, String(int(tower.user_real)))
+	m0ck_thief_multiboard.set_value(0, str(int(tower.user_real)))
 	return m0ck_thief_multiboard
 
 
