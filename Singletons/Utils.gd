@@ -68,13 +68,6 @@ func circle_shape_set_radius(collision_shape: CollisionShape2D, radius: float):
 	circle_shape.radius = radius
 
 
-# Returns random number in [value_min, value_max] range,
-# inclusive
-func randi_range(value_min: int, value_max: int):
-	var out = randi() % (value_max - value_min + 1) + value_min
-	return out
-
-
 # Chance should be in range [0.0, 1.0]
 # To get chance for event with 10% occurence, call rand_chance(0.1)
 func rand_chance(chance: float) -> bool:

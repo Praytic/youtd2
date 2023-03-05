@@ -7,9 +7,6 @@ var mobs_exit_count: int = 0
 @export var mobs_game_over_count: int = 10
 @export var ignore_game_over: bool = true
 
-func _ready():
-	randomize()
-
 
 func _on_HUD_start_wave(wave_index):
 	$Map/MobSpawner.start(wave_index)
