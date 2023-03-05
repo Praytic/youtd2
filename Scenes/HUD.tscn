@@ -117,10 +117,8 @@ text = "GAME OVER"
 
 [node name="TopMenuBar" parent="." instance=ExtResource("6")]
 layout_mode = 1
-anchor_right = 0.0
-anchor_bottom = 0.077
-grow_horizontal = 1
-grow_vertical = 1
+anchor_bottom = 0.0833333
+metadata/_edit_use_anchors_ = true
 
 [node name="Hints" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -157,6 +155,8 @@ offset_left = 15.0
 offset_top = 167.0
 offset_right = 15.0
 offset_bottom = 67.0
+grow_horizontal = 1
+grow_vertical = 1
 scale = Vector2(0.5, 0.5)
 
 [node name="BuildingMenuButton" type="Button" parent="."]
@@ -256,16 +256,12 @@ icon = SubResource("15")
 script = ExtResource("2")
 
 [node name="RightMenuBar" parent="." instance=ExtResource("5")]
-visible = false
 custom_minimum_size = Vector2(300, 0)
-anchors_preset = 0
-anchor_left = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_top = 83.0
-offset_right = 400.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.834896
+anchor_top = 0.0833333
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]

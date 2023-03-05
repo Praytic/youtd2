@@ -26,7 +26,6 @@ layout_mode = 3
 anchor_right = 1.0
 anchor_bottom = 0.08
 grow_horizontal = 2
-grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("3")
@@ -34,31 +33,36 @@ script = ExtResource("6")
 
 [node name="ColorRect" type="TextureRect" parent="."]
 self_modulate = Color(0.192157, 0.192157, 0.207843, 1)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("5")
 expand_mode = 1
-stretch_mode = 2
+stretch_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 405.0
-offset_bottom = 13.0
-scale = Vector2(0.715, 0.715)
+offset_right = 2440.0
+offset_bottom = 120.0
+scale = Vector2(0.786567, 0.724032)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="LeftTopBarMarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HudMarginContainer"
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="LeftTopBar" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftTopBarMarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="Button1" type="Button" parent="MarginContainer/HBoxContainer/LeftTopBarMarginContainer/LeftTopBar"]
 custom_minimum_size = Vector2(250, 80)
@@ -108,9 +112,12 @@ stretch_mode = 6
 [node name="RightTopBarMarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HudMarginContainer"
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="RightTopBar" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="Gold" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource("7")]
 layout_mode = 2
