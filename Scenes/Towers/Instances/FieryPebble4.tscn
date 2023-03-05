@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Assets/Towers/Instances/fiery_pebble_atlas.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Towers/Instances/fiery_pebble_atlas.png" type="Texture2D" id=1]
 [ext_resource path="res://Scenes/Towers/Instances/FieryPebble1.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Towers/Tower.tscn" type="PackedScene" id=3]
 
@@ -15,9 +15,9 @@ script = ExtResource( 2 )
 [node name="Model" type="Node2D" parent="." index="3"]
 position = Vector2( 0, -193 )
 
-[node name="Muzzle" type="Position2D" parent="Model" index="0"]
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
 position = Vector2( -1, 153 )
 
-[node name="Sprite" type="Sprite" parent="Model" index="1"]
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
 position = Vector2( 1, 149 )
 texture = SubResource( 2 )

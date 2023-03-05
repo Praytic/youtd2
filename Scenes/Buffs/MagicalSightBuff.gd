@@ -12,12 +12,12 @@ var magical_sight_aura_scene = preload("res://Scenes/Buffs/Aura.tscn")
 
 var _radius: float = 0.0
 
-func _init(radius: float).("magical_sight", 0, 0, true):
+func _init(radius: float,"magical_sight",0,0,true):
 	_radius = radius
 
 
 func _ready():
-	var magical_sight_aura = magical_sight_aura_scene.instance()
+	var magical_sight_aura = magical_sight_aura_scene.instantiate()
 	magical_sight_aura.aura_range = _radius
 	magical_sight_aura.target_type = TargetType.new(TargetType.UnitType.MOBS)
 	magical_sight_aura.target_self = false

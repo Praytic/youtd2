@@ -63,7 +63,7 @@ func _init():
 # of having to do it by hand in scene editor.
 func get_tower(id: int) -> PackedScene:
 	var scene: PackedScene = preloaded_towers[id]
-	var tower = scene.instance()
+	var tower = scene.instantiate()
 	var tower_script_path: String = _get_tower_script_path(id)
 	var tower_script = load(tower_script_path)
 	tower.set_script(tower_script)

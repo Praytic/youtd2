@@ -16,14 +16,14 @@ var _id_max: int = 0
 var _effect_map: Dictionary = {}
 var _free_id_list: Array = []
 
-onready var _effects_container: Node = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("EffectsContainer")
+@onready var _effects_container: Node = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("EffectsContainer")
 
 
 func _ready():
 	pass
 
 
-# NOTE: effect must be an AnimatedSprite scene
+# NOTE: effect must be an AnimatedSprite2D scene
 func create_animated(effect_path: String, x: float, y: float, _mystery1: float, _mystery2: float) -> int:
 	var directory = Directory.new();
 	var effect_path_exists: bool = directory.file_exists(effect_path)
@@ -34,7 +34,7 @@ func create_animated(effect_path: String, x: float, y: float, _mystery1: float, 
 		if PRINT_INVALID_PATH_ERROR:
 			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
 	
-	var effect_scene = load(effect_path).instance()
+	var effect_scene = load(effect_path).instantiate()
 	effect_scene.position = Vector2(x, y)
 	_effects_container.call_deferred("add_child", effect_scene)
 
@@ -60,7 +60,7 @@ func destroy_effect(effect_id: int):
 # 	NOTE: destroy effect after animation is finished so that
 # 	this function can be used to create an effect that is
 # 	destroyed after it's done animating
-	effect.connect("animation_finished", self, "_on_effect_animation_finished", [effect, effect_id])
+	effect.connect("animation_finished",Callable(self,"_on_effect_animation_finished").bind(effect, effect_id))
 
 
 # TODO: implement, no idea what this is supposed to do
@@ -69,7 +69,7 @@ func no_death_animation(_effect_id: int):
 
 
 func _make_effect_id() -> int:
-	if !_free_id_list.empty():
+	if !_free_id_list.is_empty():
 		var id: int = _free_id_list.pop_back()
 
 		return id

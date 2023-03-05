@@ -74,7 +74,7 @@ var event_handler_map: Dictionary = {}
 # your buff and multiple active instances of the buff on one
 # unit are allowed. For example, buffs that are used solely
 # to add event handlers should have empty type.
-func _init(type: String, time_base: float, time_level_add: float, friendly: bool):
+func _init(type: String,time_base: float,time_level_add: float,friendly: bool):
 	_type = type
 	_time_base = time_base
 	_time_level_add = time_level_add
@@ -89,7 +89,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 
 # 	Don't do any override logic for buffs with empty type
 # 	and allow stacking multiple instances of same type.
-	var need_override_logic: bool = !get_type().empty()
+	var need_override_logic: bool = !get_type().is_empty()
 
 	if need_override_logic:
 		var can_apply: bool = _check_can_apply_to_unit(target)
@@ -104,18 +104,18 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 
 	_target = target
 	_target._add_buff_internal(self)
-	_target.connect("death", self, "_on_target_death")
-	_target.connect("kill", self, "_on_target_kill")
-	_target.connect("level_up", self, "_on_target_level_up")
-	_target.connect("attack", self, "_on_target_attack")
-	_target.connect("attacked", self, "_on_target_attacked")
-	_target.connect("damage", self, "_on_target_damage")
-	_target.connect("damaged", self, "_on_target_damaged")
+	_target.connect("death",Callable(self,"_on_target_death"))
+	_target.connect("kill",Callable(self,"_on_target_kill"))
+	_target.connect("level_up",Callable(self,"_on_target_level_up"))
+	_target.connect("attack",Callable(self,"_on_target_attack"))
+	_target.connect("attacked",Callable(self,"_on_target_attacked"))
+	_target.connect("damage",Callable(self,"_on_target_damage"))
+	_target.connect("damaged",Callable(self,"_on_target_damaged"))
 
 	if time > 0.0:
 		var timer: Timer = Timer.new()
 		add_child(timer)
-		timer.connect("timeout", self, "_on_timer_timeout")
+		timer.connect("timeout",Callable(self,"_on_timer_timeout"))
 
 		var buff_duration_mod: float = _caster.get_prop_buff_duration()
 		var debuff_duration_mod: float = _target.get_prop_debuff_duration()
@@ -231,7 +231,7 @@ func add_periodic_event(handler_object: Node, handler_function: String, period: 
 	timer.wait_time = period
 	timer.one_shot = false
 	timer.autostart = true
-	timer.connect("timeout", self, "_on_periodic_event_timer_timeout", [handler_object, handler_function, timer])
+	timer.connect("timeout",Callable(self,"_on_periodic_event_timer_timeout").bind(handler_object, handler_function, timer))
 
 
 func add_event_handler_unit_comes_in_range(handler_object: Node, handler_function: String, radius: float, target_type: TargetType):
@@ -239,17 +239,17 @@ func add_event_handler_unit_comes_in_range(handler_object: Node, handler_functio
 		return
 
 	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
-	var buff_range_area = buff_range_area_scene.instance()
+	var buff_range_area = buff_range_area_scene.instantiate()
 #	NOTE: use call_deferred() adding child immediately causes an error about
 # 	setting shape during query flushing
 	call_deferred("add_child", buff_range_area)
 	buff_range_area.init(radius, target_type, handler_object, handler_function)
 
-	buff_range_area.connect("unit_came_in_range", self, "_on_unit_came_in_range")
+	buff_range_area.connect("unit_came_in_range",Callable(self,"_on_unit_came_in_range"))
 
 
 func add_autocast(autocast_data: Autocast.Data, handler_object, handler_function: String) -> Autocast:
-	var autocast_scene = load("res://Scenes/Towers/Autocast.tscn").instance()
+	var autocast_scene = load("res://Scenes/Towers/Autocast.tscn").instantiate()
 	autocast_scene.set_data(autocast_data, handler_object, handler_function)
 	add_child(autocast_scene)
 

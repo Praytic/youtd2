@@ -6,7 +6,7 @@ signal item_dropped(item_id)
 
 var random: RandomNumberGenerator = RandomNumberGenerator.new()
 
-onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
+@onready var mob_ysort: Node2D = get_node("%Map").get_node("MobYSort")
 
 
 #########################
@@ -32,7 +32,7 @@ func _on_Mob_death(event):
 		
 		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % [rarity_name]
 		var item_drop_scene = load(item_drop_scene_path)
-		var item_drop = item_drop_scene.instance()
+		var item_drop = item_drop_scene.instantiate()
 		item_drop.set_id(item_id)
 		item_drop.position = event.get_target().position
 		mob_ysort.add_child(item_drop, true)

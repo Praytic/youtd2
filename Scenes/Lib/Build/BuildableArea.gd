@@ -1,6 +1,6 @@
 extends TileMap
 
-export(bool) var buildable = true
+@export var buildable: bool = true
 
 func _ready():
 	hide()

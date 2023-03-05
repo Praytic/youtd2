@@ -10,7 +10,7 @@ extends Unit
 const SELECTION_SIZE = 32
 
 
-var _id: int = 0 setget set_id, get_id
+var _id: int = 0 : get = get_id, set = set_id
 
 
 # NOTE: this must be called once after the itemdrop is created

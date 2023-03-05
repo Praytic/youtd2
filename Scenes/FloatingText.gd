@@ -1,12 +1,12 @@
 extends Node2D
 
 
-onready var tween: Tween = $Tween
-onready var label: Label = $Label
+@onready var tween: Tween = $Tween
+@onready var label: Label = $Label
 
 var text: String = "placeholder"
 var duration: float = 1.0
-var color: Color = Color.white
+var color: Color = Color.WHITE
 
 
 func _ready():

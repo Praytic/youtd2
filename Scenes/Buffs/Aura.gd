@@ -37,9 +37,9 @@ var create_aura_effect_function: String = ""
 var caster: Unit = null
 var create_aura_effect_object = null
 
-onready var _timer = $Timer
-onready var _area = $Area2D
-onready var _area_shape = $Area2D/CollisionShape2D
+@onready var _timer = $Timer
+@onready var _area = $Area2D
+@onready var _area_shape = $Area2D/CollisionShape2D
 
 
 func _ready():

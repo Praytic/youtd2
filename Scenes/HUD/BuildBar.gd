@@ -1,17 +1,17 @@
 extends GridContainer
 
 
-export (bool) var unlimited_towers = false
+@export (bool) var unlimited_towers = false
 
-onready var builder_control = get_tree().current_scene.get_node(@"%BuilderControl")
+@onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
 # Dictionary of all in-game towers with the associated buttons
-onready var _tower_buttons: Dictionary = {}
+@onready var _tower_buttons: Dictionary = {}
 # Adds every tower button possible to the list.
 # Although, this is a mutable list, so every time
 # you build a tower, the ID of the tower is removed from this list.
 # If you want unlimited tower buttons in the panel, switch the flag
 # 'unlimited towers' to 'true'.
-onready var available_tower_buttons: Array
+@onready var available_tower_buttons: Array
 
 
 var current_element: int
@@ -32,7 +32,7 @@ func remove_tower_button(tower_id):
 
 func _ready():
 	if not unlimited_towers:
-		builder_control.connect("tower_built", self, "_on_Tower_built")
+		builder_control.connect("tower_built",Callable(self,"_on_Tower_built"))
 		
 	for tower_id in Properties.get_tower_id_list():
 		var tower_button = _create_TowerButton(tower_id)
@@ -72,7 +72,7 @@ func _on_RightMenuBar_element_changed(element: int):
 func _create_TowerButton(tower_id) -> TowerButton:
 	var tower_button = TowerButton.new()
 	tower_button.set_tower(TowerManager.get_tower(tower_id))
-	tower_button.connect("pressed", builder_control, "on_build_button_pressed", [tower_id])
+	tower_button.connect("pressed",Callable(builder_control,"on_build_button_pressed").bind(tower_id))
 	return tower_button
 
 

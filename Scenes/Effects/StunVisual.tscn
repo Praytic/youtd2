@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Assets/Effects/stun.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Effects/stun.png" type="Texture2D" id=1]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -50,7 +50,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="StunVisual" type="AnimatedSprite"]
+[node name="StunVisual" type="AnimatedSprite2D"]
 modulate = Color( 0.376471, 0.831373, 0.921569, 1 )
 position = Vector2( 0, -150 )
 scale = Vector2( 3, 2 )

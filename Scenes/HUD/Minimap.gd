@@ -1,13 +1,13 @@
 extends Control
 
-onready var default_camera = get_node("%Camera")
-onready var minimap_camera = $ViewportContainer/Viewport/MinimapCamera
-onready var minimap_texture = $ViewportContainer/Viewport/MinimapTexture
-onready var camera_projection = $ViewportContainer/Viewport/CameraProjection
-onready var mobs_projection = $ViewportContainer/Viewport/MobsProjection
-onready var map = get_node("%Map")
-onready var mobs = map.get_node("MobYSort")
-onready var minimap_scale: float
+@onready var default_camera = get_node("%Camera3D")
+@onready var minimap_camera = $SubViewportContainer/SubViewport/MinimapCamera
+@onready var minimap_texture = $SubViewportContainer/SubViewport/MinimapTexture
+@onready var camera_projection = $SubViewportContainer/SubViewport/CameraProjection
+@onready var mobs_projection = $SubViewportContainer/SubViewport/MobsProjection
+@onready var map = get_node("%Map")
+@onready var mobs = map.get_node("MobYSort")
+@onready var minimap_scale: float
 
 func _ready():
 	minimap_camera.position = minimap_texture.get_rect().get_center()
@@ -41,11 +41,11 @@ func _update_view_rect():
 
 func _on_MobYSort_child_entered_tree(_mob):
 	pass
-#	mob.connect("moved", self, "_on_Mob_moved", [mob])
+#	mob.connect("moved",Callable(self,"_on_Mob_moved").bind(mob))
 
 
 func _on_MobYSort_child_exiting_tree(mob):
-	# mob.disconnect("moved", self, "_on_Mob_moved")
+	# mob.disconnect("moved",Callable(self,"_on_Mob_moved"))
 	mobs_projection.pos_dict.erase(mob)
 
 

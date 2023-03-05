@@ -1,22 +1,22 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Towers/Tower.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Environment/Props/floor.png" type="Texture" id=3]
-[ext_resource path="res://Assets/icon.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Environment/Props/floor.png" type="Texture2D" id=3]
+[ext_resource path="res://Assets/icon.png" type="Texture2D" id=4]
 [ext_resource path="res://Scenes/Towers/RangeIndicator.gd" type="Script" id=5]
 
-[node name="Tower" type="KinematicBody2D"]
+[node name="Tower" type="CharacterBody2D"]
 script = ExtResource( 2 )
 
-[node name="Base" type="Sprite" parent="."]
+[node name="Base" type="Sprite2D" parent="."]
 position = Vector2( 0, -192 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2( 1, 0.5 )
-polygon = PoolVector2Array( 0, -128, 128, 0, 0, 128, -128, 0 )
+polygon = PackedVector2Array( 0, -128, 128, 0, 0, 128, -128, 0 )
 
-[node name="DefaultSprite" type="Sprite" parent="."]
+[node name="DefaultSprite" type="Sprite2D" parent="."]
 visible = false
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )

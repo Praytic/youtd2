@@ -3,11 +3,11 @@
 [ext_resource path="res://Scenes/HUD/Gold.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD/KnowledgeTome.gd" type="Script" id=2]
 [ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=3]
-[ext_resource path="res://Assets/UI/HUD/day_time_icon.png" type="Texture" id=4]
-[ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/HUD/day_time_icon.png" type="Texture2D" id=4]
+[ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture2D" id=5]
 [ext_resource path="res://Scenes/HUD/TopMenuBar.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/HUD/ResourceStatusPanel.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/Towers/tower_icons_s.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Towers/tower_icons_s.png" type="Texture2D" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -45,129 +45,129 @@ stretch_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 405.0
-margin_bottom = 13.0
-rect_scale = Vector2( 0.715, 0.715 )
-custom_constants/margin_right = 60
-custom_constants/margin_top = 20
-custom_constants/margin_left = 60
-custom_constants/margin_bottom = 20
+offset_right = 405.0
+offset_bottom = 13.0
+scale = Vector2( 0.715, 0.715 )
+custom_constants/offset_right = 60
+custom_constants/offset_top = 20
+custom_constants/offset_left = 60
+custom_constants/offset_bottom = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-margin_left = 60.0
-margin_top = 20.0
-margin_right = 2623.0
-margin_bottom = 101.0
+offset_left = 60.0
+offset_top = 20.0
+offset_right = 2623.0
+offset_bottom = 101.0
 alignment = 1
 
 [node name="LeftTopBarMarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
-margin_right = 1197.0
-margin_bottom = 81.0
+offset_right = 1197.0
+offset_bottom = 81.0
 theme_type_variation = "HudMarginContainer"
 
 [node name="LeftTopBar" type="HBoxContainer" parent="MarginContainer/HBoxContainer/LeftTopBarMarginContainer"]
-margin_left = 40.0
-margin_right = 1157.0
-margin_bottom = 81.0
+offset_left = 40.0
+offset_right = 1157.0
+offset_bottom = 81.0
 custom_constants/separation = 39
 
 [node name="Button1" type="Button" parent="MarginContainer/HBoxContainer/LeftTopBarMarginContainer/LeftTopBar"]
-margin_right = 250.0
-margin_bottom = 81.0
-rect_min_size = Vector2( 250, 80 )
+offset_right = 250.0
+offset_bottom = 81.0
+custom_minimum_size = Vector2( 250, 80 )
 focus_mode = 0
 shortcut_in_tooltip = false
 button_mask = 0
-enabled_focus_mode = 0
+focus_mode = 0
 text = "Settings"
 clip_text = true
 
 [node name="Button2" type="Button" parent="MarginContainer/HBoxContainer/LeftTopBarMarginContainer/LeftTopBar"]
-margin_left = 289.0
-margin_right = 539.0
-margin_bottom = 81.0
-rect_min_size = Vector2( 250, 80 )
+offset_left = 289.0
+offset_right = 539.0
+offset_bottom = 81.0
+custom_minimum_size = Vector2( 250, 80 )
 focus_mode = 0
 shortcut_in_tooltip = false
 button_mask = 0
-enabled_focus_mode = 0
+focus_mode = 0
 text = "Menu"
 clip_text = true
 
 [node name="Button3" type="Button" parent="MarginContainer/HBoxContainer/LeftTopBarMarginContainer/LeftTopBar"]
-margin_left = 578.0
-margin_right = 828.0
-margin_bottom = 81.0
-rect_min_size = Vector2( 250, 80 )
+offset_left = 578.0
+offset_right = 828.0
+offset_bottom = 81.0
+custom_minimum_size = Vector2( 250, 80 )
 focus_mode = 0
 shortcut_in_tooltip = false
 button_mask = 0
-enabled_focus_mode = 0
+focus_mode = 0
 text = "Quests"
 clip_text = true
 
 [node name="Button4" type="Button" parent="MarginContainer/HBoxContainer/LeftTopBarMarginContainer/LeftTopBar"]
-margin_left = 867.0
-margin_right = 1117.0
-margin_bottom = 81.0
-rect_min_size = Vector2( 250, 80 )
+offset_left = 867.0
+offset_right = 1117.0
+offset_bottom = 81.0
+custom_minimum_size = Vector2( 250, 80 )
 focus_mode = 0
 shortcut_in_tooltip = false
 button_mask = 0
-enabled_focus_mode = 0
+focus_mode = 0
 text = "About"
 clip_text = true
 
 [node name="MiddleTopMarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 1201.0
-margin_right = 1389.0
-margin_bottom = 81.0
+offset_left = 1201.0
+offset_right = 1389.0
+offset_bottom = 81.0
 theme_type_variation = "HudMarginContainer"
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MiddleTopMarginContainer"]
-margin_left = 40.0
-margin_right = 148.0
-margin_bottom = 81.0
+offset_left = 40.0
+offset_right = 148.0
+offset_bottom = 81.0
 texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="RightTopBarMarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
-margin_left = 1393.0
-margin_right = 2563.0
-margin_bottom = 81.0
+offset_left = 1393.0
+offset_right = 2563.0
+offset_bottom = 81.0
 theme_type_variation = "HudMarginContainer"
 
 [node name="RightTopBar" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer"]
-margin_left = 40.0
-margin_right = 1130.0
-margin_bottom = 81.0
+offset_left = 40.0
+offset_right = 1130.0
+offset_bottom = 81.0
 custom_constants/separation = 30
 
 [node name="Gold" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
-margin_bottom = 81.0
+offset_bottom = 81.0
 script = ExtResource( 1 )
 icon_texture = SubResource( 1 )
 default_label_text = "0"
 
 [node name="Food" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
-margin_left = 280.0
-margin_right = 530.0
-margin_bottom = 81.0
+offset_left = 280.0
+offset_right = 530.0
+offset_bottom = 81.0
 icon_texture = SubResource( 2 )
 default_label_text = "0"
 
 [node name="KnowledgeTome" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
-margin_left = 560.0
-margin_right = 810.0
-margin_bottom = 81.0
+offset_left = 560.0
+offset_right = 810.0
+offset_bottom = 81.0
 script = ExtResource( 2 )
 icon_texture = SubResource( 3 )
 default_label_text = "0"
 
 [node name="AboutCreators" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource( 7 )]
-margin_left = 840.0
-margin_right = 1090.0
-margin_bottom = 81.0
-hint_tooltip = "Remake developers: Praytic & kevl
+offset_left = 840.0
+offset_right = 1090.0
+offset_bottom = 81.0
+tooltip_text = "Remake developers: Praytic & kevl
 Original idea by: geX"
 default_label_text = "Creators"

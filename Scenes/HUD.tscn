@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/HUD/TooltipHeader.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/HUD/ElementGroupButton.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Towers/tower_icons_s.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Towers/tower_icons_s.png" type="Texture2D" id=4]
 [ext_resource path="res://Scenes/HUD/RightMenuBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/HUD/TopMenuBar.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=7]
@@ -58,9 +58,9 @@ region = Rect2( 192, 0, 64, 64 )
 [node name="HUD" type="Control"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -960.0
-margin_right = 960.0
-margin_bottom = 1080.0
+offset_left = -960.0
+offset_right = 960.0
+offset_bottom = 1080.0
 theme = ExtResource( 7 )
 script = ExtResource( 11 )
 __meta__ = {
@@ -70,47 +70,47 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -168.0
-margin_right = 561.0
-margin_bottom = 167.0
-rect_scale = Vector2( 0.5, 0.5 )
+offset_top = -168.0
+offset_right = 561.0
+offset_bottom = 167.0
+scale = Vector2( 0.5, 0.5 )
 
 [node name="StartWaveButton" type="Button" parent="VBoxContainer"]
-margin_right = 561.0
-margin_bottom = 81.0
+offset_right = 561.0
+offset_bottom = 81.0
 focus_mode = 0
-enabled_focus_mode = 0
+focus_mode = 0
 text = "Start wave"
 
 [node name="StopWaveButton" type="Button" parent="VBoxContainer"]
-margin_top = 85.0
-margin_right = 561.0
-margin_bottom = 166.0
+offset_top = 85.0
+offset_right = 561.0
+offset_bottom = 166.0
 focus_mode = 0
-enabled_focus_mode = 0
+focus_mode = 0
 text = "Stop wave"
 
 [node name="WaveProgressLabel" type="Label" parent="VBoxContainer"]
-margin_top = 170.0
-margin_right = 561.0
-margin_bottom = 219.0
+offset_top = 170.0
+offset_right = 561.0
+offset_bottom = 219.0
 text = "Wave progress (PLACEHOLDER)"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 223.0
-margin_right = 561.0
-margin_bottom = 282.0
+offset_top = 223.0
+offset_right = 561.0
+offset_bottom = 282.0
 
 [node name="WaveLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_top = 5.0
-margin_right = 110.0
-margin_bottom = 54.0
+offset_top = 5.0
+offset_right = 110.0
+offset_bottom = 54.0
 text = "Wave:"
 
 [node name="WaveEdit" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
-margin_left = 114.0
-margin_right = 272.0
-margin_bottom = 59.0
+offset_left = 114.0
+offset_right = 272.0
+offset_bottom = 59.0
 focus_next = NodePath("../../..")
 focus_previous = NodePath("../../..")
 focus_mode = 1
@@ -118,72 +118,72 @@ min_value = 1.0
 value = 1.0
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 286.0
-margin_right = 561.0
-margin_bottom = 335.0
+offset_top = 286.0
+offset_right = 561.0
+offset_bottom = 335.0
 
 [node name="MobCountLeft" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_right = 228.0
-margin_bottom = 49.0
+offset_right = 228.0
+offset_bottom = 49.0
 text = "Mobs exited:"
 
 [node name="MobCountRight" type="Label" parent="VBoxContainer/HBoxContainer2"]
-margin_left = 232.0
-margin_right = 499.0
-margin_bottom = 49.0
+offset_left = 232.0
+offset_right = 499.0
+offset_bottom = 49.0
 text = "PLACEHOLDER"
 
 [node name="GameOverLabel" type="Label" parent="."]
 visible = false
-margin_top = 353.0
-margin_right = 1280.0
-margin_bottom = 367.0
+offset_top = 353.0
+offset_right = 1280.0
+offset_bottom = 367.0
 text = "GAME OVER"
 
 [node name="TopMenuBar" parent="." instance=ExtResource( 6 )]
 anchor_bottom = 0.077
 
 [node name="Hints" type="RichTextLabel" parent="."]
-margin_left = 798.0
-margin_top = 505.0
-margin_right = 1498.0
-margin_bottom = 605.0
-rect_scale = Vector2( 0.525227, 0.545393 )
+offset_left = 798.0
+offset_top = 505.0
+offset_right = 1498.0
+offset_bottom = 605.0
+scale = Vector2( 0.525227, 0.545393 )
 text = "Move camera: WASD
 Zoom camera: Mouse wheel, touchpad"
 
 [node name="Hints2" type="RichTextLabel" parent="."]
-margin_left = 1560.0
-margin_top = 1010.0
-margin_right = 2260.0
-margin_bottom = 1110.0
-rect_scale = Vector2( 0.525227, 0.545393 )
+offset_left = 1560.0
+offset_top = 1010.0
+offset_right = 2260.0
+offset_bottom = 1110.0
+scale = Vector2( 0.525227, 0.545393 )
 text = "Build towers here
 --------------------->"
 
 [node name="TooltipHeader" parent="." instance=ExtResource( 1 )]
-margin_left = 14.0
-margin_top = 88.0
-margin_right = 14.0
-margin_bottom = 88.0
-rect_scale = Vector2( 0.567118, 0.567118 )
+offset_left = 14.0
+offset_top = 88.0
+offset_right = 14.0
+offset_bottom = 88.0
+scale = Vector2( 0.567118, 0.567118 )
 
 [node name="TowerTooltip" parent="." instance=ExtResource( 12 )]
-margin_left = 15.0
-margin_top = 167.0
-margin_right = 15.0
-margin_bottom = 67.0
-rect_scale = Vector2( 0.5, 0.5 )
+offset_left = 15.0
+offset_top = 167.0
+offset_right = 15.0
+offset_bottom = 67.0
+scale = Vector2( 0.5, 0.5 )
 
 [node name="BuildingMenuButton" type="Button" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -88.0
-margin_top = -78.0
-margin_right = -22.0
-margin_bottom = -12.0
+offset_left = -88.0
+offset_top = -78.0
+offset_right = -22.0
+offset_bottom = -12.0
 theme_type_variation = "TowerButton"
 icon = SubResource( 16 )
 
@@ -192,10 +192,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -170.0
-margin_top = -78.0
-margin_right = -104.0
-margin_bottom = -12.0
+offset_left = -170.0
+offset_top = -78.0
+offset_right = -104.0
+offset_bottom = -12.0
 theme_type_variation = "TowerButton"
 icon = SubResource( 17 )
 
@@ -205,24 +205,24 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -235.0
-margin_top = -510.0
-custom_constants/margin_right = 5
-custom_constants/margin_top = 5
-custom_constants/margin_left = 5
-custom_constants/margin_bottom = 5
+offset_left = -235.0
+offset_top = -510.0
+custom_constants/offset_right = 5
+custom_constants/offset_top = 5
+custom_constants/offset_left = 5
+custom_constants/offset_bottom = 5
 script = ExtResource( 15 )
 
 [node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 230.0
-margin_bottom = 505.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 230.0
+offset_bottom = 505.0
 mouse_filter = 0
 
 [node name="IronButton" type="Button" parent="MarginContainer/HBoxContainer"]
-margin_right = 225.0
-margin_bottom = 66.0
+offset_right = 225.0
+offset_bottom = 66.0
 theme_type_variation = "TowerButton"
 text = "Iron"
 icon = SubResource( 11 )
@@ -231,9 +231,9 @@ script = ExtResource( 2 )
 element = 5
 
 [node name="FireButton" type="Button" parent="MarginContainer/HBoxContainer"]
-margin_top = 70.0
-margin_right = 225.0
-margin_bottom = 136.0
+offset_top = 70.0
+offset_right = 225.0
+offset_bottom = 136.0
 theme_type_variation = "TowerButton"
 text = "Fire"
 icon = SubResource( 12 )
@@ -242,9 +242,9 @@ script = ExtResource( 2 )
 element = 2
 
 [node name="NatureButton" type="Button" parent="MarginContainer/HBoxContainer"]
-margin_top = 140.0
-margin_right = 225.0
-margin_bottom = 206.0
+offset_top = 140.0
+offset_right = 225.0
+offset_bottom = 206.0
 theme_type_variation = "TowerButton"
 text = "Nature"
 icon = SubResource( 18 )
@@ -253,9 +253,9 @@ script = ExtResource( 2 )
 element = 1
 
 [node name="IceButton" type="Button" parent="MarginContainer/HBoxContainer"]
-margin_top = 210.0
-margin_right = 225.0
-margin_bottom = 276.0
+offset_top = 210.0
+offset_right = 225.0
+offset_bottom = 276.0
 theme_type_variation = "TowerButton"
 text = "Ice"
 icon = SubResource( 9 )
@@ -264,9 +264,9 @@ script = ExtResource( 2 )
 element = 0
 
 [node name="StormButton" type="Button" parent="MarginContainer/HBoxContainer"]
-margin_top = 280.0
-margin_right = 225.0
-margin_bottom = 346.0
+offset_top = 280.0
+offset_right = 225.0
+offset_bottom = 346.0
 theme_type_variation = "TowerButton"
 text = "Storm"
 icon = SubResource( 13 )
@@ -275,9 +275,9 @@ script = ExtResource( 2 )
 element = 6
 
 [node name="DarknessButton" type="Button" parent="MarginContainer/HBoxContainer"]
-margin_top = 350.0
-margin_right = 225.0
-margin_bottom = 416.0
+offset_top = 350.0
+offset_right = 225.0
+offset_bottom = 416.0
 theme_type_variation = "TowerButton"
 text = "Darkness"
 icon = SubResource( 14 )
@@ -286,9 +286,9 @@ script = ExtResource( 2 )
 element = 4
 
 [node name="AstralButton" type="Button" parent="MarginContainer/HBoxContainer"]
-margin_top = 420.0
-margin_right = 225.0
-margin_bottom = 486.0
+offset_top = 420.0
+offset_right = 225.0
+offset_bottom = 486.0
 theme_type_variation = "TowerButton"
 text = "Astral"
 icon = SubResource( 15 )
@@ -297,8 +297,8 @@ script = ExtResource( 2 )
 
 [node name="RightMenuBar" parent="." instance=ExtResource( 5 )]
 visible = false
-margin_top = 83.0
-rect_min_size = Vector2( 300, 0 )
+offset_top = 83.0
+custom_minimum_size = Vector2( 300, 0 )
 
 [connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]

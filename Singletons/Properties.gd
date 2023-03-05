@@ -27,8 +27,8 @@ const item_csv_properties_path = "res://Assets/item_properties.csv"
 const tower_csv_properties_path = "res://Assets/tower_properties.csv"
 
 var waves = []
-var _tower_csv_properties: Dictionary = {} setget ,get_tower_csv_properties
-var _item_csv_properties: Dictionary = {} setget ,get_item_csv_properties
+var _tower_csv_properties: Dictionary = {} : get = get_tower_csv_properties
+var _item_csv_properties: Dictionary = {} : get = get_item_csv_properties
 
 
 #########################
@@ -47,7 +47,9 @@ func _init():
 			continue
 			
 		var wave_text: String = wave_file.get_as_text()
-		var parsed_json = JSON.parse(wave_text)
+		var test_json_conv = JSON.new()
+		test_json_conv.parse(wave_text)
+		var parsed_json = test_json_conv.get_data()
 		waves[wave_index] = parsed_json
 	
 	_load_csv_properties(tower_csv_properties_path, _tower_csv_properties, Tower.CsvProperty.ID)
@@ -72,7 +74,7 @@ func get_tower_csv_properties_by_filter(tower_property: int, filter_value: Strin
 	for tower_id in _tower_csv_properties.keys():
 		if _tower_csv_properties[tower_id][tower_property] == filter_value:
 			result_list_of_dicts.append(_tower_csv_properties[tower_id])
-	if result_list_of_dicts.empty():
+	if result_list_of_dicts.is_empty():
 		print_debug("Failed to find tower by property [%s=%s]. ", \
 			"Check for typos in tower .csv file." % \
 			[Tower.CsvProperty.keys()[tower_property], filter_value])
@@ -105,7 +107,7 @@ func _load_csv_properties(properties_path: String, properties_dict: Dictionary, 
 
 	var skip_title_row: bool = true
 	while !file.eof_reached():
-		var csv_line: PoolStringArray = file.get_csv_line()
+		var csv_line: PackedStringArray = file.get_csv_line()
 
 		if skip_title_row:
 			skip_title_row = false

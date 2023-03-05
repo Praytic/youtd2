@@ -4,12 +4,12 @@ extends Control
 signal start_wave(wave_index)
 signal stop_wave()
 
-onready var element_buttons_parent = $MarginContainer/HBoxContainer
+@onready var element_buttons_parent = $MarginContainer/HBoxContainer
 
 
 func _ready():
 	for element_button in element_buttons_parent.get_children():
-		element_button.connect("pressed", self, "_on_element_button_pressed", [element_button])
+		element_button.connect("pressed",Callable(self,"_on_element_button_pressed").bind(element_button))
 	
 	$TowerTooltip.hide()
 	$TooltipHeader.hide()
@@ -48,8 +48,8 @@ func _on_RightMenuBar_tower_info_canceled():
 
 
 func _on_MobYSort_child_entered_tree(node):
-		node.connect("selected", self, "_on_Unit_selected", [node])
-		node.connect("unselected", self, "_on_Unit_unselected", [node])
+		node.connect("selected",Callable(self,"_on_Unit_selected").bind(node))
+		node.connect("unselected",Callable(self,"_on_Unit_unselected").bind(node))
 
 
 func _on_Unit_selected(unit):

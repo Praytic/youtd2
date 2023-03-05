@@ -2,7 +2,7 @@ extends Node
 
 signal knowledge_tomes_change(value)
 
-var knowledge_tomes: int setget set_knowledge_tomes
+var knowledge_tomes: int : set = set_knowledge_tomes
 var income: int = Properties.globals["ini_knowledge_tomes_income"]
 var max_kt: int = Properties.globals["max_knowledge_tomes"]
 

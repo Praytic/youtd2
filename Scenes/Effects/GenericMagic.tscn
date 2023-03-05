@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Assets/Effects/GenericMagic.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Effects/GenericMagic.png" type="Texture2D" id=1]
 
 [sub_resource type="AtlasTexture" id=6]
 flags = 4
@@ -50,6 +50,6 @@ animations = [ {
 "speed": 15.0
 } ]
 
-[node name="GenericMagic" type="AnimatedSprite"]
+[node name="GenericMagic" type="AnimatedSprite2D"]
 scale = Vector2( 8, 6 )
 frames = SubResource( 5 )

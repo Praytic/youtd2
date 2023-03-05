@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Selection.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Atlas/Barrels.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Atlas/Barrels.png" type="Texture2D" id=2]
 [ext_resource path="res://Scenes/Items/ItemDrop.gd" type="Script" id=3]
 
 [sub_resource type="AtlasTexture" id=2]
@@ -9,13 +9,13 @@ flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 84, 382, 79, 83 )
 
-[node name="Item" type="KinematicBody2D"]
+[node name="Item" type="CharacterBody2D"]
 script = ExtResource( 3 )
 
 [node name="Selection" type="Node2D" parent="."]
 script = ExtResource( 1 )
 
-[node name="Base" type="Sprite" parent="."]
+[node name="Base" type="Sprite2D" parent="."]
 modulate = Color( 0.517647, 0.215686, 0.878431, 1 )
 position = Vector2( -5, -9.75791 )
 scale = Vector2( 0.490507, 0.490507 )
@@ -24,4 +24,4 @@ texture = SubResource( 2 )
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -2, -5 )
 scale = Vector2( 1, 0.5 )
-polygon = PoolVector2Array( 15, -44, 14, 28, -10, 28, -12, -42 )
+polygon = PackedVector2Array( 15, -44, 14, 28, -10, 28, -12, -42 )
