@@ -12,7 +12,8 @@ var magical_sight_aura_scene = preload("res://Scenes/Buffs/Aura.tscn")
 
 var _radius: float = 0.0
 
-func _init(radius: float,"magical_sight",0,0,true):
+func _init(radius: float):
+	super("magical_sight", 0, 0, true)
 	_radius = radius
 
 

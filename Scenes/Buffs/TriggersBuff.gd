@@ -5,5 +5,5 @@ extends Buff
 # triggers (event handlers). Can create without having to
 # pass unimportant parameters to constructor.
 
-func _init("",0,0,true):
-	pass
+func _init():
+	super("", 0, 0, true)
