@@ -204,7 +204,7 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.get_button_index() == MOUSE_BUTTON_LEFT or event.get_button_index() == MOUSE_BUTTON_RIGHT:
-			var is_inside: bool = Geometry.is_point_in_polygon(
+			var is_inside: bool = Geometry2D.is_point_in_polygon(
 				$CollisionShape2D.get_local_mouse_position(), 
 				$CollisionShape2D.polygon)
 			if is_inside:
