@@ -12,7 +12,7 @@ func _get_tier_stats() -> Dictionary:
 }
 
 
-func _ready():
+func _tower_init():
 	var on_attack_buff = TriggersBuff.new()
 	on_attack_buff.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 	on_attack_buff.apply_to_unit_permanent(self, self, 0)

@@ -30,7 +30,7 @@ var _modifier: Modifier = Modifier.new()
 
 
 func _ready():
-	pass
+	_item_init()
 
 
 # TODO: implement checks for max item count
@@ -52,6 +52,10 @@ func remove_from_tower():
 
 # 	TODO: where does item go after it's removed from
 # 	carrier? queue_free() or reparent to some new node?
+
+# Override in subclass to initialize subclass item
+func _item_init():
+	pass
 
 
 # Override in subclass to define adding of effects from

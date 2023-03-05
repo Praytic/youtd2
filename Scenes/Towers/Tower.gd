@@ -79,6 +79,8 @@ var _attack_style: int = AttackStyle.NORMAL
 #########################
 
 func _ready():
+	super()
+
 	_is_tower = true
 
 # 	Load stats for current tier. Stats are defined in
@@ -111,6 +113,8 @@ func _ready():
 	_attack_autocast = attack_buff.add_autocast(attack_autocast_data, self, "_on_attack_autocast")
 	attack_buff.apply_to_unit_permanent(self, self, 0)
 
+	_tower_init()
+
 
 #########################
 ###       Public      ###
@@ -138,6 +142,12 @@ func on_tower_details() -> MultiboardValues:
 #########################
 ###      Private      ###
 #########################
+
+
+# Override in subclass to initialize subclass tower
+func _tower_init():
+	pass
+
 
 func _set_attack_style_splash(splash_map: Dictionary):
 	_attack_style = AttackStyle.SPLASH

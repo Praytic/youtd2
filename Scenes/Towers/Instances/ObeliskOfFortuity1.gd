@@ -11,7 +11,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	var warming_up = TriggersBuff.new()
 	warming_up.add_event_on_damage(self, "on_damage", 1.0, 0.0)
 	warming_up.apply_to_unit_permanent(self, self, 0)

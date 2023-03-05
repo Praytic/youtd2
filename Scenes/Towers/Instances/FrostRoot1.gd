@@ -11,7 +11,7 @@ func _get_tier_stats() -> Dictionary:
 		6: {damage = 2500, damage_add = 100},
 	}
 
-func _ready():
+func _tower_init():
 	var on_damage_buff: Buff = TriggersBuff.new()
 	on_damage_buff.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 

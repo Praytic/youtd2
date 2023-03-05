@@ -2,6 +2,8 @@
 extends "res://Scenes/HUD/ResourceStatusPanel.gd"
 
 func _ready():
+	super()
+
 	GoldManager.connect("gold_change",Callable(self,"_on_gold_change"))
 
 	var initial_value: int = int(GoldManager.gold)

@@ -11,5 +11,5 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	_set_attack_style_splash({_stats.splash_radius: 0.25})
