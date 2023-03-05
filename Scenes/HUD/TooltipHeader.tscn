@@ -6,11 +6,11 @@
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("2")
-region = Rect2(0, 0, 128, 128)
+region = Rect2(2.08165e-12, 2.08165e-12, 64, 64)
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = SubResource("2")
-region = Rect2(0, 0, 64, 64)
+region = Rect2(2.08165e-12, 2.08165e-12, 64, 64)
 
 [node name="TooltipHeader" type="Control"]
 layout_mode = 3
@@ -89,6 +89,7 @@ layout_mode = 2
 unique_name_in_owner = true
 modulate = Color(1, 0.984314, 0, 1)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_type_variation = &"TowerButton"
 toggle_mode = true
 icon = SubResource("1")

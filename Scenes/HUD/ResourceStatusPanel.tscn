@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxqvh5d2q75op"]
+[gd_scene load_steps=4 format=3 uid="uid://cxqvh5d2q75op"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="2"]
 [ext_resource type="Script" path="res://Scenes/HUD/ResourceStatusPanel.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="3_bnx02"]
 
 [node name="ResourceStatusPanel" type="Panel"]
 custom_minimum_size = Vector2(250, 80)
@@ -15,6 +16,10 @@ script = ExtResource("3")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -24,6 +29,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
+texture = ExtResource("3_bnx02")
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
@@ -31,4 +37,7 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 8.0
+text = "Placeholder"
+horizontal_alignment = 2
+vertical_alignment = 2
 clip_text = true
