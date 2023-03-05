@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=3]
-[ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture2D" id=5]
 [ext_resource path="res://Scenes/HUD/RightMenuBar.gd" type="Script" id=6]
 [ext_resource path="res://Scenes/HUD/BuildBar.gd" type="Script" id=7]
 
@@ -11,7 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
-rect_min_size = Vector2( 400, 0 )
+custom_minimum_size = Vector2( 400, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 3 )
@@ -30,31 +30,31 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-margin_right = 400.0
-margin_bottom = 1000.0
-rect_min_size = Vector2( 400, 1000 )
+offset_right = 400.0
+offset_bottom = 1000.0
+custom_minimum_size = Vector2( 400, 1000 )
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+offset_right = 40.0
+offset_bottom = 40.0
+custom_constants/offset_right = 20
+custom_constants/offset_top = 20
+custom_constants/offset_left = 20
+custom_constants/offset_bottom = 20
 
 [node name="ItemBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
 visible = false
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 20.0
-margin_bottom = 20.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
 columns = 4
 
 [node name="BuildBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 20.0
-margin_bottom = 20.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
 columns = 4
 script = ExtResource( 7 )
 

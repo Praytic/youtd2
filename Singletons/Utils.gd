@@ -1,13 +1,13 @@
 extends Node
 
 
-onready var floating_text_scene: PackedScene = preload("res://Scenes/FloatingText.tscn")
+@onready var floating_text_scene: PackedScene = preload("res://Scenes/FloatingText.tscn")
 
 # Map position is free if it contains only ground tiles
 static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 	return buildable_area.get_cellv(pos) != TileMap.INVALID_CELL
-onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("MobYSort")
-onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
+@onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("MobYSort")
+@onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 
 var _loaded_sfx_map: Dictionary = {}
 var _sfx_player_list: Array = []
@@ -41,7 +41,7 @@ func list_files_in_directory(path: String, regex_search: RegEx = null) -> Array:
 	var files = []
 	var dir = Directory.new()
 	dir.open(path)
-	dir.list_dir_begin()
+	dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 	if not regex_search:
 		regex_search = RegEx.new()
 		regex_search.compile("^(?!\\.).*$")
@@ -110,13 +110,13 @@ class DistanceSorter:
 func sort_unit_list_by_distance(unit_list: Array, position: Vector2):
 	var sorter: DistanceSorter = DistanceSorter.new()
 	sorter.origin = position
-	unit_list.sort_custom(sorter, "sort")
+	unit_list.sort_custom(Callable(sorter,"sort"))
 
 
 # TODO: figure out what are the mystery float parameters,
 # probably related to tween
 func display_floating_text_x(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, _mystery_float_1: float, _mystery_float_2: float, time: float):
-	var floating_text = floating_text_scene.instance()
+	var floating_text = floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = Color(color_r / 255.0, color_g / 255.0, color_b / 255.0)
 	floating_text.duration = time
@@ -140,7 +140,7 @@ func shuffle_list(list) -> Array:
 
 	var sorted: Array = []
 
-	while !index_list.empty():
+	while !index_list.is_empty():
 		var random_index_of_index: int = randi_range(0, index_list.size() - 1)
 		var random_index: int = index_list.pop_at(random_index_of_index)
 		sorted.append(list[random_index])
@@ -182,7 +182,7 @@ func _load_sfx(sfx_name: String) -> AudioStreamMP3:
 
 		return AudioStreamMP3.new()
 
-	var bytes = file.get_buffer(file.get_len())
+	var bytes = file.get_buffer(file.get_length())
 	var stream: AudioStreamMP3 = AudioStreamMP3.new()
 	stream.data = bytes
 

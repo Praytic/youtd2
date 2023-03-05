@@ -50,7 +50,7 @@ func on_tower_details() -> MultiboardValues:
 func on_damage(event: Event):
 	var tower = self
 
-	var projectile = _projectile_scene.instance()
+	var projectile = _projectile_scene.instantiate()
 	projectile.create_interpolate("Abilities/Weapons/WardenMissile/WardenMissile.mdl", 1000)
 	projectile.set_event_on_interpolation_finished(self, "steal")
 	projectile.create_linear_interpolation_from_unit_to_unit(tower, 0, 0, event.get_target(), tower, 0, true)

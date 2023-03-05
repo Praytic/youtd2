@@ -1,5 +1,5 @@
 class_name Unit
-extends KinematicBody2D
+extends CharacterBody2D
 
 # Unit is a base class for Towers and Mobs. Keeps track of
 # buffs and modifications. Emits signals for events which are used by buffs.
@@ -142,14 +142,14 @@ var user_real2: float = 0.0
 var user_real3: float = 0.0
 
 var _is_dead: bool = false
-var _level: int = 1 setget set_level, get_level
+var _level: int = 1 : get = get_level, set = set_level
 var _buff_map: Dictionary
 var _direct_modifier_list: Array
 var _health: float = 0.0
 var _mod_value_map: Dictionary = {}
 var _invisible: bool = false
-var _selection_size: int setget , get_selection_size
-var _selected: bool = false setget , is_selected
+var _selection_size: int : get = get_selection_size
+var _selected: bool = false : get = is_selected
 
 # This is the count of towers that are currently able to see
 # this invisible mob. If there any towers that can see this
@@ -203,7 +203,7 @@ func _ready():
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
-		if event.get_button_index() == BUTTON_LEFT or event.get_button_index() == BUTTON_RIGHT:
+		if event.get_button_index() == MOUSE_BUTTON_LEFT or event.get_button_index() == MOUSE_BUTTON_RIGHT:
 			var is_inside: bool = Geometry.is_point_in_polygon(
 				$CollisionShape2D.get_local_mouse_position(), 
 				$CollisionShape2D.polygon)
@@ -414,7 +414,7 @@ func _accept_kill(target: Unit, is_main_target: bool):
 func _add_buff_internal(buff):
 	var buff_type: String = buff.get_type()
 	_buff_map[buff_type] = buff
-	buff.connect("removed", self, "_on_buff_removed", [buff])
+	buff.connect("removed",Callable(self,"_on_buff_removed").bind(buff))
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), 1)
 	add_child(buff)

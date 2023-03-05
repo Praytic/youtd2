@@ -21,17 +21,17 @@ var movement_enabled: bool = true
 var _facing_angle: float = 0.0
 
 
-onready var _visual = $Visual
-onready var _sprite = $Visual/Sprite
-onready var _health_bar = $Visual/HealthBar
-onready var _height_tween = $HeightTween
+@onready var _visual = $Visual
+@onready var _sprite = $Visual/Sprite2D
+@onready var _health_bar = $Visual/HealthBar
+@onready var _height_tween = $HeightTween
 
 
 func _ready():
 	_is_mob = true
 	_health = MOB_HEALTH_MAX
 
-	connect("damaged", self, "on_damaged")
+	connect("damaged",Callable(self,"on_damaged"))
 
 
 func _process(delta):
@@ -50,7 +50,7 @@ func _move(delta):
 	var reached_path_point: bool = (position == path_point)
 
 	var move_direction: Vector2 = path_point - position
-	var move_angle: float = rad2deg(move_direction.angle())
+	var move_angle: float = rad_to_deg(move_direction.angle())
 
 #	NOTE: on path turns, the move angle becomes 0 for some
 #	reason so don't update unit facing during that period
@@ -141,9 +141,9 @@ func _get_move_speed() -> float:
 	var mod: float = get_prop_move_speed()
 	var mod_absolute: float = get_prop_move_speed_absolute()
 	var unclamped: float = base * mod + mod_absolute
-	var clamped: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped))
+	var limit_length: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped))
 
-	return clamped
+	return limit_length
 
 
 func get_selection_size():

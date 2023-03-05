@@ -1,13 +1,13 @@
 extends Control
 
 
-onready var _tower_stat_int_labels: Array = get_tree().get_nodes_in_group("tower_stat_int")
-onready var _tower_stat_float_labels: Array = get_tree().get_nodes_in_group("tower_stat_float")
-onready var _tower_stat_percent_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent")
-onready var _tower_stat_percent_signed_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent_signed")
-onready var _tower_stat_multiplier_labels: Array = get_tree().get_nodes_in_group("tower_stat_multiplier")
-onready var _multiboard_container: MarginContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer
-onready var _multiboard_grid: GridContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid
+@onready var _tower_stat_int_labels: Array = get_tree().get_nodes_in_group("tower_stat_int")
+@onready var _tower_stat_float_labels: Array = get_tree().get_nodes_in_group("tower_stat_float")
+@onready var _tower_stat_percent_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent")
+@onready var _tower_stat_percent_signed_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent_signed")
+@onready var _tower_stat_multiplier_labels: Array = get_tree().get_nodes_in_group("tower_stat_multiplier")
+@onready var _multiboard_container: MarginContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer
+@onready var _multiboard_grid: GridContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid
 
 
 func _ready():

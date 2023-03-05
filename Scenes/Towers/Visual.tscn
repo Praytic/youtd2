@@ -7,12 +7,12 @@ script/source = "extends Node2D
 func _ready():
 	pass
 
-onready var visual = $Visual
+@onready var visual = $Visual
 "
 
 [node name="Visual" type="Node2D"]
 script = SubResource( 1 )
 
 [node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+offset_right = 40.0
+offset_bottom = 14.0

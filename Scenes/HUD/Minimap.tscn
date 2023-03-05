@@ -3,28 +3,28 @@
 [ext_resource path="res://Scenes/HUD/CameraProjection.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/HUD/Minimap.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/HUD/MobsProjection.gd" type="Script" id=3]
-[ext_resource path="res://Assets/UI/HUD/minimap.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/HUD/minimap.png" type="Texture2D" id=4]
 
 [node name="Minimap" type="Control"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -216.0
-margin_top = -216.0
-rect_min_size = Vector2( 216, 216 )
+offset_left = -216.0
+offset_top = -216.0
+custom_minimum_size = Vector2( 216, 216 )
 script = ExtResource( 2 )
 
-[node name="ViewportContainer" type="ViewportContainer" parent="."]
-rect_min_size = Vector2( 216, 216 )
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+custom_minimum_size = Vector2( 216, 216 )
 
-[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 size = Vector2( 216, 216 )
 handle_input_locally = false
 render_target_update_mode = 3
 gui_snap_controls_to_pixels = false
 
-[node name="MinimapCamera" type="Camera2D" parent="ViewportContainer/Viewport"]
+[node name="MinimapCamera" type="Camera2D" parent="SubViewportContainer/SubViewport"]
 current = true
 zoom = Vector2( 3, 3 )
 limit_left = -772
@@ -32,19 +32,19 @@ limit_top = 193
 limit_right = 772
 limit_bottom = 965
 limit_smoothed = true
-smoothing_enabled = true
+follow_smoothing_enabled = true
 
-[node name="MinimapTexture" type="TextureRect" parent="ViewportContainer/Viewport"]
-margin_left = -772.0
-margin_top = 193.0
-margin_right = 772.0
-margin_bottom = 965.0
-rect_min_size = Vector2( 1544, 772 )
+[node name="MinimapTexture" type="TextureRect" parent="SubViewportContainer/SubViewport"]
+offset_left = -772.0
+offset_top = 193.0
+offset_right = 772.0
+offset_bottom = 965.0
+custom_minimum_size = Vector2( 1544, 772 )
 texture = ExtResource( 4 )
 stretch_mode = 4
 
-[node name="CameraProjection" type="Node2D" parent="ViewportContainer/Viewport"]
+[node name="CameraProjection" type="Node2D" parent="SubViewportContainer/SubViewport"]
 script = ExtResource( 1 )
 
-[node name="MobsProjection" type="Node2D" parent="ViewportContainer/Viewport"]
+[node name="MobsProjection" type="Node2D" parent="SubViewportContainer/SubViewport"]
 script = ExtResource( 3 )
