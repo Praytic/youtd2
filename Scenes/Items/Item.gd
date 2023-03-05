@@ -78,7 +78,7 @@ func set_id(id: int):
 func get_id() -> int:
 	return _id
 
-func get_name() -> String:
+func get_item_name() -> String:
 	return get_property(CsvProperty.NAME)
 
 func get_author() -> String:

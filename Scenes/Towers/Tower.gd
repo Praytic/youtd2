@@ -117,7 +117,7 @@ func _ready():
 #########################
 
 # TODO: implement. Also move to the "owner" class that is
-# returned by get_owner(), when owner gets implemented. Find
+# returned by getOwner(), when owner gets implemented. Find
 # out what mystery bools are for.
 func give_gold(amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
 	GoldManager.add_gold(amount)
@@ -382,7 +382,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 ### Setters / Getters ###
 #########################
 
-func get_name() -> String:
+func get_item_name() -> String:
 	return get_csv_property(CsvProperty.NAME)
 
 
@@ -445,8 +445,8 @@ func remove_exp_flat(_amount: float):
 # TODO: i think this is supposed to return the player that
 # owns the tower? Implement later. For now implementing
 # owner's function in tower itself and returning tower from
-# get_owner()
-func get_owner():
+# getOwner()
+func getOwner():
 	return self
 
 
