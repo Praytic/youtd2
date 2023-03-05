@@ -36,7 +36,7 @@ func _update_view_rect():
 	
 	camera_projection.position = projection_pos
 	camera_projection.set_size(projection_size)
-	camera_projection.update()
+	camera_projection.queue_redraw()
 
 
 func _on_MobYSort_child_entered_tree(_mob):
