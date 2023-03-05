@@ -71,9 +71,9 @@ func _on_Timer_timeout():
 	
 	if group_ended:
 #		Go to next group
-		var wave_ended = _group_index == _group_list.size() - 1
+		var wave_is_over = _group_index == _group_list.size() - 1
 		
-		if wave_ended:
+		if wave_is_over:
 			emit_signal("wave_ended", _group_index)
 			return
 		

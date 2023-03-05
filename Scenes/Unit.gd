@@ -10,7 +10,7 @@ extends CharacterBody2D
 signal level_up
 signal attack(event)
 signal attacked(event)
-signal damage(event)
+signal dealt_damage(event)
 signal damaged(event)
 signal kill(event)
 signal death(event)
@@ -356,7 +356,7 @@ func _receive_attack():
 # recursion of DAMAGE events causing infinite DAMAGE events.
 func _do_damage(target: Unit, damage: float, is_main_target: bool):
 	var damage_event: Event = Event.new(target, damage, is_main_target)
-	emit_signal("damage", damage_event)
+	emit_signal("dealt_damage", damage_event)
 
 	target._receive_damage(self, damage_event.damage, is_main_target)
 
@@ -673,8 +673,8 @@ func get_selection_size():
 func is_selected() -> bool:
 	return _selected
 
-func set_selected(selected: bool):
-	if selected:
+func set_selected(selected_arg: bool):
+	if selected_arg:
 		_select()
 	else:
 		_unselect()

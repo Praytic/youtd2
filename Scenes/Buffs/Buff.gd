@@ -109,7 +109,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	_target.connect("level_up",Callable(self,"_on_target_level_up"))
 	_target.connect("attack",Callable(self,"_on_target_attack"))
 	_target.connect("attacked",Callable(self,"_on_target_attacked"))
-	_target.connect("damage",Callable(self,"_on_target_damage"))
+	_target.connect("dealt_damage",Callable(self,"_on_target_dealt_damage"))
 	_target.connect("damaged",Callable(self,"_on_target_damaged"))
 
 	if time > 0.0:
@@ -360,7 +360,7 @@ func _on_target_attacked(event: Event):
 	_call_event_handler_list(Event.Type.ATTACKED, event)
 
 
-func _on_target_damage(event: Event):
+func _on_target_dealt_damage(event: Event):
 	_call_event_handler_list(Event.Type.DAMAGE, event)
 
 

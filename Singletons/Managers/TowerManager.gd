@@ -5,8 +5,6 @@ var preloaded_towers: Dictionary
 const towers_dir: String = "res://Scenes/Towers/Instances"
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 const PRINT_SCENE_NOT_FOUND_ERROR: bool = false
-var _tower_name_to_id_map: Dictionary = {}
-var _tower_id_to_name_map: Dictionary = {}
 var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 # var tower_props: Dictionary
 
