@@ -21,7 +21,7 @@ func _physics_process(delta):
 		if move_direction.abs() == Vector2.ONE:
 			diagonal_modif *= sqrt(2.0)/2.0
 		var shift_vector: Vector2 = move_direction * delta * cam_move_speed * diagonal_modif
-		position = get_camera_position() + shift_vector
+		position = get_screen_center_position() + shift_vector
 		
 		emit_signal("camera_moved", shift_vector)
 
