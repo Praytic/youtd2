@@ -54,4 +54,4 @@ func _on_damage(event: Event):
 		tower.user_real = 0
 
 	if event.damage > damage:
-		Utils.display_small_floating_text(String(int(event.damage)), tower, 255, 150, 150, 0)
+		Utils.display_small_floating_text(str(int(event.damage)), tower, 255, 150, 150, 0)
