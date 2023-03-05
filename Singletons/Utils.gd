@@ -176,7 +176,7 @@ func _load_sfx(sfx_name: String) -> AudioStreamMP3:
 
 	if file == null:
 		var open_error: Error = FileAccess.get_open_error()
-		print_debug("Failed to open sfx file. Error: ", open_error)
+		print_debug("Failed to open sfx file: %s. Error: %s" % [sfx_name, open_error])
 		file.close()
 
 		return AudioStreamMP3.new()

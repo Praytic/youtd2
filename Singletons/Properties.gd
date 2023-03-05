@@ -43,7 +43,7 @@ func _init():
 		
 		if wave_file == null:
 			var open_error: Error = FileAccess.get_open_error()
-			push_error("Failed to open wave file at path: %s" % wave_file_name)
+			push_error("Failed to open wave file at path: %s. Error: %s" % [wave_file_name, open_error])
 			continue
 			
 		var wave_text: String = wave_file.get_as_text()
