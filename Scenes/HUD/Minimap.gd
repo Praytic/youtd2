@@ -18,7 +18,7 @@ func _ready():
 
 
 func _on_Camera_camera_moved(shift_vector):
-	minimap_camera.position = minimap_camera.get_camera_position() + \
+	minimap_camera.position = minimap_camera.get_screen_center_position() + \
 		shift_vector * minimap_scale
 	_update_view_rect()
 
