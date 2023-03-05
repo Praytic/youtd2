@@ -27,11 +27,11 @@ func _ready():
 func start(wave_index: int):
 	var parsed_json = Properties.waves[wave_index]
 	
-	if parsed_json == null || parsed_json.result == null:
+	if parsed_json == null:
 		push_error("wave json file is malformed, file=wave%s.json" % wave_index)
 		return
 		
-	_group_list = parsed_json.result
+	_group_list = parsed_json
 	_group_index = 0
 	_mob_index = 0
 	_mob_spawned_count = 0

@@ -47,9 +47,7 @@ func _init():
 			continue
 			
 		var wave_text: String = wave_file.get_as_text()
-		var test_json_conv = JSON.new()
-		test_json_conv.parse(wave_text)
-		var parsed_json = test_json_conv.get_data()
+		var parsed_json: Variant = JSON.parse_string(wave_text)
 		waves[wave_index] = parsed_json
 	
 	_load_csv_properties(tower_csv_properties_path, _tower_csv_properties, Tower.CsvProperty.ID)
