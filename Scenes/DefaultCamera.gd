@@ -58,9 +58,9 @@ func _zoom(event):
 		
 		match event.get_button_index():
 			MOUSE_BUTTON_WHEEL_DOWN:
-				new_zoom += zoom_change
-			MOUSE_BUTTON_WHEEL_UP:
 				new_zoom += -zoom_change
+			MOUSE_BUTTON_WHEEL_UP:
+				new_zoom += zoom_change
 			_:
 				return
 	else:
