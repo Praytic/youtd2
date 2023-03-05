@@ -40,7 +40,7 @@ func is_buildable() -> bool:
 		var world_pos = buildable_area.get_local_mouse_position()
 		var map_pos = buildable_area.local_to_map(world_pos)
 	
-		if buildable_area.get_cellv(map_pos) != TileMap.INVALID_CELL and buildable_area.can_build_at_pos(map_pos):
+		if buildable_area.get_cell_source_id(0, map_pos) != -1 and buildable_area.can_build_at_pos(map_pos):
 			return true
 	return false
 
@@ -51,8 +51,8 @@ func get_current_pos() -> Vector2:
 	for tile_map in buildable_areas:
 		var world_pos = tile_map.get_local_mouse_position()
 		var map_pos = tile_map.local_to_map(world_pos)
-		var tile_cell = tile_map.get_cellv(map_pos)
-		if tile_cell != TileMap.INVALID_CELL:
+		var tile_cell = tile_map.get_cell_source_id(0, map_pos)
+		if tile_cell != -1:
 			var clamped_world_pos = tile_map.map_to_local(map_pos)
 			#	Add half-tile because tower sprite position is at center
 			#	Add tilemap position because it might not start at (0, 0) coordinates
