@@ -1,7 +1,7 @@
 extends GridContainer
 
 
-@export (bool) var unlimited_towers = false
+@export var unlimited_towers = false
 
 @onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
 # Dictionary of all in-game towers with the associated buttons
