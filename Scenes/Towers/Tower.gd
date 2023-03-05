@@ -473,7 +473,7 @@ func get_damage_max():
 	return get_csv_property(CsvProperty.ATTACK_DAMAGE_MAX).to_int()
 
 func get_base_damage():
-	return (get_damage_min() + get_damage_max()) / 2
+	return (get_damage_min() + get_damage_max()) / 2.0
 
 # TODO: implement
 func get_base_damage_bonus():
