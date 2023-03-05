@@ -1,23 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://dasqkwtgpi30f"]
 
-[ext_resource path="res://Assets/Towers/Instances/haunted_rubble_atlas.png" type="Texture2D" id=1]
-[ext_resource path="res://Scenes/Towers/Instances/HauntedRubble1.gd" type="Script" id=2]
-[ext_resource path="res://Scenes/Towers/Tower.tscn" type="PackedScene" id=3]
+[ext_resource type="Texture2D" uid="uid://cynkraj6u0xm3" path="res://Assets/Towers/Instances/haunted_rubble_atlas.png" id="1"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/HauntedRubble1.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="3"]
 
-[sub_resource type="AtlasTexture" id=2]
-flags = 4
-atlas = ExtResource( 1 )
-region = Rect2( 300, 300, 300, 300 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(300, 300, 300, 300)
 
-[node name="HauntedRubble" instance=ExtResource( 3 )]
-script = ExtResource( 2 )
+[node name="HauntedRubble" instance=ExtResource("3")]
+script = ExtResource("2")
 
 [node name="Model" type="Node2D" parent="." index="3"]
-position = Vector2( 0, -193 )
+position = Vector2(0, -193)
 
 [node name="Muzzle" type="Marker2D" parent="Model" index="0"]
-position = Vector2( -1, 153 )
+position = Vector2(-1, 153)
 
 [node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
-position = Vector2( 1, 126 )
-texture = SubResource( 2 )
+position = Vector2(1, 126)
+texture = SubResource("2")

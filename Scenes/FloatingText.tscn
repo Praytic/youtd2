@@ -1,15 +1,21 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://b6jet2t80ftgv"]
 
-[ext_resource path="res://Scenes/FloatingText.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://Scenes/FloatingText.gd" id="2"]
 
 [node name="FloatingText" type="Node2D"]
-scale = Vector2( 1e-05, 1e-05 )
-script = ExtResource( 2 )
+scale = Vector2(1e-05, 1e-05)
+script = ExtResource("2")
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 14.0
-scale = Vector2( 5, 5 )
+scale = Vector2(5, 5)
 text = "TEST"
 
 [node name="Tween" type="Tween" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+editor_description = ""
+script = null
