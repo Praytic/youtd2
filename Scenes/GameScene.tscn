@@ -1,11 +1,11 @@
 [gd_scene load_steps=11 format=3 uid="uid://de2ecr8r0i8ga"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/Minimap.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bykghja01dyql" path="res://Scenes/HUD.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://cn20b4yrhc0vr" path="res://Scenes/HUD/Minimap.tscn" id="3"]
 [ext_resource type="Script" path="res://Scenes/Lib/Build/BuilderControl.gd" id="4"]
-[ext_resource type="PackedScene" path="res://Scenes/Landscape.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://Scenes/Mobs/MobSpawner.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://dg7n0ts1qsjbg" path="res://Scenes/Landscape.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://ds1j5pp15ax7x" path="res://Scenes/Mobs/MobSpawner.tscn" id="6"]
 [ext_resource type="Script" path="res://Scenes/Lib/ItemControl.gd" id="7"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 
@@ -66,13 +66,16 @@ cam_move_speed = 5000.0
 script = SubResource("5")
 
 [node name="HUD" parent="UI" instance=ExtResource("2")]
-layout_mode = 3
-anchors_preset = 5
+grow_horizontal = 2
 mouse_filter = 2
 
 [node name="Minimap" parent="UI/HUD" instance=ExtResource("3")]
 show_behind_parent = true
 anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
 offset_left = -1625.0
 offset_top = -228.0
 offset_right = -1409.0
