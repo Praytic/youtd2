@@ -114,20 +114,17 @@ layout_mode = 2
 
 [node name="Gold" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource("7")]
 layout_mode = 2
-theme_type_variation = &"ResourceTab"
 script = ExtResource("1")
 icon_texture = SubResource("1")
 default_label_text = "0"
 
 [node name="Food" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource("7")]
 layout_mode = 2
-theme_type_variation = &"ResourceTab"
 icon_texture = SubResource("2")
 default_label_text = "0"
 
 [node name="KnowledgeTome" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource("7")]
 layout_mode = 2
-theme_type_variation = &"ResourceTab"
 script = ExtResource("2")
 icon_texture = SubResource("3")
 default_label_text = "0"
@@ -136,5 +133,4 @@ default_label_text = "0"
 layout_mode = 2
 tooltip_text = "Remake developers: Praytic & kevl
 Original idea by: geX"
-theme_type_variation = &"ResourceTab"
 default_label_text = "Creators"
