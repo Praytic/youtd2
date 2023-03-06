@@ -48,23 +48,24 @@ region = Rect2(192, 0, 64, 64)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -960.0
-offset_right = 960.0
-offset_bottom = 1080.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme = ExtResource("7")
 script = ExtResource("11")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -168.0
-offset_right = 561.0
-offset_bottom = 167.0
+offset_top = -249.0
+offset_right = 423.0
+grow_vertical = 0
 scale = Vector2(0.5, 0.5)
 
 [node name="StartWaveButton" type="Button" parent="VBoxContainer"]
