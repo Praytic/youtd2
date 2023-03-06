@@ -29,6 +29,8 @@ var _height_tween: Tween = null
 
 
 func _ready():
+	super()
+	
 	_is_mob = true
 	_health = MOB_HEALTH_MAX
 

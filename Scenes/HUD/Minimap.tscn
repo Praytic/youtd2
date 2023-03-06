@@ -38,13 +38,12 @@ limit_bottom = 965
 limit_smoothed = true
 
 [node name="MinimapTexture" type="TextureRect" parent="SubViewportContainer/SubViewport"]
-custom_minimum_size = Vector2(1544, 772)
 offset_left = -772.0
 offset_top = 193.0
 offset_right = 772.0
 offset_bottom = 965.0
+scale = Vector2(0.28, 0.28)
 texture = ExtResource("4")
-stretch_mode = 4
 
 [node name="CameraProjection" type="Node2D" parent="SubViewportContainer/SubViewport"]
 script = ExtResource("1")
