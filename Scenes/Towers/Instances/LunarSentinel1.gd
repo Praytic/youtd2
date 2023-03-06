@@ -17,7 +17,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	var autocast_data: Autocast.Data = Autocast.Data.new()
 	autocast_data.caster_art = ""
 	autocast_data.num_buffs_before_idle = 0

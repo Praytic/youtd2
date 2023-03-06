@@ -15,10 +15,10 @@ var _mob_index: int = 0
 var _mob_spawned_count: int = 0
 var _mob_total_count: int = 0
 
-onready var _timer: Timer = $Timer
-onready var item_control = get_tree().current_scene.get_node(@"%ItemControl")
-onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
-onready var mob_path: Node2D = get_node(@"%Map").get_node(@"MobPath1")
+@onready var _timer: Timer = $Timer
+@onready var item_control = get_tree().current_scene.get_node("%ItemControl")
+@onready var mob_ysort: Node2D = get_node("%Map").get_node("MobYSort")
+@onready var mob_path: Node2D = get_node("%Map").get_node("MobPath1")
 
 func _ready():
 	start(0)
@@ -27,11 +27,11 @@ func _ready():
 func start(wave_index: int):
 	var parsed_json = Properties.waves[wave_index]
 	
-	if parsed_json == null || parsed_json.result == null:
+	if parsed_json == null:
 		push_error("wave json file is malformed, file=wave%s.json" % wave_index)
 		return
 		
-	_group_list = parsed_json.result
+	_group_list = parsed_json
 	_group_index = 0
 	_mob_index = 0
 	_mob_spawned_count = 0
@@ -71,9 +71,9 @@ func _on_Timer_timeout():
 	
 	if group_ended:
 #		Go to next group
-		var wave_ended = _group_index == _group_list.size() - 1
+		var wave_is_over = _group_index == _group_list.size() - 1
 		
-		if wave_ended:
+		if wave_is_over:
 			emit_signal("wave_ended", _group_index)
 			return
 		
@@ -88,10 +88,10 @@ func _on_Timer_timeout():
 		
 		_mob_spawned_count += 1
 		
-		var mob_scene: Mob = mob_scene_map[mob].instance()
+		var mob_scene: Mob = mob_scene_map[mob].instantiate()
 		mob_scene.set_path(mob_path)
 		mob_ysort.add_child(mob_scene)
-		mob_scene.connect("death", item_control, "_on_Mob_death")
+		mob_scene.connect("death",Callable(item_control,"_on_Mob_death"))
 		emit_signal("spawned", mob)
 	
 	var progress_string: String = "Group: %d/%d; Mob: %d/%d" % [_group_index + 1, _group_list.size(), _mob_spawned_count, _mob_total_count]

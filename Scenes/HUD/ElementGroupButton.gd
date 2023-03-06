@@ -1,3 +1,3 @@
 extends Button
 
-export(Tower.Element) var element = Tower.Element.ASTRAL
+@export var element = Tower.Element.ASTRAL # (Tower.Element)

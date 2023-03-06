@@ -14,7 +14,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	var triggers_buff: Buff = TriggersBuff.new()
 	triggers_buff.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 	triggers_buff.apply_to_unit_permanent(self, self, 0)
@@ -54,4 +54,4 @@ func _on_damage(event: Event):
 		tower.user_real = 0
 
 	if event.damage > damage:
-		Utils.display_small_floating_text(String(int(event.damage)), tower, 255, 150, 150, 0)
+		Utils.display_small_floating_text(str(int(event.damage)), tower, 255, 150, 150, 0)

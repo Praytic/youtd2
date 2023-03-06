@@ -6,12 +6,12 @@ signal tower_info_canceled
 signal element_changed(element)
 
 
-onready var builder_control = get_tree().current_scene.get_node(@"%BuilderControl")
+@onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
 
 
 func _ready():
 	self.hide()
-	builder_control.connect("tower_built", self, "_on_Tower_built")
+	builder_control.connect("tower_built",Callable(self,"_on_Tower_built"))
 
 
 func set_element(element: int):
@@ -26,8 +26,8 @@ func _unhandled_input(event):
 
 func _on_BuildBar_child_entered_tree(tower_button):
 	var tower_id = tower_button.get_tower().get_id()
-	tower_button.connect("mouse_entered", self, "_on_TowerButton_mouse_entered", [tower_id])
-	tower_button.connect("mouse_exited", self, "_on_TowerButton_mouse_exited", [tower_id])
+	tower_button.connect("mouse_entered",Callable(self,"_on_TowerButton_mouse_entered").bind(tower_id))
+	tower_button.connect("mouse_exited",Callable(self,"_on_TowerButton_mouse_exited").bind(tower_id))
 
 
 func _on_TowerButton_mouse_entered(tower_id):

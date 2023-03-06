@@ -1,5 +1,5 @@
 class_name Projectile
-extends KinematicBody2D
+extends CharacterBody2D
 
 
 # Projectile moves towards the target and disappears when it
@@ -54,7 +54,7 @@ func create_from_unit_to_unit(caster: Unit, _damage_ratio: float, _crit_ratio: f
 	_game_scene = caster.get_tree().get_root().get_node("GameScene")
 
 	_game_scene.call_deferred("add_child", self)
-	_target.connect("death", self, "_on_target_death")
+	_target.connect("death",Callable(self,"_on_target_death"))
 
 
 # TODO: implement actual interpolation, for now calling
@@ -80,7 +80,7 @@ func _process(delta):
 #			interpolation finishes.
 			emit_signal("interpolation_finished", self)
 
-		var explosion = _explosion_scene.instance()
+		var explosion = _explosion_scene.instantiate()
 		explosion.position = global_position
 		_game_scene.call_deferred("add_child", explosion)
 
@@ -101,11 +101,11 @@ func get_caster() -> Unit:
 # still needed to match original API.
 
 func set_event_on_target_hit(handler_object: Object, handler_function: String):
-	connect("target_hit", handler_object, handler_function)
+	connect("target_hit",Callable(handler_object,handler_function))
 
 
 func set_event_on_interpolation_finished(handler_object: Object, handler_function: String):
-	connect("interpolation_finished", handler_object, handler_function)
+	connect("interpolation_finished",Callable(handler_object,handler_function))
 
 
 func _get_target_position() -> Vector2:

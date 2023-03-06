@@ -16,7 +16,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	var triggers_buff: Buff = TriggersBuff.new()
 	triggers_buff.add_event_on_create(self, "_on_create")
 	triggers_buff.add_event_on_damage(self, "_on_damage", 0.125, 0.002)

@@ -8,7 +8,7 @@ const SELECTED_TOWER: String = "selected_tower"
 const SETTINGS_PATH: String = "user://settings.cfg"
 
 
-onready var tower_id_list: Array = Properties.get_tower_id_list()
+@onready var tower_id_list: Array = Properties.get_tower_id_list()
 
 
 func _ready():

@@ -1,38 +1,135 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=25 format=3 uid="uid://bb13dpb6i1ktt"]
 
-[ext_resource path="res://Scenes/Mobs/Mob.gd" type="Script" id=1]
-[ext_resource path="res://Resources/Sprites/Mobs/MobTemplateSprite.tscn" type="PackedScene" id=2]
+[ext_resource type="Script" path="res://Scenes/Mobs/Mob.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://bu46ypvw7y1bf" path="res://Resources/Sprites/Mobs/MobTemplateSprite.tscn" id="2"]
+[ext_resource type="Texture2D" uid="uid://bxvm1hyf5meuc" path="res://Assets/Mobs/run_90_000.png" id="3_6alr8"]
+[ext_resource type="Texture2D" uid="uid://6her65l2l05" path="res://Assets/Mobs/run_90_004.png" id="4_wplic"]
+[ext_resource type="Texture2D" uid="uid://ccadm5xfi1yj3" path="res://Assets/Mobs/run_90_008.png" id="5_myufx"]
+[ext_resource type="Texture2D" uid="uid://b2ntcvsrlwbf3" path="res://Assets/Mobs/run_90_012.png" id="6_a0d48"]
+[ext_resource type="Texture2D" uid="uid://bnl3s3xmqgoqu" path="res://Assets/Mobs/run_90_016.png" id="7_w18db"]
+[ext_resource type="Texture2D" uid="uid://cbkd6xduvg71b" path="res://Assets/Mobs/run_180_000.png" id="8_7fyx4"]
+[ext_resource type="Texture2D" uid="uid://cphsi6x1q3ajy" path="res://Assets/Mobs/run_180_004.png" id="9_aqwov"]
+[ext_resource type="Texture2D" uid="uid://23f55fwo0ngv" path="res://Assets/Mobs/run_180_008.png" id="10_jugp0"]
+[ext_resource type="Texture2D" uid="uid://gn4h72peup6n" path="res://Assets/Mobs/run_180_012.png" id="11_no13w"]
+[ext_resource type="Texture2D" uid="uid://c0igh68751s6h" path="res://Assets/Mobs/run_180_016.png" id="12_7yqqp"]
+[ext_resource type="Texture2D" uid="uid://bfr13vg2mra4e" path="res://Assets/Mobs/run_0_000.png" id="13_iqnvb"]
+[ext_resource type="Texture2D" uid="uid://dntacwipakhe2" path="res://Assets/Mobs/run_0_004.png" id="14_masou"]
+[ext_resource type="Texture2D" uid="uid://d1g4a50apkmhh" path="res://Assets/Mobs/run_0_008.png" id="15_rhddw"]
+[ext_resource type="Texture2D" uid="uid://m07umsx1h2g7" path="res://Assets/Mobs/run_0_012.png" id="16_sgims"]
+[ext_resource type="Texture2D" uid="uid://tv5lsik6tcif" path="res://Assets/Mobs/run_0_016.png" id="17_ntaos"]
+[ext_resource type="Texture2D" uid="uid://y2g61rri6a1l" path="res://Assets/Mobs/run_270_000.png" id="18_r504j"]
+[ext_resource type="Texture2D" uid="uid://biocnw5es1an" path="res://Assets/Mobs/run_270_004.png" id="19_jw8np"]
+[ext_resource type="Texture2D" uid="uid://b75sajmu1k3dp" path="res://Assets/Mobs/run_270_008.png" id="20_6twvh"]
+[ext_resource type="Texture2D" uid="uid://cdrjm83jfn2cj" path="res://Assets/Mobs/run_270_012.png" id="21_dd1q1"]
+[ext_resource type="Texture2D" uid="uid://bvr0r504ruvij" path="res://Assets/Mobs/run_270_016.png" id="22_8sbu3"]
+[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="23_i48u2"]
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.176471, 0.486275, 0.239216, 1 )
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color( 0.207843, 0.635294, 0.34902, 0.0784314 )
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6alr8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wplic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_myufx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_a0d48")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w18db")
+}],
+"loop": true,
+"name": &"run_e",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_7fyx4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_aqwov")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_jugp0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_no13w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_7yqqp")
+}],
+"loop": true,
+"name": &"run_n",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_iqnvb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_masou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_rhddw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_sgims")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ntaos")
+}],
+"loop": true,
+"name": &"run_s",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_r504j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_jw8np")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_6twvh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_dd1q1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_8sbu3")
+}],
+"loop": true,
+"name": &"run_w",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_i48u2")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}]
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.572549, 0.164706, 0.164706, 1 )
-
-[node name="Mob" type="KinematicBody2D"]
-script = ExtResource( 1 )
+[node name="Mob" type="CharacterBody2D"]
+script = ExtResource("1")
 
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Sprite" parent="Visual" instance=ExtResource( 2 )]
+[node name="Sprite2D" parent="Visual" instance=ExtResource("2")]
+sprite_frames = SubResource("1")
 
 [node name="HealthBar" type="ProgressBar" parent="Visual"]
-margin_left = -50.0
-margin_top = -102.0
-margin_right = 50.0
-margin_bottom = -88.0
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
+offset_left = -50.0
+offset_top = -102.0
+offset_right = 50.0
+offset_bottom = -88.0
 value = 100.0
-percent_visible = false
-
-[node name="HeightTween" type="Tween" parent="."]
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-scale = Vector2( 1, 0.5 )
-polygon = PoolVector2Array( 51, -202, 45, 86, -45, 88, -50, -202 )
+scale = Vector2(1, 0.5)
+polygon = PackedVector2Array(51, -202, 45, 86, -45, 88, -50, -202)

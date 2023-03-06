@@ -5,8 +5,6 @@ var preloaded_towers: Dictionary
 const towers_dir: String = "res://Scenes/Towers/Instances"
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 const PRINT_SCENE_NOT_FOUND_ERROR: bool = false
-var _tower_name_to_id_map: Dictionary = {}
-var _tower_id_to_name_map: Dictionary = {}
 var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 # var tower_props: Dictionary
 
@@ -25,7 +23,7 @@ func _init():
 		var tower_scene_name: String = csv_properties[Tower.CsvProperty.SCENE_NAME]
 
 		var tower_scene_path: String = "%s/%s.tscn" % [towers_dir, tower_scene_name]
-		var tower_scene_exists: bool = File.new().file_exists(tower_scene_path)
+		var tower_scene_exists: bool = FileAccess.file_exists(tower_scene_path)
 
 		var tower_scene: PackedScene
 		if tower_scene_exists:
@@ -61,9 +59,9 @@ func _init():
 # script for tower and attach to scene. Script name matches
 # with scene name so this can be done automatically instead
 # of having to do it by hand in scene editor.
-func get_tower(id: int) -> PackedScene:
+func get_tower(id: int) -> Tower:
 	var scene: PackedScene = preloaded_towers[id]
-	var tower = scene.instance()
+	var tower = scene.instantiate()
 	var tower_script_path: String = _get_tower_script_path(id)
 	var tower_script = load(tower_script_path)
 	tower.set_script(tower_script)
@@ -76,9 +74,9 @@ func get_tower(id: int) -> PackedScene:
 	return tower
 
 
-func get_tower_visual_only(id: int) -> PackedScene:
+func get_tower_visual_only(id: int) -> Node:
 	var tower = get_tower(id)
-	var dummy_script = load("res://Scenes/Towers/Building.gd")
+	var dummy_script = load("res://Scenes/Towers/DummyScript.gd")
 
 	tower.set_script(dummy_script)
 
@@ -100,7 +98,7 @@ func _get_tower_script_path(id: int) -> String:
 	var script_name: String = scene_name.substr(0, scene_name.length() - 1)
 	var path: String = "%s/%s1.gd" % [towers_dir, script_name]
 
-	var script_exists: bool = File.new().file_exists(path)
+	var script_exists: bool = FileAccess.file_exists(path)
 
 	if script_exists:
 		return path
