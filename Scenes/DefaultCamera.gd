@@ -3,11 +3,11 @@ extends Camera2D
 signal camera_moved(shift_vector)
 signal camera_zoomed(zoom_value)
 
-export(float) var cam_move_speed = 500.0
-export(float) var maximum_zoom_in = 0.15
-export(float) var minimum_zoom_out = 10.0
-export(float) var zoom_sensitivity = 1.0
-export(float) var mousewheel_zoom_speed = 0.4
+@export var cam_move_speed: float = 500.0
+@export var maximum_zoom_in: float = 0.15
+@export var minimum_zoom_out: float = 10.0
+@export var zoom_sensitivity: float = 1.0
+@export var mousewheel_zoom_speed: float = 0.4
 var move_direction: Vector2
 
 
@@ -21,7 +21,7 @@ func _physics_process(delta):
 		if move_direction.abs() == Vector2.ONE:
 			diagonal_modif *= sqrt(2.0)/2.0
 		var shift_vector: Vector2 = move_direction * delta * cam_move_speed * diagonal_modif
-		position = get_camera_position() + shift_vector
+		position = get_screen_center_position() + shift_vector
 		
 		emit_signal("camera_moved", shift_vector)
 
@@ -57,10 +57,10 @@ func _zoom(event):
 		var zoom_change = mousewheel_zoom_speed * slow_down_multiplier
 		
 		match event.get_button_index():
-			BUTTON_WHEEL_DOWN:
-				new_zoom += zoom_change
-			BUTTON_WHEEL_UP:
+			MOUSE_BUTTON_WHEEL_DOWN:
 				new_zoom += -zoom_change
+			MOUSE_BUTTON_WHEEL_UP:
+				new_zoom += zoom_change
 			_:
 				return
 	else:

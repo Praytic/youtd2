@@ -1,19 +1,19 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://bbpellr703jfy"]
 
-[ext_resource path="res://Scenes/Towers/Building.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Environment/Props/floor.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Selection.gd" type="Script" id=4]
+[ext_resource type="Script" path="res://Scenes/Towers/Building.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://b1jihcvx3duyq" path="res://Assets/Environment/Props/floor.png" id="2"]
+[ext_resource type="Script" path="res://Scenes/Selection.gd" id="4"]
 
-[node name="Building" type="KinematicBody2D"]
-script = ExtResource( 1 )
+[node name="Building" type="CharacterBody2D"]
+script = ExtResource("1")
 
 [node name="Selection" type="Node2D" parent="."]
-script = ExtResource( 4 )
+script = ExtResource("4")
 
-[node name="Base" type="Sprite" parent="."]
-position = Vector2( 0, -192 )
-texture = ExtResource( 2 )
+[node name="Base" type="Sprite2D" parent="."]
+position = Vector2(0, -192)
+texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-scale = Vector2( 1, 0.5 )
-polygon = PoolVector2Array( 0, -128, 128, 0, 0, 128, -128, 0 )
+scale = Vector2(1, 0.5)
+polygon = PackedVector2Array(0, -128, 128, 0, 0, 128, -128, 0)

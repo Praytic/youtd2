@@ -1,18 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://4umhsi17sfy2"]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends Node2D
 
 
 func _ready():
 	pass
 
-onready var visual = $Visual
+@onready var visual = $Visual
 "
 
 [node name="Visual" type="Node2D"]
-script = SubResource( 1 )
+script = SubResource("1")
 
 [node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
+offset_right = 40.0
+offset_bottom = 14.0

@@ -1,13 +1,13 @@
 extends Control
 
 
-onready var _tower_stat_int_labels: Array = get_tree().get_nodes_in_group("tower_stat_int")
-onready var _tower_stat_float_labels: Array = get_tree().get_nodes_in_group("tower_stat_float")
-onready var _tower_stat_percent_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent")
-onready var _tower_stat_percent_signed_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent_signed")
-onready var _tower_stat_multiplier_labels: Array = get_tree().get_nodes_in_group("tower_stat_multiplier")
-onready var _multiboard_container: MarginContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer
-onready var _multiboard_grid: GridContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid
+@onready var _tower_stat_int_labels: Array = get_tree().get_nodes_in_group("tower_stat_int")
+@onready var _tower_stat_float_labels: Array = get_tree().get_nodes_in_group("tower_stat_float")
+@onready var _tower_stat_percent_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent")
+@onready var _tower_stat_percent_signed_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent_signed")
+@onready var _tower_stat_multiplier_labels: Array = get_tree().get_nodes_in_group("tower_stat_multiplier")
+@onready var _multiboard_container: MarginContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer
+@onready var _multiboard_grid: GridContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid
 
 
 func _ready():
@@ -77,7 +77,7 @@ func _int_format(num: float) -> String:
 	elif num >= 1_000_000:
 		num /= 1_000_000
 		suffix = "M"
-	 
+
 	# Convert the number to a string and handle the fractional part
 	var num_str = ""
 	if num >= 1:
@@ -129,10 +129,10 @@ func _load_multiboard(multiboard: MultiboardValues):
 
 		for _row in range(0, rows_to_add):
 			var key_label: Label = Label.new()
-			key_label.align = Label.ALIGN_LEFT
+			key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 
 			var value_label: Label = Label.new()
-			value_label.align = Label.ALIGN_RIGHT
+			value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 
 			_multiboard_grid.add_child(key_label)
 			_multiboard_grid.add_child(value_label)

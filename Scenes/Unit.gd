@@ -1,5 +1,5 @@
 class_name Unit
-extends KinematicBody2D
+extends CharacterBody2D
 
 # Unit is a base class for Towers and Mobs. Keeps track of
 # buffs and modifications. Emits signals for events which are used by buffs.
@@ -10,7 +10,7 @@ extends KinematicBody2D
 signal level_up
 signal attack(event)
 signal attacked(event)
-signal damage(event)
+signal dealt_damage(event)
 signal damaged(event)
 signal kill(event)
 signal death(event)
@@ -142,14 +142,14 @@ var user_real2: float = 0.0
 var user_real3: float = 0.0
 
 var _is_dead: bool = false
-var _level: int = 1 setget set_level, get_level
+var _level: int = 1 : get = get_level, set = set_level
 var _buff_map: Dictionary
 var _direct_modifier_list: Array
 var _health: float = 0.0
 var _mod_value_map: Dictionary = {}
 var _invisible: bool = false
-var _selection_size: int setget , get_selection_size
-var _selected: bool = false setget , is_selected
+var _selection_size: int : get = get_selection_size
+var _selected: bool = false : get = is_selected
 
 # This is the count of towers that are currently able to see
 # this invisible mob. If there any towers that can see this
@@ -203,8 +203,8 @@ func _ready():
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
-		if event.get_button_index() == BUTTON_LEFT or event.get_button_index() == BUTTON_RIGHT:
-			var is_inside: bool = Geometry.is_point_in_polygon(
+		if event.get_button_index() == MOUSE_BUTTON_LEFT or event.get_button_index() == MOUSE_BUTTON_RIGHT:
+			var is_inside: bool = Geometry2D.is_point_in_polygon(
 				$CollisionShape2D.get_local_mouse_position(), 
 				$CollisionShape2D.polygon)
 			if is_inside:
@@ -356,7 +356,7 @@ func _receive_attack():
 # recursion of DAMAGE events causing infinite DAMAGE events.
 func _do_damage(target: Unit, damage: float, is_main_target: bool):
 	var damage_event: Event = Event.new(target, damage, is_main_target)
-	emit_signal("damage", damage_event)
+	emit_signal("dealt_damage", damage_event)
 
 	target._receive_damage(self, damage_event.damage, is_main_target)
 
@@ -369,7 +369,7 @@ func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
 	var damaged_event: Event = Event.new(caster, damage, is_main_target)
 	emit_signal("damaged", damaged_event)
 
-	Utils.display_floating_text_x(String(int(damage)), self, 255, 0, 0, 0.0, 0.0, 1.0)
+	Utils.display_floating_text_x(str(int(damage)), self, 255, 0, 0, 0.0, 0.0, 1.0)
 
 	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0
 
@@ -414,7 +414,7 @@ func _accept_kill(target: Unit, is_main_target: bool):
 func _add_buff_internal(buff):
 	var buff_type: String = buff.get_type()
 	_buff_map[buff_type] = buff
-	buff.connect("removed", self, "_on_buff_removed", [buff])
+	buff.connect("removed",Callable(self,"_on_buff_removed").bind(buff))
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), 1)
 	add_child(buff)
@@ -673,8 +673,8 @@ func get_selection_size():
 func is_selected() -> bool:
 	return _selected
 
-func set_selected(selected: bool):
-	if selected:
+func set_selected(selected_arg: bool):
+	if selected_arg:
 		_select()
 	else:
 		_unselect()

@@ -1,4 +1,4 @@
-extends Sprite
+extends Sprite2D
 
 
 func get_size():

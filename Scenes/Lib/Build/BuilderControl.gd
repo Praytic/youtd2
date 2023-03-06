@@ -4,8 +4,8 @@ extends Control
 signal tower_built(tower_id)
 
 
-onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
-onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
+@onready var mob_ysort: Node2D = get_node("%Map").get_node("MobYSort")
+@onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 
 var build_mode: bool = false
 var tower_preview: TowerPreview = null
@@ -26,7 +26,7 @@ func on_build_button_pressed(tower_id: int):
 		cancel_build_mode()
 	build_mode = true
 
-	tower_preview = _tower_preview_scene.instance()
+	tower_preview = _tower_preview_scene.instantiate()
 	tower_preview.tower_id = tower_id
 	_game_scene.add_child(tower_preview)
 

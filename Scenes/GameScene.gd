@@ -1,14 +1,11 @@
 extends Node2D
 
 
-onready var map_node: Node2D = $Map
+@onready var map_node: Node2D = $Map
 var mobs_exit_count: int = 0
 
-export var mobs_game_over_count: int = 10
-export var ignore_game_over: bool = true
-
-func _ready():
-	randomize()
+@export var mobs_game_over_count: int = 10
+@export var ignore_game_over: bool = true
 
 
 func _on_HUD_start_wave(wave_index):

@@ -1,58 +1,119 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=23 format=3 uid="uid://bu46ypvw7y1bf"]
 
-[ext_resource path="res://Assets/Mobs/run_0_016.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Mobs/run_0_008.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Mobs/run_0_012.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Mobs/run_0_004.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Mobs/run_0_000.png" type="Texture" id=5]
-[ext_resource path="res://Assets/icon.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Mobs/run_180_008.png" type="Texture" id=7]
-[ext_resource path="res://Assets/Mobs/run_270_012.png" type="Texture" id=8]
-[ext_resource path="res://Assets/Mobs/run_90_016.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Mobs/run_90_004.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Mobs/run_270_008.png" type="Texture" id=11]
-[ext_resource path="res://Assets/Mobs/run_90_000.png" type="Texture" id=12]
-[ext_resource path="res://Assets/Mobs/run_90_012.png" type="Texture" id=13]
-[ext_resource path="res://Assets/Mobs/run_90_008.png" type="Texture" id=14]
-[ext_resource path="res://Assets/Mobs/run_180_000.png" type="Texture" id=15]
-[ext_resource path="res://Assets/Mobs/run_180_004.png" type="Texture" id=16]
-[ext_resource path="res://Assets/Mobs/run_180_012.png" type="Texture" id=17]
-[ext_resource path="res://Assets/Mobs/run_270_000.png" type="Texture" id=18]
-[ext_resource path="res://Assets/Mobs/run_180_016.png" type="Texture" id=19]
-[ext_resource path="res://Assets/Mobs/run_270_004.png" type="Texture" id=20]
-[ext_resource path="res://Assets/Mobs/run_270_016.png" type="Texture" id=21]
+[ext_resource type="Texture2D" uid="uid://tv5lsik6tcif" path="res://Assets/Mobs/run_0_016.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://d1g4a50apkmhh" path="res://Assets/Mobs/run_0_008.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://m07umsx1h2g7" path="res://Assets/Mobs/run_0_012.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dntacwipakhe2" path="res://Assets/Mobs/run_0_004.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bfr13vg2mra4e" path="res://Assets/Mobs/run_0_000.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://23f55fwo0ngv" path="res://Assets/Mobs/run_180_008.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://cdrjm83jfn2cj" path="res://Assets/Mobs/run_270_012.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://bnl3s3xmqgoqu" path="res://Assets/Mobs/run_90_016.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://6her65l2l05" path="res://Assets/Mobs/run_90_004.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://b75sajmu1k3dp" path="res://Assets/Mobs/run_270_008.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://bxvm1hyf5meuc" path="res://Assets/Mobs/run_90_000.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://b2ntcvsrlwbf3" path="res://Assets/Mobs/run_90_012.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://ccadm5xfi1yj3" path="res://Assets/Mobs/run_90_008.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://cbkd6xduvg71b" path="res://Assets/Mobs/run_180_000.png" id="15"]
+[ext_resource type="Texture2D" uid="uid://cphsi6x1q3ajy" path="res://Assets/Mobs/run_180_004.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://gn4h72peup6n" path="res://Assets/Mobs/run_180_012.png" id="17"]
+[ext_resource type="Texture2D" uid="uid://y2g61rri6a1l" path="res://Assets/Mobs/run_270_000.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://c0igh68751s6h" path="res://Assets/Mobs/run_180_016.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://biocnw5es1an" path="res://Assets/Mobs/run_270_004.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://bvr0r504ruvij" path="res://Assets/Mobs/run_270_016.png" id="21"]
 
-
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 12 ), ExtResource( 10 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 9 ) ],
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9")
+}],
 "loop": true,
-"name": "run_e",
+"name": &"run_e",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 7 ), ExtResource( 17 ), ExtResource( 19 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19")
+}],
 "loop": true,
-"name": "run_n",
+"name": &"run_n",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1")
+}],
 "loop": true,
-"name": "run_s",
+"name": &"run_s",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 18 ), ExtResource( 20 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 21 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21")
+}],
 "loop": true,
-"name": "run_w",
+"name": &"run_w",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6")
+}],
 "loop": true,
-"name": "stand",
+"name": &"stand",
 "speed": 5.0
-} ]
+}]
 
-[node name="Sprite" type="AnimatedSprite"]
-position = Vector2( 1, 0 )
-frames = SubResource( 1 )
-animation = "stand"
-playing = true
+[node name="Sprite2D" type="AnimatedSprite2D"]
+position = Vector2(1, 0)
+sprite_frames = SubResource("1")
+animation = &"stand"

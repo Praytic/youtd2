@@ -1,27 +1,26 @@
-[gd_resource type="AnimatedTexture" load_steps=7 format=2]
+[gd_resource type="AnimatedTexture" load_steps=7 format=3 uid="uid://yn18gvcjmrkp"]
 
-[ext_resource path="res://Assets/Towers/circle_03.png" type="Texture" id=1]
-[ext_resource path="res://Assets/Towers/circle_05.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Towers/circle_04.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Towers/circle_02.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Towers/circle_01.png" type="Texture" id=5]
+[ext_resource type="Texture2D" uid="uid://uev086xwodkt" path="res://Assets/Towers/circle_03.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cxl665kwsrclr" path="res://Assets/Towers/circle_05.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dx62w7m5jucm5" path="res://Assets/Towers/circle_04.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dti6d2c71hvuh" path="res://Assets/Towers/circle_02.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dl05rggm0meke" path="res://Assets/Towers/circle_01.png" id="5"]
 
-[sub_resource type="GDScript" id=1]
+[sub_resource type="GDScript" id="1"]
 script/source = "extends AnimatedTexture
 
 "
 
 [resource]
-flags = 20
 frames = 5
-fps = 10.0
-frame_0/texture = ExtResource( 2 )
-frame_1/texture = ExtResource( 4 )
-frame_1/delay_sec = 0.0
-frame_2/texture = ExtResource( 1 )
-frame_2/delay_sec = 0.0
-frame_3/texture = ExtResource( 5 )
-frame_3/delay_sec = 0.0
-frame_4/texture = ExtResource( 3 )
-frame_4/delay_sec = 0.0
-script = SubResource( 1 )
+speed_scale = 10.0
+frame_0/texture = ExtResource("2")
+frame_1/texture = ExtResource("4")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("1")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("5")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("3")
+frame_4/duration = 1.0
+script = SubResource("1")

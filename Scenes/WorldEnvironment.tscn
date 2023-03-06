@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://bv1nuapaa5sf0"]
 
-[sub_resource type="Environment" id=1]
+[sub_resource type="Environment" id="1"]
 glow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment"]
-environment = SubResource( 1 )
+environment = SubResource("1")

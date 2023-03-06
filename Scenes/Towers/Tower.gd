@@ -55,7 +55,7 @@ const _mob_size_to_mod_map: Dictionary = {
 	Unit.MobSize.AIR: Unit.ModType.MOD_DMG_TO_AIR,
 }
 
-export(AudioStreamMP3) var attack_sound
+@export var attack_sound: AudioStreamMP3
 
 const ATTACK_CD_MIN: float = 0.2
 const SELECTION_SIZE: int = 128
@@ -70,8 +70,8 @@ var _bounce_damage_multiplier: float = 0.0
 var _attack_style: int = AttackStyle.NORMAL
 
 
-onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
-onready var _range_indicator: RangeIndicator = $RangeIndicator
+@onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+@onready var _range_indicator: RangeIndicator = $RangeIndicator
 
 
 #########################
@@ -79,6 +79,8 @@ onready var _range_indicator: RangeIndicator = $RangeIndicator
 #########################
 
 func _ready():
+	super()
+
 	_is_tower = true
 
 # 	Load stats for current tier. Stats are defined in
@@ -111,13 +113,15 @@ func _ready():
 	_attack_autocast = attack_buff.add_autocast(attack_autocast_data, self, "_on_attack_autocast")
 	attack_buff.apply_to_unit_permanent(self, self, 0)
 
+	_tower_init()
+
 
 #########################
 ###       Public      ###
 #########################
 
 # TODO: implement. Also move to the "owner" class that is
-# returned by get_owner(), when owner gets implemented. Find
+# returned by getOwner(), when owner gets implemented. Find
 # out what mystery bools are for.
 func give_gold(amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
 	GoldManager.add_gold(amount)
@@ -139,6 +143,12 @@ func on_tower_details() -> MultiboardValues:
 ###      Private      ###
 #########################
 
+
+# Override in subclass to initialize subclass tower
+func _tower_init():
+	pass
+
+
 func _set_attack_style_splash(splash_map: Dictionary):
 	_attack_style = AttackStyle.SPLASH
 	_splash_map = splash_map
@@ -159,12 +169,12 @@ func _set_target_count(count: int):
 func _on_attack_autocast(event: Event):
 	var target = event.get_target()
 
-	var projectile = _projectile_scene.instance()
+	var projectile = _projectile_scene.instantiate()
 	projectile.create("placeholder", 0, 1000)
 	projectile.create_from_unit_to_unit(self, 0, 0, self, target, true, false, true)
 	projectile.set_event_on_target_hit(self, "_on_projectile_target_hit")
 
-	._do_attack(event)
+	super._do_attack(event)
 
 	_attack_sound.play()
 
@@ -182,13 +192,13 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _select():
-	._select()
+	super._select()
 
 	_range_indicator.show()
 
 
 func _unselect():
-	._unselect()
+	super._unselect()
 
 	_range_indicator.hide()
 
@@ -197,7 +207,7 @@ func _unselect():
 func _get_rand_damage_base() -> float:
 	var damage_min: float = get_damage_min()
 	var damage_max: float = get_damage_max()
-	var damage: float = rand_range(damage_min, damage_max)
+	var damage: float = randf_range(damage_min, damage_max)
 
 	return damage
 
@@ -265,7 +275,7 @@ func _get_next_bounce_target(prev_target: Mob) -> Mob:
 
 	Utils.sort_unit_list_by_distance(mob_list, prev_target.position)
 
-	if !mob_list.empty():
+	if !mob_list.is_empty():
 		var next_target = mob_list[0]
 
 		return next_target
@@ -295,14 +305,14 @@ func _on_projectile_target_hit_normal(projectile: Projectile):
 	var damage_base: float = _get_rand_damage_base()
 	var damage: float = _get_damage_to_mob(mob, damage_base)
 	
-	._do_damage(target, damage, true)
+	super._do_damage(target, damage, true)
 
 
 func _on_projectile_target_hit_splash(projectile: Projectile):
 	var target: Unit = projectile.get_target()
 	var mob: Mob = target as Mob
 
-	if _splash_map.empty():
+	if _splash_map.is_empty():
 		return
 
 	var damage_base: float = _get_rand_damage_base()
@@ -354,7 +364,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 	var current_damage: float = projectile.user_real
 	var current_bounce_count: int = projectile.user_int
 
-	._do_damage(current_target, current_damage, true)
+	super._do_damage(current_target, current_damage, true)
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_count == 0
@@ -370,7 +380,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 	if next_target == null:
 		return
 
-	var next_projectile = _projectile_scene.instance()
+	var next_projectile = _projectile_scene.instantiate()
 	next_projectile.create("placeholder", 0, 1000)
 	next_projectile.create_from_unit_to_unit(self, 0, 0, current_target, next_target, true, false, true)
 	next_projectile.user_real = next_damage
@@ -382,7 +392,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 ### Setters / Getters ###
 #########################
 
-func get_name() -> String:
+func get_item_name() -> String:
 	return get_csv_property(CsvProperty.NAME)
 
 
@@ -402,7 +412,7 @@ func get_tier() -> int:
 func get_icon_atlas_num() -> int:
 	var icon_atlas_num_string: String = get_csv_property(CsvProperty.ICON_ATLAS_NUM)
 
-	if !icon_atlas_num_string.empty():
+	if !icon_atlas_num_string.is_empty():
 		var icon_atlas_num: int = icon_atlas_num_string.to_int()
 
 		return icon_atlas_num
@@ -445,8 +455,8 @@ func remove_exp_flat(_amount: float):
 # TODO: i think this is supposed to return the player that
 # owns the tower? Implement later. For now implementing
 # owner's function in tower itself and returning tower from
-# get_owner()
-func get_owner():
+# getOwner()
+func getOwner():
 	return self
 
 
@@ -463,7 +473,7 @@ func get_damage_max():
 	return get_csv_property(CsvProperty.ATTACK_DAMAGE_MAX).to_int()
 
 func get_base_damage():
-	return (get_damage_min() + get_damage_max()) / 2
+	return (get_damage_min() + get_damage_max()) / 2.0
 
 # TODO: implement
 func get_base_damage_bonus():

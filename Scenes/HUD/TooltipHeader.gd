@@ -4,8 +4,8 @@ extends Control
 signal expanded(expand)
 
 
-onready var _tooltip_labels: Array = get_tree().get_nodes_in_group("tooltip_variable")
-onready var _expand_button: Button = get_node("%ExpandButton")
+@onready var _tooltip_labels: Array = get_tree().get_nodes_in_group("tooltip_variable")
+@onready var _expand_button: Button = get_node("%ExpandButton")
 
 
 #########################

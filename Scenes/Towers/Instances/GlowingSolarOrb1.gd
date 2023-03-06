@@ -13,7 +13,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	var splash_map: Dictionary = {
 		125: _stats.splash_125_damage,
 		225: _stats.splash_225_damage,
