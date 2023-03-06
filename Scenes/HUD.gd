@@ -24,11 +24,7 @@ func _on_StopWaveButton_pressed():
 	emit_signal("stop_wave")
 
 
-func _on_Camera_camera_moved(_direction):
-	$Hints.hide()
-
-
-func _on_Camera_camera_zoomed(_zoom_value):
+func _on_Camera_updated(_direction):
 	$Hints.hide()
 
 
@@ -68,10 +64,7 @@ func _on_Unit_unselected(unit):
 	$TooltipHeader.hide()
 
 
-func _on_BuildingMenuButton_pressed():
-	$Hints2.hide()
-
-func _on_ItemMenuButton_pressed():
+func _on_MenuButton_pressed():
 	$Hints2.hide()
 
 func _on_element_button_pressed(element_button):
