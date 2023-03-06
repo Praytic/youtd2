@@ -13,7 +13,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	_set_target_count(_stats.target_count_max)
 
 	var specials_modifier: Modifier = Modifier.new()

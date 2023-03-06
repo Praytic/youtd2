@@ -4,9 +4,7 @@ extends Control
 signal item_dropped(item_id)
 
 
-var random: RandomNumberGenerator = RandomNumberGenerator.new()
-
-onready var mob_ysort: Node2D = get_node(@"%Map").get_node(@"MobYSort")
+@onready var mob_ysort: Node2D = get_node("%Map").get_node("MobYSort")
 
 
 #########################
@@ -17,7 +15,7 @@ func _on_Mob_death(event):
 	# TODO: Implement proper item drop chance caclculation
 	if Utils.rand_chance(0.5):
 		var item_id_list: Array = Properties.get_item_id_list()
-		var random_index: int = random.randi_range(0, item_id_list.size() - 1)
+		var random_index: int = randi_range(0, item_id_list.size() - 1)
 		var item_id: int = item_id_list[random_index]
 		var item_properties: Dictionary = Properties.get_item_csv_properties()[item_id]
 		var rarity: int = item_properties[Item.CsvProperty.RARITY].to_int()
@@ -32,7 +30,7 @@ func _on_Mob_death(event):
 		
 		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % [rarity_name]
 		var item_drop_scene = load(item_drop_scene_path)
-		var item_drop = item_drop_scene.instance()
+		var item_drop = item_drop_scene.instantiate()
 		item_drop.set_id(item_id)
 		item_drop.position = event.get_target().position
 		mob_ysort.add_child(item_drop, true)

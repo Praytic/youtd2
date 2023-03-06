@@ -7,8 +7,8 @@ var _key_map: Dictionary = {}
 var _value_map: Dictionary = {}
 
 
-func _init(size: int):
-	_size = size
+func _init(size_arg: int):
+	_size = size_arg
 
 	for index in range(0, _size):
 		_key_map[index] = ""

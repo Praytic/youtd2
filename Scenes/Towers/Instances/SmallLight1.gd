@@ -14,7 +14,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	var magical_sight: Buff = MagicalSightBuff.new(_stats.magical_sight_range)
 	magical_sight.apply_to_unit_permanent(self, self, 0)	
 

@@ -1,15 +1,12 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://vgeirnu7ramn"]
 
-[ext_resource path="res://Scenes/FloatingText.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://Scenes/FloatingText.gd" id="2"]
 
 [node name="FloatingText" type="Node2D"]
-scale = Vector2( 1e-05, 1e-05 )
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Label" type="Label" parent="."]
-margin_right = 40.0
-margin_bottom = 14.0
-rect_scale = Vector2( 5, 5 )
+offset_right = 40.0
+offset_bottom = 14.0
+scale = Vector2(5, 5)
 text = "TEST"
-
-[node name="Tween" type="Tween" parent="."]

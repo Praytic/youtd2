@@ -1,10 +1,10 @@
-tool
+@tool
 extends Panel
 
-export(Texture) var icon_texture
-export(String) var default_label_text
+@export var icon_texture: Texture2D
+@export var default_label_text: String
 
-onready var _label: Label = $MarginContainer/HBoxContainer/Label
+@onready var _label: Label = $MarginContainer/HBoxContainer/Label
 
 
 func _ready():

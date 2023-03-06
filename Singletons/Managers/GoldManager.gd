@@ -2,7 +2,7 @@ extends Node
 
 signal gold_change(value)
 
-var gold: float setget set_gold
+var gold: float : set = set_gold
 var income: float = Properties.globals["ini_income"]
 var max_gold: float = Properties.globals["max_gold"]
 

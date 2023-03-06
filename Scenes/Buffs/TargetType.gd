@@ -49,16 +49,16 @@ func match(unit: Unit) -> bool:
 		var mob_size: int = unit.get_size()
 		var mob_category: int = unit.get_category()
 
-		if !_mob_size_list.empty() && !_mob_size_list.has(mob_size):
+		if !_mob_size_list.is_empty() && !_mob_size_list.has(mob_size):
 			return false
 
-		if !_mob_category_list.empty() && !_mob_category_list.has(mob_category):
+		if !_mob_category_list.is_empty() && !_mob_category_list.has(mob_category):
 			return false
 
 	if is_tower:
 		var tower_element: int = unit.get_element()
 
-		if !_tower_element_list.empty() && !_tower_element_list.has(tower_element):
+		if !_tower_element_list.is_empty() && !_tower_element_list.has(tower_element):
 			return false
 
 	return true

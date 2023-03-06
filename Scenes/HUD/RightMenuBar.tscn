@@ -1,62 +1,64 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://dejhjhxmq2n2s"]
 
-[ext_resource path="res://Assets/UI/HUD/themes/wc3_theme.tres" type="Theme" id=3]
-[ext_resource path="res://Assets/UI/HUD/texture.jpg" type="Texture" id=5]
-[ext_resource path="res://Scenes/HUD/RightMenuBar.gd" type="Script" id=6]
-[ext_resource path="res://Scenes/HUD/BuildBar.gd" type="Script" id=7]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="3"]
+[ext_resource type="Texture2D" uid="uid://mnlx0hsujtqg" path="res://Assets/UI/HUD/texture.jpg" id="5"]
+[ext_resource type="Script" path="res://Scenes/HUD/RightMenuBar.gd" id="6"]
+[ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
 
 [node name="RightMenuBar" type="Control"]
-anchor_left = 1.0
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 3 )
-script = ExtResource( 6 )
+theme = ExtResource("3")
+script = ExtResource("6")
 
 [node name="ColorRect" type="TextureRect" parent="."]
-self_modulate = Color( 0.192157, 0.192157, 0.207843, 1 )
+self_modulate = Color(0.192157, 0.192157, 0.207843, 1)
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 2
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5")
+expand_mode = 1
+stretch_mode = 1
+flip_h = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
-margin_right = 400.0
-margin_bottom = 1000.0
-rect_min_size = Vector2( 400, 1000 )
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ScrollContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 20
-custom_constants/margin_left = 20
-custom_constants/margin_bottom = 20
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="ItemBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
 visible = false
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 20.0
-margin_bottom = 20.0
+layout_mode = 2
 columns = 4
 
 [node name="BuildBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 20.0
-margin_bottom = 20.0
+layout_mode = 2
 columns = 4
-script = ExtResource( 7 )
+script = ExtResource("7")
 
 [connection signal="element_changed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
 [connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/ItemBar" to="." method="_on_BuildBar_child_entered_tree"]

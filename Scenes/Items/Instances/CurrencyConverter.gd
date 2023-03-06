@@ -25,6 +25,6 @@ func _on_periodic(event: Event):
 	if tower.get_exp() >= 2.0:
 		Utils.sfx_on_unit("UI\\Feedback\\GoldCredit\\GoldCredit.mdl", tower, "head")
 		tower.remove_exp_flat(2)
-		tower.get_owner().give_gold(7, tower, true, true)
+		tower.getOwner().give_gold(7, tower, true, true)
 	else:
 		Utils.display_floating_text("Not enough credits!", tower, 255, 0, 0)

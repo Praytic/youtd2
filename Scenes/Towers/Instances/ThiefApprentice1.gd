@@ -17,7 +17,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _ready():
+func _tower_init():
 	var tower = self
 
 	var specials_modifier: Modifier = Modifier.new()
@@ -43,14 +43,14 @@ func _ready():
 # called by tooltip i guess?
 func on_tower_details() -> MultiboardValues:
 	var tower = self
-	m0ck_thief_multiboard.set_value(0, String(int(tower.user_real)))
+	m0ck_thief_multiboard.set_value(0, str(int(tower.user_real)))
 	return m0ck_thief_multiboard
 
 
 func on_damage(event: Event):
 	var tower = self
 
-	var projectile = _projectile_scene.instance()
+	var projectile = _projectile_scene.instantiate()
 	projectile.create_interpolate("Abilities/Weapons/WardenMissile/WardenMissile.mdl", 1000)
 	projectile.set_event_on_interpolation_finished(self, "steal")
 	projectile.create_linear_interpolation_from_unit_to_unit(tower, 0, 0, event.get_target(), tower, 0, true)
@@ -59,5 +59,5 @@ func on_damage(event: Event):
 func steal(p: Projectile):
 	var tower = p.get_caster()
 	var gold_granted: float = (tower.user_int * (tower.get_level() * tower.user_int * 0.04)) / 10
-	tower.get_owner().give_gold(gold_granted, tower, false, true)
+	tower.getOwner().give_gold(gold_granted, tower, false, true)
 	tower.user_real = tower.user_real + gold_granted
