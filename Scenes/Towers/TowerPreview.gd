@@ -9,6 +9,7 @@ const opaque_red := Color("adff4545")
 const opaque_green := Color("ad54ff3c")
 
 var tower_id: int
+var _tower_instance: Node2D
 
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
 
@@ -19,12 +20,12 @@ func _ready():
 
 	_range_indicator.set_radius(attack_range)
 
-	var tower_instance = TowerManager.get_tower_visual_only(tower_id)
-	add_child(tower_instance)
+	_tower_instance = TowerManager.get_tower_visual_only(tower_id)
+	add_child(_tower_instance)
 
 
 func _physics_process(_delta):
-	modulate = get_current_color()
+	_tower_instance.modulate = get_current_color()
 	position = get_current_pos()
 
 
