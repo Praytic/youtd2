@@ -51,7 +51,7 @@ polygon = PackedVector2Array(-0.44817, -27.7647, 25.8964, -1.41174, 52.241, -27.
 [node name="Camera3D" type="Camera2D" parent="Map"]
 unique_name_in_owner = true
 z_index = 1000
-position = Vector2(4419.81, 4150.62)
+position = Vector2(2.08165e-12, 7888)
 scale = Vector2(0.5, 0.5)
 zoom = Vector2(0.3, 0.3)
 limit_left = -10367
@@ -73,14 +73,13 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Minimap" parent="UI/HUD" instance=ExtResource("3")]
-visible = false
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 2
 anchor_left = 0.0
 anchor_right = 0.0
-offset_left = 0.0
-offset_right = 216.0
+offset_left = 229.0
+offset_right = 445.0
 grow_horizontal = 1
 mouse_filter = 2
 
@@ -106,3 +105,7 @@ script = ExtResource("7")
 [connection signal="child_entered_tree" from="Map/MobYSort" to="UI/HUD/Minimap" method="_on_MobYSort_child_entered_tree"]
 [connection signal="child_exiting_tree" from="Map/MobYSort" to="UI/HUD/Minimap" method="_on_MobYSort_child_exiting_tree"]
 [connection signal="body_entered" from="Map/MobExit" to="." method="_on_MobExit_body_entered"]
+[connection signal="camera_moved" from="Map/Camera3D" to="UI/HUD" method="_on_Camera_updated"]
+[connection signal="camera_moved" from="Map/Camera3D" to="UI/HUD/Minimap" method="_on_Camera_camera_moved"]
+[connection signal="camera_zoomed" from="Map/Camera3D" to="UI/HUD" method="_on_Camera_updated"]
+[connection signal="camera_zoomed" from="Map/Camera3D" to="UI/HUD/Minimap" method="_on_Camera_camera_zoomed"]
