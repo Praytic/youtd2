@@ -6,6 +6,7 @@ signal tower_built(tower_id)
 
 @onready var mob_ysort: Node2D = get_node("%Map").get_node("MobYSort")
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
+@onready var _landscape = get_node("%Map")
 
 var build_mode: bool = false
 var tower_preview: TowerPreview = null
@@ -32,9 +33,9 @@ func on_build_button_pressed(tower_id: int):
 
 
 func verify_and_build():
-	if build_mode and tower_preview.is_buildable():
+	if build_mode and _landscape.can_build_at_mouse_pos():
 		var new_tower = TowerManager.get_tower(tower_preview.tower_id)
-		new_tower.position = tower_preview.get_current_pos()
+		new_tower.position = _landscape.get_current_buildable_pos()
 		mob_ysort.add_child(new_tower, true)
 		emit_signal("tower_built", tower_preview.tower_id)
 		tower_preview.queue_free()
