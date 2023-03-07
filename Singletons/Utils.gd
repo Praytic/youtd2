@@ -84,7 +84,7 @@ func get_mob_list_in_range(position: Vector2, range_value: float) -> Array:
 	for node in object_container.get_children():
 		if node is Mob:
 			var mob: Mob = node as Mob
-			var distance: float = position.distance_to(mob.position)
+			var distance: float = Utils.vector_isometric_distance_to(position, mob.position)
 			var mob_is_in_range = distance < range_value
 
 			if mob_is_in_range && !mob.is_invisible():
