@@ -333,7 +333,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 		if neighbor == splash_target:
 			continue
 		
-		var distance: float = splash_pos.distance_to(neighbor.position)
+		var distance: float = Utils.vector_isometric_distance_to(splash_pos, neighbor.position)
 
 		for splash_range in splash_range_list:
 			var mob_is_in_range: bool = distance < splash_range
