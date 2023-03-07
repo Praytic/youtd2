@@ -90,24 +90,21 @@ func _have_target_space() -> bool:
 # based on tower properties or other game design considerations
 func _find_new_target() -> Mob:
 	var body_list: Array = _targeting_area.get_overlapping_bodies()
-	var closest_mob: Mob = null
-	var distance_min: float = 1000000.0
 
 #	NOTE: can't use existing targets as new targets
 	for target in _target_list:
 		body_list.erase(target)
-	
-	for body in body_list:
-		if body is Mob && !body.is_dead() && !body.is_invisible():
-			var mob: Mob = body
-			var pos_diff: Vector2 = mob.position - self.position
-			var distance: float = Utils.vector_isometric_length(pos_diff)
-			
-			if distance < distance_min:
-				closest_mob = mob
-				distance_min = distance
-	
-	return closest_mob
+
+	body_list.filter(func(body): body is Mob && !body.is_dead() && !body.is_invisible())
+
+	Utils.sort_unit_list_by_distance(body_list, self.position)
+
+	if body_list.size() != 0:
+		var closest_mob: Mob = body_list[0]
+
+		return closest_mob
+	else:
+		return null
 
 
 func _try_to_cast():
