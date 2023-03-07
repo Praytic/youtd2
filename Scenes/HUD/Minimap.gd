@@ -40,12 +40,14 @@ func _update_view_rect():
 
 
 func _on_MobYSort_child_entered_tree(mob):
-	mob.connect("moved",Callable(self,"_on_Mob_moved").bind(mob))
+	if mob is Mob:
+		mob.connect("moved",Callable(self,"_on_Mob_moved").bind(mob))
 
 
 func _on_MobYSort_child_exiting_tree(mob):
-	mob.disconnect("moved",Callable(self,"_on_Mob_moved"))
-	mobs_projection.pos_dict.erase(mob)
+	if mob is Mob:
+		mob.disconnect("moved",Callable(self,"_on_Mob_moved"))
+		mobs_projection.pos_dict.erase(mob)
 
 
 func _on_Mob_moved(_delta, mob):
