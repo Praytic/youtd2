@@ -1,5 +1,5 @@
 class_name Autocast
-extends Node2D
+extends Node
 
 # Autocast is a special event that is an advanced version of
 # periodic event. In addition to calling the handler
@@ -41,20 +41,11 @@ var _target_count_max: int = 1
 @onready var _targeting_area: Area2D = $TargetingArea
 @onready var _collision_shape: CollisionShape2D = $TargetingArea/CollisionShape2D
 @onready var _cooldown_timer: Timer = $CooldownTimer
-@onready var texture: Texture2D = load("res://Resources/PulsingDot.tres")
 
 func _ready():
 	Utils.circle_shape_set_radius(_collision_shape, _data.auto_range)
 
 	set_cooldown(_data.cooldown)
-
-#func _draw():
-#	var scale = Vector2(0.1, 0.1)
-#	draw_set_transform(Vector2.ZERO, 0.0, scale)
-#
-#	var points_arc: PackedVector2Array = _collision_shape.shape.get_points()
-#	for point in points_arc:
-#		draw_texture(texture, (point / scale - texture.get_size() / 2), Color.WHITE)
 
 func set_data(data: Data, handler_object, handler_function: String):
 	_data = data
