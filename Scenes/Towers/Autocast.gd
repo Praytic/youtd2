@@ -100,7 +100,8 @@ func _find_new_target() -> Mob:
 	for body in body_list:
 		if body is Mob && !body.is_dead() && !body.is_invisible():
 			var mob: Mob = body
-			var distance: float = (mob.position - self.position).length()
+			var pos_diff: Vector2 = mob.position - self.position
+			var distance: float = Utils.vector_isometric_length(pos_diff)
 			
 			if distance < distance_min:
 				closest_mob = mob
