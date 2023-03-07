@@ -5,8 +5,8 @@ extends Node2D
 @onready var buildable_areas: Array = get_tree().get_nodes_in_group(Constants.Groups.BUILD_AREA_GROUP)
 
 
-const opaque_red := Color("adff4545")
-const opaque_green := Color("ad54ff3c")
+const opaque_red := Color(1, 0, 0, 0.5)
+const opaque_green := Color(0, 1, 0, 0.5)
 
 var tower_id: int
 var _tower_instance: Node2D
