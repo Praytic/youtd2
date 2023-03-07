@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Scenes/Towers/Autocast.gd" id="1"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_7pl55"]
+resource_local_to_scene = true
 
 [node name="Autocast" type="Node2D"]
 script = ExtResource("1")
