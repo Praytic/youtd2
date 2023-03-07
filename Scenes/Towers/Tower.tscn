@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/Towers/RangeIndicator.gd" id="5"]
 
 [node name="Tower" type="CharacterBody2D"]
+z_index = 10
 script = ExtResource("2")
 
 [node name="Base" type="Sprite2D" parent="."]
