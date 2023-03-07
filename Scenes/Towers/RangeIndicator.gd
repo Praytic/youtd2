@@ -7,6 +7,9 @@ extends Node2D
 @onready var texture: Texture2D = load("res://Resources/PulsingDot.tres")
 
 
+func _ready():
+	transform = Transform2D().scaled(Vector2(1, 0.5))
+
 func _draw():
 	_draw_circle_arc(self.position, 0, 360, Color.AQUA)
 

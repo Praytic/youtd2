@@ -57,15 +57,16 @@ func list_files_in_directory(path: String, regex_search: RegEx = null) -> Array:
 	return files
 
 
-func circle_shape_set_radius(collision_shape: CollisionShape2D, radius: float):
-	var shape: Shape2D = collision_shape.shape
-	var circle_shape: CircleShape2D = shape as CircleShape2D
+func circle_shape_set_radius(collision_shape: CollisionShape2D, radius: float , angle_from = 0, angle_to = 360):
+	var nb_points = radius/20
+	var points_arc = PackedVector2Array()
+	var center = collision_shape.position
 	
-	if circle_shape == null:
-		print_debug("Failed to cast area shape to circle")
-		return
-	
-	circle_shape.radius = radius
+	for i in range(nb_points + 1):
+		var angle_point = deg_to_rad(angle_from + i * (angle_to - angle_from) / nb_points - 90)
+		var point = center + Vector2(cos(angle_point), sin(angle_point) / 2) * radius
+		points_arc.append(point)
+	collision_shape.shape.set_point_cloud(points_arc)
 
 
 # Chance should be in range [0.0, 1.0]
