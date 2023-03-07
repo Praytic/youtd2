@@ -70,7 +70,8 @@ func _process(delta):
 	var move_vector = _speed * pos_diff.normalized() * delta
 	position += move_vector
 
-	var reached_mob = pos_diff.length() < CONTACT_DISTANCE
+	var distance: float = Utils.vector_isometric_length(pos_diff)
+	var reached_mob = distance < CONTACT_DISTANCE
 
 	if reached_mob:
 		if _target != null:

@@ -97,7 +97,11 @@ class DistanceSorter:
 	var origin = Vector2.ZERO
 
 	func sort(a: Unit, b: Unit):
-		return a.position.distance_to(origin) < b.position.distance_to(origin)
+		var distance_a: float = Utils.vector_isometric_distance_to(a.position, origin)
+		var distance_b: float = Utils.vector_isometric_distance_to(b.position, origin)
+		var less_than: bool = distance_a < distance_b
+
+		return less_than
 
 
 func sort_unit_list_by_distance(unit_list: Array, position: Vector2):
@@ -158,6 +162,23 @@ func camel_to_snake(camel_string: String) -> String:
 # TODO: maybe won't need this at all
 func add_unit_animation_properties(_unit: Unit, _mystery_string: String, _mystery_bool: bool):
 	pass
+
+
+# Takes a vector in isometric space and calculates it's
+# length in 3d space. Should be used for all distance
+# calculations.
+func vector_isometric_length(vector: Vector2) -> float:
+	var vector_unprojected: Vector2 = Vector2(vector.x, vector.y * 2)
+	var length: float = vector_unprojected.length()
+
+	return length
+
+
+func vector_isometric_distance_to(a: Vector2, b: Vector2) -> float:
+	var difference: Vector2 = a - b
+	var distance: float = vector_isometric_length(difference)
+
+	return distance
 
 
 func _load_sfx(sfx_name: String) -> AudioStreamMP3:
