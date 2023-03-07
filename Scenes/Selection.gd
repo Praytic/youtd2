@@ -2,7 +2,7 @@ extends Node2D
 
 
 func _ready():
-	draw_set_transform_matrix(Transform2D().scaled(Vector2(1, 0.5)))
+	transform = Transform2D().scaled(Vector2(1, 0.5))
 
 
 func _draw():
