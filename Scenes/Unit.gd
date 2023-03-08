@@ -681,3 +681,8 @@ func set_selected(selected_arg: bool):
 		_select()
 	else:
 		_unselect()
+
+# Implemented by Tower and Mob to return tower element or
+# mob category
+func get_category() -> int:
+	return 0
