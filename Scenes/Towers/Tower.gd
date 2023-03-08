@@ -62,7 +62,7 @@ const SELECTION_SIZE: int = 128
 
 var _id: int = 0
 var _stats: Dictionary
-var _attack_autocast = null
+var _attack_autocast: Autocast
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _splash_map: Dictionary = {}
 var _bounce_count_max: int = 0

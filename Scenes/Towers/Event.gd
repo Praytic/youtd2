@@ -16,12 +16,12 @@ enum Type {
 }
 
 
-var _buff
+var _buff: Buff
 # NOTE: damage may be modified in event handlers to change
 # the final effect of the event
 var damage: float
 # target is of type Unit, can't use typing because of cyclic dependency...
-var _target
+var _target: Unit
 # This flag is to prevent infinite recursion from
 # damage/damaged events. For example, if a tower does splash
 # damage to mobs around the mob it attacks, then the target
@@ -35,7 +35,7 @@ var _timer: Timer = null
 ### Code starts here  ###
 #########################
 
-func _init(target, damage_arg, is_main_target_arg: bool):
+func _init(target: Unit, damage_arg: float, is_main_target_arg: bool):
 	_target = target
 	damage = damage_arg
 	_is_main_target = is_main_target_arg
@@ -48,10 +48,10 @@ func _init(target, damage_arg, is_main_target_arg: bool):
 func _ready():
 	pass
 
-func get_buff():
+func get_buff() -> Buff:
 	return _buff
 
-func get_target():
+func get_target() -> Unit:
 	return _target
 
 func is_main_target() -> bool:

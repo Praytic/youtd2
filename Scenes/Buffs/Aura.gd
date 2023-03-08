@@ -35,11 +35,11 @@ var power_add: int = 0
 var aura_effect_is_friendly: bool = false
 var create_aura_effect_function: String = ""
 var caster: Unit = null
-var create_aura_effect_object = null
+var create_aura_effect_object: Object = null
 
-@onready var _timer = $Timer
-@onready var _area = $Area2D
-@onready var _area_shape = $Area2D/CollisionShape2D
+@onready var _timer: Timer = $Timer
+@onready var _area: Area2D = $Area2D
+@onready var _area_shape: CollisionShape2D = $Area2D/CollisionShape2D
 
 
 func _ready():
@@ -78,7 +78,7 @@ func _create_aura_effect() -> Buff:
 
 		return null
 
-	var aura_effect = create_aura_effect_object.call(create_aura_effect_function)
+	var aura_effect: Buff = create_aura_effect_object.call(create_aura_effect_function)
 
 	return aura_effect
 
