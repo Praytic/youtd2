@@ -542,3 +542,6 @@ func get_rarity_num() -> int:
 
 func get_selection_size() -> int:
 	return SELECTION_SIZE
+
+func get_display_name() -> String:
+	return get_csv_property(CsvProperty.NAME)

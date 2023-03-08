@@ -98,6 +98,10 @@ func get_visual_position() -> Vector2:
 	return _visual.global_position
 
 
+func get_display_name() -> String:
+	return "Generic Mob"
+
+
 func set_path(path: Path2D):
 	_path_curve = path.curve
 	position = _path_curve.get_point_position(0)
