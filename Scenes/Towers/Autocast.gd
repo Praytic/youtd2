@@ -95,7 +95,7 @@ func _find_new_target() -> Mob:
 	for target in _target_list:
 		body_list.erase(target)
 
-	body_list.filter(func(body): body is Mob && !body.is_dead() && !body.is_invisible())
+	body_list = body_list.filter(func(body): body is Mob && !body.is_dead() && !body.is_invisible())
 
 	Utils.sort_unit_list_by_distance(body_list, self.position)
 
