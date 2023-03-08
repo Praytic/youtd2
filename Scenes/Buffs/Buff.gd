@@ -60,6 +60,7 @@ var _time_base: float
 var _time_level_add: float
 var _friendly: bool
 var _type: String
+var _timer: Timer
 # Map of Event.Type -> list of EventHandler's
 var event_handler_map: Dictionary = {}
 
@@ -113,9 +114,9 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	_target.connect("damaged",Callable(self,"_on_target_damaged"))
 
 	if time > 0.0:
-		var timer: Timer = Timer.new()
-		add_child(timer)
-		timer.connect("timeout",Callable(self,"_on_timer_timeout"))
+		_timer = Timer.new()
+		add_child(_timer)
+		_timer.connect("timeout",Callable(self,"_on_timer_timeout"))
 
 		var buff_duration_mod: float = _caster.get_prop_buff_duration()
 		var debuff_duration_mod: float = _target.get_prop_debuff_duration()
@@ -123,7 +124,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 			debuff_duration_mod = 0.0
 
 		var total_time: float = time * buff_duration_mod * debuff_duration_mod
-		timer.start(total_time)
+		_timer.start(total_time)
 
 	var create_event: Event = _make_buff_event(_target, 0, true)
 	_call_event_handler_list(Event.Type.CREATE, create_event)
@@ -155,6 +156,10 @@ func apply_only_timed(caster: Unit, target: Unit, time: float):
 
 func apply_to_unit_permanent(caster: Unit, target: Unit, level: int):
 	apply_custom_timed(caster, target, level, -1.0)
+
+
+func refresh_duration():
+	_timer.start(_timer.wait_time)
 
 
 func set_buff_modifier(modifier: Modifier):

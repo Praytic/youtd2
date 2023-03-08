@@ -409,6 +409,9 @@ func get_id() -> int:
 func get_tier() -> int:
 	return get_csv_property(CsvProperty.TIER).to_int()
 
+func get_family() -> int:
+	return get_csv_property(CsvProperty.FAMILY_ID).to_int()
+
 func get_icon_atlas_num() -> int:
 	var icon_atlas_num_string: String = get_csv_property(CsvProperty.ICON_ATLAS_NUM)
 
@@ -424,6 +427,12 @@ func get_element() -> int:
 	var element: int = Element.get(element_string.to_upper())
 
 	return element
+
+# NOTE: in tower scripts getCategory() is called to get
+# tower's element instead of getElement(), for some reason,
+# so make this wrapper over get_element()
+func get_category() -> int:
+	return get_element()
 
 # How many the seconds the tower needs to reload without modifications.
 func get_base_cooldown() -> float:
