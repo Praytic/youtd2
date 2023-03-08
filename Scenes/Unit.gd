@@ -670,6 +670,9 @@ func get_prop_atk_damage_received() -> float:
 func get_selection_size():
 	pass
 
+func get_display_name() -> String:
+	return "Generic Unit"
+
 func is_selected() -> bool:
 	return _selected
 
