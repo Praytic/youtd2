@@ -242,9 +242,13 @@ func _get_damage_mod_for_mob_size(mob: Mob) -> float:
 # total bonus be (1.5 + 1.5 + 1.5) or (1.5 * 1.5 * 1.5)?
 # TODO: is base crit bonus from one crit +50% dmg or + 100%
 # dmg?
-func _get_damage_to_mob(mob: Mob, damage_base: float) -> float:
-	var damage: float = damage_base
-	
+# TODO: white/green might be wrong
+func _get_damage_to_mob(mob: Mob) -> float:
+	var white_damage: float = _get_rand_damage_base() * (1.0 + get_base_damage_bonus_percent())
+	var green_damage: float = get_damage_add() * (1.0 + get_damage_add_percent())
+
+	var damage = white_damage + green_damage
+
 	var damage_mod_list: Array = [
 		_get_damage_mod_for_mob_size(mob),
 		_get_damage_mod_for_mob_category(mob),
@@ -302,8 +306,7 @@ func _on_projectile_target_hit_normal(projectile: Projectile):
 	var target: Unit = projectile.get_target()
 	var mob: Mob = target as Mob
 
-	var damage_base: float = _get_rand_damage_base()
-	var damage: float = _get_damage_to_mob(mob, damage_base)
+	var damage: float = _get_damage_to_mob(mob)
 	
 	super._do_damage(target, damage, true)
 
@@ -315,8 +318,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 	if _splash_map.is_empty():
 		return
 
-	var damage_base: float = _get_rand_damage_base()
-	var damage: float = _get_damage_to_mob(mob, damage_base)
+	var damage: float = _get_damage_to_mob(mob)
 
 	super._do_damage(target, damage, true)
 
@@ -353,8 +355,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile):
 	var target: Unit = projectile.get_target()
 	var mob: Mob = target as Mob
 
-	var damage_base: float = _get_rand_damage_base()
-	var damage: float = _get_damage_to_mob(mob, damage_base)
+	var damage: float = _get_damage_to_mob(mob)
 
 	projectile.user_real = damage
 	projectile.user_int = _bounce_count_max
