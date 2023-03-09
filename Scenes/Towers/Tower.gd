@@ -317,6 +317,9 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 
 	var damage_base: float = _get_rand_damage_base()
 	var damage: float = _get_damage_to_mob(mob, damage_base)
+
+	super._do_damage(target, damage, true)
+
 	var splash_target: Unit = target
 	var splash_pos: Vector2 = splash_target.position
 
