@@ -47,7 +47,7 @@ jobs:
       if: env.NEED == 'true'
       with:
         name: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}
-        path: ${{ steps.export.outputs.build_directory }}/HTML5/*
+        path: ${{ steps.export.outputs.build_directory }}/Web/*
     outputs:
       tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
       need_release: ${{ env.NEED }}
