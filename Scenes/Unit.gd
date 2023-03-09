@@ -686,3 +686,16 @@ func set_selected(selected_arg: bool):
 # mob category
 func get_category() -> int:
 	return 0
+
+func get_base_damage_bonus() -> float:
+	return _mod_value_map[ModType.MOD_DAMAGE_BASE]
+
+func get_base_damage_bonus_percent() -> float:
+	return _mod_value_map[ModType.MOD_DAMAGE_BASE_PERC]
+
+func get_damage_add() -> float:
+	return _mod_value_map[ModType.MOD_DAMAGE_ADD]
+
+func get_damage_add_percent() -> float:
+	return _mod_value_map[ModType.MOD_DAMAGE_ADD_PERC]
+
