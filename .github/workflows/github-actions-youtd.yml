@@ -43,6 +43,9 @@ jobs:
         else
             echo "NEED=false" >> "$GITHUB_ENV"
         fi
+    - name: Enable threads for Chrome
+      run: |
+        curl https://raw.githubusercontent.com/josephrocca/clip-image-sorter/main/enable-threads.js > ${{ steps.export.outputs.build_directory }}/Web/enable-threads.js
     - uses: actions/upload-artifact@v3
       if: env.NEED == 'true'
       with:
