@@ -8,7 +8,6 @@ signal element_changed(element)
 
 @onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
 
-
 func _ready():
 	self.hide()
 	builder_control.connect("tower_built",Callable(self,"_on_Tower_built"))

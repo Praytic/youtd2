@@ -5,6 +5,7 @@ signal item_dropped(item_id)
 
 
 @onready var mob_ysort: Node2D = get_node("%Map").get_node("MobYSort")
+@onready var item_bar: Node2D = get_node("%HUD/RightMenuBar/%ItemBar")
 
 
 #########################
@@ -33,5 +34,10 @@ func _on_Mob_death(event):
 		var item_drop = item_drop_scene.instantiate()
 		item_drop.set_id(item_id)
 		item_drop.position = event.get_target().position
+		item_drop.connect("selected",Callable(self,"_on_Item_selected"))
 		mob_ysort.add_child(item_drop, true)
 		emit_signal("item_dropped", item_drop.get_id())
+
+func _on_Item_selected(item_drop):
+	item_bar.add_item_button(item_drop.get_id())
+	item_drop.queue_free()
