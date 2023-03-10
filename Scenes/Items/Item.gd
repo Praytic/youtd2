@@ -90,14 +90,17 @@ func get_item_name() -> String:
 func get_author() -> String:
 	return get_property(CsvProperty.AUTHOR)
 
-func get_rarity() -> int:
-	var rarity_string: String = get_property(CsvProperty.DESCRIPTION)
-	var rarity: int = Constants.Rarity.get(rarity_string.to_upper())
+func get_rarity() -> String:
+	return get_csv_property(CsvProperty.RARITY)
+	
+func get_rarity_num() -> int:
+	return Constants.Rarity.get(get_rarity().to_upper())
+
 
 	return rarity
 
 func get_cost() -> int:
-	return get_property(CsvProperty.RARITY).to_int()
+	return get_property(CsvProperty.COST).to_int()
 
 func get_description() -> String:
 	return get_property(CsvProperty.DESCRIPTION)

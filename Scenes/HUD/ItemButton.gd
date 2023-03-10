@@ -16,8 +16,8 @@ var _item_icon_m: AtlasTexture
 
 @onready var _item : get = get_item, set = set_item
 @onready var _icon_size: String : set = set_icon_size
-@onready var _tier_icons_s = preload("res://Assets/Items/tier_icons_s.png")
-@onready var _tier_icons_m = preload("res://Assets/Items/tier_icons_m.png")
+@onready var _tier_icons_s = preload("res://Assets/Towers/tier_icons_s.png")
+@onready var _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 @onready var _item_icons_s = preload("res://Assets/Items/item_icons_s.png")
 @onready var _item_icons_m = preload("res://Assets/Items/item_icons_m.png")
 @onready var _item_button_fallback_icon = preload("res://Assets/icon.png")
@@ -60,7 +60,7 @@ func _get_item_button_tier_icon(icon_size_letter: String) -> Texture2D:
 	else:
 		return _item_button_fallback_icon
 	
-	icon_out.set_region(Rect2(item_tier * icon_size, item_rarity * icon_size, icon_size, icon_size))
+	icon_out.set_region(Rect2(6 * icon_size, item_rarity * icon_size, icon_size, icon_size))
 	return icon_out
 
 func _get_item_button_icon(icon_size_letter: String) -> Texture2D:
