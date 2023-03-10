@@ -9,11 +9,6 @@ const TIER_ICON_SIZE_M = 64
 
 var tier_icon
 
-var _tier_icon_s: AtlasTexture
-var _tower_icon_s: AtlasTexture
-var _tier_icon_m: AtlasTexture
-var _tower_icon_m: AtlasTexture
-
 @onready var _tower : get = get_tower, set = set_tower
 @onready var _icon_size: String : set = set_icon_size
 @onready var _tier_icons_s = preload("res://Assets/Towers/tier_icons_s.png")

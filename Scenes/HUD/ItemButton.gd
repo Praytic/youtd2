@@ -9,12 +9,7 @@ const TIER_ICON_SIZE_M = 64
 
 var tier_icon
 
-var _tier_icon_s: AtlasTexture
-var _item_icon_s: AtlasTexture
-var _tier_icon_m: AtlasTexture
-var _item_icon_m: AtlasTexture
-
-@onready var _item : get = get_item, set = set_item
+@onready var _item: Item : get = get_item, set = set_item
 @onready var _icon_size: String : set = set_icon_size
 @onready var _tier_icons_s = preload("res://Assets/Towers/tier_icons_s.png")
 @onready var _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
@@ -39,14 +34,13 @@ func set_icon_size(icon_size: String):
 	icon = _get_item_button_icon(icon_size)
 
 
-func set_item(item):
+func set_item(item: Item):
 	_item = item
 
-func get_item():
+func get_item() -> Item:
 	return _item
 	
 func _get_item_button_tier_icon(icon_size_letter: String) -> Texture2D:
-	var item_tier = _item.get_tier() - 1
 	var item_rarity = _item.get_rarity_num()
 	
 	var icon_out = AtlasTexture.new()

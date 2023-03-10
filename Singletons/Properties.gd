@@ -66,6 +66,13 @@ func get_tower_csv_properties_by_id(tower_id: int) -> Dictionary:
 	else:
 		return {}
 
+func get_item_csv_properties_by_id(item_id: int) -> Dictionary:
+	if _item_csv_properties.has(item_id):
+		var out: Dictionary = _item_csv_properties[item_id]
+
+		return out
+	else:
+		return {}
 
 func get_tower_csv_properties_by_filter(tower_property: int, filter_value: String) -> Array:
 	var result_list_of_dicts = []
