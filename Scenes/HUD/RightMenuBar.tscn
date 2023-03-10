@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dejhjhxmq2n2s"]
+[gd_scene load_steps=6 format=3 uid="uid://dejhjhxmq2n2s"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="3"]
+[ext_resource type="Script" path="res://Scenes/HUD/ItemBar.gd" id="4_5ctcy"]
 [ext_resource type="Texture2D" uid="uid://mnlx0hsujtqg" path="res://Assets/UI/HUD/texture.jpg" id="5"]
 [ext_resource type="Script" path="res://Scenes/HUD/RightMenuBar.gd" id="6"]
 [ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
@@ -51,9 +52,9 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="ItemBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
-visible = false
 layout_mode = 2
 columns = 4
+script = ExtResource("4_5ctcy")
 
 [node name="BuildBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
