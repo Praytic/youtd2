@@ -79,14 +79,6 @@ func _create_TowerButton(tower_id) -> TowerButton:
 	return tower_button
 
 
-func _on_TowerButton_mouse_entered(tower_id):
-	emit_signal("tower_info_requested", tower_id)
-
-
-func _on_TowerButton_mouse_exited(_tower_id):
-	emit_signal("tower_info_canceled")
-
-
 func _on_Tower_built(tower_id):
 	remove_tower_button(tower_id)
 
