@@ -43,6 +43,16 @@ func _on_RightMenuBar_tower_info_canceled():
 	$TooltipHeader.hide()
 
 
+func _on_RightMenuBar_item_info_requested(item_id):
+	var item = TowerManager.get_tower(item_id)
+	$TooltipHeader.set_header_unit(item)
+	$TooltipHeader.show()
+
+
+func _on_RightMenuBar_item_info_canceled():
+	$TowerTooltip.hide()
+	$TooltipHeader.hide()
+
 func _on_MobYSort_child_entered_tree(node):
 		node.connect("selected",Callable(self,"_on_Unit_selected").bind(node))
 		node.connect("unselected",Callable(self,"_on_Unit_unselected").bind(node))
@@ -51,16 +61,13 @@ func _on_MobYSort_child_entered_tree(node):
 func _on_Unit_selected(unit):
 	if unit is Tower:
 		$TowerTooltip.set_tower_tooltip_text(unit)
-		$TowerTooltip.hide()
-	
+	$TowerTooltip.hide()
 	$TooltipHeader.set_header_unit(unit)
 	$TooltipHeader.show()
 
 
 func _on_Unit_unselected(unit):
-	if unit is Tower:
-		$TowerTooltip.hide()
-	
+	$TowerTooltip.hide()
 	$TooltipHeader.hide()
 
 
@@ -79,3 +86,8 @@ func _on_TooltipHeader_expanded(expand):
 		$TowerTooltip.show()
 	else:
 		$TowerTooltip.hide()
+
+
+func _on_ItemMenuButton_pressed():
+	var element: int = -1
+	$RightMenuBar.set_element(element)

@@ -3,7 +3,7 @@ extends GridContainer
 
 @export var unlimited_items = false
 
-@onready var builder_control = get_tree().current_scene.get_node("%ItemControl")
+@onready var item_control = get_tree().current_scene.get_node("%ItemControl")
 # Dictionary of all in-game items with the associated buttons
 @onready var _item_buttons: Dictionary = {}
 # Adds every item button possible to the list.
@@ -30,7 +30,7 @@ func remove_item_button(item_id):
 
 func _ready():
 	if not unlimited_items:
-		item_control.connect("item_built",Callable(self,"_on_Item_built"))
+		item_control.connect("item_used",Callable(self,"_on_Item_used"))
 		
 	for item_id in Properties.get_item_id_list():
 		var item_button = _create_ItemButton(item_id)
@@ -46,10 +46,34 @@ func _ready():
 	current_size = "M"
 
 
+func _on_RightMenuBar_element_changed(element: int):
+	for item_button in _item_buttons.values():
+		item_button.hide()
+	
+	if element != -1:
+		# Towers menu bar was selected
+		return
+	
+	if current_size == "M":
+		if available_item_buttons.size() > 14:
+			_resize_icons("S")
+		else:
+			_resize_icons("M")
+	elif current_size == "S":
+		if available_item_buttons.size() > 14:
+			_resize_icons("S")
+		else:
+			_resize_icons("M")
+	
+	for item_id in available_item_buttons:
+		_item_buttons[item_id].show()
+
+
 func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()
-	item_button.set_item(ItemManager.get_item(item_id))
-	item_button.connect("pressed",Callable(builder_control,"on_build_button_pressed").bind(item_id))
+	var item = ItemManager.get_item(item_id)
+	item_button.set_item(item)
+	item_button.connect("pressed",Callable(item_control,"_on_ItemButton_pressed").bind(item_id))
 	return item_button
 
 
@@ -61,7 +85,7 @@ func _on_ItemButton_mouse_exited(_item_id):
 	emit_signal("item_info_canceled")
 
 
-func _on_Item_built(item_id):
+func _on_Item_used(item_id):
 	remove_item_button(item_id)
 
 

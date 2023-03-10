@@ -2,10 +2,11 @@ extends Control
 
 
 signal item_dropped(item_id)
+signal item_used(item_id)
 
 
 @onready var mob_ysort: Node2D = get_node("%Map").get_node("MobYSort")
-@onready var item_bar: Node2D = get_node("%HUD/RightMenuBar/%ItemBar")
+@onready var item_bar: GridContainer = get_node("%HUD/RightMenuBar/%ItemBar")
 
 
 #########################
@@ -34,10 +35,14 @@ func _on_Mob_death(event):
 		var item_drop = item_drop_scene.instantiate()
 		item_drop.set_id(item_id)
 		item_drop.position = event.get_target().position
-		item_drop.connect("selected",Callable(self,"_on_Item_selected"))
+		item_drop.connect("selected",Callable(self,"_on_Item_selected").bind(item_drop))
 		mob_ysort.add_child(item_drop, true)
 		emit_signal("item_dropped", item_drop.get_id())
 
 func _on_Item_selected(item_drop):
 	item_bar.add_item_button(item_drop.get_id())
 	item_drop.queue_free()
+
+func _on_ItemButton_pressed(item_id: int):
+	#TODO: Implement items inside buildings
+	pass

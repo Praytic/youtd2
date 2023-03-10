@@ -56,7 +56,6 @@ unique_name_in_owner = true
 layout_mode = 2
 columns = 4
 script = ExtResource("4_5ctcy")
-unlimited_items = null
 
 [node name="BuildBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
@@ -66,4 +65,3 @@ script = ExtResource("7")
 [connection signal="element_changed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
 [connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/ItemBar" to="." method="_on_BuildBar_child_entered_tree"]
 [connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" to="." method="_on_BuildBar_child_entered_tree"]
-[connection signal="child_exiting_tree" from="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" to="." method="_on_BuildBar_child_exiting_tree"]
