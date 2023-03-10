@@ -77,14 +77,6 @@ func _create_ItemButton(item_id) -> ItemButton:
 	return item_button
 
 
-func _on_ItemButton_mouse_entered(item_id):
-	emit_signal("item_info_requested", item_id)
-
-
-func _on_ItemButton_mouse_exited(_item_id):
-	emit_signal("item_info_canceled")
-
-
 func _on_Item_used(item_id):
 	remove_item_button(item_id)
 

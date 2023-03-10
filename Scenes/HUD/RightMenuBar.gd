@@ -59,5 +59,5 @@ func _on_Tower_built(_tower_id):
 	hide()
 
 
-func _on_Item_used(item_id):
+func _on_Item_used(_item_id):
 	hide()

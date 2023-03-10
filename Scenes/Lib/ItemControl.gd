@@ -43,6 +43,6 @@ func _on_Item_selected(item_drop):
 	item_bar.add_item_button(item_drop.get_id())
 	item_drop.queue_free()
 
-func _on_ItemButton_pressed(item_id: int):
+func _on_ItemButton_pressed(_item_id: int):
 	#TODO: Implement items inside buildings
 	pass

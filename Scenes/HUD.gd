@@ -66,7 +66,7 @@ func _on_Unit_selected(unit):
 	$TooltipHeader.show()
 
 
-func _on_Unit_unselected(unit):
+func _on_Unit_unselected(_unit):
 	$TowerTooltip.hide()
 	$TooltipHeader.hide()
 
