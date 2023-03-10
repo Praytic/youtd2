@@ -15,6 +15,8 @@ enum CsvProperty {
 	COST = 5,
 	DESCRIPTION = 6,
 	REQUIRED_WAVE_LEVEL = 7,
+	ICON_ATLAS_FAMILY = 8,
+	ICON_ATLAS_NUM = 9,
 }
 
 var _id: int = 0
@@ -111,3 +113,17 @@ func get_property(property: int) -> String:
 
 func get_carrier() -> Tower:
 	return _carrier
+
+func get_icon_atlas_family() -> int:
+	var prop = get_property(CsvProperty.ICON_ATLAS_FAMILY)
+	if prop.is_empty():
+		return -1
+	else:
+		return prop.to_int()
+
+func get_icon_atlas_num() -> int:
+	var prop = get_property(CsvProperty.ICON_ATLAS_NUM)
+	if prop.is_empty():
+		return -1
+	else:
+		return prop.to_int()
