@@ -26,7 +26,7 @@ func _on_periodic(event: Event):
 
 func _trap(event: Event, tower, cooldown: float, base_damage: float, damage_add: float, stun_duration: float, max_targets: int):
 	var lvl: int = tower.get_level()
-	var mob_list: Array = Utils.get_mob_list_in_range(tower.position, 950)
+	var mob_list: Array = Utils.over_units_in_range_of_caster(tower, TargetType.new(TargetType.UnitType.MOBS), 950)
 	mob_list = Utils.shuffle_list(mob_list)
 	var num_targets: int = 0
 

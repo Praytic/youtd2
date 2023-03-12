@@ -274,7 +274,7 @@ func _get_damage_to_mob(mob: Mob) -> float:
 
 func _get_next_bounce_target(prev_target: Mob) -> Mob:
 	var attack_range: float = get_attack_range()
-	var mob_list: Array = Utils.get_mob_list_in_range(prev_target.position, attack_range)
+	var mob_list: Array = Utils.over_units_in_range_of_caster(prev_target, TargetType.new(TargetType.UnitType.MOBS), attack_range)
 	mob_list.erase(prev_target)
 
 	Utils.sort_unit_list_by_distance(mob_list, prev_target.position)
@@ -332,7 +332,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 
 	var splash_range_max: float = splash_range_list.back()
 
-	var mob_list: Array = Utils.get_mob_list_in_range(splash_pos, splash_range_max)
+	var mob_list: Array = Utils.over_units_in_range_of_caster(splash_target, TargetType.new(TargetType.UnitType.MOBS), splash_range_max)
 
 	for neighbor in mob_list:
 		if neighbor == splash_target:
