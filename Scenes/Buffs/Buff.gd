@@ -105,18 +105,18 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 
 	_target = target
 	_target._add_buff_internal(self)
-	_target.connect("death",Callable(self,"_on_target_death"))
-	_target.connect("kill",Callable(self,"_on_target_kill"))
-	_target.connect("level_up",Callable(self,"_on_target_level_up"))
-	_target.connect("attack",Callable(self,"_on_target_attack"))
-	_target.connect("attacked",Callable(self,"_on_target_attacked"))
-	_target.connect("dealt_damage",Callable(self,"_on_target_dealt_damage"))
-	_target.connect("damaged",Callable(self,"_on_target_damaged"))
+	_target.death.connect(_on_target_death)
+	_target.kill.connect(_on_target_kill)
+	_target.level_up.connect(_on_target_level_up)
+	_target.attack.connect(_on_target_attack)
+	_target.attacked.connect(_on_target_attacked)
+	_target.dealt_damage.connect(_on_target_dealt_damage)
+	_target.damaged.connect(_on_target_damaged)
 
 	if time > 0.0:
 		_timer = Timer.new()
 		add_child(_timer)
-		_timer.connect("timeout",Callable(self,"_on_timer_timeout"))
+		_timer.timeout.connect(_on_timer_timeout)
 
 		var buff_duration_mod: float = _caster.get_prop_buff_duration()
 		var debuff_duration_mod: float = _target.get_prop_debuff_duration()
@@ -236,7 +236,7 @@ func add_periodic_event(handler_object: Node, handler_function: String, period: 
 	timer.wait_time = period
 	timer.one_shot = false
 	timer.autostart = true
-	timer.connect("timeout",Callable(self,"_on_periodic_event_timer_timeout").bind(handler_object, handler_function, timer))
+	timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler_object, handler_function, timer))
 
 
 func add_event_handler_unit_comes_in_range(handler_object: Node, handler_function: String, radius: float, target_type: TargetType):
@@ -250,7 +250,7 @@ func add_event_handler_unit_comes_in_range(handler_object: Node, handler_functio
 	call_deferred("add_child", buff_range_area)
 	buff_range_area.init(radius, target_type, handler_object, handler_function)
 
-	buff_range_area.connect("unit_came_in_range",Callable(self,"_on_unit_came_in_range"))
+	buff_range_area.unit_came_in_range.connect(_on_unit_came_in_range)
 
 
 func add_autocast(autocast_data: Autocast.Data, handler_object, handler_function: String) -> Autocast:

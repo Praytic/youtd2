@@ -30,7 +30,7 @@ func remove_item_button(item_id):
 
 func _ready():
 	if not unlimited_items:
-		item_control.connect("item_used",Callable(self,"_on_Item_used"))
+		item_control.item_used.connect(_on_Item_used)
 		
 	for item_id in Properties.get_item_id_list():
 		var item_button = _create_ItemButton(item_id)
@@ -73,7 +73,7 @@ func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()
 	var item = ItemManager.get_item(item_id)
 	item_button.set_item(item)
-	item_button.connect("pressed",Callable(item_control,"_on_ItemButton_pressed").bind(item_id))
+	item_button.pressed.connect(Callable(item_control, "_on_ItemButton_pressed").bind(item_id))
 	return item_button
 
 

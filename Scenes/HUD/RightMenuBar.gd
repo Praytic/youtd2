@@ -14,8 +14,8 @@ signal element_changed(element)
 
 func _ready():
 	self.hide()
-	builder_control.connect("tower_built",Callable(self,"_on_Tower_built"))
-	item_control.connect("item_used",Callable(self,"_on_Item_used"))
+	builder_control.tower_built.connect(_on_Tower_built)
+	item_control.item_used.connect(_on_Item_used)
 
 
 func set_element(element: int):
@@ -31,12 +31,12 @@ func _unhandled_input(event):
 func _on_BuildBar_child_entered_tree(unit_button):
 	if unit_button is TowerButton:
 		var tower_id = unit_button.get_tower().get_id()
-		unit_button.connect("mouse_entered",Callable(self,"_on_TowerButton_mouse_entered").bind(tower_id))
-		unit_button.connect("mouse_exited",Callable(self,"_on_TowerButton_mouse_exited").bind(tower_id))
+		unit_button.mouse_entered.connect(_on_TowerButton_mouse_entered.bind(tower_id))
+		unit_button.mouse_exited.connect(_on_TowerButton_mouse_exited.bind(tower_id))
 	if unit_button is ItemButton:
 		var item_id = unit_button.get_item().get_id()
-		unit_button.connect("mouse_entered",Callable(self,"_on_ItemButton_mouse_entered").bind(item_id))
-		unit_button.connect("mouse_exited",Callable(self,"_on_ItemButton_mouse_exited").bind(item_id))
+		unit_button.mouse_entered.connect(_on_ItemButton_mouse_entered.bind(item_id))
+		unit_button.mouse_exited.connect(_on_ItemButton_mouse_exited.bind(item_id))
 
 
 func _on_TowerButton_mouse_entered(tower_id):

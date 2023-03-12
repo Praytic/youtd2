@@ -69,14 +69,14 @@ func _add_target(new_target: Mob):
 	if new_target == null || new_target.is_dead() || new_target.is_invisible():
 		return
 
-	new_target.connect("death",Callable(self,"_on_target_death").bind(new_target))
-	new_target.connect("became_invisible",Callable(self,"_on_target_became_invisible").bind(new_target))
+	new_target.death.connect(_on_target_death.bind(new_target))
+	new_target.became_invisible.connect(_on_target_became_invisible.bind(new_target))
 	_target_list.append(new_target)
 
 
 func _remove_target(target: Mob):
-	target.disconnect("death",Callable(self,"_on_target_death"))
-	target.disconnect("became_invisible",Callable(self,"_on_target_became_invisible"))
+	target.death.disconnect(_on_target_death)
+	target.became_invisible.disconnect(_on_target_became_invisible)
 
 	_target_list.erase(target)
 
@@ -150,8 +150,8 @@ func _on_TargetingArea_body_entered(body):
 # 	but remember it by connecting to it's signal. If the mob
 # 	becomes visible (while still in range), it may become a
 # 	target.
-	if !body.is_connected("became_visible",Callable(self,"_on_mob_in_range_became_visible")):
-		body.connect("became_visible",Callable(self,"_on_mob_in_range_became_visible").bind(body))
+	if !body.is_connected("became_visible", _on_mob_in_range_became_visible):
+		body.became_visible.connect(_on_mob_in_range_became_visible.bind(body))
 
 	if body.is_invisible():
 		return
@@ -166,7 +166,7 @@ func _on_TargetingArea_body_exited(body):
 	if !body is Mob:
 		return
 
-	body.disconnect("became_visible",Callable(self,"_on_mob_in_range_became_visible"))
+	body.became_visible.disconnect(_on_mob_in_range_became_visible)
 
 	var target_went_out_of_range: bool = _target_list.has(body)
 
