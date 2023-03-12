@@ -91,7 +91,7 @@ func _on_Timer_timeout():
 		var mob_scene: Mob = mob_scene_map[mob].instantiate()
 		mob_scene.set_path(mob_path)
 		mob_ysort.add_child(mob_scene)
-		mob_scene.connect("death",Callable(item_control,"_on_Mob_death"))
+		mob_scene.death.connect(Callable(item_control, "_on_Mob_death"))
 		spawned.emit(mob)
 	
 	var progress_string: String = "Group: %d/%d; Mob: %d/%d" % [_group_index + 1, _group_list.size(), _mob_spawned_count, _mob_total_count]

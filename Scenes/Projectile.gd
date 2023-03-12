@@ -54,7 +54,7 @@ func create_from_unit_to_unit(caster: Unit, _damage_ratio: float, _crit_ratio: f
 	_game_scene = caster.get_tree().get_root().get_node("GameScene")
 
 	_game_scene.call_deferred("add_child", self)
-	_target.connect("death",Callable(self,"_on_target_death"))
+	_target.death.connect(_on_target_death)
 
 
 # TODO: implement actual interpolation, for now calling
@@ -102,11 +102,11 @@ func get_caster() -> Unit:
 # still needed to match original API.
 
 func set_event_on_target_hit(handler_object: Object, handler_function: String):
-	connect("target_hit",Callable(handler_object,handler_function))
+	target_hit.connect(Callable(handler_object, handler_function))
 
 
 func set_event_on_interpolation_finished(handler_object: Object, handler_function: String):
-	connect("interpolation_finished",Callable(handler_object,handler_function))
+	interpolation_finished.connect(Callable(handler_object, handler_function))
 
 
 func _get_target_position() -> Vector2:

@@ -435,7 +435,7 @@ func _accept_kill(target: Unit, is_main_target: bool):
 func _add_buff_internal(buff):
 	var buff_type: String = buff.get_type()
 	_buff_map[buff_type] = buff
-	buff.connect("removed",Callable(self,"_on_buff_removed").bind(buff))
+	buff.removed.connect(_on_buff_removed.bind(buff))
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), 1)
 	add_child(buff)

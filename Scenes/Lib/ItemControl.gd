@@ -35,7 +35,7 @@ func _on_Mob_death(event):
 		var item_drop = item_drop_scene.instantiate()
 		item_drop.set_id(item_id)
 		item_drop.position = event.get_target().position
-		item_drop.connect("selected",Callable(self,"_on_Item_selected").bind(item_drop))
+		item_drop.selected.connect(_on_Item_selected.bind(item_drop))
 		mob_ysort.add_child(item_drop, true)
 		item_dropped.emit(item_drop.get_id())
 

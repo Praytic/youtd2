@@ -34,7 +34,7 @@ func _ready():
 	_is_mob = true
 	_health = MOB_HEALTH_MAX
 
-	connect("damaged",Callable(self,"on_damaged"))
+	damaged.connect(on_damaged)
 
 
 func _process(delta):

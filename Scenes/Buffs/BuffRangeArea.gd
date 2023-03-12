@@ -12,7 +12,7 @@ var _handler_function: String
 
 
 func _init():
-	connect("body_entered",Callable(self,"_on_body_entered"))
+	body_entered.connect(_on_body_entered)
 
 
 func init(radius: float, target_type: TargetType, handler_object: Node, handler_function: String):

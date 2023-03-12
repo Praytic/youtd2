@@ -9,7 +9,7 @@ signal stop_wave()
 
 func _ready():
 	for element_button in element_buttons_parent.get_children():
-		element_button.connect("pressed",Callable(self,"_on_element_button_pressed").bind(element_button))
+		element_button.pressed.connect(_on_element_button_pressed.bind(element_button))
 	
 	$TowerTooltip.hide()
 	$TooltipHeader.hide()
@@ -54,8 +54,8 @@ func _on_RightMenuBar_item_info_canceled():
 	$TooltipHeader.hide()
 
 func _on_MobYSort_child_entered_tree(node):
-		node.connect("selected",Callable(self,"_on_Unit_selected").bind(node))
-		node.connect("unselected",Callable(self,"_on_Unit_unselected").bind(node))
+		node.selected.connect(_on_Unit_selected.bind(node))
+		node.unselected.connect(_on_Unit_unselected.bind(node))
 
 
 func _on_Unit_selected(unit):

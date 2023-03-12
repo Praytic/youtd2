@@ -32,7 +32,7 @@ func remove_tower_button(tower_id):
 
 func _ready():
 	if not unlimited_towers:
-		builder_control.connect("tower_built",Callable(self,"_on_Tower_built"))
+		builder_control.tower_built.connect(_on_Tower_built)
 		
 	for tower_id in Properties.get_tower_id_list():
 		var tower_button = _create_TowerButton(tower_id)
@@ -75,7 +75,7 @@ func _on_RightMenuBar_element_changed(element: int):
 func _create_TowerButton(tower_id) -> TowerButton:
 	var tower_button = TowerButton.new()
 	tower_button.set_tower(TowerManager.get_tower(tower_id))
-	tower_button.connect("pressed",Callable(builder_control,"on_build_button_pressed").bind(tower_id))
+	tower_button.pressed.connect(Callable(builder_control, "on_build_button_pressed").bind(tower_id))
 	return tower_button
 
 
