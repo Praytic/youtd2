@@ -41,13 +41,6 @@ signal unselected
 # MOD_MANA_PERC
 # MOD_MANA_REGEN
 # MOD_MANA_REGEN_PERC
-# MOD_DMG_FROM_ASTRAL
-# MOD_DMG_FROM_DARKNESS
-# MOD_DMG_FROM_NATURE
-# MOD_DMG_FROM_FIRE
-# MOD_DMG_FROM_ICE
-# MOD_DMG_FROM_STORM
-# MOD_DMG_FROM_IRON
 
 enum ModType {
 	MOD_ARMOR,
@@ -124,6 +117,16 @@ enum MobCategory {
 	HUMANOID,
 }
 
+var element_to_dmg_from_element_mod: Dictionary = {
+	Tower.Element.ICE: ModType.MOD_DMG_FROM_ICE,
+	Tower.Element.NATURE: ModType.MOD_DMG_FROM_NATURE,
+	Tower.Element.FIRE: ModType.MOD_DMG_FROM_FIRE,
+	Tower.Element.ASTRAL: ModType.MOD_DMG_FROM_ASTRAL,
+	Tower.Element.DARKNESS: ModType.MOD_DMG_FROM_DARKNESS,
+	Tower.Element.IRON: ModType.MOD_DMG_FROM_IRON,
+	Tower.Element.STORM: ModType.MOD_DMG_FROM_STORM,
+}
+
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 
@@ -190,6 +193,13 @@ func _init():
 	_mod_value_map[ModType.MOD_DMG_TO_ORC] = 1.0
 	_mod_value_map[ModType.MOD_DMG_TO_HUMANOID] = 1.0
 
+	_mod_value_map[ModType.MOD_DMG_FROM_ASTRAL] = 1.0
+	_mod_value_map[ModType.MOD_DMG_FROM_DARKNESS] = 1.0
+	_mod_value_map[ModType.MOD_DMG_FROM_NATURE] = 1.0
+	_mod_value_map[ModType.MOD_DMG_FROM_FIRE] = 1.0
+	_mod_value_map[ModType.MOD_DMG_FROM_ICE] = 1.0
+	_mod_value_map[ModType.MOD_DMG_FROM_STORM] = 1.0
+	_mod_value_map[ModType.MOD_DMG_FROM_IRON] = 1.0
 
 func _ready():
 	_update_invisible_modulate()
@@ -361,7 +371,10 @@ func _do_damage(target: Unit, damage: float, is_main_target: bool):
 	target._receive_damage(self, damage_event.damage, is_main_target)
 
 
-func _receive_damage(caster: Unit, damage: float, is_main_target: bool):
+func _receive_damage(caster: Unit, damage_base: float, is_main_target: bool):
+	var element_modifier: float = _get_damage_from_element_mod(caster)
+	var damage: float = damage_base * element_modifier
+
 	var health_before_damage: float = _health
 
 	_health -= damage
@@ -446,6 +459,19 @@ func _unselect():
 	$Selection.hide()
 	_selected = false
 	emit_signal("unselected")
+
+
+func _get_damage_from_element_mod(caster: Unit) -> float:
+	if !caster is Tower:
+		return 1.0
+
+	var tower: Tower = caster as Tower
+
+	var caster_element: int = tower.get_element()
+	var mod_type: int = element_to_dmg_from_element_mod[caster_element]
+	var mod_value: float = _mod_value_map[mod_type]
+
+	return mod_value
 
 
 #########################
