@@ -50,6 +50,11 @@ func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
 	return create_animated(effect_path, unit.position.x, unit.position.y, 0.0, 0.0)
 
 
+# TODO: implement body part parameter
+func add_special_effect_target(effect_path: String, unit: Unit, _body_part: String) -> int:
+	return create_animated(effect_path, unit.position.x, unit.position.y, 0.0, 0.0)
+
+
 func destroy_effect(effect_id: int):
 	if !_effect_map.has(effect_id):
 		return
