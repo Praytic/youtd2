@@ -120,10 +120,12 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 
 		var buff_duration_mod: float = _caster.get_prop_buff_duration()
 		var debuff_duration_mod: float = _target.get_prop_debuff_duration()
-		if _friendly:
-			debuff_duration_mod = 0.0
 
-		var total_time: float = time * buff_duration_mod * debuff_duration_mod
+		var total_time: float = time * buff_duration_mod
+
+		if !_friendly:
+			total_time *= debuff_duration_mod
+
 		_timer.start(total_time)
 
 	var create_event: Event = _make_buff_event(_target, 0, true)
