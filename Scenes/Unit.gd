@@ -412,11 +412,7 @@ func _killed_by_unit(caster: Unit, is_main_target: bool):
 
 # Called when unit kills target unit
 func _accept_kill(target: Unit, is_main_target: bool):
-# 	TODO: load bounty_base from somewhere
-	var bounty_base: float = 10.0
-	var granted_mod: float = target.get_prop_bounty_granted()
-	var received_mod: float = get_prop_bounty_received()
-	var bounty: int = int(bounty_base * granted_mod * received_mod)
+	var bounty: float = _get_bounty_for_target(target)
 	GoldManager.add_gold(bounty)
 
 	var experience_gained: float = _get_experience_for_target(target)
@@ -476,6 +472,16 @@ func _get_damage_from_element_mod(caster: Unit) -> float:
 	var mod_value: float = _mod_value_map[mod_type]
 
 	return mod_value
+
+
+func _get_bounty_for_target(target: Unit) -> float:
+# 	TODO: Replace this placeholder constant with real value.
+	var bounty_base: float = 10.0
+	var granted_mod: float = target.get_prop_bounty_granted()
+	var received_mod: float = get_prop_bounty_received()
+	var bounty: int = int(bounty_base * granted_mod * received_mod)
+
+	return bounty
 
 
 func _get_experience_for_target(target: Unit) -> float:
