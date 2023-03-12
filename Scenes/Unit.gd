@@ -305,14 +305,14 @@ func do_attack_damage(target: Unit, damage: float, _crit_mod: float):
 # out what myster float does. Also implement the difference
 # between spell/attack damage
 func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, _crit: float, _mystery_float: float):
-	var mob_list: Array = Utils.get_mob_list_in_range(target.position, radius)
+	var mob_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.MOBS), radius)
 
 	for mob in mob_list:
 		mob._receive_damage(self, damage, false)
 
 
 func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, _crit: float, _mystery_float: float):
-	var mob_list: Array = Utils.get_mob_list_in_range(target.position, radius)
+	var mob_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.MOBS), radius)
 
 	for mob in mob_list:
 		mob._receive_damage(self, damage, false)

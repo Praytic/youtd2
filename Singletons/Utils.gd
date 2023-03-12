@@ -78,19 +78,44 @@ func rand_chance(chance: float) -> bool:
 
 	return chance_success
 
-func get_mob_list_in_range(position: Vector2, range_value: float) -> Array:
-	var mob_list: Array = []
+# NOTE: this f-n has a weird name because it's named like
+# that in original scripts
+func over_units_in_range_of_caster(caster: Unit, type: TargetType, range_value: float) -> Array[Unit]:
+	var node_list: Array[Node] = object_container.get_children()
 
-	for node in object_container.get_children():
-		if node is Mob:
-			var mob: Mob = node as Mob
-			var distance: float = Utils.vector_isometric_distance_to(position, mob.position)
+	var filtered_node_list: Array[Node] = node_list.filter(
+		func(node) -> bool:
+			if !node is Unit:
+				return false
+
+			var unit: Unit = node as Unit
+
+			var type_match: bool = type.match(unit)
+
+			if !type_match:
+				return false
+
+			var distance: float = Utils.vector_isometric_distance_to(caster.position, unit.position)
 			var mob_is_in_range = distance < range_value
 
-			if mob_is_in_range && !mob.is_invisible():
-				mob_list.append(mob)
+			if !mob_is_in_range:
+				return false
 
-	return mob_list
+			if unit is Mob:
+				var mob: Mob = unit as Mob
+
+				if mob.is_invisible():
+					return false
+
+			return true
+	)
+	
+	var filtered_unit_list: Array[Unit] = []
+	
+	for node in filtered_node_list:
+		filtered_unit_list.append(node as Unit)
+
+	return filtered_unit_list
 
 
 class DistanceSorter:
