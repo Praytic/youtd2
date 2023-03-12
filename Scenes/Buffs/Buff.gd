@@ -16,19 +16,9 @@ extends Node2D
 # multiplier on value (confirmed by original tower scripts).
 # Maybe used for stacking behavior?
 
-# TODO: Event.Type.CLEANUP is currently fired when buff is
-# overriden. Need to figure out how cleanup works together
-# with REFRESH and UPGRADED event types. If a buff is
-# refreshed, should both CLEANUP and REFRESH fire or just
-# REFRESH? If so, then refresh needs to reuse current buff
-# instance instead of current behavior which is replacing
-# with new instance.
-
 # TODO: implement the following event types
 # SPELL_CAST
 # SPELL_TARGET
-# UPGRADE
-# REFRESH
 # PURGED
 
 # NOTE: this signal is separate from the EXPIRE event type
@@ -97,15 +87,9 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 		if active_buff != null:
 			var this_level: int = get_level()
 			var active_level: int = active_buff.get_level()
-			var do_upgrade: bool = this_level > active_level
 
-			if do_upgrade:
-				var old_level: int = active_level
-				var new_level: int = this_level
-				active_buff._level = this_level
-				active_buff.refresh_duration()
-
-				_target._change_modifier_level(active_buff.get_modifier(), old_level, new_level)
+			if this_level >= active_level:
+				active_buff._upgrade_or_refresh(this_level)
 
 #				When upgrading, new buff instance is
 #				discarded and not applied
@@ -278,6 +262,14 @@ func add_event_on_create(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.CREATE, handler_object, handler_function, 1.0, 0.0)
 
 
+func add_event_on_upgrade(handler_object: Node, handler_function: String):
+	add_event_handler(Event.Type.UPGRADE, handler_object, handler_function, 1.0, 0.0)
+
+
+func add_event_on_refresh(handler_object: Node, handler_function: String):
+	add_event_handler(Event.Type.REFRESH, handler_object, handler_function, 1.0, 0.0)
+
+
 func add_event_on_death(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.DEATH, handler_object, handler_function, 1.0, 0.0)
 
@@ -403,3 +395,21 @@ func _make_buff_event(target_arg: Unit, damage_arg: float, is_main_target_arg: b
 	event._buff = self
 
 	return event
+
+
+func _upgrade_or_refresh(new_level: int):
+	var current_level: int = get_level()
+
+	if current_level > new_level:
+		refresh_duration()
+		
+		_level = new_level
+		_target._change_modifier_level(get_modifier(), current_level, new_level)
+
+		var upgrade_event: Event = _make_buff_event(_target, 0, true)
+		_target._call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
+	elif current_level == new_level:
+		refresh_duration()
+
+		var refresh_event: Event = _make_buff_event(_target, 0, true)
+		_target._call_event_handler_list(Event.Type.REFRESH, refresh_event)

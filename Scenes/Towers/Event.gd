@@ -5,6 +5,8 @@ extends Node
 enum Type {
 	CLEANUP,
 	CREATE,
+	UPGRADE,
+	REFRESH,
 	DEATH,
 	KILL,
 	LEVEL_UP,
