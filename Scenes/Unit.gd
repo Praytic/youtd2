@@ -23,10 +23,8 @@ signal unselected
 # TODO: implement these mod types
 # MOD_ARMOR
 # MOD_ARMOR_PERC
-# MOD_EXP_GRANTED
 # MOD_ITEM_CHANCE_ON_KILL
 # MOD_ITEM_QUALITY_ON_KILL
-# MOD_EXP_RECEIVED
 # MOD_SPELL_CRIT_CHANCE
 # MOD_DAMAGE_BASE
 # MOD_DAMAGE_BASE_PERC
@@ -153,6 +151,7 @@ var _mod_value_map: Dictionary = {}
 var _invisible: bool = false
 var _selection_size: int : get = get_selection_size
 var _selected: bool = false : get = is_selected
+var _experience: float = 0.0
 
 # This is the count of towers that are currently able to see
 # this invisible mob. If there any towers that can see this
@@ -175,6 +174,8 @@ func _init():
 	_mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED] = 1.0
 	_mod_value_map[ModType.MOD_BOUNTY_GRANTED] = 1.0
 	_mod_value_map[ModType.MOD_BOUNTY_RECEIVED] = 1.0
+	_mod_value_map[ModType.MOD_EXP_GRANTED] = 1.0
+	_mod_value_map[ModType.MOD_EXP_RECEIVED] = 1.0
 	_mod_value_map[ModType.MOD_BUFF_DURATION] = 1.0
 	_mod_value_map[ModType.MOD_DEBUFF_DURATION] = 1.0
 	_mod_value_map[ModType.MOD_MOVESPEED] = 1.0
@@ -418,6 +419,9 @@ func _accept_kill(target: Unit, is_main_target: bool):
 	var bounty: int = int(bounty_base * granted_mod * received_mod)
 	GoldManager.add_gold(bounty)
 
+	var experience_gained: float = _get_experience_for_target(target)
+	_experience += experience_gained
+
 	var kill_event: Event = Event.new(target, 0, is_main_target)
 	emit_signal("kill", kill_event)
 
@@ -472,6 +476,16 @@ func _get_damage_from_element_mod(caster: Unit) -> float:
 	var mod_value: float = _mod_value_map[mod_type]
 
 	return mod_value
+
+
+func _get_experience_for_target(target: Unit) -> float:
+# 	TODO: Replace this placeholder constant with real value.
+	var experience_base: float = 10.0
+	var granted_mod: float = target.get_prop_exp_granted()
+	var received_mod: float = get_prop_exp_received()
+	var experience: int = int(experience_base * granted_mod * received_mod)
+
+	return experience
 
 
 #########################
@@ -578,6 +592,12 @@ func get_prop_bounty_received() -> float:
 
 func get_prop_bounty_granted() -> float:
 	return _mod_value_map[ModType.MOD_BOUNTY_GRANTED]
+
+func get_prop_exp_received() -> float:
+	return _mod_value_map[ModType.MOD_EXP_RECEIVED]
+
+func get_prop_exp_granted() -> float:
+	return _mod_value_map[ModType.MOD_EXP_GRANTED]
 
 func get_damage_to_air() -> float:
 	return _mod_value_map[ModType.MOD_DMG_TO_AIR]
