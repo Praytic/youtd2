@@ -65,16 +65,14 @@ var _timer: Timer
 var event_handler_map: Dictionary = {}
 
 
-# NOTE: type is used for override logic. Only one buff of a
-# type can be active on a unit at any given time and when a
-# buff of a type is applied to a unit while it already has
-# an active buff of a type, there's override logic for which
-# buff will remain on the unit.
-# 
-# Pass empty string if override logic doesn't matter for
-# your buff and multiple active instances of the buff on one
-# unit are allowed. For example, buffs that are used solely
-# to add event handlers should have empty type.
+# NOTE: buff type determines what happens when a buff is
+# applied while the target already has active buffs. If buff
+# type is empty, then buff will always be applied. If buff
+# type is set to something, then buff will be applied only
+# if the target doesn't already have an active buff with
+# same type. If new buff has higher lever than current
+# active buff, then current active buff is upgraded and
+# refreshed.
 func _init(type: String, time_base: float, time_level_add: float, friendly: bool):
 	_type = type
 	_time_base = time_base
@@ -87,23 +85,32 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	_caster = caster
 	_level = level
 	_power = power
-
-# 	Don't do any override logic for buffs with empty type
-# 	and allow stacking multiple instances of same type.
-	var need_override_logic: bool = !get_type().is_empty()
-
-	if need_override_logic:
-		var can_apply: bool = _check_can_apply_to_unit(target)
-
-		if !can_apply:
-			return
-
-		var active_buff = target.get_buff_of_type(get_type())
-
-		if active_buff != null:
-			active_buff.expire()
-
 	_target = target
+
+	var need_upgrade_logic: bool = !get_type().is_empty()
+
+# 	NOTE: original tower scripts depend on upgrade behavior
+# 	being implemented in this exact manner
+	if need_upgrade_logic:
+		var active_buff = target.get_buff_of_type(get_type())
+		
+		if active_buff != null:
+			var this_level: int = get_level()
+			var active_level: int = active_buff.get_level()
+			var do_upgrade: bool = this_level > active_level
+
+			if do_upgrade:
+				var old_level: int = active_level
+				var new_level: int = this_level
+				active_buff._level = this_level
+				active_buff.refresh_duration()
+
+				_target._change_modifier_level(active_buff.get_modifier(), old_level, new_level)
+
+#				When upgrading, new buff instance is
+#				discarded and not applied
+				return
+
 	_target._add_buff_internal(self)
 	_target.death.connect(_on_target_death)
 	_target.kill.connect(_on_target_kill)
@@ -396,17 +403,3 @@ func _make_buff_event(target_arg: Unit, damage_arg: float, is_main_target_arg: b
 	event._buff = self
 
 	return event
-
-
-func _check_can_apply_to_unit(unit: Unit) -> bool:
-	var active_buff = unit.get_buff_of_type(get_type())
-
-	if active_buff != null:
-		var should_override: bool = get_level() >= active_buff.get_level()
-
-		if should_override:
-			return true
-		else:
-			return false
-	else:
-		return true
