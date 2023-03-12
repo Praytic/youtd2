@@ -127,6 +127,8 @@ var element_to_dmg_from_element_mod: Dictionary = {
 
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
+# TODO: replace this placeholder constant with real value.
+const EXP_PER_LEVEL: float = 100
 
 
 # HACK: to fix cyclic dependency between Tower<->TargetType
@@ -417,6 +419,12 @@ func _accept_kill(target: Unit, is_main_target: bool):
 
 	var experience_gained: float = _get_experience_for_target(target)
 	_experience += experience_gained
+
+	if _experience >= EXP_PER_LEVEL:
+		_experience -= EXP_PER_LEVEL
+
+		var new_level: int = _level + 1
+		set_level(new_level)
 
 	var kill_event: Event = Event.new(target, 0, is_main_target)
 	emit_signal("kill", kill_event)
