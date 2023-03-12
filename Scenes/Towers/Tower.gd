@@ -484,22 +484,6 @@ func get_damage_max():
 func get_base_damage():
 	return (get_damage_min() + get_damage_max()) / 2.0
 
-# TODO: implement
-func get_base_damage_bonus():
-	return 0
-
-# TODO: implement
-func get_base_damage_bonus_percent():
-	return 0
-
-# TODO: implement
-func get_damage_add():
-	return 0
-
-# TODO: implement
-func get_damage_add_percent():
-	return 0
-
 func get_overall_base_damage():
 	return (get_base_damage() + get_base_damage_bonus()) * (1 + get_base_damage_bonus_percent())
 
