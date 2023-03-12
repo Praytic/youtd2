@@ -48,7 +48,7 @@ func _process(delta):
 func _move(delta):
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
 	position = position.move_toward(path_point, _get_move_speed() * delta)
-	emit_signal("moved", delta)
+	moved.emit(delta)
 	
 	var reached_path_point: bool = (position == path_point)
 

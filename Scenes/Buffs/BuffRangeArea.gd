@@ -34,4 +34,4 @@ func _on_body_entered(body: Node):
 	var target_match: bool = _target_type.match(unit)
 
 	if target_match:
-		emit_signal("unit_came_in_range", _handler_object, _handler_function, unit)
+		unit_came_in_range.emit(_handler_object, _handler_function, unit)

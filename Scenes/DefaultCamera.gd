@@ -23,7 +23,7 @@ func _physics_process(delta):
 		var shift_vector: Vector2 = move_direction * delta * cam_move_speed * diagonal_modif
 		position = get_screen_center_position() + shift_vector
 		
-		emit_signal("camera_moved", shift_vector)
+		camera_moved.emit(shift_vector)
 
 
 func _unhandled_input(event):
@@ -72,4 +72,4 @@ func _zoom(event):
 		new_zoom = minimum_zoom_out
 	zoom = Vector2(new_zoom, new_zoom)
 	
-	emit_signal("camera_zoomed", zoom)
+	camera_zoomed.emit(zoom)

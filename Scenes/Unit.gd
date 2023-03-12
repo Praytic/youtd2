@@ -336,7 +336,7 @@ func add_invisible_watcher():
 	_update_invisible_modulate()
 
 	if !is_invisible():
-		emit_signal("became_visible")
+		became_visible.emit()
 
 
 func remove_invisible_watcher():
@@ -344,7 +344,7 @@ func remove_invisible_watcher():
 	_update_invisible_modulate()
 
 	if is_invisible():
-		emit_signal("became_invisible")
+		became_invisible.emit()
 
 
 #########################
@@ -352,7 +352,7 @@ func remove_invisible_watcher():
 #########################
 
 func _do_attack(attack_event: Event):
-	emit_signal("attack", attack_event)
+	attack.emit(attack_event)
 
 	var target = attack_event.get_target()
 	target._receive_attack()
@@ -360,7 +360,7 @@ func _do_attack(attack_event: Event):
 
 func _receive_attack():
 	var attacked_event: Event = Event.new(self, 0, true)
-	emit_signal("attacked", attacked_event)
+	attacked.emit(attacked_event)
 
 
 # NOTE: this function should not be called in any event
@@ -369,7 +369,7 @@ func _receive_attack():
 # recursion of DAMAGE events causing infinite DAMAGE events.
 func _do_damage(target: Unit, damage: float, is_main_target: bool):
 	var damage_event: Event = Event.new(target, damage, is_main_target)
-	emit_signal("dealt_damage", damage_event)
+	dealt_damage.emit(damage_event)
 
 	target._receive_damage(self, damage_event.damage, is_main_target)
 
@@ -383,7 +383,7 @@ func _receive_damage(caster: Unit, damage_base: float, is_main_target: bool):
 	_health -= damage
 
 	var damaged_event: Event = Event.new(caster, damage, is_main_target)
-	emit_signal("damaged", damaged_event)
+	damaged.emit(damaged_event)
 
 	Utils.display_floating_text_x(str(int(damage)), self, 255, 0, 0, 0.0, 0.0, 1.0)
 
@@ -405,7 +405,7 @@ func _killed_by_unit(caster: Unit, is_main_target: bool):
 	_is_dead = true
 
 	var death_event: Event = Event.new(self, 0, is_main_target)
-	emit_signal("death", death_event)
+	death.emit(death_event)
 
 	caster._accept_kill(self, is_main_target)
 
@@ -427,7 +427,7 @@ func _accept_kill(target: Unit, is_main_target: bool):
 		set_level(new_level)
 
 	var kill_event: Event = Event.new(target, 0, is_main_target)
-	emit_signal("kill", kill_event)
+	kill.emit(kill_event)
 
 
 # This is for internal use in Buff.gd only. For external
@@ -460,13 +460,13 @@ func _update_invisible_modulate():
 func _select():
 	$Selection.show()
 	_selected = true
-	emit_signal("selected")
+	selected.emit()
 
 
 func _unselect():
 	$Selection.hide()
 	_selected = false
-	emit_signal("unselected")
+	unselected.emit()
 
 
 func _get_damage_from_element_mod(caster: Unit) -> float:
@@ -550,7 +550,7 @@ func set_level(new_level: int):
 		_apply_modifier(modifier, old_level, -1)
 		_apply_modifier(modifier, new_level, 1)
 
-	emit_signal("level_up")
+	level_up.emit()
 
 
 func is_dead() -> bool:

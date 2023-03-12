@@ -337,7 +337,7 @@ func _on_timer_timeout():
 	var cleanup_event: Event = _make_buff_event(_target, 0, true)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
-	emit_signal("removed")
+	removed.emit()
 
 	var expire_event: Event = _make_buff_event(_target, 0, true)
 	_call_event_handler_list(Event.Type.EXPIRE, expire_event)

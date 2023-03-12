@@ -37,7 +37,7 @@ func _on_TowerOptionButton_item_selected(_index):
 	var config = ConfigFile.new()
 	config.set_value(Constants.SettingsSection.HUD, Constants.SettingsKey.SELECTED_TOWER, get_item_id(_index))
 	config.save(SETTINGS_PATH)
-	emit_signal("tower_selected", get_item_id(_index))
+	tower_selected.emit(get_item_id(_index))
 
 
 func _on_RightMenuBar_element_changed(element):
