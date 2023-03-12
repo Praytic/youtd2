@@ -124,7 +124,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 
 
 func apply_custom_power(caster: Unit, target: Unit, level: int, power: int):
-	var time: float = _time_base + _time_level_add * _power
+	var time: float = _time_base + _time_level_add * level
 
 	apply_advanced(caster, target, level, power, time)
 
@@ -136,7 +136,7 @@ func apply_custom_timed(caster: Unit, target: Unit, level: int, time: float):
 
 # Apply using time parameters that were defined in init()
 func apply(caster: Unit, target: Unit, level: int):
-	var time: float = _time_base + _time_level_add * _power
+	var time: float = _time_base + _time_level_add * level
 
 	apply_custom_timed(caster, target, level, time)
 
