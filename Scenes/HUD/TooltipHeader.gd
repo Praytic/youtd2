@@ -39,4 +39,4 @@ func _on_ExpandButton_toggled(button_pressed):
 		icon_atlas.region.position.x = icon_atlas.region.size.x
 	else:
 		icon_atlas.region.position.x = 0
-	emit_signal("expanded", button_pressed)
+	expanded.emit(button_pressed)

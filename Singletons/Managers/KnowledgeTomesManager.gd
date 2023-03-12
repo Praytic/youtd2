@@ -16,7 +16,7 @@ func set_knowledge_tomes(value):
 		knowledge_tomes = 0
 	else:
 		knowledge_tomes = value
-	emit_signal("knowledge_tomes_change", value)
+	knowledge_tomes_change.emit(value)
 	
 func add_knowledge_tomes(value = income):
 	set_knowledge_tomes(knowledge_tomes + value)

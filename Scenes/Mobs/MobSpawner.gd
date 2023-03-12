@@ -38,17 +38,17 @@ func start(wave_index: int):
 	_mob_total_count = _get__mob_total_count()
 	
 	if _group_list.size() == 0:
-		emit_signal("progress_changed", "wave is empty, do nothing")
+		progress_changed.emit("wave is empty, do nothing")
 		return
 	else:
-		emit_signal("progress_changed", "wave just started")
+		progress_changed.emit("wave just started")
 		_timer.start(0)
 
 
 func stop():
 	_timer.stop()
 	
-	emit_signal("progress_changed", "wave stopped")
+	progress_changed.emit("wave stopped")
 
 
 func _get__mob_total_count() -> int:
@@ -74,7 +74,7 @@ func _on_Timer_timeout():
 		var wave_is_over = _group_index == _group_list.size() - 1
 		
 		if wave_is_over:
-			emit_signal("wave_ended", _group_index)
+			wave_ended.emit(_group_index)
 			return
 		
 		_group_index += 1
@@ -92,8 +92,8 @@ func _on_Timer_timeout():
 		mob_scene.set_path(mob_path)
 		mob_ysort.add_child(mob_scene)
 		mob_scene.connect("death",Callable(item_control,"_on_Mob_death"))
-		emit_signal("spawned", mob)
+		spawned.emit(mob)
 	
 	var progress_string: String = "Group: %d/%d; Mob: %d/%d" % [_group_index + 1, _group_list.size(), _mob_spawned_count, _mob_total_count]
 	
-	emit_signal("progress_changed", progress_string)
+	progress_changed.emit(progress_string)

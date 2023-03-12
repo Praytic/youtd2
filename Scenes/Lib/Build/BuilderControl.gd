@@ -37,7 +37,7 @@ func verify_and_build():
 		var new_tower = TowerManager.get_tower(tower_preview.tower_id)
 		new_tower.position = _landscape.get_current_buildable_pos()
 		mob_ysort.add_child(new_tower, true)
-		emit_signal("tower_built", tower_preview.tower_id)
+		tower_built.emit(tower_preview.tower_id)
 		tower_preview.queue_free()
 
 

@@ -19,7 +19,7 @@ func _ready():
 
 
 func set_element(element: int):
-	emit_signal("element_changed", element)
+	element_changed.emit(element)
 	show()
 
 
@@ -40,20 +40,18 @@ func _on_BuildBar_child_entered_tree(unit_button):
 
 
 func _on_TowerButton_mouse_entered(tower_id):
-	emit_signal("tower_info_requested", tower_id)
+	tower_info_requested.emit(tower_id)
 
 
 func _on_TowerButton_mouse_exited(_tower_id):
-	emit_signal("tower_info_canceled")
-
+	tower_info_canceled.emit()
 
 func _on_ItemButton_mouse_entered(item_id):
-	emit_signal("item_info_requested", item_id)
+	item_info_requested.emit(item_id)
 
 
 func _on_ItemButton_mouse_exited(_item_id):
-	emit_signal("item_info_canceled")
-
+	item_info_canceled.emit()
 
 func _on_Tower_built(_tower_id):
 	hide()

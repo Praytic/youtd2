@@ -75,11 +75,11 @@ func _process(delta):
 
 	if reached_mob:
 		if _target != null:
-			emit_signal("target_hit", self)
+			target_hit.emit(self)
 
 #			TODO: emit interpolation_finished() signal when
 #			interpolation finishes.
-			emit_signal("interpolation_finished", self)
+			interpolation_finished.emit(self)
 
 		var explosion = _explosion_scene.instantiate()
 		explosion.position = global_position

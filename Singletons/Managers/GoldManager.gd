@@ -16,7 +16,7 @@ func set_gold(value):
 		gold = 0
 	else:
 		gold = value
-	emit_signal("gold_change", gold)
+	gold_change.emit(gold)
 
 func add_gold(value = income):
 	set_gold(gold + value)
