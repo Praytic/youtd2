@@ -97,7 +97,7 @@ func _find_new_target() -> Mob:
 
 	body_list = body_list.filter(func(body): return body is Mob && !body.is_dead() && !body.is_invisible())
 
-	Utils.sort_unit_list_by_distance(body_list, self.position)
+	Utils.shuffle_list(body_list)
 
 	if body_list.size() != 0:
 		var closest_mob: Mob = body_list[0]
