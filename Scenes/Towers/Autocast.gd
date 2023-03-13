@@ -37,6 +37,7 @@ var _handler_object = null
 var _handler_function: String = ""
 var _target_list: Array = []
 var _target_count_max: int = 1
+var _caster: Unit
 
 @onready var _targeting_area: Area2D = $TargetingArea
 @onready var _collision_shape: CollisionShape2D = $TargetingArea/CollisionShape2D
@@ -46,6 +47,17 @@ func _ready():
 	Utils.circle_shape_set_radius(_collision_shape, _data.auto_range)
 
 	set_cooldown(_data.cooldown)
+
+# 	NOTE: to get caster we assume that autocasts are always
+# 	attached to buffs
+	var buff: Buff = get_parent() as Buff
+
+	if buff != null:
+		_caster = buff.get_buffed_unit()
+	else:
+		_caster = null
+		print_debug("Failed to get caster for autocast because autocast parent is not a buff.")
+
 
 func set_data(data: Data, handler_object, handler_function: String):
 	_data = data
@@ -116,6 +128,11 @@ func _try_to_cast():
 	if attack_on_cooldown:
 		return
 
+	var enough_mana: bool = _caster.get_mana() >= _data.mana_cost
+
+	if !enough_mana:
+		return
+
 	var casted_on_target: bool = false
 
 	for target in _target_list:
@@ -126,6 +143,8 @@ func _try_to_cast():
 	
 	if casted_on_target:
 		_cooldown_timer.start()
+
+		_caster.spend_mana(_data.mana_cost)
 
 
 func _on_target_death(_event: Event, target: Mob):
