@@ -228,6 +228,12 @@ func _get_damage_mod_for_mob_category(mob: Mob) -> float:
 
 	return damage_mod
 
+func _get_damage_mod_for_mob_armor_type(mob: Mob) -> float:
+	var attack_type: AttackType.enm = get_attack_type()
+	var armor_type: ArmorType.enm = mob.get_armor_type()
+	var damage_mod: float = AttackType.get_damage_against(attack_type, armor_type)
+
+	return damage_mod
 
 func _get_damage_mod_for_mob_size(mob: Mob) -> float:
 	var mob_size: int = mob.get_size()
@@ -252,6 +258,7 @@ func _get_damage_to_mob(mob: Mob) -> float:
 	var damage_mod_list: Array = [
 		_get_damage_mod_for_mob_size(mob),
 		_get_damage_mod_for_mob_category(mob),
+		_get_damage_mod_for_mob_armor_type(mob),
 	]
 
 # 	NOTE: crit count can go above 1 because of the multicrit
@@ -538,3 +545,9 @@ func get_selection_size() -> int:
 
 func get_display_name() -> String:
 	return get_csv_property(CsvProperty.NAME)
+
+func get_attack_type() -> AttackType.enm:
+	var attack_type_string: String = get_csv_property(CsvProperty.ATTACK_TYPE)
+	var attack_type: AttackType.enm = AttackType.from_string(attack_type_string)
+
+	return attack_type

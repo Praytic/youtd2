@@ -21,6 +21,7 @@ var _category: int = Unit.MobCategory.HUMANOID
 var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
+var _armor_type: ArmorType.enm = ArmorType.enm.LIGHT
 
 
 @onready var _visual = $Visual
@@ -89,6 +90,10 @@ func get_size() -> int:
 
 func get_category() -> int:
 	return _category
+
+
+func get_armor_type() -> ArmorType.enm:
+	return _armor_type
 
 
 # NOTE: use this instead of regular Node2D.position for
