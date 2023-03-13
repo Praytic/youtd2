@@ -263,6 +263,16 @@ func _get_damage_to_mob(mob: Mob) -> float:
 
 # 	NOTE: crit count can go above 1 because of the multicrit
 # 	property
+
+#	TODO: according to this comment in one tower script,
+#	crit mod should happend after on_damage event:
+#
+# 	Quote: "The engine calculates critical strike extra
+# 	damage ***AFTER*** the onDamage event, so there is no
+# 	need to care about it in this trigger."
+# 
+#	NOTE: that armor resistance needs to be applied before
+#	on_damage
 	var crit_count: int = calc_attack_multicrit(0, 0, 0)
 	var crit_mod: float = get_prop_atk_crit_damage()
 

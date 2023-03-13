@@ -763,3 +763,7 @@ func get_damage_add() -> float:
 func get_damage_add_percent() -> float:
 	return _mod_value_map[ModType.MOD_DAMAGE_ADD_PERC]
 
+# TODO: implement. Should be a combination of armor base,
+# armor_add, armor_add_perc. Should be in range [0.0, 1.0]
+func get_current_armor_damage_reduction() -> float:
+	return 0.0
