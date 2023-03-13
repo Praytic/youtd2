@@ -154,6 +154,7 @@ var _invisible: bool = false
 var _selection_size: int : get = get_selection_size
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
+var _mana: float = 100.0
 
 # This is the count of towers that are currently able to see
 # this invisible mob. If there any towers that can see this
@@ -345,6 +346,10 @@ func remove_invisible_watcher():
 
 	if is_invisible():
 		became_invisible.emit()
+
+
+func spend_mana(mana_cost: float):
+	_mana = max(0.0, _mana - mana_cost)
 
 
 #########################
@@ -767,3 +772,6 @@ func get_damage_add_percent() -> float:
 # armor_add, armor_add_perc. Should be in range [0.0, 1.0]
 func get_current_armor_damage_reduction() -> float:
 	return 0.0
+
+func get_mana() -> float:
+	return _mana
