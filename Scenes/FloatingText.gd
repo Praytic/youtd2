@@ -15,7 +15,7 @@ func _ready():
 # 	Text bounces up and right
 	var pos_tween = create_tween()
 	pos_tween.tween_property(self, "position",
-		Vector2(50, -50),
+		Vector2(position.x + 50, position.y - 50),
 		1.0 * duration).set_trans(Tween.TRANS_SINE)
 
 # 	Text pops out of nothing then shrinks

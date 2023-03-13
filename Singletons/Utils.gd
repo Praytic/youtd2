@@ -8,6 +8,7 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 	return buildable_area.get_cell_source_id(0, pos) != -1
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("MobYSort")
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
+@onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/Map/FloatingTextContainer")
 
 var _loaded_sfx_map: Dictionary = {}
 var _sfx_player_list: Array = []
@@ -144,7 +145,8 @@ func display_floating_text_x(text: String, unit: Unit, color_r: int, color_g: in
 	floating_text.text = text
 	floating_text.color = Color(color_r / 255.0, color_g / 255.0, color_b / 255.0)
 	floating_text.duration = time
-	unit.add_child(floating_text)
+	floating_text.position = unit.position
+	_floating_text_container.add_child(floating_text)
 
 
 # TODO: implement, not sure what the difference is between this and then _x version
