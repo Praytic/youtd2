@@ -139,9 +139,7 @@ var _invisible: bool = false
 var _selection_size: int : get = get_selection_size
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
-var _base_mana: float = 0.0
 var _mana: float = 0.0
-var _base_mana_regen: float = 2.0
 # TODO: define real value
 var _base_armor: float = 45.0
 
@@ -228,6 +226,8 @@ func _ready():
 	regen_timer.timeout.connect(_on_regen_timer_timeout)
 	add_child(regen_timer)
 	regen_timer.start()
+
+	_mana = get_base_mana()
 
 
 func _unhandled_input(event):
@@ -721,8 +721,9 @@ func get_buff_of_type(type: String):
 
 	return buff
 
-func get_base_mana():
-	return _base_mana
+# NOTE: real value returned in subclass version
+func get_base_mana() -> float:
+	return 0.0
 
 func get_base_mana_bonus():
 	return _mod_value_map[ModType.MOD_MANA]
@@ -733,8 +734,9 @@ func get_base_mana_bonus_percent():
 func get_overall_mana():
 	return (get_base_mana() + get_base_mana_bonus()) * (1 + get_base_mana_bonus_percent())
 
-func get_base_mana_regen():
-	return _base_mana_regen
+# NOTE: real value returned in subclass version
+func get_base_mana_regen() -> float:
+	return 0.0
 
 func get_base_mana_regen_bonus():
 	return _mod_value_map[ModType.MOD_MANA_REGEN]
