@@ -24,14 +24,14 @@ var _carrier: Tower = null
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
+var _buff_list: Array[Buff] = []
 
 
 #########################
 ### Code starts here  ###
 #########################
 
-
-func _ready():
+func _init():
 	_item_init()
 
 
@@ -39,16 +39,22 @@ func _ready():
 func add_to_tower(tower: Tower):
 	_carrier = tower
 	_carrier.add_child(self)
+
 	_carrier.add_modifier(_modifier)
-	_add_to_tower_subclass()
+
+	for buff in _buff_list:
+		buff.apply_to_unit_permanent(_carrier, _carrier, 0)
 
 
 func remove_from_tower():
 	if _carrier == null:
 		return
 
-	_remove_from_tower_subclass()
 	_carrier.remove_modifier(_modifier)
+
+	for buff in _buff_list:
+		buff.expire()
+
 	_carrier.remove_child(self)
 	_carrier = null
 
@@ -57,18 +63,6 @@ func remove_from_tower():
 
 # Override in subclass to initialize subclass item
 func _item_init():
-	pass
-
-
-# Override in subclass to define adding of effects from
-# to the carrier
-func _add_to_tower_subclass():
-	pass
-
-
-# Override in subclass to define removal of effects from
-# carrier
-func _remove_from_tower_subclass():
 	pass
 
 

@@ -3,18 +3,11 @@ extends Item
 
 # TODO: visual
 
-var on_periodic_buff: Buff = null
 
-
-func _add_to_tower_subclass():
-	on_periodic_buff = TriggersBuff.new()
+func _item_init():
+	var on_periodic_buff: Buff = TriggersBuff.new()
 	on_periodic_buff.add_periodic_event(self, "_on_periodic", 1.0)
-	on_periodic_buff.apply_to_unit_permanent(get_carrier(), get_carrier(), 0)
-
-
-func _remove_from_tower_subclass():
-	if on_periodic_buff != null:
-		on_periodic_buff.expire()
+	_buff_list.append(on_periodic_buff)
 
 
 func _on_periodic(event: Event):

@@ -4,18 +4,11 @@ extends Item
 # TODO: visual
 
 
-var on_attack_buff: Buff = null
 
-
-func _add_to_tower_subclass():
-	on_attack_buff = TriggersBuff.new()
-	on_attack_buff.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
-	on_attack_buff.apply_to_unit_permanent(get_carrier(), get_carrier(), 0)
-
-
-func _remove_from_tower_subclass():
-	if on_attack_buff != null:
-		on_attack_buff.expire()
+func _item_init():
+	var buff: Buff = TriggersBuff.new()
+	buff.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
+	_buff_list.append(buff)
 
 
 # TODO: does goldcost on website mean that each time this
