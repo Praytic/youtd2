@@ -26,9 +26,8 @@ func _tower_init():
 	attack_autocast_data.target_type = TargetType.new(TargetType.UnitType.MOBS)
 	attack_autocast_data.auto_range = 900
 
-	var autocast_buff: Buff = TriggersBuff.new()
-	_attack_autocast = autocast_buff.add_autocast(attack_autocast_data, self, "on_autocast")
-	autocast_buff.apply_to_unit_permanent(self, self, 0)
+	var autocast: Autocast = Autocast.make(attack_autocast_data, self, "on_autocast")
+	add_autocast(autocast)
 
 
 func on_autocast(event: Event):

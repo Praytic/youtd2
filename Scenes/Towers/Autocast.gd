@@ -37,39 +37,34 @@ var _handler_object = null
 var _handler_function: String = ""
 var _target_list: Array = []
 var _target_count_max: int = 1
-var _caster: Unit
+var _caster: Unit = null
 
 @onready var _targeting_area: Area2D = $TargetingArea
 @onready var _collision_shape: CollisionShape2D = $TargetingArea/CollisionShape2D
 @onready var _cooldown_timer: Timer = $CooldownTimer
+
+
+static func make(data: Data, handler_object, handler_function: String) -> Autocast:
+	var autocast: Autocast = load("res://Scenes/Towers/Autocast.tscn").instantiate()
+	autocast._data = data
+	autocast._handler_object = handler_object
+	autocast._handler_function = handler_function
+
+	var handler_function_exists: bool = handler_object.has_method(handler_function)
+
+	if !handler_function_exists:
+		print_debug("Attempted to register an autocast handler function that doesn't exist: ", handler_function)
+	
+	return autocast
+
 
 func _ready():
 	Utils.circle_shape_set_radius(_collision_shape, _data.auto_range)
 
 	set_cooldown(_data.cooldown)
 
-	var parent: Node = get_parent()
-
-	if parent is Buff:
-		var buff: Buff = parent as Buff
-		_caster = buff.get_buffed_unit()
-	elif parent is Tower:
-		var tower: Tower = parent as Tower
-		_caster = tower
-	else:
-		_caster = null
-		print_debug("Failed to get caster for autocast because autocast parent is not a buff or tower.")
-
-
-func set_data(data: Data, handler_object, handler_function: String):
-	_data = data
-	_handler_object = handler_object
-	_handler_function = handler_function
-
-	var handler_function_exists: bool = _handler_object.has_method(handler_function)
-
-	if !handler_function_exists:
-		print_debug("Attempted to register an autocast handler function that doesn't exist: ", handler_function)
+	if _caster == null:
+		print_debug("caster is null, you must set it before calling add_child() on autocast")
 
 
 # NOTE: this should be used only by Tower.gd to update

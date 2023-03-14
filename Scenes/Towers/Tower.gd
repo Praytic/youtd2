@@ -109,7 +109,8 @@ func _ready():
 	attack_autocast_data.target_type = TargetType.new(TargetType.UnitType.MOBS)
 	attack_autocast_data.auto_range = attack_range
 
-	_attack_autocast = add_autocast(attack_autocast_data, "_on_attack_autocast")
+	_attack_autocast = Autocast.make(attack_autocast_data, self, "_on_attack_autocast")
+	add_autocast(_attack_autocast)
 
 	_tower_init()
 
@@ -119,12 +120,9 @@ func _ready():
 #########################
 
 
-func add_autocast(autocast_data: Autocast.Data, handler_function: String) -> Autocast:
-	var autocast_scene = load("res://Scenes/Towers/Autocast.tscn").instantiate()
-	autocast_scene.set_data(autocast_data, self, handler_function)
-	add_child(autocast_scene)
-
-	return autocast_scene
+func add_autocast(autocast: Autocast):
+	autocast._caster = self
+	add_child(autocast)
 
 
 # TODO: implement. Also move to the "owner" class that is

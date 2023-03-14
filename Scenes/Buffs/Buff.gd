@@ -246,12 +246,9 @@ func add_event_handler_unit_comes_in_range(handler_object: Node, handler_functio
 	buff_range_area.unit_came_in_range.connect(_on_unit_came_in_range)
 
 
-func add_autocast(autocast_data: Autocast.Data, handler_object, handler_function: String) -> Autocast:
-	var autocast_scene = load("res://Scenes/Towers/Autocast.tscn").instantiate()
-	autocast_scene.set_data(autocast_data, handler_object, handler_function)
-	add_child(autocast_scene)
-
-	return autocast_scene
+func add_autocast(autocast: Autocast):
+	autocast._caster = _target
+	add_child(autocast)
 
 
 func set_event_on_cleanup(handler_object: Node, handler_function: String):
