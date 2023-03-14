@@ -21,8 +21,6 @@ signal selected
 signal unselected
 
 # TODO: implement these mod types
-# MOD_ARMOR
-# MOD_ARMOR_PERC
 # MOD_ITEM_CHANCE_ON_KILL
 # MOD_ITEM_QUALITY_ON_KILL
 # MOD_SPELL_CRIT_CHANCE
@@ -148,6 +146,8 @@ var _experience: float = 0.0
 var _base_mana: float = 0.0
 var _mana: float = 0.0
 var _base_mana_regen: float = 2.0
+# TODO: define real value
+var _base_armor: float = 45.0
 
 # This is the count of towers that are currently able to see
 # this invisible mob. If there any towers that can see this
@@ -177,6 +177,9 @@ func _init():
 	_mod_value_map[ModType.MOD_MOVESPEED] = 1.0
 	_mod_value_map[ModType.MOD_MULTICRIT_COUNT] = 1.0
 	_mod_value_map[ModType.MOD_ATK_DAMAGE_RECEIVED] = 1.0
+
+	_mod_value_map[ModType.MOD_ARMOR] = 0.01
+	_mod_value_map[ModType.MOD_ARMOR_PERC] = 1.5
 
 	_mod_value_map[ModType.MOD_DAMAGE_BASE] = 0.0
 	_mod_value_map[ModType.MOD_DAMAGE_BASE_PERC] = 0.0
@@ -811,10 +814,24 @@ func get_damage_add() -> float:
 func get_damage_add_percent() -> float:
 	return _mod_value_map[ModType.MOD_DAMAGE_ADD_PERC]
 
-# TODO: implement. Should be a combination of armor base,
-# armor_add, armor_add_perc. Should be in range [0.0, 1.0]
+# TODO: implement real formula
 func get_current_armor_damage_reduction() -> float:
-	return 0.0
+	var armor: float = get_overall_armor()
+	var reduction: float = max(1.0, armor / 1000.0)
+
+	return reduction
 
 func get_mana() -> float:
 	return _mana
+
+func get_base_armor() -> float:
+	return _base_armor
+
+func get_base_armor_bonus() -> float:
+	return _mod_value_map[ModType.MOD_ARMOR]
+
+func get_base_armor_bonus_percent() -> float:
+	return _mod_value_map[ModType.MOD_ARMOR_PERC]
+
+func get_overall_armor():
+	return (get_base_armor() + get_base_armor_bonus()) * (1.0 + get_base_armor_bonus_percent())
