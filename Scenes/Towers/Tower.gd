@@ -263,6 +263,11 @@ func _get_damage_to_mob(mob: Mob) -> float:
 
 	var damage = white_damage + green_damage
 
+	var dps_bonus: float = get_dps_bonus()
+	var cooldown: float = get_overall_cooldown()
+
+	damage += dps_bonus * cooldown
+
 	var damage_mod_list: Array = [
 		_get_damage_mod_for_mob_size(mob),
 		_get_damage_mod_for_mob_category(mob),
