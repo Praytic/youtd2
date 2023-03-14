@@ -16,7 +16,7 @@ func _init():
 
 
 func init(radius: float, target_type: TargetType, handler_object: Node, handler_function: String):
-	Utils.circle_shape_set_radius($CollisionShape2D, radius)
+	Utils.circle_polygon_set_radius($CollisionPolygon2D, radius)
 	_target_type = target_type
 	_handler_object = handler_object
 	_handler_function = handler_function
