@@ -29,10 +29,9 @@ var target_self: bool = false
 var target_type: TargetType = TargetType.new(TargetType.UnitType.MOBS)
 var target_art: String = ""
 var auto_range: float = 1000
+var handler: Callable = Callable()
 
 
-var _handler_object = null
-var _handler_function: String = ""
 var _target_list: Array = []
 var _target_count_max: int = 1
 var _caster: Unit = null
@@ -42,16 +41,9 @@ var _caster: Unit = null
 @onready var _cooldown_timer: Timer = $CooldownTimer
 
 
-static func make(handler_object, handler_function: String) -> Autocast:
+static func make() -> Autocast:
 	var autocast: Autocast = load("res://Scenes/Towers/Autocast.tscn").instantiate()
-	autocast._handler_object = handler_object
-	autocast._handler_function = handler_function
 
-	var handler_function_exists: bool = handler_object.has_method(handler_function)
-
-	if !handler_function_exists:
-		print_debug("Attempted to register an autocast handler function that doesn't exist: ", handler_function)
-	
 	return autocast
 
 
@@ -114,9 +106,6 @@ func _find_new_target() -> Mob:
 
 
 func _try_to_cast():
-	if !_handler_object.has_method(_handler_function):
-		return
-
 	var attack_on_cooldown: bool = _cooldown_timer.time_left > 0
 	
 	if attack_on_cooldown:
@@ -131,7 +120,7 @@ func _try_to_cast():
 
 	for target in _target_list:
 		var event = Event.new(target, 0, true)
-		_handler_object.call(_handler_function, event)
+		handler.call(event)
 
 		casted_on_target = true
 	

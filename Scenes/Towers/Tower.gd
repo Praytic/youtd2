@@ -95,7 +95,7 @@ func _ready():
 	var attack_range: float = get_attack_range()
 	_range_indicator.set_radius(attack_range)
 
-	_attack_autocast = Autocast.make(self, "_on_attack_autocast")
+	_attack_autocast = Autocast.make()
 	_attack_autocast.caster_art = ""
 	_attack_autocast.num_buffs_before_idle = 0
 	_attack_autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -108,6 +108,7 @@ func _ready():
 	_attack_autocast.buff_type = 0
 	_attack_autocast.target_type = TargetType.new(TargetType.UnitType.MOBS)
 	_attack_autocast.auto_range = attack_range
+	_attack_autocast.handler = _base_class_attack_autocast
 
 	add_autocast(_attack_autocast)
 
@@ -170,7 +171,7 @@ func _set_target_count(count: int):
 	_attack_autocast._target_count_max = count
 
 
-func _on_attack_autocast(event: Event):
+func _base_class_attack_autocast(event: Event):
 	var target = event.get_target()
 
 	var projectile = _projectile_scene.instantiate()
