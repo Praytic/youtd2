@@ -258,7 +258,7 @@ func _get_damage_mod_for_mob_size(mob: Mob) -> float:
 # dmg?
 # TODO: white/green might be wrong
 func _get_damage_to_mob(mob: Mob) -> float:
-	var white_damage: float = _get_rand_damage_base() * (1.0 + get_base_damage_bonus_percent())
+	var white_damage: float = (_get_rand_damage_base() + get_base_damage_bonus()) * (1.0 + get_base_damage_bonus_percent())
 	var green_damage: float = get_damage_add() * (1.0 + get_damage_add_percent())
 
 	var damage = white_damage + green_damage
