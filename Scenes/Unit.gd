@@ -20,10 +20,6 @@ signal became_visible()
 signal selected
 signal unselected
 
-# TODO: implement these mod types
-# MOD_ITEM_CHANCE_ON_KILL
-# MOD_ITEM_QUALITY_ON_KILL
-# MOD_SPELL_CRIT_CHANCE
 
 enum ModType {
 	MOD_ARMOR,
@@ -32,6 +28,7 @@ enum ModType {
 	MOD_EXP_RECEIVED,
 	MOD_SPELL_DAMAGE_RECEIVED,
 	MOD_SPELL_DAMAGE_DEALT,
+	MOD_SPELL_CRIT_DAMAGE,
 	MOD_SPELL_CRIT_CHANCE,
 	MOD_BOUNTY_GRANTED,
 	MOD_BOUNTY_RECEIVED,
@@ -167,6 +164,8 @@ func _init():
 	_mod_value_map[ModType.MOD_TRIGGER_CHANCES] = 1.0
 	_mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT] = 1.0
 	_mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED] = 1.0
+	_mod_value_map[ModType.MOD_SPELL_CRIT_DAMAGE] = 1.5
+	_mod_value_map[ModType.MOD_SPELL_CRIT_CHANCE] = 0.01
 	_mod_value_map[ModType.MOD_BOUNTY_GRANTED] = 1.0
 	_mod_value_map[ModType.MOD_BOUNTY_RECEIVED] = 1.0
 	_mod_value_map[ModType.MOD_EXP_GRANTED] = 1.0
@@ -700,13 +699,11 @@ func get_prop_spell_damage_dealt() -> float:
 func get_prop_spell_damage_received() -> float:
 	return _mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED]
 
-# TODO: implement
 func get_spell_crit_chance() -> float:
-	return 0.0
+	return _mod_value_map[ModType.MOD_SPELL_CRIT_CHANCE]
 
-# TODO: implement
 func get_spell_crit_damage() -> float:
-	return 0.0
+	return _mod_value_map[ModType.MOD_SPELL_CRIT_DAMAGE]
 
 # The Base Cooldown is divided by this value. Towers gain some attackspeed per level and items, 
 # buffs and auras can grant attackspeed.
