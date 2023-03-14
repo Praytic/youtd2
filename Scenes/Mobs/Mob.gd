@@ -33,6 +33,7 @@ func _ready():
 	super()
 	
 	_is_mob = true
+	_base_health = MOB_HEALTH_MAX
 	_health = MOB_HEALTH_MAX
 
 	damaged.connect(on_damaged)
