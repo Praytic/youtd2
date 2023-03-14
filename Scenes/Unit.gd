@@ -24,7 +24,6 @@ signal unselected
 # MOD_ITEM_CHANCE_ON_KILL
 # MOD_ITEM_QUALITY_ON_KILL
 # MOD_SPELL_CRIT_CHANCE
-# MOD_DPS_ADD
 
 enum ModType {
 	MOD_ARMOR,
@@ -835,3 +834,6 @@ func get_base_armor_bonus_percent() -> float:
 
 func get_overall_armor():
 	return (get_base_armor() + get_base_armor_bonus()) * (1.0 + get_base_armor_bonus_percent())
+
+func get_dps_bonus() -> float:
+	return _mod_value_map[ModType.MOD_DPS_ADD]
