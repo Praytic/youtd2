@@ -18,21 +18,20 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _tower_init():
-	var autocast_data: Autocast.Data = Autocast.Data.new()
-	autocast_data.caster_art = ""
-	autocast_data.num_buffs_before_idle = 0
-	autocast_data.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast_data.the_range = 1200
-	autocast_data.target_self = false
-	autocast_data.target_art = "Abilities/Spells/Items/AIil/AIilTarget.mdl"
-	autocast_data.cooldown = 2
-	autocast_data.is_extended = true
-	autocast_data.mana_cost = 0
-	autocast_data.buff_type = 0
-	autocast_data.target_type = null
-	autocast_data.auto_range = 1200
+	var autocast: Autocast = Autocast.make(self, "_on_autocast")
+	autocast.caster_art = ""
+	autocast.num_buffs_before_idle = 0
+	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
+	autocast.the_range = 1200
+	autocast.target_self = false
+	autocast.target_art = "Abilities/Spells/Items/AIil/AIilTarget.mdl"
+	autocast.cooldown = 2
+	autocast.is_extended = true
+	autocast.mana_cost = 0
+	autocast.buff_type = 0
+	autocast.target_type = null
+	autocast.auto_range = 1200
 
-	var autocast: Autocast = Autocast.make(autocast_data, self, "_on_autocast")
 	add_autocast(autocast)
 
 
