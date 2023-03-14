@@ -83,6 +83,9 @@ func _ready():
 
 	_is_tower = true
 
+	_base_mana = 100.0
+	_mana = _base_mana
+
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
 	var tier: int = get_tier()

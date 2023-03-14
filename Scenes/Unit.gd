@@ -31,14 +31,6 @@ signal unselected
 # MOD_DAMAGE_ADD
 # MOD_DAMAGE_ADD_PERC
 # MOD_DPS_ADD
-# MOD_HP
-# MOD_HP_PERC
-# MOD_HP_REGEN
-# MOD_HP_REGEN_PERC
-# MOD_MANA
-# MOD_MANA_PERC
-# MOD_MANA_REGEN
-# MOD_MANA_REGEN_PERC
 
 enum ModType {
 	MOD_ARMOR,
@@ -129,6 +121,7 @@ const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 # TODO: replace this placeholder constant with real value.
 const EXP_PER_LEVEL: float = 100
+const REGEN_PERIOD: float = 1.0
 
 
 # HACK: to fix cyclic dependency between Tower<->TargetType
@@ -148,13 +141,17 @@ var _is_dead: bool = false
 var _level: int = 1 : get = get_level, set = set_level
 var _buff_map: Dictionary
 var _direct_modifier_list: Array
+var _base_health: float = 0.0
 var _health: float = 0.0
+var _base_health_regen: float = 1.0
 var _mod_value_map: Dictionary = {}
 var _invisible: bool = false
 var _selection_size: int : get = get_selection_size
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
-var _mana: float = 100.0
+var _base_mana: float = 0.0
+var _mana: float = 0.0
+var _base_mana_regen: float = 2.0
 
 # This is the count of towers that are currently able to see
 # this invisible mob. If there any towers that can see this
@@ -185,6 +182,15 @@ func _init():
 	_mod_value_map[ModType.MOD_MULTICRIT_COUNT] = 1.0
 	_mod_value_map[ModType.MOD_ATK_DAMAGE_RECEIVED] = 1.0
 
+	_mod_value_map[ModType.MOD_MANA] = 0.0
+	_mod_value_map[ModType.MOD_MANA_PERC] = 0.0
+	_mod_value_map[ModType.MOD_MANA_REGEN] = 0.0
+	_mod_value_map[ModType.MOD_MANA_REGEN_PERC] = 0.0
+	_mod_value_map[ModType.MOD_HP] = 0.0
+	_mod_value_map[ModType.MOD_HP_PERC] = 0.0
+	_mod_value_map[ModType.MOD_HP_REGEN] = 0.0
+	_mod_value_map[ModType.MOD_HP_REGEN_PERC] = 0.0
+
 	_mod_value_map[ModType.MOD_DMG_TO_MASS] = 1.0
 	_mod_value_map[ModType.MOD_DMG_TO_NORMAL] = 1.0
 	_mod_value_map[ModType.MOD_DMG_TO_CHAMPION] = 1.0
@@ -213,6 +219,13 @@ func _ready():
 	selection.set_script(load("res://Scenes/Selection.gd"))
 	selection.z_index = -1
 	add_child(selection)
+	
+	var regen_timer: Timer = Timer.new()
+	regen_timer.one_shot = false
+	regen_timer.wait_time = REGEN_PERIOD
+	regen_timer.timeout.connect(_on_regen_timer_timeout)
+	add_child(regen_timer)
+	regen_timer.start()
 
 
 func _unhandled_input(event):
@@ -355,6 +368,17 @@ func spend_mana(mana_cost: float):
 #########################
 ###      Private      ###
 #########################
+
+
+func _on_regen_timer_timeout():
+	var mana_max: float = get_overall_mana()
+	var mana_regen: float = get_overall_mana_regen()
+	_mana = min(_mana + mana_regen, mana_max)
+
+	var health_max: float = get_overall_health()
+	var health_regen: float = get_overall_health_regen()
+	_health = min(_health + health_regen, health_max)
+
 
 func _do_attack(attack_event: Event):
 	attack.emit(attack_event)
@@ -697,35 +721,53 @@ func get_buff_of_type(type: String):
 
 	return buff
 
-# TODO: implement
 func get_base_mana():
-	return 0.0
+	return _base_mana
 
-# TODO: implement
 func get_base_mana_bonus():
-	return 0.0
+	return _mod_value_map[ModType.MOD_MANA]
 
-# TODO: implement
 func get_base_mana_bonus_percent():
-	return 0.0
+	return _mod_value_map[ModType.MOD_MANA_PERC]
 
 func get_overall_mana():
 	return (get_base_mana() + get_base_mana_bonus()) * (1 + get_base_mana_bonus_percent())
 
-# TODO: implement
 func get_base_mana_regen():
-	return 0.0
+	return _base_mana_regen
 
-# TODO: implement
 func get_base_mana_regen_bonus():
-	return 0.0
+	return _mod_value_map[ModType.MOD_MANA_REGEN]
 
-# TODO: implement
 func get_base_mana_regen_bonus_percent():
-	return 0.0
+	return _mod_value_map[ModType.MOD_MANA_REGEN_PERC]
 
 func get_overall_mana_regen():
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * (1 + get_base_mana_regen_bonus_percent())
+
+func get_base_health():
+	return _base_health
+
+func get_base_health_bonus():
+	return _mod_value_map[ModType.MOD_HP]
+
+func get_base_health_bonus_percent():
+	return _mod_value_map[ModType.MOD_HP_PERC]
+
+func get_overall_health():
+	return (get_base_health() + get_base_health_bonus()) * (1 + get_base_health_bonus_percent())
+
+func get_base_health_regen():
+	return _base_health_regen
+
+func get_base_health_regen_bonus():
+	return _mod_value_map[ModType.MOD_HP_REGEN]
+
+func get_base_health_regen_bonus_percent():
+	return _mod_value_map[ModType.MOD_HP_REGEN_PERC]
+
+func get_overall_health_regen():
+	return (get_base_health_regen() + get_base_health_regen_bonus()) * (1 + get_base_health_regen_bonus_percent())
 
 func get_prop_move_speed() -> float:
 	return _mod_value_map[ModType.MOD_MOVESPEED]
