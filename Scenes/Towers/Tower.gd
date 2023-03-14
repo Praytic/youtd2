@@ -15,12 +15,14 @@ enum CsvProperty {
 	ATTACK_CD = 9,
 	ATTACK_DAMAGE_MIN = 10,
 	ATTACK_DAMAGE_MAX = 11,
-	COST = 12,
-	DESCRIPTION = 13,
-	TIER = 14,
-	REQUIRED_ELEMENT_LEVEL = 15,
-	REQUIRED_WAVE_LEVEL = 16,
-	ICON_ATLAS_NUM = 17,
+	MANA = 12,
+	MANA_REGEN = 13,
+	COST = 14,
+	DESCRIPTION = 15,
+	TIER = 16,
+	REQUIRED_ELEMENT_LEVEL = 17,
+	REQUIRED_WAVE_LEVEL = 18,
+	ICON_ATLAS_NUM = 19,
 }
 
 enum AttackStyle {
@@ -83,8 +85,6 @@ func _ready():
 
 	_is_tower = true
 
-	_base_mana = 100.0
-	_mana = _base_mana
 
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
@@ -574,3 +574,9 @@ func get_attack_type() -> AttackType.enm:
 	var attack_type: AttackType.enm = AttackType.from_string(attack_type_string)
 
 	return attack_type
+
+func get_base_mana() -> float:
+	return get_csv_property(CsvProperty.MANA).to_float()
+
+func get_base_mana_regen() -> float:
+	return get_csv_property(CsvProperty.MANA_REGEN).to_float()
