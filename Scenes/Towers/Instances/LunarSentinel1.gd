@@ -32,9 +32,8 @@ func _tower_init():
 	autocast_data.target_type = null
 	autocast_data.auto_range = 1200
 
-	var triggers_buff = TriggersBuff.new()
-	triggers_buff.add_autocast(autocast_data, self, "_on_autocast")
-	triggers_buff.apply_to_unit_permanent(self, self, 0)
+	var autocast: Autocast = Autocast.make(autocast_data, self, "_on_autocast")
+	add_autocast(autocast)
 
 
 func _on_autocast(event: Event):
