@@ -26,10 +26,6 @@ signal unselected
 # MOD_ITEM_CHANCE_ON_KILL
 # MOD_ITEM_QUALITY_ON_KILL
 # MOD_SPELL_CRIT_CHANCE
-# MOD_DAMAGE_BASE
-# MOD_DAMAGE_BASE_PERC
-# MOD_DAMAGE_ADD
-# MOD_DAMAGE_ADD_PERC
 # MOD_DPS_ADD
 
 enum ModType {
@@ -181,6 +177,11 @@ func _init():
 	_mod_value_map[ModType.MOD_MOVESPEED] = 1.0
 	_mod_value_map[ModType.MOD_MULTICRIT_COUNT] = 1.0
 	_mod_value_map[ModType.MOD_ATK_DAMAGE_RECEIVED] = 1.0
+
+	_mod_value_map[ModType.MOD_DAMAGE_BASE] = 0.0
+	_mod_value_map[ModType.MOD_DAMAGE_BASE_PERC] = 0.0
+	_mod_value_map[ModType.MOD_DAMAGE_ADD] = 0.0
+	_mod_value_map[ModType.MOD_DAMAGE_ADD_PERC] = 0.0
 
 	_mod_value_map[ModType.MOD_MANA] = 0.0
 	_mod_value_map[ModType.MOD_MANA_PERC] = 0.0
