@@ -1,12 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgajgmvgctimg"]
+[gd_scene load_steps=2 format=3 uid="uid://dgajgmvgctimg"]
 
 [ext_resource type="Script" path="res://Scenes/Buffs/BuffRangeArea.gd" id="1"]
-
-[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_3kbvs"]
 
 [node name="BuffRangeArea" type="Area2D"]
 script = ExtResource("1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(0.5, 1)
-shape = SubResource("ConvexPolygonShape2D_3kbvs")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 1, 1, 1, 0)

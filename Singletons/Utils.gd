@@ -58,16 +58,16 @@ func list_files_in_directory(path: String, regex_search: RegEx = null) -> Array:
 	return files
 
 
-func circle_shape_set_radius(collision_shape: CollisionShape2D, radius: float , angle_from = 0, angle_to = 360):
+func circle_polygon_set_radius(collision_polygon: CollisionPolygon2D, radius: float , angle_from = 0, angle_to = 360):
 	var nb_points = radius/20
 	var points_arc = PackedVector2Array()
-	var center = collision_shape.position
+	var center = collision_polygon.position
 	
 	for i in range(nb_points + 1):
 		var angle_point = deg_to_rad(angle_from + i * (angle_to - angle_from) / nb_points - 90)
 		var point = center + Vector2(cos(angle_point), sin(angle_point) / 2) * radius
 		points_arc.append(point)
-	collision_shape.shape.set_point_cloud(points_arc)
+	collision_polygon.polygon = points_arc
 
 
 # Chance should be in range [0.0, 1.0]

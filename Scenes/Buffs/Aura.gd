@@ -39,11 +39,11 @@ var create_aura_effect_object: Object = null
 
 @onready var _timer: Timer = $Timer
 @onready var _area: Area2D = $Area2D
-@onready var _area_shape: CollisionShape2D = $Area2D/CollisionShape2D
+@onready var _collision_polygon: CollisionPolygon2D = $Area2D/CollisionPolygon2D
 
 
 func _ready():
-	Utils.circle_shape_set_radius(_area_shape, aura_range)
+	Utils.circle_polygon_set_radius(_collision_polygon, aura_range)
 	_timer.one_shot = false
 	_timer.wait_time = 0.2
 	_timer.start()

@@ -37,7 +37,7 @@ var _target_count_max: int = 1
 var _caster: Unit = null
 
 @onready var _targeting_area: Area2D = $TargetingArea
-@onready var _collision_shape: CollisionShape2D = $TargetingArea/CollisionShape2D
+@onready var _collision_polygon: CollisionPolygon2D = $TargetingArea/CollisionPolygon2D
 @onready var _cooldown_timer: Timer = $CooldownTimer
 
 
@@ -48,7 +48,7 @@ static func make() -> Autocast:
 
 
 func _ready():
-	Utils.circle_shape_set_radius(_collision_shape, auto_range)
+	Utils.circle_polygon_set_radius(_collision_polygon, auto_range)
 
 	set_cooldown(cooldown)
 
