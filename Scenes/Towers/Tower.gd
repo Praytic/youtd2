@@ -95,21 +95,20 @@ func _ready():
 	var attack_range: float = get_attack_range()
 	_range_indicator.set_radius(attack_range)
 
-	var attack_autocast_data = Autocast.Data.new()
-	attack_autocast_data.caster_art = ""
-	attack_autocast_data.num_buffs_before_idle = 0
-	attack_autocast_data.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	attack_autocast_data.the_range = attack_range
-	attack_autocast_data.target_self = false
-	attack_autocast_data.target_art = ""
-	attack_autocast_data.cooldown = get_overall_cooldown()
-	attack_autocast_data.is_extended = true
-	attack_autocast_data.mana_cost = 0
-	attack_autocast_data.buff_type = 0
-	attack_autocast_data.target_type = TargetType.new(TargetType.UnitType.MOBS)
-	attack_autocast_data.auto_range = attack_range
+	_attack_autocast = Autocast.make(self, "_on_attack_autocast")
+	_attack_autocast.caster_art = ""
+	_attack_autocast.num_buffs_before_idle = 0
+	_attack_autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
+	_attack_autocast.the_range = attack_range
+	_attack_autocast.target_self = false
+	_attack_autocast.target_art = ""
+	_attack_autocast.cooldown = get_overall_cooldown()
+	_attack_autocast.is_extended = true
+	_attack_autocast.mana_cost = 0
+	_attack_autocast.buff_type = 0
+	_attack_autocast.target_type = TargetType.new(TargetType.UnitType.MOBS)
+	_attack_autocast.auto_range = attack_range
 
-	_attack_autocast = Autocast.make(attack_autocast_data, self, "_on_attack_autocast")
 	add_autocast(_attack_autocast)
 
 	_tower_init()

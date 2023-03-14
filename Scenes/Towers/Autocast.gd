@@ -17,22 +17,20 @@ enum Type {
 
 # TODO: why are there two "range" variables?
 # TODO: implement arts
-class Data:
-	var caster_art: String = ""
-	var cooldown: float = 0.1
-	var num_buffs_before_idle: int = 0
-	var is_extended: bool = false
-	var autocast_type: int = Type.AC_TYPE_OFFENSIVE_UNIT
-	var mana_cost: int = 0
-	var the_range: float = 1000
-	var buff_type: int = 0
-	var target_self: bool = false
-	var target_type: TargetType = TargetType.new(TargetType.UnitType.MOBS)
-	var target_art: String = ""
-	var auto_range: float = 1000
+var caster_art: String = ""
+var cooldown: float = 0.1
+var num_buffs_before_idle: int = 0
+var is_extended: bool = false
+var autocast_type: int = Type.AC_TYPE_OFFENSIVE_UNIT
+var mana_cost: int = 0
+var the_range: float = 1000
+var buff_type: int = 0
+var target_self: bool = false
+var target_type: TargetType = TargetType.new(TargetType.UnitType.MOBS)
+var target_art: String = ""
+var auto_range: float = 1000
 
 
-var _data: Data = Data.new()
 var _handler_object = null
 var _handler_function: String = ""
 var _target_list: Array = []
@@ -44,9 +42,8 @@ var _caster: Unit = null
 @onready var _cooldown_timer: Timer = $CooldownTimer
 
 
-static func make(data: Data, handler_object, handler_function: String) -> Autocast:
+static func make(handler_object, handler_function: String) -> Autocast:
 	var autocast: Autocast = load("res://Scenes/Towers/Autocast.tscn").instantiate()
-	autocast._data = data
 	autocast._handler_object = handler_object
 	autocast._handler_function = handler_function
 
@@ -59,9 +56,9 @@ static func make(data: Data, handler_object, handler_function: String) -> Autoca
 
 
 func _ready():
-	Utils.circle_shape_set_radius(_collision_shape, _data.auto_range)
+	Utils.circle_shape_set_radius(_collision_shape, auto_range)
 
-	set_cooldown(_data.cooldown)
+	set_cooldown(cooldown)
 
 	if _caster == null:
 		print_debug("caster is null, you must set it before calling add_child() on autocast")
@@ -125,7 +122,7 @@ func _try_to_cast():
 	if attack_on_cooldown:
 		return
 
-	var enough_mana: bool = _caster.get_mana() >= _data.mana_cost
+	var enough_mana: bool = _caster.get_mana() >= mana_cost
 
 	if !enough_mana:
 		return
@@ -141,7 +138,7 @@ func _try_to_cast():
 	if casted_on_target:
 		_cooldown_timer.start()
 
-		_caster.spend_mana(_data.mana_cost)
+		_caster.spend_mana(mana_cost)
 
 
 func _on_target_death(_event: Event, target: Mob):
