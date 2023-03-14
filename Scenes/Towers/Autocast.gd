@@ -48,15 +48,17 @@ func _ready():
 
 	set_cooldown(_data.cooldown)
 
-# 	NOTE: to get caster we assume that autocasts are always
-# 	attached to buffs
-	var buff: Buff = get_parent() as Buff
+	var parent: Node = get_parent()
 
-	if buff != null:
+	if parent is Buff:
+		var buff: Buff = parent as Buff
 		_caster = buff.get_buffed_unit()
+	elif parent is Tower:
+		var tower: Tower = parent as Tower
+		_caster = tower
 	else:
 		_caster = null
-		print_debug("Failed to get caster for autocast because autocast parent is not a buff.")
+		print_debug("Failed to get caster for autocast because autocast parent is not a buff or tower.")
 
 
 func set_data(data: Data, handler_object, handler_function: String):

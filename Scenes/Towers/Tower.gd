@@ -109,9 +109,7 @@ func _ready():
 	attack_autocast_data.target_type = TargetType.new(TargetType.UnitType.MOBS)
 	attack_autocast_data.auto_range = attack_range
 
-	var attack_buff = TriggersBuff.new()
-	_attack_autocast = attack_buff.add_autocast(attack_autocast_data, self, "_on_attack_autocast")
-	attack_buff.apply_to_unit_permanent(self, self, 0)
+	_attack_autocast = add_autocast(attack_autocast_data, "_on_attack_autocast")
 
 	_tower_init()
 
@@ -119,6 +117,15 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+
+func add_autocast(autocast_data: Autocast.Data, handler_function: String) -> Autocast:
+	var autocast_scene = load("res://Scenes/Towers/Autocast.tscn").instantiate()
+	autocast_scene.set_data(autocast_data, self, handler_function)
+	add_child(autocast_scene)
+
+	return autocast_scene
+
 
 # TODO: implement. Also move to the "owner" class that is
 # returned by getOwner(), when owner gets implemented. Find
