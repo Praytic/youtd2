@@ -135,7 +135,7 @@ const EXP_PER_LEVEL: float = 100
 var _is_mob: bool = false
 var _is_tower: bool = false
 # TODO: Implement
-var _is_item_drop: bool = false
+#var _is_item_drop: bool = false
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -737,7 +737,7 @@ func get_prop_atk_damage_received() -> float:
 	return _mod_value_map[ModType.MOD_ATK_DAMAGE_RECEIVED]
 
 func get_selection_size():
-	pass
+	return _selection_size
 
 func get_display_name() -> String:
 	return "Generic Unit"

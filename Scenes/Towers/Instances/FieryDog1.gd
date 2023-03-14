@@ -35,7 +35,7 @@ func make_cedi_helldog() -> Buff:
 	return cedi_helldog
 
 
-func on_damage(event: Event):
+func on_damage(_event: Event):
 	var tower: Tower = self
 
 	var I: Array[Unit] = Utils.over_units_in_range_of_caster(tower, TargetType.new(TargetType.UnitType.TOWERS), 420.0)
