@@ -18,7 +18,7 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _tower_init():
-	var autocast: Autocast = Autocast.make(self, "_on_autocast")
+	var autocast: Autocast = Autocast.make()
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
@@ -31,6 +31,7 @@ func _tower_init():
 	autocast.buff_type = 0
 	autocast.target_type = null
 	autocast.auto_range = 1200
+	autocast.handler = _on_autocast
 
 	add_autocast(autocast)
 
