@@ -44,7 +44,7 @@ func _on_RightMenuBar_tower_info_canceled():
 
 
 func _on_RightMenuBar_item_info_requested(item_id):
-	var item = TowerManager.get_tower(item_id)
+	var item = ItemManager.get_item(item_id)
 	$TooltipHeader.set_header_unit(item)
 	$TooltipHeader.show()
 
