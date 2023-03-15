@@ -5,7 +5,7 @@ signal item_dropped(item_id)
 signal item_used(item_id)
 
 
-@onready var mob_ysort: Node2D = get_node("%Map").get_node("MobYSort")
+@onready var object_ysort: Node2D = get_node("%Map").get_node("ObjectYSort")
 @onready var item_bar: GridContainer = get_node("%HUD/RightMenuBar/%ItemBar")
 
 
@@ -13,7 +13,7 @@ signal item_used(item_id)
 ### Code starts here  ###
 #########################
 
-func _on_Mob_death(event):
+func _on_Creep_death(event):
 	# TODO: Implement proper item drop chance caclculation
 	if Utils.rand_chance(0.5):
 		var item_id_list: Array = Properties.get_item_id_list()
@@ -36,7 +36,7 @@ func _on_Mob_death(event):
 		item_drop.set_id(item_id)
 		item_drop.position = event.get_target().position
 		item_drop.selected.connect(_on_Item_selected.bind(item_drop))
-		mob_ysort.add_child(item_drop, true)
+		object_ysort.add_child(item_drop, true)
 		item_dropped.emit(item_drop.get_id())
 
 func _on_Item_selected(item_drop):

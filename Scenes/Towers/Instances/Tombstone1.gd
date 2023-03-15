@@ -2,7 +2,7 @@ extends Tower
 
 # TODO: find out "required element level" and "required wave level" for .csv file
 # TODO: add sprites and icons
-# TODO: instant kill looks weird because mob disappears and projectile doesn't fly to it. Confirm what is the concept of "attack". Currently "attack" is the moment before projectile is shot.
+# TODO: instant kill looks weird because creep disappears and projectile doesn't fly to it. Confirm what is the concept of "attack". Currently "attack" is the moment before projectile is shot.
 
 
 func _get_tier_stats() -> Dictionary:
@@ -28,6 +28,6 @@ func on_damage(event: Event):
 	var creep: Unit = event.get_target()
 	var size: int = creep.get_size()
 
-	if size < Unit.MobSize.CHAMPION:
+	if size < Unit.CreepSize.CHAMPION:
 		tower.kill_instantly(creep)
 		Utils.sfx_at_unit("Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", creep)

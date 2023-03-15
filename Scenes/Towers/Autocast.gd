@@ -26,7 +26,7 @@ var mana_cost: int = 0
 var the_range: float = 1000
 var buff_type: int = 0
 var target_self: bool = false
-var target_type: TargetType = TargetType.new(TargetType.UnitType.MOBS)
+var target_type: TargetType = TargetType.new(TargetType.UnitType.CREEPS)
 var target_art: String = ""
 var auto_range: float = 1000
 var handler: Callable = Callable()
@@ -63,7 +63,7 @@ func set_cooldown(new_cooldown: float):
 	_cooldown_timer.wait_time = new_cooldown
 
 
-func _add_target(new_target: Mob):
+func _add_target(new_target: Creep):
 	if new_target == null || new_target.is_dead() || new_target.is_invisible():
 		return
 
@@ -72,7 +72,7 @@ func _add_target(new_target: Mob):
 	_target_list.append(new_target)
 
 
-func _remove_target(target: Mob):
+func _remove_target(target: Creep):
 	target.death.disconnect(_on_target_death)
 	target.became_invisible.disconnect(_on_target_became_invisible)
 
@@ -84,23 +84,23 @@ func _have_target_space() -> bool:
 
 
 # Find a target that is currently in range
-# TODO: prioritizing closest mob here, but maybe change behavior
+# TODO: prioritizing closest creep here, but maybe change behavior
 # based on tower properties or other game design considerations
-func _find_new_target() -> Mob:
+func _find_new_target() -> Creep:
 	var body_list: Array = _targeting_area.get_overlapping_bodies()
 
 #	NOTE: can't use existing targets as new targets
 	for target in _target_list:
 		body_list.erase(target)
 
-	body_list = body_list.filter(func(body): return body is Mob && !body.is_dead() && !body.is_invisible())
+	body_list = body_list.filter(func(body): return body is Creep && !body.is_dead() && !body.is_invisible())
 
 	Utils.shuffle_list(body_list)
 
 	if body_list.size() != 0:
-		var closest_mob: Mob = body_list[0]
+		var closest_creep: Creep = body_list[0]
 
-		return closest_mob
+		return closest_creep
 	else:
 		return null
 
@@ -130,13 +130,13 @@ func _try_to_cast():
 		_caster.spend_mana(mana_cost)
 
 
-func _on_target_death(_event: Event, target: Mob):
+func _on_target_death(_event: Event, target: Creep):
 	_remove_target(target)
 
 
 func _on_CooldownTimer_timeout():
 	if _have_target_space():
-		var new_target: Mob = _find_new_target()
+		var new_target: Creep = _find_new_target()
 		_add_target(new_target)
 
 # 	NOTE: this is the one case where try_to_cast() is called
@@ -145,41 +145,41 @@ func _on_CooldownTimer_timeout():
 
 
 func _on_TargetingArea_body_entered(body):
-	if !body is Mob:
+	if !body is Creep:
 		return
 
-# 	If invisible mob comes in range, don't add it as target,
-# 	but remember it by connecting to it's signal. If the mob
+# 	If invisible creep comes in range, don't add it as target,
+# 	but remember it by connecting to it's signal. If the creep
 # 	becomes visible (while still in range), it may become a
 # 	target.
-	if !body.is_connected("became_visible", _on_mob_in_range_became_visible):
-		body.became_visible.connect(_on_mob_in_range_became_visible.bind(body))
+	if !body.is_connected("became_visible", _on_creep_in_range_became_visible):
+		body.became_visible.connect(_on_creep_in_range_became_visible.bind(body))
 
 	if body.is_invisible():
 		return
 
 	if _have_target_space():
-		var new_target: Mob = body as Mob
+		var new_target: Creep = body as Creep
 		_add_target(new_target)
 		_try_to_cast()
 
 
 func _on_TargetingArea_body_exited(body):
-	if !body is Mob:
+	if !body is Creep:
 		return
 
-	body.became_visible.disconnect(_on_mob_in_range_became_visible)
+	body.became_visible.disconnect(_on_creep_in_range_became_visible)
 
 	var target_went_out_of_range: bool = _target_list.has(body)
 
 	if target_went_out_of_range:
-		var old_target: Mob = body as Mob
+		var old_target: Creep = body as Creep
 		_remove_target(old_target)
 
 
-func _on_target_became_invisible(target: Mob):
+func _on_target_became_invisible(target: Creep):
 	_remove_target(target)
 
 
-func _on_mob_in_range_became_visible(mob):
-	_on_TargetingArea_body_entered(mob)
+func _on_creep_in_range_became_visible(creep: Creep):
+	_on_TargetingArea_body_entered(creep)

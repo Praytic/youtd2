@@ -4,9 +4,8 @@ extends Control
 @onready var minimap_camera = $SubViewportContainer/SubViewport/MinimapCamera
 @onready var minimap_texture = $SubViewportContainer/SubViewport/MinimapTexture
 @onready var camera_projection = $SubViewportContainer/SubViewport/CameraProjection
-@onready var mobs_projection = $SubViewportContainer/SubViewport/MobsProjection
+@onready var creeps_projection = $SubViewportContainer/SubViewport/CreepsProjection
 @onready var map = get_node("%Map")
-@onready var mobs = map.get_node("MobYSort")
 @onready var minimap_scale: float
 
 func _ready():
@@ -39,17 +38,19 @@ func _update_view_rect():
 	camera_projection.queue_redraw()
 
 
-func _on_MobYSort_child_entered_tree(mob):
-	if mob is Mob:
-		mob.moved.connect(_on_Mob_moved.bind(mob))
+func _on_ObjectYSort_child_entered_tree(child: Node):
+	if child is Creep:
+		var creep: Creep = child as Creep
+		creep.moved.connect(_on_Creep_moved.bind(creep))
 
 
-func _on_MobYSort_child_exiting_tree(mob):
-	if mob is Mob:
-		mob.moved.disconnect(_on_Mob_moved)
-		mobs_projection.pos_dict.erase(mob)
+func _on_ObjectYSort_child_exiting_tree(child: Node):
+	if child is Creep:
+		var creep: Creep = child as Creep
+		creep.moved.disconnect(_on_Creep_moved)
+		creeps_projection.pos_dict.erase(creep)
 
 
-func _on_Mob_moved(_delta, mob):
-	mobs_projection.pos_dict[mob] = mob.position * minimap_scale
-	mobs_projection.queue_redraw()
+func _on_Creep_moved(_delta, creep: Creep):
+	creeps_projection.pos_dict[creep] = creep.position * minimap_scale
+	creeps_projection.queue_redraw()

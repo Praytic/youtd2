@@ -26,11 +26,11 @@ func _on_periodic(event: Event):
 
 func _trap(event: Event, tower, cooldown: float, base_damage: float, damage_add: float, stun_duration: float, max_targets: int):
 	var lvl: int = tower.get_level()
-	var mob_list: Array = Utils.over_units_in_range_of_caster(tower, TargetType.new(TargetType.UnitType.MOBS), 950)
-	mob_list = Utils.shuffle_list(mob_list)
+	var creep_list: Array = Utils.over_units_in_range_of_caster(tower, TargetType.new(TargetType.UnitType.CREEPS), 950)
+	creep_list = Utils.shuffle_list(creep_list)
 	var num_targets: int = 0
 
-	for next in mob_list:
+	for next in creep_list:
 		num_targets = num_targets + 1
 		var cb_stun: Buff = CbStun.new("cb_stun", 0, 0, false)
 		cb_stun.apply_only_timed(tower, next, stun_duration)

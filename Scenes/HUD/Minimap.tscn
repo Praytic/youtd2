@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cn20b4yrhc0vr"]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://Scenes/HUD/CameraProjection.gd" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/Minimap.gd" id="2"]
-[ext_resource type="Script" path="res://Scenes/HUD/MobsProjection.gd" id="3"]
+[ext_resource type="Script" path="res://Scenes/HUD/CreepsProjection.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://cq3nuuah81ohr" path="res://Assets/UI/HUD/minimap.png" id="4"]
 
 [node name="Minimap" type="Control"]
@@ -48,5 +48,5 @@ texture = ExtResource("4")
 [node name="CameraProjection" type="Node2D" parent="SubViewportContainer/SubViewport"]
 script = ExtResource("1")
 
-[node name="MobsProjection" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="CreepsProjection" type="Node2D" parent="SubViewportContainer/SubViewport"]
 script = ExtResource("3")

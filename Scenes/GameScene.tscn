@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://de2ecr8r0i8ga"]
+[gd_scene load_steps=11 format=3 uid="uid://ch2y4f042xkoy"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bykghja01dyql" path="res://Scenes/HUD.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://cn20b4yrhc0vr" path="res://Scenes/HUD/Minimap.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/Minimap.tscn" id="3"]
 [ext_resource type="Script" path="res://Scenes/Lib/Build/BuilderControl.gd" id="4"]
 [ext_resource type="PackedScene" uid="uid://dg7n0ts1qsjbg" path="res://Scenes/Landscape.tscn" id="5"]
-[ext_resource type="PackedScene" uid="uid://ds1j5pp15ax7x" path="res://Scenes/Mobs/MobSpawner.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://Scenes/Creeps/CreepSpawner.tscn" id="6"]
 [ext_resource type="Script" path="res://Scenes/Lib/ItemControl.gd" id="7"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 
@@ -25,11 +25,11 @@ script = ExtResource("9")
 [node name="Map" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
 
-[node name="MobPath1" type="Path2D" parent="Map"]
+[node name="CreepPath1" type="Path2D" parent="Map"]
 z_index = 999
 curve = SubResource("1")
 
-[node name="MobYSort" type="Node2D" parent="Map"]
+[node name="ObjectYSort" type="Node2D" parent="Map"]
 z_index = 10
 y_sort_enabled = true
 
@@ -39,17 +39,17 @@ z_index = 6
 [node name="FloatingTextContainer" type="Node2D" parent="Map"]
 z_index = 1000
 
-[node name="MobExit" type="Area2D" parent="Map"]
+[node name="CreepExit" type="Area2D" parent="Map"]
 z_index = 999
 position = Vector2(356, -524)
 scale = Vector2(0.845244, 0.890764)
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Map/MobExit"]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Map/CreepExit"]
 position = Vector2(-1993.51, 8648.76)
 scale = Vector2(60.716, -28.6271)
 polygon = PackedVector2Array(-0.44817, -27.7647, 25.8964, -1.41174, 52.241, -27.7647, 25.8964, -54.1176)
 
-[node name="MobSpawner" parent="Map" instance=ExtResource("6")]
+[node name="CreepSpawner" parent="Map" instance=ExtResource("6")]
 
 [node name="Camera3D" type="Camera2D" parent="Map"]
 unique_name_in_owner = true
@@ -105,10 +105,10 @@ offset_bottom = 720.0
 mouse_filter = 2
 script = ExtResource("7")
 
-[connection signal="child_entered_tree" from="Map/MobYSort" to="UI/HUD" method="_on_MobYSort_child_entered_tree"]
-[connection signal="child_entered_tree" from="Map/MobYSort" to="UI/HUD/Minimap" method="_on_MobYSort_child_entered_tree"]
-[connection signal="child_exiting_tree" from="Map/MobYSort" to="UI/HUD/Minimap" method="_on_MobYSort_child_exiting_tree"]
-[connection signal="body_entered" from="Map/MobExit" to="." method="_on_MobExit_body_entered"]
+[connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD" method="_on_ObjectYSort_child_entered_tree"]
+[connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD/Minimap" method="_on_ObjectYSort_child_entered_tree"]
+[connection signal="child_exiting_tree" from="Map/ObjectYSort" to="UI/HUD/Minimap" method="_on_ObjectYSort_child_exiting_tree"]
+[connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
 [connection signal="camera_moved" from="Map/Camera3D" to="UI/HUD" method="_on_Camera_updated"]
 [connection signal="camera_moved" from="Map/Camera3D" to="UI/HUD/Minimap" method="_on_Camera_camera_moved"]
 [connection signal="camera_zoomed" from="Map/Camera3D" to="UI/HUD" method="_on_Camera_updated"]

@@ -16,17 +16,17 @@ extends Node2D
 # body_entered/exited() signals of the Area2D. That
 # implementation is considerably more complex to implement
 # because of the need to handle overlapping aura's from
-# different towers. For example, if a mob is inside two
+# different towers. For example, if a creep is inside two
 # intersecting aura's of same type, and exits one of them,
-# the aura effect has to be swapped to the aura that the mob
-# remains in. Also need to handle aura upgrades when mob
+# the aura effect has to be swapped to the aura that the creep
+# remains in. Also need to handle aura upgrades when creep
 # enters aura of same type but higher level effect.
 
 # TODO: implement target type
 
 
 var aura_range: float = 10.0
-var target_type: TargetType = TargetType.new(TargetType.UnitType.MOBS)
+var target_type: TargetType = TargetType.new(TargetType.UnitType.CREEPS)
 var target_self: bool = false
 var level: int = 0
 var level_add: int = 0
@@ -53,7 +53,7 @@ func _on_Timer_timeout():
 	var body_list: Array = _area.get_overlapping_bodies()
 
 	for body in body_list:
-		if !body is Mob:
+		if !body is Creep:
 			continue
 
 		var aura_effect = _create_aura_effect()
@@ -61,10 +61,10 @@ func _on_Timer_timeout():
 		if aura_effect == null:
 			return
 
-		var mob: Mob = body as Mob
+		var creep: Creep = body as Creep
 		# NOTE: use 0.21 duration so that buff is refreshed
 		# right before it expires
-		aura_effect.apply_custom_timed(caster, mob, get_level(), 0.21)
+		aura_effect.apply_custom_timed(caster, creep, get_level(), 0.21)
 
 
 func _create_aura_effect() -> Buff:

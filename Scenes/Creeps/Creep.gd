@@ -1,4 +1,4 @@
-class_name Mob
+class_name Creep
 extends Unit
 
 
@@ -7,7 +7,7 @@ extends Unit
 
 signal moved(delta)
 
-const MOB_HEALTH_MAX: float = 200.0
+const CREEP_HEALTH_MAX: float = 200.0
 const MOVE_SPEED_MIN: float = 100.0
 const MOVE_SPEED_MAX: float = 500.0
 const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
@@ -16,8 +16,8 @@ const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 
 var _path_curve: Curve2D
 var _current_path_index: int = 0
-var _size: int = Unit.MobSize.NORMAL
-var _category: int = Unit.MobCategory.HUMANOID
+var _size: int = Unit.CreepSize.NORMAL
+var _category: int = Unit.CreepCategory.HUMANOID
 var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
@@ -32,9 +32,9 @@ var _armor_type: ArmorType.enm = ArmorType.enm.LIGHT
 func _ready():
 	super()
 	
-	_is_mob = true
-	_base_health = MOB_HEALTH_MAX
-	_health = MOB_HEALTH_MAX
+	_is_creep = true
+	_base_health = CREEP_HEALTH_MAX
+	_health = CREEP_HEALTH_MAX
 
 	damaged.connect(on_damaged)
 
@@ -43,8 +43,8 @@ func _process(delta):
 	if movement_enabled:
 		_move(delta)
 
-	var mob_animation: String = _get_mob_animation()
-	_sprite.play(mob_animation)
+	var creep_animation: String = _get_creep_animation()
+	_sprite.play(creep_animation)
 
 
 func _move(delta):
@@ -65,7 +65,7 @@ func _move(delta):
 	if reached_path_point:
 		_current_path_index += 1
 
-#		Delete mob once it has reached the end of the path
+#		Delete creep once it has reached the end of the path
 		var reached_end_of_path: bool = (_current_path_index >= _path_curve.get_point_count())
 
 		if reached_end_of_path:
@@ -77,7 +77,7 @@ func set_unit_facing(angle: float):
 # 	NOTE: limit facing angle to (0, 360) range
 	_facing_angle = int(angle + 360) % 360
 
-	var animation: String = _get_mob_animation()
+	var animation: String = _get_creep_animation()
 	_sprite.play(animation)
 
 
@@ -105,7 +105,7 @@ func get_visual_position() -> Vector2:
 
 
 func get_display_name() -> String:
-	return "Generic Mob"
+	return "Generic Creep"
 
 
 func set_path(path: Path2D):
@@ -114,7 +114,7 @@ func set_path(path: Path2D):
 
 
 func on_damaged(_event: Event):
-	_health_bar.set_as_ratio(_health / MOB_HEALTH_MAX)
+	_health_bar.set_as_ratio(_health / CREEP_HEALTH_MAX)
 
 
 func adjust_height(height: float, speed: float):
@@ -136,7 +136,7 @@ func adjust_height(height: float, speed: float):
 		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
 
-func _get_mob_animation() -> String:
+func _get_creep_animation() -> String:
 #	NOTE: the actual angles for 4-directional isometric movement are around
 #   +- 27 degrees from x axis but checking for which quadrant the movement vector
 #	falls into works just as well
@@ -165,6 +165,6 @@ func _get_move_speed() -> float:
 func get_selection_size():
 	return SELECTION_SIZE
 
-# TODO: Do mobs need IDs?
+# TODO: Do creeps need IDs?
 func get_id():
 	return 1

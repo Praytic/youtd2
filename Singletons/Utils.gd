@@ -6,7 +6,7 @@ extends Node
 # Map position is free if it contains only ground tiles
 static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 	return buildable_area.get_cell_source_id(0, pos) != -1
-@onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("MobYSort")
+@onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/Map/FloatingTextContainer")
 
@@ -99,15 +99,15 @@ func over_units_in_range_of_caster(caster: Unit, type: TargetType, range_value: 
 				return false
 
 			var distance: float = Utils.vector_isometric_distance_to(caster.position, unit.position)
-			var mob_is_in_range = distance < range_value
+			var creep_is_in_range = distance < range_value
 
-			if !mob_is_in_range:
+			if !creep_is_in_range:
 				return false
 
-			if unit is Mob:
-				var mob: Mob = unit as Mob
+			if unit is Creep:
+				var creep: Creep = unit as Creep
 
-				if mob.is_invisible():
+				if creep.is_invisible():
 					return false
 
 			return true

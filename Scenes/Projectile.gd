@@ -64,16 +64,16 @@ func create_linear_interpolation_from_unit_to_unit(caster: Unit, damage_ratio: f
 
 
 func _process(delta):
-#	Move towards mob
+#	Move towards target
 	var target_pos = _get_target_position()
 	var pos_diff = target_pos - position
 	var move_vector = _speed * pos_diff.normalized() * delta
 	position += move_vector
 
 	var distance: float = Utils.vector_isometric_length(pos_diff)
-	var reached_mob = distance < CONTACT_DISTANCE
+	var reached_target = distance < CONTACT_DISTANCE
 
-	if reached_mob:
+	if reached_target:
 		if _target != null:
 			target_hit.emit(self)
 

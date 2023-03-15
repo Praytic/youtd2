@@ -4,7 +4,7 @@ extends Control
 signal tower_built(tower_id)
 
 
-@onready var mob_ysort: Node2D = get_node("%Map").get_node("MobYSort")
+@onready var object_ysort: Node2D = get_node("%Map").get_node("ObjectYSort")
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 @onready var _landscape = get_node("%Map")
 
@@ -36,7 +36,7 @@ func verify_and_build():
 	if build_mode and _landscape.can_build_at_mouse_pos():
 		var new_tower = TowerManager.get_tower(tower_preview.tower_id)
 		new_tower.position = _landscape.get_current_buildable_pos()
-		mob_ysort.add_child(new_tower, true)
+		object_ysort.add_child(new_tower, true)
 		tower_built.emit(tower_preview.tower_id)
 		tower_preview.queue_free()
 
