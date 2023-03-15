@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ch2y4f042xkoy"]
+[gd_scene load_steps=12 format=3 uid="uid://de2ecr8r0i8ga"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bykghja01dyql" path="res://Scenes/HUD.tscn" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Creeps/CreepSpawner.tscn" id="6"]
 [ext_resource type="Script" path="res://Scenes/Lib/ItemControl.gd" id="7"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
+[ext_resource type="Script" path="res://Scenes/Debug.gd" id="9_t5get"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -70,6 +71,35 @@ cam_move_speed = 5000.0
 [node name="UI" type="CanvasLayer" parent="."]
 script = SubResource("5")
 
+[node name="DebugControl" type="Control" parent="UI"]
+unique_name_in_owner = true
+process_priority = -1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DebugControl"]
+layout_mode = 0
+offset_left = 515.0
+offset_top = 986.0
+offset_right = 679.0
+offset_bottom = 1026.0
+
+[node name="Label" type="Label" parent="UI/DebugControl/VBoxContainer"]
+layout_mode = 2
+text = "THIS IS DEBUG LABEL"
+
+[node name="Signals" type="GridContainer" parent="UI/DebugControl/VBoxContainer"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+columns = 6
+
 [node name="HUD" parent="UI" instance=ExtResource("2")]
 unique_name_in_owner = true
 size_flags_horizontal = 1
@@ -104,6 +134,10 @@ offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 script = ExtResource("7")
+
+[node name="Debug" type="Node" parent="."]
+process_priority = -1
+script = ExtResource("9_t5get")
 
 [connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD" method="_on_ObjectYSort_child_entered_tree"]
 [connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD/Minimap" method="_on_ObjectYSort_child_entered_tree"]
