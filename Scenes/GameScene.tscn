@@ -75,11 +75,7 @@ script = SubResource("5")
 unique_name_in_owner = true
 process_priority = -1
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
@@ -99,6 +95,21 @@ text = "THIS IS DEBUG LABEL"
 modulate = Color(0, 0, 0, 1)
 layout_mode = 2
 columns = 6
+
+[node name="SignalArgEdit" type="LineEdit" parent="UI/DebugControl"]
+visible = false
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 452.0
+offset_top = 323.0
+offset_right = 1452.0
+offset_bottom = 823.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Type value for the signal arg here. Examples:\"23\", \"Node2D.new()\", \"sdasd\""
 
 [node name="HUD" parent="UI" instance=ExtResource("2")]
 unique_name_in_owner = true

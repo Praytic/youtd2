@@ -121,3 +121,6 @@ func get_icon_atlas_num() -> int:
 		return -1
 	else:
 		return prop.to_int()
+
+func get_display_name() -> String:
+	return get_property(CsvProperty.NAME)

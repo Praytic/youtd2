@@ -51,17 +51,18 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="ItemBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-columns = 4
-script = ExtResource("4_5ctcy")
-
 [node name="BuildBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 columns = 4
 script = ExtResource("7")
 
+[node name="ItemBar" type="GridContainer" parent="VBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+columns = 4
+script = ExtResource("4_5ctcy")
+
 [connection signal="element_changed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
-[connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/ItemBar" to="." method="_on_BuildBar_child_entered_tree"]
 [connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" to="." method="_on_BuildBar_child_entered_tree"]
+[connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/ItemBar" to="." method="_on_BuildBar_child_entered_tree"]
