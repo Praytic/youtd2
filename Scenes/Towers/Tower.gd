@@ -41,20 +41,20 @@ enum Element {
 	STORM,
 }
 
-const _mob_category_to_mod_map: Dictionary = {
-	Unit.MobCategory.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
-	Unit.MobCategory.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
-	Unit.MobCategory.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
-	Unit.MobCategory.ORC: Unit.ModType.MOD_DMG_TO_ORC,
-	Unit.MobCategory.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
+const _creep_category_to_mod_map: Dictionary = {
+	Unit.CreepCategory.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
+	Unit.CreepCategory.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
+	Unit.CreepCategory.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
+	Unit.CreepCategory.ORC: Unit.ModType.MOD_DMG_TO_ORC,
+	Unit.CreepCategory.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
 }
 
-const _mob_size_to_mod_map: Dictionary = {
-	Unit.MobSize.MASS: Unit.ModType.MOD_DMG_TO_MASS,
-	Unit.MobSize.NORMAL: Unit.ModType.MOD_DMG_TO_NORMAL,
-	Unit.MobSize.CHAMPION: Unit.ModType.MOD_DMG_TO_CHAMPION,
-	Unit.MobSize.BOSS: Unit.ModType.MOD_DMG_TO_BOSS,
-	Unit.MobSize.AIR: Unit.ModType.MOD_DMG_TO_AIR,
+const _creep_size_to_mod_map: Dictionary = {
+	Unit.CreepSize.MASS: Unit.ModType.MOD_DMG_TO_MASS,
+	Unit.CreepSize.NORMAL: Unit.ModType.MOD_DMG_TO_NORMAL,
+	Unit.CreepSize.CHAMPION: Unit.ModType.MOD_DMG_TO_CHAMPION,
+	Unit.CreepSize.BOSS: Unit.ModType.MOD_DMG_TO_BOSS,
+	Unit.CreepSize.AIR: Unit.ModType.MOD_DMG_TO_AIR,
 }
 
 @export var attack_sound: AudioStreamMP3
@@ -109,7 +109,7 @@ func _ready():
 	_attack_autocast.is_extended = true
 	_attack_autocast.mana_cost = 0
 	_attack_autocast.buff_type = 0
-	_attack_autocast.target_type = TargetType.new(TargetType.UnitType.MOBS)
+	_attack_autocast.target_type = TargetType.new(TargetType.UnitType.CREEPS)
 	_attack_autocast.auto_range = attack_range
 	_attack_autocast.handler = _base_class_attack_autocast
 
@@ -229,23 +229,23 @@ func _on_modify_property():
 	_attack_autocast.set_cooldown(attack_cooldown)
 
 
-func _get_damage_mod_for_mob_category(mob: Mob) -> float:
-	var mob_category: int = mob.get_category()
-	var mod_type: int = _mob_category_to_mod_map[mob_category]
+func _get_damage_mod_for_creep_category(creep: Creep) -> float:
+	var creep_category: int = creep.get_category()
+	var mod_type: int = _creep_category_to_mod_map[creep_category]
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
 
-func _get_damage_mod_for_mob_armor_type(mob: Mob) -> float:
+func _get_damage_mod_for_creep_armor_type(creep: Creep) -> float:
 	var attack_type: AttackType.enm = get_attack_type()
-	var armor_type: ArmorType.enm = mob.get_armor_type()
+	var armor_type: ArmorType.enm = creep.get_armor_type()
 	var damage_mod: float = AttackType.get_damage_against(attack_type, armor_type)
 
 	return damage_mod
 
-func _get_damage_mod_for_mob_size(mob: Mob) -> float:
-	var mob_size: int = mob.get_size()
-	var mod_type: int = _mob_category_to_mod_map[mob_size]
+func _get_damage_mod_for_creep_size(creep: Creep) -> float:
+	var creep_size: int = creep.get_size()
+	var mod_type: int = _creep_category_to_mod_map[creep_size]
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
@@ -257,7 +257,7 @@ func _get_damage_mod_for_mob_size(mob: Mob) -> float:
 # TODO: is base crit bonus from one crit +50% dmg or + 100%
 # dmg?
 # TODO: white/green might be wrong
-func _get_damage_to_mob(mob: Mob) -> float:
+func _get_damage_to_creep(creep: Creep) -> float:
 	var white_damage: float = (_get_rand_damage_base() + get_base_damage_bonus()) * (1.0 + get_base_damage_bonus_percent())
 	var green_damage: float = get_damage_add() * (1.0 + get_damage_add_percent())
 
@@ -269,9 +269,9 @@ func _get_damage_to_mob(mob: Mob) -> float:
 	damage += dps_bonus * cooldown
 
 	var damage_mod_list: Array = [
-		_get_damage_mod_for_mob_size(mob),
-		_get_damage_mod_for_mob_category(mob),
-		_get_damage_mod_for_mob_armor_type(mob),
+		_get_damage_mod_for_creep_size(creep),
+		_get_damage_mod_for_creep_category(creep),
+		_get_damage_mod_for_creep_armor_type(creep),
 	]
 
 # 	NOTE: crit count can go above 1 because of the multicrit
@@ -302,14 +302,14 @@ func _get_damage_to_mob(mob: Mob) -> float:
 	return damage
 
 
-func _get_next_bounce_target(prev_target: Mob) -> Mob:
+func _get_next_bounce_target(prev_target: Creep) -> Creep:
 	var attack_range: float = get_attack_range()
-	var mob_list: Array = Utils.over_units_in_range_of_caster(prev_target, TargetType.new(TargetType.UnitType.MOBS), attack_range)
+	var creep_list: Array = Utils.over_units_in_range_of_caster(prev_target, TargetType.new(TargetType.UnitType.CREEPS), attack_range)
 
-	Utils.sort_unit_list_by_distance(mob_list, prev_target.position)
+	Utils.sort_unit_list_by_distance(creep_list, prev_target.position)
 
-	if !mob_list.is_empty():
-		var next_target = mob_list[0]
+	if !creep_list.is_empty():
+		var next_target = creep_list[0]
 
 		return next_target
 	else:
@@ -333,21 +333,21 @@ func _on_projectile_target_hit(projectile: Projectile):
 
 func _on_projectile_target_hit_normal(projectile: Projectile):
 	var target: Unit = projectile.get_target()
-	var mob: Mob = target as Mob
+	var creep: Creep = target as Creep
 
-	var damage: float = _get_damage_to_mob(mob)
+	var damage: float = _get_damage_to_creep(creep)
 	
 	super._do_damage(target, damage, true)
 
 
 func _on_projectile_target_hit_splash(projectile: Projectile):
 	var target: Unit = projectile.get_target()
-	var mob: Mob = target as Mob
+	var creep: Creep = target as Creep
 
 	if _splash_map.is_empty():
 		return
 
-	var damage: float = _get_damage_to_mob(mob)
+	var damage: float = _get_damage_to_creep(creep)
 
 	super._do_damage(target, damage, true)
 
@@ -361,15 +361,15 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 
 	var splash_range_max: float = splash_range_list.back()
 
-	var mob_list: Array = Utils.over_units_in_range_of_caster(splash_target, TargetType.new(TargetType.UnitType.MOBS), splash_range_max)
+	var creep_list: Array = Utils.over_units_in_range_of_caster(splash_target, TargetType.new(TargetType.UnitType.CREEPS), splash_range_max)
 
-	for neighbor in mob_list:
+	for neighbor in creep_list:
 		var distance: float = Utils.vector_isometric_distance_to(splash_pos, neighbor.position)
 
 		for splash_range in splash_range_list:
-			var mob_is_in_range: bool = distance < splash_range
+			var creep_is_in_range: bool = distance < splash_range
 
-			if mob_is_in_range:
+			if creep_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
 				_do_damage(neighbor, splash_damage, true)
@@ -379,9 +379,9 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 
 func _on_projectile_target_hit_bounce(projectile: Projectile):
 	var target: Unit = projectile.get_target()
-	var mob: Mob = target as Mob
+	var creep: Creep = target as Creep
 
-	var damage: float = _get_damage_to_mob(mob)
+	var damage: float = _get_damage_to_creep(creep)
 
 	projectile.user_real = damage
 	projectile.user_int = _bounce_count_max
@@ -405,7 +405,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 	var next_damage: float = current_damage * (1.0 - _bounce_damage_multiplier)
 	var next_bounce_count: int = current_bounce_count - 1
 
-	var next_target: Mob = _get_next_bounce_target(current_target)
+	var next_target: Creep = _get_next_bounce_target(current_target)
 
 	if next_target == null:
 		return

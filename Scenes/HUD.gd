@@ -53,7 +53,7 @@ func _on_RightMenuBar_item_info_canceled():
 	$TowerTooltip.hide()
 	$TooltipHeader.hide()
 
-func _on_MobYSort_child_entered_tree(node):
+func _on_ObjectYSort_child_entered_tree(node):
 		node.selected.connect(_on_Unit_selected.bind(node))
 		node.unselected.connect(_on_Unit_unselected.bind(node))
 

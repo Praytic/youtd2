@@ -33,9 +33,9 @@ func _on_create(_event: Event):
 func _on_damage(event: Event):
 	var tower = self
 
-	var target: Mob = event.get_target()
+	var target: Creep = event.get_target()
 
-	if target.get_size() < Unit.MobSize.BOSS && target.get_size() != Unit.MobSize.AIR:
+	if target.get_size() < Unit.CreepSize.BOSS && target.get_size() != Unit.CreepSize.AIR:
 		var chasm_entangle = CbStun.new("chasm_entangle", _stats.entangle_duration, 0.75, false)
 		chasm_entangle.set_buff_icon('@@0@@')
 		chasm_entangle.add_periodic_event(self, "_chasm_entangle_damage", 1.0)
@@ -49,5 +49,5 @@ func _chasm_entangle_damage(event: Event):
 	var buff: Buff = event.get_buff()
 
 	var t = buff.get_caster()
-	var c: Mob = buff.get_buffed_unit()
+	var c: Creep = buff.get_buffed_unit()
 	t.do_spell_damage(c, t.user_int + t.user_int * t.get_level() / 20, t.calc_spell_crit_no_bonus())

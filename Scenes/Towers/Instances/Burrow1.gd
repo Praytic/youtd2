@@ -22,7 +22,7 @@ func on_damage(event: Event):
 	var cur_ratio: float = _stats.armor_ignored + _stats.armor_ignored_add * tower.get_level()
 	var s_dmg: float = event.damage
 	var damage_base: float = event.damage
-	var target: Mob = event.get_target() as Mob
+	var target: Creep = event.get_target() as Creep
 	var temp: float = AttackType.get_damage_against(AttackType.enm.PHYSICAL, target.get_armor_type())
 
 #	ignoring armor type "resistance" not weakness :P

@@ -1,7 +1,7 @@
 class_name Unit
 extends CharacterBody2D
 
-# Unit is a base class for Towers and Mobs. Keeps track of
+# Unit is a base class for Towers and Creeps. Keeps track of
 # buffs and modifications. Emits signals for events which are used by buffs.
 
 # NOTE: can't use static typing for Buff because of cyclic
@@ -80,7 +80,7 @@ enum ModType {
 }
 
 # NOTE: order is important to be able to compare
-enum MobSize {
+enum CreepSize {
 	MASS,
 	NORMAL,
 	AIR,
@@ -89,7 +89,7 @@ enum MobSize {
 	CHALLENGE,
 }
 
-enum MobCategory {
+enum CreepCategory {
 	UNDEAD,
 	MAGIC,
 	NATURE,
@@ -115,7 +115,7 @@ const REGEN_PERIOD: float = 1.0
 
 
 # HACK: to fix cyclic dependency between Tower<->TargetType
-var _is_mob: bool = false
+var _is_creep: bool = false
 var _is_tower: bool = false
 # TODO: Implement
 #var _is_item_drop: bool = false
@@ -144,8 +144,8 @@ var _mana: float = 0.0
 var _base_armor: float = 45.0
 
 # This is the count of towers that are currently able to see
-# this invisible mob. If there any towers that can see this
-# mob, then it is considered to be visible to all towers.
+# this invisible creep. If there any towers that can see this
+# creep, then it is considered to be visible to all towers.
 # See Unit.is_invisible() f-n and MagicalSightBuff.
 var _invisible_watcher_count: int = 0
 
@@ -321,17 +321,17 @@ func do_attack_damage(target: Unit, damage: float, _crit_mod: float):
 # out what myster float does. Also implement the difference
 # between spell/attack damage
 func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, _crit: float, _mystery_float: float):
-	var mob_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.MOBS), radius)
+	var creep_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.CREEPS), radius)
 
-	for mob in mob_list:
-		mob._receive_damage(self, damage, false)
+	for creep in creep_list:
+		creep._receive_damage(self, damage, false)
 
 
 func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, _crit: float, _mystery_float: float):
-	var mob_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.MOBS), radius)
+	var creep_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.CREEPS), radius)
 
-	for mob in mob_list:
-		mob._receive_damage(self, damage, false)
+	for creep in creep_list:
+		creep._receive_damage(self, damage, false)
 
 func kill_instantly(target: Unit):
 	target._killed_by_unit(self, true)
@@ -592,8 +592,8 @@ func is_dead() -> bool:
 	return _is_dead
 
 
-func is_mob() -> bool:
-	return _is_mob
+func is_creep() -> bool:
+	return _is_creep
 
 
 func is_tower() -> bool:
@@ -795,8 +795,8 @@ func set_selected(selected_arg: bool):
 	else:
 		_unselect()
 
-# Implemented by Tower and Mob to return tower element or
-# mob category
+# Implemented by Tower and Creep to return tower element or
+# creep category
 func get_category() -> int:
 	return 0
 

@@ -1,10 +1,10 @@
 class_name MagicalSightBuff
 extends Buff
 
-# Magical sight effect, makes mobs in radius visible. Mobs
+# Magical sight effect, makes creeps in radius visible. Creeps
 # become invisible again once they leave range. Note that if
-# mob leaves range of a unit with magical sight but stays in
-# range of another unit with magical sight, then the mob
+# creep leaves range of a unit with magical sight but stays in
+# range of another unit with magical sight, then the creep
 # will stay visible.
 
 
@@ -22,7 +22,7 @@ func _ready():
 
 	var magical_sight_aura = magical_sight_aura_scene.instantiate()
 	magical_sight_aura.aura_range = _radius
-	magical_sight_aura.target_type = TargetType.new(TargetType.UnitType.MOBS)
+	magical_sight_aura.target_type = TargetType.new(TargetType.UnitType.CREEPS)
 	magical_sight_aura.target_self = false
 	magical_sight_aura.level = 0
 	magical_sight_aura.level_add = 0
