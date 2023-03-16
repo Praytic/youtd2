@@ -348,7 +348,15 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 
 func do_attack_damage(target: Unit, damage: float, crit_ratio: float):
 	var received_mod: float = target.get_prop_atk_damage_received()
-	var damage_total: float = damage * received_mod * crit_ratio
+	var element_mod: float = 1.0
+
+	if self is Tower:
+		var tower: Tower = self as Tower
+		var element: Tower.Element = tower.get_element()
+		var mod_type: Unit.ModType = element_to_dmg_from_element_mod[element]
+		element_mod = target._mod_value_map[mod_type]
+
+	var damage_total: float = damage * received_mod * element_mod * crit_ratio
 	_do_damage(target, damage_total, false)
 
 
@@ -443,10 +451,6 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool):
 
 		_dealt_damage_signal_in_progress = false
 
-	var element_modifier: float = _get_damage_from_element_mod(target)
-
-	damage *= element_modifier
-
 	var health_before_damage: float = target._health
 
 	target._health -= damage
@@ -535,19 +539,6 @@ func _unselect():
 	$Selection.hide()
 	_selected = false
 	unselected.emit()
-
-
-func _get_damage_from_element_mod(caster: Unit) -> float:
-	if !caster is Tower:
-		return 1.0
-
-	var tower: Tower = caster as Tower
-
-	var caster_element: int = tower.get_element()
-	var mod_type: int = element_to_dmg_from_element_mod[caster_element]
-	var mod_value: float = _mod_value_map[mod_type]
-
-	return mod_value
 
 
 func _get_bounty_for_target(target: Unit) -> float:
