@@ -359,6 +359,10 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 	var dealt_mod: float = get_prop_spell_damage_dealt()
 	var received_mod: float = target.get_prop_spell_damage_received()
 	var damage_total: float = damage * dealt_mod * received_mod * crit_ratio
+
+	if target.is_immune():
+		damage_total = 0
+
 	_do_damage(target, damage_total, false)
 
 
