@@ -242,12 +242,6 @@ func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 	return damage_mod
 
 
-# TODO: should bonus from multiple crits add with each other
-# or multiply? For example: if there are 3 crits should
-# total bonus be (1.5 + 1.5 + 1.5) or (1.5 * 1.5 * 1.5)?
-# TODO: is base crit bonus from one crit +50% dmg or + 100%
-# dmg?
-# TODO: white/green might be wrong
 func _get_damage_to_creep(creep: Creep) -> float:
 	var damage: float = get_current_attack_damage_with_bonus()
 
@@ -257,26 +251,13 @@ func _get_damage_to_creep(creep: Creep) -> float:
 		_get_damage_mod_for_creep_armor_type(creep),
 	]
 
-# 	NOTE: crit count can go above 1 because of the multicrit
-# 	property
-
-#	TODO: according to this comment in one tower script,
-#	crit mod should happend after on_damage event:
-#
-# 	Quote: "The engine calculates critical strike extra
-# 	damage ***AFTER*** the onDamage event, so there is no
-# 	need to care about it in this trigger."
-# 
 #	NOTE: that armor resistance needs to be applied before
 #	on_damage
-	var crit_damage: float = calc_attack_multicrit(0, 0, 0)
 
 #	NOTE: clamp at 0.0 to prevent damage from turning
 #	negative
 	for damage_mod in damage_mod_list:
 		damage *= damage_mod
-
-	damage *= crit_damage
 
 	damage = max(0.0, damage)
 

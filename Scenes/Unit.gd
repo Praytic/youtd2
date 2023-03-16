@@ -346,7 +346,7 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 	_do_damage(target, damage_total, false)
 
 
-func do_attack_damage(target: Unit, damage: float, crit_ratio: float):
+func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
 
@@ -356,8 +356,30 @@ func do_attack_damage(target: Unit, damage: float, crit_ratio: float):
 		var mod_type: Unit.ModType = element_to_dmg_from_element_mod[element]
 		element_mod = target._mod_value_map[mod_type]
 
-	var damage_total: float = damage * received_mod * element_mod * crit_ratio
-	_do_damage(target, damage_total, false)
+	var damage: float = damage_base * received_mod * element_mod
+
+#   NOTE: do not emit damage event if one is already in
+#   progress. Some towers have damage event handlers that
+#   call doAttackDamage() so recursive damage events would
+#   cause infinite recursion.
+	if !_dealt_damage_signal_in_progress:
+		_dealt_damage_signal_in_progress = true
+
+		var damage_event: Event = Event.new(target, damage_base, true)
+		dealt_damage.emit(damage_event)
+		damage = damage_event.damage
+
+		_dealt_damage_signal_in_progress = false
+
+#	NOTE: according to this comment in one tower script,
+#	crit bonus damage should be applied after damage event:
+#
+# 	Quote: "The engine calculates critical strike extra
+# 	damage ***AFTER*** the onDamage event, so there is no
+# 	need to care about it in this trigger."
+	damage *= crit_ratio
+
+	_do_damage(target, damage, false)
 
 
 # TODO: Find out what myster float does.
@@ -435,22 +457,7 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-func _do_damage(target: Unit, damage_base: float, is_main_target: bool):
-	var damage: float = damage_base
-
-	# NOTE: do not emit damage event if one is already in
-	# progress. Some towers have damage event handlers that
-	# call doAttackDamage() so recursive damage events would
-	# cause infinite recursion.
-	if !_dealt_damage_signal_in_progress:
-		_dealt_damage_signal_in_progress = true
-
-		var damage_event: Event = Event.new(target, damage_base, is_main_target)
-		dealt_damage.emit(damage_event)
-		damage = damage_event.damage
-
-		_dealt_damage_signal_in_progress = false
-
+func _do_damage(target: Unit, damage: float, is_main_target: bool):
 	var health_before_damage: float = target._health
 
 	target._health -= damage
