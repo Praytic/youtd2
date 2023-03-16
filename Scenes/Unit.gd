@@ -363,6 +363,7 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 
 
 func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
+	var armor_mod: float = target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
 
@@ -372,7 +373,7 @@ func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
 		var mod_type: Unit.ModType = element_to_dmg_from_element_mod[element]
 		element_mod = target._mod_value_map[mod_type]
 
-	var damage: float = damage_base * received_mod * element_mod
+	var damage: float = damage_base * armor_mod * received_mod * element_mod
 
 #   NOTE: do not emit damage event if one is already in
 #   progress. Some towers have damage event handlers that
