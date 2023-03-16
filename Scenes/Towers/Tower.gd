@@ -211,15 +211,6 @@ func _unselect():
 	_range_indicator.hide()
 
 
-# NOTE: returns random damage within range without any mods applied
-func _get_rand_damage_base() -> float:
-	var damage_min: float = get_damage_min()
-	var damage_max: float = get_damage_max()
-	var damage: float = randf_range(damage_min, damage_max)
-
-	return damage
-
-
 func _get_base_properties() -> Dictionary:
 	return {}
 
@@ -258,15 +249,7 @@ func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 # dmg?
 # TODO: white/green might be wrong
 func _get_damage_to_creep(creep: Creep) -> float:
-	var white_damage: float = (_get_rand_damage_base() + get_base_damage_bonus()) * (1.0 + get_base_damage_bonus_percent())
-	var green_damage: float = get_damage_add() * (1.0 + get_damage_add_percent())
-
-	var damage = white_damage + green_damage
-
-	var dps_bonus: float = get_dps_bonus()
-	var cooldown: float = get_overall_cooldown()
-
-	damage += dps_bonus * cooldown
+	var damage: float = get_current_attack_damage_with_bonus()
 
 	var damage_mod_list: Array = [
 		_get_damage_mod_for_creep_size(creep),
@@ -286,16 +269,14 @@ func _get_damage_to_creep(creep: Creep) -> float:
 # 
 #	NOTE: that armor resistance needs to be applied before
 #	on_damage
-	var crit_count: int = calc_attack_multicrit(0, 0, 0)
-	var crit_mod: float = get_prop_atk_crit_damage()
-
-	for _i in range(crit_count):
-		damage_mod_list.append(crit_mod)
+	var crit_damage: float = calc_attack_multicrit(0, 0, 0)
 
 #	NOTE: clamp at 0.0 to prevent damage from turning
 #	negative
 	for damage_mod in damage_mod_list:
 		damage *= damage_mod
+
+	damage *= crit_damage
 
 	damage = max(0.0, damage)
 
@@ -337,7 +318,7 @@ func _on_projectile_target_hit_normal(projectile: Projectile):
 
 	var damage: float = _get_damage_to_creep(creep)
 	
-	super._do_damage(target, damage, true)
+	do_attack_damage(target, damage, calc_attack_multicrit(0, 0, 0))
 
 
 func _on_projectile_target_hit_splash(projectile: Projectile):
@@ -349,7 +330,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 
 	var damage: float = _get_damage_to_creep(creep)
 
-	super._do_damage(target, damage, true)
+	do_attack_damage(target, damage, calc_attack_multicrit(0, 0, 0))
 
 	var splash_target: Unit = target
 	var splash_pos: Vector2 = splash_target.position
@@ -394,7 +375,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 	var current_damage: float = projectile.user_real
 	var current_bounce_count: int = projectile.user_int
 
-	super._do_damage(current_target, current_damage, true)
+	do_attack_damage(current_target, current_damage, calc_attack_multicrit(0, 0, 0))
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_count == 0
@@ -514,15 +495,29 @@ func get_damage_max():
 func get_base_damage():
 	return (get_damage_min() + get_damage_max()) / 2.0
 
-func get_overall_base_damage():
-	return (get_base_damage() + get_base_damage_bonus()) * (1 + get_base_damage_bonus_percent())
+func get_current_attack_damage() -> float:
+	var damage_min: float = get_damage_min()
+	var damage_max: float = get_damage_max()
+	var damage: float = randf_range(damage_min, damage_max)
 
-func get_overall_damage():
-	return (get_overall_base_damage() + get_damage_add()) * (1 + get_damage_add_percent())
+	return damage
+
+func get_current_attack_damage_with_bonus() -> float:
+	var damage_base: float = get_current_attack_damage()
+	var white_damage: float = (damage_base + get_base_damage_bonus()) * (1.0 + get_base_damage_bonus_percent())
+	var green_damage: float = get_damage_add() * (1.0 + get_damage_add_percent())
+
+	var dps_bonus: float = get_dps_bonus()
+	var cooldown: float = get_overall_cooldown()
+	var dps_mod: float = dps_bonus * cooldown
+
+	var damage: float = white_damage + green_damage + dps_mod
+
+	return damage
 
 # How much damage the tower deals with its attack per second on average (not counting in any crits). 
 func get_overall_dps():
-	return get_overall_damage() / get_overall_cooldown()
+	return get_current_attack_damage_with_bonus() / get_overall_cooldown()
 
 # How much damage the tower deals with its attack per second on average when 
 # counting attack crits and multicrits.

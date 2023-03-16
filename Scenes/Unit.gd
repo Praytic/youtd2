@@ -265,21 +265,57 @@ func calc_bad_chance(chance: float) -> bool:
 	return success
 
 
-# TODO: implement, probably calculates total modifier from
-# crit without multi-crit?
+func calc_spell_crit(bonus_chance: float, bonus_damage: float) -> float:
+	var crit_chance: float = get_spell_crit_chance() + bonus_chance
+	var crit_damage: float = get_spell_crit_damage() + bonus_damage
+
+	var crit_success: bool = Utils.rand_chance(crit_chance)
+
+	if crit_success:
+		return crit_damage
+	else:
+		return 1.0
+
+
 func calc_spell_crit_no_bonus() -> float:
-	return 0.0
+	var result: float = calc_spell_crit(0.0, 0.0)
+
+	return result
 
 
-# Returns a randomly calculated multicrit count.
-# 
-# TODO: figure out what mystery float parameters are for. In
-# all tower scripts seen so far they were just 0's.
-func calc_attack_multicrit(_mystery1: float, _mystery2: float, _mystery3: float) -> int:
+# Returns a randomly calculate crit bonus, no multicrit,
+# either crit or not crit.
+func calc_attack_crit(bonus_chance: float, bonus_damage: float) -> float:
+	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
+	var crit_damage: float = get_prop_atk_crit_damage() + bonus_damage
+
+	var crit_success: bool = Utils.rand_chance(crit_chance)
+
+	if crit_success:
+		return crit_damage
+	else:
+		return 1.0
+
+
+func calc_attack_crit_no_bonus() -> float:
+	var result: float = calc_spell_crit(0.0, 0.0)
+
+	return result
+
+
+# Returns a randomly calculated crit bonus (starts at 1.0),
+# taking into account multicrit.
+# 0 crits, 150% crit damage = 1.0
+# 1 crit, 150% crit damage = 1.5
+# 3 crits, 150% crit damage = 1.0 + 0.5 + 0.5 + 0.5 = 2.5
+func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_damage: float) -> float:
+	var multicrit_count_max: int = get_prop_multicrit_count() + int(bonus_multicrit)
+	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
+	var crit_damage: float = get_prop_atk_crit_damage() + bonus_damage
+
 	var crit_count: int = 0
-	var multicrit_count_max: int = get_prop_multicrit_count()
-	var current_crit_chance: float = get_prop_atk_crit_chance()
-
+	var current_crit_chance: float = crit_chance
+	
 	for _i in range(multicrit_count_max):
 		var is_critical: bool = Utils.rand_chance(current_crit_chance)
 
@@ -292,46 +328,43 @@ func calc_attack_multicrit(_mystery1: float, _mystery2: float, _mystery3: float)
 		else:
 			break
 
-	return crit_count
+# 	NOTE: subtract 1.0 from crit_damage, so we do
+#	1.0 + 0.5 + 0.5 + 0.5...
+# 	not
+#	1.0 + 1.5 + 1.5 + 1.5...
+	var total_crit_damage: float = 1.0 + (crit_damage - 1.0) * crit_count
+
+	total_crit_damage = max(0.0, total_crit_damage)
+
+	return total_crit_damage
 
 
-# TODO: are dealt and received mods multiplied or added?
-# (1.2 * 0.7) = 0.84
-# or
-# (1.2 - 0.3) = 0.9
-# Might also apply to do_attack_damage() and mods for each attack element.
-# 
-# TODO: implement _crit_mod.
-func do_spell_damage(target: Unit, damage: float, _crit_mod: float):
+func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 	var dealt_mod: float = get_prop_spell_damage_dealt()
 	var received_mod: float = target.get_prop_spell_damage_received()
-	var damage_total: float = damage * dealt_mod * received_mod
+	var damage_total: float = damage * dealt_mod * received_mod * crit_ratio
 	_do_damage(target, damage_total, false)
 
 
-# TODO: implement _crit_mod. Example call:
-# doAttackDamage(creep, 100, tower.calcAttackMulticrit(0, 0, 0))
-func do_attack_damage(target: Unit, damage: float, _crit_mod: float):
+func do_attack_damage(target: Unit, damage: float, crit_ratio: float):
 	var received_mod: float = target.get_prop_atk_damage_received()
-	var damage_total: float = damage * received_mod
+	var damage_total: float = damage * received_mod * crit_ratio
 	_do_damage(target, damage_total, false)
 
 
-# TODO: finish implementation. Need to implement crit, find
-# out what myster float does. Also implement the difference
-# between spell/attack damage
-func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, _crit: float, _mystery_float: float):
+# TODO: Find out what myster float does.
+func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, _mystery_float: float):
 	var creep_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.CREEPS), radius)
 
 	for creep in creep_list:
-		creep._receive_damage(self, damage, false)
+		do_attack_damage(target, damage, crit_ratio)
 
 
-func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, _crit: float, _mystery_float: float):
+func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, _mystery_float: float):
 	var creep_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.CREEPS), radius)
 
 	for creep in creep_list:
-		creep._receive_damage(self, damage, false)
+		do_spell_damage(self, damage, crit_ratio)
 
 func kill_instantly(target: Unit):
 	target._killed_by_unit(self, true)
