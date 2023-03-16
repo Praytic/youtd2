@@ -312,9 +312,8 @@ func do_spell_damage(target: Unit, damage: float, _crit_mod: float):
 # TODO: implement _crit_mod. Example call:
 # doAttackDamage(creep, 100, tower.calcAttackMulticrit(0, 0, 0))
 func do_attack_damage(target: Unit, damage: float, _crit_mod: float):
-	var dealt_mod: float = get_prop_spell_damage_dealt()
 	var received_mod: float = target.get_prop_atk_damage_received()
-	var damage_total: float = damage * dealt_mod * received_mod
+	var damage_total: float = damage * received_mod
 	_do_damage(target, damage_total, false)
 
 
