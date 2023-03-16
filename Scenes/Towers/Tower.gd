@@ -41,21 +41,7 @@ enum Element {
 	STORM,
 }
 
-const _creep_category_to_mod_map: Dictionary = {
-	Unit.CreepCategory.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
-	Unit.CreepCategory.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
-	Unit.CreepCategory.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
-	Unit.CreepCategory.ORC: Unit.ModType.MOD_DMG_TO_ORC,
-	Unit.CreepCategory.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
-}
 
-const _creep_size_to_mod_map: Dictionary = {
-	Unit.CreepSize.MASS: Unit.ModType.MOD_DMG_TO_MASS,
-	Unit.CreepSize.NORMAL: Unit.ModType.MOD_DMG_TO_NORMAL,
-	Unit.CreepSize.CHAMPION: Unit.ModType.MOD_DMG_TO_CHAMPION,
-	Unit.CreepSize.BOSS: Unit.ModType.MOD_DMG_TO_BOSS,
-	Unit.CreepSize.AIR: Unit.ModType.MOD_DMG_TO_AIR,
-}
 
 @export var attack_sound: AudioStreamMP3
 
@@ -220,50 +206,6 @@ func _on_modify_property():
 	_attack_autocast.set_cooldown(attack_cooldown)
 
 
-func _get_damage_mod_for_creep_category(creep: Creep) -> float:
-	var creep_category: int = creep.get_category()
-	var mod_type: int = _creep_category_to_mod_map[creep_category]
-	var damage_mod: float = _mod_value_map[mod_type]
-
-	return damage_mod
-
-func _get_damage_mod_for_creep_armor_type(creep: Creep) -> float:
-	var attack_type: AttackType.enm = get_attack_type()
-	var armor_type: ArmorType.enm = creep.get_armor_type()
-	var damage_mod: float = AttackType.get_damage_against(attack_type, armor_type)
-
-	return damage_mod
-
-func _get_damage_mod_for_creep_size(creep: Creep) -> float:
-	var creep_size: int = creep.get_size()
-	var mod_type: int = _creep_category_to_mod_map[creep_size]
-	var damage_mod: float = _mod_value_map[mod_type]
-
-	return damage_mod
-
-
-func _get_damage_to_creep(creep: Creep) -> float:
-	var damage: float = get_current_attack_damage_with_bonus()
-
-	var damage_mod_list: Array = [
-		_get_damage_mod_for_creep_size(creep),
-		_get_damage_mod_for_creep_category(creep),
-		_get_damage_mod_for_creep_armor_type(creep),
-	]
-
-#	NOTE: that armor resistance needs to be applied before
-#	on_damage
-
-#	NOTE: clamp at 0.0 to prevent damage from turning
-#	negative
-	for damage_mod in damage_mod_list:
-		damage *= damage_mod
-
-	damage = max(0.0, damage)
-
-	return damage
-
-
 func _get_next_bounce_target(prev_target: Creep) -> Creep:
 	var attack_range: float = get_attack_range()
 	var creep_list: Array = Utils.over_units_in_range_of_caster(prev_target, TargetType.new(TargetType.UnitType.CREEPS), attack_range)
@@ -297,7 +239,7 @@ func _on_projectile_target_hit_normal(projectile: Projectile):
 	var target: Unit = projectile.get_target()
 	var creep: Creep = target as Creep
 
-	var damage: float = _get_damage_to_creep(creep)
+	var damage: float = get_current_attack_damage_with_bonus()
 	
 	do_attack_damage(target, damage, calc_attack_multicrit(0, 0, 0))
 
@@ -309,7 +251,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 	if _splash_map.is_empty():
 		return
 
-	var damage: float = _get_damage_to_creep(creep)
+	var damage: float = get_current_attack_damage_with_bonus()
 
 	do_attack_damage(target, damage, calc_attack_multicrit(0, 0, 0))
 
@@ -343,7 +285,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile):
 	var target: Unit = projectile.get_target()
 	var creep: Creep = target as Creep
 
-	var damage: float = _get_damage_to_creep(creep)
+	var damage: float = get_current_attack_damage_with_bonus()
 
 	projectile.user_real = damage
 	projectile.user_int = _bounce_count_max
