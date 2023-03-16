@@ -427,8 +427,8 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-func _do_damage(target: Unit, damage: float, is_main_target: bool):
-	var actual_damage: float = damage
+func _do_damage(target: Unit, damage_base: float, is_main_target: bool):
+	var damage: float = damage_base
 
 	# NOTE: do not emit damage event if one is already in
 	# progress. Some towers have damage event handlers that
@@ -437,34 +437,30 @@ func _do_damage(target: Unit, damage: float, is_main_target: bool):
 	if !_dealt_damage_signal_in_progress:
 		_dealt_damage_signal_in_progress = true
 
-		var damage_event: Event = Event.new(target, damage, is_main_target)
+		var damage_event: Event = Event.new(target, damage_base, is_main_target)
 		dealt_damage.emit(damage_event)
-		actual_damage = damage_event.damage
+		damage = damage_event.damage
 
 		_dealt_damage_signal_in_progress = false
 
-	target._receive_damage(self, actual_damage, is_main_target)
+	var element_modifier: float = _get_damage_from_element_mod(target)
 
+	damage *= element_modifier
 
-func _receive_damage(caster: Unit, damage_base: float, is_main_target: bool):
-	var element_modifier: float = _get_damage_from_element_mod(caster)
-	var damage: float = damage_base * element_modifier
+	var health_before_damage: float = target._health
 
-	var health_before_damage: float = _health
+	target._health -= damage
 
-	_health -= damage
+	var damaged_event: Event = Event.new(self, damage, is_main_target)
+	target.damaged.emit(damaged_event)
 
-	var damaged_event: Event = Event.new(caster, damage, is_main_target)
-	damaged.emit(damaged_event)
+	Utils.display_floating_text_x(str(int(damage)), target, 255, 0, 0, 0.0, 0.0, 1.0)
 
-	Utils.display_floating_text_x(str(int(damage)), self, 255, 0, 0, 0.0, 0.0, 1.0)
-
-	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0
+	var damage_killed_unit: bool = health_before_damage > 0 && target._health <= 0
 
 	if damage_killed_unit:
-		_killed_by_unit(caster, is_main_target)
+		target._killed_by_unit(self, is_main_target)
 
-		return
 
 # Called when unit killed by caster unit
 func _killed_by_unit(caster: Unit, is_main_target: bool):
