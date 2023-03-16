@@ -334,7 +334,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 			if creep_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
-				_do_damage(neighbor, splash_damage, true)
+				do_attack_damage(neighbor, splash_damage, calc_attack_multicrit(0, 0, 0))
 
 				break
 
