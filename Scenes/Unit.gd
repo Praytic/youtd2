@@ -107,6 +107,22 @@ var element_to_dmg_from_element_mod: Dictionary = {
 	Tower.Element.STORM: ModType.MOD_DMG_FROM_STORM,
 }
 
+const _creep_category_to_mod_map: Dictionary = {
+	Unit.CreepCategory.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
+	Unit.CreepCategory.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
+	Unit.CreepCategory.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
+	Unit.CreepCategory.ORC: Unit.ModType.MOD_DMG_TO_ORC,
+	Unit.CreepCategory.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
+}
+
+const _creep_size_to_mod_map: Dictionary = {
+	Unit.CreepSize.MASS: Unit.ModType.MOD_DMG_TO_MASS,
+	Unit.CreepSize.NORMAL: Unit.ModType.MOD_DMG_TO_NORMAL,
+	Unit.CreepSize.CHAMPION: Unit.ModType.MOD_DMG_TO_CHAMPION,
+	Unit.CreepSize.BOSS: Unit.ModType.MOD_DMG_TO_BOSS,
+	Unit.CreepSize.AIR: Unit.ModType.MOD_DMG_TO_AIR,
+}
+
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 # TODO: replace this placeholder constant with real value.
@@ -457,7 +473,13 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-func _do_damage(target: Unit, damage: float, is_main_target: bool):
+func _do_damage(target: Unit, damage_base: float, is_main_target: bool):
+	var size_mod: float = _get_damage_mod_for_creep_size(target)
+	var category_mod: float = _get_damage_mod_for_creep_category(target)
+	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
+
+	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
+
 	var health_before_damage: float = target._health
 
 	target._health -= damage
@@ -871,3 +893,27 @@ func get_overall_armor():
 
 func get_dps_bonus() -> float:
 	return _mod_value_map[ModType.MOD_DPS_ADD]
+
+func _get_damage_mod_for_creep_category(creep: Creep) -> float:
+	var creep_category: int = creep.get_category()
+	var mod_type: int = _creep_category_to_mod_map[creep_category]
+	var damage_mod: float = _mod_value_map[mod_type]
+
+	return damage_mod
+
+func _get_damage_mod_for_creep_armor_type(creep: Creep) -> float:
+	var attack_type: AttackType.enm = get_attack_type()
+	var armor_type: ArmorType.enm = creep.get_armor_type()
+	var damage_mod: float = AttackType.get_damage_against(attack_type, armor_type)
+
+	return damage_mod
+
+func _get_damage_mod_for_creep_size(creep: Creep) -> float:
+	var creep_size: int = creep.get_size()
+	var mod_type: int = _creep_category_to_mod_map[creep_size]
+	var damage_mod: float = _mod_value_map[mod_type]
+
+	return damage_mod
+
+func get_attack_type() -> AttackType.enm:
+	return AttackType.enm.PHYSICAL
