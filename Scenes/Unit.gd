@@ -142,6 +142,7 @@ var _experience: float = 0.0
 var _mana: float = 0.0
 # TODO: define real value
 var _base_armor: float = 45.0
+var _dealt_damage_signal_in_progress: bool = false
 
 # This is the count of towers that are currently able to see
 # this invisible creep. If there any towers that can see this
@@ -394,15 +395,23 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-# NOTE: this function should not be called in any event
-# handlers or public Unit functions that can be called from
-# event handlers because that can cause an infinite
-# recursion of DAMAGE events causing infinite DAMAGE events.
 func _do_damage(target: Unit, damage: float, is_main_target: bool):
-	var damage_event: Event = Event.new(target, damage, is_main_target)
-	dealt_damage.emit(damage_event)
+	var actual_damage: float = damage
 
-	target._receive_damage(self, damage_event.damage, is_main_target)
+	# NOTE: do not emit damage event if one is already in
+	# progress. Some towers have damage event handlers that
+	# call doAttackDamage() so recursive damage events would
+	# cause infinite recursion.
+	if !_dealt_damage_signal_in_progress:
+		_dealt_damage_signal_in_progress = true
+
+		var damage_event: Event = Event.new(target, damage, is_main_target)
+		dealt_damage.emit(damage_event)
+		actual_damage = damage_event.damage
+
+		_dealt_damage_signal_in_progress = false
+
+	target._receive_damage(self, actual_damage, is_main_target)
 
 
 func _receive_damage(caster: Unit, damage_base: float, is_main_target: bool):
