@@ -30,6 +30,8 @@ var _target: Unit
 # of the attack will be the main target, while creeps hit by
 # splash will not.
 var _is_main_target: bool = false
+# True for damaged events that were caused by spell damage
+var _is_spell_damage: bool = false
 var _timer: Timer = null
 
 
@@ -59,6 +61,8 @@ func get_target() -> Unit:
 func is_main_target() -> bool:
 	return _is_main_target
 
+func is_spell_damage() -> bool:
+	return _is_spell_damage
 
 func enable_advanced(wait_time: float, one_shot: bool):
 	if _timer == null:
