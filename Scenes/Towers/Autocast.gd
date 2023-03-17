@@ -119,7 +119,7 @@ func _try_to_cast():
 	var casted_on_target: bool = false
 
 	for target in _target_list:
-		var event = Event.new(target, 0)
+		var event = Event.new(target)
 		handler.call(event)
 
 		casted_on_target = true
