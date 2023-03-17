@@ -491,15 +491,17 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 
 	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
 
-	var health_before_damage: float = target._health
-
-	target._health -= damage
-
 	var damaged_event: Event = Event.new(self)
 	damaged_event.damage = damage
 	damaged_event._is_main_target = is_main_target
 	damaged_event._is_spell_damage = is_spell_damage
 	target.damaged.emit(damaged_event)
+
+	damage = damaged_event.damage
+
+	var health_before_damage: float = target._health
+
+	target._health -= damage
 
 	Utils.display_floating_text_x(str(int(damage)), target, 255, 0, 0, 0.0, 0.0, 1.0)
 
