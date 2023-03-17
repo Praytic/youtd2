@@ -363,7 +363,7 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 	if target.is_immune():
 		damage_total = 0
 
-	_do_damage(target, damage_total, false)
+	_do_damage(target, damage_total, false, true)
 
 
 func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
@@ -400,7 +400,7 @@ func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
 # 	need to care about it in this trigger."
 	damage *= crit_ratio
 
-	_do_damage(target, damage, false)
+	_do_damage(target, damage, false, false)
 
 
 # TODO: Find out what myster float does.
@@ -478,7 +478,7 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-func _do_damage(target: Unit, damage_base: float, is_main_target: bool):
+func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell_damage: bool):
 	var size_mod: float = _get_damage_mod_for_creep_size(target)
 	var category_mod: float = _get_damage_mod_for_creep_category(target)
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
@@ -490,6 +490,7 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool):
 	target._health -= damage
 
 	var damaged_event: Event = Event.new(self, damage, is_main_target)
+	damaged_event._is_spell_damage = is_spell_damage
 	target.damaged.emit(damaged_event)
 
 	Utils.display_floating_text_x(str(int(damage)), target, 255, 0, 0, 0.0, 0.0, 1.0)
