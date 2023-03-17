@@ -367,6 +367,10 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 
 
 func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
+	_do_attack_damage_internal(target, damage_base, crit_ratio, false)
+
+
+func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: float, is_main_target: bool):
 	var armor_mod: float = target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
@@ -386,7 +390,8 @@ func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
 	if !_dealt_damage_signal_in_progress:
 		_dealt_damage_signal_in_progress = true
 
-		var damage_event: Event = Event.new(target, damage_base, true)
+		var damage_event: Event = Event.new(target, damage_base)
+		damage_event._is_main_target = is_main_target
 		dealt_damage.emit(damage_event)
 		damage = damage_event.damage
 
@@ -418,7 +423,7 @@ func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_r
 		do_spell_damage(self, damage, crit_ratio)
 
 func kill_instantly(target: Unit):
-	target._killed_by_unit(self, true)
+	target._killed_by_unit(self)
 
 
 func modify_property(mod_type: int, value: float, direction: int):
@@ -474,7 +479,7 @@ func _do_attack(attack_event: Event):
 
 
 func _receive_attack():
-	var attacked_event: Event = Event.new(self, 0, true)
+	var attacked_event: Event = Event.new(self, 0)
 	attacked.emit(attacked_event)
 
 
@@ -489,7 +494,8 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 
 	target._health -= damage
 
-	var damaged_event: Event = Event.new(self, damage, is_main_target)
+	var damaged_event: Event = Event.new(self, damage)
+	damaged_event._is_main_target = is_main_target
 	damaged_event._is_spell_damage = is_spell_damage
 	target.damaged.emit(damaged_event)
 
@@ -498,11 +504,11 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 	var damage_killed_unit: bool = health_before_damage > 0 && target._health <= 0
 
 	if damage_killed_unit:
-		target._killed_by_unit(self, is_main_target)
+		target._killed_by_unit(self)
 
 
 # Called when unit killed by caster unit
-func _killed_by_unit(caster: Unit, is_main_target: bool):
+func _killed_by_unit(caster: Unit):
 # 	NOTE: need to use explicit "is_dead" flag. Calling
 # 	queue_free() makes is_instance_valid(unit) return false
 # 	but that happens only at the end of the current frame.
@@ -511,16 +517,16 @@ func _killed_by_unit(caster: Unit, is_main_target: bool):
 # 	processing it.
 	_is_dead = true
 
-	var death_event: Event = Event.new(self, 0, is_main_target)
+	var death_event: Event = Event.new(self, 0)
 	death.emit(death_event)
 
-	caster._accept_kill(self, is_main_target)
+	caster._accept_kill(self)
 
 	queue_free()
 
 
 # Called when unit kills target unit
-func _accept_kill(target: Unit, is_main_target: bool):
+func _accept_kill(target: Unit):
 	var bounty: float = _get_bounty_for_target(target)
 	GoldManager.add_gold(bounty)
 
@@ -533,7 +539,7 @@ func _accept_kill(target: Unit, is_main_target: bool):
 		var new_level: int = _level + 1
 		set_level(new_level)
 
-	var kill_event: Event = Event.new(target, 0, is_main_target)
+	var kill_event: Event = Event.new(target, 0)
 	kill.emit(kill_event)
 
 
