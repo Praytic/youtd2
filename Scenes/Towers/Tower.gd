@@ -241,7 +241,7 @@ func _on_projectile_target_hit_normal(projectile: Projectile):
 
 	var damage: float = get_current_attack_damage_with_bonus()
 	
-	do_attack_damage(target, damage, calc_attack_multicrit(0, 0, 0))
+	_do_attack_damage_internal(target, damage, calc_attack_multicrit(0, 0, 0), true)
 
 
 func _on_projectile_target_hit_splash(projectile: Projectile):
@@ -253,7 +253,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 
 	var damage: float = get_current_attack_damage_with_bonus()
 
-	do_attack_damage(target, damage, calc_attack_multicrit(0, 0, 0))
+	_do_attack_damage_internal(target, damage, calc_attack_multicrit(0, 0, 0), true)
 
 	var splash_target: Unit = target
 	var splash_pos: Vector2 = splash_target.position
@@ -276,7 +276,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 			if creep_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
-				do_attack_damage(neighbor, splash_damage, calc_attack_multicrit(0, 0, 0))
+				_do_attack_damage_internal(neighbor, splash_damage, calc_attack_multicrit(0, 0, 0), false)
 
 				break
 
@@ -298,7 +298,10 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 	var current_damage: float = projectile.user_real
 	var current_bounce_count: int = projectile.user_int
 
-	do_attack_damage(current_target, current_damage, calc_attack_multicrit(0, 0, 0))
+	var is_first_bounce: bool = current_bounce_count == _bounce_count_max
+	var is_main_target: bool = is_first_bounce
+
+	_do_attack_damage_internal(current_target, current_damage, calc_attack_multicrit(0, 0, 0), is_main_target)
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_count == 0

@@ -119,7 +119,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 
 		_timer.start(total_time)
 
-	var create_event: Event = _make_buff_event(_target, 0, true)
+	var create_event: Event = _make_buff_event(_target, 0)
 	_call_event_handler_list(Event.Type.CREATE, create_event)
 
 
@@ -300,7 +300,7 @@ func add_event_on_expire(handler_object: Node, handler_function: String):
 
 
 func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
-	var range_event: Event = _make_buff_event(unit, 0, true)
+	var range_event: Event = _make_buff_event(unit, 0)
 
 	handler_object.call(handler_function, range_event)
 
@@ -332,12 +332,12 @@ func _call_event_handler_list(event_type: int, event: Event):
 
 
 func _on_timer_timeout():
-	var cleanup_event: Event = _make_buff_event(_target, 0, true)
+	var cleanup_event: Event = _make_buff_event(_target, 0)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
 	removed.emit()
 
-	var expire_event: Event = _make_buff_event(_target, 0, true)
+	var expire_event: Event = _make_buff_event(_target, 0)
 	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
 
 
@@ -351,7 +351,7 @@ func _on_target_kill(event: Event):
 
 
 func _on_target_level_up():
-	var level_up_event: Event = _make_buff_event(_target, 0, true)
+	var level_up_event: Event = _make_buff_event(_target, 0)
 	_call_event_handler_list(Event.Type.LEVEL_UP, level_up_event)
 
 
@@ -372,7 +372,7 @@ func _on_target_damaged(event: Event):
 
 
 func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String, timer: Timer):
-	var periodic_event: Event = _make_buff_event(_target, 0, true)
+	var periodic_event: Event = _make_buff_event(_target, 0)
 	periodic_event._timer = timer
 	handler_object.call(handler_function, periodic_event)
 
@@ -387,8 +387,8 @@ func _check_handler_exists(handler_object: Node, handler_function: String) -> bo
 
 
 # Convenience function to make an event with "_buff" variable set to self
-func _make_buff_event(target_arg: Unit, damage_arg: float, is_main_target_arg: bool) -> Event:
-	var event: Event = Event.new(target_arg, damage_arg, is_main_target_arg)
+func _make_buff_event(target_arg: Unit, damage_arg: float) -> Event:
+	var event: Event = Event.new(target_arg, damage_arg)
 	event._buff = self
 
 	return event
@@ -403,10 +403,10 @@ func _upgrade_or_refresh(new_level: int):
 		_level = new_level
 		_target._change_modifier_level(get_modifier(), current_level, new_level)
 
-		var upgrade_event: Event = _make_buff_event(_target, 0, true)
+		var upgrade_event: Event = _make_buff_event(_target, 0)
 		_target._call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
 	elif current_level == new_level:
 		refresh_duration()
 
-		var refresh_event: Event = _make_buff_event(_target, 0, true)
+		var refresh_event: Event = _make_buff_event(_target, 0)
 		_target._call_event_handler_list(Event.Type.REFRESH, refresh_event)

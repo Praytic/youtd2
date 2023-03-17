@@ -39,10 +39,9 @@ var _timer: Timer = null
 ### Code starts here  ###
 #########################
 
-func _init(target: Unit, damage_arg: float, is_main_target_arg: bool):
+func _init(target: Unit, damage_arg: float):
 	_target = target
 	damage = damage_arg
-	_is_main_target = is_main_target_arg
 
 
 #########################
