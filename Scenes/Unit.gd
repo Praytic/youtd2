@@ -390,7 +390,8 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 	if !_dealt_damage_signal_in_progress:
 		_dealt_damage_signal_in_progress = true
 
-		var damage_event: Event = Event.new(target, damage_base)
+		var damage_event: Event = Event.new(target)
+		damage_event.damage = damage
 		damage_event._is_main_target = is_main_target
 		dealt_damage.emit(damage_event)
 		damage = damage_event.damage
@@ -479,7 +480,7 @@ func _do_attack(attack_event: Event):
 
 
 func _receive_attack():
-	var attacked_event: Event = Event.new(self, 0)
+	var attacked_event: Event = Event.new(self)
 	attacked.emit(attacked_event)
 
 
@@ -494,7 +495,8 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 
 	target._health -= damage
 
-	var damaged_event: Event = Event.new(self, damage)
+	var damaged_event: Event = Event.new(self)
+	damaged_event.damage = damage
 	damaged_event._is_main_target = is_main_target
 	damaged_event._is_spell_damage = is_spell_damage
 	target.damaged.emit(damaged_event)
@@ -517,7 +519,7 @@ func _killed_by_unit(caster: Unit):
 # 	processing it.
 	_is_dead = true
 
-	var death_event: Event = Event.new(self, 0)
+	var death_event: Event = Event.new(self)
 	death.emit(death_event)
 
 	caster._accept_kill(self)
@@ -539,7 +541,7 @@ func _accept_kill(target: Unit):
 		var new_level: int = _level + 1
 		set_level(new_level)
 
-	var kill_event: Event = Event.new(target, 0)
+	var kill_event: Event = Event.new(target)
 	kill.emit(kill_event)
 
 
