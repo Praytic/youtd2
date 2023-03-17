@@ -24,14 +24,16 @@ var _buff: Buff
 var damage: float
 # target is of type Unit, can't use typing because of cyclic dependency...
 var _target: Unit
-# This flag is to prevent infinite recursion from
-# damage/damaged events. For example, if a tower does splash
-# damage to creeps around the creep it attacks, then the target
-# of the attack will be the main target, while creeps hit by
-# splash will not.
+# Only relevant for damage/damaged events. True for damage
+# from normal tower attacks, for main target of splash tower
+# attacks and for first target of tower bounce attack.
 var _is_main_target: bool = false
-# True for damaged events that were caused by spell damage
+# Only relevant for damaged events. True if damaged event is
+# caused by spell damage.
 var _is_spell_damage: bool = false
+# Timer belonging to a buff that triggered this event. Used
+# for cases where periodic event handler needs to modify
+# duration of periodic event.
 var _timer: Timer = null
 
 
