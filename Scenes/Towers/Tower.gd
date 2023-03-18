@@ -206,6 +206,8 @@ func _get_next_bounce_target(prev_target: Creep) -> Creep:
 	var attack_range: float = get_attack_range()
 	var creep_list: Array = Utils.over_units_in_range_of_caster(prev_target, TargetType.new(TargetType.UnitType.CREEPS), attack_range)
 
+	creep_list.erase(prev_target)
+
 	Utils.sort_unit_list_by_distance(creep_list, prev_target.position)
 
 	if !creep_list.is_empty():
@@ -318,6 +320,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 	var splash_range_max: float = splash_range_list.back()
 
 	var creep_list: Array = Utils.over_units_in_range_of_caster(splash_target, TargetType.new(TargetType.UnitType.CREEPS), splash_range_max)
+
+	creep_list.erase(splash_target)
 
 	for neighbor in creep_list:
 		var distance: float = Utils.vector_isometric_distance_to(splash_pos, neighbor.position)
