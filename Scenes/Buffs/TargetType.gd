@@ -39,11 +39,16 @@ func match(unit: Unit) -> bool:
 	var is_creep = unit.is_creep()
 	var is_tower = unit.is_tower()
 
-	if is_creep && !_unit_type == UnitType.CREEPS:
-		return false
-
-	if is_tower && !(_unit_type == UnitType.TOWERS || _unit_type == UnitType.PLAYER_TOWERS):
-		return false
+	match _unit_type:
+		UnitType.CREEPS:
+			if !is_creep:
+				return false
+		UnitType.TOWERS:
+			if !is_tower:
+				return false
+		UnitType.PLAYER_TOWERS:
+			if !is_tower:
+				return false
 
 	if is_creep:
 		var creep_size: int = unit.get_size()
