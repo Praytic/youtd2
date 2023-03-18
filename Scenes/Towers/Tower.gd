@@ -47,6 +47,7 @@ enum Element {
 
 const ATTACK_CD_MIN: float = 0.2
 const SELECTION_SIZE: int = 128
+const PROJECTILE_SPEED: int = 2000
 
 var _id: int = 0
 var _stats: Dictionary
@@ -156,7 +157,7 @@ func _set_target_count(count: int):
 
 func _tower_attack(target: Unit):
 	var projectile = _projectile_scene.instantiate()
-	projectile.create("placeholder", 0, 1000)
+	projectile.create("placeholder", 0, PROJECTILE_SPEED)
 	projectile.create_from_unit_to_unit(self, 0, 0, self, target, true, false, true)
 	projectile.set_event_on_target_hit(self, "_on_projectile_target_hit")
 
@@ -374,7 +375,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 		return
 
 	var next_projectile = _projectile_scene.instantiate()
-	next_projectile.create("placeholder", 0, 1000)
+	next_projectile.create("placeholder", 0, PROJECTILE_SPEED)
 	next_projectile.create_from_unit_to_unit(self, 0, 0, current_target, next_target, true, false, true)
 	next_projectile.user_real = next_damage
 	next_projectile.user_int = next_bounce_count
