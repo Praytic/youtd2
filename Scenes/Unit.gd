@@ -409,19 +409,25 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 	_do_damage(target, damage, false, false)
 
 
-# TODO: Find out what myster float does.
-func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, _mystery_float: float):
+# NOTE: sides_ratio parameter specifies how much less damage
+# is dealt to units that are on the "sides" of the aoe
+# circle. For example, if sides_ratio is set to 0.3 then
+# units on the sides will receive 30% less damage than those
+# in the center.
+func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
 	var creep_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.CREEPS), radius)
 
 	for creep in creep_list:
-		do_attack_damage(target, damage, crit_ratio)
+		var damage_for_creep: float = _get_aoe_damage(creep, radius, damage, sides_ratio)
+		do_attack_damage(target, damage_for_creep, crit_ratio)
 
 
-func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, _mystery_float: float):
+func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
 	var creep_list: Array = Utils.over_units_in_range_of_caster(target, TargetType.new(TargetType.UnitType.CREEPS), radius)
 
 	for creep in creep_list:
-		do_spell_damage(self, damage, crit_ratio)
+		var damage_for_creep: float = _get_aoe_damage(creep, radius, damage, sides_ratio)
+		do_spell_damage(self, damage_for_creep, crit_ratio)
 
 func kill_instantly(target: Unit):
 	target._killed_by_unit(self)
@@ -460,6 +466,16 @@ func spend_mana(mana_cost: float):
 #########################
 ###      Private      ###
 #########################
+
+
+func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
+	var distance: float = Utils.vector_isometric_distance_to(position, target.position)
+	var target_is_on_the_sides: bool = (distance / radius) > 0.5
+
+	if target_is_on_the_sides:
+		return damage * (1.0 - sides_ratio)
+	else:
+		return damage
 
 
 func _on_regen_timer_timeout():
