@@ -23,3 +23,14 @@ texture = ExtResource("2_ikpq8")
 [node name="RangeIndicator" type="Node2D" parent="."]
 visible = false
 script = ExtResource("5")
+
+[node name="TargetingArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TargetingArea"]
+polygon = PackedVector2Array(0, 0, 1, 1, 1, 0)
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="TargetingArea" to="." method="_on_targeting_area_body_entered"]
+[connection signal="body_exited" from="TargetingArea" to="." method="_on_targeting_area_body_exited"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

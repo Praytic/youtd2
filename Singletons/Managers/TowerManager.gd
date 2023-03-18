@@ -76,9 +76,7 @@ func get_tower(id: int) -> Tower:
 
 func get_tower_visual_only(id: int) -> Node:
 	var tower = get_tower(id)
-	var dummy_script = load("res://Scenes/Towers/DummyScript.gd")
-
-	tower.set_script(dummy_script)
+	tower._visual_only = true
 
 	return tower
 

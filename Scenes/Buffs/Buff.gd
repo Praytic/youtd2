@@ -247,7 +247,7 @@ func add_event_handler_unit_comes_in_range(handler_object: Node, handler_functio
 
 
 func add_autocast(autocast: Autocast):
-	autocast._caster = _target
+	autocast.set_caster(_target)
 	add_child(autocast)
 
 
