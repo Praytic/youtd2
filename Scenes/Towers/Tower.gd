@@ -242,7 +242,7 @@ func _find_new_target() -> Creep:
 
 	body_list = body_list.filter(func(body): return body is Creep && !body.is_dead() && !body.is_invisible())
 
-	Utils.shuffle_list(body_list)
+	Utils.sort_unit_list_by_distance(body_list, position)
 
 	if body_list.size() != 0:
 		var closest_creep: Creep = body_list[0]
