@@ -84,8 +84,6 @@ func rand_chance(chance: float) -> bool:
 func over_units_in_range_of_caster(caster: Unit, type: TargetType, range_value: float) -> Array[Unit]:
 	var node_list: Array[Node] = object_container.get_children()
 
-	node_list.erase(caster)
-
 	var filtered_node_list: Array[Node] = node_list.filter(
 		func(node) -> bool:
 			if !node is Unit:
