@@ -21,7 +21,7 @@ var _category: int = Unit.CreepCategory.HUMANOID
 var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
-var _armor_type: ArmorType.enm = ArmorType.enm.LIGHT
+var _armor_type: ArmorType.enm = ArmorType.enm.HEL
 
 
 @onready var _visual = $Visual
