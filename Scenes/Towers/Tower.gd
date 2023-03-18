@@ -50,16 +50,21 @@ const SELECTION_SIZE: int = 128
 
 var _id: int = 0
 var _stats: Dictionary
-var _attack_autocast: Autocast
 var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _splash_map: Dictionary = {}
 var _bounce_count_max: int = 0
 var _bounce_damage_multiplier: float = 0.0
 var _attack_style: int = AttackStyle.NORMAL
+var _target_list: Array[Creep] = []
+var _target_count_max: int = 1
+var _visual_only: bool = false
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
+@onready var _targeting_area: Area2D = $TargetingArea
+@onready var _collision_polygon: CollisionPolygon2D = $TargetingArea/CollisionPolygon2D
+@onready var _attack_timer: Timer = $AttackTimer
 
 
 #########################
@@ -71,6 +76,8 @@ func _ready():
 
 	_is_tower = true
 
+	if _visual_only:
+		return
 
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
@@ -84,24 +91,11 @@ func _ready():
 	var attack_range: float = get_attack_range()
 	_range_indicator.set_radius(attack_range)
 
-	_attack_autocast = Autocast.make()
-	_attack_autocast.caster_art = ""
-	_attack_autocast.num_buffs_before_idle = 0
-	_attack_autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	_attack_autocast.the_range = attack_range
-	_attack_autocast.target_self = false
-	_attack_autocast.target_art = ""
-	_attack_autocast.cooldown = get_overall_cooldown()
-	_attack_autocast.is_extended = true
-	_attack_autocast.mana_cost = 0
-	_attack_autocast.buff_type = 0
-	_attack_autocast.target_type = TargetType.new(TargetType.UnitType.CREEPS)
-	_attack_autocast.auto_range = attack_range
-	_attack_autocast.handler = _base_class_attack_autocast
-
-	add_autocast(_attack_autocast)
+	_attack_timer.one_shot = true
 
 	_tower_init()
+
+	_on_modify_property()
 
 
 #########################
@@ -110,7 +104,7 @@ func _ready():
 
 
 func add_autocast(autocast: Autocast):
-	autocast._caster = self
+	autocast.set_caster(self)
 	add_child(autocast)
 
 
@@ -157,18 +151,17 @@ func _set_attack_style_bounce(bounce_count_max: int, bounce_damage_multiplier: f
 # NOTE: if your tower needs to attack more than 1 target,
 # call this f-n once in _ready() method of subclass
 func _set_target_count(count: int):
-	_attack_autocast._target_count_max = count
+	_target_count_max = count
 
 
-func _base_class_attack_autocast(event: Event):
-	var target = event.get_target()
-
+func _tower_attack(target: Unit):
 	var projectile = _projectile_scene.instantiate()
 	projectile.create("placeholder", 0, 1000)
 	projectile.create_from_unit_to_unit(self, 0, 0, self, target, true, false, true)
 	projectile.set_event_on_target_hit(self, "_on_projectile_target_hit")
 
-	super._do_attack(event)
+	var attack_event: Event = Event.new(target)
+	super._do_attack(attack_event)
 
 	_attack_sound.play()
 
@@ -203,7 +196,10 @@ func _get_base_properties() -> Dictionary:
 
 func _on_modify_property():
 	var attack_cooldown: float = get_overall_cooldown()
-	_attack_autocast.set_cooldown(attack_cooldown)
+	_attack_timer.wait_time = attack_cooldown
+	
+	var attack_range: float = get_attack_range()
+	Utils.circle_polygon_set_radius(_collision_polygon, attack_range)
 
 
 func _get_next_bounce_target(prev_target: Creep) -> Creep:
@@ -218,6 +214,62 @@ func _get_next_bounce_target(prev_target: Creep) -> Creep:
 		return next_target
 	else:
 		return null
+
+
+func _try_to_attack():
+	var attack_on_cooldown: bool = _attack_timer.time_left > 0
+	
+	if attack_on_cooldown:
+		return
+
+	var attacked_target: bool = false
+
+	for target in _target_list:
+		_tower_attack(target)
+
+		attacked_target = true
+	
+	if attacked_target:
+		_attack_timer.start()
+
+
+func _find_new_target() -> Creep:
+	var body_list: Array = _targeting_area.get_overlapping_bodies()
+
+#	NOTE: can't use existing targets as new targets
+	for target in _target_list:
+		body_list.erase(target)
+
+	body_list = body_list.filter(func(body): return body is Creep && !body.is_dead() && !body.is_invisible())
+
+	Utils.shuffle_list(body_list)
+
+	if body_list.size() != 0:
+		var closest_creep: Creep = body_list[0]
+
+		return closest_creep
+	else:
+		return null
+
+
+func _have_target_space() -> bool:
+	return _target_list.size() < _target_count_max
+
+
+func _add_target(new_target: Creep):
+	if new_target == null || new_target.is_dead() || new_target.is_invisible():
+		return
+
+	new_target.death.connect(_on_target_death.bind(new_target))
+	new_target.became_invisible.connect(_on_target_became_invisible.bind(new_target))
+	_target_list.append(new_target)
+
+
+func _remove_target(target: Creep):
+	target.death.disconnect(_on_target_death)
+	target.became_invisible.disconnect(_on_target_became_invisible)
+
+	_target_list.erase(target)
 
 
 #########################
@@ -323,6 +375,61 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 	next_projectile.user_real = next_damage
 	next_projectile.user_int = next_bounce_count
 	next_projectile.set_event_on_interpolation_finished(self, "_on_projectile_bounce_in_progress")
+
+
+func _on_targeting_area_body_entered(body):
+	if !body is Creep:
+		return
+
+# 	If invisible creep comes in range, don't add it as target,
+# 	but remember it by connecting to it's signal. If the creep
+# 	becomes visible (while still in range), it may become a
+# 	target.
+	if !body.is_connected("became_visible", _on_creep_in_range_became_visible):
+		body.became_visible.connect(_on_creep_in_range_became_visible.bind(body))
+
+	if body.is_invisible():
+		return
+
+	if _have_target_space():
+		var new_target: Creep = body as Creep
+		_add_target(new_target)
+		_try_to_attack()
+
+
+func _on_targeting_area_body_exited(body):
+	if !body is Creep:
+		return
+
+	body.became_visible.disconnect(_on_creep_in_range_became_visible)
+
+	var target_went_out_of_range: bool = _target_list.has(body)
+
+	if target_went_out_of_range:
+		var old_target: Creep = body as Creep
+		_remove_target(old_target)
+
+
+func _on_target_became_invisible(target: Creep):
+	_remove_target(target)
+
+
+func _on_creep_in_range_became_visible(creep: Creep):
+	_on_targeting_area_body_entered(creep)
+
+
+func _on_target_death(_event: Event, target: Creep):
+	_remove_target(target)
+
+
+func _on_attack_timer_timeout():
+	if _have_target_space():
+		var new_target: Creep = _find_new_target()
+		_add_target(new_target)
+
+# 	NOTE: this is the one case where _try_to_attack() is called
+# 	even if add_target() wasn't called
+	_try_to_attack()
 
 
 #########################
