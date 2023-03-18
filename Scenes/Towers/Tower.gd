@@ -344,7 +344,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile):
 	var damage: float = get_current_attack_damage_with_bonus()
 
 	projectile.user_real = damage
-	projectile.user_int = _bounce_count_max
+	projectile.user_int = _bounce_count_max - 1
 
 	_on_projectile_bounce_in_progress(projectile)
 
