@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bb13dpb6i1ktt"]
+[gd_scene load_steps=27 format=3 uid="uid://bb13dpb6i1ktt"]
 
 [ext_resource type="Script" path="res://Scenes/Creeps/Creep.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bu46ypvw7y1bf" path="res://Resources/Sprites/Mobs/MobTemplateSprite.tscn" id="2"]
@@ -115,6 +115,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vp0f1"]
+bg_color = Color(1, 0.34902, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grmxl"]
+bg_color = Color(0.290196, 0.709804, 0, 1)
+
 [node name="Creep" type="CharacterBody2D"]
 script = ExtResource("1")
 
@@ -128,6 +134,8 @@ offset_left = -50.0
 offset_top = -102.0
 offset_right = 50.0
 offset_bottom = -88.0
+theme_override_styles/background = SubResource("StyleBoxFlat_vp0f1")
+theme_override_styles/fill = SubResource("StyleBoxFlat_grmxl")
 value = 100.0
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
