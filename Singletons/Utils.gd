@@ -207,6 +207,12 @@ func vector_isometric_distance_to(a: Vector2, b: Vector2) -> float:
 	return distance
 
 
+func bit_is_set(mask: int, bit: int) -> bool:
+	var is_set: bool = (mask & bit) != 0x0
+
+	return is_set
+
+
 func _load_sfx(sfx_name: String) -> AudioStreamMP3:
 	if !sfx_name.ends_with(".mp3"):
 		print_debug("Attempted to call _load_sfx on non-mp3:", sfx_name)

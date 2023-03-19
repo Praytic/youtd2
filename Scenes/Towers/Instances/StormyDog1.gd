@@ -35,7 +35,7 @@ func make_cedi_stormdog_buff() -> Buff:
 func on_damage(event: Event):
 	var tower: Unit = self
 
-	var I: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.UnitType.TOWERS), 420.0)
+	var I: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 420.0)
 	var U: Unit
 	var B: Buff
 

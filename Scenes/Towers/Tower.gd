@@ -205,7 +205,7 @@ func _on_modify_property():
 
 func _get_next_bounce_target(prev_target: Creep) -> Creep:
 	var attack_range: float = get_attack_range()
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.UnitType.CREEPS), prev_target.position, attack_range)
+	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), prev_target.position, attack_range)
 
 	creep_list.erase(prev_target)
 
@@ -320,7 +320,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 
 	var splash_range_max: float = splash_range_list.back()
 
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.UnitType.CREEPS), splash_pos, splash_range_max)
+	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), splash_pos, splash_range_max)
 
 	creep_list.erase(splash_target)
 
