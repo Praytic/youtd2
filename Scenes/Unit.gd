@@ -364,14 +364,22 @@ func remove_invisible_watcher():
 
 
 func spend_mana(mana_cost: float):
-	_mana = max(0.0, _mana - mana_cost)
-
-	mana_changed.emit()
+	_set_mana(max(0.0, _mana - mana_cost))
 
 
 #########################
 ###      Private      ###
 #########################
+
+
+func _set_mana(mana: float):
+	_mana = mana
+	mana_changed.emit()
+
+
+func _set_health(health: float):
+	_health = health
+	health_changed.emit()
 
 
 func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
@@ -387,11 +395,11 @@ func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: fl
 func _on_regen_timer_timeout():
 	var mana_max: float = get_overall_mana()
 	var mana_regen: float = get_overall_mana_regen()
-	_mana = min(_mana + mana_regen, mana_max)
+	_set_mana(min(_mana + mana_regen, mana_max))
 
 	var health_max: float = get_overall_health()
 	var health_regen: float = get_overall_health_regen()
-	_health = min(_health + health_regen, health_max)
+	_set_health(min(_health + health_regen, health_max))
 
 
 func _do_attack(attack_event: Event):
@@ -423,7 +431,7 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 
 	var health_before_damage: float = target._health
 
-	target._health -= damage
+	target._set_health(target._health - damage)
 
 	target.health_changed.emit()
 
