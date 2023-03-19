@@ -26,7 +26,7 @@ func _on_periodic(event: Event):
 
 func _trap(event: Event, tower, cooldown: float, base_damage: float, damage_add: float, stun_duration: float, max_targets: int):
 	var lvl: int = tower.get_level()
-	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.UnitType.CREEPS), 950)
+	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 950)
 	var next: Unit = it.next_random()
 	var num_targets: int = 0
 

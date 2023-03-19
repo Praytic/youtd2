@@ -38,7 +38,7 @@ func make_cedi_helldog() -> Buff:
 func on_damage(_event: Event):
 	var tower: Tower = self
 
-	var I: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.UnitType.TOWERS), 420.0)
+	var I: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 420.0)
 	var U: Unit
 	var B: Buff = null
 	var effect: int = Effect.add_special_effect_target("Abilities\\Spells\\NightElf\\BattleRoar\\RoarCaster.mdl", tower, "origin")

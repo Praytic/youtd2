@@ -22,7 +22,7 @@ func _ready():
 
 	var magical_sight_aura = magical_sight_aura_scene.instantiate()
 	magical_sight_aura.aura_range = _radius
-	magical_sight_aura.target_type = TargetType.new(TargetType.UnitType.CREEPS)
+	magical_sight_aura.target_type = TargetType.new(TargetType.CREEPS)
 	magical_sight_aura.target_self = false
 	magical_sight_aura.level = 0
 	magical_sight_aura.level_add = 0

@@ -26,7 +26,7 @@ extends Node2D
 
 
 var aura_range: float = 10.0
-var target_type: TargetType = TargetType.new(TargetType.UnitType.CREEPS)
+var target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var target_self: bool = false
 var level: int = 0
 var level_add: int = 0

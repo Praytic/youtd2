@@ -415,7 +415,7 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 # units on the sides will receive 30% less damage than those
 # in the center.
 func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.UnitType.CREEPS), target.position, radius)
+	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), target.position, radius)
 
 	for creep in creep_list:
 		var damage_for_creep: float = _get_aoe_damage(creep, radius, damage, sides_ratio)
@@ -423,7 +423,7 @@ func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_
 
 
 func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.UnitType.CREEPS), target.position, radius)
+	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), target.position, radius)
 
 	for creep in creep_list:
 		var damage_for_creep: float = _get_aoe_damage(creep, radius, damage, sides_ratio)
