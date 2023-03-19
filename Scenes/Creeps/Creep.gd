@@ -130,7 +130,7 @@ func set_path(path: Path2D):
 
 
 func on_health_changed():
-	_health_bar.set_as_ratio(_health / CREEP_HEALTH_MAX)
+	_health_bar.set_as_ratio(_health / get_overall_health())
 
 
 func adjust_height(height: float, speed: float):
