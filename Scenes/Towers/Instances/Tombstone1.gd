@@ -28,6 +28,6 @@ func on_damage(event: Event):
 	var creep: Unit = event.get_target()
 	var size: int = creep.get_size()
 
-	if size < Unit.CreepSize.CHAMPION:
+	if size < Creep.Size.CHAMPION:
 		tower.kill_instantly(creep)
 		Utils.sfx_at_unit("Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", creep)

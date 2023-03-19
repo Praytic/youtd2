@@ -4,8 +4,25 @@ extends Unit
 
 # TODO: implement armor
 
-
 signal moved(delta)
+
+# NOTE: order is important to be able to compare
+enum Size {
+	MASS,
+	NORMAL,
+	AIR,
+	CHAMPION,
+	BOSS,
+	CHALLENGE,
+}
+
+enum Category {
+	UNDEAD,
+	MAGIC,
+	NATURE,
+	ORC,
+	HUMANOID,
+}
 
 const CREEP_HEALTH_MAX: float = 200.0
 const MOVE_SPEED_MIN: float = 100.0
@@ -16,8 +33,8 @@ const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 
 var _path_curve: Curve2D
 var _current_path_index: int = 0
-var _size: int = Unit.CreepSize.NORMAL
-var _category: int = Unit.CreepCategory.HUMANOID
+var _size: int = Creep.Size.NORMAL
+var _category: int = Creep.Category.HUMANOID
 var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
