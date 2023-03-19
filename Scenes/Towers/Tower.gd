@@ -71,6 +71,7 @@ var _visual_only: bool = false
 @onready var _targeting_area: Area2D = $TargetingArea
 @onready var _collision_polygon: CollisionPolygon2D = $TargetingArea/CollisionPolygon2D
 @onready var _attack_timer: Timer = $AttackTimer
+@onready var _mana_bar: ProgressBar = $ManaBar
 
 
 #########################
@@ -96,6 +97,10 @@ func _ready():
 	_range_indicator.set_radius(attack_range)
 
 	_attack_timer.one_shot = true
+
+	mana_changed.connect(_on_mana_changed)
+	_on_mana_changed()
+	_mana_bar.visible = get_base_mana() > 0
 
 	_tower_init()
 
@@ -280,6 +285,10 @@ func _remove_target(target: Creep):
 #########################
 ###     Callbacks     ###
 #########################
+
+
+func _on_mana_changed():
+	_mana_bar.set_as_ratio(_mana / get_base_mana())
 
 
 func _on_projectile_target_hit(projectile: Projectile):
