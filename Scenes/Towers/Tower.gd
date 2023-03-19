@@ -48,6 +48,10 @@ enum Element {
 const ATTACK_CD_MIN: float = 0.2
 const SELECTION_SIZE: int = 128
 const PROJECTILE_SPEED: int = 2000
+# TODO: this needs to be some exact value where bounce works
+# for closely packed waves but doesn't for more spaced out
+# waves. Should be equal to around 2 creep visual widths.
+const BOUNCE_RANGE: int = 200
 
 var _id: int = 0
 var _stats: Dictionary
@@ -204,8 +208,7 @@ func _on_modify_property():
 
 
 func _get_next_bounce_target(prev_target: Creep) -> Creep:
-	var attack_range: float = get_attack_range()
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), prev_target.position, attack_range)
+	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), prev_target.position, BOUNCE_RANGE)
 
 	creep_list.erase(prev_target)
 
