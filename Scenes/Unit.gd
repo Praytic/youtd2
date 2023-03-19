@@ -330,7 +330,7 @@ func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_r
 
 	for creep in creep_list:
 		var damage_for_creep: float = _get_aoe_damage(creep, radius, damage, sides_ratio)
-		do_spell_damage(self, damage_for_creep, crit_ratio)
+		do_spell_damage(target, damage_for_creep, crit_ratio)
 
 func kill_instantly(target: Unit):
 	target._killed_by_unit(self)
