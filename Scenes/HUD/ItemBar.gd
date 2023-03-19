@@ -14,7 +14,7 @@ extends GridContainer
 @onready var available_item_buttons: Array
 
 
-var current_element: int
+var current_element: Tower.Element
 var current_size: String
 
 
@@ -46,11 +46,11 @@ func _ready():
 	current_size = "M"
 
 
-func _on_RightMenuBar_element_changed(element: int):
+func _on_RightMenuBar_element_changed(element: Tower.Element):
 	for item_button in _item_buttons.values():
 		item_button.hide()
 	
-	if element != -1:
+	if element != Tower.Element.NONE:
 		# Towers menu bar was selected
 		return
 	

@@ -335,7 +335,7 @@ func kill_instantly(target: Unit):
 	target._killed_by_unit(self)
 
 
-func modify_property(mod_type: int, value: float, direction: int):
+func modify_property(mod_type: Modification.Type, value: float, direction: int):
 	var current_value: float = _mod_value_map[mod_type]
 	var new_value: float = current_value + direction * value
 	_mod_value_map[mod_type] = new_value
@@ -780,6 +780,8 @@ func set_selected(selected_arg: bool):
 
 # Implemented by Tower and Creep to return tower element or
 # creep category
+# NOTE: because Tower and Creep return different enum types
+# have to use typing for int here.
 func get_category() -> int:
 	return 0
 
@@ -829,8 +831,8 @@ func _get_damage_mod_for_creep_category(creep: Creep) -> float:
 		Creep.Category.HUMANOID: Modification.Type.MOD_DMG_TO_HUMANOID,
 	}
 
-	var creep_category: int = creep.get_category()
-	var mod_type: int = creep_category_to_mod_map[creep_category]
+	var creep_category: Creep.Category = creep.get_category() as Creep.Category
+	var mod_type: Modification.Type = creep_category_to_mod_map[creep_category]
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
@@ -851,8 +853,8 @@ func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 		Creep.Size.AIR: Modification.Type.MOD_DMG_TO_AIR,
 	}
 
-	var creep_size: int = creep.get_size()
-	var mod_type: int = creep_size_to_mod_map[creep_size]
+	var creep_size: Creep.Size = creep.get_size()
+	var mod_type: Modification.Type = creep_size_to_mod_map[creep_size]
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
