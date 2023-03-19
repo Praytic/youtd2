@@ -7,7 +7,11 @@ extends Node
 # cooldown and the caster has enough mana. The attack target
 # is used as the target for the cast. Can be attached to
 # towers using Tower.add_autocast() or to buffs using
-# Buff.add_autocast()
+# Buff.add_autocast().
+#
+# Defining a target_type will cause autocast to trigger only
+# for targets that match the defined type. Set this to null
+# if you don't need any filtering.
 
 
 enum Type {
@@ -26,7 +30,7 @@ var mana_cost: int = 0
 var the_range: float = 1000
 var buff_type: int = 0
 var target_self: bool = false
-var target_type: TargetType = TargetType.new(TargetType.CREEPS)
+var target_type: TargetType = null
 var target_art: String = ""
 var auto_range: float = 1000
 var handler: Callable = Callable()
@@ -62,6 +66,12 @@ func _on_caster_attack(attack_event: Event):
 
 	if !target_is_in_range:
 		return
+
+	if target_type != null:
+		var target_matches_type: bool = target_type.match(target)
+
+		if !target_matches_type:
+			return
 
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 
