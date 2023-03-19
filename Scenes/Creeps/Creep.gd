@@ -49,7 +49,6 @@ var _armor_type: ArmorType.enm = ArmorType.enm.HEL
 func _ready():
 	super()
 	
-	_is_creep = true
 	_base_health = CREEP_HEALTH_MAX
 	_health = CREEP_HEALTH_MAX
 
