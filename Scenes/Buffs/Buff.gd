@@ -404,9 +404,9 @@ func _upgrade_or_refresh(new_level: int):
 		_target._change_modifier_level(get_modifier(), current_level, new_level)
 
 		var upgrade_event: Event = _make_buff_event(_target)
-		_target._call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
+		_call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
 	elif current_level == new_level:
 		refresh_duration()
 
 		var refresh_event: Event = _make_buff_event(_target)
-		_target._call_event_handler_list(Event.Type.REFRESH, refresh_event)
+		_call_event_handler_list(Event.Type.REFRESH, refresh_event)
