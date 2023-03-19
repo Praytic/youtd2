@@ -65,6 +65,7 @@ func destroy_effect(effect_id: int):
 # 	this function can be used to create an effect that is
 # 	destroyed after it's done animating
 	effect.animation_finished.connect(_on_effect_animation_finished.bind(effect, effect_id))
+	effect.animation_looped.connect(_on_effect_animation_finished.bind(effect, effect_id))
 
 
 # TODO: implement, no idea what this is supposed to do
