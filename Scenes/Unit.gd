@@ -852,7 +852,7 @@ func _get_damage_mod_for_creep_armor_type(creep: Creep) -> float:
 
 func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 	var creep_size: int = creep.get_size()
-	var mod_type: int = _creep_category_to_mod_map[creep_size]
+	var mod_type: int = _creep_size_to_mod_map[creep_size]
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
