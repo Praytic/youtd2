@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1u2fghaw2oji"]
+[gd_scene load_steps=6 format=3 uid="uid://d1u2fghaw2oji"]
 
 [ext_resource type="Script" path="res://Scenes/Towers/Tower.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="2_ikpq8"]
 [ext_resource type="Script" path="res://Scenes/Towers/RangeIndicator.gd" id="5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25shh"]
+bg_color = Color(0.0509804, 0.164706, 0.419608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfdtb"]
+bg_color = Color(0.278431, 0.388235, 1, 1)
 
 [node name="Tower" type="CharacterBody2D"]
 z_index = 10
@@ -30,6 +36,15 @@ script = ExtResource("5")
 polygon = PackedVector2Array(0, 0, 1, 1, 1, 0)
 
 [node name="AttackTimer" type="Timer" parent="."]
+
+[node name="ManaBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -150.0
+offset_right = 150.0
+offset_bottom = 20.0
+theme_override_styles/background = SubResource("StyleBoxFlat_25shh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xfdtb")
+show_percentage = false
 
 [connection signal="body_entered" from="TargetingArea" to="." method="_on_targeting_area_body_entered"]
 [connection signal="body_exited" from="TargetingArea" to="." method="_on_targeting_area_body_exited"]

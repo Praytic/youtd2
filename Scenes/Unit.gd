@@ -17,6 +17,7 @@ signal death(event)
 signal became_invisible()
 signal became_visible()
 signal health_changed()
+signal mana_changed()
 
 signal selected
 signal unselected
@@ -364,6 +365,8 @@ func remove_invisible_watcher():
 
 func spend_mana(mana_cost: float):
 	_mana = max(0.0, _mana - mana_cost)
+
+	mana_changed.emit()
 
 
 #########################
