@@ -339,8 +339,6 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 
 
 func _on_projectile_target_hit_bounce(projectile: Projectile):
-	var target: Unit = projectile.get_target()
-
 	var damage: float = get_current_attack_damage_with_bonus()
 
 	projectile.user_real = damage
