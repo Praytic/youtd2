@@ -21,32 +21,6 @@ signal selected
 signal unselected
 
 
-var element_to_dmg_from_element_mod: Dictionary = {
-	Tower.Element.ICE: Modification.Type.MOD_DMG_FROM_ICE,
-	Tower.Element.NATURE: Modification.Type.MOD_DMG_FROM_NATURE,
-	Tower.Element.FIRE: Modification.Type.MOD_DMG_FROM_FIRE,
-	Tower.Element.ASTRAL: Modification.Type.MOD_DMG_FROM_ASTRAL,
-	Tower.Element.DARKNESS: Modification.Type.MOD_DMG_FROM_DARKNESS,
-	Tower.Element.IRON: Modification.Type.MOD_DMG_FROM_IRON,
-	Tower.Element.STORM: Modification.Type.MOD_DMG_FROM_STORM,
-}
-
-const _creep_category_to_mod_map: Dictionary = {
-	Creep.Category.UNDEAD: Modification.Type.MOD_DMG_TO_MASS,
-	Creep.Category.MAGIC: Modification.Type.MOD_DMG_TO_MAGIC,
-	Creep.Category.NATURE: Modification.Type.MOD_DMG_TO_NATURE,
-	Creep.Category.ORC: Modification.Type.MOD_DMG_TO_ORC,
-	Creep.Category.HUMANOID: Modification.Type.MOD_DMG_TO_HUMANOID,
-}
-
-const _creep_size_to_mod_map: Dictionary = {
-	Creep.Size.MASS: Modification.Type.MOD_DMG_TO_MASS,
-	Creep.Size.NORMAL: Modification.Type.MOD_DMG_TO_NORMAL,
-	Creep.Size.CHAMPION: Modification.Type.MOD_DMG_TO_CHAMPION,
-	Creep.Size.BOSS: Modification.Type.MOD_DMG_TO_BOSS,
-	Creep.Size.AIR: Modification.Type.MOD_DMG_TO_AIR,
-}
-
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 # TODO: replace this placeholder constant with real value.
@@ -289,6 +263,16 @@ func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
 
 
 func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: float, is_main_target: bool):
+	const element_to_dmg_from_element_mod: Dictionary = {
+		Tower.Element.ICE: Modification.Type.MOD_DMG_FROM_ICE,
+		Tower.Element.NATURE: Modification.Type.MOD_DMG_FROM_NATURE,
+		Tower.Element.FIRE: Modification.Type.MOD_DMG_FROM_FIRE,
+		Tower.Element.ASTRAL: Modification.Type.MOD_DMG_FROM_ASTRAL,
+		Tower.Element.DARKNESS: Modification.Type.MOD_DMG_FROM_DARKNESS,
+		Tower.Element.IRON: Modification.Type.MOD_DMG_FROM_IRON,
+		Tower.Element.STORM: Modification.Type.MOD_DMG_FROM_STORM,
+	}
+
 	var armor_mod: float = target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
@@ -837,8 +821,16 @@ func get_dps_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_DPS_ADD]
 
 func _get_damage_mod_for_creep_category(creep: Creep) -> float:
+	const creep_category_to_mod_map: Dictionary = {
+		Creep.Category.UNDEAD: Modification.Type.MOD_DMG_TO_MASS,
+		Creep.Category.MAGIC: Modification.Type.MOD_DMG_TO_MAGIC,
+		Creep.Category.NATURE: Modification.Type.MOD_DMG_TO_NATURE,
+		Creep.Category.ORC: Modification.Type.MOD_DMG_TO_ORC,
+		Creep.Category.HUMANOID: Modification.Type.MOD_DMG_TO_HUMANOID,
+	}
+
 	var creep_category: int = creep.get_category()
-	var mod_type: int = _creep_category_to_mod_map[creep_category]
+	var mod_type: int = creep_category_to_mod_map[creep_category]
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
@@ -851,8 +843,16 @@ func _get_damage_mod_for_creep_armor_type(creep: Creep) -> float:
 	return damage_mod
 
 func _get_damage_mod_for_creep_size(creep: Creep) -> float:
+	const creep_size_to_mod_map: Dictionary = {
+		Creep.Size.MASS: Modification.Type.MOD_DMG_TO_MASS,
+		Creep.Size.NORMAL: Modification.Type.MOD_DMG_TO_NORMAL,
+		Creep.Size.CHAMPION: Modification.Type.MOD_DMG_TO_CHAMPION,
+		Creep.Size.BOSS: Modification.Type.MOD_DMG_TO_BOSS,
+		Creep.Size.AIR: Modification.Type.MOD_DMG_TO_AIR,
+	}
+
 	var creep_size: int = creep.get_size()
-	var mod_type: int = _creep_size_to_mod_map[creep_size]
+	var mod_type: int = creep_size_to_mod_map[creep_size]
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
