@@ -80,9 +80,8 @@ func rand_chance(chance: float) -> bool:
 	return chance_success
 
 
-func over_units_in_range_of(caster: Unit, type: TargetType, x: float, y: float, radius: float) -> Array[Unit]:
+func get_units_in_range(type: TargetType, center: Vector2, radius: float) -> Array[Unit]:
 	var node_list: Array[Node] = object_container.get_children()
-	var center: Vector2 = Vector2(x, y)
 
 	var filtered_node_list: Array[Node] = node_list.filter(
 		func(node) -> bool:
@@ -117,6 +116,12 @@ func over_units_in_range_of(caster: Unit, type: TargetType, x: float, y: float, 
 		filtered_unit_list.append(node as Unit)
 
 	return filtered_unit_list
+
+
+func over_units_in_range_of(_caster: Unit, type: TargetType, x: float, y: float, radius: float) -> Array[Unit]:
+	var center: Vector2 = Vector2(x, y)
+	
+	return get_units_in_range(type, center, radius)
 
 
 func over_units_in_range_of_caster(caster: Unit, type: TargetType, radius: float) -> Array[Unit]:
