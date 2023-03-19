@@ -53,8 +53,8 @@ func _init(bitmask: int):
 
 
 func match(unit: Unit) -> bool:
-	var is_creep = unit.is_creep()
-	var is_tower = unit.is_tower()
+	var is_creep = unit is Creep
+	var is_tower = unit is Tower
 
 	match _unit_type:
 		UnitType.CREEPS:

@@ -54,12 +54,6 @@ const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
 
 
-# HACK: to fix cyclic dependency between Tower<->TargetType
-var _is_creep: bool = false
-var _is_tower: bool = false
-# TODO: Implement
-#var _is_item_drop: bool = false
-
 var user_int: int = 0
 var user_int2: int = 0
 var user_int3: int = 0
@@ -603,14 +597,6 @@ func _change_modifier_level(modifier: Modifier, old_level: int, new_level: int):
 
 func is_dead() -> bool:
 	return _is_dead
-
-
-func is_creep() -> bool:
-	return _is_creep
-
-
-func is_tower() -> bool:
-	return _is_tower
 
 
 func get_visual_position() -> Vector2:

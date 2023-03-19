@@ -79,8 +79,6 @@ var _visual_only: bool = false
 func _ready():
 	super()
 
-	_is_tower = true
-
 	if _visual_only:
 		return
 
