@@ -21,10 +21,10 @@ func _tower_init():
 	var tower = self
 
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Unit.ModType.MOD_DMG_TO_UNDEAD, -0.10, 0.004)
-	specials_modifier.add_modification(Unit.ModType.MOD_BOUNTY_RECEIVED, 0.0, _stats.bounty_add)
-	specials_modifier.add_modification(Unit.ModType.MOD_ITEM_CHANCE_ON_KILL, _stats.item_bonus, _stats.item_bonus_add)
-	specials_modifier.add_modification(Unit.ModType.MOD_ITEM_QUALITY_ON_KILL, _stats.item_bonus, _stats.item_bonus_add)
+	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.10, 0.004)
+	specials_modifier.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, _stats.bounty_add)
+	specials_modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, _stats.item_bonus, _stats.item_bonus_add)
+	specials_modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, _stats.item_bonus, _stats.item_bonus_add)
 	add_modifier(specials_modifier)
 
 	var triggers_buff: Buff = TriggersBuff.new()

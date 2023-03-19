@@ -21,88 +21,30 @@ signal selected
 signal unselected
 
 
-enum ModType {
-	MOD_ARMOR,
-	MOD_ARMOR_PERC,
-	MOD_EXP_GRANTED,
-	MOD_EXP_RECEIVED,
-	MOD_SPELL_DAMAGE_RECEIVED,
-	MOD_SPELL_DAMAGE_DEALT,
-	MOD_SPELL_CRIT_DAMAGE,
-	MOD_SPELL_CRIT_CHANCE,
-	MOD_BOUNTY_GRANTED,
-	MOD_BOUNTY_RECEIVED,
-	MOD_ATK_CRIT_CHANCE,
-	MOD_ATK_CRIT_DAMAGE,
-	MOD_ATK_DAMAGE_RECEIVED,
-	MOD_ATTACKSPEED,
-	MOD_MULTICRIT_COUNT,
-	MOD_ITEM_CHANCE_ON_KILL,
-	MOD_ITEM_QUALITY_ON_KILL,
-	MOD_BUFF_DURATION,
-	MOD_DEBUFF_DURATION,
-	MOD_TRIGGER_CHANCES,
-	MOD_MOVESPEED,
-	MOD_MOVESPEED_ABSOLUTE,
-	MOD_DAMAGE_BASE,
-	MOD_DAMAGE_BASE_PERC,
-	MOD_DAMAGE_ADD,
-	MOD_DAMAGE_ADD_PERC,
-	MOD_DPS_ADD,
-	MOD_HP,
-	MOD_HP_PERC,
-	MOD_HP_REGEN,
-	MOD_HP_REGEN_PERC,
-	MOD_MANA,
-	MOD_MANA_PERC,
-	MOD_MANA_REGEN,
-	MOD_MANA_REGEN_PERC,
-
-	MOD_DMG_TO_MASS,
-	MOD_DMG_TO_NORMAL,
-	MOD_DMG_TO_CHAMPION,
-	MOD_DMG_TO_BOSS,
-	MOD_DMG_TO_AIR,
-
-	MOD_DMG_TO_UNDEAD,
-	MOD_DMG_TO_MAGIC,
-	MOD_DMG_TO_NATURE,
-	MOD_DMG_TO_ORC,
-	MOD_DMG_TO_HUMANOID,
-
-	MOD_DMG_FROM_ASTRAL,
-	MOD_DMG_FROM_DARKNESS,
-	MOD_DMG_FROM_NATURE,
-	MOD_DMG_FROM_FIRE,
-	MOD_DMG_FROM_ICE,
-	MOD_DMG_FROM_STORM,
-	MOD_DMG_FROM_IRON,
-}
-
 var element_to_dmg_from_element_mod: Dictionary = {
-	Tower.Element.ICE: ModType.MOD_DMG_FROM_ICE,
-	Tower.Element.NATURE: ModType.MOD_DMG_FROM_NATURE,
-	Tower.Element.FIRE: ModType.MOD_DMG_FROM_FIRE,
-	Tower.Element.ASTRAL: ModType.MOD_DMG_FROM_ASTRAL,
-	Tower.Element.DARKNESS: ModType.MOD_DMG_FROM_DARKNESS,
-	Tower.Element.IRON: ModType.MOD_DMG_FROM_IRON,
-	Tower.Element.STORM: ModType.MOD_DMG_FROM_STORM,
+	Tower.Element.ICE: Modification.Type.MOD_DMG_FROM_ICE,
+	Tower.Element.NATURE: Modification.Type.MOD_DMG_FROM_NATURE,
+	Tower.Element.FIRE: Modification.Type.MOD_DMG_FROM_FIRE,
+	Tower.Element.ASTRAL: Modification.Type.MOD_DMG_FROM_ASTRAL,
+	Tower.Element.DARKNESS: Modification.Type.MOD_DMG_FROM_DARKNESS,
+	Tower.Element.IRON: Modification.Type.MOD_DMG_FROM_IRON,
+	Tower.Element.STORM: Modification.Type.MOD_DMG_FROM_STORM,
 }
 
 const _creep_category_to_mod_map: Dictionary = {
-	Creep.Category.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
-	Creep.Category.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
-	Creep.Category.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
-	Creep.Category.ORC: Unit.ModType.MOD_DMG_TO_ORC,
-	Creep.Category.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
+	Creep.Category.UNDEAD: Modification.Type.MOD_DMG_TO_MASS,
+	Creep.Category.MAGIC: Modification.Type.MOD_DMG_TO_MAGIC,
+	Creep.Category.NATURE: Modification.Type.MOD_DMG_TO_NATURE,
+	Creep.Category.ORC: Modification.Type.MOD_DMG_TO_ORC,
+	Creep.Category.HUMANOID: Modification.Type.MOD_DMG_TO_HUMANOID,
 }
 
 const _creep_size_to_mod_map: Dictionary = {
-	Creep.Size.MASS: Unit.ModType.MOD_DMG_TO_MASS,
-	Creep.Size.NORMAL: Unit.ModType.MOD_DMG_TO_NORMAL,
-	Creep.Size.CHAMPION: Unit.ModType.MOD_DMG_TO_CHAMPION,
-	Creep.Size.BOSS: Unit.ModType.MOD_DMG_TO_BOSS,
-	Creep.Size.AIR: Unit.ModType.MOD_DMG_TO_AIR,
+	Creep.Size.MASS: Modification.Type.MOD_DMG_TO_MASS,
+	Creep.Size.NORMAL: Modification.Type.MOD_DMG_TO_NORMAL,
+	Creep.Size.CHAMPION: Modification.Type.MOD_DMG_TO_CHAMPION,
+	Creep.Size.BOSS: Modification.Type.MOD_DMG_TO_BOSS,
+	Creep.Size.AIR: Modification.Type.MOD_DMG_TO_AIR,
 }
 
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
@@ -154,61 +96,61 @@ var _invisible_watcher_count: int = 0
 #########################
 
 func _init():
-	for mod_type in ModType.values():
+	for mod_type in Modification.Type.values():
 		_mod_value_map[mod_type] = 0.0
-	_mod_value_map[ModType.MOD_ATK_CRIT_CHANCE] = 0.01
-	_mod_value_map[ModType.MOD_ATK_CRIT_DAMAGE] = 1.5
-	_mod_value_map[ModType.MOD_TRIGGER_CHANCES] = 1.0
-	_mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT] = 1.0
-	_mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED] = 1.0
-	_mod_value_map[ModType.MOD_SPELL_CRIT_DAMAGE] = 1.5
-	_mod_value_map[ModType.MOD_SPELL_CRIT_CHANCE] = 0.01
-	_mod_value_map[ModType.MOD_BOUNTY_GRANTED] = 1.0
-	_mod_value_map[ModType.MOD_BOUNTY_RECEIVED] = 1.0
-	_mod_value_map[ModType.MOD_EXP_GRANTED] = 1.0
-	_mod_value_map[ModType.MOD_EXP_RECEIVED] = 1.0
-	_mod_value_map[ModType.MOD_BUFF_DURATION] = 1.0
-	_mod_value_map[ModType.MOD_DEBUFF_DURATION] = 1.0
-	_mod_value_map[ModType.MOD_MOVESPEED] = 1.0
-	_mod_value_map[ModType.MOD_MULTICRIT_COUNT] = 1.0
-	_mod_value_map[ModType.MOD_ATK_DAMAGE_RECEIVED] = 1.0
+	_mod_value_map[Modification.Type.MOD_ATK_CRIT_CHANCE] = 0.01
+	_mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE] = 1.5
+	_mod_value_map[Modification.Type.MOD_TRIGGER_CHANCES] = 1.0
+	_mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_DEALT] = 1.0
+	_mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_RECEIVED] = 1.0
+	_mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE] = 1.5
+	_mod_value_map[Modification.Type.MOD_SPELL_CRIT_CHANCE] = 0.01
+	_mod_value_map[Modification.Type.MOD_BOUNTY_GRANTED] = 1.0
+	_mod_value_map[Modification.Type.MOD_BOUNTY_RECEIVED] = 1.0
+	_mod_value_map[Modification.Type.MOD_EXP_GRANTED] = 1.0
+	_mod_value_map[Modification.Type.MOD_EXP_RECEIVED] = 1.0
+	_mod_value_map[Modification.Type.MOD_BUFF_DURATION] = 1.0
+	_mod_value_map[Modification.Type.MOD_DEBUFF_DURATION] = 1.0
+	_mod_value_map[Modification.Type.MOD_MOVESPEED] = 1.0
+	_mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT] = 1.0
+	_mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED] = 1.0
 
-	_mod_value_map[ModType.MOD_ARMOR] = 0.01
-	_mod_value_map[ModType.MOD_ARMOR_PERC] = 1.5
+	_mod_value_map[Modification.Type.MOD_ARMOR] = 0.01
+	_mod_value_map[Modification.Type.MOD_ARMOR_PERC] = 1.5
 
-	_mod_value_map[ModType.MOD_DAMAGE_BASE] = 0.0
-	_mod_value_map[ModType.MOD_DAMAGE_BASE_PERC] = 0.0
-	_mod_value_map[ModType.MOD_DAMAGE_ADD] = 0.0
-	_mod_value_map[ModType.MOD_DAMAGE_ADD_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_DAMAGE_BASE] = 0.0
+	_mod_value_map[Modification.Type.MOD_DAMAGE_BASE_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_DAMAGE_ADD] = 0.0
+	_mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC] = 0.0
 
-	_mod_value_map[ModType.MOD_MANA] = 0.0
-	_mod_value_map[ModType.MOD_MANA_PERC] = 0.0
-	_mod_value_map[ModType.MOD_MANA_REGEN] = 0.0
-	_mod_value_map[ModType.MOD_MANA_REGEN_PERC] = 0.0
-	_mod_value_map[ModType.MOD_HP] = 0.0
-	_mod_value_map[ModType.MOD_HP_PERC] = 0.0
-	_mod_value_map[ModType.MOD_HP_REGEN] = 0.0
-	_mod_value_map[ModType.MOD_HP_REGEN_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_MANA] = 0.0
+	_mod_value_map[Modification.Type.MOD_MANA_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_MANA_REGEN] = 0.0
+	_mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_HP] = 0.0
+	_mod_value_map[Modification.Type.MOD_HP_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_HP_REGEN] = 0.0
+	_mod_value_map[Modification.Type.MOD_HP_REGEN_PERC] = 0.0
 
-	_mod_value_map[ModType.MOD_DMG_TO_MASS] = 1.0
-	_mod_value_map[ModType.MOD_DMG_TO_NORMAL] = 1.0
-	_mod_value_map[ModType.MOD_DMG_TO_CHAMPION] = 1.0
-	_mod_value_map[ModType.MOD_DMG_TO_BOSS] = 1.0
-	_mod_value_map[ModType.MOD_DMG_TO_AIR] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_MASS] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_NORMAL] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_CHAMPION] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_BOSS] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_AIR] = 1.0
 
-	_mod_value_map[ModType.MOD_DMG_TO_UNDEAD] = 1.0
-	_mod_value_map[ModType.MOD_DMG_TO_MAGIC] = 1.0
-	_mod_value_map[ModType.MOD_DMG_TO_NATURE] = 1.0
-	_mod_value_map[ModType.MOD_DMG_TO_ORC] = 1.0
-	_mod_value_map[ModType.MOD_DMG_TO_HUMANOID] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_UNDEAD] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_MAGIC] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_NATURE] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_ORC] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_TO_HUMANOID] = 1.0
 
-	_mod_value_map[ModType.MOD_DMG_FROM_ASTRAL] = 1.0
-	_mod_value_map[ModType.MOD_DMG_FROM_DARKNESS] = 1.0
-	_mod_value_map[ModType.MOD_DMG_FROM_NATURE] = 1.0
-	_mod_value_map[ModType.MOD_DMG_FROM_FIRE] = 1.0
-	_mod_value_map[ModType.MOD_DMG_FROM_ICE] = 1.0
-	_mod_value_map[ModType.MOD_DMG_FROM_STORM] = 1.0
-	_mod_value_map[ModType.MOD_DMG_FROM_IRON] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_FROM_ASTRAL] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_FROM_DARKNESS] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_FROM_NATURE] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_FROM_FIRE] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_FROM_ICE] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_FROM_STORM] = 1.0
+	_mod_value_map[Modification.Type.MOD_DMG_FROM_IRON] = 1.0
 
 func _ready():
 	_update_invisible_modulate()
@@ -256,7 +198,7 @@ func calc_chance(chance_base: float) -> bool:
 
 # "Bad" chance is for events that decrease tower's
 # perfomance, for example missing attack. Bad chances are
-# unaffected by ModType.MOD_TRIGGER_CHANCES.
+# unaffected by Modification.Type.MOD_TRIGGER_CHANCES.
 func calc_bad_chance(chance: float) -> bool:
 	var success: bool = Utils.rand_chance(chance)
 
@@ -360,7 +302,7 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 	if self is Tower:
 		var tower: Tower = self as Tower
 		var element: Tower.Element = tower.get_element()
-		var mod_type: Unit.ModType = element_to_dmg_from_element_mod[element]
+		var mod_type: Modification.Type = element_to_dmg_from_element_mod[element]
 		element_mod = target._mod_value_map[mod_type]
 
 	var damage: float = damage_base * armor_mod * received_mod * element_mod
@@ -690,16 +632,16 @@ func get_y() -> float:
 # PropTriggerChances.
 
 func get_prop_buff_duration() -> float:
-	return _mod_value_map[ModType.MOD_BUFF_DURATION]
+	return _mod_value_map[Modification.Type.MOD_BUFF_DURATION]
 
 func get_prop_debuff_duration() -> float:
-	return _mod_value_map[ModType.MOD_DEBUFF_DURATION]
+	return _mod_value_map[Modification.Type.MOD_DEBUFF_DURATION]
 
 func get_prop_atk_crit_chance() -> float:
-	return _mod_value_map[ModType.MOD_ATK_CRIT_CHANCE]
+	return _mod_value_map[Modification.Type.MOD_ATK_CRIT_CHANCE]
 
 func get_prop_atk_crit_damage() -> float:
-	return _mod_value_map[ModType.MOD_ATK_CRIT_DAMAGE]
+	return _mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE]
 
 # TODO: implement
 # Returns the value of the average damage multipler based on crit chance, crit damage
@@ -708,78 +650,78 @@ func get_crit_multiplier() -> float:
 	return 1 + get_prop_atk_crit_chance() * get_prop_atk_crit_damage()
 
 func get_prop_bounty_received() -> float:
-	return _mod_value_map[ModType.MOD_BOUNTY_RECEIVED]
+	return _mod_value_map[Modification.Type.MOD_BOUNTY_RECEIVED]
 
 func get_prop_bounty_granted() -> float:
-	return _mod_value_map[ModType.MOD_BOUNTY_GRANTED]
+	return _mod_value_map[Modification.Type.MOD_BOUNTY_GRANTED]
 
 func get_prop_exp_received() -> float:
-	return _mod_value_map[ModType.MOD_EXP_RECEIVED]
+	return _mod_value_map[Modification.Type.MOD_EXP_RECEIVED]
 
 func get_prop_exp_granted() -> float:
-	return _mod_value_map[ModType.MOD_EXP_GRANTED]
+	return _mod_value_map[Modification.Type.MOD_EXP_GRANTED]
 
 func get_damage_to_air() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_AIR]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_AIR]
 
 func get_damage_to_boss() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_BOSS]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_BOSS]
 
 func get_damage_to_mass() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_MASS]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_MASS]
 
 func get_damage_to_normal() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_NORMAL]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_NORMAL]
 
 func get_damage_to_champion() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_CHAMPION]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_CHAMPION]
 
 func get_damage_to_undead() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_UNDEAD]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_UNDEAD]
 
 func get_damage_to_humanoid() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_HUMANOID]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_HUMANOID]
 
 func get_damage_to_nature() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_NATURE]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_NATURE]
 
 func get_damage_to_magic() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_MAGIC]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_MAGIC]
 
 func get_damage_to_orc() -> float:
-	return _mod_value_map[ModType.MOD_DMG_TO_ORC]
+	return _mod_value_map[Modification.Type.MOD_DMG_TO_ORC]
 
 func get_exp_ratio() -> float:
-	return _mod_value_map[ModType.MOD_EXP_RECEIVED]
+	return _mod_value_map[Modification.Type.MOD_EXP_RECEIVED]
 
 func get_item_drop_ratio() -> float:
-	return _mod_value_map[ModType.MOD_ITEM_CHANCE_ON_KILL]
+	return _mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL]
 
 func get_item_quality_ratio() -> float:
-	return _mod_value_map[ModType.MOD_ITEM_QUALITY_ON_KILL]
+	return _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL]
 
 func get_prop_trigger_chances() -> float:
-	return _mod_value_map[ModType.MOD_TRIGGER_CHANCES]
+	return _mod_value_map[Modification.Type.MOD_TRIGGER_CHANCES]
 
 func get_prop_multicrit_count() -> int:
-	return int(max(0, _mod_value_map[ModType.MOD_MULTICRIT_COUNT]))
+	return int(max(0, _mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT]))
 
 func get_prop_spell_damage_dealt() -> float:
-	return _mod_value_map[ModType.MOD_SPELL_DAMAGE_DEALT]
+	return _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_DEALT]
 
 func get_prop_spell_damage_received() -> float:
-	return _mod_value_map[ModType.MOD_SPELL_DAMAGE_RECEIVED]
+	return _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_RECEIVED]
 
 func get_spell_crit_chance() -> float:
-	return _mod_value_map[ModType.MOD_SPELL_CRIT_CHANCE]
+	return _mod_value_map[Modification.Type.MOD_SPELL_CRIT_CHANCE]
 
 func get_spell_crit_damage() -> float:
-	return _mod_value_map[ModType.MOD_SPELL_CRIT_DAMAGE]
+	return _mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE]
 
 # The Base Cooldown is divided by this value. Towers gain some attackspeed per level and items, 
 # buffs and auras can grant attackspeed.
 func get_base_attack_speed() -> float:
-	return _mod_value_map[ModType.MOD_ATTACKSPEED]
+	return _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
 
 func get_level() -> int:
 	return _level
@@ -797,10 +739,10 @@ func get_base_mana() -> float:
 	return 0.0
 
 func get_base_mana_bonus():
-	return _mod_value_map[ModType.MOD_MANA]
+	return _mod_value_map[Modification.Type.MOD_MANA]
 
 func get_base_mana_bonus_percent():
-	return _mod_value_map[ModType.MOD_MANA_PERC]
+	return _mod_value_map[Modification.Type.MOD_MANA_PERC]
 
 func get_overall_mana():
 	return (get_base_mana() + get_base_mana_bonus()) * (1 + get_base_mana_bonus_percent())
@@ -810,10 +752,10 @@ func get_base_mana_regen() -> float:
 	return 0.0
 
 func get_base_mana_regen_bonus():
-	return _mod_value_map[ModType.MOD_MANA_REGEN]
+	return _mod_value_map[Modification.Type.MOD_MANA_REGEN]
 
 func get_base_mana_regen_bonus_percent():
-	return _mod_value_map[ModType.MOD_MANA_REGEN_PERC]
+	return _mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC]
 
 func get_overall_mana_regen():
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * (1 + get_base_mana_regen_bonus_percent())
@@ -822,10 +764,10 @@ func get_base_health():
 	return _base_health
 
 func get_base_health_bonus():
-	return _mod_value_map[ModType.MOD_HP]
+	return _mod_value_map[Modification.Type.MOD_HP]
 
 func get_base_health_bonus_percent():
-	return _mod_value_map[ModType.MOD_HP_PERC]
+	return _mod_value_map[Modification.Type.MOD_HP_PERC]
 
 func get_overall_health():
 	return (get_base_health() + get_base_health_bonus()) * (1 + get_base_health_bonus_percent())
@@ -834,22 +776,22 @@ func get_base_health_regen():
 	return _base_health_regen
 
 func get_base_health_regen_bonus():
-	return _mod_value_map[ModType.MOD_HP_REGEN]
+	return _mod_value_map[Modification.Type.MOD_HP_REGEN]
 
 func get_base_health_regen_bonus_percent():
-	return _mod_value_map[ModType.MOD_HP_REGEN_PERC]
+	return _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC]
 
 func get_overall_health_regen():
 	return (get_base_health_regen() + get_base_health_regen_bonus()) * (1 + get_base_health_regen_bonus_percent())
 
 func get_prop_move_speed() -> float:
-	return _mod_value_map[ModType.MOD_MOVESPEED]
+	return _mod_value_map[Modification.Type.MOD_MOVESPEED]
 
 func get_prop_move_speed_absolute() -> float:
-	return _mod_value_map[ModType.MOD_MOVESPEED_ABSOLUTE]
+	return _mod_value_map[Modification.Type.MOD_MOVESPEED_ABSOLUTE]
 
 func get_prop_atk_damage_received() -> float:
-	return _mod_value_map[ModType.MOD_ATK_DAMAGE_RECEIVED]
+	return _mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED]
 
 func get_selection_size():
 	return _selection_size
@@ -872,16 +814,16 @@ func get_category() -> int:
 	return 0
 
 func get_base_damage_bonus() -> float:
-	return _mod_value_map[ModType.MOD_DAMAGE_BASE]
+	return _mod_value_map[Modification.Type.MOD_DAMAGE_BASE]
 
 func get_base_damage_bonus_percent() -> float:
-	return _mod_value_map[ModType.MOD_DAMAGE_BASE_PERC]
+	return _mod_value_map[Modification.Type.MOD_DAMAGE_BASE_PERC]
 
 func get_damage_add() -> float:
-	return _mod_value_map[ModType.MOD_DAMAGE_ADD]
+	return _mod_value_map[Modification.Type.MOD_DAMAGE_ADD]
 
 func get_damage_add_percent() -> float:
-	return _mod_value_map[ModType.MOD_DAMAGE_ADD_PERC]
+	return _mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC]
 
 # TODO: implement real formula
 func get_current_armor_damage_reduction() -> float:
@@ -897,16 +839,16 @@ func get_base_armor() -> float:
 	return _base_armor
 
 func get_base_armor_bonus() -> float:
-	return _mod_value_map[ModType.MOD_ARMOR]
+	return _mod_value_map[Modification.Type.MOD_ARMOR]
 
 func get_base_armor_bonus_percent() -> float:
-	return _mod_value_map[ModType.MOD_ARMOR_PERC]
+	return _mod_value_map[Modification.Type.MOD_ARMOR_PERC]
 
 func get_overall_armor():
 	return (get_base_armor() + get_base_armor_bonus()) * (1.0 + get_base_armor_bonus_percent())
 
 func get_dps_bonus() -> float:
-	return _mod_value_map[ModType.MOD_DPS_ADD]
+	return _mod_value_map[Modification.Type.MOD_DPS_ADD]
 
 func _get_damage_mod_for_creep_category(creep: Creep) -> float:
 	var creep_category: int = creep.get_category()

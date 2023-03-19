@@ -41,7 +41,7 @@ func _on_autocast(event: Event):
 
 	var m: Modifier = Modifier.new()
 	var sir_moonp_buff: Buff = Buff.new("sir_moonp_buff", 0, 0, false)
-	m.add_modification(Unit.ModType.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
+	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
 	sir_moonp_buff.set_buff_icon("'@@0@@")
 	sir_moonp_buff.set_stacking_group("sir_moonp_buff")
 

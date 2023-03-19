@@ -20,5 +20,5 @@ func _tower_init():
 	_set_attack_style_bounce(3, 0.5)
 
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Unit.ModType.MOD_DMG_TO_UNDEAD, _stats.undead_damage, _stats.undead_damage_add)
+	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, _stats.undead_damage, _stats.undead_damage_add)
 	add_modifier(specials_modifier)
