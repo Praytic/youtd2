@@ -28,8 +28,8 @@ func on_damage(event: Event):
 
 	var light_mod: Modifier = Modifier.new()
 	var sternbogen_holy_buff = Buff.new("sternbogen_holy_buff", 0.0, 0.0, false)
-	light_mod.add_modification(Unit.ModType.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.001)
-	light_mod.add_modification(Unit.ModType.MOD_ATK_DAMAGE_RECEIVED, 0.0, 0.001)
+	light_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.001)
+	light_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 0.001)
 	sternbogen_holy_buff.set_buff_modifier(light_mod)
 	sternbogen_holy_buff.set_buff_icon("@@1@@")
 

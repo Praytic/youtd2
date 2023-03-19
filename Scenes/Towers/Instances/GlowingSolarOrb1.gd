@@ -21,7 +21,7 @@ func _tower_init():
 	_set_attack_style_splash(splash_map)
 
 	var dmg_to_undead_modifier: Modifier = Modifier.new()
-	dmg_to_undead_modifier.add_modification(Unit.ModType.MOD_DMG_TO_UNDEAD, 0.15, 0.0)
+	dmg_to_undead_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.15, 0.0)
 	add_modifier(dmg_to_undead_modifier)
 
 	var on_damage_buff: Buff = TriggersBuff.new()
@@ -33,7 +33,7 @@ func _on_damage(event: Event):
 	var tower = self
 
 	var armor: Modifier = Modifier.new()
-	armor.add_modification(Unit.ModType.MOD_ARMOR, 0, -1)
+	armor.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
 	var cassim_armor: Buff = Buff.new("cassim_armor", 0, 0, false)
 	cassim_armor.set_buff_icon("@@0@@")
 	cassim_armor.set_buff_modifier(armor)

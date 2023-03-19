@@ -17,13 +17,13 @@ func _tower_init():
 	on_damage_buff.apply_to_unit_permanent(self, self, 0)
 
 	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Unit.ModType.MOD_ATTACKSPEED, 0.0, _stats.self_attackspeed_add)
+	specials_modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, _stats.self_attackspeed_add)
 	add_modifier(specials_modifier)
 
 
 func make_cedi_stormdog_buff() -> Buff:
 	var mod: Modifier = Modifier.new()
-	mod.add_modification(Unit.ModType.MOD_ATTACKSPEED, 0.05, 0.0005)
+	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.05, 0.0005)
 
 	var cedi_stormdog: Buff = Buff.new("cedi_stormdog", 5.0, 0.0, true)
 	cedi_stormdog.set_buff_icon("@@1@@")
