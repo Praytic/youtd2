@@ -22,11 +22,9 @@ extends Node2D
 # remains in. Also need to handle aura upgrades when creep
 # enters aura of same type but higher level effect.
 
-# TODO: implement target type
-
 
 var aura_range: float = 10.0
-var target_type: TargetType = TargetType.new(TargetType.CREEPS)
+var target_type: TargetType = null
 var target_self: bool = false
 var level: int = 0
 var level_add: int = 0
@@ -38,33 +36,26 @@ var caster: Unit = null
 var create_aura_effect_object: Object = null
 
 @onready var _timer: Timer = $Timer
-@onready var _area: Area2D = $Area2D
-@onready var _collision_polygon: CollisionPolygon2D = $Area2D/CollisionPolygon2D
 
 
 func _ready():
-	Utils.circle_polygon_set_radius(_collision_polygon, aura_range)
 	_timer.one_shot = false
 	_timer.wait_time = 0.2
 	_timer.start()
 
 
 func _on_Timer_timeout():
-	var body_list: Array = _area.get_overlapping_bodies()
+	var unit_list: Array[Unit] = Utils.get_units_in_range(target_type, position, aura_range)
 
-	for body in body_list:
-		if !body is Creep:
-			continue
-
+	for unit in unit_list:
 		var aura_effect = _create_aura_effect()
 
 		if aura_effect == null:
 			return
 
-		var creep: Creep = body as Creep
 		# NOTE: use 0.21 duration so that buff is refreshed
 		# right before it expires
-		aura_effect.apply_custom_timed(caster, creep, get_level(), 0.21)
+		aura_effect.apply_custom_timed(caster, unit, get_level(), 0.21)
 
 
 func _create_aura_effect() -> Buff:
