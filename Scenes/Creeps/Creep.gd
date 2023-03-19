@@ -52,7 +52,7 @@ func _ready():
 	_base_health = CREEP_HEALTH_MAX
 	_health = CREEP_HEALTH_MAX
 
-	damaged.connect(on_damaged)
+	health_changed.connect(on_health_changed)
 
 
 func _process(delta):
@@ -129,7 +129,7 @@ func set_path(path: Path2D):
 	position = _path_curve.get_point_position(0)
 
 
-func on_damaged(_event: Event):
+func on_health_changed():
 	_health_bar.set_as_ratio(_health / CREEP_HEALTH_MAX)
 
 

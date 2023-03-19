@@ -16,6 +16,7 @@ signal kill(event)
 signal death(event)
 signal became_invisible()
 signal became_visible()
+signal health_changed()
 
 signal selected
 signal unselected
@@ -420,6 +421,8 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 	var health_before_damage: float = target._health
 
 	target._health -= damage
+
+	target.health_changed.emit()
 
 	Utils.display_floating_text_x(str(int(damage)), target, 255, 0, 0, 0.0, 0.0, 1.0)
 
