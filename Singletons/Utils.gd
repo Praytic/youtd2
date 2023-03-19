@@ -118,30 +118,6 @@ func get_units_in_range(type: TargetType, center: Vector2, radius: float) -> Arr
 	return filtered_unit_list
 
 
-func over_units_in_range_of(_caster: Unit, type: TargetType, x: float, y: float, radius: float) -> Array[Unit]:
-	var center: Vector2 = Vector2(x, y)
-	
-	return get_units_in_range(type, center, radius)
-
-
-func over_units_in_range_of_caster(caster: Unit, type: TargetType, radius: float) -> Array[Unit]:
-	var x: float = caster.position.x
-	var y: float = caster.position.y
-
-	var unit_list: Array[Unit] = Utils.over_units_in_range_of(caster, type, x, y, radius)
-
-	return unit_list
-
-
-func over_units_in_range_of_unit(caster: Unit, type: TargetType, center: Unit, radius: float) -> Array[Unit]:
-	var x: float = center.position.x
-	var y: float = center.position.y
-
-	var unit_list: Array[Unit] = Utils.over_units_in_range_of(caster, type, x, y, radius)
-
-	return unit_list
-
-
 class DistanceSorter:
 	var origin = Vector2.ZERO
 
