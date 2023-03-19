@@ -33,8 +33,8 @@ const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 
 var _path_curve: Curve2D
 var _current_path_index: int = 0
-var _size: int = Creep.Size.NORMAL
-var _category: int = Creep.Category.HUMANOID
+var _size: Creep.Size = Creep.Size.NORMAL
+var _category: Creep.Category = Creep.Category.HUMANOID
 var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
@@ -101,7 +101,7 @@ func get_unit_facing() -> float:
 	return _facing_angle
 
 
-func get_size() -> int:
+func get_size() -> Creep.Size:
 	return _size
 
 

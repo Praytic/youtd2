@@ -39,6 +39,7 @@ enum Element {
 	DARKNESS,
 	IRON,
 	STORM,
+	NONE,
 }
 
 
@@ -59,7 +60,7 @@ var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _splash_map: Dictionary = {}
 var _bounce_count_max: int = 0
 var _bounce_damage_multiplier: float = 0.0
-var _attack_style: int = AttackStyle.NORMAL
+var _attack_style: AttackStyle = AttackStyle.NORMAL
 var _target_list: Array[Creep] = []
 var _target_count_max: int = 1
 var _visual_only: bool = false
@@ -469,9 +470,9 @@ func get_icon_atlas_num() -> int:
 	else:
 		return -1
 
-func get_element() -> int:
+func get_element() -> Tower.Element:
 	var element_string: String = get_csv_property(CsvProperty.ELEMENT)
-	var element: int = Element.get(element_string.to_upper())
+	var element: Element = Element.get(element_string.to_upper())
 
 	return element
 
@@ -516,7 +517,7 @@ func getOwner():
 	return self
 
 
-func get_csv_property(csv_property: int) -> String:
+func get_csv_property(csv_property: Tower.CsvProperty) -> String:
 	var properties: Dictionary = Properties.get_tower_csv_properties_by_id(_id)
 	var value: String = properties[csv_property]
 

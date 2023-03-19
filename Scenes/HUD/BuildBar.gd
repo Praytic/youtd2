@@ -14,13 +14,13 @@ extends GridContainer
 @onready var available_tower_buttons: Array
 
 
-var current_element: int
+var current_element: Tower.Element
 var current_size: String
 
 
 func add_tower_button(tower_id):
 	available_tower_buttons.append(tower_id)
-	var element: int = Properties.get_csv_properties(tower_id)[Tower.CsvProperty.ELEMENT]
+	var element: Tower.Element = Properties.get_csv_properties(tower_id)[Tower.CsvProperty.ELEMENT]
 	if element == current_element:
 		_tower_buttons[tower_id].show()
 
@@ -47,7 +47,7 @@ func _ready():
 	_resize_icons("M")
 	current_size = "M"
 
-func _on_RightMenuBar_element_changed(element: int):
+func _on_RightMenuBar_element_changed(element: Tower.Element):
 	current_element = element
 	
 	for tower_button in _tower_buttons.values():
@@ -93,7 +93,7 @@ func _resize_icons(icon_size: String):
 		_tower_buttons[tower_id].set_icon_size(icon_size)
 
 
-func _get_available_tower_buttons_for_element(element: int) -> Array:
+func _get_available_tower_buttons_for_element(element: Tower.Element) -> Array:
 	var element_string: String = Tower.Element.keys()[element].to_lower()
 	var tower_id_list = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.ELEMENT, element_string)
 	

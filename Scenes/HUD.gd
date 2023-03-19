@@ -77,7 +77,7 @@ func _on_MenuButton_pressed():
 func _on_element_button_pressed(element_button):
 	$MarginContainer.hide()
 	
-	var element: int = element_button.element
+	var element: Tower.Element = element_button.element
 	$RightMenuBar.set_element(element)
 
 
@@ -89,5 +89,5 @@ func _on_TooltipHeader_expanded(expand):
 
 
 func _on_ItemMenuButton_pressed():
-	var element: int = -1
+	var element: Tower.Element = Tower.Element.NONE
 	$RightMenuBar.set_element(element)

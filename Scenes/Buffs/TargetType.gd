@@ -39,7 +39,7 @@ enum UnitType {
 	CREEPS
 }
 
-var _unit_type: int
+var _unit_type: UnitType
 var _creep_size_list: Array = []
 var _creep_category_list: Array = []
 var _tower_element_list: Array = []

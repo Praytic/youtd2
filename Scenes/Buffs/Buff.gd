@@ -207,7 +207,7 @@ func expire():
 	_on_timer_timeout()
 
 
-func add_event_handler(event_type: int, handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
+func add_event_handler(event_type: Event.Type, handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
 	if !_check_handler_exists(handler_object, handler_function):
 		return
 
@@ -305,14 +305,14 @@ func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit
 	handler_object.call(handler_function, range_event)
 
 
-func _add_event_handler_internal(event_type: int, handler: EventHandler):
+func _add_event_handler_internal(event_type: Event.Type, handler: EventHandler):
 	if !event_handler_map.has(event_type):
 		event_handler_map[event_type] = []
 
 	event_handler_map[event_type].append(handler)
 
 
-func _call_event_handler_list(event_type: int, event: Event):
+func _call_event_handler_list(event_type: Event.Type, event: Event):
 	if !event_handler_map.has(event_type):
 		return
 

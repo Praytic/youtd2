@@ -18,7 +18,7 @@ func _ready():
 	item_control.item_used.connect(_on_Item_used)
 
 
-func set_element(element: int):
+func set_element(element: Tower.Element):
 	element_changed.emit(element)
 	show()
 

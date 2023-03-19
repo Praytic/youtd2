@@ -74,7 +74,7 @@ func get_item_csv_properties_by_id(item_id: int) -> Dictionary:
 	else:
 		return {}
 
-func get_tower_csv_properties_by_filter(tower_property: int, filter_value: String) -> Array:
+func get_tower_csv_properties_by_filter(tower_property: Tower.CsvProperty, filter_value: String) -> Array:
 	var result_list_of_dicts = []
 	for tower_id in _tower_csv_properties.keys():
 		if _tower_csv_properties[tower_id][tower_property] == filter_value:
@@ -94,7 +94,7 @@ func get_tower_id_list() -> Array:
 	return _tower_csv_properties.keys()
 
 
-func get_tower_id_list_by_filter(tower_property: int, filter_value: String) -> Array:
+func get_tower_id_list_by_filter(tower_property: Tower.CsvProperty, filter_value: String) -> Array:
 	var result_list = []
 	for tower_id in _tower_csv_properties.keys():
 		if _tower_csv_properties[tower_id][tower_property] == filter_value:
