@@ -85,6 +85,11 @@ func _init():
 	_mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT] = 1.0
 	_mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED] = 1.0
 
+	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL] = 1.0
+	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL] = 1.0
+	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH] = 1.0
+	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH] = 1.0
+
 	_mod_value_map[Modification.Type.MOD_ARMOR] = 0.01
 	_mod_value_map[Modification.Type.MOD_ARMOR_PERC] = 1.5
 
