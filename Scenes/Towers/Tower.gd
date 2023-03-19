@@ -295,7 +295,6 @@ func _on_projectile_target_hit(projectile: Projectile):
 
 func _on_projectile_target_hit_normal(projectile: Projectile):
 	var target: Unit = projectile.get_target()
-	var creep: Creep = target as Creep
 
 	var damage: float = get_current_attack_damage_with_bonus()
 	
@@ -304,7 +303,6 @@ func _on_projectile_target_hit_normal(projectile: Projectile):
 
 func _on_projectile_target_hit_splash(projectile: Projectile):
 	var target: Unit = projectile.get_target()
-	var creep: Creep = target as Creep
 
 	if _splash_map.is_empty():
 		return
@@ -343,7 +341,6 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 
 func _on_projectile_target_hit_bounce(projectile: Projectile):
 	var target: Unit = projectile.get_target()
-	var creep: Creep = target as Creep
 
 	var damage: float = get_current_attack_damage_with_bonus()
 
