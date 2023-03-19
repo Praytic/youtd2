@@ -1,5 +1,4 @@
 class_name Event
-extends Node
 
 
 enum Type {

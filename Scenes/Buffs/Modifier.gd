@@ -1,5 +1,4 @@
 class_name Modifier
-extends Node
 
 # Modifier stores a list of modifications. Can apply and
 # undo apply of such modifications on a unit.
