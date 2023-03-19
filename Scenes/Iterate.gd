@@ -1,4 +1,4 @@
-class_name Iterate extends RefCounted
+class_name Iterate
 
 
 enum NextOrder {
