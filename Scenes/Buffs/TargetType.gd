@@ -101,19 +101,19 @@ static func _get_unit_type(bitmask: int) -> UnitType:
 		return UnitType.CREEPS
 
 
-static func _get_creep_size_list(bitmask: int) -> Array[Unit.CreepSize]:
+static func _get_creep_size_list(bitmask: int) -> Array[Creep.Size]:
 	var bit_to_size_map: Dictionary = {
-		SIZE_MASS: Unit.CreepSize.MASS,
-		SIZE_NORMAL: Unit.CreepSize.NORMAL,
-		SIZE_CHAMPION: Unit.CreepSize.CHAMPION,
-		SIZE_BOSS: Unit.CreepSize.BOSS,
-		SIZE_AIR: Unit.CreepSize.AIR,
+		SIZE_MASS: Creep.Size.MASS,
+		SIZE_NORMAL: Creep.Size.NORMAL,
+		SIZE_CHAMPION: Creep.Size.CHAMPION,
+		SIZE_BOSS: Creep.Size.BOSS,
+		SIZE_AIR: Creep.Size.AIR,
 	}
 
-	var list: Array[Unit.CreepSize] = []
+	var list: Array[Creep.Size] = []
 
 	for bit in bit_to_size_map.keys():
-		var element: Unit.CreepSize = bit_to_size_map[bit]
+		var element: Creep.Size = bit_to_size_map[bit]
 		var is_set: bool = Utils.bit_is_set(bitmask, bit)
 
 		if is_set:
@@ -122,19 +122,19 @@ static func _get_creep_size_list(bitmask: int) -> Array[Unit.CreepSize]:
 	return list
 
 
-static func _get_creep_category_list(bitmask: int) -> Array[Unit.CreepCategory]:
+static func _get_creep_category_list(bitmask: int) -> Array[Creep.Category]:
 	var bit_to_category_map: Dictionary = {
-		RACE_UNDEAD: Unit.CreepCategory.UNDEAD,
-		RACE_MAGIC: Unit.CreepCategory.MAGIC,
-		RACE_NATURE: Unit.CreepCategory.NATURE,
-		RACE_ORC: Unit.CreepCategory.ORC,
-		RACE_HUMANOID: Unit.CreepCategory.HUMANOID,
+		RACE_UNDEAD: Creep.Category.UNDEAD,
+		RACE_MAGIC: Creep.Category.MAGIC,
+		RACE_NATURE: Creep.Category.NATURE,
+		RACE_ORC: Creep.Category.ORC,
+		RACE_HUMANOID: Creep.Category.HUMANOID,
 	}
 
-	var list: Array[Unit.CreepCategory] = []
+	var list: Array[Creep.Category] = []
 
 	for bit in bit_to_category_map.keys():
-		var category: Unit.CreepCategory = bit_to_category_map[bit]
+		var category: Creep.Category = bit_to_category_map[bit]
 		var is_set: bool = Utils.bit_is_set(bitmask, bit)
 
 		if is_set:

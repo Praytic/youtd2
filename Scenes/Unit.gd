@@ -79,24 +79,6 @@ enum ModType {
 	MOD_DMG_FROM_IRON,
 }
 
-# NOTE: order is important to be able to compare
-enum CreepSize {
-	MASS,
-	NORMAL,
-	AIR,
-	CHAMPION,
-	BOSS,
-	CHALLENGE,
-}
-
-enum CreepCategory {
-	UNDEAD,
-	MAGIC,
-	NATURE,
-	ORC,
-	HUMANOID,
-}
-
 var element_to_dmg_from_element_mod: Dictionary = {
 	Tower.Element.ICE: ModType.MOD_DMG_FROM_ICE,
 	Tower.Element.NATURE: ModType.MOD_DMG_FROM_NATURE,
@@ -108,19 +90,19 @@ var element_to_dmg_from_element_mod: Dictionary = {
 }
 
 const _creep_category_to_mod_map: Dictionary = {
-	Unit.CreepCategory.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
-	Unit.CreepCategory.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
-	Unit.CreepCategory.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
-	Unit.CreepCategory.ORC: Unit.ModType.MOD_DMG_TO_ORC,
-	Unit.CreepCategory.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
+	Creep.Category.UNDEAD: Unit.ModType.MOD_DMG_TO_MASS,
+	Creep.Category.MAGIC: Unit.ModType.MOD_DMG_TO_MAGIC,
+	Creep.Category.NATURE: Unit.ModType.MOD_DMG_TO_NATURE,
+	Creep.Category.ORC: Unit.ModType.MOD_DMG_TO_ORC,
+	Creep.Category.HUMANOID: Unit.ModType.MOD_DMG_TO_HUMANOID,
 }
 
 const _creep_size_to_mod_map: Dictionary = {
-	Unit.CreepSize.MASS: Unit.ModType.MOD_DMG_TO_MASS,
-	Unit.CreepSize.NORMAL: Unit.ModType.MOD_DMG_TO_NORMAL,
-	Unit.CreepSize.CHAMPION: Unit.ModType.MOD_DMG_TO_CHAMPION,
-	Unit.CreepSize.BOSS: Unit.ModType.MOD_DMG_TO_BOSS,
-	Unit.CreepSize.AIR: Unit.ModType.MOD_DMG_TO_AIR,
+	Creep.Size.MASS: Unit.ModType.MOD_DMG_TO_MASS,
+	Creep.Size.NORMAL: Unit.ModType.MOD_DMG_TO_NORMAL,
+	Creep.Size.CHAMPION: Unit.ModType.MOD_DMG_TO_CHAMPION,
+	Creep.Size.BOSS: Unit.ModType.MOD_DMG_TO_BOSS,
+	Creep.Size.AIR: Unit.ModType.MOD_DMG_TO_AIR,
 }
 
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
