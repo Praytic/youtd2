@@ -28,30 +28,28 @@ func _on_Camera_updated(_direction):
 	$Hints.hide()
 
 
-func _on_RightMenuBar_tower_info_requested(tower_id):
-	var tower = TowerManager.get_tower(tower_id)
-	
-	$TowerTooltip.set_tower_tooltip_text(tower)
+func _on_RightMenuBar_unit_info_requested(unit_id, unit_type):
+	var get_unit
+	match unit_type:
+		"item": 
+			get_unit = func get_unit(unit_id):
+				ItemManager.get_item(unit_id)
+		"tower":
+			get_unit = func get_unit(unit_id):
+				TowerManager.get_tower(unit_id)
+		_:
+			push_error("Unit with ID [%s] has invalid type [%]." % [unit_id, unit_type])
+	var unit = get_unit.call(unit_id)
+	$TowerTooltip.set_tower_tooltip_text(unit)
 	$TowerTooltip.hide()
-	
-	$TooltipHeader.set_header_unit(tower)
+	$TooltipHeader.set_header_unit(unit)
 	$TooltipHeader.show()
 
 
-func _on_RightMenuBar_tower_info_canceled():
+func _on_RightMenuBar_unit_info_canceled():
 	$TowerTooltip.hide()
 	$TooltipHeader.hide()
 
-
-func _on_RightMenuBar_item_info_requested(item_id):
-	var item = ItemManager.get_item(item_id)
-	$TooltipHeader.set_header_unit(item)
-	$TooltipHeader.show()
-
-
-func _on_RightMenuBar_item_info_canceled():
-	$TowerTooltip.hide()
-	$TooltipHeader.hide()
 
 func _on_ObjectYSort_child_entered_tree(node):
 		node.selected.connect(_on_Unit_selected.bind(node))
