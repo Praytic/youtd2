@@ -20,8 +20,9 @@ func _ready():
 
 	_range_indicator.set_radius(attack_range)
 
-	_tower_instance = TowerManager.get_tower_visual_only(tower_id)
+	_tower_instance = TowerManager.get_tower(tower_id)
 	add_child(_tower_instance)
+	_tower_instance.set_visual_only()
 
 
 func _physics_process(_delta):

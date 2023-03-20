@@ -60,7 +60,6 @@ var _bounce_damage_multiplier: float = 0.0
 var _attack_style: AttackStyle = AttackStyle.NORMAL
 var _target_list: Array[Creep] = []
 var _target_count_max: int = 1
-var _visual_only: bool = false
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -77,9 +76,6 @@ var _visual_only: bool = false
 
 func _ready():
 	super()
-
-	if _visual_only:
-		return
 
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
@@ -107,6 +103,17 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+# Disables attacking or any other game interactions for the
+# tower. Must be called after add_child().
+func set_visual_only():
+	_mana_bar.hide()
+
+	for connection in get_incoming_connections():
+		var the_signal: Signal = connection["signal"]
+		var callable: Callable = connection.callable
+
+		the_signal.disconnect(callable)
 
 
 func add_autocast(autocast: Autocast):
