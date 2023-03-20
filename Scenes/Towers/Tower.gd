@@ -49,10 +49,7 @@ enum Element {
 const ATTACK_CD_MIN: float = 0.2
 const SELECTION_SIZE: int = 128
 const PROJECTILE_SPEED: int = 2000
-# TODO: this needs to be some exact value where bounce works
-# for closely packed waves but doesn't for more spaced out
-# waves. Should be equal to around 2 creep visual widths.
-const BOUNCE_RANGE: int = 200
+const BOUNCE_RANGE: int = 250
 
 var _id: int = 0
 var _stats: Dictionary
