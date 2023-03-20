@@ -17,6 +17,10 @@ func set_header_unit(unit):
 		var stat = _get_stat(label, unit)
 		label.text = str(stat)
 
+func reset():
+	hide()
+	_expand_button.set_pressed_no_signal(false)
+	_expand_button.icon.atlas.region.position.x = 0
 
 #########################
 ###      Private      ###
@@ -34,9 +38,9 @@ func _get_stat(label: Label, unit):
 #########################
 
 func _on_ExpandButton_toggled(button_pressed):
-	var icon_atlas: AtlasTexture = _expand_button.icon
+	var icon_atlas = _expand_button.icon
 	if button_pressed:
-		icon_atlas.region.position.x = icon_atlas.region.size.x
+		icon_atlas.atlas.region.position.x = icon_atlas.region.size.x
 	else:
-		icon_atlas.region.position.x = 0
+		icon_atlas.atlas.region.position.x = 0
 	expanded.emit(button_pressed)

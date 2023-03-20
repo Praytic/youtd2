@@ -12,7 +12,7 @@ func _ready():
 		element_button.pressed.connect(_on_element_button_pressed.bind(element_button))
 	
 	$TowerTooltip.hide()
-	$TooltipHeader.hide()
+	$TooltipHeader.reset()
 
 
 func _on_StartWaveButton_pressed():
@@ -48,7 +48,7 @@ func _on_RightMenuBar_unit_info_requested(unit_id, unit_type):
 
 func _on_RightMenuBar_unit_info_canceled():
 	$TowerTooltip.hide()
-	$TooltipHeader.hide()
+	$TooltipHeader.reset()
 
 
 func _on_ObjectYSort_child_entered_tree(node):
@@ -66,7 +66,7 @@ func _on_Unit_selected(unit):
 
 func _on_Unit_unselected(_unit):
 	$TowerTooltip.hide()
-	$TooltipHeader.hide()
+	$TooltipHeader.reset()
 
 
 func _on_MenuButton_pressed():

@@ -27,15 +27,21 @@ theme_type_variation = &"TooltipPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 40
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -69,6 +75,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "4,522"
+horizontal_alignment = 2
 
 [node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -82,6 +89,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "0"
+horizontal_alignment = 2
 
 [node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -95,6 +103,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "+717%"
+horizontal_alignment = 2
 
 [node name="Label23" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -108,6 +117,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "38,881"
+horizontal_alignment = 2
 
 [node name="Label29" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -121,6 +131,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "+423%"
+horizontal_alignment = 2
 
 [node name="Label34" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
@@ -133,6 +144,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "396,416"
+horizontal_alignment = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -154,6 +166,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "160"
+horizontal_alignment = 2
 
 [node name="Label44" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
@@ -166,6 +179,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "493%"
+horizontal_alignment = 2
 
 [node name="Label50" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
@@ -178,6 +192,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "0.33"
+horizontal_alignment = 2
 
 [node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -199,6 +214,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "122M"
+horizontal_alignment = 2
 
 [node name="MarginContainer6" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -220,6 +236,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "106.6%"
+horizontal_alignment = 2
 
 [node name="Label74" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
@@ -232,6 +249,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "x7.30"
+horizontal_alignment = 2
 
 [node name="Label80" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
@@ -244,6 +262,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "10"
+horizontal_alignment = 2
 
 [node name="MarginContainer7" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -265,6 +284,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "18.67M"
+horizontal_alignment = 2
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -297,6 +317,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "651%"
+horizontal_alignment = 2
 
 [node name="Label11" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
 layout_mode = 2
@@ -309,6 +330,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "114.0%"
+horizontal_alignment = 2
 
 [node name="Label17" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
 layout_mode = 2
@@ -321,12 +343,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "x10.63"
+horizontal_alignment = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
 layout_mode = 2
@@ -357,6 +381,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "12.19G"
+horizontal_alignment = 2
 
 [node name="Label13" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
@@ -369,6 +394,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "292.87M"
+horizontal_alignment = 2
 
 [node name="Label19" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
@@ -381,6 +407,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "1957"
+horizontal_alignment = 2
 
 [node name="Label25" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
@@ -393,6 +420,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "9136"
+horizontal_alignment = 2
 
 [node name="Level" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 unique_name_in_owner = true
@@ -405,6 +433,7 @@ text = "Max Level reached!"
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
+horizontal_alignment = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
 layout_mode = 2
@@ -435,6 +464,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "0"
+horizontal_alignment = 2
 
 [node name="Label46" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
@@ -447,6 +477,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "0"
+horizontal_alignment = 2
 
 [node name="Label52" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
@@ -459,6 +490,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "+32%"
+horizontal_alignment = 2
 
 [node name="Label58" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
@@ -471,6 +503,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "0"
+horizontal_alignment = 2
 
 [node name="Label66" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
@@ -483,6 +516,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "0.0"
+horizontal_alignment = 2
 
 [node name="Label70" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
@@ -495,6 +529,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "0.0"
+horizontal_alignment = 2
 
 [node name="Label76" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
@@ -507,6 +542,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "-27%"
+horizontal_alignment = 2
 
 [node name="Label78" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
@@ -519,6 +555,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "0.0"
+horizontal_alignment = 2
 
 [node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2"]
 layout_mode = 2
@@ -549,6 +586,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "160%"
+horizontal_alignment = 2
 
 [node name="Label46" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -561,6 +599,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "186%"
+horizontal_alignment = 2
 
 [node name="Label52" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -573,6 +612,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "80%"
+horizontal_alignment = 2
 
 [node name="Label58" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -585,6 +625,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "100%"
+horizontal_alignment = 2
 
 [node name="Label66" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -597,6 +638,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "160%"
+horizontal_alignment = 2
 
 [node name="Label70" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -609,6 +651,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "170%"
+horizontal_alignment = 2
 
 [node name="Label76" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
@@ -621,6 +664,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "31%"
+horizontal_alignment = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -628,6 +672,7 @@ layout_mode = 2
 [node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 20
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
 layout_mode = 2
@@ -660,6 +705,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "114%"
+horizontal_alignment = 2
 
 [node name="Label15" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
@@ -672,6 +718,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "100%"
+horizontal_alignment = 2
 
 [node name="Label21" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
@@ -684,6 +731,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "80%"
+horizontal_alignment = 2
 
 [node name="Label27" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
@@ -696,6 +744,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "126%"
+horizontal_alignment = 2
 
 [node name="Label32" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
@@ -708,6 +757,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "100%"
+horizontal_alignment = 2
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
 layout_mode = 2
@@ -740,6 +790,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "125%"
+horizontal_alignment = 2
 
 [node name="Label48" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
@@ -752,6 +803,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "100%"
+horizontal_alignment = 2
 
 [node name="Label54" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
@@ -764,6 +816,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "95%"
+horizontal_alignment = 2
 
 [node name="Label60" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
@@ -776,6 +829,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "100%"
+horizontal_alignment = 2
 
 [node name="Label64" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
@@ -788,6 +842,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "100%"
+horizontal_alignment = 2
 
 [node name="MarginContainer5" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer3/VBoxContainer3"]
 visible = false
@@ -924,6 +979,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "830"
+horizontal_alignment = 2
 
 [node name="MultiboardContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -931,6 +987,7 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 20
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer"]
 layout_mode = 2

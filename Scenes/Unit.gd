@@ -512,12 +512,16 @@ func _update_invisible_modulate():
 		modulate = Color(1, 1, 1, 1)
 
 func _select():
+	for selected_node in get_tree().get_nodes_in_group("selected"):
+		selected_node.set_selected(false)
+	add_to_group("selected")
 	$Selection.show()
 	_selected = true
 	selected.emit()
 
 
 func _unselect():
+	remove_from_group("selected")
 	$Selection.hide()
 	_selected = false
 	unselected.emit()
