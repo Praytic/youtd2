@@ -74,13 +74,6 @@ func get_tower(id: int) -> Tower:
 	return tower
 
 
-func get_tower_visual_only(id: int) -> Node:
-	var tower = get_tower(id)
-	tower._visual_only = true
-
-	return tower
-
-
 func get_tower_family_id(id: int) -> int:
 	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
 	return csv_properties[Tower.CsvProperty.FAMILY_ID]
