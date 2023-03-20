@@ -47,12 +47,12 @@ func _ready():
 
 
 func _on_RightMenuBar_element_changed(element: Tower.Element):
-	for item_button in _item_buttons.values():
-		item_button.hide()
-	
 	if element != Tower.Element.NONE:
 		# Towers menu bar was selected
 		return
+	
+	for item_button in _item_buttons.values():
+		item_button.hide()
 	
 	if current_size == "M":
 		if available_item_buttons.size() > 14:
