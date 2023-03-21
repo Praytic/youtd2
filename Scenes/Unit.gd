@@ -163,6 +163,12 @@ func _unhandled_input(event):
 ###       Public      ###
 #########################
 
+# NOTE: this is a stub, used in original tower scripts but
+# not needed in godot engine.
+func set_animation_by_index(_unit: Unit, _index: int):
+	pass
+
+
 func add_exp_flat(amount: float):
 	_experience += amount
 
@@ -171,6 +177,11 @@ func add_exp_flat(amount: float):
 
 		var new_level: int = _level + 1
 		set_level(new_level)
+
+
+# TODO: what's the difference between add_exp_flat() and add_exp()
+func add_exp(amount: float):
+	add_exp_flat(amount)
 
 
 func remove_exp_flat(amount: float):
@@ -900,3 +911,6 @@ func get_experience_for_next_level():
 	var for_next_level: float = EXP_PER_LEVEL - _experience
 
 	return for_next_level
+
+func get_uid() -> int:
+	return get_instance_id()
