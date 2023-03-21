@@ -163,6 +163,20 @@ func _unhandled_input(event):
 ###       Public      ###
 #########################
 
+func add_exp_flat(amount: float):
+	_experience += amount
+
+	if _experience >= EXP_PER_LEVEL:
+		_experience -= EXP_PER_LEVEL
+
+		var new_level: int = _level + 1
+		set_level(new_level)
+
+
+func remove_exp_flat(amount: float):
+	_experience = max(0, _experience - amount)
+
+
 func calc_chance(chance_base: float) -> bool:
 	var mod_trigger_chances: float = get_prop_trigger_chances()
 	var chance: float = chance_base * mod_trigger_chances
@@ -472,13 +486,7 @@ func _accept_kill(target: Unit):
 	GoldManager.add_gold(bounty)
 
 	var experience_gained: float = _get_experience_for_target(target)
-	_experience += experience_gained
-
-	if _experience >= EXP_PER_LEVEL:
-		_experience -= EXP_PER_LEVEL
-
-		var new_level: int = _level + 1
-		set_level(new_level)
+	add_exp_flat(experience_gained)
 
 	var kill_event: Event = Event.new(target)
 	kill.emit(kill_event)
@@ -884,3 +892,11 @@ func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 
 func get_attack_type() -> AttackType.enm:
 	return AttackType.enm.PHYSICAL
+
+func get_exp() -> float:
+	return _experience
+
+func get_experience_for_next_level():
+	var for_next_level: float = EXP_PER_LEVEL - _experience
+
+	return for_next_level
