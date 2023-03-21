@@ -6,7 +6,7 @@ extends CharacterBody2D
 # reaches the target.
 
 
-signal target_hit(projectile)
+signal target_hit(projectile, target)
 signal interpolation_finished(projectile)
 
 var _caster: Unit = null
@@ -25,16 +25,6 @@ var user_real2: float = 0.0
 var user_real3: float = 0.0
 
 
-# TODO: use model. Currently using placeholder sprite.
-# TODO: implement lifetime
-func create(_model: String, _lifetime: float, speed: float):
-	_speed = speed
-
-
-func create_interpolate(_model: String, speed: float):
-	_speed = speed
-
-
 # TODO: targeted - If true, projectile has "homing" behavior
 # and follows unit as it moves. If false, projectile flies
 # to position the unit had when create() was called.
@@ -47,20 +37,30 @@ func create_interpolate(_model: String, speed: float):
 # "lifetime" property and expires when reaching target, no
 # matter if lifetime is shorter or longer than the time it
 # takes to reach the target
-func create_from_unit_to_unit(caster: Unit, _damage_ratio: float, _crit_ratio: float, from: Unit, target: Unit, _targeted: bool, _ignore_target_z: bool, _expire_when_reached: bool):
-	_caster = caster
-	_target = target
-	position = from.get_visual_position()
-	_game_scene = caster.get_tree().get_root().get_node("GameScene")
+static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, _damage_ratio: float, _crit_ratio: float, from: Unit, target: Unit, _targeted: bool, _ignore_target_z: bool, _expire_when_reached: bool) -> Projectile:
+	var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
+	var projectile: Projectile = _projectile_scene.instantiate()
 
-	_game_scene.call_deferred("add_child", self)
-	_target.death.connect(_on_target_death)
+	projectile._speed = type._speed
+
+	if !type._hit_handler.is_null():
+		projectile.set_event_on_target_hit(type._hit_handler)
+
+	projectile._caster = caster
+	projectile._target = target
+	projectile.position = from.get_visual_position()
+	projectile._game_scene = caster.get_tree().get_root().get_node("GameScene")
+
+	projectile._game_scene.call_deferred("add_child", projectile)
+	projectile._target.death.connect(projectile._on_target_death)
+
+	return projectile
 
 
 # TODO: implement actual interpolation, for now calling
 # normal create()
-func create_linear_interpolation_from_unit_to_unit(caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, targeted: bool):
-	create_from_unit_to_unit(caster, damage_ratio, crit_ratio, from, target, targeted, false, true)
+static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, targeted: bool) -> Projectile:
+	return create_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, targeted, false, true)
 
 
 func _process(delta):
@@ -75,7 +75,7 @@ func _process(delta):
 
 	if reached_target:
 		if _target != null:
-			target_hit.emit(self)
+			target_hit.emit(self, _target)
 
 #			TODO: emit interpolation_finished() signal when
 #			interpolation finishes.
@@ -101,12 +101,17 @@ func get_caster() -> Unit:
 # implemented as simple signals. These set_event() f-ns are
 # still needed to match original API.
 
-func set_event_on_target_hit(handler_object: Object, handler_function: String):
-	target_hit.connect(Callable(handler_object, handler_function))
+func set_event_on_target_hit(handler: Callable):
+	target_hit.connect(handler)
 
 
-func set_event_on_interpolation_finished(handler_object: Object, handler_function: String):
-	interpolation_finished.connect(Callable(handler_object, handler_function))
+func set_event_on_interpolation_finished(handler: Callable):
+	interpolation_finished.connect(handler)
+
+
+# TODO: original scale is not (1, 1), fix it
+func setScale(scale_arg: float):
+	scale = Vector2(scale_arg, scale_arg)
 
 
 func _get_target_position() -> Vector2:
