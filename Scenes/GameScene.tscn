@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://de2ecr8r0i8ga"]
+[gd_scene load_steps=13 format=3 uid="uid://de2ecr8r0i8ga"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://bykghja01dyql" path="res://Scenes/HUD.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://xw7lgy87mn2f" path="res://Scenes/HUD/Minimap.tscn" id="3"]
+[ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
 [ext_resource type="Script" path="res://Scenes/Lib/Build/BuilderControl.gd" id="4"]
 [ext_resource type="PackedScene" uid="uid://dg7n0ts1qsjbg" path="res://Scenes/Landscape.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://b80b85lbixydk" path="res://Scenes/Creeps/CreepSpawner.tscn" id="6"]
@@ -26,9 +27,10 @@ script = ExtResource("9")
 [node name="Map" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
 
-[node name="CreepPath1" type="Path2D" parent="Map"]
+[node name="CreepPath1" type="Path2D" parent="Map" groups=["wave_path"]]
 z_index = 999
 curve = SubResource("1")
+script = ExtResource("3_abrkq")
 
 [node name="ObjectYSort" type="Node2D" parent="Map"]
 z_index = 10
