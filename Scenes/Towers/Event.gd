@@ -48,9 +48,6 @@ func _init(target: Unit):
 ### Setters / Getters ###
 #########################
 
-func _ready():
-	pass
-
 func get_buff() -> Buff:
 	return _buff
 

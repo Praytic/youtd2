@@ -6,6 +6,7 @@ extends Unit
 
 signal moved(delta)
 
+
 # NOTE: order is important to be able to compare
 enum Size {
 	MASS,
@@ -13,7 +14,8 @@ enum Size {
 	AIR,
 	CHAMPION,
 	BOSS,
-	CHALLENGE,
+	CHALLENGE_MASS,
+	CHALLENGE_BOSS,
 }
 
 enum Category {
@@ -40,11 +42,14 @@ var _facing_angle: float = 0.0
 var _height_tween: Tween = null
 var _armor_type: ArmorType.enm = ArmorType.enm.HEL
 
-
 @onready var _visual = $Visual
 @onready var _sprite = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar
 
+
+#########################
+### Code starts here  ###
+#########################
 
 func _ready():
 	super()
@@ -62,6 +67,33 @@ func _process(delta):
 	var creep_animation: String = _get_creep_animation()
 	_sprite.play(creep_animation)
 
+
+#########################
+###       Public      ###
+#########################
+
+func adjust_height(height: float, speed: float):
+#	If a tween is already running, complete it instantly
+#	before starting new one.
+	if _height_tween != null:
+		if _height_tween.is_running():
+			_height_tween.custom_step(HEIGHT_TWEEN_FAST_FORWARD_DELTA)
+
+		_height_tween.kill()
+		_height_tween = null
+
+	_height_tween = create_tween()
+
+	var duration: float = abs(height / speed)
+
+	_height_tween.tween_property(_visual, "position",
+		Vector2(_visual.position.x, _visual.position.y - height),
+		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+
+
+#########################
+###      Private      ###
+#########################
 
 func _move(delta):
 	var path_point: Vector2 = _path_curve.get_point_position(_current_path_index)
@@ -87,6 +119,53 @@ func _move(delta):
 		if reached_end_of_path:
 			queue_free()
 			return
+
+
+func _get_creep_animation() -> String:
+#	NOTE: the actual angles for 4-directional isometric movement are around
+#   +- 27 degrees from x axis but checking for which quadrant the movement vector
+#	falls into works just as well
+	if 0 <= _facing_angle && _facing_angle < 90:
+		return "run_e"
+	elif 90 <= _facing_angle && _facing_angle < 180:
+		return "run_s"
+	elif 180 <= _facing_angle && _facing_angle < 270:
+		return "run_w"
+	elif 270 <= _facing_angle && _facing_angle <= 360:
+		return "run_n"
+	else:
+		return "stand"
+
+
+func _get_move_speed() -> float:
+	var base: float = DEFAULT_MOVE_SPEED
+	var mod: float = get_prop_move_speed()
+	var mod_absolute: float = get_prop_move_speed_absolute()
+	var unclamped: float = base * mod + mod_absolute
+	var limit_length: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped))
+
+	return limit_length
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func on_health_changed():
+	_health_bar.set_as_ratio(_health / get_overall_health())
+
+
+#########################
+### Setters / Getters ###
+#########################
+
+func get_selection_size():
+	return SELECTION_SIZE
+
+
+# TODO: Do creeps need IDs?
+func get_id():
+	return 1
 
 
 func set_unit_facing(angle: float):
@@ -127,60 +206,3 @@ func get_display_name() -> String:
 func set_path(path: Path2D):
 	_path_curve = path.curve
 	position = _path_curve.get_point_position(0)
-
-
-func on_health_changed():
-	_health_bar.set_as_ratio(_health / get_overall_health())
-
-
-func adjust_height(height: float, speed: float):
-#	If a tween is already running, complete it instantly
-#	before starting new one.
-	if _height_tween != null:
-		if _height_tween.is_running():
-			_height_tween.custom_step(HEIGHT_TWEEN_FAST_FORWARD_DELTA)
-
-		_height_tween.kill()
-		_height_tween = null
-
-	_height_tween = create_tween()
-
-	var duration: float = abs(height / speed)
-
-	_height_tween.tween_property(_visual, "position",
-		Vector2(_visual.position.x, _visual.position.y - height),
-		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-
-
-func _get_creep_animation() -> String:
-#	NOTE: the actual angles for 4-directional isometric movement are around
-#   +- 27 degrees from x axis but checking for which quadrant the movement vector
-#	falls into works just as well
-	if 0 <= _facing_angle && _facing_angle < 90:
-		return "run_e"
-	elif 90 <= _facing_angle && _facing_angle < 180:
-		return "run_s"
-	elif 180 <= _facing_angle && _facing_angle < 270:
-		return "run_w"
-	elif 270 <= _facing_angle && _facing_angle <= 360:
-		return "run_n"
-	else:
-		return "stand"
-
-
-func _get_move_speed() -> float:
-	var base: float = DEFAULT_MOVE_SPEED
-	var mod: float = get_prop_move_speed()
-	var mod_absolute: float = get_prop_move_speed_absolute()
-	var unclamped: float = base * mod + mod_absolute
-	var limit_length: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped))
-
-	return limit_length
-
-
-func get_selection_size():
-	return SELECTION_SIZE
-
-# TODO: Do creeps need IDs?
-func get_id():
-	return 1
