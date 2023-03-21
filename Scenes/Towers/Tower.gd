@@ -510,16 +510,6 @@ func get_overall_cooldown() -> float:
 	return overall_cooldown
 
 
-# TODO: implement
-func get_exp() -> float:
-	return 0.0
-
-
-# TODO: implement
-func remove_exp_flat(_amount: float):
-	pass
-
-
 # TODO: i think this is supposed to return the player that
 # owns the tower? Implement later. For now implementing
 # owner's function in tower itself and returning tower from
@@ -585,16 +575,6 @@ func get_kills():
 # TODO: implement
 # What was the max hit damage the tower dealt
 func get_best_hit():
-	return 1.0
-
-# TODO: implement
-# How much experience the tower has
-func get_experience():
-	return 1.0
-
-# TODO: implement
-# How much experience the tower needs for the next level
-func get_experience_for_next_level():
 	return 1.0
 
 func get_attack_range() -> float:
