@@ -53,13 +53,13 @@ const BOUNCE_RANGE: int = 250
 
 var _id: int = 0
 var _stats: Dictionary
-var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 var _splash_map: Dictionary = {}
 var _bounce_count_max: int = 0
 var _bounce_damage_multiplier: float = 0.0
 var _attack_style: AttackStyle = AttackStyle.NORMAL
 var _target_list: Array[Creep] = []
 var _target_count_max: int = 1
+var _default_projectile_type: ProjectileType
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -94,6 +94,8 @@ func _ready():
 	mana_changed.connect(_on_mana_changed)
 	_on_mana_changed()
 	_mana_bar.visible = get_base_mana() > 0
+
+	_default_projectile_type = ProjectileType.create("", 0.0, PROJECTILE_SPEED)
 
 	_tower_init()
 
@@ -168,10 +170,8 @@ func _set_target_count(count: int):
 
 
 func _tower_attack(target: Unit):
-	var projectile = _projectile_scene.instantiate()
-	projectile.create("placeholder", 0, PROJECTILE_SPEED)
-	projectile.create_from_unit_to_unit(self, 0, 0, self, target, true, false, true)
-	projectile.set_event_on_target_hit(self, "_on_projectile_target_hit")
+	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, self, target, true, false, true)
+	projectile.set_event_on_target_hit(_on_projectile_target_hit)
 
 	var attack_event: Event = Event.new(target)
 	super._do_attack(attack_event)
@@ -295,27 +295,23 @@ func _on_mana_changed():
 	_mana_bar.set_as_ratio(_mana / get_base_mana())
 
 
-func _on_projectile_target_hit(projectile: Projectile):
+func _on_projectile_target_hit(projectile: Projectile, target: Unit):
 	match _attack_style:
 		AttackStyle.NORMAL:
-			_on_projectile_target_hit_normal(projectile)
+			_on_projectile_target_hit_normal(projectile, target)
 		AttackStyle.SPLASH:
-			_on_projectile_target_hit_splash(projectile)
+			_on_projectile_target_hit_splash(projectile, target)
 		AttackStyle.BOUNCE:
-			_on_projectile_target_hit_bounce(projectile)
+			_on_projectile_target_hit_bounce(projectile, target)
 
 
-func _on_projectile_target_hit_normal(projectile: Projectile):
-	var target: Unit = projectile.get_target()
-
+func _on_projectile_target_hit_normal(_projectile: Projectile, target: Unit):
 	var damage: float = get_current_attack_damage_with_bonus()
 	
 	_do_attack_damage_internal(target, damage, calc_attack_multicrit(0, 0, 0), true)
 
 
-func _on_projectile_target_hit_splash(projectile: Projectile):
-	var target: Unit = projectile.get_target()
-
+func _on_projectile_target_hit_splash(_projectile: Projectile, target: Unit):
 	if _splash_map.is_empty():
 		return
 
@@ -351,17 +347,16 @@ func _on_projectile_target_hit_splash(projectile: Projectile):
 				break
 
 
-func _on_projectile_target_hit_bounce(projectile: Projectile):
+func _on_projectile_target_hit_bounce(projectile: Projectile, target: Unit):
 	var damage: float = get_current_attack_damage_with_bonus()
 
 	projectile.user_real = damage
 	projectile.user_int = _bounce_count_max - 1
 
-	_on_projectile_bounce_in_progress(projectile)
+	_on_projectile_bounce_in_progress(projectile, target)
 
 
-func _on_projectile_bounce_in_progress(projectile: Projectile):
-	var current_target: Unit = projectile.get_target()
+func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: Unit):
 	var current_damage: float = projectile.user_real
 	var current_bounce_count: int = projectile.user_int
 
@@ -384,12 +379,10 @@ func _on_projectile_bounce_in_progress(projectile: Projectile):
 	if next_target == null:
 		return
 
-	var next_projectile = _projectile_scene.instantiate()
-	next_projectile.create("placeholder", 0, PROJECTILE_SPEED)
-	next_projectile.create_from_unit_to_unit(self, 0, 0, current_target, next_target, true, false, true)
+	var next_projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, current_target, next_target, true, false, true)
+	next_projectile.set_event_on_target_hit(_on_projectile_bounce_in_progress)
 	next_projectile.user_real = next_damage
 	next_projectile.user_int = next_bounce_count
-	next_projectile.set_event_on_interpolation_finished(self, "_on_projectile_bounce_in_progress")
 
 
 func _on_targeting_area_body_entered(body):

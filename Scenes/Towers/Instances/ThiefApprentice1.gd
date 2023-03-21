@@ -3,6 +3,7 @@ extends Tower
 # TODO: visual
 
 var m0ck_thief_multiboard: MultiboardValues
+var mOck_steal: ProjectileType
 
 
 # NOTE: gold is multiplied by 10 in stats compared to number
@@ -31,6 +32,9 @@ func _tower_init():
 	triggers_buff.add_event_on_damage(self, "on_damage", 1.0, 0.004)
 	triggers_buff.apply_to_unit_permanent(self, self, 0)	
 
+	mOck_steal = ProjectileType.create_interpolate("Abilities\\Weapons\\WardenMissile\\WardenMissile.mdl", 1000)
+	mOck_steal.set_event_on_interpolation_finished(steal)
+
 	m0ck_thief_multiboard = MultiboardValues.new(1)
 	m0ck_thief_multiboard.set_key(0, "Gold Stolen")
 
@@ -50,13 +54,10 @@ func on_tower_details() -> MultiboardValues:
 func on_damage(event: Event):
 	var tower = self
 
-	var projectile = _projectile_scene.instantiate()
-	projectile.create_interpolate("Abilities/Weapons/WardenMissile/WardenMissile.mdl", 1000)
-	projectile.set_event_on_interpolation_finished(self, "steal")
-	projectile.create_linear_interpolation_from_unit_to_unit(tower, 0, 0, event.get_target(), tower, 0, true)
+	Projectile.create_linear_interpolation_from_unit_to_unit(mOck_steal, tower, 0, 0, event.get_target(), tower, 0, true)
 
 
-func steal(p: Projectile):
+func steal(p: Projectile, _creep: Unit):
 	var tower = p.get_caster()
 	var gold_granted: float = (tower.user_int * (tower.get_level() * tower.user_int * 0.04)) / 10
 	tower.getOwner().give_gold(gold_granted, tower, false, true)
