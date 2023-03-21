@@ -214,6 +214,11 @@ func bit_is_set(mask: int, bit: int) -> bool:
 	return is_set
 
 
+# TODO: implement
+func format_float(x: float, _digits: int) -> String:
+	return str(x)
+
+
 func _load_sfx(sfx_name: String) -> AudioStreamMP3:
 	if !sfx_name.ends_with(".mp3"):
 		print_debug("Attempted to call _load_sfx on non-mp3:", sfx_name)
