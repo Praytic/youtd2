@@ -33,16 +33,23 @@ func _on_RightMenuBar_unit_info_requested(unit_id, unit_type):
 	match unit_type:
 		"item": 
 			get_unit = func get_unit(unit_id):
-				ItemManager.get_item(unit_id)
+				return ItemManager.get_item(unit_id)
 		"tower":
 			get_unit = func get_unit(unit_id):
-				TowerManager.get_tower(unit_id)
+				return TowerManager.get_tower(unit_id)
 		_:
 			push_error("Unit with ID [%s] has invalid type [%]." % [unit_id, unit_type])
+			get_unit = func get_unit(_unit_id):
+				return null
 	var unit = get_unit.call(unit_id)
-	$TowerTooltip.set_tower_tooltip_text(unit)
+
+	if unit != null:
+		$TooltipHeader.set_header_unit(unit)
+		
+		if unit is Tower:
+			$TowerTooltip.set_tower_tooltip_text(unit)
+
 	$TowerTooltip.hide()
-	$TooltipHeader.set_header_unit(unit)
 	$TooltipHeader.show()
 
 
