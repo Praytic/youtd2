@@ -105,7 +105,8 @@ func _ready():
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
 func _process(delta: float):
-	_current_attack_cooldown -= delta
+	if _current_attack_cooldown > 0.0:
+		_current_attack_cooldown -= delta
 
 	if _current_attack_cooldown < 0.0:
 		_on_attack_cooldown_timeout()
