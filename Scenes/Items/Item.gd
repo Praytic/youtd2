@@ -24,7 +24,8 @@ var _carrier: Tower = null
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
-var _buff_list: Array[Buff] = []
+var _buff_type_list: Array[BuffType] = []
+var _applied_buff_list: Array[Buff] = []
 
 
 #########################
@@ -42,8 +43,9 @@ func add_to_tower(tower: Tower):
 
 	_carrier.add_modifier(_modifier)
 
-	for buff in _buff_list:
-		buff.apply_to_unit_permanent(_carrier, _carrier, 0)
+	for buff_type in _buff_type_list:
+		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
+		_applied_buff_list.append(buff)
 
 
 func remove_from_tower():
@@ -52,8 +54,10 @@ func remove_from_tower():
 
 	_carrier.remove_modifier(_modifier)
 
-	for buff in _buff_list:
+	for buff in _applied_buff_list:
 		buff.expire()
+
+	_applied_buff_list.clear()
 
 	_carrier.remove_child(self)
 	_carrier = null

@@ -1,5 +1,5 @@
-class_name TriggersBuff
-extends Buff
+class_name TriggersBuffType
+extends BuffType
 
 # Convenience subclass for buffs which are used only to add
 # triggers (event handlers). Can create without having to

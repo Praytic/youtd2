@@ -6,9 +6,9 @@ extends Item
 
 
 func _item_init():
-	var buff: Buff = TriggersBuff.new()
-	buff.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
-	_buff_list.append(buff)
+	var buff_type: BuffType = TriggersBuffType.new()
+	buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
+	_buff_type_list.append(buff_type)
 
 
 # TODO: does goldcost on website mean that each time this
