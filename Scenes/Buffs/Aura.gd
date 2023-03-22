@@ -23,19 +23,26 @@ extends Node2D
 # enters aura of same type but higher level effect.
 
 
-var aura_range: float = 10.0
-var target_type: TargetType = null
-var target_self: bool = false
-var level: int = 0
-var level_add: int = 0
-var power: int = 0
-var power_add: int = 0
-var aura_effect_is_friendly: bool = false
-var create_aura_effect_function: String = ""
-var caster: Unit = null
-var create_aura_effect_object: Object = null
+class Data:
+	var aura_range: float = 10.0
+	var target_type: TargetType = null
+	var target_self: bool = false
+	var level: int = 0
+	var level_add: int = 0
+	var power: int = 0
+	var power_add: int = 0
+	var aura_effect_is_friendly: bool = false
+	var aura_effect: BuffType = null
+
+var _data: Data
+var _caster: Unit = null
 
 @onready var _timer: Timer = $Timer
+
+
+func set_data(data: Aura.Data, caster: Unit):
+	_data = data
+	_caster = caster
 
 
 func _ready():
@@ -45,38 +52,20 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	var unit_list: Array[Unit] = Utils.get_units_in_range(target_type, position, aura_range)
+	if _data.aura_effect != null:
+		return
+
+	var unit_list: Array[Unit] = Utils.get_units_in_range(_data.target_type, _data.position, _data.aura_range)
 
 	for unit in unit_list:
-		var aura_effect = _create_aura_effect()
-
-		if aura_effect == null:
-			return
-
 		# NOTE: use 0.21 duration so that buff is refreshed
 		# right before it expires
-		aura_effect.apply_custom_timed(caster, unit, get_level(), 0.21)
-
-
-func _create_aura_effect() -> Buff:
-	if create_aura_effect_object == null:
-		print_debug("Failed to create aura effect because create_aura_effect_object variable is not set.")
-
-		return null
-
-	if !create_aura_effect_object.has_method(create_aura_effect_function):
-		print_debug("Failed to create aura effect because create_aura_effect_object doesn't have the create_aura_effect_function.")
-
-		return null
-
-	var aura_effect: Buff = create_aura_effect_object.call(create_aura_effect_function)
-
-	return aura_effect
+		_data.aura_effect.apply_custom_timed(_caster, _data.unit, get_level(), 0.21)
 
 
 func get_power() -> int:
-	return power + caster.get_level() * power_add
+	return _data.power + _caster.get_level() * _data.power_add
 
 
 func get_level() -> int:
-	return level + caster.get_level() * level_add
+	return _data.level + _caster.get_level() * _data.level_add
