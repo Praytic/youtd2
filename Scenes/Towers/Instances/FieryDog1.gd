@@ -1,6 +1,8 @@
 extends Tower
 
 
+var cedi_helldog: BuffType
+
 # NOTE: This is basically a magic number. Here's a table
 # from original script demonstrating how it works for tier
 # 2:
@@ -18,19 +20,17 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_event_on_damage(self, "on_damage", 0.3, 0.0)
+func _load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.3, 0.0)
 
 
-func make_cedi_helldog() -> Buff:
+func _tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.05, 0.0005)
 
-	var cedi_helldog: Buff = Buff.new("cedi_helldog", 5.0, 0.0, true)
+	cedi_helldog = BuffType.new("cedi_helldog", 5.0, 0.0, true)
 	cedi_helldog.set_buff_icon("@@0@@")
 	cedi_helldog.set_buff_modifier(mod)
-
-	return cedi_helldog
 
 
 func on_damage(_event: Event):
@@ -52,13 +52,10 @@ func on_damage(_event: Event):
 
 		if B != null:
 			if B.user_int < 100:
-				var cedi_helldog: Buff = make_cedi_helldog()
 				cedi_helldog.apply(tower, U, B.get_level() + _stats.level_multiplier)
 				B.user_int = B.user_int + 1
 			else:
 				B.refresh_duration()
 		else:
-			var cedi_helldog: Buff = make_cedi_helldog()
-			cedi_helldog.apply(tower, U, tower.get_level() * _stats.level_multiplier)
-			B = cedi_helldog
+			B = cedi_helldog.apply(tower, U, tower.get_level() * _stats.level_multiplier)
 			B.user_int = 0

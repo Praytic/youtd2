@@ -17,5 +17,4 @@ func _tower_init():
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, _stats.dmg_to_mass, 0.02)
 	add_modifier(specials_modifier)
 
-	var splash_attack_buff = SplashAttack.new({125: 0.55})
-	splash_attack_buff.apply_to_unit_permanent(self, self, 0)
+	_set_attack_style_splash({125: 0.55})

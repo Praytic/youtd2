@@ -2,6 +2,8 @@ extends Tower
 
 # TODO: implement visual
 
+var cassim_armor: BuffType
+
 
 func _get_tier_stats() -> Dictionary:
 	return {
@@ -13,8 +15,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
+func _load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 
 
 func _tower_init():
@@ -28,16 +30,16 @@ func _tower_init():
 	dmg_to_undead_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.15, 0.0)
 	add_modifier(dmg_to_undead_modifier)
 
-
-func _on_damage(event: Event):
-	var tower = self
-
 	var armor: Modifier = Modifier.new()
 	armor.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
-	var cassim_armor: Buff = Buff.new("cassim_armor", 0, 0, false)
+	cassim_armor = BuffType.new("cassim_armor", 0, 0, false)
 	cassim_armor.set_buff_icon("@@0@@")
 	cassim_armor.set_buff_modifier(armor)
 	cassim_armor.set_stacking_group("astral_armor")
+
+
+func _on_damage(event: Event):
+	var tower = self
 
 	var lvl: int = tower.get_level()
 	var creep: Unit = event.get_target()
