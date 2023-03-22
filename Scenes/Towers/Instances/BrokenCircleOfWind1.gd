@@ -39,7 +39,7 @@ func _on_attack(event: Event):
 
 	if (target.get_size() == Creep.Size.MASS || target.get_size() == Creep.Size.NORMAL || target.get_size() == Creep.Size.CHAMPION):
 		if (tower.calc_chance(_stats.catch_chance + (_stats.catch_chance_add * tower.get_level()))):
-			b = target.get_buff_of_type("sternbogen_broken_wind")
+			b = target.get_buff_of_type(sternbogen_broken_wind)
 			
 			if b != null:
 				damage = max(b.user_real3, damage)

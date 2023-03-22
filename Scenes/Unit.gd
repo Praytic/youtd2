@@ -751,7 +751,8 @@ func get_level() -> int:
 func is_invisible() -> bool:
 	return _invisible && _invisible_watcher_count == 0
 
-func get_buff_of_type(type: String):
+func get_buff_of_type(buff_type: BuffType) -> Buff:
+	var type: String = buff_type.get_type()
 	var buff = _buff_map.get(type, null)
 
 	return buff
