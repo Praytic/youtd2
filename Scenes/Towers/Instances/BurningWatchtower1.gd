@@ -59,10 +59,8 @@ func explode_on_death(event: Event):
 	killer.do_spell_damage_aoe_unit(buffed_unit, 200, b.user_int, killer.calc_spell_crit_no_bonus(), 0.0)
 
 
-func _tower_init():
-	var triggers_buff: Buff = TriggersBuff.new()
+func _load_triggers(triggers_buff: Buff):
 	triggers_buff.add_event_on_attack(self, "on_damage", 1.0, 0.0)
-	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func on_damage(event: Event):

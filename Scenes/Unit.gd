@@ -145,6 +145,10 @@ func _ready():
 
 	_mana = get_base_mana()
 
+	var triggers_buff: Buff = TriggersBuff.new()
+	_load_triggers(triggers_buff)
+	triggers_buff.apply_to_unit_permanent(self, self, 0)
+
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -400,6 +404,12 @@ func spend_mana(mana_cost: float):
 #########################
 ###      Private      ###
 #########################
+
+
+# NOTE: override this in subclass to attach trigger handlers
+# to triggers buff passed in the argument.
+func _load_triggers(_triggers_buff: Buff):
+	pass
 
 
 func _set_mana(mana: float):

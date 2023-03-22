@@ -13,10 +13,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _tower_init():
-	var triggers_buff: Buff = TriggersBuff.new()
+func _load_triggers(triggers_buff: Buff):
 	triggers_buff.add_periodic_event(self, "_on_periodic", 2)
-	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func _on_periodic(event: Event):

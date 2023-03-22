@@ -10,10 +10,9 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _tower_init():
-	var triggers_buff: Buff = TriggersBuff.new()
+
+func _load_triggers(triggers_buff: Buff):
 	triggers_buff.add_event_on_damage(self, "on_damage", 1.0, 0.0)
-	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func on_damage(event: Event):

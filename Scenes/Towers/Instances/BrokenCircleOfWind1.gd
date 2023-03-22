@@ -13,14 +13,14 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func _load_triggers(triggers_buff: Buff):
+	triggers_buff.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
+
+
 func _tower_init():
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.70, 0.02)
 	add_modifier(specials_modifier)
-
-	var triggers_buff: Buff = TriggersBuff.new()
-	triggers_buff.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
-	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func _on_attack(event: Event):
