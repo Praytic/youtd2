@@ -60,6 +60,7 @@ var _attack_style: AttackStyle = AttackStyle.NORMAL
 var _target_list: Array[Creep] = []
 var _target_count_max: int = 1
 var _default_projectile_type: ProjectileType
+var _order_stop_requested: bool = false
 var _current_attack_cooldown: float = 0.0
 
 
@@ -150,6 +151,10 @@ func on_tower_details() -> MultiboardValues:
 	return empty_multiboard
 
 
+func order_stop():
+	_order_stop_requested = true
+
+
 #########################
 ###      Private      ###
 #########################
@@ -188,6 +193,11 @@ func _set_target_count(count: int):
 func _tower_attack(target: Unit):
 	var attack_event: Event = Event.new(target)
 	super._do_attack(attack_event)
+
+	if _order_stop_requested:
+		_order_stop_requested = false
+
+		return
 
 	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, self, target, true, false, true)
 	projectile.set_event_on_target_hit(_on_projectile_target_hit)
