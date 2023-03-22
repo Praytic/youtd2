@@ -48,7 +48,7 @@ func on_damage(_event: Event):
 		if U == null:
 			break
 
-		B = U.get_buff_of_type("cedi_helldog")
+		B = U.get_buff_of_type(cedi_helldog)
 
 		if B != null:
 			if B.user_int < 100:

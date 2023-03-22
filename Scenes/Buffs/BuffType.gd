@@ -18,6 +18,10 @@ func _init(type: String, time_base: float, time_level_add: float, friendly: bool
 	_friendly = friendly
 
 
+func get_type() -> String:
+	return _type
+
+
 func set_buff_modifier(modifier: Modifier):
 	_modifier = modifier
 
@@ -39,7 +43,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 # 	NOTE: original tower scripts depend on upgrade behavior
 # 	being implemented in this exact manner
 	if need_upgrade_logic:
-		var active_buff = target.get_buff_of_type(_type)
+		var active_buff = target.get_buff_of_type(self)
 		
 		if active_buff != null:
 			var active_level: int = active_buff.get_level()
