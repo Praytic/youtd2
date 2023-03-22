@@ -13,8 +13,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_periodic_event(self, "_on_periodic", 2)
+func _load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_periodic_event(self, "_on_periodic", 2)
 
 
 func _on_periodic(event: Event):
@@ -32,7 +32,7 @@ func _trap(event: Event, tower, cooldown: float, base_damage: float, damage_add:
 		if next == null:
 			break
 		num_targets = num_targets + 1
-		var cb_stun: Buff = CbStun.new("cb_stun", 0, 0, false)
+		var cb_stun: BuffType = CbStun.new("cb_stun", 0, 0, false)
 		cb_stun.apply_only_timed(tower, next, stun_duration)
 		tower.do_spell_damage(next, base_damage + lvl * damage_add, tower.calc_spell_crit_no_bonus())
 		Utils.sfx_at_unit("Abilities\\Spells\\Orc\\ReinforcedTrollBurrow\\ReinforcedTrollBurrowTarget.mdl", next)

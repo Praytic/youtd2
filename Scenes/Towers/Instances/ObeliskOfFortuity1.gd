@@ -11,8 +11,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_event_on_damage(self, "on_damage", 1.0, 0.0)
+func _load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_event_on_damage(self, "on_damage", 1.0, 0.0)
 
 
 func on_damage(event: Event):

@@ -2,6 +2,7 @@ extends Tower
 
 # TODO: visual
 
+var sternbogen_broken_wind: BuffType
 
 func _get_tier_stats() -> Dictionary:
 	return {
@@ -13,8 +14,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
+func _load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 
 
 func _tower_init():
@@ -22,15 +23,15 @@ func _tower_init():
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.70, 0.02)
 	add_modifier(specials_modifier)
 
-
-func _on_attack(event: Event):
-	var tower: Unit = self
-
-	var sternbogen_broken_wind: Buff = CbStun.new("sternbogen_broken_wind", 1.0, 0, false)
+	sternbogen_broken_wind = CbStun.new("sternbogen_broken_wind", 1.0, 0, false)
 	sternbogen_broken_wind.set_buff_icon("@@0@@")
 	sternbogen_broken_wind.add_event_on_create(self, "_cyclone_creep_up")
 	sternbogen_broken_wind.add_periodic_event(self, "_cyclone_creep_turn", 0.1)
 	sternbogen_broken_wind.set_event_on_cleanup(self, "_cyclone_creep_down")
+
+
+func _on_attack(event: Event):
+	var tower: Unit = self
 
 	var target: Unit = event.get_target()
 	var damage: float = _stats.cyclone_damage + _stats.cyclone_damage_add * tower.get_level()
@@ -38,7 +39,7 @@ func _on_attack(event: Event):
 
 	if (target.get_size() == Creep.Size.MASS || target.get_size() == Creep.Size.NORMAL || target.get_size() == Creep.Size.CHAMPION):
 		if (tower.calc_chance(_stats.catch_chance + (_stats.catch_chance_add * tower.get_level()))):
-			b = target.get_buff_of_type("sternbogen_broken_wind")
+			b = target.get_buff_of_type(sternbogen_broken_wind)
 			
 			if b != null:
 				damage = max(b.user_real3, damage)

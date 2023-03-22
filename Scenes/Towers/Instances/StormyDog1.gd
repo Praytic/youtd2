@@ -1,6 +1,9 @@
 extends Tower
 
 
+var cedi_stormdog: BuffType
+
+
 func _get_tier_stats() -> Dictionary:
 	return {
 		1: {self_attackspeed_add = 0.0, buff_scale = 6},
@@ -11,8 +14,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_event_on_damage(self, "on_damage", 0.3, 0.0)
+func _load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.3, 0.0)
 
 
 func _tower_init():
@@ -21,15 +24,12 @@ func _tower_init():
 	add_modifier(specials_modifier)
 
 
-func make_cedi_stormdog_buff() -> Buff:
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.05, 0.0005)
 
-	var cedi_stormdog: Buff = Buff.new("cedi_stormdog", 5.0, 0.0, true)
+	cedi_stormdog = BuffType.new("cedi_stormdog", 5.0, 0.0, true)
 	cedi_stormdog.set_buff_icon("@@1@@")
 	cedi_stormdog.set_buff_modifier(mod)
-
-	return cedi_stormdog
 
 
 func on_damage(_event: Event):
@@ -48,17 +48,14 @@ func on_damage(_event: Event):
 		if U == null:
 			break
 
-		B = U.get_buff_of_type("cedi_stormdog")
+		B = U.get_buff_of_type(cedi_stormdog)
 
 		if B != null:
 			if B.user_int < 100:
-				var cedi_stormdog: Buff = make_cedi_stormdog_buff()
 				cedi_stormdog.apply(tower, U, B.get_level() + 6)
 				B.user_int = B.user_int + 1
 			else:
 				B.refresh_duration()
 		else:
-			var cedi_stormdog: Buff = make_cedi_stormdog_buff()
-			cedi_stormdog.apply(tower, U, tower.get_level() * 6)
-			B = cedi_stormdog
+			B = cedi_stormdog.apply(tower, U, tower.get_level() * 6)
 			B.user_int = 0
