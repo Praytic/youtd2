@@ -14,10 +14,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _tower_init():
-	var triggers_buff: Buff = TriggersBuff.new()
+func _load_triggers(triggers_buff: Buff):
 	triggers_buff.add_event_on_damage(self, "_on_damage", 0.25, 0.01)
-	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 
 func drol_tentacleDamage(event: Event):

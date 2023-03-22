@@ -18,6 +18,10 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func _load_triggers(triggers_buff: Buff):
+	triggers_buff.add_event_on_damage(self, "on_damage", 1.0, 0.004)
+
+
 func _tower_init():
 	var tower = self
 
@@ -27,10 +31,6 @@ func _tower_init():
 	specials_modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, _stats.item_bonus, _stats.item_bonus_add)
 	specials_modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, _stats.item_bonus, _stats.item_bonus_add)
 	add_modifier(specials_modifier)
-
-	var triggers_buff: Buff = TriggersBuff.new()
-	triggers_buff.add_event_on_damage(self, "on_damage", 1.0, 0.004)
-	triggers_buff.apply_to_unit_permanent(self, self, 0)	
 
 	mOck_steal = ProjectileType.create_interpolate("Abilities\\Weapons\\WardenMissile\\WardenMissile.mdl", 1000)
 	mOck_steal.set_event_on_interpolation_finished(steal)

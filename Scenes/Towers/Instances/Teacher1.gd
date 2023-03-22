@@ -62,14 +62,14 @@ func teacher_attack(tower: Tower, xp: float):
 			in_range.destroy()
 
 
+func _load_triggers(triggers_buff: Buff):
+	triggers_buff.add_event_on_attack(self, "on_attack", 1.0, 0.0)
+
+
 func _tower_init():
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.exp_gain, 0)
 	add_modifier(specials_modifier)
-
-	var triggers_buff: Buff = TriggersBuff.new()
-	triggers_buff.add_event_on_attack(self, "on_attack", 1.0, 0.0)
-	triggers_buff.apply_to_unit_permanent(self, self, 0)
 
 	limfa_teacherboard = MultiboardValues.new(1)
 	limfa_teacherboard.set_key(0, "Xp Granted")

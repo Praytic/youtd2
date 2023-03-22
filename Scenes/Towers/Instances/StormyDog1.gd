@@ -11,11 +11,11 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _tower_init():
-	var on_damage_buff: Buff = TriggersBuff.new()
-	on_damage_buff.add_event_on_damage(self, "on_damage", 0.3, 0.0)
-	on_damage_buff.apply_to_unit_permanent(self, self, 0)
+func _load_triggers(triggers_buff: Buff):
+	triggers_buff.add_event_on_damage(self, "on_damage", 0.3, 0.0)
 
+
+func _tower_init():
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, _stats.self_attackspeed_add)
 	add_modifier(specials_modifier)
