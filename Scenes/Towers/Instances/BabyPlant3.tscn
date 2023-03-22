@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cocirrquo1lv3"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_m21su"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/BabyPlant1.gd" id="2_wbdbu"]
+[ext_resource type="Texture2D" uid="uid://cv2yhotly1j5n" path="res://Assets/Towers/Instances/baby_plant_atlas.png" id="3_eqags"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_eqags")
+region = Rect2(600, 2.08165e-12, 300, 300)
+
+[node name="BabyPlant" instance=ExtResource("1_m21su")]
+script = ExtResource("2_wbdbu")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(0, 115)
+texture = SubResource("AtlasTexture_lrt4k")

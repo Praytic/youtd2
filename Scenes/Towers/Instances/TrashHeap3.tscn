@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://exraj1yd1303"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_iyojl"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/TrashHeap1.gd" id="2_6em8w"]
+[ext_resource type="Texture2D" uid="uid://i6yc0xaviwdg" path="res://Assets/Towers/Instances/trash_heap_atlas.png" id="3_u0yqn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q32kx"]
+atlas = ExtResource("3_u0yqn")
+region = Rect2(600, 2.08165e-12, 300, 300)
+
+[node name="TrashHeap" instance=ExtResource("1_iyojl")]
+script = ExtResource("2_6em8w")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
+position = Vector2(-1, 116)
+texture = SubResource("AtlasTexture_q32kx")
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="1"]
+position = Vector2(-1, 153)
