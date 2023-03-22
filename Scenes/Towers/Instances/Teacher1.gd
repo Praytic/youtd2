@@ -87,6 +87,15 @@ func _tower_init():
 	knowledge_red.disable_explode_on_hit()
 	knowledge_red.enable_homing(hit, 0)
 
+
+func on_attack(_event: Event):
+	var tower: Tower = self
+
+	teacher_attack(tower, _stats.exp_teach)
+	set_animation_by_index(tower, 3)
+
+
+func _on_create():
 #	TODO: implement event.get_preceding_tower(). Supposed to
 #	be tower from previous tier when tower is upgraded.
 	# var preceding: Tower = event.get_preceding_tower()
@@ -97,13 +106,6 @@ func _tower_init():
 		tower.user_real2 = preceding.user_real2
 	else:
 		tower.user_real2 = 0
-
-
-func on_attack(_event: Event):
-	var tower: Tower = self
-
-	teacher_attack(tower, _stats.exp_teach)
-	set_animation_by_index(tower, 3)
 
 
 func on_tower_details() -> MultiboardValues:

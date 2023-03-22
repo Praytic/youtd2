@@ -23,8 +23,10 @@ func _load_triggers(triggers_buff: Buff):
 func _tower_init():
 	_set_attack_style_bounce(2, 0.0)
 
-	user_int = 0
 
+func _on_create():
+	user_int = 0
+	
 
 func on_damage(event: Event):
 	var tower: Unit = self
