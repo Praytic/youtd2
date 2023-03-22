@@ -35,8 +35,6 @@ script = ExtResource("5")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TargetingArea"]
 polygon = PackedVector2Array(0, 0, 1, 1, 1, 0)
 
-[node name="AttackTimer" type="Timer" parent="."]
-
 [node name="ManaBar" type="ProgressBar" parent="."]
 visible = false
 offset_left = -150.0
@@ -48,4 +46,3 @@ show_percentage = false
 
 [connection signal="body_entered" from="TargetingArea" to="." method="_on_targeting_area_body_entered"]
 [connection signal="body_exited" from="TargetingArea" to="." method="_on_targeting_area_body_exited"]
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]

@@ -60,13 +60,13 @@ var _attack_style: AttackStyle = AttackStyle.NORMAL
 var _target_list: Array[Creep] = []
 var _target_count_max: int = 1
 var _default_projectile_type: ProjectileType
+var _current_attack_cooldown: float = 0.0
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
 @onready var _targeting_area: Area2D = $TargetingArea
 @onready var _collision_polygon: CollisionPolygon2D = $TargetingArea/CollisionPolygon2D
-@onready var _attack_timer: Timer = $AttackTimer
 @onready var _mana_bar: ProgressBar = $ManaBar
 
 
@@ -89,8 +89,6 @@ func _ready():
 	var attack_range: float = get_attack_range()
 	_range_indicator.set_radius(attack_range)
 
-	_attack_timer.one_shot = true
-
 	mana_changed.connect(_on_mana_changed)
 	_on_mana_changed()
 	_mana_bar.visible = get_base_mana() > 0
@@ -101,6 +99,15 @@ func _ready():
 	_on_create()
 
 	_on_modify_property()
+
+
+# NOTE: need to do attack timing without Timer because Timer
+# doesn't handle short durations well (<0.5s)
+func _process(delta: float):
+	_current_attack_cooldown -= delta
+
+	if _current_attack_cooldown < 0.0:
+		_on_attack_cooldown_timeout()
 
 
 #########################
@@ -179,11 +186,11 @@ func _set_target_count(count: int):
 
 
 func _tower_attack(target: Unit):
-	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, self, target, true, false, true)
-	projectile.set_event_on_target_hit(_on_projectile_target_hit)
-
 	var attack_event: Event = Event.new(target)
 	super._do_attack(attack_event)
+
+	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, self, target, true, false, true)
+	projectile.set_event_on_target_hit(_on_projectile_target_hit)
 
 	_attack_sound.play()
 
@@ -217,9 +224,6 @@ func _get_base_properties() -> Dictionary:
 
 
 func _on_modify_property():
-	var attack_cooldown: float = get_overall_cooldown()
-	_attack_timer.wait_time = attack_cooldown
-	
 	var attack_range: float = get_attack_range()
 	Utils.circle_polygon_set_radius(_collision_polygon, attack_range)
 
@@ -240,7 +244,7 @@ func _get_next_bounce_target(prev_target: Creep) -> Creep:
 
 
 func _try_to_attack():
-	var attack_on_cooldown: bool = _attack_timer.time_left > 0
+	var attack_on_cooldown: bool = _current_attack_cooldown > 0
 	
 	if attack_on_cooldown:
 		return
@@ -252,8 +256,10 @@ func _try_to_attack():
 
 		attacked_target = true
 	
+# 	NOTE: important to add, not set! So that if game is
+# 	lagging, all of the attacks fire instead of skipping.
 	if attacked_target:
-		_attack_timer.start()
+		_current_attack_cooldown += get_overall_cooldown()
 
 
 func _find_new_target() -> Creep:
@@ -439,7 +445,7 @@ func _on_target_death(_event: Event, target: Creep):
 	_remove_target(target)
 
 
-func _on_attack_timer_timeout():
+func _on_attack_cooldown_timeout():
 	if _have_target_space():
 		var new_target: Creep = _find_new_target()
 		_add_target(new_target)
