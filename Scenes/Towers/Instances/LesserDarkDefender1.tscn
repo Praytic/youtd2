@@ -1,12 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://bg8mmlmrug2xp"]
 
-[ext_resource type="Texture2D" uid="uid://cl5o37trgbju" path="res://Assets/Towers/Instances/dark_defender_atlas.png" id="1"]
 [ext_resource type="Script" path="res://Scenes/Towers/Instances/LesserDarkDefender1.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://cs087jbrfobab" path="res://Assets/Towers/Instances/lesser_defender.png" id="3_xe3x6"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("1")
-region = Rect2(71, 51, 159, 198)
+atlas = ExtResource("3_xe3x6")
+region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
 [node name="LesserDarkDefender1" instance=ExtResource("3")]
 script = ExtResource("2")
@@ -18,5 +18,5 @@ position = Vector2(0, -193)
 position = Vector2(-1, 153)
 
 [node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
-position = Vector2(1, 126)
+position = Vector2(-2, 119)
 texture = SubResource("2")

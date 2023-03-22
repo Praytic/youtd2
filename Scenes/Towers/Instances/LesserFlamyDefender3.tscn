@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://7w07fyy4iphw"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_hc22v"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/LesserFlamyDefender1.gd" id="2_kkowg"]
+[ext_resource type="Texture2D" uid="uid://cs087jbrfobab" path="res://Assets/Towers/Instances/lesser_defender.png" id="3_ui8ia"]
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("3_ui8ia")
+region = Rect2(600, 2.08165e-12, 300, 300)
+
+[node name="LesserFlamyDefender" instance=ExtResource("1_hc22v")]
+script = ExtResource("2_kkowg")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(0, 119)
+texture = SubResource("2")

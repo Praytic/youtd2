@@ -270,7 +270,7 @@ metadata/_edit_use_anchors_ = true
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="." method="_on_MenuButton_pressed"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
-[connection signal="pressed" from="ItemMenuButton" to="." method="_on_MenuButton_pressed"]
 [connection signal="pressed" from="ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
+[connection signal="pressed" from="ItemMenuButton" to="." method="_on_MenuButton_pressed"]
 [connection signal="unit_info_canceled" from="RightMenuBar" to="." method="_on_RightMenuBar_unit_info_canceled"]
 [connection signal="unit_info_requested" from="RightMenuBar" to="." method="_on_RightMenuBar_unit_info_requested"]
