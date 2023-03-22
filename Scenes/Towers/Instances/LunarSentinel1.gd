@@ -3,6 +3,8 @@ extends Tower
 # TODO: visual
 
 
+var sir_moonp_buff: BuffType
+
 # NOTE: I think there's a typo in tier 4 because for all
 # other tiers spell_damage_chance_add is the same as
 # spell_damage_add, but for tier 4 it's 1000 instead of 100.
@@ -35,15 +37,15 @@ func _tower_init():
 
 	add_autocast(autocast)
 
-
-func _on_autocast(event: Event):
-	var tower = self
-
 	var m: Modifier = Modifier.new()
-	var sir_moonp_buff: Buff = Buff.new("sir_moonp_buff", 0, 0, false)
+	sir_moonp_buff = BuffType.new("sir_moonp_buff", 0, 0, false)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
 	sir_moonp_buff.set_buff_icon("'@@0@@")
 	sir_moonp_buff.set_stacking_group("sir_moonp_buff")
+
+
+func _on_autocast(event: Event):
+	var tower = self
 
 	var level: int = tower.get_level()
 	var target: Unit = event.get_target()
@@ -56,7 +58,7 @@ func _on_autocast(event: Event):
 	if tower.calc_chance(0.125 + level * 0.005) == true:
 		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.spell_damage_chance_add, tower.calc_spell_crit_no_bonus())
 
-		var cb_stun: Buff = CbStun.new("cb_stun", 0, 0, false)
+		var cb_stun: BuffType = CbStun.new("cb_stun", 0, 0, false)
 
 		if level < 25:
 			cb_stun.apply_only_timed(tower, target, 0.3)

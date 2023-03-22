@@ -6,6 +6,9 @@ extends Tower
 # floating text isn't implemented
 
 
+var natac_burning_buff: BuffType
+
+
 func _get_tier_stats() -> Dictionary:
 	return {
 		1: {bonus_damage = 1.0, bonus_damage_add = 0.10, explode_damage = 49},
@@ -59,30 +62,30 @@ func explode_on_death(event: Event):
 	killer.do_spell_damage_aoe_unit(buffed_unit, 200, b.user_int, killer.calc_spell_crit_no_bonus(), 0.0)
 
 
-func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_event_on_attack(self, "on_damage", 1.0, 0.0)
-
-
-func on_damage(event: Event):
-	var tower: Tower = self
-
+func _tower_init():
 #   This buff is configurated as follows:
 #   level: damage gain per attack
 #   userReal: Already done bonus damage on the buffed unit
 #   userInt: AOE-Damage if the buffed unit dies
-	var natac_burning_buff: Buff = Buff.new("natac_burning_buff", 0.0, 0.0, false)
+	natac_burning_buff = BuffType.new("natac_burning_buff", 0.0, 0.0, false)
 	natac_burning_buff.set_buff_icon("@@0@@")
 	natac_burning_buff.add_event_on_create(self, "init_on_create")
 	natac_burning_buff.add_event_on_damaged(self, "damage_on_fire_attack", 1.0, 0.0)
 	natac_burning_buff.add_event_on_death(self, "explode_on_death")
 
+
+func _load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_event_on_attack(self, "on_damage", 1.0, 0.0)
+
+
+func on_damage(event: Event):
+	var tower: Tower = self
+
 	var tower_level: int = tower.get_level()
 	var target: Unit = event.get_target()
 	var level: float = _stats.bonus_damage + tower_level * _stats.bonus_damage_add
 	var duration: float = 5 + tower_level * 0.12
-	var b: Buff = natac_burning_buff
-	natac_burning_buff.apply_custom_timed(tower, target, int(level * 100), duration)
-	print("natac_burning_buff.apply_custom_timed")
+	var b: Buff = natac_burning_buff.apply_custom_timed(tower, target, int(level * 100), duration)
 
 #	Upgrade AOE-damage, if it makes sense
 	if b.user_int < _stats.explode_damage:

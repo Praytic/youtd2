@@ -5,9 +5,9 @@ extends Item
 
 
 func _item_init():
-	var on_periodic_buff: Buff = TriggersBuff.new()
-	on_periodic_buff.add_periodic_event(self, "_on_periodic", 1.0)
-	_buff_list.append(on_periodic_buff)
+	var buff_type: BuffType = TriggersBuffType.new()
+	buff_type.add_periodic_event(self, "_on_periodic", 1.0)
+	_buff_type_list.append(buff_type)
 
 
 func _on_periodic(event: Event):

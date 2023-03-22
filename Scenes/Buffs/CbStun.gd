@@ -1,7 +1,7 @@
 class_name CbStun
-extends Buff
+extends BuffType
 
-var stun_effect: int
+var _stun_effect_map: Dictionary
 
 func _init(type: String, time_base: float, time_level_add: float,friendly: bool):
 	super(type, time_base, time_level_add, friendly)
@@ -9,15 +9,21 @@ func _init(type: String, time_base: float, time_level_add: float,friendly: bool)
 	set_event_on_cleanup(self, "_on_cleanup")
 
 
-func _on_create(_event: Event):
-	var target = get_buffed_unit()
+func _on_create(event: Event):
+	var buff: Buff = event.get_buff()
+	var target = buff.get_buffed_unit()
 
 	target.movement_enabled = false 
 
-	stun_effect = Effect.create_animated("res://Scenes/Effects/StunVisual.tscn", target.position.x, target.position.y, 0, 0)
+	var stun_effect: int = Effect.create_animated("res://Scenes/Effects/StunVisual.tscn", target.position.x, target.position.y, 0, 0)
+	_stun_effect_map[buff] = stun_effect
 
 
-func _on_cleanup(_event: Event):
-	get_buffed_unit().movement_enabled = true
+func _on_cleanup(event: Event):
+	var buff: Buff = event.get_buff()
+	var target = buff.get_buffed_unit()
+
+	target.movement_enabled = true
 	
+	var stun_effect: int = _stun_effect_map[buff]
 	Effect.destroy_effect(stun_effect)

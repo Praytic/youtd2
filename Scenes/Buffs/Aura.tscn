@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://d0tscn8umgx1v"]
 
-[ext_resource type="Script" path="res://Scenes/Buffs/Aura.gd" id="1"]
+[ext_resource type="Script" path="res://Scenes/Buffs/Aura.gd" id="1_p7wag"]
 
 [node name="Aura" type="Node2D"]
-script = ExtResource("1")
+script = ExtResource("1_p7wag")
 
 [node name="Timer" type="Timer" parent="."]
 

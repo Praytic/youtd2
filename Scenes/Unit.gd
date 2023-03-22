@@ -145,9 +145,9 @@ func _ready():
 
 	_mana = get_base_mana()
 
-	var triggers_buff: Buff = TriggersBuff.new()
-	_load_triggers(triggers_buff)
-	triggers_buff.apply_to_unit_permanent(self, self, 0)
+	var triggers_buff_type: BuffType = TriggersBuffType.new()
+	_load_triggers(triggers_buff_type)
+	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
 
 
 func _unhandled_input(event):
@@ -408,7 +408,7 @@ func spend_mana(mana_cost: float):
 
 # NOTE: override this in subclass to attach trigger handlers
 # to triggers buff passed in the argument.
-func _load_triggers(_triggers_buff: Buff):
+func _load_triggers(_triggers_buff_type: BuffType):
 	pass
 
 
@@ -751,7 +751,8 @@ func get_level() -> int:
 func is_invisible() -> bool:
 	return _invisible && _invisible_watcher_count == 0
 
-func get_buff_of_type(type: String):
+func get_buff_of_type(buff_type: BuffType) -> Buff:
+	var type: String = buff_type.get_type()
 	var buff = _buff_map.get(type, null)
 
 	return buff

@@ -3,6 +3,8 @@ extends Tower
 
 # TODO: implement visual
 
+var drol_magic_ruin: BuffType
+
 
 func _get_tier_stats() -> Dictionary:
 	return {
@@ -15,17 +17,19 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
+func _load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
+
+
+func _tower_init():
+	var astral_mod: Modifier = Modifier.new()
+	drol_magic_ruin = BuffType.new("drol_magic_ruin", 5, 0, false)
+	astral_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
+	drol_magic_ruin.set_buff_modifier(astral_mod)
+	drol_magic_ruin.set_buff_icon("@@0@@")
 
 
 func _on_damage(event: Event):
 	var tower = self
-
-	var astral_mod: Modifier = Modifier.new()
-	var drol_magic_ruin = Buff.new("drol_magic_ruin", 5, 0, false)
-	astral_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
-	drol_magic_ruin.set_buff_modifier(astral_mod)
-	drol_magic_ruin.set_buff_icon("@@0@@")
 
 	drol_magic_ruin.apply_custom_timed(tower, event.get_target(), tower.get_level(), 5 + tower.get_level() * 0.2)
