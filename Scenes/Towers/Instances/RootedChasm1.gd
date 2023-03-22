@@ -17,11 +17,10 @@ func _get_tier_stats() -> Dictionary:
 
 
 func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_event_on_create(self, "_on_create")
 	triggers_buff.add_event_on_damage(self, "_on_damage", 0.125, 0.002)
 
 
-func _on_create(_event: Event):
+func _on_create():
 	var tower = self
 
 	#	base entangle dps

@@ -18,7 +18,7 @@ func _load_triggers(triggers_buff: Buff):
 	triggers_buff.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 
 
-func _tower_init():
+func _on_create():
 	var tower = self
 	tower.user_int = 0
 	tower.user_int2 = 0
