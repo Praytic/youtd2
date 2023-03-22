@@ -54,4 +54,4 @@ func _on_UnitButton_mouse_exited():
 	
 
 func _on_UnitButton_pressed(_unit_id):
-	hide()
+	pass
