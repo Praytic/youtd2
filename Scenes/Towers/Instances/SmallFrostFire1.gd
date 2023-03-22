@@ -2,6 +2,9 @@ extends Tower
 
 # NOTE: some stats are multiplied by 1000
 
+var soul_chill: BuffType
+
+
 func _get_tier_stats() -> Dictionary:
 	return {
 		1: {dmg_to_undead_add = 0.002, aoe_damage = 50, aoe_damage_add = 2, slow_value = 50, slow_value_add = 2, slow_duration_add = 0.02},
@@ -34,15 +37,11 @@ func _tower_init():
 
 	add_autocast(autocast)
 
-
-func make_soul_chill() -> Buff:
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
-	var soul_chill: Buff = Buff.new("soul_chill", 0, 0, false)
+	soul_chill = BuffType.new("soul_chill", 0, 0, false)
 	soul_chill.set_buff_icon("@@0@@")
 	soul_chill.set_buff_modifier(slow)
-
-	return soul_chill
 
 
 func on_autocast(event: Event):
@@ -62,7 +61,6 @@ func on_autocast(event: Event):
 		if next == null:
 			break
 
-		var soul_chill: Buff = make_soul_chill()
 		soul_chill.apply_custom_timed(tower, next, int(calculated_slow), duration)
 		tower.do_spell_damage(next, spelldmg, tower.calc_spell_crit_no_bonus())
 

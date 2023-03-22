@@ -2,6 +2,7 @@ extends Tower
 
 # TODO: implement visual
 
+var cedi_acidarmor: BuffType
 
 # NOTE: values here are pre-multiplied by 1000, so 600 = 0.6
 # as final value. That's how it is in original script and we
@@ -16,21 +17,21 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _load_triggers(triggers_buff: Buff):
-	triggers_buff.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
+func _load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 
 
 func _tower_init():
 	_set_attack_style_bounce(1, 0.15)
 
+	var m: Modifier = Modifier.new()
+	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
+	cedi_acidarmor = BuffType.new("cedi_acidarmor", 3.0, 0.12, false)
+	cedi_acidarmor.set_buff_icon("@@0@@")
+	cedi_acidarmor.set_buff_modifier(m)
+
 
 func _on_damage(event: Event):
 	var tower = self
-
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
-	var cedi_acidarmor = Buff.new("cedi_acidarmor", 3.0, 0.12, false)
-	cedi_acidarmor.set_buff_icon("@@0@@")
-	cedi_acidarmor.set_buff_modifier(m)
 
 	cedi_acidarmor.apply_custom_timed(tower, event.get_target(), _stats.armor_base + tower.get_level() * _stats.armor_add, 3.0 + 0.12 * tower.get_level())
