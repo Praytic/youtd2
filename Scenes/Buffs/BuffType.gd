@@ -1,5 +1,16 @@
 class_name BuffType
 
+
+# BuffType stores buff parameters and can be used to create
+# buff instances. It's possible to define a custom BuffType
+# by subclassing.
+# 
+# Buffs can have event handlers. To add an event handler,
+# define a handler function in your subclass and call the
+# appropriate add_event_handler function. All handler
+# functions are called with one parameter Event which passes
+# information about the event.
+
 var _type: String
 var _time_base: float
 var _time_level_add: float
@@ -36,7 +47,9 @@ func set_stacking_group(_stacking_group: String):
 	pass
 
 
-# Base apply function. Overrides time parameters from init().
+# Base apply function. Overrides time parameters from
+# init(). Returns the buff that was applied or currently
+# active buff if it was refreshed or upgraded.
 func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: float) -> Buff:
 	var need_upgrade_logic: bool = !_type.is_empty()
 

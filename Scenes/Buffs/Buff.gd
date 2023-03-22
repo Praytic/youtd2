@@ -3,18 +3,7 @@ extends Node2D
 
 
 # Buff stores buff parameters and applies them to target
-# while it is active. Define custom buffs by creating a
-# subclass.
-# 
-# Buffs can have event handlers. To add an event handler,
-# define a handler function in your subclass and call the
-# appropriate add_event_handler function. All handler
-# functions are called with one parameter Event which passes
-# information about the event.
-
-# TODO: what is friendly used for? It's not used as sign
-# multiplier on value (confirmed by original tower scripts).
-# Maybe used for stacking behavior?
+# while it is active.
 
 # TODO: implement the following event types
 # SPELL_CAST
