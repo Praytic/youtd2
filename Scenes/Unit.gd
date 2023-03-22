@@ -23,6 +23,11 @@ signal selected
 signal unselected
 
 
+enum State {
+	MANA
+}
+
+
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 # TODO: replace this placeholder constant with real value.
@@ -399,6 +404,22 @@ func remove_invisible_watcher():
 
 func spend_mana(mana_cost: float):
 	_set_mana(max(0.0, _mana - mana_cost))
+
+
+# TODO: probably should implement health like this as well
+# and remove the other variations of these getters/setters.
+# This version is used in tower/item scripts so it takes
+# priority, even if the API is weird.
+static func get_unit_state(unit: Unit, state: Unit.State) -> float:
+	match state:
+		Unit.State.MANA: return unit._mana
+
+	return 0.0
+
+
+static func set_unit_state(unit: Unit, state: Unit.State, value: float):
+	match state:
+		Unit.State.MANA: unit._set_mana(value)
 
 
 #########################
