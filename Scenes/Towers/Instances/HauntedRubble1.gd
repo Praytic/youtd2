@@ -14,7 +14,7 @@ func _get_tier_stats() -> Dictionary:
 }
 
 
-func _load_triggers(triggers_buff_type: BuffType):
+func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 
 
