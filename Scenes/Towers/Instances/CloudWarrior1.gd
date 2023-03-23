@@ -20,7 +20,7 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.3, 0.0)
 
 
-func tower_init():
+func load_specials():
 	_set_attack_style_bounce(2, 0.0)
 
 

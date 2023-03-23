@@ -12,8 +12,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func tower_init():
-	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, _stats.crit_chance, _stats.crit_chance_add)
-	specials_modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, _stats.crit_damage, _stats.crit_damage_add)
-	add_modifier(specials_modifier)
+func load_specials():
+	var modifier: Modifier = Modifier.new()
+	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, _stats.crit_chance, _stats.crit_chance_add)
+	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, _stats.crit_damage, _stats.crit_damage_add)
+	add_modifier(modifier)

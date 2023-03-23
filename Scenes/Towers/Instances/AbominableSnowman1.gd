@@ -13,5 +13,5 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func tower_init():
+func load_specials():
 	_set_attack_style_bounce(2, _stats.bounce_damage_multiplier)

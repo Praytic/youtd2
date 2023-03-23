@@ -14,9 +14,9 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func tower_init():
-	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_BOSS, 0.10, 0.006)
-	specials_modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.20, _stats.item_chance_add)
-	specials_modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.20, _stats.item_quality_add)
-	add_modifier(specials_modifier)
+func load_specials():
+	var modifier: Modifier = Modifier.new()
+	modifier.add_modification(Modification.Type.MOD_DMG_TO_BOSS, 0.10, 0.006)
+	modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.20, _stats.item_chance_add)
+	modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.20, _stats.item_quality_add)
+	add_modifier(modifier)

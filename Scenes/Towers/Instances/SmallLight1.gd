@@ -21,10 +21,12 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 1.0, 0.0)
 
 
-func tower_init():
+func load_specials():
 	var magical_sight: BuffType = MagicalSightBuff.new(_stats.magical_sight_range)
 	magical_sight.apply_to_unit_permanent(self, self, 0)	
 
+
+func tower_init():
 	var light_mod: Modifier = Modifier.new()
 	sternbogen_holy_buff = BuffType.new("sternbogen_holy_buff", 0.0, 0.0, false)
 	light_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.001)
