@@ -151,7 +151,7 @@ func _ready():
 	_mana = get_base_mana()
 
 	var triggers_buff_type: BuffType = TriggersBuffType.new()
-	_load_triggers(triggers_buff_type)
+	load_triggers(triggers_buff_type)
 	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
 
 
@@ -429,7 +429,7 @@ static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 
 # NOTE: override this in subclass to attach trigger handlers
 # to triggers buff passed in the argument.
-func _load_triggers(_triggers_buff_type: BuffType):
+func load_triggers(_triggers_buff_type: BuffType):
 	pass
 
 

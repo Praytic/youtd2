@@ -74,7 +74,7 @@ func tower_init():
 	natac_burning_buff.add_event_on_death(self, "explode_on_death")
 
 
-func _load_triggers(triggers_buff_type: BuffType):
+func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "on_damage", 1.0, 0.0)
 
 
