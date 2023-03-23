@@ -15,7 +15,7 @@ func _load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "on_attack", 1.0, 0.0)
 
 
-func _tower_init():
+func tower_init():
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_MANA, 0.0, _stats.mana_add)
 	add_modifier(specials_modifier)

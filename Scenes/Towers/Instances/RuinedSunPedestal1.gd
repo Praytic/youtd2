@@ -16,7 +16,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _tower_init():
+func tower_init():
 	_set_attack_style_bounce(3, 0.5)
 
 	var specials_modifier: Modifier = Modifier.new()

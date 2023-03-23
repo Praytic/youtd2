@@ -13,7 +13,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _tower_init():
+func tower_init():
 #	NOTE: splash values are the same for all tiers
 	_set_attack_style_splash({320: 0.5})
 

@@ -96,8 +96,8 @@ func _ready():
 
 	_default_projectile_type = ProjectileType.create("", 0.0, PROJECTILE_SPEED)
 
-	_tower_init()
-	_on_create()
+	tower_init()
+	on_create()
 
 	_on_modify_property()
 
@@ -163,14 +163,14 @@ func order_stop():
 
 # Override in subclass to initialize subclass tower. This is
 # the analog of "init" function from original API.
-func _tower_init():
+func tower_init():
 	pass
 
 
 # Override this in tower subclass to implement the "On Tower
 # Creation" trigger. This is the analog of "onCreate"
 # function from original API.
-func _on_create():
+func on_create():
 	pass
 
 

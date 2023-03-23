@@ -22,7 +22,7 @@ func _load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 1.0, 0.004)
 
 
-func _tower_init():
+func tower_init():
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.10, 0.004)
 	specials_modifier.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, _stats.bounty_add)
@@ -37,7 +37,7 @@ func _tower_init():
 	m0ck_thief_multiboard.set_key(0, "Gold Stolen")
 
 
-func _on_create():
+func on_create():
 	var tower: Tower = self
 
 	tower.user_real = 0.0

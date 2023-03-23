@@ -21,7 +21,7 @@ func _load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 
 
-func _tower_init():
+func tower_init():
 	_set_attack_style_bounce(1, 0.15)
 
 	var m: Modifier = Modifier.new()

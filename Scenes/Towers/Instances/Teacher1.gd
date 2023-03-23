@@ -66,7 +66,7 @@ func _load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "on_attack", 1.0, 0.0)
 
 
-func _tower_init():
+func tower_init():
 	var specials_modifier: Modifier = Modifier.new()
 	specials_modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.exp_gain, 0)
 	add_modifier(specials_modifier)
@@ -95,7 +95,7 @@ func on_attack(_event: Event):
 	set_animation_by_index(tower, 3)
 
 
-func _on_create():
+func on_create():
 #	TODO: implement event.get_preceding_tower(). Supposed to
 #	be tower from previous tier when tower is upgraded.
 	# var preceding: Tower = event.get_preceding_tower()

@@ -18,7 +18,7 @@ func _load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 
 
-func _tower_init():
+func tower_init():
 	velex_slow = BuffType.new("velex_slow", 0, 0, false)
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
