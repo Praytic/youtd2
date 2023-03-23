@@ -96,6 +96,7 @@ func _ready():
 
 	_default_projectile_type = ProjectileType.create("", 0.0, PROJECTILE_SPEED)
 
+	load_specials()
 	tower_init()
 	on_create()
 
@@ -164,6 +165,13 @@ func order_stop():
 # Override in subclass to initialize subclass tower. This is
 # the analog of "init" function from original API.
 func tower_init():
+	pass
+
+
+# NOTE: override this in subclass to add tower specials.
+# This includes adding modifiers and changing attack styles
+# to splash or bounce.
+func load_specials():
 	pass
 
 

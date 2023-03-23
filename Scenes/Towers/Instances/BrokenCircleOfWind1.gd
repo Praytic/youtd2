@@ -18,11 +18,13 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 
 
-func tower_init():
-	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.70, 0.02)
-	add_modifier(specials_modifier)
+func load_specials():
+	var modifier: Modifier = Modifier.new()
+	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.70, 0.02)
+	add_modifier(modifier)
 
+
+func tower_init():
 	sternbogen_broken_wind = CbStun.new("sternbogen_broken_wind", 1.0, 0, false)
 	sternbogen_broken_wind.set_buff_icon("@@0@@")
 	sternbogen_broken_wind.add_event_on_create(self, "_cyclone_creep_up")

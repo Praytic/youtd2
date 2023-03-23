@@ -15,11 +15,13 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func tower_init():
-	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.25, 0.002)
-	add_modifier(specials_modifier)
+func load_specials():
+	var modifier: Modifier = Modifier.new()
+	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.25, 0.002)
+	add_modifier(modifier)
 
+
+func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.cooldown = 1
 	autocast.mana_cost = 20

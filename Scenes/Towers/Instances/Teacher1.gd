@@ -66,11 +66,13 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "on_attack", 1.0, 0.0)
 
 
-func tower_init():
-	var specials_modifier: Modifier = Modifier.new()
-	specials_modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.exp_gain, 0)
-	add_modifier(specials_modifier)
+func load_specials():
+	var modifier: Modifier = Modifier.new()
+	modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.exp_gain, 0)
+	add_modifier(modifier)
 
+
+func tower_init():
 	limfa_teacherboard = MultiboardValues.new(1)
 	limfa_teacherboard.set_key(0, "Xp Granted")
 

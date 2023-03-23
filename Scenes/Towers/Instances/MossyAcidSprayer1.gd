@@ -21,9 +21,11 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 
 
-func tower_init():
+func load_specials():
 	_set_attack_style_bounce(1, 0.15)
 
+
+func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.001)
 	cedi_acidarmor = BuffType.new("cedi_acidarmor", 3.0, 0.12, false)
