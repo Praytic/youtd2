@@ -21,7 +21,7 @@ func _load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 1.0, 0.0)
 
 
-func _tower_init():
+func tower_init():
 	var magical_sight: BuffType = MagicalSightBuff.new(_stats.magical_sight_range)
 	magical_sight.apply_to_unit_permanent(self, self, 0)	
 

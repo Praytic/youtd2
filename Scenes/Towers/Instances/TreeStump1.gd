@@ -13,5 +13,5 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func _tower_init():
+func tower_init():
 	_set_target_count(_stats.target_count_max)

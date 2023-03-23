@@ -5,11 +5,11 @@ var _stun_effect_map: Dictionary
 
 func _init(type: String, time_base: float, time_level_add: float,friendly: bool):
 	super(type, time_base, time_level_add, friendly)
-	add_event_on_create(self, "_on_create")
+	add_event_on_create(self, "on_create")
 	set_event_on_cleanup(self, "_on_cleanup")
 
 
-func _on_create(event: Event):
+func on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var target = buff.get_buffed_unit()
 

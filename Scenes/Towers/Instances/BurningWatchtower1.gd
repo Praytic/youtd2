@@ -62,7 +62,7 @@ func explode_on_death(event: Event):
 	killer.do_spell_damage_aoe_unit(buffed_unit, 200, b.user_int, killer.calc_spell_crit_no_bonus(), 0.0)
 
 
-func _tower_init():
+func tower_init():
 #   This buff is configurated as follows:
 #   level: damage gain per attack
 #   userReal: Already done bonus damage on the buffed unit

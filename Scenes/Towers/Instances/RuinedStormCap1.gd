@@ -5,5 +5,5 @@ extends Tower
 # NOTE: script is empty because this tower has no special
 # effects
 
-func _tower_init():
+func tower_init():
 	pass
