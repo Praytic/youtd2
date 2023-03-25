@@ -6,9 +6,9 @@ extends Building
 # the columns in tower_properties.csv
 enum CsvProperty {
 	NAME,
+	TIER,
 	ID,
 	FAMILY_ID,
-	TIER,
 	AUTHOR,
 	RARITY,
 	ELEMENT,
