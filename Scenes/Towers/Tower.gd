@@ -2,26 +2,28 @@ class_name Tower
 extends Building
 
 
+# NOTE: order of CsvProperty enums must match the order of
+# the columns in tower_properties.csv
 enum CsvProperty {
-	NAME = 0,
-	ID = 1,
-	FAMILY_ID = 2,
-	TIER = 3,
-	AUTHOR = 4,
-	RARITY = 5,
-	ELEMENT = 6,
-	ATTACK_TYPE = 7,
-	ATTACK_RANGE = 8,
-	ATTACK_CD = 9,
-	ATTACK_DAMAGE_MIN = 10,
-	ATTACK_DAMAGE_MAX = 11,
-	MANA = 12,
-	MANA_REGEN = 13,
-	COST = 14,
-	DESCRIPTION = 15,
-	REQUIRED_ELEMENT_LEVEL = 16,
-	REQUIRED_WAVE_LEVEL = 17,
-	ICON_ATLAS_NUM = 18,
+	NAME,
+	ID,
+	FAMILY_ID,
+	TIER,
+	AUTHOR,
+	RARITY,
+	ELEMENT,
+	ATTACK_TYPE,
+	ATTACK_RANGE,
+	ATTACK_CD,
+	ATTACK_DAMAGE_MIN,
+	ATTACK_DAMAGE_MAX,
+	MANA,
+	MANA_REGEN,
+	COST,
+	DESCRIPTION,
+	REQUIRED_ELEMENT_LEVEL,
+	REQUIRED_WAVE_LEVEL,
+	ICON_ATLAS_NUM,
 }
 
 enum AttackStyle {
