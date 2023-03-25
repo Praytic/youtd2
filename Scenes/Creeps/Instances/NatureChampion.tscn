@@ -126,6 +126,7 @@ bg_color = Color(0.290196, 0.709804, 0, 1)
 [node name="Visual" type="Node2D" parent="." index="2"]
 
 [node name="Sprite2D" parent="Visual" index="0" instance=ExtResource("2_w3tt2")]
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_7m4vi")
 
 [node name="HealthBar" type="ProgressBar" parent="Visual" index="1"]
