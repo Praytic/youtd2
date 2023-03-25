@@ -19,20 +19,7 @@ func _init():
 	var tower_id_list: Array = Properties.get_tower_id_list()
 	
 	for tower_id in tower_id_list:
-		var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(tower_id)
-		var tower_scene_name: String = csv_properties[Tower.CsvProperty.SCENE_NAME]
-
-		var tower_scene_path: String = "%s/%s.tscn" % [towers_dir, tower_scene_name]
-		var tower_scene_exists: bool = FileAccess.file_exists(tower_scene_path)
-
-		var tower_scene: PackedScene
-		if tower_scene_exists:
-			tower_scene = load(tower_scene_path)
-		else:
-			if PRINT_SCENE_NOT_FOUND_ERROR:
-				print_debug("No scene found for id:", tower_id, ". Tried at path:", tower_scene_path)
-
-			tower_scene = _fallback_scene
+		var tower_scene: PackedScene = _get_tower_scene(tower_id)
 
 		preloaded_towers[tower_id] = tower_scene
 
@@ -84,10 +71,8 @@ func get_tower_family_id(id: int) -> int:
 # TinyShrub1.gd
 func _get_tower_script_path(id: int) -> String:
 	var properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
-	var scene_name: String = properties[Tower.CsvProperty.SCENE_NAME]
-# 	NOTE: strip the tier digit from scene name
-	var script_name: String = scene_name.substr(0, scene_name.length() - 1)
-	var path: String = "%s/%s1.gd" % [towers_dir, script_name]
+	var family_name: String = _get_family_name(id)
+	var path: String = "%s/%s1.gd" % [towers_dir, family_name]
 
 	var script_exists: bool = FileAccess.file_exists(path)
 
@@ -98,3 +83,54 @@ func _get_tower_script_path(id: int) -> String:
 			print_debug("No script found for id:", id, ". Tried at path:", path)
 
 		return "res://Scenes/Towers/Tower.gd"
+
+
+# Scene filename = [name of first tier tower in family] +
+# tier For example for "Greater Shrub" = "TinyShrub3.tscn"
+func _get_tower_scene(id: int) -> PackedScene:
+	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
+	var family_name: String = _get_family_name(id)
+	var tier: String = csv_properties[Tower.CsvProperty.TIER]
+	var scene_path: String = "%s/%s%s.tscn" % [towers_dir, family_name, tier]
+
+	var scene_exists: bool = FileAccess.file_exists(scene_path)
+	if scene_exists:
+		var scene: PackedScene = load(scene_path)
+
+		return scene
+	else:
+		if PRINT_SCENE_NOT_FOUND_ERROR:
+			print_debug("No scene found for id:", id, ". Tried at path:", scene_path)
+
+		return _fallback_scene
+
+
+# Family name is the name of the first tier tower in the
+# family, with spaces removed. Used to construct filenames
+# for tower scenes and scripts.
+func _get_family_name(id: int) -> String:
+	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
+
+	if csv_properties.is_empty():
+		return ""
+
+	var family_id_string: String = csv_properties[Tower.CsvProperty.FAMILY_ID]
+	var towers_in_family: Array = Properties.get_tower_csv_properties_by_filter(Tower.CsvProperty.FAMILY_ID, family_id_string)
+
+	var first_tier_tower: Dictionary = {}
+
+	for this_tower in towers_in_family:
+		var this_tier: int = this_tower[Tower.CsvProperty.TIER].to_int()
+
+		if this_tier == 1:
+			first_tier_tower = this_tower
+
+			break
+
+	if first_tier_tower.is_empty():
+		return ""
+
+	var first_tier_name: String = first_tier_tower[Tower.CsvProperty.NAME]
+	var family_name: String = first_tier_name.replace(" ", "")
+
+	return family_name
