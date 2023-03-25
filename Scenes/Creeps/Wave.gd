@@ -2,11 +2,19 @@ class_name Wave
 extends Node
 
 
+signal wave_ended(cause)
+
+
 enum CsvProperty {
 	ID = 0,
 	CREEP_SIZE_TYPE = 1,
 	CREEP_NUMBER = 2,
 	CREEP_CHAMPION_NUMBER = 3,
+}
+
+enum EndCause {
+	CLEARED,
+	DEFEAT
 }
 
 
@@ -15,11 +23,20 @@ enum CsvProperty {
 
 var _id: int
 var _wave_number: int
+var _creeps: Array
 
 
 #########################
 ### Code starts here  ###
 #########################
+
+func _init(id: int, wave_number: int):
+	_id = id
+	_wave_number = wave_number
+	for creep_size in get_creeps_combination():
+		var creep = Creep.new()
+		_creeps.append(creep)
+
 
 func _ready():
 	pass # Replace with function body.

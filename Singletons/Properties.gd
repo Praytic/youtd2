@@ -27,31 +27,17 @@ const _ITEM_CSV_PROPERTIES_PATH = "res://Assets/item_properties.csv"
 const _TOWER_CSV_PROPERTIES_PATH = "res://Assets/tower_properties.csv"
 const _WAVE_CSV_PROPERTIES_PATH = "res://Assets/wave_properties.csv"
 
-var waves = []
+
 var _tower_csv_properties: Dictionary = {} : get = get_tower_csv_properties
 var _item_csv_properties: Dictionary = {} : get = get_item_csv_properties
 var _wave_csv_properties: Dictionary = {} : get = get_wave_csv_properties
-var _creep
+
 
 #########################
 ### Code starts here  ###
 #########################
 
 func _init():
-	waves.resize(3)
-	for wave_index in range(0, 3):
-		var wave_file_name = "res://Assets/Waves/wave%d.json" % wave_index
-		var wave_file: FileAccess = FileAccess.open(wave_file_name, FileAccess.READ)
-		
-		if wave_file == null:
-			var open_error: Error = FileAccess.get_open_error()
-			push_error("Failed to open wave file at path: %s. Error: %s" % [wave_file_name, open_error])
-			continue
-			
-		var wave_text: String = wave_file.get_as_text()
-		var parsed_json: Variant = JSON.parse_string(wave_text)
-		waves[wave_index] = parsed_json
-	
 	_load_csv_properties(_TOWER_CSV_PROPERTIES_PATH, _tower_csv_properties, Tower.CsvProperty.ID)
 	_load_csv_properties(_ITEM_CSV_PROPERTIES_PATH, _item_csv_properties, Item.CsvProperty.ID)
 	_load_csv_properties(_WAVE_CSV_PROPERTIES_PATH, _wave_csv_properties, Wave.CsvProperty.ID)
