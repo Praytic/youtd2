@@ -62,7 +62,7 @@ func spawn_wave(new_wave: Wave):
 		var creep = _creep_spawner \
 			.get_creep_scene(creep_size, current_wave.get_race()) \
 			.instantiate()
-		creep.set_path_curve(current_wave.get_wave_path())
+		creep.set_path(current_wave.get_wave_path())
 		creep.set_creep_size(creep_size)
 		creep.set_armor_type(current_wave.get_armor_type())
 		creep.set_category(current_wave.get_race())
@@ -90,7 +90,7 @@ func _on_Timer_timeout():
 	wave_started.emit(next_wave)
 
 
-func _get_wave_path(player: int, wave: Wave) -> Curve2D:
+func _get_wave_path(player: int, wave: Wave) -> Path2D:
 	var idx = -1
 	for i in _wave_paths.size():
 		var wave_path = _wave_paths[i]
@@ -102,7 +102,7 @@ func _get_wave_path(player: int, wave: Wave) -> Curve2D:
 	if idx == -1:
 		push_error("Could not find wave path for player [%s] and wave [%s] in "  % [player, wave] \
 			+ "a group of paths [wave_path].")
-	return _wave_paths[idx].get_curve()
+	return _wave_paths[idx]
 
 
 func _on_CreepSpawner_all_creeps_spawned():
