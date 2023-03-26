@@ -2,13 +2,14 @@ class_name ProjectileType
 
 var _speed: float
 var _hit_handler: Callable = Callable()
+var _lifetime: float = 0.0
 
 
 # TODO: use model. Currently using placeholder sprite.
-# TODO: implement lifetime
-static func create(_model: String, _lifetime: float, speed: float) -> ProjectileType:
+static func create(_model: String, lifetime: float, speed: float) -> ProjectileType:
 	var pt: ProjectileType = ProjectileType.new()
 	pt._speed = speed
+	pt._lifetime = lifetime
 	
 	return pt
 
