@@ -33,14 +33,14 @@ const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
 const SELECTION_SIZE: int = 64
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 
-var _path_curve: Curve2D
+var _path_curve: Curve2D : set = set_path_curve, get = get_path_curve
+var _size: Creep.Size : set = set_creep_size, get = get_creep_size
+var _category: Creep.Category : set = set_category, get = get_category
+var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _current_path_index: int = 0
-var _size: Creep.Size = Creep.Size.NORMAL
-var _category: Creep.Category = Creep.Category.HUMANOID
 var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
-var _armor_type: ArmorType.enm = ArmorType.enm.HEL
 
 @onready var _visual = $Visual
 @onready var _sprite = $Visual/Sprite2D
@@ -159,6 +159,7 @@ func on_health_changed():
 ### Setters / Getters ###
 #########################
 
+
 func get_selection_size():
 	return SELECTION_SIZE
 
@@ -180,17 +181,29 @@ func get_unit_facing() -> float:
 	return _facing_angle
 
 
-func get_size() -> Creep.Size:
+func set_path_curve(value: Curve2D) -> void:
+	_path_curve = value
+
+func get_path_curve() -> Curve2D:
+	return _path_curve
+
+func set_creep_size(value: Creep.Size) -> void:
+	_size = value
+
+func get_creep_size() -> Creep.Size:
 	return _size
 
+func set_category(value: Creep.Category) -> void:
+	_category = value
 
 func get_category() -> int:
 	return _category
 
+func set_armor_type(value: ArmorType.enm) -> void:
+	_armor_type = value
 
 func get_armor_type() -> ArmorType.enm:
 	return _armor_type
-
 
 # NOTE: use this instead of regular Node2D.position for
 # anything involving visual effects, so projectiles and spell
