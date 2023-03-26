@@ -18,19 +18,13 @@ enum EndCause {
 }
 
 
-@onready var wave_paths = get_tree().get_nodes_in_group("wave_path")
-
-
-# Mutable
 # Array[Creep] stores scenes of live in-game creeps
 var _creeps: Array
-
-
-# Immutable
 var _id: int : set = set_id, get = get_id
 var _wave_number: int : set = set_wave_number, get = get_wave_number
 var _race: Creep.Category : set = set_race, get = get_race
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
+var _wave_path: Curve2D : set = set_wave_path, get = get_wave_path
 # Array[Modification]
 var _modifications: Array
 
@@ -115,13 +109,12 @@ func is_bonus_wave() -> bool:
 
 
 # Path of the creeps to follow toward the portal
-func get_wave_path(player: int, is_air: bool) -> Curve2D:
-	var idx = wave_paths.find(func(wave_path): \
-		wave_path.is_air() == is_air and wave_path.get_player() == player)
-	if idx == -1:
-		push_error("Could not find wave path for player [%s] and is_air [%s] in " \
-			+ "a group of paths [wave_path]." % [player, is_air])
-	return wave_paths[idx]
+func get_wave_path() -> Curve2D:
+	return _wave_path
+
+
+func set_wave_path(value: Curve2D):
+	_wave_path = value
 
 
 # Returns an array of Modifications that should be
@@ -172,11 +165,11 @@ func get_race() -> int:
 # Returns an array of possible Creep sizes
 # which can be spawned in this wave
 func get_creep_sizes() -> Array:
-	return get_creeps_combination() \
-		.map(func(creep): creep.get_creep_size()) \
-		.reduce(func(accum: Array, creep_size: int): 
-			if not accum.has(creep_size):
-				accum.append(creep_size))
+	var result = []
+	for creep_size in get_creeps_combination():
+		if not result.has(creep_size):
+			result.append(creep_size)
+	return result
 
 
 # Calculates base HP for a Creep based on 
@@ -184,3 +177,7 @@ func get_creep_sizes() -> Array:
 func get_base_hp() -> float:
 	#TODO: Formula
 	return get_wave_number() * 10
+
+
+func is_air() -> bool:
+	return get_creep_sizes().has(Creep.Size.AIR)

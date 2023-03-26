@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bah0cloqblp5n"]
+
+[ext_resource type="Script" path="res://Scenes/Creeps/WaveSpawner.gd" id="1_isnnd"]
+[ext_resource type="PackedScene" uid="uid://b80b85lbixydk" path="res://Scenes/Creeps/CreepSpawner.tscn" id="2_rvsq0"]
+
+[node name="WaveSpawner" type="Node2D"]
+position = Vector2(1, 0)
+script = ExtResource("1_isnnd")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CreepSpawner" parent="." instance=ExtResource("2_rvsq0")]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
