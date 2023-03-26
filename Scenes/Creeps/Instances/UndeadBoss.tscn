@@ -121,7 +121,7 @@ bg_color = Color(1, 0.34902, 0.2, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sv4q3"]
 bg_color = Color(0.290196, 0.709804, 0, 1)
 
-[node name="Creep" instance=ExtResource("1_wy0nt")]
+[node name="Creep" groups=["boss", "undead"] instance=ExtResource("1_wy0nt")]
 
 [node name="Visual" type="Node2D" parent="." index="2"]
 
