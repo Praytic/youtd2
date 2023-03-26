@@ -595,10 +595,9 @@ func get_dps_with_crit():
 func get_damage():
 	return 1.0
 
-# TODO: implement
 # How much kills the tower has in total
 func get_kills():
-	return 1.0
+	return _kill_count
 
 # TODO: implement
 # What was the max hit damage the tower dealt
