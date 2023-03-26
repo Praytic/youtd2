@@ -68,7 +68,7 @@ func match(unit: Unit) -> bool:
 				return false
 
 	if is_creep:
-		var creep_size: int = unit.get_size()
+		var creep_size: int = unit.get_creep_size()
 		var creep_category: int = unit.get_category()
 
 		if !_creep_size_list.is_empty() && !_creep_size_list.has(creep_size):

@@ -16,7 +16,7 @@ signal kill(event)
 signal death(event)
 signal became_invisible()
 signal became_visible()
-signal health_changed()
+signal health_changed(old_value, new_value)
 signal mana_changed()
 
 signal selected
@@ -46,7 +46,7 @@ var _is_dead: bool = false
 var _level: int = 1 : get = get_level, set = set_level
 var _buff_map: Dictionary
 var _direct_modifier_list: Array
-var _base_health: float = 0.0
+var _base_health: float = 0.0 : get = get_base_health, set = set_base_health
 var _health: float = 0.0
 var _base_health_regen: float = 1.0
 var _mod_value_map: Dictionary = {}
@@ -149,6 +149,7 @@ func _ready():
 	regen_timer.start()
 
 	_mana = get_base_mana()
+	_health = get_overall_health()
 
 	var triggers_buff_type: BuffType = TriggersBuffType.new()
 	load_triggers(triggers_buff_type)
@@ -439,8 +440,9 @@ func _set_mana(mana: float):
 
 
 func _set_health(health: float):
+	var old_health = _health
 	_health = health
-	health_changed.emit()
+	health_changed.emit(old_health, health)
 
 
 func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
@@ -492,9 +494,10 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 
 	var health_before_damage: float = target._health
 
+	var old_health = target._health
 	target._set_health(target._health - damage)
 
-	target.health_changed.emit()
+	target.health_changed.emit(old_health, target._health)
 
 	Utils.display_floating_text_x(str(int(damage)), target, 255, 0, 0, 0.0, 0.0, 1.0)
 
@@ -807,6 +810,9 @@ func get_overall_mana_regen():
 func get_base_health():
 	return _base_health
 
+func set_base_health(value: float):
+	_base_health = value
+
 func get_base_health_bonus():
 	return _mod_value_map[Modification.Type.MOD_HP]
 
@@ -927,7 +933,7 @@ func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 		Creep.Size.AIR: Modification.Type.MOD_DMG_TO_AIR,
 	}
 
-	var creep_size: Creep.Size = creep.get_size()
+	var creep_size: Creep.Size = creep.get_creep_size()
 	var mod_type: Modification.Type = creep_size_to_mod_map[creep_size]
 	var damage_mod: float = _mod_value_map[mod_type]
 

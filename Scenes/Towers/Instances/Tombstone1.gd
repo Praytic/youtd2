@@ -24,7 +24,7 @@ func on_damage(event: Event):
 	var tower = self
 
 	var creep: Unit = event.get_target()
-	var size: int = creep.get_size()
+	var size: int = creep.get_creep_size()
 
 	if size < Creep.Size.CHAMPION:
 		tower.kill_instantly(creep)

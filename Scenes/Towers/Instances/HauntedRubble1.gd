@@ -30,7 +30,7 @@ func tower_init():
 func _on_attack(event: Event):
 	var tower: Unit = self
 	var creep: Unit = event.get_target()
-	var size: int = creep.get_size()
+	var size: int = creep.get_creep_size()
 	var calc: bool
 
 	if size == Creep.Size.BOSS:
