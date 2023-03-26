@@ -52,7 +52,12 @@ var _height_tween: Tween = null
 #########################
 
 func _ready():
-	health_changed.connect(on_health_changed)
+	super()
+	var max_health = get_overall_health()
+	_health_bar.set_max(max_health)
+	_health_bar.set_min(0.0)
+	_health_bar.set_value(max_health)
+	health_changed.connect(_on_health_changed)
 
 
 func _process(delta):
@@ -146,8 +151,8 @@ func _get_move_speed() -> float:
 ###     Callbacks     ###
 #########################
 
-func on_health_changed():
-	_health_bar.set_as_ratio(_health / get_overall_health())
+func _on_health_changed(_old_value, new_value):
+	_health_bar.set_value(new_value)
 
 
 #########################

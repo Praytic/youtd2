@@ -2,7 +2,7 @@ class_name Wave
 extends Node
 
 
-signal wave_ended(cause)
+signal wave_ended
 
 
 enum CsvProperty {
@@ -16,7 +16,8 @@ enum State {
 	CLEARED,
 	DEFEAT,
 	SPAWNED,
-	SPAWNING
+	SPAWNING,
+	PENDING,
 }
 
 
@@ -29,8 +30,8 @@ var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
 # Array[Modification]
 var _modifications: Array
-var state: int
-
+var state: int = Wave.State.PENDING
+var next_wave: Wave
 
 #########################
 ### Code starts here  ###
@@ -42,7 +43,10 @@ func _ready():
 
 
 func _process(delta):
-	pass
+	# TODO: Add portal lives here
+	if _creeps.is_empty() and state != Wave.State.CLEARED:
+		state = Wave.State.CLEARED
+		wave_ended.emit()
 
 
 #########################
@@ -53,6 +57,14 @@ func _process(delta):
 #########################
 ###      Private      ###
 #########################
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_Creep_death(creep: Creep):
+	_creeps.erase(creep)
 
 
 #########################
@@ -179,7 +191,7 @@ func get_creep_sizes() -> Array:
 # the wave number 
 func get_base_hp() -> float:
 	#TODO: Formula
-	return get_wave_number() * 10
+	return get_wave_number() * 100
 
 
 func is_air() -> bool:

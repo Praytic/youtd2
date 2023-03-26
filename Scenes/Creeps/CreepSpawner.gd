@@ -5,8 +5,8 @@ signal creep_spawned(creep: Creep)
 signal all_creeps_spawned
 
 
-const MASS_SPAWN_DELAY_SEC = 0.5
-const NORMAL_SPAWN_DELAY_SEC = 1.5
+const MASS_SPAWN_DELAY_SEC = 0.2
+const NORMAL_SPAWN_DELAY_SEC = 0.9
 const CREEP_SCENE_INSTANCES_PATH = "res://Scenes/Creeps/Instances/"
 
 
@@ -64,6 +64,6 @@ func _on_Timer_timeout():
 		return
 	
 	creep.death.connect(Callable(item_control, "_on_Creep_death"))
-	object_ysort.add_child(creep)
+	object_ysort.add_child(creep, true)
 	print_debug("Creep has been spawned [%s]." % creep)
 	creep_spawned.emit(creep)
