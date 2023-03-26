@@ -13,3 +13,4 @@ one_shot = true
 [node name="CreepSpawner" parent="." instance=ExtResource("2_rvsq0")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="all_creeps_spawned" from="CreepSpawner" to="." method="_on_CreepSpawner_all_creeps_spawned"]

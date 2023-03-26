@@ -8,11 +8,12 @@ const WAVE_COUNT_HARD = 240
 
 signal wave_started(wave: Wave)
 signal wave_spawned(wave: Wave)
-signal wave_ended(wave: Wave, cause: Wave.EndCause)
-signal all_waves_cleared(cause: Wave.EndCause)
+signal wave_ended(wave: Wave, cause: Wave.State)
+signal all_waves_cleared(cause: Wave.State)
 
 
 var _waves: Array = []
+var current_wave: Wave
 
 
 @onready var _timer_between_waves: Timer = $Timer
@@ -52,32 +53,34 @@ func _ready():
 	_timer_between_waves.start()
 
 
-func spawn_wave(wave: Wave):
-	for creep_size in wave.get_creeps_combination():
+func spawn_wave(new_wave: Wave):
+	current_wave = new_wave
+	current_wave.state = Wave.State.SPAWNING
+	
+	var creep_sizes = current_wave.get_creeps_combination()
+	for creep_size in creep_sizes:
 		var creep = _creep_spawner \
-			.get_creep_scene(creep_size, wave.get_race()) \
+			.get_creep_scene(creep_size, current_wave.get_race()) \
 			.instantiate()
-		creep.set_path_curve(wave.get_wave_path())
+		creep.set_path_curve(current_wave.get_wave_path())
 		creep.set_creep_size(creep_size)
-		creep.set_armor_type(wave.get_armor_type())
-		creep.set_category(wave.get_race())
+		creep.set_armor_type(current_wave.get_armor_type())
+		creep.set_category(current_wave.get_race())
 		# TODO: set_health should be equal to base_hp * all_bonuses
-		creep._health = wave.get_base_hp()
-		creep._base_health = wave.get_base_hp()
+		creep._health = current_wave.get_base_hp()
+		creep._base_health = current_wave.get_base_hp()
 		
 		_creep_spawner.spawn_creep(creep)
-	
-	print_debug("Wave has been spawned [%s]." % wave)
-	wave_spawned.emit(wave)
 
 
-func end_wave(wave: Wave, cause: Wave.EndCause):
+func end_current_wave(wave_state: Wave.State):
 	if _waves.is_empty():
-		all_waves_cleared.emit(cause)
+		all_waves_cleared.emit()
 	else:
 		_timer_between_waves.start()
-		wave_ended.emit(wave, cause)
-	print_debug("Wave has ended [%s]." % wave)
+		wave_ended.emit(current_wave)
+	print_debug("Wave has ended [%s]." % current_wave)
+	current_wave.state = wave_state
 
 
 func _on_Timer_timeout():
@@ -100,3 +103,9 @@ func _get_wave_path(player: int, wave: Wave) -> Curve2D:
 		push_error("Could not find wave path for player [%s] and wave [%s] in "  % [player, wave] \
 			+ "a group of paths [wave_path].")
 	return _wave_paths[idx].get_curve()
+
+
+func _on_CreepSpawner_all_creeps_spawned():
+	current_wave.state = Wave.State.SPAWNED
+	print_debug("Wave has been spawned [%s]." % current_wave)
+	wave_spawned.emit(current_wave)
