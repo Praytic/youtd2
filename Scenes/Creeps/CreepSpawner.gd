@@ -45,14 +45,20 @@ func spawn_creep(creep: Creep):
 		_timer_between_creeps.start()
 
 
-func get_creep_scene(creep_size: Creep.Size, creep_race: Creep.Category) -> PackedScene:
+func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
 	var creep_size_name = Utils.screaming_snake_case_to_camel_case(Creep.Size.keys()[creep_size])
-	var creep_race_name = Utils.screaming_snake_case_to_camel_case(Creep.Category.keys()[creep_race])
+	var creep_race_name = Utils.screaming_snake_case_to_camel_case(Creep.Category.keys()[wave.get_race()])
 	var creep_scene_name = creep_race_name + creep_size_name
-	var creep_scene = _creep_scenes[creep_scene_name]
-	if not creep_scene:
-		push_error("Could not find a scene for creep size [%s] and race [%]." % [creep_size, creep_race])
-	return creep_scene
+	var creep = _creep_scenes[creep_scene_name].instantiate()
+	if not creep:
+		push_error("Could not find a scene for creep size [%s] and race [%]." % [creep_size, wave.get_race()])
+	creep.set_path(wave.get_wave_path())
+	creep.set_creep_size(creep_size)
+	creep.set_armor_type(wave.get_armor_type())
+	creep.set_category(wave.get_race())
+	creep.set_base_health(wave.get_base_hp())
+	creep.death.connect(Callable(wave, "_on_Creep_death"))
+	return creep
 
 
 func _on_Timer_timeout():

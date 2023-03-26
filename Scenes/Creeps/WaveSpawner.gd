@@ -4,11 +4,12 @@ extends Node
 const WAVE_COUNT_EASY = 80
 const WAVE_COUNT_MEDIUM = 120
 const WAVE_COUNT_HARD = 240
+const TIME_BETWEEN_WAVES = 5
 
 
 signal wave_started(wave: Wave)
 signal wave_spawned(wave: Wave)
-signal wave_ended(wave: Wave, cause: Wave.State)
+signal wave_ended(wave: Wave)
 signal all_waves_cleared
 
 
@@ -18,6 +19,7 @@ signal all_waves_cleared
 
 func _ready():
 	_timer_between_waves.set_autostart(false)
+	_timer_between_waves.set_wait_time(TIME_BETWEEN_WAVES)
 	
 	var previous_wave = null
 	for wave_number in range(1, WAVE_COUNT_EASY):
@@ -36,6 +38,8 @@ func _ready():
 		for creep_size in wave.get_creeps_combination():
 			var creep_size_name = Creep.Size.keys()[creep_size]
 			creep_combination.append(creep_size_name)
+		
+		_init_wave_creeps(wave)
 		
 		print_debug("Wave number [%s] will have creeps [%s] of race [%s] and armor type [%s]" \
 			% [wave_number, \
@@ -63,42 +67,41 @@ func spawn_wave(new_wave: Wave):
 	new_wave.state = Wave.State.SPAWNING
 	
 	var creep_sizes = new_wave.get_creeps_combination()
-	for creep_size in creep_sizes:
-		var creep = _creep_spawner \
-			.get_creep_scene(creep_size, new_wave.get_race()) \
-			.instantiate()
-		creep.set_path(new_wave.get_wave_path())
-		creep.set_creep_size(creep_size)
-		creep.set_armor_type(new_wave.get_armor_type())
-		creep.set_category(new_wave.get_race())
-		# TODO: set_base_health should be equal to base_hp * all_bonuses
-		creep.set_base_health(new_wave.get_base_hp())
-		creep.death.connect(Callable(new_wave, "_on_Creep_death"))
-		
+	for creep in new_wave.get_creeps():
 		_creep_spawner.spawn_creep(creep)
 
 
-func end_current_wave(wave_state: Wave.State):
+func _init_wave_creeps(wave: Wave):
+	var creeps = []
+	var creep_sizes = wave.get_creeps_combination()
+	for creep_size in creep_sizes:
+		var creep = _creep_spawner.generate_creep_for_wave(wave, creep_size)
+		creeps.append(creep)
+		
+	wave.set_creeps(creeps)
+
+func end_current_wave():
 	var current_wave = get_current_wave()
 	
 	print_debug("Wave has ended [%s]." % current_wave)
 	
-	current_wave.state = wave_state
+	# Send events, restart the timer
 	if get_waves().is_empty():
 		all_waves_cleared.emit()
 	else:
 		_timer_between_waves.start()
 		wave_ended.emit(current_wave)
+	
+	# Prepare variables for the next wave
+	var next_wave = current_wave.next_wave
+	current_wave.remove_from_group("current_wave")
+	next_wave.add_to_group("current_wave")
 
 
 func _on_Timer_timeout():
 	var current_wave = get_current_wave()
 	
 	spawn_wave(current_wave)
-	
-	var next_wave = current_wave.next_wave
-	current_wave.remove_from_group("current_wave")
-	next_wave.add_to_group("current_wave")
 	
 	print_debug("Wave has started [%s]." % current_wave)
 	wave_started.emit(current_wave)
@@ -138,7 +141,7 @@ func _on_Wave_ended():
 	var current_wave = get_current_wave()
 	if current_wave.state == Wave.State.CLEARED:
 		print_debug("Wave [%s] is cleared." % current_wave)
-		_timer_between_waves.start()
+		end_current_wave()
 	else:
 		push_error("Wave [%s] has ended but the state is invalid." % [current_wave])
 	

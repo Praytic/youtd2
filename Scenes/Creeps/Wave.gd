@@ -22,7 +22,7 @@ enum State {
 
 
 # Array[Creep] stores scenes of live in-game creeps
-var _creeps: Array
+var _creeps: Array : set = set_creeps, get = get_creeps
 var _id: int : set = set_id, get = get_id
 var _wave_number: int : set = set_wave_number, get = get_wave_number
 var _race: Creep.Category : set = set_race, get = get_race
@@ -39,7 +39,7 @@ var next_wave: Wave
 
 
 func _ready():
-	pass # Replace with function body.
+	set_name("Wave")
 
 
 func _process(delta):
@@ -63,8 +63,8 @@ func _process(delta):
 ###     Callbacks     ###
 #########################
 
-func _on_Creep_death(creep: Creep):
-	_creeps.erase(creep)
+func _on_Creep_death(event):
+	_creeps.erase(event.get_target())
 
 
 #########################
@@ -196,3 +196,10 @@ func get_base_hp() -> float:
 
 func is_air() -> bool:
 	return get_creep_sizes().has(Creep.Size.AIR)
+
+
+func set_creeps(creeps: Array):
+	_creeps = creeps
+
+func get_creeps() -> Array:
+	return _creeps
