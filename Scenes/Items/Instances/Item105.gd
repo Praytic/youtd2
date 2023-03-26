@@ -1,9 +1,6 @@
 # Spiderling
 extends Item
 
-# TODO: visual
-
-
 
 func _item_init():
 	var buff_type: BuffType = TriggersBuffType.new()
@@ -11,9 +8,6 @@ func _item_init():
 	_buff_type_list.append(buff_type)
 
 
-# TODO: does goldcost on website mean that each time this
-# trigger is called, gold is reduced by gold cost and if
-# there's not enough gold, the trigger stops?
 func _on_attack(event: Event):
 	var itm = self
 
