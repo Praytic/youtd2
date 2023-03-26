@@ -12,9 +12,11 @@ enum CsvProperty {
 	CREEP_CHAMPION_NUMBER = 3,
 }
 
-enum EndCause {
+enum State {
 	CLEARED,
-	DEFEAT
+	DEFEAT,
+	SPAWNED,
+	SPAWNING
 }
 
 
@@ -27,6 +29,7 @@ var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _wave_path: Curve2D : set = set_wave_path, get = get_wave_path
 # Array[Modification]
 var _modifications: Array
+var state: int
 
 
 #########################

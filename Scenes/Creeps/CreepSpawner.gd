@@ -2,6 +2,7 @@ extends Node
 
 
 signal creep_spawned(creep: Creep)
+signal all_creeps_spawned
 
 
 const MASS_SPAWN_DELAY_SEC = 0.5
@@ -20,6 +21,7 @@ var _creep_spawn_queue: Array
 
 func _ready():
 	_timer_between_creeps.set_autostart(true)
+	_timer_between_creeps.set_one_shot(false)
 	
 	# Load resources of creep scenes for each combination
 	# of Creep.Size and Creep.Category
@@ -56,8 +58,10 @@ func get_creep_scene(creep_size: Creep.Size, creep_race: Creep.Category) -> Pack
 func _on_Timer_timeout():
 	var creep = _creep_spawn_queue.pop_front()
 	if not creep:
+		print_debug("Stop creep spawn. Queue is exhausted.")
 		_timer_between_creeps.stop()
-		print_debug("Creep spawn queue is exhausted.")
+		all_creeps_spawned.emit()
+		return
 	
 	creep.death.connect(Callable(item_control, "_on_Creep_death"))
 	object_ysort.add_child(creep)
