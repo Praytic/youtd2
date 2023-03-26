@@ -30,6 +30,8 @@ func _ready():
 		var creep_scene_name = Utils.get_scene_name_from_path(creep_scene_path)
 		var preloaded_creep_scene = load(creep_scene_path)
 		_creep_scenes[creep_scene_name] = preloaded_creep_scene
+	
+	print("Creep scenes have been loaded.")
 
 
 func spawn_creep(creep: Creep):
@@ -39,6 +41,7 @@ func spawn_creep(creep: Creep):
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
 		elif creep.get_size() == Creep.Size.NORMAL:
 			_timer_between_creeps.set_wait_time(NORMAL_SPAWN_DELAY_SEC)
+		print_debug("Start creep spawn timer with delay [%s]." % _timer_between_creeps.get_wait_time())
 		_timer_between_creeps.start()
 
 
@@ -51,11 +54,13 @@ func get_creep_scene(creep_size: Creep.Size, creep_race: Creep.Category) -> Pack
 	return creep_scene
 
 
-func _on_Timer_timeout(next_creep: Creep):
+func _on_Timer_timeout():
 	var creep = _creep_spawn_queue.pop_front()
 	if not creep:
 		_timer_between_creeps.stop()
+		print_debug("Creep spawn queue is exhausted.")
 	
 	creep.death.connect(Callable(item_control, "_on_Creep_death"))
 	object_ysort.add_child(creep)
+	print_debug("Creep has been spawned [%s]." % creep)
 	creep_spawned.emit(creep)
