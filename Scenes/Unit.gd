@@ -58,6 +58,7 @@ var _mana: float = 0.0
 # TODO: define real value
 var _base_armor: float = 45.0
 var _dealt_damage_signal_in_progress: bool = false
+var _kill_count: int = 0
 
 # This is the count of towers that are currently able to see
 # this invisible creep. If there any towers that can see this
@@ -529,6 +530,8 @@ func _accept_kill(target: Unit):
 
 	var experience_gained: float = _get_experience_for_target(target)
 	add_exp_flat(experience_gained)
+
+	_kill_count += 1
 
 	var kill_event: Event = Event.new(target)
 	kill.emit(kill_event)
