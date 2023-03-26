@@ -30,12 +30,7 @@ var user_real3: float = 0.0
 # TODO: ignore_target_z - ignore target height value,
 # projectile flies straight without changing it's height to
 # match target height. Probably relevant to air units?
-# 
-# TODO: expire_when_reached - if true, overrides the
-# "lifetime" property and expires when reaching target, no
-# matter if lifetime is shorter or longer than the time it
-# takes to reach the target
-static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, _damage_ratio: float, _crit_ratio: float, from: Unit, target: Unit, targeted: bool, _ignore_target_z: bool, _expire_when_reached: bool) -> Projectile:
+static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, _damage_ratio: float, _crit_ratio: float, from: Unit, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
 	var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 	var projectile: Projectile = _projectile_scene.instantiate()
 
@@ -54,6 +49,9 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, _damage
 	projectile._target.death.connect(projectile._on_target_death)
 
 	projectile._target_position_on_creation = target.get_visual_position()
+
+	if type._lifetime > 0.0 && !expire_when_reached:
+		projectile._set_lifetime(type.lifetime)
 
 	return projectile
 
@@ -130,3 +128,14 @@ func _get_target_position() -> Vector2:
 func _on_target_death(_event: Event):
 	_last_known_position = _get_target_position()
 	_target = null
+
+
+func _set_lifetime(lifetime: float):
+	var timer: Timer = Timer.new()
+	timer.timeout.connect(_on_lifetime_timeout)
+	timer.autostart = true
+	timer.wait_time = lifetime
+
+
+func _on_lifetime_timeout():
+	queue_free()
