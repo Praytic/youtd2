@@ -169,7 +169,6 @@ func get_race() -> int:
 	return _race
 
 
-
 # Returns an array of possible Creep sizes
 # which can be spawned in this wave
 func get_creep_sizes() -> Array:

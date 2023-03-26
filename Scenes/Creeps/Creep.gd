@@ -53,10 +53,6 @@ var _height_tween: Tween = null
 
 func _ready():
 	super()
-	
-	_base_health = CREEP_HEALTH_MAX
-	_health = CREEP_HEALTH_MAX
-
 	health_changed.connect(on_health_changed)
 
 
