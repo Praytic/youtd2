@@ -1,6 +1,5 @@
 extends Tower
 
-# TODO: visual
 
 var sternbogen_broken_wind: BuffType
 

@@ -1,6 +1,5 @@
 extends Tower
 
-# TODO: visual
 
 # NOTE: the original script sets "timeLevelAdd" parameter
 # for stun debuff to 0.75 but then also passes 0 for "level"

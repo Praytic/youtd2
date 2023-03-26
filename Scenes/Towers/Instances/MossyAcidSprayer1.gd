@@ -1,6 +1,5 @@
 extends Tower
 
-# TODO: implement visual
 
 var cedi_acidarmor: BuffType
 
