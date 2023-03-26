@@ -1,22 +1,28 @@
 extends Node
 
 
-signal spawned(creep: Creep)
-signal progress_changed(progress_string)
+signal creep_spawned(creep: Creep)
 
 
+const MASS_SPAWN_DELAY_SEC = 0.5
+const NORMAL_SPAWN_DELAY_SEC = 1.5
 const CREEP_SCENE_INSTANCES_PATH = "res://Scenes/Creeps/Instances/"
 
 
 # Dict[scene_name -> Resource]
 var _creep_scenes: Dictionary
-
+var _creep_spawn_queue: Array
 
 @onready var item_control = get_tree().current_scene.get_node("%ItemControl")
 @onready var object_ysort: Node2D = get_node("%Map").get_node("ObjectYSort")
+@onready var _timer_between_creeps: Timer = $Timer
 
 
 func _ready():
+	super()
+	
+	_timer_between_creeps.set_autostart(true)
+	
 	# Load resources of creep scenes for each combination
 	# of Creep.Size and Creep.Category
 	var creep_scenes = Utils.list_files_in_directory(CREEP_SCENE_INSTANCES_PATH)
@@ -27,12 +33,13 @@ func _ready():
 
 
 func spawn_creep(creep: Creep):
-#	var creep_instance = get_creep_template(creep_size, creep_race).instantiate()
-#	creep_instance.init(path_curve, creep_size, creep_race, creep_armor_type)
-#	queue
-	object_ysort.add_child(creep)
-	creep.death.connect(Callable(item_control, "_on_Creep_death"))
-	spawned.emit(creep)
+	_creep_spawn_queue.push_back(creep)
+	if _timer_between_creeps.is_stopped():
+		if creep.get_size() == Creep.Size.MASS:
+			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
+		elif creep.get_size() == Creep.Size.NORMAL:
+			_timer_between_creeps.set_wait_time(NORMAL_SPAWN_DELAY_SEC)
+		_timer_between_creeps.start()
 
 
 func get_creep_scene(creep_size: Creep.Size, creep_race: Creep.Category) -> PackedScene:
@@ -42,3 +49,13 @@ func get_creep_scene(creep_size: Creep.Size, creep_race: Creep.Category) -> Pack
 	var creep_scene_name = creep_race_name + creep_size_name
 	var creep_scene = _creep_scenes[creep_scene_name]
 	return creep_scene
+
+
+func _on_Timer_timeout(next_creep: Creep):
+	var creep = _creep_spawn_queue.pop_front()
+	if not creep:
+		_timer_between_creeps.stop()
+	
+	creep.death.connect(Callable(item_control, "_on_Creep_death"))
+	object_ysort.add_child(creep)
+	creep_spawned.emit(creep)

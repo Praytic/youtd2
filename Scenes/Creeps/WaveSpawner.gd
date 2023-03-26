@@ -37,11 +37,17 @@ func _ready():
 
 func spawn_wave(wave: Wave):
 	for creep_size in wave.get_creeps_combination():
-		var creep = Creep.new()
+		var timer_between_creeps = 
+		var creep = _creep_spawner \
+			.get_creep_scene(creep_size, wave.get_race()) \
+			.instantiate()
 		creep.set_path_curve(wave.get_path())
 		creep.set_creep_size(creep_size)
 		creep.set_armor_type(wave.get_armor_type())
-		creep.set_category(wave.get_race)
+		creep.set_category(wave.get_race())
+		# TODO: set_health should be equal to base_hp * all_bonuses
+		creep.set_health(wave.get_base_hp())
+		creep.set_base_health(wave.get_base_hp())
 		
 		_creep_spawner.spawn_creep(creep)
 	wave_spawned.emit(wave)
