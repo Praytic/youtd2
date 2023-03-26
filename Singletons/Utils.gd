@@ -186,6 +186,18 @@ func camel_to_snake(camel_string: String) -> String:
 	return snake_string
 
 
+func screaming_snake_case_to_camel_case(screaming_snake_case: String) -> String:
+	var words = screaming_snake_case.split("_")
+	var camel_case = ""
+	
+	for i in range(words.size()):
+		if i == 0:
+			camel_case += words[i].to_lower()
+		elif words[i] != "":
+			camel_case += words[i].capitalize()
+	
+	return camel_case
+
 # TODO: maybe won't need this at all
 func add_unit_animation_properties(_unit: Unit, _mystery_string: String, _mystery_bool: bool):
 	pass
@@ -255,3 +267,13 @@ func _get_sfx_player() -> AudioStreamPlayer2D:
 	_game_scene.add_child(new_sfx_player)
 
 	return new_sfx_player
+
+func get_scene_name_from_path(absolute_path: String) -> String:
+	var regex = RegEx.new()
+	regex.compile("/([^\\/]+)\\.tscn$/")
+	var result = regex.search(absolute_path)
+	if result:
+		return result.get_string()
+	else:
+		push_error("No scenes in the path [%s]" % absolute_path)
+		return ""

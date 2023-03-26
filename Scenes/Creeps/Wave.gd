@@ -21,21 +21,23 @@ enum EndCause {
 @onready var wave_paths = get_tree().get_nodes_in_group("wave_path")
 
 
-var _id: int
-var _wave_number: int
+# Mutable
+# Array[Creep] stores scenes of live in-game creeps
 var _creeps: Array
+
+
+# Immutable
+var _id: int : set = set_id, get = get_id
+var _wave_number: int : set = set_wave_number, get = get_wave_number
+var _race: Creep.Category : set = set_race, get = get_race
+var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
+# Array[Modification]
+var _modifications: Array
 
 
 #########################
 ### Code starts here  ###
 #########################
-
-func _init(id: int, wave_number: int):
-	_id = id
-	_wave_number = wave_number
-	for creep_size in get_creeps_combination():
-		var creep = Creep.new()
-		_creeps.append(creep)
 
 
 func _ready():
@@ -60,12 +62,9 @@ func _process(delta):
 ### Setters / Getters ###
 #########################
 
+
 func get_csv_property(csv_property: Wave.CsvProperty) -> String:
 	return Properties.get_wave_csv_properties_by_id(_id)[csv_property]
-
-
-func get_wave_number() -> int:
-	return _wave_number
 
 
 func get_creep_size_type() -> String:
@@ -136,12 +135,39 @@ func get_modification() -> Array:
 
 # Armor type of the creeps
 func get_armor_type() -> ArmorType.enm:
-	# TODO:
-	return ArmorType.enm.LUA
+	return _armor_type
+
+func set_armor_type(value: ArmorType.enm):
+	_armor_type = value
 
 
 func is_challenge_wave() -> bool:
 	return get_wave_number() % 8 == 0
+
+
+func set_id(value: int):
+	_id = value
+
+
+func get_id() -> int:
+	return _id
+
+
+func set_wave_number(value: int):
+	_wave_number = value
+
+
+func get_wave_number() -> int:
+	return _wave_number
+
+
+func set_race(value: int):
+	_race = value
+
+
+func get_race() -> int:
+	return _race
+
 
 
 # Returns an array of possible Creep sizes

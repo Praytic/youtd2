@@ -22,37 +22,32 @@ var _waves: Array = []
 @onready var _timer: Timer = $Timer
 @onready var item_control = get_tree().current_scene.get_node("%ItemControl")
 @onready var object_ysort: Node2D = get_node("%Map").get_node("ObjectYSort")
-
+@onready var _creep_spawner = $CreepSpawner
 
 func _ready():
 	var wave_combinations_count = Properties.get_wave_csv_properties().size() - 1
 	for wave_number in range(0, WAVE_COUNT_EASY):
 		var wave_id = randi_range(0, wave_combinations_count)
-		var wave = Wave.new(wave_id, wave_number)
+		var wave_race = randi_range(0, Creep.Category.size())
+		var wave_armor = randi_range(0, ArmorType.enm.size())
+		
+		var wave = Wave.new()
+		wave.set_id(wave_id)
+		wave.set_wave_number(wave_number)
+		wave.set_race(wave_race)
+		wave.set_armor_type(wave_armor)
+		
 		_waves.append(wave)
 
 
-func wave_cleared
-
-func start_wave(wave_number: int, wave_id: int):
-	var parsed_json = Properties.waves[wave_index]
-	
-	if parsed_json == null:
-		push_error("wave json file is malformed, file=wave%s.json" % wave_index)
-		return
-		
-	_group_list = parsed_json
-	_group_index = 0
-	_creep_index = 0
-	_creep_spawned_count = 0
-	_creep_total_count = _get__creep_total_count()
-	
-	if _group_list.size() == 0:
-		progress_changed.emit("wave is empty, do nothing")
-		return
-	else:
-		progress_changed.emit("wave just started")
-		_timer.start(0)
+func spawn_wave(wave: Wave):
+	for creep_size in wave.get_creeps_combination():
+		var creep = Creep.new()
+		creep.set_path_curve(wave.get_path())
+		creep.set_creep_size(creep_size)
+		creep.set_armor_type(wave.get_armor_type())
+		creep.set_category(wave.get_race)
+		_creeps.append(creep)
 
 
 func stop():

@@ -1,99 +1,44 @@
 extends Node
 
 
-signal spawned(creep_name)
+signal spawned(creep: Creep)
 signal progress_changed(progress_string)
-signal wave_ended(wave_index)
 
-const creep_scene_map: Dictionary = {
-	"Creep": preload("res://Scenes/Creeps/Creep.tscn")
-}
 
-var _group_list: Array = []
-var _group_index: int = 0
-var _creep_index: int = 0
-var _creep_spawned_count: int = 0
-var _creep_total_count: int = 0
+const CREEP_SCENE_INSTANCES_PATH = "res://Scenes/Creeps/Instances/"
 
-@onready var _timer: Timer = $Timer
+
+# Dict[scene_name -> Resource]
+var _creep_scenes: Dictionary
+
+
 @onready var item_control = get_tree().current_scene.get_node("%ItemControl")
 @onready var object_ysort: Node2D = get_node("%Map").get_node("ObjectYSort")
-@onready var creep_path: Node2D = get_node("%Map").get_node("CreepPath1")
+
 
 func _ready():
-	start(0)
+	# Load resources of creep scenes for each combination
+	# of Creep.Size and Creep.Category
+	var creep_scenes = Utils.list_files_in_directory(CREEP_SCENE_INSTANCES_PATH)
+	for creep_scene_path in creep_scenes:
+		var creep_scene_name = Utils.get_scene_name_from_path(creep_scene_path)
+		var preloaded_creep_scene = load(creep_scene_path)
+		_creep_scenes[creep_scene_name] = preloaded_creep_scene
 
 
-func start(wave_index: int):
-	var parsed_json = Properties.waves[wave_index]
-	
-	if parsed_json == null:
-		push_error("wave json file is malformed, file=wave%s.json" % wave_index)
-		return
-		
-	_group_list = parsed_json
-	_group_index = 0
-	_creep_index = 0
-	_creep_spawned_count = 0
-	_creep_total_count = _get__creep_total_count()
-	
-	if _group_list.size() == 0:
-		progress_changed.emit("wave is empty, do nothing")
-		return
-	else:
-		progress_changed.emit("wave just started")
-		_timer.start(0)
+func spawn_creep(creep: Creep):
+#	var creep_instance = get_creep_template(creep_size, creep_race).instantiate()
+#	creep_instance.init(path_curve, creep_size, creep_race, creep_armor_type)
+#	queue
+	object_ysort.add_child(creep)
+	creep.death.connect(Callable(item_control, "_on_Creep_death"))
+	spawned.emit(creep)
 
 
-func stop():
-	_timer.stop()
-	
-	progress_changed.emit("wave stopped")
-
-
-func _get__creep_total_count() -> int:
-	var out: int = 0
-	
-	for group in _group_list:
-		var creep_list: Array = group["creep_list"]
-		out += creep_list.size()
-	
-	return out
-
-
-func _on_Timer_timeout():
-	var group: Dictionary = _group_list[_group_index]
-	var time_between_creeps: float = group["time_between_creeps"]
-	var creep_list: Array = group["creep_list"]
-	var time_until_next_group: float = group["time_until_next_group"]
-	
-	var group_ended = _creep_index >= creep_list.size()
-	
-	if group_ended:
-#		Go to next group
-		var wave_is_over = _group_index == _group_list.size() - 1
-		
-		if wave_is_over:
-			wave_ended.emit(_group_index)
-			return
-		
-		_group_index += 1
-		_creep_index = 0
-		_timer.start(time_until_next_group)
-	else:
-# 		Spawn next creep
-		var creep: String = creep_list[_creep_index]
-		_creep_index += 1
-		_timer.start(time_between_creeps)
-		
-		_creep_spawned_count += 1
-		
-		var creep_scene: Creep = creep_scene_map[creep].instantiate()
-		creep_scene.set_path(creep_path)
-		object_ysort.add_child(creep_scene)
-		creep_scene.death.connect(Callable(item_control, "_on_Creep_death"))
-		spawned.emit(creep)
-	
-	var progress_string: String = "Group: %d/%d; Creep: %d/%d" % [_group_index + 1, _group_list.size(), _creep_spawned_count, _creep_total_count]
-	
-	progress_changed.emit(progress_string)
+func get_creep_scene(creep_size: Creep.Size, creep_race: Creep.Category) -> PackedScene:
+	var instance
+	var creep_size_name = Utils.screaming_snake_case_to_camel_case(Creep.Size.get(creep_size))
+	var creep_race_name = Utils.screaming_snake_case_to_camel_case(Creep.Category.get(creep_race))
+	var creep_scene_name = creep_race_name + creep_size_name
+	var creep_scene = _creep_scenes[creep_scene_name]
+	return creep_scene
