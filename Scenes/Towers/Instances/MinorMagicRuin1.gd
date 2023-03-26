@@ -1,8 +1,6 @@
 extends Tower
 
 
-# TODO: implement visual
-
 var drol_magic_ruin: BuffType
 
 

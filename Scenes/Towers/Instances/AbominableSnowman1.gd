@@ -1,7 +1,5 @@
 extends Tower
 
-# TODO: visual
-
 
 func _get_tier_stats() -> Dictionary:
 	return {

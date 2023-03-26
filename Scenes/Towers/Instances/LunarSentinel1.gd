@@ -1,7 +1,5 @@
 extends Tower
 
-# TODO: visual
-
 
 var sir_moonp_buff: BuffType
 

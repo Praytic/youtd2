@@ -1,9 +1,5 @@
 extends Tower
 
-# TODO: find out "required element level" and "required wave level" for .csv file
-# TODO: add sprites and icons
-# TODO: instant kill looks weird because creep disappears and projectile doesn't fly to it. Confirm what is the concept of "attack". Currently "attack" is the moment before projectile is shot.
-
 
 func _get_tier_stats() -> Dictionary:
 	return {

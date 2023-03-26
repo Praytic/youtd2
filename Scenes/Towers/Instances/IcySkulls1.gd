@@ -1,6 +1,5 @@
 extends Tower
 
-# TODO: implement visual
 
 var cassim_slow: BuffType
 
