@@ -13,3 +13,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func get_start() -> Vector2:
+	var curve: Curve2D = get_curve()
+	return curve.get_point_in(0)
+	

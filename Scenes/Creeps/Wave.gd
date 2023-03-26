@@ -26,7 +26,7 @@ var _id: int : set = set_id, get = get_id
 var _wave_number: int : set = set_wave_number, get = get_wave_number
 var _race: Creep.Category : set = set_race, get = get_race
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
-var _wave_path: Curve2D : set = set_wave_path, get = get_wave_path
+var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
 # Array[Modification]
 var _modifications: Array
 var state: int
@@ -112,11 +112,11 @@ func is_bonus_wave() -> bool:
 
 
 # Path of the creeps to follow toward the portal
-func get_wave_path() -> Curve2D:
+func get_wave_path() -> Path2D:
 	return _wave_path
 
 
-func set_wave_path(value: Curve2D):
+func set_wave_path(value: Path2D):
 	_wave_path = value
 
 

@@ -33,7 +33,7 @@ const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
 const SELECTION_SIZE: int = 64
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 
-var _path_curve: Curve2D : set = set_path_curve, get = get_path_curve
+var _path_curve: Curve2D : get = get_path_curve
 var _size: Creep.Size : set = set_creep_size, get = get_creep_size
 var _category: Creep.Category : set = set_category, get = get_category
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
@@ -52,7 +52,6 @@ var _height_tween: Tween = null
 #########################
 
 func _ready():
-	super()
 	health_changed.connect(on_health_changed)
 
 
@@ -177,9 +176,6 @@ func get_unit_facing() -> float:
 	return _facing_angle
 
 
-func set_path_curve(value: Curve2D) -> void:
-	_path_curve = value
-
 func get_path_curve() -> Curve2D:
 	return _path_curve
 
@@ -213,5 +209,5 @@ func get_display_name() -> String:
 
 
 func set_path(path: Path2D):
-	_path_curve = path.curve
+	_path_curve = path.get_curve()
 	position = _path_curve.get_point_position(0)
