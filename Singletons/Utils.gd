@@ -191,10 +191,7 @@ func screaming_snake_case_to_camel_case(screaming_snake_case: String) -> String:
 	var camel_case = ""
 	
 	for i in range(words.size()):
-		if i == 0:
-			camel_case += words[i].to_lower()
-		elif words[i] != "":
-			camel_case += words[i].capitalize()
+		camel_case += words[i].capitalize()
 	
 	return camel_case
 
@@ -267,13 +264,3 @@ func _get_sfx_player() -> AudioStreamPlayer2D:
 	_game_scene.add_child(new_sfx_player)
 
 	return new_sfx_player
-
-func get_scene_name_from_path(absolute_path: String) -> String:
-	var regex = RegEx.new()
-	regex.compile("/([^\\/]+)\\.tscn$/")
-	var result = regex.search(absolute_path)
-	if result:
-		return result.get_string()
-	else:
-		push_error("No scenes in the path [%s]" % absolute_path)
-		return ""
