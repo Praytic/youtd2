@@ -2,27 +2,28 @@ class_name Tower
 extends Building
 
 
+# NOTE: order of CsvProperty enums must match the order of
+# the columns in tower_properties.csv
 enum CsvProperty {
-	SCENE_NAME = 0,
-	NAME = 1,
-	ID = 2,
-	FAMILY_ID = 3,
-	AUTHOR = 4,
-	RARITY = 5,
-	ELEMENT = 6,
-	ATTACK_TYPE = 7,
-	ATTACK_RANGE = 8,
-	ATTACK_CD = 9,
-	ATTACK_DAMAGE_MIN = 10,
-	ATTACK_DAMAGE_MAX = 11,
-	MANA = 12,
-	MANA_REGEN = 13,
-	COST = 14,
-	DESCRIPTION = 15,
-	TIER = 16,
-	REQUIRED_ELEMENT_LEVEL = 17,
-	REQUIRED_WAVE_LEVEL = 18,
-	ICON_ATLAS_NUM = 19,
+	NAME,
+	TIER,
+	ID,
+	FAMILY_ID,
+	AUTHOR,
+	RARITY,
+	ELEMENT,
+	ATTACK_TYPE,
+	ATTACK_RANGE,
+	ATTACK_CD,
+	ATTACK_DAMAGE_MIN,
+	ATTACK_DAMAGE_MAX,
+	MANA,
+	MANA_REGEN,
+	COST,
+	DESCRIPTION,
+	REQUIRED_ELEMENT_LEVEL,
+	REQUIRED_WAVE_LEVEL,
+	ICON_ATLAS_NUM,
 }
 
 enum AttackStyle {
@@ -594,10 +595,9 @@ func get_dps_with_crit():
 func get_damage():
 	return 1.0
 
-# TODO: implement
 # How much kills the tower has in total
 func get_kills():
-	return 1.0
+	return _kill_count
 
 # TODO: implement
 # What was the max hit damage the tower dealt

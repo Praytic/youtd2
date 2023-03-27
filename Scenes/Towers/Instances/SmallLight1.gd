@@ -1,6 +1,5 @@
 extends Tower
 
-# TODO: visual
 
 var sternbogen_holy_buff: BuffType
 

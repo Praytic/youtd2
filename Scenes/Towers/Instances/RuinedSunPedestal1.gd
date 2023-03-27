@@ -1,9 +1,6 @@
 extends Tower
 
 
-# TODO: implement visual
-
-
 func _get_tier_stats() -> Dictionary:
 	return {
 		1: {bounce_decrease = 0.50, undead_damage = 0.20, undead_damage_add = 0.020},

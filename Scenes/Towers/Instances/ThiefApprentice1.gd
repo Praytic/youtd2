@@ -1,6 +1,5 @@
 extends Tower
 
-# TODO: visual
 
 var m0ck_thief_multiboard: MultiboardValues
 var mOck_steal: ProjectileType
@@ -47,8 +46,6 @@ func on_create():
 	Utils.add_unit_animation_properties(tower, "stand alternate", false)
 
 
-# TODO: currently this is not called by anyone, should be
-# called by tooltip i guess?
 func on_tower_details() -> MultiboardValues:
 	var tower = self
 	m0ck_thief_multiboard.set_value(0, str(int(tower.user_real)))

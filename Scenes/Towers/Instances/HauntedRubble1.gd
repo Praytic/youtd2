@@ -1,6 +1,5 @@
 extends Tower
 
-# TODO: implement visual
 
 var velex_slow: BuffType
 
