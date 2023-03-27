@@ -20,7 +20,6 @@ enum Type {
 
 
 # TODO: why are there two "range" variables?
-# TODO: implement arts
 var caster_art: String = ""
 var cooldown: float = 0.1
 var num_buffs_before_idle: int = 0
@@ -79,6 +78,14 @@ func _on_caster_attack(attack_event: Event):
 		return
 
 	_caster.spend_mana(mana_cost)
+
+	if !caster_art.is_empty():
+		var effect: int = Effect.create_simple_at_unit(caster_art, _caster)
+		Effect.destroy_effect(effect)
+
+	if !target_art.is_empty():
+		var effect: int = Effect.create_simple_at_unit(caster_art, target)
+		Effect.destroy_effect(effect)
 
 	var autocast_event = Event.new(target)
 	handler.call(autocast_event)
