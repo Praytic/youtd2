@@ -97,7 +97,7 @@ func get_units_in_range(type: TargetType, center: Vector2, radius: float) -> Arr
 					return false
 
 			var distance: float = Utils.vector_isometric_distance_to(center, unit.position)
-			var creep_is_in_range = distance < radius
+			var creep_is_in_range = distance <= radius
 
 			if !creep_is_in_range:
 				return false
