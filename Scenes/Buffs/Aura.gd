@@ -40,6 +40,14 @@ var _caster: Unit = null
 @onready var _timer: Timer = $Timer
 
 
+static func make(aura_data: Aura.Data, caster: Unit) -> Aura:
+	var aura_scene: PackedScene = load("res://Scenes/Buffs/Aura.tscn")
+	var aura: Aura = aura_scene.instantiate()
+	aura.set_data(aura_data, caster)
+
+	return aura
+
+
 func set_data(data: Aura.Data, caster: Unit):
 	_data = data
 	_caster = caster

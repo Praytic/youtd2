@@ -258,7 +258,5 @@ func _upgrade_or_refresh(new_level: int):
 
 
 func _add_aura(aura_data: Aura.Data):
-	var aura_scene: PackedScene = preload("res://Scenes/Buffs/Aura.tscn")
-	var aura: Aura = aura_scene.instantiate()
-	aura.set_data(aura_data, get_caster())
+	var aura: Aura = Aura.make(aura_data, get_caster())
 	add_child(aura)
