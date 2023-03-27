@@ -135,6 +135,11 @@ func add_autocast(autocast: Autocast):
 	add_child(autocast)
 
 
+func add_aura(aura_data: Aura.Data):
+	var aura: Aura = Aura.make(aura_data, self)
+	add_child(aura)
+
+
 # TODO: implement. Also move to the "owner" class that is
 # returned by getOwner(), when owner gets implemented. Find
 # out what mystery bools are for.
