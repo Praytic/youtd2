@@ -16,7 +16,7 @@ func tower_init():
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.the_range = 900
+	autocast.range = 900
 	autocast.target_self = false
 	autocast.target_art = ""
 	autocast.cooldown = 1

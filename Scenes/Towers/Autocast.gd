@@ -19,14 +19,16 @@ enum Type {
 }
 
 
-# TODO: why are there two "range" variables?
+# NOTE: cast_range is the range used when autocast is
+# manually triggered by the user, auto_range is the range
+# used for regular autocasts that cast automatically.
 var caster_art: String = ""
 var cooldown: float = 0.1
 var num_buffs_before_idle: int = 0
 var is_extended: bool = false
 var autocast_type: Autocast.Type = Type.AC_TYPE_OFFENSIVE_UNIT
 var mana_cost: int = 0
-var the_range: float = 1000
+var range: float = 1000
 var buff_type: int = 0
 var target_self: bool = false
 var target_type: TargetType = null
