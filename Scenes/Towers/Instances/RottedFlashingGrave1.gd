@@ -1,15 +1,11 @@
 extends Tower
 
-# NOTE: modified this script to use Iterate.next_random()
-# instead of re-implementing it. Also removed saving of buff
-# caster in userInt because there's no point in doing this
-# optimization in godot engine, get_caster() is a cheap
-# function call. Could've also replaced the aura with just
-# applying buff type permanently to tower but decided to
-# leave it as is.
+# NOTE: modified this script because the original did a
+# bunch of unnecessary things.
 
 
-var natac_flashingGraveRandomTarget_BuffType: BuffType
+func load_triggers(triggers_buff_type: BuffType):
+	triggers_buff_type.add_event_on_attack(self, "on_attack", 1.0, 0.0)
 
 
 func load_specials():
@@ -18,7 +14,7 @@ func load_specials():
 	add_modifier(modifier)
 
 
-func attack_random_target(event: Event):
+func on_attack(event: Event):
 	var b: Buff = event.get_buff()
 
 	var tower: Tower = b.get_caster()
@@ -26,21 +22,3 @@ func attack_random_target(event: Event):
 	var random_unit: Unit = iterator.next_random()
 
 	issue_target_order("attack", random_unit)
-
-
-func tower_init():
-	natac_flashingGraveRandomTarget_BuffType = BuffType.create_aura_effect_type("natac_flashingGraveRandomTarget_BuffType", true)
-	natac_flashingGraveRandomTarget_BuffType.add_event_on_attack(self, "attack_random_target", 1, 0)
-	
-	var aura: Aura.Data = Aura.Data.new()
-	aura.aura_range = 0
-	aura.target_type = TargetType.new(TargetType.PLAYER_TOWERS + TargetType.ELEMENT_STORM)
-	aura.target_self = true
-	aura.level = 1
-	aura.level_add = 0
-	aura.power = 1
-	aura.power_add = 0
-	aura.aura_effect_is_friendly = true
-	aura.aura_effect = natac_flashingGraveRandomTarget_BuffType
-
-	add_aura(aura)
