@@ -52,7 +52,7 @@ func _ready():
 
 
 func _on_Timer_timeout():
-	if _data.aura_effect != null:
+	if _data.aura_effect == null:
 		return
 
 	var unit_list: Array[Unit] = Utils.get_units_in_range(_data.target_type, _data.position, _data.aura_range)
@@ -60,7 +60,7 @@ func _on_Timer_timeout():
 	for unit in unit_list:
 		# NOTE: use 0.21 duration so that buff is refreshed
 		# right before it expires
-		_data.aura_effect.apply_custom_timed(_caster, _data.unit, get_level(), 0.21)
+		_data.aura_effect.apply_custom_timed(_caster, unit, get_level(), 0.21)
 
 
 func get_power() -> int:
