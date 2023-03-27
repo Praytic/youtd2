@@ -1,12 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnegqgk7ctv3m"]
+[gd_scene load_steps=5 format=3 uid="uid://duy81togpip0s"]
 
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/ObeliskOfFortuity1.gd" id="2"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/ObeliskofFortuity1.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://bih2cm30brqtv" path="res://Assets/Towers/Instances/obelisk_of_fortuity_atlas.png" id="3"]
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("3")
-region = Rect2(43, 313, 201, 275)
+region = Rect2(87, 56, 117, 200)
 
 [node name="ObeliskOfFortuity" instance=ExtResource("1")]
 script = ExtResource("2")
@@ -14,5 +14,5 @@ script = ExtResource("2")
 [node name="Model" type="Node2D" parent="." index="3"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
-position = Vector2(-1, -85)
+position = Vector2(-4, -67)
 texture = SubResource("2")

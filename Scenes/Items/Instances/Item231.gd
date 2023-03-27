@@ -1,8 +1,6 @@
 # Currency Converter
 extends Item
 
-# TODO: visual
-
 
 func _item_init():
 	var buff_type: BuffType = TriggersBuffType.new()

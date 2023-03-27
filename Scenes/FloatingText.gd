@@ -1,8 +1,6 @@
 extends Node2D
 
 
-# TODO: update to new tween API
-
 @onready var label: Label = $Label
 var text: String = "placeholder"
 var duration: float = 1.0

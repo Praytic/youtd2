@@ -1,6 +1,5 @@
 extends Tower
 
-# TODO: visual
 
 var drol_tentacleDot: BuffType
 
