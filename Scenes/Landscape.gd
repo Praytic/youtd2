@@ -34,3 +34,13 @@ func can_build_at_mouse_pos() -> bool:
 	var buildable_area_cell_exists_at_pos: bool = _tilemap.get_cell_source_id(BUILDABLE_AREA_LAYER, map_pos) != -1
 
 	return buildable_area_cell_exists_at_pos
+
+
+# NOTE: layer index is double floor index because between
+# each floor there is a layer for connecting wall tiles.
+func world_height_to_z_index(height: float) -> int:
+	var floor_index: int = height / Constants.TILE_HEIGHT
+	var layer_index: int = min(floor_index * 2, _tilemap.get_layers_count() - 1)
+	var layer_z_index: int = _tilemap.get_layer_z_index(layer_index)
+
+	return layer_z_index

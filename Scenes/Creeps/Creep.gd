@@ -45,6 +45,7 @@ var _height_tween: Tween = null
 @onready var _visual = $Visual
 @onready var _sprite = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar
+@onready var _landscape = get_tree().get_root().get_node("GameScene/Map")
 
 
 #########################
@@ -58,6 +59,11 @@ func _ready():
 	_health_bar.set_min(0.0)
 	_health_bar.set_value(max_health)
 	health_changed.connect(_on_health_changed)
+
+	if _size == Creep.Size.AIR:
+		var height: float = 2 * Constants.TILE_HEIGHT
+		_visual.position.y = -height
+		z_index = _landscape.world_height_to_z_index(height)
 
 
 func _process(delta):
