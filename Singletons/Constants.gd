@@ -20,3 +20,5 @@ enum Rarity {
 	RARE,
 	UNIQUE,
 }
+
+const TILE_HEIGHT: float = 128.0
