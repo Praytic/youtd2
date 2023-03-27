@@ -63,6 +63,8 @@ var _target_count_max: int = 1
 var _default_projectile_type: ProjectileType
 var _order_stop_requested: bool = false
 var _current_attack_cooldown: float = 0.0
+var _target_order_issued: bool = false
+var _target_order_target: Unit
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -163,6 +165,16 @@ func order_stop():
 	_order_stop_requested = true
 
 
+# NOTE: "attack" is the only order_type encountered in tower
+# scripts so ignore that parameter
+func issue_target_order(order_type: String, target: Unit):
+	if order_type != "attack":
+		print_debug("Unhandled order_type in issue_target_order()")
+
+	_target_order_issued = true
+	_target_order_target = target
+
+
 #########################
 ###      Private      ###
 #########################
@@ -205,13 +217,23 @@ func _set_target_count(count: int):
 	_target_count_max = count
 
 
-func _tower_attack(target: Unit):
+func _tower_attack(target_arg: Unit):
+	var target: Unit = target_arg
+
 	var attack_event: Event = Event.new(target)
 	super._do_attack(attack_event)
 
 	if _order_stop_requested:
 		_order_stop_requested = false
 
+		return
+
+	if issue_target_order:
+		_target_order_issued = false
+
+		target = _target_order_target
+
+	if target == null:
 		return
 
 	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, self, target, true, false, true)

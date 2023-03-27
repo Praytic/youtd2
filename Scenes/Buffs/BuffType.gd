@@ -22,6 +22,12 @@ var _range_handler_list: Array = []
 var _aura_data_list: Array[Aura.Data] = []
 
 
+static func create_aura_effect_type(type: String, friendly: bool) -> BuffType:
+	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, true)
+
+	return buff_type
+
+
 func _init(type: String, time_base: float, time_level_add: float, friendly: bool):
 	_type = type
 	_time_base = time_base
