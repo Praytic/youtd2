@@ -8,6 +8,7 @@ signal all_creeps_spawned
 const MASS_SPAWN_DELAY_SEC = 0.2
 const NORMAL_SPAWN_DELAY_SEC = 0.9
 const CREEP_SCENE_INSTANCES_PATH = "res://Scenes/Creeps/Instances/"
+const PRINT_ENABLED: bool = false
 
 
 # Dict[scene_name -> Resource]
@@ -31,7 +32,7 @@ func _ready():
 		var preloaded_creep_scene = load(CREEP_SCENE_INSTANCES_PATH + creep_scene_path)
 		_creep_scenes[creep_scene_name] = preloaded_creep_scene
 	
-	print("Creep scenes have been loaded.")
+	creep_spawner_print("Creep scenes have been loaded.")
 
 
 func spawn_creep(creep: Creep):
@@ -41,7 +42,7 @@ func spawn_creep(creep: Creep):
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
 		elif creep.get_creep_size() == Creep.Size.NORMAL:
 			_timer_between_creeps.set_wait_time(NORMAL_SPAWN_DELAY_SEC)
-		print_debug("Start creep spawn timer with delay [%s]." % _timer_between_creeps.get_wait_time())
+		creep_spawner_print("Start creep spawn timer with delay [%s]." % _timer_between_creeps.get_wait_time())
 		_timer_between_creeps.start()
 
 
@@ -64,12 +65,17 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
 func _on_Timer_timeout():
 	var creep = _creep_spawn_queue.pop_front()
 	if not creep:
-		print_debug("Stop creep spawn. Queue is exhausted.")
+		creep_spawner_print("Stop creep spawn. Queue is exhausted.")
 		_timer_between_creeps.stop()
 		all_creeps_spawned.emit()
 		return
 	
 	creep.death.connect(Callable(item_control, "_on_Creep_death"))
 	object_ysort.add_child(creep, true)
-	print_debug("Creep has been spawned [%s]." % creep)
+	creep_spawner_print("Creep has been spawned [%s]." % creep)
 	creep_spawned.emit(creep)
+
+
+func creep_spawner_print(args):
+	if PRINT_ENABLED:
+		print(args)
