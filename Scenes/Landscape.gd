@@ -2,14 +2,30 @@ extends Node2D
 
 const BUILDABLE_AREA_LAYER: int = 3
 
-@onready var play_area: CollisionShape2D = $PlayArea/CollisionShape2D
+@onready var play_area: Area2D = $PlayArea
+@onready var play_area_shape: CollisionShape2D = $PlayArea/CollisionShape2D
 @onready var _tilemap: TileMap = $TileMap
+@onready var camera: Camera2D = %Map/Camera2D
+
+
+func _ready():
+	var s = play_area.scale
+	var ss = play_area_shape.scale
+	var ps = get_play_area_size()
+	var pp = get_play_area_pos()
+	camera.limit_bottom = pp.y + ps.y / 2 * s.y * ss.y
+	camera.limit_top = pp.y - ps.y / 2 * s.y * ss.y
+	camera.limit_left = pp.x - ps.x / 2 * s.x * ss.x
+	camera.limit_right = pp.x + ps.x / 2 * s.x * ss.x
+	camera.position = pp
+	print_debug("Set camera limits to [lb: %s, lt: %s, ll: %s, lr: %s] and pos [%s]" % camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right, pp)
+
 
 func get_play_area_size() -> Vector2:
-	return play_area.get_shape().size
+	return play_area_shape.get_shape().size
 
 func get_play_area_pos() -> Vector2:
-	return play_area.global_position
+	return play_area_shape.global_position
 
 # Returns cursor position if the area is not buildable
 # Returns tilemap position if the area is buildable
