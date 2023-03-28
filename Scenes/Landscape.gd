@@ -38,7 +38,7 @@ func get_current_buildable_pos() -> Vector2:
 	if mouse_is_on_buildable_cell:
 		var clamped_world_pos: Vector2 = _tilemap.map_to_local(map_pos)
 
-		return clamped_world_pos
+		return clamped_world_pos + _tilemap.position
 	else:
 		var mouse_pos: Vector2 = get_global_mouse_position()
 
