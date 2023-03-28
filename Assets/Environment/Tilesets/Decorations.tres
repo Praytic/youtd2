@@ -1,0 +1,39 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://c2ke1gy0rnehu"]
+
+[ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://Assets/Atlas/Barrels.png" id="1_6p7yy"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ebcbt"]
+texture = ExtResource("1_6p7yy")
+margins = Vector2i(4, 4)
+separation = Vector2i(8, 8)
+texture_region_size = Vector2i(256, 512)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 192)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 192)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 192)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, 192)
+4:0/0 = 0
+4:0/0/texture_origin = Vector2i(0, 192)
+5:0/0 = 0
+5:0/0/texture_origin = Vector2i(0, 192)
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, 192)
+4:1/0 = 0
+4:1/0/texture_origin = Vector2i(0, 192)
+3:1/0 = 0
+3:1/0/texture_origin = Vector2i(0, 192)
+2:1/0 = 0
+2:1/0/texture_origin = Vector2i(0, 192)
+1:1/0 = 0
+1:1/0/texture_origin = Vector2i(0, 192)
+0:1/0 = 0
+0:1/0/texture_origin = Vector2i(0, 192)
+
+[resource]
+tile_shape = 1
+tile_layout = 5
+tile_size = Vector2i(128, 64)
+sources/0 = SubResource("TileSetAtlasSource_ebcbt")
