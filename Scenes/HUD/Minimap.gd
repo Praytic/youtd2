@@ -1,6 +1,6 @@
 extends Control
 
-@onready var default_camera = get_node("%Camera3D")
+@onready var default_camera = get_node("%Camera2D")
 @onready var minimap_camera = $SubViewportContainer/SubViewport/MinimapCamera
 @onready var minimap_texture = $SubViewportContainer/SubViewport/MinimapTexture
 @onready var camera_projection = $SubViewportContainer/SubViewport/CameraProjection

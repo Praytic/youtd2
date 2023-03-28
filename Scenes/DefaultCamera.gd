@@ -8,11 +8,9 @@ signal camera_zoomed(zoom_value)
 @export var minimum_zoom_out: float = 10.0
 @export var zoom_sensitivity: float = 1.0
 @export var mousewheel_zoom_speed: float = 0.4
+
+
 var move_direction: Vector2
-
-
-func _ready():
-	pass
 
 
 func _physics_process(delta):
