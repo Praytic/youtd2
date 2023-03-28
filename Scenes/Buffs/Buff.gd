@@ -119,7 +119,7 @@ func get_buffed_unit() -> Unit:
 	return _target
 
 
-func expire():
+func remove_buff():
 	_on_timer_timeout()
 
 

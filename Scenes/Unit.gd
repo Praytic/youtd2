@@ -772,6 +772,12 @@ func get_spell_crit_damage() -> float:
 func get_base_attack_speed() -> float:
 	return _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
 
+# TODO: what's the difference between
+# get_base_attack_speed() and get_current_attack_speed()?
+# There shouldn't be any other modifications that affect it.
+func get_current_attack_speed() -> float:
+	return _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
+
 func get_level() -> int:
 	return _level
 
