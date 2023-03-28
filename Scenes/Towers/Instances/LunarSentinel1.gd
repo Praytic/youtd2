@@ -22,7 +22,7 @@ func tower_init():
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-	autocast.range = 1200
+	autocast.cast_range = 1200
 	autocast.target_self = false
 	autocast.target_art = "Abilities/Spells/Items/AIil/AIilTarget.mdl"
 	autocast.cooldown = 2
