@@ -90,7 +90,7 @@ func _ready():
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
 
-	var attack_range: float = get_attack_range()
+	var attack_range: float = get_range()
 	_range_indicator.set_radius(attack_range)
 
 	mana_changed.connect(_on_mana_changed)
@@ -271,7 +271,7 @@ func _get_base_properties() -> Dictionary:
 
 
 func _on_modify_property():
-	var attack_range: float = get_attack_range()
+	var attack_range: float = get_range()
 	Utils.circle_polygon_set_radius(_collision_polygon, attack_range)
 
 
@@ -631,7 +631,7 @@ func get_kills():
 func get_best_hit():
 	return 1.0
 
-func get_attack_range() -> float:
+func get_range() -> float:
 	return get_csv_property(CsvProperty.ATTACK_RANGE).to_float()
 
 func get_rarity() -> String:

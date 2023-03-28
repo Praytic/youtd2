@@ -55,7 +55,7 @@ func remove_from_tower():
 	_carrier.remove_modifier(_modifier)
 
 	for buff in _applied_buff_list:
-		buff.expire()
+		buff.remove_buff()
 
 	_applied_buff_list.clear()
 
