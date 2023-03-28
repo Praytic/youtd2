@@ -228,7 +228,7 @@ func _tower_attack(target_arg: Unit):
 
 		return
 
-	if issue_target_order:
+	if _target_order_issued:
 		_target_order_issued = false
 
 		target = _target_order_target
