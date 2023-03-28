@@ -13,6 +13,8 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 var _loaded_sfx_map: Dictionary = {}
 var _sfx_player_list: Array = []
 
+const LOG_DEBUG_ENABLED: bool = false
+
 
 func sfx_at_unit(sfx_name: String, unit: Unit):
 	var sfx_exists: bool = FileAccess.file_exists(sfx_name)
@@ -226,6 +228,15 @@ func bit_is_set(mask: int, bit: int) -> bool:
 # TODO: implement
 func format_float(x: float, _digits: int) -> String:
 	return str(x)
+
+
+# NOTE: use for print calls that should be easy to
+# enable/disable globally. This is a workaround for godot's
+# native print_debug() not being disabled in non-debug
+# builds.
+func log_debug(args):
+	if LOG_DEBUG_ENABLED:
+		print_debug(args)
 
 
 func _load_sfx(sfx_name: String) -> AudioStreamMP3:
