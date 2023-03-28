@@ -23,34 +23,19 @@ extends Node2D
 # enters aura of same type but higher level effect.
 
 
-class Data:
-	var aura_range: float = 10.0
-	var target_type: TargetType = null
-	var target_self: bool = false
-	var level: int = 0
-	var level_add: int = 0
-	var power: int = 0
-	var power_add: int = 0
-	var aura_effect_is_friendly: bool = false
-	var aura_effect: BuffType = null
+var _aura_range: float = 10.0
+var _target_type: TargetType = null
+var _target_self: bool = false
+var _level: int = 0
+var _level_add: int = 0
+var _power: int = 0
+var _power_add: int = 0
+var _aura_effect_is_friendly: bool = false
+var _aura_effect: BuffType = null
 
-var _data: Data
 var _caster: Unit = null
 
 @onready var _timer: Timer = $Timer
-
-
-static func make(aura_data: Aura.Data, caster: Unit) -> Aura:
-	var aura_scene: PackedScene = load("res://Scenes/Buffs/Aura.tscn")
-	var aura: Aura = aura_scene.instantiate()
-	aura.set_data(aura_data, caster)
-
-	return aura
-
-
-func set_data(data: Aura.Data, caster: Unit):
-	_data = data
-	_caster = caster
 
 
 func _ready():
@@ -58,25 +43,28 @@ func _ready():
 	_timer.wait_time = 0.2
 	_timer.start()
 
+# 	NOTE: supress "variable never used" warning 
+	_aura_effect_is_friendly = _aura_effect_is_friendly
+
 
 func _on_Timer_timeout():
-	if _data.aura_effect == null:
+	if _aura_effect == null:
 		return
 
-	var unit_list: Array[Unit] = Utils.get_units_in_range(_data.target_type, _caster.position, _data.aura_range)
+	var unit_list: Array[Unit] = Utils.get_units_in_range(_target_type, _caster.position, _aura_range)
 
-	if !_data.target_self:
+	if !_target_self:
 		unit_list.erase(_caster)
 
 	for unit in unit_list:
 		# NOTE: use 0.21 duration so that buff is refreshed
 		# right before it expires
-		_data.aura_effect.apply_custom_timed(_caster, unit, get_level(), 0.21)
+		_aura_effect.apply_custom_timed(_caster, unit, get_level(), 0.21)
 
 
 func get_power() -> int:
-	return _data.power + _caster.get_level() * _data.power_add
+	return _power + _caster.get_level() * _power_add
 
 
 func get_level() -> int:
-	return _data.level + _caster.get_level() * _data.level_add
+	return _level + _caster.get_level() * _level_add

@@ -137,8 +137,8 @@ func add_autocast(autocast: Autocast):
 	add_child(autocast)
 
 
-func add_aura(aura_data: Aura.Data):
-	var aura: Aura = Aura.make(aura_data, self)
+func add_aura(aura_type: AuraType):
+	var aura: Aura = aura_type.make(self)
 	add_child(aura)
 
 
