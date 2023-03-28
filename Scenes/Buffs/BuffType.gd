@@ -19,11 +19,11 @@ var _modifier: Modifier = Modifier.new()
 var _event_handler_list: Array = []
 var _periodic_handler_list: Array = []
 var _range_handler_list: Array = []
-var _aura_data_list: Array[Aura.Data] = []
+var _aura_type_list: Array[AuraType] = []
 
 
 static func create_aura_effect_type(type: String, friendly: bool) -> BuffType:
-	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, true)
+	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, friendly)
 
 	return buff_type
 
@@ -89,8 +89,8 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	for handler in _range_handler_list:
 		buff._add_event_handler_unit_comes_in_range(handler.handler_object, handler.handler_function, handler.radius, handler.target_type)
 
-	for aura_data in _aura_data_list:
-		buff._add_aura(aura_data)
+	for aura_type in _aura_type_list:
+		buff._add_aura(aura_type)
 
 	target._add_buff_internal(buff)
 
@@ -219,8 +219,8 @@ func add_event_on_expire(handler_object: Object, handler_function: String):
 	add_event_handler(Event.Type.EXPIRE, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_aura(aura_data: Aura.Data):
-	_aura_data_list.append(aura_data)
+func add_aura(aura_type: AuraType):
+	_aura_type_list.append(aura_type)
 
 
 func _check_handler_exists(handler_object: Object, handler_function: String) -> bool:

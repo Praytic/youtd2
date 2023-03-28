@@ -8,28 +8,25 @@ extends BuffType
 # will stay visible.
 
 
-var magical_sight_aura_scene = preload("res://Scenes/Buffs/Aura.tscn")
-
-
 func _init(radius: float):
 	super("magical_sight", 0, 0, true)
 
-	var aura_effect: BuffType = BuffType.new("", 0, 0, false)
-	aura_effect.add_event_on_create(self, "on_effect_create")
-	aura_effect.set_event_on_cleanup(self, "on_effect_cleanup")
+	var magical_sight_debuff: BuffType = BuffType.create_aura_effect_type("magical_sight_debuff", false)
+	magical_sight_debuff.add_event_on_create(self, "on_effect_create")
+	magical_sight_debuff.set_event_on_cleanup(self, "on_effect_cleanup")
 	
-	var aura: Aura.Data = Aura.Data.new()
-	aura.aura_range = radius
-	aura.target_type = TargetType.new(TargetType.CREEPS)
-	aura.target_self = false
-	aura.level = 0
-	aura.level_add = 0
-	aura.power = 0
-	aura.power_add = 0
-	aura.aura_effect_is_friendly = false
-	aura.aura_effect = aura_effect
+	var aura_type: AuraType = AuraType.new()
+	aura_type.aura_range = radius
+	aura_type.target_type = TargetType.new(TargetType.CREEPS)
+	aura_type.target_self = false
+	aura_type.level = 0
+	aura_type.level_add = 0
+	aura_type.power = 0
+	aura_type.power_add = 0
+	aura_type.aura_effect_is_friendly = false
+	aura_type.aura_effect = magical_sight_debuff
 
-	add_aura(aura)
+	add_aura(aura_type)
 
 
 func on_effect_create(event: Event):

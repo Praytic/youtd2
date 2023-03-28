@@ -257,6 +257,6 @@ func _upgrade_or_refresh(new_level: int):
 		_call_event_handler_list(Event.Type.REFRESH, refresh_event)
 
 
-func _add_aura(aura_data: Aura.Data):
-	var aura: Aura = Aura.make(aura_data, get_caster())
+func _add_aura(aura_type: AuraType):
+	var aura: Aura = aura_type.make(get_caster())
 	add_child(aura)
