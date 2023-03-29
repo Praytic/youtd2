@@ -1,10 +1,10 @@
 extends Node
 
 
-const WAVE_COUNT_EASY = 3
+const WAVE_COUNT_EASY = 80
 const WAVE_COUNT_MEDIUM = 120
 const WAVE_COUNT_HARD = 240
-const TIME_BETWEEN_WAVES = 0.1
+const TIME_BETWEEN_WAVES = 5
 
 
 signal wave_started(wave: Wave)
