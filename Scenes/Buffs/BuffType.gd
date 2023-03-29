@@ -223,6 +223,12 @@ func add_aura(aura_type: AuraType):
 	_aura_type_list.append(aura_type)
 
 
+# TODO: implement. Probably need to display this effect on
+# buffed unit while buff is active.
+func set_special_effect_simple(_effect: String):
+	pass
+
+
 func _check_handler_exists(handler_object: Object, handler_function: String) -> bool:
 	var exists: bool = handler_object.has_method(handler_function)
 
