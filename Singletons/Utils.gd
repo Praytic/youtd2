@@ -204,6 +204,18 @@ func add_unit_animation_properties(_unit: Unit, _mystery_string: String, _myster
 	pass
 
 
+# Perform a move_toward() operation in isometric space. This
+# means that same delta will look visually slower when
+# moving vertically than horizontally.
+func vector_isometric_move_toward(start: Vector2, end: Vector2, delta: float) -> Vector2:
+	var delta_vector_top_down = (end - start).normalized() * delta
+	var delta_vector_isometric: Vector2 = Vector2(delta_vector_top_down.x, delta_vector_top_down.y / 2)
+	var isometric_delta: float = delta_vector_isometric.length()
+	var move_result: Vector2 = start.move_toward(end, isometric_delta)
+
+	return move_result
+
+
 # Takes a vector in isometric space and calculates it's
 # length in 3d space. Should be used for all distance
 # calculations.
