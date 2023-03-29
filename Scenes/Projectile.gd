@@ -66,6 +66,15 @@ static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, 
 func _ready():
 	_initial_scale = scale
 
+#	NOTE: target may die before projectile is created, for
+#	example if tower's special on attack ability kills
+#	target before projectile is created. In such cases,
+#	projectile won't respond to target's death() signal, so
+#	we need to manually call it to save dead target's
+#	position.
+	if _target.is_dead():
+		_on_target_death(Event.new(_target))
+
 
 func _process(delta):
 #	Move towards target
