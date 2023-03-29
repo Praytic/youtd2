@@ -396,7 +396,7 @@ func _on_projectile_target_hit_splash(_projectile: Projectile, target: Unit):
 	creep_list.erase(splash_target)
 
 	for neighbor in creep_list:
-		var distance: float = Utils.vector_isometric_distance_to(splash_pos, neighbor.position)
+		var distance: float = Isometric.vector_distance_to(splash_pos, neighbor.position)
 
 		for splash_range in splash_range_list:
 			var creep_is_in_range: bool = distance < splash_range
