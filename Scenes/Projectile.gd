@@ -71,8 +71,8 @@ func _process(delta):
 #	Move towards target
 	var target_pos = _get_target_position()
 	var pos_diff = target_pos - position
-	var move_vector = _speed * pos_diff.normalized() * delta
-	position += move_vector
+	var move_delta: float = _speed * delta
+	position = Utils.vector_isometric_move_toward(position, target_pos, move_delta)
 
 	var distance: float = Utils.vector_isometric_length(pos_diff)
 	var reached_target = distance < CONTACT_DISTANCE
