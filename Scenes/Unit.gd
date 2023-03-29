@@ -90,6 +90,7 @@ func _init():
 	_mod_value_map[Modification.Type.MOD_MOVESPEED] = 1.0
 	_mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT] = 1.0
 	_mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED] = 1.0
+	_mod_value_map[Modification.Type.MOD_ATTACKSPEED] = 1.0
 
 	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL] = 1.0
 	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL] = 1.0
@@ -772,7 +773,7 @@ func get_spell_crit_damage() -> float:
 # contains "base", this f-n returns value which includes
 # modifiers.
 func get_base_attack_speed() -> float:
-	return _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
+	return max(0, _mod_value_map[Modification.Type.MOD_ATTACKSPEED])
 
 func get_level() -> int:
 	return _level

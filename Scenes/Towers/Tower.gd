@@ -559,7 +559,7 @@ func get_base_cooldown() -> float:
 func get_overall_cooldown() -> float:
 	var attack_cooldown: float = get_base_cooldown()
 	var attack_speed_mod: float = get_base_attack_speed()
-	var overall_cooldown: float = attack_cooldown * (1.0 + attack_speed_mod)
+	var overall_cooldown: float = attack_cooldown / attack_speed_mod
 	overall_cooldown = max(ATTACK_CD_MIN, overall_cooldown)
 
 	return overall_cooldown
