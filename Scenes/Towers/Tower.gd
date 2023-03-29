@@ -565,6 +565,13 @@ func get_overall_cooldown() -> float:
 	return overall_cooldown
 
 
+# NOTE: this f-n returns overall cooldown even though that
+# doesn't match the name. See "M.E.F.I.S. Rocket" tower
+# script for proof.
+func get_current_attack_speed() -> float:
+	return get_overall_cooldown()
+
+
 # TODO: i think this is supposed to return the player that
 # owns the tower? Implement later. For now implementing
 # owner's function in tower itself and returning tower from

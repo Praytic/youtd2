@@ -767,15 +767,11 @@ func get_spell_crit_chance() -> float:
 func get_spell_crit_damage() -> float:
 	return _mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE]
 
-# The Base Cooldown is divided by this value. Towers gain some attackspeed per level and items, 
-# buffs and auras can grant attackspeed.
+# Returns current value of "attack speed" stat which scales
+# tower's attack cooldown. Note that even though name
+# contains "base", this f-n returns value which includes
+# modifiers.
 func get_base_attack_speed() -> float:
-	return _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
-
-# TODO: what's the difference between
-# get_base_attack_speed() and get_current_attack_speed()?
-# There shouldn't be any other modifications that affect it.
-func get_current_attack_speed() -> float:
 	return _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
 
 func get_level() -> int:
