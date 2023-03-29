@@ -62,7 +62,7 @@ func _on_caster_attack(attack_event: Event):
 	
 # 	NOTE: caster may have higher attack range than autocast
 # 	so we need to check that target is in range of autocast
-	var distance_to_target: float = Utils.vector_isometric_distance_to(target.position, _caster.position)
+	var distance_to_target: float = Isometric.vector_distance_to(target.position, _caster.position)
 	var target_is_in_range: bool = distance_to_target <= auto_range
 
 	if !target_is_in_range:

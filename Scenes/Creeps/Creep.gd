@@ -104,7 +104,7 @@ func adjust_height(height: float, speed: float):
 func _move(delta):
 	var path_point: Vector2 = _path.get_curve().get_point_position(_current_path_index) + _path.position
 	var move_delta: float = _get_move_speed() * delta
-	position = Utils.vector_isometric_move_toward(position, path_point, move_delta)
+	position = Isometric.vector_move_toward(position, path_point, move_delta)
 	moved.emit(delta)
 	
 	var reached_path_point: bool = (position == path_point)

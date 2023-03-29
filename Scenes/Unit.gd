@@ -447,7 +447,7 @@ func _set_health(health: float):
 
 
 func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
-	var distance: float = Utils.vector_isometric_distance_to(position, target.position)
+	var distance: float = Isometric.vector_distance_to(position, target.position)
 	var target_is_on_the_sides: bool = (distance / radius) > 0.5
 
 	if target_is_on_the_sides:

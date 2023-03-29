@@ -100,7 +100,7 @@ func get_units_in_range(type: TargetType, center: Vector2, radius: float) -> Arr
 				if !type_match:
 					return false
 
-			var distance: float = Utils.vector_isometric_distance_to(center, unit.position)
+			var distance: float = Isometric.vector_distance_to(center, unit.position)
 			var creep_is_in_range = distance <= radius
 
 			if !creep_is_in_range:
@@ -127,8 +127,8 @@ class DistanceSorter:
 	var origin = Vector2.ZERO
 
 	func sort(a: Unit, b: Unit):
-		var distance_a: float = Utils.vector_isometric_distance_to(a.position, origin)
-		var distance_b: float = Utils.vector_isometric_distance_to(b.position, origin)
+		var distance_a: float = Isometric.vector_distance_to(a.position, origin)
+		var distance_b: float = Isometric.vector_distance_to(b.position, origin)
 		var less_than: bool = distance_a < distance_b
 
 		return less_than
@@ -202,35 +202,6 @@ func screaming_snake_case_to_camel_case(screaming_snake_case: String) -> String:
 # TODO: maybe won't need this at all
 func add_unit_animation_properties(_unit: Unit, _mystery_string: String, _mystery_bool: bool):
 	pass
-
-
-# Perform a move_toward() operation in isometric space. This
-# means that same delta will look visually slower when
-# moving vertically than horizontally.
-func vector_isometric_move_toward(start: Vector2, end: Vector2, delta: float) -> Vector2:
-	var delta_vector_top_down = (end - start).normalized() * delta
-	var delta_vector_isometric: Vector2 = Vector2(delta_vector_top_down.x, delta_vector_top_down.y / 2)
-	var isometric_delta: float = delta_vector_isometric.length()
-	var move_result: Vector2 = start.move_toward(end, isometric_delta)
-
-	return move_result
-
-
-# Takes a vector in isometric space and calculates it's
-# length in 3d space. Should be used for all distance
-# calculations.
-func vector_isometric_length(vector: Vector2) -> float:
-	var vector_unprojected: Vector2 = Vector2(vector.x, vector.y * 2)
-	var length: float = vector_unprojected.length()
-
-	return length
-
-
-func vector_isometric_distance_to(a: Vector2, b: Vector2) -> float:
-	var difference: Vector2 = a - b
-	var distance: float = vector_isometric_length(difference)
-
-	return distance
 
 
 func bit_is_set(mask: int, bit: int) -> bool:

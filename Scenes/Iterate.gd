@@ -77,7 +77,7 @@ func _next_internal(next_order: NextOrder) -> Unit:
 #	Remove units that went out of range
 	_next_list = _next_list.filter(
 		func(unit: Unit) -> bool:
-			var distance: float = Utils.vector_isometric_distance_to(_get_center_pos(), unit.position)
+			var distance: float = Isometric.vector_distance_to(_get_center_pos(), unit.position)
 			var unit_is_in_range: bool = distance < _radius
 
 			if !unit_is_in_range:
