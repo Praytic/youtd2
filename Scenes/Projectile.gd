@@ -1,5 +1,5 @@
 class_name Projectile
-extends CharacterBody2D
+extends DummyUnit
 
 
 # Projectile moves towards the target and disappears when it
@@ -9,7 +9,6 @@ extends CharacterBody2D
 signal target_hit(projectile, target)
 signal interpolation_finished(projectile)
 
-var _caster: Unit = null
 var _target: Unit = null
 var _last_known_position: Vector2 = Vector2.ZERO
 var _speed: float = 100
@@ -31,7 +30,7 @@ var user_real3: float = 0.0
 # TODO: ignore_target_z - ignore target height value,
 # projectile flies straight without changing it's height to
 # match target height. Probably relevant to air units?
-static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, _damage_ratio: float, _crit_ratio: float, from: Unit, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
 	var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
 	var projectile: Projectile = _projectile_scene.instantiate()
 
@@ -40,6 +39,8 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, _damage
 	if !type._hit_handler.is_null():
 		projectile.set_event_on_target_hit(type._hit_handler)
 
+	projectile._damage_ratio = damage_ratio
+	projectile._crit_ratio = crit_ratio
 	projectile._caster = caster
 	projectile._target = target
 	projectile._targeted = targeted
@@ -103,10 +104,6 @@ func _process(delta):
 
 func get_target() -> Unit:
 	return _target
-
-
-func get_caster() -> Unit:
-	return _caster
 
 
 # NOTE: unlike buff and unit events, there's no weird stuff
