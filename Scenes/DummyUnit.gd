@@ -5,8 +5,8 @@ class_name DummyUnit extends Node2D
 # etc.
 
 
-signal dealt_damage(dummy_unit: DummyUnit)
-signal killed_unit(dummy_unit: DummyUnit)
+signal dealt_damage(event: Event, dummy_unit: DummyUnit)
+signal killed_unit(event: Event, dummy_unit: DummyUnit)
 
 
 var _caster: Unit = null
@@ -44,6 +44,8 @@ func do_spell_damage(target: Unit, amount: float):
 	var damage_killed_unit: bool = target.receive_damage(spell_damage)
 
 	if damage_killed_unit:
-		killed_unit.emit(self)
+		var killed_event: Event = Event.new(target)
+		killed_unit.emit(killed_event, self)
 	else:
-		dealt_damage.emit(self)
+		var damage_event: Event = Event.new(target)
+		dealt_damage.emit(damage_event, self)
