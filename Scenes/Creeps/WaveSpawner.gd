@@ -4,7 +4,7 @@ extends Node
 const WAVE_COUNT_EASY = 80
 const WAVE_COUNT_MEDIUM = 120
 const WAVE_COUNT_HARD = 240
-const TIME_BETWEEN_WAVES = 5
+var TIME_BETWEEN_WAVES: float = 5.0
 
 
 signal wave_started(wave: Wave)
@@ -18,6 +18,11 @@ signal all_waves_cleared
 @onready var _wave_paths = get_tree().get_nodes_in_group("wave_path")
 
 func _ready():
+	var fast_waves: bool = ProjectSettings.get_setting("application/config/fast_waves") as bool
+
+	if fast_waves:
+		TIME_BETWEEN_WAVES = 0.1
+
 	_timer_between_waves.set_autostart(false)
 	_timer_between_waves.set_wait_time(TIME_BETWEEN_WAVES)
 	
