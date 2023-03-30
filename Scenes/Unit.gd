@@ -291,13 +291,19 @@ func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_da
 	return total_crit_damage
 
 
-func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
-	var dealt_mod: float = get_prop_spell_damage_dealt()
+static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit, target: Unit) -> float:
+	var dealt_mod: float = caster.get_prop_spell_damage_dealt()
 	var received_mod: float = target.get_prop_spell_damage_received()
-	var damage_total: float = damage * dealt_mod * received_mod * crit_ratio
+	var damage_total: float = damage_base * dealt_mod * received_mod * crit_ratio
 
 	if target.is_immune():
 		damage_total = 0
+
+	return damage_total
+
+
+func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
+	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target)
 
 	_do_damage(target, damage_total, false, true)
 
@@ -494,19 +500,30 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 
 	damage = damaged_event.damage
 
-	var health_before_damage: float = target._health
-
-	var old_health = target._health
-	target._set_health(target._health - damage)
-
-	target.health_changed.emit(old_health, target._health)
-
-	Utils.display_floating_text_x(str(int(damage)), target, 255, 0, 0, 0.0, 0.0, 1.0)
-
-	var damage_killed_unit: bool = health_before_damage > 0 && target._health <= 0
+	var damage_killed_unit: bool = target.receive_damage(damage)
 
 	if damage_killed_unit:
 		target._killed_by_unit(self)
+
+
+# NOTE: this f-n is also used by
+# DummyUnit.do_spell_damage(), so it can't emit "damaged" or
+# "killed_by" events because DummyUnit is not a subclass of
+# Unit so creep is technically not killed or damaged by any
+# unit in such cases.
+func receive_damage(damage: float) -> bool:
+	var health_before_damage: float = _health
+
+	var old_health = _health
+	_set_health(_health - damage)
+
+	health_changed.emit(old_health, _health)
+
+	Utils.display_floating_text_x(str(int(damage)), self, 255, 0, 0, 0.0, 0.0, 1.0)
+
+	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0
+
+	return damage_killed_unit
 
 
 # Called when unit killed by caster unit
