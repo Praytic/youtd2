@@ -63,7 +63,6 @@ func _ready():
 	if _size == Creep.Size.AIR:
 		var height: float = 2 * Constants.TILE_HEIGHT
 		_visual.position.y = -height
-		z_index = _landscape.world_height_to_z_index(height)
 
 
 func _process(delta):
@@ -72,6 +71,10 @@ func _process(delta):
 
 	var creep_animation: String = _get_creep_animation()
 	_sprite.play(creep_animation)
+
+#	Update z index based on current visual height
+	var height: float = -_visual.position.y
+	z_index = _landscape.world_height_to_z_index(height)
 
 
 #########################
