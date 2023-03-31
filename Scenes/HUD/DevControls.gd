@@ -11,16 +11,11 @@ func _ready():
 	
 	for dev_control_button in dev_control_buttons:
 		dev_control_button.button_up.connect(_on_DevControlButton_button_up.bind(dev_control_button))
-		dev_control_button.button_down.connect(_on_DevControlButton_button_down)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
-func _on_DevControlButton_button_down():
-	for dev_control in dev_controls:
-		dev_control.hide()
 
 
 func _on_DevControlButton_button_up(button: Button):
