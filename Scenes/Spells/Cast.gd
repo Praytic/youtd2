@@ -47,7 +47,7 @@ func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ra
 
 func _get_spell_scene_path() -> String:
 	match _order:
-		"blizzard": return "res://Scenes/SpellBlizzard.tscn"
+		"blizzard": return "res://Scenes/Spells/SpellBlizzard.tscn"
 		_:
 			print_debug("Invalid order name: ", _order)
 
