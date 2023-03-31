@@ -5,11 +5,15 @@ signal start_wave(wave_index)
 signal stop_wave()
 
 @onready var element_buttons_parent = $MarginContainer/HBoxContainer
+@onready var _dev_controls = $DevControls
 
 
 func _ready():
 	for element_button in element_buttons_parent.get_children():
 		element_button.pressed.connect(_on_element_button_pressed.bind(element_button))
+	
+	if not FF.dev_controls_enabled():
+		_dev_controls.hide()
 	
 	$TowerTooltip.hide()
 	$TooltipHeader.reset()
@@ -22,10 +26,6 @@ func _on_StartWaveButton_pressed():
 
 func _on_StopWaveButton_pressed():
 	stop_wave.emit()
-
-
-func _on_Camera_updated(_direction):
-	$Hints.hide()
 
 
 func _on_RightMenuBar_unit_info_requested(unit_id, unit_type):
@@ -75,9 +75,6 @@ func _on_Unit_unselected(_unit):
 	$TowerTooltip.hide()
 	$TooltipHeader.reset()
 
-
-func _on_MenuButton_pressed():
-	$Hints2.hide()
 
 func _on_element_button_pressed(element_button):
 	$MarginContainer.hide()

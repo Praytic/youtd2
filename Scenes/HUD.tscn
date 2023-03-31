@@ -1,14 +1,34 @@
-[gd_scene load_steps=19 format=3 uid="uid://bykghja01dyql"]
+[gd_scene load_steps=27 format=3 uid="uid://cppyelh0uodop"]
 
 [ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
+[ext_resource type="Script" path="res://Scenes/HUD/DevControls.gd" id="3_r81d3"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="4_4hyfk"]
+[ext_resource type="PackedScene" uid="uid://cojr80363rwx2" path="res://Scenes/HUD/DevControls/SignalsControl.tscn" id="4_ng5to"]
+[ext_resource type="PackedScene" uid="uid://bsu2i4smjlpui" path="res://Scenes/HUD/DevControls/WaveControl.tscn" id="4_xrjii"]
 [ext_resource type="PackedScene" uid="uid://dejhjhxmq2n2s" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://durx36ipud8jw" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="7"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://cb3g6yfe66prg" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lneea"]
+atlas = ExtResource("4_4hyfk")
+region = Rect2(256, 2.08165e-12, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx38k"]
+atlas = ExtResource("4_4hyfk")
+region = Rect2(192, 2.08165e-12, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imkiq"]
+atlas = ExtResource("4_4hyfk")
+region = Rect2(128, 2.08165e-12, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0jjf"]
+atlas = ExtResource("4_4hyfk")
+region = Rect2(320, 2.08165e-12, 64, 64)
 
 [sub_resource type="AtlasTexture" id="16"]
 atlas = ExtResource("4")
@@ -58,55 +78,71 @@ size_flags_vertical = 4
 theme = ExtResource("7")
 script = ExtResource("11")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="DevControls" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -249.0
-offset_right = 423.0
+offset_top = -300.0
+offset_right = 300.0
 grow_vertical = 0
-scale = Vector2(0.5, 0.5)
+script = ExtResource("3_r81d3")
 
-[node name="StartWaveButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "Start wave"
+[node name="WaveControl" parent="DevControls" groups=["dev_control"] instance=ExtResource("4_xrjii")]
+visible = false
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
 
-[node name="StopWaveButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "Stop wave"
+[node name="SignalsControl" parent="DevControls" groups=["dev_control"] instance=ExtResource("4_ng5to")]
+visible = false
+custom_minimum_size = Vector2(1000, 500)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_top = -500.0
+offset_right = 1000.0
+grow_horizontal = 1
+grow_vertical = 0
 
-[node name="WaveProgressLabel" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "Wave progress (PLACEHOLDER)"
+[node name="MarginContainer" type="MarginContainer" parent="DevControls"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -96.0
+offset_right = 428.0
+grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="DevControlButtons" type="GridContainer" parent="DevControls/MarginContainer"]
 layout_mode = 2
+columns = 10
 
-[node name="WaveLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="WaveControlButton" type="Button" parent="DevControls/MarginContainer/DevControlButtons" groups=["dev_control_button"]]
 layout_mode = 2
-text = "Wave:"
+toggle_mode = true
+icon = SubResource("AtlasTexture_lneea")
+flat = true
 
-[node name="WaveEdit" type="SpinBox" parent="VBoxContainer/HBoxContainer"]
+[node name="TowerControlButton" type="Button" parent="DevControls/MarginContainer/DevControlButtons" groups=["dev_control_button"]]
 layout_mode = 2
-focus_next = NodePath("../../..")
-focus_previous = NodePath("../../..")
-focus_mode = 1
-min_value = 1.0
-value = 1.0
+disabled = true
+toggle_mode = true
+icon = SubResource("AtlasTexture_wx38k")
+flat = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="CreepControlButton" type="Button" parent="DevControls/MarginContainer/DevControlButtons" groups=["dev_control_button"]]
 layout_mode = 2
+disabled = true
+toggle_mode = true
+icon = SubResource("AtlasTexture_imkiq")
+flat = true
 
-[node name="CreepCountLeft" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="SignalsControlButton" type="Button" parent="DevControls/MarginContainer/DevControlButtons" groups=["dev_control_button"]]
 layout_mode = 2
-text = "Creeps exited:"
-
-[node name="CreepCountRight" type="Label" parent="VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "PLACEHOLDER"
+toggle_mode = true
+icon = SubResource("AtlasTexture_j0jjf")
+flat = true
 
 [node name="GameOverLabel" type="Label" parent="."]
 visible = false
@@ -120,26 +156,6 @@ text = "GAME OVER"
 layout_mode = 1
 anchor_bottom = 0.0833333
 metadata/_edit_use_anchors_ = true
-
-[node name="Hints" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 798.0
-offset_top = 505.0
-offset_right = 1498.0
-offset_bottom = 605.0
-scale = Vector2(0.525227, 0.545393)
-text = "Move camera: WASD
-Zoom camera: Mouse wheel, touchpad"
-
-[node name="Hints2" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 1560.0
-offset_top = 1010.0
-offset_right = 2260.0
-offset_bottom = 1110.0
-scale = Vector2(0.525227, 0.545393)
-text = "Build towers here
---------------------->"
 
 [node name="TooltipHeader" parent="." instance=ExtResource("1")]
 offset_left = 14.0
@@ -257,6 +273,7 @@ icon = SubResource("15")
 script = ExtResource("2")
 
 [node name="RightMenuBar" parent="." instance=ExtResource("5")]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = -1
@@ -264,13 +281,13 @@ anchor_left = 0.834896
 anchor_top = 0.0833333
 metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/StopWaveButton" to="." method="_on_StopWaveButton_pressed"]
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer/WaveEdit" to="VBoxContainer/HBoxContainer/WaveEdit" method="_on_WaveEdit_value_changed"]
+[connection signal="button_down" from="DevControls/MarginContainer/DevControlButtons/WaveControlButton" to="DevControls" method="_on_DevControlButton_button_down"]
+[connection signal="toggled" from="DevControls/MarginContainer/DevControlButtons/WaveControlButton" to="DevControls/WaveControl" method="_on_DevControlButton_toggled"]
+[connection signal="toggled" from="DevControls/MarginContainer/DevControlButtons/SignalsControlButton" to="DevControls/SignalsControl" method="_on_DevControlButton_toggled"]
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="." method="_on_MenuButton_pressed"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
-[connection signal="pressed" from="ItemMenuButton" to="." method="_on_MenuButton_pressed"]
 [connection signal="pressed" from="ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
+[connection signal="pressed" from="ItemMenuButton" to="." method="_on_MenuButton_pressed"]
 [connection signal="unit_info_canceled" from="RightMenuBar" to="." method="_on_RightMenuBar_unit_info_canceled"]
 [connection signal="unit_info_requested" from="RightMenuBar" to="." method="_on_RightMenuBar_unit_info_requested"]

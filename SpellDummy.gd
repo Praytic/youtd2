@@ -7,5 +7,4 @@ class_name SpellDummy extends DummyUnit
 
 
 func _ready():
-	var visible_spell_dummys: bool = ProjectSettings.get_setting("application/config/visible_spell_dummys") as bool
-	_debug_sprite.visible = visible_spell_dummys
+	_debug_sprite.visible = FF.visible_spell_dummys_enabled()

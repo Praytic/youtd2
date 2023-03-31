@@ -12,10 +12,6 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 
 var _loaded_sfx_map: Dictionary = {}
 var _sfx_player_list: Array = []
-var _log_debug_enabled: bool
-
-func _init():
-	_log_debug_enabled = ProjectSettings.get_setting("application/config/log_debug_enabled") as bool
 
 
 func sfx_at_unit(sfx_name: String, unit: Unit):
@@ -220,7 +216,7 @@ func format_float(x: float, _digits: int) -> String:
 # native print_debug() not being disabled in non-debug
 # builds.
 func log_debug(args):
-	if _log_debug_enabled:
+	if FF.log_debug_enabled():
 		print_debug(args)
 
 
