@@ -2,20 +2,12 @@
 
 [ext_resource type="Script" path="res://Scenes/HUD/DevControls/WaveControl.gd" id="1_4w1t3"]
 
-[node name="WaveControl" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-size_flags_horizontal = 0
-size_flags_vertical = 0
+[node name="WaveControl" type="Window"]
+initial_position = 1
+size = Vector2i(300, 300)
 script = ExtResource("1_4w1t3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

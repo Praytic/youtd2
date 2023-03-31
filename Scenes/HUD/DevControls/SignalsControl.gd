@@ -1,4 +1,4 @@
-extends Control
+extends Window
 
 
 @onready var debug_enabled = OS.is_debug_build()
@@ -55,12 +55,8 @@ func _process(delta):
 	prev_node = current_node
 
 
-func _on_DevControlButton_toggled(button_pressed: bool):
-#	if button_pressed:
-#		show()
-#	else:
-#		hide()
-	pass
+func _on_DevControlButton_button_up():
+	show()
 
 
 func _on_SignalButton_pressed(id: int, popup: PopupMenu, node, node_signal):

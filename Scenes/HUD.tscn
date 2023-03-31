@@ -89,21 +89,14 @@ grow_vertical = 0
 script = ExtResource("3_r81d3")
 
 [node name="WaveControl" parent="DevControls" groups=["dev_control"] instance=ExtResource("4_xrjii")]
-visible = false
-custom_minimum_size = Vector2(300, 300)
-layout_mode = 1
+transparent_bg = true
+initial_position = 0
+title = "Wave control"
+position = Vector2i(300, 300)
+wrap_controls = true
 
 [node name="SignalsControl" parent="DevControls" groups=["dev_control"] instance=ExtResource("4_ng5to")]
 visible = false
-custom_minimum_size = Vector2(1000, 500)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_right = 0.0
-offset_top = -500.0
-offset_right = 1000.0
-grow_horizontal = 1
-grow_vertical = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="DevControls"]
 layout_mode = 1
@@ -281,9 +274,6 @@ anchor_left = 0.834896
 anchor_top = 0.0833333
 metadata/_edit_use_anchors_ = true
 
-[connection signal="button_down" from="DevControls/MarginContainer/DevControlButtons/WaveControlButton" to="DevControls" method="_on_DevControlButton_button_down"]
-[connection signal="toggled" from="DevControls/MarginContainer/DevControlButtons/WaveControlButton" to="DevControls/WaveControl" method="_on_DevControlButton_toggled"]
-[connection signal="toggled" from="DevControls/MarginContainer/DevControlButtons/SignalsControlButton" to="DevControls/SignalsControl" method="_on_DevControlButton_toggled"]
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]

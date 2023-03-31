@@ -1,8 +1,5 @@
-extends Control
+extends Window
 
 
-func _on_DevControlButton_toggled(button_pressed: bool):
-	if button_pressed:
-		show()
-	else:
-		hide()
+func _on_DevControlButton_button_up():
+	show()
