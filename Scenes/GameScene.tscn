@@ -121,7 +121,5 @@ script = ExtResource("7")
 [connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD/Minimap" method="_on_ObjectYSort_child_entered_tree"]
 [connection signal="child_exiting_tree" from="Map/ObjectYSort" to="UI/HUD/Minimap" method="_on_ObjectYSort_child_exiting_tree"]
 [connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
-[connection signal="camera_moved" from="Map/Camera2D" to="UI/HUD" method="_on_Camera_updated"]
 [connection signal="camera_moved" from="Map/Camera2D" to="UI/HUD/Minimap" method="_on_Camera_camera_moved"]
-[connection signal="camera_zoomed" from="Map/Camera2D" to="UI/HUD" method="_on_Camera_updated"]
 [connection signal="camera_zoomed" from="Map/Camera2D" to="UI/HUD/Minimap" method="_on_Camera_camera_zoomed"]
