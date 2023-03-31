@@ -1,11 +1,11 @@
-extends Node
+extends Control
 
 
 @onready var debug_enabled = OS.is_debug_build()
-@onready var debug_control: Control = %DebugControl
-@onready var debug_label: Label = %DebugControl/VBoxContainer/Label
-@onready var debug_signals: GridContainer = %DebugControl/VBoxContainer/Signals
-@onready var signal_arg_edit: LineEdit = %DebugControl/SignalArgEdit
+@onready var debug_label: Label = %SignalsTitle
+@onready var debug_signals: GridContainer = %SignalsGrid
+@onready var signal_arg_edit: LineEdit = $SignalArgEdit
+@onready var debug_container = $VBoxContainer
 
 var current_node: Node
 var prev_node: Node
@@ -14,7 +14,7 @@ var acc_delta: float = 0
 
 
 func _ready():
-	if not debug_enabled:
+	if not debug_enabled or not FF.dev_controls_enabled():
 		return
 	_connect_all_nodes(get_tree().get_root().get_node("GameScene"))
 	get_tree().node_added.connect(_on_Node_added)
@@ -25,11 +25,11 @@ func _ready():
 func _process(delta):
 	if current_node != prev_node and acc_delta > 1:
 		if current_node == null:
-			debug_control.hide()
+			debug_container.hide()
 			prev_node = current_node
 			return
 		
-		debug_control.show()
+		debug_container.show()
 		
 		var signal_list = current_node.get_signal_list()
 		for old_signals in debug_signals.get_children():
@@ -53,6 +53,14 @@ func _process(delta):
 	else: 
 		acc_delta += delta
 	prev_node = current_node
+
+
+func _on_DevControlButton_toggled(button_pressed: bool):
+#	if button_pressed:
+#		show()
+#	else:
+#		hide()
+	pass
 
 
 func _on_SignalButton_pressed(id: int, popup: PopupMenu, node, node_signal):
@@ -94,7 +102,7 @@ func _on_SignalArgEdit_submitted(command, arg_name, node, node_signal):
 
 
 func _on_Node_added(node: Node):
-	if (node is Control or node is CollisionObject2D) and not _is_parent_of(node, debug_control):
+	if (node is Control or node is CollisionObject2D) and not _is_parent_of(node, self):
 		node.mouse_entered.connect(_on_Node_mouse_entered.bind(node))
 		node.mouse_exited.connect(_on_Node_mouse_exited.bind(node))
 
@@ -110,7 +118,7 @@ func _on_Node_mouse_exited(_node: Node):
 
 func _connect_all_nodes(node):
 	for n in node.get_children():
-		if n.get_instance_id() == debug_control.get_instance_id():
+		if n.get_instance_id() == get_instance_id():
 			continue
 		_on_Node_added(n)
 		if n.get_child_count() > 0:

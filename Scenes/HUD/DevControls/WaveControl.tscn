@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsu2i4smjlpui"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/DevControls/WaveControl.gd" id="1_4w1t3"]
+
+[node name="WaveControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_4w1t3")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="StartWaveButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Start wave"
+
+[node name="StopWaveButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+text = "Stop wave"
+
+[node name="WaveProgress" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WaveProgressLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/WaveProgress"]
+layout_mode = 2
+text = "Wave progress:"
+
+[node name="WaveProgressValue" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/WaveProgress"]
+layout_mode = 2
+text = "0"
+
+[node name="WaveEdit" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WaveNumberLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/WaveEdit"]
+layout_mode = 2
+text = "Wave:"
+
+[node name="WaveNumberValue" type="SpinBox" parent="MarginContainer/HBoxContainer/VBoxContainer/WaveEdit"]
+layout_mode = 2
+focus_next = NodePath("../../../../../..")
+focus_previous = NodePath("../../../../../..")
+focus_mode = 1
+min_value = 1.0
+value = 1.0
+
+[node name="CreepCount" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CreepCountLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/CreepCount"]
+layout_mode = 2
+text = "Creeps exited:"
+
+[node name="CreepCountValue" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/CreepCount"]
+layout_mode = 2
+text = "0"
+
+[node name="WaveSignals" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/VBoxContainer/WaveEdit/WaveNumberValue" to="MarginContainer/HBoxContainer/VBoxContainer/WaveEdit/WaveNumberValue" method="_on_WaveEdit_value_changed"]

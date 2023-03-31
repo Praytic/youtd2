@@ -18,9 +18,7 @@ signal all_waves_cleared
 @onready var _wave_paths = get_tree().get_nodes_in_group("wave_path")
 
 func _ready():
-	var fast_waves: bool = ProjectSettings.get_setting("application/config/fast_waves") as bool
-
-	if fast_waves:
+	if FF.fast_waves_enabled():
 		TIME_BETWEEN_WAVES = 0.1
 
 	_timer_between_waves.set_autostart(false)
