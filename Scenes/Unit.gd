@@ -385,7 +385,11 @@ func kill_instantly(target: Unit):
 	target._killed_by_unit(self)
 
 
-func modify_property(mod_type: Modification.Type, value: float, direction: int):
+func modify_property(mod_type: Modification.Type, value: float):
+	_modify_property_internal(mod_type, value, 1)
+
+
+func _modify_property_internal(mod_type: Modification.Type, value: float, direction: int):
 	var current_value: float = _mod_value_map[mod_type]
 	var new_value: float = current_value + direction * value
 	_mod_value_map[mod_type] = new_value
@@ -576,7 +580,7 @@ func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
 		var power_bonus: float = modification.level_add * (power - 1)
 		var value: float = modification.value_base + power_bonus
 
-		modify_property(modification.type, value, modify_direction)
+		_modify_property_internal(modification.type, value, modify_direction)
 
 
 func _update_invisible_modulate():
