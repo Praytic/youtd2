@@ -14,13 +14,6 @@ var _damage_ratio: float = 1.0
 var _crit_ratio: float = 0.0
 
 
-static func make() -> DummyUnit:
-	var dummy_unit_scene: PackedScene = load("res://Scenes/DummyUnit.tscn")
-	var dummy_unit: DummyUnit = dummy_unit_scene.instantiate()
-
-	return dummy_unit
-
-
 func get_caster() -> Unit:
 	return _caster
 
@@ -49,3 +42,11 @@ func do_spell_damage(target: Unit, amount: float):
 	else:
 		var damage_event: Event = Event.new(target)
 		dealt_damage.emit(damage_event, self)
+
+
+func do_spell_damage_aoe(center: Vector2, radius: float, damage: float):
+	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), center, radius)
+
+	for creep in creep_list:
+		do_spell_damage(creep, damage)
+

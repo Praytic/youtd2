@@ -10,3 +10,8 @@ script = ExtResource("2_l5ik5")
 
 [node name="DebugSprite" type="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_20ho4")
+
+[node name="LifetimeTimer" type="Timer" parent="." index="1"]
+one_shot = true
+
+[connection signal="timeout" from="LifetimeTimer" to="." method="_on_lifetime_timer_timeout"]

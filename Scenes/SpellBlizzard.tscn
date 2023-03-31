@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3itjifa7raq5"]
+
+[ext_resource type="PackedScene" uid="uid://c8k0v44vlkmyw" path="res://Scenes/SpellDummy.tscn" id="1_k5o08"]
+[ext_resource type="Script" path="res://Scenes/SpellBlizzard.gd" id="2_j1d1f"]
+
+[node name="SpellBlizzard" instance=ExtResource("1_k5o08")]
+script = ExtResource("2_j1d1f")
