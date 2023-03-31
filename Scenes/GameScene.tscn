@@ -71,16 +71,11 @@ unique_name_in_owner = true
 z_index = 1000
 position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.31481, 0.5)
-zoom = Vector2(0.3, 0.3)
-limit_left = -4843
-limit_top = -2394
-limit_right = 4843
-limit_bottom = 2394
+zoom = Vector2(0.6, 0.6)
 limit_smoothed = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("1")
-cam_move_speed = 5000.0
 
 [node name="WaveSpawner" parent="Map" instance=ExtResource("5_pan23")]
 
