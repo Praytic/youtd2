@@ -3,9 +3,9 @@ extends Camera2D
 signal camera_moved(shift_vector)
 signal camera_zoomed(zoom_value)
 
-@export var cam_move_speed: float = 500.0
-@export var maximum_zoom_in: float = 0.15
-@export var minimum_zoom_out: float = 10.0
+@export var cam_move_speed: float = 2000.0
+@export var maximum_zoom_in: float = 0.4
+@export var minimum_zoom_out: float = 1.0
 @export var zoom_sensitivity: float = 1.0
 @export var mousewheel_zoom_speed: float = 0.4
 
@@ -13,12 +13,19 @@ signal camera_zoomed(zoom_value)
 var move_direction: Vector2
 
 
+func _ready():
+	if OS.get_name() == "macOS":
+		zoom_sensitivity = 0.1
+	
+
+
 func _physics_process(delta):
 	if (move_direction != Vector2.ZERO):
 		var diagonal_modif = 1
 		if move_direction.abs() == Vector2.ONE:
 			diagonal_modif *= sqrt(2.0)/2.0
-		var shift_vector: Vector2 = move_direction * delta * cam_move_speed * diagonal_modif
+		var zoom_ratio = sqrt(zoom.x)
+		var shift_vector: Vector2 = move_direction * delta * cam_move_speed * diagonal_modif * zoom_ratio
 		position = get_screen_center_position() + shift_vector
 		
 		camera_moved.emit(shift_vector)
