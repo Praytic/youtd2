@@ -1,34 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://cppyelh0uodop"]
+[gd_scene load_steps=20 format=3 uid="uid://cppyelh0uodop"]
 
 [ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
-[ext_resource type="Script" path="res://Scenes/HUD/DevControls.gd" id="3_r81d3"]
+[ext_resource type="PackedScene" uid="uid://cro8ec573upqo" path="res://Scenes/HUD/DevControls.tscn" id="3_0r5if"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="4_4hyfk"]
-[ext_resource type="PackedScene" uid="uid://cojr80363rwx2" path="res://Scenes/HUD/DevControls/SignalsControl.tscn" id="4_ng5to"]
-[ext_resource type="PackedScene" uid="uid://bsu2i4smjlpui" path="res://Scenes/HUD/DevControls/WaveControl.tscn" id="4_xrjii"]
 [ext_resource type="PackedScene" uid="uid://dejhjhxmq2n2s" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://durx36ipud8jw" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="7"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://cb3g6yfe66prg" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lneea"]
-atlas = ExtResource("4_4hyfk")
-region = Rect2(256, 2.08165e-12, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wx38k"]
-atlas = ExtResource("4_4hyfk")
-region = Rect2(192, 2.08165e-12, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_imkiq"]
-atlas = ExtResource("4_4hyfk")
-region = Rect2(128, 2.08165e-12, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j0jjf"]
-atlas = ExtResource("4_4hyfk")
-region = Rect2(320, 2.08165e-12, 64, 64)
 
 [sub_resource type="AtlasTexture" id="16"]
 atlas = ExtResource("4")
@@ -78,72 +59,8 @@ size_flags_vertical = 4
 theme = ExtResource("7")
 script = ExtResource("11")
 
-[node name="DevControls" type="Control" parent="."]
+[node name="DevControls" parent="." instance=ExtResource("3_0r5if")]
 layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -300.0
-offset_right = 300.0
-grow_vertical = 0
-script = ExtResource("3_r81d3")
-
-[node name="WaveControl" parent="DevControls" groups=["dev_control"] instance=ExtResource("4_xrjii")]
-transparent_bg = true
-initial_position = 0
-title = "Wave control"
-position = Vector2i(300, 300)
-wrap_controls = true
-
-[node name="SignalsControl" parent="DevControls" groups=["dev_control"] instance=ExtResource("4_ng5to")]
-visible = false
-
-[node name="MarginContainer" type="MarginContainer" parent="DevControls"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -96.0
-offset_right = 428.0
-grow_vertical = 0
-
-[node name="DevControlButtons" type="GridContainer" parent="DevControls/MarginContainer"]
-layout_mode = 2
-columns = 10
-
-[node name="WaveControlButton" type="Button" parent="DevControls/MarginContainer/DevControlButtons" groups=["dev_control_button"]]
-layout_mode = 2
-toggle_mode = true
-icon = SubResource("AtlasTexture_lneea")
-flat = true
-
-[node name="TowerControlButton" type="Button" parent="DevControls/MarginContainer/DevControlButtons" groups=["dev_control_button"]]
-layout_mode = 2
-disabled = true
-toggle_mode = true
-icon = SubResource("AtlasTexture_wx38k")
-flat = true
-
-[node name="CreepControlButton" type="Button" parent="DevControls/MarginContainer/DevControlButtons" groups=["dev_control_button"]]
-layout_mode = 2
-disabled = true
-toggle_mode = true
-icon = SubResource("AtlasTexture_imkiq")
-flat = true
-
-[node name="SignalsControlButton" type="Button" parent="DevControls/MarginContainer/DevControlButtons" groups=["dev_control_button"]]
-layout_mode = 2
-toggle_mode = true
-icon = SubResource("AtlasTexture_j0jjf")
-flat = true
-
-[node name="GameOverLabel" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_top = 353.0
-offset_right = 1280.0
-offset_bottom = 367.0
-text = "GAME OVER"
 
 [node name="TopMenuBar" parent="." instance=ExtResource("6")]
 layout_mode = 1

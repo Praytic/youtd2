@@ -2,12 +2,15 @@
 
 [ext_resource type="Script" path="res://Scenes/HUD/DevControls/WaveControl.gd" id="1_4w1t3"]
 
-[node name="WaveControl" type="Window"]
-initial_position = 1
-size = Vector2i(300, 300)
+[node name="WaveControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 300.0
 script = ExtResource("1_4w1t3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

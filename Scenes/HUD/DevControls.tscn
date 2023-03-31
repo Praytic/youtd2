@@ -1,0 +1,103 @@
+[gd_scene load_steps=9 format=3 uid="uid://cro8ec573upqo"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/DevControls.gd" id="1_0jdrl"]
+[ext_resource type="PackedScene" uid="uid://bsu2i4smjlpui" path="res://Scenes/HUD/DevControls/WaveControl.tscn" id="2_455wo"]
+[ext_resource type="PackedScene" uid="uid://cojr80363rwx2" path="res://Scenes/HUD/DevControls/SignalsControl.tscn" id="3_esahe"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="4_4ady0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lneea"]
+atlas = ExtResource("4_4ady0")
+region = Rect2(256, 2.08165e-12, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wx38k"]
+atlas = ExtResource("4_4ady0")
+region = Rect2(192, 2.08165e-12, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imkiq"]
+atlas = ExtResource("4_4ady0")
+region = Rect2(128, 2.08165e-12, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0jjf"]
+atlas = ExtResource("4_4ady0")
+region = Rect2(320, 2.08165e-12, 64, 64)
+
+[node name="DevControls" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -300.0
+offset_right = 300.0
+grow_vertical = 0
+script = ExtResource("1_0jdrl")
+
+[node name="WaveControl" type="Window" parent="." groups=["dev_control"]]
+transparent_bg = true
+title = "Wave Control"
+position = Vector2i(100, 100)
+size = Vector2i(1000, 500)
+visible = false
+wrap_controls = true
+popup_window = true
+
+[node name="WaveControl" parent="WaveControl" instance=ExtResource("2_455wo")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SignalsControl" type="Window" parent="." groups=["dev_control"]]
+transparent_bg = true
+title = "Signals Control"
+position = Vector2i(100, 100)
+size = Vector2i(1000, 500)
+visible = false
+wrap_controls = true
+popup_window = true
+
+[node name="SignalsControl" parent="SignalsControl" instance=ExtResource("3_esahe")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -96.0
+offset_right = 428.0
+grow_vertical = 0
+
+[node name="DevControlButtons" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+columns = 10
+
+[node name="WaveControlButton" type="Button" parent="MarginContainer/DevControlButtons" groups=["dev_control_button"]]
+layout_mode = 2
+icon = SubResource("AtlasTexture_lneea")
+flat = true
+
+[node name="TowerControlButton" type="Button" parent="MarginContainer/DevControlButtons" groups=["dev_control_button"]]
+layout_mode = 2
+disabled = true
+icon = SubResource("AtlasTexture_wx38k")
+flat = true
+
+[node name="CreepControlButton" type="Button" parent="MarginContainer/DevControlButtons" groups=["dev_control_button"]]
+layout_mode = 2
+disabled = true
+icon = SubResource("AtlasTexture_imkiq")
+flat = true
+
+[node name="SignalsControlButton" type="Button" parent="MarginContainer/DevControlButtons" groups=["dev_control_button"]]
+layout_mode = 2
+icon = SubResource("AtlasTexture_j0jjf")
+flat = true

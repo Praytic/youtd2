@@ -1,4 +1,4 @@
-extends Window
+extends Control
 
 
 @onready var debug_enabled = OS.is_debug_build()
@@ -47,6 +47,7 @@ func _process(delta):
 			if button.get_popup().item_count == 0:
 				button.get_popup().add_item("no-args")
 			button.get_popup().id_pressed.connect(_on_SignalButton_pressed.bind(button.get_popup(), current_node, node_signal))
+			button.pressed.connect(func(): button.get_popup().show())
 			debug_signals.add_child.call_deferred(button)
 		debug_label.text = "%s: %s" % [current_node.get_class(), current_node.name]
 		acc_delta = 0
