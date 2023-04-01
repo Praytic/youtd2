@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd1gb6eskkg7k"]
+
+[ext_resource type="PackedScene" uid="uid://b14bbv4n46f1j" path="res://Scenes/Spells/SpellDummy.tscn" id="1_bckeq"]
+[ext_resource type="Script" path="res://Scenes/Spells/SpellChainLightning.gd" id="2_o52yd"]
+
+[node name="SpellChainLightning" instance=ExtResource("1_bckeq")]
+script = ExtResource("2_o52yd")

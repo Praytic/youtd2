@@ -11,8 +11,14 @@ class BlizzardData:
 	var wave_count: int = 0
 
 
+class ChaingLightningData:
+	var damage: float = 0.0
+	var chain_count: int = 0
+
+
 class SpellData:
 	var blizzard: BlizzardData = BlizzardData.new()
+	var chain_lightning: ChaingLightningData = ChaingLightningData.new()
 
 
 var data: SpellData = SpellData.new()
@@ -45,9 +51,14 @@ func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ra
 	caster.add_child(instance)
 
 
+func target_cast_from_caster(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
+	point_cast_from_caster_on_point(caster, target.position.x, target.position.y, damage_ratio, crit_ratio)
+
+
 func _get_spell_scene_path() -> String:
 	match _order:
 		"blizzard": return "res://Scenes/Spells/SpellBlizzard.tscn"
+		"chainlightning": return "res://Scenes/Spells/SpellChainLightning.tscn"
 		_:
 			print_debug("Invalid order name: ", _order)
 
