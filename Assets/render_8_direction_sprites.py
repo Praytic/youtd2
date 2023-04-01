@@ -144,5 +144,16 @@ def render8directions_selected_objects(path):
                                         
                 # restore original rotation
                 bpy.context.active_object.rotation_euler[2] = math.radians(0)
-        
-render8directions_selected_objects('C:\\Users\\kvely\\blender\\rotation-script-output')
+
+
+def get_export_path() -> str:
+	script_path = os.path.realpath(__file__)
+	blender_file_path = os.path.dirname(script_path)
+	parent_folder_path = os.path.dirname(blender_file_path)
+	export_path = os.path.join(parent_folder_path, "script-export")
+
+	return export_path
+
+
+export_path = get_export_path()
+render8directions_selected_objects(export_path)
