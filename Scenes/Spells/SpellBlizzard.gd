@@ -2,8 +2,7 @@ extends SpellDummy
 
 const WAVE_INTERVAL: float = 1.0
 
-var _damage_base: float = 0.0
-var _damage_add: float = 0.0
+var _damage: float = 0.0
 var _radius: float = 0.0
 var _wave_count: int = 0
 
@@ -28,8 +27,7 @@ func on_wave_timer_timeout():
 	if _completed_wave_count >= _wave_count:
 		return
 
-	var damage: float = _damage_base + _damage_add * _caster.get_level()
-	do_spell_damage_aoe(_target_position, _radius, damage)
+	do_spell_damage_aoe(_target_position, _radius, _damage)
 
 	_completed_wave_count += 1
 
@@ -37,7 +35,6 @@ func on_wave_timer_timeout():
 # NOTE: subclasses override this to save data that is useful
 # for them
 func _set_subclass_data(data: Cast.SpellData):
-	_damage_base = data.blizzard.damage_base
-	_damage_add = data.blizzard.damage_add
+	_damage = data.blizzard.damage
 	_radius = data.blizzard.radius
 	_wave_count = data.blizzard.wave_count
