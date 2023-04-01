@@ -5,8 +5,7 @@ class_name Cast
 
 
 class BlizzardData:
-	var damage_base: float = 0.0
-	var damage_add: float = 0.0
+	var damage: float = 0.0
 	var radius: float = 0.0
 	var wave_count: int = 0
 
