@@ -543,7 +543,8 @@ func _killed_by_unit(caster: Unit):
 	var death_event: Event = Event.new(self)
 	death.emit(death_event)
 
-	caster._accept_kill(self)
+	if caster != null:
+		caster._accept_kill(self)
 
 	queue_free()
 
