@@ -22,7 +22,10 @@ func init_spell(caster: Unit, lifetime: float, data: Cast.SpellData, damage_even
 	_caster = caster
 	_lifetime = lifetime
 	_set_subclass_data(data)
-	dealt_damage.connect(damage_event_handler)
+
+	if !damage_event_handler.is_null():
+		dealt_damage.connect(damage_event_handler)
+
 	_target_position = Vector2(x, y)
 	_damage_ratio = damage_ratio
 	_crit_ratio = crit_ratio
