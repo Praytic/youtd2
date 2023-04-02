@@ -70,7 +70,6 @@ func get_tower_family_id(id: int) -> int:
 # scene name is TinyShrub4.tscn, then script name will be
 # TinyShrub1.gd
 func _get_tower_script_path(id: int) -> String:
-	var properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
 	var family_name: String = _get_family_name(id)
 	var path: String = "%s/%s1.gd" % [towers_dir, family_name]
 

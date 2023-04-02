@@ -28,8 +28,7 @@ var _wave_number: int : set = set_wave_number, get = get_wave_number
 var _race: Creep.Category : set = set_race, get = get_race
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
-# Array[Modification]
-var _modifications: Array
+#var _modifications: Array[Modification]
 var state: int = Wave.State.PENDING
 var next_wave: Wave
 
@@ -42,7 +41,7 @@ func _ready():
 	set_name("Wave")
 
 
-func _process(delta):
+func _process(_delta):
 	# TODO: Add portal lives here
 	if _creeps.is_empty() and state != Wave.State.CLEARED:
 		state = Wave.State.CLEARED
@@ -103,7 +102,7 @@ func get_creeps_combination() -> Array:
 		for i in range(0, creep_number):
 			res.append(creep_size)
 	else:
-		var champ_rate = creep_number / champ_number
+		var champ_rate = int(float(creep_number) / champ_number)
 		var champ_size = Creep.Size.CHAMPION
 		for i in range(0, creep_number):
 			res.append(creep_size)
@@ -169,7 +168,7 @@ func get_wave_number() -> int:
 	return _wave_number
 
 
-func set_race(value: int):
+func set_race(value: Creep.Category):
 	_race = value
 
 

@@ -69,7 +69,6 @@ func _ready():
 func spawn_wave(new_wave: Wave):
 	new_wave.state = Wave.State.SPAWNING
 	
-	var creep_sizes = new_wave.get_creeps_combination()
 	for creep in new_wave.get_creeps():
 		_creep_spawner.spawn_creep(creep)
 

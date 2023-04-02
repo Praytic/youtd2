@@ -34,7 +34,7 @@ func tower_init():
 	boekie_coals_buff.set_stacking_group("boekie_coals")
 
 
-func on_kill(event: Event):
+func on_kill(_event: Event):
 	var tower: Tower = self
 
 	var lvl: int = tower.get_level()
