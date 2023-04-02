@@ -13,11 +13,13 @@ class_name GenerateAtlas
 # Enter name to use for atlas names
 # Generation process runs
 
+# NOTE: copy this to GameScene.gd
+# func _init():
+# 	GenerateAtlas.run("C:/Users/kvely/blender/bird/script-export/rigAction", "bird")
 
-static func run():
-	var root_path: String = "C:/Users/kvely/blender/tallstrider/script-export/run"
+
+static func run(root_path: String, name: String):
 	var direction_dirs: PackedStringArray = DirAccess.get_directories_at(root_path)
-	var name: String = "tallstrider"
 
 	for direction_dirname in direction_dirs:
 		GenerateAtlas.combine_tiles(root_path, direction_dirname, name)
