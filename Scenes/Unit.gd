@@ -47,6 +47,8 @@ var user_real3: float = 0.0
 var _is_dead: bool = false
 var _level: int = 1 : get = get_level, set = set_level
 var _buff_map: Dictionary
+var _friendly_buff_list: Array[Buff]
+var _unfriendly_buff_list: Array[Buff]
 var _direct_modifier_list: Array
 var _base_health: float = 0.0 : get = get_base_health, set = set_base_health
 var _health: float = 0.0
@@ -570,6 +572,8 @@ func _accept_kill(target: Unit):
 func _add_buff_internal(buff):
 	var buff_type: String = buff.get_type()
 	_buff_map[buff_type] = buff
+	var friendly: bool = buff.is_friendly()
+	_get_buff_list(friendly).append(buff)
 	buff.removed.connect(_on_buff_removed.bind(buff))
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), 1)
@@ -628,6 +632,13 @@ func _get_experience_for_target(target: Unit) -> float:
 	return experience
 
 
+func _get_buff_list(friendly: bool) -> Array[Buff]:
+	if friendly:
+		return _friendly_buff_list
+	else:
+		return _unfriendly_buff_list
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -638,6 +649,8 @@ func _on_buff_removed(buff):
 
 	var buff_type: String = buff.get_type()
 	_buff_map.erase(buff_type)
+	var friendly: bool = buff.is_friendly()
+	_get_buff_list(friendly).append(buff)
 	buff.queue_free()
 
 func _on_modify_property():
@@ -810,6 +823,21 @@ func get_buff_of_type(buff_type: BuffType) -> Buff:
 	var buff = _buff_map.get(type, null)
 
 	return buff
+
+# Removes the most recent buff. Returns true if there was a
+# buff to remove and false otherwise.
+func purge_buff(friendly: bool) -> bool:
+	var buff_list: Array[Buff] = _get_buff_list(friendly)
+
+#	NOTE: buff is removed from the list further down the
+#	chain from purge_buff() call.
+	if !buff_list.is_empty():
+		var buff: Buff = buff_list.back()
+		buff.purge_buff()
+		
+		return true
+	else:
+		return false
 
 # NOTE: real value returned in subclass version
 func get_base_mana() -> float:

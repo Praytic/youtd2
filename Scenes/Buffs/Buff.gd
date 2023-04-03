@@ -5,8 +5,6 @@ extends Node2D
 # Buff stores buff parameters and applies them to target
 # while it is active.
 
-# TODO: add _call_event_handler_list(Event.Type.PURGE) when
-# buff is purged. No purge() f-n at the moment.
 
 # NOTE: this signal is separate from the EXPIRE event type
 # and used by Unit to undo buff modifiers. Do not use this
@@ -85,6 +83,10 @@ func _ready():
 	_call_event_handler_list(Event.Type.CREATE, create_event)
 
 
+func is_friendly() -> bool:
+	return _friendly
+
+
 func refresh_duration():
 	_timer.start(_timer.wait_time)
 
@@ -121,6 +123,16 @@ func get_buffed_unit() -> Unit:
 
 func remove_buff():
 	_on_timer_timeout()
+
+
+func purge_buff():
+	var cleanup_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
+
+	removed.emit()
+
+	var purge_event: Event = _make_buff_event(null)
+	_call_event_handler_list(Event.Type.PURGE, purge_event)
 
 
 func _add_event_handler(event_type: Event.Type, handler_object: Object, handler_function: String, chance: float, chance_level_add: float):
