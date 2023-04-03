@@ -35,7 +35,7 @@ func create_animated(effect_path: String, x: float, y: float, _mystery1: float, 
 	
 	var effect_scene = load(effect_path).instantiate()
 	effect_scene.position = Vector2(x, y)
-	_effects_container.call_deferred("add_child", effect_scene)
+	_effects_container.add_child(effect_scene)
 
 	effect_scene.play()
 

@@ -164,9 +164,7 @@ func _add_periodic_event(handler_object: Object, handler_function: String, perio
 func _add_event_handler_unit_comes_in_range(handler_object: Object, handler_function: String, radius: float, target_type: TargetType):
 	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
 	var buff_range_area = buff_range_area_scene.instantiate()
-#	NOTE: use call_deferred() adding child immediately causes an error about
-# 	setting shape during query flushing
-	call_deferred("add_child", buff_range_area)
+	add_child(buff_range_area)
 	buff_range_area.init(radius, target_type, handler_object, handler_function)
 
 	buff_range_area.unit_came_in_range.connect(_on_unit_came_in_range)
