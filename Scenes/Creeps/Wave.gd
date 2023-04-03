@@ -63,7 +63,12 @@ func _process(_delta):
 #########################
 
 func _on_Creep_death(event):
+	print_debug("Creep [%s] has died." % event.get_target())
 	_creeps.erase(event.get_target())
+
+func _on_Creep_reached_portal(damage, creep: Creep):
+	print_debug("Creep [%s] reached portal. Damage to portal: %s" % [creep, damage])
+	_creeps.erase(creep)
 
 
 #########################

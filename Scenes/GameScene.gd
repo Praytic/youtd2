@@ -18,7 +18,7 @@ func _on_HUD_stop_wave():
 
 func _on_CreepExit_body_entered(body):
 	if body is Creep:
-		body.queue_free()
+		body.reach_portal()
 
 
 func _on_CreepSpawner_wave_ended(_wave_index: int):
