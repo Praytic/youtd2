@@ -27,4 +27,4 @@ func on_damage(event: Event):
 
 	if tower.calc_bad_chance(0.33 - _stats.miss_chance_add * tower.get_level()):
 		event.damage = 0
-		Utils.display_floating_text_x("Miss", tower, 255, 0, 0, 0.05, 0.0, 2.0)
+		Utils.display_floating_text_x("Miss", tower, 255, 0, 0, 255, 0.05, 0.0, 2.0)
