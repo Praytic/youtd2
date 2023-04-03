@@ -96,7 +96,13 @@ func _process(delta):
 			interpolation_finished.emit(self)
 
 		var explosion = _explosion_scene.instantiate()
-		explosion.position = global_position
+
+		if _target != null:
+			explosion.position = _target.get_visual_position()
+			explosion.z_index = _target.z_index
+		else:
+			explosion.position = global_position
+
 		_game_scene.call_deferred("add_child", explosion)
 
 		queue_free()
