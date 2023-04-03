@@ -7,7 +7,37 @@ signal all_creeps_spawned
 
 const MASS_SPAWN_DELAY_SEC = 0.2
 const NORMAL_SPAWN_DELAY_SEC = 0.9
-const CREEP_SCENE_INSTANCES_PATH = "res://Scenes/Creeps/Instances/"
+const CREEP_SCENE_INSTANCES_PATHS = {
+	"HumanoidAir": "res://Scenes/Creeps/Instances/HumanoidAir.tscn",
+	"HumanoidChampion": "res://Scenes/Creeps/Instances/HumanoidChampion.tscn",
+	"HumanoidBoss": "res://Scenes/Creeps/Instances/HumanoidBoss.tscn",
+	"HumanoidMass": "res://Scenes/Creeps/Instances/HumanoidMass.tscn",
+	"HumanoidNormal": "res://Scenes/Creeps/Instances/HumanoidNormal.tscn",
+	
+	"OrcChampion": "res://Scenes/Creeps/Instances/OrcChampion.tscn",
+	"OrcAir": "res://Scenes/Creeps/Instances/OrcAir.tscn",
+	"OrcBoss": "res://Scenes/Creeps/Instances/OrcBoss.tscn",
+	"OrcMass": "res://Scenes/Creeps/Instances/OrcMass.tscn",
+	"OrcNormal": "res://Scenes/Creeps/Instances/OrcNormal.tscn",
+	
+	"UndeadChampion": "res://Scenes/Creeps/Instances/UndeadChampion.tscn",
+	"UndeadAir": "res://Scenes/Creeps/Instances/UndeadAir.tscn",
+	"UndeadBoss": "res://Scenes/Creeps/Instances/UndeadBoss.tscn",
+	"UndeadMass": "res://Scenes/Creeps/Instances/UndeadMass.tscn",
+	"UndeadNormal": "res://Scenes/Creeps/Instances/UndeadNormal.tscn",
+	
+	"MagicNormal": "res://Scenes/Creeps/Instances/MagicNormal.tscn",
+	"MagicChampion": "res://Scenes/Creeps/Instances/MagicChampion.tscn",
+	"MagicAir": "res://Scenes/Creeps/Instances/MagicAir.tscn",
+	"MagicBoss": "res://Scenes/Creeps/Instances/MagicBoss.tscn",
+	"MagicMass": "res://Scenes/Creeps/Instances/MagicMass.tscn",
+	
+	"NatureAir": "res://Scenes/Creeps/Instances/NatureAir.tscn",
+	"NatureBoss": "res://Scenes/Creeps/Instances/NatureBoss.tscn",
+	"NatureMass": "res://Scenes/Creeps/Instances/NatureMass.tscn",
+	"NatureNormal": "res://Scenes/Creeps/Instances/NatureNormal.tscn",
+	"NatureChampion": "res://Scenes/Creeps/Instances/NatureChampion.tscn",
+}
 
 
 # Dict[scene_name -> Resource]
@@ -23,13 +53,14 @@ func _ready():
 	_timer_between_creeps.set_autostart(true)
 	_timer_between_creeps.set_one_shot(false)
 	
+	var regex_search = RegEx.new()
+	regex_search.compile("^(?!\\.).*$")
+	
 	# Load resources of creep scenes for each combination
 	# of Creep.Size and Creep.Category
-	var creep_scenes = Utils.list_files_in_directory(CREEP_SCENE_INSTANCES_PATH)
-	for creep_scene_path in creep_scenes:
-		var creep_scene_name = creep_scene_path.substr(0, creep_scene_path.length() - 5)
-		var preloaded_creep_scene = load(CREEP_SCENE_INSTANCES_PATH + creep_scene_path)
-		_creep_scenes[creep_scene_name] = preloaded_creep_scene
+	for creep_scene_name in CREEP_SCENE_INSTANCES_PATHS.keys():
+		var creep_scene_path = CREEP_SCENE_INSTANCES_PATHS[creep_scene_name]
+		_creep_scenes[creep_scene_name] = load(creep_scene_path)
 	
 	Utils.log_debug("Creep scenes have been loaded.")
 
