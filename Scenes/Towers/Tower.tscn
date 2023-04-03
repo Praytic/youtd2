@@ -11,7 +11,7 @@ bg_color = Color(0.0509804, 0.164706, 0.419608, 1)
 bg_color = Color(0.278431, 0.388235, 1, 1)
 
 [node name="Tower" type="CharacterBody2D"]
-z_index = 10
+z_index = 20
 script = ExtResource("2")
 
 [node name="Base" type="Sprite2D" parent="."]
