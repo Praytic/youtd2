@@ -18,6 +18,8 @@ signal became_invisible()
 signal became_visible()
 signal health_changed(old_value, new_value)
 signal mana_changed()
+signal spell_casted(event: Event)
+signal spell_targeted(event: Event)
 
 signal selected
 signal unselected

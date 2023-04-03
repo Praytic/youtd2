@@ -5,10 +5,8 @@ extends Node2D
 # Buff stores buff parameters and applies them to target
 # while it is active.
 
-# TODO: implement the following event types
-# SPELL_CAST
-# SPELL_TARGET
-# PURGED
+# TODO: add _call_event_handler_list(Event.Type.PURGE) when
+# buff is purged. No purge() f-n at the moment.
 
 # NOTE: this signal is separate from the EXPIRE event type
 # and used by Unit to undo buff modifiers. Do not use this
@@ -80,6 +78,8 @@ func _ready():
 	_target.attacked.connect(_on_target_attacked)
 	_target.dealt_damage.connect(_on_target_dealt_damage)
 	_target.damaged.connect(_on_target_damaged)
+	_target.spell_casted.connect(_on_target_spell_casted)
+	_target.spell_targeted.connect(_on_target_spell_targeted)
 
 	var create_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CREATE, create_event)
@@ -223,6 +223,14 @@ func _on_target_dealt_damage(event: Event):
 
 func _on_target_damaged(event: Event):
 	_call_event_handler_list(Event.Type.DAMAGED, event)
+
+
+func _on_target_spell_casted(event: Event):
+	_call_event_handler_list(Event.Type.SPELL_CAST, event)
+
+
+func _on_target_spell_targeted(event: Event):
+	_call_event_handler_list(Event.Type.SPELL_TARGET, event)
 
 
 func _on_periodic_event_timer_timeout(handler_object: Object, handler_function: String, timer: Timer):

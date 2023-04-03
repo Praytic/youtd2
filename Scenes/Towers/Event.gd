@@ -14,6 +14,9 @@ enum Type {
 	DAMAGE,
 	DAMAGED,
 	EXPIRE,
+	SPELL_CAST,
+	SPELL_TARGET,
+	PURGE,
 }
 
 
