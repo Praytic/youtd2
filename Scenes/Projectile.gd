@@ -47,12 +47,12 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 	projectile.position = from.get_visual_position()
 	projectile._game_scene = caster.get_tree().get_root().get_node("GameScene")
 
-	projectile._game_scene.call_deferred("add_child", projectile)
-
 	projectile._target_position_on_creation = target.get_visual_position()
 
 	if type._lifetime > 0.0 && !expire_when_reached:
 		projectile._set_lifetime(type.lifetime)
+
+	projectile._game_scene.add_child(projectile)
 
 	return projectile
 
@@ -66,16 +66,7 @@ static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, 
 func _ready():
 	_initial_scale = scale
 
-#	NOTE: target may die before projectile is created, for
-#	example if tower's special on attack ability kills
-#	target before projectile is created. In such cases,
-#	projectile won't respond to target's death() signal, so
-#	we need to manually call it to save dead target's
-#	position.
-	if _target.is_dead():
-		_on_target_death(Event.new(_target))
-	else:
-		_target.death.connect(_on_target_death)
+	_target.death.connect(_on_target_death)
 
 
 func _process(delta):
@@ -104,7 +95,7 @@ func _process(delta):
 		else:
 			explosion.position = global_position
 
-		_game_scene.call_deferred("add_child", explosion)
+		_game_scene.add_child(explosion)
 
 		queue_free()
 
