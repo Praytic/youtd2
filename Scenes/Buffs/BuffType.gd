@@ -219,6 +219,18 @@ func add_event_on_expire(handler_object: Object, handler_function: String):
 	add_event_handler(Event.Type.EXPIRE, handler_object, handler_function, 1.0, 0.0)
 
 
+func add_event_on_spell_casted(handler_object: Object, handler_function: String):
+	add_event_handler(Event.Type.SPELL_CAST, handler_object, handler_function, 1.0, 0.0)
+
+
+func add_event_on_spell_targeted(handler_object: Object, handler_function: String):
+	add_event_handler(Event.Type.SPELL_TARGET, handler_object, handler_function, 1.0, 0.0)
+
+
+func add_event_on_purge(handler_object: Object, handler_function: String):
+	add_event_handler(Event.Type.PURGE, handler_object, handler_function, 1.0, 0.0)
+
+
 func add_aura(aura_type: AuraType):
 	_aura_type_list.append(aura_type)
 
