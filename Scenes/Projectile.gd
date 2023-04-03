@@ -48,7 +48,6 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 	projectile._game_scene = caster.get_tree().get_root().get_node("GameScene")
 
 	projectile._game_scene.call_deferred("add_child", projectile)
-	projectile._target.death.connect(projectile._on_target_death)
 
 	projectile._target_position_on_creation = target.get_visual_position()
 
@@ -75,6 +74,8 @@ func _ready():
 #	position.
 	if _target.is_dead():
 		_on_target_death(Event.new(_target))
+	else:
+		_target.death.connect(_on_target_death)
 
 
 func _process(delta):
