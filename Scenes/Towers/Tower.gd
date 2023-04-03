@@ -65,6 +65,7 @@ var _order_stop_requested: bool = false
 var _current_attack_cooldown: float = 0.0
 var _target_order_issued: bool = false
 var _target_order_target: Unit
+var _visual_only: bool = false
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -109,11 +110,28 @@ func _ready():
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
 func _process(delta: float):
+	if _visual_only:
+		return
+
 	if _current_attack_cooldown > 0.0:
 		_current_attack_cooldown -= delta
 
-	if _current_attack_cooldown < 0.0:
-		_on_attack_cooldown_timeout()
+	if _current_attack_cooldown <= 0.0:
+		if _have_target_space():
+			var new_target: Creep = _find_new_target()
+			_add_target(new_target)
+
+		var attacked_target: bool = false
+
+		for target in _target_list:
+			_tower_attack(target)
+
+			attacked_target = true
+		
+# 		NOTE: important to add, not set! So that if game is
+# 		lagging, all of the attacks fire instead of skipping.
+		if attacked_target:
+			_current_attack_cooldown += get_overall_cooldown()
 
 
 #########################
@@ -130,6 +148,8 @@ func set_visual_only():
 		var callable: Callable = connection.callable
 
 		the_signal.disconnect(callable)
+
+	_visual_only = true
 
 
 func add_autocast(autocast: Autocast):
@@ -290,25 +310,6 @@ func _get_next_bounce_target(prev_target: Creep) -> Creep:
 		return null
 
 
-func _try_to_attack():
-	var attack_on_cooldown: bool = _current_attack_cooldown > 0
-	
-	if attack_on_cooldown:
-		return
-
-	var attacked_target: bool = false
-
-	for target in _target_list:
-		_tower_attack(target)
-
-		attacked_target = true
-	
-# 	NOTE: important to add, not set! So that if game is
-# 	lagging, all of the attacks fire instead of skipping.
-	if attacked_target:
-		_current_attack_cooldown += get_overall_cooldown()
-
-
 func _find_new_target() -> Creep:
 	var body_list: Array = _targeting_area.get_overlapping_bodies()
 
@@ -464,7 +465,6 @@ func _on_targeting_area_body_entered(body):
 	if _have_target_space():
 		var new_target: Creep = body as Creep
 		_add_target(new_target)
-		_try_to_attack()
 
 
 func _on_targeting_area_body_exited(body):
@@ -490,16 +490,6 @@ func _on_creep_in_range_became_visible(creep: Creep):
 
 func _on_target_death(_event: Event, target: Creep):
 	_remove_target(target)
-
-
-func _on_attack_cooldown_timeout():
-	if _have_target_space():
-		var new_target: Creep = _find_new_target()
-		_add_target(new_target)
-
-# 	NOTE: this is the one case where _try_to_attack() is called
-# 	even if add_target() wasn't called
-	_try_to_attack()
 
 
 #########################
