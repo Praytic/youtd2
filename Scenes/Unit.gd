@@ -574,7 +574,6 @@ func _add_buff_internal(buff):
 	_buff_map[buff_type] = buff
 	var friendly: bool = buff.is_friendly()
 	_get_buff_list(friendly).append(buff)
-	buff.removed.connect(_on_buff_removed.bind(buff))
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), 1)
 	add_child(buff)
@@ -643,7 +642,7 @@ func _get_buff_list(friendly: bool) -> Array[Buff]:
 ###     Callbacks     ###
 #########################
 
-func _on_buff_removed(buff):
+func _remove_buff_internal(buff: Buff):
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), -1)
 

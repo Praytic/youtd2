@@ -6,12 +6,6 @@ extends Node2D
 # while it is active.
 
 
-# NOTE: this signal is separate from the EXPIRE event type
-# and used by Unit to undo buff modifiers. Do not use this
-# in Tower scripts. Use EXPIRE event handler.
-signal removed()
-
-
 class EventHandler:
 	var object: Object
 	var handler_function: String
@@ -125,7 +119,7 @@ func remove_buff():
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
-	removed.emit()
+	_target._remove_buff_internal(self)
 
 	var expire_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
@@ -135,7 +129,7 @@ func purge_buff():
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
-	removed.emit()
+	_target._remove_buff_internal(self)
 
 	var purge_event: Event = _make_buff_event(null)
 	_call_event_handler_list(Event.Type.PURGE, purge_event)
