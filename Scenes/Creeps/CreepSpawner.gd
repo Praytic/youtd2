@@ -89,6 +89,7 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
 	creep.set_category(wave.get_race())
 	creep.set_base_health(wave.get_base_hp())
 	creep.death.connect(Callable(wave, "_on_Creep_death"))
+	creep.reached_portal.connect(Callable(wave, "_on_Creep_reached_portal").bind(creep))
 	return creep
 
 

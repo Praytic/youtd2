@@ -5,6 +5,7 @@ extends Unit
 # TODO: implement armor
 
 signal moved(delta)
+signal reached_portal(damage_to_portal)
 
 
 # NOTE: order is important to be able to compare
@@ -99,6 +100,10 @@ func adjust_height(height: float, speed: float):
 		Vector2(_visual.position.x, _visual.position.y - height),
 		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
+func reach_portal():
+	var damage_to_portal = get_damage_to_portal()
+	reached_portal.emit(damage_to_portal)
+	queue_free()
 
 #########################
 ###      Private      ###
@@ -222,3 +227,7 @@ func get_display_name() -> String:
 func set_path(path: Path2D):
 	_path = path
 	position = path.get_curve().get_point_position(0) + path.position
+
+func get_damage_to_portal():
+	# TODO: Implement formula
+	return 1
