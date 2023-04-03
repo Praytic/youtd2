@@ -122,7 +122,13 @@ func get_buffed_unit() -> Unit:
 
 
 func remove_buff():
-	_on_timer_timeout()
+	var cleanup_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
+
+	removed.emit()
+
+	var expire_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
 
 
 func purge_buff():
@@ -198,13 +204,7 @@ func _call_event_handler_list(event_type: Event.Type, event: Event):
 
 
 func _on_timer_timeout():
-	var cleanup_event: Event = _make_buff_event(_target)
-	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
-
-	removed.emit()
-
-	var expire_event: Event = _make_buff_event(_target)
-	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
+	remove_buff()
 
 
 func _on_target_death(event: Event):
