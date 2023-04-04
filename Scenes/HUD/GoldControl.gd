@@ -32,8 +32,7 @@ func add_income():
 ###     Callbacks     ###
 #########################
 
-func _on_Creep_death(event):
-	var creep: Creep = event.get_target()
+func _on_Creep_death(_event: Event, creep: Creep):
 	var bounty = creep.get_bounty()
 	set_gold(_gold + bounty)
 

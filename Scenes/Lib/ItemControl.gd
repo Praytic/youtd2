@@ -13,7 +13,7 @@ signal item_used(item_id)
 ### Code starts here  ###
 #########################
 
-func _on_Creep_death(event):
+func _on_Creep_death(_event: Event, creep: Creep):
 	# TODO: Implement proper item drop chance caclculation
 	if Utils.rand_chance(0.5):
 		var item_id_list: Array = Properties.get_item_id_list()
@@ -34,7 +34,7 @@ func _on_Creep_death(event):
 		var item_drop_scene = load(item_drop_scene_path)
 		var item_drop = item_drop_scene.instantiate()
 		item_drop.set_id(item_id)
-		item_drop.position = event.get_target().position
+		item_drop.position = creep.position
 		item_drop.selected.connect(_on_Item_selected.bind(item_drop))
 		object_ysort.add_child(item_drop, true)
 		item_dropped.emit(item_drop.get_id())
