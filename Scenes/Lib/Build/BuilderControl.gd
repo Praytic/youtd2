@@ -7,6 +7,8 @@ signal tower_built(tower_id)
 @onready var object_ysort: Node2D = get_node("%Map").get_node("ObjectYSort")
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 @onready var _landscape = get_node("%Map")
+@onready var gold_control = get_tree().current_scene.get_node("%GoldControl")
+
 
 var build_mode: bool = false
 var tower_preview: TowerPreview = null
@@ -33,8 +35,7 @@ func on_build_button_pressed(tower_id: int):
 
 
 func verify_and_build():
-	if build_mode and _landscape.can_build_at_mouse_pos() \
-		and GoldManager.:
+	if build_mode and _landscape.can_build_at_mouse_pos():
 		var new_tower = TowerManager.get_tower(tower_preview.tower_id)
 		new_tower.position = _landscape.get_current_buildable_pos()
 		object_ysort.add_child(new_tower, true)

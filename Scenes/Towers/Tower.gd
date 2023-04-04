@@ -153,13 +153,6 @@ func add_aura(aura_type: AuraType):
 	add_child(aura)
 
 
-# TODO: implement. Also move to the "owner" class that is
-# returned by getOwner(), when owner gets implemented. Find
-# out what mystery bools are for.
-func give_gold(amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
-	GoldManager.add_gold(amount)
-
-
 func enable_default_sprite():
 	$DefaultSprite.show()
 
