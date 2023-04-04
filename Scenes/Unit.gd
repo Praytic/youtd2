@@ -989,7 +989,7 @@ func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 		Creep.Size.AIR: Modification.Type.MOD_DMG_TO_AIR,
 	}
 
-	var creep_size: Creep.Size = creep.get_creep_size()
+	var creep_size: Creep.Size = creep.get_size()
 	var mod_type: Modification.Type = creep_size_to_mod_map[creep_size]
 	var damage_mod: float = _mod_value_map[mod_type]
 

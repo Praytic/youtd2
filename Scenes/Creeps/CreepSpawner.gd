@@ -69,9 +69,9 @@ func _ready():
 func queue_spawn_creep(creep: Creep):
 	_creep_spawn_queue.push_back(creep)
 	if _timer_between_creeps.is_stopped():
-		if creep.get_creep_size() == Creep.Size.MASS:
+		if creep.get_size() == Creep.Size.MASS:
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
-		elif creep.get_creep_size() == Creep.Size.NORMAL:
+		elif creep.get_size() == Creep.Size.NORMAL:
 			_timer_between_creeps.set_wait_time(NORMAL_SPAWN_DELAY_SEC)
 		Utils.log_debug("Start creep spawn timer with delay [%s]." % _timer_between_creeps.get_wait_time())
 		_timer_between_creeps.start()

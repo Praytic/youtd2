@@ -35,7 +35,7 @@ const SELECTION_SIZE: int = 64
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 
 var _path: Path2D : set = set_path
-var _size: Creep.Size : set = set_creep_size, get = get_creep_size
+var _size: Creep.Size
 var _category: Creep.Category : set = set_category, get = get_category
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _current_path_index: int = 0
@@ -198,7 +198,7 @@ func get_unit_facing() -> float:
 func set_creep_size(value: Creep.Size) -> void:
 	_size = value
 
-func get_creep_size() -> Creep.Size:
+func get_size() -> Creep.Size:
 	return _size
 
 func set_category(value: Creep.Category) -> void:
