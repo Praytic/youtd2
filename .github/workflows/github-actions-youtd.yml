@@ -1,4 +1,4 @@
-name: YouTD2
+name: build-and-publish
 
 on:
   push:
@@ -50,12 +50,7 @@ jobs:
     - name: Enable threads for Chrome
       run: |
         curl https://raw.githubusercontent.com/josephrocca/clip-image-sorter/main/enable-threads.js > ${{ steps.export.outputs.build_directory }}/Web/enable-threads.js
-    
-    - name: Create compressed zip
-      run: |
-        zip -r youtd-${{ steps.tag_version.outputs.TAG_VERSION }}.zip ${{ steps.export.outputs.build_directory }}/Web/*
-        mv youtd-${{ steps.tag_version.outputs.TAG_VERSION }}.zip ${{ steps.export.outputs.build_directory }}/Web/
-    
+
     - uses: actions/upload-artifact@v3
       if: env.NEED == 'true'
       with:
