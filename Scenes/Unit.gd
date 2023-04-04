@@ -555,9 +555,6 @@ func _killed_by_unit(caster: Unit):
 
 # Called when unit kills target unit
 func _accept_kill(target: Unit):
-	var bounty: float = _get_bounty_for_target(target)
-	GoldManager.add_gold(bounty)
-
 	var experience_gained: float = _get_experience_for_target(target)
 	add_exp_flat(experience_gained)
 
@@ -611,10 +608,10 @@ func _unselect():
 	unselected.emit()
 
 
-func _get_bounty_for_target(target: Unit) -> float:
+func get_bounty() -> float:
 # 	TODO: Replace this placeholder constant with real value.
 	var bounty_base: float = 10.0
-	var granted_mod: float = target.get_prop_bounty_granted()
+	var granted_mod: float = get_prop_bounty_granted()
 	var received_mod: float = get_prop_bounty_received()
 	var bounty: int = int(bounty_base * granted_mod * received_mod)
 
