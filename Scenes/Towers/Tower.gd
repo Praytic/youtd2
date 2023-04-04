@@ -117,20 +117,11 @@ func _process(delta: float):
 		_current_attack_cooldown -= delta
 
 	if _current_attack_cooldown <= 0.0:
-		if _have_target_space():
-			var new_target: Creep = _find_new_target()
-			_add_target(new_target)
+		var attack_success: bool = _try_to_attack()
 
-		var attacked_target: bool = false
-
-		for target in _target_list:
-			_tower_attack(target)
-
-			attacked_target = true
-		
 # 		NOTE: important to add, not set! So that if game is
 # 		lagging, all of the attacks fire instead of skipping.
-		if attacked_target:
+		if attack_success:
 			_current_attack_cooldown += get_overall_cooldown()
 
 
@@ -237,9 +228,23 @@ func _set_target_count(count: int):
 	_target_count_max = count
 
 
-func _tower_attack(target_arg: Unit):
-	var target: Unit = target_arg
+func _try_to_attack() -> bool:
+	if _have_target_space():
+		var new_target: Creep = _find_new_target()
+		_add_target(new_target)
 
+#	NOTE: have to save this value before attacking because
+#	attacking may kill targets which modifies the target
+#	list
+	var attack_success: bool = !_target_list.is_empty()
+
+	for target in _target_list:
+		_attack_target(target)
+	
+	return attack_success
+
+
+func _attack_target(target: Unit):
 	var attack_event: Event = Event.new(target)
 	super._do_attack(attack_event)
 
