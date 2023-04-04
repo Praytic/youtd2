@@ -1,31 +1,79 @@
-class_name GenerateAtlas
+extends MainLoop
 
 
 # Script to take tile images produced by blender export
 # script and combine them into an atlas image.
-# How to use: add a call to GenerateAtlas.run() in GameScene._init()
 
-# TODO: make this runnable from in-game console. Workflow should be like this:
-# Press "~" to open console
-# Type "generate-atlas"
-# File pick dialog opens
-# Choose folder that contains images
-# Enter name to use for atlas names
-# Generation process runs
+# Run the script with godot's command line executable:
+# "C:\Program Files\Godot\Godot_v4.0-stable_win64_console.exe" -s ./Scenes/GenerateAtlas.gd --path="C:/Users/kvely/blender/bird/script-export/rigAction" --name="bird"
 
-# NOTE: copy this to GameScene.gd
-# func _init():
-# 	GenerateAtlas.run("C:/Users/kvely/blender/bird/script-export/rigAction", "bird")
+const PATH_ARG: String = "path"
+const NAME_ARG: String = "name"
 
 
-static func run(root_path: String, name: String):
+func _initialize():
+	print("GenerateAtlas.gd begin")
+
+	var args_map: Dictionary = parse_args()
+
+	var args_ok: bool = check_args(args_map)
+	if !args_ok:
+		print("GenerateAtlas.gd error - args not okay")
+
+		return
+
+	var path: String = args_map[PATH_ARG]
+	var name: String = args_map[NAME_ARG]
+
+	run(path, name)
+
+	print("GenerateAtlas.gd end")
+
+
+# NOTE: returning true from _process() is the only way to
+# quit from MainLoop.
+func _process(_delta: float):
+	var end_main_loop: bool = true
+
+	return end_main_loop
+
+
+func parse_args() -> Dictionary:
+	var out: Dictionary = {}
+
+	var cmdline_args: Array = OS.get_cmdline_args()
+
+	for argument in cmdline_args:
+		if argument.find("=") > -1:
+			var key_value: PackedStringArray = argument.split("=")
+			var key: String = key_value[0].lstrip("--")
+			var value: String = key_value[1]
+			out[key] = value
+
+
+	return out
+
+
+func check_args(args_map: Dictionary) -> bool:
+	var ok: bool = true
+
+	for arg_key in [PATH_ARG, NAME_ARG]:
+		if !args_map.has(arg_key):
+			print("Argument is not defined: ", arg_key)
+
+			ok = false
+
+	return ok
+
+
+func run(root_path: String, name: String):
 	var direction_dirs: PackedStringArray = DirAccess.get_directories_at(root_path)
 
 	for direction_dirname in direction_dirs:
-		GenerateAtlas.combine_tiles(root_path, direction_dirname, name)
+		combine_tiles(root_path, direction_dirname, name)
 
 
-static func combine_tiles(root_path: String, direction_dirname: String, name: String):
+func combine_tiles(root_path: String, direction_dirname: String, name: String):
 	var direction_dir_path: String = "%s/%s" % [root_path, direction_dirname]
 	var file_list: PackedStringArray = DirAccess.get_files_at(direction_dir_path)
 	
