@@ -1,26 +1,8 @@
 class_name Aura
 extends Node2D
 
-# Aura applies an effect to targets in range of caster.
-# Create an aura instance, set it's variables and add as
-# child of the caster scene to use the aura. Caster should
-# define a function which creates a buff for the aura effect
-# and set aura's create_aura_effect_function variable to the
-# name of this function.
-
-# TODO: current implementation has a lag of 0.2s because it
-# is based on a timer. (Godot timer's aren't supposed to
-# have wait times of lower than 0.2s and it would cause
-# perfomance issues anyway). An implementation without lag
-# would need to not use a timer and instead connect to
-# body_entered/exited() signals of the Area2D. That
-# implementation is considerably more complex to implement
-# because of the need to handle overlapping aura's from
-# different towers. For example, if a creep is inside two
-# intersecting aura's of same type, and exits one of them,
-# the aura effect has to be swapped to the aura that the creep
-# remains in. Also need to handle aura upgrades when creep
-# enters aura of same type but higher level effect.
+# Aura applies an aura effect(buff) to targets in range of
+# caster. Should be created using AuraType.
 
 
 var _aura_range: float = 10.0
@@ -35,31 +17,14 @@ var _aura_effect: BuffType = null
 
 var _caster: Unit = null
 
-@onready var _timer: Timer = $Timer
-
 
 func _ready():
-	_timer.one_shot = false
-	_timer.wait_time = 0.2
-	_timer.start()
-
 # 	NOTE: supress "variable never used" warning 
 	_aura_effect_is_friendly = _aura_effect_is_friendly
 
+	Utils.circle_polygon_set_radius($Area2D/CollisionPolygon2D, _aura_range)
 
-func _on_Timer_timeout():
-	if _aura_effect == null:
-		return
-
-	var unit_list: Array[Unit] = Utils.get_units_in_range(_target_type, _caster.position, _aura_range)
-
-	if !_target_self:
-		unit_list.erase(_caster)
-
-	for unit in unit_list:
-		# NOTE: use 0.21 duration so that buff is refreshed
-		# right before it expires
-		_aura_effect.apply_custom_timed(_caster, unit, get_level(), 0.21)
+	_caster.level_up.connect(_on_caster_level_up)
 
 
 func get_power() -> int:
@@ -68,3 +33,52 @@ func get_power() -> int:
 
 func get_level() -> int:
 	return _level + _caster.get_level() * _level_add
+
+
+func _on_area_2d_body_entered(body: Node2D):
+	if !body is Unit:
+		return
+
+	var unit: Unit = body as Unit
+
+	var target_match: bool = _target_type.match(unit)
+	
+	if !target_match:
+		return
+
+	var buff: Buff = _aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)
+	buff._applied_by_aura_count += 1
+
+
+func _on_area_2d_body_exited(body: Node2D):
+	if !body is Unit:
+		return
+
+	var unit: Unit = body as Unit
+
+	var target_match: bool = _target_type.match(unit)
+
+	if !target_match:
+		return
+
+	var buff: Buff = unit.get_buff_of_type(_aura_effect)
+
+	if buff != null:
+		buff._applied_by_aura_count -= 1
+
+#		NOTE: remove buff only if it's not being applied by
+#		other aura's on other casters. For example if a
+#		target moves out of range of this aura but is still
+#		in range of an aura on another caster, it should
+#		still have the aura effect.
+		if buff._applied_by_aura_count == 0:
+			buff.remove_buff()
+
+
+# NOTE: when caster levels up, re-apply aura effect. apply()
+# will upgrade the aura effect.
+func _on_caster_level_up(_event: Event):
+	var unit_list: Array = Utils.get_units_in_range(_target_type, position, _aura_range)
+
+	for unit in unit_list:
+		_aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)

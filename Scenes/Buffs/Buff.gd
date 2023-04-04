@@ -31,6 +31,9 @@ var _type: String
 var _timer: Timer
 # Map of Event.Type -> list of EventHandler's
 var event_handler_map: Dictionary = {}
+# Used by aura's to know when to remove buff that was
+# applied by aura.
+var _applied_by_aura_count: int = 0
 
 
 # NOTE: buff type determines what happens when a buff is
