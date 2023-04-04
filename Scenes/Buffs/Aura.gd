@@ -36,30 +36,20 @@ func get_level() -> int:
 
 
 func _on_area_2d_body_entered(body: Node2D):
-	if !body is Unit:
+	if !_check_body_match(body):
 		return
 
 	var unit: Unit = body as Unit
-
-	var target_match: bool = _target_type.match(unit)
-	
-	if !target_match:
-		return
 
 	var buff: Buff = _aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)
 	buff._applied_by_aura_count += 1
 
 
 func _on_area_2d_body_exited(body: Node2D):
-	if !body is Unit:
+	if !_check_body_match(body):
 		return
 
 	var unit: Unit = body as Unit
-
-	var target_match: bool = _target_type.match(unit)
-
-	if !target_match:
-		return
 
 	var buff: Buff = unit.get_buff_of_type(_aura_effect)
 
@@ -75,10 +65,27 @@ func _on_area_2d_body_exited(body: Node2D):
 			buff.remove_buff()
 
 
+func _check_body_match(body: Node2D) -> bool:
+	if !body is Unit:
+		return false
+
+	var unit: Unit = body as Unit
+
+	if !_target_self && unit == self:
+		return false
+
+	var target_match: bool = _target_type.match(unit)
+
+	return target_match
+
+
 # NOTE: when caster levels up, re-apply aura effect. apply()
 # will upgrade the aura effect.
 func _on_caster_level_up(_event: Event):
 	var unit_list: Array = Utils.get_units_in_range(_target_type, position, _aura_range)
+
+	if !_target_self:
+		unit_list.erase(self)
 
 	for unit in unit_list:
 		_aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)
