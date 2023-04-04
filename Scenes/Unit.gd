@@ -546,7 +546,7 @@ func _killed_by_unit(caster: Unit):
 # 	processing it.
 	_is_dead = true
 
-	var death_event: Event = Event.new(self)
+	var death_event: Event = Event.new(caster)
 	death.emit(death_event)
 
 	if caster != null:
