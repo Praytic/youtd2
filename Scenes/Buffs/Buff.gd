@@ -52,6 +52,9 @@ var _original_duration: float = 0.0
 # 	_friendly = friendly
 
 func _ready():
+#	NOTE: fix "unused" warning
+	_applied_by_aura_count = _applied_by_aura_count
+
 	if _time > 0.0:
 		_timer = Timer.new()
 		add_child(_timer)
