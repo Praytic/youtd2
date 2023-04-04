@@ -212,12 +212,16 @@ func _on_timer_timeout():
 
 
 func _on_target_death(event: Event):
-	_call_event_handler_list(Event.Type.DEATH, event)
-	_call_event_handler_list(Event.Type.CLEANUP, event)
+	var death_event: Event = _make_buff_event(event.get_target())
+	_call_event_handler_list(Event.Type.DEATH, death_event)
+
+	var cleanup_event: Event = _make_buff_event(event.get_target())
+	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
 
 func _on_target_kill(event: Event):
-	_call_event_handler_list(Event.Type.KILL, event)
+	var kill_event: Event = _make_buff_event(event.get_target())
+	_call_event_handler_list(Event.Type.KILL, kill_event)
 
 
 func _on_target_level_up():
@@ -226,27 +230,33 @@ func _on_target_level_up():
 
 
 func _on_target_attack(event: Event):
-	_call_event_handler_list(Event.Type.ATTACK, event)
+	var attack_event: Event = _make_buff_event(event.get_target())
+	_call_event_handler_list(Event.Type.ATTACK, attack_event)
 
 
 func _on_target_attacked(event: Event):
-	_call_event_handler_list(Event.Type.ATTACKED, event)
+	var attacked_event: Event = _make_buff_event(event.get_target())
+	_call_event_handler_list(Event.Type.ATTACKED, attacked_event)
 
 
 func _on_target_dealt_damage(event: Event):
-	_call_event_handler_list(Event.Type.DAMAGE, event)
+	var dealt_damage_event: Event = _make_buff_event(event.get_target())
+	_call_event_handler_list(Event.Type.DAMAGE, dealt_damage_event)
 
 
 func _on_target_damaged(event: Event):
-	_call_event_handler_list(Event.Type.DAMAGED, event)
+	var damaged_event: Event = _make_buff_event(event.get_target())
+	_call_event_handler_list(Event.Type.DAMAGED, damaged_event)
 
 
 func _on_target_spell_casted(event: Event):
-	_call_event_handler_list(Event.Type.SPELL_CAST, event)
+	var spell_casted_event: Event = _make_buff_event(event.get_target())
+	_call_event_handler_list(Event.Type.SPELL_CAST, spell_casted_event)
 
 
 func _on_target_spell_targeted(event: Event):
-	_call_event_handler_list(Event.Type.SPELL_TARGET, event)
+	var spell_target_event: Event = _make_buff_event(event.get_target())
+	_call_event_handler_list(Event.Type.SPELL_TARGET, spell_target_event)
 
 
 func _on_periodic_event_timer_timeout(handler_object: Object, handler_function: String, timer: Timer):
