@@ -40,7 +40,7 @@ func do_spell_damage(target: Unit, amount: float):
 		var killed_event: Event = Event.new(target)
 		killed_unit.emit(killed_event, self)
 
-		target._killed_by_unit(null)
+		target._killed_by_unit(_caster)
 	else:
 		var damage_event: Event = Event.new(target)
 		dealt_damage.emit(damage_event, self)
