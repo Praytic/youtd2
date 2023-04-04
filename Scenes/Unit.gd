@@ -48,7 +48,8 @@ var user_real3: float = 0.0
 
 var _is_dead: bool = false
 var _level: int = 1 : get = get_level, set = set_level
-var _buff_map: Dictionary
+var _buff_type_map: Dictionary
+var _buff_group_map: Dictionary
 var _friendly_buff_list: Array[Buff]
 var _unfriendly_buff_list: Array[Buff]
 var _direct_modifier_list: Array
@@ -568,9 +569,13 @@ func _accept_kill(target: Unit):
 
 # This is for internal use in Buff.gd only. For external
 # use, call Buff.apply_to_unit().
-func _add_buff_internal(buff):
+func _add_buff_internal(buff: Buff):
 	var buff_type: String = buff.get_type()
-	_buff_map[buff_type] = buff
+	_buff_type_map[buff_type] = buff
+
+	var stacking_group: String = buff.get_stacking_group()
+	_buff_group_map[stacking_group] = buff
+
 	var friendly: bool = buff.is_friendly()
 	_get_buff_list(friendly).append(buff)
 	var buff_modifier: Modifier = buff.get_modifier()
@@ -646,7 +651,11 @@ func _remove_buff_internal(buff: Buff):
 	_apply_modifier(buff_modifier, buff.get_power(), -1)
 
 	var buff_type: String = buff.get_type()
-	_buff_map.erase(buff_type)
+	_buff_type_map.erase(buff_type)
+
+	var stacking_group: String = buff.get_stacking_group()
+	_buff_group_map.erase(stacking_group)
+
 	var friendly: bool = buff.is_friendly()
 	_get_buff_list(friendly).append(buff)
 	buff.queue_free()
@@ -818,9 +827,16 @@ func is_invisible() -> bool:
 
 func get_buff_of_type(buff_type: BuffType) -> Buff:
 	var type: String = buff_type.get_type()
-	var buff = _buff_map.get(type, null)
+	var buff = _buff_type_map.get(type, null)
 
 	return buff
+
+
+func get_buff_of_group(stacking_group: String) -> Buff:
+	var buff = _buff_group_map.get(stacking_group, null)
+
+	return buff
+
 
 # Removes the most recent buff. Returns true if there was a
 # buff to remove and false otherwise.
