@@ -89,7 +89,7 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
 	creep.set_armor_type(wave.get_armor_type())
 	creep.set_category(wave.get_race())
 	creep.set_base_health(wave.get_base_hp())
-	creep.death.connect(Callable(wave, "_on_Creep_death"))
+	creep.death.connect(wave._on_Creep_death.bind(creep))
 	creep.reached_portal.connect(Callable(wave, "_on_Creep_reached_portal").bind(creep))
 	return creep
 
@@ -101,8 +101,8 @@ func spawn_creep(creep: Creep):
 		all_creeps_spawned.emit()
 		return
 	
-	creep.death.connect(Callable(item_control, "_on_Creep_death"))
-	creep.death.connect(Callable(gold_control, "_on_Creep_death"))
+	creep.death.connect(Callable(item_control._on_Creep_death.bind(creep)))
+	creep.death.connect(Callable(gold_control._on_Creep_death.bind(creep)))
 	object_ysort.add_child(creep, true)
 	Utils.log_debug("Creep has been spawned [%s]." % creep)
 
