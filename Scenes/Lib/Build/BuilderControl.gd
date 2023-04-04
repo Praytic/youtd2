@@ -33,7 +33,8 @@ func on_build_button_pressed(tower_id: int):
 
 
 func verify_and_build():
-	if build_mode and _landscape.can_build_at_mouse_pos():
+	if build_mode and _landscape.can_build_at_mouse_pos() \
+		and GoldManager.:
 		var new_tower = TowerManager.get_tower(tower_preview.tower_id)
 		new_tower.position = _landscape.get_current_buildable_pos()
 		object_ysort.add_child(new_tower, true)

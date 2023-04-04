@@ -45,6 +45,7 @@ var _creep_scenes: Dictionary
 var _creep_spawn_queue: Array
 
 @onready var item_control = get_tree().current_scene.get_node("%ItemControl")
+@onready var gold_control = get_tree().current_scene.get_node("%GoldControl")
 @onready var object_ysort: Node2D = get_tree().current_scene.get_node("%Map/ObjectYSort")
 @onready var _timer_between_creeps: Timer = $Timer
 
@@ -65,7 +66,7 @@ func _ready():
 	Utils.log_debug("Creep scenes have been loaded.")
 
 
-func spawn_creep(creep: Creep):
+func queue_spawn_creep(creep: Creep):
 	_creep_spawn_queue.push_back(creep)
 	if _timer_between_creeps.is_stopped():
 		if creep.get_creep_size() == Creep.Size.MASS:
@@ -93,8 +94,7 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
 	return creep
 
 
-func _on_Timer_timeout():
-	var creep = _creep_spawn_queue.pop_front()
+func spawn_creep(creep: Creep):
 	if not creep:
 		Utils.log_debug("Stop creep spawn. Queue is exhausted.")
 		_timer_between_creeps.stop()
@@ -102,6 +102,12 @@ func _on_Timer_timeout():
 		return
 	
 	creep.death.connect(Callable(item_control, "_on_Creep_death"))
+	creep.death.connect(Callable(gold_control, "_on_Creep_death"))
 	object_ysort.add_child(creep, true)
 	Utils.log_debug("Creep has been spawned [%s]." % creep)
+
+
+func _on_Timer_timeout():
+	var creep = _creep_spawn_queue.pop_front()
+	spawn_creep(creep)
 	creep_spawned.emit(creep)

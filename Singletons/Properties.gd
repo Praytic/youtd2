@@ -4,10 +4,6 @@ extends Node
 const globals = {
 	"max_food": 99,
 	"ini_food": 55,
-	"max_gold": 999999,
-	"ini_gold": 70,
-	"max_income": 999999,
-	"ini_income": 10,
 	"max_knowledge_tomes": 999999,
 	"ini_knowledge_tomes": 90,
 	"max_knowledge_tomes_income": 999999,
