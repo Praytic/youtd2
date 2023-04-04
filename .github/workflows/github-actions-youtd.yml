@@ -54,18 +54,13 @@ jobs:
     - name: Create compressed zip
       run: |
         zip -r youtd-${{ steps.tag_version.outputs.TAG_VERSION }}.zip ${{ steps.export.outputs.build_directory }}/Web/*
+        mv youtd-${{ steps.tag_version.outputs.TAG_VERSION }}.zip ${{ steps.export.outputs.build_directory }}/Web/
     
     - uses: actions/upload-artifact@v3
       if: env.NEED == 'true'
       with:
         name: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}
         path: ${{ steps.export.outputs.build_directory }}/Web/*
-        
-    - uses: actions/upload-artifact@v3
-      if: env.NEED == 'true'
-      with:
-        name: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}-zip
-        path: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}.zip
         
     outputs:
       tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
