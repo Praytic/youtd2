@@ -34,6 +34,7 @@ var event_handler_map: Dictionary = {}
 # Used by aura's to know when to remove buff that was
 # applied by aura.
 var _applied_by_aura_count: int = 0
+var _original_duration: float = 0.0
 
 
 # NOTE: buff type determines what happens when a buff is
@@ -65,6 +66,7 @@ func _ready():
 			total_time *= debuff_duration_mod
 
 		_timer.start(total_time)
+		_original_duration = total_time
 
 	_target.death.connect(_on_target_death)
 	_target.kill.connect(_on_target_kill)
@@ -85,7 +87,11 @@ func is_friendly() -> bool:
 
 
 func refresh_duration():
-	_timer.start(_timer.wait_time)
+	set_remaining_duration(_original_duration)
+
+
+func set_remaining_duration(duration: float):
+	_timer.start(duration)
 
 
 func get_modifier() -> Modifier:
