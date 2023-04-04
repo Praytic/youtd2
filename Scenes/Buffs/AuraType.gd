@@ -1,6 +1,9 @@
 class_name AuraType
 
-# AuraType stores information about an aura. Should be used to create Aura instances.
+# AuraType stores information about an aura. Should be used
+# to create Aura instances. Create an AuraType and set it's
+# properties, then pass AuraType to Tower.add_aura() or
+# BuffType.add_aura().
 
 
 var aura_range: float = 10.0
