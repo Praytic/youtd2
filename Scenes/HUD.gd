@@ -12,20 +12,11 @@ func _ready():
 	for element_button in element_buttons_parent.get_children():
 		element_button.pressed.connect(_on_element_button_pressed.bind(element_button))
 	
-	if not FF.dev_controls_enabled():
+	if not OS.is_debug_build() or not FF.dev_controls_enabled():
 		_dev_controls.hide()
 	
 	$TowerTooltip.hide()
 	$TooltipHeader.reset()
-
-
-func _on_StartWaveButton_pressed():
-	var wave_index: int = $VBoxContainer/HBoxContainer/WaveEdit.value
-	start_wave.emit(wave_index)
-
-
-func _on_StopWaveButton_pressed():
-	stop_wave.emit()
 
 
 func _on_RightMenuBar_unit_info_requested(unit_id, unit_type):
