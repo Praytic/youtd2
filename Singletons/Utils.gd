@@ -67,7 +67,16 @@ func circle_polygon_set_radius(collision_polygon: CollisionPolygon2D, radius: fl
 		var angle_point = deg_to_rad(angle_from + i * (angle_to - angle_from) / nb_points - 90)
 		var point = center + Vector2(cos(angle_point), sin(angle_point) / 2) * radius
 		points_arc.append(point)
-	collision_polygon.polygon = points_arc
+
+
+# 	NOTE: use call_deferred() here so that
+# 	circle_polygon_set_radius() can be called during physics
+# 	processing. Changing the state of physics objects while
+# 	inside physics processing causes this error: "Can't
+# 	change this state while flushing queries.". This can
+# 	happen when circle_polygon_set_radius() from the slot
+# 	for "body_entered" signal for example.
+	collision_polygon.call_deferred("set_polygon", points_arc)
 
 
 # Chance should be in range [0.0, 1.0]

@@ -9,8 +9,6 @@ signal unit_came_in_range(handler_object, handler_function, unit)
 var _target_type: TargetType
 var _handler_object: Node
 var _handler_function: String
-var _emit_signal_in_process: bool
-var _unit: Unit = null
 
 
 func _init():
@@ -24,12 +22,6 @@ func init(radius: float, target_type: TargetType, handler_object: Node, handler_
 	_handler_function = handler_function
 
 
-func _process(_delta: float):
-	if _emit_signal_in_process:
-		_emit_signal_in_process = false
-		unit_came_in_range.emit(_handler_object, _handler_function, _unit)
-
-
 func _on_body_entered(body: Node):
 	if !body is Unit:
 		return
@@ -41,14 +33,5 @@ func _on_body_entered(body: Node):
 
 	var target_match: bool = _target_type.match(unit)
 
-# 	NOTE: delay emitting signal until we're outside
-# 	on_body_entered() slot. If we do emit the signal inside
-# 	this slot then it can cause these kinds of errors:
-# 	"Can't change this state while flushing queries." This
-# 	is because body_entered() signal is emitted during the
-# 	physics process loop and reactions to
-# 	unit_came_in_range() signal by towers may modify physics
-# 	state, for example by changing size of collision shapes.
 	if target_match:
-		_emit_signal_in_process = true
-		_unit = unit
+		unit_came_in_range.emit(_handler_object, _handler_function, _unit)
