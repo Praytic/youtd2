@@ -13,9 +13,16 @@ signal expanded(expand)
 #########################
 
 func set_header_unit(unit):
+	if unit is ItemDrop:
+		hide()
+		return
+	
 	for label in _tooltip_labels:
 		var stat = _get_stat(label, unit)
 		label.text = str(stat)
+	
+	if not unit is Tower:
+		_expand_button.hide()
 
 func reset():
 	hide()

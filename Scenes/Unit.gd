@@ -299,7 +299,7 @@ func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_da
 
 
 static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit, target: Unit) -> float:
-	var dealt_mod: float = caster.get_prop_spell_dmg_dealt()
+	var dealt_mod: float = caster.get_prop_spell_damage_dealt()
 	var received_mod: float = target.get_prop_spell_damage_received()
 	var damage_total: float = damage_base * dealt_mod * received_mod * crit_ratio
 
@@ -800,7 +800,7 @@ func get_prop_trigger_chances() -> float:
 func get_prop_multicrit_count() -> int:
 	return int(max(0, _mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT]))
 
-func get_prop_spell_dmg_dealt() -> float:
+func get_prop_spell_damage_dealt() -> float:
 	return _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_DEALT]
 
 func get_prop_spell_damage_received() -> float:

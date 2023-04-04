@@ -49,7 +49,7 @@ func hit(event: Event):
 		b = D1000_Spider_Poison.apply(tower, target, level)
 		b.user_real = add_dam
 		b.user_real2 = max_dam
-		b.user_real3 = tower.get_prop_spell_dmg_dealt()
+		b.user_real3 = tower.get_prop_spell_damage_dealt()
 	else:
 		if b.user_real2 >= max_dam:
 			max_dam = b.user_real2
@@ -59,10 +59,10 @@ func hit(event: Event):
 		else:
 			add_dam = b.user_real + add_dam
 
-		if b.user_real3 < tower.get_prop_spell_dmg_dealt():
+		if b.user_real3 < tower.get_prop_spell_damage_dealt():
 			b.remove_buff()
 			b = D1000_Spider_Poison.apply(tower, target, level)
-			b.user_real3 = tower.get_prop_spell_dmg_dealt()
+			b.user_real3 = tower.get_prop_spell_damage_dealt()
 		else:
 			b.set_remaining_duration(tower.user_int3 + tower.user_real3 * level)
 
