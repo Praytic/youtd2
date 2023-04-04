@@ -12,6 +12,7 @@ class_name BuffType
 # information about the event.
 
 var _type: String
+var _stacking_group: String = ""
 var _time_base: float
 var _time_level_add: float
 var _friendly: bool
@@ -48,29 +49,39 @@ func set_buff_icon(_buff_icon: String):
 	pass
 
 
-# TODO: implement
-func set_stacking_group(_stacking_group: String):
-	pass
+# Only one buff in a stacking group can be active on a unit.
+# Applying a buff with same stacking group on top of another
+# buff that is lower level will replace the buff.
+func set_stacking_group(stacking_group: String):
+	_stacking_group = stacking_group
 
 
 # Base apply function. Overrides time parameters from
 # init(). Returns the buff that was applied or currently
-# active buff if it was refreshed or upgraded.
+# active buff if it was refreshed, upgraded or rejected due to stacking.
 func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: float) -> Buff:
-	var need_upgrade_logic: bool = !_type.is_empty()
+# 	NOTE: original tower scripts depend on upgrade and
+# 	stacking behavior being implemented in this exact manner
+	var active_buff_of_type: Buff = target.get_buff_of_type(self)
+	var active_buff_of_group: Buff = target.get_buff_of_group(_stacking_group)
+	
+	if _type.is_empty() && active_buff_of_type != null:
+		var active_level: int = active_buff_of_type.get_level()
 
-# 	NOTE: original tower scripts depend on upgrade behavior
-# 	being implemented in this exact manner
-	if need_upgrade_logic:
-		var active_buff = target.get_buff_of_type(self)
-		
-		if active_buff != null:
-			var active_level: int = active_buff.get_level()
+		if level >= active_level:
+			active_buff_of_type._upgrade_or_refresh(level)
+#			NOTE: new buff is rejected
 
-			if level >= active_level:
-				active_buff._upgrade_or_refresh(level)
+			return active_buff_of_type
+	elif !_stacking_group.is_empty() && active_buff_of_group != null:
+		var active_level: int = active_buff_of_group.get_level()
 
-				return active_buff
+		if level > active_level:
+			active_buff_of_group.remove_buff()
+		else:
+#			NOTE: new buff is rejected
+
+			return active_buff_of_group
 
 	var buff: Buff = Buff.new()
 	buff._caster = caster
@@ -81,6 +92,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._time = time
 	buff._friendly = _friendly
 	buff._type = _type
+	buff._stacking_group = _stacking_group
 
 	for handler in _event_handler_list:
 		buff._add_event_handler(handler.event_type, handler.handler_object, handler.handler_function, handler.chance, handler.chance_level_add)

@@ -28,6 +28,7 @@ var _power: int
 var _time: float
 var _friendly: bool
 var _type: String
+var _stacking_group: String
 var _timer: Timer
 # Map of Event.Type -> list of EventHandler's
 var event_handler_map: Dictionary = {}
@@ -117,6 +118,10 @@ func get_power() -> int:
 
 func get_type() -> String:
 	return _type
+
+
+func get_stacking_group() -> String:
+	return _stacking_group
 
 
 func get_caster() -> Unit:
