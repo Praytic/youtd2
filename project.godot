@@ -27,7 +27,6 @@ config/dev_controls=true
 
 Properties="*res://Singletons/Properties.gd"
 FoodManager="*res://Singletons/Managers/FoodManager.gd"
-GoldManager="*res://Singletons/Managers/GoldManager.gd"
 KnowledgeTomesManager="*res://Singletons/Managers/KnowledgeTomesManager.gd"
 Utils="*res://Singletons/Utils.gd"
 Constants="*res://Singletons/Constants.gd"
@@ -48,6 +47,7 @@ window/size/viewport_height=1080
 window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/size/fullscreen=true
 window/default_environment="res://default_env.tres"
 
 [editor_plugins]

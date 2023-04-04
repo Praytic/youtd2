@@ -24,6 +24,10 @@ func _ready():
 	_income = INITIAL_INCOME
 
 
+func add_income():
+	set_gold(_gold + _income)
+
+
 #########################
 ###     Callbacks     ###
 #########################

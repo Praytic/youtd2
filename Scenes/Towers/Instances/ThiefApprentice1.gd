@@ -33,14 +33,14 @@ func load_specials():
 func tower_init():
 	mOck_steal = ProjectileType.create_interpolate("Abilities\\Weapons\\WardenMissile\\WardenMissile.mdl", 1000)
 	mOck_steal.set_event_on_interpolation_finished(steal)
-
+	
 	m0ck_thief_multiboard = MultiboardValues.new(1)
 	m0ck_thief_multiboard.set_key(0, "Gold Stolen")
 
 
 func on_create():
 	var tower: Tower = self
-
+	
 	tower.user_real = 0.0
 	tower.user_int = _stats.gold
 	Utils.add_unit_animation_properties(tower, "stand alternate", false)
@@ -54,12 +54,12 @@ func on_tower_details() -> MultiboardValues:
 
 func on_damage(event: Event):
 	var tower = self
-
+	
 	Projectile.create_linear_interpolation_from_unit_to_unit(mOck_steal, tower, 0, 0, event.get_target(), tower, 0, true)
 
 
 func steal(p: Projectile, _creep: Unit):
 	var tower = p.get_caster()
 	var gold_granted: float = (tower.user_int * (tower.get_level() * tower.user_int * 0.04)) / 10
-	tower.getOwner().give_gold(gold_granted, tower, false, true)
+	tower.earn_gold.emit(gold_granted, false, true)
 	tower.user_real = tower.user_real + gold_granted

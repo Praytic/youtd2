@@ -20,6 +20,8 @@ signal health_changed(old_value, new_value)
 signal mana_changed()
 signal spell_casted(event: Event)
 signal spell_targeted(event: Event)
+signal earn_gold(amount: float, _mystery_bool_1: bool, _mystery_bool_2: bool)
+
 
 signal selected
 signal unselected
