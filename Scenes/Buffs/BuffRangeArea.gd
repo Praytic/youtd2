@@ -41,6 +41,14 @@ func _on_body_entered(body: Node):
 
 	var target_match: bool = _target_type.match(unit)
 
+# 	NOTE: delay emitting signal until we're outside
+# 	on_body_entered() slot. If we do emit the signal inside
+# 	this slot then it can cause these kinds of errors:
+# 	"Can't change this state while flushing queries." This
+# 	is because body_entered() signal is emitted during the
+# 	physics process loop and reactions to
+# 	unit_came_in_range() signal by towers may modify physics
+# 	state, for example by changing size of collision shapes.
 	if target_match:
 		_emit_signal_in_process = true
 		_unit = unit
