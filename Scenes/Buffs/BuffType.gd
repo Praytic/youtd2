@@ -79,6 +79,8 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._target = target
 	buff._modifier = _modifier
 	buff._time = time
+	buff._friendly = _friendly
+	buff._type = _type
 
 	for handler in _event_handler_list:
 		buff._add_event_handler(handler.event_type, handler.handler_object, handler.handler_function, handler.chance, handler.chance_level_add)
