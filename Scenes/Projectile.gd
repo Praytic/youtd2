@@ -66,7 +66,10 @@ static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, 
 func _ready():
 	_initial_scale = scale
 
-	_target.death.connect(_on_target_death)
+	if _target.is_dead():
+		_on_target_death(Event.new(null))
+	else:
+		_target.death.connect(_on_target_death)
 
 
 func _process(delta):
