@@ -1,4 +1,4 @@
-name: YouTD
+name: YouTD2
 
 on:
   push:
@@ -19,11 +19,13 @@ jobs:
       # Ensure that you get the entire project history
       with:
         fetch-depth: 0
+        
     # Automatically stores the tag name for later use
     - name: Get tag from version
       id: tag_version
       run: |
           echo "TAG_VERSION=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
+          
     - name: Export game
       id: export
       # Use latest version (see releases for all versions)
@@ -36,6 +38,7 @@ jobs:
         verbose: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Set env NEED
       run: |
         if [[ ${{ steps.tag_version.outputs.TAG_VERSION }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
@@ -43,14 +46,27 @@ jobs:
         else
             echo "NEED=false" >> "$GITHUB_ENV"
         fi
+        
     - name: Enable threads for Chrome
       run: |
         curl https://raw.githubusercontent.com/josephrocca/clip-image-sorter/main/enable-threads.js > ${{ steps.export.outputs.build_directory }}/Web/enable-threads.js
+    
+    - name: Create compressed zip
+      run: |
+        zip -r youtd-${{ steps.tag_version.outputs.TAG_VERSION }}.zip ${{ steps.export.outputs.build_directory }}/Web/*
+    
     - uses: actions/upload-artifact@v3
       if: env.NEED == 'true'
       with:
         name: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}
         path: ${{ steps.export.outputs.build_directory }}/Web/*
+        
+    - uses: actions/upload-artifact@v3
+      if: env.NEED == 'true'
+      with:
+        name: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}-zip
+        path: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}.zip
+        
     outputs:
       tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
       need_release: ${{ env.NEED }}
@@ -65,6 +81,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: youtd-${{ needs.build_client.outputs.tag_version }}
+        
     - name: Release client
       uses: ncipollo/release-action@v1.11.2
       with:
@@ -72,6 +89,7 @@ jobs:
         generateReleaseNotes: true
         tag: ${{ needs.build_client.outputs.tag_version }} # Note that the 'v' in front was necessary to get this action attach artifacts to the tag
         artifacts: ./*
+        
     - name: Deploy to github pages
       uses: peaceiris/actions-gh-pages@v3
       with:
