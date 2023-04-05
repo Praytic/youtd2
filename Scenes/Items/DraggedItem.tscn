@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6bqio5ff4j4v"]
+
+[ext_resource type="Script" path="res://Scenes/Items/DraggedItem.gd" id="1_jov4m"]
+[ext_resource type="Texture2D" uid="uid://b3c83akvuxsjx" path="res://Assets/Items/item_icons_m.png" id="1_mdenr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3dmi"]
+atlas = ExtResource("1_mdenr")
+region = Rect2(0, 896, 128, 128)
+
+[node name="DraggedItem" type="Node2D"]
+z_index = 1000
+script = ExtResource("1_jov4m")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_e3dmi")
