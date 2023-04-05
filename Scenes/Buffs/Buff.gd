@@ -95,7 +95,8 @@ func refresh_duration():
 
 
 func set_remaining_duration(duration: float):
-	_timer.start(duration)
+	if _timer != null:
+		_timer.start(duration)
 
 
 func get_modifier() -> Modifier:

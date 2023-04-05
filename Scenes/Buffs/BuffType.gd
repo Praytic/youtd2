@@ -65,7 +65,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	var active_buff_of_type: Buff = target.get_buff_of_type(self)
 	var active_buff_of_group: Buff = target.get_buff_of_group(_stacking_group)
 	
-	if _type.is_empty() && active_buff_of_type != null:
+	if !_type.is_empty() && active_buff_of_type != null:
 		var active_level: int = active_buff_of_type.get_level()
 
 		if level >= active_level:

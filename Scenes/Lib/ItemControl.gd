@@ -5,9 +5,17 @@ signal item_dropped(item_id)
 signal item_used(item_id)
 
 
+const CLICK_ON_TOWER_RADIUS: float = 100
+
+
 @onready var object_ysort: Node2D = get_node("%Map").get_node("ObjectYSort")
 @onready var item_bar: GridContainer = get_node("%HUD/RightMenuBar/%ItemBar")
+@onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
+@onready var _map: Node = get_node("%Map/")
 
+var _dragged_item_scene: PackedScene = preload("res://Scenes/Items/DraggedItem.tscn")
+var _dragged_item: DraggedItem = null
+var _current_item_id: int = -1
 
 #########################
 ### Code starts here  ###
@@ -43,6 +51,43 @@ func _on_Item_selected(item_drop):
 	item_bar.add_item_button(item_drop.get_id())
 	item_drop.queue_free()
 
-func _on_ItemButton_pressed(_item_id: int):
-	#TODO: Implement items inside buildings
-	pass
+func _on_ItemButton_pressed(item_id: int):
+	_current_item_id = item_id
+	
+	_dragged_item = _dragged_item_scene.instantiate()
+	_game_scene.add_child(_dragged_item)
+
+
+func _unhandled_input(event: InputEvent):
+	if !event.is_action("left_click"):
+		return
+
+	if _dragged_item == null:
+		return
+
+	var tower: Tower = _get_tower_under_mouse()
+
+	if tower == null:
+		return
+
+	var item: Item = Item.make(_current_item_id)
+	item.add_to_tower(tower)
+
+	_current_item_id = -1
+	_dragged_item.queue_free()
+	_dragged_item = null
+
+	get_viewport().set_input_as_handled()
+
+
+func _get_tower_under_mouse() -> Tower:
+	var mouse_pos: Vector2 = _map.get_mouse_world_pos()
+	var unit_list: Array[Unit] = Utils.get_units_in_range(TargetType.new(TargetType.TOWERS), mouse_pos, CLICK_ON_TOWER_RADIUS)
+	Utils.sort_unit_list_by_distance(unit_list, mouse_pos)
+
+	if !unit_list.is_empty():
+		var tower: Tower = unit_list[0] as Tower
+
+		return tower
+	else:
+		return null
