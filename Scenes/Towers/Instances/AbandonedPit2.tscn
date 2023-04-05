@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://xgy488riucmp"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_xgg5c"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/AbandonedPit1.gd" id="2_oe5e5"]
+[ext_resource type="Texture2D" uid="uid://ddrupn3sfpt3j" path="res://Assets/Towers/Instances/abandonded_pit_atlas.png" id="3_7nvnt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_7nvnt")
+region = Rect2(300, 2.08165e-12, 300, 300)
+
+[node name="AbandonedPit" instance=ExtResource("1_xgg5c")]
+script = ExtResource("2_oe5e5")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(-9, 117)
+texture = SubResource("AtlasTexture_lrt4k")
