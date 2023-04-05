@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=17 format=3 uid="uid://gvns1bwv6h8r"]
+[gd_resource type="TileSet" load_steps=15 format=3 uid="uid://gvns1bwv6h8r"]
 
 [ext_resource type="Texture2D" uid="uid://ck8dustnoi8si" path="res://Assets/Atlas/Dirt.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://pecm388ljhb2" path="res://Assets/Atlas/Floor2.png" id="2"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://b5dpg66ubd8mr" path="res://Assets/Atlas/Walls.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://c5ckv7jhmj4kk" path="res://Assets/Atlas/Floor3.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://bxt8dmk8cq5nr" path="res://Assets/Atlas/Stairs.png" id="6"]
-[ext_resource type="Texture2D" uid="uid://b1jihcvx3duyq" path="res://Assets/Environment/Props/floor.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://dv7dn53nbkvdj" path="res://Assets/Atlas/StoneWall_short.png" id="8_gpudp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qyhwx"]
@@ -349,13 +348,6 @@ texture_region_size = Vector2i(256, 512)
 4:1/0 = 0
 4:1/0/texture_origin = Vector2i(0, 172)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uxp16"]
-texture = ExtResource("7")
-texture_region_size = Vector2i(256, 512)
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, 192)
-0:0/0/modulate = Color(0.34902, 1, 1, 1)
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mj8et"]
 texture = ExtResource("8_gpudp")
 margins = Vector2i(4, 4)
@@ -379,5 +371,4 @@ sources/2 = SubResource("TileSetAtlasSource_lehi4")
 sources/3 = SubResource("TileSetAtlasSource_x2l0g")
 sources/4 = SubResource("TileSetAtlasSource_x4glh")
 sources/5 = SubResource("TileSetAtlasSource_a6dct")
-sources/6 = SubResource("TileSetAtlasSource_uxp16")
 sources/7 = SubResource("TileSetAtlasSource_mj8et")
