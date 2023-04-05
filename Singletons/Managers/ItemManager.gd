@@ -24,12 +24,6 @@ func _init():
 		preloaded_items[item_id] = item_drop_scene
 
 
-func get_item(id: int) -> Item:
-	var item = Item.new()
-	item.set_id(id)
-	return item
-
-
 # Return new unique instance of the ItemDrop by Item ID. Get
 # script for item and attach to scene.
 func get_item_drop(id: int) -> ItemDrop:

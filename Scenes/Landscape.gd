@@ -62,3 +62,9 @@ func world_height_to_z_index(height: float) -> int:
 	var layer_z_index: int = _tilemap.get_layer_z_index(layer_index)
 
 	return layer_z_index
+
+
+func get_mouse_world_pos() -> Vector2:
+	var out: Vector2 = _tilemap.get_local_mouse_position()
+
+	return out
