@@ -14,3 +14,6 @@ func visible_spell_dummys_enabled() -> bool:
 
 func dev_controls_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/dev_controls") as bool
+
+func add_test_item() -> bool:
+	return ProjectSettings.get_setting("application/config/add_test_item") as bool

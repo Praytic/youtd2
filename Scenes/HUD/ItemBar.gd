@@ -45,6 +45,9 @@ func _ready():
 	_resize_icons("M")
 	current_size = "M"
 
+	if FF.add_test_item():
+		add_item_button(105)
+
 
 func _on_RightMenuBar_element_changed(element: Tower.Element):
 	if element != Tower.Element.NONE:
@@ -71,7 +74,7 @@ func _on_RightMenuBar_element_changed(element: Tower.Element):
 
 func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()
-	var item = ItemManager.get_item(item_id)
+	var item = Item.make(item_id)
 	item_button.set_item(item)
 	item_button.pressed.connect(Callable(item_control, "_on_ItemButton_pressed").bind(item_id))
 	return item_button

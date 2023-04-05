@@ -19,6 +19,9 @@ enum CsvProperty {
 	ICON_ATLAS_NUM = 9,
 }
 
+const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
+const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
+
 var _id: int = 0
 var _carrier: Tower = null
 
@@ -32,7 +35,29 @@ var _applied_buff_list: Array[Buff] = []
 ### Code starts here  ###
 #########################
 
-func _init():
+static func make(id: int) -> Item:
+	var item_script_path: String = "res://Scenes/Items/Instances/Item%d.gd" % id
+	
+	var script_exists: bool = FileAccess.file_exists(item_script_path)
+	
+	if !script_exists:
+		if PRINT_SCRIPT_NOT_FOUND_ERROR:
+			print_debug("No item script found for id:", id, ". Tried at path:", item_script_path)
+
+		item_script_path = FAILLBACK_SCRIPT
+
+	var item_script = load(item_script_path)
+
+	if item_script == null:
+		return null
+
+	var item: Item = item_script.new(id)
+
+	return item
+
+
+func _init(id: int):
+	_id = id
 	_item_init()
 
 
@@ -73,11 +98,6 @@ func _item_init():
 #########################
 ### Setters / Getters ###
 #########################
-
-# NOTE: this must be called once after the item is created
-# but before it's added to game scene.
-func set_id(id: int):
-	_id = id
 
 func get_id() -> int:
 	return _id

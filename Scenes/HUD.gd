@@ -24,7 +24,7 @@ func _on_RightMenuBar_unit_info_requested(unit_id, unit_type):
 	match unit_type:
 		"item": 
 			get_unit = func get_unit(unit_id):
-				return ItemManager.get_item(unit_id)
+				return Item.make(unit_id)
 		"tower":
 			get_unit = func get_unit(unit_id):
 				return TowerManager.get_tower(unit_id)
