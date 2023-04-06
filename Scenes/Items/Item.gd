@@ -62,9 +62,8 @@ func _init(id: int):
 
 
 # TODO: implement checks for max item count
-func add_to_tower(tower: Tower):
+func apply_to_tower(tower: Tower):
 	_carrier = tower
-	_carrier.add_item(self)
 
 	_carrier.add_modifier(_modifier)
 
