@@ -157,10 +157,13 @@ func add_aura(aura_type: AuraType):
 	add_child(aura)
 
 
-func add_item(item: Item):
-	items_changed.emit()
+func add_item(item_id: int):
+	var item: Item = Item.make(item_id)
+	item.apply_to_tower(self)
 	_item_list.append(item)
 	add_child(item)
+
+	items_changed.emit()
 
 
 func get_items() -> Array[Item]:

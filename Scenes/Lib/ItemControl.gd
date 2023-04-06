@@ -70,8 +70,7 @@ func _unhandled_input(event: InputEvent):
 	if tower == null:
 		return
 
-	var item: Item = Item.make(_current_item_id)
-	item.add_to_tower(tower)
+	tower.add_item(_current_item_id)
 
 	_current_item_id = -1
 	_dragged_item.queue_free()
