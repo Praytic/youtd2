@@ -2,6 +2,9 @@ class_name Tower
 extends Building
 
 
+signal items_changed()
+
+
 # NOTE: order of CsvProperty enums must match the order of
 # the columns in tower_properties.csv
 enum CsvProperty {
@@ -66,6 +69,7 @@ var _current_attack_cooldown: float = 0.0
 var _target_order_issued: bool = false
 var _target_order_target: Unit
 var _visual_only: bool = false
+var _item_list: Array[Item] = []
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -151,6 +155,16 @@ func add_autocast(autocast: Autocast):
 func add_aura(aura_type: AuraType):
 	var aura: Aura = aura_type.make(self)
 	add_child(aura)
+
+
+func add_item(item: Item):
+	items_changed.emit()
+	_item_list.append(item)
+	add_child(item)
+
+
+func get_items() -> Array[Item]:
+	return _item_list
 
 
 func enable_default_sprite():

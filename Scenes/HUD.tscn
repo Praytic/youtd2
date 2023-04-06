@@ -1,13 +1,14 @@
-[gd_scene load_steps=20 format=3 uid="uid://cppyelh0uodop"]
+[gd_scene load_steps=21 format=3 uid="uid://cppyelh0uodop"]
 
 [ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://cro8ec573upqo" path="res://Scenes/HUD/DevControls.tscn" id="3_0r5if"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/DevControls.tscn" id="3_0r5if"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4"]
 [ext_resource type="PackedScene" uid="uid://dejhjhxmq2n2s" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://durx36ipud8jw" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="7"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
+[ext_resource type="PackedScene" uid="uid://b1wuycbxpu0op" path="res://Scenes/HUD/TowerInventory.tscn" id="11_hrubh"]
 [ext_resource type="PackedScene" uid="uid://cb3g6yfe66prg" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
 
@@ -190,6 +191,14 @@ anchors_preset = -1
 anchor_left = 0.834896
 anchor_top = 0.0833333
 metadata/_edit_use_anchors_ = true
+
+[node name="TowerInventory" parent="." instance=ExtResource("11_hrubh")]
+visible = false
+layout_mode = 1
+offset_left = 30.0
+offset_top = 719.0
+offset_right = -1164.0
+offset_bottom = -200.0
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]

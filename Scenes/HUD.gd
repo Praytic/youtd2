@@ -57,6 +57,9 @@ func _on_ObjectYSort_child_entered_tree(node):
 func _on_Unit_selected(unit):
 	if unit is Tower:
 		$TowerTooltip.set_tower_tooltip_text(unit)
+		$TowerInventory.set_tower(unit)
+
+	$TowerInventory.visible = unit is Tower
 	$TowerTooltip.hide()
 	$TooltipHeader.set_header_unit(unit)
 	$TooltipHeader.show()
@@ -65,6 +68,7 @@ func _on_Unit_selected(unit):
 func _on_Unit_unselected(_unit):
 	$TowerTooltip.hide()
 	$TooltipHeader.reset()
+	$TowerInventory.hide()
 
 
 func _on_element_button_pressed(element_button):
