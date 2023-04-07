@@ -76,7 +76,7 @@ func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()
 	var item = Item.make(item_id)
 	item_button.set_item(item)
-	item_button.pressed.connect(Callable(item_control, "_on_ItemButton_pressed").bind(item_id))
+	item_button.button_down.connect(Callable(item_control, "_on_ItemButton_button_down").bind(item_id))
 	return item_button
 
 
