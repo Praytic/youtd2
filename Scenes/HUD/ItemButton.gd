@@ -20,12 +20,12 @@ var tier_icon
 
 func _ready():
 	set_theme_type_variation("TowerButton")
+	icon = _get_item_button_icon("M")
 
 
-# TODO: removed drawing of tier for now so that id can be
-# drawn, better for testing
-func _draw():
-	draw_texture(tier_icon, Vector2.ZERO)
+# NOTE: turn off drawing tier icon so that item's icon gets drawn
+# func _draw():
+# 	draw_texture(tier_icon, Vector2.ZERO)
 
 
 func set_icon_size(icon_size: String):
