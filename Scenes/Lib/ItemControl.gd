@@ -10,12 +10,9 @@ const CLICK_ON_TOWER_RADIUS: float = 100
 
 @onready var object_ysort: Node2D = get_node("%Map").get_node("ObjectYSort")
 @onready var item_bar: GridContainer = get_node("%HUD/RightMenuBar/%ItemBar")
-@onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 @onready var _map: Node = get_node("%Map/")
 
-var _dragged_item_scene: PackedScene = preload("res://Scenes/Items/DraggedItem.tscn")
-var _dragged_item: DraggedItem = null
-var _current_item_id: int = -1
+var _dragged_item_id: int = -1
 
 #########################
 ### Code starts here  ###
@@ -52,17 +49,22 @@ func _on_Item_selected(item_drop):
 	item_drop.queue_free()
 
 func _on_ItemButton_pressed(item_id: int):
-	_current_item_id = item_id
+	_dragged_item_id = item_id
 	
-	_dragged_item = _dragged_item_scene.instantiate()
-	_game_scene.add_child(_dragged_item)
+#   NOTE: setting hotspot to (32, 32) centers the cursor
+#   because total size of texture is 64x64
+	var icon = load("res://Assets/icon.png")
+	var hotspot: Vector2 = Vector2(32, 32)
+	Input.set_custom_mouse_cursor(icon, Input.CURSOR_ARROW, hotspot)
 
 
 func _unhandled_input(event: InputEvent):
 	if !event.is_action("left_click"):
 		return
 
-	if _dragged_item == null:
+	var drag_in_progress: bool = _dragged_item_id != -1
+
+	if !drag_in_progress:
 		return
 
 	var tower: Tower = _get_tower_under_mouse()
@@ -70,11 +72,15 @@ func _unhandled_input(event: InputEvent):
 	if tower == null:
 		return
 
-	tower.add_item(_current_item_id)
+	tower.add_item(_dragged_item_id)
 
-	_current_item_id = -1
-	_dragged_item.queue_free()
-	_dragged_item = null
+	_dragged_item_id = -1
+
+#	NOTE: for some reason need to call this twice to reset
+#	the cursor. Calling it once causes the cursor to
+#	disappear.
+	Input.set_custom_mouse_cursor(null)
+	Input.set_custom_mouse_cursor(null)
 
 	get_viewport().set_input_as_handled()
 
