@@ -48,7 +48,14 @@ func _on_Item_selected(item_drop):
 	item_bar.add_item_button(item_drop.get_id())
 	item_drop.queue_free()
 
-func _on_ItemButton_pressed(item_id: int):
+func _on_ItemButton_button_down(item_id: int):
+	if _drag_in_progress():
+		print("reject _on_ItemButton_button_down")
+
+		return
+
+	print("_on_ItemButton_button_down")
+
 	_dragged_item_id = item_id
 	
 #   NOTE: setting hotspot to (32, 32) centers the cursor
@@ -59,20 +66,18 @@ func _on_ItemButton_pressed(item_id: int):
 
 
 func _unhandled_input(event: InputEvent):
-	if !event.is_action("left_click"):
+	if !_drag_in_progress():
 		return
 
-	var drag_in_progress: bool = _dragged_item_id != -1
+	var drag_ended: bool = !event.is_action_pressed("left_click")
 
-	if !drag_in_progress:
+	if !drag_ended:
 		return
 
 	var tower: Tower = _get_tower_under_mouse()
 
-	if tower == null:
-		return
-
-	tower.add_item(_dragged_item_id)
+	if tower != null:
+		tower.add_item(_dragged_item_id)
 
 	_dragged_item_id = -1
 
@@ -96,3 +101,7 @@ func _get_tower_under_mouse() -> Tower:
 		return tower
 	else:
 		return null
+
+
+func _drag_in_progress() -> bool:
+	return _dragged_item_id != -1
