@@ -3,6 +3,8 @@ extends Control
 
 signal item_dropped(item_id)
 signal item_used(item_id)
+signal drag_start(item_id)
+signal drag_end(item_id)
 
 
 const CLICK_ON_TOWER_RADIUS: float = 100
@@ -53,8 +55,6 @@ func _on_ItemButton_button_down(item_id: int):
 		print("reject _on_ItemButton_button_down")
 
 		return
-
-	print("_on_ItemButton_button_down")
 
 	_dragged_item_id = item_id
 	
