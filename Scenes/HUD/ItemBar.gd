@@ -46,7 +46,7 @@ func _ready():
 	current_size = "M"
 
 	if FF.add_test_item():
-		add_item_button(105)
+		add_item_button(108)
 
 
 func _on_RightMenuBar_element_changed(element: Tower.Element):
