@@ -166,6 +166,24 @@ func add_item(item_id: int):
 	items_changed.emit()
 
 
+func remove_item(item_id: int):
+	var removed_item: Item = null
+
+	for item in _item_list:
+		if item.get_id() == item_id:
+			removed_item = item
+			break
+
+	if removed_item == null:
+		return
+
+	removed_item.remove_from_tower()
+	_item_list.erase(removed_item)
+	removed_item.queue_free()
+
+	items_changed.emit()
+
+
 func get_items() -> Array[Item]:
 	return _item_list
 

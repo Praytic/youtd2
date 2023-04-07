@@ -24,6 +24,23 @@ func on_tower_items_changed():
 
 	var items: Array[Item] = _tower.get_items()
 
+	var index: int = 0
+
 	for item in items:
 		var item_name: String = item.get_item_name()
+		var item_id: int = item.get_id()
 		_item_list_node.add_item(item_name)
+		_item_list_node.set_item_metadata(index, item_id)
+		index += 1
+
+
+func _on_remove_item_button_pressed():
+	var selected_items: PackedInt32Array = _item_list_node.get_selected_items()
+
+	if selected_items.is_empty():
+		return
+
+	var selected_index: int = selected_items[0]
+	var item_id: int = _item_list_node.get_item_metadata(selected_index)
+
+	_tower.remove_item(item_id)
