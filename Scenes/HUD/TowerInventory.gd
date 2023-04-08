@@ -31,6 +31,10 @@ func on_tower_items_changed():
 		var item_id: int = item.get_id()
 		_item_list_node.add_item(item_name)
 		_item_list_node.set_item_metadata(index, item_id)
+
+		var item_icon: Texture = Item.get_icon(item_id, "S")
+		_item_list_node.set_item_icon(index, item_icon)
+
 		index += 1
 
 

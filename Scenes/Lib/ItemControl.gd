@@ -58,11 +58,10 @@ func _on_ItemButton_button_down(item_id: int):
 
 	_dragged_item_id = item_id
 	
-#   NOTE: setting hotspot to (32, 32) centers the cursor
-#   because total size of texture is 64x64
-	var icon = load("res://Assets/icon.png")
-	var hotspot: Vector2 = Vector2(32, 32)
-	Input.set_custom_mouse_cursor(icon, Input.CURSOR_ARROW, hotspot)
+	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item_id)
+	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
+	Input.set_custom_mouse_cursor(item_cursor_icon
+	, Input.CURSOR_ARROW, hotspot)
 
 
 func _unhandled_input(event: InputEvent):
@@ -105,3 +104,20 @@ func _get_tower_under_mouse() -> Tower:
 
 func _drag_in_progress() -> bool:
 	return _dragged_item_id != -1
+
+
+# NOTE: Input.set_custom_mouse_cursor() currently has a bug
+# which causes errors if we use AtlasTexture returned by
+# Item.get_icon() (it returns base class Texture2D but it's
+# still an atlas texture). Copy image from AtlasTexture to
+# ImageTexture to avoid this bug.
+func _get_item_cursor_icon(item_id: int) -> Texture2D:
+	var atlas_texture: Texture2D = Item.get_icon(item_id, "S")
+	var image: Image = atlas_texture.get_image()
+#	NOTE: make cursor icon slightly smaller so dragging
+#	looks nice
+	var final_size: Vector2 = image.get_size() * 0.75
+	image.resize(int(final_size.x), int(final_size.y))
+	var image_texture: ImageTexture = ImageTexture.create_from_image(image)
+
+	return image_texture
