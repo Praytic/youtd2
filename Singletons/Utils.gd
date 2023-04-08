@@ -10,6 +10,12 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/Map/FloatingTextContainer")
 
+# TODO: move to a better singleton, maybe make a singleton
+# for all pre-loaded stuff?
+@onready var item_icons_s: Texture2D = preload("res://Assets/Items/item_icons_s.png")
+@onready var item_icons_m: Texture2D = preload("res://Assets/Items/item_icons_m.png")
+@onready var item_button_fallback_icon: Texture2D = preload("res://Assets/icon.png")
+
 var _loaded_sfx_map: Dictionary = {}
 var _sfx_player_list: Array = []
 
