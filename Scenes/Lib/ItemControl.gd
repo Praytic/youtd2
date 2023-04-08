@@ -14,7 +14,7 @@ const CLICK_ON_TOWER_RADIUS: float = 100
 @onready var item_bar: GridContainer = get_node("%HUD/RightMenuBar/%ItemBar")
 @onready var _map: Node = get_node("%Map/")
 
-var _dragged_item_id: int = -1
+var _moved_item_id: int = -1
 
 #########################
 ### Code starts here  ###
@@ -51,12 +51,12 @@ func _on_Item_selected(item_drop):
 	item_drop.queue_free()
 
 func _on_ItemButton_button_down(item_id: int):
-	if _drag_in_progress():
+	if _item_move_in_progress():
 		print("reject _on_ItemButton_button_down")
 
 		return
 
-	_dragged_item_id = item_id
+	_moved_item_id = item_id
 	
 	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item_id)
 	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
@@ -65,20 +65,20 @@ func _on_ItemButton_button_down(item_id: int):
 
 
 func _unhandled_input(event: InputEvent):
-	if !_drag_in_progress():
+	if !_item_move_in_progress():
 		return
 
-	var drag_ended: bool = !event.is_action_pressed("left_click")
+	var move_is_over: bool = event.is_action_pressed("left_click")
 
-	if !drag_ended:
+	if !move_is_over:
 		return
 
 	var tower: Tower = _get_tower_under_mouse()
 
 	if tower != null:
-		tower.add_item(_dragged_item_id)
+		tower.add_item(_moved_item_id)
 
-	_dragged_item_id = -1
+	_moved_item_id = -1
 
 #	NOTE: for some reason need to call this twice to reset
 #	the cursor. Calling it once causes the cursor to
@@ -102,8 +102,8 @@ func _get_tower_under_mouse() -> Tower:
 		return null
 
 
-func _drag_in_progress() -> bool:
-	return _dragged_item_id != -1
+func _item_move_in_progress() -> bool:
+	return _moved_item_id != -1
 
 
 # NOTE: Input.set_custom_mouse_cursor() currently has a bug
@@ -114,8 +114,7 @@ func _drag_in_progress() -> bool:
 func _get_item_cursor_icon(item_id: int) -> Texture2D:
 	var atlas_texture: Texture2D = Item.get_icon(item_id, "S")
 	var image: Image = atlas_texture.get_image()
-#	NOTE: make cursor icon slightly smaller so dragging
-#	looks nice
+#	NOTE: make cursor icon slightly smaller so it looks nice
 	var final_size: Vector2 = image.get_size() * 0.75
 	image.resize(int(final_size.x), int(final_size.y))
 	var image_texture: ImageTexture = ImageTexture.create_from_image(image)
