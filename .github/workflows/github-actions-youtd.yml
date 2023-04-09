@@ -42,16 +42,16 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Enable threads for Chrome
+    - name: Copy required index.html assets
       run: |
-        curl https://raw.githubusercontent.com/josephrocca/clip-image-sorter/main/enable-threads.js > ${{ steps.export.outputs.build_directory }}/Web/enable-threads.js
+        cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/Web/
+        echo "Current state of Web dir:"
+        ls ${{ steps.export.outputs.build_directory }}/Web/
 
     - uses: actions/upload-artifact@v3
       with:
         name: youtd-${{ env.TAG_VERSION }}
-        path: |
-          ${{ steps.export.outputs.build_directory }}/Web/*
-          ${{ github.workspace }}/Build/Web/*
+        path: ${{ steps.export.outputs.build_directory }}/Web/*
 
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
