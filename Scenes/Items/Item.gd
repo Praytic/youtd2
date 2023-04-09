@@ -19,8 +19,6 @@ enum CsvProperty {
 	ICON_ATLAS_NUM = 9,
 }
 
-const ICON_SIZE_S = 64
-const ICON_SIZE_M = 128
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 
@@ -61,29 +59,6 @@ static func make(id: int) -> Item:
 func _init(id: int):
 	_id = id
 	_item_init()
-
-
-static func get_icon(item_id: int, icon_size_letter: String) -> Texture2D:
-	var icon_atlas_num: int = Item.get_icon_atlas_num(item_id)
-	var icon_atlas_family: int = Item.get_icon_atlas_family(item_id)
-	if icon_atlas_num == -1 or icon_atlas_family == -1:
-		return Utils.item_button_fallback_icon
-
-	var item_icon = AtlasTexture.new()
-	var icon_size: int
-	if icon_size_letter == "S":
-		item_icon.set_atlas(Utils.item_icons_s)
-		icon_size = ICON_SIZE_S
-	elif icon_size_letter == "M":
-		item_icon.set_atlas(Utils.item_icons_m)
-		icon_size = ICON_SIZE_M
-	else:
-		return Utils.item_button_fallback_icon
-	
-	var region: Rect2 = Rect2(icon_atlas_num * icon_size, icon_atlas_family * icon_size, icon_size, icon_size)
-	item_icon.set_region(region)
-
-	return item_icon
 
 
 # TODO: implement checks for max item count
@@ -128,54 +103,3 @@ func get_id() -> int:
 
 func get_carrier() -> Tower:
 	return _carrier
-
-static func get_item_name(item_id: int) -> String:
-	return Item.get_property(item_id, CsvProperty.NAME)
-
-static func get_author(item_id: int) -> String:
-	return Item.get_property(item_id, CsvProperty.AUTHOR)
-
-static func get_rarity(item_id: int) -> String:
-	return Item.get_property(item_id, CsvProperty.RARITY)
-	
-static func get_rarity_num(item_id: int) -> int:
-	return Constants.Rarity.get(Item.get_rarity(item_id).to_upper())
-
-static func get_cost(item_id: int) -> int:
-	return Item.get_property(item_id, CsvProperty.COST).to_int()
-
-static func get_description(item_id: int) -> String:
-	return Item.get_property(item_id, CsvProperty.DESCRIPTION)
-
-func get_required_wave_level() -> int:
-	return Item.get_property(_id, CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
-
-static func get_property(item_id: int, property: int) -> String:
-	var properties: Dictionary = Properties.get_item_csv_properties_by_id(item_id)
-
-	return properties[property]
-
-static func get_icon_atlas_family(item_id: int) -> int:
-	var prop = Item.get_property(item_id, CsvProperty.ICON_ATLAS_FAMILY)
-	if prop.is_empty():
-		return -1
-	else:
-		return prop.to_int()
-
-static func get_icon_atlas_num(item_id: int) -> int:
-	var prop = Item.get_property(item_id, CsvProperty.ICON_ATLAS_NUM)
-	if prop.is_empty():
-		return -1
-	else:
-		return prop.to_int()
-
-static func get_display_name(item_id: int) -> String:
-	return Item.get_property(item_id, CsvProperty.NAME)
-
-
-static func get_tooltip_text(item_id: int) -> String:
-	var item_name: String = Item.get_item_name(item_id)
-	var item_description: String = Item.get_description(item_id)
-	var text: String = "%s\n%s" % [item_name, item_description]
-
-	return text
