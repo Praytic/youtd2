@@ -544,26 +544,16 @@ func get_id() -> int:
 
 
 func get_tier() -> int:
-	return get_csv_property(CsvProperty.TIER).to_int()
+	return TowerProperties.get_tier(_id)
 
 func get_family() -> int:
 	return get_csv_property(CsvProperty.FAMILY_ID).to_int()
 
 func get_icon_atlas_num() -> int:
-	var icon_atlas_num_string: String = get_csv_property(CsvProperty.ICON_ATLAS_NUM)
-
-	if !icon_atlas_num_string.is_empty():
-		var icon_atlas_num: int = icon_atlas_num_string.to_int()
-
-		return icon_atlas_num
-	else:
-		return -1
+	return TowerProperties.get_icon_atlas_num(_id)
 
 func get_element() -> Tower.Element:
-	var element_string: String = get_csv_property(CsvProperty.ELEMENT)
-	var element: Element = Element.get(element_string.to_upper())
-
-	return element
+	return TowerProperties.get_element(_id)
 
 # NOTE: in tower scripts getCategory() is called to get
 # tower's element instead of getElement(), for some reason,
@@ -604,10 +594,7 @@ func getOwner():
 
 
 func get_csv_property(csv_property: Tower.CsvProperty) -> String:
-	var properties: Dictionary = Properties.get_tower_csv_properties_by_id(_id)
-	var value: String = properties[csv_property]
-
-	return value
+	return TowerProperties.get_csv_property(_id, csv_property)
 
 func get_damage_min():
 	return get_csv_property(CsvProperty.ATTACK_DAMAGE_MIN).to_int()
@@ -665,16 +652,16 @@ func get_range() -> float:
 	return get_csv_property(CsvProperty.ATTACK_RANGE).to_float()
 
 func get_rarity() -> String:
-	return get_csv_property(CsvProperty.RARITY)
+	return TowerProperties.get_rarity(_id)
 	
 func get_rarity_num() -> int:
-	return Constants.Rarity.get(get_rarity().to_upper())
+	return TowerProperties.get_rarity_num(_id)
 
 func get_selection_size() -> int:
 	return SELECTION_SIZE
 
 func get_display_name() -> String:
-	return get_csv_property(CsvProperty.NAME)
+	return TowerProperties.get_display_name(_id)
 
 func get_attack_type() -> AttackType.enm:
 	var attack_type_string: String = get_csv_property(CsvProperty.ATTACK_TYPE)
