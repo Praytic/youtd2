@@ -74,8 +74,7 @@ func _on_RightMenuBar_element_changed(element: Tower.Element):
 
 func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()
-	var item = Item.make(item_id)
-	item_button.set_item(item)
+	item_button.set_item(item_id)
 	item_button.button_down.connect(Callable(item_control, "_on_ItemButton_button_down").bind(item_id))
 	return item_button
 

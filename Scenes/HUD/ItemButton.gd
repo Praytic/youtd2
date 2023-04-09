@@ -9,7 +9,7 @@ const TIER_ICON_SIZE_M = 64
 
 var tier_icon
 
-@onready var _item: Item : get = get_item, set = set_item
+var _item_id: int
 @onready var _icon_size: String : set = set_icon_size
 @onready var _tier_icons_s = preload("res://Assets/Towers/tier_icons_s.png")
 @onready var _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
@@ -18,7 +18,7 @@ var tier_icon
 
 func _ready():
 	set_theme_type_variation("TowerButton")
-	icon = Item.get_icon(_item.get_id(), "M")
+	icon = Item.get_icon(_item_id, "M")
 
 
 # NOTE: turn off drawing tier icon so that item's icon gets drawn
@@ -29,20 +29,20 @@ func _ready():
 func set_icon_size(icon_size: String):
 	_icon_size = icon_size
 	tier_icon = _get_item_button_tier_icon(icon_size)
-	icon = Item.get_icon(_item.get_id(), icon_size)
+	icon = Item.get_icon(_item_id, icon_size)
 
 
-func set_item(item: Item):
-	_item = item
+func set_item(item_id: int):
+	_item_id = item_id
 
-	var item_tooltip: String = Item.get_tooltip_text(_item.get_id())
+	var item_tooltip: String = Item.get_tooltip_text(_item_id)
 	set_tooltip_text(item_tooltip)
 
-func get_item() -> Item:
-	return _item
+func get_item() -> int:
+	return _item_id
 	
 func _get_item_button_tier_icon(icon_size_letter: String) -> Texture2D:
-	var item_rarity = _item.get_rarity_num()
+	var item_rarity = Item.get_rarity_num(_item_id)
 	
 	var icon_out = AtlasTexture.new()
 	var icon_size: int

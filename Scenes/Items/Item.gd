@@ -132,11 +132,11 @@ static func get_item_name(item_id: int) -> String:
 func get_author() -> String:
 	return Item.get_property(_id, CsvProperty.AUTHOR)
 
-func get_rarity() -> String:
-	return Item.get_property(_id, CsvProperty.RARITY)
+static func get_rarity(item_id: int) -> String:
+	return Item.get_property(item_id, CsvProperty.RARITY)
 	
-func get_rarity_num() -> int:
-	return Constants.Rarity.get(get_rarity().to_upper())
+static func get_rarity_num(item_id: int) -> int:
+	return Constants.Rarity.get(Item.get_rarity(item_id).to_upper())
 
 func get_cost() -> int:
 	return Item.get_property(_id, CsvProperty.COST).to_int()
