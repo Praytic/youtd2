@@ -126,11 +126,14 @@ func _item_init():
 func get_id() -> int:
 	return _id
 
+func get_carrier() -> Tower:
+	return _carrier
+
 static func get_item_name(item_id: int) -> String:
 	return Item.get_property(item_id, CsvProperty.NAME)
 
-func get_author() -> String:
-	return Item.get_property(_id, CsvProperty.AUTHOR)
+static func get_author(item_id: int) -> String:
+	return Item.get_property(item_id, CsvProperty.AUTHOR)
 
 static func get_rarity(item_id: int) -> String:
 	return Item.get_property(item_id, CsvProperty.RARITY)
@@ -138,8 +141,8 @@ static func get_rarity(item_id: int) -> String:
 static func get_rarity_num(item_id: int) -> int:
 	return Constants.Rarity.get(Item.get_rarity(item_id).to_upper())
 
-func get_cost() -> int:
-	return Item.get_property(_id, CsvProperty.COST).to_int()
+static func get_cost(item_id: int) -> int:
+	return Item.get_property(item_id, CsvProperty.COST).to_int()
 
 static func get_description(item_id: int) -> String:
 	return Item.get_property(item_id, CsvProperty.DESCRIPTION)
@@ -151,10 +154,6 @@ static func get_property(item_id: int, property: int) -> String:
 	var properties: Dictionary = Properties.get_item_csv_properties_by_id(item_id)
 
 	return properties[property]
-
-
-func get_carrier() -> Tower:
-	return _carrier
 
 static func get_icon_atlas_family(item_id: int) -> int:
 	var prop = Item.get_property(item_id, CsvProperty.ICON_ATLAS_FAMILY)
@@ -170,8 +169,8 @@ static func get_icon_atlas_num(item_id: int) -> int:
 	else:
 		return prop.to_int()
 
-func get_display_name() -> String:
-	return Item.get_property(_id, CsvProperty.NAME)
+static func get_display_name(item_id: int) -> String:
+	return Item.get_property(item_id, CsvProperty.NAME)
 
 
 static func get_tooltip_text(item_id: int) -> String:
