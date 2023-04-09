@@ -20,6 +20,8 @@ func set_header_unit(unit):
 	if not unit is Tower:
 		_expand_button.hide()
 
+	visible = unit is Tower || unit is Creep
+
 func reset():
 	hide()
 	_expand_button.set_pressed_no_signal(false)

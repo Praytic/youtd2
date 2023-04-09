@@ -32,7 +32,6 @@ func _on_Unit_selected(unit):
 	$TowerInventory.visible = unit is Tower
 	$TowerTooltip.hide()
 	$TooltipHeader.set_header_unit(unit)
-	$TooltipHeader.show()
 
 
 func _on_Unit_unselected(_unit):
