@@ -36,33 +36,22 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Set env NEED
-      run: |
-        if [[ $TAG_VERSION =~ ^v[0-9]+\.[0-9]+\.[0-9]+-[0-9a-f]+$ ]] ; then
-            echo "NEED=true" >> "$GITHUB_ENV"
-        else
-            echo "NEED=false" >> "$GITHUB_ENV"
-        fi
-
     - name: Enable threads for Chrome
       run: |
         curl https://raw.githubusercontent.com/josephrocca/clip-image-sorter/main/enable-threads.js > ${{ steps.export.outputs.build_directory }}/Web/enable-threads.js
 
     - uses: actions/upload-artifact@v3
-      if: env.NEED == 'true'
       with:
         name: youtd-${{ env.TAG_VERSION }}
         path: ${{ steps.export.outputs.build_directory }}/Web/*
 
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
-      need_release: ${{ env.NEED }}
 
   create_release:
     runs-on: ubuntu-latest
     name: Create Release
     needs: build_client
-    if: needs.build_client.outputs.need_release == 'true'
     steps:
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v3
