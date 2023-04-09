@@ -39,10 +39,6 @@ func _on_UnitButton_entered_tree(unit_button):
 		var tower_id = unit_button.get_tower().get_id()
 		unit_button.mouse_entered.connect(_on_UnitButton_mouse_entered.bind(tower_id, "tower"))
 		unit_button.mouse_exited.connect(_on_UnitButton_mouse_exited)
-	if unit_button is ItemButton:
-		var item_id = unit_button.get_item().get_id()
-		unit_button.mouse_entered.connect(_on_UnitButton_mouse_entered.bind(item_id, "item"))
-		unit_button.mouse_exited.connect(_on_UnitButton_mouse_exited)
 
 
 func _on_UnitButton_mouse_entered(unit_id, unit_type):
