@@ -108,11 +108,11 @@ func _item_move_in_progress() -> bool:
 
 # NOTE: Input.set_custom_mouse_cursor() currently has a bug
 # which causes errors if we use AtlasTexture returned by
-# Item.get_icon() (it returns base class Texture2D but it's
+# ItemProperties.get_icon() (it returns base class Texture2D but it's
 # still an atlas texture). Copy image from AtlasTexture to
 # ImageTexture to avoid this bug.
 func _get_item_cursor_icon(item_id: int) -> Texture2D:
-	var atlas_texture: Texture2D = Item.get_icon(item_id, "S")
+	var atlas_texture: Texture2D = ItemProperties.get_icon(item_id, "S")
 	var image: Image = atlas_texture.get_image()
 #	NOTE: make cursor icon slightly smaller so it looks nice
 	var final_size: Vector2 = image.get_size() * 0.75

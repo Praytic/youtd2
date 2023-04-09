@@ -31,14 +31,14 @@ func on_tower_items_changed():
 
 	for item in items:
 		var item_id: int = item.get_id()
-		var item_name: String = Item.get_item_name(item_id)
+		var item_name: String = ItemProperties.get_item_name(item_id)
 		_item_list_node.add_item(item_name)
 		_item_list_node.set_item_metadata(index, item_id)
 
-		var item_icon: Texture = Item.get_icon(item_id, "S")
+		var item_icon: Texture = ItemProperties.get_icon(item_id, "S")
 		_item_list_node.set_item_icon(index, item_icon)
 
-		var item_tooltip: String = Item.get_tooltip_text(item_id)
+		var item_tooltip: String = ItemProperties.get_tooltip_text(item_id)
 		_item_list_node.set_item_tooltip(index, item_tooltip)
 
 		index += 1
