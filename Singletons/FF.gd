@@ -17,3 +17,6 @@ func dev_controls_enabled() -> bool:
 
 func add_test_item() -> bool:
 	return ProjectSettings.get_setting("application/config/add_test_item") as bool
+
+func preload_all_towers_on_startup() -> bool:
+	return ProjectSettings.get_setting("application/config/preload_all_towers_on_startup") as bool

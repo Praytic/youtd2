@@ -10,18 +10,21 @@ var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 
 
 
-func _init():
+func _ready():
 	# Merge JSON props with references to other JSON props into one
 	# var tower_props_flattened = _flattened_properties()
 	
 	# Load all tower resources to dict and associate them with tower IDs
 
-	var tower_id_list: Array = Properties.get_tower_id_list()
-	
-	for tower_id in tower_id_list:
-		var tower_scene: PackedScene = _get_tower_scene(tower_id)
+	var preload_towers: bool = FF.preload_all_towers_on_startup()
 
-		preloaded_towers[tower_id] = tower_scene
+	if preload_towers:
+		var tower_id_list: Array = Properties.get_tower_id_list()
+
+		for tower_id in tower_id_list:
+			var tower_scene: PackedScene = _get_tower_scene(tower_id)
+
+			preloaded_towers[tower_id] = tower_scene
 
 	# # Change the key of the tower_props dict to ID instead of Filename
 	# for key in tower_props_flattened:
@@ -47,6 +50,13 @@ func _init():
 # with scene name so this can be done automatically instead
 # of having to do it by hand in scene editor.
 func get_tower(id: int) -> Tower:
+	var loaded_already: bool = preloaded_towers.has(id)
+
+	if !loaded_already:
+		var tower_scene: PackedScene = _get_tower_scene(id)
+
+		preloaded_towers[id] = tower_scene
+	
 	var scene: PackedScene = preloaded_towers[id]
 	var tower = scene.instantiate()
 	var tower_script_path: String = _get_tower_script_path(id)
