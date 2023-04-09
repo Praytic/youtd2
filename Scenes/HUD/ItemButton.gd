@@ -35,6 +35,9 @@ func set_icon_size(icon_size: String):
 func set_item(item: Item):
 	_item = item
 
+	var item_tooltip: String = Item.get_tooltip_text(_item.get_id())
+	set_tooltip_text(item_tooltip)
+
 func get_item() -> Item:
 	return _item
 	
