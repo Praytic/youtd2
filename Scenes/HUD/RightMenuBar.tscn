@@ -66,5 +66,3 @@ columns = 4
 script = ExtResource("4_5ctcy")
 
 [connection signal="element_changed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
-[connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" to="." method="_on_UnitButton_entered_tree"]
-[connection signal="child_entered_tree" from="VBoxContainer/ScrollContainer/MarginContainer/ItemBar" to="." method="_on_UnitButton_entered_tree"]
