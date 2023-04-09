@@ -5,9 +5,6 @@ on:
     # Sequence of patterns matched against refs/heads
     branches:    
       - main
-    # Sequence of patterns matched against refs/tags
-    tags:        
-      - v*
 
 jobs:
   build_client:
@@ -16,19 +13,18 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3.0.2
-      # Ensure that you get the entire project history
       with:
         fetch-depth: 0
-        
-    # Automatically stores the tag name for later use
-    - name: Get tag from version
-      id: tag_version
+
+    - name: Get tag and short commit hash
+      id: tag_hash
       run: |
-          echo "TAG_VERSION=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
-          
+        latest_tag=$(git describe --abbrev=0 --tags)
+        short_hash=$(git rev-parse --short HEAD)
+        echo "TAG_VERSION=${latest_tag}-${short_hash}" >> $GITHUB_ENV
+
     - name: Export game
       id: export
-      # Use latest version (see releases for all versions)
       uses: firebelley/godot-export@v4.7.0
       with:
         godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.0-stable/Godot_v4.0-stable_linux.x86_64.zip
@@ -36,17 +32,18 @@ jobs:
         relative_project_path: ./
         use_godot_4: true
         verbose: true
+        export_debug: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
     - name: Set env NEED
       run: |
-        if [[ ${{ steps.tag_version.outputs.TAG_VERSION }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
+        if [[ $TAG_VERSION =~ ^v[0-9]+\.[0-9]+\.[0-9]+-[0-9a-f]+$ ]] ; then
             echo "NEED=true" >> "$GITHUB_ENV"
         else
             echo "NEED=false" >> "$GITHUB_ENV"
         fi
-        
+
     - name: Enable threads for Chrome
       run: |
         curl https://raw.githubusercontent.com/josephrocca/clip-image-sorter/main/enable-threads.js > ${{ steps.export.outputs.build_directory }}/Web/enable-threads.js
@@ -54,11 +51,11 @@ jobs:
     - uses: actions/upload-artifact@v3
       if: env.NEED == 'true'
       with:
-        name: youtd-${{ steps.tag_version.outputs.TAG_VERSION }}
+        name: youtd-${{ env.TAG_VERSION }}
         path: ${{ steps.export.outputs.build_directory }}/Web/*
-        
+
     outputs:
-      tag_version: ${{ steps.tag_version.outputs.TAG_VERSION }}
+      tag_version: ${{ env.TAG_VERSION }}
       need_release: ${{ env.NEED }}
 
   create_release:
