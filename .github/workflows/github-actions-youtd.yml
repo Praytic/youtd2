@@ -67,7 +67,7 @@ jobs:
         name: youtd-${{ needs.build_client.outputs.tag_version }}
         
     - name: Release client
-      if: ${{ startsWith(github.ref, 'refs/tags/') }}
+      if: startsWith(github.ref, 'refs/tags/v')
       uses: ncipollo/release-action@v1.11.2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
