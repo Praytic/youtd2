@@ -126,8 +126,8 @@ func _item_init():
 func get_id() -> int:
 	return _id
 
-func get_item_name() -> String:
-	return Item.get_property(_id, CsvProperty.NAME)
+static func get_item_name(item_id: int) -> String:
+	return Item.get_property(item_id, CsvProperty.NAME)
 
 func get_author() -> String:
 	return Item.get_property(_id, CsvProperty.AUTHOR)
@@ -141,8 +141,8 @@ func get_rarity_num() -> int:
 func get_cost() -> int:
 	return Item.get_property(_id, CsvProperty.COST).to_int()
 
-func get_description() -> String:
-	return Item.get_property(_id, CsvProperty.DESCRIPTION)
+static func get_description(item_id: int) -> String:
+	return Item.get_property(item_id, CsvProperty.DESCRIPTION)
 
 func get_required_wave_level() -> int:
 	return Item.get_property(_id, CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
@@ -172,3 +172,11 @@ static func get_icon_atlas_num(item_id: int) -> int:
 
 func get_display_name() -> String:
 	return Item.get_property(_id, CsvProperty.NAME)
+
+
+static func get_tooltip_text(item_id: int) -> String:
+	var item_name: String = Item.get_item_name(item_id)
+	var item_description: String = Item.get_description(item_id)
+	var text: String = "%s\n%s" % [item_name, item_description]
+
+	return text
