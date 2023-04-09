@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cro8ec573upqo"]
+[gd_scene load_steps=10 format=3 uid="uid://cro8ec573upqo"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/DevControls.gd" id="1_0jdrl"]
 [ext_resource type="PackedScene" uid="uid://bsu2i4smjlpui" path="res://Scenes/HUD/DevControls/WaveControl.tscn" id="2_455wo"]
 [ext_resource type="PackedScene" uid="uid://cojr80363rwx2" path="res://Scenes/HUD/DevControls/SignalsControl.tscn" id="3_esahe"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="4_4ady0"]
+[ext_resource type="Script" path="res://Scenes/HUD/DevControls/BuildVersionLabel.gd" id="5_orn5p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lneea"]
 atlas = ExtResource("4_4ady0")
@@ -101,3 +102,16 @@ flat = true
 layout_mode = 2
 icon = SubResource("AtlasTexture_j0jjf")
 flat = true
+
+[node name="BuildVersionLabel" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.537255)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -26.0
+offset_right = 245.0
+grow_vertical = 0
+mouse_filter = 1
+text = "Build Version: v0.1.0-SNAPSHOT"
+script = ExtResource("5_orn5p")
