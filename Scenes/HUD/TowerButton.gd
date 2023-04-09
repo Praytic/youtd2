@@ -9,7 +9,7 @@ const TIER_ICON_SIZE_M = 64
 
 var tier_icon
 
-@onready var _tower : get = get_tower, set = set_tower
+var _tower_id: int
 @onready var _icon_size: String : set = set_icon_size
 @onready var _tier_icons_s = preload("res://Assets/Towers/tier_icons_s.png")
 @onready var _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
@@ -34,15 +34,16 @@ func set_icon_size(icon_size: String):
 	icon = _get_tower_button_icon(icon_size)
 
 
-func set_tower(tower):
-	_tower = tower
+func set_tower(tower_id: int):
+	_tower_id = tower_id
 
-func get_tower():
-	return _tower
-	
+	var tower_tooltip: String = TowerProperties.get_tooltip_text(_tower_id)
+	set_tooltip_text(tower_tooltip)
+
+
 func _get_tower_button_tier_icon(icon_size_letter: String) -> Texture2D:
-	var tower_tier = _tower.get_tier() - 1
-	var tower_rarity = _tower.get_rarity_num()
+	var tower_tier = TowerProperties.get_tier(_tower_id) - 1
+	var tower_rarity = TowerProperties.get_rarity_num(_tower_id)
 	
 	var icon_out = AtlasTexture.new()
 	var icon_size: int
@@ -59,7 +60,7 @@ func _get_tower_button_tier_icon(icon_size_letter: String) -> Texture2D:
 	return icon_out
 
 func _get_tower_button_icon(icon_size_letter: String) -> Texture2D:
-	var icon_atlas_num: int = _tower.get_icon_atlas_num()
+	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(_tower_id)
 	if icon_atlas_num == -1:
 		return _tower_button_fallback_icon
 
@@ -74,7 +75,7 @@ func _get_tower_button_icon(icon_size_letter: String) -> Texture2D:
 	else:
 		return _tower_button_fallback_icon
 	
-	var region: Rect2 = Rect2(_tower.get_element() * icon_size, icon_atlas_num * icon_size, icon_size, icon_size)
+	var region: Rect2 = Rect2(TowerProperties.get_element(_tower_id) * icon_size, icon_atlas_num * icon_size, icon_size, icon_size)
 	tower_icon.set_region(region)
 
 	return tower_icon

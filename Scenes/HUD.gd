@@ -19,33 +19,6 @@ func _ready():
 	$TooltipHeader.reset()
 
 
-func _on_RightMenuBar_unit_info_requested(unit_id, unit_type):
-	var get_unit
-	match unit_type:
-		"tower":
-			get_unit = func get_unit(unit_id):
-				return TowerManager.get_tower(unit_id)
-		_:
-			push_error("Unit with ID [%s] has invalid type [%]." % [unit_id, unit_type])
-			get_unit = func get_unit(_unit_id):
-				return null
-	var unit = get_unit.call(unit_id)
-
-	if unit != null:
-		$TooltipHeader.set_header_unit(unit)
-		
-		if unit is Tower:
-			$TowerTooltip.set_tower_tooltip_text(unit)
-
-	$TowerTooltip.hide()
-	$TooltipHeader.show()
-
-
-func _on_RightMenuBar_unit_info_canceled():
-	$TowerTooltip.hide()
-	$TooltipHeader.reset()
-
-
 func _on_ObjectYSort_child_entered_tree(node):
 		node.selected.connect(_on_Unit_selected.bind(node))
 		node.unselected.connect(_on_Unit_unselected.bind(node))
