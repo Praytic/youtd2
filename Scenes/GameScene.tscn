@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwwv1iljqd6vw"]
+[gd_scene load_steps=13 format=3 uid="uid://cwwv1iljqd6vw"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cppyelh0uodop" path="res://Scenes/HUD.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://xw7lgy87mn2f" path="res://Scenes/HUD/Minimap.tscn" id="3"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
 [ext_resource type="Script" path="res://Scenes/Lib/Build/BuilderControl.gd" id="4"]
 [ext_resource type="PackedScene" uid="uid://dg7n0ts1qsjbg" path="res://Scenes/Landscape.tscn" id="5"]
@@ -88,18 +87,6 @@ size_flags_horizontal = 1
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Minimap" parent="UI/HUD" instance=ExtResource("3")]
-visible = false
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 2
-anchor_left = 0.0
-anchor_right = 0.0
-offset_left = 229.0
-offset_right = 445.0
-grow_horizontal = 1
-mouse_filter = 2
-
 [node name="BuilderControl" type="Control" parent="UI"]
 unique_name_in_owner = true
 layout_mode = 3
@@ -127,9 +114,5 @@ offset_bottom = 40.0
 script = ExtResource("10_7h3a4")
 
 [connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD" method="_on_ObjectYSort_child_entered_tree"]
-[connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD/Minimap" method="_on_ObjectYSort_child_entered_tree"]
-[connection signal="child_exiting_tree" from="Map/ObjectYSort" to="UI/HUD/Minimap" method="_on_ObjectYSort_child_exiting_tree"]
 [connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
-[connection signal="camera_moved" from="Map/Camera2D" to="UI/HUD/Minimap" method="_on_Camera_camera_moved"]
-[connection signal="camera_zoomed" from="Map/Camera2D" to="UI/HUD/Minimap" method="_on_Camera_camera_zoomed"]
 [connection signal="wave_ended" from="Map/WaveSpawner" to="." method="_on_WaveSpawner_wave_ended"]

@@ -5,15 +5,16 @@ signal start_wave(wave_index)
 signal stop_wave()
 
 @onready var element_buttons_parent = $MarginContainer/HBoxContainer
-@onready var _dev_controls = $DevControls
 
 
 func _ready():
+	if FF.minimap_enabled():
+		$Minimap.call_deferred("create_instance")
+	if OS.is_debug_build() and FF.dev_controls_enabled():
+		$DevControls.call_deferred("create_instance")
+	
 	for element_button in element_buttons_parent.get_children():
 		element_button.pressed.connect(_on_element_button_pressed.bind(element_button))
-	
-	if not OS.is_debug_build() or not FF.dev_controls_enabled():
-		_dev_controls.hide()
 	
 	$TowerTooltip.hide()
 	$TooltipHeader.reset()

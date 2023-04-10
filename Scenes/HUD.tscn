@@ -1,8 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://cppyelh0uodop"]
+[gd_scene load_steps=20 format=3 uid="uid://cppyelh0uodop"]
 
 [ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://cro8ec573upqo" path="res://Scenes/HUD/DevControls.tscn" id="3_0r5if"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4"]
 [ext_resource type="PackedScene" uid="uid://dejhjhxmq2n2s" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://durx36ipud8jw" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
@@ -60,7 +59,7 @@ size_flags_vertical = 4
 theme = ExtResource("7")
 script = ExtResource("11")
 
-[node name="DevControls" parent="." instance=ExtResource("3_0r5if")]
+[node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]
 layout_mode = 1
 
 [node name="TopMenuBar" parent="." instance=ExtResource("6")]
@@ -200,6 +199,19 @@ offset_top = 719.0
 offset_right = -1164.0
 offset_bottom = -200.0
 
+[node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 2
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 229.0
+offset_right = 445.0
+grow_horizontal = 1
+mouse_filter = 2
+
+[connection signal="tree_entered" from="DevControls" to="." method="_on_dev_controls_tree_entered"]
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
+[connection signal="tree_entered" from="Minimap" to="." method="_on_minimap_tree_entered"]
