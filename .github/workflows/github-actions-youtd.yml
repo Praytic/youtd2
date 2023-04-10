@@ -21,8 +21,10 @@ jobs:
       run: |
         latest_tag=$(git describe --abbrev=0 --tags)
         short_hash=$(git rev-parse --short HEAD)
+        echo "TAG_VERSION: ${latest_tag}-${short_hash}"
+        echo "COMMIT_REF: $GITHUB_REF_NAME"
         echo "TAG_VERSION=${latest_tag}-${short_hash}" >> $GITHUB_ENV
-        echo "COMMIT_NAME=$GITHUB_REF_NAME" >> $GITHUB_ENV
+        echo "COMMIT_REF=$GITHUB_REF_NAME" >> $GITHUB_ENV
 
     - name: Update project.godot
       run: |
@@ -56,7 +58,7 @@ jobs:
 
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
-      commit_name: ${{ env.COMMIT_NAME }}
+      commit_ref: ${{ env.COMMIT_REF }}
 
   deploy_artifacts:
     runs-on: ubuntu-latest
@@ -77,13 +79,17 @@ jobs:
   create_release:
       name: create release
       needs: build_client
-      if: ${{ needs.build_client.outputs.commit_name }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$
+      if: ${{ needs.build_client.outputs.commit_ref }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$
       runs-on: ubuntu-latest
       steps:
+        - name: Show props
+          run: |
+            echo "Commit ref: $GITHUB_REF_NAME"
+            echo "Release tag: ${{ needs.build_client.outputs.commit_ref }}"
         - name: Release client
           uses: ncipollo/release-action@v1.11.2
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
-            tag: ${{ needs.build_client.outputs.commit_name }}
+            tag: ${{ needs.build_client.outputs.commit_ref }}
             generateReleaseNotes: true
             artifacts: ./*
