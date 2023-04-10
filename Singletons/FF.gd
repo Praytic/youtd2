@@ -20,6 +20,9 @@ func add_test_item() -> bool:
 
 func preload_all_towers_on_startup() -> bool:
 	return ProjectSettings.get_setting("application/config/preload_all_towers_on_startup") as bool
-	
+
 func build_version() -> String:
 	return ProjectSettings.get_setting("application/config/version") as String
+
+func minimap_enabled() -> bool:
+	return ProjectSettings.get_setting("application/config/minimap_enabled") as bool

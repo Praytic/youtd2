@@ -8,6 +8,7 @@ extends Control
 @onready var map = get_node("%Map")
 @onready var minimap_scale: float
 
+
 func _ready():
 	minimap_camera.position = minimap_texture.get_rect().get_center()
 	var map_size = map.get_play_area_size()
