@@ -228,9 +228,6 @@ func issue_target_order(order_type: String, target: Unit):
 #########################
 
 
-# TODO: implement text for other specials, like bounce
-# attack
-
 # TODO: detect if values are round floats or not, change
 # formatting value = 3.0 = "+3%" value = 3.5 = "+3.5%"
 
@@ -242,6 +239,14 @@ func issue_target_order(order_type: String, target: Unit):
 # defines in load_specials().
 func get_specials_tooltip_text() -> String:
 	var text: String = ""
+
+	match _attack_style:
+		AttackStyle.SPLASH:
+			text += _get_splash_attack_tooltip_text()
+		AttackStyle.BOUNCE:
+			text += _get_bounce_attack_tooltip_text()
+		AttackStyle.NORMAL:
+			text += ""
 
 	var modification_list: Array = _specials_modifier.get_modification_list()
 
@@ -563,6 +568,26 @@ func _on_creep_in_range_became_visible(creep: Creep):
 
 func _on_target_death(_event: Event, target: Creep):
 	_remove_target(target)
+
+
+func _get_splash_attack_tooltip_text() -> String:
+	var text: String = "Splash attack:\n"
+
+	var splash_range_list: Array = _splash_map.keys()
+	splash_range_list.sort()
+
+	for splash_range in splash_range_list:
+		var splash_ratio: float = _splash_map[splash_range]
+		var splash_percentage: int = floor(splash_ratio * 100)
+		text += "\t%d AoE: %d%% damage\n" % [splash_range, splash_percentage]
+
+	return text
+
+
+func _get_bounce_attack_tooltip_text() -> String:
+	var text: String = "Bounce attack:\n\t%d targets\n\t-%d%% damage per bounce" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
+
+	return text
 
 
 #########################
