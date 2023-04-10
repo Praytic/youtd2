@@ -7,18 +7,74 @@ extends Control
 # text and is displayed at a certain position, not under
 # mouse cursor.
 
-# TODO: load actual tooltip texts
+# TODO: load info that can't be obtained from csv
 
 @onready var _label: RichTextLabel = $PanelContainer/RichTextLabel
+@onready var _gold_texture: Texture2D = load("res://Resources/Textures/gold.tres")
+@onready var _food_texture: Texture2D = load("res://Resources/Textures/food.tres")
 
 
 func set_tower_id(tower_id: int):
 	_label.clear()
 
-	_label.append_text("tower: " + str(tower_id))
+	_label.push_bold()
+	var display_name: String = TowerProperties.get_display_name(tower_id)
+	_label.append_text(display_name)
+	_label.newline()
+	_label.pop()
+
+	var cost: int = TowerProperties.get_cost(tower_id)
+	_label.add_image(_gold_texture, 32, 32)
+	_label.append_text(" %d " % cost)
+	_label.add_image(_food_texture, 32, 32)
+	var food: int = 0
+	_label.append_text(" %d" % food)
+	_label.newline()
+
+	_label.push_color(Color.LIGHT_BLUE)
+	var description: String = TowerProperties.get_description(tower_id)
+	_label.append_text(description)
+	_label.newline()
+	_label.pop()
+
+	var author: String = TowerProperties.get_author(tower_id)
+	_label.append_text("Author: %s" % author)
+	_label.newline()
+
+	var element: String = TowerProperties.get_element_string(tower_id)
+	_label.append_text("Element: %s" % element.capitalize())
+	_label.newline()
+
+	var damage: int = TowerProperties.get_base_damage(tower_id)
+	var cooldown: float = TowerProperties.get_base_cooldown(tower_id)
+	var dps: int = floor(damage / cooldown)
+
+	var attack_type: String = TowerProperties.get_attack_type_string(tower_id)
+
+	var attack_range: int = TowerProperties.get_range(tower_id)
+
+	_label.append_text("Attack: %d dps, %s, %d range" % [dps, attack_type, attack_range])
+	_label.newline()
+
+	_label.append_text("Specials:")
+	_label.newline()
 
 
 func set_item_id(item_id: int):
 	_label.clear()
 
-	_label.append_text("item: " + str(item_id))
+	_label.push_bold()
+	var display_name: String = ItemProperties.get_display_name(item_id)
+	_label.append_text(display_name)
+	_label.newline()
+	_label.pop()
+
+	_label.push_color(Color.LIGHT_BLUE)
+	var description: String = ItemProperties.get_description(item_id)
+	_label.append_text(description)
+	_label.newline()
+	_label.pop()
+
+	var author: String = ItemProperties.get_author(item_id)
+	_label.append_text("Author: %s" % author)
+	_label.newline()
