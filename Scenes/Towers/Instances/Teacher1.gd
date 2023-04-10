@@ -66,10 +66,8 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "on_attack", 1.0, 0.0)
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.exp_gain, 0)
-	add_modifier(modifier)
 
 
 func tower_init():

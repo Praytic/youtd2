@@ -21,7 +21,7 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 
 
-func load_specials_new_api(modifier: Modifier):
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.70, 0.02)
 
 

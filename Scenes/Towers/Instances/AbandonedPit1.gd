@@ -11,7 +11,5 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.20, _stats.bounty_level_add)
-	add_modifier(modifier)

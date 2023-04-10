@@ -18,12 +18,10 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.5, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.25, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.25, 0.0)
-	add_modifier(modifier)
 
 
 func on_autocast(event: Event):

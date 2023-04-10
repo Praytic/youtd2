@@ -13,11 +13,9 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials():
+func load_specials(modifier: Modifier):
 #	NOTE: splash values are the same for all tiers
 	_set_attack_style_splash({320: 0.5})
 
-	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, _stats.value, _stats.value_add)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, _stats.value, _stats.value_add)
-	add_modifier(modifier)

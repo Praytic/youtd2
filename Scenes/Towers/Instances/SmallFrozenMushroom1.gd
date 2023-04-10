@@ -11,10 +11,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.5, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, _stats.dmg_bonus, _stats.dmg_bonus_add)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, _stats.dmg_bonus, _stats.dmg_bonus_add)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, _stats.dmg_bonus, _stats.dmg_bonus_add)
-	add_modifier(modifier)

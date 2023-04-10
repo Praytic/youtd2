@@ -14,7 +14,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials():
+func load_specials(_modifier: Modifier):
 	_set_attack_style_bounce(_stats.bounce_count, 0.0)
 
 
