@@ -16,10 +16,8 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 1.0, 0.0)
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, -0.03)
-	add_modifier(modifier)
 
 
 func on_damage(event: Event):

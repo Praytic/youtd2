@@ -94,7 +94,7 @@ func _internal_tower_init():
 	var tier_stats: Dictionary = _get_tier_stats()
 	_stats = tier_stats[tier]
 
-	load_specials_new_api(_specials_modifier)
+	load_specials(_specials_modifier)
 
 
 func _ready():
@@ -114,7 +114,6 @@ func _ready():
 
 	add_modifier(_specials_modifier)
 
-	load_specials()
 	tower_init()
 	on_create()
 
@@ -269,14 +268,7 @@ func tower_init():
 # NOTE: override this in subclass to add tower specials.
 # This includes adding modifiers and changing attack styles
 # to splash or bounce.
-func load_specials():
-	pass
-
-
-# TODO: need to replace all usages of load_specials(), then
-# can rename this f-n to load_specials() and delete old
-# version
-func load_specials_new_api(_modifier: Modifier):
+func load_specials(_modifier: Modifier):
 	pass
 
 

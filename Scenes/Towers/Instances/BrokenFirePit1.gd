@@ -18,10 +18,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(self, "on_kill")
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 1.0, 0.0)
-	add_modifier(modifier)
 
 
 func tower_init():

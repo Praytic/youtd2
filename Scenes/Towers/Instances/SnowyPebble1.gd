@@ -12,9 +12,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials():
+func load_specials(modifier: Modifier):
 	_set_attack_style_splash({600: 0.1})
 	
-	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, _stats.dmg_to_mass, _stats.dmg_to_mass_add)
-	add_modifier(modifier)

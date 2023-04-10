@@ -13,9 +13,7 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials():
+func load_specials(modifier: Modifier):
 	_set_attack_style_bounce(3, 0.5)
 	
-	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, _stats.undead_damage, _stats.undead_damage_add)
-	add_modifier(modifier)

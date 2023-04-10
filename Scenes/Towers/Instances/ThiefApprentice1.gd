@@ -21,13 +21,11 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 1.0, 0.004)
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.10, 0.004)
 	modifier.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, _stats.bounty_add)
 	modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, _stats.item_bonus, _stats.item_bonus_add)
 	modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, _stats.item_bonus, _stats.item_bonus_add)
-	add_modifier(modifier)
 
 
 func tower_init():

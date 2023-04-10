@@ -15,10 +15,8 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.25, 0.002)
-	add_modifier(modifier)
 
 
 func tower_init():

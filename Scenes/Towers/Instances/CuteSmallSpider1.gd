@@ -17,12 +17,10 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, -0.30, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.10, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.20, 0.0)
-	add_modifier(modifier)
 
 
 func load_triggers(triggers_buff_type: BuffType):
