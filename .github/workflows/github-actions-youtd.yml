@@ -83,6 +83,6 @@ jobs:
           uses: ncipollo/release-action@v1.11.2
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
-            tag_name: ${{ needs.build_client.outputs.commit_name }}
+            tag: ${{ needs.build_client.outputs.commit_name }}
             generateReleaseNotes: true
             artifacts: ./*
