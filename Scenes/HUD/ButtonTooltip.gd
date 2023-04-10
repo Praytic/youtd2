@@ -53,7 +53,7 @@ func set_tower_id(tower_id: int):
 
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
 
-	_label.append_text("Attack: %d dps, %s, %d range" % [dps, attack_type, attack_range])
+	_label.append_text("Attack: %d dps, %s, %d range" % [dps, attack_type.capitalize(), attack_range])
 	_label.newline()
 
 # 	NOTE: creating a tower instance just to get the tooltip
