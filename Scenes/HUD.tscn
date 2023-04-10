@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cppyelh0uodop"]
+[gd_scene load_steps=21 format=3 uid="uid://cppyelh0uodop"]
 
 [ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://durx36ipud8jw" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="7"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/TowerInventory.tscn" id="11_hrubh"]
+[ext_resource type="PackedScene" uid="uid://b1wuycbxpu0op" path="res://Scenes/HUD/TowerInventory.tscn" id="11_hrubh"]
+[ext_resource type="PackedScene" uid="uid://cllrwb288kt2l" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://cb3g6yfe66prg" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
 
@@ -210,6 +211,19 @@ offset_right = 445.0
 grow_horizontal = 1
 mouse_filter = 2
 
+[node name="ButtonTooltip" parent="." instance=ExtResource("11_ka7k1")]
+visible = false
+layout_mode = 1
+offset_left = 1250.0
+offset_top = 150.0
+offset_right = -670.0
+offset_bottom = -930.0
+
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
+[connection signal="hidden" from="RightMenuBar" to="." method="_on_right_menu_bar_hidden"]
+[connection signal="item_button_hovered" from="RightMenuBar" to="." method="_on_right_menu_bar_item_button_hovered"]
+[connection signal="item_button_not_hovered" from="RightMenuBar" to="." method="_on_right_menu_bar_item_button_not_hovered"]
+[connection signal="tower_button_hovered" from="RightMenuBar" to="." method="_on_right_menu_bar_tower_button_hovered"]
+[connection signal="tower_button_not_hovered" from="RightMenuBar" to="." method="_on_right_menu_bar_tower_button_not_hovered"]

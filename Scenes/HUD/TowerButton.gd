@@ -37,9 +37,6 @@ func set_icon_size(icon_size: String):
 func set_tower(tower_id: int):
 	_tower_id = tower_id
 
-	var tower_tooltip: String = TowerProperties.get_tooltip_text(_tower_id)
-	set_tooltip_text(tower_tooltip)
-
 
 func _get_tower_button_tier_icon(icon_size_letter: String) -> Texture2D:
 	var tower_tier = TowerProperties.get_tier(_tower_id) - 1

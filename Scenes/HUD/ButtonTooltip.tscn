@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cllrwb288kt2l"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/ButtonTooltip.gd" id="1_xd471"]
+[ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="2_2ti32"]
+
+[node name="ButtonTooltip" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xd471")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = ExtResource("2_2ti32")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+text = "PLACEHOLDER"
+fit_content = true

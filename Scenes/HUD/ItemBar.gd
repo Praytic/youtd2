@@ -1,6 +1,10 @@
 extends GridContainer
 
 
+signal item_button_hovered(item_id: int)
+signal item_button_not_hovered()
+
+
 @export var unlimited_items = false
 
 @onready var item_control = get_tree().current_scene.get_node("%ItemControl")
@@ -76,7 +80,17 @@ func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()
 	item_button.set_item(item_id)
 	item_button.button_down.connect(Callable(item_control, "_on_ItemButton_button_down").bind(item_id))
+	item_button.mouse_entered.connect(_on_item_button_mouse_entered.bind(item_id))
+	item_button.mouse_exited.connect(_on_item_button_mouse_exited)
 	return item_button
+
+
+func _on_item_button_mouse_entered(item_id: int):
+	item_button_hovered.emit(item_id)
+
+
+func _on_item_button_mouse_exited():
+	item_button_not_hovered.emit()
 
 
 func _on_Item_used(item_id):
