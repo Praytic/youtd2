@@ -25,7 +25,7 @@ func _ready():
 
 # NOTE: effect must be an AnimatedSprite2D scene
 func create_animated(effect_path: String, x: float, y: float, _mystery1: float, _mystery2: float) -> int:
-	var effect_path_exists: bool = FileAccess.file_exists(effect_path)
+	var effect_path_exists: bool = ResourceLoader.exists(effect_path)
 
 	if !effect_path_exists:
 		effect_path = _placeholder_effect_path

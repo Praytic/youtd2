@@ -16,7 +16,7 @@ var _sfx_player_list: Array = []
 
 
 func sfx_at_unit(sfx_name: String, unit: Unit):
-	var sfx_exists: bool = FileAccess.file_exists(sfx_name)
+	var sfx_exists: bool = ResourceLoader.exists(sfx_name)
 
 	if !sfx_exists:
 		return

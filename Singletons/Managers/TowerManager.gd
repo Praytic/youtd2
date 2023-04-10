@@ -84,7 +84,7 @@ func _get_tower_script_path(id: int) -> String:
 	var family_name: String = _get_family_name(id)
 	var path: String = "%s/%s1.gd" % [towers_dir, family_name]
 
-	var script_exists: bool = FileAccess.file_exists(path)
+	var script_exists: bool = ResourceLoader.exists(path)
 
 	if script_exists:
 		return path
@@ -103,7 +103,7 @@ func _get_tower_scene(id: int) -> PackedScene:
 	var tier: String = csv_properties[Tower.CsvProperty.TIER]
 	var scene_path: String = "%s/%s%s.tscn" % [towers_dir, family_name, tier]
 
-	var scene_exists: bool = FileAccess.file_exists(scene_path)
+	var scene_exists: bool = ResourceLoader.exists(scene_path)
 	if scene_exists:
 		var scene: PackedScene = load(scene_path)
 

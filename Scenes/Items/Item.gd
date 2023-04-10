@@ -38,7 +38,7 @@ var _applied_buff_list: Array[Buff] = []
 static func make(id: int) -> Item:
 	var item_script_path: String = "res://Scenes/Items/Instances/Item%d.gd" % id
 	
-	var script_exists: bool = FileAccess.file_exists(item_script_path)
+	var script_exists: bool = ResourceLoader.exists(item_script_path)
 	
 	if !script_exists:
 		if PRINT_SCRIPT_NOT_FOUND_ERROR:
