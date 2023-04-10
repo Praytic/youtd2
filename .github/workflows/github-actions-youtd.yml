@@ -16,12 +16,13 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Get tag and short commit hash
+    - name: Generate version for the build
       id: tag_hash
       run: |
         latest_tag=$(git describe --abbrev=0 --tags)
         short_hash=$(git rev-parse --short HEAD)
         echo "TAG_VERSION=${latest_tag}-${short_hash}" >> $GITHUB_ENV
+        echo "COMMIT_NAME=$GITHUB_REF_NAME" >> $GITHUB_ENV
 
     - name: Update project.godot
       run: |
@@ -55,8 +56,9 @@ jobs:
 
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
+      commit_name: ${{ env.COMMIT_NAME }}
 
-  create_release:
+  deploy_artifacts:
     runs-on: ubuntu-latest
     name: Create Release
     needs: build_client
@@ -66,17 +68,21 @@ jobs:
       with:
         name: youtd-${{ needs.build_client.outputs.tag_version }}
         
-    - name: Release client
-      if: startsWith(github.ref, 'refs/tags/v')
-      uses: ncipollo/release-action@v1.11.2
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag_name: ${{ github.ref }}
-        generateReleaseNotes: true
-        artifacts: ./*
-        
     - name: Deploy to github pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: .
+
+  create_release:
+      needs: build_client
+      if: ${{ needs.build_client.outputs.commit_name }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$
+      runs-on: ubuntu-latest
+      steps:
+        - name: Release client
+          uses: ncipollo/release-action@v1.11.2
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            tag_name: ${{ needs.build_client.outputs.commit_name }}
+            generateReleaseNotes: true
+            artifacts: ./*
