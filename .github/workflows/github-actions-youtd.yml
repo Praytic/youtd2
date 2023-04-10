@@ -47,6 +47,11 @@ jobs:
         echo "New project.godot contents:"
         cat ${{ github.workspace }}/project.godot
 
+    - name: use custom editor settings
+      run: |
+        mkdir -p .config/godot
+        cp ${{ github.workspace }}/.github/workflows/editor_settings-4.tres .config/godot/
+
     - name: Export game
       id: export
       uses: firebelley/godot-export@v5.0.0
