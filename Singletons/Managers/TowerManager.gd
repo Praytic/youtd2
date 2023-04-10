@@ -63,6 +63,7 @@ func get_tower(id: int) -> Tower:
 	var tower_script = load(tower_script_path)
 	tower.set_script(tower_script)
 	tower.set_id(id)
+	tower._internal_tower_init()
 
 	var using_fallback_scene: bool = scene == _fallback_scene
 	if using_fallback_scene:
