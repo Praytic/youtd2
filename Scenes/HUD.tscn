@@ -214,9 +214,9 @@ mouse_filter = 2
 [node name="ButtonTooltip" parent="." instance=ExtResource("11_ka7k1")]
 visible = false
 layout_mode = 1
-offset_left = 1250.0
+offset_left = 1000.0
 offset_top = 150.0
-offset_right = -670.0
+offset_right = -920.0
 offset_bottom = -930.0
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]

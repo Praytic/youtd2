@@ -563,7 +563,7 @@ func get_category() -> int:
 
 # How many the seconds the tower needs to reload without modifications.
 func get_base_cooldown() -> float:
-	return get_csv_property(CsvProperty.ATTACK_CD).to_float()
+	return TowerProperties.get_base_cooldown(_id)
 
 # The result of the calculation of the Base Cooldown and the Attack Speed. 
 # This is the real rate with which the tower will attack. 
@@ -597,13 +597,13 @@ func get_csv_property(csv_property: Tower.CsvProperty) -> String:
 	return TowerProperties.get_csv_property(_id, csv_property)
 
 func get_damage_min():
-	return get_csv_property(CsvProperty.ATTACK_DAMAGE_MIN).to_int()
+	return TowerProperties.get_damage_min(_id)
 
 func get_damage_max():
-	return get_csv_property(CsvProperty.ATTACK_DAMAGE_MAX).to_int()
+	return TowerProperties.get_damage_max(_id)
 
 func get_base_damage():
-	return (get_damage_min() + get_damage_max()) / 2.0
+	return TowerProperties.get_base_damage(_id)
 
 func get_current_attack_damage() -> float:
 	var damage_min: float = get_damage_min()
@@ -649,7 +649,7 @@ func get_best_hit():
 	return 1.0
 
 func get_range() -> float:
-	return get_csv_property(CsvProperty.ATTACK_RANGE).to_float()
+	return TowerProperties.get_range(_id)
 
 func get_rarity() -> String:
 	return TowerProperties.get_rarity(_id)
@@ -664,10 +664,7 @@ func get_display_name() -> String:
 	return TowerProperties.get_display_name(_id)
 
 func get_attack_type() -> AttackType.enm:
-	var attack_type_string: String = get_csv_property(CsvProperty.ATTACK_TYPE)
-	var attack_type: AttackType.enm = AttackType.from_string(attack_type_string)
-
-	return attack_type
+	return TowerProperties.get_attack_type(_id)
 
 func get_base_mana() -> float:
 	return get_csv_property(CsvProperty.MANA).to_float()
