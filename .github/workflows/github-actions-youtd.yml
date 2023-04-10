@@ -9,7 +9,7 @@ on:
 jobs:
   build_client:
     runs-on: ubuntu-latest
-    name: Build Client
+    name: build client
     steps:
     - name: Checkout
       uses: actions/checkout@v3.0.2
@@ -60,7 +60,7 @@ jobs:
 
   deploy_artifacts:
     runs-on: ubuntu-latest
-    name: Create Release
+    name: deploy artifacts to gh-pages
     needs: build_client
     steps:
     - name: Download all workflow run artifacts
@@ -75,6 +75,7 @@ jobs:
         publish_dir: .
 
   create_release:
+      name: create release
       needs: build_client
       if: ${{ needs.build_client.outputs.commit_name }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$
       runs-on: ubuntu-latest
