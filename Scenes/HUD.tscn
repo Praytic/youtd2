@@ -210,8 +210,6 @@ offset_right = 445.0
 grow_horizontal = 1
 mouse_filter = 2
 
-[connection signal="tree_entered" from="DevControls" to="." method="_on_dev_controls_tree_entered"]
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
-[connection signal="tree_entered" from="Minimap" to="." method="_on_minimap_tree_entered"]
