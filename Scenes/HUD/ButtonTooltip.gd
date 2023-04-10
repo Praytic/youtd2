@@ -51,13 +51,24 @@ func set_tower_id(tower_id: int):
 
 	var attack_type: String = TowerProperties.get_attack_type_string(tower_id)
 
-	var attack_range: int = TowerProperties.get_range(tower_id)
+	var attack_range: int = floor(TowerProperties.get_range(tower_id))
 
 	_label.append_text("Attack: %d dps, %s, %d range" % [dps, attack_type, attack_range])
 	_label.newline()
 
+# 	NOTE: creating a tower instance just to get the tooltip
+# 	text is weird, but the alternatives are worse
+	var tower: Tower = TowerManager.get_tower(tower_id)
+
 	_label.append_text("Specials:")
 	_label.newline()
+	var specials_text: String = tower.get_specials_tooltip_text()
+	_label.append_text(specials_text)
+	_label.newline()
+
+	var extra_text: String = tower.get_extra_tooltip_text()
+	tower.queue_free()
+	_label.append_text(extra_text)
 
 
 func set_item_id(item_id: int):

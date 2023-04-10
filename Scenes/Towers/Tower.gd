@@ -70,6 +70,7 @@ var _target_order_issued: bool = false
 var _target_order_target: Unit
 var _visual_only: bool = false
 var _item_list: Array[Item] = []
+var _specials_modifier: Modifier = Modifier.new()
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -83,14 +84,21 @@ var _item_list: Array[Item] = []
 ### Code starts here  ###
 #########################
 
-func _ready():
-	super()
-
+# NOTE: these f-ns needs to be called here and not in
+# ready() so that we can form tooltip text for button
+# tooltip
+func _internal_tower_init():
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
 	var tier: int = get_tier()
 	var tier_stats: Dictionary = _get_tier_stats()
 	_stats = tier_stats[tier]
+
+	load_specials_new_api(_specials_modifier)
+
+
+func _ready():
+	super()
 
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
@@ -103,6 +111,8 @@ func _ready():
 	_mana_bar.visible = get_base_mana() > 0
 
 	_default_projectile_type = ProjectileType.create("", 0.0, PROJECTILE_SPEED)
+
+	add_modifier(_specials_modifier)
 
 	load_specials()
 	tower_init()
@@ -219,6 +229,37 @@ func issue_target_order(order_type: String, target: Unit):
 #########################
 
 
+# TODO: implement text for other specials, like bounce
+# attack
+
+# TODO: detect if values are round floats or not, change
+# formatting value = 3.0 = "+3%" value = 3.5 = "+3.5%"
+
+# TODO: detect sign of value and change sign in string
+# accordingly
+
+# This shouldn't be overriden in subclasses. This will
+# automatically generate a string for specials that subclass
+# defines in load_specials().
+func get_specials_tooltip_text() -> String:
+	var text: String = ""
+
+	var modification_list: Array = _specials_modifier.get_modification_list()
+
+	for modification in modification_list:
+		var type_string: String = "type string"
+		text += "+%d%% %s (+%d%%/lvl)\n" % [floor(modification.value_base * 100), type_string, floor(modification.level_add * 100)]
+
+	return text
+
+
+# Override in subclass to define tower's extra tooltip text.
+# This should contain description of special abilities.
+# String can contain rich text format(BBCode).
+func get_extra_tooltip_text() -> String:
+	return ""
+
+
 # Override in subclass to initialize subclass tower. This is
 # the analog of "init" function from original API.
 func tower_init():
@@ -229,6 +270,13 @@ func tower_init():
 # This includes adding modifiers and changing attack styles
 # to splash or bounce.
 func load_specials():
+	pass
+
+
+# TODO: need to replace all usages of load_specials(), then
+# can rename this f-n to load_specials() and delete old
+# version
+func load_specials_new_api(_modifier: Modifier):
 	pass
 
 

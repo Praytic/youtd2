@@ -5,7 +5,7 @@ var sternbogen_broken_wind: BuffType
 
 func _get_tier_stats() -> Dictionary:
 	return {
-		1: {catch_chance = 0.20, catch_chance_add = 0.003, cyclone_duration = 0.5, cyclone_damage = 2, cyclone_damage_add = 2},
+		1: {catch_chance = 0.20, catch_chance_add = 0.003, cyclone_duration = 0.5, cyclone_damage = 20, cyclone_damage_add = 2},
 		2: {catch_chance = 0.22, catch_chance_add = 0.004, cyclone_duration = 0.6, cyclone_damage = 68, cyclone_damage_add = 7},
 		3: {catch_chance = 0.24, catch_chance_add = 0.005, cyclone_duration = 0.7, cyclone_damage = 196, cyclone_damage_add = 20},
 		4: {catch_chance = 0.26, catch_chance_add = 0.006, cyclone_duration = 0.8, cyclone_damage = 600, cyclone_damage_add = 60},
@@ -13,14 +13,16 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	return "Wind of Death\nOn attack this tower has a %d%% chance to catch a ground, non-boss unit in a cyclone for %.1f seconds, dealing %d physical damage to all units in 300 AoE when it falls back down. Falling champions deal 25 more damage.\n\nLevel Bonus:\n+%d damage\n+%d%% chance to catch" % [_stats.catch_chance * 100, _stats.cyclone_duration, _stats.cyclone_damage, _stats.cyclone_damage_add, _stats.catch_chance_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 
 
-func load_specials():
-	var modifier: Modifier = Modifier.new()
+func load_specials_new_api(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.70, 0.02)
-	add_modifier(modifier)
 
 
 func tower_init():
