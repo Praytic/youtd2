@@ -98,6 +98,11 @@ jobs:
     name: upload web client
     needs: export_game
     steps:
+    - name: checkout
+      uses: actions/checkout@v3.0.2
+      with:
+        fetch-depth: 0
+
     - name: copy required assets
       run: |
         ls -R /home/runner/work/youtd2
