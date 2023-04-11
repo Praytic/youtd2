@@ -14,7 +14,7 @@ func _get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	return "Wind of Death\nOn attack this tower has a %d%% chance to catch a ground, non-boss unit in a cyclone for %.1f seconds, dealing %d physical damage to all units in 300 AoE when it falls back down. Falling champions deal 25 more damage.\n\nLevel Bonus:\n+%d damage\n+%d%% chance to catch" % [_stats.catch_chance * 100, _stats.cyclone_duration, _stats.cyclone_damage, _stats.cyclone_damage_add, _stats.catch_chance_add]
+	return "[color=gold]Wind of Death[/color]\nOn attack this tower has a [color=gold]%d%%[/color] chance to catch a ground, non-boss unit in a cyclone for [color=gold]%.1f[/color] seconds, dealing [color=gold]%d[/color] physical damage to all units in [color=gold]300[/color] AoE when it falls back down. Falling champions deal [color=gold]25[/color] more damage.\n\n[color=orange]Level Bonus:[/color]\n[color=gold]+%d[/color] damage\n[color=gold]+%d%%[/color] chance to catch" % [_stats.catch_chance * 100, _stats.cyclone_duration, _stats.cyclone_damage, _stats.cyclone_damage_add, _stats.catch_chance_add]
 
 
 func load_triggers(triggers_buff_type: BuffType):

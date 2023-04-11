@@ -69,12 +69,12 @@ func _on_right_menu_bar_tower_button_not_hovered():
 	$ButtonTooltip.hide()
 
 
-func _on_right_menu_bar_item_button_hovered(item_id: int):
+func _on_item_button_hovered(item_id: int):
 	$ButtonTooltip.set_item_id(item_id)
 	$ButtonTooltip.show()
 
 
-func _on_right_menu_bar_item_button_not_hovered():
+func _on_item_button_not_hovered():
 	$ButtonTooltip.hide()
 
 

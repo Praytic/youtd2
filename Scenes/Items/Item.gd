@@ -89,6 +89,20 @@ func remove_from_tower():
 # 	TODO: where does item go after it's removed from
 # 	carrier? queue_free() or reparent to some new node?
 
+
+func get_specials_tooltip_text() -> String:
+	var text: String = _modifier.get_tooltip_text()
+
+	return text
+
+
+# Override in subclass to define item's extra tooltip text.
+# This should contain description of special abilities.
+# String can contain rich text format(BBCode).
+func get_extra_tooltip_text() -> String:
+	return ""
+
+
 # Override in subclass to initialize subclass item
 func _item_init():
 	pass

@@ -27,19 +27,5 @@ layout_mode = 2
 text = "Tower Items
 "
 
-[node name="ItemList" type="ItemList" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-max_text_lines = 2
-auto_height = true
-max_columns = 3
-same_column_width = true
-icon_mode = 0
-
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-
-[node name="RemoveItemButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "Remove item"
-
-[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/RemoveItemButton" to="." method="_on_remove_item_button_pressed"]
