@@ -10,15 +10,17 @@ on:
       - v*
 
 jobs:
-  build_client:
+  export_game:
     runs-on: ubuntu-latest
-    name: build client
+    name: export game
     steps:
     - name: checkout
       uses: actions/checkout@v3.0.2
+      with:
+        fetch-depth: 0
 
     - name: generate version for the build
-      id: tag_hash
+      id: generate_version
       run: |
         latest_tag=$(git describe --abbrev=0 --tags)
         short_hash=$(git rev-parse --short HEAD)
@@ -29,8 +31,8 @@ jobs:
 
     - name: release requested check
       run: |
-        if [[ ${{ steps.tag_hash.outputs.COMMIT_REF }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
-            echo "COMMIT_REF=${{ steps.tag_hash.outputs.COMMIT_REF }}" >> "$GITHUB_ENV"
+        if [[ ${{ steps.generate_version.outputs.COMMIT_REF }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
+            echo "COMMIT_REF=${{ steps.generate_version.outputs.COMMIT_REF }}" >> "$GITHUB_ENV"
             echo "NEED=true" >> "$GITHUB_ENV"
             echo 'true'
         else
