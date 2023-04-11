@@ -71,3 +71,10 @@ func _init(type_arg: Modification.Type, value_base_arg: float, level_add_arg: fl
 	type = type_arg
 	value_base = value_base_arg
 	level_add = level_add_arg
+
+
+func get_tooltip_text() -> String:
+	var type_string: String = "type string"
+	var text: String = "+%d%% %s (+%d%%/lvl)\n" % [floor(value_base * 100), type_string, floor(level_add * 100)]
+
+	return text
