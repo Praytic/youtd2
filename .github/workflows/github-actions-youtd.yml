@@ -57,6 +57,11 @@ jobs:
       run: |
         sudo apt install wine64
         echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
+
+    - name: copy additional web assets
+      run: |
+        mkdir -p /home/runner/.local/share/godot/build/web/
+        cp -R ${{ github.workspace }}/Build/Web/* /home/runner/.local/share/godot/build/web/
     
     - name: export game
       id: export
@@ -98,15 +103,6 @@ jobs:
     name: upload web client
     needs: export_game
     steps:
-    - name: checkout
-      uses: actions/checkout@v3.0.2
-
-    - name: copy required assets
-      run: |
-        ls -R /home/runner/work/youtd2
-        cp ${{ github.workspace }}/Build/Web/* ${{ needs.export_game.outputs.build_directory }}/web/
-        zip -r -FS ${{ needs.export_game.outputs.archive_directory }}/web.zip ${{ needs.export_game.outputs.build_directory }}/web
-
     - uses: actions/upload-artifact@v3
       with:
         name: youtd-web-${{ needs.export_game.outputs.tag_version }}
