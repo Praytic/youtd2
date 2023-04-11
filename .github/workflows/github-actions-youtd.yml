@@ -100,6 +100,7 @@ jobs:
     steps:
     - name: copy required assets
       run: |
+        ls -R /home/runner/work/youtd2
         cp ${{ github.workspace }}/Build/Web/* ${{ needs.export_game.outputs.build_directory }}/web/
         zip -r -FS ${{ needs.export_game.outputs.archive_directory }}/web.zip ${{ needs.export_game.outputs.build_directory }}/web
 
@@ -150,7 +151,7 @@ jobs:
 
   create_release:
       name: create release
-      needs: export_game
+      needs: [export_game, upload_windows_client, upload_macos_client, upload_linux_client, upload_web_client]
       if: needs.export_game.outputs.release_flag == 'true'
       runs-on: ubuntu-latest
       steps:
@@ -159,10 +160,19 @@ jobs:
             echo "Commit ref: $GITHUB_REF_NAME"
             echo "Release tag: ${{ needs.export_game.outputs.commit_ref }}"
         
+        - name: download artifacts
+          uses: actions/download-artifact@v3
+          with:
+            path: .
+            
+        - name: display structure of downloaded files
+          run: ls -R
+          working-directory: .
+
         - name: release client
           uses: ncipollo/release-action@v1.11.2
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
             tag: ${{ needs.export_game.outputs.commit_ref }}
             generateReleaseNotes: true
-            artifacts: ${{ needs.export_game.outputs.export_dir }}/*
+            artifacts: ./*
