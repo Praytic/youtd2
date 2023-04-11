@@ -1,5 +1,4 @@
-@tool
-extends "res://Scenes/HUD/ResourceStatusPanel.gd"
+extends "res://Scenes/HUD/TopMenuBar/ResourceStatusPanel.gd"
 
 
 @onready var gold_control = get_tree().current_scene.get_node("%GoldControl")
