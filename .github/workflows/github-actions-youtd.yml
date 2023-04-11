@@ -85,8 +85,8 @@ jobs:
 
   upload_macos_client:
     runs-on: ubuntu-latest
-    name: build windows client
-    needs: build_client
+    name: upload macos client
+    needs: export_game
     steps:
     - uses: actions/upload-artifact@v3
       with:
@@ -95,8 +95,8 @@ jobs:
 
   upload_web_client:
     runs-on: ubuntu-latest
-    name: build macos client
-    needs: build_client
+    name: upload web client
+    needs: export_game
     steps:
     - name: copy required assets
       run: |
@@ -108,10 +108,13 @@ jobs:
         name: youtd-web-${{ needs.export_game.outputs.tag_version }}
         path: ${{ needs.export_game.outputs.export_dir }}/web.zip
 
+    outputs:
+      artifact_name: youtd-web-${{ needs.export_game.outputs.tag_version }}
+
   upload_windows_client:
     runs-on: ubuntu-latest
-    name: build windows client
-    needs: build_client
+    name: upload windows client
+    needs: export_game
     steps:
     - uses: actions/upload-artifact@v3
       with:
@@ -121,8 +124,8 @@ jobs:
 
   upload_linux_client:
     runs-on: ubuntu-latest
-    name: build linux client
-    needs: build_client
+    name: upload linux client
+    needs: export_game
     steps:
     - uses: actions/upload-artifact@v3
       with:
@@ -132,12 +135,12 @@ jobs:
   deploy_artifacts:
     runs-on: ubuntu-latest
     name: deploy artifacts to gh-pages
-    needs: build_client
+    needs: upload_web_client
     steps:
     - name: download web artifacts
       uses: actions/download-artifact@v3
       with:
-        name: youtd-web-${{ needs.build_client.outputs.tag_version }}
+        name: ${{ needs.upload_web_client.outputs.artifact_name }}
         
     - name: deploy to github pages
       uses: peaceiris/actions-gh-pages@v3
@@ -147,19 +150,19 @@ jobs:
 
   create_release:
       name: create release
-      needs: build_client
+      needs: export_game
       if: needs.export_game.outputs.release_flag == 'true'
       runs-on: ubuntu-latest
       steps:
         - name: show props
           run: |
             echo "Commit ref: $GITHUB_REF_NAME"
-            echo "Release tag: ${{ needs.build_client.outputs.commit_ref }}"
+            echo "Release tag: ${{ needs.export_game.outputs.commit_ref }}"
         
         - name: release client
           uses: ncipollo/release-action@v1.11.2
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
-            tag: ${{ needs.build_client.outputs.commit_ref }}
+            tag: ${{ needs.export_game.outputs.commit_ref }}
             generateReleaseNotes: true
-            artifacts: ./*
+            artifacts: ${{ needs.export_game.outputs.export_dir }}/*
