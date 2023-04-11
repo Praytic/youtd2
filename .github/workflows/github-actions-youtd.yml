@@ -74,13 +74,14 @@ jobs:
 
     - name: list the result
       run: |
-        ls -R ${{ steps.export.outputs.build_directory }}
+        ls -R ${{ steps.export.outputs.archive_directory }}
 
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
       commit_ref: ${{ env.COMMIT_REF }}
       release_flag: ${{ env.NEED }}
       export_dir: ${{ steps.export.outputs.build_directory }}
+      archive_dir: ${{ steps.export.outputs.archive_directory }}
 
   # upload_macos_client:
   #   runs-on: ubuntu-latest
@@ -90,7 +91,7 @@ jobs:
   #   - uses: actions/upload-artifact@v3
   #     with:
   #       name: youtd-macos-${{ needs.export_game.outputs.tag_version }}
-  #       path: ${{ needs.export_game.outputs.export_dir }}/macOS/*
+  #       path: ${{ needs.export_game.outputs.archive_dir }}/macOS/*
 
   # upload_web_client:
   #   runs-on: ubuntu-latest
