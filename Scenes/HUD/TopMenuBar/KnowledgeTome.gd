@@ -1,5 +1,4 @@
-@tool
-extends "res://Scenes/HUD/ResourceStatusPanel.gd"
+extends "res://Scenes/HUD/TopMenuBar/ResourceStatusPanel.gd"
 
 func _ready():
 	super()

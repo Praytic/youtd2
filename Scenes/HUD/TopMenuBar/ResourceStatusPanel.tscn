@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxqvh5d2q75op"]
 
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="2"]
-[ext_resource type="Script" path="res://Scenes/HUD/ResourceStatusPanel.gd" id="3"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="1_rabj6"]
+[ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar/ResourceStatusPanel.gd" id="2_yfbyi"]
 
 [node name="ResourceStatusPanel" type="Panel"]
 custom_minimum_size = Vector2(250, 80)
 offset_right = 250.0
 offset_bottom = 80.0
-theme = ExtResource("2")
+theme = ExtResource("1_rabj6")
 theme_type_variation = &"ResourceTab"
-script = ExtResource("3")
+script = ExtResource("2_yfbyi")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

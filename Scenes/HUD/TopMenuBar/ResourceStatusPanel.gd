@@ -1,4 +1,3 @@
-@tool
 extends Panel
 
 @export var icon_texture: Texture2D

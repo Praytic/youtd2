@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=3 uid="uid://durx36ipud8jw"]
 
-[ext_resource type="Script" path="res://Scenes/HUD/Gold.gd" id="1"]
-[ext_resource type="Script" path="res://Scenes/HUD/KnowledgeTome.gd" id="2"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="3"]
 [ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://mnlx0hsujtqg" path="res://Assets/UI/HUD/texture.jpg" id="5"]
 [ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar.gd" id="6"]
-[ext_resource type="PackedScene" uid="uid://cxqvh5d2q75op" path="res://Scenes/HUD/ResourceStatusPanel.tscn" id="7"]
+[ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar/Gold.gd" id="6_cj6uo"]
+[ext_resource type="PackedScene" uid="uid://cxqvh5d2q75op" path="res://Scenes/HUD/TopMenuBar/ResourceStatusPanel.tscn" id="7"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="8"]
+[ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar/KnowledgeTome.gd" id="8_ey2wu"]
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = ExtResource("8")
@@ -121,7 +121,7 @@ theme_override_constants/separation = 10
 
 [node name="Gold" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource("7")]
 layout_mode = 2
-script = ExtResource("1")
+script = ExtResource("6_cj6uo")
 icon_texture = SubResource("1")
 default_label_text = "0"
 
@@ -132,7 +132,7 @@ default_label_text = "0"
 
 [node name="KnowledgeTome" parent="MarginContainer/HBoxContainer/RightTopBarMarginContainer/RightTopBar" instance=ExtResource("7")]
 layout_mode = 2
-script = ExtResource("2")
+script = ExtResource("8_ey2wu")
 icon_texture = SubResource("3")
 default_label_text = "0"
 

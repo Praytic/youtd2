@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwwv1iljqd6vw"]
+[gd_scene load_steps=13 format=3 uid="uid://dkcuy8yjq5i6a"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cppyelh0uodop" path="res://Scenes/HUD.tscn" id="2"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="5_pan23"]
 [ext_resource type="Script" path="res://Scenes/Lib/ItemControl.gd" id="7"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
-[ext_resource type="Script" path="res://Scenes/HUD/GoldControl.gd" id="10_7h3a4"]
+[ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar/GoldControl.gd" id="9_cpjsl"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -111,7 +111,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("10_7h3a4")
+script = ExtResource("9_cpjsl")
 
 [connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD" method="_on_ObjectYSort_child_entered_tree"]
 [connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
