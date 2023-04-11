@@ -228,17 +228,14 @@ func issue_target_order(order_type: String, target: Unit):
 #########################
 
 
-# TODO: detect if values are round floats or not, change
-# formatting value = 3.0 = "+3%" value = 3.5 = "+3.5%"
-
-# TODO: detect sign of value and change sign in string
-# accordingly
-
 # This shouldn't be overriden in subclasses. This will
 # automatically generate a string for specials that subclass
 # defines in load_specials().
 func get_specials_tooltip_text() -> String:
 	var text: String = ""
+
+	if _target_count_max > 1:
+		text += "[b][color=gold]Multishot:[/color][/b]\nAttacks up to [color=gold]%d[/color] targets at the same time.\n" % [_target_count_max]
 
 	match _attack_style:
 		AttackStyle.SPLASH:
@@ -248,11 +245,8 @@ func get_specials_tooltip_text() -> String:
 		AttackStyle.NORMAL:
 			text += ""
 
-	var modification_list: Array = _specials_modifier.get_modification_list()
-
-	for modification in modification_list:
-		var type_string: String = "type string"
-		text += "+%d%% %s (+%d%%/lvl)\n" % [floor(modification.value_base * 100), type_string, floor(modification.level_add * 100)]
+	var modifier_text: String = _specials_modifier.get_tooltip_text()
+	text += modifier_text
 
 	return text
 
@@ -571,7 +565,7 @@ func _on_target_death(_event: Event, target: Creep):
 
 
 func _get_splash_attack_tooltip_text() -> String:
-	var text: String = "Splash attack:\n"
+	var text: String = "[color=green_yellow]Splash attack:[/color]\n"
 
 	var splash_range_list: Array = _splash_map.keys()
 	splash_range_list.sort()
@@ -579,13 +573,13 @@ func _get_splash_attack_tooltip_text() -> String:
 	for splash_range in splash_range_list:
 		var splash_ratio: float = _splash_map[splash_range]
 		var splash_percentage: int = floor(splash_ratio * 100)
-		text += "\t%d AoE: %d%% damage\n" % [splash_range, splash_percentage]
+		text += "\t[color=gold]%d[/color] AoE: [color=gold]%d%%[/color] damage\n" % [splash_range, splash_percentage]
 
 	return text
 
 
 func _get_bounce_attack_tooltip_text() -> String:
-	var text: String = "Bounce attack:\n\t%d targets\n\t-%d%% damage per bounce" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
+	var text: String = "[color=green_yellow]Bounce attack:[/color]\n\t[color=gold]%d[/color] targets\n\t[color=gold]-%d%%[/color] damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
 
 	return text
 
