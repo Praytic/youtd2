@@ -1,14 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dkcuy8yjq5i6a"]
+[gd_scene load_steps=13 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cppyelh0uodop" path="res://Scenes/HUD.tscn" id="2"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
-[ext_resource type="Script" path="res://Scenes/Lib/Build/BuilderControl.gd" id="4"]
 [ext_resource type="PackedScene" uid="uid://dg7n0ts1qsjbg" path="res://Scenes/Landscape.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="5_pan23"]
-[ext_resource type="Script" path="res://Scenes/Lib/ItemControl.gd" id="7"]
+[ext_resource type="Script" path="res://Scenes/Towers/BuilderControl.gd" id="7_1hhro"]
+[ext_resource type="Script" path="res://Scenes/Items/ItemControl.gd" id="8_jgfnp"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
-[ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar/GoldControl.gd" id="9_cpjsl"]
+[ext_resource type="Script" path="res://Scenes/Economy/GoldControl.gd" id="9_avlwg"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -94,7 +94,7 @@ anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
-script = ExtResource("4")
+script = ExtResource("7_1hhro")
 
 [node name="ItemControl" type="Control" parent="UI"]
 unique_name_in_owner = true
@@ -103,7 +103,7 @@ anchors_preset = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
-script = ExtResource("7")
+script = ExtResource("8_jgfnp")
 
 [node name="GoldControl" type="Control" parent="UI"]
 unique_name_in_owner = true
@@ -111,7 +111,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("9_cpjsl")
+script = ExtResource("9_avlwg")
 
 [connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD" method="_on_ObjectYSort_child_entered_tree"]
 [connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
