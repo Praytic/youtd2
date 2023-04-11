@@ -83,84 +83,83 @@ jobs:
       export_dir: ${{ steps.export.outputs.build_directory }}
       archive_dir: ${{ steps.export.outputs.archive_directory }}
 
-  # upload_macos_client:
-  #   runs-on: ubuntu-latest
-  #   name: build windows client
-  #   needs: build_client
-  #   steps:
-  #   - uses: actions/upload-artifact@v3
-  #     with:
-  #       name: youtd-macos-${{ needs.export_game.outputs.tag_version }}
-  #       path: ${{ needs.export_game.outputs.archive_dir }}/macOS/*
+  upload_macos_client:
+    runs-on: ubuntu-latest
+    name: build windows client
+    needs: build_client
+    steps:
+    - uses: actions/upload-artifact@v3
+      with:
+        name: youtd-macos-${{ needs.export_game.outputs.tag_version }}
+        path: ${{ needs.export_game.outputs.archive_dir }}/macos.zip
 
-  # upload_web_client:
-  #   runs-on: ubuntu-latest
-  #   name: build macos client
-  #   needs: build_client
-  #   steps:
-  #   - name: copy required assets
-  #     run: |
-  #       cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/Web/
-  #       echo "Current state of Web dir:"
-  #       ls ${{ steps.export.outputs.build_directory }}/Web/
+  upload_web_client:
+    runs-on: ubuntu-latest
+    name: build macos client
+    needs: build_client
+    steps:
+    - name: copy required assets
+      run: |
+        cp ${{ github.workspace }}/Build/Web/* ${{ needs.export_game.outputs.build_directory }}/web/
+        zip -r -FS ${{ needs.export_game.outputs.archive_directory }}/web.zip ${{ needs.export_game.outputs.build_directory }}/web
 
-  #   - uses: actions/upload-artifact@v3
-  #     with:
-  #       name: youtd-web-${{ needs.export_game.outputs.tag_version }}
-  #       path: ${{ needs.export_game.outputs.export_dir }}/Web/*
+    - uses: actions/upload-artifact@v3
+      with:
+        name: youtd-web-${{ needs.export_game.outputs.tag_version }}
+        path: ${{ needs.export_game.outputs.export_dir }}/web.zip
 
-  # upload_windows_client:
-  #   runs-on: ubuntu-latest
-  #   name: build windows client
-  #   needs: build_client
-  #   steps:
-  #   - uses: actions/upload-artifact@v3
-  #     with:
-  #       name: youtd-windows-${{ needs.export_game.outputs.tag_version }}
-  #       path: ${{ needs.export_game.outputs.export_dir }}/Windows/*
+  upload_windows_client:
+    runs-on: ubuntu-latest
+    name: build windows client
+    needs: build_client
+    steps:
+    - uses: actions/upload-artifact@v3
+      with:
+        name: youtd-windows-${{ needs.export_game.outputs.tag_version }}
+        path: ${{ needs.export_game.outputs.export_dir }}/windows.zip
 
 
-  # upload_windows_client:
-  #   runs-on: ubuntu-latest
-  #   name: build linux client
-  #   needs: build_client
-  #   steps:
-  #   - uses: actions/upload-artifact@v3
-  #     with:
-  #       name: youtd-linux-${{ needs.export_game.outputs.tag_version }}
-  #       path: ${{ needs.export_game.outputs.export_dir }}/Linux/*
+  upload_linux_client:
+    runs-on: ubuntu-latest
+    name: build linux client
+    needs: build_client
+    steps:
+    - uses: actions/upload-artifact@v3
+      with:
+        name: youtd-linux-${{ needs.export_game.outputs.tag_version }}
+        path: ${{ needs.export_game.outputs.export_dir }}/linux.zip
 
-  # deploy_artifacts:
-  #   runs-on: ubuntu-latest
-  #   name: deploy artifacts to gh-pages
-  #   needs: build_client
-  #   steps:
-  #   - name: Download all workflow run artifacts
-  #     uses: actions/download-artifact@v3
-  #     with:
-  #       name: youtd-web-${{ needs.build_client.outputs.tag_version }}
+  deploy_artifacts:
+    runs-on: ubuntu-latest
+    name: deploy artifacts to gh-pages
+    needs: build_client
+    steps:
+    - name: download web artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: youtd-web-${{ needs.build_client.outputs.tag_version }}
         
-  #   - name: Deploy to github pages
-  #     uses: peaceiris/actions-gh-pages@v3
-  #     with:
-  #       github_token: ${{ secrets.GITHUB_TOKEN }}
-  #       publish_dir: .
+    - name: deploy to github pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: .
 
-  # create_release:
-  #     name: create release
-  #     needs: build_client
-  #     if: needs.build_client.outputs.release_flag == 'true'
-  #     runs-on: ubuntu-latest
-  #     steps:
-  #       - name: Show props
-  #         run: |
-  #           echo "Commit ref: $GITHUB_REF_NAME"
-  #           echo "Release tag: ${{ needs.build_client.outputs.commit_ref }}"
+  create_release:
+      name: create release
+      needs: build_client
+      if: needs.export_game.outputs.release_flag == 'true'
+      runs-on: ubuntu-latest
+      steps:
+        - name: show props
+          run: |
+            echo "Commit ref: $GITHUB_REF_NAME"
+            echo "Release tag: ${{ needs.build_client.outputs.commit_ref }}"
         
-  #       - name: Release client
-  #         uses: ncipollo/release-action@v1.11.2
-  #         with:
-  #           token: ${{ secrets.GITHUB_TOKEN }}
-  #           tag: ${{ needs.build_client.outputs.commit_ref }}
-  #           generateReleaseNotes: true
-  #           artifacts: ./*
+        - name: release client
+          uses: ncipollo/release-action@v1.11.2
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            tag: ${{ needs.build_client.outputs.commit_ref }}
+            generateReleaseNotes: true
+            artifacts: ./*
