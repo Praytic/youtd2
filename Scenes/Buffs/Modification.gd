@@ -61,6 +61,18 @@ enum Type {
 	MOD_DMG_FROM_IRON,
 }
 
+const types_without_percent: Array = [
+	Type.MOD_ARMOR,
+	Type.MOD_MOVESPEED_ABSOLUTE,
+	Type.MOD_DAMAGE_BASE,
+	Type.MOD_DAMAGE_ADD,
+	Type.MOD_DPS_ADD,
+	Type.MOD_HP,
+	Type.MOD_HP_REGEN,
+	Type.MOD_MANA,
+	Type.MOD_MANA_REGEN,
+]
+
 
 var type: Modification.Type
 var value_base: float
@@ -74,7 +86,107 @@ func _init(type_arg: Modification.Type, value_base_arg: float, level_add_arg: fl
 
 
 func get_tooltip_text() -> String:
-	var type_string: String = "type string"
-	var text: String = "[color=gold]+%d%%[/color] %s ([color=gold]+%d%%[/color]/lvl)\n" % [floor(value_base * 100), type_string, floor(level_add * 100)]
+	var base_is_zero = abs(value_base) < 0.0001
+	var add_is_zero = abs(level_add) < 0.0001
+
+	var type_string: String = get_type_string()
+
+	var text: String
+	
+	if !base_is_zero && !add_is_zero:
+		text = "[color=gold]%s[/color] %s ([color=gold]%s[/color]/lvl)\n" % [format_percentage(value_base), type_string, format_percentage(level_add)]
+	elif !base_is_zero && add_is_zero:
+		text = "[color=gold]%s[/color] %s\n" % [format_percentage(value_base), type_string]
+	elif base_is_zero && !add_is_zero:
+		text = "[color=gold]%s[/color] %s/lvl\n" % [format_percentage(level_add), type_string]
+	else:
+		text = ""
 
 	return text
+
+
+# Formats percentage values for use in tooltip text
+# 0.1 = +10%
+# -0.1 = -10%
+# 0.001 = +0.1%
+func format_percentage(value: float) -> String:
+	var sign_string: String
+	if value > 0.0:
+		sign_string = "+"
+	else:
+		sign_string = ""
+
+	var value_string: String = String.num(value * 100, 2)
+
+	var percent_string: String
+	if !types_without_percent.has(type):
+		percent_string = "%"
+	else:
+		percent_string = ""
+
+	var base_string: String = "%s%s%s" % [sign_string, value_string, percent_string]
+
+	return base_string
+
+
+func get_type_string() -> String:
+	match type:
+		Type.MOD_ARMOR: return "armor"
+		Type.MOD_ARMOR_PERC: return "armor"
+		Type.MOD_EXP_GRANTED: return "experience granted"
+		Type.MOD_EXP_RECEIVED: return "experience received"
+		Type.MOD_SPELL_DAMAGE_RECEIVED: return "spell damage received"
+		Type.MOD_SPELL_DAMAGE_DEALT: return "spell damage dealt"
+		Type.MOD_SPELL_CRIT_DAMAGE: return "spell crit damage"
+		Type.MOD_SPELL_CRIT_CHANCE: return "spell crit chance"
+		Type.MOD_BOUNTY_GRANTED: return "bounty granted"
+		Type.MOD_BOUNTY_RECEIVED: return "bounty received"
+		Type.MOD_ATK_CRIT_CHANCE: return "crit chance"
+		Type.MOD_ATK_CRIT_DAMAGE: return "crit damage"
+		Type.MOD_ATK_DAMAGE_RECEIVED: return "damage received"
+		Type.MOD_ATTACKSPEED: return "attack speed"
+		Type.MOD_MULTICRIT_COUNT: return "multicrit count"
+		Type.MOD_ITEM_CHANCE_ON_KILL: return "item chance on kill"
+		Type.MOD_ITEM_QUALITY_ON_KILL: return "item quality on kill"
+		Type.MOD_ITEM_CHANCE_ON_DEATH: return "item chance on death"
+		Type.MOD_ITEM_QUALITY_ON_DEATH: return "item quality on death"
+		Type.MOD_BUFF_DURATION: return "buff duration"
+		Type.MOD_DEBUFF_DURATION: return "debuff duration"
+		Type.MOD_TRIGGER_CHANCES: return "trigger chances"
+		Type.MOD_MOVESPEED: return "move speed"
+		Type.MOD_MOVESPEED_ABSOLUTE: return "move speed"
+		Type.MOD_DAMAGE_BASE: return "damage"
+		Type.MOD_DAMAGE_BASE_PERC: return "damage"
+		Type.MOD_DAMAGE_ADD: return "damage"
+		Type.MOD_DAMAGE_ADD_PERC: return "damage"
+		Type.MOD_DPS_ADD: return "dps"
+		Type.MOD_HP: return "health"
+		Type.MOD_HP_PERC: return "health"
+		Type.MOD_HP_REGEN: return "health regen"
+		Type.MOD_HP_REGEN_PERC: return "health regen"
+		Type.MOD_MANA: return "mana"
+		Type.MOD_MANA_PERC: return "mana"
+		Type.MOD_MANA_REGEN: return "mana regen"
+		Type.MOD_MANA_REGEN_PERC: return "mana regen"
+
+		Type.MOD_DMG_TO_MASS: return "damage to mass"
+		Type.MOD_DMG_TO_NORMAL: return "damage to normal"
+		Type.MOD_DMG_TO_CHAMPION: return "damage to champion"
+		Type.MOD_DMG_TO_BOSS: return "damage to boss"
+		Type.MOD_DMG_TO_AIR: return "damage to air"
+
+		Type.MOD_DMG_TO_UNDEAD: return "damage to undead"
+		Type.MOD_DMG_TO_MAGIC: return "damage to magic"
+		Type.MOD_DMG_TO_NATURE: return "damage to nature"
+		Type.MOD_DMG_TO_ORC: return "damage to orc"
+		Type.MOD_DMG_TO_HUMANOID: return "damage to humanoid"
+
+		Type.MOD_DMG_FROM_ASTRAL: return "damage from astral"
+		Type.MOD_DMG_FROM_DARKNESS: return "damage from darkness"
+		Type.MOD_DMG_FROM_NATURE: return "damage from nature"
+		Type.MOD_DMG_FROM_FIRE: return "damage from fire"
+		Type.MOD_DMG_FROM_ICE: return "damage from ice"
+		Type.MOD_DMG_FROM_STORM: return "damage from storm"
+		Type.MOD_DMG_FROM_IRON: return "damage from iron"
+
+	return ""

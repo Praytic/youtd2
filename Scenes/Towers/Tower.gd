@@ -228,17 +228,14 @@ func issue_target_order(order_type: String, target: Unit):
 #########################
 
 
-# TODO: detect if values are round floats or not, change
-# formatting value = 3.0 = "+3%" value = 3.5 = "+3.5%"
-
-# TODO: detect sign of value and change sign in string
-# accordingly
-
 # This shouldn't be overriden in subclasses. This will
 # automatically generate a string for specials that subclass
 # defines in load_specials().
 func get_specials_tooltip_text() -> String:
 	var text: String = ""
+
+	if _target_count_max > 1:
+		text += "[b][color=gold]Multishot:[/color][/b]\nAttacks up to [color=gold]%d[/color] targets at the same time.\n" % [_target_count_max]
 
 	match _attack_style:
 		AttackStyle.SPLASH:
