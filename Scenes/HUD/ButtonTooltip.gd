@@ -60,11 +60,13 @@ func set_tower_id(tower_id: int):
 # 	text is weird, but the alternatives are worse
 	var tower: Tower = TowerManager.get_tower(tower_id)
 
-	_label.append_text("Specials:")
-	_label.newline()
 	var specials_text: String = tower.get_specials_tooltip_text()
-	_label.append_text(specials_text)
-	_label.newline()
+
+	if !specials_text.is_empty():
+		_label.append_text("Specials:")
+		_label.newline()
+		_label.append_text(specials_text)
+		_label.newline()
 
 	var extra_text: String = tower.get_extra_tooltip_text()
 	tower.queue_free()
@@ -92,12 +94,13 @@ func set_item_id(item_id: int):
 
 	var item: Item = Item.make(item_id)
 
-	_label.append_text("Specials:")
-	_label.newline()
-
 	var specials_text: String = item.get_specials_tooltip_text()
-	_label.append_text(specials_text)
-	_label.newline()
+	if !specials_text.is_empty():
+		_label.append_text("Specials:")
+		_label.newline()
+
+		_label.append_text(specials_text)
+		_label.newline()
 
 	var extra_text: String = item.get_extra_tooltip_text()
 	_label.append_text(extra_text)
