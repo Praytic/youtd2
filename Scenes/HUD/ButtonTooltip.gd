@@ -25,10 +25,10 @@ func set_tower_id(tower_id: int):
 
 	var cost: int = TowerProperties.get_cost(tower_id)
 	_label.add_image(_gold_texture, 32, 32)
-	_label.append_text(" %d " % cost)
+	_label.append_text(" [color=gold]%d[/color] " % cost)
 	_label.add_image(_food_texture, 32, 32)
 	var food: int = 0
-	_label.append_text(" %d" % food)
+	_label.append_text(" [color=gold]%d[/color]" % food)
 	_label.newline()
 
 	_label.push_color(Color.LIGHT_BLUE)
@@ -38,11 +38,11 @@ func set_tower_id(tower_id: int):
 	_label.pop()
 
 	var author: String = TowerProperties.get_author(tower_id)
-	_label.append_text("Author: %s" % author)
+	_label.append_text("[color=yellow]Author:[/color] %s" % author)
 	_label.newline()
 
 	var element: String = TowerProperties.get_element_string(tower_id)
-	_label.append_text("Element: %s" % element.capitalize())
+	_label.append_text("[color=yellow]Element:[/color] %s" % element.capitalize())
 	_label.newline()
 
 	var damage: int = TowerProperties.get_base_damage(tower_id)
@@ -53,7 +53,7 @@ func set_tower_id(tower_id: int):
 
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
 
-	_label.append_text("Attack: %d dps, %s, %d range" % [dps, attack_type.capitalize(), attack_range])
+	_label.append_text("[color=yellow]Attack:[/color] [color=gold]%d[/color] dps, %s, [color=gold]%d[/color] range" % [dps, attack_type.capitalize(), attack_range])
 	_label.newline()
 
 # 	NOTE: creating a tower instance just to get the tooltip
@@ -63,7 +63,7 @@ func set_tower_id(tower_id: int):
 	var specials_text: String = tower.get_specials_tooltip_text()
 
 	if !specials_text.is_empty():
-		_label.append_text("Specials:")
+		_label.append_text("[color=yellow]Specials:[/color]")
 		_label.newline()
 		_label.append_text(specials_text)
 		_label.newline()
@@ -89,14 +89,14 @@ func set_item_id(item_id: int):
 	_label.pop()
 
 	var author: String = ItemProperties.get_author(item_id)
-	_label.append_text("Author: %s" % author)
+	_label.append_text("[color=yellow]Author:[/color] %s" % author)
 	_label.newline()
 
 	var item: Item = Item.make(item_id)
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	if !specials_text.is_empty():
-		_label.append_text("Specials:")
+		_label.append_text("[color=yellow]Specials:[/color]")
 		_label.newline()
 
 		_label.append_text(specials_text)

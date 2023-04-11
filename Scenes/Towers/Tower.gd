@@ -568,7 +568,7 @@ func _on_target_death(_event: Event, target: Creep):
 
 
 func _get_splash_attack_tooltip_text() -> String:
-	var text: String = "Splash attack:\n"
+	var text: String = "[color=green_yellow]Splash attack:[/color]\n"
 
 	var splash_range_list: Array = _splash_map.keys()
 	splash_range_list.sort()
@@ -576,13 +576,13 @@ func _get_splash_attack_tooltip_text() -> String:
 	for splash_range in splash_range_list:
 		var splash_ratio: float = _splash_map[splash_range]
 		var splash_percentage: int = floor(splash_ratio * 100)
-		text += "\t%d AoE: %d%% damage\n" % [splash_range, splash_percentage]
+		text += "\t[color=gold]%d[/color] AoE: [color=gold]%d%%[/color] damage\n" % [splash_range, splash_percentage]
 
 	return text
 
 
 func _get_bounce_attack_tooltip_text() -> String:
-	var text: String = "Bounce attack:\n\t%d targets\n\t-%d%% damage per bounce" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
+	var text: String = "[color=green_yellow]Bounce attack:[/color]\n\t[color=gold]%d[/color] targets\n\t[color=gold]-%d%%[/color] damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
 
 	return text
 
