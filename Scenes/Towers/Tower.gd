@@ -248,11 +248,8 @@ func get_specials_tooltip_text() -> String:
 		AttackStyle.NORMAL:
 			text += ""
 
-	var modification_list: Array = _specials_modifier.get_modification_list()
-
-	for modification in modification_list:
-		var type_string: String = "type string"
-		text += "+%d%% %s (+%d%%/lvl)\n" % [floor(modification.value_base * 100), type_string, floor(modification.level_add * 100)]
+	var modifier_text: String = _specials_modifier.get_tooltip_text()
+	text += modifier_text
 
 	return text
 

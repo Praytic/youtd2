@@ -14,3 +14,13 @@ func add_modification(modification_type: int, value_base: float, level_add: floa
 
 func get_modification_list() -> Array:
 	return _modification_list.duplicate(true)
+
+
+func get_tooltip_text() -> String:
+	var text: String = ""
+
+	for modification in _modification_list:
+		var modification_text: String = modification.get_tooltip_text()
+		text += modification_text
+
+	return text
