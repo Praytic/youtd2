@@ -89,3 +89,17 @@ func set_item_id(item_id: int):
 	var author: String = ItemProperties.get_author(item_id)
 	_label.append_text("Author: %s" % author)
 	_label.newline()
+
+	var item: Item = Item.make(item_id)
+
+	_label.append_text("Specials:")
+	_label.newline()
+
+	var specials_text: String = item.get_specials_tooltip_text()
+	_label.append_text(specials_text)
+	_label.newline()
+
+	var extra_text: String = item.get_extra_tooltip_text()
+	_label.append_text(extra_text)
+
+	item.queue_free()
