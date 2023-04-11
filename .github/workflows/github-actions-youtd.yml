@@ -14,12 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     name: build client
     steps:
-    - name: Checkout
+    - name: checkout
       uses: actions/checkout@v3.0.2
-      with:
-        fetch-depth: 0
 
-    - name: Generate version for the build
+    - name: generate version for the build
       id: tag_hash
       run: |
         latest_tag=$(git describe --abbrev=0 --tags)
@@ -29,7 +27,7 @@ jobs:
         echo "TAG_VERSION=${latest_tag}-${short_hash}" >> $GITHUB_ENV
         echo "COMMIT_REF=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
 
-    - name: Release requested?
+    - name: release requested check
       run: |
         if [[ ${{ steps.tag_hash.outputs.COMMIT_REF }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
             echo "COMMIT_REF=${{ steps.tag_hash.outputs.COMMIT_REF }}" >> "$GITHUB_ENV"
@@ -40,7 +38,7 @@ jobs:
             echo 'false'
         fi
 
-    - name: Update project.godot
+    - name: update project.godot with new version
       run: |
         project_godot_file="${{ github.workspace }}/project.godot"
         sed -i 's/\(config\/version="\).*\("\)/\1'"${TAG_VERSION}"'\2/' "${project_godot_file}"
@@ -52,7 +50,13 @@ jobs:
         mkdir -p .config/godot
         cp ${{ github.workspace }}/.github/workflows/editor_settings-4.tres .config/godot/
 
-    - name: Export game
+    - name: install wine
+      id: wine_install
+      run: |
+        sudo apt install wine64
+        echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
+    
+    - name: export game
       id: export
       uses: firebelley/godot-export@v5.0.0
       with:
@@ -60,56 +64,100 @@ jobs:
         godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.0.2-stable/Godot_v4.0.2-stable_export_templates.tpz
         relative_project_path: ./
         verbose: true
-        export_debug: true
+        export_debug: false
+        archive_output: true
+        wine_path: ${{ steps.wine_install.outputs.WINE_PATH }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Copy required index.html assets
+    - name: list the result
       run: |
-        cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/Web/
-        echo "Current state of Web dir:"
-        ls ${{ steps.export.outputs.build_directory }}/Web/
-
-    - uses: actions/upload-artifact@v3
-      with:
-        name: youtd-${{ env.TAG_VERSION }}
-        path: ${{ steps.export.outputs.build_directory }}/Web/*
+        ls -R ${{ steps.export.outputs.build_directory }}
 
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
       commit_ref: ${{ env.COMMIT_REF }}
       release_flag: ${{ env.NEED }}
+      export_dir: ${{ steps.export.outputs.build_directory }}
 
-  deploy_artifacts:
-    runs-on: ubuntu-latest
-    name: deploy artifacts to gh-pages
-    needs: build_client
-    steps:
-    - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v3
-      with:
-        name: youtd-${{ needs.build_client.outputs.tag_version }}
+  # upload_macos_client:
+  #   runs-on: ubuntu-latest
+  #   name: build windows client
+  #   needs: build_client
+  #   steps:
+  #   - uses: actions/upload-artifact@v3
+  #     with:
+  #       name: youtd-macos-${{ needs.export_game.outputs.tag_version }}
+  #       path: ${{ needs.export_game.outputs.export_dir }}/macOS/*
+
+  # upload_web_client:
+  #   runs-on: ubuntu-latest
+  #   name: build macos client
+  #   needs: build_client
+  #   steps:
+  #   - name: copy required assets
+  #     run: |
+  #       cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/Web/
+  #       echo "Current state of Web dir:"
+  #       ls ${{ steps.export.outputs.build_directory }}/Web/
+
+  #   - uses: actions/upload-artifact@v3
+  #     with:
+  #       name: youtd-web-${{ needs.export_game.outputs.tag_version }}
+  #       path: ${{ needs.export_game.outputs.export_dir }}/Web/*
+
+  # upload_windows_client:
+  #   runs-on: ubuntu-latest
+  #   name: build windows client
+  #   needs: build_client
+  #   steps:
+  #   - uses: actions/upload-artifact@v3
+  #     with:
+  #       name: youtd-windows-${{ needs.export_game.outputs.tag_version }}
+  #       path: ${{ needs.export_game.outputs.export_dir }}/Windows/*
+
+
+  # upload_windows_client:
+  #   runs-on: ubuntu-latest
+  #   name: build linux client
+  #   needs: build_client
+  #   steps:
+  #   - uses: actions/upload-artifact@v3
+  #     with:
+  #       name: youtd-linux-${{ needs.export_game.outputs.tag_version }}
+  #       path: ${{ needs.export_game.outputs.export_dir }}/Linux/*
+
+  # deploy_artifacts:
+  #   runs-on: ubuntu-latest
+  #   name: deploy artifacts to gh-pages
+  #   needs: build_client
+  #   steps:
+  #   - name: Download all workflow run artifacts
+  #     uses: actions/download-artifact@v3
+  #     with:
+  #       name: youtd-web-${{ needs.build_client.outputs.tag_version }}
         
-    - name: Deploy to github pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
+  #   - name: Deploy to github pages
+  #     uses: peaceiris/actions-gh-pages@v3
+  #     with:
+  #       github_token: ${{ secrets.GITHUB_TOKEN }}
+  #       publish_dir: .
 
-  create_release:
-      name: create release
-      needs: build_client
-      if: needs.build_client.outputs.release_flag == 'true'
-      runs-on: ubuntu-latest
-      steps:
-        - name: Show props
-          run: |
-            echo "Commit ref: $GITHUB_REF_NAME"
-            echo "Release tag: ${{ needs.build_client.outputs.commit_ref }}"
-        - name: Release client
-          uses: ncipollo/release-action@v1.11.2
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            tag: ${{ needs.build_client.outputs.commit_ref }}
-            generateReleaseNotes: true
-            artifacts: ./*
+  # create_release:
+  #     name: create release
+  #     needs: build_client
+  #     if: needs.build_client.outputs.release_flag == 'true'
+  #     runs-on: ubuntu-latest
+  #     steps:
+  #       - name: Show props
+  #         run: |
+  #           echo "Commit ref: $GITHUB_REF_NAME"
+  #           echo "Release tag: ${{ needs.build_client.outputs.commit_ref }}"
+        
+  #       - name: Release client
+  #         uses: ncipollo/release-action@v1.11.2
+  #         with:
+  #           token: ${{ secrets.GITHUB_TOKEN }}
+  #           tag: ${{ needs.build_client.outputs.commit_ref }}
+  #           generateReleaseNotes: true
+  #           artifacts: ./*
