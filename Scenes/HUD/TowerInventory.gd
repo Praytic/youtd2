@@ -1,9 +1,13 @@
 extends Control
 
 
+signal item_button_hovered(item_id: int)
+signal item_button_not_hovered()
+
+
 var _tower: Tower = null
 
-@onready var _item_list_node: ItemList = $PanelContainer/VBoxContainer/ItemList
+@onready var _button_container: HBoxContainer = $PanelContainer/VBoxContainer/HBoxContainer
 
 
 func set_tower(tower: Tower):
@@ -20,37 +24,26 @@ func set_tower(tower: Tower):
 
 
 func on_tower_items_changed():
-	_item_list_node.clear()
-
 	var items: Array[Item] = _tower.get_items()
-
-	var index: int = 0
-
-
-	tooltip_text = "foobar"
 
 	for item in items:
 		var item_id: int = item.get_id()
-		var item_name: String = ItemProperties.get_item_name(item_id)
-		_item_list_node.add_item(item_name)
-		_item_list_node.set_item_metadata(index, item_id)
-
-		var item_icon: Texture = ItemProperties.get_icon(item_id, "S")
-		_item_list_node.set_item_icon(index, item_icon)
-
-		var item_tooltip: String = ItemProperties.get_tooltip_text(item_id)
-		_item_list_node.set_item_tooltip(index, item_tooltip)
-
-		index += 1
+		var item_button: ItemButton = _create_item_button(item_id)
+		_button_container.add_child(item_button)
 
 
-func _on_remove_item_button_pressed():
-	var selected_items: PackedInt32Array = _item_list_node.get_selected_items()
+func _create_item_button(item_id: int) -> ItemButton:
+	var item_button = ItemButton.new()
+	item_button.set_item(item_id)
+	item_button.mouse_entered.connect(_on_item_button_mouse_entered.bind(item_id))
+	item_button.mouse_exited.connect(_on_item_button_mouse_exited)
 
-	if selected_items.is_empty():
-		return
+	return item_button
 
-	var selected_index: int = selected_items[0]
-	var item_id: int = _item_list_node.get_item_metadata(selected_index)
 
-	_tower.remove_item(item_id)
+func _on_item_button_mouse_entered(item_id: int):
+	item_button_hovered.emit(item_id)
+
+
+func _on_item_button_mouse_exited():
+	item_button_not_hovered.emit()
