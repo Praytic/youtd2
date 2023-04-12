@@ -78,19 +78,19 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: add tags to artifacts
+      working-directory: ${{ steps.export.outputs.archive_directory }}
       run: |
         echo "FILES=$(ls -I '' | tr '\n' ' ')" >> $GITHUB_ENV
-        archive_dir="${{ steps.export.outputs.archive_directory }}"
         tag_version="${{ env.TAG_VERSION }}"
         for file in $FILES; do
-          mv "${archive_dir}/$file" "${archive_dir}/${file%.zip}-$tag_version.zip"
+          mv "$file" "${file%.zip}-$tag_version.zip"
         done
-        ls -R "${archive_dir}"
+        ls -R .
 
     - uses: actions/upload-artifact@v3
       with:
         name: youtd-${{ env.TAG_VERSION }}
-        path: ${{ steps.export.outputs.archive_directory }}/*-${{ env.TAG_VERSION }}.zip
+        path: ./*-${{ env.TAG_VERSION }}.zip
         if-no-files-found: error
         retention-days: 1
 
