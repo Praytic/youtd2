@@ -78,6 +78,8 @@ func _unhandled_input(event: InputEvent):
 	if tower != null:
 		tower.add_item(_moved_item_id)
 
+		item_bar.item_was_added_to_tower()
+
 	_moved_item_id = -1
 
 #	NOTE: for some reason need to call this twice to reset
