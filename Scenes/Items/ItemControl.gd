@@ -90,17 +90,11 @@ func _unhandled_input(event: InputEvent):
 	if !move_is_over:
 		return
 
-	var tower: Tower = _get_tower_under_mouse()
-
 	match _move_state:
 		MoveState.FROM_ITEMBAR:
-			if tower != null:
-				tower.add_item(_moved_item_id)
-
-			var item_was_moved: bool = tower != null
-			item_bar.item_move_over(item_was_moved)
+			_move_item_from_itembar()
 		MoveState.FROM_TOWER:
-			_move_item_from_tower(tower)
+			_move_item_from_tower()
 
 	_moved_item_id = -1
 	_move_state = MoveState.NONE
@@ -114,20 +108,42 @@ func _unhandled_input(event: InputEvent):
 	get_viewport().set_input_as_handled()
 
 
-func _move_item_from_tower(target_tower: Tower):
+func _move_item_from_itembar():
+	var move_success: bool = false
+
+	var target_tower: Tower = _get_tower_under_mouse()
+	
+	if target_tower != null:
+		if target_tower.have_item_space():
+			target_tower.add_item(_moved_item_id)
+			move_success = true
+		else:
+			Utils.display_static_floating_text("No space for item", target_tower, 255, 0, 0, 1.0)
+			move_success = false
+
+	item_bar.item_move_over(move_success)
+
+
+func _move_item_from_tower():
+	var target_tower: Tower = _get_tower_under_mouse()
+	
 	var moving_to_itself: bool = target_tower == _tower_owner_of_moved_item
 
 	if moving_to_itself:
 		return
 
-	_tower_owner_of_moved_item.remove_item(_moved_item_id)
-	_tower_owner_of_moved_item = null
-
 #	If clicked on tower, move item to tower,
 #	otherwise move item to itembar
 	if target_tower != null:
-		target_tower.add_item(_moved_item_id)
+		if target_tower.have_item_space():
+			_tower_owner_of_moved_item.remove_item(_moved_item_id)
+			_tower_owner_of_moved_item = null
+			target_tower.add_item(_moved_item_id)
+		else:
+			Utils.display_static_floating_text("No space for item", target_tower, 255, 0, 0, 1.0)
 	else:
+		_tower_owner_of_moved_item.remove_item(_moved_item_id)
+		_tower_owner_of_moved_item = null
 		item_bar.add_item_button(_moved_item_id)
 
 

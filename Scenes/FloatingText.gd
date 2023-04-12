@@ -5,11 +5,20 @@ extends Node2D
 var text: String = "placeholder"
 var duration: float = 1.0
 var color: Color = Color.WHITE
+var animated: bool = true
 
 func _ready():
 	label.text = text
 	modulate = color
 
+	if animated:
+		_setup_animation()
+
+	var queue_free_tween = create_tween()
+	queue_free_tween.tween_callback(queue_free).set_delay(1.0)
+
+
+func _setup_animation():
 # 	Text bounces up and right
 	var pos_tween = create_tween()
 	pos_tween.tween_property(self, "position",
@@ -31,6 +40,3 @@ func _ready():
 	modulate_tween.tween_property(self, "modulate",
 		Color(modulate.r, modulate.g, modulate.b, 0),
 		0.3 * duration).set_trans(Tween.TRANS_LINEAR).set_delay(0.7 * duration)
-
-	var queue_free_tween = create_tween()
-	queue_free_tween.tween_callback(queue_free).set_delay(1.0)
