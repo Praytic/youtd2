@@ -32,7 +32,10 @@ func _ready():
 	current_size = "M"
 
 	if FF.add_test_item():
-		add_item_button(108)
+		var test_item_list: Array[int] = [77, 78, 79, 99, 108, 155]
+
+		for item in test_item_list:
+			add_item_button(item)
 
 
 func item_move_over(move_success: bool):
