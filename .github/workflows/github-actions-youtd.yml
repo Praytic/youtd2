@@ -75,6 +75,7 @@ jobs:
     - name: repack web artifact
       run: |
         zip -uj ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/Build/Web/*
+        cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/
 
     - uses: actions/upload-artifact@v3
       with:
@@ -97,10 +98,19 @@ jobs:
 
   upload_artifacts:
     needs: export_game
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: ['windows', 'macos', 'web', 'linux']
+        platform: [windows, macos, web, linux]
+        include:
+          - os_image: windows-latest
+            platform: windows
+          - os_image: macos-latest
+            platform: macos
+          - os_image: ubuntu-latest
+            platform: linux
+          - os_image: windows-latest
+            platform: web
+    runs-on: ${{ matrix.os_image }}
     steps:
     - name: download exported files
       uses: actions/download-artifact@v3
