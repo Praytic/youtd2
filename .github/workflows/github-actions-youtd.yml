@@ -81,7 +81,7 @@ jobs:
       run: |
         for file in windows.zip macos.zip web.zip linux.zip; do
           if [ -e "$file" ]; then
-            mv "$file" "${file%.zip}-${{ env.TAG_VERSION }}.zip"
+            mv "${{ steps.export.outputs.archive_directory }}/$file" "${{ steps.export.outputs.archive_directory }}/${file%.zip}-${{ env.TAG_VERSION }}.zip"
           fi
         done
         ls -R ${{ steps.export.outputs.archive_directory }}
@@ -89,7 +89,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: youtd-${{ env.TAG_VERSION }}
-        path: ${{ steps.export.outputs.archive_directory }}/*${{ env.TAG_VERSION }}.zip
+        path: ${{ steps.export.outputs.archive_directory }}/*-${{ env.TAG_VERSION }}.zip
         if-no-files-found: error
         retention-days: 1
 
