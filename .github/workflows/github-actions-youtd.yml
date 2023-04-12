@@ -85,7 +85,6 @@ jobs:
       tag_version: ${{ env.TAG_VERSION }}
       commit_ref: ${{ env.COMMIT_REF }}
       release_flag: ${{ env.NEED }}
-      export_dir: ${{ steps.export.outputs.build_directory }}
       archive_dir: ${{ steps.export.outputs.archive_directory }}
 
   upload_macos_client:
@@ -106,7 +105,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: youtd-web-${{ needs.export_game.outputs.tag_version }}
-        path: ${{ needs.export_game.outputs.export_dir }}/web.zip
+        path: ${{ needs.export_game.outputs.archive_dir }}/web.zip
 
     outputs:
       artifact_name: youtd-web-${{ needs.export_game.outputs.tag_version }}
@@ -119,7 +118,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: youtd-windows-${{ needs.export_game.outputs.tag_version }}
-        path: ${{ needs.export_game.outputs.export_dir }}/windows.zip
+        path: ${{ needs.export_game.outputs.archive_dir }}/windows.zip
 
 
   upload_linux_client:
@@ -130,7 +129,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: youtd-linux-${{ needs.export_game.outputs.tag_version }}
-        path: ${{ needs.export_game.outputs.export_dir }}/linux.zip
+        path: ${{ needs.export_game.outputs.archive_dir }}/linux.zip
 
   deploy_artifacts:
     runs-on: ubuntu-latest
