@@ -20,6 +20,9 @@ func _ready():
 	set_theme_type_variation("TowerButton")
 	icon = ItemProperties.get_icon(_item_id, "M")
 
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
 
 # NOTE: turn off drawing tier icon so that item's icon gets drawn
 # func _draw():
@@ -55,3 +58,11 @@ func _get_item_button_tier_icon(icon_size_letter: String) -> Texture2D:
 	
 	icon_out.set_region(Rect2(6 * icon_size, item_rarity * icon_size, icon_size, icon_size))
 	return icon_out
+
+
+func _on_mouse_entered():
+	EventBus.emit_item_button_mouse_entered(_item_id)
+
+
+func _on_mouse_exited():
+	EventBus.emit_item_button_mouse_exited()

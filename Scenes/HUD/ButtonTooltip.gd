@@ -14,7 +14,16 @@ extends Control
 @onready var _food_texture: Texture2D = load("res://Resources/Textures/food.tres")
 
 
-func set_tower_id(tower_id: int):
+func _ready():
+	EventBus.tower_button_mouse_entered.connect(_on_tower_button_mouse_entered)
+	EventBus.tower_button_mouse_exited.connect(_on_tower_button_mouse_exited)
+	EventBus.item_button_mouse_entered.connect(_on_item_button_mouse_entered)
+	EventBus.item_button_mouse_exited.connect(_on_item_button_mouse_exited)
+
+
+func _on_tower_button_mouse_entered(tower_id: int):
+	show()
+
 	_label.clear()
 
 	_label.push_bold()
@@ -73,7 +82,13 @@ func set_tower_id(tower_id: int):
 	_label.append_text(extra_text)
 
 
-func set_item_id(item_id: int):
+func _on_tower_button_mouse_exited():
+	hide()
+
+
+func _on_item_button_mouse_entered(item_id: int):
+	show()
+
 	_label.clear()
 
 	_label.push_bold()
@@ -106,3 +121,7 @@ func set_item_id(item_id: int):
 	_label.append_text(extra_text)
 
 	item.queue_free()
+
+
+func _on_item_button_mouse_exited():
+	hide()

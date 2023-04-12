@@ -21,6 +21,9 @@ var _tower_id: int
 func _ready():
 	set_theme_type_variation("TowerButton")
 
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
 
 # TODO: removed drawing of tier for now so that id can be
 # drawn, better for testing
@@ -77,3 +80,10 @@ func _get_tower_button_icon(icon_size_letter: String) -> Texture2D:
 
 	return tower_icon
 
+
+func _on_mouse_entered():
+	EventBus.emit_tower_button_mouse_entered(_tower_id)
+
+
+func _on_mouse_exited():
+	EventBus.emit_tower_button_mouse_exited()
