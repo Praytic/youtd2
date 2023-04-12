@@ -5,17 +5,9 @@ signal item_button_hovered(item_id: int)
 signal item_button_not_hovered()
 
 
-@export var unlimited_items = false
-
 @onready var item_control = get_tree().current_scene.get_node("%ItemControl")
-# Dictionary of all in-game items with the associated buttons
+# Dictionary of buttons that are currently on the item bar
 @onready var _item_buttons: Dictionary = {}
-# Adds every item button possible to the list.
-# Although, this is a mutable list, so every time
-# you use an item, the ID of the item is removed from this list.
-# If you want unlimited item buttons in the panel, switch the flag
-# 'unlimited items' to 'true'.
-@onready var available_item_buttons: Array
 
 
 var current_element: Tower.Element
@@ -23,29 +15,18 @@ var current_size: String
 
 
 func add_item_button(item_id):
-	available_item_buttons.append(item_id)
-	_item_buttons[item_id].show()
+	var item_button: ItemButton = _create_ItemButton(item_id)
+	add_child(item_button)
+	_item_buttons[item_id] = item_button
 
 
 func remove_item_button(item_id):
-	available_item_buttons.erase(item_id)
-	_item_buttons[item_id].hide()
+	var item_button: ItemButton = _item_buttons[item_id]
+	_item_buttons.erase(item_id)
+	item_button.queue_free()
 
 
 func _ready():
-	if not unlimited_items:
-		item_control.item_used.connect(_on_Item_used)
-		
-	for item_id in Properties.get_item_id_list():
-		var item_button = _create_ItemButton(item_id)
-		if item_button:
-			_item_buttons[item_id] = item_button
-			item_button.hide()
-			add_child(item_button)
-	
-	for item_id in _item_buttons.keys():
-		available_item_buttons.append(item_id)
-	
 	_resize_icons("M")
 	current_size = "M"
 
@@ -58,22 +39,16 @@ func _on_RightMenuBar_element_changed(element: Tower.Element):
 		# Towers menu bar was selected
 		return
 	
-	for item_button in _item_buttons.values():
-		item_button.hide()
-	
 	if current_size == "M":
-		if available_item_buttons.size() > 14:
+		if _item_buttons.size() > 14:
 			_resize_icons("S")
 		else:
 			_resize_icons("M")
 	elif current_size == "S":
-		if available_item_buttons.size() > 14:
+		if _item_buttons.size() > 14:
 			_resize_icons("S")
 		else:
 			_resize_icons("M")
-	
-	for item_id in available_item_buttons:
-		_item_buttons[item_id].show()
 
 
 func _create_ItemButton(item_id) -> ItemButton:
