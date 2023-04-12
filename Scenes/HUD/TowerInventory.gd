@@ -24,6 +24,9 @@ func set_tower(tower: Tower):
 
 
 func on_tower_items_changed():
+	for button in _button_container.get_children():
+		button.queue_free()
+
 	var items: Array[Item] = _tower.get_items()
 
 	for item in items:
