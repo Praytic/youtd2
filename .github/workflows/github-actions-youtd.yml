@@ -44,6 +44,7 @@ jobs:
       run: |
         project_godot_file="${{ github.workspace }}/project.godot"
         sed -i '' 's/\(config\/version="\).*\("\)/\1'"${TAG_VERSION}"'\2/' "${project_godot_file}"
+    # sed -i s/\(config\/version="\).*\("\)/\1'"${TAG_VERSION}"'\2/' "${project_godot_file}"
         echo "New project.godot contents:"
         cat ${{ github.workspace }}/project.godot
 
@@ -52,11 +53,18 @@ jobs:
         mkdir -p .config/godot
         cp ${{ github.workspace }}/.github/workflows/editor_settings-4.tres .config/godot/
 
+    # - name: install wine
+    #   id: wine_install
+    #   run: |
+    #     sudo apt install wine64
+    #     echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
+
     - name: install wine
       id: wine_install
       run: |
-        sudo apt install wine64
-        echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
+        brew tap homebrew/cask-versions
+        brew install --cask --no-quarantine wine-stable
+        echo "WINE_PATH=$(which wine)" >> $GITHUB_OUTPUT
     
     - name: export game
       id: export
