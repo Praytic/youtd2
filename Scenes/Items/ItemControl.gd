@@ -100,15 +100,7 @@ func _unhandled_input(event: InputEvent):
 			var item_was_moved: bool = tower != null
 			item_bar.item_move_over(item_was_moved)
 		MoveState.FROM_TOWER:
-			_tower_owner_of_moved_item.remove_item(_moved_item_id)
-			_tower_owner_of_moved_item = null
-
-#			If clicked on tower, move item to tower,
-#			otherwise move item to itembar
-			if tower != null:
-				tower.add_item(_moved_item_id)
-			else:
-				item_bar.add_item_button(_moved_item_id)
+			_move_item_from_tower(tower)
 
 	_moved_item_id = -1
 	_move_state = MoveState.NONE
@@ -120,6 +112,23 @@ func _unhandled_input(event: InputEvent):
 	Input.set_custom_mouse_cursor(null)
 
 	get_viewport().set_input_as_handled()
+
+
+func _move_item_from_tower(target_tower: Tower):
+	var moving_to_itself: bool = target_tower == _tower_owner_of_moved_item
+
+	if moving_to_itself:
+		return
+
+	_tower_owner_of_moved_item.remove_item(_moved_item_id)
+	_tower_owner_of_moved_item = null
+
+#	If clicked on tower, move item to tower,
+#	otherwise move item to itembar
+	if target_tower != null:
+		target_tower.add_item(_moved_item_id)
+	else:
+		item_bar.add_item_button(_moved_item_id)
 
 
 func _get_tower_under_mouse() -> Tower:
