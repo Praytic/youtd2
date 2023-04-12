@@ -11,7 +11,7 @@ on:
 
 jobs:
   export_game:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     name: export game
     steps:
     - name: checkout
@@ -101,16 +101,7 @@ jobs:
     strategy:
       matrix:
         platform: [windows, macos, web, linux]
-        include:
-          - os_image: windows-latest
-            platform: windows
-          - os_image: macos-latest
-            platform: macos
-          - os_image: ubuntu-latest
-            platform: linux
-          - os_image: windows-latest
-            platform: web
-    runs-on: ${{ matrix.os_image }}
+    runs-on: ubuntu-latest
     steps:
     - name: download exported files
       uses: actions/download-artifact@v3
