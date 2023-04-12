@@ -4,7 +4,7 @@ on:
   push:
     # Sequence of patterns matched against refs/heads
     branches:    
-      - main
+      - github_actions
     # Sequence of patterns matched against refs/tags
     tags:        
       - v*
@@ -77,25 +77,15 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: add tags to artifacts
-      working-directory: ${{ steps.export.outputs.archive_directory }}
-      run: |
-        echo "FILES=$(ls -I '' | tr '\n' ' ')" >> $GITHUB_ENV
-        tag_version="${{ env.TAG_VERSION }}"
-        for file in $FILES; do
-          mv "$file" "${file%.zip}-$tag_version.zip"
-        done
-        ls -R .
-      shell: bash
-
     - uses: actions/upload-artifact@v3
       with:
         name: youtd-${{ env.TAG_VERSION }}
-        path: ./*-${{ env.TAG_VERSION }}.zip
+        path: .
         if-no-files-found: error
         retention-days: 1
 
     - name: deploy to github pages
+      if: steps.export.outcome == 'success'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
