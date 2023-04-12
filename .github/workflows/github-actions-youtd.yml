@@ -79,18 +79,17 @@ jobs:
 
     - name: add tags to artifacts
       run: |
-        VERSION_TAG="${{ needs.export_game.outputs.tag_version }}"
         for file in windows.zip macos.zip web.zip linux.zip; do
           if [ -e "$file" ]; then
-            mv "$file" "${file%.zip}-$VERSION_TAG.zip"
+            mv "$file" "${file%.zip}-${{ env.TAG_VERSION }}.zip"
           fi
         done
         ls -R ${{ steps.export.outputs.archive_directory }}
 
     - uses: actions/upload-artifact@v3
       with:
-        name: youtd-${{ needs.export_game.outputs.tag_version }}
-        path: ${{ steps.export.outputs.archive_directory }}/*${{ needs.export_game.outputs.tag_version }}.zip
+        name: youtd-${{ env.TAG_VERSION }}
+        path: ${{ steps.export.outputs.archive_directory }}/*${{ env.TAG_VERSION }}.zip
         if-no-files-found: error
         retention-days: 1
 
