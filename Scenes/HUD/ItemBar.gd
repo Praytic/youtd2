@@ -65,15 +65,15 @@ func _on_RightMenuBar_element_changed(element: Tower.Element):
 func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()
 	item_button.set_item(item_id)
-	item_button.button_down.connect(_on_item_button_button_down.bind(item_button))
+	item_button.button_down.connect(_on_item_button_pressed.bind(item_button))
 	item_button.mouse_entered.connect(_on_item_button_mouse_entered.bind(item_id))
 	item_button.mouse_exited.connect(_on_item_button_mouse_exited)
 	return item_button
 
 
-func _on_item_button_button_down(item_button: ItemButton):
+func _on_item_button_pressed(item_button: ItemButton):
 	var item_id: int = item_button.get_item()
-	item_control._on_ItemButton_button_down(item_id)
+	item_control.on_item_button_pressed_in_itembar(item_id)
 	_moved_item_button = item_button
 
 
