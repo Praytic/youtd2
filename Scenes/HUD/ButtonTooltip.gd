@@ -78,6 +78,7 @@ func _on_tower_button_mouse_entered(tower_id: int):
 		_label.newline()
 
 	var extra_text: String = tower.get_extra_tooltip_text()
+	extra_text = add_color_to_numbers(extra_text)
 	tower.queue_free()
 	_label.append_text(extra_text)
 
@@ -118,6 +119,7 @@ func _on_item_button_mouse_entered(item_id: int):
 		_label.newline()
 
 	var extra_text: String = item.get_extra_tooltip_text()
+	extra_text = add_color_to_numbers(extra_text)
 	_label.append_text(extra_text)
 
 	item.queue_free()
@@ -125,3 +127,30 @@ func _on_item_button_mouse_entered(item_id: int):
 
 func _on_item_button_mouse_exited():
 	hide()
+
+
+# Adds gold color to all numbers and floats in the text.
+# Requirements:
+# space, newline, +/- before
+# space, newline, % after
+func add_color_to_numbers(text: String) -> String:
+	var split_by_space: PackedStringArray = text.split(" ")
+
+	for i in range(0, split_by_space.size()):
+		var outer_element: String = split_by_space[i]
+
+		var split_by_newline: PackedStringArray = outer_element.split("\n")
+
+		for j in range(0, split_by_newline.size()):
+			var element: String = split_by_newline[j]
+
+			var need_to_color: bool = element.is_valid_int() || element.is_valid_float() || element.ends_with("%")
+
+			if need_to_color:
+				split_by_newline[j] = "[color=gold]%s[/color]" % element
+
+		split_by_space[i] = "\n".join(split_by_newline)
+
+	var colored_text: String = " ".join(split_by_space)
+
+	return colored_text
