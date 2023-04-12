@@ -1,10 +1,6 @@
 extends GridContainer
 
 
-signal tower_button_hovered(tower_id: int)
-signal tower_button_not_hovered()
-
-
 @export var unlimited_towers = false
 
 @onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
@@ -80,17 +76,7 @@ func _create_TowerButton(tower_id: int) -> TowerButton:
 	var tower_button = TowerButton.new()
 	tower_button.set_tower(tower_id)
 	tower_button.pressed.connect(Callable(builder_control, "on_build_button_pressed").bind(tower_id))
-	tower_button.mouse_entered.connect(_on_tower_button_mouse_entered.bind(tower_id))
-	tower_button.mouse_exited.connect(_on_tower_button_mouse_exited)
 	return tower_button
-
-
-func _on_tower_button_mouse_entered(tower_id: int):
-	tower_button_hovered.emit(tower_id)
-
-
-func _on_tower_button_mouse_exited():
-	tower_button_not_hovered.emit()
 
 
 func _on_Tower_built(tower_id):

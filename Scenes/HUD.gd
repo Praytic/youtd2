@@ -60,24 +60,6 @@ func _on_ItemMenuButton_pressed():
 	$RightMenuBar.set_element(element)
 
 
-func _on_right_menu_bar_tower_button_hovered(tower_id):
-	$ButtonTooltip.set_tower_id(tower_id)
-	$ButtonTooltip.show()
-
-
-func _on_right_menu_bar_tower_button_not_hovered():
-	$ButtonTooltip.hide()
-
-
-func _on_item_button_hovered(item_id: int):
-	$ButtonTooltip.set_item_id(item_id)
-	$ButtonTooltip.show()
-
-
-func _on_item_button_not_hovered():
-	$ButtonTooltip.hide()
-
-
 # NOTE: if right menu bar is hidden with escape, then
 # "button_exited()" signals are not emitted, so we have to
 # manually hide button tooltip

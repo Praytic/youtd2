@@ -2,10 +2,6 @@ extends Control
 
 
 signal element_changed(element)
-signal tower_button_hovered(tower_id: int)
-signal tower_button_not_hovered()
-signal item_button_hovered(item_id: int)
-signal item_button_not_hovered()
 
 
 @onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
@@ -38,19 +34,3 @@ func _unhandled_input(event):
 
 func _on_UnitButton_pressed(_unit_id):
 	pass
-
-
-func _on_build_bar_tower_button_hovered(tower_id: int):
-	tower_button_hovered.emit(tower_id)
-
-
-func _on_build_bar_tower_button_not_hovered():
-	tower_button_not_hovered.emit()
-
-
-func _on_item_bar_item_button_hovered(item_id: int):
-	item_button_hovered.emit(item_id)
-
-
-func _on_item_bar_item_button_not_hovered():
-	item_button_not_hovered.emit()

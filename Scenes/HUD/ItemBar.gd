@@ -1,10 +1,6 @@
 extends GridContainer
 
 
-signal item_button_hovered(item_id: int)
-signal item_button_not_hovered()
-
-
 # Dictionary of buttons that are currently on the item bar
 @onready var _item_buttons: Dictionary = {}
 
@@ -81,8 +77,6 @@ func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()
 	item_button.set_item(item_id)
 	item_button.button_down.connect(_on_item_button_pressed.bind(item_button))
-	item_button.mouse_entered.connect(_on_item_button_mouse_entered.bind(item_id))
-	item_button.mouse_exited.connect(_on_item_button_mouse_exited)
 	return item_button
 
 
@@ -91,14 +85,6 @@ func _on_item_button_pressed(item_button: ItemButton):
 	ItemMovement.start_move_from_itembar(item_id)
 	_moved_item_button = item_button
 	item_button.set_disabled(true)
-
-
-func _on_item_button_mouse_entered(item_id: int):
-	item_button_hovered.emit(item_id)
-
-
-func _on_item_button_mouse_exited():
-	item_button_not_hovered.emit()
 
 
 func _on_Item_used(item_id):

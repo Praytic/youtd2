@@ -1,10 +1,6 @@
 extends Control
 
 
-signal item_button_hovered(item_id: int)
-signal item_button_not_hovered()
-
-
 var _tower: Tower = null
 
 @onready var _button_container: HBoxContainer = $PanelContainer/VBoxContainer/HBoxContainer
@@ -39,8 +35,6 @@ func _create_item_button(item_id: int) -> ItemButton:
 	var item_button = ItemButton.new()
 	item_button.set_item(item_id)
 	item_button.button_down.connect(_on_item_button_pressed.bind(item_button))
-	item_button.mouse_entered.connect(_on_item_button_mouse_entered.bind(item_id))
-	item_button.mouse_exited.connect(_on_item_button_mouse_exited)
 
 	return item_button
 
@@ -54,11 +48,3 @@ func _on_item_button_pressed(item_button: ItemButton):
 # 	NOTE: don't need to re-enable because inventory buttons
 # 	will be reloaded when move is complete, for all cases
 	item_button.set_disabled(true)
-
-
-func _on_item_button_mouse_entered(item_id: int):
-	item_button_hovered.emit(item_id)
-
-
-func _on_item_button_mouse_exited():
-	item_button_not_hovered.emit()
