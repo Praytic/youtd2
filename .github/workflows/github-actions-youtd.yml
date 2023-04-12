@@ -83,7 +83,6 @@ jobs:
         name: youtd-${{ env.TAG_VERSION }}
         path: ${{ steps.export.outputs.archive_directory }}/*.zip
         if-no-files-found: error
-        retention-days: 1
 
     - name: deploy to github pages
       if: steps.export.outcome == 'success'
@@ -141,6 +140,10 @@ jobs:
             echo "Commit ref: $GITHUB_REF_NAME"
             echo "Release tag: ${{ needs.export_game.outputs.commit_ref }}"
         
+        - uses: geekyeggo/delete-artifact@v2
+          with:
+            name: youtd-${{ needs.export_game.outputs.tag_version }}
+
         - name: download artifacts
           uses: actions/download-artifact@v3
           with:
@@ -156,4 +159,4 @@ jobs:
             token: ${{ secrets.GITHUB_TOKEN }}
             tag: ${{ needs.export_game.outputs.commit_ref }}
             generateReleaseNotes: true
-            artifacts: ./*
+            artifacts: ./**/*
