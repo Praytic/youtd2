@@ -97,7 +97,8 @@ func _unhandled_input(event: InputEvent):
 			if tower != null:
 				tower.add_item(_moved_item_id)
 
-				item_bar.item_was_added_to_tower()
+			var item_was_moved: bool = tower != null
+			item_bar.item_move_over(item_was_moved)
 		MoveState.FROM_TOWER:
 			_tower_owner_of_moved_item.remove_item(_moved_item_id)
 			_tower_owner_of_moved_item = null

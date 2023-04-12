@@ -35,13 +35,19 @@ func _ready():
 		add_item_button(108)
 
 
-func item_was_added_to_tower():
+func item_move_over(move_success: bool):
 	if _moved_item_button == null:
 		return
 
-	var item_id: int = _moved_item_button.get_item()
-	_item_buttons.erase(item_id)
-	_moved_item_button.queue_free()
+	if move_success:
+		var item_id: int = _moved_item_button.get_item()
+		_item_buttons.erase(item_id)
+		_moved_item_button.queue_free()
+	else:
+#		Disable button to gray it out to indicate that it's
+#		getting moved
+		_moved_item_button.set_disabled(false)
+
 	_moved_item_button = null
 
 
@@ -75,6 +81,7 @@ func _on_item_button_pressed(item_button: ItemButton):
 	var item_id: int = item_button.get_item()
 	item_control.on_item_button_pressed_in_itembar(item_id)
 	_moved_item_button = item_button
+	item_button.set_disabled(true)
 
 
 func _on_item_button_mouse_entered(item_id: int):
