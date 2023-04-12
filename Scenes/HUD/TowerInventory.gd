@@ -8,7 +8,6 @@ signal item_button_not_hovered()
 var _tower: Tower = null
 
 @onready var _button_container: HBoxContainer = $PanelContainer/VBoxContainer/HBoxContainer
-@onready var item_control = get_tree().current_scene.get_node("%ItemControl")
 
 
 func set_tower(tower: Tower):
@@ -48,7 +47,7 @@ func _create_item_button(item_id: int) -> ItemButton:
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item_id: int = item_button.get_item()
-	item_control.on_item_button_pressed_in_tower(item_id, _tower)
+	ItemMovement.start_move_from_tower(item_id, _tower)
 
 #	Disable button to gray it out to indicate that it's
 #	getting moved

@@ -5,7 +5,6 @@ signal item_button_hovered(item_id: int)
 signal item_button_not_hovered()
 
 
-@onready var item_control = get_tree().current_scene.get_node("%ItemControl")
 # Dictionary of buttons that are currently on the item bar
 @onready var _item_buttons: Dictionary = {}
 
@@ -37,8 +36,15 @@ func _ready():
 		for item in test_item_list:
 			add_item_button(item)
 
+	ItemMovement.item_move_from_itembar_done.connect(on_item_move_from_itembar_done)
+	ItemMovement.item_moved_to_itembar.connect(on_item_moved_to_itembar)
 
-func item_move_over(move_success: bool):
+
+func on_item_moved_to_itembar(item_id: int):
+	add_item_button(item_id)
+
+
+func on_item_move_from_itembar_done(move_success: bool):
 	if _moved_item_button == null:
 		return
 
@@ -82,7 +88,7 @@ func _create_ItemButton(item_id) -> ItemButton:
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item_id: int = item_button.get_item()
-	item_control.on_item_button_pressed_in_itembar(item_id)
+	ItemMovement.start_move_from_itembar(item_id)
 	_moved_item_button = item_button
 	item_button.set_disabled(true)
 
