@@ -50,6 +50,12 @@ func _on_item_button_pressed(item_button: ItemButton):
 	var item_id: int = item_button.get_item()
 	item_control.on_item_button_pressed_in_tower(item_id, _tower)
 
+#	Disable button to gray it out to indicate that it's
+#	getting moved
+# 	NOTE: don't need to re-enable because inventory buttons
+# 	will be reloaded when move is complete, for all cases
+	item_button.set_disabled(true)
+
 
 func _on_item_button_mouse_entered(item_id: int):
 	item_button_hovered.emit(item_id)
