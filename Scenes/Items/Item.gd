@@ -58,7 +58,14 @@ static func make(id: int) -> Item:
 
 func _init(id: int):
 	_id = id
+	load_modifier(_modifier)
 	_item_init()
+
+
+# Override in subclass to add define the modifier that will
+# be added to carrier of the item
+func load_modifier(_modifier_arg: Modifier):
+	pass
 
 
 # TODO: implement checks for max item count
