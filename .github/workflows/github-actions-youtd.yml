@@ -77,79 +77,71 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: list the result
+    - name: add tags to artifacts
       run: |
+        VERSION_TAG="${{ needs.export_game.outputs.tag_version }}"
+        for file in windows.zip macos.zip web.zip linux.zip; do
+          if [ -e "$file" ]; then
+            mv "$file" "${file%.zip}-$VERSION_TAG.zip"
+          fi
+        done
         ls -R ${{ steps.export.outputs.archive_directory }}
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: youtd-${{ needs.export_game.outputs.tag_version }}
+        path: ${{ steps.export.outputs.archive_directory }}/*${{ needs.export_game.outputs.tag_version }}.zip
+        if-no-files-found: error
+        retention-days: 1
+
+    - name: deploy to github pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ steps.export.outputs.build_directory }}
 
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
       commit_ref: ${{ env.COMMIT_REF }}
       release_flag: ${{ env.NEED }}
-      archive_dir: ${{ steps.export.outputs.archive_directory }}
+      platforms: ['windows', 'macos', 'web', 'linux']
 
-  upload_macos_client:
-    runs-on: ubuntu-latest
-    name: upload macos client
+  upload_artifacts:
     needs: export_game
-    steps:
-    - uses: actions/upload-artifact@v3
-      with:
-        name: youtd-macos-${{ needs.export_game.outputs.tag_version }}
-        path: ${{ needs.export_game.outputs.archive_dir }}/macos.zip
-
-  upload_web_client:
     runs-on: ubuntu-latest
-    name: upload web client
-    needs: export_game
+    strategy:
+      matrix:
+        platform: ${{ needs.export_game.outputs.platforms }}
     steps:
-    - uses: actions/upload-artifact@v3
-      with:
-        name: youtd-web-${{ needs.export_game.outputs.tag_version }}
-        path: ${{ needs.export_game.outputs.archive_dir }}/web.zip
-
-    outputs:
-      artifact_name: youtd-web-${{ needs.export_game.outputs.tag_version }}
-
-  upload_windows_client:
-    runs-on: ubuntu-latest
-    name: upload windows client
-    needs: export_game
-    steps:
-    - uses: actions/upload-artifact@v3
-      with:
-        name: youtd-windows-${{ needs.export_game.outputs.tag_version }}
-        path: ${{ needs.export_game.outputs.archive_dir }}/windows.zip
-
-
-  upload_linux_client:
-    runs-on: ubuntu-latest
-    name: upload linux client
-    needs: export_game
-    steps:
-    - uses: actions/upload-artifact@v3
-      with:
-        name: youtd-linux-${{ needs.export_game.outputs.tag_version }}
-        path: ${{ needs.export_game.outputs.archive_dir }}/linux.zip
-
-  deploy_artifacts:
-    runs-on: ubuntu-latest
-    name: deploy artifacts to gh-pages
-    needs: upload_web_client
-    steps:
-    - name: download web artifacts
+    - name: download exported files
       uses: actions/download-artifact@v3
       with:
-        name: ${{ needs.upload_web_client.outputs.artifact_name }}
-        
-    - name: deploy to github pages
-      uses: peaceiris/actions-gh-pages@v3
+        name: youtd-${{ needs.export_game.outputs.tag_version }}
+        path: exported_files
+
+    - name: rename artifacts
+      id: rename_artifacts
+      run: |
+        VERSION_TAG="${{ needs.export_game.outputs.tag_version }}"
+        mv "exported_files/${{ matrix.platform }}.zip" "exported_files/${{ matrix.platform }}-$VERSION_TAG.zip"
+        echo "$platform_artifact=exported_files/$platform-$VERSION_TAG.zip" >> $GITHUB_OUTPUT
+
+    - name: upload artifacts
+      id: upload_artifacts
+      uses: actions/upload-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: .
+        name: ${{ matrix.platform }}-${{ needs.export_game.outputs.tag_version }}
+        path: exported_files/${{ matrix.platform }}-${{ needs.export_game.outputs.tag_version }}.zip
+
+    outputs:
+      macos_artifact: ${{ steps.rename_artifacts.outputs.macos_artifact }}
+      linux_artifact: ${{ steps.rename_artifacts.outputs.linux_artifact }}
+      web_artifact: ${{ steps.rename_artifacts.outputs.web_artifact }}
+      windows_artifact: ${{ steps.rename_artifacts.outputs.windows_artifact }}
 
   create_release:
       name: create release
-      needs: [export_game, upload_windows_client, upload_macos_client, upload_linux_client, upload_web_client]
+      needs: [upload_artifacts, export_game]
       if: needs.export_game.outputs.release_flag == 'true'
       runs-on: ubuntu-latest
       steps:
