@@ -162,6 +162,16 @@ func display_floating_text(text: String, unit: Unit, color_r: int, color_g: int,
 	display_floating_text_x(text, unit, color_r, color_g, color_b, 255, 0.0, 0.0, 1.0)
 
 
+func display_static_floating_text(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, time: float):
+	var floating_text = floating_text_scene.instantiate()
+	floating_text.animated = false
+	floating_text.text = text
+	floating_text.color = Color(color_r / 255.0, color_g / 255.0, color_b / 255.0, 1.0)
+	floating_text.duration = time
+	floating_text.position = unit.position
+	_floating_text_container.add_child(floating_text)
+
+
 func display_small_floating_text(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, _mystery_float: float):
 	display_floating_text_x(text, unit, color_r, color_g, color_b, 255, 0.0, 0.0, 1.0)
 

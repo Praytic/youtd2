@@ -54,6 +54,7 @@ const ATTACK_CD_MIN: float = 0.2
 const SELECTION_SIZE: int = 128
 const PROJECTILE_SPEED: int = 2000
 const BOUNCE_RANGE: int = 250
+const ITEM_COUNT_MAX: int = 1
 
 var _id: int = 0
 var _stats: Dictionary
@@ -164,6 +165,13 @@ func add_autocast(autocast: Autocast):
 func add_aura(aura_type: AuraType):
 	var aura: Aura = aura_type.make(self)
 	add_child(aura)
+
+
+func have_item_space() -> bool:
+	var item_count: int = _item_list.size()
+	var have_space: bool = item_count < ITEM_COUNT_MAX
+
+	return have_space
 
 
 func add_item(item_id: int):
