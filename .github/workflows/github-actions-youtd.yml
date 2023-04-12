@@ -57,7 +57,7 @@ jobs:
       run: |
         brew tap homebrew/cask-versions
         brew install --cask --no-quarantine wine-stable
-        echo "WINE_PATH=$(which wine)" >> $GITHUB_OUTPUT
+        echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
     
     - name: export game
       id: export
@@ -76,7 +76,7 @@ jobs:
     - name: repack web artifact
       run: |
         zip -uj ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/Build/Web/*
-        cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/
+        cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/web/
 
     - uses: actions/upload-artifact@v3
       with:
