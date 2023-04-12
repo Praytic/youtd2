@@ -74,7 +74,7 @@ jobs:
 
     - name: repack web artifact
       run: |
-        zip -ur ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/Build/Web/*
+        zip -uj ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/Build/Web/*
 
     - uses: actions/upload-artifact@v3
       with:
@@ -113,7 +113,7 @@ jobs:
       run: |
         VERSION_TAG="${{ needs.export_game.outputs.tag_version }}"
         mv "exported_files/${{ matrix.platform }}.zip" "exported_files/${{ matrix.platform }}-$VERSION_TAG.zip"
-        echo "$platform_artifact=exported_files/$platform-$VERSION_TAG.zip" >> $GITHUB_OUTPUT
+        echo "${{ matrix.platform }}=exported_files/$platform-$VERSION_TAG.zip" >> $GITHUB_OUTPUT
 
     - name: upload artifacts
       id: upload_artifacts
