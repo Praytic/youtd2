@@ -86,6 +86,7 @@ jobs:
           mv "$file" "${file%.zip}-$tag_version.zip"
         done
         ls -R .
+      shell: bash
 
     - uses: actions/upload-artifact@v3
       with:
