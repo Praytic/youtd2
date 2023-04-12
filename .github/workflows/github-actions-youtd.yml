@@ -79,12 +79,13 @@ jobs:
 
     - name: add tags to artifacts
       run: |
-        for file in windows.zip macos.zip web.zip linux.zip; do
-          if [ -e "$file" ]; then
-            mv "${{ steps.export.outputs.archive_directory }}/$file" "${{ steps.export.outputs.archive_directory }}/${file%.zip}-${{ env.TAG_VERSION }}.zip"
-          fi
+        echo "FILES=$(ls -I '' | tr '\n' ' ')" >> $GITHUB_ENV
+        archive_dir="${{ steps.export.outputs.archive_directory }}"
+        tag_version="${{ env.TAG_VERSION }}"
+        for file in $FILES; do
+          mv "${archive_dir}/$file" "${archive_dir}/${file%.zip}-$tag_version.zip"
         done
-        ls -R ${{ steps.export.outputs.archive_directory }}
+        ls -R "${archive_dir}"
 
     - uses: actions/upload-artifact@v3
       with:
