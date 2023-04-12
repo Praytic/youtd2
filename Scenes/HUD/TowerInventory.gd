@@ -8,6 +8,7 @@ signal item_button_not_hovered()
 var _tower: Tower = null
 
 @onready var _button_container: HBoxContainer = $PanelContainer/VBoxContainer/HBoxContainer
+@onready var item_control = get_tree().current_scene.get_node("%ItemControl")
 
 
 func set_tower(tower: Tower):
@@ -38,10 +39,16 @@ func on_tower_items_changed():
 func _create_item_button(item_id: int) -> ItemButton:
 	var item_button = ItemButton.new()
 	item_button.set_item(item_id)
+	item_button.button_down.connect(_on_item_button_pressed.bind(item_button))
 	item_button.mouse_entered.connect(_on_item_button_mouse_entered.bind(item_id))
 	item_button.mouse_exited.connect(_on_item_button_mouse_exited)
 
 	return item_button
+
+
+func _on_item_button_pressed(item_button: ItemButton):
+	var item_id: int = item_button.get_item()
+	item_control.on_item_button_pressed_in_tower(item_id, _tower)
 
 
 func _on_item_button_mouse_entered(item_id: int):

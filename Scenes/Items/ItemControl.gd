@@ -7,6 +7,12 @@ signal drag_start(item_id)
 signal drag_end(item_id)
 
 
+enum MoveState {
+	NONE,
+	FROM_ITEMBAR,
+	FROM_TOWER,
+}
+
 const CLICK_ON_TOWER_RADIUS: float = 100
 
 
@@ -15,6 +21,8 @@ const CLICK_ON_TOWER_RADIUS: float = 100
 @onready var _map: Node = get_node("%Map/")
 
 var _moved_item_id: int = -1
+var _tower_owner_of_moved_item: Tower = null
+var _move_state: MoveState = MoveState.NONE
 
 #########################
 ### Code starts here  ###
@@ -50,12 +58,21 @@ func _on_Item_selected(item_drop):
 	item_bar.add_item_button(item_drop.get_id())
 	item_drop.queue_free()
 
-func _on_ItemButton_button_down(item_id: int):
-	if _item_move_in_progress():
-		print("reject _on_ItemButton_button_down")
 
+func on_item_button_pressed_in_tower(item_id: int, tower: Tower):
+	_tower_owner_of_moved_item = tower
+	_on_item_button_pressed(item_id, MoveState.FROM_TOWER)
+
+
+func on_item_button_pressed_in_itembar(item_id: int):
+	_on_item_button_pressed(item_id, MoveState.FROM_ITEMBAR)
+
+
+func _on_item_button_pressed(item_id: int, new_state: MoveState):
+	if _item_move_in_progress():
 		return
 
+	_move_state = new_state
 	_moved_item_id = item_id
 	
 	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item_id)
@@ -75,12 +92,25 @@ func _unhandled_input(event: InputEvent):
 
 	var tower: Tower = _get_tower_under_mouse()
 
-	if tower != null:
-		tower.add_item(_moved_item_id)
+	match _move_state:
+		MoveState.FROM_ITEMBAR:
+			if tower != null:
+				tower.add_item(_moved_item_id)
 
-		item_bar.item_was_added_to_tower()
+				item_bar.item_was_added_to_tower()
+		MoveState.FROM_TOWER:
+			_tower_owner_of_moved_item.remove_item(_moved_item_id)
+			_tower_owner_of_moved_item = null
+
+#			If clicked on tower, move item to tower,
+#			otherwise move item to itembar
+			if tower != null:
+				tower.add_item(_moved_item_id)
+			else:
+				item_bar.add_item_button(_moved_item_id)
 
 	_moved_item_id = -1
+	_move_state = MoveState.NONE
 
 #	NOTE: for some reason need to call this twice to reset
 #	the cursor. Calling it once causes the cursor to
@@ -105,7 +135,7 @@ func _get_tower_under_mouse() -> Tower:
 
 
 func _item_move_in_progress() -> bool:
-	return _moved_item_id != -1
+	return _move_state != MoveState.NONE
 
 
 # NOTE: Input.set_custom_mouse_cursor() currently has a bug
