@@ -104,14 +104,13 @@ jobs:
       tag_version: ${{ env.TAG_VERSION }}
       commit_ref: ${{ env.COMMIT_REF }}
       release_flag: ${{ env.NEED }}
-      platforms: ['windows', 'macos', 'web', 'linux']
 
   upload_artifacts:
     needs: export_game
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: ${{ needs.export_game.outputs.platforms }}
+        platform: ['windows', 'macos', 'web', 'linux']
     steps:
     - name: download exported files
       uses: actions/download-artifact@v3
