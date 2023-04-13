@@ -64,6 +64,8 @@ func _unhandled_input(event: InputEvent):
 		MoveState.FROM_TOWER:
 			_move_item_from_tower()
 
+
+func _end_move_process():
 	_moved_item_id = -1
 	_move_state = MoveState.NONE
 
@@ -77,24 +79,24 @@ func _unhandled_input(event: InputEvent):
 
 
 func _move_item_from_itembar():
-	var move_success: bool = false
-
 	var target_tower: Tower = _get_tower_under_mouse()
 	var is_oil: bool = ItemProperties.get_is_oil(_moved_item_id)
 	
 	if target_tower != null:
 		if is_oil:
 			target_tower.add_item_oil(_moved_item_id)
-			move_success = true
+			item_move_from_itembar_done.emit(true)
+			_end_move_process()
 		else:
 			if target_tower.have_item_space():
 				target_tower.add_item(_moved_item_id)
-				move_success = true
+				item_move_from_itembar_done.emit(true)
+				_end_move_process()
 			else:
 				Utils.display_static_floating_text("No space for item", target_tower, 255, 0, 0, 1.0)
-				move_success = false
-
-	item_move_from_itembar_done.emit(move_success)
+	else:
+		item_move_from_itembar_done.emit(false)
+		_end_move_process()
 
 
 func _move_item_from_tower():
@@ -112,6 +114,7 @@ func _move_item_from_tower():
 			_tower_owner_of_moved_item.remove_item(_moved_item_id)
 			_tower_owner_of_moved_item = null
 			target_tower.add_item(_moved_item_id)
+			_end_move_process()
 		else:
 			Utils.display_static_floating_text("No space for item", target_tower, 255, 0, 0, 1.0)
 	else:
@@ -119,6 +122,7 @@ func _move_item_from_tower():
 		_tower_owner_of_moved_item = null
 
 		item_moved_to_itembar.emit(_moved_item_id)
+		_end_move_process()
 
 
 func _get_tower_under_mouse() -> Tower:
