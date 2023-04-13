@@ -154,4 +154,4 @@ jobs:
             token: ${{ secrets.GITHUB_TOKEN }}
             tag: ${{ needs.export_game.outputs.commit_ref }}
             generateReleaseNotes: true
-            artifacts: ./**/*
+            artifacts: ./**/*.zip
