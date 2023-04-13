@@ -20,6 +20,7 @@ func _ready():
 	print("\n\nready, element_changed connections=", element_changed.get_connections())
 	print("\n\nready, element_changed_typed connections=", element_changed_typed.get_connections())
 	print("\n\nready, test_signal connections=", test_signal.get_connections())
+	print("\n\nready, test receiver test_signal connections=", $TestReceiver.test_signal.get_connections())
 
 
 func set_element(element: Tower.Element):
@@ -44,3 +45,7 @@ func _unhandled_input(event):
 
 func _on_UnitButton_pressed(_unit_id):
 	pass
+
+
+func _on_test_receiver_test_signal():
+	pass # Replace with function body.
