@@ -69,7 +69,7 @@ jobs:
     - name: clean up after first build
       run: |
         rm -rf ${{ steps.export_dry_run.outputs.build_directory }}
-        rm -rf /Users/runner/Library/Application Support/Godot/export_templates/4.0.2.stable
+        rm -rf /Users/runner/Library/Application\ Support/Godot/export_templates/4.0.2.stable
 
     - name: export game
       id: export
