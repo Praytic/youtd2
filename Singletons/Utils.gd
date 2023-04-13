@@ -237,7 +237,7 @@ func format_float(x: float, _digits: int) -> String:
 # builds.
 func log_debug(args):
 	if FF.log_debug_enabled():
-		print_debug(args)
+		print(args)
 
 
 func _load_sfx(sfx_name: String) -> AudioStreamMP3:
