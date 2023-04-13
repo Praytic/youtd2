@@ -5,6 +5,9 @@ extends Item
 var boekie_spiderling_slow: BuffType
 
 
+func get_extra_tooltip_text() -> String:
+	return "[color=gold]Spiderling Poison[/color]\nWhen the carrier of this item attacks there is a 25% attackspeed adjusted chance that the attacked creep is slowed by 5% for 4 seconds."
+
 func _item_init():
 	var buff_type: BuffType = TriggersBuffType.new()
 	buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
