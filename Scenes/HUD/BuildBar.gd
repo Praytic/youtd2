@@ -47,7 +47,7 @@ func _ready():
 	_resize_icons("M")
 	current_size = "M"
 
-func _on_RightMenuBar_element_changed(element: Tower.Element):
+func set_element(element: Tower.Element):
 	current_element = element
 	
 	if current_element == Tower.Element.NONE:

@@ -56,11 +56,7 @@ func on_item_move_from_itembar_done(move_success: bool):
 	_moved_item_button = null
 
 
-func _on_RightMenuBar_element_changed(element: Tower.Element):
-	if element != Tower.Element.NONE:
-		# Towers menu bar was selected
-		return
-	
+func adjust_size():
 	if current_size == "M":
 		if _item_buttons.size() > 14:
 			_resize_icons("S")
