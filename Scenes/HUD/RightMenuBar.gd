@@ -2,6 +2,8 @@ extends Control
 
 
 signal element_changed(element)
+signal element_changed_typed(element: Tower.Element)
+signal test_signal()
 
 
 @onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
@@ -16,6 +18,8 @@ func _ready():
 	item_control.item_used.connect(_on_UnitButton_pressed)
 
 	print("\n\nready, element_changed connections=", element_changed.get_connections())
+	print("\n\nready, element_changed_typed connections=", element_changed_typed.get_connections())
+	print("\n\nready, test_signal connections=", test_signal.get_connections())
 
 
 func set_element(element: Tower.Element):

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dejhjhxmq2n2s"]
+[gd_scene load_steps=7 format=3 uid="uid://dejhjhxmq2n2s"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="3"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemBar.gd" id="4_5ctcy"]
 [ext_resource type="Texture2D" uid="uid://mnlx0hsujtqg" path="res://Assets/UI/HUD/texture.jpg" id="5"]
 [ext_resource type="Script" path="res://Scenes/HUD/RightMenuBar.gd" id="6"]
+[ext_resource type="Script" path="res://Scenes/HUD/TestReceiver.gd" id="6_c0wi6"]
 [ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
 
 [node name="RightMenuBar" type="Control"]
@@ -65,4 +66,13 @@ mouse_filter = 2
 columns = 4
 script = ExtResource("4_5ctcy")
 
+[node name="TestReceiver" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("6_c0wi6")
+
 [connection signal="element_changed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
+[connection signal="element_changed" from="." to="TestReceiver" method="_on_right_menu_bar_element_changed"]
+[connection signal="element_changed_typed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
+[connection signal="test_signal" from="." to="TestReceiver" method="_on_right_menu_bar_test_signal"]
