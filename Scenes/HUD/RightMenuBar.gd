@@ -1,8 +1,6 @@
 extends Control
 
-
-signal element_changed(element)
-
+signal test_signal()
 
 @onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
 @onready var item_control = get_tree().current_scene.get_node("%ItemControl")
@@ -15,9 +13,18 @@ func _ready():
 	builder_control.tower_built.connect(_on_UnitButton_pressed)
 	item_control.item_used.connect(_on_UnitButton_pressed)
 
+#	NOTE: on html5 build created on github CI, connections
+#	for some reason don't work when a signal from parent is
+#	connected to slot in child. Leave this in for debug
+#	purposes.
+	var connection_count: int = test_signal.get_connections().size()
+	Utils.log_debug("-----\nRightMenuBar connection_count = %d" %connection_count)
+	if connection_count == 0:
+		Utils.log_debug("!!!!!\nconnection bug still exists\n!!!!!!")
+
 
 func set_element(element: Tower.Element):
-	element_changed.emit(element)
+	item_bar._on_RightMenuBar_element_changed(element)
 	show()
 	if element == Tower.Element.NONE:
 		item_bar.show()
