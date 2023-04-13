@@ -34,9 +34,13 @@ func _ready():
 	if not unlimited_towers:
 		builder_control.tower_built.connect(_on_Tower_built)
 		
+	Utils.log_debug("BuildBar._ready()")
+	Utils.log_debug("Properties.get_tower_id_list().size()=%d" % Properties.get_tower_id_list().size())
+
 	for tower_id in Properties.get_tower_id_list():
 		var tower_button = _create_TowerButton(tower_id)
 		if tower_button:
+			Utils.log_debug("Tower button made for %d" % tower_id)
 			_tower_buttons[tower_id] = tower_button
 			tower_button.hide()
 			add_child(tower_button)
@@ -48,9 +52,11 @@ func _ready():
 	current_size = "M"
 
 func _on_RightMenuBar_element_changed(element: Tower.Element):
+	Utils.log_debug("_on_RightMenuBar_element_changed, element=%d" % element)
 	current_element = element
 	
 	if current_element == Tower.Element.NONE:
+		Utils.log_debug("current_element == Tower.Element.NONE")
 		# Items menu bar was selected
 		return
 		
@@ -70,9 +76,11 @@ func _on_RightMenuBar_element_changed(element: Tower.Element):
 			_resize_icons("M")
 	
 	for tower_id in available_towers_for_element:
+		Utils.log_debug("Show tower button %d" % tower_id)
 		_tower_buttons[tower_id].show()
 
 func _create_TowerButton(tower_id: int) -> TowerButton:
+	Utils.log_debug("_create_TowerButton for %d" % tower_id)
 	var tower_button = TowerButton.new()
 	tower_button.set_tower(tower_id)
 	tower_button.pressed.connect(Callable(builder_control, "on_build_button_pressed").bind(tower_id))
