@@ -8,6 +8,7 @@ signal stop_wave()
 
 
 func _ready():
+	print_debug("HUD.ready()")
 	if FF.minimap_enabled():
 		$Minimap.call_deferred("create_instance")
 	if OS.is_debug_build() and FF.dev_controls_enabled():
@@ -18,6 +19,7 @@ func _ready():
 	
 	$TowerTooltip.hide()
 	$TooltipHeader.reset()
+	print_debug("HUD.ready() end")
 
 
 func _on_ObjectYSort_child_entered_tree(node):
@@ -42,6 +44,7 @@ func _on_Unit_unselected(_unit):
 
 
 func _on_element_button_pressed(element_button):
+	print_debug("_on_element_button_pressed")
 	$MarginContainer.hide()
 	
 	var element: Tower.Element = element_button.element

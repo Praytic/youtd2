@@ -40,7 +40,7 @@ func _ready():
 	for tower_id in Properties.get_tower_id_list():
 		var tower_button = _create_TowerButton(tower_id)
 		if tower_button:
-			Utils.log_debug("Tower button made for %d" % tower_id)
+			# Utils.log_debug("Tower button made for %d" % tower_id)
 			_tower_buttons[tower_id] = tower_button
 			tower_button.hide()
 			add_child(tower_button)
@@ -76,7 +76,7 @@ func _on_RightMenuBar_element_changed(element: Tower.Element):
 			_resize_icons("M")
 	
 	for tower_id in available_towers_for_element:
-		Utils.log_debug("Show tower button %d" % tower_id)
+		# Utils.log_debug("Show tower button %d" % tower_id)
 		_tower_buttons[tower_id].show()
 
 func _create_TowerButton(tower_id: int) -> TowerButton:

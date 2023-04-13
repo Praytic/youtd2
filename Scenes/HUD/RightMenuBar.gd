@@ -17,7 +17,11 @@ func _ready():
 
 
 func set_element(element: Tower.Element):
+	print_debug("set_element=%d" % element)
+	print_debug("emit signal")
 	element_changed.emit(element)
+	print_debug("manually call slot")
+	build_bar._on_RightMenuBar_element_changed(element)
 	show()
 	if element == Tower.Element.NONE:
 		item_bar.show()
