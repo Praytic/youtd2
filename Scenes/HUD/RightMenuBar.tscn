@@ -74,6 +74,5 @@ script = ExtResource("6_c0wi6")
 
 [connection signal="element_changed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
 [connection signal="element_changed" from="." to="TestReceiver" method="_on_right_menu_bar_element_changed"]
-[connection signal="element_changed_typed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
 [connection signal="test_signal" from="." to="TestReceiver" method="_on_right_menu_bar_test_signal"]
 [connection signal="test_signal" from="TestReceiver" to="." method="_on_test_receiver_test_signal"]

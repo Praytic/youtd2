@@ -2,7 +2,6 @@ extends Control
 
 
 signal element_changed(element)
-signal element_changed_typed(element: Tower.Element)
 signal test_signal()
 
 
@@ -13,12 +12,13 @@ signal test_signal()
 
 
 func _ready():
+	super()
+
 	self.hide()
 	builder_control.tower_built.connect(_on_UnitButton_pressed)
 	item_control.item_used.connect(_on_UnitButton_pressed)
 
 	print("\n\nready, element_changed connections=", element_changed.get_connections())
-	print("\n\nready, element_changed_typed connections=", element_changed_typed.get_connections())
 	print("\n\nready, test_signal connections=", test_signal.get_connections())
 	print("\n\nready, test receiver test_signal connections=", $TestReceiver.test_signal.get_connections())
 

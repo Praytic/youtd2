@@ -1,5 +1,6 @@
 extends Control
 
+signal test_signal()
 
 # Tooltip used to display tower/item details when their
 # buttons are hovered by mouse. Note that this is different
@@ -20,6 +21,7 @@ func _ready():
 	EventBus.item_button_mouse_entered.connect(_on_item_button_mouse_entered)
 	EventBus.item_button_mouse_exited.connect(_on_item_button_mouse_exited)
 
+	print("\n\nbutton tooltip test signal=", test_signal.get_connections())
 
 func _on_tower_button_mouse_entered(tower_id: int):
 	show()
