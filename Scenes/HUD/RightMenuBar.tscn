@@ -65,4 +65,4 @@ mouse_filter = 2
 columns = 4
 script = ExtResource("4_5ctcy")
 
-[connection signal="element_changed" from="." to="VBoxContainer/ScrollContainer/MarginContainer/BuildBar" method="_on_RightMenuBar_element_changed"]
+[connection signal="test_signal" from="." to="VBoxContainer/ScrollContainer/MarginContainer/ItemBar" method="_on_right_menu_bar_test_signal"]

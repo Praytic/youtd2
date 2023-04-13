@@ -99,3 +99,7 @@ func _resize_icons(icon_size: String):
 		columns = 4
 	for item_id in _item_buttons.keys():
 		_item_buttons[item_id].set_icon_size(icon_size)
+
+
+func _on_right_menu_bar_test_signal():
+	pass # Replace with function body.
