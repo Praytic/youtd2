@@ -100,6 +100,13 @@ func get_tower_id_list_by_filter(tower_property: Tower.CsvProperty, filter_value
 #########################
 
 func _load_csv_properties(properties_path: String, properties_dict: Dictionary, id_column: int):
+	var file_exists: bool = FileAccess.file_exists(properties_path)
+
+	if !file_exists:
+		print_debug("Failed to load CSV propeties because file doesn't exist. Path: %s", % properties_path)
+
+		return
+
 	var file: FileAccess = FileAccess.open(properties_path, FileAccess.READ)
 
 	var skip_title_row: bool = true
