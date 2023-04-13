@@ -24,14 +24,16 @@ func _ready():
 
 
 func set_element(element: Tower.Element):
-	build_bar._on_RightMenuBar_element_changed(element)
 	show()
+
 	if element == Tower.Element.NONE:
 		item_bar.show()
+		item_bar.adjust_size()
 		build_bar.hide()
 	else:
 		item_bar.hide()
 		build_bar.show()
+		build_bar.set_element(element)
 
 
 func _unhandled_input(event):
