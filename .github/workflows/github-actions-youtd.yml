@@ -11,7 +11,7 @@ on:
 
 jobs:
   export_game:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     name: export game
     steps:
     - name: checkout
@@ -43,7 +43,7 @@ jobs:
     - name: update project.godot with new version
       run: |
         project_godot_file="${{ github.workspace }}/project.godot"
-        sed -i 's/\(config\/version="\).*\("\)/\1'"${TAG_VERSION}"'\2/' "${project_godot_file}"
+        sed -i '' 's/\(config\/version="\).*\("\)/\1'"${TAG_VERSION}"'\2/' "${project_godot_file}"
         echo "New project.godot contents:"
         cat ${{ github.workspace }}/project.godot
 
@@ -55,19 +55,15 @@ jobs:
     - name: install wine
       id: wine_install
       run: |
-        sudo apt install wine64
+        brew tap homebrew/cask-versions
+        brew install --cask --no-quarantine wine-stable
         echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
-
-    - name: copy additional web assets
-      run: |
-        mkdir -p /home/runner/.local/share/godot/build/web/
-        cp -R ${{ github.workspace }}/Build/Web/* /home/runner/.local/share/godot/build/web/
     
     - name: export game
       id: export
       uses: firebelley/godot-export@v5.0.0
       with:
-        godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.0.2-stable/Godot_v4.0.2-stable_linux.x86_64.zip
+        godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.0.2-stable/Godot_v4.0.2-stable_macos.universal.zip
         godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.0.2-stable/Godot_v4.0.2-stable_export_templates.tpz
         relative_project_path: ./
         verbose: true
@@ -77,29 +73,23 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: add tags to artifacts
-      working-directory: ${{ steps.export.outputs.archive_directory }}
+    - name: repack web artifact
       run: |
-        echo "FILES=$(ls -I '' | tr '\n' ' ')" >> $GITHUB_ENV
-        tag_version="${{ env.TAG_VERSION }}"
-        for file in $FILES; do
-          mv "$file" "${file%.zip}-$tag_version.zip"
-        done
-        ls -R .
-      shell: bash
+        zip -uj ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/Build/Web/*
+        cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/web/
 
     - uses: actions/upload-artifact@v3
       with:
         name: youtd-${{ env.TAG_VERSION }}
-        path: ./*-${{ env.TAG_VERSION }}.zip
+        path: ${{ steps.export.outputs.archive_directory }}/*.zip
         if-no-files-found: error
-        retention-days: 1
 
     - name: deploy to github pages
+      if: steps.export.outcome == 'success'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ${{ steps.export.outputs.build_directory }}
+        publish_dir: ${{ steps.export.outputs.build_directory }}/web
 
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
@@ -108,10 +98,10 @@ jobs:
 
   upload_artifacts:
     needs: export_game
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: ['windows', 'macos', 'web', 'linux']
+        platform: [windows, macos, web, linux]
+    runs-on: ubuntu-latest
     steps:
     - name: download exported files
       uses: actions/download-artifact@v3
@@ -124,7 +114,7 @@ jobs:
       run: |
         VERSION_TAG="${{ needs.export_game.outputs.tag_version }}"
         mv "exported_files/${{ matrix.platform }}.zip" "exported_files/${{ matrix.platform }}-$VERSION_TAG.zip"
-        echo "$platform_artifact=exported_files/$platform-$VERSION_TAG.zip" >> $GITHUB_OUTPUT
+        echo "${{ matrix.platform }}=exported_files/$platform-$VERSION_TAG.zip" >> $GITHUB_OUTPUT
 
     - name: upload artifacts
       id: upload_artifacts
@@ -150,6 +140,10 @@ jobs:
             echo "Commit ref: $GITHUB_REF_NAME"
             echo "Release tag: ${{ needs.export_game.outputs.commit_ref }}"
         
+        - uses: geekyeggo/delete-artifact@v2
+          with:
+            name: youtd-${{ needs.export_game.outputs.tag_version }}
+
         - name: download artifacts
           uses: actions/download-artifact@v3
           with:
@@ -165,4 +159,4 @@ jobs:
             token: ${{ secrets.GITHUB_TOKEN }}
             tag: ${{ needs.export_game.outputs.commit_ref }}
             generateReleaseNotes: true
-            artifacts: ./*
+            artifacts: ./**/*
