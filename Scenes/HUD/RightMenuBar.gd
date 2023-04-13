@@ -15,6 +15,8 @@ func _ready():
 	builder_control.tower_built.connect(_on_UnitButton_pressed)
 	item_control.item_used.connect(_on_UnitButton_pressed)
 
+	print("\n\nready, element_changed connections=", element_changed.get_connections())
+
 
 func set_element(element: Tower.Element):
 	print_debug("set_element=%d" % element)

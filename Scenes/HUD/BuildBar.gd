@@ -80,7 +80,7 @@ func _on_RightMenuBar_element_changed(element: Tower.Element):
 		_tower_buttons[tower_id].show()
 
 func _create_TowerButton(tower_id: int) -> TowerButton:
-	Utils.log_debug("_create_TowerButton for %d" % tower_id)
+	# Utils.log_debug("_create_TowerButton for %d" % tower_id)
 	var tower_button = TowerButton.new()
 	tower_button.set_tower(tower_id)
 	tower_button.pressed.connect(Callable(builder_control, "on_build_button_pressed").bind(tower_id))
