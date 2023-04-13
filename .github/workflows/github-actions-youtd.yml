@@ -47,11 +47,6 @@ jobs:
         echo "New project.godot contents:"
         cat ${{ github.workspace }}/project.godot
 
-    - name: use custom editor settings
-      run: |
-        mkdir -p .config/godot
-        cp ${{ github.workspace }}/.github/workflows/editor_settings-4.tres .config/godot/
-
     - name: install wine
       id: wine_install
       run: |
