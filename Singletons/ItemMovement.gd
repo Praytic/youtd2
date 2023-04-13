@@ -80,14 +80,19 @@ func _move_item_from_itembar():
 	var move_success: bool = false
 
 	var target_tower: Tower = _get_tower_under_mouse()
+	var is_oil: bool = ItemProperties.get_is_oil(_moved_item_id)
 	
 	if target_tower != null:
-		if target_tower.have_item_space():
-			target_tower.add_item(_moved_item_id)
+		if is_oil:
+			target_tower.add_item_oil(_moved_item_id)
 			move_success = true
 		else:
-			Utils.display_static_floating_text("No space for item", target_tower, 255, 0, 0, 1.0)
-			move_success = false
+			if target_tower.have_item_space():
+				target_tower.add_item(_moved_item_id)
+				move_success = true
+			else:
+				Utils.display_static_floating_text("No space for item", target_tower, 255, 0, 0, 1.0)
+				move_success = false
 
 	item_move_from_itembar_done.emit(move_success)
 

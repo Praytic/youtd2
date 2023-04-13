@@ -17,6 +17,7 @@ enum CsvProperty {
 	REQUIRED_WAVE_LEVEL = 7,
 	ICON_ATLAS_FAMILY = 8,
 	ICON_ATLAS_NUM = 9,
+	IS_OIL = 10,
 }
 
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
