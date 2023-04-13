@@ -24,7 +24,7 @@ func _ready():
 
 
 func set_element(element: Tower.Element):
-	item_bar._on_RightMenuBar_element_changed(element)
+	build_bar._on_RightMenuBar_element_changed(element)
 	show()
 	if element == Tower.Element.NONE:
 		item_bar.show()
