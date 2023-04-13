@@ -122,6 +122,12 @@ func _on_item_button_mouse_entered(item_id: int):
 	extra_text = add_color_to_numbers(extra_text)
 	_label.append_text(extra_text)
 
+	var is_oil: bool = ItemProperties.get_is_oil(item_id)
+
+	if is_oil:
+		var oil_text: String = "[color=orange]Oil items are lost on use.[/color]"
+		_label.append_text(oil_text)
+
 	item.queue_free()
 
 

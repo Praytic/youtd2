@@ -71,6 +71,7 @@ var _target_order_issued: bool = false
 var _target_order_target: Unit
 var _visual_only: bool = false
 var _item_list: Array[Item] = []
+var _item_oil_list: Array[Item] = []
 var _specials_modifier: Modifier = Modifier.new()
 
 
@@ -181,6 +182,16 @@ func add_item(item_id: int):
 	add_child(item)
 
 	items_changed.emit()
+
+
+# TODO: when upgrade mechanic is implemented, make sure that
+# item oils are transferred to upgraded instance. Iterate
+# over _item_oil_list, add re-add oils to upgraded instance.
+func add_item_oil(item_id: int):
+	var item: Item = Item.make(item_id)
+	item.apply_to_tower(self)
+	_item_oil_list.append(item)
+	add_child(item)
 
 
 func remove_item(item_id: int):

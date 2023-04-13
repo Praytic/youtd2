@@ -91,3 +91,10 @@ func get_tooltip_text(item_id: int) -> String:
 	var text: String = "%s\n%s" % [item_name, item_description]
 
 	return text
+
+
+func get_is_oil(item_id: int) -> bool:
+	var is_oil_string: String = get_property(item_id, Item.CsvProperty.IS_OIL)
+	var is_oil: bool = is_oil_string == "TRUE"
+
+	return is_oil
