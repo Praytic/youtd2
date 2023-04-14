@@ -397,9 +397,23 @@ func modify_property(mod_type: Modification.Type, value: float):
 
 
 func _modify_property_internal(mod_type: Modification.Type, value: float, direction: int):
+	var old_health_max: float = get_overall_health()
+	var health_ratio: float = _health / old_health_max
+	var old_mana_max: float = get_overall_mana()
+	var mana_ratio: float = _mana / old_mana_max
+
 	var current_value: float = _mod_value_map[mod_type]
 	var new_value: float = current_value + direction * value
 	_mod_value_map[mod_type] = new_value
+
+#	NOTE: restore original health and mana ratios. For
+#	example, if original mana was 50/100 and mana was
+#	increased by 50, then final values will be 75/150 to
+#	preserve the 50% ratio.
+	var new_health_max: float = get_overall_health()
+	_health = health_ratio * new_health_max
+	var new_mana_max: float = get_overall_mana()
+	_mana = mana_ratio * new_mana_max
 
 	_on_modify_property()
 
