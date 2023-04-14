@@ -37,7 +37,9 @@ func set_element(element: Tower.Element):
 
 
 func _unhandled_input(event):
-	if event.is_action_released("ui_cancel"):
+	var move_in_progress: bool = ItemMovement.item_move_in_progress()
+
+	if event.is_action_released("ui_cancel") && ! move_in_progress:
 		hide()
 
 
