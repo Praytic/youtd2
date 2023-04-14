@@ -6,6 +6,7 @@ extends Node
 
 
 signal item_move_from_itembar_done(success: bool)
+signal item_move_from_tower_done(success: bool)
 signal item_moved_to_itembar(item_id: int)
 
 
@@ -37,8 +38,12 @@ func start_move_from_itembar(item_id: int):
 
 # Moving item begins here
 func _start_move(item_id: int, new_state: MoveState):
-	if _item_move_in_progress():
-		return
+#	End move that is in progress
+	match _move_state:
+		MoveState.FROM_ITEMBAR:
+			item_move_from_itembar_done.emit(false)
+		MoveState.FROM_TOWER:
+			item_move_from_tower_done.emit(false)
 
 	_move_state = new_state
 	_moved_item_id = item_id
@@ -114,6 +119,7 @@ func _move_item_from_tower():
 			_tower_owner_of_moved_item.remove_item(_moved_item_id)
 			_tower_owner_of_moved_item = null
 			target_tower.add_item(_moved_item_id)
+			item_move_from_tower_done.emit(true)
 			_end_move_process()
 		else:
 			Utils.display_static_floating_text("No space for item", target_tower, 255, 0, 0, 1.0)
@@ -122,6 +128,7 @@ func _move_item_from_tower():
 		_tower_owner_of_moved_item = null
 
 		item_moved_to_itembar.emit(_moved_item_id)
+		item_move_from_tower_done.emit(true)
 		_end_move_process()
 
 
