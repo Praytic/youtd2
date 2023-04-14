@@ -1,8 +1,5 @@
 extends Tower
 
-# TODO: add tier stats for blizzard damage and wave count,
-# when blizzard spell/cast is implemented and has setters
-# for those values.
 
 var Troll_blizzardslow: BuffType
 var Troll_blizzard: Cast

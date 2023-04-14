@@ -7,7 +7,6 @@ extends Control
 # text and is displayed at a certain position, not under
 # mouse cursor.
 
-# TODO: load info that can't be obtained from csv
 
 @onready var _label: RichTextLabel = $PanelContainer/RichTextLabel
 @onready var _gold_texture: Texture2D = load("res://Resources/Textures/gold.tres")

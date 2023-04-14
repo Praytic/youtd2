@@ -3,9 +3,6 @@ extends Unit
 
 # ItemDrop represents item after it's dropped but before it's given to a tower.
 
-# TODO: implement giving item to tower. Use id from ItemDrop
-# to get create the Item that needs to have
-
 
 var _id: int = 0 : get = get_id, set = set_id
 

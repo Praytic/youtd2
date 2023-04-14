@@ -43,26 +43,6 @@ func sfx_on_unit(sfx_name: String, unit: Unit, _body_part: String):
 	sfx_at_unit(sfx_name, unit)
 
 
-func list_files_in_directory(path: String, regex_search: RegEx = null) -> Array:
-	var files = []
-	var dir = DirAccess.open(path)
-	dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-	if not regex_search:
-		regex_search = RegEx.new()
-		regex_search.compile("^(?!\\.).*$")
-	
-	while true:
-		var file = dir.get_next()
-		if file == "":
-			break
-		elif regex_search.search(file):
-			files.append(file)
-
-	dir.list_dir_end()
-
-	return files
-
-
 func circle_polygon_set_radius(collision_polygon: CollisionPolygon2D, radius: float , angle_from = 0, angle_to = 360):
 	var nb_points = radius/20
 	var points_arc = PackedVector2Array()
@@ -230,9 +210,10 @@ func bit_is_set(mask: int, bit: int) -> bool:
 	return is_set
 
 
-# TODO: implement
-func format_float(x: float, _digits: int) -> String:
-	return str(x)
+func format_float(x: float, digits: int) -> String:
+	var out: String = String.num(x, digits)
+
+	return out
 
 
 # NOTE: use for print calls that should be easy to
@@ -263,13 +244,10 @@ func _load_sfx(sfx_name: String) -> AudioStreamMP3:
 	var stream: AudioStreamMP3 = AudioStreamMP3.new()
 	stream.data = bytes
 
-# 	TODO: need to close file or no?
-
 	return stream
 
 
 # This is a way to recycle existing players
-# TODO: maybe there's a better way
 func _get_sfx_player() -> AudioStreamPlayer2D:
 	for sfx_player in _sfx_player_list:
 		if !sfx_player.playing:
