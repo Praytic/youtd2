@@ -26,8 +26,6 @@ func _ready():
 	pressed.connect(_on_pressed)
 
 
-# TODO: removed drawing of tier for now so that id can be
-# drawn, better for testing
 func _draw():
 	draw_texture(tier_icon, Vector2.ZERO)
 
