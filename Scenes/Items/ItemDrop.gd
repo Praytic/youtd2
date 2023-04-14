@@ -7,12 +7,11 @@ extends Unit
 # to get create the Item that needs to have
 
 
-const SELECTION_SIZE = 32
-
-
 var _id: int = 0 : get = get_id, set = set_id
 
 func _ready():
+	super()
+
 	var sprite: Sprite2D = $Base
 	if sprite != null:
 		_setup_selection_shape_from_sprite(sprite)
@@ -26,7 +25,3 @@ func set_id(id: int):
 
 func get_id() -> int:
 	return _id
-
-
-func get_selection_size() -> int:
-	return SELECTION_SIZE

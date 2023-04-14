@@ -59,7 +59,6 @@ var _health: float = 0.0
 var _base_health_regen: float = 1.0
 var _mod_value_map: Dictionary = {}
 var _invisible: bool = false
-var _selection_size: int : get = get_selection_size
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
 var _mana: float = 0.0
@@ -146,10 +145,8 @@ func _init():
 
 func _ready():
 	_update_invisible_modulate()
-	_selection_visual = Node2D.new()
-	_selection_visual.name = "Selection"
+	_selection_visual = Selection.new()
 	_selection_visual.hide()
-	_selection_visual.set_script(load("res://Scenes/Selection.gd"))
 	_selection_visual.z_index = -1
 	add_child(_selection_visual)
 	
@@ -507,6 +504,8 @@ func _setup_selection_shape_internal(image: Image, sprite_node: Node2D):
 	area2d.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
 
 	selection_area2d = area2d
+
+	_selection_visual.visual_size = used_rect.size.x
 
 
 func set_hovered(hovered: bool):
@@ -969,9 +968,6 @@ func get_prop_move_speed_absolute() -> float:
 
 func get_prop_atk_damage_received() -> float:
 	return _mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED]
-
-func get_selection_size():
-	return _selection_size
 
 func get_display_name() -> String:
 	return "Generic Unit"

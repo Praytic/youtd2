@@ -31,7 +31,6 @@ const CREEP_HEALTH_MAX: float = 200.0
 const MOVE_SPEED_MIN: float = 100.0
 const MOVE_SPEED_MAX: float = 500.0
 const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
-const SELECTION_SIZE: int = 64
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 
 var _path: Path2D : set = set_path
@@ -177,10 +176,6 @@ func _on_health_changed(_old_value, new_value):
 #########################
 ### Setters / Getters ###
 #########################
-
-
-func get_selection_size():
-	return SELECTION_SIZE
 
 
 # TODO: Do creeps need IDs?

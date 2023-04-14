@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://cbnb30wqs5csa"]
 
 [ext_resource type="Script" path="res://Scenes/Creeps/Creep.gd" id="1_2dhof"]
 [ext_resource type="PackedScene" uid="uid://bu46ypvw7y1bf" path="res://Resources/Sprites/Mobs/CreepHumanoidSprite.tscn" id="2_ace2l"]
@@ -8,9 +8,6 @@ bg_color = Color(1, 0.34902, 0.2, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grmxl"]
 bg_color = Color(0.290196, 0.709804, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fag64"]
-size = Vector2(134, 192)
 
 [node name="Creep" type="CharacterBody2D"]
 script = ExtResource("1_2dhof")
@@ -33,7 +30,3 @@ metadata/_edit_use_anchors_ = true
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2(1, 0.5)
 polygon = PackedVector2Array(51, -202, 45, 86, -45, 88, -50, -202)
-
-[node name="CollisionShapeSelection" type="CollisionShape2D" parent="."]
-position = Vector2(1, -32)
-shape = SubResource("RectangleShape2D_fag64")

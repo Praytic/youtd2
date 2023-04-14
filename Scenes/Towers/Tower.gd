@@ -51,7 +51,6 @@ enum Element {
 @export var attack_sound: AudioStreamMP3
 
 const ATTACK_CD_MIN: float = 0.2
-const SELECTION_SIZE: int = 128
 const PROJECTILE_SPEED: int = 2000
 const BOUNCE_RANGE: int = 250
 const ITEM_COUNT_MAX: int = 1
@@ -744,9 +743,6 @@ func get_rarity() -> String:
 	
 func get_rarity_num() -> int:
 	return TowerProperties.get_rarity_num(_id)
-
-func get_selection_size() -> int:
-	return SELECTION_SIZE
 
 func get_display_name() -> String:
 	return TowerProperties.get_display_name(_id)
