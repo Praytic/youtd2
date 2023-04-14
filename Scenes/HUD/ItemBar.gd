@@ -34,6 +34,7 @@ func _ready():
 
 	ItemMovement.item_move_from_itembar_done.connect(on_item_move_from_itembar_done)
 	ItemMovement.item_moved_to_itembar.connect(on_item_moved_to_itembar)
+	EventBus.item_drop_picked_up.connect(_on_item_drop_picked_up)
 
 
 func on_item_moved_to_itembar(item_id: int):
@@ -74,6 +75,10 @@ func _create_ItemButton(item_id) -> ItemButton:
 	item_button.set_item(item_id)
 	item_button.button_down.connect(_on_item_button_pressed.bind(item_button))
 	return item_button
+
+
+func _on_item_drop_picked_up(item_id: int):
+	add_item_button(item_id)
 
 
 func _on_item_button_pressed(item_button: ItemButton):

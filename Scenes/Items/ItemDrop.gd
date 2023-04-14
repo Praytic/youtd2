@@ -16,6 +16,8 @@ func _ready():
 	if sprite != null:
 		_setup_selection_shape_from_sprite(sprite)
 
+	selected.connect(_on_selected)
+
 
 # NOTE: this must be called once after the itemdrop is created
 # but before it's added to game scene.
@@ -25,3 +27,8 @@ func set_id(id: int):
 
 func get_id() -> int:
 	return _id
+
+
+func _on_selected():
+	EventBus.emit_item_drop_picked_up(_id)
+	queue_free()

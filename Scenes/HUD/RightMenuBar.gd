@@ -3,7 +3,6 @@ extends Control
 signal test_signal()
 
 @onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
-@onready var item_control = get_tree().current_scene.get_node("%ItemControl")
 @onready var build_bar = get_node("%BuildBar")
 @onready var item_bar = get_node("%ItemBar")
 
@@ -11,7 +10,6 @@ signal test_signal()
 func _ready():
 	self.hide()
 	builder_control.tower_built.connect(_on_UnitButton_pressed)
-	item_control.item_used.connect(_on_UnitButton_pressed)
 
 #	NOTE: on html5 build created on github CI, connections
 #	for some reason don't work when a signal from parent is
