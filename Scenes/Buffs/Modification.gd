@@ -116,10 +116,16 @@ func format_percentage(value: float) -> String:
 	else:
 		sign_string = ""
 
-	var value_string: String = String.num(value * 100, 2)
+	var value_is_percentage: bool = !types_without_percent.has(type)
+
+	var value_string: String
+	if value_is_percentage:
+		value_string = String.num(value * 100, 2)
+	else:
+		value_string = String.num(value, 2)
 
 	var percent_string: String
-	if !types_without_percent.has(type):
+	if value_is_percentage:
 		percent_string = "%"
 	else:
 		percent_string = ""
