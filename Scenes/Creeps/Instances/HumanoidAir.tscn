@@ -1,32 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbnb30wqs5csa"]
+[gd_scene load_steps=5 format=3 uid="uid://bf0w84psjtu7e"]
 
-[ext_resource type="Script" path="res://Scenes/Creeps/Creep.gd" id="1_2dhof"]
-[ext_resource type="PackedScene" uid="uid://bu46ypvw7y1bf" path="res://Resources/Sprites/Mobs/CreepHumanoidSprite.tscn" id="2_ace2l"]
+[ext_resource type="PackedScene" uid="uid://cmcahg14hpv5j" path="res://Scenes/Creeps/Instances/Creep.tscn" id="1_nx8fq"]
+[ext_resource type="PackedScene" uid="uid://bu46ypvw7y1bf" path="res://Resources/Sprites/Mobs/CreepHumanoidSprite.tscn" id="2_2ssrs"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vp0f1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vcam"]
 bg_color = Color(1, 0.34902, 0.2, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grmxl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sv4q3"]
 bg_color = Color(0.290196, 0.709804, 0, 1)
 
-[node name="Creep" type="CharacterBody2D"]
-script = ExtResource("1_2dhof")
+[node name="Creep2" instance=ExtResource("1_nx8fq")]
 
-[node name="Visual" type="Node2D" parent="."]
+[node name="Visual" type="Node2D" parent="." index="1"]
 
-[node name="Sprite2D" parent="Visual" instance=ExtResource("2_ace2l")]
+[node name="Sprite2D" parent="Visual" index="0" instance=ExtResource("2_2ssrs")]
+scale = Vector2(2, 2)
 
-[node name="HealthBar" type="ProgressBar" parent="Visual"]
+[node name="HealthBar" type="ProgressBar" parent="Visual" index="1"]
 offset_left = -50.0
 offset_top = -102.0
 offset_right = 50.0
 offset_bottom = -88.0
-theme_override_styles/background = SubResource("StyleBoxFlat_vp0f1")
-theme_override_styles/fill = SubResource("StyleBoxFlat_grmxl")
+theme_override_styles/background = SubResource("StyleBoxFlat_0vcam")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sv4q3")
 value = 100.0
 show_percentage = false
-metadata/_edit_use_anchors_ = true
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-scale = Vector2(1, 0.5)
-polygon = PackedVector2Array(51, -202, 45, 86, -45, 88, -50, -202)
