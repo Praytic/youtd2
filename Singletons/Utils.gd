@@ -15,6 +15,10 @@ var _loaded_sfx_map: Dictionary = {}
 var _sfx_player_list: Array = []
 
 
+func add_object_to_world(object: Node):
+	object_container.add_child(object, true)
+
+
 func sfx_at_unit(sfx_name: String, unit: Unit):
 	var sfx_exists: bool = ResourceLoader.exists(sfx_name)
 

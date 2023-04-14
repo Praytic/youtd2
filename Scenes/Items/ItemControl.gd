@@ -5,7 +5,6 @@ signal item_dropped(item_id)
 signal item_used(item_id)
 
 
-@onready var object_ysort: Node2D = get_node("%Map").get_node("ObjectYSort")
 @onready var item_bar: GridContainer = get_node("%HUD/RightMenuBar/%ItemBar")
 
 
@@ -36,7 +35,7 @@ func _on_Creep_death(_event: Event, creep: Creep):
 		item_drop.set_id(item_id)
 		item_drop.position = creep.position
 		item_drop.selected.connect(_on_Item_selected.bind(item_drop))
-		object_ysort.add_child(item_drop, true)
+		Utils.add_object_to_world(item_drop)
 		item_dropped.emit(item_drop.get_id())
 
 func _on_Item_selected(item_drop):

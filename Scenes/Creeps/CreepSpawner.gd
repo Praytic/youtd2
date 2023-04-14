@@ -46,7 +46,6 @@ var _creep_spawn_queue: Array
 
 @onready var item_control = get_tree().current_scene.get_node("%ItemControl")
 @onready var gold_control = get_tree().current_scene.get_node("%GoldControl")
-@onready var object_ysort: Node2D = get_tree().current_scene.get_node("%Map/ObjectYSort")
 @onready var _timer_between_creeps: Timer = $Timer
 
 
@@ -103,7 +102,7 @@ func spawn_creep(creep: Creep):
 	
 	creep.death.connect(Callable(item_control._on_Creep_death.bind(creep)))
 	creep.death.connect(Callable(gold_control._on_Creep_death.bind(creep)))
-	object_ysort.add_child(creep, true)
+	Utils.add_object_to_world(creep)
 	Utils.log_debug("Creep has been spawned [%s]." % creep)
 
 
