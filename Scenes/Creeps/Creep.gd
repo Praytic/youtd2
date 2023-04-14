@@ -177,6 +177,11 @@ func _on_health_changed(_old_value, new_value):
 
 # 	TODO: Implement proper item drop chance caclculation
 func _on_death(_event: Event):
+#	Add gold
+	var bounty: float = get_bounty()
+	GoldControl.add_gold(bounty)
+
+# 	Spawn item drop
 	if Utils.rand_chance(0.5):
 		var item_id_list: Array = Properties.get_item_id_list()
 		var random_index: int = randi_range(0, item_id_list.size() - 1)

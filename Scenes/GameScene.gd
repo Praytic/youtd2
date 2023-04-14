@@ -2,7 +2,6 @@ extends Node2D
 
 
 @onready var map_node: Node2D = $Map
-@onready var gold_control = get_tree().current_scene.get_node("%GoldControl")
 
 var creeps_exit_count: int = 0
 
@@ -25,5 +24,5 @@ func _on_CreepExit_body_entered(body):
 
 
 func _on_WaveSpawner_wave_ended(_wave_index):
-	gold_control.add_income()
+	GoldControl.add_income()
 	KnowledgeTomesManager.add_knowledge_tomes()

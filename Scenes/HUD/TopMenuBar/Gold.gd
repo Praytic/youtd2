@@ -1,15 +1,12 @@
 extends "res://Scenes/HUD/TopMenuBar/ResourceStatusPanel.gd"
 
 
-@onready var gold_control = get_tree().current_scene.get_node("%GoldControl")
-
-
 func _ready():
 	super()
 
-	gold_control.gold_change.connect(_on_gold_change)
+	GoldControl.gold_change.connect(_on_gold_change)
 
-	var initial_value: int = int(gold_control.get_gold())
+	var initial_value: int = int(GoldControl.get_gold())
 	_on_gold_change(initial_value)
 
 

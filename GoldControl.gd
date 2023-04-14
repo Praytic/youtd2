@@ -1,4 +1,6 @@
-extends Control
+extends Node
+
+# Singleton that manages building towers
 
 
 signal gold_change(value)
@@ -29,17 +31,12 @@ func add_income():
 
 
 #########################
-###     Callbacks     ###
-#########################
-
-func _on_Creep_death(_event: Event, creep: Creep):
-	var bounty = creep.get_bounty()
-	set_gold(_gold + bounty)
-
-
-#########################
 ### Setters / Getters ###
 #########################
+
+func add_gold(value: float):
+	var new_total: float = _gold + value
+	set_gold(new_total)
 
 func set_gold(value: float):
 	if (value >= MAX_GOLD):

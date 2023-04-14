@@ -44,7 +44,6 @@ const CREEP_SCENE_INSTANCES_PATHS = {
 var _creep_scenes: Dictionary
 var _creep_spawn_queue: Array
 
-@onready var gold_control = get_tree().current_scene.get_node("%GoldControl")
 @onready var _timer_between_creeps: Timer = $Timer
 
 
@@ -99,7 +98,6 @@ func spawn_creep(creep: Creep):
 		all_creeps_spawned.emit()
 		return
 	
-	creep.death.connect(Callable(gold_control._on_Creep_death.bind(creep)))
 	Utils.add_object_to_world(creep)
 	Utils.log_debug("Creep has been spawned [%s]." % creep)
 
