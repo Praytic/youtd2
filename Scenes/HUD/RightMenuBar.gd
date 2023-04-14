@@ -36,6 +36,13 @@ func set_element(element: Tower.Element):
 		build_bar.set_element(element)
 
 
+# NOTE: have to manually call this because ItemMovement
+# can't detect clicks on right menu bar.
+func _gui_input(event):
+	if event.is_action_pressed("left_click"):
+		ItemMovement.on_clicked_on_right_menu_bar()
+
+
 func _unhandled_input(event):
 	var move_in_progress: bool = ItemMovement.item_move_in_progress()
 
