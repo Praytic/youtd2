@@ -4,6 +4,11 @@ extends Control
 var _tower: Tower = null
 
 @onready var _button_container: HBoxContainer = $PanelContainer/VBoxContainer/HBoxContainer
+var _moved_item_button: ItemButton = null
+
+
+func _ready():
+	ItemMovement.item_move_from_tower_done.connect(_on_item_move_from_tower_done)
 
 
 func set_tower(tower: Tower):
@@ -45,6 +50,10 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 #	Disable button to gray it out to indicate that it's
 #	getting moved
-# 	NOTE: don't need to re-enable because inventory buttons
-# 	will be reloaded when move is complete, for all cases
 	item_button.set_disabled(true)
+	_moved_item_button = item_button
+
+
+func _on_item_move_from_tower_done(_success: bool):
+	_moved_item_button.set_disabled(false)
+	_moved_item_button = null
