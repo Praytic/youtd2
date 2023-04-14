@@ -1,4 +1,10 @@
-extends Node2D
+class_name Selection extends Node2D
+
+# Draws a circle to indicate unit being selected or unit
+# being hovered by mouse
+
+# NOTE: set this to change size of drawn circle
+var visual_size: float = 10.0
 
 
 func _ready():
@@ -6,5 +12,4 @@ func _ready():
 
 
 func _draw():
-	if get_parent().get_selection_size():
-		draw_arc(Vector2.ZERO, get_parent().get_selection_size(), deg_to_rad(0), deg_to_rad(360), 100, Color.WHITE, 1.5, true)
+	draw_arc(Vector2.ZERO, visual_size, deg_to_rad(0), deg_to_rad(360), 100, Color.WHITE, 1.5, true)
