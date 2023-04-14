@@ -46,7 +46,7 @@ func update_hovered_unit():
 func _unhandled_input(event):
 	var cancel_pressed: bool = event.is_action_pressed("ui_cancel")
 
-	if cancel_pressed:
+	if cancel_pressed && _selected_unit != null:
 		_selected_unit.set_selected(false)
 		_selected_unit = null
 		selected_unit_changed.emit()
