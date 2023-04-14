@@ -3,7 +3,6 @@ extends GridContainer
 
 @export var unlimited_towers = false
 
-@onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
 # Dictionary of all in-game towers with the associated buttons
 @onready var _tower_buttons: Dictionary = {}
 # Adds every tower button possible to the list.
@@ -32,7 +31,7 @@ func remove_tower_button(tower_id):
 
 func _ready():
 	if not unlimited_towers:
-		builder_control.tower_built.connect(_on_Tower_built)
+		BuildTower.tower_built.connect(_on_Tower_built)
 		
 	for tower_id in Properties.get_tower_id_list():
 		var tower_button = _create_TowerButton(tower_id)
@@ -75,7 +74,6 @@ func set_element(element: Tower.Element):
 func _create_TowerButton(tower_id: int) -> TowerButton:
 	var tower_button = TowerButton.new()
 	tower_button.set_tower(tower_id)
-	tower_button.pressed.connect(Callable(builder_control, "on_build_button_pressed").bind(tower_id))
 	return tower_button
 
 

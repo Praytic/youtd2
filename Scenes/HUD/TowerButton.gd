@@ -23,6 +23,7 @@ func _ready():
 
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
+	pressed.connect(_on_pressed)
 
 
 # TODO: removed drawing of tier for now so that id can be
@@ -87,3 +88,6 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	EventBus.emit_tower_button_mouse_exited()
+
+func _on_pressed():
+	BuildTower.start_building_tower(_tower_id)
