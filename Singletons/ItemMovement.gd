@@ -36,6 +36,19 @@ func start_move_from_itembar(item_id: int):
 	_start_move(item_id, MoveState.FROM_ITEMBAR)
 
 
+func on_clicked_on_right_menu_bar():
+#	NOTE: forcefully pass null target_tower so that even if
+#	there is a tower behind right menubar, we still move the
+#	item back to itembar.
+	var target_tower: Tower = null
+
+	match _move_state:
+		MoveState.FROM_ITEMBAR:
+			_move_item_from_itembar(target_tower)
+		MoveState.FROM_TOWER:
+			_move_item_from_tower(target_tower)
+
+
 # Moving item begins here
 func _start_move(item_id: int, new_state: MoveState):
 #	End move that is in progress
@@ -72,11 +85,13 @@ func _unhandled_input(event: InputEvent):
 	if !left_click:
 		return
 
+	var target_tower: Tower = _get_tower_under_mouse()
+
 	match _move_state:
 		MoveState.FROM_ITEMBAR:
-			_move_item_from_itembar()
+			_move_item_from_itembar(target_tower)
 		MoveState.FROM_TOWER:
-			_move_item_from_tower()
+			_move_item_from_tower(target_tower)
 
 
 func _end_move_process():
@@ -92,8 +107,7 @@ func _end_move_process():
 	get_viewport().set_input_as_handled()
 
 
-func _move_item_from_itembar():
-	var target_tower: Tower = _get_tower_under_mouse()
+func _move_item_from_itembar(target_tower: Tower):
 	var is_oil: bool = ItemProperties.get_is_oil(_moved_item_id)
 	
 	if target_tower != null:
@@ -113,9 +127,7 @@ func _move_item_from_itembar():
 		_end_move_process()
 
 
-func _move_item_from_tower():
-	var target_tower: Tower = _get_tower_under_mouse()
-	
+func _move_item_from_tower(target_tower: Tower):
 	var moving_to_itself: bool = target_tower == _tower_owner_of_moved_item
 
 	if moving_to_itself:
