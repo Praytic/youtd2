@@ -8,6 +8,7 @@ signal item_button_mouse_entered(item_id: int)
 signal item_button_mouse_exited()
 signal tower_button_mouse_entered(tower_id: int)
 signal tower_button_mouse_exited()
+signal item_drop_picked_up(item_id: int)
 
 
 func emit_item_button_mouse_entered(item_id: int):
@@ -24,3 +25,7 @@ func emit_tower_button_mouse_entered(tower_id: int):
 
 func emit_tower_button_mouse_exited():
 	tower_button_mouse_exited.emit()
+
+
+func emit_item_drop_picked_up(item_id: int):
+	item_drop_picked_up.emit(item_id)

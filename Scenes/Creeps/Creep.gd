@@ -68,6 +68,8 @@ func _ready():
 	if sprite != null:
 		_setup_selection_shape_from_animated_sprite(sprite)
 
+	death.connect(_on_death)
+
 
 func _process(delta):
 	if movement_enabled:
@@ -171,6 +173,31 @@ func _get_move_speed() -> float:
 
 func _on_health_changed(_old_value, new_value):
 	_health_bar.set_value(new_value)
+
+
+# 	TODO: Implement proper item drop chance caclculation
+func _on_death(_event: Event):
+	if Utils.rand_chance(0.5):
+		var item_id_list: Array = Properties.get_item_id_list()
+		var random_index: int = randi_range(0, item_id_list.size() - 1)
+		var item_id: int = item_id_list[random_index]
+		var item_properties: Dictionary = Properties.get_item_csv_properties()[item_id]
+		var rarity: int = item_properties[Item.CsvProperty.RARITY].to_int()
+
+		var rarity_name: String = ""
+
+		match rarity:
+			Constants.Rarity.COMMON: rarity_name = "CommonItem"
+			Constants.Rarity.UNCOMMON: rarity_name = "UncommonItem"
+			Constants.Rarity.RARE: rarity_name = "RareItem"
+			Constants.Rarity.UNIQUE: rarity_name = "UniqueItem"
+		
+		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % [rarity_name]
+		var item_drop_scene = load(item_drop_scene_path)
+		var item_drop = item_drop_scene.instantiate()
+		item_drop.set_id(item_id)
+		item_drop.position = position
+		Utils.add_object_to_world(item_drop)
 
 
 #########################
