@@ -121,6 +121,10 @@ func _ready():
 
 	_on_modify_property()
 
+	var sprite: Sprite2D = $Model/Sprite2D
+	if sprite != null:
+		_setup_selection_shape_from_sprite(sprite)
+
 
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)

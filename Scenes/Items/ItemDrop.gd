@@ -12,6 +12,11 @@ const SELECTION_SIZE = 32
 
 var _id: int = 0 : get = get_id, set = set_id
 
+func _ready():
+	var sprite: Sprite2D = $Base
+	if sprite != null:
+		_setup_selection_shape_from_sprite(sprite)
+
 
 # NOTE: this must be called once after the itemdrop is created
 # but before it's added to game scene.
