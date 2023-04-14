@@ -11,7 +11,21 @@ extends Control
 
 
 func _ready():
-	pass
+	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
+
+	_on_selected_unit_changed()
+
+
+func _on_selected_unit_changed():
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+
+	if selected_unit != null && selected_unit is Tower:
+# 		NOTE: show() is not called here because tower
+# 		tooltip is shown when a button in tooltip header is
+# 		pressed
+		set_tower_tooltip_text(selected_unit)
+	else:
+		hide()
 
 
 #########################

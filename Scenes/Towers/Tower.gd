@@ -125,6 +125,9 @@ func _ready():
 	if sprite != null:
 		_setup_selection_shape_from_sprite(sprite)
 
+	selected.connect(on_selected)
+	unselected.connect(on_unselected)
+
 
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
@@ -160,6 +163,11 @@ func set_visual_only():
 		the_signal.disconnect(callable)
 
 	_visual_only = true
+
+# 	Remove selection area2d so that tower preview tower
+# 	doesn't participate in hover/select behavior
+	if selection_area2d != null:
+		selection_area2d.queue_free()
 
 
 func add_autocast(autocast: Autocast):
@@ -371,15 +379,11 @@ func _get_tier_stats() -> Dictionary:
 	return default_out
 
 
-func _select():
-	super._select()
-
+func on_selected():
 	_range_indicator.show()
 
 
-func _unselect():
-	super._unselect()
-
+func on_unselected():
 	_range_indicator.hide()
 
 

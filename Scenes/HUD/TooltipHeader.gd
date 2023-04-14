@@ -12,6 +12,24 @@ signal expanded(expand)
 ###       Public      ###
 #########################
 
+func _ready():
+	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
+
+	_on_selected_unit_changed()
+
+
+func _on_selected_unit_changed():
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+
+	if selected_unit != null:
+		set_header_unit(selected_unit)
+		show()
+	else:
+		_expand_button.set_pressed_no_signal(false)
+		_expand_button.icon.atlas.region.position.x = 0
+		hide()
+
+
 func set_header_unit(unit):
 	for label in _tooltip_labels:
 		var stat = _get_stat(label, unit)
@@ -21,11 +39,6 @@ func set_header_unit(unit):
 		_expand_button.hide()
 
 	visible = unit is Tower || unit is Creep
-
-func reset():
-	hide()
-	_expand_button.set_pressed_no_signal(false)
-	_expand_button.icon.atlas.region.position.x = 0
 
 #########################
 ###      Private      ###

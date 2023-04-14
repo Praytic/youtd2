@@ -113,6 +113,5 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("9_avlwg")
 
-[connection signal="child_entered_tree" from="Map/ObjectYSort" to="UI/HUD" method="_on_ObjectYSort_child_entered_tree"]
 [connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
 [connection signal="wave_ended" from="Map/WaveSpawner" to="." method="_on_WaveSpawner_wave_ended"]

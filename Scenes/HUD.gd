@@ -16,30 +16,6 @@ func _ready():
 	for element_button in element_buttons_parent.get_children():
 		element_button.pressed.connect(_on_element_button_pressed.bind(element_button))
 	
-	$TowerTooltip.hide()
-	$TooltipHeader.reset()
-
-
-func _on_ObjectYSort_child_entered_tree(node):
-		node.selected.connect(_on_Unit_selected.bind(node))
-		node.unselected.connect(_on_Unit_unselected.bind(node))
-
-
-func _on_Unit_selected(unit):
-	if unit is Tower:
-		$TowerTooltip.set_tower_tooltip_text(unit)
-		$TowerInventory.set_tower(unit)
-
-	$TowerInventory.visible = unit is Tower
-	$TowerTooltip.hide()
-	$TooltipHeader.set_header_unit(unit)
-
-
-func _on_Unit_unselected(_unit):
-	$TowerTooltip.hide()
-	$TooltipHeader.reset()
-	$TowerInventory.hide()
-
 
 func _on_element_button_pressed(element_button):
 	$MarginContainer.hide()

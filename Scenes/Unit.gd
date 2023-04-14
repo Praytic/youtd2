@@ -23,8 +23,8 @@ signal spell_targeted(event: Event)
 signal earn_gold(amount: float, _mystery_bool_1: bool, _mystery_bool_2: bool)
 
 
-signal selected
-signal unselected
+signal selected()
+signal unselected()
 
 
 enum State {
@@ -38,6 +38,7 @@ const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
 
+var selection_area2d: Area2D = null
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -66,6 +67,8 @@ var _mana: float = 0.0
 var _base_armor: float = 45.0
 var _dealt_damage_signal_in_progress: bool = false
 var _kill_count: int = 0
+
+var _selection_visual: Node = null
 
 # This is the count of towers that are currently able to see
 # this invisible creep. If there any towers that can see this
@@ -143,12 +146,12 @@ func _init():
 
 func _ready():
 	_update_invisible_modulate()
-	var selection = Node2D.new()
-	selection.name = "Selection"
-	selection.hide()
-	selection.set_script(load("res://Scenes/Selection.gd"))
-	selection.z_index = -1
-	add_child(selection)
+	_selection_visual = Node2D.new()
+	_selection_visual.name = "Selection"
+	_selection_visual.hide()
+	_selection_visual.set_script(load("res://Scenes/Selection.gd"))
+	_selection_visual.z_index = -1
+	add_child(_selection_visual)
 	
 	var regen_timer: Timer = Timer.new()
 	regen_timer.one_shot = false
@@ -163,19 +166,6 @@ func _ready():
 	var triggers_buff_type: BuffType = TriggersBuffType.new()
 	load_triggers(triggers_buff_type)
 	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
-
-
-func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		if event.get_button_index() == MOUSE_BUTTON_LEFT or event.get_button_index() == MOUSE_BUTTON_RIGHT:
-			var is_inside: bool = Geometry2D.is_point_in_polygon(
-				$CollisionShape2D.get_local_mouse_position(), 
-				$CollisionShape2D.polygon)
-			if is_inside:
-				_select()
-			else:
-				if _selected:
-					_unselect()
 
 
 #########################
@@ -513,16 +503,18 @@ func _setup_selection_shape_internal(image: Image, sprite_node: Node2D):
 #	position of area2d matches sprite's position
 	sprite_node.add_child(area2d)
 
-	area2d.mouse_entered.connect(on_unit_mouse_entered)
-	area2d.mouse_exited.connect(on_unit_mouse_exited)
+	area2d.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
+	area2d.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
+
+	selection_area2d = area2d
 
 
-func on_unit_mouse_entered():
-	modulate = Color.GREEN
+func set_hovered(hovered: bool):
+	if _selected:
+		return
 
-
-func on_unit_mouse_exited():
-	modulate = Color.WHITE
+	_selection_visual.modulate = Color.WHITE
+	_selection_visual.set_visible(hovered)
 
 
 # NOTE: override this in subclass to attach trigger handlers
@@ -676,21 +668,6 @@ func _update_invisible_modulate():
 		modulate = INVISIBLE_MODULATE
 	else:
 		modulate = Color(1, 1, 1, 1)
-
-func _select():
-	for selected_node in get_tree().get_nodes_in_group("selected"):
-		selected_node.set_selected(false)
-	add_to_group("selected")
-	$Selection.show()
-	_selected = true
-	selected.emit()
-
-
-func _unselect():
-	remove_from_group("selected")
-	$Selection.hide()
-	_selected = false
-	unselected.emit()
 
 
 func get_bounty() -> float:
@@ -1003,10 +980,14 @@ func is_selected() -> bool:
 	return _selected
 
 func set_selected(selected_arg: bool):
+	_selection_visual.modulate = Color.GREEN
+	_selection_visual.set_visible(selected_arg)
+	_selected = selected_arg
+
 	if selected_arg:
-		_select()
+		selected.emit()
 	else:
-		_unselect()
+		unselected.emit()
 
 # Implemented by Tower and Creep to return tower element or
 # creep category

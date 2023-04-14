@@ -10,6 +10,20 @@ var _moved_item_button: ItemButton = null
 func _ready():
 	ItemMovement.item_move_from_tower_done.connect(_on_item_move_from_tower_done)
 
+	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
+
+	_on_selected_unit_changed()
+
+
+func _on_selected_unit_changed():
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+
+	if selected_unit != null && selected_unit is Tower:
+		set_tower(selected_unit)
+		show()
+	else:
+		hide()
+
 
 func set_tower(tower: Tower):
 	var prev_tower: Tower = _tower
