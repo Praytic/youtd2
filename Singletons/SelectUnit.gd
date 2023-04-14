@@ -18,12 +18,29 @@ func get_selected_unit() -> Unit:
 
 func on_unit_mouse_entered(unit: Unit):
 	_units_under_mouse_list.append(unit)
+	unit.tree_exiting.connect(on_unit_tree_exiting.bind(unit))
 	update_hovered_unit()
 
 
 func on_unit_mouse_exited(unit: Unit):
 	_units_under_mouse_list.erase(unit)
+	unit.tree_exiting.disconnect(on_unit_tree_exiting)
 	update_hovered_unit()
+
+
+# NOTE: Need this slot because "mouse_exited" signal doesn't
+# get emitted when units exit the tree because of
+# queue_free().
+func on_unit_tree_exiting(unit: Unit):
+	if _selected_unit == unit:
+		_selected_unit.set_selected(false)
+		_selected_unit = null
+		selected_unit_changed.emit()
+
+	if _units_under_mouse_list.has(unit):
+		_units_under_mouse_list.erase(unit)
+		unit.tree_exiting.disconnect(on_unit_tree_exiting)
+		update_hovered_unit()
 
 
 func update_hovered_unit():
