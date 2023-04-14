@@ -461,6 +461,70 @@ static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 #########################
 
 
+# Call this in subclass to setup shape that will be used to
+# detect when mouse is hovering over the unit. Without this
+# unit can't be selected.
+func _setup_selection_shape_from_sprite(sprite: Sprite2D):
+	var texture: Texture2D = sprite.texture
+	var image: Image = texture.get_image()
+
+	_setup_selection_shape_internal(image, sprite)
+
+
+# TODO: using first frame from first animation but this is
+# inaccurate if different frames occupy different parts of
+# the image. Maybe overlay all frames into a special frame
+# that is the "average", durin generation from blender?
+func _setup_selection_shape_from_animated_sprite(sprite: AnimatedSprite2D):
+	var sprite_frames: SpriteFrames = sprite.sprite_frames
+	var animation_name_list: PackedStringArray = sprite_frames.get_animation_names()
+
+	if animation_name_list.size() == 0:
+		print_debug("No animations except default, can't setup selection shape.")
+
+		return
+
+	var animation: String = animation_name_list[0]
+	var texture: Texture2D = sprite_frames.get_frame_texture(animation, 0)
+	var image: Image = texture.get_image()
+
+	_setup_selection_shape_internal(image, sprite)
+
+
+# Generate a rectangle shape that encloses used portion of
+# sprite's texture. Used portion means pixels with non-zero
+# alpha.
+func _setup_selection_shape_internal(image: Image, sprite_node: Node2D):
+	var collision_shape: CollisionShape2D = CollisionShape2D.new()
+	var shape: RectangleShape2D = RectangleShape2D.new()
+	collision_shape.shape = shape
+
+	var used_rect: Rect2i = image.get_used_rect()
+
+	shape.size = used_rect.size
+
+# 	NOTE: Rect2i position is top-left corner, so need to do
+# 	some math to calculate correct offset for area2d
+	var area2d: Area2D = Area2D.new()
+	area2d.add_child(collision_shape)
+	area2d.position = used_rect.position + used_rect.size / 2 - image.get_size() / 2
+
+#	NOTE: use sprite as parent for area2d so so that the
+#	position of area2d matches sprite's position
+	sprite_node.add_child(area2d)
+
+	area2d.mouse_entered.connect(on_unit_mouse_entered)
+	area2d.mouse_exited.connect(on_unit_mouse_exited)
+
+
+func on_unit_mouse_entered():
+	modulate = Color.GREEN
+
+
+func on_unit_mouse_exited():
+	modulate = Color.WHITE
+
+
 # NOTE: override this in subclass to attach trigger handlers
 # to triggers buff passed in the argument.
 func load_triggers(_triggers_buff_type: BuffType):

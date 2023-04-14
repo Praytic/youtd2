@@ -65,6 +65,10 @@ func _ready():
 		var height: float = 2 * Constants.TILE_HEIGHT
 		_visual.position.y = -height
 
+	var sprite: AnimatedSprite2D = $Visual/Sprite2D
+	if sprite != null:
+		_setup_selection_shape_from_animated_sprite(sprite)
+
 
 func _process(delta):
 	if movement_enabled:
