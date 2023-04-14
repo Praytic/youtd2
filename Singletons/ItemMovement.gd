@@ -55,8 +55,17 @@ func _start_move(item_id: int, new_state: MoveState):
 
 # Moving item ends here
 func _unhandled_input(event: InputEvent):
-	if !_item_move_in_progress():
+	if !item_move_in_progress():
 		return
+
+	var move_canceled: bool = event.is_action_released("ui_cancel")
+	if move_canceled:
+		match _move_state:
+			MoveState.FROM_ITEMBAR:
+				item_move_from_itembar_done.emit(false)
+			MoveState.FROM_TOWER:
+				item_move_from_tower_done.emit(false)
+		_end_move_process()
 
 	var left_click: bool = event.is_action_pressed("left_click")
 
@@ -145,7 +154,7 @@ func _get_tower_under_mouse() -> Tower:
 		return null
 
 
-func _item_move_in_progress() -> bool:
+func item_move_in_progress() -> bool:
 	return _move_state != MoveState.NONE
 
 
