@@ -1,6 +1,6 @@
 extends Node
 
-# Singleton that manages building towers
+# Singleton that manages gold and income
 
 
 signal gold_change(value)
