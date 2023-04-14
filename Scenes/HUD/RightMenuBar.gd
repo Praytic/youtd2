@@ -2,14 +2,12 @@ extends Control
 
 signal test_signal()
 
-@onready var builder_control = get_tree().current_scene.get_node("%BuilderControl")
 @onready var build_bar = get_node("%BuildBar")
 @onready var item_bar = get_node("%ItemBar")
 
 
 func _ready():
 	self.hide()
-	builder_control.tower_built.connect(_on_UnitButton_pressed)
 
 #	NOTE: on html5 build created on github CI, connections
 #	for some reason don't work when a signal from parent is
@@ -46,7 +44,3 @@ func _unhandled_input(event):
 
 	if event.is_action_released("ui_cancel") && ! move_in_progress:
 		hide()
-
-
-func _on_UnitButton_pressed(_unit_id):
-	pass
