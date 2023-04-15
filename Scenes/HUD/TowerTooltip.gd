@@ -1,6 +1,8 @@
 extends Control
 
 
+var _current_tower: Tower = null
+
 @onready var _tower_stat_int_labels: Array = get_tree().get_nodes_in_group("tower_stat_int")
 @onready var _tower_stat_float_labels: Array = get_tree().get_nodes_in_group("tower_stat_float")
 @onready var _tower_stat_percent_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent")
@@ -33,6 +35,8 @@ func _on_selected_unit_changed():
 #########################
 
 func set_tower_tooltip_text(tower):
+	_current_tower = tower
+
 #	NOTE: don't set tooltips for towers that haven't been
 #	added to scene tree yet because their _ready() functions
 #	haven't been called so they aren't setup completely.
@@ -170,3 +174,8 @@ func _load_multiboard(multiboard: MultiboardValues):
 
 		key_label.show()
 		value_label.show()
+
+
+func _on_refresh_timer_timeout():
+	if _current_tower != null:
+		set_tower_tooltip_text(_current_tower)

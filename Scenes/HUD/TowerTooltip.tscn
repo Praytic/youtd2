@@ -1016,3 +1016,8 @@ text = "Placeholder:"
 [node name="ExampleValueLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid"]
 layout_mode = 2
 text = "Placeholder"
+
+[node name="RefreshTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="RefreshTimer" to="." method="_on_refresh_timer_timeout"]
