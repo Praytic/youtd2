@@ -765,8 +765,11 @@ func is_dead() -> bool:
 
 
 # NOTE: use this instead of regular Node2D.position for
-# anything involving visual effects, so projectiles and spell
-# effects.
+# anything involving visual effects, so projectiles and
+# spell effects. Do NOT use visual position for game
+# "physics", for example calculating distance between units.
+# Game physics need to be performed in 2D space, so use
+# regular "position".
 func get_visual_position() -> Vector2:
 	if selection_area2d != null:
 		return selection_area2d.global_position

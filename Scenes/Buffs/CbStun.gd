@@ -15,7 +15,7 @@ func on_create(event: Event):
 
 	target.movement_enabled = false 
 
-	var stun_effect: int = Effect.create_animated("res://Scenes/Effects/StunVisual.tscn", target.position.x, target.position.y, 0, 0)
+	var stun_effect: int = Effect.create_simple_at_unit("res://Scenes/Effects/StunVisual.tscn", target)
 	_stun_effect_map[buff] = stun_effect
 
 
