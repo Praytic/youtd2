@@ -41,7 +41,6 @@ func on_create():
 	
 	tower.user_real = 0.0
 	tower.user_int = _stats.gold
-	Utils.add_unit_animation_properties(tower, "stand alternate", false)
 
 
 func on_tower_details() -> MultiboardValues:

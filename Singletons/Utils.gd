@@ -203,10 +203,6 @@ func screaming_snake_case_to_camel_case(screaming_snake_case: String) -> String:
 	
 	return camel_case
 
-# TODO: maybe won't need this at all
-func add_unit_animation_properties(_unit: Unit, _mystery_string: String, _mystery_bool: bool):
-	pass
-
 
 func bit_is_set(mask: int, bit: int) -> bool:
 	var is_set: bool = (mask & bit) != 0x0
