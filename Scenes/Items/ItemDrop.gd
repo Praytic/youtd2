@@ -11,7 +11,7 @@ func _ready():
 
 	var sprite: Sprite2D = $Base
 	if sprite != null:
-		_setup_selection_shape_from_sprite(sprite)
+		_set_unit_sprite(sprite)
 
 	selected.connect(_on_selected)
 

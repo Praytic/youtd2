@@ -66,7 +66,7 @@ func _ready():
 
 	var sprite: AnimatedSprite2D = $Visual/Sprite2D
 	if sprite != null:
-		_setup_selection_shape_from_animated_sprite(sprite)
+		_set_unit_animted_sprite(sprite)
 
 	death.connect(_on_death)
 
