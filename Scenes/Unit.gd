@@ -449,21 +449,22 @@ static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 #########################
 
 
-# Call this in subclass to setup shape that will be used to
-# detect when mouse is hovering over the unit. Without this
-# unit can't be selected.
-func _setup_selection_shape_from_sprite(sprite: Sprite2D):
+# Call this (or the animated sprite version) in subclass to
+# set the main sprite for the unit. This sprite will be used
+# to detect collison with mouse and also as the visual
+# position of the unit.
+func _set_unit_sprite(sprite: Sprite2D):
 	var texture: Texture2D = sprite.texture
 	var image: Image = texture.get_image()
 
-	_setup_selection_shape_internal(image, sprite)
+	_set_unit_sprite_internal(image, sprite)
 
 
 # TODO: using first frame from first animation but this is
 # inaccurate if different frames occupy different parts of
 # the image. Maybe overlay all frames into a special frame
 # that is the "average", durin generation from blender?
-func _setup_selection_shape_from_animated_sprite(sprite: AnimatedSprite2D):
+func _set_unit_animted_sprite(sprite: AnimatedSprite2D):
 	var sprite_frames: SpriteFrames = sprite.sprite_frames
 	var animation_name_list: PackedStringArray = sprite_frames.get_animation_names()
 
@@ -476,13 +477,13 @@ func _setup_selection_shape_from_animated_sprite(sprite: AnimatedSprite2D):
 	var texture: Texture2D = sprite_frames.get_frame_texture(animation, 0)
 	var image: Image = texture.get_image()
 
-	_setup_selection_shape_internal(image, sprite)
+	_set_unit_sprite_internal(image, sprite)
 
 
 # Generate a rectangle shape that encloses used portion of
 # sprite's texture. Used portion means pixels with non-zero
-# alpha.
-func _setup_selection_shape_internal(image: Image, sprite_node: Node2D):
+# alpha. Also save dimensions of used region in the sprite.
+func _set_unit_sprite_internal(image: Image, sprite_node: Node2D):
 	var collision_shape: CollisionShape2D = CollisionShape2D.new()
 	var shape: RectangleShape2D = RectangleShape2D.new()
 	collision_shape.shape = shape
