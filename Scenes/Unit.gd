@@ -67,6 +67,8 @@ var _mana: float = 0.0
 var _base_armor: float = 45.0
 var _dealt_damage_signal_in_progress: bool = false
 var _kill_count: int = 0
+var _best_hit: float = 0.0
+var _damage_dealt_total: float = 0.0
 
 var _selection_visual: Node = null
 
@@ -580,6 +582,11 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 	target.damaged.emit(damaged_event)
 
 	damage = damaged_event.damage
+
+	_damage_dealt_total += damage
+
+	if damage > _best_hit:
+		_best_hit = damage
 
 	var damage_killed_unit: bool = target.receive_damage(damage)
 
