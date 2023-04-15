@@ -721,19 +721,17 @@ func get_overall_dps():
 func get_dps_with_crit():
 	return get_overall_dps() * get_crit_multiplier()
 
-# TODO: implement
 # How much damage the tower dealt in total
 func get_damage():
-	return 1.0
+	return _damage_dealt_total
 
 # How much kills the tower has in total
 func get_kills():
 	return _kill_count
 
-# TODO: implement
 # What was the max hit damage the tower dealt
 func get_best_hit():
-	return 1.0
+	return _best_hit
 
 func get_range() -> float:
 	return TowerProperties.get_range(_id)
