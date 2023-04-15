@@ -4,6 +4,7 @@ var _speed: float
 var _hit_handler: Callable = Callable()
 var _lifetime: float = 0.0
 var _sprite_path: String = ""
+var _explode_on_hit: bool = true
 
 
 static func create(model: String, lifetime: float, speed: float) -> ProjectileType:
@@ -28,9 +29,8 @@ func enable_free_rotation():
 	pass
 
 
-# TODO: implement
 func disable_explode_on_hit():
-	pass
+	_explode_on_hit = true
 
 
 func enable_homing(hit_handler: Callable, _mystery_int: int):
