@@ -19,7 +19,7 @@ func add_object_to_world(object: Node):
 	object_container.add_child(object, true)
 
 
-func sfx_at_unit(sfx_name: String, unit: Unit):
+func sfx_at_pos(sfx_name: String, sfx_position: Vector2):
 	var sfx_exists: bool = ResourceLoader.exists(sfx_name)
 
 	if !sfx_exists:
@@ -33,14 +33,18 @@ func sfx_at_unit(sfx_name: String, unit: Unit):
 
 	var sfx_stream: AudioStreamMP3 = _loaded_sfx_map[sfx_name]
 	sfx_player.set_stream(sfx_stream)
-	sfx_player.global_position = unit.get_visual_position()
+	sfx_player.global_position = sfx_position
 	sfx_player.play()
 
 
-# TODO: implement _body_part parameter. Example body parts:
-# "chest", "head", "origin".
-func sfx_on_unit(sfx_name: String, unit: Unit, _body_part: String):
-	sfx_at_unit(sfx_name, unit)
+func sfx_at_unit(sfx_name: String, unit: Unit):
+	var sfx_position: Vector2 = unit.get_visual_position()
+	sfx_at_pos(sfx_name, sfx_position)
+
+
+func sfx_on_unit(sfx_name: String, unit: Unit, body_part: String):
+	var sfx_position: Vector2 = unit.get_body_part_position(body_part)
+	sfx_at_pos(sfx_name, sfx_position)
 
 
 func circle_polygon_set_radius(collision_polygon: CollisionPolygon2D, radius: float , angle_from = 0, angle_to = 360):

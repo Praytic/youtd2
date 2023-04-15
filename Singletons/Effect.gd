@@ -50,9 +50,9 @@ func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
 	return create_animated(effect_path, unit.position.x, unit.position.y, 0.0, 0.0)
 
 
-# TODO: implement body part parameter
-func add_special_effect_target(effect_path: String, unit: Unit, _body_part: String) -> int:
-	return create_animated(effect_path, unit.position.x, unit.position.y, 0.0, 0.0)
+func add_special_effect_target(effect_path: String, unit: Unit, body_part: String) -> int:
+	var position: Vector2 = unit.get_body_part_position(body_part) 
+	return create_animated(effect_path, position.x, position.y, 0.0, 0.0)
 
 
 func destroy_effect(effect_id: int):

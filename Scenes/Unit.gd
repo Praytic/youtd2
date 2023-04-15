@@ -39,6 +39,7 @@ const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
 
 var selection_area2d: Area2D = null
+var _sprite_dimensions: Rect2i = Rect2i()
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -504,6 +505,7 @@ func _setup_selection_shape_internal(image: Image, sprite_node: Node2D):
 	area2d.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
 
 	selection_area2d = area2d
+	_sprite_dimensions = used_rect
 
 	_selection_visual.visual_size = used_rect.size.x
 
@@ -764,6 +766,35 @@ func is_dead() -> bool:
 func get_visual_position() -> Vector2:
 	return position
 
+# Returns approximate position of the body part of unit in
+# the world. Accepts "origin", "chest" or "head".
+# NOTE: body parts were used in original API based on
+# coordinates of body parts of 3D models. Approximate this
+# feature for 2d tiles by defining body part positions as:
+# "origin" = bottom of sprite
+# "chest" = middle of sprite
+# "head" = top of sprite
+# Note that "sprite" here means the occupied part of the
+# texture. Some sprites occupy only a small portion of the
+# total texture so using texture center/dimensions would
+# cause incorrect results.
+func get_body_part_position(body_part: String) -> Vector2:
+	if selection_area2d == null:
+		print_debug("No selection area2d defined")
+
+		return get_visual_position()
+
+	var sprite_center: Vector2 = selection_area2d.global_position
+	var sprite_height: float = float(_sprite_dimensions.size.y)
+
+	match body_part:
+		"head": return sprite_center - Vector2(0, sprite_height / 2)
+		"chest": return sprite_center
+		"origin": return sprite_center + Vector2(0, sprite_height / 2)
+		_:
+			print_debug("Invalid body part: %s" % body_part)
+
+			return get_visual_position()
 
 func get_x() -> float:
 	return position.x
