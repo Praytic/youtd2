@@ -764,8 +764,14 @@ func is_dead() -> bool:
 	return _is_dead
 
 
+# NOTE: use this instead of regular Node2D.position for
+# anything involving visual effects, so projectiles and spell
+# effects.
 func get_visual_position() -> Vector2:
-	return position
+	if selection_area2d != null:
+		return selection_area2d.global_position
+	else:
+		return global_position
 
 # Returns approximate position of the body part of unit in
 # the world. Accepts "origin", "chest" or "head".

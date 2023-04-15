@@ -245,13 +245,6 @@ func set_armor_type(value: ArmorType.enm) -> void:
 func get_armor_type() -> ArmorType.enm:
 	return _armor_type
 
-# NOTE: use this instead of regular Node2D.position for
-# anything involving visual effects, so projectiles and spell
-# effects.
-func get_visual_position() -> Vector2:
-	return _visual.global_position
-
-
 func get_display_name() -> String:
 	return "Generic Creep"
 
