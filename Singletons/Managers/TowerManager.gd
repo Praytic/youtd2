@@ -16,6 +16,8 @@ func _ready():
 	
 	# Load all tower resources to dict and associate them with tower IDs
 
+	var time_before: float = Time.get_unix_time_from_system()
+	
 	var preload_towers: bool = FF.preload_all_towers_on_startup()
 
 	if preload_towers:
@@ -25,6 +27,11 @@ func _ready():
 			var tower_scene: PackedScene = _get_tower_scene(tower_id)
 
 			preloaded_towers[tower_id] = tower_scene
+
+	var time_after: float = Time.get_unix_time_from_system()
+	var time_diff: float = time_after - time_before
+
+	print_debug("TowerManager._ready() time = %f" % time_diff)
 
 	# # Change the key of the tower_props dict to ID instead of Filename
 	# for key in tower_props_flattened:
