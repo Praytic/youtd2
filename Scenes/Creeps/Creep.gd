@@ -32,6 +32,7 @@ const MOVE_SPEED_MIN: float = 100.0
 const MOVE_SPEED_MAX: float = 500.0
 const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
+const ISOMETRIC_ANGLE_DIFF: float = -30
 
 var _path: Path2D : set = set_path
 var _size: Creep.Size
@@ -143,19 +144,18 @@ func _move(delta):
 
 
 func _get_creep_animation() -> String:
-#	NOTE: the actual angles for 4-directional isometric movement are around
-#   +- 27 degrees from x axis but checking for which quadrant the movement vector
-#	falls into works just as well
-	if 0 <= _facing_angle && _facing_angle < 90:
-		return "run_e"
-	elif 90 <= _facing_angle && _facing_angle < 180:
-		return "run_s"
-	elif 180 <= _facing_angle && _facing_angle < 270:
-		return "run_w"
-	elif 270 <= _facing_angle && _facing_angle <= 360:
-		return "run_n"
-	else:
-		return "stand"
+	var animation_order: Array[String] = [
+		"run_e", "run_se", "run_s", "run_sw", "run_w", "run_nw", "run_n"
+	]
+	var animation_index: int = floor((_facing_angle + ISOMETRIC_ANGLE_DIFF) / 45)
+
+	if animation_index >= animation_order.size():
+		print_debug("animation_index out of bounds = ", animation_index)
+		animation_index = 0
+
+	var animation: String = animation_order[animation_index]
+
+	return animation
 
 
 func _get_move_speed() -> float:
@@ -216,6 +216,10 @@ func get_id():
 	return 1
 
 
+# NOTE: this angle needs to be for coordinate space with Y
+# axis going down, to match game world coordinate
+# conventions. For example, angle progression of 0, 10, 20
+# goes clock-wise.
 func set_unit_facing(angle: float):
 # 	NOTE: limit facing angle to (0, 360) range
 	_facing_angle = int(angle + 360) % 360
