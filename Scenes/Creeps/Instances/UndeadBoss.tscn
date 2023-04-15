@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3]
+[gd_scene load_steps=27 format=3 uid="uid://cno4nbsgu8vc5"]
 
 [ext_resource type="PackedScene" uid="uid://cmcahg14hpv5j" path="res://Scenes/Creeps/Instances/Creep.tscn" id="1_wy0nt"]
 [ext_resource type="PackedScene" uid="uid://bu46ypvw7y1bf" path="res://Resources/Sprites/Mobs/CreepHumanoidSprite.tscn" id="2_ks1jb"]
@@ -123,11 +123,12 @@ bg_color = Color(0.290196, 0.709804, 0, 1)
 
 [node name="Creep" groups=["boss", "undead"] instance=ExtResource("1_wy0nt")]
 
-[node name="Visual" type="Node2D" parent="." index="2"]
+[node name="Visual" type="Node2D" parent="." index="1"]
 
 [node name="Sprite2D" parent="Visual" index="0" instance=ExtResource("2_ks1jb")]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_7m4vi")
+animation = &"run_e"
 
 [node name="HealthBar" type="ProgressBar" parent="Visual" index="1"]
 offset_left = -50.0
