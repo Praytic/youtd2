@@ -9,6 +9,9 @@ extends DummyUnit
 signal target_hit(projectile, target)
 signal interpolation_finished(projectile)
 
+const FALLBACK_PROJECTILE_SPRITE: String = "res://Resources/Sprites/Projectiles/DefaultProjectileSprite.tscn"
+const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
+
 var _target: Unit = null
 var _last_known_position: Vector2 = Vector2.ZERO
 var _speed: float = 100
@@ -50,7 +53,20 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 	projectile._target_position_on_creation = target.get_visual_position()
 
 	if type._lifetime > 0.0 && !expire_when_reached:
-		projectile._set_lifetime(type.lifetime)
+		projectile._set_lifetime(type._lifetime)
+
+	var sprite_path: String = type._sprite_path
+	var sprite_exists: bool = ResourceLoader.exists(sprite_path)
+	
+	if !sprite_exists:
+		if PRINT_SPRITE_NOT_FOUND_ERROR:
+			print_debug("Failed to find sprite for projectile. Tried at path:", sprite_path)
+
+		sprite_path = FALLBACK_PROJECTILE_SPRITE
+
+	var sprite_scene: PackedScene = load(sprite_path)
+	var sprite: Node = sprite_scene.instantiate()
+	projectile.add_child(sprite)
 
 	projectile._game_scene.add_child(projectile)
 

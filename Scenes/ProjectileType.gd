@@ -3,20 +3,22 @@ class_name ProjectileType
 var _speed: float
 var _hit_handler: Callable = Callable()
 var _lifetime: float = 0.0
+var _sprite_path: String = ""
 
 
-# TODO: use model. Currently using placeholder sprite.
-static func create(_model: String, lifetime: float, speed: float) -> ProjectileType:
+static func create(model: String, lifetime: float, speed: float) -> ProjectileType:
 	var pt: ProjectileType = ProjectileType.new()
 	pt._speed = speed
 	pt._lifetime = lifetime
+	pt._sprite_path = model
 	
 	return pt
 
 
-static func create_interpolate(_model: String, speed: float) -> ProjectileType:
+static func create_interpolate(model: String, speed: float) -> ProjectileType:
 	var pt: ProjectileType = ProjectileType.new()
 	pt._speed = speed
+	pt._sprite_path = model
 
 	return pt
 
