@@ -147,7 +147,7 @@ func _get_creep_animation() -> String:
 	var animation_order: Array[String] = [
 		"run_e", "run_se", "run_s", "run_sw", "run_w", "run_nw", "run_n", "run_ne"
 	]
-	var animation_index: int = floor((_facing_angle + ISOMETRIC_ANGLE_DIFF) / 45)
+	var animation_index: int = floor((_facing_angle + ISOMETRIC_ANGLE_DIFF + 10) / 45)
 
 	if animation_index >= animation_order.size():
 		print_debug("animation_index out of bounds = ", animation_index)
