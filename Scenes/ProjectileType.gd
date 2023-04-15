@@ -24,11 +24,6 @@ static func create_interpolate(model: String, speed: float) -> ProjectileType:
 	return pt
 
 
-# TODO: implement
-func enable_free_rotation():
-	pass
-
-
 func disable_explode_on_hit():
 	_explode_on_hit = true
 

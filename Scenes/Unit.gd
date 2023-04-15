@@ -428,10 +428,8 @@ func spend_mana(mana_cost: float):
 	_set_mana(max(0.0, _mana - mana_cost))
 
 
-# TODO: probably should implement health like this as well
-# and remove the other variations of these getters/setters.
-# This version is used in tower/item scripts so it takes
-# priority, even if the API is weird.
+# NOTE: this f-n exists for compatiblity with original API
+# used in tower scripts
 static func get_unit_state(unit: Unit, state: Unit.State) -> float:
 	match state:
 		Unit.State.MANA: return unit._mana
@@ -832,7 +830,6 @@ func get_prop_atk_crit_chance() -> float:
 func get_prop_atk_crit_damage() -> float:
 	return _mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE]
 
-# TODO: implement
 # Returns the value of the average damage multipler based on crit chance, crit damage
 # and multicrit count of the tower
 func get_crit_multiplier() -> float:

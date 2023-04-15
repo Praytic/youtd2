@@ -69,7 +69,6 @@ func load_modifier(_modifier_arg: Modifier):
 	pass
 
 
-# TODO: implement checks for max item count
 func apply_to_tower(tower: Tower):
 	_carrier = tower
 
@@ -93,9 +92,6 @@ func remove_from_tower():
 
 	_carrier.remove_child(self)
 	_carrier = null
-
-# 	TODO: where does item go after it's removed from
-# 	carrier? queue_free() or reparent to some new node?
 
 
 func get_specials_tooltip_text() -> String:
