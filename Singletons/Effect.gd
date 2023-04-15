@@ -47,7 +47,8 @@ func create_animated(effect_path: String, x: float, y: float, _mystery1: float, 
 
 
 func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
-	return create_animated(effect_path, unit.position.x, unit.position.y, 0.0, 0.0)
+	var position: Vector2 = unit.get_visual_position() 
+	return create_animated(effect_path, position.x, position.y, 0.0, 0.0)
 
 
 func add_special_effect_target(effect_path: String, unit: Unit, body_part: String) -> int:
