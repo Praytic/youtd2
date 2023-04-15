@@ -15,6 +15,7 @@ const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 var _target: Unit = null
 var _last_known_position: Vector2 = Vector2.ZERO
 var _speed: float = 100
+var _explode_on_hit: bool = true
 const CONTACT_DISTANCE: int = 30
 var _explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 var _game_scene: Node = null
@@ -38,6 +39,7 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 	var projectile: Projectile = _projectile_scene.instantiate()
 
 	projectile._speed = type._speed
+	projectile._explode_on_hit = type._explode_on_hit
 
 	if !type._hit_handler.is_null():
 		projectile.set_event_on_target_hit(type._hit_handler)
@@ -106,15 +108,16 @@ func _process(delta):
 #			interpolation finishes.
 			interpolation_finished.emit(self)
 
-		var explosion = _explosion_scene.instantiate()
+		if _explode_on_hit:
+			var explosion = _explosion_scene.instantiate()
 
-		if _target != null:
-			explosion.position = _target.get_visual_position()
-			explosion.z_index = _target.z_index
-		else:
-			explosion.position = global_position
+			if _target != null:
+				explosion.position = _target.get_visual_position()
+				explosion.z_index = _target.z_index
+			else:
+				explosion.position = global_position
 
-		_game_scene.add_child(explosion)
+			_game_scene.add_child(explosion)
 
 		queue_free()
 
