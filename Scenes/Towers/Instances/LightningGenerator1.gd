@@ -13,6 +13,15 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var chain_damage: String = String.num(_stats.chain_damage, 2)
+	var chain_dmg_add: String = String.num(_stats.chain_damage * 0.02, 2)
+	var on_attack_damage: String = String.num(_stats.on_attack_damage, 2)
+	var on_attack_damage_add: String = String.num(_stats.on_attack_damage * 0.02, 2)
+
+	return "[color=gold]Chainlightning[/color]\nThis tower has a 19.5%% chance on attack to release a chainlightning that does %s damage and hits up to 3 units.\n[color=orange]Level Bonus:[/color]\n+%s damage\n+0.25%% chance\n[color=gold]Force Attack[/color]\nThis tower deals %s spell damage on attack.\n[color=orange]Level Bonus:[/color]\n+%s damage" % [chain_damage, chain_dmg_add, on_attack_damage, on_attack_damage_add]
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(self, "on_attack", 0.195, 0.0025)
 	triggers.add_event_on_damage(self, "on_damage", 1.0, 0.0)

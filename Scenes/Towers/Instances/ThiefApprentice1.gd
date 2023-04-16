@@ -17,6 +17,13 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var gold: String = String.num(_stats.gold / 10.0, 2)
+	var gold_add: String = String.num(_stats.gold * 0.04 / 10.0, 3)
+
+	return "[color=gold]Steal[/color]\nEvery time the thief damages a creep there is a 10%% chance he steals %s gold.\n[color=orange]Level Bonus:[/color]\n+%s gold\n+0.4%% chance" % [gold, gold_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.1, 0.004)
 

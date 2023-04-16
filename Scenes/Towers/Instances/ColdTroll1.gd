@@ -15,6 +15,21 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var blizzard_wave_count: String = String.num(_stats.blizzard_wave_count, 2)
+	var blizzard_damage: String = String.num(_stats.blizzard_damage, 2)
+	var blizzard_radius: String = String.num(_stats.blizzard_radius, 2)
+	var slow_chance: String = String.num(_stats.slow_chance * 100, 2)
+	var slow: String = String.num(_stats.slow * -1 * 100, 2)
+	var slow_duration: String = String.num(_stats.slow_duration, 2)
+	var stun_chance: String = String.num(_stats.stun_chance * 100, 2)
+	var stun_duration: String = String.num(_stats.stun_duration, 2)
+	var blizzard_damage_add: String = String.num(round(_stats.blizzard_damage * _stats.damage_ratio_add), 2)
+	var slow_add: String = String.num(_stats.slow_add * -1 * 100, 2)
+
+	return "[color=gold]Blizzard[/color]\nSummons %s waves of icy spikes which fall down to earth. Each wave deals %s damage in an AoE of %s. Each time a unit is damaged by this spell there is a chance of %s%% to slow the unit by %s%% for %s seconds and a chance of %s%% to stun the unit for %s seconds.\n[color=orange]Level Bonus:[/color]\n+%s damage\n+%s%% slow\n+1%% chance for slow\n+0.1%% chance for stun\n\nMana cost: 95, 900 range, 10s cooldown" % [blizzard_wave_count, blizzard_damage, blizzard_radius, slow_chance, slow, slow_duration, stun_chance, stun_duration, blizzard_damage_add, slow_add]
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.5, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.25, 0.0)

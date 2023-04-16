@@ -15,6 +15,13 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var exp_bonus: String = String.num(_stats.exp_bonus * 100, 2)
+	var exp_bonus_add: String = String.num(_stats.exp_bonus_add * 100, 2)
+
+	return "[color=gold]Illuminate[/color]\nAttacks debuff the target, making it grant %s%% more experience once killed. This effect last 5 seconds.\n[color=orange]Level Bonus:[/color]\n+%s%% experience\n+0.2 seconds" % [exp_bonus, exp_bonus_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 

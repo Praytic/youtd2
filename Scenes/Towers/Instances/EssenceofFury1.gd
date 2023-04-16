@@ -14,6 +14,14 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var poison_damage: String = String.num(_stats.poison_damage, 2)
+	var poison_damage_add: String = String.num(_stats.poison_damage_add, 2)
+	var poison_duration_add: String = String.num(_stats.poison_duration_add, 2)
+
+	return "[color=gold]Poisoned Heart[/color]\nThis tower destroys a piece of the creep's heart on damage. The affected creep takes %s spelldamage every second for 6 seconds.\n[color=orange]Level Bonus:[/color]\n+%s poison damage\n+%s seconds poison duration" % [poison_damage, poison_damage_add, poison_duration_add]
+
+
 func load_specials(_modifier: Modifier):
 	_set_attack_style_bounce(_stats.bounce_count, 0.0)
 

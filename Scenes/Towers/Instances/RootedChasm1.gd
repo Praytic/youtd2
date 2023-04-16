@@ -15,6 +15,14 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var entangle_duration: String = String.num(_stats.entangle_duration, 2)
+	var base_entangle_dps: String = String.num(_stats.base_entangle_dps, 2)
+	var base_entangle_dps_add: String = String.num(_stats.base_entangle_dps / 20, 2)
+
+	return "[color=gold]Entangle[/color]\nHas a chance of 12.5%% to entangle the attacked target for %s seconds. Entangled targets are immobile and suffer %s damage per second. Cannot entangle air or boss units. \n[color=orange]Level Bonus:[/color]\n+0.2%% chance to entangle\n+%s damage per second" % [entangle_duration, base_entangle_dps, base_entangle_dps_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 0.125, 0.002)
 

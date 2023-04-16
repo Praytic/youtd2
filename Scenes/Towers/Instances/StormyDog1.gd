@@ -14,6 +14,12 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var attack_speed: String = String.num(_stats.buff_scale * 0.0005 * 100, 2)
+
+	return "[color=gold]Thunderous Roar[/color]\nWhenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack speed of all towers in 420 range by 5%% for 5 seconds. If a tower already has the thunderous roar buff the attack speed is increased by %s%% and the duration is refreshed. Stacks up to 100 times.\n[color=orange]Level Bonus:[/color]\n+%s%% attack speed" % [attack_speed, attack_speed]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.3, 0.0)
 

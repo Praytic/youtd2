@@ -14,6 +14,16 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var banish_lvl: String = String.num(_stats.banish_lvl, 2)
+	var banish_duration: String = String.num(_stats.banish_duration, 2)
+	var banish_lvl_add: String = String.num(_stats.banish_lvl_add, 2)
+	var damage: String = String.num(_stats.damage, 2)
+	var damage_add: String = String.num(_stats.damage_add, 2)
+
+	return "[color=gold]Soul Scattering[/color]\n10%% chance on attack to reduce its own attackspeed by 60%% and make the target receive %s%% more spell damage. Both effects last %s seconds.\n[color=orange]Level Bonus:[/color]\n+1%% attackspeed\n+%s%% spell damage received\n[color=gold]Shadowstrike[/color]\nThis tower has a 25%% chance on attack to deal %s spell damage. \n[color=orange]Level Bonus:[/color]\n+%s spell damage\n+0.5%% chance" % [banish_lvl, banish_duration, banish_lvl_add, damage, damage_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "on_attack", 1.0, 0.0)
 

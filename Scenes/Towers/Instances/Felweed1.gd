@@ -12,6 +12,20 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var bonus_7: String = String.num((_stats.bonus_7 - 1.0) * 100, 2)
+	var bonus_8: String = String.num((_stats.bonus_8 - 1.0) * 100, 2)
+	var bonus_9: String = String.num((_stats.bonus_9 - 1.0) * 100, 2)
+	var bonus_10: String = String.num((_stats.bonus_10 - 1.0) * 100, 2)
+
+	var bonus_7_add: String = String.num((_stats.bonus_7_add) * 100, 2)
+	var bonus_8_add: String = String.num((_stats.bonus_8_add) * 100, 2)
+	var bonus_9_add: String = String.num((_stats.bonus_9_add) * 100, 2)
+	var bonus_10_add: String = String.num((_stats.bonus_10_add) * 100, 2)
+
+	return "[color=gold]Fireblossom[/color]\nEvery 7th attack deals %s%% bonus damage.\nEvery 8th attack deals %s%% bonus damage.\nEvery 9th attack deals %s%% bonus damage.\nEvery 10th attack deals %s%% bonus damage.\n[color=orange]Level Bonus:[/color]\n+%s%% bonus damage every 7th attack.\n+%s%% bonus damage every 8th attack.\n+%s%% bonus damage every 9th attack.\n+%s%% bonus damage every 10th attack." % [bonus_7, bonus_8, bonus_9, bonus_10, bonus_7_add, bonus_8_add, bonus_9_add, bonus_10_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 
