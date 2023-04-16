@@ -5,11 +5,8 @@ extends Item
 func get_extra_tooltip_text() -> String:
 	return "[color=gold]Exchange[/color]\nEvery 15 seconds the wielder converts a flat 2 experience into 7 gold.\n[color=orange]Level Bonus:[/color]\n-0.3 seconds cooldown."
 
-
-func _item_init():
-	var buff_type: BuffType = TriggersBuffType.new()
-	buff_type.add_periodic_event(self, "_on_periodic", 1.0)
-	_buff_type_list.append(buff_type)
+func load_triggers(triggers: BuffType):
+	triggers.add_periodic_event(self, "_on_periodic", 1.0)
 
 
 func _on_periodic(event: Event):
