@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1u2fghaw2oji"]
+[gd_scene load_steps=5 format=3 uid="uid://d1u2fghaw2oji"]
 
 [ext_resource type="Script" path="res://Scenes/Towers/Tower.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="2_ikpq8"]
 [ext_resource type="Script" path="res://Scenes/Towers/RangeIndicator.gd" id="5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25shh"]
@@ -20,11 +19,6 @@ position = Vector2(0, -192)
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 scale = Vector2(1, 0.5)
 polygon = PackedVector2Array(0, -128, 128, 0, 0, 128, -128, 0)
-
-[node name="DefaultSprite" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(2, 2)
-texture = ExtResource("2_ikpq8")
 
 [node name="RangeIndicator" type="Node2D" parent="."]
 visible = false
