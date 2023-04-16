@@ -10,6 +10,10 @@ var creeps_exit_count: int = 0
 @export var ignore_game_over: bool = true
 
 
+func _ready():
+	Utils.log_debug("GameScene has loaded.")
+
+
 func _on_HUD_start_wave(wave_index):
 	$Map/CreepSpawner.start(wave_index)
 
