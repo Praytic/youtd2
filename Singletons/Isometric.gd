@@ -26,6 +26,13 @@ func vector_move_toward_PIXELS(start: Vector2, end: Vector2, delta: float) -> Ve
 # Takes a vector in isometric space and calculates it's
 # length in 2d space. Should be used for all distance
 # calculations.
+func vector_length(vector_isometric: Vector2) -> float:
+	var length_pixels: float = vector_length_PIXELS(vector_isometric)
+	var length: float = Utils.from_pixels(length_pixels)
+	
+	return length
+
+
 func vector_length_PIXELS(vector_isometric: Vector2) -> float:
 	var vector_2d: Vector2 = Vector2(vector_isometric.x, vector_isometric.y * 2)
 	var length: float = vector_2d.length()
