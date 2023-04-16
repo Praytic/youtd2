@@ -242,18 +242,14 @@ func _load_sfx(sfx_name: String) -> AudioStreamMP3:
 
 		return AudioStreamMP3.new()
 
-	var file: FileAccess = FileAccess.open(sfx_name, FileAccess.READ)
+	var file_exists: bool = ResourceLoader.exists(sfx_name)
 
-	if file == null:
-		var open_error: Error = FileAccess.get_open_error()
-		print_debug("Failed to open sfx file: %s. Error: %s" % [sfx_name, open_error])
-		file.close()
+	if !file_exists:
+		print_debug("Failed to find sfx at:", sfx_name)
 
 		return AudioStreamMP3.new()
 
-	var bytes = file.get_buffer(file.get_length())
-	var stream: AudioStreamMP3 = AudioStreamMP3.new()
-	stream.data = bytes
+	var stream: AudioStreamMP3 = load(sfx_name)
 
 	return stream
 
