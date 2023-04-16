@@ -158,8 +158,6 @@ func add_color_to_numbers(text: String) -> String:
 			var c_is_valid_part_of_number: bool = c.is_valid_int() || c == "%" || c == "s"
 
 			if c == ".":
-				var next_index: int = index + 1
-
 				var dot_is_part_of_float: bool = next.is_valid_int()
 				if !dot_is_part_of_float:
 					colored_text = colored_text.insert(index, tag_close)
