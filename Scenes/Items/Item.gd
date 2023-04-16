@@ -62,7 +62,7 @@ func _init(id: int):
 	load_modifier(_modifier)
 	_item_init()
 
-	var triggers_buff_type: BuffType = TriggersBuffType.new()
+	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true)
 	load_triggers(triggers_buff_type)
 	_buff_type_list.append(triggers_buff_type)
 
