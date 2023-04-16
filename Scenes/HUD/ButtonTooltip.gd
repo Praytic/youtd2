@@ -148,18 +148,17 @@ func add_color_to_numbers(text: String) -> String:
 
 	while index < colored_text.length():
 		var c: String = colored_text[index]
+		var next: String
+		if index + 1 < colored_text.length():
+			next = colored_text[index + 1]
+		else:
+			next = ""
 
 		if tag_is_opened:
 			var c_is_valid_part_of_number: bool = c.is_valid_int() || c == "%" || c == "s"
 
 			if c == ".":
 				var next_index: int = index + 1
-				var next: String
-
-				if next_index < colored_text.length():
-					next = colored_text[next_index]
-				else:
-					next = ""
 
 				var dot_is_part_of_float: bool = next.is_valid_int()
 				if !dot_is_part_of_float:
@@ -171,7 +170,7 @@ func add_color_to_numbers(text: String) -> String:
 				index += tag_close.length()
 				tag_is_opened = false
 		else:
-			var c_is_valid_start_of_number: bool = c.is_valid_int() || c == "+" || c == "-"
+			var c_is_valid_start_of_number: bool = c.is_valid_int() || ((c == "+" || c == "-") && next.is_valid_int())
 
 			if c_is_valid_start_of_number:
 				colored_text = colored_text.insert(index, tag_open)

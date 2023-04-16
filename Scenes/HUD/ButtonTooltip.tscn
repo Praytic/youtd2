@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cllrwb288kt2l"]
+[gd_scene load_steps=4 format=3 uid="uid://cllrwb288kt2l"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/ButtonTooltip.gd" id="1_xd471"]
 [ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="2_2ti32"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="3_jper7"]
 
 [node name="ButtonTooltip" type="Control"]
 layout_mode = 3
@@ -21,5 +22,11 @@ theme_override_styles/panel = ExtResource("2_2ti32")
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
+theme = ExtResource("3_jper7")
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
 text = "PLACEHOLDER"
 fit_content = true
