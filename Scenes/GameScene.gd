@@ -12,7 +12,7 @@ var creeps_exit_count: int = 0
 
 
 func _ready():
-	Utils.log_debug("GameScene has loaded.")
+	Log.debug("GameScene has loaded.")
 	EventBus.game_scene_loaded.emit()
 
 

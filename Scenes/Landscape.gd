@@ -19,7 +19,7 @@ func _ready():
 	camera.limit_left = pp.x - ps.x / 2 * s.x * ss.x
 	camera.limit_right = pp.x + ps.x / 2 * s.x * ss.x
 	camera.position = pp
-	Utils.log_debug("Set camera limits to [lb: %s, lt: %s, ll: %s, lr: %s] and pos [%s]" \
+	Log.debug("Set camera limits to [lb: %s, lt: %s, ll: %s, lr: %s] and pos [%s]" \
 		% [camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right, pp])
 
 

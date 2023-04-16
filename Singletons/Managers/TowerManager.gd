@@ -10,12 +10,13 @@ var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 
 
 
-func _init():
+func _ready():
 	# Merge JSON props with references to other JSON props into one
 	# var tower_props_flattened = _flattened_properties()
 	
 	# Load all tower resources to dict and associate them with tower IDs
-
+	Log.debug("Start loading TowerManager")
+	
 	var tower_id_list: Array = Properties.get_tower_id_list()
 	
 	for tower_id in tower_id_list:
@@ -23,6 +24,7 @@ func _init():
 	
 		preloaded_towers[tower_id] = tower_scene
 
+	Log.debug("TowerManager has loaded")
 	# # Change the key of the tower_props dict to ID instead of Filename
 	# for key in tower_props_flattened:
 	# 	tower_props[tower_props_flattened[key].id] = tower_props_flattened[key]

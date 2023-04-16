@@ -29,6 +29,8 @@ script/source = "extends CanvasLayer
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("9")
+creeps_game_over_count = null
+ignore_game_over = null
 
 [node name="Map" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true

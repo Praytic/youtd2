@@ -27,16 +27,17 @@ config/add_test_item=false
 
 [autoload]
 
+FF="*res://Singletons/FF.gd"
+Log="*res://Singletons/Log.gd"
+Utils="*res://Singletons/Utils.gd"
 Properties="*res://Singletons/Properties.gd"
 FoodManager="*res://Singletons/Managers/FoodManager.gd"
 KnowledgeTomesManager="*res://Singletons/Managers/KnowledgeTomesManager.gd"
-Utils="*res://Singletons/Utils.gd"
 Constants="*res://Singletons/Constants.gd"
 TowerManager="*res://Singletons/Managers/TowerManager.gd"
 Effect="*res://Singletons/Effect.gd"
 ItemManager="*res://Singletons/Managers/ItemManager.gd"
 Isometric="*res://Singletons/Isometric.gd"
-FF="*res://Singletons/FF.gd"
 EventBus="*res://Singletons/EventBus.gd"
 
 [debug]

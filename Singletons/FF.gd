@@ -3,17 +3,17 @@
 extends Node
 
 
-func log_debug_enabled() -> bool:
+static func log_debug_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/log_debug_enabled") as bool
 
-func fast_waves_enabled() -> bool:
+static func fast_waves_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/fast_waves") as bool
 
-func visible_spell_dummys_enabled() -> bool:
+static func visible_spell_dummys_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/visible_spell_dummys") as bool
 
-func dev_controls_enabled() -> bool:
+static func dev_controls_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/dev_controls") as bool
 
-func add_test_item() -> bool:
+static func add_test_item() -> bool:
 	return ProjectSettings.get_setting("application/config/add_test_item") as bool

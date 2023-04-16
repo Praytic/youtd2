@@ -226,15 +226,6 @@ func format_float(x: float, _digits: int) -> String:
 	return str(x)
 
 
-# NOTE: use for print calls that should be easy to
-# enable/disable globally. This is a workaround for godot's
-# native print_debug() not being disabled in non-debug
-# builds.
-func log_debug(args):
-	if FF.log_debug_enabled():
-		print_debug("[%s] " % (Time.get_ticks_msec() / 1000.0), args)
-
-
 func _load_sfx(sfx_name: String) -> AudioStreamMP3:
 	if !sfx_name.ends_with(".mp3"):
 		print_debug("Attempted to call _load_sfx on non-mp3:", sfx_name)
