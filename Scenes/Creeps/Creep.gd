@@ -27,9 +27,11 @@ enum Category {
 	HUMANOID,
 }
 
+# NOTE: timed creeps moving in original game and their speed
+# was about 200.
 const CREEP_HEALTH_MAX: float = 200.0
 const MOVE_SPEED_MIN: float = 50.0
-const MOVE_SPEED_MAX: float = 250.0
+const MOVE_SPEED_MAX: float = 200.0
 const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
