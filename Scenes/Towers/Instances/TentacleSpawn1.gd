@@ -15,6 +15,14 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var increased_spell_damage: String = String.num((0.02 + 0.01 * _stats.apply_level) * 100, 2)
+	var periodic_damage: String = String.num(_stats.periodic_damage, 2)
+	var periodic_damage_add: String = String.num(_stats.periodic_damage_add, 2)
+
+	return "[color=gold]Rend[/color]\nThe tentacle has a 25%% chance to rend a target, making it suffer %s%% increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n[color=orange]Level Bonus:[/color]\n+1%% chance\n+%s spell damage per second" % [increased_spell_damage, periodic_damage, periodic_damage_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 0.25, 0.01)
 
@@ -40,4 +48,4 @@ func drol_tentacleDamage(event: Event):
 func _on_damage(event: Event):
 	var tower = self
 
-	drol_tentacleDot.apply(tower, event.get_target(), 1).user_real = _stats.periodic_damage + _stats.periodic_damage_add * tower.get_level()
+	drol_tentacleDot.apply(tower, event.get_target(), _stats.apply_level).user_real = _stats.periodic_damage + _stats.periodic_damage_add * tower.get_level()

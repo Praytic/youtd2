@@ -17,8 +17,15 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var gold: String = String.num(_stats.gold / 10.0, 2)
+	var gold_add: String = String.num(_stats.gold * 0.04 / 10.0, 3)
+
+	return "[color=gold]Steal[/color]\nEvery time the thief damages a creep there is a 10%% chance he steals %s gold.\n[color=orange]Level Bonus:[/color]\n+%s gold\n+0.4%% chance" % [gold, gold_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(self, "on_damage", 1.0, 0.004)
+	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.1, 0.004)
 
 
 func load_specials(modifier: Modifier):
@@ -58,5 +65,5 @@ func on_damage(event: Event):
 func steal(p: Projectile, _creep: Unit):
 	var tower = p.get_caster()
 	var gold_granted: float = (tower.user_int * (tower.get_level() * tower.user_int * 0.04)) / 10
-	tower.earn_gold.emit(gold_granted, false, true)
+	tower.getOwner().give_gold(gold_granted, tower, false, true)
 	tower.user_real = tower.user_real + gold_granted

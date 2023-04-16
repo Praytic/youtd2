@@ -27,9 +27,11 @@ enum Category {
 	HUMANOID,
 }
 
+# NOTE: timed creeps moving in original game and their speed
+# was about 200.
 const CREEP_HEALTH_MAX: float = 200.0
-const MOVE_SPEED_MIN: float = 100.0
-const MOVE_SPEED_MAX: float = 500.0
+const MOVE_SPEED_MIN: float = 50.0
+const MOVE_SPEED_MAX: float = 200.0
 const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
@@ -88,7 +90,11 @@ func _process(delta):
 ###       Public      ###
 #########################
 
-func adjust_height(height: float, speed: float):
+func adjust_height(height_wc3: float, speed: float):
+# 	NOTE: divide by two because in isometric world vertical
+# 	axis is squished
+	var height_pixels: float = Utils.to_pixels(height_wc3) / 2
+
 #	If a tween is already running, complete it instantly
 #	before starting new one.
 	if _height_tween != null:
@@ -100,10 +106,10 @@ func adjust_height(height: float, speed: float):
 
 	_height_tween = create_tween()
 
-	var duration: float = abs(height / speed)
+	var duration: float = abs(height_pixels / speed)
 
 	_height_tween.tween_property(_visual, "position",
-		Vector2(_visual.position.x, _visual.position.y - height),
+		Vector2(_visual.position.x, _visual.position.y - height_pixels),
 		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
 func reach_portal():

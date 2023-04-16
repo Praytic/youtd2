@@ -13,6 +13,15 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var slow_base: String = String.num(_stats.slow_base * 100, 2)
+	var duration_base: String = String.num(_stats.duration_base, 2)
+	var duration_add: String = String.num(_stats.duration_add, 2)
+	var slow_add: String = String.num(_stats.slow_add * 100, 2)
+
+	return "[color=gold]Icy Touch[/color]\nSlows attacked units by %s%% for %s seconds.\n[color=orange]Level Bonus:[/color]\n+%s seconds duration\n+%s%% slow" % [slow_base, duration_base, duration_add, slow_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 

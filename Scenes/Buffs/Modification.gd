@@ -94,11 +94,11 @@ func get_tooltip_text() -> String:
 	var text: String
 	
 	if !base_is_zero && !add_is_zero:
-		text = "[color=gold]%s[/color] %s ([color=gold]%s[/color]/lvl)\n" % [format_percentage(value_base), type_string, format_percentage(level_add)]
+		text = "%s %s (%s/lvl)\n" % [format_percentage(value_base), type_string, format_percentage(level_add)]
 	elif !base_is_zero && add_is_zero:
-		text = "[color=gold]%s[/color] %s\n" % [format_percentage(value_base), type_string]
+		text = "%s %s\n" % [format_percentage(value_base), type_string]
 	elif base_is_zero && !add_is_zero:
-		text = "[color=gold]%s[/color] %s/lvl\n" % [format_percentage(level_add), type_string]
+		text = "%s %s/lvl\n" % [format_percentage(level_add), type_string]
 	else:
 		text = ""
 

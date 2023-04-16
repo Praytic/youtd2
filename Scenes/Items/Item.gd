@@ -62,6 +62,16 @@ func _init(id: int):
 	load_modifier(_modifier)
 	_item_init()
 
+	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true)
+	load_triggers(triggers_buff_type)
+	_buff_type_list.append(triggers_buff_type)
+
+
+# NOTE: override this in subclass to attach trigger handlers
+# to triggers buff passed in the argument.
+func load_triggers(_triggers_buff_type: BuffType):
+	pass
+
 
 # Override in subclass to add define the modifier that will
 # be added to carrier of the item

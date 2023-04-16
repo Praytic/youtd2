@@ -14,6 +14,12 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var armor_decrease: String = String.num(_stats.armor_decrease, 2)
+
+	return "[color=gold]Afterglow[/color]\nThe Orb has a 5%% chance to reduce armor of units it damages by %s for 5 seconds. This chance is doubled for bosses.\n[color=orange]Level Bonus:[/color]\n+0.6%% chance\n+0.25 seconds duration" % [armor_decrease]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 

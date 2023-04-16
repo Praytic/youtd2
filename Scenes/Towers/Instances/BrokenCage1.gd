@@ -11,6 +11,12 @@ func _get_tier_stats() -> Dictionary:
 		}
 
 
+func get_extra_tooltip_text() -> String:
+	var damage: String = String.num(_stats.damage * 100, 2)
+	var damage_add: String = String.num(_stats.damage_add * 100, 2)
+
+	return "[color=gold]Banish[/color]\nMagic, undead and nature creeps damaged by this tower suffer an additional %s%% of that damage as spelldamage.\n[color=orange]Level Bonus:[/color]\n+%s%% damage" % [damage, damage_add]
+
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(self, "on_damage", 1.0, 0.0)

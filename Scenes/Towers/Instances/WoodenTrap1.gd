@@ -11,6 +11,16 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var cooldown: String = String.num(_stats.cooldown, 2)
+	var max_targets: String = String.num(_stats.max_targets, 2)
+	var base_damage: String = String.num(_stats.base_damage, 2)
+	var damage_add: String = String.num(_stats.damage_add, 2)
+	var stun_duration: String = String.num(_stats.stun_duration, 2)
+
+	return "[color=gold]Activate Trap[/color]\nEvery %s seconds this tower traps %s creeps in 950 range, dealing %s spelldamage and stunning them for %s seconds.\n[color=orange]Level Bonus:[/color]\n+%s spelldamage\n-0.2 seconds cooldown" % [cooldown, max_targets, base_damage, stun_duration, damage_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_periodic_event(self, "_on_periodic", 2)
 

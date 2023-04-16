@@ -20,6 +20,12 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var stack_bonus: String = String.num(_stats.level_multiplier * 0.0005 * 100, 2)
+
+	return "[color=gold]Roar[/color]\nWhenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack damage of all towers in 420 range by 5%% for 5 seconds. If a tower has allready the roar buff the attack damage is increased by %s%% and the duration is refreshed. Stacks up to 100 times.\n[color=orange]Level Bonus:[/color]\n+%s%% attack damage" % [stack_bonus, stack_bonus]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.3, 0.0)
 

@@ -17,6 +17,16 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var spell_damage: String = String.num(_stats.spell_damage, 2)
+	var spell_damage_add: String = String.num(_stats.spell_damage_add, 2)
+	var damage_from_spells: String = String.num(_stats.buff_power / 10, 2)
+	var damage_at_15: String = String.num(_stats.spell_damage_15 - _stats.spell_damage, 2)
+	var damage_from_spells_at_15: String = String.num((_stats.buff_power_15 - _stats.buff_power) / 10, 2)
+
+	return "[color=gold]Lunar Grace[/color]\nSmites a target creep dealing %s spelldamage to it. There is a 12.5%% chance to empower the smite with lunar energy dealing %s additional spell damage, stunning the target for 0.3 seconds and making it receive %s%% more damage from spells for 2.5 seconds.\n[color=orange]Level Bonus:[/color]\n+%s inital and chanced spell damage\n+0.5%% chance\n+%s initial damage at level 15\n+%s%% spell damage received at level 15\n+0.1 seconds stun at level 25" % [spell_damage, spell_damage, damage_from_spells, spell_damage_add, damage_at_15, damage_from_spells_at_15]
+
+
 func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.caster_art = ""

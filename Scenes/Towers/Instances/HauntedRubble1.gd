@@ -13,6 +13,16 @@ func _get_tier_stats() -> Dictionary:
 }
 
 
+func get_extra_tooltip_text() -> String:
+	var chance: String = String.num(_stats.chance * 100, 2)
+	var chance_for_bosses: String = String.num(_stats.chance * 2 / 3 * 100, 2)
+	var slow_value: String = String.num(_stats.slow_value * 100, 2)
+	var chance_add: String = String.num(_stats.chance_add * 100, 2)
+	var chance_add_for_bosses: String = String.num(_stats.chance_add * 2 / 3 * 100, 2)
+
+	return "[color=gold]Atrophy[/color]\nWhen this tower attacks a creep it has a %s%% (%s%% for bosses) chance to slow it by %s%% for 5 seconds.\n[color=orange]Level Bonus:[/color]\n+%s%% (%s%% for bosses) chance" % [chance, chance_for_bosses, slow_value, chance_add, chance_add_for_bosses]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
 

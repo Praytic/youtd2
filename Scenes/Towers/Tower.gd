@@ -51,8 +51,8 @@ enum Element {
 @export var attack_sound: AudioStreamMP3
 
 const ATTACK_CD_MIN: float = 0.2
-const PROJECTILE_SPEED: int = 2000
-const BOUNCE_RANGE: int = 250
+const PROJECTILE_SPEED: int = 1000
+const BOUNCE_RANGE: int = 125
 const ITEM_COUNT_MAX: int = 1
 
 var _id: int = 0
@@ -227,10 +227,6 @@ func get_items() -> Array[Item]:
 	return _item_list
 
 
-func enable_default_sprite():
-	$DefaultSprite.show()
-
-
 # Called by TowerTooltip to get the part of the tooltip that
 # is specific to the subclass
 func on_tower_details() -> MultiboardValues:
@@ -253,6 +249,14 @@ func issue_target_order(order_type: String, target: Unit):
 	_target_order_target = target
 
 
+# TODO: implement. Also move to the "owner" class that is
+# returned by getOwner(), when owner gets implemented. Find
+# out what mystery bools are for.
+func give_gold(amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
+	GoldControl.add_gold(amount)
+
+
+
 #########################
 ###      Private      ###
 #########################
@@ -265,7 +269,7 @@ func get_specials_tooltip_text() -> String:
 	var text: String = ""
 
 	if _target_count_max > 1:
-		text += "[b][color=gold]Multishot:[/color][/b]\nAttacks up to [color=gold]%d[/color] targets at the same time.\n" % [_target_count_max]
+		text += "[b][color=gold]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % [_target_count_max]
 
 	match _attack_style:
 		AttackStyle.SPLASH:
@@ -601,13 +605,13 @@ func _get_splash_attack_tooltip_text() -> String:
 	for splash_range in splash_range_list:
 		var splash_ratio: float = _splash_map[splash_range]
 		var splash_percentage: int = floor(splash_ratio * 100)
-		text += "\t[color=gold]%d[/color] AoE: [color=gold]%d%%[/color] damage\n" % [splash_range, splash_percentage]
+		text += "\t%d AoE: %d%% damage\n" % [splash_range, splash_percentage]
 
 	return text
 
 
 func _get_bounce_attack_tooltip_text() -> String:
-	var text: String = "[color=green_yellow]Bounce attack:[/color]\n\t[color=gold]%d[/color] targets\n\t[color=gold]-%d%%[/color] damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
+	var text: String = "[color=green_yellow]Bounce attack:[/color]\n\t%d targets\n\t-%d%% damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
 
 	return text
 

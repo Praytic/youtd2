@@ -39,7 +39,7 @@ const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
 
 var selection_area2d: Area2D = null
-var _sprite_dimensions: Rect2i = Rect2i()
+var _sprite_dimensions: Vector2 = Vector2.ZERO
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -163,7 +163,7 @@ func _ready():
 	_mana = get_base_mana()
 	_health = get_overall_health()
 
-	var triggers_buff_type: BuffType = TriggersBuffType.new()
+	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true)
 	load_triggers(triggers_buff_type)
 	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
 
@@ -506,9 +506,9 @@ func _set_unit_sprite_internal(image: Image, sprite_node: Node2D):
 	area2d.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
 
 	selection_area2d = area2d
-	_sprite_dimensions = used_rect
+	_sprite_dimensions = Vector2(used_rect.size) * sprite_node.scale
 
-	_selection_visual.visual_size = used_rect.size.x
+	_selection_visual.visual_size = _sprite_dimensions.x
 
 
 func set_hovered(hovered: bool):
@@ -800,7 +800,7 @@ func get_body_part_position(body_part: String) -> Vector2:
 		return get_visual_position()
 
 	var sprite_center: Vector2 = selection_area2d.global_position
-	var sprite_height: float = float(_sprite_dimensions.size.y)
+	var sprite_height: float = float(_sprite_dimensions.y)
 
 	match body_part:
 		"head": return sprite_center - Vector2(0, sprite_height / 2)

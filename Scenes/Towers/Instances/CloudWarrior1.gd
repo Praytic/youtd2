@@ -16,6 +16,13 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var lightning_dmg: String = String.num(_stats.lightning_dmg, 2)
+	var lightning_dmg_add: String = String.num(_stats.lightning_dmg_add * 100, 2)
+
+	return "[color=gold]Lightning Strike[/color]\nWhenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target. The lightning bolt deals %s Energy damage.\n[color=orange]Level Bonus:[/color]\n+%s damage" % [lightning_dmg, lightning_dmg_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.3, 0.0)
 

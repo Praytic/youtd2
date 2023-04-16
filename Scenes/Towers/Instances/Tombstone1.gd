@@ -12,6 +12,13 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var chance_base: String = String.num(_stats.chance_base * 100, 2)
+	var chance_add: String = String.num(_stats.chance_add * 100, 2)
+
+	return "[color=gold]Tomb's Curse[/color]\nThis tower has a %s%% chance on attack to kill a non boss, non champion target immediately.\n[color=orange]Level Bonus:[/color]\n+%s%% chance" % [chance_base, chance_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", _stats.chance_base, _stats.chance_add)
 

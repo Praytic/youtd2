@@ -5,7 +5,7 @@ var preloaded_towers: Dictionary
 const towers_dir: String = "res://Scenes/Towers/Instances"
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 const PRINT_SCENE_NOT_FOUND_ERROR: bool = false
-var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
+var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Instances/PlaceholderTower.tscn")
 # var tower_props: Dictionary
 
 
@@ -68,10 +68,6 @@ func get_tower(id: int) -> Tower:
 	tower.set_script(tower_script)
 	tower.set_id(id)
 	tower._internal_tower_init()
-
-	var using_fallback_scene: bool = scene == _fallback_scene
-	if using_fallback_scene:
-		tower.enable_default_sprite()
 
 	return tower
 

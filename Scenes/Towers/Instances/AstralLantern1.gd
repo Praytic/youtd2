@@ -9,6 +9,13 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var damage_base: String = String.num(_stats.damage_base * 100, 2)
+	var damage_add: String = String.num(_stats.damage_add * 100, 2)
+
+	return "[color=gold]Light in the Dark[/color]\nDeals %s%% additional damage to invisible creeps.\n[color=orange]Level Bonus:[/color]\n+%s%% damage" % [damage_base, damage_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 

@@ -32,5 +32,5 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 		draw_texture(texture, (points_arc[index_point] / tier_scale - texture.get_size() / 2), color)
 
 
-func set_radius(value: float):
-	radius = value
+func set_radius(radius_wc3: float):
+	radius = Utils.to_pixels(radius_wc3)

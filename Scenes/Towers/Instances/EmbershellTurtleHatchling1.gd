@@ -11,6 +11,10 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	return "[color=gold]Overheat[/color]\nEach attack costs 1 mana, which is regenerated at a rate of 1 mana per second."
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "on_attack", 1.0, 0.0)
 

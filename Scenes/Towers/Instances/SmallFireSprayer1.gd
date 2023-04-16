@@ -12,6 +12,12 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var miss_chance_add: String = String.num(_stats.miss_chance_add * 100, 2)
+
+	return "[color=gold]Spray and Pray[/color]\nEach attack of this tower has a 33%% chance to miss the target.\n[color=orange]Level Bonus:[/color]\n-%s%% chance" % [miss_chance_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "on_damage", 1.0, 0.0)
 

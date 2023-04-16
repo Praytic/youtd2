@@ -14,9 +14,9 @@ const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 
 var _target: Unit = null
 var _last_known_position: Vector2 = Vector2.ZERO
-var _speed: float = 100
+var _speed: float = 50
 var _explode_on_hit: bool = true
-const CONTACT_DISTANCE: int = 30
+const CONTACT_DISTANCE: int = 15
 var _explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 var _game_scene: Node = null
 var _targeted: bool
@@ -93,11 +93,10 @@ func _ready():
 func _process(delta):
 #	Move towards target
 	var target_pos = _get_target_position()
-	var pos_diff = target_pos - position
 	var move_delta: float = _speed * delta
 	position = Isometric.vector_move_toward(position, target_pos, move_delta)
 
-	var distance: float = Isometric.vector_length(pos_diff)
+	var distance: float = Isometric.vector_distance_to(target_pos, position)
 	var reached_target = distance < CONTACT_DISTANCE
 
 	if reached_target:

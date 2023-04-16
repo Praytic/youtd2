@@ -4,6 +4,10 @@ extends Tower
 # bunch of unnecessary things.
 
 
+func get_extra_tooltip_text() -> String:
+	return "[color=gold]Wrath of the Storm - Aura[/color]\nThe enormous wrath of the dead warrior flows out of this tower undirected. So the tower only hits a random target in range each attack."
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "on_attack", 1.0, 0.0)
 

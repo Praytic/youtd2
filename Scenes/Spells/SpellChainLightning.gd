@@ -1,6 +1,6 @@
 extends SpellDummy
 
-const CHAIN_DISTANCE: float = 6900.0
+const CHAIN_DISTANCE: float = 300.0
 
 var _damage: float = 0.0
 var _chain_count: int = 0
@@ -9,9 +9,6 @@ var _chain_count: int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()
-
-	print("chain!")
-	print("_chain_count!", _chain_count)
 
 	var visited_unit_list: Array[Unit] = []
 	var current_position: Vector2 = _target_position

@@ -11,6 +11,13 @@ func _get_tier_stats() -> Dictionary:
 }
 
 
+func get_extra_tooltip_text() -> String:
+	var on_damage_chance: String = String.num(_stats.on_damage_chance * 100, 2)
+	var damage_add: String = String.num(_stats.damage_add, 2)
+
+	return "[color=gold]Frozen Spears[/color]\nHas a %s%% chance to deal 50%% more damage and stun the target for 0.5 seconds.\n[color=orange]Level Bonus:[/color]\n+%s%% damage\n+0.01 seconds" % [on_damage_chance, damage_add]
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(self, "on_damage", 0.1, 0.0)
 

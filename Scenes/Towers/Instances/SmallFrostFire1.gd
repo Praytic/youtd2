@@ -15,6 +15,16 @@ func _get_tier_stats() -> Dictionary:
 	}
 
 
+func get_extra_tooltip_text() -> String:
+	var aoe_damage: String = String.num(_stats.aoe_damage, 2)
+	var slow_value: String = String.num(_stats.slow_value / 10.0, 2)
+	var aoe_damage_add: String = String.num(_stats.aoe_damage_add, 2)
+	var slow_value_add: String = String.num(_stats.slow_value_add / 10.0, 2)
+	var slow_duration_add: String = String.num(_stats.slow_duration_add, 2)
+
+	return "[color=gold]Soul Chill[/color]\nChills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s%% for 4 seconds.\n[color=orange]Level Bonus:[/color]\n+%s damage\n+%s%% slow\n+%s seconds duration\n\nMana cost: 20, 900 range, 1s cooldown" % [aoe_damage, slow_value, aoe_damage_add, slow_value_add, slow_duration_add]
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.25, 0.002)
 

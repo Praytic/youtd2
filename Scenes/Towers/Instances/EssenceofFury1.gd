@@ -6,12 +6,20 @@ var Poisoned_heart: BuffType
 
 func _get_tier_stats() -> Dictionary:
 	return {
-		1: {bounce_count = 2, posion_damage = 25, posion_damage_add = 1, poison_duration_add = 0.1},
-		2: {bounce_count = 3, posion_damage = 75, posion_damage_add = 3, poison_duration_add = 0.2},
-		3: {bounce_count = 4, posion_damage = 150, posion_damage_add = 6, poison_duration_add = 0.3},
-		4: {bounce_count = 6, posion_damage = 300, posion_damage_add = 12, poison_duration_add = 0.4},
-		5: {bounce_count = 8, posion_damage = 625, posion_damage_add = 25, poison_duration_add = 0.5},
+		1: {bounce_count = 2, poison_damage = 25, poison_damage_add = 1, poison_duration_add = 0.1},
+		2: {bounce_count = 3, poison_damage = 75, poison_damage_add = 3, poison_duration_add = 0.2},
+		3: {bounce_count = 4, poison_damage = 150, poison_damage_add = 6, poison_duration_add = 0.3},
+		4: {bounce_count = 6, poison_damage = 300, poison_damage_add = 12, poison_duration_add = 0.4},
+		5: {bounce_count = 8, poison_damage = 625, poison_damage_add = 25, poison_duration_add = 0.5},
 	}
+
+
+func get_extra_tooltip_text() -> String:
+	var poison_damage: String = String.num(_stats.poison_damage, 2)
+	var poison_damage_add: String = String.num(_stats.poison_damage_add, 2)
+	var poison_duration_add: String = String.num(_stats.poison_duration_add, 2)
+
+	return "[color=gold]Poisoned Heart[/color]\nThis tower destroys a piece of the creep's heart on damage. The affected creep takes %s spelldamage every second for 6 seconds.\n[color=orange]Level Bonus:[/color]\n+%s poison damage\n+%s seconds poison duration" % [poison_damage, poison_damage_add, poison_duration_add]
 
 
 func load_specials(_modifier: Modifier):
@@ -42,4 +50,4 @@ func on_damage(event: Event):
 
 	var creep: Unit = event.get_target()
 
-	Poisoned_heart.apply_custom_timed(tower, creep, tower.get_level(), 6 + tower.get_level() * _stats.poison_duration_add).user_real = _stats.posion_damage + _stats.posion_damage_add * tower.get_level()
+	Poisoned_heart.apply_custom_timed(tower, creep, tower.get_level(), 6 + tower.get_level() * _stats.poison_duration_add).user_real = _stats.poison_damage + _stats.poison_damage_add * tower.get_level()
