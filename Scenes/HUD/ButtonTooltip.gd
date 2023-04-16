@@ -69,6 +69,7 @@ func _on_tower_button_mouse_entered(tower_id: int):
 	var tower: Tower = TowerManager.get_tower(tower_id)
 
 	var specials_text: String = tower.get_specials_tooltip_text()
+	specials_text = add_color_to_numbers(specials_text)
 
 	if !specials_text.is_empty():
 		_label.append_text("[color=yellow]Specials:[/color]")
@@ -110,6 +111,8 @@ func _on_item_button_mouse_entered(item_id: int):
 	var item: Item = Item.make(item_id)
 
 	var specials_text: String = item.get_specials_tooltip_text()
+	specials_text = add_color_to_numbers(specials_text)
+	
 	if !specials_text.is_empty():
 		_label.append_text("[color=yellow]Specials:[/color]")
 		_label.newline()
@@ -134,28 +137,50 @@ func _on_item_button_mouse_exited():
 	hide()
 
 
-# Adds gold color to all numbers and floats in the text.
-# Requirements:
-# space, newline, +/- before
-# space, newline, % after
+# Adds gold color to all ints and floats in the text.
 func add_color_to_numbers(text: String) -> String:
-	var split_by_space: PackedStringArray = text.split(" ")
+	var colored_text: String = text
 
-	for i in range(0, split_by_space.size()):
-		var outer_element: String = split_by_space[i]
+	var index: int = 0
+	var tag_open: String = "[color=gold]"
+	var tag_close: String = "[/color]"
+	var tag_is_opened: bool = false
 
-		var split_by_newline: PackedStringArray = outer_element.split("\n")
+	while index < colored_text.length():
+		var c: String = colored_text[index]
 
-		for j in range(0, split_by_newline.size()):
-			var element: String = split_by_newline[j]
+		if tag_is_opened:
+			var c_is_valid_part_of_number: bool = c.is_valid_int() || c == "%" || c == "s"
 
-			var need_to_color: bool = element.is_valid_int() || element.is_valid_float() || element.ends_with("%")
+			if c == ".":
+				var next_index: int = index + 1
+				var next: String
 
-			if need_to_color:
-				split_by_newline[j] = "[color=gold]%s[/color]" % element
+				if next_index < colored_text.length():
+					next = colored_text[next_index]
+				else:
+					next = ""
 
-		split_by_space[i] = "\n".join(split_by_newline)
+				var dot_is_part_of_float: bool = next.is_valid_int()
+				if !dot_is_part_of_float:
+					colored_text = colored_text.insert(index, tag_close)
+					index += tag_close.length()
+					tag_is_opened = false
+			elif !c_is_valid_part_of_number:
+				colored_text = colored_text.insert(index, tag_close)
+				index += tag_close.length()
+				tag_is_opened = false
+		else:
+			var c_is_valid_start_of_number: bool = c.is_valid_int() || c == "+" || c == "-"
 
-	var colored_text: String = " ".join(split_by_space)
+			if c_is_valid_start_of_number:
+				colored_text = colored_text.insert(index, tag_open)
+				index += tag_open.length()
+				tag_is_opened = true
+
+		index += 1
+
+	if tag_is_opened:
+		colored_text = colored_text.insert(index, tag_close)
 
 	return colored_text
