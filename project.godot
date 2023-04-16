@@ -22,6 +22,8 @@ config/log_debug_enabled=true
 config/fast_waves=false
 config/visible_spell_dummys=false
 config/dev_controls=true
+config/threaded_tower_load=false
+config/add_test_item=false
 
 [autoload]
 
@@ -35,9 +37,11 @@ Effect="*res://Singletons/Effect.gd"
 ItemManager="*res://Singletons/Managers/ItemManager.gd"
 Isometric="*res://Singletons/Isometric.gd"
 FF="*res://Singletons/FF.gd"
+EventBus="*res://Singletons/EventBus.gd"
 
 [debug]
 
+settings/stdout/verbose_stdout=true
 gdscript/warnings/return_value_discarded=false
 
 [display]
@@ -111,6 +115,10 @@ left_click={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
 ]
 }
+
+[network]
+
+limits/debugger/max_chars_per_second=1048576
 
 [physics]
 

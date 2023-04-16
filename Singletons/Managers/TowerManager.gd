@@ -19,8 +19,8 @@ func _init():
 	var tower_id_list: Array = Properties.get_tower_id_list()
 	
 	for tower_id in tower_id_list:
-		var tower_scene: PackedScene = _get_tower_scene(tower_id)
-
+		var tower_scene = _get_tower_scene(tower_id)
+	
 		preloaded_towers[tower_id] = tower_scene
 
 	# # Change the key of the tower_props dict to ID instead of Filename
@@ -47,7 +47,15 @@ func _init():
 # with scene name so this can be done automatically instead
 # of having to do it by hand in scene editor.
 func get_tower(id: int) -> Tower:
-	var scene: PackedScene = preloaded_towers[id]
+	assert(preloaded_towers.has(id), "Tower with ID [%s] should be preloaded first." % id)
+	var scene_or_callable = preloaded_towers[id]
+	var scene: PackedScene
+	if scene_or_callable is Callable:
+		scene = scene_or_callable.call()
+		preloaded_towers[id] = scene
+	else:
+		scene = scene_or_callable
+	
 	var tower = scene.instantiate()
 	var tower_script_path: String = _get_tower_script_path(id)
 	var tower_script = load(tower_script_path)
@@ -86,7 +94,9 @@ func _get_tower_script_path(id: int) -> String:
 
 # Scene filename = [name of first tier tower in family] +
 # tier For example for "Greater Shrub" = "TinyShrub3.tscn"
-func _get_tower_scene(id: int) -> PackedScene:
+func _get_tower_scene(id: int) -> Callable:
+	assert(not preloaded_towers.has(id), "Tower was already preloaded, use preloaded_towers dict instead.")
+	
 	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
 	var family_name: String = _get_family_name(id)
 	var tier: String = csv_properties[Tower.CsvProperty.TIER]
@@ -94,14 +104,12 @@ func _get_tower_scene(id: int) -> PackedScene:
 
 	var scene_exists: bool = FileAccess.file_exists(scene_path)
 	if scene_exists:
-		var scene: PackedScene = load(scene_path)
-
-		return scene
+		return Callable(func(): return load(scene_path))
 	else:
 		if PRINT_SCENE_NOT_FOUND_ERROR:
 			print_debug("No scene found for id:", id, ". Tried at path:", scene_path)
 
-		return _fallback_scene
+		return Callable(func(): return _fallback_scene)
 
 
 # Family name is the name of the first tier tower in the

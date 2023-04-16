@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/DevControls.tscn" id="3_0r5if"]
+[ext_resource type="PackedScene" uid="uid://cro8ec573upqo" path="res://Scenes/HUD/DevControls.tscn" id="3_0r5if"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4"]
 [ext_resource type="PackedScene" uid="uid://dejhjhxmq2n2s" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://durx36ipud8jw" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
@@ -201,6 +201,7 @@ offset_right = -1164.0
 offset_bottom = -200.0
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
+[connection signal="pressed" from="BuildingMenuButton" to="." method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
 [connection signal="unit_info_canceled" from="RightMenuBar" to="." method="_on_RightMenuBar_unit_info_canceled"]

@@ -31,6 +31,9 @@ func remove_tower_button(tower_id):
 
 
 func _ready():
+	await EventBus.game_scene_loaded
+	Utils.log_debug("Start loading BuildBar.")
+	
 	if not unlimited_towers:
 		builder_control.tower_built.connect(_on_Tower_built)
 		
@@ -46,6 +49,8 @@ func _ready():
 	
 	_resize_icons("M")
 	current_size = "M"
+	
+	Utils.log_debug("BuildBar has been loaded.")
 
 func _on_RightMenuBar_element_changed(element: Tower.Element):
 	current_element = element

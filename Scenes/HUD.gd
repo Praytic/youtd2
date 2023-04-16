@@ -6,6 +6,7 @@ signal stop_wave()
 
 @onready var element_buttons_parent = $MarginContainer/HBoxContainer
 @onready var _dev_controls = $DevControls
+@onready var _right_menu_bar = $RightMenuBar
 
 
 func _ready():
