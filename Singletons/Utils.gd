@@ -48,6 +48,11 @@ func sfx_on_unit(sfx_name: String, unit: Unit, body_part: String):
 
 
 func circle_polygon_set_radius(collision_polygon: CollisionPolygon2D, radius: float , angle_from = 0, angle_to = 360):
+	var radius_PIXELS: float = to_pixels(radius)
+	circle_polygon_set_radius_PIXELS(collision_polygon, radius_PIXELS, angle_from, angle_to)
+
+
+func circle_polygon_set_radius_PIXELS(collision_polygon: CollisionPolygon2D, radius: float , angle_from = 0, angle_to = 360):
 	var nb_points = radius/20
 	var points_arc = PackedVector2Array()
 	var center = collision_polygon.position
@@ -79,6 +84,12 @@ func rand_chance(chance: float) -> bool:
 
 
 func get_units_in_range(type: TargetType, center: Vector2, radius: float) -> Array[Unit]:
+	var radius_PIXELS: float = to_pixels(radius)
+
+	return get_units_in_range_PIXELS(type, center, radius_PIXELS)
+
+
+func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float) -> Array[Unit]:
 	var node_list: Array[Node] = object_container.get_children()
 
 	var filtered_node_list: Array[Node] = node_list.filter(
@@ -258,3 +269,15 @@ func _get_sfx_player() -> AudioStreamPlayer2D:
 	_game_scene.add_child(new_sfx_player)
 
 	return new_sfx_player
+
+
+func to_pixels(distance_wc3: float) -> float:
+	var distance_pixels: float = distance_wc3 * Constants.WC3_DISTANCE_TO_PIXELS
+
+	return distance_pixels
+
+
+func from_pixels(distance_pixels: float) -> float:
+	var distance: float = distance_pixels / Constants.WC3_DISTANCE_TO_PIXELS
+
+	return distance

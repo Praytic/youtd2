@@ -51,8 +51,8 @@ enum Element {
 @export var attack_sound: AudioStreamMP3
 
 const ATTACK_CD_MIN: float = 0.2
-const PROJECTILE_SPEED: int = 2000
-const BOUNCE_RANGE: int = 250
+const PROJECTILE_SPEED: int = 1000
+const BOUNCE_RANGE: int = 125
 const ITEM_COUNT_MAX: int = 1
 
 var _id: int = 0
