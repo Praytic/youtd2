@@ -249,6 +249,14 @@ func issue_target_order(order_type: String, target: Unit):
 	_target_order_target = target
 
 
+# TODO: implement. Also move to the "owner" class that is
+# returned by getOwner(), when owner gets implemented. Find
+# out what mystery bools are for.
+func give_gold(amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
+	GoldControl.add_gold(amount)
+
+
+
 #########################
 ###      Private      ###
 #########################
