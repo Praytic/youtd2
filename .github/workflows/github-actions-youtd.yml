@@ -20,6 +20,7 @@ jobs:
         fetch-depth: 0
         ssh-key: ${{ secrets.YOUTD2_ASSETS_SSH_PRIVATE_KEY }}
         submodules: recursive
+        lfs: 'true'
 
     - name: show clonned contents
       run: |
