@@ -26,12 +26,12 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2):
 		return
 
 	if !_loaded_sfx_map.has(sfx_name):
-		var sfx_stream: AudioStreamMP3 = _load_sfx(sfx_name)
+		var sfx_stream: AudioStream = _load_sfx(sfx_name)
 		_loaded_sfx_map[sfx_name] = sfx_stream
 
 	var sfx_player: AudioStreamPlayer2D = _get_sfx_player()
 
-	var sfx_stream: AudioStreamMP3 = _loaded_sfx_map[sfx_name]
+	var sfx_stream: AudioStream = _loaded_sfx_map[sfx_name]
 	sfx_player.set_stream(sfx_stream)
 	sfx_player.global_position = sfx_position
 	sfx_player.play()
@@ -236,9 +236,9 @@ func log_debug(args):
 		print("[%s] " % (Time.get_ticks_msec() / 1000.0), args)
 
 
-func _load_sfx(sfx_name: String) -> AudioStreamMP3:
-	if !sfx_name.ends_with(".mp3"):
-		print_debug("Attempted to call _load_sfx on non-mp3:", sfx_name)
+func _load_sfx(sfx_name: String) -> AudioStream:
+	if !sfx_name.ends_with(".mp3") && !sfx_name.ends_with(".wav") && !sfx_name.ends_with(".ogg"):
+		print_debug("Sfx must be mp3, wav or ogg:", sfx_name)
 
 		return AudioStreamMP3.new()
 
@@ -249,7 +249,7 @@ func _load_sfx(sfx_name: String) -> AudioStreamMP3:
 
 		return AudioStreamMP3.new()
 
-	var stream: AudioStreamMP3 = load(sfx_name)
+	var stream: AudioStream = load(sfx_name)
 
 	return stream
 
