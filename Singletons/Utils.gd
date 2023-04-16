@@ -222,7 +222,7 @@ func format_float(x: float, digits: int) -> String:
 # builds.
 func log_debug(args):
 	if FF.log_debug_enabled():
-		print(args)
+		print("[%s] " % (Time.get_ticks_msec() / 1000.0), args)
 
 
 func _load_sfx(sfx_name: String) -> AudioStreamMP3:

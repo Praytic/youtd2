@@ -11,12 +11,12 @@ var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Tower.tscn")
 
 
 func _ready():
+	Utils.log_debug("Start loading TowerManager.")
+	
 	# Merge JSON props with references to other JSON props into one
 	# var tower_props_flattened = _flattened_properties()
 	
 	# Load all tower resources to dict and associate them with tower IDs
-
-	var time_before: float = Time.get_unix_time_from_system()
 	
 	var preload_towers: bool = FF.preload_all_towers_on_startup()
 
@@ -27,11 +27,8 @@ func _ready():
 			var tower_scene: PackedScene = _get_tower_scene(tower_id)
 
 			preloaded_towers[tower_id] = tower_scene
-
-	var time_after: float = Time.get_unix_time_from_system()
-	var time_diff: float = time_after - time_before
-
-	print_debug("TowerManager._ready() time = %f" % time_diff)
+	
+	Utils.log_debug("TowerManager has loaded.")
 
 	# # Change the key of the tower_props dict to ID instead of Filename
 	# for key in tower_props_flattened:
