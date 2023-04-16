@@ -31,7 +31,7 @@ enum Category {
 # was about 200.
 const CREEP_HEALTH_MAX: float = 200.0
 const MOVE_SPEED_MIN: float = 50.0
-const MOVE_SPEED_MAX: float = 200.0
+const MOVE_SPEED_MAX: float = 2000.0
 const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
@@ -115,7 +115,7 @@ func adjust_height(height_wc3: float, speed: float):
 func reach_portal():
 	var damage_to_portal = get_damage_to_portal()
 	reached_portal.emit(damage_to_portal)
-	Utils.sfx_at_unit("res://Assets/SFX/Assets_SFX_hit_3.mp3", self)
+	Utils.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 	queue_free()
 
 #########################
