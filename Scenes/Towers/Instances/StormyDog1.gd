@@ -51,10 +51,10 @@ func on_damage(_event: Event):
 
 		if B != null:
 			if B.user_int < 100:
-				cedi_stormdog.apply(tower, U, B.get_level() + 6)
+				cedi_stormdog.apply(tower, U, B.get_level() + _stats.buff_scale)
 				B.user_int = B.user_int + 1
 			else:
 				B.refresh_duration()
 		else:
-			B = cedi_stormdog.apply(tower, U, tower.get_level() * 6)
+			B = cedi_stormdog.apply(tower, U, tower.get_level() * _stats.buff_scale)
 			B.user_int = 0

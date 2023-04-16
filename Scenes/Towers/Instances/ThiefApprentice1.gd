@@ -18,7 +18,7 @@ func _get_tier_stats() -> Dictionary:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(self, "on_damage", 1.0, 0.004)
+	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.1, 0.004)
 
 
 func load_specials(modifier: Modifier):

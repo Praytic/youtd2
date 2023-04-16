@@ -9,10 +9,10 @@ var sternbogen_holy_buff: BuffType
 func _get_tier_stats() -> Dictionary:
 	return {
 		1: {magical_sight_range = 650, mod_value = 50, mod_value_add = 2, duration = 3, duration_add = 0.12},
-		2: {magical_sight_range = 650, mod_value = 100, mod_value_add = 4, duration = 3, duration_add = 0.16},
-		3: {magical_sight_range = 650, mod_value = 150, mod_value_add = 6, duration = 4, duration_add = 0.16},
-		4: {magical_sight_range = 650, mod_value = 200, mod_value_add = 8, duration = 4, duration_add = 0.20},
-		5: {magical_sight_range = 650, mod_value = 300, mod_value_add = 10, duration = 5, duration_add = 0.20},
+		2: {magical_sight_range = 700, mod_value = 100, mod_value_add = 4, duration = 3, duration_add = 0.16},
+		3: {magical_sight_range = 750, mod_value = 150, mod_value_add = 6, duration = 4, duration_add = 0.16},
+		4: {magical_sight_range = 800, mod_value = 200, mod_value_add = 8, duration = 4, duration_add = 0.20},
+		5: {magical_sight_range = 850, mod_value = 300, mod_value_add = 10, duration = 5, duration_add = 0.20},
 	}
 
 

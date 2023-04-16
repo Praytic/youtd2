@@ -6,23 +6,21 @@ var Chainlightning: Cast
 
 func _get_tier_stats() -> Dictionary:
 	return {
-		1: {cast_data = 150, on_attack_damage = 70},
-		2: {cast_data = 560, on_attack_damage = 260},
-		3: {cast_data = 1680, on_attack_damage = 770},
-		4: {cast_data = 4000, on_attack_damage = 1840},
+		1: {chain_damage = 150, on_attack_damage = 70},
+		2: {chain_damage = 560, on_attack_damage = 260},
+		3: {chain_damage = 1680, on_attack_damage = 770},
+		4: {chain_damage = 4000, on_attack_damage = 1840},
 	}
 
 
-
 func load_triggers(triggers: BuffType):
-	# triggers.add_event_on_damage(self, "on_attack", 0.195, 0.0025)
-	triggers.add_event_on_damage(self, "on_attack", 0.995, 0.0025)
+	triggers.add_event_on_damage(self, "on_attack", 0.195, 0.0025)
 	triggers.add_event_on_damage(self, "on_damage", 1.0, 0.0)
 
 
 func tower_init():
 	Chainlightning = Cast.new("@@0@@", "chainlightning", 5.00)
-	Chainlightning.data.chain_lightning.damage = _stats.cast_data
+	Chainlightning.data.chain_lightning.damage = _stats.chain_damage
 	Chainlightning.data.chain_lightning.chain_count = 3
 
 

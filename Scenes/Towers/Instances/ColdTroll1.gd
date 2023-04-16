@@ -8,10 +8,10 @@ var cb_stun: BuffType
 
 func _get_tier_stats() -> Dictionary:
 	return {
-		1: {slow_chance = 0.30, slow = -0.07, slow_add = -0.001, slow_duration = 4.0, stun_chance = 0.10, stun_duration = 0.25, blizzard_damage = 60, blizzard_radius = 200, blizzard_wave_count = 5},
-		2: {slow_chance = 0.35, slow = -0.09, slow_add = -0.0001, slow_duration = 4.5, stun_chance = 0.15, stun_duration = 0.50, blizzard_damage = 333, blizzard_radius = 300, blizzard_wave_count = 6},
-		3: {slow_chance = 0.40, slow = -0.11, slow_add = -0.0001, slow_duration = 5.0, stun_chance = 0.20, stun_duration = 0.75, blizzard_damage = 572, blizzard_radius = 400, blizzard_wave_count = 7},
-		4: {slow_chance = 0.45, slow = -0.14, slow_add = -0.0001, slow_duration = 5.5, stun_chance = 0.25, stun_duration = 1.00, blizzard_damage = 1000, blizzard_radius = 500, blizzard_wave_count = 8},
+		1: {slow_chance = 0.30, slow = -0.07, slow_add = -0.001, slow_duration = 4.0, stun_chance = 0.10, stun_duration = 0.25, blizzard_damage = 60, blizzard_radius = 200, blizzard_wave_count = 5, damage_ratio_add = 0.1},
+		2: {slow_chance = 0.35, slow = -0.09, slow_add = -0.0001, slow_duration = 4.5, stun_chance = 0.15, stun_duration = 0.50, blizzard_damage = 333, blizzard_radius = 300, blizzard_wave_count = 6, damage_ratio_add = 0.036},
+		3: {slow_chance = 0.40, slow = -0.11, slow_add = -0.0001, slow_duration = 5.0, stun_chance = 0.20, stun_duration = 0.75, blizzard_damage = 572, blizzard_radius = 400, blizzard_wave_count = 7, damage_ratio_add = 0.033},
+		4: {slow_chance = 0.45, slow = -0.14, slow_add = -0.0001, slow_duration = 5.5, stun_chance = 0.25, stun_duration = 1.00, blizzard_damage = 1000, blizzard_radius = 500, blizzard_wave_count = 8, damage_ratio_add = 0.05},
 	}
 
 
@@ -25,7 +25,7 @@ func on_autocast(event: Event):
 	var tower: Tower = self
 
 	var u: Unit = event.get_target()
-	Troll_blizzard.point_cast_from_caster_on_point(tower, u.position.x, u.position.y, 1.00 + int(tower.get_level()) * 0.1, tower.calc_spell_crit_no_bonus())
+	Troll_blizzard.point_cast_from_caster_on_point(tower, u.position.x, u.position.y, 1.00 + int(tower.get_level()) * _stats.damage_ratio_add, tower.calc_spell_crit_no_bonus())
 
 
 
