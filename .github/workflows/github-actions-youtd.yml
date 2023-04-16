@@ -21,6 +21,10 @@ jobs:
         ssh-key: ${{ secrets.YOUTD2_ASSETS_SSH_PRIVATE_KEY }}
         submodules: recursive
 
+    - name: show clonned contents
+      run: |
+        ls -Rll
+
     - name: generate version for the build
       id: generate_version
       run: |
