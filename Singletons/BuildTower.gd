@@ -46,3 +46,7 @@ func cancel_build_mode():
 	_build_mode = false
 
 	_tower_preview.queue_free()
+
+
+func build_tower_in_progress() -> bool:
+	return _build_mode == true
