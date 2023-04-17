@@ -252,8 +252,23 @@ func issue_target_order(order_type: String, target: Unit):
 # TODO: implement. Also move to the "owner" class that is
 # returned by getOwner(), when owner gets implemented. Find
 # out what mystery bools are for.
-func give_gold(amount: int, _unit: Unit, _mystery_bool_1: bool, _mystery_bool_2: bool):
+func give_gold(amount: int, unit: Unit, show_effect: bool, show_text: bool):
 	GoldControl.add_gold(amount)
+
+	if show_text:
+		var text: String
+		if amount >= 0:
+			text = "+%d" % amount
+		else:
+			text = "-%d" % amount
+
+		var color: Color
+		if amount >= 0:
+			color = Color.GOLD
+		else:
+			color = Color.RED
+
+		Utils.display_floating_text_color(text, unit, color, 1.0)
 
 
 
