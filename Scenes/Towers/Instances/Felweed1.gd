@@ -30,7 +30,7 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 1.0, 0.0)
 
 
-func on_create():
+func on_create(_preceding_tower: Tower):
 	var tower = self
 	tower.user_int = 0
 	tower.user_int2 = 0

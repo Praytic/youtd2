@@ -31,7 +31,7 @@ func load_specials(_modifier: Modifier):
 	_set_attack_style_bounce(2, 0.0)
 
 
-func on_create():
+func on_create(_preceding_tower: Tower):
 	user_int = 0
 	
 

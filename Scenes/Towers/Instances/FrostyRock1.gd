@@ -57,7 +57,7 @@ func on_damage(event: Event):
 		tower.user_int = tower.user_int + _stats.damage_and_stun_chance
 
 
-func on_create():
+func on_create(_preceding_tower: Tower):
 	var tower: Tower = self
 
 	tower.user_int = _stats.damage_and_stun_chance

@@ -43,7 +43,7 @@ func tower_init():
 	m0ck_thief_multiboard.set_key(0, "Gold Stolen")
 
 
-func on_create():
+func on_create(_preceding_tower: Tower):
 	var tower: Tower = self
 	
 	tower.user_real = 0.0

@@ -78,7 +78,7 @@ func tower_init():
 	add_aura(aura)
 
 
-func on_create():
+func on_create(_preceding_tower: Tower):
 	var tower: Tower = self
 
 	tower.user_real = _stats.dmg

@@ -98,10 +98,8 @@ func on_attack(_event: Event):
 	set_animation_by_index(tower, 3)
 
 
-func on_create():
-#	TODO: implement event.get_preceding_tower(). Supposed to
-#	be tower from previous tier when tower is upgraded.
-	# var preceding: Tower = event.get_preceding_tower()
+func on_create(preceding_tower: Tower):
+	var preceding: Tower = preceding_tower
 	var tower: Tower = self
 	var preceding: Tower = null
 

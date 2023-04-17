@@ -81,7 +81,7 @@ func tower_init():
 	D1000_Spider_Poison.add_periodic_event(self, "D1000_Spider_Damage", 1)
 
 
-func on_create():
+func on_create(_preceding_tower: Tower):
 	var tower: Tower = self
 
 	tower.user_int = _stats.damage

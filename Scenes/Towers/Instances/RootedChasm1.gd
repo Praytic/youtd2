@@ -27,7 +27,7 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(self, "_on_damage", 0.125, 0.002)
 
 
-func on_create():
+func on_create(_preceding_tower: Tower):
 	var tower = self
 
 	#	base entangle dps
