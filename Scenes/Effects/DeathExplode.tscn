@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://b7nt8wkq2674l"]
+
+[ext_resource type="Texture2D" uid="uid://ctpc46l8ddp8n" path="res://Assets/Effects/death_explode.png" id="1_8bwr6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ut7b"]
+atlas = ExtResource("1_8bwr6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70y7o"]
+atlas = ExtResource("1_8bwr6")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mblfv"]
+atlas = ExtResource("1_8bwr6")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4y38"]
+atlas = ExtResource("1_8bwr6")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cpvjx"]
+atlas = ExtResource("1_8bwr6")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0q04q"]
+atlas = ExtResource("1_8bwr6")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmk5h"]
+atlas = ExtResource("1_8bwr6")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7j6p"]
+atlas = ExtResource("1_8bwr6")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="SpriteFrames" id="5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ut7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70y7o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mblfv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4y38")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cpvjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0q04q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmk5h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7j6p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="DeathExplode" type="AnimatedSprite2D"]
+modulate = Color(1, 0.913725, 0.25098, 0.784314)
+scale = Vector2(1.333, 1)
+sprite_frames = SubResource("5")
+frame_progress = 0.0517739

@@ -189,6 +189,12 @@ func _on_death(event: Event):
 	var bounty: float = get_bounty()
 	caster.getOwner().give_gold(floor(bounty), self, false, true)
 
+# 	Death visual
+	var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/DeathExplode.tscn", self)
+	var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.DEATH_EXPLODE_EFFECT_SIZE
+	Effect.scale_effect(effect_id, effect_scale)
+	Effect.destroy_effect(effect_id)
+
 # 	Spawn item drop
 	if Utils.rand_chance(0.5):
 		var item_id_list: Array = Properties.get_item_id_list()

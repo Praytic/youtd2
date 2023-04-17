@@ -29,3 +29,5 @@ const TILE_HEIGHT: float = 128.0
 # "Pixels" refers to pixels of raw world tiles, without
 # considering current camera zoom and other factors.
 const WC3_DISTANCE_TO_PIXELS: float = (5.5 * 256) / 700.0
+
+const DEATH_EXPLODE_EFFECT_SIZE: float = 32.0

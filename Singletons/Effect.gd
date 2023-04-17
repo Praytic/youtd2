@@ -56,6 +56,14 @@ func add_special_effect_target(effect_path: String, unit: Unit, body_part: Strin
 	return create_animated(effect_path, position.x, position.y, 0.0, 0.0)
 
 
+func scale_effect(effect_id: int, scale: float):
+	if !_effect_map.has(effect_id):
+		return
+
+	var effect = _effect_map[effect_id]
+	effect.scale *= scale
+
+
 func destroy_effect(effect_id: int):
 	if !_effect_map.has(effect_id):
 		return
