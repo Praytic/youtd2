@@ -36,6 +36,7 @@ var event_handler_map: Dictionary = {}
 # applied by aura.
 var _applied_by_aura_count: int = 0
 var _original_duration: float = 0.0
+var _cleanup_complete: bool = false
 
 
 # NOTE: buff type determines what happens when a buff is
@@ -134,23 +135,23 @@ func get_buffed_unit() -> Unit:
 
 
 func remove_buff():
-	var cleanup_event: Event = _make_buff_event(_target)
-	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
-
-	_target._remove_buff_internal(self)
-
 	var expire_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
 
-
-func purge_buff():
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
 	_target._remove_buff_internal(self)
 
+
+func purge_buff():
 	var purge_event: Event = _make_buff_event(null)
 	_call_event_handler_list(Event.Type.PURGE, purge_event)
+
+	var cleanup_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
+
+	_target._remove_buff_internal(self)
 
 
 func _add_event_handler(event_type: Event.Type, handler_object: Object, handler_function: String, chance: float, chance_level_add: float):
@@ -194,9 +195,18 @@ func _on_unit_came_in_range(handler_object: Object, handler_function: String, un
 	handler_object.call(handler_function, range_event)
 
 
+# NOTE: do not call event handlers after cleanup event.
+# Otherwise it would be possible to trigger cleanup twice by
+# killing a creep inside cleanup handler for example.
 func _call_event_handler_list(event_type: Event.Type, event: Event):
 	if !event_handler_map.has(event_type):
 		return
+
+	if _cleanup_complete:
+		return
+
+	if event_type == Event.Type.CLEANUP:
+		_cleanup_complete = true
 
 	event._buff = self
 
