@@ -12,6 +12,11 @@ var _hovered_unit: Unit = null
 var _selected_unit: Unit = null
 
 
+func set_selected_unit(unit: Unit):
+	_selected_unit = unit
+	selected_unit_changed.emit()
+
+
 func get_selected_unit() -> Unit:
 	return _selected_unit
 

@@ -72,6 +72,9 @@ var _visual_only: bool = false
 var _item_list: Array[Item] = []
 var _item_oil_list: Array[Item] = []
 var _specials_modifier: Modifier = Modifier.new()
+# NOTE: preceding tower reference is valid only during
+# creation. It is also always null for first tier towers.
+var _temp_preceding_tower: Tower = null
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -113,10 +116,31 @@ func _ready():
 
 	_default_projectile_type = ProjectileType.create("", 0.0, PROJECTILE_SPEED)
 
+# 	Carry over some properties and all items from preceding
+# 	tower
+	if _temp_preceding_tower != null:
+		set_level(_temp_preceding_tower._level)
+		_experience = _temp_preceding_tower._experience
+		_kill_count = _temp_preceding_tower._kill_count
+		_best_hit = _temp_preceding_tower._best_hit
+		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
+
+		var preceding_item_list: Array = _temp_preceding_tower.get_items()
+		var preceding_oil_list: Array = _temp_preceding_tower._item_oil_list
+		var carry_over_items: Array = []
+		carry_over_items.append_array(preceding_item_list)
+		carry_over_items.append_array(preceding_oil_list)
+
+#		NOTE: don't use Tower.remove_item() here because
+#		it deletes the item.
+		for item in carry_over_items:
+			item.remove_from_tower()
+			add_item(item)
+
 	add_modifier(_specials_modifier)
 
 	tower_init()
-	on_create()
+	on_create(_temp_preceding_tower)
 
 	_on_modify_property()
 
@@ -126,6 +150,8 @@ func _ready():
 
 	selected.connect(on_selected)
 	unselected.connect(on_unselected)
+
+	_temp_preceding_tower = null
 
 
 # NOTE: need to do attack timing without Timer because Timer
@@ -308,7 +334,7 @@ func load_specials(_modifier: Modifier):
 # Override this in tower subclass to implement the "On Tower
 # Creation" trigger. This is the analog of "onCreate"
 # function from original API.
-func on_create():
+func on_create(_preceding_tower: Tower):
 	pass
 
 
