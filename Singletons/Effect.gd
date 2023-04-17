@@ -73,8 +73,8 @@ func destroy_effect(effect_id: int):
 # 	NOTE: destroy effect after animation is finished so that
 # 	this function can be used to create an effect that is
 # 	destroyed after it's done animating
-	effect.animation_finished.connect(_on_effect_animation_finished.bind(effect, effect_id))
-	effect.animation_looped.connect(_on_effect_animation_finished.bind(effect, effect_id))
+	effect.animation_finished.connect(_on_effect_animation_finished.bind(effect_id))
+	effect.animation_looped.connect(_on_effect_animation_finished.bind(effect_id))
 
 
 # TODO: implement, no idea what this is supposed to do
@@ -94,8 +94,9 @@ func _make_effect_id() -> int:
 		return id
 
 
-func _on_effect_animation_finished(effect, effect_id: int):
-	_effect_map.erase(effect)
+func _on_effect_animation_finished(effect_id: int):
+	var effect: Node2D = _effect_map[effect_id]
+	_effect_map.erase(effect_id)
 	effect.queue_free()
 
 	_free_id_list.append(effect_id)
