@@ -22,6 +22,12 @@ func add_object_to_world(object: Node):
 func play_sfx(sfx_name: String):
 	var sfx_player: AudioStreamPlayer = _get_sfx_player()
 	var sfx_stream: AudioStream = _get_sfx(sfx_name)
+
+	var invalid_sfx: bool = sfx_stream.get_length() == 0
+
+	if invalid_sfx:
+		return
+
 	sfx_player.set_stream(sfx_stream)
 	sfx_player.play()
 
@@ -29,6 +35,12 @@ func play_sfx(sfx_name: String):
 func sfx_at_pos(sfx_name: String, sfx_position: Vector2):
 	var sfx_player: AudioStreamPlayer2D = _get_2d_sfx_player()
 	var sfx_stream: AudioStream = _get_sfx(sfx_name)
+
+	var invalid_sfx: bool = sfx_stream.get_length() == 0
+
+	if invalid_sfx:
+		return
+
 	sfx_player.set_stream(sfx_stream)
 	sfx_player.global_position = sfx_position
 	sfx_player.play()
