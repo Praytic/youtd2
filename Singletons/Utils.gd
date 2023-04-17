@@ -145,15 +145,20 @@ func sort_unit_list_by_distance(unit_list: Array, position: Vector2):
 	unit_list.sort_custom(Callable(sorter,"sort"))
 
 
-# TODO: figure out what are the mystery float parameters,
-# probably related to tween
-func display_floating_text_x(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, color_a: int, _mystery_float_1: float, _mystery_float_2: float, time: float):
+func display_floating_text_color(text: String, unit: Unit, color: Color, time: float):
 	var floating_text = floating_text_scene.instantiate()
 	floating_text.text = text
-	floating_text.color = Color(color_r / 255.0, color_g / 255.0, color_b / 255.0, color_a / 255.0)
+	floating_text.color = color
 	floating_text.duration = time
 	floating_text.position = unit.position
 	_floating_text_container.add_child(floating_text)
+
+
+# TODO: figure out what are the mystery float parameters,
+# probably related to tween
+func display_floating_text_x(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, color_a: int, _mystery_float_1: float, _mystery_float_2: float, time: float):
+	var color: Color = Color(color_r * 255.0, color_g * 255.0, color_b * 255.0, color_a * 255.0)
+	display_floating_text_color(text, unit, color, time)
 
 
 # TODO: implement, not sure what the difference is between this and then _x version
