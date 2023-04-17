@@ -187,7 +187,7 @@ func _on_death(event: Event):
 #	Add gold
 	var caster: Unit = event.get_target()
 	var bounty: float = get_bounty()
-	caster.getOwner().give_gold(bounty, self, false, true)
+	caster.getOwner().give_gold(floor(bounty), self, false, true)
 
 # 	Spawn item drop
 	if Utils.rand_chance(0.5):

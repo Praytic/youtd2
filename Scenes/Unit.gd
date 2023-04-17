@@ -79,6 +79,9 @@ var _selection_visual: Node = null
 var _invisible_watcher_count: int = 0
 
 
+@onready var _owner: Player = get_tree().get_root().get_node("GameScene/Player")
+
+
 #########################
 ### Code starts here  ###
 #########################
@@ -171,6 +174,13 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+
+# NOTE: for now just returning the one single player
+# instance since multiplayer isn't implemented.
+func getOwner():
+	return _owner
+
 
 # NOTE: this is a stub, used in original tower scripts but
 # not needed in godot engine.
@@ -608,7 +618,7 @@ func receive_damage(damage: float) -> bool:
 	health_changed.emit(old_health, _health)
 
 	if FF.damage_numbers():
-		Utils.display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
+		getOwner().display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
 
 	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0
 

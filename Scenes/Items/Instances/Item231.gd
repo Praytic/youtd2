@@ -20,4 +20,4 @@ func _on_periodic(event: Event):
 		tower.remove_exp_flat(2)
 		tower.getOwner().give_gold(7, tower, true, true)
 	else:
-		Utils.display_floating_text("Not enough credits!", tower, 255, 0, 0)
+		tower.getOwner().display_floating_text("Not enough credits!", tower, 255, 0, 0)

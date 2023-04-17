@@ -46,7 +46,7 @@ func on_damage(event: Event):
 	var creep: Unit = event.get_target()
 
 	sir_frost_glacier.apply_custom_timed(tower, creep, _stats.slow_value * (1 + tower.get_level() / 20.0), 3)
-	Utils.display_floating_text_x(
+	tower.getOwner().display_floating_text_x(
 		str(int(tower.user_int)) + "% Chance", tower, 50, 150, 255, 255, 0.05, 2, 3)
 
 	if tower.calc_chance(tower.user_int * 0.01) == true && !event.get_target().is_immune():

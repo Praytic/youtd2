@@ -249,31 +249,6 @@ func issue_target_order(order_type: String, target: Unit):
 	_target_order_target = target
 
 
-# TODO: Move to the "owner" class that is returned by
-# getOwner() when owner class is implemented
-func give_gold(amount: int, unit: Unit, show_effect: bool, show_text: bool):
-	GoldControl.add_gold(amount)
-
-	if show_effect:
-		Effect.create_simple_at_unit("gold effect path", unit)
-
-	if show_text:
-		var text: String
-		if amount >= 0:
-			text = "+%d" % amount
-		else:
-			text = "-%d" % amount
-
-		var color: Color
-		if amount >= 0:
-			color = Color.GOLD
-		else:
-			color = Color.RED
-
-		Utils.display_floating_text_color(text, unit, color, 1.0)
-
-
-
 #########################
 ###      Private      ###
 #########################
@@ -691,15 +666,6 @@ func get_overall_cooldown() -> float:
 # script for proof.
 func get_current_attack_speed() -> float:
 	return get_overall_cooldown()
-
-
-# TODO: i think this is supposed to return the player that
-# owns the tower? Implement later. For now implementing
-# owner's function in tower itself and returning tower from
-# getOwner()
-func getOwner():
-	return self
-
 
 func get_csv_property(csv_property: Tower.CsvProperty) -> String:
 	return TowerProperties.get_csv_property(_id, csv_property)

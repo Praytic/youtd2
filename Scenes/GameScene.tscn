@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=11 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cppyelh0uodop" path="res://Scenes/HUD.tscn" id="2"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
 [ext_resource type="PackedScene" uid="uid://dg7n0ts1qsjbg" path="res://Scenes/Landscape.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="5_pan23"]
+[ext_resource type="Script" path="res://Scenes/Player.gd" id="6_y63oe"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 
 [sub_resource type="Curve2D" id="1"]
@@ -25,6 +26,9 @@ script/source = "extends CanvasLayer
 
 [node name="GameScene" type="Node2D"]
 script = ExtResource("9")
+
+[node name="Player" type="Node" parent="."]
+script = ExtResource("6_y63oe")
 
 [node name="Map" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
