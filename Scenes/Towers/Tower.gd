@@ -249,11 +249,13 @@ func issue_target_order(order_type: String, target: Unit):
 	_target_order_target = target
 
 
-# TODO: implement. Also move to the "owner" class that is
-# returned by getOwner(), when owner gets implemented. Find
-# out what mystery bools are for.
+# TODO: Move to the "owner" class that is returned by
+# getOwner() when owner class is implemented
 func give_gold(amount: int, unit: Unit, show_effect: bool, show_text: bool):
 	GoldControl.add_gold(amount)
+
+	if show_effect:
+		Effect.create_simple_at_unit("gold effect path", unit)
 
 	if show_text:
 		var text: String
