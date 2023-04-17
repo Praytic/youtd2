@@ -44,6 +44,7 @@ var _current_path_index: int = 0
 var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
+var _corpse_scene: PackedScene = preload("res://Scenes/Creeps/CreepCorpse.tscn")
 
 @onready var _visual = $Visual
 @onready var _sprite = $Visual/Sprite2D
@@ -194,6 +195,15 @@ func _on_death(event: Event):
 	var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.DEATH_EXPLODE_EFFECT_SIZE
 	Effect.scale_effect(effect_id, effect_scale)
 	Effect.destroy_effect(effect_id)
+
+# 	Add corpse object
+#	NOTE: don't add corpse for air creeps because it would
+#	look weird for corpse to appear while creep is flying
+#	far above it.
+	if _size != Creep.Size.AIR:
+		var corpse: Node2D = _corpse_scene.instantiate()
+		corpse.position = position
+		Utils.object_container.add_child(corpse)
 
 # 	Spawn item drop
 	if Utils.rand_chance(0.5):
