@@ -1,8 +1,6 @@
 extends Node
 
 
-const _placeholder_effect_path: String = "res://Scenes/Effects/GenericMagic.tscn"
-
 # NOTE: Enable to check if any effects do not have scenes.
 # Disabling for now because at this point most effects won't
 # have scenes.
@@ -17,6 +15,7 @@ var _effect_map: Dictionary = {}
 var _free_id_list: Array = []
 
 @onready var _effects_container: Node = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("EffectsContainer")
+var _placeholder_effect: PackedScene = preload("res://Scenes/Effects/GenericMagic.tscn")
 
 
 func _ready():
@@ -27,21 +26,31 @@ func _ready():
 func create_animated(effect_path: String, x: float, y: float, _mystery1: float, _mystery2: float) -> int:
 	var effect_path_exists: bool = ResourceLoader.exists(effect_path)
 
-	if !effect_path_exists:
-		effect_path = _placeholder_effect_path
+	var effect_scene: PackedScene
+	if effect_path_exists:
+		effect_scene = load(effect_path)
+	else:
+		effect_scene = _placeholder_effect
 
 		if PRINT_INVALID_PATH_ERROR:
 			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
-	
-	var effect_scene = load(effect_path).instantiate()
-	effect_scene.position = Vector2(x, y)
-	_effects_container.add_child(effect_scene)
 
-	effect_scene.play()
+	var effect: Node2D = effect_scene.instantiate()
+
+	if !effect is AnimatedSprite2D:
+		print_debug("Effect scene must be AnimatedSprite2D. Effect path with problem:", effect_path, ". Using placeholder effect.")
+
+		effect.queue_free()
+		effect = _placeholder_effect.instantiate()
+
+	effect.position = Vector2(x, y)
+	_effects_container.add_child(effect)
+
+	effect.play()
 
 	var id: int = _make_effect_id()
 
-	_effect_map[id] = effect_scene
+	_effect_map[id] = effect
 
 	return id
 
