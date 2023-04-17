@@ -112,12 +112,12 @@ func _move_item_from_itembar(target_tower: Tower):
 	
 	if target_tower != null:
 		if is_oil:
-			target_tower.add_item_oil(_moved_item_id)
+			target_tower.add_item_by_id(_moved_item_id)
 			item_move_from_itembar_done.emit(true)
 			_end_move_process()
 		else:
 			if target_tower.have_item_space():
-				target_tower.add_item(_moved_item_id)
+				target_tower.add_item_by_id(_moved_item_id)
 				item_move_from_itembar_done.emit(true)
 				_end_move_process()
 			else:
@@ -139,7 +139,7 @@ func _move_item_from_tower(target_tower: Tower):
 		if target_tower.have_item_space():
 			_tower_owner_of_moved_item.remove_item(_moved_item_id)
 			_tower_owner_of_moved_item = null
-			target_tower.add_item(_moved_item_id)
+			target_tower.add_item_by_id(_moved_item_id)
 			item_move_from_tower_done.emit(true)
 			_end_move_process()
 		else:

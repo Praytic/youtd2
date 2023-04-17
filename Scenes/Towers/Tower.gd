@@ -186,26 +186,32 @@ func have_item_space() -> bool:
 	return have_space
 
 
-func add_item(item_id: int):
+func add_item_by_id(item_id: int):
 	var item: Item = Item.make(item_id)
+	add_item(item)
+
+
+func add_item(item: Item):
+	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
+
 	item.apply_to_tower(self)
-	_item_list.append(item)
 	add_child(item)
 
-	items_changed.emit()
-
-
-# TODO: when upgrade mechanic is implemented, make sure that
-# item oils are transferred to upgraded instance. Iterate
-# over _item_oil_list, add re-add oils to upgraded instance.
-func add_item_oil(item_id: int):
-	var item: Item = Item.make(item_id)
-	item.apply_to_tower(self)
-	_item_oil_list.append(item)
-	add_child(item)
+	if is_oil:
+		_item_oil_list.append(item)
+	else:
+		_item_list.append(item)
+		items_changed.emit()
 
 
 func remove_item(item_id: int):
+	var is_oil: bool = ItemProperties.get_is_oil(item_id)
+
+	if is_oil:
+		print_debug("Tried removing an oil item. Oils can't be removed.")
+
+		return
+
 	var removed_item: Item = null
 
 	for item in _item_list:
