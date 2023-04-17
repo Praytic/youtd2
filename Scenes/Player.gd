@@ -49,7 +49,8 @@ func give_gold(amount: int, unit: Unit, show_effect: bool, show_text: bool):
 	GoldControl.add_gold(amount)
 
 	if show_effect:
-		Effect.create_simple_at_unit("gold effect path", unit)
+		var effect: int = Effect.create_simple_at_unit("gold effect path", unit)
+		Effect.destroy_effect(effect)
 
 	if show_text:
 		var text: String
