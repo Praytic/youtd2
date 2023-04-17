@@ -26,3 +26,6 @@ func build_version() -> String:
 
 func minimap_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/minimap_enabled") as bool
+
+func damage_numbers() -> bool:
+	return ProjectSettings.get_setting("application/config/damage_numbers") as bool

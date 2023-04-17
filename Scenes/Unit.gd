@@ -607,7 +607,8 @@ func receive_damage(damage: float) -> bool:
 
 	health_changed.emit(old_health, _health)
 
-	Utils.display_floating_text_x(str(int(damage)), self, 255, 0, 0, 255, 0.0, 0.0, 1.0)
+	if FF.damage_numbers():
+		Utils.display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
 
 	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0
 
