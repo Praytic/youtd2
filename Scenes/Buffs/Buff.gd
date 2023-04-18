@@ -137,9 +137,6 @@ func get_buffed_unit() -> Unit:
 
 
 func remove_buff():
-	var expire_event: Event = _make_buff_event(_target)
-	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
-
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
@@ -150,10 +147,7 @@ func purge_buff():
 	var purge_event: Event = _make_buff_event(null)
 	_call_event_handler_list(Event.Type.PURGE, purge_event)
 
-	var cleanup_event: Event = _make_buff_event(_target)
-	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
-
-	_target._remove_buff_internal(self)
+	remove_buff()
 
 
 func _add_event_handler(event_type: Event.Type, handler_object: Object, handler_function: String, chance: float, chance_level_add: float):
@@ -226,6 +220,9 @@ func _call_event_handler_list(event_type: Event.Type, event: Event):
 
 
 func _on_timer_timeout():
+	var expire_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.EXPIRE, expire_event)
+
 	remove_buff()
 
 
