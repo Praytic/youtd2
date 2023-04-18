@@ -110,3 +110,23 @@ func _set_selling_for_real(value: bool):
 		_reset_sell_button_timer.start(SELL_BUTTON_RESET_TIME)
 	else:
 		_reset_sell_button_timer.stop()
+
+
+func _on_info_button_mouse_entered():
+	var tower: Tower = SelectUnit.get_selected_unit() as Tower
+	var tower_id: int = tower.get_id()
+	EventBus.emit_tower_button_mouse_entered(tower_id)
+
+
+func _on_info_button_mouse_exited():
+	EventBus.emit_tower_button_mouse_exited()
+
+
+func _on_upgrade_button_mouse_entered():
+	var tower: Tower = SelectUnit.get_selected_unit() as Tower
+	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
+	EventBus.emit_tower_button_mouse_entered(upgrade_id)
+
+
+func _on_upgrade_button_mouse_exited():
+	EventBus.emit_tower_button_mouse_exited()

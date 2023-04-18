@@ -222,10 +222,10 @@ offset_bottom = -930.0
 
 [node name="TowerActions" parent="." instance=ExtResource("12_2t2wp")]
 layout_mode = 1
-offset_left = 1300.0
-offset_top = 900.0
-offset_right = -620.0
-offset_bottom = -180.0
+offset_left = 820.0
+offset_top = 530.0
+offset_right = -140.0
+offset_bottom = -10.0
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]

@@ -23,6 +23,10 @@ layout_mode = 2
 text = "Tower actions:
 "
 
+[node name="InfoButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Info"
+
 [node name="UpgradeButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Upgrade
@@ -34,6 +38,10 @@ text = "Sell"
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
+[connection signal="mouse_entered" from="VBoxContainer/InfoButton" to="." method="_on_info_button_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/InfoButton" to="." method="_on_info_button_mouse_exited"]
+[connection signal="mouse_entered" from="VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
+[connection signal="mouse_exited" from="VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="timeout" from="ResetSellButtonTimer" to="." method="_on_reset_sell_button_timer_timeout"]
