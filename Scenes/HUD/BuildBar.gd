@@ -30,7 +30,7 @@ func remove_tower_button(tower_id):
 
 
 func _ready():
-	Utils.log_debug("Start loading BuildBar.")
+	print_verbose("Start loading BuildBar.")
 	
 	if not unlimited_towers:
 		BuildTower.tower_built.connect(_on_Tower_built)
@@ -48,7 +48,7 @@ func _ready():
 	_resize_icons("M")
 	current_size = "M"
 	
-	Utils.log_debug("BuildBar has loaded.")
+	print_verbose("BuildBar has loaded.")
 
 func set_element(element: Tower.Element):
 	current_element = element

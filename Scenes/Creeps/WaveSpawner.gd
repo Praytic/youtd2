@@ -44,7 +44,7 @@ func _ready():
 		
 		_init_wave_creeps(wave)
 		
-		Utils.log_debug("Wave number [%s] will have creeps [%s] of race [%s] and armor type [%s]" \
+		print_verbose("Wave number [%s] will have creeps [%s] of race [%s] and armor type [%s]" \
 			% [wave_number, \
 				", ".join(creep_combination), \
 				Creep.Category.keys()[wave_race], \
@@ -61,7 +61,7 @@ func _ready():
 		
 		add_child(wave, true)
 	
-	Utils.log_debug("Waves have been initialized. Total waves: %s" % get_waves().size())
+	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())
 	
 	_timer_between_waves.start()
 
@@ -85,7 +85,7 @@ func _init_wave_creeps(wave: Wave):
 func end_current_wave():
 	var current_wave = get_current_wave()
 	
-	Utils.log_debug("Wave has ended [%s]." % current_wave)
+	print_verbose("Wave has ended [%s]." % current_wave)
 	
 	# Send events, restart the timer
 	if get_waves().is_empty():
@@ -105,7 +105,7 @@ func _on_Timer_timeout():
 	
 	spawn_wave(current_wave)
 	
-	Utils.log_debug("Wave has started [%s]." % current_wave)
+	print_verbose("Wave has started [%s]." % current_wave)
 	wave_started.emit(current_wave)
 
 
@@ -127,7 +127,7 @@ func _get_wave_path(player: int, wave: Wave) -> Path2D:
 func _on_CreepSpawner_all_creeps_spawned():
 	var current_wave = get_current_wave()
 	current_wave.state = Wave.State.SPAWNED
-	Utils.log_debug("Wave has been spawned [%s]." % current_wave)
+	print_verbose("Wave has been spawned [%s]." % current_wave)
 	wave_spawned.emit(current_wave)
 
 
@@ -142,7 +142,7 @@ func get_waves() -> Array:
 func _on_Wave_ended():
 	var current_wave = get_current_wave()
 	if current_wave.state == Wave.State.CLEARED:
-		Utils.log_debug("Wave [%s] is cleared." % current_wave)
+		print_verbose("Wave [%s] is cleared." % current_wave)
 		end_current_wave()
 	else:
 		push_error("Wave [%s] has ended but the state is invalid." % [current_wave])

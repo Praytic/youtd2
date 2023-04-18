@@ -14,9 +14,9 @@ func _ready():
 #	connected to slot in child. Leave this in for debug
 #	purposes.
 	var connection_count: int = test_signal.get_connections().size()
-	Utils.log_debug("-----\nRightMenuBar connection_count = %d" %connection_count)
+	print_verbose("-----\nRightMenuBar connection_count = %d" %connection_count)
 	if connection_count == 0:
-		Utils.log_debug("!!!!!\nconnection bug still exists\n!!!!!!")
+		print_verbose("!!!!!\nconnection bug still exists\n!!!!!!")
 
 
 func set_element(element: Tower.Element):

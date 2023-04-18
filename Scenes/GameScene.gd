@@ -11,7 +11,7 @@ var creeps_exit_count: int = 0
 
 
 func _ready():
-	Utils.log_debug("GameScene has loaded.")
+	print_verbose("GameScene has loaded.")
 
 
 func _on_HUD_start_wave(wave_index):

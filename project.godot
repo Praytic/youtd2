@@ -18,7 +18,6 @@ boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
 boot_splash/image="res://Assets/icob_ultra_wide.png"
 config/icon="res://Assets/icob_min.png"
 config/windows_native_icon="res://Assets/icob_min.ico"
-config/log_debug_enabled=true
 config/fast_waves=false
 config/visible_spell_dummys=false
 config/dev_controls=true
@@ -50,6 +49,7 @@ GoldControl="*res://Singletons/GoldControl.gd"
 
 [debug]
 
+settings/stdout/verbose_stdout=true
 gdscript/warnings/return_value_discarded=false
 
 [display]

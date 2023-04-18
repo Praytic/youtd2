@@ -11,7 +11,7 @@ var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Instances/Placeh
 
 
 func _ready():
-	Utils.log_debug("Start loading TowerManager.")
+	print_verbose("Start loading TowerManager.")
 	
 	# Merge JSON props with references to other JSON props into one
 	# var tower_props_flattened = _flattened_properties()
@@ -28,7 +28,7 @@ func _ready():
 
 			preloaded_towers[tower_id] = tower_scene
 	
-	Utils.log_debug("TowerManager has loaded.")
+	print_verbose("TowerManager has loaded.")
 
 	# # Change the key of the tower_props dict to ID instead of Filename
 	# for key in tower_props_flattened:

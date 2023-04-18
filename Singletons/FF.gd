@@ -3,9 +3,6 @@
 extends Node
 
 
-func log_debug_enabled() -> bool:
-	return ProjectSettings.get_setting("application/config/log_debug_enabled") as bool
-
 func fast_waves_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/fast_waves") as bool
 

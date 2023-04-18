@@ -60,7 +60,7 @@ func _ready():
 		var creep_scene_path = CREEP_SCENE_INSTANCES_PATHS[creep_scene_name]
 		_creep_scenes[creep_scene_name] = load(creep_scene_path)
 	
-	Utils.log_debug("Creep scenes have been loaded.")
+	print_verbose("Creep scenes have been loaded.")
 
 
 func queue_spawn_creep(creep: Creep):
@@ -70,7 +70,7 @@ func queue_spawn_creep(creep: Creep):
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
 		elif creep.get_size() == Creep.Size.NORMAL:
 			_timer_between_creeps.set_wait_time(NORMAL_SPAWN_DELAY_SEC)
-		Utils.log_debug("Start creep spawn timer with delay [%s]." % _timer_between_creeps.get_wait_time())
+		print_verbose("Start creep spawn timer with delay [%s]." % _timer_between_creeps.get_wait_time())
 		_timer_between_creeps.start()
 
 
@@ -93,13 +93,13 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
 
 func spawn_creep(creep: Creep):
 	if not creep:
-		Utils.log_debug("Stop creep spawn. Queue is exhausted.")
+		print_verbose("Stop creep spawn. Queue is exhausted.")
 		_timer_between_creeps.stop()
 		all_creeps_spawned.emit()
 		return
 	
 	Utils.add_object_to_world(creep)
-	Utils.log_debug("Creep has been spawned [%s]." % creep)
+	print_verbose("Creep has been spawned [%s]." % creep)
 
 
 func _on_Timer_timeout():
