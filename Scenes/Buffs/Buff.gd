@@ -85,6 +85,8 @@ func _ready():
 
 	tree_exiting.connect(_on_tree_exiting)
 
+	_caster.tree_exiting.connect(_on_caster_tree_exiting)
+
 	var create_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CREATE, create_event)
 
@@ -239,6 +241,15 @@ func _on_target_death(death_event: Event):
 func _on_tree_exiting():
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
+
+
+# NOTE: this will get called when caster of buff is removed
+# from world. For example, if a tower casted a slow on
+# creeps and that tower gets sold, then the debuff will get
+# removed. This must be done because some buffs can't
+# function properly without casters.
+func _on_caster_tree_exiting():
+	remove_buff()
 
 
 func _on_target_kill(event: Event):
