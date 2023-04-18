@@ -163,7 +163,8 @@ func _ready():
 	add_child(regen_timer)
 	regen_timer.start()
 
-	_mana = get_base_mana()
+#	NOTE:
+	_mana = 0
 	_health = get_overall_health()
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true)
