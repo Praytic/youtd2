@@ -83,6 +83,8 @@ func _ready():
 	_target.spell_casted.connect(_on_target_spell_casted)
 	_target.spell_targeted.connect(_on_target_spell_targeted)
 
+	tree_exiting.connect(_on_tree_exiting)
+
 	var create_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CREATE, create_event)
 
@@ -231,6 +233,13 @@ func _on_target_death(death_event: Event):
 	death_event._buff = self
 	_call_event_handler_list(Event.Type.DEATH, death_event)
 
+	var cleanup_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
+
+
+# NOTE: this will get called when queue_free() gets called
+# on target.
+func _on_tree_exiting():
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
