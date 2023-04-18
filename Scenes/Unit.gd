@@ -197,6 +197,7 @@ func add_exp_flat(amount: float):
 
 		var new_level: int = _level + 1
 		set_level(new_level)
+		level_up.emit()
 
 
 # TODO: what's the difference between add_exp_flat() and add_exp()
@@ -768,8 +769,6 @@ func set_level(new_level: int):
 #	NOTE: apply level change to modifiers
 	for modifier in _direct_modifier_list:
 		_change_modifier_level(modifier, old_level, new_level)
-
-	level_up.emit()
 
 
 func _change_modifier_level(modifier: Modifier, old_level: int, new_level: int):
