@@ -124,6 +124,10 @@ func reach_portal():
 #########################
 
 func _move(delta):
+	var path_is_over: bool = _current_path_index >= _path.get_curve().get_point_count()
+	if path_is_over:
+		return
+
 	var path_point: Vector2 = _path.get_curve().get_point_position(_current_path_index) + _path.position
 	var move_delta: float = _get_move_speed() * delta
 	position = Isometric.vector_move_toward(position, path_point, move_delta)
@@ -141,13 +145,6 @@ func _move(delta):
 	
 	if reached_path_point:
 		_current_path_index += 1
-
-#		Delete creep once it has reached the end of the path
-		var reached_end_of_path: bool = (_current_path_index >= _path.get_curve().get_point_count())
-
-		if reached_end_of_path:
-			queue_free()
-			return
 
 
 func _get_creep_animation() -> String:
