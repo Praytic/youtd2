@@ -28,4 +28,12 @@ layout_mode = 2
 text = "Upgrade
 "
 
+[node name="SellButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Sell"
+
+[node name="ResetSellButtonTimer" type="Timer" parent="."]
+
 [connection signal="pressed" from="VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="timeout" from="ResetSellButtonTimer" to="." method="_on_reset_sell_button_timer_timeout"]

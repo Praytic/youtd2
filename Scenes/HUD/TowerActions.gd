@@ -9,7 +9,14 @@ extends Control
 # TODO: feature flag that disables upgrade requirements to be able to upgrade tower any time
 
 
+const BUILD_COST_TO_SELL_PRICE: float = 0.5
+const SELL_BUTTON_RESET_TIME: float = 5.0
+
 @onready var _upgrade_button: Button = $VBoxContainer/UpgradeButton
+@onready var _sell_button: Button = $VBoxContainer/SellButton
+@onready var _reset_sell_button_timer: Timer = $ResetSellButtonTimer
+
+var _selling_for_real: bool = false
 
 
 func _ready():
@@ -25,6 +32,8 @@ func _on_selected_unit_changed():
 	if selected_unit is Tower:
 		var tower: Tower = selected_unit as Tower
 		_update_upgrade_button(tower)
+
+	_set_selling_for_real(false)
 
 
 func _on_upgrade_button_pressed():
@@ -65,3 +74,39 @@ func _update_upgrade_button(tower: Tower):
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 	var can_upgrade: bool = upgrade_id != -1
 	_upgrade_button.set_disabled(!can_upgrade)
+
+
+func _on_reset_sell_button_timer_timeout():
+	_set_selling_for_real(false)
+
+
+func _on_sell_button_pressed():
+	if !_selling_for_real:
+		_set_selling_for_real(true)
+
+		return
+
+	var tower: Tower = SelectUnit.get_selected_unit() as Tower
+	var build_cost: float = TowerProperties.get_cost(tower.get_id())
+	var sell_price: int = floor(build_cost * BUILD_COST_TO_SELL_PRICE)
+	tower.getOwner().give_gold(sell_price, tower, false, true)
+	tower.queue_free()
+
+	SelectUnit.set_selected_unit(null)
+
+
+func _set_selling_for_real(value: bool):
+	_selling_for_real = value
+
+	var sell_button_text: String
+	if _selling_for_real:
+		sell_button_text = "Sell (for real)"
+	else:
+		sell_button_text = "Sell"
+
+	_sell_button.set_text(sell_button_text)
+
+	if _selling_for_real:
+		_reset_sell_button_timer.start(SELL_BUTTON_RESET_TIME)
+	else:
+		_reset_sell_button_timer.stop()
