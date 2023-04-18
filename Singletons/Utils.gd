@@ -108,6 +108,9 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float)
 
 			var unit: Unit = node as Unit
 
+			if unit.is_dead():
+				return false
+
 			if type != null:
 				var type_match: bool = type.match(unit)
 
