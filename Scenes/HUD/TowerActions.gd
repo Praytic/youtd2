@@ -89,7 +89,7 @@ func _update_upgrade_button(tower: Tower):
 
 	var can_upgrade: bool
 	if upgrade_id != -1:
-		can_upgrade = TowerProperties.requirements_are_satisfied(upgrade_id)
+		can_upgrade = TowerProperties.requirements_are_satisfied(upgrade_id) || FF.ignore_requirements()
 	else:
 		can_upgrade = false
 

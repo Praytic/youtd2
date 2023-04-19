@@ -31,7 +31,7 @@ func _ready():
 
 
 func _on_wave_or_element_level_changed():
-	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id)
+	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id) || FF.ignore_requirements()
 
 	set_disabled(!can_build)
 

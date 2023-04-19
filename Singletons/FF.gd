@@ -26,3 +26,6 @@ func minimap_enabled() -> bool:
 
 func damage_numbers() -> bool:
 	return ProjectSettings.get_setting("application/config/damage_numbers") as bool
+
+func ignore_requirements() -> bool:
+	return ProjectSettings.get_setting("application/config/ignore_requirements") as bool
