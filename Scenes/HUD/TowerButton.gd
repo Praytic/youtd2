@@ -25,6 +25,16 @@ func _ready():
 	mouse_exited.connect(_on_mouse_exited)
 	pressed.connect(_on_pressed)
 
+	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
+	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
+	_on_wave_or_element_level_changed()
+
+
+func _on_wave_or_element_level_changed():
+	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id)
+
+	set_disabled(!can_build)
+
 
 func _draw():
 	draw_texture(tier_icon, Vector2.ZERO)

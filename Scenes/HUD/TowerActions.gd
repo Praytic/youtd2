@@ -23,6 +23,17 @@ func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	_on_selected_unit_changed()
 
+	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
+	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
+
+
+func _on_wave_or_element_level_changed():
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+
+	if selected_unit != null && selected_unit is Tower:
+		var tower: Tower = selected_unit as Tower
+		_update_upgrade_button(tower)
+
 
 func _on_selected_unit_changed():
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
@@ -75,7 +86,13 @@ func _get_upgrade_id_for_tower(tower: Tower) -> int:
 
 func _update_upgrade_button(tower: Tower):
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
-	var can_upgrade: bool = upgrade_id != -1
+
+	var can_upgrade: bool
+	if upgrade_id != -1:
+		can_upgrade = TowerProperties.requirements_are_satisfied(upgrade_id)
+	else:
+		can_upgrade = false
+
 	_upgrade_button.set_disabled(!can_upgrade)
 
 

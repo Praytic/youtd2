@@ -125,3 +125,14 @@ func get_required_element_level(tower_id: int) -> int:
 
 func get_required_wave_level(tower_id: int) -> int:
 	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
+
+
+func requirements_are_satisfied(tower_id: int) -> bool:
+	var required_wave_level: int = TowerProperties.get_required_wave_level(tower_id)
+	var required_element_level: int = TowerProperties.get_required_element_level(tower_id)
+	var element: Tower.Element = get_element(tower_id)
+	var element_research_level: int = ElementLevel.get_current(element)
+	var wave_level: int = WaveLevel.get_current()
+	var out: bool = element_research_level >= required_element_level && wave_level >= required_wave_level
+
+	return out

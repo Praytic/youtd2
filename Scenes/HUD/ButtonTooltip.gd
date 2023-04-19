@@ -96,10 +96,7 @@ func _get_tower_requirements_text(tower_id: int) -> String:
 	var required_element_level: int = TowerProperties.get_required_element_level(tower_id)
 	var element_string: String = TowerProperties.get_element_string(tower_id)
 
-	var element: Tower.Element = TowerProperties.get_element(tower_id)
-	var element_research_level: int = ElementLevel.get_current(element)
-	var wave_level: int = WaveLevel.get_current()
-	var requirements_are_satisfied: bool = element_research_level >= required_element_level && wave_level >= required_wave_level
+	var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(tower_id)
 
 	if requirements_are_satisfied:
 		return ""
