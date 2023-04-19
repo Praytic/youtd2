@@ -9,8 +9,6 @@ extends Control
 
 
 @onready var _label: RichTextLabel = $PanelContainer/RichTextLabel
-@onready var _gold_texture: Texture2D = load("res://Resources/Textures/gold.tres")
-@onready var _food_texture: Texture2D = load("res://Resources/Textures/food.tres")
 
 
 func _ready():
@@ -25,62 +23,8 @@ func _on_tower_button_mouse_entered(tower_id: int):
 
 	_label.clear()
 
-	_label.push_bold()
-	var display_name: String = TowerProperties.get_display_name(tower_id)
-	_label.append_text(display_name)
-	_label.newline()
-	_label.pop()
-
-	var cost: int = TowerProperties.get_cost(tower_id)
-	_label.add_image(_gold_texture, 32, 32)
-	_label.append_text(" [color=gold]%d[/color] " % cost)
-	_label.add_image(_food_texture, 32, 32)
-	var food: int = 0
-	_label.append_text(" [color=gold]%d[/color]" % food)
-	_label.newline()
-
-	_label.push_color(Color.LIGHT_BLUE)
-	var description: String = TowerProperties.get_description(tower_id)
-	_label.append_text(description)
-	_label.newline()
-	_label.pop()
-
-	var author: String = TowerProperties.get_author(tower_id)
-	_label.append_text("[color=yellow]Author:[/color] %s" % author)
-	_label.newline()
-
-	var element: String = TowerProperties.get_element_string(tower_id)
-	_label.append_text("[color=yellow]Element:[/color] %s" % element.capitalize())
-	_label.newline()
-
-	var damage: int = TowerProperties.get_base_damage(tower_id)
-	var cooldown: float = TowerProperties.get_base_cooldown(tower_id)
-	var dps: int = floor(damage / cooldown)
-
-	var attack_type: String = TowerProperties.get_attack_type_string(tower_id)
-
-	var attack_range: int = floor(TowerProperties.get_range(tower_id))
-
-	_label.append_text("[color=yellow]Attack:[/color] [color=gold]%d[/color] dps, %s, [color=gold]%d[/color] range" % [dps, attack_type.capitalize(), attack_range])
-	_label.newline()
-
-# 	NOTE: creating a tower instance just to get the tooltip
-# 	text is weird, but the alternatives are worse
-	var tower: Tower = TowerManager.get_tower(tower_id)
-
-	var specials_text: String = tower.get_specials_tooltip_text()
-	specials_text = add_color_to_numbers(specials_text)
-
-	if !specials_text.is_empty():
-		_label.append_text("[color=yellow]Specials:[/color]")
-		_label.newline()
-		_label.append_text(specials_text)
-		_label.newline()
-
-	var extra_text: String = tower.get_extra_tooltip_text()
-	extra_text = add_color_to_numbers(extra_text)
-	tower.queue_free()
-	_label.append_text(extra_text)
+	var tower_info_text: String = _get_tower_text(tower_id)
+	_label.append_text(tower_info_text)
 
 
 func _on_tower_button_mouse_exited():
@@ -92,57 +36,93 @@ func _on_item_button_mouse_entered(item_id: int):
 
 	_label.clear()
 
-	_label.push_bold()
-	var display_name: String = ItemProperties.get_display_name(item_id)
-	_label.append_text(display_name)
-	_label.newline()
-	_label.pop()
-
-	_label.push_color(Color.LIGHT_BLUE)
-	var description: String = ItemProperties.get_description(item_id)
-	_label.append_text(description)
-	_label.newline()
-	_label.pop()
-
-	var author: String = ItemProperties.get_author(item_id)
-	_label.append_text("[color=yellow]Author:[/color] %s" % author)
-	_label.newline()
-
-	var item: Item = Item.make(item_id)
-
-	var specials_text: String = item.get_specials_tooltip_text()
-	specials_text = add_color_to_numbers(specials_text)
-	
-	if !specials_text.is_empty():
-		_label.append_text("[color=yellow]Specials:[/color]")
-		_label.newline()
-
-		_label.append_text(specials_text)
-		_label.newline()
-
-	var extra_text: String = item.get_extra_tooltip_text()
-	extra_text = add_color_to_numbers(extra_text)
-	_label.append_text(extra_text)
-
-	var is_oil: bool = ItemProperties.get_is_oil(item_id)
-
-	if is_oil:
-		var oil_text: String = "[color=orange]Oil items are lost on use.[/color]"
-		_label.append_text(oil_text)
-
-	item.queue_free()
+	var tower_info_text: String = _get_item_text(item_id)
+	_label.append_text(tower_info_text)
 
 
 func _on_item_button_mouse_exited():
 	hide()
 
 
+func _get_tower_text(tower_id: int) -> String:
+	var text: String = ""
+
+	var display_name: String = TowerProperties.get_display_name(tower_id)
+	var cost: int = TowerProperties.get_cost(tower_id)
+	var food: int = 0
+	var description: String = TowerProperties.get_description(tower_id)
+	var author: String = TowerProperties.get_author(tower_id)
+	var element: String = TowerProperties.get_element_string(tower_id)
+	var damage: int = TowerProperties.get_base_damage(tower_id)
+	var cooldown: float = TowerProperties.get_base_cooldown(tower_id)
+	var dps: int = floor(damage / cooldown)
+	var attack_type: String = TowerProperties.get_attack_type_string(tower_id)
+	var attack_range: int = floor(TowerProperties.get_range(tower_id))
+
+# 	NOTE: creating a tower instance just to get the tooltip
+# 	text is weird, but the alternatives are worse
+	var tower: Tower = TowerManager.get_tower(tower_id)
+	var specials_text: String = tower.get_specials_tooltip_text()
+	specials_text = _add_color_to_numbers(specials_text)
+	var extra_text: String = tower.get_extra_tooltip_text()
+	extra_text = _add_color_to_numbers(extra_text)
+	tower.queue_free()
+
+	text += "[b]%s[/b]\n" % [display_name]
+	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost, food]
+	text += "[color=LIGHT_BLUE]%s[/color]\n" % [description]
+	text += "[color=YELLOW]Author:[/color] %s\n" % [author]
+	text += "[color=YELLOW]Element:[/color] %s\n" % [element.capitalize()]
+	text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type.capitalize(), attack_range]
+
+	if !specials_text.is_empty():
+		text += " \n[color=YELLOW]Specials:[/color]\n"
+		text += "%s\n" % [specials_text]
+
+	if !extra_text.is_empty():
+		text += " \n%s\n" % [extra_text]
+	
+	return text
+
+
+func _get_item_text(item_id: int) -> String:
+	var text: String = ""
+
+	var display_name: String = ItemProperties.get_display_name(item_id)
+	var description: String = ItemProperties.get_description(item_id)
+	var author: String = ItemProperties.get_author(item_id)
+	var is_oil: bool = ItemProperties.get_is_oil(item_id)
+
+	var item: Item = Item.make(item_id)
+	var specials_text: String = item.get_specials_tooltip_text()
+	specials_text = _add_color_to_numbers(specials_text)
+	var extra_text: String = item.get_extra_tooltip_text()
+	extra_text = _add_color_to_numbers(extra_text)
+	item.queue_free()
+	
+	text += "[b]%s[/b]\n" % [display_name]
+	text += "[color=LIGHT_BLUE]%s[/color]\n" % [description]
+	text += "[color=YELLOW]Author:[/color] %s\n" % [author]
+
+	if !specials_text.is_empty():
+		text += " \n[color=YELLOW]Specials:[/color]\n"
+		text += "%s\n" % [specials_text]
+
+	if !extra_text.is_empty():
+		text += " \n%s\n" % [extra_text]
+
+	if is_oil:
+		text += " \n[color=ORANGE]Oil items are lost on use.[/color]"
+	
+	return text
+
+
 # Adds gold color to all ints and floats in the text.
-func add_color_to_numbers(text: String) -> String:
+func _add_color_to_numbers(text: String) -> String:
 	var colored_text: String = text
 
 	var index: int = 0
-	var tag_open: String = "[color=gold]"
+	var tag_open: String = "[color=GOLD]"
 	var tag_close: String = "[/color]"
 	var tag_is_opened: bool = false
 
