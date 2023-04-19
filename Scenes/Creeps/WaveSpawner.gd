@@ -68,6 +68,8 @@ func _ready():
 
 func spawn_wave(new_wave: Wave):
 	new_wave.state = Wave.State.SPAWNING
+
+	WaveLevel.increment()
 	
 	for creep in new_wave.get_creeps():
 		_creep_spawner.queue_spawn_creep(creep)
