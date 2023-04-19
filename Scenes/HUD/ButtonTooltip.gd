@@ -47,6 +47,7 @@ func _on_item_button_mouse_exited():
 func _get_tower_text(tower_id: int) -> String:
 	var text: String = ""
 
+	var requirements_text: String = _get_tower_requirements_text(tower_id)
 	var display_name: String = TowerProperties.get_display_name(tower_id)
 	var cost: int = TowerProperties.get_cost(tower_id)
 	var food: int = 0
@@ -68,6 +69,9 @@ func _get_tower_text(tower_id: int) -> String:
 	extra_text = _add_color_to_numbers(extra_text)
 	tower.queue_free()
 
+	if !requirements_text.is_empty():
+		text += "%s\n" % [requirements_text]
+
 	text += "[b]%s[/b]\n" % [display_name]
 	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost, food]
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % [description]
@@ -81,6 +85,28 @@ func _get_tower_text(tower_id: int) -> String:
 
 	if !extra_text.is_empty():
 		text += " \n%s\n" % [extra_text]
+	
+	return text
+
+
+func _get_tower_requirements_text(tower_id: int) -> String:
+	var text: String = ""
+
+	var required_wave_level: int = TowerProperties.get_required_wave_level(tower_id)
+	var required_element_level: int = TowerProperties.get_required_element_level(tower_id)
+	var element_string: String = TowerProperties.get_element_string(tower_id)
+
+	var element: Tower.Element = TowerProperties.get_element(tower_id)
+	var element_research_level: int = Utils.get_element_research_level(element)
+	var wave_level: int = Utils.get_wave_level()
+	var requirements_are_satisfied: bool = element_research_level >= required_element_level && wave_level >= required_wave_level
+
+	if requirements_are_satisfied:
+		return ""
+
+	text += "[color=YELLO][b]Requirements[/b]\n"
+	text += "Wave level: %s\n" % [required_wave_level]
+	text += "%s research level: %s\n \n" % [element_string.capitalize(), required_element_level]
 	
 	return text
 

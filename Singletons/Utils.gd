@@ -13,6 +13,16 @@ var _2d_sfx_player_list: Array = []
 var _sfx_player_list: Array = []
 
 
+# TODO: move to class that stores this
+func get_wave_level() -> int:
+	return 1
+
+
+# TODO: move to class that stores this
+func get_element_research_level(_element: Tower.Element) -> int:
+	return 1
+
+
 func add_object_to_world(object: Node):
 	object_container.add_child(object, true)
 

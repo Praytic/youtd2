@@ -117,3 +117,11 @@ func get_range(tower_id: int) -> float:
 	var attack_range: float = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_RANGE).to_float()
 
 	return attack_range
+
+
+func get_required_element_level(tower_id: int) -> int:
+	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.REQUIRED_ELEMENT_LEVEL).to_int()
+
+
+func get_required_wave_level(tower_id: int) -> int:
+	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
