@@ -1,4 +1,4 @@
-extends Node
+class_name WaveSpawner extends Node
 
 
 const WAVE_COUNT_EASY = 80
@@ -139,6 +139,15 @@ func get_current_wave() -> Wave:
 
 func get_waves() -> Array:
 	return get_tree().get_nodes_in_group("wave")
+
+
+# TODO: Fix this f-n so that it returns time until next
+# wave. Currently it returns non-zero time only after creeps
+# exit the portal.
+func get_time_left() -> float:
+	var time: float = _timer_between_waves.get_time_left()
+
+	return time
 
 
 func _on_Wave_ended():

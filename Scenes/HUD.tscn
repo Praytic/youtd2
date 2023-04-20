@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cppyelh0uodop"]
+[gd_scene load_steps=23 format=3 uid="uid://cppyelh0uodop"]
 
 [ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cllrwb288kt2l" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://cb3g6yfe66prg" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="PackedScene" uid="uid://byb5t40bfgtiw" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
+[ext_resource type="PackedScene" uid="uid://cksey4vpk0fnm" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
 
 [sub_resource type="AtlasTexture" id="16"]
@@ -226,6 +227,13 @@ offset_left = 820.0
 offset_top = 530.0
 offset_right = -140.0
 offset_bottom = -10.0
+
+[node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
+layout_mode = 1
+offset_left = 30.0
+offset_top = 900.0
+offset_right = -1890.0
+offset_bottom = -180.0
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
