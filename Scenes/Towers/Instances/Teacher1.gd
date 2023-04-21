@@ -101,7 +101,6 @@ func on_attack(_event: Event):
 func on_create(preceding_tower: Tower):
 	var preceding: Tower = preceding_tower
 	var tower: Tower = self
-	var preceding: Tower = null
 
 	if preceding != null && preceding.get_family() == tower.get_family():
 		tower.user_real2 = preceding.user_real2
