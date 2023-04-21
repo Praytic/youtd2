@@ -286,6 +286,31 @@ func issue_target_order(order_type: String, target: Unit):
 #########################
 
 
+# NOTE: change color of projectile according to tower's
+# element. Note that this overrides projectile's natural color so
+# will need to rework this if we decide to make separate
+# projectile sprites for each element.
+func _make_projectile(from: Unit, target: Unit) -> Projectile:
+	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, from, target, true, false, true)
+
+	var element_color: Color
+	var element: Tower.Element = get_element()
+
+	match element:
+		Tower.Element.ICE: element_color = Color.LIGHT_BLUE
+		Tower.Element.NATURE: element_color = Color.FOREST_GREEN
+		Tower.Element.FIRE: element_color = Color.TOMATO
+		Tower.Element.ASTRAL: element_color = Color.GOLD
+		Tower.Element.DARKNESS: element_color = Color.PURPLE
+		Tower.Element.IRON: element_color = Color.SLATE_GRAY
+		Tower.Element.STORM: element_color = Color.TEAL
+		Tower.Element.NONE: element_color = Color.PINK
+
+	projectile.modulate = element_color
+
+	return projectile
+
+
 # This shouldn't be overriden in subclasses. This will
 # automatically generate a string for specials that subclass
 # defines in load_specials().
@@ -388,7 +413,7 @@ func _attack_target(target: Unit):
 	if target == null:
 		return
 
-	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, self, target, true, false, true)
+	var projectile: Projectile = _make_projectile(self, target)
 	projectile.set_event_on_target_hit(_on_projectile_target_hit)
 
 	_attack_sound.play()
@@ -570,7 +595,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: U
 	if next_target == null:
 		return
 
-	var next_projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, current_target, next_target, true, false, true)
+	var next_projectile: Projectile = _make_projectile(current_target, next_target)
 	next_projectile.set_event_on_target_hit(_on_projectile_bounce_in_progress)
 	next_projectile.user_real = next_damage
 	next_projectile.user_int = next_bounce_count

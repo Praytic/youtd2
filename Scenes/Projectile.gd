@@ -9,7 +9,7 @@ extends DummyUnit
 signal target_hit(projectile, target)
 signal interpolation_finished(projectile)
 
-const FALLBACK_PROJECTILE_SPRITE: String = "res://Resources/Sprites/Projectiles/DefaultProjectileSprite.tscn"
+const FALLBACK_PROJECTILE_SPRITE: String = "res://Scenes/Effects/ProjectileVisual.tscn"
 const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 
 var _target: Unit = null
