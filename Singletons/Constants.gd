@@ -31,3 +31,4 @@ const TILE_HEIGHT: float = 128.0
 const WC3_DISTANCE_TO_PIXELS: float = (5.5 * 256) / 700.0
 
 const DEATH_EXPLODE_EFFECT_SIZE: float = 32.0
+const LEVEL_UP_EFFECT_SIZE: float = 32.0

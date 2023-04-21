@@ -199,6 +199,13 @@ func add_exp_flat(amount: float):
 		set_level(new_level)
 		level_up.emit()
 
+		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
+		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
+		Effect.scale_effect(effect_id, effect_scale)
+		Effect.destroy_effect(effect_id)
+
+		Utils.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
+
 
 # TODO: what's the difference between add_exp_flat() and add_exp()
 func add_exp(amount: float):

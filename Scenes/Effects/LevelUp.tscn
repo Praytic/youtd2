@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://dgrextfmy1i5q"]
+
+[ext_resource type="Texture2D" uid="uid://3bw2tggb8cyu" path="res://Assets/Effects/level_up.png" id="1_ie33e"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0144r"]
+atlas = ExtResource("1_ie33e")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kkx3"]
+atlas = ExtResource("1_ie33e")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wigak"]
+atlas = ExtResource("1_ie33e")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqorv"]
+atlas = ExtResource("1_ie33e")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfoug"]
+atlas = ExtResource("1_ie33e")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imaid"]
+atlas = ExtResource("1_ie33e")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4jvm"]
+atlas = ExtResource("1_ie33e")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nl3oh"]
+atlas = ExtResource("1_ie33e")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h7nd3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0144r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6kkx3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wigak")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xqorv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yfoug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imaid")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4jvm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nl3oh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="LevelUp" type="AnimatedSprite2D"]
+scale = Vector2(1, 0.75)
+sprite_frames = SubResource("SpriteFrames_h7nd3")
+frame_progress = 0.154138
