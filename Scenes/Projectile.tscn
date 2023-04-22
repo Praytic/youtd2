@@ -1,8 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bdibpipbjyshb"]
+[gd_scene load_steps=5 format=3 uid="uid://bdibpipbjyshb"]
 
 [ext_resource type="PackedScene" uid="uid://by01sg1a1yihc" path="res://Scenes/DummyUnit.tscn" id="1_80b6v"]
 [ext_resource type="Script" path="res://Scenes/Projectile.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://cifmqgyviomde" path="res://Assets/Projectiles/projectile.png" id="3_q6yrv"]
+
+[sub_resource type="Gradient" id="Gradient_mbwhr"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Projectile" instance=ExtResource("1_80b6v")]
 z_index = 100
 script = ExtResource("2")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="0"]
+lifetime = 0.1
+texture = ExtResource("3_q6yrv")
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_mbwhr")
