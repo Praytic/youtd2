@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cppyelh0uodop"]
+[gd_scene load_steps=25 format=3 uid="uid://cppyelh0uodop"]
 
 [ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cksey4vpk0fnm" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
 [ext_resource type="Script" path="res://Scenes/ErrorMessageLabel.gd" id="14_dehgg"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
+[ext_resource type="PackedScene" uid="uid://cgwa0k4yheapl" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
 
 [sub_resource type="AtlasTexture" id="16"]
 atlas = ExtResource("4")
@@ -255,6 +256,13 @@ theme_override_font_sizes/font_size = 40
 text = "MESSAGE PLACEHOLDER"
 horizontal_alignment = 1
 script = ExtResource("14_dehgg")
+
+[node name="SelectedUnitInfo" parent="." instance=ExtResource("15_yuxef")]
+layout_mode = 1
+offset_left = 500.0
+offset_top = 700.0
+offset_right = -1420.0
+offset_bottom = -380.0
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]

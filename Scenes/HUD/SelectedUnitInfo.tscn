@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgwa0k4yheapl"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="1_wajel"]
+[ext_resource type="Script" path="res://Scenes/HUD/SelectedUnitInfo.gd" id="2_vigda"]
+
+[node name="SelectedUnitInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1920.0
+offset_bottom = -1080.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_wajel")
+script = ExtResource("2_vigda")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "PLACEHOLDE
+Unit name
+x/y health
+x/y mana"
+fit_content = true

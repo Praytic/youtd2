@@ -1007,6 +1007,9 @@ func get_base_mana_regen_bonus_percent():
 func get_overall_mana_regen():
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * (1 + get_base_mana_regen_bonus_percent())
 
+func get_health() -> float:
+	return _health
+
 func get_base_health():
 	return _base_health
 
