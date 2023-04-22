@@ -37,6 +37,8 @@ var event_handler_map: Dictionary = {}
 var _applied_by_aura_count: int = 0
 var _original_duration: float = 0.0
 var _cleanup_complete: bool = false
+var _tooltip_text: String
+var _buff_icon: String
 
 
 # NOTE: buff type determines what happens when a buff is
@@ -102,6 +104,19 @@ func refresh_duration():
 func set_remaining_duration(duration: float):
 	if _timer != null:
 		_timer.start(duration)
+
+
+func get_buff_icon() -> String:
+	return _buff_icon
+
+
+# NOTE: if no tooltip text is defined, return type name to
+# at least make it possible to identify the buff
+func get_tooltip_text() -> String:
+	if !_tooltip_text.is_empty():
+		return _tooltip_text
+	else:
+		return _type
 
 
 func get_modifier() -> Modifier:

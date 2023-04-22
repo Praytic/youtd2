@@ -21,6 +21,8 @@ var _event_handler_list: Array = []
 var _periodic_handler_list: Array = []
 var _range_handler_list: Array = []
 var _aura_type_list: Array[AuraType] = []
+var _tooltip_text: String = ""
+var _buff_icon: String = ""
 
 
 static func create_aura_effect_type(type: String, friendly: bool) -> BuffType:
@@ -44,9 +46,12 @@ func set_buff_modifier(modifier: Modifier):
 	_modifier = modifier
 
 
-# TODO: implement
-func set_buff_icon(_buff_icon: String):
-	pass
+func set_buff_tooltip(tooltip: String):
+	_tooltip_text = tooltip
+
+
+func set_buff_icon(buff_icon: String):
+	_buff_icon = buff_icon
 
 
 # Only one buff in a stacking group can be active on a unit.
@@ -93,6 +98,8 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._friendly = _friendly
 	buff._type = _type
 	buff._stacking_group = _stacking_group
+	buff._tooltip_text = _tooltip_text
+	buff._buff_icon = _buff_icon
 
 	for handler in _event_handler_list:
 		buff._add_event_handler(handler.event_type, handler.handler_object, handler.handler_function, handler.chance, handler.chance_level_add)
