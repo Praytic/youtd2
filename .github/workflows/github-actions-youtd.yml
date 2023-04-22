@@ -22,13 +22,13 @@ jobs:
         submodules: recursive
 
     - name: create LFS file list
-      working-directory: Assets
-      run: git lfs ls-files -l | cut -d' ' -f1 | sort > ../.lfs-assets-id
+      run: |
+        cd Assets
+        git lfs ls-files -l | cut -d' ' -f1 | sort > ../.lfs-assets-id
 
     - name: restore LFS cache
       uses: actions/cache@v3
       id: lfs-cache
-      working-directory: ../
       with:
         path: .git/lfs
         key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}-v1
