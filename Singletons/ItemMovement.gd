@@ -121,7 +121,7 @@ func _move_item_from_itembar(target_tower: Tower):
 				item_move_from_itembar_done.emit(true)
 				_end_move_process()
 			else:
-				target_tower.getOwner().display_static_floating_text("No space for item", target_tower, 255, 0, 0, 1.0)
+				Globals.error_message_label.add("No space for item")
 	else:
 		item_move_from_itembar_done.emit(false)
 		_end_move_process()
@@ -143,7 +143,7 @@ func _move_item_from_tower(target_tower: Tower):
 			item_move_from_tower_done.emit(true)
 			_end_move_process()
 		else:
-			target_tower.getOwner().display_static_floating_text("No space for item", target_tower, 255, 0, 0, 1.0)
+			Globals.error_message_label.add("No space for item")
 	else:
 		_tower_owner_of_moved_item.remove_item(_moved_item_id)
 		_tower_owner_of_moved_item = null
