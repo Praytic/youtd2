@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cppyelh0uodop"]
+[gd_scene load_steps=24 format=3 uid="uid://cppyelh0uodop"]
 
 [ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cb3g6yfe66prg" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="PackedScene" uid="uid://byb5t40bfgtiw" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
 [ext_resource type="PackedScene" uid="uid://cksey4vpk0fnm" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
+[ext_resource type="Script" path="res://Scenes/ErrorMessageLabel.gd" id="14_dehgg"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
 
 [sub_resource type="AtlasTexture" id="16"]
@@ -224,9 +225,9 @@ offset_bottom = -930.0
 [node name="TowerActions" parent="." instance=ExtResource("12_2t2wp")]
 layout_mode = 1
 offset_left = 820.0
-offset_top = 530.0
+offset_top = 700.0
 offset_right = -140.0
-offset_bottom = -10.0
+offset_bottom = 160.0
 
 [node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
 layout_mode = 1
@@ -234,6 +235,26 @@ offset_left = 30.0
 offset_top = 900.0
 offset_right = -1890.0
 offset_bottom = -180.0
+
+[node name="ErrorMessageLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -171.0
+offset_top = -17.0
+offset_right = 171.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7")
+theme_override_colors/font_color = Color(0.941176, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "MESSAGE PLACEHOLDER"
+horizontal_alignment = 1
+script = ExtResource("14_dehgg")
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
