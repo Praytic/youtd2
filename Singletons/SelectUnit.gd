@@ -34,7 +34,8 @@ func get_selected_unit() -> Unit:
 
 func on_unit_mouse_entered(unit: Unit):
 	_units_under_mouse_list.append(unit)
-	unit.tree_exiting.connect(on_unit_tree_exiting.bind(unit))
+	if !unit.tree_exiting.is_connected(on_unit_tree_exiting):
+		unit.tree_exiting.connect(on_unit_tree_exiting.bind(unit))
 	update_hovered_unit()
 
 
