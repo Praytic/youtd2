@@ -197,12 +197,11 @@ anchor_top = 0.0833333
 metadata/_edit_use_anchors_ = true
 
 [node name="TowerInventory" parent="." instance=ExtResource("11_hrubh")]
-visible = false
 layout_mode = 1
-offset_left = 30.0
-offset_top = 719.0
-offset_right = -1164.0
-offset_bottom = -200.0
+offset_left = 516.0
+offset_top = 832.0
+offset_right = -1004.0
+offset_bottom = -87.0
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
 show_behind_parent = true
@@ -225,17 +224,17 @@ offset_bottom = -930.0
 
 [node name="TowerActions" parent="." instance=ExtResource("12_2t2wp")]
 layout_mode = 1
-offset_left = 820.0
-offset_top = 700.0
-offset_right = -908.0
-offset_bottom = -135.0
+offset_left = 950.0
+offset_top = 800.0
+offset_right = -970.0
+offset_bottom = -280.0
 
 [node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
 layout_mode = 1
-offset_left = 30.0
-offset_top = 900.0
-offset_right = -1890.0
-offset_bottom = -180.0
+offset_left = 10.0
+offset_top = 830.0
+offset_right = -1910.0
+offset_bottom = -250.0
 
 [node name="ErrorMessageLabel" type="Label" parent="."]
 layout_mode = 1
@@ -259,10 +258,10 @@ script = ExtResource("14_dehgg")
 
 [node name="SelectedUnitInfo" parent="." instance=ExtResource("15_yuxef")]
 layout_mode = 1
-offset_left = 500.0
-offset_top = 700.0
-offset_right = -1420.0
-offset_bottom = -380.0
+offset_left = 10.0
+offset_top = 650.0
+offset_right = -1910.0
+offset_bottom = -430.0
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
