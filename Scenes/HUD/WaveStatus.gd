@@ -24,12 +24,17 @@ func _update_text():
 	
 	var text: String = ""
 
-	var next_wave_level: int = WaveLevel.get_current() + 1
-	var wave_time: int = floor(_wave_spawner.get_time_left())
-	var wave_time_minutes: int = floor(wave_time / 60.0)
-	var wave_time_seconds: int = wave_time - wave_time_minutes * 60
+	var current_wave_level: int = WaveLevel.get_current()
 
-	text += "Wave %d in %02d:%02d\n" % [next_wave_level, wave_time_minutes, wave_time_seconds]
+	if _wave_spawner.wave_is_in_progress():
+		text += "Wave %d in progress\n" % [current_wave_level]
+	else:
+		var next_wave_level: int = current_wave_level + 1
+		var wave_time: int = floor(_wave_spawner.get_time_left())
+		var wave_time_minutes: int = floor(wave_time / 60.0)
+		var wave_time_seconds: int = wave_time - wave_time_minutes * 60
+
+		text += "Wave %d in %02d:%02d\n" % [next_wave_level, wave_time_minutes, wave_time_seconds]
 
 	_label.append_text(text)
 
