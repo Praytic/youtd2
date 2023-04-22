@@ -750,7 +750,7 @@ func _remove_buff_internal(buff: Buff):
 	_buff_group_map.erase(stacking_group)
 
 	var friendly: bool = buff.is_friendly()
-	_get_buff_list(friendly).append(buff)
+	_get_buff_list(friendly).erase(buff)
 	buff.queue_free()
 
 func _on_modify_property():
