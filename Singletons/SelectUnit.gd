@@ -12,8 +12,16 @@ var _hovered_unit: Unit = null
 var _selected_unit: Unit = null
 
 
-func set_selected_unit(unit: Unit):
-	_selected_unit = unit
+func set_selected_unit(new_selected_unit: Unit):
+	var old_selected_unit: Unit = _selected_unit
+
+	if old_selected_unit != null:
+		old_selected_unit.set_selected(false)
+
+	if new_selected_unit != null:
+		new_selected_unit.set_selected(true)
+
+	_selected_unit = new_selected_unit
 	selected_unit_changed.emit()
 
 
@@ -37,10 +45,9 @@ func on_unit_mouse_exited(unit: Unit):
 # get emitted when units exit the tree because of
 # queue_free().
 func on_unit_tree_exiting(unit: Unit):
-	if _selected_unit == unit:
-		_selected_unit.set_selected(false)
-		_selected_unit = null
-		selected_unit_changed.emit()
+	var selected_unit_is_being_removed: bool = _selected_unit == unit
+	if selected_unit_is_being_removed:
+		set_selected_unit(null)
 
 	if _units_under_mouse_list.has(unit):
 		_units_under_mouse_list.erase(unit)
@@ -72,26 +79,11 @@ func _unhandled_input(event):
 	var cancel_pressed: bool = event.is_action_pressed("ui_cancel")
 
 	if cancel_pressed && _selected_unit != null:
-		_selected_unit.set_selected(false)
-		_selected_unit = null
-		selected_unit_changed.emit()
+		set_selected_unit(null)
 
 		return
 
 	var left_click: bool = event.is_action_pressed("left_click")
 
-	if !left_click:
-		return
-
-# 	NOTE: this handles both switching to new unit and
-# 	deselecting by clicking on nothing
-	var old_selected_unit: Unit = _selected_unit
-	if old_selected_unit != null:
-		old_selected_unit.set_selected(false)
-
-	var new_selected_unit: Unit = _hovered_unit
-	if new_selected_unit != null:
-		new_selected_unit.set_selected(true)
-
-	_selected_unit = new_selected_unit
-	selected_unit_changed.emit()
+	if left_click:
+		set_selected_unit(_hovered_unit)
