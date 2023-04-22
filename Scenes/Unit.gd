@@ -192,6 +192,8 @@ func set_animation_by_index(_unit: Unit, _index: int):
 func add_exp_flat(amount: float):
 	_experience += amount
 
+	var leveled_up: bool = false
+
 	if _experience >= EXP_PER_LEVEL:
 		_experience -= EXP_PER_LEVEL
 
@@ -204,7 +206,16 @@ func add_exp_flat(amount: float):
 		Effect.scale_effect(effect_id, effect_scale)
 		Effect.destroy_effect(effect_id)
 
+		var level_up_text: String = "Level %d" % _level
+		getOwner().display_floating_text_color(level_up_text, self, Color.GOLD , 1.0)
+		leveled_up = true
+
 		Utils.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
+
+
+	if !leveled_up:
+		var exp_text: String = "+%s exp" % String.num(amount, 1)
+		getOwner().display_floating_text_color(exp_text, self, Color.LIME_GREEN, 1.0)
 
 
 # TODO: what's the difference between add_exp_flat() and add_exp()
