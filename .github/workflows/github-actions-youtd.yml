@@ -4,7 +4,7 @@ on:
   push:
     # Sequence of patterns matched against refs/heads
     branches:    
-      - main
+      - test_lfs
     # Sequence of patterns matched against refs/tags
     tags:        
       - v*
@@ -20,7 +20,19 @@ jobs:
         fetch-depth: 0
         ssh-key: ${{ secrets.YOUTD2_ASSETS_SSH_PRIVATE_KEY }}
         submodules: recursive
-        lfs: 'true'
+
+    - name: create LFS file list
+      run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+
+    - name: restore LFS cache
+      uses: actions/cache@v2
+      id: lfs-cache
+      with:
+        path: .git/lfs
+        key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}-v1
+
+    - name: git LFS pull
+      run: git lfs pull
 
     - name: show clonned contents
       run: |
