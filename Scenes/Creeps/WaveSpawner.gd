@@ -4,7 +4,7 @@ class_name WaveSpawner extends Node
 const WAVE_COUNT_EASY = 80
 const WAVE_COUNT_MEDIUM = 120
 const WAVE_COUNT_HARD = 240
-var TIME_BETWEEN_WAVES: float = 5.0
+var TIME_BETWEEN_WAVES: float = 15.0
 
 
 signal wave_started(wave: Wave)
@@ -103,6 +103,10 @@ func end_current_wave():
 
 
 func _on_Timer_timeout():
+	_start_next_wave()
+
+
+func _start_next_wave():
 	var current_wave = get_current_wave()
 	
 	spawn_wave(current_wave)
@@ -148,6 +152,20 @@ func get_time_left() -> float:
 	var time: float = _timer_between_waves.get_time_left()
 
 	return time
+
+
+func wave_is_in_progress() -> float:
+	var out: bool = _timer_between_waves.is_stopped()
+
+	return out
+
+
+func force_start_next_wave():
+	if wave_is_in_progress():
+		return
+
+	_timer_between_waves.stop()
+	_start_next_wave()
 
 
 func _on_Wave_ended():

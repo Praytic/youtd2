@@ -5,13 +5,12 @@ extends Control
 # starts.
 
 
-@onready var _label: RichTextLabel = $PanelContainer/RichTextLabel
+@onready var _label: RichTextLabel = $PanelContainer/VBoxContainer/RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
 
 
 func _ready():
 	WaveLevel.changed.connect(_update_text)
-#	_wave_spawner.wave_start(_on_wave_started)
 
 	_update_text()
 
@@ -33,3 +32,13 @@ func _update_text():
 	text += "Wave %d in %02d:%02d\n" % [next_wave_level, wave_time_minutes, wave_time_seconds]
 
 	_label.append_text(text)
+
+
+
+func _on_start_next_wave_button_pressed():
+	if _wave_spawner.wave_is_in_progress():
+		Globals.error_message_label.add("Can't start next wave, wave is still in progress.")
+
+		return
+
+	_wave_spawner.force_start_next_wave()
