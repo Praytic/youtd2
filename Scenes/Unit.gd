@@ -1053,7 +1053,13 @@ func is_selected() -> bool:
 	return _selected
 
 func set_selected(selected_arg: bool):
-	_selection_visual.modulate = Color.GREEN
+	var selection_color: Color
+	if self is Creep:
+		selection_color = Color.RED
+	else:
+		selection_color = Color.GREEN
+
+	_selection_visual.modulate = selection_color
 	_selection_visual.set_visible(selected_arg)
 	_selected = selected_arg
 
