@@ -3,7 +3,7 @@ extends Node
 signal changed()
 
 
-var _wave_level: int = 0
+var _wave_level: int = 1
 
 
 func increment():
