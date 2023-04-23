@@ -151,13 +151,13 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ${{ steps.export.outputs.build_directory }}/web
 
+    - run: ls -Rll .git/lfs
+    
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
       commit_ref: ${{ env.COMMIT_REF }}
       release_flag: ${{ env.NEED }}
 
-    - run: ls -Rll .git/lfs
-    
   upload_artifacts:
     needs: export_game
     strategy:
