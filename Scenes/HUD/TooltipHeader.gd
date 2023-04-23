@@ -35,8 +35,7 @@ func set_header_unit(unit):
 		var stat = _get_stat(label, unit)
 		label.text = str(stat)
 	
-	if not unit is Tower:
-		_expand_button.hide()
+	_expand_button.set_visible(unit is Tower)
 
 	visible = unit is Tower || unit is Creep
 
