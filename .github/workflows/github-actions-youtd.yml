@@ -20,10 +20,7 @@ jobs:
         fetch-depth: 0
         ssh-key: ${{ secrets.YOUTD2_ASSETS_SSH_PRIVATE_KEY }}
         submodules: recursive
-
-    - name: install git lfs
-      run: brew install git-lfs
-
+        
     - name: create LFS file list
       run: |
         git -C Assets lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
