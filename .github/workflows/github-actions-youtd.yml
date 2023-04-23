@@ -30,22 +30,16 @@ jobs:
       uses: actions/cache@v3
       id: lfs-cache
       with:
-        path: .git/lfs
+        path: .git/modules/Assets/lfs
         key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}-v1
-
-    - run: ls -Rll .git/lfs
 
     - name: git lfs pull
       run: |
         git -C Assets lfs pull
 
-    - run: ls -Rll .git/lfs
-
     - name: show clonned contents
       run: |
         ls -Rll
-
-    - run: ls -Rll .git/lfs
 
     - name: generate version for the build
       id: generate_version
@@ -57,8 +51,6 @@ jobs:
         echo "TAG_VERSION=${latest_tag}-${short_hash}" >> $GITHUB_ENV
         echo "COMMIT_REF=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
 
-    - run: ls -Rll .git/lfs
-
     - name: release requested check
       run: |
         if [[ ${{ steps.generate_version.outputs.COMMIT_REF }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
@@ -69,8 +61,6 @@ jobs:
             echo "NEED=false" >> "$GITHUB_ENV"
             echo 'false'
         fi
-    
-    - run: ls -Rll .git/lfs
 
     - name: update project.godot with new version
       run: |
@@ -79,16 +69,12 @@ jobs:
         echo "New project.godot contents:"
         cat ${{ github.workspace }}/project.godot
 
-    - run: ls -Rll .git/lfs
-
     - name: install wine
       id: wine_install
       run: |
         brew tap homebrew/cask-versions
         brew install --cask --no-quarantine wine-stable
         echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
-    
-    - run: ls -Rll .git/lfs
 
     - name: export game
       id: export_dry_run
@@ -102,14 +88,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - run: ls -Rll .git/lfs
-
     - name: clean up after first build
       run: |
         rm -rf ${{ steps.export_dry_run.outputs.build_directory }}
         rm -rf /Users/runner/Library/Application\ Support/Godot/export_templates/4.0.2.stable
-
-    - run: ls -Rll .git/lfs
 
     - name: export game
       id: export
@@ -125,14 +107,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - run: ls -Rll .git/lfs
-
     - name: repack web artifact
       run: |
         zip -uj ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/Build/Web/*
         cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/web/
-
-    - run: ls -Rll .git/lfs
 
     - uses: actions/upload-artifact@v3
       with:
@@ -140,16 +118,12 @@ jobs:
         path: ${{ steps.export.outputs.archive_directory }}/*.zip
         if-no-files-found: error
 
-    - run: ls -Rll .git/lfs
-
     - name: deploy to github pages
       if: steps.export.outcome == 'success'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ${{ steps.export.outputs.build_directory }}/web
-
-    - run: ls -Rll .git/lfs
 
     outputs:
       tag_version: ${{ env.TAG_VERSION }}
