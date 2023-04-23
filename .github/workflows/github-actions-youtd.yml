@@ -22,8 +22,7 @@ jobs:
         submodules: recursive
 
     - name: install git lfs
-        run: |
-          brew install git-lfs
+      run: brew install git-lfs
 
     - name: create LFS file list
       run: |
