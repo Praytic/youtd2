@@ -20,7 +20,7 @@ jobs:
         fetch-depth: 0
         ssh-key: ${{ secrets.YOUTD2_ASSETS_SSH_PRIVATE_KEY }}
         submodules: recursive
-        
+
     - name: create LFS file list
       run: |
         git -C Assets lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -41,7 +41,6 @@ jobs:
 
     - name: generate version for the build
       id: generate_version
-      working-directory: ../
       run: |
         latest_tag=$(git describe --abbrev=0 --tags)
         short_hash=$(git rev-parse --short HEAD)
