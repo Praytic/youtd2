@@ -4,7 +4,7 @@ on:
   push:
     # Sequence of patterns matched against refs/heads
     branches:    
-      - test_lfs
+      - main
     # Sequence of patterns matched against refs/tags
     tags:        
       - v*
@@ -15,12 +15,27 @@ jobs:
     name: export game
     steps:
     - name: checkout
-      uses: actions/checkout@v3.0.2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         ssh-key: ${{ secrets.YOUTD2_ASSETS_SSH_PRIVATE_KEY }}
         submodules: recursive
-        lfs: 'true'
+
+    - name: create LFS file list
+      run: |
+        git -C Assets lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
+        cat .lfs-assets-id
+
+    - name: restore lfs cache
+      uses: actions/cache@v3
+      id: lfs-cache
+      with:
+        path: .git/modules/Assets/lfs
+        key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}-v1
+
+    - name: git lfs pull
+      run: |
+        git -C Assets lfs pull
 
     - name: show clonned contents
       run: |
@@ -60,7 +75,7 @@ jobs:
         brew tap homebrew/cask-versions
         brew install --cask --no-quarantine wine-stable
         echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
-    
+
     - name: export game
       id: export_dry_run
       uses: firebelley/godot-export@v5.0.0
