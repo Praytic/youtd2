@@ -25,10 +25,9 @@ jobs:
       run: brew install git-lfs
 
     - name: create LFS file list
+      working-directory: Assets
       run: |
-        cd Assets
-        git lfs ls-files -l | cut -d' ' -f1 | sort > ../.lfs-assets-id
-        cat ../.lfs-assets-id
+        git -C Assets lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
 
     - name: restore lfs cache
       uses: actions/cache@v3
@@ -38,7 +37,7 @@ jobs:
         key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}-v1
 
     - name: git lfs pull
-      run: git lfs pull
+      run: git -C Assets lfs pull
 
     - name: show clonned contents
       run: |
@@ -46,6 +45,7 @@ jobs:
 
     - name: generate version for the build
       id: generate_version
+      working-directory: ../
       run: |
         latest_tag=$(git describe --abbrev=0 --tags)
         short_hash=$(git rev-parse --short HEAD)
