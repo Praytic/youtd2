@@ -46,6 +46,10 @@ func set_buff_modifier(modifier: Modifier):
 	_modifier = modifier
 
 
+# This tooltip will be displayed when the buff is applied to
+# a unit and player hovers the mouse over the buff icon.
+# Note that this should be plain text, rich text format not
+# supported.
 func set_buff_tooltip(tooltip: String):
 	_tooltip_text = tooltip
 
