@@ -61,6 +61,8 @@ func tower_init():
 	Troll_blizzardslow.set_stacking_group("cedi_troll_blizzard")
 	Troll_blizzardslow.set_buff_icon("@@2@@")
 
+	Troll_blizzardslow.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone, it has reduced move speed.")
+
 	cb_stun = CbStun.new("cb_stun", 0, 0, false)
 
 	var autocast: Autocast = Autocast.make()

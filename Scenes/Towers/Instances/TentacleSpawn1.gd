@@ -35,6 +35,7 @@ func tower_init():
 	drol_tentacleDot.set_buff_icon("@@0@@")
 	drol_tentacleDot.add_periodic_event(self, "drol_tentacleDamage", 1)
 	drol_tentacleDot.set_buff_modifier(m)
+	drol_tentacleDot.set_buff_tooltip("Rend\nThis unit has been rended, it receives periodic damage and also takes increased spell damage.")
 
 
 func drol_tentacleDamage(event: Event):

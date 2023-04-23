@@ -37,6 +37,7 @@ func tower_init():
 	boekie_coals_buff.set_buff_modifier(m)
 	boekie_coals_buff.set_buff_icon("@@0@@")
 	boekie_coals_buff.set_stacking_group("boekie_coals")
+	boekie_coals_buff.set_buff_tooltip("Hot coals\nThis tower has increased crit chance.")
 
 
 func on_kill(_event: Event):

@@ -34,6 +34,8 @@ func tower_init():
 	velex_slow.set_buff_icon("@@0@@")
 	velex_slow.set_buff_modifier(slow)
 	velex_slow.set_stacking_group("velex_slow1")
+	
+	velex_slow.set_buff_tooltip("Atrophy\nThis unit has been weaked, it has reduced move speed.")
 
 
 func _on_attack(event: Event):

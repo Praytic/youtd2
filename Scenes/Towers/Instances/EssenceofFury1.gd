@@ -44,6 +44,8 @@ func tower_init():
 
 	Poisoned_heart.add_periodic_event(self, "deal_damage", 1)
 
+	Poisoned_heart.set_buff_tooltip("Poisoned Heart\nThis unit is poisoned and is suffering damage over time.")
+
 
 func on_damage(event: Event):
 	var tower: Tower = self

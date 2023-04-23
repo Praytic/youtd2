@@ -11,10 +11,14 @@ extends BuffType
 func _init(radius: float):
 	super("magical_sight", 0, 0, true)
 
+	set_buff_tooltip("Magical Sight\nThis unit reveals invisible units in range")
+
 	var magical_sight_debuff: BuffType = BuffType.create_aura_effect_type("magical_sight_debuff", false)
 	magical_sight_debuff.add_event_on_create(self, "on_effect_create")
 	magical_sight_debuff.set_event_on_cleanup(self, "on_effect_cleanup")
 	
+	magical_sight_debuff.set_buff_tooltip("Seen\nThis unit is within range of a tower that sees invisible units, it's invisibility has been dispelled.")
+
 	var aura_type: AuraType = AuraType.new()
 	aura_type.aura_range = radius
 	aura_type.target_type = TargetType.new(TargetType.CREEPS)

@@ -51,6 +51,8 @@ func tower_init():
 	sir_moonp_buff.set_buff_icon("'@@0@@")
 	sir_moonp_buff.set_stacking_group("sir_moonp_buff")
 
+	sir_moonp_buff.set_buff_tooltip("Lunar Energy\nThis unit receives extra spell damage.")
+
 
 func _on_autocast(event: Event):
 	var tower = self

@@ -60,10 +60,12 @@ func tower_init():
 	cedi_skinkA = BuffType.create_aura_effect_type("cedi_skinkA", true)
 	cedi_skinkA.set_buff_icon("@@0@@")
 	cedi_skinkA.add_event_on_attack(self, "poisenskin", 1.0, 0.0)
+	cedi_skinkA.set_buff_tooltip("Poisonous attack\nThis tower's attack has been enhanced with poison, it will deal extra damage over time.")
 
 	cedi_skinkB = BuffType.new("cedi_skinkB", 5.00, 0.0, false)
 	cedi_skinkB.set_buff_icon("@@1@@")
 	cedi_skinkB.add_periodic_event(self, "dot", 1.0)
+	cedi_skinkB.set_buff_tooltip("Poison\nThis unit is poisoned and is suffering damage over time.")
 
 	var aura: AuraType = AuraType.new()
 	aura.power_add = 1

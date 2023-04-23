@@ -18,9 +18,10 @@ func _item_init():
 
 	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
 	boekie_spiderling_slow = BuffType.new("boekie_spiderling_slow", 4, 0, false)
-	boekie_spiderling_slow.set_buff_icon("@@0@@") 
 	boekie_spiderling_slow.set_buff_modifier(m) 
 	boekie_spiderling_slow.set_stacking_group("boekieSpiderlingSlow")
+
+	boekie_spiderling_slow.set_buff_tooltip("Slowed\nThis unit is caught in the web, it has reduced move speed.")
 
 
 func _on_attack(event: Event):
