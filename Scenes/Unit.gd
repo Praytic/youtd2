@@ -55,7 +55,7 @@ var _buff_group_map: Dictionary
 var _friendly_buff_list: Array[Buff]
 var _unfriendly_buff_list: Array[Buff]
 var _direct_modifier_list: Array
-var _base_health: float = 0.0 : get = get_base_health, set = set_base_health
+var _base_health: float = 100.0 : get = get_base_health, set = set_base_health
 var _health: float = 0.0
 var _base_health_regen: float = 1.0
 var _mod_value_map: Dictionary = {}
@@ -163,7 +163,8 @@ func _ready():
 	add_child(regen_timer)
 	regen_timer.start()
 
-#	NOTE:
+#	NOTE: mana starts at 0 on purpose, so that newly built
+#	towers need to regene mana first before they can use it.
 	_mana = 0
 	_health = get_overall_health()
 
@@ -419,8 +420,16 @@ func modify_property(mod_type: Modification.Type, value: float):
 func _modify_property_internal(mod_type: Modification.Type, value: float, direction: int):
 	var old_health_max: float = get_overall_health()
 	var health_ratio: float = _health / old_health_max
+	if old_health_max != 0.0:
+		health_ratio = _health / old_health_max
+	else:
+		health_ratio = 0.0
 	var old_mana_max: float = get_overall_mana()
-	var mana_ratio: float = _mana / old_mana_max
+	var mana_ratio: float
+	if old_mana_max != 0.0:
+		mana_ratio = _mana / old_mana_max
+	else:
+		mana_ratio = 0.0
 
 	var current_value: float = _mod_value_map[mod_type]
 	var new_value: float = current_value + direction * value
