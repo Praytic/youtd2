@@ -19,9 +19,9 @@ const tower_families = {
 	}
 }
 
-const _ITEM_CSV_PROPERTIES_PATH = "res://Assets/item_properties.csv"
-const _TOWER_CSV_PROPERTIES_PATH = "res://Assets/tower_properties.csv"
-const _WAVE_CSV_PROPERTIES_PATH = "res://Assets/wave_properties.csv"
+const _ITEM_CSV_PROPERTIES_PATH = "res://Data/item_properties.csv"
+const _TOWER_CSV_PROPERTIES_PATH = "res://Data/tower_properties.csv"
+const _WAVE_CSV_PROPERTIES_PATH = "res://Data/wave_properties.csv"
 
 
 var _tower_csv_properties: Dictionary = {} : get = get_tower_csv_properties

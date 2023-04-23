@@ -1,20 +1,192 @@
-[gd_scene load_steps=25 format=3 uid="uid://cppyelh0uodop"]
+[gd_scene load_steps=40 format=3 uid="uid://dnv37bb7qk3kv"]
 
-[ext_resource type="PackedScene" uid="uid://ch3p0w3uw5c31" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
+[ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1_rx3ev"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_disabled.tres" id="2_6isww"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_focus.tres" id="3_m3ka5"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4"]
-[ext_resource type="PackedScene" uid="uid://dejhjhxmq2n2s" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
-[ext_resource type="PackedScene" uid="uid://durx36ipud8jw" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Assets/UI/HUD/themes/wc3_theme.tres" id="7"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_hover.tres" id="4_7j0uu"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
+[ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="5_6wrbw"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_pressed.tres" id="6_plw4p"]
+[ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="7_73hi4"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://b1wuycbxpu0op" path="res://Scenes/HUD/TowerInventory.tscn" id="11_hrubh"]
-[ext_resource type="PackedScene" uid="uid://cllrwb288kt2l" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
-[ext_resource type="PackedScene" uid="uid://cb3g6yfe66prg" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
-[ext_resource type="PackedScene" uid="uid://byb5t40bfgtiw" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
-[ext_resource type="PackedScene" uid="uid://cksey4vpk0fnm" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
 [ext_resource type="Script" path="res://Scenes/ErrorMessageLabel.gd" id="14_dehgg"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
-[ext_resource type="PackedScene" uid="uid://cgwa0k4yheapl" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
+
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("1_rx3ev")])
+face_index = null
+embolden = null
+transform = null
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/30/0/ascent = 0.0
+cache/0/30/0/descent = 0.0
+cache/0/30/0/underline_position = 0.0
+cache/0/30/0/underline_thickness = 0.0
+cache/0/30/0/scale = 1.0
+cache/0/30/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/20/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/20/0/kerning_overrides/40/0 = Vector2(0, 0)
+cache/0/40/0/ascent = 0.0
+cache/0/40/0/descent = 0.0
+cache/0/40/0/underline_position = 0.0
+cache/0/40/0/underline_thickness = 0.0
+cache/0/40/0/scale = 1.0
+cache/0/40/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/20/0 = Vector2(0, 0)
+cache/0/40/0/kerning_overrides/40/0 = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="8"]
+bg_color = Color(0.0470319, 0.0470319, 0.0664062, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="14"]
+bg_color = Color(0.0980392, 0.0980392, 0.141176, 0.45098)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.8, 0.784314, 0.0156863, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 10
+expand_margin_left = 10.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="10"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.137255, 0.133333, 0.152941, 1)
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.458824, 0.45098, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 3
+shadow_size = 2
+shadow_offset = Vector2(2, -2)
+
+[sub_resource type="StyleBoxEmpty" id="11"]
+
+[sub_resource type="StyleBoxFlat" id="12"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0980392, 0.0980392, 0.141176, 1)
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.898039, 0.882353, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 3
+shadow_size = 2
+shadow_offset = Vector2(2, -2)
+
+[sub_resource type="StyleBoxFlat" id="9"]
+bg_color = Color(0.0980392, 0.0980392, 0.141176, 1)
+border_width_top = 2
+border_width_right = 2
+border_color = Color(0.705882, 0.694118, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 3
+shadow_size = 2
+shadow_offset = Vector2(2, -2)
+
+[sub_resource type="StyleBoxFlat" id="13"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0980392, 0.0980392, 0.141176, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.898039, 0.882353, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 3
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+shadow_size = 1
+
+[sub_resource type="Theme" id="Theme_k7iw7"]
+default_font = SubResource("1")
+default_font_size = 30
+Button/colors/font_color = Color(0.878431, 0.878431, 0.878431, 0.894118)
+Button/colors/font_color_disabled = Color(0.360784, 0.360784, 0.360784, 0.517647)
+Button/colors/font_color_hover = Color(0.941176, 0.941176, 0.941176, 1)
+Button/fonts/font = SubResource("1")
+Button/styles/disabled = ExtResource("2_6isww")
+Button/styles/focus = ExtResource("3_m3ka5")
+Button/styles/hover = ExtResource("4_7j0uu")
+Button/styles/normal = ExtResource("5_6wrbw")
+Button/styles/pressed = ExtResource("6_plw4p")
+HudMarginContainer/base_type = &"MarginContainer"
+HudMarginContainer/constants/margin_left = 40
+HudMarginContainer/constants/margin_right = 40
+Icons/icons/DayTime = ExtResource("7_73hi4")
+Label/colors/font_color_shadow = Color(0, 0, 0, 1)
+Label/constants/shadow_offset_x = 2
+Label/constants/shadow_offset_y = 2
+Label/fonts/font = SubResource("1")
+ResourceTab/base_type = &"Panel"
+ResourceTab/styles/panel = SubResource("8")
+TooltipPanel/styles/panel = SubResource("14")
+TowerButton/styles/disabled = SubResource("10")
+TowerButton/styles/focus = SubResource("11")
+TowerButton/styles/hover = SubResource("12")
+TowerButton/styles/normal = SubResource("9")
+TowerButton/styles/pressed = SubResource("13")
 
 [sub_resource type="AtlasTexture" id="16"]
 atlas = ExtResource("4")
@@ -24,11 +196,11 @@ region = Rect2(448, 0, 64, 64)
 atlas = ExtResource("4")
 region = Rect2(448, 64, 64, 64)
 
-[sub_resource type="AtlasTexture" id="11"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1mww"]
 atlas = ExtResource("4")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="12"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_547un"]
 atlas = ExtResource("4")
 region = Rect2(128, 0, 64, 64)
 
@@ -36,15 +208,15 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("4")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="9"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tgqx"]
 atlas = ExtResource("4")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="13"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_70dil"]
 atlas = ExtResource("4")
 region = Rect2(384, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="14"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8eqw"]
 atlas = ExtResource("4")
 region = Rect2(256, 0, 64, 64)
 
@@ -61,7 +233,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("7")
+theme = SubResource("Theme_k7iw7")
 script = ExtResource("11")
 
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]
@@ -136,7 +308,7 @@ mouse_filter = 0
 layout_mode = 2
 theme_type_variation = &"TowerButton"
 text = "Iron"
-icon = SubResource("11")
+icon = SubResource("AtlasTexture_s1mww")
 script = ExtResource("2")
 element = 5
 
@@ -144,7 +316,7 @@ element = 5
 layout_mode = 2
 theme_type_variation = &"TowerButton"
 text = "Fire"
-icon = SubResource("12")
+icon = SubResource("AtlasTexture_547un")
 script = ExtResource("2")
 element = 2
 
@@ -160,7 +332,7 @@ element = 1
 layout_mode = 2
 theme_type_variation = &"TowerButton"
 text = "Ice"
-icon = SubResource("9")
+icon = SubResource("AtlasTexture_0tgqx")
 script = ExtResource("2")
 element = 0
 
@@ -168,7 +340,7 @@ element = 0
 layout_mode = 2
 theme_type_variation = &"TowerButton"
 text = "Storm"
-icon = SubResource("13")
+icon = SubResource("AtlasTexture_70dil")
 script = ExtResource("2")
 element = 6
 
@@ -176,7 +348,7 @@ element = 6
 layout_mode = 2
 theme_type_variation = &"TowerButton"
 text = "Darkness"
-icon = SubResource("14")
+icon = SubResource("AtlasTexture_r8eqw")
 script = ExtResource("2")
 element = 4
 
@@ -249,7 +421,7 @@ offset_right = 171.0
 offset_bottom = 110.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("7")
+theme = SubResource("Theme_k7iw7")
 theme_override_colors/font_color = Color(0.941176, 0, 0, 1)
 theme_override_font_sizes/font_size = 40
 text = "MESSAGE PLACEHOLDER"
