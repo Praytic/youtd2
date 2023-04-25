@@ -55,7 +55,7 @@ func _ready():
 	regex_search.compile("^(?!\\.).*$")
 	
 	# Load resources of creep scenes for each combination
-	# of Creep.Size and Creep.Category
+	# of CreepSize.enm and CreepCategory.enm
 	for creep_scene_name in CREEP_SCENE_INSTANCES_PATHS.keys():
 		var creep_scene_path = CREEP_SCENE_INSTANCES_PATHS[creep_scene_name]
 		_creep_scenes[creep_scene_name] = load(creep_scene_path)
@@ -66,17 +66,17 @@ func _ready():
 func queue_spawn_creep(creep: Creep):
 	_creep_spawn_queue.push_back(creep)
 	if _timer_between_creeps.is_stopped():
-		if creep.get_size() == Creep.Size.MASS:
+		if creep.get_size() == CreepSize.enm.MASS:
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
-		elif creep.get_size() == Creep.Size.NORMAL:
+		elif creep.get_size() == CreepSize.enm.NORMAL:
 			_timer_between_creeps.set_wait_time(NORMAL_SPAWN_DELAY_SEC)
 		print_verbose("Start creep spawn timer with delay [%s]." % _timer_between_creeps.get_wait_time())
 		_timer_between_creeps.start()
 
 
 func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
-	var creep_size_name = Utils.screaming_snake_case_to_camel_case(Creep.Size.keys()[creep_size])
-	var creep_race_name = Utils.screaming_snake_case_to_camel_case(Creep.Category.keys()[wave.get_race()])
+	var creep_size_name = Utils.screaming_snake_case_to_camel_case(CreepSize.enm.keys()[creep_size])
+	var creep_race_name = Utils.screaming_snake_case_to_camel_case(CreepCategory.enm.keys()[wave.get_race()])
 	var creep_scene_name = creep_race_name + creep_size_name
 	var creep = _creep_scenes[creep_scene_name].instantiate()
 	if not creep:

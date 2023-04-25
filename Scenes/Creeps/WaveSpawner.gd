@@ -27,7 +27,7 @@ func _ready():
 	var previous_wave = null
 	for wave_number in range(1, WAVE_COUNT_EASY):
 		var wave_id = randi_range(0, Properties.get_wave_csv_properties().size() - 1)
-		var wave_race = randi_range(0, Creep.Category.size() - 1)
+		var wave_race = randi_range(0, CreepCategory.enm.size() - 1)
 		var wave_armor = randi_range(0, ArmorType.enm.size() - 1)
 		
 		var wave = Wave.new()
@@ -39,7 +39,7 @@ func _ready():
 		
 		var creep_combination = []
 		for creep_size in wave.get_creeps_combination():
-			var creep_size_name = Creep.Size.keys()[creep_size]
+			var creep_size_name: String = CreepSize.convert_to_string(creep_size)
 			creep_combination.append(creep_size_name)
 		
 		_init_wave_creeps(wave)
@@ -47,8 +47,8 @@ func _ready():
 		print_verbose("Wave number [%s] will have creeps [%s] of race [%s] and armor type [%s]" \
 			% [wave_number, \
 				", ".join(creep_combination), \
-				Creep.Category.keys()[wave_race], \
-				ArmorType.enm.keys()[wave_armor]])
+				CreepCategory.convert_to_string(wave_race), \
+				ArmorType.convert_to_string(wave_armor)])
 		
 		if previous_wave:
 			previous_wave.next_wave = wave
@@ -58,7 +58,7 @@ func _ready():
 		wave.add_to_group("wave")
 		
 		wave.wave_ended.connect(Callable(self, "_on_Wave_ended"))
-		
+ 
 		add_child(wave, true)
 	
 	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())

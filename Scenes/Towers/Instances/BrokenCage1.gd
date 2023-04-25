@@ -27,6 +27,6 @@ func on_damage(event: Event):
 
 	var creep: Unit = event.get_target()
 
-	if creep.get_category() <= Creep.Category.NATURE:
+	if creep.get_category() <= CreepCategory.enm.NATURE:
 		tower.do_spell_damage(creep, event.damage * (_stats.damage + (_stats.damage_add * tower.get_level())), tower.calc_spell_crit_no_bonus())
 		Utils.sfx_at_unit("Abilities\\Spells\\NightElf\\ManaBurn\\ManaBurnTarget.mdl", creep)

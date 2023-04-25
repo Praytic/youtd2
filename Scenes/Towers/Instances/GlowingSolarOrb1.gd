@@ -52,7 +52,7 @@ func _on_damage(event: Event):
 	var creep: Unit = event.get_target()
 	var size_factor: float = 1.0
 
-	if creep.get_size() == Creep.Size.BOSS:
+	if creep.get_size() == CreepSize.enm.BOSS:
 		size_factor = 2.0
 
 	if tower.calc_chance((0.05 + lvl * 0.006) * size_factor):

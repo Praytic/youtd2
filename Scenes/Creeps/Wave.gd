@@ -25,7 +25,7 @@ enum State {
 var _creeps: Array : set = set_creeps, get = get_creeps
 var _id: int : set = set_id, get = get_id
 var _wave_number: int : set = set_wave_number, get = get_wave_number
-var _race: Creep.Category : set = set_race, get = get_race
+var _race: CreepCategory.enm : set = set_race, get = get_race
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
 #var _modifications: Array[Modification]
@@ -85,7 +85,7 @@ func get_creep_size_type() -> String:
 
 
 func get_creep_size_type_num() -> int:
-	return Creep.Size.get(get_creep_size_type().to_upper())
+	return CreepSize.from_string(get_creep_size_type())
 
 
 func get_creep_number() -> int:
@@ -96,7 +96,7 @@ func get_champion_number() -> int:
 	return get_csv_property(CsvProperty.CREEP_CHAMPION_NUMBER).to_int()
 
 
-# Returns an array of Creep.Size that should be spawned
+# Returns an array of CreepSize enm.that should be spawned
 # in the same order as they are stored in this array.
 func get_creeps_combination() -> Array:
 	var res = []
@@ -108,7 +108,7 @@ func get_creeps_combination() -> Array:
 			res.append(creep_size)
 	else:
 		var champ_rate = int(float(creep_number) / champ_number)
-		var champ_size = Creep.Size.CHAMPION
+		var champ_size = CreepSize.enm.CHAMPION
 		for i in range(0, creep_number):
 			res.append(creep_size)
 			if i % champ_rate == 0 and i != 0:
@@ -173,7 +173,7 @@ func get_wave_number() -> int:
 	return _wave_number
 
 
-func set_race(value: Creep.Category):
+func set_race(value: CreepCategory.enm):
 	_race = value
 
 
@@ -199,7 +199,7 @@ func get_base_hp() -> float:
 
 
 func is_air() -> bool:
-	return get_creep_sizes().has(Creep.Size.AIR)
+	return get_creep_sizes().has(CreepSize.enm.AIR)
 
 
 func set_creeps(creeps: Array):

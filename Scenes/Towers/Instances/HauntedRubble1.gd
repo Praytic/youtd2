@@ -44,7 +44,7 @@ func _on_attack(event: Event):
 	var size: int = creep.get_size()
 	var calc: bool
 
-	if size == Creep.Size.BOSS:
+	if size == CreepSize.enm.BOSS:
 		calc = tower.calc_chance((_stats.chance + tower.get_level() * _stats.chance_add) * 2 / 3)
 	else:
 		calc = tower.calc_chance(_stats.chance + tower.get_level() * _stats.chance_add)

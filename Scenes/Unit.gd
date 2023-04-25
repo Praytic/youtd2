@@ -1123,14 +1123,14 @@ func get_dps_bonus() -> float:
 
 func _get_damage_mod_for_creep_category(creep: Creep) -> float:
 	const creep_category_to_mod_map: Dictionary = {
-		Creep.Category.UNDEAD: Modification.Type.MOD_DMG_TO_MASS,
-		Creep.Category.MAGIC: Modification.Type.MOD_DMG_TO_MAGIC,
-		Creep.Category.NATURE: Modification.Type.MOD_DMG_TO_NATURE,
-		Creep.Category.ORC: Modification.Type.MOD_DMG_TO_ORC,
-		Creep.Category.HUMANOID: Modification.Type.MOD_DMG_TO_HUMANOID,
+		CreepCategory.enm.UNDEAD: Modification.Type.MOD_DMG_TO_MASS,
+		CreepCategory.enm.MAGIC: Modification.Type.MOD_DMG_TO_MAGIC,
+		CreepCategory.enm.NATURE: Modification.Type.MOD_DMG_TO_NATURE,
+		CreepCategory.enm.ORC: Modification.Type.MOD_DMG_TO_ORC,
+		CreepCategory.enm.HUMANOID: Modification.Type.MOD_DMG_TO_HUMANOID,
 	}
 
-	var creep_category: Creep.Category = creep.get_category() as Creep.Category
+	var creep_category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
 	var mod_type: Modification.Type = creep_category_to_mod_map[creep_category]
 	var damage_mod: float = _mod_value_map[mod_type]
 
@@ -1145,14 +1145,14 @@ func _get_damage_mod_for_creep_armor_type(creep: Creep) -> float:
 
 func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 	const creep_size_to_mod_map: Dictionary = {
-		Creep.Size.MASS: Modification.Type.MOD_DMG_TO_MASS,
-		Creep.Size.NORMAL: Modification.Type.MOD_DMG_TO_NORMAL,
-		Creep.Size.CHAMPION: Modification.Type.MOD_DMG_TO_CHAMPION,
-		Creep.Size.BOSS: Modification.Type.MOD_DMG_TO_BOSS,
-		Creep.Size.AIR: Modification.Type.MOD_DMG_TO_AIR,
+		CreepSize.enm.MASS: Modification.Type.MOD_DMG_TO_MASS,
+		CreepSize.enm.NORMAL: Modification.Type.MOD_DMG_TO_NORMAL,
+		CreepSize.enm.CHAMPION: Modification.Type.MOD_DMG_TO_CHAMPION,
+		CreepSize.enm.BOSS: Modification.Type.MOD_DMG_TO_BOSS,
+		CreepSize.enm.AIR: Modification.Type.MOD_DMG_TO_AIR,
 	}
 
-	var creep_size: Creep.Size = creep.get_size()
+	var creep_size: CreepSize.enm = creep.get_size()
 	var mod_type: Modification.Type = creep_size_to_mod_map[creep_size]
 	var damage_mod: float = _mod_value_map[mod_type]
 

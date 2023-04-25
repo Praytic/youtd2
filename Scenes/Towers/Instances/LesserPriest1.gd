@@ -38,7 +38,7 @@ func on_damage(event: Event):
 	Utils.sfx_on_unit("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl", creep, "origin")
 
 	if level == 25:
-		if creep.get_size() < Creep.Size.BOSS:
+		if creep.get_size() < CreepSize.enm.BOSS:
 			creep.modify_property(Modification.Type.MOD_ARMOR, _stats.armor_reduce)
 		else:
 			creep.modify_property(Modification.Type.MOD_ARMOR, _stats.armor_reduce_boss)

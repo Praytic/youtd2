@@ -8,25 +8,6 @@ signal moved(delta)
 signal reached_portal(damage_to_portal)
 
 
-# NOTE: order is important to be able to compare
-enum Size {
-	MASS,
-	NORMAL,
-	AIR,
-	CHAMPION,
-	BOSS,
-	CHALLENGE_MASS,
-	CHALLENGE_BOSS,
-}
-
-enum Category {
-	UNDEAD,
-	MAGIC,
-	NATURE,
-	ORC,
-	HUMANOID,
-}
-
 # NOTE: timed creeps moving in original game and their speed
 # was about 200.
 const CREEP_HEALTH_MAX: float = 200.0
@@ -37,8 +18,8 @@ const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
 
 var _path: Path2D : set = set_path
-var _size: Creep.Size
-var _category: Creep.Category : set = set_category, get = get_category
+var _size: CreepSize.enm
+var _category: CreepCategory.enm : set = set_category, get = get_category
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _current_path_index: int = 0
 var movement_enabled: bool = true 
@@ -64,7 +45,7 @@ func _ready():
 	_health_bar.set_value(max_health)
 	health_changed.connect(_on_health_changed)
 
-	if _size == Creep.Size.AIR:
+	if _size == CreepSize.enm.AIR:
 		var height: float = 2 * Constants.TILE_HEIGHT
 		_visual.position.y = -height
 
@@ -197,7 +178,7 @@ func _on_death(event: Event):
 #	NOTE: don't add corpse for air creeps because it would
 #	look weird for corpse to appear while creep is flying
 #	far above it.
-	if _size != Creep.Size.AIR:
+	if _size != CreepSize.enm.AIR:
 		var corpse: Node2D = _corpse_scene.instantiate()
 		corpse.position = position
 		Utils.object_container.add_child(corpse)
@@ -251,13 +232,13 @@ func set_unit_facing(angle: float):
 func get_unit_facing() -> float:
 	return _facing_angle
 
-func set_creep_size(value: Creep.Size) -> void:
+func set_creep_size(value: CreepSize.enm) -> void:
 	_size = value
 
-func get_size() -> Creep.Size:
+func get_size() -> CreepSize.enm:
 	return _size
 
-func set_category(value: Creep.Category) -> void:
+func set_category(value: CreepCategory.enm) -> void:
 	_category = value
 
 func get_category() -> int:
