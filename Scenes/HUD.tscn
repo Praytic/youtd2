@@ -1,28 +1,31 @@
 [gd_scene load_steps=40 format=3 uid="uid://dnv37bb7qk3kv"]
 
-[ext_resource type="PackedScene" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1_rx3ev"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_disabled.tres" id="2_6isww"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_focus.tres" id="3_m3ka5"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_hover.tres" id="4_7j0uu"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://6muimqlh5jcf" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
 [ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="5_6wrbw"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_pressed.tres" id="6_plw4p"]
 [ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="7_73hi4"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://b1wuycbxpu0op" path="res://Scenes/HUD/TowerInventory.tscn" id="11_hrubh"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
+[ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
+[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://bbq8xnlx68q72" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
+[ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
 [ext_resource type="Script" path="res://Scenes/ErrorMessageLabel.gd" id="14_dehgg"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
+[ext_resource type="PackedScene" uid="uid://b41jiom5a6uq8" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
 
 [sub_resource type="FontFile" id="1"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 fallbacks = Array[Font]([ExtResource("1_rx3ev")])
 face_index = null
 embolden = null
@@ -403,10 +406,10 @@ offset_bottom = -280.0
 
 [node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
 layout_mode = 1
-offset_left = 10.0
-offset_top = 830.0
-offset_right = -1910.0
-offset_bottom = -250.0
+offset_left = 20.0
+offset_top = 180.0
+offset_right = -1900.0
+offset_bottom = -900.0
 
 [node name="ErrorMessageLabel" type="Label" parent="."]
 layout_mode = 1
