@@ -23,6 +23,13 @@ enum CsvProperty {
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 
+var user_int: int = 0
+var user_int2: int = 0
+var user_int3: int = 0
+var user_real: float = 0.0
+var user_real2: float = 0.0
+var user_real3: float = 0.0
+
 var _id: int = 0
 var _carrier: Tower = null
 
@@ -61,6 +68,7 @@ func _init(id: int):
 	_id = id
 	load_modifier(_modifier)
 	_item_init()
+	on_create()
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true)
 	load_triggers(triggers_buff_type)
@@ -122,6 +130,19 @@ func get_extra_tooltip_text() -> String:
 # Override in subclass to initialize subclass item
 func _item_init():
 	pass
+
+
+# Override this in tower subclass to implement the "On Item
+# Creation" trigger. This is the analog of "onCreate"
+# function from original API.
+func on_create():
+	pass
+
+
+# Override in subclass to define an extra multiboard for the
+# carrier tower.
+func on_tower_details() -> MultiboardValues:
+	return null
 
 
 #########################

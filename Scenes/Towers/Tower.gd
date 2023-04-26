@@ -267,6 +267,18 @@ func on_tower_details() -> MultiboardValues:
 	return empty_multiboard
 
 
+func get_item_tower_details() -> Array[MultiboardValues]:
+	var out: Array[MultiboardValues] = []
+
+	for item in _item_list:
+		var board: MultiboardValues = item.on_tower_details()
+
+		if board != null:
+			out.append(board)
+
+	return out
+
+
 func order_stop():
 	_order_stop_requested = true
 
