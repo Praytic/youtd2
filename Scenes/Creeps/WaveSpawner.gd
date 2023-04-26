@@ -13,6 +13,8 @@ signal wave_ended(wave: Wave)
 signal all_waves_cleared
 
 
+var _wave_list: Array[Wave] = []
+
 @onready var _timer_between_waves: Timer = $Timer
 @onready var _creep_spawner = $CreepSpawner
 @onready var _wave_paths = get_tree().get_nodes_in_group("wave_path")
@@ -56,6 +58,8 @@ func _ready():
 		if wave_number == 1:
 			wave.add_to_group("current_wave")
 		wave.add_to_group("wave")
+
+		_wave_list.append(wave)
 		
 		wave.wave_ended.connect(Callable(self, "_on_Wave_ended"))
  
@@ -145,8 +149,20 @@ func get_waves() -> Array:
 	return get_tree().get_nodes_in_group("wave")
 
 
-func get_wave(wave_num: int) -> Wave:
-	return get_waves()[wave_num]
+# NOTE: use _wave_list instead of get_waves() because
+# get_waves() uses get_nodes_in_group() which is not
+# ordered.
+func get_wave(level: int) -> Wave:
+	var index: int = level - 1
+
+	var in_bounds: bool = 0 <= index && index < _wave_list.size()
+
+	if in_bounds:
+		var wave: Wave = _wave_list[index]
+
+		return wave
+	else:
+		return null
 
 
 # TODO: Fix this f-n so that it returns time until next
