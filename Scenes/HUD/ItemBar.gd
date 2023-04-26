@@ -14,12 +14,14 @@ func add_item_button(item_id):
 	var item_button: ItemButton = _create_ItemButton(item_id)
 	add_child(item_button)
 	_item_buttons[item_id] = item_button
+	_adjust_size()
 
 
 func remove_item_button(item_id):
 	var item_button: ItemButton = _item_buttons[item_id]
 	_item_buttons.erase(item_id)
 	item_button.queue_free()
+	_adjust_size()
 
 
 func _ready():
@@ -57,7 +59,7 @@ func on_item_move_from_itembar_done(move_success: bool):
 	_moved_item_button = null
 
 
-func adjust_size():
+func _adjust_size():
 	if current_size == "M":
 		if _item_buttons.size() > 14:
 			_resize_icons("S")

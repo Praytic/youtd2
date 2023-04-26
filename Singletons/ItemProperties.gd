@@ -2,6 +2,8 @@ extends Node
 
 const ICON_SIZE_S = 64
 const ICON_SIZE_M = 128
+const ICON_FAMILIES_PER_PAGE = 66
+const MAX_ICONS_PER_FAMILY = 5
 
 @onready var item_icons_s: Texture2D = preload("res://Assets/Items/item_icons_s.png")
 @onready var item_icons_m: Texture2D = preload("res://Assets/Items/item_icons_m.png")
@@ -25,7 +27,10 @@ func get_icon(item_id: int, icon_size_letter: String) -> Texture2D:
 	else:
 		return item_button_fallback_icon
 	
-	var region: Rect2 = Rect2(icon_atlas_num * icon_size, icon_atlas_family * icon_size, icon_size, icon_size)
+	var page_num = floor(icon_atlas_family / ICON_FAMILIES_PER_PAGE)
+	var x = icon_atlas_num * icon_size + page_num * MAX_ICONS_PER_FAMILY * icon_size
+	var y = icon_atlas_family % ICON_FAMILIES_PER_PAGE * icon_size
+	var region: Rect2 = Rect2(x, y, icon_size, icon_size)
 	item_icon.set_region(region)
 
 	return item_icon
