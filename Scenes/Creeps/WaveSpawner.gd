@@ -92,14 +92,17 @@ func end_current_wave():
 	var current_wave = get_current_wave()
 	
 	print_verbose("Wave has ended [%s]." % current_wave)
-	
-	# Send events, restart the timer
-	if get_waves().is_empty():
+
+	wave_ended.emit(current_wave)
+
+	var waves_are_over: bool = WaveLevel.get_current() >= _wave_list.size()
+	if waves_are_over:
 		all_waves_cleared.emit()
-	else:
-		_timer_between_waves.start()
-		wave_ended.emit(current_wave)
-	
+
+		return
+
+	_timer_between_waves.start()
+
 	# Prepare variables for the next wave
 	var next_wave = current_wave.next_wave
 	current_wave.remove_from_group("current_wave")
