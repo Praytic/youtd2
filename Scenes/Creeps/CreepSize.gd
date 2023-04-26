@@ -31,3 +31,18 @@ static func convert_to_string(type: CreepSize.enm) -> String:
 		CreepSize.enm.CHALLENGE_BOSS: return "Challenge"
 
 	return "[unknown creep size]"
+
+
+static func convert_to_colored_string(type: CreepSize.enm) -> String:
+	var string: String = convert_to_string(type)
+
+	match type:
+		CreepSize.enm.MASS: return "[color=ORANGE]%s[/color]" % [string]
+		CreepSize.enm.NORMAL: return "[color=GREEN]%s[/color]" % [string]
+		CreepSize.enm.AIR: return "[color=BLUE]%s[/color]" % [string]
+		CreepSize.enm.CHAMPION: return "[color=PURPLE]%s[/color]" % [string]
+		CreepSize.enm.BOSS: return "[color=RED]%s[/color]" % [string]
+		CreepSize.enm.CHALLENGE_MASS: return "[color=GOLD]%s[/color]" % [string]
+		CreepSize.enm.CHALLENGE_BOSS: return "[color=GOLD]%s[/color]" % [string]
+
+	return "[unknown creep size]"

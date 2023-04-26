@@ -5,7 +5,6 @@ extends Control
 # starts.
 
 # TODO: special column
-# TODO: color everything, races, armor, etc
 
 @onready var _label: RichTextLabel = $PanelContainer/VBoxContainer/RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
@@ -36,11 +35,11 @@ func _update_text():
 		var wave_time_minutes: int = floor(wave_time / 60.0)
 		var wave_time_seconds: int = wave_time - wave_time_minutes * 60
 
-		text += "Wave %d in %02d:%02d\n" % [next_wave_level, wave_time_minutes, wave_time_seconds]
+		text += "Wave [color=GOLD]%d[/color] in %02d:%02d\n" % [next_wave_level, wave_time_minutes, wave_time_seconds]
 
 	text += "[table=5]"
 
-	text += "[cell]Level[/cell][cell]Size[/cell][cell]Race[/cell][cell]Armor[/cell][cell]Special[/cell]"
+	text += "[cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Size[/color][/cell][cell][color=GOLD]Race[/color][/cell][cell][color=GOLD]Armor[/color][/cell][cell][color=GOLD]Special[/color][/cell]"
 
 	for level in range(current_wave_level, current_wave_level + 5):
 		var wave: Wave = _wave_spawner.get_wave(level)
@@ -48,9 +47,9 @@ func _update_text():
 		if wave == null:
 			break
 
-		var race_String: String = CreepCategory.convert_to_string(wave.get_race())
+		var race_String: String = CreepCategory.convert_to_colored_string(wave.get_race())
 		var size_string: String = _get_size_combination_string(wave)
-		var armor_string: String = ArmorType.convert_to_string(wave.get_armor_type())
+		var armor_string: String = ArmorType.convert_to_colored_string(wave.get_armor_type())
 		var special_string: String = ""
 
 		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_String, armor_string, special_string]
@@ -93,7 +92,7 @@ func _get_size_combination_string(wave: Wave) -> String:
 			continue
 
 		var count: int = size_count_map[creep_size]
-		var size_string: String = CreepSize.convert_to_string(creep_size)
+		var size_string: String = CreepSize.convert_to_colored_string(creep_size)
 
 		string_split.append("%d %s" % [count, size_string])
 
