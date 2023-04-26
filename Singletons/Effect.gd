@@ -65,12 +65,22 @@ func add_special_effect_target(effect_path: String, unit: Unit, body_part: Strin
 	return create_animated(effect_path, position.x, position.y, 0.0, 0.0)
 
 
+# TODO: implement scale parameter
+func create_scaled(effect_path: String, x: float, y: float, _mystery1: float, _mystery2: float, _scale: float) -> int:
+	return create_animated(effect_path, x, y, _mystery1, _mystery2)
+
+
 func scale_effect(effect_id: int, scale: float):
 	if !_effect_map.has(effect_id):
 		return
 
 	var effect = _effect_map[effect_id]
 	effect.scale *= scale
+
+
+func set_lifetime(effect_id: int, lifetime: float):
+	var timer: SceneTreeTimer = get_tree().create_timer(lifetime)
+	timer.timeout.connect(_on_lifetime_timer_timeout.bind(effect_id))
 
 
 func destroy_effect(effect_id: int):
@@ -101,6 +111,10 @@ func _make_effect_id() -> int:
 		_id_max += 1
 
 		return id
+
+
+func _on_lifetime_timer_timeout(effect_id: int):
+	_on_effect_animation_finished(effect_id)
 
 
 func _on_effect_animation_finished(effect_id: int):
