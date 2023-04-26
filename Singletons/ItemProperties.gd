@@ -12,7 +12,7 @@ func get_icon(item_id: int, icon_size_letter: String) -> Texture2D:
 	var icon_atlas_num: int = ItemProperties.get_icon_atlas_num(item_id)
 	var icon_atlas_family: int = ItemProperties.get_icon_atlas_family(item_id)
 	if icon_atlas_num == -1 or icon_atlas_family == -1:
-		return item_button_fallback_icon
+		push_error("Unknown icon for item ID [%s]" % item_id)
 
 	var item_icon = AtlasTexture.new()
 	var icon_size: int

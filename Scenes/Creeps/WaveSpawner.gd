@@ -145,6 +145,10 @@ func get_waves() -> Array:
 	return get_tree().get_nodes_in_group("wave")
 
 
+func get_wave(wave_num: int) -> Wave:
+	return get_waves()[wave_num]
+
+
 # TODO: Fix this f-n so that it returns time until next
 # wave. Currently it returns non-zero time only after creeps
 # exit the portal.
