@@ -27,7 +27,7 @@ func _ready():
 	_timer_between_waves.set_wait_time(TIME_BETWEEN_WAVES)
 	
 	var previous_wave = null
-	for wave_number in range(1, WAVE_COUNT_EASY):
+	for wave_number in range(1, WAVE_COUNT_EASY + 1):
 		var wave_id = randi_range(0, Properties.get_wave_csv_properties().size() - 1)
 		var wave_race = randi_range(0, CreepCategory.enm.size() - 1)
 		var wave_armor = randi_range(0, ArmorType.enm.size() - 1)
