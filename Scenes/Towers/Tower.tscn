@@ -25,9 +25,9 @@ polygon = PackedVector2Array(0, -128, 128, 0, 0, 128, -128, 0)
 visible = false
 script = ExtResource("5")
 
-[node name="TargetingArea" type="Area2D" parent="."]
+[node name="TowerSelectionArea" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TargetingArea"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TowerSelectionArea"]
 polygon = PackedVector2Array(-115, 6, -12, 56, 90, 6, 90, -96, -12, -147, -115, -96)
 
 [node name="ManaBar" type="ProgressBar" parent="."]

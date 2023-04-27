@@ -541,9 +541,9 @@ func _set_unit_sprite_internal(image: Image, sprite_node: Node2D):
 #	position of area2d matches sprite's position
 	sprite_node.add_child(area2d)
 	
-	if $TargetingArea != null:
-		$TargetingArea.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
-		$TargetingArea.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
+	if $TowerSelectionArea != null:
+		$TowerSelectionArea.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
+		$TowerSelectionArea.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
 		
 # All towers should have unified selector size
 		_sprite_dimensions = Vector2(128,128)
