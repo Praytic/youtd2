@@ -395,13 +395,33 @@ func _set_target_count(count: int):
 func _try_to_attack() -> bool:
 	_update_target_list()
 
-#	NOTE: have to save this value before attacking because
-#	attacking may kill targets which modifies the target
-#	list
-	var attack_success: bool = !_target_list.is_empty()
+# 	NOTE: have to do this weird stuff instead of just
+# 	iterating over target list because attacks can modify
+# 	the target list by killing creeps (and not just the
+# 	current target)
+	var attack_count: int = 0
+	var already_attacked_list: Array = []
 
-	for target in _target_list:
+	while attack_count < _target_count_max:
+		var target: Creep = null
+
+		for the_target in _target_list:
+			var already_attacked: bool = already_attacked_list.has(the_target)
+
+			if !already_attacked:
+				target = the_target
+
+				break
+
+		if target == null:
+			break
+
 		_attack_target(target)
+		already_attacked_list.append(target)
+
+		attack_count += 1
+
+	var attack_success: bool = attack_count > 0
 
 	return attack_success
 
@@ -471,7 +491,7 @@ func _get_next_bounce_target(prev_target: Creep) -> Creep:
 func _update_target_list():
 	var attack_range: float = get_range()
 
-# 	Remove targets that have went out of range or became invisible
+# Remove targets that have went out of range, became invisible
 	var removed_target_list: Array = []
 
 	for target in _target_list:
