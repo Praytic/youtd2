@@ -194,6 +194,10 @@ func set_visual_only():
 	if selection_area2d != null:
 		selection_area2d.queue_free()
 
+# 	Disable collision polygon of targeting area. Otherwise
+# 	tower preview causes a lot of lag.
+	_collision_polygon.set_disabled(true)
+
 
 func add_autocast(autocast: Autocast):
 	autocast.set_caster(self)
