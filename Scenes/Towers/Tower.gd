@@ -79,8 +79,6 @@ var _temp_preceding_tower: Tower = null
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
-@onready var _targeting_area: Area2D = $TargetingArea
-@onready var _collision_polygon: CollisionPolygon2D = $TargetingArea/CollisionPolygon2D
 @onready var _mana_bar: ProgressBar = $ManaBar
 
 
@@ -195,10 +193,6 @@ func set_visual_only():
 # 	doesn't participate in hover/select behavior
 	if selection_area2d != null:
 		selection_area2d.queue_free()
-
-# 	Disable collision polygon of targeting area. Otherwise
-# 	tower preview causes a lot of lag.
-	_collision_polygon.set_disabled(true)
 
 
 func add_autocast(autocast: Autocast):
@@ -399,9 +393,7 @@ func _set_target_count(count: int):
 
 
 func _try_to_attack() -> bool:
-	if _have_target_space():
-		var new_target: Creep = _find_new_target()
-		_add_target(new_target)
+	_update_target_list()
 
 #	NOTE: have to save this value before attacking because
 #	attacking may kill targets which modifies the target
@@ -410,7 +402,7 @@ func _try_to_attack() -> bool:
 
 	for target in _target_list:
 		_attack_target(target)
-	
+
 	return attack_success
 
 
@@ -461,11 +453,6 @@ func _get_base_properties() -> Dictionary:
 	return {}
 
 
-func _on_modify_property():
-	var attack_range: float = get_range()
-	Utils.circle_polygon_set_radius(_collision_polygon, attack_range)
-
-
 func _get_next_bounce_target(prev_target: Creep) -> Creep:
 	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), prev_target.position, BOUNCE_RANGE)
 
@@ -481,41 +468,44 @@ func _get_next_bounce_target(prev_target: Creep) -> Creep:
 		return null
 
 
-func _find_new_target() -> Creep:
-	var body_list: Array = _targeting_area.get_overlapping_bodies()
+func _update_target_list():
+	var attack_range: float = get_range()
 
-#	NOTE: can't use existing targets as new targets
+# 	Remove targets that have went out of range or became invisible
+	var removed_target_list: Array = []
+
 	for target in _target_list:
-		body_list.erase(target)
+		if !is_instance_valid(target):
+			removed_target_list.append(target)
 
-	body_list = body_list.filter(func(body): return body is Creep && !body.is_dead() && !body.is_invisible())
+			continue
 
-	Utils.sort_unit_list_by_distance(body_list, position)
+		var distance: float = Isometric.vector_distance_to(position, target.position)
+		var out_of_range: bool = distance > attack_range
 
-	if body_list.size() != 0:
-		var closest_creep: Creep = body_list[0]
+		if out_of_range || target.is_invisible():
+			removed_target_list.append(target)
 
-		return closest_creep
-	else:
-		return null
+	for target in removed_target_list:
+		_target_list.erase(target)
+		
+		if is_instance_valid(target):
+			target.death.disconnect(_on_target_death)
 
+# 	Add new targets that have entered into range
+	var creeps_in_range: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), position, attack_range)
+	Utils.sort_unit_list_by_distance(creeps_in_range, position)
 
-func _have_target_space() -> bool:
-	return _target_list.size() < _target_count_max
+	while creeps_in_range.size() > 0 && _target_list.size() < _target_count_max:
+		var new_target: Creep = creeps_in_range.pop_front()
 
-
-func _add_target(new_target: Creep):
-	if new_target == null || new_target.is_dead() || new_target.is_invisible():
-		return
-
-	new_target.death.connect(_on_target_death.bind(new_target))
-	new_target.became_invisible.connect(_on_target_became_invisible.bind(new_target))
-	_target_list.append(new_target)
+		_target_list.append(new_target)
+		new_target.death.connect(_on_target_death.bind(new_target))
 
 
 func _remove_target(target: Creep):
-	target.death.disconnect(_on_target_death)
-	target.became_invisible.disconnect(_on_target_became_invisible)
+	if is_instance_valid(target):
+		target.death.disconnect(_on_target_death)
 
 	_target_list.erase(target)
 
@@ -617,46 +607,6 @@ func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: U
 	next_projectile.set_event_on_target_hit(_on_projectile_bounce_in_progress)
 	next_projectile.user_real = next_damage
 	next_projectile.user_int = next_bounce_count
-
-
-func _on_targeting_area_body_entered(body):
-	if !body is Creep:
-		return
-
-# 	If invisible creep comes in range, don't add it as target,
-# 	but remember it by connecting to it's signal. If the creep
-# 	becomes visible (while still in range), it may become a
-# 	target.
-	if !body.is_connected("became_visible", _on_creep_in_range_became_visible):
-		body.became_visible.connect(_on_creep_in_range_became_visible.bind(body))
-
-	if body.is_invisible():
-		return
-
-	if _have_target_space():
-		var new_target: Creep = body as Creep
-		_add_target(new_target)
-
-
-func _on_targeting_area_body_exited(body):
-	if !body is Creep:
-		return
-
-	body.became_visible.disconnect(_on_creep_in_range_became_visible)
-
-	var target_went_out_of_range: bool = _target_list.has(body)
-
-	if target_went_out_of_range:
-		var old_target: Creep = body as Creep
-		_remove_target(old_target)
-
-
-func _on_target_became_invisible(target: Creep):
-	_remove_target(target)
-
-
-func _on_creep_in_range_became_visible(creep: Creep):
-	_on_targeting_area_body_entered(creep)
 
 
 func _on_target_death(_event: Event, target: Creep):
