@@ -496,6 +496,9 @@ func _update_target_list():
 	var creeps_in_range: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), position, attack_range)
 	Utils.sort_unit_list_by_distance(creeps_in_range, position)
 
+	for target in _target_list:
+		creeps_in_range.erase(target)
+
 	while creeps_in_range.size() > 0 && _target_list.size() < _target_count_max:
 		var new_target: Creep = creeps_in_range.pop_front()
 
