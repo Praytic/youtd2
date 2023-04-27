@@ -984,38 +984,14 @@ horizontal_alignment = 2
 [node name="MultiboardContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer"]
+[node name="TowerDetailsLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 20
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer"]
-modulate = Color(0.996078, 1, 0.596078, 1)
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
-text = "Special:"
-
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MultiboardGrid" type="GridContainer" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-columns = 2
-
-[node name="ExampleKeyLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid"]
-layout_mode = 2
-text = "Placeholder:"
-
-[node name="ExampleValueLabel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid"]
-layout_mode = 2
-text = "Placeholder"
+theme_override_constants/table_h_separation = 10
+text = "Specials:
+PLACEHOLDER
+Key: value"
+fit_content = true
 
 [node name="RefreshTimer" type="Timer" parent="."]
 autostart = true

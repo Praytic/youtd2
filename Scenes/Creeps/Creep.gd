@@ -39,6 +39,9 @@ var _corpse_scene: PackedScene = preload("res://Scenes/Creeps/CreepCorpse.tscn")
 
 func _ready():
 	super()
+
+	add_to_group("creeps")
+	
 	var max_health = get_overall_health()
 	_health_bar.set_max(max_health)
 	_health_bar.set_min(0.0)

@@ -8,8 +8,7 @@ var _current_tower: Tower = null
 @onready var _tower_stat_percent_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent")
 @onready var _tower_stat_percent_signed_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent_signed")
 @onready var _tower_stat_multiplier_labels: Array = get_tree().get_nodes_in_group("tower_stat_multiplier")
-@onready var _multiboard_container: MarginContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer
-@onready var _multiboard_grid: GridContainer = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/VBoxContainer/MarginContainer2/MultiboardGrid
+@onready var _tower_details_label: RichTextLabel = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/TowerDetailsLabel
 
 
 func _ready():
@@ -64,9 +63,9 @@ func set_tower_tooltip_text(tower):
 		var stat = _get_stat(tower_stat_label, tower)
 		tower_stat_label.text = _multiplier_format(stat)
 
-	var multiboard_values: MultiboardValues = tower.on_tower_details()
-
-	_load_multiboard(multiboard_values)
+	var tower_details_text: String = _get_tower_details_text(tower)
+	_tower_details_label.clear()
+	_tower_details_label.append_text(tower_details_text)
 
 
 func set_tower(tower_node):
@@ -133,47 +132,29 @@ func _float_format(number) -> String:
 	return "%.2f" % number
 
 
-func _load_multiboard(multiboard: MultiboardValues):
-#	Hide multiboard display if there are no rows
-	var multiboard_has_rows: bool = multiboard.size() > 0
-	_multiboard_container.visible = multiboard_has_rows
+func _get_tower_details_text(tower: Tower) -> String:
+	var text: String = ""
+	
+	var tower_multiboard: MultiboardValues = tower.on_tower_details()
+	var item_multiboard_list: Array[MultiboardValues] = tower.get_item_tower_details()
 
-#	Expand GridContainer if it's smaller than multiboard
-	var current_row_count: int = int(_multiboard_grid.get_child_count() / 2.0)
-	var row_count_is_enough: bool = current_row_count >= multiboard.size()
+	var all_multiboard_list: Array[MultiboardValues] = item_multiboard_list
+	all_multiboard_list.insert(0, tower_multiboard)
 
-	if !row_count_is_enough:
-		var rows_to_add: int = multiboard.size() - current_row_count
+	text += "[color=GOLD]Tower Details:[/color]\n \n"
 
-		for _row in range(0, rows_to_add):
-			var key_label: Label = Label.new()
-			key_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	text += "[table=2]"
 
-			var value_label: Label = Label.new()
-			value_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	for multiboard in all_multiboard_list:
+		for row in range(0, multiboard.size()):
+			var key: String = multiboard.get_key(row)
+			var value: String = multiboard.get_value(row)
 
-			_multiboard_grid.add_child(key_label)
-			_multiboard_grid.add_child(value_label)
+			text += "[cell]%s:[/cell][cell]%s[/cell]\n" % [key, value]
 
-#	Load values from multiboard into labels
-	for child in _multiboard_grid.get_children():
-		child.hide()
+	text += "[/table]"
 
-	for row in range(0, multiboard.size()):
-		var key: String = multiboard.get_key(row)
-		var value: String = multiboard.get_value(row)
-
-		var key_label_index: int = row * 2
-		var value_label_index: int = row * 2 + 1
-
-		var key_label: Label = _multiboard_grid.get_child(key_label_index)
-		var value_label: Label = _multiboard_grid.get_child(value_label_index)
-
-		key_label.text = key
-		value_label.text = value
-
-		key_label.show()
-		value_label.show()
+	return text
 
 
 func _on_refresh_timer_timeout():

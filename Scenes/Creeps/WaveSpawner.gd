@@ -13,6 +13,8 @@ signal wave_ended(wave: Wave)
 signal all_waves_cleared
 
 
+var _wave_list: Array[Wave] = []
+
 @onready var _timer_between_waves: Timer = $Timer
 @onready var _creep_spawner = $CreepSpawner
 @onready var _wave_paths = get_tree().get_nodes_in_group("wave_path")
@@ -25,7 +27,7 @@ func _ready():
 	_timer_between_waves.set_wait_time(TIME_BETWEEN_WAVES)
 	
 	var previous_wave = null
-	for wave_number in range(1, WAVE_COUNT_EASY):
+	for wave_number in range(1, WAVE_COUNT_EASY + 1):
 		var wave_id = randi_range(0, Properties.get_wave_csv_properties().size() - 1)
 		var wave_race = randi_range(0, CreepCategory.enm.size() - 1)
 		var wave_armor = randi_range(0, ArmorType.enm.size() - 1)
@@ -56,6 +58,8 @@ func _ready():
 		if wave_number == 1:
 			wave.add_to_group("current_wave")
 		wave.add_to_group("wave")
+
+		_wave_list.append(wave)
 		
 		wave.wave_ended.connect(Callable(self, "_on_Wave_ended"))
  
@@ -88,14 +92,17 @@ func end_current_wave():
 	var current_wave = get_current_wave()
 	
 	print_verbose("Wave has ended [%s]." % current_wave)
-	
-	# Send events, restart the timer
-	if get_waves().is_empty():
+
+	wave_ended.emit(current_wave)
+
+	var waves_are_over: bool = WaveLevel.get_current() >= _wave_list.size()
+	if waves_are_over:
 		all_waves_cleared.emit()
-	else:
-		_timer_between_waves.start()
-		wave_ended.emit(current_wave)
-	
+
+		return
+
+	_timer_between_waves.start()
+
 	# Prepare variables for the next wave
 	var next_wave = current_wave.next_wave
 	current_wave.remove_from_group("current_wave")
@@ -145,8 +152,20 @@ func get_waves() -> Array:
 	return get_tree().get_nodes_in_group("wave")
 
 
-func get_wave(wave_num: int) -> Wave:
-	return get_waves()[wave_num]
+# NOTE: use _wave_list instead of get_waves() because
+# get_waves() uses get_nodes_in_group() which is not
+# ordered.
+func get_wave(level: int) -> Wave:
+	var index: int = level - 1
+
+	var in_bounds: bool = 0 <= index && index < _wave_list.size()
+
+	if in_bounds:
+		var wave: Wave = _wave_list[index]
+
+		return wave
+	else:
+		return null
 
 
 # TODO: Fix this f-n so that it returns time until next
