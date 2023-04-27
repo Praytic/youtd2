@@ -38,6 +38,3 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxFlat_25shh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xfdtb")
 show_percentage = false
-
-[connection signal="body_entered" from="TargetingArea" to="." method="_on_targeting_area_body_entered"]
-[connection signal="body_exited" from="TargetingArea" to="." method="_on_targeting_area_body_exited"]
