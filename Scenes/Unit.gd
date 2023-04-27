@@ -38,7 +38,7 @@ const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
 
-var selection_area2d: Area2D = null
+var _sprite_area: Area2D = null
 var _sprite_dimensions: Vector2 = Vector2.ZERO
 
 var user_int: int = 0
@@ -533,27 +533,24 @@ func _set_unit_sprite_internal(image: Image, sprite_node: Node2D, override_area:
 
 # 	NOTE: Rect2i position is top-left corner, so need to do
 # 	some math to calculate correct offset for area2d
-	var area2d: Area2D = Area2D.new()
-	area2d.add_child(collision_shape)
-	area2d.position = used_rect.position + used_rect.size / 2 - image.get_size() / 2
+	_sprite_area = Area2D.new()
+	_sprite_area.add_child(collision_shape)
+	_sprite_area.position = used_rect.position + used_rect.size / 2 - image.get_size() / 2
 
 #	NOTE: use sprite as parent for area2d so so that the
 #	position of area2d matches sprite's position
-	sprite_node.add_child(area2d)
+	sprite_node.add_child(_sprite_area)
+	_sprite_dimensions = Vector2(used_rect.size) * sprite_node.scale
 
 	if override_area != null:
 		override_area.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
 		override_area.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
 		
 # All towers should have unified selector size
-		_sprite_dimensions = Vector2(128,128)
 		_selection_visual.visual_size = 128
 	else:
-		area2d.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
-		area2d.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
-
-		selection_area2d = area2d
-		_sprite_dimensions = Vector2(used_rect.size) * sprite_node.scale
+		_sprite_area.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
+		_sprite_area.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
 
 		_selection_visual.visual_size = _sprite_dimensions.x
 
@@ -822,8 +819,8 @@ func is_dead() -> bool:
 # Game physics need to be performed in 2D space, so use
 # regular "position".
 func get_visual_position() -> Vector2:
-	if selection_area2d != null:
-		return selection_area2d.global_position
+	if _sprite_area != null:
+		return _sprite_area.global_position
 	else:
 		return global_position
 
@@ -840,12 +837,12 @@ func get_visual_position() -> Vector2:
 # total texture so using texture center/dimensions would
 # cause incorrect results.
 func get_body_part_position(body_part: String) -> Vector2:
-	if selection_area2d == null:
+	if _sprite_area == null:
 		print_debug("No selection area2d defined")
 
 		return get_visual_position()
 
-	var sprite_center: Vector2 = selection_area2d.global_position
+	var sprite_center: Vector2 = _sprite_area.global_position
 	var sprite_height: float = float(_sprite_dimensions.y)
 
 	match body_part:

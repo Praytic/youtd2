@@ -192,8 +192,9 @@ func set_visual_only():
 
 # 	Remove selection area2d so that tower preview tower
 # 	doesn't participate in hover/select behavior
-	if selection_area2d != null:
-		selection_area2d.queue_free()
+	if _sprite_area != null:
+		_sprite_area.queue_free()
+		_sprite_area = null
 
 
 func add_autocast(autocast: Autocast):
