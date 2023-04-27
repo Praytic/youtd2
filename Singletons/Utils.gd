@@ -99,13 +99,15 @@ func get_units_in_range(type: TargetType, center: Vector2, radius: float) -> Arr
 
 
 func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float) -> Array[Unit]:
-	var node_list: Array[Node] = object_container.get_children()
+	var node_list: Array[Node] = []
+
+	match type._unit_type:
+		TargetType.UnitType.TOWERS: node_list = get_tree().get_nodes_in_group("towers")
+		TargetType.UnitType.PLAYER_TOWERS: node_list = get_tree().get_nodes_in_group("towers")
+		TargetType.UnitType.CREEPS: node_list = get_tree().get_nodes_in_group("creeps")
 
 	var filtered_node_list: Array[Node] = node_list.filter(
 		func(node) -> bool:
-			if !node is Unit:
-				return false
-
 			var unit: Unit = node as Unit
 
 			if unit.is_dead():

@@ -104,6 +104,8 @@ func _internal_tower_init():
 func _ready():
 	super()
 
+	add_to_group("towers")
+
 	_attack_sound.set_stream(attack_sound)
 	add_child(_attack_sound)
 
