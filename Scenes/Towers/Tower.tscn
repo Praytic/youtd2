@@ -17,12 +17,18 @@ script = ExtResource("2")
 position = Vector2(0, -192)
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-13, 8)
 scale = Vector2(1, 0.5)
 polygon = PackedVector2Array(0, -128, 128, 0, 0, 128, -128, 0)
 
 [node name="RangeIndicator" type="Node2D" parent="."]
 visible = false
 script = ExtResource("5")
+
+[node name="TargetingArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TargetingArea"]
+polygon = PackedVector2Array(-115, 6, -12, 56, 90, 6, 90, -96, -12, -147, -115, -96)
 
 [node name="ManaBar" type="ProgressBar" parent="."]
 visible = false
@@ -32,3 +38,6 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxFlat_25shh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xfdtb")
 show_percentage = false
+
+[connection signal="body_entered" from="TargetingArea" to="." method="_on_targeting_area_body_entered"]
+[connection signal="body_exited" from="TargetingArea" to="." method="_on_targeting_area_body_exited"]

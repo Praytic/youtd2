@@ -540,14 +540,22 @@ func _set_unit_sprite_internal(image: Image, sprite_node: Node2D):
 #	NOTE: use sprite as parent for area2d so so that the
 #	position of area2d matches sprite's position
 	sprite_node.add_child(area2d)
+	
+	if $TargetingArea != null:
+		$TargetingArea.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
+		$TargetingArea.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
+		
+# All towers should have unified selector size
+		_sprite_dimensions = Vector2(128,128)
+		_selection_visual.visual_size = 128
+	else:
+		area2d.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
+		area2d.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
 
-	area2d.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
-	area2d.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
+		selection_area2d = area2d
+		_sprite_dimensions = Vector2(used_rect.size) * sprite_node.scale
 
-	selection_area2d = area2d
-	_sprite_dimensions = Vector2(used_rect.size) * sprite_node.scale
-
-	_selection_visual.visual_size = _sprite_dimensions.x
+		_selection_visual.visual_size = _sprite_dimensions.x
 
 
 func set_hovered(hovered: bool):
