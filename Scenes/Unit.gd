@@ -492,11 +492,11 @@ static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 # set the main sprite for the unit. This sprite will be used
 # to detect collison with mouse and also as the visual
 # position of the unit.
-func _set_unit_sprite(sprite: Sprite2D):
+func _set_unit_sprite(sprite: Sprite2D, override_area: Area2D = null):
 	var texture: Texture2D = sprite.texture
 	var image: Image = texture.get_image()
 
-	_set_unit_sprite_internal(image, sprite)
+	_set_unit_sprite_internal(image, sprite, override_area)
 
 
 # TODO: using first frame from first animation but this is
@@ -516,13 +516,13 @@ func _set_unit_animted_sprite(sprite: AnimatedSprite2D):
 	var texture: Texture2D = sprite_frames.get_frame_texture(animation, 0)
 	var image: Image = texture.get_image()
 
-	_set_unit_sprite_internal(image, sprite)
+	_set_unit_sprite_internal(image, sprite, null)
 
 
 # Generate a rectangle shape that encloses used portion of
 # sprite's texture. Used portion means pixels with non-zero
 # alpha. Also save dimensions of used region in the sprite.
-func _set_unit_sprite_internal(image: Image, sprite_node: Node2D):
+func _set_unit_sprite_internal(image: Image, sprite_node: Node2D, override_area: Area2D):
 	var collision_shape: CollisionShape2D = CollisionShape2D.new()
 	var shape: RectangleShape2D = RectangleShape2D.new()
 	collision_shape.shape = shape
@@ -540,10 +540,10 @@ func _set_unit_sprite_internal(image: Image, sprite_node: Node2D):
 #	NOTE: use sprite as parent for area2d so so that the
 #	position of area2d matches sprite's position
 	sprite_node.add_child(area2d)
-	
-	if $TowerSelectionArea != null:
-		$TowerSelectionArea.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
-		$TowerSelectionArea.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
+
+	if override_area != null:
+		override_area.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
+		override_area.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
 		
 # All towers should have unified selector size
 		_sprite_dimensions = Vector2(128,128)

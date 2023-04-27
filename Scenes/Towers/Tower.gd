@@ -80,6 +80,7 @@ var _temp_preceding_tower: Tower = null
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
 @onready var _mana_bar: ProgressBar = $ManaBar
+@onready var _tower_selection_area: Area2D = $TowerSelectionArea
 
 
 #########################
@@ -146,7 +147,7 @@ func _ready():
 
 	var sprite: Sprite2D = $Model/Sprite2D
 	if sprite != null:
-		_set_unit_sprite(sprite)
+		_set_unit_sprite(sprite, _tower_selection_area)
 
 	selected.connect(on_selected)
 	unselected.connect(on_unselected)
