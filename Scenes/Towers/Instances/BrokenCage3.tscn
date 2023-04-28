@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://w0slcjnyguwi"]
+[gd_scene load_steps=5 format=3 uid="uid://w0slcjnyguwi"]
 
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_dtas7"]
 [ext_resource type="Script" path="res://Scenes/Towers/Instances/BabyPlant1.gd" id="2_5g5nf"]
 [ext_resource type="Texture2D" uid="uid://xj0l8mdf074f" path="res://Assets/Towers/Instances/broken_cage_atlas.png" id="3_jxln3"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/BrokenCage1.gd" id="4_su0jd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_jxln3")
@@ -21,4 +20,3 @@ position = Vector2(-1, 153)
 [node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
 position = Vector2(0, 115)
 texture = SubResource("AtlasTexture_lrt4k")
-script = ExtResource("4_su0jd")
