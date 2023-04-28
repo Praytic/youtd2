@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfpb2aiehpwu3"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_b2s00"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/RottedFlashingGrave1.gd" id="2_8h61m"]
+[ext_resource type="Texture2D" uid="uid://dpb0omafeekn2" path="res://Assets/Towers/Instances/rotted_flashing_grave_atlas.png" id="3_wgxdj"]
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("3_wgxdj")
+region = Rect2(600, 2.08165e-12, 300, 300)
+
+[node name="RottedFlashingGrave" instance=ExtResource("1_b2s00")]
+script = ExtResource("2_8h61m")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
+position = Vector2(-4, -67)
+texture = SubResource("2")
