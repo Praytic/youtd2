@@ -81,6 +81,7 @@ var _temp_preceding_tower: Tower = null
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
 @onready var _mana_bar: ProgressBar = $ManaBar
 @onready var _tower_selection_area: Area2D = $TowerSelectionArea
+@onready var _selection_collision_polygon: CollisionPolygon2D = $TowerSelectionArea/CollisionPolygon2D
 
 
 #########################
@@ -190,11 +191,9 @@ func set_visual_only():
 
 	_visual_only = true
 
-# 	Remove selection area2d so that tower preview tower
+# 	Disable selection collision so that that tower preview
 # 	doesn't participate in hover/select behavior
-	if _sprite_area != null:
-		_sprite_area.queue_free()
-		_sprite_area = null
+	_selection_collision_polygon.disabled = true
 
 
 func add_autocast(autocast: Autocast):
