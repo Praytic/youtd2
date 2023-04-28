@@ -789,3 +789,6 @@ func get_base_mana() -> float:
 
 func get_base_mana_regen() -> float:
 	return get_csv_property(CsvProperty.MANA_REGEN).to_float()
+
+func get_gold_cost() -> int:
+	return get_csv_property(CsvProperty.COST).to_int()

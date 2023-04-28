@@ -75,6 +75,12 @@ func _init(id: int):
 	_buff_type_list.append(triggers_buff_type)
 
 
+# TODO: no game logic needed here. Just display this number
+# on top of item icon in tower inventory.
+func set_charges(_count: int):
+	pass
+
+
 # NOTE: override this in subclass to attach trigger handlers
 # to triggers buff passed in the argument.
 func load_triggers(_triggers_buff_type: BuffType):
@@ -89,6 +95,8 @@ func load_modifier(_modifier_arg: Modifier):
 
 func apply_to_tower(tower: Tower):
 	_carrier = tower
+
+	on_item_pickup()
 
 	_carrier.add_modifier(_modifier)
 
@@ -136,6 +144,12 @@ func _item_init():
 # Creation" trigger. This is the analog of "onCreate"
 # function from original API.
 func on_create():
+	pass
+
+
+# Override this in tower subclass to implement the "On Item
+# Pickup" trigger.
+func on_item_pickup():
 	pass
 
 
