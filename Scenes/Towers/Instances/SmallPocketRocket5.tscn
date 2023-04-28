@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d1d1diqsn8w7c"]
 
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_q56cn"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/SnowyPebble1.gd" id="2_q1aka"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/SmallPocketRocket1.gd" id="2_00eme"]
 [ext_resource type="Texture2D" uid="uid://bjsgsuaisdefo" path="res://Assets/Towers/Instances/small_pocket_rocket_atlas.png" id="3_jfxxk"]
 
 [sub_resource type="AtlasTexture" id="2"]
@@ -9,7 +9,7 @@ atlas = ExtResource("3_jfxxk")
 region = Rect2(300, 300, 300, 300)
 
 [node name="SmallPocketRocket" instance=ExtResource("1_q56cn")]
-script = ExtResource("2_q1aka")
+script = ExtResource("2_00eme")
 
 [node name="Model" type="Node2D" parent="." index="3"]
 position = Vector2(0, -193)
