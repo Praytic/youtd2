@@ -5,6 +5,8 @@ extends Node
 # Item represents item when it's attached to a tower.
 # Implements application of item effects on tower.
 
+signal charges_changed()
+
 
 enum CsvProperty {
 	ID = 0,
@@ -32,6 +34,7 @@ var user_real3: float = 0.0
 
 var _id: int = 0
 var _carrier: Tower = null
+var _charge_count: int = -1
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
@@ -75,10 +78,17 @@ func _init(id: int):
 	_buff_type_list.append(triggers_buff_type)
 
 
-# TODO: no game logic needed here. Just display this number
-# on top of item icon in tower inventory.
-func set_charges(_count: int):
-	pass
+# Sets the charge count that is displayed on the item icon.
+func set_charges(new_count: int):
+	_charge_count = new_count
+	charges_changed.emit()
+
+
+func get_charges_text() -> String:
+	if _charge_count != -1:
+		return str(_charge_count)
+	else:
+		return ""
 
 
 # NOTE: override this in subclass to attach trigger handlers

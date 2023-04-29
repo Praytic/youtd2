@@ -47,6 +47,7 @@ func on_tower_items_changed():
 	for item in items:
 		var item_id: int = item.get_id()
 		var item_button: ItemButton = _create_item_button(item_id)
+		item_button.set_item_instance(item)
 		_button_container.add_child(item_button)
 
 
