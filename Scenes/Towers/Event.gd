@@ -26,12 +26,7 @@ var _buff: Buff
 var damage: float
 # target is of type Unit, can't use typing because of cyclic dependency...
 var _target: Unit
-# Only relevant for damage/damaged events. True for damage
-# from normal tower attacks, for main target of splash tower
-# attacks and for first target of tower bounce attack.
 var _is_main_target: bool = false
-# Only relevant for damaged events. True if damaged event is
-# caused by spell damage.
 var _is_spell_damage: bool = false
 # Timer belonging to a buff that triggered this event. Used
 # for cases where periodic event handler needs to modify
@@ -57,9 +52,14 @@ func get_buff() -> Buff:
 func get_target() -> Unit:
 	return _target
 
+# Only relevant for "damage" event. True for damage
+# from normal tower attacks, for main target of splash tower
+# attacks and for first target of tower bounce attack.
 func is_main_target() -> bool:
 	return _is_main_target
 
+# Only relevant for damaged events. True if damaged event is
+# caused by spell damage.
 func is_spell_damage() -> bool:
 	return _is_spell_damage
 

@@ -31,6 +31,11 @@ enum State {
 	MANA
 }
 
+enum DamageSource {
+	Attack,
+	Spell
+}
+
 
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
@@ -309,7 +314,7 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target)
 
-	_do_damage(target, damage_total, false, true)
+	_do_damage(target, damage_total, DamageSource.Spell)
 
 
 func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
@@ -362,7 +367,7 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 # 	need to care about it in this trigger."
 	damage *= crit_ratio
 
-	_do_damage(target, damage, false, false)
+	_do_damage(target, damage, DamageSource.Attack)
 
 
 # NOTE: sides_ratio parameter specifies how much less damage
@@ -628,7 +633,7 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell_damage: bool):
+func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource):
 	var size_mod: float = _get_damage_mod_for_creep_size(target)
 	var category_mod: float = _get_damage_mod_for_creep_category(target)
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
@@ -637,8 +642,7 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 
 	var damaged_event: Event = Event.new(self)
 	damaged_event.damage = damage
-	damaged_event._is_main_target = is_main_target
-	damaged_event._is_spell_damage = is_spell_damage
+	damaged_event._is_spell_damage = damage_source == DamageSource.Spell
 	target.damaged.emit(damaged_event)
 
 	damage = damaged_event.damage
