@@ -75,6 +75,7 @@ var _specials_modifier: Modifier = Modifier.new()
 # NOTE: preceding tower reference is valid only during
 # creation. It is also always null for first tier towers.
 var _temp_preceding_tower: Tower = null
+var _number_of_crits: int = 0
 
 
 @onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
@@ -177,6 +178,13 @@ func _process(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+
+# Returns number of crits for current attack. Only valid in
+# attack and damage event handlers.
+func get_number_of_crits() -> int:
+	return _number_of_crits
+
 
 # Disables attacking or any other game interactions for the
 # tower. Must be called after add_child().
@@ -297,6 +305,20 @@ func issue_target_order(order_type: String, target: Unit):
 #########################
 ###      Private      ###
 #########################
+
+
+# If this is a crit, display floating text with damage and
+# exclamation marks.
+func _do_crit_floating_text(damage: float, crit_count: int):
+	if crit_count == 0:
+		return
+
+	var text: String = str(floor(damage))
+
+	for i in range(0, crit_count):
+		text += "!"
+
+	getOwner().display_floating_text_color(text, self, Color.RED, 1.0)
 
 
 # NOTE: change color of projectile according to tower's
@@ -428,8 +450,20 @@ func _try_to_attack() -> bool:
 
 
 func _attack_target(target: Unit):
+#	NOTE: need to generate crit number here early instead of
+#	right before dealing damage, so that for attacks like
+#	splash damage and bounce attacks all of the damage dealt
+#	has the same crit values. Also so that attack and damage
+#	event handlers have access to crit count.
+	var crit_count: int = _generate_crit_count(0.0, 0.0)
+
 	var attack_event: Event = Event.new(target)
+
+#	NOTE: set _number_of_crits here so that it's accesible
+#	in attack event handlers
+	_number_of_crits = crit_count
 	super._do_attack(attack_event)
+	_number_of_crits = 0
 
 	if _order_stop_requested:
 		_order_stop_requested = false
@@ -445,6 +479,7 @@ func _attack_target(target: Unit):
 		return
 
 	var projectile: Projectile = _make_projectile(self, target)
+	projectile.set_tower_crit_count(crit_count)
 	projectile.set_event_on_target_hit(_on_projectile_target_hit)
 
 	_attack_sound.play()
@@ -553,19 +588,38 @@ func _on_projectile_target_hit(projectile: Projectile, target: Unit):
 			_on_projectile_target_hit_bounce(projectile, target)
 
 
-func _on_projectile_target_hit_normal(_projectile: Projectile, target: Unit):
+func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 	var damage: float = get_current_attack_damage_with_bonus()
+
+	var crit_count: int = projectile.get_tower_crit_count()
+
+	_do_crit_floating_text(damage, crit_count)
 	
-	_do_attack_damage_internal(target, damage, calc_attack_multicrit(0, 0, 0), true)
+#	NOTE: set _number_of_crits here so that it's accesible
+#	in damage event handlers
+	_number_of_crits = crit_count
+	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, 0), true)
+	_number_of_crits = 0
 
 
-func _on_projectile_target_hit_splash(_projectile: Projectile, target: Unit):
+func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 	if _splash_map.is_empty():
 		return
 
 	var damage: float = get_current_attack_damage_with_bonus()
 
-	_do_attack_damage_internal(target, damage, calc_attack_multicrit(0, 0, 0), true)
+	var crit_count: int = projectile.get_tower_crit_count()
+
+#	NOTE: only do crit floating text for the main target,
+#	don't do for splash targets because it would look too
+#	cluttered.
+	_do_crit_floating_text(damage, crit_count)
+
+#	NOTE: set _number_of_crits here so that it's accesible
+#	in damage event handlers_number_of_crits = crit_count
+	_number_of_crits = crit_count
+	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, 0), true)
+	_number_of_crits = 0
 
 	var splash_target: Unit = target
 	var splash_pos: Vector2 = splash_target.position
@@ -590,7 +644,7 @@ func _on_projectile_target_hit_splash(_projectile: Projectile, target: Unit):
 			if creep_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
-				_do_attack_damage_internal(neighbor, splash_damage, calc_attack_multicrit(0, 0, 0), false)
+				_do_attack_damage_internal(neighbor, splash_damage, _calc_attack_multicrit_internal(crit_count, 0), false)
 
 				break
 
@@ -611,7 +665,14 @@ func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: U
 	var is_first_bounce: bool = current_bounce_count == _bounce_count_max
 	var is_main_target: bool = is_first_bounce
 
-	_do_attack_damage_internal(current_target, current_damage, calc_attack_multicrit(0, 0, 0), is_main_target)
+	var crit_count: int = projectile.get_tower_crit_count()
+	_do_crit_floating_text(current_damage, crit_count)
+
+#	NOTE: set _number_of_crits here so that it's accesible
+#	in damage event handlers_number_of_crits = crit_count
+	_number_of_crits = crit_count
+	_do_attack_damage_internal(current_target, current_damage, _calc_attack_multicrit_internal(crit_count, 0), is_main_target)
+	_number_of_crits = 0
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_count == 0
@@ -631,6 +692,10 @@ func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: U
 	next_projectile.set_event_on_target_hit(_on_projectile_bounce_in_progress)
 	next_projectile.user_real = next_damage
 	next_projectile.user_int = next_bounce_count
+#	NOTE: save crit count in projectile so that it can be
+#	used when projectile reaches the target to calculate
+#	damage
+	next_projectile.set_tower_crit_count(projectile.get_tower_crit_count())
 
 
 func _on_target_death(_event: Event, target: Creep):

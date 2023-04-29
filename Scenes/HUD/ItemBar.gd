@@ -29,7 +29,7 @@ func _ready():
 	current_size = "M"
 
 	if FF.add_test_item():
-		var test_item_list: Array[int] = [77, 78, 79, 99, 105, 108, 155, 158, 159, 218, 231, 268, 274, 1001]
+		var test_item_list: Array[int] = [77, 78, 79, 99, 105, 108, 155, 158, 159, 218, 231, 249, 268, 274, 1001]
 
 		for item in test_item_list:
 			add_item_button(item)

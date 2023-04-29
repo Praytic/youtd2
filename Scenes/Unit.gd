@@ -289,34 +289,10 @@ func calc_attack_crit_no_bonus() -> float:
 # 1 crit, 150% crit damage = 1.5
 # 3 crits, 150% crit damage = 1.0 + 0.5 + 0.5 + 0.5 = 2.5
 func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_damage: float) -> float:
-	var multicrit_count_max: int = get_prop_multicrit_count() + int(bonus_multicrit)
-	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
-	var crit_damage: float = get_prop_atk_crit_damage() + bonus_damage
+	var crit_count: int = _generate_crit_count(bonus_multicrit, bonus_chance)
+	var crit_damage: float = _calc_attack_multicrit_internal(crit_count, bonus_damage)
 
-	var crit_count: int = 0
-	var current_crit_chance: float = crit_chance
-	
-	for _i in range(multicrit_count_max):
-		var is_critical: bool = Utils.rand_chance(current_crit_chance)
-
-		if is_critical:
-			crit_count += 1
-
-#			Decrease chance of each subsequent multicrit to
-#			implement diminishing returns.
-			current_crit_chance *= MULTICRIT_DIMINISHING_CHANCE
-		else:
-			break
-
-# 	NOTE: subtract 1.0 from crit_damage, so we do
-#	1.0 + 0.5 + 0.5 + 0.5...
-# 	not
-#	1.0 + 1.5 + 1.5 + 1.5...
-	var total_crit_damage: float = 1.0 + (crit_damage - 1.0) * crit_count
-
-	total_crit_damage = max(0.0, total_crit_damage)
-
-	return total_crit_damage
+	return crit_damage
 
 
 static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit, target: Unit) -> float:
@@ -486,6 +462,46 @@ static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 #########################
 ###      Private      ###
 #########################
+
+
+# Generates a random crit count. Different number every
+# time.
+func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
+	var multicrit_count_max: int = get_prop_multicrit_count() + int(bonus_multicrit)
+	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
+
+	var crit_count: int = 0
+	var current_crit_chance: float = crit_chance
+	
+	for _i in range(multicrit_count_max):
+		var is_critical: bool = Utils.rand_chance(current_crit_chance)
+
+		if is_critical:
+			crit_count += 1
+
+#			Decrease chance of each subsequent multicrit to
+#			implement diminishing returns.
+			current_crit_chance *= MULTICRIT_DIMINISHING_CHANCE
+		else:
+			break
+
+	return crit_count
+
+
+# Same as calc_attack_multicrit(), but accepts an already
+# calculated crit count. Used by Tower.
+func _calc_attack_multicrit_internal(crit_count: int, bonus_damage: float) -> float:
+	var crit_damage: float = get_prop_atk_crit_damage() + bonus_damage
+
+# 	NOTE: subtract 1.0 from crit_damage, so we do
+#	1.0 + 0.5 + 0.5 + 0.5...
+# 	not
+#	1.0 + 1.5 + 1.5 + 1.5...
+	var total_crit_damage: float = 1.0 + (crit_damage - 1.0) * crit_count
+
+	total_crit_damage = max(0.0, total_crit_damage)
+
+	return total_crit_damage
 
 
 # Call this (or the animated sprite version) in subclass to
