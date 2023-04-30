@@ -12,6 +12,7 @@ class BlizzardData:
 
 class ChaingLightningData:
 	var damage: float = 0.0
+	var damage_reduction: float = 0.0
 	var chain_count: int = 0
 
 
@@ -59,6 +60,12 @@ func target_cast_from_caster(caster: Unit, target: Unit, damage_ratio: float, cr
 
 	var spell_targeted_event: Event = Event.new(target)
 	target.spell_targeted.emit(spell_targeted_event)
+
+
+# TODO: implement. Probably changes the height from which
+# the cast visual originates.
+func set_source_height(_height: float):
+	pass
 
 
 func _get_spell_scene_path() -> String:
