@@ -264,3 +264,8 @@ func set_path(path: Path2D):
 func get_damage_to_portal():
 	# TODO: Implement formula
 	return 1
+
+
+# TODO: return level of wave at which creep spawned
+func get_spawn_level() -> int:
+	return 1

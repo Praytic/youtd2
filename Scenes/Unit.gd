@@ -185,7 +185,7 @@ func _ready():
 
 # NOTE: for now just returning the one single player
 # instance since multiplayer isn't implemented.
-func getOwner():
+func getOwner() -> Player:
 	return _owner
 
 
