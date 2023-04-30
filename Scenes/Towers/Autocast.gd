@@ -59,6 +59,11 @@ func set_caster(caster: Unit):
 
 func _on_caster_attack(attack_event: Event):
 	var target: Unit = attack_event.get_target()
+
+	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
+
+	if on_cooldown:
+		return
 	
 # 	NOTE: caster may have higher attack range than autocast
 # 	so we need to check that target is in range of autocast
