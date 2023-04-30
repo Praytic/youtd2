@@ -19,7 +19,15 @@ func get_extra_tooltip_text() -> String:
 	var exp_bonus: String = String.num(_stats.exp_bonus * 100, 2)
 	var exp_bonus_add: String = String.num(_stats.exp_bonus_add * 100, 2)
 
-	return "[color=gold]Illuminate[/color]\nAttacks debuff the target, making it grant %s%% more experience once killed. This effect last 5 seconds.\n[color=orange]Level Bonus:[/color]\n+%s%% experience\n+0.2 seconds" % [exp_bonus, exp_bonus_add]
+	var text: String = ""
+
+	text += "[color=gold]Illuminate[/color]\n"
+	text += "Attacks debuff the target, making it grant %s%% more experience once killed. This effect last 5 seconds.\n" % exp_bonus
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+%s%% experience\n" % exp_bonus_add
+	text += "+0.2 seconds"
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

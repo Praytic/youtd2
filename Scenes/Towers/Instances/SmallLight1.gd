@@ -23,7 +23,17 @@ func get_extra_tooltip_text() -> String:
 	var duration_add: String = String.num(_stats.duration_add, 2)
 	var mod_value_add: String = String.num(_stats.mod_value_add / 10.0, 2)
 
-	return "[color=gold]Magical Sight[/color]Can see invisible enemy units in %s range.\n[color=gold]Power of Light[/color]\nThe mighty holy light weakens enemy undead creeps for %s seconds, so they will receive %s%% more damage from physical and spell attacks.\n[color=orange]Level Bonus:[/color]\n+%s seconds\n+%s%% damage" % [magical_sight_range, duration, mod_value, duration_add, mod_value_add]
+	var text: String = ""
+
+	text += "[color=gold]Magical Sight[/color]\n"
+	text += "Can see invisible enemy units in %s range.\n" % magical_sight_range
+	text += "[color=gold]Power of Light[/color]\n"
+	text += "The mighty holy light weakens enemy undead creeps for %s seconds, so they will receive %s%% more damage from physical and spell attacks.\n" % [duration, mod_value]
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+%s seconds\n" % duration_add
+	text += "+%s%% damage" % mod_value_add
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

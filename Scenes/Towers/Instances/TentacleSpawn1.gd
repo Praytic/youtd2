@@ -20,7 +20,15 @@ func get_extra_tooltip_text() -> String:
 	var periodic_damage: String = String.num(_stats.periodic_damage, 2)
 	var periodic_damage_add: String = String.num(_stats.periodic_damage_add, 2)
 
-	return "[color=gold]Rend[/color]\nThe tentacle has a 25%% chance to rend a target, making it suffer %s%% increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n[color=orange]Level Bonus:[/color]\n+1%% chance\n+%s spell damage per second" % [increased_spell_damage, periodic_damage, periodic_damage_add]
+	var text: String = ""
+
+	text += "[color=gold]Rend[/color]\n"
+	text += "The tentacle has a 25%% chance to rend a target, making it suffer %s%% increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage]
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+1%% chance\n"
+	text += "+%s spell damage per second" % periodic_damage_add
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

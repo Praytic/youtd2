@@ -21,7 +21,15 @@ func get_extra_tooltip_text() -> String:
 	var gold: String = String.num(_stats.gold / 10.0, 2)
 	var gold_add: String = String.num(_stats.gold * 0.04 / 10.0, 3)
 
-	return "[color=gold]Steal[/color]\nEvery time the thief damages a creep there is a 10%% chance he steals %s gold.\n[color=orange]Level Bonus:[/color]\n+%s gold\n+0.4%% chance" % [gold, gold_add]
+	var text: String = ""
+
+	text += "[color=gold]Steal[/color]\n"
+	text += "Every time the thief damages a creep there is a 10%% chance he steals %s gold.\n" % gold
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+%s gold\n" % gold_add
+	text += "+0.4%% chance"
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

@@ -19,7 +19,15 @@ func get_extra_tooltip_text() -> String:
 	var duration_add: String = String.num(_stats.duration_add, 2)
 	var slow_add: String = String.num(_stats.slow_add * 100, 2)
 
-	return "[color=gold]Icy Touch[/color]\nSlows attacked units by %s%% for %s seconds.\n[color=orange]Level Bonus:[/color]\n+%s seconds duration\n+%s%% slow" % [slow_base, duration_base, duration_add, slow_add]
+	var text: String = ""
+
+	text += "[color=gold]Icy Touch[/color]\n"
+	text += "Slows attacked units by %s%% for %s seconds.\n" % [slow_base, duration_base]
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+%s seconds duration\n" % duration_add
+	text += "+%s%% slow" % slow_add
+	
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

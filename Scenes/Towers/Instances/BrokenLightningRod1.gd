@@ -15,7 +15,16 @@ func get_extra_tooltip_text() -> String:
 	var damage: String = String.num(_stats.damage, 2)
 	var damage_add: String = String.num(_stats.damage_add, 2)
 
-	return "[color=gold]Release Lightning[/color]\nThis tower releases a lightning bolt that strikes the target for %s damage. \n[color=orange]Level Bonus:[/color]\n+%s damage\n\nMana cost: 20, 1200 range, 1s cooldown" % [damage, damage_add]
+	var text: String = ""
+
+	text += "[color=gold]Release Lightning[/color]\n"
+	text += "This tower releases a lightning bolt that strikes the target for %s damage.\n" % damage
+	text +="[color=orange]Level Bonus:[/color]\n"
+	text += "+%s damage\n" % damage_add
+	text += " \n"
+	text += "Mana cost: 20, 1200 range, 1s cooldown"
+
+	return text
 
 
 func tower_init():

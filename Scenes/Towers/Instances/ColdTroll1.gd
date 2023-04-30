@@ -27,7 +27,19 @@ func get_extra_tooltip_text() -> String:
 	var blizzard_damage_add: String = String.num(round(_stats.blizzard_damage * _stats.damage_ratio_add), 2)
 	var slow_add: String = String.num(_stats.slow_add * -1 * 100, 2)
 
-	return "[color=gold]Blizzard[/color]\nSummons %s waves of icy spikes which fall down to earth. Each wave deals %s damage in an AoE of %s. Each time a unit is damaged by this spell there is a chance of %s%% to slow the unit by %s%% for %s seconds and a chance of %s%% to stun the unit for %s seconds.\n[color=orange]Level Bonus:[/color]\n+%s damage\n+%s%% slow\n+1%% chance for slow\n+0.1%% chance for stun\n\nMana cost: 95, 900 range, 10s cooldown" % [blizzard_wave_count, blizzard_damage, blizzard_radius, slow_chance, slow, slow_duration, stun_chance, stun_duration, blizzard_damage_add, slow_add]
+	var text: String = ""
+
+	text += "[color=gold]Blizzard[/color]\n"
+	text += "Summons %s waves of icy spikes which fall down to earth. Each wave deals %s damage in an AoE of %s. Each time a unit is damaged by this spell there is a chance of %s%% to slow the unit by %s%% for %s seconds and a chance of %s%% to stun the unit for %s seconds.\n" % [blizzard_wave_count, blizzard_damage, blizzard_radius, slow_chance, slow, slow_duration, stun_chance, stun_duration]
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+%s damage\n" % blizzard_damage_add
+	text += "+%s%% slow\n" % slow_add
+	text += "+1%% chance for slow\n"
+	text += "+0.1%% chance for stun\n"
+	text += " \n"
+	text += "Mana cost: 95, 900 range, 10s cooldown"
+
+	return text
 
 
 func load_specials(modifier: Modifier):

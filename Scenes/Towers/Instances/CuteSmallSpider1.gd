@@ -21,7 +21,16 @@ func get_extra_tooltip_text() -> String:
 	var damage: String = String.num(_stats.damage, 2)
 	var damage_add: String = String.num(_stats.damage_add, 2)
 
-	return "[color=gold]Poisonous Spittle[/color]\nUnits damaged by the spider become infected and receive %s spell damage per second for 5 seconds. Further attacks on the same unit will increase the potency of the infection, stacking the damage and refreshing duration. Limit of 5 stacks. The highest stack amount of any spider that has infected a unit will be used.\n[color=orange]Level Bonus:[/color]\n+%s damage per second\n+0.05 second duration\n+1 stack every 5 levels" % [damage, damage_add]
+	var text: String = ""
+
+	text += "[color=gold]Poisonous Spittle[/color]\n"
+	text += "Units damaged by the spider become infected and receive %s spell damage per second for 5 seconds. Further attacks on the same unit will increase the potency of the infection, stacking the damage and refreshing duration. Limit of 5 stacks. The highest stack amount of any spider that has infected a unit will be used.\n" % damage
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+%s damage per second\n" % damage_add
+	text += "+0.05 second duration\n"
+	text += "+1 stack every 5 levels"
+
+	return text
 
 
 func load_specials(modifier: Modifier):

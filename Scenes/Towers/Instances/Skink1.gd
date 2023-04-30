@@ -19,7 +19,14 @@ func get_extra_tooltip_text() -> String:
 	var dmg: String = String.num(_stats.dmg, 2)
 	var dmg_add: String = String.num(_stats.dmg_add, 2)
 
-	return "[color=gold]Poisonous Skin - Aura[/color]\nThis and any towers in 200 range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted.\n[color=orange]Level Bonus:[/color]\n+%s spell damage per second" % [dmg, dmg_add]
+	var text: String = ""
+
+	text += "[color=gold]Poisonous Skin - Aura[/color]\n"
+	text += "This and any towers in 200 range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted.\n" % dmg
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+%s spell damage per second" % dmg_add
+
+	return text
 
 
 func poisenskin(event: Event):

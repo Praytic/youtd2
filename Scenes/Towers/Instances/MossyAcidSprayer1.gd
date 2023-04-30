@@ -20,7 +20,15 @@ func get_extra_tooltip_text() -> String:
 	var armor_base: String = String.num(_stats.armor_base / 1000.0, 3)
 	var armor_add: String = String.num(_stats.armor_add / 1000.0, 3)
 
-	return "[color=gold]Acid Coating[/color]\nDecreases the armor of damaged units by %s for 3 seconds.\n[color=orange]Level Bonus:[/color]\n+%s armor reduction\n+0.12 seconds" % [armor_base, armor_add]
+	var text: String = ""
+
+	text += "[color=gold]Acid Coating[/color]\n"
+	text += "Decreases the armor of damaged units by %s for 3 seconds.\n" % armor_base
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+%s armor reduction\n" % armor_add
+	text += "+0.12 seconds"
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

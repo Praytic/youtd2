@@ -14,7 +14,14 @@ func get_extra_tooltip_text() -> String:
 	var armor_ignored: String = String.num(_stats.armor_ignored * 100, 2)
 	var armor_ignored_add: String = String.num(_stats.armor_ignored_add * 100, 2)
 
-	return "[color=gold]Piercing Shot[/color]\n%s%% of this tower's attack damage cannot be reduced by armor resistances.\n[color=orange]Level Bonus:[/color]\n+%s%% damage ratio" % [armor_ignored, armor_ignored_add]
+	var text: String = ""
+
+	text += "[color=gold]Piercing Shot[/color]\n"
+	text += "%s%% of this tower's attack damage cannot be reduced by armor resistances.\n" % armor_ignored
+	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "+%s%% damage ratio" % armor_ignored_add
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):
