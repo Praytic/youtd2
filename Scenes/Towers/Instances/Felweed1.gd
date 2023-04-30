@@ -25,12 +25,12 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Fireblossom[/color]\n"
+	text += "[color=GOLD]Fireblossom[/color]\n"
 	text += "Every 7th attack deals %s%% bonus damage.\n" % bonus_7
 	text += "Every 8th attack deals %s%% bonus damage.\n" % bonus_8
 	text += "Every 9th attack deals %s%% bonus damage.\n" % bonus_9
 	text += "Every 10th attack deals %s%% bonus damage.\n" % bonus_10
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s%% bonus damage every 7th attack.\n" % bonus_7_add
 	text += "+%s%% bonus damage every 8th attack.\n" % bonus_8_add
 	text += "+%s%% bonus damage every 9th attack.\n" % bonus_9_add

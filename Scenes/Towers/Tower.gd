@@ -353,7 +353,7 @@ func get_specials_tooltip_text() -> String:
 	var text: String = ""
 
 	if _target_count_max > 1:
-		text += "[b][color=gold]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % [_target_count_max]
+		text += "[b][color=GOLD]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_max
 
 	match _attack_style:
 		AttackStyle.SPLASH:
@@ -703,7 +703,7 @@ func _on_target_death(_event: Event, target: Creep):
 
 
 func _get_splash_attack_tooltip_text() -> String:
-	var text: String = "[color=green_yellow]Splash attack:[/color]\n"
+	var text: String = "[color=GREENYELLOW]Splash attack:[/color]\n"
 
 	var splash_range_list: Array = _splash_map.keys()
 	splash_range_list.sort()
@@ -717,7 +717,7 @@ func _get_splash_attack_tooltip_text() -> String:
 
 
 func _get_bounce_attack_tooltip_text() -> String:
-	var text: String = "[color=green_yellow]Bounce attack:[/color]\n\t%d targets\n\t-%d%% damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
+	var text: String = "[color=GREENYELLOW]Bounce attack:[/color]\n\t%d targets\n\t-%d%% damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
 
 	return text
 

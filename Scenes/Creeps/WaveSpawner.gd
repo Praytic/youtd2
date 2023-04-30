@@ -197,5 +197,5 @@ func _on_Wave_ended():
 		print_verbose("Wave [%s] is cleared." % current_wave)
 		end_current_wave()
 	else:
-		push_error("Wave [%s] has ended but the state is invalid." % [current_wave])
+		push_error("Wave [%s] has ended but the state is invalid." % current_wave)
 	

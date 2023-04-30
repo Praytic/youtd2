@@ -24,10 +24,10 @@ static func convert_to_colored_string(type: CreepCategory.enm) -> String:
 	var string: String = convert_to_string(type)
 
 	match type:
-		CreepCategory.enm.UNDEAD: return "[color=VIOLET]%s[/color]" % [string]
-		CreepCategory.enm.MAGIC: return "[color=BLUE]%s[/color]" % [string]
-		CreepCategory.enm.NATURE: return "[color=AQUA]%s[/color]" % [string]
-		CreepCategory.enm.ORC: return "[color=DARKGREEN]%s[/color]" % [string]
-		CreepCategory.enm.HUMANOID: return "[color=TAN]%s[/color]" % [string]
+		CreepCategory.enm.UNDEAD: return "[color=VIOLET]%s[/color]" % string
+		CreepCategory.enm.MAGIC: return "[color=BLUE]%s[/color]" % string
+		CreepCategory.enm.NATURE: return "[color=AQUA]%s[/color]" % string
+		CreepCategory.enm.ORC: return "[color=DARKGREEN]%s[/color]" % string
+		CreepCategory.enm.HUMANOID: return "[color=TAN]%s[/color]" % string
 
 	return "[unknown creep category]"

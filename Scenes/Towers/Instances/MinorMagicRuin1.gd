@@ -21,9 +21,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Illuminate[/color]\n"
+	text += "[color=GOLD]Illuminate[/color]\n"
 	text += "Attacks debuff the target, making it grant %s%% more experience once killed. This effect last 5 seconds.\n" % exp_bonus
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s%% experience\n" % exp_bonus_add
 	text += "+0.2 seconds"
 

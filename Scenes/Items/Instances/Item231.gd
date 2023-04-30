@@ -5,9 +5,9 @@ extends Item
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
-	text += "[color=gold]Exchange[/color]\n"
+	text += "[color=GOLD]Exchange[/color]\n"
 	text += "Every 15 seconds the wielder converts a flat 2 experience into 7 gold.\n"
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-0.3 seconds cooldown."
 
 	return text

@@ -17,9 +17,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Frozen Spears[/color]\n"
+	text += "[color=GOLD]Frozen Spears[/color]\n"
 	text += "Has a %s%% chance to deal 50%% more damage and stun the target for 0.5 seconds.\n" % on_damage_chance
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s%% damage\n" % damage_add
 	text += "+0.01 seconds"
 

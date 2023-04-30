@@ -8,7 +8,7 @@ var boekie_spiderling_slow: BuffType
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
-	text += "[color=gold]Spiderling Poison[/color]\n"
+	text += "[color=GOLD]Spiderling Poison[/color]\n"
 	text += "When the carrier of this item attacks there is a 25% attackspeed adjusted chance that the attacked creep is slowed by 5% for 4 seconds."
 
 	return text

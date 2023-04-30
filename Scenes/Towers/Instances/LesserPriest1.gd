@@ -19,9 +19,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Smite[/color]\n"
+	text += "[color=GOLD]Smite[/color]\n"
 	text += "When this tower damages a creep it has 5%% chance to smite it, dealing %s spelldamage.\n" % smite_damage
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+2%% chance\n"
 	text += "+%s spelldamage\n" % smite_damage_add
 	text += "%s permanent armor reduction (%s on bosses) at level 25" % [armor_reduce, armor_reduce_boss]

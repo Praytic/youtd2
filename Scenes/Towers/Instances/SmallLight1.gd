@@ -25,11 +25,11 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Magical Sight[/color]\n"
+	text += "[color=GOLD]Magical Sight[/color]\n"
 	text += "Can see invisible enemy units in %s range.\n" % magical_sight_range
-	text += "[color=gold]Power of Light[/color]\n"
+	text += "[color=GOLD]Power of Light[/color]\n"
 	text += "The mighty holy light weakens enemy undead creeps for %s seconds, so they will receive %s%% more damage from physical and spell attacks.\n" % [duration, mod_value]
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s seconds\n" % duration_add
 	text += "+%s%% damage" % mod_value_add
 

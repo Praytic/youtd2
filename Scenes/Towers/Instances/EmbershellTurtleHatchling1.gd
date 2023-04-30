@@ -14,7 +14,7 @@ func _get_tier_stats() -> Dictionary:
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
-	text += "[color=gold]Overheat[/color]\n"
+	text += "[color=GOLD]Overheat[/color]\n"
 	text += "Each attack costs 1 mana, which is regenerated at a rate of 1 mana per second."
 
 	return text

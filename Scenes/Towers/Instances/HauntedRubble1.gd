@@ -22,9 +22,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Atrophy[/color]\n"
+	text += "[color=GOLD]Atrophy[/color]\n"
 	text += "When this tower attacks a creep it has a %s%% (%s%% for bosses) chance to slow it by %s%% for 5 seconds.\n" % [chance, chance_for_bosses, slow_value]
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s%% (%s%% for bosses) chance" % [chance_add, chance_add_for_bosses]
 
 	return text

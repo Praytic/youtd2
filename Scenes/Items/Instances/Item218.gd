@@ -7,7 +7,7 @@ var PT: ProjectileType
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
-	text += "[color=gold]Blasting Attack[/color]\n"
+	text += "[color=GOLD]Blasting Attack[/color]\n"
 	text += "The staff launches a magical missile each second which deals 60 spelldamage. The staff has a range of 1000.\n"
 
 	return text

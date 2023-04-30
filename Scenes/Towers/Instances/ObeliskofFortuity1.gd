@@ -16,9 +16,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Warming Up[/color]\n"
+	text += "[color=GOLD]Warming Up[/color]\n"
 	text += "Each attack of this tower has a %s%% chance to miss the target.\n" % miss_chance_base
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-0.6%% miss chance"
 
 	return text

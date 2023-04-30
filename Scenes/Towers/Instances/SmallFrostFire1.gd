@@ -24,9 +24,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Soul Chill[/color]\n"
+	text += "[color=GOLD]Soul Chill[/color]\n"
 	text += "Chills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s%% for 4 seconds.\n" % [aoe_damage, slow_value]
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % aoe_damage_add
 	text += "+%s%% slow\n" % slow_value_add
 	text += "+%s seconds duration\n" % slow_duration_add

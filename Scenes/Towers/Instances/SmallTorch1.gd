@@ -17,9 +17,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Fire Blast[/color]\n"
+	text += "[color=GOLD]Fire Blast[/color]\n"
 	text += "Releases a blast of fire that strikes all targets in 200 AoE around the main target for %s damage.\n" % damage
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % damage_add
 	text += " \n"
 	text += "Mana cost: 20, 900 range, 1s cooldown"

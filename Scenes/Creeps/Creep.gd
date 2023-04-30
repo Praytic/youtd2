@@ -202,7 +202,7 @@ func _on_death(event: Event):
 			Constants.Rarity.RARE: rarity_name = "RareItem"
 			Constants.Rarity.UNIQUE: rarity_name = "UniqueItem"
 		
-		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % [rarity_name]
+		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % rarity_name
 		var item_drop_scene = load(item_drop_scene_path)
 		var item_drop = item_drop_scene.instantiate()
 		item_drop.set_id(item_id)

@@ -7,7 +7,7 @@ var MB: MultiboardValues
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
-	text += "[color=gold]Golden Hit[/color]\n"
+	text += "[color=GOLD]Golden Hit[/color]\n"
 	text += "Grants 2 gold for each multicrit on a critical attack. Gold gain is base attack speed adjusted and scales with bounty received.\n"
 
 	return text

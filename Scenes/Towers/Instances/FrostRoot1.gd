@@ -13,12 +13,15 @@ func _get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
+	var damage: String = String.num(_stats.damage, 2)
+	var damage_add: String = String.num(_stats.damage_add, 2)
+
 	var text: String = ""
 
-	text += "[color=gold]Frozen Thorn[/color]\n"
-	text += "Has a 15%% chance to deal %d additional spell damage each time it deals damage.\n" % _stats.damage
-	text += "[color=orange]Level Bonus:[/color]\n"
-	text += "+%d spell damage" % _stats.damage_add
+	text += "[color=GOLD]Frozen Thorn[/color]\n"
+	text += "Has a 15%% chance to deal %s additional spell damage each time it deals damage.\n" % damage
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s spell damage" % damage_add
 
 	return text
 

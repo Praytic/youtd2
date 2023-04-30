@@ -21,9 +21,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Poisoned Heart[/color]\n"
+	text += "[color=GOLD]Poisoned Heart[/color]\n"
 	text += "This tower destroys a piece of the creep's heart on damage. The affected creep takes %s spelldamage every second for 6 seconds.\n" % poison_damage
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s poison damage\n" % poison_damage_add
 	text += "+%s seconds poison duration" % poison_duration_add
 

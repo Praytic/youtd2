@@ -16,9 +16,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Piercing Shot[/color]\n"
+	text += "[color=GOLD]Piercing Shot[/color]\n"
 	text += "%s%% of this tower's attack damage cannot be reduced by armor resistances.\n" % armor_ignored
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s%% damage ratio" % armor_ignored_add
 
 	return text

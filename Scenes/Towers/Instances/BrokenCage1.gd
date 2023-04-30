@@ -17,9 +17,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Banish[/color]\n"
+	text += "[color=GOLD]Banish[/color]\n"
 	text += "Magic, undead and nature creeps damaged by this tower suffer an additional %s%% of that damage as spelldamage.\n" % damage
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s%% damage" % damage_add
 
 	return text

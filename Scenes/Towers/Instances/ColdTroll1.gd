@@ -29,9 +29,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Blizzard[/color]\n"
+	text += "[color=GOLD]Blizzard[/color]\n"
 	text += "Summons %s waves of icy spikes which fall down to earth. Each wave deals %s damage in an AoE of %s. Each time a unit is damaged by this spell there is a chance of %s%% to slow the unit by %s%% for %s seconds and a chance of %s%% to stun the unit for %s seconds.\n" % [blizzard_wave_count, blizzard_damage, blizzard_radius, slow_chance, slow, slow_duration, stun_chance, stun_duration]
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % blizzard_damage_add
 	text += "+%s%% slow\n" % slow_add
 	text += "+1%% chance for slow\n"

@@ -22,9 +22,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Lightning Strike[/color]\n"
+	text += "[color=GOLD]Lightning Strike[/color]\n"
 	text += "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target. The lightning bolt deals %s Energy damage.\n" % lightning_dmg
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage" % lightning_dmg_add
 
 	return text

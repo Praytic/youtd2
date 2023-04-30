@@ -21,9 +21,9 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=gold]Phaze[/color]\n"
+	text += "[color=GOLD]Phaze[/color]\n"
 	text += "Whenever this tower damages a creep it increases its item drop chance and item drop quality by %s%% for %s seconds. \n" % [value, duration]
-	text += "[color=orange]Level Bonus:[/color]\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s%% item drop quality\n" % value_add
 	text += "+%s%% item drop chance\n" % value_add
 	text += "+0.1 seconds" 
