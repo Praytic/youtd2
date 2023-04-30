@@ -10,9 +10,6 @@ signal camera_zoomed(zoom_value)
 @export var mousewheel_zoom_speed: float = 0.4
 
 
-var move_direction: Vector2
-
-
 func _ready():
 	if OS.get_name() == "macOS":
 		zoom_sensitivity = 0.1
@@ -20,6 +17,17 @@ func _ready():
 
 
 func _physics_process(delta):
+	var move_direction: Vector2 = Vector2.ZERO
+
+	if Input.is_action_pressed("ui_left"):
+		move_direction.x += -1.0
+	if Input.is_action_pressed("ui_right"):
+		move_direction.x += 1.0
+	if Input.is_action_pressed("ui_up"):
+		move_direction.y += -1.0
+	if Input.is_action_pressed("ui_down"):
+		move_direction.y += 1.0
+
 	if (move_direction != Vector2.ZERO):
 		var diagonal_modif = 1
 		if move_direction.abs() == Vector2.ONE:
@@ -32,22 +40,7 @@ func _physics_process(delta):
 
 
 func _unhandled_input(event):
-	_move(event)
 	_zoom(event)
-
-
-func _move(_event):
-	var new_move_direction = Vector2.ZERO
-	if Input.is_action_pressed("ui_right"):
-		new_move_direction.x = 1.0
-	if Input.is_action_pressed("ui_up"):
-		new_move_direction.y = -1.0
-	if Input.is_action_pressed("ui_down"):
-		new_move_direction.y = 1.0
-	if Input.is_action_pressed("ui_left"):
-		new_move_direction.x = -1.0
-	
-	self.move_direction = new_move_direction
 
 
 func _zoom(event):
