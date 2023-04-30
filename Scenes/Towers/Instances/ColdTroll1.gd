@@ -49,6 +49,7 @@ func load_specials(modifier: Modifier):
 
 
 func on_autocast(event: Event):
+	print("on_autocast")
 	var tower: Tower = self
 
 	var u: Unit = event.get_target()
@@ -86,8 +87,9 @@ func tower_init():
 	autocast.target_art = ""
 	autocast.cooldown = 10
 	autocast.is_extended = false
-	autocast.mana_cost = 95
-	autocast.buff_type = 0
+	autocast.mana_cost = 5
+	# autocast.mana_cost = 95
+	autocast.buff_type = null
 	autocast.target_type = null
 	autocast.auto_range = 900
 	autocast.handler = on_autocast

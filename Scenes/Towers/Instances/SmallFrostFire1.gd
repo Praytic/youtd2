@@ -52,7 +52,7 @@ func tower_init():
 	autocast.cast_range = 1200
 	autocast.num_buffs_before_idle = 0
 	autocast.target_art = "Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl"
-	autocast.buff_type = 0
+	autocast.buff_type = null
 	autocast.target_self = false
 	autocast.handler = on_autocast
 

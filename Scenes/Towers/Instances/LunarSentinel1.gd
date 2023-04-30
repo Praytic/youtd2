@@ -49,7 +49,7 @@ func tower_init():
 	autocast.cooldown = 2
 	autocast.is_extended = true
 	autocast.mana_cost = 0
-	autocast.buff_type = 0
+	autocast.buff_type = null
 	autocast.target_type = null
 	autocast.auto_range = 1200
 	autocast.handler = _on_autocast
