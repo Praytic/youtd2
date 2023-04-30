@@ -26,6 +26,7 @@ var movement_enabled: bool = true
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
 var _corpse_scene: PackedScene = preload("res://Scenes/Creeps/CreepCorpse.tscn")
+var _spawn_level: int
 
 @onready var _visual = $Visual
 @onready var _sprite = $Visual/Sprite2D
@@ -266,6 +267,9 @@ func get_damage_to_portal():
 	return 1
 
 
-# TODO: return level of wave at which creep spawned
 func get_spawn_level() -> int:
-	return 1
+	return _spawn_level
+
+
+func set_spawn_level(spawn_level: int):
+	_spawn_level = spawn_level
