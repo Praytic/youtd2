@@ -28,12 +28,13 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_down"):
 		move_direction.y += 1.0
 
+#	NOTE: normalize direction vector so that camera moves at
+#	the same speed in all directions
+	move_direction = move_direction.normalized()
+
 	if (move_direction != Vector2.ZERO):
-		var diagonal_modif = 1
-		if move_direction.abs() == Vector2.ONE:
-			diagonal_modif *= sqrt(2.0)/2.0
 		var zoom_ratio = sqrt(zoom.x)
-		var shift_vector: Vector2 = move_direction * delta * cam_move_speed * diagonal_modif * zoom_ratio
+		var shift_vector: Vector2 = move_direction * delta * cam_move_speed * zoom_ratio
 		position = get_screen_center_position() + shift_vector
 		
 		camera_moved.emit(shift_vector)
