@@ -31,6 +31,11 @@ enum State {
 	MANA
 }
 
+enum DamageSource {
+	Attack,
+	Spell
+}
+
 
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
@@ -180,7 +185,7 @@ func _ready():
 
 # NOTE: for now just returning the one single player
 # instance since multiplayer isn't implemented.
-func getOwner():
+func getOwner() -> Player:
 	return _owner
 
 
@@ -289,34 +294,10 @@ func calc_attack_crit_no_bonus() -> float:
 # 1 crit, 150% crit damage = 1.5
 # 3 crits, 150% crit damage = 1.0 + 0.5 + 0.5 + 0.5 = 2.5
 func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_damage: float) -> float:
-	var multicrit_count_max: int = get_prop_multicrit_count() + int(bonus_multicrit)
-	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
-	var crit_damage: float = get_prop_atk_crit_damage() + bonus_damage
+	var crit_count: int = _generate_crit_count(bonus_multicrit, bonus_chance)
+	var crit_damage: float = _calc_attack_multicrit_internal(crit_count, bonus_damage)
 
-	var crit_count: int = 0
-	var current_crit_chance: float = crit_chance
-	
-	for _i in range(multicrit_count_max):
-		var is_critical: bool = Utils.rand_chance(current_crit_chance)
-
-		if is_critical:
-			crit_count += 1
-
-#			Decrease chance of each subsequent multicrit to
-#			implement diminishing returns.
-			current_crit_chance *= MULTICRIT_DIMINISHING_CHANCE
-		else:
-			break
-
-# 	NOTE: subtract 1.0 from crit_damage, so we do
-#	1.0 + 0.5 + 0.5 + 0.5...
-# 	not
-#	1.0 + 1.5 + 1.5 + 1.5...
-	var total_crit_damage: float = 1.0 + (crit_damage - 1.0) * crit_count
-
-	total_crit_damage = max(0.0, total_crit_damage)
-
-	return total_crit_damage
+	return crit_damage
 
 
 static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit, target: Unit) -> float:
@@ -333,7 +314,7 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target)
 
-	_do_damage(target, damage_total, false, true)
+	_do_damage(target, damage_total, DamageSource.Spell)
 
 
 func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
@@ -386,7 +367,7 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 # 	need to care about it in this trigger."
 	damage *= crit_ratio
 
-	_do_damage(target, damage, false, false)
+	_do_damage(target, damage, DamageSource.Attack)
 
 
 # NOTE: sides_ratio parameter specifies how much less damage
@@ -486,6 +467,46 @@ static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 #########################
 ###      Private      ###
 #########################
+
+
+# Generates a random crit count. Different number every
+# time.
+func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
+	var multicrit_count_max: int = get_prop_multicrit_count() + int(bonus_multicrit)
+	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
+
+	var crit_count: int = 0
+	var current_crit_chance: float = crit_chance
+	
+	for _i in range(multicrit_count_max):
+		var is_critical: bool = Utils.rand_chance(current_crit_chance)
+
+		if is_critical:
+			crit_count += 1
+
+#			Decrease chance of each subsequent multicrit to
+#			implement diminishing returns.
+			current_crit_chance *= MULTICRIT_DIMINISHING_CHANCE
+		else:
+			break
+
+	return crit_count
+
+
+# Same as calc_attack_multicrit(), but accepts an already
+# calculated crit count. Used by Tower.
+func _calc_attack_multicrit_internal(crit_count: int, bonus_damage: float) -> float:
+	var crit_damage: float = get_prop_atk_crit_damage() + bonus_damage
+
+# 	NOTE: subtract 1.0 from crit_damage, so we do
+#	1.0 + 0.5 + 0.5 + 0.5...
+# 	not
+#	1.0 + 1.5 + 1.5 + 1.5...
+	var total_crit_damage: float = 1.0 + (crit_damage - 1.0) * crit_count
+
+	total_crit_damage = max(0.0, total_crit_damage)
+
+	return total_crit_damage
 
 
 # Call this (or the animated sprite version) in subclass to
@@ -612,7 +633,7 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell_damage: bool):
+func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource):
 	var size_mod: float = _get_damage_mod_for_creep_size(target)
 	var category_mod: float = _get_damage_mod_for_creep_category(target)
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
@@ -621,8 +642,7 @@ func _do_damage(target: Unit, damage_base: float, is_main_target: bool, is_spell
 
 	var damaged_event: Event = Event.new(self)
 	damaged_event.damage = damage
-	damaged_event._is_main_target = is_main_target
-	damaged_event._is_spell_damage = is_spell_damage
+	damaged_event._is_spell_damage = damage_source == DamageSource.Spell
 	target.damaged.emit(damaged_event)
 
 	damage = damaged_event.damage

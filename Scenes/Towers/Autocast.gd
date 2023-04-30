@@ -12,10 +12,19 @@ extends Node
 # Defining a target_type will cause autocast to trigger only
 # for targets that match the defined type. Set this to null
 # if you don't need any filtering.
+#
+# AC_TYPE_OFFENSIVE_UNIT - performs an autocast when tower
+# attacks.
+# 
+# AC_TYPE_ALWAYS_BUFF - performs an autocast on targets in
+# range that don't already have the buff_type. Note that the
+# autocast doesn't apply the buff automatically, autocast
+# handler should apply the buff.
 
 
 enum Type {
-	AC_TYPE_OFFENSIVE_UNIT
+	AC_TYPE_OFFENSIVE_UNIT,
+	AC_TYPE_ALWAYS_BUFF
 }
 
 
@@ -29,7 +38,7 @@ var is_extended: bool = false
 var autocast_type: Autocast.Type = Type.AC_TYPE_OFFENSIVE_UNIT
 var mana_cost: int = 0
 var cast_range: float = 1000
-var buff_type: int = 0
+var buff_type: BuffType = null
 var target_self: bool = false
 var target_type: TargetType = null
 var target_art: String = ""
@@ -39,6 +48,7 @@ var handler: Callable = Callable()
 var _caster: Unit = null
 
 @onready var _cooldown_timer: Timer = $CooldownTimer
+@onready var _always_buff_timer: Timer = $AlwaysBuffTimer
 
 
 static func make() -> Autocast:
@@ -51,15 +61,26 @@ func _ready():
 	_cooldown_timer.wait_time = cooldown
 	_cooldown_timer.one_shot = true
 
+#	NOTE: AC_TYPE_OFFENSIVE_UNIT is triggered when caster
+#	attacks, while AC_TYPE_ALWAYS_BUFF runs on it's own
+#	timer.
+	match autocast_type:
+		Type.AC_TYPE_OFFENSIVE_UNIT:
+			_caster.attack.connect(_on_caster_attack)
+		Type.AC_TYPE_ALWAYS_BUFF:
+			_always_buff_timer.start()
+
 
 func set_caster(caster: Unit):
 	_caster = caster
-	caster.attack.connect(_on_caster_attack)
 
 
 func _on_caster_attack(attack_event: Event):
-	var target: Unit = attack_event.get_target()
+	if !_can_cast():
+		return
 	
+	var target: Unit = attack_event.get_target()
+
 # 	NOTE: caster may have higher attack range than autocast
 # 	so we need to check that target is in range of autocast
 	var distance_to_target: float = Isometric.vector_distance_to(target.position, _caster.position)
@@ -73,11 +94,6 @@ func _on_caster_attack(attack_event: Event):
 
 		if !target_matches_type:
 			return
-
-	var enough_mana: bool = _caster.get_mana() >= mana_cost
-
-	if !enough_mana:
-		return
 
 	_caster.spend_mana(mana_cost)
 
@@ -93,3 +109,38 @@ func _on_caster_attack(attack_event: Event):
 	handler.call(autocast_event)
 
 	_cooldown_timer.start()
+
+
+func _on_always_buff_timer_timeout():
+	if !_can_cast():
+		return
+
+	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.position, auto_range)
+	Utils.sort_unit_list_by_distance(unit_list, _caster.position)
+
+	var target: Unit = null
+
+	for unit in unit_list:
+		var buff: Buff = unit.get_buff_of_type(buff_type)
+		var unit_has_buff: bool = buff != null
+
+		if !unit_has_buff:
+			target = unit
+
+			break
+
+	if target == null:
+		return
+
+	_caster.spend_mana(mana_cost)
+
+	var autocast_event = Event.new(target)
+	handler.call(autocast_event)
+
+
+func _can_cast() -> bool:
+	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
+	var enough_mana: bool = _caster.get_mana() >= mana_cost
+	var can_cast: bool = !on_cooldown && enough_mana
+
+	return can_cast

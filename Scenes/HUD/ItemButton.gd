@@ -8,6 +8,10 @@ const TIER_ICON_SIZE_S = 32
 const TIER_ICON_SIZE_M = 64
 
 var tier_icon
+var _charges_label: Label
+# Item instance that corresponds to this button. This is
+# non-null only for item buttons in tower inventory.
+var _item_instance: Item = null
 
 var _item_id: int
 @onready var _icon_size: String : set = set_icon_size
@@ -23,10 +27,21 @@ func _ready():
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 
+	_charges_label = Label.new()
+	_charges_label.set_text("")
+	add_child(_charges_label)
+
+	if _item_instance != null:
+		_on_item_charges_changed(_item_instance)
+
 
 # NOTE: turn off drawing tier icon so that item's icon gets drawn
 # func _draw():
 # 	draw_texture(tier_icon, Vector2.ZERO)
+
+func set_item_instance(item: Item):
+	_item_instance = item
+	_item_instance.charges_changed.connect(_on_item_charges_changed.bind(item))
 
 
 func set_icon_size(icon_size: String):
@@ -66,3 +81,8 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	EventBus.emit_item_button_mouse_exited()
+
+
+func _on_item_charges_changed(item: Item):
+	var charges_text: String = item.get_charges_text()
+	_charges_label.set_text(charges_text)

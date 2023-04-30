@@ -17,7 +17,15 @@ func _get_tier_stats() -> Dictionary:
 func get_extra_tooltip_text() -> String:
 	var armor_decrease: String = String.num(_stats.armor_decrease, 2)
 
-	return "[color=gold]Afterglow[/color]\nThe Orb has a 5%% chance to reduce armor of units it damages by %s for 5 seconds. This chance is doubled for bosses.\n[color=orange]Level Bonus:[/color]\n+0.6%% chance\n+0.25 seconds duration" % [armor_decrease]
+	var text: String = ""
+
+	text += "[color=GOLD]Afterglow[/color]\n"
+	text += "The Orb has a 5%% chance to reduce armor of units it damages by %s for 5 seconds. This chance is doubled for bosses.\n" % armor_decrease
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+0.6%% chance\n"
+	text += "+0.25 seconds duration"
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

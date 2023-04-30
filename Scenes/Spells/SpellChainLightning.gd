@@ -3,6 +3,7 @@ extends SpellDummy
 const CHAIN_DISTANCE: float = 300.0
 
 var _damage: float = 0.0
+var _damage_reduction: float = 0.0
 var _chain_count: int = 0
 
 
@@ -26,6 +27,9 @@ func _ready():
 
 		var hit_unit: Unit = unit_list[0]
 
+		var current_damage_reduction = max(0, 1.0 - _damage_reduction * i)
+		var current_damage: float = _damage * current_damage_reduction
+
 		do_spell_damage(hit_unit, _damage)
 		visited_unit_list.append(hit_unit)
 		current_position = hit_unit.position
@@ -35,4 +39,5 @@ func _ready():
 # for them
 func _set_subclass_data(data: Cast.SpellData):
 	_damage = data.chain_lightning.damage
+	_damage_reduction = data.chain_lightning.damage_reduction
 	_chain_count = data.chain_lightning.chain_count

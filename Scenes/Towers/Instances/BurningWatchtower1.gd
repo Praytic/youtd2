@@ -25,7 +25,17 @@ func get_extra_tooltip_text() -> String:
 	var bonus_damage_add: String = String.num(_stats.bonus_damage_add, 2)
 	var bonus_damage_add_other: String = String.num(_stats.bonus_damage_add * 0.3, 2)
 
-	return "[color=gold]Burn[/color]\nStarts to burn a target. On every further hit of a fire tower, the target will receive more bonus damage then before. Burning Structures will increase the bonus damage by %s, any other fire towers by %s. If the unit dies, it explodes and deals %s damage to nearby units in a range of 200.\nLasts 5 seconds after the last attack of a fire tower.\n[color=orange]Level Bonus:[/color]\n+%s damage gain (Burning Structrues)\n+%s damage gain (Other fire towers)\n+0.12 seconds burn duration" % [bonus_damage, bonus_damage_other, explode_damage, bonus_damage_add, bonus_damage_add_other]
+	var text: String = ""
+
+	text += "[color=GOLD]Burn[/color]\n"
+	text += "Starts to burn a target. On every further hit of a fire tower, the target will receive more bonus damage then before. Burning Structures will increase the bonus damage by %s, any other fire towers by %s. If the unit dies, it explodes and deals %s damage to nearby units in a range of 200.\n" % [bonus_damage, bonus_damage_other, explode_damage]
+	text += "Lasts 5 seconds after the last attack of a fire tower.\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s damage gain (Burning Structrues)\n" % bonus_damage_add
+	text += "+%s damage gain (Other fire towers)\n" % bonus_damage_add_other
+	text += "+0.12 seconds burn duration"
+
+	return text
 
 
 # b.userReal: The user Real is the current bonus damage of the buff. Init with 0

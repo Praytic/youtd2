@@ -15,7 +15,15 @@ func get_extra_tooltip_text() -> String:
 	var on_damage_chance: String = String.num(_stats.on_damage_chance * 100, 2)
 	var damage_add: String = String.num(_stats.damage_add, 2)
 
-	return "[color=gold]Frozen Spears[/color]\nHas a %s%% chance to deal 50%% more damage and stun the target for 0.5 seconds.\n[color=orange]Level Bonus:[/color]\n+%s%% damage\n+0.01 seconds" % [on_damage_chance, damage_add]
+	var text: String = ""
+
+	text += "[color=GOLD]Frozen Spears[/color]\n"
+	text += "Has a %s%% chance to deal 50%% more damage and stun the target for 0.5 seconds.\n" % on_damage_chance
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s%% damage\n" % damage_add
+	text += "+0.01 seconds"
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

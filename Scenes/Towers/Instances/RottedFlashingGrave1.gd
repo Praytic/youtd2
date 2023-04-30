@@ -5,7 +5,12 @@ extends Tower
 
 
 func get_extra_tooltip_text() -> String:
-	return "[color=gold]Wrath of the Storm - Aura[/color]\nThe enormous wrath of the dead warrior flows out of this tower undirected. So the tower only hits a random target in range each attack."
+	var text: String = ""
+
+	text += "[color=GOLD]Wrath of the Storm - Aura[/color]\n"
+	text += "The enormous wrath of the dead warrior flows out of this tower undirected. So the tower only hits a random target in range each attack."
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

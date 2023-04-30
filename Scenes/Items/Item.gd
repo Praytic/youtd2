@@ -5,6 +5,8 @@ extends Node
 # Item represents item when it's attached to a tower.
 # Implements application of item effects on tower.
 
+signal charges_changed()
+
 
 enum CsvProperty {
 	ID = 0,
@@ -32,6 +34,7 @@ var user_real3: float = 0.0
 
 var _id: int = 0
 var _carrier: Tower = null
+var _charge_count: int = -1
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
@@ -75,6 +78,19 @@ func _init(id: int):
 	_buff_type_list.append(triggers_buff_type)
 
 
+# Sets the charge count that is displayed on the item icon.
+func set_charges(new_count: int):
+	_charge_count = new_count
+	charges_changed.emit()
+
+
+func get_charges_text() -> String:
+	if _charge_count != -1:
+		return str(_charge_count)
+	else:
+		return ""
+
+
 # NOTE: override this in subclass to attach trigger handlers
 # to triggers buff passed in the argument.
 func load_triggers(_triggers_buff_type: BuffType):
@@ -89,6 +105,8 @@ func load_modifier(_modifier_arg: Modifier):
 
 func apply_to_tower(tower: Tower):
 	_carrier = tower
+
+	on_item_pickup()
 
 	_carrier.add_modifier(_modifier)
 
@@ -136,6 +154,12 @@ func _item_init():
 # Creation" trigger. This is the analog of "onCreate"
 # function from original API.
 func on_create():
+	pass
+
+
+# Override this in tower subclass to implement the "On Item
+# Pickup" trigger.
+func on_item_pickup():
 	pass
 
 

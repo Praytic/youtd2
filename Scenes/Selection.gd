@@ -12,4 +12,4 @@ func _ready():
 
 
 func _draw():
-	draw_arc(Vector2.ZERO, visual_size, deg_to_rad(0), deg_to_rad(360), 100, Color.WHITE, 1.5, true)
+	draw_arc(Vector2.ZERO, visual_size, deg_to_rad(0), deg_to_rad(360), 100, Color.WHITE, 10, true)

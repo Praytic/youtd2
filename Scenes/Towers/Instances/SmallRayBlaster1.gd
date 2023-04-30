@@ -19,7 +19,16 @@ func get_extra_tooltip_text() -> String:
 	var value_add: String = String.num(_stats.value_add / 100.0, 2)
 	var duration: String = String.num(_stats.duration * 100, 2)
 
-	return "[color=gold]Phaze[/color]\nWhenever this tower damages a creep it increases its item drop chance and item drop quality by %s%% for %s seconds. \n[color=orange]Level Bonus:[/color]\n+%s%% item drop quality\n+%s%% item drop chance\n+0.1 seconds" % [value, duration, value_add, value_add]
+	var text: String = ""
+
+	text += "[color=GOLD]Phaze[/color]\n"
+	text += "Whenever this tower damages a creep it increases its item drop chance and item drop quality by %s%% for %s seconds. \n" % [value, duration]
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s%% item drop quality\n" % value_add
+	text += "+%s%% item drop chance\n" % value_add
+	text += "+0.1 seconds" 
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

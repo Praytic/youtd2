@@ -26,6 +26,7 @@ var movement_enabled: bool = true
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
 var _corpse_scene: PackedScene = preload("res://Scenes/Creeps/CreepCorpse.tscn")
+var _spawn_level: int
 
 @onready var _visual = $Visual
 @onready var _sprite = $Visual/Sprite2D
@@ -202,7 +203,7 @@ func _on_death(event: Event):
 			Constants.Rarity.RARE: rarity_name = "RareItem"
 			Constants.Rarity.UNIQUE: rarity_name = "UniqueItem"
 		
-		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % [rarity_name]
+		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % rarity_name
 		var item_drop_scene = load(item_drop_scene_path)
 		var item_drop = item_drop_scene.instantiate()
 		item_drop.set_id(item_id)
@@ -264,3 +265,11 @@ func set_path(path: Path2D):
 func get_damage_to_portal():
 	# TODO: Implement formula
 	return 1
+
+
+func get_spawn_level() -> int:
+	return _spawn_level
+
+
+func set_spawn_level(spawn_level: int):
+	_spawn_level = spawn_level

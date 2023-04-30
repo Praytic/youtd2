@@ -14,7 +14,14 @@ func _get_tier_stats() -> Dictionary:
 func get_extra_tooltip_text() -> String:
 	var miss_chance_base: String = String.num(_stats.miss_chance_base * 100, 2)
 
-	return "[color=gold]Warming Up[/color]\nEach attack of this tower has a %s%% chance to miss the target.\n[color=orange]Level Bonus:[/color]\n-0.6%% miss chance" % [miss_chance_base]
+	var text: String = ""
+
+	text += "[color=GOLD]Warming Up[/color]\n"
+	text += "Each attack of this tower has a %s%% chance to miss the target.\n" % miss_chance_base
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "-0.6%% miss chance"
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

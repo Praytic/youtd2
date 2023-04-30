@@ -15,7 +15,14 @@ func get_extra_tooltip_text() -> String:
 	var damage: String = String.num(_stats.damage * 100, 2)
 	var damage_add: String = String.num(_stats.damage_add * 100, 2)
 
-	return "[color=gold]Banish[/color]\nMagic, undead and nature creeps damaged by this tower suffer an additional %s%% of that damage as spelldamage.\n[color=orange]Level Bonus:[/color]\n+%s%% damage" % [damage, damage_add]
+	var text: String = ""
+
+	text += "[color=GOLD]Banish[/color]\n"
+	text += "Magic, undead and nature creeps damaged by this tower suffer an additional %s%% of that damage as spelldamage.\n" % damage
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s%% damage" % damage_add
+
+	return text
 
 
 func load_triggers(triggers: BuffType):

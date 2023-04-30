@@ -41,7 +41,7 @@ func _process(_delta: float):
 	var mana: int = floor(selected_unit.get_mana())
 	var overall_mana: int = floor(selected_unit.get_overall_mana())
 
-	label_text += "[b]%s[/b]\n" % [display_name]
+	label_text += "[b]%s[/b]\n" % display_name
 	label_text += "Health: %d/%d\n" % [health, overall_health]
 	label_text += "Mana: %d/%d\n" % [mana, overall_mana]
 	label_text += "Status:"

@@ -22,6 +22,7 @@ var _game_scene: Node = null
 var _targeted: bool
 var _target_position_on_creation: Vector2
 var _initial_scale: Vector2
+var _tower_crit_count: int = 0
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -140,6 +141,14 @@ func set_event_on_interpolation_finished(handler: Callable):
 
 func setScale(scale_arg: float):
 	scale = _initial_scale * scale_arg
+
+
+func get_tower_crit_count() -> int:
+	return _tower_crit_count
+
+
+func set_tower_crit_count(new_count: int):
+	_tower_crit_count = new_count
 
 
 func _get_target_position() -> Vector2:

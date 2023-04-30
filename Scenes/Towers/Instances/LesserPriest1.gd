@@ -17,7 +17,16 @@ func get_extra_tooltip_text() -> String:
 	var armor_reduce: String = String.num(_stats.armor_reduce, 2)
 	var armor_reduce_boss: String = String.num(_stats.armor_reduce_boss, 2)
 
-	return "[color=gold]Smite[/color]\nWhen this tower damages a creep it has 5%% chance to smite it, dealing %s spelldamage.\n[color=orange]Level Bonus:[/color]\n+2%% chance\n+%s spelldamage\n%s permanent armor reduction (%s on bosses) at level 25" % [smite_damage, smite_damage_add, armor_reduce, armor_reduce_boss]
+	var text: String = ""
+
+	text += "[color=GOLD]Smite[/color]\n"
+	text += "When this tower damages a creep it has 5%% chance to smite it, dealing %s spelldamage.\n" % smite_damage
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+2%% chance\n"
+	text += "+%s spelldamage\n" % smite_damage_add
+	text += "%s permanent armor reduction (%s on bosses) at level 25" % [armor_reduce, armor_reduce_boss]
+
+	return text
 
 
 func load_specials(modifier: Modifier):

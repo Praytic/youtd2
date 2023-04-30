@@ -23,7 +23,20 @@ func get_extra_tooltip_text() -> String:
 	var bonus_9_add: String = String.num((_stats.bonus_9_add) * 100, 2)
 	var bonus_10_add: String = String.num((_stats.bonus_10_add) * 100, 2)
 
-	return "[color=gold]Fireblossom[/color]\nEvery 7th attack deals %s%% bonus damage.\nEvery 8th attack deals %s%% bonus damage.\nEvery 9th attack deals %s%% bonus damage.\nEvery 10th attack deals %s%% bonus damage.\n[color=orange]Level Bonus:[/color]\n+%s%% bonus damage every 7th attack.\n+%s%% bonus damage every 8th attack.\n+%s%% bonus damage every 9th attack.\n+%s%% bonus damage every 10th attack." % [bonus_7, bonus_8, bonus_9, bonus_10, bonus_7_add, bonus_8_add, bonus_9_add, bonus_10_add]
+	var text: String = ""
+
+	text += "[color=GOLD]Fireblossom[/color]\n"
+	text += "Every 7th attack deals %s%% bonus damage.\n" % bonus_7
+	text += "Every 8th attack deals %s%% bonus damage.\n" % bonus_8
+	text += "Every 9th attack deals %s%% bonus damage.\n" % bonus_9
+	text += "Every 10th attack deals %s%% bonus damage.\n" % bonus_10
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s%% bonus damage every 7th attack.\n" % bonus_7_add
+	text += "+%s%% bonus damage every 8th attack.\n" % bonus_8_add
+	text += "+%s%% bonus damage every 9th attack.\n" % bonus_9_add
+	text += "+%s%% bonus damage every 10th attack." % bonus_10_add
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

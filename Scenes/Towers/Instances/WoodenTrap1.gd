@@ -18,7 +18,15 @@ func get_extra_tooltip_text() -> String:
 	var damage_add: String = String.num(_stats.damage_add, 2)
 	var stun_duration: String = String.num(_stats.stun_duration, 2)
 
-	return "[color=gold]Activate Trap[/color]\nEvery %s seconds this tower traps %s creeps in 950 range, dealing %s spelldamage and stunning them for %s seconds.\n[color=orange]Level Bonus:[/color]\n+%s spelldamage\n-0.2 seconds cooldown" % [cooldown, max_targets, base_damage, stun_duration, damage_add]
+	var text: String = ""
+
+	text += "[color=GOLD]Activate Trap[/color]\n"
+	text += "Every %s seconds this tower traps %s creeps in 950 range, dealing %s spelldamage and stunning them for %s seconds.\n" % [cooldown, max_targets, base_damage, stun_duration]
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s spelldamage\n" % damage_add
+	text += "-0.2 seconds cooldown"
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

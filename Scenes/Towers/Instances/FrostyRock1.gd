@@ -22,8 +22,15 @@ func get_extra_tooltip_text() -> String:
 	var extra_damage_add: String = String.num(_stats.extra_damage * 0.02, 2)
 	var slow_add: String = String.num(_stats.slow_value / 20.0 * 0.001 * 100, 2)
 
-	return "[color=gold]Glacial Wrath[/color]\nAttacks of this tower slow the attacked creep by %s%% for 3 seconds. Each attack has a %s%% to deal %s spelldamage and stun the target for %s seconds. The chance to stun the target is increased by %s%% per attack and resets after a target is stunned.\n[color=orange]Level Bonus:[/color]\n+%s spelldamage\n+%s%% slow" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance, extra_damage_add, slow_add]
+	var text: String = ""
 
+	text += "[color=GOLD]Glacial Wrath[/color]\n"
+	text += "Attacks of this tower slow the attacked creep by %s%% for 3 seconds. Each attack has a %s%% to deal %s spelldamage and stun the target for %s seconds. The chance to stun the target is increased by %s%% per attack and resets after a target is stunned.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance]
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s spelldamage\n" % extra_damage_add
+	text += "+%s%% slow" % slow_add
+
+	return text
 
 
 func load_triggers(triggers: BuffType):

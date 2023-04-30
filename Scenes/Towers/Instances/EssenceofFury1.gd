@@ -19,7 +19,15 @@ func get_extra_tooltip_text() -> String:
 	var poison_damage_add: String = String.num(_stats.poison_damage_add, 2)
 	var poison_duration_add: String = String.num(_stats.poison_duration_add, 2)
 
-	return "[color=gold]Poisoned Heart[/color]\nThis tower destroys a piece of the creep's heart on damage. The affected creep takes %s spelldamage every second for 6 seconds.\n[color=orange]Level Bonus:[/color]\n+%s poison damage\n+%s seconds poison duration" % [poison_damage, poison_damage_add, poison_duration_add]
+	var text: String = ""
+
+	text += "[color=GOLD]Poisoned Heart[/color]\n"
+	text += "This tower destroys a piece of the creep's heart on damage. The affected creep takes %s spelldamage every second for 6 seconds.\n" % poison_damage
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s poison damage\n" % poison_damage_add
+	text += "+%s seconds poison duration" % poison_duration_add
+
+	return text
 
 
 func load_specials(_modifier: Modifier):

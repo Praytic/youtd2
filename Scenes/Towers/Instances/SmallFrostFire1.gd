@@ -22,7 +22,18 @@ func get_extra_tooltip_text() -> String:
 	var slow_value_add: String = String.num(_stats.slow_value_add / 10.0, 2)
 	var slow_duration_add: String = String.num(_stats.slow_duration_add, 2)
 
-	return "[color=gold]Soul Chill[/color]\nChills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s%% for 4 seconds.\n[color=orange]Level Bonus:[/color]\n+%s damage\n+%s%% slow\n+%s seconds duration\n\nMana cost: 20, 900 range, 1s cooldown" % [aoe_damage, slow_value, aoe_damage_add, slow_value_add, slow_duration_add]
+	var text: String = ""
+
+	text += "[color=GOLD]Soul Chill[/color]\n"
+	text += "Chills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s%% for 4 seconds.\n" % [aoe_damage, slow_value]
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s damage\n" % aoe_damage_add
+	text += "+%s%% slow\n" % slow_value_add
+	text += "+%s seconds duration\n" % slow_duration_add
+	text += " \n"
+	text += "Mana cost: 20, 900 range, 1s cooldown" 
+
+	return text
 
 
 func load_specials(modifier: Modifier):
@@ -41,7 +52,7 @@ func tower_init():
 	autocast.cast_range = 1200
 	autocast.num_buffs_before_idle = 0
 	autocast.target_art = "Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl"
-	autocast.buff_type = 0
+	autocast.buff_type = null
 	autocast.target_self = false
 	autocast.handler = on_autocast
 

@@ -20,7 +20,14 @@ func get_extra_tooltip_text() -> String:
 	var lightning_dmg: String = String.num(_stats.lightning_dmg, 2)
 	var lightning_dmg_add: String = String.num(_stats.lightning_dmg_add * 100, 2)
 
-	return "[color=gold]Lightning Strike[/color]\nWhenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target. The lightning bolt deals %s Energy damage.\n[color=orange]Level Bonus:[/color]\n+%s damage" % [lightning_dmg, lightning_dmg_add]
+	var text: String = ""
+
+	text += "[color=GOLD]Lightning Strike[/color]\n"
+	text += "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target. The lightning bolt deals %s Energy damage.\n" % lightning_dmg
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s damage" % lightning_dmg_add
+
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):

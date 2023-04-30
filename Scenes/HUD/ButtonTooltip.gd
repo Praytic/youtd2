@@ -70,21 +70,21 @@ func _get_tower_text(tower_id: int) -> String:
 	tower.queue_free()
 
 	if !requirements_text.is_empty():
-		text += "%s\n" % [requirements_text]
+		text += "%s\n" % requirements_text
 
-	text += "[b]%s[/b]\n" % [display_name]
+	text += "[b]%s[/b]\n" % display_name
 	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost, food]
-	text += "[color=LIGHT_BLUE]%s[/color]\n" % [description]
-	text += "[color=YELLOW]Author:[/color] %s\n" % [author]
-	text += "[color=YELLOW]Element:[/color] %s\n" % [element.capitalize()]
+	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
+	text += "[color=YELLOW]Author:[/color] %s\n" % author
+	text += "[color=YELLOW]Element:[/color] %s\n" % element.capitalize()
 	text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type.capitalize(), attack_range]
 
 	if !specials_text.is_empty():
 		text += " \n[color=YELLOW]Specials:[/color]\n"
-		text += "%s\n" % [specials_text]
+		text += "%s\n" % specials_text
 
 	if !extra_text.is_empty():
-		text += " \n%s\n" % [extra_text]
+		text += " \n%s\n" % extra_text
 	
 	return text
 
@@ -102,7 +102,7 @@ func _get_tower_requirements_text(tower_id: int) -> String:
 		return ""
 
 	text += "[color=YELLO][b]Requirements[/b]\n"
-	text += "Wave level: %s\n" % [required_wave_level]
+	text += "Wave level: %s\n" % required_wave_level
 	text += "%s research level: %s\n \n" % [element_string.capitalize(), required_element_level]
 	
 	return text
@@ -123,16 +123,16 @@ func _get_item_text(item_id: int) -> String:
 	extra_text = _add_color_to_numbers(extra_text)
 	item.queue_free()
 	
-	text += "[b]%s[/b]\n" % [display_name]
-	text += "[color=LIGHT_BLUE]%s[/color]\n" % [description]
-	text += "[color=YELLOW]Author:[/color] %s\n" % [author]
+	text += "[b]%s[/b]\n" % display_name
+	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
+	text += "[color=YELLOW]Author:[/color] %s\n" % author
 
 	if !specials_text.is_empty():
 		text += " \n[color=YELLOW]Specials:[/color]\n"
-		text += "%s\n" % [specials_text]
+		text += "%s\n" % specials_text
 
 	if !extra_text.is_empty():
-		text += " \n%s\n" % [extra_text]
+		text += " \n%s\n" % extra_text
 
 	if is_oil:
 		text += " \n[color=ORANGE]Oil items are lost on use.[/color]"

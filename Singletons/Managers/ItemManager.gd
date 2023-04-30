@@ -18,7 +18,7 @@ func _init():
 			"rare": scene_name = "RareItem"
 			"unique": scene_name = "UniqueItem"
 		
-		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % [scene_name]
+		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % scene_name
 		var item_drop_scene = load(item_drop_scene_path)
 		
 		preloaded_items[item_id] = item_drop_scene

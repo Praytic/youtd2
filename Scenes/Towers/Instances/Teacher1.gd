@@ -21,7 +21,14 @@ func _get_tier_stats() -> Dictionary:
 func get_extra_tooltip_text() -> String:
 	var exp_teach: String = String.num(_stats.exp_teach, 2)
 
-	return "[color=gold]Knowledge[/color]\nWhen the teacher attacks there's a 10%% chance a random tower in 600 range will learn from her, gaining %s experience. \n[color=orange]Level Bonus:[/color]\n+0.6%% chance" % [exp_teach]
+	var text: String = ""
+
+	text += "[color=GOLD]Knowledge[/color]\n"
+	text += "When the teacher attacks there's a 10%% chance a random tower in 600 range will learn from her, gaining %s experience. \n" % exp_teach
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+0.6%% chance"
+
+	return text
 
 
 func hit(p: Projectile, result: Unit):

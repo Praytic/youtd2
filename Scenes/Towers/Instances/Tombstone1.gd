@@ -16,7 +16,14 @@ func get_extra_tooltip_text() -> String:
 	var chance_base: String = String.num(_stats.chance_base * 100, 2)
 	var chance_add: String = String.num(_stats.chance_add * 100, 2)
 
-	return "[color=gold]Tomb's Curse[/color]\nThis tower has a %s%% chance on attack to kill a non boss, non champion target immediately.\n[color=orange]Level Bonus:[/color]\n+%s%% chance" % [chance_base, chance_add]
+	var text: String = ""
+
+	text += "[color=GOLD]Tomb's Curse[/color]\n"
+	text += "This tower has a %s%% chance on attack to kill a non boss, non champion target immediately.\n" % chance_base
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+%s%% chance" % chance_add
+	
+	return text
 
 
 func load_triggers(triggers_buff_type: BuffType):
