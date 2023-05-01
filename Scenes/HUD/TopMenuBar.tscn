@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://mnlx0hsujtqg" path="res://Assets/UI/HUD/texture.jpg" id="5"]
 [ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar.gd" id="6"]
 [ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar/Gold.gd" id="6_cj6uo"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/TopMenuBar/ResourceStatusPanel.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/TopMenuBar/ResourceStatusPanel.tscn" id="7"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="8"]
 [ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar/KnowledgeTome.gd" id="8_ey2wu"]
 
@@ -95,6 +95,8 @@ clip_text = true
 custom_minimum_size = Vector2(250, 80)
 layout_mode = 2
 focus_mode = 0
+theme = ExtResource("3")
+theme_type_variation = &"TowerButton"
 button_mask = 0
 shortcut_in_tooltip = false
 text = "About"

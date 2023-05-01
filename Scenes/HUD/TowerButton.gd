@@ -28,6 +28,7 @@ func _ready():
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
 	_on_wave_or_element_level_changed()
+	
 
 
 func _on_wave_or_element_level_changed():
