@@ -49,16 +49,24 @@ func on_clicked_on_right_menu_bar():
 			_move_item_from_tower(target_tower)
 
 
-# Moving item begins here
-func _start_move(item_id: int, new_state: MoveState):
-	SelectUnit.set_enabled(false)
+func cancel_move_process():
+	if _move_state == MoveState.NONE:
+		return
 
-#	End move that is in progress
 	match _move_state:
 		MoveState.FROM_ITEMBAR:
 			item_move_from_itembar_done.emit(false)
 		MoveState.FROM_TOWER:
 			item_move_from_tower_done.emit(false)
+
+	_end_move_process()
+
+
+# Moving item begins here
+func _start_move(item_id: int, new_state: MoveState):
+	BuildTower.cancel_build_mode()
+	cancel_move_process()
+	SelectUnit.set_enabled(false)
 
 	_move_state = new_state
 	_moved_item_id = item_id
@@ -75,12 +83,7 @@ func _unhandled_input(event: InputEvent):
 
 	var move_canceled: bool = event.is_action_released("ui_cancel")
 	if move_canceled:
-		match _move_state:
-			MoveState.FROM_ITEMBAR:
-				item_move_from_itembar_done.emit(false)
-			MoveState.FROM_TOWER:
-				item_move_from_tower_done.emit(false)
-		_end_move_process()
+		cancel_move_process()
 
 	var left_click: bool = event.is_action_pressed("left_click")
 

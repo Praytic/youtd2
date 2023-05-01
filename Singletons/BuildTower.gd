@@ -27,10 +27,10 @@ func _unhandled_input(event):
 
 
 func start_building_tower(tower_id: int):
-	if _build_mode:
-		cancel_build_mode()
-
+	ItemMovement.cancel_move_process()
+	cancel_build_mode()
 	SelectUnit.set_enabled(false)
+
 	_build_mode = true
 
 	_tower_preview = _tower_preview_scene.instantiate()
@@ -57,6 +57,9 @@ func verify_and_build() -> bool:
 
 
 func cancel_build_mode():
+	if !_build_mode:
+		return
+
 	SelectUnit.set_enabled(true)
 
 	_build_mode = false
