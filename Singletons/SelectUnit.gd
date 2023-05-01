@@ -87,7 +87,7 @@ func _unhandled_input(event):
 
 		return
 
-	var left_click: bool = event.is_action_pressed("left_click")
+	var left_click: bool = event.is_action_pressed("ui_accept")
 
 	if left_click:
 		set_selected_unit(_hovered_unit)

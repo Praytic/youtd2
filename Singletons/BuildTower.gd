@@ -19,11 +19,13 @@ func _unhandled_input(event):
 	if _build_mode:
 		if event.is_action_released("ui_cancel"):
 			cancel_build_mode()
-		elif event.is_action_released("ui_accept"):
+		elif event.is_action_pressed("ui_accept"):
 			var build_success: bool = verify_and_build()
 
 			if build_success:
 				cancel_build_mode()
+
+			get_viewport().set_input_as_handled()
 
 
 func start_building_tower(tower_id: int):
