@@ -25,12 +25,12 @@ func _unhandled_input(event):
 			if build_success:
 				cancel_build_mode()
 
-			get_viewport().set_input_as_handled()
-
 
 func start_building_tower(tower_id: int):
 	if _build_mode:
 		cancel_build_mode()
+
+	SelectUnit.set_enabled(false)
 	_build_mode = true
 
 	_tower_preview = _tower_preview_scene.instantiate()
@@ -57,6 +57,8 @@ func verify_and_build() -> bool:
 
 
 func cancel_build_mode():
+	SelectUnit.set_enabled(true)
+
 	_build_mode = false
 
 	_tower_preview.queue_free()

@@ -10,6 +10,16 @@ signal selected_unit_changed()
 var _units_under_mouse_list: Array[Unit] = []
 var _hovered_unit: Unit = null
 var _selected_unit: Unit = null
+var _enabled: bool
+
+
+# When disabled, units are not selected when clicked on or
+# deselected when user presses the cancel action. Used to
+# disable selection behavior when moving items or building
+# towers. Note that this doesn't disable selecting units in
+# scripts via set_selected_unit().
+func set_enabled(enabled: bool):
+	_enabled = enabled
 
 
 func set_selected_unit(new_selected_unit: Unit):
@@ -77,7 +87,7 @@ func update_hovered_unit():
 
 
 func _unhandled_input(event):
-	if ItemMovement.item_move_in_progress():
+	if !_enabled:
 		return
 
 	var cancel_pressed: bool = event.is_action_pressed("ui_cancel")

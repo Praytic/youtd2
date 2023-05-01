@@ -51,6 +51,8 @@ func on_clicked_on_right_menu_bar():
 
 # Moving item begins here
 func _start_move(item_id: int, new_state: MoveState):
+	SelectUnit.set_enabled(false)
+
 #	End move that is in progress
 	match _move_state:
 		MoveState.FROM_ITEMBAR:
@@ -95,6 +97,8 @@ func _unhandled_input(event: InputEvent):
 
 
 func _end_move_process():
+	SelectUnit.set_enabled(true)
+	
 	_moved_item_id = -1
 	_move_state = MoveState.NONE
 
@@ -103,8 +107,6 @@ func _end_move_process():
 #	disappear.
 	Input.set_custom_mouse_cursor(null)
 	Input.set_custom_mouse_cursor(null)
-
-	get_viewport().set_input_as_handled()
 
 
 func _move_item_from_itembar(target_tower: Tower):
