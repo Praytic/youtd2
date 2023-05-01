@@ -203,9 +203,9 @@ func _get_move_speed() -> float:
 	var mod: float = get_prop_move_speed()
 	var mod_absolute: float = get_prop_move_speed_absolute()
 	var unclamped: float = base * mod + mod_absolute
-	var limit_length: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped))
+	var move_speed: float = clampf(unclamped, MOVE_SPEED_MIN, MOVE_SPEED_MAX)
 
-	return limit_length
+	return move_speed
 
 
 #########################
