@@ -65,11 +65,9 @@ func on_unit_tree_exiting(unit: Unit):
 	var selected_unit_is_being_removed: bool = _selected_unit == unit
 	if selected_unit_is_being_removed:
 		set_selected_unit(null)
-		unit.tree_exiting.disconnect(on_unit_tree_exiting)
 
 	if _units_under_mouse_list.has(unit):
 		_units_under_mouse_list.erase(unit)
-		unit.tree_exiting.disconnect(on_unit_tree_exiting)
 		update_hovered_unit()
 
 
