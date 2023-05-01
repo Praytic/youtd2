@@ -10,14 +10,15 @@ enum BuildState {
 	BUILDING,
 }
 
-@onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
-@onready var _landscape = _game_scene.get_node("%Map")
-
 
 var _build_state: BuildState = BuildState.NONE
 var _tower_preview: TowerPreview = null
 var _tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 var _occupied_position_map: Dictionary = {}
+
+
+@onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
+@onready var _landscape = _game_scene.get_node("%Map")
 
 
 func _unhandled_input(event):
@@ -32,7 +33,11 @@ func _unhandled_input(event):
 	var left_click: bool = event.is_action_pressed("left_click")
 	
 	if left_click:
-		try_to_build()
+		_try_to_build()
+
+
+func in_progress() -> bool:
+	return _build_state == BuildState.BUILDING
 
 
 func start(tower_id: int):
@@ -47,7 +52,28 @@ func start(tower_id: int):
 	_game_scene.add_child(_tower_preview)
 
 
-func try_to_build():
+func cancel():
+	if !in_progress():
+		return
+
+	SelectUnit.set_enabled(true)
+
+	_build_state = BuildState.NONE
+
+	_tower_preview.queue_free()
+
+
+func position_is_occupied(position: Vector2) -> bool:
+	var occupied: bool = _occupied_position_map.has(position)
+
+	return occupied
+
+
+func tower_was_sold(position: Vector2):
+	_occupied_position_map.erase(position)
+
+
+func _try_to_build():
 	var can_build: bool = _landscape.can_build_at_mouse_pos()
 	
 	if can_build:
@@ -62,28 +88,3 @@ func try_to_build():
 	else:
 		var error: String = "Can't build here."
 		Globals.error_message_label.add(error)
-
-
-func cancel():
-	if !in_progress():
-		return
-
-	SelectUnit.set_enabled(true)
-
-	_build_state = BuildState.NONE
-
-	_tower_preview.queue_free()
-
-
-func in_progress() -> bool:
-	return _build_state == BuildState.BUILDING
-
-
-func position_is_occupied(position: Vector2) -> bool:
-	var occupied: bool = _occupied_position_map.has(position)
-
-	return occupied
-
-
-func tower_was_sold(position: Vector2):
-	_occupied_position_map.erase(position)

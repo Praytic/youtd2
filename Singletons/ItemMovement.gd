@@ -27,6 +27,26 @@ var _move_state: MoveState = MoveState.NONE
 @onready var _map: Node = get_tree().get_root().get_node("GameScene/Map")
 
 
+func _unhandled_input(event: InputEvent):
+	if !in_progress():
+		return
+
+	var cancelled: bool = event.is_action_released("ui_cancel")
+
+	if cancelled:
+		cancel()
+
+	var left_click: bool = event.is_action_pressed("left_click")
+
+	if left_click:
+		var target_tower: Tower = _get_tower_under_mouse()
+		_try_to_move(target_tower)
+
+
+func in_progress() -> bool:
+	return _move_state != MoveState.NONE
+
+
 func start_move_from_tower(item_id: int, tower: Tower):
 	_tower_owner_of_moved_item = tower
 	_start_internal(item_id, MoveState.FROM_TOWER)
@@ -36,19 +56,19 @@ func start_move_from_itembar(item_id: int):
 	_start_internal(item_id, MoveState.FROM_ITEMBAR)
 
 
-func on_clicked_on_right_menu_bar():
-#	NOTE: forcefully pass null target_tower so that even if
-#	there is a tower behind right menubar, we still move the
-#	item back to itembar.
-	var target_tower: Tower = null
-	try_to_move(target_tower)
-
-
 func cancel():
 	if !in_progress():
 		return
 
 	_end_move_process(false)
+
+
+func on_clicked_on_right_menu_bar():
+#	NOTE: forcefully pass null target_tower so that even if
+#	there is a tower behind right menubar, we still move the
+#	item back to itembar.
+	var target_tower: Tower = null
+	_try_to_move(target_tower)
 
 
 # Moving item begins here
@@ -65,24 +85,7 @@ func _start_internal(item_id: int, new_state: MoveState):
 	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
 
 
-# Moving item ends here
-func _unhandled_input(event: InputEvent):
-	if !in_progress():
-		return
-
-	var cancelled: bool = event.is_action_released("ui_cancel")
-
-	if cancelled:
-		cancel()
-
-	var left_click: bool = event.is_action_pressed("left_click")
-
-	if left_click:
-		var target_tower: Tower = _get_tower_under_mouse()
-		try_to_move(target_tower)
-
-
-func try_to_move(target_tower: Tower):
+func _try_to_move(target_tower: Tower):
 	match _move_state:
 		MoveState.FROM_ITEMBAR:
 			_move_item_from_itembar(target_tower)
@@ -163,10 +166,6 @@ func _get_tower_under_mouse() -> Tower:
 		return tower
 	else:
 		return null
-
-
-func in_progress() -> bool:
-	return _move_state != MoveState.NONE
 
 
 # NOTE: Input.set_custom_mouse_cursor() currently has a bug
