@@ -94,14 +94,14 @@ func _unhandled_input(event):
 	if !_enabled:
 		return
 
-	var cancel_pressed: bool = event.is_action_pressed("ui_cancel")
+	var cancel_pressed: bool = event.is_action_released("ui_cancel")
 
 	if cancel_pressed && _selected_unit != null:
 		set_selected_unit(null)
 
 		return
 
-	var left_click: bool = event.is_action_pressed("ui_accept")
+	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
 		set_selected_unit(_hovered_unit)

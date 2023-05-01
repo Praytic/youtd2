@@ -30,7 +30,7 @@ func _unhandled_input(event):
 	if cancelled:
 		cancel()
 
-	var left_click: bool = event.is_action_pressed("left_click")
+	var left_click: bool = event.is_action_released("left_click")
 	
 	if left_click:
 		_try_to_build()

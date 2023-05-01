@@ -31,7 +31,7 @@ func _unhandled_input(event: InputEvent):
 	if cancelled:
 		cancel()
 
-	var left_click: bool = event.is_action_pressed("left_click")
+	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
 		var target_tower: Tower = SelectUnit.get_hovered_unit()
