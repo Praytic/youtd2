@@ -46,3 +46,31 @@ static func convert_to_colored_string(type: CreepSize.enm) -> String:
 		CreepSize.enm.CHALLENGE_BOSS: return "[color=GOLD]%s[/color]" % string
 
 	return "[unknown creep size]"
+
+
+# TODO: figure out actual values
+static func get_default_item_chance(type: CreepSize.enm) -> float:
+	match type:
+		CreepSize.enm.MASS: return 0.05
+		CreepSize.enm.NORMAL: return 0.10
+		CreepSize.enm.AIR: return 0.10
+		CreepSize.enm.CHAMPION: return 0.20
+		CreepSize.enm.BOSS: return 0.50
+		CreepSize.enm.CHALLENGE_MASS: return 0.10
+		CreepSize.enm.CHALLENGE_BOSS: return 0.70
+
+	return 0.0
+
+
+# TODO: figure out actual values
+static func get_default_item_quality(type: CreepSize.enm) -> float:
+	match type:
+		CreepSize.enm.MASS: return 0.0
+		CreepSize.enm.NORMAL: return 0.0
+		CreepSize.enm.AIR: return 0.0
+		CreepSize.enm.CHAMPION: return 0.25
+		CreepSize.enm.BOSS: return 0.25
+		CreepSize.enm.CHALLENGE_MASS: return 0.25
+		CreepSize.enm.CHALLENGE_BOSS: return 0.25
+
+	return 0.0

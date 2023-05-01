@@ -112,10 +112,10 @@ func _init():
 	_mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED] = 1.0
 	_mod_value_map[Modification.Type.MOD_ATTACKSPEED] = 1.0
 
-	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL] = 1.0
-	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL] = 1.0
-	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH] = 1.0
-	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH] = 1.0
+	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL] = 0.0
+	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL] = 0.0
+	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH] = 0.0
+	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH] = 0.0
 
 	_mod_value_map[Modification.Type.MOD_ARMOR] = 0.01
 	_mod_value_map[Modification.Type.MOD_ARMOR_PERC] = 1.5
@@ -695,6 +695,16 @@ func _killed_by_unit(caster: Unit):
 	if caster != null:
 		caster._accept_kill(self)
 
+	var caster_item_chance: float = caster.get_item_drop_ratio()
+	var target_item_chance: float = get_item_drop_ratio_on_death()
+	var item_chance: float = caster_item_chance + target_item_chance
+
+	var item_dropped: bool = Utils.rand_chance(item_chance)
+	var creep: Creep = self as Creep
+
+	if item_dropped && creep != null:
+		creep.drop_item(caster, false)
+
 	queue_free()
 
 
@@ -955,6 +965,12 @@ func get_item_drop_ratio() -> float:
 
 func get_item_quality_ratio() -> float:
 	return _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL]
+
+func get_item_drop_ratio_on_death() -> float:
+	return _mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH]
+
+func get_item_quality_ratio_on_death() -> float:
+	return _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH]
 
 func get_prop_trigger_chances() -> float:
 	return _mod_value_map[Modification.Type.MOD_TRIGGER_CHANCES]
