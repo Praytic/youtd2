@@ -59,6 +59,9 @@ func cancel():
 
 
 func on_clicked_on_right_menu_bar():
+	if !in_progress():
+		return
+
 #	NOTE: forcefully pass null target_tower so that even if
 #	there is a tower behind right menubar, we still move the
 #	item back to itembar.
