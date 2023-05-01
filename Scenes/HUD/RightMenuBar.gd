@@ -39,8 +39,8 @@ func _gui_input(event):
 
 
 func _unhandled_input(event):
-	var move_in_progress: bool = ItemMovement.item_move_in_progress()
-	var build_in_progress: bool = BuildTower.build_tower_in_progress()
+	var move_in_progress: bool = ItemMovement.in_progress()
+	var build_in_progress: bool = BuildTower.in_progress()
 
 	if event.is_action_released("ui_cancel") && !move_in_progress && !build_in_progress:
 		hide()

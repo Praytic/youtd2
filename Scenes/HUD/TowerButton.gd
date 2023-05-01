@@ -98,4 +98,4 @@ func _on_mouse_exited():
 	EventBus.emit_tower_button_mouse_exited()
 
 func _on_pressed():
-	BuildTower.start_building_tower(_tower_id)
+	BuildTower.start(_tower_id)
