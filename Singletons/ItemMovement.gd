@@ -17,46 +17,63 @@ enum MoveState {
 }
 
 
-const _CLICK_ON_TOWER_RADIUS: float = 100
-
 var _moved_item_id: int = -1
 var _tower_owner_of_moved_item: Tower = null
 var _move_state: MoveState = MoveState.NONE
 
 
-@onready var _map: Node = get_tree().get_root().get_node("GameScene/Map")
+func _unhandled_input(event: InputEvent):
+	if !in_progress():
+		return
+
+	var cancelled: bool = event.is_action_released("ui_cancel")
+
+	if cancelled:
+		cancel()
+
+	var left_click: bool = event.is_action_released("left_click")
+
+	if left_click:
+		var target_tower: Tower = SelectUnit.get_hovered_unit()
+		_try_to_move(target_tower)
+
+
+func in_progress() -> bool:
+	return _move_state != MoveState.NONE
 
 
 func start_move_from_tower(item_id: int, tower: Tower):
 	_tower_owner_of_moved_item = tower
-	_start_move(item_id, MoveState.FROM_TOWER)
+	_start_internal(item_id, MoveState.FROM_TOWER)
 
 
 func start_move_from_itembar(item_id: int):
-	_start_move(item_id, MoveState.FROM_ITEMBAR)
+	_start_internal(item_id, MoveState.FROM_ITEMBAR)
+
+
+func cancel():
+	if !in_progress():
+		return
+
+	_end_move_process(false)
 
 
 func on_clicked_on_right_menu_bar():
+	if !in_progress():
+		return
+
 #	NOTE: forcefully pass null target_tower so that even if
 #	there is a tower behind right menubar, we still move the
 #	item back to itembar.
 	var target_tower: Tower = null
-
-	match _move_state:
-		MoveState.FROM_ITEMBAR:
-			_move_item_from_itembar(target_tower)
-		MoveState.FROM_TOWER:
-			_move_item_from_tower(target_tower)
+	_try_to_move(target_tower)
 
 
 # Moving item begins here
-func _start_move(item_id: int, new_state: MoveState):
-#	End move that is in progress
-	match _move_state:
-		MoveState.FROM_ITEMBAR:
-			item_move_from_itembar_done.emit(false)
-		MoveState.FROM_TOWER:
-			item_move_from_tower_done.emit(false)
+func _start_internal(item_id: int, new_state: MoveState):
+	cancel()
+	BuildTower.cancel()
+	SelectUnit.set_enabled(false)
 
 	_move_state = new_state
 	_moved_item_id = item_id
@@ -66,27 +83,7 @@ func _start_move(item_id: int, new_state: MoveState):
 	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
 
 
-# Moving item ends here
-func _unhandled_input(event: InputEvent):
-	if !item_move_in_progress():
-		return
-
-	var move_canceled: bool = event.is_action_released("ui_cancel")
-	if move_canceled:
-		match _move_state:
-			MoveState.FROM_ITEMBAR:
-				item_move_from_itembar_done.emit(false)
-			MoveState.FROM_TOWER:
-				item_move_from_tower_done.emit(false)
-		_end_move_process()
-
-	var left_click: bool = event.is_action_pressed("left_click")
-
-	if !left_click:
-		return
-
-	var target_tower: Tower = _get_tower_under_mouse()
-
+func _try_to_move(target_tower: Tower):
 	match _move_state:
 		MoveState.FROM_ITEMBAR:
 			_move_item_from_itembar(target_tower)
@@ -94,7 +91,15 @@ func _unhandled_input(event: InputEvent):
 			_move_item_from_tower(target_tower)
 
 
-func _end_move_process():
+func _end_move_process(success: bool):
+	match _move_state:
+		MoveState.FROM_ITEMBAR:
+			item_move_from_itembar_done.emit(success)
+		MoveState.FROM_TOWER:
+			item_move_from_tower_done.emit(success)
+
+	SelectUnit.set_enabled(true)
+	
 	_moved_item_id = -1
 	_move_state = MoveState.NONE
 
@@ -104,8 +109,6 @@ func _end_move_process():
 	Input.set_custom_mouse_cursor(null)
 	Input.set_custom_mouse_cursor(null)
 
-	get_viewport().set_input_as_handled()
-
 
 func _move_item_from_itembar(target_tower: Tower):
 	var is_oil: bool = ItemProperties.get_is_oil(_moved_item_id)
@@ -113,24 +116,23 @@ func _move_item_from_itembar(target_tower: Tower):
 	if target_tower != null:
 		if is_oil:
 			target_tower.add_item_by_id(_moved_item_id)
-			item_move_from_itembar_done.emit(true)
-			_end_move_process()
+			_end_move_process(true)
 		else:
 			if target_tower.have_item_space():
 				target_tower.add_item_by_id(_moved_item_id)
-				item_move_from_itembar_done.emit(true)
-				_end_move_process()
+				_end_move_process(true)
 			else:
 				Globals.error_message_label.add("No space for item")
 	else:
-		item_move_from_itembar_done.emit(false)
-		_end_move_process()
+		_end_move_process(false)
 
 
 func _move_item_from_tower(target_tower: Tower):
 	var moving_to_itself: bool = target_tower == _tower_owner_of_moved_item
 
 	if moving_to_itself:
+		Globals.error_message_label.add("Item is already on tower")
+		
 		return
 
 #	If clicked on tower, move item to tower,
@@ -140,8 +142,7 @@ func _move_item_from_tower(target_tower: Tower):
 			_tower_owner_of_moved_item.remove_item(_moved_item_id)
 			_tower_owner_of_moved_item = null
 			target_tower.add_item_by_id(_moved_item_id)
-			item_move_from_tower_done.emit(true)
-			_end_move_process()
+			_end_move_process(true)
 		else:
 			Globals.error_message_label.add("No space for item")
 	else:
@@ -149,25 +150,7 @@ func _move_item_from_tower(target_tower: Tower):
 		_tower_owner_of_moved_item = null
 
 		item_moved_to_itembar.emit(_moved_item_id)
-		item_move_from_tower_done.emit(true)
-		_end_move_process()
-
-
-func _get_tower_under_mouse() -> Tower:
-	var mouse_pos: Vector2 = _map.get_mouse_world_pos()
-	var unit_list: Array[Unit] = Utils.get_units_in_range(TargetType.new(TargetType.TOWERS), mouse_pos, _CLICK_ON_TOWER_RADIUS)
-	Utils.sort_unit_list_by_distance(unit_list, mouse_pos)
-
-	if !unit_list.is_empty():
-		var tower: Tower = unit_list[0] as Tower
-
-		return tower
-	else:
-		return null
-
-
-func item_move_in_progress() -> bool:
-	return _move_state != MoveState.NONE
+		_end_move_process(true)
 
 
 # NOTE: Input.set_custom_mouse_cursor() currently has a bug

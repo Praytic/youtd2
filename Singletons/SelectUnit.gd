@@ -10,6 +10,16 @@ signal selected_unit_changed()
 var _units_under_mouse_list: Array[Unit] = []
 var _hovered_unit: Unit = null
 var _selected_unit: Unit = null
+var _enabled: bool
+
+
+# When disabled, units are not selected when clicked on or
+# deselected when user presses the cancel action. Used to
+# disable selection behavior when moving items or building
+# towers. Note that this doesn't disable selecting units in
+# scripts via set_selected_unit().
+func set_enabled(enabled: bool):
+	_enabled = enabled
 
 
 func set_selected_unit(new_selected_unit: Unit):
@@ -32,6 +42,10 @@ func get_selected_unit() -> Unit:
 	return _selected_unit
 
 
+func get_hovered_unit() -> Unit:
+	return _hovered_unit
+
+
 func on_unit_mouse_entered(unit: Unit):
 	_units_under_mouse_list.append(unit)
 	if !unit.tree_exiting.is_connected(on_unit_tree_exiting):
@@ -51,11 +65,9 @@ func on_unit_tree_exiting(unit: Unit):
 	var selected_unit_is_being_removed: bool = _selected_unit == unit
 	if selected_unit_is_being_removed:
 		set_selected_unit(null)
-		unit.tree_exiting.disconnect(on_unit_tree_exiting)
 
 	if _units_under_mouse_list.has(unit):
 		_units_under_mouse_list.erase(unit)
-		unit.tree_exiting.disconnect(on_unit_tree_exiting)
 		update_hovered_unit()
 
 
@@ -77,17 +89,17 @@ func update_hovered_unit():
 
 
 func _unhandled_input(event):
-	if ItemMovement.item_move_in_progress():
+	if !_enabled:
 		return
 
-	var cancel_pressed: bool = event.is_action_pressed("ui_cancel")
+	var cancel_pressed: bool = event.is_action_released("ui_cancel")
 
 	if cancel_pressed && _selected_unit != null:
 		set_selected_unit(null)
 
 		return
 
-	var left_click: bool = event.is_action_pressed("left_click")
+	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
 		set_selected_unit(_hovered_unit)

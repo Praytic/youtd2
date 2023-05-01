@@ -39,13 +39,15 @@ func get_csv_property(tower_id: int, csv_property: Tower.CsvProperty) -> String:
 
 
 func get_rarity(tower_id: int) -> String:
-	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.RARITY)
+	return get_csv_property(tower_id, Tower.CsvProperty.RARITY)
 	
 
 func get_rarity_num(tower_id: int) -> int:
-	var rarity: String = TowerProperties.get_rarity(tower_id).to_upper()
-	return Constants.Rarity.get(rarity)
+	var rarity_string: String = get_rarity(tower_id)
+	var rarity: Rarity.enm = Rarity.convert_from_string(rarity_string)
 
+	return rarity
+	
 
 func get_display_name(tower_id: int) -> String:
 	return get_csv_property(tower_id, Tower.CsvProperty.NAME)

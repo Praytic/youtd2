@@ -34,13 +34,13 @@ func set_element(element: Tower.Element):
 # NOTE: have to manually call this because ItemMovement
 # can't detect clicks on right menu bar.
 func _gui_input(event):
-	if event.is_action_pressed("left_click"):
+	if event.is_action_released("left_click"):
 		ItemMovement.on_clicked_on_right_menu_bar()
 
 
 func _unhandled_input(event):
-	var move_in_progress: bool = ItemMovement.item_move_in_progress()
-	var build_in_progress: bool = BuildTower.build_tower_in_progress()
+	var move_in_progress: bool = ItemMovement.in_progress()
+	var build_in_progress: bool = BuildTower.in_progress()
 
 	if event.is_action_released("ui_cancel") && !move_in_progress && !build_in_progress:
 		hide()

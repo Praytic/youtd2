@@ -59,6 +59,9 @@ func _ready():
 
 	death.connect(_on_death)
 
+	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH] = CreepSize.get_default_item_chance(_size)
+	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH] = CreepSize.get_default_item_quality(_size)
+
 
 func _process(delta):
 	if movement_enabled:
@@ -103,6 +106,54 @@ func reach_portal():
 	reached_portal.emit(damage_to_portal)
 	Utils.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 	queue_free()
+
+
+func drop_item(caster: Tower, _mystery_bool: bool):
+	var caster_item_quality: float = caster.get_item_quality_ratio()
+	var target_item_quality: float = get_item_quality_ratio_on_death()
+	var item_quality: float = clampf(caster_item_quality + target_item_quality, 0.0, 1.0)
+
+# 	TODO: figure out actual distribution
+	var rarity: Rarity.enm
+	if item_quality >= 0.75:
+		rarity = Rarity.enm.UNIQUE
+	elif item_quality >= 0.50:
+		rarity = Rarity.enm.RARE
+	elif item_quality >= 0.25:
+		rarity = Rarity.enm.UNCOMMON
+	else:
+		rarity = Rarity.enm.COMMON
+
+	var rarity_string: String = Rarity.convert_to_string(rarity)
+
+	var item_id_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.RARITY, rarity_string)
+
+#	NOTE: Filter out items that have a script. This should
+#	be removed once all item scripts are implemented.
+	var items_with_script: Array = []
+
+	for item_id in item_id_list:
+		var script_path: String = Item.get_item_script_path(item_id)
+		var script_exists: bool = ResourceLoader.exists(script_path)
+
+		if script_exists:
+			items_with_script.append(item_id)
+
+	if items_with_script.is_empty():
+		push_error("No items with script found for rarity: ", rarity_string)
+
+		return
+
+	var random_index: int = randi_range(0, items_with_script.size() - 1)
+	var item_id: int = items_with_script[random_index]
+
+	var item_drop_scene_path: String = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
+	var item_drop_scene = load(item_drop_scene_path)
+	var item_drop = item_drop_scene.instantiate()
+	item_drop.set_id(item_id)
+	item_drop.position = position
+	Utils.add_object_to_world(item_drop)
+
 
 #########################
 ###      Private      ###
@@ -152,9 +203,9 @@ func _get_move_speed() -> float:
 	var mod: float = get_prop_move_speed()
 	var mod_absolute: float = get_prop_move_speed_absolute()
 	var unclamped: float = base * mod + mod_absolute
-	var limit_length: float = min(MOVE_SPEED_MAX, max(MOVE_SPEED_MIN, unclamped))
+	var move_speed: float = clampf(unclamped, MOVE_SPEED_MIN, MOVE_SPEED_MAX)
 
-	return limit_length
+	return move_speed
 
 
 #########################
@@ -165,7 +216,6 @@ func _on_health_changed(_old_value, new_value):
 	_health_bar.set_value(new_value)
 
 
-# 	TODO: Implement proper item drop chance caclculation
 func _on_death(event: Event):
 #	Add gold
 	var caster: Unit = event.get_target()
@@ -186,29 +236,6 @@ func _on_death(event: Event):
 		var corpse: Node2D = _corpse_scene.instantiate()
 		corpse.position = position
 		Utils.object_container.add_child(corpse)
-
-# 	Spawn item drop
-	if Utils.rand_chance(0.5):
-		var item_id_list: Array = Properties.get_item_id_list()
-		var random_index: int = randi_range(0, item_id_list.size() - 1)
-		var item_id: int = item_id_list[random_index]
-		var item_properties: Dictionary = Properties.get_item_csv_properties()[item_id]
-		var rarity: int = item_properties[Item.CsvProperty.RARITY].to_int()
-
-		var rarity_name: String = ""
-
-		match rarity:
-			Constants.Rarity.COMMON: rarity_name = "CommonItem"
-			Constants.Rarity.UNCOMMON: rarity_name = "UncommonItem"
-			Constants.Rarity.RARE: rarity_name = "RareItem"
-			Constants.Rarity.UNIQUE: rarity_name = "UniqueItem"
-		
-		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % rarity_name
-		var item_drop_scene = load(item_drop_scene_path)
-		var item_drop = item_drop_scene.instantiate()
-		item_drop.set_id(item_id)
-		item_drop.position = position
-		Utils.add_object_to_world(item_drop)
 
 
 #########################

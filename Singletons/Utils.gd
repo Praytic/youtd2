@@ -85,7 +85,7 @@ func circle_polygon_set_radius_PIXELS(collision_polygon: CollisionPolygon2D, rad
 # Chance should be in range [0.0, 1.0]
 # To get chance for event with 10% occurence, call rand_chance(0.1)
 func rand_chance(chance: float) -> bool:
-	var clamped_chance: float = min(1.0, max(0.0, chance))
+	var clamped_chance: float = clampf(chance, 0.0, 1.0)
 	var random_float: float = randf()
 	var chance_success = random_float <= clamped_chance
 

@@ -47,8 +47,7 @@ var _applied_buff_list: Array[Buff] = []
 #########################
 
 static func make(id: int) -> Item:
-	var item_script_path: String = "res://Scenes/Items/Instances/Item%d.gd" % id
-	
+	var item_script_path: String = get_item_script_path(id)
 	var script_exists: bool = ResourceLoader.exists(item_script_path)
 	
 	if !script_exists:
@@ -65,6 +64,12 @@ static func make(id: int) -> Item:
 	var item: Item = item_script.new(id)
 
 	return item
+
+
+static func get_item_script_path(item_id: int):
+	var path: String = "res://Scenes/Items/Instances/Item%d.gd" % item_id
+
+	return path
 
 
 func _init(id: int):

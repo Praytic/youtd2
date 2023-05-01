@@ -95,6 +95,14 @@ func get_tower_id_list_by_filter(tower_property: Tower.CsvProperty, filter_value
 	return result_list
 
 
+func get_item_id_list_by_filter(item_property: Item.CsvProperty, filter_value: String) -> Array:
+	var result_list = []
+	for item_id in _item_csv_properties.keys():
+		if _item_csv_properties[item_id][item_property] == filter_value:
+			result_list.append(item_id)
+	return result_list
+
+
 #########################
 ###      Private      ###
 #########################
