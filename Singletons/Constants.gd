@@ -14,13 +14,6 @@ const SettingsKey = {
 
 const SETTINGS_PATH: String = "user://settings.cfg"
 
-enum Rarity {
-	COMMON,
-	UNCOMMON,
-	RARE,
-	UNIQUE,
-}
-
 const TILE_HEIGHT: float = 128.0
 
 # NOTE: this was obtained by placing a tower with attack

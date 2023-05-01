@@ -195,15 +195,10 @@ func _on_death(event: Event):
 		var item_properties: Dictionary = Properties.get_item_csv_properties()[item_id]
 		var rarity: int = item_properties[Item.CsvProperty.RARITY].to_int()
 
-		var rarity_name: String = ""
+		var rarity_string: String = Rarity.convert_to_string(rarity)
+		var scene_filename: String = "%sItem" % rarity_string.capitalize()
 
-		match rarity:
-			Constants.Rarity.COMMON: rarity_name = "CommonItem"
-			Constants.Rarity.UNCOMMON: rarity_name = "UncommonItem"
-			Constants.Rarity.RARE: rarity_name = "RareItem"
-			Constants.Rarity.UNIQUE: rarity_name = "UniqueItem"
-		
-		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % rarity_name
+		var item_drop_scene_path: String = "res://Scenes/Items/%s.tscn" % scene_filename
 		var item_drop_scene = load(item_drop_scene_path)
 		var item_drop = item_drop_scene.instantiate()
 		item_drop.set_id(item_id)
