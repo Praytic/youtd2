@@ -43,6 +43,6 @@ func on_create():
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
 
-	MB.set_value(0, Utils.format_float(itm.ser_real, 1))
+	MB.set_value(0, Utils.format_float(itm.user_real, 1))
 
 	return MB
