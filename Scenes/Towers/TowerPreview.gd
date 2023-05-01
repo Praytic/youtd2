@@ -26,12 +26,15 @@ func _ready():
 
 
 func _physics_process(_delta):
-	_tower_instance.modulate = get_current_color()
-	position = _landscape.get_current_buildable_pos()
-
-
-func get_current_color() -> Color:
-	if _landscape.can_build_at_mouse_pos():
-		return opaque_green
+# 	Show tower preview under map normally, but make it stick
+# 	to tile position when mouse is hovered over a buildable
+# 	tile.
+	if _landscape.mouse_is_over_buildable_tile():
+		position = _landscape.get_mouse_pos_on_tilemap()
 	else:
-		return opaque_red
+		position = get_global_mouse_position()
+
+	if _landscape.can_build_at_mouse_pos():
+		_tower_instance.modulate = opaque_green
+	else:
+		_tower_instance.modulate = opaque_red
