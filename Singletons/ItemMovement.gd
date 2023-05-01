@@ -17,14 +17,9 @@ enum MoveState {
 }
 
 
-const _CLICK_ON_TOWER_RADIUS: float = 100
-
 var _moved_item_id: int = -1
 var _tower_owner_of_moved_item: Tower = null
 var _move_state: MoveState = MoveState.NONE
-
-
-@onready var _map: Node = get_tree().get_root().get_node("GameScene/Map")
 
 
 func _unhandled_input(event: InputEvent):
@@ -39,7 +34,7 @@ func _unhandled_input(event: InputEvent):
 	var left_click: bool = event.is_action_pressed("left_click")
 
 	if left_click:
-		var target_tower: Tower = _get_tower_under_mouse()
+		var target_tower: Tower = SelectUnit.get_hovered_unit()
 		_try_to_move(target_tower)
 
 
@@ -153,19 +148,6 @@ func _move_item_from_tower(target_tower: Tower):
 
 		item_moved_to_itembar.emit(_moved_item_id)
 		_end_move_process(true)
-
-
-func _get_tower_under_mouse() -> Tower:
-	var mouse_pos: Vector2 = _map.get_mouse_world_pos()
-	var unit_list: Array[Unit] = Utils.get_units_in_range(TargetType.new(TargetType.TOWERS), mouse_pos, _CLICK_ON_TOWER_RADIUS)
-	Utils.sort_unit_list_by_distance(unit_list, mouse_pos)
-
-	if !unit_list.is_empty():
-		var tower: Tower = unit_list[0] as Tower
-
-		return tower
-	else:
-		return null
 
 
 # NOTE: Input.set_custom_mouse_cursor() currently has a bug

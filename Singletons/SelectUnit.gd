@@ -42,6 +42,10 @@ func get_selected_unit() -> Unit:
 	return _selected_unit
 
 
+func get_hovered_unit() -> Unit:
+	return _hovered_unit
+
+
 func on_unit_mouse_entered(unit: Unit):
 	_units_under_mouse_list.append(unit)
 	if !unit.tree_exiting.is_connected(on_unit_tree_exiting):
