@@ -89,6 +89,7 @@ func _on_item_button_pressed(item_button: ItemButton):
 	ItemMovement.start_move_from_itembar(item_id)
 	_moved_item_button = item_button
 	item_button.set_disabled(true)
+	item_button.set_pressed_no_signal(true)
 
 
 func _on_Item_used(item_id):

@@ -25,12 +25,13 @@ var _item_id: int
 func _ready():
 	set_theme_type_variation("TowerButton")
 	icon = ItemProperties.get_icon(_item_id, "S")
-
+	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
+	pressed.connect(_on_pressed)
 	
 	_charges_label = Label.new()
-	_charges_label.set_text("")
+	_charges_label.offset_top = 2
 	_charges_label.set("theme_override_font_sizes/font_size", 14)
 	_charges_label.set("layout_mode", 1)
 	_charges_label.set("anchors_preset", LayoutPreset.PRESET_CENTER_BOTTOM)
@@ -41,17 +42,30 @@ func _ready():
 		_on_item_charges_changed(_item_instance)
 
 
+func _on_pressed():
+	var prev_rect
+
+
 func _draw():
-	if background != null:
-		draw_texture(background, Vector2.ZERO)
-		if count > 1:
-			draw_rect(Rect2(0, background.get_size().y - 14, background.get_size().x, 14), Color(0, 0, 0, 0.5))
-	draw_texture(icon, Vector2.ZERO)
+	var current_glowing_rect: Rect2 = Rect2(2, -2, 66, 66)
+	
+	draw_texture_rect(background, current_glowing_rect, false)
+	
 	if count > 1:
+		var current_charges_rect = Rect2(current_glowing_rect.position.x, current_glowing_rect.size.y - 14, current_glowing_rect.size.x, 14) 
+		draw_rect(current_charges_rect, Color(0, 0, 0, 0.5))
+	
+	draw_texture(icon, Vector2(2, -2))
+	
+	if is_pressed() or is_disabled():
+		draw_rect(current_glowing_rect, Color(1, 1, 1, 0.3), true)
+	
+	if count > 1:
+		var current_charges_rect = Rect2(current_glowing_rect.position.x, current_glowing_rect.size.y - 14, current_glowing_rect.size.x, 14) 
+		draw_rect(current_charges_rect, Color(0, 0, 0, 0.5))
 		_charges_label.text = str(count)
 	else:
 		_charges_label.text = ""
-	
 
 
 func set_item_instance(item: Item):

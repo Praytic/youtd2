@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="2"]
@@ -7,6 +7,8 @@
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_hover.tres" id="5"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_pressed.tres" id="6"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_focus.tres" id="7"]
+[ext_resource type="StyleBox" uid="uid://bdt0si03bssd5" path="res://Resources/Theme/item_button_hover.tres" id="8_332gl"]
+[ext_resource type="StyleBox" uid="uid://xj6rw0giypad" path="res://Resources/Theme/item_button_normal.tres" id="8_t77il"]
 
 [sub_resource type="FontFile" id="1"]
 fallbacks = Array[Font]([ExtResource("1")])
@@ -72,79 +74,7 @@ corner_detail = 10
 expand_margin_left = 10.0
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="10"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-bg_color = Color(0.137255, 0.133333, 0.152941, 1)
-border_width_top = 2
-border_width_right = 2
-border_color = Color(0.458824, 0.45098, 0, 1)
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-corner_detail = 3
-shadow_size = 2
-shadow_offset = Vector2(2, -2)
-
 [sub_resource type="StyleBoxEmpty" id="11"]
-
-[sub_resource type="StyleBoxFlat" id="12"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 4.0
-bg_color = Color(0.0980392, 0.0980392, 0.141176, 1)
-border_width_top = 2
-border_width_right = 2
-border_color = Color(0.898039, 0.882353, 0, 1)
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-corner_detail = 3
-shadow_size = 2
-shadow_offset = Vector2(2, -2)
-
-[sub_resource type="StyleBoxFlat" id="9"]
-bg_color = Color(0.513726, 0.517647, 0.635294, 0)
-border_width_top = 2
-border_width_right = 2
-border_color = Color(0.705882, 0.694118, 0, 1)
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-corner_detail = 3
-shadow_color = Color(0.439216, 0.439216, 0.439216, 0)
-shadow_size = 2
-shadow_offset = Vector2(2, -2)
-
-[sub_resource type="StyleBoxFlat" id="13"]
-content_margin_left = 4.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 4.0
-bg_color = Color(0.0980392, 0.0980392, 0.141176, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.898039, 0.882353, 0, 1)
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-corner_detail = 3
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-shadow_size = 1
 
 [resource]
 default_font = SubResource("1")
@@ -169,8 +99,8 @@ Label/fonts/font = SubResource("1")
 ResourceTab/base_type = &"Panel"
 ResourceTab/styles/panel = SubResource("8")
 TooltipPanel/styles/panel = SubResource("14")
-TowerButton/styles/disabled = SubResource("10")
+TowerButton/styles/disabled = ExtResource("8_332gl")
 TowerButton/styles/focus = SubResource("11")
-TowerButton/styles/hover = SubResource("12")
-TowerButton/styles/normal = SubResource("9")
-TowerButton/styles/pressed = SubResource("13")
+TowerButton/styles/hover = ExtResource("8_332gl")
+TowerButton/styles/normal = ExtResource("8_t77il")
+TowerButton/styles/pressed = ExtResource("8_332gl")

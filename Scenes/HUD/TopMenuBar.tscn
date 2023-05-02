@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdamkmych2jb3"]
+[gd_scene load_steps=14 format=3 uid="uid://cdamkmych2jb3"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3"]
 [ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://gmp5dccsrc48" path="res://Assets/UI/HUD/misc4.png" id="4_tr1tb"]
 [ext_resource type="Texture2D" uid="uid://mnlx0hsujtqg" path="res://Assets/UI/HUD/texture.jpg" id="5"]
 [ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar.gd" id="6"]
 [ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar/Gold.gd" id="6_cj6uo"]
@@ -20,6 +21,10 @@ region = Rect2(448, 256, 64, 64)
 [sub_resource type="AtlasTexture" id="3"]
 atlas = ExtResource("8")
 region = Rect2(448, 128, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aiykk"]
+atlas = ExtResource("4_tr1tb")
+region = Rect2(2.08165e-12, 2.08165e-12, 128, 128)
 
 [node name="TopMenuBar" type="Control"]
 layout_mode = 3
@@ -154,3 +159,13 @@ offset_top = -31.0
 offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 622.0
+offset_top = 435.0
+offset_right = 662.0
+offset_bottom = 467.0
+theme = ExtResource("3")
+theme_type_variation = &"TowerButton"
+icon = SubResource("AtlasTexture_aiykk")
