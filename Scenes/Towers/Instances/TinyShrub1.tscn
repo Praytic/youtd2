@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://3oc33r6r5h64"]
+[gd_scene load_steps=5 format=3 uid="uid://3oc33r6r5h64"]
 
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1"]
-[ext_resource type="AudioStream" uid="uid://cd8cnpscjkvhd" path="res://Assets/SFX/swosh-08.mp3" id="2"]
 [ext_resource type="Texture2D" uid="uid://erp0ar4v5nnh" path="res://Assets/Towers/Instances/tiny_shrub_atlas.png" id="3"]
 [ext_resource type="Script" path="res://Scenes/Towers/Instances/TinyShrub1.gd" id="4"]
 
@@ -11,7 +10,6 @@ region = Rect2(58, 70, 185, 160)
 
 [node name="TinyShrub1" instance=ExtResource("1")]
 script = ExtResource("4")
-attack_sound = ExtResource("2")
 
 [node name="Model" type="Node2D" parent="." index="3"]
 position = Vector2(0, -193)

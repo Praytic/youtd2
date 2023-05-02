@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dcjf6hjg5q50f"]
+[gd_scene load_steps=5 format=3 uid="uid://dcjf6hjg5q50f"]
 
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1"]
 [ext_resource type="Script" path="res://Scenes/Towers/Instances/RuinedMonolith1.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://bwnotyifp16t4" path="res://Assets/Towers/Instances/ruined_storm_cap_atlas.png" id="3"]
-[ext_resource type="AudioStream" uid="uid://bc0xx4doifa2e" path="res://Assets/SFX/foom_02.mp3" id="4"]
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = ExtResource("3")
@@ -11,7 +10,6 @@ region = Rect2(0, 300, 300, 300)
 
 [node name="RuinedStormCap" instance=ExtResource("1")]
 script = ExtResource("2")
-attack_sound = ExtResource("4")
 
 [node name="Model" type="Node2D" parent="." index="3"]
 

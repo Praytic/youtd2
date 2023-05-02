@@ -48,8 +48,6 @@ enum Element {
 
 
 
-@export var attack_sound: AudioStreamMP3
-
 const ATTACK_CD_MIN: float = 0.2
 const PROJECTILE_SPEED: int = 1000
 const BOUNCE_RANGE: int = 125
@@ -78,7 +76,6 @@ var _temp_preceding_tower: Tower = null
 var _number_of_crits: int = 0
 
 
-@onready var _attack_sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
 @onready var _mana_bar: ProgressBar = $ManaBar
 @onready var _tower_selection_area: Area2D = $TowerSelectionArea
@@ -106,9 +103,6 @@ func _ready():
 	super()
 
 	add_to_group("towers")
-
-	_attack_sound.set_stream(attack_sound)
-	add_child(_attack_sound)
 
 	var attack_range: float = get_range()
 	_range_indicator.set_radius(attack_range)
@@ -482,7 +476,18 @@ func _attack_target(target: Unit):
 	projectile.set_tower_crit_count(crit_count)
 	projectile.set_event_on_target_hit(_on_projectile_target_hit)
 
-	_attack_sound.play()
+	var sfx_path: String
+	match get_element():
+		Element.NATURE: sfx_path = "res://Assets/SFX/swosh-08.mp3"
+		Element.STORM: sfx_path = "res://Assets/SFX/foom_02.mp3"
+		Element.FIRE: sfx_path = "res://Assets/SFX/fire_attack1.mp3"
+		Element.ICE: sfx_path = "res://Assets/SFX/iceball.mp3"
+		Element.ASTRAL: sfx_path = "res://Assets/SFX/attack_sound1.mp3"
+		Element.DARKNESS: sfx_path = "res://Assets/SFX/swosh-11.mp3"
+		Element.IRON: sfx_path = "res://Assets/SFX/iron_attack1.mp3"
+		_: sfx_path = "res://Assets/SFX/swosh-08.mp3"
+
+	Utils.sfx_at_unit(sfx_path, self)
 
 
 # Override this in subclass to define custom stats for each
