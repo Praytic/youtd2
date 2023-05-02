@@ -24,7 +24,7 @@ var _item_id: int
 
 func _ready():
 	set_theme_type_variation("TowerButton")
-	icon = ItemProperties.get_icon(_item_id, "S")
+	set_icon_size("S")
 	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
