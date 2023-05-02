@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {dmg_to_mass = 0.20},
 		2: {dmg_to_mass = 0.20},

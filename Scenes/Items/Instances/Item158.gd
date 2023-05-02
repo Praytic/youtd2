@@ -21,7 +21,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 15)
 
 
-func _item_init():
+func item_init():
 	drol_digItemMulti = MultiboardValues.new(1)
 	drol_digItemMulti.set_key(0, "Gold found")
 

@@ -9,7 +9,7 @@ extends Tower
 var natac_burning_buff: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {bonus_damage = 1.0, bonus_damage_add = 0.10, explode_damage = 49},
 		2: {bonus_damage = 2.5, bonus_damage_add = 0.25, explode_damage = 277},

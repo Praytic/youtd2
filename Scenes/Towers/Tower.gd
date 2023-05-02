@@ -96,7 +96,7 @@ func _internal_tower_init():
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
 	var tier: int = get_tier()
-	var tier_stats: Dictionary = _get_tier_stats()
+	var tier_stats: Dictionary = get_tier_stats()
 	_stats = tier_stats[tier]
 
 	load_specials(_specials_modifier)
@@ -487,7 +487,7 @@ func _attack_target(target: Unit):
 
 # Override this in subclass to define custom stats for each
 # tower tier. Access as _stats.
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	var tier: int = get_tier()
 	var default_out: Dictionary = {}
 

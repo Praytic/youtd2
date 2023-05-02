@@ -4,7 +4,7 @@ extends Tower
 var boekie_coals_buff : BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {power = 0, duration = 7.5},
 		2: {power = 50, duration = 8.5},

@@ -4,7 +4,7 @@ extends Tower
 var cedi_stormdog: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {self_attackspeed_add = 0.0, buff_scale = 6},
 		2: {self_attackspeed_add = 1.5, buff_scale = 9},

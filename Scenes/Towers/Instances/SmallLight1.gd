@@ -6,7 +6,7 @@ var sternbogen_holy_buff: BuffType
 
 # NOTE: mod_value and mod_value_add are multiplied by 1000,
 # leaving as in original
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {magical_sight_range = 650, mod_value = 50, mod_value_add = 2, duration = 3, duration_add = 0.12},
 		2: {magical_sight_range = 700, mod_value = 100, mod_value_add = 4, duration = 3, duration_add = 0.16},

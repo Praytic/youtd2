@@ -7,7 +7,7 @@ var knowledge_blue: ProjectileType
 var knowledge_red: ProjectileType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {exp_received = 0.20, exp_teach = 1.0},
 		2: {exp_received = 0.35, exp_teach = 1.3},

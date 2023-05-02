@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {miss_chance_add = 0.008},
 		2: {miss_chance_add = 0.009},

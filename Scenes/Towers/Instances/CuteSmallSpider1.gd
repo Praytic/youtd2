@@ -8,7 +8,7 @@ extends Tower
 var D1000_Spider_Poison: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {damage = 30, damage_add = 1.5, max_damage = 150, max_damage_add = 7.5},
 		2: {damage = 90, damage_add = 4.5, max_damage = 450, max_damage_add = 22.5},

@@ -4,7 +4,7 @@ extends Tower
 var cassim_slow: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {slow_base = 0.075, slow_add = 0.003, duration_base = 3, duration_add = 0.1},
 		2: {slow_base = 0.100, slow_add = 0.004, duration_base = 4, duration_add = 0.2},
@@ -32,7 +32,7 @@ func get_extra_tooltip_text() -> String:
 
 func load_triggers(triggers_buff_type: BuffType):
 	print("load_triggers")
-	triggers_buff_type.add_event_on_damage(_on_damage, 1.0, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage, 1.0, 0.0)
 
 
 func tower_init():
@@ -46,7 +46,7 @@ func tower_init():
 	cassim_slow.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone, it has reduced move speed.")
 
 
-func _on_damage(event: Event):
+func on_damage(event: Event):
 	var tower = self
 
 	var lvl: int = tower.get_level()

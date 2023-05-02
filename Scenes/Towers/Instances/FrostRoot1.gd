@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {damage = 25, damage_add = 1},
 		2: {damage = 125, damage_add = 5},
@@ -27,10 +27,10 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(_on_damage, 1.0, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage, 1.0, 0.0)
 
 
-func _on_damage(event: Event):
+func on_damage(event: Event):
 	var tower = self
 
 	if event.is_main_target() && tower.calc_chance(0.15) && !event.get_target().is_immune():

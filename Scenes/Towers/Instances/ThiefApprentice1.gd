@@ -7,7 +7,7 @@ var mOck_steal: ProjectileType
 
 # NOTE: gold is multiplied by 10 in stats compared to number
 # in description.
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {bounty_add = 0.0050, item_bonus = 0.05, item_bonus_add = 0.0020, gold = 3},
 		2: {bounty_add = 0.0075, item_bonus = 0.06, item_bonus_add = 0.0024, gold = 9},

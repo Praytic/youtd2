@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {target_count_max = 2, dmg_to_undead_add = 0.004, dmg_to_magic_add = 0.004},
 		2: {target_count_max = 2, dmg_to_undead_add = 0.004, dmg_to_magic_add = 0.005},

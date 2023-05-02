@@ -4,7 +4,7 @@ extends Tower
 var drol_magic_ruin: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {exp_bonus = 0.05, exp_bonus_add = 0.002},
 		2: {exp_bonus = 0.10, exp_bonus_add = 0.004},
@@ -31,7 +31,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(_on_damage, 1.0, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage, 1.0, 0.0)
 
 
 func tower_init():
@@ -44,7 +44,7 @@ func tower_init():
 	drol_magic_ruin.set_buff_tooltip("Illuminated\nThis unit will grant more experience when killed.")
 
 
-func _on_damage(event: Event):
+func on_damage(event: Event):
 	var tower = self
 
 	drol_magic_ruin.apply_custom_timed(tower, event.get_target(), tower.get_level(), 5 + tower.get_level() * 0.2)

@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {bounce_decrease = 0.50, undead_damage = 0.20, undead_damage_add = 0.020},
 		2: {bounce_decrease = 0.48, undead_damage = 0.21, undead_damage_add = 0.021},

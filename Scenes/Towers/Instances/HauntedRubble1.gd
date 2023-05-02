@@ -3,7 +3,7 @@ extends Tower
 
 var velex_slow: BuffType
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 	1: {slow_value = 0.15, chance = 0.15, chance_add = 0.0015},
 	2: {slow_value = 0.18, chance = 0.12, chance_add = 0.0012},
@@ -31,7 +31,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_attack(_on_attack, 1.0, 0.0)
+	triggers_buff_type.add_event_on_attack(on_attack, 1.0, 0.0)
 
 
 func tower_init():
@@ -45,7 +45,7 @@ func tower_init():
 	velex_slow.set_buff_tooltip("Atrophy\nThis unit has been weaked, it has reduced move speed.")
 
 
-func _on_attack(event: Event):
+func on_attack(event: Event):
 	var tower: Unit = self
 	var creep: Unit = event.get_target()
 	var size: int = creep.get_size()

@@ -3,7 +3,7 @@ extends Tower
 
 var sternbogen_broken_wind: BuffType
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {catch_chance = 0.20, catch_chance_add = 0.003, cyclone_duration = 0.5, cyclone_damage = 20, cyclone_damage_add = 2},
 		2: {catch_chance = 0.22, catch_chance_add = 0.004, cyclone_duration = 0.6, cyclone_damage = 68, cyclone_damage_add = 7},
@@ -32,7 +32,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_attack(_on_attack, 1.0, 0.0)
+	triggers_buff_type.add_event_on_attack(on_attack, 1.0, 0.0)
 
 
 func load_specials(modifier: Modifier):
@@ -47,7 +47,7 @@ func tower_init():
 	sternbogen_broken_wind.set_event_on_cleanup(cyclone_creep_down)
 
 
-func _on_attack(event: Event):
+func on_attack(event: Event):
 	var tower: Unit = self
 
 	var target: Unit = event.get_target()
@@ -67,7 +67,7 @@ func _on_attack(event: Event):
 				b.user_real3 = damage
 
 
-func _cyclone_creep_up(event: Event):
+func cyclone_creep_up(event: Event):
 	var b: Buff = event.get_buff()
 
 	var c: Unit = b.get_buffed_unit()
@@ -78,7 +78,7 @@ func _cyclone_creep_up(event: Event):
 	c.adjust_height(300, 1000)
 
 
-func _cyclone_creep_turn(event: Event):
+func cyclone_creep_turn(event: Event):
 	var b: Buff = event.get_buff()
 
 	var real_unit: Unit = b.get_buffed_unit()
@@ -86,7 +86,7 @@ func _cyclone_creep_turn(event: Event):
 	real_unit = null
 
 
-func _cyclone_creep_down(event: Event):
+func cyclone_creep_down(event: Event):
 	var b: Buff = event.get_buff()
 
 	var t: Unit = b.get_caster()

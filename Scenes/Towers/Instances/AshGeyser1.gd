@@ -4,7 +4,7 @@ extends Tower
 var drol_fireDot: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {firedot_level_add = 0, firedot_level_multiply = 1},
 		2: {firedot_level_add = 50, firedot_level_multiply = 2},

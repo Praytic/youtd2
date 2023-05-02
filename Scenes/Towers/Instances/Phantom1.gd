@@ -6,7 +6,7 @@ var drol_phantomCast: Cast
 var drol_phantomCast2: Cast
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {attackspeed = 0.10, buff_level = 0, user_real_base = 0, user_real_add = 1},
 		2: {attackspeed = 0.15, buff_level = 5, user_real_base = 50, user_real_add = 3},

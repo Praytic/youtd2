@@ -75,7 +75,7 @@ static func get_item_script_path(item_id: int):
 func _init(id: int):
 	_id = id
 	load_modifier(_modifier)
-	_item_init()
+	item_init()
 	on_create()
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true)
@@ -151,7 +151,7 @@ func get_extra_tooltip_text() -> String:
 
 
 # Override in subclass to initialize subclass item
-func _item_init():
+func item_init():
 	pass
 
 

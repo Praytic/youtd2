@@ -1,6 +1,6 @@
 extends Tower
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {splash_radius = 150},
 		2: {splash_radius = 160},

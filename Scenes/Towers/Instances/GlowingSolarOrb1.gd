@@ -4,7 +4,7 @@ extends Tower
 var cassim_armor: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {splash_125_damage = 0.45, splash_225_damage = 0.15, armor_decrease = 2},
 		2: {splash_125_damage = 0.45, splash_225_damage = 0.20, armor_decrease = 3},
@@ -29,7 +29,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(_on_damage, 1.0, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage, 1.0, 0.0)
 
 
 func load_specials(modifier: Modifier):
@@ -53,7 +53,7 @@ func tower_init():
 	cassim_armor.set_buff_tooltip("Blinded\nThis unit's armor has been reduced.")
 
 
-func _on_damage(event: Event):
+func on_damage(event: Event):
 	var tower = self
 
 	var lvl: int = tower.get_level()

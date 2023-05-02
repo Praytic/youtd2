@@ -19,7 +19,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack, 1.0, 0.0)
 
 
-func _item_init():
+func item_init():
 	boekie_tombstonejibs = MultiboardValues.new(1)
 	boekie_tombstonejibs.set_key(0, "Tombstone Kills")
 

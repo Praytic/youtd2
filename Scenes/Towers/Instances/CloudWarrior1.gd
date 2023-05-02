@@ -6,7 +6,7 @@ extends Tower
 # checking whether creep still exists.
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {lightning_dmg = 100, lightning_dmg_add = 5},
 		2: {lightning_dmg = 300, lightning_dmg_add = 15},

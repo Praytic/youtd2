@@ -27,7 +27,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_handler_unit_comes_in_range(on_unit_in_range, 600, TargetType.new(TargetType.CREEPS + TargetType.SIZE_BOSS))
 
 
-func _item_init():
+func item_init():
 	limfa_dealerboard = MultiboardValues.new(1)
 	limfa_dealerboard.set_key(0, "Arms Sold$")
 

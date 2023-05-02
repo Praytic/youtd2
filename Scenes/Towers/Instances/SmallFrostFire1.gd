@@ -5,7 +5,7 @@ extends Tower
 var soul_chill: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {dmg_to_undead_add = 0.002, aoe_damage = 50, aoe_damage_add = 2, slow_value = 50, slow_value_add = 2, slow_duration_add = 0.02},
 		2: {dmg_to_undead_add = 0.004, aoe_damage = 200, aoe_damage_add = 8, slow_value = 60, slow_value_add = 4, slow_duration_add = 0.04},

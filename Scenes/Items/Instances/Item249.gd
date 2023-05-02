@@ -17,7 +17,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack, 1.0, 0.0)
 
 
-func _item_init():
+func item_init():
 	MB = MultiboardValues.new(1)
 	MB.set_key(1, "Golden Trident")
 

@@ -21,7 +21,7 @@ func Collision(P: Projectile, targ: Unit):
 	P.get_caster().do_spell_damage(targ, 60.00, P.get_caster().calc_spell_crit_no_bonus()) 
 
 
-func _item_init():
+func item_init():
 	PT = ProjectileType.create("Abilities\\Weapons\\DruidoftheTalonMissile\\DruidoftheTalonMissile.mdl", 4.00, 1400.00)
 	PT.enable_homing(Collision, 0.0)
 

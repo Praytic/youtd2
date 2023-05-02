@@ -19,7 +19,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 
 
-func _item_init():
+func item_init():
 	cb_stun = CbStun.new("cb_stun", 0, 0, false)
 
 

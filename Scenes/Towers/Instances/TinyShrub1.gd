@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {crit_chance = 0.02, crit_chance_add = 0.0035, crit_damage = 0.0, crit_damage_add = 0.0},
 		2: {crit_chance = 0.04, crit_chance_add = 0.003, crit_damage = 1.4, crit_damage_add = 0.03},

@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {cooldown = 15, base_damage = 70, damage_add = 3, stun_duration = 0.50, max_targets = 3},
 		2: {cooldown = 14, base_damage = 270, damage_add = 15, stun_duration = 0.75, max_targets = 3},
@@ -30,15 +30,15 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_periodic_event(_on_periodic, 2)
+	triggers_buff_type.add_periodic_event(on_periodic, 2)
 
 
-func _on_periodic(event: Event):
+func on_periodic(event: Event):
 	var tower = self
-	_trap(event, tower, _stats.cooldown, _stats.base_damage, _stats.damage_add, _stats.stun_duration, _stats.max_targets)
+	trap(event, tower, _stats.cooldown, _stats.base_damage, _stats.damage_add, _stats.stun_duration, _stats.max_targets)
 
 
-func _trap(event: Event, tower, cooldown: float, base_damage: float, damage_add: float, stun_duration: float, max_targets: int):
+func trap(event: Event, tower, cooldown: float, base_damage: float, damage_add: float, stun_duration: float, max_targets: int):
 	var lvl: int = tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 950)
 	var next: Unit = it.next_random()

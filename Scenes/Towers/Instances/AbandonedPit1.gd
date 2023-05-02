@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {bounty_level_add = 0.005},
 		2: {bounty_level_add = 0.006},

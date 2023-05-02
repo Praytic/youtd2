@@ -4,7 +4,7 @@ extends Tower
 var Poisoned_heart: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {bounce_count = 2, poison_damage = 25, poison_damage_add = 1, poison_duration_add = 0.1},
 		2: {bounce_count = 3, poison_damage = 75, poison_damage_add = 3, poison_duration_add = 0.2},

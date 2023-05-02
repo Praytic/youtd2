@@ -2,7 +2,7 @@ class_name SmallCactus1
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {value = 0.15, value_add = 0.01},
 		2: {value = 0.17, value_add = 0.011},

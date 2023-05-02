@@ -10,7 +10,7 @@ var cedi_helldog: BuffType
 # 0.0005  0.003, 0.0045, 0.006, 0.0075, 0.009
 # 0.05    0.05 , 0.05  , 0.05 , 0.05  , 0.05
 #         70   , 210   , 840  , 1680  , 3360
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {level_multiplier = 6},
 		2: {level_multiplier = 9},

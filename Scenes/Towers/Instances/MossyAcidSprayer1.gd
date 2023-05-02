@@ -6,7 +6,7 @@ var cedi_acidarmor: BuffType
 # NOTE: values here are pre-multiplied by 1000, so 600 = 0.6
 # as final value. That's how it is in original script and we
 # stick to original to avoid introducting bugs.
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {armor_base = 600, armor_add = 24},
 		2: {armor_base = 1200, armor_add = 48},
@@ -32,7 +32,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(_on_damage, 1.0, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage, 1.0, 0.0)
 
 
 func load_specials(_modifier: Modifier):
@@ -49,7 +49,7 @@ func tower_init():
 	cedi_acidarmor.set_buff_tooltip("Acid Corosion\nThis unit has decreased armor.")
 
 
-func _on_damage(event: Event):
+func on_damage(event: Event):
 	var tower = self
 
 	cedi_acidarmor.apply_custom_timed(tower, event.get_target(), _stats.armor_base + tower.get_level() * _stats.armor_add, 3.0 + 0.12 * tower.get_level())

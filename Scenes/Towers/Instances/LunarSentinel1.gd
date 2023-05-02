@@ -8,7 +8,7 @@ var sir_moonp_buff: BuffType
 # spell_damage_add, but for tier 4 it's 1000 instead of 100.
 # Leaving as in original.
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {spell_damage = 50, spell_damage_15 = 70, spell_damage_add = 2, spell_damage_chance_add = 2, buff_power = 120, buff_power_15 = 150},
 		2: {spell_damage = 500, spell_damage_15 = 700, spell_damage_add = 20, spell_damage_chance_add = 20, buff_power = 160, buff_power_15 = 200},
@@ -52,7 +52,7 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = null
 	autocast.auto_range = 1200
-	autocast.handler = _on_autocast
+	autocast.handler = on_autocast
 
 	add_autocast(autocast)
 
@@ -65,7 +65,7 @@ func tower_init():
 	sir_moonp_buff.set_buff_tooltip("Lunar Energy\nThis unit receives extra spell damage.")
 
 
-func _on_autocast(event: Event):
+func on_autocast(event: Event):
 	var tower = self
 
 	var level: int = tower.get_level()

@@ -4,7 +4,7 @@ extends Tower
 var mOck_ray_blaster: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {value = 500, value_add = 30, duration = 5},
 		2: {value = 800, value_add = 35, duration = 5},

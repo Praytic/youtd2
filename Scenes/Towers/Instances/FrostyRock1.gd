@@ -5,7 +5,7 @@ var sir_frost_glacier: BuffType
 var cb_stun: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {slow_value = 70, extra_damage = 100, damage_and_stun_chance = 2, stun_duration = 0.8},
 		2: {slow_value = 100, extra_damage = 520, damage_and_stun_chance = 3, stun_duration = 0.9},

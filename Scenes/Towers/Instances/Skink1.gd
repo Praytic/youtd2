@@ -5,7 +5,7 @@ var cedi_skinkA: BuffType
 var cedi_skinkB: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {dmg = 3, dmg_add = 0.12},
 		2: {dmg = 10, dmg_add = 0.4},

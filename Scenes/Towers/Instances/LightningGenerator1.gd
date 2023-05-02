@@ -4,7 +4,7 @@ extends Tower
 var Chainlightning: Cast
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {chain_damage = 150, on_attack_damage = 70},
 		2: {chain_damage = 560, on_attack_damage = 260},

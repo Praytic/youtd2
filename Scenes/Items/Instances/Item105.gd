@@ -15,10 +15,10 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_attack(_on_attack, 1.0, 0.0)
+	triggers.add_event_on_attack(on_attack, 1.0, 0.0)
 
 
-func _item_init():
+func item_init():
 	var m: Modifier = Modifier.new() 
 
 	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
@@ -29,7 +29,7 @@ func _item_init():
 	boekie_spiderling_slow.set_buff_tooltip("Slowed\nThis unit is caught in the web, it has reduced move speed.")
 
 
-func _on_attack(event: Event):
+func on_attack(event: Event):
 	var itm = self
 
 	var tower: Tower = itm.get_carrier() 

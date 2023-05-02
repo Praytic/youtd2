@@ -1,7 +1,7 @@
 extends Tower
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {bonus_7 = 1.10, bonus_8 = 1.20, bonus_9 = 1.30, bonus_10 = 1.40, bonus_7_add = 0.002, bonus_8_add = 0.004, bonus_9_add = 0.006, bonus_10_add = 0.008},
 		2: {bonus_7 = 1.10, bonus_8 = 1.20, bonus_9 = 1.30, bonus_10 = 1.40, bonus_7_add = 0.002, bonus_8_add = 0.004, bonus_9_add = 0.006, bonus_10_add = 0.008},
@@ -40,7 +40,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(_on_damage, 1.0, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage, 1.0, 0.0)
 
 
 func on_create(_preceding_tower: Tower):
@@ -51,7 +51,7 @@ func on_create(_preceding_tower: Tower):
 	tower.user_real = 0
 
 
-func _on_damage(event: Event):
+func on_damage(event: Event):
 	var tower = self
 
 	var damage: float = event.damage

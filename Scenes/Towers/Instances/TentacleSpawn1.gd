@@ -4,7 +4,7 @@ extends Tower
 var drol_tentacleDot: BuffType
 
 
-func _get_tier_stats() -> Dictionary:
+func get_tier_stats() -> Dictionary:
 	return {
 		1: {apply_level = 1, periodic_damage = 20, periodic_damage_add = 0.8},
 		2: {apply_level = 2, periodic_damage = 60, periodic_damage_add = 2.4},
@@ -32,7 +32,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(_on_damage, 0.25, 0.01)
+	triggers_buff_type.add_event_on_damage(on_damage, 0.25, 0.01)
 
 
 func tower_init():
@@ -54,7 +54,7 @@ func drol_tentacleDamage(event: Event):
 		Utils.sfx_on_unit("Objects/Spawnmodels/Human/HumanBlood/HumanBloodRifleman.mdl", b.get_buffed_unit(), "chest")
 
 
-func _on_damage(event: Event):
+func on_damage(event: Event):
 	var tower = self
 
 	drol_tentacleDot.apply(tower, event.get_target(), _stats.apply_level).user_real = _stats.periodic_damage + _stats.periodic_damage_add * tower.get_level()
