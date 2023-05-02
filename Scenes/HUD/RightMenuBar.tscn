@@ -37,6 +37,15 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Close (Escape)"
+text = "Close"
+
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -68,3 +77,4 @@ columns = 4
 script = ExtResource("4_5ctcy")
 
 [connection signal="test_signal" from="." to="VBoxContainer/ScrollContainer/MarginContainer/ItemBar" method="_on_right_menu_bar_test_signal"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

@@ -44,3 +44,7 @@ func _unhandled_input(event):
 
 	if event.is_action_released("ui_cancel") && !move_in_progress && !build_in_progress:
 		hide()
+
+
+func _on_close_button_pressed():
+	hide()
