@@ -35,7 +35,7 @@ func load_specials(_modifier: Modifier):
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_damage(self, "on_damage", 1.0, 0.0)
+	triggers.add_event_on_damage(on_damage, 1.0, 0.0)
 
 
 func deal_damage(event: Event):
@@ -50,7 +50,7 @@ func tower_init():
 	Poisoned_heart = BuffType.new("Poisoned_heart", 9, 0.5, false)
 	Poisoned_heart.set_buff_icon("@@0@@")
 
-	Poisoned_heart.add_periodic_event(self, "deal_damage", 1)
+	Poisoned_heart.add_periodic_event(deal_damage, 1)
 
 	Poisoned_heart.set_buff_tooltip("Poisoned Heart\nThis unit is poisoned and is suffering damage over time.")
 

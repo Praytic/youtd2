@@ -14,7 +14,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_attack(self, "on_attack", 1.0, 0.0)
+	triggers.add_event_on_attack(on_attack, 1.0, 0.0)
 
 
 func _item_init():

@@ -76,7 +76,7 @@ func teacher_attack(tower: Tower, xp: float):
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_attack(self, "on_attack", 1.0, 0.0)
+	triggers_buff_type.add_event_on_attack(on_attack, 1.0, 0.0)
 
 
 func load_specials(modifier: Modifier):

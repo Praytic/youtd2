@@ -32,7 +32,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_attack(self, "_on_attack", 1.0, 0.0)
+	triggers_buff_type.add_event_on_attack(_on_attack, 1.0, 0.0)
 
 
 func load_specials(modifier: Modifier):
@@ -42,9 +42,9 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	sternbogen_broken_wind = CbStun.new("sternbogen_broken_wind", 1.0, 0, false)
 	sternbogen_broken_wind.set_buff_icon("@@0@@")
-	sternbogen_broken_wind.add_event_on_create(self, "_cyclone_creep_up")
-	sternbogen_broken_wind.add_periodic_event(self, "_cyclone_creep_turn", 0.1)
-	sternbogen_broken_wind.set_event_on_cleanup(self, "_cyclone_creep_down")
+	sternbogen_broken_wind.add_event_on_create(cyclone_creep_up)
+	sternbogen_broken_wind.add_periodic_event(cyclone_creep_turn, 0.1)
+	sternbogen_broken_wind.set_event_on_cleanup(cyclone_creep_down)
 
 
 func _on_attack(event: Event):

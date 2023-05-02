@@ -32,7 +32,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(self, "_on_damage", 0.125, 0.002)
+	triggers_buff_type.add_event_on_damage(_on_damage, 0.125, 0.002)
 
 
 func on_create(_preceding_tower: Tower):
@@ -50,7 +50,7 @@ func _on_damage(event: Event):
 	if target.get_size() < CreepSize.enm.BOSS && target.get_size() != CreepSize.enm.AIR:
 		var chasm_entangle = CbStun.new("chasm_entangle", _stats.entangle_duration, 0.75, false)
 		chasm_entangle.set_buff_icon('@@0@@')
-		chasm_entangle.add_periodic_event(self, "_chasm_entangle_damage", 1.0)
+		chasm_entangle.add_periodic_event(_chasm_entangle_damage, 1.0)
 		chasm_entangle.apply(tower, target, 0)
 
 #		TODO: not sure what reorder() does

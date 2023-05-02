@@ -27,7 +27,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(self, "on_damage", _stats.chance_base, _stats.chance_add)
+	triggers_buff_type.add_event_on_damage(on_damage, _stats.chance_base, _stats.chance_add)
 
 
 func on_damage(event: Event):

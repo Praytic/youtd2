@@ -30,7 +30,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_periodic_event(self, "_on_periodic", 2)
+	triggers_buff_type.add_periodic_event(_on_periodic, 2)
 
 
 func _on_periodic(event: Event):

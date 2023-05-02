@@ -30,7 +30,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_kill(self, "on_kill")
+	triggers.add_event_on_kill(on_kill)
 
 
 func load_specials(modifier: Modifier):

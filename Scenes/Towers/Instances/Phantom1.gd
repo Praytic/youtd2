@@ -62,7 +62,7 @@ func tower_init():
 	
 	drol_phantomBuff.set_buff_icon("@@2@@")
 	
-	drol_phantomBuff.add_event_on_attack(self, "phantom_attack", 1.0, 0.0)
+	drol_phantomBuff.add_event_on_attack(phantom_attack, 1.0, 0.0)
 	
 	drol_phantomCast = Cast.new('@@0@@', "chainlightning", 5.0)
 	drol_phantomCast.set_source_height(40.0)

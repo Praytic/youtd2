@@ -40,7 +40,7 @@ func load_specials(modifier: Modifier):
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(self, "hit", 1.0, 0.0)
+	triggers_buff_type.add_event_on_damage(hit, 1.0, 0.0)
 
 
 func D1000_Spider_Damage(event: Event):
@@ -87,7 +87,7 @@ func hit(event: Event):
 func tower_init():
 	D1000_Spider_Poison = BuffType.new("D1000_Spider_Poison", 5, 0.05, false)
 	D1000_Spider_Poison.set_buff_icon("@@0@@")
-	D1000_Spider_Poison.add_periodic_event(self, "D1000_Spider_Damage", 1)
+	D1000_Spider_Poison.add_periodic_event(D1000_Spider_Damage, 1)
 	D1000_Spider_Poison.set_buff_tooltip("Poison\nThis unit is poisoned and is suffering damage over time.")
 
 

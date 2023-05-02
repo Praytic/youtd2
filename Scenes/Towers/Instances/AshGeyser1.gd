@@ -30,7 +30,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(self, "on_damage", 0.3, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage, 0.3, 0.0)
 
 
 func load_specials(modifier: Modifier):
@@ -51,7 +51,7 @@ func tower_init():
 	drol_fireDot.set_buff_icon("@@0@@")
 	drol_fireMod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.05, -0.001)
 	drol_fireDot.set_buff_modifier(drol_fireMod)
-	drol_fireDot.add_periodic_event(self, "drol_fireDot_Damage", 1)
+	drol_fireDot.add_periodic_event(drol_fireDot_Damage, 1)
 
 	var buff_tooltip: String = ""
 	buff_tooltip += "On Fire\n"

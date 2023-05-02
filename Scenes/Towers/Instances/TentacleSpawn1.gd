@@ -32,7 +32,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(self, "_on_damage", 0.25, 0.01)
+	triggers_buff_type.add_event_on_damage(_on_damage, 0.25, 0.01)
 
 
 func tower_init():
@@ -41,7 +41,7 @@ func tower_init():
 
 	drol_tentacleDot = BuffType.new("drol_tentacleDot", 6, 0, false)
 	drol_tentacleDot.set_buff_icon("@@0@@")
-	drol_tentacleDot.add_periodic_event(self, "drol_tentacleDamage", 1)
+	drol_tentacleDot.add_periodic_event(drol_tentacleDamage, 1)
 	drol_tentacleDot.set_buff_modifier(m)
 	drol_tentacleDot.set_buff_tooltip("Rend\nThis unit has been rended, it receives periodic damage and also takes increased spell damage.")
 

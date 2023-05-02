@@ -15,8 +15,8 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_damage(self, "on_damage", 1.0, 0.0)
-	triggers.add_event_on_kill(self, "on_kill")
+	triggers.add_event_on_damage(on_damage, 1.0, 0.0)
+	triggers.add_event_on_kill(on_kill)
 
 
 func _item_init():
