@@ -5,6 +5,7 @@ signal start_wave(wave_index)
 signal stop_wave()
 
 @onready var element_buttons_parent = $MarginContainer/HBoxContainer
+@onready var _wave_status: Control = $WaveStatus
 
 
 func _ready():
@@ -27,8 +28,10 @@ func _on_element_button_pressed(element_button):
 func _on_TooltipHeader_expanded(expand):
 	if expand:
 		$TowerTooltip.show()
+		_wave_status.hide()
 	else:
 		$TowerTooltip.hide()
+		_wave_status.show()
 
 
 func _on_ItemMenuButton_pressed():
