@@ -25,8 +25,8 @@ func remove_item_button(item_id):
 
 
 func _ready():
-	_resize_icons("M")
-	current_size = "M"
+	_resize_icons("S")
+	current_size = "S"
 
 	if FF.add_test_item():
 		var test_item_list: Array[int] = [77, 78, 79, 99, 105, 108, 155, 158, 159, 218, 231, 244, 249, 268, 274, 1001]
@@ -58,19 +58,20 @@ func on_item_move_from_itembar_done(move_success: bool):
 
 	_moved_item_button = null
 
-
+# Disable resize for icons in the RightMenuBar
+#func _adjust_size():
+#	if current_size == "M":
+#		if _item_buttons.size() > 14:
+#			_resize_icons("S")
+#		else:
+#			_resize_icons("M")
+#	elif current_size == "S":
+#		if _item_buttons.size() > 14:
+#			_resize_icons("S")
+#		else:
+#			_resize_icons("M")
 func _adjust_size():
-	if current_size == "M":
-		if _item_buttons.size() > 14:
-			_resize_icons("S")
-		else:
-			_resize_icons("M")
-	elif current_size == "S":
-		if _item_buttons.size() > 14:
-			_resize_icons("S")
-		else:
-			_resize_icons("M")
-
+	_resize_icons("S")
 
 func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()

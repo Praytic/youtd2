@@ -45,8 +45,8 @@ func _ready():
 	for tower_id in _tower_buttons.keys():
 		available_tower_buttons.append(tower_id)
 	
-	_resize_icons("M")
-	current_size = "M"
+	_resize_icons("S")
+	current_size = "S"
 	
 	print_verbose("BuildBar has loaded.")
 
@@ -61,16 +61,18 @@ func set_element(element: Tower.Element):
 		tower_button.hide()
 	
 	var available_towers_for_element = _get_available_tower_buttons_for_element(element)
-	if current_size == "M":
-		if available_towers_for_element.size() > 14:
-			_resize_icons("S")
-		else:
-			_resize_icons("M")
-	elif current_size == "S":
-		if available_towers_for_element.size() > 14:
-			_resize_icons("S")
-		else:
-			_resize_icons("M")
+# Disable resize for icons in the RightMenuBar
+#	if current_size == "M":
+#		if available_towers_for_element.size() > 14:
+#			_resize_icons("S")
+#		else:
+#			_resize_icons("M")
+#	elif current_size == "S":
+#		if available_towers_for_element.size() > 14:
+#			_resize_icons("S")
+#		else:
+#			_resize_icons("M")
+	_resize_icons("S")
 	
 	for tower_id in available_towers_for_element:
 		_tower_buttons[tower_id].show()

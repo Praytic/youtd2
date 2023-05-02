@@ -13,27 +13,30 @@ var _charges_label: Label
 # Item instance that corresponds to this button. This is
 # non-null only for item buttons in tower inventory.
 var _item_instance: Item = null
-var count: int = 100
+var count: int = randi_range(1, 3)
 
 var _item_id: int
 @onready var _icon_size: String : set = set_icon_size
 @onready var _tier_icons_s = preload("res://Assets/Towers/tier_icons_s.png")
 @onready var _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
-@onready var _item_button_fallback_icon = preload("res://Assets/icon.png")
 @onready var _tier_background_s = preload("res://Assets/UI/HUD/misc4.png")
 
 
 func _ready():
 	set_theme_type_variation("TowerButton")
-	icon = ItemProperties.get_icon(_item_id, "M")
+	icon = ItemProperties.get_icon(_item_id, "S")
 
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 	
 	_charges_label = Label.new()
 	_charges_label.set_text("")
+	_charges_label.set("theme_override_font_sizes/font_size", 14)
+	_charges_label.set("layout_mode", 1)
+	_charges_label.set("anchors_preset", LayoutPreset.PRESET_CENTER_BOTTOM)
+	_charges_label.set("vertical_alignment", VerticalAlignment.VERTICAL_ALIGNMENT_BOTTOM)
 	add_child(_charges_label)
-
+	
 	if _item_instance != null:
 		_on_item_charges_changed(_item_instance)
 
@@ -41,11 +44,13 @@ func _ready():
 func _draw():
 	if background != null:
 		draw_texture(background, Vector2.ZERO)
-		var item_count_label = Label.new()
+		if count > 1:
+			draw_rect(Rect2(0, background.get_size().y - 14, background.get_size().x, 14), Color(0, 0, 0, 0.5))
+	draw_texture(icon, Vector2.ZERO)
+	if count > 1:
 		_charges_label.text = str(count)
-		draw_rect(Rect2(0, background.get_size().y - 14, background.get_size().x, 14), Color(0, 0, 0, 0.5))
-		
-	draw_texture(tier_icon, Vector2.ZERO)
+	else:
+		_charges_label.text = ""
 	
 
 
@@ -79,7 +84,7 @@ func _get_item_button_tier_icon(icon_size_letter: String) -> Texture2D:
 		icon_out.set_atlas(_tier_icons_m)
 		icon_size = TIER_ICON_SIZE_M
 	else:
-		return _item_button_fallback_icon
+		return null
 	
 	icon_out.set_region(Rect2(6 * icon_size, item_rarity * icon_size, icon_size, icon_size))
 	return icon_out
@@ -91,6 +96,7 @@ func _get_item_button_background(icon_size_letter: String) -> Texture2D:
 	var icon_size: int
 	if icon_size_letter == "S":
 		background_out.set_atlas(_tier_background_s)
+		icon_size = ICON_SIZE_S
 	else:
 		return null
 	
