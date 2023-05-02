@@ -228,6 +228,16 @@ func _get_sfx(sfx_name: String) -> AudioStream:
 		return AudioStreamMP3.new()
 
 	var stream: AudioStream = load(sfx_name)
+
+#	NOTE: turn off looping in case it was turned on in sfx's
+#	.import file.
+	if stream is AudioStreamMP3:
+		var stream_mp3: AudioStreamMP3 = stream as AudioStreamMP3
+		stream_mp3.loop = false
+	elif stream is AudioStreamOggVorbis:
+		var stream_ogg: AudioStreamOggVorbis = stream as AudioStreamOggVorbis
+		stream_ogg.loop = false
+
 	_loaded_sfx_map[sfx_name] = stream
 
 	return stream
