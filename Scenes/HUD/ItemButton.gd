@@ -28,10 +28,8 @@ func _ready():
 	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
-	pressed.connect(_on_pressed)
 	
 	_charges_label = Label.new()
-	_charges_label.offset_top = 2
 	_charges_label.set("theme_override_font_sizes/font_size", 14)
 	_charges_label.set("layout_mode", 1)
 	_charges_label.set("anchors_preset", LayoutPreset.PRESET_CENTER_BOTTOM)
@@ -40,10 +38,6 @@ func _ready():
 	
 	if _item_instance != null:
 		_on_item_charges_changed(_item_instance)
-
-
-func _on_pressed():
-	var prev_rect
 
 
 func _draw():
