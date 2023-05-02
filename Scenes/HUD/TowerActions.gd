@@ -107,6 +107,15 @@ func _on_sell_button_pressed():
 		return
 
 	var tower: Tower = SelectUnit.get_selected_unit() as Tower
+
+# 	Return tower items to storage
+	var item_list: Array[Item] = tower.get_items()
+
+	for item in item_list:
+		var item_id: int = item.get_id()
+
+		EventBus.emit_item_drop_picked_up(item_id)
+
 	var build_cost: float = TowerProperties.get_cost(tower.get_id())
 	var sell_price: int = floor(build_cost * BUILD_COST_TO_SELL_PRICE)
 	tower.getOwner().give_gold(sell_price, tower, false, true)
