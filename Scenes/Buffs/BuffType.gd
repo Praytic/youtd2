@@ -270,9 +270,9 @@ func set_special_effect_simple(_effect: String):
 func callable_object_is_node(callable: Callable) -> bool:
 	var callable_object: Object = callable.get_object()
 	var callable_node: Node = callable_object as Node
-	var callable_object_is_node = callable_node != null
+	var is_node = callable_node != null
 
-	if !callable_object_is_node:
+	if !is_node:
 		push_error("Objects that store buff event handlers must inherit from type Node. Error was caused by this callable: ", callable)
 
-	return callable_object_is_node
+	return is_node
