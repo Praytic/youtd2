@@ -29,3 +29,6 @@ func damage_numbers() -> bool:
 
 func ignore_requirements() -> bool:
 	return ProjectSettings.get_setting("application/config/ignore_requirements") as bool
+
+func sfx_enabled() -> bool:
+	return ProjectSettings.get_setting("application/config/sfx_enabled") as bool
