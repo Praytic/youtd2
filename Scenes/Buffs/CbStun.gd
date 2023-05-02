@@ -5,8 +5,8 @@ var _stun_effect_map: Dictionary
 
 func _init(type: String, time_base: float, time_level_add: float,friendly: bool):
 	super(type, time_base, time_level_add, friendly)
-	add_event_on_create(self, "on_create")
-	set_event_on_cleanup(self, "_on_cleanup")
+	add_event_on_create(on_create)
+	set_event_on_cleanup(_on_cleanup)
 
 #	NOTE: this is the default tooltip for stun buff. It may
 #	be overriden in buffs that extend this buff.

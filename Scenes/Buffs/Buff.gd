@@ -7,8 +7,7 @@ extends Node2D
 
 
 class EventHandler:
-	var object: Node
-	var handler_function: String
+	var callable: Callable
 	var chance: float
 	var chance_level_add: float
 
@@ -165,15 +164,16 @@ func purge_buff():
 	remove_buff()
 
 
-func _add_event_handler(event_type: Event.Type, handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
+func _add_event_handler(event_type: Event.Type, callable: Callable, chance: float, chance_level_add: float):
 	var handler: EventHandler = EventHandler.new()
-	handler.object = handler_object
-	handler.handler_function = handler_function
+	handler.callable = callable
 	handler.chance = chance
 	handler.chance_level_add = chance_level_add
 
-	if !handler_object.tree_exiting.is_connected(_on_handler_object_tree_exiting):
-		handler_object.tree_exiting.connect(_on_handler_object_tree_exiting)
+	var handler_node: Node = callable.get_object() as Node
+
+	if !handler_node.tree_exiting.is_connected(_on_handler_node_tree_exiting):
+		handler_node.tree_exiting.connect(_on_handler_node_tree_exiting)
 
 	_add_event_handler_internal(event_type, handler)
 
@@ -185,28 +185,28 @@ func _add_event_handler_internal(event_type: Event.Type, handler: EventHandler):
 	event_handler_map[event_type].append(handler)
 
 
-func _add_periodic_event(handler_object: Node, handler_function: String, period: float):
+func _add_periodic_event(callable: Callable, period: float):
 	var timer: Timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = period
 	timer.one_shot = false
 	timer.autostart = true
-	timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler_object, handler_function, timer))
+	timer.timeout.connect(_on_periodic_event_timer_timeout.bind(callable, timer))
 
 
-func _add_event_handler_unit_comes_in_range(handler_object: Node, handler_function: String, radius: float, target_type: TargetType):
+func _add_event_handler_unit_comes_in_range(callable: Callable, radius: float, target_type: TargetType):
 	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
 	var buff_range_area = buff_range_area_scene.instantiate()
 	add_child(buff_range_area)
-	buff_range_area.init(radius, target_type, handler_object, handler_function)
+	buff_range_area.init(radius, target_type, callable)
 
 	buff_range_area.unit_came_in_range.connect(_on_unit_came_in_range)
 
 
-func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
+func _on_unit_came_in_range(callable: Callable, unit: Unit):
 	var range_event: Event = _make_buff_event(unit)
 
-	handler_object.call(handler_function, range_event)
+	callable.call(range_event)
 
 
 # NOTE: do not call event handlers after cleanup event.
@@ -234,7 +234,8 @@ func _call_event_handler_list(event_type: Event.Type, event: Event):
 		if !chance_success:
 			continue
 
-		handler.object.call(handler.handler_function, event)
+		var callable: Callable = handler.callable
+		callable.call(event)
 
 
 func _on_timer_timeout():
@@ -267,7 +268,7 @@ func _on_tree_exiting():
 # In such cases, the buff *must* be removed because without
 # the object which implements event handlers, the buff
 # cannot continue operating in a correct manner.
-func _on_handler_object_tree_exiting():
+func _on_handler_node_tree_exiting():
 	remove_buff()
 
 
@@ -311,10 +312,10 @@ func _on_target_spell_targeted(event: Event):
 	_call_event_handler_list(Event.Type.SPELL_TARGET, event)
 
 
-func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String, timer: Timer):
+func _on_periodic_event_timer_timeout(callable: Callable, timer: Timer):
 	var periodic_event: Event = _make_buff_event(_target)
 	periodic_event._timer = timer
-	handler_object.call(handler_function, periodic_event)
+	callable.call(periodic_event)
 
 
 # Convenience function to make an event with "_buff" variable set to self
