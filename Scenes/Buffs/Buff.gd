@@ -7,7 +7,7 @@ extends Node2D
 
 
 class EventHandler:
-	var object: Object
+	var object: Node
 	var handler_function: String
 	var chance: float
 	var chance_level_add: float
@@ -87,8 +87,6 @@ func _ready():
 
 	tree_exiting.connect(_on_tree_exiting)
 
-	_caster.tree_exiting.connect(_on_caster_tree_exiting)
-
 	var create_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CREATE, create_event)
 
@@ -167,12 +165,15 @@ func purge_buff():
 	remove_buff()
 
 
-func _add_event_handler(event_type: Event.Type, handler_object: Object, handler_function: String, chance: float, chance_level_add: float):
+func _add_event_handler(event_type: Event.Type, handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
 	var handler: EventHandler = EventHandler.new()
 	handler.object = handler_object
 	handler.handler_function = handler_function
 	handler.chance = chance
 	handler.chance_level_add = chance_level_add
+
+	if !handler_object.tree_exiting.is_connected(_on_handler_object_tree_exiting):
+		handler_object.tree_exiting.connect(_on_handler_object_tree_exiting)
 
 	_add_event_handler_internal(event_type, handler)
 
@@ -184,7 +185,7 @@ func _add_event_handler_internal(event_type: Event.Type, handler: EventHandler):
 	event_handler_map[event_type].append(handler)
 
 
-func _add_periodic_event(handler_object: Object, handler_function: String, period: float):
+func _add_periodic_event(handler_object: Node, handler_function: String, period: float):
 	var timer: Timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = period
@@ -193,7 +194,7 @@ func _add_periodic_event(handler_object: Object, handler_function: String, perio
 	timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler_object, handler_function, timer))
 
 
-func _add_event_handler_unit_comes_in_range(handler_object: Object, handler_function: String, radius: float, target_type: TargetType):
+func _add_event_handler_unit_comes_in_range(handler_object: Node, handler_function: String, radius: float, target_type: TargetType):
 	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
 	var buff_range_area = buff_range_area_scene.instantiate()
 	add_child(buff_range_area)
@@ -202,7 +203,7 @@ func _add_event_handler_unit_comes_in_range(handler_object: Object, handler_func
 	buff_range_area.unit_came_in_range.connect(_on_unit_came_in_range)
 
 
-func _on_unit_came_in_range(handler_object: Object, handler_function: String, unit: Unit):
+func _on_unit_came_in_range(handler_object: Node, handler_function: String, unit: Unit):
 	var range_event: Event = _make_buff_event(unit)
 
 	handler_object.call(handler_function, range_event)
@@ -258,12 +259,15 @@ func _on_tree_exiting():
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
 
-# NOTE: this will get called when caster of buff is removed
-# from world. For example, if a tower casted a slow on
-# creeps and that tower gets sold, then the debuff will get
-# removed. This must be done because some buffs can't
-# function properly without casters.
-func _on_caster_tree_exiting():
+# NOTE: this will get called when the object that applied
+# this buff is removed from the game. For example, if a
+# tower casted a slow on creeps and that tower gets sold,
+# then the debuff will get removed. Another example is if an
+# item applied a buff and was moved from tower to storage.
+# In such cases, the buff *must* be removed because without
+# the object which implements event handlers, the buff
+# cannot continue operating in a correct manner.
+func _on_handler_object_tree_exiting():
 	remove_buff()
 
 
@@ -307,7 +311,7 @@ func _on_target_spell_targeted(event: Event):
 	_call_event_handler_list(Event.Type.SPELL_TARGET, event)
 
 
-func _on_periodic_event_timer_timeout(handler_object: Object, handler_function: String, timer: Timer):
+func _on_periodic_event_timer_timeout(handler_object: Node, handler_function: String, timer: Timer):
 	var periodic_event: Event = _make_buff_event(_target)
 	periodic_event._timer = timer
 	handler_object.call(handler_function, periodic_event)

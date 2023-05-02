@@ -1,4 +1,5 @@
 class_name BuffType
+extends Node
 
 
 # BuffType stores buff parameters and can be used to create
@@ -10,6 +11,9 @@ class_name BuffType
 # appropriate add_event_handler function. All handler
 # functions are called with one parameter Event which passes
 # information about the event.
+#
+# NOTE: BuffType needs to be Node so that it can be used as
+# event handler for Buffs.
 
 var _type: String
 var _stacking_group: String = ""
@@ -160,7 +164,7 @@ func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
 	return buff
 
 
-func add_event_handler(event_type: Event.Type, handler_object: Object, handler_function: String, chance: float, chance_level_add: float):
+func add_event_handler(event_type: Event.Type, handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
 	if !_check_handler_exists(handler_object, handler_function):
 		return
 
@@ -173,7 +177,7 @@ func add_event_handler(event_type: Event.Type, handler_object: Object, handler_f
 		})
 
 
-func add_periodic_event(handler_object: Object, handler_function: String, period: float):
+func add_periodic_event(handler_object: Node, handler_function: String, period: float):
 	if !_check_handler_exists(handler_object, handler_function):
 		return
 
@@ -184,7 +188,7 @@ func add_periodic_event(handler_object: Object, handler_function: String, period
 		})
 
 
-func add_event_handler_unit_comes_in_range(handler_object: Object, handler_function: String, radius: float, target_type: TargetType):
+func add_event_handler_unit_comes_in_range(handler_object: Node, handler_function: String, radius: float, target_type: TargetType):
 	if !_check_handler_exists(handler_object, handler_function):
 		return
 
@@ -196,63 +200,63 @@ func add_event_handler_unit_comes_in_range(handler_object: Object, handler_funct
 		})
 
 
-func set_event_on_cleanup(handler_object: Object, handler_function: String):
+func set_event_on_cleanup(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.CLEANUP, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_create(handler_object: Object, handler_function: String):
+func add_event_on_create(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.CREATE, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_upgrade(handler_object: Object, handler_function: String):
+func add_event_on_upgrade(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.UPGRADE, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_refresh(handler_object: Object, handler_function: String):
+func add_event_on_refresh(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.REFRESH, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_death(handler_object: Object, handler_function: String):
+func add_event_on_death(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.DEATH, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_kill(handler_object: Object, handler_function: String):
+func add_event_on_kill(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.KILL, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_level_up(handler_object: Object, handler_function: String):
+func add_event_on_level_up(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.LEVEL_UP, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_attack(handler_object: Object, handler_function: String, chance: float, chance_level_add: float):
+func add_event_on_attack(handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
 	add_event_handler(Event.Type.ATTACK, handler_object, handler_function, chance, chance_level_add)
 
 
-func add_event_on_attacked(handler_object: Object, handler_function: String, chance: float, chance_level_add: float):
+func add_event_on_attacked(handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
 	add_event_handler(Event.Type.ATTACKED, handler_object, handler_function, chance, chance_level_add)
 
 
-func add_event_on_damage(handler_object: Object, handler_function: String, chance: float, chance_level_add: float):
+func add_event_on_damage(handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
 	add_event_handler(Event.Type.DAMAGE, handler_object, handler_function, chance, chance_level_add)
 
 
-func add_event_on_damaged(handler_object: Object, handler_function: String, chance: float, chance_level_add: float):
+func add_event_on_damaged(handler_object: Node, handler_function: String, chance: float, chance_level_add: float):
 	add_event_handler(Event.Type.DAMAGED, handler_object, handler_function, chance, chance_level_add)
 
 
-func add_event_on_expire(handler_object: Object, handler_function: String):
+func add_event_on_expire(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.EXPIRE, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_spell_casted(handler_object: Object, handler_function: String):
+func add_event_on_spell_casted(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.SPELL_CAST, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_spell_targeted(handler_object: Object, handler_function: String):
+func add_event_on_spell_targeted(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.SPELL_TARGET, handler_object, handler_function, 1.0, 0.0)
 
 
-func add_event_on_purge(handler_object: Object, handler_function: String):
+func add_event_on_purge(handler_object: Node, handler_function: String):
 	add_event_handler(Event.Type.PURGE, handler_object, handler_function, 1.0, 0.0)
 
 
@@ -266,7 +270,7 @@ func set_special_effect_simple(_effect: String):
 	pass
 
 
-func _check_handler_exists(handler_object: Object, handler_function: String) -> bool:
+func _check_handler_exists(handler_object: Node, handler_function: String) -> bool:
 	var exists: bool = handler_object.has_method(handler_function)
 
 	if !exists:
