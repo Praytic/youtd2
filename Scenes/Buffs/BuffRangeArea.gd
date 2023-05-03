@@ -32,4 +32,4 @@ func _on_body_entered(body: Node):
 	var target_match: bool = _target_type.match(unit)
 
 	if target_match:
-		unit_came_in_range.emit(callable, unit)
+		unit_came_in_range.emit(_callable, unit)
