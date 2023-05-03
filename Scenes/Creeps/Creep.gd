@@ -29,7 +29,7 @@ var _corpse_scene: PackedScene = preload("res://Scenes/Creeps/CreepCorpse.tscn")
 var _spawn_level: int
 
 @onready var _visual = $Visual
-@onready var _sprite = $Visual/Sprite2D
+@onready var _sprite: AnimatedSprite2D = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar
 @onready var _landscape = get_tree().get_root().get_node("GameScene/Map")
 
@@ -184,9 +184,19 @@ func _move(delta):
 
 
 func _get_creep_animation() -> String:
-	var animation_order: Array[String] = [
-		"run_e", "run_se", "run_s", "run_sw", "run_w", "run_nw", "run_n", "run_ne"
-	]
+	
+	var animation_order: Array[String]
+	
+# TODO: Switch when certain speed limit is reached
+#	if _get_move_speed() > 300:
+	if get_size() == CreepSize.enm.NORMAL:
+		animation_order = [
+			"run_slow_E", "", "run_slow_S", "", "run_slow_W", "", "run_slow_N", ""
+		]
+	else:
+		animation_order = [
+			"run_e", "run_se", "run_s", "run_sw", "run_w", "run_nw", "run_n", "run_ne"
+		]
 	var animation_index: int = floor((_facing_angle + ISOMETRIC_ANGLE_DIFF + 10) / 45)
 
 	if animation_index >= animation_order.size():
@@ -257,7 +267,8 @@ func set_unit_facing(angle: float):
 	_facing_angle = int(angle + 360) % 360
 
 	var animation: String = _get_creep_animation()
-	_sprite.play(animation)
+	if animation != "":
+		_sprite.play(animation)
 
 
 func get_unit_facing() -> float:
