@@ -62,4 +62,4 @@ func on_damage(event: Event):
 #	0.001 Basic Bonus
 	var bufflevel: int = _stats.mod_value + _stats.mod_value_add * tower.get_level()
 	if (CreepCategory.enm.UNDEAD == creep.get_category()):
-		sternbogen_holy_buff.apply_custom_timed(tower, event.get_target(), bufflevel, _stats.duration + _stats.duration_add * tower.getLevel())
+		sternbogen_holy_buff.apply_custom_timed(tower, event.get_target(), bufflevel, _stats.duration + _stats.duration_add * tower.get_level())
