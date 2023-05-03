@@ -216,7 +216,7 @@ func add_exp_flat(amount: float):
 		getOwner().display_floating_text_color(level_up_text, self, Color.GOLD , 1.0)
 		leveled_up = true
 
-		Utils.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
+		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
 
 
 	if !leveled_up:

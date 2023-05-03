@@ -487,7 +487,7 @@ func _attack_target(target: Unit):
 		Element.IRON: sfx_path = "res://Assets/SFX/iron_attack1.mp3"
 		_: sfx_path = "res://Assets/SFX/swosh-08.mp3"
 
-	Utils.sfx_at_unit(sfx_path, self)
+	SFX.sfx_at_unit(sfx_path, self)
 
 
 # Override this in subclass to define custom stats for each

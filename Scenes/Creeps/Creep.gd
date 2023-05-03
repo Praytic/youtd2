@@ -104,7 +104,7 @@ func adjust_height(height_wc3: float, speed: float):
 func reach_portal():
 	var damage_to_portal = get_damage_to_portal()
 	reached_portal.emit(damage_to_portal)
-	Utils.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
+	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 	queue_free()
 
 
