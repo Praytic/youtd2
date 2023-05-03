@@ -71,4 +71,4 @@ func on_attack(event: Event):
 
 	if tower.calc_chance(0.25 + 0.005 * lvl):
 		tower.do_spell_damage(creep, _stats.damage + tower.get_level() * _stats.damage_add, tower.calc_spell_crit_no_bonus())
-		Utils.sfx_on_unit("Abilities\\Spells\\Undead\\DeathPact\\DeathPactTarget.mdl", creep, "origin")
+		SFX.sfx_on_unit("Abilities\\Spells\\Undead\\DeathPact\\DeathPactTarget.mdl", creep, "origin")

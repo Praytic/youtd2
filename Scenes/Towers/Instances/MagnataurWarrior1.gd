@@ -38,7 +38,7 @@ func on_damage(event: Event):
 
 	if event.is_main_target():
 		event.damage = event.damage * (1.5 + (0.01 * level))
-		Utils.sfx_at_unit("Objects\\Spawnmodels\\Critters\\Albatross\\CritterBloodAlbatross.mdl", creep)
+		SFX.sfx_at_unit("Objects\\Spawnmodels\\Critters\\Albatross\\CritterBloodAlbatross.mdl", creep)
 		var cb_stun: BuffType = CbStun.new("cb_stun", 1.0, 0, false)
 		cb_stun.apply_only_timed(tower, creep, 0.5 + tower.get_level() * 0.01)
 		tower.getOwner().display_small_floating_text(str(int(event.damage)), tower, 255, 150, 150, 0)

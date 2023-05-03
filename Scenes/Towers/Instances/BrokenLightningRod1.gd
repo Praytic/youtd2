@@ -51,4 +51,4 @@ func on_autocast(event: Event):
 
 	var creep: Unit = event.get_target()
 	tower.do_spell_damage(creep, _stats.damage + (tower.get_level() * _stats.damage_add), tower.calc_spell_crit_no_bonus())
-	Utils.sfx_on_unit("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", creep, "origin")
+	SFX.sfx_on_unit("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", creep, "origin")

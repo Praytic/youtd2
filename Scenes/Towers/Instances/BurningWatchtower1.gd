@@ -78,7 +78,7 @@ func explode_on_death(event: Event):
 	var b: Buff = event.get_buff()
 	var killer: Unit = event.get_target()
 	var buffed_unit: Unit = b.get_buffed_unit()
-	Utils.sfx_at_unit("Abilities\\Spells\\Other\\Incinerate\\FireLordDeathExplode.mdl", buffed_unit)	
+	SFX.sfx_at_unit("Abilities\\Spells\\Other\\Incinerate\\FireLordDeathExplode.mdl", buffed_unit)	
 	killer.do_spell_damage_aoe_unit(buffed_unit, 200, b.user_int, killer.calc_spell_crit_no_bonus(), 0.0)
 
 

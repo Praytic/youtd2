@@ -24,7 +24,7 @@ func on_periodic(event: Event):
 	var lvl: int = tower.get_level()
 	event.enable_advanced(15 - lvl * 0.3, false)
 	if tower.get_exp() >= 2.0:
-		Utils.sfx_on_unit("UI\\Feedback\\GoldCredit\\GoldCredit.mdl", tower, "head")
+		SFX.sfx_on_unit("UI\\Feedback\\GoldCredit\\GoldCredit.mdl", tower, "head")
 		tower.remove_exp_flat(2)
 		tower.getOwner().give_gold(7, tower, true, true)
 	else:

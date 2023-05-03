@@ -86,4 +86,4 @@ func on_autocast(event: Event):
 		soul_chill.apply_custom_timed(tower, next, int(calculated_slow), duration)
 		tower.do_spell_damage(next, spelldmg, tower.calc_spell_crit_no_bonus())
 
-	Utils.sfx_at_unit("Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl", targ)
+	SFX.sfx_at_unit("Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl", targ)

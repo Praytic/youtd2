@@ -32,7 +32,7 @@ func on_attack(event: Event):
 
 	if creep.get_size() < CreepSize.enm.CHAMPION && tower.calc_chance((0.0025 + (tower.get_level() * 0.0001)) * tower.get_base_attack_speed()):
 		tower.kill_instantly(creep)
-		Utils.sfx_at_unit("Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", creep)
+		SFX.sfx_at_unit("Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", creep)
 		itm.user_int = itm.user_int + 1
 
 
