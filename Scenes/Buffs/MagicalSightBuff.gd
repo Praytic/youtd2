@@ -32,6 +32,12 @@ func _init(radius: float, parent: Node):
 	aura_type.aura_effect_is_friendly = false
 	aura_type.aura_effect = magical_sight_debuff
 
+#	NOTE: normally, aura's do not affect invisible units, so
+#	to be able to make invisible units visible using an
+#	aura, we need to force the aura to affect invisible
+#	units.
+	aura_type._include_invisible = true
+
 	add_aura(aura_type)
 
 

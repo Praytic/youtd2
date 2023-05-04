@@ -15,6 +15,10 @@ var _power_add: int = 0
 var _aura_effect_is_friendly: bool = false
 var _aura_effect: BuffType = null
 
+# NOTE: this is only used by MagicalSightBuff. All other
+# aura's do not include invisible units.
+var _include_invisible: bool = false
+
 var _caster: Unit = null
 var _target_list: Array = []
 
@@ -60,7 +64,7 @@ func _on_timer_timeout():
 		var distance: float = Isometric.vector_distance_to(global_position, target.position)
 		var out_of_range: bool = distance > _aura_range
 
-		if out_of_range || target.is_invisible():
+		if out_of_range || (target.is_invisible() && !_include_invisible):
 			removed_target_list.append(target)
 
 	for target in removed_target_list:
@@ -69,7 +73,7 @@ func _on_timer_timeout():
 	remove_aura_effect_from_units(removed_target_list)
 
 # 	Apply buff to units in range
-	var units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _aura_range)
+	var units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _aura_range, _include_invisible)
 
 	for unit in _target_list:
 		units_in_range.erase(unit)

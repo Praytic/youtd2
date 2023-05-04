@@ -47,13 +47,13 @@ func rand_chance(chance: float) -> bool:
 	return chance_success
 
 
-func get_units_in_range(type: TargetType, center: Vector2, radius: float) -> Array[Unit]:
+func get_units_in_range(type: TargetType, center: Vector2, radius: float, include_invisible: bool = false) -> Array[Unit]:
 	var radius_PIXELS: float = to_pixels(radius)
 
-	return get_units_in_range_PIXELS(type, center, radius_PIXELS)
+	return get_units_in_range_PIXELS(type, center, radius_PIXELS, include_invisible)
 
 
-func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float) -> Array[Unit]:
+func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float, include_invisible: bool = false) -> Array[Unit]:
 	var node_list: Array[Node] = []
 
 	match type._unit_type:
@@ -83,7 +83,7 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float)
 			if unit is Creep:
 				var creep: Creep = unit as Creep
 
-				if creep.is_invisible():
+				if creep.is_invisible() && !include_invisible:
 					return false
 
 			return true

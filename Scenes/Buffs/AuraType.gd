@@ -16,6 +16,8 @@ var power_add: int = 0
 var aura_effect_is_friendly: bool = false
 var aura_effect: BuffType = null
 
+var _include_invisible: bool = false
+
 var _aura_scene: PackedScene = preload("res://Scenes/Buffs/Aura.tscn")
 
 
@@ -30,6 +32,7 @@ func make(caster: Unit) -> Aura:
 	aura._power_add = power_add
 	aura._aura_effect_is_friendly = aura_effect_is_friendly
 	aura._aura_effect = aura_effect
+	aura._include_invisible = _include_invisible
 
 	aura._caster = caster
 
