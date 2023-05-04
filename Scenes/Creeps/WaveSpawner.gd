@@ -61,7 +61,7 @@ func _ready():
 
 		_wave_list.append(wave)
 		
-		wave.wave_ended.connect(Callable(self, "_on_Wave_ended"))
+		wave.wave_ended.connect(_on_Wave_ended.bind(wave))
  
 		add_child(wave, true)
 	
@@ -86,7 +86,7 @@ func _init_wave_creeps(wave: Wave):
 		
 	wave.set_creeps(creeps)
 
-func end_current_wave():
+func _end_current_wave():
 	var current_wave = get_current_wave()
 	
 	print_verbose("Wave has ended [%s]." % current_wave)
@@ -143,7 +143,10 @@ func _on_CreepSpawner_all_creeps_spawned():
 
 
 func get_current_wave() -> Wave:
-	return get_tree().get_first_node_in_group("current_wave")
+	var current_wave = get_tree().get_first_node_in_group("current_wave")
+	if current_wave == null:
+		push_error("Current wave is null. There always should be a current wave.")
+	return current_wave
 
 
 func get_waves() -> Array:
@@ -181,19 +184,22 @@ func wave_is_in_progress() -> float:
 	return out
 
 
-func force_start_next_wave():
-	if wave_is_in_progress():
-		return
+func force_start_next_wave() -> bool:
+	if get_current_wave().state != Wave.State.SPAWNING:
+		_timer_between_waves.stop()
+		_end_current_wave()
+		_start_next_wave()
+		return true
+	else:
+		return false
 
-	_timer_between_waves.stop()
-	_start_next_wave()
 
-
-func _on_Wave_ended():
+func _on_Wave_ended(wave: Wave):
 	var current_wave = get_current_wave()
-	if current_wave.state == Wave.State.CLEARED:
+	if wave.state == Wave.State.CLEARED:
 		print_verbose("Wave [%s] is cleared." % current_wave)
-		end_current_wave()
+		if wave == current_wave:
+			_end_current_wave()
 	else:
 		push_error("Wave [%s] has ended but the state is invalid." % current_wave)
 	

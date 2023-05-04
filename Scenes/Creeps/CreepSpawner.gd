@@ -64,6 +64,8 @@ func _ready():
 
 
 func queue_spawn_creep(creep: Creep):
+	assert(creep != null, "Tried to spawn null creep.")
+	
 	_creep_spawn_queue.push_back(creep)
 	if _timer_between_creeps.is_stopped():
 		if creep.get_size() == CreepSize.enm.MASS:
