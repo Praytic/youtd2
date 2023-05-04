@@ -25,6 +25,8 @@ func _ready():
 
 	_caster.level_up.connect(_on_caster_level_up)
 
+	tree_exiting.connect(_on_tree_exiting)
+
 
 func get_power() -> int:
 	return _power + _caster.get_level() * _power_add
@@ -64,18 +66,7 @@ func _on_timer_timeout():
 	for target in removed_target_list:
 		_target_list.erase(target)
 
-		if !is_instance_valid(target):
-			continue
-
-		var buff: Buff = target.get_buff_of_type(_aura_effect)
-
-		if buff != null:
-			buff._applied_by_aura_count -= 1
-
-			var buff_not_applied_by_any_aura: bool = buff._applied_by_aura_count == 0
-
-			if buff_not_applied_by_any_aura:
-				buff.remove_buff()
+	remove_aura_effect_from_units(removed_target_list)
 
 # 	Apply buff to units in range
 	var units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _aura_range)
@@ -90,4 +81,25 @@ func _on_timer_timeout():
 		_target_list.append(unit)
 		
 		var buff: Buff = _aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)
+
 		buff._applied_by_aura_count += 1
+
+
+func _on_tree_exiting():
+	remove_aura_effect_from_units(_target_list)
+
+
+func remove_aura_effect_from_units(unit_list: Array):
+	for target in unit_list:
+		if !is_instance_valid(target):
+			continue
+
+		var buff: Buff = target.get_buff_of_type(_aura_effect)
+
+		if buff != null:
+			buff._applied_by_aura_count -= 1
+
+			var buff_not_applied_by_any_aura: bool = buff._applied_by_aura_count == 0
+
+			if buff_not_applied_by_any_aura:
+				buff.remove_buff()
