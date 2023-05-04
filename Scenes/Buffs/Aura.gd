@@ -55,7 +55,7 @@ func _on_timer_timeout():
 
 			continue
 
-		var distance: float = Isometric.vector_distance_to(position, target.position)
+		var distance: float = Isometric.vector_distance_to(global_position, target.position)
 		var out_of_range: bool = distance > _aura_range
 
 		if out_of_range || target.is_invisible():
