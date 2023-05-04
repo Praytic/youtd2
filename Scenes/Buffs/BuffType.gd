@@ -13,7 +13,9 @@ extends Node
 # information about the event.
 #
 # NOTE: BuffType needs to be Node so that it can be used as
-# event handler for Buffs.
+# event handler for Buffs. Buff event handlers must be Node
+# because buff's need to connect to Node's tree_exiting()
+# signal for correct "cleanup" event logic.
 
 var _type: String
 var _stacking_group: String = ""
@@ -29,13 +31,22 @@ var _tooltip_text: String = ""
 var _buff_icon: String = ""
 
 
-static func create_aura_effect_type(type: String, friendly: bool) -> BuffType:
-	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, friendly)
+static func create_aura_effect_type(type: String, friendly: bool, parent: Node) -> BuffType:
+	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, friendly, parent)
 
 	return buff_type
 
 
-func _init(type: String, time_base: float, time_level_add: float, friendly: bool):
+# NOTE: "parent" parameter is needed so that buff can react
+# to parent's "tree_exiting()" signal. For example, let's say
+# this is a debuff buff type that's created and applied by
+# an item to creeps. If that item is removed from the tower,
+# we need to remove all debuffs applied by the item. To do
+# that we need to connect to parent's (item's) tree_exiting
+# signal, not caster's, because caster (tower) has not been
+# removed and so won't emit that signal.
+func _init(type: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
+	parent.add_child(self)
 	_type = type
 	_time_base = time_base
 	_time_level_add = time_level_add

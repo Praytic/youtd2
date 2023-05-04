@@ -78,7 +78,7 @@ func _init(id: int):
 	item_init()
 	on_create()
 
-	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true)
+	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 	load_triggers(triggers_buff_type)
 	_buff_type_list.append(triggers_buff_type)
 

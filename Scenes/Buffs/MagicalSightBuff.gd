@@ -7,13 +7,15 @@ extends BuffType
 # range of another unit with magical sight, then the creep
 # will stay visible.
 
+var magical_sight_debuff: BuffType
 
-func _init(radius: float):
-	super("magical_sight", 0, 0, true)
+
+func _init(radius: float, parent: Node):
+	super("magical_sight", 0, 0, true, parent)
 
 	set_buff_tooltip("Magical Sight\nThis unit reveals invisible units in range")
-
-	var magical_sight_debuff: BuffType = BuffType.create_aura_effect_type("magical_sight_debuff", false)
+	
+	magical_sight_debuff = BuffType.create_aura_effect_type("magical_sight_debuff", false, self)
 	magical_sight_debuff.add_event_on_create(on_effect_create)
 	magical_sight_debuff.set_event_on_cleanup(on_effect_cleanup)
 	

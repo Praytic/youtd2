@@ -173,7 +173,7 @@ func _ready():
 	_mana = 0
 	_health = get_overall_health()
 
-	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true)
+	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 	load_triggers(triggers_buff_type)
 	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
 
