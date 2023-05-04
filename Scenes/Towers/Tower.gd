@@ -102,6 +102,14 @@ func _internal_tower_init():
 func _ready():
 	super()
 
+#	If this tower is used for towerpreview, then exit early
+#	out of ready() so that no event handlers or auras are
+#	created so that the tower instance is inactive.
+	if _visual_only:
+		_mana_bar.hide()
+
+		return
+
 	add_to_group("towers")
 
 	var attack_range: float = get_range()
@@ -181,21 +189,9 @@ func get_number_of_crits() -> int:
 
 
 # Disables attacking or any other game interactions for the
-# tower. Must be called after add_child().
+# tower. Must be called before add_child().
 func set_visual_only():
-	_mana_bar.hide()
-
-	for connection in get_incoming_connections():
-		var the_signal: Signal = connection["signal"]
-		var callable: Callable = connection.callable
-
-		the_signal.disconnect(callable)
-
 	_visual_only = true
-
-# 	Disable selection collision so that that tower preview
-# 	doesn't participate in hover/select behavior
-	_selection_collision_polygon.disabled = true
 
 
 func add_autocast(autocast: Autocast):
