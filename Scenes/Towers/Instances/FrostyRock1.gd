@@ -39,14 +39,14 @@ func load_triggers(triggers: BuffType):
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	sir_frost_glacier = BuffType.new("sir_frost_glacier", 0, 0, false)
+	sir_frost_glacier = BuffType.new("sir_frost_glacier", 0, 0, false, self)
 	sir_frost_glacier.set_buff_icon("@@0@@")
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	sir_frost_glacier.set_buff_modifier(m)
 
 	sir_frost_glacier.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone, it has reduced move speed.")
 
-	cb_stun = CbStun.new("cb_stun", 0, 0, false)
+	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
 
 
 func on_damage(event: Event):

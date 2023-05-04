@@ -45,8 +45,8 @@ func tower_init():
 	var banish: Modifier = Modifier.new()
 	var cripple: Modifier = Modifier.new()
 
-	sir_cripple = BuffType.new("sir_cripple", 0.0, 0, false)
-	sir_banish = BuffType.new("sir_banish", 0.0, 0, false)
+	sir_cripple = BuffType.new("sir_cripple", 0.0, 0, false, self)
+	sir_banish = BuffType.new("sir_banish", 0.0, 0, false, self)
 	sir_cripple.set_buff_icon("@@1@@")
 	sir_cripple.set_special_effect_simple("Abilities\\Spells\\Undead\\Cripple\\CrippleTarget.mdl")
 	sir_banish.set_buff_icon("@@0@@")

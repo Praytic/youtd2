@@ -22,7 +22,7 @@ func item_init():
 	var m: Modifier = Modifier.new() 
 
 	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
-	boekie_spiderling_slow = BuffType.new("boekie_spiderling_slow", 4, 0, false)
+	boekie_spiderling_slow = BuffType.new("boekie_spiderling_slow", 4, 0, false, self)
 	boekie_spiderling_slow.set_buff_modifier(m) 
 	boekie_spiderling_slow.set_stacking_group("boekieSpiderlingSlow")
 

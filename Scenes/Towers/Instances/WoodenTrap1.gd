@@ -1,6 +1,9 @@
 extends Tower
 
 
+var cb_stun: BuffType
+
+
 func get_tier_stats() -> Dictionary:
 	return {
 		1: {cooldown = 15, base_damage = 70, damage_add = 3, stun_duration = 0.50, max_targets = 3},
@@ -33,6 +36,10 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_periodic_event(on_periodic, 2)
 
 
+func tower_init():
+	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+
+
 func on_periodic(event: Event):
 	var tower = self
 	trap(event, tower, _stats.cooldown, _stats.base_damage, _stats.damage_add, _stats.stun_duration, _stats.max_targets)
@@ -48,7 +55,6 @@ func trap(event: Event, tower, cooldown: float, base_damage: float, damage_add: 
 		if next == null:
 			break
 		num_targets = num_targets + 1
-		var cb_stun: BuffType = CbStun.new("cb_stun", 0, 0, false)
 		cb_stun.apply_only_timed(tower, next, stun_duration)
 		tower.do_spell_damage(next, base_damage + lvl * damage_add, tower.calc_spell_crit_no_bonus())
 		SFX.sfx_at_unit("Abilities\\Spells\\Orc\\ReinforcedTrollBurrow\\ReinforcedTrollBurrowTarget.mdl", next)

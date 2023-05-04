@@ -66,7 +66,7 @@ func on_blizzard(event: Event, U: DummyUnit):
 
 func tower_init():
 	var mod2: Modifier = Modifier.new()
-	Troll_blizzardslow = BuffType.new("Troll_blizzardslow", 0.0, 0.0, false)
+	Troll_blizzardslow = BuffType.new("Troll_blizzardslow", 0.0, 0.0, false, self)
 	mod2.add_modification(Modification.Type.MOD_MOVESPEED, _stats.slow, _stats.slow_add)
 	Troll_blizzardslow.set_buff_modifier(mod2)
 	Troll_blizzard = Cast.new("@@0@@", "blizzard", 9.00)
@@ -76,7 +76,7 @@ func tower_init():
 
 	Troll_blizzardslow.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone, it has reduced move speed.")
 
-	cb_stun = CbStun.new("cb_stun", 0, 0, false)
+	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.caster_art = ""

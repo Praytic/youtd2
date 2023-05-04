@@ -87,7 +87,7 @@ func tower_init():
 #   level: damage gain per attack
 #   userReal: Already done bonus damage on the buffed unit
 #   userInt: AOE-Damage if the buffed unit dies
-	natac_burning_buff = BuffType.new("natac_burning_buff", 0.0, 0.0, false)
+	natac_burning_buff = BuffType.new("natac_burning_buff", 0.0, 0.0, false, self)
 	natac_burning_buff.set_buff_icon("@@0@@")
 	natac_burning_buff.add_event_on_create(init_on_create)
 	natac_burning_buff.add_event_on_damaged(damage_on_fire_attack, 1.0, 0.0)

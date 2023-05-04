@@ -2,6 +2,7 @@ extends Tower
 
 
 var sir_moonp_buff: BuffType
+var cb_stun: BuffType
 
 # NOTE: I think there's a typo in tier 4 because for all
 # other tiers spell_damage_chance_add is the same as
@@ -56,8 +57,10 @@ func tower_init():
 
 	add_autocast(autocast)
 
+	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+
 	var m: Modifier = Modifier.new()
-	sir_moonp_buff = BuffType.new("sir_moonp_buff", 0, 0, false)
+	sir_moonp_buff = BuffType.new("sir_moonp_buff", 0, 0, false, self)
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0, 0.001)
 	sir_moonp_buff.set_buff_icon("'@@0@@")
 	sir_moonp_buff.set_stacking_group("sir_moonp_buff")
@@ -78,8 +81,6 @@ func on_autocast(event: Event):
 
 	if tower.calc_chance(0.125 + level * 0.005) == true:
 		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.spell_damage_chance_add, tower.calc_spell_crit_no_bonus())
-
-		var cb_stun: BuffType = CbStun.new("cb_stun", 0, 0, false)
 
 		if level < 25:
 			cb_stun.apply_only_timed(tower, target, 0.3)

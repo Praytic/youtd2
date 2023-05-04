@@ -45,7 +45,7 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	var armor: Modifier = Modifier.new()
 	armor.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
-	cassim_armor = BuffType.new("cassim_armor", 0, 0, false)
+	cassim_armor = BuffType.new("cassim_armor", 0, 0, false, self)
 	cassim_armor.set_buff_icon("@@0@@")
 	cassim_armor.set_buff_modifier(armor)
 	cassim_armor.set_stacking_group("astral_armor")

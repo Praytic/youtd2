@@ -41,7 +41,7 @@ func tower_init():
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.05, 0.0005)
 
-	cedi_helldog = BuffType.new("cedi_helldog", 5.0, 0.0, true)
+	cedi_helldog = BuffType.new("cedi_helldog", 5.0, 0.0, true, self)
 	cedi_helldog.set_buff_icon("@@0@@")
 	cedi_helldog.set_buff_modifier(mod)
 

@@ -47,7 +47,7 @@ func drol_fireDot_Damage(event: Event):
 
 func tower_init():
 	var drol_fireMod: Modifier = Modifier.new()
-	drol_fireDot = BuffType.new("drol_fireDot", 8, 0, false)
+	drol_fireDot = BuffType.new("drol_fireDot", 8, 0, false, self)
 	drol_fireDot.set_buff_icon("@@0@@")
 	drol_fireMod.add_modification(Modification.Type.MOD_HP_REGEN_PERC, -0.05, -0.001)
 	drol_fireDot.set_buff_modifier(drol_fireMod)

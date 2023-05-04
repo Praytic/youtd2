@@ -37,7 +37,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	print("tower_init")
-	cassim_slow = BuffType.new("cassim_slow", 0, 0, false)
+	cassim_slow = BuffType.new("cassim_slow", 0, 0, false, self)
 	var slow_mod: Modifier = Modifier.new()
 	slow_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	cassim_slow.set_buff_icon("@@0@@")

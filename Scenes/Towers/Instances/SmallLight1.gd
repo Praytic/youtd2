@@ -2,6 +2,7 @@ extends Tower
 
 
 var sternbogen_holy_buff: BuffType
+var magical_sight: BuffType
 
 
 # NOTE: mod_value and mod_value_add are multiplied by 1000,
@@ -41,13 +42,13 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	var magical_sight: BuffType = MagicalSightBuff.new(_stats.magical_sight_range)
-	magical_sight.apply_to_unit_permanent(self, self, 0)	
+	magical_sight = MagicalSightBuff.new(_stats.magical_sight_range, self)
+	magical_sight.apply_to_unit_permanent(self, self, 0)
 
 
 func tower_init():
 	var light_mod: Modifier = Modifier.new()
-	sternbogen_holy_buff = BuffType.new("sternbogen_holy_buff", 0.0, 0.0, false)
+	sternbogen_holy_buff = BuffType.new("sternbogen_holy_buff", 0.0, 0.0, false, self)
 	light_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 0.001)
 	light_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 0.001)
 	sternbogen_holy_buff.set_buff_modifier(light_mod)

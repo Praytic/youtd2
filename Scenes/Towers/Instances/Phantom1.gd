@@ -56,7 +56,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.attackspeed, 0.01)
 	
-	drol_phantomBuff = BuffType.new("drol_phantomBuff", 5.0, 0.1, true)
+	drol_phantomBuff = BuffType.new("drol_phantomBuff", 5.0, 0.1, true, self)
 	
 	drol_phantomBuff.set_buff_modifier(m)
 	

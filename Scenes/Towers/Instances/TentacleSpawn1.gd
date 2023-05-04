@@ -39,7 +39,7 @@ func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.02, 0.01)
 
-	drol_tentacleDot = BuffType.new("drol_tentacleDot", 6, 0, false)
+	drol_tentacleDot = BuffType.new("drol_tentacleDot", 6, 0, false, self)
 	drol_tentacleDot.set_buff_icon("@@0@@")
 	drol_tentacleDot.add_periodic_event(drol_tentacleDamage, 1)
 	drol_tentacleDot.set_buff_modifier(m)

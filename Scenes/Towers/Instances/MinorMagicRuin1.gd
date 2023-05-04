@@ -36,7 +36,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func tower_init():
 	var astral_mod: Modifier = Modifier.new()
-	drol_magic_ruin = BuffType.new("drol_magic_ruin", 5, 0, false)
+	drol_magic_ruin = BuffType.new("drol_magic_ruin", 5, 0, false, self)
 	astral_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, _stats.exp_bonus, _stats.exp_bonus_add)
 	drol_magic_ruin.set_buff_modifier(astral_mod)
 	drol_magic_ruin.set_buff_icon("@@0@@")

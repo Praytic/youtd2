@@ -47,7 +47,7 @@ func deal_damage(event: Event):
 
 
 func tower_init():
-	Poisoned_heart = BuffType.new("Poisoned_heart", 9, 0.5, false)
+	Poisoned_heart = BuffType.new("Poisoned_heart", 9, 0.5, false, self)
 	Poisoned_heart.set_buff_icon("@@0@@")
 
 	Poisoned_heart.add_periodic_event(deal_damage, 1)
