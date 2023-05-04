@@ -107,5 +107,7 @@ func spawn_creep(creep: Creep):
 
 func _on_Timer_timeout():
 	var creep = _creep_spawn_queue.pop_front()
+	if creep == null:
+		print_verbose("Creep spawn queue is empty. Nothing to spawn.")
 	spawn_creep(creep)
 	creep_spawned.emit(creep)
