@@ -4,7 +4,7 @@
 
 1. [Follow the instructions](https://rclone.org/drive/) on how to setup `rcloud` command line utility with Google Drive support.
 2. When you're prompted to write `client_id` and `client_secret`, use the ones from [Google Cloud console](https://console.cloud.google.com/apis/credentials/oauthclient/909699965518-qt5c21qf6r7mr3rg26vkh6nml4s397e7.apps.googleusercontent.com?project=youtd2-385722).
-3. Check that the remote is installed correctly. This command will print the installed _<remote>_.
+3. Check that the remote is installed correctly. This command will print the installed **<remote>**.
 ```
 rclone listremotes
 ```
