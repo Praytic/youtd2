@@ -30,7 +30,7 @@ Now you should be able to run the project inside the Godot editor. If you make c
 1. Move a file to `Assets` folder
 2. Generate `.import` by opening the file in the editor
 3. Commit `.import` file to remote
-4. Run 
+4. Upload the file to <remote>.
 ```
-rclone copy -v --filter-from rclone-filter Assets gdrive:Assets
+rclone copy -v --filter-from rclone-filter Assets <remote>:Assets
 ```
