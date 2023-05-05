@@ -370,9 +370,9 @@ $RECYCLE.BIN/
 *.lnk
 
 
-#######################
-### Proect specific ###
-#######################
+########################
+### Project specific ###
+########################
 
 /Build/*
 /Build/Web/*
@@ -381,3 +381,35 @@ $RECYCLE.BIN/
 !/Build/Web/OrderlyTintedIsabellinewheatear.mp4
 !/Build/Web/icob_youtube_4.png
 override.cfg
+
+#######################
+### Assets specific ###
+#######################
+
+# Archives
+*.7z
+*.br
+*.gz
+*.tar
+*.zip
+
+# Documents
+*.pdf
+
+# Images
+*.gif
+*.ico
+*.jpg
+*.png
+*.psd
+*.webp
+
+# Fonts
+*.woff2
+
+# Audio
+*.mp3
+*.wav
+
+# Other
+*.exe
