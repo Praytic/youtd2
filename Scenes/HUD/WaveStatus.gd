@@ -43,7 +43,13 @@ func _update_text():
 
 	text += "[cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Size[/color][/cell][cell][color=GOLD]Race[/color][/cell][cell][color=GOLD]Armor[/color][/cell][cell][color=GOLD]Special[/color][/cell]"
 
-	for level in range(current_wave_level, current_wave_level + 5):
+	var first_wave_index: int
+	if current_wave_level > 0:
+		first_wave_index = current_wave_level
+	else:
+		first_wave_index = 1
+
+	for level in range(first_wave_index, first_wave_index + 5):
 		var wave: Wave = _wave_spawner.get_wave(level)
 
 		if wave == null:
