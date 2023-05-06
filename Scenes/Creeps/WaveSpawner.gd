@@ -204,7 +204,19 @@ func _on_Wave_ended(wave: Wave):
 
 		return
 
-	var current_wave = get_current_wave()
+	var alive_creeps: Array = _get_alive_creeps()
+	var all_creeps_are_killed: bool = alive_creeps.is_empty()
 
-	if wave == current_wave:
+	if all_creeps_are_killed:
 		_timer_between_waves.start()
+
+
+func _get_alive_creeps() -> Array:
+	var creep_list: Array = get_tree().get_nodes_in_group("creeps")
+	var alive_list: Array = []
+
+	for creep in creep_list:
+		if !creep.is_dead():
+			alive_list.append(creep)
+
+	return alive_list
