@@ -663,7 +663,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: U
 	var current_damage: float = projectile.user_real
 	var current_bounce_count: int = projectile.user_int
 
-	var is_first_bounce: bool = current_bounce_count == _bounce_count_max
+	var is_first_bounce: bool = current_bounce_count == _bounce_count_max - 1
 	var is_main_target: bool = is_first_bounce
 
 	var crit_count: int = projectile.get_tower_crit_count()
