@@ -8,10 +8,12 @@ extends Control
 
 @onready var _label: RichTextLabel = $PanelContainer/VBoxContainer/RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
+@onready var _start_next_wave_button: Button = $PanelContainer/VBoxContainer/HBoxContainer/StartNextWaveButton
 
 
 func _ready():
 	WaveLevel.changed.connect(_update_text)
+	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
 
 	_update_text()
 
@@ -96,3 +98,7 @@ func _get_size_combination_string(wave: Wave) -> String:
 	var string: String = ", ".join(string_split)
 
 	return string
+
+
+func _on_all_waves_started():
+	_start_next_wave_button.disabled = true

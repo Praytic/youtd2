@@ -10,6 +10,7 @@ var TIME_BETWEEN_WAVES: float = 15.0
 signal wave_started(wave: Wave)
 signal wave_spawned(wave: Wave)
 signal wave_ended(wave: Wave)
+signal all_waves_started
 signal all_waves_cleared
 
 
@@ -102,6 +103,11 @@ func _start_next_wave():
 	print_verbose("Wave has started [%s]." % current_wave)
 	wave_started.emit(current_wave)
 
+	var all_waves_have_been_started: bool = _current_wave_index == _wave_list.size() - 1
+
+	if all_waves_have_been_started:
+		all_waves_started.emit()
+
 
 func _get_wave_path(player: int, wave: Wave) -> Path2D:
 	var idx = -1
@@ -171,7 +177,6 @@ func wave_is_in_progress() -> float:
 	return out
 
 
-# TODO: check if there are no more waves left
 func force_start_next_wave() -> bool:
 	var current_wave: Wave = get_current_wave()
 	var before_first_wave: bool = current_wave == null
