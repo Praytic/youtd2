@@ -68,6 +68,6 @@ func add_normal(text: String):
 
 	if reached_max:
 		var child_list: Array = _normal_message_container.get_children()
-		var last_label: RichTextLabel = child_list.back()
+		var last_label: RichTextLabel = child_list.front()
 
 		_normal_message_container.remove_child(last_label)
