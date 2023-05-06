@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dnv37bb7qk3kv"]
+[gd_scene load_steps=39 format=3 uid="uid://dnv37bb7qk3kv"]
 
 [ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1_rx3ev"]
@@ -18,7 +18,6 @@
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="PackedScene" uid="uid://bbq8xnlx68q72" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
-[ext_resource type="Script" path="res://Scenes/ErrorMessageLabel.gd" id="14_dehgg"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
 [ext_resource type="PackedScene" uid="uid://b41jiom5a6uq8" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
 
@@ -411,32 +410,30 @@ offset_top = 800.0
 offset_right = -1020.0
 offset_bottom = -280.0
 
-[node name="ErrorMessageLabel" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -171.0
-offset_top = -17.0
-offset_right = 171.0
-offset_bottom = 110.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = SubResource("Theme_k7iw7")
-theme_override_colors/font_color = Color(0.941176, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "MESSAGE PLACEHOLDER"
-horizontal_alignment = 1
-script = ExtResource("14_dehgg")
-
 [node name="SelectedUnitInfo" parent="." instance=ExtResource("15_yuxef")]
 layout_mode = 1
 offset_left = 10.0
 offset_top = 850.0
 offset_right = -1910.0
 offset_bottom = -230.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 300
+
+[node name="ErrorMessageContainer" type="VBoxContainer" parent="MarginContainer2"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+
+[node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
+layout_mode = 2
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
