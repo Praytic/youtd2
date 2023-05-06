@@ -187,9 +187,6 @@ func force_start_next_wave() -> bool:
 		return false
 
 
-# TODO: start timer for next wave only when all creeps are
-# dead or reached portal, for all waves that have been
-# started, not just the ones for the most recent wave.
 func _on_Wave_ended(wave: Wave):
 	if wave.state != Wave.State.CLEARED:
 		push_error("Wave [%s] has ended but the state is invalid." % wave)
