@@ -197,9 +197,9 @@ func force_start_next_wave() -> bool:
 func _on_Wave_ended(wave: Wave):
 	var current_wave = get_current_wave()
 	if wave.state == Wave.State.CLEARED:
-		print_verbose("Wave [%s] is cleared." % current_wave)
+		print_verbose("Wave [%s] is cleared." % wave)
 		if wave == current_wave:
 			_end_current_wave()
 	else:
-		push_error("Wave [%s] has ended but the state is invalid." % current_wave)
+		push_error("Wave [%s] has ended but the state is invalid." % wave)
 	
