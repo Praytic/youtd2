@@ -14,6 +14,9 @@ signal all_waves_cleared
 
 
 var _wave_list: Array[Wave] = []
+# NOTE: index starts at -1 because when the game starts no
+# wave has been started yet
+var _current_wave_index: int = -1
 
 @onready var _timer_between_waves: Timer = $Timer
 @onready var _creep_spawner = $CreepSpawner
@@ -55,8 +58,6 @@ func _ready():
 		if previous_wave:
 			previous_wave.next_wave = wave
 		previous_wave = wave
-		if wave_number == 1:
-			wave.add_to_group("current_wave")
 		wave.add_to_group("wave")
 
 		_wave_list.append(wave)
@@ -86,32 +87,14 @@ func _init_wave_creeps(wave: Wave):
 		
 	wave.set_creeps(creeps)
 
-func _end_current_wave():
-	var current_wave = get_current_wave()
-	
-	print_verbose("Wave has ended [%s]." % current_wave)
-
-	wave_ended.emit(current_wave)
-
-	var waves_are_over: bool = WaveLevel.get_current() >= _wave_list.size()
-	if waves_are_over:
-		all_waves_cleared.emit()
-
-		return
-
-	_timer_between_waves.start()
-
-	# Prepare variables for the next wave
-	var next_wave = current_wave.next_wave
-	current_wave.remove_from_group("current_wave")
-	next_wave.add_to_group("current_wave")
-
 
 func _on_Timer_timeout():
 	_start_next_wave()
 
 
 func _start_next_wave():
+	_current_wave_index += 1
+
 	var current_wave = get_current_wave()
 	
 	spawn_wave(current_wave)
@@ -143,10 +126,12 @@ func _on_CreepSpawner_all_creeps_spawned():
 
 
 func get_current_wave() -> Wave:
-	var current_wave = get_tree().get_first_node_in_group("current_wave")
-	if current_wave == null:
-		push_error("Current wave is null. There always should be a current wave.")
-	return current_wave
+	if _current_wave_index != -1:
+		var current_wave: Wave = _wave_list[_current_wave_index]
+		
+		return current_wave
+	else:
+		return null
 
 
 func get_waves() -> Array:
@@ -178,28 +163,46 @@ func get_time_left() -> float:
 	return time
 
 
+# TODO: return true while there are any creeps alive, from
+# any wave
 func wave_is_in_progress() -> float:
 	var out: bool = _timer_between_waves.is_stopped()
 
 	return out
 
 
+# TODO: check if there are no more waves left
 func force_start_next_wave() -> bool:
-	if get_current_wave().state != Wave.State.SPAWNING:
+	var current_wave: Wave = get_current_wave()
+	var before_first_wave: bool = current_wave == null
+	var current_wave_finished_spawning: bool = !before_first_wave && current_wave.state != Wave.State.SPAWNING
+	var can_start_next_wave: bool = before_first_wave || current_wave_finished_spawning
+	
+	if can_start_next_wave:
 		_timer_between_waves.stop()
-		_end_current_wave()
 		_start_next_wave()
+
 		return true
 	else:
 		return false
 
 
+# TODO: start timer for next wave only when all creeps are
+# dead or reached portal, for all waves that have been
+# started, not just the ones for the most recent wave.
 func _on_Wave_ended(wave: Wave):
 	var current_wave = get_current_wave()
 	if wave.state == Wave.State.CLEARED:
 		print_verbose("Wave [%s] is cleared." % wave)
+
+		var waves_are_over: bool = WaveLevel.get_current() >= _wave_list.size()
+		if waves_are_over:
+			all_waves_cleared.emit()
+
+			return
+
 		if wave == current_wave:
-			_end_current_wave()
+			_timer_between_waves.start()
 	else:
 		push_error("Wave [%s] has ended but the state is invalid." % wave)
 	
