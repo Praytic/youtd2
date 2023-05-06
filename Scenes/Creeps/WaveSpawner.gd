@@ -191,18 +191,20 @@ func force_start_next_wave() -> bool:
 # dead or reached portal, for all waves that have been
 # started, not just the ones for the most recent wave.
 func _on_Wave_ended(wave: Wave):
-	var current_wave = get_current_wave()
-	if wave.state == Wave.State.CLEARED:
-		print_verbose("Wave [%s] is cleared." % wave)
-
-		var waves_are_over: bool = WaveLevel.get_current() >= _wave_list.size()
-		if waves_are_over:
-			all_waves_cleared.emit()
-
-			return
-
-		if wave == current_wave:
-			_timer_between_waves.start()
-	else:
+	if wave.state != Wave.State.CLEARED:
 		push_error("Wave [%s] has ended but the state is invalid." % wave)
-	
+		
+		return
+
+	print_verbose("Wave [%s] is cleared." % wave)
+
+	var waves_are_over: bool = WaveLevel.get_current() >= _wave_list.size()
+	if waves_are_over:
+		all_waves_cleared.emit()
+
+		return
+
+	var current_wave = get_current_wave()
+
+	if wave == current_wave:
+		_timer_between_waves.start()
