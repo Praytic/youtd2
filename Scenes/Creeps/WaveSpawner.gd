@@ -160,17 +160,12 @@ func get_wave(level: int) -> Wave:
 		return null
 
 
-# TODO: Fix this f-n so that it returns time until next
-# wave. Currently it returns non-zero time only after creeps
-# exit the portal.
 func get_time_left() -> float:
 	var time: float = _timer_between_waves.get_time_left()
 
 	return time
 
 
-# TODO: return true while there are any creeps alive, from
-# any wave
 func wave_is_in_progress() -> float:
 	var out: bool = _timer_between_waves.is_stopped()
 
