@@ -654,16 +654,16 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, target: Unit):
 	var damage: float = get_current_attack_damage_with_bonus()
 
 	projectile.user_real = damage
-	projectile.user_int = _bounce_count_max - 1
+	projectile.user_int = 0
 
 	_on_projectile_bounce_in_progress(projectile, target)
 
 
 func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: Unit):
 	var current_damage: float = projectile.user_real
-	var current_bounce_count: int = projectile.user_int
+	var current_bounce_index: int = projectile.user_int
 
-	var is_first_bounce: bool = current_bounce_count == _bounce_count_max - 1
+	var is_first_bounce: bool = current_bounce_index == 0
 	var is_main_target: bool = is_first_bounce
 
 	var crit_count: int = projectile.get_tower_crit_count()
@@ -676,13 +676,12 @@ func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: U
 	_number_of_crits = 0
 
 # 	Launch projectile for next bounce, if bounce isn't over
-	var bounce_end: bool = current_bounce_count == 0
+	var bounce_end: bool = current_bounce_index == _bounce_count_max - 1
 
 	if bounce_end:
 		return
 
 	var next_damage: float = current_damage * (1.0 - _bounce_damage_multiplier)
-	var next_bounce_count: int = current_bounce_count - 1
 
 	var next_target: Creep = _get_next_bounce_target(current_target)
 
@@ -692,7 +691,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: U
 	var next_projectile: Projectile = _make_projectile(current_target, next_target)
 	next_projectile.set_event_on_target_hit(_on_projectile_bounce_in_progress)
 	next_projectile.user_real = next_damage
-	next_projectile.user_int = next_bounce_count
+	next_projectile.user_int = current_bounce_index + 1
 #	NOTE: save crit count in projectile so that it can be
 #	used when projectile reaches the target to calculate
 #	damage
