@@ -7,6 +7,7 @@ signal stop_wave()
 @onready var element_buttons_parent = $MarginContainer/HBoxContainer
 @onready var _wave_status: Control = $WaveStatus
 @onready var _error_message_container: VBoxContainer = $MarginContainer2/ErrorMessageContainer
+@onready var _normal_message_container: VBoxContainer = $MarginContainer3/NormalMessageContainer
 
 
 func _ready():
@@ -21,6 +22,10 @@ func _ready():
 
 func get_error_message_container() -> VBoxContainer:
 	return _error_message_container
+
+
+func get_normal_message_container() -> VBoxContainer:
+	return _normal_message_container
 
 
 func _on_element_button_pressed(element_button):

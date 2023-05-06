@@ -107,6 +107,8 @@ func _start_next_wave():
 	
 	spawn_wave(current_wave)
 	
+	Messages.add_normal("Wave %d" % current_wave.get_wave_number())
+	
 	print_verbose("Wave has started [%s]." % current_wave)
 	wave_started.emit(current_wave)
 

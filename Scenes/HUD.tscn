@@ -253,6 +253,21 @@ offset_right = 14.0
 offset_bottom = 88.0
 scale = Vector2(0.567118, 0.567118)
 
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -300.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_bottom = 300
+
+[node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer3"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+
 [node name="TowerTooltip" parent="." instance=ExtResource("12")]
 anchors_preset = 0
 anchor_right = 0.0

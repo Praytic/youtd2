@@ -6,6 +6,10 @@ extends Node
 const ERROR_MESSAGE_MAX: int = 3
 const ERROR_DELAY_BEFORE_FADE_START: float = 2.0
 const ERROR_FADE_DURATION: float = 2.0
+const NORMAL_MESSAGE_MAX: int = 10
+const NORMAL_DELAY_BEFORE_FADE_START: float = 10.0
+const NORMAL_FADE_DURATION: float = 2.0
+
 
 @onready var _hud: HUD = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD")
 
@@ -41,3 +45,29 @@ func add_error(text: String):
 		var last_label: RichTextLabel = child_list.back()
 
 		_error_message_container.remove_child(last_label)
+
+
+# Adds a normal message to the left side of the screen.
+func add_normal(text: String):
+	var _normal_message_container: VBoxContainer = _hud.get_normal_message_container()
+
+	var label: RichTextLabel = RichTextLabel.new()
+	label.append_text(text)
+	label.fit_content = true
+
+	label.modulate = Color.WHITE
+	var modulate_tween: Tween = create_tween()
+	modulate_tween.tween_property(label, "modulate",
+		Color(label.modulate.r, label.modulate.g, label.modulate.b, 0),
+		NORMAL_FADE_DURATION).set_delay(NORMAL_DELAY_BEFORE_FADE_START)
+
+	_normal_message_container.add_child(label)
+
+	var label_count: int = _normal_message_container.get_children().size()
+	var reached_max: bool = label_count >= NORMAL_MESSAGE_MAX + 1
+
+	if reached_max:
+		var child_list: Array = _normal_message_container.get_children()
+		var last_label: RichTextLabel = child_list.back()
+
+		_normal_message_container.remove_child(last_label)
