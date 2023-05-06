@@ -30,11 +30,12 @@ func _update_text():
 	if _wave_spawner.wave_is_in_progress():
 		text += "Wave %d in progress\n" % current_wave_level
 	else:
+		var next_wave_level: int = current_wave_level + 1
 		var wave_time: int = floor(_wave_spawner.get_time_left())
 		var wave_time_minutes: int = floor(wave_time / 60.0)
 		var wave_time_seconds: int = wave_time - wave_time_minutes * 60
 
-		text += "Wave [color=GOLD]%d[/color] in %02d:%02d\n" % [current_wave_level, wave_time_minutes, wave_time_seconds]
+		text += "Wave [color=GOLD]%d[/color] in %02d:%02d\n" % [next_wave_level, wave_time_minutes, wave_time_seconds]
 
 	text += "[table=5]"
 
