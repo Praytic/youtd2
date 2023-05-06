@@ -72,6 +72,13 @@ func _ready():
 	_timer_between_waves.start()
 
 
+func get_current_wave_level() -> int:
+	if _current_wave_index != -1:
+		return _current_wave_index + 1
+	else:
+		return 0
+
+
 func spawn_wave(new_wave: Wave):
 	new_wave.state = Wave.State.SPAWNING
 	
