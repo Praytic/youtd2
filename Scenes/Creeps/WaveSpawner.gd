@@ -195,17 +195,15 @@ func _on_Wave_ended(wave: Wave):
 
 	print_verbose("Wave [%s] is cleared." % wave)
 
-	var waves_are_over: bool = WaveLevel.get_current() >= _wave_list.size()
-	if waves_are_over:
-		all_waves_cleared.emit()
-
-		return
-
 	var alive_creeps: Array = _get_alive_creeps()
 	var all_creeps_are_killed: bool = alive_creeps.is_empty()
+	var all_waves_were_started: bool = _current_wave_index == _wave_list.size() - 1
 
 	if all_creeps_are_killed:
-		_timer_between_waves.start()
+		if all_waves_were_started:
+			all_waves_cleared.emit()
+		else:
+			_timer_between_waves.start()
 
 
 func _get_alive_creeps() -> Array:
