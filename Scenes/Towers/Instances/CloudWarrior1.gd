@@ -46,6 +46,7 @@ func on_damage(event: Event):
 	var tower: Unit = self
 
 	var creep: Unit = event.get_target()
+	var cid: int = Utils.getUID(creep)
 
 	if event.is_main_target() == true:
 		tower.user_int = 1
@@ -54,6 +55,6 @@ func on_damage(event: Event):
 
 	await get_tree().create_timer(0.4).timeout
 
-	if tower.user_int == 1 && is_instance_valid(creep):
+	if tower.user_int == 1 && Utils.getUID(creep) == cid:
 		SFX.sfx_at_unit("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl", creep)
 		tower.do_attack_damage(creep, _stats.lightning_dmg + (_stats.lightning_dmg_add * tower.get_level()), tower.calc_attack_multicrit(0.0, 0.0, 0.0))

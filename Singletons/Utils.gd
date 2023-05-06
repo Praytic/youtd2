@@ -7,6 +7,20 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+# This f-n simulates getUID() f-n from JASS. Used to check
+# if unit references saved before tower script splits are
+# still valid after sleep is over.
+# 
+# NOTE: this f-n can't be a member f-n of Unit like in JASS
+# because in Gdscript you can't call functions on invalid
+# references - causes an error.
+func getUID(unit):
+	if is_instance_valid(unit) && !unit.is_dead():
+		return unit.get_instance_id()
+	else:
+		return 0
+
+
 func add_object_to_world(object: Node):
 	object_container.add_child(object, true)
 
