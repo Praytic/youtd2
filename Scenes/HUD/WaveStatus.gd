@@ -70,7 +70,7 @@ func _update_text():
 func _on_start_next_wave_button_pressed():
 	var success = _wave_spawner.force_start_next_wave()
 	if !success:
-		Globals.error_message_label.add("Can't start next wave, wave is still in progress.")
+		Messages.add_error("Can't start next wave, wave is still in progress.")
 
 
 # [MASS, MASS, MASS, CHAMPION]

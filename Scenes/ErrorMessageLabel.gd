@@ -2,7 +2,7 @@ class_name ErrorMessageLabel extends Label
 
 
 # Displays an error message in the middle of the screen. Use
-# by calling Globals.error_message_label.add().
+# by calling Messages.add_error
 
 
 const DELAY_BEFORE_FADE_START: float = 1.0
