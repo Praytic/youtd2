@@ -28,7 +28,7 @@ func _update_text():
 	var current_wave_level: int = WaveLevel.get_current()
 
 	if _wave_spawner.wave_is_in_progress():
-		text += "Wave %d in progress\n" % current_wave_level
+		text += "Wave [color=GOLD]%d[/color]\n" % current_wave_level
 	else:
 		var next_wave_level: int = current_wave_level + 1
 		var wave_time: int = floor(_wave_spawner.get_time_left())
