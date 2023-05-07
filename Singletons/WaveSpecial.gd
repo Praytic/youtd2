@@ -22,18 +22,62 @@ enum enm {
 }
 
 
-var _buff_speed: BuffType = CreepSpeed.new(self)
-var _buff_greater_speed: BuffType = CreepGreaterSpeed.new(self)
-var _buff_xtreme_speed: BuffType = CreepXtremeSpeed.new(self)
-var _buff_slow: BuffType = CreepSlow.new(self)
-var _buff_invisible: BuffType = CreepInvisible.new(self)
-var _buff_strong: BuffType = CreepStrong.new(self)
-var _buff_rich: BuffType = CreepRich.new(self)
-var _buff_relic_raider: BuffType = CreepRelicRaider.new(self)
-var _buff_ultra_wisdom: BuffType = CreepUltraWisdom.new(self)
-var _buff_armored: BuffType = CreepArmored.new(self)
-var _buff_heavy_armored: BuffType = CreepHeavyArmored.new(self)
-var _buff_xtreme_armor: BuffType = CreepXtremeArmor.new(self)
+var _buff_map: Dictionary = {
+	WaveSpecial.enm.NONE: null,
+	WaveSpecial.enm.SPEED: CreepSpeed.new(self),
+	WaveSpecial.enm.GREATER_SPEED: CreepGreaterSpeed.new(self),
+	WaveSpecial.enm.XTREME_SPEED: CreepXtremeSpeed.new(self),
+	WaveSpecial.enm.SLOW: CreepSlow.new(self),
+	WaveSpecial.enm.INVISIBLE: CreepInvisible.new(self),
+	WaveSpecial.enm.STRONG: CreepStrong.new(self),
+	WaveSpecial.enm.RICH: CreepRich.new(self),
+	WaveSpecial.enm.RELIC_RAIDER: CreepRelicRaider.new(self),
+	WaveSpecial.enm.ULTRA_WISDOM: CreepUltraWisdom.new(self),
+	WaveSpecial.enm.ARMORED: CreepArmored.new(self),
+	WaveSpecial.enm.HEAVY_ARMORED: CreepHeavyArmored.new(self),
+	WaveSpecial.enm.XTREME_ARMOR: CreepXtremeArmor.new(self),
+}
+
+var _required_level_map: Dictionary = {
+	WaveSpecial.enm.NONE: 0,
+	WaveSpecial.enm.SPEED: 0,
+	WaveSpecial.enm.GREATER_SPEED: 16,
+	WaveSpecial.enm.XTREME_SPEED: 24,
+	WaveSpecial.enm.SLOW: 32,
+	WaveSpecial.enm.INVISIBLE: 0,
+	WaveSpecial.enm.STRONG: 16,
+	WaveSpecial.enm.RICH: 0,
+	WaveSpecial.enm.RELIC_RAIDER: 0,
+	WaveSpecial.enm.ULTRA_WISDOM: 0,
+	WaveSpecial.enm.ARMORED: 0,
+	WaveSpecial.enm.HEAVY_ARMORED: 16,
+	WaveSpecial.enm.XTREME_ARMOR: 32,
+}
+
+var _string_map: Dictionary = {
+	WaveSpecial.enm.NONE: "",
+	WaveSpecial.enm.SPEED: "Speed",
+	WaveSpecial.enm.GREATER_SPEED: "Greater Speed",
+	WaveSpecial.enm.XTREME_SPEED: "Xtreme Speed",
+	WaveSpecial.enm.SLOW: "Slow",
+	WaveSpecial.enm.INVISIBLE: "Invisible",
+	WaveSpecial.enm.STRONG: "Strong",
+	WaveSpecial.enm.RICH: "Rich",
+	WaveSpecial.enm.RELIC_RAIDER: "Relic Raider",
+	WaveSpecial.enm.ULTRA_WISDOM: "Ultra Wisdom",
+	WaveSpecial.enm.ARMORED: "Armored",
+	WaveSpecial.enm.HEAVY_ARMORED: "Heavy Armored",
+	WaveSpecial.enm.XTREME_ARMOR: "Xtreme Armor",
+}
+
+
+func _init():
+	var map_list: Array[Dictionary] = [_buff_map, _required_level_map, _string_map]
+
+	for map in map_list:
+		for special in WaveSpecial.enm.values():
+			if !map.has(special):
+				push_error("Not all properties have been defined for special: ", special)
 
 
 # TODO: implement correct randomization.
@@ -44,7 +88,7 @@ func get_random(wave: Wave) -> WaveSpecial.enm:
 	var wave_level: int = wave.get_wave_number()
 
 	for special in all_special_list:
-		var required_level: int = _get_required_wave_level(special)
+		var required_level: int = _required_level_map.get(special, 0)
 		var is_available: bool = wave_level >= required_level
 
 		if is_available:
@@ -62,70 +106,13 @@ func get_random(wave: Wave) -> WaveSpecial.enm:
 
 
 func convert_to_string(special: WaveSpecial.enm) -> String:
-	match special:
-		WaveSpecial.enm.NONE: return ""
-		WaveSpecial.enm.SPEED: return "Speed"
-		WaveSpecial.enm.GREATER_SPEED: return "Greater Speed"
-		WaveSpecial.enm.XTREME_SPEED: return "Xtreme Speed"
-		WaveSpecial.enm.SLOW: return "Slow"
-		WaveSpecial.enm.INVISIBLE: return "Invisible"
-		WaveSpecial.enm.STRONG: return "Strong"
-		WaveSpecial.enm.RICH: return "Rich"
-		WaveSpecial.enm.RELIC_RAIDER: return "Relic Raider"
-		WaveSpecial.enm.ULTRA_WISDOM: return "Ultra Wisdom"
-		WaveSpecial.enm.ARMORED: return "Armored"
-		WaveSpecial.enm.HEAVY_ARMORED: return "Heavy Armored"
-		WaveSpecial.enm.XTREME_ARMOR: return "Xtreme Armor"
+	var string: String = _string_map.get(special, "unknown special")
 
-	push_error("Unhandled special: ", special)
-
-	return "unknown special"
+	return string
 
 
 func apply_to_creep(special: WaveSpecial.enm, creep: Creep):
-	var buff: BuffType = _get_buff(special)
+	var buff: BuffType = _buff_map.get(special, null)
 
 	if buff != null:
 		buff.apply_to_unit_permanent(creep, creep, 0)
-
-
-func _get_buff(special: WaveSpecial.enm) -> BuffType:
-	match special:
-		WaveSpecial.enm.NONE: return null
-		WaveSpecial.enm.SPEED: return _buff_speed
-		WaveSpecial.enm.GREATER_SPEED: return _buff_greater_speed
-		WaveSpecial.enm.XTREME_SPEED: return _buff_xtreme_speed
-		WaveSpecial.enm.SLOW: return _buff_slow
-		WaveSpecial.enm.INVISIBLE: return _buff_invisible
-		WaveSpecial.enm.STRONG: return _buff_strong
-		WaveSpecial.enm.RICH: return _buff_rich
-		WaveSpecial.enm.RELIC_RAIDER: return _buff_relic_raider
-		WaveSpecial.enm.ULTRA_WISDOM: return _buff_ultra_wisdom
-		WaveSpecial.enm.ARMORED: return _buff_armored
-		WaveSpecial.enm.HEAVY_ARMORED: return _buff_heavy_armored
-		WaveSpecial.enm.XTREME_ARMOR: return _buff_xtreme_armor
-
-	push_error("Unhandled special: ", special)
-
-	return null
-
-
-func _get_required_wave_level(special: WaveSpecial.enm) -> int:
-	match special:
-		WaveSpecial.enm.NONE: return 0
-		WaveSpecial.enm.SPEED: return 0
-		WaveSpecial.enm.GREATER_SPEED: return 16
-		WaveSpecial.enm.XTREME_SPEED: return 24
-		WaveSpecial.enm.SLOW: return 32
-		WaveSpecial.enm.INVISIBLE: return 0
-		WaveSpecial.enm.STRONG: return 16
-		WaveSpecial.enm.RICH: return 0
-		WaveSpecial.enm.RELIC_RAIDER: return 0
-		WaveSpecial.enm.ULTRA_WISDOM: return 0
-		WaveSpecial.enm.ARMORED: return 0
-		WaveSpecial.enm.HEAVY_ARMORED: return 16
-		WaveSpecial.enm.XTREME_ARMOR: return 32
-
-	push_error("Unhandled special: ", special)
-
-	return 0
