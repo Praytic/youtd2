@@ -58,7 +58,7 @@ func _update_text():
 		var race_String: String = CreepCategory.convert_to_colored_string(wave.get_race())
 		var size_string: String = _get_size_combination_string(wave)
 		var armor_string: String = ArmorType.convert_to_colored_string(wave.get_armor_type())
-		var special_string: String = ""
+		var special_string: String = wave.get_special_string()
 
 		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_String, armor_string, special_string]
 	

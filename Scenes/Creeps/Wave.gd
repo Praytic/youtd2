@@ -32,6 +32,7 @@ var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
 var state: int = Wave.State.PENDING
 var next_wave: Wave
 var _creep_buff: BuffType
+var _special_string: String
 
 #########################
 ### Code starts here  ###
@@ -184,6 +185,14 @@ func set_creep_buff(buff: BuffType):
 
 func get_creep_buff() -> BuffType:
 	return _creep_buff
+
+
+func set_special_string(special_string: String):
+	_special_string = special_string
+
+
+func get_special_string() -> String:
+	return _special_string
 
 
 func get_race() -> int:

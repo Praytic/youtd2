@@ -50,6 +50,9 @@ func _ready():
 		var creep_buff: BuffType = _get_random_creep_buff()
 		wave.set_creep_buff(creep_buff)
 
+		var special_string: String = _get_creep_buff_string(creep_buff)
+		wave.set_special_string(special_string)
+
 		var creep_combination = []
 		for creep_size in wave.get_creeps_combination():
 			var creep_size_name: String = CreepSize.convert_to_string(creep_size)
@@ -238,3 +241,11 @@ func _get_random_creep_buff() -> BuffType:
 		return _buff_speed
 	else:
 		return null
+
+
+func _get_creep_buff_string(buff: BuffType) -> String:
+	match buff:
+		_buff_speed: return "Speed"
+		_: return ""
+
+	return ""
