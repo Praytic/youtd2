@@ -7,4 +7,4 @@ func _init(parent: Node):
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, 10.0, 0.0)
 	modifier.add_modification(Modification.Type.MOD_HP_PERC, -0.7, 0.0)
 	set_buff_modifier(modifier)
-	set_buff_tooltip("Xtreme Speed\nThis unit always moves at maximum speed.")
+	set_buff_tooltip("Xtreme Speed\n These creeps always move at maximum speed.")
