@@ -79,7 +79,6 @@ func _init(id: int):
 	on_create()
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
-	triggers_buff_type.set_purgable(false)
 	load_triggers(triggers_buff_type)
 	_buff_type_list.append(triggers_buff_type)
 

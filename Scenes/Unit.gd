@@ -174,7 +174,6 @@ func _ready():
 	_health = get_overall_health()
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
-	triggers_buff_type.set_purgable(false)
 	load_triggers(triggers_buff_type)
 	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
 

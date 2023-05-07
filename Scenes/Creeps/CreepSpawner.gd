@@ -114,7 +114,6 @@ func spawn_creep(creep: Creep, wave: Wave):
 #	world
 	var buff: BuffType = wave.get_creep_buff()
 	if buff != null:
-		buff.set_purgable(false)
 		buff.apply_to_unit_permanent(creep, creep, 0)
 
 
