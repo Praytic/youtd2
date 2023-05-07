@@ -155,7 +155,6 @@ func _init():
 	_mod_value_map[Modification.Type.MOD_DMG_FROM_IRON] = 1.0
 
 func _ready():
-	_update_invisible_modulate()
 	_selection_visual = Selection.new()
 	_selection_visual.hide()
 	_selection_visual.z_index = -1
@@ -426,6 +425,14 @@ func _modify_property_internal(mod_type: Modification.Type, value: float, direct
 	_mana = mana_ratio * new_mana_max
 
 	_on_modify_property()
+
+
+# NOTE: this modifies only creep's ability to be invisible.
+# It won't be invisible if the creep is within range of
+# towers that can see invisible units.
+func set_invisible(invisible: bool):
+	_invisible = invisible
+	_update_invisible_modulate()
 
 
 # These two functions are used to implement magical sight

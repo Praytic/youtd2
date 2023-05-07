@@ -23,6 +23,7 @@ var _buff_speed: BuffType = CreepSpeed.new(self)
 var _buff_greater_speed: BuffType = CreepGreaterSpeed.new(self)
 var _buff_xtreme_speed: BuffType = CreepXtremeSpeed.new(self)
 var _buff_slow: BuffType = CreepSlowSpeed.new(self)
+var _buff_invisible: BuffType = CreepInvisible.new(self)
 
 @onready var _timer_between_waves: Timer = $Timer
 @onready var _creep_spawner = $CreepSpawner
@@ -245,7 +246,7 @@ func _get_random_creep_buff() -> BuffType:
 	if Utils.rand_chance(0.25):
 		return null
 	else:
-		var buff_list: Array[BuffType] = [_buff_speed, _buff_greater_speed, _buff_xtreme_speed, _buff_slow]
+		var buff_list: Array[BuffType] = [_buff_speed, _buff_greater_speed, _buff_xtreme_speed, _buff_slow, _buff_invisible]
 		var random_index: int = randi_range(0, buff_list.size() - 1)
 		var buff: BuffType = buff_list[random_index]
 
@@ -258,6 +259,7 @@ func _get_creep_buff_string(buff: BuffType) -> String:
 		_buff_greater_speed: return "Greater Speed"
 		_buff_xtreme_speed: return "Xtreme Speed"
 		_buff_slow: return "Slow"
+		_buff_invisible: return "Invisible"
 		_: return ""
 
 	return ""
