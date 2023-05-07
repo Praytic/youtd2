@@ -260,6 +260,5 @@ func _get_creep_buff_string(buff: BuffType) -> String:
 		_buff_xtreme_speed: return "Xtreme Speed"
 		_buff_slow: return "Slow"
 		_buff_invisible: return "Invisible"
-		_: return ""
 
 	return ""

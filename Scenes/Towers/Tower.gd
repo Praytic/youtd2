@@ -79,7 +79,6 @@ var _number_of_crits: int = 0
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
 @onready var _mana_bar: ProgressBar = $ManaBar
 @onready var _tower_selection_area: Area2D = $TowerSelectionArea
-@onready var _selection_collision_polygon: CollisionPolygon2D = $TowerSelectionArea/CollisionPolygon2D
 
 
 #########################

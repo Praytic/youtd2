@@ -674,7 +674,6 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource):
 func receive_damage(damage: float) -> bool:
 	var health_before_damage: float = _health
 
-	var old_health = _health
 	_set_health(_health - damage)
 
 	if FF.damage_numbers():
