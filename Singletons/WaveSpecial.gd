@@ -13,6 +13,12 @@ enum enm {
 	SLOW,
 	INVISIBLE,
 	STRONG,
+	RICH,
+	RELIC_RAIDER,
+	ULTRA_WISDOM,
+	ARMORED,
+	HEAVY_ARMORED,
+	XTREME_ARMOR,
 }
 
 
@@ -22,6 +28,12 @@ var _buff_xtreme_speed: BuffType = CreepXtremeSpeed.new(self)
 var _buff_slow: BuffType = CreepSlow.new(self)
 var _buff_invisible: BuffType = CreepInvisible.new(self)
 var _buff_strong: BuffType = CreepStrong.new(self)
+var _buff_rich: BuffType = CreepRich.new(self)
+var _buff_relic_raider: BuffType = CreepRelicRaider.new(self)
+var _buff_ultra_wisdom: BuffType = CreepUltraWisdom.new(self)
+var _buff_armored: BuffType = CreepArmored.new(self)
+var _buff_heavy_armored: BuffType = CreepHeavyArmored.new(self)
+var _buff_xtreme_armor: BuffType = CreepXtremeArmor.new(self)
 
 
 # TODO: implement correct randomization.
@@ -58,6 +70,12 @@ func convert_to_string(special: WaveSpecial.enm) -> String:
 		WaveSpecial.enm.SLOW: return "Slow"
 		WaveSpecial.enm.INVISIBLE: return "Invisible"
 		WaveSpecial.enm.STRONG: return "Strong"
+		WaveSpecial.enm.RICH: return "Rich"
+		WaveSpecial.enm.RELIC_RAIDER: return "Relic Raider"
+		WaveSpecial.enm.ULTRA_WISDOM: return "Ultra Wisdom"
+		WaveSpecial.enm.ARMORED: return "Armored"
+		WaveSpecial.enm.HEAVY_ARMORED: return "Heavy Armored"
+		WaveSpecial.enm.XTREME_ARMOR: return "Xtreme Armor"
 
 	push_error("Unhandled special: ", special)
 
@@ -80,6 +98,12 @@ func _get_buff(special: WaveSpecial.enm) -> BuffType:
 		WaveSpecial.enm.SLOW: return _buff_slow
 		WaveSpecial.enm.INVISIBLE: return _buff_invisible
 		WaveSpecial.enm.STRONG: return _buff_strong
+		WaveSpecial.enm.RICH: return _buff_rich
+		WaveSpecial.enm.RELIC_RAIDER: return _buff_relic_raider
+		WaveSpecial.enm.ULTRA_WISDOM: return _buff_ultra_wisdom
+		WaveSpecial.enm.ARMORED: return _buff_armored
+		WaveSpecial.enm.HEAVY_ARMORED: return _buff_heavy_armored
+		WaveSpecial.enm.XTREME_ARMOR: return _buff_xtreme_armor
 
 	push_error("Unhandled special: ", special)
 
@@ -95,6 +119,12 @@ func _get_required_wave_level(special: WaveSpecial.enm) -> int:
 		WaveSpecial.enm.SLOW: return 32
 		WaveSpecial.enm.INVISIBLE: return 0
 		WaveSpecial.enm.STRONG: return 16
+		WaveSpecial.enm.RICH: return 0
+		WaveSpecial.enm.RELIC_RAIDER: return 0
+		WaveSpecial.enm.ULTRA_WISDOM: return 0
+		WaveSpecial.enm.ARMORED: return 0
+		WaveSpecial.enm.HEAVY_ARMORED: return 16
+		WaveSpecial.enm.XTREME_ARMOR: return 32
 
 	push_error("Unhandled special: ", special)
 
