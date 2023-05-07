@@ -189,14 +189,15 @@ func _get_creep_animation() -> String:
 	
 # TODO: Switch when certain speed limit is reached
 #	if _get_move_speed() > 300:
-	if get_size() == CreepSize.enm.NORMAL:
-		animation_order = [
-			"run_slow_E", "", "run_slow_S", "", "run_slow_W", "", "run_slow_N", ""
-		]
-	else:
-		animation_order = [
-			"run_e", "run_se", "run_s", "run_sw", "run_w", "run_nw", "run_n", "run_ne"
-		]
+	match get_size():
+		CreepSize.enm.NORMAL, CreepSize.enm.MASS:
+			animation_order = [
+				"run_slow_E", "", "run_slow_S", "", "run_slow_W", "", "run_slow_N", ""
+			]
+		_:
+			animation_order = [
+				"run_e", "run_se", "run_s", "run_sw", "run_w", "run_nw", "run_n", "run_ne"
+			]
 	var animation_index: int = floor((_facing_angle + ISOMETRIC_ANGLE_DIFF + 10) / 45)
 
 	if animation_index >= animation_order.size():
@@ -268,7 +269,7 @@ func set_unit_facing(angle: float):
 
 	var animation: String = _get_creep_animation()
 	if animation != "":
-		_sprite.play(animation)
+		_sprite.play(animation, randi())
 
 
 func get_unit_facing() -> float:
