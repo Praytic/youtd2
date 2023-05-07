@@ -43,6 +43,7 @@ const CREEP_SCENE_INSTANCES_PATHS = {
 # Dict[scene_name -> Resource]
 var _creep_scenes: Dictionary
 var _creep_spawn_queue: Array
+var _wave_spawn_queue: Array
 
 @onready var _timer_between_creeps: Timer = $Timer
 
@@ -63,10 +64,15 @@ func _ready():
 	print_verbose("Creep scenes have been loaded.")
 
 
-func queue_spawn_creep(creep: Creep):
+func queue_spawn_creep(creep: Creep, wave: Wave):
 	assert(creep != null, "Tried to spawn null creep.")
 	
+# 	TODO: rework this so that the logic of "this creep
+# 	belongs to this wave" is better expressed. Currently
+# 	it's two parallel arrays where creeps are in the same
+# 	order as their waves.
 	_creep_spawn_queue.push_back(creep)
+	_wave_spawn_queue.push_back(wave)
 	if _timer_between_creeps.is_stopped():
 		if creep.get_size() == CreepSize.enm.MASS:
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
@@ -94,7 +100,7 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
 	return creep
 
 
-func spawn_creep(creep: Creep):
+func spawn_creep(creep: Creep, wave: Wave):
 	if not creep:
 		print_verbose("Stop creep spawn. Queue is exhausted.")
 		_timer_between_creeps.stop()
@@ -104,10 +110,18 @@ func spawn_creep(creep: Creep):
 	Utils.add_object_to_world(creep)
 	print_verbose("Creep has been spawned [%s]." % creep)
 
+#	NOTE: buff must be applied after creep has been added to
+#	world
+	var buff: BuffType = wave.get_creep_buff()
+	if buff != null:
+		buff.set_purgable(false)
+		buff.apply_to_unit_permanent(creep, creep, 0)
+
 
 func _on_Timer_timeout():
 	var creep = _creep_spawn_queue.pop_front()
+	var wave: Wave = _wave_spawn_queue.pop_front()
 	if creep == null:
 		print_verbose("Creep spawn queue is empty. Nothing to spawn.")
-	spawn_creep(creep)
+	spawn_creep(creep, wave)
 	creep_spawned.emit(creep)

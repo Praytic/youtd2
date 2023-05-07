@@ -19,11 +19,15 @@ var _wave_list: Array[Wave] = []
 # wave has been started yet
 var _current_wave_index: int = -1
 
+var _buff_speed: BuffType
+
 @onready var _timer_between_waves: Timer = $Timer
 @onready var _creep_spawner = $CreepSpawner
 @onready var _wave_paths = get_tree().get_nodes_in_group("wave_path")
 
 func _ready():
+	_buff_speed = CreepSpeed.new(self)
+
 	if FF.fast_waves_enabled():
 		TIME_BETWEEN_WAVES = 0.1
 
@@ -43,6 +47,9 @@ func _ready():
 		wave.set_armor_type(wave_armor)
 		wave.set_wave_path(_get_wave_path(0, wave))
 		
+		var creep_buff: BuffType = _get_random_creep_buff()
+		wave.set_creep_buff(creep_buff)
+
 		var creep_combination = []
 		for creep_size in wave.get_creeps_combination():
 			var creep_size_name: String = CreepSize.convert_to_string(creep_size)
@@ -83,7 +90,7 @@ func spawn_wave(new_wave: Wave):
 	new_wave.state = Wave.State.SPAWNING
 	
 	for creep in new_wave.get_creeps():
-		_creep_spawner.queue_spawn_creep(creep)
+		_creep_spawner.queue_spawn_creep(creep, new_wave)
 
 
 func _init_wave_creeps(wave: Wave):
@@ -224,3 +231,10 @@ func _get_alive_creeps() -> Array:
 			alive_list.append(creep)
 
 	return alive_list
+
+
+func _get_random_creep_buff() -> BuffType:
+	if Utils.rand_chance(0.5):
+		return _buff_speed
+	else:
+		return null
