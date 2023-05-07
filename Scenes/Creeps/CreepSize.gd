@@ -30,6 +30,8 @@ static func convert_to_string(type: CreepSize.enm) -> String:
 		CreepSize.enm.CHALLENGE_MASS: return "Challenge"
 		CreepSize.enm.CHALLENGE_BOSS: return "Challenge"
 
+	push_error("Unknown type: ", type)
+
 	return "[unknown creep size]"
 
 
@@ -45,6 +47,8 @@ static func convert_to_colored_string(type: CreepSize.enm) -> String:
 		CreepSize.enm.CHALLENGE_MASS: return "[color=GOLD]%s[/color]" % string
 		CreepSize.enm.CHALLENGE_BOSS: return "[color=GOLD]%s[/color]" % string
 
+	push_error("Unknown type: ", type)
+
 	return "[unknown creep size]"
 
 
@@ -59,6 +63,8 @@ static func get_default_item_chance(type: CreepSize.enm) -> float:
 		CreepSize.enm.CHALLENGE_MASS: return 0.10
 		CreepSize.enm.CHALLENGE_BOSS: return 0.70
 
+	push_error("Unhandled type: ", type)
+
 	return 0.0
 
 
@@ -72,5 +78,7 @@ static func get_default_item_quality(type: CreepSize.enm) -> float:
 		CreepSize.enm.BOSS: return 0.25
 		CreepSize.enm.CHALLENGE_MASS: return 0.25
 		CreepSize.enm.CHALLENGE_BOSS: return 0.25
+
+	push_error("Unhandled type: ", type)
 
 	return 0.0

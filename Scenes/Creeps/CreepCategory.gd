@@ -17,6 +17,8 @@ static func convert_to_string(type: CreepCategory.enm) -> String:
 		CreepCategory.enm.ORC: return "Orc"
 		CreepCategory.enm.HUMANOID: return "Humanoid"
 
+	push_error("Unhandled type: ", type)
+
 	return "[unknown creep category]"
 
 
@@ -29,5 +31,7 @@ static func convert_to_colored_string(type: CreepCategory.enm) -> String:
 		CreepCategory.enm.NATURE: return "[color=AQUA]%s[/color]" % string
 		CreepCategory.enm.ORC: return "[color=DARKGREEN]%s[/color]" % string
 		CreepCategory.enm.HUMANOID: return "[color=TAN]%s[/color]" % string
+
+	push_error("Unhandled type: ", type)
 
 	return "[unknown creep category]"

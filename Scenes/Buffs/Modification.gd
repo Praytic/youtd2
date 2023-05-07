@@ -195,4 +195,6 @@ func get_type_string() -> String:
 		Type.MOD_DMG_FROM_STORM: return "damage from storm"
 		Type.MOD_DMG_FROM_IRON: return "damage from iron"
 
+	push_error("Unhandled type: ", type)
+
 	return ""

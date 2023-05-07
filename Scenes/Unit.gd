@@ -885,7 +885,7 @@ func get_body_part_position(body_part: String) -> Vector2:
 		"chest": return sprite_center
 		"origin": return sprite_center + Vector2(0, sprite_height / 2)
 		_:
-			print_debug("Invalid body part: %s" % body_part)
+			push_error("Unhandled body part: ", body_part)
 
 			return get_visual_position()
 

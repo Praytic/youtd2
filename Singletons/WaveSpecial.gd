@@ -43,7 +43,7 @@ func convert_to_string(special: WaveSpecial.enm) -> String:
 		WaveSpecial.enm.SLOW: return "Slow"
 		WaveSpecial.enm.INVISIBLE: return "Invisible"
 
-	push_error("WaveSpecial.convert_to_string() doesn't handle special: ", special)
+	push_error("Unhandled special: ", special)
 
 	return "unknown special"
 
@@ -64,6 +64,6 @@ func _get_buff(special: WaveSpecial.enm) -> BuffType:
 		WaveSpecial.enm.SLOW: return _buff_slow
 		WaveSpecial.enm.INVISIBLE: return _buff_invisible
 
-	push_error("WaveSpecial._get_buff() doesn't handle special: ", special)
+	push_error("Unhandled special: ", special)
 
 	return null
