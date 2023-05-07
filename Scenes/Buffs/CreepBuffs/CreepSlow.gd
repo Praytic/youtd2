@@ -1,4 +1,4 @@
-class_name CreepSlowSpeed extends BuffType
+class_name CreepSlow extends BuffType
 
 
 func _init(parent: Node):

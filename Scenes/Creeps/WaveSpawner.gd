@@ -22,7 +22,7 @@ var _current_wave_index: int = -1
 var _buff_speed: BuffType = CreepSpeed.new(self)
 var _buff_greater_speed: BuffType = CreepGreaterSpeed.new(self)
 var _buff_xtreme_speed: BuffType = CreepXtremeSpeed.new(self)
-var _buff_slow: BuffType = CreepSlowSpeed.new(self)
+var _buff_slow: BuffType = CreepSlow.new(self)
 var _buff_invisible: BuffType = CreepInvisible.new(self)
 
 @onready var _timer_between_waves: Timer = $Timer
