@@ -19,15 +19,16 @@ var _wave_list: Array[Wave] = []
 # wave has been started yet
 var _current_wave_index: int = -1
 
-var _buff_speed: BuffType
+var _buff_speed: BuffType = CreepSpeed.new(self)
+var _buff_greater_speed: BuffType = CreepGreaterSpeed.new(self)
+var _buff_xtreme_speed: BuffType = CreepXtremeSpeed.new(self)
+var _buff_slow: BuffType = CreepSlowSpeed.new(self)
 
 @onready var _timer_between_waves: Timer = $Timer
 @onready var _creep_spawner = $CreepSpawner
 @onready var _wave_paths = get_tree().get_nodes_in_group("wave_path")
 
 func _ready():
-	_buff_speed = CreepSpeed.new(self)
-
 	if FF.fast_waves_enabled():
 		TIME_BETWEEN_WAVES = 0.1
 
@@ -236,16 +237,27 @@ func _get_alive_creeps() -> Array:
 	return alive_list
 
 
+# TODO: implement wave requirement. If wave level is not
+# high enough certain buffs shouldn't be.
+
+# TODO: implement weighted randomization.
 func _get_random_creep_buff() -> BuffType:
-	if Utils.rand_chance(0.5):
-		return _buff_speed
-	else:
+	if Utils.rand_chance(0.25):
 		return null
+	else:
+		var buff_list: Array[BuffType] = [_buff_speed, _buff_greater_speed, _buff_xtreme_speed, _buff_slow]
+		var random_index: int = randi_range(0, buff_list.size() - 1)
+		var buff: BuffType = buff_list[random_index]
+
+		return buff
 
 
 func _get_creep_buff_string(buff: BuffType) -> String:
 	match buff:
 		_buff_speed: return "Speed"
+		_buff_greater_speed: return "Greater Speed"
+		_buff_xtreme_speed: return "Xtreme Speed"
+		_buff_slow: return "Slow"
 		_: return ""
 
 	return ""

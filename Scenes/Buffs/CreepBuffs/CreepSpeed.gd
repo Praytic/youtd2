@@ -5,5 +5,6 @@ func _init(parent: Node):
 	super("creep_speed", 0, 0, true, parent)
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, 0.25, 0.0)
+	modifier.add_modification(Modification.Type.MOD_HP_PERC, -0.2, 0.0)
 	set_buff_modifier(modifier)
-	set_buff_tooltip("Sprint\nThis unit's speed is increased by 25%.")
+	set_buff_tooltip("Speed\nThis unit's speed is increased by 25%.")
