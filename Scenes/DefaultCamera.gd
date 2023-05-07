@@ -3,6 +3,8 @@ extends Camera2D
 signal camera_moved(shift_vector)
 signal camera_zoomed(zoom_value)
 
+const MOVE_BY_MOUSE_MARGIN: float = 0.01
+
 @export var cam_move_speed: float = 2000.0
 @export var maximum_zoom_in: float = 0.4
 @export var minimum_zoom_out: float = 1.0
@@ -21,13 +23,13 @@ func _physics_process(delta):
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
 	var screen_size: Vector2 = get_viewport_rect().size
 
-	if Input.is_action_pressed("ui_left") or (mouse_pos.x / screen_size.x) < 0.05:
+	if Input.is_action_pressed("ui_left") or (mouse_pos.x / screen_size.x) < MOVE_BY_MOUSE_MARGIN:
 		move_direction.x += -1.0
-	if Input.is_action_pressed("ui_right") or (mouse_pos.x / screen_size.x) > 0.95:
+	if Input.is_action_pressed("ui_right") or (mouse_pos.x / screen_size.x) > 1.0 - MOVE_BY_MOUSE_MARGIN:
 		move_direction.x += 1.0
-	if Input.is_action_pressed("ui_up") or (mouse_pos.y / screen_size.y) < 0.04:
+	if Input.is_action_pressed("ui_up") or (mouse_pos.y / screen_size.y) < MOVE_BY_MOUSE_MARGIN:
 		move_direction.y += -1.0
-	if Input.is_action_pressed("ui_down") or (mouse_pos.y / screen_size.y) > 0.96:
+	if Input.is_action_pressed("ui_down") or (mouse_pos.y / screen_size.y) > 1.0 - MOVE_BY_MOUSE_MARGIN:
 		move_direction.y += 1.0
 
 #	NOTE: normalize direction vector so that camera moves at
