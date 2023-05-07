@@ -20,8 +20,8 @@ func _ready():
 
 	_range_indicator.set_radius(attack_range)
 
-	_tower_instance = TowerManager.get_tower(tower_id)
-	_tower_instance.set_visual_only()
+	var visual_only: bool = true
+	_tower_instance = TowerManager.get_tower(tower_id, visual_only)
 	add_child(_tower_instance)
 
 

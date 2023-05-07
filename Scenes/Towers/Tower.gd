@@ -90,6 +90,9 @@ var _number_of_crits: int = 0
 # ready() so that we can form tooltip text for button
 # tooltip
 func _internal_tower_init():
+	if _visual_only:
+		return
+
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
 	var tier: int = get_tier()
