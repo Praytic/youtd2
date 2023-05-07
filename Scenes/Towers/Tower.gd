@@ -79,7 +79,6 @@ var _number_of_crits: int = 0
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
 @onready var _mana_bar: ProgressBar = $ManaBar
 @onready var _tower_selection_area: Area2D = $TowerSelectionArea
-@onready var _selection_collision_polygon: CollisionPolygon2D = $TowerSelectionArea/CollisionPolygon2D
 
 
 #########################
@@ -90,6 +89,9 @@ var _number_of_crits: int = 0
 # ready() so that we can form tooltip text for button
 # tooltip
 func _internal_tower_init():
+	if _visual_only:
+		return
+
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
 	var tier: int = get_tier()

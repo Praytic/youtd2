@@ -4,7 +4,6 @@ extends Control
 # Displays next wave level how much time is left before it
 # starts.
 
-# TODO: special column
 
 @onready var _label: RichTextLabel = $PanelContainer/VBoxContainer/RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
@@ -58,7 +57,8 @@ func _update_text():
 		var race_String: String = CreepCategory.convert_to_colored_string(wave.get_race())
 		var size_string: String = _get_size_combination_string(wave)
 		var armor_string: String = ArmorType.convert_to_colored_string(wave.get_armor_type())
-		var special_string: String = ""
+		var wave_special: WaveSpecial.enm = wave.get_special()
+		var special_string: String = WaveSpecial.convert_to_string(wave_special)
 
 		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_String, armor_string, special_string]
 	
@@ -70,7 +70,7 @@ func _update_text():
 func _on_start_next_wave_button_pressed():
 	var success = _wave_spawner.force_start_next_wave()
 	if !success:
-		Globals.error_message_label.add("Can't start next wave, wave is still in progress.")
+		Messages.add_error("Can't start next wave, wave is still in progress.")
 
 
 # [MASS, MASS, MASS, CHAMPION]

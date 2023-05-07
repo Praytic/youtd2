@@ -18,6 +18,8 @@ static func from_string(string: String) -> AttackType.enm:
 		"essence": return AttackType.enm.ESSENCE
 		"elemental": return AttackType.enm.ELEMENTAL
 
+	push_error("Unhandled string: ", string)
+
 	return AttackType.enm.PHYSICAL
 
 

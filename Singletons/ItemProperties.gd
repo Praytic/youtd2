@@ -27,7 +27,7 @@ func get_icon(item_id: int, icon_size_letter: String) -> Texture2D:
 	else:
 		return item_button_fallback_icon
 	
-	var page_num = floor(icon_atlas_family / ICON_FAMILIES_PER_PAGE)
+	var page_num = floor(float(icon_atlas_family) / ICON_FAMILIES_PER_PAGE)
 	var x = icon_atlas_num * icon_size + page_num * MAX_ICONS_PER_FAMILY * icon_size
 	var y = icon_atlas_family % ICON_FAMILIES_PER_PAGE * icon_size
 	var region: Rect2 = Rect2(x, y, icon_size, icon_size)

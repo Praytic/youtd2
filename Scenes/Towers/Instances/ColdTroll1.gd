@@ -49,7 +49,6 @@ func load_specials(modifier: Modifier):
 
 
 func on_autocast(event: Event):
-	print("on_autocast")
 	var tower: Tower = self
 
 	var u: Unit = event.get_target()

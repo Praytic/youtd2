@@ -122,7 +122,7 @@ func _move_item_from_itembar(target_tower: Tower):
 				target_tower.add_item_by_id(_moved_item_id)
 				_end_move_process(true)
 			else:
-				Globals.error_message_label.add("No space for item")
+				Messages.add_error("No space for item")
 	else:
 		_end_move_process(false)
 
@@ -131,7 +131,7 @@ func _move_item_from_tower(target_tower: Tower):
 	var moving_to_itself: bool = target_tower == _tower_owner_of_moved_item
 
 	if moving_to_itself:
-		Globals.error_message_label.add("Item is already on tower")
+		Messages.add_error("Item is already on tower")
 		
 		return
 
@@ -144,7 +144,7 @@ func _move_item_from_tower(target_tower: Tower):
 			target_tower.add_item_by_id(_moved_item_id)
 			_end_move_process(true)
 		else:
-			Globals.error_message_label.add("No space for item")
+			Messages.add_error("No space for item")
 	else:
 		_tower_owner_of_moved_item.remove_item(_moved_item_id)
 		_tower_owner_of_moved_item = null

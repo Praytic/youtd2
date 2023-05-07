@@ -16,6 +16,8 @@ static func convert_to_string(type: ArmorType.enm) -> String:
 		ArmorType.enm.SOL: return "Sol"
 		ArmorType.enm.SIF: return "Sif"
 
+	push_error("Unhandled type: ", type)
+
 	return "[unknown armor type]"
 
 
@@ -28,5 +30,7 @@ static func convert_to_colored_string(type: ArmorType.enm) -> String:
 		ArmorType.enm.LUA: return "[color=GREEN]%s[/color]" % string
 		ArmorType.enm.SOL: return "[color=YELLOW]%s[/color]" % string
 		ArmorType.enm.SIF: return "[color=PURPLE]%s[/color]" % string
+
+	push_error("Unhandled type: ", type)
 
 	return "[unknown armor type]"

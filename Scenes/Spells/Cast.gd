@@ -72,7 +72,7 @@ func _get_spell_scene_path() -> String:
 	match _order:
 		"blizzard": return "res://Scenes/Spells/SpellBlizzard.tscn"
 		"chainlightning": return "res://Scenes/Spells/SpellChainLightning.tscn"
-		_:
-			print_debug("Invalid order name: ", _order)
+
+	push_error("Unhandled order: ", _order)
 
 	return ""

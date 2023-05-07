@@ -82,7 +82,11 @@ func set_stacking_group(stacking_group: String):
 
 # Base apply function. Overrides time parameters from
 # init(). Returns the buff that was applied or currently
-# active buff if it was refreshed, upgraded or rejected due to stacking.
+# active buff if it was refreshed, upgraded or rejected due
+# to stacking.
+#
+# NOTE: buffs must be applied after the unit has been added
+# to scene tree, after add_child() was called.
 func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: float) -> Buff:
 # 	NOTE: original tower scripts depend on upgrade and
 # 	stacking behavior being implemented in this exact manner
@@ -171,6 +175,7 @@ func apply_only_timed(caster: Unit, target: Unit, time: float) -> Buff:
 
 func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
 	var buff: Buff = apply_custom_timed(caster, target, level, -1.0)
+	buff._purgable = false
 	
 	return buff
 

@@ -16,7 +16,7 @@ signal kill(event)
 signal death(event)
 signal became_invisible()
 signal became_visible()
-signal health_changed(old_value, new_value)
+signal health_changed(new_ratio: float)
 signal mana_changed()
 signal spell_casted(event: Event)
 signal spell_targeted(event: Event)
@@ -155,7 +155,6 @@ func _init():
 	_mod_value_map[Modification.Type.MOD_DMG_FROM_IRON] = 1.0
 
 func _ready():
-	_update_invisible_modulate()
 	_selection_visual = Selection.new()
 	_selection_visual.hide()
 	_selection_visual.z_index = -1
@@ -428,6 +427,14 @@ func _modify_property_internal(mod_type: Modification.Type, value: float, direct
 	_on_modify_property()
 
 
+# NOTE: this modifies only creep's ability to be invisible.
+# It won't be invisible if the creep is within range of
+# towers that can see invisible units.
+func set_invisible(invisible: bool):
+	_invisible = invisible
+	_update_invisible_modulate()
+
+
 # These two functions are used to implement magical sight
 # effects.
 func add_invisible_watcher():
@@ -595,10 +602,11 @@ func _set_mana(mana: float):
 	mana_changed.emit()
 
 
-func _set_health(health: float):
-	var old_health = _health
-	_health = health
-	health_changed.emit(old_health, health)
+func _set_health(new_health: float):
+	_health = new_health
+
+	var new_ratio: float = new_health / get_overall_health()
+	health_changed.emit(new_ratio)
 
 
 func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
@@ -666,10 +674,7 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource):
 func receive_damage(damage: float) -> bool:
 	var health_before_damage: float = _health
 
-	var old_health = _health
 	_set_health(_health - damage)
-
-	health_changed.emit(old_health, _health)
 
 	if FF.damage_numbers():
 		getOwner().display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
@@ -880,7 +885,7 @@ func get_body_part_position(body_part: String) -> Vector2:
 		"chest": return sprite_center
 		"origin": return sprite_center + Vector2(0, sprite_height / 2)
 		_:
-			print_debug("Invalid body part: %s" % body_part)
+			push_error("Unhandled body part: ", body_part)
 
 			return get_visual_position()
 
@@ -1021,10 +1026,16 @@ func get_buff_of_group(stacking_group: String) -> Buff:
 func purge_buff(friendly: bool) -> bool:
 	var buff_list: Array[Buff] = _get_buff_list(friendly)
 
+	var purgable_list: Array[Buff] = []
+
+	for buff in buff_list:
+		if buff.is_purgable():
+			purgable_list.append(buff)
+
 #	NOTE: buff is removed from the list further down the
 #	chain from purge_buff() call.
-	if !buff_list.is_empty():
-		var buff: Buff = buff_list.back()
+	if !purgable_list.is_empty():
+		var buff: Buff = purgable_list.back()
 		buff.purge_buff()
 		
 		return true

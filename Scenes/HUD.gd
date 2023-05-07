@@ -1,4 +1,4 @@
-extends Control
+class_name HUD extends Control
 
 
 signal start_wave(wave_index)
@@ -6,6 +6,8 @@ signal stop_wave()
 
 @onready var element_buttons_parent = $MarginContainer/HBoxContainer
 @onready var _wave_status: Control = $WaveStatus
+@onready var _error_message_container: VBoxContainer = $MarginContainer2/ErrorMessageContainer
+@onready var _normal_message_container: VBoxContainer = $MarginContainer3/NormalMessageContainer
 
 
 func _ready():
@@ -17,6 +19,14 @@ func _ready():
 	for element_button in element_buttons_parent.get_children():
 		element_button.pressed.connect(_on_element_button_pressed.bind(element_button))
 	
+
+func get_error_message_container() -> VBoxContainer:
+	return _error_message_container
+
+
+func get_normal_message_container() -> VBoxContainer:
+	return _normal_message_container
+
 
 func _on_element_button_pressed(element_button):
 	$MarginContainer.hide()

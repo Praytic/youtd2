@@ -87,4 +87,4 @@ func _try_to_build():
 		cancel()
 	else:
 		var error: String = "Can't build here."
-		Globals.error_message_label.add(error)
+		Messages.add_error(error)

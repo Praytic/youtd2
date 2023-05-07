@@ -12,8 +12,8 @@ signal reached_portal(damage_to_portal)
 # was about 200.
 const CREEP_HEALTH_MAX: float = 200.0
 const MOVE_SPEED_MIN: float = 50.0
-const MOVE_SPEED_MAX: float = 200.0
-const DEFAULT_MOVE_SPEED: float = MOVE_SPEED_MAX
+const MOVE_SPEED_MAX: float = 400.0
+const DEFAULT_MOVE_SPEED: float = 200.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
 
@@ -223,8 +223,8 @@ func _get_move_speed() -> float:
 ###     Callbacks     ###
 #########################
 
-func _on_health_changed(_old_value, new_value):
-	_health_bar.set_value(new_value)
+func _on_health_changed(new_ratio: float):
+	_health_bar.ratio = new_ratio
 
 
 func _on_death(event: Event):

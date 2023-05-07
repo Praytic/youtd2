@@ -17,7 +17,7 @@ static func convert_from_string(string: String) -> Rarity.enm:
 		"rare": return Rarity.enm.RARE
 		"unique": return Rarity.enm.UNIQUE
 
-	push_error("Unknown rarity: ", string)
+	push_error("Unhandled rarity: ", string)
 
 	return Rarity.enm.COMMON
 
@@ -29,6 +29,6 @@ static func convert_to_string(rarity: Rarity.enm) -> String:
 		Rarity.enm.RARE: return "rare"
 		Rarity.enm.UNIQUE: return "unique"
 
-	push_error("Unknown rarity: ", rarity)
+	push_error("Unhandled rarity: ", rarity)
 
 	return "unknown"
