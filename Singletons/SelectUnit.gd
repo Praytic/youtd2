@@ -10,7 +10,7 @@ signal selected_unit_changed()
 var _units_under_mouse_list: Array[Unit] = []
 var _hovered_unit: Unit = null
 var _selected_unit: Unit = null
-var _enabled: bool
+var _enabled: bool = true
 
 
 # When disabled, units are not selected when clicked on or
