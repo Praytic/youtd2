@@ -18,14 +18,16 @@ func _ready():
 
 func _physics_process(delta):
 	var move_direction: Vector2 = Vector2.ZERO
+	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var screen_size: Vector2 = get_viewport_rect().size
 
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_pressed("ui_left") or (mouse_pos.x / screen_size.x) < 0.05:
 		move_direction.x += -1.0
-	if Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right") or (mouse_pos.x / screen_size.x) > 0.95:
 		move_direction.x += 1.0
-	if Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("ui_up") or (mouse_pos.y / screen_size.y) < 0.04:
 		move_direction.y += -1.0
-	if Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("ui_down") or (mouse_pos.y / screen_size.y) > 0.96:
 		move_direction.y += 1.0
 
 #	NOTE: normalize direction vector so that camera moves at
