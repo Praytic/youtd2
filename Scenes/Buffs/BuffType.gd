@@ -29,6 +29,7 @@ var _range_handler_list: Array = []
 var _aura_type_list: Array[AuraType] = []
 var _tooltip_text: String = ""
 var _buff_icon: String = ""
+var _purgable: bool = true
 
 
 static func create_aura_effect_type(type: String, friendly: bool, parent: Node) -> BuffType:
@@ -80,6 +81,13 @@ func set_stacking_group(stacking_group: String):
 	_stacking_group = stacking_group
 
 
+# Used for buffs like creep buffs that shouldn't be
+# purgable. For almost all other buffs you should leave this
+# value at default (true).
+func set_purgable(purgable: bool):
+	_purgable = purgable
+
+
 # Base apply function. Overrides time parameters from
 # init(). Returns the buff that was applied or currently
 # active buff if it was refreshed, upgraded or rejected due to stacking.
@@ -119,6 +127,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._stacking_group = _stacking_group
 	buff._tooltip_text = _tooltip_text
 	buff._buff_icon = _buff_icon
+	buff._purgable = _purgable
 
 	for handler in _event_handler_list:
 		buff._add_event_handler(handler.event_type, handler.callable, handler.chance, handler.chance_level_add)

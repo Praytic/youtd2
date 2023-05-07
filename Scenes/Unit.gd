@@ -174,6 +174,7 @@ func _ready():
 	_health = get_overall_health()
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
+	triggers_buff_type.set_purgable(false)
 	load_triggers(triggers_buff_type)
 	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
 
@@ -1021,10 +1022,16 @@ func get_buff_of_group(stacking_group: String) -> Buff:
 func purge_buff(friendly: bool) -> bool:
 	var buff_list: Array[Buff] = _get_buff_list(friendly)
 
+	var purgable_list: Array[Buff] = []
+
+	for buff in buff_list:
+		if buff.is_purgable():
+			purgable_list.append(buff)
+
 #	NOTE: buff is removed from the list further down the
 #	chain from purge_buff() call.
-	if !buff_list.is_empty():
-		var buff: Buff = buff_list.back()
+	if !purgable_list.is_empty():
+		var buff: Buff = purgable_list.back()
 		buff.purge_buff()
 		
 		return true

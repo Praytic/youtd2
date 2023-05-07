@@ -38,6 +38,7 @@ var _original_duration: float = 0.0
 var _cleanup_complete: bool = false
 var _tooltip_text: String
 var _buff_icon: String
+var _purgable: bool
 
 
 # NOTE: buff type determines what happens when a buff is
@@ -99,6 +100,10 @@ func refresh_duration():
 func set_remaining_duration(duration: float):
 	if _timer != null:
 		_timer.start(duration)
+
+
+func is_purgable() -> bool:
+	return _purgable
 
 
 func get_buff_icon() -> String:
