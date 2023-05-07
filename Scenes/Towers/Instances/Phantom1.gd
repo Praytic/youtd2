@@ -104,7 +104,6 @@ func tower_init():
 
 
 func on_autocast(event: Event):
-	print("on_autocast")
 	var tower: Tower = self
 
 	drol_phantomBuff.apply_custom_timed(tower, event.get_target(), tower.get_level() + _stats.buff_level, 5.0 + tower.get_level() * 0.1).user_real = tower.get_level() * _stats.user_real_add + _stats.user_real_base

@@ -46,7 +46,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	print("on_attack")
 	var tower: Tower = self
 
 	Chainlightning.target_cast_from_caster(tower, event.get_target(), 1.0 + tower.get_level() * 0.02, tower.calc_spell_crit_no_bonus())
