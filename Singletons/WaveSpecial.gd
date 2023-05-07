@@ -12,6 +12,7 @@ enum enm {
 	XTREME_SPEED,
 	SLOW,
 	INVISIBLE,
+	STRONG,
 }
 
 
@@ -20,6 +21,7 @@ var _buff_greater_speed: BuffType = CreepGreaterSpeed.new(self)
 var _buff_xtreme_speed: BuffType = CreepXtremeSpeed.new(self)
 var _buff_slow: BuffType = CreepSlow.new(self)
 var _buff_invisible: BuffType = CreepInvisible.new(self)
+var _buff_strong: BuffType = CreepStrong.new(self)
 
 
 # TODO: implement correct randomization.
@@ -55,6 +57,7 @@ func convert_to_string(special: WaveSpecial.enm) -> String:
 		WaveSpecial.enm.XTREME_SPEED: return "Xtreme Speed"
 		WaveSpecial.enm.SLOW: return "Slow"
 		WaveSpecial.enm.INVISIBLE: return "Invisible"
+		WaveSpecial.enm.STRONG: return "Strong"
 
 	push_error("Unhandled special: ", special)
 
@@ -76,6 +79,7 @@ func _get_buff(special: WaveSpecial.enm) -> BuffType:
 		WaveSpecial.enm.XTREME_SPEED: return _buff_xtreme_speed
 		WaveSpecial.enm.SLOW: return _buff_slow
 		WaveSpecial.enm.INVISIBLE: return _buff_invisible
+		WaveSpecial.enm.STRONG: return _buff_strong
 
 	push_error("Unhandled special: ", special)
 
@@ -90,6 +94,7 @@ func _get_required_wave_level(special: WaveSpecial.enm) -> int:
 		WaveSpecial.enm.XTREME_SPEED: return 24
 		WaveSpecial.enm.SLOW: return 32
 		WaveSpecial.enm.INVISIBLE: return 0
+		WaveSpecial.enm.STRONG: return 16
 
 	push_error("Unhandled special: ", special)
 
