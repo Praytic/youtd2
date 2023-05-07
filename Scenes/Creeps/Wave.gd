@@ -31,8 +31,7 @@ var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
 #var _modifications: Array[Modification]
 var state: int = Wave.State.PENDING
 var next_wave: Wave
-var _creep_buff: BuffType
-var _special_string: String
+var _special: WaveSpecial.enm = WaveSpecial.enm.NONE
 
 #########################
 ### Code starts here  ###
@@ -179,20 +178,12 @@ func set_race(value: CreepCategory.enm):
 	_race = value
 
 
-func set_creep_buff(buff: BuffType):
-	_creep_buff = buff
+func set_special(special: WaveSpecial.enm):
+	_special = special
 
 
-func get_creep_buff() -> BuffType:
-	return _creep_buff
-
-
-func set_special_string(special_string: String):
-	_special_string = special_string
-
-
-func get_special_string() -> String:
-	return _special_string
+func get_special() -> WaveSpecial.enm:
+	return _special
 
 
 func get_race() -> int:

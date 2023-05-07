@@ -19,11 +19,6 @@ var _wave_list: Array[Wave] = []
 # wave has been started yet
 var _current_wave_index: int = -1
 
-var _buff_speed: BuffType = CreepSpeed.new(self)
-var _buff_greater_speed: BuffType = CreepGreaterSpeed.new(self)
-var _buff_xtreme_speed: BuffType = CreepXtremeSpeed.new(self)
-var _buff_slow: BuffType = CreepSlow.new(self)
-var _buff_invisible: BuffType = CreepInvisible.new(self)
 
 @onready var _timer_between_waves: Timer = $Timer
 @onready var _creep_spawner = $CreepSpawner
@@ -49,11 +44,8 @@ func _ready():
 		wave.set_armor_type(wave_armor)
 		wave.set_wave_path(_get_wave_path(0, wave))
 		
-		var creep_buff: BuffType = _get_random_creep_buff()
-		wave.set_creep_buff(creep_buff)
-
-		var special_string: String = _get_creep_buff_string(creep_buff)
-		wave.set_special_string(special_string)
+		var wave_special: WaveSpecial.enm = WaveSpecial.get_random()
+		wave.set_special(wave_special)
 
 		var creep_combination = []
 		for creep_size in wave.get_creeps_combination():
@@ -236,29 +228,3 @@ func _get_alive_creeps() -> Array:
 			alive_list.append(creep)
 
 	return alive_list
-
-
-# TODO: implement wave requirement. If wave level is not
-# high enough certain buffs shouldn't be.
-
-# TODO: implement weighted randomization.
-func _get_random_creep_buff() -> BuffType:
-	if Utils.rand_chance(0.25):
-		return null
-	else:
-		var buff_list: Array[BuffType] = [_buff_speed, _buff_greater_speed, _buff_xtreme_speed, _buff_slow, _buff_invisible]
-		var random_index: int = randi_range(0, buff_list.size() - 1)
-		var buff: BuffType = buff_list[random_index]
-
-		return buff
-
-
-func _get_creep_buff_string(buff: BuffType) -> String:
-	match buff:
-		_buff_speed: return "Speed"
-		_buff_greater_speed: return "Greater Speed"
-		_buff_xtreme_speed: return "Xtreme Speed"
-		_buff_slow: return "Slow"
-		_buff_invisible: return "Invisible"
-
-	return ""

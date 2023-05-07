@@ -112,9 +112,8 @@ func spawn_creep(creep: Creep, wave: Wave):
 
 #	NOTE: buff must be applied after creep has been added to
 #	world
-	var buff: BuffType = wave.get_creep_buff()
-	if buff != null:
-		buff.apply_to_unit_permanent(creep, creep, 0)
+	var wave_special: WaveSpecial.enm = wave.get_special()
+	WaveSpecial.apply_to_creep(wave_special, creep)
 
 
 func _on_Timer_timeout():
