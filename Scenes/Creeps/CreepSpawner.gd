@@ -110,10 +110,11 @@ func spawn_creep(creep: Creep, wave: Wave):
 	Utils.add_object_to_world(creep)
 	print_verbose("Creep has been spawned [%s]." % creep)
 
-#	NOTE: buff must be applied after creep has been added to
+#	NOTE: buffs must be applied after creep has been added to
 #	world
-	var wave_special: WaveSpecial.enm = wave.get_special()
-	WaveSpecial.apply_to_creep(wave_special, creep)
+	var special_list: Array[int] = wave.get_specials()
+	for special in special_list:
+		WaveSpecial.apply_to_creep(special, creep)
 
 
 func _on_Timer_timeout():
