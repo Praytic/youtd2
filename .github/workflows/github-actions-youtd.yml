@@ -20,11 +20,16 @@ jobs:
       uses: wei/rclone@v1
       with:
         args: config reconnect "gdrive:"
+      env:
+        RCLONE_CONF: ${{ secrets.RCLONE_GDRIVE_CONF }}
+
 
     - name: list assets in gdrive 
       uses: wei/rclone@v1
       with:
         args: lsf -R --filter-from rclone-filter "Assets" | sort > .assets-list
+      env:
+        RCLONE_CONF: ${{ secrets.RCLONE_GDRIVE_CONF }}
 
     - name: restore cache
       uses: actions/cache@v3
