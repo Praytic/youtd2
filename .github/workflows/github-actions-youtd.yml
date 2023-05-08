@@ -48,11 +48,16 @@ jobs:
         name: repo-with-assets
 
     - name: generate version for the build
+      id: version_generation
       run: |
         latest_tag=$(git describe --abbrev=0 --tags)
         short_hash=$(git rev-parse --short HEAD)
         echo "tag_version=${latest_tag}-${short_hash}" >> $GITHUB_OUTPUT
         echo "commit_ref=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
+
+    outputs: 
+      tag_version: ${{ steps.version_generation.outputs.tag_version }}
+      commit_ref: ${{ steps.version_generation.outputs.commit_ref }}
 
   export_game:
     runs-on: macos-latest
