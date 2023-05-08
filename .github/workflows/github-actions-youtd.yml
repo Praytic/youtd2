@@ -10,16 +10,22 @@ on:
       - v*
 
 jobs:
-  export_game:
-    runs-on: macos-latest
-    name: export game
-    steps:
-    - name: checkout
-      uses: actions/checkout@v3
+  export_assets:
+    runs-on: linux-latest
+    name: cache repo with assets
+    steps: 
+    - uses: actions/checkout@v3
+
+    - name: list assets in gdrive 
+      uses: wei/rclone@v1
       with:
-        fetch-depth: 0
-        ssh-key: ${{ secrets.YOUTD2_ASSETS_SSH_PRIVATE_KEY }}
-        submodules: recursive
+        args: lsf -R --filter-from rclone-filter "Assets" | sort > .assets-list
+
+    - name: restore cache
+      uses: actions/cache@v3
+      with:
+        path: Assets
+        key: assets-${{ hashFiles('.assets-list') }}
 
     - name: sync assets from drive via rclone
       uses: wei/rclone@v1
@@ -30,9 +36,20 @@ jobs:
         RCLONE_CONFIG_GDRIVE_ACCESS_KEY_ID: ${{ secrets.RCLONE_GDRIVE_CLIENT_ID }}
         RCLONE_CONFIG_GDRIVE_SECRET_ACCESS_KEY: ${{ secrets.RCLONE_GDRIVE_CLIENT_SECRET }}
 
-    - name: show clonned contents
-      run: |
-        ls -Rll
+    outputs:
+      cache_key: assets-${{ hashFiles('.assets-list') }}
+
+
+  export_game:
+    runs-on: macos-latest
+    needs: cache_repo_with_assets
+    name: export game
+    steps:
+    - name: restore cache
+      uses: actions/cache@v3
+      with:
+        path: Assets
+        key: ${{ needs.cache_repo_with_assets.outputs.cache_key }}
 
     - name: generate version for the build
       id: generate_version
