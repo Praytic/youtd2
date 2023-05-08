@@ -27,6 +27,7 @@ enum CsvProperty {
 	NAME,
 	REQUIRED_WAVE_LEVEL,
 	FREQUENCY,
+	DESCRIPTION,
 }
 
 
@@ -51,6 +52,14 @@ var _properties: Dictionary = {}
 
 func _init():
 	Properties._load_csv_properties(PROPERTIES_PATH, _properties, WaveSpecial.CsvProperty.ID)
+
+	for special in _buff_map.keys():
+		var buff: BuffType = _buff_map[special]
+		var name: String = convert_to_string(special)
+		var description: String = _get_description(special)
+		var tooltip: String = "%s\n%s" % [name, description]
+
+		buff.set_buff_tooltip(tooltip)
 
 
 # TODO: implement correct randomization.
@@ -129,6 +138,12 @@ func _get_frequency(special: int) -> int:
 	var frequency: int = _get_property(special, WaveSpecial.CsvProperty.FREQUENCY).to_int()
 
 	return frequency
+
+
+func _get_description(special: int) -> String:
+	var description: String = _get_property(special, WaveSpecial.CsvProperty.DESCRIPTION)
+
+	return description
 
 
 func _get_property(special: int, property: WaveSpecial.CsvProperty) -> String:

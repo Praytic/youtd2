@@ -8,4 +8,3 @@ func _init(parent: Node):
 	modifier.add_modification(Modification.Type.MOD_EXP_GRANTED, 2.0, 0.0)
 	modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, -1.0, 0.0)
 	set_buff_modifier(modifier)
-	set_buff_tooltip("Ultra Wisdom\nThese creeps grant no bounty and do not drop items but grant 300% experience.")
