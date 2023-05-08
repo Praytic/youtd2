@@ -27,7 +27,7 @@ jobs:
         path: Assets
         key: assets-${{ hashFiles('.assets-list') }}
 
-    - name: sync assets from drive via rclone
+    - name: sync assets from gdrive via rclone
       uses: wei/rclone@v1
       with:
         args: sync --filter-from rclone-filter "gdrive:Assets" "Assets"
