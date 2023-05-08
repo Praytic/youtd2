@@ -49,8 +49,8 @@ jobs:
 
     - name: generate version for the build
       run: |
-        latest_tag=git describe --abbrev=0 --tags
-        short_hash=git rev-parse --short HEAD
+        latest_tag=$(git describe --abbrev=0 --tags)
+        short_hash=$(git rev-parse --short HEAD)
         echo "tag_version=${latest_tag}-${short_hash}" >> $GITHUB_OUTPUT
         echo "commit_ref=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
 
