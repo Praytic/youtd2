@@ -42,7 +42,9 @@ jobs:
       id: upload_repo_with_assets
       uses: actions/upload-artifact@v3
       with:
-        path: ./*
+        path: |
+          ./*
+          !.git/
         name: repo-with-assets
 
     - name: generate version for the build
