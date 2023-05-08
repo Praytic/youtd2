@@ -23,8 +23,6 @@ jobs:
 
     - name: sync assets from drive via rclone
       uses: wei/rclone@v1
-      env:
-        RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
       with:
         args: sync --filter-from rclone-filter "gdrive:Assets" "Assets"
       env:
