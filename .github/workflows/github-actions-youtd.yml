@@ -16,6 +16,11 @@ jobs:
     steps: 
     - uses: actions/checkout@v3
 
+    - name: generate access token with gdrive 
+      uses: wei/rclone@v1
+      with:
+        args: config reconnect "gdrive:"
+
     - name: list assets in gdrive 
       uses: wei/rclone@v1
       with:
