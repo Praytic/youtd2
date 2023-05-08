@@ -21,7 +21,7 @@ jobs:
         ssh-key: ${{ secrets.YOUTD2_ASSETS_SSH_PRIVATE_KEY }}
         submodules: recursive
 
-    - name: sync assets from GDrive via rclone
+    - name: sync assets from drive via rclone
       uses: wei/rclone@v1
       env:
         RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
