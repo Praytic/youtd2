@@ -31,6 +31,13 @@ enum CsvProperty {
 }
 
 
+const _special_count_chances: Dictionary = {
+	0: 50,
+	1: 30,
+	2: 20,
+}
+
+
 var _buff_map: Dictionary = {
 	0: CreepSpeed.new(self),
 	1: CreepGreaterSpeed.new(self),
@@ -55,9 +62,9 @@ func _init():
 
 	for special in _buff_map.keys():
 		var buff: BuffType = _buff_map[special]
-		var name: String = convert_to_string(special)
+		var special_name: String = convert_to_string(special)
 		var description: String = _get_description(special)
-		var tooltip: String = "%s\n%s" % [name, description]
+		var tooltip: String = "%s\n%s" % [special_name, description]
 
 		buff.set_buff_tooltip(tooltip)
 
@@ -66,7 +73,8 @@ func _init():
 func get_random(wave: Wave) -> Array[int]:
 	var random_special_list: Array[int] = []
 	var available_special_list: Array[int] = _get_available_specials(wave)
-	var special_count: int = _get_random_specials_count()
+	var special_count: int = Utils.random_weighted_pick(_special_count_chances)
+
 
 	var special_to_frequency_map: Dictionary = {}
 
@@ -100,16 +108,6 @@ func apply_to_creep(special: int, creep: Creep):
 
 	var buff: BuffType = _buff_map[special]
 	buff.apply_to_unit_permanent(creep, creep, 0)
-
-
-func _get_random_specials_count() -> int:
-	if Utils.rand_chance(0.5):
-		return 0
-	else:
-		if Utils.rand_chance(0.5):
-			return 1
-		else:
-			return 2
 
 
 func _get_available_specials(wave: Wave) -> Array[int]:
