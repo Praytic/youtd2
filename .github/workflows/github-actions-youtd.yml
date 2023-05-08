@@ -15,6 +15,7 @@ jobs:
     name: cache repo with assets
     steps: 
     - uses: actions/checkout@v3
+      fetch-depth: 0
 
     - name: list assets in gdrive 
       uses: wei/rclone@v1
@@ -43,6 +44,13 @@ jobs:
         path: ./*
         name: repo-with-assets
 
+    - name: generate version for the build
+      run: |
+        latest_tag=git describe --abbrev=0 --tags
+        short_hash=git rev-parse --short HEAD
+        echo "tag_version=${latest_tag}-${short_hash}" >> $GITHUB_OUTPUT
+        echo "commit_ref=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
+
   export_game:
     runs-on: macos-latest
     needs: export_assets
@@ -54,20 +62,9 @@ jobs:
         path: ./
         name: repo-with-assets
 
-    - name: generate version for the build
-      id: generate_version
-      run: |
-        latest_tag=$(git describe --abbrev=0 --tags)
-        short_hash=$(git rev-parse --short HEAD)
-        echo "TAG_VERSION: ${latest_tag}-${short_hash}"
-        echo "COMMIT_REF: $GITHUB_REF_NAME"
-        echo "TAG_VERSION=${latest_tag}-${short_hash}" >> $GITHUB_ENV
-        echo "COMMIT_REF=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
-
     - name: release requested check
       run: |
-        if [[ ${{ steps.generate_version.outputs.COMMIT_REF }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
-            echo "COMMIT_REF=${{ steps.generate_version.outputs.COMMIT_REF }}" >> "$GITHUB_ENV"
+        if [[ ${{ needs.export_assets.outputs.commit_ref }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
             echo "NEED=true" >> "$GITHUB_ENV"
             echo 'true'
         else
@@ -78,7 +75,7 @@ jobs:
     - name: update project.godot with new version
       run: |
         project_godot_file="${{ github.workspace }}/project.godot"
-        sed -i '' 's/\(config\/version="\).*\("\)/\1'"${TAG_VERSION}"'\2/' "${project_godot_file}"
+        sed -i '' 's/\(config\/version="\).*\("\)/\1'"${{ needs.export_assets.outputs.tag_version }}"'\2/' "${project_godot_file}"
         echo "New project.godot contents:"
         cat ${{ github.workspace }}/project.godot
 
@@ -127,7 +124,7 @@ jobs:
 
     - uses: actions/upload-artifact@v3
       with:
-        name: youtd-${{ env.TAG_VERSION }}
+        name: youtd-${{ needs.export_assets.outputs.tag_version }}
         path: ${{ steps.export.outputs.archive_directory }}/*.zip
         if-no-files-found: error
 
@@ -139,8 +136,8 @@ jobs:
         publish_dir: ${{ steps.export.outputs.build_directory }}/web
 
     outputs:
-      tag_version: ${{ env.TAG_VERSION }}
-      commit_ref: ${{ env.COMMIT_REF }}
+      tag_version: ${{ needs.export_assets.outputs.tag_version }}
+      commit_ref: ${{ needs.export_assets.outputs.commit_ref }}
       release_flag: ${{ env.NEED }}
 
   upload_artifacts:
