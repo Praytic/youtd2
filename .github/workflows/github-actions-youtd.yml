@@ -16,9 +16,6 @@ jobs:
     steps: 
     - uses: actions/checkout@v3
 
-    - name: get tags
-      run: git fetch --tags origin
-
     - name: list assets in gdrive 
       uses: wei/rclone@v1
       with:
@@ -51,7 +48,7 @@ jobs:
     - name: generate version for the build
       id: version_generation
       run: |
-        latest_tag=$(git describe --abbrev=0 --tags)
+        latest_tag=$(git ls-remote --tags --sort=-v:refname origin | grep -o 'refs/tags/[^^{]*' | sed 's/refs\/tags\///' | head -n 1)
         short_hash=$(git rev-parse --short HEAD)
         echo "tag_version=${latest_tag}-${short_hash}" >> $GITHUB_OUTPUT
         echo "commit_ref=$GITHUB_REF_NAME" >> $GITHUB_OUTPUT
