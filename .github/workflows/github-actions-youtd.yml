@@ -10,13 +10,14 @@ on:
       - v*
 
 jobs:
-  export_assets:
+  setup:
     runs-on: ubuntu-latest
     name: cache repo with assets
     steps: 
     - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+
+    - name: get tags
+      run: git fetch --tags origin
 
     - name: list assets in gdrive 
       uses: wei/rclone@v1
@@ -61,7 +62,7 @@ jobs:
 
   export_game:
     runs-on: macos-latest
-    needs: export_assets
+    needs: setup
     name: export game
     steps:
     - name: download repo with assets
@@ -72,7 +73,7 @@ jobs:
 
     - name: release requested check
       run: |
-        if [[ ${{ needs.export_assets.outputs.commit_ref }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
+        if [[ ${{ needs.setup.outputs.commit_ref }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] ; then
             echo "NEED=true" >> "$GITHUB_ENV"
             echo 'true'
         else
@@ -83,7 +84,7 @@ jobs:
     - name: update project.godot with new version
       run: |
         project_godot_file="${{ github.workspace }}/project.godot"
-        sed -i '' 's/\(config\/version="\).*\("\)/\1'"${{ needs.export_assets.outputs.tag_version }}"'\2/' "${project_godot_file}"
+        sed -i '' 's/\(config\/version="\).*\("\)/\1'"${{ needs.setup.outputs.tag_version }}"'\2/' "${project_godot_file}"
         echo "New project.godot contents:"
         cat ${{ github.workspace }}/project.godot
 
@@ -132,7 +133,7 @@ jobs:
 
     - uses: actions/upload-artifact@v3
       with:
-        name: youtd-${{ needs.export_assets.outputs.tag_version }}
+        name: youtd-${{ needs.setup.outputs.tag_version }}
         path: ${{ steps.export.outputs.archive_directory }}/*.zip
         if-no-files-found: error
 
@@ -144,8 +145,8 @@ jobs:
         publish_dir: ${{ steps.export.outputs.build_directory }}/web
 
     outputs:
-      tag_version: ${{ needs.export_assets.outputs.tag_version }}
-      commit_ref: ${{ needs.export_assets.outputs.commit_ref }}
+      tag_version: ${{ needs.setup.outputs.tag_version }}
+      commit_ref: ${{ needs.setup.outputs.commit_ref }}
       release_flag: ${{ env.NEED }}
 
   upload_artifacts:
