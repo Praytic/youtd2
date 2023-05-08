@@ -182,16 +182,6 @@ jobs:
       web_artifact: ${{ steps.rename_artifacts.outputs.web_artifact }}
       windows_artifact: ${{ steps.rename_artifacts.outputs.windows_artifact }}
 
-  clean_up_artifacts:
-    needs: [export_game]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: geekyeggo/delete-artifact@v2
-        with:
-          name: |
-            youtd-${{ needs.export_game.outputs.tag_version }}
-            repo-with-assets
-
   create_release:
     name: create release
     needs: [upload_artifacts, export_game]
@@ -219,3 +209,13 @@ jobs:
           tag: ${{ needs.export_game.outputs.commit_ref }}
           generateReleaseNotes: true
           artifacts: ./**/*.zip
+
+  clean_up_artifacts:
+    needs: [create_release, export_game]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: geekyeggo/delete-artifact@v2
+        with:
+          name: |
+            youtd-${{ needs.export_game.outputs.tag_version }}
+            repo-with-assets
