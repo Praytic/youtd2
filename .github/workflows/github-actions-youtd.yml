@@ -36,20 +36,21 @@ jobs:
         RCLONE_CONFIG_GDRIVE_ACCESS_KEY_ID: ${{ secrets.RCLONE_GDRIVE_CLIENT_ID }}
         RCLONE_CONFIG_GDRIVE_SECRET_ACCESS_KEY: ${{ secrets.RCLONE_GDRIVE_CLIENT_SECRET }}
 
-    outputs:
-      cache_key: assets-${{ hashFiles('.assets-list') }}
-
+    - name: upload repo with assets
+      id: upload_repo_with_assets
+      uses: actions/upload-artifact@v3
+      with:
+        name: repo-with-assets
 
   export_game:
     runs-on: macos-latest
-    needs: cache_repo_with_assets
+    needs: export_assets
     name: export game
     steps:
-    - name: restore cache
-      uses: actions/cache@v3
+    - name: download repo with assets
+      uses: actions/download-artifact@v3
       with:
-        path: Assets
-        key: ${{ needs.cache_repo_with_assets.outputs.cache_key }}
+        name: repo-with-assets
 
     - name: generate version for the build
       id: generate_version
@@ -173,34 +174,40 @@ jobs:
       web_artifact: ${{ steps.rename_artifacts.outputs.web_artifact }}
       windows_artifact: ${{ steps.rename_artifacts.outputs.windows_artifact }}
 
+  clean_up_artifacts:
+    needs: [export_game]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: geekyeggo/delete-artifact@v2
+        with:
+          name: |
+            youtd-${{ needs.export_game.outputs.tag_version }}
+            repo-with-assets
+
   create_release:
-      name: create release
-      needs: [upload_artifacts, export_game]
-      if: needs.export_game.outputs.release_flag == 'true'
-      runs-on: ubuntu-latest
-      steps:
-        - name: show props
-          run: |
-            echo "Commit ref: $GITHUB_REF_NAME"
-            echo "Release tag: ${{ needs.export_game.outputs.commit_ref }}"
-        
-        - uses: geekyeggo/delete-artifact@v2
-          with:
-            name: youtd-${{ needs.export_game.outputs.tag_version }}
+    name: create release
+    needs: [upload_artifacts, export_game]
+    if: needs.export_game.outputs.release_flag == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: show props
+        run: |
+          echo "Commit ref: $GITHUB_REF_NAME"
+          echo "Release tag: ${{ needs.export_game.outputs.commit_ref }}"
 
-        - name: download artifacts
-          uses: actions/download-artifact@v3
-          with:
-            path: .
-            
-        - name: display structure of downloaded files
-          run: ls -R
-          working-directory: .
+      - name: download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: .
+          
+      - name: display structure of downloaded files
+        run: ls -R
+        working-directory: .
 
-        - name: release client
-          uses: ncipollo/release-action@v1.11.2
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            tag: ${{ needs.export_game.outputs.commit_ref }}
-            generateReleaseNotes: true
-            artifacts: ./**/*.zip
+      - name: release client
+        uses: ncipollo/release-action@v1.11.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ needs.export_game.outputs.commit_ref }}
+          generateReleaseNotes: true
+          artifacts: ./**/*.zip
