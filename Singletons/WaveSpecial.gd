@@ -59,12 +59,18 @@ func get_random(wave: Wave) -> Array[int]:
 	var available_special_list: Array[int] = _get_available_specials(wave)
 	var special_count: int = _get_random_specials_count()
 
+	var special_to_frequency_map: Dictionary = {}
+
+	for special in available_special_list:
+		var frequency: int = _get_frequency(special)
+		special_to_frequency_map[special] = frequency
+
 	for _i in range(0, special_count):
 		if available_special_list.is_empty():
 			break
 
-		var random_index: int = randi_range(0, available_special_list.size() - 1)
-		var random_special: int = available_special_list.pop_at(random_index)
+		var random_special: int = Utils.random_weighted_pick(special_to_frequency_map)
+		special_to_frequency_map.erase(random_special)
 
 		random_special_list.append(random_special)
 	

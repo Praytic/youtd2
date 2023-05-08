@@ -7,6 +7,50 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+# Accepts a map of elements to weights and returns a random
+# element. For example:
+# { "a": 10, "b": 20, "c": 70 }
+# will result in 10% a, 20% b, 70% c.
+# Note that weights don't have to add up to 100!
+# { "a": 1, "b": 2}
+# Will result in 1/3 a, 2/3 b.
+func random_weighted_pick(element_to_weight_map: Dictionary) -> Variant:
+	if element_to_weight_map.is_empty():
+		push_error("Argument is empty")
+
+		return null
+
+	var pair_list: Array = []
+
+	for element in element_to_weight_map.keys():
+		var weight: int = element_to_weight_map[element]
+		var pair: Array = [element, weight]
+
+		pair_list.append(pair)
+
+	var weight_total: float = 0
+
+	for pair in pair_list:
+		var weight: float = pair[1]
+		weight_total += weight
+
+	for i in range(1, pair_list.size()):
+		pair_list[i][1] += pair_list[i - 1][1]
+
+	var k: float = randf_range(0, weight_total)
+
+	for pair in pair_list:
+		var element: Variant = pair[0]
+		var weight: float = pair[1]
+
+		if k <= weight:
+			return element
+
+	push_error("Failed to generate random element")
+
+	return element_to_weight_map.keys()[0]
+
+
 # This f-n simulates getUID() f-n from JASS. Used to check
 # if unit references saved before tower script splits are
 # still valid after sleep is over.
