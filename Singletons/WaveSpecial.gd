@@ -6,7 +6,6 @@ extends Node
 
 
 enum enm {
-	NONE,
 	SPEED,
 	GREATER_SPEED,
 	XTREME_SPEED,
@@ -23,7 +22,6 @@ enum enm {
 
 
 var _buff_map: Dictionary = {
-	WaveSpecial.enm.NONE: null,
 	WaveSpecial.enm.SPEED: CreepSpeed.new(self),
 	WaveSpecial.enm.GREATER_SPEED: CreepGreaterSpeed.new(self),
 	WaveSpecial.enm.XTREME_SPEED: CreepXtremeSpeed.new(self),
@@ -39,7 +37,6 @@ var _buff_map: Dictionary = {
 }
 
 var _required_level_map: Dictionary = {
-	WaveSpecial.enm.NONE: 0,
 	WaveSpecial.enm.SPEED: 0,
 	WaveSpecial.enm.GREATER_SPEED: 16,
 	WaveSpecial.enm.XTREME_SPEED: 24,
@@ -55,7 +52,6 @@ var _required_level_map: Dictionary = {
 }
 
 var _string_map: Dictionary = {
-	WaveSpecial.enm.NONE: "",
 	WaveSpecial.enm.SPEED: "Speed",
 	WaveSpecial.enm.GREATER_SPEED: "Greater Speed",
 	WaveSpecial.enm.XTREME_SPEED: "Xtreme Speed",
@@ -81,28 +77,21 @@ func _init():
 
 
 # TODO: implement correct randomization.
-func get_random(wave: Wave) -> WaveSpecial.enm:
-	var all_special_list: Array = WaveSpecial.enm.values()
-	var special_list: Array = []
+func get_random(wave: Wave) -> Array[int]:
+	var random_special_list: Array[int] = []
+	var available_special_list: Array[int] = _get_available_specials(wave)
+	var special_count: int = _get_random_specials_count()
 
-	var wave_level: int = wave.get_wave_number()
+	for _i in range(0, special_count):
+		if available_special_list.is_empty():
+			break
 
-	for special in all_special_list:
-		var required_level: int = _required_level_map.get(special, 0)
-		var is_available: bool = wave_level >= required_level
+		var random_index: int = randi_range(0, available_special_list.size() - 1)
+		var random_special: WaveSpecial.enm = available_special_list.pop_at(random_index)
 
-		if is_available:
-			special_list.append(special)
-
-	if special_list.is_empty():
-		push_error("No specials are available")
-
-		return WaveSpecial.enm.NONE
-
-	var random_index: int = randi_range(0, special_list.size() - 1)
-	var random_special: WaveSpecial.enm = special_list[random_index]
-
-	return random_special
+		random_special_list.append(random_special)
+	
+	return random_special_list
 
 
 func convert_to_string(special: WaveSpecial.enm) -> String:
@@ -116,3 +105,29 @@ func apply_to_creep(special: WaveSpecial.enm, creep: Creep):
 
 	if buff != null:
 		buff.apply_to_unit_permanent(creep, creep, 0)
+
+
+func _get_random_specials_count() -> int:
+	if Utils.rand_chance(0.5):
+		return 0
+	else:
+		if Utils.rand_chance(0.5):
+			return 1
+		else:
+			return 2
+
+
+func _get_available_specials(wave: Wave) -> Array[int]:
+	var all_special_list: Array = WaveSpecial.enm.values()
+	var available_special_list: Array[int] = []
+
+	var wave_level: int = wave.get_wave_number()
+
+	for special in all_special_list:
+		var required_level: int = _required_level_map.get(special, 0)
+		var is_available: bool = wave_level >= required_level
+
+		if is_available:
+			available_special_list.append(special)
+
+	return available_special_list

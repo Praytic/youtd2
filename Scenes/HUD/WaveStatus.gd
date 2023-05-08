@@ -57,10 +57,9 @@ func _update_text():
 		var race_String: String = CreepCategory.convert_to_colored_string(wave.get_race())
 		var size_string: String = _get_size_combination_string(wave)
 		var armor_string: String = ArmorType.convert_to_colored_string(wave.get_armor_type())
-		var wave_special: WaveSpecial.enm = wave.get_special()
-		var special_string: String = WaveSpecial.convert_to_string(wave_special)
+		var specials_string: String = _get_specials_string(wave)
 
-		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_String, armor_string, special_string]
+		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_String, armor_string, specials_string]
 	
 	text += "[/table]"
 
@@ -108,3 +107,16 @@ func _get_size_combination_string(wave: Wave) -> String:
 
 func _on_all_waves_started():
 	_start_next_wave_button.disabled = true
+
+
+func _get_specials_string(wave: Wave) -> String:
+	var special_list: Array[int] = wave.get_specials()
+	var string_list: Array[String] = []
+
+	for special in special_list:
+		var string: String = WaveSpecial.convert_to_string(special)
+		string_list.append(string)
+
+	var specials_string: String = ", ".join(string_list)
+
+	return specials_string
