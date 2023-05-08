@@ -40,6 +40,7 @@ jobs:
       id: upload_repo_with_assets
       uses: actions/upload-artifact@v3
       with:
+        path: ./*
         name: repo-with-assets
 
   export_game:
@@ -50,6 +51,7 @@ jobs:
     - name: download repo with assets
       uses: actions/download-artifact@v3
       with:
+        path: ./
         name: repo-with-assets
 
     - name: generate version for the build
