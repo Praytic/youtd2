@@ -23,9 +23,10 @@ enum enm {
 }
 
 enum CsvProperty {
-	ID = 0,
-	NAME = 1,
-	REQUIRED_WAVE_LEVEL = 2,
+	ID,
+	NAME,
+	REQUIRED_WAVE_LEVEL,
+	FREQUENCY,
 }
 
 
@@ -116,6 +117,12 @@ func _get_required_wave_level(special: int) -> int:
 	var level: int = _get_property(special, WaveSpecial.CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
 
 	return level
+
+
+func _get_frequency(special: int) -> int:
+	var frequency: int = _get_property(special, WaveSpecial.CsvProperty.FREQUENCY).to_int()
+
+	return frequency
 
 
 func _get_property(special: int, property: WaveSpecial.CsvProperty) -> String:
