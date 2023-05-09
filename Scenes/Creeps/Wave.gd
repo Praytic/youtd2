@@ -31,7 +31,7 @@ var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
 #var _modifications: Array[Modification]
 var state: int = Wave.State.PENDING
 var next_wave: Wave
-var _special: WaveSpecial.enm = WaveSpecial.enm.NONE
+var _specials: Array[int] = []
 
 #########################
 ### Code starts here  ###
@@ -178,12 +178,12 @@ func set_race(value: CreepCategory.enm):
 	_race = value
 
 
-func set_special(special: WaveSpecial.enm):
-	_special = special
+func set_specials(specials: Array[int]):
+	_specials = specials
 
 
-func get_special() -> WaveSpecial.enm:
-	return _special
+func get_specials() -> Array[int]:
+	return _specials
 
 
 func get_race() -> int:

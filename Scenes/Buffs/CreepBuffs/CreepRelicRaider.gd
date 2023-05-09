@@ -8,4 +8,3 @@ func _init(parent: Node):
 	modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.8, 0.0)
 	modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.3, 0.0)
 	set_buff_modifier(modifier)
-	set_buff_tooltip("Relic Raider\nThese creeps grant only 50% bounty but have an 80% increased item drop chance and +30% item quality.")

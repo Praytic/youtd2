@@ -44,8 +44,8 @@ func _ready():
 		wave.set_armor_type(wave_armor)
 		wave.set_wave_path(_get_wave_path(0, wave))
 		
-		var wave_special: WaveSpecial.enm = WaveSpecial.get_random(wave)
-		wave.set_special(wave_special)
+		var wave_specials: Array[int] = WaveSpecial.get_random(wave)
+		wave.set_specials(wave_specials)
 
 		var creep_combination = []
 		for creep_size in wave.get_creeps_combination():

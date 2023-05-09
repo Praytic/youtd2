@@ -8,4 +8,3 @@ func _init(parent: Node):
 	modifier.add_modification(Modification.Type.MOD_ARMOR_PERC, 4.0, 0.0)
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, -0.25, 0.0)
 	set_buff_modifier(modifier)
-	set_buff_tooltip("Xtreme Armor\nThese creeps have extremely high armor but 25% decreased movement speed.")
