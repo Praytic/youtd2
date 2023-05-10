@@ -1029,6 +1029,10 @@ func is_invisible() -> bool:
 func is_silenced() -> bool:
 	return _silence_count > 0
 
+# NOTE: overriden in Tower subclass
+func is_in_combat() -> bool:
+	return false
+
 func get_buff_of_type(buff_type: BuffType) -> Buff:
 	var type: String = buff_type.get_type()
 	var buff = _buff_type_map.get(type, null)

@@ -16,15 +16,20 @@ extends Node
 # AC_TYPE_OFFENSIVE_UNIT - performs an autocast when tower
 # attacks.
 # 
-# AC_TYPE_ALWAYS_BUFF - performs an autocast on targets in
-# range that don't already have the buff_type. Note that the
-# autocast doesn't apply the buff automatically, autocast
-# handler should apply the buff.
+# AC_TYPE_OFFENSIVE_BUFF - while tower is attacking,
+# performs an autocast on targets in range that don't
+# already have the buff_type. Note that the autocast doesn't
+# apply the buff automatically, autocast handler should
+# apply the buff.
+#
+# AC_TYPE_ALWAYS_BUFF - same as AC_TYPE_OFFENSIVE_BUFF, but
+# casts always, event while tower is not attacking.
 
 
 enum Type {
 	AC_TYPE_OFFENSIVE_UNIT,
-	AC_TYPE_ALWAYS_BUFF
+	AC_TYPE_ALWAYS_BUFF,
+	AC_TYPE_OFFENSIVE_BUFF
 }
 
 
@@ -48,7 +53,7 @@ var handler: Callable = Callable()
 var _caster: Unit = null
 
 @onready var _cooldown_timer: Timer = $CooldownTimer
-@onready var _always_buff_timer: Timer = $AlwaysBuffTimer
+@onready var _buff_timer: Timer = $BuffTimer
 
 
 static func make() -> Autocast:
@@ -68,7 +73,9 @@ func _ready():
 		Type.AC_TYPE_OFFENSIVE_UNIT:
 			_caster.attack.connect(_on_caster_attack)
 		Type.AC_TYPE_ALWAYS_BUFF:
-			_always_buff_timer.start()
+			_buff_timer.start()
+		Type.AC_TYPE_OFFENSIVE_BUFF:
+			_buff_timer.start()
 
 
 func set_caster(caster: Unit):
@@ -111,8 +118,11 @@ func _on_caster_attack(attack_event: Event):
 	_cooldown_timer.start()
 
 
-func _on_always_buff_timer_timeout():
+func _on_buff_timer_timeout():
 	if !_can_cast():
+		return
+
+	if autocast_type == Type.AC_TYPE_OFFENSIVE_BUFF && !_caster.is_attacking():
 		return
 
 	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.position, auto_range)

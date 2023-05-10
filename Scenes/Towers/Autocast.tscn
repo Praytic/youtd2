@@ -8,7 +8,7 @@ script = ExtResource("1")
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="AlwaysBuffTimer" type="Timer" parent="."]
+[node name="BuffTimer" type="Timer" parent="."]
 wait_time = 0.2
 
-[connection signal="timeout" from="AlwaysBuffTimer" to="." method="_on_always_buff_timer_timeout"]
+[connection signal="timeout" from="BuffTimer" to="." method="_on_always_buff_timer_timeout"]

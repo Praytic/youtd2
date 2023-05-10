@@ -184,6 +184,13 @@ func _process(delta: float):
 #########################
 
 
+# Tower is attacking while it has valid targets in range.
+func is_attacking() -> bool:
+	var attacking: bool = !_target_list.is_empty()
+
+	return attacking
+
+
 # Returns number of crits for current attack. Only valid in
 # attack and damage event handlers.
 func get_number_of_crits() -> int:
