@@ -10,7 +10,7 @@ func _init(parent: Node):
 
 	cb_silence = CbSilence.new("cb_silence", 0, 0, false, self)
 
-	add_periodic_event(on_periodic, 5.0)
+	add_event_on_create(on_create)
 
 	slow_aura_effect = BuffType.create_aura_effect_type("creep_slow_aura_effect", false, self)
 	var modifier: Modifier = Modifier.new()
@@ -19,9 +19,29 @@ func _init(parent: Node):
 	slow_aura_effect.set_buff_tooltip("Drain gang\nThis tower's mana is being drained by a nearby creep. It's mana regeneration is decreased by 200%.")
 
 
-func on_periodic(event: Event):
+func on_create(event: Event):
+	var autocast: Autocast = Autocast.make()
+	autocast.caster_art = ""
+	autocast.num_buffs_before_idle = 0
+	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
+	autocast.cast_range = 1200
+	autocast.target_self = false
+	autocast.target_art = ""
+	autocast.cooldown = 5
+	autocast.is_extended = false
+	autocast.mana_cost = 20
+	autocast.buff_type = null
+	autocast.target_type = null
+	autocast.auto_range = 0
+	autocast.handler = on_autocast
+
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
+	creep.add_autocast(autocast)
+
+
+func on_autocast(event: Event):
+	var creep: Unit = event.get_target()
 
 	var I: Iterate = Iterate.over_units_in_range_of_caster(creep, TargetType.new(TargetType.TOWERS), 1100.0)
 
@@ -35,16 +55,13 @@ func on_periodic(event: Event):
 
 		var creep_mana_before: float = Unit.get_unit_state(creep, Unit.State.MANA)
 
-		if creep_mana_before < 50:
-			break
-
 		if zap_count >= 3:
 			break
 
 		var tower_mana_before: float = Unit.get_unit_state(tower, Unit.State.MANA)
 		var stolen_mana: float = tower_mana_before * 0.3
 
-		var creep_mana_after: float = creep_mana_before - 50 + stolen_mana
+		var creep_mana_after: float = creep_mana_before + stolen_mana
 		Unit.set_unit_state(creep, Unit.State.MANA, creep_mana_after)
 
 		var tower_mana_after: float = tower_mana_before - stolen_mana
