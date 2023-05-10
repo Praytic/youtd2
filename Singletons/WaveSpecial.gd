@@ -25,6 +25,7 @@ enum enm {
 enum CsvProperty {
 	ID,
 	NAME,
+	HP_MODIFIER,
 	REQUIRED_WAVE_LEVEL,
 	FREQUENCY,
 	DESCRIPTION,
@@ -120,6 +121,9 @@ func apply_to_creep(special: int, creep: Creep):
 
 		return
 
+	var hp_modifier: float = _get_hp_modifier(special)
+	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
+
 	var buff: BuffType = _buff_map[special]
 	buff.apply_to_unit_permanent(creep, creep, 0)
 
@@ -156,6 +160,12 @@ func _get_description(special: int) -> String:
 	var description: String = _get_property(special, WaveSpecial.CsvProperty.DESCRIPTION)
 
 	return description
+
+
+func _get_hp_modifier(special: int) -> float:
+	var hp_modifier: float = _get_property(special, WaveSpecial.CsvProperty.HP_MODIFIER).to_float()
+
+	return hp_modifier
 
 
 func _get_property(special: int, property: WaveSpecial.CsvProperty) -> String:

@@ -92,6 +92,11 @@ var _invisible_watcher_count: int = 0
 ### Code starts here  ###
 #########################
 
+
+# TODO: some mods start from 0.0, others from 1.0.
+# If MOD_HP_PERC=0.3, that means that health is increased by 30%.
+# If MOD_DMG_FROM_ASTRAL=0.3, that means dmg from astral is decreased by 70%.
+# Need to figure out which standard we want to use and stick to one.
 func _init():
 	for mod_type in Modification.Type.values():
 		_mod_value_map[mod_type] = 0.0

@@ -1,24 +1,24 @@
-id,name,required wave level,frequency,description
-0,Speed,0,100,These creeps have 25% increased movement speed
-1,Greater Speed,16,80,These creeps have 60% increased movement speed
-2,Xtreme Speed,24,60,These creeps always move at maximum speed
-3,Slow,32,80,These creeps have only 66% of their normal movespeed
-4,Invisible,0,130,Your builder and some towers are able to see invisible units
-5,Strong,16,100,"These creeps have 20% more HP, but grant 50% more exp and 25% more bounty"
-6,Rich,0,100,These creeps grant 60% more bounty but no experience
-7,Relic Raider,0,100,These creeps grant only 50% bounty but have an 80% increased item drop chance and +30% item quality
-8,Ultra Wisdom,0,100,These creeps give no bounty and do not drop items but grant 300% experience
-9,Armored,0,100,These creeps have increased armor
-10,Heavy Armored,16,100,These creeps have greatly increased armor
-11,Xtreme Armor,32,80,These creeps have extremely high armor but 25% decreased movement speed
-12,Evasion,16,140,These creeps evade 25% of all attacks
-13,Xtreme Evasion,40,110,These creeps evade 66% of all attack
-14,Ghost,64,140,These creeps have a 90% chance to ignore the damage of a non-spell non-magic attack
-15,Spell Resistance,8,130,These creeps receive -50% damage from spells
-16,Greater Spell Resistance,24,130,These creeps receive -80% damage from spells
-17,Magic Immunity,24,180,"As long as these creeps have at least 10 mana, they are immune to all spell damage, magic attacks and targetable active abilities"
-18,Ethereal,24,200,"These creeps periodically become ethereal, gaining immunity against physical attacks, but taking 40% more damage from magic attacks and spells"
-19,Slow Aura,24,150,These creeps slow the attackspeed of towers in 800 range by 50%
-20,Mana Drain Aura,32,150,These creeps decrease the mana regeneration of towers in 1200 range by 200%
-21,Spellbinder,48,120,"These creeps zap up to 3 mana-using towers in 1100 range every 5 seconds, stealing up to 30% of each tower's mana and silencing it for 5 seconds. Costs the creep 50 mana per zap."
-22,Stun Revenge,32,100,"Whenever attacked, these creeps have a 30% chance to stun the attacker for 3 seconds"
+id,name,hp modifier,required wave level,frequency,description
+0,Speed,-0.2,0,100,These creeps have 25% increased movement speed
+1,Greater Speed,-0.33,16,80,These creeps have 60% increased movement speed
+2,Xtreme Speed,-0.3,24,60,These creeps always move at maximum speed
+3,Slow,0.35,32,80,These creeps have only 66% of their normal movespeed
+4,Invisible,-0.075,0,130,Your builder and some towers are able to see invisible units
+5,Strong,0.2,16,100,"These creeps have 20% more HP, but grant 50% more exp and 25% more bounty"
+6,Rich,0,0,100,These creeps grant 60% more bounty but no experience
+7,Relic Raider,0,0,100,These creeps grant only 50% bounty but have an 80% increased item drop chance and +30% item quality
+8,Ultra Wisdom,0,0,100,These creeps give no bounty and do not drop items but grant 300% experience
+9,Armored,-0.25,0,100,These creeps have increased armor
+10,Heavy Armored,-0.35,16,100,These creeps have greatly increased armor
+11,Xtreme Armor,-0.67,32,80,These creeps have extremely high armor but 25% decreased movement speed
+12,Evasion,-0.2,16,140,These creeps evade 25% of all attacks
+13,Xtreme Evasion,-0.65,40,110,These creeps evade 66% of all attack
+14,Ghost,-0.77,64,140,These creeps have a 90% chance to ignore the damage of a non-spell non-magic attack
+15,Spell Resistance,-0.12,8,130,These creeps receive -50% damage from spells
+16,Greater Spell Resistance,-0.36,24,130,These creeps receive -80% damage from spells
+17,Magic Immunity,-0.36,24,180,"As long as these creeps have at least 10 mana, they are immune to all spell damage, magic attacks and targetable active abilities"
+18,Ethereal,-0.52,24,200,"These creeps periodically become ethereal, gaining immunity against physical attacks, but taking 40% more damage from magic attacks and spells"
+19,Slow Aura,-0.4,24,150,These creeps slow the attackspeed of towers in 800 range by 50%
+20,Mana Drain Aura,-0.2,32,150,These creeps decrease the mana regeneration of towers in 1200 range by 200%
+21,Spellbinder,-0.2,48,120,"These creeps zap up to 3 mana-using towers in 1100 range every 5 seconds, stealing up to 30% of each tower's mana and silencing it for 5 seconds. Costs the creep 50 mana per zap."
+22,Stun Revenge,-0.57,32,100,"Whenever attacked, these creeps have a 30% chance to stun the attacker for 3 seconds"
