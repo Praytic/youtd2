@@ -203,16 +203,6 @@ func set_visual_only():
 	_visual_only = true
 
 
-func add_autocast(autocast: Autocast):
-	autocast.set_caster(self)
-	add_child(autocast)
-
-
-func add_aura(aura_type: AuraType):
-	var aura: Aura = aura_type.make(self)
-	add_child(aura)
-
-
 func have_item_space() -> bool:
 	var item_count: int = _item_list.size()
 	var have_space: bool = item_count < ITEM_COUNT_MAX

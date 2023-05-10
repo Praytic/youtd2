@@ -26,7 +26,8 @@ extends Node
 # casts always, event while tower is not attacking.
 #
 # AC_TYPE_OFFENSIVE_IMMEDIATE - while tower is attacking,
-# performs an autocast without a target.
+# performs an autocast without a target. Parameters like
+# range and target type are not used.
 
 
 enum Type {

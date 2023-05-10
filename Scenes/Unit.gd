@@ -187,6 +187,15 @@ func _ready():
 ###       Public      ###
 #########################
 
+func add_autocast(autocast: Autocast):
+	autocast.set_caster(self)
+	add_child(autocast)
+
+
+func add_aura(aura_type: AuraType):
+	var aura: Aura = aura_type.make(self)
+	add_child(aura)
+
 
 # NOTE: for now just returning the one single player
 # instance since multiplayer isn't implemented.
@@ -1029,8 +1038,8 @@ func is_invisible() -> bool:
 func is_silenced() -> bool:
 	return _silence_count > 0
 
-# NOTE: overriden in Tower subclass
-func is_in_combat() -> bool:
+# NOTE: overriden in Tower and Creep subclasses
+func is_attacking() -> bool:
 	return false
 
 func get_buff_of_type(buff_type: BuffType) -> Buff:

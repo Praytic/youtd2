@@ -79,6 +79,12 @@ func _process(delta):
 ###       Public      ###
 #########################
 
+# NOTE: creeps are always considered to be attacking for the
+# purposes of their autocasts.
+func is_attacking() -> bool:
+	return true
+
+
 func adjust_height(height_wc3: float, speed: float):
 # 	NOTE: divide by two because in isometric world vertical
 # 	axis is squished
