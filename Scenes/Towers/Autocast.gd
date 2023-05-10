@@ -24,12 +24,16 @@ extends Node
 #
 # AC_TYPE_ALWAYS_BUFF - same as AC_TYPE_OFFENSIVE_BUFF, but
 # casts always, event while tower is not attacking.
+#
+# AC_TYPE_OFFENSIVE_IMMEDIATE - while tower is attacking,
+# performs an autocast without a target.
 
 
 enum Type {
-	AC_TYPE_OFFENSIVE_UNIT,
 	AC_TYPE_ALWAYS_BUFF,
-	AC_TYPE_OFFENSIVE_BUFF
+	AC_TYPE_OFFENSIVE_BUFF,
+	AC_TYPE_OFFENSIVE_UNIT,
+	AC_TYPE_OFFENSIVE_IMMEDIATE
 }
 
 
@@ -54,6 +58,7 @@ var _caster: Unit = null
 
 @onready var _cooldown_timer: Timer = $CooldownTimer
 @onready var _buff_timer: Timer = $BuffTimer
+@onready var _immediate_timer: Timer = $ImmediateTimer
 
 
 static func make() -> Autocast:
@@ -76,6 +81,8 @@ func _ready():
 			_buff_timer.start()
 		Type.AC_TYPE_OFFENSIVE_BUFF:
 			_buff_timer.start()
+		Type.AC_TYPE_OFFENSIVE_IMMEDIATE:
+			_immediate_timer.start()
 
 
 func set_caster(caster: Unit):
@@ -146,6 +153,21 @@ func _on_buff_timer_timeout():
 
 	var autocast_event = Event.new(target)
 	handler.call(autocast_event)
+
+
+func _on_immediate_timer_timeout():
+	if !_can_cast():
+		return
+
+	if !_caster.is_attacking():
+		return
+
+	_caster.spend_mana(mana_cost)
+
+	var autocast_event = Event.new(_caster)
+	handler.call(autocast_event)
+
+	_cooldown_timer.start()
 
 
 func _can_cast() -> bool:
