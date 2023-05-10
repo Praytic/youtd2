@@ -74,6 +74,7 @@ var _dealt_damage_signal_in_progress: bool = false
 var _kill_count: int = 0
 var _best_hit: float = 0.0
 var _damage_dealt_total: float = 0.0
+var _silence_count: int = 0
 
 var _selection_visual: Node = null
 
@@ -451,6 +452,18 @@ func remove_invisible_watcher():
 
 	if is_invisible():
 		became_invisible.emit()
+
+
+# TODO: silence visual. When silence_count changes from 0 to
+# 1, create it and schedule to destroy it once animation
+# finishes. Idea for how it should look:
+# https://youtu.be/zUCL-_6YOT8?t=46
+func add_silence():
+	_silence_count += 1
+
+
+func remove_silence():
+	_silence_count -= 1
 
 
 func spend_mana(mana_cost: float):
@@ -1007,6 +1020,9 @@ func get_level() -> int:
 
 func is_invisible() -> bool:
 	return _invisible && _invisible_watcher_count == 0
+
+func is_silenced() -> bool:
+	return _silence_count > 0
 
 func get_buff_of_type(buff_type: BuffType) -> Buff:
 	var type: String = buff_type.get_type()

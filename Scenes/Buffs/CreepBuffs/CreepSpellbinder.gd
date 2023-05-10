@@ -1,15 +1,14 @@
 class_name CreepSpellbinder extends BuffType
 
-# TODO: implement cb_silence buff then uncomment code here that uses it
 
 var slow_aura_effect: BuffType
-# var cb_silence: BuffType
+var cb_silence: BuffType
 
 
 func _init(parent: Node):
 	super("creep_spellbinder", 0, 0, true, parent)
 
-	# cb_silence = CbSilence.new("cb_silence", 0, 0, false, self)
+	cb_silence = CbSilence.new("cb_silence", 0, 0, false, self)
 
 	add_periodic_event(on_periodic, 5.0)
 
@@ -51,6 +50,6 @@ func on_periodic(event: Event):
 		var tower_mana_after: float = tower_mana_before - stolen_mana
 		Unit.set_unit_state(tower, Unit.State.MANA, tower_mana_after)
 
-		# cb_silence.apply_only_timed(creep, tower, 5.0) 
+		cb_silence.apply_only_timed(creep, tower, 5.0) 
 
 		zap_count += 1

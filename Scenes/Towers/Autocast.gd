@@ -141,6 +141,7 @@ func _on_always_buff_timer_timeout():
 func _can_cast() -> bool:
 	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
-	var can_cast: bool = !on_cooldown && enough_mana
+	var silenced: bool = _caster.is_silenced()
+	var can_cast: bool = !on_cooldown && enough_mana && !silenced
 
 	return can_cast
