@@ -54,6 +54,17 @@ var _buff_map: Dictionary = {
 	9: CreepArmored.new(self),
 	10: CreepHeavyArmored.new(self),
 	11: CreepXtremeArmor.new(self),
+	12:	CreepEvasion.new(self),
+	13:	CreepXtremeEvasion.new(self),
+	14:	CreepGhost.new(self),
+	15:	CreepSpellResistance.new(self),
+	16:	CreepGreaterSpellResistance.new(self),
+	17:	CreepMagicImmunity.new(self),
+	18:	CreepEthereal.new(self),
+	19: CreepSlowAura.new(self),
+	20: CreepManaDrainAura.new(self),
+	21: CreepSpellbinder.new(self),
+	22: CreepStunRevenge.new(self),
 }
 
 
