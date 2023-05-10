@@ -167,6 +167,9 @@ func _process(delta: float):
 	if _visual_only:
 		return
 
+	if is_stunned():
+		return
+
 	if _current_attack_cooldown > 0.0:
 		_current_attack_cooldown -= delta
 

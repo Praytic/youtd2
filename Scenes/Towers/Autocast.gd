@@ -175,6 +175,7 @@ func _can_cast() -> bool:
 	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 	var silenced: bool = _caster.is_silenced()
-	var can_cast: bool = !on_cooldown && enough_mana && !silenced
+	var stunned: bool = _caster.is_stunned()
+	var can_cast: bool = !on_cooldown && enough_mana && !silenced && !stunned
 
 	return can_cast

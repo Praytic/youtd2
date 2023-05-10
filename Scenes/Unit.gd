@@ -75,6 +75,7 @@ var _kill_count: int = 0
 var _best_hit: float = 0.0
 var _damage_dealt_total: float = 0.0
 var _silence_count: int = 0
+var _stunned: bool = false
 
 var _selection_visual: Node = null
 
@@ -478,6 +479,10 @@ func add_silence():
 
 func remove_silence():
 	_silence_count -= 1
+
+
+func set_stunned(value: bool):
+	_stunned = value
 
 
 func spend_mana(mana_cost: float):
@@ -1037,6 +1042,9 @@ func is_invisible() -> bool:
 
 func is_silenced() -> bool:
 	return _silence_count > 0
+
+func is_stunned() -> bool:
+	return _stunned
 
 # NOTE: overriden in Tower and Creep subclasses
 func is_attacking() -> bool:

@@ -22,7 +22,6 @@ var _size: CreepSize.enm
 var _category: CreepCategory.enm : set = set_category, get = get_category
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _current_path_index: int = 0
-var movement_enabled: bool = true 
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
 var _corpse_scene: PackedScene = preload("res://Scenes/Creeps/CreepCorpse.tscn")
@@ -64,7 +63,7 @@ func _ready():
 
 
 func _process(delta):
-	if movement_enabled:
+	if !is_stunned():
 		_move(delta)
 
 	var creep_animation: String = _get_creep_animation()
