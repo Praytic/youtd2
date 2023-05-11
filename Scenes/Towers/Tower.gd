@@ -578,7 +578,8 @@ func _remove_target(target: Creep):
 
 
 func _on_mana_changed():
-	_mana_bar.set_as_ratio(_mana / get_base_mana())
+	var mana_ratio: float = get_mana_ratio()
+	_mana_bar.ratio = mana_ratio
 
 
 func _on_projectile_target_hit(projectile: Projectile, target: Unit):
@@ -802,10 +803,12 @@ func get_current_attack_damage() -> float:
 
 	return damage
 
+# TODO: look into this more. Can white damage bonus be
+# negative? What about green damage bonus.
 func get_current_attack_damage_with_bonus() -> float:
 	var damage_base: float = get_current_attack_damage()
-	var white_damage: float = (damage_base + get_base_damage_bonus()) * (1.0 + get_base_damage_bonus_percent())
-	var green_damage: float = get_damage_add() * (1.0 + get_damage_add_percent())
+	var white_damage: float = max(0, (damage_base + get_base_damage_bonus()) * get_base_damage_bonus_percent())
+	var green_damage: float = get_damage_add() * get_damage_add_percent()
 
 	var dps_bonus: float = get_dps_bonus()
 	var cooldown: float = get_overall_cooldown()

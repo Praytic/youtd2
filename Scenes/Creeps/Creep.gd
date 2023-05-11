@@ -228,8 +228,9 @@ func _get_move_speed() -> float:
 ###     Callbacks     ###
 #########################
 
-func _on_health_changed(new_ratio: float):
-	_health_bar.ratio = new_ratio
+func _on_health_changed():
+	var health_ratio: float = get_health_ratio()
+	_health_bar.ratio = health_ratio
 
 
 func _on_death(event: Event):

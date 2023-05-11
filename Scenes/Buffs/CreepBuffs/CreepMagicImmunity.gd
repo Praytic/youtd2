@@ -13,7 +13,8 @@ func _init(parent: Node):
 
 
 func on_damaged(event: Event):
-	var creep: Unit = event.get_target()
+	var buff: Buff = event.get_buff()
+	var creep: Unit = buff.get_buffed_unit()
 	var creep_mana: float = Unit.get_unit_state(creep, Unit.State.MANA)
 	var has_enough_mana: bool = creep_mana >= 10
 
