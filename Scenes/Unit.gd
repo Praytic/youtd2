@@ -95,13 +95,7 @@ var _invisible_watcher_count: int = 0
 #########################
 
 
-# TODO: some mods start from 0.0, others from 1.0.
-# If MOD_HP_PERC=0.3, that means that health is increased by 30%.
-# If MOD_DMG_FROM_ASTRAL=0.3, that means dmg from astral is decreased by 70%.
-# Need to figure out which standard we want to use and stick to one.
 func _init():
-	for mod_type in Modification.Type.values():
-		_mod_value_map[mod_type] = 0.0
 	_mod_value_map[Modification.Type.MOD_ATK_CRIT_CHANCE] = 0.01
 	_mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE] = 1.5
 	_mod_value_map[Modification.Type.MOD_TRIGGER_CHANCES] = 1.0
@@ -116,31 +110,33 @@ func _init():
 	_mod_value_map[Modification.Type.MOD_BUFF_DURATION] = 1.0
 	_mod_value_map[Modification.Type.MOD_DEBUFF_DURATION] = 1.0
 	_mod_value_map[Modification.Type.MOD_MOVESPEED] = 1.0
+	_mod_value_map[Modification.Type.MOD_MOVESPEED_ABSOLUTE] = 0.0
 	_mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT] = 1.0
 	_mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED] = 1.0
 	_mod_value_map[Modification.Type.MOD_ATTACKSPEED] = 1.0
+	_mod_value_map[Modification.Type.MOD_DPS_ADD] = 0.0
 
 	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL] = 0.0
 	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL] = 0.0
 	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH] = 0.0
 	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH] = 0.0
 
-	_mod_value_map[Modification.Type.MOD_ARMOR] = 0.01
-	_mod_value_map[Modification.Type.MOD_ARMOR_PERC] = 1.5
+	_mod_value_map[Modification.Type.MOD_ARMOR] = 0.0
+	_mod_value_map[Modification.Type.MOD_ARMOR_PERC] = 1.0
 
 	_mod_value_map[Modification.Type.MOD_DAMAGE_BASE] = 0.0
-	_mod_value_map[Modification.Type.MOD_DAMAGE_BASE_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_DAMAGE_BASE_PERC] = 1.0
 	_mod_value_map[Modification.Type.MOD_DAMAGE_ADD] = 0.0
-	_mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC] = 1.0
 
 	_mod_value_map[Modification.Type.MOD_MANA] = 0.0
-	_mod_value_map[Modification.Type.MOD_MANA_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_MANA_PERC] = 1.0
 	_mod_value_map[Modification.Type.MOD_MANA_REGEN] = 0.0
-	_mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC] = 1.0
 	_mod_value_map[Modification.Type.MOD_HP] = 0.0
-	_mod_value_map[Modification.Type.MOD_HP_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_HP_PERC] = 1.0
 	_mod_value_map[Modification.Type.MOD_HP_REGEN] = 0.0
-	_mod_value_map[Modification.Type.MOD_HP_REGEN_PERC] = 0.0
+	_mod_value_map[Modification.Type.MOD_HP_REGEN_PERC] = 1.0
 
 	_mod_value_map[Modification.Type.MOD_DMG_TO_MASS] = 1.0
 	_mod_value_map[Modification.Type.MOD_DMG_TO_NORMAL] = 1.0
@@ -161,6 +157,10 @@ func _init():
 	_mod_value_map[Modification.Type.MOD_DMG_FROM_ICE] = 1.0
 	_mod_value_map[Modification.Type.MOD_DMG_FROM_STORM] = 1.0
 	_mod_value_map[Modification.Type.MOD_DMG_FROM_IRON] = 1.0
+
+	for mod_type in Modification.Type.values():
+		if !_mod_value_map.has(mod_type):
+			push_error("No default value defined for modification type: ", mod_type)
 
 func _ready():
 	_selection_visual = Selection.new()
@@ -917,16 +917,16 @@ func get_y() -> float:
 # PropTriggerChances.
 
 func get_prop_buff_duration() -> float:
-	return _mod_value_map[Modification.Type.MOD_BUFF_DURATION]
+	return max(0, _mod_value_map[Modification.Type.MOD_BUFF_DURATION])
 
 func get_prop_debuff_duration() -> float:
-	return _mod_value_map[Modification.Type.MOD_DEBUFF_DURATION]
+	return max(0, _mod_value_map[Modification.Type.MOD_DEBUFF_DURATION])
 
 func get_prop_atk_crit_chance() -> float:
-	return _mod_value_map[Modification.Type.MOD_ATK_CRIT_CHANCE]
+	return max(0, _mod_value_map[Modification.Type.MOD_ATK_CRIT_CHANCE])
 
 func get_prop_atk_crit_damage() -> float:
-	return _mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE]
+	return max(1.0, _mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE])
 
 # Returns the value of the average damage multipler based on crit chance, crit damage
 # and multicrit count of the tower
@@ -934,79 +934,79 @@ func get_crit_multiplier() -> float:
 	return 1 + get_prop_atk_crit_chance() * get_prop_atk_crit_damage()
 
 func get_prop_bounty_received() -> float:
-	return _mod_value_map[Modification.Type.MOD_BOUNTY_RECEIVED]
+	return max(0, _mod_value_map[Modification.Type.MOD_BOUNTY_RECEIVED])
 
 func get_prop_bounty_granted() -> float:
-	return _mod_value_map[Modification.Type.MOD_BOUNTY_GRANTED]
+	return max(0, _mod_value_map[Modification.Type.MOD_BOUNTY_GRANTED])
 
 func get_prop_exp_received() -> float:
-	return _mod_value_map[Modification.Type.MOD_EXP_RECEIVED]
+	return max(0, _mod_value_map[Modification.Type.MOD_EXP_RECEIVED])
 
 func get_prop_exp_granted() -> float:
-	return _mod_value_map[Modification.Type.MOD_EXP_GRANTED]
+	return max(0, _mod_value_map[Modification.Type.MOD_EXP_GRANTED])
 
 func get_damage_to_air() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_AIR]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_AIR])
 
 func get_damage_to_boss() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_BOSS]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_BOSS])
 
 func get_damage_to_mass() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_MASS]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_MASS])
 
 func get_damage_to_normal() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_NORMAL]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_NORMAL])
 
 func get_damage_to_champion() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_CHAMPION]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_CHAMPION])
 
 func get_damage_to_undead() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_UNDEAD]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_UNDEAD])
 
 func get_damage_to_humanoid() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_HUMANOID]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_HUMANOID])
 
 func get_damage_to_nature() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_NATURE]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_NATURE])
 
 func get_damage_to_magic() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_MAGIC]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_MAGIC])
 
 func get_damage_to_orc() -> float:
-	return _mod_value_map[Modification.Type.MOD_DMG_TO_ORC]
+	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_ORC])
 
 func get_exp_ratio() -> float:
-	return _mod_value_map[Modification.Type.MOD_EXP_RECEIVED]
+	return max(0, _mod_value_map[Modification.Type.MOD_EXP_RECEIVED])
 
 func get_item_drop_ratio() -> float:
-	return _mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL]
+	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL])
 
 func get_item_quality_ratio() -> float:
-	return _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL]
+	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL])
 
 func get_item_drop_ratio_on_death() -> float:
-	return _mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH]
+	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH])
 
 func get_item_quality_ratio_on_death() -> float:
-	return _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH]
+	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH])
 
 func get_prop_trigger_chances() -> float:
-	return _mod_value_map[Modification.Type.MOD_TRIGGER_CHANCES]
+	return max(0, _mod_value_map[Modification.Type.MOD_TRIGGER_CHANCES])
 
 func get_prop_multicrit_count() -> int:
 	return int(max(0, _mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT]))
 
 func get_prop_spell_damage_dealt() -> float:
-	return _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_DEALT]
+	return max(0, _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_DEALT])
 
 func get_prop_spell_damage_received() -> float:
-	return _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_RECEIVED]
+	return max(0, _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_RECEIVED])
 
 func get_spell_crit_chance() -> float:
-	return _mod_value_map[Modification.Type.MOD_SPELL_CRIT_CHANCE]
+	return max(0, _mod_value_map[Modification.Type.MOD_SPELL_CRIT_CHANCE])
 
 func get_spell_crit_damage() -> float:
-	return _mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE]
+	return max(1.0, _mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE])
 
 # Returns current value of "attack speed" stat which scales
 # tower's attack cooldown. Note that even though name
@@ -1073,10 +1073,10 @@ func get_base_mana_bonus():
 	return _mod_value_map[Modification.Type.MOD_MANA]
 
 func get_base_mana_bonus_percent():
-	return _mod_value_map[Modification.Type.MOD_MANA_PERC]
+	return max(0, _mod_value_map[Modification.Type.MOD_MANA_PERC])
 
 func get_overall_mana():
-	return (get_base_mana() + get_base_mana_bonus()) * (1 + get_base_mana_bonus_percent())
+	return max(0, (get_base_mana() + get_base_mana_bonus()) * get_base_mana_bonus_percent())
 
 # Returns current percentage of mana
 func get_mana_ratio() -> float:
@@ -1091,13 +1091,13 @@ func get_base_mana_regen() -> float:
 	return 0.0
 
 func get_base_mana_regen_bonus():
-	return _mod_value_map[Modification.Type.MOD_MANA_REGEN]
+	return max(0, _mod_value_map[Modification.Type.MOD_MANA_REGEN])
 
 func get_base_mana_regen_bonus_percent():
-	return _mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC]
+	return max(0, _mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC])
 
 func get_overall_mana_regen():
-	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * (1 + get_base_mana_regen_bonus_percent())
+	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * get_base_mana_regen_bonus_percent()
 
 func get_health() -> float:
 	return _health
@@ -1112,10 +1112,10 @@ func get_base_health_bonus():
 	return _mod_value_map[Modification.Type.MOD_HP]
 
 func get_base_health_bonus_percent():
-	return _mod_value_map[Modification.Type.MOD_HP_PERC]
+	return max(0, _mod_value_map[Modification.Type.MOD_HP_PERC])
 
 func get_overall_health():
-	return (get_base_health() + get_base_health_bonus()) * (1 + get_base_health_bonus_percent())
+	return max(0, (get_base_health() + get_base_health_bonus()) * get_base_health_bonus_percent())
 
 # Returns current percentage of health
 func get_health_ratio() -> float:
@@ -1128,22 +1128,22 @@ func get_base_health_regen():
 	return _base_health_regen
 
 func get_base_health_regen_bonus():
-	return _mod_value_map[Modification.Type.MOD_HP_REGEN]
+	return max(0, _mod_value_map[Modification.Type.MOD_HP_REGEN])
 
 func get_base_health_regen_bonus_percent():
-	return _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC]
+	return max(0, _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC])
 
 func get_overall_health_regen():
-	return (get_base_health_regen() + get_base_health_regen_bonus()) * (1 + get_base_health_regen_bonus_percent())
+	return (get_base_health_regen() + get_base_health_regen_bonus()) * get_base_health_regen_bonus_percent()
 
 func get_prop_move_speed() -> float:
-	return _mod_value_map[Modification.Type.MOD_MOVESPEED]
+	return max(0, _mod_value_map[Modification.Type.MOD_MOVESPEED])
 
 func get_prop_move_speed_absolute() -> float:
 	return _mod_value_map[Modification.Type.MOD_MOVESPEED_ABSOLUTE]
 
 func get_prop_atk_damage_received() -> float:
-	return _mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED]
+	return max(0, _mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED])
 
 func get_display_name() -> String:
 	return "Generic Unit"
@@ -1178,13 +1178,13 @@ func get_base_damage_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_DAMAGE_BASE]
 
 func get_base_damage_bonus_percent() -> float:
-	return _mod_value_map[Modification.Type.MOD_DAMAGE_BASE_PERC]
+	return max(0, _mod_value_map[Modification.Type.MOD_DAMAGE_BASE_PERC])
 
 func get_damage_add() -> float:
-	return _mod_value_map[Modification.Type.MOD_DAMAGE_ADD]
+	return max(0, _mod_value_map[Modification.Type.MOD_DAMAGE_ADD])
 
 func get_damage_add_percent() -> float:
-	return _mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC]
+	return max(0, _mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC])
 
 # TODO: implement real formula
 func get_current_armor_damage_reduction() -> float:
@@ -1203,10 +1203,10 @@ func get_base_armor_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_ARMOR]
 
 func get_base_armor_bonus_percent() -> float:
-	return _mod_value_map[Modification.Type.MOD_ARMOR_PERC]
+	return max(0, _mod_value_map[Modification.Type.MOD_ARMOR_PERC])
 
 func get_overall_armor():
-	return (get_base_armor() + get_base_armor_bonus()) * (1.0 + get_base_armor_bonus_percent())
+	return (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent()
 
 func get_dps_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_DPS_ADD]

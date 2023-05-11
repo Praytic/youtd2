@@ -803,10 +803,12 @@ func get_current_attack_damage() -> float:
 
 	return damage
 
+# TODO: look into this more. Can white damage bonus be
+# negative? What about green damage bonus.
 func get_current_attack_damage_with_bonus() -> float:
 	var damage_base: float = get_current_attack_damage()
-	var white_damage: float = (damage_base + get_base_damage_bonus()) * (1.0 + get_base_damage_bonus_percent())
-	var green_damage: float = get_damage_add() * (1.0 + get_damage_add_percent())
+	var white_damage: float = max(0, (damage_base + get_base_damage_bonus()) * get_base_damage_bonus_percent())
+	var green_damage: float = get_damage_add() * get_damage_add_percent()
 
 	var dps_bonus: float = get_dps_bonus()
 	var cooldown: float = get_overall_cooldown()
