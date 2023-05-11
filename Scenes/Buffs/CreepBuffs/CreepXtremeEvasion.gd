@@ -7,7 +7,8 @@ func _init(parent: Node):
 
 
 func on_damaged(event: Event):
-	var creep: Unit = event.get_target()
+	var buff: Buff = event.get_buff()
+	var creep: Unit = buff.get_buffed_unit()
 	var evade_success: bool = creep.calc_chance(0.66)
 
 	if evade_success:
