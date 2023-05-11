@@ -16,7 +16,7 @@ signal kill(event)
 signal death(event)
 signal became_invisible()
 signal became_visible()
-signal health_changed(new_ratio: float)
+signal health_changed()
 signal mana_changed()
 signal spell_casted(event: Event)
 signal spell_targeted(event: Event)
@@ -619,9 +619,7 @@ func _set_mana(mana: float):
 
 func _set_health(new_health: float):
 	_health = new_health
-
-	var new_ratio: float = new_health / get_overall_health()
-	health_changed.emit(new_ratio)
+	health_changed.emit()
 
 
 func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: float) -> float:

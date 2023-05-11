@@ -578,7 +578,8 @@ func _remove_target(target: Creep):
 
 
 func _on_mana_changed():
-	_mana_bar.set_as_ratio(_mana / get_base_mana())
+	var mana_ratio: float = get_mana_ratio()
+	_mana_bar.ratio = mana_ratio
 
 
 func _on_projectile_target_hit(projectile: Projectile, target: Unit):
