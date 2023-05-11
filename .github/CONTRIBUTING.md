@@ -36,7 +36,7 @@ Now you should be able to run the project inside the Godot editor. If you make c
 rclone copy -v --filter-from rclone-filter Assets <remote>:Assets
 ```
 
-## Exporting models
+### Exporting models
 
 1. To convert a 3D animated model into a 2D sprite sheet, you need to install [Blender](https://www.blender.org/download/).
 2. Download the "isometric-template.blend" from [here](https://drive.google.com/drive/folders/1AU0lNWg0xuZFsjmeP-DU5UQZHaXhlC2d). This is a prepared scene where the camera has the correct settings for isometric rendering.
