@@ -64,7 +64,6 @@ var _direct_modifier_list: Array
 var _base_health: float = 100.0 : get = get_base_health, set = set_base_health
 var _health: float = 0.0
 var _base_health_regen: float = 1.0
-var _mod_value_map: Dictionary = {}
 var _invisible: bool = false
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
@@ -86,6 +85,70 @@ var _selection_visual: Node = null
 # See Unit.is_invisible() f-n and MagicalSightBuff.
 var _invisible_watcher_count: int = 0
 
+var _mod_value_map: Dictionary = {
+	Modification.Type.MOD_ATK_CRIT_CHANCE: 0.01,
+	Modification.Type.MOD_ATK_CRIT_DAMAGE: 1.5,
+	Modification.Type.MOD_TRIGGER_CHANCES: 1.0,
+	Modification.Type.MOD_SPELL_DAMAGE_DEALT: 1.0,
+	Modification.Type.MOD_SPELL_DAMAGE_RECEIVED: 1.0,
+	Modification.Type.MOD_SPELL_CRIT_DAMAGE: 1.5,
+	Modification.Type.MOD_SPELL_CRIT_CHANCE: 0.01,
+	Modification.Type.MOD_BOUNTY_GRANTED: 1.0,
+	Modification.Type.MOD_BOUNTY_RECEIVED: 1.0,
+	Modification.Type.MOD_EXP_GRANTED: 1.0,
+	Modification.Type.MOD_EXP_RECEIVED: 1.0,
+	Modification.Type.MOD_BUFF_DURATION: 1.0,
+	Modification.Type.MOD_DEBUFF_DURATION: 1.0,
+	Modification.Type.MOD_MOVESPEED: 1.0,
+	Modification.Type.MOD_MOVESPEED_ABSOLUTE: 0.0,
+	Modification.Type.MOD_MULTICRIT_COUNT: 1.0,
+	Modification.Type.MOD_ATK_DAMAGE_RECEIVED: 1.0,
+	Modification.Type.MOD_ATTACKSPEED: 1.0,
+	Modification.Type.MOD_DPS_ADD: 0.0,
+
+	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: 0.0,
+	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: 0.0,
+	Modification.Type.MOD_ITEM_CHANCE_ON_DEATH: 0.0,
+	Modification.Type.MOD_ITEM_QUALITY_ON_DEATH: 0.0,
+
+	Modification.Type.MOD_ARMOR: 0.0,
+	Modification.Type.MOD_ARMOR_PERC: 1.0,
+
+	Modification.Type.MOD_DAMAGE_BASE: 0.0,
+	Modification.Type.MOD_DAMAGE_BASE_PERC: 1.0,
+	Modification.Type.MOD_DAMAGE_ADD: 0.0,
+	Modification.Type.MOD_DAMAGE_ADD_PERC: 1.0,
+
+	Modification.Type.MOD_MANA: 0.0,
+	Modification.Type.MOD_MANA_PERC: 1.0,
+	Modification.Type.MOD_MANA_REGEN: 0.0,
+	Modification.Type.MOD_MANA_REGEN_PERC: 1.0,
+	Modification.Type.MOD_HP: 0.0,
+	Modification.Type.MOD_HP_PERC: 1.0,
+	Modification.Type.MOD_HP_REGEN: 0.0,
+	Modification.Type.MOD_HP_REGEN_PERC: 1.0,
+
+	Modification.Type.MOD_DMG_TO_MASS: 1.0,
+	Modification.Type.MOD_DMG_TO_NORMAL: 1.0,
+	Modification.Type.MOD_DMG_TO_CHAMPION: 1.0,
+	Modification.Type.MOD_DMG_TO_BOSS: 1.0,
+	Modification.Type.MOD_DMG_TO_AIR: 1.0,
+
+	Modification.Type.MOD_DMG_TO_UNDEAD: 1.0,
+	Modification.Type.MOD_DMG_TO_MAGIC: 1.0,
+	Modification.Type.MOD_DMG_TO_NATURE: 1.0,
+	Modification.Type.MOD_DMG_TO_ORC: 1.0,
+	Modification.Type.MOD_DMG_TO_HUMANOID: 1.0,
+
+	Modification.Type.MOD_DMG_FROM_ASTRAL: 1.0,
+	Modification.Type.MOD_DMG_FROM_DARKNESS: 1.0,
+	Modification.Type.MOD_DMG_FROM_NATURE: 1.0,
+	Modification.Type.MOD_DMG_FROM_FIRE: 1.0,
+	Modification.Type.MOD_DMG_FROM_ICE: 1.0,
+	Modification.Type.MOD_DMG_FROM_STORM: 1.0,
+	Modification.Type.MOD_DMG_FROM_IRON: 1.0,
+}
+
 
 @onready var _owner: Player = get_tree().get_root().get_node("GameScene/Player")
 
@@ -96,68 +159,6 @@ var _invisible_watcher_count: int = 0
 
 
 func _init():
-	_mod_value_map[Modification.Type.MOD_ATK_CRIT_CHANCE] = 0.01
-	_mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE] = 1.5
-	_mod_value_map[Modification.Type.MOD_TRIGGER_CHANCES] = 1.0
-	_mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_DEALT] = 1.0
-	_mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_RECEIVED] = 1.0
-	_mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE] = 1.5
-	_mod_value_map[Modification.Type.MOD_SPELL_CRIT_CHANCE] = 0.01
-	_mod_value_map[Modification.Type.MOD_BOUNTY_GRANTED] = 1.0
-	_mod_value_map[Modification.Type.MOD_BOUNTY_RECEIVED] = 1.0
-	_mod_value_map[Modification.Type.MOD_EXP_GRANTED] = 1.0
-	_mod_value_map[Modification.Type.MOD_EXP_RECEIVED] = 1.0
-	_mod_value_map[Modification.Type.MOD_BUFF_DURATION] = 1.0
-	_mod_value_map[Modification.Type.MOD_DEBUFF_DURATION] = 1.0
-	_mod_value_map[Modification.Type.MOD_MOVESPEED] = 1.0
-	_mod_value_map[Modification.Type.MOD_MOVESPEED_ABSOLUTE] = 0.0
-	_mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT] = 1.0
-	_mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED] = 1.0
-	_mod_value_map[Modification.Type.MOD_ATTACKSPEED] = 1.0
-	_mod_value_map[Modification.Type.MOD_DPS_ADD] = 0.0
-
-	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL] = 0.0
-	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL] = 0.0
-	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH] = 0.0
-	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH] = 0.0
-
-	_mod_value_map[Modification.Type.MOD_ARMOR] = 0.0
-	_mod_value_map[Modification.Type.MOD_ARMOR_PERC] = 1.0
-
-	_mod_value_map[Modification.Type.MOD_DAMAGE_BASE] = 0.0
-	_mod_value_map[Modification.Type.MOD_DAMAGE_BASE_PERC] = 1.0
-	_mod_value_map[Modification.Type.MOD_DAMAGE_ADD] = 0.0
-	_mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC] = 1.0
-
-	_mod_value_map[Modification.Type.MOD_MANA] = 0.0
-	_mod_value_map[Modification.Type.MOD_MANA_PERC] = 1.0
-	_mod_value_map[Modification.Type.MOD_MANA_REGEN] = 0.0
-	_mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC] = 1.0
-	_mod_value_map[Modification.Type.MOD_HP] = 0.0
-	_mod_value_map[Modification.Type.MOD_HP_PERC] = 1.0
-	_mod_value_map[Modification.Type.MOD_HP_REGEN] = 0.0
-	_mod_value_map[Modification.Type.MOD_HP_REGEN_PERC] = 1.0
-
-	_mod_value_map[Modification.Type.MOD_DMG_TO_MASS] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_TO_NORMAL] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_TO_CHAMPION] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_TO_BOSS] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_TO_AIR] = 1.0
-
-	_mod_value_map[Modification.Type.MOD_DMG_TO_UNDEAD] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_TO_MAGIC] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_TO_NATURE] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_TO_ORC] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_TO_HUMANOID] = 1.0
-
-	_mod_value_map[Modification.Type.MOD_DMG_FROM_ASTRAL] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_FROM_DARKNESS] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_FROM_NATURE] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_FROM_FIRE] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_FROM_ICE] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_FROM_STORM] = 1.0
-	_mod_value_map[Modification.Type.MOD_DMG_FROM_IRON] = 1.0
-
 	for mod_type in Modification.Type.values():
 		if !_mod_value_map.has(mod_type):
 			push_error("No default value defined for modification type: ", mod_type)
