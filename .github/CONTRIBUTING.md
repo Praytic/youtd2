@@ -67,23 +67,3 @@ rclone copy -v --filter-from rclone-filter Assets <remote>:Assets
     And the end result is a folder "generated-atlases" with sprite sheets in the folder where you executed the script.
   
 10. Upload the sprite sheet, Blender project, fbx animations to the [Google Drive](https://drive.google.com/drive/folders/1AU0lNWg0xuZFsjmeP-DU5UQZHaXhlC2d). Keep file arrangement consistent, [example](https://drive.google.com/drive/folders/1zdILF_XKJu2Arkjpcb5bo8DTLln5YXf6).
-11. Repeat for every model in the Drive:
-    - [ ] 'Human Archer - Proto Series'
-    - [ ] 'Human Knight - Proto Series'  
-    - [ ] 'Human Mage - Proto Series'
-    - [ ] 'Human Peasant - Proto Series'
-    - [ ] 'Human Soldier - Proto Series'
-    - [ ] orc-grunt-proto-series-v1
-    - [ ] orc-peon-proto-series
-    - [ ] orc-shaman-proto-series-v1
-    - [x] orc-warrior-proto-series-v1
-    - [ ] orc_chieftain_proto_series
-    - [ ] orc-archer-proto-series-v1
-    - [ ] elf_archer_v1
-    - [ ] elf_assassin_v1
-    - [ ] elven_priestess_v1
-    - [ ] elven_queen_v1
-    - [ ] elven_warrior_v1
-    - [ ] elven_worker_v1
-    - [ ] undead_units
-      
