@@ -140,7 +140,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ${{ steps.export.outputs.build_directory }}/web
-        cname: github.com
+        cname: youtd2.com
 
     outputs:
       tag_version: ${{ needs.setup.outputs.tag_version }}
