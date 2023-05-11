@@ -85,6 +85,17 @@ var _selection_visual: Node = null
 # See Unit.is_invisible() f-n and MagicalSightBuff.
 var _invisible_watcher_count: int = 0
 
+# NOTE: logic for default values is the following. If
+# property is multiplied, then it's default is 1.0 so that
+# by default it doesn't change anything. If property is
+# added, then default is 0.0 so that by default it doesn't
+# change anything.
+#
+# Execeptions are MOD_ATK_CRIT_DAMAGE, MOD_SPELL_CRIT_DAMAGE
+# which start at 1.5 because by default crits increase
+# damage by 50%. MOD_ATK_CRIT_CHANCE and
+# MOD_SPELL_CRIT_CHANCE start at 0.01 because by default
+# crit chance is 1%.
 var _mod_value_map: Dictionary = {
 	Modification.Type.MOD_ATK_CRIT_CHANCE: 0.01,
 	Modification.Type.MOD_ATK_CRIT_DAMAGE: 1.5,
