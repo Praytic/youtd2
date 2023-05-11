@@ -28,6 +28,7 @@ signal unselected()
 
 
 enum State {
+	LIFE,
 	MANA
 }
 
@@ -337,16 +338,6 @@ func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
 
 
 func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: float, is_main_target: bool):
-	const element_to_dmg_from_element_mod: Dictionary = {
-		Tower.Element.ICE: Modification.Type.MOD_DMG_FROM_ICE,
-		Tower.Element.NATURE: Modification.Type.MOD_DMG_FROM_NATURE,
-		Tower.Element.FIRE: Modification.Type.MOD_DMG_FROM_FIRE,
-		Tower.Element.ASTRAL: Modification.Type.MOD_DMG_FROM_ASTRAL,
-		Tower.Element.DARKNESS: Modification.Type.MOD_DMG_FROM_DARKNESS,
-		Tower.Element.IRON: Modification.Type.MOD_DMG_FROM_IRON,
-		Tower.Element.STORM: Modification.Type.MOD_DMG_FROM_STORM,
-	}
-
 	var armor_mod: float = target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
@@ -354,7 +345,7 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 	if self is Tower:
 		var tower: Tower = self as Tower
 		var element: Tower.Element = tower.get_element()
-		var mod_type: Modification.Type = element_to_dmg_from_element_mod[element]
+		var mod_type: Modification.Type = Utils.convert_element_to_dmg_from_element_mod(element)
 		element_mod = target._mod_value_map[mod_type]
 
 	var damage: float = damage_base * armor_mod * received_mod * element_mod
@@ -414,18 +405,8 @@ func modify_property(mod_type: Modification.Type, value: float):
 
 
 func _modify_property_internal(mod_type: Modification.Type, value: float, direction: int):
-	var old_health_max: float = get_overall_health()
-	var health_ratio: float = _health / old_health_max
-	if old_health_max != 0.0:
-		health_ratio = _health / old_health_max
-	else:
-		health_ratio = 0.0
-	var old_mana_max: float = get_overall_mana()
-	var mana_ratio: float
-	if old_mana_max != 0.0:
-		mana_ratio = _mana / old_mana_max
-	else:
-		mana_ratio = 0.0
+	var health_ratio: float = get_health_ratio()
+	var mana_ratio: float = get_mana_ratio()
 
 	var current_value: float = _mod_value_map[mod_type]
 	var new_value: float = current_value + direction * value
@@ -493,6 +474,7 @@ func spend_mana(mana_cost: float):
 # used in tower scripts
 static func get_unit_state(unit: Unit, state: Unit.State) -> float:
 	match state:
+		Unit.State.LIFE: return unit._health
 		Unit.State.MANA: return unit._mana
 
 	return 0.0
@@ -500,6 +482,7 @@ static func get_unit_state(unit: Unit, state: Unit.State) -> float:
 
 static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 	match state:
+		Unit.State.LIFE: unit._set_health(value)
 		Unit.State.MANA: unit._set_mana(value)
 
 
@@ -1097,6 +1080,14 @@ func get_base_mana_bonus_percent():
 func get_overall_mana():
 	return (get_base_mana() + get_base_mana_bonus()) * (1 + get_base_mana_bonus_percent())
 
+# Returns current percentage of mana
+func get_mana_ratio() -> float:
+	var overall_mana: float = get_overall_mana()
+	var ratio: float = Utils.get_ratio(_mana, overall_mana)
+
+	return ratio
+
+
 # NOTE: real value returned in subclass version
 func get_base_mana_regen() -> float:
 	return 0.0
@@ -1127,6 +1118,13 @@ func get_base_health_bonus_percent():
 
 func get_overall_health():
 	return (get_base_health() + get_base_health_bonus()) * (1 + get_base_health_bonus_percent())
+
+# Returns current percentage of health
+func get_health_ratio() -> float:
+	var overall_health: float = get_overall_health()
+	var ratio: float = Utils.get_ratio(_health, overall_health)
+
+	return ratio
 
 func get_base_health_regen():
 	return _base_health_regen

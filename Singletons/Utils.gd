@@ -7,6 +7,38 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+const _element_to_dmg_from_element_mod_map: Dictionary = {
+	Tower.Element.ICE: Modification.Type.MOD_DMG_FROM_ICE,
+	Tower.Element.NATURE: Modification.Type.MOD_DMG_FROM_NATURE,
+	Tower.Element.FIRE: Modification.Type.MOD_DMG_FROM_FIRE,
+	Tower.Element.ASTRAL: Modification.Type.MOD_DMG_FROM_ASTRAL,
+	Tower.Element.DARKNESS: Modification.Type.MOD_DMG_FROM_DARKNESS,
+	Tower.Element.IRON: Modification.Type.MOD_DMG_FROM_IRON,
+	Tower.Element.STORM: Modification.Type.MOD_DMG_FROM_STORM,
+}
+
+
+# TODO: create separate file for Tower.Element enum and move
+# this f-n there.
+func convert_element_to_dmg_from_element_mod(element: Tower.Element) -> Modification.Type:
+	if _element_to_dmg_from_element_mod_map.has(element):
+		return _element_to_dmg_from_element_mod_map[element]
+	else:
+		push_error("Unknown element:", element)
+
+		return Modification.Type.MOD_DMG_FROM_ICE
+
+
+# Gets the ratio of two floats. If divisor is 0, returns 0.
+func get_ratio(a: float, b: float) -> float:
+	if b > 0.0:
+		var ratio: float = a / b
+
+		return ratio
+	else:
+		return 0.0
+
+
 # Accepts a map of elements to weights and returns a random
 # element. For example:
 # { "a": 10, "b": 20, "c": 70 }
