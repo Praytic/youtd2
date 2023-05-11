@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dnv37bb7qk3kv"]
+[gd_scene load_steps=40 format=3 uid="uid://dnv37bb7qk3kv"]
 
 [ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1_rx3ev"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
 [ext_resource type="PackedScene" uid="uid://b41jiom5a6uq8" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
+[ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
 [sub_resource type="FontFile" id="1"]
 subpixel_positioning = 0
@@ -449,6 +450,14 @@ layout_mode = 2
 
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2
+
+[node name="BuildVersionLabel" parent="." instance=ExtResource("21_ko2ou")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = -20.0
+offset_right = 430.0
+offset_bottom = 14.0
+scale = Vector2(0.55408, 0.55408)
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
