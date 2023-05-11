@@ -40,7 +40,7 @@ rclone copy -v --filter-from rclone-filter Assets <remote>:Assets
 
 1. To convert a 3D animated model into 2D spritesheet, you'll need to install [Blender](https://www.blender.org/download/).
 2. Download "isometric-template.blend" from [here](https://drive.google.com/drive/folders/1AU0lNWg0xuZFsjmeP-DU5UQZHaXhlC2d). This is a prepared scene where camera has correct settings for isometric rendering.
-3. Delete default cube and hide the floor plane. Impport an animated model into the scene. Switch to "Animation" tab. Make sure that the model fits within the rendering frame. If not, resize it.
+3. Delete default cube and hide the floor plane. Impport an animated model into the scene. Switch to "Animation" tab. Make sure that the model fits within the rendering frame. If not, resize it. Don't forget to import weapons and attach them to the armature.
 4. Rename animation inside armature to one of the following (depending on the animation):
     - `run_slow`
     - `run_fast`
