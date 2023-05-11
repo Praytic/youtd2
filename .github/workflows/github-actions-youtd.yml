@@ -48,7 +48,7 @@ jobs:
     - name: generate version for the build
       id: version_generation
       run: |
-        latest_tag=$(git ls-remote --tags --sort=-v:refname origin | grep -o 'refs/tags/[^^{]*' | sed 's/refs\/tags\///' | head -n 1)
+        latest_tag=$(git ls-remote --tags --sort=-v:refname origin | grep -v 'vrefs/heads/main' | grep -o 'refs/tags/[^^{]*' | sed 's/refs\/tags\///' | head -n 1)
         short_hash=$(git rev-parse --short HEAD)
         echo "tag_version=${latest_tag}-${short_hash}" | tee -a $GITHUB_OUTPUT
         echo "commit_ref=$GITHUB_REF_NAME" | tee -a $GITHUB_OUTPUT
