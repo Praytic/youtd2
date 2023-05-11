@@ -2,6 +2,8 @@
 
 ## Assets
 
+### Setup
+
 1. Install rclone from [here](https://rclone.org/downloads/).
 2. Go to this [page](https://console.cloud.google.com/apis/credentials/oauthclient/909699965518-qt5c21qf6r7mr3rg26vkh6nml4s397e7.apps.googleusercontent.com?project=youtd2-385722). Copy and save `client_id` and `client_secret` to a text file. You will need them in the next step.
 3. Follow the instructions [here](https://rclone.org/drive/) to configure `rcloud`. When prompted for `client_id` and `client_secret`, use the strings you have copied in the previous step.
