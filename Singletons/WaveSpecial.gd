@@ -86,6 +86,9 @@ var _buff_map: Dictionary = {
 	40: CreepBroody.new(self),
 }
 
+# NOTE: some wave specials are disabled because they are
+# incomplete
+var _disabled_special_list: Array[int] = [28, 31, 32, 36, 40]
 
 var _properties: Dictionary = {}
 
@@ -158,6 +161,9 @@ func _get_available_specials(wave: Wave) -> Array[int]:
 
 		if is_available:
 			available_special_list.append(special)
+
+	for disabled_special in _disabled_special_list:
+		available_special_list.erase(disabled_special)
 
 	return available_special_list
 
