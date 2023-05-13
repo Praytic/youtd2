@@ -1,34 +1,33 @@
 class_name CreepBroody extends BuffType
 
 
-var creep_darting: BuffType
-var creep_tired: BuffType
-
-
 func _init(parent: Node):
 	super("creep_broody", 0, 0, true, parent)
 
-	add_event_on_damaged(on_damaged, 1.0, 0.0)
-
-	var modifier: Modifier = Modifier.new()
-	modifier.add_modification(Modification.Type.MOD_MOVESPEED, -0.60, 0.0)
-	set_buff_modifier(modifier)
-
-	creep_tired = BuffType.new("creep_tired", 6.0, 0, false, self
-		)
-	creep_tired.set_buff_tooltip("Tired\nThis creep is tired and cannot dart for a period of time.")
-
-	creep_tired = BuffType.new("creep_tired", 6.0, 0, false, self
-		)
-	creep_tired.set_buff_tooltip("Tired\nThis creep is tired and cannot dart for a period of time.")
+	add_event_on_create(on_create)
 
 
-func on_damaged(event: Event):
+func on_create(event: Event):
+	var autocast: Autocast = Autocast.make()
+	autocast.caster_art = ""
+	autocast.num_buffs_before_idle = 0
+	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
+	autocast.cast_range = 1200
+	autocast.target_self = false
+	autocast.target_art = ""
+	autocast.cooldown = 6
+	autocast.is_extended = false
+	autocast.mana_cost = 30
+	autocast.buff_type = null
+	autocast.target_type = null
+	autocast.auto_range = 0
+	autocast.handler = on_autocast
+
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
+	creep.add_autocast(autocast)
 
-	var active_buff: Buff = creep.get_buff_of_type(creep_tired)
 
-	if active_buff == null:
-		creep_tired.apply(creep, creep, 0)
-
+# TODO: lay an egg here
+func on_autocast(_event: Event):
+	pass
