@@ -7,6 +7,15 @@ extends Node
 # repo.
 
 
+func starting_research_level() -> int:
+	return ProjectSettings.get_setting("application/config/starting_research_level") as int
+
+func starting_gold() -> int:
+	return ProjectSettings.get_setting("application/config/starting_gold") as int
+
+func starting_tomes() -> int:
+	return ProjectSettings.get_setting("application/config/starting_tomes") as int
+
 func fast_waves_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/fast_waves") as bool
 

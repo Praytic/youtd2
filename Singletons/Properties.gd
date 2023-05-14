@@ -5,7 +5,6 @@ const globals = {
 	"max_food": 99,
 	"ini_food": 55,
 	"max_knowledge_tomes": 999999,
-	"ini_knowledge_tomes": 90,
 	"max_knowledge_tomes_income": 999999,
 	"ini_knowledge_tomes_income": 8
 }

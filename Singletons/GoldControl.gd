@@ -7,11 +7,9 @@ signal gold_change(value)
 signal income_change(value)
 
 
-const INITIAL_GOLD = 70
 const MAX_GOLD = 999999
 const INITIAL_INCOME = 10
 const MAX_INCOME = 999999
-const STARTING_GOLD_SETTING: String = "application/config/starting_gold"
 
 
 var _gold: float : set = set_gold, get = get_gold
@@ -23,12 +21,8 @@ var _income: float : set = set_income, get = get_income
 #########################
 
 func _ready():
-	_gold = INITIAL_GOLD
+	_gold = Config.starting_gold()
 	_income = INITIAL_INCOME
-
-	if ProjectSettings.has_setting(STARTING_GOLD_SETTING):
-		var starting_gold: int = ProjectSettings.get_setting(STARTING_GOLD_SETTING) as int
-		_gold = starting_gold
 
 
 func add_income():
