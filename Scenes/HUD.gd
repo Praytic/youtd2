@@ -54,3 +54,7 @@ func _on_ItemMenuButton_pressed():
 # manually hide button tooltip
 func _on_right_menu_bar_hidden():
 	$ButtonTooltip.hide()
+
+
+func _on_research_button_pressed():
+	$ResearchMenu.visible = !$ResearchMenu.visible

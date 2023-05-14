@@ -187,6 +187,15 @@ func _process(delta: float):
 #########################
 
 
+# TODO: make a separate file for element enum and move this
+# f-n there. Also use a match statement. Use this function
+# in BuildBar.
+static func element_to_string(element: Tower.Element) -> String:
+	var element_string: String = Tower.Element.keys()[element].to_lower().capitalize()
+
+	return element_string
+
+
 # Tower is attacking while it has valid targets in range.
 func is_attacking() -> bool:
 	var attacking: bool = !_target_list.is_empty()

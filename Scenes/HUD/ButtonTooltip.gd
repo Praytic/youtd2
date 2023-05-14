@@ -17,6 +17,9 @@ func _ready():
 	EventBus.item_button_mouse_entered.connect(_on_item_button_mouse_entered)
 	EventBus.item_button_mouse_exited.connect(_on_item_button_mouse_exited)
 
+	EventBus.research_button_mouse_entered.connect(_on_research_button_mouse_entered)
+	EventBus.research_button_mouse_exited.connect(_on_research_button_mouse_exited)
+
 
 func _on_tower_button_mouse_entered(tower_id: int):
 	show()
@@ -42,6 +45,41 @@ func _on_item_button_mouse_entered(item_id: int):
 
 func _on_item_button_mouse_exited():
 	hide()
+
+
+func _on_research_button_mouse_entered(element: Tower.Element):
+	show()
+
+	_label.clear()
+
+	var text: String = _get_research_text(element)
+	_label.append_text(text)
+
+
+func _on_research_button_mouse_exited():
+	hide()
+
+
+func _get_research_text(element: Tower.Element) -> String:
+	var element_string: String = Tower.element_to_string(element)
+	var current_level: int = ElementLevel.get_current(element)
+	var next_level: int = current_level + 1
+	var cost: int = ElementLevel.get_research_cost(element)
+
+	var text: String = ""
+
+	var can_afford: bool = ElementLevel.can_afford_research(element)
+	var cost_number_color: String
+	if can_afford:
+		cost_number_color = "GOLD"
+	else:
+		cost_number_color = "RED"
+
+	text += "Research %s level [color=GOLD]%d[/color]\n" % [element_string, next_level]
+	text += "[img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] [color=%s]%d[/color]\n" % [cost_number_color, cost]
+	text += "Research next element level to unlock the ability to build new towers of this element and to new upgrade existing towers to next tiers.\n"
+
+	return text
 
 
 func _get_tower_text(tower_id: int) -> String:

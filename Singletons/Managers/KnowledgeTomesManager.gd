@@ -27,3 +27,11 @@ func set_knowledge_tomes(value):
 	
 func add_knowledge_tomes(value = income):
 	set_knowledge_tomes(knowledge_tomes + value)
+
+
+func spend(amount: int):
+	knowledge_tomes -= amount
+
+
+func get_current() -> int:
+	return knowledge_tomes
