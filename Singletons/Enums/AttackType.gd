@@ -1,5 +1,4 @@
-class_name AttackType
-extends Object
+extends Node
 
 enum enm {
 	PHYSICAL,
@@ -10,7 +9,7 @@ enum enm {
 }
 
 
-static func from_string(string: String) -> AttackType.enm:
+func from_string(string: String) -> AttackType.enm:
 	match string:
 		"physical": return AttackType.enm.PHYSICAL
 		"decay": return AttackType.enm.DECAY
@@ -23,7 +22,7 @@ static func from_string(string: String) -> AttackType.enm:
 	return AttackType.enm.PHYSICAL
 
 
-static func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) -> float:
+func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) -> float:
 	var damage_map: Dictionary = {
 		AttackType.enm.PHYSICAL: {
 			ArmorType.enm.LUA: 1.8,

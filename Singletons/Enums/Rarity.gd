@@ -1,5 +1,4 @@
-class_name Rarity
-extends Object
+extends Node
 
 
 enum enm {
@@ -10,7 +9,7 @@ enum enm {
 }
 
 
-static func convert_from_string(string: String) -> Rarity.enm:
+func convert_from_string(string: String) -> Rarity.enm:
 	match string:
 		"common": return Rarity.enm.COMMON
 		"uncommon": return Rarity.enm.UNCOMMON
@@ -22,7 +21,7 @@ static func convert_from_string(string: String) -> Rarity.enm:
 	return Rarity.enm.COMMON
 
 
-static func convert_to_string(rarity: Rarity.enm) -> String:
+func convert_to_string(rarity: Rarity.enm) -> String:
 	match rarity:
 		Rarity.enm.COMMON: return "common"
 		Rarity.enm.UNCOMMON: return "uncommon"

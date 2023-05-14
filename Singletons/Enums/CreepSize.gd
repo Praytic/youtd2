@@ -1,4 +1,4 @@
-class_name CreepSize
+extends Node
 
 
 # NOTE: order is important to be able to compare
@@ -13,14 +13,14 @@ enum enm {
 }
 
 
-static func from_string(string: String) -> CreepSize.enm:
+func from_string(string: String) -> CreepSize.enm:
 	var string_upper: String = string.to_upper()
 	var size: CreepSize.enm = CreepSize.enm.get(string_upper)
 
 	return size
 
 
-static func convert_to_string(type: CreepSize.enm) -> String:
+func convert_to_string(type: CreepSize.enm) -> String:
 	match type:
 		CreepSize.enm.MASS: return "Mass"
 		CreepSize.enm.NORMAL: return "Normal"
@@ -35,7 +35,7 @@ static func convert_to_string(type: CreepSize.enm) -> String:
 	return "[unknown creep size]"
 
 
-static func convert_to_colored_string(type: CreepSize.enm) -> String:
+func convert_to_colored_string(type: CreepSize.enm) -> String:
 	var string: String = convert_to_string(type)
 
 	match type:
@@ -53,7 +53,7 @@ static func convert_to_colored_string(type: CreepSize.enm) -> String:
 
 
 # TODO: figure out actual values
-static func get_default_item_chance(type: CreepSize.enm) -> float:
+func get_default_item_chance(type: CreepSize.enm) -> float:
 	match type:
 		CreepSize.enm.MASS: return 0.05
 		CreepSize.enm.NORMAL: return 0.10
@@ -69,7 +69,7 @@ static func get_default_item_chance(type: CreepSize.enm) -> float:
 
 
 # TODO: figure out actual values
-static func get_default_item_quality(type: CreepSize.enm) -> float:
+func get_default_item_quality(type: CreepSize.enm) -> float:
 	match type:
 		CreepSize.enm.MASS: return 0.0
 		CreepSize.enm.NORMAL: return 0.0

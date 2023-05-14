@@ -1,4 +1,4 @@
-class_name ArmorType
+extends Node
 
 enum enm {
 	HEL,
@@ -8,7 +8,7 @@ enum enm {
 	SIF,
 }
 
-static func convert_to_string(type: ArmorType.enm) -> String:
+func convert_to_string(type: ArmorType.enm) -> String:
 	match type:
 		ArmorType.enm.HEL: return "Hel"
 		ArmorType.enm.MYT: return "Myt"
@@ -21,7 +21,7 @@ static func convert_to_string(type: ArmorType.enm) -> String:
 	return "[unknown armor type]"
 
 
-static func convert_to_colored_string(type: ArmorType.enm) -> String:
+func convert_to_colored_string(type: ArmorType.enm) -> String:
 	var string: String = convert_to_string(type)
 
 	match type:

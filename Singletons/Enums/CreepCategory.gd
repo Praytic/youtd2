@@ -1,4 +1,4 @@
-class_name CreepCategory
+extends Node
 
 enum enm {
 	UNDEAD,
@@ -9,7 +9,7 @@ enum enm {
 }
 
 
-static func convert_to_string(type: CreepCategory.enm) -> String:
+func convert_to_string(type: CreepCategory.enm) -> String:
 	match type:
 		CreepCategory.enm.UNDEAD: return "Undead"
 		CreepCategory.enm.MAGIC: return "Magic"
@@ -22,7 +22,7 @@ static func convert_to_string(type: CreepCategory.enm) -> String:
 	return "[unknown creep category]"
 
 
-static func convert_to_colored_string(type: CreepCategory.enm) -> String:
+func convert_to_colored_string(type: CreepCategory.enm) -> String:
 	var string: String = convert_to_string(type)
 
 	match type:
