@@ -34,6 +34,17 @@ const _dmg_from_element_map: Dictionary = {
 	Element.enm.NONE: Modification.Type.MOD_DMG_FROM_ICE,
 }
 
+const _color_map: Dictionary = {
+	Element.enm.ICE: Color.CORNFLOWER_BLUE,
+	Element.enm.NATURE: Color.LIME_GREEN,
+	Element.enm.FIRE: Color.ORANGE_RED,
+	Element.enm.ASTRAL: Color.MEDIUM_AQUAMARINE,
+	Element.enm.DARKNESS: Color.DARK_VIOLET,
+	Element.enm.IRON: Color.TAN,
+	Element.enm.STORM: Color.LIGHT_YELLOW,
+	Element.enm.NONE: Color.WHITE,
+}
+
 
 func from_string(string: String) -> Element.enm:
 	return _string_map.find_key(string)
@@ -45,3 +56,11 @@ func convert_to_string(element: Element.enm) -> String:
 
 func convert_to_dmg_from_element_mod(element: Element.enm) -> Modification.Type:
 	return _dmg_from_element_map[element]
+
+
+func convert_to_colored_string(type: Element.enm) -> String:
+	var string: String = convert_to_string(type).capitalize()
+	var color: Color = _color_map[type]
+	var out: String = Utils.get_colored_string(string, color)
+
+	return out

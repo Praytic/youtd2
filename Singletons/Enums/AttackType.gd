@@ -17,6 +17,13 @@ const _string_map: Dictionary = {
 	AttackType.enm.ELEMENTAL: "elemental",
 }
 
+const _color_map: Dictionary = {
+	AttackType.enm.PHYSICAL: Color.TAN,
+	AttackType.enm.DECAY: Color.BLUE_VIOLET,
+	AttackType.enm.ENERGY: Color.DODGER_BLUE,
+	AttackType.enm.ESSENCE: Color.AQUAMARINE,
+	AttackType.enm.ELEMENTAL: Color.CORNFLOWER_BLUE,
+}
 
 const _damage_to_armor_map: Dictionary = {
 	AttackType.enm.PHYSICAL: {
@@ -57,6 +64,10 @@ const _damage_to_armor_map: Dictionary = {
 }
 
 
+func convert_to_string(type: AttackType.enm):
+	return _string_map[type]
+
+
 func from_string(string: String) -> AttackType.enm:
 	return _string_map.find_key(string)
 
@@ -65,3 +76,11 @@ func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) 
 	var damage: float = _damage_to_armor_map[attack_type][armor_type]
 
 	return damage
+
+
+func convert_to_colored_string(type: AttackType.enm) -> String:
+	var string: String = convert_to_string(type).capitalize()
+	var color: Color = _color_map[type]
+	var out: String = Utils.get_colored_string(string, color)
+
+	return out
