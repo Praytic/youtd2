@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bko87hqmpyrwj"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_00uxd"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/SmallFrozenMushroom1.gd" id="2_ie5eq"]
+[ext_resource type="Texture2D" uid="uid://wr6rlsqkcjy1" path="res://Assets/Towers/Instances/small_frozen_mushroom.png" id="3_i3kgp"]
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("3_i3kgp")
+region = Rect2(2.08165e-12, 300, 300, 300)
+
+[node name="SmallFrozenMushroom1" instance=ExtResource("1_00uxd")]
+script = ExtResource("2_ie5eq")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
+position = Vector2(3, -63)
+texture = SubResource("2")
