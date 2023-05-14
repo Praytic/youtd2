@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dft1i6genfsyc"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_s7yof"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/SmallTorch1.gd" id="2_cwvnd"]
+[ext_resource type="Texture2D" uid="uid://cs666qcge2ovt" path="res://Assets/Towers/Instances/small_fire_torch_atlas.png" id="3_y1sos"]
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("3_y1sos")
+region = Rect2(2.08165e-12, 300, 300, 300)
+
+[node name="SmallTorch" instance=ExtResource("1_s7yof")]
+script = ExtResource("2_cwvnd")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
+position = Vector2(2, 113)
+texture = SubResource("2")
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="1"]
+position = Vector2(-1, 153)
