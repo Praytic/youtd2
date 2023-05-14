@@ -356,8 +356,8 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 
 	if self is Tower:
 		var tower: Tower = self as Tower
-		var element: Tower.Element = tower.get_element()
-		var mod_type: Modification.Type = Utils.convert_element_to_dmg_from_element_mod(element)
+		var element: Element.enm = tower.get_element()
+		var mod_type: Modification.Type = Element.convert_to_dmg_from_element_mod(element)
 		element_mod = target._mod_value_map[mod_type]
 
 	var damage: float = damage_base * armor_mod * received_mod * element_mod

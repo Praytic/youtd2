@@ -47,7 +47,7 @@ func _on_item_button_mouse_exited():
 	hide()
 
 
-func _on_research_button_mouse_entered(element: Tower.Element):
+func _on_research_button_mouse_entered(element: Element.enm):
 	show()
 
 	_label.clear()
@@ -60,8 +60,8 @@ func _on_research_button_mouse_exited():
 	hide()
 
 
-func _get_research_text(element: Tower.Element) -> String:
-	var element_string: String = Tower.element_to_string(element)
+func _get_research_text(element: Element.enm) -> String:
+	var element_string: String = Element.convert_to_string(element).capitalize()
 	var current_level: int = ElementLevel.get_current(element)
 	var next_level: int = current_level + 1
 	var cost: int = ElementLevel.get_research_cost(element)

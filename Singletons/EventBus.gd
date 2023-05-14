@@ -9,7 +9,7 @@ signal item_button_mouse_exited()
 signal tower_button_mouse_entered(tower_id: int)
 signal tower_button_mouse_exited()
 signal item_drop_picked_up(item_id: int)
-signal research_button_mouse_entered(element: Tower.Element)
+signal research_button_mouse_entered(element: Element.enm)
 signal research_button_mouse_exited()
 
 

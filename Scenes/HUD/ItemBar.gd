@@ -5,7 +5,6 @@ extends GridContainer
 @onready var _item_buttons: Dictionary = {}
 
 
-var current_element: Tower.Element
 var current_size: String
 var _moved_item_button: ItemButton = null
 

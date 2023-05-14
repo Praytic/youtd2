@@ -13,13 +13,13 @@ extends GridContainer
 @onready var available_tower_buttons: Array
 
 
-var current_element: Tower.Element
+var current_element: Element.enm
 var current_size: String
 
 
 func add_tower_button(tower_id):
 	available_tower_buttons.append(tower_id)
-	var element: Tower.Element = Properties.get_csv_properties(tower_id)[Tower.CsvProperty.ELEMENT]
+	var element: Element.enm = Properties.get_csv_properties(tower_id)[Tower.CsvProperty.ELEMENT]
 	if element == current_element:
 		_tower_buttons[tower_id].show()
 
@@ -50,10 +50,10 @@ func _ready():
 	
 	print_verbose("BuildBar has loaded.")
 
-func set_element(element: Tower.Element):
+func set_element(element: Element.enm):
 	current_element = element
 	
-	if current_element == Tower.Element.NONE:
+	if current_element == Element.enm.NONE:
 		# Items menu bar was selected
 		return
 		
@@ -97,8 +97,8 @@ func _resize_icons(icon_size: String):
 		_tower_buttons[tower_id].set_icon_size(icon_size)
 
 
-func _get_available_tower_buttons_for_element(element: Tower.Element) -> Array:
-	var element_string: String = Tower.Element.keys()[element].to_lower()
+func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
+	var element_string: String = Element.convert_to_string(element)
 	var tower_id_list = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.ELEMENT, element_string)
 	
 	var res: Array = []

@@ -31,7 +31,7 @@ func get_normal_message_container() -> VBoxContainer:
 func _on_element_button_pressed(element_button):
 	$MarginContainer.hide()
 	
-	var element: Tower.Element = element_button.element
+	var element: Element.enm = element_button.element
 	$RightMenuBar.set_element(element)
 
 
@@ -45,7 +45,7 @@ func _on_TooltipHeader_expanded(expand):
 
 
 func _on_ItemMenuButton_pressed():
-	var element: Tower.Element = Tower.Element.NONE
+	var element: Element.enm = Element.enm.NONE
 	$RightMenuBar.set_element(element)
 
 

@@ -19,10 +19,10 @@ func _ready():
 		print_verbose("!!!!!\nconnection bug still exists\n!!!!!!")
 
 
-func set_element(element: Tower.Element):
+func set_element(element: Element.enm):
 	show()
 
-	if element == Tower.Element.NONE:
+	if element == Element.enm.NONE:
 		item_bar.show()
 		build_bar.hide()
 	else:

@@ -1,16 +1,16 @@
 extends Control
 
 @onready var _element_to_button_map: Dictionary = {
-	Tower.Element.ICE: $VBoxContainer/IceButton,
-	Tower.Element.NATURE: $VBoxContainer/NatureButton,
-	Tower.Element.FIRE: $VBoxContainer/FireButton,
-	Tower.Element.ASTRAL: $VBoxContainer/AstralButton,
-	Tower.Element.DARKNESS: $VBoxContainer/DarknessButton,
-	Tower.Element.IRON: $VBoxContainer/IronButton,
-	Tower.Element.STORM: $VBoxContainer/StormButton,
+	Element.enm.ICE: $VBoxContainer/IceButton,
+	Element.enm.NATURE: $VBoxContainer/NatureButton,
+	Element.enm.FIRE: $VBoxContainer/FireButton,
+	Element.enm.ASTRAL: $VBoxContainer/AstralButton,
+	Element.enm.DARKNESS: $VBoxContainer/DarknessButton,
+	Element.enm.IRON: $VBoxContainer/IronButton,
+	Element.enm.STORM: $VBoxContainer/StormButton,
 }
 
-var _hovered_button_element: Tower.Element = Tower.Element.NONE
+var _hovered_button_element: Element.enm = Element.enm.NONE
 
 
 func _ready():
@@ -26,7 +26,7 @@ func _ready():
 	_on_knowledge_tomes_change()
 
 
-func _on_button_pressed(element: Tower.Element):
+func _on_button_pressed(element: Element.enm):
 	ElementLevel.increment(element)
 
 	var cost: int = ElementLevel.get_research_cost(element)
@@ -35,14 +35,14 @@ func _on_button_pressed(element: Tower.Element):
 	refresh_button_tooltip()
 
 
-func _on_button_mouse_entered(element: Tower.Element):
+func _on_button_mouse_entered(element: Element.enm):
 	EventBus.research_button_mouse_entered.emit(element)
 	_hovered_button_element = element
 
 
 func _on_button_mouse_exited():
 	EventBus.research_button_mouse_exited.emit()
-	_hovered_button_element = Tower.Element.NONE
+	_hovered_button_element = Element.enm.NONE
 
 
 func _on_knowledge_tomes_change():
@@ -56,5 +56,5 @@ func _on_knowledge_tomes_change():
 
 
 func refresh_button_tooltip():
-	if _hovered_button_element != Tower.Element.NONE:
+	if _hovered_button_element != Element.enm.NONE:
 		_on_button_mouse_entered(_hovered_button_element)
