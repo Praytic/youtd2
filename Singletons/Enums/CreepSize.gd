@@ -65,8 +65,12 @@ func convert_to_string(type: CreepSize.enm) -> String:
 	return _string_map[type]
 
 
-func get_color(type: CreepSize.enm) -> Color:
-	return _color_map[type]
+func convert_to_colored_string(type: CreepSize.enm) -> String:
+	var string: String = convert_to_string(type).capitalize()
+	var color: Color = _color_map[type]
+	var out: String = Utils.get_colored_string(string, color)
+
+	return out
 
 
 func get_default_item_chance(type: CreepSize.enm) -> float:
