@@ -9,25 +9,17 @@ enum enm {
 }
 
 
+const _string_map: Dictionary = {
+	Rarity.enm.COMMON: "common",
+	Rarity.enm.UNCOMMON: "uncommon",
+	Rarity.enm.RARE: "rare",
+	Rarity.enm.UNIQUE: "unique",
+}
+
+
 func convert_from_string(string: String) -> Rarity.enm:
-	match string:
-		"common": return Rarity.enm.COMMON
-		"uncommon": return Rarity.enm.UNCOMMON
-		"rare": return Rarity.enm.RARE
-		"unique": return Rarity.enm.UNIQUE
-
-	push_error("Unhandled rarity: ", string)
-
-	return Rarity.enm.COMMON
+	return _string_map.find_key(string)
 
 
 func convert_to_string(rarity: Rarity.enm) -> String:
-	match rarity:
-		Rarity.enm.COMMON: return "common"
-		Rarity.enm.UNCOMMON: return "uncommon"
-		Rarity.enm.RARE: return "rare"
-		Rarity.enm.UNIQUE: return "unique"
-
-	push_error("Unhandled rarity: ", rarity)
-
-	return "unknown"
+	return _string_map[rarity]

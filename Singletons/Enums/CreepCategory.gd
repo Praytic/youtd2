@@ -9,29 +9,28 @@ enum enm {
 }
 
 
+const _string_map: Dictionary = {
+	CreepCategory.enm.UNDEAD: "undead",
+	CreepCategory.enm.MAGIC: "magic",
+	CreepCategory.enm.NATURE: "nature",
+	CreepCategory.enm.ORC: "orc",
+	CreepCategory.enm.HUMANOID: "humanoid",
+}
+
+const _color_map: Dictionary = {
+	CreepCategory.enm.UNDEAD: Color.VIOLET,
+	CreepCategory.enm.MAGIC: Color.BLUE,
+	CreepCategory.enm.NATURE: Color.AQUA,
+	CreepCategory.enm.ORC: Color.DARK_GREEN,
+	CreepCategory.enm.HUMANOID: Color.TAN,
+}
+
 func convert_to_string(type: CreepCategory.enm) -> String:
-	match type:
-		CreepCategory.enm.UNDEAD: return "Undead"
-		CreepCategory.enm.MAGIC: return "Magic"
-		CreepCategory.enm.NATURE: return "Nature"
-		CreepCategory.enm.ORC: return "Orc"
-		CreepCategory.enm.HUMANOID: return "Humanoid"
-
-	push_error("Unhandled type: ", type)
-
-	return "[unknown creep category]"
+	return _string_map[type]
 
 
 func convert_to_colored_string(type: CreepCategory.enm) -> String:
 	var string: String = convert_to_string(type)
+	var color: Color = _color_map[type]
 
-	match type:
-		CreepCategory.enm.UNDEAD: return "[color=VIOLET]%s[/color]" % string
-		CreepCategory.enm.MAGIC: return "[color=BLUE]%s[/color]" % string
-		CreepCategory.enm.NATURE: return "[color=AQUA]%s[/color]" % string
-		CreepCategory.enm.ORC: return "[color=DARKGREEN]%s[/color]" % string
-		CreepCategory.enm.HUMANOID: return "[color=TAN]%s[/color]" % string
-
-	push_error("Unhandled type: ", type)
-
-	return "[unknown creep category]"
+	return "[color=%s]%s[/color]" % [color.to_html(), string]

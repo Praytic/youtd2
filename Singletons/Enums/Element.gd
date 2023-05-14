@@ -31,37 +31,17 @@ const _dmg_from_element_map: Dictionary = {
 	Element.enm.DARKNESS: Modification.Type.MOD_DMG_FROM_DARKNESS,
 	Element.enm.IRON: Modification.Type.MOD_DMG_FROM_IRON,
 	Element.enm.STORM: Modification.Type.MOD_DMG_FROM_STORM,
+	Element.enm.NONE: Modification.Type.MOD_DMG_FROM_ICE,
 }
 
 
 func from_string(string: String) -> Element.enm:
-	var element = _string_map.find_key(string)
-
-	if element != null:
-		return element 
-	else:
-		push_error("Unhandled string: ", string)
-
-		return Element.enm.NONE
+	return _string_map.find_key(string)
 
 
 func convert_to_string(element: Element.enm) -> String:
-	if _string_map.has(element):
-		var string: String = _string_map[element]
-
-		return string
-	else:
-		push_error("Unhandled element: ", element)
-
-		return ""
+	return _string_map[element]
 
 
 func convert_to_dmg_from_element_mod(element: Element.enm) -> Modification.Type:
-	if _dmg_from_element_map.has(element):
-		var mod_type: Modification.Type = _dmg_from_element_map[element]
-
-		return mod_type
-	else:
-		push_error("Unknown element:", element)
-
-		return Modification.Type.MOD_DMG_FROM_ICE
+	return _dmg_from_element_map[element]
