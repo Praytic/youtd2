@@ -61,22 +61,17 @@ func _on_research_button_mouse_exited():
 
 
 func _get_research_text(element: Element.enm) -> String:
+	var text: String = ""
+	
 	var element_string: String = Element.convert_to_string(element).capitalize()
 	var current_level: int = ElementLevel.get_current(element)
 	var next_level: int = current_level + 1
 	var cost: int = ElementLevel.get_research_cost(element)
-
-	var text: String = ""
-
 	var can_afford: bool = ElementLevel.can_afford_research(element)
-	var cost_number_color: String
-	if can_afford:
-		cost_number_color = "GOLD"
-	else:
-		cost_number_color = "RED"
+	var cost_string: String = _get_colored_requirement_number(cost, can_afford)
 
 	text += "Research %s level [color=GOLD]%d[/color]\n" % [element_string, next_level]
-	text += "[img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] [color=%s]%d[/color]\n" % [cost_number_color, cost]
+	text += "[img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %s\n" % cost_string
 	text += "Research next element level to unlock the ability to build new towers of this element and to new upgrade existing towers to next tiers.\n"
 
 	return text
@@ -88,6 +83,8 @@ func _get_tower_text(tower_id: int) -> String:
 	var requirements_text: String = _get_tower_requirements_text(tower_id)
 	var display_name: String = TowerProperties.get_display_name(tower_id)
 	var cost: int = TowerProperties.get_cost(tower_id)
+	var cost_ok: bool = GoldControl.get_gold() >= cost
+	var cost_string: String = _get_colored_requirement_number(cost, cost_ok)
 	var food: int = 0
 	var description: String = TowerProperties.get_description(tower_id)
 	var author: String = TowerProperties.get_author(tower_id)
@@ -109,9 +106,10 @@ func _get_tower_text(tower_id: int) -> String:
 
 	if !requirements_text.is_empty():
 		text += "%s\n" % requirements_text
+		text += " \n"
 
 	text += "[b]%s[/b]\n" % display_name
-	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost, food]
+	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %s [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost_string, food]
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 	text += "[color=YELLOW]Element:[/color] %s\n" % element.capitalize()
@@ -130,18 +128,24 @@ func _get_tower_text(tower_id: int) -> String:
 func _get_tower_requirements_text(tower_id: int) -> String:
 	var text: String = ""
 
-	var required_wave_level: int = TowerProperties.get_required_wave_level(tower_id)
-	var required_element_level: int = TowerProperties.get_required_element_level(tower_id)
-	var element_string: String = TowerProperties.get_element_string(tower_id)
-
 	var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(tower_id)
 
 	if requirements_are_satisfied:
 		return ""
 
-	text += "[color=YELLO][b]Requirements[/b]\n"
-	text += "Wave level: %s\n" % required_wave_level
-	text += "%s research level: %s\n \n" % [element_string.capitalize(), required_element_level]
+	var required_wave_level: int = TowerProperties.get_required_wave_level(tower_id)
+	var wave_level_ok: bool = TowerProperties.wave_level_foo(tower_id)
+	var wave_level_string: String = _get_colored_requirement_number(required_wave_level, wave_level_ok)
+
+	var required_element_level: int = TowerProperties.get_required_element_level(tower_id)
+	var element_level_ok: bool = TowerProperties.element_level_foo(tower_id)
+	var element_level_string: String = _get_colored_requirement_number(required_element_level, element_level_ok)
+
+	var element_string: String = TowerProperties.get_element_string(tower_id)
+
+	text += "[color=GOLD][b]Requirements[/b][/color]\n"
+	text += "Wave level: %s\n" % wave_level_string
+	text += "%s research level: %s\n" % [element_string.capitalize(), element_level_string]
 	
 	return text
 
@@ -222,3 +226,15 @@ func _add_color_to_numbers(text: String) -> String:
 		colored_text = colored_text.insert(index, tag_close)
 
 	return colored_text
+
+
+func _get_colored_requirement_number(value: int, requirement_satisfied: bool) -> String:
+	var color: Color
+	if requirement_satisfied:
+		color = Color.GOLD
+	else:
+		color = Color.ORANGE_RED
+
+	var string: String = "[color=%s]%d[/color]" % [color.to_html(), value]
+
+	return string
