@@ -2,13 +2,19 @@ extends Node
 
 signal changed()
 
+const STARTING_RESEARCH_LEVEL: String = "application/config/starting_research_level"
 
 var _element_level_map: Dictionary = {}
 
 
 func _init():
+	var starting_level: int = 0
+
+	if ProjectSettings.has_setting(STARTING_RESEARCH_LEVEL):
+		starting_level = ProjectSettings.get_setting(STARTING_RESEARCH_LEVEL) as int
+
 	for element in Tower.Element.values():
-		_element_level_map[element] = 0
+		_element_level_map[element] = starting_level
 
 
 # TODO: call this when button that levels up elements is
