@@ -17,11 +17,11 @@ const _string_map: Dictionary = {
 }
 
 const _color_map: Dictionary = {
-	ArmorType.enm.HEL: Color.RED,
-	ArmorType.enm.MYT: Color.BLUE,
-	ArmorType.enm.LUA: Color.GREEN,
-	ArmorType.enm.SOL: Color.YELLOW,
-	ArmorType.enm.SIF: Color.PURPLE,
+	ArmorType.enm.HEL: Color.ORANGE_RED,
+	ArmorType.enm.MYT: Color.CORNFLOWER_BLUE,
+	ArmorType.enm.LUA: Color.LIME_GREEN,
+	ArmorType.enm.SOL: Color.GOLD,
+	ArmorType.enm.SIF: Color.MEDIUM_PURPLE,
 }
 
 
