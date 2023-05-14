@@ -7,21 +7,6 @@ extends Node
 const PROPERTIES_PATH: String = "res://Data/wave_special_properties.csv"
 
 
-enum enm {
-	SPEED,
-	GREATER_SPEED,
-	XTREME_SPEED,
-	SLOW,
-	INVISIBLE,
-	STRONG,
-	RICH,
-	RELIC_RAIDER,
-	ULTRA_WISDOM,
-	ARMORED,
-	HEAVY_ARMORED,
-	XTREME_ARMOR,
-}
-
 enum CsvProperty {
 	ID,
 	NAME,
