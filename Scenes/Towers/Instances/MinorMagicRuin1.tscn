@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu6hbedtmvwhf"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_gi8jb"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/MinorMagicRuin1.gd" id="2_5aw1v"]
+[ext_resource type="Texture2D" uid="uid://bsi7qb0iqx7q4" path="res://Assets/Towers/Instances/minor_magic_ruin_atlas.png" id="3_ee81s"]
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("3_ee81s")
+region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+
+[node name="MinorMagicRuin" instance=ExtResource("1_gi8jb")]
+script = ExtResource("2_5aw1v")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
+position = Vector2(1, -80)
+texture = SubResource("2")
