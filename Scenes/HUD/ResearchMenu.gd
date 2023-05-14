@@ -23,7 +23,7 @@ func _ready():
 
 	KnowledgeTomesManager.knowledge_tomes_change.connect(_on_knowledge_tomes_change)
 
-	_on_knowledge_tomes_change(0)
+	_on_knowledge_tomes_change()
 
 
 func _on_button_pressed(element: Tower.Element):
@@ -45,7 +45,7 @@ func _on_button_mouse_exited():
 	_hovered_button_element = Tower.Element.NONE
 
 
-func _on_knowledge_tomes_change(_value):
+func _on_knowledge_tomes_change():
 	for element in _element_to_button_map.keys():
 		var button: Button = _element_to_button_map[element]
 		var can_afford: bool = ElementLevel.can_afford_research(element)

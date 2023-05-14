@@ -1,6 +1,6 @@
 extends Node
 
-signal knowledge_tomes_change(value)
+signal knowledge_tomes_change()
 
 const STARTING_TOMES_SETTING: String = "application/config/starting_tomes"
 
@@ -23,7 +23,7 @@ func set_knowledge_tomes(value):
 		knowledge_tomes = 0
 	else:
 		knowledge_tomes = value
-	knowledge_tomes_change.emit(value)
+	knowledge_tomes_change.emit()
 	
 func add_knowledge_tomes(value = income):
 	set_knowledge_tomes(knowledge_tomes + value)
