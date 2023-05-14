@@ -73,7 +73,7 @@ var _buff_map: Dictionary = {
 
 # NOTE: some wave specials are disabled because they are
 # incomplete
-var _disabled_special_list: Array[int] = [28, 31, 32, 36, 40]
+var _disabled_special_list: Array[int] = [4, 28, 31, 32, 36, 40]
 
 var _properties: Dictionary = {}
 
