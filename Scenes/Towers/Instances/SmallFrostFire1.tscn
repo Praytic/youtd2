@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://jg1eby1nw507"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_0helb"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/SmallFrostFire1.gd" id="2_aahaa"]
+[ext_resource type="Texture2D" uid="uid://ccsbwlvud2oa6" path="res://Assets/Towers/Instances/small_frost_fire_atlas.png" id="3_2fg0r"]
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("3_2fg0r")
+region = Rect2(0, 0, 300, 300)
+
+[node name="SmallFrostFire1" instance=ExtResource("1_0helb")]
+script = ExtResource("2_aahaa")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
+position = Vector2(3, -63)
+texture = SubResource("2")
