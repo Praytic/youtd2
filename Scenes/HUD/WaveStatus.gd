@@ -54,12 +54,21 @@ func _update_text():
 		if wave == null:
 			break
 
-		var race_String: String = CreepCategory.convert_to_colored_string(wave.get_race()).capitalize()
+		var race: CreepCategory.enm = wave.get_race()
+		var race_string: String = CreepCategory.convert_to_string(race).capitalize()
+		var race_color: Color = CreepCategory.get_color(race)
+		var race_string_colored: String = Utils.get_colored_string(race_string, race_color)
+
 		var size_string: String = _get_size_combination_string(wave)
-		var armor_string: String = ArmorType.convert_to_colored_string(wave.get_armor_type()).capitalize()
+
+		var armor_type: ArmorType.enm = wave.get_armor_type()
+		var armor_string: String = ArmorType.convert_to_string(armor_type).capitalize()
+		var armor_color: Color = ArmorType.get_color(armor_type)
+		var armor_string_colored: String = Utils.get_colored_string(armor_string, armor_color)
+
 		var specials_string: String = _get_specials_string(wave)
 
-		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_String, armor_string, specials_string]
+		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_string_colored, armor_string_colored, specials_string]
 	
 	text += "[/table]"
 
@@ -96,9 +105,11 @@ func _get_size_combination_string(wave: Wave) -> String:
 			continue
 
 		var count: int = size_count_map[creep_size]
-		var size_string: String = CreepSize.convert_to_colored_string(creep_size).capitalize()
+		var size_string: String = CreepSize.convert_to_string(creep_size).capitalize()
+		var size_color: Color = CreepSize.get_color(creep_size)
+		var size_string_colored: String = Utils.get_colored_string(size_string, size_color)
 
-		string_split.append("%d %s" % [count, size_string])
+		string_split.append("%d %s" % [count, size_string_colored])
 
 	var string: String = ", ".join(string_split)
 

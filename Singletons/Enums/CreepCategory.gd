@@ -29,8 +29,5 @@ func convert_to_string(type: CreepCategory.enm) -> String:
 	return _string_map[type]
 
 
-func convert_to_colored_string(type: CreepCategory.enm) -> String:
-	var string: String = convert_to_string(type)
-	var color: Color = _color_map[type]
-
-	return "[color=%s]%s[/color]" % [color.to_html(), string]
+func get_color(type: CreepCategory.enm) -> Color:
+	return _color_map[type]

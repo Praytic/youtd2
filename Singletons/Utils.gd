@@ -7,6 +7,12 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+func get_colored_string(string: String, color: Color) -> String:
+	var out: String = "[color=%s]%s[/color]" % [color.to_html(), string]
+
+	return out
+
+
 # Gets the ratio of two floats. If divisor is 0, returns 0.
 func get_ratio(a: float, b: float) -> float:
 	if b > 0.0:
