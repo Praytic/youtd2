@@ -701,7 +701,7 @@ func receive_damage(damage: float) -> bool:
 
 	_set_health(_health - damage)
 
-	if FF.damage_numbers():
+	if Config.damage_numbers():
 		getOwner().display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
 
 	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0

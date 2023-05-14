@@ -28,7 +28,7 @@ func _ready():
 	_resize_icons("S")
 	current_size = "S"
 
-	if FF.add_test_item():
+	if Config.add_test_item():
 		var test_item_list: Array[int] = [77, 78, 79, 99, 105, 108, 155, 158, 159, 218, 231, 244, 249, 268, 274, 1001]
 
 		for item in test_item_list:

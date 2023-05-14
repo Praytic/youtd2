@@ -11,9 +11,9 @@ signal stop_wave()
 
 
 func _ready():
-	if FF.minimap_enabled():
+	if Config.minimap_enabled():
 		$Minimap.call_deferred("create_instance")
-	if OS.is_debug_build() and FF.dev_controls_enabled():
+	if OS.is_debug_build() and Config.dev_controls_enabled():
 		$DevControls.call_deferred("create_instance")
 	
 	for element_button in element_buttons_parent.get_children():

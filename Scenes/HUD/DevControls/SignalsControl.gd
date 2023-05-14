@@ -14,7 +14,7 @@ var acc_delta: float = 0
 
 
 func _ready():
-	if not debug_enabled or not FF.dev_controls_enabled():
+	if not debug_enabled or not Config.dev_controls_enabled():
 		return
 	_connect_all_nodes(get_tree().get_root().get_node("GameScene"))
 	get_tree().node_added.connect(_on_Node_added)

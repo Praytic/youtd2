@@ -1,6 +1,10 @@
-# Feature Flags (FF) node contains methods for enabling/disabling
-# certain functionality
 extends Node
+
+
+# A collection of config items that can be defined in
+# project.godot or override.cfg. Use override.cfg to locally
+# override a config value without commiting the value to the
+# repo.
 
 
 func fast_waves_enabled() -> bool:

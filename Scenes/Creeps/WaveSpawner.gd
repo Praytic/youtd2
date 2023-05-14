@@ -25,7 +25,7 @@ var _current_wave_index: int = -1
 @onready var _wave_paths = get_tree().get_nodes_in_group("wave_path")
 
 func _ready():
-	if FF.fast_waves_enabled():
+	if Config.fast_waves_enabled():
 		TIME_BETWEEN_WAVES = 0.1
 
 	_timer_between_waves.set_autostart(false)
