@@ -58,3 +58,9 @@ func ignore_requirements() -> bool:
 # a work in progress.
 func sfx_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/sfx_enabled") as bool
+
+# Enables display of all tower tiers in tower build menu.
+# Normally, only the first tier is displayed and further
+# tiers are built by upgrading towers.
+func display_all_tower_tiers() -> bool:
+	return ProjectSettings.get_setting("application/config/display_all_tower_tiers") as bool

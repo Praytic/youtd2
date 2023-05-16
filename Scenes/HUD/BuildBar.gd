@@ -103,7 +103,12 @@ func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
 	
 	var res: Array = []
 	for tower_id in tower_id_list:
-		if available_tower_buttons.has(tower_id):
+		var tier: int = TowerProperties.get_tier(tower_id)
+		var is_first_tier: bool = tier == 1
+		var display_all_tower_tiers: bool = Config.display_all_tower_tiers()
+		var tier_is_ok: bool = is_first_tier || display_all_tower_tiers
+
+		if available_tower_buttons.has(tower_id) && tier_is_ok:
 			res.append(tower_id)
 	
 	return res
