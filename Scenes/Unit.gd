@@ -367,7 +367,7 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 	var attack_type: AttackType.enm = get_attack_type()
 	var deals_no_damage_to_immune: bool = AttackType.deals_no_damage_to_immune(attack_type)
 
-	if target.is_immune && deals_no_damage_to_immune:
+	if target.is_immune() && deals_no_damage_to_immune:
 		damage = 0
 
 #   NOTE: do not emit damage event if one is already in
