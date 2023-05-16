@@ -28,6 +28,15 @@ const _color_map: Dictionary = {
 	AttackType.enm.MAGIC: Color.DEEP_SKY_BLUE,
 }
 
+const _no_damage_to_immune_map: Dictionary = {
+	AttackType.enm.PHYSICAL: false,
+	AttackType.enm.DECAY: false,
+	AttackType.enm.ENERGY: false,
+	AttackType.enm.ESSENCE: false,
+	AttackType.enm.ELEMENTAL: false,
+	AttackType.enm.MAGIC: true,
+}
+
 const _damage_to_armor_map: Dictionary = {
 	AttackType.enm.PHYSICAL: {
 		ArmorType.enm.LUA: 1.8,
@@ -86,6 +95,10 @@ func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) 
 	var damage: float = _damage_to_armor_map[attack_type][armor_type]
 
 	return damage
+
+
+func deals_no_damage_to_immune(attack_type: AttackType.enm) -> bool:
+	return _no_damage_to_immune_map[attack_type]
 
 
 func convert_to_colored_string(type: AttackType.enm) -> String:

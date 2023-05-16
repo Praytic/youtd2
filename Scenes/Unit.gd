@@ -333,6 +333,8 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 	var received_mod: float = target.get_prop_spell_damage_received()
 	var damage_total: float = damage_base * dealt_mod * received_mod * crit_ratio
 
+#	TODO: didn't actually confirm whether immune = doesn't
+#	receive spell damage. Confirm.
 	if target.is_immune():
 		damage_total = 0
 
@@ -361,6 +363,12 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 		element_mod = target._mod_value_map[mod_type]
 
 	var damage: float = damage_base * armor_mod * received_mod * element_mod
+
+	var attack_type: AttackType.enm = get_attack_type()
+	var deals_no_damage_to_immune: bool = AttackType.deals_no_damage_to_immune(attack_type)
+
+	if target.is_immune && deals_no_damage_to_immune:
+		damage = 0
 
 #   NOTE: do not emit damage event if one is already in
 #   progress. Some towers have damage event handlers that
@@ -835,7 +843,6 @@ func _on_modify_property():
 ### Setters / Getters ###
 #########################
 
-# TODO: implement
 func is_immune() -> bool:
 	return false
 
