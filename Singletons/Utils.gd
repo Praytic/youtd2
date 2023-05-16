@@ -7,6 +7,12 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+func get_game_time() -> float:
+	var time: float = Time.get_unix_time_from_system()
+
+	return time
+
+
 func get_colored_string(string: String, color: Color) -> String:
 	var out: String = "[color=%s]%s[/color]" % [color.to_html(), string]
 
