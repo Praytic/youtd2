@@ -6,6 +6,7 @@ enum enm {
 	ENERGY,
 	ESSENCE,
 	ELEMENTAL,
+	MAGIC,
 }
 
 
@@ -15,6 +16,7 @@ const _string_map: Dictionary = {
 	AttackType.enm.ENERGY: "energy",
 	AttackType.enm.ESSENCE: "essence",
 	AttackType.enm.ELEMENTAL: "elemental",
+	AttackType.enm.MAGIC: "magic",
 }
 
 const _color_map: Dictionary = {
@@ -23,6 +25,7 @@ const _color_map: Dictionary = {
 	AttackType.enm.ENERGY: Color.DODGER_BLUE,
 	AttackType.enm.ESSENCE: Color.AQUAMARINE,
 	AttackType.enm.ELEMENTAL: Color.CORNFLOWER_BLUE,
+	AttackType.enm.MAGIC: Color.DEEP_SKY_BLUE,
 }
 
 const _damage_to_armor_map: Dictionary = {
@@ -59,6 +62,13 @@ const _damage_to_armor_map: Dictionary = {
 		ArmorType.enm.LUA: 1.2,
 		ArmorType.enm.SOL: 0.9,
 		ArmorType.enm.HEL: 0.6,
+		ArmorType.enm.SIF: 0.4,
+	},
+	AttackType.enm.MAGIC: {
+		ArmorType.enm.MYT: 1.5,
+		ArmorType.enm.LUA: 1.5,
+		ArmorType.enm.SOL: 1.5,
+		ArmorType.enm.HEL: 1.5,
 		ArmorType.enm.SIF: 0.4,
 	},
 }
