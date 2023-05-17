@@ -201,6 +201,12 @@ func _ready():
 ###       Public      ###
 #########################
 
+# TODO: implement. Hard to understand how this is supposed
+# to work.
+func add_spell_crit():
+	pass
+
+
 func add_autocast(autocast: Autocast):
 	autocast.set_caster(self)
 	add_child(autocast)
