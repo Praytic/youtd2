@@ -7,6 +7,10 @@ func get_tier(tower_id: int) -> int:
 	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.TIER).to_int()
 
 
+func is_released(tower_id: int) -> bool:
+	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.RELEASE).to_int() as bool
+
+
 func get_icon_atlas_num(tower_id: int) -> int:
 	var icon_atlas_num_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.ICON_ATLAS_NUM)
 

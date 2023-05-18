@@ -27,6 +27,7 @@ enum CsvProperty {
 	REQUIRED_ELEMENT_LEVEL,
 	REQUIRED_WAVE_LEVEL,
 	ICON_ATLAS_NUM,
+	RELEASE,
 }
 
 enum AttackStyle {
@@ -739,6 +740,9 @@ func get_family() -> int:
 
 func get_icon_atlas_num() -> int:
 	return TowerProperties.get_icon_atlas_num(_id)
+
+func is_released() -> bool:
+	return TowerProperties.is_released(_id)
 
 func get_element() -> Element.enm:
 	return TowerProperties.get_element(_id)

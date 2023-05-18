@@ -25,8 +25,10 @@ func _ready():
 
 		for tower_id in tower_id_list:
 			var tower_scene: PackedScene = _get_tower_scene(tower_id)
-
-			preloaded_towers[tower_id] = tower_scene
+			
+			if TowerProperties.is_released(tower_id):
+				preloaded_towers[tower_id] = tower_scene
+				print_verbose("Preloaded tower [%s] with ID [%s]" % [TowerProperties.get_display_name(tower_id), tower_id])
 	
 	print_verbose("TowerManager has loaded.")
 
