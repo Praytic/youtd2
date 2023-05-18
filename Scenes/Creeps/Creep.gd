@@ -17,6 +17,8 @@ const DEFAULT_MOVE_SPEED: float = 200.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
 
+const _disabled_item_list: Array[int] = [50]
+
 var _path: Path2D : set = set_path
 var _size: CreepSize.enm
 var _category: CreepCategory.enm : set = set_category, get = get_category
@@ -132,6 +134,11 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 	var rarity_string: String = Rarity.convert_to_string(rarity)
 
 	var item_id_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.RARITY, rarity_string)
+
+#	NOTE: some items are disabled because their scripts are
+#	incomplete or broken.
+	for item_id in _disabled_item_list:
+		item_id_list.erase(item_id)
 
 #	NOTE: Filter out items that have a script. This should
 #	be removed once all item scripts are implemented.
