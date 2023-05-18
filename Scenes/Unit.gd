@@ -76,6 +76,7 @@ var _best_hit: float = 0.0
 var _damage_dealt_total: float = 0.0
 var _silence_count: int = 0
 var _stunned: bool = false
+var _visual_only: bool = false
 
 var _selection_visual: Node = null
 
@@ -175,6 +176,9 @@ func _init():
 			push_error("No default value defined for modification type: ", mod_type)
 
 func _ready():
+	if _visual_only:
+		return
+
 	_selection_visual = Selection.new()
 	_selection_visual.hide()
 	_selection_visual.z_index = -1
