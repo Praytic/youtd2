@@ -54,6 +54,7 @@ func add_normal(text: String):
 	var label: RichTextLabel = RichTextLabel.new()
 	label.append_text(text)
 	label.fit_content = true
+	label.mouse_filter = Control.MOUSE_FILTER_PASS
 
 	label.modulate = Color.WHITE
 	var modulate_tween: Tween = create_tween()
