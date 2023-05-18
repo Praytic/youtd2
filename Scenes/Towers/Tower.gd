@@ -55,7 +55,6 @@ var _order_stop_requested: bool = false
 var _current_attack_cooldown: float = 0.0
 var _target_order_issued: bool = false
 var _target_order_target: Unit
-var _visual_only: bool = false
 var _item_list: Array[Item] = []
 var _item_oil_list: Array[Item] = []
 var _specials_modifier: Modifier = Modifier.new()
