@@ -11,9 +11,9 @@ signal stop_wave()
 
 
 func _ready():
-	if FF.minimap_enabled():
+	if Config.minimap_enabled():
 		$Minimap.call_deferred("create_instance")
-	if OS.is_debug_build() and FF.dev_controls_enabled():
+	if OS.is_debug_build() and Config.dev_controls_enabled():
 		$DevControls.call_deferred("create_instance")
 	
 	for element_button in element_buttons_parent.get_children():
@@ -31,7 +31,7 @@ func get_normal_message_container() -> VBoxContainer:
 func _on_element_button_pressed(element_button):
 	$MarginContainer.hide()
 	
-	var element: Tower.Element = element_button.element
+	var element: Element.enm = element_button.element
 	$RightMenuBar.set_element(element)
 
 
@@ -45,7 +45,7 @@ func _on_TooltipHeader_expanded(expand):
 
 
 func _on_ItemMenuButton_pressed():
-	var element: Tower.Element = Tower.Element.NONE
+	var element: Element.enm = Element.enm.NONE
 	$RightMenuBar.set_element(element)
 
 
@@ -54,3 +54,7 @@ func _on_ItemMenuButton_pressed():
 # manually hide button tooltip
 func _on_right_menu_bar_hidden():
 	$ButtonTooltip.hide()
+
+
+func _on_research_button_pressed():
+	$ResearchMenu.visible = !$ResearchMenu.visible

@@ -32,6 +32,7 @@ extends Node
 
 enum Type {
 	AC_TYPE_ALWAYS_BUFF,
+	AC_TYPE_ALWAYS_IMMEDIATE,
 	AC_TYPE_OFFENSIVE_BUFF,
 	AC_TYPE_OFFENSIVE_UNIT,
 	AC_TYPE_OFFENSIVE_IMMEDIATE
@@ -83,6 +84,8 @@ func _ready():
 		Type.AC_TYPE_OFFENSIVE_BUFF:
 			_buff_timer.start()
 		Type.AC_TYPE_OFFENSIVE_IMMEDIATE:
+			_immediate_timer.start()
+		Type.AC_TYPE_ALWAYS_IMMEDIATE:
 			_immediate_timer.start()
 
 
@@ -160,7 +163,7 @@ func _on_immediate_timer_timeout():
 	if !_can_cast():
 		return
 
-	if !_caster.is_attacking():
+	if autocast_type == Type.AC_TYPE_OFFENSIVE_IMMEDIATE && !_caster.is_attacking():
 		return
 
 	_caster.spend_mana(mana_cost)

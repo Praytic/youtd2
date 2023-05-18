@@ -54,12 +54,17 @@ func _update_text():
 		if wave == null:
 			break
 
-		var race_String: String = CreepCategory.convert_to_colored_string(wave.get_race())
+		var race: CreepCategory.enm = wave.get_race()
+		var race_string: String = CreepCategory.convert_to_colored_string(race)
+
 		var size_string: String = _get_size_combination_string(wave)
-		var armor_string: String = ArmorType.convert_to_colored_string(wave.get_armor_type())
+
+		var armor_type: ArmorType.enm = wave.get_armor_type()
+		var armor_string: String = ArmorType.convert_to_colored_string(armor_type)
+
 		var specials_string: String = _get_specials_string(wave)
 
-		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_String, armor_string, specials_string]
+		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_string, armor_string, specials_string]
 	
 	text += "[/table]"
 

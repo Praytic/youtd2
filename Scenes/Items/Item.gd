@@ -40,6 +40,7 @@ var _charge_count: int = -1
 var _modifier: Modifier = Modifier.new()
 var _buff_type_list: Array[BuffType] = []
 var _applied_buff_list: Array[Buff] = []
+var _autocast_list: Array[Autocast] = []
 
 
 #########################
@@ -83,6 +84,11 @@ func _init(id: int):
 	_buff_type_list.append(triggers_buff_type)
 
 
+func add_autocast(autocast: Autocast):
+	_autocast_list.append(autocast)
+	add_child(autocast)
+
+
 # Sets the charge count that is displayed on the item icon.
 func set_charges(new_count: int):
 	_charge_count = new_count
@@ -114,6 +120,9 @@ func apply_to_tower(tower: Tower):
 	on_item_pickup()
 
 	_carrier.add_modifier(_modifier)
+
+	for autocast in _autocast_list:
+		autocast.set_caster(_carrier)
 
 	for buff_type in _buff_type_list:
 		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)

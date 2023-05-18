@@ -1,0 +1,109 @@
+extends Node
+
+enum enm {
+	PHYSICAL,
+	DECAY,
+	ENERGY,
+	ESSENCE,
+	ELEMENTAL,
+	MAGIC,
+}
+
+
+const _string_map: Dictionary = {
+	AttackType.enm.PHYSICAL: "physical",
+	AttackType.enm.DECAY: "decay",
+	AttackType.enm.ENERGY: "energy",
+	AttackType.enm.ESSENCE: "essence",
+	AttackType.enm.ELEMENTAL: "elemental",
+	AttackType.enm.MAGIC: "magic",
+}
+
+const _color_map: Dictionary = {
+	AttackType.enm.PHYSICAL: Color.TAN,
+	AttackType.enm.DECAY: Color.BLUE_VIOLET,
+	AttackType.enm.ENERGY: Color.DODGER_BLUE,
+	AttackType.enm.ESSENCE: Color.AQUAMARINE,
+	AttackType.enm.ELEMENTAL: Color.CORNFLOWER_BLUE,
+	AttackType.enm.MAGIC: Color.DEEP_SKY_BLUE,
+}
+
+const _no_damage_to_immune_map: Dictionary = {
+	AttackType.enm.PHYSICAL: false,
+	AttackType.enm.DECAY: false,
+	AttackType.enm.ENERGY: false,
+	AttackType.enm.ESSENCE: false,
+	AttackType.enm.ELEMENTAL: false,
+	AttackType.enm.MAGIC: true,
+}
+
+const _damage_to_armor_map: Dictionary = {
+	AttackType.enm.PHYSICAL: {
+		ArmorType.enm.LUA: 1.8,
+		ArmorType.enm.SOL: 1.2,
+		ArmorType.enm.HEL: 0.9,
+		ArmorType.enm.MYT: 0.6,
+		ArmorType.enm.SIF: 0.4,
+	},
+	AttackType.enm.DECAY: {
+		ArmorType.enm.SOL: 1.8,
+		ArmorType.enm.HEL: 1.2,
+		ArmorType.enm.MYT: 0.9,
+		ArmorType.enm.LUA: 0.6,
+		ArmorType.enm.SIF: 0.4,
+	},
+	AttackType.enm.ENERGY: {
+		ArmorType.enm.HEL: 1.8,
+		ArmorType.enm.MYT: 1.2,
+		ArmorType.enm.LUA: 0.9,
+		ArmorType.enm.SOL: 0.6,
+		ArmorType.enm.SIF: 0.4,
+	},
+	AttackType.enm.ESSENCE: {
+		ArmorType.enm.HEL: 1.0,
+		ArmorType.enm.MYT: 1.0,
+		ArmorType.enm.LUA: 1.0,
+		ArmorType.enm.SOL: 1.0,
+		ArmorType.enm.SIF: 1.0,
+	},
+	AttackType.enm.ELEMENTAL: {
+		ArmorType.enm.MYT: 1.8,
+		ArmorType.enm.LUA: 1.2,
+		ArmorType.enm.SOL: 0.9,
+		ArmorType.enm.HEL: 0.6,
+		ArmorType.enm.SIF: 0.4,
+	},
+	AttackType.enm.MAGIC: {
+		ArmorType.enm.MYT: 1.5,
+		ArmorType.enm.LUA: 1.5,
+		ArmorType.enm.SOL: 1.5,
+		ArmorType.enm.HEL: 1.5,
+		ArmorType.enm.SIF: 0.4,
+	},
+}
+
+
+func convert_to_string(type: AttackType.enm):
+	return _string_map[type]
+
+
+func from_string(string: String) -> AttackType.enm:
+	return _string_map.find_key(string)
+
+
+func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) -> float:
+	var damage: float = _damage_to_armor_map[attack_type][armor_type]
+
+	return damage
+
+
+func deals_no_damage_to_immune(attack_type: AttackType.enm) -> bool:
+	return _no_damage_to_immune_map[attack_type]
+
+
+func convert_to_colored_string(type: AttackType.enm) -> String:
+	var string: String = convert_to_string(type).capitalize()
+	var color: Color = _color_map[type]
+	var out: String = Utils.get_colored_string(string, color)
+
+	return out

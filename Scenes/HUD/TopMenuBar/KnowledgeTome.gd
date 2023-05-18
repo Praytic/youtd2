@@ -5,8 +5,8 @@ func _ready():
 
 	KnowledgeTomesManager.knowledge_tomes_change.connect(_on_knowledge_tomes_change)
 
-	var initial_value: int = KnowledgeTomesManager.knowledge_tomes
-	_on_knowledge_tomes_change(initial_value)
+	_on_knowledge_tomes_change()
 	
-func _on_knowledge_tomes_change(new_value: int):
+func _on_knowledge_tomes_change():
+	var new_value: int = KnowledgeTomesManager.get_current()
 	set_label_text(str(new_value))

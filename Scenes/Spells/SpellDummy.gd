@@ -13,7 +13,7 @@ var _lifetime: float = 0.0
 
 
 func _ready():
-	_debug_sprite.visible = FF.visible_spell_dummys_enabled()
+	_debug_sprite.visible = Config.visible_spell_dummys_enabled()
 
 	_lifetime_timer.start(_lifetime)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dnv37bb7qk3kv"]
+[gd_scene load_steps=41 format=3 uid="uid://dnv37bb7qk3kv"]
 
 [ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1_rx3ev"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
 [ext_resource type="PackedScene" uid="uid://b41jiom5a6uq8" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
+[ext_resource type="PackedScene" uid="uid://vdiwgjefedtp" path="res://Scenes/HUD/ResearchMenu.tscn" id="22_kpm02"]
 
 [sub_resource type="FontFile" id="1"]
 subpixel_positioning = 0
@@ -459,7 +460,25 @@ offset_right = 430.0
 offset_bottom = 14.0
 scale = Vector2(0.55408, 0.55408)
 
+[node name="ResearchButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1578.0
+offset_top = 1001.0
+offset_right = 1738.0
+offset_bottom = 1064.0
+text = "Research
+"
+
+[node name="ResearchMenu" parent="." instance=ExtResource("22_kpm02")]
+visible = false
+layout_mode = 1
+offset_left = 1554.0
+offset_top = 486.0
+offset_right = -242.0
+offset_bottom = -313.0
+
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
 [connection signal="pressed" from="ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
 [connection signal="hidden" from="RightMenuBar" to="." method="_on_right_menu_bar_hidden"]
+[connection signal="pressed" from="ResearchButton" to="." method="_on_research_button_pressed"]

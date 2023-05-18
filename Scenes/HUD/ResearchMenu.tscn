@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://vdiwgjefedtp"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/ResearchMenu.gd" id="1_3ivcb"]
+
+[node name="ResearchMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1796.0
+offset_bottom = -799.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3ivcb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Research menu"
+
+[node name="IceButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Ice"
+
+[node name="NatureButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Nature"
+
+[node name="FireButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Fire"
+
+[node name="AstralButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Astral"
+
+[node name="DarknessButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Darkness"
+
+[node name="IronButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Iron"
+
+[node name="StormButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Storm"

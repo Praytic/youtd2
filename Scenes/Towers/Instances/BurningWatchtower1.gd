@@ -54,7 +54,7 @@ func damage_on_fire_attack(event: Event):
 	var attacker: Unit = event.get_target()
 	var is_burning_tower: bool
 
-	if Tower.Element.FIRE == attacker.get_category():
+	if Element.enm.FIRE == attacker.get_category():
 		is_burning_tower = (attacker as Tower).get_family() == (b.get_caster() as Tower).get_family()
 
 		if is_burning_tower:

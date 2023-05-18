@@ -143,21 +143,21 @@ static func _get_creep_category_list(bitmask: int) -> Array[CreepCategory.enm]:
 	return list
 
 
-static func _get_tower_element_list(bitmask: int) -> Array[Tower.Element]:
+static func _get_tower_element_list(bitmask: int) -> Array[Element.enm]:
 	var bit_to_element_map: Dictionary = {
-		ELEMENT_ASTRAL: Tower.Element.ASTRAL,
-		ELEMENT_DARKNESS: Tower.Element.DARKNESS,
-		ELEMENT_NATURE: Tower.Element.NATURE,
-		ELEMENT_FIRE: Tower.Element.FIRE,
-		ELEMENT_ICE: Tower.Element.ICE,
-		ELEMENT_STORM: Tower.Element.STORM,
-		ELEMENT_IRON: Tower.Element.IRON,
+		ELEMENT_ASTRAL: Element.enm.ASTRAL,
+		ELEMENT_DARKNESS: Element.enm.DARKNESS,
+		ELEMENT_NATURE: Element.enm.NATURE,
+		ELEMENT_FIRE: Element.enm.FIRE,
+		ELEMENT_ICE: Element.enm.ICE,
+		ELEMENT_STORM: Element.enm.STORM,
+		ELEMENT_IRON: Element.enm.IRON,
 	}
 
-	var list: Array[Tower.Element] = []
+	var list: Array[Element.enm] = []
 
 	for bit in bit_to_element_map.keys():
-		var element: Tower.Element = bit_to_element_map[bit]
+		var element: Element.enm = bit_to_element_map[bit]
 		var is_set: bool = Utils.bit_is_set(bitmask, bit)
 
 		if is_set:

@@ -7,26 +7,16 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
-const _element_to_dmg_from_element_mod_map: Dictionary = {
-	Tower.Element.ICE: Modification.Type.MOD_DMG_FROM_ICE,
-	Tower.Element.NATURE: Modification.Type.MOD_DMG_FROM_NATURE,
-	Tower.Element.FIRE: Modification.Type.MOD_DMG_FROM_FIRE,
-	Tower.Element.ASTRAL: Modification.Type.MOD_DMG_FROM_ASTRAL,
-	Tower.Element.DARKNESS: Modification.Type.MOD_DMG_FROM_DARKNESS,
-	Tower.Element.IRON: Modification.Type.MOD_DMG_FROM_IRON,
-	Tower.Element.STORM: Modification.Type.MOD_DMG_FROM_STORM,
-}
+func get_game_time() -> float:
+	var time: float = Time.get_unix_time_from_system()
+
+	return time
 
 
-# TODO: create separate file for Tower.Element enum and move
-# this f-n there.
-func convert_element_to_dmg_from_element_mod(element: Tower.Element) -> Modification.Type:
-	if _element_to_dmg_from_element_mod_map.has(element):
-		return _element_to_dmg_from_element_mod_map[element]
-	else:
-		push_error("Unknown element:", element)
+func get_colored_string(string: String, color: Color) -> String:
+	var out: String = "[color=%s]%s[/color]" % [color.to_html(), string]
 
-		return Modification.Type.MOD_DMG_FROM_ICE
+	return out
 
 
 # Gets the ratio of two floats. If divisor is 0, returns 0.

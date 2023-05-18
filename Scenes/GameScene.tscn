@@ -89,4 +89,3 @@ mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
-[connection signal="wave_ended" from="Map/WaveSpawner" to="." method="_on_WaveSpawner_wave_ended"]

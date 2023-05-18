@@ -12,7 +12,7 @@ var _sfx_player_list: Array = []
 # NOTE: this f-n is non-positional. Current viewport
 # position doesn't affect the sfx.
 func play_sfx(sfx_name: String):
-	if !FF.sfx_enabled():
+	if !Config.sfx_enabled():
 		return
 
 	var sfx_player: AudioStreamPlayer = _get_sfx_player()
@@ -28,7 +28,7 @@ func play_sfx(sfx_name: String):
 
 
 func sfx_at_pos(sfx_name: String, sfx_position: Vector2):
-	if !FF.sfx_enabled():
+	if !Config.sfx_enabled():
 		return
 
 	var sfx_player: AudioStreamPlayer2D = _get_2d_sfx_player()

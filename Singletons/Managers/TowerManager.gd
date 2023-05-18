@@ -18,7 +18,7 @@ func _ready():
 	
 	# Load all tower resources to dict and associate them with tower IDs
 	
-	var preload_towers: bool = FF.preload_all_towers_on_startup()
+	var preload_towers: bool = Config.preload_all_towers_on_startup()
 
 	if preload_towers:
 		var tower_id_list: Array = Properties.get_tower_id_list()

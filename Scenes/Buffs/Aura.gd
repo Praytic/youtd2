@@ -42,7 +42,7 @@ func get_level() -> int:
 
 # NOTE: when caster levels up, re-apply aura effect. apply()
 # will upgrade the aura effect.
-func _on_caster_level_up(_event: Event):
+func _on_caster_level_up():
 	for target in _target_list:
 		if !is_instance_valid(target):
 			continue

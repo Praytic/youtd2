@@ -7,21 +7,6 @@ extends Node
 const PROPERTIES_PATH: String = "res://Data/wave_special_properties.csv"
 
 
-enum enm {
-	SPEED,
-	GREATER_SPEED,
-	XTREME_SPEED,
-	SLOW,
-	INVISIBLE,
-	STRONG,
-	RICH,
-	RELIC_RAIDER,
-	ULTRA_WISDOM,
-	ARMORED,
-	HEAVY_ARMORED,
-	XTREME_ARMOR,
-}
-
 enum CsvProperty {
 	ID,
 	NAME,
@@ -88,7 +73,7 @@ var _buff_map: Dictionary = {
 
 # NOTE: some wave specials are disabled because they are
 # incomplete
-var _disabled_special_list: Array[int] = [28, 31, 32, 36, 40]
+var _disabled_special_list: Array[int] = [4, 28, 31, 32, 36, 40]
 
 var _properties: Dictionary = {}
 

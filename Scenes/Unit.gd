@@ -201,6 +201,12 @@ func _ready():
 ###       Public      ###
 #########################
 
+# TODO: implement. Hard to understand how this is supposed
+# to work.
+func add_spell_crit():
+	pass
+
+
 func add_autocast(autocast: Autocast):
 	autocast.set_caster(self)
 	add_child(autocast)
@@ -333,6 +339,8 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 	var received_mod: float = target.get_prop_spell_damage_received()
 	var damage_total: float = damage_base * dealt_mod * received_mod * crit_ratio
 
+#	TODO: didn't actually confirm whether immune = doesn't
+#	receive spell damage. Confirm.
 	if target.is_immune():
 		damage_total = 0
 
@@ -356,11 +364,17 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 
 	if self is Tower:
 		var tower: Tower = self as Tower
-		var element: Tower.Element = tower.get_element()
-		var mod_type: Modification.Type = Utils.convert_element_to_dmg_from_element_mod(element)
+		var element: Element.enm = tower.get_element()
+		var mod_type: Modification.Type = Element.convert_to_dmg_from_element_mod(element)
 		element_mod = target._mod_value_map[mod_type]
 
 	var damage: float = damage_base * armor_mod * received_mod * element_mod
+
+	var attack_type: AttackType.enm = get_attack_type()
+	var deals_no_damage_to_immune: bool = AttackType.deals_no_damage_to_immune(attack_type)
+
+	if target.is_immune() && deals_no_damage_to_immune:
+		damage = 0
 
 #   NOTE: do not emit damage event if one is already in
 #   progress. Some towers have damage event handlers that
@@ -701,7 +715,7 @@ func receive_damage(damage: float) -> bool:
 
 	_set_health(_health - damage)
 
-	if FF.damage_numbers():
+	if Config.damage_numbers():
 		getOwner().display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
 
 	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0
@@ -835,7 +849,6 @@ func _on_modify_property():
 ### Setters / Getters ###
 #########################
 
-# TODO: implement
 func is_immune() -> bool:
 	return false
 

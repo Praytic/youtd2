@@ -7,7 +7,6 @@ signal gold_change(value)
 signal income_change(value)
 
 
-const INITIAL_GOLD = 70
 const MAX_GOLD = 999999
 const INITIAL_INCOME = 10
 const MAX_INCOME = 999999
@@ -22,7 +21,7 @@ var _income: float : set = set_income, get = get_income
 #########################
 
 func _ready():
-	_gold = INITIAL_GOLD
+	_gold = Config.starting_gold()
 	_income = INITIAL_INCOME
 
 

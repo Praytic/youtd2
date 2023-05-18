@@ -17,6 +17,9 @@ func _ready():
 	EventBus.item_button_mouse_entered.connect(_on_item_button_mouse_entered)
 	EventBus.item_button_mouse_exited.connect(_on_item_button_mouse_exited)
 
+	EventBus.research_button_mouse_entered.connect(_on_research_button_mouse_entered)
+	EventBus.research_button_mouse_exited.connect(_on_research_button_mouse_exited)
+
 
 func _on_tower_button_mouse_entered(tower_id: int):
 	show()
@@ -44,20 +47,54 @@ func _on_item_button_mouse_exited():
 	hide()
 
 
+func _on_research_button_mouse_entered(element: Element.enm):
+	show()
+
+	_label.clear()
+
+	var text: String = _get_research_text(element)
+	_label.append_text(text)
+
+
+func _on_research_button_mouse_exited():
+	hide()
+
+
+func _get_research_text(element: Element.enm) -> String:
+	var text: String = ""
+	
+	var element_string: String = Element.convert_to_colored_string(element)
+	var current_level: int = ElementLevel.get_current(element)
+	var next_level: int = current_level + 1
+	var cost: int = ElementLevel.get_research_cost(element)
+	var can_afford: bool = ElementLevel.can_afford_research(element)
+	var cost_string: String = _get_colored_requirement_number(cost, can_afford)
+
+	text += "Research %s level [color=GOLD]%d[/color]\n" % [element_string, next_level]
+	text += "[img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %s\n" % cost_string
+	text += "Research next element level to unlock the ability to build new towers of this element and to new upgrade existing towers to next tiers.\n"
+
+	return text
+
+
 func _get_tower_text(tower_id: int) -> String:
 	var text: String = ""
 
 	var requirements_text: String = _get_tower_requirements_text(tower_id)
 	var display_name: String = TowerProperties.get_display_name(tower_id)
 	var cost: int = TowerProperties.get_cost(tower_id)
+	var cost_ok: bool = GoldControl.get_gold() >= cost
+	var cost_string: String = _get_colored_requirement_number(cost, cost_ok)
 	var food: int = 0
 	var description: String = TowerProperties.get_description(tower_id)
 	var author: String = TowerProperties.get_author(tower_id)
-	var element: String = TowerProperties.get_element_string(tower_id)
+	var element: Element.enm = TowerProperties.get_element(tower_id)
+	var element_string: String = Element.convert_to_colored_string(element)
 	var damage: int = TowerProperties.get_base_damage(tower_id)
 	var cooldown: float = TowerProperties.get_base_cooldown(tower_id)
 	var dps: int = floor(damage / cooldown)
-	var attack_type: String = TowerProperties.get_attack_type_string(tower_id)
+	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
+	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
 
 # 	NOTE: creating a tower instance just to get the tooltip
@@ -71,13 +108,14 @@ func _get_tower_text(tower_id: int) -> String:
 
 	if !requirements_text.is_empty():
 		text += "%s\n" % requirements_text
+		text += " \n"
 
 	text += "[b]%s[/b]\n" % display_name
-	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=GOLD]%d[/color] [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost, food]
+	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %s [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost_string, food]
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
-	text += "[color=YELLOW]Element:[/color] %s\n" % element.capitalize()
-	text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type.capitalize(), attack_range]
+	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
+	text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
 
 	if !specials_text.is_empty():
 		text += " \n[color=YELLOW]Specials:[/color]\n"
@@ -92,18 +130,24 @@ func _get_tower_text(tower_id: int) -> String:
 func _get_tower_requirements_text(tower_id: int) -> String:
 	var text: String = ""
 
-	var required_wave_level: int = TowerProperties.get_required_wave_level(tower_id)
-	var required_element_level: int = TowerProperties.get_required_element_level(tower_id)
-	var element_string: String = TowerProperties.get_element_string(tower_id)
-
 	var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(tower_id)
 
 	if requirements_are_satisfied:
 		return ""
 
-	text += "[color=YELLO][b]Requirements[/b]\n"
-	text += "Wave level: %s\n" % required_wave_level
-	text += "%s research level: %s\n \n" % [element_string.capitalize(), required_element_level]
+	var required_wave_level: int = TowerProperties.get_required_wave_level(tower_id)
+	var wave_level_ok: bool = TowerProperties.wave_level_foo(tower_id)
+	var wave_level_string: String = _get_colored_requirement_number(required_wave_level, wave_level_ok)
+
+	var required_element_level: int = TowerProperties.get_required_element_level(tower_id)
+	var element_level_ok: bool = TowerProperties.element_level_foo(tower_id)
+	var element_level_string: String = _get_colored_requirement_number(required_element_level, element_level_ok)
+
+	var element_string: String = TowerProperties.get_element_string(tower_id)
+
+	text += "[color=GOLD][b]Requirements[/b][/color]\n"
+	text += "Wave level: %s\n" % wave_level_string
+	text += "%s research level: %s\n" % [element_string.capitalize(), element_level_string]
 	
 	return text
 
@@ -184,3 +228,15 @@ func _add_color_to_numbers(text: String) -> String:
 		colored_text = colored_text.insert(index, tag_close)
 
 	return colored_text
+
+
+func _get_colored_requirement_number(value: int, requirement_satisfied: bool) -> String:
+	var color: Color
+	if requirement_satisfied:
+		color = Color.GOLD
+	else:
+		color = Color.ORANGE_RED
+
+	var string: String = "[color=%s]%d[/color]" % [color.to_html(), value]
+
+	return string

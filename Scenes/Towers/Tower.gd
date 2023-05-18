@@ -35,18 +35,6 @@ enum AttackStyle {
 	BOUNCE,
 }
 
-enum Element {
-	ICE ,
-	NATURE,
-	FIRE,
-	ASTRAL,
-	DARKNESS,
-	IRON,
-	STORM,
-	NONE,
-}
-
-
 
 const ATTACK_CD_MIN: float = 0.2
 const PROJECTILE_SPEED: int = 1000
@@ -321,17 +309,17 @@ func _make_projectile(from: Unit, target: Unit) -> Projectile:
 	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, from, target, true, false, true)
 
 	var element_color: Color
-	var element: Tower.Element = get_element()
+	var element: Element.enm = get_element()
 
 	match element:
-		Tower.Element.ICE: element_color = Color.LIGHT_BLUE
-		Tower.Element.NATURE: element_color = Color.FOREST_GREEN
-		Tower.Element.FIRE: element_color = Color.TOMATO
-		Tower.Element.ASTRAL: element_color = Color.GOLD
-		Tower.Element.DARKNESS: element_color = Color.PURPLE
-		Tower.Element.IRON: element_color = Color.SLATE_GRAY
-		Tower.Element.STORM: element_color = Color.TEAL
-		Tower.Element.NONE: element_color = Color.PINK
+		Element.enm.ICE: element_color = Color.LIGHT_BLUE
+		Element.enm.NATURE: element_color = Color.FOREST_GREEN
+		Element.enm.FIRE: element_color = Color.TOMATO
+		Element.enm.ASTRAL: element_color = Color.GOLD
+		Element.enm.DARKNESS: element_color = Color.PURPLE
+		Element.enm.IRON: element_color = Color.SLATE_GRAY
+		Element.enm.STORM: element_color = Color.TEAL
+		Element.enm.NONE: element_color = Color.PINK
 
 	projectile.modulate = element_color
 
@@ -476,13 +464,13 @@ func _attack_target(target: Unit):
 
 	var sfx_path: String
 	match get_element():
-		Element.NATURE: sfx_path = "res://Assets/SFX/swosh-08.mp3"
-		Element.STORM: sfx_path = "res://Assets/SFX/foom_02.mp3"
-		Element.FIRE: sfx_path = "res://Assets/SFX/fire_attack1.mp3"
-		Element.ICE: sfx_path = "res://Assets/SFX/iceball.mp3"
-		Element.ASTRAL: sfx_path = "res://Assets/SFX/attack_sound1.mp3"
-		Element.DARKNESS: sfx_path = "res://Assets/SFX/swosh-11.mp3"
-		Element.IRON: sfx_path = "res://Assets/SFX/iron_attack1.mp3"
+		Element.enm.NATURE: sfx_path = "res://Assets/SFX/swosh-08.mp3"
+		Element.enm.STORM: sfx_path = "res://Assets/SFX/foom_02.mp3"
+		Element.enm.FIRE: sfx_path = "res://Assets/SFX/fire_attack1.mp3"
+		Element.enm.ICE: sfx_path = "res://Assets/SFX/iceball.mp3"
+		Element.enm.ASTRAL: sfx_path = "res://Assets/SFX/attack_sound1.mp3"
+		Element.enm.DARKNESS: sfx_path = "res://Assets/SFX/swosh-11.mp3"
+		Element.enm.IRON: sfx_path = "res://Assets/SFX/iron_attack1.mp3"
 		_: sfx_path = "res://Assets/SFX/swosh-08.mp3"
 
 	SFX.sfx_at_unit(sfx_path, self)
@@ -752,7 +740,7 @@ func get_family() -> int:
 func get_icon_atlas_num() -> int:
 	return TowerProperties.get_icon_atlas_num(_id)
 
-func get_element() -> Tower.Element:
+func get_element() -> Element.enm:
 	return TowerProperties.get_element(_id)
 
 # NOTE: in tower scripts getCategory() is called to get

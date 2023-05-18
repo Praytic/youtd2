@@ -186,7 +186,7 @@ func get_specials() -> Array[int]:
 	return _specials
 
 
-func get_race() -> int:
+func get_race() -> CreepCategory.enm:
 	return _race
 
 

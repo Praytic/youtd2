@@ -44,6 +44,17 @@ func _process(_delta: float):
 	label_text += "[b]%s[/b]\n" % display_name
 	label_text += "Health: %d/%d\n" % [health, overall_health]
 	label_text += "Mana: %d/%d\n" % [mana, overall_mana]
+
+	if selected_unit is Creep:
+		var creep: Creep = selected_unit as Creep
+		var category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
+		var category_string: String = CreepCategory.convert_to_colored_string(category)
+		var armor_type: ArmorType.enm = creep.get_armor_type()
+		var armor_type_string: String = ArmorType.convert_to_colored_string(armor_type)
+
+		label_text += "Race: %s\n" % category_string
+		label_text += "Armor: %s\n" % armor_type_string
+
 	label_text += "Status:"
 
 	_label.append_text(label_text)
