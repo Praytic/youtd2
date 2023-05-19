@@ -1,4 +1,4 @@
-# Expanindg Mind
+# Expanding Mind
 extends Item
 
 
