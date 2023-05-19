@@ -794,20 +794,22 @@ func get_current_attack_damage() -> float:
 
 	return damage
 
-# TODO: look into this more. Can white damage bonus be
-# negative? What about green damage bonus.
 func get_current_attack_damage_with_bonus() -> float:
-	var damage_base: float = get_current_attack_damage()
-	var white_damage: float = max(0, (damage_base + get_base_damage_bonus()) * get_base_damage_bonus_percent())
-	var green_damage: float = get_damage_add() * get_damage_add_percent()
-
+	var base_damage: float = get_current_attack_damage()
+	var base_bonus: float = get_base_damage_bonus()
+	var base_bonus_percent: float = get_base_damage_bonus_percent()
+	var damage_add: float = get_damage_add()
+	var damage_add_percent: float = get_damage_add_percent()
 	var dps_bonus: float = get_dps_bonus()
 	var cooldown: float = get_overall_cooldown()
 	var dps_mod: float = dps_bonus * cooldown
 
-	var damage: float = white_damage + green_damage + dps_mod
+	var overall_base_damage: float = (base_damage + base_bonus) * base_bonus_percent
+	var overall_damage: float = (overall_base_damage + damage_add) * damage_add_percent + dps_mod
 
-	return damage
+	overall_damage = max(0, overall_damage)
+
+	return overall_damage
 
 # How much damage the tower deals with its attack per second on average (not counting in any crits). 
 func get_overall_dps():
