@@ -279,8 +279,17 @@ func add_exp(amount: float):
 	add_exp_flat(amount)
 
 
-func remove_exp_flat(amount: float):
-	_experience = max(0, _experience - amount)
+# Returns how much experience was not removed, in case the
+# amount would cause experience to go below 0.
+func remove_exp_flat(amount: float) -> float:
+	var old_exp: float = _experience
+	var new_exp: float = clampf(_experience - amount, 0.0, _experience)
+	_experience = new_exp
+
+	var actual_removed: float = old_exp - new_exp
+	var not_removed: float = amount - actual_removed
+
+	return not_removed
 
 
 func calc_chance(chance_base: float) -> bool:
