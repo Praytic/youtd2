@@ -8,6 +8,9 @@ func get_tier(tower_id: int) -> int:
 
 
 func is_released(tower_id: int) -> bool:
+	if Config.load_unreleased_towers():
+		return true
+
 	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.RELEASE).to_int() as bool
 
 
