@@ -32,6 +32,7 @@ var _is_spell_damage: bool = false
 # for cases where periodic event handler needs to modify
 # duration of periodic event.
 var _timer: Timer = null
+var _autocast: Autocast = null
 
 
 #########################
@@ -48,6 +49,9 @@ func _init(target: Unit):
 
 func get_buff() -> Buff:
 	return _buff
+
+func get_autocast_type() -> Autocast:
+	return _autocast
 
 func get_target() -> Unit:
 	return _target

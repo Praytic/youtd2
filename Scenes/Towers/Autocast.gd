@@ -57,6 +57,7 @@ var auto_range: float = 1000
 var handler: Callable = Callable()
 
 var _caster: Unit = null
+var _is_item_autocast: bool = false
 
 @onready var _cooldown_timer: Timer = $CooldownTimer
 @onready var _buff_timer: Timer = $BuffTimer
@@ -93,6 +94,14 @@ func set_caster(caster: Unit):
 	_caster = caster
 
 
+func get_cooldown() -> float:
+	return cooldown
+
+
+func is_item_autocast() -> bool:
+	return _is_item_autocast
+
+
 func _on_caster_attack(attack_event: Event):
 	if !_can_cast():
 		return
@@ -113,8 +122,6 @@ func _on_caster_attack(attack_event: Event):
 		if !target_matches_type:
 			return
 
-	_caster.spend_mana(mana_cost)
-
 	if !caster_art.is_empty():
 		var effect: int = Effect.create_simple_at_unit(caster_art, _caster)
 		Effect.destroy_effect(effect)
@@ -123,8 +130,7 @@ func _on_caster_attack(attack_event: Event):
 		var effect: int = Effect.create_simple_at_unit(caster_art, target)
 		Effect.destroy_effect(effect)
 
-	var autocast_event = Event.new(target)
-	handler.call(autocast_event)
+	_do_cast(target)
 
 	_cooldown_timer.start()
 
@@ -153,10 +159,7 @@ func _on_buff_timer_timeout():
 	if target == null:
 		return
 
-	_caster.spend_mana(mana_cost)
-
-	var autocast_event = Event.new(target)
-	handler.call(autocast_event)
+	_do_cast(target)
 
 
 func _on_immediate_timer_timeout():
@@ -166,12 +169,26 @@ func _on_immediate_timer_timeout():
 	if autocast_type == Type.AC_TYPE_OFFENSIVE_IMMEDIATE && !_caster.is_attacking():
 		return
 
-	_caster.spend_mana(mana_cost)
-
-	var autocast_event = Event.new(_caster)
-	handler.call(autocast_event)
+# 	NOTE: immediate autocasts have no target so use the
+# 	caster itself as target
+	_do_cast(_caster)
 
 	_cooldown_timer.start()
+
+
+func _do_cast(target: Unit):
+	_caster.spend_mana(mana_cost)
+	
+	var autocast_event = Event.new(target)
+	handler.call(autocast_event)
+
+	var spell_casted_event: Event = Event.new(target)
+	spell_casted_event._autocast = self
+	_caster.spell_casted.emit(spell_casted_event)
+
+	var spell_targeted_event: Event = Event.new(target)
+	spell_targeted_event._autocast = self
+	target.spell_targeted.emit(spell_targeted_event)
 
 
 func _can_cast() -> bool:

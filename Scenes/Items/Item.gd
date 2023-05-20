@@ -41,6 +41,7 @@ var _modifier: Modifier = Modifier.new()
 var _buff_type_list: Array[BuffType] = []
 var _applied_buff_list: Array[Buff] = []
 var _autocast_list: Array[Autocast] = []
+var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 
 
 #########################
@@ -83,10 +84,17 @@ func _init(id: int):
 	load_triggers(triggers_buff_type)
 	_buff_type_list.append(triggers_buff_type)
 
+	_buff_type_list.append(_aura_carrier_buff)
+
 
 func add_autocast(autocast: Autocast):
+	autocast._is_item_autocast = true
 	_autocast_list.append(autocast)
 	add_child(autocast)
+
+
+func add_aura(aura: AuraType):
+	_aura_carrier_buff.add_aura(aura)
 
 
 # Sets the charge count that is displayed on the item icon.

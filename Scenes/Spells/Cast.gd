@@ -50,16 +50,9 @@ func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ra
 	instance.init_spell(caster, _lifetime, data, _damage_event_handler, x, y, damage_ratio, crit_ratio)
 	caster.add_child(instance)
 
-	var spell_casted_event: Event = Event.new(caster)
-	caster.spell_casted.emit(spell_casted_event)
-
 
 func target_cast_from_caster(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
 	point_cast_from_caster_on_point(caster, target.position.x, target.position.y, damage_ratio, crit_ratio)
-
-
-	var spell_targeted_event: Event = Event.new(target)
-	target.spell_targeted.emit(spell_targeted_event)
 
 
 # TODO: implement. Probably changes the height from which

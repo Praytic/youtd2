@@ -8,6 +8,12 @@ class_name Player extends Node
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/Map/FloatingTextContainer")
 
 
+# TODO: not sure what the point of this f-n is. Leaving as
+# is because it's used in original scripts.
+func get_the_player() -> Player:
+	return self
+
+
 func display_floating_text_color(text: String, unit: Unit, color: Color, time: float):
 	var floating_text = floating_text_scene.instantiate()
 	floating_text.text = text
