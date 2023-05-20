@@ -117,7 +117,7 @@ func load_modifier(_modifier_arg: Modifier):
 func apply_to_tower(tower: Tower):
 	_carrier = tower
 
-	on_item_pickup()
+	on_pickip()
 
 	_carrier.add_modifier(_modifier)
 
@@ -132,6 +132,8 @@ func apply_to_tower(tower: Tower):
 func remove_from_tower():
 	if _carrier == null:
 		return
+
+	on_drop()
 
 	_carrier.remove_modifier(_modifier)
 
@@ -172,8 +174,14 @@ func on_create():
 
 
 # Override this in tower subclass to implement the "On Item
-# Pickup" trigger.
-func on_item_pickup():
+# Pickup" trigger. Called after item is picked up by tower.
+func on_pickip():
+	pass
+
+
+# Override this in tower subclass to implement the "On Item
+# Drop" trigger. Called before item is dropped by tower.
+func on_drop():
 	pass
 
 

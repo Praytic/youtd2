@@ -25,6 +25,9 @@ func item_init():
 
 	drol_chainCast = Cast.new("@@0@@", "chainlightning", 5.0)
 	drol_chainCast.set_damage_event(drol_chainStun)
+	drol_chainCast.data.chain_lightning.damage = 250
+	drol_chainCast.data.chain_lightning.damage_reduction = 0.25
+	drol_chainCast.data.chain_lightning.chain_count = 3
 
 
 func on_attack(event: Event):

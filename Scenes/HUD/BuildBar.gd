@@ -35,7 +35,11 @@ func _ready():
 	if not unlimited_towers:
 		BuildTower.tower_built.connect(_on_Tower_built)
 		
-	for tower_id in TowerManager.preloaded_towers.keys():
+	for tower_id in Properties.get_tower_id_list():
+		var is_released: bool = TowerProperties.is_released(tower_id)
+		if !is_released:
+			continue
+
 		var tower_button = _create_TowerButton(tower_id)
 		if tower_button:
 			_tower_buttons[tower_id] = tower_button

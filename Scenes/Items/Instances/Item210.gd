@@ -1,0 +1,33 @@
+# Orb of Souls
+extends Item
+
+
+func get_extra_tooltip_text() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Ethereal Knowledge[/color]\n"
+	text += "Grants 50 flat experience to the holder. The experience is bound to the item and lost on drop. If the tower has less than 50 experience when the item is dropped, the item will drain experience from the next tower it is placed in, up to 50 experience."
+
+	return text
+
+
+func load_modifier(modifier: Modifier):
+	modifier.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.195, 0.0)
+
+
+func on_create():
+	var itm: Item = self
+	itm.user_real = 50
+
+
+func on_drop():
+	var itm: Item = self
+	itm.user_real = tower.remove_exp_flat(50)
+
+
+func on_pickip():
+	var itm: Item = self
+	var tower: Unit = itm.get_carrier()
+	var r: float = itm.user_real
+	if r > 0:
+		tower.add_exp_flat(r)

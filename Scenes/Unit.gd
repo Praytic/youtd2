@@ -205,6 +205,18 @@ func _ready():
 ###       Public      ###
 #########################
 
+
+func add_mana_perc(ratio: float):
+	var overall_mana: float = get_overall_mana()
+	var mana_added: float = ratio * overall_mana
+	add_mana(mana_added)
+
+
+func add_mana(mana_added: float):
+	var new_mana: float = _mana + mana_added
+	_set_mana(new_mana)
+
+
 # TODO: implement. Hard to understand how this is supposed
 # to work.
 func add_spell_crit():
@@ -267,8 +279,17 @@ func add_exp(amount: float):
 	add_exp_flat(amount)
 
 
-func remove_exp_flat(amount: float):
-	_experience = max(0, _experience - amount)
+# Returns how much experience was not removed, in case the
+# amount would cause experience to go below 0.
+func remove_exp_flat(amount: float) -> float:
+	var old_exp: float = _experience
+	var new_exp: float = clampf(_experience - amount, 0.0, _experience)
+	_experience = new_exp
+
+	var actual_removed: float = old_exp - new_exp
+	var not_removed: float = amount - actual_removed
+
+	return not_removed
 
 
 func calc_chance(chance_base: float) -> bool:
@@ -497,7 +518,7 @@ func set_stunned(value: bool):
 
 
 func spend_mana(mana_cost: float):
-	_set_mana(max(0.0, _mana - mana_cost))
+	_set_mana(_mana - mana_cost)
 
 
 # NOTE: this f-n exists for compatiblity with original API
@@ -642,13 +663,15 @@ func load_triggers(_triggers_buff_type: BuffType):
 	pass
 
 
-func _set_mana(mana: float):
-	_mana = mana
+func _set_mana(new_mana: float):
+	var overall_mana: float = get_overall_mana()
+	_mana = clampf(new_mana, 0.0, overall_mana)
 	mana_changed.emit()
 
 
 func _set_health(new_health: float):
-	_health = new_health
+	var overall_health: float = get_overall_health()
+	_health = clampf(new_health, 0.0, overall_health)
 	health_changed.emit()
 
 
@@ -663,13 +686,11 @@ func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: fl
 
 
 func _on_regen_timer_timeout():
-	var mana_max: float = get_overall_mana()
 	var mana_regen: float = get_overall_mana_regen()
-	_set_mana(min(_mana + mana_regen, mana_max))
+	_set_mana(_mana + mana_regen)
 
-	var health_max: float = get_overall_health()
 	var health_regen: float = get_overall_health_regen()
-	_set_health(min(_health + health_regen, health_max))
+	_set_health(_health + health_regen)
 
 
 func _do_attack(attack_event: Event):
