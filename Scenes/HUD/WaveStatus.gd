@@ -8,7 +8,7 @@ extends Control
 @onready var _label: RichTextLabel = $PanelContainer/VBoxContainer/RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
 @onready var _start_next_wave_button: Button = $PanelContainer/VBoxContainer/HBoxContainer/StartNextWaveButton
-
+@onready var _press_sound: AudioStreamPlayer = $MenuButtonPressed
 
 func _ready():
 	WaveLevel.changed.connect(_update_text)
@@ -72,6 +72,7 @@ func _update_text():
 
 
 func _on_start_next_wave_button_pressed():
+	_press_sound.play()
 	var success = _wave_spawner.force_start_next_wave()
 	if !success:
 		Messages.add_error("Can't start next wave, wave is still in progress.")
