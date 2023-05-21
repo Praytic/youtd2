@@ -1,11 +1,9 @@
-[gd_scene load_steps=41 format=3 uid="uid://dnv37bb7qk3kv"]
+[gd_scene load_steps=29 format=3 uid="uid://dnv37bb7qk3kv"]
 
 [ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1_rx3ev"]
-[ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_disabled.tres" id="2_6isww"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_focus.tres" id="3_m3ka5"]
-[ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_hover.tres" id="4_7j0uu"]
 [ext_resource type="PackedScene" uid="uid://6muimqlh5jcf" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
 [ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="5_6wrbw"]
@@ -18,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="PackedScene" uid="uid://bbq8xnlx68q72" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
-[ext_resource type="Script" path="res://Scenes/HUD/ElementButtonsContainer.gd" id="15"]
 [ext_resource type="PackedScene" uid="uid://b41jiom5a6uq8" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 [ext_resource type="PackedScene" uid="uid://vdiwgjefedtp" path="res://Scenes/HUD/ResearchMenu.tscn" id="22_kpm02"]
@@ -192,42 +189,6 @@ TowerButton/styles/hover = SubResource("12")
 TowerButton/styles/normal = SubResource("9")
 TowerButton/styles/pressed = SubResource("13")
 
-[sub_resource type="AtlasTexture" id="16"]
-atlas = ExtResource("4")
-region = Rect2(448, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="17"]
-atlas = ExtResource("4")
-region = Rect2(448, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s1mww"]
-atlas = ExtResource("4")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_547un"]
-atlas = ExtResource("4")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="18"]
-atlas = ExtResource("4")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0tgqx"]
-atlas = ExtResource("4")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_70dil"]
-atlas = ExtResource("4")
-region = Rect2(384, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r8eqw"]
-atlas = ExtResource("4")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="15"]
-atlas = ExtResource("4")
-region = Rect2(192, 0, 64, 64)
-
 [node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -282,102 +243,6 @@ grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(0.5, 0.5)
 
-[node name="BuildingMenuButton" type="Button" parent="."]
-layout_mode = 0
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -88.0
-offset_top = -78.0
-offset_right = -22.0
-offset_bottom = -12.0
-theme_type_variation = &"TowerButton"
-icon = SubResource("16")
-
-[node name="ItemMenuButton" type="Button" parent="."]
-layout_mode = 0
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -170.0
-offset_top = -78.0
-offset_right = -104.0
-offset_bottom = -12.0
-theme_type_variation = &"TowerButton"
-icon = SubResource("17")
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
-layout_mode = 0
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -235.0
-offset_top = -510.0
-script = ExtResource("15")
-
-[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-mouse_filter = 0
-
-[node name="IronButton" type="Button" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"TowerButton"
-text = "Iron"
-icon = SubResource("AtlasTexture_s1mww")
-script = ExtResource("2")
-element = 5
-
-[node name="FireButton" type="Button" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"TowerButton"
-text = "Fire"
-icon = SubResource("AtlasTexture_547un")
-script = ExtResource("2")
-element = 2
-
-[node name="NatureButton" type="Button" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"TowerButton"
-text = "Nature"
-icon = SubResource("18")
-script = ExtResource("2")
-element = 1
-
-[node name="IceButton" type="Button" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"TowerButton"
-text = "Ice"
-icon = SubResource("AtlasTexture_0tgqx")
-script = ExtResource("2")
-element = 0
-
-[node name="StormButton" type="Button" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"TowerButton"
-text = "Storm"
-icon = SubResource("AtlasTexture_70dil")
-script = ExtResource("2")
-element = 6
-
-[node name="DarknessButton" type="Button" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"TowerButton"
-text = "Darkness"
-icon = SubResource("AtlasTexture_r8eqw")
-script = ExtResource("2")
-element = 4
-
-[node name="AstralButton" type="Button" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"TowerButton"
-text = "Astral"
-icon = SubResource("15")
-script = ExtResource("2")
-
 [node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
 layout_mode = 1
 offset_left = 13.0
@@ -385,14 +250,16 @@ offset_top = 150.0
 offset_right = -1907.0
 offset_bottom = -930.0
 
-[node name="RightMenuBar" parent="." instance=ExtResource("5")]
-visible = false
-custom_minimum_size = Vector2(300, 0)
+[node name="BottomMenuBar" parent="." instance=ExtResource("5")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.834896
-anchor_top = 0.0833333
-metadata/_edit_use_anchors_ = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = -200.0
+offset_right = 100.0
+grow_vertical = 0
 
 [node name="TowerInventory" parent="." instance=ExtResource("11_hrubh")]
 layout_mode = 1
@@ -400,6 +267,13 @@ offset_left = 450.0
 offset_top = 832.0
 offset_right = -1070.0
 offset_bottom = -87.0
+
+[node name="TowerActions" parent="." instance=ExtResource("12_2t2wp")]
+layout_mode = 1
+offset_left = 1620.0
+offset_top = 240.0
+offset_right = 1620.0
+offset_bottom = 240.0
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
 show_behind_parent = true
@@ -419,13 +293,6 @@ offset_left = 1000.0
 offset_top = 150.0
 offset_right = -920.0
 offset_bottom = -930.0
-
-[node name="TowerActions" parent="." instance=ExtResource("12_2t2wp")]
-layout_mode = 1
-offset_left = 900.0
-offset_top = 800.0
-offset_right = -1020.0
-offset_bottom = -280.0
 
 [node name="SelectedUnitInfo" parent="." instance=ExtResource("15_yuxef")]
 layout_mode = 1
@@ -478,7 +345,5 @@ offset_right = -242.0
 offset_bottom = -313.0
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
-[connection signal="pressed" from="BuildingMenuButton" to="MarginContainer" method="_on_BuildingMenuButton_pressed"]
-[connection signal="pressed" from="ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
-[connection signal="hidden" from="RightMenuBar" to="." method="_on_right_menu_bar_hidden"]
+[connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
 [connection signal="pressed" from="ResearchButton" to="." method="_on_research_button_pressed"]

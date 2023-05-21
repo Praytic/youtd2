@@ -159,7 +159,7 @@ func _move_item_from_tower(target_tower: Tower):
 # still an atlas texture). Copy image from AtlasTexture to
 # ImageTexture to avoid this bug.
 func _get_item_cursor_icon(item_id: int) -> Texture2D:
-	var atlas_texture: Texture2D = ItemProperties.get_icon(item_id, "S")
+	var atlas_texture: Texture2D = ItemProperties.get_icon(item_id)
 	var image: Image = atlas_texture.get_image()
 #	NOTE: make cursor icon slightly smaller so it looks nice
 	var final_size: Vector2 = image.get_size() * 0.75

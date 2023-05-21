@@ -5,27 +5,19 @@ const ICON_SIZE_M = 128
 const ICON_FAMILIES_PER_PAGE = 66
 const MAX_ICONS_PER_FAMILY = 5
 
-@onready var item_icons_s: Texture2D = preload("res://Assets/Items/item_icons_s.png")
 @onready var item_icons_m: Texture2D = preload("res://Assets/Items/item_icons_m.png")
-@onready var item_button_fallback_icon: Texture2D = preload("res://Assets/icon.png")
 
 
-func get_icon(item_id: int, icon_size_letter: String) -> Texture2D:
+func get_icon(item_id: int) -> Texture2D:
 	var icon_atlas_num: int = ItemProperties.get_icon_atlas_num(item_id)
 	var icon_atlas_family: int = ItemProperties.get_icon_atlas_family(item_id)
 	if icon_atlas_num == -1 or icon_atlas_family == -1:
 		push_error("Unknown icon for item ID [%s]" % item_id)
 
 	var item_icon = AtlasTexture.new()
-	var icon_size: int
-	if icon_size_letter == "S":
-		item_icon.set_atlas(item_icons_s)
-		icon_size = ICON_SIZE_S
-	elif icon_size_letter == "M":
-		item_icon.set_atlas(item_icons_m)
-		icon_size = ICON_SIZE_M
-	else:
-		return item_button_fallback_icon
+	var icon_size: int = ICON_SIZE_M
+	
+	item_icon.set_atlas(item_icons_m)
 	
 	var page_num = floor(float(icon_atlas_family) / ICON_FAMILIES_PER_PAGE)
 	var x = icon_atlas_num * icon_size + page_num * MAX_ICONS_PER_FAMILY * icon_size

@@ -5,7 +5,6 @@ extends GridContainer
 @onready var _item_buttons: Dictionary = {}
 
 
-var current_size: String
 var _moved_item_button: ItemButton = null
 
 
@@ -13,20 +12,15 @@ func add_item_button(item_id):
 	var item_button: ItemButton = _create_ItemButton(item_id)
 	add_child(item_button)
 	_item_buttons[item_id] = item_button
-	_adjust_size()
 
 
 func remove_item_button(item_id):
 	var item_button: ItemButton = _item_buttons[item_id]
 	_item_buttons.erase(item_id)
 	item_button.queue_free()
-	_adjust_size()
 
 
 func _ready():
-	_resize_icons("S")
-	current_size = "S"
-
 	if Config.add_test_item():
 		var test_item_list: Array[int] = [77, 78, 79, 99, 105, 108, 155, 158, 159, 218, 231, 244, 249, 268, 274, 1001]
 
@@ -57,20 +51,6 @@ func on_item_move_from_itembar_done(move_success: bool):
 
 	_moved_item_button = null
 
-# Disable resize for icons in the RightMenuBar
-#func _adjust_size():
-#	if current_size == "M":
-#		if _item_buttons.size() > 14:
-#			_resize_icons("S")
-#		else:
-#			_resize_icons("M")
-#	elif current_size == "S":
-#		if _item_buttons.size() > 14:
-#			_resize_icons("S")
-#		else:
-#			_resize_icons("M")
-func _adjust_size():
-	_resize_icons("S")
 
 func _create_ItemButton(item_id) -> ItemButton:
 	var item_button = ItemButton.new()
@@ -93,17 +73,3 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 func _on_Item_used(item_id):
 	remove_item_button(item_id)
-
-
-func _resize_icons(icon_size: String):
-	current_size = icon_size
-	if icon_size == "M":
-		columns = 2
-	else:
-		columns = 4
-	for item_id in _item_buttons.keys():
-		_item_buttons[item_id].set_icon_size(icon_size)
-
-
-func _on_right_menu_bar_test_signal():
-	pass # Replace with function body.

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dft0yk15qxg0d"]
+
+[ext_resource type="Texture2D" uid="uid://dyixmgwifdsin" path="res://Assets/UI/HUD/misc3_s.png" id="1_kea2d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45jpf"]
+atlas = ExtResource("1_kea2d")
+region = Rect2(224, 2.08165e-12, 32, 32)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_dhfos"]
+
+[node name="TextureButton" type="TextureButton"]
+modulate = Color(0.988235, 0.254902, 0.215686, 1)
+size_flags_horizontal = 8
+texture_normal = SubResource("AtlasTexture_45jpf")
+texture_pressed = SubResource("CanvasTexture_dhfos")

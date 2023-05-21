@@ -7,8 +7,6 @@ signal test_signal()
 
 
 func _ready():
-	self.hide()
-
 #	NOTE: on html5 build created on github CI, connections
 #	for some reason don't work when a signal from parent is
 #	connected to slot in child. Leave this in for debug
@@ -17,11 +15,12 @@ func _ready():
 	print_verbose("-----\nRightMenuBar connection_count = %d" %connection_count)
 	if connection_count == 0:
 		print_verbose("!!!!!\nconnection bug still exists\n!!!!!!")
+	
+	for element_button in get_element_buttons():
+		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 
 
 func set_element(element: Element.enm):
-	show()
-
 	if element == Element.enm.NONE:
 		item_bar.show()
 		build_bar.hide()
@@ -37,14 +36,17 @@ func _gui_input(event):
 	if event.is_action_released("left_click"):
 		ItemMovement.on_clicked_on_right_menu_bar()
 
-
-func _unhandled_input(event):
-	var move_in_progress: bool = ItemMovement.in_progress()
-	var build_in_progress: bool = BuildTower.in_progress()
-
-	if event.is_action_released("ui_cancel") && !move_in_progress && !build_in_progress:
-		hide()
+func get_element_buttons() -> Array:
+	return get_tree().get_nodes_in_group("element_button")
 
 
-func _on_close_button_pressed():
-	hide()
+func _on_ItemMenuButton_pressed():
+	set_element(Element.enm.NONE)
+
+
+func _on_ElementButton_pressed(element_button):
+	set_element(element_button.element)
+
+
+func _on_BuildMenuButton_pressed():
+	set_element(build_bar.get_element())
