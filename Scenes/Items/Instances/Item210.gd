@@ -22,6 +22,7 @@ func on_create():
 
 func on_drop():
 	var itm: Item = self
+	var tower: Tower = itm.get_carrier()
 	itm.user_real = tower.remove_exp_flat(50)
 
 

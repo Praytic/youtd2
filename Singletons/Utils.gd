@@ -253,6 +253,18 @@ func format_float(x: float, digits: int) -> String:
 	return out
 
 
+func format_percent(x: float, digits: int) -> String:
+	var x_percent: float = x * 100
+	var sign_string: String
+	if x >= 0:
+		sign_string = "+"
+	else:
+		sign_string = "-"
+	var out: String = "%s%s%%" % [sign_string, String.num(x_percent, digits)]
+
+	return out
+
+
 func to_pixels(distance_wc3: float) -> float:
 	var distance_pixels: float = distance_wc3 * Constants.WC3_DISTANCE_TO_PIXELS
 
