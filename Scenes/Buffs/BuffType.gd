@@ -90,49 +90,17 @@ func set_stacking_group(stacking_group: String):
 
 
 # Base apply function. Overrides time parameters from
-# init(). Returns the buff that was applied or currently
-# active buff if it was refreshed, upgraded or rejected due
-# to stacking.
+# init(). Returns the new buff that was applied or currently
+# active buff if it has higher priority due to stacking
+# behavior.
 #
 # NOTE: buffs must be applied after the unit has been added
 # to scene tree, after add_child() was called.
 func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: float) -> Buff:
-# 	NOTE: original tower scripts depend on upgrade and
-# 	stacking behavior being implemented in this exact manner
-	var active_buff_of_type: Buff = target.get_buff_of_type(self)
-	var active_buff_of_group: Buff = target.get_buff_of_group(_stacking_group)
-	var override_by_type: bool = !_type.is_empty() && active_buff_of_type != null
-	var override_by_stacking_group: bool = !_stacking_group.is_empty() && active_buff_of_group != null
-	var new_level: int = level
+	var higher_prio_buff: Buff = _do_stacking_behavior(target, level)
 
-#	NOTE: logic for overriding buff with same "type" vs same
-#	"stacking group" is different and that is on purpose.
-	if override_by_type:
-		var active_level: int = active_buff_of_type.get_level()
-
-		if new_level > active_level:
-#			NOTE: upgrade active buff, discard new buff
-			active_buff_of_type._upgrade_by_new_buff(new_level)
-
-			return active_buff_of_type
-		elif new_level == active_level:
-#			NOTE: refresh active buff, discard new buff
-			active_buff_of_type._refresh_by_new_buff()
-
-			return active_buff_of_type
-		elif new_level < active_level:
-#			NOTE: keep active buff, discard new buff
-			return active_buff_of_type
-	elif override_by_stacking_group:
-		var active_level: int = active_buff_of_group.get_level()
-
-		if new_level > active_level:
-#			NOTE: discard active buff, apply new buff
-			active_buff_of_group.remove_buff()
-		elif new_level <= active_level:
-#			NOTE: keep active buff, discard new buff
-
-			return active_buff_of_group
+	if higher_prio_buff != null:
+		return higher_prio_buff
 
 	var buff: Buff = Buff.new()
 	buff._caster = caster
@@ -315,3 +283,50 @@ func callable_object_is_node(callable: Callable) -> bool:
 		push_error("Objects that store buff event handlers must inherit from type Node. Error was caused by this callable: ", callable)
 
 	return is_node
+
+
+# This f-n will return null if new buff can be applied. It
+# returns an active buff if new buff cannot be applied due
+# to stacking behavior. In addition, this f-n modifies the
+# active buff in certain cases.
+# 
+# NOTE: tower and item scripts depend on upgrade and
+# stacking behavior being implemented in this exact manner.
+func _do_stacking_behavior(target: Unit, new_level: int) -> Buff:
+	var active_buff_of_type: Buff = target.get_buff_of_type(self)
+	var active_buff_of_group: Buff = target.get_buff_of_group(_stacking_group)
+	var stacking_by_type: bool = !_type.is_empty() && active_buff_of_type != null
+	var stacking_by_group: bool = !_stacking_group.is_empty() && active_buff_of_group != null
+
+	if stacking_by_type:
+		var active_level: int = active_buff_of_type.get_level()
+
+		if new_level > active_level:
+#			NOTE: upgrade active buff, no new buff
+			active_buff_of_type._upgrade_by_new_buff(new_level)
+
+			return active_buff_of_type
+		elif new_level == active_level:
+#			NOTE: refresh active buff, no new buff
+			active_buff_of_type._refresh_by_new_buff()
+
+			return active_buff_of_type
+		elif new_level < active_level:
+#			NOTE: keep active buff, no new buff
+			return active_buff_of_type
+	elif stacking_by_group:
+		var active_level: int = active_buff_of_group.get_level()
+
+		if new_level > active_level:
+#			NOTE: remove active buff, apply new buff
+			active_buff_of_group.remove_buff()
+
+			return null
+		elif new_level <= active_level:
+#			NOTE: keep active buff, no new buff
+			return active_buff_of_group
+	else:
+#		NOTE: no active buff, apply new buff
+		return null
+	
+	return null
