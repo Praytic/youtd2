@@ -327,7 +327,7 @@ offset_right = 430.0
 offset_bottom = 14.0
 scale = Vector2(0.55408, 0.55408)
 
-[node name="ResearchButton" type="Button" parent="."]
+[node name="ResearchButton" type="Button" parent="." groups=["sfx_menu_click"]]
 layout_mode = 0
 offset_left = 1578.0
 offset_top = 1001.0

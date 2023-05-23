@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://4tcjyre0hoji"]
+[gd_scene load_steps=3 format=3 uid="uid://4tcjyre0hoji"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_3h6gw"]
 [ext_resource type="Script" path="res://Scenes/HUD/WaveStatus.gd" id="2_fsc15"]
-[ext_resource type="PackedScene" uid="uid://b3i2xgh65y2w4" path="res://Scenes/SFX/MenuButtonPressed.tscn" id="3_4xnul"]
 
 [node name="WaveStatus" type="Control"]
 layout_mode = 3
@@ -45,7 +44,5 @@ layout_mode = 2
 [node name="StartNextWaveButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Start next wave"
-
-[node name="MenuButtonPressed" parent="." instance=ExtResource("3_4xnul")]
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/StartNextWaveButton" to="." method="_on_start_next_wave_button_pressed"]

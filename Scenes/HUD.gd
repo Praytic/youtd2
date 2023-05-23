@@ -13,9 +13,12 @@ signal stop_wave()
 func _ready():
 	if Config.minimap_enabled():
 		$Minimap.call_deferred("create_instance")
+	
 	if OS.is_debug_build() and Config.dev_controls_enabled():
 		$DevControls.call_deferred("create_instance")
 	
+	SFX.connect_sfx_to_signal_in_group("res://Assets/SFX/menu_sound_5.wav", "pressed", "sfx_menu_click")
+
 
 func get_error_message_container() -> VBoxContainer:
 	return _error_message_container

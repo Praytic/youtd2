@@ -112,3 +112,13 @@ func _get_2d_sfx_player() -> AudioStreamPlayer2D:
 	_game_scene.add_child(new_sfx_player)
 
 	return new_sfx_player
+
+
+func connect_sfx_to_signal_in_group(sfx_name, signal_name, group_name):
+	var nodes = get_tree().get_nodes_in_group(group_name)
+	for node in nodes:
+		if node.has_signal(signal_name):
+			node.connect(signal_name, func(): SFX.play_sfx(sfx_name))
+			print_verbose("Node [%s] is in group [sfx_menu_click] and has [pressed] signal. Connect a sound to it." % node)
+		else:
+			print_verbose("Node [%s] is in group [sfx_menu_click] but has no [pressed] signal." % node)
