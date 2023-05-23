@@ -101,22 +101,36 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 # 	stacking behavior being implemented in this exact manner
 	var active_buff_of_type: Buff = target.get_buff_of_type(self)
 	var active_buff_of_group: Buff = target.get_buff_of_group(_stacking_group)
-	
-	if !_type.is_empty() && active_buff_of_type != null:
+	var override_by_type: bool = !_type.is_empty() && active_buff_of_type != null
+	var override_by_stacking_group: bool = !_stacking_group.is_empty() && active_buff_of_group != null
+	var new_level: int = level
+
+#	NOTE: logic for overriding buff with same "type" vs same
+#	"stacking group" is different and that is on purpose.
+	if override_by_type:
 		var active_level: int = active_buff_of_type.get_level()
 
-		if level >= active_level:
-			active_buff_of_type._upgrade_or_refresh(level)
-#			NOTE: new buff is rejected
+		if new_level > active_level:
+#			NOTE: upgrade active buff, discard new buff
+			active_buff_of_type._upgrade_by_new_buff(new_level)
 
 			return active_buff_of_type
-	elif !_stacking_group.is_empty() && active_buff_of_group != null:
+		elif new_level == active_level:
+#			NOTE: refresh active buff, discard new buff
+			active_buff_of_type._refresh_by_new_buff()
+
+			return active_buff_of_type
+		elif new_level < active_level:
+#			NOTE: keep active buff, discard new buff
+			return active_buff_of_type
+	elif override_by_stacking_group:
 		var active_level: int = active_buff_of_group.get_level()
 
-		if level > active_level:
+		if new_level > active_level:
+#			NOTE: discard active buff, apply new buff
 			active_buff_of_group.remove_buff()
-		else:
-#			NOTE: new buff is rejected
+		elif new_level <= active_level:
+#			NOTE: keep active buff, discard new buff
 
 			return active_buff_of_group
 

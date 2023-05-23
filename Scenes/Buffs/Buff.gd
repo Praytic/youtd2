@@ -308,22 +308,27 @@ func _make_buff_event(target_arg: Unit) -> Event:
 	return event
 
 
-func _upgrade_or_refresh(new_level: int):
+func _refresh_by_new_buff():
+	refresh_duration()
+
+#	NOTE: refresh event is triggered only when refresh
+#	is caused by an application of buff with same level.
+#	Not triggered when refresh_duration() is called for
+#	other reasons.
+	var refresh_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.REFRESH, refresh_event)
+
+
+func _upgrade_by_new_buff(new_level: int):
 	var current_level: int = get_level()
 
-	if current_level > new_level:
-		refresh_duration()
-		
-		_level = new_level
-		_target._change_modifier_level(get_modifier(), current_level, new_level)
+	refresh_duration()
+	
+	_level = new_level
+	_target._change_modifier_level(get_modifier(), current_level, new_level)
 
-		var upgrade_event: Event = _make_buff_event(_target)
-		_call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
-	elif current_level == new_level:
-		refresh_duration()
-
-		var refresh_event: Event = _make_buff_event(_target)
-		_call_event_handler_list(Event.Type.REFRESH, refresh_event)
+	var upgrade_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
 
 
 func _add_aura(aura_type: AuraType):
