@@ -37,6 +37,15 @@ static func create_aura_effect_type(type: String, friendly: bool, parent: Node) 
 	return buff_type
 
 
+# NOTE: type string determines what happens when a buff is
+# applied while the target already has active buffs. If buff
+# type is empty, then buff will always be applied. If buff
+# type is set to something, then buff will be applied only
+# if the target doesn't already have an active buff with
+# same type. If new buff has higher lever than current
+# active buff, then current active buff is upgraded and
+# refreshed. In general, set type to something unique.
+#
 # NOTE: "parent" parameter is needed so that buff can react
 # to parent's "tree_exiting()" signal. For example, let's say
 # this is a debuff buff type that's created and applied by

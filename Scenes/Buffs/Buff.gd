@@ -41,20 +41,6 @@ var _buff_icon: String
 var _purgable: bool
 
 
-# NOTE: buff type determines what happens when a buff is
-# applied while the target already has active buffs. If buff
-# type is empty, then buff will always be applied. If buff
-# type is set to something, then buff will be applied only
-# if the target doesn't already have an active buff with
-# same type. If new buff has higher lever than current
-# active buff, then current active buff is upgraded and
-# refreshed.
-# func _init(type: String, time_base: float, time_level_add: float, friendly: bool):
-# 	_type = type
-# 	_time_base = time_base
-# 	_time_level_add = time_level_add
-# 	_friendly = friendly
-
 func _ready():
 #	NOTE: fix "unused" warning
 	_applied_by_aura_count = _applied_by_aura_count
