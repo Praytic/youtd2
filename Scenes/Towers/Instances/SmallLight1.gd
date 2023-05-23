@@ -42,7 +42,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	magical_sight = MagicalSightBuff.new(_stats.magical_sight_range, self)
+	magical_sight = MagicalSightBuff.new("holy_light_magical_sight", _stats.magical_sight_range, self)
 	magical_sight.apply_to_unit_permanent(self, self, 0)
 
 

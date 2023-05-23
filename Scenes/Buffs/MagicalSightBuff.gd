@@ -9,9 +9,8 @@ extends BuffType
 
 var magical_sight_debuff: BuffType
 
-
-func _init(radius: float, parent: Node):
-	super("magical_sight", 0, 0, true, parent)
+func _init(type: String, radius: float, parent: Node):
+	super(type, 0, 0, true, parent)
 
 	set_buff_tooltip("Magical Sight\nThis unit reveals invisible units in range")
 	
