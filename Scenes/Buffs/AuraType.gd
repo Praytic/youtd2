@@ -13,7 +13,6 @@ var level: int = 0
 var level_add: int = 0
 var power: int = 0
 var power_add: int = 0
-var aura_effect_is_friendly: bool = false
 var aura_effect: BuffType = null
 
 var _include_invisible: bool = false
@@ -30,7 +29,6 @@ func make(caster: Unit) -> Aura:
 	aura._level_add = level_add
 	aura._power = power
 	aura._power_add = power_add
-	aura._aura_effect_is_friendly = aura_effect_is_friendly
 	aura._aura_effect = aura_effect
 	aura._include_invisible = _include_invisible
 

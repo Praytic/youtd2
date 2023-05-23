@@ -44,6 +44,5 @@ func tower_init():
 	aura_type.level_add = 1
 	aura_type.power = 0
 	aura_type.power_add = 1
-	aura_type.aura_effect_is_friendly = true
 	aura_type.aura_effect = poussix_multi_aura
 	add_aura(aura_type)

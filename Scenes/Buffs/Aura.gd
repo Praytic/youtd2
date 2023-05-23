@@ -12,7 +12,6 @@ var _level: int = 0
 var _level_add: int = 0
 var _power: int = 0
 var _power_add: int = 0
-var _aura_effect_is_friendly: bool = false
 var _aura_effect: BuffType = null
 
 # NOTE: this is only used by MagicalSightBuff. All other
@@ -24,9 +23,6 @@ var _target_list: Array = []
 
 
 func _ready():
-# 	NOTE: supress "variable never used" warning 
-	_aura_effect_is_friendly = _aura_effect_is_friendly
-
 	_caster.level_up.connect(_on_caster_level_up)
 
 	tree_exiting.connect(_on_tree_exiting)

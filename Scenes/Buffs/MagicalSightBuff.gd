@@ -28,7 +28,6 @@ func _init(type: String, radius: float, parent: Node):
 	aura_type.level_add = 0
 	aura_type.power = 0
 	aura_type.power_add = 0
-	aura_type.aura_effect_is_friendly = false
 	aura_type.aura_effect = magical_sight_debuff
 
 #	NOTE: normally, aura's do not affect invisible units, so
