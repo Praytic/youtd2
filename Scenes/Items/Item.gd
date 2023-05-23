@@ -93,6 +93,12 @@ func add_autocast(autocast: Autocast):
 	add_child(autocast)
 
 
+# Add buffs that will be applied to carrier while it is
+# carrying this item. This must be called in item_init().
+func add_buff(buff: BuffType):
+	_buff_type_list.append(buff)
+
+
 func add_aura(aura: AuraType):
 	_aura_carrier_buff.add_aura(aura)
 
