@@ -22,7 +22,7 @@ func item_init():
 	MB.set_key(1, "Golden Trident")
 
 
-func on_attack(event: Event):
+func on_attack(_event: Event):
 	var itm: Item = self
 
 	var tower: Tower = itm.get_carrier()
