@@ -20,7 +20,7 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	sfx_player.volume_db = volume_db
 	var sfx_stream: AudioStream = _get_sfx(sfx_name)
 
-	var invalid_sfx: bool = sfx_stream.get_length() == 0
+	var invalid_sfx: bool = sfx_stream == null || sfx_stream.get_length() == 0
 
 	if invalid_sfx:
 		push_error("SFX [%s] doesn't exist." % sfx_name)
