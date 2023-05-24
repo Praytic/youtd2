@@ -112,9 +112,7 @@ func _on_sell_button_pressed():
 	var item_list: Array[Item] = tower.get_items()
 
 	for item in item_list:
-		var item_id: int = item.get_id()
-
-		EventBus.emit_item_drop_picked_up(item_id)
+		EventBus.emit_item_drop_picked_up(item)
 
 	var build_cost: float = TowerProperties.get_cost(tower.get_id())
 	var sell_price: int = floor(build_cost * BUILD_COST_TO_SELL_PRICE)

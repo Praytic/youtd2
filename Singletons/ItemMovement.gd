@@ -7,7 +7,7 @@ extends Node
 
 signal item_move_from_itembar_done(success: bool)
 signal item_move_from_tower_done(success: bool)
-signal item_moved_to_itembar(item_id: int)
+signal item_moved_to_itembar(item: Item)
 
 
 enum MoveState {
@@ -17,7 +17,7 @@ enum MoveState {
 }
 
 
-var _moved_item_id: int = -1
+var _moved_item: Item = null
 var _tower_owner_of_moved_item: Tower = null
 var _move_state: MoveState = MoveState.NONE
 
@@ -42,13 +42,13 @@ func in_progress() -> bool:
 	return _move_state != MoveState.NONE
 
 
-func start_move_from_tower(item_id: int, tower: Tower):
+func start_move_from_tower(item: Item, tower: Tower):
 	_tower_owner_of_moved_item = tower
-	_start_internal(item_id, MoveState.FROM_TOWER)
+	_start_internal(item, MoveState.FROM_TOWER)
 
 
-func start_move_from_itembar(item_id: int):
-	_start_internal(item_id, MoveState.FROM_ITEMBAR)
+func start_move_from_itembar(item: Item):
+	_start_internal(item, MoveState.FROM_ITEMBAR)
 
 
 func cancel():
@@ -70,15 +70,15 @@ func on_clicked_on_right_menu_bar():
 
 
 # Moving item begins here
-func _start_internal(item_id: int, new_state: MoveState):
+func _start_internal(item: Item, new_state: MoveState):
 	cancel()
 	BuildTower.cancel()
 	SelectUnit.set_enabled(false)
 
 	_move_state = new_state
-	_moved_item_id = item_id
+	_moved_item = item
 	
-	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item_id)
+	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item)
 	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
 	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
 
@@ -100,7 +100,7 @@ func _end_move_process(success: bool):
 
 	SelectUnit.set_enabled(true)
 	
-	_moved_item_id = -1
+	_moved_item = null
 	_move_state = MoveState.NONE
 
 #	NOTE: for some reason need to call this twice to reset
@@ -111,15 +111,15 @@ func _end_move_process(success: bool):
 
 
 func _move_item_from_itembar(target_tower: Tower):
-	var is_oil: bool = ItemProperties.get_is_oil(_moved_item_id)
+	var is_oil: bool = ItemProperties.get_is_oil(_moved_item.get_id())
 	
 	if target_tower != null:
 		if is_oil:
-			target_tower.add_item_by_id(_moved_item_id)
+			target_tower.add_item(_moved_item)
 			_end_move_process(true)
 		else:
 			if target_tower.have_item_space():
-				target_tower.add_item_by_id(_moved_item_id)
+				target_tower.add_item(_moved_item)
 				_end_move_process(true)
 			else:
 				Messages.add_error("No space for item")
@@ -139,17 +139,17 @@ func _move_item_from_tower(target_tower: Tower):
 #	otherwise move item to itembar
 	if target_tower != null:
 		if target_tower.have_item_space():
-			_tower_owner_of_moved_item.remove_item(_moved_item_id)
+			_tower_owner_of_moved_item.remove_item(_moved_item)
 			_tower_owner_of_moved_item = null
-			target_tower.add_item_by_id(_moved_item_id)
+			target_tower.add_item(_moved_item)
 			_end_move_process(true)
 		else:
 			Messages.add_error("No space for item")
 	else:
-		_tower_owner_of_moved_item.remove_item(_moved_item_id)
+		_tower_owner_of_moved_item.remove_item(_moved_item)
 		_tower_owner_of_moved_item = null
 
-		item_moved_to_itembar.emit(_moved_item_id)
+		item_moved_to_itembar.emit(_moved_item)
 		_end_move_process(true)
 
 
@@ -158,7 +158,8 @@ func _move_item_from_tower(target_tower: Tower):
 # ItemProperties.get_icon() (it returns base class Texture2D but it's
 # still an atlas texture). Copy image from AtlasTexture to
 # ImageTexture to avoid this bug.
-func _get_item_cursor_icon(item_id: int) -> Texture2D:
+func _get_item_cursor_icon(item: Item) -> Texture2D:
+	var item_id: int = item.get_id()
 	var atlas_texture: Texture2D = ItemProperties.get_icon(item_id)
 	var image: Image = atlas_texture.get_image()
 #	NOTE: make cursor icon slightly smaller so it looks nice

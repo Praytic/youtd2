@@ -1,10 +1,11 @@
 class_name ItemDrop
 extends Unit
 
-# ItemDrop represents item after it's dropped but before it's given to a tower.
+# ItemDrop is the visual for the item when it is dropped on
+# the ground. Contains item instance inside it.
 
 
-var _id: int = 0 : get = get_id, set = set_id
+var _item: Item = null
 
 func _ready():
 	super()
@@ -18,14 +19,10 @@ func _ready():
 
 # NOTE: this must be called once after the itemdrop is created
 # but before it's added to game scene.
-func set_id(id: int):
-	_id = id
-
-
-func get_id() -> int:
-	return _id
+func set_item(item: Item):
+	_item = item
 
 
 func _on_selected():
-	EventBus.emit_item_drop_picked_up(_id)
+	EventBus.emit_item_drop_picked_up(_item)
 	queue_free()

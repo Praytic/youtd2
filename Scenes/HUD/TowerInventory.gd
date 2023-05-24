@@ -45,23 +45,21 @@ func on_tower_items_changed():
 	var items: Array[Item] = _tower.get_items()
 
 	for item in items:
-		var item_id: int = item.get_id()
-		var item_button: ItemButton = _create_item_button(item_id)
-		item_button.set_item_instance(item)
+		var item_button: ItemButton = _create_item_button(item)
 		_button_container.add_child(item_button)
 
 
-func _create_item_button(item_id: int) -> ItemButton:
+func _create_item_button(item: Item) -> ItemButton:
 	var item_button = ItemButton.new()
-	item_button.set_item(item_id)
+	item_button.set_item(item)
 	item_button.button_down.connect(_on_item_button_pressed.bind(item_button))
 
 	return item_button
 
 
 func _on_item_button_pressed(item_button: ItemButton):
-	var item_id: int = item_button.get_item()
-	ItemMovement.start_move_from_tower(item_id, _tower)
+	var item: Item = item_button.get_item()
+	ItemMovement.start_move_from_tower(item, _tower)
 
 #	Disable button to gray it out to indicate that it's
 #	getting moved

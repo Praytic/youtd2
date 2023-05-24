@@ -34,12 +34,12 @@ func _on_tower_button_mouse_exited():
 	hide()
 
 
-func _on_item_button_mouse_entered(item_id: int):
+func _on_item_button_mouse_entered(item: Item):
 	show()
 
 	_label.clear()
 
-	var tower_info_text: String = _get_item_text(item_id)
+	var tower_info_text: String = _get_item_text(item)
 	_label.append_text(tower_info_text)
 
 
@@ -152,20 +152,19 @@ func _get_tower_requirements_text(tower_id: int) -> String:
 	return text
 
 
-func _get_item_text(item_id: int) -> String:
+func _get_item_text(item: Item) -> String:
 	var text: String = ""
 
+	var item_id: int = item.get_id()
 	var display_name: String = ItemProperties.get_display_name(item_id)
 	var description: String = ItemProperties.get_description(item_id)
 	var author: String = ItemProperties.get_author(item_id)
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 
-	var item: Item = Item.make(item_id)
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = _add_color_to_numbers(specials_text)
 	var extra_text: String = item.get_extra_tooltip_text()
 	extra_text = _add_color_to_numbers(extra_text)
-	item.queue_free()
 	
 	text += "[b]%s[/b]\n" % display_name
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description

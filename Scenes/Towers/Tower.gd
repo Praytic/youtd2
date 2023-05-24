@@ -201,16 +201,15 @@ func have_item_space() -> bool:
 	return have_space
 
 
-func add_item_by_id(item_id: int):
-	var item: Item = Item.make(item_id)
-	add_item(item)
-
-
 func add_item(item: Item):
+	if item.get_parent() != null:
+		item.reparent(self)
+	else:
+		add_child(item)
+
 	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
 
 	item.apply_to_tower(self)
-	add_child(item)
 
 	if is_oil:
 		_item_oil_list.append(item)
@@ -219,7 +218,8 @@ func add_item(item: Item):
 		items_changed.emit()
 
 
-func remove_item(item_id: int):
+func remove_item(item: Item):
+	var item_id: int = item.get_id()
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 
 	if is_oil:
@@ -227,19 +227,13 @@ func remove_item(item_id: int):
 
 		return
 
-	var removed_item: Item = null
-
-	for item in _item_list:
-		if item.get_id() == item_id:
-			removed_item = item
-			break
-
-	if removed_item == null:
+	if !_item_list.has(item):
+		print_debug("Tried removing an item from tower but the item is not in tower inventory. Tower = %s, Item = %s" % [self, item])
+		
 		return
 
-	removed_item.remove_from_tower()
-	_item_list.erase(removed_item)
-	removed_item.queue_free()
+	item.remove_from_tower()
+	_item_list.erase(item)
 
 	items_changed.emit()
 
