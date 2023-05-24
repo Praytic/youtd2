@@ -245,6 +245,8 @@ func set_animation_by_index(_unit: Unit, _index: int):
 	pass
 
 
+# Unaffected by tower exp ratios. Levels up unit if added
+# exp pushes the unit past the level up threshold.
 func add_exp_flat(amount: float):
 	_experience += amount
 
@@ -274,22 +276,33 @@ func add_exp_flat(amount: float):
 		getOwner().display_floating_text_color(exp_text, self, Color.LIME_GREEN, 1.0)
 
 
-# TODO: what's the difference between add_exp_flat() and add_exp()
-func add_exp(amount: float):
+# Affected by tower exp ratios.
+func add_exp(amount_no_bonus: float):
+	var received_mod: float = get_prop_exp_received()
+	var amount: float = amount_no_bonus * received_mod
 	add_exp_flat(amount)
 
 
-# Returns how much experience was not removed, in case the
-# amount would cause experience to go below 0.
+# Unaffected by tower exp ratios. Returns how much
+# experience was actually removed. How much was actually
+# removed may be less than requested if the unit has less
+# mana than should be removed. In that case unit's mana gets
+# set to 0.
 func remove_exp_flat(amount: float) -> float:
 	var old_exp: float = _experience
 	var new_exp: float = clampf(_experience - amount, 0.0, _experience)
 	_experience = new_exp
 
 	var actual_removed: float = old_exp - new_exp
-	var not_removed: float = amount - actual_removed
 
-	return not_removed
+	return actual_removed
+
+
+# Affected by "exp recieved" modification.
+func remove_exp(amount_no_bonus: float):
+	var received_mod: float = get_prop_exp_received()
+	var amount: float = amount_no_bonus * received_mod
+	remove_exp_flat(amount)
 
 
 func calc_chance(chance_base: float) -> bool:
@@ -780,7 +793,7 @@ func _killed_by_unit(caster: Unit):
 # Called when unit kills target unit
 func _accept_kill(target: Unit):
 	var experience_gained: float = _get_experience_for_target(target)
-	add_exp_flat(experience_gained)
+	add_exp(experience_gained)
 
 	_kill_count += 1
 
@@ -835,8 +848,7 @@ func _get_experience_for_target(target: Unit) -> float:
 # 	TODO: Replace this placeholder constant with real value.
 	var experience_base: float = 10.0
 	var granted_mod: float = target.get_prop_exp_granted()
-	var received_mod: float = get_prop_exp_received()
-	var experience: int = int(experience_base * granted_mod * received_mod)
+	var experience: float = experience_base * granted_mod
 
 	return experience
 
