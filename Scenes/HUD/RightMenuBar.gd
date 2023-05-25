@@ -1,9 +1,10 @@
-extends Control
+class_name BottomMenuBar extends Control
 
 signal test_signal()
 
 @onready var build_bar = get_node("%BuildBar")
 @onready var item_bar = get_node("%ItemBar")
+@onready var _item_menu_button: Control = $MarginContainer/HBoxContainer/VBoxContainer2/ItemMenuButton
 
 
 func _ready():
@@ -18,6 +19,10 @@ func _ready():
 	
 	for element_button in get_element_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
+
+
+func get_item_menu_button() -> Control:
+	return _item_menu_button
 
 
 func set_element(element: Element.enm):
