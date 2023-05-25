@@ -40,7 +40,7 @@ func get_rarity(item_id: int) -> String:
 	return get_property(item_id, Item.CsvProperty.RARITY)
 	
 
-func get_rarity_num(item_id: int) -> int:
+func get_rarity_num(item_id: int) -> Rarity.enm:
 	var rarity_string: String = get_rarity(item_id)
 	var rarity: Rarity.enm = Rarity.convert_from_string(rarity_string)
 

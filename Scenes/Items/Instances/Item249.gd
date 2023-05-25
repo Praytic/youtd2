@@ -31,7 +31,7 @@ func on_attack(_event: Event):
 	if tower.get_number_of_crits() > 0:
 		gold_bonus = gold_bonus * tower.get_number_of_crits() * tower.get_base_attack_speed() * tower.get_prop_bounty_received()
 
-		tower.getOwner().give_gold(gold_bonus, tower, true, true)
+		tower.getOwner().give_gold(int(gold_bonus), tower, true, true)
 
 
 func on_create():

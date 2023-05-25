@@ -7,7 +7,7 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
-func get_player_state(player: Player, state: PlayerState.enm) -> float:
+func get_player_state(_player: Player, state: PlayerState.enm) -> float:
 	match state:
 		PlayerState.enm.RESOURCE_GOLD: return GoldControl.get_gold()
 
