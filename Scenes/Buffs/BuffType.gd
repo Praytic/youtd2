@@ -248,7 +248,7 @@ func add_event_on_damaged(callable: Callable, chance: float, chance_level_add: f
 	add_event_handler(Event.Type.DAMAGED, callable, chance, chance_level_add)
 
 
-func add_event_on_expire(callable: Callable):
+func set_event_on_expire(callable: Callable):
 	add_event_handler(Event.Type.EXPIRE, callable, 1.0, 0.0)
 
 
