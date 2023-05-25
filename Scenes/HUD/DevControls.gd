@@ -3,7 +3,7 @@ extends Control
 
 @onready var dev_control_buttons = get_tree().get_nodes_in_group("dev_control_button")
 @onready var dev_controls = get_tree().get_nodes_in_group("dev_control")
-@onready var positional_control: ItemList = $PositionalControl
+@onready var positional_control: PopupMenu = $PositionalControl
 
 
 func _ready():
