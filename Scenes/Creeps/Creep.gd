@@ -159,13 +159,7 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 	var random_index: int = randi_range(0, items_with_script.size() - 1)
 	var item_id: int = items_with_script[random_index]
 
-	var item_drop_scene_path: String = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
-	var item_drop_scene = load(item_drop_scene_path)
-	var item_drop: ItemDrop = item_drop_scene.instantiate()
-	var item: Item = Item.make(item_id)
-	item_drop.set_item(item)
-	item_drop.position = position
-	Utils.add_object_to_world(item_drop)
+	Item.create(caster.getOwner(), item_id, position)
 
 
 #########################

@@ -48,6 +48,29 @@ var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 ### Code starts here  ###
 #########################
 
+
+# Creates item on the ground. Item is stored inside an
+# ItemDrop object.
+static func create(_player: Player, item_type: int, position: Vector2) -> Item:
+	return create_without_player(item_type, position)
+
+
+static func create_without_player(item_type: int, position: Vector2) -> Item:
+	var rarity: Rarity.enm = ItemProperties.get_rarity_num(item_type)
+	var rarity_string: String = Rarity.convert_to_string(rarity)
+	var item_drop_scene_path: String = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
+	var item_drop_scene = load(item_drop_scene_path)
+	var item_drop: ItemDrop = item_drop_scene.instantiate()
+	item_drop.position = position
+
+	var item: Item = Item.make(item_type)
+	item_drop.set_item(item)
+
+	Utils.add_object_to_world(item_drop)
+	
+	return item
+
+
 static func make(id: int) -> Item:
 	var item_script_path: String = get_item_script_path(id)
 	var script_exists: bool = ResourceLoader.exists(item_script_path)
