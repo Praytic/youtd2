@@ -161,8 +161,9 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 
 	var item_drop_scene_path: String = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
 	var item_drop_scene = load(item_drop_scene_path)
-	var item_drop = item_drop_scene.instantiate()
-	item_drop.set_id(item_id)
+	var item_drop: ItemDrop = item_drop_scene.instantiate()
+	var item: Item = Item.make(item_id)
+	item_drop.set_item(item)
 	item_drop.position = position
 	Utils.add_object_to_world(item_drop)
 

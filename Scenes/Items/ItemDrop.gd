@@ -23,6 +23,9 @@ func set_item(item: Item):
 	_item = item
 
 
+func get_id() -> int:
+	return _item.get_id()
+
 func _on_selected():
 	EventBus.emit_item_drop_picked_up(_item)
 	queue_free()
