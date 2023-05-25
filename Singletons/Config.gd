@@ -68,3 +68,9 @@ func sfx_enabled() -> bool:
 # tiers are built by upgrading towers.
 func display_all_tower_tiers() -> bool:
 	return ProjectSettings.get_setting("application/config/display_all_tower_tiers") as bool
+
+# Enable to make creeps always drop items on death.
+# Normally, items drop rarely, depending on creep's and
+# caster's item chance stats.
+func always_drop_items() -> bool:
+	return ProjectSettings.get_setting("application/config/always_drop_items") as bool
