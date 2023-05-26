@@ -147,7 +147,7 @@ func _move_item_from_tower(target_tower: Tower):
 #		because that would look weird after dragging item to
 #		stash with mouse.
 		_moved_item.drop()
-		EventBus.item_drop_picked_up.emit(_moved_item)
+		_moved_item.move_to_stash()
 		_end_move_process(true)
 
 

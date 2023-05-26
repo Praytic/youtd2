@@ -129,7 +129,10 @@ func drop():
 		return
 
 	var drop_pos: Vector2 = _carrier.get_visual_position()
+
 	_carrier._remove_item(self)
+	remove_from_tower()
+
 	Item._create_item_drop(self, drop_pos)
 
 
@@ -138,13 +141,18 @@ func pickup(tower: Tower) -> bool:
 	if !tower.have_item_space():
 		return false
 
-	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
+	var parent: Node = get_parent()
+	if parent != null:
+		parent.remove_child(self)
 
+	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
 	if parent_item_drop != null:
-		parent_item_drop.remove_child(self)
 		parent_item_drop.queue_free()
 
+	apply_to_tower(tower)
+
 	tower._add_item(self)
+	tower.add_child(self)
 	
 	return true
 
@@ -170,6 +178,11 @@ func fly_to_stash(_mystery_float: float):
 
 
 func _on_flying_item_finished_flying():
+	move_to_stash()
+
+
+# Moves item to stash immediately, without flying animation.
+func move_to_stash():
 	var flying_item: Node = get_parent()
 	flying_item.remove_child(self)
 	flying_item.queue_free()
