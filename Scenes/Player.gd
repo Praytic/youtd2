@@ -14,6 +14,16 @@ func get_the_player() -> Player:
 	return self
 
 
+func get_team() -> Player:
+	return self
+
+
+func get_level() -> int:
+	var level: int = WaveLevel.get_current()
+
+	return level
+
+
 func display_floating_text_color(text: String, unit: Unit, color: Color, time: float):
 	var floating_text = floating_text_scene.instantiate()
 	floating_text.text = text

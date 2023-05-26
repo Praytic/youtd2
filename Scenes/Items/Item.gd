@@ -45,6 +45,7 @@ var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 
 
 @onready var _hud: Control = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD")
+@onready var _owner: Player = get_tree().get_root().get_node("GameScene/Player")
 
 
 #########################
@@ -303,3 +304,11 @@ func get_id() -> int:
 
 func get_carrier() -> Tower:
 	return _carrier
+
+# NOTE: for now just returning the one single player
+# instance since multiplayer isn't implemented.
+func getOwner() -> Player:
+	return _owner
+
+func get_item_type() -> int:
+	return get_id()
