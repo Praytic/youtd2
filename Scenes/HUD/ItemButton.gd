@@ -90,11 +90,11 @@ func _get_item_button_background() -> Texture2D:
 
 
 func _on_mouse_entered():
-	EventBus.emit_item_button_mouse_entered(_item)
+	EventBus.item_button_mouse_entered.emit(_item)
 
 
 func _on_mouse_exited():
-	EventBus.emit_item_button_mouse_exited()
+	EventBus.item_button_mouse_exited.emit()
 
 
 func _on_item_charges_changed(item: Item):

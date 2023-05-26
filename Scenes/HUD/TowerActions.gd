@@ -112,7 +112,7 @@ func _on_sell_button_pressed():
 	var item_list: Array[Item] = tower.get_items()
 
 	for item in item_list:
-		EventBus.emit_item_drop_picked_up(item)
+		EventBus.item_drop_picked_up.emit(item)
 
 	var build_cost: float = TowerProperties.get_cost(tower.get_id())
 	var sell_price: int = floor(build_cost * BUILD_COST_TO_SELL_PRICE)
@@ -143,11 +143,11 @@ func _set_selling_for_real(value: bool):
 func _on_info_button_mouse_entered():
 	var tower: Tower = SelectUnit.get_selected_unit() as Tower
 	var tower_id: int = tower.get_id()
-	EventBus.emit_tower_button_mouse_entered(tower_id)
+	EventBus.tower_button_mouse_entered.emit(tower_id)
 
 
 func _on_info_button_mouse_exited():
-	EventBus.emit_tower_button_mouse_exited()
+	EventBus.tower_button_mouse_exited.emit()
 
 
 func _on_upgrade_button_mouse_entered():
@@ -157,8 +157,8 @@ func _on_upgrade_button_mouse_entered():
 	if upgrade_id == -1:
 		return
 
-	EventBus.emit_tower_button_mouse_entered(upgrade_id)
+	EventBus.tower_button_mouse_entered.emit(upgrade_id)
 
 
 func _on_upgrade_button_mouse_exited():
-	EventBus.emit_tower_button_mouse_exited()
+	EventBus.tower_button_mouse_exited.emit()
