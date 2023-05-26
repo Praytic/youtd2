@@ -602,11 +602,11 @@ func _calc_attack_multicrit_internal(crit_count: int, bonus_damage: float) -> fl
 func _set_unit_sprite(sprite, override_area: Area2D = null):
 	var texture: Texture2D
 	if sprite is AnimatedSprite2D:
-		texture = sprite.get_frame_texture("still", 0)
+		texture = sprite.sprite_frames.get_frame_texture("still", 0)
 	elif sprite is Sprite2D:
 		texture = sprite.texture
 	else:
-		push_error("Sprite has unknown type.")
+		assert(false, "Sprite has unknown type.")
 	var image: Image = texture.get_image()
 
 	_set_unit_sprite_internal(image, sprite, override_area)

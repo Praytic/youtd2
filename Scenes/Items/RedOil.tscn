@@ -90,7 +90,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"still",
-"speed": 5.0
+"speed": 1.0
 }]
 
 [node name="Oil" type="CharacterBody2D"]
@@ -103,6 +103,5 @@ polygon = PackedVector2Array(12, -48, 10, 20, -11, 16, -12, -42)
 [node name="Base" type="AnimatedSprite2D" parent="."]
 position = Vector2(4, -76)
 sprite_frames = SubResource("SpriteFrames_nofvo")
-animation = &"drop"
-frame = 9
-frame_progress = 1.0
+animation = &"still"
+autoplay = "drop"

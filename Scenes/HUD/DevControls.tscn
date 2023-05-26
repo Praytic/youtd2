@@ -23,12 +23,12 @@ region = Rect2(320, 2.08165e-12, 64, 64)
 
 [node name="DevControls" type="Control"]
 layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -300.0
-offset_right = 300.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_0jdrl")
 
 [node name="WaveControl" type="Window" parent="." groups=["dev_control"]]
@@ -75,6 +75,7 @@ anchor_bottom = 1.0
 offset_top = -96.0
 offset_right = 428.0
 grow_vertical = 0
+mouse_filter = 0
 
 [node name="DevControlButtons" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -103,10 +104,5 @@ icon = SubResource("AtlasTexture_j0jjf")
 flat = true
 
 [node name="PositionalControl" type="PopupMenu" parent="."]
-item_count = 2
-item_0/text = "Spawn Oil"
-item_0/id = 0
-item_1/text = "Spawn Item"
-item_1/id = 1
 
 [connection signal="id_focused" from="PositionalControl" to="." method="_on_PositionalControl_id_focused"]
