@@ -44,6 +44,9 @@ var _autocast_list: Array[Autocast] = []
 var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 
 
+@onready var _hud: Control = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD")
+
+
 #########################
 ### Code starts here  ###
 #########################
@@ -65,6 +68,7 @@ static func create_without_player(item_type: int, position: Vector2) -> Item:
 
 	var item: Item = Item.make(item_type)
 	item_drop.set_item(item)
+	item_drop.add_child(item)
 
 	Utils.add_object_to_world(item_drop)
 	
@@ -108,6 +112,34 @@ func _init(id: int):
 	_buff_type_list.append(triggers_buff_type)
 
 	_buff_type_list.append(_aura_carrier_buff)
+
+
+# Item starts flying to the stash and will get added to
+# stash once the animation finishes. Does nothing if item is
+# not on the ground.
+func fly_to_stash(_mystery_float: float):
+	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
+	var is_on_ground: bool = parent_item_drop != null
+	
+	if !is_on_ground:
+		return	
+
+	var start_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
+	parent_item_drop.remove_child(self)
+	parent_item_drop.queue_free()
+
+	var flying_item: FlyingItem = FlyingItem.create(_id, start_pos)
+	flying_item.finished_flying.connect(_on_flying_item_finished_flying)
+	flying_item.add_child(self)
+	_hud.add_child(flying_item)
+
+
+func _on_flying_item_finished_flying():
+	var flying_item: Node = get_parent()
+	flying_item.remove_child(self)
+	flying_item.queue_free()
+
+	EventBus.item_drop_picked_up.emit(self)
 
 
 func add_autocast(autocast: Autocast):

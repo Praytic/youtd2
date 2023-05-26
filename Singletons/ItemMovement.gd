@@ -7,7 +7,6 @@ extends Node
 
 signal item_move_from_itembar_done(success: bool)
 signal item_move_from_tower_done(success: bool)
-signal item_moved_to_itembar(item: Item)
 
 
 enum MoveState {
@@ -149,7 +148,7 @@ func _move_item_from_tower(target_tower: Tower):
 		_tower_owner_of_moved_item.remove_item(_moved_item)
 		_tower_owner_of_moved_item = null
 
-		item_moved_to_itembar.emit(_moved_item)
+		EventBus.item_drop_picked_up.emit(_moved_item)
 		_end_move_process(true)
 
 

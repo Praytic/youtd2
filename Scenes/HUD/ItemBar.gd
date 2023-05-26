@@ -29,12 +29,7 @@ func _ready():
 			add_item_button(item)
 
 	ItemMovement.item_move_from_itembar_done.connect(on_item_move_from_itembar_done)
-	ItemMovement.item_moved_to_itembar.connect(on_item_moved_to_itembar)
 	EventBus.item_drop_picked_up.connect(_on_item_drop_picked_up)
-
-
-func on_item_moved_to_itembar(item: Item):
-	add_item_button(item)
 
 
 func on_item_move_from_itembar_done(move_success: bool):

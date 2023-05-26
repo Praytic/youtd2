@@ -30,8 +30,5 @@ func set_item(item: Item):
 func get_id() -> int:
 	return _item.get_id()
 
-# TODO: don't add item to item stash right here. Do it after flying item visual completes
 func _on_selected():
-	EventBus.emit_item_drop_picked_up(_item)
-	EventBus.item_drop_picked_up_2.emit(self)
-	queue_free()
+	_item.fly_to_stash(0.0)

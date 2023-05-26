@@ -5,6 +5,7 @@ class_name FlyingItem extends Control
 # stash. Has to be a Control because visual's position needs
 # to be unaffected by camera movement.
 
+signal finished_flying()
 
 var _item_id: int = 0
 
@@ -44,3 +45,10 @@ func _ready():
 	scale_tween.tween_property(self, "scale",
 		Vector2(0, 0),
 		0.3).set_delay(0.7)
+
+	var finished_tween = create_tween()
+	finished_tween.tween_callback(_on_tween_finished).set_delay(1.0)
+
+
+func _on_tween_finished():
+	finished_flying.emit()
