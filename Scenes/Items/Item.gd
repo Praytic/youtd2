@@ -59,6 +59,14 @@ static func create(_player: Player, item_type: int, position: Vector2) -> Item:
 
 
 static func create_without_player(item_type: int, position: Vector2) -> Item:
+	var item: Item = Item.make(item_type)
+	Item._create_item_drop(item, position)
+
+	return item
+
+
+static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
+	var item_type: int = item.get_id()
 	var rarity: Rarity.enm = ItemProperties.get_rarity_num(item_type)
 	var rarity_string: String = Rarity.convert_to_string(rarity)
 	var item_drop_scene_path: String = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
@@ -66,13 +74,12 @@ static func create_without_player(item_type: int, position: Vector2) -> Item:
 	var item_drop: ItemDrop = item_drop_scene.instantiate()
 	item_drop.position = position
 
-	var item: Item = Item.make(item_type)
 	item_drop.set_item(item)
 	item_drop.add_child(item)
 
 	Utils.add_object_to_world(item_drop)
 	
-	return item
+	return item_drop
 
 
 static func make(id: int) -> Item:
@@ -112,6 +119,33 @@ func _init(id: int):
 	_buff_type_list.append(triggers_buff_type)
 
 	_buff_type_list.append(_aura_carrier_buff)
+
+
+# Drops item from tower inventory onto the ground. This f-n
+# does nothing if item is currently not in tower inventory.
+func drop():
+	if _carrier == null:
+		return
+
+	var drop_pos: Vector2 = _carrier.get_visual_position()
+	_carrier.remove_item(self)
+	Item._create_item_drop(self, drop_pos)
+
+
+# Returns true if pickup was successful
+func pickup(tower: Tower) -> bool:
+	if !tower.have_item_space():
+		return false
+
+	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
+
+	if parent_item_drop != null:
+		parent_item_drop.remove_child(self)
+		parent_item_drop.queue_free()
+
+	tower.add_item(self)
+	
+	return true
 
 
 # Item starts flying to the stash and will get added to
