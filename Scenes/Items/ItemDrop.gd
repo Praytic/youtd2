@@ -4,22 +4,29 @@ extends Unit
 # ItemDrop is the visual for the item when it is dropped on
 # the ground. Contains item instance inside it.
 
+@onready var _base_sprite = $Base
+
 
 var _item: Item = null
 
+
 func _ready():
 	super()
-
+	
 	var sprite: Sprite2D = $Base
-	if sprite != null:
+	var still_sprite 
+	if _base_sprite != null:
 		_set_unit_sprite(sprite)
-
+	
 	selected.connect(_on_selected)
-
+	
 # 	TODO: calculate correct z index so that item drop is
 # 	drawn behind creeps/towers when it should.
 	z_index = 100
 
+
+func _process(delta):
+	_base_sprite.play("drop")
 
 # NOTE: this must be called once after the itemdrop is created
 # but before it's added to game scene.

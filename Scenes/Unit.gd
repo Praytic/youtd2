@@ -599,8 +599,14 @@ func _calc_attack_multicrit_internal(crit_count: int, bonus_damage: float) -> fl
 # set the main sprite for the unit. This sprite will be used
 # to detect collison with mouse and also as the visual
 # position of the unit.
-func _set_unit_sprite(sprite: Sprite2D, override_area: Area2D = null):
-	var texture: Texture2D = sprite.texture
+func _set_unit_sprite(sprite, override_area: Area2D = null):
+	var texture: Texture2D
+	if sprite is AnimatedSprite2D:
+		texture = sprite.get_frame_texture("still", 0)
+	elif sprite is Sprite2D:
+		texture = sprite.texture
+	else:
+		push_error("Sprite has unknown type.")
 	var image: Image = texture.get_image()
 
 	_set_unit_sprite_internal(image, sprite, override_area)
