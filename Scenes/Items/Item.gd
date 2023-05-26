@@ -130,8 +130,18 @@ func drop():
 
 	var drop_pos: Vector2 = _carrier.get_visual_position()
 
+	on_drop()
+
 	_carrier._remove_item(self)
-	remove_from_tower()
+	_carrier.remove_modifier(_modifier)
+
+	for buff in _applied_buff_list:
+		buff.remove_buff()
+
+	_applied_buff_list.clear()
+
+	_carrier.remove_child(self)
+	_carrier = null
 
 	Item._create_item_drop(self, drop_pos)
 
@@ -149,7 +159,20 @@ func pickup(tower: Tower) -> bool:
 	if parent_item_drop != null:
 		parent_item_drop.queue_free()
 
-	apply_to_tower(tower)
+	_carrier = tower
+
+# 	NOTE: call on_pick() after setting carrier so that it's
+# 	available inside on_pickup() implementations.
+	on_pickip()
+
+	_carrier.add_modifier(_modifier)
+
+	for autocast in _autocast_list:
+		autocast.set_caster(_carrier)
+
+	for buff_type in _buff_type_list:
+		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
+		_applied_buff_list.append(buff)
 
 	tower._add_item(self)
 	tower.add_child(self)
@@ -229,38 +252,6 @@ func load_triggers(_triggers_buff_type: BuffType):
 # be added to carrier of the item
 func load_modifier(_modifier_arg: Modifier):
 	pass
-
-
-func apply_to_tower(tower: Tower):
-	_carrier = tower
-
-	on_pickip()
-
-	_carrier.add_modifier(_modifier)
-
-	for autocast in _autocast_list:
-		autocast.set_caster(_carrier)
-
-	for buff_type in _buff_type_list:
-		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
-		_applied_buff_list.append(buff)
-
-
-func remove_from_tower():
-	if _carrier == null:
-		return
-
-	on_drop()
-
-	_carrier.remove_modifier(_modifier)
-
-	for buff in _applied_buff_list:
-		buff.remove_buff()
-
-	_applied_buff_list.clear()
-
-	_carrier.remove_child(self)
-	_carrier = null
 
 
 func get_specials_tooltip_text() -> String:
