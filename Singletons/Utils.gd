@@ -1,9 +1,6 @@
 extends Node
 
 
-# Map position is free if it contains only ground tiles
-static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
-	return buildable_area.get_cell_source_id(0, pos) != -1
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
