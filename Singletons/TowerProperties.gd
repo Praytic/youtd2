@@ -153,6 +153,9 @@ func element_level_foo(tower_id: int) -> bool:
 
 
 func requirements_are_satisfied(tower_id: int) -> bool:
+	if Config.ignore_upgrade_requirements():
+		return true
+
 	var out: bool = element_level_foo(tower_id) && wave_level_foo(tower_id)
 
 	return out
