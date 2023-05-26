@@ -128,7 +128,7 @@ func drop():
 		return
 
 	var drop_pos: Vector2 = _carrier.get_visual_position()
-	_carrier.remove_item(self)
+	_carrier._remove_item(self)
 	Item._create_item_drop(self, drop_pos)
 
 
@@ -143,7 +143,7 @@ func pickup(tower: Tower) -> bool:
 		parent_item_drop.remove_child(self)
 		parent_item_drop.queue_free()
 
-	tower.add_item(self)
+	tower._add_item(self)
 	
 	return true
 

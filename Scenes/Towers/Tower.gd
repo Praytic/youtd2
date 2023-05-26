@@ -126,11 +126,9 @@ func _ready():
 		carry_over_items.append_array(preceding_item_list)
 		carry_over_items.append_array(preceding_oil_list)
 
-#		NOTE: don't use Tower.remove_item() here because
-#		it deletes the item.
 		for item in carry_over_items:
-			item.remove_from_tower()
-			add_item(item)
+			item.drop()
+			item.pickup(self)
 
 	add_modifier(_specials_modifier)
 
@@ -201,7 +199,7 @@ func have_item_space() -> bool:
 	return have_space
 
 
-func add_item(item: Item):
+func _add_item(item: Item):
 	if item.get_parent() != null:
 		item.reparent(self)
 	else:
@@ -218,7 +216,7 @@ func add_item(item: Item):
 		items_changed.emit()
 
 
-func remove_item(item: Item):
+func _remove_item(item: Item):
 	var item_id: int = item.get_id()
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 

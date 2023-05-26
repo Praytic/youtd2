@@ -17,7 +17,6 @@ enum MoveState {
 
 
 var _moved_item: Item = null
-var _tower_owner_of_moved_item: Tower = null
 var _move_state: MoveState = MoveState.NONE
 
 
@@ -41,8 +40,7 @@ func in_progress() -> bool:
 	return _move_state != MoveState.NONE
 
 
-func start_move_from_tower(item: Item, tower: Tower):
-	_tower_owner_of_moved_item = tower
+func start_move_from_tower(item: Item):
 	_start_internal(item, MoveState.FROM_TOWER)
 
 
@@ -114,11 +112,11 @@ func _move_item_from_itembar(target_tower: Tower):
 	
 	if target_tower != null:
 		if is_oil:
-			target_tower.add_item(_moved_item)
+			_moved_item.pickup(target_tower)
 			_end_move_process(true)
 		else:
 			if target_tower.have_item_space():
-				target_tower.add_item(_moved_item)
+				_moved_item.pickup(target_tower)
 				_end_move_process(true)
 			else:
 				Messages.add_error("No space for item")
@@ -127,7 +125,7 @@ func _move_item_from_itembar(target_tower: Tower):
 
 
 func _move_item_from_tower(target_tower: Tower):
-	var moving_to_itself: bool = target_tower == _tower_owner_of_moved_item
+	var moving_to_itself: bool = target_tower == _moved_item.get_carrier()
 
 	if moving_to_itself:
 		Messages.add_error("Item is already on tower")
@@ -138,16 +136,17 @@ func _move_item_from_tower(target_tower: Tower):
 #	otherwise move item to itembar
 	if target_tower != null:
 		if target_tower.have_item_space():
-			_tower_owner_of_moved_item.remove_item(_moved_item)
-			_tower_owner_of_moved_item = null
-			target_tower.add_item(_moved_item)
+			_moved_item.drop()
+			_moved_item.pickup(target_tower)
 			_end_move_process(true)
 		else:
 			Messages.add_error("No space for item")
 	else:
-		_tower_owner_of_moved_item.remove_item(_moved_item)
-		_tower_owner_of_moved_item = null
-
+#		NOTE: move item directly to stash by emitting
+#		item_drop_picked_up signal. Do not fly to stash
+#		because that would look weird after dragging item to
+#		stash with mouse.
+		_moved_item.drop()
 		EventBus.item_drop_picked_up.emit(_moved_item)
 		_end_move_process(true)
 
