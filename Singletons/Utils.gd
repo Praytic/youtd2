@@ -271,6 +271,18 @@ func format_percent(x: float, digits: int) -> String:
 	return out
 
 
+func format_percent_add_color(x: float, digits: int) -> String:
+	var uncolored: String = format_percent(x, digits)
+	var color: Color
+	if x < 0:
+		color = Color.RED
+	else:
+		color = Color.GREEN
+	var out: String = get_colored_string(uncolored, color)
+
+	return out
+
+
 func to_pixels(distance_wc3: float) -> float:
 	var distance_pixels: float = distance_wc3 * Constants.WC3_DISTANCE_TO_PIXELS
 

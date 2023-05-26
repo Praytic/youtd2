@@ -17,7 +17,7 @@ const DEFAULT_MOVE_SPEED: float = 200.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
 
-const _disabled_item_list: Array[int] = [50]
+const _disabled_item_list: Array[int] = [50, 285]
 
 var _path: Path2D : set = set_path
 var _size: CreepSize.enm

@@ -30,12 +30,18 @@ extends Node
 # range and target type are not used.
 
 
+# TODO: implement AC_TYPE_NOAC_IMMEDIATE. This type doesn't
+# trigger automatically. Instead, it's triggered when user
+# selects tower and presses the button that triggers this
+# autocast.
+
 enum Type {
 	AC_TYPE_ALWAYS_BUFF,
 	AC_TYPE_ALWAYS_IMMEDIATE,
 	AC_TYPE_OFFENSIVE_BUFF,
 	AC_TYPE_OFFENSIVE_UNIT,
-	AC_TYPE_OFFENSIVE_IMMEDIATE
+	AC_TYPE_OFFENSIVE_IMMEDIATE,
+	AC_TYPE_NOAC_IMMEDIATE
 }
 
 
