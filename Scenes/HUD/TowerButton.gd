@@ -78,11 +78,11 @@ func _get_tower_button_icon() -> Texture2D:
 
 
 func _on_mouse_entered():
-	EventBus.emit_tower_button_mouse_entered(_tower_id)
+	EventBus.tower_button_mouse_entered.emit(_tower_id)
 
 
 func _on_mouse_exited():
-	EventBus.emit_tower_button_mouse_exited()
+	EventBus.tower_button_mouse_exited.emit()
 
 func _on_pressed():
 	BuildTower.start(_tower_id)

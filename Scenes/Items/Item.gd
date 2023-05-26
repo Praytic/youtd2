@@ -44,6 +44,10 @@ var _autocast_list: Array[Autocast] = []
 var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 
 
+@onready var _hud: Control = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD")
+@onready var _owner: Player = get_tree().get_root().get_node("GameScene/Player")
+
+
 #########################
 ### Code starts here  ###
 #########################
@@ -55,11 +59,19 @@ static func create(_player: Player, item_id: int, position: Vector2) -> Item:
 	return create_without_player(item_id, position)
 
 
-static func create_without_player(item_id: int, position: Vector2) -> Item:
-	var rarity: Rarity.enm = ItemProperties.get_rarity_num(item_id)
+static func create_without_player(item_type: int, position: Vector2) -> Item:
+	var item: Item = Item.make(item_type)
+	Item._create_item_drop(item, position)
+
+	return item
+
+
+static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
+	var item_type: int = item.get_id()
+	var rarity: Rarity.enm = ItemProperties.get_rarity_num(item_type)
 	var rarity_string: String = Rarity.convert_to_string(rarity)
 	var item_drop_scene_path: String
-	if ItemProperties.get_is_oil(item_id):
+	if ItemProperties.get_is_oil(item_type):
 		item_drop_scene_path = "res://Scenes/Items/RedOil.tscn"
 	else:
 		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
@@ -67,12 +79,12 @@ static func create_without_player(item_id: int, position: Vector2) -> Item:
 	var item_drop: ItemDrop = item_drop_scene.instantiate()
 	item_drop.position = position
 
-	var item: Item = Item.make(item_id)
 	item_drop.set_item(item)
+	item_drop.add_child(item)
 
 	Utils.add_object_to_world(item_drop)
 	
-	return item
+	return item_drop
 
 
 static func make(id: int) -> Item:
@@ -114,6 +126,97 @@ func _init(id: int):
 	_buff_type_list.append(_aura_carrier_buff)
 
 
+# Drops item from tower inventory onto the ground. This f-n
+# does nothing if item is currently not in tower inventory.
+func drop():
+	if _carrier == null:
+		return
+
+	var drop_pos: Vector2 = _carrier.get_visual_position()
+
+	on_drop()
+
+	_carrier._remove_item(self)
+	_carrier.remove_modifier(_modifier)
+
+	for buff in _applied_buff_list:
+		buff.remove_buff()
+
+	_applied_buff_list.clear()
+
+	_carrier.remove_child(self)
+	_carrier = null
+
+	Item._create_item_drop(self, drop_pos)
+
+
+# Returns true if pickup was successful
+func pickup(tower: Tower) -> bool:
+	if !tower.have_item_space():
+		return false
+
+	var parent: Node = get_parent()
+	if parent != null:
+		parent.remove_child(self)
+
+	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
+	if parent_item_drop != null:
+		parent_item_drop.queue_free()
+
+	_carrier = tower
+
+# 	NOTE: call on_pick() after setting carrier so that it's
+# 	available inside on_pickup() implementations.
+	on_pickip()
+
+	_carrier.add_modifier(_modifier)
+
+	for autocast in _autocast_list:
+		autocast.set_caster(_carrier)
+
+	for buff_type in _buff_type_list:
+		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
+		_applied_buff_list.append(buff)
+
+	tower._add_item(self)
+	tower.add_child(self)
+	
+	return true
+
+
+# Item starts flying to the stash and will get added to
+# stash once the animation finishes. Does nothing if item is
+# not on the ground.
+func fly_to_stash(_mystery_float: float):
+	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
+	var is_on_ground: bool = parent_item_drop != null
+	
+	if !is_on_ground:
+		return	
+
+	var start_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
+	parent_item_drop.remove_child(self)
+	parent_item_drop.queue_free()
+
+	var flying_item: FlyingItem = FlyingItem.create(_id, start_pos)
+	flying_item.finished_flying.connect(_on_flying_item_finished_flying)
+	flying_item.add_child(self)
+	_hud.add_child(flying_item)
+
+
+func _on_flying_item_finished_flying():
+	move_to_stash()
+
+
+# Moves item to stash immediately, without flying animation.
+func move_to_stash():
+	var flying_item: Node = get_parent()
+	flying_item.remove_child(self)
+	flying_item.queue_free()
+
+	EventBus.item_drop_picked_up.emit(self)
+
+
 func add_autocast(autocast: Autocast):
 	autocast._is_item_autocast = true
 	_autocast_list.append(autocast)
@@ -153,38 +256,6 @@ func load_triggers(_triggers_buff_type: BuffType):
 # be added to carrier of the item
 func load_modifier(_modifier_arg: Modifier):
 	pass
-
-
-func apply_to_tower(tower: Tower):
-	_carrier = tower
-
-	on_pickip()
-
-	_carrier.add_modifier(_modifier)
-
-	for autocast in _autocast_list:
-		autocast.set_caster(_carrier)
-
-	for buff_type in _buff_type_list:
-		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
-		_applied_buff_list.append(buff)
-
-
-func remove_from_tower():
-	if _carrier == null:
-		return
-
-	on_drop()
-
-	_carrier.remove_modifier(_modifier)
-
-	for buff in _applied_buff_list:
-		buff.remove_buff()
-
-	_applied_buff_list.clear()
-
-	_carrier.remove_child(self)
-	_carrier = null
 
 
 func get_specials_tooltip_text() -> String:
@@ -241,3 +312,11 @@ func get_id() -> int:
 
 func get_carrier() -> Tower:
 	return _carrier
+
+# NOTE: for now just returning the one single player
+# instance since multiplayer isn't implemented.
+func getOwner() -> Player:
+	return _owner
+
+func get_item_type() -> int:
+	return get_id()

@@ -74,3 +74,8 @@ func display_all_tower_tiers() -> bool:
 # caster's item chance stats.
 func always_drop_items() -> bool:
 	return ProjectSettings.get_setting("application/config/always_drop_items") as bool
+
+# Enable to be able to upgrade towers even if requirements
+# are not satisfied.
+func ignore_upgrade_requirements() -> bool:
+	return ProjectSettings.get_setting("application/config/ignore_upgrade_requirements") as bool

@@ -7,6 +7,12 @@ static func map_pos_is_free(buildable_area: TileMap, pos: Vector2) -> bool:
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+# TODO: connect this to actual max level that was picked
+# based on difficulty, etc.
+func get_max_level() -> int:
+	return 80
+
+
 func get_player_state(_player: Player, state: PlayerState.enm) -> float:
 	match state:
 		PlayerState.enm.RESOURCE_GOLD: return GoldControl.get_gold()
@@ -261,6 +267,18 @@ func format_percent(x: float, digits: int) -> String:
 	else:
 		sign_string = "-"
 	var out: String = "%s%s%%" % [sign_string, String.num(x_percent, digits)]
+
+	return out
+
+
+func format_percent_add_color(x: float, digits: int) -> String:
+	var uncolored: String = format_percent(x, digits)
+	var color: Color
+	if x < 0:
+		color = Color.RED
+	else:
+		color = Color.GREEN
+	var out: String = get_colored_string(uncolored, color)
 
 	return out
 

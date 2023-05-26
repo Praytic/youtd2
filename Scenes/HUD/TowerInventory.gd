@@ -59,7 +59,7 @@ func _create_item_button(item: Item) -> ItemButton:
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	ItemMovement.start_move_from_tower(item, _tower)
+	ItemMovement.start_move_from_tower(item)
 
 #	Disable button to gray it out to indicate that it's
 #	getting moved
