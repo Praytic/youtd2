@@ -7,16 +7,20 @@ class_name FlyingItem extends Control
 
 
 var _item_id: int = 0
-var _target_pos: Vector2 = Vector2.ZERO
 
 @onready var _texture_rect: TextureRect = $TextureRect
 
+# NOTE: adding type "BottomMenuBar" to "_bottom_menu_bar"
+# variable causes confusing runtime errors. Might be a
+# cyclic dependency issue? Thought it was fixed with the
+# release of Godot 4.
+@onready var _bottom_menu_bar = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD").get_node("BottomMenuBar")
 
-static func create(item_id: int, start_pos: Vector2, target_pos: Vector2) -> FlyingItem:
+
+static func create(item_id: int, start_pos: Vector2) -> FlyingItem:
 	var scene: PackedScene = load("res://Scenes/HUD/FlyingItem.tscn")
 	var flying_item: FlyingItem = scene.instantiate()
 	flying_item.position = start_pos
-	flying_item._target_pos = target_pos
 	flying_item._item_id = item_id
 	flying_item.scale = Vector2(0.5, 0.5)
 
@@ -28,9 +32,12 @@ func _ready():
 	var icon: Texture2D = ItemProperties.get_icon(_item_id)
 	_texture_rect.texture = icon
 	
+	var item_menu_button: Control = _bottom_menu_bar.get_item_menu_button()
+	var target_pos: Vector2 = item_menu_button.global_position + Vector2(45, 45)
+
 	var pos_tween = create_tween()
 	pos_tween.tween_property(self, "position",
-		_target_pos,
+		target_pos,
 		1.0).set_trans(Tween.TRANS_SINE)
 
 	var scale_tween = create_tween()
