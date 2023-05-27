@@ -31,6 +31,11 @@ func get_play_area_pos() -> Vector2:
 
 
 func get_mouse_pos_on_tilemap() -> Vector2:
+	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
+	return get_mouse_pos_on_tilemap()
+
+
+func get_mouse_pos_on_tilemap_clamped() -> Vector2:
 	var world_pos: Vector2 = _buildable_area.get_local_mouse_position()
 	var map_pos: Vector2 = _buildable_area.local_to_map(world_pos)
 	var clamped_world_pos: Vector2 = _buildable_area.map_to_local(map_pos)
@@ -40,7 +45,7 @@ func get_mouse_pos_on_tilemap() -> Vector2:
 
 
 func mouse_is_over_buildable_tile() -> bool:
-	var pos: Vector2 = get_mouse_pos_on_tilemap()
+	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
 	var map_pos: Vector2 = _buildable_area.local_to_map(pos)
 	var buildable_area_cell_exists_at_pos: bool = _buildable_area.get_cell_source_id(0, map_pos) != -1
 
@@ -48,7 +53,7 @@ func mouse_is_over_buildable_tile() -> bool:
 
 
 func can_build_at_mouse_pos() -> bool:
-	var pos: Vector2 = get_mouse_pos_on_tilemap()
+	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
 	var occupied: bool = BuildTower.position_is_occupied(pos)
 
 	var buildable_tile: bool = mouse_is_over_buildable_tile()

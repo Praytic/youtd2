@@ -105,4 +105,14 @@ flat = true
 
 [node name="PositionalControl" type="PopupMenu" parent="."]
 
+[node name="PositionInfoLabel" type="Label" parent="."]
+top_level = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(20, 2.08165e-12)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "test_position (0, 0)"
+
 [connection signal="id_focused" from="PositionalControl" to="." method="_on_PositionalControl_id_focused"]

@@ -30,7 +30,7 @@ func _physics_process(_delta):
 # 	to tile position when mouse is hovered over a buildable
 # 	tile.
 	if _landscape.mouse_is_over_buildable_tile():
-		position = _landscape.get_mouse_pos_on_tilemap()
+		position = _landscape.get_mouse_pos_on_tilemap_clamped()
 	else:
 		position = get_global_mouse_position()
 

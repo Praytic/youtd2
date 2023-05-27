@@ -6,7 +6,9 @@ extends Control
 @onready var positional_control: PopupMenu = $PositionalControl
 @onready var oil_ids: Array = []
 @onready var item_ids: Array = []
+@onready var position_info_label: Label = $PositionInfoLabel
 
+@onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
 func _ready():
 	for dev_control in dev_controls:
@@ -15,6 +17,27 @@ func _ready():
 	for dev_control_button in dev_control_buttons:
 		dev_control_button.button_up.connect(_on_DevControlButton_button_up.bind(dev_control_button))
 	
+	_init_oils_and_items_controls()
+
+
+func _process(delta):
+	position_info_label.position = get_global_mouse_position()
+	var accumulated_info = {}
+	accumulated_info["global_mouse_position"] = get_global_mouse_position()
+	accumulated_info["mouse_pos_on_tilemap_clamped"] = _map.get_mouse_pos_on_tilemap_clamped()
+	accumulated_info["mouse_pos_on_tilemap"] = _map.get_mouse_world_pos()
+	position_info_label.text = _dict_join(accumulated_info)
+
+
+func _dict_join(accumulated_info: Dictionary, separator = "\n") -> String:
+	var output = "";
+	for pos_type in accumulated_info.keys():
+		output += "%s %s%s" % [pos_type, accumulated_info[pos_type], separator]
+	output = output.left( output.length() - separator.length() )
+	return output
+
+
+func _init_oils_and_items_controls():
 	oil_ids = Properties.get_item_id_list_by_filter(Item.CsvProperty.IS_OIL, "TRUE")
 	item_ids = Properties.get_item_id_list_by_filter(Item.CsvProperty.IS_OIL, "FALSE")
 	
@@ -61,5 +84,5 @@ func _on_DevControlButton_button_up(button: Button):
 
 func _on_PositionalControl_id_pressed(id):
 	if oil_ids.has(id) or item_ids.has(id):
-		Item.create_without_player(id, Vector2(positional_control.position) - position)
-
+		# TODO: Need to transform Vector2(positional_control.position) into local coordinates of _map
+		Item.create_without_player(id, _map.get_mouse_world_pos())

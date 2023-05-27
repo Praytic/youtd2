@@ -78,7 +78,7 @@ func _try_to_build():
 	
 	if can_build:
 		var new_tower = TowerManager.get_tower(_tower_preview.tower_id)
-		var build_position: Vector2 =_landscape.get_mouse_pos_on_tilemap()
+		var build_position: Vector2 =_landscape.get_mouse_pos_on_tilemap_clamped()
 		new_tower.position = build_position
 		_occupied_position_map[build_position] = true
 		Utils.add_object_to_world(new_tower)
