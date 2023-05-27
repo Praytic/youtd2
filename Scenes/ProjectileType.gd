@@ -28,5 +28,10 @@ func disable_explode_on_hit():
 	_explode_on_hit = true
 
 
+# TODO: implement
+func disable_explode_on_expiration():
+	pass
+
+
 func enable_homing(hit_handler: Callable, _mystery_float: float):
 	_hit_handler = hit_handler

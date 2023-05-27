@@ -18,9 +18,9 @@ extends Node
 # 
 # AC_TYPE_OFFENSIVE_BUFF - while tower is attacking,
 # performs an autocast on targets in range that don't
-# already have the buff_type. Note that the autocast doesn't
-# apply the buff automatically, autocast handler should
-# apply the buff.
+# already have the buff_type. If handler is specified, it
+# will be called. If handler is not specified, then buff
+# will be applied on the target automatically.
 #
 # AC_TYPE_ALWAYS_BUFF - same as AC_TYPE_OFFENSIVE_BUFF, but
 # casts always, event while tower is not attacking.
@@ -185,8 +185,15 @@ func _on_immediate_timer_timeout():
 func _do_cast(target: Unit):
 	_caster.spend_mana(mana_cost)
 	
-	var autocast_event = Event.new(target)
-	handler.call(autocast_event)
+	if handler.is_null():
+		var autocast_event = Event.new(target)
+		handler.call(autocast_event)
+	elif buff_type != null:
+		buff_type.apply(_caster, target, _caster.get_level())
+	else:
+		push_error("Incorrect autocast state, handler = %s, buff_type= %s" % [handler, buff_type])
+
+		return
 
 	var spell_casted_event: Event = Event.new(target)
 	spell_casted_event._autocast = self
