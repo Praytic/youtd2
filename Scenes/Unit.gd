@@ -1343,6 +1343,3 @@ func get_experience_for_next_level():
 	var for_next_level: float = EXP_PER_LEVEL - _experience
 
 	return for_next_level
-
-func get_uid() -> int:
-	return get_instance_id()

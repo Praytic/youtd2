@@ -49,7 +49,7 @@ func ball_lightning_jump(ball: Projectile):
 		if tower_in_range != null:
 			var ball_2 = Projectile.create_bezier_interpolation_from_unit_to_unit(ball_lightning, tower, 0, 0, target_tower, tower_in_range, 1.2, 0.0, 0.5, false)
 			ball_2.user_int = itm.get_instance_id()
-			ball_2.user_int2 = tower_in_range.get_uid()
+			ball_2.user_int2 = tower_in_range.get_instance_id()
 		else:
 			Item.set_item_visible(itm, true)
 			itm.fly_to_stash(0.0)
@@ -79,7 +79,7 @@ func periodic(_event: Event):
 			Item.set_item_visible(itm, false)
 			ball = Projectile.create_bezier_interpolation_from_unit_to_unit(ball_lightning, tower, 0, 0, tower, tower_in_range, 1.2, 0.0, 0.5, false)
 			ball.user_int = itm.get_instance_id()
-			ball.user_int2 = tower_in_range.get_uid()
+			ball.user_int2 = tower_in_range.get_instance_id()
 
 			break
 

@@ -3,7 +3,7 @@ extends Item
 
 
 # NOTE: in original, tower is saved in buff's user_int.
-# Changed it so that tower's get_uid() is saved instead
+# Changed it so that tower's get_instance_id() is saved instead
 # because we can't convert references to ints in gdscript.
 
 
@@ -27,7 +27,7 @@ func deal_damage(event: Event):
 	var b: Buff = event.get_buff()
 	var tower: Tower = b.get_caster()
 
-	if tower.get_uid() == b.user_int:
+	if tower.get_instance_id() == b.user_int:
 		tower.do_spell_damage(b.get_buffed_unit(), tower.get_current_attack_damage_base() * 0.15, tower.get_spell_crit_damage())
 	else:
 		b.remove_buff()
@@ -54,4 +54,4 @@ func on_damage(event: Event):
 		if P != null:
 			fright_poison_dagger_buff.apply(itm.get_carrier(), event.get_target(), 0)
 		else:
-			fright_poison_dagger_buff.apply(itm.get_carrier(), event.get_target(), 0).user_int = itm.get_carrier().get_uid()
+			fright_poison_dagger_buff.apply(itm.get_carrier(), event.get_target(), 0).user_int = itm.get_carrier().get_instance_id()
