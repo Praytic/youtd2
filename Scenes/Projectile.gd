@@ -6,9 +6,6 @@ extends DummyUnit
 # reaches the target.
 
 
-signal target_hit(projectile, target)
-signal interpolation_finished(projectile)
-
 const FALLBACK_PROJECTILE_SPRITE: String = "res://Scenes/Effects/ProjectileVisual.tscn"
 const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 
@@ -23,6 +20,9 @@ var _targeted: bool
 var _target_position_on_creation: Vector2
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
+var _cleanup_callable: Callable = Callable()
+var _interpolation_finished_callable: Callable = Callable()
+var _target_hit_callable: Callable = Callable()
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -41,6 +41,10 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 
 	projectile._speed = type._speed
 	projectile._explode_on_hit = type._explode_on_hit
+
+	projectile._cleanup_callable = type._cleanup_callable
+	projectile._interpolation_finished_callable = type._interpolation_finished_callable
+	projectile._target_hit_callable = type._target_hit_callable
 
 	if !type._hit_handler.is_null():
 		projectile.set_event_on_target_hit(type._hit_handler)
@@ -102,11 +106,11 @@ func _process(delta):
 
 	if reached_target:
 		if _target != null:
-			target_hit.emit(self, _target)
+			if _target_hit_callable.is_valid():
+				_target_hit_callable.call(self, _target)
 
-#			TODO: emit interpolation_finished() signal when
-#			interpolation finishes.
-			interpolation_finished.emit(self)
+			if _interpolation_finished_callable.is_valid():
+				_interpolation_finished_callable.call(self, _target)
 
 		if _explode_on_hit:
 			var explosion = _explosion_scene.instantiate()
@@ -119,24 +123,14 @@ func _process(delta):
 
 			_game_scene.add_child(explosion)
 
+		if _cleanup_callable.is_valid():
+			_cleanup_callable.call(self)
+
 		queue_free()
 
 
 func get_target() -> Unit:
 	return _target
-
-
-# NOTE: unlike buff and unit events, there's no weird stuff
-# like trigger chances, so projectile events can be
-# implemented as simple signals. These set_event() f-ns are
-# still needed to match original API.
-
-func set_event_on_target_hit(handler: Callable):
-	target_hit.connect(handler)
-
-
-func set_event_on_interpolation_finished(handler: Callable):
-	interpolation_finished.connect(handler)
 
 
 func setScale(scale_arg: float):

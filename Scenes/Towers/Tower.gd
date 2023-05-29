@@ -110,6 +110,7 @@ func _ready():
 	_mana_bar.visible = get_base_mana() > 0
 
 	_default_projectile_type = ProjectileType.create("", 0.0, PROJECTILE_SPEED)
+	_default_projectile_type.set_event_on_target_hit(_on_projectile_target_hit)
 
 # 	Carry over some properties and all items from preceding
 # 	tower
@@ -442,7 +443,6 @@ func _attack_target(target: Unit):
 
 	var projectile: Projectile = _make_projectile(self, target)
 	projectile.set_tower_crit_count(crit_count)
-	projectile.set_event_on_target_hit(_on_projectile_target_hit)
 
 	var sfx_path: String
 	match get_element():
