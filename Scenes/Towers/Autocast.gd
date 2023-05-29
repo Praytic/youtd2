@@ -183,7 +183,7 @@ func _on_immediate_timer_timeout():
 
 
 func _do_cast(target: Unit):
-	_caster.spend_mana(mana_cost)
+	_caster.subtract_mana(mana_cost, true)
 	
 	if handler.is_null():
 		var autocast_event = Event.new(target)

@@ -538,11 +538,6 @@ func set_stunned(value: bool):
 	_stunned = value
 
 
-# TODO: remove spend_mana(), replace with subtract_mana()
-func spend_mana(mana_cost: float):
-	_set_mana(_mana - mana_cost)
-
-
 # Returns the amount of mana that was subtracted.
 func subtract_mana(amount: float, _mystery_bool: bool) -> float:
 	var old_mana: float = _mana
