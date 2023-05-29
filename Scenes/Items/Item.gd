@@ -113,6 +113,12 @@ static func get_item_script_path(item_id: int):
 	return path
 
 
+# TODO: implement. Should toggle visibility for item drop
+# and item flying to stash animation
+static func set_item_visible(item: Item, visible: bool):
+	pass
+
+
 func _init(id: int):
 	_id = id
 	load_modifier(_modifier)

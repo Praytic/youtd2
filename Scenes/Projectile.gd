@@ -86,6 +86,11 @@ static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, 
 	return create_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, targeted, false, true)
 
 
+# TODO: implement
+static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, _side_arc: float, _steepness: float, targeted: bool) -> Projectile:
+	return create_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, targeted, false, true)
+
+
 func _ready():
 	_initial_scale = scale
 

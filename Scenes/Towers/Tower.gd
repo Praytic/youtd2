@@ -193,6 +193,13 @@ func set_visual_only():
 	_visual_only = true
 
 
+func count_free_slots() -> int:
+	var item_count: int = _item_list.size()
+	var free_slots = ITEM_COUNT_MAX - item_count
+
+	return free_slots
+
+
 func have_item_space() -> bool:
 	var item_count: int = _item_list.size()
 	var have_space: bool = item_count < ITEM_COUNT_MAX
@@ -769,7 +776,7 @@ func get_damage_max():
 func get_base_damage():
 	return TowerProperties.get_base_damage(_id)
 
-func get_current_attack_damage() -> float:
+func get_current_attack_damage_base() -> float:
 	var damage_min: float = get_damage_min()
 	var damage_max: float = get_damage_max()
 	var damage: float = randf_range(damage_min, damage_max)
@@ -777,7 +784,7 @@ func get_current_attack_damage() -> float:
 	return damage
 
 func get_current_attack_damage_with_bonus() -> float:
-	var base_damage: float = get_current_attack_damage()
+	var base_damage: float = get_current_attack_damage_base()
 	var base_bonus: float = get_base_damage_bonus()
 	var base_bonus_percent: float = get_base_damage_bonus_percent()
 	var damage_add: float = get_damage_add()

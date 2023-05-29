@@ -29,6 +29,7 @@ signal unselected()
 
 enum State {
 	LIFE,
+	MAX_LIFE,
 	MANA
 }
 
@@ -237,6 +238,13 @@ func add_aura(aura_type: AuraType):
 # instance since multiplayer isn't implemented.
 func getOwner() -> Player:
 	return _owner
+
+
+# TODO: implement. Should return the number of crits for
+# current attack. Needs to be accessible inside attack
+# event.
+func get_number_of_crits() -> int:
+	return 0
 
 
 # NOTE: this is a stub, used in original tower scripts but
@@ -530,8 +538,20 @@ func set_stunned(value: bool):
 	_stunned = value
 
 
+# TODO: remove spend_mana(), replace with subtract_mana()
 func spend_mana(mana_cost: float):
 	_set_mana(_mana - mana_cost)
+
+
+# Returns the amount of mana that was subtracted.
+func subtract_mana(amount: float, _mystery_bool: bool) -> float:
+	var old_mana: float = _mana
+	var new_mana: float = clampf(_mana - amount, 0.0, _mana)
+	_set_mana(new_mana)
+
+	var actual_subtracted: float = old_mana - new_mana
+
+	return actual_subtracted
 
 
 # NOTE: this f-n exists for compatiblity with original API
@@ -539,6 +559,7 @@ func spend_mana(mana_cost: float):
 static func get_unit_state(unit: Unit, state: Unit.State) -> float:
 	match state:
 		Unit.State.LIFE: return unit._health
+		Unit.State.MAX_LIFE: return unit.get_overall_health()
 		Unit.State.MANA: return unit._mana
 
 	return 0.0
@@ -547,6 +568,7 @@ static func get_unit_state(unit: Unit, state: Unit.State) -> float:
 static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 	match state:
 		Unit.State.LIFE: unit._set_health(value)
+		Unit.State.MAX_LIFE: return
 		Unit.State.MANA: unit._set_mana(value)
 
 
