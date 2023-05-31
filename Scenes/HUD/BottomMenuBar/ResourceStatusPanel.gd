@@ -1,3 +1,5 @@
+@tool
+class_name ResourceStatusPanel
 extends Panel
 
 @export var icon_texture: Texture2D

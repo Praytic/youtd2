@@ -1,4 +1,4 @@
-extends "res://Scenes/HUD/TopMenuBar/ResourceStatusPanel.gd"
+extends ResourceStatusPanel
 
 func _ready():
 	super()

@@ -1,11 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://dnv37bb7qk3kv"]
+[gd_scene load_steps=29 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1_rx3ev"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_disabled.tres" id="2_6isww"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_focus.tres" id="3_m3ka5"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_hover.tres" id="4_7j0uu"]
-[ext_resource type="PackedScene" uid="uid://6muimqlh5jcf" path="res://Scenes/HUD/RightMenuBar.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://cue28yjxfg8a4" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="5_6wrbw"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_pressed.tres" id="6_plw4p"]
@@ -203,6 +203,8 @@ script = ExtResource("11")
 
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]
 layout_mode = 1
+offset_top = 1.0
+offset_bottom = 1.0
 
 [node name="TopMenuBar" parent="." instance=ExtResource("6")]
 layout_mode = 1

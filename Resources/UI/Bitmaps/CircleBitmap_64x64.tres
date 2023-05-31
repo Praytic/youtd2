@@ -1,0 +1,10 @@
+[gd_resource type="BitMap" load_steps=2 format=3 uid="uid://dgp8822ok3un7"]
+
+[sub_resource type="GDScript" id="GDScript_bruum"]
+script/source = "extends BitMap
+
+func _ready():
+	opaque_to_polygons"
+
+[resource]
+script = SubResource("GDScript_bruum")
