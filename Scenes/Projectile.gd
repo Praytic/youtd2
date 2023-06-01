@@ -110,6 +110,19 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._initial_pos = from.get_visual_position()
 	projectile._game_scene = caster.get_tree().get_root().get_node("GameScene")
 
+	var callable_list: Array[Callable] = [projectile._cleanup_callable, projectile._interpolation_finished_callable, projectile._target_hit_callable, projectile._collision_callable]
+
+	for callable in callable_list:
+		if !callable.is_valid():
+			continue
+
+		var callable_node: Node = callable.get_object() as Node
+
+		if callable_node == null || callable_node.tree_exiting.is_connected(projectile._on_handler_node_tree_exiting):
+			continue
+
+		callable_node.tree_exiting.connect(projectile._on_handler_node_tree_exiting)
+
 	var sprite_path: String = type._sprite_path
 	var sprite_exists: bool = ResourceLoader.exists(sprite_path)
 	
@@ -255,3 +268,7 @@ func _do_collision():
 	for unit in collided_list:
 		_collision_callable.call(self, unit)
 		_collision_history.append(unit)
+
+
+func _on_handler_node_tree_exiting():
+	_cleanup()
