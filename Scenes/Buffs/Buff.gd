@@ -159,7 +159,7 @@ func _add_event_handler(event_type: Event.Type, callable: Callable, chance: floa
 	handler.chance = chance
 	handler.chance_level_add = chance_level_add
 
-	var handler_node: Node = callable.get_object() as Node
+	var handler_node: Node = Utils.get_callable_node(callable)
 
 	if !handler_node.tree_exiting.is_connected(_on_handler_node_tree_exiting):
 		handler_node.tree_exiting.connect(_on_handler_node_tree_exiting)

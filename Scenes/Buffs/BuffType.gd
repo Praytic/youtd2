@@ -275,8 +275,7 @@ func set_special_effect_simple(_effect: String):
 
 
 func callable_object_is_node(callable: Callable) -> bool:
-	var callable_object: Object = callable.get_object()
-	var callable_node: Node = callable_object as Node
+	var callable_node: Node = Utils.get_callable_node(callable)
 	var is_node = callable_node != null
 
 	if !is_node:

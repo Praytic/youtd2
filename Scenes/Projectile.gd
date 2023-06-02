@@ -110,12 +110,19 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	var callable_list: Array[Callable] = [projectile._cleanup_callable, projectile._interpolation_finished_callable, projectile._target_hit_callable, projectile._collision_callable]
 
 	for callable in callable_list:
+
 		if !callable.is_valid():
 			continue
 
-		var callable_node: Node = callable.get_object() as Node
+		var callable_node: Node = Utils.get_callable_node(callable)
 
-		if callable_node == null || callable_node.tree_exiting.is_connected(projectile._on_handler_node_tree_exiting):
+		var callable_object_is_node: bool = callable_node != null
+
+		if !callable_object_is_node:
+			push_error("Callable for Projectile must be a Node type. Callable that caused error:", callable)
+			continue
+
+		if callable_node.tree_exiting.is_connected(projectile._on_handler_node_tree_exiting):
 			continue
 
 		callable_node.tree_exiting.connect(projectile._on_handler_node_tree_exiting)
