@@ -100,9 +100,6 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._collision_radius = type._collision_radius
 	projectile._collision_target_type = type._collision_target_type
 
-	if !type._hit_handler.is_null():
-		projectile.set_event_on_target_hit(type._hit_handler)
-
 	projectile._damage_ratio = damage_ratio
 	projectile._crit_ratio = crit_ratio
 	projectile._caster = caster

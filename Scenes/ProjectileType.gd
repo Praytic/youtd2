@@ -1,7 +1,6 @@
 class_name ProjectileType
 
 var _speed: float
-var _hit_handler: Callable = Callable()
 var _range: float = 0.0
 var _lifetime: float = 0.0
 var _sprite_path: String = ""
@@ -57,8 +56,8 @@ func enable_collision(callable: Callable, radius: float, target_type: TargetType
 	_collision_target_type = target_type
 
 
-func enable_homing(hit_handler: Callable, _mystery_float: float):
-	_hit_handler = hit_handler
+func enable_homing(target_hit_handler: Callable, _mystery_float: float):
+	_target_hit_callable = target_hit_handler
 
 
 # Example callable:
@@ -71,9 +70,3 @@ func set_event_on_cleanup(callable: Callable):
 # func on_interpolation_finished(projectile: Projectile, target: Unit)
 func set_event_on_interpolation_finished(callable: Callable):
 	_interpolation_finished_callable = callable
-
-
-# Example callable:
-# func on_target_hit(projectile: Projectile, target: Unit)
-func set_event_on_target_hit(callable: Callable):
-	_target_hit_callable = callable
