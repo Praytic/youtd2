@@ -5,25 +5,23 @@ class_name DummyUnit extends Node2D
 # etc.
 
 
-signal dealt_damage(event: Event, dummy_unit: DummyUnit)
-signal killed_unit(event: Event, dummy_unit: DummyUnit)
-
-
 var _caster: Unit = null
 var _damage_ratio: float = 1.0
 var _crit_ratio: float = 0.0
+var _damage_event_handler: Callable = Callable()
+var _kill_event_handler: Callable = Callable()
 
 
 func get_caster() -> Unit:
 	return _caster
 
 
-func set_damage_event(callable: Callable):
-	dealt_damage.connect(callable)
+func set_damage_event(handler: Callable):
+	_damage_event_handler = handler
 
 
-func set_kill_event(callable: Callable):
-	killed_unit.connect(callable)
+func set_kill_event(handler: Callable):
+	_kill_event_handler = handler
 
 
 # NOTE: crit ratio is used directly, without doing a random
@@ -37,13 +35,15 @@ func do_spell_damage(target: Unit, amount: float):
 	var damage_killed_unit: bool = target.receive_damage(spell_damage)
 
 	if damage_killed_unit:
-		var killed_event: Event = Event.new(target)
-		killed_unit.emit(killed_event, self)
+		if _kill_event_handler.is_valid():
+			var killed_event: Event = Event.new(target)
+			_kill_event_handler.call(killed_event, self)
 
 		target._killed_by_unit(_caster)
 	else:
-		var damage_event: Event = Event.new(target)
-		dealt_damage.emit(damage_event, self)
+		if _damage_event_handler.is_valid():
+			var damage_event: Event = Event.new(target)
+			_damage_event_handler.call(damage_event, self)
 
 
 func do_spell_damage_aoe(center: Vector2, radius: float, damage: float):

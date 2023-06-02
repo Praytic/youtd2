@@ -25,7 +25,7 @@ var data: SpellData = SpellData.new()
 
 var _order: String
 var _lifetime: float
-var _damage_event_handler: Callable
+var _damage_event_handler: Callable = Callable()
 
 
 # NOTE: ability is unused because it's supposed to reference
