@@ -35,8 +35,8 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_damage(on_attack, 0.195, 0.0025)
-	triggers.add_event_on_damage(on_damage, 1.0, 0.0)
+	triggers.add_event_on_damage(on_attack)
+	triggers.add_event_on_damage(on_damage)
 
 
 func tower_init():
@@ -47,6 +47,9 @@ func tower_init():
 
 func on_attack(event: Event):
 	var tower: Tower = self
+
+	if !tower.calc_chance(0.195 + tower.get_level() * 0.0025):
+		return
 
 	Chainlightning.target_cast_from_caster(tower, event.get_target(), 1.0 + tower.get_level() * 0.02, tower.calc_spell_crit_no_bonus())
 

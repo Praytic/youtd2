@@ -28,7 +28,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(on_damage, 0.3, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage)
 
 
 func load_specials(modifier: Modifier):
@@ -47,6 +47,9 @@ func tower_init():
 
 func on_damage(_event: Event):
 	var tower: Unit = self
+
+	if !tower.calc_chance(0.3):
+		return
 
 	var I: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 420.0)
 	var U: Unit

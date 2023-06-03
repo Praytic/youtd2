@@ -32,7 +32,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(on_damage, 0.25, 0.01)
+	triggers_buff_type.add_event_on_damage(on_damage)
 
 
 func tower_init():
@@ -56,5 +56,8 @@ func drol_tentacleDamage(event: Event):
 
 func on_damage(event: Event):
 	var tower = self
+
+	if !tower.calc_chance(0.25 + tower.get_level() * 0.01):
+		return
 
 	drol_tentacleDot.apply(tower, event.get_target(), _stats.apply_level).user_real = _stats.periodic_damage + _stats.periodic_damage_add * tower.get_level()

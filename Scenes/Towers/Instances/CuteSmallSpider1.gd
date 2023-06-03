@@ -40,7 +40,7 @@ func load_specials(modifier: Modifier):
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(hit, 1.0, 0.0)
+	triggers_buff_type.add_event_on_damage(hit)
 
 
 func D1000_Spider_Damage(event: Event):

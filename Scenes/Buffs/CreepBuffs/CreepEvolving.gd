@@ -4,7 +4,7 @@ class_name CreepEvolving extends BuffType
 func _init(parent: Node):
 	super("creep_evolving", 0, 0, true, parent)
 
-	add_event_on_damaged(on_damaged, 1.0, 0.0)
+	add_event_on_damaged(on_damaged)
 	add_event_on_create(on_create)
 
 

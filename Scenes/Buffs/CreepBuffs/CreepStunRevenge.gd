@@ -9,7 +9,7 @@ func _init(parent: Node):
 
 	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
 
-	add_event_on_damaged(on_damaged, 1.0, 0.0)
+	add_event_on_damaged(on_damaged)
 
 
 func on_damaged(event: Event):

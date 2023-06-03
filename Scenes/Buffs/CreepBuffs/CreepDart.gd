@@ -13,7 +13,7 @@ var creep_tired: BuffType
 func _init(parent: Node):
 	super("creep_dart", 0, 0, true, parent)
 
-	add_event_on_damaged(on_damaged, 1.0, 0.0)
+	add_event_on_damaged(on_damaged)
 
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_MOVESPEED, -0.60, 0.0)

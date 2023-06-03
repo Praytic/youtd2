@@ -33,7 +33,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(on_damage, 0.1, 0.004)
+	triggers_buff_type.add_event_on_damage(on_damage)
 
 
 func load_specials(modifier: Modifier):
@@ -66,6 +66,9 @@ func on_tower_details() -> MultiboardValues:
 
 func on_damage(event: Event):
 	var tower = self
+
+	if !tower.calc_chance(0.1 + tower.get_level() * 0.004):
+		return
 	
 	Projectile.create_linear_interpolation_from_unit_to_unit(mOck_steal, tower, 0, 0, event.get_target(), tower, 0, true)
 

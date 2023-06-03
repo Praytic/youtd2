@@ -30,7 +30,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(on_damage, 0.3, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage)
 
 
 func load_specials(modifier: Modifier):
@@ -63,4 +63,7 @@ func tower_init():
 func on_damage(event: Event):
 	var tower: Tower = self
 	
+	if !tower.calc_chance(0.3):
+		return
+
 	drol_fireDot.apply(tower, event.get_target(), tower.get_level() * _stats.firedot_level_multiply + _stats.firedot_level_add).user_real = tower.get_current_attack_damage_with_bonus() * (0.15 + tower.get_level() * 0.006)
