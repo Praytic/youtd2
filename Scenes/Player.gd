@@ -82,3 +82,8 @@ func give_gold(amount: int, unit: Unit, show_effect: bool, show_text: bool):
 			color = Color.RED
 
 		display_floating_text_color(text, unit, color, 1.0)
+
+
+# TODO: implement
+func modify_interest_rate(amount: float):
+	pass
