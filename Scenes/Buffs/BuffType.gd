@@ -116,7 +116,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._buff_icon = _buff_icon
 
 	for handler in _event_handler_list:
-		buff._add_event_handler(handler.event_type, handler.callable, handler.chance, handler.chance_level_add)
+		buff._add_event_handler(handler.event_type, handler.callable)
 
 	for handler in _periodic_handler_list:
 		buff._add_periodic_event(handler.callable, handler.period)
@@ -171,15 +171,13 @@ func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
 	return buff
 
 
-func add_event_handler(event_type: Event.Type, callable: Callable, chance: float, chance_level_add: float):
+func add_event_handler(event_type: Event.Type, callable: Callable):
 	if !callable_object_is_node(callable):
 		return
 
 	_event_handler_list.append({
 		event_type = event_type,
 		callable = callable,
-		chance = chance,
-		chance_level_add = chance_level_add,
 		})
 
 
@@ -205,63 +203,63 @@ func add_event_handler_unit_comes_in_range(callable: Callable, radius: float, ta
 
 
 func set_event_on_cleanup(callable: Callable):
-	add_event_handler(Event.Type.CLEANUP, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.CLEANUP, callable)
 
 
 func add_event_on_create(callable: Callable):
-	add_event_handler(Event.Type.CREATE, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.CREATE, callable)
 
 
 func add_event_on_upgrade(callable: Callable):
-	add_event_handler(Event.Type.UPGRADE, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.UPGRADE, callable)
 
 
 func add_event_on_refresh(callable: Callable):
-	add_event_handler(Event.Type.REFRESH, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.REFRESH, callable)
 
 
 func add_event_on_death(callable: Callable):
-	add_event_handler(Event.Type.DEATH, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.DEATH, callable)
 
 
 func add_event_on_kill(callable: Callable):
-	add_event_handler(Event.Type.KILL, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.KILL, callable)
 
 
 func add_event_on_level_up(callable: Callable):
-	add_event_handler(Event.Type.LEVEL_UP, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.LEVEL_UP, callable)
 
 
-func add_event_on_attack(callable: Callable, chance: float, chance_level_add: float):
-	add_event_handler(Event.Type.ATTACK, callable, chance, chance_level_add)
+func add_event_on_attack(callable: Callable):
+	add_event_handler(Event.Type.ATTACK, callable)
 
 
-func add_event_on_attacked(callable: Callable, chance: float, chance_level_add: float):
-	add_event_handler(Event.Type.ATTACKED, callable, chance, chance_level_add)
+func add_event_on_attacked(callable: Callable):
+	add_event_handler(Event.Type.ATTACKED, callable)
 
 
-func add_event_on_damage(callable: Callable, chance: float, chance_level_add: float):
-	add_event_handler(Event.Type.DAMAGE, callable, chance, chance_level_add)
+func add_event_on_damage(callable: Callable):
+	add_event_handler(Event.Type.DAMAGE, callable)
 
 
-func add_event_on_damaged(callable: Callable, chance: float, chance_level_add: float):
-	add_event_handler(Event.Type.DAMAGED, callable, chance, chance_level_add)
+func add_event_on_damaged(callable: Callable):
+	add_event_handler(Event.Type.DAMAGED, callable)
 
 
 func set_event_on_expire(callable: Callable):
-	add_event_handler(Event.Type.EXPIRE, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.EXPIRE, callable)
 
 
 func add_event_on_spell_casted(callable: Callable):
-	add_event_handler(Event.Type.SPELL_CAST, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.SPELL_CAST, callable)
 
 
 func add_event_on_spell_targeted(callable: Callable):
-	add_event_handler(Event.Type.SPELL_TARGET, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.SPELL_TARGET, callable)
 
 
 func add_event_on_purge(callable: Callable):
-	add_event_handler(Event.Type.PURGE, callable, 1.0, 0.0)
+	add_event_handler(Event.Type.PURGE, callable)
 
 
 func add_aura(aura_type: AuraType):

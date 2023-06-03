@@ -6,12 +6,6 @@ extends Node2D
 # while it is active.
 
 
-class EventHandler:
-	var callable: Callable
-	var chance: float
-	var chance_level_add: float
-
-
 var user_int: int = 0
 var user_int2: int = 0
 var user_int3: int = 0
@@ -153,21 +147,16 @@ func purge_buff():
 	remove_buff()
 
 
-func _add_event_handler(event_type: Event.Type, callable: Callable, chance: float, chance_level_add: float):
-	var handler: EventHandler = EventHandler.new()
-	handler.callable = callable
-	handler.chance = chance
-	handler.chance_level_add = chance_level_add
-
+func _add_event_handler(event_type: Event.Type, callable: Callable):
 	var handler_node: Node = Utils.get_callable_node(callable)
 
 	if !handler_node.tree_exiting.is_connected(_on_handler_node_tree_exiting):
 		handler_node.tree_exiting.connect(_on_handler_node_tree_exiting)
 
-	_add_event_handler_internal(event_type, handler)
+	_add_event_handler_internal(event_type, callable)
 
 
-func _add_event_handler_internal(event_type: Event.Type, handler: EventHandler):
+func _add_event_handler_internal(event_type: Event.Type, handler: Callable):
 	if !event_handler_map.has(event_type):
 		event_handler_map[event_type] = []
 
@@ -216,15 +205,7 @@ func _call_event_handler_list(event_type: Event.Type, event: Event):
 	var handler_list: Array = event_handler_map[event_type]
 
 	for handler in handler_list:
-		var caster_level: int = _caster.get_level()
-		var total_chance: float = handler.chance + handler.chance_level_add * (1 - caster_level)
-		var chance_success: bool = _caster.calc_chance(total_chance)
-
-		if !chance_success:
-			continue
-
-		var callable: Callable = handler.callable
-		callable.call(event)
+		handler.call(event)
 
 
 func _on_timer_timeout():
