@@ -159,28 +159,28 @@ func _add_event_handler(event_type: Event.Type, handler: Callable):
 	event_handler_map[event_type].append(handler)
 
 
-func _add_periodic_event(callable: Callable, period: float):
+func _add_periodic_event(handler: Callable, period: float):
 	var timer: Timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = period
 	timer.one_shot = false
 	timer.autostart = true
-	timer.timeout.connect(_on_periodic_event_timer_timeout.bind(callable, timer))
+	timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler, timer))
 
 
-func _add_event_handler_unit_comes_in_range(callable: Callable, radius: float, target_type: TargetType):
+func _add_event_handler_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
 	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
 	var buff_range_area = buff_range_area_scene.instantiate()
 	add_child(buff_range_area)
-	buff_range_area.init(radius, target_type, callable)
+	buff_range_area.init(radius, target_type, handler)
 
 	buff_range_area.unit_came_in_range.connect(_on_unit_came_in_range)
 
 
-func _on_unit_came_in_range(callable: Callable, unit: Unit):
+func _on_unit_came_in_range(handler: Callable, unit: Unit):
 	var range_event: Event = _make_buff_event(unit)
 
-	callable.call(range_event)
+	handler.call(range_event)
 
 
 # NOTE: do not call event handlers after cleanup event.
@@ -271,10 +271,10 @@ func _on_target_spell_targeted(event: Event):
 	_call_event_handler_list(Event.Type.SPELL_TARGET, event)
 
 
-func _on_periodic_event_timer_timeout(callable: Callable, timer: Timer):
+func _on_periodic_event_timer_timeout(handler: Callable, timer: Timer):
 	var periodic_event: Event = _make_buff_event(_target)
 	periodic_event._timer = timer
-	callable.call(periodic_event)
+	handler.call(periodic_event)
 
 
 # Convenience function to make an event with "_buff" variable set to self

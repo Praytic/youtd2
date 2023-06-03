@@ -186,98 +186,98 @@ func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
 	return buff
 
 
-func add_event_handler(event_type: Event.Type, callable: Callable):
-	if !callable_object_is_node(callable):
+func add_event_handler(event_type: Event.Type, handler: Callable):
+	if !handler_object_is_node(handler):
 		return
 
 	var data: CommonHandlerData = CommonHandlerData.new()
-	data.handler = callable
+	data.handler = handler
 	data.event_type = event_type
 
 	_common_handler_list.append(data)
 
 
-func add_periodic_event(callable: Callable, period: float):
-	if !callable_object_is_node(callable):
+func add_periodic_event(handler: Callable, period: float):
+	if !handler_object_is_node(handler):
 		return
 		
 	var data: PeriodicHandlerData = PeriodicHandlerData.new()
-	data.handler = callable
+	data.handler = handler
 	data.period = period
 
 	_periodic_handler_list.append(data)
 
 
-func add_event_handler_unit_comes_in_range(callable: Callable, radius: float, target_type: TargetType):
-	if !callable_object_is_node(callable):
+func add_event_handler_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
+	if !handler_object_is_node(handler):
 		return
 
 	var data: RangeHandlerData = RangeHandlerData.new()
-	data.handler = callable
+	data.handler = handler
 	data.radius = radius
 	data.target_type = target_type
 
 	_range_handler_list.append(data)
 
 
-func set_event_on_cleanup(callable: Callable):
-	add_event_handler(Event.Type.CLEANUP, callable)
+func set_event_on_cleanup(handler: Callable):
+	add_event_handler(Event.Type.CLEANUP, handler)
 
 
-func add_event_on_create(callable: Callable):
-	add_event_handler(Event.Type.CREATE, callable)
+func add_event_on_create(handler: Callable):
+	add_event_handler(Event.Type.CREATE, handler)
 
 
-func add_event_on_upgrade(callable: Callable):
-	add_event_handler(Event.Type.UPGRADE, callable)
+func add_event_on_upgrade(handler: Callable):
+	add_event_handler(Event.Type.UPGRADE, handler)
 
 
-func add_event_on_refresh(callable: Callable):
-	add_event_handler(Event.Type.REFRESH, callable)
+func add_event_on_refresh(handler: Callable):
+	add_event_handler(Event.Type.REFRESH, handler)
 
 
-func add_event_on_death(callable: Callable):
-	add_event_handler(Event.Type.DEATH, callable)
+func add_event_on_death(handler: Callable):
+	add_event_handler(Event.Type.DEATH, handler)
 
 
-func add_event_on_kill(callable: Callable):
-	add_event_handler(Event.Type.KILL, callable)
+func add_event_on_kill(handler: Callable):
+	add_event_handler(Event.Type.KILL, handler)
 
 
-func add_event_on_level_up(callable: Callable):
-	add_event_handler(Event.Type.LEVEL_UP, callable)
+func add_event_on_level_up(handler: Callable):
+	add_event_handler(Event.Type.LEVEL_UP, handler)
 
 
-func add_event_on_attack(callable: Callable):
-	add_event_handler(Event.Type.ATTACK, callable)
+func add_event_on_attack(handler: Callable):
+	add_event_handler(Event.Type.ATTACK, handler)
 
 
-func add_event_on_attacked(callable: Callable):
-	add_event_handler(Event.Type.ATTACKED, callable)
+func add_event_on_attacked(handler: Callable):
+	add_event_handler(Event.Type.ATTACKED, handler)
 
 
-func add_event_on_damage(callable: Callable):
-	add_event_handler(Event.Type.DAMAGE, callable)
+func add_event_on_damage(handler: Callable):
+	add_event_handler(Event.Type.DAMAGE, handler)
 
 
-func add_event_on_damaged(callable: Callable):
-	add_event_handler(Event.Type.DAMAGED, callable)
+func add_event_on_damaged(handler: Callable):
+	add_event_handler(Event.Type.DAMAGED, handler)
 
 
-func set_event_on_expire(callable: Callable):
-	add_event_handler(Event.Type.EXPIRE, callable)
+func set_event_on_expire(handler: Callable):
+	add_event_handler(Event.Type.EXPIRE, handler)
 
 
-func add_event_on_spell_casted(callable: Callable):
-	add_event_handler(Event.Type.SPELL_CAST, callable)
+func add_event_on_spell_casted(handler: Callable):
+	add_event_handler(Event.Type.SPELL_CAST, handler)
 
 
-func add_event_on_spell_targeted(callable: Callable):
-	add_event_handler(Event.Type.SPELL_TARGET, callable)
+func add_event_on_spell_targeted(handler: Callable):
+	add_event_handler(Event.Type.SPELL_TARGET, handler)
 
 
-func add_event_on_purge(callable: Callable):
-	add_event_handler(Event.Type.PURGE, callable)
+func add_event_on_purge(handler: Callable):
+	add_event_handler(Event.Type.PURGE, handler)
 
 
 func add_aura(aura_type: AuraType):
@@ -290,12 +290,12 @@ func set_special_effect_simple(_effect: String):
 	pass
 
 
-func callable_object_is_node(callable: Callable) -> bool:
-	var callable_node: Node = Utils.get_callable_node(callable)
-	var is_node = callable_node != null
+func handler_object_is_node(handler: Callable) -> bool:
+	var handler_node: Node = Utils.get_callable_node(handler)
+	var is_node = handler_node != null
 
 	if !is_node:
-		push_error("Objects that store buff event handlers must inherit from type Node. Error was caused by this callable: ", callable)
+		push_error("Objects that store buff event handlers must inherit from type Node. Error was caused by this handler: ", handler)
 
 	return is_node
 

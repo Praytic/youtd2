@@ -35,8 +35,8 @@ func _init(_ability: String, order: String, lifetime: float):
 	_lifetime = lifetime
 
 
-func set_damage_event(callable: Callable):
-	_damage_event_handler = callable
+func set_damage_event(handler: Callable):
+	_damage_event_handler = handler
 
 
 func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):

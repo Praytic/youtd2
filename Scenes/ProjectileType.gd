@@ -5,12 +5,12 @@ var _range: float = 0.0
 var _lifetime: float = 0.0
 var _sprite_path: String = ""
 var _explode_on_hit: bool = true
-var _cleanup_callable: Callable = Callable()
-var _interpolation_finished_callable: Callable = Callable()
-var _target_hit_callable: Callable = Callable()
+var _cleanup_handler: Callable = Callable()
+var _interpolation_finished_handler: Callable = Callable()
+var _target_hit_handler: Callable = Callable()
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
-var _collision_callable: Callable = Callable()
+var _collision_handler: Callable = Callable()
 
 
 static func create(model: String, lifetime: float, speed: float) -> ProjectileType:
@@ -50,23 +50,23 @@ func disable_explode_on_expiration():
 	pass
 
 
-func enable_collision(callable: Callable, radius: float, target_type: TargetType, _mystery_bool: bool):
-	_collision_callable = callable
+func enable_collision(handler: Callable, radius: float, target_type: TargetType, _mystery_bool: bool):
+	_collision_handler = handler
 	_collision_radius = radius
 	_collision_target_type = target_type
 
 
 func enable_homing(target_hit_handler: Callable, _mystery_float: float):
-	_target_hit_callable = target_hit_handler
+	_target_hit_handler = target_hit_handler
 
 
-# Example callable:
+# Example handler:
 # func on_cleanup(projectile: Projectile)
-func set_event_on_cleanup(callable: Callable):
-	_cleanup_callable = callable
+func set_event_on_cleanup(handler: Callable):
+	_cleanup_handler = handler
 
 
-# Example callable:
+# Example handler:
 # func on_interpolation_finished(projectile: Projectile, target: Unit)
-func set_event_on_interpolation_finished(callable: Callable):
-	_interpolation_finished_callable = callable
+func set_event_on_interpolation_finished(handler: Callable):
+	_interpolation_finished_handler = handler

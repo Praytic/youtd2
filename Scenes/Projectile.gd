@@ -26,15 +26,15 @@ var _targeted: bool
 var _target_position_on_creation: Vector2
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
-var _cleanup_callable: Callable = Callable()
-var _interpolation_finished_callable: Callable = Callable()
-var _target_hit_callable: Callable = Callable()
+var _cleanup_handler: Callable = Callable()
+var _interpolation_finished_handler: Callable = Callable()
+var _target_hit_handler: Callable = Callable()
 var _initial_pos: Vector2
 var _range: float = 0.0
 var _facing: float = 0.0
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
-var _collision_callable: Callable = Callable()
+var _collision_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
 
 var user_int: int = 0
@@ -92,10 +92,10 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._speed = type._speed
 	projectile._explode_on_hit = type._explode_on_hit
 
-	projectile._cleanup_callable = type._cleanup_callable
-	projectile._interpolation_finished_callable = type._interpolation_finished_callable
-	projectile._target_hit_callable = type._target_hit_callable
-	projectile._collision_callable = type._collision_callable
+	projectile._cleanup_handler = type._cleanup_handler
+	projectile._interpolation_finished_handler = type._interpolation_finished_handler
+	projectile._target_hit_handler = type._target_hit_handler
+	projectile._collision_handler = type._collision_handler
 	projectile._range = type._range
 	projectile._collision_radius = type._collision_radius
 	projectile._collision_target_type = type._collision_target_type
@@ -107,25 +107,25 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._initial_pos = from.get_visual_position()
 	projectile._game_scene = caster.get_tree().get_root().get_node("GameScene")
 
-	var callable_list: Array[Callable] = [projectile._cleanup_callable, projectile._interpolation_finished_callable, projectile._target_hit_callable, projectile._collision_callable]
+	var handler_list: Array[Callable] = [projectile._cleanup_handler, projectile._interpolation_finished_handler, projectile._target_hit_handler, projectile._collision_handler]
 
-	for callable in callable_list:
+	for handler in handler_list:
 
-		if !callable.is_valid():
+		if !handler.is_valid():
 			continue
 
-		var callable_node: Node = Utils.get_callable_node(callable)
+		var handler_node: Node = Utils.get_callable_node(handler)
 
-		var callable_object_is_node: bool = callable_node != null
+		var handler_object_is_node: bool = handler_node != null
 
-		if !callable_object_is_node:
-			push_error("Callable for Projectile must be a Node type. Callable that caused error:", callable)
+		if !handler_object_is_node:
+			push_error("Callable for Projectile must be a Node type. Callable that caused error:", handler)
 			continue
 
-		if callable_node.tree_exiting.is_connected(projectile._on_handler_node_tree_exiting):
+		if handler_node.tree_exiting.is_connected(projectile._on_handler_node_tree_exiting):
 			continue
 
-		callable_node.tree_exiting.connect(projectile._on_handler_node_tree_exiting)
+		handler_node.tree_exiting.connect(projectile._on_handler_node_tree_exiting)
 
 	var sprite_path: String = type._sprite_path
 	var sprite_exists: bool = ResourceLoader.exists(sprite_path)
@@ -172,11 +172,11 @@ func _process_targeted(delta: float):
 
 	if reached_target:
 		if _target != null:
-			if _target_hit_callable.is_valid():
-				_target_hit_callable.call(self, _target)
+			if _target_hit_handler.is_valid():
+				_target_hit_handler.call(self, _target)
 
-			if _interpolation_finished_callable.is_valid():
-				_interpolation_finished_callable.call(self, _target)
+			if _interpolation_finished_handler.is_valid():
+				_interpolation_finished_handler.call(self, _target)
 
 		if _explode_on_hit:
 			var explosion = _explosion_scene.instantiate()
@@ -250,14 +250,14 @@ func _on_lifetime_timeout():
 
 
 func _cleanup():
-	if _cleanup_callable.is_valid():
-		_cleanup_callable.call(self)
+	if _cleanup_handler.is_valid():
+		_cleanup_handler.call(self)
 
 	queue_free()
 
 
 func _do_collision():
-	if !_collision_callable.is_valid():
+	if !_collision_handler.is_valid():
 		return
 
 	var units_in_range: Array[Unit] = Utils.get_units_in_range(_collision_target_type, global_position, _collision_radius)
@@ -270,7 +270,7 @@ func _do_collision():
 	var collided_list: Array = units_in_range
 
 	for unit in collided_list:
-		_collision_callable.call(self, unit)
+		_collision_handler.call(self, unit)
 		_collision_history.append(unit)
 
 
