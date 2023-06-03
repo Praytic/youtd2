@@ -147,16 +147,12 @@ func purge_buff():
 	remove_buff()
 
 
-func _add_event_handler(event_type: Event.Type, callable: Callable):
-	var handler_node: Node = Utils.get_callable_node(callable)
+func _add_event_handler(event_type: Event.Type, handler: Callable):
+	var handler_node: Node = Utils.get_callable_node(handler)
 
 	if !handler_node.tree_exiting.is_connected(_on_handler_node_tree_exiting):
 		handler_node.tree_exiting.connect(_on_handler_node_tree_exiting)
 
-	_add_event_handler_internal(event_type, callable)
-
-
-func _add_event_handler_internal(event_type: Event.Type, handler: Callable):
 	if !event_handler_map.has(event_type):
 		event_handler_map[event_type] = []
 
