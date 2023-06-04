@@ -24,7 +24,7 @@ func load_modifier(modifier: Modifier):
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_handler_unit_comes_in_range(on_unit_in_range, 600, TargetType.new(TargetType.CREEPS + TargetType.SIZE_BOSS))
+	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 600, TargetType.new(TargetType.CREEPS + TargetType.SIZE_BOSS))
 
 
 func item_init():

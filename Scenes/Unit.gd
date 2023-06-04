@@ -228,12 +228,6 @@ func add_mana(mana_added: float):
 	_set_mana(new_mana)
 
 
-# TODO: implement. Hard to understand how this is supposed
-# to work.
-func add_spell_crit():
-	pass
-
-
 func add_autocast(autocast: Autocast):
 	autocast.set_caster(self)
 	add_child(autocast)

@@ -104,8 +104,9 @@ func get_modifier() -> Modifier:
 
 
 func set_level(level: int):
-	_level = new_level
-	_target._change_modifier_level(get_modifier(), current_level, new_level)
+	var old_level: int = _level
+	_level = level
+	_target._change_modifier_level(get_modifier(), old_level, level)
 
 
 # Level is used to compare this buff with another buff of

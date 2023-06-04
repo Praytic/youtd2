@@ -69,7 +69,7 @@ func destroy():
 
 
 func count() -> int:
-	return next_list.size()
+	return _next_list.size()
 
 
 func _next_internal(next_order: NextOrder) -> Unit:
