@@ -207,6 +207,16 @@ func _ready():
 #########################
 
 
+# TODO: implement
+func add_attack_crit():
+	pass
+
+
+# TODO: implement
+func add_spell_crit():
+	pass
+
+
 func add_mana_perc(ratio: float):
 	var overall_mana: float = get_overall_mana()
 	var mana_added: float = ratio * overall_mana

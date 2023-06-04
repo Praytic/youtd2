@@ -68,6 +68,10 @@ func destroy():
 	pass
 
 
+func count() -> int:
+	return next_list.size()
+
+
 func _next_internal(next_order: NextOrder) -> Unit:
 #   NOTE: some tower scripts use Iterate together with
 #   sleeping so calls to next() may happen with a delay.

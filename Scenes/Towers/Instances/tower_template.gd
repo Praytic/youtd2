@@ -32,6 +32,14 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
+	var m: Modifier = Modifier.new()
+	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
+	example_buff = BuffType.new("example_buff", 5, 0, true, self)
+	example_buff.set_buff_icon("@@0@@")
+	example_buff.set_buff_modifier(m)
+	example_buff.set_buff_stacking_group("example_buff")
+	example_buff.set_buff_tooltip("Title\nDescription.")
+
 	var autocast: Autocast = Autocast.make()
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
@@ -58,14 +66,6 @@ func tower_init():
 	aura.power_add = 1
 	aura.aura_effect = aura_effect
 	add_aura(aura)
-
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-	example_buff = BuffType.new("example_buff", 5, 0, true, self)
-	example_buff.set_buff_icon("@@0@@")
-	example_buff.set_buff_modifier(m)
-	example_buff.set_buff_stacking_group("example_buff")
-	example_buff.set_buff_tooltip("Title\nDescription.")
 
 
 func on_damage(event: Event):
