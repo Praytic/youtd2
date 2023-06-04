@@ -208,7 +208,7 @@ func add_periodic_event(handler: Callable, period: float):
 	_periodic_handler_list.append(data)
 
 
-func add_event_handler_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
+func add_event_on_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
 	if !handler_object_is_node(handler):
 		return
 
