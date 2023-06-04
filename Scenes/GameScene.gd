@@ -3,7 +3,7 @@ extends Node2D
 
 @onready var map_node: Node2D = $Map
 
-var creeps_exit_count: int = 0
+var portal_lives: float = 100.0
 
 
 @export var creeps_game_over_count: int = 10
@@ -31,7 +31,8 @@ func _on_HUD_stop_wave():
 
 func _on_CreepExit_body_entered(body):
 	if body is Creep:
-		body.reach_portal()
+		var damage = body.reach_portal()
+		portal_lives -= damage
 
 
 func _on_WaveSpawner_wave_ended(_wave_index):

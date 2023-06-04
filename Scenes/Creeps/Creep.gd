@@ -106,11 +106,13 @@ func adjust_height(height_wc3: float, speed: float):
 		Vector2(_visual.position.x, _visual.position.y - height_pixels),
 		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
-func reach_portal():
+func reach_portal() -> float:
 	var damage_to_portal = get_damage_to_portal()
 	reached_portal.emit(damage_to_portal)
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 	queue_free()
+	
+	return damage_to_portal
 
 
 func drop_item(caster: Tower, _mystery_bool: bool):
@@ -307,9 +309,9 @@ func set_path(path: Path2D):
 	_path = path
 	position = path.get_curve().get_point_position(0) + path.position
 
-func get_damage_to_portal():
+func get_damage_to_portal() -> float:
 	# TODO: Implement formula
-	return 1
+	return 1.0
 
 
 func get_spawn_level() -> int:

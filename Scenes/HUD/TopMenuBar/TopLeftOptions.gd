@@ -1,11 +1,10 @@
 extends Control
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+@onready var gameScene = get_tree().get_root().get_node("GameScene")
+@onready var livesBar: TextureProgressBar = $MarginContainer/LivesProgressBar
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	livesBar.value = max(gameScene.portal_lives, 0)
+	livesBar.tooltip_text = "Lives left: %s" % gameScene.portal_lives

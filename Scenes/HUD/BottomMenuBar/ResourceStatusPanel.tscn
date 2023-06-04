@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://1a6qmxkrspc8"]
+[gd_scene load_steps=3 format=3 uid="uid://1a6qmxkrspc8"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_yuvc1"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.gd" id="2_y71mw"]
-[ext_resource type="Texture2D" uid="uid://4urow6esjtqa" path="res://Assets/Towers/tower_icons_xs.png" id="3_6pqfc"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b6icl"]
-atlas = ExtResource("3_6pqfc")
-region = Rect2(2.08165e-12, 2.08165e-12, 32, 32)
 
 [node name="ResourceStatusPanel" type="Panel"]
 custom_minimum_size = Vector2(120, 40)
@@ -33,7 +28,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
-texture = SubResource("AtlasTexture_b6icl")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
@@ -41,7 +35,6 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
-text = "0"
 horizontal_alignment = 2
 vertical_alignment = 2
 clip_text = true

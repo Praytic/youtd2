@@ -1,22 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cpb5xsswu50j7"]
+[gd_scene load_steps=5 format=3 uid="uid://cpb5xsswu50j7"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/TopMenuBar/TopLeftOptions.gd" id="1_3o0hc"]
-[ext_resource type="BitMap" uid="uid://c67gxsfikye53" path="res://Assets/UI/HUD/Bitmaps/CircleShape_32x32.png" id="1_a3aoe"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_by2bk"]
-size = Vector2(32, 32)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sadee"]
-size = Vector2(64, 64)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ivy5r"]
-size = Vector2(48, 48)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1erb5"]
-size = Vector2(48, 48)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_2bjm0"]
-size = Vector2(48, 48)
+[ext_resource type="Texture2D" uid="uid://bpu8gd07dyjkg" path="res://Resources/Textures/UI/menu_option_round_texture_button.tres" id="2_opp27"]
+[ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://Resources/Textures/UI/portal_lives_round_texture_bg.tres" id="4_48yg0"]
+[ext_resource type="Texture2D" uid="uid://tuxggwvj4o35" path="res://Assets/UI/HUD/Bitmaps/circle_bitmap_100x100.png" id="5_e03ey"]
 
 [node name="TopLeftOptions" type="Control"]
 layout_mode = 3
@@ -27,40 +14,32 @@ script = ExtResource("1_3o0hc")
 
 [node name="SettingsButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_top = 69.0
-offset_right = 64.0
-offset_bottom = 133.0
-texture_normal = SubResource("PlaceholderTexture2D_by2bk")
-texture_click_mask = ExtResource("1_a3aoe")
+offset_left = 73.0
+offset_top = 126.0
+offset_right = 137.0
+offset_bottom = 190.0
+texture_normal = ExtResource("2_opp27")
 
 [node name="QuestsButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 49.0
-offset_right = 90.0
-offset_bottom = 89.0
-texture_normal = SubResource("PlaceholderTexture2D_by2bk")
-texture_click_mask = ExtResource("1_a3aoe")
+offset_left = 124.0
+offset_top = 79.0
+offset_right = 172.0
+offset_bottom = 127.0
+texture_normal = ExtResource("2_opp27")
 
 [node name="WikiButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 69.0
-offset_right = 109.0
-offset_bottom = 40.0
-texture_normal = SubResource("PlaceholderTexture2D_by2bk")
-texture_click_mask = ExtResource("1_a3aoe")
+offset_left = 132.0
+offset_top = 15.0
+offset_right = 180.0
+offset_bottom = 63.0
+texture_normal = ExtResource("2_opp27")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="LivesTexture" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = SubResource("PlaceholderTexture2D_sadee")
-stretch_mode = 2
+offset_right = 119.0
+offset_bottom = 119.0
 
 [node name="LivesProgressBar" type="TextureProgressBar" parent="MarginContainer"]
 layout_mode = 2
@@ -69,9 +48,7 @@ size_flags_vertical = 4
 value = 100.0
 rounded = true
 fill_mode = 3
-texture_under = SubResource("PlaceholderTexture2D_ivy5r")
-texture_over = SubResource("PlaceholderTexture2D_1erb5")
-texture_progress = SubResource("PlaceholderTexture2D_2bjm0")
-tint_under = Color(0.45098, 0.984314, 0, 0.541176)
-tint_over = Color(1, 1, 0, 0.478431)
-tint_progress = Color(0, 0.913725, 0.913725, 0.513726)
+texture_under = ExtResource("4_48yg0")
+texture_progress = ExtResource("5_e03ey")
+texture_progress_offset = Vector2(9, 9)
+tint_progress = Color(0.4, 0, 0, 1)
