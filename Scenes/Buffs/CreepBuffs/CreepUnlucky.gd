@@ -7,7 +7,7 @@ var unlucky_active: BuffType
 func _init(parent: Node):
 	super("creep_unlucky", 0, 0, true, parent)
 
-	add_event_on_damaged(on_damaged, 0.30, 0.0)
+	add_event_on_damaged(on_damaged)
 
 	unlucky_active = BuffType.new("unlucky_active", 8.0, 0, false, self
 		)
@@ -20,6 +20,9 @@ func on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 	var attacker: Unit = event.get_target()
+
+	if !creep.calc_chance(0.30):
+		return
 
 	var active_buff: Buff = attacker.get_buff_of_type(unlucky_active)
 

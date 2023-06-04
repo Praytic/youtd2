@@ -39,18 +39,18 @@ func poisenskin(event: Event):
 	var dmg: float = (C.user_real + C.user_real2 * C.get_level()) * T.get_current_attack_speed() / (T.get_range() / 800.0)
 
 	if P != null:
-		if P.get_caster().get_uid() == P.user_int:
+		if P.get_caster().get_instance_id() == P.user_int:
 			P.refresh_duration()
 			P.user_real = P.user_real + dmg
 		else:
 			dmg = P.user_real + dmg
 			P.remove_buff()
 			P = cedi_skinkB.apply(C, U, C.get_level())
-			P.user_int = C.get_uid()
+			P.user_int = C.get_instance_id()
 			P.user_real = dmg
 	else:
 		P = cedi_skinkB.apply(C, U, C.get_level())
-		P.user_int = C.get_uid()
+		P.user_int = C.get_instance_id()
 		P.user_real = dmg
 
 
@@ -66,7 +66,7 @@ func dot(event: Event):
 func tower_init():
 	cedi_skinkA = BuffType.create_aura_effect_type("cedi_skinkA", true, self)
 	cedi_skinkA.set_buff_icon("@@0@@")
-	cedi_skinkA.add_event_on_attack(poisenskin, 1.0, 0.0)
+	cedi_skinkA.add_event_on_attack(poisenskin)
 	cedi_skinkA.set_buff_tooltip("Poisonous attack\nThis tower's attack has been enhanced with poison, it will deal extra damage over time.")
 
 	cedi_skinkB = BuffType.new("cedi_skinkB", 5.00, 0.0, false, self)

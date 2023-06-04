@@ -84,6 +84,7 @@ func _on_DevControlButton_button_up(button: Button):
 
 func _on_PositionalControl_id_pressed(id):
 	if oil_ids.has(id) or item_ids.has(id):
-		# TODO: Need to transform Vector2(positional_control.position) into local coordinates of _map
-		var diff = get_local_mouse_position() - Vector2(positional_control.position)
-		Item.create_without_player(id, _map.get_mouse_world_pos() - diff)
+		var clicked_pos: Vector2 = positional_control.position
+		var hud_to_world: Transform2D = get_viewport().get_canvas_transform().affine_inverse()
+		var clicked_pos_in_world: Vector2 = hud_to_world * clicked_pos
+		Item.create_without_player(id, clicked_pos_in_world)

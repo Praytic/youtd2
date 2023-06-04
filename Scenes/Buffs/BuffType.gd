@@ -17,15 +17,30 @@ extends Node
 # because buff's need to connect to Node's tree_exiting()
 # signal for correct "cleanup" event logic.
 
+
+class CommonHandlerData:
+	var handler: Callable
+	var event_type: Event.Type
+
+class PeriodicHandlerData:
+	var handler: Callable
+	var period: float
+
+class RangeHandlerData:
+	var handler: Callable
+	var radius: float
+	var target_type: TargetType
+
+
 var _type: String
 var _stacking_group: String = ""
 var _time_base: float
 var _time_level_add: float
 var _friendly: bool
 var _modifier: Modifier = Modifier.new()
-var _event_handler_list: Array = []
-var _periodic_handler_list: Array = []
-var _range_handler_list: Array = []
+var _common_handler_list: Array[CommonHandlerData] = []
+var _periodic_handler_list: Array[PeriodicHandlerData] = []
+var _range_handler_list: Array[RangeHandlerData] = []
 var _aura_type_list: Array[AuraType] = []
 var _tooltip_text: String = ""
 var _buff_icon: String = ""
@@ -115,14 +130,14 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._tooltip_text = _tooltip_text
 	buff._buff_icon = _buff_icon
 
-	for handler in _event_handler_list:
-		buff._add_event_handler(handler.event_type, handler.callable, handler.chance, handler.chance_level_add)
+	for handler in _common_handler_list:
+		buff._add_event_handler(handler.event_type, handler.handler)
 
 	for handler in _periodic_handler_list:
-		buff._add_periodic_event(handler.callable, handler.period)
+		buff._add_periodic_event(handler.handler, handler.period)
 
 	for handler in _range_handler_list:
-		buff._add_event_handler_unit_comes_in_range(handler.callable, handler.radius, handler.target_type)
+		buff._add_event_handler_unit_comes_in_range(handler.handler, handler.radius, handler.target_type)
 
 	for aura_type in _aura_type_list:
 		buff._add_aura(aura_type)
@@ -171,97 +186,98 @@ func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
 	return buff
 
 
-func add_event_handler(event_type: Event.Type, callable: Callable, chance: float, chance_level_add: float):
-	if !callable_object_is_node(callable):
+func add_event_handler(event_type: Event.Type, handler: Callable):
+	if !handler_object_is_node(handler):
 		return
 
-	_event_handler_list.append({
-		event_type = event_type,
-		callable = callable,
-		chance = chance,
-		chance_level_add = chance_level_add,
-		})
+	var data: CommonHandlerData = CommonHandlerData.new()
+	data.handler = handler
+	data.event_type = event_type
+
+	_common_handler_list.append(data)
 
 
-func add_periodic_event(callable: Callable, period: float):
-	if !callable_object_is_node(callable):
+func add_periodic_event(handler: Callable, period: float):
+	if !handler_object_is_node(handler):
+		return
+		
+	var data: PeriodicHandlerData = PeriodicHandlerData.new()
+	data.handler = handler
+	data.period = period
+
+	_periodic_handler_list.append(data)
+
+
+func add_event_handler_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
+	if !handler_object_is_node(handler):
 		return
 
-	_periodic_handler_list.append({
-		callable = callable,
-		period = period,
-		})
+	var data: RangeHandlerData = RangeHandlerData.new()
+	data.handler = handler
+	data.radius = radius
+	data.target_type = target_type
+
+	_range_handler_list.append(data)
 
 
-func add_event_handler_unit_comes_in_range(callable: Callable, radius: float, target_type: TargetType):
-	if !callable_object_is_node(callable):
-		return
-
-	_range_handler_list.append({
-		callable = callable,
-		radius = radius,
-		target_type = target_type
-		})
+func set_event_on_cleanup(handler: Callable):
+	add_event_handler(Event.Type.CLEANUP, handler)
 
 
-func set_event_on_cleanup(callable: Callable):
-	add_event_handler(Event.Type.CLEANUP, callable, 1.0, 0.0)
+func add_event_on_create(handler: Callable):
+	add_event_handler(Event.Type.CREATE, handler)
 
 
-func add_event_on_create(callable: Callable):
-	add_event_handler(Event.Type.CREATE, callable, 1.0, 0.0)
+func add_event_on_upgrade(handler: Callable):
+	add_event_handler(Event.Type.UPGRADE, handler)
 
 
-func add_event_on_upgrade(callable: Callable):
-	add_event_handler(Event.Type.UPGRADE, callable, 1.0, 0.0)
+func add_event_on_refresh(handler: Callable):
+	add_event_handler(Event.Type.REFRESH, handler)
 
 
-func add_event_on_refresh(callable: Callable):
-	add_event_handler(Event.Type.REFRESH, callable, 1.0, 0.0)
+func add_event_on_death(handler: Callable):
+	add_event_handler(Event.Type.DEATH, handler)
 
 
-func add_event_on_death(callable: Callable):
-	add_event_handler(Event.Type.DEATH, callable, 1.0, 0.0)
+func add_event_on_kill(handler: Callable):
+	add_event_handler(Event.Type.KILL, handler)
 
 
-func add_event_on_kill(callable: Callable):
-	add_event_handler(Event.Type.KILL, callable, 1.0, 0.0)
+func add_event_on_level_up(handler: Callable):
+	add_event_handler(Event.Type.LEVEL_UP, handler)
 
 
-func add_event_on_level_up(callable: Callable):
-	add_event_handler(Event.Type.LEVEL_UP, callable, 1.0, 0.0)
+func add_event_on_attack(handler: Callable):
+	add_event_handler(Event.Type.ATTACK, handler)
 
 
-func add_event_on_attack(callable: Callable, chance: float, chance_level_add: float):
-	add_event_handler(Event.Type.ATTACK, callable, chance, chance_level_add)
+func add_event_on_attacked(handler: Callable):
+	add_event_handler(Event.Type.ATTACKED, handler)
 
 
-func add_event_on_attacked(callable: Callable, chance: float, chance_level_add: float):
-	add_event_handler(Event.Type.ATTACKED, callable, chance, chance_level_add)
+func add_event_on_damage(handler: Callable):
+	add_event_handler(Event.Type.DAMAGE, handler)
 
 
-func add_event_on_damage(callable: Callable, chance: float, chance_level_add: float):
-	add_event_handler(Event.Type.DAMAGE, callable, chance, chance_level_add)
+func add_event_on_damaged(handler: Callable):
+	add_event_handler(Event.Type.DAMAGED, handler)
 
 
-func add_event_on_damaged(callable: Callable, chance: float, chance_level_add: float):
-	add_event_handler(Event.Type.DAMAGED, callable, chance, chance_level_add)
+func set_event_on_expire(handler: Callable):
+	add_event_handler(Event.Type.EXPIRE, handler)
 
 
-func set_event_on_expire(callable: Callable):
-	add_event_handler(Event.Type.EXPIRE, callable, 1.0, 0.0)
+func add_event_on_spell_casted(handler: Callable):
+	add_event_handler(Event.Type.SPELL_CAST, handler)
 
 
-func add_event_on_spell_casted(callable: Callable):
-	add_event_handler(Event.Type.SPELL_CAST, callable, 1.0, 0.0)
+func add_event_on_spell_targeted(handler: Callable):
+	add_event_handler(Event.Type.SPELL_TARGET, handler)
 
 
-func add_event_on_spell_targeted(callable: Callable):
-	add_event_handler(Event.Type.SPELL_TARGET, callable, 1.0, 0.0)
-
-
-func add_event_on_purge(callable: Callable):
-	add_event_handler(Event.Type.PURGE, callable, 1.0, 0.0)
+func add_event_on_purge(handler: Callable):
+	add_event_handler(Event.Type.PURGE, handler)
 
 
 func add_aura(aura_type: AuraType):
@@ -274,13 +290,12 @@ func set_special_effect_simple(_effect: String):
 	pass
 
 
-func callable_object_is_node(callable: Callable) -> bool:
-	var callable_object: Object = callable.get_object()
-	var callable_node: Node = callable_object as Node
-	var is_node = callable_node != null
+func handler_object_is_node(handler: Callable) -> bool:
+	var handler_node: Node = Utils.get_callable_node(handler)
+	var is_node = handler_node != null
 
 	if !is_node:
-		push_error("Objects that store buff event handlers must inherit from type Node. Error was caused by this callable: ", callable)
+		push_error("Objects that store buff event handlers must inherit from type Node. Error was caused by this handler: ", handler)
 
 	return is_node
 

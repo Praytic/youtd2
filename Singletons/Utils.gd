@@ -4,6 +4,14 @@ extends Node
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+# NOTE: Returns null if callable doesn't have a valid object
+# or if the object is not a Node type.
+func get_callable_node(callable: Callable) -> Node:
+	var node: Node = instance_from_id(callable.get_object_id()) as Node
+
+	return node
+
+
 # TODO: connect this to actual max level that was picked
 # based on difficulty, etc.
 func get_max_level() -> int:

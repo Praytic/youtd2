@@ -34,10 +34,10 @@ func get_extra_tooltip_text() -> String:
 func hit(p: Projectile, result: Unit):
 	var t: Tower = p.get_caster()
 
-	if result.get_uid() == p.user_int:
+	if result.get_instance_id() == p.user_int:
 		result.add_exp(p.user_real)
 
-		if p.user_int2 == t.get_uid():
+		if p.user_int2 == t.get_instance_id():
 			t.user_real2 = t.user_real2 + p.user_real * result.get_prop_exp_received()
 
 
@@ -69,14 +69,14 @@ func teacher_attack(tower: Tower, xp: float):
 			p = Projectile.create_from_unit_to_unit(pt, tower, 1.0, 1.0, tower, result, true, false, true)
 			p.setScale(0.7)
 			p.user_real = xp
-			p.user_int = result.get_uid()
-			p.user_int2 = tower.get_uid()
+			p.user_int = result.get_instance_id()
+			p.user_int2 = tower.get_instance_id()
 
 			in_range.destroy()
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_attack(on_attack, 1.0, 0.0)
+	triggers_buff_type.add_event_on_attack(on_attack)
 
 
 func load_specials(modifier: Modifier):

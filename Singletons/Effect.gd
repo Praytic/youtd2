@@ -23,7 +23,7 @@ func _ready():
 
 
 # NOTE: effect must be an AnimatedSprite2D scene
-func create_animated(effect_path: String, x: float, y: float, _mystery1: float, _mystery2: float) -> int:
+func create_animated(effect_path: String, x: float, y: float, _z: float, _mystery2: float) -> int:
 	var effect_path_exists: bool = ResourceLoader.exists(effect_path)
 
 	var effect_scene: PackedScene
@@ -70,8 +70,8 @@ func add_special_effect_target(effect_path: String, unit: Unit, body_part: Strin
 
 
 # TODO: implement scale parameter
-func create_scaled(effect_path: String, x: float, y: float, _mystery1: float, _mystery2: float, _scale: float) -> int:
-	return create_animated(effect_path, x, y, _mystery1, _mystery2)
+func create_scaled(effect_path: String, x: float, y: float, z: float, _mystery2: float, _scale: float) -> int:
+	return create_animated(effect_path, x, y, z, _mystery2)
 
 
 func scale_effect(effect_id: int, scale: float):

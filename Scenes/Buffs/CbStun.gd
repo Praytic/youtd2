@@ -8,6 +8,8 @@ func _init(type: String, time_base: float, time_level_add: float,friendly: bool,
 	add_event_on_create(on_create)
 	set_event_on_cleanup(_on_cleanup)
 
+	set_stacking_group("stun")
+
 #	NOTE: this is the default tooltip for stun buff. It may
 #	be overriden in buffs that extend this buff.
 	set_buff_tooltip("Stunned\nThis unit is stunned and can't perform any actions.")

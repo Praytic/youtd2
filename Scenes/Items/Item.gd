@@ -25,6 +25,11 @@ enum CsvProperty {
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 
+# NOTE: this is used in Creep.gd to determine which items
+# will not drop.
+const disabled_item_list: Array[int] = [50, 140, 248, 250, 285]
+
+
 var user_int: int = 0
 var user_int2: int = 0
 var user_int3: int = 0
@@ -111,6 +116,12 @@ static func get_item_script_path(item_id: int):
 	var path: String = "res://Scenes/Items/Instances/Item%d.gd" % item_id
 
 	return path
+
+
+# TODO: implement. Should toggle visibility for item drop
+# and item flying to stash animation
+static func set_item_visible(item: Item, visible: bool):
+	pass
 
 
 func _init(id: int):

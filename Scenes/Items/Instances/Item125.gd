@@ -6,7 +6,7 @@ var drol_spellDmgRecieved: BuffType
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_attack(on_attack, 1.0, 0.0)
+	triggers.add_event_on_attack(on_attack)
 
 
 func item_init():

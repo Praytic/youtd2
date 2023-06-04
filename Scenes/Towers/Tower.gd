@@ -110,6 +110,7 @@ func _ready():
 	_mana_bar.visible = get_base_mana() > 0
 
 	_default_projectile_type = ProjectileType.create("", 0.0, PROJECTILE_SPEED)
+	_default_projectile_type.enable_homing(_on_projectile_target_hit, 0.0)
 
 # 	Carry over some properties and all items from preceding
 # 	tower
@@ -190,6 +191,13 @@ func get_number_of_crits() -> int:
 # tower. Must be called before add_child().
 func set_visual_only():
 	_visual_only = true
+
+
+func count_free_slots() -> int:
+	var item_count: int = _item_list.size()
+	var free_slots = ITEM_COUNT_MAX - item_count
+
+	return free_slots
 
 
 func have_item_space() -> bool:
@@ -442,7 +450,6 @@ func _attack_target(target: Unit):
 
 	var projectile: Projectile = _make_projectile(self, target)
 	projectile.set_tower_crit_count(crit_count)
-	projectile.set_event_on_target_hit(_on_projectile_target_hit)
 
 	var sfx_path: String
 	match get_element():
@@ -769,7 +776,7 @@ func get_damage_max():
 func get_base_damage():
 	return TowerProperties.get_base_damage(_id)
 
-func get_current_attack_damage() -> float:
+func get_current_attack_damage_base() -> float:
 	var damage_min: float = get_damage_min()
 	var damage_max: float = get_damage_max()
 	var damage: float = randf_range(damage_min, damage_max)
@@ -777,7 +784,7 @@ func get_current_attack_damage() -> float:
 	return damage
 
 func get_current_attack_damage_with_bonus() -> float:
-	var base_damage: float = get_current_attack_damage()
+	var base_damage: float = get_current_attack_damage_base()
 	var base_bonus: float = get_base_damage_bonus()
 	var base_bonus_percent: float = get_base_damage_bonus_percent()
 	var damage_add: float = get_damage_add()

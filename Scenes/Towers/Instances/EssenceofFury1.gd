@@ -35,7 +35,7 @@ func load_specials(_modifier: Modifier):
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_damage(on_damage, 1.0, 0.0)
+	triggers.add_event_on_damage(on_damage)
 
 
 func deal_damage(event: Event):

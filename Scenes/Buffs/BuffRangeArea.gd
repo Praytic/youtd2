@@ -5,18 +5,18 @@ extends Node2D
 # defined target type comes in range. Used by buffs to
 # implement the "unit comes in range" event.
 
-signal unit_came_in_range(callable: Callable, unit: Unit)
+signal unit_came_in_range(handler: Callable, unit: Unit)
 
 var _target_type: TargetType
-var _callable: Callable
+var _handler: Callable
 var _radius: float
 var _prev_units_in_range: Array = []
 
 
-func init(radius: float, target_type: TargetType, callable: Callable):
+func init(radius: float, target_type: TargetType, handler: Callable):
 	_radius = radius
 	_target_type = target_type
-	_callable = callable
+	_handler = handler
 
 
 func _on_timer_timeout():
@@ -35,6 +35,6 @@ func _on_timer_timeout():
 		var unit_just_came_in_range: bool = !_prev_units_in_range.has(unit)
 
 		if unit_just_came_in_range:
-			unit_came_in_range.emit(_callable, unit)
+			unit_came_in_range.emit(_handler, unit)
 
 	_prev_units_in_range = matching_units

@@ -31,7 +31,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_damage(on_damage, 0.3, 0.0)
+	triggers_buff_type.add_event_on_damage(on_damage)
 
 
 func load_specials(_modifier: Modifier):
@@ -44,6 +44,9 @@ func on_create(_preceding_tower: Tower):
 
 func on_damage(event: Event):
 	var tower: Unit = self
+
+	if !tower.calc_chance(0.3):
+		return
 
 	var creep: Unit = event.get_target()
 	var cid: int = Utils.getUID(creep)
