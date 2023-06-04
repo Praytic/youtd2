@@ -1,14 +1,19 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=27 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemBar.gd" id="4_5ctcy"]
 [ext_resource type="PackedScene" uid="uid://yo1kplv8bkpj" path="res://Scenes/HUD/ElementButton.tscn" id="4_hhy3t"]
+[ext_resource type="Theme" uid="uid://dtwj74dyjwmi7" path="res://Resources/Theme/custom_theme.tres" id="4_nd5uj"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="4_r2xy7"]
-[ext_resource type="Texture2D" uid="uid://mnlx0hsujtqg" path="res://Assets/UI/HUD/texture.jpg" id="5"]
+[ext_resource type="Texture2D" uid="uid://b5cjywescmcmr" path="res://Resources/Textures/UI/tower_right_side_menu_bg.tres" id="5_1tmgq"]
 [ext_resource type="Texture2D" uid="uid://4urow6esjtqa" path="res://Assets/Towers/tower_icons_xs.png" id="5_2y3fp"]
+[ext_resource type="Texture2D" uid="uid://bgbaygvpg0we0" path="res://Resources/Textures/UI/tower_left_side_menu_bg.tres" id="5_gq83k"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar.gd" id="6"]
 [ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
 [ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.tscn" id="9_rbj65"]
+[ext_resource type="Texture2D" uid="uid://con8k4q85kahx" path="res://Resources/Textures/UI/tower_menu_center_bg.tres" id="10_7ln4m"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3dxgw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ypogo"]
 atlas = ExtResource("4_r2xy7")
@@ -18,37 +23,51 @@ region = Rect2(448, 64, 64, 64)
 atlas = ExtResource("4_r2xy7")
 region = Rect2(448, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yn00o"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8bkc"]
 resource_local_to_scene = true
-atlas = ExtResource("4_r2xy7")
-region = Rect2(0, 2.08165e-12, 64, 64)
+atlas = ExtResource("5_2y3fp")
+region = Rect2(2.08165e-12, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w1ixs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6aolm"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(32, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7e7bj"]
+[sub_resource type="GDScript" id="GDScript_p7lgb"]
+script/source = "@tool
+extends TextureButton
+
+
+@export var element = Element.enm.ASTRAL # (Element.enm)
+
+
+func _ready():
+	var texture: AtlasTexture = texture_normal
+	var texture_size = texture.region.size.x
+	texture.region.position.x = element * texture_size
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4m128"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(64, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_57e4k"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0udu"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(96, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qjt7s"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_aajcj"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(128, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kdbok"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uofb3"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(160, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m8u0e"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm283"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(192, 2.08165e-12, 32, 32)
@@ -67,7 +86,6 @@ atlas = ExtResource("5_2y3fp")
 region = Rect2(224, 128, 32, 32)
 
 [node name="BottomMenuBar" type="Control"]
-custom_minimum_size = Vector2(800, 200)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,100 +97,136 @@ size_flags_vertical = 3
 theme = ExtResource("3")
 script = ExtResource("6")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
 
-[node name="ColorRect" type="TextureRect" parent="MarginContainer"]
-self_modulate = Color(0.192157, 0.192157, 0.207843, 1)
+[node name="LeftMenu" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("5")
-expand_mode = 1
-stretch_mode = 1
-flip_h = true
+size_flags_vertical = 8
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/LeftMenu"]
+material = SubResource("CanvasItemMaterial_3dxgw")
 layout_mode = 2
+texture = ExtResource("5_gq83k")
+stretch_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/LeftMenu"]
 layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 18
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/LeftMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
 alignment = 1
 
-[node name="ItemMenuButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="ResearchButton" type="Button" parent="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(2.08165e-12, 48)
 layout_mode = 2
-theme_type_variation = &"TowerButton"
+tooltip_text = "Switch menu to items"
+theme = ExtResource("4_nd5uj")
+theme_type_variation = &"TopButton"
+theme_override_font_sizes/font_size = 20
+text = "Research"
+expand_icon = true
+
+[node name="ItemMenuButton" type="Button" parent="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(2.08165e-12, 48)
+layout_mode = 2
+tooltip_text = "Switch menu to items"
+theme = ExtResource("4_nd5uj")
+text = "25"
 icon = SubResource("AtlasTexture_ypogo")
+expand_icon = true
 
-[node name="BuildingMenuButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="BuildingMenuButton" type="Button" parent="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(2.08165e-12, 48)
 layout_mode = 2
-theme_type_variation = &"TowerButton"
+tooltip_text = "Switch menu to towers"
+theme = ExtResource("4_nd5uj")
+text = "122"
 icon = SubResource("AtlasTexture_ju33v")
+expand_icon = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="CentralMenu" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="IceButton" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/CentralMenu"]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_yn00o")
+size_flags_vertical = 8
+texture = ExtResource("10_7ln4m")
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CentralMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="IceButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_u8bkc")
 element = 0
 
-[node name="NatureButton" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
+[node name="NatureButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_w1ixs")
+texture_normal = SubResource("AtlasTexture_6aolm")
+script = SubResource("GDScript_p7lgb")
 element = 1
 
-[node name="FireButton" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
+[node name="FireButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_7e7bj")
+texture_normal = SubResource("AtlasTexture_4m128")
 element = 2
 
-[node name="AstralButton" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
+[node name="AstralButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_57e4k")
+texture_normal = SubResource("AtlasTexture_u0udu")
 element = 3
 
-[node name="DarknessButton" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
+[node name="DarknessButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_qjt7s")
+texture_normal = SubResource("AtlasTexture_aajcj")
 element = 4
 
-[node name="IronButton" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
+[node name="IronButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_kdbok")
+texture_normal = SubResource("AtlasTexture_uofb3")
 element = 5
 
-[node name="StormButton" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
+[node name="StormButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_m8u0e")
+texture_normal = SubResource("AtlasTexture_lm283")
 element = 6
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(600, 2.08165e-12)
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
+custom_minimum_size = Vector2(600, 150)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 vertical_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer"]
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -182,7 +236,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="BuildBar" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+[node name="BuildBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
@@ -191,7 +245,7 @@ columns = 999
 script = ExtResource("7")
 unlimited_towers = null
 
-[node name="ItemBar" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+[node name="ItemBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
@@ -201,29 +255,46 @@ theme_override_constants/v_separation = 10
 columns = 999
 script = ExtResource("4_5ctcy")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+[node name="RightMenu" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_bottom = -2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/RightMenu"]
+layout_mode = 2
+texture = ExtResource("5_1tmgq")
+stretch_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/RightMenu"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightMenu/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 6
 alignment = 1
 
-[node name="GoldStatusPanel" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
+[node name="GoldStatusPanel" parent="HBoxContainer/RightMenu/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
 layout_mode = 2
 icon_texture = SubResource("AtlasTexture_1y6g0")
 default_label_text = "0"
 
-[node name="KnowledgeTomeStatusPanel" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
+[node name="KnowledgeTomeStatusPanel" parent="HBoxContainer/RightMenu/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
 layout_mode = 2
 icon_texture = SubResource("AtlasTexture_c5i1p")
 default_label_text = "0"
 
-[node name="ResourceStatusPanel" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
+[node name="ResourceStatusPanel" parent="HBoxContainer/RightMenu/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
 layout_mode = 2
 icon_texture = SubResource("AtlasTexture_aw3g2")
 default_label_text = "0/60"
 
-[connection signal="test_signal" from="." to="MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemBar" method="_on_right_menu_bar_test_signal"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer2/BuildingMenuButton" to="." method="_on_BuildMenuButton_pressed"]
+[connection signal="test_signal" from="." to="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemBar" method="_on_right_menu_bar_test_signal"]
+[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ResearchButton" to="." method="_on_ItemMenuButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/BuildingMenuButton" to="." method="_on_BuildMenuButton_pressed"]
