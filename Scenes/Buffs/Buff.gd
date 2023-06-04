@@ -103,6 +103,11 @@ func get_modifier() -> Modifier:
 	return _modifier
 
 
+func set_level(level: int):
+	_level = new_level
+	_target._change_modifier_level(get_modifier(), current_level, new_level)
+
+
 # Level is used to compare this buff with another buff of
 # same type that is active on target and determine which
 # buff is stronger. Stronger buff will end up remaining
@@ -301,8 +306,7 @@ func _upgrade_by_new_buff(new_level: int):
 
 	refresh_duration()
 	
-	_level = new_level
-	_target._change_modifier_level(get_modifier(), current_level, new_level)
+	set_level(new_level)
 
 	var upgrade_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
