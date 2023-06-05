@@ -23,12 +23,12 @@ region = Rect2(448, 64, 64, 64)
 atlas = ExtResource("4_r2xy7")
 region = Rect2(448, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u8bkc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qplac"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
-region = Rect2(2.08165e-12, 2.08165e-12, 32, 32)
+region = Rect2(0, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6aolm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6vy2s"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(32, 2.08165e-12, 32, 32)
@@ -47,27 +47,27 @@ func _ready():
 	texture.region.position.x = element * texture_size
 "
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4m128"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_l11yj"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(64, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u0udu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5ui4"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(96, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_aajcj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyep2"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(128, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uofb3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_soq8q"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(160, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lm283"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kof7s"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(192, 2.08165e-12, 32, 32)
@@ -182,38 +182,38 @@ size_flags_vertical = 8
 
 [node name="IceButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_u8bkc")
+texture_normal = SubResource("AtlasTexture_qplac")
 element = 0
 
 [node name="NatureButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_6aolm")
+texture_normal = SubResource("AtlasTexture_6vy2s")
 script = SubResource("GDScript_p7lgb")
 element = 1
 
 [node name="FireButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_4m128")
+texture_normal = SubResource("AtlasTexture_l11yj")
 element = 2
 
 [node name="AstralButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_u0udu")
+texture_normal = SubResource("AtlasTexture_i5ui4")
 element = 3
 
 [node name="DarknessButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_aajcj")
+texture_normal = SubResource("AtlasTexture_hyep2")
 element = 4
 
 [node name="IronButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_uofb3")
+texture_normal = SubResource("AtlasTexture_soq8q")
 element = 5
 
 [node name="StormButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_lm283")
+texture_normal = SubResource("AtlasTexture_kof7s")
 element = 6
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]

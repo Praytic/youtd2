@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_pressed.tres" id="6"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_focus.tres" id="7"]
 [ext_resource type="StyleBox" uid="uid://bdt0si03bssd5" path="res://Resources/Theme/item_button_hover.tres" id="8_332gl"]
+[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="8_dlncl"]
 [ext_resource type="StyleBox" uid="uid://xj6rw0giypad" path="res://Resources/Theme/item_button_normal.tres" id="8_t77il"]
 
 [sub_resource type="FontFile" id="1"]
@@ -59,20 +60,16 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="14"]
-bg_color = Color(0.0980392, 0.0980392, 0.141176, 0.45098)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.8, 0.784314, 0.0156863, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 100
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-corner_detail = 10
-expand_margin_left = 10.0
-anti_aliasing = false
+[sub_resource type="AtlasTexture" id="AtlasTexture_co3qy"]
+atlas = ExtResource("8_dlncl")
+region = Rect2(872, 49, 31, 31)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_770c7"]
+texture = SubResource("AtlasTexture_co3qy")
+texture_margin_left = 20.0
+texture_margin_top = 4.0
+texture_margin_right = 20.0
+texture_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxEmpty" id="11"]
 
@@ -98,7 +95,7 @@ Label/constants/shadow_offset_y = 2
 Label/fonts/font = SubResource("1")
 ResourceTab/base_type = &"Panel"
 ResourceTab/styles/panel = SubResource("8")
-TooltipPanel/styles/panel = SubResource("14")
+TooltipPanel/styles/panel = SubResource("StyleBoxTexture_770c7")
 TowerButton/styles/disabled = ExtResource("8_332gl")
 TowerButton/styles/focus = SubResource("11")
 TowerButton/styles/hover = ExtResource("8_332gl")
