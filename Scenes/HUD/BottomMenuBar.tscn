@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=30 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemBar.gd" id="4_5ctcy"]
@@ -10,11 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://bgbaygvpg0we0" path="res://Resources/Textures/UI/tower_left_side_menu_bg.tres" id="5_gq83k"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar.gd" id="6"]
 [ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
-[ext_resource type="Script" path="res://Scenes/HUD/TowerButton.gd" id="8_qjr03"]
+[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="9_dxvdv"]
 [ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.tscn" id="9_rbj65"]
-[ext_resource type="Texture2D" uid="uid://con8k4q85kahx" path="res://Resources/Textures/UI/tower_menu_center_bg.tres" id="10_7ln4m"]
-[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="10_g7vw1"]
-[ext_resource type="PackedScene" uid="uid://dqjk0dq82x1cv" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="12_8bguq"]
+[ext_resource type="PackedScene" uid="uid://sqxrsmrfyvkv" path="res://Scenes/HUD/Buttons/TowerButton.tscn" id="11_pmyiq"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3dxgw"]
 
@@ -26,12 +24,12 @@ region = Rect2(448, 64, 64, 64)
 atlas = ExtResource("4_r2xy7")
 region = Rect2(448, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ll1ja"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pj2t0"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(0, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a7pwq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5y4us"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(32, 2.08165e-12, 32, 32)
@@ -50,63 +48,37 @@ func _ready():
 	texture.region.position.x = element * texture_size
 "
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gq33d"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lv4me"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(64, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hvbc3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qx0mx"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(96, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ujmrk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nqdp"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(128, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6d2eg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4ccr"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(160, 2.08165e-12, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fru22"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7o4md"]
 resource_local_to_scene = true
 atlas = ExtResource("5_2y3fp")
 region = Rect2(192, 2.08165e-12, 32, 32)
 
-[sub_resource type="Shader" id="Shader_5eph0"]
-code = "shader_type canvas_item;
+[sub_resource type="AtlasTexture" id="AtlasTexture_58l2a"]
+atlas = ExtResource("9_dxvdv")
+region = Rect2(0, 133, 1077, 169)
 
-uniform vec4 line_color : source_color = vec4(1.0);
-uniform float line_thickness : hint_range(0, 10) = 1.0;
-
-const vec2 OFFSETS[8] = {
-	vec2(-1, -1), vec2(-1, 0), vec2(-1, 1), vec2(0, -1), vec2(0, 1), 
-	vec2(1, -1), vec2(1, 0), vec2(1, 1)
-};
-
-void fragment() {
-	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
-	float outline = 0.0;
-	
-	for (int i = 0; i < OFFSETS.length(); i++) {
-		outline += texture(TEXTURE, UV + size * OFFSETS[i]).a;
-	}
-	outline = min(outline, 1.0);
-	
-	vec4 color = texture(TEXTURE, UV);
-	COLOR = mix(color, line_color, outline - color.a);
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rp0re"]
-shader = SubResource("Shader_5eph0")
-shader_parameter/line_color = Color(1, 0.92549, 1, 0.533333)
-shader_parameter/line_thickness = 0.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_po18k"]
-atlas = ExtResource("10_g7vw1")
-region = Rect2(256, 512, 128, 128)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k0a7c"]
+texture = SubResource("AtlasTexture_58l2a")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1y6g0"]
 resource_local_to_scene = true
@@ -193,15 +165,10 @@ expand_icon = true
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer/CentralMenu"]
-layout_mode = 2
-size_flags_vertical = 8
-texture = ExtResource("10_7ln4m")
-stretch_mode = 2
-
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CentralMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("4_nd5uj")
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
 layout_mode = 2
@@ -214,44 +181,45 @@ size_flags_vertical = 8
 
 [node name="IceButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_ll1ja")
+texture_normal = SubResource("AtlasTexture_pj2t0")
 element = 0
 
 [node name="NatureButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_a7pwq")
+texture_normal = SubResource("AtlasTexture_5y4us")
 script = SubResource("GDScript_p7lgb")
 element = 1
 
 [node name="FireButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_gq33d")
+texture_normal = SubResource("AtlasTexture_lv4me")
 element = 2
 
 [node name="AstralButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_hvbc3")
+texture_normal = SubResource("AtlasTexture_qx0mx")
 element = 3
 
 [node name="DarknessButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_ujmrk")
+texture_normal = SubResource("AtlasTexture_8nqdp")
 element = 4
 
 [node name="IronButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_6d2eg")
+texture_normal = SubResource("AtlasTexture_o4ccr")
 element = 5
 
 [node name="StormButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_fru22")
+texture_normal = SubResource("AtlasTexture_7o4md")
 element = 6
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
-custom_minimum_size = Vector2(600, 150)
+[node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
+custom_minimum_size = Vector2(1077, 169)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxTexture_k0a7c")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -261,39 +229,38 @@ vertical_scroll_mode = 0
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer"]
 clip_contents = true
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
 
 [node name="BuildBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.411765)
 clip_contents = true
 layout_mode = 2
+size_flags_vertical = 8
 mouse_filter = 2
 columns = 999
 script = ExtResource("7")
 unlimited_towers = null
 
-[node name="TowerButton" type="Button" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar"]
-material = SubResource("ShaderMaterial_rp0re")
+[node name="TowerButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
 layout_mode = 2
-theme = ExtResource("4_nd5uj")
-theme_type_variation = &"CommonTowerButton"
-icon = SubResource("AtlasTexture_po18k")
-script = ExtResource("8_qjr03")
 
-[node name="TowerButton2" type="Button" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar"]
+[node name="TowerButton2" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
 layout_mode = 2
-theme = ExtResource("4_nd5uj")
-theme_type_variation = &"CommonTowerButton"
-disabled = true
-icon = SubResource("AtlasTexture_po18k")
-script = ExtResource("8_qjr03")
 
-[node name="UnitButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("12_8bguq")]
+[node name="TowerButton3" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
+layout_mode = 2
+
+[node name="TowerButton4" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
+layout_mode = 2
+
+[node name="TowerButton5" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
+layout_mode = 2
+
+[node name="TowerButton6" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
+layout_mode = 2
+
+[node name="TowerButton7" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
 layout_mode = 2
 
 [node name="ItemBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]

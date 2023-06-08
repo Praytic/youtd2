@@ -5,16 +5,19 @@
 [ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="3_lkbhk"]
 
 [node name="TowerButton" instance=ExtResource("1_djoqs")]
+
+[node name="UnitButton" parent="." index="0"]
 script = ExtResource("2_mcix1")
 
-[node name="TierContainer" type="MarginContainer" parent="." index="3"]
-layout_mode = 0
-offset_left = 94.0
+[node name="TierContainer" type="MarginContainer" parent="UnitButton" index="0"]
+layout_mode = 2
+offset_left = 95.0
 offset_top = -10.0
-offset_right = 134.0
-offset_bottom = 30.0
+offset_right = 219.0
+offset_bottom = 114.0
+scale = Vector2(0.291436, 0.291436)
 
-[node name="TierIcon" type="TextureRect" parent="TierContainer" index="0"]
+[node name="TierIcon" type="TextureRect" parent="UnitButton/TierContainer" index="0"]
 layout_mode = 2
 texture = ExtResource("3_lkbhk")
 expand_mode = 2

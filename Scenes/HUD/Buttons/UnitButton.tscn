@@ -7,15 +7,22 @@
 [ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="4_m4tn5"]
 [ext_resource type="Texture2D" uid="uid://lu1adtr8xmdf" path="res://Resources/Textures/UI/rect_container_xs.tres" id="6_ewvwp"]
 
-[node name="UnitButton" type="TextureButton"]
-offset_right = 124.0
-offset_bottom = 124.0
+[node name="Control" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="UnitButton" type="TextureButton" parent="."]
+layout_mode = 2
 texture_normal = ExtResource("1_wt0jm")
 texture_pressed = ExtResource("2_a7a4m")
 texture_hover = ExtResource("2_a7a4m")
 script = ExtResource("1_ppg32")
 
-[node name="IconContainer" type="MarginContainer" parent="."]
+[node name="IconContainer" type="MarginContainer" parent="UnitButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -30,13 +37,13 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.844764, 0.844764)
 
-[node name="Icon" type="TextureRect" parent="IconContainer"]
+[node name="Icon" type="TextureRect" parent="UnitButton/IconContainer"]
 layout_mode = 2
 texture = ExtResource("4_m4tn5")
 expand_mode = 2
 stretch_mode = 3
 
-[node name="LockTexture" type="TextureRect" parent="."]
+[node name="LockTexture" type="TextureRect" parent="UnitButton"]
 visible = false
 layout_mode = 0
 offset_left = 7.0
@@ -45,18 +52,18 @@ offset_right = 117.0
 offset_bottom = 117.0
 texture = ExtResource("4_jpfnb")
 
-[node name="CounterContainer" type="MarginContainer" parent="."]
+[node name="CounterContainer" type="MarginContainer" parent="UnitButton"]
 layout_mode = 0
 offset_left = 90.0
 offset_top = 89.0
 offset_right = 138.0
 offset_bottom = 137.0
 
-[node name="CounterTexture" type="TextureRect" parent="CounterContainer"]
+[node name="CounterTexture" type="TextureRect" parent="UnitButton/CounterContainer"]
 layout_mode = 2
 texture = ExtResource("6_ewvwp")
 
-[node name="CounterLabel" type="Label" parent="CounterContainer"]
+[node name="CounterLabel" type="Label" parent="UnitButton/CounterContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 vertical_alignment = 3
