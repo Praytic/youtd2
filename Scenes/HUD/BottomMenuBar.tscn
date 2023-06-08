@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=29 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemBar.gd" id="4_5ctcy"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="9_dxvdv"]
 [ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.tscn" id="9_rbj65"]
-[ext_resource type="PackedScene" uid="uid://sqxrsmrfyvkv" path="res://Scenes/HUD/Buttons/TowerButton.tscn" id="11_pmyiq"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3dxgw"]
 
@@ -79,6 +78,7 @@ region = Rect2(0, 133, 1077, 169)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k0a7c"]
 texture = SubResource("AtlasTexture_58l2a")
+texture_margin_left = 22.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1y6g0"]
 resource_local_to_scene = true
@@ -216,7 +216,7 @@ texture_normal = SubResource("AtlasTexture_7o4md")
 element = 6
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
-custom_minimum_size = Vector2(1077, 169)
+custom_minimum_size = Vector2(1160, 182)
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxTexture_k0a7c")
@@ -236,32 +236,11 @@ unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.411765)
 clip_contents = true
 layout_mode = 2
-size_flags_vertical = 8
 mouse_filter = 2
+theme_override_constants/h_separation = 5
 columns = 999
 script = ExtResource("7")
 unlimited_towers = null
-
-[node name="TowerButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
-layout_mode = 2
-
-[node name="TowerButton2" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
-layout_mode = 2
-
-[node name="TowerButton3" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
-layout_mode = 2
-
-[node name="TowerButton4" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
-layout_mode = 2
-
-[node name="TowerButton5" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
-layout_mode = 2
-
-[node name="TowerButton6" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
-layout_mode = 2
-
-[node name="TowerButton7" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar" instance=ExtResource("11_pmyiq")]
-layout_mode = 2
 
 [node name="ItemBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
