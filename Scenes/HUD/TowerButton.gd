@@ -1,23 +1,20 @@
 class_name TowerButton 
-extends Button
+extends UnitButton
 
-
-const ICON_SIZE_S = 64
 const ICON_SIZE_M = 128
-const TIER_ICON_SIZE_S = 32
 const TIER_ICON_SIZE_M = 64
 
-var tier_icon
+var _tower_id: int : set = set_tower, get = get_tower
 
-var _tower_id: int
-@onready var _tier_icons_s = preload("res://Assets/Towers/tier_icons_s.png")
 @onready var _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
-@onready var _tower_button_fallback_icon = preload("res://Assets/icon.png")
+@onready var _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
+
+@onready var _tier_icon = $TierContainer/TierIcon
 
 
 func _ready():
-	set_theme_type_variation("TowerButton")
-	_set_icon()
+	if _tower_id != null:
+		set_tower(_tower_id)
 
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
@@ -26,7 +23,6 @@ func _ready():
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
 	_on_wave_or_element_level_changed()
-	
 
 
 func _on_wave_or_element_level_changed():
@@ -34,37 +30,39 @@ func _on_wave_or_element_level_changed():
 	set_disabled(!can_build)
 
 
-func _draw():
-	draw_texture(tier_icon, Vector2.ZERO)
-
-
-func _set_icon():
-	tier_icon = _get_tower_button_tier_icon()
-	icon = _get_tower_button_icon()
+func get_tower() -> int:
+	return _tower_id
 
 
 func set_tower(tower_id: int):
-	_tower_id = tower_id
+	_set_rarity_icon(tower_id)
+	_set_tier_icon(tower_id)
+	_set_unit_icon(tower_id)
 
 
-func _get_tower_button_tier_icon() -> Texture2D:
+func _set_rarity_icon(tower_id: int):
+	var tower_rarity = TowerProperties.get_rarity(_tower_id)
+	set_rarity(tower_rarity)
+
+
+func _set_tier_icon(tower_id: int):
+	var tower_rarity = TowerProperties.get_rarity(_tower_id)
 	var tower_tier = TowerProperties.get_tier(_tower_id) - 1
-	var tower_rarity = TowerProperties.get_rarity_num(_tower_id)
-	
-	var icon_out = AtlasTexture.new()
+	var tier_icon = AtlasTexture.new()
 	var icon_size: int
 	
-	icon_out.set_atlas(_tier_icons_s)
-	icon_size = TIER_ICON_SIZE_S
+	tier_icon.set_atlas(_tier_icons_m)
+	icon_size = TIER_ICON_SIZE_M
 	
-	icon_out.set_region(Rect2(tower_tier * icon_size, tower_rarity * icon_size, icon_size, icon_size))
-	return icon_out
+	tier_icon.set_region(Rect2(tower_tier * icon_size, tower_rarity * icon_size, icon_size, icon_size))
+	_tier_icon.texture = tier_icon
 
-func _get_tower_button_icon() -> Texture2D:
+
+func _set_unit_icon(tower_id: int):
 	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(_tower_id)
 	if icon_atlas_num == -1:
-		return _tower_button_fallback_icon
-
+		push_error("Could not find an icon for tower id [%s]." % tower_id)
+	
 	var tower_icon = AtlasTexture.new()
 	var icon_size: int
 	
@@ -73,9 +71,7 @@ func _get_tower_button_icon() -> Texture2D:
 	
 	var region: Rect2 = Rect2(TowerProperties.get_element(_tower_id) * icon_size, icon_atlas_num * icon_size, icon_size, icon_size)
 	tower_icon.set_region(region)
-
-	return tower_icon
-
+	set_unit_icon(tower_icon)
 
 func _on_mouse_entered():
 	EventBus.tower_button_mouse_entered.emit(_tower_id)

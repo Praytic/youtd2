@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcjriq3sjplum"]
+
+[ext_resource type="PackedScene" uid="uid://dqjk0dq82x1cv" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_4l6hj"]
+[ext_resource type="Texture2D" uid="uid://diwvf58ei1rx3" path="res://Resources/Textures/UI/rare_unit_button.tres" id="2_ew1u5"]
+[ext_resource type="Texture2D" uid="uid://c38vf5tkkqr2c" path="res://Resources/Textures/UI/rare_unit_button_hover.tres" id="3_y6kux"]
+
+[node name="RareUnitButton" instance=ExtResource("1_4l6hj")]
+texture_normal = ExtResource("2_ew1u5")
+texture_pressed = ExtResource("3_y6kux")
+texture_hover = ExtResource("3_y6kux")

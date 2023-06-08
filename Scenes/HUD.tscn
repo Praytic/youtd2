@@ -206,11 +206,6 @@ layout_mode = 1
 offset_top = 1.0
 offset_bottom = 1.0
 
-[node name="TopMenuBar" parent="." instance=ExtResource("6")]
-layout_mode = 1
-anchor_bottom = 0.0833333
-metadata/_edit_use_anchors_ = true
-
 [node name="TooltipHeader" parent="." instance=ExtResource("1")]
 offset_left = 14.0
 offset_top = 88.0
@@ -345,6 +340,17 @@ offset_left = 1554.0
 offset_top = 486.0
 offset_right = -242.0
 offset_bottom = -313.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="TopMenuBar" parent="MarginContainer" instance=ExtResource("6")]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
