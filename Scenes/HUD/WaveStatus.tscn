@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://4tcjyre0hoji"]
+[gd_scene load_steps=4 format=3 uid="uid://4tcjyre0hoji"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_3h6gw"]
 [ext_resource type="Script" path="res://Scenes/HUD/WaveStatus.gd" id="2_fsc15"]
+[ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="3_gykof"]
 
 [node name="WaveStatus" type="Control"]
 layout_mode = 3
@@ -19,6 +20,7 @@ script = ExtResource("2_fsc15")
 layout_mode = 0
 offset_right = 400.0
 offset_bottom = 40.0
+theme_override_styles/panel = ExtResource("3_gykof")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
