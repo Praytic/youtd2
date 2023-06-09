@@ -11,8 +11,8 @@ func _ready():
 	_set_rarity_icon()
 	_set_unit_icon()
 	
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
+	_unit_button.mouse_entered.connect(_on_mouse_entered)
+	_unit_button.mouse_exited.connect(_on_mouse_exited)
 
 
 func _set_rarity_icon():
