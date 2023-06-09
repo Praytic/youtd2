@@ -2,8 +2,6 @@
 
 ![icob_min](https://user-images.githubusercontent.com/10060411/228678072-0ad070c8-1c62-4b1a-aaa2-d7e0ff4035e0.png)
 
-[![build-and-publish](https://github.com/Praytic/youtd2/actions/workflows/github-actions-youtd.yml/badge.svg?branch=main&event=push)](https://github.com/Praytic/youtd2/actions/workflows/github-actions-youtd.yml) [![pages-build-deployment](https://github.com/Praytic/youtd2/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main&event=push)](https://github.com/Praytic/youtd2/actions/workflows/pages/pages-build-deployment)
-
 Welcome to the open source code of the YouTD 2 game. Please review this README to understand how you can assist in contributing to the game.
 
 ## Getting Started
