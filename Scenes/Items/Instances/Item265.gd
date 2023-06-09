@@ -31,7 +31,7 @@ func item_init():
 	add_autocast(autocast)
 
 
-func on_autocast(_event: Event):
+func on_autocast(event: Event):
 	var itm: Item = self
 
-	Event.get_target().add_exp_flat(itm.get_carrier().remove_exp_flat(30))
+	event.get_target().add_exp_flat(itm.get_carrier().remove_exp_flat(30))
