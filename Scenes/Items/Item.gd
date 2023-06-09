@@ -256,6 +256,8 @@ func get_charges_text() -> String:
 	else:
 		return ""
 
+func get_charges() -> int:
+	return _charge_count
 
 # NOTE: override this in subclass to attach trigger handlers
 # to triggers buff passed in the argument.

@@ -1,20 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://sqxrsmrfyvkv"]
+[gd_scene load_steps=4 format=3 uid="uid://sqxrsmrfyvkv"]
 
 [ext_resource type="PackedScene" uid="uid://dqjk0dq82x1cv" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_djoqs"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButton.gd" id="2_00ei8"]
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButtonContainer.gd" id="2_50gs2"]
 [ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="3_lkbhk"]
 
 [node name="TowerButton" instance=ExtResource("1_djoqs")]
-script = ExtResource("2_50gs2")
-
-[node name="UnitButton" parent="." index="0"]
 script = ExtResource("2_00ei8")
-unit_icon = null
-rarity = null
-count = null
 
-[node name="TierContainer" type="MarginContainer" parent="UnitButton" index="0"]
+[node name="TierContainer" type="MarginContainer" parent="UnitButton" index="2"]
 layout_mode = 2
 offset_left = 95.0
 offset_top = -10.0

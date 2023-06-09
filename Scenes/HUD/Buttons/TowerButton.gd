@@ -1,26 +1,26 @@
 class_name TowerButton 
 extends UnitButton
 
+
 const ICON_SIZE_M = 128
 const TIER_ICON_SIZE_M = 64
 
 var _tower_id: int : set = set_tower
 
-@onready var _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
-@onready var _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
+const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
+const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 
-@onready var _tier_icon: TextureRect = $TierContainer/TierIcon
+@onready var _tier_icon: TextureRect = $UnitButton/TierContainer/TierIcon
 
 
 func _ready():
-	if _tower_id != null:
-		_set_rarity_icon(_tower_id)
-		_set_tier_icon(_tower_id)
-		_set_unit_icon(_tower_id)
+	_set_rarity_icon(_tower_id)
+	_set_tier_icon(_tower_id)
+	_set_unit_icon(_tower_id)
 
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
-	pressed.connect(_on_pressed)
+	_unit_button.mouse_entered.connect(_on_mouse_entered)
+	_unit_button.mouse_exited.connect(_on_mouse_exited)
+	_unit_button.pressed.connect(_on_pressed)
 
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
@@ -28,9 +28,7 @@ func _ready():
 
 
 func set_tower(tower_id: int):
-	_set_rarity_icon(_tower_id)
-	_set_tier_icon(_tower_id)
-	_set_unit_icon(_tower_id)
+	_tower_id = tower_id
 
 
 func _on_wave_or_element_level_changed():

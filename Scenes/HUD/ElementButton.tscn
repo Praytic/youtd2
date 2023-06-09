@@ -3,11 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="1_akwqq"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2_1bmmr"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c85vh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqlur"]
 atlas = ExtResource("1_akwqq")
 region = Rect2(448, 0, 64, 64)
 
 [node name="ElementButton" type="TextureButton"]
-texture_normal = SubResource("AtlasTexture_c85vh")
+texture_normal = SubResource("AtlasTexture_vqlur")
 script = ExtResource("2_1bmmr")
 element = 7

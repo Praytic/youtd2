@@ -28,8 +28,7 @@ func _ready():
 		if !is_released:
 			continue
 	
-		var tower_button = load("res://Scenes/HUD/Buttons/TowerButton.tscn")
-		tower_button = tower_button.instantiate() 
+		var tower_button = load("res://Scenes/HUD/Buttons/TowerButton.tscn").instantiate() 
 		tower_button.set_tower(tower_id)
 		
 		_tower_buttons[tower_id] = tower_button

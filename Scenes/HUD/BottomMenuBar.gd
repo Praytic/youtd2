@@ -1,10 +1,14 @@
 class_name BottomMenuBar extends Control
 
+
+signal research_element()
 signal test_signal()
 
-@onready var build_bar = get_node("%BuildBar")
-@onready var item_bar = get_node("%ItemBar")
-@onready var _item_menu_button: Control = $MarginContainer/HBoxContainer/VBoxContainer2/ItemMenuButton
+@export var _item_bar: GridContainer
+@export var _build_bar: GridContainer
+@export var _item_menu_button: Button
+@export var _building_menu_button: Button
+@export var _research_panel: Control
 
 
 func _ready():
@@ -21,18 +25,28 @@ func _ready():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 
 
-func get_item_menu_button() -> Control:
+func _process(_delta):
+	var item_button_count: int
+	for item_button in _item_bar.get_children():
+		if item_button.is_visible():
+			item_button_count += 1
+	_item_menu_button.text = str(item_button_count)
+	
+	_building_menu_button.text = str(_build_bar.get_child_count())
+
+
+func get_item_menu_button() -> Button:
 	return _item_menu_button
 
 
 func set_element(element: Element.enm):
 	if element == Element.enm.NONE:
-		item_bar.show()
-		build_bar.hide()
+		_item_bar.show()
+		_build_bar.hide()
 	else:
-		item_bar.hide()
-		build_bar.show()
-		build_bar.set_element(element)
+		_item_bar.hide()
+		_build_bar.show()
+		_build_bar.set_element(element)
 
 
 # NOTE: have to manually call this because ItemMovement
@@ -54,4 +68,8 @@ func _on_ElementButton_pressed(element_button):
 
 
 func _on_BuildMenuButton_pressed():
-	set_element(build_bar.get_element())
+	set_element(_build_bar.get_element())
+
+
+func _on_research_button_pressed():
+	_research_panel.visible = !_research_panel.visible

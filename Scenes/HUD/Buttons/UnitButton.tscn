@@ -14,13 +14,13 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
+script = ExtResource("1_ppg32")
 
 [node name="UnitButton" type="TextureButton" parent="."]
 layout_mode = 2
 texture_normal = ExtResource("1_wt0jm")
 texture_pressed = ExtResource("2_a7a4m")
 texture_hover = ExtResource("2_a7a4m")
-script = ExtResource("1_ppg32")
 
 [node name="IconContainer" type="MarginContainer" parent="UnitButton"]
 layout_mode = 1
@@ -53,6 +53,7 @@ offset_bottom = 117.0
 texture = ExtResource("4_jpfnb")
 
 [node name="CounterContainer" type="MarginContainer" parent="UnitButton"]
+visible = false
 layout_mode = 0
 offset_left = 90.0
 offset_top = 89.0

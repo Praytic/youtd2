@@ -32,6 +32,7 @@ offset_top = 1.0
 offset_bottom = 1.0
 
 [node name="TooltipHeader" parent="." instance=ExtResource("1")]
+visible = false
 offset_left = 14.0
 offset_top = 88.0
 offset_right = 14.0
@@ -54,6 +55,7 @@ custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 
 [node name="TowerTooltip" parent="." instance=ExtResource("12")]
+visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -68,11 +70,12 @@ scale = Vector2(0.5, 0.5)
 [node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
 layout_mode = 1
 offset_left = 13.0
-offset_top = 150.0
+offset_top = 217.0
 offset_right = -1907.0
-offset_bottom = -930.0
+offset_bottom = -863.0
 
-[node name="BottomMenuBar" parent="." instance=ExtResource("5")]
+[node name="BottomMenuBar" parent="." node_paths=PackedStringArray("_research_panel") instance=ExtResource("5")]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -84,20 +87,21 @@ offset_right = 6.10352e-05
 offset_bottom = -98.9999
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
+_research_panel = NodePath("../ResearchMenu")
 
 [node name="TowerInventory" parent="." instance=ExtResource("11_hrubh")]
 layout_mode = 1
-offset_left = 450.0
-offset_top = 832.0
-offset_right = -1070.0
-offset_bottom = -87.0
+offset_left = 1481.0
+offset_top = 287.0
+offset_right = -39.0
+offset_bottom = -632.0
 
 [node name="TowerActions" parent="." instance=ExtResource("12_2t2wp")]
 layout_mode = 1
-offset_left = 1620.0
-offset_top = 240.0
-offset_right = 1620.0
-offset_bottom = 240.0
+offset_left = 1692.0
+offset_top = 33.0
+offset_right = 1692.0
+offset_bottom = 33.0
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
 show_behind_parent = true
@@ -119,11 +123,12 @@ offset_right = -920.0
 offset_bottom = -930.0
 
 [node name="SelectedUnitInfo" parent="." instance=ExtResource("15_yuxef")]
+visible = false
 layout_mode = 1
-offset_left = 10.0
-offset_top = 850.0
-offset_right = -1910.0
-offset_bottom = -230.0
+offset_left = 1484.0
+offset_top = 471.0
+offset_right = -436.0
+offset_bottom = -609.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -151,22 +156,13 @@ offset_right = 430.0
 offset_bottom = 14.0
 scale = Vector2(0.55408, 0.55408)
 
-[node name="ResearchButton" type="Button" parent="." groups=["sfx_menu_click"]]
-layout_mode = 0
-offset_left = 1578.0
-offset_top = 1001.0
-offset_right = 1738.0
-offset_bottom = 1064.0
-text = "Research
-"
-
 [node name="ResearchMenu" parent="." instance=ExtResource("22_kpm02")]
 visible = false
 layout_mode = 1
-offset_left = 1554.0
-offset_top = 486.0
-offset_right = -242.0
-offset_bottom = -313.0
+offset_left = 152.0
+offset_top = 568.0
+offset_right = -1644.0
+offset_bottom = -231.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -181,4 +177,3 @@ metadata/_edit_use_anchors_ = true
 
 [connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
-[connection signal="pressed" from="ResearchButton" to="." method="_on_research_button_pressed"]

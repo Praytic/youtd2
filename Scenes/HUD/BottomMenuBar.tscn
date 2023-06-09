@@ -28,31 +28,31 @@ region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u05n0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m071k"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_445sj"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vo3eo"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjnj2"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_griix"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6baj"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uu2og"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_aiq80"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l2ypt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqoai"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w8q5r"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_86w8i"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6le2h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lk2gs"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(384, 0, 64, 64)
 
@@ -84,7 +84,7 @@ region = Rect2(224, 64, 32, 32)
 atlas = ExtResource("5_2y3fp")
 region = Rect2(224, 128, 32, 32)
 
-[node name="BottomMenuBar" type="Control"]
+[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_bar", "_build_bar", "_item_menu_button", "_building_menu_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -93,6 +93,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3")
 script = ExtResource("6")
+_item_bar = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemBar")
+_build_bar = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar")
+_item_menu_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ItemMenuButton")
+_building_menu_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/BuildingMenuButton")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -170,37 +174,37 @@ size_flags_vertical = 8
 
 [node name="IceButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_m071k")
+texture_normal = SubResource("AtlasTexture_445sj")
 element = 0
 
 [node name="NatureButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_vo3eo")
+texture_normal = SubResource("AtlasTexture_qjnj2")
 element = 1
 
 [node name="FireButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_griix")
+texture_normal = SubResource("AtlasTexture_p6baj")
 element = 2
 
 [node name="AstralButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_uu2og")
+texture_normal = SubResource("AtlasTexture_aiq80")
 element = 3
 
 [node name="DarknessButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_l2ypt")
+texture_normal = SubResource("AtlasTexture_pqoai")
 element = 4
 
 [node name="IronButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_w8q5r")
+texture_normal = SubResource("AtlasTexture_86w8i")
 element = 5
 
 [node name="StormButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_6le2h")
+texture_normal = SubResource("AtlasTexture_lk2gs")
 element = 6
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
@@ -221,7 +225,6 @@ theme_override_constants/margin_top = 20
 
 [node name="BuildBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.411765)
 clip_contents = true
 layout_mode = 2
 mouse_filter = 2
@@ -234,8 +237,7 @@ unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/h_separation = 10
-theme_override_constants/v_separation = 10
+theme_override_constants/h_separation = 5
 columns = 999
 script = ExtResource("4_5ctcy")
 
@@ -275,6 +277,6 @@ icon_texture = SubResource("AtlasTexture_aw3g2")
 default_label_text = "0/60"
 
 [connection signal="test_signal" from="." to="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemBar" method="_on_right_menu_bar_test_signal"]
-[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ResearchButton" to="." method="_on_ItemMenuButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ResearchButton" to="." method="_on_research_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/BuildingMenuButton" to="." method="_on_BuildMenuButton_pressed"]
