@@ -579,7 +579,7 @@ func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 #	NOTE: set _number_of_crits here so that it's accesible
 #	in damage event handlers
 	_number_of_crits = crit_count
-	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, 0), true)
+	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, 0), true, get_attack_type())
 	_number_of_crits = 0
 
 
@@ -599,7 +599,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 #	NOTE: set _number_of_crits here so that it's accesible
 #	in damage event handlers_number_of_crits = crit_count
 	_number_of_crits = crit_count
-	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, 0), true)
+	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, 0), true, get_attack_type())
 	_number_of_crits = 0
 
 	var splash_target: Unit = target
@@ -625,7 +625,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 			if creep_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
-				_do_attack_damage_internal(neighbor, splash_damage, _calc_attack_multicrit_internal(crit_count, 0), false)
+				_do_attack_damage_internal(neighbor, splash_damage, _calc_attack_multicrit_internal(crit_count, 0), false, get_attack_type())
 
 				break
 
@@ -652,7 +652,7 @@ func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: U
 #	NOTE: set _number_of_crits here so that it's accesible
 #	in damage event handlers_number_of_crits = crit_count
 	_number_of_crits = crit_count
-	_do_attack_damage_internal(current_target, current_damage, _calc_attack_multicrit_internal(crit_count, 0), is_main_target)
+	_do_attack_damage_internal(current_target, current_damage, _calc_attack_multicrit_internal(crit_count, 0), is_main_target, get_attack_type())
 	_number_of_crits = 0
 
 # 	Launch projectile for next bounce, if bounce isn't over

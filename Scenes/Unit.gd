@@ -404,10 +404,14 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 
 
 func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
-	_do_attack_damage_internal(target, damage_base, crit_ratio, false)
+	var attack_type: AttackType.enm = get_attack_type()
+	_do_attack_damage_internal(target, damage_base, crit_ratio, false, attack_type)
 
 
-func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: float, is_main_target: bool):
+func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float, attack_type: AttackType.enm):
+	_do_attack_damage_internal(target, damage_base, crit_ratio, false, attack_type)
+
+func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: float, is_main_target: bool, attack_type: AttackType.enm):
 	var armor_mod: float = target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
@@ -420,7 +424,6 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 
 	var damage: float = damage_base * armor_mod * received_mod * element_mod
 
-	var attack_type: AttackType.enm = get_attack_type()
 	var deals_no_damage_to_immune: bool = AttackType.deals_no_damage_to_immune(attack_type)
 
 	if target.is_immune() && deals_no_damage_to_immune:
