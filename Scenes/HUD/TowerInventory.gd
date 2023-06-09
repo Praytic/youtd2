@@ -47,13 +47,12 @@ func on_tower_items_changed():
 	for item in items:
 		var item_button: ItemButton = _create_item_button(item)
 		_button_container.add_child(item_button)
+		item_button.get_button().button_down.connect(_on_item_button_pressed.bind(item_button))
 
 
 func _create_item_button(item: Item) -> ItemButton:
 	var item_button = load("res://Scenes/HUD/Buttons/ItemButton.tscn").instantiate() 
 	item_button.set_item(item)
-	item_button.button_down.connect(_on_item_button_pressed.bind(item_button))
-
 	return item_button
 
 
