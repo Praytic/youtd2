@@ -17,16 +17,9 @@ extends TextureButton
 @onready var rare_unit_button_hover_texture = preload("res://Resources/Textures/UI/rare_unit_button_hover.tres")
 @onready var unique_unit_button_hover_texture = preload("res://Resources/Textures/UI/unique_unit_button_hover.tres")
 
-@export var unit_icon: Texture2D : set = set_unit_icon
-@export var rarity: String : set = set_rarity
-@export var count: int: set = set_count
-
-
-func _ready():
-	if unit_icon == null:
-		_icon_rect.texture = _fallback_icon
-	else:
-		_icon_rect.texture = unit_icon
+var unit_icon: Texture2D = _fallback_icon : set = set_unit_icon
+var rarity: String = "common" : set = set_rarity
+var count: int = 0 : set = set_count
 
 
 func _process(delta):

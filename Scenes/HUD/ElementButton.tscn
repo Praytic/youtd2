@@ -1,14 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://yo1kplv8bkpj"]
 
-[ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="1_hdyvj"]
+[ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="1_akwqq"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementGroupButton.gd" id="2_1bmmr"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_42c2n"]
-resource_local_to_scene = true
-atlas = ExtResource("1_hdyvj")
-region = Rect2(448, 2.08165e-12, 64, 64)
+[sub_resource type="AtlasTexture" id="AtlasTexture_c85vh"]
+atlas = ExtResource("1_akwqq")
+region = Rect2(448, 0, 64, 64)
 
 [node name="ElementButton" type="TextureButton"]
-texture_normal = SubResource("AtlasTexture_42c2n")
+texture_normal = SubResource("AtlasTexture_c85vh")
 script = ExtResource("2_1bmmr")
 element = 7

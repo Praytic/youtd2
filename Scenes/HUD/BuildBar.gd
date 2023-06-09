@@ -27,12 +27,14 @@ func _ready():
 		var is_released: bool = TowerProperties.is_released(tower_id)
 		if !is_released:
 			continue
-
-		var tower_button = _create_TowerButton(tower_id)
-		if tower_button:
-			_tower_buttons[tower_id] = tower_button
-			tower_button.hide()
-			add_child(tower_button)
+	
+		var tower_button = load("res://Scenes/HUD/Buttons/TowerButton.tscn")
+		tower_button = tower_button.instantiate() 
+		tower_button.set_tower(tower_id)
+		
+		_tower_buttons[tower_id] = tower_button
+		tower_button.hide()
+		add_child(tower_button)
 	
 	for tower_id in _tower_buttons.keys():
 		available_tower_buttons.append(tower_id)
@@ -72,12 +74,6 @@ func set_element(element: Element.enm):
 	
 	for tower_id in available_towers_for_element:
 		_tower_buttons[tower_id].show()
-
-
-func _create_TowerButton(tower_id: int) -> TowerButton:
-	var tower_button = TowerButton.new()
-	tower_button.set_tower(tower_id)
-	return tower_button
 
 
 func _on_Tower_built(tower_id):

@@ -4,17 +4,19 @@ extends UnitButton
 const ICON_SIZE_M = 128
 const TIER_ICON_SIZE_M = 64
 
-var _tower_id: int : set = set_tower, get = get_tower
+var _tower_id: int : set = set_tower
 
 @onready var _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
 @onready var _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 
-@onready var _tier_icon = $TierContainer/TierIcon
+@onready var _tier_icon: TextureRect = $TierContainer/TierIcon
 
 
 func _ready():
 	if _tower_id != null:
-		set_tower(_tower_id)
+		_set_rarity_icon(_tower_id)
+		_set_tier_icon(_tower_id)
+		_set_unit_icon(_tower_id)
 
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
@@ -25,29 +27,25 @@ func _ready():
 	_on_wave_or_element_level_changed()
 
 
+func set_tower(tower_id: int):
+	_set_rarity_icon(_tower_id)
+	_set_tier_icon(_tower_id)
+	_set_unit_icon(_tower_id)
+
+
 func _on_wave_or_element_level_changed():
 	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id) || Config.ignore_requirements()
 	set_disabled(!can_build)
 
 
-func get_tower() -> int:
-	return _tower_id
-
-
-func set_tower(tower_id: int):
-	_set_rarity_icon(tower_id)
-	_set_tier_icon(tower_id)
-	_set_unit_icon(tower_id)
-
-
 func _set_rarity_icon(tower_id: int):
-	var tower_rarity = TowerProperties.get_rarity(_tower_id)
+	var tower_rarity = TowerProperties.get_rarity(tower_id)
 	set_rarity(tower_rarity)
 
 
 func _set_tier_icon(tower_id: int):
-	var tower_rarity = TowerProperties.get_rarity(_tower_id)
-	var tower_tier = TowerProperties.get_tier(_tower_id) - 1
+	var tower_rarity = TowerProperties.get_rarity_num(tower_id)
+	var tower_tier = TowerProperties.get_tier(tower_id) - 1
 	var tier_icon = AtlasTexture.new()
 	var icon_size: int
 	
