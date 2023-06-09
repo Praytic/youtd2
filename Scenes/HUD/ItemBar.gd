@@ -11,6 +11,7 @@ var _moved_item_button: ItemButton = null
 func add_item_button(item: Item):
 	var item_button: ItemButton = _create_ItemButton(item)
 	add_child(item_button)
+	item_button.get_button().button_down.connect(_on_item_button_pressed.bind(item_button))
 	_item_buttons[item] = item_button
 
 
@@ -54,7 +55,6 @@ func _create_ItemButton(item: Item) -> ItemButton:
 #	NOTE: attach item to button while item is stored in item
 #	bar.
 	item_button.add_child(item)
-	item_button.button_down.connect(_on_item_button_pressed.bind(item_button))
 	return item_button
 
 
@@ -67,4 +67,4 @@ func _on_item_button_pressed(item_button: ItemButton):
 	ItemMovement.start_move_from_itembar(item)
 	_moved_item_button = item_button
 	item_button.set_disabled(true)
-	item_button.set_pressed_no_signal(true)
+	item_button.get_button().set_pressed_no_signal(true)

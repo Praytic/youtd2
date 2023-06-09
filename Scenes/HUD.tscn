@@ -32,11 +32,13 @@ offset_top = 1.0
 offset_bottom = 1.0
 
 [node name="TooltipHeader" parent="." instance=ExtResource("1")]
-visible = false
-offset_left = 14.0
-offset_top = 88.0
-offset_right = 14.0
-offset_bottom = 88.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -188.0
+offset_right = -188.0
+grow_horizontal = 2
 scale = Vector2(0.567118, 0.567118)
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
@@ -123,12 +125,11 @@ offset_right = -920.0
 offset_bottom = -930.0
 
 [node name="SelectedUnitInfo" parent="." instance=ExtResource("15_yuxef")]
-visible = false
 layout_mode = 1
-offset_left = 1484.0
-offset_top = 471.0
-offset_right = -436.0
-offset_bottom = -609.0
+offset_left = 777.0
+offset_top = 59.0
+offset_right = -1143.0
+offset_bottom = -1021.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1

@@ -62,3 +62,7 @@ func set_count(value: int):
 func set_unit_icon(value):
 	_icon_rect.texture = value
 	_unit_icon = value
+
+
+func get_button():
+	return _unit_button
