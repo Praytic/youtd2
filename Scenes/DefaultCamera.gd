@@ -54,7 +54,7 @@ func _zoom(event):
 	if event is InputEventMagnifyGesture:
 		var zoom_amount = -(event.factor - 1.0) * zoom_sensitivity
 		new_zoom = zoom.y + zoom_amount
-	elif event is InputEventMouseButton:
+	elif event is InputEventMouseButton && Config.change_camera_zoom_using_touch():
 #		Make zoom change slower as the camera gets more zoomed in
 		var slow_down_multiplier = zoom.x / minimum_zoom_out
 		var zoom_change = mousewheel_zoom_speed * slow_down_multiplier
