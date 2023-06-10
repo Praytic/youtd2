@@ -451,6 +451,12 @@ func _attack_target(target: Unit):
 	var projectile: Projectile = _make_projectile(self, target)
 	projectile.set_tower_crit_count(crit_count)
 
+	if _attack_style == AttackStyle.BOUNCE:
+		var damage: float = get_current_attack_damage_with_bonus()
+
+		projectile.user_real = damage
+		projectile.user_int = 0
+
 	var sfx_path: String
 	match get_element():
 		Element.enm.NATURE: sfx_path = "res://Assets/SFX/swosh-08.mp3"
@@ -630,16 +636,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 				break
 
 
-func _on_projectile_target_hit_bounce(projectile: Projectile, target: Unit):
-	var damage: float = get_current_attack_damage_with_bonus()
-
-	projectile.user_real = damage
-	projectile.user_int = 0
-
-	_on_projectile_bounce_in_progress(projectile, target)
-
-
-func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: Unit):
+func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Unit):
 	var current_damage: float = projectile.user_real
 	var current_bounce_index: int = projectile.user_int
 
@@ -669,7 +666,6 @@ func _on_projectile_bounce_in_progress(projectile: Projectile, current_target: U
 		return
 
 	var next_projectile: Projectile = _make_projectile(current_target, next_target)
-	next_projectile.set_event_on_target_hit(_on_projectile_bounce_in_progress)
 	next_projectile.user_real = next_damage
 	next_projectile.user_int = current_bounce_index + 1
 #	NOTE: save crit count in projectile so that it can be
