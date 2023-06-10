@@ -104,6 +104,10 @@ func get_cooldown() -> float:
 	return cooldown
 
 
+func get_manacost() -> int:
+	return mana_cost
+
+
 func is_item_autocast() -> bool:
 	return _is_item_autocast
 

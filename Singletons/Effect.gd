@@ -74,6 +74,11 @@ func create_scaled(effect_path: String, x: float, y: float, z: float, _mystery2:
 	return create_animated(effect_path, x, y, z, _mystery2)
 
 
+# TODO: implement color
+func create_colored(effect_path: String, x: float, y: float, z: float, _mystery2: float, _scale: float, _color: Color):
+	return create_animated(effect_path, x, y, z, _mystery2)
+
+
 func scale_effect(effect_id: int, scale: float):
 	if !_effect_map.has(effect_id):
 		return

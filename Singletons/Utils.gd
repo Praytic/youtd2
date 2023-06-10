@@ -4,6 +4,12 @@ extends Node
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+
+# TODO: implement. Should return hours i guess?
+func get_time_of_day() -> float:
+	return 0.0
+
+
 # NOTE: Returns null if callable doesn't have a valid object
 # or if the object is not a Node type.
 func get_callable_node(callable: Callable) -> Node:

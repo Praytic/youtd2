@@ -55,6 +55,11 @@ func target_cast_from_caster(caster: Unit, target: Unit, damage_ratio: float, cr
 	point_cast_from_caster_on_point(caster, target.position.x, target.position.y, damage_ratio, crit_ratio)
 
 
+# TODO: what is the difference between point_cast_from_target_on_target() and target_cast_from_caster()?
+func point_cast_from_target_on_target(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
+	target_cast_from_caster(caster, target, damage_ratio, crit_ratio)
+
+
 # TODO: implement. Probably changes the height from which
 # the cast visual originates.
 func set_source_height(_height: float):

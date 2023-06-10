@@ -30,7 +30,8 @@ signal unselected()
 enum State {
 	LIFE,
 	MAX_LIFE,
-	MANA
+	MANA,
+	MAX_MANA,
 }
 
 enum DamageSource {
@@ -563,6 +564,7 @@ static func get_unit_state(unit: Unit, state: Unit.State) -> float:
 		Unit.State.LIFE: return unit._health
 		Unit.State.MAX_LIFE: return unit.get_overall_health()
 		Unit.State.MANA: return unit._mana
+		Unit.State.MAX_MANA: return unit.get_overall_mana()
 
 	return 0.0
 
@@ -572,6 +574,7 @@ static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 		Unit.State.LIFE: unit._set_health(value)
 		Unit.State.MAX_LIFE: return
 		Unit.State.MANA: unit._set_mana(value)
+		Unit.State.MAX_MANA: return
 
 
 #########################
