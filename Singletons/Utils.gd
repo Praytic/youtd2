@@ -274,7 +274,7 @@ func format_percent(x: float, digits: int) -> String:
 	var x_percent: float = x * 100
 	var sign_string: String
 	if x >= 0:
-		sign_string = "+"
+		sign_string = ""
 	else:
 		sign_string = "-"
 	var out: String = "%s%s%%" % [sign_string, String.num(x_percent, digits)]
