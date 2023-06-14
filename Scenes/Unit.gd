@@ -45,6 +45,7 @@ const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 # TODO: replace this placeholder constant with real value.
 const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
+const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
 var _sprite_area: Area2D = null
 var _sprite_dimensions: Vector2 = Vector2.ZERO
@@ -120,10 +121,10 @@ var _mod_value_map: Dictionary = {
 	Modification.Type.MOD_ATTACKSPEED: 1.0,
 	Modification.Type.MOD_DPS_ADD: 0.0,
 
-	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: 0.0,
-	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: 0.0,
-	Modification.Type.MOD_ITEM_CHANCE_ON_DEATH: 0.0,
-	Modification.Type.MOD_ITEM_QUALITY_ON_DEATH: 0.0,
+	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: 1.0,
+	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: 1.0,
+	Modification.Type.MOD_ITEM_CHANCE_ON_DEATH: 1.0,
+	Modification.Type.MOD_ITEM_QUALITY_ON_DEATH: 1.0,
 
 	Modification.Type.MOD_ARMOR: 0.0,
 	Modification.Type.MOD_ARMOR_PERC: 1.0,
@@ -812,7 +813,7 @@ func _killed_by_unit(caster: Unit):
 
 	var caster_item_chance: float = caster.get_item_drop_ratio()
 	var target_item_chance: float = get_item_drop_ratio_on_death()
-	var item_chance: float = caster_item_chance + target_item_chance
+	var item_chance: float = BASE_ITEM_DROP_CHANCE * caster_item_chance * target_item_chance
 
 	var item_dropped: bool = Utils.rand_chance(item_chance) || Config.always_drop_items()
 	var creep: Creep = self as Creep

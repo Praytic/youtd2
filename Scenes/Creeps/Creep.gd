@@ -116,50 +116,21 @@ func reach_portal() -> float:
 
 
 func drop_item(caster: Tower, _mystery_bool: bool):
-	var caster_item_quality: float = caster.get_item_quality_ratio()
-	var target_item_quality: float = get_item_quality_ratio_on_death()
-	var item_quality: float = clampf(caster_item_quality + target_item_quality, 0.0, 1.0)
+	var random_item: int = ItemDropCalc.get_random_item(caster, self)
 
-# 	TODO: figure out actual distribution
-	var rarity: Rarity.enm
-	if item_quality >= 0.75:
-		rarity = Rarity.enm.UNIQUE
-	elif item_quality >= 0.50:
-		rarity = Rarity.enm.RARE
-	elif item_quality >= 0.25:
-		rarity = Rarity.enm.UNCOMMON
-	else:
-		rarity = Rarity.enm.COMMON
-
-	var rarity_string: String = Rarity.convert_to_string(rarity)
-
-	var item_id_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.RARITY, rarity_string)
+	if random_item == 0:
+		return
 
 #	NOTE: some items are disabled because their scripts are
 #	incomplete or broken.
-	for item_id in Item.disabled_item_list:
-		item_id_list.erase(item_id)
+	var item_is_disabled: bool = Item.disabled_item_list.has(random_item)
 
-#	NOTE: Filter out items that have a script. This should
-#	be removed once all item scripts are implemented.
-	var items_with_script: Array = []
-
-	for item_id in item_id_list:
-		var script_path: String = Item.get_item_script_path(item_id)
-		var script_exists: bool = ResourceLoader.exists(script_path)
-
-		if script_exists:
-			items_with_script.append(item_id)
-
-	if items_with_script.is_empty():
-		push_error("No items with script found for rarity: ", rarity_string)
+	if item_is_disabled:
+		print_verbose("Will skip dropping item because it's disabled. Item id = ", random_item)
 
 		return
 
-	var random_index: int = randi_range(0, items_with_script.size() - 1)
-	var item_id: int = items_with_script[random_index]
-
-	Item.create(caster.getOwner(), item_id, position)
+	Item.create(caster.getOwner(), random_item, position)
 
 
 #########################
