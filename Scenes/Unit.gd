@@ -391,11 +391,6 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 	var received_mod: float = target.get_prop_spell_damage_received()
 	var damage_total: float = damage_base * dealt_mod * received_mod * crit_ratio
 
-#	TODO: didn't actually confirm whether immune = doesn't
-#	receive spell damage. Confirm.
-	if target.is_immune():
-		damage_total = 0
-
 	return damage_total
 
 
