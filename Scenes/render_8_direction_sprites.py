@@ -28,6 +28,8 @@
 import bpy
 import os
 import math
+import mathutils
+
 
 def render8directions_selected_objects(path):
     # path fixing
@@ -43,39 +45,48 @@ def render8directions_selected_objects(path):
 
     s.render.resolution_x = 256
     s.render.resolution_y = 256
-
     
-    # I left this in as in some of my models, I needed to translate the "root" object but
-    # the animations were on the armature which I selected.
-    # 
-    # obRoot = bpy.context.scene.objects["root"]
+    scn = bpy.context.scene
 
+    # Calculate the center of the bounding box of the selected objects
+    bounding_box_center = mathutils.Vector((0, 0, 0))
+    for o in selected_list:
+        o_bbox_center = sum((mathutils.Vector(b) for b in o.bound_box), mathutils.Vector()) / 8
+        bounding_box_center += o.matrix_world @ o_bbox_center
+    bounding_box_center /= len(selected_list)
+    
+    # Add or use existing camera
+    if "Camera" in bpy.data.objects:
+        cam = bpy.data.objects["Camera"]
+    else:
+        cam_data = bpy.data.cameras.new('Camera')
+        cam = bpy.data.objects.new('Camera', cam_data)
+        bpy.context.collection.objects.link(cam)
+    
+    # Set camera distance from the center and its height
+    cam_distance = 10
+    cam_height = 5
 
     # loop all initial selected objects (which will likely just be one object.. I haven't tried setting up multiple yet)
     for o in selected_list:
-        
+
         # select the object
         bpy.context.scene.objects[o.name].select_set(True)
 
-        scn = bpy.context.scene
-        
         # loop through the actions
         for a in bpy.data.actions:
             # assign the action
             bpy.context.active_object.animation_data.action = bpy.data.actions.get(a.name)
-            
+
             # dynamically set the last frame to render based on action
             scn.frame_end = int(bpy.context.active_object.animation_data.action.frame_range[1])
- 
+
             # create folder for animation
             action_folder = os.path.join(path, a.name)
             if not os.path.exists(action_folder):
                 os.makedirs(action_folder)
-            
-            # loop through all 8 directions NOTE: these
-            # direcitons are based on convention for
-            # isometric world, where "North" is in
-            # "up-and-right" direction.
+
+            # loop through all 8 directions
             for angle in range(0, 360, 45):
                 if angle == 0:
                     cardinalDirection = "S"
@@ -93,54 +104,46 @@ def render8directions_selected_objects(path):
                     cardinalDirection = "W"
                 if angle == 315:
                     cardinalDirection = "SW"
-                    
-                # set which angles we want to render.
-                if (
-                    angle == 0
-                    or angle == 45
-                    or angle == 90
-                    or angle == 135
-                    or angle == 180
-                    or angle == 225
-                    or angle == 270
-                    or angle == 315
-                    ):
-                    
-                    # create folder for specific angle
-                    animation_folder = os.path.join(action_folder, cardinalDirection)
-                    if not os.path.exists(animation_folder):
-                        os.makedirs(animation_folder)
-                    
-                    # rotate the model for the new angle
-                    bpy.context.active_object.rotation_euler[2] = math.radians(angle)
-                    
-                    # the below is for the use case where the root needed to be translated.
-#                        obRoot.rotation_euler[2] = math.radians(angle)
-                    
-                    
-                    # loop through and render frames.  Can set how "often" it renders.
-                    # Every frame is likely not needed.  Currently set to 2 (every other).
-                    for i in range(s.frame_start,s.frame_end,1):
-                        s.frame_current = i
-
-                        s.render.filepath = (
-                                            animation_folder
-                                            + "\\"
-                                            + str(a.name)
-                                            + "_"
-                                            + str(cardinalDirection)
-                                            + "_"
-                                            + str(s.frame_current).zfill(3)
-                                            )
-                        bpy.ops.render.render( #{'dict': "override"},
-                                              #'INVOKE_DEFAULT',  
-                                              False,            # undo support
-                                              animation=False, 
-                                              write_still=True
-                                             ) 
-                                        
+                
                 # restore original rotation
                 bpy.context.active_object.rotation_euler[2] = math.radians(0)
+                
+                # Set camera position in polar coordinates
+                cam_x = bounding_box_center.x + cam_distance * math.cos(math.radians(angle))
+                cam_y = bounding_box_center.y + cam_distance * math.sin(math.radians(angle))
+                cam.location = mathutils.Vector((cam_x, cam_y, cam_height))
+
+                # Set camera to point to the center of the bounding box
+                direction = bounding_box_center - cam.location
+                rot_quat = direction.to_track_quat('-Z', 'Y')
+                cam.rotation_euler = rot_quat.to_euler()
+
+                 # create folder for specific angle
+                animation_folder = os.path.join(action_folder, cardinalDirection)
+                if not os.path.exists(animation_folder):
+                    os.makedirs(animation_folder)
+            
+                                # loop through and render frames.  Can set how "often" it renders.
+                # Every frame is likely not needed.  Currently set to 2 (every other).
+                for i in range(s.frame_start,s.frame_end,1):
+                    s.frame_current = i
+
+                    s.render.filepath = (
+                                        animation_folder
+                                        + "\\"
+                                        + str(a.name)
+                                        + "_"
+                                        + str(cardinalDirection)
+                                        + "_"
+                                        + str(s.frame_current).zfill(3)
+                                        )
+                    bpy.ops.render.render( #{'dict': "override"},
+                                          #'INVOKE_DEFAULT',  
+                                          False,            # undo support
+                                          animation=False, 
+                                          write_still=True
+                                         ) 
+
 
 
 def get_export_path() -> str:
