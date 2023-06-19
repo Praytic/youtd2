@@ -107,7 +107,7 @@ func _next_internal(next_order: NextOrder) -> Unit:
 			NextOrder.FRONT:
 				next_unit = _next_list.pop_front()
 			NextOrder.RANDOM:
-				next_unit = Utils.random_pick(_next_list)
+				next_unit = _next_list.pick_random()
 
 		_already_returned_list.append(next_unit)
 
