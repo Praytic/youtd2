@@ -86,8 +86,7 @@ func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
 		if item_list.is_empty():
 			return 0
 
-		var random_index: int = randi_range(0, item_list.size() - 1)
-		var random_potion_item: int = item_list[random_index]
+		var random_potion_item: int = Utils.random_pick(item_list)
 
 		return random_potion_item
 	else:
@@ -122,8 +121,7 @@ func _pick_regular_item_recursive(tower_level: int, rarity: int) -> int:
 	var items_are_available: bool = !available_item_list.is_empty()
 
 	if items_are_available:
-		var random_index: int = randi_range(0, available_item_list.size() - 1)
-		var random_item: int = available_item_list[random_index]
+		var random_item: int = Utils.random_pick(available_item_list)
 
 		return random_item
 	else:

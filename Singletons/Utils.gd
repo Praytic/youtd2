@@ -53,6 +53,17 @@ func get_ratio(a: float, b: float) -> float:
 		return 0.0
 
 
+# Picks a random element from an array
+func random_pick(array: Array) -> Variant:
+	if array.is_empty():
+		return null
+
+	var random_index: int = randi_range(0, array.size() - 1)
+	var random_element: int = array[random_index]
+
+	return random_element
+
+
 # Accepts a map of elements to weights and returns a random
 # element. For example:
 # { "a": 10, "b": 20, "c": 70 }
@@ -228,7 +239,7 @@ func shuffle_list(list) -> Array:
 
 	while !index_list.is_empty():
 		var random_index_of_index: int = randi_range(0, index_list.size() - 1)
-		var random_index: int = index_list.pop_at(random_index_of_index)
+		var random_index: int = Utils.random_pick(index_list)
 		sorted.append(list[random_index])
 
 	return sorted
