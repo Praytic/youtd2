@@ -121,15 +121,6 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 	if random_item == 0:
 		return
 
-#	NOTE: some items are disabled because their scripts are
-#	incomplete or broken.
-	var item_is_disabled: bool = Item.disabled_item_list.has(random_item)
-
-	if item_is_disabled:
-		print_verbose("Will skip dropping item because it's disabled. Item id = ", random_item)
-
-		return
-
 	Item.create(caster.getOwner(), random_item, position)
 
 

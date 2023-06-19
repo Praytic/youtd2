@@ -114,6 +114,11 @@ func _pick_regular_item_recursive(tower_level: int, rarity: int) -> int:
 		if level_is_ok:
 			available_item_list.append(item)
 
+#	NOTE: some items are disabled because their scripts are
+#	incomplete or broken.
+	for disabled_item in Item.disabled_item_list:
+		available_item_list.erase(disabled_item)
+
 	var items_are_available: bool = !available_item_list.is_empty()
 
 	if items_are_available:
