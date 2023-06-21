@@ -87,23 +87,15 @@ def render8directions_selected_objects(path):
                 os.makedirs(action_folder)
 
             # loop through all 8 directions
-            for angle in range(0, 360, 45):
+            for angle in range(0, 360, 90):
                 if angle == 0:
                     cardinalDirection = "S"
-                if angle == 45:
-                    cardinalDirection = "SE"
                 if angle == 90:
                     cardinalDirection = "E"
-                if angle == 135:
-                    cardinalDirection = "NE"
                 if angle == 180:
                     cardinalDirection = "N"
-                if angle == 225:
-                    cardinalDirection = "NW"
                 if angle == 270:
                     cardinalDirection = "W"
-                if angle == 315:
-                    cardinalDirection = "SW"
                 
                 # restore original rotation
                 bpy.context.active_object.rotation_euler[2] = math.radians(0)
@@ -125,7 +117,7 @@ def render8directions_selected_objects(path):
             
                                 # loop through and render frames.  Can set how "often" it renders.
                 # Every frame is likely not needed.  Currently set to 2 (every other).
-                for i in range(s.frame_start,s.frame_end,1):
+                for i in range(s.frame_start,s.frame_end,2):
                     s.frame_current = i
 
                     s.render.filepath = (
