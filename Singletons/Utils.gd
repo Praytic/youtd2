@@ -4,6 +4,12 @@ extends Node
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+
+# TODO: implement. Should return hours i guess?
+func get_time_of_day() -> float:
+	return 0.0
+
+
 # NOTE: Returns null if callable doesn't have a valid object
 # or if the object is not a Node type.
 func get_callable_node(callable: Callable) -> Node:
@@ -222,7 +228,7 @@ func shuffle_list(list) -> Array:
 
 	while !index_list.is_empty():
 		var random_index_of_index: int = randi_range(0, index_list.size() - 1)
-		var random_index: int = index_list.pop_at(random_index_of_index)
+		var random_index: int = index_list.pick_random()
 		sorted.append(list[random_index])
 
 	return sorted
@@ -268,7 +274,7 @@ func format_percent(x: float, digits: int) -> String:
 	var x_percent: float = x * 100
 	var sign_string: String
 	if x >= 0:
-		sign_string = "+"
+		sign_string = ""
 	else:
 		sign_string = "-"
 	var out: String = "%s%s%%" % [sign_string, String.num(x_percent, digits)]

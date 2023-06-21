@@ -3,8 +3,6 @@ extends Node
 
 var preloaded_towers: Dictionary
 const towers_dir: String = "res://Scenes/Towers/Instances"
-const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
-const PRINT_SCENE_NOT_FOUND_ERROR: bool = false
 var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Instances/PlaceholderTower.tscn")
 # var tower_props: Dictionary
 
@@ -93,8 +91,7 @@ func _get_tower_script_path(id: int) -> String:
 	if script_exists:
 		return path
 	else:
-		if PRINT_SCRIPT_NOT_FOUND_ERROR:
-			print_debug("No script found for id:", id, ". Tried at path:", path)
+		push_error("No script found for id:", id, ". Tried at path:", path)
 
 		return "res://Scenes/Towers/Tower.gd"
 
@@ -113,8 +110,7 @@ func _get_tower_scene(id: int) -> PackedScene:
 
 		return scene
 	else:
-		if PRINT_SCENE_NOT_FOUND_ERROR:
-			print_debug("No scene found for id:", id, ". Tried at path:", scene_path)
+		push_error("No scene found for id:", id, ". Tried at path:", scene_path)
 
 		return _fallback_scene
 

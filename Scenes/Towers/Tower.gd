@@ -385,6 +385,10 @@ func _set_target_count(count: int):
 	_target_count_max = count
 
 
+func get_target_count() -> int:
+	return _target_count_max
+
+
 func _try_to_attack() -> bool:
 	_update_target_list()
 

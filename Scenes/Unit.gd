@@ -30,7 +30,8 @@ signal unselected()
 enum State {
 	LIFE,
 	MAX_LIFE,
-	MANA
+	MANA,
+	MAX_MANA,
 }
 
 enum DamageSource {
@@ -44,6 +45,7 @@ const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 # TODO: replace this placeholder constant with real value.
 const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
+const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
 var _sprite_area: Area2D = null
 var _sprite_dimensions: Vector2 = Vector2.ZERO
@@ -119,10 +121,10 @@ var _mod_value_map: Dictionary = {
 	Modification.Type.MOD_ATTACKSPEED: 1.0,
 	Modification.Type.MOD_DPS_ADD: 0.0,
 
-	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: 0.0,
-	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: 0.0,
-	Modification.Type.MOD_ITEM_CHANCE_ON_DEATH: 0.0,
-	Modification.Type.MOD_ITEM_QUALITY_ON_DEATH: 0.0,
+	Modification.Type.MOD_ITEM_CHANCE_ON_KILL: 1.0,
+	Modification.Type.MOD_ITEM_QUALITY_ON_KILL: 1.0,
+	Modification.Type.MOD_ITEM_CHANCE_ON_DEATH: 1.0,
+	Modification.Type.MOD_ITEM_QUALITY_ON_DEATH: 1.0,
 
 	Modification.Type.MOD_ARMOR: 0.0,
 	Modification.Type.MOD_ARMOR_PERC: 1.0,
@@ -389,11 +391,6 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 	var received_mod: float = target.get_prop_spell_damage_received()
 	var damage_total: float = damage_base * dealt_mod * received_mod * crit_ratio
 
-#	TODO: didn't actually confirm whether immune = doesn't
-#	receive spell damage. Confirm.
-	if target.is_immune():
-		damage_total = 0
-
 	return damage_total
 
 
@@ -563,6 +560,7 @@ static func get_unit_state(unit: Unit, state: Unit.State) -> float:
 		Unit.State.LIFE: return unit._health
 		Unit.State.MAX_LIFE: return unit.get_overall_health()
 		Unit.State.MANA: return unit._mana
+		Unit.State.MAX_MANA: return unit.get_overall_mana()
 
 	return 0.0
 
@@ -572,6 +570,7 @@ static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 		Unit.State.LIFE: unit._set_health(value)
 		Unit.State.MAX_LIFE: return
 		Unit.State.MANA: unit._set_mana(value)
+		Unit.State.MAX_MANA: return
 
 
 #########################
@@ -809,7 +808,7 @@ func _killed_by_unit(caster: Unit):
 
 	var caster_item_chance: float = caster.get_item_drop_ratio()
 	var target_item_chance: float = get_item_drop_ratio_on_death()
-	var item_chance: float = caster_item_chance + target_item_chance
+	var item_chance: float = BASE_ITEM_DROP_CHANCE * caster_item_chance * target_item_chance
 
 	var item_dropped: bool = Utils.rand_chance(item_chance) || Config.always_drop_items()
 	var creep: Creep = self as Creep

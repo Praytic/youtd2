@@ -50,6 +50,12 @@ enum Type {
 # used for regular autocasts that cast automatically.
 var caster_art: String = ""
 var cooldown: float = 0.1
+# NOTE: in original engine "num_buffs_before_idle"
+# determines how many times autocast is triggered before it
+# checks whether tower is still in combat. This is needed
+# because in original engine checking if tower is still in
+# combat takes time. In godot engine, combat check is
+# instant so it looks like this value isn't needed.
 var num_buffs_before_idle: int = 0
 var is_extended: bool = false
 var autocast_type: Autocast.Type = Type.AC_TYPE_OFFENSIVE_UNIT
@@ -102,6 +108,10 @@ func set_caster(caster: Unit):
 
 func get_cooldown() -> float:
 	return cooldown
+
+
+func get_manacost() -> int:
+	return mana_cost
 
 
 func is_item_autocast() -> bool:
@@ -185,7 +195,7 @@ func _on_immediate_timer_timeout():
 func _do_cast(target: Unit):
 	_caster.subtract_mana(mana_cost, true)
 	
-	if handler.is_null():
+	if !handler.is_null():
 		var autocast_event = Event.new(target)
 		handler.call(autocast_event)
 	elif buff_type != null:

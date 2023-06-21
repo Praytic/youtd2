@@ -70,3 +70,8 @@ func set_event_on_cleanup(handler: Callable):
 # func on_interpolation_finished(projectile: Projectile, target: Unit)
 func set_event_on_interpolation_finished(handler: Callable):
 	_interpolation_finished_handler = handler
+
+
+# TODO: implement
+func set_acceleration(_value: float):
+	pass
