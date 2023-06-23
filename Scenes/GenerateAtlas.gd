@@ -5,28 +5,15 @@ extends MainLoop
 # script and combine them into an atlas image.
 
 # Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.0-stable_win64_console.exe" -s ./Scenes/GenerateAtlas.gd --path="C:/Users/kvely/blender/bird/script-export/rigAction" --name="bird"
+# "C:\Program Files\Godot\Godot_v4.0-stable_win64_console.exe" -s ./Scenes/GenerateAtlas.gd
 
-const PATH_ARG: String = "path"
-const NAME_ARG: String = "name"
-
+const CELL_WIDTH = 512
+const COLUMNS = 4 
+const ANIMATIONS = ["floating", "slow_run", "run", "death", "stunned"]
 
 func _initialize():
 	print("GenerateAtlas.gd begin")
-
-	var args_map: Dictionary = parse_args()
-
-	var args_ok: bool = check_args(args_map)
-	if !args_ok:
-		print("GenerateAtlas.gd error - args not okay")
-
-		return
-
-	var path: String = args_map[PATH_ARG]
-	var name: String = args_map[NAME_ARG]
-
-	run(path, name)
-
+	run()
 	print("GenerateAtlas.gd end")
 
 
@@ -34,55 +21,27 @@ func _initialize():
 # quit from MainLoop.
 func _process(_delta: float):
 	var end_main_loop: bool = true
-
 	return end_main_loop
 
 
-func parse_args() -> Dictionary:
-	var out: Dictionary = {}
+func run():
+	for dir in ANIMATIONS:
+		var direction_dirs: PackedStringArray = DirAccess.get_directories_at(dir)
 
-	var cmdline_args: Array = OS.get_cmdline_args()
-
-	for argument in cmdline_args:
-		if argument.find("=") > -1:
-			var key_value: PackedStringArray = argument.split("=")
-			var key: String = key_value[0].lstrip("--")
-			var value: String = key_value[1]
-			out[key] = value
+		for direction_dirname in direction_dirs:
+			combine_tiles(dir, direction_dirname)
 
 
-	return out
-
-
-func check_args(args_map: Dictionary) -> bool:
-	var ok: bool = true
-
-	for arg_key in [PATH_ARG, NAME_ARG]:
-		if !args_map.has(arg_key):
-			print("Argument is not defined: ", arg_key)
-
-			ok = false
-
-	return ok
-
-
-func run(root_path: String, name: String):
-	var direction_dirs: PackedStringArray = DirAccess.get_directories_at(root_path)
-
-	for direction_dirname in direction_dirs:
-		combine_tiles(root_path, direction_dirname, name)
-
-
-func combine_tiles(root_path: String, direction_dirname: String, name: String):
-	var direction_dir_path: String = "%s/%s" % [root_path, direction_dirname]
+func combine_tiles(animation: String, direction_dirname: String):
+	var direction_dir_path: String = "%s/%s" % [animation, direction_dirname]
 	var file_list: PackedStringArray = DirAccess.get_files_at(direction_dir_path)
 	
-	var column_count: int = 4
-	var row_count: int = int(ceil(float(file_list.size()) / column_count))
-	var cell_width: int = 256
+	print("Processing [%s] frames for [%s] animation." % [file_list.size(), animation])
+	
+	var row_count: int = int(ceil(float(file_list.size()) / COLUMNS))
 
-	var atlas_width: float = column_count * cell_width
-	var atlas_height: float = row_count * cell_width
+	var atlas_width: float = COLUMNS * CELL_WIDTH
+	var atlas_height: float = row_count * CELL_WIDTH
 
 	var atlas_image: = Image.create(atlas_width, atlas_height, false, Image.FORMAT_RGBA8)
 
@@ -92,15 +51,15 @@ func combine_tiles(root_path: String, direction_dirname: String, name: String):
 		var image: Image = Image.load_from_file(file_path)
 		var buffer: PackedByteArray = image.save_png_to_buffer()
 
-		for x in range(0, 256):
-			for y in range(0, 256):
-				var atlas_x = cell_width * (i % column_count) + x
-				var atlas_y = cell_width * (i / column_count) + y
+		for x in range(0, CELL_WIDTH):
+			for y in range(0, CELL_WIDTH):
+				var atlas_x = CELL_WIDTH * (i % COLUMNS) + x
+				var atlas_y = CELL_WIDTH * (i / COLUMNS) + y
 
 				var pixel: Color = image.get_pixel(x, y)
 				atlas_image.set_pixel(atlas_x, atlas_y, pixel)
 
-	var atlas_filename: String = "%s_%s.png" % [name, direction_dirname]
+	var atlas_filename: String = "%s_%s.png" % [animation, direction_dirname]
 	var atlas_folder: String = "res://generated-atlases"
 	DirAccess.make_dir_absolute(atlas_folder)
 	var atlas_path: String = "%s/%s" % [atlas_folder, atlas_filename]
