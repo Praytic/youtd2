@@ -123,6 +123,12 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 
 	Item.create(caster.getOwner(), random_item, position)
 
+	var item_name: String = ItemProperties.get_item_name(random_item)
+	var item_rarity: Rarity.enm = ItemProperties.get_rarity_num(random_item)
+	var rarity_color: Color = Rarity.get_color(item_rarity)
+
+	caster.getOwner().display_floating_text_color(item_name, self, rarity_color, 2)
+
 
 #########################
 ###      Private      ###
