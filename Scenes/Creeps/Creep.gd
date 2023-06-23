@@ -121,7 +121,8 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 	if random_item == 0:
 		return
 
-	Item.create(caster.getOwner(), random_item, position)
+	var item: Item = Item.create(caster.getOwner(), random_item, position)
+	item.fly_to_stash(0.0)
 
 	var item_name: String = ItemProperties.get_item_name(random_item)
 	var item_rarity: Rarity.enm = ItemProperties.get_rarity_num(random_item)
