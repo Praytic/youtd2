@@ -5,10 +5,6 @@ extends Node
 # picks which item should be dropped. Some of the code has
 # been rewritten but the end behavior is the same.
 
-# NOTE: currently no item will be picked sometimes because
-# there's only one potion (oil), so only one rarity is
-# covered.
-
 # 	Values in this list translate to the following
 # 	probabilities.
 # 
@@ -23,9 +19,9 @@ var _rarity_probabilities: Array[float] = [
 	0.02
 ]
 
-# Quality threshold for different rarities of potions and
-# resource items. Doesn't affect regular items, those have
-# custom required levels assigned to each item.
+# Quality threshold for different rarities of potions.
+# Doesn't affect regular items, those have custom required
+# levels assigned to each item.
 var _quality_threshold: Array[int] = [
 	0,
 	6,
@@ -63,7 +59,7 @@ func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
 	var drop_consumable_items: bool = Utils.rand_chance(0.4)
 
 	if drop_consumable_items:
-#		Consumable items (potions/oils and resources)
+#		Oil items
 
 # 		Reduce rarity to match tower's level. For example,
 # 		if we initially picked "uncommon" rarity but tower
@@ -74,8 +70,6 @@ func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
 				break
 
 			rarity = rarity - 1
-
-#		TODO: include resource items in this as well
 
 #		Find all items which are oils and fall into selected
 #		rarity
