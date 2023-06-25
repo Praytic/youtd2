@@ -19,7 +19,7 @@ var _rarity_probabilities: Array[float] = [
 	0.02
 ]
 
-# Quality threshold for different rarities of potions.
+# Quality threshold for different rarities of oils.
 # Doesn't affect regular items, those have custom required
 # levels assigned to each item.
 var _quality_threshold: Array[int] = [
@@ -80,9 +80,9 @@ func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
 		if item_list.is_empty():
 			return 0
 
-		var random_potion_item: int = item_list.pick_random()
+		var random_oil_item: int = item_list.pick_random()
 
-		return random_potion_item
+		return random_oil_item
 	else:
 #		Regular items
 		var random_regular_item: int = _pick_regular_item_recursive(tower_level, rarity)
