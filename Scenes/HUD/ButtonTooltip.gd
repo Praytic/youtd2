@@ -171,14 +171,14 @@ func _get_item_text(item: Item) -> String:
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 
 	if !specials_text.is_empty():
-		text += " \n[color=YELLOW]Specials:[/color]\n"
+		text += " \n[color=YELLOW]Effects:[/color]\n"
 		text += "%s\n" % specials_text
 
 	if !extra_text.is_empty():
 		text += " \n%s\n" % extra_text
 
 	if is_oil:
-		text += " \n[color=ORANGE]Oil items are lost on use.[/color]"
+		text += " \n[color=ORANGE]Use oil on a tower to alter it permanently. The effects stay when the tower is transformed or upgraded![/color]"
 	
 	return text
 
