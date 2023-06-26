@@ -25,7 +25,7 @@ value = 100.0
 show_percentage = false
 
 [node name="Sprite2D" parent="Visual" instance=ExtResource("2_ytxor")]
-animation = &"run_N"
+scale = Vector2(0.8, 0.8)
 sprite_sheets_dir = "res://Assets/Mobs/orc/normal"
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]

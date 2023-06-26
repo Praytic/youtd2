@@ -14,6 +14,7 @@ bg_color = Color(0.290196, 0.709804, 0, 1)
 [node name="Visual" type="Node2D" parent="." index="1"]
 
 [node name="HealthBar" type="ProgressBar" parent="Visual" index="0"]
+top_level = true
 offset_left = -50.0
 offset_top = -102.0
 offset_right = 50.0
@@ -24,7 +25,6 @@ value = 100.0
 show_percentage = false
 
 [node name="Sprite2D" parent="Visual" index="1" instance=ExtResource("2_ya828")]
-animation = &"run_N"
-frame = 2
-frame_progress = 0.279135
+scale = Vector2(0.7, 0.7)
+animation = &"slow_run_N"
 sprite_sheets_dir = "res://Assets/Mobs/orc/normal"
