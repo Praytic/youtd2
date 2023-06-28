@@ -13,7 +13,7 @@ extends GridContainer
 @onready var available_tower_buttons: Array
 
 
-var _current_element: Element.enm : set = set_element, get = get_element
+var _current_element: Element.enm = Element.enm.NONE : set = set_element, get = get_element
 var current_size: String
 
 
@@ -57,10 +57,6 @@ func get_element() -> Element.enm:
 	return _current_element
 
 func set_element(element: Element.enm):
-	if _current_element == Element.enm.NONE:
-		# Items menu bar was selected
-		return
-	
 	if _current_element != element:
 		_current_element = element
 	else:
