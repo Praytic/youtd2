@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=15 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
+[ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
@@ -55,6 +56,7 @@ theme_override_constants/margin_bottom = 300
 [node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer3"]
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
+theme = ExtResource("1_mod6x")
 
 [node name="TowerTooltip" parent="." instance=ExtResource("12")]
 visible = false
@@ -145,6 +147,7 @@ theme_override_constants/margin_top = 300
 [node name="ErrorMessageContainer" type="VBoxContainer" parent="MarginContainer2"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
+theme = ExtResource("1_mod6x")
 
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2

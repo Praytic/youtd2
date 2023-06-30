@@ -1,18 +1,18 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://btle8natrh3qt"]
 
-[ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
-[ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="2"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_disabled.tres" id="3"]
-[ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="4"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_hover.tres" id="5"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_pressed.tres" id="6"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_focus.tres" id="7"]
-[ext_resource type="StyleBox" uid="uid://bdt0si03bssd5" path="res://Resources/Theme/item_button_hover.tres" id="8_332gl"]
-[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="8_dlncl"]
-[ext_resource type="StyleBox" uid="uid://xj6rw0giypad" path="res://Resources/Theme/item_button_normal.tres" id="8_t77il"]
+[ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1_72mwu"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_disabled.tres" id="2_nk6u5"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_focus.tres" id="3_mpxag"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_hover.tres" id="4_xajyv"]
+[ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="5_xi0yw"]
+[ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_pressed.tres" id="6_sqw48"]
+[ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="7_7ph5e"]
+[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="8_n36iy"]
+[ext_resource type="StyleBox" uid="uid://bdt0si03bssd5" path="res://Resources/Theme/item_button_hover.tres" id="9_pc7k0"]
+[ext_resource type="StyleBox" uid="uid://xj6rw0giypad" path="res://Resources/Theme/item_button_normal.tres" id="10_j2csu"]
 
 [sub_resource type="FontFile" id="1"]
-fallbacks = Array[Font]([ExtResource("1")])
+fallbacks = Array[Font]([ExtResource("1_72mwu")])
 face_index = null
 embolden = null
 transform = null
@@ -61,7 +61,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_co3qy"]
-atlas = ExtResource("8_dlncl")
+atlas = ExtResource("8_n36iy")
 region = Rect2(872, 49, 31, 31)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_770c7"]
@@ -80,24 +80,25 @@ Button/colors/font_color = Color(0.878431, 0.878431, 0.878431, 0.894118)
 Button/colors/font_color_disabled = Color(0.360784, 0.360784, 0.360784, 0.517647)
 Button/colors/font_color_hover = Color(0.941176, 0.941176, 0.941176, 1)
 Button/fonts/font = SubResource("1")
-Button/styles/disabled = ExtResource("3")
-Button/styles/focus = ExtResource("7")
-Button/styles/hover = ExtResource("5")
-Button/styles/normal = ExtResource("4")
-Button/styles/pressed = ExtResource("6")
+Button/styles/disabled = ExtResource("2_nk6u5")
+Button/styles/focus = ExtResource("3_mpxag")
+Button/styles/hover = ExtResource("4_xajyv")
+Button/styles/normal = ExtResource("5_xi0yw")
+Button/styles/pressed = ExtResource("6_sqw48")
 HudMarginContainer/base_type = &"MarginContainer"
 HudMarginContainer/constants/margin_left = 40
 HudMarginContainer/constants/margin_right = 40
-Icons/icons/DayTime = ExtResource("2")
+Icons/icons/DayTime = ExtResource("7_7ph5e")
 Label/colors/font_color_shadow = Color(0, 0, 0, 1)
 Label/constants/shadow_offset_x = 2
 Label/constants/shadow_offset_y = 2
 Label/fonts/font = SubResource("1")
 ResourceTab/base_type = &"Panel"
 ResourceTab/styles/panel = SubResource("8")
+RichTextLabel/colors/font_shadow_color = Color(0, 0, 0, 1)
 TooltipPanel/styles/panel = SubResource("StyleBoxTexture_770c7")
-TowerButton/styles/disabled = ExtResource("8_332gl")
+TowerButton/styles/disabled = ExtResource("9_pc7k0")
 TowerButton/styles/focus = SubResource("11")
-TowerButton/styles/hover = ExtResource("8_332gl")
-TowerButton/styles/normal = ExtResource("8_t77il")
-TowerButton/styles/pressed = ExtResource("8_332gl")
+TowerButton/styles/hover = ExtResource("9_pc7k0")
+TowerButton/styles/normal = ExtResource("10_j2csu")
+TowerButton/styles/pressed = ExtResource("9_pc7k0")
