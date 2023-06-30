@@ -11,17 +11,13 @@ bg_color = Color(0.290196, 0.709804, 0, 1)
 
 [node name="Creep2" instance=ExtResource("1_nx8fq")]
 
-[node name="Visual" type="Node2D" parent="." index="1"]
-
-[node name="HealthBar" type="ProgressBar" parent="Visual" index="0"]
-offset_left = -50.0
+[node name="HealthBar" parent="Visual" index="0"]
+top_level = false
 offset_top = -102.0
-offset_right = 50.0
 offset_bottom = -88.0
 theme_override_styles/background = SubResource("StyleBoxFlat_0vcam")
 theme_override_styles/fill = SubResource("StyleBoxFlat_sv4q3")
-value = 100.0
-show_percentage = false
+script = null
 
 [node name="Sprite2D" parent="Visual" index="1" instance=ExtResource("2_xicm3")]
 position = Vector2(0, -40)
