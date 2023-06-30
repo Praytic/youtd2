@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dla3mjam6a80" path="res://Assets/Mobs/orc/mass/stunned_N.png" id="19_ifxe7"]
 [ext_resource type="Texture2D" uid="uid://ccy2f8lmdugjx" path="res://Assets/Mobs/orc/mass/stunned_S.png" id="20_pxa0b"]
 [ext_resource type="Texture2D" uid="uid://cgjph1fppfer8" path="res://Assets/Mobs/orc/mass/stunned_W.png" id="21_5qhod"]
-[ext_resource type="Script" path="res://Resources/Sprites/Mobs/CreepSprite.gd" id="22_aar3a"]
+[ext_resource type="Script" path="res://Scenes/Creeps/CreepSprite.gd" id="22_ig0em"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0mofh"]
 atlas = ExtResource("2_8x6fa")
@@ -4031,5 +4031,5 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_g3m4s")
 animation = &"floating_W"
 frame_progress = 0.368281
-script = ExtResource("22_aar3a")
+script = ExtResource("22_ig0em")
 sprite_sheets_dir = "res://Assets/Mobs/orc/mass"

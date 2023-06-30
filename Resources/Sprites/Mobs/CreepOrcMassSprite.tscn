@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://clcshym7518qk"]
+
+[ext_resource type="Script" path="res://Scenes/Creeps/CreepSprite.gd" id="1_uvqqw"]
+
+[sub_resource type="SpriteFrames" id="1"]
+
+[node name="Sprite2D" type="AnimatedSprite2D"]
+position = Vector2(-2, -55)
+sprite_frames = SubResource("1")
+animation = &"run_slow_N"
+script = ExtResource("1_uvqqw")
