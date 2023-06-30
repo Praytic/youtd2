@@ -4,8 +4,8 @@ extends AnimatedSprite2D
 
 @export var sprite_sheets_dir: String
 
-const ACTIONS = ["floating", "slow_run", "run", "death", "stunned"]
-const DIRECTIONS = ["E", "W", "S", "N"]
+const ACTIONS = ["floating", "slow_run", "run", "death", "stunned", "fly"]
+const DIRECTIONS = ["E", "SW", "W", "NE", "S", "SE", "N", "NW"]
 const CELL_WIDTH = 512
 const COLUMNS = 4 
 const ANIMATION_FPS = 15.0

@@ -166,13 +166,17 @@ func _get_creep_animation() -> String:
 # TODO: Switch when certain speed limit is reached
 #	if _get_move_speed() > 300:
 	match get_size():
-		CreepSize.enm.MASS, CreepSize.enm.NORMAL:
+		CreepSize.enm.MASS, CreepSize.enm.NORMAL, CreepSize.enm.BOSS, CreepSize.enm.CHAMPION:
 			animation_order = [
 				"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 			]
+		CreepSize.enm.AIR:
+			animation_order = [
+				"fly_E", "fly_SE", "fly_S", "fly_SW", "fly_W", "fly_NW", "fly_N", "fly_NE"
+			]
 		_:
 			animation_order = [
-				"run_e", "run_se", "run_s", "run_sw", "run_w", "run_nw", "run_n", "run_ne"
+				"stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand"
 			]
 	var animation_index: int = floor((_facing_angle + ISOMETRIC_ANGLE_DIFF + 10) / 45)
 

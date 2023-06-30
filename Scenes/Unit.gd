@@ -642,7 +642,11 @@ func _set_unit_sprite(sprite, override_area: Area2D = null):
 func _set_unit_animted_sprite(sprite: AnimatedSprite2D):
 	var sprite_frames: SpriteFrames = sprite.sprite_frames
 	var animation_name_list: PackedStringArray = sprite_frames.get_animation_names()
-
+	var default_anim_id = animation_name_list.find("default")
+	
+	if default_anim_id != -1:
+		animation_name_list.remove_at(default_anim_id)
+	
 	if animation_name_list.size() == 0:
 		print_debug("No animations except default, can't setup selection shape.")
 
