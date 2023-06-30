@@ -1209,8 +1209,11 @@ func get_base_health_bonus():
 func get_base_health_bonus_percent():
 	return max(0, _mod_value_map[Modification.Type.MOD_HP_PERC])
 
+# NOTE: do not allow max hp to go below 1 because that
+# doesn't make sense and the combat system won't work
+# correctly if a unit has max hp of 0
 func get_overall_health():
-	return max(0, (get_base_health() + get_base_health_bonus()) * get_base_health_bonus_percent())
+	return max(1, (get_base_health() + get_base_health_bonus()) * get_base_health_bonus_percent())
 
 # Returns current percentage of health
 func get_health_ratio() -> float:
