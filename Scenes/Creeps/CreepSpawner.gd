@@ -113,8 +113,7 @@ func spawn_creep(creep: Creep, wave: Wave):
 #	NOTE: buffs must be applied after creep has been added to
 #	world
 	var special_list: Array[int] = wave.get_specials()
-	for special in special_list:
-		WaveSpecial.apply_to_creep(special, creep)
+	WaveSpecial.apply_to_creep(special_list, creep)
 
 
 func _on_Timer_timeout():

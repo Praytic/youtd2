@@ -121,17 +121,19 @@ func convert_to_string(special: int) -> String:
 	return string
 
 
-func apply_to_creep(special: int, creep: Creep):
-	if !_buff_map.has(special):
-		push_error("No buff for special: ", special)
+func apply_to_creep(special_list: Array[int], creep: Creep):
+	for special in special_list:
+		if !_buff_map.has(special):
+			push_error("No buff for special: ", special)
 
-		return
+			return
 
-	var hp_modifier: float = _get_hp_modifier(special)
+	var hp_modifier: float = _get_hp_modifier(special_list)
 	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
 
-	var buff: BuffType = _buff_map[special]
-	buff.apply_to_unit_permanent(creep, creep, 0)
+	for special in special_list:
+		var buff: BuffType = _buff_map[special]
+		buff.apply_to_unit_permanent(creep, creep, 0)
 
 
 func _get_available_specials(wave: Wave) -> Array[int]:
@@ -171,10 +173,35 @@ func _get_description(special: int) -> String:
 	return description
 
 
-func _get_hp_modifier(special: int) -> float:
-	var hp_modifier: float = _get_property(special, WaveSpecial.CsvProperty.HP_MODIFIER).to_float()
+func _get_hp_modifier(special_list: Array[int]) -> float:
+	if special_list.is_empty():
+		return 0.0
 
-	return hp_modifier
+	var hp_mod_list: Array[float] = []
+
+	for special in special_list:
+		var hp_modifier: float = _get_property(special, WaveSpecial.CsvProperty.HP_MODIFIER).to_float()
+
+		hp_mod_list.append(hp_modifier)
+
+	hp_mod_list.sort()
+	
+	if hp_mod_list.size() == 1:
+		return hp_mod_list.front()
+	else:
+		var min_mod: float = hp_mod_list.front()
+		var max_mod: float = hp_mod_list.back()
+
+		if min_mod <= 0 && max_mod >= 0:
+			var total_mod: float = min_mod + max_mod
+
+			return total_mod
+		elif min_mod < 0 && max_mod < 0:
+			return min_mod
+		elif min_mod > 0 && max_mod > 0:
+			return max_mod
+		else:
+			return max_mod
 
 
 func _get_property(special: int, property: WaveSpecial.CsvProperty) -> String:
