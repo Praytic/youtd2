@@ -1,10 +1,11 @@
-[gd_scene load_steps=99 format=3 uid="uid://ppkytal384hv"]
+[gd_scene load_steps=100 format=3 uid="uid://ppkytal384hv"]
 
 [ext_resource type="Texture2D" uid="uid://c2uo2o635mqvj" path="res://Assets/Mobs/orc/mass/orc_mass_E.png" id="1_o1pkt"]
 [ext_resource type="Texture2D" uid="uid://d0takrtnsmcgg" path="res://Assets/Mobs/orc/mass/orc_mass_N.png" id="2_27utv"]
 [ext_resource type="Texture2D" uid="uid://cvmmvedief6y0" path="res://Assets/Mobs/orc/mass/orc_mass_S.png" id="3_v82v3"]
 [ext_resource type="Texture2D" uid="uid://byxka3i38apwl" path="res://Assets/Mobs/orc/mass/orc_mass_W.png" id="4_kbp8c"]
 [ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="5_4t55m"]
+[ext_resource type="Script" path="res://Scenes/Creeps/Creep.gd" id="6_01a3w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vn1sr"]
 atlas = ExtResource("1_o1pkt")
@@ -687,3 +688,4 @@ sprite_frames = SubResource("1")
 animation = &"run_slow_W"
 frame = 6
 frame_progress = 0.511221
+script = ExtResource("6_01a3w")

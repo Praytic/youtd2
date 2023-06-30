@@ -1,13 +1,121 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmhyiw2wh1o1d"]
+[gd_scene load_steps=6 format=3 uid="uid://bmhyiw2wh1o1d"]
 
 [ext_resource type="PackedScene" uid="uid://cmcahg14hpv5j" path="res://Scenes/Creeps/Instances/Creep.tscn" id="1_7hg0i"]
-[ext_resource type="PackedScene" uid="uid://ppkytal384hv" path="res://Resources/Sprites/Mobs/CreepOrcMassSprite.tscn" id="2_6mj8a"]
+[ext_resource type="Script" path="res://Resources/Sprites/Mobs/CreepSprite.gd" id="7_egsiv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0vcam"]
 bg_color = Color(1, 0.34902, 0.2, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sv4q3"]
 bg_color = Color(0.290196, 0.709804, 0, 1)
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"death_E",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"death_N",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"death_S",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"death_W",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"floating_E",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"floating_N",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"floating_S",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"floating_W",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run_E",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run_N",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run_S",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"run_W",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"slow_run_E",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"slow_run_N",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"slow_run_S",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"slow_run_W",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"stunned_E",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"stunned_N",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"stunned_S",
+"speed": 15.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"stunned_W",
+"speed": 15.0
+}]
 
 [node name="Creep" instance=ExtResource("1_7hg0i")]
 
@@ -23,4 +131,8 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_sv4q3")
 value = 100.0
 show_percentage = false
 
-[node name="Sprite2D" parent="Visual" index="1" instance=ExtResource("2_6mj8a")]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Visual" index="1"]
+position = Vector2(-2, -55)
+sprite_frames = SubResource("1")
+script = ExtResource("7_egsiv")
+sprite_sheets_dir = "res://Assets/Mobs/orc/mass"
