@@ -17,6 +17,8 @@ func _ready():
 	for dev_control_button in dev_control_buttons:
 		dev_control_button.button_up.connect(_on_DevControlButton_button_up.bind(dev_control_button))
 	
+	position_info_label.visible = Config.show_position_info_label()
+	
 	_init_oils_and_items_controls()
 
 

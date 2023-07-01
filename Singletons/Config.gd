@@ -84,3 +84,8 @@ func ignore_upgrade_requirements() -> bool:
 # touch pad.
 func change_camera_zoom_using_touch() -> bool:
 	return ProjectSettings.get_setting("application/config/change_camera_zoom_using_touch") as bool
+
+# Enable to show position info label under mouse. Used for
+# debugging.
+func show_position_info_label() -> bool:
+	return ProjectSettings.get_setting("application/config/show_position_info_label") as bool
