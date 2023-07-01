@@ -81,9 +81,9 @@ func ignore_upgrade_requirements() -> bool:
 	return ProjectSettings.get_setting("application/config/ignore_upgrade_requirements") as bool
 
 # Enable to be able to zoom camera in and out using the
-# touch pad.
-func change_camera_zoom_using_touch() -> bool:
-	return ProjectSettings.get_setting("application/config/change_camera_zoom_using_touch") as bool
+# touchpad.
+func enable_zoom_by_touchpad() -> bool:
+	return ProjectSettings.get_setting("application/config/enable_zoom_by_touchpad") as bool
 
 # Enable to be able to zoom camera in and out using the
 # mousewheel.

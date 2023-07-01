@@ -51,7 +51,7 @@ func _unhandled_input(event):
 func _zoom(event):
 	var new_zoom = zoom.x
 
-	if event is InputEventMagnifyGesture && Config.change_camera_zoom_using_touch():
+	if event is InputEventMagnifyGesture && Config.enable_zoom_by_touchpad():
 		var zoom_amount = -(event.factor - 1.0) * zoom_sensitivity
 		new_zoom = zoom.y + zoom_amount
 	elif event is InputEventMouseButton && Config.enable_zoom_by_mousewheel():
