@@ -1,7 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cmcahg14hpv5j"]
 
 [ext_resource type="Script" path="res://Scenes/Creeps/Creep.gd" id="1_pofyw"]
-[ext_resource type="StyleBox" uid="uid://cqmudva3l7yut" path="res://Scenes/Creeps/Instances/HealthStyleBox.tres" id="2_gbkbp"]
 [ext_resource type="Script" path="res://Scenes/Creeps/HealthBar.gd" id="3_bsm61"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_woyy6"]
@@ -15,6 +14,10 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wam3"]
+resource_local_to_scene = true
+bg_color = Color(0.176471, 0.960784, 0, 1)
+
 [node name="Creep" type="CharacterBody2D"]
 script = ExtResource("1_pofyw")
 
@@ -25,17 +28,17 @@ polygon = PackedVector2Array(51, -202, 45, 86, -45, 88, -50, -202)
 [node name="Visual" type="Node2D" parent="."]
 
 [node name="HealthBar" type="ProgressBar" parent="Visual"]
-top_level = true
 offset_left = -50.0
 offset_top = -134.0
 offset_right = 50.0
 offset_bottom = -120.0
 theme_override_styles/background = SubResource("StyleBoxFlat_woyy6")
-theme_override_styles/fill = ExtResource("2_gbkbp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_0wam3")
 value = 100.0
 show_percentage = false
 script = ExtResource("3_bsm61")
-_health_style_box = ExtResource("2_gbkbp")
 color3 = Color(0.176471, 0.960784, 0, 1)
 color2 = Color(1, 0.635294, 0.0745098, 1)
 color1 = Color(0.698039, 0, 0, 1)
+
+[connection signal="value_changed" from="Visual/HealthBar" to="Visual/HealthBar" method="_on_value_changed"]
