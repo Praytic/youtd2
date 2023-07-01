@@ -85,6 +85,11 @@ func ignore_upgrade_requirements() -> bool:
 func change_camera_zoom_using_touch() -> bool:
 	return ProjectSettings.get_setting("application/config/change_camera_zoom_using_touch") as bool
 
+# Enable to be able to zoom camera in and out using the
+# mousewheel.
+func enable_zoom_by_mousewheel() -> bool:
+	return ProjectSettings.get_setting("application/config/enable_zoom_by_mousewheel") as bool
+
 # Enable to show position info label under mouse. Used for
 # debugging.
 func show_position_info_label() -> bool:
