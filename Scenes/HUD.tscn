@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=16 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerTooltip.tscn" id="12"]
 [ext_resource type="PackedScene" uid="uid://bbq8xnlx68q72" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
+[ext_resource type="Script" path="res://Scenes/CameraZoomArea.gd" id="15_fcpli"]
 [ext_resource type="PackedScene" uid="uid://b41jiom5a6uq8" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 [ext_resource type="PackedScene" uid="uid://vdiwgjefedtp" path="res://Scenes/HUD/ResearchMenu.tscn" id="22_kpm02"]
@@ -78,6 +79,15 @@ offset_top = 218.0
 offset_right = -1907.0
 offset_bottom = -862.0
 
+[node name="CameraZoomArea" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_fcpli")
+
 [node name="BottomMenuBar" parent="." node_paths=PackedStringArray("_research_panel") instance=ExtResource("5")]
 unique_name_in_owner = true
 layout_mode = 1
@@ -91,6 +101,7 @@ offset_right = 6.10352e-05
 offset_bottom = -98.9999
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
+mouse_force_pass_scroll_events = false
 _research_panel = NodePath("../ResearchMenu")
 
 [node name="TowerInventory" parent="." instance=ExtResource("11_hrubh")]

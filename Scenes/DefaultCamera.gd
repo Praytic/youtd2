@@ -16,6 +16,8 @@ func _ready():
 	if OS.get_name() == "macOS":
 		zoom_sensitivity = 0.1
 	
+	Globals.camera = self
+	
 
 
 func _physics_process(delta):
@@ -44,10 +46,7 @@ func _physics_process(delta):
 		camera_moved.emit(shift_vector)
 
 
-func _unhandled_input(event):
-	_zoom(event)
-
-
+# NOTE: this will be called by CameraZoomArea
 func _zoom(event):
 	var new_zoom = zoom.x
 
