@@ -157,6 +157,9 @@ func _get_item_text(item: Item) -> String:
 
 	var item_id: int = item.get_id()
 	var display_name: String = ItemProperties.get_display_name(item_id)
+	var rarity: Rarity.enm = ItemProperties.get_rarity_num(item_id)
+	var rarity_color: Color = Rarity.get_color(rarity)
+	var display_name_colored: String = Utils.get_colored_string(display_name, rarity_color)
 	var description: String = ItemProperties.get_description(item_id)
 	var author: String = ItemProperties.get_author(item_id)
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
@@ -165,8 +168,8 @@ func _get_item_text(item: Item) -> String:
 	specials_text = _add_color_to_numbers(specials_text)
 	var extra_text: String = item.get_extra_tooltip_text()
 	extra_text = _add_color_to_numbers(extra_text)
-	
-	text += "[b]%s[/b]\n" % display_name
+
+	text += "[b]%s[/b]\n" % display_name_colored
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 
