@@ -19,7 +19,7 @@ const _string_map: Dictionary = {
 const _color_map: Dictionary = {
 	Rarity.enm.COMMON: Color.WHITE,
 	Rarity.enm.UNCOMMON: Color.GREEN,
-	Rarity.enm.RARE: Color.BLUE,
+	Rarity.enm.RARE: Color.ROYAL_BLUE,
 	Rarity.enm.UNIQUE: Color.GOLD,
 }
 
