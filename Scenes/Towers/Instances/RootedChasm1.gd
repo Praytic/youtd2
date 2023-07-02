@@ -62,7 +62,8 @@ func on_damage(event: Event):
 	if target.get_size() < CreepSize.enm.BOSS && target.get_size() != CreepSize.enm.AIR:
 		chasm_entangle.apply(tower, target, 0)
 
-#		TODO: not sure what reorder() does
+#		NOTE: not sure what reorder() does. Tower script
+#		works correctly without this.
 #		target.reorder()
 
 

@@ -2,12 +2,6 @@ extends Control
 
 # Container for buttons that perform actions on selected tower.
 
-# TODO: sell button
-# TODO: info button (shows info for tower like the build button)
-# TODO: show info when hovering over upgrade button (info for next tier)
-# TODO: upgrade requirements, cost, current level, research level (show this in tooltip as well)
-# TODO: feature flag that disables upgrade requirements to be able to upgrade tower any time
-
 
 const BUILD_COST_TO_SELL_PRICE: float = 0.5
 const SELL_BUTTON_RESET_TIME: float = 5.0

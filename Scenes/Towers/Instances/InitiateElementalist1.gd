@@ -227,7 +227,7 @@ func on_attack_3(event: Event):
 
 			SFX.sfx_at_unit("BoltImpact.mdl", u)
 			tower.do_spell_damage(u, 1650 + (tower.get_level() * 30), tower.calc_spell_crit_no_bonus())
-			# TODO: make
+			# TODO: implement lightning, it's an advanced visual(effect)
 			# Lightning.create_from_unit_to_unit("CLPB", tower, u).set_lifetime(0.15)
 
 		if u != null:
@@ -302,7 +302,7 @@ func on_attack_4(event: Event):
 
 			SFX.sfx_at_unit("BoltImpact.mdl", u)
 			tower.do_spell_damage(u, (3000 + tower.get_level() * 60) * (1 + ((0.5 + tower.get_level() - 1))), tower.calc_spell_crit_no_bonus())
-			# TODO: make
+			# TODO: implement lightning, it's an advanced visual(effect)
 			# Lightning.create_from_unit_to_unit("CLPB", tower, u).set_lifetime(0.15)
 
 		if u != null:

@@ -235,11 +235,6 @@ func _on_death(event: Event):
 #########################
 
 
-# TODO: Do creeps need IDs?
-func get_id():
-	return 1
-
-
 # NOTE: this angle needs to be for coordinate space with Y
 # axis going down, to match game world coordinate
 # conventions. For example, angle progression of 0, 10, 20

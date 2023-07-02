@@ -40,7 +40,8 @@ func display_floating_text_x(text: String, unit: Unit, color_r: int, color_g: in
 	display_floating_text_color(text, unit, color, time)
 
 
-# TODO: implement, not sure what the difference is between this and then _x version
+# TODO: implement, not sure what the difference is between this and then _x version.
+# _x probably adds an x offset to the start location of floating text
 func display_floating_text(text: String, unit: Unit, color_r: int, color_g: int, color_b: int):
 	display_floating_text_x(text, unit, color_r, color_g, color_b, 255, 0.0, 0.0, 1.0)
 

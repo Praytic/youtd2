@@ -12,14 +12,11 @@ func _init():
 		_element_level_map[element] = starting_level
 
 
-# TODO: call this when button that levels up elements is
-# pressed
 func increment(element: Element.enm):
 	_element_level_map[element] += 1
 	changed.emit()
 
 
-# TODO: move to class that stores this
 func get_current(element: Element.enm) -> int:
 	var level: int = _element_level_map[element]
 
