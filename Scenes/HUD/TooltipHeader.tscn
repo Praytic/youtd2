@@ -40,30 +40,12 @@ theme_override_constants/separation = 40
 [node name="GridContainer2" type="GridContainer" parent="VBoxContainer2/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="DisplayName" type="Label" parent="VBoxContainer2/VBoxContainer/MarginContainer/VBoxContainer/GridContainer2" groups=["tooltip_variable"]]
+[node name="Name" type="Label" parent="VBoxContainer2/VBoxContainer/MarginContainer/VBoxContainer/GridContainer2" groups=["tooltip_variable"]]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 6
 mouse_filter = 1
-text = "<name>"
-
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer2/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-columns = 2
-
-[node name="Label" type="Label" parent="VBoxContainer2/VBoxContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-mouse_filter = 1
-text = "ID:"
-
-[node name="ID" type="Label" parent="VBoxContainer2/VBoxContainer/MarginContainer/VBoxContainer/GridContainer" groups=["tooltip_variable"]]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 6
-mouse_filter = 1
-text = "<id>"
+text = "name"
 
 [node name="GridContainer3" type="GridContainer" parent="VBoxContainer2/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

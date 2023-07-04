@@ -166,10 +166,33 @@ func _get_creep_animation() -> String:
 # TODO: Switch when certain speed limit is reached
 #	if _get_move_speed() > 300:
 	match get_size():
-		CreepSize.enm.MASS, CreepSize.enm.NORMAL, CreepSize.enm.BOSS, CreepSize.enm.CHAMPION:
-			animation_order = [
-				"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
-			]
+		CreepSize.enm.MASS:
+			if _get_move_speed() > 180:
+				animation_order = [
+					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+				]
+			else:
+				animation_order = [
+					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+				]
+		CreepSize.enm.BOSS:
+			if _get_move_speed() > 320:
+				animation_order = [
+					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+				]
+			else:
+				animation_order = [
+					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+				]
+		CreepSize.enm.NORMAL, CreepSize.enm.CHAMPION:
+			if _get_move_speed() > 240:
+				animation_order = [
+					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+				]
+			else:
+				animation_order = [
+					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+				]
 		CreepSize.enm.AIR:
 			animation_order = [
 				"fly_E", "fly_SE", "fly_S", "fly_SW", "fly_W", "fly_NW", "fly_N", "fly_NE"
