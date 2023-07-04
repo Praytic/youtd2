@@ -165,9 +165,10 @@ func _get_creep_animation() -> String:
 	
 # TODO: Switch when certain speed limit is reached
 #	if _get_move_speed() > 300:
+	var creep_move_speed = _get_move_speed()
 	match get_size():
 		CreepSize.enm.MASS:
-			if _get_move_speed() > 180:
+			if creep_move_speed > 180:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
@@ -176,7 +177,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
 		CreepSize.enm.BOSS:
-			if _get_move_speed() > 320:
+			if creep_move_speed > 320:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
@@ -185,7 +186,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
 		CreepSize.enm.NORMAL, CreepSize.enm.CHAMPION:
-			if _get_move_speed() > 240:
+			if creep_move_speed > 240:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
