@@ -28,6 +28,7 @@ func on_autocast(_event: Event):
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Search For Item"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

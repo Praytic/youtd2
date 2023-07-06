@@ -80,6 +80,7 @@ func tower_init():
 	cedi_love_missile.enable_homing(cedi_love, 0.0)
 
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Love Potion"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

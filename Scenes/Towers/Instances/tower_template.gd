@@ -41,6 +41,7 @@ func tower_init():
 	example_buff.set_buff_tooltip("Title\nDescription.")
 
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Name"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

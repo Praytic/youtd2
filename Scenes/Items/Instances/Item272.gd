@@ -25,6 +25,7 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Strength Boost"
 	autocast.caster_art = "DispelMagicTarget.mdl"
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0
