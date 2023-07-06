@@ -80,6 +80,7 @@ var _damage_dealt_total: float = 0.0
 var _silence_count: int = 0
 var _stunned: bool = false
 var _visual_only: bool = false
+var _autocast_list: Array[Autocast] = []
 
 var _selection_visual: Node = null
 
@@ -232,7 +233,12 @@ func add_mana(mana_added: float):
 
 func add_autocast(autocast: Autocast):
 	autocast.set_caster(self)
+	_autocast_list.append(autocast)
 	add_child(autocast)
+
+
+func get_autocast_list() -> Array[Autocast]:
+	return _autocast_list
 
 
 func add_aura(aura_type: AuraType):

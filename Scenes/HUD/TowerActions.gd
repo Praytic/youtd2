@@ -6,9 +6,11 @@ extends Control
 const BUILD_COST_TO_SELL_PRICE: float = 0.5
 const SELL_BUTTON_RESET_TIME: float = 5.0
 
-@onready var _upgrade_button: Button = $VBoxContainer/UpgradeButton
-@onready var _sell_button: Button = $VBoxContainer/SellButton
+@onready var _upgrade_button: Button = $HBoxContainer/VBoxContainer/UpgradeButton
+@onready var _sell_button: Button = $HBoxContainer/VBoxContainer/SellButton
 @onready var _reset_sell_button_timer: Timer = $ResetSellButtonTimer
+@onready var _autocasts_container: VBoxContainer = $HBoxContainer/AutocastsOuterContainer/AutocastsContainer
+@onready var _autocast_button_placeholder: Button = $HBoxContainer/AutocastsOuterContainer/AutocastsContainer/AutocastButtonPlaceholder
 
 var _selling_for_real: bool = false
 
@@ -19,6 +21,8 @@ func _ready():
 
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
+	
+	_autocast_button_placeholder.queue_free()
 
 
 func _on_wave_or_element_level_changed():
@@ -37,6 +41,7 @@ func _on_selected_unit_changed():
 	if selected_unit is Tower:
 		var tower: Tower = selected_unit as Tower
 		_update_upgrade_button(tower)
+		_update_autocasts(tower)
 
 	_set_selling_for_real(false)
 
@@ -88,6 +93,21 @@ func _update_upgrade_button(tower: Tower):
 		can_upgrade = false
 
 	_upgrade_button.set_disabled(!can_upgrade)
+
+
+func _update_autocasts(tower: Tower):
+	for button in _autocasts_container.get_children():
+		button.queue_free()
+
+	var autocast_list: Array[Autocast] = tower.get_autocast_list()
+
+	for autocast in autocast_list:
+		var button: Button = Button.new()
+#		TODO: set autocast name here. Currently autocast
+#		name is only available in tower tooltip text. Need
+#		to add a name field to Autocasts.
+		button.text = "Autocast name"
+		_autocasts_container.add_child(button)
 
 
 func _on_reset_sell_button_timer_timeout():

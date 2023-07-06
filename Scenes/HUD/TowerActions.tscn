@@ -5,43 +5,63 @@
 
 [node name="TowerActions" type="Control"]
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+grow_horizontal = 0
 theme = ExtResource("1_h5f7b")
 script = ExtResource("2_a8n8y")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_direction = 3
+layout_mode = 1
+offset_right = 505.0
+offset_bottom = 235.0
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_direction = 2
 layout_mode = 2
 text = "Tower actions:
 "
 
-[node name="InfoButton" type="Button" parent="VBoxContainer"]
+[node name="InfoButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Info"
 
-[node name="UpgradeButton" type="Button" parent="VBoxContainer"]
+[node name="UpgradeButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Upgrade
 "
 
-[node name="SellButton" type="Button" parent="VBoxContainer"]
+[node name="SellButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Sell"
 
+[node name="AutocastsOuterContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="AutocastsLabel" type="Label" parent="HBoxContainer/AutocastsOuterContainer"]
+layout_direction = 2
+layout_mode = 2
+text = "Autocasts:"
+
+[node name="AutocastsContainer" type="VBoxContainer" parent="HBoxContainer/AutocastsOuterContainer"]
+layout_direction = 2
+layout_mode = 2
+
+[node name="AutocastButtonPlaceholder" type="Button" parent="HBoxContainer/AutocastsOuterContainer/AutocastsContainer"]
+layout_mode = 2
+text = "Autocast placeholder"
+
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
-[connection signal="mouse_entered" from="VBoxContainer/InfoButton" to="." method="_on_info_button_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/InfoButton" to="." method="_on_info_button_mouse_exited"]
-[connection signal="mouse_entered" from="VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_exited"]
-[connection signal="pressed" from="VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/InfoButton" to="." method="_on_info_button_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/VBoxContainer/InfoButton" to="." method="_on_info_button_mouse_exited"]
+[connection signal="mouse_entered" from="HBoxContainer/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="timeout" from="ResetSellButtonTimer" to="." method="_on_reset_sell_button_timer_timeout"]
