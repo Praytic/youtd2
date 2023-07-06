@@ -48,10 +48,15 @@ func _ready():
 	_health_bar.set_value(max_health)
 	health_changed.connect(_on_health_changed)
 
-	if _size == CreepSize.enm.AIR:
-		var height: float = 2 * Constants.TILE_HEIGHT
-		_visual.position.y = -height
-
+	match _size:
+		CreepSize.enm.AIR:
+			var height: float = 2 * Constants.TILE_HEIGHT
+			_visual.position.y = -height
+		CreepSize.enm.BOSS:
+			apply_scale(Vector2(1.8,1.8))
+		CreepSize.enm.CHAMPION:
+			apply_scale(Vector2(1.4,1.4))
+	
 	var sprite: AnimatedSprite2D = $Visual/Sprite2D
 	if sprite != null:
 		_set_unit_animted_sprite(sprite)
