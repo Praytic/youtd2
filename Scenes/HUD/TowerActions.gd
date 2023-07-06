@@ -103,10 +103,7 @@ func _update_autocasts(tower: Tower):
 
 	for autocast in autocast_list:
 		var button: Button = Button.new()
-#		TODO: set autocast name here. Currently autocast
-#		name is only available in tower tooltip text. Need
-#		to add a name field to Autocasts.
-		button.text = "Autocast name"
+		button.text = autocast.display_name
 		_autocasts_container.add_child(button)
 
 
