@@ -13,6 +13,7 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @onready var _autocast_button_placeholder: Button = $HBoxContainer/AutocastsOuterContainer/AutocastsContainer/AutocastButtonPlaceholder
 
 var _selling_for_real: bool = false
+var _button_map: Dictionary = {}
 
 
 func _ready():
@@ -23,6 +24,26 @@ func _ready():
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
 	
 	_autocast_button_placeholder.queue_free()
+
+
+func _process(_delta: float):
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+
+	if !selected_unit is Tower:
+		return
+	
+	var tower: Tower = selected_unit as Tower
+	var autocast_list: Array[Autocast] = tower.get_autocast_list()
+
+	for autocast in autocast_list:
+		var button: Button = _button_map[autocast.display_name]
+		var cooldown: float = autocast.get_remaining_cooldown()
+		var text: String = autocast.display_name
+		if cooldown > 0:
+			text += " " + Utils.format_float(cooldown, 0)
+		button.text = text
+
+		button.disabled = cooldown > 0
 
 
 func _on_wave_or_element_level_changed():
@@ -99,11 +120,14 @@ func _update_autocasts(tower: Tower):
 	for button in _autocasts_container.get_children():
 		button.queue_free()
 
+	_button_map.clear()
+
 	var autocast_list: Array[Autocast] = tower.get_autocast_list()
 
 	for autocast in autocast_list:
 		var button: Button = Button.new()
 		button.text = autocast.display_name
+		_button_map[autocast.display_name] = button
 		_autocasts_container.add_child(button)
 
 

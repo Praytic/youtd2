@@ -110,6 +110,8 @@ func set_caster(caster: Unit):
 func get_cooldown() -> float:
 	return cooldown
 
+func get_remaining_cooldown() -> float:
+	return _cooldown_timer.time_left
 
 func get_manacost() -> int:
 	return mana_cost
