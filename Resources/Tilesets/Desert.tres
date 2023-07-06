@@ -1,0 +1,23 @@
+[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://6hljrryj76a3"]
+
+[ext_resource type="Texture2D" uid="uid://c0d8i0bwdo3yc" path="res://Assets/Atlas/Column1.png" id="1_3j6uc"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_nh3nn"]
+tile_data = PackedInt32Array(0, 65536, 0, 131072, 65536, 1)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_udcll"]
+texture = ExtResource("1_3j6uc")
+texture_region_size = Vector2i(128, 128)
+0:1/0 = 0
+0:0/0 = 0
+1:0/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+2:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_layout = 5
+tile_size = Vector2i(256, 128)
+sources/0 = SubResource("TileSetAtlasSource_udcll")
+pattern_0 = SubResource("TileMapPattern_nh3nn")
