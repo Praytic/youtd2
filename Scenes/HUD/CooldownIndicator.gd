@@ -9,20 +9,19 @@ var _icon_size: float
 var _icon_half_size: float
 var _base_point_list: Array[Vector2] = []
 var _autocast: Autocast = null
-var _offset: Vector2
 
 
 func _ready():
 	var button: Button = get_parent()
 	var icon: Texture2D = button.icon
-
+	
 	if icon == null:
 		push_error("Attached CooldownIndicator to a button without icon!")
 
 		return
 
 	_icon_size = icon.get_width()
-	_icon_half_size = _icon_size
+	_icon_half_size = _icon_size / 2
 
 #	Pick 360 points on the square, spaced out by angle from
 #	center. There is definitely a better way to do this but
@@ -71,9 +70,9 @@ func _ready():
 #	indicator is drawn on top of the icon.
 	var button_stylebox: StyleBox = button.get_theme_stylebox("normal", "Button")
 	var button_icon_offset: Vector2 = button_stylebox.get_offset()
-
+	
 	for i in range(0, _base_point_list.size()):
-		_base_point_list[i] = _base_point_list[i] + _offset
+		_base_point_list[i] = _base_point_list[i] + button_icon_offset
 
 
 func _process(_delta: float):
