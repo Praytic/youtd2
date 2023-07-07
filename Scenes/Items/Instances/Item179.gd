@@ -38,6 +38,7 @@ func item_init():
 	drol_talisman.set_buff_tooltip("Shamanistic Ritual Effect\nThis tower's experience gain and damage are increased.")
 
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Shamanistic Ritual"
 	autocast.caster_art = ""
 	autocast.target_art = "HealingWaveTarget.mdl"
 	autocast.num_buffs_before_idle = 1

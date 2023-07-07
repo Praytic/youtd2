@@ -86,6 +86,7 @@ func tower_init():
 	drol_phantomCast2.data.chain_lightning.chain_count = 4
 
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Wind Shear"
 	autocast.caster_art = ""
 	autocast.target_art = "Abilities/Spells/Items/AIlm/AIlmTarget.mdl"
 	autocast.num_buffs_before_idle = 0

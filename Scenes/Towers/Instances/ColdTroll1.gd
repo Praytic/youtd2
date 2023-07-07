@@ -78,6 +78,7 @@ func tower_init():
 	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
 
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Blizzard"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

@@ -37,6 +37,7 @@ func item_init():
 	example_buff.set_buff_tooltip("Title\nDescription.")
 
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Name"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

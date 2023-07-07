@@ -47,6 +47,7 @@ func on_damage(event: Event):
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Insane Strength"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

@@ -29,6 +29,7 @@ func get_extra_tooltip_text() -> String:
 
 func tower_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.display_name = "Fire Blast"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
