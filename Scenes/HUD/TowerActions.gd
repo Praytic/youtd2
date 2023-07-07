@@ -29,26 +29,6 @@ func _ready():
 	_autocast_outer_container.visible = Config.show_autocasts_menu()
 
 
-func _process(_delta: float):
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
-
-	if !selected_unit is Tower:
-		return
-	
-	var tower: Tower = selected_unit as Tower
-	var autocast_list: Array[Autocast] = tower.get_autocast_list()
-
-	for autocast in autocast_list:
-		var button: Button = _button_map[autocast.display_name]
-		var cooldown: float = autocast.get_remaining_cooldown()
-		var text: String = autocast.display_name
-		if cooldown > 0:
-			text += " " + Utils.format_float(cooldown, 0)
-		button.text = text
-
-		button.disabled = cooldown > 0
-
-
 func _on_wave_or_element_level_changed():
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 
@@ -129,7 +109,13 @@ func _update_autocasts(tower: Tower):
 
 	for autocast in autocast_list:
 		var button: Button = Button.new()
-		button.text = autocast.display_name
+		button.icon = load("res://Assets/icon.png")
+
+		var cooldown_indicator_scene: PackedScene = load("res://Scenes/HUD/CooldownIndicator.tscn")
+		var cooldown_indicator: CooldownIndicator = cooldown_indicator_scene.instantiate()
+		cooldown_indicator.set_autocast(autocast)
+		button.add_child(cooldown_indicator)
+
 		_button_map[autocast.display_name] = button
 		_autocasts_container.add_child(button)
 
