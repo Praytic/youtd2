@@ -52,6 +52,8 @@ func _ready():
 		CreepSize.enm.AIR:
 			var height: float = 2 * Constants.TILE_HEIGHT
 			_visual.position.y = -height
+			z_index = 100
+			_path.default_z = z_index
 		CreepSize.enm.BOSS:
 			apply_scale(Vector2(1.8,1.8))
 		CreepSize.enm.CHAMPION:
@@ -74,9 +76,10 @@ func _process(delta):
 	var creep_animation: String = _get_creep_animation()
 	_sprite.play(creep_animation)
 
+# TODO: Disabled. Need to modify z_index inside the code of the actor, not the target.
 #	Update z index based on current visual height
-	var height: float = -_visual.position.y
-	z_index = _landscape.world_height_to_z_index(height)
+#	var height: float = -_visual.position.y
+#	z_index = _landscape.world_height_to_z_index(height)
 
 
 #########################
@@ -161,6 +164,8 @@ func _move(delta):
 		set_unit_facing(move_angle)
 	
 	if reached_path_point:
+		var new_z_index = _path.get_z(_current_path_index)
+		z_index = new_z_index
 		_current_path_index += 1
 
 
@@ -305,6 +310,7 @@ func get_display_name() -> String:
 func set_path(path: Path2D):
 	_path = path
 	position = path.get_curve().get_point_position(0) + path.position
+	_path.default_z = z_index
 
 func get_damage_to_portal() -> float:
 	# TODO: Implement formula
