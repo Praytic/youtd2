@@ -15,7 +15,6 @@ func get_extra_tooltip_text() -> String:
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
-	autocast.display_name = "Siphon Knowledge"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

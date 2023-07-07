@@ -15,7 +15,6 @@ func get_extra_tooltip_text() -> String:
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
-	autocast.display_name = "Transfer Experience"
 	autocast.caster_art = "DispelMagicTarget.mdl"
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 1

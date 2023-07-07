@@ -46,7 +46,6 @@ func tower_init():
 	boekie_amp_damage.set_buff_tooltip("Dark Curse\nThis unit is receiving extra attack damage.")
 
 	var autocast: Autocast = Autocast.make()
-	autocast.display_name = "Dark Curse"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 3
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

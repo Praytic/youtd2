@@ -42,7 +42,6 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	var autocast: Autocast = Autocast.make()
-	autocast.display_name = "Soul Chill"
 	autocast.cooldown = 1
 	autocast.mana_cost = 20
 	autocast.target_type = null

@@ -9,7 +9,6 @@ func _init(parent: Node):
 
 func on_create(event: Event):
 	var autocast: Autocast = Autocast.make()
-	autocast.display_name = "Broody"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
