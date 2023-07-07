@@ -11,6 +11,7 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @onready var _reset_sell_button_timer: Timer = $ResetSellButtonTimer
 @onready var _autocasts_container: VBoxContainer = $HBoxContainer/AutocastsOuterContainer/AutocastsContainer
 @onready var _autocast_button_placeholder: Button = $HBoxContainer/AutocastsOuterContainer/AutocastsContainer/AutocastButtonPlaceholder
+@onready var _autocast_outer_container: VBoxContainer = $HBoxContainer/AutocastsOuterContainer
 
 var _selling_for_real: bool = false
 var _button_map: Dictionary = {}
@@ -24,6 +25,8 @@ func _ready():
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
 	
 	_autocast_button_placeholder.queue_free()
+
+	_autocast_outer_container.visible = Config.show_autocasts_menu()
 
 
 func _process(_delta: float):

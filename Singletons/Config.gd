@@ -94,3 +94,8 @@ func enable_zoom_by_mousewheel() -> bool:
 # debugging.
 func show_position_info_label() -> bool:
 	return ProjectSettings.get_setting("application/config/show_position_info_label") as bool
+
+# Autocasts menu is in development, hide by default until
+# it's finished.
+func show_autocasts_menu() -> bool:
+	return ProjectSettings.get_setting("application/config/show_autocasts_menu") as bool
