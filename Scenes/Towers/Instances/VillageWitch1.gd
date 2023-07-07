@@ -15,14 +15,9 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_love_potion_description() -> String:
 	var potion_slow: String = Utils.format_percent(_stats.item_chance * 0.00125, 0)
 	var potion_item_chance: String = Utils.format_percent(_stats.item_chance * 0.001, 0)
-	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.001, 0)
-	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
-	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 0)
-	var mod_attackspeed: String = Utils.format_percent(_stats.mod_attackspeed, 0)
-	var soul_chance_decrease: String = Utils.format_percent(_stats.soul_chance_decrease * 0.001, 0)
 
 	var text: String = ""
 
@@ -34,7 +29,19 @@ func get_extra_tooltip_text() -> String:
 	text += "+0.3% Item drop chance\n"
 	text += " \n"
 	text += "Mana cost: 25, 1100 range, 3s cooldown\n"
-	text += " \n"
+
+	return text
+
+
+func get_extra_tooltip_text() -> String:
+	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.001, 0)
+	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
+	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 0)
+	var mod_attackspeed: String = Utils.format_percent(_stats.mod_attackspeed, 0)
+	var soul_chance_decrease: String = Utils.format_percent(_stats.soul_chance_decrease * 0.001, 0)
+
+	var text: String = ""
+
 	text += "[color=GOLD]Soul Split[/color]\n"
 	text += "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attackspeed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of a Love Potion, the attackspeed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attackspeed, soul_chance_decrease]
 	text += " \n"
@@ -80,6 +87,7 @@ func tower_init():
 	cedi_love_missile.enable_homing(cedi_love, 0.0)
 
 	var autocast: Autocast = Autocast.make()
+	autocast.description = get_love_potion_description()
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_soul_chill_description() -> String:
 	var aoe_damage: String = String.num(_stats.aoe_damage, 2)
 	var slow_value: String = String.num(_stats.slow_value / 10.0, 2)
 	var aoe_damage_add: String = String.num(_stats.aoe_damage_add, 2)
@@ -42,6 +42,7 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.description = get_soul_chill_description()
 	autocast.cooldown = 1
 	autocast.mana_cost = 20
 	autocast.target_type = null

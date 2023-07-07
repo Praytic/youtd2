@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_wind_shear_description() -> String:
 	var attackspeed: String = String.num(_stats.attackspeed * 100, 2)
 	var chain_damage: String = String.num(100 * (1.0 + _stats.user_real_base * 0.04), 2)
 	var chain_damage_add: String = String.num(_stats.user_real_add * 0.04 * 100, 2)
@@ -86,6 +86,7 @@ func tower_init():
 	drol_phantomCast2.data.chain_lightning.chain_count = 4
 
 	var autocast: Autocast = Autocast.make()
+	autocast.description = get_wind_shear_description()
 	autocast.caster_art = ""
 	autocast.target_art = "Abilities/Spells/Items/AIlm/AIlmTarget.mdl"
 	autocast.num_buffs_before_idle = 0

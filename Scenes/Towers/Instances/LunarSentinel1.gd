@@ -18,7 +18,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_lunar_grace_description() -> String:
 	var spell_damage: String = String.num(_stats.spell_damage, 2)
 	var spell_damage_add: String = String.num(_stats.spell_damage_add, 2)
 	var damage_from_spells: String = String.num(_stats.buff_power / 10, 2)
@@ -41,6 +41,7 @@ func get_extra_tooltip_text() -> String:
 
 func tower_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.description = get_lunar_grace_description()
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_dark_curse_description() -> String:
 	var damage_increase: String = Utils.format_percent(0.15 + _stats.buff_level * 0.001, 0)
 
 	var text: String = ""
@@ -46,6 +46,7 @@ func tower_init():
 	boekie_amp_damage.set_buff_tooltip("Dark Curse\nThis unit is receiving extra attack damage.")
 
 	var autocast: Autocast = Autocast.make()
+	autocast.description = get_dark_curse_description()
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 3
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

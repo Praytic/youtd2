@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_blizzard_description() -> String:
 	var blizzard_wave_count: String = String.num(_stats.blizzard_wave_count, 2)
 	var blizzard_damage: String = String.num(_stats.blizzard_damage, 2)
 	var blizzard_radius: String = String.num(_stats.blizzard_radius, 2)
@@ -78,6 +78,7 @@ func tower_init():
 	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
 
 	var autocast: Autocast = Autocast.make()
+	autocast.description = get_blizzard_description()
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
