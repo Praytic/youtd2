@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 }
 
 
-func get_extra_tooltip_text() -> String:
+func get_fire_blast_description() -> String:
 	var damage: String = String.num(_stats.damage, 2)
 	var damage_add: String = String.num(_stats.damage_add, 2)
 
@@ -29,7 +29,7 @@ func get_extra_tooltip_text() -> String:
 
 func tower_init():
 	var autocast: Autocast = Autocast.make()
-	autocast.display_name = "Fire Blast"
+	autocast.description = get_fire_blast_description()
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

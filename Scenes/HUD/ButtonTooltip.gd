@@ -20,6 +20,9 @@ func _ready():
 	EventBus.research_button_mouse_entered.connect(_on_research_button_mouse_entered)
 	EventBus.research_button_mouse_exited.connect(_on_research_button_mouse_exited)
 
+	EventBus.autocast_button_mouse_entered.connect(_on_autocast_button_mouse_entered)
+	EventBus.autocast_button_mouse_exited.connect(_on_autocast_button_mouse_exited)
+
 
 func _on_tower_button_mouse_entered(tower_id: int):
 	show()
@@ -57,6 +60,19 @@ func _on_research_button_mouse_entered(element: Element.enm):
 
 
 func _on_research_button_mouse_exited():
+	hide()
+
+
+func _on_autocast_button_mouse_entered(autocast: Autocast):
+	show()
+
+	_label.clear()
+
+	var text: String = autocast.description
+	_label.append_text(text)
+
+
+func _on_autocast_button_mouse_exited():
 	hide()
 
 
@@ -98,8 +114,11 @@ func _get_tower_text(tower_id: int) -> String:
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
 
 # 	NOTE: creating a tower instance just to get the tooltip
-# 	text is weird, but the alternatives are worse
+# 	text is weird, but the alternatives are worse. Need to
+# 	call tower_init() so that autocasts are setup and we can
+# 	get their descriptions.
 	var tower: Tower = TowerManager.get_tower(tower_id)
+	tower.tower_init()
 	var specials_text: String = tower.get_specials_tooltip_text()
 	specials_text = _add_color_to_numbers(specials_text)
 	var extra_text: String = tower.get_extra_tooltip_text()
@@ -123,6 +142,10 @@ func _get_tower_text(tower_id: int) -> String:
 
 	if !extra_text.is_empty():
 		text += " \n%s\n" % extra_text
+
+	for autocast in tower.get_autocast_list():
+		var autocast_description: String = autocast.description
+		text += " \n%s\n" % autocast_description
 	
 	return text
 

@@ -49,6 +49,7 @@ enum Type {
 # manually triggered by the user, auto_range is the range
 # used for regular autocasts that cast automatically.
 var display_name: String = "Autocast name"
+var description: String = "Description"
 var caster_art: String = ""
 var cooldown: float = 0.1
 # NOTE: in original engine "num_buffs_before_idle"

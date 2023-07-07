@@ -14,7 +14,6 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @onready var _autocast_outer_container: VBoxContainer = $HBoxContainer/AutocastsOuterContainer
 
 var _selling_for_real: bool = false
-var _button_map: Dictionary = {}
 
 
 func _ready():
@@ -103,20 +102,11 @@ func _update_autocasts(tower: Tower):
 	for button in _autocasts_container.get_children():
 		button.queue_free()
 
-	_button_map.clear()
-
 	var autocast_list: Array[Autocast] = tower.get_autocast_list()
 
 	for autocast in autocast_list:
-		var button: Button = Button.new()
-		button.icon = load("res://Assets/icon.png")
-
-		var cooldown_indicator_scene: PackedScene = load("res://Scenes/HUD/CooldownIndicator.tscn")
-		var cooldown_indicator: CooldownIndicator = cooldown_indicator_scene.instantiate()
-		cooldown_indicator.set_autocast(autocast)
-		button.add_child(cooldown_indicator)
-
-		_button_map[autocast.display_name] = button
+		var button: AutocastButton = AutocastButton.new()
+		button.set_autocast(autocast)
 		_autocasts_container.add_child(button)
 
 
