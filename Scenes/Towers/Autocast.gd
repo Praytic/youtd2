@@ -145,7 +145,6 @@ func do_cast_if_possible():
 			
 			if target != null:
 				_do_cast(target)
-
 		Type.AC_TYPE_OFFENSIVE_IMMEDIATE:
 			_do_cast(_caster)
 		_:
@@ -185,8 +184,6 @@ func _on_caster_attack(attack_event: Event):
 
 	_do_cast(target)
 
-	_cooldown_timer.start()
-
 
 func _on_buff_timer_timeout():
 	if !_can_cast():
@@ -204,8 +201,6 @@ func _on_buff_timer_timeout():
 		return
 
 	_do_cast(target)
-
-	_cooldown_timer.start()
 
 
 func _get_target_for_buff_autocast() -> Unit:
@@ -239,11 +234,10 @@ func _on_immediate_timer_timeout():
 # 	caster itself as target
 	_do_cast(_caster)
 
-	_cooldown_timer.start()
-
 
 func _do_cast(target: Unit):
 	_caster.subtract_mana(mana_cost, true)
+	_cooldown_timer.start()
 	
 	if !handler.is_null():
 		var autocast_event = Event.new(target)
