@@ -8,10 +8,14 @@ extends TextureButton
 
 
 signal shift_right_clicked()
+signal right_clicked()
 
 
 func _gui_input(event):
 	var pressed_shift_right_click: bool = event.is_action_released("right_click") && Input.is_action_pressed("shift")
+	var pressed_right_click: bool = event.is_action_released("right_click")
 
 	if pressed_shift_right_click:
 		shift_right_clicked.emit()
+	elif pressed_right_click:
+		right_clicked.emit()

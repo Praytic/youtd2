@@ -130,6 +130,22 @@ func is_item_autocast() -> bool:
 	return _is_item_autocast
 
 
+func do_cast_if_possible():
+	if !_can_cast():
+		return
+
+	match autocast_type:
+		Type.AC_TYPE_ALWAYS_BUFF:
+			var target: Unit = _get_target_for_buff_autocast()
+			
+			if target != null:
+				_do_cast(target)
+		Type.AC_TYPE_OFFENSIVE_IMMEDIATE:
+			_do_cast(_caster)
+		_:
+			push_error("do_cast_if_possible doesn't support this autocast type: ", autocast_type)
+
+
 func _on_caster_attack(attack_event: Event):
 	if !_can_cast():
 		return
@@ -176,24 +192,7 @@ func _on_buff_timer_timeout():
 	if autocast_type == Type.AC_TYPE_OFFENSIVE_BUFF && !_caster.is_attacking():
 		return
 
-	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.position, auto_range)
-	Utils.sort_unit_list_by_distance(unit_list, _caster.position)
-
-	var target: Unit = null
-
-	for unit in unit_list:
-		if buff_type == null:
-			target = unit
-
-			break
-
-		var buff: Buff = unit.get_buff_of_type(buff_type)
-		var unit_has_buff: bool = buff != null
-
-		if !unit_has_buff:
-			target = unit
-
-			break
+	var target: Unit = _get_target_for_buff_autocast()
 
 	if target == null:
 		return
@@ -201,6 +200,23 @@ func _on_buff_timer_timeout():
 	_do_cast(target)
 
 	_cooldown_timer.start()
+
+
+func _get_target_for_buff_autocast() -> Unit:
+	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.position, auto_range)
+	Utils.sort_unit_list_by_distance(unit_list, _caster.position)
+
+	for unit in unit_list:
+		if buff_type == null:
+			return unit
+
+		var buff: Buff = unit.get_buff_of_type(buff_type)
+		var unit_has_buff: bool = buff != null
+
+		if !unit_has_buff:
+			return unit
+
+	return null
 
 
 func _on_immediate_timer_timeout():

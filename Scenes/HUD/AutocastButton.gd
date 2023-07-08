@@ -17,9 +17,12 @@ func _ready():
 
 func _gui_input(event):
 	var pressed_shift_right_click: bool = event.is_action_released("right_click") && Input.is_action_pressed("shift")
+	var pressed_right_click: bool = event.is_action_released("right_click")
 
 	if pressed_shift_right_click:
 		_autocast.toggle_auto_mode()
+	elif pressed_right_click:
+		_autocast.do_cast_if_possible()
 
 
 func set_autocast(autocast: Autocast):

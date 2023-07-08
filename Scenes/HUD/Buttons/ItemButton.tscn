@@ -10,4 +10,5 @@ script = ExtResource("2_3sh26")
 [node name="UnitButton" parent="." index="0"]
 script = ExtResource("3_rtejc")
 
+[connection signal="right_clicked" from="UnitButton" to="." method="_on_unit_button_right_clicked"]
 [connection signal="shift_right_clicked" from="UnitButton" to="." method="_on_unit_button_shift_right_clicked"]
