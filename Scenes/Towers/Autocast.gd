@@ -147,16 +147,30 @@ func do_cast_if_possible():
 
 		return
 
-	match autocast_type:
-		Type.AC_TYPE_ALWAYS_BUFF:
-			var target: Unit = _get_target_for_buff_autocast()
-			
-			if target != null:
-				_do_cast(target)
-		Type.AC_TYPE_OFFENSIVE_IMMEDIATE:
-			_do_cast(_caster)
-		_:
-			push_error("do_cast_if_possible doesn't support this autocast type: ", autocast_type)
+	var caster_target_list: Array[Autocast.Type] = [
+		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
+		Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
+		Autocast.Type.AC_TYPE_NOAC_IMMEDIATE,
+	]
+	var closest_target_list: Array[Autocast.Type] = [
+		Autocast.Type.AC_TYPE_ALWAYS_BUFF,
+		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
+	]
+	var use_caster_target: bool = caster_target_list.has(autocast_type)
+	var use_closest_target: bool = closest_target_list.has(autocast_type)
+
+	var target: Unit
+	if use_caster_target:
+		target = _caster
+	elif use_closest_target:
+		target = _get_target_for_buff_autocast()
+	else:
+		target = null
+
+	if target != null:
+		_do_cast(target)
+	else:
+		push_error("do_cast_if_possible doesn't support this autocast type: ", autocast_type)
 
 
 func _on_caster_attack(attack_event: Event):
