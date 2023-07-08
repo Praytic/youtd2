@@ -71,6 +71,11 @@ var handler: Callable = Callable()
 
 var _caster: Unit = null
 var _is_item_autocast: bool = false
+# When auto mode is true, the autocast will trigger
+# automatically whenever the cooldown reaches 0. When auto
+# mode is false, autocast will trigger only in response to
+# player input.
+var _auto_mode: bool = true
 
 @onready var _cooldown_timer: Timer = $CooldownTimer
 @onready var _buff_timer: Timer = $BuffTimer
@@ -107,6 +112,10 @@ func set_caster(caster: Unit):
 	_caster = caster
 
 
+func toggle_auto_mode():
+	_auto_mode = !_auto_mode
+
+
 func get_cooldown() -> float:
 	return cooldown
 
@@ -123,6 +132,9 @@ func is_item_autocast() -> bool:
 
 func _on_caster_attack(attack_event: Event):
 	if !_can_cast():
+		return
+
+	if !_auto_mode:
 		return
 	
 	var target: Unit = attack_event.get_target()
@@ -158,6 +170,9 @@ func _on_buff_timer_timeout():
 	if !_can_cast():
 		return
 
+	if !_auto_mode:
+		return
+
 	if autocast_type == Type.AC_TYPE_OFFENSIVE_BUFF && !_caster.is_attacking():
 		return
 
@@ -190,6 +205,9 @@ func _on_buff_timer_timeout():
 
 func _on_immediate_timer_timeout():
 	if !_can_cast():
+		return
+
+	if !_auto_mode:
 		return
 
 	if autocast_type == Type.AC_TYPE_OFFENSIVE_IMMEDIATE && !_caster.is_attacking():

@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://e2g37lsilxyj"]
+[gd_scene load_steps=4 format=3 uid="uid://e2g37lsilxyj"]
 
 [ext_resource type="PackedScene" uid="uid://dqjk0dq82x1cv" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_7d5y0"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButtonContainer.gd" id="2_3sh26"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButtonInner.gd" id="3_rtejc"]
 
 [node name="ItemButton" instance=ExtResource("1_7d5y0")]
 script = ExtResource("2_3sh26")
+
+[node name="UnitButton" parent="." index="0"]
+script = ExtResource("3_rtejc")
+
+[connection signal="shift_right_clicked" from="UnitButton" to="." method="_on_unit_button_shift_right_clicked"]

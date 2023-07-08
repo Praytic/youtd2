@@ -46,3 +46,9 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	EventBus.item_button_mouse_exited.emit()
 
+
+func _on_unit_button_shift_right_clicked():
+	var autocast: Autocast = _item.get_autocast()
+	
+	if autocast != null:
+		autocast.toggle_auto_mode()
