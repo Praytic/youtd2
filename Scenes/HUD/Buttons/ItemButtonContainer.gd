@@ -18,6 +18,7 @@ func _ready():
 
 	if autocast != null:
 		CooldownIndicator.add_to_margin_container_and_texture_rect(autocast, _icon_container, _icon)
+		AutoModeIndicator.add_to_texture_rect(autocast, _icon)
 	
 	_unit_button.mouse_entered.connect(_on_mouse_entered)
 	_unit_button.mouse_exited.connect(_on_mouse_exited)

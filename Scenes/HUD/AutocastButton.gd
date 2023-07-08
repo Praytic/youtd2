@@ -9,6 +9,7 @@ func _ready():
 	icon = load("res://Assets/icon.png")
 	
 	CooldownIndicator.add_to_button(_autocast, self)
+	AutoModeIndicator.add_to_button(_autocast, self)
 
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)

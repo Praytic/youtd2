@@ -1,0 +1,17 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://cnlpyw6c164jy"]
+
+[ext_resource type="Texture2D" uid="uid://w8brbs0bmj5x" path="res://Assets/UI/HUD/auto mode indicator/auto_mode_0.png" id="1_ej41b"]
+[ext_resource type="Texture2D" uid="uid://ck3jxg616xqe2" path="res://Assets/UI/HUD/auto mode indicator/auto_mode_1.png" id="2_lo6iv"]
+[ext_resource type="Texture2D" uid="uid://bj0lvjia484rp" path="res://Assets/UI/HUD/auto mode indicator/auto_mode_2.png" id="3_661bs"]
+[ext_resource type="Texture2D" uid="uid://bmdt76xvqsgaa" path="res://Assets/UI/HUD/auto mode indicator/auto_mode_3.png" id="4_1hni5"]
+
+[resource]
+frames = 4
+speed_scale = 10.0
+frame_0/texture = ExtResource("1_ej41b")
+frame_1/texture = ExtResource("2_lo6iv")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("3_661bs")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("4_1hni5")
+frame_3/duration = 1.0
