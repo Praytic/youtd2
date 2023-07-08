@@ -1,13 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf3dgj0hegtqq"]
+[gd_scene load_steps=7 format=3 uid="uid://cf3dgj0hegtqq"]
 
-[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="1_8l78x"]
+[ext_resource type="Texture2D" uid="uid://bcggqecxtkhn8" path="res://Assets/Items/item_icons_s.png" id="1_5b1m0"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/AutocastButton.gd" id="1_eojut"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/CooldownIndicator.gd" id="3_d6wsi"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3_rtugu"]
 [ext_resource type="PackedScene" path="res://Scenes/HUD/Buttons/AutoModeIndicator.tscn" id="5_xah78"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2y68o"]
+atlas = ExtResource("1_5b1m0")
+region = Rect2(320, 2944, 64, 64)
+
 [node name="AutocastButton" type="Button"]
-icon = ExtResource("1_8l78x")
+icon = SubResource("AtlasTexture_2y68o")
 script = ExtResource("1_eojut")
 
 [node name="IndicatorContainer" type="MarginContainer" parent="."]
