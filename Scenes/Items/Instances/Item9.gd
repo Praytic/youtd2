@@ -42,7 +42,7 @@ func item_init():
 	autocast.auto_range = 0
 	autocast.handler = on_autocast
 
-	add_autocast(autocast)
+	set_autocast(autocast)
 
 	boekie_backpackBuff = BuffType.new("boekie_backpackBuff", 0, 0, true, self)
 	boekie_backpackBuff.set_buff_icon("@@0@@")

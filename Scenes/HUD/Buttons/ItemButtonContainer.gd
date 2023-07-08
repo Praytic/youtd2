@@ -14,13 +14,9 @@ func _ready():
 	_set_rarity_icon()
 	_set_unit_icon()
 
-	var autocast_list: Array = _item.get_autocast_list()
+	var autocast: Autocast = _item.get_autocast()
 
-	if !autocast_list.is_empty():
-		if autocast_list.size() > 1:
-			push_error("Item has more than 1 autocast. Current system is not built to handle that.")
-
-		var autocast: Autocast = autocast_list[0]
+	if autocast != null:
 		CooldownIndicator.add_to_margin_container_and_texture_rect(autocast, _icon_container, _icon)
 	
 	_unit_button.mouse_entered.connect(_on_mouse_entered)

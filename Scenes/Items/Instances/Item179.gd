@@ -51,4 +51,4 @@ func item_init():
 	autocast.cast_range = 450
 	autocast.auto_range = 450
 	autocast.handler = Callable()
-	add_autocast(autocast)
+	set_autocast(autocast)

@@ -60,7 +60,7 @@ func item_init():
 	autocast.cast_range = 0
 	autocast.auto_range = 0
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	set_autocast(autocast)
 
 
 func on_create():

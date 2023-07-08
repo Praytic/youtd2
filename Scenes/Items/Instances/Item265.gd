@@ -28,7 +28,7 @@ func item_init():
 	autocast.cast_range = 1200
 	autocast.auto_range = 1200
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	set_autocast(autocast)
 
 
 func on_autocast(event: Event):

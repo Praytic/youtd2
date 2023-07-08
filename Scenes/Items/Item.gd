@@ -45,7 +45,7 @@ var _charge_count: int = -1
 var _modifier: Modifier = Modifier.new()
 var _buff_type_list: Array[BuffType] = []
 var _applied_buff_list: Array[Buff] = []
-var _autocast_list: Array[Autocast] = []
+var _autocast: Autocast = null
 var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 
 
@@ -182,8 +182,8 @@ func pickup(tower: Tower) -> bool:
 
 	_carrier.add_modifier(_modifier)
 
-	for autocast in _autocast_list:
-		autocast.set_caster(_carrier)
+	if _autocast != null:
+		_autocast.set_caster(_carrier)
 
 	for buff_type in _buff_type_list:
 		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
@@ -228,14 +228,14 @@ func move_to_stash():
 	EventBus.item_drop_picked_up.emit(self)
 
 
-func add_autocast(autocast: Autocast):
+func set_autocast(autocast: Autocast):
 	autocast._is_item_autocast = true
-	_autocast_list.append(autocast)
+	_autocast = autocast
 	add_child(autocast)
 
 
-func get_autocast_list() -> Array[Autocast]:
-	return _autocast_list
+func get_autocast() -> Autocast:
+	return _autocast
 
 
 # Add buffs that will be applied to carrier while it is

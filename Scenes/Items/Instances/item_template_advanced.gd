@@ -50,7 +50,7 @@ func item_init():
 	autocast.cast_range = 200
 	autocast.auto_range = 200
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	set_autocast(autocast)
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
