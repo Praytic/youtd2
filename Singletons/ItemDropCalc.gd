@@ -85,9 +85,23 @@ func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
 		return random_oil_item
 	else:
 #		Regular items
-		var random_regular_item: int = get_random_item_at_rarity_bounded(rarity, 0, tower_level)
+		var random_regular_item: int = get_random_item_at_or_below_rarity_bounded(rarity, 0, tower_level)
 
 		return random_regular_item
+
+
+func get_random_item_at_or_below_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) -> int:
+	var random_item: int = get_random_item_at_rarity_bounded(rarity, lvl_min, lvl_max)
+
+	if random_item != 0:
+		return random_item
+	else:
+		if rarity > 0:
+#			Try to find items in lower rarity
+			return get_random_item_at_rarity_bounded(rarity - 1, lvl_min, lvl_max)
+		else:
+#			Give up
+			return 0
 
 
 func get_random_item_at_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) -> int:
@@ -119,9 +133,4 @@ func get_random_item_at_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) 
 
 		return random_item
 	else:
-		if rarity > 0:
-#			Try to find items in lower rarity
-			return get_random_item_at_rarity_bounded(rarity - 1, lvl_min, lvl_max)
-		else:
-#			Give up
-			return 0
+		return 0
