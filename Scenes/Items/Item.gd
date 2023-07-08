@@ -27,7 +27,7 @@ const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 
 # NOTE: this is used in Creep.gd to determine which items
 # will not drop.
-const disabled_item_list: Array[int] = [50, 140, 162, 198, 201, 248, 250, 254, 262, 285]
+const disabled_item_list: Array[int] = [50, 140, 162, 198, 201, 248, 250, 254, 262]
 
 
 var user_int: int = 0

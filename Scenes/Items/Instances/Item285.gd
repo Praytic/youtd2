@@ -2,10 +2,6 @@
 extends Item
 
 
-# TODO: currently doesn't work because
-# AC_TYPE_NOAC_IMMEDIATE is not implemented.
-
-
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
