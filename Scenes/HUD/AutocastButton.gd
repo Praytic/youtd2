@@ -8,10 +8,7 @@ var _autocast: Autocast = null
 func _ready():
 	icon = load("res://Assets/icon.png")
 	
-	var cooldown_indicator_scene: PackedScene = load("res://Scenes/HUD/CooldownIndicator.tscn")
-	var cooldown_indicator: CooldownIndicator = cooldown_indicator_scene.instantiate()
-	cooldown_indicator.set_autocast(_autocast)
-	add_child(cooldown_indicator)
+	CooldownIndicator.add_to_button(_autocast, self)
 
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)

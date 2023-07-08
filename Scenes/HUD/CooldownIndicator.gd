@@ -1,78 +1,89 @@
 class_name CooldownIndicator extends Control
 
-# Displays a rotating shadow over a square area. Add as
-# child to a button and set target autocast using
-# set_autocast().
+# Displays a rotating shadow over a square area. Use one of
+# the add_to...() static f-ns to add cooldown indicator to a
+# Control element.
 
 
-var _icon_size: float
-var _icon_half_size: float
 var _base_point_list: Array[Vector2] = []
 var _autocast: Autocast = null
 
 
-func _ready():
-	var button: Button = get_parent()
+static func add_to_button(autocast: Autocast, button: Button):
 	var icon: Texture2D = button.icon
-	
-	if icon == null:
-		push_error("Attached CooldownIndicator to a button without icon!")
+	var icon_size: float = icon.get_width()
 
-		return
+	var button_stylebox: StyleBox = button.get_theme_stylebox("normal", "Button")
+	var icon_offset: Vector2 = button_stylebox.get_offset()
 
-	_icon_size = icon.get_width()
-	_icon_half_size = _icon_size / 2
+	var cooldown_indicator: CooldownIndicator = _make_internal(autocast, icon_size, icon_offset)
 
-#	Pick 360 points on the square, spaced out by angle from
-#	center. There is definitely a better way to do this but
-#	whatever.
+	button.add_child(cooldown_indicator)
+
+
+static func _make_internal(autocast: Autocast, icon_size: float, icon_offset: Vector2) -> CooldownIndicator:
+	var cooldown_indicator_scene: PackedScene = load("res://Scenes/HUD/CooldownIndicator.tscn")
+	var cooldown_indicator: CooldownIndicator = cooldown_indicator_scene.instantiate()
+
+	cooldown_indicator._autocast = autocast
+	cooldown_indicator._base_point_list = _generate_base_points(icon_size, icon_offset)
+
+	return cooldown_indicator
+
+
+# Pick 360 points on a square, spaced out by angle from
+# center. There is definitely a better way to do this but
+# whatever.
+static func _generate_base_points(icon_size: float, icon_offset: Vector2) -> Array[Vector2]:
+	var point_list: Array[Vector2] = []
+
+	var icon_half_size: float = icon_size / 2
 
 #	Center point
-	_base_point_list.append(Vector2(_icon_half_size, _icon_half_size))
+	point_list.append(Vector2(icon_half_size, icon_half_size))
 
 # 	From top center to top left
 	for angle in range(0, 45, 1):
-		var x: float = _icon_half_size - _icon_half_size * tan(deg_to_rad(angle))
+		var x: float = icon_half_size - icon_half_size * tan(deg_to_rad(angle))
 		var y: float = 0
 		var point: Vector2 = Vector2(x, y)
-		_base_point_list.append(point)
+		point_list.append(point)
 
 #	From top left to bottom left
 	for angle in range(-45, 45, 1):
 		var x: float = 0
-		var y: float = _icon_half_size + _icon_half_size * tan(deg_to_rad(angle))
+		var y: float = icon_half_size + icon_half_size * tan(deg_to_rad(angle))
 		var point: Vector2 = Vector2(x, y)
-		_base_point_list.append(point)
+		point_list.append(point)
 
 # 	From bottom left to bottom right
 	for angle in range(-45, 45, 1):
-		var x: float = _icon_half_size + _icon_half_size * tan(deg_to_rad(angle))
-		var y: float = _icon_size
+		var x: float = icon_half_size + icon_half_size * tan(deg_to_rad(angle))
+		var y: float = icon_size
 		var point: Vector2 = Vector2(x, y)
-		_base_point_list.append(point)
+		point_list.append(point)
 
 #	From bottom right to top right
 	for angle in range(45, -45, -1):
-		var x: float = _icon_size
-		var y: float = _icon_half_size + _icon_half_size * tan(deg_to_rad(angle))
+		var x: float = icon_size
+		var y: float = icon_half_size + icon_half_size * tan(deg_to_rad(angle))
 		var point: Vector2 = Vector2(x, y)
-		_base_point_list.append(point)
+		point_list.append(point)
 
 # 	From top right to top center
 	for angle in range(-45, 0, 1):
-		var x: float = _icon_half_size - _icon_half_size * tan(deg_to_rad(angle))
+		var x: float = icon_half_size - icon_half_size * tan(deg_to_rad(angle))
 		var y: float = 0
 		var point: Vector2 = Vector2(x, y)
-		_base_point_list.append(point)
+		point_list.append(point)
 	
 #	NOTE: button's icon is drawn at an offset which is
 #	determined by the theme. Offset all points so that the
 #	indicator is drawn on top of the icon.
-	var button_stylebox: StyleBox = button.get_theme_stylebox("normal", "Button")
-	var button_icon_offset: Vector2 = button_stylebox.get_offset()
-	
-	for i in range(0, _base_point_list.size()):
-		_base_point_list[i] = _base_point_list[i] + button_icon_offset
+	for i in range(0, point_list.size()):
+		point_list[i] = point_list[i] + icon_offset
+
+	return point_list
 
 
 func _process(_delta: float):
@@ -95,7 +106,3 @@ func _draw():
 		point_list.append(point)
 
 	draw_colored_polygon(point_list, Color(0, 0, 0, 0.5))
-
-
-func set_autocast(autocast: Autocast):
-	_autocast = autocast
