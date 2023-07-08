@@ -27,7 +27,7 @@ const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 
 # NOTE: this is used in Creep.gd to determine which items
 # will not drop.
-const disabled_item_list: Array[int] = [50, 140, 162, 198, 201, 248, 250, 254, 262]
+const disabled_item_list: Array[int] = [50, 140, 162, 198, 201, 250, 254, 262]
 
 
 var user_int: int = 0
@@ -128,13 +128,18 @@ func _init(id: int):
 	_id = id
 	load_modifier(_modifier)
 	item_init()
-	on_create()
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 	load_triggers(triggers_buff_type)
 	_buff_type_list.append(triggers_buff_type)
 
 	_buff_type_list.append(_aura_carrier_buff)
+
+
+# NOTE: need to call on_create() because some item scripts
+# access the scene tree inside on_create()
+func _ready():
+	on_create()
 
 
 # Drops item from tower inventory onto the ground. This f-n

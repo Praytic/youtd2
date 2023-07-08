@@ -85,12 +85,12 @@ func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
 		return random_oil_item
 	else:
 #		Regular items
-		var random_regular_item: int = _pick_regular_item_recursive(tower_level, rarity)
+		var random_regular_item: int = get_random_item_at_rarity_bounded(rarity, 0, tower_level)
 
 		return random_regular_item
 
 
-func _pick_regular_item_recursive(tower_level: int, rarity: int) -> int:
+func get_random_item_at_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) -> int:
 #	Find all items which are not oils and fall into selected
 #	rarity
 	var rarity_string: String = Rarity.convert_to_string(rarity)
@@ -102,7 +102,7 @@ func _pick_regular_item_recursive(tower_level: int, rarity: int) -> int:
 
 	for item in item_list:
 		var required_level: int = ItemProperties.get_required_wave_level(item)
-		var level_is_ok: bool = tower_level > required_level
+		var level_is_ok: bool = lvl_min <= required_level && required_level <= lvl_max
 
 		if level_is_ok:
 			available_item_list.append(item)
@@ -121,7 +121,7 @@ func _pick_regular_item_recursive(tower_level: int, rarity: int) -> int:
 	else:
 		if rarity > 0:
 #			Try to find items in lower rarity
-			return _pick_regular_item_recursive(tower_level, rarity - 1)
+			return get_random_item_at_rarity_bounded(rarity - 1, lvl_min, lvl_max)
 		else:
 #			Give up
 			return 0

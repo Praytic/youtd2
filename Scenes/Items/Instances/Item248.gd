@@ -2,10 +2,6 @@
 extends Item
 
 
-# TODO: need to implement AC_TYPE_NOAC_IMMEDIATE for this item to work
-
-# TODO: implement RandomItemSet.permanent.get_random_item_at_rarity_bounded()
-
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
@@ -38,10 +34,13 @@ func on_autocast(event: Event):
 		rarity = 2
 
 	if i > 0 && Utils.get_player_state(p.get_the_player(), PlayerState.enm.RESOURCE_GOLD) >= 500:
-		itm.user_int2 = itm.user_int2 - 1
-		p.give_gold(-500, tower, false, true)
-		# new = Item.create(p, RandomItemSet.permanent.get_random_item_at_rarity_bounded(rarity, 14, 25), tower.get_visual_position())
-		new.fly_to_stash(0.0)
+		var random_item: int = ItemDropCalc.get_random_item_at_rarity_bounded(rarity, 14, 25)
+		
+		if random_item != 0:
+			itm.user_int2 = itm.user_int2 - 1
+			p.give_gold(-500, tower, false, true)
+			new = Item.create(tower.getOwner(), random_item, tower.get_visual_position())
+			new.fly_to_stash(0.0)
 
 	check_level(itm)
 
@@ -61,6 +60,24 @@ func check_level(itm: Item):
 		itm.user_int2 = itm.user_int2 + 1
 
 	itm.set_charges(itm.user_int2)
+
+
+func item_init():
+	var autocast: Autocast = Autocast.make()
+	autocast.caster_art = ""
+	autocast.target_art = ""
+	autocast.num_buffs_before_idle = 0
+	autocast.autocast_type = Autocast.Type.AC_TYPE_NOAC_IMMEDIATE
+	autocast.target_self = true
+	autocast.cooldown = 1
+	autocast.is_extended = false
+	autocast.mana_cost = 0
+	autocast.buff_type = null
+	autocast.target_type = null
+	autocast.cast_range = 0
+	autocast.auto_range = 0
+	autocast.handler = on_autocast
+	set_autocast(autocast)
 
 
 func on_create():
