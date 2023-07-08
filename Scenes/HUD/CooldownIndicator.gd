@@ -39,7 +39,8 @@ static func _make_internal(autocast: Autocast, icon_size: float, icon_offset: Ve
 	var cooldown_indicator: CooldownIndicator = cooldown_indicator_scene.instantiate()
 
 	cooldown_indicator._autocast = autocast
-	cooldown_indicator._base_point_list = _generate_base_points(icon_size, icon_offset)
+	cooldown_indicator._base_point_list = _generate_base_points(icon_size)
+	cooldown_indicator.position = icon_offset
 
 	return cooldown_indicator
 
@@ -47,7 +48,7 @@ static func _make_internal(autocast: Autocast, icon_size: float, icon_offset: Ve
 # Pick 360 points on a square, spaced out by angle from
 # center. There is definitely a better way to do this but
 # whatever.
-static func _generate_base_points(icon_size: float, icon_offset: Vector2) -> Array[Vector2]:
+static func _generate_base_points(icon_size: float) -> Array[Vector2]:
 	var point_list: Array[Vector2] = []
 
 	var icon_half_size: float = icon_size / 2
@@ -90,12 +91,6 @@ static func _generate_base_points(icon_size: float, icon_offset: Vector2) -> Arr
 		var point: Vector2 = Vector2(x, y)
 		point_list.append(point)
 	
-#	NOTE: button's icon is drawn at an offset which is
-#	determined by the theme. Offset all points so that the
-#	indicator is drawn on top of the icon.
-	for i in range(0, point_list.size()):
-		point_list[i] = point_list[i] + icon_offset
-
 	return point_list
 
 
