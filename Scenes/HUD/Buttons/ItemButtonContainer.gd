@@ -6,10 +6,22 @@ const ICON_SIZE_M = 128
 
 var _item: Item = null : set = set_item, get = get_item
 
+@onready var _icon_container: MarginContainer = $UnitButton/IconContainer
+@onready var _icon: TextureRect = $UnitButton/IconContainer/Icon
+
 
 func _ready():
 	_set_rarity_icon()
 	_set_unit_icon()
+
+	var autocast_list: Array = _item.get_autocast_list()
+
+	if !autocast_list.is_empty():
+		if autocast_list.size() > 1:
+			push_error("Item has more than 1 autocast. Current system is not built to handle that.")
+
+		var autocast: Autocast = autocast_list[0]
+		CooldownIndicator.add_to_margin_container_and_texture_rect(autocast, _icon_container, _icon)
 	
 	_unit_button.mouse_entered.connect(_on_mouse_entered)
 	_unit_button.mouse_exited.connect(_on_mouse_exited)

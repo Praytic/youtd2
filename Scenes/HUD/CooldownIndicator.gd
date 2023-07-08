@@ -21,6 +21,19 @@ static func add_to_button(autocast: Autocast, button: Button):
 	button.add_child(cooldown_indicator)
 
 
+static func add_to_margin_container_and_texture_rect(autocast: Autocast, margin_container: MarginContainer, texture_rect: TextureRect):
+	var icon: Texture2D = texture_rect.texture
+	var icon_size: float = icon.get_width()
+	
+	var margin_left: float = margin_container.get_theme_constant("margin_left", "MarginContainer")
+	var margin_top: float = margin_container.get_theme_constant("margin_top", "MarginContainer")
+	var icon_offset: Vector2 = Vector2(margin_left, margin_top)
+
+	var cooldown_indicator: CooldownIndicator = _make_internal(autocast, icon_size, icon_offset)
+
+	margin_container.add_child(cooldown_indicator)
+
+
 static func _make_internal(autocast: Autocast, icon_size: float, icon_offset: Vector2) -> CooldownIndicator:
 	var cooldown_indicator_scene: PackedScene = load("res://Scenes/HUD/CooldownIndicator.tscn")
 	var cooldown_indicator: CooldownIndicator = cooldown_indicator_scene.instantiate()
