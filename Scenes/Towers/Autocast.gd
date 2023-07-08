@@ -167,6 +167,11 @@ func _on_buff_timer_timeout():
 	var target: Unit = null
 
 	for unit in unit_list:
+		if buff_type == null:
+			target = unit
+
+			break
+
 		var buff: Buff = unit.get_buff_of_type(buff_type)
 		var unit_has_buff: bool = buff != null
 
@@ -179,6 +184,8 @@ func _on_buff_timer_timeout():
 		return
 
 	_do_cast(target)
+
+	_cooldown_timer.start()
 
 
 func _on_immediate_timer_timeout():
@@ -218,6 +225,9 @@ func _do_cast(target: Unit):
 
 
 func _can_cast() -> bool:
+	if _caster == null:
+		return false
+
 	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 	var silenced: bool = _caster.is_silenced()

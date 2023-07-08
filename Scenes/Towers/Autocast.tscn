@@ -14,5 +14,5 @@ wait_time = 0.2
 [node name="ImmediateTimer" type="Timer" parent="."]
 wait_time = 0.2
 
-[connection signal="timeout" from="BuffTimer" to="." method="_on_always_buff_timer_timeout"]
+[connection signal="timeout" from="BuffTimer" to="." method="_on_buff_timer_timeout"]
 [connection signal="timeout" from="ImmediateTimer" to="." method="_on_immediate_timer_timeout"]
