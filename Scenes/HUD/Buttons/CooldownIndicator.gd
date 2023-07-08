@@ -1,9 +1,7 @@
 @tool
 class_name CooldownIndicator extends Control
 
-# Displays a rotating shadow over a square area. Use one of
-# the add_to...() static f-ns to add cooldown indicator to a
-# Control element.
+# Displays a rotating shadow over a square area.
 
 
 var _base_point_list: Array[Vector2] = []
