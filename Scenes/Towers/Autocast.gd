@@ -107,12 +107,20 @@ func _ready():
 		Type.AC_TYPE_ALWAYS_IMMEDIATE:
 			_immediate_timer.start()
 
+	if !_can_use_auto_mode():
+		_auto_mode = false
+
 
 func set_caster(caster: Unit):
 	_caster = caster
 
 
 func toggle_auto_mode():
+	if !_can_use_auto_mode():
+		Messages.add_error("This ability cannot be casted automatically")
+
+		return
+
 	_auto_mode = !_auto_mode
 
 
@@ -288,3 +296,18 @@ func _get_cast_error() -> String:
 		return "Can't cast ability because caster is stunned"
 	else:
 		return ""
+
+
+# Some autocast types are always manual
+func _can_use_auto_mode() -> bool:
+	var types_that_can_use_auto_mode: Array[Autocast.Type] = [
+		Autocast.Type.AC_TYPE_ALWAYS_BUFF,
+		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
+		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
+		Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
+		Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
+	]
+
+	var can_use: bool = types_that_can_use_auto_mode.has(autocast_type)
+
+	return can_use
