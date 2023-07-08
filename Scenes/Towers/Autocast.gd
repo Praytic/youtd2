@@ -132,6 +132,11 @@ func is_item_autocast() -> bool:
 
 func do_cast_if_possible():
 	if !_can_cast():
+		var cast_error: String = _get_cast_error()
+
+		if !cast_error.is_empty():
+			Messages.add_error(cast_error)
+
 		return
 
 	match autocast_type:
@@ -140,6 +145,7 @@ func do_cast_if_possible():
 			
 			if target != null:
 				_do_cast(target)
+
 		Type.AC_TYPE_OFFENSIVE_IMMEDIATE:
 			_do_cast(_caster)
 		_:
@@ -269,3 +275,22 @@ func _can_cast() -> bool:
 	var can_cast: bool = !on_cooldown && enough_mana && !silenced && !stunned
 
 	return can_cast
+
+
+func _get_cast_error() -> String:
+	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
+	var enough_mana: bool = _caster.get_mana() >= mana_cost
+	var silenced: bool = _caster.is_silenced()
+	var stunned: bool = _caster.is_stunned()
+	var can_cast: bool = !on_cooldown && enough_mana && !silenced && !stunned
+
+	if on_cooldown:
+		return "This ability is not ready yet"
+	elif !enough_mana:
+		return "Not enough mana"
+	elif silenced:
+		return "Can't cast ability because caster is silenced"
+	elif stunned:
+		return "Can't cast ability because caster is stunned"
+	else:
+		return ""
