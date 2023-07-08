@@ -147,30 +147,29 @@ func do_cast_if_possible():
 
 		return
 
-	var caster_target_list: Array[Autocast.Type] = [
+	var immediate_type_list: Array[Autocast.Type] = [
 		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
 		Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
 		Autocast.Type.AC_TYPE_NOAC_IMMEDIATE,
 	]
-	var closest_target_list: Array[Autocast.Type] = [
+	var buff_type_list: Array[Autocast.Type] = [
 		Autocast.Type.AC_TYPE_ALWAYS_BUFF,
 		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
 	]
-	var use_caster_target: bool = caster_target_list.has(autocast_type)
-	var use_closest_target: bool = closest_target_list.has(autocast_type)
+	var is_immediate_type: bool = immediate_type_list.has(autocast_type)
+	var is_buff_type: bool = buff_type_list.has(autocast_type)
 
 	var target: Unit
-	if use_caster_target:
-		target = _caster
-	elif use_closest_target:
+	if is_immediate_type:
+		target = null
+	elif is_buff_type:
 		target = _get_target_for_buff_autocast()
 	else:
-		target = null
-
-	if target != null:
-		_do_cast(target)
-	else:
 		push_error("do_cast_if_possible doesn't support this autocast type: ", autocast_type)
+
+		return
+
+	_do_cast(target)
 
 
 func _on_caster_attack(attack_event: Event):
@@ -252,9 +251,8 @@ func _on_immediate_timer_timeout():
 	if autocast_type == Type.AC_TYPE_OFFENSIVE_IMMEDIATE && !_caster.is_attacking():
 		return
 
-# 	NOTE: immediate autocasts have no target so use the
-# 	caster itself as target
-	_do_cast(_caster)
+# 	Immediate casts have no target
+	_do_cast(null)
 
 
 func _do_cast(target: Unit):
@@ -275,9 +273,10 @@ func _do_cast(target: Unit):
 	spell_casted_event._autocast = self
 	_caster.spell_casted.emit(spell_casted_event)
 
-	var spell_targeted_event: Event = Event.new(target)
-	spell_targeted_event._autocast = self
-	target.spell_targeted.emit(spell_targeted_event)
+	if target != null:
+		var spell_targeted_event: Event = Event.new(target)
+		spell_targeted_event._autocast = self
+		target.spell_targeted.emit(spell_targeted_event)
 
 
 func _can_cast() -> bool:
