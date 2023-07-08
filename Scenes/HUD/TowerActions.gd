@@ -12,6 +12,8 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @onready var _autocasts_container: VBoxContainer = $HBoxContainer/AutocastsOuterContainer/AutocastsContainer
 @onready var _autocast_button_placeholder: Button = $HBoxContainer/AutocastsOuterContainer/AutocastsContainer/AutocastButtonPlaceholder
 @onready var _autocast_outer_container: VBoxContainer = $HBoxContainer/AutocastsOuterContainer
+@onready var _autocast_button_scene = preload("res://Scenes/HUD/Buttons/AutocastButton.tscn")
+
 
 var _selling_for_real: bool = false
 
@@ -105,9 +107,9 @@ func _update_autocasts(tower: Tower):
 	var autocast_list: Array[Autocast] = tower.get_autocast_list()
 
 	for autocast in autocast_list:
-		var button: AutocastButton = AutocastButton.new()
-		button.set_autocast(autocast)
-		_autocasts_container.add_child(button)
+		var autocast_button: AutocastButton = _autocast_button_scene.instantiate()
+		autocast_button.set_autocast(autocast)
+		_autocasts_container.add_child(autocast_button)
 
 
 func _on_reset_sell_button_timer_timeout():

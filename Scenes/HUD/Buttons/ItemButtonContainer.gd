@@ -8,6 +8,8 @@ var _item: Item = null : set = set_item, get = get_item
 
 @onready var _icon_container: MarginContainer = $UnitButton/IconContainer
 @onready var _icon: TextureRect = $UnitButton/IconContainer/Icon
+@onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
+@onready var _auto_mode_indicator: AutoModeIndicator = $UnitButton/IconContainer/AutoModeIndicator
 
 
 func _ready():
@@ -17,8 +19,8 @@ func _ready():
 	var autocast: Autocast = _item.get_autocast()
 
 	if autocast != null:
-		CooldownIndicator.add_to_margin_container_and_texture_rect(autocast, _icon_container, _icon)
-		AutoModeIndicator.add_to_texture_rect(autocast, _icon)
+		_cooldown_indicator.set_autocast(autocast)
+		_auto_mode_indicator.set_autocast(autocast)
 	
 	_unit_button.mouse_entered.connect(_on_mouse_entered)
 	_unit_button.mouse_exited.connect(_on_mouse_exited)

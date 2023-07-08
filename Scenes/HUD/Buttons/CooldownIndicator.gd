@@ -1,3 +1,4 @@
+@tool
 class_name CooldownIndicator extends Control
 
 # Displays a rotating shadow over a square area. Use one of
@@ -7,42 +8,12 @@ class_name CooldownIndicator extends Control
 
 var _base_point_list: Array[Vector2] = []
 var _autocast: Autocast = null
+var _progress_in_editor = 1.0
+var _current_size: float = 0
 
 
-static func add_to_button(autocast: Autocast, button: Button):
-	var icon: Texture2D = button.icon
-	var icon_size: float = icon.get_width()
-
-	var button_stylebox: StyleBox = button.get_theme_stylebox("normal", "Button")
-	var icon_offset: Vector2 = button_stylebox.get_offset()
-
-	var cooldown_indicator: CooldownIndicator = _make_internal(autocast, icon_size, icon_offset)
-
-	button.add_child(cooldown_indicator)
-
-
-static func add_to_margin_container_and_texture_rect(autocast: Autocast, margin_container: MarginContainer, texture_rect: TextureRect):
-	var icon: Texture2D = texture_rect.texture
-	var icon_size: float = icon.get_width()
-	
-	var margin_left: float = margin_container.get_theme_constant("margin_left", "MarginContainer")
-	var margin_top: float = margin_container.get_theme_constant("margin_top", "MarginContainer")
-	var icon_offset: Vector2 = Vector2(margin_left, margin_top)
-
-	var cooldown_indicator: CooldownIndicator = _make_internal(autocast, icon_size, icon_offset)
-
-	margin_container.add_child(cooldown_indicator)
-
-
-static func _make_internal(autocast: Autocast, icon_size: float, icon_offset: Vector2) -> CooldownIndicator:
-	var cooldown_indicator_scene: PackedScene = load("res://Scenes/HUD/CooldownIndicator.tscn")
-	var cooldown_indicator: CooldownIndicator = cooldown_indicator_scene.instantiate()
-
-	cooldown_indicator._autocast = autocast
-	cooldown_indicator._base_point_list = _generate_base_points(icon_size)
-	cooldown_indicator.position = icon_offset
-
-	return cooldown_indicator
+func set_autocast(autocast: Autocast):
+	_autocast = autocast
 
 
 # Pick 360 points on a square, spaced out by angle from
@@ -99,9 +70,29 @@ func _process(_delta: float):
 
 
 func _draw():
-	var cooldown: float = _autocast.get_cooldown()
-	var remaining_cooldown: float = _autocast.get_remaining_cooldown()
-	var progress: float = remaining_cooldown / cooldown
+#	NOTE: check for size changes here so that size is
+#	correct when this script runs in editor. If this script
+#	ran only ingame, then doing this in _ready() would've
+#	been enough.
+	var icon_size: float = size.x
+	if icon_size != _current_size:
+		_base_point_list = _generate_base_points(icon_size)
+
+	var progress: float
+	
+	if Engine.is_editor_hint():
+		_progress_in_editor -= 0.01
+		if _progress_in_editor < 0:
+			_progress_in_editor = 1.0
+
+		progress = _progress_in_editor
+	else:
+		if _autocast == null:
+			return
+
+		var cooldown: float = _autocast.get_cooldown()
+		var remaining_cooldown: float = _autocast.get_remaining_cooldown()
+		progress = remaining_cooldown / cooldown
 
 	var point_list: PackedVector2Array = []
 	var point_count: int = int(progress * _base_point_list.size())

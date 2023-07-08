@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cf3dgj0hegtqq"]
+
+[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="1_8l78x"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/AutocastButton.gd" id="1_eojut"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/CooldownIndicator.gd" id="3_d6wsi"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3_rtugu"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/Buttons/AutoModeIndicator.tscn" id="5_xah78"]
+
+[node name="AutocastButton" type="Button"]
+icon = ExtResource("1_8l78x")
+script = ExtResource("1_eojut")
+
+[node name="IndicatorContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="CooldownIndicator" type="Control" parent="IndicatorContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("3_rtugu")
+script = ExtResource("3_d6wsi")
+
+[node name="AutoModeIndicator" parent="IndicatorContainer" instance=ExtResource("5_xah78")]
+layout_mode = 2
