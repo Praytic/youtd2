@@ -212,12 +212,15 @@ func _get_item_text(item: Item) -> String:
 	if !extra_text.is_empty():
 		text += " \n%s\n" % extra_text
 
-	var item_has_autocast: bool = item.get_autocast() != null
-	var item_is_on_tower: bool = item.get_carrier() != null
+	var autocast: Autocast = item.get_autocast()
 
-	if item_has_autocast && item_is_on_tower:
-		text += " \n"
-		text += "[color=YELLOW]Left Click to cast ability[/color]\n"
+	if autocast != null:
+		var item_is_on_tower: bool = item.get_carrier() != null
+		var is_manual_cast: bool = !autocast.can_use_auto_mode()
+
+		if item_is_on_tower && is_manual_cast:
+			text += " \n"
+			text += "[color=YELLOW]Left Click to cast ability[/color]\n"
 
 	if is_oil:
 		text += " \n[color=ORANGE]Use oil on a tower to alter it permanently. The effects stay when the tower is transformed or upgraded![/color]"
