@@ -293,6 +293,9 @@ func _can_cast() -> bool:
 
 
 func _get_cast_error() -> String:
+	if _caster == null:
+		return ""
+
 	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 	var silenced: bool = _caster.is_silenced()

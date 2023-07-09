@@ -9,7 +9,6 @@ const ICON_SIZE_M = 128
 var _item: Item = null : set = set_item, get = get_item
 
 @onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
-@onready var _auto_mode_indicator: AutoModeIndicator = $UnitButton/IconContainer/AutoModeIndicator
 
 
 func _ready():
@@ -20,7 +19,6 @@ func _ready():
 
 	if autocast != null:
 		_cooldown_indicator.set_autocast(autocast)
-		_auto_mode_indicator.set_autocast(autocast)
 	
 	_unit_button.mouse_entered.connect(_on_mouse_entered)
 	_unit_button.mouse_exited.connect(_on_mouse_exited)

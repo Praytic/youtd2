@@ -213,8 +213,9 @@ func _get_item_text(item: Item) -> String:
 		text += " \n%s\n" % extra_text
 
 	var item_has_autocast: bool = item.get_autocast() != null
+	var item_is_on_tower: bool = item.get_carrier() != null
 
-	if item_has_autocast:
+	if item_has_autocast && item_is_on_tower:
 		text += " \n"
 		text += "[color=YELLOW]Left Click to cast ability[/color]\n"
 

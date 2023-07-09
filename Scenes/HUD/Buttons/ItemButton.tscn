@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1ed4riyl8mbe"]
+[gd_scene load_steps=5 format=3 uid="uid://b1ed4riyl8mbe"]
 
 [ext_resource type="PackedScene" uid="uid://dqjk0dq82x1cv" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_7d5y0"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButton.gd" id="2_3sh26"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButtonInner.gd" id="3_rtejc"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/Buttons/AutoModeIndicator.tscn" id="4_qyk7a"]
 [ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://Scenes/HUD/Buttons/CooldownIndicator.tscn" id="5_qc2b7"]
 
 [node name="ItemButton" instance=ExtResource("1_7d5y0")]
@@ -13,9 +12,6 @@ script = ExtResource("2_3sh26")
 script = ExtResource("3_rtejc")
 
 [node name="CooldownIndicator" parent="UnitButton/IconContainer" index="1" instance=ExtResource("5_qc2b7")]
-layout_mode = 2
-
-[node name="AutoModeIndicator" parent="UnitButton/IconContainer" index="2" instance=ExtResource("4_qyk7a")]
 layout_mode = 2
 
 [connection signal="pressed" from="UnitButton" to="." method="_on_unit_button_pressed"]
