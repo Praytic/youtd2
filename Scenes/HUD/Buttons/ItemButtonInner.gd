@@ -2,8 +2,8 @@ extends TextureButton
 
 
 # Need this script to reroute shift right click event into a
-# signal. Can't place _gui_input() in ItemButtonContainer.gd
-# because root node of ItemButtonContainer is a Margin
+# signal. Can't place _gui_input() in ItemButton.gd
+# because root node of ItemButton is a Margin
 # Container not the button itself.
 
 
