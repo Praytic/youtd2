@@ -27,7 +27,7 @@ func _unhandled_input(event: InputEvent):
 	var cancelled: bool = event.is_action_released("ui_cancel")
 
 	if cancelled:
-		cancel()
+		_cancel()
 
 	var left_click: bool = event.is_action_released("left_click")
 
@@ -40,15 +40,15 @@ func in_progress() -> bool:
 	return _move_state != MoveState.NONE
 
 
-func start_move_from_tower(item: Item):
-	_start_internal(item, MoveState.FROM_TOWER)
+func start_move_from_tower(item: Item) -> bool:
+	return _start_internal(item, MoveState.FROM_TOWER)
 
 
-func start_move_from_itembar(item: Item):
-	_start_internal(item, MoveState.FROM_ITEMBAR)
+func start_move_from_itembar(item: Item) -> bool:
+	return _start_internal(item, MoveState.FROM_ITEMBAR)
 
 
-func cancel():
+func _cancel():
 	if !in_progress():
 		return
 
@@ -66,11 +66,14 @@ func on_clicked_on_right_menu_bar():
 	_try_to_move(target_tower)
 
 
-# Moving item begins here
-func _start_internal(item: Item, new_state: MoveState):
-	cancel()
-	BuildTower.cancel()
-	SelectUnit.set_enabled(false)
+# Moving item begins here. Returns true if can start.
+func _start_internal(item: Item, new_state: MoveState) -> bool:
+	var can_start: bool = MouseState.get_state() != MouseState.enm.NONE && MouseState.get_state() != MouseState.enm.MOVE_ITEM
+	if can_start:
+		return false
+
+	_cancel()
+	MouseState.set_state(MouseState.enm.MOVE_ITEM)
 
 	_move_state = new_state
 	_moved_item = item
@@ -78,6 +81,8 @@ func _start_internal(item: Item, new_state: MoveState):
 	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item)
 	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
 	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
+
+	return true
 
 
 func _try_to_move(target_tower: Tower):
@@ -95,8 +100,8 @@ func _end_move_process(success: bool):
 		MoveState.FROM_TOWER:
 			item_move_from_tower_done.emit(success)
 
-	SelectUnit.set_enabled(true)
-	
+	MouseState.set_state(MouseState.enm.NONE)
+
 	_moved_item = null
 	_move_state = MoveState.NONE
 

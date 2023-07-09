@@ -64,7 +64,11 @@ func _on_item_drop_picked_up(item: Item):
 
 func _on_item_button_right_clicked(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	ItemMovement.start_move_from_itembar(item)
+	var started_move: bool = ItemMovement.start_move_from_itembar(item)
+
+	if !started_move:
+		return
+
 	_moved_item_button = item_button
 	item_button.set_disabled(true)
 	item_button.get_button().set_pressed_no_signal(true)
