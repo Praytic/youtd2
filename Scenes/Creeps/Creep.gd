@@ -55,8 +55,10 @@ func _ready():
 			z_index = 100
 			_path.default_z = z_index
 		CreepSize.enm.BOSS:
-			apply_scale(Vector2(1.8,1.8))
+			apply_scale(Vector2(2,2))
 		CreepSize.enm.CHAMPION:
+			apply_scale(Vector2(1.7,1.7))
+		CreepSize.enm.NORMAL:
 			apply_scale(Vector2(1.4,1.4))
 	
 	var sprite: AnimatedSprite2D = $Visual/Sprite2D

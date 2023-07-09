@@ -6,7 +6,6 @@ extends AnimatedSprite2D
 
 const ACTIONS = ["floating", "slow_run", "run", "death", "stunned", "fly"]
 const DIRECTIONS = ["E", "SW", "W", "NE", "S", "SE", "N", "NW"]
-const CELL_WIDTH = 512
 const COLUMNS = 4 
 const ANIMATION_FPS = 15.0
 
@@ -28,7 +27,8 @@ func _ready():
 			if not sprite_sheet_atlas:
 				continue
 			
-			var rows = sprite_sheet_atlas.get_height() / CELL_WIDTH
+			var cell_width = sprite_sheet_atlas.get_width() / COLUMNS
+			var rows = sprite_sheet_atlas.get_height() / cell_width
 
 			if sprite_frames.has_animation(animation_name):
 				sprite_frames.clear(animation_name)
@@ -45,9 +45,10 @@ func _ready():
 
 
 func _create_animation_frame(anim, row, col, sprite_sheet):
+	var cell_width = sprite_sheet.get_width() / COLUMNS
 	var texture = AtlasTexture.new()
 	texture.atlas = sprite_sheet
-	texture.region = Rect2(col * CELL_WIDTH, row * CELL_WIDTH, CELL_WIDTH, CELL_WIDTH)
+	texture.region = Rect2(col * cell_width, row * cell_width, cell_width, cell_width)
 	if _is_valid_frame(texture):
 		var frame_index = row * COLUMNS + col
 		sprite_frames.add_frame(anim, texture)
