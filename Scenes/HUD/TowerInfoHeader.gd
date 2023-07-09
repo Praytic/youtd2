@@ -1,5 +1,9 @@
 extends Control
 
+# Displays name and instance id of the currently selected
+# unit. Contains an button which toggles the tower info
+# panel, if the selected unit is a tower.
+
 
 signal expanded(expand)
 
