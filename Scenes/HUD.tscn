@@ -32,16 +32,6 @@ layout_mode = 1
 offset_top = 1.0
 offset_bottom = 1.0
 
-[node name="TooltipHeader" parent="." instance=ExtResource("1")]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -188.0
-offset_right = -188.0
-grow_horizontal = 2
-scale = Vector2(0.567118, 0.567118)
-
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
@@ -57,6 +47,35 @@ theme_override_constants/margin_bottom = 300
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme = ExtResource("1_mod6x")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -350.0
+offset_right = 350.0
+offset_bottom = 300.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 300
+
+[node name="ErrorMessageContainer" type="VBoxContainer" parent="MarginContainer2"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+theme = ExtResource("1_mod6x")
+
+[node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
+layout_mode = 2
+
+[node name="TooltipHeader" parent="." instance=ExtResource("1")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -188.0
+offset_right = -188.0
+grow_horizontal = 2
+scale = Vector2(0.567118, 0.567118)
 
 [node name="TowerTooltip" parent="." instance=ExtResource("12")]
 visible = false
@@ -129,25 +148,6 @@ offset_left = 777.0
 offset_top = 59.0
 offset_right = -1143.0
 offset_bottom = -1021.0
-
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
-grow_horizontal = 2
-theme_override_constants/margin_top = 300
-
-[node name="ErrorMessageContainer" type="VBoxContainer" parent="MarginContainer2"]
-custom_minimum_size = Vector2(700, 0)
-layout_mode = 2
-theme = ExtResource("1_mod6x")
-
-[node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
-layout_mode = 2
 
 [node name="BuildVersionLabel" parent="." instance=ExtResource("21_ko2ou")]
 layout_mode = 1
