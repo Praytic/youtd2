@@ -155,6 +155,9 @@ func drop():
 	_carrier._remove_item(self)
 	_carrier.remove_modifier(_modifier)
 
+	if _autocast != null:
+		_autocast.set_caster(null)
+
 	for buff in _applied_buff_list:
 		buff.remove_buff()
 
