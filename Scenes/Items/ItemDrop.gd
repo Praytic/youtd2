@@ -49,5 +49,9 @@ func set_item(item: Item):
 func get_id() -> int:
 	return _item.get_id()
 
+# NOTE: don't allow picking up invisible items
 func _on_selected():
-	_item.fly_to_stash(0.0)
+	var can_pickup: bool = _item._visible
+
+	if can_pickup:
+		_item.fly_to_stash(0.0)
