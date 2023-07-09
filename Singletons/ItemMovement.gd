@@ -9,15 +9,15 @@ signal item_move_from_itembar_done(success: bool)
 signal item_move_from_tower_done(success: bool)
 
 
-enum MoveState {
+enum MoveSource {
 	NONE,
-	FROM_ITEMBAR,
-	FROM_TOWER,
+	ITEMBAR,
+	TOWER,
 }
 
 
 var _moved_item: Item = null
-var _move_state: MoveState = MoveState.NONE
+var _move_source: MoveSource = MoveSource.NONE
 
 
 func _unhandled_input(event: InputEvent):
@@ -37,15 +37,15 @@ func _unhandled_input(event: InputEvent):
 
 
 func in_progress() -> bool:
-	return _move_state != MoveState.NONE
+	return MouseState.get_state() == MouseState.enm.MOVE_ITEM
 
 
 func start_move_from_tower(item: Item) -> bool:
-	return _start_internal(item, MoveState.FROM_TOWER)
+	return _start_internal(item, MoveSource.TOWER)
 
 
 func start_move_from_itembar(item: Item) -> bool:
-	return _start_internal(item, MoveState.FROM_ITEMBAR)
+	return _start_internal(item, MoveSource.ITEMBAR)
 
 
 func _cancel():
@@ -67,15 +67,14 @@ func on_clicked_on_right_menu_bar():
 
 
 # Moving item begins here. Returns true if can start.
-func _start_internal(item: Item, new_state: MoveState) -> bool:
+func _start_internal(item: Item, move_source: MoveSource) -> bool:
 	var can_start: bool = MouseState.get_state() != MouseState.enm.NONE && MouseState.get_state() != MouseState.enm.MOVE_ITEM
 	if can_start:
 		return false
 
 	_cancel()
 	MouseState.set_state(MouseState.enm.MOVE_ITEM)
-
-	_move_state = new_state
+	_move_source = move_source
 	_moved_item = item
 	
 	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item)
@@ -86,24 +85,24 @@ func _start_internal(item: Item, new_state: MoveState) -> bool:
 
 
 func _try_to_move(target_tower: Tower):
-	match _move_state:
-		MoveState.FROM_ITEMBAR:
+	match _move_source:
+		MoveSource.ITEMBAR:
 			_move_item_from_itembar(target_tower)
-		MoveState.FROM_TOWER:
+		MoveSource.TOWER:
 			_move_item_from_tower(target_tower)
 
 
 func _end_move_process(success: bool):
-	match _move_state:
-		MoveState.FROM_ITEMBAR:
+	match _move_source:
+		MoveSource.ITEMBAR:
 			item_move_from_itembar_done.emit(success)
-		MoveState.FROM_TOWER:
+		MoveSource.TOWER:
 			item_move_from_tower_done.emit(success)
 
 	MouseState.set_state(MouseState.enm.NONE)
 
 	_moved_item = null
-	_move_state = MoveState.NONE
+	_move_source = MoveSource.NONE
 
 #	NOTE: for some reason need to call this twice to reset
 #	the cursor. Calling it once causes the cursor to

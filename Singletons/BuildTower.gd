@@ -5,13 +5,6 @@ extends Node
 signal tower_built(tower_id)
 
 
-enum BuildState {
-	NONE,
-	BUILDING,
-}
-
-
-var _build_state: BuildState = BuildState.NONE
 var _tower_preview: TowerPreview = null
 var _tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 var _occupied_position_map: Dictionary = {}
@@ -37,7 +30,7 @@ func _unhandled_input(event):
 
 
 func in_progress() -> bool:
-	return _build_state == BuildState.BUILDING
+	return MouseState.get_state() == MouseState.enm.BUILD_TOWER
 
 
 func start(tower_id: int):
@@ -47,8 +40,6 @@ func start(tower_id: int):
 
 	_cancel()
 	MouseState.set_state(MouseState.enm.BUILD_TOWER)
-
-	_build_state = BuildState.BUILDING
 
 	_tower_preview = _tower_preview_scene.instantiate()
 	_tower_preview.tower_id = tower_id
@@ -60,7 +51,6 @@ func _cancel():
 		return
 
 	MouseState.set_state(MouseState.enm.NONE)
-	_build_state = BuildState.NONE
 
 	_tower_preview.queue_free()
 
