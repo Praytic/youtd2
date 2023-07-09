@@ -238,7 +238,7 @@ func get_items() -> Array[Item]:
 	return _item_list
 
 
-# Called by TowerTooltip to get the part of the tooltip that
+# Called by TowerInfo to get the part of the tooltip that
 # is specific to the subclass
 func on_tower_details() -> MultiboardValues:
 	var empty_multiboard: MultiboardValues = MultiboardValues.new(0)

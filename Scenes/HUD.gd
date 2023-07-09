@@ -30,8 +30,8 @@ func get_normal_message_container() -> VBoxContainer:
 
 func _on_TooltipHeader_expanded(expand):
 	if expand:
-		$TowerTooltip.show()
+		$TowerInfo.show()
 		_wave_status.hide()
 	else:
-		$TowerTooltip.hide()
+		$TowerInfo.hide()
 		_wave_status.show()

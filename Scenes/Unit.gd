@@ -1011,7 +1011,7 @@ func get_y() -> float:
 	return position.y
 
 
-# NOTE: Getters for mod values are used in TowerTooltip.
+# NOTE: Getters for mod values are used in TowerInfo.
 # Getter names need to match the names of label nodes that
 # display the values. For example if getter name is
 # get_prop_trigger_chances(), then label name must be
