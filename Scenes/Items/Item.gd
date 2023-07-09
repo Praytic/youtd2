@@ -178,7 +178,7 @@ func pickup(tower: Tower) -> bool:
 	if parent != null:
 		parent.remove_child(self)
 
-	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
+	var parent_item_drop: ItemDrop = parent as ItemDrop
 	if parent_item_drop != null:
 		parent_item_drop.queue_free()
 
