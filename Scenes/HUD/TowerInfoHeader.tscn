@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2"]
-[ext_resource type="Script" path="res://Scenes/HUD/TooltipHeader.gd" id="3"]
+[ext_resource type="Script" path="res://Scenes/HUD/TowerInfoHeader.gd" id="3"]
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("2")
@@ -12,7 +12,7 @@ region = Rect2(2.08165e-12, 2.08165e-12, 64, 64)
 atlas = SubResource("2")
 region = Rect2(2.08165e-12, 2.08165e-12, 64, 64)
 
-[node name="TooltipHeader" type="Control"]
+[node name="TowerInfoHeader" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("3")

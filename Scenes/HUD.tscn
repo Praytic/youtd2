@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://cngv1rgplre2c"]
 
-[ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TooltipHeader.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TowerInfoHeader.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
@@ -67,7 +67,7 @@ theme = ExtResource("1_mod6x")
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2
 
-[node name="TooltipHeader" parent="." instance=ExtResource("1")]
+[node name="TowerInfoHeader" parent="." instance=ExtResource("1")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -176,5 +176,5 @@ theme_override_constants/margin_top = 20
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[connection signal="expanded" from="TooltipHeader" to="." method="_on_TooltipHeader_expanded"]
+[connection signal="expanded" from="TowerInfoHeader" to="." method="_on_TowerInfoHeader_expanded"]
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
