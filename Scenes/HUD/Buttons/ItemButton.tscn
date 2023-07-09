@@ -18,5 +18,5 @@ layout_mode = 2
 [node name="AutoModeIndicator" parent="UnitButton/IconContainer" index="2" instance=ExtResource("4_qyk7a")]
 layout_mode = 2
 
+[connection signal="pressed" from="UnitButton" to="." method="_on_unit_button_pressed"]
 [connection signal="right_clicked" from="UnitButton" to="." method="_on_unit_button_right_clicked"]
-[connection signal="shift_right_clicked" from="UnitButton" to="." method="_on_unit_button_shift_right_clicked"]

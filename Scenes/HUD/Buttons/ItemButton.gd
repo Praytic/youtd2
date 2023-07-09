@@ -1,6 +1,8 @@
 class_name ItemButton 
 extends UnitButton
 
+signal right_clicked()
+
 
 const ICON_SIZE_M = 128
 
@@ -48,14 +50,11 @@ func _on_mouse_exited():
 	EventBus.item_button_mouse_exited.emit()
 
 
-func _on_unit_button_shift_right_clicked():
-	var autocast: Autocast = _item.get_autocast()
-	
-	if autocast != null:
-		autocast.toggle_auto_mode()
-
-
 func _on_unit_button_right_clicked():
+	right_clicked.emit()
+
+
+func _on_unit_button_pressed():
 	var autocast: Autocast = _item.get_autocast()
 
 	if autocast != null:
