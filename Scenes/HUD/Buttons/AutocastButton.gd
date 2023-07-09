@@ -14,14 +14,13 @@ func _ready():
 	mouse_exited.connect(_on_mouse_exited)
 	
 	var button_stylebox: StyleBox = get_theme_stylebox("normal", "Button")
-	var icon_offset: Vector2 = button_stylebox.get_offset()
 
 #	NOTE: need to load margins here because they are not
 #	finalized while in editor
-	_indicator_container.add_theme_constant_override("margin_top", button_stylebox.content_margin_top)
-	_indicator_container.add_theme_constant_override("margin_left", button_stylebox.content_margin_left)
-	_indicator_container.add_theme_constant_override("margin_bottom", button_stylebox.content_margin_bottom)
-	_indicator_container.add_theme_constant_override("margin_right", button_stylebox.content_margin_right)
+	_indicator_container.add_theme_constant_override("margin_top", int(button_stylebox.content_margin_top))
+	_indicator_container.add_theme_constant_override("margin_left", int(button_stylebox.content_margin_left))
+	_indicator_container.add_theme_constant_override("margin_bottom", int(button_stylebox.content_margin_bottom))
+	_indicator_container.add_theme_constant_override("margin_right", int(button_stylebox.content_margin_right))
 
 
 func _gui_input(event):

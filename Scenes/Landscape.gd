@@ -30,11 +30,6 @@ func get_play_area_pos() -> Vector2:
 	return play_area_shape.global_position
 
 
-func get_mouse_pos_on_tilemap() -> Vector2:
-	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
-	return get_mouse_pos_on_tilemap()
-
-
 func get_mouse_pos_on_tilemap_clamped() -> Vector2:
 	var world_pos: Vector2 = _buildable_area.get_local_mouse_position()
 	var map_pos: Vector2 = _buildable_area.local_to_map(world_pos)

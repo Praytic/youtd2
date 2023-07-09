@@ -218,22 +218,6 @@ func sort_unit_list_by_distance(unit_list: Array, position: Vector2):
 	unit_list.sort_custom(Callable(sorter,"sort"))
 
 
-func shuffle_list(list) -> Array:
-	var index_list: Array = []
-
-	for i in range(0, list.size()):
-		index_list.append(i)
-
-	var sorted: Array = []
-
-	while !index_list.is_empty():
-		var random_index_of_index: int = randi_range(0, index_list.size() - 1)
-		var random_index: int = index_list.pick_random()
-		sorted.append(list[random_index])
-
-	return sorted
-
-
 # Converts CamelCaseSTR_Name to camel_case_str_name
 func camel_to_snake(camel_string: String) -> String:
 	var snake_string = ""

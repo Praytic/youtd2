@@ -297,7 +297,6 @@ func _get_cast_error() -> String:
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 	var silenced: bool = _caster.is_silenced()
 	var stunned: bool = _caster.is_stunned()
-	var can_cast: bool = !on_cooldown && enough_mana && !silenced && !stunned
 
 	if on_cooldown:
 		return "This ability is not ready yet"

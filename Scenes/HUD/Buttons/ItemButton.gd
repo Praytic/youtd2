@@ -6,8 +6,6 @@ const ICON_SIZE_M = 128
 
 var _item: Item = null : set = set_item, get = get_item
 
-@onready var _icon_container: MarginContainer = $UnitButton/IconContainer
-@onready var _icon: TextureRect = $UnitButton/IconContainer/Icon
 @onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
 @onready var _auto_mode_indicator: AutoModeIndicator = $UnitButton/IconContainer/AutoModeIndicator
 

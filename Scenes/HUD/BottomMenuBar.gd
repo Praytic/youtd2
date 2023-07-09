@@ -26,7 +26,7 @@ func _ready():
 
 
 func _process(_delta):
-	var item_button_count: int
+	var item_button_count: int = 0
 	for item_button in _item_bar.get_children():
 		if item_button.is_visible():
 			item_button_count += 1

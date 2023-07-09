@@ -225,7 +225,7 @@ func _remove_item(item: Item):
 	var item_id: int = item.get_id()
 
 	if !_item_list.has(item):
-		push_error("Tried removing an item from tower but the item is not in tower inventory. Tower = %s, Item = %s" % [self, item])
+		push_error("Tried removing an item from tower but the item is not in tower inventory. Tower = %s, Item = %s" % [self, item_id])
 		
 		return
 

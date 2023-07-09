@@ -32,11 +32,11 @@ func _ready():
 	z_index = 100
 
 func _change_state():
-	_state += 1
+	_state = (_state + 1) as ItemDropState
 	if _state == ItemDropState.STILL:
 		_sprite.animation = "still"
 
-func _process(delta):
+func _process(_delta: float):
 	if _sprite is AnimatedSprite2D:
 		_sprite.play()
 

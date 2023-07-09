@@ -22,7 +22,7 @@ func _ready():
 	_init_oils_and_items_controls()
 
 
-func _process(delta):
+func _process(_delta: float):
 	position_info_label.position = get_global_mouse_position()
 	var accumulated_info = {}
 	accumulated_info["global_mouse_position"] = get_global_mouse_position()
