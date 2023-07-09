@@ -1,5 +1,10 @@
 extends Control
 
+# Displays detailed information about the stats of the
+# currently selected tower. Hidden by default. Becomes
+# visible when player pushes the expand button in the
+# TowerInfoHeader.
+
 
 var _current_tower: Tower = null
 

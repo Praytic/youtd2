@@ -50,7 +50,6 @@ func _create_animation_frame(anim, row, col, sprite_sheet):
 	texture.atlas = sprite_sheet
 	texture.region = Rect2(col * cell_width, row * cell_width, cell_width, cell_width)
 	if _is_valid_frame(texture):
-		var frame_index = row * COLUMNS + col
 		sprite_frames.add_frame(anim, texture)
 
 func _is_valid_frame(texture_frame: AtlasTexture):

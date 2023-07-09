@@ -72,11 +72,13 @@ CreepSize="*res://Singletons/Enums/CreepSize.gd"
 AttackType="*res://Singletons/Enums/AttackType.gd"
 PlayerState="*res://Singletons/Enums/PlayerState.gd"
 ItemDropCalc="*res://Singletons/ItemDropCalc.gd"
+MouseState="*res://Singletons/MouseState.gd"
 
 [debug]
 
 settings/stdout/verbose_stdout=true
 gdscript/warnings/return_value_discarded=false
+gdscript/warnings/assert_always_false=0
 
 [display]
 

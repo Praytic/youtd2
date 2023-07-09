@@ -11,7 +11,7 @@ var _moved_item_button: ItemButton = null
 func add_item_button(item: Item):
 	var item_button: ItemButton = _create_ItemButton(item)
 	add_child(item_button)
-	item_button.get_button().button_down.connect(_on_item_button_pressed.bind(item_button))
+	item_button.right_clicked.connect(_on_item_button_right_clicked.bind(item_button))
 	_item_buttons[item] = item_button
 
 
@@ -62,9 +62,13 @@ func _on_item_drop_picked_up(item: Item):
 	add_item_button(item)
 
 
-func _on_item_button_pressed(item_button: ItemButton):
+func _on_item_button_right_clicked(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	ItemMovement.start_move_from_itembar(item)
+	var started_move: bool = ItemMovement.start_move_from_itembar(item)
+
+	if !started_move:
+		return
+
 	_moved_item_button = item_button
 	item_button.set_disabled(true)
 	item_button.get_button().set_pressed_no_signal(true)

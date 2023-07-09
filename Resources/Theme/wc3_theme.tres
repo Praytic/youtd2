@@ -53,13 +53,6 @@ cache/0/40/0/kerning_overrides/30/0 = Vector2(0, 0)
 cache/0/40/0/kerning_overrides/20/0 = Vector2(0, 0)
 cache/0/40/0/kerning_overrides/40/0 = Vector2(0, 0)
 
-[sub_resource type="StyleBoxFlat" id="8"]
-bg_color = Color(0.215686, 0.215686, 0.258824, 0.376471)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_co3qy"]
 atlas = ExtResource("8_dlncl")
 region = Rect2(872, 49, 31, 31)
@@ -70,6 +63,13 @@ texture_margin_left = 20.0
 texture_margin_top = 4.0
 texture_margin_right = 20.0
 texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="8"]
+bg_color = Color(0.215686, 0.215686, 0.258824, 0.376471)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="11"]
 
@@ -89,13 +89,13 @@ HudMarginContainer/base_type = &"MarginContainer"
 HudMarginContainer/constants/margin_left = 40
 HudMarginContainer/constants/margin_right = 40
 Icons/icons/DayTime = ExtResource("2")
+InfoPanel/styles/panel = SubResource("StyleBoxTexture_770c7")
 Label/colors/font_color_shadow = Color(0, 0, 0, 1)
 Label/constants/shadow_offset_x = 2
 Label/constants/shadow_offset_y = 2
 Label/fonts/font = SubResource("1")
 ResourceTab/base_type = &"Panel"
 ResourceTab/styles/panel = SubResource("8")
-TooltipPanel/styles/panel = SubResource("StyleBoxTexture_770c7")
 TowerButton/styles/disabled = ExtResource("8_332gl")
 TowerButton/styles/focus = SubResource("11")
 TowerButton/styles/hover = ExtResource("8_332gl")

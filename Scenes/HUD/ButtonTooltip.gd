@@ -69,6 +69,15 @@ func _on_autocast_button_mouse_entered(autocast: Autocast):
 	_label.clear()
 
 	var text: String = autocast.description
+
+	text += " \n"
+	text += " \n"
+
+	if autocast.can_use_auto_mode():
+		text += "[color=YELLOW]Right Click to toggle automatic casting on and off[/color]\n"
+
+	text += "[color=YELLOW]Left Click to cast ability[/color]\n"
+
 	_label.append_text(text)
 
 
@@ -202,6 +211,16 @@ func _get_item_text(item: Item) -> String:
 
 	if !extra_text.is_empty():
 		text += " \n%s\n" % extra_text
+
+	var autocast: Autocast = item.get_autocast()
+
+	if autocast != null:
+		var item_is_on_tower: bool = item.get_carrier() != null
+		var is_manual_cast: bool = !autocast.can_use_auto_mode()
+
+		if item_is_on_tower && is_manual_cast:
+			text += " \n"
+			text += "[color=YELLOW]Left Click to cast ability[/color]\n"
 
 	if is_oil:
 		text += " \n[color=ORANGE]Use oil on a tower to alter it permanently. The effects stay when the tower is transformed or upgraded![/color]"

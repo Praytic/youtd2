@@ -74,7 +74,7 @@ func _draw():
 #	been enough.
 	var icon_size: float = size.x
 	if icon_size != _current_size:
-		_base_point_list = _generate_base_points(icon_size)
+		_base_point_list = CooldownIndicator._generate_base_points(icon_size)
 
 	var progress: float
 	

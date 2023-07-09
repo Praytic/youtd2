@@ -34,3 +34,5 @@ script = ExtResource("3_d6wsi")
 
 [node name="AutoModeIndicator" parent="IndicatorContainer" instance=ExtResource("5_xah78")]
 layout_mode = 2
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

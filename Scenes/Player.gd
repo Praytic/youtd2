@@ -86,5 +86,5 @@ func give_gold(amount: int, unit: Unit, show_effect: bool, show_text: bool):
 
 
 # TODO: implement
-func modify_interest_rate(amount: float):
+func modify_interest_rate(_amount: float):
 	pass

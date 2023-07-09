@@ -40,6 +40,7 @@ var user_real3: float = 0.0
 var _id: int = 0
 var _carrier: Tower = null
 var _charge_count: int = -1
+var _visible: bool = true
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
@@ -83,6 +84,7 @@ static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
 	var item_drop_scene = load(item_drop_scene_path)
 	var item_drop: ItemDrop = item_drop_scene.instantiate()
 	item_drop.position = position
+	item_drop.visible = item._visible
 
 	item_drop.set_item(item)
 	item_drop.add_child(item)
@@ -118,10 +120,8 @@ static func get_item_script_path(item_id: int):
 	return path
 
 
-# TODO: implement. Should toggle visibility for item drop
-# and item flying to stash animation
 static func set_item_visible(item: Item, visible: bool):
-	pass
+	item._visible = visible
 
 
 func _init(id: int):
@@ -155,6 +155,9 @@ func drop():
 	_carrier._remove_item(self)
 	_carrier.remove_modifier(_modifier)
 
+	if _autocast != null:
+		_autocast.set_caster(null)
+
 	for buff in _applied_buff_list:
 		buff.remove_buff()
 
@@ -175,7 +178,7 @@ func pickup(tower: Tower) -> bool:
 	if parent != null:
 		parent.remove_child(self)
 
-	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
+	var parent_item_drop: ItemDrop = parent as ItemDrop
 	if parent_item_drop != null:
 		parent_item_drop.queue_free()
 
@@ -217,6 +220,7 @@ func fly_to_stash(_mystery_float: float):
 	var flying_item: FlyingItem = FlyingItem.create(_id, start_pos)
 	flying_item.finished_flying.connect(_on_flying_item_finished_flying)
 	flying_item.add_child(self)
+	flying_item.visible = _visible
 	_hud.add_child(flying_item)
 
 

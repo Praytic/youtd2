@@ -107,7 +107,7 @@ func _ready():
 		Type.AC_TYPE_ALWAYS_IMMEDIATE:
 			_immediate_timer.start()
 
-	if !_can_use_auto_mode():
+	if !can_use_auto_mode():
 		_auto_mode = false
 
 
@@ -116,7 +116,7 @@ func set_caster(caster: Unit):
 
 
 func toggle_auto_mode():
-	if !_can_use_auto_mode():
+	if !can_use_auto_mode():
 		Messages.add_error("This ability cannot be casted automatically")
 
 		return
@@ -293,11 +293,13 @@ func _can_cast() -> bool:
 
 
 func _get_cast_error() -> String:
+	if _caster == null:
+		return ""
+
 	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 	var silenced: bool = _caster.is_silenced()
 	var stunned: bool = _caster.is_stunned()
-	var can_cast: bool = !on_cooldown && enough_mana && !silenced && !stunned
 
 	if on_cooldown:
 		return "This ability is not ready yet"
@@ -312,7 +314,7 @@ func _get_cast_error() -> String:
 
 
 # Some autocast types are always manual
-func _can_use_auto_mode() -> bool:
+func can_use_auto_mode() -> bool:
 	var types_that_can_use_auto_mode: Array[Autocast.Type] = [
 		Autocast.Type.AC_TYPE_ALWAYS_BUFF,
 		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,

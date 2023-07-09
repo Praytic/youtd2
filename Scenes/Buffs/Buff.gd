@@ -303,8 +303,6 @@ func _refresh_by_new_buff():
 
 
 func _upgrade_by_new_buff(new_level: int):
-	var current_level: int = get_level()
-
 	refresh_duration()
 	
 	set_level(new_level)

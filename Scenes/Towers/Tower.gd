@@ -225,7 +225,7 @@ func _remove_item(item: Item):
 	var item_id: int = item.get_id()
 
 	if !_item_list.has(item):
-		push_error("Tried removing an item from tower but the item is not in tower inventory. Tower = %s, Item = %s" % [self, item])
+		push_error("Tried removing an item from tower but the item is not in tower inventory. Tower = %s, Item = %s" % [self, item_id])
 		
 		return
 
@@ -238,7 +238,7 @@ func get_items() -> Array[Item]:
 	return _item_list
 
 
-# Called by TowerTooltip to get the part of the tooltip that
+# Called by TowerInfo to get the part of the tooltip that
 # is specific to the subclass
 func on_tower_details() -> MultiboardValues:
 	var empty_multiboard: MultiboardValues = MultiboardValues.new(0)

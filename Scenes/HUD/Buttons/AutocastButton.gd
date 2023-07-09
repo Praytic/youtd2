@@ -14,24 +14,20 @@ func _ready():
 	mouse_exited.connect(_on_mouse_exited)
 	
 	var button_stylebox: StyleBox = get_theme_stylebox("normal", "Button")
-	var icon_offset: Vector2 = button_stylebox.get_offset()
 
 #	NOTE: need to load margins here because they are not
 #	finalized while in editor
-	_indicator_container.add_theme_constant_override("margin_top", button_stylebox.content_margin_top)
-	_indicator_container.add_theme_constant_override("margin_left", button_stylebox.content_margin_left)
-	_indicator_container.add_theme_constant_override("margin_bottom", button_stylebox.content_margin_bottom)
-	_indicator_container.add_theme_constant_override("margin_right", button_stylebox.content_margin_right)
+	_indicator_container.add_theme_constant_override("margin_top", int(button_stylebox.content_margin_top))
+	_indicator_container.add_theme_constant_override("margin_left", int(button_stylebox.content_margin_left))
+	_indicator_container.add_theme_constant_override("margin_bottom", int(button_stylebox.content_margin_bottom))
+	_indicator_container.add_theme_constant_override("margin_right", int(button_stylebox.content_margin_right))
 
 
 func _gui_input(event):
-	var pressed_shift_right_click: bool = event.is_action_released("right_click") && Input.is_action_pressed("shift")
 	var pressed_right_click: bool = event.is_action_released("right_click")
 
-	if pressed_shift_right_click:
+	if pressed_right_click:
 		_autocast.toggle_auto_mode()
-	elif pressed_right_click:
-		_autocast.do_cast_if_possible()
 
 
 func set_autocast(autocast: Autocast):
@@ -44,3 +40,7 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	EventBus.autocast_button_mouse_exited.emit()
+
+
+func _on_pressed():
+	_autocast.do_cast_if_possible()

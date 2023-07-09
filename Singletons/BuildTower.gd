@@ -5,13 +5,6 @@ extends Node
 signal tower_built(tower_id)
 
 
-enum BuildState {
-	NONE,
-	BUILDING,
-}
-
-
-var _build_state: BuildState = BuildState.NONE
 var _tower_preview: TowerPreview = null
 var _tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 var _occupied_position_map: Dictionary = {}
@@ -28,7 +21,7 @@ func _unhandled_input(event):
 	var cancelled: bool = event.is_action_released("ui_cancel")
 	
 	if cancelled:
-		cancel()
+		_cancel()
 
 	var left_click: bool = event.is_action_released("left_click")
 	
@@ -37,28 +30,27 @@ func _unhandled_input(event):
 
 
 func in_progress() -> bool:
-	return _build_state == BuildState.BUILDING
+	return MouseState.get_state() == MouseState.enm.BUILD_TOWER
 
 
 func start(tower_id: int):
-	cancel()
-	ItemMovement.cancel()
-	SelectUnit.set_enabled(false)
+	var can_start: bool = MouseState.get_state() != MouseState.enm.NONE && MouseState.get_state() != MouseState.enm.BUILD_TOWER
+	if can_start:
+		return
 
-	_build_state = BuildState.BUILDING
+	_cancel()
+	MouseState.set_state(MouseState.enm.BUILD_TOWER)
 
 	_tower_preview = _tower_preview_scene.instantiate()
 	_tower_preview.tower_id = tower_id
 	_game_scene.add_child(_tower_preview)
 
 
-func cancel():
+func _cancel():
 	if !in_progress():
 		return
 
-	SelectUnit.set_enabled(true)
-
-	_build_state = BuildState.NONE
+	MouseState.set_state(MouseState.enm.NONE)
 
 	_tower_preview.queue_free()
 
@@ -84,7 +76,7 @@ func _try_to_build():
 		Utils.add_object_to_world(new_tower)
 		tower_built.emit(_tower_preview.tower_id)
 		
-		cancel()
+		_cancel()
 	else:
 		var error: String = "Can't build here."
 		Messages.add_error(error)
