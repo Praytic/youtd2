@@ -169,11 +169,18 @@ func drop():
 	Item._create_item_drop(self, drop_pos)
 
 
-# Returns true if pickup was successful
 func pickup(tower: Tower) -> bool:
-	if !tower.have_item_space():
+	if tower.have_item_space():
+		_pickup_internal(tower)
+		
+		return true
+	else:
 		return false
 
+
+# NOTE: this f-n adds item to tower even if tower doesn't
+# have space. Used for adding oils to tower.
+func _pickup_internal(tower: Tower):
 	var parent: Node = get_parent()
 	if parent != null:
 		parent.remove_child(self)
@@ -199,8 +206,6 @@ func pickup(tower: Tower) -> bool:
 
 	tower._add_item(self)
 	tower.add_child(self)
-	
-	return true
 
 
 # Item starts flying to the stash and will get added to
