@@ -49,10 +49,6 @@ func _on_mouse_exited():
 
 
 func _on_unit_button_right_clicked():
-	right_clicked.emit()
-
-
-func _on_unit_button_pressed():
 	var autocast: Autocast = _item.get_autocast()
 
 	if autocast != null:

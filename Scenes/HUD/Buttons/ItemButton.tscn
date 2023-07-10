@@ -14,5 +14,4 @@ script = ExtResource("3_rtejc")
 [node name="CooldownIndicator" parent="UnitButton/IconContainer" index="1" instance=ExtResource("5_qc2b7")]
 layout_mode = 2
 
-[connection signal="pressed" from="UnitButton" to="." method="_on_unit_button_pressed"]
 [connection signal="right_clicked" from="UnitButton" to="." method="_on_unit_button_right_clicked"]
