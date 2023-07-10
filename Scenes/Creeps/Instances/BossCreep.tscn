@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://rjsk7xfdmn7t"]
+
+[ext_resource type="PackedScene" uid="uid://cmcahg14hpv5j" path="res://Scenes/Creeps/Instances/Creep.tscn" id="1_4kspr"]
+[ext_resource type="Script" path="res://Scenes/Creeps/CreepSprite.gd" id="22_3gqag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7t3b"]
+resource_local_to_scene = true
+bg_color = Color(0.176471, 0.960784, 0, 1)
+
+[node name="Creep" instance=ExtResource("1_4kspr")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+polygon = PackedVector2Array(40, -550, 91, -284, 37, 64, -38, 64, -92, -298, -42, -544)
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Visual" index="0"]
+position = Vector2(0, -178)
+scale = Vector2(1.5, 1.5)
+animation = &"floating_S"
+offset = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("22_3gqag")
+
+[node name="HealthBar" parent="Visual" index="1"]
+offset_left = -108.0
+offset_top = -319.0
+offset_right = 108.0
+offset_bottom = -310.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_o7t3b")

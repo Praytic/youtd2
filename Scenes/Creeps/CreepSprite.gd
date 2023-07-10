@@ -13,7 +13,7 @@ const ANIMATION_FPS = 15.0
 func _ready():
 	# The code below is used to generate SpriteFrames in the editor.
 	# It's not necessary to call this logic in runtime.
-	if not Engine.is_editor_hint():
+	if not Engine.is_editor_hint() or sprite_sheets_dir == null:
 		return
 	
 	var start_time = Time.get_ticks_msec()

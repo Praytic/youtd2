@@ -48,18 +48,11 @@ func _ready():
 	_health_bar.set_value(max_health)
 	health_changed.connect(_on_health_changed)
 
-	match _size:
-		CreepSize.enm.AIR:
-			var height: float = 2 * Constants.TILE_HEIGHT
-			_visual.position.y = -height
-			z_index = 100
-			_path.default_z = z_index
-		CreepSize.enm.BOSS:
-			apply_scale(Vector2(2,2))
-		CreepSize.enm.CHAMPION:
-			apply_scale(Vector2(1.7,1.7))
-		CreepSize.enm.NORMAL:
-			apply_scale(Vector2(1.4,1.4))
+	if _size == CreepSize.enm.AIR:
+		var height: float = 2 * Constants.TILE_HEIGHT
+		_visual.position.y = -height
+		z_index = 100
+		_path.default_z = z_index
 	
 	var sprite: AnimatedSprite2D = $Visual/Sprite2D
 	if sprite != null:
@@ -115,6 +108,7 @@ func adjust_height(height_wc3: float, speed: float):
 	_height_tween.tween_property(_visual, "position",
 		Vector2(_visual.position.x, _visual.position.y - height_pixels),
 		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+
 
 func reach_portal() -> float:
 	var damage_to_portal = get_damage_to_portal()
