@@ -220,7 +220,7 @@ func _get_item_text(item: Item) -> String:
 
 		if item_is_on_tower && is_manual_cast:
 			text += " \n"
-			text += "[color=YELLOW]Left Click to cast ability[/color]\n"
+			text += "[color=YELLOW]Right Click to use item[/color]\n"
 
 	if is_oil:
 		text += " \n[color=ORANGE]Use oil on a tower to alter it permanently. The effects stay when the tower is transformed or upgraded![/color]"
