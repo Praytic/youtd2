@@ -6,18 +6,24 @@ const ICON_FAMILIES_PER_PAGE = 66
 const MAX_ICONS_PER_FAMILY = 5
 
 @onready var item_icons_m: Texture2D = preload("res://Assets/Items/item_icons_m.png")
+@onready var potion_icons_m: Texture2D = preload("res://Assets/Items/potion_icons_m.png")
 
 
 func get_icon(item_id: int) -> Texture2D:
 	var icon_atlas_num: int = ItemProperties.get_icon_atlas_num(item_id)
 	var icon_atlas_family: int = ItemProperties.get_icon_atlas_family(item_id)
+	var is_oil = ItemProperties.get_is_oil(item_id)
+	
 	if icon_atlas_num == -1 or icon_atlas_family == -1:
 		push_error("Unknown icon for item ID [%s]" % item_id)
 
 	var item_icon = AtlasTexture.new()
 	var icon_size: int = ICON_SIZE_M
 	
-	item_icon.set_atlas(item_icons_m)
+	if is_oil:
+		item_icon.set_atlas(potion_icons_m)
+	else:
+		item_icon.set_atlas(item_icons_m)
 	
 	var page_num = floor(float(icon_atlas_family) / ICON_FAMILIES_PER_PAGE)
 	var x = icon_atlas_num * icon_size + page_num * MAX_ICONS_PER_FAMILY * icon_size
