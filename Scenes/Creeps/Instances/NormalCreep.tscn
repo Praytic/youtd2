@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnic7plftkvdm"]
+[gd_scene load_steps=4 format=3 uid="uid://cxslevowepx6k"]
 
 [ext_resource type="PackedScene" uid="uid://cmcahg14hpv5j" path="res://Scenes/Creeps/Instances/Creep.tscn" id="1_uab3k"]
 [ext_resource type="Script" path="res://Scenes/Creeps/CreepSprite.gd" id="22_4slvx"]
@@ -16,7 +16,6 @@ polygon = PackedVector2Array(26, -202, 56, -58, 30, 68, -33, 68, -54, -60, -26, 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Visual" index="0"]
 position = Vector2(0, -100)
 scale = Vector2(0.8, 0.8)
-animation = &"run_E"
 script = ExtResource("22_4slvx")
 
 [node name="HealthBar" parent="Visual" index="1"]
