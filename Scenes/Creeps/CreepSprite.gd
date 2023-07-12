@@ -80,5 +80,5 @@ func _is_valid_frame(texture_frame: AtlasTexture):
 func play_creep_animation(animation_name: String, custom_speed: float = 1.0):
 	play(animation_name, custom_speed)
 
-	var packed_offset: Vector2 = _animation_offset_map[animation] as Vector2
+	var packed_offset: Vector2 = _animation_offset_map.get(animation, Vector2.ZERO) as Vector2
 	set_offset(packed_offset)
