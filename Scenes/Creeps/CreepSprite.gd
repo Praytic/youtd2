@@ -80,5 +80,8 @@ func _is_valid_frame(texture_frame: AtlasTexture):
 func play_creep_animation(animation_name: String, custom_speed: float = 1.0):
 	play(animation_name, custom_speed)
 
+# 	NOTE: if animatedsprited2d is scaled, then offset will
+# 	be scaled also, so we need to account for that and
+# 	divide offset by scale
 	var packed_offset: Vector2 = _animation_offset_map.get(animation, Vector2.ZERO) as Vector2
-	set_offset(packed_offset)
+	set_offset(packed_offset / scale)
