@@ -69,7 +69,7 @@ func _process(delta):
 		_move(delta)
 
 	var creep_animation: String = _get_creep_animation()
-	_sprite.play(creep_animation)
+	_sprite.play_creep_animation(creep_animation)
 
 # TODO: Disabled. Need to modify z_index inside the code of the actor, not the target.
 #	Update z index based on current visual height
@@ -275,7 +275,7 @@ func set_unit_facing(angle: float):
 
 	var animation: String = _get_creep_animation()
 	if animation != "":
-		_sprite.play(animation, randi())
+		_sprite.play_creep_animation(animation, randi())
 
 
 func get_unit_facing() -> float:
