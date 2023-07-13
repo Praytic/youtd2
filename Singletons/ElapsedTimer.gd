@@ -20,6 +20,14 @@ func start(timer_name: String):
 
 
 func end(timer_name: String):
+	_end_internal(timer_name, false)
+
+
+func end_verbose(timer_name: String):
+	_end_internal(timer_name, true)
+
+
+func _end_internal(timer_name: String, verbose: bool):
 	if !_elapsed_timer_map.has(timer_name):
 		push_error("Timer hasn't been started for name:", timer_name)
 
@@ -29,6 +37,11 @@ func end(timer_name: String):
 	var end_time: float = Utils.get_game_time()
 	var elapsed_time: float = end_time - start_time
 	var time_string: String = Utils.format_float(elapsed_time, 4)
-	print("Elapsed time for %s = %s" % [timer_name, time_string])
+	var message: String = "Elapsed time for %s = %s" % [timer_name, time_string]
+
+	if verbose:
+		print_verbose(message)
+	else:
+		print(message)
 
 	_elapsed_timer_map.erase(timer_name)
