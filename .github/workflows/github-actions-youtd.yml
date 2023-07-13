@@ -3,12 +3,11 @@ name: build-and-publish
 on:
   push:
     # Sequence of patterns matched against refs/heads
-    # branches:    
-    #   - main
+    branches:    
+      - workflow*
     # Sequence of patterns matched against refs/tags
     tags:        
       - v*
-      - workflow*
 
 jobs:
   setup:
