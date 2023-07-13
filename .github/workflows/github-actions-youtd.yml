@@ -142,6 +142,12 @@ jobs:
         publish_dir: ${{ steps.export.outputs.build_directory }}/web
         cname: youtd2.com
 
+    - name: update youtd2-website
+      run: |
+        gh workflow run workflow.yml -R praytic/youtd2-website
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     outputs:
       tag_version: ${{ needs.setup.outputs.tag_version }}
       commit_ref: ${{ needs.setup.outputs.commit_ref }}
