@@ -62,6 +62,12 @@ func _ready():
 	print_verbose("Generated animation frames in [%s] seconds." % [(end_time - start_time) / 1000.0])
 
 
+# NOTE: this will fix the offset both in game and in editor
+# because this is a tool script
+func _process(_delta: float):
+	_update_offset()
+
+
 func _create_animation_frame(anim, row, col, sprite_sheet, cell_size: Vector2):
 	var texture = AtlasTexture.new()
 	texture.atlas = sprite_sheet
@@ -75,13 +81,11 @@ func _is_valid_frame(texture_frame: AtlasTexture):
 	return texture_frame.get_image().get_used_rect().size != Vector2i(0, 0)
 
 
-# Use this instead of regular play(). This f-n corrects the
-# position of the sprite for current animation.
-func play_creep_animation(animation_name: String, custom_speed: float = 1.0):
-	play(animation_name, custom_speed)
+func _update_offset():
+	var animation_name: String = get_animation()
 
 # 	NOTE: if animatedsprited2d is scaled, then offset will
 # 	be scaled also, so we need to account for that and
 # 	divide offset by scale
-	var packed_offset: Vector2 = _animation_offset_map.get(animation, Vector2.ZERO) as Vector2
+	var packed_offset: Vector2 = _animation_offset_map.get(animation_name, Vector2.ZERO) as Vector2
 	set_offset(packed_offset / scale)
