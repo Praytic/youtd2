@@ -1,6 +1,20 @@
 extends Node
 
 
+# Spawns creeps for creep waves. Handles timing between
+# creeps. Also loads creep scenes in the background to
+# reduce the load time at game startup.
+# 
+# NOTE: Background loading may become slow if the rest of
+# the game loop takes too much time. In other words if FPS
+# drops too low. If a creep has to spawn before it's scene
+# was loaded, then the main thread will wait for the load
+# thread to finish. This will freeze the game. Watch out for
+# such issues in the future. This is primarily a concern for
+# the html5 target. The way to fix it: optimize perfomance
+# so FPS doesn't drop too low.
+
+
 signal creep_spawned(creep: Creep)
 signal all_creeps_spawned
 
@@ -43,8 +57,8 @@ const CREEP_SCENE_INSTANCES_PATHS = {
 # Dict[scene_name -> Resource]
 var _creep_scenes: Dictionary
 var _creep_spawn_queue: Array[CreepData]
-var _scene_load_queue: Array[String] = []
-var _loading_scene_is_in_progress: bool = false
+var _background_load_queue: Array[String] = []
+var _background_load_in_progress: bool = false
 
 @onready var _timer_between_creeps: Timer = $Timer
 
@@ -58,47 +72,47 @@ func _ready():
 
 
 func _process(_delta: float):
-	if !_scene_load_queue.is_empty():
-		if _loading_scene_is_in_progress:
-			_process_load_for_creep_scene()
+	if !_background_load_queue.is_empty():
+		if _background_load_in_progress:
+			_process_background_load()
 		else:
-			_request_load_for_creep_scene()
+			_start_background_load()
 
 
-func _request_load_for_creep_scene():
-	var scene_name: String = _scene_load_queue.front()
+func _start_background_load():
+	var scene_name: String = _background_load_queue.front()
 	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
 	ResourceLoader.load_threaded_request(scene_path, "", false)
-	_loading_scene_is_in_progress = true
+	_background_load_in_progress = true
 
 	print_verbose("Starting to load creep scene: ", scene_name)
 	ElapsedTimer.start("Elapsed time for loading creep scene:" + scene_name)
 
 
-func _process_load_for_creep_scene():
-	var scene_name: String = _scene_load_queue.front()
+func _process_background_load():
+	var scene_name: String = _background_load_queue.front()
 	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
 
-	var loading_done: bool = ResourceLoader.load_threaded_get_status(scene_path) == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED
+	var finished: bool = ResourceLoader.load_threaded_get_status(scene_path) == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED
 
-	if loading_done:
+	if finished:
 		var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
 		_creep_scenes[scene_name] = scene
-		_scene_load_queue.pop_front()
-		_loading_scene_is_in_progress = false
+		_background_load_queue.pop_front()
+		_background_load_in_progress = false
 
 		print_verbose("Finished loading creep scene: ", scene_name)
 		ElapsedTimer.end_verbose("Elapsed time for loading creep scene:" + scene_name)
 
 
 # Waits until creep scene is done loading
-func _wait_for_load_for_creep_scene(scene_name: String):
+func _wait_for_background_load(scene_name: String):
 	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
 
 	var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
 	_creep_scenes[scene_name] = scene
-	_scene_load_queue.pop_front()
-	_loading_scene_is_in_progress = false
+	_background_load_queue.pop_front()
+	_background_load_in_progress = false
 
 
 func queue_spawn_creep(creep_data: CreepData):
@@ -130,8 +144,8 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> CreepData:
 #	scene first and so on.
 # 	NOTE: this assumes that generate_creep_for_wave() is
 # 	called in order.
-	if !_scene_load_queue.has(creep_scene_name):
-		_scene_load_queue.append(creep_scene_name)
+	if !_background_load_queue.has(creep_scene_name):
+		_background_load_queue.append(creep_scene_name)
 		print_verbose("Added creep scene to loading queue:", creep_scene_name)
 
 	return creep_data
@@ -151,7 +165,7 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 
 	if scene_not_loaded:
 		print_verbose("Creep spawned too early. Waiting for loading of creep scene to finish: ", creep_scene_name)
-		_wait_for_load_for_creep_scene(creep_scene_name)
+		_wait_for_background_load(creep_scene_name)
 
 	var creep = _creep_scenes[creep_scene_name].instantiate()
 
