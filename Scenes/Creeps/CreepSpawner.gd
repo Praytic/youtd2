@@ -5,11 +5,6 @@ signal creep_spawned(creep: Creep)
 signal all_creeps_spawned
 
 
-class CreepData:
-	var scene_name: String
-	var size: CreepSize.enm
-
-
 const MASS_SPAWN_DELAY_SEC = 0.2
 const NORMAL_SPAWN_DELAY_SEC = 0.9
 const CREEP_SCENE_INSTANCES_PATHS = {
@@ -47,8 +42,8 @@ const CREEP_SCENE_INSTANCES_PATHS = {
 
 # Dict[scene_name -> Resource]
 var _creep_scenes: Dictionary
-var _creep_spawn_queue: Array
-var _wave_spawn_queue: Array
+var _creep_spawn_queue: Array[CreepData]
+var _wave_spawn_queue: Array[Wave]
 
 @onready var _timer_between_creeps: Timer = $Timer
 
@@ -120,6 +115,8 @@ func spawn_creep(creep_data: CreepData, wave: Wave):
 	creep.set_spawn_level(wave.get_wave_number())
 	creep.death.connect(wave._on_Creep_death.bind(creep))
 	creep.reached_portal.connect(Callable(wave, "_on_Creep_reached_portal").bind(creep))
+
+	wave.add_alive_creep(creep)
 
 	Utils.add_object_to_world(creep)
 	print_verbose("Creep has been spawned [%s]." % creep)
