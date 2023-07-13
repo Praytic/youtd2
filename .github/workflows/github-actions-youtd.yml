@@ -32,7 +32,7 @@ jobs:
     - name: sync assets from gdrive via rclone
       uses: wei/rclone@v1
       with:
-        args: sync --filter-from rclone-filter "gdrive:Assets" "Assets"
+        args: sync -P --filter-from rclone-filter "gdrive:Assets" "Assets"
       env:
         RCLONE_CONF: ${{ secrets.RCLONE_GDRIVE_CONF }}
 
@@ -58,7 +58,7 @@ jobs:
       commit_ref: ${{ steps.version_generation.outputs.commit_ref }}
 
   export_game:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     needs: setup
     name: export game
     steps:
@@ -85,22 +85,18 @@ jobs:
         echo "New project.godot contents:"
         cat ${{ github.workspace }}/project.godot
 
-    - name: install wine
-      id: wine_install
+    - name: create .godot dirs
       run: |
-        brew tap homebrew/cask-versions
-        brew install --cask --no-quarantine wine-stable
-        echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
+        mkdir -p .godot/{editor,imported}
 
     - name: export game
       id: export_dry_run
       uses: firebelley/godot-export@v5.2.0
       with:
-        godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.1-stable/Godot_v4.1-stable_mono_macos.universal.zip
-        godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.1-stable/Godot_v4.1-stable_export_templates.tpz
+        godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.0.3-stable/Godot_v4.0.3-stable_mono_macos.universal.zip
+        godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.0.3-stable/Godot_v4.0.3-stable_export_templates.tpz
         relative_project_path: ./
         export_debug: false
-        wine_path: ${{ steps.wine_install.outputs.WINE_PATH }}
         cache: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
