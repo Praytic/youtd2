@@ -5,6 +5,11 @@ signal creep_spawned(creep: Creep)
 signal all_creeps_spawned
 
 
+class CreepData:
+	var scene_name: String
+	var size: CreepSize.enm
+
+
 const MASS_SPAWN_DELAY_SEC = 0.2
 const NORMAL_SPAWN_DELAY_SEC = 0.9
 const CREEP_SCENE_INSTANCES_PATHS = {
@@ -64,28 +69,46 @@ func _ready():
 	print_verbose("Creep scenes have been loaded.")
 
 
-func queue_spawn_creep(creep: Creep, wave: Wave):
-	assert(creep != null, "Tried to spawn null creep.")
+func queue_spawn_creep(creep_data: CreepData, wave: Wave):
+	assert(creep_data != null, "Tried to spawn null creep.")
 	
 # 	TODO: rework this so that the logic of "this creep
 # 	belongs to this wave" is better expressed. Currently
 # 	it's two parallel arrays where creeps are in the same
 # 	order as their waves.
-	_creep_spawn_queue.push_back(creep)
+	_creep_spawn_queue.push_back(creep_data)
 	_wave_spawn_queue.push_back(wave)
 	if _timer_between_creeps.is_stopped():
-		if creep.get_size() == CreepSize.enm.MASS:
+		if creep_data.size == CreepSize.enm.MASS:
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
-		elif creep.get_size() == CreepSize.enm.NORMAL:
+		elif creep_data.size == CreepSize.enm.NORMAL:
 			_timer_between_creeps.set_wait_time(NORMAL_SPAWN_DELAY_SEC)
 		print_verbose("Start creep spawn timer with delay [%s]." % _timer_between_creeps.get_wait_time())
 		_timer_between_creeps.start()
 
 
-func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
+func generate_creep_for_wave(wave: Wave, creep_size) -> CreepData:
 	var creep_size_name = Utils.screaming_snake_case_to_camel_case(CreepSize.enm.keys()[creep_size])
 	var creep_race_name = Utils.screaming_snake_case_to_camel_case(CreepCategory.enm.keys()[wave.get_race()])
 	var creep_scene_name = creep_race_name + creep_size_name
+
+	var creep_data: CreepData = CreepData.new()
+	creep_data.scene_name = creep_scene_name
+	creep_data.size = creep_size
+
+	return creep_data
+
+
+func spawn_creep(creep_data: CreepData, wave: Wave):
+	if not creep_data:
+		print_verbose("Stop creep spawn. Queue is exhausted.")
+		_timer_between_creeps.stop()
+		all_creeps_spawned.emit()
+		return
+
+	var creep_size: CreepSize.enm = creep_data.size
+	var creep_scene_name: String = creep_data.scene_name
+
 	var creep = _creep_scenes[creep_scene_name].instantiate()
 	if not creep:
 		push_error("Could not find a scene for creep size [%s] and race [%]." % [creep_size, wave.get_race()])
@@ -97,16 +120,7 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
 	creep.set_spawn_level(wave.get_wave_number())
 	creep.death.connect(wave._on_Creep_death.bind(creep))
 	creep.reached_portal.connect(Callable(wave, "_on_Creep_reached_portal").bind(creep))
-	return creep
 
-
-func spawn_creep(creep: Creep, wave: Wave):
-	if not creep:
-		print_verbose("Stop creep spawn. Queue is exhausted.")
-		_timer_between_creeps.stop()
-		all_creeps_spawned.emit()
-		return
-	
 	Utils.add_object_to_world(creep)
 	print_verbose("Creep has been spawned [%s]." % creep)
 
