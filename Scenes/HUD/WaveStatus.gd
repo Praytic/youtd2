@@ -10,6 +10,9 @@ extends Control
 @onready var _start_next_wave_button: Button = $PanelContainer/VBoxContainer/HBoxContainer/StartNextWaveButton
 
 
+var _displayed_wave_level: int = -1
+
+
 func _ready():
 	WaveLevel.changed.connect(_update_text)
 	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
@@ -18,7 +21,11 @@ func _ready():
 
 
 func _process(_delta: float):
-	_update_text()
+	var current_wave_level: int = WaveLevel.get_current()
+
+	if current_wave_level != _displayed_wave_level:
+		_update_text()
+		_displayed_wave_level = current_wave_level
 
 
 func _update_text():
