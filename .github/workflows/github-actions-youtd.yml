@@ -81,9 +81,9 @@ jobs:
     - name: update project.godot with new version
       run: |
         project_godot_file="${{ github.workspace }}/project.godot"
-        sed -i '' 's/\(config\/version="\).*\("\)/\1'"${{ needs.setup.outputs.tag_version }}"'\2/' "${project_godot_file}"
+        sed -i 's/\(config\/version="\).*\("\)/\1'"${{ needs.setup.outputs.tag_version }}"'\2/' "${project_godot_file}"
         echo "New project.godot contents:"
-        cat ${{ github.workspace }}/project.godot
+        cat "${project_godot_file}"
 
     - name: create .godot dirs
       run: |
