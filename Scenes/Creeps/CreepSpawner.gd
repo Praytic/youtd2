@@ -43,6 +43,8 @@ const CREEP_SCENE_INSTANCES_PATHS = {
 # Dict[scene_name -> Resource]
 var _creep_scenes: Dictionary
 var _creep_spawn_queue: Array[CreepData]
+var _scene_load_queue: Array[String] = []
+var _loading_scene_is_in_progress: bool = false
 
 @onready var _timer_between_creeps: Timer = $Timer
 
@@ -53,14 +55,50 @@ func _ready():
 	
 	var regex_search = RegEx.new()
 	regex_search.compile("^(?!\\.).*$")
-	
-	# Load resources of creep scenes for each combination
-	# of CreepSize.enm and CreepCategory.enm
-	for creep_scene_name in CREEP_SCENE_INSTANCES_PATHS.keys():
-		var creep_scene_path = CREEP_SCENE_INSTANCES_PATHS[creep_scene_name]
-		_creep_scenes[creep_scene_name] = load(creep_scene_path)
-	
-	print_verbose("Creep scenes have been loaded.")
+
+
+func _process(_delta: float):
+	if !_scene_load_queue.is_empty():
+		if _loading_scene_is_in_progress:
+			_process_load_for_creep_scene()
+		else:
+			_request_load_for_creep_scene()
+
+
+func _request_load_for_creep_scene():
+	var scene_name: String = _scene_load_queue.front()
+	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
+	ResourceLoader.load_threaded_request(scene_path, "", false)
+	_loading_scene_is_in_progress = true
+
+	print_verbose("Starting to load creep scene: ", scene_name)
+	ElapsedTimer.start("Elapsed time for loading creep scene:" + scene_name)
+
+
+func _process_load_for_creep_scene():
+	var scene_name: String = _scene_load_queue.front()
+	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
+
+	var loading_done: bool = ResourceLoader.load_threaded_get_status(scene_path) == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED
+
+	if loading_done:
+		var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
+		_creep_scenes[scene_name] = scene
+		_scene_load_queue.pop_front()
+		_loading_scene_is_in_progress = false
+
+		print_verbose("Finished loading creep scene: ", scene_name)
+		ElapsedTimer.end_verbose("Elapsed time for loading creep scene:" + scene_name)
+
+
+# Waits until creep scene is done loading
+func _wait_for_load_for_creep_scene(scene_name: String):
+	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
+
+	var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
+	_creep_scenes[scene_name] = scene
+	_scene_load_queue.pop_front()
+	_loading_scene_is_in_progress = false
 
 
 func queue_spawn_creep(creep_data: CreepData):
@@ -86,6 +124,16 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> CreepData:
 	creep_data.size = creep_size
 	creep_data.wave = wave
 
+#	Queue creep scene for loading. Need to load scenes in
+#	the order that they are used. For example if the first
+#	wave is mass humanoid creeps, then we load mass humanoid
+#	scene first and so on.
+# 	NOTE: this assumes that generate_creep_for_wave() is
+# 	called in order.
+	if !_scene_load_queue.has(creep_scene_name):
+		_scene_load_queue.append(creep_scene_name)
+		print_verbose("Added creep scene to loading queue:", creep_scene_name)
+
 	return creep_data
 
 
@@ -93,6 +141,17 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 	var creep_size: CreepSize.enm = creep_data.size
 	var creep_scene_name: String = creep_data.scene_name
 	var wave: Wave = creep_data.wave
+
+# 	NOTE: if creep needs to spawn and it's scene didn't
+# 	finish loading in the background yet, then we'll need to
+# 	wait for the creep scene to load. This will freeze the
+# 	game. Should only happen if the player starts the first
+# 	wave immediately after game starts.
+	var scene_not_loaded: bool = !_creep_scenes.has(creep_scene_name)
+
+	if scene_not_loaded:
+		print_verbose("Creep spawned too early. Waiting for loading of creep scene to finish: ", creep_scene_name)
+		_wait_for_load_for_creep_scene(creep_scene_name)
 
 	var creep = _creep_scenes[creep_scene_name].instantiate()
 
