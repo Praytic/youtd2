@@ -11,9 +11,6 @@ extends Control
 @onready var _timer_label: RichTextLabel = $PanelContainer/VBoxContainer/TimerLabel
 
 
-var _displayed_wave_level: int = -1
-
-
 func _ready():
 	WaveLevel.changed.connect(_update_all_labels)
 	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
