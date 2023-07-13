@@ -275,7 +275,7 @@ func set_unit_facing(angle: float):
 
 	var animation: String = _get_creep_animation()
 	if animation != "":
-		_sprite.play_creep_animation(animation, randi())
+		_sprite.play_creep_animation(animation)
 
 
 func get_unit_facing() -> float:
