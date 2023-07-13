@@ -43,7 +43,6 @@ const CREEP_SCENE_INSTANCES_PATHS = {
 # Dict[scene_name -> Resource]
 var _creep_scenes: Dictionary
 var _creep_spawn_queue: Array[CreepData]
-var _wave_spawn_queue: Array[Wave]
 
 @onready var _timer_between_creeps: Timer = $Timer
 
@@ -64,15 +63,10 @@ func _ready():
 	print_verbose("Creep scenes have been loaded.")
 
 
-func queue_spawn_creep(creep_data: CreepData, wave: Wave):
+func queue_spawn_creep(creep_data: CreepData):
 	assert(creep_data != null, "Tried to spawn null creep.")
 	
-# 	TODO: rework this so that the logic of "this creep
-# 	belongs to this wave" is better expressed. Currently
-# 	it's two parallel arrays where creeps are in the same
-# 	order as their waves.
 	_creep_spawn_queue.push_back(creep_data)
-	_wave_spawn_queue.push_back(wave)
 	if _timer_between_creeps.is_stopped():
 		if creep_data.size == CreepSize.enm.MASS:
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
@@ -90,23 +84,23 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> CreepData:
 	var creep_data: CreepData = CreepData.new()
 	creep_data.scene_name = creep_scene_name
 	creep_data.size = creep_size
+	creep_data.wave = wave
 
 	return creep_data
 
 
-func spawn_creep(creep_data: CreepData, wave: Wave):
-	if not creep_data:
-		print_verbose("Stop creep spawn. Queue is exhausted.")
-		_timer_between_creeps.stop()
-		all_creeps_spawned.emit()
-		return
-
+func spawn_creep(creep_data: CreepData) -> Creep:
 	var creep_size: CreepSize.enm = creep_data.size
 	var creep_scene_name: String = creep_data.scene_name
+	var wave: Wave = creep_data.wave
 
 	var creep = _creep_scenes[creep_scene_name].instantiate()
-	if not creep:
+
+	if creep == null:
 		push_error("Could not find a scene for creep size [%s] and race [%]." % [creep_size, wave.get_race()])
+
+		return null
+
 	creep.set_path(wave.get_wave_path())
 	creep.set_creep_size(creep_size)
 	creep.set_armor_type(wave.get_armor_type())
@@ -126,11 +120,18 @@ func spawn_creep(creep_data: CreepData, wave: Wave):
 	var special_list: Array[int] = wave.get_specials()
 	WaveSpecial.apply_to_creep(special_list, creep)
 
+	return creep
+
 
 func _on_Timer_timeout():
-	var creep = _creep_spawn_queue.pop_front()
-	var wave: Wave = _wave_spawn_queue.pop_front()
-	if creep == null:
-		print_verbose("Creep spawn queue is empty. Nothing to spawn.")
-	spawn_creep(creep, wave)
+	if _creep_spawn_queue.is_empty():
+		print_verbose("Stop creep spawn. Queue is exhausted.")
+		_timer_between_creeps.stop()
+		all_creeps_spawned.emit()
+
+		return
+
+	var creep_data: CreepData = _creep_spawn_queue.pop_front()
+
+	var creep: Creep = spawn_creep(creep_data)
 	creep_spawned.emit(creep)

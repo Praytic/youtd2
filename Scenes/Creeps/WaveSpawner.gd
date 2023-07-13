@@ -87,7 +87,7 @@ func spawn_wave(new_wave: Wave):
 	new_wave.state = Wave.State.SPAWNING
 	
 	for creep_data in new_wave.get_creep_data_list():
-		_creep_spawner.queue_spawn_creep(creep_data, new_wave)
+		_creep_spawner.queue_spawn_creep(creep_data)
 
 
 func _init_wave_creeps(wave: Wave):
