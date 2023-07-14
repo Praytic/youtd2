@@ -104,9 +104,7 @@ jobs:
 
     - name: repack web artifact
       run: |
-#       ${{ steps.export.outputs.archive_directory }} doesn't work anymore
         zip -uj /home/runner/.local/share/godot/archives/web.zip ${{ github.workspace }}/Build/Web/*
-#       ${{ steps.export.outputs.build_directory }} doesn't work anymore
         cp ${{ github.workspace }}/Build/Web/* /home/runner/.local/share/godot/builds/web/
 
     - uses: actions/upload-artifact@v3
