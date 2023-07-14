@@ -79,6 +79,28 @@ func _process(_delta: float):
 			_start_background_load()
 
 
+# Go through all waves to get the order in which creep
+# scenes are used. Need this order to do background loading
+# for creep scenes in order of usage. This is to make sure
+# that scenes are loaded before they need to be used to
+# spawn their creeps.
+func setup_background_load_queue(wave_list: Array[Wave]):
+	var queue: Array[String] = []
+
+	for wave in wave_list:
+		var creep_data_list: Array[CreepData] = wave.get_creep_data_list()
+
+		for creep_data in creep_data_list:
+			var scene_name: String = creep_data.scene_name
+
+			if !queue.has(scene_name):
+				queue.append(scene_name)
+
+	_background_load_queue = queue
+
+	print_verbose("_background_load_queue = ", _background_load_queue)
+
+
 func _start_background_load():
 	var scene_name: String = _background_load_queue.front()
 	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
@@ -137,16 +159,6 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> CreepData:
 	creep_data.scene_name = creep_scene_name
 	creep_data.size = creep_size
 	creep_data.wave = wave
-
-#	Queue creep scene for loading. Need to load scenes in
-#	the order that they are used. For example if the first
-#	wave is mass humanoid creeps, then we load mass humanoid
-#	scene first and so on.
-# 	NOTE: this assumes that generate_creep_for_wave() is
-# 	called in order.
-	if !_background_load_queue.has(creep_scene_name):
-		_background_load_queue.append(creep_scene_name)
-		print_verbose("Added creep scene to loading queue:", creep_scene_name)
 
 	return creep_data
 

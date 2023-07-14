@@ -70,6 +70,8 @@ func _ready():
 		wave.wave_ended.connect(_on_Wave_ended.bind(wave))
  
 		add_child(wave, true)
+
+	_creep_spawner.setup_background_load_queue(_wave_list)
 	
 	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())
 	
