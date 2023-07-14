@@ -21,8 +21,8 @@ enum State {
 }
 
 
-# Array[Creep] stores scenes of live in-game creeps
-var _creeps: Array : set = set_creeps, get = get_creeps
+var _creep_data_list: Array[CreepData]
+var _alive_creep_list: Array[Creep] = []
 var _id: int : set = set_id, get = get_id
 var _wave_number: int : set = set_wave_number, get = get_wave_number
 var _race: CreepCategory.enm : set = set_race, get = get_race
@@ -44,7 +44,7 @@ func _ready():
 
 func _process(_delta):
 	# TODO: Add portal lives here
-	if _creeps.is_empty() and state != Wave.State.CLEARED:
+	if _alive_creep_list.is_empty() and state == Wave.State.SPAWNED:
 		state = Wave.State.CLEARED
 		wave_ended.emit()
 
@@ -65,11 +65,11 @@ func _process(_delta):
 
 func _on_Creep_death(_event: Event, creep: Creep):
 	print_verbose("Creep [%s] has died." % creep)
-	_creeps.erase(creep)
+	_alive_creep_list.erase(creep)
 
 func _on_Creep_reached_portal(damage, creep: Creep):
 	print_verbose("Creep [%s] reached portal. Damage to portal: %s" % [creep, damage])
-	_creeps.erase(creep)
+	_alive_creep_list.erase(creep)
 
 
 #########################
@@ -211,8 +211,13 @@ func is_air() -> bool:
 	return get_creep_sizes().has(CreepSize.enm.AIR)
 
 
-func set_creeps(creeps: Array):
-	_creeps = creeps
+func set_creep_data_list(creep_data_list: Array[CreepData]):
+	_creep_data_list = creep_data_list
 
-func get_creeps() -> Array:
-	return _creeps
+
+func get_creep_data_list() -> Array[CreepData]:
+	return _creep_data_list
+
+
+func add_alive_creep(creep: Creep):
+	_alive_creep_list.append(creep)

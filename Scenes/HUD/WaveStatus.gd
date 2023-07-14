@@ -5,28 +5,34 @@ extends Control
 # starts.
 
 
-@onready var _label: RichTextLabel = $PanelContainer/VBoxContainer/RichTextLabel
+@onready var _label: RichTextLabel = $PanelContainer/VBoxContainer/DetailsLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
 @onready var _start_next_wave_button: Button = $PanelContainer/VBoxContainer/HBoxContainer/StartNextWaveButton
+@onready var _timer_label: RichTextLabel = $PanelContainer/VBoxContainer/TimerLabel
 
 
 func _ready():
-	WaveLevel.changed.connect(_update_text)
+	WaveLevel.changed.connect(_update_all_labels)
 	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
 
-	_update_text()
+	_update_details_label()
 
 
 func _process(_delta: float):
-	_update_text()
+	_update_timer_label()
 
 
-func _update_text():
-	_label.clear()
-	
-	var text: String = ""
+func _update_all_labels():
+	_update_timer_label()
+	_update_details_label()
+
+
+func _update_timer_label():
+	_timer_label.clear()
 
 	var current_wave_level: int = WaveLevel.get_current()
+
+	var text: String = ""
 
 	if _wave_spawner.wave_is_in_progress():
 		text += "Wave [color=GOLD]%d[/color]\n" % current_wave_level
@@ -37,6 +43,16 @@ func _update_text():
 		var wave_time_seconds: int = wave_time - wave_time_minutes * 60
 
 		text += "Wave [color=GOLD]%d[/color] in %02d:%02d\n" % [next_wave_level, wave_time_minutes, wave_time_seconds]
+
+	_timer_label.append_text(text)
+
+
+func _update_details_label():
+	_label.clear()
+	
+	var text: String = ""
+
+	var current_wave_level: int = WaveLevel.get_current()
 
 	text += "[table=5]"
 

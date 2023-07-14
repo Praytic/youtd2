@@ -70,6 +70,8 @@ func _ready():
 		wave.wave_ended.connect(_on_Wave_ended.bind(wave))
  
 		add_child(wave, true)
+
+	_creep_spawner.setup_background_load_queue(_wave_list)
 	
 	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())
 	
@@ -86,18 +88,18 @@ func get_current_wave_level() -> int:
 func spawn_wave(new_wave: Wave):
 	new_wave.state = Wave.State.SPAWNING
 	
-	for creep in new_wave.get_creeps():
-		_creep_spawner.queue_spawn_creep(creep, new_wave)
+	for creep_data in new_wave.get_creep_data_list():
+		_creep_spawner.queue_spawn_creep(creep_data)
 
 
 func _init_wave_creeps(wave: Wave):
-	var creeps = []
+	var creep_data_list: Array[CreepData] = []
 	var creep_sizes = wave.get_creeps_combination()
 	for creep_size in creep_sizes:
-		var creep = _creep_spawner.generate_creep_for_wave(wave, creep_size)
-		creeps.append(creep)
+		var creep_data: CreepData = _creep_spawner.generate_creep_for_wave(wave, creep_size)
+		creep_data_list.append(creep_data)
 		
-	wave.set_creeps(creeps)
+	wave.set_creep_data_list(creep_data_list)
 
 
 func _on_Timer_timeout():
