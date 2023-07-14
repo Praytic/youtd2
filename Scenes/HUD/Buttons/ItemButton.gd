@@ -10,6 +10,8 @@ var _item: Item = null : set = set_item, get = get_item
 
 @onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
 
+var _hide_cooldown_indicator: bool = false
+
 
 func _ready():
 	_set_rarity_icon()
@@ -22,6 +24,13 @@ func _ready():
 	
 	_unit_button.mouse_entered.connect(_on_mouse_entered)
 	_unit_button.mouse_exited.connect(_on_mouse_exited)
+
+	if _hide_cooldown_indicator:
+		_cooldown_indicator.hide()
+
+
+func hide_cooldown_indicator():
+	_hide_cooldown_indicator = true
 
 
 func _set_rarity_icon():

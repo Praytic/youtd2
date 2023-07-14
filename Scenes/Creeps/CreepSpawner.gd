@@ -1,6 +1,20 @@
 extends Node
 
 
+# Spawns creeps for creep waves. Handles timing between
+# creeps. Also loads creep scenes in the background to
+# reduce the load time at game startup.
+# 
+# NOTE: Background loading may become slow if the rest of
+# the game loop takes too much time. In other words if FPS
+# drops too low. If a creep has to spawn before it's scene
+# was loaded, then the main thread will wait for the load
+# thread to finish. This will freeze the game. Watch out for
+# such issues in the future. This is primarily a concern for
+# the html5 target. The way to fix it: optimize perfomance
+# so FPS doesn't drop too low.
+
+
 signal creep_spawned(creep: Creep)
 signal all_creeps_spawned
 
@@ -42,8 +56,9 @@ const CREEP_SCENE_INSTANCES_PATHS = {
 
 # Dict[scene_name -> Resource]
 var _creep_scenes: Dictionary
-var _creep_spawn_queue: Array
-var _wave_spawn_queue: Array
+var _creep_spawn_queue: Array[CreepData]
+var _background_load_queue: Array[String] = []
+var _background_load_in_progress: bool = false
 
 @onready var _timer_between_creeps: Timer = $Timer
 
@@ -54,41 +69,123 @@ func _ready():
 	
 	var regex_search = RegEx.new()
 	regex_search.compile("^(?!\\.).*$")
-	
-	# Load resources of creep scenes for each combination
-	# of CreepSize.enm and CreepCategory.enm
-	for creep_scene_name in CREEP_SCENE_INSTANCES_PATHS.keys():
-		var creep_scene_path = CREEP_SCENE_INSTANCES_PATHS[creep_scene_name]
-		_creep_scenes[creep_scene_name] = load(creep_scene_path)
-	
-	print_verbose("Creep scenes have been loaded.")
 
 
-func queue_spawn_creep(creep: Creep, wave: Wave):
-	assert(creep != null, "Tried to spawn null creep.")
+func _process(_delta: float):
+	if !_background_load_queue.is_empty():
+		if _background_load_in_progress:
+			_process_background_load()
+		else:
+			_start_background_load()
+
+
+# Go through all waves to get the order in which creep
+# scenes are used. Need this order to do background loading
+# for creep scenes in order of usage. This is to make sure
+# that scenes are loaded before they need to be used to
+# spawn their creeps.
+func setup_background_load_queue(wave_list: Array[Wave]):
+	var queue: Array[String] = []
+
+	for wave in wave_list:
+		var creep_data_list: Array[CreepData] = wave.get_creep_data_list()
+
+		for creep_data in creep_data_list:
+			var scene_name: String = creep_data.scene_name
+
+			if !queue.has(scene_name):
+				queue.append(scene_name)
+
+	_background_load_queue = queue
+
+	print_verbose("_background_load_queue = ", _background_load_queue)
+
+
+func _start_background_load():
+	var scene_name: String = _background_load_queue.front()
+	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
+	ResourceLoader.load_threaded_request(scene_path, "", false)
+	_background_load_in_progress = true
+
+	print_verbose("Starting to load creep scene: ", scene_name)
+	ElapsedTimer.start("Elapsed time for loading creep scene:" + scene_name)
+
+
+func _process_background_load():
+	var scene_name: String = _background_load_queue.front()
+	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
+
+	var finished: bool = ResourceLoader.load_threaded_get_status(scene_path) == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED
+
+	if finished:
+		var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
+		_creep_scenes[scene_name] = scene
+		_background_load_queue.pop_front()
+		_background_load_in_progress = false
+
+		print_verbose("Finished loading creep scene: ", scene_name)
+		ElapsedTimer.end_verbose("Elapsed time for loading creep scene:" + scene_name)
+
+
+# Waits until creep scene is done loading
+func _wait_for_background_load(scene_name: String):
+	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
+
+	var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
+	_creep_scenes[scene_name] = scene
+	_background_load_queue.pop_front()
+	_background_load_in_progress = false
+
+
+func queue_spawn_creep(creep_data: CreepData):
+	assert(creep_data != null, "Tried to spawn null creep.")
 	
-# 	TODO: rework this so that the logic of "this creep
-# 	belongs to this wave" is better expressed. Currently
-# 	it's two parallel arrays where creeps are in the same
-# 	order as their waves.
-	_creep_spawn_queue.push_back(creep)
-	_wave_spawn_queue.push_back(wave)
+	_creep_spawn_queue.push_back(creep_data)
 	if _timer_between_creeps.is_stopped():
-		if creep.get_size() == CreepSize.enm.MASS:
+		if creep_data.size == CreepSize.enm.MASS:
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
-		elif creep.get_size() == CreepSize.enm.NORMAL:
+		elif creep_data.size == CreepSize.enm.NORMAL:
 			_timer_between_creeps.set_wait_time(NORMAL_SPAWN_DELAY_SEC)
 		print_verbose("Start creep spawn timer with delay [%s]." % _timer_between_creeps.get_wait_time())
 		_timer_between_creeps.start()
 
 
-func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
+func generate_creep_for_wave(wave: Wave, creep_size) -> CreepData:
 	var creep_size_name = Utils.screaming_snake_case_to_camel_case(CreepSize.enm.keys()[creep_size])
 	var creep_race_name = Utils.screaming_snake_case_to_camel_case(CreepCategory.enm.keys()[wave.get_race()])
 	var creep_scene_name = creep_race_name + creep_size_name
+
+	var creep_data: CreepData = CreepData.new()
+	creep_data.scene_name = creep_scene_name
+	creep_data.size = creep_size
+	creep_data.wave = wave
+
+	return creep_data
+
+
+func spawn_creep(creep_data: CreepData) -> Creep:
+	var creep_size: CreepSize.enm = creep_data.size
+	var creep_scene_name: String = creep_data.scene_name
+	var wave: Wave = creep_data.wave
+
+# 	NOTE: if creep needs to spawn and it's scene didn't
+# 	finish loading in the background yet, then we'll need to
+# 	wait for the creep scene to load. This will freeze the
+# 	game. Should only happen if the player starts the first
+# 	wave immediately after game starts.
+	var scene_not_loaded: bool = !_creep_scenes.has(creep_scene_name)
+
+	if scene_not_loaded:
+		print_verbose("Creep spawned too early. Waiting for loading of creep scene to finish: ", creep_scene_name)
+		_wait_for_background_load(creep_scene_name)
+
 	var creep = _creep_scenes[creep_scene_name].instantiate()
-	if not creep:
+
+	if creep == null:
 		push_error("Could not find a scene for creep size [%s] and race [%]." % [creep_size, wave.get_race()])
+
+		return null
+
 	creep.set_path(wave.get_wave_path())
 	creep.set_creep_size(creep_size)
 	creep.set_armor_type(wave.get_armor_type())
@@ -97,16 +194,9 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> Creep:
 	creep.set_spawn_level(wave.get_wave_number())
 	creep.death.connect(wave._on_Creep_death.bind(creep))
 	creep.reached_portal.connect(Callable(wave, "_on_Creep_reached_portal").bind(creep))
-	return creep
 
+	wave.add_alive_creep(creep)
 
-func spawn_creep(creep: Creep, wave: Wave):
-	if not creep:
-		print_verbose("Stop creep spawn. Queue is exhausted.")
-		_timer_between_creeps.stop()
-		all_creeps_spawned.emit()
-		return
-	
 	Utils.add_object_to_world(creep)
 	print_verbose("Creep has been spawned [%s]." % creep)
 
@@ -115,11 +205,18 @@ func spawn_creep(creep: Creep, wave: Wave):
 	var special_list: Array[int] = wave.get_specials()
 	WaveSpecial.apply_to_creep(special_list, creep)
 
+	return creep
+
 
 func _on_Timer_timeout():
-	var creep = _creep_spawn_queue.pop_front()
-	var wave: Wave = _wave_spawn_queue.pop_front()
-	if creep == null:
-		print_verbose("Creep spawn queue is empty. Nothing to spawn.")
-	spawn_creep(creep, wave)
+	if _creep_spawn_queue.is_empty():
+		print_verbose("Stop creep spawn. Queue is exhausted.")
+		_timer_between_creeps.stop()
+		all_creeps_spawned.emit()
+
+		return
+
+	var creep_data: CreepData = _creep_spawn_queue.pop_front()
+
+	var creep: Creep = spawn_creep(creep_data)
 	creep_spawned.emit(creep)

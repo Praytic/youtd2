@@ -55,6 +55,7 @@ func _create_ItemButton(item: Item) -> ItemButton:
 	item_button.set_item(item)
 #	NOTE: attach item to button while item is stored in item
 #	bar.
+	item_button.hide_cooldown_indicator()
 	item_button.add_child(item)
 	return item_button
 

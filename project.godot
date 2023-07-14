@@ -42,6 +42,7 @@ config/show_autocasts_menu=false
 
 [autoload]
 
+ElapsedTimer="*res://Singletons/ElapsedTimer.gd"
 Properties="*res://Singletons/Properties.gd"
 FoodManager="*res://Singletons/Managers/FoodManager.gd"
 KnowledgeTomesManager="*res://Singletons/Managers/KnowledgeTomesManager.gd"
@@ -87,7 +88,6 @@ window/size/viewport_height=1080
 window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-window/size/fullscreen=true
 window/default_environment="res://default_env.tres"
 
 [editor_plugins]
