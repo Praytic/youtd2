@@ -6,17 +6,17 @@ on:
     branches:
       - workflow*
     # Sequence of patterns matched against refs/tags
-    # tags:
-    #   - v*
+    tags:
+      - v*
 
 jobs:
   setup:
     runs-on: ubuntu-latest
     name: cache repo with assets
-    steps: 
+    steps:
     - uses: actions/checkout@v3
 
-    - name: list assets in gdrive 
+    - name: list assets in gdrive
       uses: wei/rclone@v1
       with:
         args: lsf -R --filter-from rclone-filter "Assets" | sort > .assets-list
@@ -53,7 +53,7 @@ jobs:
         echo "tag_version=${latest_tag}-${short_hash}" | tee -a $GITHUB_OUTPUT
         echo "commit_ref=$GITHUB_REF_NAME" | tee -a $GITHUB_OUTPUT
 
-    outputs: 
+    outputs:
       tag_version: ${{ steps.version_generation.outputs.tag_version }}
       commit_ref: ${{ steps.version_generation.outputs.commit_ref }}
 
@@ -104,8 +104,10 @@ jobs:
 
     - name: repack web artifact
       run: |
-        zip -uj ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/Build/Web/*
-        cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/web/
+#       ${{ steps.export.outputs.archive_directory }} doesn't work anymore
+        zip -uj /home/runner/.local/share/godot/archives/web.zip ${{ github.workspace }}/Build/Web/*
+#       ${{ steps.export.outputs.build_directory }} doesn't work anymore
+        cp ${{ github.workspace }}/Build/Web/* /home/runner/.local/share/godot/builds/web/
 
     - uses: actions/upload-artifact@v3
       with:
@@ -180,7 +182,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: .
-          
+
       - name: display structure of downloaded files
         run: ls -R
         working-directory: .
