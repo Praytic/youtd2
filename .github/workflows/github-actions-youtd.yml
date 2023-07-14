@@ -85,12 +85,16 @@ jobs:
         echo "New project.godot contents:"
         cat "${project_godot_file}"
 
+    - name: update release version for Sentry lib
+      run: |
+        sed -i 's/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@${{ needs.setup.outputs.tag_version }}/g'
+
     - name: create .godot dirs
       run: |
         mkdir -p .godot/{editor,imported}
 
     - name: export game
-      id: export_dry_run
+      id: export
       uses: firebelley/godot-export@v5.2.0
       with:
         godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.0/Godot_v4.0-stable_linux.x86_64.zip
@@ -104,8 +108,8 @@ jobs:
 
     - name: repack web artifact
       run: |
-        zip -uj /home/runner/.local/share/godot/archives/web.zip ${{ github.workspace }}/Build/Web/*
-        cp ${{ github.workspace }}/Build/Web/* /home/runner/.local/share/godot/builds/web/
+        zip -uj ${{ steps.export.outputs.archive_directory }}/web.zip ${{ github.workspace }}/Build/Web/*
+        cp ${{ github.workspace }}/Build/Web/* ${{ steps.export.outputs.build_directory }}/web/
 
     - uses: actions/upload-artifact@v3
       with:
