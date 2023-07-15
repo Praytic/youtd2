@@ -80,6 +80,7 @@ var _auto_mode: bool = true
 @onready var _cooldown_timer: Timer = $CooldownTimer
 @onready var _buff_timer: Timer = $BuffTimer
 @onready var _immediate_timer: Timer = $ImmediateTimer
+@onready var _offensive_timer: Timer = $OffensiveTimer
 
 
 static func make() -> Autocast:
@@ -97,7 +98,7 @@ func _ready():
 #	timer.
 	match autocast_type:
 		Type.AC_TYPE_OFFENSIVE_UNIT:
-			_caster.attack.connect(_on_caster_attack)
+			_offensive_timer.start()
 		Type.AC_TYPE_ALWAYS_BUFF:
 			_buff_timer.start()
 		Type.AC_TYPE_OFFENSIVE_BUFF:
@@ -172,14 +173,19 @@ func do_cast_if_possible():
 	_do_cast(target)
 
 
-func _on_caster_attack(attack_event: Event):
+func _on_offensive_timer_timeout():
 	if !_can_cast():
 		return
 
 	if !_auto_mode:
 		return
-	
-	var target: Unit = attack_event.get_target()
+
+# 	NOTE: use tower's current attack target instead of
+# 	searching for nearby units ourselves.
+	var target: Unit = _caster.get_current_target()
+
+	if target == null:
+		return
 
 # 	NOTE: caster may have higher attack range than autocast
 # 	so we need to check that target is in range of autocast
