@@ -1,39 +1,55 @@
 class_name Autocast
 extends Node
 
-# Autocast is a special event that is attached to a unit and
-# is triggered everytime the unit attacks. Autocast will
-# call autocast handler if the autocast is currently not on
-# cooldown and the caster has enough mana. The attack target
-# is used as the target for the cast. Can be attached to
-# towers using Tower.add_autocast() or to buffs using
-# Buff.add_autocast().
+# Autocast is attached to a unit and triggers an ability.
+# Can be attached using Tower.add_autocast(),
+# Buff.add_autocast() or Item.set_autocast().
 #
-# Defining a target_type will cause autocast to trigger only
-# for targets that match the defined type. Set this to null
-# if you don't need any filtering.
+# Note that autocast doesn't implement the gameplay effects
+# of the ability like dealing damage. That needs to be
+# implemented in the autocast handler. The only gameplay
+# effect that some autocasts do is applying buffs on units.
 #
-# AC_TYPE_OFFENSIVE_UNIT - performs an autocast when tower
-# attacks.
+# Autocast type determines the way that the autocast
+# behaves. See below for descriptions of autocast types.
+#
+# AC_TYPE_ALWAYS_BUFF - applies a buff on targets in range
+# that don't already have the buff_type. Note that if a
+# handler is specified, then it will be called and buff
+# should be applied by the handler.
+#
+# AC_TYPE_ALWAYS_IMMEDIATE - calls the defined handler.
+# Ability effects should be implemented by the handler.
+#
+# AC_TYPE_OFFENSIVE_BUFF - same as AC_TYPE_ALWAYS_BUFF, but
+# is active only while tower is attacking.
+#
+# AC_TYPE_OFFENSIVE_UNIT - calls handler and passes current
+# attack target of caster via the event argument.
+#
+# AC_TYPE_OFFENSIVE_IMMEDIATE - same as
+# AC_TYPE_ALWAYS_IMMEDIATE but is active only while tower is
+# active.
+#
+# AC_TYPE_NOAC_IMMEDIATE - same as AC_TYPE_ALWAYS_IMMEDIATE
+# but is always in manual mode.
+#
+# AC_TYPE_NOAC_CREEP - same as AC_TYPE_OFFENSIVE_UNIT but is
+# always in manual mode.
 # 
-# AC_TYPE_OFFENSIVE_BUFF - while tower is attacking,
-# performs an autocast on targets in range that don't
-# already have the buff_type. If handler is specified, it
-# will be called. If handler is not specified, then buff
-# will be applied on the target automatically.
+# AC_TYPE_NOAC_TOWER - same as AC_TYPE_NOAC_CREEP but
+# accepts only tower targets.
 #
-# AC_TYPE_ALWAYS_BUFF - same as AC_TYPE_OFFENSIVE_BUFF, but
-# casts always, event while tower is not attacking.
-#
-# AC_TYPE_OFFENSIVE_IMMEDIATE - while tower is attacking,
-# performs an autocast without a target. Parameters like
-# range and target type are not used.
+# AC_TYPE_NOAC_PLAYER_TOWER - same as AC_TYPE_NOAC_TOWER but
+# accepts only player tower targets.
+# 
+# See _types_that_can_use_auto_mode list for information
+# about which autocast types can use auto mode. Types not in
+# the list are always in manual mode.
 
-
-# TODO: implement AC_TYPE_NOAC_IMMEDIATE. This type doesn't
-# trigger automatically. Instead, it's triggered when user
-# selects tower and presses the button that triggers this
-# autocast.
+# TODO: implement POINT autocast types. Need to first get to
+# a script that uses that type. Types in the list can switch
+# between auto and manual modes.
 
 enum Type {
 	AC_TYPE_ALWAYS_BUFF,
@@ -47,6 +63,13 @@ enum Type {
 	AC_TYPE_NOAC_PLAYER_TOWER,
 }
 
+var _types_that_can_use_auto_mode: Array[Autocast.Type] = [
+	Autocast.Type.AC_TYPE_ALWAYS_BUFF,
+	Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
+	Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
+	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
+	Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
+]
 var _immediate_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
 	Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
@@ -164,7 +187,7 @@ func is_item_autocast() -> bool:
 func do_cast_manually():
 	if !_can_cast():
 		_add_cast_error_message()
-		
+
 		return
 
 	var target: Unit
@@ -346,15 +369,7 @@ func _get_cast_error() -> String:
 
 # Some autocast types are always manual
 func can_use_auto_mode() -> bool:
-	var types_that_can_use_auto_mode: Array[Autocast.Type] = [
-		Autocast.Type.AC_TYPE_ALWAYS_BUFF,
-		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
-		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
-		Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
-		Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
-	]
-
-	var can_use: bool = types_that_can_use_auto_mode.has(autocast_type)
+	var can_use: bool = _types_that_can_use_auto_mode.has(autocast_type)
 
 	return can_use
 
