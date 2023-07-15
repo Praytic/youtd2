@@ -44,6 +44,9 @@ enum Type {
 	AC_TYPE_NOAC_IMMEDIATE
 }
 
+# NOTE: num_buffs_before_idle, target_type and buff_type are
+# only relevant to "_BUFF" autocast types. For other
+# autocast types leave these values blank.
 
 # NOTE: cast_range is the range used when autocast is
 # manually triggered by the user, auto_range is the range
