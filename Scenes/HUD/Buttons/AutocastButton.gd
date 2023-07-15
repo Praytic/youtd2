@@ -43,4 +43,4 @@ func _on_mouse_exited():
 
 
 func _on_pressed():
-	_autocast.do_cast_if_possible()
+	_autocast.do_cast_manually()

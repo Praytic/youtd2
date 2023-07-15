@@ -12,4 +12,4 @@ func set_autocast(autocast: Autocast):
 
 
 func _process(_delta: float):
-	visible = _autocast != null && _autocast._auto_mode
+	visible = _autocast != null && _autocast.auto_mode_is_enabled()

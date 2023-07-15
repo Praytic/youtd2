@@ -44,6 +44,24 @@ enum Type {
 	AC_TYPE_NOAC_IMMEDIATE
 }
 
+var _immediate_type_list: Array[Autocast.Type] = [
+	Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
+	Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
+	Autocast.Type.AC_TYPE_NOAC_IMMEDIATE,
+]
+var _buff_type_list: Array[Autocast.Type] = [
+	Autocast.Type.AC_TYPE_ALWAYS_BUFF,
+	Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
+]
+var _offensive_type_list: Array[Autocast.Type] = [
+	Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
+	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
+	Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
+]
+var _unit_type_list: Array[Autocast.Type] = [
+	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
+]
+
 # NOTE: num_buffs_before_idle, target_type and buff_type are
 # only relevant to "_BUFF" autocast types. For other
 # autocast types leave these values blank.
@@ -74,16 +92,14 @@ var handler: Callable = Callable()
 
 var _caster: Unit = null
 var _is_item_autocast: bool = false
-# When auto mode is true, the autocast will trigger
-# automatically whenever the cooldown reaches 0. When auto
-# mode is false, autocast will trigger only in response to
-# player input.
-var _auto_mode: bool = true
 
+# Tracks how much time is left before ability can be used.
 @onready var _cooldown_timer: Timer = $CooldownTimer
-@onready var _buff_timer: Timer = $BuffTimer
-@onready var _immediate_timer: Timer = $ImmediateTimer
-@onready var _offensive_timer: Timer = $OffensiveTimer
+# While auto mode is enabled, this timer periodically
+# triggers an attempt to cast ability if all requirements
+# are met. While auto mode is disabled, this timer is
+# paused.
+@onready var _auto_timer: Timer = $AutoTimer
 
 
 static func make() -> Autocast:
@@ -96,23 +112,8 @@ func _ready():
 	_cooldown_timer.wait_time = cooldown
 	_cooldown_timer.one_shot = true
 
-#	NOTE: AC_TYPE_OFFENSIVE_UNIT is triggered when caster
-#	attacks, while AC_TYPE_ALWAYS_BUFF runs on it's own
-#	timer.
-	match autocast_type:
-		Type.AC_TYPE_OFFENSIVE_UNIT:
-			_offensive_timer.start()
-		Type.AC_TYPE_ALWAYS_BUFF:
-			_buff_timer.start()
-		Type.AC_TYPE_OFFENSIVE_BUFF:
-			_buff_timer.start()
-		Type.AC_TYPE_OFFENSIVE_IMMEDIATE:
-			_immediate_timer.start()
-		Type.AC_TYPE_ALWAYS_IMMEDIATE:
-			_immediate_timer.start()
-
 	if !can_use_auto_mode():
-		_auto_mode = false
+		_auto_timer.set_paused(true)
 
 
 func set_caster(caster: Unit):
@@ -125,7 +126,14 @@ func toggle_auto_mode():
 
 		return
 
-	_auto_mode = !_auto_mode
+	var new_paused_value: bool = !_auto_timer.is_paused()
+	_auto_timer.set_paused(new_paused_value)
+
+
+func auto_mode_is_enabled() -> bool:
+	var is_enabled: bool = !_auto_timer.is_paused()
+
+	return is_enabled
 
 
 func get_cooldown() -> float:
@@ -142,7 +150,9 @@ func is_item_autocast() -> bool:
 	return _is_item_autocast
 
 
-func do_cast_if_possible():
+# This is called when player triggers autocast by pressing
+# on the item or autocast button.
+func do_cast_manually():
 	if !_can_cast():
 		var cast_error: String = _get_cast_error()
 
@@ -151,44 +161,49 @@ func do_cast_if_possible():
 
 		return
 
-	var immediate_type_list: Array[Autocast.Type] = [
-		Autocast.Type.AC_TYPE_ALWAYS_IMMEDIATE,
-		Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
-		Autocast.Type.AC_TYPE_NOAC_IMMEDIATE,
-	]
-	var buff_type_list: Array[Autocast.Type] = [
-		Autocast.Type.AC_TYPE_ALWAYS_BUFF,
-		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
-	]
-	var is_immediate_type: bool = immediate_type_list.has(autocast_type)
-	var is_buff_type: bool = buff_type_list.has(autocast_type)
-
 	var target: Unit
-	if is_immediate_type:
+	if _type_is_immediate():
 		target = null
-	elif is_buff_type:
+	elif _type_is_buff():
 		target = _get_target_for_buff_autocast()
 	else:
-		push_error("do_cast_if_possible doesn't support this autocast type: ", autocast_type)
+		push_error("do_cast_manually doesn't support this autocast type: ", autocast_type)
 
 		return
 
 	_do_cast(target)
 
 
-func _on_offensive_timer_timeout():
+func _on_auto_timer_timeout():
 	if !_can_cast():
 		return
 
-	if !_auto_mode:
+	var target: Unit = _get_target_for_auto_mode()
+
+# 	NOTE: null target is okay for immediate autocasts
+# 	because they do not need a target
+	if target == null && !_type_is_immediate():
 		return
 
+	_do_cast(target)
+
+
+func _get_target_for_auto_mode() -> Unit:
+	if _type_is_buff():
+		return _get_target_for_buff_autocast()
+	elif _type_is_unit():
+		return _get_target_for_unit_autocast()
+	elif _type_is_immediate():
+#		Immediate autocasts have no target
+		return null
+	else:
+		return null
+
+
+func _get_target_for_unit_autocast() -> Unit:
 # 	NOTE: use tower's current attack target instead of
 # 	searching for nearby units ourselves.
 	var target: Unit = _caster.get_current_target()
-
-	if target == null:
-		return
 
 # 	NOTE: caster may have higher attack range than autocast
 # 	so we need to check that target is in range of autocast
@@ -196,41 +211,9 @@ func _on_offensive_timer_timeout():
 	var target_is_in_range: bool = distance_to_target <= auto_range
 
 	if !target_is_in_range:
-		return
+		return null
 
-	if target_type != null:
-		var target_matches_type: bool = target_type.match(target)
-
-		if !target_matches_type:
-			return
-
-	if !caster_art.is_empty():
-		var effect: int = Effect.create_simple_at_unit(caster_art, _caster)
-		Effect.destroy_effect(effect)
-
-	if !target_art.is_empty():
-		var effect: int = Effect.create_simple_at_unit(caster_art, target)
-		Effect.destroy_effect(effect)
-
-	_do_cast(target)
-
-
-func _on_buff_timer_timeout():
-	if !_can_cast():
-		return
-
-	if !_auto_mode:
-		return
-
-	if autocast_type == Type.AC_TYPE_OFFENSIVE_BUFF && !_caster.is_attacking():
-		return
-
-	var target: Unit = _get_target_for_buff_autocast()
-
-	if target == null:
-		return
-
-	_do_cast(target)
+	return target
 
 
 func _get_target_for_buff_autocast() -> Unit:
@@ -250,20 +233,7 @@ func _get_target_for_buff_autocast() -> Unit:
 	return null
 
 
-func _on_immediate_timer_timeout():
-	if !_can_cast():
-		return
-
-	if !_auto_mode:
-		return
-
-	if autocast_type == Type.AC_TYPE_OFFENSIVE_IMMEDIATE && !_caster.is_attacking():
-		return
-
-# 	Immediate casts have no target
-	_do_cast(null)
-
-
+# NOTE: target arg may be null if autocast is immediate
 func _do_cast(target: Unit):
 	_caster.subtract_mana(mana_cost, true)
 	_cooldown_timer.start()
@@ -287,9 +257,26 @@ func _do_cast(target: Unit):
 		spell_targeted_event._autocast = self
 		target.spell_targeted.emit(spell_targeted_event)
 
+	if !caster_art.is_empty():
+		var effect: int = Effect.create_simple_at_unit(caster_art, _caster)
+		Effect.destroy_effect(effect)
+
+	if !target_art.is_empty() && target != null:
+		var effect: int = Effect.create_simple_at_unit(target_art, target)
+		Effect.destroy_effect(effect)
+
 
 func _can_cast() -> bool:
 	if _caster == null:
+		return false
+
+# 	NOTE: if auto mode is off, do not prevent player from
+# 	starting a cast while tower is not attacking. For
+# 	example, player needs to be able to start the cast to
+# 	pick the target before tower starts attacking.
+	var cant_cast_because_not_attacking: bool = auto_mode_is_enabled() && _type_is_offensive() && !_caster.is_attacking()
+
+	if cant_cast_because_not_attacking:
 		return false
 
 	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
@@ -335,3 +322,19 @@ func can_use_auto_mode() -> bool:
 	var can_use: bool = types_that_can_use_auto_mode.has(autocast_type)
 
 	return can_use
+
+
+func _type_is_immediate() -> bool:
+	return _immediate_type_list.has(autocast_type)
+
+
+func _type_is_buff() -> bool:
+	return _buff_type_list.has(autocast_type)
+
+
+func _type_is_offensive() -> bool:
+	return _offensive_type_list.has(autocast_type)
+
+
+func _type_is_unit() -> bool:
+	return _unit_type_list.has(autocast_type)

@@ -61,4 +61,4 @@ func _on_unit_button_right_clicked():
 	var autocast: Autocast = _item.get_autocast()
 
 	if autocast != null:
-		autocast.do_cast_if_possible()
+		autocast.do_cast_manually()
