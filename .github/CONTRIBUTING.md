@@ -17,7 +17,7 @@ rclone lsd <remote>:Assets
 ```
 6. Transfer files to your local.
 ```
-rclone sync --filter-from rclone-filter "<remote>:Assets" "Assets"
+rclone sync -P --filter-from rclone-filter "<remote>:Assets" "Assets"
 ```
 
 Now you should be able to run the project inside the Godot editor. If you make changes to a file inside Assets folder, make sure to update Google Drive as well. There are two options.
