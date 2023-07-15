@@ -41,7 +41,10 @@ enum Type {
 	AC_TYPE_OFFENSIVE_BUFF,
 	AC_TYPE_OFFENSIVE_UNIT,
 	AC_TYPE_OFFENSIVE_IMMEDIATE,
-	AC_TYPE_NOAC_IMMEDIATE
+	AC_TYPE_NOAC_IMMEDIATE,
+	AC_TYPE_NOAC_CREEP,
+	AC_TYPE_NOAC_TOWER,
+	AC_TYPE_NOAC_PLAYER_TOWER,
 }
 
 var _immediate_type_list: Array[Autocast.Type] = [
@@ -60,6 +63,12 @@ var _offensive_type_list: Array[Autocast.Type] = [
 ]
 var _unit_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
+]
+var _targeted_type_list: Array[Autocast.Type] = [
+	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
+	Autocast.Type.AC_TYPE_NOAC_CREEP,
+	Autocast.Type.AC_TYPE_NOAC_TOWER,
+	Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER,
 ]
 
 # NOTE: num_buffs_before_idle, target_type and buff_type are
@@ -163,7 +172,7 @@ func do_cast_manually():
 		target = null
 	elif _type_is_buff():
 		target = _get_target_for_buff_autocast()
-	elif _type_is_unit():
+	elif _type_is_targeted():
 #		NOTE: for manual cast on unit, need to exit this f-n
 #		to select target. The cast will finish when player
 #		selects a target and
@@ -366,6 +375,10 @@ func _type_is_unit() -> bool:
 	return _unit_type_list.has(autocast_type)
 
 
+func _type_is_targeted() -> bool:
+	return _targeted_type_list.has(autocast_type)
+
+
 func check_target_for_unit_autocast(target: Unit) -> bool:
 	if target == null:
 		return false
@@ -380,9 +393,21 @@ func check_target_for_unit_autocast(target: Unit) -> bool:
 
 #	NOTE: only creep targets are allowed for unit type
 #	autocasts
-	var creep_target_type: TargetType = TargetType.new(TargetType.CREEPS)
+	var manual_target_type: TargetType = _get_target_type_for_manual_cast()
 
-	if !creep_target_type.match(target):
+	if !manual_target_type.match(target):
 		return false
 
 	return true
+
+
+func _get_target_type_for_manual_cast() -> TargetType:
+	match autocast_type:
+		Autocast.Type.AC_TYPE_OFFENSIVE_UNIT: return TargetType.new(TargetType.CREEPS)
+		Autocast.Type.AC_TYPE_NOAC_CREEP: return TargetType.new(TargetType.CREEPS)
+		Autocast.Type.AC_TYPE_NOAC_TOWER: return TargetType.new(TargetType.TOWERS)
+		Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER: return TargetType.new(TargetType.PLAYER_TOWERS)
+
+	push_error("_get_target_type_for_manual_cast doesn't support type: ", autocast_type)
+
+	return TargetType.new(0)
