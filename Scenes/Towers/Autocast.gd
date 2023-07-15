@@ -154,11 +154,8 @@ func is_item_autocast() -> bool:
 # on the item or autocast button.
 func do_cast_manually():
 	if !_can_cast():
-		var cast_error: String = _get_cast_error()
-
-		if !cast_error.is_empty():
-			Messages.add_error(cast_error)
-
+		_add_cast_error_message()
+		
 		return
 
 	var target: Unit
@@ -166,12 +163,37 @@ func do_cast_manually():
 		target = null
 	elif _type_is_buff():
 		target = _get_target_for_buff_autocast()
+	elif _type_is_unit():
+#		NOTE: for manual cast on unit, need to exit this f-n
+#		to select target. The cast will finish when player
+#		selects a target and
+#		do_cast_manually_finish_for_manual_target() is
+#		called.
+		SelectTargetForCast.start(self)
+
+		return
 	else:
 		push_error("do_cast_manually doesn't support this autocast type: ", autocast_type)
 
 		return
 
 	_do_cast(target)
+
+
+# Returns if cast was successful
+func do_cast_manually_finish_for_manual_target(target: Unit) -> bool:
+#	NOTE: while player was selecting a target, conditions
+#	for cast may have changed. For example tower's mana may
+#	have been drained. So we need to check if we can cast
+#	again.
+	if !_can_cast():
+		_add_cast_error_message()
+
+		return false
+
+	_do_cast(target)
+
+	return true
 
 
 func _on_auto_timer_timeout():
@@ -205,15 +227,12 @@ func _get_target_for_unit_autocast() -> Unit:
 # 	searching for nearby units ourselves.
 	var target: Unit = _caster.get_current_target()
 
-# 	NOTE: caster may have higher attack range than autocast
-# 	so we need to check that target is in range of autocast
-	var distance_to_target: float = Isometric.vector_distance_to(target.position, _caster.position)
-	var target_is_in_range: bool = distance_to_target <= auto_range
+	var target_is_ok: bool = check_target_for_unit_autocast(target)
 
-	if !target_is_in_range:
+	if target_is_ok:
+		return target
+	else:
 		return null
-
-	return target
 
 
 func _get_target_for_buff_autocast() -> Unit:
@@ -288,6 +307,13 @@ func _can_cast() -> bool:
 	return can_cast
 
 
+func _add_cast_error_message():
+	var cast_error: String = _get_cast_error()
+
+	if !cast_error.is_empty():
+		Messages.add_error(cast_error)
+
+
 func _get_cast_error() -> String:
 	if _caster == null:
 		return ""
@@ -338,3 +364,25 @@ func _type_is_offensive() -> bool:
 
 func _type_is_unit() -> bool:
 	return _unit_type_list.has(autocast_type)
+
+
+func check_target_for_unit_autocast(target: Unit) -> bool:
+	if target == null:
+		return false
+
+# 	NOTE: caster may have higher attack range than autocast
+# 	so we need to check that target is in range of autocast
+	var distance_to_target: float = Isometric.vector_distance_to(target.position, _caster.position)
+	var target_is_in_range: bool = distance_to_target <= auto_range
+
+	if !target_is_in_range:
+		return false
+
+#	NOTE: only creep targets are allowed for unit type
+#	autocasts
+	var creep_target_type: TargetType = TargetType.new(TargetType.CREEPS)
+
+	if !creep_target_type.match(target):
+		return false
+
+	return true
