@@ -10,5 +10,6 @@ one_shot = true
 
 [node name="AutoTimer" type="Timer" parent="."]
 wait_time = 0.2
+autostart = true
 
 [connection signal="timeout" from="AutoTimer" to="." method="_on_auto_timer_timeout"]
