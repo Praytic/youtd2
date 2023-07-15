@@ -925,6 +925,11 @@ func _on_modify_property():
 ### Setters / Getters ###
 #########################
 
+# NOTE: overriden in Tower to return non-null value
+func get_current_target() -> Unit:
+	return null
+
+
 func is_immune() -> bool:
 	return false
 

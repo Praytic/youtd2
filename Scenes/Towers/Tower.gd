@@ -706,6 +706,14 @@ func _get_bounce_attack_tooltip_text() -> String:
 ### Setters / Getters ###
 #########################
 
+
+func get_current_target() -> Unit:
+	if !_target_list.is_empty():
+		return _target_list.front()
+	else:
+		return null
+
+
 func get_item_name() -> String:
 	return get_csv_property(CsvProperty.NAME)
 
