@@ -24,7 +24,7 @@ point_count = 6
 script/source = "extends CanvasLayer
 "
 
-[node name="GameScene" type="Node2D"]
+[node name="GameScene" type="Node"]
 script = ExtResource("9")
 
 [node name="Player" type="Node" parent="."]
