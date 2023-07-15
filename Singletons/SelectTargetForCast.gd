@@ -48,17 +48,6 @@ func start(autocast: Autocast):
 	Input.set_custom_mouse_cursor(_cast_cursor, Input.CURSOR_ARROW, hotspot)
 
 
-func _get_crosshair_cursor_icon() -> Texture2D:
-	var atlas_texture: Texture2D = ItemProperties.get_icon(33)
-	var image: Image = atlas_texture.get_image()
-#	NOTE: make cursor icon slightly smaller so it looks nice
-	var final_size: Vector2 = image.get_size() * 0.75
-	image.resize(int(final_size.x), int(final_size.y))
-	var image_texture: ImageTexture = ImageTexture.create_from_image(image)
-
-	return image_texture
-
-
 func _cancel():
 	if !_in_progress():
 		return
