@@ -6,8 +6,6 @@ extends Node
 
 func get_sprite_dimensions(sprite: Sprite2D) -> Vector2:
 	var texture: Texture2D = sprite.texture
-	print(sprite)
-	print(texture)
 	var image: Image = texture.get_image()
 	var used_rect: Rect2i = image.get_used_rect()
 	var sprite_dimensions: Vector2 = Vector2(used_rect.size) * sprite.scale
