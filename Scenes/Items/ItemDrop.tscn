@@ -5,4 +5,6 @@
 [node name="ItemDrop" type="CharacterBody2D"]
 script = ExtResource("1_id1fy")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="SelectionArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SelectionArea"]

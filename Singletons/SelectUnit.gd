@@ -14,9 +14,9 @@ var _selected_unit: Unit = null
 
 # Connect a unit to the selection system. Selection area
 # will be used to detect when the mouse is over the unit.
-func connect_unit(unit: Unit, selection_node):
-	selection_node.mouse_entered.connect(on_unit_mouse_entered.bind(unit))
-	selection_node.mouse_exited.connect(on_unit_mouse_exited.bind(unit))
+func connect_unit(unit: Unit, selection_area: Area2D):
+	selection_area.mouse_entered.connect(on_unit_mouse_entered.bind(unit))
+	selection_area.mouse_exited.connect(on_unit_mouse_exited.bind(unit))
 
 
 func set_selected_unit(new_selected_unit: Unit):

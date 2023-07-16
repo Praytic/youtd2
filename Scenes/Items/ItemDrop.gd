@@ -6,7 +6,7 @@ extends Unit
 
 
 var _item: Item = null
-
+@onready var _selection_area: Area2D = $SelectionArea
 
 # NOTE: note calling Unit._set_unit_dimensions() because no
 # sprite on base class and dimensions are not important for
@@ -14,7 +14,7 @@ var _item: Item = null
 func _ready():
 	super()
 
-	SelectUnit.connect_unit(self, self)
+	SelectUnit.connect_unit(self, _selection_area)
 	_set_visual_node(self)
 
 	selected.connect(_on_selected)

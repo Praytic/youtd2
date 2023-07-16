@@ -15,6 +15,6 @@ position = Vector2(-6, -13)
 scale = Vector2(0.553798, 0.553798)
 texture = SubResource("AtlasTexture_701qe")
 
-[node name="CollisionPolygon2D" parent="." index="1"]
+[node name="CollisionPolygon2D" parent="SelectionArea" index="0"]
 scale = Vector2(1, 0.5)
 polygon = PackedVector2Array(13, -68, 14, 18, -15, 12, -17, -66)
