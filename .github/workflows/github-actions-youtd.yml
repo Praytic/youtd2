@@ -129,7 +129,7 @@ jobs:
       run: |
         gh workflow run workflow.yml -R praytic/youtd2-website
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.YOUTD2_PAT_TOKEN }}
 
     outputs:
       tag_version: ${{ needs.setup.outputs.tag_version }}
