@@ -8,12 +8,15 @@ extends Unit
 var _item: Item = null
 
 
+# NOTE: note calling Unit._set_unit_dimensions() because no
+# sprite on base class and dimensions are not important for
+# ItemDrop's.
 func _ready():
 	super()
-	
-#	TODO:
-#	_set_unit_sprite(_sprite)
-	
+
+	SelectUnit.connect_unit(self, self)
+	_set_visual_node(self)
+
 	selected.connect(_on_selected)
 	
 # 	TODO: calculate correct z index so that item drop is

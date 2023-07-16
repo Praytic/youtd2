@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmcahg14hpv5j"]
+[gd_scene load_steps=6 format=3 uid="uid://cmcahg14hpv5j"]
 
 [ext_resource type="Script" path="res://Scenes/Creeps/Creep.gd" id="1_pofyw"]
 [ext_resource type="Script" path="res://Scenes/Creeps/HealthBar.gd" id="3_bsm61"]
@@ -17,6 +17,8 @@ expand_margin_bottom = 2.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wam3"]
 resource_local_to_scene = true
 bg_color = Color(0.176471, 0.960784, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6p5vo"]
 
 [node name="Creep" type="CharacterBody2D"]
 script = ExtResource("1_pofyw")
@@ -40,5 +42,10 @@ script = ExtResource("3_bsm61")
 color3 = Color(0.176471, 0.960784, 0, 1)
 color2 = Color(1, 0.635294, 0.0745098, 1)
 color1 = Color(0.698039, 0, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="Visual"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Visual/Area2D"]
+shape = SubResource("RectangleShape2D_6p5vo")
 
 [connection signal="value_changed" from="Visual/HealthBar" to="Visual/HealthBar" method="_on_value_changed"]

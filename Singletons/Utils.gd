@@ -4,6 +4,26 @@ extends Node
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+func get_sprite_dimensions(sprite: Sprite2D) -> Vector2:
+	var texture: Texture2D = sprite.texture
+	print(sprite)
+	print(texture)
+	var image: Image = texture.get_image()
+	var used_rect: Rect2i = image.get_used_rect()
+	var sprite_dimensions: Vector2 = Vector2(used_rect.size) * sprite.scale
+
+	return sprite_dimensions
+
+
+func get_animated_sprite_dimensions(sprite: AnimatedSprite2D, animation_name: String) -> Vector2:
+	var sprite_frames: SpriteFrames = sprite.sprite_frames
+	var texture: Texture2D = sprite_frames.get_frame_texture(animation_name, 0)
+	var image: Image = texture.get_image()
+	var used_rect: Rect2i = image.get_used_rect()
+	var sprite_dimensions: Vector2 = Vector2(used_rect.size) * sprite.scale
+
+	return sprite_dimensions
+
 
 # TODO: implement. Should return hours i guess?
 func get_time_of_day() -> float:
