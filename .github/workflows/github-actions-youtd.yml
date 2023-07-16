@@ -3,20 +3,20 @@ name: build-and-publish
 on:
   push:
     # Sequence of patterns matched against refs/heads
-    branches:    
-      - workflow*
+    # branches:
+    #   - workflow*
     # Sequence of patterns matched against refs/tags
-    tags:        
+    tags:
       - v*
 
 jobs:
   setup:
     runs-on: ubuntu-latest
     name: cache repo with assets
-    steps: 
+    steps:
     - uses: actions/checkout@v3
 
-    - name: list assets in gdrive 
+    - name: list assets in gdrive
       uses: wei/rclone@v1
       with:
         args: lsf -R --filter-from rclone-filter "Assets" | sort > .assets-list
@@ -32,7 +32,7 @@ jobs:
     - name: sync assets from gdrive via rclone
       uses: wei/rclone@v1
       with:
-        args: sync --filter-from rclone-filter "gdrive:Assets" "Assets"
+        args: sync -P --filter-from rclone-filter "gdrive:Assets" "Assets"
       env:
         RCLONE_CONF: ${{ secrets.RCLONE_GDRIVE_CONF }}
 
@@ -50,15 +50,18 @@ jobs:
       run: |
         latest_tag=$(git ls-remote --tags --sort=-v:refname origin | grep -v 'vrefs/heads/main' | grep -o 'refs/tags/[^^{]*' | sed 's/refs\/tags\///' | head -n 1)
         short_hash=$(git rev-parse --short HEAD)
+        version=${latest_tag:1}
         echo "tag_version=${latest_tag}-${short_hash}" | tee -a $GITHUB_OUTPUT
+        echo "version=${version}" | tee -a $GITHUB_OUTPUT
         echo "commit_ref=$GITHUB_REF_NAME" | tee -a $GITHUB_OUTPUT
 
-    outputs: 
+    outputs:
       tag_version: ${{ steps.version_generation.outputs.tag_version }}
+      version: ${{ steps.version_generation.outputs.version }}
       commit_ref: ${{ steps.version_generation.outputs.commit_ref }}
 
   export_game:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     needs: setup
     name: export game
     steps:
@@ -81,45 +84,28 @@ jobs:
     - name: update project.godot with new version
       run: |
         project_godot_file="${{ github.workspace }}/project.godot"
-        sed -i '' 's/\(config\/version="\).*\("\)/\1'"${{ needs.setup.outputs.tag_version }}"'\2/' "${project_godot_file}"
+        sed -i 's/\(config\/version="\).*\("\)/\1'"${{ needs.setup.outputs.tag_version }}"'\2/' "${project_godot_file}"
         echo "New project.godot contents:"
-        cat ${{ github.workspace }}/project.godot
+        cat "${project_godot_file}"
 
-    - name: install wine
-      id: wine_install
+    - name: update release version for Sentry lib
       run: |
-        brew tap homebrew/cask-versions
-        brew install --cask --no-quarantine wine-stable
-        echo "WINE_PATH=$(which wine64)" >> $GITHUB_OUTPUT
+        sed -i "s/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@${{ needs.setup.outputs.version }}/g" "${{ github.workspace }}/Build/Web/full-size.html"
 
-    - name: export game
-      id: export_dry_run
-      uses: firebelley/godot-export@v5.0.0
-      with:
-        godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.0.2-stable/Godot_v4.0.2-stable_macos.universal.zip
-        godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.0.2-stable/Godot_v4.0.2-stable_export_templates.tpz
-        relative_project_path: ./
-        export_debug: false
-        wine_path: ${{ steps.wine_install.outputs.WINE_PATH }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: clean up after first build
+    - name: create .godot dirs
       run: |
-        rm -rf ${{ steps.export_dry_run.outputs.build_directory }}
-        rm -rf /Users/runner/Library/Application\ Support/Godot/export_templates/4.0.2.stable
+        mkdir -p .godot/{editor,imported}
 
     - name: export game
       id: export
-      uses: firebelley/godot-export@v5.0.0
+      uses: firebelley/godot-export@v5.2.0
       with:
-        godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.0.2-stable/Godot_v4.0.2-stable_macos.universal.zip
-        godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.0.2-stable/Godot_v4.0.2-stable_export_templates.tpz
+        godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/4.1/Godot_v4.1-stable_linux.x86_64.zip
+        godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/4.1/Godot_v4.1-stable_export_templates.tpz
         relative_project_path: ./
-        verbose: true
         export_debug: false
         archive_output: true
-        wine_path: ${{ steps.wine_install.outputs.WINE_PATH }}
+        cache: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -144,9 +130,9 @@ jobs:
 
     - name: update youtd2-website
       run: |
-        gh workflow run workflow.yml -R praytic/youtd2-website
+        gh workflow run workflow.yml -f game_version=${{ needs.setup.outputs.version }} -R praytic/youtd2-website
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ secrets.YOUTD2_PAT_TOKEN }}
 
     outputs:
       tag_version: ${{ needs.setup.outputs.tag_version }}
@@ -201,7 +187,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           path: .
-          
+
       - name: display structure of downloaded files
         run: ls -R
         working-directory: .
