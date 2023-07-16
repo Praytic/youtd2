@@ -6,5 +6,7 @@
 script = ExtResource("1_id1fy")
 
 [node name="SelectionArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SelectionArea"]

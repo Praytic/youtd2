@@ -26,6 +26,8 @@ visible = false
 script = ExtResource("5")
 
 [node name="TowerSelectionArea" type="Area2D" parent="."]
+monitoring = false
+monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TowerSelectionArea"]
 polygon = PackedVector2Array(-115, 6, -12, 56, 90, 6, 90, -96, -12, -147, -115, -96)

@@ -38,6 +38,8 @@ color2 = Color(1, 0.635294, 0.0745098, 1)
 color1 = Color(0.698039, 0, 0, 1)
 
 [node name="SelectionArea" type="Area2D" parent="Visual"]
+monitoring = false
+monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/SelectionArea"]
 
