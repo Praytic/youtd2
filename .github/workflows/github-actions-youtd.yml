@@ -50,11 +50,14 @@ jobs:
       run: |
         latest_tag=$(git ls-remote --tags --sort=-v:refname origin | grep -v 'vrefs/heads/main' | grep -o 'refs/tags/[^^{]*' | sed 's/refs\/tags\///' | head -n 1)
         short_hash=$(git rev-parse --short HEAD)
+        version=${latest_tag:1}
         echo "tag_version=${latest_tag}-${short_hash}" | tee -a $GITHUB_OUTPUT
+        echo "version=${version}" | tee -a $GITHUB_OUTPUT
         echo "commit_ref=$GITHUB_REF_NAME" | tee -a $GITHUB_OUTPUT
 
     outputs:
       tag_version: ${{ steps.version_generation.outputs.tag_version }}
+      version: ${{ steps.version_generation.outputs.version }}
       commit_ref: ${{ steps.version_generation.outputs.commit_ref }}
 
   export_game:
@@ -87,7 +90,8 @@ jobs:
 
     - name: update release version for Sentry lib
       run: |
-        sed -i 's/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@${{ needs.setup.outputs.tag_version }}/g' "${{ github.workspace }}/Build/Web/full-size.html"
+        version=${{ needs.setup.outputs.version }}
+        sed -i "s/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@$version/g" "${{ github.workspace }}/Build/Web/full-size.html
 
     - name: create .godot dirs
       run: |
@@ -127,7 +131,8 @@ jobs:
 
     - name: update youtd2-website
       run: |
-        gh workflow run workflow.yml -R praytic/youtd2-website
+        version=${{ needs.setup.outputs.version }}
+        gh workflow run workflow.yml -f game_version=$version -R praytic/youtd2-website
       env:
         GH_TOKEN: ${{ secrets.YOUTD2_PAT_TOKEN }}
 
