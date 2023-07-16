@@ -41,6 +41,7 @@ const ATTACK_CD_MIN: float = 0.2
 const PROJECTILE_SPEED: int = 1000
 const BOUNCE_RANGE: int = 125
 const ITEM_COUNT_MAX: int = 1
+const TOWER_SELECTION_VISUAL_SIZE: int = 128
 
 var _id: int = 0
 var _stats: Dictionary
@@ -148,6 +149,12 @@ func _ready():
 	var sprite: Sprite2D = $Model/Sprite2D
 	var sprite_dimensions: Vector2 = Utils.get_sprite_dimensions(sprite)
 	_set_unit_dimensions(sprite_dimensions)
+
+#	NOTE: _set_unit_dimensions sets size of selection visual
+#	based on the width of sprite. Override this value
+#	because we want size of selection visual to be the same
+#	for all towers.
+	_selection_visual.visual_size = TOWER_SELECTION_VISUAL_SIZE
 
 	selected.connect(on_selected)
 	unselected.connect(on_unselected)

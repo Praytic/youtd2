@@ -638,6 +638,8 @@ func _set_visual_node(visual_node: Node2D):
 func _set_unit_dimensions(sprite_dimensions: Vector2):
 	_sprite_dimensions = sprite_dimensions
 
+	_selection_visual.visual_size = _sprite_dimensions.x
+
 
 func set_hovered(hovered: bool):
 	if _selected:
