@@ -41,7 +41,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.15, 0.001)
 	boekie_amp_damage = BuffType.new("boekie_amp_damage", 5, 0.1, false, self)
 	boekie_amp_damage.set_buff_modifier(m)
-	boekie_amp_damage.set_buff_stacking_group("boekie_amp_damage")
+	boekie_amp_damage.set_stacking_group("boekie_amp_damage")
 	boekie_amp_damage.set_buff_icon("@@0@@")
 	boekie_amp_damage.set_buff_tooltip("Dark Curse\nThis unit is receiving extra attack damage.")
 

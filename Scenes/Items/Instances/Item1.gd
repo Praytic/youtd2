@@ -19,7 +19,7 @@ func item_init():
 	boekie_skadiSlow_aura = BuffType.create_aura_effect_type("boekie_skadiSlow_aura", false, self)
 	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.14, 0.0)
 	boekie_skadiSlow_aura.set_buff_modifier(m)
-	boekie_skadiSlow_aura.set_buff_stacking_group("boekie_skadiSlow_aura")
+	boekie_skadiSlow_aura.set_stacking_group("boekie_skadiSlow_aura")
 	boekie_skadiSlow_aura.set_buff_icon("@@0@@")
 	boekie_skadiSlow_aura.set_buff_tooltip("Skadi's Influence\nThis unit's movespeed is decreased.")
 

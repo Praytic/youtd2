@@ -30,7 +30,7 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.12, 0.0024)
 	m.add_modification(Modification.Type.MOD_DPS_ADD, 100, 6)
 	human_aura.set_buff_modifier(m)
-	human_aura.set_buff_stacking_group("human_aura")
+	human_aura.set_stacking_group("human_aura")
 	human_aura.set_buff_icon("@@0@@")
 	human_aura.set_buff_tooltip("Bestial Rage Effect\nThis tower's damage against orc and humanoid creeps is increased. It's dps is also increased.")
 

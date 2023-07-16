@@ -33,7 +33,7 @@ func item_init():
 	example_buff = BuffType.new("example_buff", 5, 0, true, self)
 	example_buff.set_buff_icon("@@0@@")
 	example_buff.set_buff_modifier(m)
-	example_buff.set_buff_stacking_group("example_buff")
+	example_buff.set_stacking_group("example_buff")
 	example_buff.set_buff_tooltip("Title\nDescription.")
 
 	var autocast: Autocast = Autocast.make()
