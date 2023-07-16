@@ -55,6 +55,8 @@ func _ready():
 		_visual.position.y = -height
 		z_index = 100
 		_path.default_z = z_index
+	else:
+		z_index = 10
 	
 	SelectUnit.connect_unit(self, _selection_area)
 	
