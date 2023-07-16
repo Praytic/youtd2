@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dby8dpgvxybfr"]
+
+[ext_resource type="Script" path="res://Scenes/Items/ItemDrop.gd" id="1_id1fy"]
+
+[node name="ItemDrop" type="CharacterBody2D"]
+script = ExtResource("1_id1fy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
