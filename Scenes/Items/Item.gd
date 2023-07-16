@@ -29,6 +29,14 @@ const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 # will not drop.
 const disabled_item_list: Array[int] = [50, 140, 162, 198, 201, 250, 254, 262]
 
+static var _item_drop_scene_map: Dictionary = {
+	"res://Scenes/Items/CommonItem.tscn": preload("res://Scenes/Items/CommonItem.tscn"),
+	"res://Scenes/Items/UncommonItem.tscn": preload("res://Scenes/Items/UncommonItem.tscn"),
+	"res://Scenes/Items/RareItem.tscn": preload("res://Scenes/Items/RareItem.tscn"),
+	"res://Scenes/Items/UniqueItem.tscn": preload("res://Scenes/Items/UniqueItem.tscn"),
+	"res://Scenes/Items/RedOil.tscn": preload("res://Scenes/Items/RedOil.tscn"),
+}
+
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -81,7 +89,7 @@ static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
 		item_drop_scene_path = "res://Scenes/Items/RedOil.tscn"
 	else:
 		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
-	var item_drop_scene = load(item_drop_scene_path)
+	var item_drop_scene = _item_drop_scene_map[item_drop_scene_path]
 	var item_drop: ItemDrop = item_drop_scene.instantiate()
 	item_drop.position = position
 	item_drop.visible = item._visible

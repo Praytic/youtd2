@@ -175,10 +175,8 @@ func _add_periodic_event(handler: Callable, period: float):
 
 
 func _add_event_handler_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
-	var buff_range_area_scene: PackedScene = load("res://Scenes/Buffs/BuffRangeArea.tscn")
-	var buff_range_area = buff_range_area_scene.instantiate()
+	var buff_range_area: BuffRangeArea = BuffRangeArea.make(radius, target_type, handler)
 	add_child(buff_range_area)
-	buff_range_area.init(radius, target_type, handler)
 
 	buff_range_area.unit_came_in_range.connect(_on_unit_came_in_range)
 
