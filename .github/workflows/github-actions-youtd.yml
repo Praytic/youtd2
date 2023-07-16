@@ -91,7 +91,7 @@ jobs:
     - name: update release version for Sentry lib
       run: |
         version=${{ needs.setup.outputs.version }}
-        sed -i "s/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@$version/g" "${{ github.workspace }}/Build/Web/full-size.html
+        sed -i "s/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@$version/g" "${{ github.workspace }}/Build/Web/full-size.html"
 
     - name: create .godot dirs
       run: |
