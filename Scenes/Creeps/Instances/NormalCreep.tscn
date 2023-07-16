@@ -9,10 +9,6 @@ bg_color = Color(0.176471, 0.960784, 0, 1)
 
 [node name="Creep" instance=ExtResource("1_uab3k")]
 
-[node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, -18)
-polygon = PackedVector2Array(26, -202, 56, -58, 30, 68, -33, 68, -54, -60, -26, -202)
-
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Visual" index="0"]
 position = Vector2(0, -85)
 scale = Vector2(1.4, 1.4)
@@ -23,5 +19,5 @@ offset_top = -152.0
 offset_bottom = -143.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_4jxqn")
 
-[node name="CollisionPolygon2D" parent="Visual/Area2D" index="0"]
+[node name="CollisionPolygon2D" parent="Visual/SelectionArea" index="0"]
 polygon = PackedVector2Array(49, -134, 72, -44, 39, 26, -42, 27, -73, -50, -54, -134)

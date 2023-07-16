@@ -31,7 +31,7 @@ var _spawn_level: int
 @onready var _visual = $Visual
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar
-@onready var _selection_area: Area2D = $Visual/Area2D
+@onready var _selection_area: Area2D = $Visual/SelectionArea
 # @onready var _landscape = get_tree().get_root().get_node("GameScene/Map")
 
 
