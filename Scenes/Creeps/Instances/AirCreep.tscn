@@ -21,3 +21,6 @@ script = ExtResource("10_yq127")
 offset_left = -80.0
 offset_right = 80.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_84yt1")
+
+[node name="CollisionPolygon2D" parent="Visual/Area2D" index="0"]
+polygon = PackedVector2Array(-68, -79, -1, -108, 75, -78, 108, -1, 78, 69, 2, 104, -78, 69, -101, -1)

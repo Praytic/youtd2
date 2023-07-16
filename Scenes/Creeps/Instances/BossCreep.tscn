@@ -13,9 +13,8 @@ bg_color = Color(0.176471, 0.960784, 0, 1)
 polygon = PackedVector2Array(40, -550, 91, -284, 37, 64, -38, 64, -92, -298, -42, -544)
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Visual" index="0"]
-position = Vector2(0, -60)
+position = Vector2(0, -140)
 scale = Vector2(2.5, 2.5)
-offset = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("22_3gqag")
 
 [node name="HealthBar" parent="Visual" index="1"]
@@ -26,3 +25,6 @@ offset_bottom = -310.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/fill = SubResource("StyleBoxFlat_o7t3b")
+
+[node name="CollisionPolygon2D" parent="Visual/Area2D" index="0"]
+polygon = PackedVector2Array(74, -301, 144, -133, 59, 47, -60, 44, -138, -140, -52, -301)
