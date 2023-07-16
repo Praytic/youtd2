@@ -16,7 +16,7 @@ const MOVE_SPEED_MAX: float = 400.0
 const DEFAULT_MOVE_SPEED: float = 200.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
-const ANIMATION_FOR_DIMENSIONS: String = "run_S"
+const ANIMATION_FOR_DIMENSIONS: String = "default"
 
 var _path: Path2D : set = set_path
 var _size: CreepSize.enm
