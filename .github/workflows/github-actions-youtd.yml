@@ -131,8 +131,7 @@ jobs:
 
     - name: update youtd2-website
       run: |
-        version=${{ needs.setup.outputs.version }}
-        gh workflow run workflow.yml -f game_version=$version -R praytic/youtd2-website
+        gh workflow run workflow.yml -f game_version=${{ needs.setup.outputs.tag_version }} -R praytic/youtd2-website
       env:
         GH_TOKEN: ${{ secrets.YOUTD2_PAT_TOKEN }}
 
