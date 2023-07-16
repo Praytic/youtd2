@@ -90,8 +90,7 @@ jobs:
 
     - name: update release version for Sentry lib
       run: |
-        version=${{ needs.setup.outputs.version }}
-        sed -i "s/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@$version/g" "${{ github.workspace }}/Build/Web/full-size.html"
+        sed -i "s/youtd2@[0-9]\+\.[0-9]\+\.[0-9]\+/youtd2@${{ needs.setup.outputs.version }}/g" "${{ github.workspace }}/Build/Web/full-size.html"
 
     - name: create .godot dirs
       run: |
@@ -131,7 +130,7 @@ jobs:
 
     - name: update youtd2-website
       run: |
-        gh workflow run workflow.yml -f game_version=${{ needs.setup.outputs.tag_version }} -R praytic/youtd2-website
+        gh workflow run workflow.yml -f game_version=${{ needs.setup.outputs.version }} -R praytic/youtd2-website
       env:
         GH_TOKEN: ${{ secrets.YOUTD2_PAT_TOKEN }}
 
