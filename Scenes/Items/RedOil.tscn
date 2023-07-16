@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://um08otjb0yl2"]
+[gd_scene load_steps=16 format=3 uid="uid://um08otjb0yl2"]
 
 [ext_resource type="PackedScene" uid="uid://dby8dpgvxybfr" path="res://Scenes/Items/ItemDrop.tscn" id="1_6qsdb"]
+[ext_resource type="Script" path="res://Scenes/Items/RedOil.gd" id="2_3v3ie"]
 [ext_resource type="Texture2D" uid="uid://bt0spbkg50a40" path="res://Assets/Items/potion_drop_animation.png" id="2_ncuuv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pvc38"]
@@ -94,6 +95,7 @@ animations = [{
 }]
 
 [node name="RedOil" instance=ExtResource("1_6qsdb")]
+script = ExtResource("2_3v3ie")
 
 [node name="CollisionPolygon2D" parent="." index="0"]
 scale = Vector2(1, 0.5)
