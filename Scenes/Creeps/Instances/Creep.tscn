@@ -18,7 +18,7 @@ expand_margin_bottom = 2.0
 resource_local_to_scene = true
 bg_color = Color(0.176471, 0.960784, 0, 1)
 
-[node name="Creep" type="CharacterBody2D"]
+[node name="Creep" type="Node2D"]
 script = ExtResource("1_pofyw")
 
 [node name="Visual" type="Node2D" parent="."]

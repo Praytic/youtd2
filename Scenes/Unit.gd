@@ -1,5 +1,5 @@
 class_name Unit
-extends CharacterBody2D
+extends Node2D
 
 # Unit is a base class for Towers and Creeps. Keeps track of
 # buffs and modifications. Emits signals for events which are used by buffs.

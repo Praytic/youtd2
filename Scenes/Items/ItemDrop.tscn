@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/Items/ItemDrop.gd" id="1_id1fy"]
 
-[node name="ItemDrop" type="CharacterBody2D"]
+[node name="ItemDrop" type="Node2D"]
 script = ExtResource("1_id1fy")
 
 [node name="SelectionArea" type="Area2D" parent="."]
