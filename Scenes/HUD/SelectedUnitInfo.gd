@@ -51,9 +51,15 @@ func _process(_delta: float):
 		var category_string: String = CreepCategory.convert_to_colored_string(category)
 		var armor_type: ArmorType.enm = creep.get_armor_type()
 		var armor_type_string: String = ArmorType.convert_to_colored_string(armor_type)
+		var armor: int = creep.get_overall_armor()
+		var armor_string: String = str(armor)
+		var damage_reduction: float = creep.get_current_armor_damage_reduction()
+		var damage_reduction_string: String = Utils.format_percent(damage_reduction, 0)
 
 		label_text += "Race: %s\n" % category_string
-		label_text += "Armor: %s\n" % armor_type_string
+		label_text += "Armor Type: %s\n" % armor_type_string
+		label_text += "Armor: %s\n" % armor
+		label_text += "Damage Reduction: %s\n" % damage_reduction_string
 
 	label_text += "Status:"
 

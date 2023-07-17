@@ -72,7 +72,7 @@ var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
 var _mana: float = 0.0
 # TODO: define real value
-var _base_armor: float = 45.0
+var _base_armor: float = 0.0
 var _dealt_damage_signal_in_progress: bool = false
 var _kill_count: int = 0
 var _best_hit: float = 0.0
@@ -415,7 +415,7 @@ func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float
 	_do_attack_damage_internal(target, damage_base, crit_ratio, false, attack_type)
 
 func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: float, is_main_target: bool, attack_type: AttackType.enm):
-	var armor_mod: float = target.get_current_armor_damage_reduction()
+	var armor_mod: float = 1.0 - target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
 
@@ -1235,10 +1235,10 @@ func get_damage_add() -> float:
 func get_damage_add_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC])
 
-# TODO: implement real formula
 func get_current_armor_damage_reduction() -> float:
 	var armor: float = get_overall_armor()
-	var reduction: float = max(1.0, armor / 1000.0)
+	var coeff: float = Constants.ARMOR_COEFFICIENT
+	var reduction: float = min(1.0, (armor * coeff) / (1.0 + armor * coeff))
 
 	return reduction
 
