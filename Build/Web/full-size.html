@@ -133,6 +133,18 @@
 	  src="https://js.sentry-cdn.com/2c45aced288f448c80f8fb8d682c341c.min.js"
 	  crossorigin="anonymous"
 	></script>
+	<script>
+		if (window.Sentry !== undefined) { // Check that Sentry is defined, because it could have been blocked by an ad blocker.
+			Sentry.onLoad(function () {
+				Sentry.init({
+				  dsn: "https://2c45aced288f448c80f8fb8d682c341c@o4505518956675072.ingest.sentry.io/4505518957658113",
+				  release: "youtd2@0.0.1",
+				  integrations: [new Sentry.BrowserTracing()],
+				  tracesSampleRate: 1.0,
+				});
+			});
+		}
+	</script>
 	<script src="enable-threads.js"></script>
 </head>
 <body>
@@ -161,15 +173,6 @@
 	</div>
 	<div id="status-notice" class="godot" style="display: none;"></div>
 </div>
-<script>
-	import * as Sentry from "@sentry/browser";
-	Sentry.init({
-	  dsn: "https://2c45aced288f448c80f8fb8d682c341c@o4505518956675072.ingest.sentry.io/4505518957658113",
-	  release: "youtd2@0.0.1",
-	  integrations: [new Sentry.BrowserTracing()],
-	  tracesSampleRate: 1.0,
-	});
-</script>
 <script src="index.js"></script>
 <script>
 	const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":49994672,"index.wasm":1642372},"focusCanvas":true,"gdextensionLibs":[]};
