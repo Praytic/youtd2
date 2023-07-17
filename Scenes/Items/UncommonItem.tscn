@@ -1,21 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://2xuqbnw2bli7"]
+[gd_scene load_steps=4 format=3 uid="uid://bfsevwjo4dqeh"]
 
-[ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://Assets/Atlas/Barrels.png" id="2"]
-[ext_resource type="Script" path="res://Scenes/Items/ItemDrop.gd" id="3"]
+[ext_resource type="PackedScene" uid="uid://dby8dpgvxybfr" path="res://Scenes/Items/ItemDrop.tscn" id="1_0kt2o"]
+[ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://Assets/Atlas/Barrels.png" id="2_i5v5s"]
 
-[sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("2")
+[sub_resource type="AtlasTexture" id="AtlasTexture_70bkw"]
+atlas = ExtResource("2_i5v5s")
 region = Rect2(84, 382, 79, 83)
 
-[node name="Item" type="CharacterBody2D"]
-script = ExtResource("3")
+[node name="UncommonItem" instance=ExtResource("1_0kt2o")]
 
-[node name="Base" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
 modulate = Color(0.345098, 0.352941, 1, 1)
 position = Vector2(-4, -8)
 scale = Vector2(0.46519, 0.46519)
-texture = SubResource("2")
+texture = SubResource("AtlasTexture_70bkw")
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-scale = Vector2(1, 0.5)
-polygon = PackedVector2Array(12, -48, 13, 20, -11, 16, -13, -50)
+[node name="CollisionPolygon2D" parent="SelectionArea" index="0"]
+polygon = PackedVector2Array(17, -33, 17, 16, -16, 13, -16, -32)

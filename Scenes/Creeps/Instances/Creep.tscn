@@ -18,12 +18,8 @@ expand_margin_bottom = 2.0
 resource_local_to_scene = true
 bg_color = Color(0.176471, 0.960784, 0, 1)
 
-[node name="Creep" type="CharacterBody2D"]
+[node name="Creep" type="Node2D"]
 script = ExtResource("1_pofyw")
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-scale = Vector2(1, 0.5)
-polygon = PackedVector2Array(51, -202, 45, 86, -45, 88, -50, -202)
 
 [node name="Visual" type="Node2D" parent="."]
 
@@ -40,5 +36,11 @@ script = ExtResource("3_bsm61")
 color3 = Color(0.176471, 0.960784, 0, 1)
 color2 = Color(1, 0.635294, 0.0745098, 1)
 color1 = Color(0.698039, 0, 0, 1)
+
+[node name="SelectionArea" type="Area2D" parent="Visual"]
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/SelectionArea"]
 
 [connection signal="value_changed" from="Visual/HealthBar" to="Visual/HealthBar" method="_on_value_changed"]

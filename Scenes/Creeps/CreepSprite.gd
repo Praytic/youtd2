@@ -20,43 +20,26 @@ func _ready():
 	
 	var start_time = Time.get_ticks_msec()
 	sprite_frames.clear_all()
+
 	for action in ACTIONS:
 		for direction in DIRECTIONS:
 			var animation_name = "%s_%s" % [action, direction]
-			var sprite_sheet_path = "%s/%s.png" % [sprite_sheets_dir, animation_name]
+			var sprite_sheet_path = _get_sprite_sheet_path(animation_name)
 
-#			NOTE: currently quietly skipping non-existing
-#			animations because some creeps don't use
-#			animations for NW, SW, etc.
-			if !ResourceLoader.exists(sprite_sheet_path):
-				if sprite_frames.has_animation(animation_name):
-					sprite_frames.clear(animation_name)
+			_create_animation(animation_name, sprite_sheet_path)
 
-				continue
+	var default_animation_path: String = ""
+	var run_path: String = _get_sprite_sheet_path("run_S")
+	var floating_path: String = _get_sprite_sheet_path("fly_NW")
+	if ResourceLoader.exists(run_path):
+		default_animation_path = run_path
+	elif ResourceLoader.exists(floating_path):
+		default_animation_path = floating_path
 
-			var sprite_sheet_atlas = load(sprite_sheet_path)
-			print_verbose("sprite_sheet_path=", sprite_sheet_path)
-
-			print_verbose("sprite_sheet_atlas.get_width() = ", sprite_sheet_atlas.get_width())
-			
-			var metadata: PackedMetadata = PackedMetadata.get_metadata_for_sheet(sprite_sheet_path)
-
-			var packed_offset: Vector2 = metadata.get_offset() * sprite_sheet_atlas.get_size()
-			_animation_offset_map[animation_name] = packed_offset
-
-			var rows: int = metadata.get_row_count()
-			var cols: int = metadata.get_col_count()
-			var cell_size: Vector2 = Vector2(sprite_sheet_atlas.get_width() / cols, sprite_sheet_atlas.get_height() / rows)
-
-			if sprite_frames.has_animation(animation_name):
-				sprite_frames.clear(animation_name)
-
-			sprite_frames.add_animation(animation_name)
-			sprite_frames.set_animation_speed(animation_name, ANIMATION_FPS)
-
-			for row in range(0, rows):
-				for col in range(0, cols):
-					_create_animation_frame(animation_name, row, col, sprite_sheet_atlas, cell_size)
+	if !default_animation_path.is_empty():
+		_create_animation("default", default_animation_path)
+	else:
+		push_error("Couldn't create default animation. No run_S or floating_S animation sprite sheet exists.")
 
 	var end_time = Time.get_ticks_msec()
 	print_verbose("Generated animation frames in [%s] seconds." % [(end_time - start_time) / 1000.0])
@@ -66,6 +49,41 @@ func _ready():
 # because this is a tool script
 func _process(_delta: float):
 	_update_offset()
+
+
+func _create_animation(animation_name: String, sprite_sheet_path: String):
+#	NOTE: currently quietly skipping non-existing animations
+#	because some creeps don't use animations for NW, SW,
+#	etc.
+	if !ResourceLoader.exists(sprite_sheet_path):
+		if sprite_frames.has_animation(animation_name):
+			sprite_frames.clear(animation_name)
+
+		return
+
+	var sprite_sheet_atlas = load(sprite_sheet_path)
+	print_verbose("sprite_sheet_path=", sprite_sheet_path)
+
+	print_verbose("sprite_sheet_atlas.get_width() = ", sprite_sheet_atlas.get_width())
+	
+	var metadata: PackedMetadata = PackedMetadata.get_metadata_for_sheet(sprite_sheet_path)
+
+	var packed_offset: Vector2 = metadata.get_offset() * sprite_sheet_atlas.get_size()
+	_animation_offset_map[animation_name] = packed_offset
+
+	var rows: int = metadata.get_row_count()
+	var cols: int = metadata.get_col_count()
+	var cell_size: Vector2 = Vector2(sprite_sheet_atlas.get_width() / cols, sprite_sheet_atlas.get_height() / rows)
+
+	if sprite_frames.has_animation(animation_name):
+		sprite_frames.clear(animation_name)
+
+	sprite_frames.add_animation(animation_name)
+	sprite_frames.set_animation_speed(animation_name, ANIMATION_FPS)
+
+	for row in range(0, rows):
+		for col in range(0, cols):
+			_create_animation_frame(animation_name, row, col, sprite_sheet_atlas, cell_size)
 
 
 func _create_animation_frame(anim, row, col, sprite_sheet, cell_size: Vector2):
@@ -89,3 +107,9 @@ func _update_offset():
 # 	divide offset by scale
 	var packed_offset: Vector2 = _animation_offset_map.get(animation_name, Vector2.ZERO) as Vector2
 	set_offset(packed_offset / scale)
+
+
+func _get_sprite_sheet_path(animation_name: String) -> String:
+	var animation_path = "%s/%s.png" % [sprite_sheets_dir, animation_name]
+
+	return animation_path

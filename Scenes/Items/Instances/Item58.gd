@@ -21,7 +21,7 @@ func item_init():
 	Neotopia_Drumspeed = BuffType.create_aura_effect_type("Neotopia_Drumspeed", true, self)
 	Neotopia_Drumspeed.set_buff_icon("@@0@@")
 	Neotopia_Drumspeed.set_buff_modifier(m)
-	Neotopia_Drumspeed.set_buff_stacking_group("Neotopia_Drumspeed_Aura")
+	Neotopia_Drumspeed.set_stacking_group("Neotopia_Drumspeed_Aura")
 	Neotopia_Drumspeed.set_buff_tooltip("Warsong Double Bass Effect\nThis tower's attackspeed is increased.")
 
 	var aura: AuraType = AuraType.new()

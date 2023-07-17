@@ -9,11 +9,8 @@ bg_color = Color(0.176471, 0.960784, 0, 1)
 
 [node name="Creep" instance=ExtResource("1_le1vj")]
 
-[node name="CollisionShape2D" parent="." index="0"]
-polygon = PackedVector2Array(49, -214, 57, -2, 24, 62, -23, 62, -60, 0, -56, -206, -1, -312)
-
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Visual" index="0"]
-position = Vector2(0, -40)
+position = Vector2(0, -90)
 scale = Vector2(1.8, 1.8)
 script = ExtResource("22_6nl8n")
 
@@ -23,3 +20,6 @@ offset_top = -203.0
 offset_right = 82.0
 offset_bottom = -194.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_o06ks")
+
+[node name="CollisionPolygon2D" parent="Visual/SelectionArea" index="0"]
+polygon = PackedVector2Array(67, -140, 76, -70, 47, 30, -46, 33, -85, -75, -54, -149, -2, -171)

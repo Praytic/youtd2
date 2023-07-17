@@ -2,15 +2,24 @@ class_name TowerButton
 extends UnitButton
 
 
+static var _tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
+
 const ICON_SIZE_M = 128
 const TIER_ICON_SIZE_M = 64
 
-var _tower_id: int : set = set_tower
+var _tower_id: int
 
 const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
 const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 
 @onready var _tier_icon: TextureRect = $UnitButton/TierContainer/TierIcon
+
+
+static func make(tower_id: int) -> TowerButton:
+	var tower_button: TowerButton = _tower_button_scene.instantiate()
+	tower_button._tower_id = tower_id
+
+	return tower_button
 
 
 func _ready():
@@ -25,10 +34,6 @@ func _ready():
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
 	_on_wave_or_element_level_changed()
-
-
-func set_tower(tower_id: int):
-	_tower_id = tower_id
 
 
 func _on_wave_or_element_level_changed():

@@ -41,6 +41,7 @@ const ATTACK_CD_MIN: float = 0.2
 const PROJECTILE_SPEED: int = 1000
 const BOUNCE_RANGE: int = 125
 const ITEM_COUNT_MAX: int = 1
+const TOWER_SELECTION_VISUAL_SIZE: int = 128
 
 var _id: int = 0
 var _stats: Dictionary
@@ -67,6 +68,7 @@ var _number_of_crits: int = 0
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
 @onready var _mana_bar: ProgressBar = $ManaBar
 @onready var _tower_selection_area: Area2D = $TowerSelectionArea
+@onready var _sprite: Sprite2D = $Base
 
 
 #########################
@@ -138,9 +140,21 @@ func _ready():
 
 	_on_modify_property()
 
+	SelectUnit.connect_unit(self, _tower_selection_area)
+
+	_set_visual_node(_sprite)
+	
+# 	TODO: why is model/sprite2d is used for sprite instead
+# 	of the sprite node attached to root?
 	var sprite: Sprite2D = $Model/Sprite2D
-	if sprite != null:
-		_set_unit_sprite(sprite, _tower_selection_area)
+	var sprite_dimensions: Vector2 = Utils.get_sprite_dimensions(sprite)
+	_set_unit_dimensions(sprite_dimensions)
+
+#	NOTE: _set_unit_dimensions sets size of selection visual
+#	based on the width of sprite. Override this value
+#	because we want size of selection visual to be the same
+#	for all towers.
+	_selection_visual.visual_size = TOWER_SELECTION_VISUAL_SIZE
 
 	selected.connect(on_selected)
 	unselected.connect(on_unselected)

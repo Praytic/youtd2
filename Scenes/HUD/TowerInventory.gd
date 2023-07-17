@@ -45,16 +45,10 @@ func on_tower_items_changed():
 	var items: Array[Item] = _tower.get_items()
 
 	for item in items:
-		var item_button: ItemButton = _create_item_button(item)
+		var item_button: ItemButton = ItemButton.make(item)
 		_button_container.add_child(item_button)
 		var actual_button: BaseButton = item_button.get_button()
 		actual_button.pressed.connect(_on_item_button_pressed.bind(item_button))
-
-
-func _create_item_button(item: Item) -> ItemButton:
-	var item_button = load("res://Scenes/HUD/Buttons/ItemButton.tscn").instantiate() 
-	item_button.set_item(item)
-	return item_button
 
 
 func _on_item_button_pressed(item_button: ItemButton):

@@ -25,7 +25,7 @@ func item_init():
     m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.15, 0.0)
     damage_aura.set_buff_modifier(m)
     damage_aura.set_buff_icon("@@0@@")
-    damage_aura.set_buff_stacking_group("dmgaura")
+    damage_aura.set_stacking_group("dmgaura")
     damage_aura.set_buff_tooltip("The Divine Wings Effect\nThis unit's attack damage and attack speed are increased.")
 
     var aura: AuraType = AuraType.new()

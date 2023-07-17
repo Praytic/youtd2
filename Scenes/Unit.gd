@@ -1,5 +1,5 @@
 class_name Unit
-extends CharacterBody2D
+extends Node2D
 
 # Unit is a base class for Towers and Creeps. Keeps track of
 # buffs and modifications. Emits signals for events which are used by buffs.
@@ -47,8 +47,8 @@ const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
 const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
-var _sprite_area: Area2D = null
-var _sprite_dimensions: Vector2 = Vector2.ZERO
+var _visual_node: Node2D = null
+var _sprite_dimensions: Vector2 = Vector2(100, 100)
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -624,81 +624,21 @@ func _calc_attack_multicrit_internal(crit_count: int, bonus_damage: float) -> fl
 	return total_crit_damage
 
 
-# Call this (or the animated sprite version) in subclass to
-# set the main sprite for the unit. This sprite will be used
-# to detect collison with mouse and also as the visual
+# Set node which will be used to determine the visual
 # position of the unit.
-func _set_unit_sprite(sprite, override_area: Area2D = null):
-	var texture: Texture2D
-	if sprite is AnimatedSprite2D:
-		texture = sprite.sprite_frames.get_frame_texture("still", 0)
-	elif sprite is Sprite2D:
-		texture = sprite.texture
-	else:
-		assert(false, "Sprite has unknown type.")
-	var image: Image = texture.get_image()
-
-	_set_unit_sprite_internal(image, sprite, override_area)
+func _set_visual_node(visual_node: Node2D):
+	_visual_node = visual_node
 
 
-# TODO: using first frame from first animation but this is
-# inaccurate if different frames occupy different parts of
-# the image. Maybe overlay all frames into a special frame
-# that is the "average", durin generation from blender?
-func _set_unit_animted_sprite(sprite: AnimatedSprite2D):
-	var sprite_frames: SpriteFrames = sprite.sprite_frames
-	var animation_name_list: PackedStringArray = sprite_frames.get_animation_names()
-	var default_anim_id = animation_name_list.find("default")
-	
-	if default_anim_id != -1:
-		animation_name_list.remove_at(default_anim_id)
-	
-	if animation_name_list.size() == 0:
-		print_debug("No animations except default, can't setup selection shape.")
+# Call this in subclass to set dimensions of unit. Use
+# Utils.get_sprite_dimensions() or
+# Utils.get_animated_sprite_dimensions() to get the
+# dimensions of the sprite in subclass. This will be used to
+# calculate positions of different body parts of the unit.
+func _set_unit_dimensions(sprite_dimensions: Vector2):
+	_sprite_dimensions = sprite_dimensions
 
-		return
-
-	var animation: String = animation_name_list[0]
-	var texture: Texture2D = sprite_frames.get_frame_texture(animation, 0)
-	var image: Image = texture.get_image()
-
-	_set_unit_sprite_internal(image, sprite, null)
-
-
-# Generate a rectangle shape that encloses used portion of
-# sprite's texture. Used portion means pixels with non-zero
-# alpha. Also save dimensions of used region in the sprite.
-func _set_unit_sprite_internal(image: Image, sprite_node: Node2D, override_area: Area2D):
-	var collision_shape: CollisionShape2D = CollisionShape2D.new()
-	var shape: RectangleShape2D = RectangleShape2D.new()
-	collision_shape.shape = shape
-
-	var used_rect: Rect2i = image.get_used_rect()
-
-	shape.size = used_rect.size
-
-# 	NOTE: Rect2i position is top-left corner, so need to do
-# 	some math to calculate correct offset for area2d
-	_sprite_area = Area2D.new()
-	_sprite_area.add_child(collision_shape)
-	_sprite_area.position = used_rect.position + used_rect.size / 2 - image.get_size() / 2
-
-#	NOTE: use sprite as parent for area2d so so that the
-#	position of area2d matches sprite's position
-	sprite_node.add_child(_sprite_area)
-	_sprite_dimensions = Vector2(used_rect.size) * sprite_node.scale
-
-	if override_area != null:
-		override_area.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
-		override_area.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
-		
-# All towers should have unified selector size
-		_selection_visual.visual_size = 128
-	else:
-		_sprite_area.mouse_entered.connect(SelectUnit.on_unit_mouse_entered.bind(self))
-		_sprite_area.mouse_exited.connect(SelectUnit.on_unit_mouse_exited.bind(self))
-
-		_selection_visual.visual_size = _sprite_dimensions.x
+	_selection_visual.visual_size = _sprite_dimensions.x
 
 
 func set_hovered(hovered: bool):
@@ -973,8 +913,8 @@ func is_dead() -> bool:
 # Game physics need to be performed in 2D space, so use
 # regular "position".
 func get_visual_position() -> Vector2:
-	if _sprite_area != null:
-		return _sprite_area.global_position
+	if _visual_node != null:
+		return _visual_node.global_position
 	else:
 		return global_position
 
@@ -991,12 +931,12 @@ func get_visual_position() -> Vector2:
 # total texture so using texture center/dimensions would
 # cause incorrect results.
 func get_body_part_position(body_part: String) -> Vector2:
-	if _sprite_area == null:
+	if _visual_node == null:
 		print_debug("No selection area2d defined")
 
 		return get_visual_position()
 
-	var sprite_center: Vector2 = _sprite_area.global_position
+	var sprite_center: Vector2 = _visual_node.global_position
 	var sprite_height: float = float(_sprite_dimensions.y)
 
 	match body_part:

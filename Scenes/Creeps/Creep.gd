@@ -16,6 +16,7 @@ const MOVE_SPEED_MAX: float = 400.0
 const DEFAULT_MOVE_SPEED: float = 200.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
+const ANIMATION_FOR_DIMENSIONS: String = "default"
 
 var _path: Path2D : set = set_path
 var _size: CreepSize.enm
@@ -30,6 +31,7 @@ var _spawn_level: int
 @onready var _visual = $Visual
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar
+@onready var _selection_area: Area2D = $Visual/SelectionArea
 # @onready var _landscape = get_tree().get_root().get_node("GameScene/Map")
 
 
@@ -53,10 +55,15 @@ func _ready():
 		_visual.position.y = -height
 		z_index = 100
 		_path.default_z = z_index
+	else:
+		z_index = 10
 	
-	var sprite: AnimatedSprite2D = $Visual/Sprite2D
-	if sprite != null:
-		_set_unit_animted_sprite(sprite)
+	SelectUnit.connect_unit(self, _selection_area)
+	
+	_set_visual_node(_visual)
+
+	var sprite_dimensions: Vector2 = Utils.get_animated_sprite_dimensions(_sprite, ANIMATION_FOR_DIMENSIONS)
+	_set_unit_dimensions(sprite_dimensions)
 
 	death.connect(_on_death)
 
