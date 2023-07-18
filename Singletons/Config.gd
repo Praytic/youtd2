@@ -40,7 +40,7 @@ func preload_all_towers_on_startup() -> bool:
 
 # Enable to load unreleased towers
 func load_unreleased_towers() -> bool:
-	return ProjectSettings.get_setting("application/config/preload_all_towers_on_startup") as bool
+	return ProjectSettings.get_setting("application/config/load_unreleased_towers") as bool
 
 func build_version() -> String:
 	return ProjectSettings.get_setting("application/config/version") as String
