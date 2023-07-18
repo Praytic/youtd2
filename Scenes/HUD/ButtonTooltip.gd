@@ -69,6 +69,7 @@ func _on_autocast_button_mouse_entered(autocast: Autocast):
 	_label.clear()
 
 	var text: String = autocast.description
+	text = _add_color_to_numbers(text)
 
 	text += " \n"
 	text += " \n"
@@ -154,6 +155,7 @@ func _get_tower_text(tower_id: int) -> String:
 
 	for autocast in tower.get_autocast_list():
 		var autocast_description: String = autocast.description
+		autocast_description = _add_color_to_numbers(autocast_description)
 		text += " \n%s\n" % autocast_description
 	
 	return text

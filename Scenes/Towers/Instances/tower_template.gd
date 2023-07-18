@@ -22,6 +22,22 @@ func get_extra_tooltip_text() -> String:
 	return text
 
 
+func get_autocast_description() -> String:
+	var foo: String = String.num(_stats.foo, 2)
+	var bar: String = String.num(_stats.bar, 2)
+
+	var text: String = ""
+
+	text += "[color=GOLD]Name[/color]\n"
+	text += "Description\n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "foo\n"
+	text += " \n"
+	text += "Mana cost: 20, 900 range, 1s cooldown"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_periodic(periodic, 5)
@@ -41,6 +57,7 @@ func tower_init():
 	example_buff.set_buff_tooltip("Title\nDescription.")
 
 	var autocast: Autocast = Autocast.make()
+	autocast.description = get_autocast_description()
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

@@ -865,6 +865,12 @@ func _on_modify_property():
 ### Setters / Getters ###
 #########################
 
+# NOTE: analog of SetUnitVertexColor() from JASS
+func set_unit_vertex_color(r: int, g: int, b: int, a: int):
+	var color: Color = Color(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
+	modulate = color
+
+
 # NOTE: overriden in Tower to return non-null value
 func get_current_target() -> Unit:
 	return null

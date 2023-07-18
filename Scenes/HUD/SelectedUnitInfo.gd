@@ -58,7 +58,7 @@ func _process(_delta: float):
 
 		label_text += "Race: %s\n" % category_string
 		label_text += "Armor Type: %s\n" % armor_type_string
-		label_text += "Armor: %s\n" % armor
+		label_text += "Armor: %s\n" % armor_string
 		label_text += "Damage Reduction: %s\n" % damage_reduction_string
 
 	label_text += "Status:"
