@@ -27,6 +27,3 @@ func get_z(path_point_id: int) -> int:
 		return default_z + z_points.get(path_point_id)
 	else:
 		return default_z
-#test1
-#test2
-#test3
