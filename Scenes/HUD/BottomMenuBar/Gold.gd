@@ -12,3 +12,5 @@ func _ready():
 
 func _on_gold_change(new_value):
 	set_label_text(str(int(new_value)))
+	
+# test 
