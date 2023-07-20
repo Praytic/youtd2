@@ -1,0 +1,181 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbqe2a6fmbivb"]
+
+[ext_resource type="Theme" uid="uid://dtwj74dyjwmi7" path="res://Resources/Theme/custom_theme.tres" id="1_gpnxh"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_67bve"]
+[ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="3_4faji"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcfcy"]
+atlas = ExtResource("2_67bve")
+region = Rect2(334, 5, 35, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1tjk"]
+atlas = ExtResource("2_67bve")
+region = Rect2(390, 5, 51, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42avn"]
+atlas = ExtResource("3_4faji")
+region = Rect2(453, 197, 54, 54)
+
+[node name="TowerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_gpnxh")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="TowerDescriptionPanel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 6.0
+theme_type_variation = &"InnerPanel2"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="TowerDescription" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TowerSkills" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TowerItems" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/VBoxContainer/TowerItems"]
+layout_mode = 2
+
+[node name="ItemDescriptionPanel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"InnerPanel2"
+
+[node name="BuffDescriptionPanel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"InnerPanel2"
+
+[node name="Panel" type="Panel" parent="MarginContainer/Panel"]
+show_behind_parent = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 0
+offset_left = 49.0
+offset_top = -56.0
+offset_right = 449.0
+offset_bottom = 344.0
+theme_type_variation = &"InnerPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "Tower Name"
+scroll_active = false
+autowrap_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 55.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TowerLevelButton" type="Button" parent="VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 2
+theme_type_variation = &"RoundButton"
+text = "25"
+
+[node name="UpgradeTowerButton" type="Button" parent="VBoxContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 2
+theme_type_variation = &"RoundButton"
+icon = SubResource("AtlasTexture_pcfcy")
+icon_alignment = 1
+expand_icon = true
+
+[node name="TowerStatsButton" type="Button" parent="VBoxContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 2
+theme_type_variation = &"RoundButton"
+icon = SubResource("AtlasTexture_q1tjk")
+icon_alignment = 1
+expand_icon = true
+
+[node name="SellTowerButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 10
+theme_type_variation = &"RoundButton"
+icon = SubResource("AtlasTexture_42avn")
+expand_icon = true
