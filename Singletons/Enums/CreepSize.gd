@@ -58,7 +58,14 @@ const _item_quality_map: Dictionary = {
 
 
 func from_string(string: String) -> CreepSize.enm:
-	return _string_map.find_key(string)
+	var key = _string_map.find_key(string)
+	
+	if key != null:
+		return key
+	else:
+		push_error("Invalid creep size string: \"%s\"" % string)
+
+		return CreepSize.enm.MASS
 
 
 func convert_to_string(type: CreepSize.enm) -> String:
