@@ -1,7 +1,10 @@
 class_name CbSilence
 extends BuffType
 
+# NOTE: globally available cb_silence in JASS
 
+
+# NOTE: BuffType.createDuplicate(cb_silence...) in JASS
 func _init(type: String, time_base: float, time_level_add: float,friendly: bool, parent: Node):
 	super(type, time_base, time_level_add, friendly, parent)
 	add_event_on_create(on_create)

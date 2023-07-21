@@ -45,6 +45,7 @@ var user_real2: float = 0.0
 var user_real3: float = 0.0
 
 
+# NOTE: Projectile.createFromUnit() in JASS
 static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, facing: float, damage_ratio: float, crit_ratio: float) -> Projectile:
 	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from)
 
@@ -59,6 +60,7 @@ static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, fac
 # TODO: ignore_target_z - ignore target height value,
 # projectile flies straight without changing it's height to
 # match target height. Probably relevant to air units?
+# NOTE: Projectile.createFromUnitToUnit() in JASS
 static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
 	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from)
 
@@ -76,11 +78,13 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 
 # TODO: implement actual interpolation, for now calling
 # normal create()
+# NOTE: Projectile.createLinearInterpolationFromUnitToUnit() in JASS
 static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, targeted: bool) -> Projectile:
 	return create_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, targeted, false, true)
 
 
 # TODO: implement
+# NOTE: Projectile.createBezierInterpolationFromUnitToUnit() in JASS
 static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, _side_arc: float, _steepness: float, targeted: bool) -> Projectile:
 	return create_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, targeted, false, true)
 
@@ -209,6 +213,7 @@ func get_target() -> Unit:
 	return _target
 
 
+# NOTE: projectile.setScale() in JASS
 func setScale(scale_arg: float):
 	scale = _initial_scale * scale_arg
 

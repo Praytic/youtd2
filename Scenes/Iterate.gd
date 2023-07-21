@@ -16,6 +16,7 @@ var _next_list: Array[Unit] = []
 var _already_returned_list: Array[Unit] = []
 
 
+# NOTE: Iterate.overUnitsInRangeOf() in JASS
 static func over_units_in_range_of(caster: Unit, target_type: TargetType, x: float, y: float, radius: float) -> Iterate:
 	var it: Iterate = Iterate.new()
 	it._caster = caster
@@ -27,6 +28,7 @@ static func over_units_in_range_of(caster: Unit, target_type: TargetType, x: flo
 	return it
 
 
+# NOTE: Iterate.overUnitsInRangeOfCaster() in JASS
 static func over_units_in_range_of_caster(caster: Unit, target_type: TargetType, radius: float) -> Iterate:
 	var it: Iterate = Iterate.new()
 	it._caster = caster
@@ -38,6 +40,7 @@ static func over_units_in_range_of_caster(caster: Unit, target_type: TargetType,
 	return it
 
 
+# NOTE: Iterate.overUnitsInRangeOfUnit() in JASS
 static func over_units_in_range_of_unit(caster: Unit, target_type: TargetType, center: Unit, radius: float) -> Iterate:
 	var it: Iterate = Iterate.new()
 	it._caster = caster
@@ -49,12 +52,14 @@ static func over_units_in_range_of_unit(caster: Unit, target_type: TargetType, c
 	return it
 
 
+# NOTE: iterate.next() in JASS
 func next() -> Unit:
 	var unit: Unit = _next_internal(NextOrder.FRONT)
 
 	return unit
 
 
+# NOTE: iterate.nextRandom() in JASS
 func next_random() -> Unit:
 	var unit: Unit = _next_internal(NextOrder.RANDOM)
 
@@ -64,10 +69,12 @@ func next_random() -> Unit:
 # NOTE: Original API has this f-n but in Godot Iterate will
 # get cleaned up automatically. Leave it as a stub to call
 # in tower scripts.
+# NOTE: iterate.destroy() in JASS
 func destroy():
 	pass
 
 
+# NOTE: iterate.count() in JASS
 func count() -> int:
 	return _next_list.size()
 

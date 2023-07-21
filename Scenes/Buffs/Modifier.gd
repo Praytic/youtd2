@@ -7,6 +7,7 @@ class_name Modifier
 var _modification_list: Array = []
 
 
+# NOTE: modifier.addModification() in JASS
 func add_modification(modification_type: int, value_base: float, level_add: float):
 	var modification: Modification = Modification.new(modification_type, value_base, level_add)
 	_modification_list.append(modification)

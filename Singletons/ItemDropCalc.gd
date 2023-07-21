@@ -104,6 +104,7 @@ func get_random_item_at_or_below_rarity_bounded(rarity: int, lvl_min: int, lvl_m
 			return 0
 
 
+# RandomItemSet.permanent.getRandomItemAtRarityBounded() in JASS
 func get_random_item_at_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) -> int:
 #	Find all items which are not oils and fall into selected
 #	rarity

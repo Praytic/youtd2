@@ -35,10 +35,12 @@ func _init(_ability: String, order: String, lifetime: float):
 	_lifetime = lifetime
 
 
+# NOTE: cast.setDamageEvent() in JASS
 func set_damage_event(handler: Callable):
 	_damage_event_handler = handler
 
 
+# NOTE: cast.pointCastFromCasterOnPoint() in JASS
 func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):
 	var spell_scene_path: String = _get_spell_scene_path()
 	
@@ -51,17 +53,20 @@ func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ra
 	caster.add_child(instance)
 
 
+# NOTE: cast.targetCastFromCasterOnPoint() in JASS
 func target_cast_from_caster(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
 	point_cast_from_caster_on_point(caster, target.position.x, target.position.y, damage_ratio, crit_ratio)
 
 
 # TODO: what is the difference between point_cast_from_target_on_target() and target_cast_from_caster()?
+# NOTE: cast.pointCastFromCasterOnTarget() in JASS
 func point_cast_from_target_on_target(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
 	target_cast_from_caster(caster, target, damage_ratio, crit_ratio)
 
 
 # TODO: implement. Probably changes the height from which
 # the cast visual originates.
+# NOTE: cast.setSourceHeight() in JASS
 func set_source_height(_height: float):
 	pass
 

@@ -24,6 +24,7 @@ func get_animated_sprite_dimensions(sprite: AnimatedSprite2D, animation_name: St
 
 
 # TODO: implement. Should return hours i guess?
+# NOTE: GetFloatGameState(GAME_STATE_TIME_OF_DAY) in JASS
 func get_time_of_day() -> float:
 	return 0.0
 
@@ -42,6 +43,7 @@ func get_max_level() -> int:
 	return 80
 
 
+# NOTE: GetPlayerState() in JASS
 func get_player_state(_player: Player, state: PlayerState.enm) -> float:
 	match state:
 		PlayerState.enm.RESOURCE_GOLD: return GoldControl.get_gold()
@@ -49,6 +51,7 @@ func get_player_state(_player: Player, state: PlayerState.enm) -> float:
 	return 0.0
 
 
+# NOTE: Game.getGameTime() in JASS
 func get_game_time() -> float:
 	var time: float = Time.get_unix_time_from_system()
 
@@ -115,9 +118,10 @@ func random_weighted_pick(element_to_weight_map: Dictionary) -> Variant:
 	return element_to_weight_map.keys()[0]
 
 
-# This f-n simulates getUID() f-n from JASS. Used to check
-# if unit references saved before tower script splits are
-# still valid after sleep is over.
+# NOTE: getUID() in JASS
+# 
+# Used to check if unit references saved before tower script
+# splits are still valid after sleep is over.
 # 
 # NOTE: this f-n can't be a member f-n of Unit like in JASS
 # because in Gdscript you can't call functions on invalid
@@ -266,12 +270,14 @@ func bit_is_set(mask: int, bit: int) -> bool:
 	return is_set
 
 
+# formatFloat() in JASS
 func format_float(x: float, digits: int) -> String:
 	var out: String = String.num(x, digits)
 
 	return out
 
 
+# formatPercent() in JASS
 func format_percent(x: float, digits: int) -> String:
 	var x_percent: float = x * 100
 	var sign_string: String
@@ -284,6 +290,7 @@ func format_percent(x: float, digits: int) -> String:
 	return out
 
 
+# formatPercentAddColor() in JASS
 func format_percent_add_color(x: float, digits: int) -> String:
 	var uncolored: String = format_percent(x, digits)
 	var color: Color

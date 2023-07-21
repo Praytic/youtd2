@@ -1,8 +1,12 @@
 class_name CbStun
 extends BuffType
 
+# NOTE: globally available cb_stun in JASS
+
 var _stun_effect_map: Dictionary
 
+
+# NOTE: BuffType.createDuplicate(cb_stun...) in JASS
 func _init(type: String, time_base: float, time_level_add: float,friendly: bool, parent: Node):
 	super(type, time_base, time_level_add, friendly, parent)
 	add_event_on_create(on_create)

@@ -23,6 +23,7 @@ func _ready():
 
 
 # NOTE: effect must be an AnimatedSprite2D scene
+# NOTE: Effect.createAnimated() in JASS
 func create_animated(effect_path: String, x: float, y: float, _z: float, _mystery2: float) -> int:
 	var effect_path_exists: bool = ResourceLoader.exists(effect_path)
 
@@ -55,30 +56,37 @@ func create_animated(effect_path: String, x: float, y: float, _z: float, _myster
 	return id
 
 
+# NOTE: Effect.createSimpleAtUnit() in JASS
 func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
 	var position: Vector2 = unit.get_visual_position() 
 	return create_animated(effect_path, position.x, position.y, 0.0, 0.0)
 
 
+# NOTE: Effect.createSimpleOnUnit() in JASS
 func create_simple_on_unit(effect_path: String, unit: Unit, _body_part: String) -> int:
 	return create_simple_at_unit(effect_path, unit)
 
 
+# NOTE: Effect.createSimpleOnUnit() in JASS
+# NOTE: AddSpecialEffectTarget() in JASS()
 func add_special_effect_target(effect_path: String, unit: Unit, body_part: String) -> int:
 	var position: Vector2 = unit.get_body_part_position(body_part) 
 	return create_animated(effect_path, position.x, position.y, 0.0, 0.0)
 
 
+# NOTE: AddSpecialEffect() in JASS()
 func add_special_effect(effect_path: String, x: float, y: float) -> int:
 	return create_animated(effect_path, x, y, 0.0, 0.0)
 
 
 # TODO: implement scale parameter
+# NOTE: Effect.createScaled() in JASS()
 func create_scaled(effect_path: String, x: float, y: float, z: float, _mystery2: float, _scale: float) -> int:
 	return create_animated(effect_path, x, y, z, _mystery2)
 
 
 # TODO: implement color
+# NOTE: Effect.createColored() in JASS()
 func create_colored(effect_path: String, x: float, y: float, z: float, _mystery2: float, _scale: float, _color: Color):
 	return create_animated(effect_path, x, y, z, _mystery2)
 
@@ -91,11 +99,13 @@ func scale_effect(effect_id: int, scale: float):
 	effect.scale *= scale
 
 
+# NOTE: effect.setLifetime() in JASS()
 func set_lifetime(effect_id: int, lifetime: float):
 	var timer: SceneTreeTimer = get_tree().create_timer(lifetime)
 	timer.timeout.connect(_on_lifetime_timer_timeout.bind(effect_id))
 
 
+# NOTE: DestroyEffect() in JASS()
 func destroy_effect(effect_id: int):
 	if !_effect_map.has(effect_id):
 		return
@@ -110,6 +120,7 @@ func destroy_effect(effect_id: int):
 
 
 # TODO: implement, no idea what this is supposed to do
+# NOTE: effect.noDeathAnimation() in JASS()
 func no_death_animation(_effect_id: int):
 	pass
 

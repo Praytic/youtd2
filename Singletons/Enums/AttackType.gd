@@ -91,6 +91,7 @@ func from_string(string: String) -> AttackType.enm:
 	return _string_map.find_key(string)
 
 
+# NOTE: AttackType.PHYSICAL.getDamageAgainst() in JASS
 func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) -> float:
 	var damage: float = _damage_to_armor_map[attack_type][armor_type]
 

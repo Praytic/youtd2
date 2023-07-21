@@ -69,6 +69,7 @@ var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 
 # Creates item on the ground. Item is stored inside an
 # ItemDrop object.
+# NOTE: Item.create() in JASS
 static func create(_player: Player, item_id: int, position: Vector2) -> Item:
 	return create_without_player(item_id, position)
 
@@ -128,6 +129,7 @@ static func get_item_script_path(item_id: int):
 	return path
 
 
+# NOTE: SetItemVisible() in JASS
 static func set_item_visible(item: Item, visible: bool):
 	item._visible = visible
 
@@ -152,6 +154,7 @@ func _ready():
 
 # Drops item from tower inventory onto the ground. This f-n
 # does nothing if item is currently not in tower inventory.
+# NOTE: item.drop() in JASS
 func drop():
 	if _carrier == null:
 		return
@@ -177,6 +180,7 @@ func drop():
 	Item._create_item_drop(self, drop_pos)
 
 
+# NOTE: item.pickup() in JASS
 func pickup(tower: Tower) -> bool:
 	if tower.have_item_space():
 		_pickup_internal(tower)
@@ -219,6 +223,7 @@ func _pickup_internal(tower: Tower):
 # Item starts flying to the stash and will get added to
 # stash once the animation finishes. Does nothing if item is
 # not on the ground.
+# NOTE: item.flyToStash() in JASS
 func fly_to_stash(_mystery_float: float):
 	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
 	var is_on_ground: bool = parent_item_drop != null
@@ -271,6 +276,7 @@ func add_aura(aura: AuraType):
 
 
 # Sets the charge count that is displayed on the item icon.
+# NOTE: item.setCharges() in JASS
 func set_charges(new_count: int):
 	_charge_count = new_count
 	charges_changed.emit()
@@ -282,6 +288,7 @@ func get_charges_text() -> String:
 	else:
 		return ""
 
+# NOTE: item.getCharges() in JASS
 func get_charges() -> int:
 	return _charge_count
 
@@ -349,13 +356,16 @@ func on_tower_details() -> MultiboardValues:
 func get_id() -> int:
 	return _id
 
+# NOTE: item.getCarrier() in JASS
 func get_carrier() -> Tower:
 	return _carrier
 
 # NOTE: for now just returning the one single player
 # instance since multiplayer isn't implemented.
+# NOTE: item.getOwner() in JASS
 func getOwner() -> Player:
 	return _owner
 
+# NOTE: item.getItemType() in JASS
 func get_item_type() -> int:
 	return get_id()
