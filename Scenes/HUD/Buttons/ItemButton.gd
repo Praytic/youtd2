@@ -8,6 +8,10 @@ const ICON_SIZE_M = 128
 
 static var _item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 
+@export var _item_id: int = 0:
+	set(value):
+		if value != 0:
+			_item = Item.make(value)
 var _item: Item = null
 
 @onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
@@ -23,6 +27,9 @@ static func make(item: Item) -> ItemButton:
 
 
 func _ready():
+	if _item == null:
+		return
+	
 	_set_rarity_icon()
 	_set_unit_icon()
 

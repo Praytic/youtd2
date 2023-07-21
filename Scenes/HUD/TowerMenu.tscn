@@ -1,20 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbqe2a6fmbivb"]
+[gd_scene load_steps=11 format=3 uid="uid://dbqe2a6fmbivb"]
 
 [ext_resource type="Theme" uid="uid://dtwj74dyjwmi7" path="res://Resources/Theme/custom_theme.tres" id="1_gpnxh"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_67bve"]
 [ext_resource type="PackedScene" uid="uid://dyfytw43bqm0w" path="res://Scenes/HUD/RichTextLabels/TowerDescription.tscn" id="2_lbwvd"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_mjcg4"]
 [ext_resource type="Texture2D" uid="uid://6krny31dcw8" path="res://Assets/Towers/tower_icons_s.png" id="3_4faji"]
-[ext_resource type="Texture2D" uid="uid://blly1o63hjnio" path="res://Assets/Items/item_icons_m.png" id="4_40han"]
-[ext_resource type="PackedScene" uid="uid://cfwjpgsa7xgnk" path="res://Scenes/HUD/RichTextLabels/ItemDescription.tscn" id="5_pnfm3"]
+[ext_resource type="PackedScene" uid="uid://b1ed4riyl8mbe" path="res://Scenes/HUD/Buttons/ItemButton.tscn" id="4_3b6fn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6r7pf"]
 atlas = ExtResource("2_mjcg4")
 region = Rect2(128, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h7pb3"]
-atlas = ExtResource("4_40han")
-region = Rect2(896, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pcfcy"]
 atlas = ExtResource("2_67bve")
@@ -66,6 +61,7 @@ theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 40
 
 [node name="TowerDescriptionPanel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -73,16 +69,13 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 6.0
 theme_type_variation = &"InnerPanel2"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer"]
-layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 10
@@ -90,19 +83,24 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 texture = SubResource("AtlasTexture_6r7pf")
 stretch_mode = 2
 
-[node name="TowerDescription" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_lbwvd")]
+[node name="TowerDescription" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_lbwvd")]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
@@ -118,16 +116,16 @@ fit_content = true
 scroll_active = false
 tower_id = 17
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="TowerSkills" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="TowerSkills" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[color=GOLD]Spray and Pray[/color]
@@ -137,115 +135,57 @@ Each attack of this tower has a [color=GOLD]33%[/color] chance to miss the targe
 fit_content = true
 scroll_active = false
 
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="TowerItems" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="TowerItems" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="ItemSlot1" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer2/TowerItems"]
-custom_minimum_size = Vector2(64, 64)
+[node name="ItemSlot1" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2/TowerItems" instance=ExtResource("4_3b6fn")]
+layout_mode = 2
+theme_type_variation = &"SmallButton"
+_item_id = 33
+
+[node name="ItemSlot2" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2/TowerItems" instance=ExtResource("4_3b6fn")]
+layout_mode = 2
+theme_type_variation = &"SmallButton"
+_item_id = 234
+
+[node name="ItemSlot3" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2/TowerItems" instance=ExtResource("4_3b6fn")]
+layout_mode = 2
+theme_type_variation = &"SmallButton"
+_item_id = 176
+
+[node name="ItemSlot4" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2/TowerItems" instance=ExtResource("4_3b6fn")]
 layout_mode = 2
 theme_type_variation = &"SmallButton"
 
-[node name="ItemSlot2" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer2/TowerItems"]
-custom_minimum_size = Vector2(64, 64)
+[node name="ItemSlot5" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2/TowerItems" instance=ExtResource("4_3b6fn")]
 layout_mode = 2
 theme_type_variation = &"SmallButton"
 
-[node name="ItemSlot3" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer2/TowerItems"]
-custom_minimum_size = Vector2(64, 64)
+[node name="ItemSlot6" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/MarginContainer/ScrollContainer/VBoxContainer/MarginContainer2/TowerItems" instance=ExtResource("4_3b6fn")]
 layout_mode = 2
 theme_type_variation = &"SmallButton"
 
-[node name="ItemSlot4" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer2/TowerItems"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-theme_type_variation = &"SmallButton"
-
-[node name="ItemSlot5" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer2/TowerItems"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-theme_type_variation = &"SmallButton"
-
-[node name="ItemSlot6" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/MarginContainer2/TowerItems"]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-theme_type_variation = &"SmallButton"
-
-[node name="ItemDescriptionPanel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-theme_type_variation = &"InnerPanel2"
-
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemDescriptionPanel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemDescriptionPanel/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemDescriptionPanel/ScrollContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = SubResource("AtlasTexture_h7pb3")
-
-[node name="ItemDescription" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5_pnfm3")]
-layout_mode = 2
-size_flags_horizontal = 3
-bbcode_enabled = true
-text = "[color=LIGHT_BLUE]The more you know, the more you realize that you know nothing.[/color]
-[color=YELLOW]Author:[/color] drol
- 
-[color=YELLOW]Effects:[/color]
-[color=GOLD]+50%[/color] experience received ([color=GOLD]-2%[/color]/lvl)
-
-"
-fit_content = true
-scroll_active = false
-
-[node name="BuffDescriptionPanel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-theme_type_variation = &"InnerPanel2"
-
-[node name="Panel" type="Panel" parent="MarginContainer/Panel"]
+[node name="TowerNamePanel" type="Panel" parent="MarginContainer/Panel"]
 show_behind_parent = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 0
 offset_left = 49.0
-offset_top = -56.0
+offset_top = -57.0
 offset_right = 449.0
-offset_bottom = 344.0
+offset_bottom = 343.0
 theme_type_variation = &"InnerPanel"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/TowerNamePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -257,7 +197,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/Panel/MarginContainer"]
+[node name="TowerNameLabel" type="RichTextLabel" parent="MarginContainer/Panel/TowerNamePanel/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 32
 text = "Tower Name"

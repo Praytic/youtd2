@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=25 format=3 uid="uid://dtwj74dyjwmi7"]
+[gd_resource type="Theme" load_steps=31 format=3 uid="uid://dtwj74dyjwmi7"]
 
 [ext_resource type="StyleBox" uid="uid://ylvy26hqhv7c" path="res://Resources/Theme/button_stylebox_texture_hover.tres" id="1_eyhkh"]
 [ext_resource type="StyleBox" uid="uid://brs4q0565txa8" path="res://Resources/Theme/button_stylebox_texture.tres" id="1_p7x6g"]
@@ -6,9 +6,19 @@
 [ext_resource type="StyleBox" uid="uid://ptj8puirdggr" path="res://Resources/Theme/common_button_stylebox_texture.tres" id="3_vgpwv"]
 [ext_resource type="StyleBox" uid="uid://cydrp7xibdnll" path="res://Resources/Theme/button_top_stylebox_texture.tres" id="4_odwe3"]
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="4_r46ip"]
+[ext_resource type="StyleBox" uid="uid://c62cn8a1k8tvs" path="res://Resources/Theme/inner_panel2_panel.tres" id="5_p7qsa"]
 [ext_resource type="StyleBox" uid="uid://b1sm2jntu6dre" path="res://Resources/Theme/panel_wide_border.tres" id="5_pk7ae"]
+[ext_resource type="StyleBox" uid="uid://doblu2firl5qq" path="res://Resources/Theme/small_frame_button_hover.tres" id="5_u0wr5"]
 [ext_resource type="StyleBox" uid="uid://dx5l2exs1a7rk" path="res://Resources/Theme/uncommon_button_stylebox_texture_hover.tres" id="6_cfwfq"]
 [ext_resource type="StyleBox" uid="uid://b5ejc13k3xkcn" path="res://Resources/Theme/uncommon_button_stylebox_texture.tres" id="6_ls8p2"]
+[ext_resource type="StyleBox" uid="uid://bltacmnk4cobw" path="res://Resources/Theme/round_button_hover.tres" id="6_uc343"]
+[ext_resource type="StyleBox" uid="uid://tse57e0n760l" path="res://Resources/Theme/small_frame_button_normal.tres" id="6_v2mr6"]
+[ext_resource type="StyleBox" uid="uid://dk2yyhemvrw5t" path="res://Resources/Theme/round_button_normal.tres" id="7_k3s7l"]
+[ext_resource type="StyleBox" uid="uid://b5k3xp0i45sie" path="res://Resources/Theme/small_button_hover.tres" id="8_xusag"]
+[ext_resource type="StyleBox" uid="uid://bxk3y7eiug7c6" path="res://Resources/Theme/small_button_normal.tres" id="9_roqs2"]
+[ext_resource type="StyleBox" uid="uid://bqwf21xdyj38f" path="res://Resources/Theme/tooltip_panel.tres" id="11_jhqj6"]
+[ext_resource type="StyleBox" uid="uid://se5nkg08tdgb" path="res://Resources/Theme/unit_button_normal.tres" id="16_4563a"]
+[ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="19_bkdyn"]
 
 [sub_resource type="SystemFont" id="SystemFont_sqxi7"]
 
@@ -51,29 +61,6 @@ texture_margin_top = 28.0
 texture_margin_right = 28.0
 texture_margin_bottom = 28.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_168b2"]
-atlas = ExtResource("4_r46ip")
-region = Rect2(853, 74, 48, 48)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ev6fg"]
-texture = SubResource("AtlasTexture_168b2")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-region_rect = Rect2(853, 74, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dv7ex"]
-atlas = ExtResource("4_r46ip")
-region = Rect2(790, 74, 48, 48)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vx7li"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-texture = SubResource("AtlasTexture_dv7ex")
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_ctmpt"]
 atlas = ExtResource("4_r46ip")
 region = Rect2(915, 6, 119, 119)
@@ -81,17 +68,21 @@ region = Rect2(915, 6, 119, 119)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y7hqo"]
 texture = SubResource("AtlasTexture_ctmpt")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fsekd"]
-atlas = ExtResource("4_r46ip")
-region = Rect2(853, 74, 48, 48)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24vxx"]
+bg_color = Color(0.639216, 0.603922, 0.423529, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.513726, 0.513726, 0.513726, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a2c8e"]
-texture = SubResource("AtlasTexture_fsekd")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-region_rect = Rect2(853, 74, 48, 48)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kx8uc"]
+draw_center = false
+shadow_color = Color(0, 0, 0, 0)
 
 [resource]
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
@@ -118,18 +109,26 @@ CommonTowerButton/base_type = &"Button"
 CommonTowerButton/styles/disabled = ExtResource("3_vgpwv")
 CommonTowerButton/styles/hover = SubResource("StyleBoxTexture_ku1u2")
 CommonTowerButton/styles/normal = ExtResource("3_vgpwv")
+CommonUnitButton/base_type = &"Button"
+CommonUnitButton/styles/hover = ExtResource("5_u0wr5")
+CommonUnitButton/styles/normal = ExtResource("6_v2mr6")
 HSeparator/constants/separation = 4
 HSeparator/styles/separator = SubResource("StyleBoxLine_y6tam")
 InnerPanel/styles/panel = SubResource("StyleBoxTexture_hpqen")
 InnerPanel2/base_type = &"Panel"
-InnerPanel2/styles/panel = SubResource("StyleBoxTexture_ev6fg")
+InnerPanel2/styles/panel = ExtResource("5_p7qsa")
 Panel/styles/panel = ExtResource("5_pk7ae")
 RoundButton/base_type = &"Button"
-RoundButton/styles/normal = SubResource("StyleBoxTexture_vx7li")
+RoundButton/styles/hover = ExtResource("6_uc343")
+RoundButton/styles/normal = ExtResource("7_k3s7l")
 RoundPanel/base_type = &"Panel"
 RoundPanel/styles/panel = SubResource("StyleBoxTexture_y7hqo")
 SmallButton/base_type = &"Button"
-SmallButton/styles/normal = SubResource("StyleBoxTexture_a2c8e")
+SmallButton/styles/hover = ExtResource("8_xusag")
+SmallButton/styles/normal = ExtResource("9_roqs2")
+ThinPanelContainer/base_type = &"PanelContainer"
+ThinPanelContainer/styles/panel = SubResource("StyleBoxFlat_24vxx")
+TooltipPanel/styles/panel = ExtResource("11_jhqj6")
 TopButton/styles/hover = ExtResource("3_nxhyu")
 TopButton/styles/normal = ExtResource("4_odwe3")
 UncommonTowerButton/base_type = &"Button"
@@ -137,3 +136,25 @@ UncommonTowerButton/colors/icon_hover_color = Color(1, 1, 1, 0.784314)
 UncommonTowerButton/styles/disabled = ExtResource("6_ls8p2")
 UncommonTowerButton/styles/hover = ExtResource("6_cfwfq")
 UncommonTowerButton/styles/normal = ExtResource("6_ls8p2")
+UnitButton/base_type = &"Button"
+UnitButton/styles/normal = ExtResource("16_4563a")
+UnkownRarityUnitButton/base_type = &"Button"
+UnkownRarityUnitButton/colors/font_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/font_disabled_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/font_focus_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/font_hover_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/font_outline_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/font_pressed_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/icon_disabled_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/icon_focus_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/icon_hover_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/icon_normal_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/colors/icon_pressed_color = Color(0, 0, 0, 1)
+UnkownRarityUnitButton/constants/h_separation = 0
+UnkownRarityUnitButton/constants/icon_max_width = 0
+UnkownRarityUnitButton/constants/outline_size = 0
+UnkownRarityUnitButton/font_sizes/font_size = 16
+UnkownRarityUnitButton/fonts/font = ExtResource("19_bkdyn")
+UnkownRarityUnitButton/styles/normal = SubResource("StyleBoxFlat_kx8uc")

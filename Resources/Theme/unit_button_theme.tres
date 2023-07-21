@@ -1,0 +1,21 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dbsqsk6wll0ti"]
+
+[ext_resource type="StyleBox" uid="uid://dvp7eguhnpkxu" path="res://Resources/Theme/wide_frame_panel.tres" id="1_556u2"]
+[ext_resource type="StyleBox" uid="uid://d0iusrsaoy2re" path="res://Resources/Theme/thin_frame_panel.tres" id="1_bustl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4365w"]
+bg_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipsp0"]
+draw_center = false
+
+[resource]
+Button/styles/normal = SubResource("StyleBoxFlat_4365w")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_ipsp0")
+ThinFrame/styles/panel = ExtResource("1_bustl")
+WideFrame/styles/panel = ExtResource("1_556u2")

@@ -45,7 +45,7 @@ var user_real: float = 0.0
 var user_real2: float = 0.0
 var user_real3: float = 0.0
 
-var _id: int = 0
+@export var _id: int = 0
 var _carrier: Tower = null
 var _charge_count: int = -1
 var _visible: bool = true

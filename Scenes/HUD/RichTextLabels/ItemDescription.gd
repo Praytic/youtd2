@@ -1,9 +1,7 @@
 extends RichTextLabel
 
 
-# Static description of a tower.
-# It may contain icon of a tower and icons of
-# every skill that the tower has.
+# Static description of an item.
 
 @export var item: Item = Item.make(17)
 

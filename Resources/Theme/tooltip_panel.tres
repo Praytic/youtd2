@@ -1,0 +1,16 @@
+[gd_resource type="StyleBoxTexture" load_steps=3 format=3 uid="uid://bqwf21xdyj38f"]
+
+[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="1_f21qu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_168b2"]
+atlas = ExtResource("1_f21qu")
+region = Rect2(853, 74, 48, 48)
+
+[resource]
+texture = SubResource("AtlasTexture_168b2")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+region_rect = Rect2(853, 74, 48, 48)
+modulate_color = Color(1, 1, 1, 0.596078)
