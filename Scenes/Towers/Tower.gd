@@ -197,6 +197,8 @@ func is_attacking() -> bool:
 
 # Returns number of crits for current attack. Only valid in
 # attack and damage event handlers.
+# 
+# NOTE: tower.getNumberOfCrits() in JASS
 func get_number_of_crits() -> int:
 	return _number_of_crits
 
@@ -207,6 +209,7 @@ func set_visual_only():
 	_visual_only = true
 
 
+# NOTE: tower.countFreeSlots() in JASS
 func count_free_slots() -> int:
 	var item_count: int = _item_list.size()
 	var free_slots = ITEM_COUNT_MAX - item_count
@@ -214,6 +217,7 @@ func count_free_slots() -> int:
 	return free_slots
 
 
+# NOTE: tower.haveItemSpace() in JASS
 func have_item_space() -> bool:
 	var item_count: int = _item_list.size()
 	var have_space: bool = item_count < ITEM_COUNT_MAX
@@ -272,12 +276,15 @@ func get_item_tower_details() -> Array[MultiboardValues]:
 	return out
 
 
+# NOTE: tower.orderStop() in JASS
 func order_stop():
 	_order_stop_requested = true
 
 
 # NOTE: "attack" is the only order_type encountered in tower
 # scripts so ignore that parameter
+# 
+# NOTE: tower.issueTargetOrder() in JASS
 func issue_target_order(order_type: String, target: Unit):
 	if order_type != "attack":
 		print_debug("Unhandled order_type in issue_target_order()")
@@ -399,6 +406,7 @@ func _set_target_count(count: int):
 	_target_count_max = count
 
 
+# NOTE: tower.getTargetCount() in JASS
 func get_target_count() -> int:
 	return _target_count_max
 
@@ -745,6 +753,7 @@ func get_id() -> int:
 func get_tier() -> int:
 	return TowerProperties.get_tier(_id)
 
+# NOTE: tower.getFamily() in JASS
 func get_family() -> int:
 	return get_csv_property(CsvProperty.FAMILY_ID).to_int()
 
@@ -754,12 +763,15 @@ func get_icon_atlas_num() -> int:
 func is_released() -> bool:
 	return TowerProperties.is_released(_id)
 
+# NOTE: tower.getElement() in JASS
 func get_element() -> Element.enm:
 	return TowerProperties.get_element(_id)
 
 # NOTE: in tower scripts getCategory() is called to get
 # tower's element instead of getElement(), for some reason,
 # so make this wrapper over get_element()
+# 
+# NOTE: tower.getCategory() in JASS
 func get_category() -> int:
 	return get_element()
 
@@ -783,6 +795,8 @@ func get_overall_cooldown() -> float:
 # NOTE: this f-n returns overall cooldown even though that
 # doesn't match the name. See "M.E.F.I.S. Rocket" tower
 # script for proof.
+# 
+# NOTE: tower.getCurrentAttackSpeed() in JASS
 func get_current_attack_speed() -> float:
 	return get_overall_cooldown()
 
@@ -798,6 +812,7 @@ func get_damage_max():
 func get_base_damage():
 	return TowerProperties.get_base_damage(_id)
 
+# NOTE: tower.getCurrentAttackDamageBase() in JASS
 func get_current_attack_damage_base() -> float:
 	var damage_min: float = get_damage_min()
 	var damage_max: float = get_damage_max()
@@ -805,6 +820,7 @@ func get_current_attack_damage_base() -> float:
 
 	return damage
 
+# NOTE: tower.getCurrentAttackDamageWithBonus() in JASS
 func get_current_attack_damage_with_bonus() -> float:
 	var base_damage: float = get_current_attack_damage_base()
 	var base_bonus: float = get_base_damage_bonus()
@@ -843,9 +859,11 @@ func get_kills():
 func get_best_hit():
 	return _best_hit
 
+# NOTE: tower.getRange() in JASS
 func get_range() -> float:
 	return TowerProperties.get_range(_id)
 
+# NOTE: tower.getRarity() in JASS
 func get_rarity() -> String:
 	return TowerProperties.get_rarity(_id)
 	
@@ -855,6 +873,7 @@ func get_rarity_num() -> int:
 func get_display_name() -> String:
 	return TowerProperties.get_display_name(_id)
 
+# NOTE: tower.getAttackType() in JASS
 func get_attack_type() -> AttackType.enm:
 	return TowerProperties.get_attack_type(_id)
 
@@ -864,5 +883,6 @@ func get_base_mana() -> float:
 func get_base_mana_regen() -> float:
 	return get_csv_property(CsvProperty.MANA_REGEN).to_float()
 
+# NOTE: tower.getGoldCost() in JASS
 func get_gold_cost() -> int:
 	return get_csv_property(CsvProperty.COST).to_int()

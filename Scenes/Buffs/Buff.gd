@@ -73,15 +73,18 @@ func is_friendly() -> bool:
 	return _friendly
 
 
+# NOTE: buff.refreshDuration() in JASS
 func refresh_duration():
 	set_remaining_duration(_original_duration)
 
 
+# NOTE: buff.setRemainingDuration() in JASS
 func set_remaining_duration(duration: float):
 	if _timer != null:
 		_timer.start(duration)
 
 
+# NOTE: buff.isPurgable() in JASS
 func is_purgable() -> bool:
 	return _purgable
 
@@ -103,6 +106,7 @@ func get_modifier() -> Modifier:
 	return _modifier
 
 
+# NOTE: buff.setLevel() in JASS
 func set_level(level: int):
 	var old_level: int = _level
 	_level = level
@@ -113,16 +117,19 @@ func set_level(level: int):
 # same type that is active on target and determine which
 # buff is stronger. Stronger buff will end up remaining
 # active on the target.
+# NOTE: buff.getLevel() in JASS
 func get_level() -> int:
 	return _level
 
 
 # Power level is used to calculate the total time and total
 # value of modifiers.
+# NOTE: buff.getPower() in JASS
 func get_power() -> int:
 	return _power
 
 
+# NOTE: buff.setPower() in JASS
 func set_power(power: int):
 	_power = power
 
@@ -135,14 +142,17 @@ func get_stacking_group() -> String:
 	return _stacking_group
 
 
+# NOTE: buff.getCaster() in JASS
 func get_caster() -> Unit:
 	return _caster
 
 
+# NOTE: buff.getBuffedUnit() in JASS
 func get_buffed_unit() -> Unit:
 	return _target
 
 
+# NOTE: buff.removeBuff() in JASS
 func remove_buff():
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
@@ -150,6 +160,7 @@ func remove_buff():
 	_target._remove_buff_internal(self)
 
 
+# NOTE: buff.purgeBuff() in JASS
 func purge_buff():
 	var purge_event: Event = _make_buff_event(null)
 	_call_event_handler_list(Event.Type.PURGE, purge_event)

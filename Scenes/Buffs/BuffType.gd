@@ -46,6 +46,7 @@ var _tooltip_text: String = ""
 var _buff_icon: String = ""
 
 
+# NOTE: BuffType.createAuraEffectType() in JASS
 static func create_aura_effect_type(type: String, friendly: bool, parent: Node) -> BuffType:
 	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, friendly, parent)
 
@@ -81,6 +82,7 @@ func get_type() -> String:
 	return _type
 
 
+# NOTE: buffType.setBuffModifier() in JASS
 func set_buff_modifier(modifier: Modifier):
 	_modifier = modifier
 
@@ -93,6 +95,7 @@ func set_buff_tooltip(tooltip: String):
 	_tooltip_text = tooltip
 
 
+# NOTE: buffType.setBuffIcon() in JASS
 func set_buff_icon(buff_icon: String):
 	_buff_icon = buff_icon
 
@@ -100,6 +103,7 @@ func set_buff_icon(buff_icon: String):
 # Only one buff in a stacking group can be active on a unit.
 # Applying a buff with same stacking group on top of another
 # buff that is lower level will replace the buff.
+# NOTE: buffType.setStackingGroup() in JASS
 func set_stacking_group(stacking_group: String):
 	_stacking_group = stacking_group
 
@@ -111,6 +115,8 @@ func set_stacking_group(stacking_group: String):
 #
 # NOTE: buffs must be applied after the unit has been added
 # to scene tree, after add_child() was called.
+# 
+# NOTE: buffType.applyAdvanced() in JASS
 func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: float) -> Buff:
 	var higher_prio_buff: Buff = _do_stacking_behavior(target, level)
 
@@ -147,6 +153,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	return buff
 
 
+# NOTE: buffType.applyCustomPower() in JASS
 func apply_custom_power(caster: Unit, target: Unit, level: int, power: int) -> Buff:
 	var time: float = _time_base + _time_level_add * level
 
@@ -156,6 +163,8 @@ func apply_custom_power(caster: Unit, target: Unit, level: int, power: int) -> B
 
 
 # Base apply function. Overrides time parameters from init().
+# 
+# NOTE: buffType.applyCustomTimed() in JASS
 func apply_custom_timed(caster: Unit, target: Unit, level: int, time: float) -> Buff:
 	var buff: Buff = apply_advanced(caster, target, level, level, time)
 
@@ -163,6 +172,8 @@ func apply_custom_timed(caster: Unit, target: Unit, level: int, time: float) -> 
 
 
 # Apply using time parameters that were defined in init()
+# 
+# NOTE: buffType.apply() in JASS
 func apply(caster: Unit, target: Unit, level: int) -> Buff:
 	var time: float = _time_base + _time_level_add * level
 
@@ -173,12 +184,15 @@ func apply(caster: Unit, target: Unit, level: int) -> Buff:
 
 # Apply overriding time parameters from init() and without
 # specifying level. This is a convenience function
+# 
+# NOTE: buffType.applyOnlyTimed() in JASS
 func apply_only_timed(caster: Unit, target: Unit, time: float) -> Buff:
 	var buff: Buff = apply_custom_timed(caster, target, 0, time)
 	
 	return buff
 
 
+# NOTE: buffType.applyToUnitPermanent() in JASS
 func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
 	var buff: Buff = apply_custom_timed(caster, target, level, -1.0)
 	buff._purgable = false
@@ -197,6 +211,7 @@ func add_event_handler(event_type: Event.Type, handler: Callable):
 	_common_handler_list.append(data)
 
 
+# NOTE: buffType.addPeriodicEvent() in JASS
 func add_periodic_event(handler: Callable, period: float):
 	if !handler_object_is_node(handler):
 		return
@@ -208,6 +223,7 @@ func add_periodic_event(handler: Callable, period: float):
 	_periodic_handler_list.append(data)
 
 
+# NOTE: buffType.addEventOnUnitComesInRange() in JASS
 func add_event_on_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
 	if !handler_object_is_node(handler):
 		return
@@ -220,62 +236,77 @@ func add_event_on_unit_comes_in_range(handler: Callable, radius: float, target_t
 	_range_handler_list.append(data)
 
 
+# NOTE: buffType.setEventOnCleanup() in JASS
 func set_event_on_cleanup(handler: Callable):
 	add_event_handler(Event.Type.CLEANUP, handler)
 
 
+# NOTE: buffType.addEventOnCreate() in JASS
 func add_event_on_create(handler: Callable):
 	add_event_handler(Event.Type.CREATE, handler)
 
 
+# NOTE: buffType.addEventOnUpgrade() in JASS
 func add_event_on_upgrade(handler: Callable):
 	add_event_handler(Event.Type.UPGRADE, handler)
 
 
+# NOTE: buffType.addEventOnRefresh() in JASS
 func add_event_on_refresh(handler: Callable):
 	add_event_handler(Event.Type.REFRESH, handler)
 
 
+# NOTE: buffType.addEventOnDeath() in JASS
 func add_event_on_death(handler: Callable):
 	add_event_handler(Event.Type.DEATH, handler)
 
 
+# NOTE: buffType.addEventOnKill() in JASS
 func add_event_on_kill(handler: Callable):
 	add_event_handler(Event.Type.KILL, handler)
 
 
+# NOTE: buffType.addEventOnLevelUp() in JASS
 func add_event_on_level_up(handler: Callable):
 	add_event_handler(Event.Type.LEVEL_UP, handler)
 
 
+# NOTE: buffType.addEventOnAttack() in JASS
 func add_event_on_attack(handler: Callable):
 	add_event_handler(Event.Type.ATTACK, handler)
 
 
+# NOTE: buffType.addEventOnAttacked() in JASS
 func add_event_on_attacked(handler: Callable):
 	add_event_handler(Event.Type.ATTACKED, handler)
 
 
+# NOTE: buffType.addEventOnDamage() in JASS
 func add_event_on_damage(handler: Callable):
 	add_event_handler(Event.Type.DAMAGE, handler)
 
 
+# NOTE: buffType.addEventOnDamaged() in JASS
 func add_event_on_damaged(handler: Callable):
 	add_event_handler(Event.Type.DAMAGED, handler)
 
 
+# NOTE: buffType.addEventOnExpire() in JASS
 func set_event_on_expire(handler: Callable):
 	add_event_handler(Event.Type.EXPIRE, handler)
 
 
+# NOTE: buffType.addEventOnSpellCasted() in JASS
 func add_event_on_spell_casted(handler: Callable):
 	add_event_handler(Event.Type.SPELL_CAST, handler)
 
 
+# NOTE: buffType.addEventOnSpellTargeted() in JASS
 func add_event_on_spell_targeted(handler: Callable):
 	add_event_handler(Event.Type.SPELL_TARGET, handler)
 
 
+# NOTE: buffType.addEventOnPurge() in JASS
 func add_event_on_purge(handler: Callable):
 	add_event_handler(Event.Type.PURGE, handler)
 
@@ -286,6 +317,8 @@ func add_aura(aura_type: AuraType):
 
 # TODO: implement. Probably need to display this effect on
 # buffed unit while buff is active.
+# 
+# NOTE: buffType.setSpecialEffectSimple() in JASS
 func set_special_effect_simple(_effect: String):
 	pass
 

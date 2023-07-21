@@ -15,14 +15,17 @@ func _init(size_arg: int):
 		_value_map[index] = ""
 
 
+# NOTE: multiboard.setKey() in JASS
 func set_key(index: int, key: String):
 	_key_map[index] = key
 
 
+# NOTE: multiboard.setValue() in JASS
 func set_value(index: int, value: String):
 	_value_map[index] = value
 
 
+# NOTE: multiboard.size() in JASS
 func size() -> int:
 	return _size
 

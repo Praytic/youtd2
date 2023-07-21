@@ -16,14 +16,18 @@ func get_caster() -> Unit:
 	return _caster
 
 
+# NOTE: dummyUnit.setDamageEvent() in JASS
 func set_damage_event(handler: Callable):
 	_damage_event_handler = handler
 
 
+# NOTE: dummyUnit.setKillEvent() in JASS
 func set_kill_event(handler: Callable):
 	_kill_event_handler = handler
 
 
+# NOTE: dummyUnit.doSpellDamage() in JASS
+# 
 # NOTE: crit ratio is used directly, without doing a random
 # roll because it's intended that tower does a random roll
 # once and then passes the result to DummyUnit(Projectile or
@@ -46,6 +50,7 @@ func do_spell_damage(target: Unit, amount: float):
 			_damage_event_handler.call(damage_event, self)
 
 
+# NOTE: dummyUnit.doSpellDamageAoE() in JASS
 func do_spell_damage_aoe(center: Vector2, radius: float, damage: float):
 	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), center, radius)
 
@@ -54,6 +59,7 @@ func do_spell_damage_aoe(center: Vector2, radius: float, damage: float):
 
 
 # Deals aoe damage from the position of the dummy unit
+# NOTE: dummyUnit.doSpellDamagePBAoE() in JASS
 func do_spell_damage_pb_aoe(radius: float, damage: float, _mystery_float: float):
 	var center: Vector2 = position
 	do_spell_damage_aoe(center, radius, damage)

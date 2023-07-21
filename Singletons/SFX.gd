@@ -47,11 +47,13 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2):
 	sfx_player.play()
 
 
+# NOTE: SFXAtUnit() in JASS
 func sfx_at_unit(sfx_name: String, unit: Unit):
 	var sfx_position: Vector2 = unit.get_visual_position()
 	sfx_at_pos(sfx_name, sfx_position)
 
 
+# NOTE: SFXOnUnit() in JASS
 func sfx_on_unit(sfx_name: String, unit: Unit, body_part: String):
 	var sfx_position: Vector2 = unit.get_body_part_position(body_part)
 	sfx_at_pos(sfx_name, sfx_position)

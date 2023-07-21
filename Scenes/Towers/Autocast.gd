@@ -170,12 +170,14 @@ func auto_mode_is_enabled() -> bool:
 	return is_enabled
 
 
+# NOTE: autocast.getCooldown() in JASS
 func get_cooldown() -> float:
 	return cooldown
 
 func get_remaining_cooldown() -> float:
 	return _cooldown_timer.time_left
 
+# NOTE: autocast.getManacost() in JASS
 func get_manacost() -> int:
 	return mana_cost
 

@@ -50,6 +50,7 @@ const BASE_ITEM_DROP_CHANCE: float = 0.0475
 var _visual_node: Node2D = null
 var _sprite_dimensions: Vector2 = Vector2(100, 100)
 
+# NOTE: userInt/userInt2/... in JASS
 var user_int: int = 0
 var user_int2: int = 0
 var user_int3: int = 0
@@ -211,21 +212,25 @@ func _ready():
 
 
 # TODO: implement
+# NOTE: unit.addAttackCrit() in JASS
 func add_attack_crit():
 	pass
 
 
 # TODO: implement
+# NOTE: unit.addSpellCrit() in JASS
 func add_spell_crit():
 	pass
 
 
+# NOTE: unit.addManaPerc() in JASS
 func add_mana_perc(ratio: float):
 	var overall_mana: float = get_overall_mana()
 	var mana_added: float = ratio * overall_mana
 	add_mana(mana_added)
 
 
+# NOTE: unit.addMana() in JASS
 func add_mana(mana_added: float):
 	var new_mana: float = _mana + mana_added
 	_set_mana(new_mana)
@@ -247,7 +252,11 @@ func add_aura(aura_type: AuraType):
 
 
 # NOTE: for now just returning the one single player
-# instance since multiplayer isn't implemented.
+# instance since multiplayer isn't implemented. Also, the
+# name isn't "get_owner()" because that is already a
+# function of Node class.
+# 
+# NOTE: unit.getOwner() in JASS
 func getOwner() -> Player:
 	return _owner
 
@@ -255,18 +264,21 @@ func getOwner() -> Player:
 # TODO: implement. Should return the number of crits for
 # current attack. Needs to be accessible inside attack
 # event.
+# NOTE: unit.getNumberOfCrits() in JASS
 func get_number_of_crits() -> int:
 	return 0
 
 
 # NOTE: this is a stub, used in original tower scripts but
 # not needed in godot engine.
+# NOTE: unit.setAnimationByIndex() in JASS
 func set_animation_by_index(_unit: Unit, _index: int):
 	pass
 
 
 # Unaffected by tower exp ratios. Levels up unit if added
 # exp pushes the unit past the level up threshold.
+# NOTE: unit.addExpFlat() in JASS
 func add_exp_flat(amount: float):
 	_experience += amount
 
@@ -297,6 +309,7 @@ func add_exp_flat(amount: float):
 
 
 # Affected by tower exp ratios.
+# NOTE: unit.addExp() in JASS
 func add_exp(amount_no_bonus: float):
 	var received_mod: float = get_prop_exp_received()
 	var amount: float = amount_no_bonus * received_mod
@@ -308,6 +321,7 @@ func add_exp(amount_no_bonus: float):
 # removed may be less than requested if the unit has less
 # mana than should be removed. In that case unit's mana gets
 # set to 0.
+# NOTE: unit.removeExpFlat() in JASS
 func remove_exp_flat(amount: float) -> float:
 	var old_exp: float = _experience
 	var new_exp: float = clampf(_experience - amount, 0.0, _experience)
@@ -319,12 +333,14 @@ func remove_exp_flat(amount: float) -> float:
 
 
 # Affected by "exp recieved" modification.
+# NOTE: unit.removeExp() in JASS
 func remove_exp(amount_no_bonus: float):
 	var received_mod: float = get_prop_exp_received()
 	var amount: float = amount_no_bonus * received_mod
 	remove_exp_flat(amount)
 
 
+# NOTE: unit.calcChance() in JASS
 func calc_chance(chance_base: float) -> bool:
 	var mod_trigger_chances: float = get_prop_trigger_chances()
 	var chance: float = chance_base * mod_trigger_chances
@@ -336,12 +352,14 @@ func calc_chance(chance_base: float) -> bool:
 # "Bad" chance is for events that decrease tower's
 # perfomance, for example missing attack. Bad chances are
 # unaffected by Modification.Type.MOD_TRIGGER_CHANCES.
+# NOTE: unit.calcBadChance() in JASS
 func calc_bad_chance(chance: float) -> bool:
 	var success: bool = Utils.rand_chance(chance)
 
 	return success
 
 
+# NOTE: unit.calcSpellCrit() in JASS
 func calc_spell_crit(bonus_chance: float, bonus_damage: float) -> float:
 	var crit_chance: float = get_spell_crit_chance() + bonus_chance
 	var crit_damage: float = get_spell_crit_damage() + bonus_damage
@@ -354,6 +372,7 @@ func calc_spell_crit(bonus_chance: float, bonus_damage: float) -> float:
 		return 1.0
 
 
+# NOTE: unit.calcSpellCritNoBonus() in JASS
 func calc_spell_crit_no_bonus() -> float:
 	var result: float = calc_spell_crit(0.0, 0.0)
 
@@ -362,6 +381,7 @@ func calc_spell_crit_no_bonus() -> float:
 
 # Returns a randomly calculate crit bonus, no multicrit,
 # either crit or not crit.
+# NOTE: unit.calcAttackCrit() in JASS
 func calc_attack_crit(bonus_chance: float, bonus_damage: float) -> float:
 	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
 	var crit_damage: float = get_prop_atk_crit_damage() + bonus_damage
@@ -374,6 +394,7 @@ func calc_attack_crit(bonus_chance: float, bonus_damage: float) -> float:
 		return 1.0
 
 
+# NOTE: unit.calcAttackCritNoBonus() in JASS
 func calc_attack_crit_no_bonus() -> float:
 	var result: float = calc_spell_crit(0.0, 0.0)
 
@@ -385,6 +406,7 @@ func calc_attack_crit_no_bonus() -> float:
 # 0 crits, 150% crit damage = 1.0
 # 1 crit, 150% crit damage = 1.5
 # 3 crits, 150% crit damage = 1.0 + 0.5 + 0.5 + 0.5 = 2.5
+# NOTE: unit.calcAttackMulticrit() in JASS
 func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_damage: float) -> float:
 	var crit_count: int = _generate_crit_count(bonus_multicrit, bonus_chance)
 	var crit_damage: float = _calc_attack_multicrit_internal(crit_count, bonus_damage)
@@ -400,17 +422,20 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 	return damage_total
 
 
+# NOTE: unit.doSpellDamage() in JASS
 func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
 	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target)
 
 	_do_damage(target, damage_total, DamageSource.Spell)
 
 
+# NOTE: unit.doAttackDamage() in JASS
 func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
 	var attack_type: AttackType.enm = get_attack_type()
 	_do_attack_damage_internal(target, damage_base, crit_ratio, false, attack_type)
 
 
+# NOTE: unit.doCustomAttackDamage() in JASS
 func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float, attack_type: AttackType.enm):
 	_do_attack_damage_internal(target, damage_base, crit_ratio, false, attack_type)
 
@@ -463,6 +488,8 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 # circle. For example, if sides_ratio is set to 0.3 then
 # units on the sides will receive 30% less damage than those
 # in the center.
+# 
+# NOTE: unit.doAttackDamageAoEUnit() in JASS
 func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
 	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), target.position, radius)
 
@@ -471,6 +498,7 @@ func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_
 		do_attack_damage(creep, damage_for_creep, crit_ratio)
 
 
+# NOTE: unit.doSpellDamageAoEUnit() in JASS
 func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
 	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), target.position, radius)
 
@@ -478,10 +506,12 @@ func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_r
 		var damage_for_creep: float = _get_aoe_damage(creep, radius, damage, sides_ratio)
 		do_spell_damage(creep, damage_for_creep, crit_ratio)
 
+# NOTE: unit.killInstantly() in JASS
 func kill_instantly(target: Unit):
 	target._killed_by_unit(self)
 
 
+# NOTE: unit.modifyProperty() in JASS
 func modify_property(mod_type: Modification.Type, value: float):
 	_modify_property_internal(mod_type, value, 1)
 
@@ -549,6 +579,7 @@ func set_stunned(value: bool):
 
 
 # Returns the amount of mana that was subtracted.
+# NOTE: unit.subtractMana() in JASS
 func subtract_mana(amount: float, _mystery_bool: bool) -> float:
 	var old_mana: float = _mana
 	var new_mana: float = clampf(_mana - amount, 0.0, _mana)
@@ -561,6 +592,7 @@ func subtract_mana(amount: float, _mystery_bool: bool) -> float:
 
 # NOTE: this f-n exists for compatiblity with original API
 # used in tower scripts
+# NOTE: GetUnitState() in JASS
 static func get_unit_state(unit: Unit, state: Unit.State) -> float:
 	match state:
 		Unit.State.LIFE: return unit._health
@@ -571,6 +603,7 @@ static func get_unit_state(unit: Unit, state: Unit.State) -> float:
 	return 0.0
 
 
+# NOTE: SetUnitState() in JASS
 static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 	match state:
 		Unit.State.LIFE: unit._set_health(value)
@@ -865,7 +898,7 @@ func _on_modify_property():
 ### Setters / Getters ###
 #########################
 
-# NOTE: analog of SetUnitVertexColor() from JASS
+# NOTE: SetUnitVertexColor() in JASS
 func set_unit_vertex_color(r: int, g: int, b: int, a: int):
 	var color: Color = Color(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
 	modulate = color
@@ -876,6 +909,7 @@ func get_current_target() -> Unit:
 	return null
 
 
+# NOTE: unit.isImmune() in JASS
 func is_immune() -> bool:
 	return false
 
@@ -954,10 +988,12 @@ func get_body_part_position(body_part: String) -> Vector2:
 
 			return get_visual_position()
 
+# NOTE: unit.getX() in JASS
 func get_x() -> float:
 	return position.x
 
 
+# NOTE: unit.getY() in JASS
 func get_y() -> float:
 	return position.y
 
@@ -1083,6 +1119,7 @@ func is_stunned() -> bool:
 func is_attacking() -> bool:
 	return false
 
+# NOTE: unit.getBuffOfType() in JASS
 func get_buff_of_type(buff_type: BuffType) -> Buff:
 	var type: String = buff_type.get_type()
 	var buff = _buff_type_map.get(type, null)
@@ -1090,6 +1127,7 @@ func get_buff_of_type(buff_type: BuffType) -> Buff:
 	return buff
 
 
+# NOTE: unit.getBuffOfGroup() in JASS
 func get_buff_of_group(stacking_group: String) -> Buff:
 	var buff = _buff_group_map.get(stacking_group, null)
 
@@ -1098,6 +1136,7 @@ func get_buff_of_group(stacking_group: String) -> Buff:
 
 # Removes the most recent buff. Returns true if there was a
 # buff to remove and false otherwise.
+# NOTE: unit.purgeBuff() in JASS
 func purge_buff(friendly: bool) -> bool:
 	var buff_list: Array[Buff] = _get_buff_list(friendly)
 
@@ -1226,6 +1265,8 @@ func set_selected(selected_arg: bool):
 # creep category
 # NOTE: because Tower and Creep return different enum types
 # have to use typing for int here.
+# 
+# NOTE: unit.getCategory() in JASS
 func get_category() -> int:
 	return 0
 
