@@ -52,3 +52,8 @@ func do_spell_damage_aoe(center: Vector2, radius: float, damage: float):
 	for creep in creep_list:
 		do_spell_damage(creep, damage)
 
+
+# Deals aoe damage from the position of the dummy unit
+func do_spell_damage_pb_aoe(radius: float, damage: float, _mystery_float: float):
+	var center: Vector2 = position
+	do_spell_damage_aoe(center, radius, damage)
