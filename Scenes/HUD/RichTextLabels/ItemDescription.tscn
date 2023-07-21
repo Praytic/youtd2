@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfwjpgsa7xgnk"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/RichTextLabels/ItemDescription.gd" id="1_2iuq4"]
+
+[node name="ItemDescription" type="RichTextLabel"]
+text = "[b][color=4169e1ff]Expanding Mind[/color][/b]
+[color=LIGHT_BLUE]The more you know, the more you realize that you know nothing.[/color]
+[color=YELLOW]Author:[/color] drol
+ 
+[color=YELLOW]Effects:[/color]
+[color=GOLD]+50%[/color] experience received ([color=GOLD]-2%[/color]/lvl)
+
+"
+script = ExtResource("1_2iuq4")
