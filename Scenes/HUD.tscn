@@ -179,8 +179,12 @@ layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="TowerMenu" parent="." instance=ExtResource("15_sn3sf")]
-visible = false
 layout_mode = 1
+offset_left = 1514.0
+offset_top = 292.0
+offset_right = 339.0
+offset_bottom = 52.0
+scale = Vector2(0.5, 0.5)
 
 [connection signal="expanded" from="TowerInfoHeader" to="." method="_on_TowerInfoHeader_expanded"]
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]

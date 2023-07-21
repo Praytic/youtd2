@@ -100,6 +100,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 0
 texture = SubResource("AtlasTexture_6r7pf")
+stretch_mode = 2
 
 [node name="TowerDescription" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_lbwvd")]
 layout_mode = 2
@@ -114,6 +115,7 @@ text = "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=ff4500ff]35[/
 [color=YELLOW]Specials:[/color]
 [color=GOLD]-3%[/color] attack speed/lvl"
 fit_content = true
+scroll_active = false
 tower_id = 17
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer"]
@@ -132,6 +134,8 @@ text = "[color=GOLD]Spray and Pray[/color]
 Each attack of this tower has a [color=GOLD]33%[/color] chance to miss the target.
 [color=ORANGE]Level Bonus:[/color]
 [color=GOLD]-0.8%[/color] chance"
+fit_content = true
+scroll_active = false
 
 [node name="HSeparator2" type="HSeparator" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/TowerDescriptionPanel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -222,6 +226,8 @@ text = "[color=LIGHT_BLUE]The more you know, the more you realize that you know 
 [color=GOLD]+50%[/color] experience received ([color=GOLD]-2%[/color]/lvl)
 
 "
+fit_content = true
+scroll_active = false
 
 [node name="BuffDescriptionPanel" type="Panel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

@@ -5,7 +5,7 @@ extends RichTextLabel
 # It may contain icon of a tower and icons of
 # every skill that the tower has.
 
-@export var item: Item
+@export var item: Item = Item.make(17)
 
 
 func _ready():
