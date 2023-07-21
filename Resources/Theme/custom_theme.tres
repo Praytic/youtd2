@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=23 format=3 uid="uid://dtwj74dyjwmi7"]
+[gd_resource type="Theme" load_steps=25 format=3 uid="uid://dtwj74dyjwmi7"]
 
 [ext_resource type="StyleBox" uid="uid://ylvy26hqhv7c" path="res://Resources/Theme/button_stylebox_texture_hover.tres" id="1_eyhkh"]
 [ext_resource type="StyleBox" uid="uid://brs4q0565txa8" path="res://Resources/Theme/button_stylebox_texture.tres" id="1_p7x6g"]
@@ -81,6 +81,18 @@ region = Rect2(915, 6, 119, 119)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y7hqo"]
 texture = SubResource("AtlasTexture_ctmpt")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsekd"]
+atlas = ExtResource("4_r46ip")
+region = Rect2(853, 74, 48, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a2c8e"]
+texture = SubResource("AtlasTexture_fsekd")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+region_rect = Rect2(853, 74, 48, 48)
+
 [resource]
 Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
@@ -116,6 +128,8 @@ RoundButton/base_type = &"Button"
 RoundButton/styles/normal = SubResource("StyleBoxTexture_vx7li")
 RoundPanel/base_type = &"Panel"
 RoundPanel/styles/panel = SubResource("StyleBoxTexture_y7hqo")
+SmallButton/base_type = &"Button"
+SmallButton/styles/normal = SubResource("StyleBoxTexture_a2c8e")
 TopButton/styles/hover = ExtResource("3_nxhyu")
 TopButton/styles/normal = ExtResource("4_odwe3")
 UncommonTowerButton/base_type = &"Button"
