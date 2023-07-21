@@ -123,6 +123,10 @@ func get_power() -> int:
 	return _power
 
 
+func set_power(power: int):
+	_power = power
+
+
 func get_type() -> String:
 	return _type
 

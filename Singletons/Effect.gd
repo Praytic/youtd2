@@ -69,6 +69,10 @@ func add_special_effect_target(effect_path: String, unit: Unit, body_part: Strin
 	return create_animated(effect_path, position.x, position.y, 0.0, 0.0)
 
 
+func add_special_effect(effect_path: String, x: float, y: float) -> int:
+	return create_animated(effect_path, x, y, 0.0, 0.0)
+
+
 # TODO: implement scale parameter
 func create_scaled(effect_path: String, x: float, y: float, z: float, _mystery2: float, _scale: float) -> int:
 	return create_animated(effect_path, x, y, z, _mystery2)
