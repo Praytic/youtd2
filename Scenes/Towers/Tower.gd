@@ -453,6 +453,9 @@ func _attack_target(target: Unit):
 #	event handlers have access to crit count.
 	var crit_count: int = _generate_crit_count(0.0, 0.0)
 
+	crit_count += _crit_bonus_for_next_attack
+	_crit_bonus_for_next_attack = 0
+
 	var attack_event: Event = Event.new(target)
 
 #	NOTE: set _number_of_crits here so that it's accesible
