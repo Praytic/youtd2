@@ -2,9 +2,6 @@
 extends Item
 
 
-# TODO: need to implement Tower.add_spell_crit() for this
-# item to work. Disabled until then.
-
 var hammer_mark: BuffType
 var hammer_aura: BuffType
 
