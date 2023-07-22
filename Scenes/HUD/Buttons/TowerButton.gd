@@ -7,12 +7,16 @@ static var _tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/
 const ICON_SIZE_M = 128
 const TIER_ICON_SIZE_M = 64
 
-var _tower_id: int
-
 const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
 const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 
-@onready var _tier_icon: TextureRect = $UnitButton/TierContainer/TierIcon
+
+@export var _tower_id: int:
+	set(value):
+		_set_rarity_icon(value)
+		_set_tier_icon(value)
+		_set_unit_icon(value)
+@export var _tier_icon: TextureRect
 
 
 static func make(tower_id: int) -> TowerButton:
@@ -23,10 +27,6 @@ static func make(tower_id: int) -> TowerButton:
 
 
 func _ready():
-	_set_rarity_icon(_tower_id)
-	_set_tier_icon(_tower_id)
-	_set_unit_icon(_tower_id)
-
 	_unit_button.mouse_entered.connect(_on_mouse_entered)
 	_unit_button.mouse_exited.connect(_on_mouse_exited)
 	_unit_button.pressed.connect(_on_pressed)

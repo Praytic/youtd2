@@ -1,7 +1,11 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dbsqsk6wll0ti"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dbsqsk6wll0ti"]
 
+[ext_resource type="StyleBox" uid="uid://6n5gx1g22kbv" path="res://Resources/Theme/common_unit_button_normal.tres" id="1_3hhmv"]
 [ext_resource type="StyleBox" uid="uid://dvp7eguhnpkxu" path="res://Resources/Theme/wide_frame_panel.tres" id="1_556u2"]
 [ext_resource type="StyleBox" uid="uid://d0iusrsaoy2re" path="res://Resources/Theme/thin_frame_panel.tres" id="1_bustl"]
+[ext_resource type="StyleBox" uid="uid://jmhb6m7ucigs" path="res://Resources/Theme/uncommon_unit_button_normal.tres" id="3_jku83"]
+[ext_resource type="StyleBox" uid="uid://cwbpun0wt7yhc" path="res://Resources/Theme/rare_unit_button_normal.tres" id="4_jn31t"]
+[ext_resource type="StyleBox" uid="uid://boq2vnc0x344m" path="res://Resources/Theme/unique_unit_button_normal.tres" id="5_bf1qt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4365w"]
 bg_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
@@ -16,6 +20,19 @@ draw_center = false
 
 [resource]
 Button/styles/normal = SubResource("StyleBoxFlat_4365w")
+CommonUnitButton/base_type = &"Button"
+CommonUnitButton/styles/disabled = ExtResource("1_3hhmv")
+CommonUnitButton/styles/normal = ExtResource("1_3hhmv")
+Label/font_sizes/font_size = 22
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ipsp0")
+RareUnitButton/base_type = &"Button"
+RareUnitButton/styles/disabled = ExtResource("4_jn31t")
+RareUnitButton/styles/normal = ExtResource("4_jn31t")
 ThinFrame/styles/panel = ExtResource("1_bustl")
+UncommonUnitButton/base_type = &"Button"
+UncommonUnitButton/styles/disabled = ExtResource("3_jku83")
+UncommonUnitButton/styles/normal = ExtResource("3_jku83")
+UniqueUnitButton/base_type = &"Button"
+UniqueUnitButton/styles/disabled = ExtResource("5_bf1qt")
+UniqueUnitButton/styles/normal = ExtResource("5_bf1qt")
 WideFrame/styles/panel = ExtResource("1_556u2")

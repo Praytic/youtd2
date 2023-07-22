@@ -14,7 +14,7 @@ static var _item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/I
 			_item = Item.make(value)
 var _item: Item = null
 
-@onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
+@export var _cooldown_indicator: CooldownIndicator
 
 var _hide_cooldown_indicator: bool = false
 
