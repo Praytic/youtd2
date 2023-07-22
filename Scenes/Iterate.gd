@@ -9,6 +9,7 @@ enum NextOrder {
 
 var _caster: Unit
 var _center_unit: Unit
+var _center_unit_last_known_pos: Vector2
 var _center_pos: Vector2
 var _target_type: TargetType
 var _radius: float
@@ -33,6 +34,7 @@ static func over_units_in_range_of_caster(caster: Unit, target_type: TargetType,
 	var it: Iterate = Iterate.new()
 	it._caster = caster
 	it._center_unit = caster
+	it._center_unit_last_known_pos = it._center_unit.position
 	it._center_pos = Vector2.ZERO
 	it._target_type = target_type
 	it._radius = radius
@@ -45,6 +47,7 @@ static func over_units_in_range_of_unit(caster: Unit, target_type: TargetType, c
 	var it: Iterate = Iterate.new()
 	it._caster = caster
 	it._center_unit = center
+	it._center_unit_last_known_pos = it._center_unit.position
 	it._center_pos = Vector2.ZERO
 	it._target_type = target_type
 	it._radius = radius
@@ -83,7 +86,19 @@ func _next_internal(next_order: NextOrder) -> Unit:
 #   NOTE: some tower scripts use Iterate together with
 #   sleeping so calls to next() may happen with a delay.
 #   Therefore we need consider that mobs may move between
-#   calls to next().
+#   calls to next(). This is also why we need to check that
+#   units are still valid.
+
+#	Remove units that became invalid
+	_next_list = _next_list.filter(
+		func(unit: Unit) -> bool:
+			var unit_is_valid: bool = Utils.unit_is_valid(unit)
+
+			if !unit_is_valid:
+				return false
+
+			return true
+	)
 
 #	Remove units that went out of range
 	_next_list = _next_list.filter(
@@ -125,6 +140,13 @@ func _next_internal(next_order: NextOrder) -> Unit:
 
 func _get_center_pos() -> Vector2:
 	if _center_unit != null:
-		return _center_unit.position
+		var center_unit_is_valid: bool = Utils.unit_is_valid(_center_unit)
+
+		if center_unit_is_valid:
+			_center_unit_last_known_pos = _center_unit.position
+
+			return _center_unit.position
+		else:
+			return _center_unit_last_known_pos
 	else:
 		return _center_pos

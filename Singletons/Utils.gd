@@ -133,6 +133,18 @@ func getUID(unit):
 		return 0
 
 
+# Use this in cases where script stores references to units
+# over a long time. Units may become invalid if they are
+# killed or sold or upgraded. Note that calling any methods,
+# including is_dead(), on an invalid unit will result in an
+# error. Didn't define type for argument on purpose because
+# argument can be an invalid instance without type.
+func unit_is_valid(unit) -> bool:
+	var is_valid: bool = is_instance_valid(unit) && !unit.is_dead()
+
+	return is_valid
+
+
 func add_object_to_world(object: Node):
 	object_container.add_child(object, true)
 
