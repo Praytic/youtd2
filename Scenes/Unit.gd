@@ -58,6 +58,20 @@ var user_real: float = 0.0
 var user_real2: float = 0.0
 var user_real3: float = 0.0
 
+# NOTE: crit bonus in terms of number of crits. The logic is
+# different for attack vs spell. For attack crits, the bonus
+# is applied only to normal tower attacks. Bonus is not
+# applied to do_attack_damage() called from other scripts.
+# This is because it would be confusing for an item like
+# "every 5th attack is critical" to produce no visible
+# change because tower is consuming crit bonus via some
+# other attack damage which is not visible to the player.
+# For spells, the bonus is applied to all instances of spell
+# damage, which includes calls to do_spell_damage(), spells
+# casted using Cast class, etc.
+var _crit_bonus_for_next_attack: int = 0
+var _crit_bonus_for_next_spell: int = 0
+
 var _is_dead: bool = false
 var _level: int = 1 : get = get_level, set = set_level
 var _buff_type_map: Dictionary
@@ -211,16 +225,14 @@ func _ready():
 #########################
 
 
-# TODO: implement
 # NOTE: unit.addAttackCrit() in JASS
 func add_attack_crit():
-	pass
+	_crit_bonus_for_next_attack = _crit_bonus_for_next_attack + 1
 
 
-# TODO: implement
 # NOTE: unit.addSpellCrit() in JASS
 func add_spell_crit():
-	pass
+	_crit_bonus_for_next_spell = _crit_bonus_for_next_spell + 1
 
 
 # NOTE: unit.addManaPerc() in JASS
@@ -365,6 +377,10 @@ func calc_spell_crit(bonus_chance: float, bonus_damage: float) -> float:
 	var crit_damage: float = get_spell_crit_damage() + bonus_damage
 
 	var crit_success: bool = Utils.rand_chance(crit_chance)
+
+	if _crit_bonus_for_next_spell > 0:
+		crit_success = true
+		_crit_bonus_for_next_spell = 0
 
 	if crit_success:
 		return crit_damage
