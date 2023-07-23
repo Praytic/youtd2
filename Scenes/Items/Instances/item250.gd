@@ -2,10 +2,6 @@
 extends Item
 
 
-# TODO: need to implement some f-ns to make this item work correctly.
-# Unit.get_number_of_crits()
-
-
 var crit_blade_multiboard: MultiboardValues
 
 
