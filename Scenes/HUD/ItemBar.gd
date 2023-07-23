@@ -38,13 +38,13 @@ func on_item_move_from_itembar_done(move_success: bool):
 		return
 
 	if move_success:
-		var item: Item = _moved_item_button.get_item()
+		var item: Item = _moved_item_button._item
 		_item_buttons.erase(item)
 		_moved_item_button.queue_free()
 	else:
 #		Disable button to gray it out to indicate that it's
 #		getting moved
-		_moved_item_button.set_disabled(false)
+		_moved_item_button._disabled = false
 
 	_moved_item_button = null
 
@@ -64,12 +64,11 @@ func _on_item_drop_picked_up(item: Item):
 
 
 func _on_item_button_pressed(item_button: ItemButton):
-	var item: Item = item_button.get_item()
+	var item: Item = item_button._item
 	var started_move: bool = ItemMovement.start_move_from_itembar(item)
 
 	if !started_move:
 		return
 
 	_moved_item_button = item_button
-	item_button.set_disabled(true)
-	item_button.get_button().set_pressed_no_signal(true)
+	item_button._disabled = true
