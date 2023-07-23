@@ -47,7 +47,14 @@ const _color_map: Dictionary = {
 
 
 func from_string(string: String) -> Element.enm:
-	return _string_map.find_key(string)
+	var key = _string_map.find_key(string)
+	
+	if key != null:
+		return key
+	else:
+		push_error("Invalid element string: \"%s\"" % string)
+
+		return Element.enm.ICE
 
 
 func convert_to_string(element: Element.enm) -> String:

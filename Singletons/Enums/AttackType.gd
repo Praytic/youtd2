@@ -88,9 +88,17 @@ func convert_to_string(type: AttackType.enm):
 
 
 func from_string(string: String) -> AttackType.enm:
-	return _string_map.find_key(string)
+	var key = _string_map.find_key(string)
+	
+	if key != null:
+		return key
+	else:
+		push_error("Invalid attack type string: \"%s\"" % string)
+
+		return AttackType.enm.PHYSICAL
 
 
+# NOTE: AttackType.PHYSICAL.getDamageAgainst() in JASS
 func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) -> float:
 	var damage: float = _damage_to_armor_map[attack_type][armor_type]
 

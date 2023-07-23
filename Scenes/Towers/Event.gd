@@ -50,23 +50,29 @@ func _init(target: Unit):
 func get_buff() -> Buff:
 	return _buff
 
+# Event.getAutocastType() in JASS
 func get_autocast_type() -> Autocast:
 	return _autocast
 
+# Event.getTarget() in JASS
 func get_target() -> Unit:
 	return _target
 
 # Only relevant for "damage" event. True for damage
 # from normal tower attacks, for main target of splash tower
 # attacks and for first target of tower bounce attack.
+# 
+# Event.isMainTarget() in JASS
 func is_main_target() -> bool:
 	return _is_main_target
 
 # Only relevant for damaged events. True if damaged event is
 # caused by spell damage.
+# Event.isSpellDamage() in JASS
 func is_spell_damage() -> bool:
 	return _is_spell_damage
 
+# Event.enableAdvanced() in JASS
 func enable_advanced(wait_time: float, one_shot: bool):
 	if _timer == null:
 		return

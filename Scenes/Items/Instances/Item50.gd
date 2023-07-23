@@ -2,15 +2,11 @@
 extends Item
 
 
-# TODO: Unit.add_spell_crit() is not implemented so this
-# item has no effect.
-
-
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Magic Weapon[/color]\n"
-	text += "Magic Weapon"
+	text += "Every 5th spell is a critical hit.\n"
 
 	return text
 

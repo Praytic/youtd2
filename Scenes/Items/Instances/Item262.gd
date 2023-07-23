@@ -2,10 +2,6 @@
 extends Item
 
 
-# TODO: need to implement Tower.add_attack_crit() for this
-# item to work. Disabled until then.
-
-
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
@@ -28,7 +24,7 @@ func on_attack(event: Event):
 	if itm.user_int == 5:
 		tower.add_attack_crit()
 
-	itm.user_int = 0
+		itm.user_int = 0
 
 
 func on_pickup():

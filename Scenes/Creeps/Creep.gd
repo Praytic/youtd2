@@ -94,6 +94,7 @@ func is_attacking() -> bool:
 	return true
 
 
+# NOTE: creep.adjustHeight() in JASS
 func adjust_height(height_wc3: float, speed: float):
 # 	NOTE: divide by two because in isometric world vertical
 # 	axis is squished
@@ -126,6 +127,7 @@ func reach_portal() -> float:
 	return damage_to_portal
 
 
+# NOTE: creep.dropItem() in JASS
 func drop_item(caster: Tower, _mystery_bool: bool):
 	var random_item: int = ItemDropCalc.get_random_item(caster, self)
 
@@ -276,6 +278,8 @@ func _on_death(event: Event):
 # axis going down, to match game world coordinate
 # conventions. For example, angle progression of 0, 10, 20
 # goes clock-wise.
+# 
+# NOTE: SetUnitFacing() in JASS
 func set_unit_facing(angle: float):
 # 	NOTE: limit facing angle to (0, 360) range
 	_facing_angle = int(angle + 360) % 360
@@ -285,6 +289,7 @@ func set_unit_facing(angle: float):
 		_sprite.play(animation)
 
 
+# NOTE: GetUnitFacing() in JASS
 func get_unit_facing() -> float:
 	return _facing_angle
 
