@@ -70,6 +70,7 @@ var user_real3: float = 0.0
 # damage, which includes calls to do_spell_damage(), spells
 # casted using Cast class, etc.
 var _crit_bonus_for_next_attack: int = 0
+var _crit_damage_ratio_for_next_attack: float = 0.0
 var _crit_bonus_for_next_spell: int = 0
 
 var _is_dead: bool = false
@@ -228,6 +229,10 @@ func _ready():
 # NOTE: unit.addAttackCrit() in JASS
 func add_attack_crit():
 	_crit_bonus_for_next_attack = _crit_bonus_for_next_attack + 1
+
+func add_modified_attack_crit(_mystery_float: float, crit_damage_ratio: float):
+	_crit_bonus_for_next_attack = _crit_bonus_for_next_attack + 1
+	_crit_damage_ratio_for_next_attack = crit_damage_ratio
 
 
 # NOTE: unit.addSpellCrit() in JASS

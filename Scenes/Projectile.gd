@@ -26,6 +26,7 @@ var _targeted: bool
 var _target_position_on_creation: Vector2
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
+var _tower_crit_damage_ratio: float = 0.0
 var _cleanup_handler: Callable = Callable()
 var _interpolation_finished_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
@@ -224,6 +225,14 @@ func get_tower_crit_count() -> int:
 
 func set_tower_crit_count(new_count: int):
 	_tower_crit_count = new_count
+
+
+func get_tower_crit_damage_ratio() -> float:
+	return _tower_crit_damage_ratio
+
+
+func set_tower_crit_damage_ratio(crit_damage_ratio: float):
+	_tower_crit_damage_ratio = crit_damage_ratio
 
 
 func _get_target_position() -> Vector2:
