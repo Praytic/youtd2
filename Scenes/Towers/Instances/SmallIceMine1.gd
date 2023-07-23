@@ -43,7 +43,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)
 	maj_ice_nova_slow.set_buff_modifier(m)
 	maj_ice_nova_slow.set_buff_icon("@@0@@")
-	maj_ice_nova_slow.set_buff_tooltip("Slowed\nThis unit's move speed is decreased.")
+	maj_ice_nova_slow.set_buff_tooltip("Slowed\nThis unit is Slowed; it has reduced movement speed.")
 
 
 func on_damage(event: Event):

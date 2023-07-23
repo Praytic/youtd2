@@ -14,7 +14,7 @@ func _init(parent: Node):
 
 	ethereal_active_buff = BuffType.new("creep_ethereal_active", ETHEREAL_DURATION, 0, true, self)
 	ethereal_active_buff.add_event_on_damaged(on_damaged)
-	ethereal_active_buff.set_buff_tooltip("Ethereal Active\nThis unit is currently ethereal. It is immune against physical attacks but takes 40% more damage from magic attacks and spells.")
+	ethereal_active_buff.set_buff_tooltip("Ethereal\nThis unit is Ethereal; it is immune against physical attacks but will take more damage from magic attacks and spells.")
 
 	add_periodic_event(on_periodic, ETHEREAL_PERIOD)
 

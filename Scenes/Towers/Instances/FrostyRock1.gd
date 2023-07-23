@@ -44,7 +44,7 @@ func tower_init():
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
 	sir_frost_glacier.set_buff_modifier(m)
 
-	sir_frost_glacier.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone, it has reduced move speed.")
+	sir_frost_glacier.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone; it has reduced movement speed.")
 
 	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
 

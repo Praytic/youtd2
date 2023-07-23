@@ -70,10 +70,7 @@ func tower_init():
 	drol_phantomCast2 = Cast.new('@@1@@', "chainlightning", 5.0)
 	drol_phantomCast2.set_source_height(40.0)
 
-	var buff_tooltip: String = ""
-	buff_tooltip += "Wind Power\n"
-	buff_tooltip += "This unit's attackspeed is increased and it has a chance to cast a chain of lightning on attack."
-	drol_phantomBuff.set_buff_tooltip(buff_tooltip)
+	drol_phantomBuff.set_buff_tooltip("Wind Shear\nThis unit is affected by Wind Shear; it has increased attack speed and it has a chance to cast a chain of lightning on attack.")
 
 	drol_phantomCast = Cast.new("@@0@@", "chainlightning", 5.00)
 	drol_phantomCast.data.chain_lightning.damage = 100

@@ -19,7 +19,7 @@ func get_extra_tooltip_text() -> String:
 
 func item_init():
 	var buff: BuffType = MagicalSightBuff.new("eye_of_true_sight_magical_sight", 900, self)
-	buff.set_buff_tooltip("Eye of True Sight\nThis unit reveals invisible units in range.")
+	buff.set_buff_tooltip("Eye of True Sight\nThis unit has Eye of True Sight; it will reveal invisible units in range.")
 	add_buff(buff)
 
 

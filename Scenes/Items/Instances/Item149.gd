@@ -33,7 +33,7 @@ func item_init():
 	poussix_rageitem_buff.set_buff_modifier(m)
 	poussix_rageitem_buff.set_buff_icon("@@0@@")
 	poussix_rageitem_buff.set_stacking_group("poussix_rageitem_buff")
-	poussix_rageitem_buff.set_buff_tooltip("Enraged\nTower's attackspeed is increased.")
+	poussix_rageitem_buff.set_buff_tooltip("Enraged\nThis unit is enraged; it has increased attack speed.")
 
 
 func on_kill(event: Event):

@@ -10,7 +10,7 @@ func _init(type: String, time_base: float, time_level_add: float,friendly: bool,
 	add_event_on_create(on_create)
 	set_event_on_cleanup(_on_cleanup)
 
-	set_buff_tooltip("Silenced\nThis unit is silenced and can't do something.")
+	set_buff_tooltip("Silence\nThis unit is silenced; it can't cast spells.")
 
 
 func on_create(event: Event):

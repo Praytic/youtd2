@@ -55,7 +55,7 @@ func tower_init():
 	drol_liftBuff.set_event_on_cleanup(drol_lift_down)
 	drol_liftBuff.set_buff_modifier(m)
 	drol_liftBuff.set_buff_icon("@@0@@")
-	drol_liftBuff.set_buff_tooltip("Ascended\nThis creep has been lifted by a tower. It can't moove and will grant extra experience if killed while in the air.")
+	drol_liftBuff.set_buff_tooltip("Ascended\nThis unit has been Ascended; it can't move and will grant extra experience if killed while in the air.")
 
 
 func on_damage(event: Event):

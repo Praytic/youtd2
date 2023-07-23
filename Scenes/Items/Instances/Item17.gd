@@ -23,7 +23,7 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.035, 0.0)
 	boekie_crit_aura2.set_buff_icon("@@0@@")
 	boekie_crit_aura2.set_buff_modifier(m)
-	boekie_crit_aura2.set_buff_tooltip("Flames of Fury Effect\nThis tower's crit chance is increased.")
+	boekie_crit_aura2.set_buff_tooltip("Flames of Fury\nThis unit is under the effect of Flames of Fury Aura; it has increased critical chance.")
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 300

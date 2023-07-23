@@ -64,7 +64,7 @@ func tower_init():
 	soul_chill = BuffType.new("soul_chill", 0, 0, false, self)
 	soul_chill.set_buff_icon("@@0@@")
 	soul_chill.set_buff_modifier(slow)
-	soul_chill.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone, it has reduced move speed.")
+	soul_chill.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone, it has reduced movement speed.")
 
 
 func on_autocast(event: Event):

@@ -55,8 +55,8 @@ func tower_init():
 	sir_cripple.set_buff_modifier(cripple)
 	sir_banish.set_buff_modifier(banish)
 
-	sir_cripple.set_buff_tooltip("Cripple\nThis tower attacks slower than usual.")
-	sir_banish.set_buff_tooltip("Banish\nThis unit receives extra spell damage.")
+	sir_cripple.set_buff_tooltip("Cripple\nThis unit has been Crippled; it attacks slower than usual.")
+	sir_banish.set_buff_tooltip("Banish\nThis unit has been Banished; it will receive more damage from spells.")
 
 
 func on_attack(event: Event):

@@ -29,7 +29,7 @@ func item_init():
 	boekie_claw_slow.set_buff_modifier(m) 
 	boekie_claw_slow.set_stacking_group("boekie_claw_slow")
 
-	boekie_claw_slow.set_buff_tooltip("Crippled\nThis unit's move speed is reduced.")
+	boekie_claw_slow.set_buff_tooltip("Cripple\nThis unit is Crippled; it has reduced movement speed.")
 
 
 func on_attack(event: Event):

@@ -24,7 +24,7 @@ func tower_init():
 	undead_aura.set_buff_modifier(m)
 	undead_aura.set_stacking_group("undead_aura")
 	undead_aura.set_buff_icon("@@0@@")
-	undead_aura.set_buff_tooltip("Holy Wrath\nThis tower's damage against undead is increased.")
+	undead_aura.set_buff_tooltip("Holy Wrath\nThis unit is under the effect of Holy Wrath Aura; it will deal more damage to undead units.")
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200

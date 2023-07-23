@@ -35,7 +35,7 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.2, 0.008)
 	m.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.1, 0.002)
 	drol_talisman.set_buff_modifier(m)
-	drol_talisman.set_buff_tooltip("Shamanistic Ritual Effect\nThis tower's experience gain and damage are increased.")
+	drol_talisman.set_buff_tooltip("Shamanistic Ritual\nThis unit is affected by Shamanistic Ritual; it will receive more experience and has increased attack damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.caster_art = ""

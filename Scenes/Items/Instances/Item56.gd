@@ -34,7 +34,7 @@ func item_init():
 	poussix_fright_aura.set_buff_modifier(m)
 	poussix_fright_aura.set_stacking_group("fright_aura")
 	poussix_fright_aura.set_buff_icon("@@0@@")
-	poussix_fright_aura.set_buff_tooltip("Frightened\nThis unit's speed and armor is decreased.")
+	poussix_fright_aura.set_buff_tooltip("Fright\nThis unit is under the effect of Fright Aura; it has reduced movement speed and armor.")
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 650

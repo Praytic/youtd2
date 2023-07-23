@@ -26,7 +26,7 @@ func tower_init():
 	boekie_magicConductor_buff.set_buff_modifier(m)
 	boekie_magicConductor_buff.set_buff_icon("@@0@@")
 	boekie_magicConductor_buff.set_stacking_group("boekie_magicConductor")
-	boekie_magicConductor_buff.set_buff_tooltip("Magical Conduction\nThis unit has recently been targeted by a spell so it's attackspeed is increased.")
+	boekie_magicConductor_buff.set_buff_tooltip("Magical Conduction\nThis unit is affected by Magic Conductor; it has increased attack speed.")
 
 
 func on_spell_target(_event: Event):

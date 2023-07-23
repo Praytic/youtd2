@@ -78,7 +78,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.00125)
 	cedi_love_potion.set_buff_modifier(mod)
 	cedi_love_potion.set_buff_icon("@@0@@")
-	cedi_love_potion.set_buff_tooltip("In Love\nThis unit's movement speed is slowed and item drop chance is increased.")
+	cedi_love_potion.set_buff_tooltip("In Love\nThis unit is In Love; it has reduced movement speed and will drop items more often.")
 
 	cedi_soul_buff = BuffType.new("cedi_soul_buff", 10, 0, true, self)
 	cedi_soul_buff.set_buff_icon("@@1@@")

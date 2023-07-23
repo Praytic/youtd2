@@ -33,7 +33,7 @@ func item_init():
     Symphony_armorReduce = BuffType.new("Symphony_armorReduce", 5, 0, false, self)
     Symphony_armorReduce.set_buff_modifier(m)
     Symphony_armorReduce.set_buff_icon("@@0@@")
-    Symphony_armorReduce.set_buff_tooltip("Power of the Sword\nThis unit's armor is reduced.")
+    Symphony_armorReduce.set_buff_tooltip("Power of the Sword\nThis unit is affected by Power of the Sword; it has reduced armor.")
 
 
 func on_damage(event: Event):

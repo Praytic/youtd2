@@ -27,7 +27,7 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_ARMOR_PERC, -0.10, -0.006)
 	BT.set_buff_modifier(m)
 	BT.set_buff_icon("@@0@@")
-	BT.set_buff_tooltip("Ensign's Touch\nThis unit's armor is decreased.")
+	BT.set_buff_tooltip("Ensign's Touch\nThis unit has been touched by an Ensign; it has reduced armor.")
 
 
 func on_damage(event: Event):

@@ -26,7 +26,7 @@ func item_init():
     damage_aura.set_buff_modifier(m)
     damage_aura.set_buff_icon("@@0@@")
     damage_aura.set_stacking_group("dmgaura")
-    damage_aura.set_buff_tooltip("The Divine Wings Effect\nThis unit's attack damage and attack speed are increased.")
+    damage_aura.set_buff_tooltip("The Divine Wings of Tragedy\nThis unit is under the effect of The Divine Wings of Tragedy Aura; it has increased attack damage and attack speed.")
 
     var aura: AuraType = AuraType.new()
     aura.aura_range = 250

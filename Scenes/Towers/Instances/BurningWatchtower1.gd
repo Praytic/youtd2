@@ -93,7 +93,7 @@ func tower_init():
 	natac_burning_buff.add_event_on_damaged(damage_on_fire_attack)
 	natac_burning_buff.add_event_on_death(explode_on_death)
 
-	natac_burning_buff.set_buff_tooltip("Burning Structures\nThis unit is burning and receives extra damage from fire towers. If this unit dies while still burning, it will explode dealing damage to nearby units.")
+	natac_burning_buff.set_buff_tooltip("Burning Structures\nThis unit is Burning; it will receive more damage from fire towers. If this unit dies while still burning, it will explode dealing damage to nearby units.")
 
 
 func load_triggers(triggers_buff_type: BuffType):

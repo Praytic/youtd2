@@ -88,7 +88,7 @@ func tower_init():
 	D1000_Spider_Poison = BuffType.new("D1000_Spider_Poison", 5, 0.05, false, self)
 	D1000_Spider_Poison.set_buff_icon("@@0@@")
 	D1000_Spider_Poison.add_periodic_event(D1000_Spider_Damage, 1)
-	D1000_Spider_Poison.set_buff_tooltip("Poison\nThis unit is poisoned and is suffering damage over time.")
+	D1000_Spider_Poison.set_buff_tooltip("Poison\nThis unit is Poisoned; it will take damage over time.")
 
 
 func on_create(_preceding_tower: Tower):
