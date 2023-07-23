@@ -59,10 +59,10 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 #	Disable button to gray it out to indicate that it's
 #	getting moved
-	item_button.set_disabled(true)
+	item_button._disabled = true
 	_moved_item_button = item_button
 
 
 func _on_item_move_from_tower_done(_success: bool):
-	_moved_item_button.set_disabled(false)
+	_moved_item_button._disabled = false
 	_moved_item_button = null
