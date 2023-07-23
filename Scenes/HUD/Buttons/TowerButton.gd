@@ -1,3 +1,4 @@
+@tool
 class_name TowerButton 
 extends UnitButton
 
@@ -10,13 +11,14 @@ const TIER_ICON_SIZE_M = 64
 const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
 const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 
+@onready var _tier_icon: TextureRect = $TierIconContainer/TierIconTexture
+
 
 @export var _tower_id: int:
 	set(value):
 		_set_rarity_icon(value)
 		_set_tier_icon(value)
 		_set_unit_icon(value)
-@export var _tier_icon: TextureRect
 
 
 static func make(tower_id: int) -> TowerButton:
@@ -37,13 +39,11 @@ func _ready():
 
 
 func _on_wave_or_element_level_changed():
-	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id) || Config.ignore_requirements()
-	set_disabled(!can_build)
+	_disabled = !TowerProperties.requirements_are_satisfied(_tower_id) || Config.ignore_requirements()
 
 
 func _set_rarity_icon(tower_id: int):
-	var tower_rarity = TowerProperties.get_rarity(tower_id)
-	set_rarity(tower_rarity)
+	_rarity = TowerProperties.get_rarity(tower_id)
 
 
 func _set_tier_icon(tower_id: int):

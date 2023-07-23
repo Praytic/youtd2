@@ -1,17 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://cukf1ge01qngm"]
+[gd_scene load_steps=5 format=3 uid="uid://hqe016lvaryb"]
 
-[ext_resource type="PackedScene" uid="uid://dqjk0dq82x1cv" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_jmurk"]
+[ext_resource type="PackedScene" uid="uid://bb68da6ox15ba" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_jmurk"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButton.gd" id="2_cd2kv"]
+[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="3_cliyb"]
 
-[node name="Control" node_paths=PackedStringArray("_tier_icon", "_counter", "_counter_label") instance=ExtResource("1_jmurk")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sal7q"]
+atlas = ExtResource("3_cliyb")
+region = Rect2(320, 192, 64, 64)
+
+[node name="Control" instance=ExtResource("1_jmurk")]
 script = ExtResource("2_cd2kv")
 _tower_id = 0
-_tier_icon = NodePath("TierIconContainer/TierIconTexture")
-_counter = NodePath("CounterContainer")
-_counter_label = NodePath("CounterContainer/CounterLabel")
 
 [node name="TierIconContainer" type="PanelContainer" parent="." index="2"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 
 [node name="TierIconTexture" type="TextureRect" parent="TierIconContainer" index="0"]
 layout_mode = 2
+texture = SubResource("AtlasTexture_sal7q")
+expand_mode = 2

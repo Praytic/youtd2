@@ -1,23 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqjk0dq82x1cv"]
+[gd_scene load_steps=6 format=3 uid="uid://bb68da6ox15ba"]
 
-[ext_resource type="Theme" uid="uid://dbsqsk6wll0ti" path="res://Resources/Theme/unit_button_theme.tres" id="1_gvip1"]
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButton.gd" id="1_ppg32"]
-[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="3_5byi2"]
-[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="4_jpfnb"]
+[ext_resource type="Theme" uid="uid://dbsqsk6wll0ti" path="res://Resources/Theme/unit_button_theme.tres" id="1_it0eb"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButton.gd" id="2_ollps"]
+[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="3_ky4hk"]
+[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="4_7f1lx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ajjyt"]
-atlas = ExtResource("3_5byi2")
+atlas = ExtResource("3_ky4hk")
 region = Rect2(512, 256, 128, 128)
 
-[node name="Control" type="PanelContainer" node_paths=PackedStringArray("_unit_button", "_disabled_lock", "_counter", "_counter_label")]
+[node name="Control" type="PanelContainer"]
 offset_right = 144.0
 offset_bottom = 144.0
-theme = ExtResource("1_gvip1")
-script = ExtResource("1_ppg32")
-_unit_button = NodePath("PanelContainer/UnitButton")
-_disabled_lock = NodePath("PanelContainer/UnitButton/LockTexture")
-_counter = NodePath("")
-_counter_label = NodePath("")
+theme = ExtResource("1_it0eb")
+theme_type_variation = &"SmallUnitButton"
+script = ExtResource("2_ollps")
+_count = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(128, 128)
@@ -33,16 +31,18 @@ expand_icon = true
 
 [node name="LockTexture" type="TextureRect" parent="PanelContainer/UnitButton"]
 visible = false
+modulate = Color(1, 1, 1, 0.513726)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("4_jpfnb")
+texture = ExtResource("4_7f1lx")
 expand_mode = 2
 
 [node name="CounterContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -51,6 +51,6 @@ theme_type_variation = &"ThinFrame"
 [node name="CounterLabel" type="Label" parent="CounterContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-text = "24"
-horizontal_alignment = 3
+text = "3"
+horizontal_alignment = 1
 vertical_alignment = 2

@@ -10,11 +10,17 @@ static var _item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/I
 
 @export var _item_id: int = 0:
 	set(value):
+		_item_id = value
 		if value != 0:
 			_item = Item.make(value)
-var _item: Item = null
+var _item: Item = null:
+	set(value):
+		_item = value
+		if value != null:
+			_set_rarity_icon()
+			_set_unit_icon()
 
-@export var _cooldown_indicator: CooldownIndicator
+@onready var _cooldown_indicator: CooldownIndicator = $PanelContainer/UnitButton/CooldownIndicator
 
 var _hide_cooldown_indicator: bool = false
 
@@ -50,7 +56,7 @@ func hide_cooldown_indicator():
 
 
 func _set_rarity_icon():
-	set_rarity(ItemProperties.get_rarity(_item.get_id()))
+	_rarity = ItemProperties.get_rarity(_item.get_id())
 
 
 func _set_unit_icon():
