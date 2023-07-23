@@ -52,8 +52,6 @@ func on_item_move_from_itembar_done(move_success: bool):
 
 func _create_ItemButton(item: Item) -> ItemButton:
 	var item_button: ItemButton = ItemButton.make(item)
-#	NOTE: attach item to button while item is stored in item
-#	bar.
 	item_button.hide_cooldown_indicator()
 #	NOTE: While item is not parented to tower, parent it to button
 	item_button.add_child(item)
