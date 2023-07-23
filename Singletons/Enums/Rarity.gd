@@ -32,7 +32,7 @@ static func convert_from_string(string: String) -> Rarity.enm:
 	else:
 		push_error("Invalid rarity string: \"%s\"" % string)
 
-		return -1
+		return Rarity.enm.COMMON
 
 
 func convert_to_string(rarity: Rarity.enm) -> String:
