@@ -1,4 +1,4 @@
-extends TextureButton
+extends Button
 
 
 # Need this script to reroute shift right click event into a

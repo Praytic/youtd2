@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1vn5cmyg2n6u"]
+[gd_scene load_steps=5 format=3 uid="uid://c1vn5cmyg2n6u"]
 
 [ext_resource type="PackedScene" uid="uid://bb68da6ox15ba" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_t8ri4"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButton.gd" id="2_615ja"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButtonInner.gd" id="3_777qo"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/CooldownIndicator.gd" id="3_xjke1"]
 
 [node name="Control" instance=ExtResource("1_t8ri4")]
 script = ExtResource("2_615ja")
 _item_id = 0
 _count = 0
+
+[node name="UnitButton" parent="PanelContainer" index="0"]
+script = ExtResource("3_777qo")
 
 [node name="CooldownIndicator" type="Control" parent="PanelContainer/UnitButton" index="1"]
 layout_mode = 1
@@ -18,3 +22,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_xjke1")
+
+[connection signal="right_clicked" from="PanelContainer/UnitButton" to="." method="_on_unit_button_right_clicked"]
