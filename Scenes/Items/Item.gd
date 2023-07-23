@@ -130,8 +130,8 @@ static func get_item_script_path(item_id: int):
 
 
 # NOTE: SetItemVisible() in JASS
-static func set_item_visible(item: Item, visible: bool):
-	item._visible = visible
+func set_visible(visible: bool):
+	_visible = visible
 
 
 func _init(id: int):
