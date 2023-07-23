@@ -54,3 +54,5 @@ size_flags_vertical = 8
 text = "3"
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[connection signal="pressed" from="PanelContainer/UnitButton" to="." method="_on_unit_button_pressed"]

@@ -42,7 +42,6 @@ func _ready():
 	_set_count(_count)
 	_set_rarity(_rarity)
 	_set_disabled(_disabled)
-	pressed.connect(func(): _unit_button.pressed.emit())
 
 
 func _set_disabled(value):
@@ -88,3 +87,7 @@ func _set_rarity(value):
 			_unit_button.theme_type_variation = "UniqueUnitButton"
 		_:
 			_unit_button.theme_type_variation = ""
+
+
+func _on_unit_button_pressed():
+	pressed.emit()
