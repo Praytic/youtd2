@@ -4,8 +4,6 @@ extends UnitButton
 signal right_clicked()
 
 
-const ICON_SIZE_M = 128
-
 static var _item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 
 @export var _item_id: int = 0:
@@ -13,12 +11,20 @@ static var _item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/I
 		_item_id = value
 		if value != 0:
 			_item = Item.make(value)
+		else:
+			_item = null
+	get:
+		return _item_id
+
 var _item: Item = null:
 	set(value):
 		_item = value
-		if value != null:
-			_set_rarity_icon()
-			_set_unit_icon()
+		if self.is_node_ready():
+			_set_rarity_icon(value)
+			_set_unit_icon(value)
+			_set_autocast(value)
+	get:
+		return _item
 
 @onready var _cooldown_indicator: CooldownIndicator = $PanelContainer/UnitButton/CooldownIndicator
 
@@ -33,16 +39,10 @@ static func make(item: Item) -> ItemButton:
 
 
 func _ready():
-	if _item == null:
-		return
-	
-	_set_rarity_icon()
-	_set_unit_icon()
-
-	var autocast: Autocast = _item.get_autocast()
-
-	if autocast != null:
-		_cooldown_indicator.set_autocast(autocast)
+	if _item != null:
+		_set_rarity_icon(_item)
+		_set_unit_icon(_item)
+		_set_autocast(_item)
 	
 	_unit_button.mouse_entered.connect(_on_mouse_entered)
 	_unit_button.mouse_exited.connect(_on_mouse_exited)
@@ -55,16 +55,22 @@ func hide_cooldown_indicator():
 	_hide_cooldown_indicator = true
 
 
-func _set_rarity_icon():
-	_rarity = ItemProperties.get_rarity(_item.get_id())
+func _set_autocast(item: Item):
+	var autocast: Autocast = item.get_autocast()
+
+	if autocast != null:
+		_cooldown_indicator.set_autocast(autocast)
 
 
-func _set_unit_icon():
-	set_unit_icon(ItemProperties.get_icon(_item.get_id()))
+func _set_rarity_icon(item: Item):
+	_rarity = ItemProperties.get_rarity(item.get_id()) if item != null else ""
 
 
-func get_item() -> Item:
-	return _item
+func _set_unit_icon(item: Item):
+	if _unit_button == null:
+		return
+	
+	_unit_button.icon = ItemProperties.get_icon(item.get_id() if item != null else 0)
 
 
 func _on_mouse_entered():

@@ -10,7 +10,15 @@ region = Rect2(320, 192, 64, 64)
 
 [node name="Control" instance=ExtResource("1_jmurk")]
 script = ExtResource("2_cd2kv")
-_tower_id = 0
+_tower_id = 1
+_count = 5
+_rarity = "rare"
+
+[node name="UnitButton" parent="PanelContainer" index="0"]
+theme_type_variation = &"RareUnitButton"
+
+[node name="CounterLabel" parent="CounterContainer" index="0"]
+text = "5"
 
 [node name="TierIconContainer" type="PanelContainer" parent="." index="2"]
 custom_minimum_size = Vector2(40, 40)
