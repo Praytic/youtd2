@@ -38,7 +38,7 @@ func item_init():
 	fright_poison_dagger_buff = BuffType.new("fright_poison_dagger_buff", 4.01, 0, false, self)
 	fright_poison_dagger_buff.set_buff_icon("@@0@@")
 	fright_poison_dagger_buff.add_periodic_event(deal_damage, 1)
-	fright_poison_dagger_buff.set_buff_tooltip("Deadly Poison Effect\nThis unit is poisoned and suffers periodic damage for 4 sec.")
+	fright_poison_dagger_buff.set_buff_tooltip("Deadly Poison\nThis unit is afflicted with Deadly Poison; it will take damage over time.")
 
 
 func on_damage(event: Event):

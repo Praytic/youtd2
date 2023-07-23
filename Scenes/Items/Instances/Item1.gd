@@ -21,7 +21,7 @@ func item_init():
 	boekie_skadiSlow_aura.set_buff_modifier(m)
 	boekie_skadiSlow_aura.set_stacking_group("boekie_skadiSlow_aura")
 	boekie_skadiSlow_aura.set_buff_icon("@@0@@")
-	boekie_skadiSlow_aura.set_buff_tooltip("Skadi's Influence\nThis unit's movespeed is decreased.")
+	boekie_skadiSlow_aura.set_buff_tooltip("Skadi's Influence\nThis unit is under the effect of Skadi's Influence Aura; it has reduced movement speed.")
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 800

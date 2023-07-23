@@ -1,4 +1,4 @@
-# Mana StoneOld Crystal Ball
+# Mana Stone
 extends Item
 
 
@@ -31,7 +31,7 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.075, 0.0) 
 	fright_mana_aura.set_buff_modifier(m) 
 	fright_mana_aura.set_buff_icon("@@0@@")
-	fright_mana_aura.set_buff_tooltip("Mana Aura Effect\nThis unit's mana regeneration is increased.")
+	fright_mana_aura.set_buff_tooltip("Mana Aura\nThis unit is under the effect of Mana Aura; it has increased mana regeneration.")
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200

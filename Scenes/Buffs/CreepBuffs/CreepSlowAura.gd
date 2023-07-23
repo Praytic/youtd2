@@ -11,7 +11,7 @@ func _init(parent: Node):
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.50, 0.0)
 	slow_aura_effect.set_buff_modifier(modifier)
-	slow_aura_effect.set_buff_tooltip("Slowed\nThis tower has been slowed by a nearby creep. It's attackspeed is reduced by 50%.")
+	slow_aura_effect.set_buff_tooltip("Slow\nThis unit is under the effect of Slow Aura; it has reduced attack speed.")
 
 	var aura: AuraType = AuraType.new()
 	aura.power_add = 0

@@ -21,7 +21,7 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.1, 0.0)
 	dave_magnetic.set_buff_modifier(m)
 	dave_magnetic.set_buff_icon("@@0@@")
-	dave_magnetic.set_buff_tooltip("Magnetic Field Effect\nThis tower's buff duration is increased and debuff duration is decreased.")
+	dave_magnetic.set_buff_tooltip("Magnetic Field\nThis unit is under the effect of Magnetic Field Aura; it has increased buff duration and reduced debuff duration.")
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200

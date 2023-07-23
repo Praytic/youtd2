@@ -23,7 +23,7 @@ func item_init():
 	drol_libram = BuffType.create_aura_effect_type("drol_libram", true, self)
 	drol_libram.set_buff_modifier(m)
 	drol_libram.set_buff_icon("@@0@@")
-	drol_libram.set_buff_tooltip("Grace\nThis unit has been soothed by a nearby tower and will gain more experience from combat")
+	drol_libram.set_buff_tooltip("Grace\nThis unit is under the effect of Grace Aura; it will receive more experience.")
 
 	var aura: AuraType = AuraType.new()
 	aura.power_add = 1

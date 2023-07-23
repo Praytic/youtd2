@@ -45,7 +45,7 @@ func tower_init():
 	cedi_helldog.set_buff_icon("@@0@@")
 	cedi_helldog.set_buff_modifier(mod)
 
-	cedi_helldog.set_buff_tooltip("Roar\nThis tower has been bolstered by a battle cry. It's attack damage is increased.")
+	cedi_helldog.set_buff_tooltip("Roar\nThis unit has been bolstered by a battle cry; it has increased attack damage.")
 
 
 func on_damage(_event: Event):

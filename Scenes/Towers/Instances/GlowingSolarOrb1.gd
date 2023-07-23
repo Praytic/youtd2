@@ -50,7 +50,7 @@ func tower_init():
 	cassim_armor.set_buff_modifier(armor)
 	cassim_armor.set_stacking_group("astral_armor")
 
-	cassim_armor.set_buff_tooltip("Blinded\nThis unit's armor has been reduced.")
+	cassim_armor.set_buff_tooltip("Blinded\nThis unit has been Blinded; it has reduced armor.")
 
 
 func on_damage(event: Event):

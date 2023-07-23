@@ -72,7 +72,7 @@ func tower_init():
 	boekie_scroll_damage = BuffType.new("boekie_scroll_damage", 0.0, 0.0, true, self)
 	boekie_scroll_damage.set_buff_modifier(m)
 	boekie_scroll_damage.set_buff_icon("@@0@@")
-	boekie_scroll_damage.set_buff_tooltip("Speed Boost\nThis tower's attackspeed is increased by 10%.")
+	boekie_scroll_damage.set_buff_tooltip("Speed Boost\nThis unit is affected by Scroll of Speed; it has increased attack speed.")
 
 
 func on_create():

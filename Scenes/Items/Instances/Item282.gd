@@ -35,14 +35,14 @@ func item_init():
 	boekie_gem_slow.set_buff_icon("@@0@@")
 	boekie_gem_slow.set_buff_modifier(m)
 	boekie_gem_slow.set_stacking_group("boekie_gem_slow")
-	boekie_gem_slow.set_buff_tooltip("Gem slow\nThis unit's movespeed is decreased.")
+	boekie_gem_slow.set_buff_tooltip("Gem Slow\nThis is affected by Gem Slow; it has reduced movement speed.")
 
 	k.add_modification(Modification.Type.MOD_ARMOR, 0, -1)
 	boekie_gem_armor = BuffType.new("boekie_gem_armor", 0, 0, false, self)
 	boekie_gem_armor.set_buff_icon("@@1@@")
 	boekie_gem_armor.set_buff_modifier(k)
 	boekie_gem_armor.set_stacking_group("boekie_gem_armor")
-	boekie_gem_armor.set_buff_tooltip("Gem armor\nThis unit's armor is decreased.")
+	boekie_gem_armor.set_buff_tooltip("Gem Armor\nThis is affected by Gem Armor; it has reduced armor.")
 
 
 func on_damage(event: Event):

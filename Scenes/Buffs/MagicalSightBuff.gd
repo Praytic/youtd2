@@ -12,13 +12,13 @@ var magical_sight_debuff: BuffType
 func _init(type: String, radius: float, parent: Node):
 	super(type, 0, 0, true, parent)
 
-	set_buff_tooltip("Magical Sight\nThis unit reveals invisible units in range")
+	set_buff_tooltip("Magical Sight\nThis unit has Magical Sight; it will reveal invisible units in range.")
 	
 	magical_sight_debuff = BuffType.create_aura_effect_type("magical_sight_debuff", false, self)
 	magical_sight_debuff.add_event_on_create(on_effect_create)
 	magical_sight_debuff.set_event_on_cleanup(on_effect_cleanup)
 	
-	magical_sight_debuff.set_buff_tooltip("Seen\nThis unit is within range of a tower that sees invisible units, it's invisibility has been dispelled.")
+	magical_sight_debuff.set_buff_tooltip("Seen\nThis unit has been seen by Magical Sight; it is visible to other units.")
 
 	var aura_type: AuraType = AuraType.new()
 	aura_type.aura_range = radius

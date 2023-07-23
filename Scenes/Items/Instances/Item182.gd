@@ -28,7 +28,7 @@ func item_init():
 	m.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_DEATH, 0.4, 0.01)
 	drol_broach.set_buff_modifier(m)
 	drol_broach.set_buff_icon("@@0@@")
-	drol_broach.set_buff_tooltip("Silver Threads Effect\nThis unit drops items of increased quality.")
+	drol_broach.set_buff_tooltip("Silver Threads\nThis unit is covered by Silver Threads; it will drop items of higher quality.")
 
 
 func on_damage(event: Event):

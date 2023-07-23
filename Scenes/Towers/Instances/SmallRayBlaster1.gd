@@ -42,7 +42,7 @@ func tower_init():
 	iron_mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_DEATH, 0.0, 0.0001)
 	mOck_ray_blaster.set_buff_modifier(iron_mod)
 	mOck_ray_blaster.set_buff_icon("@@0@@")
-	mOck_ray_blaster.set_buff_tooltip("Phazed\nThis unit has increased item drop chance and item drop quality.")
+	mOck_ray_blaster.set_buff_tooltip("Phazed\nThis unit has be Phazed; it will drop items more often and drop items of higher quality.")
 
 
 func on_damage(event: Event):

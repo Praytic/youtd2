@@ -32,7 +32,7 @@ func item_init():
 	human_aura.set_buff_modifier(m)
 	human_aura.set_stacking_group("human_aura")
 	human_aura.set_buff_icon("@@0@@")
-	human_aura.set_buff_tooltip("Bestial Rage Effect\nThis tower's damage against orc and humanoid creeps is increased. It's dps is also increased.")
+	human_aura.set_buff_tooltip("Bestial Rage\nThis unit is under the effect of Bestial Rage Aura; it will deal more damage to orc and humanoid units and it has increased DPS.")
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200

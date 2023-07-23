@@ -43,7 +43,7 @@ func item_init():
 	BT = BuffType.new("Item208_BT", 5.0, 0.0, false, self)
 	BT.set_buff_icon("@@0@@")
 	BT.add_event_on_damaged(BT_dmg)
-	BT.set_buff_tooltip("Fragment Hit\nThis unit takes extra damage from Fragmentation Rounds and splash damage.")
+	BT.set_buff_tooltip("Fragment Hit\nThis unit has been hit by a Fragment; it will take more damage from Fragmentation Rounds and splash damage.")
 
 
 func on_damage(event: Event):

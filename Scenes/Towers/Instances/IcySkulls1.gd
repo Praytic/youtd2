@@ -41,7 +41,7 @@ func tower_init():
 	cassim_slow.set_buff_icon("@@0@@")
 	cassim_slow.set_buff_modifier(slow_mod)
 
-	cassim_slow.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone, it has reduced move speed.")
+	cassim_slow.set_buff_tooltip("Slow\nThis unit has been chilled to the bone; it has reduced movement speed.")
 
 
 func on_damage(event: Event):

@@ -26,7 +26,7 @@ func item_init():
 	boekie_spiderling_slow.set_buff_modifier(m) 
 	boekie_spiderling_slow.set_stacking_group("boekieSpiderlingSlow")
 
-	boekie_spiderling_slow.set_buff_tooltip("Slowed\nThis unit is caught in the web, it has reduced move speed.")
+	boekie_spiderling_slow.set_buff_tooltip("Webbed\nThis unit is caught in the web, it has reduced movement speed.")
 
 
 func on_attack(event: Event):

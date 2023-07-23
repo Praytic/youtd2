@@ -121,7 +121,7 @@ func tower_init():
 	kel_slow = BuffType.new("kel_slow", 0, 0, false, self)
 	kel_slow.set_buff_icon("@@0@@")
 	kel_slow.set_buff_modifier(slow)
-	kel_slow.set_buff_tooltip("Slowed\nThis unit's move speed is decreased.")
+	kel_slow.set_buff_tooltip("Slow\nThis unit is Slowed; it has reduced movement speed.")
 
 
 func on_attack(event: Event):

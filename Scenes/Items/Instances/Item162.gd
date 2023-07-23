@@ -39,7 +39,7 @@ func item_init():
 	BT.set_buff_icon("@@0@@")
 	BT.set_buff_modifier(mod)
 	BT.add_event_on_attack(attack)
-	BT.set_buff_tooltip("Follow Up\nThis tower's next attack will be faster and will always be critical.")
+	BT.set_buff_tooltip("Follow Up\nThis unit is affected by Follow Up; it's next attack will be faster and will always be critical.")
 
 
 func on_attack(event: Event):

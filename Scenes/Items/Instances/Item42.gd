@@ -27,7 +27,7 @@ func item_init():
 	sir_sleeve_buff.set_buff_icon("@@0@@")
 	sir_sleeve_buff.set_buff_modifier(m)
 	sir_sleeve_buff.set_stacking_group("sir_sleeve_group")
-	sir_sleeve_buff.set_buff_tooltip("Enraged\nThis tower's attack speed, spell damage and attack damage are increased.")
+	sir_sleeve_buff.set_buff_tooltip("Enraged\nThis unit is Enraged; it has increased attack speed, spell damage and attack damage.")
 
 
 func on_attack(event: Event):

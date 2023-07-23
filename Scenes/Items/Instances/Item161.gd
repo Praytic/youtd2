@@ -29,7 +29,7 @@ func item_init():
 	stern_Commander_Attack.set_buff_modifier(m) 
 	stern_Commander_Attack.set_stacking_group("stern_Commander_Attack")
 	stern_Commander_Attack.set_buff_icon("@@0@@")
-	stern_Commander_Attack.set_buff_tooltip("Attack! Effect\nThis tower's attack speed is increased.")
+	stern_Commander_Attack.set_buff_tooltip("Attack!\nThis unit has been commanded to attack; it has increased attack speed.")
 
 
 func on_attack(event: Event):
