@@ -29,7 +29,7 @@ func _ready():
 
 	_unit_button.mouse_entered.connect(_on_mouse_entered)
 	_unit_button.mouse_exited.connect(_on_mouse_exited)
-	_unit_button.pressed.connect(_on_pressed)
+	pressed.connect(_on_pressed)
 
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
