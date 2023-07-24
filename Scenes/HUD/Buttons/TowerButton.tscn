@@ -1,90 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://hqe016lvaryb"]
+[gd_scene load_steps=4 format=3 uid="uid://sqxrsmrfyvkv"]
 
-[ext_resource type="Theme" uid="uid://dbsqsk6wll0ti" path="res://Resources/Theme/unit_button_theme.tres" id="1_yda3y"]
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButton.gd" id="2_cd2kv"]
-[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_cg854"]
-[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="3_cliyb"]
-[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="3_nqtc8"]
+[ext_resource type="PackedScene" uid="uid://dqjk0dq82x1cv" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_djoqs"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButton.gd" id="2_00ei8"]
+[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="3_lkbhk"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ajjyt"]
-atlas = ExtResource("2_cg854")
-region = Rect2(0, 1152, 128, 128)
+[node name="TowerButton" instance=ExtResource("1_djoqs")]
+script = ExtResource("2_00ei8")
+_tower_id = 0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sal7q"]
-atlas = ExtResource("3_cliyb")
-region = Rect2(320, 192, 64, 64)
-
-[node name="Control" type="Control"]
-custom_minimum_size = Vector2(144, 144)
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("1_yda3y")
-script = ExtResource("2_cd2kv")
-_tower_id = 1
-_count = 5
-_rarity = "rare"
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(128, 128)
+[node name="TierContainer" type="MarginContainer" parent="UnitButton" index="2"]
 layout_mode = 2
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 136.0
-offset_bottom = 136.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_type_variation = &"WideFrame"
+offset_left = 95.0
+offset_top = -10.0
+offset_right = 219.0
+offset_bottom = 114.0
+scale = Vector2(0.291436, 0.291436)
 
-[node name="UnitButton" type="Button" parent="PanelContainer"]
+[node name="TierIcon" type="TextureRect" parent="UnitButton/TierContainer" index="0"]
 layout_mode = 2
-theme_type_variation = &"RareUnitButton"
-icon = SubResource("AtlasTexture_ajjyt")
-expand_icon = true
-
-[node name="LockTexture" type="TextureRect" parent="PanelContainer/UnitButton"]
-visible = false
-modulate = Color(1, 1, 1, 0.513726)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_nqtc8")
-expand_mode = 2
-
-[node name="CounterContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(35, 35)
-layout_mode = 2
-offset_left = 109.0
-offset_top = 109.0
-offset_right = 144.0
-offset_bottom = 144.0
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_type_variation = &"ThinFrame"
-
-[node name="CounterLabel" type="Label" parent="CounterContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-text = "5"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="TierIconContainer" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-offset_left = 104.0
-offset_right = 144.0
-offset_bottom = 40.0
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="TierIconTexture" type="TextureRect" parent="TierIconContainer"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_sal7q")
+texture = ExtResource("3_lkbhk")
 expand_mode = 2

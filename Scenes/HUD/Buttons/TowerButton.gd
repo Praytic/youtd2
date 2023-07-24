@@ -5,7 +5,7 @@ extends UnitButton
 static var _tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
 
 
-@onready var _tier_icon: TextureRect = $TierIconContainer/TierIconTexture
+@onready var _tier_icon: TextureRect = $UnitButton/TierContainer/TierIcon
 @onready var _tower_icons_m: Texture2D = preload("res://Assets/Towers/tower_icons_m.png")
 @onready var _tier_icons_m: Texture2D = preload("res://Assets/Towers/tier_icons_m.png")
 

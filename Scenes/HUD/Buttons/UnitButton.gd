@@ -5,10 +5,10 @@ extends Control
 signal pressed()
 
 
-@onready var _unit_button: Button = $PanelContainer/UnitButton
-@onready var _disabled_lock: TextureRect = $PanelContainer/UnitButton/LockTexture
-@onready var _counter: Container = $CounterContainer
-@onready var _counter_label: Label = $CounterContainer/CounterLabel
+@onready var _unit_button: Button = $UnitButton
+@onready var _disabled_lock: TextureRect = $UnitButton/LockTexture
+@onready var _counter: Container = $UnitButton/CounterContainer
+@onready var _counter_label: Label = $UnitButton/CounterContainer/CounterLabel
 
 @export var _count: int:
 	set(value):
