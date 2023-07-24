@@ -1,8 +1,6 @@
 class_name ItemButton 
 extends UnitButton
 
-signal right_clicked()
-
 
 static var _item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 
@@ -20,9 +18,7 @@ var _item: Item = null:
 	set(value):
 		_item = value
 		if self.is_node_ready():
-			_set_rarity_icon(value)
-			_set_unit_icon(value)
-			_set_autocast(value)
+			init()
 	get:
 		return _item
 
@@ -38,17 +34,22 @@ static func make(item: Item) -> ItemButton:
 	return item_button
 
 
-func _ready():
-	if _item != null:
-		_set_rarity_icon(_item)
-		_set_unit_icon(_item)
-		_set_autocast(_item)
+func init():
+	_set_rarity_icon(_item)
+	_set_unit_icon(_item)
+	_set_autocast(_item)
 	
 	_unit_button.mouse_entered.connect(_on_mouse_entered)
 	_unit_button.mouse_exited.connect(_on_mouse_exited)
-
+	gui_input.connect(_on_unit_button_clicked)
+	
 	if _hide_cooldown_indicator:
 		_cooldown_indicator.hide()
+
+
+func _ready():
+	if _item != null:
+		init()
 
 
 func hide_cooldown_indicator():
@@ -81,8 +82,8 @@ func _on_mouse_exited():
 	EventBus.item_button_mouse_exited.emit()
 
 
-func _on_unit_button_right_clicked():
-	var autocast: Autocast = _item.get_autocast()
-
-	if autocast != null:
-		autocast.do_cast_manually()
+func _on_unit_button_clicked(event):
+	if event.is_action_released("right_click"):
+		var autocast: Autocast = _item.get_autocast()
+		if autocast != null:
+			autocast.do_cast_manually()

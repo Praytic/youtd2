@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://bb68da6ox15ba"]
+[gd_scene load_steps=5 format=3 uid="uid://bb68da6ox15ba"]
 
-[ext_resource type="Theme" uid="uid://dbsqsk6wll0ti" path="res://Resources/Theme/unit_button_theme.tres" id="1_it0eb"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButton.gd" id="2_ollps"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="3_ky4hk"]
 [ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="4_7f1lx"]
@@ -12,12 +11,10 @@ region = Rect2(0, 1152, 128, 128)
 [node name="Control" type="PanelContainer"]
 offset_right = 144.0
 offset_bottom = 144.0
-theme = ExtResource("1_it0eb")
-theme_type_variation = &"SmallUnitButton"
 script = ExtResource("2_ollps")
 _count = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="Button" parent="."]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -26,6 +23,9 @@ theme_type_variation = &"WideFrame"
 
 [node name="UnitButton" type="Button" parent="PanelContainer"]
 layout_mode = 2
+offset_right = 128.0
+offset_bottom = 128.0
+theme_type_variation = &"CommonUnitButton"
 icon = SubResource("AtlasTexture_ajjyt")
 expand_icon = true
 

@@ -28,31 +28,31 @@ region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u05n0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ptm74"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ufaq"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d3hbq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_i73of"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ajb1c"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_aa1pu"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w83i7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdow6"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a827u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_fb0fw"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_teelk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_v7bar"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3uoax"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_blkp6"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(384, 0, 64, 64)
 
@@ -174,37 +174,37 @@ size_flags_vertical = 8
 
 [node name="IceButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_ptm74")
+texture_normal = SubResource("AtlasTexture_3ufaq")
 element = 0
 
 [node name="NatureButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_d3hbq")
+texture_normal = SubResource("AtlasTexture_i73of")
 element = 1
 
 [node name="FireButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_ajb1c")
+texture_normal = SubResource("AtlasTexture_aa1pu")
 element = 2
 
 [node name="AstralButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_w83i7")
+texture_normal = SubResource("AtlasTexture_tdow6")
 element = 3
 
 [node name="DarknessButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_a827u")
+texture_normal = SubResource("AtlasTexture_fb0fw")
 element = 4
 
 [node name="IronButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_teelk")
+texture_normal = SubResource("AtlasTexture_v7bar")
 element = 5
 
 [node name="StormButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_3uoax")
+texture_normal = SubResource("AtlasTexture_blkp6")
 element = 6
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
@@ -221,6 +221,8 @@ vertical_scroll_mode = 0
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer"]
 clip_contents = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/margin_top = 20
 
 [node name="BuildBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
