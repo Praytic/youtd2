@@ -435,6 +435,10 @@ func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_da
 	return crit_damage
 
 
+func calc_attack_multicrit_no_bonus() -> float:
+	return calc_attack_multicrit(0, 0, 0)
+
+
 static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit, target: Unit) -> float:
 	var dealt_mod: float = caster.get_prop_spell_damage_dealt()
 	var received_mod: float = target.get_prop_spell_damage_received()
