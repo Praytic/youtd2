@@ -2,7 +2,6 @@ class_name TowerButton
 extends UnitButton
 
 
-static var _tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
 
 const ICON_SIZE_M = 128
 const TIER_ICON_SIZE_M = 64
@@ -16,7 +15,7 @@ const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 
 
 static func make(tower_id: int) -> TowerButton:
-	var tower_button: TowerButton = _tower_button_scene.instantiate()
+	var tower_button: TowerButton = tower_button_scene.instantiate()
 	tower_button._tower_id = tower_id
 
 	return tower_button

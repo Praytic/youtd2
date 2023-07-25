@@ -6,8 +6,6 @@ signal right_clicked()
 
 const ICON_SIZE_M = 128
 
-static var _item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
-
 var _item: Item = null
 
 @onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
@@ -16,7 +14,7 @@ var _hide_cooldown_indicator: bool = false
 
 
 static func make(item: Item) -> ItemButton:
-	var item_button: ItemButton = _item_button_scene.instantiate()
+	var item_button: ItemButton = Globals.item_button_scene.instantiate()
 	item_button._item = item
 
 	return item_button
