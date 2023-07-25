@@ -482,7 +482,7 @@ func _attack_target(target: Unit):
 
 	var projectile: Projectile = _make_projectile(self, target)
 	projectile.set_tower_crit_count(crit_count)
-	projectile.set_tower_crit_damage_ratio(_crit_damage_ratio_for_next_attack)
+	projectile.set_tower_crit_damage_ratio(additional_crit_damage_ratio)
 
 	if _attack_style == AttackStyle.BOUNCE:
 		var damage: float = get_current_attack_damage_with_bonus()
