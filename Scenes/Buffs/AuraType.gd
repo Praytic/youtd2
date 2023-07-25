@@ -17,11 +17,9 @@ var aura_effect: BuffType = null
 
 var _include_invisible: bool = false
 
-var _aura_scene: PackedScene = preload("res://Scenes/Buffs/Aura.tscn")
-
 
 func make(caster: Unit) -> Aura:
-	var aura: Aura = _aura_scene.instantiate()
+	var aura: Aura = Globals.aura_scene.instantiate()
 	aura._aura_range = aura_range
 	aura._target_type = target_type
 	aura._target_self = target_self

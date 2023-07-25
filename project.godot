@@ -42,6 +42,7 @@ config/show_autocasts_menu=false
 
 [autoload]
 
+Globals="*res://Singletons/Globals.gd"
 ElapsedTimer="*res://Singletons/ElapsedTimer.gd"
 Properties="*res://Singletons/Properties.gd"
 FoodManager="*res://Singletons/Managers/FoodManager.gd"
@@ -61,7 +62,6 @@ BuildTower="*res://Singletons/BuildTower.gd"
 GoldControl="*res://Singletons/GoldControl.gd"
 WaveLevel="*res://Singletons/WaveLevel.gd"
 ElementLevel="*res://Singletons/ElementLevel.gd"
-Globals="*res://Singletons/Globals.gd"
 SFX="*res://Singletons/SFX.gd"
 Messages="*res://Singletons/Messages.gd"
 WaveSpecial="*res://Singletons/WaveSpecial.gd"

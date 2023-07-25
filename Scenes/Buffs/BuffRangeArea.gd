@@ -7,7 +7,6 @@ extends Node2D
 
 signal unit_came_in_range(handler: Callable, unit: Unit)
 
-static var _buff_range_area_scene: PackedScene = preload("res://Scenes/Buffs/BuffRangeArea.tscn")
 
 var _target_type: TargetType
 var _handler: Callable
@@ -16,7 +15,7 @@ var _prev_units_in_range: Array = []
 
 
 static func make(radius: float, target_type: TargetType, handler: Callable) -> BuffRangeArea:
-	var buff_range_area: BuffRangeArea = _buff_range_area_scene.instantiate()
+	var buff_range_area: BuffRangeArea = Globals.buff_range_area_scene.instantiate()
 	buff_range_area._radius = radius
 	buff_range_area._target_type = target_type
 	buff_range_area._handler = handler

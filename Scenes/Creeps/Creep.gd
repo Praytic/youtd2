@@ -25,7 +25,6 @@ var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _current_path_index: int = 0
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
-var _corpse_scene: PackedScene = preload("res://Scenes/Creeps/CreepCorpse.tscn")
 var _spawn_level: int
 
 @onready var _visual = $Visual
@@ -264,7 +263,7 @@ func _on_death(event: Event):
 #	look weird for corpse to appear while creep is flying
 #	far above it.
 	if _size != CreepSize.enm.AIR:
-		var corpse: Node2D = _corpse_scene.instantiate()
+		var corpse: Node2D = Globals.corpse_scene.instantiate()
 		corpse.position = position
 		Utils.object_container.add_child(corpse)
 

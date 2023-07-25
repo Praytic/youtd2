@@ -4,7 +4,6 @@ class_name Player extends Node
 # multiplayer purposes. 
 
 
-@onready var floating_text_scene: PackedScene = preload("res://Scenes/FloatingText.tscn")
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/Map/FloatingTextContainer")
 
 
@@ -29,7 +28,7 @@ func get_level() -> int:
 
 # NOTE: player.displayFloatingTextColor() in JASS
 func display_floating_text_color(text: String, unit: Unit, color: Color, time: float):
-	var floating_text = floating_text_scene.instantiate()
+	var floating_text = Globals.floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
 	floating_text.duration = time
@@ -53,7 +52,7 @@ func display_floating_text(text: String, unit: Unit, color_r: int, color_g: int,
 
 
 func display_static_floating_text(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, time: float):
-	var floating_text = floating_text_scene.instantiate()
+	var floating_text = Globals.floating_text_scene.instantiate()
 	floating_text.animated = false
 	floating_text.text = text
 	floating_text.color = Color(color_r / 255.0, color_g / 255.0, color_b / 255.0, 1.0)

@@ -20,7 +20,6 @@ var _last_known_position: Vector2 = Vector2.ZERO
 var _speed: float = 50
 var _explode_on_hit: bool = true
 const CONTACT_DISTANCE: int = 15
-var _explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 var _game_scene: Node = null
 var _targeted: bool
 var _target_position_on_creation: Vector2
@@ -91,8 +90,7 @@ static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, 
 
 
 static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit) -> Projectile:
-	var _projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
-	var projectile: Projectile = _projectile_scene.instantiate()
+	var projectile: Projectile = Globals.projectile_scene.instantiate()
 
 	projectile._speed = type._speed
 	projectile._explode_on_hit = type._explode_on_hit
@@ -184,7 +182,7 @@ func _process_targeted(delta: float):
 				_interpolation_finished_handler.call(self, _target)
 
 		if _explode_on_hit:
-			var explosion = _explosion_scene.instantiate()
+			var explosion = Globals.explosion_scene.instantiate()
 
 			if _target != null:
 				explosion.position = _target.get_visual_position()

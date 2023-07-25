@@ -63,7 +63,6 @@ enum Type {
 	AC_TYPE_NOAC_PLAYER_TOWER,
 }
 
-static var _autocast_scene: PackedScene = preload("res://Scenes/Towers/Autocast.tscn")
 
 var _types_that_can_use_auto_mode: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_ALWAYS_BUFF,
@@ -137,7 +136,7 @@ var _is_item_autocast: bool = false
 
 
 static func make() -> Autocast:
-	var autocast: Autocast = _autocast_scene.instantiate()
+	var autocast: Autocast = Globals.autocast_scene.instantiate()
 
 	return autocast
 
