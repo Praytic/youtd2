@@ -60,7 +60,7 @@ func _set_tier_icon(tower_id: int):
 
 func _set_unit_icon(tower_id: int):
 	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(_tower_id)
-	if icon_atlas_num == -1:
+	if icon_atlas_num == -1 && Config.print_errors_about_towers():
 		push_error("Could not find an icon for tower id [%s]." % tower_id)
 	
 	var tower_icon = AtlasTexture.new()

@@ -99,3 +99,7 @@ func show_position_info_label() -> bool:
 # it's finished.
 func show_autocasts_menu() -> bool:
 	return ProjectSettings.get_setting("application/config/show_autocasts_menu") as bool
+
+# Print errors about towers, like missing icons or scenes.
+func print_errors_about_towers() -> bool:
+	return ProjectSettings.get_setting("application/config/print_errors_about_towers") as bool

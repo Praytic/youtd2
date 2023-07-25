@@ -109,7 +109,8 @@ func _get_tower_scene(id: int) -> PackedScene:
 
 		return scene
 	else:
-		push_error("No scene found for id:", id, ". Tried at path:", scene_path)
+		if Config.print_errors_about_towers():
+			push_error("No scene found for id:", id, ". Tried at path:", scene_path)
 
 		return Globals.placeholder_tower_scene
 
