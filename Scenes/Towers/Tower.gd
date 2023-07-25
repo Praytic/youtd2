@@ -42,6 +42,8 @@ const PROJECTILE_SPEED: int = 1000
 const BOUNCE_RANGE: int = 125
 const ITEM_COUNT_MAX: int = 1
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
+const TARGET_TYPE_GROUND_ONLY: int = TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS
+const TARGET_TYPE_AIR_ONLY: int = TargetType.CREEPS + TargetType.AIR
 
 var _id: int = 0
 var _stats: Dictionary
@@ -63,6 +65,9 @@ var _specials_modifier: Modifier = Modifier.new()
 # creation. It is also always null for first tier towers.
 var _temp_preceding_tower: Tower = null
 var _number_of_crits: int = 0
+# This attack type determines which targets will be picked
+# for attacking.
+var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 
 
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
@@ -343,6 +348,13 @@ func _make_projectile(from: Unit, target: Unit) -> Projectile:
 func get_specials_tooltip_text() -> String:
 	var text: String = ""
 
+	var attacks_ground_only: bool = _attack_target_type.to_int() == TARGET_TYPE_GROUND_ONLY
+	var attacks_air_only: bool = _attack_target_type.to_int() == TARGET_TYPE_AIR_ONLY
+	if attacks_ground_only:
+		text += "[color=RED]Attacks GROUND only[/color]\n"
+	elif attacks_air_only:
+		text += "[color=RED]Attacks AIR only[/color]\n"
+
 	if _target_count_max > 1:
 		text += "[b][color=GOLD]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_max
 
@@ -387,6 +399,14 @@ func load_specials(_modifier: Modifier):
 # function from original API.
 func on_create(_preceding_tower: Tower):
 	pass
+
+
+func _set_attack_ground_only():
+	_attack_target_type = TargetType.new(TARGET_TYPE_GROUND_ONLY)
+
+
+func _set_attack_air_only():
+	_attack_target_type = TargetType.new(TARGET_TYPE_AIR_ONLY)
 
 
 func _set_attack_style_splash(splash_map: Dictionary):
@@ -529,7 +549,7 @@ func _get_base_properties() -> Dictionary:
 
 
 func _get_next_bounce_target(prev_target: Creep) -> Creep:
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), prev_target.position, BOUNCE_RANGE)
+	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, BOUNCE_RANGE)
 
 	creep_list.erase(prev_target)
 
@@ -568,7 +588,7 @@ func _update_target_list():
 			target.death.disconnect(_on_target_death)
 
 # 	Add new targets that have entered into range
-	var creeps_in_range: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), position, attack_range)
+	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, position, attack_range)
 	Utils.sort_unit_list_by_distance(creeps_in_range, position)
 
 	for target in _target_list:
@@ -653,7 +673,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 
 	var splash_range_max: float = splash_range_list.back()
 
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), splash_pos, splash_range_max)
+	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, splash_pos, splash_range_max)
 
 	creep_list.erase(splash_target)
 

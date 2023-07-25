@@ -43,13 +43,19 @@ var _unit_type: UnitType
 var _creep_size_list: Array = []
 var _creep_category_list: Array = []
 var _tower_element_list: Array = []
+var _bitmask: int = 0
 
 
 func _init(bitmask: int):
+	_bitmask = bitmask
 	_unit_type = TargetType._get_unit_type(bitmask)
 	_creep_size_list = TargetType._get_creep_size_list(bitmask)
 	_creep_category_list = TargetType._get_creep_category_list(bitmask)
 	_tower_element_list = TargetType._get_tower_element_list(bitmask)
+
+
+func to_int() -> int:
+	return _bitmask
 
 
 func match(unit: Unit) -> bool:
