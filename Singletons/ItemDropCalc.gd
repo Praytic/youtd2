@@ -74,7 +74,8 @@ func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
 #		Find all items which are oils and fall into selected
 #		rarity
 		var rarity_string: String = Rarity.convert_to_string(rarity)
-		var item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.IS_OIL, "TRUE")
+		var oil_type_string: String = ItemType.convert_to_string(ItemType.enm.OIL)
+		var item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, oil_type_string)
 		item_list = Properties.filter_item_id_list(item_list, Item.CsvProperty.RARITY, rarity_string)
 
 		if item_list.is_empty():
@@ -109,7 +110,8 @@ func get_random_item_at_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) 
 #	Find all items which are not oils and fall into selected
 #	rarity
 	var rarity_string: String = Rarity.convert_to_string(rarity)
-	var item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.IS_OIL, "FALSE")
+	var regular_type_string: String = ItemType.convert_to_string(ItemType.enm.REGULAR)
+	var item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, regular_type_string)
 	item_list = Properties.filter_item_id_list(item_list, Item.CsvProperty.RARITY, rarity_string)
 
 # 	Filter the item list by level
