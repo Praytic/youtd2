@@ -43,7 +43,7 @@ const BOUNCE_RANGE: int = 125
 const ITEM_COUNT_MAX: int = 1
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
 const TARGET_TYPE_GROUND_ONLY: int = TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS
-const TARGET_TYPE_AIR_ONLY: int = TargetType.CREEPS + TargetType.AIR
+const TARGET_TYPE_AIR_ONLY: int = TargetType.CREEPS + TargetType.SIZE_AIR
 
 var _id: int = 0
 var _stats: Dictionary
