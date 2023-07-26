@@ -502,7 +502,8 @@ func _attack_target(target: Unit):
 
 	var projectile: Projectile = _make_projectile(self, target)
 	projectile.set_tower_crit_count(crit_count)
-	projectile.set_tower_crit_damage_ratio(_crit_damage_ratio_for_next_attack)
+	projectile.set_tower_crit_damage_ratio(additional_crit_damage_ratio)
+
 
 	if _attack_style == AttackStyle.BOUNCE:
 		var damage: float = get_current_attack_damage_with_bonus()
@@ -549,7 +550,7 @@ func _get_base_properties() -> Dictionary:
 
 
 func _get_next_bounce_target(prev_target: Creep) -> Creep:
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), prev_target.position, BOUNCE_RANGE)
+	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, BOUNCE_RANGE)
 
 	creep_list.erase(prev_target)
 
@@ -588,7 +589,7 @@ func _update_target_list():
 			target.death.disconnect(_on_target_death)
 
 # 	Add new targets that have entered into range
-	var creeps_in_range: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), position, attack_range)
+	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, position, attack_range)
 	Utils.sort_unit_list_by_distance(creeps_in_range, position)
 
 	for target in _target_list:
@@ -673,7 +674,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 
 	var splash_range_max: float = splash_range_list.back()
 
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), splash_pos, splash_range_max)
+	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, splash_pos, splash_range_max)
 
 	creep_list.erase(splash_target)
 
