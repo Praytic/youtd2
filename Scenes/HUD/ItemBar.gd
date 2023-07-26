@@ -69,6 +69,15 @@ func _on_consumable_item_was_consumed(item: Item):
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
+
+	var item_type: ItemType.enm = ItemProperties.get_type(item.get_id())
+	var can_move: bool = item_type != ItemType.enm.CONSUMABLE
+
+	if !can_move:
+		Messages.add_error("Can't add consumable items to towers.")
+
+		return
+
 	var started_move: bool = ItemMovement.start_move_from_itembar(item)
 
 	if !started_move:
