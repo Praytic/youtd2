@@ -15,7 +15,6 @@ var _effect_map: Dictionary = {}
 var _free_id_list: Array = []
 
 @onready var _effects_container: Node = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("EffectsContainer")
-var _placeholder_effect: PackedScene = preload("res://Scenes/Effects/GenericMagic.tscn")
 
 
 func _ready():
@@ -31,7 +30,7 @@ func create_animated(effect_path: String, x: float, y: float, _z: float, _myster
 	if effect_path_exists:
 		effect_scene = load(effect_path)
 	else:
-		effect_scene = _placeholder_effect
+		effect_scene = Globals.placeholder_effect_scene
 
 		if PRINT_INVALID_PATH_ERROR:
 			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
@@ -42,7 +41,7 @@ func create_animated(effect_path: String, x: float, y: float, _z: float, _myster
 		print_debug("Effect scene must be AnimatedSprite2D. Effect path with problem:", effect_path, ". Using placeholder effect.")
 
 		effect.queue_free()
-		effect = _placeholder_effect.instantiate()
+		effect = Globals.placeholder_effect_scene.instantiate()
 
 	effect.position = Vector2(x, y)
 	_effects_container.add_child(effect)

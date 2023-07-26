@@ -2,33 +2,15 @@ class_name ItemButton
 extends UnitButton
 
 
-static var _item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
+var _item: Item = null
 
-@export var _item_id: int = 0:
-	set(value):
-		_item_id = value
-		if value != 0:
-			_item = Item.make(value)
-		else:
-			_item = null
-	get:
-		return _item_id
-
-var _item: Item = null:
-	set(value):
-		_item = value
-		if self.is_node_ready():
-			init()
-	get:
-		return _item
-
-@onready var _cooldown_indicator: CooldownIndicator = $PanelContainer/UnitButton/CooldownIndicator
+@onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
 
 var _hide_cooldown_indicator: bool = false
 
 
 static func make(item: Item) -> ItemButton:
-	var item_button: ItemButton = _item_button_scene.instantiate()
+	var item_button: ItemButton = Globals.item_button_scene.instantiate()
 	item_button._item = item
 
 	return item_button

@@ -3,7 +3,6 @@ extends Node
 
 var preloaded_towers: Dictionary
 const towers_dir: String = "res://Scenes/Towers/Instances"
-var _fallback_scene: PackedScene = preload("res://Scenes/Towers/Instances/PlaceholderTower.tscn")
 # var tower_props: Dictionary
 
 
@@ -110,9 +109,10 @@ func _get_tower_scene(id: int) -> PackedScene:
 
 		return scene
 	else:
-		push_error("No scene found for id:", id, ". Tried at path:", scene_path)
+		if Config.print_errors_about_towers():
+			push_error("No scene found for id:", id, ". Tried at path:", scene_path)
 
-		return _fallback_scene
+		return Globals.placeholder_tower_scene
 
 
 # Family name is the name of the first tier tower in the

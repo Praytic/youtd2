@@ -24,7 +24,7 @@ const _color_map: Dictionary = {
 }
 
 
-static func convert_from_string(string: String) -> Rarity.enm:
+func convert_from_string(string: String) -> Rarity.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:

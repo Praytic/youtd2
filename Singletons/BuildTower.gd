@@ -6,7 +6,6 @@ signal tower_built(tower_id)
 
 
 var _tower_preview: TowerPreview = null
-var _tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 var _occupied_position_map: Dictionary = {}
 
 
@@ -41,7 +40,7 @@ func start(tower_id: int):
 	_cancel()
 	MouseState.set_state(MouseState.enm.BUILD_TOWER)
 
-	_tower_preview = _tower_preview_scene.instantiate()
+	_tower_preview = Globals.tower_preview_scene.instantiate()
 	_tower_preview.tower_id = tower_id
 	_game_scene.add_child(_tower_preview)
 

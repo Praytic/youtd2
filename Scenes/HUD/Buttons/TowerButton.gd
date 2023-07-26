@@ -2,7 +2,6 @@ class_name TowerButton
 extends UnitButton
 
 
-static var _tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
 
 
 @onready var _tier_icon: TextureRect = $UnitButton/TierContainer/TierIcon
@@ -20,7 +19,7 @@ static var _tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/
 
 
 static func make(tower_id: int) -> TowerButton:
-	var tower_button: TowerButton = _tower_button_scene.instantiate()
+	var tower_button: TowerButton = Globals.tower_button_scene.instantiate()
 	tower_button._tower_id = tower_id
 
 	return tower_button

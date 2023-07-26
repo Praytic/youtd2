@@ -235,6 +235,11 @@ func add_modified_attack_crit(_mystery_float: float, crit_damage_ratio: float):
 	_crit_damage_ratio_for_next_attack = crit_damage_ratio
 
 
+func add_modified_attack_crit(_mystery_float: float, crit_damage_ratio: float):
+	_crit_bonus_for_next_attack = _crit_bonus_for_next_attack + 1
+	_crit_damage_ratio_for_next_attack = crit_damage_ratio
+
+
 # NOTE: unit.addSpellCrit() in JASS
 func add_spell_crit():
 	_crit_bonus_for_next_spell = _crit_bonus_for_next_spell + 1
@@ -433,6 +438,10 @@ func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_da
 	var crit_damage: float = _calc_attack_multicrit_internal(crit_count, bonus_damage)
 
 	return crit_damage
+
+
+func calc_attack_multicrit_no_bonus() -> float:
+	return calc_attack_multicrit(0, 0, 0)
 
 
 static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit, target: Unit) -> float:

@@ -39,9 +39,11 @@ config/enable_zoom_by_touchpad=true
 config/enable_zoom_by_mousewheel=true
 config/show_position_info_label=false
 config/show_autocasts_menu=false
+config/print_errors_about_towers=true
 
 [autoload]
 
+Globals="*res://Singletons/Globals.gd"
 ElapsedTimer="*res://Singletons/ElapsedTimer.gd"
 Properties="*res://Singletons/Properties.gd"
 FoodManager="*res://Singletons/Managers/FoodManager.gd"
@@ -61,7 +63,6 @@ BuildTower="*res://Singletons/BuildTower.gd"
 GoldControl="*res://Singletons/GoldControl.gd"
 WaveLevel="*res://Singletons/WaveLevel.gd"
 ElementLevel="*res://Singletons/ElementLevel.gd"
-Globals="*res://Singletons/Globals.gd"
 SFX="*res://Singletons/SFX.gd"
 Messages="*res://Singletons/Messages.gd"
 WaveSpecial="*res://Singletons/WaveSpecial.gd"
