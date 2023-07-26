@@ -67,9 +67,7 @@ func on_damage(event: Event):
 	var target: Creep = event.get_target()
 	var immune: bool = target.is_immune()
 	var sif: bool = target.get_armor_type() == ArmorType.enm.SIF
-#	TODO: wtf is ZOD?
-#	var zod: bool = target.get_armor_type() == ArmorType.enm.ZOD
-	var zod: bool = false
+	var zod: bool = target.get_armor_type() == ArmorType.enm.ZOD
 	var damage_add: float
 	var pos_damage_types: float = 3.0
 

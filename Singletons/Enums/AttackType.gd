@@ -44,6 +44,7 @@ const _damage_to_armor_map: Dictionary = {
 		ArmorType.enm.HEL: 0.9,
 		ArmorType.enm.MYT: 0.6,
 		ArmorType.enm.SIF: 0.4,
+		ArmorType.enm.ZOD: 1.0,
 	},
 	AttackType.enm.DECAY: {
 		ArmorType.enm.SOL: 1.8,
@@ -51,6 +52,7 @@ const _damage_to_armor_map: Dictionary = {
 		ArmorType.enm.MYT: 0.9,
 		ArmorType.enm.LUA: 0.6,
 		ArmorType.enm.SIF: 0.4,
+		ArmorType.enm.ZOD: 1.0,
 	},
 	AttackType.enm.ENERGY: {
 		ArmorType.enm.HEL: 1.8,
@@ -58,6 +60,7 @@ const _damage_to_armor_map: Dictionary = {
 		ArmorType.enm.LUA: 0.9,
 		ArmorType.enm.SOL: 0.6,
 		ArmorType.enm.SIF: 0.4,
+		ArmorType.enm.ZOD: 1.0,
 	},
 	AttackType.enm.ESSENCE: {
 		ArmorType.enm.HEL: 1.0,
@@ -65,6 +68,7 @@ const _damage_to_armor_map: Dictionary = {
 		ArmorType.enm.LUA: 1.0,
 		ArmorType.enm.SOL: 1.0,
 		ArmorType.enm.SIF: 1.0,
+		ArmorType.enm.ZOD: 1.0,
 	},
 	AttackType.enm.ELEMENTAL: {
 		ArmorType.enm.MYT: 1.8,
@@ -72,6 +76,7 @@ const _damage_to_armor_map: Dictionary = {
 		ArmorType.enm.SOL: 0.9,
 		ArmorType.enm.HEL: 0.6,
 		ArmorType.enm.SIF: 0.4,
+		ArmorType.enm.ZOD: 1.0,
 	},
 	AttackType.enm.MAGIC: {
 		ArmorType.enm.MYT: 1.5,
@@ -79,6 +84,7 @@ const _damage_to_armor_map: Dictionary = {
 		ArmorType.enm.SOL: 1.5,
 		ArmorType.enm.HEL: 1.5,
 		ArmorType.enm.SIF: 0.4,
+		ArmorType.enm.ZOD: 1.0,
 	},
 }
 
