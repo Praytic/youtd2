@@ -32,6 +32,7 @@ func _ready():
 
 	ItemMovement.item_move_from_itembar_done.connect(on_item_move_from_itembar_done)
 	EventBus.item_drop_picked_up.connect(_on_item_drop_picked_up)
+	EventBus.consumable_item_was_consumed.connect(_on_consumable_item_was_consumed)
 
 
 func on_item_move_from_itembar_done(move_success: bool):
@@ -60,6 +61,10 @@ func _create_ItemButton(item: Item) -> ItemButton:
 
 func _on_item_drop_picked_up(item: Item):
 	add_item_button(item)
+
+
+func _on_consumable_item_was_consumed(item: Item):
+	remove_item_button(item)
 
 
 func _on_item_button_pressed(item_button: ItemButton):

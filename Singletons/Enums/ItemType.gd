@@ -3,11 +3,13 @@ extends Node
 enum enm {
 	REGULAR,
 	OIL,
+	CONSUMABLE,
 }
 
 const _string_map: Dictionary = {
 	ItemType.enm.REGULAR: "regular",
 	ItemType.enm.OIL: "oil",
+	ItemType.enm.CONSUMABLE: "consumable",
 }
 
 

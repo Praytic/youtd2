@@ -65,3 +65,8 @@ func _on_unit_button_right_clicked():
 
 	if autocast != null:
 		autocast.do_cast_manually()
+
+	var is_consumable: bool = ItemProperties.get_type(_item.get_id()) == ItemType.enm.CONSUMABLE
+
+	if is_consumable:
+		_item.consume()

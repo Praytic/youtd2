@@ -324,6 +324,21 @@ func item_init():
 	pass
 
 
+# Consume item. Only applicable to items of consumable type.
+func consume():
+	on_consume()
+
+	print_verbose("Item was consumed. Removing item from game.")
+	
+	EventBus.consumable_item_was_consumed.emit(self)
+
+
+# Override in subclass script to implement the effect that
+# should happen when the item is consumed.
+func on_consume():
+	pass
+
+
 # Override this in tower subclass to implement the "On Item
 # Creation" trigger. This is the analog of "onCreate"
 # function from original API.
