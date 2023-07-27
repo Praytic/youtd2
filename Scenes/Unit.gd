@@ -295,31 +295,7 @@ func set_animation_by_index(_unit: Unit, _index: int):
 # exp pushes the unit past the level up threshold.
 # NOTE: unit.addExpFlat() in JASS
 func add_exp_flat(amount: float):
-	_experience += amount
-
-	var leveled_up: bool = false
-	var experience_for_next_level: float = get_experience_for_next_level()
-
-	if _experience >= experience_for_next_level:
-		var new_level: int = _level + 1
-		set_level(new_level)
-		level_up.emit()
-
-		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
-		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
-		Effect.scale_effect(effect_id, effect_scale)
-		Effect.destroy_effect(effect_id)
-
-		var level_up_text: String = "Level %d" % _level
-		getOwner().display_floating_text_color(level_up_text, self, Color.GOLD , 1.0)
-		leveled_up = true
-
-		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
-
-
-	if !leveled_up:
-		var exp_text: String = "+%s exp" % String.num(amount, 1)
-		getOwner().display_floating_text_color(exp_text, self, Color.LIME_GREEN, 1.0)
+	_change_experience(amount)
 
 
 # Affected by tower exp ratios.
@@ -327,7 +303,7 @@ func add_exp_flat(amount: float):
 func add_exp(amount_no_bonus: float):
 	var received_mod: float = get_prop_exp_received()
 	var amount: float = amount_no_bonus * received_mod
-	add_exp_flat(amount)
+	_change_experience(amount)
 
 
 # Unaffected by tower exp ratios. Returns how much
@@ -337,21 +313,19 @@ func add_exp(amount_no_bonus: float):
 # set to 0.
 # NOTE: unit.removeExpFlat() in JASS
 func remove_exp_flat(amount: float) -> float:
-	var old_exp: float = _experience
-	var new_exp: float = clampf(_experience - amount, 0.0, _experience)
-	_experience = new_exp
-
-	var actual_removed: float = old_exp - new_exp
+	var actual_removed: float = _change_experience(-amount)
 
 	return actual_removed
 
 
 # Affected by "exp recieved" modification.
 # NOTE: unit.removeExp() in JASS
-func remove_exp(amount_no_bonus: float):
+func remove_exp(amount_no_bonus: float) -> float:
 	var received_mod: float = get_prop_exp_received()
 	var amount: float = amount_no_bonus * received_mod
-	remove_exp_flat(amount)
+	var actual_removed: float = _change_experience(-amount)
+
+	return actual_removed
 
 
 # NOTE: unit.calcChance() in JASS
@@ -1398,3 +1372,60 @@ func get_experience_for_next_level():
 	var for_next_level: float = Constants.EXP_FOR_LEVEL[next_level]
 
 	return for_next_level
+
+
+func get_experience_for_prev_level():
+	if reached_max_level():
+		return 0
+	elif !Constants.EXP_FOR_LEVEL.has(_level):
+		push_error("No exp for level value for level: ", _level)
+
+		return 0
+
+	var next_level: int = _level + 1
+	var for_next_level: float = Constants.EXP_FOR_LEVEL[next_level]
+
+	return for_next_level
+
+
+# Changes experience of unit. Change can be positive or
+# negative. Level will also be changed accordingly. Note
+# that level downs are possible.
+# TODO: should level_up event trigger multiple times for
+# same level if tower levels down and then back up?
+func _change_experience(amount: float) -> float:
+	var old_exp: float = _experience
+	var new_exp: float = max(0.0, _experience + amount)
+	var actual_change = new_exp - old_exp
+	var old_level: int = _level
+	var new_level: int = Constants.get_level_at_exp(new_exp)
+
+	_experience = new_exp
+
+	var level_changed: bool = new_level != old_level
+	
+	if level_changed:
+		set_level(new_level)
+
+	var leveled_up: bool = new_level > old_level
+
+	if leveled_up:
+		level_up.emit()
+
+		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
+		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
+		Effect.scale_effect(effect_id, effect_scale)
+		Effect.destroy_effect(effect_id)
+
+		var level_up_text: String = "Level %d" % _level
+		getOwner().display_floating_text_color(level_up_text, self, Color.GOLD , 1.0)
+
+		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
+	else:
+# 		NOTE: display floating text for exp amount only if
+# 		didn't level up to avoid overlapping of the two
+# 		floating texts
+		var exp_text: String = "+%s exp" % String.num(amount, 1)
+		getOwner().display_floating_text_color(exp_text, self, Color.LIME_GREEN, 1.0)
+
+	return actual_change
