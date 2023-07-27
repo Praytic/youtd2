@@ -40,10 +40,10 @@ enum AttackStyle {
 const ATTACK_CD_MIN: float = 0.2
 const PROJECTILE_SPEED: int = 1000
 const BOUNCE_RANGE: int = 125
-const ITEM_COUNT_MAX: int = 1
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
 const TARGET_TYPE_GROUND_ONLY: int = TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS
 const TARGET_TYPE_AIR_ONLY: int = TargetType.CREEPS + TargetType.SIZE_AIR
+const INVENTORY_CAPACITY_MAX: int = 6
 
 var _id: int = 0
 var _stats: Dictionary
@@ -217,7 +217,7 @@ func set_visual_only():
 # NOTE: tower.countFreeSlots() in JASS
 func count_free_slots() -> int:
 	var item_count: int = _item_list.size()
-	var free_slots = ITEM_COUNT_MAX - item_count
+	var free_slots = get_inventory_capacity() - item_count
 
 	return free_slots
 
@@ -225,7 +225,7 @@ func count_free_slots() -> int:
 # NOTE: tower.haveItemSpace() in JASS
 func have_item_space() -> bool:
 	var item_count: int = _item_list.size()
-	var have_space: bool = item_count < ITEM_COUNT_MAX
+	var have_space: bool = item_count < get_inventory_capacity()
 
 	return have_space
 
@@ -917,3 +917,18 @@ func get_base_mana_regen() -> float:
 # NOTE: tower.getGoldCost() in JASS
 func get_gold_cost() -> int:
 	return get_csv_property(CsvProperty.COST).to_int()
+
+func get_inventory_capacity() -> int:
+	var rarity: Rarity.enm = get_rarity_num() as Rarity.enm
+	var tier: int = get_tier()
+
+	var base_capacity: int = 0
+	match rarity:
+		Rarity.enm.COMMON: base_capacity = 1
+		Rarity.enm.UNCOMMON: base_capacity = 2
+		Rarity.enm.RARE: base_capacity = 4
+		Rarity.enm.UNIQUE: base_capacity = 5
+	
+	var capacity: int = min(base_capacity + tier - 1, INVENTORY_CAPACITY_MAX)
+
+	return capacity
