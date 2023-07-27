@@ -2,9 +2,6 @@ class_name TowerButton
 extends UnitButton
 
 
-const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
-
-
 var _tower_id: int: get = get_tower_id, set = set_tower_id
 
 

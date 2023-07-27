@@ -1,3 +1,4 @@
+class_name TowerButtonContainer
 extends "res://Scenes/HUD/Buttons/UnitButtonContainer.gd"
 
 
