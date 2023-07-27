@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=32 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemBar.gd" id="4_5ctcy"]
@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar.gd" id="6"]
 [ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="9_dxvdv"]
-[ext_resource type="PackedScene" uid="uid://d0hohy40ewgkc" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="9_jdob7"]
 [ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.tscn" id="9_rbj65"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/Gold.gd" id="10_ewb28"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/KnowledgeTome.gd" id="11_hpp3y"]
@@ -243,9 +242,6 @@ mouse_filter = 2
 theme_override_constants/h_separation = 100
 columns = 999
 script = ExtResource("4_5ctcy")
-
-[node name="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemBar" instance=ExtResource("9_jdob7")]
-layout_mode = 2
 
 [node name="RightMenu" type="PanelContainer" parent="HBoxContainer"]
 custom_minimum_size = Vector2(159, 209)
