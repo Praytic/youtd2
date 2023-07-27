@@ -12,6 +12,7 @@ static func make(item: Item):
 
 
 func _ready():
+	super._ready()
 	set_button(ItemButton.make(_item))
 
 

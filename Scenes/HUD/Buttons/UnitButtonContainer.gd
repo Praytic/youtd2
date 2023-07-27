@@ -3,7 +3,7 @@ extends MarginContainer
 
 
 @onready var _counter_label: Label = %CounterLabel
-@onready var _counter_container: Label = %CounterContainer
+@onready var _counter_container: MarginContainer = %CounterContainer
 @onready var _unit_button_container: Container = %UnitButtonContainer
 
 

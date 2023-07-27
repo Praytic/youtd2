@@ -18,6 +18,7 @@ static func make(tower_id: int):
 
 
 func _ready():
+	super._ready()
 	set_button(TowerButton.make(_tower_id))
 	set_tier_icon(_tower_id)
 
