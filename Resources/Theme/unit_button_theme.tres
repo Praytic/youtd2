@@ -1,3 +1,21 @@
-[gd_resource type="Theme" format=3 uid="uid://dksfi74d7n0pf"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dksfi74d7n0pf"]
+
+[ext_resource type="StyleBox" uid="uid://dcjhupdk2mwkl" path="res://Resources/Theme/UnitButton/button_normal.tres" id="1_80ch8"]
+[ext_resource type="StyleBox" uid="uid://ceml4iosll1ur" path="res://Resources/Theme/UnitButton/button_hover.tres" id="1_xn0v5"]
+[ext_resource type="Texture2D" uid="uid://m5xtdjyjr2xu" path="res://Resources/Textures/UI/common_background.tres" id="3_mxgkb"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1oo68"]
+texture = ExtResource("3_mxgkb")
+texture_margin_left = 16.5289
+texture_margin_top = 17.0
+texture_margin_right = 16.5289
+texture_margin_bottom = 17.0
 
 [resource]
+Button/styles/hover = ExtResource("1_xn0v5")
+Button/styles/normal = ExtResource("1_80ch8")
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_1oo68")

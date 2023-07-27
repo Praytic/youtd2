@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfhvyitmlng5w"]
+
+[ext_resource type="Theme" uid="uid://dksfi74d7n0pf" path="res://Resources/Theme/unit_button_theme.tres" id="1_7n860"]
+[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_d8h6n"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o8x7"]
+atlas = ExtResource("2_d8h6n")
+region = Rect2(512, 128, 128, 128)
+
+[node name="UnitBtn" type="Button"]
+theme = ExtResource("1_7n860")
+icon = SubResource("AtlasTexture_0o8x7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
