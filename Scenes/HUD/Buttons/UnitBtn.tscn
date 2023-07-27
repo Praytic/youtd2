@@ -24,11 +24,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+[node name="RarityContainer" type="PanelContainer" parent="MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="LockTexture" type="TextureRect" parent="MarginContainer/PanelContainer"]
+[node name="LockTexture" type="TextureRect" parent="MarginContainer/RarityContainer"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.32549)
 layout_mode = 2
