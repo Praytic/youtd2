@@ -4,6 +4,8 @@ extends UnitButtonContainer
 
 var _item: Item : set = set_item, get = get_item
 
+var _hide_cooldown_indicator: bool = false
+
 
 static func make(item: Item):
 	var item_button_container = Globals.item_button_container_scene.instantiate()
@@ -13,7 +15,13 @@ static func make(item: Item):
 
 func _ready():
 	super._ready()
-	set_button(ItemButton.make(_item))
+
+	var actual_button: ItemButton = ItemButton.make(_item)
+
+	if _hide_cooldown_indicator:
+		actual_button.hide_cooldown_indicator()
+
+	set_button(actual_button)
 
 
 func get_item() -> Item:
@@ -22,3 +30,7 @@ func get_item() -> Item:
 
 func set_item(value: Item):
 	_item = value
+
+
+func hide_cooldown_indicator():
+	_hide_cooldown_indicator = true
