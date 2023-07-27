@@ -2,9 +2,9 @@ class_name UnitButtonContainer
 extends MarginContainer
 
 
-@onready var _counter_label: Label = $%CounterLabel
-@onready var _counter_container: Label = $%CounterContainer
-@onready var _unit_button_container: Container = $%UnitButtonContainer
+@onready var _counter_label: Label = %CounterLabel
+@onready var _counter_container: Label = %CounterContainer
+@onready var _unit_button_container: Container = %UnitButtonContainer
 
 
 var _count: int : set = set_count

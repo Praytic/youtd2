@@ -6,15 +6,15 @@ var _tower_id: int: get = get_tower_id, set = set_tower_id
 
 
 static func make(tower_id: int):
-	var tower_button = Globals.tower_button.instantiate()
-	
+	var tower_button = Globals.tower_button_scene.instantiate()
 	tower_button.set_tower_id(tower_id)
-	tower_button.set_rarity(TowerProperties.get_rarity(tower_id))
-	tower_button.set_icon(TowerProperties.get_icon_texture(tower_id))
 	return tower_button
 
 
 func _ready():
+	set_rarity(TowerProperties.get_rarity(_tower_id))
+	set_icon(TowerProperties.get_icon_texture(_tower_id))
+	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 	pressed.connect(_on_pressed)

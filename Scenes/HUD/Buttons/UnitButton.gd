@@ -2,8 +2,8 @@ class_name UnitButton
 extends Button
 
 
-@onready var _disabled_lock: TextureRect = $%LockTexture
-@onready var _rarity_container: TextureRect = $%RarityContainer
+@onready var _disabled_lock: TextureRect = %LockTexture
+@onready var _rarity_container: TextureRect = %RarityContainer
 
 
 var _rarity: String: get = get_rarity, set = set_rarity

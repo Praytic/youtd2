@@ -6,22 +6,21 @@ const ICON_SIZE_M = 128
 
 var _item: Item : set = set_item, get = get_item
 
-@onready var _cooldown_indicator: CooldownIndicator = $%CooldownIndicator
+@onready var _cooldown_indicator: CooldownIndicator = %CooldownIndicator
 
 var _hide_cooldown_indicator: bool = false
 
 
 static func make(item: Item) -> ItemButton:
 	var item_button: ItemButton = Globals.item_button_scene.instantiate()
-	
 	item_button.set_item(item)
-	item_button.set_rarity(ItemProperties.get_rarity(item.get_id()))
-	item_button.set_icon(ItemProperties.get_icon(item.get_id()))
-	
 	return item_button
 
 
 func _ready():
+	set_rarity(ItemProperties.get_rarity(_item.get_id()))
+	set_icon(ItemProperties.get_icon(_item.get_id()))
+	
 	var autocast: Autocast = _item.get_autocast()
 
 	if autocast != null:
