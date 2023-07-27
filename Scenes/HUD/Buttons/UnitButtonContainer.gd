@@ -7,7 +7,11 @@ extends MarginContainer
 @onready var _unit_button_container: Container = %UnitButtonContainer
 
 
-var _count: int : set = set_count
+var _count: int: set = set_count
+
+
+func _ready():
+	set_count(1)
 
 
 func set_count(value: int):
