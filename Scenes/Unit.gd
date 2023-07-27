@@ -42,8 +42,6 @@ enum DamageSource {
 
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
-# TODO: replace this placeholder constant with real value.
-const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
 const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
@@ -300,10 +298,9 @@ func add_exp_flat(amount: float):
 	_experience += amount
 
 	var leveled_up: bool = false
+	var experience_for_next_level: float = get_experience_for_next_level()
 
-	if _experience >= EXP_PER_LEVEL:
-		_experience -= EXP_PER_LEVEL
-
+	if _experience >= experience_for_next_level:
 		var new_level: int = _level + 1
 		set_level(new_level)
 		level_up.emit()
@@ -1375,7 +1372,22 @@ func get_attack_type() -> AttackType.enm:
 func get_exp() -> float:
 	return _experience
 
+
+func reached_max_level() -> bool:
+	var is_max_level: bool = _level == Constants.MAX_LEVEL
+
+	return is_max_level
+
+
 func get_experience_for_next_level():
-	var for_next_level: float = EXP_PER_LEVEL - _experience
+	if reached_max_level():
+		return 0
+	elif !Constants.EXP_FOR_LEVEL.has(_level):
+		push_error("No exp for level value for level: ", _level)
+
+		return 0
+
+	var next_level: int = _level + 1
+	var for_next_level: float = Constants.EXP_FOR_LEVEL[next_level]
 
 	return for_next_level
