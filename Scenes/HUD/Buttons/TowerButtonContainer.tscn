@@ -16,7 +16,8 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 3
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer3" index="0"]
+[node name="TierIcon" type="TextureRect" parent="VBoxContainer/MarginContainer3" index="0"]
+unique_name_in_owner = true
 z_index = 1
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
@@ -25,3 +26,6 @@ size_flags_vertical = 8
 texture = SubResource("AtlasTexture_lull0")
 expand_mode = 2
 stretch_mode = 4
+
+[node name="UnitButton" parent="VBoxContainer/UnitButtonContainer" index="0"]
+unique_name_in_owner = true

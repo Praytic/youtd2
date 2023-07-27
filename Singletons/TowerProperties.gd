@@ -1,7 +1,27 @@
 extends Node
 
+
+const ICON_SIZE_M = 128
+const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
+
 # Convenience getters for tower properties. Actual values
 # are stored in Properties, this class contains getters.
+
+func get_icon_texture(tower_id: int) -> Texture2D:
+	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(tower_id)
+	if icon_atlas_num == -1 && Config.print_errors_about_towers():
+		push_error("Could not find an icon for tower id [%s]." % tower_id)
+	
+	var tower_icon = AtlasTexture.new()
+	var icon_size: int
+	
+	tower_icon.set_atlas(_tower_icons_m)
+	icon_size = ICON_SIZE_M
+	
+	var region: Rect2 = Rect2(TowerProperties.get_element(tower_id) * icon_size, icon_atlas_num * icon_size, icon_size, icon_size)
+	tower_icon.set_region(region)
+	return tower_icon
+
 
 func get_tier(tower_id: int) -> int:
 	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.TIER).to_int()

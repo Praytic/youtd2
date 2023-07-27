@@ -1,11 +1,10 @@
-class_name UnitButtonContainer
 extends MarginContainer
 
 
-@onready var _unit_button: UnitButton = $%UnitBtn: set = set_button, get = get_button
 @onready var _counter_label: Label = $%CounterLabel
 @onready var _counter_container: Label = $%CounterContainer
-
+@onready var _unit_button_container: Container = $%UnitButtonContainer
+@onready var _unit_button: Button = $%UnitButton
 
 var _count: int : set = set_count
 
@@ -20,8 +19,9 @@ func set_count(value: int):
 
 
 func get_button() -> UnitButton:
-	return _unit_button
+	return _unit_button_container.get_child(0)
 
 
 func set_button(value: UnitButton):
-	_unit_button = value
+	_unit_button_container.remove_child(get_button())
+	_unit_button_container.add_child(value)

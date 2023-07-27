@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://22mf4myucw0w"]
+
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_58csb"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButton.gd" id="2_tfpmj"]
+
+[node name="UnitButton" instance=ExtResource("1_58csb")]
+script = ExtResource("2_tfpmj")

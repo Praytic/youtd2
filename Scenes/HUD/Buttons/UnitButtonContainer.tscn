@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButtonContainer.gd" id="1_aiiex"]
 [ext_resource type="Theme" uid="uid://bjaj3lhevqwr0" path="res://Resources/Theme/unit_button_container_theme.tres" id="1_rdk47"]
-[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitBtn.tscn" id="2_tpw3p"]
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="2_tpw3p"]
 
 [node name="MarginContainer" type="MarginContainer"]
 theme = ExtResource("1_rdk47")
@@ -14,15 +14,15 @@ custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 theme_override_constants/separation = -34
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="UnitButtonContainer" type="MarginContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 4.0
 theme_override_constants/margin_right = 15
 
-[node name="UnitBtn" parent="VBoxContainer/MarginContainer" instance=ExtResource("2_tpw3p")]
-unique_name_in_owner = true
+[node name="UnitButton" parent="VBoxContainer/UnitButtonContainer" instance=ExtResource("2_tpw3p")]
 layout_mode = 2
 
 [node name="CounterContainer" type="MarginContainer" parent="VBoxContainer"]

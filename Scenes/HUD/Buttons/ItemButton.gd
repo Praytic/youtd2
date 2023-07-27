@@ -1,7 +1,5 @@
-class_name ItemButton 
+class_name ItemButton
 extends UnitButton
-
-signal right_clicked()
 
 
 const ICON_SIZE_M = 128
