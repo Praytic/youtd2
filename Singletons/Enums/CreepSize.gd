@@ -56,6 +56,15 @@ const _item_quality_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 0.25,
 }
 
+const _experience_map: Dictionary = {
+	CreepSize.enm.MASS: 1,
+	CreepSize.enm.NORMAL: 2,
+	CreepSize.enm.AIR: 4,
+	CreepSize.enm.CHAMPION: 4,
+	CreepSize.enm.BOSS: 20,
+	CreepSize.enm.CHALLENGE_MASS: 4,
+	CreepSize.enm.CHALLENGE_BOSS: 40,
+}
 
 func from_string(string: String) -> CreepSize.enm:
 	var key = _string_map.find_key(string)
@@ -86,3 +95,7 @@ func get_default_item_chance(type: CreepSize.enm) -> float:
 
 func get_default_item_quality(type: CreepSize.enm) -> float:
 	return _item_quality_map[type]
+
+
+func get_experience(type: CreepSize.enm) -> float:
+	return _experience_map[type]

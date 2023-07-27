@@ -879,8 +879,12 @@ func get_bounty() -> float:
 
 
 func _get_experience_for_target(target: Unit) -> float:
-# 	TODO: Replace this placeholder constant with real value.
-	var experience_base: float = 10.0
+	if !target is Creep:
+		return 0
+
+	var creep: Creep = target as Creep
+	var creep_size: CreepSize.enm = creep.get_size()
+	var experience_base: float = CreepSize.get_experience(creep_size)
 	var granted_mod: float = target.get_prop_exp_granted()
 	var experience: float = experience_base * granted_mod
 
