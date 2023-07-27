@@ -7,7 +7,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0o8x7"]
 atlas = ExtResource("2_d8h6n")
-region = Rect2(-128, -128, 128, 128)
+region = Rect2(256, 256, 128, 128)
 
 [node name="UnitButton" type="Button"]
 theme = ExtResource("1_7n860")
@@ -31,6 +31,6 @@ mouse_filter = 2
 
 [node name="LockTexture" type="TextureRect" parent="MarginContainer/RarityContainer"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.32549)
+z_index = 1
 layout_mode = 2
 texture = ExtResource("4_mg2m6")
