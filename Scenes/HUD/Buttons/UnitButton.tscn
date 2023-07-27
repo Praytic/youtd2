@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqjk0dq82x1cv"]
+[gd_scene load_steps=8 format=3 uid="uid://dqjk0dq82x1cv"]
 
+[ext_resource type="Theme" uid="uid://dksfi74d7n0pf" path="res://Resources/Theme/unit_button_theme.tres" id="1_54rj1"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButton.gd" id="1_ppg32"]
 [ext_resource type="Texture2D" uid="uid://yp3jg4xvj4g4" path="res://Resources/Textures/UI/common_unit_button.tres" id="1_wt0jm"]
 [ext_resource type="Texture2D" uid="uid://cp0p7pvsidg6k" path="res://Resources/Textures/UI/common_unit_button_hover.tres" id="2_a7a4m"]
@@ -10,6 +11,7 @@
 [node name="Control" type="MarginContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
+theme = ExtResource("1_54rj1")
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
