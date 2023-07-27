@@ -1,17 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfhvyitmlng5w"]
+[gd_scene load_steps=5 format=3 uid="uid://dfhvyitmlng5w"]
 
 [ext_resource type="Theme" uid="uid://dksfi74d7n0pf" path="res://Resources/Theme/unit_button_theme.tres" id="1_7n860"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_d8h6n"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButton.gd" id="3_kwsps"]
-[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="4_mg2m6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0o8x7"]
 atlas = ExtResource("2_d8h6n")
 region = Rect2(256, 256, 128, 128)
 
 [node name="UnitButton" type="Button"]
+offset_right = 148.0
+offset_bottom = 148.0
 theme = ExtResource("1_7n860")
 icon = SubResource("AtlasTexture_0o8x7")
+icon_alignment = 1
+expand_icon = true
 script = ExtResource("3_kwsps")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -28,9 +31,3 @@ mouse_filter = 2
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
-
-[node name="LockTexture" type="TextureRect" parent="MarginContainer/RarityContainer"]
-unique_name_in_owner = true
-z_index = 1
-layout_mode = 2
-texture = ExtResource("4_mg2m6")

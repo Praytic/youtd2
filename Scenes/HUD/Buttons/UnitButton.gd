@@ -2,18 +2,10 @@ class_name UnitButton
 extends Button
 
 
-@onready var _disabled_lock: TextureRect = %LockTexture
 @onready var _rarity_container: PanelContainer = %RarityContainer
 
 
 var _rarity: String: get = get_rarity, set = set_rarity
-
-
-func _draw():
-	if disabled:
-		_disabled_lock.show()
-	else:
-		_disabled_lock.hide()
 
 
 func get_rarity() -> String:

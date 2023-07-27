@@ -2,8 +2,9 @@ class_name TowerButton
 extends UnitButton
 
 
-var _tower_id: int: get = get_tower_id, set = set_tower_id
+@onready var _disabled_lock: TextureRect = %LockTexture
 
+var _tower_id: int: get = get_tower_id, set = set_tower_id
 
 static func make(tower_id: int):
 	var tower_button = Globals.tower_button_scene.instantiate()
@@ -35,6 +36,10 @@ func set_tower_id(value: int):
 func _on_wave_or_element_level_changed():
 	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id) || Config.ignore_requirements()
 	set_disabled(!can_build)
+	if !can_build:
+		_disabled_lock.show()
+	else:
+		_disabled_lock.hide()
 
 
 func _on_mouse_entered():
