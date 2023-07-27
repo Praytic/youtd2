@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButtonContainer.gd" id="1_aiiex"]
 [ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="1_jg1aw"]
-[ext_resource type="Theme" uid="uid://bjaj3lhevqwr0" path="res://Resources/Theme/unit_button_container.tres" id="1_rabqc"]
+[ext_resource type="Theme" uid="uid://bjaj3lhevqwr0" path="res://Resources/Theme/unit_button_container_theme.tres" id="1_rdk47"]
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitBtn.tscn" id="2_tpw3p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1f0rb"]
 atlas = ExtResource("1_jg1aw")
-region = Rect2(128, 192, 64, 64)
+region = Rect2(-64, -64, 64, 64)
 
 [node name="MarginContainer" type="MarginContainer"]
-theme = ExtResource("1_rabqc")
+theme = ExtResource("1_rdk47")
 theme_override_constants/margin_left = 10
 script = ExtResource("1_aiiex")
 
