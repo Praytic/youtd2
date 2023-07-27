@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://csf754g4djfv"]
+[gd_scene load_steps=5 format=3 uid="uid://csf754g4djfv"]
 
 [ext_resource type="PackedScene" uid="uid://d0hohy40ewgkc" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="1_gdin8"]
 [ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="2_dl1tj"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButtonContainer.gd" id="2_xjdk5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lull0"]
 atlas = ExtResource("2_dl1tj")
 region = Rect2(-64, -64, 64, 64)
 
 [node name="MarginContainer" instance=ExtResource("1_gdin8")]
+script = ExtResource("2_xjdk5")
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer" index="0"]
 layout_mode = 2
