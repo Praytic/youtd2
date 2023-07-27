@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://bs7talxfb2fac"]
+[gd_scene load_steps=4 format=3 uid="uid://bs7talxfb2fac"]
 
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_56ir5"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButton.gd" id="2_0spo4"]
+[ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://Scenes/HUD/Buttons/CooldownIndicator.tscn" id="3_fy62u"]
 
 [node name="UnitButton" instance=ExtResource("1_56ir5")]
 script = ExtResource("2_0spo4")
+
+[node name="LockTexture" parent="MarginContainer/RarityContainer" index="0"]
+visible = false
+
+[node name="CooldownIndicator" parent="MarginContainer/RarityContainer" index="1" instance=ExtResource("3_fy62u")]
+unique_name_in_owner = true
+layout_mode = 2

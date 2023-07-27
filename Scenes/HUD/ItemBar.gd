@@ -9,7 +9,7 @@ var _moved_item_button: ItemButton = null
 
 
 func add_item_button(item: Item):
-	var item_button: ItemButton = _create_ItemButton(item)
+	var item_button: ItemButtonContainer = _create_ItemButton(item)
 	add_child(item_button)
 	var actual_button: BaseButton = item_button.get_button()
 	actual_button.pressed.connect(_on_item_button_pressed.bind(item_button))
@@ -50,8 +50,8 @@ func on_item_move_from_itembar_done(move_success: bool):
 	_moved_item_button = null
 
 
-func _create_ItemButton(item: Item) -> ItemButton:
-	var item_button: ItemButton = ItemButton.make(item)
+func _create_ItemButton(item: Item) -> ItemButtonContainer:
+	var item_button = ItemButtonContainer.make(item)
 	item_button.hide_cooldown_indicator()
 #	NOTE: While item is not parented to tower, parent it to button
 	item_button.add_child(item)

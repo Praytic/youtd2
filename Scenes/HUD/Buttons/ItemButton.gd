@@ -6,7 +6,7 @@ const ICON_SIZE_M = 128
 
 var _item: Item : set = set_item, get = get_item
 
-@onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
+@onready var _cooldown_indicator: CooldownIndicator = $%CooldownIndicator
 
 var _hide_cooldown_indicator: bool = false
 

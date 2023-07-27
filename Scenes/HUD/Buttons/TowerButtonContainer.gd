@@ -1,10 +1,6 @@
 class_name TowerButtonContainer
-extends "res://Scenes/HUD/Buttons/UnitButtonContainer.gd"
+extends UnitButtonContainer
 
-
-const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
-
-const TIER_ICON_SIZE_M = 64
 
 @onready var _tier_icon: TextureRect = $%TierIcon
 
