@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="3_tes0f"]
 
 [node name="UnitButton" instance=ExtResource("1_58csb")]
+custom_minimum_size = Vector2(64, 64)
 script = ExtResource("2_tfpmj")
 
 [node name="LockTexture" type="TextureRect" parent="MarginContainer" index="1"]

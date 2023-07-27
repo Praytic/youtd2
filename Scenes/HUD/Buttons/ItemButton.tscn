@@ -5,12 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://Scenes/HUD/Buttons/CooldownIndicator.tscn" id="3_fy62u"]
 
 [node name="UnitButton" instance=ExtResource("1_56ir5")]
+custom_minimum_size = Vector2(64, 64)
 script = ExtResource("2_0spo4")
 
-[node name="LockTexture" parent="MarginContainer/RarityContainer" index="0"]
-visible = false
-
-[node name="CooldownIndicator" parent="MarginContainer/RarityContainer" index="1" instance=ExtResource("3_fy62u")]
+[node name="CooldownIndicator" parent="MarginContainer" index="0" instance=ExtResource("3_fy62u")]
 unique_name_in_owner = true
 z_index = 1
 layout_mode = 2
