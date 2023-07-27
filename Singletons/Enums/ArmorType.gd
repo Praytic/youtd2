@@ -6,6 +6,7 @@ enum enm {
 	LUA,
 	SOL,
 	SIF,
+	ZOD,
 }
 
 const _string_map: Dictionary = {
@@ -14,6 +15,7 @@ const _string_map: Dictionary = {
 	ArmorType.enm.LUA: "lua",
 	ArmorType.enm.SOL: "sol",
 	ArmorType.enm.SIF: "sif",
+	ArmorType.enm.ZOD: "zod",
 }
 
 const _color_map: Dictionary = {
@@ -22,6 +24,7 @@ const _color_map: Dictionary = {
 	ArmorType.enm.LUA: Color.LIME_GREEN,
 	ArmorType.enm.SOL: Color.GOLD,
 	ArmorType.enm.SIF: Color.MEDIUM_PURPLE,
+	ArmorType.enm.ZOD: Color.YELLOW,
 }
 
 
