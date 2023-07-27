@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpbjntrp3eow2"]
+
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitBtn.tscn" id="1_d0uhw"]
+[ext_resource type="Theme" uid="uid://bjaj3lhevqwr0" path="res://Resources/Theme/unit_button_container.tres" id="1_t806o"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButtonContainer.gd" id="2_5g6tb"]
+
+[node name="UnitBtnContainer" type="Container"]
+theme = ExtResource("1_t806o")
+script = ExtResource("2_5g6tb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="UnitBtn" parent="VBoxContainer/MarginContainer" instance=ExtResource("1_d0uhw")]
+layout_mode = 2
+
+[node name="CounterLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "23"
