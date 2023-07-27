@@ -5,10 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="2_tpw3p"]
 
 [node name="MarginContainer" type="MarginContainer"]
-offset_right = 224.0
-offset_bottom = 170.0
+offset_right = 64.0
+offset_bottom = 64.0
 theme = ExtResource("1_rdk47")
-theme_override_constants/margin_left = 15
 script = ExtResource("1_aiiex")
 
 [node name="UnitButtonContainer" type="AspectRatioContainer" parent="."]
