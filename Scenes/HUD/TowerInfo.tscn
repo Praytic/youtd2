@@ -421,14 +421,15 @@ mouse_filter = 1
 text = "9136"
 horizontal_alignment = 2
 
-[node name="Level" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
+[node name="LevelXAt" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
-text = "Max Level reached!"
+text = "Level X at
+"
 
-[node name="ExperienceForNextLevel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
+[node name="ExperienceForNextLevel" type="Label" parent="VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
