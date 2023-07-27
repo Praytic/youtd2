@@ -446,7 +446,10 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 
 # NOTE: unit.doSpellDamage() in JASS
 func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
-	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target)
+# 	NOTE: apply spell damage ratio here. It's the same value
+# 	for all armor types, weird but that's how it works in
+# 	original.
+	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target) * Constants.SPELL_DAMAGE_RATIO
 
 	_do_damage(target, damage_total, DamageSource.Spell)
 

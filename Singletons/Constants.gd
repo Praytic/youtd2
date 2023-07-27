@@ -27,6 +27,7 @@ const DEATH_EXPLODE_EFFECT_SIZE: float = 32.0
 const LEVEL_UP_EFFECT_SIZE: float = 32.0
 
 const ARMOR_COEFFICIENT: float = 0.04
+const SPELL_DAMAGE_RATIO: float = 0.9
 
 const MAX_LEVEL: int = 25
 var EXP_FOR_LEVEL: Dictionary = make_exp_for_level_map()
