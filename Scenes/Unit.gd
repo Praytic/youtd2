@@ -74,7 +74,7 @@ var _crit_damage_ratio_for_next_attack: float = 0.0
 var _crit_bonus_for_next_spell: int = 0
 
 var _is_dead: bool = false
-var _level: int = 1 : get = get_level, set = set_level
+var _level: int = 0 : get = get_level, set = set_level
 var _buff_type_map: Dictionary
 var _buff_group_map: Dictionary
 var _friendly_buff_list: Array[Buff]
@@ -858,7 +858,7 @@ func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
 	var modification_list: Array = modifier.get_modification_list()
 
 	for modification in modification_list:
-		var power_bonus: float = modification.level_add * (power - 1)
+		var power_bonus: float = modification.level_add * power
 		var value: float = modification.value_base + power_bonus
 
 		_modify_property_internal(modification.type, value, modify_direction)
