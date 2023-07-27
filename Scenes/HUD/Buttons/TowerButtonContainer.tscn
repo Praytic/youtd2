@@ -13,6 +13,9 @@ offset_right = 142.0
 offset_bottom = 143.0
 script = ExtResource("2_xjdk5")
 
+[node name="UnitButtonContainer" parent="." index="0"]
+stretch_mode = 3
+
 [node name="TierContainer" type="MarginContainer" parent="UnitButtonContainer/UnitButton" index="2"]
 layout_mode = 1
 anchors_preset = 1
