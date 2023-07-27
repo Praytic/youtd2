@@ -19,7 +19,7 @@ signal expanded(expand)
 func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 
-	_on_selected_unit_changed()
+	hide()
 
 
 func _on_selected_unit_changed():
@@ -32,6 +32,11 @@ func _on_selected_unit_changed():
 		_expand_button.set_pressed_no_signal(false)
 		_expand_button.icon.atlas.region.position.x = 0
 		hide()
+
+#		NOTE: emit expanded signal so that if wave status
+#		was hidden, it becomes visible again. Should rework
+#		for this to be more explicit
+		expanded.emit(false)
 
 
 func set_header_unit(unit):
