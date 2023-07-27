@@ -5,7 +5,7 @@ extends GridContainer
 @onready var _item_buttons: Dictionary = {}
 
 
-var _moved_item_button: ItemButton = null
+var _moved_item_button: ItemButtonContainer = null
 
 
 func add_item_button(item: Item):
@@ -17,7 +17,7 @@ func add_item_button(item: Item):
 
 
 func remove_item_button(item: Item):
-	var item_button: ItemButton = _item_buttons[item]
+	var item_button: ItemButtonContainer = _item_buttons[item]
 	_item_buttons.erase(item)
 	item_button.queue_free()
 
@@ -58,7 +58,7 @@ func _on_item_drop_picked_up(item: Item):
 	add_item_button(item)
 
 
-func _on_item_button_pressed(item_button: ItemButton):
+func _on_item_button_pressed(item_button: ItemButtonContainer):
 	var item: Item = item_button.get_item()
 	var started_move: bool = ItemMovement.start_move_from_itembar(item)
 

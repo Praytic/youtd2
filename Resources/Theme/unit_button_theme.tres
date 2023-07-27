@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dksfi74d7n0pf"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dksfi74d7n0pf"]
 
 [ext_resource type="StyleBox" uid="uid://dcjhupdk2mwkl" path="res://Resources/Theme/UnitButton/button_normal.tres" id="1_80ch8"]
+[ext_resource type="StyleBox" uid="uid://c8x6v1g5py6r6" path="res://Resources/Theme/UnitButton/button_disabled.tres" id="1_tdptv"]
 [ext_resource type="StyleBox" uid="uid://ceml4iosll1ur" path="res://Resources/Theme/UnitButton/button_hover.tres" id="1_xn0v5"]
 [ext_resource type="StyleBox" uid="uid://b8m81drahps4x" path="res://Resources/Theme/UnitButton/common_rarity_panel_container.tres" id="3_bk18n"]
 [ext_resource type="StyleBox" uid="uid://dvslmk5lro1u0" path="res://Resources/Theme/UnitButton/rare_rarity_panel_container.tres" id="4_lnooq"]
@@ -8,8 +9,10 @@
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="6_xmrco"]
 
 [resource]
+Button/styles/disabled = ExtResource("1_tdptv")
 Button/styles/hover = ExtResource("1_xn0v5")
 Button/styles/normal = ExtResource("1_80ch8")
+Button/styles/pressed = ExtResource("1_tdptv")
 CommonRarityPanelContainer/styles/panel = ExtResource("3_bk18n")
 MarginContainer/constants/margin_bottom = 8
 MarginContainer/constants/margin_left = 8

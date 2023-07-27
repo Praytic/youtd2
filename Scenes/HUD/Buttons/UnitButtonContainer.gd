@@ -30,3 +30,7 @@ func get_button() -> UnitButton:
 func set_button(value: UnitButton):
 	_unit_button_container.remove_child(get_button())
 	_unit_button_container.add_child(value)
+
+
+func set_disabled(value: bool):
+	get_button().disabled = value
