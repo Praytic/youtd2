@@ -5,21 +5,24 @@ extends GridContainer
 @onready var _item_buttons: Dictionary = {}
 
 
-var _moved_item_button: ItemButtonContainer = null
+var _moved_item_button: ItemButton = null
 
 
 func add_item_button(item: Item):
-	var item_button: ItemButtonContainer = _create_ItemButton(item)
-	add_child(item_button)
-	var actual_button: BaseButton = item_button.get_button()
-	actual_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+	var item_button: ItemButton = _create_ItemButton(item)
+	var button_container = AspectRatioContainer.new()
+	button_container.add_child(item_button)
+	button_container.stretch_mode = AspectRatioContainer.STRETCH_COVER
+		
+	add_child(button_container)
+	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 	_item_buttons[item] = item_button
 
 
 func remove_item_button(item: Item):
-	var item_button: ItemButtonContainer = _item_buttons[item]
+	var item_button: ItemButton = _item_buttons[item]
 	_item_buttons.erase(item)
-	item_button.queue_free()
+	item_button.get_parent().queue_free()
 
 
 func _ready():
@@ -50,20 +53,20 @@ func on_item_move_from_itembar_done(move_success: bool):
 	_moved_item_button = null
 
 
-func _create_ItemButton(item: Item) -> ItemButtonContainer:
-	var item_button_container: ItemButtonContainer = ItemButtonContainer.make(item)
-	item_button_container.hide_cooldown_indicator()
+func _create_ItemButton(item: Item) -> ItemButton:
+	var item_button = ItemButton.make(item)
+	item_button.hide_cooldown_indicator()
 #	NOTE: While item is not parented to tower, parent it to button
-	item_button_container.add_child(item)
+	item_button.add_child(item)
 
-	return item_button_container
+	return item_button
 
 
 func _on_item_drop_picked_up(item: Item):
 	add_item_button(item)
 
 
-func _on_item_button_pressed(item_button: ItemButtonContainer):
+func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	var started_move: bool = ItemMovement.start_move_from_itembar(item)
 
