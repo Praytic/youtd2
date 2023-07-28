@@ -1363,13 +1363,13 @@ func reached_max_level() -> bool:
 func get_experience_for_next_level():
 	if reached_max_level():
 		return 0
-	elif !Constants.EXP_FOR_LEVEL.has(_level):
+	elif !Experience.EXP_FOR_LEVEL.has(_level):
 		push_error("No exp for level value for level: ", _level)
 
 		return 0
 
 	var next_level: int = _level + 1
-	var for_next_level: float = Constants.EXP_FOR_LEVEL[next_level]
+	var for_next_level: float = Experience.EXP_FOR_LEVEL[next_level]
 
 	return for_next_level
 
@@ -1384,7 +1384,7 @@ func _change_experience(amount: float) -> float:
 	var new_exp: float = max(0.0, _experience + amount)
 	var actual_change = new_exp - old_exp
 	var old_level: int = _level
-	var new_level: int = Constants.get_level_at_exp(new_exp)
+	var new_level: int = Experience.get_level_at_exp(new_exp)
 
 	_experience = new_exp
 
