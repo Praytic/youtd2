@@ -1,33 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://csf754g4djfv"]
+[gd_scene load_steps=3 format=3 uid="uid://csf754g4djfv"]
 
 [ext_resource type="PackedScene" uid="uid://d0hohy40ewgkc" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="1_gdin8"]
-[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="2_dl1tj"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButtonContainer.gd" id="2_xjdk5"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ix57a"]
-atlas = ExtResource("2_dl1tj")
-region = Rect2(0, 0, 64, 64)
-
-[node name="MarginContainer" instance=ExtResource("1_gdin8")]
+[node name="TowerButtonContainer" instance=ExtResource("1_gdin8")]
 offset_right = 142.0
 offset_bottom = 143.0
 script = ExtResource("2_xjdk5")
-
-[node name="TierContainer" type="MarginContainer" parent="UnitButtonContainer/UnitButton" index="2"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -43.0
-offset_bottom = 43.0
-grow_horizontal = 0
-theme_override_constants/margin_top = -15
-theme_override_constants/margin_right = -15
-
-[node name="TierIcon" type="TextureRect" parent="UnitButtonContainer/UnitButton/TierContainer" index="0"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-texture = SubResource("AtlasTexture_ix57a")
-expand_mode = 1
-stretch_mode = 4
