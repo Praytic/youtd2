@@ -178,12 +178,8 @@ layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="TowerMenu" parent="." instance=ExtResource("15_rfxf1")]
+visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_bottom = 1.0
-grow_horizontal = 2
 
 [connection signal="expanded" from="TowerInfoHeader" to="." method="_on_TowerInfoHeader_expanded"]
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
