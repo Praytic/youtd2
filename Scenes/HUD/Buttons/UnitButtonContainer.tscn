@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0hohy40ewgkc"]
+[gd_scene load_steps=3 format=3 uid="uid://d0hohy40ewgkc"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButtonContainer.gd" id="1_aiiex"]
 [ext_resource type="Theme" uid="uid://bjaj3lhevqwr0" path="res://Resources/Theme/unit_button_container_theme.tres" id="1_rdk47"]
-[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="2_tpw3p"]
 
 [node name="MarginContainer" type="MarginContainer"]
 offset_right = 64.0
@@ -16,31 +15,3 @@ script = ExtResource("1_aiiex")
 unique_name_in_owner = true
 layout_mode = 2
 stretch_mode = 3
-
-[node name="UnitButton" parent="UnitButtonContainer" instance=ExtResource("2_tpw3p")]
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-
-[node name="CounterContainer" type="MarginContainer" parent="UnitButtonContainer/UnitButton"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.0
-offset_top = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/margin_right = -15
-theme_override_constants/margin_bottom = -15
-
-[node name="CounterLabel" type="Label" parent="UnitButtonContainer/UnitButton/CounterContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_vertical = 1
-text = "3"
-horizontal_alignment = 1
-vertical_alignment = 1
