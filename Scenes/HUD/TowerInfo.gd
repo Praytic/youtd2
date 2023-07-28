@@ -14,6 +14,8 @@ var _current_tower: Tower = null
 @onready var _tower_stat_percent_signed_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent_signed")
 @onready var _tower_stat_multiplier_labels: Array = get_tree().get_nodes_in_group("tower_stat_multiplier")
 @onready var _tower_details_label: RichTextLabel = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/TowerDetailsLabel
+@onready var _level_x_at_label: Label = %LevelXAt
+@onready var _exp_for_next_level_label: Label = $VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/ExperienceForNextLevel
 
 
 func _ready():
@@ -68,6 +70,8 @@ func set_tower_tooltip_text(tower):
 		var stat = _get_stat(tower_stat_label, tower)
 		tower_stat_label.text = _multiplier_format(stat)
 
+	_update_exp_for_next_lvl_labels(tower)
+	
 	var tower_details_text: String = _get_tower_details_text(tower)
 	_tower_details_label.clear()
 	_tower_details_label.append_text(tower_details_text)
@@ -135,6 +139,18 @@ func _percent_format(number) -> String:
 
 func _float_format(number) -> String:
 	return "%.2f" % number
+
+
+func _update_exp_for_next_lvl_labels(tower: Tower):
+	var next_level: int = tower.get_level() + 1
+	var exp_for_next_level: int = Experience.get_exp_for_level(next_level)
+	
+	if tower.reached_max_level():
+		_level_x_at_label.text = "Max level reached!"
+		_exp_for_next_level_label.text = ""
+	else:
+		_level_x_at_label.text = "Level %s at" % str(next_level)
+		_exp_for_next_level_label.text = str(exp_for_next_level)
 
 
 func _get_tower_details_text(tower: Tower) -> String:

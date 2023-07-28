@@ -1,5 +1,6 @@
 extends Node
 
+
 const item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 const tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
 const unit_button_container_scene: PackedScene = preload("res://Scenes/HUD/Buttons/UnitButtonContainer.tscn")
@@ -15,3 +16,5 @@ const autocast_scene: PackedScene = preload("res://Scenes/Towers/Autocast.tscn")
 const tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 const placeholder_effect_scene: PackedScene = preload("res://Scenes/Effects/GenericMagic.tscn")
 const placeholder_tower_scene: PackedScene = preload("res://Scenes/Towers/Instances/PlaceholderTower.tscn")
+
+var difficulty: Difficulty.enm = Difficulty.enm.BEGINNER
