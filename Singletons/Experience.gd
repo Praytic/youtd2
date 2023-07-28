@@ -4,25 +4,42 @@ extends Node
 # Mapping of level -> required experience
 # Mapping of experience -> current level
 
-var _exp_for_level: Dictionary = _make_exp_for_level_map()
-var _level_at_exp: Dictionary = make_level_at_exp_map()
+const EXP_FOR_LEVEL_PATH: String = "res://Data/exp_for_level.csv"
+
+enum ExpForLevelColumn {
+	LEVEL = 0,
+	EXPERIENCE,
+}
+
+# This map is loaded from csv file
+var _exp_for_level: Dictionary = _load_exp_for_level_map()
+# This map is generated based on _exp_for_level
+var _level_at_exp: Dictionary = make_level_at_exp_map(_exp_for_level)
 
 
-# Example:
-# 0 = 0
-# 1 = 12
-# 2 = 24
-# 3 = 37
-# 4 = 51
-# ...
-func _make_exp_for_level_map() -> Dictionary:
+func _load_exp_for_level_map() -> Dictionary:
 	var map: Dictionary = {}
 
-	map[0] = 0
-	map[1] = 12
+	var file: FileAccess = FileAccess.open(EXP_FOR_LEVEL_PATH, FileAccess.READ)
 
-	for lvl in range(2, Constants.MAX_LEVEL + 1):
-		map[lvl] = map[lvl - 1] + 12 + (lvl - 2)
+	var skip_title_row: bool = true
+	while !file.eof_reached():
+		var csv_line: PackedStringArray = file.get_csv_line()
+
+		if skip_title_row:
+			skip_title_row = false
+			continue
+
+# 		NOTE: skip last line which has size of 1
+		if csv_line.size() <= 1:
+			continue
+
+		var level: int = csv_line[ExpForLevelColumn.LEVEL].to_int()
+		var experience: int = csv_line[ExpForLevelColumn.EXPERIENCE].to_int()
+
+		map[level] = experience
+
+	file.close()
 
 	return map
 
@@ -42,11 +59,9 @@ func _make_exp_for_level_map() -> Dictionary:
 # 25 = 2
 # 26 = 2
 # ...
-func make_level_at_exp_map() -> Dictionary:
+func make_level_at_exp_map(exp_for_level: Dictionary) -> Dictionary:
 	var map: Dictionary = {}
 	
-	var exp_for_level: Dictionary = _make_exp_for_level_map()
-
 	for current_level in range(0, Constants.MAX_LEVEL):
 		var current_level_experience: int = exp_for_level[current_level]
 		var next_level: int = current_level + 1
@@ -61,6 +76,8 @@ func make_level_at_exp_map() -> Dictionary:
 	return map
 
 
+# Returns how much experience is required to reach given
+# level
 func get_exp_for_level(level: int) -> int:
 	if _exp_for_level.has(level):
 		var experience: int = _exp_for_level[level]
@@ -72,6 +89,8 @@ func get_exp_for_level(level: int) -> int:
 		return 0
 
 
+# Returns what level the tower should be at when it has a
+# certain amount of experience
 func get_level_at_exp(experience_float: float) -> int:
 	var experience: int = floori(experience_float)
 
