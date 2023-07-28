@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmic45a8miedd"]
+
+[ext_resource type="Theme" uid="uid://b30hbwm01j4m" path="res://Resources/Theme/tower_menu_theme.tres" id="1_crn3l"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gno2"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yslek"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjph7"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(448, 0, 64, 64)
+
+[node name="TowerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_crn3l")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_bottom = 300.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_right = -40
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 30.0
+grow_vertical = 2
+theme_override_constants/margin_left = -20
+theme_override_constants/margin_top = -20
+theme_override_constants/margin_bottom = -20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="TowerLevelButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "25"
+
+[node name="TowerUpgradeButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = SubResource("AtlasTexture_0gno2")
+expand_icon = true
+
+[node name="TowerInfoButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = SubResource("AtlasTexture_yslek")
+expand_icon = true
+
+[node name="TowerLevelButton2" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+icon = SubResource("AtlasTexture_gjph7")
+expand_icon = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = -60
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Tower Name"
