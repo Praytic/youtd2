@@ -66,6 +66,16 @@ const _experience_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 
+const health_multiplier_map: Dictionary = {
+	CreepSize.enm.MASS: 0.3,
+	CreepSize.enm.NORMAL: 1.0,
+	CreepSize.enm.AIR: 1.0,
+	CreepSize.enm.CHAMPION: 1.75,
+	CreepSize.enm.BOSS: 6.0,
+	CreepSize.enm.CHALLENGE_MASS: 1.6,
+	CreepSize.enm.CHALLENGE_BOSS: 12.0,
+}
+
 func from_string(string: String) -> CreepSize.enm:
 	var key = _string_map.find_key(string)
 	

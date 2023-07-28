@@ -186,11 +186,14 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 
 		return null
 
+	var size_multiplier: float = CreepSize.health_multiplier_map[creep_size]
+	var creep_health: float = wave.get_base_hp() * size_multiplier
+
 	creep.set_path(wave.get_wave_path())
 	creep.set_creep_size(creep_size)
 	creep.set_armor_type(wave.get_armor_type())
 	creep.set_category(wave.get_race())
-	creep.set_base_health(wave.get_base_hp())
+	creep.set_base_health(creep_health)
 	creep.set_spawn_level(wave.get_wave_number())
 	creep.death.connect(wave._on_Creep_death.bind(creep))
 	creep.reached_portal.connect(Callable(wave, "_on_Creep_reached_portal").bind(creep))

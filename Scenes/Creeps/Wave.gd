@@ -32,6 +32,7 @@ var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
 var state: int = Wave.State.PENDING
 var next_wave: Wave
 var _specials: Array[int] = []
+var _base_hp: float = 0.0
 
 #########################
 ### Code starts here  ###
@@ -168,6 +169,7 @@ func get_id() -> int:
 
 func set_wave_number(value: int):
 	_wave_number = value
+	_base_hp = _calculate_base_hp()
 
 
 func get_wave_number() -> int:
@@ -200,11 +202,8 @@ func get_creep_sizes() -> Array:
 	return result
 
 
-# Calculates base HP for a Creep based on 
-# the wave number 
 func get_base_hp() -> float:
-	#TODO: Formula
-	return get_wave_number() * 100
+	return _base_hp
 
 
 func is_air() -> bool:
@@ -221,3 +220,62 @@ func get_creep_data_list() -> Array[CreepData]:
 
 func add_alive_creep(creep: Creep):
 	_alive_creep_list.append(creep)
+
+
+# Calculates base HP for a Creep based on 
+# the wave number 
+func _calculate_base_hp() -> float:
+	var a: float
+	var b: float
+	var c: float
+	var d: float
+	var e: float
+	var f: float
+	var g: float
+
+	match Globals.difficulty:
+		Difficulty.enm.BEGINNER:
+			a = 29 * 1.2
+			b = 20 * 1.6
+			c = 1.4 * 1.3
+			d = 0.015
+			e = 0.0001
+			f = 0.000007 * 1.9
+			g = 0.000000011
+		Difficulty.enm.EASY:
+			a = 35 * 1.2
+			b = 26 * 1.6
+			c = 1.6 * 1.3
+			d = 0.018
+			e = 0.0003
+			f = 0.000009 * 1.9
+			g = 0.000000012
+		Difficulty.enm.MEDIUM:
+			a = 42 * 1.2
+			b = 33 * 1.6
+			c = 1.8 * 1.3
+			d = 0.021
+			e = 0.0005
+			f = 0.000011 * 1.9
+			g = 0.000000013
+		Difficulty.enm.HARD:
+			a = 50 * 1.2
+			b = 41 * 1.6
+			c = 2.0 * 1.3
+			d = 0.024
+			e = 0.0008
+			f = 0.000013 * 1.9
+			g = 0.000000015
+		Difficulty.enm.EXTREME:
+			a = 59 * 1.2
+			b = 50 * 1.6
+			c = 2.2 * 1.3
+			d = 0.027
+			e = 0.001
+			f = 0.000015 * 1.9
+			g = 0.000000018
+
+	var j: int = get_wave_number() - 1
+	var health: float = a + j * (b + j * (c + j * (d + j * (e + j * (f + j * g)))))
+
+	return health
