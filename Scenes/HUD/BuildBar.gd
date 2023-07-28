@@ -33,9 +33,8 @@ func _ready():
 			continue
 	
 		var tower_button = TowerButton.make(tower_id)
-		var button_container = AspectRatioContainer.new()
+		var button_container = UnitButtonContainer.make()
 		button_container.add_child(tower_button)
-		button_container.stretch_mode = AspectRatioContainer.STRETCH_COVER
 		
 		_tower_buttons[tower_id] = tower_button
 		button_container.hide()

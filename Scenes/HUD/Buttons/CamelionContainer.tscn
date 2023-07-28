@@ -1,6 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bb1y7avnss5ph"]
+[gd_scene load_steps=2 format=3 uid="uid://dnfhh5ndpeiju"]
 
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/CamelionContainer.gd" id="1_tytso"]
+[sub_resource type="GDScript" id="GDScript_4iac8"]
+script/source = "extends AspectRatioContainer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [node name="CamelionContainer" type="AspectRatioContainer"]
-script = ExtResource("1_tytso")
+script = SubResource("GDScript_4iac8")

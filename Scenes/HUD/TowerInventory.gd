@@ -46,9 +46,8 @@ func on_tower_items_changed():
 
 	for item in items:
 		var item_button = ItemButton.make(item)
-		var button_container = AspectRatioContainer.new()
+		var button_container = UnitButtonContainer.make()
 		button_container.add_child(item_button)
-		button_container.stretch_mode = AspectRatioContainer.STRETCH_COVER
 		_buttons_container.add_child(button_container)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 

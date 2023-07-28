@@ -13,9 +13,8 @@ var _moved_item_button: ItemButton = null
 
 func add_item_button(item: Item):
 	var item_button: ItemButton = _create_ItemButton(item)
-	var button_container = AspectRatioContainer.new()
+	var button_container = UnitButtonContainer.make()
 	button_container.add_child(item_button)
-	button_container.stretch_mode = AspectRatioContainer.STRETCH_COVER
 		
 	add_child(button_container)
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
