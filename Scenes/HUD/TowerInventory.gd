@@ -3,8 +3,8 @@ extends Control
 
 var _tower: Tower = null
 
-@onready var _button_container: HBoxContainer = $PanelContainer/VBoxContainer/HBoxContainer
-var _moved_item_button: ItemButtonContainer = null
+@onready var _buttons_container: HBoxContainer = $PanelContainer/VBoxContainer/HBoxContainer
+var _moved_item_button: ItemButton = null
 
 
 func _ready():
@@ -39,19 +39,21 @@ func set_tower(tower: Tower):
 
 
 func on_tower_items_changed():
-	for button in _button_container.get_children():
+	for button in _buttons_container.get_children():
 		button.queue_free()
 
 	var items: Array[Item] = _tower.get_items()
 
 	for item in items:
-		var item_button = ItemButtonContainer.make(item)
-		_button_container.add_child(item_button)
-		var actual_button: BaseButton = item_button.get_button()
-		actual_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+		var item_button = ItemButton.make(item)
+		var button_container = AspectRatioContainer.new()
+		button_container.add_child(item_button)
+		button_container.stretch_mode = AspectRatioContainer.STRETCH_COVER
+		_buttons_container.add_child(button_container)
+		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 
 
-func _on_item_button_pressed(item_button: ItemButtonContainer):
+func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	var started_move: bool = ItemMovement.start_move_from_tower(item)
 

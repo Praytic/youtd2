@@ -3,9 +3,16 @@ extends Button
 
 
 @onready var _rarity_container: PanelContainer = %RarityContainer
+@onready var _counter_label: Label = %CounterLabel
+@onready var _counter_container: MarginContainer = %CounterContainer
 
 
+var _count: int: set = set_count
 var _rarity: String: get = get_rarity, set = set_rarity
+
+
+func _ready():
+	set_count(1)
 
 
 func get_rarity() -> String:
@@ -22,6 +29,16 @@ func set_rarity(value: String):
 			_rarity_container.theme_type_variation = "RareRarityPanelContainer"
 		Rarity.enm.UNIQUE:
 			_rarity_container.theme_type_variation = "UniqueRarityPanelContainer"
+		_:
+			_rarity_container.theme_type_variation = ""
 
 func set_icon(value: Texture2D):
 	icon = value
+
+func set_count(value: int):
+	_count = value
+	_counter_label.text = str(value)
+	if _count > 1:
+		_counter_container.show()
+	else:
+		_counter_container.hide()
