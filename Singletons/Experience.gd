@@ -20,26 +20,13 @@ var _level_at_exp: Dictionary = make_level_at_exp_map(_exp_for_level)
 func _load_exp_for_level_map() -> Dictionary:
 	var map: Dictionary = {}
 
-	var file: FileAccess = FileAccess.open(EXP_FOR_LEVEL_PATH, FileAccess.READ)
+	var csv: Array[PackedStringArray] = Utils.load_csv(EXP_FOR_LEVEL_PATH)
 
-	var skip_title_row: bool = true
-	while !file.eof_reached():
-		var csv_line: PackedStringArray = file.get_csv_line()
-
-		if skip_title_row:
-			skip_title_row = false
-			continue
-
-# 		NOTE: skip last line which has size of 1
-		if csv_line.size() <= 1:
-			continue
-
+	for csv_line in csv:
 		var level: int = csv_line[ExpForLevelColumn.LEVEL].to_int()
 		var experience: int = csv_line[ExpForLevelColumn.EXPERIENCE].to_int()
 
 		map[level] = experience
-
-	file.close()
 
 	return map
 

@@ -92,26 +92,12 @@ static func convert_from_csv_line(csv_line: Array) -> PackedMetadata:
 static func get_metadata_for_sheet(sheet_path: String) -> PackedMetadata:
 	var metadata_path: String = PackedMetadata.get_metadata_path(sheet_path)
 
-	var metadata_exists: bool = ResourceLoader.exists(metadata_path)
-
-	if !metadata_exists:
-		push_error("No metadata path found for sprite sheet: ", sheet_path)
-
-		return PackedMetadata.new()
-
-	var file: FileAccess = FileAccess.open(metadata_path, FileAccess.READ)
-
 	var animation_name: String = PackedMetadata._get_animation_name(sheet_path)
 
-	var skip_title_row: bool = true
+	var csv: Array[PackedStringArray] = Utils.load_csv(metadata_path)
+
 	var metadata: PackedMetadata = PackedMetadata.new()
-	while !file.eof_reached():
-		var csv_line: Array = file.get_csv_line()
-
-		if skip_title_row:
-			skip_title_row = false
-			continue
-
+	for csv_line in csv:
 		var this_metadata: PackedMetadata = PackedMetadata.convert_from_csv_line(csv_line)
 
 		if this_metadata._name == animation_name:

@@ -4,6 +4,41 @@ extends Node
 @onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
 
 
+# Returns a list of lines, each line is a list of strings.
+# It's assumed that the first row is title row and it is
+# skipped. It is also assumed that csv has more than 1
+# column.
+func load_csv(path: String) -> Array[PackedStringArray]:
+	var file_exists: bool = FileAccess.file_exists(path)
+
+	if !file_exists:
+		print_debug("Failed to load CSV because file doesn't exist. Path: %s", % path)
+
+		return []
+
+	var list: Array[PackedStringArray] = []
+
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+
+	var skip_title_row: bool = true
+	while !file.eof_reached():
+		var csv_line: PackedStringArray = file.get_csv_line()
+
+		if skip_title_row:
+			skip_title_row = false
+			continue
+
+# 		NOTE: skip last line which has size of 1
+		if csv_line.size() <= 1:
+			continue
+
+		list.append(csv_line)
+
+	file.close()
+
+	return list
+
+
 func get_sprite_dimensions(sprite: Sprite2D) -> Vector2:
 	var texture: Texture2D = sprite.texture
 	var image: Image = texture.get_image()
