@@ -33,6 +33,7 @@ var state: int = Wave.State.PENDING
 var next_wave: Wave
 var _specials: Array[int] = []
 var _base_hp: float = 0.0
+var _base_armor: float = 0.0
 
 #########################
 ### Code starts here  ###
@@ -170,6 +171,7 @@ func get_id() -> int:
 func set_wave_number(value: int):
 	_wave_number = value
 	_base_hp = _calculate_base_hp()
+	_base_armor = _calculate_base_armor()
 
 
 func get_wave_number() -> int:
@@ -204,6 +206,10 @@ func get_creep_sizes() -> Array:
 
 func get_base_hp() -> float:
 	return _base_hp
+
+
+func get_base_armor() -> float:
+	return _base_armor
 
 
 func is_air() -> bool:
@@ -279,3 +285,38 @@ func _calculate_base_hp() -> float:
 	var health: float = a + j * (b + j * (c + j * (d + j * (e + j * (f + j * g)))))
 
 	return health
+
+
+func _calculate_base_armor() -> float:
+	var a: float
+	var b: float
+	var c: float
+
+	match Globals.difficulty:
+		Difficulty.enm.BEGINNER:
+			a = 0
+			b = 0.26
+			c = 0
+		Difficulty.enm.EASY:
+			a = 2
+			b = 0.28
+			c = 0
+		Difficulty.enm.MEDIUM:
+			a = 4
+			b = 0.3
+			c = 0
+		Difficulty.enm.HARD:
+			a = 6
+			b = 0.32
+			c = 0.004
+		Difficulty.enm.EXTREME:
+			a = 8
+			b = 0.34
+			c = 0.001
+
+	var j: int = get_wave_number() - 1
+	var base_armor: int = a + j * (b + j * c)
+
+	print("%d = %f" % [get_wave_number(), base_armor])
+
+	return base_armor

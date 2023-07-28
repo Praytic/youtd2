@@ -85,7 +85,6 @@ var _invisible: bool = false
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
 var _mana: float = 0.0
-# TODO: define real value
 var _base_armor: float = 0.0
 var _dealt_damage_signal_in_progress: bool = false
 var _kill_count: int = 0
@@ -1294,6 +1293,9 @@ func get_current_armor_damage_reduction() -> float:
 
 func get_mana() -> float:
 	return _mana
+
+func set_base_armor(value: float):
+	_base_armor = value
 
 func get_base_armor() -> float:
 	return _base_armor

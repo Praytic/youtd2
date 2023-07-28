@@ -330,13 +330,3 @@ func get_spawn_level() -> int:
 
 func set_spawn_level(spawn_level: int):
 	_spawn_level = spawn_level
-
-	_base_armor = Creep.get_base_armor_for_wave_level(spawn_level)
-
-
-# TODO: this is only for the "beginner" difficulty. Find out
-# values for other difficulties.
-static func get_base_armor_for_wave_level(wave_level: int) -> int:
-	var base_armor: int = (wave_level - 1) / 4
-
-	return base_armor
