@@ -2,6 +2,9 @@ extends GridContainer
 
 
 # Dictionary of buttons that are currently on the item bar
+# Buttons should be always created inside a dedicated container,
+# which means you should call the parent of a button
+# if you want to change the visual part of it.
 @onready var _item_buttons: Dictionary = {}
 
 
