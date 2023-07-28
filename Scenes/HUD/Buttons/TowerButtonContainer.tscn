@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://csf754g4djfv"]
-
-[ext_resource type="PackedScene" uid="uid://d0hohy40ewgkc" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="1_gdin8"]
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButtonContainer.gd" id="2_xjdk5"]
-
-[node name="TowerButtonContainer" instance=ExtResource("1_gdin8")]
-offset_right = 142.0
-offset_bottom = 143.0
-script = ExtResource("2_xjdk5")

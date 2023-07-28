@@ -2,8 +2,6 @@ extends Node
 
 const item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 const tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
-const tower_button_container_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButtonContainer.tscn")
-const item_button_container_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButtonContainer.tscn")
 const floating_text_scene: PackedScene = preload("res://Scenes/FloatingText.tscn")
 const explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
 const projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
