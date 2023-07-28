@@ -1360,20 +1360,6 @@ func reached_max_level() -> bool:
 	return is_max_level
 
 
-func get_experience_for_next_level():
-	if reached_max_level():
-		return 0
-	elif !Experience.EXP_FOR_LEVEL.has(_level):
-		push_error("No exp for level value for level: ", _level)
-
-		return 0
-
-	var next_level: int = _level + 1
-	var for_next_level: float = Experience.EXP_FOR_LEVEL[next_level]
-
-	return for_next_level
-
-
 # Changes experience of unit. Change can be positive or
 # negative. Level will also be changed accordingly. Note
 # that level downs are possible.

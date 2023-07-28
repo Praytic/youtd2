@@ -143,7 +143,7 @@ func _float_format(number) -> String:
 
 func _update_exp_for_next_lvl_labels(tower: Tower):
 	var next_level: int = tower.get_level() + 1
-	var exp_for_next_level: int = tower.get_experience_for_next_level()
+	var exp_for_next_level: int = Experience.get_exp_for_level(next_level)
 	
 	if tower.reached_max_level():
 		_level_x_at_label.text = "Max level reached!"

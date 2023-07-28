@@ -4,8 +4,8 @@ extends Node
 # Mapping of level -> required experience
 # Mapping of experience -> current level
 
-var EXP_FOR_LEVEL: Dictionary = make_exp_for_level_map()
-var LEVEL_AT_EXP: Dictionary = make_LEVEL_AT_EXP_map()
+var _exp_for_level: Dictionary = _make_exp_for_level_map()
+var _level_at_exp: Dictionary = make_level_at_exp_map()
 
 
 # Example:
@@ -15,7 +15,7 @@ var LEVEL_AT_EXP: Dictionary = make_LEVEL_AT_EXP_map()
 # 3 = 37
 # 4 = 51
 # ...
-func make_exp_for_level_map() -> Dictionary:
+func _make_exp_for_level_map() -> Dictionary:
 	var map: Dictionary = {}
 
 	map[0] = 0
@@ -42,10 +42,10 @@ func make_exp_for_level_map() -> Dictionary:
 # 25 = 2
 # 26 = 2
 # ...
-func make_LEVEL_AT_EXP_map() -> Dictionary:
+func make_level_at_exp_map() -> Dictionary:
 	var map: Dictionary = {}
 	
-	var exp_for_level: Dictionary = make_exp_for_level_map()
+	var exp_for_level: Dictionary = _make_exp_for_level_map()
 
 	for current_level in range(0, Constants.MAX_LEVEL):
 		var current_level_experience: int = exp_for_level[current_level]
@@ -61,12 +61,23 @@ func make_LEVEL_AT_EXP_map() -> Dictionary:
 	return map
 
 
+func get_exp_for_level(level: int) -> int:
+	if _exp_for_level.has(level):
+		var experience: int = _exp_for_level[level]
+
+		return experience
+	else:
+		push_error("No exp for level value for level: ", level)
+		
+		return 0
+
+
 func get_level_at_exp(experience_float: float) -> int:
 	var experience: int = floori(experience_float)
 
 	if experience >= 0:
-		if LEVEL_AT_EXP.has(experience):
-			var level: int = LEVEL_AT_EXP[experience]
+		if _level_at_exp.has(experience):
+			var level: int = _level_at_exp[experience]
 
 			return level
 		else:
