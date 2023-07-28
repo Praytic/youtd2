@@ -921,14 +921,6 @@ func get_gold_cost() -> int:
 func get_inventory_capacity() -> int:
 	var rarity: Rarity.enm = get_rarity_num() as Rarity.enm
 	var tier: int = get_tier()
-
-	var base_capacity: int = 0
-	match rarity:
-		Rarity.enm.COMMON: base_capacity = 1
-		Rarity.enm.UNCOMMON: base_capacity = 2
-		Rarity.enm.RARE: base_capacity = 4
-		Rarity.enm.UNIQUE: base_capacity = 5
-	
-	var capacity: int = min(base_capacity + tier - 1, INVENTORY_CAPACITY_MAX)
+	var capacity: int = Constants.INVENTORY_CAPACITY[rarity][tier]
 
 	return capacity
