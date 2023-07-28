@@ -77,4 +77,4 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 	_moved_item_button = item_button
 	item_button.set_disabled(true)
-	item_button.get_button().set_pressed_no_signal(true)
+	item_button.set_pressed_no_signal(true)

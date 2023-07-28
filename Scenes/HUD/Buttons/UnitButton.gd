@@ -4,7 +4,6 @@ extends Button
 
 @onready var _rarity_container: PanelContainer = %RarityContainer
 @onready var _counter_label: Label = %CounterLabel
-@onready var _counter_container: MarginContainer = %CounterContainer
 
 
 var _count: int: set = set_count
@@ -39,6 +38,6 @@ func set_count(value: int):
 	_count = value
 	_counter_label.text = str(value)
 	if _count > 1:
-		_counter_container.show()
+		_counter_label.show()
 	else:
-		_counter_container.hide()
+		_counter_label.hide()

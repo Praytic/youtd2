@@ -18,9 +18,14 @@ static func make(tower_id: int):
 
 
 func _ready():
+	super._ready()
 	set_rarity(TowerProperties.get_rarity(_tower_id))
 	set_icon(TowerProperties.get_icon_texture(_tower_id))
 	set_tier_icon(_tower_id)
+	
+	# TODO: Just for testing
+	if randi()%3 == 0:
+		set_count(randi_range(2, 20))
 	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)

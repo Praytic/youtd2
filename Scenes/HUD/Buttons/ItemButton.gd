@@ -18,6 +18,7 @@ static func make(item: Item) -> ItemButton:
 
 
 func _ready():
+	super._ready()
 	set_rarity(ItemProperties.get_rarity(_item.get_id()))
 	set_icon(ItemProperties.get_icon(_item.get_id()))
 	
