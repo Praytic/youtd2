@@ -1,5 +1,9 @@
 extends Control
 
+# This HUD is shown when the game starts and blocks input to
+# the normal HUD. Once the player chooses all of the
+# settings, this hud gets hidden and the game starts.
+
 
 signal selected_difficulty(difficulty: Difficulty.enm)
 
