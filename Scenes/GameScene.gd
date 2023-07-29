@@ -2,6 +2,8 @@ extends Node
 
 
 @onready var map_node: Node2D = $Map
+@onready var _pregame_hud: Control = $UI/PregameHUD
+@onready var _wave_spawner: WaveSpawner = $Map/WaveSpawner
 
 var portal_lives: float = 100.0
 
@@ -13,12 +15,12 @@ var portal_lives: float = 100.0
 func _ready():
 	print_verbose("GameScene has loaded.")
 
-	Messages.add_normal("Welcome to youtd 2!")
-	Messages.add_normal("Move the camera with arrow keys or WASD.")
-	Messages.add_normal("To build towers, click on the tower button in the bottom right corner.")
-	Messages.add_normal("Select one of the elements and pick a tower.")
-	Messages.add_normal("Move the mouse cursor to a spot where you want to build the tower.")
-	Messages.add_normal("When there's a valid build position, the tower under the cursor will turn green.")
+	var default_difficulty: Difficulty.enm = Config.default_difficulty()
+
+	if default_difficulty == Difficulty.enm.NONE:
+		_pregame_hud.show()
+	else:
+		_on_pregame_hud_selected_difficulty(default_difficulty)
 
 
 func _on_HUD_start_wave(wave_index):
@@ -38,3 +40,20 @@ func _on_CreepExit_body_entered(body):
 func _on_WaveSpawner_wave_ended(_wave_index):
 	GoldControl.add_income()
 	KnowledgeTomesManager.add_knowledge_tomes()
+
+
+func _on_pregame_hud_selected_difficulty(difficulty: Difficulty.enm):
+	_pregame_hud.hide()
+	
+	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
+	
+	Messages.add_normal("Welcome to youtd 2!")
+	Messages.add_normal("Selected difficulty: %s" % difficulty_string)
+	Messages.add_normal("Move the camera with arrow keys or WASD.")
+	Messages.add_normal("To build towers, click on the tower button in the bottom right corner.")
+	Messages.add_normal("Select one of the elements and pick a tower.")
+	Messages.add_normal("Move the mouse cursor to a spot where you want to build the tower.")
+	Messages.add_normal("When there's a valid build position, the tower under the cursor will turn green.")
+
+	_wave_spawner.start_spawning(difficulty)
+
