@@ -281,8 +281,15 @@ func _calculate_base_hp() -> float:
 			f = 0.000015 * 1.9
 			g = 0.000000018
 
+#	NOTE: extra hp multiplier can be found in jass code but
+#	it's located far from the code which implements the main
+#	health formula. Search for "(.9-" strings to find it in
+#	multiple locations.
+	var extra_hp_multiplier: float = (0.9 - (_wave_number * 0.002))
+
 	var j: int = get_wave_number() - 1
 	var health: float = a + j * (b + j * (c + j * (d + j * (e + j * (f + j * g)))))
+	health = health * extra_hp_multiplier
 
 	return health
 
@@ -315,8 +322,6 @@ func _calculate_base_armor() -> float:
 			c = 0.001
 
 	var j: int = get_wave_number() - 1
-	var base_armor: int = a + j * (b + j * c)
-
-	print("%d = %f" % [get_wave_number(), base_armor])
+	var base_armor: float = a + j * (b + j * c)
 
 	return base_armor
