@@ -30,31 +30,31 @@ region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u05n0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p5b2f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_51sck"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h6u0h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_irr4g"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_473e8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s81kk"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wijpy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_513lg"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hwcyx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vux3n"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pyrcj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ue85c"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g4b6b"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju2df"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(384, 0, 64, 64)
 
@@ -64,7 +64,6 @@ region = Rect2(0, 133, 1077, 169)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k0a7c"]
 texture = SubResource("AtlasTexture_58l2a")
-texture_margin_left = 22.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxluh"]
 atlas = ExtResource("9_dxvdv")
@@ -175,70 +174,72 @@ size_flags_vertical = 8
 
 [node name="IceButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_p5b2f")
+texture_normal = SubResource("AtlasTexture_51sck")
 element = 0
 
 [node name="NatureButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_h6u0h")
+texture_normal = SubResource("AtlasTexture_irr4g")
 element = 1
 
 [node name="FireButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_473e8")
+texture_normal = SubResource("AtlasTexture_s81kk")
 element = 2
 
 [node name="AstralButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_wijpy")
+texture_normal = SubResource("AtlasTexture_513lg")
 element = 3
 
 [node name="DarknessButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_hwcyx")
+texture_normal = SubResource("AtlasTexture_vux3n")
 element = 4
 
 [node name="IronButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_pyrcj")
+texture_normal = SubResource("AtlasTexture_ue85c")
 element = 5
 
 [node name="StormButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_g4b6b")
+texture_normal = SubResource("AtlasTexture_ju2df")
 element = 6
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
 custom_minimum_size = Vector2(1160, 182)
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 10
 theme_override_styles/panel = SubResource("StyleBoxTexture_k0a7c")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 vertical_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer"]
 clip_contents = true
 layout_mode = 2
-theme_override_constants/margin_top = 20
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 15
 
 [node name="BuildBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
-clip_contents = true
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/h_separation = 5
+theme_override_constants/h_separation = 100
 columns = 999
 script = ExtResource("7")
 
 [node name="ItemBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
-clip_contents = true
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/h_separation = 5
+theme_override_constants/h_separation = 100
 columns = 999
 script = ExtResource("4_5ctcy")
 

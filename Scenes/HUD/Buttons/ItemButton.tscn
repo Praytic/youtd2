@@ -1,17 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1ed4riyl8mbe"]
+[gd_scene load_steps=4 format=3 uid="uid://bs7talxfb2fac"]
 
-[ext_resource type="PackedScene" uid="uid://dqjk0dq82x1cv" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_7d5y0"]
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButton.gd" id="2_3sh26"]
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButtonInner.gd" id="3_rtejc"]
-[ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://Scenes/HUD/Buttons/CooldownIndicator.tscn" id="5_qc2b7"]
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_56ir5"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButton.gd" id="2_0spo4"]
+[ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://Scenes/HUD/Buttons/CooldownIndicator.tscn" id="3_fy62u"]
 
-[node name="ItemButton" instance=ExtResource("1_7d5y0")]
-script = ExtResource("2_3sh26")
+[node name="UnitButton" instance=ExtResource("1_56ir5")]
+custom_minimum_size = Vector2(64, 64)
+script = ExtResource("2_0spo4")
 
-[node name="UnitButton" parent="." index="0"]
-script = ExtResource("3_rtejc")
-
-[node name="CooldownIndicator" parent="UnitButton/IconContainer" index="1" instance=ExtResource("5_qc2b7")]
+[node name="CooldownIndicator" parent="MarginContainer" index="0" instance=ExtResource("3_fy62u")]
+unique_name_in_owner = true
+z_index = 1
 layout_mode = 2
-
-[connection signal="right_clicked" from="UnitButton" to="." method="_on_unit_button_right_clicked"]

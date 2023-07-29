@@ -1,70 +1,59 @@
-[gd_scene load_steps=7 format=3 uid="uid://dqjk0dq82x1cv"]
+[gd_scene load_steps=5 format=3 uid="uid://dfhvyitmlng5w"]
 
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButton.gd" id="1_ppg32"]
-[ext_resource type="Texture2D" uid="uid://yp3jg4xvj4g4" path="res://Resources/Textures/UI/common_unit_button.tres" id="1_wt0jm"]
-[ext_resource type="Texture2D" uid="uid://cp0p7pvsidg6k" path="res://Resources/Textures/UI/common_unit_button_hover.tres" id="2_a7a4m"]
-[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="4_jpfnb"]
-[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="4_m4tn5"]
-[ext_resource type="Texture2D" uid="uid://lu1adtr8xmdf" path="res://Resources/Textures/UI/rect_container_xs.tres" id="6_ewvwp"]
+[ext_resource type="Theme" uid="uid://dksfi74d7n0pf" path="res://Resources/Theme/unit_button_theme.tres" id="1_7n860"]
+[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_d8h6n"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButton.gd" id="3_kwsps"]
 
-[node name="Control" type="MarginContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
-script = ExtResource("1_ppg32")
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o8x7"]
+atlas = ExtResource("2_d8h6n")
+region = Rect2(256, 256, 128, 128)
 
-[node name="UnitButton" type="TextureButton" parent="."]
-layout_mode = 2
-texture_normal = ExtResource("1_wt0jm")
-texture_pressed = ExtResource("2_a7a4m")
-texture_hover = ExtResource("2_a7a4m")
+[node name="UnitButton" type="Button"]
+offset_right = 148.0
+offset_bottom = 148.0
+theme = ExtResource("1_7n860")
+icon = SubResource("AtlasTexture_0o8x7")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_kwsps")
 
-[node name="IconContainer" type="MarginContainer" parent="UnitButton"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+show_behind_parent = true
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -44.0
-offset_top = -54.0
-offset_right = 62.0
-offset_bottom = 74.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.844764, 0.844764)
+mouse_filter = 2
 
-[node name="Icon" type="TextureRect" parent="UnitButton/IconContainer"]
+[node name="RarityContainer" type="PanelContainer" parent="MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("4_m4tn5")
-expand_mode = 2
-stretch_mode = 3
+mouse_filter = 2
 
-[node name="LockTexture" type="TextureRect" parent="UnitButton"]
-visible = false
-layout_mode = 0
-offset_left = 7.0
-offset_top = 8.0
-offset_right = 117.0
-offset_bottom = 117.0
-texture = ExtResource("4_jpfnb")
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = -38.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = -10
+theme_override_constants/margin_bottom = -10
 
-[node name="CounterContainer" type="MarginContainer" parent="UnitButton"]
-visible = false
-layout_mode = 0
-offset_left = 90.0
-offset_top = 89.0
-offset_right = 138.0
-offset_bottom = 137.0
-
-[node name="CounterTexture" type="TextureRect" parent="UnitButton/CounterContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer2"]
 layout_mode = 2
-texture = ExtResource("6_ewvwp")
 
-[node name="CounterLabel" type="Label" parent="UnitButton/CounterContainer"]
+[node name="CounterLabel" type="Label" parent="MarginContainer2/AspectRatioContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+size_flags_vertical = 1
 horizontal_alignment = 1
-vertical_alignment = 3
+vertical_alignment = 2

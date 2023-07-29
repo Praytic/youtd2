@@ -1,55 +1,58 @@
-class_name ItemButton 
+class_name ItemButton
 extends UnitButton
-
-signal right_clicked()
 
 
 const ICON_SIZE_M = 128
 
-var _item: Item = null
+var _item: Item : set = set_item, get = get_item
 
-@onready var _cooldown_indicator: CooldownIndicator = $UnitButton/IconContainer/CooldownIndicator
+@onready var _cooldown_indicator: CooldownIndicator = %CooldownIndicator
 
 var _hide_cooldown_indicator: bool = false
 
 
 static func make(item: Item) -> ItemButton:
 	var item_button: ItemButton = Globals.item_button_scene.instantiate()
-	item_button._item = item
-
+	item_button.set_item(item)
 	return item_button
 
 
 func _ready():
-	_set_rarity_icon()
-	_set_unit_icon()
-
+	super._ready()
+	set_rarity(ItemProperties.get_rarity(_item.get_id()))
+	set_icon(ItemProperties.get_icon(_item.get_id()))
+	
 	var autocast: Autocast = _item.get_autocast()
 
 	if autocast != null:
 		_cooldown_indicator.set_autocast(autocast)
 	
-	_unit_button.mouse_entered.connect(_on_mouse_entered)
-	_unit_button.mouse_exited.connect(_on_mouse_exited)
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 
 	if _hide_cooldown_indicator:
 		_cooldown_indicator.hide()
+
+
+func _gui_input(event):
+	var pressed_right_click: bool = event.is_action_released("right_click")
+
+	if pressed_right_click:
+		var autocast: Autocast = _item.get_autocast()
+		if autocast != null:
+			autocast.do_cast_manually()
 
 
 func hide_cooldown_indicator():
 	_hide_cooldown_indicator = true
 
 
-func _set_rarity_icon():
-	set_rarity(ItemProperties.get_rarity(_item.get_id()))
-
-
-func _set_unit_icon():
-	set_unit_icon(ItemProperties.get_icon(_item.get_id()))
-
-
 func get_item() -> Item:
 	return _item
+
+
+func set_item(value: Item):
+	_item = value
 
 
 func _on_mouse_entered():
@@ -58,10 +61,3 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	EventBus.item_button_mouse_exited.emit()
-
-
-func _on_unit_button_right_clicked():
-	var autocast: Autocast = _item.get_autocast()
-
-	if autocast != null:
-		autocast.do_cast_manually()

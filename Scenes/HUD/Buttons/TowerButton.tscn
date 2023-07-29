@@ -1,21 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://sqxrsmrfyvkv"]
+[gd_scene load_steps=6 format=3 uid="uid://22mf4myucw0w"]
 
-[ext_resource type="PackedScene" uid="uid://dqjk0dq82x1cv" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_djoqs"]
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButton.gd" id="2_00ei8"]
-[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="3_lkbhk"]
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_58csb"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButton.gd" id="2_tfpmj"]
+[ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="3_tes0f"]
+[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="4_pixwo"]
 
-[node name="TowerButton" instance=ExtResource("1_djoqs")]
-script = ExtResource("2_00ei8")
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyokm"]
+atlas = ExtResource("4_pixwo")
+region = Rect2(0, 0, 64, 64)
 
-[node name="TierContainer" type="MarginContainer" parent="UnitButton" index="2"]
+[node name="UnitButton" instance=ExtResource("1_58csb")]
+custom_minimum_size = Vector2(64, 64)
+script = ExtResource("2_tfpmj")
+
+[node name="TierContainer" type="MarginContainer" parent="." index="0"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -43.0
+offset_bottom = 43.0
+grow_horizontal = 0
+theme_override_constants/margin_top = -15
+theme_override_constants/margin_right = -15
+
+[node name="TierIcon" type="TextureRect" parent="TierContainer" index="0"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-offset_left = 95.0
-offset_top = -10.0
-offset_right = 219.0
-offset_bottom = 114.0
-scale = Vector2(0.291436, 0.291436)
+texture = SubResource("AtlasTexture_fyokm")
+expand_mode = 1
+stretch_mode = 4
 
-[node name="TierIcon" type="TextureRect" parent="UnitButton/TierContainer" index="0"]
+[node name="LockTexture" type="TextureRect" parent="MarginContainer" index="1"]
+unique_name_in_owner = true
+visible = false
+z_index = 1
 layout_mode = 2
-texture = ExtResource("3_lkbhk")
-expand_mode = 2
+texture = ExtResource("3_tes0f")
