@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=12 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD.tscn" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Landscape.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="5_pan23"]
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="6_y63oe"]
+[ext_resource type="PackedScene" uid="uid://d1xny6jmxj5i6" path="res://Scenes/HUD/PregameHUD.tscn" id="8_idpxe"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 
 [sub_resource type="Curve2D" id="1"]
@@ -95,4 +96,8 @@ size_flags_horizontal = 1
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="PregameHUD" parent="UI" instance=ExtResource("8_idpxe")]
+visible = false
+
 [connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
+[connection signal="selected_difficulty" from="UI/PregameHUD" to="." method="_on_pregame_hud_selected_difficulty"]
