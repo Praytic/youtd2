@@ -11,19 +11,16 @@ var portal_lives: float = 100.0
 @export var creeps_game_over_count: int = 10
 @export var ignore_game_over: bool = true
 
-enum GameState {
-	SelectDifficulty,
-	Play,
-}
-
-var _state: GameState
-
 
 func _ready():
 	print_verbose("GameScene has loaded.")
 
-	_state = GameState.SelectDifficulty
-	_pregame_hud.show()
+	var default_difficulty: Difficulty.enm = Config.default_difficulty()
+
+	if default_difficulty == Difficulty.enm.NONE:
+		_pregame_hud.show()
+	else:
+		_on_pregame_hud_selected_difficulty(default_difficulty)
 
 
 func _on_HUD_start_wave(wave_index):

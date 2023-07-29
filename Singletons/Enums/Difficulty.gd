@@ -2,6 +2,7 @@ extends Node
 
 
 enum enm {
+	NONE,
 	BEGINNER,
 	EASY,
 	MEDIUM,
@@ -11,6 +12,7 @@ enum enm {
 
 
 const _string_map: Dictionary = {
+	Difficulty.enm.NONE: "none",
 	Difficulty.enm.BEGINNER: "beginner",
 	Difficulty.enm.EASY: "easy",
 	Difficulty.enm.MEDIUM: "medium",

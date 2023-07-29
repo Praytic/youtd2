@@ -98,3 +98,13 @@ func show_position_info_label() -> bool:
 # Print errors about towers, like missing icons or scenes.
 func print_errors_about_towers() -> bool:
 	return ProjectSettings.get_setting("application/config/print_errors_about_towers") as bool
+
+# Value for default difficulty. Set to "none" for normal
+# behavior where to player picks the difficulty when the
+# game starts. Set to a particular value to skip difficulty
+# selection.
+func default_difficulty() -> Difficulty.enm:
+	var difficulty_string: String = ProjectSettings.get_setting("application/config/default_difficulty") as String
+	var difficulty: Difficulty.enm = Difficulty.from_string(difficulty_string)
+
+	return difficulty
