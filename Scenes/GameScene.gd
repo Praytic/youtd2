@@ -46,7 +46,6 @@ func _on_WaveSpawner_wave_ended(_wave_index):
 
 
 func _on_pregame_hud_selected_difficulty(difficulty: Difficulty.enm):
-	Globals.difficulty = difficulty
 	_pregame_hud.hide()
 	
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
@@ -59,5 +58,5 @@ func _on_pregame_hud_selected_difficulty(difficulty: Difficulty.enm):
 	Messages.add_normal("Move the mouse cursor to a spot where you want to build the tower.")
 	Messages.add_normal("When there's a valid build position, the tower under the cursor will turn green.")
 
-	_wave_spawner.start_spawning()
+	_wave_spawner.start_spawning(difficulty)
 

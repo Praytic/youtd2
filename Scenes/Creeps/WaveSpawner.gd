@@ -76,7 +76,10 @@ func _ready():
 	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())
 	
 
-func start_spawning():
+func start_spawning(difficulty: Difficulty.enm):
+	for wave in _wave_list:
+		wave.set_difficulty(difficulty)
+
 	_timer_between_waves.start()
 
 
