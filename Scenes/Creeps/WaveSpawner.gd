@@ -75,6 +75,8 @@ func _ready():
 	
 	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())
 	
+
+func start_spawning():
 	_timer_between_waves.start()
 
 

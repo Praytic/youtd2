@@ -3,6 +3,7 @@ extends Node
 
 @onready var map_node: Node2D = $Map
 @onready var _pregame_hud: Control = $UI/PregameHUD
+@onready var _wave_spawner: WaveSpawner = $Map/WaveSpawner
 
 var portal_lives: float = 100.0
 
@@ -57,4 +58,6 @@ func _on_pregame_hud_selected_difficulty(difficulty: Difficulty.enm):
 	Messages.add_normal("Select one of the elements and pick a tower.")
 	Messages.add_normal("Move the mouse cursor to a spot where you want to build the tower.")
 	Messages.add_normal("When there's a valid build position, the tower under the cursor will turn green.")
+
+	_wave_spawner.start_spawning()
 
