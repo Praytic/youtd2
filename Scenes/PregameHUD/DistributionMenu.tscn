@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://drfy31rct5o3k"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_o7pab"]
+[ext_resource type="Script" path="res://Scenes/PregameHUD/DistributionMenu.gd" id="2_aiuo5"]
+
+[node name="DistributionMenu" type="VBoxContainer"]
+theme = ExtResource("1_o7pab")
+script = ExtResource("2_aiuo5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Tower Distribution"
+
+[node name="BuildButton" type="Button" parent="."]
+layout_mode = 2
+text = "Build (lame)"
+
+[node name="RandomButton" type="Button" parent="."]
+layout_mode = 2
+text = "Random with upgrade"
+
+[node name="TotallyRandomButton" type="Button" parent="."]
+layout_mode = 2
+text = "Totally random"
+
+[connection signal="pressed" from="BuildButton" to="." method="_on_build_button_pressed"]
+[connection signal="pressed" from="RandomButton" to="." method="_on_random_button_pressed"]
+[connection signal="pressed" from="TotallyRandomButton" to="." method="_on_totally_random_button_pressed"]

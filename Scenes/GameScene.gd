@@ -37,7 +37,8 @@ func _on_WaveSpawner_wave_ended(_wave_index):
 	KnowledgeTomesManager.add_knowledge_tomes()
 
 
-func _on_pregame_hud_finished(wave_count: int, difficulty: Difficulty.enm):
+# TODO: apply chosen distribution and wave count
+func _on_pregame_hud_finished(_wave_count: int, _distribution: int, difficulty: Difficulty.enm):
 	_pregame_hud.hide()
 	
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
