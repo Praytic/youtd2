@@ -43,7 +43,7 @@ func _on_CreepExit_body_entered(body):
 
 
 func _on_WaveSpawner_wave_ended(_wave_index):
-	GoldControl.add_income()
+	GoldControl.add_income(_wave_index)
 	KnowledgeTomesManager.add_knowledge_tomes()
 
 

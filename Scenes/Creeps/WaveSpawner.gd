@@ -210,19 +210,6 @@ func _on_Wave_ended(wave: Wave):
 		
 		return
 
-#	NOTE: some hero needs to modify parameters of income
-#	formula, but that's for much later.
-	var wave_level: int = wave.get_wave_number()
-	var income_rate: float = GoldControl.get_income_rate()
-	var interest_rate: float = GoldControl.get_interest_rate()
-	var upkeep: int = floori((20 + wave_level * 2) * income_rate)
-	var current_gold: int = floori(GoldControl.get_gold())
-	var interest: int = floori(min(current_gold * interest_rate, 1000))
-	var income: int = upkeep + interest
-	GoldControl.add_gold(income)
-
-	Messages.add_normal("Income: %d upkeep, %d interest." % [upkeep, interest])
-
 	print_verbose("Wave [%s] is cleared." % wave)
 
 	var alive_creeps: Array = _get_alive_creeps()

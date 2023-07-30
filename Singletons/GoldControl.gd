@@ -30,6 +30,16 @@ func modify_interest_rate(amount: float):
 	_interest_rate = _interest_rate + amount
 
 
+func add_income(wave_level: int):
+	var upkeep: int = floori((20 + wave_level * 2) * _income_rate)
+	var current_gold: int = floori(_gold)
+	var interest: int = floori(min(current_gold * _interest_rate, 1000))
+	var income: int = upkeep + interest
+	GoldControl.add_gold(income)
+
+	Messages.add_normal("Income: %d upkeep, %d interest." % [upkeep, interest])
+
+
 #########################
 ### Setters / Getters ###
 #########################
@@ -51,9 +61,3 @@ func set_gold(value: float):
 
 func get_gold() -> float:
 	return _gold
-
-func get_income_rate() -> float:
-	return _income_rate
-
-func get_interest_rate() -> float:
-	return _interest_rate
