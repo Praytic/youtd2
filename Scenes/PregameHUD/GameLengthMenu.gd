@@ -9,12 +9,12 @@ func _on_generic_button_pressed(wave_count: int):
 
 
 func _on_trial_button_pressed():
-	_on_generic_button_pressed(80)
+	_on_generic_button_pressed(Constants.WAVE_COUNT_TRIAL)
 
 
 func _on_full_button_pressed():
-	_on_generic_button_pressed(120)
+	_on_generic_button_pressed(Constants.WAVE_COUNT_FULL)
 
 
 func _on_neverending_button_pressed():
-	_on_generic_button_pressed(240)
+	_on_generic_button_pressed(Constants.WAVE_COUNT_NEVERENDING)
