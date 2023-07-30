@@ -111,7 +111,7 @@ func show_pregame_settings_menu() -> bool:
 # Note that these values will be ignored if the pregame
 # settings menu is enabled.
 func default_wave_count() -> int:
-	return ProjectSettings.get_setting("application/config/print_errors_about_towers") as int
+	return ProjectSettings.get_setting("application/config/default_wave_count") as int
 
 func default_distribution() -> Distribution.enm:
 	var distribution_string: String = ProjectSettings.get_setting("application/config/default_distribution") as String
