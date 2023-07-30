@@ -330,3 +330,10 @@ func get_spawn_level() -> int:
 
 func set_spawn_level(spawn_level: int):
 	_spawn_level = spawn_level
+
+
+func _get_base_bounty() -> float:
+	var gold_multiplier: float = CreepSize.get_gold_multiplier(_size)
+	var base_bounty: float = gold_multiplier * (_spawn_level / 8 + 1)
+
+	return base_bounty

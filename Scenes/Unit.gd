@@ -845,13 +845,17 @@ func _update_invisible_modulate():
 
 
 func get_bounty() -> float:
-# 	TODO: Replace this placeholder constant with real value.
-	var bounty_base: float = 10.0
+	var bounty_base: float = _get_base_bounty()
 	var granted_mod: float = get_prop_bounty_granted()
 	var received_mod: float = get_prop_bounty_received()
 	var bounty: int = int(bounty_base * granted_mod * received_mod)
 
 	return bounty
+
+
+# NOTE: overriden by Creep subclass
+func _get_base_bounty() -> float:
+	return 0
 
 
 func _get_experience_for_target(target: Unit) -> float:
