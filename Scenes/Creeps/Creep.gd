@@ -265,7 +265,7 @@ func _on_death(event: Event):
 	if _size != CreepSize.enm.AIR:
 		var corpse: Node2D = Globals.corpse_scene.instantiate()
 		corpse.position = position
-		Utils.object_container.add_child(corpse)
+		Utils.add_object_to_world(corpse)
 
 
 #########################
