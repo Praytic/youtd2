@@ -321,7 +321,7 @@ func remove_exp_flat(amount: float) -> float:
 # NOTE: unit.removeExp() in JASS
 func remove_exp(amount_no_bonus: float) -> float:
 	var received_mod: float = get_prop_exp_received()
-	var amount: float = amount_no_bonus * received_mod
+	var amount: float = amount_no_bonus / max(0.1, received_mod)
 	var actual_removed: float = _change_experience(-amount)
 
 	return actual_removed
