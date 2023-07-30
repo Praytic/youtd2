@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://bghk460du677k"]
+[gd_scene load_steps=14 format=3 uid="uid://bghk460du677k"]
 
 [ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/tower_menu_theme.tres" id="1_crn3l"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_8sf0j"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
+[ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="2_x237m"]
 [ext_resource type="PackedScene" uid="uid://boj0nw0dartmw" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="3_tivl8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6ro0"]
@@ -12,9 +13,16 @@ region = Rect2(128, 128, 128, 128)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tf30d"]
-atlas = ExtResource("2_8sf0j")
-region = Rect2(128, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_07qhs"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nmnhh"]
+texture = SubResource("AtlasTexture_07qhs")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6uxni"]
+font_size = 32
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gno2"]
 atlas = ExtResource("2_kbar0")
@@ -59,17 +67,24 @@ layout_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel"]
 show_behind_parent = true
-layout_mode = 0
-offset_right = 271.818
-offset_bottom = 40.0
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = -60
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -115.909
+offset_right = 115.909
+offset_bottom = 32.0
+grow_horizontal = 2
+theme_override_constants/margin_top = -20
 
 [node name="TowerName" type="Label" parent="MarginContainer/Panel/MarginContainer2"]
+z_index = 2
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme_type_variation = &"TowerNameLabel"
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("2_x237m")
 text = "Tower Name"
+horizontal_alignment = 1
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/Panel"]
 layout_mode = 1
@@ -79,7 +94,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 30
+theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
@@ -218,29 +233,29 @@ anchor_bottom = 1.0
 offset_right = 30.0
 grow_vertical = 2
 theme_override_constants/margin_left = -20
-theme_override_constants/margin_top = -30
+theme_override_constants/margin_top = -20
 theme_override_constants/margin_bottom = -20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="TowerLevelButton" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_nmnhh")
+text = "25"
+label_settings = SubResource("LabelSettings_6uxni")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-texture = SubResource("AtlasTexture_tf30d")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="TowerLevelButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "25"
-
-[node name="TowerUpgradeButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="TowerUpgradeButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -248,7 +263,7 @@ size_flags_vertical = 0
 icon = SubResource("AtlasTexture_0gno2")
 expand_icon = true
 
-[node name="TowerInfoButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="TowerInfoButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -256,7 +271,7 @@ size_flags_vertical = 0
 icon = SubResource("AtlasTexture_yslek")
 expand_icon = true
 
-[node name="CloseButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
