@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
 [ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="2_x237m"]
 [ext_resource type="PackedScene" uid="uid://boj0nw0dartmw" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="3_tivl8"]
+[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/TowerMenu/tower_level_label_normal.tres" id="5_t4ptj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6ro0"]
 atlas = ExtResource("2_8sf0j")
@@ -13,28 +14,27 @@ region = Rect2(128, 128, 128, 128)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_07qhs"]
-atlas = ExtResource("2_kbar0")
-region = Rect2(192, 0, 64, 64)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nmnhh"]
-texture = SubResource("AtlasTexture_07qhs")
-
-[sub_resource type="LabelSettings" id="LabelSettings_6uxni"]
-font_size = 32
-font_color = Color(0, 0, 0, 1)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gno2"]
 atlas = ExtResource("2_kbar0")
-region = Rect2(320, 0, 64, 64)
+region = Rect2(0, 128, 128, 128)
+margin = Rect2(10, 10, 0, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yslek"]
 atlas = ExtResource("2_kbar0")
-region = Rect2(256, 0, 64, 64)
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m846m"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(128, 256, 128, 128)
+margin = Rect2(10, 10, 20, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gjph7"]
 atlas = ExtResource("2_kbar0")
-region = Rect2(448, 0, 64, 64)
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqbcy"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(128, 128, 128, 128)
 
 [node name="TowerMenu" type="Control"]
 layout_mode = 3
@@ -234,7 +234,7 @@ offset_right = 30.0
 grow_vertical = 2
 theme_override_constants/margin_left = -20
 theme_override_constants/margin_top = -20
-theme_override_constants/margin_bottom = -20
+theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
@@ -244,14 +244,18 @@ custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_nmnhh")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("5_t4ptj")
 text = "25"
-label_settings = SubResource("LabelSettings_6uxni")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
@@ -271,10 +275,27 @@ size_flags_vertical = 0
 icon = SubResource("AtlasTexture_yslek")
 expand_icon = true
 
+[node name="SellTowerButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = SubResource("AtlasTexture_m846m")
+expand_icon = true
+
 [node name="CloseButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 10
 icon = SubResource("AtlasTexture_gjph7")
+expand_icon = true
+
+[node name="Button" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 10
+icon = SubResource("AtlasTexture_lqbcy")
+icon_alignment = 1
 expand_icon = true
