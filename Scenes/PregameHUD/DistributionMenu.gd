@@ -1,21 +1,20 @@
 extends VBoxContainer
 
-# TODO: switch to Distribution enum
 
-signal finished(distribution: int)
+signal finished(distribution: Distribution.enm)
 
 
-func _on_generic_button_pressed(distribution: int):
+func _on_generic_button_pressed(distribution: Distribution.enm):
 	finished.emit(distribution)
 
 
 func _on_build_button_pressed():
-	_on_generic_button_pressed(0)
+	_on_generic_button_pressed(Distribution.enm.BUILD)
 
 
 func _on_random_button_pressed():
-	_on_generic_button_pressed(1)
+	_on_generic_button_pressed(Distribution.enm.RANDOM_WITH_UPGRADES)
 
 
 func _on_totally_random_button_pressed():
-	_on_generic_button_pressed(2)
+	_on_generic_button_pressed(Distribution.enm.TOTALLY_RANDOM)

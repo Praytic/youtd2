@@ -38,7 +38,7 @@ func _on_WaveSpawner_wave_ended(_wave_index):
 
 
 # TODO: apply chosen distribution and wave count
-func _on_pregame_hud_finished(_wave_count: int, _distribution: int, difficulty: Difficulty.enm):
+func _on_pregame_hud_finished(_wave_count: int, _distribution: Distribution.enm, difficulty: Difficulty.enm):
 	_pregame_hud.hide()
 	
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()

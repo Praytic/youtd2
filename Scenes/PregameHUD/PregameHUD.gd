@@ -12,10 +12,10 @@ enum Tab {
 }
 
 
-signal finished(wave_count: int, distribution: int, difficulty: Difficulty.enm)
+signal finished(wave_count: int, distribution: Distribution.enm, difficulty: Difficulty.enm)
 
 var _wave_count: int
-var _distribution: int
+var _distribution: Distribution.enm
 var _difficulty: Difficulty.enm
 
 
@@ -32,7 +32,7 @@ func _on_game_length_menu_finished(wave_count: int):
 	_tab_container.current_tab = Tab.DISTRIBUTION
 
 
-func _on_distribution_menu_finished(distribution: int):
+func _on_distribution_menu_finished(distribution: Distribution.enm):
 	_distribution = distribution
 
 	var default_difficulty: Difficulty.enm = Config.default_difficulty()
