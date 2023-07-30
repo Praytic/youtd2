@@ -14,13 +14,8 @@ var portal_lives: float = 100.0
 
 func _ready():
 	print_verbose("GameScene has loaded.")
-
-	var default_difficulty: Difficulty.enm = Config.default_difficulty()
-
-	if default_difficulty == Difficulty.enm.NONE:
-		_pregame_hud.show()
-	else:
-		_on_pregame_hud_selected_difficulty(default_difficulty)
+	
+	_pregame_hud.show()
 
 
 func _on_HUD_start_wave(wave_index):
@@ -42,7 +37,7 @@ func _on_WaveSpawner_wave_ended(_wave_index):
 	KnowledgeTomesManager.add_knowledge_tomes()
 
 
-func _on_pregame_hud_selected_difficulty(difficulty: Difficulty.enm):
+func _on_pregame_hud_finished(wave_count: int, difficulty: Difficulty.enm):
 	_pregame_hud.hide()
 	
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()

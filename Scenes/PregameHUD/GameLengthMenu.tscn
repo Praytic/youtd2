@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://clr58gw5jy8bl"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ae0bp"]
+[ext_resource type="Script" path="res://Scenes/PregameHUD/GameLengthMenu.gd" id="2_xlfdg"]
+
+[node name="GameLengthMenu" type="VBoxContainer"]
+offset_right = 377.0
+offset_bottom = 235.0
+size_flags_vertical = 0
+theme = ExtResource("1_ae0bp")
+script = ExtResource("2_xlfdg")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Select game length:"
+
+[node name="TrialButton" type="Button" parent="."]
+layout_mode = 2
+text = "Trial (80 waves)"
+
+[node name="FullButton" type="Button" parent="."]
+layout_mode = 2
+text = "Full (120 waves)"
+
+[node name="NeverendingButton" type="Button" parent="."]
+layout_mode = 2
+text = "Neverending (240 waves)"
+
+[connection signal="pressed" from="TrialButton" to="." method="_on_trial_button_pressed"]
+[connection signal="pressed" from="FullButton" to="." method="_on_full_button_pressed"]
+[connection signal="pressed" from="NeverendingButton" to="." method="_on_neverending_button_pressed"]

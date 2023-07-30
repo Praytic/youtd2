@@ -100,4 +100,4 @@ metadata/_edit_use_anchors_ = true
 visible = false
 
 [connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
-[connection signal="selected_difficulty" from="UI/PregameHUD" to="." method="_on_pregame_hud_selected_difficulty"]
+[connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
