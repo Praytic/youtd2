@@ -31,6 +31,6 @@ func from_string(string: String) -> Difficulty.enm:
 	if key != null:
 		return key
 	else:
-		push_error("Invalid difficulty string: \"%s\"" % string)
+		push_error("Invalid string: \"%s\". Possible values: %s" % [string, _string_map.values()])
 
 		return Difficulty.enm.BEGINNER

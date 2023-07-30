@@ -27,6 +27,6 @@ func from_string(string: String) -> Distribution.enm:
 	if key != null:
 		return key
 	else:
-		push_error("Invalid distribution string: \"%s\"" % string)
+		push_error("Invalid string: \"%s\". Possible values: %s" % [string, _string_map.values()])
 
 		return Distribution.enm.BUILD
