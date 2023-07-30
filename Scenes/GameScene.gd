@@ -42,8 +42,9 @@ func _on_CreepExit_body_entered(body):
 		portal_lives -= damage
 
 
-func _on_WaveSpawner_wave_ended(_wave_index):
-	GoldControl.add_income(_wave_index)
+func _on_wave_spawner_wave_ended(wave: Wave):
+	var wave_level: int = wave.get_wave_number()
+	GoldControl.add_income(wave_level)
 	KnowledgeTomesManager.add_knowledge_tomes()
 
 

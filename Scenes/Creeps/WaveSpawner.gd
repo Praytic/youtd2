@@ -212,6 +212,8 @@ func _on_Wave_ended(wave: Wave):
 
 	print_verbose("Wave [%s] is cleared." % wave)
 
+	wave_ended.emit(wave)
+
 	var alive_creeps: Array = _get_alive_creeps()
 	var all_creeps_are_killed: bool = alive_creeps.is_empty()
 	var all_waves_were_started: bool = _current_wave_index == _wave_list.size() - 1

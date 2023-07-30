@@ -100,4 +100,5 @@ metadata/_edit_use_anchors_ = true
 visible = false
 
 [connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
+[connection signal="wave_ended" from="Map/WaveSpawner" to="." method="_on_wave_spawner_wave_ended"]
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
