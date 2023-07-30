@@ -14,8 +14,18 @@ var portal_lives: float = 100.0
 
 func _ready():
 	print_verbose("GameScene has loaded.")
+
+	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 	
-	_pregame_hud.show()
+	if show_pregame_settings_menu:
+		_pregame_hud.show()
+	else:
+#		Skip pregame settings menu and load default values
+		var default_wave_count: int = Config.default_wave_count()
+		var default_distribution: Distribution.enm = Config.default_distribution()
+		var default_difficulty: Difficulty.enm = Config.default_difficulty()
+
+		_on_pregame_hud_finished(default_wave_count, default_distribution, default_difficulty)
 
 
 func _on_HUD_start_wave(wave_index):
@@ -40,7 +50,7 @@ func _on_WaveSpawner_wave_ended(_wave_index):
 # TODO: apply chosen distribution and wave count
 func _on_pregame_hud_finished(_wave_count: int, _distribution: Distribution.enm, difficulty: Difficulty.enm):
 	_pregame_hud.hide()
-	
+
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
 	
 	Messages.add_normal("Welcome to youtd 2!")
