@@ -32,7 +32,7 @@ var _wave_csv_properties: Dictionary = {} : get = get_wave_csv_properties
 ### Code starts here  ###
 #########################
 
-func _init():
+func _ready():
 	_load_csv_properties(_TOWER_CSV_PROPERTIES_PATH, _tower_csv_properties, Tower.CsvProperty.ID)
 	_load_csv_properties(_ITEM_CSV_PROPERTIES_PATH, _item_csv_properties, Item.CsvProperty.ID)
 	_load_csv_properties(_WAVE_CSV_PROPERTIES_PATH, _wave_csv_properties, Wave.CsvProperty.ID)
