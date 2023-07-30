@@ -64,6 +64,7 @@ func get_item_id() -> int:
 func set_item_id(value: int):
 	_item_id = value
 	_item = Item.make(value)
+	add_child(_item)
 
 
 func _on_mouse_entered():
