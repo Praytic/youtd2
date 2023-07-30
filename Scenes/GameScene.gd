@@ -52,9 +52,10 @@ func _on_pregame_hud_finished(wave_count: int, _distribution: Distribution.enm, 
 	_pregame_hud.hide()
 
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
-	
+
+
 	Messages.add_normal("Welcome to youtd 2!")
-	Messages.add_normal("Selected difficulty: %s" % difficulty_string)
+	Messages.add_normal("Game settings: %d waves, %s difficulty" % [wave_count, difficulty_string])
 	Messages.add_normal("Move the camera with arrow keys or WASD.")
 	Messages.add_normal("To build towers, click on the tower button in the bottom right corner.")
 	Messages.add_normal("Select one of the elements and pick a tower.")
