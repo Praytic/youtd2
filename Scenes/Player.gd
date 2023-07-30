@@ -92,7 +92,11 @@ func give_gold(amount: int, unit: Unit, show_effect: bool, show_text: bool):
 		display_floating_text_color(text, unit, color, 1.0)
 
 
-# TODO: implement
+# NOTE: player.modifyIncomeRate in JASS
+func modify_income_rate(amount: float):
+	GoldControl.modify_income_rate(amount)
+
+
 # NOTE: player.modifyInterestRate in JASS
-func modify_interest_rate(_amount: float):
-	pass
+func modify_interest_rate(amount: float):
+	GoldControl.modify_interest_rate(amount)

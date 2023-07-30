@@ -11,7 +11,8 @@ const MAX_GOLD = 999999
 const INITIAL_INCOME = 10
 const MAX_INCOME = 999999
 
-var interest_rate: float = 0.05
+var _income_rate: float = 1.0
+var _interest_rate: float = 0.05
 
 var _gold: float : set = set_gold, get = get_gold
 var _income: float : set = set_income, get = get_income
@@ -28,6 +29,14 @@ func _ready():
 
 func add_income():
 	set_gold(_gold + _income)
+
+
+func modify_income_rate(amount: float):
+	_income_rate = _income_rate + amount
+
+
+func modify_interest_rate(amount: float):
+	_interest_rate = _interest_rate + amount
 
 
 #########################
@@ -66,4 +75,8 @@ func set_income(value: float):
 		_income = value
 	income_change.emit(_income)
 	
+func get_income_rate() -> float:
+	return _income_rate
 
+func get_interest_rate() -> float:
+	return _interest_rate
