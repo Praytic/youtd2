@@ -1,8 +1,13 @@
 extends Node
 
 
-@onready var object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
+@onready var _object_container: get = get_object_container
 
+func get_object_container():
+	if _object_container == null:
+		return get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
+	else:
+		return _object_container
 
 # Returns a list of lines, each line is a list of strings.
 # It's assumed that the first row is title row and it is
@@ -181,7 +186,7 @@ func unit_is_valid(unit) -> bool:
 
 
 func add_object_to_world(object: Node):
-	object_container.add_child(object, true)
+	get_object_container().add_child(object, true)
 
 
 func circle_polygon_set_radius(collision_polygon: CollisionPolygon2D, radius: float , angle_from = 0, angle_to = 360):
