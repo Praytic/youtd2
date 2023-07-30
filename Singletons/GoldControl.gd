@@ -11,6 +11,7 @@ const MAX_GOLD = 999999
 const INITIAL_INCOME = 10
 const MAX_INCOME = 999999
 
+var interest_rate: float = 0.05
 
 var _gold: float : set = set_gold, get = get_gold
 var _income: float : set = set_income, get = get_income
