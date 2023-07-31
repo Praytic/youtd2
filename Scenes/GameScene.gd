@@ -49,7 +49,7 @@ func _on_wave_spawner_wave_ended(wave: Wave):
 
 
 # TODO: use distribution setting
-func _on_pregame_hud_finished(wave_count: int, _distribution: Distribution.enm, difficulty: Difficulty.enm):
+func _on_pregame_hud_finished(wave_count: int, distribution: Distribution.enm, difficulty: Difficulty.enm):
 	_pregame_hud.hide()
 
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
@@ -65,4 +65,4 @@ func _on_pregame_hud_finished(wave_count: int, _distribution: Distribution.enm, 
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
 
-
+	Globals.distribution = distribution
