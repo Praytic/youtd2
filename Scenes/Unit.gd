@@ -615,6 +615,20 @@ static func set_unit_state(unit: Unit, state: Unit.State, value: float):
 #########################
 
 
+# Returns a prop value after applying diminishing returns to
+# it. Diminishing returns reduce effectiveness of mods as
+# the prop value gets further away from [0.6, 1.7] range.
+func get_prop_with_diminishing_returns(type: Modification.Type) -> float:
+	var value: float = max(0, _mod_value_map[type])
+
+	if value > 1.7:
+		return 1.7 + (value - 1.7) / pow(1.0 + value - 1.7, 0.66)
+	elif value < 0.6:
+		return 0.6 / pow(1.0 + 0.6 - value, 1.6)
+	else:
+		return value
+
+
 # Generates a random crit count. Different number every
 # time.
 func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
@@ -1011,10 +1025,10 @@ func get_y() -> float:
 # PropTriggerChances.
 
 func get_prop_buff_duration() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_BUFF_DURATION])
+	return get_prop_with_diminishing_returns(Modification.Type.MOD_BUFF_DURATION)
 
 func get_prop_debuff_duration() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_DEBUFF_DURATION])
+	return get_prop_with_diminishing_returns(Modification.Type.MOD_DEBUFF_DURATION)
 
 func get_prop_atk_crit_chance() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_ATK_CRIT_CHANCE])
@@ -1028,13 +1042,13 @@ func get_crit_multiplier() -> float:
 	return 1 + get_prop_atk_crit_chance() * get_prop_atk_crit_damage()
 
 func get_prop_bounty_received() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_BOUNTY_RECEIVED])
+	return get_prop_with_diminishing_returns(Modification.Type.MOD_BOUNTY_RECEIVED)
 
 func get_prop_bounty_granted() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_BOUNTY_GRANTED])
 
 func get_prop_exp_received() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_EXP_RECEIVED])
+	return get_prop_with_diminishing_returns(Modification.Type.MOD_EXP_RECEIVED)
 
 func get_prop_exp_granted() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_EXP_GRANTED])
@@ -1070,13 +1084,13 @@ func get_damage_to_orc() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_ORC])
 
 func get_exp_ratio() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_EXP_RECEIVED])
+	return get_prop_exp_received()
 
 func get_item_drop_ratio() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_KILL])
+	return get_prop_with_diminishing_returns(Modification.Type.MOD_ITEM_CHANCE_ON_KILL)
 
 func get_item_quality_ratio() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_KILL])
+	return get_prop_with_diminishing_returns(Modification.Type.MOD_ITEM_QUALITY_ON_KILL)
 
 func get_item_drop_ratio_on_death() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH])
@@ -1085,7 +1099,7 @@ func get_item_quality_ratio_on_death() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH])
 
 func get_prop_trigger_chances() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_TRIGGER_CHANCES])
+	return get_prop_with_diminishing_returns(Modification.Type.MOD_TRIGGER_CHANCES)
 
 func get_prop_multicrit_count() -> int:
 	return int(max(0, _mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT]))
