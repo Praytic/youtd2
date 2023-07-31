@@ -3,9 +3,13 @@ extends Node
 signal knowledge_tomes_change()
 
 
+const MAX_KNOWLEDGE_TOMES: int = 999999
+const INITIAL_KNOWLEDGE_TOMES_INCOME: int = 8
+
+
 var knowledge_tomes: int : set = set_knowledge_tomes
-var income: int = Properties.globals["ini_knowledge_tomes_income"]
-var max_kt: int = Properties.globals["max_knowledge_tomes"]
+var income: int = INITIAL_KNOWLEDGE_TOMES_INCOME
+
 
 func _ready():
 	var starting_tomes: int = Config.starting_tomes()
@@ -13,12 +17,7 @@ func _ready():
 
 	
 func set_knowledge_tomes(value):
-	if (value >= max_kt):
-		knowledge_tomes = max_kt
-	elif (value < 0):
-		knowledge_tomes = 0
-	else:
-		knowledge_tomes = value
+	knowledge_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
 	knowledge_tomes_change.emit()
 	
 func add_knowledge_tomes(value = income):
