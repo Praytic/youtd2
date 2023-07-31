@@ -4,7 +4,11 @@ extends GridContainer
 @export var unlimited_towers = false
 
 # Dictionary of all in-game towers with the associated buttons
+# Buttons should be always created inside a dedicated container,
+# which means you should call the parent of a button
+# if you want to change the visual part of it.
 @onready var _tower_buttons: Dictionary = {}
+
 # Adds every tower button possible to the list.
 # Although, this is a mutable list, so every time
 # you build a tower, the ID of the tower is removed from this list.
@@ -28,11 +32,13 @@ func _ready():
 		if !is_released:
 			continue
 	
-		var tower_button: TowerButton = TowerButton.make(tower_id)
-
+		var tower_button = TowerButton.make(tower_id)
+		var button_container = UnitButtonContainer.make()
+		button_container.add_child(tower_button)
+		
 		_tower_buttons[tower_id] = tower_button
-		tower_button.hide()
-		add_child(tower_button)
+		button_container.hide()
+		add_child(button_container)
 	
 	for tower_id in _tower_buttons.keys():
 		available_tower_buttons.append(tower_id)
@@ -44,12 +50,12 @@ func add_tower_button(tower_id):
 	available_tower_buttons.append(tower_id)
 	var element: Element.enm = Properties.get_csv_properties(tower_id)[Tower.CsvProperty.ELEMENT]
 	if element == _current_element:
-		_tower_buttons[tower_id].show()
+		_tower_buttons[tower_id].get_parent().show()
 
 
 func remove_tower_button(tower_id):
 	available_tower_buttons.erase(tower_id)
-	_tower_buttons[tower_id].hide()
+	_tower_buttons[tower_id].get_parent().hide()
 
 
 func get_element() -> Element.enm:
@@ -62,12 +68,12 @@ func set_element(element: Element.enm):
 		return
 	
 	for tower_button in _tower_buttons.values():
-		tower_button.hide()
+		tower_button.get_parent().hide()
 	
 	var available_towers_for_element = _get_available_tower_buttons_for_element(element)
 	
 	for tower_id in available_towers_for_element:
-		_tower_buttons[tower_id].show()
+		_tower_buttons[tower_id].get_parent().show()
 
 
 func _on_Tower_built(tower_id):

@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1xny6jmxj5i6"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_i3yfj"]
+[ext_resource type="Script" path="res://Scenes/PregameHUD/PregameHUD.gd" id="2_ljcwn"]
+[ext_resource type="PackedScene" uid="uid://cfr6nyshcgv1h" path="res://Scenes/PregameHUD/DifficultyMenu.tscn" id="3_rhl0k"]
+[ext_resource type="PackedScene" uid="uid://clr58gw5jy8bl" path="res://Scenes/PregameHUD/GameLengthMenu.tscn" id="4_ogsgu"]
+[ext_resource type="PackedScene" uid="uid://drfy31rct5o3k" path="res://Scenes/PregameHUD/DistributionMenu.tscn" id="5_w0t1q"]
+
+[node name="PregameHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_i3yfj")
+script = ExtResource("2_ljcwn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -188.5
+offset_top = -117.5
+offset_right = 188.5
+offset_bottom = 117.5
+grow_horizontal = 2
+grow_vertical = 2
+tabs_visible = false
+
+[node name="GameLengthMenu" parent="TabContainer" instance=ExtResource("4_ogsgu")]
+layout_mode = 2
+
+[node name="DistributionMenu" parent="TabContainer" instance=ExtResource("5_w0t1q")]
+visible = false
+layout_mode = 2
+
+[node name="DifficultyMenu" parent="TabContainer" instance=ExtResource("3_rhl0k")]
+visible = false
+layout_mode = 2
+
+[connection signal="finished" from="TabContainer/GameLengthMenu" to="." method="_on_game_length_menu_finished"]
+[connection signal="finished" from="TabContainer/DistributionMenu" to="." method="_on_distribution_menu_finished"]
+[connection signal="finished" from="TabContainer/DifficultyMenu" to="." method="_on_difficulty_menu_finished"]

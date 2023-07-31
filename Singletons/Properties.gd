@@ -32,7 +32,7 @@ var _wave_csv_properties: Dictionary = {} : get = get_wave_csv_properties
 ### Code starts here  ###
 #########################
 
-func _init():
+func _ready():
 	_load_csv_properties(_TOWER_CSV_PROPERTIES_PATH, _tower_csv_properties, Tower.CsvProperty.ID)
 	_load_csv_properties(_ITEM_CSV_PROPERTIES_PATH, _item_csv_properties, Item.CsvProperty.ID)
 	_load_csv_properties(_WAVE_CSV_PROPERTIES_PATH, _wave_csv_properties, Wave.CsvProperty.ID)
@@ -114,27 +114,9 @@ func filter_item_id_list(item_list: Array, item_property: Item.CsvProperty, filt
 #########################
 
 func _load_csv_properties(properties_path: String, properties_dict: Dictionary, id_column: int):
-	var file_exists: bool = FileAccess.file_exists(properties_path)
+	var csv: Array[PackedStringArray] = Utils.load_csv(properties_path)
 
-	if !file_exists:
-		print_debug("Failed to load CSV propeties because file doesn't exist. Path: %s", % properties_path)
-
-		return
-
-	var file: FileAccess = FileAccess.open(properties_path, FileAccess.READ)
-
-	var skip_title_row: bool = true
-	while !file.eof_reached():
-		var csv_line: PackedStringArray = file.get_csv_line()
-
-		if skip_title_row:
-			skip_title_row = false
-			continue
-
-# 		NOTE: skip last line which has size of 1
-		if csv_line.size() <= 1:
-			continue
-
+	for csv_line in csv:
 		var properties: Dictionary = _load_csv_line(csv_line)
 		var id = properties[id_column].to_int()
 		properties_dict[id] = properties

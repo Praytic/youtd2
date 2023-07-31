@@ -42,8 +42,6 @@ enum DamageSource {
 
 const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
-# TODO: replace this placeholder constant with real value.
-const EXP_PER_LEVEL: float = 100
 const REGEN_PERIOD: float = 1.0
 const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
@@ -74,7 +72,7 @@ var _crit_damage_ratio_for_next_attack: float = 0.0
 var _crit_bonus_for_next_spell: int = 0
 
 var _is_dead: bool = false
-var _level: int = 1 : get = get_level, set = set_level
+var _level: int = 0 : get = get_level, set = set_level
 var _buff_type_map: Dictionary
 var _buff_group_map: Dictionary
 var _friendly_buff_list: Array[Buff]
@@ -87,7 +85,6 @@ var _invisible: bool = false
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
 var _mana: float = 0.0
-# TODO: define real value
 var _base_armor: float = 0.0
 var _dealt_damage_signal_in_progress: bool = false
 var _kill_count: int = 0
@@ -297,32 +294,7 @@ func set_animation_by_index(_unit: Unit, _index: int):
 # exp pushes the unit past the level up threshold.
 # NOTE: unit.addExpFlat() in JASS
 func add_exp_flat(amount: float):
-	_experience += amount
-
-	var leveled_up: bool = false
-
-	if _experience >= EXP_PER_LEVEL:
-		_experience -= EXP_PER_LEVEL
-
-		var new_level: int = _level + 1
-		set_level(new_level)
-		level_up.emit()
-
-		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
-		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
-		Effect.scale_effect(effect_id, effect_scale)
-		Effect.destroy_effect(effect_id)
-
-		var level_up_text: String = "Level %d" % _level
-		getOwner().display_floating_text_color(level_up_text, self, Color.GOLD , 1.0)
-		leveled_up = true
-
-		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
-
-
-	if !leveled_up:
-		var exp_text: String = "+%s exp" % String.num(amount, 1)
-		getOwner().display_floating_text_color(exp_text, self, Color.LIME_GREEN, 1.0)
+	_change_experience(amount)
 
 
 # Affected by tower exp ratios.
@@ -330,7 +302,7 @@ func add_exp_flat(amount: float):
 func add_exp(amount_no_bonus: float):
 	var received_mod: float = get_prop_exp_received()
 	var amount: float = amount_no_bonus * received_mod
-	add_exp_flat(amount)
+	_change_experience(amount)
 
 
 # Unaffected by tower exp ratios. Returns how much
@@ -340,21 +312,19 @@ func add_exp(amount_no_bonus: float):
 # set to 0.
 # NOTE: unit.removeExpFlat() in JASS
 func remove_exp_flat(amount: float) -> float:
-	var old_exp: float = _experience
-	var new_exp: float = clampf(_experience - amount, 0.0, _experience)
-	_experience = new_exp
-
-	var actual_removed: float = old_exp - new_exp
+	var actual_removed: float = _change_experience(-amount)
 
 	return actual_removed
 
 
 # Affected by "exp recieved" modification.
 # NOTE: unit.removeExp() in JASS
-func remove_exp(amount_no_bonus: float):
+func remove_exp(amount_no_bonus: float) -> float:
 	var received_mod: float = get_prop_exp_received()
-	var amount: float = amount_no_bonus * received_mod
-	remove_exp_flat(amount)
+	var amount: float = amount_no_bonus / max(0.1, received_mod)
+	var actual_removed: float = _change_experience(-amount)
+
+	return actual_removed
 
 
 # NOTE: unit.calcChance() in JASS
@@ -449,7 +419,10 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 
 # NOTE: unit.doSpellDamage() in JASS
 func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
-	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target)
+# 	NOTE: apply spell damage ratio here. It's the same value
+# 	for all armor types, weird but that's how it works in
+# 	original.
+	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target) * Constants.SPELL_DAMAGE_RATIO
 
 	_do_damage(target, damage_total, DamageSource.Spell)
 
@@ -858,7 +831,7 @@ func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
 	var modification_list: Array = modifier.get_modification_list()
 
 	for modification in modification_list:
-		var power_bonus: float = modification.level_add * (power - 1)
+		var power_bonus: float = modification.level_add * power
 		var value: float = modification.value_base + power_bonus
 
 		_modify_property_internal(modification.type, value, modify_direction)
@@ -872,8 +845,7 @@ func _update_invisible_modulate():
 
 
 func get_bounty() -> float:
-# 	TODO: Replace this placeholder constant with real value.
-	var bounty_base: float = 10.0
+	var bounty_base: float = _get_base_bounty()
 	var granted_mod: float = get_prop_bounty_granted()
 	var received_mod: float = get_prop_bounty_received()
 	var bounty: int = int(bounty_base * granted_mod * received_mod)
@@ -881,9 +853,18 @@ func get_bounty() -> float:
 	return bounty
 
 
+# NOTE: overriden by Creep subclass
+func _get_base_bounty() -> float:
+	return 0
+
+
 func _get_experience_for_target(target: Unit) -> float:
-# 	TODO: Replace this placeholder constant with real value.
-	var experience_base: float = 10.0
+	if !target is Creep:
+		return 0
+
+	var creep: Creep = target as Creep
+	var creep_size: CreepSize.enm = creep.get_size()
+	var experience_base: float = CreepSize.get_experience(creep_size)
 	var granted_mod: float = target.get_prop_exp_granted()
 	var experience: float = experience_base * granted_mod
 
@@ -1317,6 +1298,9 @@ func get_current_armor_damage_reduction() -> float:
 func get_mana() -> float:
 	return _mana
 
+func set_base_armor(value: float):
+	_base_armor = value
+
 func get_base_armor() -> float:
 	return _base_armor
 
@@ -1375,7 +1359,51 @@ func get_attack_type() -> AttackType.enm:
 func get_exp() -> float:
 	return _experience
 
-func get_experience_for_next_level():
-	var for_next_level: float = EXP_PER_LEVEL - _experience
 
-	return for_next_level
+func reached_max_level() -> bool:
+	var is_max_level: bool = _level == Constants.MAX_LEVEL
+
+	return is_max_level
+
+
+# Changes experience of unit. Change can be positive or
+# negative. Level will also be changed accordingly. Note
+# that level downs are possible.
+# TODO: should level_up event trigger multiple times for
+# same level if tower levels down and then back up?
+func _change_experience(amount: float) -> float:
+	var old_exp: float = _experience
+	var new_exp: float = max(0.0, _experience + amount)
+	var actual_change = new_exp - old_exp
+	var old_level: int = _level
+	var new_level: int = Experience.get_level_at_exp(new_exp)
+
+	_experience = new_exp
+
+	var level_changed: bool = new_level != old_level
+	
+	if level_changed:
+		set_level(new_level)
+
+	var leveled_up: bool = new_level > old_level
+
+	if leveled_up:
+		level_up.emit()
+
+		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
+		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
+		Effect.scale_effect(effect_id, effect_scale)
+		Effect.destroy_effect(effect_id)
+
+		var level_up_text: String = "Level %d" % _level
+		getOwner().display_floating_text_color(level_up_text, self, Color.GOLD , 1.0)
+
+		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
+	else:
+# 		NOTE: display floating text for exp amount only if
+# 		didn't level up to avoid overlapping of the two
+# 		floating texts
+		var exp_text: String = "+%s exp" % String.num(amount, 1)
+		getOwner().display_floating_text_color(exp_text, self, Color.LIME_GREEN, 1.0)
+
+	return actual_change

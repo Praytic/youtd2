@@ -1,55 +1,25 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://w41gknrplbo7"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dksfi74d7n0pf"]
 
-[ext_resource type="StyleBox" path="res://Resources/Theme/thin_frame_panel.tres" id="1_bustl"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/UnitButtonTheme/button_normal.tres" id="1_lmksy"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/UnitButtonTheme/common_unit_button_normal.tres" id="2_akhx2"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/UnitButtonTheme/rare_unit_button_normal.tres" id="3_q6g8b"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/UnitButtonTheme/uncommon_unit_button_normal.tres" id="5_kuot6"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/UnitButtonTheme/unique_unit_button_normal.tres" id="6_bon5i"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/UnitButtonTheme/wide_frame_button_disabled.tres" id="7_4dpjt"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/UnitButtonTheme/wide_frame_button_focus.tres" id="8_62v5g"]
-[ext_resource type="StyleBox" path="res://Resources/Theme/UnitButtonTheme/wide_frame_button_normal.tres" id="8_m3dbc"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ipsp0"]
-draw_center = false
+[ext_resource type="StyleBox" uid="uid://dcjhupdk2mwkl" path="res://Resources/Theme/UnitButton/button_normal.tres" id="1_80ch8"]
+[ext_resource type="StyleBox" uid="uid://c8x6v1g5py6r6" path="res://Resources/Theme/UnitButton/button_disabled.tres" id="1_tdptv"]
+[ext_resource type="StyleBox" uid="uid://ceml4iosll1ur" path="res://Resources/Theme/UnitButton/button_hover.tres" id="1_xn0v5"]
+[ext_resource type="StyleBox" uid="uid://b8m81drahps4x" path="res://Resources/Theme/UnitButton/common_rarity_panel_container.tres" id="3_bk18n"]
+[ext_resource type="StyleBox" uid="uid://dvslmk5lro1u0" path="res://Resources/Theme/UnitButton/rare_rarity_panel_container.tres" id="4_lnooq"]
+[ext_resource type="StyleBox" uid="uid://de41wrip7to2f" path="res://Resources/Theme/UnitButtonContainer/counter_label_normal.tres" id="5_rng1l"]
+[ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="5_tqwyb"]
+[ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="6_xmrco"]
 
 [resource]
-Button/styles/disabled = ExtResource("1_lmksy")
-Button/styles/focus = ExtResource("1_lmksy")
-Button/styles/hover = ExtResource("1_lmksy")
-Button/styles/normal = ExtResource("1_lmksy")
-Button/styles/pressed = ExtResource("1_lmksy")
-CommonUnitButton/base_type = &"Button"
-CommonUnitButton/styles/disabled = ExtResource("2_akhx2")
-CommonUnitButton/styles/focus = ExtResource("2_akhx2")
-CommonUnitButton/styles/hover = ExtResource("2_akhx2")
-CommonUnitButton/styles/normal = ExtResource("2_akhx2")
-CommonUnitButton/styles/pressed = ExtResource("2_akhx2")
-Label/font_sizes/font_size = 22
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_ipsp0")
-RareUnitButton/base_type = &"Button"
-RareUnitButton/styles/disabled = ExtResource("3_q6g8b")
-RareUnitButton/styles/focus = ExtResource("3_q6g8b")
-RareUnitButton/styles/hover = ExtResource("3_q6g8b")
-RareUnitButton/styles/normal = ExtResource("3_q6g8b")
-RareUnitButton/styles/pressed = ExtResource("3_q6g8b")
-ThinFrame/styles/panel = ExtResource("1_bustl")
-UncommonUnitButton/base_type = &"Button"
-UncommonUnitButton/styles/disabled = ExtResource("5_kuot6")
-UncommonUnitButton/styles/focus = ExtResource("5_kuot6")
-UncommonUnitButton/styles/hover = ExtResource("5_kuot6")
-UncommonUnitButton/styles/normal = ExtResource("5_kuot6")
-UncommonUnitButton/styles/pressed = ExtResource("5_kuot6")
-UniqueUnitButton/base_type = &"Button"
-UniqueUnitButton/styles/disabled = ExtResource("6_bon5i")
-UniqueUnitButton/styles/focus = ExtResource("6_bon5i")
-UniqueUnitButton/styles/hover = ExtResource("6_bon5i")
-UniqueUnitButton/styles/normal = ExtResource("6_bon5i")
-UniqueUnitButton/styles/pressed = ExtResource("6_bon5i")
-WideFrame/base_type = &"Button"
-WideFrame/styles/disabled = ExtResource("7_4dpjt")
-WideFrame/styles/focus = ExtResource("8_62v5g")
-WideFrame/styles/hover = ExtResource("8_62v5g")
-WideFrame/styles/normal = ExtResource("8_m3dbc")
-WideFrame/styles/panel = ExtResource("8_m3dbc")
-WideFrame/styles/pressed = ExtResource("8_62v5g")
+Button/styles/disabled = ExtResource("1_tdptv")
+Button/styles/hover = ExtResource("1_xn0v5")
+Button/styles/normal = ExtResource("1_80ch8")
+Button/styles/pressed = ExtResource("1_tdptv")
+CommonRarityPanelContainer/styles/panel = ExtResource("3_bk18n")
+Label/styles/normal = ExtResource("5_rng1l")
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8
+RareRarityPanelContainer/styles/panel = ExtResource("4_lnooq")
+UncommonRarityPanelContainer/styles/panel = ExtResource("5_tqwyb")
+UniqueRarityPanelContainer/styles/panel = ExtResource("6_xmrco")
