@@ -135,6 +135,8 @@ func _on_sell_button_pressed():
 
 	SelectUnit.set_selected_unit(null)
 
+	FoodManager.remove_tower()
+
 
 func _set_selling_for_real(value: bool):
 	_selling_for_real = value
