@@ -119,6 +119,19 @@ func adjust_height(height_wc3: float, speed: float):
 
 func reach_portal():
 	var damage_to_portal = get_damage_to_portal()
+	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 2)
+	var damage_done: float = 1.0 - get_health_ratio()
+	var damage_done_string: String = Utils.format_percent(damage_done, 2)
+	var size_string: String = CreepSize.convert_to_string(_size)
+
+	if _size == CreepSize.enm.BOSS:
+		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
+	else:
+		Messages.add_normal("Failed to kill a %s" % size_string.to_upper())
+
+	if damage_to_portal > 0:
+		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
+
 	EventBus.creep_reached_portal.emit(damage_to_portal)
 	reached_portal.emit(damage_to_portal)
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
