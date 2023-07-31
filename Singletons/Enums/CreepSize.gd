@@ -66,6 +66,16 @@ const _experience_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 
+const _portal_damage_multiplier_map: Dictionary = {
+	CreepSize.enm.MASS: 1,
+	CreepSize.enm.NORMAL: 2,
+	CreepSize.enm.AIR: 4,
+	CreepSize.enm.CHAMPION: 4,
+	CreepSize.enm.BOSS: 20,
+	CreepSize.enm.CHALLENGE_MASS: 0,
+	CreepSize.enm.CHALLENGE_BOSS: 0,
+}
+
 const _gold_multiplier_map: Dictionary = {
 	CreepSize.enm.MASS: 1,
 	CreepSize.enm.NORMAL: 2,
@@ -123,3 +133,7 @@ func get_experience(type: CreepSize.enm) -> float:
 
 func get_gold_multiplier(type: CreepSize.enm) -> float:
 	return _gold_multiplier_map[type]
+
+
+func get_portal_damage_multiplier(type: CreepSize.enm) -> float:
+	return _portal_damage_multiplier_map[type]

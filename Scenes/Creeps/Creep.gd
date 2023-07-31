@@ -320,8 +320,24 @@ func set_path(path: Path2D):
 	_path.default_z = z_index
 
 func get_damage_to_portal() -> float:
-	# TODO: Implement formula
-	return 1.0
+	if _size == CreepSize.enm.CHALLENGE_MASS || _size == CreepSize.enm.CHALLENGE_BOSS:
+		return 0
+
+	var damage_done: float = 1.0 - get_health_ratio()
+
+	var type_multiplier: float = CreepSize.get_portal_damage_multiplier(_size)
+
+	var damage_done_power: float
+	if _size == CreepSize.enm.BOSS:
+		damage_done_power = 4
+	else:
+		damage_done_power = 5
+
+	var first_half: float = 2.5 * type_multiplier * (1 - pow(damage_done, damage_done_power)) * 0.5
+	var second_half: float = 2.5 * type_multiplier * 0.5
+	var damage_to_portal: float = first_half + second_half
+
+	return damage_to_portal
 
 
 func get_spawn_level() -> int:
