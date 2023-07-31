@@ -15,6 +15,8 @@ var portal_lives: float = 100.0
 func _ready():
 	print_verbose("GameScene has loaded.")
 
+	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
+
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 	
 	if show_pregame_settings_menu:
@@ -36,10 +38,8 @@ func _on_HUD_stop_wave():
 	$Map/CreepSpawner.stop()
 
 
-func _on_CreepExit_body_entered(body):
-	if body is Creep:
-		var damage = body.reach_portal()
-		portal_lives -= damage
+func _on_creep_reached_portal(damage_to_portal: float):
+	portal_lives -= damage_to_portal
 
 
 func _on_wave_spawner_wave_ended(wave: Wave):

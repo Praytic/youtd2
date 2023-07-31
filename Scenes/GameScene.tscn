@@ -64,16 +64,6 @@ z_index = 100
 [node name="FloatingTextContainer" type="Node2D" parent="Map"]
 z_index = 1000
 
-[node name="CreepExit" type="Area2D" parent="Map"]
-z_index = 999
-position = Vector2(-3239, -5750)
-scale = Vector2(0.845244, 0.890764)
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Map/CreepExit"]
-position = Vector2(-1993.51, 8648.76)
-scale = Vector2(60.716, -28.6271)
-polygon = PackedVector2Array(-0.44817, -27.7647, 25.8964, -1.41174, 52.241, -27.7647, 25.8964, -54.1176)
-
 [node name="Camera2D" type="Camera2D" parent="Map"]
 unique_name_in_owner = true
 z_index = 1000
@@ -99,6 +89,5 @@ metadata/_edit_use_anchors_ = true
 [node name="PregameHUD" parent="UI" instance=ExtResource("8_idpxe")]
 visible = false
 
-[connection signal="body_entered" from="Map/CreepExit" to="." method="_on_CreepExit_body_entered"]
 [connection signal="wave_ended" from="Map/WaveSpawner" to="." method="_on_wave_spawner_wave_ended"]
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]

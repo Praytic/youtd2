@@ -117,13 +117,12 @@ func adjust_height(height_wc3: float, speed: float):
 		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
 
-func reach_portal() -> float:
+func reach_portal():
 	var damage_to_portal = get_damage_to_portal()
+	EventBus.creep_reached_portal.emit(damage_to_portal)
 	reached_portal.emit(damage_to_portal)
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 	queue_free()
-	
-	return damage_to_portal
 
 
 # NOTE: creep.dropItem() in JASS
@@ -150,6 +149,8 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 func _move(delta):
 	var path_is_over: bool = _current_path_index >= _path.get_curve().get_point_count()
 	if path_is_over:
+		reach_portal()
+
 		return
 
 	var path_point: Vector2 = _path.get_curve().get_point_position(_current_path_index) + _path.position
