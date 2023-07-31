@@ -66,16 +66,21 @@ func tower_was_sold(position: Vector2):
 
 func _try_to_build():
 	var can_build: bool = _landscape.can_build_at_mouse_pos()
-	
-	if can_build:
+	var enough_food: bool = FoodManager.enough_food_for_tower()
+
+	if !can_build:
+		var error: String = "Can't build here."
+		Messages.add_error(error)
+	elif !enough_food:
+		var error: String = "Not enough food."
+		Messages.add_error(error)
+	else:
 		var new_tower = TowerManager.get_tower(_tower_preview.tower_id)
 		var build_position: Vector2 =_landscape.get_mouse_pos_on_tilemap_clamped()
 		new_tower.position = build_position
 		_occupied_position_map[build_position] = true
 		Utils.add_object_to_world(new_tower)
 		tower_built.emit(_tower_preview.tower_id)
+		FoodManager.add_tower()
 		
 		_cancel()
-	else:
-		var error: String = "Can't build here."
-		Messages.add_error(error)
