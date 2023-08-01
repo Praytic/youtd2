@@ -54,6 +54,7 @@ func get_item() -> Item:
 
 func set_item(value: Item):
 	_item = value
+	add_child(_item)
 
 
 func get_item_id() -> int:
