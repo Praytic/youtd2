@@ -1359,6 +1359,8 @@ func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 		CreepSize.enm.CHAMPION: Modification.Type.MOD_DMG_TO_CHAMPION,
 		CreepSize.enm.BOSS: Modification.Type.MOD_DMG_TO_BOSS,
 		CreepSize.enm.AIR: Modification.Type.MOD_DMG_TO_AIR,
+		CreepSize.enm.CHALLENGE_MASS: Modification.Type.MOD_DMG_TO_MASS,
+		CreepSize.enm.CHALLENGE_BOSS: Modification.Type.MOD_DMG_TO_BOSS,
 	}
 
 	var creep_size: CreepSize.enm = creep.get_size()

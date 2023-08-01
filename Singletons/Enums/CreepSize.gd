@@ -137,3 +137,9 @@ func get_gold_multiplier(type: CreepSize.enm) -> float:
 
 func get_portal_damage_multiplier(type: CreepSize.enm) -> float:
 	return _portal_damage_multiplier_map[type]
+
+
+func is_challenge(type: CreepSize.enm) -> bool:
+	var out: bool = type == CreepSize.enm.CHALLENGE_MASS || type == CreepSize.enm.CHALLENGE_BOSS
+
+	return out

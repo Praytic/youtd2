@@ -204,7 +204,25 @@ func _get_creep_animation() -> String:
 				animation_order = [
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
+		CreepSize.enm.CHALLENGE_MASS:
+			if creep_move_speed > 180:
+				animation_order = [
+					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+				]
+			else:
+				animation_order = [
+					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+				]
 		CreepSize.enm.BOSS:
+			if creep_move_speed > 320:
+				animation_order = [
+					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+				]
+			else:
+				animation_order = [
+					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+				]
+		CreepSize.enm.CHALLENGE_BOSS:
 			if creep_move_speed > 320:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
