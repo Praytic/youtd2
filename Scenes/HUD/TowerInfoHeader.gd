@@ -30,7 +30,7 @@ func _on_selected_unit_changed():
 		show()
 	else:
 		_expand_button.set_pressed_no_signal(false)
-		_expand_button.icon.atlas.region.position.x = 256
+		_expand_button.icon.region.position.x = 256
 		hide()
 
 #		NOTE: emit expanded signal so that if wave status
