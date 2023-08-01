@@ -27,7 +27,10 @@ func on_periodic(event: Event):
 
 
 func on_damaged(event: Event):
-	if event.is_spell_damage():
+	var caster: Unit = event.get_target()
+	var is_magic: bool = caster.get_attack_type()
+
+	if event.is_spell_damage() || is_magic:
 		event.damage *= 1.4
 	else:
 		event.damage = 0
