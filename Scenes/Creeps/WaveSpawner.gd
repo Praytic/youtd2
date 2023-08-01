@@ -292,7 +292,7 @@ func _generate_creeps_combination(wave_number: int, creep_size: CreepSize.enm) -
 	var combination: Array[CreepSize.enm] = []
 
 	var wave_capacity: int = 20 + wave_number / 40
-	var champion_count: int = _generate_champion_count(creep_size)
+	var champion_count: int = _generate_champion_count(wave_number, creep_size)
 	var champion_weight: int = int(CreepSize.get_experience(CreepSize.enm.CHAMPION))
 	var unit_weight: int = int(CreepSize.get_experience(creep_size))
 
@@ -323,8 +323,11 @@ func _generate_creeps_combination(wave_number: int, creep_size: CreepSize.enm) -
 	return combination
 
 
-func _generate_champion_count(creep_size: CreepSize.enm) -> int:
+func _generate_champion_count(wave_number: int, creep_size: CreepSize.enm) -> int:
 	var chance_of_champion_count: Dictionary = _champion_count_chances[creep_size]
 	var champion_count: int = Utils.random_weighted_pick(chance_of_champion_count)
+
+	if champion_count > 0:
+		champion_count = champion_count + int(wave_number / 120)
 
 	return champion_count
