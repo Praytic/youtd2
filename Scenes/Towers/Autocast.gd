@@ -174,6 +174,11 @@ func get_cooldown() -> float:
 	return cooldown
 
 func get_remaining_cooldown() -> float:
+	if !is_node_ready():
+		push_error("Autocast cannot perform the request because it hasn't been added to the scene tree. Make sure that autocast's parent and it's ancestors have been added to the scene tree. Parent: ", get_parent())
+
+		return 0.0
+
 	return _cooldown_timer.time_left
 
 # NOTE: autocast.getManacost() in JASS
