@@ -66,7 +66,7 @@ func _get_stat(label: Label, unit):
 func _on_ExpandButton_toggled(button_pressed):
 	var icon_atlas = _expand_button.icon
 	if button_pressed:
-		icon_atlas.atlas.region.position.x = icon_atlas.region.size.x
+		icon_atlas.region.position.x = icon_atlas.region.size.x
 	else:
-		icon_atlas.atlas.region.position.x = 0
+		icon_atlas.region.position.x = 0
 	expanded.emit(button_pressed)
