@@ -54,7 +54,6 @@ func get_item() -> Item:
 
 func set_item(value: Item):
 	_item = value
-	add_child(_item)
 
 
 func get_item_id() -> int:
@@ -65,7 +64,12 @@ func get_item_id() -> int:
 func set_item_id(value: int):
 	_item_id = value
 	_item = Item.make(value)
-	add_child(_item)
+# 	NOTE: normally, item would be parented either to item
+# 	bar or tower but this code is running for currently
+# 	under construction TowerMenu where item buttons are
+# 	assigned items in a weird by calling set_item_id() (via
+# 	property setter), inside the TowerMenu.tscn.
+	add_child(item)
 
 
 func _on_mouse_entered():

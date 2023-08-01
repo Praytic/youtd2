@@ -14,7 +14,11 @@ var _moved_item_button: ItemButton = null
 func add_item_button(item: Item):
 	var item_button: ItemButton = _create_ItemButton(item)
 	var button_container = UnitButtonContainer.make()
-	button_container.add_child(item_button)
+
+#	NOTE: Parent item to ItemBar because while the item is
+#	not on a tower it still needs to be in the scene tree.
+#	This is so that it's cooldown timer is running.
+	add_child(item)
 		
 	add_child(button_container)
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
@@ -58,8 +62,6 @@ func on_item_move_from_itembar_done(move_success: bool):
 func _create_ItemButton(item: Item) -> ItemButton:
 	var item_button = ItemButton.make(item)
 	item_button.hide_cooldown_indicator()
-#	NOTE: While item is not parented to tower, parent it to button
-	item_button.add_child(item)
 
 	return item_button
 
@@ -78,3 +80,7 @@ func _on_item_button_pressed(item_button: ItemButton):
 	_moved_item_button = item_button
 	item_button.set_disabled(true)
 	item_button.set_pressed_no_signal(true)
+
+
+func get_item_count() -> int:
+	return _item_buttons.size()
