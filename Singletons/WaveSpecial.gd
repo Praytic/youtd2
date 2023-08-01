@@ -17,12 +17,9 @@ enum CsvProperty {
 }
 
 
-# TODO: figure out real values. Maybe special count
-# distribution changes as the game progresses? For example
-# less 0 specials for later waves.
 const _special_count_chances: Dictionary = {
-	0: 50,
-	1: 30,
+	0: 30,
+	1: 50,
 	2: 20,
 }
 
