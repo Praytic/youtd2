@@ -1,16 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3q18yfgnyvq2"]
+[gd_scene load_steps=5 format=3 uid="uid://d3q18yfgnyvq2"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2"]
 [ext_resource type="Script" path="res://Scenes/HUD/TowerInfoHeader.gd" id="3"]
 
-[sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("2")
-region = Rect2(2.08165e-12, 2.08165e-12, 64, 64)
-
 [sub_resource type="AtlasTexture" id="1"]
-atlas = SubResource("2")
-region = Rect2(2.08165e-12, 2.08165e-12, 64, 64)
+atlas = ExtResource("2")
+region = Rect2(512, 128, 128, 128)
 
 [node name="TowerInfoHeader" type="Control"]
 layout_mode = 3
@@ -66,6 +62,7 @@ text = " <instance_id>"
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="ExpandButton" type="Button" parent="VBoxContainer2/MarginContainer2"]
 unique_name_in_owner = true

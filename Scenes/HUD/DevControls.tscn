@@ -1,25 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cro8ec573upqo"]
+[gd_scene load_steps=4 format=3 uid="uid://cro8ec573upqo"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/DevControls.gd" id="1_0jdrl"]
 [ext_resource type="PackedScene" uid="uid://bsu2i4smjlpui" path="res://Scenes/HUD/DevControls/WaveControl.tscn" id="2_455wo"]
 [ext_resource type="PackedScene" uid="uid://cojr80363rwx2" path="res://Scenes/HUD/DevControls/SignalsControl.tscn" id="3_esahe"]
-[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="4_4ady0"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lneea"]
-atlas = ExtResource("4_4ady0")
-region = Rect2(256, 2.08165e-12, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wx38k"]
-atlas = ExtResource("4_4ady0")
-region = Rect2(192, 2.08165e-12, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_imkiq"]
-atlas = ExtResource("4_4ady0")
-region = Rect2(128, 2.08165e-12, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j0jjf"]
-atlas = ExtResource("4_4ady0")
-region = Rect2(320, 2.08165e-12, 64, 64)
 
 [node name="DevControls" type="Control"]
 layout_mode = 3
@@ -83,24 +66,24 @@ columns = 10
 
 [node name="WaveControlButton" type="Button" parent="MarginContainer/DevControlButtons" groups=["dev_control_button"]]
 layout_mode = 2
-icon = SubResource("AtlasTexture_lneea")
+text = "Wave"
 flat = true
 
 [node name="TowerControlButton" type="Button" parent="MarginContainer/DevControlButtons" groups=["dev_control_button"]]
 layout_mode = 2
 disabled = true
-icon = SubResource("AtlasTexture_wx38k")
+text = "Tower"
 flat = true
 
 [node name="CreepControlButton" type="Button" parent="MarginContainer/DevControlButtons" groups=["dev_control_button"]]
 layout_mode = 2
 disabled = true
-icon = SubResource("AtlasTexture_imkiq")
+text = "Creep"
 flat = true
 
 [node name="SignalsControlButton" type="Button" parent="MarginContainer/DevControlButtons" groups=["dev_control_button"]]
 layout_mode = 2
-icon = SubResource("AtlasTexture_j0jjf")
+text = "Signal"
 flat = true
 
 [node name="PositionalControl" type="PopupMenu" parent="."]
