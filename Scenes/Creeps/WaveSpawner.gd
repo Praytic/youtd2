@@ -34,7 +34,7 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	for wave_number in range(1, wave_count + 1):
 		var wave_id = randi_range(0, Properties.get_wave_csv_properties().size() - 1)
 		var wave_race = randi_range(0, CreepCategory.enm.size() - 1)
-		var wave_armor = randi_range(0, ArmorType.enm.size() - 1)
+		var wave_armor = _get_random_armor_type(wave_number)
 		
 		var wave = Wave.new()
 		wave.set_id(wave_id)
@@ -234,3 +234,22 @@ func _get_alive_creeps() -> Array:
 			alive_list.append(creep)
 
 	return alive_list
+
+
+# TODO: for challenge waves, always use ZOD armor type
+func _get_random_armor_type(wave_number: int) -> ArmorType.enm:
+	var regular_armor_list: Array = [
+		ArmorType.enm.HEL,
+		ArmorType.enm.MYT,
+		ArmorType.enm.LUA,
+		ArmorType.enm.SOL,
+	]
+
+	var can_spawn_sif: bool = wave_number >= 32
+
+	if can_spawn_sif && Utils.rand_chance(Constants.SIF_ARMOR_CHANCE):
+		return ArmorType.enm.SIF
+	else:
+		var random_regular_armor: ArmorType.enm = regular_armor_list.pick_random()
+
+		return random_regular_armor
