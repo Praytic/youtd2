@@ -169,10 +169,7 @@ func purge_buff():
 
 
 func _add_event_handler(event_type: Event.Type, handler: Callable):
-	var handler_node: Node = Utils.get_callable_node(handler)
-
-	if !handler_node.tree_exiting.is_connected(_on_handler_node_tree_exiting):
-		handler_node.tree_exiting.connect(_on_handler_node_tree_exiting)
+	_connect_to_handler_tree_exiting_signal(handler)
 
 	if !event_handler_map.has(event_type):
 		event_handler_map[event_type] = []
@@ -181,6 +178,8 @@ func _add_event_handler(event_type: Event.Type, handler: Callable):
 
 
 func _add_periodic_event(handler: Callable, period: float):
+	_connect_to_handler_tree_exiting_signal(handler)
+	
 	var timer: Timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = period
@@ -190,6 +189,8 @@ func _add_periodic_event(handler: Callable, period: float):
 
 
 func _add_event_handler_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
+	_connect_to_handler_tree_exiting_signal(handler)
+	
 	var buff_range_area: BuffRangeArea = BuffRangeArea.make(radius, target_type, handler)
 	add_child(buff_range_area)
 
@@ -238,14 +239,6 @@ func _on_target_death(death_event: Event):
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
 
-# NOTE: this will get called when the object that applied
-# this buff is removed from the game. For example, if a
-# tower casted a slow on creeps and that tower gets sold,
-# then the debuff will get removed. Another example is if an
-# item applied a buff and was moved from tower to storage.
-# In such cases, the buff *must* be removed because without
-# the object which implements event handlers, the buff
-# cannot continue operating in a correct manner.
 func _on_handler_node_tree_exiting():
 	remove_buff()
 
@@ -327,3 +320,19 @@ func _upgrade_by_new_buff(new_level: int):
 func _add_aura(aura_type: AuraType):
 	var aura: Aura = aura_type.make(get_caster())
 	add_child(aura)
+
+
+# Connects to handler object's tree_exiting signal. The slot
+# will get called when the handler object is removed from
+# the game. For example, if a tower casted a slow on creeps
+# and that tower gets sold, then the debuff will get
+# removed. Another example is if an item applied a buff and
+# was moved from tower to storage. In such cases, the buff
+# *must* be removed because without the object which
+# implements event handlers, the buff cannot continue
+# operating in a correct manner.
+func _connect_to_handler_tree_exiting_signal(handler: Callable):
+	var handler_node: Node = Utils.get_callable_node(handler)
+
+	if !handler_node.tree_exiting.is_connected(_on_handler_node_tree_exiting):
+		handler_node.tree_exiting.connect(_on_handler_node_tree_exiting)
