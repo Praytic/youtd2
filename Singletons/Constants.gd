@@ -31,6 +31,7 @@ const SPELL_DAMAGE_RATIO: float = 0.9
 
 const MAX_LEVEL: int = 25
 const SIF_ARMOR_CHANCE: float = 0.15
+const MIN_WAVE_FOR_SPECIAL: int = 8
 
 # Map of rarity -> tier -> inventory capacity
 const INVENTORY_CAPACITY: Dictionary = {

@@ -94,8 +94,12 @@ func _init():
 func get_random(wave: Wave) -> Array[int]:
 	var random_special_list: Array[int] = []
 	var available_special_list: Array[int] = _get_available_specials(wave)
-	var special_count: int = Utils.random_weighted_pick(_special_count_chances)
 
+	var special_count: int
+	if wave.get_wave_number() <= Constants.MIN_WAVE_FOR_SPECIAL:
+		special_count = 0
+	else:
+		special_count = Utils.random_weighted_pick(_special_count_chances)
 
 	var special_to_frequency_map: Dictionary = {}
 
