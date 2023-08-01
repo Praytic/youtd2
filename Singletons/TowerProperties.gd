@@ -59,6 +59,8 @@ func get_element_string(tower_id: int) -> String:
 
 
 func get_csv_property(tower_id: int, csv_property: Tower.CsvProperty) -> String:
+	assert(tower_id != 0, "Tower is undefined.")
+	
 	var properties: Dictionary = Properties.get_tower_csv_properties_by_id(tower_id)
 	var value: String = properties[csv_property]
 

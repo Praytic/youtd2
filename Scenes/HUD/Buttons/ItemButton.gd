@@ -4,6 +4,7 @@ extends UnitButton
 
 const ICON_SIZE_M = 128
 
+@export var _item_id: int: set = set_item_id, get = get_item_id
 var _item: Item : set = set_item, get = get_item
 
 @onready var _cooldown_indicator: CooldownIndicator = %CooldownIndicator
@@ -53,6 +54,16 @@ func get_item() -> Item:
 
 func set_item(value: Item):
 	_item = value
+
+
+func get_item_id() -> int:
+	assert(_item.get_id() == _item_id, "Invalid state")
+	return _item_id
+
+
+func set_item_id(value: int):
+	_item_id = value
+	_item = Item.make(value)
 
 
 func _on_mouse_entered():

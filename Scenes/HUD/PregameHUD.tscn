@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqwaa5meneckc"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_i3yfj"]
+[ext_resource type="Script" path="res://Scenes/HUD/PregameHUD.gd" id="2_ljcwn"]
+
+[node name="PregameHUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_i3yfj")
+script = ExtResource("2_ljcwn")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.5
+offset_top = -184.5
+offset_right = 99.5
+offset_bottom = 184.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select diffuclty:"
+
+[node name="BeginnerButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Beginner"
+
+[node name="EasyButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Easy"
+
+[node name="MediumButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Medium"
+
+[node name="HardButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Hard"
+
+[node name="ExtremeButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Extreme
+"
+
+[connection signal="pressed" from="VBoxContainer/BeginnerButton" to="." method="_on_beginner_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/EasyButton" to="." method="_on_easy_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MediumButton" to="." method="_on_medium_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HardButton" to="." method="_on_hard_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ExtremeButton" to="." method="_on_extreme_button_pressed"]

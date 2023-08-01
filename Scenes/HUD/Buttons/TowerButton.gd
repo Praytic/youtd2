@@ -8,7 +8,7 @@ const TIER_ICON_SIZE_M = 64
 @onready var _disabled_lock: TextureRect = %LockTexture
 @onready var _tier_icon: TextureRect = %TierIcon
 
-var _tower_id: int: get = get_tower_id, set = set_tower_id
+@export var _tower_id: int: get = get_tower_id, set = set_tower_id
 
 
 static func make(tower_id: int):

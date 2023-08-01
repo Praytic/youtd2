@@ -1,0 +1,368 @@
+[gd_scene load_steps=15 format=3 uid="uid://bghk460du677k"]
+
+[ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/tower_menu_theme.tres" id="1_crn3l"]
+[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_8sf0j"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
+[ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="2_x237m"]
+[ext_resource type="PackedScene" uid="uid://boj0nw0dartmw" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="3_tivl8"]
+[ext_resource type="PackedScene" uid="uid://bs7talxfb2fac" path="res://Scenes/HUD/Buttons/ItemButton.tscn" id="5_qfavr"]
+[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/TowerMenu/tower_level_label_normal.tres" id="5_t4ptj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n6ro0"]
+atlas = ExtResource("2_8sf0j")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gno2"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(0, 128, 128, 128)
+margin = Rect2(10, 10, 0, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yslek"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(256, 256, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m846m"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(128, 256, 128, 128)
+margin = Rect2(10, 10, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjph7"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqbcy"]
+atlas = ExtResource("2_kbar0")
+region = Rect2(128, 128, 128, 128)
+
+[node name="TowerMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("1_crn3l")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_bottom = 300.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_right = -40
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(400, 600)
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -115.909
+offset_right = 115.909
+offset_bottom = 32.0
+grow_horizontal = 2
+theme_override_constants/margin_top = -20
+
+[node name="TowerName" type="Label" parent="MarginContainer/Panel/MarginContainer2"]
+z_index = 2
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("2_x237m")
+text = "Tower Name"
+horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer3"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_bottom = 10
+
+[node name="UnitButtonContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer" instance=ExtResource("3_tivl8")]
+layout_mode = 2
+size_flags_vertical = 1
+stretch_mode = 2
+alignment_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/UnitButtonContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_n6ro0")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+bbcode_enabled = true
+text = "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=ff4500ff]30[/color] [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]0[/color]
+[color=LIGHT_BLUE]Basic nature tower with a slightly increased chance to critical strike.[/color]
+[color=YELLOW]Author:[/color] gex
+[color=YELLOW]Element:[/color] [color=32cd32ff]Nature[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]28[/color] dps, [color=d2b48cff]Physical[/color], [color=GOLD]800[/color] range
+"
+fit_content = true
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"InfoContainerLabel"
+theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"InfoContainerLabel"
+theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Specials"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer2/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.36
+bbcode_enabled = true
+text = "[color=GOLD]+2%[/color] crit chance ([color=GOLD]+0.35%[/color]/lvl)
+
+[img=32x32]res://Resources/godot_placeholder.tres[/img][color=GREENYELLOW]Splash attack:[/color]
+	[color=GOLD]320[/color] AoE: [color=GOLD]50%[/color] damage
+[color=GOLD]+15%[/color] damage to mass ([color=GOLD]+1%[/color]/lvl)
+[color=GOLD]+15%[/color] damage to humanoid ([color=GOLD]+1%[/color]/lvl)"
+fit_content = true
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"InfoContainerLabel"
+theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2"]
+layout_mode = 2
+
+[node name="UnitButtonContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer" instance=ExtResource("3_tivl8")]
+layout_mode = 2
+
+[node name="UnitButton" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer/UnitButtonContainer" instance=ExtResource("5_qfavr")]
+layout_mode = 2
+_item_id = 33
+
+[node name="UnitButtonContainer2" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer" instance=ExtResource("3_tivl8")]
+layout_mode = 2
+
+[node name="UnitButton" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer/UnitButtonContainer2" instance=ExtResource("5_qfavr")]
+layout_mode = 2
+_item_id = 285
+
+[node name="UnitButtonContainer3" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer" instance=ExtResource("3_tivl8")]
+layout_mode = 2
+
+[node name="UnitButton" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer/UnitButtonContainer3" instance=ExtResource("5_qfavr")]
+layout_mode = 2
+_item_id = 149
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 30.0
+grow_vertical = 2
+theme_override_constants/margin_left = -20
+theme_override_constants/margin_top = -20
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="TowerLevelButton" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("5_t4ptj")
+text = "25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="TowerUpgradeButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = SubResource("AtlasTexture_0gno2")
+expand_icon = true
+
+[node name="TowerInfoButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = SubResource("AtlasTexture_yslek")
+expand_icon = true
+
+[node name="SellTowerButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+icon = SubResource("AtlasTexture_m846m")
+expand_icon = true
+
+[node name="CloseButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 10
+icon = SubResource("AtlasTexture_gjph7")
+expand_icon = true
+
+[node name="Button" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 10
+icon = SubResource("AtlasTexture_lqbcy")
+icon_alignment = 1
+expand_icon = true

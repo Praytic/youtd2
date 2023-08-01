@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dksfi74d7n0pf"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dksfi74d7n0pf"]
 
 [ext_resource type="StyleBox" uid="uid://dcjhupdk2mwkl" path="res://Resources/Theme/UnitButton/button_normal.tres" id="1_80ch8"]
 [ext_resource type="StyleBox" uid="uid://c8x6v1g5py6r6" path="res://Resources/Theme/UnitButton/button_disabled.tres" id="1_tdptv"]
@@ -8,6 +8,18 @@
 [ext_resource type="StyleBox" uid="uid://de41wrip7to2f" path="res://Resources/Theme/UnitButtonContainer/counter_label_normal.tres" id="5_rng1l"]
 [ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="5_tqwyb"]
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="6_xmrco"]
+[ext_resource type="Texture2D" uid="uid://lu1adtr8xmdf" path="res://Resources/Textures/UI/rect_container_xs.tres" id="7_7y0mp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esyqb"]
+atlas = ExtResource("7_7y0mp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j2qvk"]
+texture = SubResource("AtlasTexture_esyqb")
+texture_margin_left = 8.0
+texture_margin_top = 8.26446
+texture_margin_right = 8.26446
+texture_margin_bottom = 8.0
+region_rect = Rect2(853, 74, 48, 48)
 
 [resource]
 Button/styles/disabled = ExtResource("1_tdptv")
@@ -21,5 +33,8 @@ MarginContainer/constants/margin_left = 8
 MarginContainer/constants/margin_right = 8
 MarginContainer/constants/margin_top = 8
 RareRarityPanelContainer/styles/panel = ExtResource("4_lnooq")
+UnclickableButton/base_type = &"Button"
+UnclickableButton/colors/icon_disabled_color = Color(1, 1, 1, 1)
+UnclickableButton/styles/disabled = SubResource("StyleBoxTexture_j2qvk")
 UncommonRarityPanelContainer/styles/panel = ExtResource("5_tqwyb")
 UniqueRarityPanelContainer/styles/panel = ExtResource("6_xmrco")
