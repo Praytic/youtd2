@@ -16,6 +16,7 @@ func add_item_button(item: Item):
 	item_button.hide_cooldown_indicator()
 
 	var button_container = UnitButtonContainer.make()
+	button_container.add_child(item_button)
 
 #	NOTE: Parent item to ItemBar because while the item is
 #	not on a tower it still needs to be in the scene tree.
