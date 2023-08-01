@@ -16,3 +16,6 @@ const autocast_scene: PackedScene = preload("res://Scenes/Towers/Autocast.tscn")
 const tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 const placeholder_effect_scene: PackedScene = preload("res://Scenes/Effects/GenericMagic.tscn")
 const placeholder_tower_scene: PackedScene = preload("res://Scenes/Towers/Instances/PlaceholderTower.tscn")
+
+
+var distribution: Distribution.enm = Distribution.enm.NONE

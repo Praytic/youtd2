@@ -117,13 +117,25 @@ func adjust_height(height_wc3: float, speed: float):
 		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
 
-func reach_portal() -> float:
+func reach_portal():
 	var damage_to_portal = get_damage_to_portal()
+	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 2)
+	var damage_done: float = 1.0 - get_health_ratio()
+	var damage_done_string: String = Utils.format_percent(damage_done, 2)
+	var size_string: String = CreepSize.convert_to_string(_size)
+
+	if _size == CreepSize.enm.BOSS:
+		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
+	else:
+		Messages.add_normal("Failed to kill a %s" % size_string.to_upper())
+
+	if damage_to_portal > 0:
+		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
+
+	EventBus.creep_reached_portal.emit(damage_to_portal)
 	reached_portal.emit(damage_to_portal)
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 	queue_free()
-	
-	return damage_to_portal
 
 
 # NOTE: creep.dropItem() in JASS
@@ -150,6 +162,8 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 func _move(delta):
 	var path_is_over: bool = _current_path_index >= _path.get_curve().get_point_count()
 	if path_is_over:
+		reach_portal()
+
 		return
 
 	var path_point: Vector2 = _path.get_curve().get_point_position(_current_path_index) + _path.position
@@ -265,7 +279,7 @@ func _on_death(event: Event):
 	if _size != CreepSize.enm.AIR:
 		var corpse: Node2D = Globals.corpse_scene.instantiate()
 		corpse.position = position
-		Utils.object_container.add_child(corpse)
+		Utils.add_object_to_world(corpse)
 
 
 #########################
@@ -320,8 +334,24 @@ func set_path(path: Path2D):
 	_path.default_z = z_index
 
 func get_damage_to_portal() -> float:
-	# TODO: Implement formula
-	return 1.0
+	if _size == CreepSize.enm.CHALLENGE_MASS || _size == CreepSize.enm.CHALLENGE_BOSS:
+		return 0
+
+	var damage_done: float = 1.0 - get_health_ratio()
+
+	var type_multiplier: float = CreepSize.get_portal_damage_multiplier(_size)
+
+	var damage_done_power: float
+	if _size == CreepSize.enm.BOSS:
+		damage_done_power = 4
+	else:
+		damage_done_power = 5
+
+	var first_half: float = 2.5 * type_multiplier * (1 - pow(damage_done, damage_done_power)) * 0.5
+	var second_half: float = 2.5 * type_multiplier * 0.5
+	var damage_to_portal: float = first_half + second_half
+
+	return damage_to_portal
 
 
 func get_spawn_level() -> int:
@@ -330,3 +360,10 @@ func get_spawn_level() -> int:
 
 func set_spawn_level(spawn_level: int):
 	_spawn_level = spawn_level
+
+
+func _get_base_bounty() -> float:
+	var gold_multiplier: float = CreepSize.get_gold_multiplier(_size)
+	var base_bounty: float = gold_multiplier * (_spawn_level / 8 + 1)
+
+	return base_bounty

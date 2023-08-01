@@ -3,7 +3,6 @@ extends Control
 # Container for buttons that perform actions on selected tower.
 
 
-const BUILD_COST_TO_SELL_PRICE: float = 0.5
 const SELL_BUTTON_RESET_TIME: float = 5.0
 
 @onready var _upgrade_button: Button = $HBoxContainer/VBoxContainer/UpgradeButton
@@ -128,12 +127,15 @@ func _on_sell_button_pressed():
 		item.fly_to_stash(0.0)
 
 	var build_cost: float = TowerProperties.get_cost(tower.get_id())
-	var sell_price: int = floor(build_cost * BUILD_COST_TO_SELL_PRICE)
+	var sell_ratio: float = Distribution.get_sell_ratio(Globals.distribution)
+	var sell_price: int = floor(build_cost * sell_ratio)
 	tower.getOwner().give_gold(sell_price, tower, false, true)
 	BuildTower.tower_was_sold(tower.position)
 	tower.queue_free()
 
 	SelectUnit.set_selected_unit(null)
+
+	FoodManager.remove_tower()
 
 
 func _set_selling_for_real(value: bool):

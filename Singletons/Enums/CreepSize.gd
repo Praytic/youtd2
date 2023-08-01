@@ -66,6 +66,26 @@ const _experience_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 
+const _portal_damage_multiplier_map: Dictionary = {
+	CreepSize.enm.MASS: 1,
+	CreepSize.enm.NORMAL: 2,
+	CreepSize.enm.AIR: 4,
+	CreepSize.enm.CHAMPION: 4,
+	CreepSize.enm.BOSS: 20,
+	CreepSize.enm.CHALLENGE_MASS: 0,
+	CreepSize.enm.CHALLENGE_BOSS: 0,
+}
+
+const _gold_multiplier_map: Dictionary = {
+	CreepSize.enm.MASS: 1,
+	CreepSize.enm.NORMAL: 2,
+	CreepSize.enm.AIR: 2,
+	CreepSize.enm.CHAMPION: 4,
+	CreepSize.enm.BOSS: 4,
+	CreepSize.enm.CHALLENGE_MASS: 0,
+	CreepSize.enm.CHALLENGE_BOSS: 0,
+}
+
 const health_multiplier_map: Dictionary = {
 	CreepSize.enm.MASS: 0.3,
 	CreepSize.enm.NORMAL: 1.0,
@@ -82,7 +102,7 @@ func from_string(string: String) -> CreepSize.enm:
 	if key != null:
 		return key
 	else:
-		push_error("Invalid creep size string: \"%s\"" % string)
+		push_error("Invalid string: \"%s\". Possible values: %s" % [string, _string_map.values()])
 
 		return CreepSize.enm.MASS
 
@@ -109,3 +129,11 @@ func get_default_item_quality(type: CreepSize.enm) -> float:
 
 func get_experience(type: CreepSize.enm) -> float:
 	return _experience_map[type]
+
+
+func get_gold_multiplier(type: CreepSize.enm) -> float:
+	return _gold_multiplier_map[type]
+
+
+func get_portal_damage_multiplier(type: CreepSize.enm) -> float:
+	return _portal_damage_multiplier_map[type]

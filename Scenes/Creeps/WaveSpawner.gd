@@ -1,9 +1,6 @@
 class_name WaveSpawner extends Node
 
 
-const WAVE_COUNT_EASY = 80
-const WAVE_COUNT_MEDIUM = 120
-const WAVE_COUNT_HARD = 240
 var TIME_BETWEEN_WAVES: float = 15.0
 
 
@@ -30,9 +27,11 @@ func _ready():
 
 	_timer_between_waves.set_autostart(false)
 	_timer_between_waves.set_wait_time(TIME_BETWEEN_WAVES)
-	
+
+
+func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	var previous_wave = null
-	for wave_number in range(1, WAVE_COUNT_EASY + 1):
+	for wave_number in range(1, wave_count + 1):
 		var wave_id = randi_range(0, Properties.get_wave_csv_properties().size() - 1)
 		var wave_race = randi_range(0, CreepCategory.enm.size() - 1)
 		var wave_armor = randi_range(0, ArmorType.enm.size() - 1)
@@ -43,6 +42,7 @@ func _ready():
 		wave.set_race(wave_race)
 		wave.set_armor_type(wave_armor)
 		wave.set_wave_path(_get_wave_path(0, wave))
+		wave.set_difficulty(difficulty)
 		
 		var wave_specials: Array[int] = WaveSpecial.get_random(wave)
 		wave.set_specials(wave_specials)
@@ -75,12 +75,9 @@ func _ready():
 	
 	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())
 	
-
-func start_spawning(difficulty: Difficulty.enm):
-	for wave in _wave_list:
-		wave.set_difficulty(difficulty)
-
 	_timer_between_waves.start()
+
+	EventBus.waves_were_generated.emit()
 
 
 func get_current_wave_level() -> int:
@@ -214,6 +211,8 @@ func _on_Wave_ended(wave: Wave):
 		return
 
 	print_verbose("Wave [%s] is cleared." % wave)
+
+	wave_ended.emit(wave)
 
 	var alive_creeps: Array = _get_alive_creeps()
 	var all_creeps_are_killed: bool = alive_creeps.is_empty()

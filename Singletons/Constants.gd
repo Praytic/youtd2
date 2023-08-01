@@ -66,3 +66,7 @@ const INVENTORY_CAPACITY: Dictionary = {
 		6: 6,
 	}
 }
+
+const WAVE_COUNT_TRIAL: int = 80
+const WAVE_COUNT_FULL: int = 120
+const WAVE_COUNT_NEVERENDING: int = 240

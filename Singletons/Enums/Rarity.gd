@@ -30,7 +30,7 @@ func convert_from_string(string: String) -> Rarity.enm:
 	if key != null:
 		return key
 	else:
-		push_error("Invalid rarity string: \"%s\"" % string)
+		push_error("Invalid string: \"%s\". Possible values: %s" % [string, _string_map.values()])
 
 		return Rarity.enm.COMMON
 

@@ -1,22 +1,9 @@
 extends Node
 
 
-const globals = {
-	"max_food": 99,
-	"ini_food": 55,
-	"max_knowledge_tomes": 999999,
-	"max_knowledge_tomes_income": 999999,
-	"ini_knowledge_tomes_income": 8
-}
+# This class loads properties for towers, items and waves
+# from the .csv files.
 
-const tower_families = {
-	1: {
-		"todo": "todo"
-	},
-	41: {
-		"todo": "todo"
-	}
-}
 
 const _ITEM_CSV_PROPERTIES_PATH = "res://Data/item_properties.csv"
 const _TOWER_CSV_PROPERTIES_PATH = "res://Data/tower_properties.csv"
@@ -32,7 +19,7 @@ var _wave_csv_properties: Dictionary = {} : get = get_wave_csv_properties
 ### Code starts here  ###
 #########################
 
-func _init():
+func _ready():
 	_load_csv_properties(_TOWER_CSV_PROPERTIES_PATH, _tower_csv_properties, Tower.CsvProperty.ID)
 	_load_csv_properties(_ITEM_CSV_PROPERTIES_PATH, _item_csv_properties, Item.CsvProperty.ID)
 	_load_csv_properties(_WAVE_CSV_PROPERTIES_PATH, _wave_csv_properties, Wave.CsvProperty.ID)

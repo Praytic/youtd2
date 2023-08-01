@@ -1,15 +1,11 @@
-extends Control
-
-# This HUD is shown when the game starts and blocks input to
-# the normal HUD. Once the player chooses all of the
-# settings, this hud gets hidden and the game starts.
+class_name DifficultyMenu extends VBoxContainer
 
 
-signal selected_difficulty(difficulty: Difficulty.enm)
+signal finished(difficulty: Difficulty.enm)
 
 
 func _on_generic_button_pressed(difficulty: Difficulty.enm):
-	selected_difficulty.emit(difficulty)
+	finished.emit(difficulty)
 
 
 func _on_beginner_button_pressed():

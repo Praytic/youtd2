@@ -99,10 +99,26 @@ func show_position_info_label() -> bool:
 func print_errors_about_towers() -> bool:
 	return ProjectSettings.get_setting("application/config/print_errors_about_towers") as bool
 
-# Value for default difficulty. Set to "none" for normal
-# behavior where to player picks the difficulty when the
-# game starts. Set to a particular value to skip difficulty
-# selection.
+
+# Set to false to skip the pregame settings menu. In that
+# case, the default values for settings will be loaded.
+func show_pregame_settings_menu() -> bool:
+	return ProjectSettings.get_setting("application/config/show_pregame_settings_menu") as bool
+
+
+# Values for default game settings. These values will be
+# loaded if show_pregame_settings_menu is set to "false".
+# Note that these values will be ignored if the pregame
+# settings menu is enabled.
+func default_wave_count() -> int:
+	return ProjectSettings.get_setting("application/config/default_wave_count") as int
+
+func default_distribution() -> Distribution.enm:
+	var distribution_string: String = ProjectSettings.get_setting("application/config/default_distribution") as String
+	var distribution: Distribution.enm = Distribution.from_string(distribution_string)
+
+	return distribution
+
 func default_difficulty() -> Difficulty.enm:
 	var difficulty_string: String = ProjectSettings.get_setting("application/config/default_difficulty") as String
 	var difficulty: Difficulty.enm = Difficulty.from_string(difficulty_string)
