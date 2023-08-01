@@ -41,6 +41,7 @@ func _ready():
 
 	ItemMovement.item_move_from_itembar_done.connect(on_item_move_from_itembar_done)
 	EventBus.item_drop_picked_up.connect(_on_item_drop_picked_up)
+	EventBus.consumable_item_was_consumed.connect(_on_consumable_item_was_consumed)
 
 
 func on_item_move_from_itembar_done(move_success: bool):
@@ -70,8 +71,21 @@ func _on_item_drop_picked_up(item: Item):
 	add_item_button(item)
 
 
+func _on_consumable_item_was_consumed(item: Item):
+	remove_item_button(item)
+
+
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
+
+	var item_type: ItemType.enm = ItemProperties.get_type(item.get_id())
+	var can_move: bool = item_type != ItemType.enm.CONSUMABLE
+
+	if !can_move:
+		Messages.add_error("Can't add consumable items to towers.")
+
+		return
+
 	var started_move: bool = ItemMovement.start_move_from_itembar(item)
 
 	if !started_move:

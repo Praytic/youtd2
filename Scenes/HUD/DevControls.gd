@@ -40,8 +40,10 @@ func _dict_join(accumulated_info: Dictionary, separator = "\n") -> String:
 
 
 func _init_oils_and_items_controls():
-	oil_ids = Properties.get_item_id_list_by_filter(Item.CsvProperty.IS_OIL, "TRUE")
-	item_ids = Properties.get_item_id_list_by_filter(Item.CsvProperty.IS_OIL, "FALSE")
+	var regular_type_string: String = ItemType.convert_to_string(ItemType.enm.REGULAR)
+	var oil_type_string: String = ItemType.convert_to_string(ItemType.enm.OIL)
+	oil_ids = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, oil_type_string)
+	item_ids = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, regular_type_string)
 	
 	assert(oil_ids.size() > 0 and item_ids.size() > 0, \
 	"Data file for items and oils probably has been updated.")

@@ -197,6 +197,7 @@ func _get_item_text(item: Item) -> String:
 	var description: String = ItemProperties.get_description(item_id)
 	var author: String = ItemProperties.get_author(item_id)
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
+	var is_consumable: bool = ItemProperties.get_type(item_id) == ItemType.enm.CONSUMABLE
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = _add_color_to_numbers(specials_text)
@@ -223,6 +224,9 @@ func _get_item_text(item: Item) -> String:
 		if item_is_on_tower && is_manual_cast:
 			text += " \n"
 			text += "[color=YELLOW]Right Click to use item[/color]\n"
+
+	if is_consumable:
+		text += " \n[color=ORANGE]Right Click to use item. Item is consumed after use.[/color]"
 
 	if is_oil:
 		text += " \n[color=ORANGE]Use oil on a tower to alter it permanently. The effects stay when the tower is transformed or upgraded![/color]"

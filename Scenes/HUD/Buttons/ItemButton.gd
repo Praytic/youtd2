@@ -43,6 +43,11 @@ func _gui_input(event):
 		if autocast != null:
 			autocast.do_cast_manually()
 
+		var is_consumable: bool = ItemProperties.get_type(_item.get_id()) == ItemType.enm.CONSUMABLE
+
+		if is_consumable:
+			_item.consume()
+
 
 func hide_cooldown_indicator():
 	_hide_cooldown_indicator = true

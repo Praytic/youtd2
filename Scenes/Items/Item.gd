@@ -12,14 +12,14 @@ enum CsvProperty {
 	ID = 0,
 	NAME = 1,
 	SCRIPT_NAME = 2,
-	AUTHOR = 3,
-	RARITY = 4,
-	COST = 5,
-	DESCRIPTION = 6,
-	REQUIRED_WAVE_LEVEL = 7,
-	ICON_ATLAS_FAMILY = 8,
-	ICON_ATLAS_NUM = 9,
-	IS_OIL = 10,
+	TYPE = 3,
+	AUTHOR = 4,
+	RARITY = 5,
+	COST = 6,
+	DESCRIPTION = 7,
+	REQUIRED_WAVE_LEVEL = 8,
+	ICON_ATLAS_FAMILY = 9,
+	ICON_ATLAS_NUM = 10,
 }
 
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
@@ -321,6 +321,21 @@ func get_extra_tooltip_text() -> String:
 
 # Override in subclass to initialize subclass item
 func item_init():
+	pass
+
+
+# Consume item. Only applicable to items of consumable type.
+func consume():
+	on_consume()
+
+	print_verbose("Item was consumed. Removing item from game.")
+	
+	EventBus.consumable_item_was_consumed.emit(self)
+
+
+# Override in subclass script to implement the effect that
+# should happen when the item is consumed.
+func on_consume():
 	pass
 
 
