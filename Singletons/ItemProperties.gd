@@ -99,8 +99,15 @@ func get_tooltip_text(item_id: int) -> String:
 	return text
 
 
+func get_type(item_id: int) -> ItemType.enm:
+	var type_string: String = get_property(item_id, Item.CsvProperty.TYPE)
+	var type: ItemType.enm = ItemType.from_string(type_string)
+
+	return type
+
+
 func get_is_oil(item_id: int) -> bool:
-	var is_oil_string: String = get_property(item_id, Item.CsvProperty.IS_OIL)
-	var is_oil: bool = is_oil_string == "TRUE"
+	var type: ItemType.enm = get_type(item_id)
+	var is_oil: bool = type == ItemType.enm.OIL
 
 	return is_oil

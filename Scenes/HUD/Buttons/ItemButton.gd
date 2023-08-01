@@ -43,6 +43,11 @@ func _gui_input(event):
 		if autocast != null:
 			autocast.do_cast_manually()
 
+		var is_consumable: bool = ItemProperties.get_type(_item.get_id()) == ItemType.enm.CONSUMABLE
+
+		if is_consumable:
+			_item.consume()
+
 
 func hide_cooldown_indicator():
 	_hide_cooldown_indicator = true
@@ -54,7 +59,6 @@ func get_item() -> Item:
 
 func set_item(value: Item):
 	_item = value
-	add_child(_item)
 
 
 func get_item_id() -> int:
@@ -65,6 +69,11 @@ func get_item_id() -> int:
 func set_item_id(value: int):
 	_item_id = value
 	_item = Item.make(value)
+# 	NOTE: normally, item would be parented either to item
+# 	bar or tower but this code is running for currently
+# 	under construction TowerMenu where item buttons are
+# 	assigned items in a weird by calling set_item_id() (via
+# 	property setter), inside the TowerMenu.tscn.
 	add_child(_item)
 
 

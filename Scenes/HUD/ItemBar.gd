@@ -12,9 +12,15 @@ var _moved_item_button: ItemButton = null
 
 
 func add_item_button(item: Item):
-	var item_button: ItemButton = _create_ItemButton(item)
+	var item_button: ItemButton = ItemButton.make(item)
+	item_button.hide_cooldown_indicator()
+
 	var button_container = UnitButtonContainer.make()
-	button_container.add_child(item_button)
+
+#	NOTE: Parent item to ItemBar because while the item is
+#	not on a tower it still needs to be in the scene tree.
+#	This is so that it's cooldown timer is running.
+	add_child(item)
 		
 	add_child(button_container)
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
@@ -37,6 +43,7 @@ func _ready():
 
 	ItemMovement.item_move_from_itembar_done.connect(on_item_move_from_itembar_done)
 	EventBus.item_drop_picked_up.connect(_on_item_drop_picked_up)
+	EventBus.consumable_item_was_consumed.connect(_on_consumable_item_was_consumed)
 
 
 func on_item_move_from_itembar_done(move_success: bool):
@@ -55,21 +62,25 @@ func on_item_move_from_itembar_done(move_success: bool):
 	_moved_item_button = null
 
 
-func _create_ItemButton(item: Item) -> ItemButton:
-	var item_button = ItemButton.make(item)
-	item_button.hide_cooldown_indicator()
-#	NOTE: While item is not parented to tower, parent it to button
-	item_button.add_child(item)
-
-	return item_button
-
-
 func _on_item_drop_picked_up(item: Item):
 	add_item_button(item)
 
 
+func _on_consumable_item_was_consumed(item: Item):
+	remove_item_button(item)
+
+
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
+
+	var item_type: ItemType.enm = ItemProperties.get_type(item.get_id())
+	var can_move: bool = item_type != ItemType.enm.CONSUMABLE
+
+	if !can_move:
+		Messages.add_error("Can't add consumable items to towers.")
+
+		return
+
 	var started_move: bool = ItemMovement.start_move_from_itembar(item)
 
 	if !started_move:
@@ -78,3 +89,7 @@ func _on_item_button_pressed(item_button: ItemButton):
 	_moved_item_button = item_button
 	item_button.set_disabled(true)
 	item_button.set_pressed_no_signal(true)
+
+
+func get_item_count() -> int:
+	return _item_buttons.size()
