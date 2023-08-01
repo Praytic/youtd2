@@ -87,7 +87,6 @@ func _init():
 		buff.set_buff_tooltip(tooltip)
 
 
-# TODO: implement correct randomization.
 func get_random(wave: Wave) -> Array[int]:
 	var random_special_list: Array[int] = []
 	var available_special_list: Array[int] = _get_available_specials(wave)
@@ -109,10 +108,13 @@ func get_random(wave: Wave) -> Array[int]:
 			break
 
 		var random_special: int = Utils.random_weighted_pick(special_to_frequency_map)
-		special_to_frequency_map.erase(random_special)
 
 		random_special_list.append(random_special)
-	
+
+#		Prevent picking same special multiple times
+		special_to_frequency_map.erase(random_special)
+
+
 	return random_special_list
 
 
