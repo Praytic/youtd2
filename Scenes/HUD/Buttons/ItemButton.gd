@@ -69,7 +69,7 @@ func set_item_id(value: int):
 # 	under construction TowerMenu where item buttons are
 # 	assigned items in a weird by calling set_item_id() (via
 # 	property setter), inside the TowerMenu.tscn.
-	add_child(item)
+	add_child(_item)
 
 
 func _on_mouse_entered():
