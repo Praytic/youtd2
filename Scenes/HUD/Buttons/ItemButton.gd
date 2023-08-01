@@ -4,7 +4,9 @@ extends UnitButton
 
 const ICON_SIZE_M = 128
 
-@export var _item_id: int: set = set_item_id, get = get_item_id
+# NOTE: _test_item_id should be used for testing purposes
+# only. For normal gameplay code use Item.make().
+@export var _test_item_id: int: set = set_test_item_id, get = get_test_item_id
 var _item: Item : set = set_item, get = get_item
 
 @onready var _cooldown_indicator: CooldownIndicator = %CooldownIndicator
@@ -61,13 +63,13 @@ func set_item(value: Item):
 	_item = value
 
 
-func get_item_id() -> int:
-	assert(_item.get_id() == _item_id, "Invalid state")
-	return _item_id
+func get_test_item_id() -> int:
+	assert(_item.get_id() == _test_item_id, "Invalid state")
+	return _test_item_id
 
 
-func set_item_id(value: int):
-	_item_id = value
+func set_test_item_id(value: int):
+	_test_item_id = value
 	_item = Item.make(value)
 # 	NOTE: normally, item would be parented either to item
 # 	bar or tower but this code is running for currently
