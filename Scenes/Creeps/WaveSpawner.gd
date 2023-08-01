@@ -11,6 +11,33 @@ signal all_waves_started
 signal all_waves_cleared
 
 
+const _size_chances: Dictionary = {
+	CreepSize.enm.MASS: 15,
+	CreepSize.enm.NORMAL: 50,
+	CreepSize.enm.AIR: 15,
+	CreepSize.enm.BOSS: 20,
+}
+
+const _champion_count_chances: Dictionary = {
+	CreepSize.enm.MASS: {
+		0: 70,
+		1: 30,
+	},
+	CreepSize.enm.NORMAL: {
+		0: 42.5,
+		1: 30,
+		2: 20,
+		3: 7.5,
+	},
+	CreepSize.enm.AIR: {
+		0: 100,
+	},
+	CreepSize.enm.BOSS: {
+		0: 100,
+	},
+}
+
+
 var _wave_list: Array[Wave] = []
 # NOTE: index starts at -1 because when the game starts no
 # wave has been started yet
@@ -37,6 +64,9 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		var wave_armor = _get_random_armor_type(wave_number)
 		
 		var wave = Wave.new()
+		var random_creep_size: CreepSize.enm = Utils.random_weighted_pick(_size_chances)
+		var random_creeps_combination: Array[CreepSize.enm] = _generate_creeps_combination(wave_number, random_creep_size)
+		wave.set_creeps_combination(random_creeps_combination)
 		wave.set_id(wave_id)
 		wave.set_wave_number(wave_number)
 		wave.set_race(wave_race)
@@ -253,3 +283,48 @@ func _get_random_armor_type(wave_number: int) -> ArmorType.enm:
 		var random_regular_armor: ArmorType.enm = regular_armor_list.pick_random()
 
 		return random_regular_armor
+
+
+# Generates a creep combination. If wave contains champions,
+# then champions are inserted in regular intervals between
+# other creeps.
+func _generate_creeps_combination(wave_number: int, creep_size: CreepSize.enm) -> Array[CreepSize.enm]:
+	var combination: Array[CreepSize.enm] = []
+
+	var wave_capacity: int = 20 + wave_number / 40
+	var champion_count: int = _generate_champion_count(creep_size)
+	var champion_weight: int = int(CreepSize.get_experience(CreepSize.enm.CHAMPION))
+	var unit_weight: int = int(CreepSize.get_experience(creep_size))
+
+	var total_unit_count: int
+	var champion_unit_ratio: float
+	var regular_unit_ratio: float
+
+	if champion_count > 0:
+		total_unit_count = (wave_capacity - champion_count * champion_weight) / unit_weight + champion_count
+		champion_unit_ratio = float(total_unit_count) / champion_count
+		regular_unit_ratio = float(total_unit_count) / champion_count / 2
+	else:
+		total_unit_count = wave_capacity / unit_weight
+		champion_unit_ratio = -1
+		regular_unit_ratio = -1
+
+	var champion_count_so_far: int = 0
+
+	for k in range(0, total_unit_count):
+		var spawn_champion: bool = int(regular_unit_ratio + champion_unit_ratio * champion_count_so_far - 0.5) == k
+
+		if spawn_champion:
+			combination.append(CreepSize.enm.CHAMPION)
+			champion_count_so_far = champion_count_so_far + 1
+		else:
+			combination.append(creep_size)
+
+	return combination
+
+
+func _generate_champion_count(creep_size: CreepSize.enm) -> int:
+	var chance_of_champion_count: Dictionary = _champion_count_chances[creep_size]
+	var champion_count: int = Utils.random_weighted_pick(chance_of_champion_count)
+
+	return champion_count

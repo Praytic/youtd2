@@ -34,6 +34,7 @@ var next_wave: Wave
 var _specials: Array[int] = []
 var _base_hp: float = 0.0
 var _base_armor: float = 0.0
+var _creeps_combination: Array[CreepSize.enm]
 
 #########################
 ### Code starts here  ###
@@ -99,24 +100,14 @@ func get_champion_number() -> int:
 	return get_csv_property(CsvProperty.CREEP_CHAMPION_NUMBER).to_int()
 
 
+func set_creeps_combination(creeps_combination: Array[CreepSize.enm]):
+	_creeps_combination = creeps_combination
+
+
 # Returns an array of CreepSize enm.that should be spawned
 # in the same order as they are stored in this array.
-func get_creeps_combination() -> Array:
-	var res = []
-	var creep_size = get_creep_size_type_num()
-	var champ_number = get_champion_number()
-	var creep_number = get_creep_number()
-	if champ_number == 0:
-		for i in range(0, creep_number):
-			res.append(creep_size)
-	else:
-		var champ_rate = int(float(creep_number) / champ_number)
-		var champ_size = CreepSize.enm.CHAMPION
-		for i in range(0, creep_number):
-			res.append(creep_size)
-			if i % champ_rate == 0 and i != 0:
-				res.append(champ_size)
-	return res
+func get_creeps_combination() -> Array[CreepSize.enm]:
+	return _creeps_combination
 
 
 # Delay in seconds between each creep spawn
