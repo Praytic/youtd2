@@ -12,7 +12,9 @@ var _moved_item_button: ItemButton = null
 
 
 func add_item_button(item: Item):
-	var item_button: ItemButton = _create_ItemButton(item)
+	var item_button: ItemButton = ItemButton.make(item)
+	item_button.hide_cooldown_indicator()
+
 	var button_container = UnitButtonContainer.make()
 
 #	NOTE: Parent item to ItemBar because while the item is
@@ -58,13 +60,6 @@ func on_item_move_from_itembar_done(move_success: bool):
 		_moved_item_button.set_disabled(false)
 
 	_moved_item_button = null
-
-
-func _create_ItemButton(item: Item) -> ItemButton:
-	var item_button = ItemButton.make(item)
-	item_button.hide_cooldown_indicator()
-
-	return item_button
 
 
 func _on_item_drop_picked_up(item: Item):
