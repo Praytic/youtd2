@@ -1,5 +1,8 @@
+class_name TowerMenu
 extends Control
 
+
+const SELL_BUTTON_RESET_TIME: float = 5.0
 
 @export var _upgrade_button: Button
 @export var _sell_button: Button
