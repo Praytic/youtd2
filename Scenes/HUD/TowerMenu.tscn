@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
 [ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="2_x237m"]
 [ext_resource type="PackedScene" uid="uid://boj0nw0dartmw" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="3_tivl8"]
-[ext_resource type="PackedScene" uid="uid://bs7talxfb2fac" path="res://Scenes/HUD/Buttons/ItemButton.tscn" id="5_qfavr"]
+[ext_resource type="Script" path="res://Scenes/HUD/TowerInventory.gd" id="5_owl8j"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/TowerMenu/tower_level_label_normal.tres" id="5_t4ptj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6ro0"]
@@ -92,7 +92,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 30
+theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 30
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer3"]
@@ -267,14 +267,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2"]
 layout_mode = 2
-
-[node name="UnitButtonContainer" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer" instance=ExtResource("3_tivl8")]
-layout_mode = 2
-
-[node name="UnitButton" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer/UnitButtonContainer" instance=ExtResource("5_qfavr")]
-layout_mode = 2
-theme_type_variation = &"SmallButton"
-_test_item_id = 33
+script = ExtResource("5_owl8j")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
 layout_mode = 1

@@ -1,9 +1,7 @@
-extends Control
+extends HBoxContainer
 
 
 var _tower: Tower = null
-
-@onready var _buttons_container: HBoxContainer = $PanelContainer/VBoxContainer/HBoxContainer
 var _moved_item_button: ItemButton = null
 
 
@@ -39,16 +37,17 @@ func set_tower(tower: Tower):
 
 
 func on_tower_items_changed():
-	for button in _buttons_container.get_children():
+	for button in get_children():
 		button.queue_free()
 
 	var items: Array[Item] = _tower.get_items()
 
 	for item in items:
 		var item_button = ItemButton.make(item)
+		item_button.theme_type_variation = "SmallButton"
 		var button_container = UnitButtonContainer.make()
 		button_container.add_child(item_button)
-		_buttons_container.add_child(button_container)
+		add_child(button_container)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 
 
