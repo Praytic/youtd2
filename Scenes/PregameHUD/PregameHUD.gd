@@ -12,10 +12,10 @@ enum Tab {
 }
 
 
-signal finished(wave_count: int, distribution: Distribution.enm, difficulty: Difficulty.enm)
+signal finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm)
 
 var _wave_count: int
-var _distribution: Distribution.enm
+var _game_mode: GameMode.enm
 var _difficulty: Difficulty.enm
 
 
@@ -31,12 +31,12 @@ func _on_game_length_menu_finished(wave_count: int):
 	_tab_container.current_tab = Tab.DISTRIBUTION
 
 
-func _on_distribution_menu_finished(distribution: Distribution.enm):
-	_distribution = distribution
+func _on_game_mode_menu_finished(game_mode: GameMode.enm):
+	_game_mode = game_mode
 	_tab_container.current_tab = Tab.DIFFICULTY
 
 
 func _on_difficulty_menu_finished(difficulty: Difficulty.enm):
 	_difficulty = difficulty
 	
-	finished.emit(_wave_count, _distribution, _difficulty)
+	finished.emit(_wave_count, _game_mode, _difficulty)

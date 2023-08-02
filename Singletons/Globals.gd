@@ -18,4 +18,4 @@ const placeholder_effect_scene: PackedScene = preload("res://Scenes/Effects/Gene
 const placeholder_tower_scene: PackedScene = preload("res://Scenes/Towers/Instances/PlaceholderTower.tscn")
 
 
-var distribution: Distribution.enm = Distribution.enm.NONE
+var game_mode: GameMode.enm = GameMode.enm.NONE

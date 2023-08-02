@@ -35,10 +35,10 @@ func _ready():
 	else:
 #		Skip pregame settings menu and load default values
 		var default_wave_count: int = Config.default_wave_count()
-		var default_distribution: Distribution.enm = Config.default_distribution()
+		var default_game_mode: GameMode.enm = Config.default_game_mode()
 		var default_difficulty: Difficulty.enm = Config.default_difficulty()
 
-		_on_pregame_hud_finished(default_wave_count, default_distribution, default_difficulty)
+		_on_pregame_hud_finished(default_wave_count, default_game_mode, default_difficulty)
 
 
 func _unhandled_input(event: InputEvent):
@@ -68,8 +68,8 @@ func _on_wave_spawner_wave_ended(wave: Wave):
 	KnowledgeTomesManager.add_knowledge_tomes()
 
 
-# TODO: use distribution setting
-func _on_pregame_hud_finished(wave_count: int, distribution: Distribution.enm, difficulty: Difficulty.enm):
+# TODO: use game_mode setting
+func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
 	_game_state = GameState.PLAYING
 	
 	_pregame_hud.hide()
@@ -87,7 +87,7 @@ func _on_pregame_hud_finished(wave_count: int, distribution: Distribution.enm, d
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
 
-	Globals.distribution = distribution
+	Globals.game_mode = game_mode
 
 
 func _pause_the_game():

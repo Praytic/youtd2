@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://drfy31rct5o3k"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_o7pab"]
-[ext_resource type="Script" path="res://Scenes/PregameHUD/DistributionMenu.gd" id="2_aiuo5"]
+[ext_resource type="Script" path="res://Scenes/PregameHUD/GameModeMenu.gd" id="2_aiuo5"]
 
-[node name="DistributionMenu" type="VBoxContainer"]
+[node name="GameModeMenu" type="VBoxContainer"]
 theme = ExtResource("1_o7pab")
 script = ExtResource("2_aiuo5")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
-text = "Tower Distribution"
+text = "Game Mode"
 
 [node name="BuildButton" type="Button" parent="."]
 layout_mode = 2

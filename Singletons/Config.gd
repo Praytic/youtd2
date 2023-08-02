@@ -113,11 +113,11 @@ func show_pregame_settings_menu() -> bool:
 func default_wave_count() -> int:
 	return ProjectSettings.get_setting("application/config/default_wave_count") as int
 
-func default_distribution() -> Distribution.enm:
-	var distribution_string: String = ProjectSettings.get_setting("application/config/default_distribution") as String
-	var distribution: Distribution.enm = Distribution.from_string(distribution_string)
+func default_game_mode() -> GameMode.enm:
+	var game_mode_string: String = ProjectSettings.get_setting("application/config/default_game_mode") as String
+	var game_mode: GameMode.enm = GameMode.from_string(game_mode_string)
 
-	return distribution
+	return game_mode
 
 func default_difficulty() -> Difficulty.enm:
 	var difficulty_string: String = ProjectSettings.get_setting("application/config/default_difficulty") as String

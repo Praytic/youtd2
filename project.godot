@@ -41,13 +41,13 @@ config/show_position_info_label=false
 config/print_errors_about_towers=true
 config/show_pregame_settings_menu=true
 config/default_wave_count=80
-config/default_distribution="build"
+config/default_game_mode="build"
 config/default_difficulty="beginner"
 
 [autoload]
 
 Difficulty="*res://Singletons/Enums/Difficulty.gd"
-Distribution="*res://Singletons/Enums/Distribution.gd"
+GameMode="*res://Singletons/Enums/GameMode.gd"
 Globals="*res://Singletons/Globals.gd"
 ElapsedTimer="*res://Singletons/ElapsedTimer.gd"
 Properties="*res://Singletons/Properties.gd"

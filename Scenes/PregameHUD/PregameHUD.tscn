@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/PregameHUD/PregameHUD.gd" id="2_ljcwn"]
 [ext_resource type="PackedScene" uid="uid://cfr6nyshcgv1h" path="res://Scenes/PregameHUD/DifficultyMenu.tscn" id="3_rhl0k"]
 [ext_resource type="PackedScene" uid="uid://clr58gw5jy8bl" path="res://Scenes/PregameHUD/GameLengthMenu.tscn" id="4_ogsgu"]
-[ext_resource type="PackedScene" uid="uid://drfy31rct5o3k" path="res://Scenes/PregameHUD/DistributionMenu.tscn" id="5_w0t1q"]
+[ext_resource type="PackedScene" uid="uid://drfy31rct5o3k" path="res://Scenes/PregameHUD/GameModeMenu.tscn" id="5_w0t1q"]
 
 [node name="PregameHUD" type="Control"]
 layout_mode = 3
@@ -43,7 +43,7 @@ tabs_visible = false
 [node name="GameLengthMenu" parent="TabContainer" instance=ExtResource("4_ogsgu")]
 layout_mode = 2
 
-[node name="DistributionMenu" parent="TabContainer" instance=ExtResource("5_w0t1q")]
+[node name="GameModeMenu" parent="TabContainer" instance=ExtResource("5_w0t1q")]
 visible = false
 layout_mode = 2
 
@@ -52,5 +52,5 @@ visible = false
 layout_mode = 2
 
 [connection signal="finished" from="TabContainer/GameLengthMenu" to="." method="_on_game_length_menu_finished"]
-[connection signal="finished" from="TabContainer/DistributionMenu" to="." method="_on_distribution_menu_finished"]
+[connection signal="finished" from="TabContainer/GameModeMenu" to="." method="_on_game_mode_menu_finished"]
 [connection signal="finished" from="TabContainer/DifficultyMenu" to="." method="_on_difficulty_menu_finished"]
