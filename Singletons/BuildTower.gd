@@ -20,7 +20,7 @@ func _unhandled_input(event):
 	var cancelled: bool = event.is_action_released("ui_cancel")
 	
 	if cancelled:
-		_cancel()
+		cancel()
 
 	var left_click: bool = event.is_action_released("left_click")
 	
@@ -37,7 +37,7 @@ func start(tower_id: int):
 	if can_start:
 		return
 
-	_cancel()
+	cancel()
 	MouseState.set_state(MouseState.enm.BUILD_TOWER)
 
 	_tower_preview = Globals.tower_preview_scene.instantiate()
@@ -45,7 +45,7 @@ func start(tower_id: int):
 	_game_scene.add_child(_tower_preview)
 
 
-func _cancel():
+func cancel():
 	if !in_progress():
 		return
 
@@ -83,4 +83,4 @@ func _try_to_build():
 		tower_built.emit(_tower_preview.tower_id)
 		FoodManager.add_tower()
 		
-		_cancel()
+		cancel()

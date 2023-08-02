@@ -92,9 +92,9 @@ func _on_pregame_hud_finished(wave_count: int, distribution: Distribution.enm, d
 
 func _pause_the_game():
 #	Cancel any in progress mouse actions
-	BuildTower._cancel()
-	ItemMovement._cancel()
-	SelectTargetForCast._cancel()
+	BuildTower.cancel()
+	ItemMovement.cancel()
+	SelectTargetForCast.cancel()
 
 	_game_state = GameState.PAUSED
 	get_tree().set_pause(true)

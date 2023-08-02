@@ -27,7 +27,7 @@ func _unhandled_input(event: InputEvent):
 	var cancelled: bool = event.is_action_released("ui_cancel")
 
 	if cancelled:
-		_cancel()
+		cancel()
 
 	var left_click: bool = event.is_action_released("left_click")
 
@@ -48,7 +48,7 @@ func start_move_from_itembar(item: Item) -> bool:
 	return _start_internal(item, MoveSource.ITEMBAR)
 
 
-func _cancel():
+func cancel():
 	if !in_progress():
 		return
 
@@ -72,7 +72,7 @@ func _start_internal(item: Item, move_source: MoveSource) -> bool:
 	if can_start:
 		return false
 
-	_cancel()
+	cancel()
 	MouseState.set_state(MouseState.enm.MOVE_ITEM)
 	_move_source = move_source
 	_moved_item = item

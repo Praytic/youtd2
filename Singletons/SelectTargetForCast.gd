@@ -15,7 +15,7 @@ func _unhandled_input(event: InputEvent):
 	var cancelled: bool = event.is_action_released("ui_cancel")
 
 	if cancelled:
-		_cancel()
+		cancel()
 
 	var left_click: bool = event.is_action_released("left_click")
 	var target: Unit = SelectUnit.get_hovered_unit()
@@ -27,7 +27,7 @@ func _unhandled_input(event: InputEvent):
 			var cast_success: bool = _autocast.do_cast_manually_finish_for_manual_target(target)
 
 			if cast_success:
-				_cancel()
+				cancel()
 
 #			NOTE: need this so that the left click doesn't
 #			also select the target unit
@@ -41,14 +41,14 @@ func start(autocast: Autocast):
 	if !can_start:
 		return false
 
-	_cancel()
+	cancel()
 	_autocast = autocast
 	MouseState.set_state(MouseState.enm.SELECT_TARGET_FOR_CAST)
 	var hotspot: Vector2 = _cast_cursor.get_size() / 2
 	Input.set_custom_mouse_cursor(_cast_cursor, Input.CURSOR_ARROW, hotspot)
 
 
-func _cancel():
+func cancel():
 	if !_in_progress():
 		return
 
