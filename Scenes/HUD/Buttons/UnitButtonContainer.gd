@@ -4,3 +4,8 @@ extends AspectRatioContainer
 
 static func make() -> UnitButtonContainer:
 	return Globals.unit_button_container_scene.instantiate()
+
+
+func _process(delta):
+	if self.get_child_count() == 0:
+		queue_free()
