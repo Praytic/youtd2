@@ -88,6 +88,12 @@ func _init():
 
 
 func get_random(wave: Wave) -> Array[int]:
+	var creep_size: CreepSize.enm = wave.get_creep_size()
+	var is_challenge: bool = CreepSize.is_challenge(creep_size)
+
+	if is_challenge:
+		return []
+
 	var random_special_list: Array[int] = []
 	var available_special_list: Array[int] = _get_available_specials(wave)
 

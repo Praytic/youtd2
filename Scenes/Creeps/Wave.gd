@@ -35,6 +35,7 @@ var _specials: Array[int] = []
 var _base_hp: float = 0.0
 var _base_armor: float = 0.0
 var _creeps_combination: Array[CreepSize.enm]
+var _creep_size: CreepSize.enm
 
 #########################
 ### Code starts here  ###
@@ -84,12 +85,12 @@ func get_csv_property(csv_property: Wave.CsvProperty) -> String:
 	return Properties.get_wave_csv_properties_by_id(_id)[csv_property]
 
 
-func get_creep_size_type() -> String:
-	return get_csv_property(CsvProperty.CREEP_SIZE_TYPE)
+func get_creep_size() -> CreepSize.enm:
+	return _creep_size
 
 
-func get_creep_size_type_num() -> int:
-	return CreepSize.from_string(get_creep_size_type())
+func set_creep_size(creep_size: CreepSize.enm):
+	_creep_size = creep_size
 
 
 func get_creep_number() -> int:

@@ -73,6 +73,7 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		wave.set_armor_type(wave_armor)
 		wave.set_wave_path(_get_wave_path(0, wave))
 		wave.set_difficulty(difficulty)
+		wave.set_creep_size(random_creep_size)
 		
 		var wave_specials: Array[int] = WaveSpecial.get_random(wave)
 		wave.set_specials(wave_specials)
