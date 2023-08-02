@@ -1,11 +1,20 @@
 extends Node
 
 
+enum GameState {
+	PREGAME,
+	PLAYING,
+	PAUSED,
+}
+
+
 @onready var map_node: Node2D = $Map
 @onready var _pregame_hud: Control = $UI/PregameHUD
+@onready var _pause_hud: Control = $UI/PauseHUD
 @onready var _wave_spawner: WaveSpawner = $Map/WaveSpawner
 
 var portal_lives: float = 100.0
+var _game_state: GameState
 
 
 @export var creeps_game_over_count: int = 10
@@ -15,10 +24,12 @@ var portal_lives: float = 100.0
 func _ready():
 	print_verbose("GameScene has loaded.")
 
+	_game_state = GameState.PREGAME
+
 	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
 
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
-	
+
 	if show_pregame_settings_menu:
 		_pregame_hud.show()
 	else:
@@ -28,6 +39,15 @@ func _ready():
 		var default_difficulty: Difficulty.enm = Config.default_difficulty()
 
 		_on_pregame_hud_finished(default_wave_count, default_distribution, default_difficulty)
+
+
+func _unhandled_input(event: InputEvent):
+	var pause_pressed: bool = event.is_action_released("pause")
+	
+	if pause_pressed:
+		match _game_state:
+			GameState.PLAYING: _pause_the_game()
+			GameState.PAUSED: _unpause_the_game()
 
 
 func _on_HUD_start_wave(wave_index):
@@ -50,6 +70,8 @@ func _on_wave_spawner_wave_ended(wave: Wave):
 
 # TODO: use distribution setting
 func _on_pregame_hud_finished(wave_count: int, distribution: Distribution.enm, difficulty: Difficulty.enm):
+	_game_state = GameState.PLAYING
+	
 	_pregame_hud.hide()
 
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
@@ -66,3 +88,24 @@ func _on_pregame_hud_finished(wave_count: int, distribution: Distribution.enm, d
 	_wave_spawner.generate_waves(wave_count, difficulty)
 
 	Globals.distribution = distribution
+
+
+func _pause_the_game():
+#	Cancel any in progress mouse actions
+	BuildTower._cancel()
+	ItemMovement._cancel()
+	SelectTargetForCast._cancel()
+
+	_game_state = GameState.PAUSED
+	get_tree().set_pause(true)
+	_pause_hud.show()
+
+
+func _unpause_the_game():
+	_game_state = GameState.PLAYING
+	get_tree().set_pause(false)
+	_pause_hud.hide()
+
+
+func _on_pause_hud_resume_pressed():
+	_unpause_the_game()

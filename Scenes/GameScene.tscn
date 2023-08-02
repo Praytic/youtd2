@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=13 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD.tscn" id="2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="6_y63oe"]
 [ext_resource type="PackedScene" uid="uid://d1xny6jmxj5i6" path="res://Scenes/PregameHUD/PregameHUD.tscn" id="8_idpxe"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
+[ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -26,6 +27,7 @@ script/source = "extends CanvasLayer
 "
 
 [node name="GameScene" type="Node"]
+process_mode = 3
 script = ExtResource("9")
 
 [node name="Player" type="Node" parent="."]
@@ -33,6 +35,7 @@ script = ExtResource("6_y63oe")
 
 [node name="Map" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
+process_mode = 1
 
 [node name="CreepPathGround" type="Path2D" parent="Map" groups=["wave_path"]]
 z_index = 999
@@ -89,5 +92,10 @@ metadata/_edit_use_anchors_ = true
 [node name="PregameHUD" parent="UI" instance=ExtResource("8_idpxe")]
 visible = false
 
+[node name="PauseHUD" parent="UI" instance=ExtResource("9_r46bb")]
+process_mode = 3
+visible = false
+
 [connection signal="wave_ended" from="Map/WaveSpawner" to="." method="_on_wave_spawner_wave_ended"]
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
+[connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]

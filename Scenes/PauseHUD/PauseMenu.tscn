@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://q1bgc1e6ros7"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_1wlk4"]
+
+[node name="PauseMenu" type="VBoxContainer"]
+offset_right = 143.0
+offset_bottom = 63.0
+theme = ExtResource("1_1wlk4")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="."]
+layout_mode = 2
+text = "Resume
+"
