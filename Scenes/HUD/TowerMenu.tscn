@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://chojoq00uw7ng"]
+[gd_scene load_steps=14 format=3 uid="uid://chojoq00uw7ng"]
 
 [ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/tower_menu_theme.tres" id="1_crn3l"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_8sf0j"]
@@ -28,10 +28,6 @@ region = Rect2(256, 256, 128, 128)
 atlas = ExtResource("2_kbar0")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gjph7"]
-atlas = ExtResource("2_kbar0")
-region = Rect2(128, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lqbcy"]
 atlas = ExtResource("2_kbar0")
@@ -277,21 +273,8 @@ layout_mode = 2
 
 [node name="UnitButton" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer/UnitButtonContainer" instance=ExtResource("5_qfavr")]
 layout_mode = 2
+theme_type_variation = &"SmallButton"
 _test_item_id = 33
-
-[node name="UnitButtonContainer2" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer" instance=ExtResource("3_tivl8")]
-layout_mode = 2
-
-[node name="UnitButton" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer/UnitButtonContainer2" instance=ExtResource("5_qfavr")]
-layout_mode = 2
-_test_item_id = 285
-
-[node name="UnitButtonContainer3" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer" instance=ExtResource("3_tivl8")]
-layout_mode = 2
-
-[node name="UnitButton" parent="MarginContainer/Panel/MarginContainer3/ScrollContainer/VBoxContainer/PanelContainer3/MarginContainer2/VBoxContainer/UnitButtonContainer3" instance=ExtResource("5_qfavr")]
-layout_mode = 2
-_test_item_id = 149
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
 layout_mode = 1
@@ -351,15 +334,6 @@ icon = SubResource("AtlasTexture_m846m")
 expand_icon = true
 
 [node name="CloseButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 10
-icon = SubResource("AtlasTexture_gjph7")
-expand_icon = true
-
-[node name="Button" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_vertical = 10

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://dksfi74d7n0pf"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://dksfi74d7n0pf"]
 
 [ext_resource type="StyleBox" uid="uid://dcjhupdk2mwkl" path="res://Resources/Theme/UnitButton/button_normal.tres" id="1_80ch8"]
 [ext_resource type="StyleBox" uid="uid://c8x6v1g5py6r6" path="res://Resources/Theme/UnitButton/button_disabled.tres" id="1_tdptv"]
@@ -9,6 +9,9 @@
 [ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="5_tqwyb"]
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="6_xmrco"]
 [ext_resource type="Texture2D" uid="uid://lu1adtr8xmdf" path="res://Resources/Textures/UI/rect_container_xs.tres" id="7_7y0mp"]
+[ext_resource type="StyleBox" uid="uid://rhsusiehbqjb" path="res://Resources/Theme/UnitButton/small_button_disabled.tres" id="7_mn43h"]
+[ext_resource type="StyleBox" uid="uid://k235emid2ajj" path="res://Resources/Theme/UnitButton/small_button_hover.tres" id="8_pql3q"]
+[ext_resource type="StyleBox" uid="uid://carc5koied5gk" path="res://Resources/Theme/UnitButton/small_button_normal.tres" id="9_xj4hs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_esyqb"]
 atlas = ExtResource("7_7y0mp")
@@ -33,6 +36,11 @@ MarginContainer/constants/margin_left = 8
 MarginContainer/constants/margin_right = 8
 MarginContainer/constants/margin_top = 8
 RareRarityPanelContainer/styles/panel = ExtResource("4_lnooq")
+SmallButton/base_type = &"Button"
+SmallButton/styles/disabled = ExtResource("7_mn43h")
+SmallButton/styles/hover = ExtResource("8_pql3q")
+SmallButton/styles/normal = ExtResource("9_xj4hs")
+SmallButton/styles/pressed = ExtResource("8_pql3q")
 UnclickableButton/base_type = &"Button"
 UnclickableButton/colors/icon_disabled_color = Color(1, 1, 1, 1)
 UnclickableButton/styles/disabled = SubResource("StyleBoxTexture_j2qvk")
