@@ -77,7 +77,10 @@ func set_element(element: Element.enm):
 
 
 func _on_Tower_built(tower_id):
-	remove_tower_button(tower_id)
+	match Globals.game_mode:
+		GameMode.enm.BUILD: return
+		GameMode.enm.RANDOM_WITH_UPGRADES: remove_tower_button(tower_id)
+		GameMode.enm.TOTALLY_RANDOM: remove_tower_button(tower_id)
 
 
 func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
