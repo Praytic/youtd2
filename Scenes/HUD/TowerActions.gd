@@ -10,6 +10,8 @@ var _selling_for_real: bool = false
 
 
 func _ready():
+	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
+	_on_selected_unit_changed()
 	_autocast_button_placeholder.queue_free()
 
 
@@ -23,3 +25,14 @@ func _update_autocasts(tower: Tower):
 		var autocast_button: AutocastButton = Globals.autocast_button_scene.instantiate()
 		autocast_button.set_autocast(autocast)
 		_autocasts_container.add_child(autocast_button)
+
+
+func _on_selected_unit_changed():
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+	
+	position = selected_unit.position
+	visible = selected_unit != null && selected_unit is Tower
+
+	if selected_unit is Tower:
+		var tower: Tower = selected_unit as Tower
+		_update_autocasts(tower)

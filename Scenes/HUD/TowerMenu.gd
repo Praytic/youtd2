@@ -7,21 +7,22 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @export var _upgrade_button: Button
 @export var _sell_button: Button
 @export var _reset_sell_button_timer: Timer
-@export var _autocasts_container: VBoxContainer
-@export var _autocast_button_placeholder: Button
+@export var _items_box_container: VBoxContainer
 
 
+var _tower: Tower = null
+var _moved_item_button: ItemButton = null
 var _selling_for_real: bool = false
 
 
 func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
+	
 	_on_selected_unit_changed()
-
+	
+	ItemMovement.item_move_from_tower_done.connect(_on_item_move_from_tower_done)
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
-	
-	_autocast_button_placeholder.queue_free()
 
 
 func _on_wave_or_element_level_changed():
@@ -39,10 +40,56 @@ func _on_selected_unit_changed():
 
 	if selected_unit is Tower:
 		var tower: Tower = selected_unit as Tower
+		set_tower(tower)
 		_update_upgrade_button(tower)
-		_update_autocasts(tower)
 
 	_set_selling_for_real(false)
+
+
+func set_tower(tower: Tower):
+	var prev_tower: Tower = _tower
+	var new_tower: Tower = tower
+	_tower = new_tower
+
+	if prev_tower != null:
+		prev_tower.items_changed.disconnect(on_tower_items_changed)
+
+	if new_tower != null:
+		new_tower.items_changed.connect(on_tower_items_changed)
+		on_tower_items_changed()
+
+
+func on_tower_items_changed():
+	for button in _items_box_container.get_children():
+		button.queue_free()
+
+	var items: Array[Item] = _tower.get_items()
+
+	for item in items:
+		var item_button = ItemButton.make(item)
+		item_button.theme_type_variation = "SmallButton"
+		var button_container = UnitButtonContainer.make()
+		button_container.add_child(item_button)
+		_items_box_container.add_child(button_container)
+		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+
+
+func _on_item_button_pressed(item_button: ItemButton):
+	var item: Item = item_button.get_item()
+	var started_move: bool = ItemMovement.start_move_from_tower(item)
+
+	if !started_move:
+		return
+
+#	Disable button to gray it out to indicate that it's
+#	getting moved
+	item_button.set_disabled(true)
+	_moved_item_button = item_button
+
+
+func _on_item_move_from_tower_done(_success: bool):
+	_moved_item_button.set_disabled(false)
+	_moved_item_button = null
 
 
 func _on_upgrade_button_pressed():
@@ -92,18 +139,6 @@ func _update_upgrade_button(tower: Tower):
 		can_upgrade = false
 
 	_upgrade_button.set_disabled(!can_upgrade)
-
-
-func _update_autocasts(tower: Tower):
-	for button in _autocasts_container.get_children():
-		button.queue_free()
-
-	var autocast_list: Array[Autocast] = tower.get_autocast_list()
-
-	for autocast in autocast_list:
-		var autocast_button: AutocastButton = Globals.autocast_button_scene.instantiate()
-		autocast_button.set_autocast(autocast)
-		_autocasts_container.add_child(autocast_button)
 
 
 func _on_reset_sell_button_timer_timeout():
