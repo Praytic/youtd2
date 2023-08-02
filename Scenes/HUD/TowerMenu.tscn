@@ -57,88 +57,56 @@ grow_horizontal = 0
 grow_vertical = 2
 theme_override_constants/margin_right = -40
 
-[node name="Panel" type="Panel" parent="MarginContainer"]
+[node name="Panel" type="PanelContainer" parent="MarginContainer"]
 custom_minimum_size = Vector2(600, 800)
 layout_mode = 2
+theme_type_variation = &"MainPanelContainer"
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -115.909
-offset_right = 115.909
-offset_bottom = 32.0
-grow_horizontal = 2
-theme_override_constants/margin_top = -20
-
-[node name="TowerName" type="Label" parent="MarginContainer/Panel/MarginContainer2"]
-z_index = 2
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = ExtResource("2_x237m")
-text = "Tower Name"
-horizontal_alignment = 1
-
-[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 30
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_top = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="InfoContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer"]
+[node name="InfoContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_bottom = 10
 
-[node name="UnitButtonContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer/MarginContainer" instance=ExtResource("3_tivl8")]
+[node name="UnitButtonContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer/MarginContainer" instance=ExtResource("3_tivl8")]
 layout_mode = 2
 size_flags_vertical = 1
 stretch_mode = 2
 alignment_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer/MarginContainer/UnitButtonContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer/MarginContainer/UnitButtonContainer"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_n6ro0")
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer/MarginContainer2"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -151,24 +119,24 @@ text = "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=ff4500ff]30[/
 "
 fit_content = true
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
@@ -178,28 +146,28 @@ text = "Info"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpecialsContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer"]
+[node name="SpecialsContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/SpecialsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/SpecialsContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
@@ -209,46 +177,46 @@ text = "Specials"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/SpecialsContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/SpecialsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer2"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer2"]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer2/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer2/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TowerSpecialContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer2/ScrollContainer/VBoxContainer" instance=ExtResource("6_petcg")]
+[node name="TowerSpecialContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer2/ScrollContainer/VBoxContainer" instance=ExtResource("6_petcg")]
 layout_mode = 2
 
-[node name="ItemsContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer"]
+[node name="ItemsContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 93)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/ItemsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemsContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = -10
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/ItemsContainer/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemsContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/ItemsContainer/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemsContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/ItemsContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemsContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
@@ -258,31 +226,43 @@ text = "Items"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/ItemsContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer3/MarginContainer/VBoxContainer/ItemsContainer/MarginContainer2"]
+[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer/ItemsContainer/MarginContainer2"]
 layout_mode = 2
 script = ExtResource("5_owl8j")
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Panel"]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 30.0
-grow_vertical = 2
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -20
+
+[node name="TowerName" type="Label" parent="MarginContainer/MarginContainer2"]
+z_index = 2
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("2_x237m")
+text = "Tower Name"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
 theme_override_constants/margin_left = -20
 theme_override_constants/margin_top = -20
 theme_override_constants/margin_bottom = 40
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="TowerLevelButton" type="Label" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2"]
+[node name="TowerLevelButton" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -296,13 +276,13 @@ text = "25"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="TowerUpgradeButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="TowerUpgradeButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -310,7 +290,7 @@ size_flags_vertical = 0
 icon = SubResource("AtlasTexture_0gno2")
 expand_icon = true
 
-[node name="TowerInfoButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="TowerInfoButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -318,7 +298,7 @@ size_flags_vertical = 0
 icon = SubResource("AtlasTexture_yslek")
 expand_icon = true
 
-[node name="SellTowerButton" type="Button" parent="MarginContainer/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="SellTowerButton" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0

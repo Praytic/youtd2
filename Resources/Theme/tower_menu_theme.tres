@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cdws70axn02qn"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cdws70axn02qn"]
 
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="1_w3mn2"]
 [ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="2_5k4cq"]
+[ext_resource type="StyleBox" uid="uid://woorl376lbra" path="res://Resources/Theme/TowerMenu/tower_menu_panel.tres" id="2_j17uo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjpfd"]
 atlas = ExtResource("1_w3mn2")
@@ -15,18 +16,6 @@ content_margin_bottom = 2.0
 texture = SubResource("AtlasTexture_fjpfd")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcb5y"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5lf64"]
-atlas = ExtResource("1_w3mn2")
-region = Rect2(1085, 207, 176, 178)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uevwh"]
-texture = SubResource("AtlasTexture_5lf64")
-texture_margin_left = 39.6148
-texture_margin_top = 40.0
-texture_margin_right = 40.0
-texture_margin_bottom = 39.6148
-region_rect = Rect2(1085, 207, 176, 178)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy7ve"]
 draw_center = false
@@ -45,7 +34,9 @@ Button/font_sizes/font_size = 32
 Button/styles/normal = SubResource("StyleBoxTexture_co5jt")
 InfoContainer/base_type = &"PanelContainer"
 InfoContainer/styles/panel = SubResource("StyleBoxFlat_tcb5y")
-Panel/styles/panel = SubResource("StyleBoxTexture_uevwh")
+MainPanelContainer/base_type = &"PanelContainer"
+MainPanelContainer/styles/panel = ExtResource("2_j17uo")
+Panel/styles/panel = ExtResource("2_j17uo")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_yy7ve")
 TowerNameLabel/font_sizes/font_size = 32
 TowerNameLabel/styles/normal = ExtResource("2_5k4cq")
