@@ -2,8 +2,8 @@ extends Control
 
 # Container for active tower specials
 
-@onready var _autocasts_container: VBoxContainer = $HBoxContainer/AutocastsOuterContainer/AutocastsContainer
-@onready var _autocast_button_placeholder: Button = $HBoxContainer/AutocastsOuterContainer/AutocastsContainer/AutocastButtonPlaceholder
+@export var _autocasts_container: VBoxContainer
+@export var _autocast_button_placeholder: Button
 
 
 var _selling_for_real: bool = false
@@ -30,9 +30,9 @@ func _update_autocasts(tower: Tower):
 func _on_selected_unit_changed():
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 	
-	position = selected_unit.position
 	visible = selected_unit != null && selected_unit is Tower
 
 	if selected_unit is Tower:
+		position = selected_unit.position
 		var tower: Tower = selected_unit as Tower
 		_update_autocasts(tower)

@@ -7,7 +7,7 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @export var _upgrade_button: Button
 @export var _sell_button: Button
 @export var _reset_sell_button_timer: Timer
-@export var _items_box_container: VBoxContainer
+@export var _items_box_container: HBoxContainer
 
 
 var _tower: Tower = null
@@ -175,13 +175,10 @@ func _on_sell_button_pressed():
 func _set_selling_for_real(value: bool):
 	_selling_for_real = value
 
-	var sell_button_text: String
 	if _selling_for_real:
-		sell_button_text = "Sell (for real)"
+		_sell_button.modulate = Color(255, 108, 108)
 	else:
-		sell_button_text = "Sell"
-
-	_sell_button.set_text(sell_button_text)
+		_sell_button.modulate = Color(255, 255, 255)
 
 	if _selling_for_real:
 		_reset_sell_button_timer.start(SELL_BUTTON_RESET_TIME)
