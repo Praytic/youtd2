@@ -69,7 +69,7 @@ func display_small_floating_text(text: String, unit: Unit, color_r: int, color_g
 # TODO: Move to the "owner" class that is returned by
 # getOwner() when owner class is implemented
 # NOTE: player.giveGold() in JASS
-func give_gold(amount: int, unit: Unit, show_effect: bool, show_text: bool):
+func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 	GoldControl.add_gold(amount)
 
 	if show_effect:
@@ -78,10 +78,20 @@ func give_gold(amount: int, unit: Unit, show_effect: bool, show_text: bool):
 
 	if show_text:
 		var text: String
-		if amount >= 0:
-			text = "+%d" % amount
+#		NOTE: add 1 significant digit for <1.0 amounts but
+#		none for greater amounts because for those amounts
+#		it's not important and only adds visual noise.
+		var amount_string_digits: int
+		if amount < 1.0:
+			amount_string_digits = 1
 		else:
-			text = "-%d" % amount
+			amount_string_digits = 0
+		var amount_string: String = Utils.format_float(amount, amount_string_digits)
+
+		if amount >= 0:
+			text = "+%s" % amount_string
+		else:
+			text = "-%s" % amount_string
 
 		var color: Color
 		if amount >= 0:
