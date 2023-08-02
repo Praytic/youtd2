@@ -19,8 +19,8 @@ const _string_map: Dictionary = {
 	CreepSize.enm.AIR: "air",
 	CreepSize.enm.CHAMPION: "champion",
 	CreepSize.enm.BOSS: "boss",
-	CreepSize.enm.CHALLENGE_MASS: "challenge",
-	CreepSize.enm.CHALLENGE_BOSS: "challenge",
+	CreepSize.enm.CHALLENGE_MASS: "challenge mass",
+	CreepSize.enm.CHALLENGE_BOSS: "challenge boss",
 }
 
 
@@ -62,7 +62,7 @@ const _experience_map: Dictionary = {
 	CreepSize.enm.AIR: 4,
 	CreepSize.enm.CHAMPION: 4,
 	CreepSize.enm.BOSS: 20,
-	CreepSize.enm.CHALLENGE_MASS: 4,
+	CreepSize.enm.CHALLENGE_MASS: 2,
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 

@@ -156,9 +156,10 @@ func generate_creep_for_wave(wave: Wave, creep_size) -> CreepData:
 	var creep_scene_name = creep_race_name + creep_size_name
 
 #	TODO: switch to real challenge scenes when they are ready
-	var is_challenge: bool = CreepSize.is_challenge(creep_size)
-	if is_challenge:
+	if creep_size == CreepSize.enm.CHALLENGE_BOSS:
 		creep_scene_name = "OrcBoss"
+	elif creep_size == CreepSize.enm.CHALLENGE_MASS:
+		creep_scene_name = "OrcMass"
 
 	var creep_data: CreepData = CreepData.new()
 	creep_data.scene_name = creep_scene_name
