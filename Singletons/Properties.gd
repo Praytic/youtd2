@@ -1,18 +1,16 @@
 extends Node
 
 
-# This class loads properties for towers, items and waves
-# from the .csv files.
+# This class loads properties for towers and items from the
+# .csv files.
 
 
 const _ITEM_CSV_PROPERTIES_PATH = "res://Data/item_properties.csv"
 const _TOWER_CSV_PROPERTIES_PATH = "res://Data/tower_properties.csv"
-const _WAVE_CSV_PROPERTIES_PATH = "res://Data/wave_properties.csv"
 
 
 var _tower_csv_properties: Dictionary = {} : get = get_tower_csv_properties
 var _item_csv_properties: Dictionary = {} : get = get_item_csv_properties
-var _wave_csv_properties: Dictionary = {} : get = get_wave_csv_properties
 
 
 #########################
@@ -22,7 +20,6 @@ var _wave_csv_properties: Dictionary = {} : get = get_wave_csv_properties
 func _ready():
 	_load_csv_properties(_TOWER_CSV_PROPERTIES_PATH, _tower_csv_properties, Tower.CsvProperty.ID)
 	_load_csv_properties(_ITEM_CSV_PROPERTIES_PATH, _item_csv_properties, Item.CsvProperty.ID)
-	_load_csv_properties(_WAVE_CSV_PROPERTIES_PATH, _wave_csv_properties, Wave.CsvProperty.ID)
 
 
 #########################
@@ -40,14 +37,6 @@ func get_tower_csv_properties_by_id(tower_id: int) -> Dictionary:
 func get_item_csv_properties_by_id(item_id: int) -> Dictionary:
 	if _item_csv_properties.has(item_id):
 		var out: Dictionary = _item_csv_properties[item_id]
-
-		return out
-	else:
-		return {}
-
-func get_wave_csv_properties_by_id(wave_id: int) -> Dictionary:
-	if _wave_csv_properties.has(wave_id):
-		var out: Dictionary = _wave_csv_properties[wave_id]
 
 		return out
 	else:
@@ -128,6 +117,3 @@ func get_item_csv_properties():
 
 func get_tower_csv_properties():
 	return _tower_csv_properties
-
-func get_wave_csv_properties():
-	return _wave_csv_properties

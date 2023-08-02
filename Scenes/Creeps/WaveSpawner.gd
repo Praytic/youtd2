@@ -59,7 +59,6 @@ func _ready():
 func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	var previous_wave = null
 	for wave_number in range(1, wave_count + 1):
-		var wave_id = randi_range(0, Properties.get_wave_csv_properties().size() - 1)
 		var wave_race = randi_range(0, CreepCategory.enm.size() - 1)
 		
 		var wave = Wave.new()
@@ -67,7 +66,6 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		var wave_armor: ArmorType.enm = _get_random_armor_type(wave_number, random_creep_size)
 		var random_creeps_combination: Array[CreepSize.enm] = _generate_creeps_combination(wave_number, random_creep_size)
 		wave.set_creeps_combination(random_creeps_combination)
-		wave.set_id(wave_id)
 		wave.set_wave_number(wave_number)
 		wave.set_race(wave_race)
 		wave.set_armor_type(wave_armor)

@@ -5,13 +5,6 @@ extends Node
 signal wave_ended
 
 
-enum CsvProperty {
-	ID = 0,
-	CREEP_SIZE_TYPE = 1,
-	CREEP_NUMBER = 2,
-	CREEP_CHAMPION_NUMBER = 3,
-}
-
 enum State {
 	CLEARED,
 	DEFEAT,
@@ -23,7 +16,6 @@ enum State {
 
 var _creep_data_list: Array[CreepData]
 var _alive_creep_list: Array[Creep] = []
-var _id: int : set = set_id, get = get_id
 var _wave_number: int : set = set_wave_number, get = get_wave_number
 var _race: CreepCategory.enm : set = set_race, get = get_race
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
@@ -81,24 +73,12 @@ func _on_Creep_reached_portal(damage, creep: Creep):
 #########################
 
 
-func get_csv_property(csv_property: Wave.CsvProperty) -> String:
-	return Properties.get_wave_csv_properties_by_id(_id)[csv_property]
-
-
 func get_creep_size() -> CreepSize.enm:
 	return _creep_size
 
 
 func set_creep_size(creep_size: CreepSize.enm):
 	_creep_size = creep_size
-
-
-func get_creep_number() -> int:
-	return get_csv_property(CsvProperty.CREEP_NUMBER).to_int()
-
-
-func get_champion_number() -> int:
-	return get_csv_property(CsvProperty.CREEP_CHAMPION_NUMBER).to_int()
 
 
 func set_creeps_combination(creeps_combination: Array[CreepSize.enm]):
@@ -150,14 +130,6 @@ func set_armor_type(value: ArmorType.enm):
 
 func is_challenge_wave() -> bool:
 	return get_wave_number() % 8 == 0
-
-
-func set_id(value: int):
-	_id = value
-
-
-func get_id() -> int:
-	return _id
 
 
 func set_wave_number(value: int):
