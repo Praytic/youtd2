@@ -22,7 +22,7 @@ func _ready():
 	hide()
 
 
-func _on_selected_unit_changed():
+func _on_selected_unit_changed(_prev_unit = null):
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 
 	if selected_unit != null:

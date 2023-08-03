@@ -35,9 +35,7 @@ func _ready():
 
 
 func _on_wave_or_element_level_changed():
-	var tower: Tower = get_selected_tower()
-	if tower != null:
-		_update_upgrade_button(tower)
+	_update_upgrade_button()
 
 
 func _on_selected_unit_changed(prev_unit = null):
@@ -51,7 +49,9 @@ func _on_selected_unit_changed(prev_unit = null):
 	if tower != null:
 		tower.items_changed.connect(on_tower_items_changed)
 		on_tower_items_changed()
-		_update_upgrade_button(tower)
+		_update_upgrade_button()
+		_update_tower_name_label()
+		_update_tower_level_label()
 
 	_set_selling_for_real(false)
 
@@ -77,6 +77,16 @@ func on_tower_items_changed():
 		button_container.add_child(item_button)
 		_items_box_container.add_child(button_container)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+
+
+func _update_tower_name_label():
+	var tower = get_selected_tower()
+	_tower_name_label.text = tower.get_display_name()
+
+
+func _update_tower_level_label():
+	var tower = get_selected_tower()
+	_tower_level_label.text = str(tower.get_level())
 
 
 func _on_item_button_pressed(item_button: ItemButton):
@@ -114,7 +124,7 @@ func _on_upgrade_button_pressed():
 
 	SelectUnit.set_selected_unit(upgrade_tower)
 
-	_update_upgrade_button(upgrade_tower)
+	_update_upgrade_button()
 
 #	Refresh tooltip for upgrade button
 	_on_upgrade_button_mouse_entered()
@@ -134,7 +144,8 @@ func _get_upgrade_id_for_tower(tower: Tower) -> int:
 	return -1
 
 
-func _update_upgrade_button(tower: Tower):
+func _update_upgrade_button():
+	var tower = get_selected_tower()
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	var can_upgrade: bool

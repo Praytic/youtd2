@@ -26,7 +26,7 @@ func _update_autocasts(tower: Tower):
 		_autocasts_container.add_child(autocast_button)
 
 
-func _on_selected_unit_changed():
+func _on_selected_unit_changed(_prev_unit = null):
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 	
 	visible = selected_unit != null && selected_unit is Tower
