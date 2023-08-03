@@ -176,9 +176,9 @@ func _set_selling_for_real(value: bool):
 	_selling_for_real = value
 
 	if _selling_for_real:
-		_sell_button.modulate = Color(255, 108, 108)
+		_sell_button.theme_type_variation = "WarningButton"
 	else:
-		_sell_button.modulate = Color(255, 255, 255)
+		_sell_button.theme_type_variation = ""
 
 	if _selling_for_real:
 		_reset_sell_button_timer.start(SELL_BUTTON_RESET_TIME)

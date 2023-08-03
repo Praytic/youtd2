@@ -1,19 +1,10 @@
 [gd_resource type="Theme" load_steps=8 format=3 uid="uid://cdws70axn02qn"]
 
-[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="1_w3mn2"]
+[ext_resource type="StyleBox" uid="uid://di63wj0o7etx1" path="res://Resources/Theme/TowerMenu/button_normal.tres" id="1_k0xfo"]
+[ext_resource type="StyleBox" uid="uid://ln3gwpdseci7" path="res://Resources/Theme/TowerMenu/button_disalbed.tres" id="1_wfnm0"]
 [ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="2_5k4cq"]
 [ext_resource type="StyleBox" uid="uid://woorl376lbra" path="res://Resources/Theme/TowerMenu/tower_menu_panel.tres" id="2_j17uo"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fjpfd"]
-atlas = ExtResource("1_w3mn2")
-region = Rect2(790, 74, 48, 48)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_co5jt"]
-content_margin_left = 2.0
-content_margin_top = 2.0
-content_margin_right = 2.0
-content_margin_bottom = 2.0
-texture = SubResource("AtlasTexture_fjpfd")
+[ext_resource type="StyleBox" uid="uid://b284lwmb62g6v" path="res://Resources/Theme/TowerMenu/button_hover.tres" id="2_n1i2k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcb5y"]
 
@@ -31,7 +22,10 @@ corner_radius_bottom_left = 10
 
 [resource]
 Button/font_sizes/font_size = 32
-Button/styles/normal = SubResource("StyleBoxTexture_co5jt")
+Button/styles/disabled = ExtResource("1_wfnm0")
+Button/styles/hover = ExtResource("2_n1i2k")
+Button/styles/normal = ExtResource("1_k0xfo")
+Button/styles/pressed = ExtResource("2_n1i2k")
 InfoContainer/base_type = &"PanelContainer"
 InfoContainer/styles/panel = SubResource("StyleBoxFlat_tcb5y")
 MainPanelContainer/base_type = &"PanelContainer"
@@ -40,3 +34,5 @@ Panel/styles/panel = ExtResource("2_j17uo")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_yy7ve")
 TowerNameLabel/font_sizes/font_size = 32
 TowerNameLabel/styles/normal = ExtResource("2_5k4cq")
+WarningButton/base_type = &"Button"
+WarningButton/colors/icon_normal_color = Color(1, 0.247059, 0.192157, 1)
