@@ -352,6 +352,12 @@ func set_path(path: Path2D):
 	_path.default_z = z_index
 
 func get_damage_to_portal() -> float:
+#	NOTE: final wave boss deals full damage to portal
+	var is_final_wave: bool = _spawn_level == Constants.FINAL_WAVE
+
+	if is_final_wave:
+		return 100.0
+
 	if _size == CreepSize.enm.CHALLENGE_MASS || _size == CreepSize.enm.CHALLENGE_BOSS:
 		return 0
 
