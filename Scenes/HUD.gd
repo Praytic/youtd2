@@ -26,12 +26,3 @@ func get_error_message_container() -> VBoxContainer:
 
 func get_normal_message_container() -> VBoxContainer:
 	return _normal_message_container
-
-
-func _on_TowerInfoHeader_expanded(expand):
-	if expand:
-		$TowerInfo.show()
-		_wave_status.hide()
-	else:
-		$TowerInfo.hide()
-		_wave_status.show()

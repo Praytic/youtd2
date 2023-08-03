@@ -21,6 +21,7 @@ signal mana_changed()
 signal spell_casted(event: Event)
 signal spell_targeted(event: Event)
 signal earn_gold(amount: float, _mystery_bool_1: bool, _mystery_bool_2: bool)
+signal buff_list_changed()
 
 
 signal selected()
@@ -839,6 +840,8 @@ func _add_buff_internal(buff: Buff):
 	var buff_modifier: Modifier = buff.get_modifier()
 	_apply_modifier(buff_modifier, buff.get_power(), 1)
 	add_child(buff)
+	
+	buff_list_changed.emit()
 
 
 func _apply_modifier(modifier: Modifier, power: int, modify_direction: int):
@@ -909,6 +912,7 @@ func _remove_buff_internal(buff: Buff):
 	var friendly: bool = buff.is_friendly()
 	_get_buff_list(friendly).erase(buff)
 	buff.queue_free()
+	buff_list_changed.emit()
 
 func _on_modify_property():
 	pass
@@ -1172,6 +1176,7 @@ func purge_buff(friendly: bool) -> bool:
 		var buff: Buff = purgable_list.back()
 		buff.purge_buff()
 		
+		buff_list_changed.emit()
 		return true
 	else:
 		return false

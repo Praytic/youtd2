@@ -1,6 +1,5 @@
-[gd_scene load_steps=14 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=13 format=3 uid="uid://cngv1rgplre2c"]
 
-[ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TowerInfoHeader.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
@@ -66,16 +65,6 @@ theme = ExtResource("1_mod6x")
 
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2
-
-[node name="TowerInfoHeader" parent="." instance=ExtResource("1")]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -188.0
-offset_right = -188.0
-grow_horizontal = 2
-scale = Vector2(0.567118, 0.567118)
 
 [node name="TowerInfo" parent="." instance=ExtResource("12")]
 visible = false
@@ -174,5 +163,4 @@ offset_right = 0.00012207
 offset_bottom = 6.10352e-05
 scale = Vector2(0.8, 0.8)
 
-[connection signal="expanded" from="TowerInfoHeader" to="." method="_on_TowerInfoHeader_expanded"]
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]

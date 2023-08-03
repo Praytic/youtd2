@@ -3,6 +3,7 @@ extends Control
 
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
+const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.png")
 
 @export var _upgrade_button: Button
 @export var _sell_button: Button
@@ -16,6 +17,7 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @export var _tower_level_label: Label
 @export var _tower_control_menu: VBoxContainer
 @export var _tower_stats_menu: ScrollContainer
+@export var _buffs_container: GridContainer
 
 
 var _moved_item_button: ItemButton = null
@@ -50,13 +52,16 @@ func _on_selected_unit_changed(prev_unit = null):
 
 	if prev_unit != null and prev_unit is Tower:
 		prev_unit.items_changed.disconnect(on_tower_items_changed)
+		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
 
 	if tower != null:
 		tower.items_changed.connect(on_tower_items_changed)
+		tower.buff_list_changed.connect(_on_unit_buff_list_changed)
 		on_tower_items_changed()
 		_update_upgrade_button()
 		_update_tower_name_label()
 		_update_tower_level_label()
+		_on_unit_buff_list_changed()
 		
 		show()
 
@@ -72,10 +77,14 @@ func get_selected_tower() -> Tower:
 
 
 func on_tower_items_changed():
+	var tower = get_selected_tower()
+	if tower == null:
+		return
+	
 	for button in _items_box_container.get_children():
 		button.queue_free()
 
-	var items: Array[Item] = get_selected_tower().get_items()
+	var items: Array[Item] = tower.get_items()
 
 	for item in items:
 		var item_button = ItemButton.make(item)
@@ -88,11 +97,17 @@ func on_tower_items_changed():
 
 func _update_tower_name_label():
 	var tower = get_selected_tower()
+	if tower == null:
+		return
+	
 	_tower_name_label.text = tower.get_display_name()
 
 
 func _update_tower_level_label():
 	var tower = get_selected_tower()
+	if tower == null:
+		return
+	
 	_tower_level_label.text = str(tower.get_level())
 
 
@@ -116,6 +131,9 @@ func _on_item_move_from_tower_done(_success: bool):
 
 func _on_upgrade_button_pressed():
 	var tower: Tower = get_selected_tower()
+	if tower == null:
+		return
+	
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	if upgrade_id == -1:
@@ -153,6 +171,9 @@ func _get_upgrade_id_for_tower(tower: Tower) -> int:
 
 func _update_upgrade_button():
 	var tower = get_selected_tower()
+	if tower == null:
+		return
+	
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	var can_upgrade: bool
@@ -175,6 +196,9 @@ func _on_sell_button_pressed():
 		return
 
 	var tower: Tower = get_selected_tower()
+	if tower == null:
+		return
+	
 
 # 	Return tower items to storage
 	var item_list: Array[Item] = tower.get_items()
@@ -220,6 +244,9 @@ func _on_info_button_pressed(button_pressed: bool):
 
 func _on_upgrade_button_mouse_entered():
 	var tower: Tower = get_selected_tower()
+	if tower == null:
+		return
+	
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	if upgrade_id == -1:
@@ -230,3 +257,49 @@ func _on_upgrade_button_mouse_entered():
 
 func _on_upgrade_button_mouse_exited():
 	EventBus.tower_button_mouse_exited.emit()
+
+
+func _on_unit_buff_list_changed():
+	var tower: Tower = get_selected_tower()
+	if tower == null:
+		return
+	
+	
+	var friendly_buff_list: Array[Buff] = tower._get_buff_list(true)
+	var unfriendly_buff_list: Array[Buff] = tower._get_buff_list(false)
+
+	var buff_list: Array[Buff] = []
+	buff_list.append_array(friendly_buff_list)
+	buff_list.append_array(unfriendly_buff_list)
+
+# 	NOTE: remove trigger buffs, they have empty type and
+# 	shouldn't be displayed
+	var trigger_buff_list: Array[Buff] = []
+
+	for buff in buff_list:
+		var is_trigger_buff: bool = buff.get_type().is_empty()
+		if is_trigger_buff:
+			trigger_buff_list.append(buff)
+
+	for buff in trigger_buff_list:
+		buff_list.erase(buff)
+
+	for buff_icon in _buffs_container.get_children():
+		buff_icon.queue_free()
+
+	for buff in buff_list:
+		var tooltip: String = buff.get_tooltip_text()
+		var buff_icon = TextureRect.new()
+		buff_icon.set_tooltip_text(tooltip)
+
+		var texture_path: String = buff.get_buff_icon()
+
+		if !ResourceLoader.exists(texture_path):
+			if buff.is_friendly():
+				texture_path = "res://Assets/Buffs/buff_plus.png"
+			else:
+				texture_path = "res://Assets/Buffs/buff_minus.png"
+
+		var texture: Texture2D = load(texture_path)
+		buff_icon.texture = texture
+		_buffs_container.add_child(buff_icon)
