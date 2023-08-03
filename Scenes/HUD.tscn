@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=14 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="PackedScene" uid="uid://d3q18yfgnyvq2" path="res://Scenes/HUD/TowerInfoHeader.tscn" id="1"]
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="12"]
-[ext_resource type="PackedScene" uid="uid://bbq8xnlx68q72" path="res://Scenes/HUD/TowerActions.tscn" id="12_2t2wp"]
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="15_rfxf1"]
 [ext_resource type="PackedScene" uid="uid://b41jiom5a6uq8" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
@@ -112,9 +111,6 @@ grow_vertical = 0
 scale = Vector2(0.8, 0.8)
 mouse_force_pass_scroll_events = false
 _research_panel = NodePath("../ResearchMenu")
-
-[node name="TowerActions" parent="." instance=ExtResource("12_2t2wp")]
-layout_mode = 1
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
 show_behind_parent = true
