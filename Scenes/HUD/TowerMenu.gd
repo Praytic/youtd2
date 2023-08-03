@@ -14,6 +14,8 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 @export var _tower_icon_texture: TextureRect
 @export var _tower_specials_container: VBoxContainer
 @export var _tower_level_label: Label
+@export var _tower_control_menu: VBoxContainer
+@export var _tower_stats_menu: ScrollContainer
 
 
 var _moved_item_button: ItemButton = null
@@ -33,7 +35,7 @@ func _ready():
 	
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
-	_info_button.pressed.connect(_on_info_button_mouse_entered)
+	_info_button.toggled.connect(_on_info_button_pressed)
 
 
 func _on_wave_or_element_level_changed():
@@ -207,14 +209,13 @@ func _set_selling_for_real(value: bool):
 		_reset_sell_button_timer.stop()
 
 
-func _on_info_button_mouse_entered():
-	var tower: Tower = get_selected_tower()
-	var tower_id: int = tower.get_id()
-	EventBus.tower_button_mouse_entered.emit(tower_id)
-
-
-func _on_info_button_mouse_exited():
-	EventBus.tower_button_mouse_exited.emit()
+func _on_info_button_pressed(button_pressed: bool):
+	if button_pressed:
+		_tower_control_menu.hide()
+		_tower_stats_menu.show()
+	else:
+		_tower_control_menu.show()
+		_tower_stats_menu.hide()
 
 
 func _on_upgrade_button_mouse_entered():
