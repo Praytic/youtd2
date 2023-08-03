@@ -79,11 +79,7 @@ func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficul
 
 	Messages.add_normal("Welcome to youtd 2!")
 	Messages.add_normal("Game settings: %d waves, %s difficulty" % [wave_count, difficulty_string])
-	Messages.add_normal("Move the camera with arrow keys or WASD.")
-	Messages.add_normal("To build towers, click on the tower button in the bottom right corner.")
-	Messages.add_normal("Select one of the elements and pick a tower.")
-	Messages.add_normal("Move the mouse cursor to a spot where you want to build the tower.")
-	Messages.add_normal("When there's a valid build position, the tower under the cursor will turn green.")
+	Messages.add_normal("You can pause the game by pressing F10")
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
 
