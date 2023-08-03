@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://hiex318b5cvk"]
+[gd_scene load_steps=4 format=3 uid="uid://hiex318b5cvk"]
 
 [ext_resource type="Script" path="res://Scenes/PauseHUD/PauseHUD.gd" id="1_8lyul"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_v8b77"]
+[ext_resource type="PackedScene" uid="uid://bbrryq35rxvkv" path="res://Scenes/PauseHUD/HintsMenu.tscn" id="3_vf4xx"]
 
 [node name="PauseHUD" type="Control"]
 layout_mode = 3
@@ -22,27 +23,42 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
-[node name="PauseMenu" type="VBoxContainer" parent="."]
+[node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -71.5
+offset_top = -103.5
+offset_right = 71.5
+offset_bottom = 103.5
 grow_horizontal = 2
 grow_vertical = 2
+tabs_visible = false
 
-[node name="Label" type="Label" parent="PauseMenu"]
+[node name="PauseMenu" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/PauseMenu"]
 layout_mode = 2
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="ResumeButton" type="Button" parent="PauseMenu"]
+[node name="HintsButton" type="Button" parent="TabContainer/PauseMenu"]
+layout_mode = 2
+text = "Hints"
+
+[node name="ResumeButton" type="Button" parent="TabContainer/PauseMenu"]
 layout_mode = 2
 text = "Resume"
 
-[connection signal="pressed" from="PauseMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
+[node name="HintsMenu" parent="TabContainer" instance=ExtResource("3_vf4xx")]
+visible = false
+layout_mode = 2
+
+[connection signal="hidden" from="." to="." method="_on_hidden"]
+[connection signal="pressed" from="TabContainer/PauseMenu/HintsButton" to="." method="_on_hints_button_pressed"]
+[connection signal="pressed" from="TabContainer/PauseMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="closed" from="TabContainer/HintsMenu" to="." method="_on_hints_menu_closed"]

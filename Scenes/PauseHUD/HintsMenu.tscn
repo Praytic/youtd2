@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbrryq35rxvkv"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_njctg"]
+[ext_resource type="Script" path="res://Scenes/PauseHUD/HintsMenu.gd" id="2_jpay6"]
+
+[node name="HintsMenu" type="PanelContainer"]
+custom_minimum_size = Vector2(900, 600)
+offset_right = 900.0
+offset_bottom = 705.0
+theme = ExtResource("1_njctg")
+script = ExtResource("2_jpay6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Hints"
+horizontal_alignment = 1
+
+[node name="HSplitContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Tree" type="Tree" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+hide_root = true
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="HintsTextLabel" type="RichTextLabel" parent="VBoxContainer/HSplitContainer/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Hint text goes here."
+
+[node name="CloseButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Close"
+
+[connection signal="item_selected" from="VBoxContainer/HSplitContainer/Tree" to="." method="_on_tree_item_selected"]
+[connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
