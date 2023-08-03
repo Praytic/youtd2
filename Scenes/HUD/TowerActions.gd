@@ -33,6 +33,5 @@ func _on_selected_unit_changed():
 	visible = selected_unit != null && selected_unit is Tower
 
 	if selected_unit is Tower:
-		position = selected_unit.position
 		var tower: Tower = selected_unit as Tower
 		_update_autocasts(tower)

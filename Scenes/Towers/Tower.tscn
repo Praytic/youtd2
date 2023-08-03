@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1u2fghaw2oji"]
+[gd_scene load_steps=6 format=3 uid="uid://d1u2fghaw2oji"]
 
 [ext_resource type="Script" path="res://Scenes/Towers/Tower.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://bbq8xnlx68q72" path="res://Scenes/HUD/TowerActions.tscn" id="3_jgb58"]
 [ext_resource type="Script" path="res://Scenes/Towers/RangeIndicator.gd" id="5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25shh"]
@@ -40,3 +41,9 @@ offset_bottom = 20.0
 theme_override_styles/background = SubResource("StyleBoxFlat_25shh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xfdtb")
 show_percentage = false
+
+[node name="TowerActions" parent="." instance=ExtResource("3_jgb58")]
+offset_left = -73.0
+offset_top = -295.0
+offset_right = -73.0
+offset_bottom = -295.0
