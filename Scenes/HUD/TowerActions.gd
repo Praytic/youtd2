@@ -15,8 +15,7 @@ func _ready():
 
 
 func _update_autocasts(tower: Tower):
-	for button in _autocasts_container.get_children():
-		button.queue_free()
+	_clear_autocasts()
 
 	var autocast_list: Array[Autocast] = tower.get_autocast_list()
 
@@ -26,6 +25,10 @@ func _update_autocasts(tower: Tower):
 		_autocasts_container.add_child(autocast_button)
 
 
+func _clear_autocasts():
+	for button in _autocasts_container.get_children():
+		button.queue_free()
+
 func _on_selected_unit_changed(_prev_unit = null):
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 	
@@ -34,6 +37,8 @@ func _on_selected_unit_changed(_prev_unit = null):
 	if selected_unit is Tower and selected_unit == _tower:
 		var tower: Tower = selected_unit as Tower
 		_update_autocasts(tower)
+	else:
+		_clear_autocasts()
 
 
 func set_tower(value: Tower):

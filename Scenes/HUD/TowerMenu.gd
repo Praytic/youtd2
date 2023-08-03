@@ -21,6 +21,8 @@ var _selling_for_real: bool = false
 
 
 func _ready():
+	hide()
+	
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
 	_on_selected_unit_changed()
@@ -35,7 +37,8 @@ func _ready():
 
 
 func _on_wave_or_element_level_changed():
-	_update_upgrade_button()
+	if get_selected_tower() != null:
+		_update_upgrade_button()
 
 
 func _on_selected_unit_changed(prev_unit = null):
@@ -52,6 +55,8 @@ func _on_selected_unit_changed(prev_unit = null):
 		_update_upgrade_button()
 		_update_tower_name_label()
 		_update_tower_level_label()
+		
+		show()
 
 	_set_selling_for_real(false)
 
