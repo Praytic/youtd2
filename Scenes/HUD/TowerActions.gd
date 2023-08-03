@@ -1,18 +1,17 @@
 extends Control
 
-# Container for active tower specials
+# Container for active (autocast) tower specials
 
 @export var _autocasts_container: VBoxContainer
-@export var _autocast_button_placeholder: Button
 
 
 var _selling_for_real: bool = false
+var _tower: Tower : set = set_tower
 
 
 func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	_on_selected_unit_changed()
-	_autocast_button_placeholder.queue_free()
 
 
 func _update_autocasts(tower: Tower):
@@ -32,6 +31,10 @@ func _on_selected_unit_changed():
 	
 	visible = selected_unit != null && selected_unit is Tower
 
-	if selected_unit is Tower:
+	if selected_unit is Tower and selected_unit == _tower:
 		var tower: Tower = selected_unit as Tower
 		_update_autocasts(tower)
+
+
+func set_tower(value: Tower):
+	_tower = value

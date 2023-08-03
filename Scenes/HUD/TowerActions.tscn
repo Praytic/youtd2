@@ -1,17 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbq8xnlx68q72"]
+[gd_scene load_steps=3 format=3 uid="uid://bbq8xnlx68q72"]
 
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_h5f7b"]
+[ext_resource type="Theme" uid="uid://1n4ocvljlc0a" path="res://Resources/Theme/tower_actions_theme.tres" id="1_hee0q"]
 [ext_resource type="Script" path="res://Scenes/HUD/TowerActions.gd" id="2_a8n8y"]
-[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="3_3cs4h"]
 
-[node name="TowerActions" type="Control" node_paths=PackedStringArray("_autocasts_container", "_autocast_button_placeholder")]
-modulate = Color(1, 1, 1, 0.713726)
+[node name="TowerActions" type="Control" node_paths=PackedStringArray("_autocasts_container")]
 layout_mode = 3
 anchors_preset = 0
-theme = ExtResource("1_h5f7b")
+theme = ExtResource("1_hee0q")
 script = ExtResource("2_a8n8y")
 _autocasts_container = NodePath("AutocastsOuterContainer/AutocastsContainer")
-_autocast_button_placeholder = NodePath("AutocastsOuterContainer/AutocastsContainer/AutocastButtonPlaceholder")
 
 [node name="AutocastsOuterContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -22,7 +19,3 @@ offset_bottom = 96.0
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 8
-
-[node name="AutocastButtonPlaceholder" type="Button" parent="AutocastsOuterContainer/AutocastsContainer"]
-layout_mode = 2
-icon = ExtResource("3_3cs4h")

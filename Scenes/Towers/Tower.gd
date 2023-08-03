@@ -74,7 +74,7 @@ var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 @onready var _mana_bar: ProgressBar = $ManaBar
 @onready var _tower_selection_area: Area2D = $TowerSelectionArea
 @onready var _sprite: Sprite2D = $Base
-
+@onready var _tower_actions: Control = $TowerActions
 
 #########################
 ### Code starts here  ###
@@ -165,6 +165,10 @@ func _ready():
 	unselected.connect(on_unselected)
 
 	_temp_preceding_tower = null
+	
+	# Need to create instance only if Tower has active specials
+	_tower_actions.set_tower(self)
+	
 
 
 # NOTE: need to do attack timing without Timer because Timer
@@ -538,10 +542,12 @@ func get_tier_stats() -> Dictionary:
 
 func on_selected():
 	_range_indicator.show()
+	_tower_actions.show()
 
 
 func on_unselected():
 	_range_indicator.hide()
+	_tower_actions.hide()
 
 
 func _get_base_properties() -> Dictionary:
