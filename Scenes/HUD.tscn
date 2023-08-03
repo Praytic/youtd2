@@ -168,6 +168,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TowerMenu" parent="." instance=ExtResource("15_rfxf1")]
 layout_mode = 1
+offset_left = 0.00012207
+offset_top = 6.10352e-05
+offset_right = 0.00012207
+offset_bottom = 6.10352e-05
 scale = Vector2(0.8, 0.8)
 
 [connection signal="expanded" from="TowerInfoHeader" to="." method="_on_TowerInfoHeader_expanded"]
