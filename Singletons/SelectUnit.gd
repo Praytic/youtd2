@@ -4,7 +4,7 @@ extends Node
 # over units. Needed because only one unit may be hovered or
 # selected at a time.
 
-signal selected_unit_changed()
+signal selected_unit_changed(prev_unit: Unit)
 
 
 var _units_under_mouse_list: Array[Unit] = []
@@ -32,7 +32,7 @@ func set_selected_unit(new_selected_unit: Unit):
 			new_selected_unit.tree_exiting.connect(on_unit_tree_exiting.bind(new_selected_unit))
 
 	_selected_unit = new_selected_unit
-	selected_unit_changed.emit()
+	selected_unit_changed.emit(old_selected_unit)
 
 
 func get_selected_unit() -> Unit:

@@ -30,7 +30,7 @@ atlas = ExtResource("2_kbar0")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="TowerMenu" type="Control" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_reset_sell_button_timer", "_items_box_container")]
+[node name="TowerMenu" type="Control" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_tower_name_label", "_tower_info_label", "_tower_icon_texture", "_tower_specials_container", "_tower_level_label")]
 layout_mode = 3
 anchors_preset = 6
 anchor_left = 1.0
@@ -43,8 +43,14 @@ theme = ExtResource("1_crn3l")
 script = ExtResource("2_sqv8k")
 _upgrade_button = NodePath("MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/TowerUpgradeButton")
 _sell_button = NodePath("MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/SellTowerButton")
+_info_button = NodePath("MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/TowerInfoButton")
 _reset_sell_button_timer = NodePath("ResetSellButtonTimer")
 _items_box_container = NodePath("MarginContainer/Panel/MarginContainer/VBoxContainer/ItemsContainer/MarginContainer2/HBoxContainer")
+_tower_name_label = NodePath("MarginContainer/MarginContainer2/TowerName")
+_tower_info_label = NodePath("MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer/MarginContainer2/RichTextLabel")
+_tower_icon_texture = NodePath("MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/HBoxContainer/MarginContainer/UnitButtonContainer/TextureRect")
+_tower_specials_container = NodePath("MarginContainer/Panel/MarginContainer/VBoxContainer/SpecialsContainer/MarginContainer2/ScrollContainer/VBoxContainer")
+_tower_level_label = NodePath("MarginContainer/MarginContainer/VBoxContainer2/TowerLevelLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -257,6 +263,7 @@ horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 mouse_filter = 2
 theme_override_constants/margin_left = -20
 theme_override_constants/margin_top = -20
@@ -267,7 +274,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
 
-[node name="TowerLevelButton" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer2"]
+[node name="TowerLevelLabel" type="Label" parent="MarginContainer/MarginContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 0

@@ -6,11 +6,16 @@ const SELL_BUTTON_RESET_TIME: float = 5.0
 
 @export var _upgrade_button: Button
 @export var _sell_button: Button
+@export var _info_button: Button
 @export var _reset_sell_button_timer: Timer
 @export var _items_box_container: HBoxContainer
+@export var _tower_name_label: Label
+@export var _tower_info_label: RichTextLabel
+@export var _tower_icon_texture: TextureRect
+@export var _tower_specials_container: VBoxContainer
+@export var _tower_level_label: Label
 
 
-var _tower: Tower = null
 var _moved_item_button: ItemButton = null
 var _selling_for_real: bool = false
 
@@ -23,47 +28,47 @@ func _ready():
 	ItemMovement.item_move_from_tower_done.connect(_on_item_move_from_tower_done)
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
+	
+	_sell_button.pressed.connect(_on_sell_button_pressed)
+	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
+	_info_button.pressed.connect(_on_info_button_mouse_entered)
 
 
 func _on_wave_or_element_level_changed():
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
-
-	if selected_unit != null && selected_unit is Tower:
-		var tower: Tower = selected_unit as Tower
+	var tower: Tower = get_selected_tower()
+	if tower != null:
 		_update_upgrade_button(tower)
 
 
-func _on_selected_unit_changed():
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
+func _on_selected_unit_changed(prev_unit = null):
+	var tower: Tower = get_selected_tower()
 	
-	visible = selected_unit != null && selected_unit is Tower
+	visible = tower != null
 
-	if selected_unit is Tower:
-		var tower: Tower = selected_unit as Tower
-		set_tower(tower)
+	if prev_unit != null and prev_unit is Tower:
+		prev_unit.items_changed.disconnect(on_tower_items_changed)
+
+	if tower != null:
+		tower.items_changed.connect(on_tower_items_changed)
+		on_tower_items_changed()
 		_update_upgrade_button(tower)
 
 	_set_selling_for_real(false)
 
 
-func set_tower(tower: Tower):
-	var prev_tower: Tower = _tower
-	var new_tower: Tower = tower
-	_tower = new_tower
-
-	if prev_tower != null:
-		prev_tower.items_changed.disconnect(on_tower_items_changed)
-
-	if new_tower != null:
-		new_tower.items_changed.connect(on_tower_items_changed)
-		on_tower_items_changed()
+func get_selected_tower() -> Tower:
+	var selected_unit = SelectUnit.get_selected_unit()
+	if selected_unit is Tower:
+		return selected_unit as Tower
+	else:
+		return null
 
 
 func on_tower_items_changed():
 	for button in _items_box_container.get_children():
 		button.queue_free()
 
-	var items: Array[Item] = _tower.get_items()
+	var items: Array[Item] = get_selected_tower().get_items()
 
 	for item in items:
 		var item_button = ItemButton.make(item)
@@ -93,7 +98,7 @@ func _on_item_move_from_tower_done(_success: bool):
 
 
 func _on_upgrade_button_pressed():
-	var tower: Tower = SelectUnit.get_selected_unit() as Tower
+	var tower: Tower = get_selected_tower()
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	if upgrade_id == -1:
@@ -151,7 +156,7 @@ func _on_sell_button_pressed():
 
 		return
 
-	var tower: Tower = SelectUnit.get_selected_unit() as Tower
+	var tower: Tower = get_selected_tower()
 
 # 	Return tower items to storage
 	var item_list: Array[Item] = tower.get_items()
@@ -187,7 +192,7 @@ func _set_selling_for_real(value: bool):
 
 
 func _on_info_button_mouse_entered():
-	var tower: Tower = SelectUnit.get_selected_unit() as Tower
+	var tower: Tower = get_selected_tower()
 	var tower_id: int = tower.get_id()
 	EventBus.tower_button_mouse_entered.emit(tower_id)
 
@@ -197,7 +202,7 @@ func _on_info_button_mouse_exited():
 
 
 func _on_upgrade_button_mouse_entered():
-	var tower: Tower = SelectUnit.get_selected_unit() as Tower
+	var tower: Tower = get_selected_tower()
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	if upgrade_id == -1:
