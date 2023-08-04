@@ -59,8 +59,8 @@ func set_tower_tooltip_text(tower):
 	
 	for tower_stat_label in _tower_stat_percent_labels:
 		var stat = _get_stat(tower_stat_label, tower)
-		tower_stat_label.text = _percent_format(stat)
-	
+		tower_stat_label.text = Utils.format_percent(stat, 1)
+
 	for tower_stat_label in _tower_stat_percent_signed_labels:
 		var stat = _get_stat(tower_stat_label, tower)
 		tower_stat_label.text = _percent_signed_format(stat)
@@ -132,9 +132,6 @@ func _percent_signed_format(number, base = 0.0) -> String:
 
 func _multiplier_format(number) -> String:
 	return "x%.2f" % number
-
-func _percent_format(number) -> String:
-	return "%d%%" % (number * 100)
 
 func _float_format(number) -> String:
 	return "%.2f" % number
