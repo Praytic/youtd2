@@ -279,6 +279,8 @@ layout_mode = 2
 [node name="TowerStatsMenu" type="ScrollContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer"]
 visible = false
 layout_mode = 2
+mouse_filter = 0
+horizontal_scroll_mode = 0
 
 [node name="TowerInfo" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerStatsMenu" instance=ExtResource("6_calw6")]
 layout_mode = 2

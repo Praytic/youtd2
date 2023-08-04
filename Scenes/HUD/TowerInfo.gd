@@ -13,9 +13,10 @@ var _current_tower: Tower = null
 @onready var _tower_stat_percent_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent")
 @onready var _tower_stat_percent_signed_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent_signed")
 @onready var _tower_stat_multiplier_labels: Array = get_tree().get_nodes_in_group("tower_stat_multiplier")
-@onready var _tower_details_label: RichTextLabel = $VBoxContainer/MarginContainer/VBoxContainer/MultiboardContainer/TowerDetailsLabel
-@onready var _level_x_at_label: Label = %LevelXAt
-@onready var _exp_for_next_level_label: Label = $VBoxContainer/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/ExperienceForNextLevel
+
+@export var _tower_details_label: RichTextLabel
+@export var _level_x_at_label: Label
+@export var _exp_for_next_level_label: Label
 
 
 func _ready():
