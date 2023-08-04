@@ -30,11 +30,13 @@ disabled = true
 text = "Splash attack"
 icon = SubResource("AtlasTexture_cjbga")
 alignment = 0
+text_overrun_behavior = 1
 
 [node name="TowerSpecialLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.36
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "	[color=GOLD]320[/color] AoE: [color=GOLD]50%[/color] damage
 [color=GOLD]+15%[/color] damage to mass ([color=GOLD]+1%[/color]/lvl)

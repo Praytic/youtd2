@@ -128,6 +128,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=ff4500ff]30[/color] [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]0[/color]
 [color=LIGHT_BLUE]Basic nature tower with a slightly increased chance to critical strike.[/color]
@@ -136,6 +137,7 @@ text = "[img=32x32]res://Resources/Textures/gold.tres[/img] [color=ff4500ff]30[/
 [color=YELLOW]Attack:[/color] [color=GOLD]28[/color] dps, [color=d2b48cff]Physical[/color], [color=GOLD]800[/color] range
 "
 fit_content = true
+scroll_active = false
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer"]
 layout_mode = 2
