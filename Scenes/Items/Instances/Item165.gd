@@ -2,22 +2,22 @@
 extends Item
 
 
-func get_extra_tooltip_text() -> String:
+func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Learn[/color]\n"
 	text += "Grants a tower 1 experience.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.04 experience\n"
-	text += " \n"
-	text += "15s cooldown\n"
 
 	return text
 
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Learn"
+	autocast.description = get_autocast_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "AlimTarget.mdl"
 	autocast.num_buffs_before_idle = 0

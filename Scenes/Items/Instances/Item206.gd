@@ -2,19 +2,19 @@
 extends Item
 
 
-func get_extra_tooltip_text() -> String:
+func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Siphon Knowledge[/color]\n"
 	text += "Removes a flat 15 to 60 exp from a random tower in range and gives it to the caster.\n"
-	text += " \n"
-	text += "30s cooldown\n"
 
 	return text
 
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Siphon Knowledge"
+	autocast.description = get_autocast_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

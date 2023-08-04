@@ -2,15 +2,12 @@
 extends Item
 
 
-func get_extra_tooltip_text() -> String:
+func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Purchase an Item[/color]\n"
 	text += "Spend a charge to buy a random item for 500 gold. The item will be of level 14-25 and uncommon or higher rarity."
 	text += " \n"
 	text += "Gains a charge every 5th wave, up to a maximum of 5 charges. This ability is not affected by item quality.\n"
-	text += " \n"
-	text += "1s cooldown\n"
 
 	return text
 
@@ -64,6 +61,9 @@ func check_level(itm: Item):
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Purchase an Item"
+	autocast.description = get_autocast_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

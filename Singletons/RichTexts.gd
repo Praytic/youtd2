@@ -94,18 +94,8 @@ func get_tower_text(tower_id: int) -> String:
 		text += " \n%s\n" % extra_text
 
 	for autocast in tower.get_autocast_list():
-		var title: String = autocast.title
-		var autocast_description: String = autocast.description
-		autocast_description = add_color_to_numbers(autocast_description)
-		var mana_cost: String = str(autocast.mana_cost)
-		var cast_range: String = str(autocast.cast_range)
-		var autocast_cooldown: String = Utils.format_float(autocast.cooldown, 2)
-
 		text += " \n"
-		text += "[color=GOLD]%s[/color]\n" % title
-		text += "%s\n" % autocast_description
-		text += " \n"
-		text += "Mana cost: %s, %s range, %ss cooldown" % [mana_cost, cast_range, autocast_cooldown]
+		text += get_autocast_text(autocast, true)
 	
 	return text
 
@@ -167,6 +157,9 @@ func get_item_text(item: Item) -> String:
 	var autocast: Autocast = item.get_autocast()
 
 	if autocast != null:
+		text += " \n"
+		text += get_autocast_text(autocast, false)
+
 		var item_is_on_tower: bool = item.get_carrier() != null
 		var is_manual_cast: bool = !autocast.can_use_auto_mode()
 
@@ -239,3 +232,31 @@ func get_colored_requirement_number(value: int, requirement_satisfied: bool) -> 
 	var string: String = "[color=%s]%d[/color]" % [color.to_html(), value]
 
 	return string
+
+
+func get_autocast_text(autocast: Autocast, for_tower: bool) -> String:
+	var title: String = autocast.title
+	var autocast_description: String = autocast.description
+	autocast_description = add_color_to_numbers(autocast_description)
+	var mana_cost: String = "Mana cost: %s" % str(autocast.mana_cost)
+	var cast_range: String = "%s range" % str(autocast.cast_range)
+	var autocast_cooldown: String = "%ss cooldown" % str(autocast.cooldown)
+
+	var text: String = ""
+	text += "[color=GOLD]%s[/color]\n" % title
+	text += "%s\n" % autocast_description
+
+	var stats_list: Array[String] = []
+	if autocast.mana_cost > 0:
+		stats_list.append(mana_cost)
+	if autocast.cast_range > 0:
+		stats_list.append(cast_range)
+	if autocast.cooldown > 0:
+		stats_list.append(autocast_cooldown)
+
+	if !stats_list.is_empty():
+		var stats_line: String = ", ".join(stats_list) + "\n";
+		text += " \n"
+		text += stats_line
+
+	return text

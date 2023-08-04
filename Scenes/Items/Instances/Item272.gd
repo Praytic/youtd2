@@ -5,15 +5,11 @@ extends Item
 var boekie_scroll_damage: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Strength Boost[/color]\n"
 	text += "Upon activation, towers in 350 range receive 10% bonus base damage for 4 seconds. Costs 1 charge.\n"
 	text += " \n"
-	text += "4s cooldown\n"
-	text += " \n"
-	text += "[color=GOLD]Recharge[/color]\n"
 	text += "Regenerates 3 charges every 40 seconds up to a maximum of 10 charges.\n"
 
 	return text
@@ -25,6 +21,9 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Strength Boost"
+	autocast.description = get_autocast_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = "DispelMagicTarget.mdl"
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

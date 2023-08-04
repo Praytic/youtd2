@@ -2,13 +2,10 @@
 extends Item
 
 
-func get_extra_tooltip_text() -> String:
+func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Insane Strength[/color]\n"
 	text += "When this item is activated the next 12 attacks will deal 200% damage but the user becomes exhausted. When the user is exhausted it deals only 50% damage on the next 16 attacks.\n"
-	text += " \n"
-	text += "120s cooldown\n"
 
 	return text
 
@@ -43,6 +40,9 @@ func on_damage(event: Event):
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Insane Strength"
+	autocast.description = get_autocast_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

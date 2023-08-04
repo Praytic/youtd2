@@ -10,10 +10,9 @@ var boekie_backpackBuff: BuffType
 var boekie_backpackMB: MultiboardValues
 
 
-func get_extra_tooltip_text() -> String:
+func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Search For Item[/color]\n"
 	text += "Every 150 seconds the next kill will drop an item for sure."
 
 	return text
@@ -28,6 +27,9 @@ func on_autocast(_event: Event):
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Search For Item"
+	autocast.description = get_autocast_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0

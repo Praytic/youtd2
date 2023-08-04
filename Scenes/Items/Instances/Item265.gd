@@ -2,19 +2,19 @@
 extends Item
 
 
-func get_extra_tooltip_text() -> String:
+func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Transfer Experience[/color]\n"
 	text += "Transfers a flat 30 experience from this tower to another one.\n"
-	text += " \n"
-	text += "60s cooldown\n"
 
 	return text
 
 
 func item_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Transfer Experience"
+	autocast.description = get_autocast_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = "DispelMagicTarget.mdl"
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 1

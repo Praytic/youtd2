@@ -9,17 +9,14 @@ extends Item
 var drol_talisman: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Shamanistic Ritual[/color]\n"
 	text += "Performs a shamanistic ritual on a nearby tower, granting it 20% more experience gain and 10% more damage for 10 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.8% experience\n"
 	text += "+0.2% damage\n"
-	text += " \n"
-	text += "10s cooldown\n"
 	
 	return text
 
@@ -38,6 +35,9 @@ func item_init():
 	drol_talisman.set_buff_tooltip("Shamanistic Ritual\nThis unit is affected by Shamanistic Ritual; it will receive more experience and has increased attack damage.")
 
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Shamanistic Ritual"
+	autocast.description = get_autocast_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "HealingWaveTarget.mdl"
 	autocast.num_buffs_before_idle = 1

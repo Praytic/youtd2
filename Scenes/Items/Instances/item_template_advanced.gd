@@ -5,10 +5,9 @@ extends Item
 # scripts. Use for advanced items that have special effects.
 
 
-# func get_extra_tooltip_text() -> String:
+# func get_autocast_description() -> String:
 # 	var text: String = ""
 
-# 	text += "[color=GOLD]Title[/color]\n"
 # 	text += "Description"
 # 	text += " \n"
 # 	text += "[color=ORANGE]Level Bonus:[/color]\n"
@@ -37,6 +36,9 @@ extends Item
 # 	example_buff.set_buff_tooltip("Title\nDescription.")
 
 # 	var autocast: Autocast = Autocast.make()
+#	autocast.title = "Title"
+#	autocast.description = get_autocast_description()
+#	autocast.icon = "res://Resources/Textures/gold.tres"
 # 	autocast.caster_art = ""
 # 	autocast.target_art = ""
 # 	autocast.num_buffs_before_idle = 0
