@@ -48,7 +48,7 @@ _info_button = NodePath("VBoxContainer/MarginContainer/MarginContainer/VBoxConta
 _reset_sell_button_timer = NodePath("ResetSellButtonTimer")
 _items_box_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/ItemsContainer/MarginContainer2/HBoxContainer")
 _tower_name_label = NodePath("VBoxContainer/MarginContainer/MarginContainer2/TowerName")
-_tower_info_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer2/RichTextLabel")
+_tower_info_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
 _tower_icon_texture = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/UnitButtonContainer/TextureRect")
 _tower_specials_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/VBoxContainer")
 _tower_level_label = NodePath("VBoxContainer/MarginContainer/MarginContainer/VBoxContainer2/TowerLevelLabel")
@@ -124,7 +124,7 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer2"]
+[node name="InfoLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
