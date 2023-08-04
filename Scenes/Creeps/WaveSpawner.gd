@@ -379,7 +379,7 @@ func _add_message_about_wave(wave: Wave):
 	var special_list: Array[int] = wave.get_specials()
 
 	for special in special_list:
-		var name: String = WaveSpecial.convert_to_string(special)
+		var name: String = WaveSpecial.get_special_name(special)
 		var description: String = WaveSpecial.get_description(special)
 		var special_string: String = "[color=BLUE]%s[/color] - %s" % [name, description]
 

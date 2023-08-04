@@ -101,7 +101,7 @@ func _get_specials_string(wave: Wave) -> String:
 	var string_list: Array[String] = []
 
 	for special in special_list:
-		var string: String = WaveSpecial.convert_to_string(special)
+		var string: String = WaveSpecial.get_special_name(special)
 		string_list.append(string)
 
 	var specials_string: String = ", ".join(string_list)

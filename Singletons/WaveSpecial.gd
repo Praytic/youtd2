@@ -83,7 +83,7 @@ func _init():
 
 	for special in _buff_map.keys():
 		var buff: BuffType = _buff_map[special]
-		var special_name: String = convert_to_string(special)
+		var special_name: String = get_special_name(special)
 		var description: String = get_description(special)
 		var tooltip: String = "%s\n%s" % [special_name, description]
 
@@ -139,7 +139,7 @@ func get_random(wave: Wave) -> Array[int]:
 	return random_special_list
 
 
-func convert_to_string(special: int) -> String:
+func get_special_name(special: int) -> String:
 	var string: String = _get_property(special, WaveSpecial.CsvProperty.NAME)
 
 	return string
