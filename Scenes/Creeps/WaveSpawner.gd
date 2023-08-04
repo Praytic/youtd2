@@ -144,7 +144,7 @@ func _start_next_wave():
 	
 	spawn_wave(current_wave)
 	
-	Messages.add_normal("Wave %d" % current_wave.get_wave_number())
+	_add_message_about_wave(current_wave)
 	
 	print_verbose("Wave has started [%s]." % current_wave)
 	wave_started.emit(current_wave)
@@ -240,6 +240,8 @@ func _on_Wave_ended(wave: Wave):
 		return
 
 	print_verbose("Wave [%s] is cleared." % wave)
+
+	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % wave.get_wave_number())
 
 	wave_ended.emit(wave)
 
@@ -359,3 +361,17 @@ func _generate_creep_size(wave_number: int) -> CreepSize.enm:
 		var random_regular_creep: CreepSize.enm = Utils.random_weighted_pick(_size_chances)
 
 		return random_regular_creep
+
+
+func _add_message_about_wave(wave: Wave):
+	var creep_combination: Array[CreepSize.enm] = wave.get_creeps_combination()
+	var combination_string: String = wave.get_creep_combination_string()
+
+	var creep_race: CreepCategory.enm = wave.get_race()
+	var race_string: String = CreepCategory.convert_to_colored_string(creep_race)
+
+	var creep_armor: ArmorType.enm = wave.get_armor_type()
+	var armor_string: String = ArmorType.convert_to_colored_string(creep_armor)
+
+	Messages.add_normal("=== LEVEL [color=GOLD]%s[/color] ===" % wave.get_wave_number())
+	Messages.add_normal("%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
