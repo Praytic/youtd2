@@ -18,14 +18,11 @@ func get_dark_curse_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Dark Curse[/color]\n"
 	text += "Increases the attack damage target creep receives by %s, the curse lasts 5 seconds.\n" % [damage_increase]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% bonusdamage\n"
 	text += "+0.1 second duration\n"
-	text += " \n"
-	text += "Mana cost: 30, 900 range, 5s cooldown\n"
 
 	return text
 
@@ -46,7 +43,9 @@ func tower_init():
 	boekie_amp_damage.set_buff_tooltip("Dark Curse\nThis unit is under the effect of Dark Curse; it will receive more damage from attacks.")
 
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Dark Curse"
 	autocast.description = get_dark_curse_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 3
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_BUFF

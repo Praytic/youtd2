@@ -94,9 +94,18 @@ func get_tower_text(tower_id: int) -> String:
 		text += " \n%s\n" % extra_text
 
 	for autocast in tower.get_autocast_list():
+		var title: String = autocast.title
 		var autocast_description: String = autocast.description
 		autocast_description = add_color_to_numbers(autocast_description)
-		text += " \n%s\n" % autocast_description
+		var mana_cost: String = str(autocast.mana_cost)
+		var cast_range: String = str(autocast.cast_range)
+		var autocast_cooldown: String = Utils.format_float(autocast.cooldown, 2)
+
+		text += " \n"
+		text += "[color=GOLD]%s[/color]\n" % title
+		text += "%s\n" % autocast_description
+		text += " \n"
+		text += "Mana cost: %s, %s range, %ss cooldown" % [mana_cost, cast_range, autocast_cooldown]
 	
 	return text
 

@@ -17,19 +17,18 @@ func get_release_lightning_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Release Lightning[/color]\n"
 	text += "This tower releases a lightning bolt that strikes the target for %s damage.\n" % damage
 	text +="[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % damage_add
-	text += " \n"
-	text += "Mana cost: 20, 1200 range, 1s cooldown"
 
 	return text
 
 
 func tower_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Release Lightning"
 	autocast.description = get_release_lightning_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

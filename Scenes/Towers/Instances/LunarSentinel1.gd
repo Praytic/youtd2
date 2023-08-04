@@ -27,7 +27,6 @@ func get_lunar_grace_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Lunar Grace[/color]\n"
 	text += "Smites a target creep dealing %s spelldamage to it. There is a 12.5%% chance to empower the smite with lunar energy dealing %s additional spell damage, stunning the target for 0.3 seconds and making it receive %s%% more damage from spells for 2.5 seconds.\n" % [spell_damage, spell_damage, damage_from_spells]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s inital and chanced spell damage\n" % spell_damage_add
@@ -41,7 +40,9 @@ func get_lunar_grace_description() -> String:
 
 func tower_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Lunar Grace"
 	autocast.description = get_lunar_grace_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

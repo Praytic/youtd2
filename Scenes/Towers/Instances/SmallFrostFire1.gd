@@ -24,14 +24,11 @@ func get_soul_chill_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Soul Chill[/color]\n"
 	text += "Chills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s%% for 4 seconds.\n" % [aoe_damage, slow_value]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % aoe_damage_add
 	text += "+%s%% slow\n" % slow_value_add
 	text += "+%s seconds duration\n" % slow_duration_add
-	text += " \n"
-	text += "Mana cost: 20, 900 range, 1s cooldown" 
 
 	return text
 
@@ -42,7 +39,9 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Soul Chill"
 	autocast.description = get_soul_chill_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.cooldown = 1
 	autocast.mana_cost = 20
 	autocast.target_type = null

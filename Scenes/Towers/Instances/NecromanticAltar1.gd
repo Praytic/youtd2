@@ -24,20 +24,19 @@ func get_autocast_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Soul Revenge[/color]\n"
 	text += "Hits 3 random creeps in 875 range, the first one suffers %s spelldamage, the second one suffers %s spelldamage and the third one suffers %s spelldamage.\n" % [damage_1, damage_2, damage_3]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s/%s/%s spelldamage\n" % [damage_add_1, damage_add_2, damage_add_3]
-	text += " \n"
-	text += "Mana cost: 20, 875 range, 1s cooldown"
 
 	return text
 
 
 func tower_init():
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Soul Revenge"
 	autocast.description = get_autocast_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
