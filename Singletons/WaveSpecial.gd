@@ -68,6 +68,9 @@ var _buff_map: Dictionary = {
 	40: CreepBroody.new(self),
 }
 
+var _armor_specials: Array[int] = [9, 10, 11]
+var _spell_res_specials: Array[int] = [15, 16]
+
 # NOTE: some wave specials are disabled because they are
 # incomplete
 var _disabled_special_list: Array[int] = [4, 28, 31, 32, 36, 40]
@@ -120,6 +123,18 @@ func get_random(wave: Wave) -> Array[int]:
 #		Prevent picking same special multiple times
 		special_to_frequency_map.erase(random_special)
 
+#		Do not combine armor and spell resistance specials
+#		in same wave - it's unfair
+		var is_armor_special: bool = _armor_specials.has(random_special)
+		var is_spell_res_special: bool = _spell_res_specials.has(random_special)
+
+		if is_armor_special:
+			for spell_res_special in _spell_res_specials:
+				available_special_list.erase(spell_res_special)
+
+		if is_spell_res_special:
+			for armor_special in _armor_specials:
+				available_special_list.erase(armor_special)
 
 	return random_special_list
 
