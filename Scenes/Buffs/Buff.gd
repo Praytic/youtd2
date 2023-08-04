@@ -29,7 +29,6 @@ var event_handler_map: Dictionary = {}
 # applied by aura.
 var _applied_by_aura_count: int = 0
 var _original_duration: float = 0.0
-var _cleanup_complete: bool = false
 var _tooltip_text: String
 var _buff_icon: String
 var _purgable: bool
@@ -154,10 +153,18 @@ func get_buffed_unit() -> Unit:
 
 # NOTE: buff.removeBuff() in JASS
 func remove_buff():
+#	NOTE: if buff is queued for deletion that means it was
+#	already removed and there's no point in removing it
+#	again
+	if is_queued_for_deletion():
+		return
+
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
 	_target._remove_buff_internal(self)
+
+	queue_free()
 
 
 # NOTE: buff.purgeBuff() in JASS
@@ -198,28 +205,17 @@ func _add_event_handler_unit_comes_in_range(handler: Callable, radius: float, ta
 
 
 func _on_unit_came_in_range(handler: Callable, unit: Unit):
+	if !_can_call_event_handlers():
+		return
+
 	var range_event: Event = _make_buff_event(unit)
 
 	handler.call(range_event)
 
 
-# NOTE: do not call event handlers after cleanup event.
-# Otherwise it would be possible to trigger cleanup twice by
-# killing a creep inside cleanup handler for example.
 func _call_event_handler_list(event_type: Event.Type, event: Event):
-#	NOTE: do not call handlers after cleanup is complete
-#	because this means that handlers may be invalid. For
-#	example, after buff is removed from target it will be
-#	queued for deletion at the end of the frame. The buff
-#	shouldn't respond to any further events from target in
-#	that same frame.
-# 
-#   Also, important to do this even if event_handler_map
-#   doesn't have CLEANUP event type.
-	if _cleanup_complete:
+	if !_can_call_event_handlers():
 		return
-	elif event_type == Event.Type.CLEANUP:
-		_cleanup_complete = true
 
 	if !event_handler_map.has(event_type):
 		return
@@ -292,6 +288,9 @@ func _on_target_spell_targeted(event: Event):
 
 
 func _on_periodic_event_timer_timeout(handler: Callable, timer: Timer):
+	if !_can_call_event_handlers():
+		return
+
 	var periodic_event: Event = _make_buff_event(_target)
 	periodic_event._timer = timer
 	handler.call(periodic_event)
@@ -344,3 +343,11 @@ func _connect_to_handler_tree_exiting_signal(handler: Callable):
 
 	if !handler_node.tree_exiting.is_connected(_on_handler_node_tree_exiting):
 		handler_node.tree_exiting.connect(_on_handler_node_tree_exiting)
+
+
+# NOTE: when a buff is queued for deletion it means that the
+# buff was removed from the target unit. If any other events
+# are triggered in the same frame before the buff is
+# deleted, the buff shouldn't respond to them.
+func _can_call_event_handlers() -> bool:
+	return !is_queued_for_deletion()

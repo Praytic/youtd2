@@ -911,7 +911,6 @@ func _remove_buff_internal(buff: Buff):
 
 	var friendly: bool = buff.is_friendly()
 	_get_buff_list(friendly).erase(buff)
-	buff.queue_free()
 	buff_list_changed.emit()
 
 func _on_modify_property():
