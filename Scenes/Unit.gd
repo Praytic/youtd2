@@ -116,13 +116,13 @@ var _invisible_watcher_count: int = 0
 # MOD_SPELL_CRIT_CHANCE start at 0.01 because by default
 # crit chance is 1%.
 var _mod_value_map: Dictionary = {
-	Modification.Type.MOD_ATK_CRIT_CHANCE: 0.01,
-	Modification.Type.MOD_ATK_CRIT_DAMAGE: 1.5,
+	Modification.Type.MOD_ATK_CRIT_CHANCE: 0.0125,
+	Modification.Type.MOD_ATK_CRIT_DAMAGE: 1.25,
 	Modification.Type.MOD_TRIGGER_CHANCES: 1.0,
 	Modification.Type.MOD_SPELL_DAMAGE_DEALT: 1.0,
 	Modification.Type.MOD_SPELL_DAMAGE_RECEIVED: 1.0,
-	Modification.Type.MOD_SPELL_CRIT_DAMAGE: 1.5,
-	Modification.Type.MOD_SPELL_CRIT_CHANCE: 0.01,
+	Modification.Type.MOD_SPELL_CRIT_DAMAGE: 1.25,
+	Modification.Type.MOD_SPELL_CRIT_CHANCE: 0.0125,
 	Modification.Type.MOD_BOUNTY_GRANTED: 1.0,
 	Modification.Type.MOD_BOUNTY_RECEIVED: 1.0,
 	Modification.Type.MOD_EXP_GRANTED: 1.0,
