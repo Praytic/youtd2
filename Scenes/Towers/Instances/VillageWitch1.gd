@@ -42,7 +42,6 @@ func get_extra_tooltip_text() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Soul Split[/color]\n"
 	text += "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attackspeed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of a Love Potion, the attackspeed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attackspeed, soul_chance_decrease]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
@@ -87,7 +86,9 @@ func tower_init():
 	cedi_love_missile.enable_homing(cedi_love, 0.0)
 
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Soul Split"
 	autocast.description = get_love_potion_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

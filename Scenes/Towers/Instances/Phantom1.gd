@@ -23,14 +23,11 @@ func get_wind_shear_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Wind Shear[/color]\n"
 	text += "Increases the attackspeed of a tower in 300 range by %s%% and gives it a 25%% attackspeed adjusted chance to cast a chain of lightning which deals %s initial spelldamage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attackspeed, chain_damage]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1%% attackspeed\n"
 	text += "+%s spelldamage\n" % chain_damage_add
 	text += "+0.1 sec duration\n"
-	text += " \n"
-	text += "Mana cost: 15, 300 range, 3s cooldown\n"
 
 	return text
 
@@ -83,7 +80,9 @@ func tower_init():
 	drol_phantomCast2.data.chain_lightning.chain_count = 4
 
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Wind Shear"
 	autocast.description = get_wind_shear_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "Abilities/Spells/Items/AIlm/AIlmTarget.mdl"
 	autocast.num_buffs_before_idle = 0

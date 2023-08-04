@@ -33,13 +33,10 @@ func get_ice_claw_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Ice Claw[/color]\n"
 	text += "Ravages a target creep in 850 range, causing it to suffer %s spell damage per second and be slowed by %s. Effect lasts 5 seconds.\n" % [spell_damage, slow_amount]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage per second\n" % spell_damage_add
 	text += "+0.2 second duration\n"
-	text += " \n"
-	text += "Mana cost: 10, 850 range, 2s cooldown"
 
 	return text
 
@@ -88,7 +85,9 @@ func tower_init():
 	drol_tundraStalkerValues.set_key(0, "Speed Bonus")
 
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Ice Claw\n"
 	autocast.description = get_ice_claw_description()
+	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
