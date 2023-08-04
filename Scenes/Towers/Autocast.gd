@@ -102,7 +102,9 @@ var _targeted_type_list: Array[Autocast.Type] = [
 # NOTE: cast_range is the range used when autocast is
 # manually triggered by the user, auto_range is the range
 # used for regular autocasts that cast automatically.
+var title: String = "Placeholder Title"
 var description: String = "Description"
+var icon: String = "res://Resources/Textures/gold.tres"
 var caster_art: String = ""
 var cooldown: float = 0.1
 # NOTE: in original engine "num_buffs_before_idle"

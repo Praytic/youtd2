@@ -28,12 +28,9 @@ func get_autocast_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Name[/color]\n"
 	text += "Description\n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "foo\n"
-	text += " \n"
-	text += "Mana cost: 20, 900 range, 1s cooldown"
 
 	return text
 
@@ -57,7 +54,9 @@ func tower_init():
 	example_buff.set_buff_tooltip("Title\nDescription.")
 
 	var autocast: Autocast = Autocast.make()
+	autocast.title = "Title"
 	autocast.description = get_autocast_description()
+	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
