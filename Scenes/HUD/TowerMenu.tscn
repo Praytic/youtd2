@@ -31,7 +31,7 @@ atlas = ExtResource("2_kbar0")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="TowerMenu" type="Control" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_tower_name_label", "_tower_info_label", "_tower_icon_texture", "_tower_specials_container", "_tower_level_label", "_tower_control_menu", "_tower_stats_menu", "_buffs_container")]
+[node name="TowerMenu" type="Control" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_tower_name_label", "_tower_info_label", "_tower_icon_texture", "_tower_specials_container", "_tower_level_label", "_tower_control_menu", "_tower_stats_menu", "_buffs_container", "_info_label")]
 layout_mode = 3
 anchors_preset = 6
 anchor_left = 1.0
@@ -50,11 +50,12 @@ _items_box_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginConta
 _tower_name_label = NodePath("VBoxContainer/MarginContainer/MarginContainer2/TowerName")
 _tower_info_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
 _tower_icon_texture = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/UnitButtonContainer/TextureRect")
-_tower_specials_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/VBoxContainer")
+_tower_specials_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer")
 _tower_level_label = NodePath("VBoxContainer/MarginContainer/MarginContainer/VBoxContainer2/TowerLevelLabel")
 _tower_control_menu = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu")
 _tower_stats_menu = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerStatsMenu")
 _buffs_container = NodePath("VBoxContainer/MarginContainer3/BuffContainer")
+_info_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
@@ -207,11 +208,11 @@ theme_override_constants/margin_bottom = 10
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer"]
+[node name="SpecialsContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TowerSpecialContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/VBoxContainer" instance=ExtResource("6_petcg")]
+[node name="TowerSpecialContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer" instance=ExtResource("6_petcg")]
 layout_mode = 2
 
 [node name="ItemsContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu"]

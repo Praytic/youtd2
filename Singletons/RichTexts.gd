@@ -18,6 +18,31 @@ func get_research_text(element: Element.enm) -> String:
 	return text
 
 
+func get_tower_info(tower_id: int) -> String:
+	var text: String = ""
+
+	var cost_string: String = str(TowerProperties.get_cost(tower_id))
+	var food: int = 0
+	var description: String = TowerProperties.get_description(tower_id)
+	var author: String = TowerProperties.get_author(tower_id)
+	var element: Element.enm = TowerProperties.get_element(tower_id)
+	var element_string: String = Element.convert_to_colored_string(element)
+	var damage: int = TowerProperties.get_base_damage(tower_id)
+	var cooldown: float = TowerProperties.get_base_cooldown(tower_id)
+	var dps: int = floor(damage / cooldown)
+	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
+	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
+	var attack_range: int = floor(TowerProperties.get_range(tower_id))
+
+	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %s [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost_string, food]
+	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
+	text += "[color=YELLOW]Author:[/color] %s\n" % author
+	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
+	text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
+
+	return text
+
+
 func get_tower_text(tower_id: int) -> String:
 	var text: String = ""
 
