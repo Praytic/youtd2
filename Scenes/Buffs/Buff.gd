@@ -207,14 +207,22 @@ func _on_unit_came_in_range(handler: Callable, unit: Unit):
 # Otherwise it would be possible to trigger cleanup twice by
 # killing a creep inside cleanup handler for example.
 func _call_event_handler_list(event_type: Event.Type, event: Event):
-	if !event_handler_map.has(event_type):
-		return
-
+#	NOTE: do not call handlers after cleanup is complete
+#	because this means that handlers may be invalid. For
+#	example, after buff is removed from target it will be
+#	queued for deletion at the end of the frame. The buff
+#	shouldn't respond to any further events from target in
+#	that same frame.
+# 
+#   Also, important to do this even if event_handler_map
+#   doesn't have CLEANUP event type.
 	if _cleanup_complete:
 		return
-
-	if event_type == Event.Type.CLEANUP:
+	elif event_type == Event.Type.CLEANUP:
 		_cleanup_complete = true
+
+	if !event_handler_map.has(event_type):
+		return
 
 	event._buff = self
 
