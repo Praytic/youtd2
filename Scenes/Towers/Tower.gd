@@ -138,6 +138,15 @@ func _ready():
 			item.drop()
 			item.pickup(self)
 
+#	NOTE: some stats have an innate level-based modifier
+	var innate_modifier: Modifier = Modifier.new()
+	innate_modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0, Constants.INNATE_MOD_ATK_CRIT_CHANCE_LEVEL_ADD)
+	innate_modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0, Constants.INNATE_MOD_ATK_CRIT_DAMAGE_LEVEL_ADD)
+	innate_modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0, Constants.INNATE_MOD_SPELL_CRIT_CHANCE_LEVEL_ADD)
+	innate_modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0, Constants.INNATE_MOD_SPELL_CRIT_DAMAGE_LEVEL_ADD)
+	innate_modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0, Constants.INNATE_MOD_DAMAGE_BASE_PERC_LEVEL_ADD)
+	add_modifier(innate_modifier)
+
 	add_modifier(_specials_modifier)
 
 	tower_init()
