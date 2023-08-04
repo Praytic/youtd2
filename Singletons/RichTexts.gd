@@ -94,8 +94,10 @@ func get_tower_text(tower_id: int) -> String:
 		text += " \n%s\n" % extra_text
 
 	for autocast in tower.get_autocast_list():
+		var autocast_text: String = get_autocast_text(autocast, true)
+		autocast_text = add_color_to_numbers(autocast_text)
 		text += " \n"
-		text += get_autocast_text(autocast, true)
+		text += autocast_text
 	
 	return text
 
@@ -157,8 +159,10 @@ func get_item_text(item: Item) -> String:
 	var autocast: Autocast = item.get_autocast()
 
 	if autocast != null:
+		var autocast_text: String = get_autocast_text(autocast, true)
+		autocast_text = add_color_to_numbers(autocast_text)
 		text += " \n"
-		text += get_autocast_text(autocast, false)
+		text += autocast_text
 
 		var item_is_on_tower: bool = item.get_carrier() != null
 		var is_manual_cast: bool = !autocast.can_use_auto_mode()
