@@ -2,6 +2,8 @@ extends Node
 
 
 const ICON_SIZE_M = 128
+const TIER_ICON_SIZE_M = 64
+const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
 
 # Convenience getters for tower properties. Actual values
@@ -25,6 +27,19 @@ func get_icon_texture(tower_id: int) -> Texture2D:
 
 func get_tier(tower_id: int) -> int:
 	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.TIER).to_int()
+
+
+func get_tier_icon_texture(tower_id: int) -> Texture2D:
+	var tower_rarity = TowerProperties.get_rarity_num(tower_id)
+	var tower_tier = TowerProperties.get_tier(tower_id) - 1
+	var tier_icon = AtlasTexture.new()
+	var icon_size: int
+	
+	tier_icon.set_atlas(_tier_icons_m)
+	icon_size = TIER_ICON_SIZE_M
+	
+	tier_icon.set_region(Rect2(tower_tier * icon_size, tower_rarity * icon_size, icon_size, icon_size))
+	return tier_icon
 
 
 func is_released(tower_id: int) -> bool:

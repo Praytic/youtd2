@@ -20,7 +20,7 @@ const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.
 @export var _buffs_container: GridContainer
 @export var _info_label: RichTextLabel
 @export var _specials_container: VBoxContainer
-
+@export var _tier_icon_texture: TextureRect
 
 var _moved_item_button: ItemButton = null
 var _selling_for_real: bool = false
@@ -65,6 +65,7 @@ func _on_selected_unit_changed(prev_unit = null):
 		_update_tower_level_label()
 		_on_unit_buff_list_changed()
 		_update_info_label()
+		_update_tower_icon()
 		
 		show()
 
@@ -96,6 +97,18 @@ func on_tower_items_changed():
 		button_container.add_child(item_button)
 		_items_box_container.add_child(button_container)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+
+
+func _update_tower_icon():
+	var tower = get_selected_tower()
+	if tower == null:
+		return
+	
+	var tower_icon_texture: Texture2D = TowerProperties.get_icon_texture(tower.get_id())
+	var tier_icon_texture: Texture2D = TowerProperties.get_tier_icon_texture(tower.get_id())
+	
+	_tower_icon_texture.texture = tower_icon_texture
+	_tier_icon_texture.texture = tier_icon_texture
 
 
 func _update_info_label():

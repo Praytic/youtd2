@@ -1,11 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://chojoq00uw7ng"]
+[gd_scene load_steps=16 format=3 uid="uid://chojoq00uw7ng"]
 
 [ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/tower_menu_theme.tres" id="1_crn3l"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_8sf0j"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
 [ext_resource type="Script" path="res://Scenes/HUD/TowerMenu.gd" id="2_sqv8k"]
 [ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="2_x237m"]
-[ext_resource type="PackedScene" uid="uid://boj0nw0dartmw" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="3_tivl8"]
+[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="4_8bkul"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/TowerMenu/tower_level_label_normal.tres" id="5_t4ptj"]
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="6_calw6"]
 [ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/TowerMenu/TowerSpecialContainer.tscn" id="6_petcg"]
@@ -13,6 +13,10 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6ro0"]
 atlas = ExtResource("2_8sf0j")
 region = Rect2(128, 128, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6o0y"]
+atlas = ExtResource("4_8bkul")
+region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
@@ -31,7 +35,7 @@ atlas = ExtResource("2_kbar0")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="TowerMenu" type="Control" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_tower_name_label", "_tower_info_label", "_tower_icon_texture", "_tower_specials_container", "_tower_level_label", "_tower_control_menu", "_tower_stats_menu", "_buffs_container", "_info_label")]
+[node name="TowerMenu" type="Control" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_tower_name_label", "_tower_info_label", "_tower_icon_texture", "_tower_specials_container", "_tower_level_label", "_tower_control_menu", "_tower_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture")]
 layout_mode = 3
 anchors_preset = 6
 anchor_left = 1.0
@@ -49,13 +53,15 @@ _reset_sell_button_timer = NodePath("ResetSellButtonTimer")
 _items_box_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/ItemsContainer/MarginContainer2/HBoxContainer")
 _tower_name_label = NodePath("VBoxContainer/MarginContainer/MarginContainer2/TowerName")
 _tower_info_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
-_tower_icon_texture = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/UnitButtonContainer/TextureRect")
+_tower_icon_texture = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/IconContainer/TowerIcon")
 _tower_specials_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer")
 _tower_level_label = NodePath("VBoxContainer/MarginContainer/MarginContainer/VBoxContainer2/TowerLevelLabel")
 _tower_control_menu = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu")
 _tower_stats_menu = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerStatsMenu")
 _buffs_container = NodePath("VBoxContainer/MarginContainer3/BuffContainer")
 _info_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
+_specials_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer")
+_tier_icon_texture = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/MarginContainer/AspectRatioContainer/TierIcon")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
@@ -108,15 +114,29 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_bottom = 10
 
-[node name="UnitButtonContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer" instance=ExtResource("3_tivl8")]
+[node name="IconContainer" type="AspectRatioContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 1
-stretch_mode = 2
 alignment_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/UnitButtonContainer"]
+[node name="TowerIcon" type="TextureRect" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/IconContainer"]
 layout_mode = 2
 texture = SubResource("AtlasTexture_n6ro0")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = -10
+theme_override_constants/margin_top = -10
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TierIcon" type="TextureRect" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/MarginContainer/AspectRatioContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = SubResource("AtlasTexture_h6o0y")
+expand_mode = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer"]
 layout_mode = 2
