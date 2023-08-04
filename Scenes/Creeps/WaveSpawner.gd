@@ -375,3 +375,12 @@ func _add_message_about_wave(wave: Wave):
 
 	Messages.add_normal("=== LEVEL [color=GOLD]%s[/color] ===" % wave.get_wave_number())
 	Messages.add_normal("%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
+
+	var special_list: Array[int] = wave.get_specials()
+
+	for special in special_list:
+		var name: String = WaveSpecial.convert_to_string(special)
+		var description: String = WaveSpecial.get_description(special)
+		var special_string: String = "[color=BLUE]%s[/color] - %s" % [name, description]
+
+		Messages.add_normal(special_string)

@@ -84,7 +84,7 @@ func _init():
 	for special in _buff_map.keys():
 		var buff: BuffType = _buff_map[special]
 		var special_name: String = convert_to_string(special)
-		var description: String = _get_description(special)
+		var description: String = get_description(special)
 		var tooltip: String = "%s\n%s" % [special_name, description]
 
 		buff.set_buff_tooltip(tooltip)
@@ -191,7 +191,7 @@ func _get_frequency(special: int) -> int:
 	return frequency
 
 
-func _get_description(special: int) -> String:
+func get_description(special: int) -> String:
 	var description: String = _get_property(special, WaveSpecial.CsvProperty.DESCRIPTION)
 
 	return description
