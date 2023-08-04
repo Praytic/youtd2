@@ -176,9 +176,6 @@ func _on_upgrade_button_pressed():
 
 	_update_upgrade_button()
 
-#	Refresh tooltip for upgrade button
-	_on_upgrade_button_mouse_entered()
-
 
 func _get_upgrade_id_for_tower(tower: Tower) -> int:
 	var family_id: int = tower.get_family()
@@ -265,23 +262,6 @@ func _on_info_button_pressed(button_pressed: bool):
 	else:
 		_tower_control_menu.show()
 		_tower_stats_menu.hide()
-
-
-func _on_upgrade_button_mouse_entered():
-	var tower: Tower = get_selected_tower()
-	if tower == null:
-		return
-	
-	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
-
-	if upgrade_id == -1:
-		return
-
-	EventBus.tower_button_mouse_entered.emit(upgrade_id)
-
-
-func _on_upgrade_button_mouse_exited():
-	EventBus.tower_button_mouse_exited.emit()
 
 
 func _on_unit_buff_list_changed():
