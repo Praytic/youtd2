@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=12 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
-[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="12"]
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="15_rfxf1"]
 [ext_resource type="PackedScene" uid="uid://b41jiom5a6uq8" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
@@ -65,19 +64,6 @@ theme = ExtResource("1_mod6x")
 
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2
-
-[node name="TowerInfo" parent="." instance=ExtResource("12")]
-visible = false
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 15.0
-offset_top = 167.0
-offset_right = 15.0
-offset_bottom = 67.0
-grow_horizontal = 1
-grow_vertical = 1
-scale = Vector2(0.5, 0.5)
 
 [node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
 layout_mode = 1
