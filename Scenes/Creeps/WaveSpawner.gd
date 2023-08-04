@@ -64,8 +64,8 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		var wave = Wave.new()
 		var random_creep_size: CreepSize.enm = _generate_creep_size(wave_number)
 		var wave_armor: ArmorType.enm = _get_random_armor_type(wave_number, random_creep_size)
-		var random_creeps_combination: Array[CreepSize.enm] = _generate_creeps_combination(wave_number, random_creep_size)
-		wave.set_creeps_combination(random_creeps_combination)
+		var random_creep_combination: Array[CreepSize.enm] = _generate_creep_combination(wave_number, random_creep_size)
+		wave.set_creep_combination(random_creep_combination)
 		wave.set_wave_number(wave_number)
 		wave.set_race(wave_race)
 		wave.set_armor_type(wave_armor)
@@ -77,7 +77,7 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		wave.set_specials(wave_specials)
 
 		var creep_combination = []
-		for creep_size in wave.get_creeps_combination():
+		for creep_size in wave.get_creep_combination():
 			var creep_size_name: String = CreepSize.convert_to_string(creep_size)
 			creep_combination.append(creep_size_name)
 		
@@ -125,7 +125,7 @@ func spawn_wave(new_wave: Wave):
 
 func _init_wave_creeps(wave: Wave):
 	var creep_data_list: Array[CreepData] = []
-	var creep_sizes = wave.get_creeps_combination()
+	var creep_sizes = wave.get_creep_combination()
 	for creep_size in creep_sizes:
 		var creep_data: CreepData = _creep_spawner.generate_creep_for_wave(wave, creep_size)
 		creep_data_list.append(creep_data)
@@ -293,7 +293,7 @@ func _get_random_armor_type(wave_number: int, creep_size: CreepSize.enm) -> Armo
 # Generates a creep combination. If wave contains champions,
 # then champions are inserted in regular intervals between
 # other creeps.
-func _generate_creeps_combination(wave_number: int, creep_size: CreepSize.enm) -> Array[CreepSize.enm]:
+func _generate_creep_combination(wave_number: int, creep_size: CreepSize.enm) -> Array[CreepSize.enm]:
 	var combination: Array[CreepSize.enm] = []
 
 	var wave_capacity: int = 20 + wave_number / 40
@@ -364,7 +364,7 @@ func _generate_creep_size(wave_number: int) -> CreepSize.enm:
 
 
 func _add_message_about_wave(wave: Wave):
-	var creep_combination: Array[CreepSize.enm] = wave.get_creeps_combination()
+	var creep_combination: Array[CreepSize.enm] = wave.get_creep_combination()
 	var combination_string: String = wave.get_creep_combination_string()
 
 	var creep_race: CreepCategory.enm = wave.get_race()

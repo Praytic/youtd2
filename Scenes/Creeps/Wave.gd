@@ -26,7 +26,7 @@ var next_wave: Wave
 var _specials: Array[int] = []
 var _base_hp: float = 0.0
 var _base_armor: float = 0.0
-var _creeps_combination: Array[CreepSize.enm]
+var _creep_combination: Array[CreepSize.enm]
 var _creep_size: CreepSize.enm
 
 #########################
@@ -81,14 +81,14 @@ func set_creep_size(creep_size: CreepSize.enm):
 	_creep_size = creep_size
 
 
-func set_creeps_combination(creeps_combination: Array[CreepSize.enm]):
-	_creeps_combination = creeps_combination
+func set_creep_combination(creep_combination: Array[CreepSize.enm]):
+	_creep_combination = creep_combination
 
 
 # Returns an array of CreepSize enm.that should be spawned
 # in the same order as they are stored in this array.
-func get_creeps_combination() -> Array[CreepSize.enm]:
-	return _creeps_combination
+func get_creep_combination() -> Array[CreepSize.enm]:
+	return _creep_combination
 
 
 # [MASS, MASS, MASS, CHAMPION]
@@ -97,7 +97,7 @@ func get_creeps_combination() -> Array[CreepSize.enm]:
 func get_creep_combination_string() -> String:
 	var size_count_map: Dictionary = {}
 
-	for size in _creeps_combination:
+	for size in _creep_combination:
 		if !size_count_map.has(size):
 			size_count_map[size] = 0
 
@@ -199,7 +199,7 @@ func get_race() -> CreepCategory.enm:
 # which can be spawned in this wave
 func get_creep_sizes() -> Array:
 	var result = []
-	for creep_size in get_creeps_combination():
+	for creep_size in get_creep_combination():
 		if not result.has(creep_size):
 			result.append(creep_size)
 	return result
