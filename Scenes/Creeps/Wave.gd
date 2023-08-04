@@ -91,6 +91,39 @@ func get_creeps_combination() -> Array[CreepSize.enm]:
 	return _creeps_combination
 
 
+# [MASS, MASS, MASS, CHAMPION]
+# =>
+# "3 Mass, 1 Champion"
+func get_creep_combination_string() -> String:
+	var size_count_map: Dictionary = {}
+
+	for size in _creeps_combination:
+		if !size_count_map.has(size):
+			size_count_map[size] = 0
+
+		size_count_map[size] += 1
+
+#	NOTE: champions go first, order for other sizes doesn't
+#	matter
+	var size_list_ordered: Array[CreepSize.enm] = [CreepSize.enm.CHAMPION, CreepSize.enm.NORMAL, CreepSize.enm.AIR, CreepSize.enm.MASS, CreepSize.enm.BOSS, CreepSize.enm.CHALLENGE_MASS, CreepSize.enm.CHALLENGE_BOSS]
+
+	var string_split: Array[String] = []
+
+	for size in size_list_ordered:
+		if !size_count_map.has(size):
+			continue
+
+		var count: int = size_count_map[size]
+		var size_string: String = CreepSize.convert_to_colored_string(size)
+		var count_and_size_string: String = "[color=GOLD]%d[/color] %s" % [count, size_string]
+
+		string_split.append(count_and_size_string)
+
+	var combination_string: String = ", ".join(string_split)
+
+	return combination_string
+
+
 # Delay in seconds between each creep spawn
 func get_creeps_spawn_delay() -> float:
 	# TODO:

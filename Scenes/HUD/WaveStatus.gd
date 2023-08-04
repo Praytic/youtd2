@@ -72,7 +72,7 @@ func _update_details_label():
 		var race: CreepCategory.enm = wave.get_race()
 		var race_string: String = CreepCategory.convert_to_colored_string(race)
 
-		var size_string: String = _get_size_combination_string(wave)
+		var size_string: String = wave.get_creep_combination_string()
 
 		var armor_type: ArmorType.enm = wave.get_armor_type()
 		var armor_string: String = ArmorType.convert_to_colored_string(armor_type)
@@ -90,39 +90,6 @@ func _on_start_next_wave_button_pressed():
 	var success = _wave_spawner.force_start_next_wave()
 	if !success:
 		Messages.add_error("Can't start next wave, wave is still in progress.")
-
-
-# [MASS, MASS, MASS, CHAMPION]
-# =>
-# "3 Mass, 1 Champion"
-func _get_size_combination_string(wave: Wave) -> String:
-	var size_list: Array = wave.get_creeps_combination()
-
-	var size_count_map: Dictionary = {}
-
-	for creep_size in size_list:
-		if !size_count_map.has(creep_size):
-			size_count_map[creep_size] = 0
-
-		size_count_map[creep_size] += 1
-
-	var string_split: Array[String] = []
-
-	var size_list_ordered: Array = size_count_map.keys()
-	size_list_ordered.sort()
-
-	for creep_size in size_list_ordered:
-		if !size_count_map.has(creep_size):
-			continue
-
-		var count: int = size_count_map[creep_size]
-		var size_string: String = CreepSize.convert_to_colored_string(creep_size)
-
-		string_split.append("%d %s" % [count, size_string])
-
-	var string: String = ", ".join(string_split)
-
-	return string
 
 
 func _on_all_waves_started():
