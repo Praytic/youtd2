@@ -21,6 +21,7 @@ const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.
 @export var _info_label: RichTextLabel
 @export var _specials_container: VBoxContainer
 @export var _tier_icon_texture: TextureRect
+@export var _specials_label: RichTextLabel
 
 var _moved_item_button: ItemButton = null
 var _selling_for_real: bool = false
@@ -65,6 +66,7 @@ func _on_selected_unit_changed(prev_unit = null):
 		_update_tower_level_label()
 		_on_unit_buff_list_changed()
 		_update_info_label()
+		_update_specials_label()
 		_update_tower_icon()
 		
 		show()
@@ -118,6 +120,28 @@ func _update_info_label():
 	
 	var contents = RichTexts.get_tower_info(tower.get_id())
 	_info_label.text = contents
+
+
+func _update_specials_label():
+	var tower: Tower = get_selected_tower()
+	
+	var specials_text: String = tower.get_specials_tooltip_text()
+	var extra_text: String = tower.get_extra_tooltip_text()
+
+	var text: String = ""
+	text += specials_text
+	text += " \n"
+	text += extra_text
+
+	for autocast in tower.get_autocast_list():
+		var autocast_text: String = RichTexts.get_autocast_text(autocast)
+		text += " \n"
+		text += autocast_text
+
+	text = RichTexts.add_color_to_numbers(text)
+
+	_specials_label.clear()
+	_specials_label.append_text(text)
 
 
 func _update_tower_name_label():
