@@ -308,3 +308,17 @@ func _on_unit_buff_list_changed():
 		var texture: Texture2D = load(texture_path)
 		buff_icon.texture = texture
 		_buffs_container.add_child(buff_icon)
+
+
+func _on_tower_upgrade_button_mouse_entered():
+	var tower: Tower = SelectUnit.get_selected_unit() as Tower
+	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
+
+	if upgrade_id == -1:
+		return
+
+	EventBus.tower_button_mouse_entered.emit(upgrade_id)
+
+
+func _on_tower_upgrade_button_mouse_exited():
+	EventBus.tower_button_mouse_exited.emit()
