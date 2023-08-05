@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/PauseHUD/HintsMenu.gd" id="2_jpay6"]
 
 [node name="HintsMenu" type="PanelContainer"]
-custom_minimum_size = Vector2(900, 600)
+custom_minimum_size = Vector2(1100, 700)
 offset_right = 900.0
 offset_bottom = 705.0
 theme = ExtResource("1_njctg")
@@ -27,6 +27,7 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
+allow_search = false
 hide_root = true
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HSplitContainer"]

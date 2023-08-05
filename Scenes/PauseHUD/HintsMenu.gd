@@ -22,15 +22,19 @@ func _ready():
 	var csv: Array[PackedStringArray] = Utils.load_csv(HINTS_CSV_PATH)
 	
 	var root: TreeItem = _tree.create_item()
+
+	var index: int = 0
 	
 	for csv_line in csv:
-		var title: String = csv_line[0]
+		var title: String = "%d. %s" % [index, csv_line[0]]
 		var text: String = csv_line[1]
 	
 		var child: TreeItem = _tree.create_item(root)
 		child.set_text(0, title)
 		
 		_text_list.append(text)
+
+		index += 1
 	
 	var first_item: TreeItem = root.get_child(0)
 	_tree.set_selected(first_item, 0)
