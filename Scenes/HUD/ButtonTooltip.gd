@@ -68,10 +68,9 @@ func _on_autocast_button_mouse_entered(autocast: Autocast):
 
 	_label.clear()
 
-	var text: String = autocast.description
-	text = RichTexts.add_color_to_numbers(text)
+	var text: String = ""
 
-	text += " \n"
+	text += RichTexts.get_autocast_text(autocast)
 	text += " \n"
 
 	if autocast.can_use_auto_mode():

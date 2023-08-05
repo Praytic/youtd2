@@ -94,8 +94,7 @@ func get_tower_text(tower_id: int) -> String:
 		text += " \n%s\n" % extra_text
 
 	for autocast in tower.get_autocast_list():
-		var autocast_text: String = get_autocast_text(autocast, true)
-		autocast_text = add_color_to_numbers(autocast_text)
+		var autocast_text: String = get_autocast_text(autocast)
 		text += " \n"
 		text += autocast_text
 	
@@ -159,8 +158,7 @@ func get_item_text(item: Item) -> String:
 	var autocast: Autocast = item.get_autocast()
 
 	if autocast != null:
-		var autocast_text: String = get_autocast_text(autocast, true)
-		autocast_text = add_color_to_numbers(autocast_text)
+		var autocast_text: String = get_autocast_text(autocast)
 		text += " \n"
 		text += autocast_text
 
@@ -238,7 +236,7 @@ func get_colored_requirement_number(value: int, requirement_satisfied: bool) -> 
 	return string
 
 
-func get_autocast_text(autocast: Autocast, for_tower: bool) -> String:
+func get_autocast_text(autocast: Autocast) -> String:
 	var title: String = autocast.title
 	var autocast_description: String = autocast.description
 	autocast_description = add_color_to_numbers(autocast_description)
@@ -260,6 +258,7 @@ func get_autocast_text(autocast: Autocast, for_tower: bool) -> String:
 
 	if !stats_list.is_empty():
 		var stats_line: String = ", ".join(stats_list) + "\n";
+		stats_line = add_color_to_numbers(stats_line)
 		text += " \n"
 		text += stats_line
 
