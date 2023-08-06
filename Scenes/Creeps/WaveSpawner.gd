@@ -63,15 +63,6 @@ func get_current_wave_level() -> int:
 		return 0
 
 
-func spawn_wave(new_wave: Wave):
-	new_wave.state = Wave.State.SPAWNING
-
-	var creep_data_list: Array[CreepData] = WaveSpawner._generate_creep_data_list(new_wave)
-
-	for creep_data in creep_data_list:
-		_creep_spawner.queue_spawn_creep(creep_data)
-
-
 func _on_Timer_timeout():
 	_start_next_wave()
 
@@ -79,9 +70,13 @@ func _on_Timer_timeout():
 func _start_next_wave():
 	_current_wave_index += 1
 
-	var current_wave = get_current_wave()
-	
-	spawn_wave(current_wave)
+	var current_wave: Wave = get_current_wave()
+	current_wave.state = Wave.State.SPAWNING
+
+	var creep_data_list: Array[CreepData] = WaveSpawner._generate_creep_data_list(current_wave)
+
+	for creep_data in creep_data_list:
+		_creep_spawner.queue_spawn_creep(creep_data)
 	
 	_add_message_about_wave(current_wave)
 	
