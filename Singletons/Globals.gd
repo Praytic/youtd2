@@ -20,3 +20,4 @@ const tower_actions_scene: PackedScene = preload("res://Scenes/HUD/TowerActions.
 
 
 var game_mode: GameMode.enm = GameMode.enm.NONE
+var portal_lives: float = 100.0
