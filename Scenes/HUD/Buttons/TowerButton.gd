@@ -21,7 +21,7 @@ func _ready():
 	set_tier_icon(_tower_id)
 	
 	# TODO: Just for testing
-	if randi()%3 == 0:
+	if Config.random_button_counters() && randi()%3 == 0:
 		set_count(randi_range(2, 20))
 	
 	mouse_entered.connect(_on_mouse_entered)

@@ -124,3 +124,8 @@ func default_difficulty() -> Difficulty.enm:
 	var difficulty: Difficulty.enm = Difficulty.from_string(difficulty_string)
 
 	return difficulty
+
+# Enable to set random counters for item and tower buttons,
+# for testing purposes.
+func random_button_counters() -> bool:
+	return ProjectSettings.get_setting("application/config/random_button_counters") as bool
