@@ -7,7 +7,6 @@ signal wave_ended
 
 enum State {
 	CLEARED,
-	DEFEAT,
 	SPAWNED,
 	SPAWNING,
 	PENDING,
@@ -82,13 +81,6 @@ func _ready():
 	_wave_path = Wave._get_wave_path(0, _creep_size, _wave_paths)
 
 
-func _process(_delta):
-	# TODO: Add portal lives here
-	if _alive_creep_list.is_empty() and state == Wave.State.SPAWNED:
-		state = Wave.State.CLEARED
-		wave_ended.emit()
-
-
 #########################
 ###       Public      ###
 #########################
@@ -99,17 +91,25 @@ func _process(_delta):
 #########################
 
 
+func _remove_alive_creep(creep: Creep):
+	_alive_creep_list.erase(creep)
+
+	if _alive_creep_list.is_empty() && state == Wave.State.SPAWNED:
+		state = Wave.State.CLEARED
+		wave_ended.emit()
+
+
 #########################
 ###     Callbacks     ###
 #########################
 
 func _on_Creep_death(_event: Event, creep: Creep):
 	print_verbose("Creep [%s] has died." % creep)
-	_alive_creep_list.erase(creep)
+	_remove_alive_creep(creep)
 
 func _on_Creep_reached_portal(damage, creep: Creep):
 	print_verbose("Creep [%s] reached portal. Damage to portal: %s" % [creep, damage])
-	_alive_creep_list.erase(creep)
+	_remove_alive_creep(creep)
 
 
 #########################

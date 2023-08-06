@@ -145,7 +145,7 @@ func wave_is_in_progress() -> float:
 func force_start_next_wave() -> bool:
 	var current_wave: Wave = get_current_wave()
 	var before_first_wave: bool = current_wave == null
-	var current_wave_finished_spawning: bool = !before_first_wave && current_wave.state != Wave.State.SPAWNING
+	var current_wave_finished_spawning: bool = current_wave != null && current_wave.state != Wave.State.SPAWNING
 	var can_start_next_wave: bool = before_first_wave || current_wave_finished_spawning
 	
 	if can_start_next_wave:
