@@ -12,8 +12,8 @@ extends Control
 
 
 func _ready():
-	EventBus.waves_were_generated.connect(_update_all_labels)
 	WaveLevel.changed.connect(_update_all_labels)
+	_wave_spawner.generated_all_waves.connect(_update_all_labels)
 	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
 
 

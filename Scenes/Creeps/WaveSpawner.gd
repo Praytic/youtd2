@@ -6,6 +6,7 @@ var TIME_BETWEEN_WAVES: float = 15.0
 
 signal all_waves_started
 signal all_waves_cleared
+signal generated_all_waves
 
 
 var _wave_list: Array[Wave] = []
@@ -47,7 +48,7 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	
 	_timer_between_waves.start()
 
-	EventBus.waves_were_generated.emit()
+	generated_all_waves.emit()
 
 
 func _on_Timer_timeout():
