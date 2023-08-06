@@ -63,7 +63,7 @@ func _on_creep_reached_portal(damage_to_portal: float):
 
 
 func _on_wave_spawner_wave_ended(wave: Wave):
-	var wave_level: int = wave.get_wave_number()
+	var wave_level: int = wave.get_level()
 	GoldControl.add_income(wave_level)
 	KnowledgeTomesManager.add_knowledge_tomes()
 

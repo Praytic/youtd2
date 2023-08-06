@@ -101,7 +101,7 @@ func get_random(wave: Wave) -> Array[int]:
 	var available_special_list: Array[int] = _get_available_specials(wave)
 
 	var special_count: int
-	if wave.get_wave_number() <= Constants.MIN_WAVE_FOR_SPECIAL:
+	if wave.get_level() <= Constants.MIN_WAVE_FOR_SPECIAL:
 		special_count = 0
 	else:
 		special_count = Utils.random_weighted_pick(_special_count_chances)
@@ -164,7 +164,7 @@ func _get_available_specials(wave: Wave) -> Array[int]:
 	var all_special_list: Array = _properties.keys()
 	var available_special_list: Array[int] = []
 
-	var wave_level: int = wave.get_wave_number()
+	var wave_level: int = wave.get_level()
 
 	for special in all_special_list:
 		var required_level: int = _get_required_wave_level(special)

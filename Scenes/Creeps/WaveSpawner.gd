@@ -58,15 +58,15 @@ func _ready():
 
 func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	var previous_wave = null
-	for wave_number in range(1, wave_count + 1):
+	for wave_level in range(1, wave_count + 1):
 		var wave_race = randi_range(0, CreepCategory.enm.size() - 1)
 		
 		var wave = Wave.new()
-		var random_creep_size: CreepSize.enm = _generate_creep_size(wave_number)
-		var wave_armor: ArmorType.enm = _get_random_armor_type(wave_number, random_creep_size)
-		var random_creep_combination: Array[CreepSize.enm] = _generate_creep_combination(wave_number, random_creep_size)
+		var random_creep_size: CreepSize.enm = _generate_creep_size(wave_level)
+		var wave_armor: ArmorType.enm = _get_random_armor_type(wave_level, random_creep_size)
+		var random_creep_combination: Array[CreepSize.enm] = _generate_creep_combination(wave_level, random_creep_size)
 		wave.set_creep_combination(random_creep_combination)
-		wave.set_wave_number(wave_number)
+		wave.set_level(wave_level)
 		wave.set_race(wave_race)
 		wave.set_armor_type(wave_armor)
 		wave.set_wave_path(_get_wave_path(0, wave))
@@ -83,8 +83,8 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		
 		_init_wave_creeps(wave)
 		
-		print_verbose("Wave number [%s] will have creeps [%s] of race [%s] and armor type [%s]" \
-			% [wave_number, \
+		print_verbose("Wave [%s] will have creeps [%s] of race [%s] and armor type [%s]" \
+			% [wave_level, \
 				", ".join(creep_combination), \
 				CreepCategory.convert_to_string(wave_race), \
 				ArmorType.convert_to_string(wave_armor)])
@@ -241,7 +241,7 @@ func _on_Wave_ended(wave: Wave):
 
 	print_verbose("Wave [%s] is cleared." % wave)
 
-	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % wave.get_wave_number())
+	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % wave.get_level())
 
 	wave_ended.emit(wave)
 
@@ -267,7 +267,7 @@ func _get_alive_creeps() -> Array:
 	return alive_list
 
 
-func _get_random_armor_type(wave_number: int, creep_size: CreepSize.enm) -> ArmorType.enm:
+func _get_random_armor_type(wave_level: int, creep_size: CreepSize.enm) -> ArmorType.enm:
 	var is_challenge: bool = CreepSize.is_challenge(creep_size)
 
 	if is_challenge:
@@ -280,7 +280,7 @@ func _get_random_armor_type(wave_number: int, creep_size: CreepSize.enm) -> Armo
 		ArmorType.enm.SOL,
 	]
 
-	var can_spawn_sif: bool = wave_number >= 32
+	var can_spawn_sif: bool = wave_level >= 32
 
 	if can_spawn_sif && Utils.rand_chance(Constants.SIF_ARMOR_CHANCE):
 		return ArmorType.enm.SIF
@@ -293,11 +293,11 @@ func _get_random_armor_type(wave_number: int, creep_size: CreepSize.enm) -> Armo
 # Generates a creep combination. If wave contains champions,
 # then champions are inserted in regular intervals between
 # other creeps.
-func _generate_creep_combination(wave_number: int, creep_size: CreepSize.enm) -> Array[CreepSize.enm]:
+func _generate_creep_combination(wave_level: int, creep_size: CreepSize.enm) -> Array[CreepSize.enm]:
 	var combination: Array[CreepSize.enm] = []
 
-	var wave_capacity: int = 20 + wave_number / 40
-	var champion_count: int = _generate_champion_count(wave_number, creep_size)
+	var wave_capacity: int = 20 + wave_level / 40
+	var champion_count: int = _generate_champion_count(wave_level, creep_size)
 	var champion_weight: int = int(CreepSize.get_experience(CreepSize.enm.CHAMPION))
 	var unit_weight: int = int(CreepSize.get_experience(creep_size))
 
@@ -332,7 +332,7 @@ func _generate_creep_combination(wave_number: int, creep_size: CreepSize.enm) ->
 	return combination
 
 
-func _generate_champion_count(wave_number: int, creep_size: CreepSize.enm) -> int:
+func _generate_champion_count(wave_level: int, creep_size: CreepSize.enm) -> int:
 	var is_challenge: bool = CreepSize.is_challenge(creep_size)
 
 	if is_challenge:
@@ -342,15 +342,15 @@ func _generate_champion_count(wave_number: int, creep_size: CreepSize.enm) -> in
 	var champion_count: int = Utils.random_weighted_pick(chance_of_champion_count)
 
 	if champion_count > 0:
-		champion_count = champion_count + int(wave_number / 120)
+		champion_count = champion_count + int(wave_level / 120)
 
 	return champion_count
 
 
 # TODO: handle final wave, should be final boss
-func _generate_creep_size(wave_number: int) -> CreepSize.enm:
-	var challenge: bool = (wave_number % 8) == 0
-	var challenge_mass: bool = (wave_number % 120) % 16 == 0 && (wave_number % 120) != 0
+func _generate_creep_size(wave_level: int) -> CreepSize.enm:
+	var challenge: bool = (wave_level % 8) == 0
+	var challenge_mass: bool = (wave_level % 120) % 16 == 0 && (wave_level % 120) != 0
 
 	if challenge:
 		if challenge_mass:
@@ -373,7 +373,7 @@ func _add_message_about_wave(wave: Wave):
 	var creep_armor: ArmorType.enm = wave.get_armor_type()
 	var armor_string: String = ArmorType.convert_to_colored_string(creep_armor)
 
-	Messages.add_normal("=== LEVEL [color=GOLD]%s[/color] ===" % wave.get_wave_number())
+	Messages.add_normal("=== LEVEL [color=GOLD]%s[/color] ===" % wave.get_level())
 	Messages.add_normal("%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
 
 	var special_list: Array[int] = wave.get_specials()

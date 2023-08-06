@@ -16,7 +16,7 @@ enum State {
 
 var _creep_data_list: Array[CreepData]
 var _alive_creep_list: Array[Creep] = []
-var _wave_number: int : set = set_wave_number, get = get_wave_number
+var _level: int : set = set_level, get = get_level
 var _race: CreepCategory.enm : set = set_race, get = get_race
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
@@ -162,21 +162,21 @@ func set_armor_type(value: ArmorType.enm):
 
 
 func is_challenge_wave() -> bool:
-	return get_wave_number() % 8 == 0
+	return get_level() % 8 == 0
 
 
-func set_wave_number(value: int):
-	_wave_number = value
+func set_level(value: int):
+	_level = value
 	
 
-# NOTE: wave number must be set before this is called
+# NOTE: wave level must be set before this is called
 func set_difficulty(difficulty: Difficulty.enm):
 	_base_hp = _calculate_base_hp(difficulty)
 	_base_armor = _calculate_base_armor(difficulty)
 
 
-func get_wave_number() -> int:
-	return _wave_number
+func get_level() -> int:
+	return _level
 
 
 func set_race(value: CreepCategory.enm):
@@ -230,7 +230,7 @@ func add_alive_creep(creep: Creep):
 
 
 # Calculates base HP for a Creep based on 
-# the wave number 
+# the wave level 
 func _calculate_base_hp(difficulty: Difficulty.enm) -> float:
 	var a: float
 	var b: float
@@ -286,9 +286,9 @@ func _calculate_base_hp(difficulty: Difficulty.enm) -> float:
 #	it's located far from the code which implements the main
 #	health formula. Search for "(.9-" strings to find it in
 #	multiple locations.
-	var extra_hp_multiplier: float = (0.9 - (_wave_number * 0.002))
+	var extra_hp_multiplier: float = (0.9 - (_level * 0.002))
 
-	var j: int = get_wave_number() - 1
+	var j: int = get_level() - 1
 	var health: float = a + j * (b + j * (c + j * (d + j * (e + j * (f + j * g)))))
 	health = health * extra_hp_multiplier
 
@@ -322,7 +322,7 @@ func _calculate_base_armor(difficulty: Difficulty.enm) -> float:
 			b = 0.34
 			c = 0.001
 
-	var j: int = get_wave_number() - 1
+	var j: int = get_level() - 1
 	var base_armor: float = a + j * (b + j * c)
 
 	return base_armor

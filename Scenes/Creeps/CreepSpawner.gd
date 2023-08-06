@@ -203,7 +203,7 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 	creep.set_category(wave.get_race())
 	creep.set_base_health(creep_health)
 	creep.set_base_armor(creep_armor)
-	creep.set_spawn_level(wave.get_wave_number())
+	creep.set_spawn_level(wave.get_level())
 	creep.death.connect(wave._on_Creep_death.bind(creep))
 	creep.reached_portal.connect(Callable(wave, "_on_Creep_reached_portal").bind(creep))
 
