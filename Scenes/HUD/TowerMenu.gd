@@ -369,3 +369,11 @@ func _on_tower_upgrade_button_mouse_entered():
 
 func _on_tower_upgrade_button_mouse_exited():
 	EventBus.tower_button_mouse_exited.emit()
+
+
+func _on_items_container_gui_input(event):
+	var left_click: bool = event.is_action_released("left_click")
+	var tower: Tower = get_selected_tower()
+
+	if left_click && tower != null:
+		ItemMovement.finish_move_to_tower_menu(tower)

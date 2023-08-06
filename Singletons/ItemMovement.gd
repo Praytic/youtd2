@@ -48,6 +48,13 @@ func start_move_from_itembar(item: Item) -> bool:
 	return _start_internal(item, MoveSource.ITEMBAR)
 
 
+func finish_move_to_tower_menu(tower: Tower):
+	if !in_progress():
+		return
+
+	_try_to_move(tower)
+
+
 func cancel():
 	if !in_progress():
 		return
