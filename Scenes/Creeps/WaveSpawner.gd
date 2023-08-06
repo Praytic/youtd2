@@ -37,7 +37,7 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 
 		_wave_list.append(wave)
 		
-		wave.wave_ended.connect(_on_Wave_ended.bind(wave))
+		wave.finished.connect(_on_wave_finished.bind(wave))
  
 		add_child(wave, true)
 
@@ -133,13 +133,8 @@ func force_start_next_wave() -> bool:
 		return false
 
 
-func _on_Wave_ended(wave: Wave):
-	if wave.state != Wave.State.CLEARED:
-		push_error("Wave [%s] has ended but the state is invalid." % wave)
-		
-		return
-
-	print_verbose("Wave [%s] is cleared." % wave)
+func _on_wave_finished(wave: Wave):
+	print_verbose("Wave [%s] is finished." % wave)
 
 	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % wave.get_level())
 
