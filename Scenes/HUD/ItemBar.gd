@@ -24,6 +24,13 @@ func add_item_button(item: Item):
 	add_child(item)
 		
 	add_child(button_container)
+
+#	NOTE: place new items at the front because item bar may
+#	have multiple pages of items. If we were put new items
+#	at the end, then it would look confusing to the player
+#	when an item appears to go nowhere.
+	move_child(button_container, 0)
+
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 	_item_buttons[item] = item_button
 
