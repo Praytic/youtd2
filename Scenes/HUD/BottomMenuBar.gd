@@ -24,6 +24,8 @@ func _ready():
 	for element_button in get_element_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 
+	set_element(Element.enm.ICE)
+
 
 func _process(_delta):
 	var item_button_count: int = _item_bar.get_item_count()
