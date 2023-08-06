@@ -22,6 +22,7 @@ const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.
 @export var _specials_container: VBoxContainer
 @export var _tier_icon_texture: TextureRect
 @export var _specials_label: RichTextLabel
+@export var _inventory_empty_slots: HBoxContainer
 
 var _moved_item_button: ItemButton = null
 var _selling_for_real: bool = false
@@ -41,6 +42,11 @@ func _ready():
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
 	_info_button.toggled.connect(_on_info_button_pressed)
+
+	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
+		var empty_slot_button: EmptySlotButton = EmptySlotButton.make()
+		empty_slot_button.theme_type_variation = "SmallButton"
+		_inventory_empty_slots.add_child(empty_slot_button)
 
 
 func _on_wave_or_element_level_changed():
@@ -68,6 +74,7 @@ func _on_selected_unit_changed(prev_unit = null):
 		_update_info_label()
 		_update_specials_label()
 		_update_tower_icon()
+		_update_inventory_empty_slots()
 		
 		show()
 
@@ -158,6 +165,22 @@ func _update_tower_level_label():
 		return
 	
 	_tower_level_label.text = str(tower.get_level())
+
+
+# Show the number of empty slots equal to tower's inventory
+# capacity
+func _update_inventory_empty_slots():
+	var tower: Tower = get_selected_tower()
+	if tower == null:
+		return
+
+	var inventory_capacity: int = tower.get_inventory_capacity()
+
+	var inventory_slots: Array[Node] = _inventory_empty_slots.get_children()
+
+	for i in range(0, inventory_slots.size()):
+		var slot: Control = inventory_slots[i] as Control
+		slot.visible = i < inventory_capacity
 
 
 func _on_item_button_pressed(item_button: ItemButton):

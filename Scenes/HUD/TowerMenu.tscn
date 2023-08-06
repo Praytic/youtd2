@@ -35,7 +35,7 @@ atlas = ExtResource("2_kbar0")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="TowerMenu" type="Control" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_tower_name_label", "_tower_info_label", "_tower_icon_texture", "_tower_specials_container", "_tower_level_label", "_tower_control_menu", "_tower_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label")]
+[node name="TowerMenu" type="Control" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_tower_name_label", "_tower_info_label", "_tower_icon_texture", "_tower_specials_container", "_tower_level_label", "_tower_control_menu", "_tower_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots")]
 layout_mode = 3
 anchors_preset = 6
 anchor_left = 1.0
@@ -64,6 +64,7 @@ _info_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/Towe
 _specials_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer")
 _tier_icon_texture = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/InfoContainer/HBoxContainer/MarginContainer/MarginContainer/AspectRatioContainer/TierIcon")
 _specials_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer/SpecialsLabel")
+_inventory_empty_slots = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/ItemsContainer/MarginContainer2/InventoryEmptySlots")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
@@ -281,6 +282,10 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+
+[node name="InventoryEmptySlots" type="HBoxContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/ItemsContainer/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer/Panel/MarginContainer/TowerControlMenu/ItemsContainer/MarginContainer2"]
 layout_mode = 2
