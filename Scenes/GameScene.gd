@@ -24,6 +24,7 @@ func _ready():
 	print_verbose("GameScene has loaded.")
 
 	_game_state = GameState.PREGAME
+	get_tree().set_pause(true)
 
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 
@@ -64,6 +65,7 @@ func _on_wave_spawner_wave_ended(wave: Wave):
 # TODO: use game_mode setting
 func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
 	_game_state = GameState.PLAYING
+	get_tree().set_pause(false)
 	
 	_pregame_hud.hide()
 
