@@ -90,18 +90,17 @@ func _init():
 		buff.set_buff_tooltip(tooltip)
 
 
-func get_random(wave: Wave) -> Array[int]:
-	var creep_size: CreepSize.enm = wave.get_creep_size()
+func get_random(level: int, creep_size: CreepSize.enm) -> Array[int]:
 	var is_challenge: bool = CreepSize.is_challenge(creep_size)
 
 	if is_challenge:
 		return []
 
 	var random_special_list: Array[int] = []
-	var available_special_list: Array[int] = _get_available_specials(wave)
+	var available_special_list: Array[int] = _get_available_specials(level)
 
 	var special_count: int
-	if wave.get_level() <= Constants.MIN_WAVE_FOR_SPECIAL:
+	if level <= Constants.MIN_WAVE_FOR_SPECIAL:
 		special_count = 0
 	else:
 		special_count = Utils.random_weighted_pick(_special_count_chances)
@@ -160,11 +159,11 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 		buff.apply_to_unit_permanent(creep, creep, 0)
 
 
-func _get_available_specials(wave: Wave) -> Array[int]:
+func _get_available_specials(level: int) -> Array[int]:
 	var all_special_list: Array = _properties.keys()
 	var available_special_list: Array[int] = []
 
-	var wave_level: int = wave.get_level()
+	var wave_level: int = level
 
 	for special in all_special_list:
 		var required_level: int = _get_required_wave_level(special)

@@ -14,13 +14,39 @@ enum State {
 }
 
 
+const _size_chances: Dictionary = {
+	CreepSize.enm.MASS: 15,
+	CreepSize.enm.NORMAL: 50,
+	CreepSize.enm.AIR: 15,
+	CreepSize.enm.BOSS: 20,
+}
+
+const _champion_count_chances: Dictionary = {
+	CreepSize.enm.MASS: {
+		0: 70,
+		1: 30,
+	},
+	CreepSize.enm.NORMAL: {
+		0: 42.5,
+		1: 30,
+		2: 20,
+		3: 7.5,
+	},
+	CreepSize.enm.AIR: {
+		0: 100,
+	},
+	CreepSize.enm.BOSS: {
+		0: 100,
+	},
+}
+
+
 var _creep_data_list: Array[CreepData]
 var _alive_creep_list: Array[Creep] = []
-var _level: int : set = set_level, get = get_level
-var _race: CreepCategory.enm : set = set_race, get = get_race
-var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
-var _wave_path: Path2D : set = set_wave_path, get = get_wave_path
-#var _modifications: Array[Modification]
+var _level: int
+var _race: CreepCategory.enm
+var _armor_type: ArmorType.enm
+var _wave_path: Path2D
 var state: int = Wave.State.PENDING
 var next_wave: Wave
 var _specials: Array[int] = []
@@ -29,13 +55,34 @@ var _base_armor: float = 0.0
 var _creep_combination: Array[CreepSize.enm]
 var _creep_size: CreepSize.enm
 
+
+@onready var _wave_paths: Array = get_tree().get_nodes_in_group("wave_path")
+
+
 #########################
 ### Code starts here  ###
 #########################
 
 
+func _init(level: int, difficulty: int):
+	_level = level
+
+	_race = randi_range(0, CreepCategory.enm.size() - 1)
+	_creep_size = Wave._generate_creep_size(_level)
+	_armor_type = Wave._get_random_armor_type(_level, _creep_size)
+	_creep_combination = Wave._generate_creep_combination(_level, _creep_size)
+	_specials = WaveSpecial.get_random(_level, _creep_size)
+	_base_hp = Wave._calculate_base_hp(_level, difficulty)
+	_base_armor = Wave._calculate_base_armor(_level, difficulty)
+	_creep_data_list = Wave._generate_creep_data_list(self)
+
+
 func _ready():
 	set_name("Wave")
+
+# 	NOTE: need to init wave path here because wave can't get
+# 	wave paths until it's ready in the scene tree.
+	_wave_path = Wave._get_wave_path(0, _creep_size, _wave_paths)
 
 
 func _process(_delta):
@@ -75,14 +122,6 @@ func _on_Creep_reached_portal(damage, creep: Creep):
 
 func get_creep_size() -> CreepSize.enm:
 	return _creep_size
-
-
-func set_creep_size(creep_size: CreepSize.enm):
-	_creep_size = creep_size
-
-
-func set_creep_combination(creep_combination: Array[CreepSize.enm]):
-	_creep_combination = creep_combination
 
 
 # Returns an array of CreepSize enm.that should be spawned
@@ -140,51 +179,13 @@ func get_wave_path() -> Path2D:
 	return _wave_path
 
 
-func set_wave_path(value: Path2D):
-	_wave_path = value
-
-
-# Returns an array of Modifications that should be
-# applied for the specified Creep. This is including
-# creep armor, additional HP, and various unique
-# effects like 'Regen', 'Mana Shield', 'Wisdom', etc.
-func get_modification() -> Array:
-	# TODO:
-	return []
-
-
 # Armor type of the creeps
 func get_armor_type() -> ArmorType.enm:
 	return _armor_type
 
-func set_armor_type(value: ArmorType.enm):
-	_armor_type = value
-
-
-func is_challenge_wave() -> bool:
-	return get_level() % 8 == 0
-
-
-func set_level(value: int):
-	_level = value
-	
-
-# NOTE: wave level must be set before this is called
-func set_difficulty(difficulty: Difficulty.enm):
-	_base_hp = _calculate_base_hp(difficulty)
-	_base_armor = _calculate_base_armor(difficulty)
-
 
 func get_level() -> int:
 	return _level
-
-
-func set_race(value: CreepCategory.enm):
-	_race = value
-
-
-func set_specials(specials: Array[int]):
-	_specials = specials
 
 
 func get_specials() -> Array[int]:
@@ -213,14 +214,6 @@ func get_base_armor() -> float:
 	return _base_armor
 
 
-func is_air() -> bool:
-	return get_creep_sizes().has(CreepSize.enm.AIR)
-
-
-func set_creep_data_list(creep_data_list: Array[CreepData]):
-	_creep_data_list = creep_data_list
-
-
 func get_creep_data_list() -> Array[CreepData]:
 	return _creep_data_list
 
@@ -231,7 +224,7 @@ func add_alive_creep(creep: Creep):
 
 # Calculates base HP for a Creep based on 
 # the wave level 
-func _calculate_base_hp(difficulty: Difficulty.enm) -> float:
+static func _calculate_base_hp(level: int, difficulty: Difficulty.enm) -> float:
 	var a: float
 	var b: float
 	var c: float
@@ -286,16 +279,16 @@ func _calculate_base_hp(difficulty: Difficulty.enm) -> float:
 #	it's located far from the code which implements the main
 #	health formula. Search for "(.9-" strings to find it in
 #	multiple locations.
-	var extra_hp_multiplier: float = (0.9 - (_level * 0.002))
+	var extra_hp_multiplier: float = (0.9 - (level * 0.002))
 
-	var j: int = get_level() - 1
+	var j: int = level - 1
 	var health: float = a + j * (b + j * (c + j * (d + j * (e + j * (f + j * g)))))
 	health = health * extra_hp_multiplier
 
 	return health
 
 
-func _calculate_base_armor(difficulty: Difficulty.enm) -> float:
+static func _calculate_base_armor(level: int, difficulty: Difficulty.enm) -> float:
 	var a: float
 	var b: float
 	var c: float
@@ -322,7 +315,149 @@ func _calculate_base_armor(difficulty: Difficulty.enm) -> float:
 			b = 0.34
 			c = 0.001
 
-	var j: int = get_level() - 1
+	var j: int = level - 1
 	var base_armor: float = a + j * (b + j * c)
 
 	return base_armor
+
+
+# TODO: handle final wave, should be final boss
+static func _generate_creep_size(level: int) -> CreepSize.enm:
+	var challenge: bool = (level % 8) == 0
+	var challenge_mass: bool = (level % 120) % 16 == 0 && (level % 120) != 0
+
+	if challenge:
+		if challenge_mass:
+			return CreepSize.enm.CHALLENGE_MASS
+		else:
+			return CreepSize.enm.CHALLENGE_BOSS
+	else:
+		var random_regular_creep: CreepSize.enm = Utils.random_weighted_pick(_size_chances)
+
+		return random_regular_creep
+
+
+static func _get_random_armor_type(wave_level: int, creep_size: CreepSize.enm) -> ArmorType.enm:
+	var is_challenge: bool = CreepSize.is_challenge(creep_size)
+
+	if is_challenge:
+		return ArmorType.enm.ZOD
+
+	var regular_armor_list: Array = [
+		ArmorType.enm.HEL,
+		ArmorType.enm.MYT,
+		ArmorType.enm.LUA,
+		ArmorType.enm.SOL,
+	]
+
+	var can_spawn_sif: bool = wave_level >= 32
+
+	if can_spawn_sif && Utils.rand_chance(Constants.SIF_ARMOR_CHANCE):
+		return ArmorType.enm.SIF
+	else:
+		var random_regular_armor: ArmorType.enm = regular_armor_list.pick_random()
+
+		return random_regular_armor
+
+
+# Generates a creep combination. If wave contains champions,
+# then champions are inserted in regular intervals between
+# other creeps.
+static func _generate_creep_combination(wave_level: int, creep_size: CreepSize.enm) -> Array[CreepSize.enm]:
+	var combination: Array[CreepSize.enm] = []
+
+	var wave_capacity: int = 20 + wave_level / 40
+	var champion_count: int = _generate_champion_count(wave_level, creep_size)
+	var champion_weight: int = int(CreepSize.get_experience(CreepSize.enm.CHAMPION))
+	var unit_weight: int = int(CreepSize.get_experience(creep_size))
+
+	var total_unit_count: int = -1
+	var champion_unit_ratio: float = -1
+	var regular_unit_ratio: float = -1
+
+	if creep_size == CreepSize.enm.CHALLENGE_BOSS:
+		total_unit_count = 1
+	elif creep_size == CreepSize.enm.CHALLENGE_MASS:
+#		TODO: implement real formula for this. 10 is
+#		placeholder value.
+		total_unit_count = 10
+	elif champion_count > 0:
+		total_unit_count = (wave_capacity - champion_count * champion_weight) / unit_weight + champion_count
+		champion_unit_ratio = float(total_unit_count) / champion_count
+		regular_unit_ratio = float(total_unit_count) / champion_count / 2
+	else:
+		total_unit_count = wave_capacity / unit_weight
+
+	var champion_count_so_far: int = 0
+
+	for k in range(0, total_unit_count):
+		var spawn_champion: bool = int(regular_unit_ratio + champion_unit_ratio * champion_count_so_far - 0.5) == k
+
+		if spawn_champion:
+			combination.append(CreepSize.enm.CHAMPION)
+			champion_count_so_far = champion_count_so_far + 1
+		else:
+			combination.append(creep_size)
+
+	return combination
+
+
+static func _generate_champion_count(wave_level: int, creep_size: CreepSize.enm) -> int:
+	var is_challenge: bool = CreepSize.is_challenge(creep_size)
+
+	if is_challenge:
+		return 0
+
+	var chance_of_champion_count: Dictionary = _champion_count_chances[creep_size]
+	var champion_count: int = Utils.random_weighted_pick(chance_of_champion_count)
+
+	if champion_count > 0:
+		champion_count = champion_count + int(wave_level / 120)
+
+	return champion_count
+
+
+static func _get_wave_path(player: int, creep_size: CreepSize.enm, wave_paths: Array) -> Path2D:
+	for path in wave_paths:
+		var player_match: bool = path.player == player
+		var size_is_air: bool = creep_size == CreepSize.enm.AIR
+		var size_match: bool = path.is_air == size_is_air
+		var path_match: bool = player_match && size_match
+
+		if path_match:
+			return path
+
+	push_error("Could not find wave path for player [%s] and size [%s] in "  % [player, creep_size] \
+			+ "a group of paths [wave_path].")
+	
+	return null
+
+
+static func _generate_creep_data_list(wave: Wave) -> Array[CreepData]:
+	var creep_data_list: Array[CreepData] = []
+	var creep_sizes = wave.get_creep_combination()
+	for creep_size in creep_sizes:
+		var creep_data: CreepData = Wave._generate_creep_for_wave(wave)
+		creep_data_list.append(creep_data)
+	
+	return creep_data_list
+
+
+static func _generate_creep_for_wave(wave: Wave) -> CreepData:
+	var creep_size: CreepSize.enm = wave.get_creep_size()
+	var creep_size_name = Utils.screaming_snake_case_to_camel_case(CreepSize.enm.keys()[creep_size])
+	var creep_race_name = Utils.screaming_snake_case_to_camel_case(CreepCategory.enm.keys()[wave.get_race()])
+	var creep_scene_name = creep_race_name + creep_size_name
+
+#	TODO: switch to real challenge scenes when they are ready
+	if creep_size == CreepSize.enm.CHALLENGE_BOSS:
+		creep_scene_name = "OrcBoss"
+	elif creep_size == CreepSize.enm.CHALLENGE_MASS:
+		creep_scene_name = "OrcMass"
+
+	var creep_data: CreepData = CreepData.new()
+	creep_data.scene_name = creep_scene_name
+	creep_data.size = creep_size
+	creep_data.wave = wave
+
+	return creep_data

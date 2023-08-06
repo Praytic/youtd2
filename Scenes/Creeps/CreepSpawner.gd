@@ -150,25 +150,6 @@ func queue_spawn_creep(creep_data: CreepData):
 		_timer_between_creeps.start()
 
 
-func generate_creep_for_wave(wave: Wave, creep_size) -> CreepData:
-	var creep_size_name = Utils.screaming_snake_case_to_camel_case(CreepSize.enm.keys()[creep_size])
-	var creep_race_name = Utils.screaming_snake_case_to_camel_case(CreepCategory.enm.keys()[wave.get_race()])
-	var creep_scene_name = creep_race_name + creep_size_name
-
-#	TODO: switch to real challenge scenes when they are ready
-	if creep_size == CreepSize.enm.CHALLENGE_BOSS:
-		creep_scene_name = "OrcBoss"
-	elif creep_size == CreepSize.enm.CHALLENGE_MASS:
-		creep_scene_name = "OrcMass"
-
-	var creep_data: CreepData = CreepData.new()
-	creep_data.scene_name = creep_scene_name
-	creep_data.size = creep_size
-	creep_data.wave = wave
-
-	return creep_data
-
-
 func spawn_creep(creep_data: CreepData) -> Creep:
 	var creep_size: CreepSize.enm = creep_data.size
 	var creep_scene_name: String = creep_data.scene_name
