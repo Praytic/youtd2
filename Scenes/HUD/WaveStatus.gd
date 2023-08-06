@@ -16,6 +16,8 @@ func _ready():
 	_wave_spawner.generated_all_waves.connect(_update_all_labels)
 	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
 
+	_update_all_labels()
+
 
 func _process(_delta: float):
 	_update_timer_label()
