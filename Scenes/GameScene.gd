@@ -56,12 +56,6 @@ func _on_HUD_stop_wave():
 	$Map/CreepSpawner.stop()
 
 
-func _on_wave_spawner_wave_ended(wave: Wave):
-	var wave_level: int = wave.get_level()
-	GoldControl.add_income(wave_level)
-	KnowledgeTomesManager.add_knowledge_tomes()
-
-
 # TODO: use game_mode setting
 func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
 	_game_state = GameState.PLAYING

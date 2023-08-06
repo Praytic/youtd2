@@ -91,6 +91,5 @@ visible = false
 process_mode = 3
 visible = false
 
-[connection signal="wave_ended" from="Map/WaveSpawner" to="." method="_on_wave_spawner_wave_ended"]
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]

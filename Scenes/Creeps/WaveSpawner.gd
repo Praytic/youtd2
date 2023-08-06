@@ -4,7 +4,6 @@ class_name WaveSpawner extends Node
 var TIME_BETWEEN_WAVES: float = 15.0
 
 
-signal wave_ended(wave: Wave)
 signal all_waves_started
 signal all_waves_cleared
 
@@ -144,7 +143,9 @@ func _on_Wave_ended(wave: Wave):
 
 	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % wave.get_level())
 
-	wave_ended.emit(wave)
+	var wave_level: int = wave.get_level()
+	GoldControl.add_income(wave_level)
+	KnowledgeTomesManager.add_knowledge_tomes()
 
 	var any_wave_is_active: bool = false
 
