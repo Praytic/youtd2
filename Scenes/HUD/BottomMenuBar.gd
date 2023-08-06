@@ -12,15 +12,6 @@ signal test_signal()
 
 
 func _ready():
-#	NOTE: on html5 build created on github CI, connections
-#	for some reason don't work when a signal from parent is
-#	connected to slot in child. Leave this in for debug
-#	purposes.
-	var connection_count: int = test_signal.get_connections().size()
-	print_verbose("-----\nRightMenuBar connection_count = %d" %connection_count)
-	if connection_count == 0:
-		print_verbose("!!!!!\nconnection bug still exists\n!!!!!!")
-	
 	for element_button in get_element_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 
