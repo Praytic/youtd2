@@ -47,7 +47,6 @@ var _race: CreepCategory.enm
 var _armor_type: ArmorType.enm
 var _wave_path: Path2D
 var state: int = Wave.State.PENDING
-var next_wave: Wave
 var _specials: Array[int] = []
 var _base_hp: float = 0.0
 var _base_armor: float = 0.0

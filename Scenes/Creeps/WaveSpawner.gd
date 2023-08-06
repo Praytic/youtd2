@@ -29,7 +29,6 @@ func _ready():
 
 
 func generate_waves(wave_count: int, difficulty: Difficulty.enm):
-	var previous_wave = null
 	for wave_level in range(1, wave_count + 1):
 		var wave: Wave = Wave.new(wave_level, difficulty)
 		
@@ -40,9 +39,6 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 				CreepCategory.convert_to_string(wave.get_race()), \
 				ArmorType.convert_to_string(wave.get_armor_type())])
 		
-		if previous_wave:
-			previous_wave.next_wave = wave
-		previous_wave = wave
 		wave.add_to_group("wave")
 
 		_wave_list.append(wave)
