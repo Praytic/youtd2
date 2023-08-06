@@ -4,17 +4,12 @@ class_name WaveSpawner extends Node
 var TIME_BETWEEN_WAVES: float = 15.0
 
 
-signal wave_started(wave: Wave)
-signal wave_spawned(wave: Wave)
 signal wave_ended(wave: Wave)
 signal all_waves_started
 signal all_waves_cleared
 
 
 var _wave_list: Array[Wave] = []
-# NOTE: index starts at -1 because when the game starts no
-# wave has been started yet
-var _current_wave_index: int = -1
 
 
 @onready var _timer_between_waves: Timer = $Timer
@@ -56,19 +51,12 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	EventBus.waves_were_generated.emit()
 
 
-func get_current_wave_level() -> int:
-	if _current_wave_index != -1:
-		return _current_wave_index + 1
-	else:
-		return 0
-
-
 func _on_Timer_timeout():
 	_start_next_wave()
 
 
 func _start_next_wave():
-	_current_wave_index += 1
+	WaveLevel.increase()
 
 	var current_wave: Wave = get_current_wave()
 	current_wave.state = Wave.State.SPAWNING
@@ -81,11 +69,8 @@ func _start_next_wave():
 	_add_message_about_wave(current_wave)
 	
 	print_verbose("Wave has started [%s]." % current_wave)
-	wave_started.emit(current_wave)
 
-	var all_waves_have_been_started: bool = _current_wave_index == _wave_list.size() - 1
-
-	if all_waves_have_been_started:
+	if _last_wave_was_started():
 		all_waves_started.emit()
 
 
@@ -93,16 +78,13 @@ func _on_CreepSpawner_all_creeps_spawned():
 	var current_wave = get_current_wave()
 	current_wave.state = Wave.State.SPAWNED
 	print_verbose("Wave has been spawned [%s]." % current_wave)
-	wave_spawned.emit(current_wave)
 
 
 func get_current_wave() -> Wave:
-	if _current_wave_index != -1:
-		var current_wave: Wave = _wave_list[_current_wave_index]
-		
-		return current_wave
-	else:
-		return null
+	var current_level: int = WaveLevel.get_current()
+	var current_wave: Wave = get_wave(current_level)
+
+	return current_wave
 
 
 func get_waves() -> Array:
@@ -139,10 +121,10 @@ func wave_is_in_progress() -> float:
 
 func force_start_next_wave() -> bool:
 	var current_wave: Wave = get_current_wave()
-	var before_first_wave: bool = current_wave == null
+	var before_first_wave: bool = WaveLevel.get_current() == 0
 	var current_wave_finished_spawning: bool = current_wave != null && current_wave.state != Wave.State.SPAWNING
-	var can_start_next_wave: bool = before_first_wave || current_wave_finished_spawning
-	
+	var can_start_next_wave: bool = !_last_wave_was_started() && (before_first_wave || current_wave_finished_spawning)
+
 	if can_start_next_wave:
 		_timer_between_waves.stop()
 		_start_next_wave()
@@ -172,13 +154,11 @@ func _on_Wave_ended(wave: Wave):
 
 			break
 
-	var got_more_waves: bool = _current_wave_index < _wave_list.size()
-
 	if !any_wave_is_active:
-		if got_more_waves:
-			_timer_between_waves.start()
-		else:
+		if _last_wave_was_started():
 			all_waves_cleared.emit()
+		else:
+			_timer_between_waves.start()
 
 
 func _add_message_about_wave(wave: Wave):
@@ -219,3 +199,10 @@ static func _generate_creep_data_list(wave: Wave) -> Array[CreepData]:
 		creep_data_list.append(creep_data)
 	
 	return creep_data_list
+
+
+func _last_wave_was_started() -> bool:
+	var wave_index: int = WaveLevel.get_current() - 1
+	var after_last_wave: bool = wave_index >= _wave_list.size()
+
+	return after_last_wave
