@@ -69,8 +69,10 @@ func get_current_wave_level() -> int:
 
 func spawn_wave(new_wave: Wave):
 	new_wave.state = Wave.State.SPAWNING
-	
-	for creep_data in new_wave.get_creep_data_list():
+
+	var creep_data_list: Array[CreepData] = WaveSpawner._generate_creep_data_list(new_wave)
+
+	for creep_data in creep_data_list:
 		_creep_spawner.queue_spawn_creep(creep_data)
 
 
@@ -194,7 +196,6 @@ func _get_alive_creeps() -> Array:
 
 
 func _add_message_about_wave(wave: Wave):
-	var creep_combination: Array[CreepSize.enm] = wave.get_creep_combination()
 	var combination_string: String = wave.get_creep_combination_string()
 
 	var creep_race: CreepCategory.enm = wave.get_race()
@@ -209,8 +210,26 @@ func _add_message_about_wave(wave: Wave):
 	var special_list: Array[int] = wave.get_specials()
 
 	for special in special_list:
-		var name: String = WaveSpecial.get_special_name(special)
+		var special_name: String = WaveSpecial.get_special_name(special)
 		var description: String = WaveSpecial.get_description(special)
-		var special_string: String = "[color=BLUE]%s[/color] - %s" % [name, description]
+		var special_string: String = "[color=BLUE]%s[/color] - %s" % [special_name, description]
 
 		Messages.add_normal(special_string)
+
+
+static func _generate_creep_data_list(wave: Wave) -> Array[CreepData]:
+	var creep_data_list: Array[CreepData] = []
+	var creep_combination: Array[CreepSize.enm] = wave.get_creep_combination()
+
+	for creep_size in creep_combination:
+		var creep_race: CreepCategory.enm = wave.get_creep_race()
+		var scene_name: String = Wave.get_scene_name_for_creep_type(creep_size, creep_race)
+
+		var creep_data: CreepData = CreepData.new()
+		creep_data.scene_name = scene_name
+		creep_data.size = creep_size
+		creep_data.wave = wave
+
+		creep_data_list.append(creep_data)
+	
+	return creep_data_list

@@ -88,11 +88,9 @@ func setup_background_load_queue(wave_list: Array[Wave]):
 	var queue: Array[String] = []
 
 	for wave in wave_list:
-		var creep_data_list: Array[CreepData] = wave.get_creep_data_list()
+		var used_scene_list: Array[String] = wave.get_used_scene_list()
 
-		for creep_data in creep_data_list:
-			var scene_name: String = creep_data.scene_name
-
+		for scene_name in used_scene_list:
 			if !queue.has(scene_name):
 				queue.append(scene_name)
 

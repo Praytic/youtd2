@@ -41,7 +41,6 @@ const _champion_count_chances: Dictionary = {
 }
 
 
-var _creep_data_list: Array[CreepData]
 var _alive_creep_list: Array[Creep] = []
 var _level: int
 var _race: CreepCategory.enm
@@ -67,14 +66,13 @@ var _creep_size: CreepSize.enm
 func _init(level: int, difficulty: int):
 	_level = level
 
-	_race = randi_range(0, CreepCategory.enm.size() - 1)
+	_race = randi_range(0, CreepCategory.enm.size() - 1) as CreepCategory.enm
 	_creep_size = Wave._generate_creep_size(_level)
 	_armor_type = Wave._get_random_armor_type(_level, _creep_size)
 	_creep_combination = Wave._generate_creep_combination(_level, _creep_size)
 	_specials = WaveSpecial.get_random(_level, _creep_size)
 	_base_hp = Wave._calculate_base_hp(_level, difficulty)
 	_base_armor = Wave._calculate_base_armor(_level, difficulty)
-	_creep_data_list = Wave._generate_creep_data_list(self)
 
 
 func _ready():
@@ -118,6 +116,23 @@ func _on_Creep_reached_portal(damage, creep: Creep):
 #########################
 ### Setters / Getters ###
 #########################
+
+
+# Returns a list of scenes used by creeps in this wave
+func get_used_scene_list() -> Array[String]:
+	var scene_list: Array[String] = []
+
+	for creep_size in _creep_combination:
+		var scene_name: String = Wave.get_scene_name_for_creep_type(creep_size, _race)
+
+		if !scene_list.has(scene_name):
+			scene_list.append(scene_name)
+
+	return scene_list
+
+
+func get_creep_race() -> CreepCategory.enm:
+	return _race
 
 
 func get_creep_size() -> CreepSize.enm:
@@ -212,10 +227,6 @@ func get_base_hp() -> float:
 
 func get_base_armor() -> float:
 	return _base_armor
-
-
-func get_creep_data_list() -> Array[CreepData]:
-	return _creep_data_list
 
 
 func add_alive_creep(creep: Creep):
@@ -433,31 +444,15 @@ static func _get_wave_path(player: int, creep_size: CreepSize.enm, wave_paths: A
 	return null
 
 
-static func _generate_creep_data_list(wave: Wave) -> Array[CreepData]:
-	var creep_data_list: Array[CreepData] = []
-	var creep_sizes = wave.get_creep_combination()
-	for creep_size in creep_sizes:
-		var creep_data: CreepData = Wave._generate_creep_for_wave(wave)
-		creep_data_list.append(creep_data)
-	
-	return creep_data_list
-
-
-static func _generate_creep_for_wave(wave: Wave) -> CreepData:
-	var creep_size: CreepSize.enm = wave.get_creep_size()
-	var creep_size_name = Utils.screaming_snake_case_to_camel_case(CreepSize.enm.keys()[creep_size])
-	var creep_race_name = Utils.screaming_snake_case_to_camel_case(CreepCategory.enm.keys()[wave.get_race()])
-	var creep_scene_name = creep_race_name + creep_size_name
-
-#	TODO: switch to real challenge scenes when they are ready
+static func get_scene_name_for_creep_type(creep_size: CreepSize.enm, creep_race: CreepCategory.enm) -> String:
+	#	TODO: switch to real challenge scenes when they are ready
 	if creep_size == CreepSize.enm.CHALLENGE_BOSS:
-		creep_scene_name = "OrcBoss"
+		return "OrcBoss"
 	elif creep_size == CreepSize.enm.CHALLENGE_MASS:
-		creep_scene_name = "OrcMass"
+		return "OrcMass"
 
-	var creep_data: CreepData = CreepData.new()
-	creep_data.scene_name = creep_scene_name
-	creep_data.size = creep_size
-	creep_data.wave = wave
+	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
+	var creep_race_string: String = CreepCategory.convert_to_string(creep_race)
+	var scene_name: String = creep_race_string.capitalize() + creep_size_string.capitalize()
 
-	return creep_data
+	return scene_name
