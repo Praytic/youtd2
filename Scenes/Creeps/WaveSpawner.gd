@@ -169,26 +169,21 @@ func _on_Wave_ended(wave: Wave):
 
 	wave_ended.emit(wave)
 
-	var alive_creeps: Array = _get_alive_creeps()
-	var all_creeps_are_killed: bool = alive_creeps.is_empty()
-	var all_waves_were_started: bool = _current_wave_index == _wave_list.size() - 1
+	var any_wave_is_active: bool = false
 
-	if all_creeps_are_killed:
-		if all_waves_were_started:
-			all_waves_cleared.emit()
-		else:
+	for this_wave in _wave_list:
+		if this_wave.state == Wave.State.SPAWNING || this_wave.state == Wave.State.SPAWNED:
+			any_wave_is_active = true
+
+			break
+
+	var got_more_waves: bool = _current_wave_index < _wave_list.size()
+
+	if !any_wave_is_active:
+		if got_more_waves:
 			_timer_between_waves.start()
-
-
-func _get_alive_creeps() -> Array:
-	var creep_list: Array = get_tree().get_nodes_in_group("creeps")
-	var alive_list: Array = []
-
-	for creep in creep_list:
-		if !creep.is_dead():
-			alive_list.append(creep)
-
-	return alive_list
+		else:
+			all_waves_cleared.emit()
 
 
 func _add_message_about_wave(wave: Wave):

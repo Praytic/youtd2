@@ -6,10 +6,10 @@ signal wave_ended
 
 
 enum State {
-	CLEARED,
-	SPAWNED,
-	SPAWNING,
 	PENDING,
+	SPAWNING,
+	SPAWNED,
+	CLEARED,
 }
 
 
@@ -91,7 +91,7 @@ func _ready():
 #########################
 
 
-func _remove_alive_creep(creep: Creep):
+func _on_creep_tree_exiting(creep: Creep):
 	_alive_creep_list.erase(creep)
 
 	if _alive_creep_list.is_empty() && state == Wave.State.SPAWNED:
@@ -102,14 +102,6 @@ func _remove_alive_creep(creep: Creep):
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_Creep_death(_event: Event, creep: Creep):
-	print_verbose("Creep [%s] has died." % creep)
-	_remove_alive_creep(creep)
-
-func _on_Creep_reached_portal(damage, creep: Creep):
-	print_verbose("Creep [%s] reached portal. Damage to portal: %s" % [creep, damage])
-	_remove_alive_creep(creep)
 
 
 #########################
@@ -230,6 +222,7 @@ func get_base_armor() -> float:
 
 func add_alive_creep(creep: Creep):
 	_alive_creep_list.append(creep)
+	creep.tree_exiting.connect(_on_creep_tree_exiting.bind(creep))
 
 
 # Calculates base HP for a Creep based on 

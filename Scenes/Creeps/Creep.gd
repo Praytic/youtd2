@@ -5,7 +5,6 @@ extends Unit
 # TODO: implement armor
 
 signal moved(delta)
-signal reached_portal(damage_to_portal)
 
 
 # NOTE: timed creeps moving in original game and their speed
@@ -134,7 +133,6 @@ func reach_portal():
 	if damage_to_portal > 0:
 		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
 
-	reached_portal.emit(damage_to_portal)
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 	queue_free()
 
