@@ -33,7 +33,7 @@ func _ready():
 	
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
-	_on_selected_unit_changed()
+	_on_selected_unit_changed(null)
 	
 	ItemMovement.item_move_from_tower_done.connect(_on_item_move_from_tower_done)
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
@@ -54,7 +54,7 @@ func _on_wave_or_element_level_changed():
 		_update_upgrade_button()
 
 
-func _on_selected_unit_changed(prev_unit = null):
+func _on_selected_unit_changed(prev_unit: Unit):
 	var tower: Tower = get_selected_tower()
 	
 	visible = tower != null

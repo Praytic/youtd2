@@ -32,7 +32,7 @@ func set_selected_unit(new_selected_unit: Unit):
 			new_selected_unit.tree_exiting.connect(on_unit_tree_exiting.bind(new_selected_unit))
 
 	_selected_unit = new_selected_unit
-	selected_unit_changed.emit()
+	selected_unit_changed.emit(old_selected_unit)
 
 
 func get_selected_unit() -> Unit:
