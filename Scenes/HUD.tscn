@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 [ext_resource type="PackedScene" uid="uid://vdiwgjefedtp" path="res://Scenes/HUD/ResearchMenu.tscn" id="22_kpm02"]
 
-[node name="HUD" type="Control"]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_game_over_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +23,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_xs0tv")
 script = ExtResource("11")
+_game_over_label = NodePath("GameOverLabel")
 
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]
 layout_mode = 1
@@ -85,7 +86,6 @@ offset_right = 6.10352e-05
 offset_bottom = -98.9999
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
-mouse_force_pass_scroll_events = false
 _research_panel = NodePath("../ResearchMenu")
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
@@ -148,5 +148,25 @@ offset_top = 6.10352e-05
 offset_right = 0.00012207
 offset_bottom = 6.10352e-05
 scale = Vector2(0.8, 0.8)
+
+[node name="GameOverLabel" type="RichTextLabel" parent="."]
+visible = false
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -40.5
+offset_right = 250.0
+offset_bottom = 40.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[color=RED]GAME OVER[/color]"
+fit_content = true
 
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
