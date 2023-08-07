@@ -10,6 +10,8 @@ var _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.pn
 @onready var _label: RichTextLabel = $PanelContainer/VBoxContainer/RichTextLabel
 @onready var _buffs_container: Control = $PanelContainer/VBoxContainer/BuffsContainer
 
+const do_not_update: bool = true
+
 
 # NOTE: max of 10 buffs are displayed, if the unit has more
 # than 10, the extra buffs won't be displayed.
@@ -22,6 +24,10 @@ func _ready():
 
 
 func _process(_delta: float):
+#	TODO: disabled the panel because selected unit info will be replaced by TowerMenu soon
+	if do_not_update:
+		return
+
 	_label.clear()
 
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
