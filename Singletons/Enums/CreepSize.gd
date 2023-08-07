@@ -34,26 +34,15 @@ const _color_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: Color.GOLD,
 }
 
-# TODO: figure out actual values
-const _item_chance_map: Dictionary = {
-	CreepSize.enm.MASS: 0.05,
-	CreepSize.enm.NORMAL: 0.10,
-	CreepSize.enm.AIR: 0.10,
-	CreepSize.enm.CHAMPION: 0.20,
-	CreepSize.enm.BOSS: 0.50,
-	CreepSize.enm.CHALLENGE_MASS: 0.10,
-	CreepSize.enm.CHALLENGE_BOSS: 0.70,
-}
 
-# TODO: figure out actual values
-const _item_quality_map: Dictionary = {
-	CreepSize.enm.MASS: 0.0,
-	CreepSize.enm.NORMAL: 0.0,
-	CreepSize.enm.AIR: 0.0,
-	CreepSize.enm.CHAMPION: 0.25,
-	CreepSize.enm.BOSS: 0.25,
-	CreepSize.enm.CHALLENGE_MASS: 0.25,
-	CreepSize.enm.CHALLENGE_BOSS: 0.25,
+const _item_drop_roll_count: Dictionary = {
+	CreepSize.enm.MASS: 1,
+	CreepSize.enm.NORMAL: 2,
+	CreepSize.enm.AIR: 4,
+	CreepSize.enm.CHAMPION: 4,
+	CreepSize.enm.BOSS: 20,
+	CreepSize.enm.CHALLENGE_MASS: 4,
+	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 
 const _experience_map: Dictionary = {
@@ -119,12 +108,8 @@ func convert_to_colored_string(type: CreepSize.enm) -> String:
 	return out
 
 
-func get_default_item_chance(type: CreepSize.enm) -> float:
-	return _item_chance_map[type]
-
-
-func get_default_item_quality(type: CreepSize.enm) -> float:
-	return _item_quality_map[type]
+func get_item_drop_roll_count(type: CreepSize.enm) -> int:
+	return _item_drop_roll_count[type]
 
 
 func get_experience(type: CreepSize.enm) -> float:

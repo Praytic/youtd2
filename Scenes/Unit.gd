@@ -806,11 +806,21 @@ func _killed_by_unit(caster: Unit):
 	var target_item_chance: float = get_item_drop_ratio_on_death()
 	var item_chance: float = BASE_ITEM_DROP_CHANCE * caster_item_chance * target_item_chance
 
-	var item_dropped: bool = Utils.rand_chance(item_chance) || Config.always_drop_items()
 	var creep: Creep = self as Creep
 
-	if item_dropped && creep != null:
-		creep.drop_item(caster, false)
+	if creep != null:
+		var creep_size: CreepSize.enm = creep.get_size()
+		var item_drop_roll_count: int = CreepSize.get_item_drop_roll_count(creep_size)
+		
+		if Config.always_drop_items():
+			item_drop_roll_count = 1
+			item_chance = 1.0
+		
+		for i in range(0, item_drop_roll_count):
+			var item_dropped: bool = Utils.rand_chance(item_chance)
+
+			if item_dropped:
+				creep.drop_item(caster, false)
 
 	queue_free()
 

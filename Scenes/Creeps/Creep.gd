@@ -65,9 +65,6 @@ func _ready():
 
 	death.connect(_on_death)
 
-	_mod_value_map[Modification.Type.MOD_ITEM_CHANCE_ON_DEATH] = CreepSize.get_default_item_chance(_size)
-	_mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH] = CreepSize.get_default_item_quality(_size)
-
 
 func _process(delta):
 	if !is_stunned():
