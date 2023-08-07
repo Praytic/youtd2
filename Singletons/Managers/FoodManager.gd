@@ -1,5 +1,6 @@
 extends Node
 
+# Emitted when current food or food cap changes
 signal changed()
 
 
@@ -44,6 +45,7 @@ func remove_tower():
 
 func modify_food_cap(amount: int):
 	food_cap = clampi(food_cap + amount, 0, MAX_FOOD_CAP)
+	changed.emit()
 
 
 func get_current_food() -> int:
