@@ -48,16 +48,28 @@ func add_gold(value: float):
 	var new_total: float = _gold + value
 	set_gold(new_total)
 
+
+func spend_gold(value: float):
+	var new_total: float = _gold - value
+	set_gold(new_total)
+
+
 func set_gold(value: float):
 	if (value >= MAX_GOLD):
 		print_debug("Max gold reached: %s" % value)
-		_gold = MAX_GOLD
 	elif (_gold < 0):
 		print_debug("Negative gold reached: %s" % value)
-		_gold = 0
-	else:
-		_gold = value
+
+	_gold = clampi(value, 0, MAX_GOLD)
 	gold_change.emit(_gold)
 
 func get_gold() -> float:
 	return _gold
+
+
+func enough_gold_for_tower(tower_id: int) -> bool:
+	var cost: float = TowerProperties.get_cost(tower_id)
+	var current_gold: float = GoldControl.get_gold()
+	var enough_gold: bool = cost <= current_gold
+
+	return enough_gold

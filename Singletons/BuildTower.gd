@@ -65,22 +65,34 @@ func tower_was_sold(position: Vector2):
 
 
 func _try_to_build():
+	var tower_id: int = _tower_preview.tower_id
 	var can_build: bool = _landscape.can_build_at_mouse_pos()
 	var enough_food: bool = FoodManager.enough_food_for_tower()
+	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
 
 	if !can_build:
 		var error: String = "Can't build here."
 		Messages.add_error(error)
+	elif !enough_gold:
+#		NOTE: have to also check gold right before building
+#		because it is possible for some item or tower
+#		abilities to reduce gold. That means that gold
+#		amount can decrease between starting to build a
+#		tower and trying to build.
+		Messages.add_error("Not enough gold.")
 	elif !enough_food:
 		var error: String = "Not enough food."
 		Messages.add_error(error)
 	else:
-		var new_tower = TowerManager.get_tower(_tower_preview.tower_id)
+		var new_tower = TowerManager.get_tower(tower_id)
 		var build_position: Vector2 =_landscape.get_mouse_pos_on_tilemap_clamped()
 		new_tower.position = build_position
 		_occupied_position_map[build_position] = true
 		Utils.add_object_to_world(new_tower)
-		tower_built.emit(_tower_preview.tower_id)
+		tower_built.emit(tower_id)
 		FoodManager.add_tower()
+		
+		var build_cost: float = TowerProperties.get_cost(tower_id)
+		GoldControl.spend_gold(build_cost)
 		
 		cancel()

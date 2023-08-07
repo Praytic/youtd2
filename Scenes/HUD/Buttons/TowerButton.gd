@@ -59,6 +59,13 @@ func _on_mouse_exited():
 
 
 func _on_pressed():
+	var enough_gold: bool = GoldControl.enough_gold_for_tower(_tower_id)
+
+	if !enough_gold:
+		Messages.add_error("Not enough gold.")
+
+		return
+
 	BuildTower.start(_tower_id)
 
 

@@ -213,6 +213,13 @@ func _on_upgrade_button_pressed():
 
 		return
 
+	var enough_gold: bool = GoldControl.enough_gold_for_tower(upgrade_id)
+
+	if !enough_gold:
+		Messages.add_error("Not enough gold.")
+
+		return
+
 	var upgrade_tower: Tower = TowerManager.get_tower(upgrade_id)
 	upgrade_tower.position = tower.position
 	upgrade_tower._temp_preceding_tower = tower
@@ -220,6 +227,9 @@ func _on_upgrade_button_pressed():
 	tower.queue_free()
 
 	SelectUnit.set_selected_unit(upgrade_tower)
+
+	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
+	GoldControl.spend_gold(upgrade_cost)
 
 	_update_upgrade_button()
 
