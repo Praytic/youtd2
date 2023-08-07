@@ -280,7 +280,7 @@ func _on_health_changed():
 func _on_death(event: Event):
 #	Add gold
 	var caster: Unit = event.get_target()
-	var bounty: float = get_bounty()
+	var bounty: float = get_bounty(caster)
 	caster.getOwner().give_gold(floor(bounty), self, false, true)
 
 # 	Death visual

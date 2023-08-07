@@ -861,10 +861,10 @@ func _update_invisible_modulate():
 		modulate = Color(1, 1, 1, 1)
 
 
-func get_bounty() -> float:
+func get_bounty(caster: Unit) -> float:
 	var bounty_base: float = _get_base_bounty()
 	var granted_mod: float = get_prop_bounty_granted()
-	var received_mod: float = get_prop_bounty_received()
+	var received_mod: float = caster.get_prop_bounty_received()
 	var bounty: int = int(bounty_base * granted_mod * received_mod)
 
 	return bounty
