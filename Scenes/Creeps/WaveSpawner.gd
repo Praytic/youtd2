@@ -1,6 +1,7 @@
 class_name WaveSpawner extends Node
 
 
+var TIME_BEFORE_FIRST_WAVE: float = 120.0
 var TIME_BETWEEN_WAVES: float = 15.0
 
 
@@ -20,7 +21,6 @@ func _ready():
 		TIME_BETWEEN_WAVES = 0.1
 
 	_timer_between_waves.set_autostart(false)
-	_timer_between_waves.set_wait_time(TIME_BETWEEN_WAVES)
 
 
 func generate_waves(wave_count: int, difficulty: Difficulty.enm):
@@ -46,7 +46,7 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	
 	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())
 	
-	_timer_between_waves.start()
+	_timer_between_waves.start(TIME_BEFORE_FIRST_WAVE)
 
 	generated_all_waves.emit()
 
@@ -155,7 +155,7 @@ func _on_wave_finished(wave: Wave):
 		if _last_wave_was_started():
 			all_waves_cleared.emit()
 		else:
-			_timer_between_waves.start()
+			_timer_between_waves.start(TIME_BETWEEN_WAVES)
 
 
 func _add_message_about_wave(wave: Wave):
