@@ -255,19 +255,18 @@ func _add_item(item: Item):
 		items_changed.emit()
 
 
-# Remove item from tower's item list, doesn't remove item
-# effects. Use Item.drop() for that.
+# Remove item from tower's item list or oil list, doesn't
+# remove item effects. Use Item.drop() for that.
 func _remove_item(item: Item):
 	var item_id: int = item.get_id()
 
-	if !_item_list.has(item):
-		push_error("Tried removing an item from tower but the item is not in tower inventory. Tower = %s, Item = %s" % [self, item_id])
-		
-		return
+	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
 
-	_item_list.erase(item)
-
-	items_changed.emit()
+	if is_oil:
+		_item_oil_list.erase(item)
+	else:
+		_item_list.append(item)
+		items_changed.emit()
 
 
 func get_items() -> Array[Item]:
