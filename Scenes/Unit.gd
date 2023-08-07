@@ -818,7 +818,10 @@ func _killed_by_unit(caster: Unit):
 # Called when unit kills target unit
 func _accept_kill(target: Unit):
 	var experience_gained: float = _get_experience_for_target(target)
-	add_exp(experience_gained)
+	_change_experience(experience_gained)
+
+	var bounty_gained: int = _get_bounty_for_target(target)
+	getOwner().give_gold(bounty_gained, target, false, true)
 
 	_kill_count += 1
 
@@ -861,29 +864,34 @@ func _update_invisible_modulate():
 		modulate = Color(1, 1, 1, 1)
 
 
-func get_bounty(caster: Unit) -> float:
-	var bounty_base: float = _get_base_bounty()
-	var granted_mod: float = get_prop_bounty_granted()
-	var received_mod: float = caster.get_prop_bounty_received()
-	var bounty: int = int(bounty_base * granted_mod * received_mod)
+func _get_bounty_for_target(target: Unit) -> int:
+	if !target is Creep:
+		return 0
+
+	var tower: Unit = self
+	var creep: Creep = target as Creep
+	var creep_size: CreepSize.enm = creep.get_size()
+	var gold_multiplier: float = CreepSize.get_gold_multiplier(creep_size)
+	var spawn_level: int = creep.get_spawn_level()
+	var bounty_base: float = gold_multiplier * (spawn_level / 8 + 1)
+	var granted_mod: float = creep.get_prop_bounty_granted()
+	var received_mod: float = tower.get_prop_bounty_received()
+	var bounty: int = floori(bounty_base * granted_mod * received_mod)
 
 	return bounty
-
-
-# NOTE: overriden by Creep subclass
-func _get_base_bounty() -> float:
-	return 0
 
 
 func _get_experience_for_target(target: Unit) -> float:
 	if !target is Creep:
 		return 0
 
+	var tower: Unit = self
 	var creep: Creep = target as Creep
 	var creep_size: CreepSize.enm = creep.get_size()
 	var experience_base: float = CreepSize.get_experience(creep_size)
-	var granted_mod: float = target.get_prop_exp_granted()
-	var experience: float = experience_base * granted_mod
+	var granted_mod: float = creep.get_prop_exp_granted()
+	var received_mod: float = tower.get_prop_exp_received()
+	var experience: float = experience_base * granted_mod * received_mod
 
 	return experience
 

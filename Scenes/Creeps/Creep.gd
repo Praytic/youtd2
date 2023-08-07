@@ -278,11 +278,6 @@ func _on_health_changed():
 
 
 func _on_death(event: Event):
-#	Add gold
-	var caster: Unit = event.get_target()
-	var bounty: float = get_bounty(caster)
-	caster.getOwner().give_gold(floor(bounty), self, false, true)
-
 # 	Death visual
 	var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/DeathExplode.tscn", self)
 	var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.DEATH_EXPLODE_EFFECT_SIZE
@@ -383,10 +378,3 @@ func get_spawn_level() -> int:
 
 func set_spawn_level(spawn_level: int):
 	_spawn_level = spawn_level
-
-
-func _get_base_bounty() -> float:
-	var gold_multiplier: float = CreepSize.get_gold_multiplier(_size)
-	var base_bounty: float = gold_multiplier * (_spawn_level / 8 + 1)
-
-	return base_bounty
