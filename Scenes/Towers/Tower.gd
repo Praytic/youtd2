@@ -265,7 +265,7 @@ func _remove_item(item: Item):
 	if is_oil:
 		_item_oil_list.erase(item)
 	else:
-		_item_list.append(item)
+		_item_list.erase(item)
 		items_changed.emit()
 
 
