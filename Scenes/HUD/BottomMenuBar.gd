@@ -30,6 +30,17 @@ func get_item_menu_button() -> Button:
 
 
 func set_element(element: Element.enm):
+#	Dim the color of unselected element buttons
+	var buttons: Array = get_element_buttons()
+
+	for button in buttons:
+		var button_is_selected: bool = button.element == element
+
+		if button_is_selected:
+			button.modulate = Color.WHITE
+		else:
+			button.modulate = Color.WHITE.darkened(0.4)
+
 	if element == Element.enm.NONE:
 		_item_bar.show()
 		_build_bar.hide()
