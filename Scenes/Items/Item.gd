@@ -330,6 +330,11 @@ func consume():
 
 	print_verbose("Item was consumed. Removing item from game.")
 	
+#	NOTE: workaround for bug where consuming an item causes
+#	no mouse exited signal to be emitted. That causes the
+#	tooltip to not disappear even though the item is gone.
+	EventBus.item_button_mouse_exited.emit()
+
 	EventBus.consumable_item_was_consumed.emit(self)
 
 
