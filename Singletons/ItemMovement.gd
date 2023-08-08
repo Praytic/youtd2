@@ -123,7 +123,7 @@ func _move_item_from_itembar(target_tower: Tower):
 	
 	if target_tower != null:
 		if is_oil:
-			_moved_item._pickup_internal(target_tower)
+			_moved_item.pickup(target_tower)
 			_end_move_process(true)
 		else:
 			if target_tower.have_item_space():

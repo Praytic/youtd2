@@ -182,17 +182,12 @@ func drop():
 
 # NOTE: item.pickup() in JASS
 func pickup(tower: Tower) -> bool:
-	if tower.have_item_space():
-		_pickup_internal(tower)
-		
-		return true
-	else:
+	var is_oil: bool = ItemProperties.get_is_oil(_id)
+	var can_pickup: bool = tower.have_item_space() || is_oil
+
+	if !can_pickup:
 		return false
 
-
-# NOTE: this f-n adds item to tower even if tower doesn't
-# have space. Used for adding oils to tower.
-func _pickup_internal(tower: Tower):
 	var parent: Node = get_parent()
 	if parent != null:
 		parent.remove_child(self)
@@ -218,6 +213,8 @@ func _pickup_internal(tower: Tower):
 
 	tower._add_item(self)
 	tower.add_child(self)
+	
+	return true
 
 
 # Item starts flying to the stash and will get added to
