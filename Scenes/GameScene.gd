@@ -3,6 +3,7 @@ extends Node
 
 enum GameState {
 	PREGAME,
+	TUTORIAL,
 	PLAYING,
 	PAUSED,
 }
@@ -12,6 +13,7 @@ enum GameState {
 @onready var _pregame_hud: Control = $UI/PregameHUD
 @onready var _pause_hud: Control = $UI/PauseHUD
 @onready var _wave_spawner: WaveSpawner = $Map/WaveSpawner
+@onready var _tutorial_menu: TutorialMenu = $UI/TutorialMenu
 
 var _game_state: GameState
 
@@ -59,19 +61,23 @@ func _on_HUD_stop_wave():
 
 # TODO: use game_mode setting
 func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, tutorial_enabled: bool):
-	_game_state = GameState.PLAYING
 	get_tree().set_pause(false)
 	
 	_pregame_hud.hide()
 
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
 
-
 	Messages.add_normal("Welcome to youtd 2!")
 	Messages.add_normal("Game settings: %d waves, %s difficulty" % [wave_count, difficulty_string])
 	Messages.add_normal("You can pause the game by pressing F10")
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
+	
+	if tutorial_enabled:
+		_game_state = GameState.TUTORIAL
+		_tutorial_menu.show()
+	else:
+		_on_tutorial_menu_finished()
 
 	Globals.game_mode = game_mode
 
@@ -95,3 +101,12 @@ func _unpause_the_game():
 
 func _on_pause_hud_resume_pressed():
 	_unpause_the_game()
+
+
+func _on_tutorial_menu_finished():
+	_game_state = GameState.PLAYING
+	_tutorial_menu.hide()
+	_wave_spawner.start_initial_timer()
+
+	Messages.add_normal("The first wave will spawn in 2 minutes.")
+	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")

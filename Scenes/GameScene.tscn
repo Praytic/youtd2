@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=13 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD.tscn" id="2"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://d1xny6jmxj5i6" path="res://Scenes/PregameHUD/PregameHUD.tscn" id="8_idpxe"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
+[ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -91,5 +92,20 @@ visible = false
 process_mode = 3
 visible = false
 
+[node name="TutorialMenu" parent="UI" instance=ExtResource("10_x7sb7")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -161.0
+offset_top = -52.5
+offset_right = 161.0
+offset_bottom = 52.5
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]
+[connection signal="finished" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_finished"]

@@ -9,6 +9,10 @@ signal test_signal()
 @export var _item_menu_button: Button
 @export var _building_menu_button: Button
 @export var _research_panel: Control
+@export var _research_button: Button
+@export var _elements_container: HBoxContainer
+@export var _tomes_status: ResourceStatusPanel
+@export var _gold_status: ResourceStatusPanel
 
 
 func _ready():
@@ -23,6 +27,25 @@ func _process(_delta):
 	_item_menu_button.text = str(item_button_count)
 	
 	_building_menu_button.text = str(_build_bar.get_child_count())
+
+
+# NOTE: below are getters for elements inside bottom menu
+# bar which are used as targets by TutorialMenu. This is to
+# avoid hardcoding paths to these elements in TutorialMenu.
+func get_research_button() -> Control:
+	return _research_button
+
+
+func get_elements_container() -> Control:
+	return _elements_container
+
+
+func get_tomes_status() -> Control:
+	return _tomes_status
+
+
+func get_gold_status() -> Control:
+	return _gold_status
 
 
 func get_item_menu_button() -> Button:

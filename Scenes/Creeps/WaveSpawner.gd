@@ -45,10 +45,12 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	_creep_spawner.setup_background_load_queue(_wave_list)
 	
 	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())
-	
-	_timer_between_waves.start(TIME_BEFORE_FIRST_WAVE)
 
 	generated_all_waves.emit()
+
+
+func start_initial_timer():
+	_timer_between_waves.start(TIME_BEFORE_FIRST_WAVE)
 
 
 func _on_Timer_timeout():

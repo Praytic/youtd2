@@ -31,31 +31,31 @@ region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u05n0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wusjl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pctly"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_31xhg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_inl6h"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tju2g"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1wga"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2ncoj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tkkfg"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_swjbg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xktbs"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hg24p"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yyb56"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ure4w"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_01ho8"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(384, 0, 64, 64)
 
@@ -85,7 +85,7 @@ region = Rect2(224, 64, 32, 32)
 atlas = ExtResource("5_2y3fp")
 region = Rect2(224, 128, 32, 32)
 
-[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_bar", "_build_bar", "_item_menu_button", "_building_menu_button")]
+[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_bar", "_build_bar", "_item_menu_button", "_building_menu_button", "_research_button", "_elements_container", "_tomes_status", "_gold_status")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,6 +99,10 @@ _item_bar = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/Sc
 _build_bar = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/BuildBar")
 _item_menu_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ItemMenuButton")
 _building_menu_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/BuildingMenuButton")
+_research_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ResearchButton")
+_elements_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer")
+_tomes_status = NodePath("HBoxContainer/RightMenu/MarginContainer/VBoxContainer/KnowledgeTomeStatusPanel")
+_gold_status = NodePath("HBoxContainer/RightMenu/MarginContainer/VBoxContainer/GoldStatusPanel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -176,37 +180,37 @@ size_flags_vertical = 8
 
 [node name="IceButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_wusjl")
+texture_normal = SubResource("AtlasTexture_pctly")
 element = 0
 
 [node name="NatureButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_31xhg")
+texture_normal = SubResource("AtlasTexture_inl6h")
 element = 1
 
 [node name="FireButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_tju2g")
+texture_normal = SubResource("AtlasTexture_s1wga")
 element = 2
 
 [node name="AstralButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_2ncoj")
+texture_normal = SubResource("AtlasTexture_tkkfg")
 element = 3
 
 [node name="DarknessButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_swjbg")
+texture_normal = SubResource("AtlasTexture_xktbs")
 element = 4
 
 [node name="IronButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_hg24p")
+texture_normal = SubResource("AtlasTexture_yyb56")
 element = 5
 
 [node name="StormButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_ure4w")
+texture_normal = SubResource("AtlasTexture_01ho8")
 element = 6
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
