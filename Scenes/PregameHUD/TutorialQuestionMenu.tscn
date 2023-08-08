@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://bk4o75m1nr3cw"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_pgnkx"]
+[ext_resource type="Script" path="res://Scenes/PregameHUD/TutorialQuestionMenu.gd" id="2_7kgvb"]
+
+[node name="TutorialQuestionMenu" type="VBoxContainer"]
+offset_right = 302.0
+offset_bottom = 168.0
+theme = ExtResource("1_pgnkx")
+script = ExtResource("2_7kgvb")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Do you want a Tutorial?"
+
+[node name="YesButton" type="Button" parent="."]
+layout_mode = 2
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="."]
+layout_mode = 2
+text = "No"
+
+[connection signal="pressed" from="YesButton" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="NoButton" to="." method="_on_no_button_pressed"]

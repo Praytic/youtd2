@@ -35,8 +35,9 @@ func _ready():
 		var default_wave_count: int = Config.default_wave_count()
 		var default_game_mode: GameMode.enm = Config.default_game_mode()
 		var default_difficulty: Difficulty.enm = Config.default_difficulty()
+		var default_tutorial_enabled: bool = Config.default_tutorial_enabled()
 
-		_on_pregame_hud_finished(default_wave_count, default_game_mode, default_difficulty)
+		_on_pregame_hud_finished(default_wave_count, default_game_mode, default_difficulty, default_tutorial_enabled)
 
 
 func _unhandled_input(event: InputEvent):
@@ -57,7 +58,7 @@ func _on_HUD_stop_wave():
 
 
 # TODO: use game_mode setting
-func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
+func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, tutorial_enabled: bool):
 	_game_state = GameState.PLAYING
 	get_tree().set_pause(false)
 	
