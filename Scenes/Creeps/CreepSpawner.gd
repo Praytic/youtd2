@@ -137,10 +137,12 @@ func _wait_for_background_load(scene_name: String):
 
 func queue_spawn_creep(creep_data: CreepData):
 	assert(creep_data != null, "Tried to spawn null creep.")
+
+	var is_mass: bool = creep_data.size == CreepSize.enm.MASS || creep_data.size == CreepSize.enm.CHALLENGE_MASS
 	
 	_creep_spawn_queue.push_back(creep_data)
 	if _timer_between_creeps.is_stopped():
-		if creep_data.size == CreepSize.enm.MASS:
+		if is_mass:
 			_timer_between_creeps.set_wait_time(MASS_SPAWN_DELAY_SEC)
 		elif creep_data.size == CreepSize.enm.NORMAL:
 			_timer_between_creeps.set_wait_time(NORMAL_SPAWN_DELAY_SEC)
