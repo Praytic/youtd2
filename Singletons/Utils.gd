@@ -11,8 +11,7 @@ func get_object_container():
 
 # Returns a list of lines, each line is a list of strings.
 # It's assumed that the first row is title row and it is
-# skipped. It is also assumed that csv has more than 1
-# column.
+# skipped.
 func load_csv(path: String) -> Array[PackedStringArray]:
 	var file_exists: bool = FileAccess.file_exists(path)
 
@@ -33,8 +32,8 @@ func load_csv(path: String) -> Array[PackedStringArray]:
 			skip_title_row = false
 			continue
 
-# 		NOTE: skip last line which has size of 1
-		if csv_line.size() <= 1:
+		var is_last_line: bool = csv_line.size() == 0 || (csv_line.size() == 1 && csv_line[0].is_empty())
+		if is_last_line:
 			continue
 
 		list.append(csv_line)
