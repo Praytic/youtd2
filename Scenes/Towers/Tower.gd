@@ -800,7 +800,7 @@ func get_tier() -> int:
 
 # NOTE: tower.getFamily() in JASS
 func get_family() -> int:
-	return get_csv_property(CsvProperty.FAMILY_ID).to_int()
+	return TowerProperties.get_family(_id)
 
 func get_icon_atlas_num() -> int:
 	return TowerProperties.get_icon_atlas_num(_id)

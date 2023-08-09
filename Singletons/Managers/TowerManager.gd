@@ -119,28 +119,14 @@ func _get_tower_scene(id: int) -> PackedScene:
 # family, with spaces removed. Used to construct filenames
 # for tower scenes and scripts.
 func _get_family_name(id: int) -> String:
-	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
+	var family_id: int = TowerProperties.get_family(id)
+	var towers_in_family: Array = TowerProperties.get_towers_in_family(family_id)
 
-	if csv_properties.is_empty():
+	if towers_in_family.is_empty():
 		return ""
 
-	var family_id_string: String = csv_properties[Tower.CsvProperty.FAMILY_ID]
-	var towers_in_family: Array = Properties.get_tower_csv_properties_by_filter(Tower.CsvProperty.FAMILY_ID, family_id_string)
-
-	var first_tier_tower: Dictionary = {}
-
-	for this_tower in towers_in_family:
-		var this_tier: int = this_tower[Tower.CsvProperty.TIER].to_int()
-
-		if this_tier == 1:
-			first_tier_tower = this_tower
-
-			break
-
-	if first_tier_tower.is_empty():
-		return ""
-
-	var first_tier_name: String = first_tier_tower[Tower.CsvProperty.NAME]
+	var first_tier_id: int = towers_in_family.front()
+	var first_tier_name: String = TowerProperties.get_display_name(first_tier_id)
 	var family_name: String = first_tier_name.replace(" ", "")
 
 	return family_name

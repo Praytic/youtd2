@@ -196,3 +196,19 @@ func requirements_are_satisfied(tower_id: int) -> bool:
 	var out: bool = element_level_foo(tower_id) && wave_level_foo(tower_id)
 
 	return out
+
+
+# NOTE: tower.getFamily() in JASS
+func get_family(tower_id: int) -> int:
+	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.FAMILY_ID).to_int()
+
+
+# NOTE: sorted by tier
+func get_towers_in_family(family_id: int) -> Array:
+	var family_list: Array = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.FAMILY_ID, str(family_id))
+	family_list.sort_custom(func(a, b): 
+		var tier_a: int = TowerProperties.get_tier(a)
+		var tier_b: int = TowerProperties.get_tier(b)
+		return tier_a < tier_b)
+
+	return family_list

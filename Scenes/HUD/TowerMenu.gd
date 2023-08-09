@@ -236,7 +236,7 @@ func _on_upgrade_button_pressed():
 
 func _get_upgrade_id_for_tower(tower: Tower) -> int:
 	var family_id: int = tower.get_family()
-	var family_list: Array = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.FAMILY_ID, str(family_id))
+	var family_list: Array = TowerProperties.get_towers_in_family(family_id)
 	var next_tier: int = tower.get_tier() + 1
 
 	for id in family_list:
