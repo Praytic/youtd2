@@ -6,6 +6,15 @@ var drol_chainCast: Cast
 var cb_stun: BuffType
 
 
+func get_extra_tooltip_text() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Purify[/color]\n"
+	text += "Grants the carrier a 12.5% attackspeed adjusted chance on attack to cast a purifying beam of magic. Deals 250 spelldamage on the first target and bounces to 2 other targets. Each bounce reduces the damage by 25%. Undead and Orc creeps also get stunned for 0.5 seconds when hit by this beam.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
