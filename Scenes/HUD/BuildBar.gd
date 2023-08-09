@@ -31,6 +31,10 @@ func _ready():
 		var is_released: bool = TowerProperties.is_released(tower_id)
 		if !is_released:
 			continue
+
+		var script_exists: bool = TowerManager.script_exists_for_tower(tower_id)
+		if !script_exists:
+			continue
 	
 		var tower_button = TowerButton.make(tower_id)
 		var button_container = UnitButtonContainer.make()

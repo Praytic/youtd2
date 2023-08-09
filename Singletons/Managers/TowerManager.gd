@@ -62,7 +62,7 @@ func get_tower(id: int, visual_only: bool = false) -> Tower:
 	
 	var scene: PackedScene = preloaded_towers[id]
 	var tower = scene.instantiate()
-	var tower_script_path: String = _get_tower_script_path(id)
+	var tower_script_path: String = _get_tower_script_path_or_placeholder(id)
 	var tower_script = load(tower_script_path)
 	tower.set_script(tower_script)
 	tower.set_id(id)
@@ -78,13 +78,26 @@ func get_tower_family_id(id: int) -> int:
 	return csv_properties[Tower.CsvProperty.FAMILY_ID]
 
 
-# Get path of tower script based on tower scene name. If
-# scene name is TinyShrub4.tscn, then script name will be
-# TinyShrub1.gd
+func script_exists_for_tower(id: int) -> bool:
+	var path: String = _get_tower_script_path(id)
+	var script_exists: bool = ResourceLoader.exists(path)
+
+	return script_exists
+
+
 func _get_tower_script_path(id: int) -> String:
 	var family_name: String = _get_family_name(id)
 	var path: String = "%s/%s1.gd" % [towers_dir, family_name]
 
+	return path
+
+
+# Get path of tower script based on tower scene name. If
+# scene name is TinyShrub4.tscn, then script name will be
+# TinyShrub1.gd. Returns placeholder script if no script was
+# found.
+func _get_tower_script_path_or_placeholder(id: int) -> String:
+	var path: String = _get_tower_script_path(id)
 	var script_exists: bool = ResourceLoader.exists(path)
 
 	if script_exists:
