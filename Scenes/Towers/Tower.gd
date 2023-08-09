@@ -259,8 +259,7 @@ func _add_item(item: Item):
 # remove item effects. Use Item.drop() for that.
 func _remove_item(item: Item):
 	var item_id: int = item.get_id()
-
-	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
+	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 
 	if is_oil:
 		_item_oil_list.erase(item)

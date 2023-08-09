@@ -5,7 +5,6 @@ extends Control
 @export var _autocasts_container: VBoxContainer
 
 
-var _selling_for_real: bool = false
 var _tower: Tower : set = set_tower
 
 

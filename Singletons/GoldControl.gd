@@ -60,7 +60,7 @@ func set_gold(value: float):
 	elif (_gold < 0):
 		print_debug("Negative gold reached: %s" % value)
 
-	_gold = clampi(value, 0, MAX_GOLD)
+	_gold = clampf(value, 0, MAX_GOLD)
 	gold_change.emit(_gold)
 
 func get_gold() -> float:

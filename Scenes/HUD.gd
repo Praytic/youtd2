@@ -5,7 +5,6 @@ signal start_wave(wave_index)
 signal stop_wave()
 
 
-@onready var _wave_status: Control = $WaveStatus
 @onready var _error_message_container: VBoxContainer = $MarginContainer2/ErrorMessageContainer
 @onready var _normal_message_container: VBoxContainer = $MarginContainer3/NormalMessageContainer
 @export var _game_over_label: RichTextLabel

@@ -18,10 +18,6 @@ enum GameState {
 var _game_state: GameState
 
 
-@export var creeps_game_over_count: int = 10
-@export var ignore_game_over: bool = true
-
-
 func _ready():
 	print_verbose("GameScene has loaded.")
 

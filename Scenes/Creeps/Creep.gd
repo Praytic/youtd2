@@ -279,7 +279,7 @@ func _on_health_changed():
 	_health_bar.ratio = health_ratio
 
 
-func _on_death(event: Event):
+func _on_death(_event: Event):
 # 	Death visual
 	var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/DeathExplode.tscn", self)
 	var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.DEATH_EXPLODE_EFFECT_SIZE

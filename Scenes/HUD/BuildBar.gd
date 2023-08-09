@@ -1,8 +1,6 @@
 extends GridContainer
 
 
-@export var unlimited_towers = false
-
 # Dictionary of all in-game towers with the associated buttons
 # Buttons should be always created inside a dedicated container,
 # which means you should call the parent of a button
@@ -24,8 +22,7 @@ var current_size: String
 func _ready():
 	print_verbose("Start loading BuildBar.")
 	
-	if not unlimited_towers:
-		BuildTower.tower_built.connect(_on_Tower_built)
+	BuildTower.tower_built.connect(_on_Tower_built)
 		
 	for tower_id in Properties.get_tower_id_list():
 		var is_released: bool = TowerProperties.is_released(tower_id)
