@@ -212,3 +212,35 @@ func get_towers_in_family(family_id: int) -> Array:
 		return tier_a < tier_b)
 
 	return family_list
+
+
+# NOTE: sell price may be different from cost if the tower
+# was upgraded. In those cases sell price will include
+# refunds for upgrades.
+func get_sell_price(tower_id: int) -> int:
+	var current_cost: int = TowerProperties.get_cost(tower_id)
+	
+	var costs_for_prev_tiers: int = 0
+	var towers_in_family: Array = TowerProperties.get_towers_in_family(tower_id)
+	for prev_tower in towers_in_family:
+		if prev_tower == tower_id:
+			break
+
+		var prev_cost: int = TowerProperties.get_cost(prev_tower)
+		costs_for_prev_tiers += prev_cost
+
+	var sell_price: int = 0
+
+	sell_price += current_cost
+
+#	NOTE: costs for prev tiers is not included if game mode
+#	is Totally Random because in that game mode towers are
+#	built at higher tiers without upgrades.
+	var include_costs_for_prev_tiers: bool = Globals.game_mode != GameMode.enm.TOTALLY_RANDOM
+	if include_costs_for_prev_tiers:
+		sell_price += costs_for_prev_tiers
+
+	var sell_ratio: float = GameMode.get_sell_ratio(Globals.game_mode)
+	sell_price = floor(sell_price * sell_ratio)
+
+	return sell_price
