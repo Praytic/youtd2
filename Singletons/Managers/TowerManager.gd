@@ -26,8 +26,10 @@ func _ready():
 			if TowerProperties.is_released(tower_id):
 				preloaded_towers[tower_id] = tower_scene
 				print_verbose("Preloaded tower [%s] with ID [%s]" % [TowerProperties.get_display_name(tower_id), tower_id])
-	
+
 	print_verbose("TowerManager has loaded.")
+
+	_print_tower_counts()
 
 	# # Change the key of the tower_props dict to ID instead of Filename
 	# for key in tower_props_flattened:
@@ -143,3 +145,39 @@ func _get_family_name(id: int) -> String:
 	var family_name: String = first_tier_name.replace(" ", "")
 
 	return family_name
+
+
+func _print_tower_counts():
+	var tower_count_map: Dictionary = _get_tower_count_map()
+
+	print_verbose("Towers with scripts:")
+	var rarity_list: Array[Rarity.enm] = [
+		Rarity.enm.COMMON,
+		Rarity.enm.UNCOMMON,
+		Rarity.enm.RARE,
+		Rarity.enm.UNIQUE,
+	]
+	for rarity in rarity_list:
+		if !tower_count_map.has(rarity):
+			continue
+
+		var rarity_string: String = Rarity.convert_to_string(rarity)
+		var tower_count: int = tower_count_map[rarity]
+		print_verbose("    %s = %d" % [rarity_string, tower_count])
+
+
+func _get_tower_count_map() -> Dictionary:
+	var tower_count_map: Dictionary = {}
+
+	var tower_id_list: Array = Properties.get_tower_id_list()
+
+	for tower_id in tower_id_list:
+		var script_exists: bool = script_exists_for_tower(tower_id)
+
+		if script_exists:
+			var rarity: Rarity.enm = TowerProperties.get_rarity_num(tower_id) as Rarity.enm
+			if !tower_count_map.has(rarity):
+				tower_count_map[rarity] = 0
+			tower_count_map[rarity] += 1
+
+	return tower_count_map
