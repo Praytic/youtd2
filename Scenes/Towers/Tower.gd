@@ -272,6 +272,20 @@ func get_items() -> Array[Item]:
 	return _item_list
 
 
+# NOTE: slot_number can be from 1 to 6
+# NOTE: tower.getHeldItem() in JASS
+func get_held_item(slot_number: int) -> Item:
+	var index: int = slot_number - 1
+	var within_bounds: bool = index < _item_list.size()
+
+	if within_bounds:
+		var item: Item = _item_list[index]
+
+		return item
+	else:
+		return null
+
+
 # Called by TowerInfo to get the part of the tooltip that
 # is specific to the subclass
 func on_tower_details() -> MultiboardValues:

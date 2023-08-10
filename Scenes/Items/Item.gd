@@ -386,3 +386,9 @@ func getOwner() -> Player:
 # NOTE: item.getItemType() in JASS
 func get_item_type() -> int:
 	return get_id()
+
+
+func get_rarity() -> Rarity.enm:
+	var rarity: Rarity.enm = ItemProperties.get_rarity_num(_id)
+
+	return rarity
