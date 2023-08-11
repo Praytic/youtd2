@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=11 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="15_rfxf1"]
-[ext_resource type="PackedScene" uid="uid://b41jiom5a6uq8" path="res://Scenes/HUD/SelectedUnitInfo.tscn" id="15_yuxef"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 [ext_resource type="PackedScene" uid="uid://vdiwgjefedtp" path="res://Scenes/HUD/ResearchMenu.tscn" id="22_kpm02"]
 
@@ -106,16 +105,6 @@ offset_left = 1153.0
 offset_top = 923.0
 offset_right = -767.0
 offset_bottom = -157.0
-
-[node name="SelectedUnitInfo" parent="." instance=ExtResource("15_yuxef")]
-visible = false
-modulate = Color(1, 1, 1, 0.8)
-layout_mode = 1
-offset_left = 777.0
-offset_top = 59.0
-offset_right = -1143.0
-offset_bottom = -1021.0
-scale = Vector2(0.5, 0.5)
 
 [node name="BuildVersionLabel" parent="." instance=ExtResource("21_ko2ou")]
 layout_mode = 1
