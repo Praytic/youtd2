@@ -10,13 +10,13 @@ const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.
 @export var _info_button: Button
 @export var _reset_sell_button_timer: Timer
 @export var _items_box_container: HBoxContainer
-@export var _tower_name_label: Label
-@export var _tower_info_label: RichTextLabel
-@export var _tower_icon_texture: TextureRect
-@export var _tower_specials_container: VBoxContainer
+@export var _unit_name_label: Label
+@export var _unit_info_label: RichTextLabel
+@export var _unit_icon_texture: TextureRect
+@export var _unit_specials_container: VBoxContainer
 @export var _tower_level_label: Label
-@export var _tower_control_menu: VBoxContainer
-@export var _tower_stats_menu: ScrollContainer
+@export var _unit_control_menu: VBoxContainer
+@export var _unit_stats_menu: ScrollContainer
 @export var _buffs_container: GridContainer
 @export var _info_label: RichTextLabel
 @export var _specials_container: VBoxContainer
@@ -50,34 +50,50 @@ func _ready():
 
 
 func _on_wave_or_element_level_changed():
-	if get_selected_tower() != null:
-		_update_upgrade_button()
+	var tower = get_selected_tower()
+	if tower != null:
+		_update_upgrade_button(tower)
 
 
 func _on_selected_unit_changed(prev_unit: Unit):
 	var tower: Tower = get_selected_tower()
+	var creep: Creep = get_selected_creep()
+	assert(not (tower != null and creep != null), "Both tower and creep are selected.")
 	
-	visible = tower != null
+	visible = tower != null or creep != null
 
 	if prev_unit != null and prev_unit is Tower:
 		prev_unit.items_changed.disconnect(on_tower_items_changed)
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
 
+	if prev_unit != null and prev_unit is Creep:
+		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
+	
 	if tower != null:
-		tower.items_changed.connect(on_tower_items_changed)
-		tower.buff_list_changed.connect(_on_unit_buff_list_changed)
-		on_tower_items_changed()
-		_update_upgrade_button()
-		_update_tower_name_label()
-		_update_tower_level_label()
-		_on_unit_buff_list_changed()
-		_update_info_label()
-		_update_specials_label()
-		_update_tower_icon()
-		_update_inventory_empty_slots()
+		tower.items_changed.connect(on_tower_items_changed.bind(tower))
+		tower.buff_list_changed.connect(_on_unit_buff_list_changed.bind(tower))
+		on_tower_items_changed(tower)
+		_update_upgrade_button(tower)
+		_update_unit_name_label(tower)
+		_update_tower_level_label(tower)
+		_on_unit_buff_list_changed(tower)
+		_update_info_label(tower)
+		_update_specials_label(tower)
+		_update_unit_icon(tower)
+		_update_inventory_empty_slots(tower)
 		
 		show()
 
+	if creep != null:
+		creep.buff_list_changed.connect(_on_unit_buff_list_changed.bind(creep))
+		_update_unit_name_label(creep)
+		_on_unit_buff_list_changed(creep)
+		_update_info_label(creep)
+		_update_specials_label(creep)
+		_update_unit_icon(creep)
+		
+		show()
+	
 	_set_selling_for_real(false)
 
 
@@ -89,11 +105,15 @@ func get_selected_tower() -> Tower:
 		return null
 
 
-func on_tower_items_changed():
-	var tower = get_selected_tower()
-	if tower == null:
-		return
-	
+func get_selected_creep() -> Creep:
+	var selected_unit = SelectUnit.get_selected_unit()
+	if selected_unit is Creep:
+		return selected_unit as Creep
+	else:
+		return null
+
+
+func on_tower_items_changed(tower: Tower):
 	for button in _items_box_container.get_children():
 		button.queue_free()
 
@@ -108,72 +128,63 @@ func on_tower_items_changed():
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 
 
-func _update_tower_icon():
-	var tower = get_selected_tower()
-	if tower == null:
-		return
-	
-	var tower_icon_texture: Texture2D = TowerProperties.get_icon_texture(tower.get_id())
-	var tier_icon_texture: Texture2D = TowerProperties.get_tier_icon_texture(tower.get_id())
-	
-	_tower_icon_texture.texture = tower_icon_texture
-	_tier_icon_texture.texture = tier_icon_texture
+func _update_unit_icon(unit: Unit):
+	if unit is Tower:
+		_unit_icon_texture.texture = TowerProperties.get_icon_texture(unit.get_id())
+		_tier_icon_texture.texture = TowerProperties.get_tier_icon_texture(unit.get_id())
+	elif unit is Creep:
+		_unit_icon_texture.texture = CreepProperties.get_icon_texture(unit)
+	else:
+		assert(unit != null, "Unit is of unknown type. Can't get info label for it.")
 
 
-func _update_info_label():
-	var tower = get_selected_tower()
-	if tower == null:
-		return
-	
-	var contents = RichTexts.get_tower_info(tower.get_id())
+func _update_info_label(unit: Unit):
+	var contents
+	if unit is Tower:
+		contents = RichTexts.get_tower_info(unit.get_id())
+	elif unit is Creep:
+		contents = RichTexts.get_creep_info(unit)
+	else:
+		assert(unit != null, "Unit is of unknown type. Can't get info label for it.")
 	_info_label.text = contents
 
 
-func _update_specials_label():
-	var tower: Tower = get_selected_tower()
-	
-	var specials_text: String = tower.get_specials_tooltip_text()
-	var extra_text: String = tower.get_extra_tooltip_text()
-
+func _update_specials_label(unit: Unit):
 	var text: String = ""
-	text += specials_text
-	text += " \n"
-	text += extra_text
+	if unit is Tower:
+		var specials_text: String = unit.get_specials_tooltip_text()
+		var extra_text: String = unit.get_extra_tooltip_text()
 
-	for autocast in tower.get_autocast_list():
-		var autocast_text: String = RichTexts.get_autocast_text(autocast)
+		text += specials_text
 		text += " \n"
-		text += autocast_text
+		text += extra_text
 
+		for autocast in unit.get_autocast_list():
+			var autocast_text: String = RichTexts.get_autocast_text(autocast)
+			text += " \n"
+			text += autocast_text
+	elif unit is Creep:
+		text = ""
+	else:
+		assert(unit != null, "Unit is of unknown type. Can't get specials label for it.")
+	
 	text = RichTexts.add_color_to_numbers(text)
 
 	_specials_label.clear()
 	_specials_label.append_text(text)
 
 
-func _update_tower_name_label():
-	var tower = get_selected_tower()
-	if tower == null:
-		return
-	
-	_tower_name_label.text = tower.get_display_name()
+func _update_unit_name_label(unit: Unit):
+	_unit_name_label.text = unit.get_display_name()
 
 
-func _update_tower_level_label():
-	var tower = get_selected_tower()
-	if tower == null:
-		return
-	
+func _update_tower_level_label(tower: Tower):
 	_tower_level_label.text = str(tower.get_level())
 
 
 # Show the number of empty slots equal to tower's inventory
 # capacity
-func _update_inventory_empty_slots():
-	var tower: Tower = get_selected_tower()
-	if tower == null:
-		return
-
+func _update_inventory_empty_slots(tower: Tower):
 	var inventory_capacity: int = tower.get_inventory_capacity()
 
 	var inventory_slots: Array[Node] = _inventory_empty_slots.get_children()
@@ -201,11 +212,7 @@ func _on_item_move_from_tower_done(_success: bool):
 	_moved_item_button = null
 
 
-func _on_upgrade_button_pressed():
-	var tower: Tower = get_selected_tower()
-	if tower == null:
-		return
-	
+func _on_upgrade_button_pressed(tower: Tower):
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	if upgrade_id == -1:
@@ -231,7 +238,7 @@ func _on_upgrade_button_pressed():
 	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
 	GoldControl.spend_gold(upgrade_cost)
 
-	_update_upgrade_button()
+	_update_upgrade_button(tower)
 
 
 func _get_upgrade_id_for_tower(tower: Tower) -> int:
@@ -248,11 +255,7 @@ func _get_upgrade_id_for_tower(tower: Tower) -> int:
 	return -1
 
 
-func _update_upgrade_button():
-	var tower = get_selected_tower()
-	if tower == null:
-		return
-	
+func _update_upgrade_button(tower: Tower):
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	var can_upgrade: bool
@@ -268,17 +271,11 @@ func _on_reset_sell_button_timer_timeout():
 	_set_selling_for_real(false)
 
 
-func _on_sell_button_pressed():
+func _on_sell_button_pressed(tower: Tower):
 	if !_selling_for_real:
 		_set_selling_for_real(true)
-
-		return
-
-	var tower: Tower = get_selected_tower()
-	if tower == null:
 		return
 	
-
 # 	Return tower items to storage
 	var item_list: Array[Item] = tower.get_items()
 
@@ -312,21 +309,16 @@ func _set_selling_for_real(value: bool):
 
 func _on_info_button_pressed(button_pressed: bool):
 	if button_pressed:
-		_tower_control_menu.hide()
-		_tower_stats_menu.show()
+		_unit_control_menu.hide()
+		_unit_stats_menu.show()
 	else:
-		_tower_control_menu.show()
-		_tower_stats_menu.hide()
+		_unit_control_menu.show()
+		_unit_stats_menu.hide()
 
 
-func _on_unit_buff_list_changed():
-	var tower: Tower = get_selected_tower()
-	if tower == null:
-		return
-	
-	
-	var friendly_buff_list: Array[Buff] = tower._get_buff_list(true)
-	var unfriendly_buff_list: Array[Buff] = tower._get_buff_list(false)
+func _on_unit_buff_list_changed(unit: Unit):
+	var friendly_buff_list: Array[Buff] = unit._get_buff_list(true)
+	var unfriendly_buff_list: Array[Buff] = unit._get_buff_list(false)
 
 	var buff_list: Array[Buff] = []
 	buff_list.append_array(friendly_buff_list)

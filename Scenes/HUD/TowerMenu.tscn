@@ -35,7 +35,7 @@ atlas = ExtResource("2_kbar0")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="UnitMenu" type="Control" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_tower_name_label", "_tower_info_label", "_tower_icon_texture", "_tower_specials_container", "_tower_level_label", "_tower_control_menu", "_tower_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots")]
+[node name="UnitMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 6
 anchor_left = 1.0
@@ -47,24 +47,6 @@ grow_vertical = 2
 mouse_force_pass_scroll_events = false
 theme = ExtResource("1_crn3l")
 script = ExtResource("2_sqv8k")
-_upgrade_button = NodePath("VBoxContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/TowerUpgradeButton")
-_sell_button = NodePath("VBoxContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/SellTowerButton")
-_info_button = NodePath("VBoxContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UnitInfoButton")
-_reset_sell_button_timer = NodePath("ResetSellButtonTimer")
-_items_box_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/ItemsContainer/MarginContainer2/ItemsContainer")
-_tower_name_label = NodePath("VBoxContainer/MarginContainer/MarginContainer2/UnitName")
-_tower_info_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
-_tower_icon_texture = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer/IconContainer/UnitIcon")
-_tower_specials_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer")
-_tower_level_label = NodePath("VBoxContainer/MarginContainer/MarginContainer/VBoxContainer2/UnitLevelLabel")
-_tower_control_menu = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu")
-_tower_stats_menu = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitStatsMenu")
-_buffs_container = NodePath("VBoxContainer/MarginContainer3/BuffContainer")
-_info_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
-_specials_container = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer")
-_tier_icon_texture = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer/MarginContainer/AspectRatioContainer/TierIcon")
-_specials_label = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer/SpecialsLabel")
-_inventory_empty_slots = NodePath("VBoxContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/ItemsContainer/MarginContainer2/InventoryEmptySlots")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 

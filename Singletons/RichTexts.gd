@@ -18,6 +18,34 @@ func get_research_text(element: Element.enm) -> String:
 	return text
 
 
+func get_creep_info(creep: Creep) -> String:
+	var text: String = ""
+
+	var health: int = floor(creep.get_health())
+	var overall_health: int = floor(creep.get_overall_health())
+	var mana: int = floor(creep.get_mana())
+	var overall_mana: int = floor(creep.get_overall_mana())
+
+	text += "Health: %d/%d\n" % [health, overall_health]
+	text += "Mana: %d/%d\n" % [mana, overall_mana]
+
+	var category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
+	var category_string: String = CreepCategory.convert_to_colored_string(category)
+	var armor_type: ArmorType.enm = creep.get_armor_type()
+	var armor_type_string: String = ArmorType.convert_to_colored_string(armor_type)
+	var armor: int = creep.get_overall_armor()
+	var armor_string: String = str(armor)
+	var damage_reduction: float = creep.get_current_armor_damage_reduction()
+	var damage_reduction_string: String = Utils.format_percent(damage_reduction, 0)
+
+	text += "Race: %s\n" % category_string
+	text += "Armor Type: %s\n" % armor_type_string
+	text += "Armor: %s\n" % armor_string
+	text += "Damage Reduction: %s\n" % damage_reduction_string
+	
+	return text
+
+
 func get_tower_info(tower_id: int) -> String:
 	var text: String = ""
 

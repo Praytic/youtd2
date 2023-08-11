@@ -73,9 +73,9 @@ func set_test_item_id(value: int):
 	_item = Item.make(value)
 # 	NOTE: normally, item would be parented either to item
 # 	bar or tower but this code is running for currently
-# 	under construction TowerMenu where item buttons are
+# 	under construction UnitMenu where item buttons are
 # 	assigned items in a weird by calling set_item_id() (via
-# 	property setter), inside the TowerMenu.tscn.
+# 	property setter), inside the UnitMenu.tscn.
 	add_child(_item)
 
 

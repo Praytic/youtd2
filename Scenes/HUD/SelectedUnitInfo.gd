@@ -24,7 +24,7 @@ func _ready():
 
 
 func _process(_delta: float):
-#	TODO: disabled the panel because selected unit info will be replaced by TowerMenu soon
+#	TODO: disabled the panel because selected unit info will be replaced by UnitMenu soon
 	if do_not_update:
 		return
 
