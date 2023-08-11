@@ -14,7 +14,7 @@ const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.
 @export var _unit_info_label: RichTextLabel
 @export var _unit_icon_texture: TextureRect
 @export var _unit_specials_container: VBoxContainer
-@export var _tower_level_label: Label
+@export var _unit_level_label: Label
 @export var _unit_control_menu: VBoxContainer
 @export var _unit_stats_menu: ScrollContainer
 @export var _buffs_container: GridContainer
@@ -23,6 +23,7 @@ const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.
 @export var _tier_icon_texture: TextureRect
 @export var _specials_label: RichTextLabel
 @export var _inventory_empty_slots: HBoxContainer
+@export var _inventory: PanelContainer
 
 var _moved_item_button: ItemButton = null
 var _selling_for_real: bool = false
@@ -75,13 +76,17 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		on_tower_items_changed(tower)
 		_update_upgrade_button(tower)
 		_update_unit_name_label(tower)
-		_update_tower_level_label(tower)
+		_update_unit_level_label(tower)
 		_on_unit_buff_list_changed(tower)
 		_update_info_label(tower)
 		_update_specials_label(tower)
 		_update_unit_icon(tower)
 		_update_inventory_empty_slots(tower)
 		
+		_inventory.show()
+		_tier_icon_texture.show()
+		_upgrade_button.show()
+		_sell_button.show()
 		show()
 
 	if creep != null:
@@ -91,7 +96,12 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_update_info_label(creep)
 		_update_specials_label(creep)
 		_update_unit_icon(creep)
+		_update_unit_level_label(creep)
 		
+		_inventory.hide()
+		_tier_icon_texture.hide()
+		_upgrade_button.hide()
+		_sell_button.hide()
 		show()
 	
 	_set_selling_for_real(false)
@@ -178,8 +188,8 @@ func _update_unit_name_label(unit: Unit):
 	_unit_name_label.text = unit.get_display_name()
 
 
-func _update_tower_level_label(tower: Tower):
-	_tower_level_label.text = str(tower.get_level())
+func _update_unit_level_label(unit: Unit):
+	_unit_level_label.text = str(unit.get_level())
 
 
 # Show the number of empty slots equal to tower's inventory
