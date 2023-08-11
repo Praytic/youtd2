@@ -21,26 +21,25 @@ func get_research_text(element: Element.enm) -> String:
 func get_creep_info(creep: Creep) -> String:
 	var text: String = ""
 
-	var health: int = floor(creep.get_health())
 	var overall_health: int = floor(creep.get_overall_health())
-	var mana: int = floor(creep.get_mana())
 	var overall_mana: int = floor(creep.get_overall_mana())
 
-	text += "Health: %d/%d\n" % [health, overall_health]
-	text += "Mana: %d/%d\n" % [mana, overall_mana]
+	text += "Health: %d/%d\n" % overall_health
+	text += "Mana: %d/%d\n" % overall_mana
 
 	var category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
 	var category_string: String = CreepCategory.convert_to_colored_string(category)
 	var armor_type: ArmorType.enm = creep.get_armor_type()
 	var armor_type_string: String = ArmorType.convert_to_colored_string(armor_type)
-	var armor: int = creep.get_overall_armor()
-	var armor_string: String = str(armor)
+	var armor: int = creep.get_base_armor()
+	var armor_bonus: int = creep.get_overall_armor_bonus()
+	var armor_bonus_string: String = (str(armor_bonus) if armor_bonus < 0 else "+" + str(armor_bonus)) if armor_bonus != 0 else ""
 	var damage_reduction: float = creep.get_current_armor_damage_reduction()
 	var damage_reduction_string: String = Utils.format_percent(damage_reduction, 0)
 
 	text += "Race: %s\n" % category_string
 	text += "Armor Type: %s\n" % armor_type_string
-	text += "Armor: %s\n" % armor_string
+	text += "Armor: %s %s\n" % [str(armor), armor_bonus_string]
 	text += "Damage Reduction: %s\n" % damage_reduction_string
 	
 	return text

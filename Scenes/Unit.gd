@@ -1324,6 +1324,13 @@ func get_damage_add() -> float:
 func get_damage_add_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC])
 
+func get_base_armor_damage_reduction() -> float:
+	var armor: float = get_base_armor()
+	var coeff: float = Constants.ARMOR_COEFFICIENT
+	var reduction: float = min(1.0, (armor * coeff) / (1.0 + armor * coeff))
+
+	return reduction
+
 func get_current_armor_damage_reduction() -> float:
 	var armor: float = get_overall_armor()
 	var coeff: float = Constants.ARMOR_COEFFICIENT
@@ -1348,6 +1355,9 @@ func get_base_armor_bonus_percent() -> float:
 
 func get_overall_armor():
 	return (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent()
+
+func get_overall_armor_bonus():
+	return (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent() - get_base_armor()
 
 func get_dps_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_DPS_ADD]
