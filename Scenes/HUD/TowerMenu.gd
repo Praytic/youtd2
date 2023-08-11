@@ -1,4 +1,4 @@
-class_name TowerMenu
+class_name UnitMenu
 extends Control
 
 
