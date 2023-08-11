@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://u82ag16o7y07"]
+
+[ext_resource type="StyleBox" uid="uid://cmn4jl7cthd0l" path="res://Resources/Theme/SelectedUnitInfo/progress_bar_background.tres" id="1_2hxc6"]
+[ext_resource type="StyleBox" uid="uid://cmc88ali88ip5" path="res://Resources/Theme/SelectedUnitInfo/health_bar_fill.tres" id="2_ak0w2"]
+[ext_resource type="StyleBox" uid="uid://bumf4iv4im8nj" path="res://Resources/Theme/SelectedUnitInfo/mana_bar_fill.tres" id="3_eay72"]
+[ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="4_knpyy"]
+
+[resource]
+HealthBar/base_type = &"ProgressBar"
+HealthBar/font_sizes/font_size = 24
+HealthBar/styles/background = ExtResource("1_2hxc6")
+HealthBar/styles/fill = ExtResource("2_ak0w2")
+Label/font_sizes/font_size = 24
+ManaBar/base_type = &"ProgressBar"
+ManaBar/font_sizes/font_size = 24
+ManaBar/styles/background = ExtResource("1_2hxc6")
+ManaBar/styles/fill = ExtResource("3_eay72")
+PanelContainer/styles/panel = ExtResource("4_knpyy")
