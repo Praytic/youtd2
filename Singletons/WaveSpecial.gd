@@ -14,6 +14,7 @@ enum CsvProperty {
 	REQUIRED_WAVE_LEVEL,
 	FREQUENCY,
 	DESCRIPTION,
+	ENABLED,
 }
 
 
@@ -70,10 +71,6 @@ var _buff_map: Dictionary = {
 
 var _armor_specials: Array[int] = [9, 10, 11]
 var _spell_res_specials: Array[int] = [15, 16]
-
-# NOTE: some wave specials are disabled because they are
-# incomplete
-var _disabled_special_list: Array[int] = [4, 28, 31, 32, 36, 40]
 
 var _properties: Dictionary = {}
 
@@ -166,14 +163,14 @@ func _get_available_specials(level: int) -> Array[int]:
 	var wave_level: int = level
 
 	for special in all_special_list:
+		if not special.get_enabled():
+			continue
+		
 		var required_level: int = _get_required_wave_level(special)
 		var is_available: bool = wave_level >= required_level
 
 		if is_available:
 			available_special_list.append(special)
-
-	for disabled_special in _disabled_special_list:
-		available_special_list.erase(disabled_special)
 
 	return available_special_list
 
@@ -194,6 +191,12 @@ func get_description(special: int) -> String:
 	var description: String = _get_property(special, WaveSpecial.CsvProperty.DESCRIPTION)
 
 	return description
+
+
+func get_enabled(special: int) -> bool:
+	var enabled: int = _get_property(special, WaveSpecial.CsvProperty.ENABLED).to_int()
+
+	return enabled
 
 
 func _get_hp_modifier(special_list: Array[int]) -> float:
