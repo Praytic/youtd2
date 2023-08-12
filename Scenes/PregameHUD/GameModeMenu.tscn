@@ -18,13 +18,11 @@ text = "Build (lame)"
 [node name="RandomButton" type="Button" parent="."]
 layout_mode = 2
 tooltip_text = "Not implemented yet"
-disabled = true
 text = "Random with upgrade"
 
 [node name="TotallyRandomButton" type="Button" parent="."]
 layout_mode = 2
 tooltip_text = "Not implemented yet"
-disabled = true
 text = "Totally random"
 
 [connection signal="pressed" from="BuildButton" to="." method="_on_build_button_pressed"]
