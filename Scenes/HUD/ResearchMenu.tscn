@@ -1,51 +1,192 @@
-[gd_scene load_steps=2 format=3 uid="uid://vdiwgjefedtp"]
+[gd_scene load_steps=10 format=3 uid="uid://vdiwgjefedtp"]
 
+[ext_resource type="Theme" uid="uid://oea3lbx2654i" path="res://Resources/Theme/research_menu_theme.tres" id="1_1llpy"]
 [ext_resource type="Script" path="res://Scenes/HUD/ResearchMenu.gd" id="1_3ivcb"]
+[ext_resource type="Texture2D" uid="uid://ddjiu85tn8wbv" path="res://Resources/Textures/UI/Icons/ice.tres" id="3_6qw8f"]
+[ext_resource type="Texture2D" uid="uid://cmnfe6fi0wgsb" path="res://Resources/Textures/UI/Icons/darkness.tres" id="4_bwsck"]
+[ext_resource type="Texture2D" uid="uid://dlmpx46h3jvmj" path="res://Resources/Textures/UI/Icons/storm.tres" id="5_8ws5j"]
+[ext_resource type="Texture2D" uid="uid://ty26wea46uux" path="res://Resources/Textures/UI/Icons/iron.tres" id="6_1rc5q"]
+[ext_resource type="Texture2D" uid="uid://bw81x17f8trjj" path="res://Resources/Textures/UI/Icons/astral.tres" id="7_bthr6"]
+[ext_resource type="Texture2D" uid="uid://dt7vupry6p4y1" path="res://Resources/Textures/UI/Icons/fire.tres" id="8_fyf0i"]
+[ext_resource type="Texture2D" uid="uid://om2iw3jtshn6" path="res://Resources/Textures/UI/Icons/nature.tres" id="9_5y0bo"]
 
-[node name="ResearchMenu" type="Control"]
+[node name="ResearchMenu" type="Control" node_paths=PackedStringArray("ice_button_label", "fire_button_label", "iron_button_label", "darkness_button_label", "storm_button_label", "astral_button_label", "nature_button_label", "ice_button", "fire_button", "iron_button", "darkness_button", "storm_button", "astral_button", "nature_button")]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1796.0
-offset_bottom = -799.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+theme = ExtResource("1_1llpy")
 script = ExtResource("1_3ivcb")
+ice_button_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/NewLevelLabel")
+fire_button_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer6/NewLevelLabel")
+iron_button_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer4/NewLevelLabel")
+darkness_button_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/NewLevelLabel")
+storm_button_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer3/NewLevelLabel")
+astral_button_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer5/NewLevelLabel")
+nature_button_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer7/NewLevelLabel")
+ice_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/IceButton")
+fire_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer6/FireButton")
+iron_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer4/IronButton")
+darkness_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer2/DarknessButton")
+storm_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer3/StormButton")
+astral_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer5/AstralButton")
+nature_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer7/NatureButton")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-text = "Research menu"
 
-[node name="IceButton" type="Button" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+text = "Research"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="IceButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 text = "Ice"
+icon = ExtResource("3_6qw8f")
+alignment = 0
+expand_icon = true
 
-[node name="NatureButton" type="Button" parent="VBoxContainer"]
+[node name="NewLevelLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Nature"
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "19 ➜ 20"
+fit_content = true
+scroll_active = false
 
-[node name="FireButton" type="Button" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Fire"
 
-[node name="AstralButton" type="Button" parent="VBoxContainer"]
+[node name="DarknessButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
-text = "Astral"
-
-[node name="DarknessButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 text = "Darkness"
+icon = ExtResource("4_bwsck")
+alignment = 0
+expand_icon = true
 
-[node name="IronButton" type="Button" parent="VBoxContainer"]
+[node name="NewLevelLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-text = "Iron"
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "19 ➜ 20"
+fit_content = true
+scroll_active = false
 
-[node name="StormButton" type="Button" parent="VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="StormButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 text = "Storm"
+icon = ExtResource("5_8ws5j")
+alignment = 0
+expand_icon = true
+
+[node name="NewLevelLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "19"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="IronButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "Iron"
+icon = ExtResource("6_1rc5q")
+alignment = 0
+expand_icon = true
+
+[node name="NewLevelLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "19"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AstralButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "Astral"
+icon = ExtResource("7_bthr6")
+alignment = 0
+expand_icon = true
+
+[node name="NewLevelLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "19"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FireButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer6"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "Fire"
+icon = ExtResource("8_fyf0i")
+alignment = 0
+expand_icon = true
+
+[node name="NewLevelLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "19"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NatureButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer7"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "Nature"
+icon = ExtResource("9_5y0bo")
+alignment = 0
+expand_icon = true
+
+[node name="NewLevelLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "19"
+fit_content = true
+scroll_active = false

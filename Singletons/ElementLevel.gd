@@ -2,6 +2,8 @@ extends Node
 
 signal changed()
 
+const MAX_ELEMENT_LEVEL = 20
+
 var _element_level_map: Dictionary = {}
 
 
@@ -21,6 +23,10 @@ func get_current(element: Element.enm) -> int:
 	var level: int = _element_level_map[element]
 
 	return level
+
+
+func get_max() -> int:
+	return MAX_ELEMENT_LEVEL
 
 
 func get_research_cost(element: Element.enm) -> int:

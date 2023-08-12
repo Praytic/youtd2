@@ -18,6 +18,21 @@ func get_research_text(element: Element.enm) -> String:
 	return text
 
 
+func get_research_button_label(element: Element.enm, hovered: bool) -> String:
+	var text: String = ""
+	
+	var current_element_level = ElementLevel.get_current(element)
+	var max_element_level = ElementLevel.get_max()
+	if current_element_level >= max_element_level:
+		text += " [color=YELLOW]MAX[/color] "
+	else:
+		if hovered:
+			text += "%s ➜ [color=YELLOW]%s[/color]" % [current_element_level, current_element_level + 1]
+		else:
+			text += "    %s    " % current_element_level
+	
+	return text
+
 func get_creep_info(creep: Creep) -> String:
 	var text: String = ""
 
