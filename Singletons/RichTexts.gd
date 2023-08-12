@@ -21,11 +21,16 @@ func get_research_text(element: Element.enm) -> String:
 func get_creep_info(creep: Creep) -> String:
 	var text: String = ""
 
+	var health: int = floor(creep.get_health())
 	var overall_health: int = floor(creep.get_overall_health())
+	var mana: int = floor(creep.get_mana())
 	var overall_mana: int = floor(creep.get_overall_mana())
+	var wave: int = creep.get_spawn_level()
 
-	text += "Health: %d/%d\n" % overall_health
-	text += "Mana: %d/%d\n" % overall_mana
+	text += "[img=32x32]res://Resources/Textures/wave.tres[/img] %s\n" % wave
+	text += "[color=LIGHT_BLUE]%s[/color]\n" % "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non nulla nec nunc dictum sodales."
+	text += "[color=YELLOW]Health:[/color] %d/%d\n" % [health, overall_health]
+	text += "[color=YELLOW]Mana:[/color] %d/%d\n" % [mana, overall_mana]
 
 	var category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
 	var category_string: String = CreepCategory.convert_to_colored_string(category)
@@ -37,10 +42,10 @@ func get_creep_info(creep: Creep) -> String:
 	var damage_reduction: float = creep.get_current_armor_damage_reduction()
 	var damage_reduction_string: String = Utils.format_percent(damage_reduction, 0)
 
-	text += "Race: %s\n" % category_string
-	text += "Armor Type: %s\n" % armor_type_string
-	text += "Armor: %s %s\n" % [str(armor), armor_bonus_string]
-	text += "Damage Reduction: %s\n" % damage_reduction_string
+	text += "[color=YELLOW]Race:[/color] %s\n" % category_string
+	text += "[color=YELLOW]Armor Type:[/color] %s\n" % armor_type_string
+	text += "[color=YELLOW]Armor:[/color] %s %s\n" % [str(armor), armor_bonus_string]
+	text += "[color=YELLOW]Damage Reduction:[/color] %s\n" % damage_reduction_string
 	
 	return text
 
