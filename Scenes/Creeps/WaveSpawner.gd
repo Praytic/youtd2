@@ -145,6 +145,8 @@ func _on_wave_finished(wave: Wave):
 	GoldControl.add_income(wave_level)
 	KnowledgeTomesManager.add_knowledge_tomes()
 
+	TowerDistribution.distribute_random_towers(wave.get_level())
+
 	var any_wave_is_active: bool = false
 
 	for this_wave in _wave_list:
