@@ -22,12 +22,15 @@ var current_size: String
 func _ready():
 	BuildTower.tower_built.connect(_on_Tower_built)
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
+	TowerDistribution.random_tower_distributed.connect(_on_random_tower_distributed)
 
 
 func _add_all_towers():
 	print_verbose("Start adding all towers to BuildBar.")
-	
-	for tower_id in Properties.get_tower_id_list():
+
+	var first_tier_towers: Array = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.TIER, str(1))
+
+	for tower_id in first_tier_towers:
 		var is_released: bool = TowerProperties.is_released(tower_id)
 		if !is_released:
 			continue
@@ -35,17 +38,8 @@ func _add_all_towers():
 		var script_exists: bool = TowerManager.script_exists_for_tower(tower_id)
 		if !script_exists:
 			continue
-	
-		var tower_button = TowerButton.make(tower_id)
-		var button_container = UnitButtonContainer.make()
-		button_container.add_child(tower_button)
-		
-		_tower_buttons[tower_id] = tower_button
-		button_container.hide()
-		add_child(button_container)
-	
-	for tower_id in _tower_buttons.keys():
-		available_tower_buttons.append(tower_id)
+
+		add_tower_button(tower_id)
 
 #	NOTE: call set_element() to show towers for currently
 #	selected element. 
@@ -55,10 +49,18 @@ func _add_all_towers():
 
 
 func add_tower_button(tower_id):
+	var tower_button = TowerButton.make(tower_id)
+	var button_container = UnitButtonContainer.make()
+	button_container.add_child(tower_button)
+	
+	_tower_buttons[tower_id] = tower_button
+
+	var tower_element: Element.enm = TowerProperties.get_element(tower_id)
+	var tower_should_be_visible: bool = tower_element == _current_element
+	button_container.set_visible(tower_should_be_visible)
+	add_child(button_container)
+
 	available_tower_buttons.append(tower_id)
-	var element: Element.enm = Properties.get_csv_properties(tower_id)[Tower.CsvProperty.ELEMENT]
-	if element == _current_element:
-		_tower_buttons[tower_id].get_parent().show()
 
 
 func remove_tower_button(tower_id):
@@ -94,12 +96,7 @@ func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
 	
 	var res: Array = []
 	for tower_id in tower_id_list:
-		var tier: int = TowerProperties.get_tier(tower_id)
-		var is_first_tier: bool = tier == 1
-		var display_all_tower_tiers: bool = Config.display_all_tower_tiers()
-		var tier_is_ok: bool = is_first_tier || display_all_tower_tiers
-		
-		if available_tower_buttons.has(tower_id) && tier_is_ok:
+		if available_tower_buttons.has(tower_id):
 			res.append(tower_id)
 	
 	return res
@@ -108,3 +105,7 @@ func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
 func _on_game_mode_was_chosen():
 	if Globals.game_mode == GameMode.enm.BUILD:
 		_add_all_towers()
+
+
+func _on_random_tower_distributed(tower_id: int):
+	add_tower_button(tower_id)
