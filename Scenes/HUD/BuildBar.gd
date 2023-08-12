@@ -20,10 +20,13 @@ var current_size: String
 
 
 func _ready():
-	print_verbose("Start loading BuildBar.")
-	
 	BuildTower.tower_built.connect(_on_Tower_built)
-		
+	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
+
+
+func _add_all_towers():
+	print_verbose("Start adding all towers to BuildBar.")
+	
 	for tower_id in Properties.get_tower_id_list():
 		var is_released: bool = TowerProperties.is_released(tower_id)
 		if !is_released:
@@ -43,8 +46,12 @@ func _ready():
 	
 	for tower_id in _tower_buttons.keys():
 		available_tower_buttons.append(tower_id)
-	
-	print_verbose("BuildBar has loaded.")
+
+#	NOTE: call set_element() to show towers for currently
+#	selected element. 
+	set_element(_current_element)
+
+	print_verbose("BuildBar has added all towers.")
 
 
 func add_tower_button(tower_id):
@@ -63,10 +70,7 @@ func get_element() -> Element.enm:
 	return _current_element
 
 func set_element(element: Element.enm):
-	if _current_element != element:
-		_current_element = element
-	else:
-		return
+	_current_element = element
 	
 	for tower_button in _tower_buttons.values():
 		tower_button.get_parent().hide()
@@ -99,3 +103,8 @@ func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
 			res.append(tower_id)
 	
 	return res
+
+
+func _on_game_mode_was_chosen():
+	if Globals.game_mode == GameMode.enm.BUILD:
+		_add_all_towers()
