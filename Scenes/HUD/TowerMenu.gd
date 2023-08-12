@@ -38,6 +38,7 @@ func _ready():
 	ItemMovement.item_move_from_tower_done.connect(_on_item_move_from_tower_done)
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
+	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
@@ -385,3 +386,8 @@ func _on_items_container_gui_input(event):
 
 	if left_click && tower != null:
 		ItemMovement.finish_move_to_tower_menu(tower)
+
+
+func _on_game_mode_was_chosen():
+	var upgrade_button_visible: bool = Globals.game_mode == GameMode.enm.BUILD
+	_upgrade_button.set_visible(upgrade_button_visible)
