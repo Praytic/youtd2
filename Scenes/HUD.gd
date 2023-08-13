@@ -38,7 +38,10 @@ func _on_game_over():
 
 
 func _on_roll_towers_button_pressed():
-	TowerDistribution.roll_starting_towers()
+	var can_roll_again: bool = TowerDistribution.roll_starting_towers()
+
+	if !can_roll_again:
+		_roll_towers_button.hide()
 
 
 func _on_game_mode_was_chosen():

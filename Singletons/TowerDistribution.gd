@@ -10,9 +10,18 @@ signal rolling_starting_towers()
 signal random_tower_distributed(tower_id)
 
 
-func roll_starting_towers():
+var _starting_roll_count: int = 6
+
+
+func roll_starting_towers() -> bool:
 	rolling_starting_towers.emit()
 	distribute_random_towers(0)
+
+	_starting_roll_count -= 1
+
+	var can_roll_again: bool = _starting_roll_count > 1
+
+	return can_roll_again
 
 
 # TODO: implement
