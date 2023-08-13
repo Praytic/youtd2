@@ -26,6 +26,7 @@ enum TutorialColumn {
 }
 
 const TUTORIAL_BUILD_PATH: String = "res://Data/tutorial_build.csv"
+const TUTORIAL_RANDOM_PATH: String = "res://Data/tutorial_random.csv"
 
 var _section_list: Array[Section]
 var _current_section: int
@@ -37,7 +38,17 @@ var _current_section: int
 
 
 func _ready():
-	var csv: Array[PackedStringArray] = Utils.load_csv(TUTORIAL_BUILD_PATH)
+	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
+
+
+func _on_game_mode_was_chosen():
+	var tutorial_path: String
+	if Globals.game_mode == GameMode.enm.BUILD:
+		tutorial_path = TUTORIAL_BUILD_PATH
+	else:
+		tutorial_path = TUTORIAL_RANDOM_PATH
+
+	var csv: Array[PackedStringArray] = Utils.load_csv(tutorial_path)
 	
 	_section_list = []
 	

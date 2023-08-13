@@ -24,6 +24,8 @@ func _ready():
 	EventBus.game_over.connect(_on_game_over)
 	WaveLevel.changed.connect(_on_wave_level_changed)
 	BuildTower.tower_built.connect(_on_tower_built)
+	
+	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
 
 
 func get_error_message_container() -> VBoxContainer:
