@@ -23,6 +23,7 @@ func _ready():
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	EventBus.game_over.connect(_on_game_over)
 	WaveLevel.changed.connect(_on_wave_level_changed)
+	BuildTower.tower_built.connect(_on_tower_built)
 
 
 func get_error_message_container() -> VBoxContainer:
@@ -67,3 +68,7 @@ func _on_wave_level_changed():
 
 	if start_first_wave:
 		_roll_towers_button.hide()
+
+
+func _on_tower_built(_tower_id: int):
+	_roll_towers_button.hide()
