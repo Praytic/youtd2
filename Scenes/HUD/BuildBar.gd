@@ -1,10 +1,11 @@
 extends GridContainer
 
 
-# Dictionary of all in-game towers with the associated buttons
-# Buttons should be always created inside a dedicated container,
-# which means you should call the parent of a button
-# if you want to change the visual part of it.
+# Map of tower id's => tower buttons. Tower buttons are
+# "stacks" and may contain more than one tower. Buttons
+# should be always created inside a dedicated container,
+# which means you should call the parent of a button if you
+# want to change the visual part of it.
 @onready var _tower_buttons: Dictionary = {}
 
 # Adds every tower button possible to the list.
@@ -50,6 +51,13 @@ func _add_all_towers():
 
 
 func add_tower_button(tower_id):
+	if _tower_buttons.has(tower_id):
+		var tower_button: TowerButton = _tower_buttons[tower_id]
+		var new_count: int = tower_button.get_count() + 1
+		tower_button.set_count(new_count)
+
+		return
+
 	var tower_button = TowerButton.make(tower_id)
 	var button_container = UnitButtonContainer.make()
 	button_container.add_child(tower_button)
@@ -67,9 +75,17 @@ func add_tower_button(tower_id):
 func remove_tower_button(tower_id):
 	var button: TowerButton = _tower_buttons[tower_id]
 	var button_container: UnitButtonContainer = button.get_parent()
-	_tower_buttons.erase(tower_id)
-	available_tower_buttons.erase(button)
-	remove_child(button_container)
+
+	var tower_button: TowerButton = _tower_buttons[tower_id]
+	var new_count: int = tower_button.get_count() - 1
+	tower_button.set_count(new_count)
+
+	var no_more_towers_in_stack: bool = new_count == 0
+
+	if no_more_towers_in_stack:
+		_tower_buttons.erase(tower_id)
+		available_tower_buttons.erase(button)
+		remove_child(button_container)
 
 
 func get_element() -> Element.enm:
