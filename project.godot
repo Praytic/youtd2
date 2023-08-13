@@ -31,7 +31,6 @@ config/sfx_enabled=false
 config/starting_gold=70
 config/starting_tomes=90
 config/starting_research_level=0
-config/display_all_tower_tiers=false
 config/load_unreleased_towers=false
 config/always_drop_items=false
 config/ignore_upgrade_requirements=false
@@ -88,6 +87,7 @@ ItemType="*res://Singletons/Enums/ItemType.gd"
 RichTexts="*res://Singletons/RichTexts.gd"
 CreepProperties="*res://Singletons/CreepProperties.gd"
 HighlightUI="*res://Singletons/HighlightUI.gd"
+TowerDistribution="*res://Singletons/TowerDistribution.gd"
 
 [debug]
 

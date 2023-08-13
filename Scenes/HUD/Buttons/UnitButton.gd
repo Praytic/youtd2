@@ -41,3 +41,7 @@ func set_count(value: int):
 		_counter_label.show()
 	else:
 		_counter_label.hide()
+
+
+func get_count() -> int:
+	return _count

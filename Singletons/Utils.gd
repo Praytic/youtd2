@@ -129,7 +129,7 @@ func random_weighted_pick(element_to_weight_map: Dictionary) -> Variant:
 	var pair_list: Array = []
 
 	for element in element_to_weight_map.keys():
-		var weight: int = element_to_weight_map[element]
+		var weight: float = element_to_weight_map[element]
 		var pair: Array = [element, weight]
 
 		pair_list.append(pair)
