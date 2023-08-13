@@ -38,6 +38,18 @@ func _on_game_over():
 
 
 func _on_roll_towers_button_pressed():
+	var research_any_elements: bool = false
+
+	for element in Element.get_list():
+		var researched_element: bool = ElementLevel.get_current(element) > 0
+		if researched_element:
+			research_any_elements = true
+
+	if !research_any_elements:
+		Messages.add_error("Cannot roll towers yet! You need to research at least one element.")
+
+		return
+
 	var can_roll_again: bool = TowerDistribution.roll_starting_towers()
 
 	if !can_roll_again:
