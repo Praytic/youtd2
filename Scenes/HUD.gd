@@ -8,6 +8,7 @@ signal stop_wave()
 @onready var _error_message_container: VBoxContainer = $MarginContainer2/ErrorMessageContainer
 @onready var _normal_message_container: VBoxContainer = $MarginContainer3/NormalMessageContainer
 @export var _game_over_label: RichTextLabel
+@export var _roll_towers_button: Button
 
 
 func _ready():
@@ -19,6 +20,7 @@ func _ready():
 	
 	SFX.connect_sfx_to_signal_in_group("res://Assets/SFX/menu_sound_5.wav", "pressed", "sfx_menu_click")
 
+	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	EventBus.game_over.connect(_on_game_over)
 
 
@@ -32,3 +34,12 @@ func get_normal_message_container() -> VBoxContainer:
 
 func _on_game_over():
 	_game_over_label.show()
+
+
+func _on_roll_towers_button_pressed():
+	TowerDistribution.roll_starting_towers()
+
+
+func _on_game_mode_was_chosen():
+	var roll_button_should_be_visible: bool = Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM
+	_roll_towers_button.visible = roll_button_should_be_visible

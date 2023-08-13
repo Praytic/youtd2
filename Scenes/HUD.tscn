@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 [ext_resource type="PackedScene" uid="uid://vdiwgjefedtp" path="res://Scenes/HUD/ResearchMenu.tscn" id="22_kpm02"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_game_over_label")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_game_over_label", "_roll_towers_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +24,7 @@ size_flags_vertical = 4
 theme = ExtResource("1_xs0tv")
 script = ExtResource("11")
 _game_over_label = NodePath("GameOverLabel")
+_roll_towers_button = NodePath("RollTowersButton")
 
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]
 layout_mode = 1
@@ -170,4 +171,13 @@ bbcode_enabled = true
 text = "[color=RED]GAME OVER[/color]"
 fit_content = true
 
+[node name="RollTowersButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 920.0
+offset_right = 339.0
+offset_bottom = 983.0
+text = "Roll starting towers"
+
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
+[connection signal="pressed" from="RollTowersButton" to="." method="_on_roll_towers_button_pressed"]

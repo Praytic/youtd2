@@ -22,6 +22,7 @@ var current_size: String
 func _ready():
 	BuildTower.tower_built.connect(_on_Tower_built)
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
+	TowerDistribution.rolling_starting_towers.connect(_on_rolling_starting_towers)
 	TowerDistribution.random_tower_distributed.connect(_on_random_tower_distributed)
 
 
@@ -105,6 +106,13 @@ func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
 func _on_game_mode_was_chosen():
 	if Globals.game_mode == GameMode.enm.BUILD:
 		_add_all_towers()
+
+
+func _on_rolling_starting_towers():
+	var tower_list: Array = _tower_buttons.keys()
+
+	for tower in tower_list:
+		remove_tower_button(tower)
 
 
 func _on_random_tower_distributed(tower_id: int):
