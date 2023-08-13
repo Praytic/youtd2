@@ -65,8 +65,11 @@ func add_tower_button(tower_id):
 
 
 func remove_tower_button(tower_id):
-	available_tower_buttons.erase(tower_id)
-	_tower_buttons[tower_id].get_parent().hide()
+	var button: TowerButton = _tower_buttons[tower_id]
+	var button_container: UnitButtonContainer = button.get_parent()
+	_tower_buttons.erase(tower_id)
+	available_tower_buttons.erase(button)
+	remove_child(button_container)
 
 
 func get_element() -> Element.enm:
