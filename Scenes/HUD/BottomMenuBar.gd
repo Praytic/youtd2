@@ -13,6 +13,7 @@ signal test_signal()
 @export var _elements_container: HBoxContainer
 @export var _tomes_status: ResourceStatusPanel
 @export var _gold_status: ResourceStatusPanel
+@export var _tower_stash: GridContainer
 
 
 func _ready():
@@ -25,6 +26,7 @@ func _ready():
 	HighlightUI.register_target("elements_container", _elements_container)
 	HighlightUI.register_target("tomes_status", _tomes_status)
 	HighlightUI.register_target("gold_status", _gold_status)
+	HighlightUI.register_target("tower_stash", _tower_stash)
 
 
 func _process(_delta):
