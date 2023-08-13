@@ -41,3 +41,12 @@ func convert_to_string(rarity: Rarity.enm) -> String:
 
 func get_color(rarity: Rarity.enm) -> Color:
 	return _color_map[rarity]
+
+
+func get_list() -> Array[Rarity.enm]:
+	return [
+		Rarity.enm.COMMON,
+		Rarity.enm.UNCOMMON,
+		Rarity.enm.RARE,
+		Rarity.enm.UNIQUE,
+	]

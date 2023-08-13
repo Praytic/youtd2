@@ -71,3 +71,15 @@ func convert_to_colored_string(type: Element.enm) -> String:
 	var out: String = Utils.get_colored_string(string, color)
 
 	return out
+
+
+func get_list() -> Array[Element.enm]:
+	return [
+		Element.enm.ICE,
+		Element.enm.NATURE,
+		Element.enm.FIRE,
+		Element.enm.ASTRAL,
+		Element.enm.DARKNESS,
+		Element.enm.IRON,
+		Element.enm.STORM,
+	]
