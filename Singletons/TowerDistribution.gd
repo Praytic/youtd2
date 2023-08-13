@@ -50,6 +50,10 @@ func roll_starting_towers() -> bool:
 	return can_roll_again
 
 
+func get_current_starting_tower_roll_amount() -> int:
+	return _starting_roll_count
+
+
 # Called after each wave. Adds random towers to tower stash.
 # 
 # NOTE: wave_level argument is used instead of current wave

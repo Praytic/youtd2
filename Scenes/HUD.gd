@@ -26,6 +26,7 @@ func _ready():
 	BuildTower.tower_built.connect(_on_tower_built)
 	
 	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
+	_update_tooltip_for_roll_towers_button()
 
 
 func get_error_message_container() -> VBoxContainer:
@@ -55,8 +56,16 @@ func _on_roll_towers_button_pressed():
 
 	var can_roll_again: bool = TowerDistribution.roll_starting_towers()
 
+	_update_tooltip_for_roll_towers_button()
+
 	if !can_roll_again:
 		_roll_towers_button.hide()
+
+
+func _update_tooltip_for_roll_towers_button():
+	var roll_count: int = TowerDistribution.get_current_starting_tower_roll_amount()
+	var tooltip: String = "Press to get a random set of starting towers.\nYou can reroll if you don't like the initial towers\nbut each time you will get less towers.\nNext roll will give you %d towers" % roll_count
+	_roll_towers_button.set_tooltip_text(tooltip)
 
 
 func _on_game_mode_was_chosen():
