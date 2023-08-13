@@ -37,10 +37,6 @@ func _add_all_towers():
 		if !is_released:
 			continue
 
-		var script_exists: bool = TowerManager.script_exists_for_tower(tower_id)
-		if !script_exists:
-			continue
-
 		add_tower_button(tower_id)
 
 #	NOTE: call set_element() to show towers for currently
