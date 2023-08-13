@@ -22,6 +22,7 @@ func _ready():
 
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	EventBus.game_over.connect(_on_game_over)
+	WaveLevel.changed.connect(_on_wave_level_changed)
 
 
 func get_error_message_container() -> VBoxContainer:
@@ -43,3 +44,11 @@ func _on_roll_towers_button_pressed():
 func _on_game_mode_was_chosen():
 	var roll_button_should_be_visible: bool = Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM
 	_roll_towers_button.visible = roll_button_should_be_visible
+
+
+func _on_wave_level_changed():
+	var new_wave_level: int = WaveLevel.get_current()
+	var start_first_wave: bool = new_wave_level == 1
+
+	if start_first_wave:
+		_roll_towers_button.hide()
