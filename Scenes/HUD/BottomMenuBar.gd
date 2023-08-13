@@ -21,6 +21,11 @@ func _ready():
 
 	set_element(Element.enm.ICE)
 
+	HighlightUI.register_target("research_button", _research_button)
+	HighlightUI.register_target("elements_container", _elements_container)
+	HighlightUI.register_target("tomes_status", _tomes_status)
+	HighlightUI.register_target("gold_status", _gold_status)
+
 
 func _process(_delta):
 	var item_button_count: int = _item_bar.get_item_count()
@@ -38,14 +43,6 @@ func get_research_button() -> Control:
 
 func get_elements_container() -> Control:
 	return _elements_container
-
-
-func get_tomes_status() -> Control:
-	return _tomes_status
-
-
-func get_gold_status() -> Control:
-	return _gold_status
 
 
 func get_item_menu_button() -> Button:
