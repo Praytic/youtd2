@@ -13,16 +13,21 @@ text = "Game Mode"
 
 [node name="BuildButton" type="Button" parent="."]
 layout_mode = 2
+tooltip_text = "You have access to all towers and choose
+towers yourself."
 text = "Build (lame)"
 
 [node name="RandomButton" type="Button" parent="."]
 layout_mode = 2
-tooltip_text = "Not implemented yet"
+tooltip_text = "You get random towers after each wave and
+can upgrade them."
 text = "Random with upgrade"
 
 [node name="TotallyRandomButton" type="Button" parent="."]
 layout_mode = 2
-tooltip_text = "Not implemented yet"
+tooltip_text = "You get random towers after each wave but
+cannot upgrade them. You wil get upgraded
+variants randomly."
 text = "Totally random"
 
 [connection signal="pressed" from="BuildButton" to="." method="_on_build_button_pressed"]
