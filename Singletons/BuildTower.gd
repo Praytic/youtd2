@@ -94,14 +94,18 @@ func _try_to_build():
 		var error: String = "Not enough food."
 		Messages.add_error(error)
 	else:
-		var new_tower = TowerManager.get_tower(tower_id)
-		var build_position: Vector2 =_landscape.get_mouse_pos_on_tilemap_clamped()
-		new_tower.position = build_position
-		Utils.add_object_to_world(new_tower)
-		tower_built.emit(tower_id)
-		FoodManager.add_tower()
+		_build_tower(tower_id)
 
-		var build_cost: float = TowerProperties.get_cost(tower_id)
-		GoldControl.spend_gold(build_cost)
-		
-		cancel()
+
+func _build_tower(tower_id: int):
+	var new_tower: Tower = TowerManager.get_tower(tower_id)
+	var build_position: Vector2 =_landscape.get_mouse_pos_on_tilemap_clamped()
+	new_tower.position = build_position
+	Utils.add_object_to_world(new_tower)
+	tower_built.emit(tower_id)
+	FoodManager.add_tower()
+
+	var build_cost: float = TowerProperties.get_cost(tower_id)
+	GoldControl.spend_gold(build_cost)
+	
+	cancel()
