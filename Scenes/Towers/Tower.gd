@@ -268,8 +268,12 @@ func _remove_item(item: Item):
 		items_changed.emit()
 
 
+# NOTE: important to return a deep copy so that this list
+# can be correctly used in code which adds or removes items
+# from tower. Otherwise it this would be a reference so it
+# would change when items got removed or added.
 func get_items() -> Array[Item]:
-	return _item_list
+	return _item_list.duplicate()
 
 
 # NOTE: slot_number can be from 1 to 6
