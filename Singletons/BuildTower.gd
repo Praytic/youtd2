@@ -77,10 +77,13 @@ func _get_tower_at_position(position: Vector2) -> Tower:
 func _try_to_build():
 	var tower_id: int = _tower_preview.tower_id
 	var can_build: bool = _landscape.can_build_at_mouse_pos()
+	var can_transform: bool = _landscape.can_transform_at_mouse_pos()
 	var enough_food: bool = FoodManager.enough_food_for_tower()
 	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
+	var mouse_pos: Vector2 = _landscape.get_mouse_pos_on_tilemap_clamped()
+	var tower_under_mouse: Tower = _get_tower_at_position(mouse_pos)
 
-	if !can_build:
+	if !can_build && !can_transform:
 		var error: String = "Can't build here."
 		Messages.add_error(error)
 	elif !enough_gold:
@@ -93,8 +96,29 @@ func _try_to_build():
 	elif !enough_food:
 		var error: String = "Not enough food."
 		Messages.add_error(error)
+	elif can_transform:
+		_transform_tower(tower_id, tower_under_mouse)
 	else:
 		_build_tower(tower_id)
+
+
+func _transform_tower(new_tower_id: int, prev_tower: Tower):
+	var new_tower: Tower = TowerManager.get_tower(new_tower_id)
+	new_tower.position = prev_tower.position
+	new_tower._temp_preceding_tower = prev_tower
+	Utils.add_object_to_world(new_tower)
+
+#	Refund build cost for previous tower
+	var refund_value: int = _get_transform_refund(prev_tower.get_id(), new_tower_id)
+	prev_tower.getOwner().give_gold(refund_value, prev_tower, false, true)
+
+#	Spend build cost for new tower
+	var build_cost: float = TowerProperties.get_cost(new_tower_id)
+	GoldControl.spend_gold(build_cost)
+
+	prev_tower.queue_free()
+
+	cancel()
 
 
 func _build_tower(tower_id: int):
@@ -109,3 +133,21 @@ func _build_tower(tower_id: int):
 	GoldControl.spend_gold(build_cost)
 	
 	cancel()
+
+
+# This is the value refunded when a tower is transformed
+# into another tower
+func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
+	var prev_sell_price: int = TowerProperties.get_sell_price(prev_tower_id)
+	var prev_family: int = TowerProperties.get_family(prev_tower_id)
+	var new_family: int = TowerProperties.get_family(new_tower_id)
+	var family_is_same: bool = prev_family == new_family
+
+	var transform_refund: int
+
+	if family_is_same:
+		transform_refund = floori(prev_sell_price * 1.0)
+	else:
+		transform_refund = floori(prev_sell_price * 0.75)
+
+	return transform_refund

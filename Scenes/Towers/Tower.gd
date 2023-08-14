@@ -130,13 +130,22 @@ func _ready():
 
 		var preceding_item_list: Array = _temp_preceding_tower.get_items()
 		var preceding_oil_list: Array = _temp_preceding_tower._item_oil_list
-		var carry_over_items: Array = []
-		carry_over_items.append_array(preceding_item_list)
-		carry_over_items.append_array(preceding_oil_list)
 
-		for item in carry_over_items:
+		for oil_item in preceding_oil_list:
+			oil_item.drop()
+			oil_item.pickup(self)
+
+#		NOTE: for upgrade case, inventory will always be
+#		same size or bigger but for transform case inventory
+#		may be smaller. Handle transform case by returning
+#		any extra items to stash.
+		for item in preceding_item_list:
 			item.drop()
-			item.pickup(self)
+
+			if have_item_space():
+				item.pickup(self)
+			else:
+				item.fly_to_stash(0.0)
 
 #	NOTE: some stats have an innate level-based modifier
 	var innate_modifier: Modifier = Modifier.new()

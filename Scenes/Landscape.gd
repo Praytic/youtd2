@@ -58,6 +58,17 @@ func can_build_at_mouse_pos() -> bool:
 	return can_build
 
 
+func can_transform_at_mouse_pos() -> bool:
+	if Globals.game_mode == GameMode.enm.BUILD:
+		return false
+
+	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
+	var there_is_a_tower_under_mouse: bool = BuildTower.position_is_occupied(pos)
+	var can_transform: bool = there_is_a_tower_under_mouse
+
+	return can_transform
+
+
 # NOTE: layer index is double floor index because between
 # each floor there is a layer for connecting wall tiles.
 func world_height_to_z_index(height: float) -> int:

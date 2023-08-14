@@ -303,6 +303,8 @@ func _on_sell_button_pressed():
 		item.fly_to_stash(0.0)
 
 	var sell_price: float = TowerProperties.get_sell_price(tower.get_id())
+	var sell_ratio: float = GameMode.get_sell_ratio(Globals.game_mode)
+	sell_price = floor(sell_price * sell_ratio)
 	tower.getOwner().give_gold(sell_price, tower, false, true)
 	tower.queue_free()
 

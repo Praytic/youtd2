@@ -7,6 +7,7 @@ extends Node2D
 
 const opaque_red := Color(1, 0, 0, 0.5)
 const opaque_green := Color(0, 1, 0, 0.5)
+const opaque_blue := Color(0, 0, 1, 0.5)
 
 var tower_id: int
 var _tower_instance: Node2D
@@ -36,5 +37,7 @@ func _physics_process(_delta):
 
 	if _landscape.can_build_at_mouse_pos():
 		_tower_instance.modulate = opaque_green
+	elif _landscape.can_transform_at_mouse_pos():
+		_tower_instance.modulate = opaque_blue
 	else:
 		_tower_instance.modulate = opaque_red

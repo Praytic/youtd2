@@ -220,7 +220,11 @@ func get_towers_in_family(family_id: int) -> Array:
 
 # NOTE: sell price may be different from cost if the tower
 # was upgraded. In those cases sell price will include
-# refunds for upgrades.
+# refunds for upgrades. Note that this is the 100% price
+# without applying any multipliers based on current game
+# mode. Need to not apply multipliers here because this f-n
+# is also used for transform refunds which doesn't need
+# multipliers.
 func get_sell_price(tower_id: int) -> int:
 	var current_cost: int = TowerProperties.get_cost(tower_id)
 	
@@ -243,8 +247,5 @@ func get_sell_price(tower_id: int) -> int:
 	var include_costs_for_prev_tiers: bool = Globals.game_mode != GameMode.enm.TOTALLY_RANDOM
 	if include_costs_for_prev_tiers:
 		sell_price += costs_for_prev_tiers
-
-	var sell_ratio: float = GameMode.get_sell_ratio(Globals.game_mode)
-	sell_price = floor(sell_price * sell_ratio)
 
 	return sell_price
