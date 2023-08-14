@@ -5,31 +5,27 @@ func get_research_text(element: Element.enm) -> String:
 	var text: String = ""
 	
 	var element_string: String = Element.convert_to_colored_string(element)
-	var current_level: int = ElementLevel.get_current(element)
-	var next_level: int = current_level + 1
+	var research_level: String = get_research_level_label(element)
 	var cost: int = ElementLevel.get_research_cost(element)
 	var can_afford: bool = ElementLevel.can_afford_research(element)
 	var cost_string: String = get_colored_requirement_number(cost, can_afford)
 
-	text += "Research %s level [color=GOLD]%d[/color]\n" % [element_string, next_level]
+	text += "Research %s level %s\n" % [element_string, research_level]
 	text += "[img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %s\n" % cost_string
 	text += "Research next element level to unlock the ability to build new towers of this element and to new upgrade existing towers to next tiers.\n"
 
 	return text
 
 
-func get_research_button_label(element: Element.enm, hovered: bool) -> String:
+func get_research_level_label(element: Element.enm) -> String:
 	var text: String = ""
 	
 	var current_element_level = ElementLevel.get_current(element)
 	var max_element_level = ElementLevel.get_max()
 	if current_element_level >= max_element_level:
-		text += " [color=YELLOW]MAX[/color] "
+		text += " [color=GOLD]MAX[/color] "
 	else:
-		if hovered:
-			text += "%s ➜ [color=YELLOW]%s[/color]" % [current_element_level, current_element_level + 1]
-		else:
-			text += "    %s    " % current_element_level
+		text += "[color=GOLD]%s[/color]" % [current_element_level + 1]
 	
 	return text
 

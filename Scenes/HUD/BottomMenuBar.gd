@@ -47,6 +47,9 @@ func _on_button_pressed():
 
 	var cost: int = ElementLevel.get_research_cost(element)
 	KnowledgeTomesManager.spend(cost)
+	
+	if ElementLevel.get_current(element) == ElementLevel.get_max():
+		_research_button.disabled = true
 
 
 func _on_button_mouse_entered():

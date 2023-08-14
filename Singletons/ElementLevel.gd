@@ -15,6 +15,7 @@ func _init():
 
 
 func increment(element: Element.enm):
+	assert(element + 1 <= MAX_ELEMENT_LEVEL and element + 1 > 0, "Invalid element level.")
 	_element_level_map[element] += 1
 	changed.emit()
 
