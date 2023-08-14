@@ -193,6 +193,10 @@ func requirements_are_satisfied(tower_id: int) -> bool:
 	if Config.ignore_upgrade_requirements():
 		return true
 
+#	No requirements for random game modes
+	if Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM:
+		return true
+
 	var out: bool = element_level_foo(tower_id) && wave_level_foo(tower_id)
 
 	return out
