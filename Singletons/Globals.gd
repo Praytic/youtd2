@@ -23,3 +23,7 @@ const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/E
 var game_mode: GameMode.enm = GameMode.enm.NONE
 var portal_lives: float = 100.0
 var game_over: bool = false
+
+
+func game_mode_is_random() -> bool:
+	return Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM

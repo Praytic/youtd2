@@ -62,7 +62,7 @@ func add_tower_button(tower_id):
 #	new towers in the front of the list. In build mode don't
 #	need to do this because towers are added at game start
 #	and sorted by cost.
-	if Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM:
+	if Globals.game_mode_is_random():
 		var insert_index: int = _get_insert_index_for_tower(tower_id)
 		move_child(button_container, insert_index)
 

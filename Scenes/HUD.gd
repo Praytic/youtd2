@@ -69,7 +69,7 @@ func _update_tooltip_for_roll_towers_button():
 
 
 func _on_game_mode_was_chosen():
-	var roll_button_should_be_visible: bool = Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM
+	var roll_button_should_be_visible: bool = Globals.game_mode_is_random()
 	_roll_towers_button.visible = roll_button_should_be_visible
 
 
