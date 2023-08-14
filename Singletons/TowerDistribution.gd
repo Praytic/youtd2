@@ -153,7 +153,7 @@ func _add_towers_to_stash(tower_list: Array[int]):
 	for tower in tower_list:
 		var element: Element.enm = TowerProperties.get_element(tower)
 		var element_string: String = Element.convert_to_colored_string(element)
-		var rarity: Rarity.enm = TowerProperties.get_rarity_num(tower) as Rarity.enm
+		var rarity: Rarity.enm = TowerProperties.get_rarity(tower)
 		var rarity_color: Color = Rarity.get_color(rarity)
 		var tower_name: String = TowerProperties.get_display_name(tower)
 		var tower_name_colored: String = Utils.get_colored_string(tower_name, rarity_color)
@@ -241,7 +241,7 @@ func _generate_tower_groups(first_tier_only: bool) -> Dictionary:
 
 	for tower in all_towers:
 		var element: Element.enm = TowerProperties.get_element(tower)
-		var rarity: Rarity.enm = TowerProperties.get_rarity_num(tower) as Rarity.enm
+		var rarity: Rarity.enm = TowerProperties.get_rarity(tower)
 		var tier: Rarity.enm = TowerProperties.get_tier(tower) as Rarity.enm
 
 		if first_tier_only && tier > 1:

@@ -7,19 +7,19 @@ extends Button
 
 
 var _count: int: set = set_count
-var _rarity: String: get = get_rarity, set = set_rarity
+var _rarity: Rarity.enm: get = get_rarity, set = set_rarity
 
 
 func _ready():
 	set_count(1)
 
 
-func get_rarity() -> String:
+func get_rarity() -> Rarity.enm:
 	return _rarity
 
-func set_rarity(value: String):
+func set_rarity(value: Rarity.enm):
 	_rarity = value
-	match Rarity.convert_from_string(value):
+	match _rarity:
 		Rarity.enm.COMMON:
 			_rarity_container.theme_type_variation = "CommonRarityPanelContainer"
 		Rarity.enm.UNCOMMON:

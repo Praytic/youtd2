@@ -949,12 +949,9 @@ func get_range() -> float:
 	return TowerProperties.get_range(_id)
 
 # NOTE: tower.getRarity() in JASS
-func get_rarity() -> String:
+func get_rarity() -> Rarity.enm:
 	return TowerProperties.get_rarity(_id)
 	
-func get_rarity_num() -> int:
-	return TowerProperties.get_rarity_num(_id)
-
 func get_display_name() -> String:
 	return TowerProperties.get_display_name(_id)
 
@@ -973,7 +970,7 @@ func get_gold_cost() -> int:
 	return get_csv_property(CsvProperty.COST).to_int()
 
 func get_inventory_capacity() -> int:
-	var rarity: Rarity.enm = get_rarity_num() as Rarity.enm
+	var rarity: Rarity.enm = get_rarity()
 	var tier: int = get_tier()
 	var capacity: int = Constants.INVENTORY_CAPACITY[rarity][tier]
 

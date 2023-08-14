@@ -165,7 +165,7 @@ func _get_tower_count_map() -> Dictionary:
 	var tower_id_list: Array = Properties.get_tower_id_list()
 
 	for tower_id in tower_id_list:
-		var rarity: Rarity.enm = TowerProperties.get_rarity_num(tower_id) as Rarity.enm
+		var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
 		if !tower_count_map.has(rarity):
 			tower_count_map[rarity] = 0
 		tower_count_map[rarity] += 1

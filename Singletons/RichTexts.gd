@@ -164,7 +164,8 @@ func get_tower_requirements_text(tower_id: int) -> String:
 	var element_level_ok: bool = TowerProperties.element_level_foo(tower_id)
 	var element_level_string: String = get_colored_requirement_number(required_element_level, element_level_ok)
 
-	var element_string: String = TowerProperties.get_element_string(tower_id)
+	var element: Element.enm = TowerProperties.get_element(tower_id)
+	var element_string: String = Element.convert_to_string(element)
 
 	text += "[color=GOLD][b]Requirements[/b][/color]\n"
 	text += "Wave level: %s\n" % wave_level_string
@@ -178,7 +179,7 @@ func get_item_text(item: Item) -> String:
 
 	var item_id: int = item.get_id()
 	var display_name: String = ItemProperties.get_display_name(item_id)
-	var rarity: Rarity.enm = ItemProperties.get_rarity_num(item_id)
+	var rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
 	var rarity_color: Color = Rarity.get_color(rarity)
 	var display_name_colored: String = Utils.get_colored_string(display_name, rarity_color)
 	var description: String = ItemProperties.get_description(item_id)

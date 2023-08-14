@@ -83,7 +83,7 @@ static func create_without_player(item_type: int, position: Vector2) -> Item:
 
 static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
 	var item_type: int = item.get_id()
-	var rarity: Rarity.enm = ItemProperties.get_rarity_num(item_type)
+	var rarity: Rarity.enm = ItemProperties.get_rarity(item_type)
 	var rarity_string: String = Rarity.convert_to_string(rarity)
 	var item_drop_scene_path: String
 	if ItemProperties.get_is_oil(item_type):
@@ -389,6 +389,6 @@ func get_item_type() -> int:
 
 
 func get_rarity() -> Rarity.enm:
-	var rarity: Rarity.enm = ItemProperties.get_rarity_num(_id)
+	var rarity: Rarity.enm = ItemProperties.get_rarity(_id)
 
 	return rarity

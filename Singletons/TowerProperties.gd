@@ -30,7 +30,7 @@ func get_tier(tower_id: int) -> int:
 
 
 func get_tier_icon_texture(tower_id: int) -> Texture2D:
-	var tower_rarity = TowerProperties.get_rarity_num(tower_id)
+	var tower_rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
 	var tower_tier = TowerProperties.get_tier(tower_id) - 1
 	var tier_icon = AtlasTexture.new()
 	var icon_size: int
@@ -61,16 +61,10 @@ func get_icon_atlas_num(tower_id: int) -> int:
 
 
 func get_element(tower_id: int) -> Element.enm:
-	var element_string: String = get_element_string(tower_id)
+	var element_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.ELEMENT)
 	var element: Element.enm = Element.from_string(element_string)
 
 	return element
-
-
-func get_element_string(tower_id: int) -> String:
-	var element_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.ELEMENT)
-
-	return element_string
 
 
 func get_csv_property(tower_id: int, csv_property: Tower.CsvProperty) -> String:
@@ -82,12 +76,8 @@ func get_csv_property(tower_id: int, csv_property: Tower.CsvProperty) -> String:
 	return value
 
 
-func get_rarity(tower_id: int) -> String:
-	return get_csv_property(tower_id, Tower.CsvProperty.RARITY)
-	
-
-func get_rarity_num(tower_id: int) -> int:
-	var rarity_string: String = get_rarity(tower_id)
+func get_rarity(tower_id: int) -> Rarity.enm:
+	var rarity_string: String = get_csv_property(tower_id, Tower.CsvProperty.RARITY)
 	var rarity: Rarity.enm = Rarity.convert_from_string(rarity_string)
 
 	return rarity
@@ -147,16 +137,10 @@ func get_base_cooldown(tower_id: int) -> float:
 
 
 func get_attack_type(tower_id: int) -> AttackType.enm:
-	var attack_type_string: String = get_attack_type_string(tower_id)
+	var attack_type_string: String = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_TYPE)
 	var attack_type: AttackType.enm = AttackType.from_string(attack_type_string)
 
 	return attack_type
-
-
-func get_attack_type_string(tower_id: int) -> String:
-	var attack_type_string: String = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_TYPE)
-
-	return attack_type_string
 
 
 func get_range(tower_id: int) -> float:

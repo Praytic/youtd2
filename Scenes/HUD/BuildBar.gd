@@ -133,7 +133,7 @@ func _on_random_tower_distributed(tower_id: int):
 
 
 func _get_insert_index_for_tower(tower_id: int) -> int:
-	var rarity: Rarity.enm = TowerProperties.get_rarity_num(tower_id) as Rarity.enm
+	var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
 	var index: int = 0
 	var button_container_list: Array = get_children()
 
@@ -145,7 +145,7 @@ func _get_insert_index_for_tower(tower_id: int) -> int:
 
 		var button: TowerButton = button_container.get_children()[0] as TowerButton
 		var this_tower_id: int = button.get_tower_id()
-		var this_rarity: Rarity.enm = TowerProperties.get_rarity_num(this_tower_id) as Rarity.enm
+		var this_rarity: Rarity.enm = TowerProperties.get_rarity(this_tower_id)
 
 		if this_rarity <= rarity:
 			break
