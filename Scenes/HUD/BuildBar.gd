@@ -58,6 +58,14 @@ func add_tower_button(tower_id):
 	button_container.set_visible(tower_should_be_visible)
 	add_child(button_container)
 
+#	NOTE: in random modes, sort towers by rarity and place
+#	new towers in the front of the list. In build mode don't
+#	need to do this because towers are added at game start
+#	and sorted by cost.
+	if Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM:
+		var insert_index: int = _get_insert_index_for_tower(tower_id)
+		move_child(button_container, insert_index)
+
 
 func remove_tower_button(tower_id):
 	var button: TowerButton = _tower_buttons[tower_id]
@@ -122,3 +130,26 @@ func _on_rolling_starting_towers():
 
 func _on_random_tower_distributed(tower_id: int):
 	add_tower_button(tower_id)
+
+
+func _get_insert_index_for_tower(tower_id: int) -> int:
+	var rarity: Rarity.enm = TowerProperties.get_rarity_num(tower_id) as Rarity.enm
+	var index: int = 0
+	var button_container_list: Array = get_children()
+
+	for button_container in button_container_list:
+		if button_container.get_child_count() != 1:
+			push_error("Button container is configured incorrectly")
+
+			continue
+
+		var button: TowerButton = button_container.get_children()[0] as TowerButton
+		var this_tower_id: int = button.get_tower_id()
+		var this_rarity: Rarity.enm = TowerProperties.get_rarity_num(this_tower_id) as Rarity.enm
+
+		if this_rarity <= rarity:
+			break
+
+		index += 1
+
+	return index
