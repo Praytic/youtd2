@@ -21,7 +21,7 @@ func on_damaged(event: Event):
 	var creep: Unit = buff.get_buffed_unit()
 
 	var mana_ratio = creep.get_mana_ratio()
-	var damage_reduction: float = min(0.8, mana_ratio * 2)
+	var damage_reduction: float = clampf(1.0 - mana_ratio * 2, 0.2, 1.0)
 
 	event.damage *= damage_reduction
 
