@@ -14,6 +14,7 @@ signal test_signal()
 @export var _tomes_status: ResourceStatusPanel
 @export var _gold_status: ResourceStatusPanel
 @export var _tower_stash: GridContainer
+@export var _stash_scroll_container: ScrollContainer
 
 
 func _ready():
@@ -103,6 +104,11 @@ func set_element(element: Element.enm):
 		_item_bar.hide()
 		_build_bar.show()
 		_build_bar.set_element(element)
+
+#	NOTE: set_value() is a member of Range class which is an
+#	ancestor of HScrollBar class
+	var scroll_bar: HScrollBar = _stash_scroll_container.get_h_scroll_bar()
+	scroll_bar.set_value(0.0)
 
 
 # NOTE: have to manually call this because ItemMovement
