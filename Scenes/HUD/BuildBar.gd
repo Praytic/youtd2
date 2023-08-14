@@ -8,13 +8,6 @@ extends GridContainer
 # want to change the visual part of it.
 @onready var _tower_buttons: Dictionary = {}
 
-# Adds every tower button possible to the list.
-# Although, this is a mutable list, so every time
-# you build a tower, the ID of the tower is removed from this list.
-# If you want unlimited tower buttons in the panel, switch the flag
-# 'unlimited towers' to 'true'.
-@onready var available_tower_buttons: Array
-
 
 var _current_element: Element.enm = Element.enm.NONE : set = set_element, get = get_element
 var current_size: String
@@ -65,8 +58,6 @@ func add_tower_button(tower_id):
 	button_container.set_visible(tower_should_be_visible)
 	add_child(button_container)
 
-	available_tower_buttons.append(tower_id)
-
 
 func remove_tower_button(tower_id):
 	var button: TowerButton = _tower_buttons[tower_id]
@@ -80,7 +71,6 @@ func remove_tower_button(tower_id):
 
 	if no_more_towers_in_stack:
 		_tower_buttons.erase(tower_id)
-		available_tower_buttons.erase(button)
 		remove_child(button_container)
 
 
@@ -112,7 +102,7 @@ func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
 	
 	var res: Array = []
 	for tower_id in tower_id_list:
-		if available_tower_buttons.has(tower_id):
+		if _tower_buttons.has(tower_id):
 			res.append(tower_id)
 	
 	return res
