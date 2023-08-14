@@ -304,7 +304,6 @@ func _on_sell_button_pressed():
 
 	var sell_price: float = TowerProperties.get_sell_price(tower.get_id())
 	tower.getOwner().give_gold(sell_price, tower, false, true)
-	BuildTower.tower_was_sold(tower.position)
 	tower.queue_free()
 
 	SelectUnit.set_selected_unit(null)

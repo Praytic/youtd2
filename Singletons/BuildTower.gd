@@ -6,7 +6,6 @@ signal tower_built(tower_id)
 
 
 var _tower_preview: TowerPreview = null
-var _occupied_position_map: Dictionary = {}
 
 
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
@@ -55,13 +54,24 @@ func cancel():
 
 
 func position_is_occupied(position: Vector2) -> bool:
-	var occupied: bool = _occupied_position_map.has(position)
+	var tower_at_position: Tower = _get_tower_at_position(position)
+	var occupied: bool = tower_at_position != null
 
 	return occupied
 
 
-func tower_was_sold(position: Vector2):
-	_occupied_position_map.erase(position)
+func _get_tower_at_position(position: Vector2) -> Tower:
+	var tower_node_list: Array = get_tree().get_nodes_in_group("towers")
+
+	for tower_node in tower_node_list:
+		var tower: Tower = tower_node as Tower
+		var this_position: Vector2 = tower.position
+		var position_match: bool = position.is_equal_approx(this_position)
+
+		if position_match:
+			return tower
+
+	return null
 
 
 func _try_to_build():
@@ -87,11 +97,10 @@ func _try_to_build():
 		var new_tower = TowerManager.get_tower(tower_id)
 		var build_position: Vector2 =_landscape.get_mouse_pos_on_tilemap_clamped()
 		new_tower.position = build_position
-		_occupied_position_map[build_position] = true
 		Utils.add_object_to_world(new_tower)
 		tower_built.emit(tower_id)
 		FoodManager.add_tower()
-		
+
 		var build_cost: float = TowerProperties.get_cost(tower_id)
 		GoldControl.spend_gold(build_cost)
 		
