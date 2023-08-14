@@ -26,6 +26,7 @@ func add_knowledge_tomes(value = income):
 
 func spend(amount: int):
 	knowledge_tomes -= amount
+	knowledge_tomes_change.emit()
 
 
 func get_current() -> int:

@@ -19,9 +19,14 @@ signal test_signal()
 func _ready():
 	for element_button in get_element_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
-
+	
+	_research_button.mouse_entered.connect(_on_button_mouse_entered)
+	_research_button.mouse_exited.connect(_on_button_mouse_exited)
+	_research_button.pressed.connect(_on_button_pressed)
+	KnowledgeTomesManager.knowledge_tomes_change.connect(_on_knowledge_tomes_change)
+	
 	set_element(Element.enm.ICE)
-
+	
 	HighlightUI.register_target("research_button", _research_button)
 	HighlightUI.register_target("elements_container", _elements_container)
 	HighlightUI.register_target("tomes_status", _tomes_status)
@@ -34,6 +39,31 @@ func _process(_delta):
 	_item_menu_button.text = str(item_button_count)
 	
 	_building_menu_button.text = str(_build_bar.get_child_count())
+
+
+func _on_button_pressed():
+	var element = _build_bar.get_element()
+	ElementLevel.increment(element)
+
+	var cost: int = ElementLevel.get_research_cost(element)
+	KnowledgeTomesManager.spend(cost)
+
+
+func _on_button_mouse_entered():
+	var element = _build_bar.get_element()
+	EventBus.research_button_mouse_entered.emit(element)
+
+
+func _on_button_mouse_exited():
+	EventBus.research_button_mouse_exited.emit()
+
+
+func _on_knowledge_tomes_change():
+	var current_element: Element.enm = _build_bar.get_element()
+	var can_afford: bool = ElementLevel.can_afford_research(current_element)
+	_research_button.set_disabled(!can_afford)
+	
+	_on_button_mouse_entered()
 
 
 # NOTE: below are getters for elements inside bottom menu
@@ -88,6 +118,8 @@ func _on_ItemMenuButton_pressed():
 
 func _on_ElementButton_pressed(element_button):
 	set_element(element_button.element)
+	var can_afford_upgrade: bool = ElementLevel.can_afford_research(element_button.element)
+	_research_button.set_disabled(!can_afford_upgrade)
 
 
 func _on_BuildMenuButton_pressed():
