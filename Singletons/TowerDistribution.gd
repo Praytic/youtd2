@@ -242,7 +242,7 @@ func _generate_tower_groups(first_tier_only: bool) -> Dictionary:
 	for tower in all_towers:
 		var element: Element.enm = TowerProperties.get_element(tower)
 		var rarity: Rarity.enm = TowerProperties.get_rarity(tower)
-		var tier: Rarity.enm = TowerProperties.get_tier(tower) as Rarity.enm
+		var tier: int = TowerProperties.get_tier(tower)
 
 		if first_tier_only && tier > 1:
 			continue
