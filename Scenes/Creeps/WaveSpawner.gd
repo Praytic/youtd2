@@ -145,6 +145,9 @@ func _on_wave_finished(wave: Wave):
 	GoldControl.add_income(wave_level)
 	KnowledgeTomesManager.add_knowledge_tomes()
 
+	if Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM:
+		TowerDistribution.roll_towers(wave_level)
+
 	var any_wave_is_active: bool = false
 
 	for this_wave in _wave_list:

@@ -13,6 +13,7 @@ signal test_signal()
 @export var _elements_container: HBoxContainer
 @export var _tomes_status: ResourceStatusPanel
 @export var _gold_status: ResourceStatusPanel
+@export var _tower_stash: GridContainer
 
 
 func _ready():
@@ -20,6 +21,12 @@ func _ready():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 
 	set_element(Element.enm.ICE)
+
+	HighlightUI.register_target("research_button", _research_button)
+	HighlightUI.register_target("elements_container", _elements_container)
+	HighlightUI.register_target("tomes_status", _tomes_status)
+	HighlightUI.register_target("gold_status", _gold_status)
+	HighlightUI.register_target("tower_stash", _tower_stash)
 
 
 func _process(_delta):
@@ -38,14 +45,6 @@ func get_research_button() -> Control:
 
 func get_elements_container() -> Control:
 	return _elements_container
-
-
-func get_tomes_status() -> Control:
-	return _tomes_status
-
-
-func get_gold_status() -> Control:
-	return _gold_status
 
 
 func get_item_menu_button() -> Button:

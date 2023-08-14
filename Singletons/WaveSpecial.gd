@@ -163,7 +163,9 @@ func _get_available_specials(level: int) -> Array[int]:
 	var wave_level: int = level
 
 	for special in all_special_list:
-		if not special.get_enabled():
+		var is_enabled: bool = WaveSpecial.get_enabled(special)
+
+		if !is_enabled:
 			continue
 		
 		var required_level: int = _get_required_wave_level(special)

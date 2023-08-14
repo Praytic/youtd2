@@ -76,6 +76,7 @@ func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficul
 		_on_tutorial_menu_finished()
 
 	Globals.game_mode = game_mode
+	EventBus.game_mode_was_chosen.emit()
 
 
 func _pause_the_game():

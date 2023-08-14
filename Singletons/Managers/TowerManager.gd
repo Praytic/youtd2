@@ -80,13 +80,6 @@ func get_tower_family_id(id: int) -> int:
 	return csv_properties[Tower.CsvProperty.FAMILY_ID]
 
 
-func script_exists_for_tower(id: int) -> bool:
-	var path: String = _get_tower_script_path(id)
-	var script_exists: bool = ResourceLoader.exists(path)
-
-	return script_exists
-
-
 func _get_tower_script_path(id: int) -> String:
 	var family_name: String = _get_family_name(id)
 	var path: String = "%s/%s1.gd" % [towers_dir, family_name]
@@ -172,12 +165,9 @@ func _get_tower_count_map() -> Dictionary:
 	var tower_id_list: Array = Properties.get_tower_id_list()
 
 	for tower_id in tower_id_list:
-		var script_exists: bool = script_exists_for_tower(tower_id)
-
-		if script_exists:
-			var rarity: Rarity.enm = TowerProperties.get_rarity_num(tower_id) as Rarity.enm
-			if !tower_count_map.has(rarity):
-				tower_count_map[rarity] = 0
-			tower_count_map[rarity] += 1
+		var rarity: Rarity.enm = TowerProperties.get_rarity_num(tower_id) as Rarity.enm
+		if !tower_count_map.has(rarity):
+			tower_count_map[rarity] = 0
+		tower_count_map[rarity] += 1
 
 	return tower_count_map
