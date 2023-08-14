@@ -223,7 +223,11 @@ func _on_item_move_from_tower_done(_success: bool):
 	_moved_item_button = null
 
 
-func _on_upgrade_button_pressed(tower: Tower):
+func _on_upgrade_button_pressed():
+	var tower: Tower = get_selected_tower()
+	if tower == null:
+		return
+
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	if upgrade_id == -1:
@@ -282,7 +286,11 @@ func _on_reset_sell_button_timer_timeout():
 	_set_selling_for_real(false)
 
 
-func _on_sell_button_pressed(tower: Tower):
+func _on_sell_button_pressed():
+	var tower: Tower = get_selected_tower()
+	if tower == null:
+		return
+
 	if !_selling_for_real:
 		_set_selling_for_real(true)
 		return
