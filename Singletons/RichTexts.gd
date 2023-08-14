@@ -12,7 +12,11 @@ func get_research_text(element: Element.enm) -> String:
 
 	text += "Research %s level %s\n" % [element_string, research_level]
 	text += "[img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %s\n" % cost_string
-	text += "Research next element level to unlock the ability to build new towers of this element and to new upgrade existing towers to next tiers.\n"
+
+	match Globals.game_mode:
+		GameMode.enm.BUILD: text += "Research next element level to unlock new towers of this element and to upgrade existing towers to higher tiers.\n"
+		GameMode.enm.RANDOM_WITH_UPGRADES: text += "Research next element level to unlock new towers of this element and to upgrade existing towers to higher tiers.\n"
+		GameMode.enm.TOTALLY_RANDOM: text += "Research next element level to unlock new towers of this element.\n"
 
 	return text
 
