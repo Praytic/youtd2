@@ -5,14 +5,17 @@ const ICON_SIZE_M = 128
 const TIER_ICON_SIZE_M = 64
 const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
+const _placeholder_tower_icon: Texture2D = preload("res://Resources/UI/PlaceholderTowerIcon.tres")
 
 # Convenience getters for tower properties. Actual values
 # are stored in Properties, this class contains getters.
 
 func get_icon_texture(tower_id: int) -> Texture2D:
 	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(tower_id)
-	if icon_atlas_num == -1 && Config.print_errors_about_towers():
-		push_error("Could not find an icon for tower id [%s]." % tower_id)
+
+	var tower_has_no_icon: bool = icon_atlas_num == -1
+	if tower_has_no_icon:
+		return _placeholder_tower_icon
 	
 	var tower_icon = AtlasTexture.new()
 	var icon_size: int
