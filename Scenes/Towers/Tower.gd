@@ -198,6 +198,21 @@ func _process(delta: float):
 	if is_stunned():
 		return
 
+#	NOTE: reduce current tracked cooldown to overall
+#	cooldown if overall cooldown is smaller. This handles
+#	cases where tower's attackspeed was significantly
+#	reduced and then returns to normal.
+# 
+#	For example, let's say tower's attackspeed gets reduced
+#	by some debuff so much that the attack cooldown becomes
+#	100 seconds. The debuff expires after 10 seconds and
+#	tower would be doing nothing for 90 seconds. Instead of
+#	that, we recalculate the cooldown so that tower can
+#	start attacking normally again.
+	var overall_cooldown: float = get_overall_cooldown()
+	if _current_attack_cooldown > overall_cooldown:
+		_current_attack_cooldown = overall_cooldown
+
 	if _current_attack_cooldown > 0.0:
 		_current_attack_cooldown -= delta
 
