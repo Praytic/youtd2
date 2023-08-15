@@ -144,6 +144,12 @@ func get_tower_text(tower_id: int) -> String:
 		var autocast_text: String = get_autocast_text(autocast)
 		text += " \n"
 		text += autocast_text
+
+	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(tower_id)
+	var tower_has_no_icon: bool = icon_atlas_num == -1
+	if tower_has_no_icon:
+		text += " \n"
+		text += "[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]\n"
 	
 	return text
 
