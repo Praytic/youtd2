@@ -299,23 +299,7 @@ func sort_unit_list_by_distance(unit_list: Array, position: Vector2):
 #    targets.
 # 
 # 2. If multiple waves are active, then towers will pick
-#    nearest targets unless there are targets from another
-#    wave which are closer to reaching the portal.
-#
-# Note that creeps within same wave are still sorted by
-# distance to tower so that the tower will pick the nearest
-# targets. Sorting only by distance to portal would cause
-# the tower to always pick a target in the front. This would
-# reduce the effectiveness of tower AOE abilities. For
-# example, a splash attack would always hit half as many creeps as
-# the maximum possible amount.
-#
-# Note that we need to sort by distance to portal and not
-# simply by wave level. In some cases a new wave may
-# overtake an older wave. For example, creeps with "Speed"
-# special move faster than normal. In such cases, we would
-# want the tower to prioritize the creeps which are closer
-# to portal even if they are from a newer wave.
+#    nearest target in the oldest wave nearby.
 class AttackTargetSorter:
 	var origin = Vector2.ZERO
 
@@ -324,14 +308,12 @@ class AttackTargetSorter:
 		var level_b: float = b.get_spawn_level()
 		var distance_a: float = Isometric.vector_distance_to(a.position, origin)
 		var distance_b: float = Isometric.vector_distance_to(b.position, origin)
-		var distance_to_portal_a: float = a.get_distance_until_portal()
-		var distance_to_portal_b: float = b.get_distance_until_portal()
 
 		var less_than: bool
 		if level_a == level_b:
 			less_than = distance_a < distance_b
 		else:
-			less_than = distance_to_portal_a < distance_to_portal_b
+			less_than = level_a < level_b
 
 		return less_than
 
