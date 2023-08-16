@@ -13,10 +13,12 @@ extends Tower
 # func get_extra_tooltip_text() -> String:
 # 	var text: String = ""
 
+# 	text += "[color=GOLD]Title[/color]\n"
 # 	text += "Description\n"
 # 	text += " \n"
 # 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 # 	text += "foo\n"
+# 	text += "bar\n"
 
 # 	return text
 
