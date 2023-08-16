@@ -33,16 +33,16 @@ var _quality_threshold: Array[int] = [
 # NOTE: returns 0 if no item was available for current game
 # conditions.
 func get_random_item(tower: Tower, target: Creep) -> int:
-	var tower_level: int = tower.get_level()
+	var creep_level: int = target.get_spawn_level()
 	var tower_quality_ratio: float = tower.get_item_quality_ratio()
 	var target_quality_ratio: float = target.get_item_quality_ratio_on_death()
 	var quality_multiplier: float = tower_quality_ratio * target_quality_ratio
-	var random_item: int = _calculate_item_drop(tower_level, quality_multiplier)
+	var random_item: int = _calculate_item_drop(creep_level, quality_multiplier)
 	
 	return random_item
 
 
-func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
+func _calculate_item_drop(creep_level: int, quality_multiplier: float) -> int:
 	var rarity: int = 3
 	var rarity_chance: float = randf_range(0.0, 1.0)
 
@@ -66,7 +66,7 @@ func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
 # 		is level 1, then the rarity gets reduced to
 # 		"common".
 		while true:
-			if tower_level >= _quality_threshold[rarity]:
+			if creep_level >= _quality_threshold[rarity]:
 				break
 
 			rarity = rarity - 1
@@ -89,7 +89,7 @@ func _calculate_item_drop(tower_level: int, quality_multiplier: float) -> int:
 		return random_item
 	else:
 #		Regular items
-		var random_regular_item: int = get_random_item_at_or_below_rarity_bounded(rarity, 0, tower_level)
+		var random_regular_item: int = get_random_item_at_or_below_rarity_bounded(rarity, 0, creep_level)
 
 		return random_regular_item
 
