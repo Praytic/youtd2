@@ -139,3 +139,6 @@ func hard_all_wave_special() -> Array[int]:
 	if value is int:
 		result.append(value)
 	return result
+
+func smart_targeting() -> bool:
+	return ProjectSettings.get_setting("application/config/smart_targeting") as bool

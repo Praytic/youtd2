@@ -644,7 +644,10 @@ func _update_target_list():
 
 # 	Add new targets that have entered into range
 	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, position, attack_range)
-	Utils.sort_unit_list_by_distance(creeps_in_range, position)
+	if Config.smart_targeting():
+		Utils.sort_creep_list_for_targeting(creeps_in_range, position)
+	else:
+		Utils.sort_unit_list_by_distance(creeps_in_range, position)
 
 	for target in _target_list:
 		creeps_in_range.erase(target)
