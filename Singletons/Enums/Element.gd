@@ -67,7 +67,7 @@ func convert_to_dmg_from_element_mod(element: Element.enm) -> Modification.Type:
 
 func convert_to_colored_string(type: Element.enm) -> String:
 	var string: String = convert_to_string(type).capitalize()
-	var color: Color = _color_map[type]
+	var color: Color = get_color(type)
 	var out: String = Utils.get_colored_string(string, color)
 
 	return out
@@ -83,3 +83,9 @@ func get_list() -> Array[Element.enm]:
 		Element.enm.IRON,
 		Element.enm.STORM,
 	]
+
+
+func get_color(element: Element.enm) -> Color:
+	var color: Color = _color_map[element]
+
+	return color
