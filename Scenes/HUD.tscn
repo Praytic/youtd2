@@ -164,10 +164,10 @@ text = "Roll starting towers"
 
 [node name="HoradricMenu" parent="." instance=ExtResource("10_2o2r5")]
 layout_mode = 0
-offset_left = 1000.0
-offset_top = 400.0
-offset_right = 1185.0
-offset_bottom = 438.0
+offset_left = 1554.0
+offset_top = 816.0
+offset_right = 1739.0
+offset_bottom = 921.0
 
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
 [connection signal="pressed" from="RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
