@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=11 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://c376o14gmtncc" path="res://Scenes/HUD/HoradricMenu.tscn" id="10_2o2r5"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
@@ -72,7 +73,7 @@ offset_top = 218.0
 offset_right = -1907.0
 offset_bottom = -862.0
 
-[node name="BottomMenuBar" parent="." node_paths=PackedStringArray("_research_panel") instance=ExtResource("5")]
+[node name="BottomMenuBar" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
@@ -85,7 +86,6 @@ offset_right = 6.10352e-05
 offset_bottom = -98.9999
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
-_research_panel = NodePath("")
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
 show_behind_parent = true
@@ -161,6 +161,13 @@ offset_top = 804.0
 offset_right = 1080.0
 offset_bottom = 867.0
 text = "Roll starting towers"
+
+[node name="HoradricMenu" parent="." instance=ExtResource("10_2o2r5")]
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 400.0
+offset_right = 1185.0
+offset_bottom = 438.0
 
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
 [connection signal="pressed" from="RollTowersButton" to="." method="_on_roll_towers_button_pressed"]

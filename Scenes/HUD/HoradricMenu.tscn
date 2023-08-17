@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://c376o14gmtncc"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_884ge"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ywuq"]
+bg_color = Color(0.172549, 0.172549, 0.172549, 1)
+
+[node name="HoradricMenu" type="VBoxContainer" node_paths=PackedStringArray("_slots_container", "_items_container", "_transmute_button")]
+script = ExtResource("2_884ge")
+_slots_container = NodePath("PanelContainer/EmptySlotsContainer")
+_items_container = NodePath("PanelContainer/ItemsContainer")
+_transmute_button = NodePath("TransmuteButton")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Horadric Cube"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ywuq")
+
+[node name="EmptySlotsContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ItemsContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="TransmuteButton" type="Button" parent="."]
+layout_mode = 2
+text = "Transmute"
+
+[connection signal="pressed" from="TransmuteButton" to="." method="_on_transmute_button_pressed"]

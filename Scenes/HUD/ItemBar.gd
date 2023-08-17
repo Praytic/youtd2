@@ -52,6 +52,7 @@ func _ready():
 	ItemMovement.item_move_from_itembar_done.connect(on_item_move_from_itembar_done)
 	EventBus.item_drop_picked_up.connect(_on_item_drop_picked_up)
 	EventBus.consumable_item_was_consumed.connect(_on_consumable_item_was_consumed)
+	HoradricCube.item_was_removed.connect(_on_horadric_cube_item_was_removed)
 
 
 func on_item_move_from_itembar_done(move_success: bool):
@@ -80,6 +81,18 @@ func _on_consumable_item_was_consumed(item: Item):
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
+	
+	var shift_pressed: bool = Input.is_action_pressed("shift")
+	var have_space_in_cube: bool = HoradricCube.have_space()
+	if shift_pressed:
+		if have_space_in_cube:
+			var added_successfully: bool = HoradricCube.add_item(item)
+			if added_successfully:
+				remove_item_button(item)
+		else:
+			Messages.add_error("Horadric cube has no more space.")
+
+		return
 
 	var item_type: ItemType.enm = ItemProperties.get_type(item.get_id())
 	var can_move: bool = item_type != ItemType.enm.CONSUMABLE
@@ -101,3 +114,7 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 func get_item_count() -> int:
 	return _item_buttons.size()
+
+
+func _on_horadric_cube_item_was_removed(item: Item):
+	add_item_button(item)
