@@ -2,7 +2,7 @@ extends Tower
 
 
 # TODO: original script calls display_small_floating_text on
-# attacker.getOwner() object but currently owner-specific
+# attacker.get_player() object but currently owner-specific
 # floating text isn't implemented
 
 
@@ -67,7 +67,7 @@ func damage_on_fire_attack(event: Event):
 		event.damage = event.damage + b.user_real
 
 		if is_burning_tower:
-			attacker.getOwner().display_small_floating_text(str(int(b.user_real)), b.get_buffed_unit(), 255, 90, 0, 40.0)
+			attacker.get_player().display_small_floating_text(str(int(b.user_real)), b.get_buffed_unit(), 255, 90, 0, 40.0)
 
 		b.refresh_duration()
 

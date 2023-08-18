@@ -76,5 +76,5 @@ func on_damage(event: Event):
 func steal(p: Projectile, _creep: Unit):
 	var tower = p.get_caster()
 	var gold_granted: float = (tower.user_int * (tower.get_level() * tower.user_int * 0.04)) / 10
-	tower.getOwner().give_gold(gold_granted, tower, false, true)
+	tower.get_player().give_gold(gold_granted, tower, false, true)
 	tower.user_real = tower.user_real + gold_granted

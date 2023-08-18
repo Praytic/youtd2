@@ -47,16 +47,16 @@ func billy_snowball_hit(p: Projectile, target: Unit):
 	var t: Unit = p.get_caster()
 
 	if p.user_int == 0:
-		t.getOwner().display_floating_text_x_2("missed", target, 150, 50, 0, 155, 0.07, 1, 2, 0.018, 0)
+		t.get_player().display_floating_text_x_2("missed", target, 150, 50, 0, 155, 0.07, 1, 2, 0.018, 0)
 	else:
 		t.do_spell_damage(target, p.user_real, t.calc_spell_crit_no_bonus())
 		cb_stun.apply_only_timed(t, target, p.user_real2)
 		SFX.sfx_at_unit("FrostBoltMissile.mdl", target)
 
 		if p.user_int2 == 1:
-			t.getOwner().display_floating_text_x_2("Temple Crusher!", target, 150, 50, 255, 200, 0.07, 2, 3, 0.026, 0)
+			t.get_player().display_floating_text_x_2("Temple Crusher!", target, 150, 50, 255, 200, 0.07, 2, 3, 0.026, 0)
 		else:
-			t.getOwner().display_floating_text_x_2("Knockdown!", target, 0, 0, 255, 155, 0.07, 1.5, 3, 0.022, 0)
+			t.get_player().display_floating_text_x_2("Knockdown!", target, 0, 0, 255, 155, 0.07, 1.5, 3, 0.022, 0)
 
 
 func tower_init():

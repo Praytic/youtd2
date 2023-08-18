@@ -110,7 +110,7 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 
 #	Refund build cost for previous tower
 	var refund_value: int = _get_transform_refund(prev_tower.get_id(), new_tower_id)
-	prev_tower.getOwner().give_gold(refund_value, prev_tower, false, true)
+	prev_tower.get_player().give_gold(refund_value, prev_tower, false, true)
 
 #	Spend build cost for new tower
 	var build_cost: float = TowerProperties.get_cost(new_tower_id)

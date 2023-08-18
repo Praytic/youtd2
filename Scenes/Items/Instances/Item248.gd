@@ -20,7 +20,7 @@ func on_autocast(event: Event):
 	var itm: Item = self
 	var i: int = itm.get_charges()
 	var tower: Tower = itm.get_carrier()
-	var p: Player = itm.getOwner()
+	var p: Player = itm.get_player()
 	var new: Item
 	var rnd: float = randi_range(0, 24)
 	var rarity: int = 1
@@ -36,14 +36,14 @@ func on_autocast(event: Event):
 		if random_item != 0:
 			itm.user_int2 = itm.user_int2 - 1
 			p.give_gold(-500, tower, false, true)
-			new = Item.create(tower.getOwner(), random_item, tower.get_visual_position())
+			new = Item.create(tower.get_player(), random_item, tower.get_visual_position())
 			new.fly_to_stash(0.0)
 
 	check_level(itm)
 
 
 func check_level(itm: Item):
-	var cur_level: int = itm.getOwner().get_team().get_level()
+	var cur_level: int = itm.get_player().get_team().get_level()
 
 	if cur_level > itm.user_int3:
 		itm.user_int = itm.user_int + (cur_level - itm.user_int3)
@@ -85,7 +85,7 @@ func on_create():
 	itm.set_charges(1)
 	itm.user_int = 0
 	itm.user_int2 = 1
-	itm.user_int3 = itm.getOwner().get_team().get_level()
+	itm.user_int3 = itm.get_player().get_team().get_level()
 	check_level(itm)
 
 

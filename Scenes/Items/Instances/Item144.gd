@@ -19,4 +19,4 @@ func on_kill(event: Event):
 	var itm: Item = self
 
 	var tower: Tower = itm.get_carrier()
-	itm.get_carrier().getOwner().give_gold(2, tower, true, true)
+	itm.get_carrier().get_player().give_gold(2, tower, true, true)

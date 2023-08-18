@@ -22,4 +22,4 @@ func on_spell_cast(event: Event):
 
 	if !event.get_autocast_type().is_item_autocast():
 		itm.get_carrier().add_exp(0.2 * cd)
-		itm.get_carrier().getOwner().give_gold(0.5 * cd, itm.get_carrier(), false, true)
+		itm.get_carrier().get_player().give_gold(0.5 * cd, itm.get_carrier(), false, true)

@@ -43,7 +43,7 @@ func on_attack(event: Event):
 
 	if itm.user_int <= 0:
 		tower = itm.get_carrier()
-		owner = itm.getOwner()
+		owner = itm.get_player()
 		choose = randi_range(1, 6)
 
 		if choose <= 4:
@@ -89,7 +89,7 @@ func on_attack(event: Event):
 func on_create():
 	var itm: Item = self
 	itm.user_int = 0
-	itm.user_int2 = itm.getOwner().get_level()
+	itm.user_int2 = itm.get_player().get_level()
 	itm.user_real = 0
 	itm.user_real2 = 0
 

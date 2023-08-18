@@ -50,8 +50,8 @@ func periodic(_event: Event):
 
 	if tower.calc_chance(0.40 + tower.get_level() * 0.02):
 		if tower.get_level() < 25:
-			tower.getOwner().give_gold(3, tower, false, true)
+			tower.get_player().give_gold(3, tower, false, true)
 			itm.user_int = itm.user_int + 3
 		else:
-			tower.getOwner().give_gold(4, tower, false, true)
+			tower.get_player().give_gold(4, tower, false, true)
 			itm.user_int = itm.user_int + 4

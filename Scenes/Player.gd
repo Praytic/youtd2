@@ -73,7 +73,7 @@ func display_small_floating_text(text: String, unit: Unit, color_r: int, color_g
 
 
 # TODO: Move to the "owner" class that is returned by
-# getOwner() when owner class is implemented
+# get_player() when owner class is implemented
 # NOTE: player.giveGold() in JASS
 func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 	GoldControl.add_gold(amount)

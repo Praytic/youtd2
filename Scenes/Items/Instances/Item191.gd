@@ -35,7 +35,7 @@ func on_attack(event: Event):
 
 		if reward_value > 0:
 			t = itm.get_carrier()
-			t.getOwner().give_gold(reward_value, t, true, true)
+			t.get_player().give_gold(reward_value, t, true, true)
 			t.add_exp(reward_value / 2)
 			itm.user_real = itm.user_real + reward_value
 

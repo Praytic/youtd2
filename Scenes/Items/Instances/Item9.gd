@@ -60,7 +60,7 @@ func backpack_kill(event: Event):
 	var itm: Item = self
 
 	creep.drop_item(tower, false)
-	tower.getOwner().display_small_floating_text("Backpacked!", tower, 255, 165, 0, 30)
+	tower.get_player().display_small_floating_text("Backpacked!", tower, 255, 165, 0, 30)
 	itm.user_int = itm.user_int + 1
 	B.remove_buff()
 

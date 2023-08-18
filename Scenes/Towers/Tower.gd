@@ -367,7 +367,7 @@ func _do_crit_floating_text(damage: float, crit_count: int):
 	for i in range(0, crit_count):
 		text += "!"
 
-	getOwner().display_floating_text_color(text, self, Color.RED, 1.0)
+	get_player().display_floating_text_color(text, self, Color.RED, 1.0)
 
 
 # NOTE: change color of projectile according to tower's

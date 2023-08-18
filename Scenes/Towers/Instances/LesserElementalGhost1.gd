@@ -103,8 +103,8 @@ func on_damage(event: Event):
 	event.damage = event.damage * damage_add
 
 	if damage_add > 1.0:
-		tower.getOwner().display_small_floating_text(Utils.format_float(damage_add, 2), tower, 0, 255, 0, 40)
+		tower.get_player().display_small_floating_text(Utils.format_float(damage_add, 2), tower, 0, 255, 0, 40)
 	elif damage_add < 1.0:
-		tower.getOwner().display_small_floating_text(Utils.format_float(damage_add, 2), tower, 255, 0, 0, 40)
+		tower.get_player().display_small_floating_text(Utils.format_float(damage_add, 2), tower, 255, 0, 0, 40)
 	else:
-		tower.getOwner().display_small_floating_text(Utils.format_float(damage_add, 2), tower, 255, 255, 255, 40)
+		tower.get_player().display_small_floating_text(Utils.format_float(damage_add, 2), tower, 255, 255, 255, 40)

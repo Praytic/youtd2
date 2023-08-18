@@ -22,4 +22,4 @@ func on_attack(event: Event):
 	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_chance(0.2 * speed) == true:
-		tower.do_spell_damage(event.get_target(), Utils.get_player_state(tower.getOwner().get_the_player(), PlayerState.enm.RESOURCE_GOLD) * (0.10), tower.calc_spell_crit_no_bonus())
+		tower.do_spell_damage(event.get_target(), Utils.get_player_state(tower.get_player().get_the_player(), PlayerState.enm.RESOURCE_GOLD) * (0.10), tower.calc_spell_crit_no_bonus())

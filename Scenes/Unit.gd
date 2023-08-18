@@ -180,7 +180,7 @@ var _mod_value_map: Dictionary = {
 }
 
 
-@onready var _owner: Player = get_tree().get_root().get_node("GameScene/Player")
+@onready var _player: Player = get_tree().get_root().get_node("GameScene/Player")
 
 
 #########################
@@ -268,12 +268,13 @@ func add_aura(aura_type: AuraType):
 
 # NOTE: for now just returning the one single player
 # instance since multiplayer isn't implemented. Also, the
-# name isn't "get_owner()" because that is already a
+# name isn't "get_player()" because that is already a
 # function of Node class.
 # 
 # NOTE: unit.getOwner() in JASS
-func getOwner() -> Player:
-	return _owner
+# Node.get_owner() is a built-in godot f-n
+func get_player() -> Player:
+	return _player
 
 
 # TODO: implement. Should return the number of crits for
@@ -779,7 +780,7 @@ func receive_damage(damage: float) -> bool:
 	_set_health(_health - damage)
 
 	if Config.damage_numbers():
-		getOwner().display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
+		get_player().display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
 
 	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0
 
@@ -831,7 +832,7 @@ func _accept_kill(target: Unit):
 	_change_experience(experience_gained)
 
 	var bounty_gained: int = _get_bounty_for_target(target)
-	getOwner().give_gold(bounty_gained, target, false, true)
+	get_player().give_gold(bounty_gained, target, false, true)
 
 	_kill_count += 1
 
@@ -1447,7 +1448,7 @@ func _change_experience(amount: float) -> float:
 		Effect.destroy_effect(effect_id)
 
 		var level_up_text: String = "Level %d" % _level
-		getOwner().display_floating_text_color(level_up_text, self, Color.GOLD , 1.0)
+		get_player().display_floating_text_color(level_up_text, self, Color.GOLD , 1.0)
 
 		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
 	else:
@@ -1455,6 +1456,6 @@ func _change_experience(amount: float) -> float:
 # 		didn't level up to avoid overlapping of the two
 # 		floating texts
 		var exp_text: String = "+%s exp" % String.num(amount, 1)
-		getOwner().display_floating_text_color(exp_text, self, Color.LIME_GREEN, 1.0)
+		get_player().display_floating_text_color(exp_text, self, Color.LIME_GREEN, 1.0)
 
 	return actual_change

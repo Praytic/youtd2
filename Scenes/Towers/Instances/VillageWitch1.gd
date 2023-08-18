@@ -113,7 +113,7 @@ func on_damage(event: Event):
 	if tower.calc_chance(tower.user_real / 100.0):
 		if event.get_target().get_buff_of_type(cedi_love_potion) != null:
 			multiplier = 2.0
-			tower.getOwner().display_floating_text_x("Double", tower, 255, 0, 0, 255, 64, 1, 2)
+			tower.get_player().display_floating_text_x("Double", tower, 255, 0, 0, 255, 64, 1, 2)
 
 		SFX.sfx_at_unit("UndeadDissipate.mdl", tower)
 		tower.do_spell_damage(event.get_target(), (_stats.soul_damage + _stats.soul_damage_add * tower.get_level()) * multiplier, tower.calc_spell_crit_no_bonus())

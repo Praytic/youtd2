@@ -384,7 +384,8 @@ func get_carrier() -> Tower:
 # NOTE: for now just returning the one single player
 # instance since multiplayer isn't implemented.
 # NOTE: item.getOwner() in JASS
-func getOwner() -> Player:
+# Node.get_owner() is a built-in godot f-n
+func get_player() -> Player:
 	return _owner
 
 

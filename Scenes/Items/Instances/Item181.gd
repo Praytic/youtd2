@@ -54,12 +54,12 @@ func on_kill(_event: Event):
 			if itm.user_real >= -0.20:
 				itm.user_real = itm.user_real - 0.04
 				t.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, -0.04)
-				t.getOwner().display_small_floating_text("Item Chance Lowered!", t, 255, 0, 0, 30)
+				t.get_player().display_small_floating_text("Item Chance Lowered!", t, 255, 0, 0, 30)
 		else:
 			if itm.user_real <= 0.44:
 				itm.user_real = itm.user_real + 0.04
 				t.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.04)
-				t.getOwner().display_small_floating_text("Item Chance Raised!", t, 255, 0, 0, 30)
+				t.get_player().display_small_floating_text("Item Chance Raised!", t, 255, 0, 0, 30)
 
 
 func on_tower_details() -> MultiboardValues:

@@ -26,4 +26,4 @@ func on_attack(event: Event):
 
 	if !tower.calc_chance(0.90):
 		event.damage = 0
-		tower.getOwner().display_floating_text_x("Miss", tower, 255, 0, 0, 255, 0.05, 0.0, 2.0)
+		tower.get_player().display_floating_text_x("Miss", tower, 255, 0, 0, 255, 0.05, 0.0, 2.0)

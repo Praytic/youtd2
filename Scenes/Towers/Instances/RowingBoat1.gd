@@ -75,7 +75,7 @@ func on_attack(_event: Event):
 	var gold_granted: float = _stats.plunder_amount
 #	Set the statistics
 	tower.user_real = tower.user_real + gold_granted
-	tower.getOwner().give_gold(gold_granted, tower, false, true)
+	tower.get_player().give_gold(gold_granted, tower, false, true)
 
 
 func on_create(preceding_tower: Tower):

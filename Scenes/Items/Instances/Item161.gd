@@ -37,7 +37,7 @@ func on_attack(event: Event):
 	var tower: Tower = itm.get_carrier() 
 	var in_range: Iterate
 	var nxt: Tower
-	var spieler: Player = tower.getOwner()
+	var spieler: Player = tower.get_player()
 	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_chance(speed * (0.02 + 0.001 * tower.get_level())):

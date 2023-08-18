@@ -51,7 +51,7 @@ func on_unit_in_range(event: Event):
 
 	var t: Tower = itm.get_carrier() 
 	var c: Creep = event.get_target()
-	var p: Player = t.getOwner()
+	var p: Player = t.get_player()
 	var boss_level: int = c.get_spawn_level()
 	var reward_value: int
 

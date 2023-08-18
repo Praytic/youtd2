@@ -55,16 +55,16 @@ func on_damage(event: Event):
 	if tower.calc_chance(0.20 * speed) && event.is_main_target() == true:
 		if a < 1:
 			cb_stun.apply_only_timed(tower, target, 0.5)
-			tower.getOwner().display_small_floating_text("Stun!", tower, 255, 165, 0, 30)
+			tower.get_player().display_small_floating_text("Stun!", tower, 255, 165, 0, 30)
 		elif a < 2:
 			boekie_gem_slow.apply_custom_timed(tower, target, 100, 3)
-			tower.getOwner().display_small_floating_text("Slow!", tower, 255, 165, 0, 30)
+			tower.get_player().display_small_floating_text("Slow!", tower, 255, 165, 0, 30)
 		elif a < 3:
-			tower.getOwner().give_gold(10, tower, true, true)
-			tower.getOwner().display_small_floating_text("Gold!", tower, 255, 165, 0, 30)
+			tower.get_player().give_gold(10, tower, true, true)
+			tower.get_player().display_small_floating_text("Gold!", tower, 255, 165, 0, 30)
 		elif a < 4:
 			tower.add_exp(1.0)
-			tower.getOwner().display_small_floating_text("Exp!", tower, 255, 165, 0, 30)
+			tower.get_player().display_small_floating_text("Exp!", tower, 255, 165, 0, 30)
 		elif a < 5:
 			boekie_gem_armor.apply_custom_timed(tower, target, 5, 3)
-			tower.getOwner().display_small_floating_text("Armor!", tower, 255, 165, 0, 30)
+			tower.get_player().display_small_floating_text("Armor!", tower, 255, 165, 0, 30)

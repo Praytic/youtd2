@@ -29,14 +29,14 @@ func on_create():
 
 func on_drop():
 	var itm: Item = self
-	itm.getOwner().modify_interest_rate(-itm.user_real)
+	itm.get_player().modify_interest_rate(-itm.user_real)
 
 
 func on_pickup():
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 	itm.user_real = 0.004 * (tower.get_gold_cost() / 2500.0)
-	itm.getOwner().modify_interest_rate(itm.user_real)
+	itm.get_player().modify_interest_rate(itm.user_real)
 
 
 func on_tower_details() -> MultiboardValues:

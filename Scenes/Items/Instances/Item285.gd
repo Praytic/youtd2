@@ -27,14 +27,14 @@ func on_damage(event: Event):
 		event.damage = event.damage * 0.5
 
 		if event.is_main_target():
-			tower.getOwner().display_small_floating_text("Exhausted!", tower, 255, 150, 0, 30)
+			tower.get_player().display_small_floating_text("Exhausted!", tower, 255, 150, 0, 30)
 			itm.user_int = itm.user_int + 1
 
 	if itm.user_int < 12:
 		event.damage = event.damage * 2
 
 		if event.is_main_target():
-			tower.getOwner().display_small_floating_text("Insane!", tower, 255, 150, 0, 30)
+			tower.get_player().display_small_floating_text("Insane!", tower, 255, 150, 0, 30)
 			itm.user_int = itm.user_int + 1
 			
 

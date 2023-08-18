@@ -25,7 +25,7 @@ func on_create():
 func on_drop():
 	var itm: Item = self
 	var tower: Tower
-	var cur_level: int = itm.getOwner().get_team().get_level()
+	var cur_level: int = itm.get_player().get_team().get_level()
 
 	if cur_level > itm.user_int3:
 		itm.user_int = itm.user_int - (cur_level - itm.user_int3)
@@ -33,7 +33,7 @@ func on_drop():
 
 		if itm.user_int <= 0:
 			tower = itm.get_carrier()
-			var new: Item = Item.create(tower.getOwner(), itm.get_id(), tower.get_visual_position())
+			var new: Item = Item.create(tower.get_player(), itm.get_id(), tower.get_visual_position())
 
 			new.user_int2 = itm.user_int2 + 6
 			new.user_int = new.user_int2
@@ -47,7 +47,7 @@ func on_drop():
 
 func on_pickup():
 	var itm: Item = self
-	itm.user_int3 = itm.getOwner().get_team().get_level()
+	itm.user_int3 = itm.get_player().get_team().get_level()
 	itm.set_charges(itm.user_int)
 
 
@@ -55,7 +55,7 @@ func periodic(_event: Event):
 	var itm: Item = self
 
 	var tower: Tower
-	var cur_level: int = itm.getOwner().get_team().get_level()
+	var cur_level: int = itm.get_player().get_team().get_level()
 
 	if cur_level > itm.user_int3:
 		itm.user_int = itm.user_int - (cur_level - itm.user_int3)
@@ -63,7 +63,7 @@ func periodic(_event: Event):
 
 		if itm.user_int <= 0:
 			tower = itm.get_carrier()
-			var new: Item = Item.create(tower.getOwner(), itm.get_id(), tower.get_visual_position())
+			var new: Item = Item.create(tower.get_player(), itm.get_id(), tower.get_visual_position())
 
 			new.user_int2 = itm.user_int2 + 6
 			new.user_int = new.user_int2
