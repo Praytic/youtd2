@@ -33,7 +33,7 @@ func on_drop():
 
 		if itm.user_int <= 0:
 			tower = itm.get_carrier()
-			var new: Item = Item.create(tower.getOwner(), itm.get_item_type(), tower.get_visual_position())
+			var new: Item = Item.create(tower.getOwner(), itm.get_id(), tower.get_visual_position())
 
 			new.user_int2 = itm.user_int2 + 6
 			new.user_int = new.user_int2
@@ -63,7 +63,7 @@ func periodic(_event: Event):
 
 		if itm.user_int <= 0:
 			tower = itm.get_carrier()
-			var new: Item = Item.create(tower.getOwner(), itm.get_item_type(), tower.get_visual_position())
+			var new: Item = Item.create(tower.getOwner(), itm.get_id(), tower.get_visual_position())
 
 			new.user_int2 = itm.user_int2 + 6
 			new.user_int = new.user_int2

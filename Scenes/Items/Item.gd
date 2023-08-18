@@ -74,19 +74,19 @@ static func create(_player: Player, item_id: int, position: Vector2) -> Item:
 	return create_without_player(item_id, position)
 
 
-static func create_without_player(item_type: int, position: Vector2) -> Item:
-	var item: Item = Item.make(item_type)
+static func create_without_player(id: int, position: Vector2) -> Item:
+	var item: Item = Item.make(id)
 	Item._create_item_drop(item, position)
 
 	return item
 
 
 static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
-	var item_type: int = item.get_id()
-	var rarity: Rarity.enm = ItemProperties.get_rarity(item_type)
+	var id: int = item.get_id()
+	var rarity: Rarity.enm = ItemProperties.get_rarity(id)
 	var rarity_string: String = Rarity.convert_to_string(rarity)
 	var item_drop_scene_path: String
-	if ItemProperties.get_is_oil(item_type):
+	if ItemProperties.get_is_oil(id):
 		item_drop_scene_path = "res://Scenes/Items/RedOil.tscn"
 	else:
 		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
@@ -370,6 +370,10 @@ func on_tower_details() -> MultiboardValues:
 ### Setters / Getters ###
 #########################
 
+# NOTE: item.getItemType() in JASS
+# In JASS engine, getItemType() returns the id.
+# Note that in youtd2 engine, "item type" refers to the
+# ItemType enm, not the item id.
 func get_id() -> int:
 	return _id
 
@@ -382,10 +386,6 @@ func get_carrier() -> Tower:
 # NOTE: item.getOwner() in JASS
 func getOwner() -> Player:
 	return _owner
-
-# NOTE: item.getItemType() in JASS
-func get_item_type() -> int:
-	return get_id()
 
 
 func get_rarity() -> Rarity.enm:
