@@ -162,7 +162,19 @@ func get_range(tower_id: int) -> float:
 
 
 func get_required_element_level(tower_id: int) -> int:
-	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.REQUIRED_ELEMENT_LEVEL).to_int()
+	var element_level_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.REQUIRED_ELEMENT_LEVEL)
+	var element_level_is_defined: bool = !element_level_string.is_empty()
+
+	var element_level: int
+	if element_level_is_defined:
+		element_level = element_level_string.to_int()
+	else:
+		element_level = _get_required_element_level_from_formula(tower_id)
+
+#	NOTE: required element level cannot be 0
+	element_level = max(1, element_level)
+
+	return element_level
 
 
 func get_required_wave_level(tower_id: int) -> int:
@@ -273,3 +285,38 @@ func _get_required_wave_level_from_formula(tower_id: int) -> int:
 		return 0
 
 	return wave_level
+
+
+# TODO: adjust to be accurate. Current inaccuracy is that
+# for some towers this f-n will return element level which
+# is 1 less than it was in original game. For such cases,
+# check that tower's cost and enter it into the min cost
+# map.
+func _get_required_element_level_from_formula(tower_id: int) -> int:
+	var element_level_to_min_cost_map: Dictionary = {
+		1: 140,
+		2: 220,
+		3: 350,
+		4: 500,
+		5: 680,
+		6: 900,
+		7: 1100,
+		8: 1300,
+		9: 1600,
+		10: 2000,
+		11: 2130,
+		12: 2450,
+		13: 2750,
+		14: 3150,
+		15: 4000,
+	}
+
+	var tower_cost: int = get_cost(tower_id)
+
+	for element_level in range(15, 0, -1):
+		var min_cost: int = element_level_to_min_cost_map[element_level]
+
+		if tower_cost >= min_cost:
+			return element_level
+
+	return 1
