@@ -287,11 +287,10 @@ func _get_required_wave_level_from_formula(tower_id: int) -> int:
 	return wave_level
 
 
-# TODO: adjust to be accurate. Current inaccuracy is that
-# for some towers this f-n will return element level which
-# is 1 less than it was in original game. For such cases,
-# check that tower's cost and enter it into the min cost
-# map.
+# TODO: adjust to be accurate. Some of the min costs in the
+# map may be higher than they should be. This will cause
+# this f-n to return element level which is 1 less than it
+# was in original game.
 func _get_required_element_level_from_formula(tower_id: int) -> int:
 	var element_level_to_min_cost_map: Dictionary = {
 		1: 140,
