@@ -66,13 +66,6 @@ theme = ExtResource("1_mod6x")
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2
 
-[node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
-layout_mode = 1
-offset_left = 13.0
-offset_top = 218.0
-offset_right = -1907.0
-offset_bottom = -862.0
-
 [node name="BottomMenuBar" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
 layout_mode = 1
@@ -116,14 +109,27 @@ scale = Vector2(0.55408, 0.55408)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
+offset_top = 250.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 290.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 
 [node name="TopMenuBar" parent="MarginContainer" instance=ExtResource("6")]
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="TowerMenu" parent="." instance=ExtResource("15_rfxf1")]
 layout_mode = 1

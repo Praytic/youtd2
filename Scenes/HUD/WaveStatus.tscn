@@ -18,8 +18,8 @@ script = ExtResource("2_fsc15")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_right = 400.0
-offset_bottom = 40.0
+offset_right = 640.0
+offset_bottom = 214.0
 theme_override_styles/panel = ExtResource("3_gykof")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
@@ -27,23 +27,15 @@ layout_mode = 2
 
 [node name="TimerLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 20
-theme_override_font_sizes/bold_font_size = 20
-theme_override_font_sizes/italics_font_size = 20
-theme_override_font_sizes/bold_italics_font_size = 20
-theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 18
 text = "Wave X in Y"
 fit_content = true
 
 [node name="DetailsLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(700, 100)
+custom_minimum_size = Vector2(600, 100)
 layout_mode = 2
 theme_override_constants/table_h_separation = 20
-theme_override_font_sizes/normal_font_size = 20
-theme_override_font_sizes/bold_font_size = 20
-theme_override_font_sizes/italics_font_size = 20
-theme_override_font_sizes/bold_italics_font_size = 20
-theme_override_font_sizes/mono_font_size = 20
+theme_override_font_sizes/normal_font_size = 18
 text = "[Table with details about next 5 waves]
 "
 fit_content = true
@@ -53,6 +45,7 @@ layout_mode = 2
 
 [node name="StartNextWaveButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Start next wave"
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/StartNextWaveButton" to="." method="_on_start_next_wave_button_pressed"]
