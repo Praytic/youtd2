@@ -57,5 +57,5 @@ func on_damage(event: Event):
 
 	if event.is_main_target() && tower.calc_chance(tower.get_base_attack_speed() * 0.06):
 		C.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
-		var effect: int = Effect.create_colored("Roots.mdl", target.get_visual_position().x, target.get_visual_position().y, 0.0, 270.0, 1.2, Color(210 / 255.0, 1.0, 180 / 255.0, 1.0))
+		var effect: int = Effect.create_colored("Roots.mdl", target.get_visual_position().x, target.get_visual_position().y, 0.0, 270.0, 1.2, Color8(210, 255, 180, 255))
 		Effect.set_lifetime(effect, 2.5)

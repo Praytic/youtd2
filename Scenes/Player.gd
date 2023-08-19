@@ -40,7 +40,7 @@ func display_floating_text_color(text: String, unit: Unit, color: Color, time: f
 # probably related to tween
 # NOTE: player.displayFloatingTextX() in JASS
 func display_floating_text_x(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, color_a: int, _mystery_float_1: float, _mystery_float_2: float, time: float):
-	var color: Color = Color(color_r * 255.0, color_g * 255.0, color_b * 255.0, color_a * 255.0)
+	var color: Color = Color8(color_r, color_g, color_b, color_a)
 	display_floating_text_color(text, unit, color, time)
 
 
@@ -61,7 +61,7 @@ func display_static_floating_text(text: String, unit: Unit, color_r: int, color_
 	var floating_text = Globals.floating_text_scene.instantiate()
 	floating_text.animated = false
 	floating_text.text = text
-	floating_text.color = Color(color_r / 255.0, color_g / 255.0, color_b / 255.0, 1.0)
+	floating_text.color = Color8(color_r, color_g, color_b)
 	floating_text.duration = time
 	floating_text.position = unit.position
 	_floating_text_container.add_child(floating_text)
