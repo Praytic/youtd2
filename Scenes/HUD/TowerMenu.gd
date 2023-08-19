@@ -46,7 +46,6 @@ func _ready():
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
 		var empty_slot_button: EmptySlotButton = EmptySlotButton.make()
-		empty_slot_button.theme_type_variation = "SmallButton"
 		_inventory_empty_slots.add_child(empty_slot_button)
 
 
@@ -132,7 +131,6 @@ func on_tower_items_changed(tower: Tower):
 
 	for item in items:
 		var item_button = ItemButton.make(item)
-		item_button.theme_type_variation = "SmallButton"
 		var button_container = UnitButtonContainer.make()
 		button_container.add_child(item_button)
 		_items_box_container.add_child(button_container)
