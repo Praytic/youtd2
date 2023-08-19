@@ -74,7 +74,8 @@ func get_tower(id: int, visual_only: bool = false) -> Tower:
 
 	if scene == Globals.placeholder_tower_scene:
 		var element: Element.enm = tower.get_element()
-		tower.modulate = Element.get_color(element)
+		var element_color: Color = Element.get_color(element)
+		tower.set_visual_modulate(element_color)
 
 	return tower
 

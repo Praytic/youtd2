@@ -95,6 +95,7 @@ var _silence_count: int = 0
 var _stunned: bool = false
 var _visual_only: bool = false
 var _autocast_list: Array[Autocast] = []
+var _stored_visual_modulate: Color = Color.WHITE
 
 var _selection_visual: Node = null
 
@@ -675,6 +676,7 @@ func _calc_attack_multicrit_internal(crit_count: int, bonus_damage: float) -> fl
 # position of the unit.
 func _set_visual_node(visual_node: Node2D):
 	_visual_node = visual_node
+	_visual_node.modulate = _stored_visual_modulate
 
 
 # Call this in subclass to set dimensions of unit. Use
@@ -945,11 +947,10 @@ func _on_modify_property():
 # selection visual and health bars.
 # NOTE: SetUnitVertexColor() in JASS
 func set_visual_modulate(new_modulate: Color):
-	if _visual_node == null:
-		push_error("No visual node defined for unit:", self)
-		return
+	_stored_visual_modulate = new_modulate
 
-	_visual_node.modulate = new_modulate
+	if _visual_node != null:
+		_visual_node.modulate = new_modulate
 
 
 # NOTE: overriden in Tower to return non-null value
