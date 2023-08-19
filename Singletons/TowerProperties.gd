@@ -216,8 +216,23 @@ func requirements_are_satisfied(tower_id: int) -> bool:
 	if Config.ignore_upgrade_requirements():
 		return true
 
-#	No requirements for random game modes
-	if Globals.game_mode_is_random():
+	var tier: int = TowerProperties.get_tier(tower_id)
+
+#	NOTE: for random game modes, some towers do not have
+#	requirements because they are obtained randomly from the
+#	tower distribution game mechanic. Tower distribution
+#	already has minimum requirements for when a tower can be
+#	rolled.
+# 
+#	For "random with upgrades" mode, only the first tiers
+#	come from tower distribution. Other tiers still need
+#	requirements.
+# 
+#   For "totally random" mode, all towers come from tower
+#   distribution, so we can ignore requirements completely.
+	if Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES && tier == 1:
+		return true
+	elif Globals.game_mode == GameMode.enm.TOTALLY_RANDOM:
 		return true
 
 	var out: bool = element_level_foo(tower_id) && wave_level_foo(tower_id)
