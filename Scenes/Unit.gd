@@ -940,10 +940,16 @@ func _on_modify_property():
 ### Setters / Getters ###
 #########################
 
+# NOTE: use this instead of changing modulate directly for
+# Unit node. This version will not affect colors for
+# selection visual and health bars.
 # NOTE: SetUnitVertexColor() in JASS
-func set_unit_vertex_color(r: int, g: int, b: int, a: int):
-	var color: Color = Color(r / 255.0, g / 255.0, b / 255.0, a / 255.0)
-	modulate = color
+func set_visual_modulate(new_modulate: Color):
+	if _visual_node == null:
+		push_error("No visual node defined for unit:", self)
+		return
+
+	_visual_node.modulate = new_modulate
 
 
 # NOTE: overriden in Tower to return non-null value

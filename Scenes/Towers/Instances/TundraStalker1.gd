@@ -54,7 +54,7 @@ func on_autocast(event: Event):
 		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.005)
 
 	SFX.sfx_at_unit("FrostBoltMissile.mdl", event.get_target())
-	event.get_target().set_unit_vertex_color(100, 100, 255, 255)
+	event.get_target().set_visual_modulate(Color8(100, 100, 255, 255))
 	drol_tundraStalker.apply_custom_timed(tower, event.get_target(), _stats.buff_level, 5 + 0.2 * tower.get_level()).user_real = _stats.spell_damage + _stats.spell_damage_add * tower.get_level()
 
 
@@ -65,7 +65,7 @@ func drol_f_tundraStalker(event: Event):
 
 func drol_fade_tundraStalker(event: Event):
 	var b: Buff = event.get_buff()
-	b.get_buffed_unit().set_unit_vertex_color(255, 255, 255, 255)
+	b.get_buffed_unit().set_visual_modulate(Color.WHITE)
 
 
 func tower_init():
