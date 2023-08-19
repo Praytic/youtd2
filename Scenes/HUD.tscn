@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
-[ext_resource type="PackedScene" uid="uid://c376o14gmtncc" path="res://Scenes/HUD/HoradricMenu.tscn" id="10_2o2r5"]
+[ext_resource type="PackedScene" uid="uid://c376o14gmtncc" path="res://Scenes/HUD/HoradricMenu.tscn" id="10_tcgum"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
@@ -162,12 +162,17 @@ offset_right = 1080.0
 offset_bottom = 867.0
 text = "Roll starting towers"
 
-[node name="HoradricMenu" parent="." instance=ExtResource("10_2o2r5")]
-layout_mode = 0
-offset_left = 1554.0
-offset_top = 816.0
-offset_right = 1739.0
-offset_bottom = 921.0
+[node name="HoradricMenu" parent="." instance=ExtResource("10_tcgum")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -201.0
+offset_top = -133.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
 [connection signal="pressed" from="RollTowersButton" to="." method="_on_roll_towers_button_pressed"]

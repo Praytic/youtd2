@@ -1,33 +1,56 @@
-[gd_scene load_steps=3 format=3 uid="uid://c376o14gmtncc"]
+[gd_scene load_steps=4 format=3 uid="uid://c376o14gmtncc"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_884ge"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2uq5s"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.117188, 0.117188, 0.117188, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.570313, 0.570313, 0.570313, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ywuq"]
 bg_color = Color(0.172549, 0.172549, 0.172549, 1)
 
-[node name="HoradricMenu" type="VBoxContainer" node_paths=PackedStringArray("_slots_container", "_items_container", "_transmute_button")]
+[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_slots_container", "_items_container", "_transmute_button")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_2uq5s")
 script = ExtResource("2_884ge")
-_slots_container = NodePath("PanelContainer/EmptySlotsContainer")
-_items_container = NodePath("PanelContainer/ItemsContainer")
-_transmute_button = NodePath("TransmuteButton")
+_slots_container = NodePath("VBoxContainer/PanelContainer/EmptySlotsContainer")
+_items_container = NodePath("VBoxContainer/PanelContainer/ItemsContainer")
+_transmute_button = NodePath("VBoxContainer/TransmuteButton")
 
-[node name="Label" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Horadric Cube"
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7ywuq")
 
-[node name="EmptySlotsContainer" type="HBoxContainer" parent="PanelContainer"]
+[node name="EmptySlotsContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="ItemsContainer" type="HBoxContainer" parent="PanelContainer"]
+[node name="ItemsContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="TransmuteButton" type="Button" parent="."]
+[node name="TransmuteButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "See Hints for a list of trasmute recipes"
 text = "Transmute"
 
-[connection signal="pressed" from="TransmuteButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]

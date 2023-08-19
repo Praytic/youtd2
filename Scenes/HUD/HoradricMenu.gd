@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends PanelContainer
 
 
 # Menu for the Horadric Cube. Contains items inside it.
