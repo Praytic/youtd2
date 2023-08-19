@@ -1,5 +1,8 @@
 extends Node
 
+# Convenience getters for tower properties. Actual values
+# are stored in Properties, this class contains getters.
+
 
 const ICON_SIZE_M = 128
 const TIER_ICON_SIZE_M = 64
@@ -7,8 +10,14 @@ const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
 const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
 const _placeholder_tower_icon: Texture2D = preload("res://Resources/UI/PlaceholderTowerIcon.tres")
 
-# Convenience getters for tower properties. Actual values
-# are stored in Properties, this class contains getters.
+
+var _min_required_wave_for_build_mode = {
+	Rarity.enm.COMMON: 0,
+	Rarity.enm.UNCOMMON: 6,
+	Rarity.enm.RARE: 24,
+	Rarity.enm.UNIQUE: 60
+}
+
 
 func get_icon_texture(tower_id: int) -> Texture2D:
 	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(tower_id)
@@ -165,6 +174,11 @@ func get_required_wave_level(tower_id: int) -> int:
 		required_wave = required_wave_string.to_int()
 	else:
 		required_wave = _get_required_wave_level_from_formula(tower_id)
+
+	if Globals.game_mode == GameMode.enm.BUILD:
+		var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
+		var min_required_wave: int = _min_required_wave_for_build_mode[rarity]
+		required_wave = max(required_wave, min_required_wave)
 
 	return required_wave
 
