@@ -10,6 +10,7 @@ const PROPERTIES_PATH: String = "res://Data/wave_special_properties.csv"
 enum CsvProperty {
 	ID,
 	NAME,
+	SHORT_NAME,
 	HP_MODIFIER,
 	REQUIRED_WAVE_LEVEL,
 	FREQUENCY,
@@ -137,6 +138,12 @@ func get_random(level: int, creep_size: CreepSize.enm) -> Array[int]:
 
 func get_special_name(special: int) -> String:
 	var string: String = _get_property(special, WaveSpecial.CsvProperty.NAME)
+
+	return string
+
+
+func get_short_name(special: int) -> String:
+	var string: String = _get_property(special, WaveSpecial.CsvProperty.SHORT_NAME)
 
 	return string
 
