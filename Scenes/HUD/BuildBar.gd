@@ -25,6 +25,20 @@ func _add_all_towers():
 
 	var first_tier_towers: Array = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.TIER, str(1))
 
+#	Sort towers by rarity and cost
+	first_tier_towers.sort_custom(
+		func(a, b):
+			var rarity_a: Rarity.enm = TowerProperties.get_rarity(a)
+			var rarity_b: Rarity.enm = TowerProperties.get_rarity(b)
+			var cost_a: int = TowerProperties.get_cost(a)
+			var cost_b: int = TowerProperties.get_cost(b)
+			
+			if rarity_a == rarity_b:
+				return cost_a < cost_b
+			else:
+				return rarity_a < rarity_b
+				)
+
 	for tower_id in first_tier_towers:
 		var is_released: bool = TowerProperties.is_released(tower_id)
 		if !is_released:
@@ -59,9 +73,10 @@ func add_tower_button(tower_id):
 	add_child(button_container)
 
 #	NOTE: in random modes, sort towers by rarity and place
-#	new towers in the front of the list. In build mode don't
-#	need to do this because towers are added at game start
-#	and sorted by cost.
+#	new towers in the front of the list.
+# 
+#	Only do this for random game modes because in build mode
+#	towers are sorted in _add_all_towers().
 	if Globals.game_mode_is_random():
 		var insert_index: int = _get_insert_index_for_tower(tower_id)
 		move_child(button_container, insert_index)
