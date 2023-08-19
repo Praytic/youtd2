@@ -157,7 +157,17 @@ func get_required_element_level(tower_id: int) -> int:
 
 
 func get_required_wave_level(tower_id: int) -> int:
-	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
+	var required_wave_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.REQUIRED_WAVE_LEVEL)
+	var required_wave_is_defined: bool = !required_wave_string.is_empty()
+
+	var required_wave: int
+	if required_wave_is_defined:
+		required_wave = required_wave_string.to_int()
+	else:
+		required_wave = _get_required_wave_level_from_formula(tower_id)
+
+	return required_wave
+
 
 func wave_level_foo(tower_id: int) -> bool:
 	var wave_level: int = WaveLevel.get_current()
@@ -236,3 +246,16 @@ func get_sell_price(tower_id: int) -> int:
 		sell_price += costs_for_prev_tiers
 
 	return sell_price
+
+
+# NOTE: this formula is the inverse of the formula for tower cost
+# from TowerDistribution._get_max_cost()
+func _get_required_wave_level_from_formula(tower_id: int) -> int:
+# 	NOTE: prevent value inside sqrt() from going below 0
+	var tower_cost: int = get_cost(tower_id)
+	var wave_level: int = ceili((sqrt(max(0.01, 60 * tower_cost - 3575)) - 25) / 6)
+
+	if wave_level < 0:
+		return 0
+
+	return wave_level
