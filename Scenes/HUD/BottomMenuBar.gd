@@ -25,6 +25,8 @@ func _ready():
 	_research_button.mouse_exited.connect(_on_button_mouse_exited)
 	_research_button.pressed.connect(_on_button_pressed)
 	KnowledgeTomesManager.knowledge_tomes_change.connect(_on_knowledge_tomes_change)
+	ItemStash.changed.connect(_on_item_stash_changed)
+	_on_item_stash_changed()
 	
 	set_element(Element.enm.ICE)
 	
@@ -36,11 +38,6 @@ func _ready():
 
 
 func _process(_delta):
-#	TODO: connect to ItemStash.changed() instead of doing
-#	this every frame
-	var item_button_count: int = ItemStash.get_item_list().size()
-	_item_menu_button.text = str(item_button_count)
-	
 	_building_menu_button.text = str(_build_bar.get_child_count())
 
 
@@ -144,3 +141,8 @@ func _on_research_button_pressed():
 func _on_stash_margin_container_gui_input(event):
 	if event.is_action_released("left_click") && _item_bar.is_visible():
 		ItemMovement.item_stash_was_clicked()
+
+
+func _on_item_stash_changed():
+	var item_button_count: int = ItemStash.get_item_count()
+	_item_menu_button.text = str(item_button_count)
