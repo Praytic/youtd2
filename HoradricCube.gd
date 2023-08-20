@@ -26,17 +26,7 @@ func have_space() -> bool:
 	return item_count < CAPACITY
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func add_item(item: Item) -> bool:
-	var item_id: int = item.get_id()
-	var item_type: ItemType.enm = ItemProperties.get_type(item_id)
-	var is_consumable: bool = item_type == ItemType.enm.CONSUMABLE
-
-	if is_consumable:
-		Messages.add_error("Cannot add consumables to Horadric Cube.")
-
-		return false
-
+func add_item(item: Item):
 	if !have_space():
 		push_error("Tried to put items over capacity. Use HoradricCube.have_space() before adding items.")
 
@@ -44,14 +34,9 @@ func add_item(item: Item) -> bool:
 
 	_item_list.append(item)
 
-	if item.get_parent() != null:
-		item.reparent(self)
-	else:
-		add_child(item)
+	add_child(item)
 
 	items_changed.emit()
-
-	return true
 
 
 func remove_item(item: Item):

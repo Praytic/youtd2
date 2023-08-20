@@ -47,3 +47,10 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 func _on_transmute_button_pressed():
 	HoradricCube.transmute()
+
+
+func _on_items_container_gui_input(event):
+	var left_click: bool = event.is_action_released("left_click")
+
+	if left_click:
+		ItemMovement.horadric_menu_was_clicked()

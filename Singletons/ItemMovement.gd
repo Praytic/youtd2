@@ -109,6 +109,13 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 		Messages.add_error("Can't add consumable items to towers.")
 
 
+func horadric_menu_was_clicked():
+	if !in_progress():
+		return
+
+	_move_item_to_horadric_cube()
+
+
 func tower_menu_was_clicked(tower: Tower):
 	if !in_progress():
 		return
@@ -150,6 +157,27 @@ func _move_item_to_tower(target_tower: Tower):
 	if can_move_to_tower:
 		remove_child(_moved_item)
 		_moved_item.pickup(target_tower)
+		_end_move_process()
+	else:
+		Messages.add_error("No space for item")
+
+
+func _move_item_to_horadric_cube():
+	var item_id: int = _moved_item.get_id()
+	var item_type: ItemType.enm = ItemProperties.get_type(item_id)
+	var is_oil: bool = item_type == ItemType.enm.OIL
+	var is_consumable: bool = item_type == ItemType.enm.CONSUMABLE
+
+	if is_consumable:
+		Messages.add_error("Cannot add consumables to Horadric Cube.")
+
+		return false
+
+	var can_move_to_cube: bool = HoradricCube.have_space()
+
+	if can_move_to_cube:
+		remove_child(_moved_item)
+		HoradricCube.add_item(_moved_item)
 		_end_move_process()
 	else:
 		Messages.add_error("No space for item")
