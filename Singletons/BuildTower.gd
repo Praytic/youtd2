@@ -9,7 +9,7 @@ var _tower_preview: TowerPreview = null
 
 
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
-@onready var _landscape = _game_scene.get_node("%Map")
+@onready var _map = _game_scene.get_node("%Map")
 
 
 func _unhandled_input(event):
@@ -76,11 +76,11 @@ func _get_tower_at_position(position: Vector2) -> Tower:
 
 func _try_to_build():
 	var tower_id: int = _tower_preview.tower_id
-	var can_build: bool = _landscape.can_build_at_mouse_pos()
-	var can_transform: bool = _landscape.can_transform_at_mouse_pos()
+	var can_build: bool = _map.can_build_at_mouse_pos()
+	var can_transform: bool = _map.can_transform_at_mouse_pos()
 	var enough_food: bool = FoodManager.enough_food_for_tower()
 	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
-	var mouse_pos: Vector2 = _landscape.get_mouse_pos_on_tilemap_clamped()
+	var mouse_pos: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var tower_under_mouse: Tower = _get_tower_at_position(mouse_pos)
 
 	if !can_build && !can_transform:
@@ -123,7 +123,7 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 
 func _build_tower(tower_id: int):
 	var new_tower: Tower = TowerManager.get_tower(tower_id)
-	var build_position: Vector2 =_landscape.get_mouse_pos_on_tilemap_clamped()
+	var build_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	new_tower.position = build_position
 	Utils.add_object_to_world(new_tower)
 	tower_built.emit(tower_id)

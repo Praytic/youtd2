@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://gvns1bwv6h8r" path="res://Resources/Tilesets/Dungeon.tres" id="2"]
 [ext_resource type="TileSet" uid="uid://c2ke1gy0rnehu" path="res://Resources/Tilesets/Decorations.tres" id="2_u46x8"]
 [ext_resource type="Texture2D" uid="uid://b1jihcvx3duyq" path="res://Assets/Environment/Props/floor.png" id="3_2j5lc"]
-[ext_resource type="Script" path="res://Scenes/Landscape.gd" id="4"]
+[ext_resource type="Script" path="res://Scenes/Map.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://ck8dustnoi8si" path="res://Assets/Atlas/Dirt.png" id="5_lyqe7"]
 [ext_resource type="Texture2D" uid="uid://b81pfo1kyprgb" path="res://Assets/Atlas/Planks.png" id="6_t1utc"]
 
@@ -92,7 +92,7 @@ sources/2 = SubResource("TileSetAtlasSource_70snm")
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(9747.77, 2010.24)
 
-[node name="Landscape" type="Node2D"]
+[node name="Map" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("4")
 

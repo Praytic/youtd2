@@ -2,7 +2,7 @@ class_name TowerPreview
 extends Node2D
 
 
-@onready var _landscape = get_tree().get_root().get_node("GameScene/Map")
+@onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
 
 const opaque_red := Color(1, 0, 0, 0.5)
@@ -30,14 +30,14 @@ func _physics_process(_delta):
 # 	Show tower preview under map normally, but make it stick
 # 	to tile position when mouse is hovered over a buildable
 # 	tile.
-	if _landscape.mouse_is_over_buildable_tile():
-		position = _landscape.get_mouse_pos_on_tilemap_clamped()
+	if _map.mouse_is_over_buildable_tile():
+		position = _map.get_mouse_pos_on_tilemap_clamped()
 	else:
 		position = get_global_mouse_position()
 
-	if _landscape.can_build_at_mouse_pos():
+	if _map.can_build_at_mouse_pos():
 		_tower_instance.modulate = opaque_green
-	elif _landscape.can_transform_at_mouse_pos():
+	elif _map.can_transform_at_mouse_pos():
 		_tower_instance.modulate = opaque_blue
 	else:
 		_tower_instance.modulate = opaque_red

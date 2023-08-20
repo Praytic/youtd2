@@ -32,7 +32,7 @@ var _distance_covered: float = 0.0
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
-# @onready var _landscape = get_tree().get_root().get_node("GameScene/Map")
+# @onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
 
 #########################
@@ -78,7 +78,7 @@ func _process(delta):
 # TODO: Disabled. Need to modify z_index inside the code of the actor, not the target.
 #	Update z index based on current visual height
 #	var height: float = -_visual.position.y
-#	z_index = _landscape.world_height_to_z_index(height)
+#	z_index = _map.world_height_to_z_index(height)
 
 
 #########################
