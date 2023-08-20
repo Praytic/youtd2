@@ -225,29 +225,30 @@ func _start_moving_item(item: Item, move_source: MoveSource, source_tower: Tower
 
 func _move_item_to_tower(target_tower: Tower):
 	var is_oil: bool = ItemProperties.get_is_oil(_moved_item.get_id())
-	var can_move_to_tower: bool = target_tower.have_item_space() || is_oil
 
-	if can_move_to_tower:
-		remove_child(_moved_item)
-		_moved_item.pickup(target_tower)
-		_end_move_process()
-	else:
+	if !target_tower.have_item_space() && !is_oil:
 		Messages.add_error("No space for item")
+
+		return
+
+	remove_child(_moved_item)
+	_moved_item.pickup(target_tower)
+	_end_move_process()
 
 
 func _move_item_to_horadric_cube():
 	if !HoradricCube.check_item_type(_moved_item):
 		return
 
-	var can_move_to_cube: bool = HoradricCube.have_space()
-
-	if can_move_to_cube:
-		remove_child(_moved_item)
-		var add_index: int = HoradricCube.get_item_count()
-		HoradricCube.add_item(_moved_item, add_index)
-		_end_move_process()
-	else:
+	if !HoradricCube.have_space():
 		Messages.add_error("No space for item")
+
+		return
+
+	remove_child(_moved_item)
+	var add_index: int = HoradricCube.get_item_count()
+	HoradricCube.add_item(_moved_item, add_index)
+	_end_move_process()
 
 
 func _end_move_process():
