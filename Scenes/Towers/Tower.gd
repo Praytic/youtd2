@@ -151,7 +151,7 @@ func _ready():
 			if have_item_space():
 				add_item(item)
 			else:
-				item.fly_to_stash(0.0)
+				item.fly_to_stash_from_pos(position)
 
 #	NOTE: some stats have an innate level-based modifier
 	var innate_modifier: Modifier = Modifier.new()

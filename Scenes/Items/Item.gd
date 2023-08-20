@@ -68,40 +68,32 @@ var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 #########################
 
 
+func _init(id: int):
+	_id = id
+	load_modifier(_modifier)
+	item_init()
+
+	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
+	load_triggers(triggers_buff_type)
+	_buff_type_list.append(triggers_buff_type)
+
+	_buff_type_list.append(_aura_carrier_buff)
+
+
+# NOTE: need to call on_create() because some item scripts
+# access the scene tree inside on_create()
+func _ready():
+	on_create()
+
+
 # Creates item on the ground. Item is stored inside an
 # ItemDrop object.
 # NOTE: Item.create() in JASS
 static func create(_player: Player, item_id: int, position: Vector2) -> Item:
-	return create_without_player(item_id, position)
-
-
-static func create_without_player(id: int, position: Vector2) -> Item:
-	var item: Item = Item.make(id)
+	var item: Item = Item.make(item_id)
 	Item._create_item_drop(item, position)
-
-	return item
-
-
-static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
-	var id: int = item.get_id()
-	var rarity: Rarity.enm = ItemProperties.get_rarity(id)
-	var rarity_string: String = Rarity.convert_to_string(rarity)
-	var item_drop_scene_path: String
-	if ItemProperties.get_is_oil(id):
-		item_drop_scene_path = "res://Scenes/Items/RedOil.tscn"
-	else:
-		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
-	var item_drop_scene = _item_drop_scene_map[item_drop_scene_path]
-	var item_drop: ItemDrop = item_drop_scene.instantiate()
-	item_drop.position = position
-	item_drop.visible = item._visible
-
-	item_drop.set_item(item)
-	item_drop.add_child(item)
-
-	Utils.add_object_to_world(item_drop)
 	
-	return item_drop
+	return item
 
 
 static func make(id: int) -> Item:
@@ -130,133 +122,32 @@ static func get_item_script_path(item_id: int):
 	return path
 
 
+static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
+	var id: int = item.get_id()
+	var rarity: Rarity.enm = ItemProperties.get_rarity(id)
+	var rarity_string: String = Rarity.convert_to_string(rarity)
+	var item_drop_scene_path: String
+	if ItemProperties.get_is_oil(id):
+		item_drop_scene_path = "res://Scenes/Items/RedOil.tscn"
+	else:
+		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
+	var item_drop_scene = _item_drop_scene_map[item_drop_scene_path]
+	var item_drop: ItemDrop = item_drop_scene.instantiate()
+	item_drop.position = position
+	item_drop.visible = item._visible
+
+	item_drop.set_item(item)
+	item_drop.add_child(item)
+
+	Utils.add_object_to_world(item_drop)
+	
+	return item_drop
+
+
 # NOTE: SetItemVisible() in JASS
 func set_visible(visible: bool):
 	_visible = visible
 
-
-func _init(id: int):
-	_id = id
-	load_modifier(_modifier)
-	item_init()
-
-	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
-	load_triggers(triggers_buff_type)
-	_buff_type_list.append(triggers_buff_type)
-
-	_buff_type_list.append(_aura_carrier_buff)
-
-
-# NOTE: need to call on_create() because some item scripts
-# access the scene tree inside on_create()
-func _ready():
-	on_create()
-
-
-# Drops item from tower inventory onto the ground. This f-n
-# does nothing if item is currently not in tower inventory.
-# NOTE: item.drop() in JASS
-func drop():
-	if _carrier == null:
-		return
-
-	var drop_pos: Vector2 = _carrier.get_visual_position()
-
-	var carrier: Tower = _carrier
-	_remove_from_tower()
-	carrier._remove_item_internal(self)
-	Item._create_item_drop(self, drop_pos)
-
-
-# NOTE: this f-n only removes the effects. Use Item.drop()
-# or Tower.remove_item() to fully remove an item from a
-# tower.
-func _remove_from_tower():
-	if _carrier == null:
-		return
-
-	on_drop()
-
-	_carrier.remove_modifier(_modifier)
-
-	if _autocast != null:
-		_autocast.set_caster(null)
-
-	for buff in _applied_buff_list:
-		buff.remove_buff()
-
-	_applied_buff_list.clear()
-
-	_carrier = null
-
-
-# Picks up an item from the ground and moves it to a tower.
-# Item must be in "dropped" state before this f-n is called.
-# NOTE: item.pickup() in JASS
-func pickup(tower: Tower) -> bool:
-	var item_drop: ItemDrop = get_parent() as ItemDrop
-	if item_drop == null:
-		push_error("Called pickup() on item which is not in ItemDrop!")
-
-		return false
-
-	item_drop.remove_child(self)
-	item_drop.queue_free()
-
-	_add_to_tower(tower)
-
-	var slot_index: int = tower.get_item_count()
-	tower._add_item_internal(self, slot_index)
-	
-	return true
-
-
-# NOTE: this f-n only applies the effects. Use Item.pickup()
-# or Tower.add_item() to fully add an item to a tower.
-func _add_to_tower(tower: Tower):
-	_carrier = tower
-
-# 	NOTE: call on_pick() after setting carrier so that it's
-# 	available inside on_pickup() implementations.
-	on_pickip()
-
-	_carrier.add_modifier(_modifier)
-
-	if _autocast != null:
-		_autocast.set_caster(_carrier)
-
-	for buff_type in _buff_type_list:
-		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
-		_applied_buff_list.append(buff)
-
-
-# Item starts flying to the stash and will get added to
-# stash once the animation finishes. Does nothing if item is
-# not on the ground.
-# NOTE: item.flyToStash() in JASS
-func fly_to_stash(_mystery_float: float):
-	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
-	var is_on_ground: bool = parent_item_drop != null
-	
-	if !is_on_ground:
-		return	
-
-	var start_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
-	parent_item_drop.remove_child(self)
-	parent_item_drop.queue_free()
-
-	var flying_item: FlyingItem = FlyingItem.create(_id, start_pos)
-	flying_item.finished_flying.connect(_on_flying_item_finished_flying)
-	flying_item.add_child(self)
-	flying_item.visible = _visible
-	_hud.add_child(flying_item)
-
-
-func _on_flying_item_finished_flying():
-	var parent: Node = get_parent()
-	parent.remove_child(self)
-	ItemStash.add_item(self)
-	parent.queue_free()
 
 
 func set_autocast(autocast: Autocast):
@@ -373,10 +264,6 @@ func on_tower_details() -> MultiboardValues:
 	return null
 
 
-#########################
-### Setters / Getters ###
-#########################
-
 # NOTE: item.getItemType() in JASS
 # In JASS engine, getItemType() returns the id.
 # Note that in youtd2 engine, "item type" refers to the
@@ -384,9 +271,11 @@ func on_tower_details() -> MultiboardValues:
 func get_id() -> int:
 	return _id
 
+
 # NOTE: item.getCarrier() in JASS
 func get_carrier() -> Tower:
 	return _carrier
+
 
 # NOTE: for now just returning the one single player
 # instance since multiplayer isn't implemented.
@@ -407,3 +296,115 @@ func is_consumable() -> bool:
 	var result: bool = item_type == ItemType.enm.CONSUMABLE
 
 	return result
+
+
+# Picks up an item from the ground and moves it to a tower.
+# Item must be in "dropped" state before this f-n is called.
+# NOTE: item.pickup() in JASS
+func pickup(tower: Tower) -> bool:
+	var item_drop: ItemDrop = get_parent() as ItemDrop
+	if item_drop == null:
+		push_error("Called pickup() on item which is not in ItemDrop!")
+
+		return false
+
+	item_drop.remove_child(self)
+	item_drop.queue_free()
+
+	_add_to_tower(tower)
+
+	var slot_index: int = tower.get_item_count()
+	tower._add_item_internal(self, slot_index)
+	
+	return true
+
+
+# Drops item from tower inventory onto the ground. This f-n
+# does nothing if item is currently not in tower inventory.
+# NOTE: item.drop() in JASS
+func drop():
+	if _carrier == null:
+		return
+
+	var drop_pos: Vector2 = _carrier.get_visual_position()
+
+	var carrier: Tower = _carrier
+	_remove_from_tower()
+	carrier._remove_item_internal(self)
+	Item._create_item_drop(self, drop_pos)
+
+
+# Item starts flying to the stash and will get added to
+# stash once the animation finishes. Does nothing if item is
+# not on the ground.
+# NOTE: item.flyToStash() in JASS
+func fly_to_stash(_mystery_float: float):
+	var parent_item_drop: ItemDrop = get_parent() as ItemDrop
+	var is_on_ground: bool = parent_item_drop != null
+	
+	if !is_on_ground:
+		return
+
+	var start_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
+
+	parent_item_drop.remove_child(self)
+	parent_item_drop.queue_free()
+
+	fly_to_stash_from_pos(start_pos)
+
+
+# Same as fly_to_stash() but can be used on unparented item
+func fly_to_stash_from_pos(start_pos: Vector2):
+	var flying_item: FlyingItem = FlyingItem.create(_id, start_pos)
+	flying_item.finished_flying.connect(_on_flying_item_finished_flying)
+	flying_item.add_child(self)
+	flying_item.visible = _visible
+	_hud.add_child(flying_item)
+
+
+# NOTE: this f-n only applies the effects. Use Item.pickup()
+# or Tower.add_item() to fully add an item to a tower.
+func _add_to_tower(tower: Tower):
+	_carrier = tower
+
+# 	NOTE: call on_pick() after setting carrier so that it's
+# 	available inside on_pickup() implementations.
+	on_pickip()
+
+	_carrier.add_modifier(_modifier)
+
+	if _autocast != null:
+		_autocast.set_caster(_carrier)
+
+	for buff_type in _buff_type_list:
+		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
+		_applied_buff_list.append(buff)
+
+
+# NOTE: this f-n only removes the effects. Use Item.drop()
+# or Tower.remove_item() to fully remove an item from a
+# tower.
+func _remove_from_tower():
+	if _carrier == null:
+		return
+
+	on_drop()
+
+	_carrier.remove_modifier(_modifier)
+
+	if _autocast != null:
+		_autocast.set_caster(null)
+
+	for buff in _applied_buff_list:
+		buff.remove_buff()
+
+	_applied_buff_list.clear()
+
+	_carrier = null
+
+
+func _on_flying_item_finished_flying():
+	var parent: Node = get_parent()
+	parent.remove_child(self)
+	ItemStash.add_item(self)
+	parent.queue_free()
