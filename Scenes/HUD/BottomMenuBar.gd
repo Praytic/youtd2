@@ -4,7 +4,7 @@ class_name BottomMenuBar extends Control
 signal research_element()
 signal test_signal()
 
-@export var _item_bar: GridContainer
+@export var _item_stash_menu: GridContainer
 @export var _build_bar: GridContainer
 @export var _item_menu_button: Button
 @export var _building_menu_button: Button
@@ -97,10 +97,10 @@ func set_element(element: Element.enm):
 			button.modulate = Color.WHITE.darkened(0.4)
 
 	if element == Element.enm.NONE:
-		_item_bar.show()
+		_item_stash_menu.show()
 		_build_bar.hide()
 	else:
-		_item_bar.hide()
+		_item_stash_menu.hide()
 		_build_bar.show()
 		_build_bar.set_element(element)
 
@@ -139,7 +139,7 @@ func _on_research_button_pressed():
 
 
 func _on_stash_margin_container_gui_input(event):
-	if event.is_action_released("left_click") && _item_bar.is_visible():
+	if event.is_action_released("left_click") && _item_stash_menu.is_visible():
 		ItemMovement.item_stash_was_clicked()
 
 

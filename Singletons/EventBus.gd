@@ -12,7 +12,7 @@ extends Node
 # these two components normally would require the following
 # chain:
 # 
-# ItemButton->ItemBar->BottomMenuBar->HUD->ButtonTooltip
+# ItemButton->ItemStashMenu->BottomMenuBar->HUD->ButtonTooltip
 # 
 # Connecting using Eventbus shortens the chain down to:
 # 
