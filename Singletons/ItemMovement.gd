@@ -20,41 +20,20 @@ var _source_tower: Tower = null
 
 
 func _unhandled_input(event: InputEvent):
-	if !in_progress():
-		return
-
 	var cancelled: bool = event.is_action_released("ui_cancel")
-
-	if cancelled:
-		cancel()
-
 	var left_click: bool = event.is_action_released("left_click")
 	var target_tower: Tower = SelectUnit.get_hovered_unit()
 	var clicked_on_tower: bool = left_click && target_tower != null
 
-	if clicked_on_tower:
-		_move_item_to_tower(target_tower)
+	if cancelled:
+		cancel()
+	elif clicked_on_tower:
+		tower_was_clicked(target_tower)
 		get_viewport().set_input_as_handled()
 
 
 func in_progress() -> bool:
 	return MouseState.get_state() == MouseState.enm.MOVE_ITEM
-
-
-# This is called when the empty space in item stash is
-# clicked. Move item to item stash when this happens.
-func item_stash_was_clicked():
-	if !in_progress():
-		return
-
-# 	NOTE: add item to item stash at position 0 so that if
-# 	there are many items and item stash is in scroll mode,
-# 	the player will see the item appear on the left side of
-# 	the item stash. Default scroll position for item stash
-# 	displays the left side.
-	remove_child(_moved_item)
-	ItemStash.add_item(_moved_item, 0)
-	_end_move_process()
 
 
 func item_was_clicked_in_tower_inventory(clicked_item: Item):
@@ -152,18 +131,51 @@ func item_was_clicked_in_horadric_cube(clicked_item: Item):
 	_start_moving_item(clicked_item, MoveSource.CUBE)
 
 
+# This is called when the empty space in item stash is
+# clicked. Move item to item stash when this happens.
+func item_stash_was_clicked():
+	if !in_progress():
+		return
+
+#	NOTE: add item to item stash at position 0 so that if
+#	there are many items and item stash is in scroll mode,
+#	the player will see the item appear on the left side of
+#	the item stash. Default scroll position for item stash
+#	displays the left side.
+	remove_child(_moved_item)
+	ItemStash.add_item(_moved_item, 0)
+	_end_move_process()
+
+
 func horadric_menu_was_clicked():
 	if !in_progress():
 		return
 
-	_move_item_to_horadric_cube()
+	if !HoradricCube.have_space():
+		Messages.add_error("No space for item")
+
+		return
+
+	remove_child(_moved_item)
+	var add_index: int = HoradricCube.get_item_count()
+	HoradricCube.add_item(_moved_item, add_index)
+	_end_move_process()
 
 
-func tower_menu_was_clicked(tower: Tower):
+func tower_was_clicked(tower: Tower):
 	if !in_progress():
 		return
 
-	_move_item_to_tower(tower)
+	var is_oil: bool = ItemProperties.get_is_oil(_moved_item.get_id())
+
+	if !tower.have_item_space() && !is_oil:
+		Messages.add_error("No space for item")
+
+		return
+
+	remove_child(_moved_item)
+	_moved_item.pickup(tower)
+	_end_move_process()
 
 
 func cancel():
@@ -203,31 +215,6 @@ func _start_moving_item(item: Item, move_source: MoveSource, source_tower: Tower
 	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item)
 	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
 	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
-
-
-func _move_item_to_tower(target_tower: Tower):
-	var is_oil: bool = ItemProperties.get_is_oil(_moved_item.get_id())
-
-	if !target_tower.have_item_space() && !is_oil:
-		Messages.add_error("No space for item")
-
-		return
-
-	remove_child(_moved_item)
-	_moved_item.pickup(target_tower)
-	_end_move_process()
-
-
-func _move_item_to_horadric_cube():
-	if !HoradricCube.have_space():
-		Messages.add_error("No space for item")
-
-		return
-
-	remove_child(_moved_item)
-	var add_index: int = HoradricCube.get_item_count()
-	HoradricCube.add_item(_moved_item, add_index)
-	_end_move_process()
 
 
 func _end_move_process():

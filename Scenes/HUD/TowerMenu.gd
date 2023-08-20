@@ -379,4 +379,4 @@ func _on_items_container_gui_input(event):
 	var tower: Tower = get_selected_tower()
 
 	if left_click && tower != null:
-		ItemMovement.tower_menu_was_clicked(tower)
+		ItemMovement.tower_was_clicked(tower)
