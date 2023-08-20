@@ -22,7 +22,8 @@ var _source_tower: Tower = null
 func _unhandled_input(event: InputEvent):
 	var cancelled: bool = event.is_action_released("ui_cancel")
 	var left_click: bool = event.is_action_released("left_click")
-	var target_tower: Tower = SelectUnit.get_hovered_unit()
+	var hovered_unit: Unit = SelectUnit.get_hovered_unit()
+	var target_tower: Tower = hovered_unit as Tower
 	var clicked_on_tower: bool = left_click && target_tower != null
 
 	if cancelled:
