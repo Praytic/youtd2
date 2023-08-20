@@ -1,119 +1,48 @@
 extends GridContainer
 
 
-# Dictionary of buttons that are currently on the item bar
-# Buttons should be always created inside a dedicated container,
-# which means you should call the parent of a button
-# if you want to change the visual part of it.
-@onready var _item_buttons: Dictionary = {}
+# This UI element displays items which are currently in the
+# item stash. Note that adding/removing items from stash is
+# implemented by ItemStash class.
 
 
-var _moved_item_button: ItemButton = null
+# TODO: reimplement movement between item stash and horadric
+# cube
 
 
-func add_item_button(item: Item):
+func _add_item_button(item: Item):
 	var item_button: ItemButton = ItemButton.make(item)
 	item_button.hide_cooldown_indicator()
 
 	var button_container = UnitButtonContainer.make()
 	button_container.add_child(item_button)
 
-#	NOTE: Parent item to ItemBar because while the item is
-#	not on a tower it still needs to be in the scene tree.
-#	This is so that it's cooldown timer is running.
-	add_child(item)
-		
 	add_child(button_container)
 
-#	NOTE: place new items at the front because item bar may
-#	have multiple pages of items. If we were put new items
-#	at the end, then it would look confusing to the player
-#	when an item appears to go nowhere.
-	move_child(button_container, 0)
-
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
-	_item_buttons[item] = item_button
-
-
-func remove_item_button(item: Item):
-	var item_button: ItemButton = _item_buttons[item]
-	_item_buttons.erase(item)
-	item_button.get_parent().queue_free()
 
 
 func _ready():
-	var test_item_list: Array = Config.test_item_list()
-
-	for item_id in test_item_list:
-		var item: Item = Item.make(item_id)
-		add_item_button(item)
-
-	ItemMovement.item_move_from_itembar_done.connect(on_item_move_from_itembar_done)
-	EventBus.item_drop_picked_up.connect(_on_item_drop_picked_up)
-	EventBus.consumable_item_was_consumed.connect(_on_consumable_item_was_consumed)
 	HoradricCube.item_was_removed.connect(_on_horadric_cube_item_was_removed)
 
-
-func on_item_move_from_itembar_done(move_success: bool):
-	if _moved_item_button == null:
-		return
-
-	if move_success:
-		var item: Item = _moved_item_button.get_item()
-		_item_buttons.erase(item)
-		_moved_item_button.queue_free()
-	else:
-#		Disable button to gray it out to indicate that it's
-#		getting moved
-		_moved_item_button.set_disabled(false)
-
-	_moved_item_button = null
+	ItemStash.changed.connect(_on_item_stash_changed)
+	_on_item_stash_changed()
 
 
-func _on_item_drop_picked_up(item: Item):
-	add_item_button(item)
+func _on_item_stash_changed():
+	for child in get_children():
+		remove_child(child)
 
+	var item_list: Array[Item] = ItemStash.get_item_list()
 
-func _on_consumable_item_was_consumed(item: Item):
-	remove_item_button(item)
+	for item in item_list:
+		_add_item_button(item)
 
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	
-	var shift_pressed: bool = Input.is_action_pressed("shift")
-	var have_space_in_cube: bool = HoradricCube.have_space()
-	if shift_pressed:
-		if have_space_in_cube:
-			var added_successfully: bool = HoradricCube.add_item(item)
-			if added_successfully:
-				remove_item_button(item)
-		else:
-			Messages.add_error("Horadric cube has no more space.")
-
-		return
-
-	var item_type: ItemType.enm = ItemProperties.get_type(item.get_id())
-	var can_move: bool = item_type != ItemType.enm.CONSUMABLE
-
-	if !can_move:
-		Messages.add_error("Can't add consumable items to towers.")
-
-		return
-
-	var started_move: bool = ItemMovement.start_move_from_itembar(item)
-
-	if !started_move:
-		return
-
-	_moved_item_button = item_button
-	item_button.set_disabled(true)
-	item_button.set_pressed_no_signal(true)
-
-
-func get_item_count() -> int:
-	return _item_buttons.size()
+	ItemMovement.item_was_clicked_in_item_stash(item)
 
 
 func _on_horadric_cube_item_was_removed(item: Item):
-	add_item_button(item)
+	_add_item_button(item)

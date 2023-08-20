@@ -36,7 +36,9 @@ func _ready():
 
 
 func _process(_delta):
-	var item_button_count: int = _item_bar.get_item_count()
+#	TODO: connect to ItemStash.changed() instead of doing
+#	this every frame
+	var item_button_count: int = ItemStash.get_item_list().size()
 	_item_menu_button.text = str(item_button_count)
 	
 	_building_menu_button.text = str(_build_bar.get_child_count())
@@ -137,3 +139,8 @@ func _on_BuildMenuButton_pressed():
 
 func _on_research_button_pressed():
 	_research_panel.visible = !_research_panel.visible
+
+
+func _on_stash_margin_container_gui_input(event):
+	if event.is_action_released("left_click") && _item_bar.is_visible():
+		ItemMovement.item_stash_was_clicked()

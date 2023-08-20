@@ -269,13 +269,16 @@ func have_item_space() -> bool:
 
 # Add item to tower's item list, doesn't apply item effects.
 # Use Item.pickup() for that.
-func _add_item(item: Item):
+func _add_item(item: Item, slot_index: int = 0):
 	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
 
 	if is_oil:
 		_item_oil_list.append(item)
 	else:
-		_item_list.append(item)
+		if !have_item_space():
+			push_error("Tried adding item to tower inventory but inventory is full!")
+
+		_item_list.insert(slot_index, item)
 		items_changed.emit()
 
 
@@ -286,8 +289,18 @@ func _remove_item(item: Item):
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 
 	if is_oil:
+		if !_item_oil_list.has(item):
+			push_error("Tried removing oil from tower but oil is not on tower!")
+
+			return
+
 		_item_oil_list.erase(item)
 	else:
+		if !_item_list.has(item):
+			push_error("Tried removing item from tower inventory but item is not in inventory!")
+
+			return
+
 		_item_list.erase(item)
 		items_changed.emit()
 
@@ -298,6 +311,16 @@ func _remove_item(item: Item):
 # would change when items got removed or added.
 func get_items() -> Array[Item]:
 	return _item_list.duplicate()
+
+
+func get_item_count() -> int:
+	return _item_list.size()
+
+
+func get_item_index(item: Item) -> int:
+	var index: int = _item_list.find(item)
+
+	return index
 
 
 # NOTE: slot_number can be from 1 to 6

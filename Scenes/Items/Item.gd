@@ -6,6 +6,7 @@ extends Node
 # Implements application of item effects on tower.
 
 signal charges_changed()
+signal consumed()
 
 
 enum CsvProperty {
@@ -161,6 +162,18 @@ func drop():
 
 	var drop_pos: Vector2 = _carrier.get_visual_position()
 
+	remove_from_tower()
+
+	Item._create_item_drop(self, drop_pos)
+
+
+# NOTE: unlike Item.drop(), this function doesn't put the
+# item into an ItemDrop. Item becomes unparented after this
+# f-n so you must assign a new parent to the item.
+func remove_from_tower():
+	if _carrier == null:
+		return
+
 	on_drop()
 
 	_carrier._remove_item(self)
@@ -177,11 +190,9 @@ func drop():
 	_carrier.remove_child(self)
 	_carrier = null
 
-	Item._create_item_drop(self, drop_pos)
-
 
 # NOTE: item.pickup() in JASS
-func pickup(tower: Tower) -> bool:
+func pickup(tower: Tower, slot_index: int = -1) -> bool:
 	var is_oil: bool = ItemProperties.get_is_oil(_id)
 	var can_pickup: bool = tower.have_item_space() || is_oil
 
@@ -211,7 +222,10 @@ func pickup(tower: Tower) -> bool:
 		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
 		_applied_buff_list.append(buff)
 
-	tower._add_item(self)
+	if slot_index == -1:
+		slot_index = tower.get_item_count()
+
+	tower._add_item(self, slot_index)
 	tower.add_child(self)
 	
 	return true
@@ -240,16 +254,10 @@ func fly_to_stash(_mystery_float: float):
 
 
 func _on_flying_item_finished_flying():
-	move_to_stash()
-
-
-# Moves item to stash immediately, without flying animation.
-func move_to_stash():
-	var flying_item: Node = get_parent()
-	flying_item.remove_child(self)
-	flying_item.queue_free()
-
-	EventBus.item_drop_picked_up.emit(self)
+	var parent: Node = get_parent()
+	parent.remove_child(self)
+	ItemStash.add_item(self)
+	parent.queue_free()
 
 
 func set_autocast(autocast: Autocast):
@@ -332,7 +340,7 @@ func consume():
 #	tooltip to not disappear even though the item is gone.
 	EventBus.item_button_mouse_exited.emit()
 
-	EventBus.consumable_item_was_consumed.emit(self)
+	consumed.emit()
 
 
 # Override in subclass script to implement the effect that

@@ -1,23 +1,15 @@
 extends Node
 
 
-# Singleton that implements moving items between ItemBar and
-# tower inventories.
+# Singleton that implements moving items between item stash
+# and tower inventories. Note that while an item is being
+# moved, it is parented to this class.
 
-
-signal item_move_from_itembar_done(success: bool)
-signal item_move_from_tower_done(success: bool)
-
-
-enum MoveSource {
-	NONE,
-	ITEMBAR,
-	TOWER,
-}
+const ITEM_STASH_VISUAL_CAPACITY: int = 8
 
 
 var _moved_item: Item = null
-var _move_source: MoveSource = MoveSource.NONE
+var _source_tower: Tower = null
 
 
 func _unhandled_input(event: InputEvent):
@@ -30,136 +22,150 @@ func _unhandled_input(event: InputEvent):
 		cancel()
 
 	var left_click: bool = event.is_action_released("left_click")
+	var target_tower: Tower = SelectUnit.get_hovered_unit()
+	var clicked_on_tower: bool = left_click && target_tower != null
 
-	if left_click:
-		var target_tower: Tower = SelectUnit.get_hovered_unit()
-		_try_to_move(target_tower)
+	if clicked_on_tower:
+		_move_item_to_tower(target_tower)
+		get_viewport().set_input_as_handled()
 
 
 func in_progress() -> bool:
 	return MouseState.get_state() == MouseState.enm.MOVE_ITEM
 
 
-func start_move_from_tower(item: Item) -> bool:
-	return _start_internal(item, MoveSource.TOWER)
-
-
-func start_move_from_itembar(item: Item) -> bool:
-	return _start_internal(item, MoveSource.ITEMBAR)
-
-
-func finish_move_to_tower_menu(tower: Tower):
+# This is called when the empty space in item stash is
+# clicked. Move item to item stash when this happens.
+func item_stash_was_clicked():
 	if !in_progress():
 		return
 
-	_try_to_move(tower)
+# 	NOTE: add item to item stash at position 0 so that if
+# 	there are many items and item stash is in scroll mode,
+# 	the player will see the item appear on the left side of
+# 	the item stash. Default scroll position for item stash
+# 	displays the left side.
+	remove_child(_moved_item)
+	ItemStash.add_item(_moved_item, 0)
+	_end_move_process()
+
+
+func item_was_clicked_in_tower_inventory(clicked_item: Item):
+	if !_can_start_moving():
+		return
+
+	var tower: Tower = clicked_item.get_carrier()
+
+#	If an item is currently getting moved, add it back to
+#	tower at the position of the clicked item
+	if in_progress():
+#		NOTE: save moved item because it gets reset to null
+#		by _end_move_process()
+		var prev_moved_item: Item = _moved_item
+		_end_move_process()
+
+#		NOTE: this code swaps items. Moved item gets added
+#		to tower inventory and the clicked item becomes the
+#		new moved item. Need to handle the case where
+#		inventory is full correctly, so must remove clicked
+#		item first before adding moved item.
+		var clicked_index: int = tower.get_item_index(clicked_item)
+		clicked_item.remove_from_tower()
+		remove_child(prev_moved_item)
+		prev_moved_item.pickup(tower, clicked_index)
+	else:
+		clicked_item.remove_from_tower()
+	
+	_source_tower = tower
+	_start_moving_item(clicked_item)
+
+
+func item_was_clicked_in_item_stash(clicked_item: Item):
+	if !_can_start_moving():
+		return
+
+	var move_was_in_progress: bool = in_progress()
+
+#	If an item is currently getting moved, add it back to
+#	stash at the position of the clicked item
+	if in_progress():
+		var clicked_index: int = ItemStash.get_item_index(clicked_item)
+		remove_child(_moved_item)
+		ItemStash.add_item(_moved_item, clicked_index)
+		_end_move_process()
+
+	var clicked_item_type: ItemType.enm = ItemProperties.get_type(clicked_item.get_id())
+	var can_move_clicked_item: bool = clicked_item_type != ItemType.enm.CONSUMABLE
+
+	if can_move_clicked_item:
+		ItemStash.remove_item(clicked_item)
+		_source_tower = null
+		_start_moving_item(clicked_item)
+	elif !move_was_in_progress:
+#		NOTE: don't print error about consumable item if a
+#		move was in progress. In that case treat the
+#		operation as moving an item back to stash without
+#		starting a new move.
+		Messages.add_error("Can't add consumable items to towers.")
+
+
+func tower_menu_was_clicked(tower: Tower):
+	if !in_progress():
+		return
+
+	_move_item_to_tower(tower)
 
 
 func cancel():
 	if !in_progress():
 		return
 
-	_end_move_process(false)
+# 	Return item back to where it was before we started
+# 	moving it
+	remove_child(_moved_item)
+	
+	if _source_tower != null:
+		_moved_item.pickup(_source_tower)
+	else:
+		ItemStash.add_item(_moved_item)
+
+	_end_move_process()
 
 
-func on_clicked_on_right_menu_bar():
-	if !in_progress():
-		return
+func _start_moving_item(item: Item):
+	add_child(item)
 
-#	NOTE: forcefully pass null target_tower so that even if
-#	there is a tower behind right menubar, we still move the
-#	item back to itembar.
-	var target_tower: Tower = null
-	_try_to_move(target_tower)
-
-
-# Moving item begins here. Returns true if can start.
-func _start_internal(item: Item, move_source: MoveSource) -> bool:
-	var can_start: bool = MouseState.get_state() != MouseState.enm.NONE && MouseState.get_state() != MouseState.enm.MOVE_ITEM
-	if can_start:
-		return false
-
-	cancel()
-	MouseState.set_state(MouseState.enm.MOVE_ITEM)
-	_move_source = move_source
 	_moved_item = item
+	MouseState.set_state(MouseState.enm.MOVE_ITEM)
 	
 	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item)
 	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
 	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
 
-	return true
+
+func _move_item_to_tower(target_tower: Tower):
+	var is_oil: bool = ItemProperties.get_is_oil(_moved_item.get_id())
+	var can_move_to_tower: bool = target_tower.have_item_space() || is_oil
+
+	if can_move_to_tower:
+		remove_child(_moved_item)
+		_moved_item.pickup(target_tower)
+		_end_move_process()
+	else:
+		Messages.add_error("No space for item")
 
 
-func _try_to_move(target_tower: Tower):
-	match _move_source:
-		MoveSource.ITEMBAR:
-			_move_item_from_itembar(target_tower)
-		MoveSource.TOWER:
-			_move_item_from_tower(target_tower)
-
-
-func _end_move_process(success: bool):
-	match _move_source:
-		MoveSource.ITEMBAR:
-			item_move_from_itembar_done.emit(success)
-		MoveSource.TOWER:
-			item_move_from_tower_done.emit(success)
-
+func _end_move_process():
 	MouseState.set_state(MouseState.enm.NONE)
 
 	_moved_item = null
-	_move_source = MoveSource.NONE
+	_source_tower = null
 
 #	NOTE: for some reason need to call this twice to reset
 #	the cursor. Calling it once causes the cursor to
 #	disappear.
 	Input.set_custom_mouse_cursor(null)
 	Input.set_custom_mouse_cursor(null)
-
-
-func _move_item_from_itembar(target_tower: Tower):
-	var is_oil: bool = ItemProperties.get_is_oil(_moved_item.get_id())
-	
-	if target_tower != null:
-		if is_oil:
-			_moved_item.pickup(target_tower)
-			_end_move_process(true)
-		else:
-			if target_tower.have_item_space():
-				_moved_item.pickup(target_tower)
-				_end_move_process(true)
-			else:
-				Messages.add_error("No space for item")
-	else:
-		_end_move_process(false)
-
-
-func _move_item_from_tower(target_tower: Tower):
-	var moving_to_itself: bool = target_tower == _moved_item.get_carrier()
-
-	if moving_to_itself:
-		Messages.add_error("Item is already on tower")
-		
-		return
-
-#	If clicked on tower, move item to tower,
-#	otherwise move item to itembar
-	if target_tower != null:
-		if target_tower.have_item_space():
-			_moved_item.drop()
-			_moved_item.pickup(target_tower)
-			_end_move_process(true)
-		else:
-			Messages.add_error("No space for item")
-	else:
-#		NOTE: move item directly to stash by emitting
-#		item_drop_picked_up signal. Do not fly to stash
-#		because that would look weird after dragging item to
-#		stash with mouse.
-		_moved_item.drop()
-		_moved_item.move_to_stash()
-		_end_move_process(true)
 
 
 # NOTE: Input.set_custom_mouse_cursor() currently has a bug
@@ -177,3 +183,13 @@ func _get_item_cursor_icon(item: Item) -> Texture2D:
 	var image_texture: ImageTexture = ImageTexture.create_from_image(image)
 
 	return image_texture
+
+
+# Can start moving an item if no other mouse action is
+# currently in progress or if we're currently moving an
+# item. Starting to move an item while another one is moved
+# already performs an item swap.
+func _can_start_moving() -> bool:
+	var can_start: bool = MouseState.get_state() == MouseState.enm.NONE || MouseState.get_state() == MouseState.enm.MOVE_ITEM
+
+	return can_start

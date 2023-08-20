@@ -25,7 +25,6 @@ const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.
 @export var _inventory_empty_slots: HBoxContainer
 @export var _inventory: PanelContainer
 
-var _moved_item_button: ItemButton = null
 var _selling_for_real: bool = false
 
 
@@ -36,7 +35,6 @@ func _ready():
 	
 	_on_selected_unit_changed(null)
 	
-	ItemMovement.item_move_from_tower_done.connect(_on_item_move_from_tower_done)
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
 	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
 	
@@ -205,20 +203,7 @@ func _update_inventory_empty_slots(tower: Tower):
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	var started_move: bool = ItemMovement.start_move_from_tower(item)
-
-	if !started_move:
-		return
-
-#	Disable button to gray it out to indicate that it's
-#	getting moved
-	item_button.set_disabled(true)
-	_moved_item_button = item_button
-
-
-func _on_item_move_from_tower_done(_success: bool):
-	_moved_item_button.set_disabled(false)
-	_moved_item_button = null
+	ItemMovement.item_was_clicked_in_tower_inventory(item)
 
 
 func _on_upgrade_button_pressed():
@@ -394,4 +379,4 @@ func _on_items_container_gui_input(event):
 	var tower: Tower = get_selected_tower()
 
 	if left_click && tower != null:
-		ItemMovement.finish_move_to_tower_menu(tower)
+		ItemMovement.tower_menu_was_clicked(tower)
