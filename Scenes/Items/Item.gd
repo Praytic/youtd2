@@ -292,10 +292,7 @@ func get_rarity() -> Rarity.enm:
 
 
 func is_consumable() -> bool:
-	var item_type: ItemType.enm = ItemProperties.get_type(_id)
-	var result: bool = item_type == ItemType.enm.CONSUMABLE
-
-	return result
+	return ItemProperties.is_consumable(_id)
 
 
 # Picks up an item from the ground and moves it to a tower.

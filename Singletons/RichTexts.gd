@@ -191,7 +191,7 @@ func get_item_text(item: Item) -> String:
 	var description: String = ItemProperties.get_description(item_id)
 	var author: String = ItemProperties.get_author(item_id)
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
-	var is_consumable: bool = ItemProperties.get_type(item_id) == ItemType.enm.CONSUMABLE
+	var is_consumable: bool = ItemProperties.is_consumable(item_id)
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)

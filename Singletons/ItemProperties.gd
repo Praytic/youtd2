@@ -107,3 +107,10 @@ func get_is_oil(item_id: int) -> bool:
 	var is_oil: bool = type == ItemType.enm.OIL
 
 	return is_oil
+
+
+func is_consumable(item_id: int) -> bool:
+	var item_type: ItemType.enm = ItemProperties.get_type(item_id)
+	var result: bool = item_type == ItemType.enm.CONSUMABLE
+
+	return result
