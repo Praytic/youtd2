@@ -42,12 +42,11 @@ func remove_item_button(item: Item):
 
 
 func _ready():
-	if Config.add_test_item():
-		var test_item_list: Array[int] = [285, 77, 78, 79, 99, 105, 108, 155, 158, 159, 218, 231, 244, 249, 268, 274, 1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013, 1014, 1015, 1016, 1017, 1018, 1019, 1022, 1023, 1024]
+	var test_item_list: Array = Config.test_item_list()
 
-		for item_id in test_item_list:
-			var item: Item = Item.make(item_id)
-			add_item_button(item)
+	for item_id in test_item_list:
+		var item: Item = Item.make(item_id)
+		add_item_button(item)
 
 	ItemMovement.item_move_from_itembar_done.connect(on_item_move_from_itembar_done)
 	EventBus.item_drop_picked_up.connect(_on_item_drop_picked_up)

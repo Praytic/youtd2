@@ -28,10 +28,10 @@ func visible_spell_dummys_enabled() -> bool:
 func dev_controls_enabled() -> bool:
 	return ProjectSettings.get_setting("application/config/dev_controls") as bool
 
-# Adds a list of test items to item bar. List is defined in
-# ItemBar script.
-func add_test_item() -> bool:
-	return ProjectSettings.get_setting("application/config/add_test_item") as bool
+# A list of items which will be added to stash when game the
+# starts. Leave as empty "[]" to not add any items.
+func test_item_list() -> Array:
+	return ProjectSettings.get_setting("application/config/test_item_list") as Array
 
 # Load all tower scenes on startup. Otherwise tower scenes
 # will be loaded when needed.
