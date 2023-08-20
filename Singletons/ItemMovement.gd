@@ -7,8 +7,15 @@ extends Node
 
 const ITEM_STASH_VISUAL_CAPACITY: int = 8
 
+enum MoveSource {
+	ITEM_STASH,
+	TOWER,
+	CUBE,
+}
+
 
 var _moved_item: Item = null
+var _move_source: MoveSource
 var _source_tower: Tower = null
 
 
@@ -76,8 +83,7 @@ func item_was_clicked_in_tower_inventory(clicked_item: Item):
 	else:
 		clicked_item.remove_from_tower()
 	
-	_source_tower = tower
-	_start_moving_item(clicked_item)
+	_start_moving_item(clicked_item, MoveSource.TOWER, tower)
 
 
 func item_was_clicked_in_item_stash(clicked_item: Item):
@@ -99,14 +105,39 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 
 	if can_move_clicked_item:
 		ItemStash.remove_item(clicked_item)
-		_source_tower = null
-		_start_moving_item(clicked_item)
+		_start_moving_item(clicked_item, MoveSource.ITEM_STASH)
 	elif !move_was_in_progress:
 #		NOTE: don't print error about consumable item if a
 #		move was in progress. In that case treat the
 #		operation as moving an item back to stash without
 #		starting a new move.
 		Messages.add_error("Can't add consumable items to towers.")
+
+
+func item_was_clicked_in_horadric_cube(clicked_item: Item):
+	if !_can_start_moving():
+		return
+
+#	If an item is currently getting moved, add it to
+#	horadric cube at the position of clicked item. Note that
+#	we need to check if we can add this kind of item.
+	if in_progress():
+		if _moved_item.is_consumable():
+			Messages.add_error("Cannot add consumables to Horadric Cube.")
+
+			return
+
+		var prev_moved_item: Item = _moved_item
+		_end_move_process()
+
+		var clicked_index: int = HoradricCube.get_item_index(clicked_item)
+		HoradricCube.remove_item(clicked_item)
+		remove_child(prev_moved_item)
+		HoradricCube.add_item(prev_moved_item, clicked_index)
+	else:
+		HoradricCube.remove_item(clicked_item)
+	
+	_start_moving_item(clicked_item, MoveSource.CUBE)
 
 
 func horadric_menu_was_clicked():
@@ -130,19 +161,31 @@ func cancel():
 # 	Return item back to where it was before we started
 # 	moving it
 	remove_child(_moved_item)
-	
-	if _source_tower != null:
-		_moved_item.pickup(_source_tower)
-	else:
-		ItemStash.add_item(_moved_item)
+
+#	NOTE: if cancelling and tower inventory or cube are
+#	full, then return item to stash
+	match _move_source:
+		MoveSource.ITEM_STASH: ItemStash.add_item(_moved_item)
+		MoveSource.TOWER:
+			if _source_tower.have_item_space():
+				_moved_item.pickup(_source_tower)
+			else:
+				ItemStash.add_item(_moved_item)
+		MoveSource.CUBE: 
+			if _source_tower.have_space():
+				HoradricCube.add_item(_moved_item)
+			else:
+				ItemStash.add_item(_moved_item)
 
 	_end_move_process()
 
 
-func _start_moving_item(item: Item):
+func _start_moving_item(item: Item, move_source: MoveSource, source_tower: Tower = null):
 	add_child(item)
 
 	_moved_item = item
+	_move_source = move_source
+	_source_tower = source_tower
 	MouseState.set_state(MouseState.enm.MOVE_ITEM)
 	
 	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item)
@@ -163,12 +206,7 @@ func _move_item_to_tower(target_tower: Tower):
 
 
 func _move_item_to_horadric_cube():
-	var item_id: int = _moved_item.get_id()
-	var item_type: ItemType.enm = ItemProperties.get_type(item_id)
-	var is_oil: bool = item_type == ItemType.enm.OIL
-	var is_consumable: bool = item_type == ItemType.enm.CONSUMABLE
-
-	if is_consumable:
+	if _moved_item.is_consumable():
 		Messages.add_error("Cannot add consumables to Horadric Cube.")
 
 		return false
@@ -177,7 +215,8 @@ func _move_item_to_horadric_cube():
 
 	if can_move_to_cube:
 		remove_child(_moved_item)
-		HoradricCube.add_item(_moved_item)
+		var add_index: int = HoradricCube.get_item_count()
+		HoradricCube.add_item(_moved_item, add_index)
 		_end_move_process()
 	else:
 		Messages.add_error("No space for item")

@@ -38,11 +38,8 @@ func _on_items_changed():
 
 
 func _on_item_button_pressed(item_button: ItemButton):
-	var shift_pressed: bool = Input.is_action_pressed("shift")
 	var item: Item = item_button.get_item()
-
-	if shift_pressed:
-		HoradricCube.remove_item(item)
+	ItemMovement.item_was_clicked_in_horadric_cube(item)
 
 
 func _on_transmute_button_pressed():

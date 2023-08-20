@@ -2,7 +2,6 @@ extends Node
 
 
 signal items_changed()
-signal item_was_removed()
 
 
 enum Recipe {
@@ -26,29 +25,40 @@ func have_space() -> bool:
 	return item_count < CAPACITY
 
 
-func add_item(item: Item):
+func add_item(item: Item, slot_index: int = 0):
 	if !have_space():
 		push_error("Tried to put items over capacity. Use HoradricCube.have_space() before adding items.")
 
-		return false
+		return
 
-	_item_list.append(item)
-
+	_item_list.insert(slot_index, item)
 	add_child(item)
-
 	items_changed.emit()
 
 
 func remove_item(item: Item):
+	if !_item_list.has(item):
+		push_error("Tried to remove item from Horadric Cube but item is not in the cube!")
+
+		return
+
 	_item_list.erase(item)
 	remove_child(item)
-#	NOTE: this signal moves item back to item stash
-	item_was_removed.emit(item)
 	items_changed.emit()
 
 
 func get_items() -> Array[Item]:
 	return _item_list.duplicate()
+
+
+func get_item_count() -> int:
+	return _item_list.size()
+
+
+func get_item_index(item: Item) -> int:
+	var index: int = _item_list.find(item)
+
+	return index
 
 
 func can_transmute() -> bool:

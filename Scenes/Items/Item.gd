@@ -401,3 +401,10 @@ func get_rarity() -> Rarity.enm:
 	var rarity: Rarity.enm = ItemProperties.get_rarity(_id)
 
 	return rarity
+
+
+func is_consumable() -> bool:
+	var item_type: ItemType.enm = ItemProperties.get_type(_id)
+	var result: bool = item_type == ItemType.enm.CONSUMABLE
+
+	return result

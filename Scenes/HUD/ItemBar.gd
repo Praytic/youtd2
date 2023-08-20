@@ -23,8 +23,6 @@ func _add_item_button(item: Item):
 
 
 func _ready():
-	HoradricCube.item_was_removed.connect(_on_horadric_cube_item_was_removed)
-
 	ItemStash.changed.connect(_on_item_stash_changed)
 	_on_item_stash_changed()
 
@@ -42,7 +40,3 @@ func _on_item_stash_changed():
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	ItemMovement.item_was_clicked_in_item_stash(item)
-
-
-func _on_horadric_cube_item_was_removed(item: Item):
-	_add_item_button(item)
