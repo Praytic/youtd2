@@ -110,12 +110,6 @@ func set_element(element: Element.enm):
 	scroll_bar.set_value(0.0)
 
 
-# NOTE: have to manually call this because ItemMovement
-# can't detect clicks on right menu bar.
-func _gui_input(event):
-	if event.is_action_released("left_click"):
-		ItemMovement.on_clicked_on_right_menu_bar()
-
 func get_element_buttons() -> Array:
 	return get_tree().get_nodes_in_group("element_button")
 
