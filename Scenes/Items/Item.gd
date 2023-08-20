@@ -162,20 +162,21 @@ func drop():
 
 	var drop_pos: Vector2 = _carrier.get_visual_position()
 
-	remove_from_tower()
-
+	var carrier: Tower = _carrier
+	_remove_from_tower()
+	carrier._remove_item_internal(self)
 	Item._create_item_drop(self, drop_pos)
 
 
-# NOTE: unlike Item.drop(), this function doesn't put the
-# item into an ItemDrop.
-func remove_from_tower():
+# NOTE: this f-n only removes the effects. Use Item.drop()
+# or Tower.remove_item() to fully remove an item from a
+# tower.
+func _remove_from_tower():
 	if _carrier == null:
 		return
 
 	on_drop()
 
-	_carrier._remove_item(self)
 	_carrier.remove_modifier(_modifier)
 
 	if _autocast != null:
@@ -189,22 +190,30 @@ func remove_from_tower():
 	_carrier = null
 
 
+# Picks up an item from the ground and moves it to a tower.
+# Item must be in "dropped" state before this f-n is called.
 # NOTE: item.pickup() in JASS
-func pickup(tower: Tower, slot_index: int = -1) -> bool:
-	var is_oil: bool = ItemProperties.get_is_oil(_id)
-	var can_pickup: bool = tower.have_item_space() || is_oil
+func pickup(tower: Tower) -> bool:
+	var item_drop: ItemDrop = get_parent() as ItemDrop
+	if item_drop == null:
+		push_error("Called pickup() on item which is not in ItemDrop!")
 
-	if !can_pickup:
 		return false
 
-	var parent: Node = get_parent()
-	if parent != null:
-		parent.remove_child(self)
+	item_drop.remove_child(self)
+	item_drop.queue_free()
 
-	var parent_item_drop: ItemDrop = parent as ItemDrop
-	if parent_item_drop != null:
-		parent_item_drop.queue_free()
+	_add_to_tower(tower)
 
+	var slot_index: int = tower.get_item_count()
+	tower._add_item_internal(self, slot_index)
+	
+	return true
+
+
+# NOTE: this f-n only applies the effects. Use Item.pickup()
+# or Tower.add_item() to fully add an item to a tower.
+func _add_to_tower(tower: Tower):
 	_carrier = tower
 
 # 	NOTE: call on_pick() after setting carrier so that it's
@@ -219,13 +228,6 @@ func pickup(tower: Tower, slot_index: int = -1) -> bool:
 	for buff_type in _buff_type_list:
 		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
 		_applied_buff_list.append(buff)
-
-	if slot_index == -1:
-		slot_index = tower.get_item_count()
-
-	tower._add_item(self, slot_index)
-	
-	return true
 
 
 # Item starts flying to the stash and will get added to

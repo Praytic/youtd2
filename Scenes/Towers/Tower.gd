@@ -138,18 +138,18 @@ func _ready():
 		var preceding_oil_list: Array = _temp_preceding_tower.get_oils()
 
 		for oil_item in preceding_oil_list:
-			oil_item.drop()
-			oil_item.pickup(self)
+			_temp_preceding_tower.remove_item(oil_item)
+			add_item(oil_item)
 
 #		NOTE: for upgrade case, inventory will always be
 #		same size or bigger but for transform case inventory
 #		may be smaller. Handle transform case by returning
 #		any extra items to stash.
 		for item in preceding_item_list:
-			item.drop()
+			_temp_preceding_tower.remove_item(item)
 
 			if have_item_space():
-				item.pickup(self)
+				add_item(item)
 			else:
 				item.fly_to_stash(0.0)
 
@@ -270,10 +270,24 @@ func count_free_slots() -> int:
 func have_item_space() -> bool:
 	return _item_container.have_space()
 
+# Adds item to tower and applies item effects. Note that
+# item must be unparented before this f-n is called.
+func add_item(item: Item, slot_index: int = 0):
+	item._add_to_tower(self)
+	_add_item_internal(item, slot_index)
+
+
+# Removes item from tower. Note that item will not be
+# dropped on the ground. It will be in a detached state
+# without a parent.
+func remove_item(item: Item):
+	item._remove_from_tower()
+	_remove_item_internal(item)
+
 
 # Add item to tower's item list, doesn't apply item effects.
 # Use Item.pickup() for that.
-func _add_item(item: Item, slot_index: int = 0):
+func _add_item_internal(item: Item, slot_index: int = 0):
 	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
 
 	if is_oil:
@@ -284,7 +298,7 @@ func _add_item(item: Item, slot_index: int = 0):
 
 # Remove item from tower's item list or oil list, doesn't
 # remove item effects. Use Item.drop() for that.
-func _remove_item(item: Item):
+func _remove_item_internal(item: Item):
 	var item_id: int = item.get_id()
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 

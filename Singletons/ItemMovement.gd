@@ -40,7 +40,8 @@ func item_was_clicked_in_tower_inventory(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 
 	if shift_click:
-		clicked_item.remove_from_tower()
+		var tower: Tower = clicked_item.get_carrier()
+		tower.remove_item(clicked_item)
 		ItemStash.add_item(clicked_item)
 		
 		return
@@ -64,11 +65,11 @@ func item_was_clicked_in_tower_inventory(clicked_item: Item):
 #		inventory is full correctly, so must remove clicked
 #		item first before adding moved item.
 		var clicked_index: int = tower.get_item_index(clicked_item)
-		clicked_item.remove_from_tower()
+		tower.remove_item(clicked_item)
 		remove_child(prev_moved_item)
-		prev_moved_item.pickup(tower, clicked_index)
+		tower.add_item(prev_moved_item, clicked_index)
 	else:
-		clicked_item.remove_from_tower()
+		tower.remove_item(clicked_item)
 	
 	_start_moving_item(clicked_item, MoveSource.TOWER, tower)
 
@@ -174,7 +175,7 @@ func tower_was_clicked(tower: Tower):
 		return
 
 	remove_child(_moved_item)
-	_moved_item.pickup(tower)
+	tower.add_item(_moved_item)
 	_end_move_process()
 
 
@@ -192,7 +193,7 @@ func cancel():
 		MoveSource.ITEM_STASH: ItemStash.add_item(_moved_item)
 		MoveSource.TOWER:
 			if _source_tower.have_item_space():
-				_moved_item.pickup(_source_tower)
+				_source_tower.add_item(_moved_item)
 			else:
 				ItemStash.add_item(_moved_item)
 		MoveSource.CUBE: 
