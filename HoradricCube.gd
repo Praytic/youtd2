@@ -29,19 +29,6 @@ func have_space() -> bool:
 	return _item_container.have_space()
 
 
-# Note that this function also displays an in-game error if
-# can't add items.
-func check_item_type(item: Item) -> bool:
-	var is_consumable: bool = item.is_consumable()
-
-	if is_consumable:
-		Messages.add_error("Cannot add consumables to Horadric Cube.")
-
-		return false
-
-	return true
-
-
 func add_item(item: Item, index: int = 0):
 	_item_container.add_item(item, index)
 

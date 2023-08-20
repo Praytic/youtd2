@@ -98,9 +98,6 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 
 	if shift_click:
-		if !HoradricCube.check_item_type(clicked_item):
-			return
-
 		if !HoradricCube.have_space():
 			Messages.add_error("No space for item")
 
@@ -114,8 +111,6 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 	if !_can_start_moving():
 		return
 
-	var move_was_in_progress: bool = in_progress()
-
 #	If an item is currently getting moved, add it back to
 #	stash at the position of the clicked item
 	if in_progress():
@@ -124,18 +119,8 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 		ItemStash.add_item(_moved_item, clicked_index)
 		_end_move_process()
 
-	var clicked_item_type: ItemType.enm = ItemProperties.get_type(clicked_item.get_id())
-	var can_move_clicked_item: bool = clicked_item_type != ItemType.enm.CONSUMABLE
-
-	if can_move_clicked_item:
-		ItemStash.remove_item(clicked_item)
-		_start_moving_item(clicked_item, MoveSource.ITEM_STASH)
-	elif !move_was_in_progress:
-#		NOTE: don't print error about consumable item if a
-#		move was in progress. In that case treat the
-#		operation as moving an item back to stash without
-#		starting a new move.
-		Messages.add_error("Can't add consumable items to towers.")
+	ItemStash.remove_item(clicked_item)
+	_start_moving_item(clicked_item, MoveSource.ITEM_STASH)
 
 
 func item_was_clicked_in_horadric_cube(clicked_item: Item):
@@ -154,9 +139,6 @@ func item_was_clicked_in_horadric_cube(clicked_item: Item):
 #	horadric cube at the position of clicked item. Note that
 #	we need to check if we can add this kind of item.
 	if in_progress():
-		if !HoradricCube.check_item_type(_moved_item):
-			return
-
 		var prev_moved_item: Item = _moved_item
 		_end_move_process()
 
@@ -237,9 +219,6 @@ func _move_item_to_tower(target_tower: Tower):
 
 
 func _move_item_to_horadric_cube():
-	if !HoradricCube.check_item_type(_moved_item):
-		return
-
 	if !HoradricCube.have_space():
 		Messages.add_error("No space for item")
 
