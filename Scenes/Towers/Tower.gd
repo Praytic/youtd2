@@ -58,8 +58,8 @@ var _order_stop_requested: bool = false
 var _current_attack_cooldown: float = 0.0
 var _target_order_issued: bool = false
 var _target_order_target: Unit
-var _item_list: Array[Item] = []
-var _item_oil_list: Array[Item] = []
+var _item_container: ItemContainer
+var _oil_container: ItemContainer
 var _specials_modifier: Modifier = Modifier.new()
 # NOTE: preceding tower reference is valid only during
 # creation. It is also always null for first tier towers.
@@ -107,6 +107,12 @@ func _ready():
 
 		return
 
+	var inventory_capacity: int = get_inventory_capacity()
+	_item_container = ItemContainer.new(inventory_capacity)
+	_item_container.items_changed.connect(_on_item_container_items_changed)
+
+	_oil_container = ItemContainer.new(10000)
+
 	add_to_group("towers")
 
 	var attack_range: float = get_range()
@@ -129,7 +135,7 @@ func _ready():
 		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
 
 		var preceding_item_list: Array = _temp_preceding_tower.get_items()
-		var preceding_oil_list: Array = _temp_preceding_tower._item_oil_list
+		var preceding_oil_list: Array = _temp_preceding_tower.get_oils()
 
 		for oil_item in preceding_oil_list:
 			oil_item.drop()
@@ -253,18 +259,16 @@ func set_visual_only():
 
 # NOTE: tower.countFreeSlots() in JASS
 func count_free_slots() -> int:
-	var item_count: int = _item_list.size()
-	var free_slots = get_inventory_capacity() - item_count
+	var item_count: int = _item_container.get_item_count()
+	var capacity: int = _item_container.get_capacity()
+	var free_slots = capacity - item_count
 
 	return free_slots
 
 
 # NOTE: tower.haveItemSpace() in JASS
 func have_item_space() -> bool:
-	var item_count: int = _item_list.size()
-	var have_space: bool = item_count < get_inventory_capacity()
-
-	return have_space
+	return _item_container.have_space()
 
 
 # Add item to tower's item list, doesn't apply item effects.
@@ -273,13 +277,9 @@ func _add_item(item: Item, slot_index: int = 0):
 	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
 
 	if is_oil:
-		_item_oil_list.append(item)
+		_oil_container.add_item(item)
 	else:
-		if !have_item_space():
-			push_error("Tried adding item to tower inventory but inventory is full!")
-
-		_item_list.insert(slot_index, item)
-		items_changed.emit()
+		_item_container.add_item(item, slot_index)
 
 
 # Remove item from tower's item list or oil list, doesn't
@@ -289,52 +289,32 @@ func _remove_item(item: Item):
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 
 	if is_oil:
-		if !_item_oil_list.has(item):
-			push_error("Tried removing oil from tower but oil is not on tower!")
-
-			return
-
-		_item_oil_list.erase(item)
+		_oil_container.remove_item(item)
 	else:
-		if !_item_list.has(item):
-			push_error("Tried removing item from tower inventory but item is not in inventory!")
-
-			return
-
-		_item_list.erase(item)
-		items_changed.emit()
+		_item_container.remove_item(item)
 
 
-# NOTE: important to return a deep copy so that this list
-# can be correctly used in code which adds or removes items
-# from tower. Otherwise it this would be a reference so it
-# would change when items got removed or added.
+func get_oils() -> Array[Item]:
+	return _oil_container.get_item_list()
+
+
 func get_items() -> Array[Item]:
-	return _item_list.duplicate()
+	return _item_container.get_item_list()
 
 
 func get_item_count() -> int:
-	return _item_list.size()
+	return _item_container.get_item_count()
 
 
 func get_item_index(item: Item) -> int:
-	var index: int = _item_list.find(item)
-
-	return index
+	return _item_container.get_item_index(item)
 
 
-# NOTE: slot_number can be from 1 to 6
+# NOTE: slot_number starts at 1 instead of 0
 # NOTE: tower.getHeldItem() in JASS
 func get_held_item(slot_number: int) -> Item:
-	var index: int = slot_number - 1
-	var within_bounds: bool = index < _item_list.size()
-
-	if within_bounds:
-		var item: Item = _item_list[index]
-
-		return item
-	else:
-		return null
+	var slot_index: int = slot_number - 1
+	return _item_container.get_item_at_index(slot_index)
 
 
 # Called by TowerInfo to get the part of the tooltip that
@@ -348,7 +328,9 @@ func on_tower_details() -> MultiboardValues:
 func get_item_tower_details() -> Array[MultiboardValues]:
 	var out: Array[MultiboardValues] = []
 
-	for item in _item_list:
+	var item_list: Array[Item] = _item_container.get_item_list()
+	
+	for item in item_list:
 		var board: MultiboardValues = item.on_tower_details()
 
 		if board != null:
@@ -1016,3 +998,7 @@ func get_inventory_capacity() -> int:
 	var capacity: int = Constants.INVENTORY_CAPACITY[rarity][tier]
 
 	return capacity
+
+
+func _on_item_container_items_changed():
+	items_changed.emit()

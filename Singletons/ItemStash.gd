@@ -8,15 +8,19 @@ extends Node
 signal changed()
 
 
-var _item_list: Array[Item] = []
+var _item_container: ItemContainer
 
 
 func _ready():
+	_item_container = ItemContainer.new(10000)
+	add_child(_item_container)
+	_item_container.items_changed.connect(_on_item_container_items_changed)
+
 	var test_item_list: Array = Config.test_item_list()
 
 	for item_id in test_item_list:
 		var item: Item = Item.make(item_id)
-		add_item(item)
+		_item_container.add_item(item)
 
 
 # NOTE: set item's parent to ItemStash. Items must have a
@@ -24,41 +28,24 @@ func _ready():
 # to ensure that item's cooldown timer is working
 # correctly.
 func add_item(item: Item, index: int = 0):
-	_item_list.insert(index, item)
-	item.consumed.connect(_on_item_consumed.bind(item))
-	add_child(item)
-	changed.emit()
+	_item_container.add_item(item, index)
 
 
 func remove_item(item: Item):
-	if !_item_list.has(item):
-		var item_name: String = ItemProperties.get_item_name(item.get_id())
-		push_error("Attempted to remove item from stash but is not in stash. Item: ", item_name)
-
-		return
-
-	_item_list.erase(item)
-	item.consumed.disconnect(_on_item_consumed)
-	remove_child(item)
-	changed.emit()
+	_item_container.remove_item(item)
 
 
 func get_item_list() -> Array[Item]:
-	return _item_list.duplicate()
+	return _item_container.get_item_list()
 
 
 func get_item_count() -> int:
-	var item_count: int = _item_list.size()
-
-	return item_count
+	return _item_container.get_item_count()
 
 
 func get_item_index(item: Item) -> int:
-	var index: int = _item_list.find(item)
-
-	return index
+	return _item_container.get_item_index(item)
 
 
-func _on_item_consumed(item: Item):
-	_item_list.erase(item)
+func _on_item_container_items_changed():
 	changed.emit()

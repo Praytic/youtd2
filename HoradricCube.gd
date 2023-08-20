@@ -16,13 +16,17 @@ enum Recipe {
 const CAPACITY: int = 5
 
 
-var _item_list: Array[Item] = []
+var _item_container: ItemContainer
+
+
+func _ready():
+	_item_container = ItemContainer.new(CAPACITY)
+	add_child(_item_container)
+	_item_container.items_changed.connect(_on_item_container_items_changed)
 
 
 func have_space() -> bool:
-	var item_count: int = _item_list.size()
-
-	return item_count < CAPACITY
+	return _item_container.have_space()
 
 
 # Note that this function also displays an in-game error if
@@ -38,40 +42,24 @@ func check_item_type(item: Item) -> bool:
 	return true
 
 
-func add_item(item: Item, slot_index: int = 0):
-	if !have_space():
-		push_error("Tried to put items over capacity. Use HoradricCube.have_space() before adding items.")
-
-		return
-
-	_item_list.insert(slot_index, item)
-	add_child(item)
-	items_changed.emit()
+func add_item(item: Item, index: int = 0):
+	_item_container.add_item(item, index)
 
 
 func remove_item(item: Item):
-	if !_item_list.has(item):
-		push_error("Tried to remove item from Horadric Cube but item is not in the cube!")
-
-		return
-
-	_item_list.erase(item)
-	remove_child(item)
-	items_changed.emit()
+	_item_container.remove_item(item)
 
 
-func get_items() -> Array[Item]:
-	return _item_list.duplicate()
+func get_item_list() -> Array[Item]:
+	return _item_container.get_item_list()
 
 
 func get_item_count() -> int:
-	return _item_list.size()
+	return _item_container.get_item_count()
 
 
 func get_item_index(item: Item) -> int:
-	var index: int = _item_list.find(item)
-
-	return index
+	return _item_container.get_item_index(item)
 
 
 func can_transmute() -> bool:
@@ -84,8 +72,9 @@ func can_transmute() -> bool:
 func _get_current_recipe() -> Recipe:
 	var item_type_map: Dictionary = {}
 	var rarity_map: Dictionary = {}
+	var item_list: Array[Item] = _item_container.get_item_list()
 
-	for item in _item_list:
+	for item in item_list:
 		var item_id: int = item.get_id()
 		var item_type: ItemType.enm = ItemProperties.get_type(item_id)
 		var rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
@@ -99,7 +88,7 @@ func _get_current_recipe() -> Recipe:
 	var all_oils: bool = item_type_list == [ItemType.enm.OIL]
 	var same_type: bool = item_type_list.size() == 1
 	var same_rarity: bool = rarity_list.size() == 1
-	var item_count: int = _item_list.size()
+	var item_count: int = item_list.size()
 
 	if !same_type || !same_rarity:
 		return Recipe.NONE
@@ -190,10 +179,12 @@ func _get_result_item_type(recipe: Recipe) -> ItemType.enm:
 
 
 func _get_ingredient_rarity() -> Rarity.enm:
-	if _item_list.is_empty():
+	var item_list: Array[Item] = _item_container.get_item_list()
+	
+	if item_list.is_empty():
 		return Rarity.enm.COMMON
 
-	var first_item: Item = _item_list[0]
+	var first_item: Item = item_list[0]
 	var rarity: Rarity.enm = first_item.get_rarity()
 
 	return rarity
@@ -209,8 +200,12 @@ func _get_next_rarity(rarity: Rarity.enm) -> Rarity.enm:
 
 
 func _remove_all_items():
-	for item in _item_list:
+	var item_list: Array[Item] = _item_container.get_item_list()
+
+	for item in item_list:
+		_item_container.remove_item(item)
 		item.queue_free()
 
-	_item_list.clear()
+
+func _on_item_container_items_changed():
 	items_changed.emit()

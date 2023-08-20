@@ -168,8 +168,7 @@ func drop():
 
 
 # NOTE: unlike Item.drop(), this function doesn't put the
-# item into an ItemDrop. Item becomes unparented after this
-# f-n so you must assign a new parent to the item.
+# item into an ItemDrop.
 func remove_from_tower():
 	if _carrier == null:
 		return
@@ -187,7 +186,6 @@ func remove_from_tower():
 
 	_applied_buff_list.clear()
 
-	_carrier.remove_child(self)
 	_carrier = null
 
 
@@ -226,7 +224,6 @@ func pickup(tower: Tower, slot_index: int = -1) -> bool:
 		slot_index = tower.get_item_count()
 
 	tower._add_item(self, slot_index)
-	tower.add_child(self)
 	
 	return true
 
