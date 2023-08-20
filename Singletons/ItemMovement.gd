@@ -58,6 +58,14 @@ func item_stash_was_clicked():
 
 
 func item_was_clicked_in_tower_inventory(clicked_item: Item):
+	var shift_click: bool = Input.is_action_pressed("shift")
+
+	if shift_click:
+		clicked_item.remove_from_tower()
+		ItemStash.add_item(clicked_item)
+		
+		return
+
 	if !_can_start_moving():
 		return
 
@@ -87,6 +95,22 @@ func item_was_clicked_in_tower_inventory(clicked_item: Item):
 
 
 func item_was_clicked_in_item_stash(clicked_item: Item):
+	var shift_click: bool = Input.is_action_pressed("shift")
+
+	if shift_click:
+		if !HoradricCube.check_item_type(clicked_item):
+			return
+
+		if !HoradricCube.have_space():
+			Messages.add_error("No space for item")
+
+			return
+			
+		ItemStash.remove_item(clicked_item)
+		HoradricCube.add_item(clicked_item)
+
+		return
+
 	if !_can_start_moving():
 		return
 
@@ -115,6 +139,14 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 
 
 func item_was_clicked_in_horadric_cube(clicked_item: Item):
+	var shift_click: bool = Input.is_action_pressed("shift")
+	
+	if shift_click:
+		HoradricCube.remove_item(clicked_item)
+		ItemStash.add_item(clicked_item)
+
+		return
+
 	if !_can_start_moving():
 		return
 
@@ -122,9 +154,7 @@ func item_was_clicked_in_horadric_cube(clicked_item: Item):
 #	horadric cube at the position of clicked item. Note that
 #	we need to check if we can add this kind of item.
 	if in_progress():
-		if _moved_item.is_consumable():
-			Messages.add_error("Cannot add consumables to Horadric Cube.")
-
+		if !HoradricCube.check_item_type(_moved_item):
 			return
 
 		var prev_moved_item: Item = _moved_item
@@ -206,10 +236,8 @@ func _move_item_to_tower(target_tower: Tower):
 
 
 func _move_item_to_horadric_cube():
-	if _moved_item.is_consumable():
-		Messages.add_error("Cannot add consumables to Horadric Cube.")
-
-		return false
+	if !HoradricCube.check_item_type(_moved_item):
+		return
 
 	var can_move_to_cube: bool = HoradricCube.have_space()
 

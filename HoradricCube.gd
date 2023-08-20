@@ -25,6 +25,19 @@ func have_space() -> bool:
 	return item_count < CAPACITY
 
 
+# Note that this function also displays an in-game error if
+# can't add items.
+func check_item_type(item: Item) -> bool:
+	var is_consumable: bool = item.is_consumable()
+
+	if is_consumable:
+		Messages.add_error("Cannot add consumables to Horadric Cube.")
+
+		return false
+
+	return true
+
+
 func add_item(item: Item, slot_index: int = 0):
 	if !have_space():
 		push_error("Tried to put items over capacity. Use HoradricCube.have_space() before adding items.")
