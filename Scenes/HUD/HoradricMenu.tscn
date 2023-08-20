@@ -50,8 +50,7 @@ layout_mode = 2
 [node name="TransmuteButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-tooltip_text = "Shift click on items to transfer them to/from the Horadric Cube.
-See Hints for a list of  recipes."
+tooltip_text = "Check hints for the list of recipes."
 text = "Transmute"
 
 [connection signal="gui_input" from="VBoxContainer/PanelContainer/ItemsContainer" to="." method="_on_items_container_gui_input"]
