@@ -27,7 +27,6 @@ func _on_items_changed():
 	var item_list: Array[Item] = HoradricCube.get_item_list()
 	for item in item_list:
 		var item_button: ItemButton = ItemButton.make(item)
-		item_button.theme_type_variation = "SmallButton"
 		var button_container: UnitButtonContainer = UnitButtonContainer.make()
 		button_container.add_child(item_button)
 		_items_container.add_child(button_container)
