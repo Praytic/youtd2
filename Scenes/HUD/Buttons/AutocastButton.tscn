@@ -11,10 +11,13 @@
 atlas = ExtResource("1_5b1m0")
 region = Rect2(320, 2944, 64, 64)
 
-[node name="AutocastButton" type="Button"]
+[node name="AutocastButton" type="Button" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_indicator_container")]
 theme = ExtResource("1_n7gtp")
 icon = SubResource("AtlasTexture_2y68o")
 script = ExtResource("1_eojut")
+_cooldown_indicator = NodePath("IndicatorContainer/CooldownIndicator")
+_auto_mode_indicator = NodePath("IndicatorContainer/AutoModeIndicator")
+_indicator_container = NodePath("IndicatorContainer")
 
 [node name="IndicatorContainer" type="MarginContainer" parent="."]
 layout_mode = 1

@@ -1,4 +1,4 @@
-extends Node2D
+class_name CreepsProjection extends Node2D
 
 
 @onready var pos_dict = {}

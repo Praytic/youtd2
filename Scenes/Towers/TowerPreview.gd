@@ -12,7 +12,7 @@ const opaque_blue := Color(0, 0, 1, 0.5)
 var tower_id: int
 var _tower_instance: Node2D
 
-@onready var _range_indicator: RangeIndicator = $RangeIndicator
+@export var _range_indicator: RangeIndicator
 
 
 func _ready():

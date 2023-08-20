@@ -2,9 +2,9 @@ class_name AutocastButton extends Button
 
 
 var _autocast: Autocast = null
-@onready var _cooldown_indicator: CooldownIndicator = $IndicatorContainer/CooldownIndicator
-@onready var _auto_mode_indicator: AutoModeIndicator = $IndicatorContainer/AutoModeIndicator
-@onready var _indicator_container: MarginContainer = $IndicatorContainer
+@export var _cooldown_indicator: CooldownIndicator
+@export var _auto_mode_indicator: AutoModeIndicator
+@export var _indicator_container: MarginContainer
 
 func _ready():
 	_cooldown_indicator.set_autocast(_autocast)

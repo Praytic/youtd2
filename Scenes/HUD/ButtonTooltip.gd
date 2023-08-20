@@ -8,7 +8,7 @@ extends Control
 # mouse cursor.
 
 
-@onready var _label: RichTextLabel = $PanelContainer/RichTextLabel
+@export var _label: RichTextLabel
 
 
 func _ready():

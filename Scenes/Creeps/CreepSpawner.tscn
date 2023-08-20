@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" path="res://Scenes/Creeps/CreepSpawner.gd" id="1"]
 
-[node name="CreepSpawner" type="Node2D"]
+[node name="CreepSpawner" type="Node2D" node_paths=PackedStringArray("_timer_between_creeps")]
 position = Vector2(1, 0)
 script = ExtResource("1")
+_timer_between_creeps = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

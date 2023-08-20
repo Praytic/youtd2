@@ -10,7 +10,7 @@ enum PauseTab {
 signal resume_pressed()
 
 
-@onready var _tab_container: TabContainer = $TabContainer
+@export var _tab_container: TabContainer
 
 
 func _on_resume_button_pressed():

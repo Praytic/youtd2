@@ -3,10 +3,11 @@
 [ext_resource type="Script" path="res://Scenes/HUD/FlyingItem.gd" id="1_5ump5"]
 [ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="2_ltogr"]
 
-[node name="FlyingItem" type="Control"]
+[node name="FlyingItem" type="Control" node_paths=PackedStringArray("_texture_rect")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_5ump5")
+_texture_rect = NodePath("TextureRect")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 0

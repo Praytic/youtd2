@@ -2,8 +2,8 @@ class_name TowerButton
 extends UnitButton
 
 
-@onready var _disabled_lock: TextureRect = %LockTexture
-@onready var _tier_icon: TextureRect = %TierIcon
+@export var _disabled_lock: TextureRect
+@export var _tier_icon: TextureRect
 
 @export var _tower_id: int: get = get_tower_id, set = set_tower_id
 

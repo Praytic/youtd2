@@ -3,9 +3,10 @@
 [ext_resource type="Script" path="res://Scenes/Towers/TowerPreview.gd" id="1"]
 [ext_resource type="Script" path="res://Scenes/Towers/RangeIndicator.gd" id="2"]
 
-[node name="TowerPreview" type="Node2D"]
+[node name="TowerPreview" type="Node2D" node_paths=PackedStringArray("_range_indicator")]
 z_index = 100
 script = ExtResource("1")
+_range_indicator = NodePath("RangeIndicator")
 
 [node name="RangeIndicator" type="Node2D" parent="."]
 script = ExtResource("2")

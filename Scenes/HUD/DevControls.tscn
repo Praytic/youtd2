@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bsu2i4smjlpui" path="res://Scenes/HUD/DevControls/WaveControl.tscn" id="2_455wo"]
 [ext_resource type="PackedScene" uid="uid://cojr80363rwx2" path="res://Scenes/HUD/DevControls/SignalsControl.tscn" id="3_esahe"]
 
-[node name="DevControls" type="Control"]
+[node name="DevControls" type="Control" node_paths=PackedStringArray("positional_control", "position_info_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_0jdrl")
+positional_control = NodePath("PositionalControl")
+position_info_label = NodePath("PositionInfoLabel")
 
 [node name="WaveControl" type="Window" parent="." groups=["dev_control"]]
 transparent_bg = true

@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
 
-
 [sub_resource type="Curve2D" id="1"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 5610, 2975, 0, 0, 0, 0, 2889, 4357, 0, 0, 0, 0, 2845, 4385, 3.76354, -42.3398, -3.76354, 42.3398, 2800, 4442, 0, 0, 0, 0, 2846, 4507, 0, 0, 0, 0, 3626, 4904, -36.6945, -0.470442, 36.6945, 0.470442, 3711, 4922, 0, 0, 0, 0, 3788, 4909, 0, 0, 0, 0, 4084, 4764, 0, 0, 0, 0, 5288, 4152, -52.6896, -0.470442, 52.6896, 0.470442, 5376, 4131, 0, 0, 0, 0, 5456, 4152, 0, 0, 0, 0, 6370, 4609, 3.2931, -33.4014, -3.2931, 33.4014, 6415, 4662, 0, 0, 0, 0, 6368, 4709, 0, 0, 0, 0, 3846, 5965, 40.458, 0.470442, -40.458, -0.470442, 3779, 5978, 0, 0, 0, 0, 3707, 5968, 0, 0, 0, 0, 2258, 5242, 46.1034, 0.470442, -46.1034, -0.470442, 2176, 5221, 0, 0, 0, 0, 2095, 5241, 0, 0, 0, 0, 1232, 5674, 0, -26.3448, 0, 26.3448, 1194, 5712, 0, 0, 0, 0, 1230, 5755, 0, 0, 0, 0, 2611, 6444, 0.940885, -27.7561, -0.940885, 27.7561, 2644, 6482, 0, 0, 0, 0, 2609, 6522, 0, 0, 0, 0, 2400.13, 6607.54, 0, 0, 0, 0, -93, 7840)
@@ -24,9 +23,14 @@ _data = {
 }
 point_count = 6
 
-[node name="GameScene" type="Node"]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_wave_spawner", "_tutorial_menu")]
 process_mode = 3
 script = ExtResource("9")
+map_node = NodePath("Map")
+_pregame_hud = NodePath("UI/PregameHUD")
+_pause_hud = NodePath("UI/PauseHUD")
+_wave_spawner = NodePath("Map/WaveSpawner")
+_tutorial_menu = NodePath("UI/TutorialMenu")
 
 [node name="Player" type="Node" parent="."]
 script = ExtResource("6_y63oe")

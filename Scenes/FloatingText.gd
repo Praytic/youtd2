@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var label: Label = $Label
+@export var label: Label
 var text: String = "placeholder"
 var duration: float = 1.0
 var color: Color = Color.WHITE

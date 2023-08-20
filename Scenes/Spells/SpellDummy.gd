@@ -8,8 +8,8 @@ var _target_position: Vector2 = Vector2.ZERO
 var _lifetime: float = 0.0
 
 
-@onready var _debug_sprite: Sprite2D = $DebugSprite
-@onready var _lifetime_timer: Timer = $LifetimeTimer
+@export var _debug_sprite: Sprite2D
+@export var _lifetime_timer: Timer
 
 
 func _ready():

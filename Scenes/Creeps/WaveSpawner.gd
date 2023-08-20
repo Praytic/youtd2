@@ -13,8 +13,8 @@ signal generated_all_waves
 var _wave_list: Array[Wave] = []
 
 
-@onready var _timer_between_waves: Timer = $Timer
-@onready var _creep_spawner = $CreepSpawner
+@export var _timer_between_waves: Timer
+@export var _creep_spawner: CreepSpawner
 
 func _ready():
 	if Config.fast_waves_enabled():

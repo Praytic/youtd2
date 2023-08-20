@@ -1,7 +1,7 @@
 extends Control
 
 
-@onready var livesBar: TextureProgressBar = $MarginContainer/LivesProgressBar
+@export var livesBar: TextureProgressBar
 
 
 func _process(_delta: float):

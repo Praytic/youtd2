@@ -2,10 +2,10 @@ extends Node2D
 
 const BUILDABLE_AREA_LAYER: int = 3
 
-@onready var play_area: Area2D = $PlayArea
-@onready var play_area_shape: CollisionShape2D = $PlayArea/CollisionShape2D
-@onready var _tilemap: TileMap = $TileMap
-@onready var _buildable_area: TileMap = $BuildableArea
+@export var play_area: Area2D
+@export var play_area_shape: CollisionShape2D
+@export var _tilemap: TileMap
+@export var _buildable_area: TileMap
 @onready var camera: Camera2D = %Map/Camera2D
 
 

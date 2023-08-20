@@ -11,7 +11,7 @@ const ANIMATION_DURATION: float = 1.0
 
 var _item_id: int = 0
 
-@onready var _texture_rect: TextureRect = $TextureRect
+@export var _texture_rect: TextureRect
 
 # NOTE: adding type "BottomMenuBar" to "_bottom_menu_bar"
 # variable causes confusing runtime errors. Might be a

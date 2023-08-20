@@ -70,11 +70,12 @@ var _number_of_crits: int = 0
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 
 
-@onready var _range_indicator: RangeIndicator = $RangeIndicator
-@onready var _mana_bar: ProgressBar = $ManaBar
-@onready var _tower_selection_area: Area2D = $TowerSelectionArea
+@export var _range_indicator: RangeIndicator
+@export var _mana_bar: ProgressBar
+@export var _tower_selection_area: Area2D
+# NOTE: $Model/Sprite2D node is added in Tower subclass scenes 
 @onready var _sprite: Sprite2D = $Model/Sprite2D
-@onready var _tower_actions: Control = $TowerActions
+@export var _tower_actions: Control
 
 #########################
 ### Code starts here  ###

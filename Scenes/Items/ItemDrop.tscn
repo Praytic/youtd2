@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://Scenes/Items/ItemDrop.gd" id="1_id1fy"]
 
-[node name="ItemDrop" type="Node2D"]
+[node name="ItemDrop" type="Node2D" node_paths=PackedStringArray("_selection_area")]
 script = ExtResource("1_id1fy")
+_selection_area = NodePath("SelectionArea")
 
 [node name="SelectionArea" type="Area2D" parent="."]
 monitoring = false

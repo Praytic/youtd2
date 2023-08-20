@@ -92,9 +92,13 @@ sources/2 = SubResource("TileSetAtlasSource_70snm")
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(9747.77, 2010.24)
 
-[node name="Map" type="Node2D"]
+[node name="Map" type="Node2D" node_paths=PackedStringArray("play_area", "play_area_shape", "_tilemap", "_buildable_area")]
 y_sort_enabled = true
 script = ExtResource("4")
+play_area = NodePath("PlayArea")
+play_area_shape = NodePath("PlayArea/CollisionShape2D")
+_tilemap = NodePath("TileMap")
+_buildable_area = NodePath("BuildableArea")
 
 [node name="Decorations" type="TileMap" parent="."]
 z_index = 1

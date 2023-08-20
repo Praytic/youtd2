@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://4umhsi17sfy2"]
+[gd_scene load_steps=2 format=3 uid="uid://c4vg4q3q11ajb"]
 
 [sub_resource type="GDScript" id="1"]
 script/source = "extends Node2D
@@ -7,7 +7,7 @@ script/source = "extends Node2D
 func _ready():
 	pass
 
-@onready var visual = $Visual
+@export var visual = $Visual
 "
 
 [node name="Visual" type="Node2D"]

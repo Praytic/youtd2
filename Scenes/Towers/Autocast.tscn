@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" path="res://Scenes/Towers/Autocast.gd" id="1"]
 
-[node name="Autocast" type="Node2D"]
+[node name="Autocast" type="Node2D" node_paths=PackedStringArray("_cooldown_timer", "_auto_timer")]
 script = ExtResource("1")
+_cooldown_timer = NodePath("CooldownTimer")
+_auto_timer = NodePath("AutoTimer")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true

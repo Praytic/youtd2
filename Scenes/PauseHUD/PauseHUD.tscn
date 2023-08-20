@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_v8b77"]
 [ext_resource type="PackedScene" uid="uid://bbrryq35rxvkv" path="res://Scenes/PauseHUD/HintsMenu.tscn" id="3_vf4xx"]
 
-[node name="PauseHUD" type="Control"]
+[node name="PauseHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_v8b77")
 script = ExtResource("1_8lyul")
+_tab_container = NodePath("TabContainer")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

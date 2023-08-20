@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://drfy31rct5o3k" path="res://Scenes/PregameHUD/GameModeMenu.tscn" id="5_w0t1q"]
 [ext_resource type="PackedScene" uid="uid://bk4o75m1nr3cw" path="res://Scenes/PregameHUD/TutorialQuestionMenu.tscn" id="6_6h63j"]
 
-[node name="PregameHUD" type="Control"]
+[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_i3yfj")
 script = ExtResource("2_ljcwn")
+_tab_container = NodePath("TabContainer")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

@@ -4,7 +4,7 @@
 [ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="2_2ti32"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3_jper7"]
 
-[node name="ButtonTooltip" type="Control"]
+[node name="ButtonTooltip" type="Control" node_paths=PackedStringArray("_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 8
 script = ExtResource("1_xd471")
+_label = NodePath("PanelContainer/RichTextLabel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

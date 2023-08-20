@@ -5,7 +5,7 @@ extends Control
 @onready var debug_label: Label = %SignalsTitle
 @onready var debug_signals: GridContainer = %SignalsGrid
 @onready var signal_arg_edit: LineEdit = $SignalArgEdit
-@onready var debug_container = $VBoxContainer
+@export var debug_container: VBoxContainer
 
 var current_node: Node
 var prev_node: Node

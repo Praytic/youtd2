@@ -1,4 +1,4 @@
-extends Node
+class_name CreepSpawner extends Node
 
 
 # Spawns creeps for creep waves. Handles timing between
@@ -60,7 +60,7 @@ var _creep_spawn_queue: Array[CreepData]
 var _background_load_queue: Array[String] = []
 var _background_load_in_progress: bool = false
 
-@onready var _timer_between_creeps: Timer = $Timer
+@export var _timer_between_creeps: Timer
 
 
 func _ready():

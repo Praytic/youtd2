@@ -6,7 +6,7 @@ extends Node2D
 
 const FADE_DURATION: float = 60
 
-@onready var _sprite: Sprite2D = $Sprite2D
+@export var _sprite: Sprite2D
 
 
 func _ready():

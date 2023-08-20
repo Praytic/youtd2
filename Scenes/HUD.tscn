@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="15_rfxf1"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_game_over_label", "_roll_towers_button")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_roll_towers_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +22,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("1_xs0tv")
 script = ExtResource("11")
+_error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
+_normal_message_container = NodePath("MarginContainer3/NormalMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
 _roll_towers_button = NodePath("RollTowersButton")
 

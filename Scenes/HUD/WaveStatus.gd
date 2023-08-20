@@ -5,10 +5,10 @@ extends Control
 # starts.
 
 
-@onready var _label: RichTextLabel = $PanelContainer/VBoxContainer/DetailsLabel
+@export var _label: RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
-@onready var _start_next_wave_button: Button = $PanelContainer/VBoxContainer/HBoxContainer/StartNextWaveButton
-@onready var _timer_label: RichTextLabel = $PanelContainer/VBoxContainer/TimerLabel
+@export var _start_next_wave_button: Button
+@export var _timer_label: RichTextLabel
 
 
 func _ready():

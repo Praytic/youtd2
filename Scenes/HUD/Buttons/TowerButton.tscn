@@ -9,9 +9,11 @@
 atlas = ExtResource("4_pixwo")
 region = Rect2(0, 0, 64, 64)
 
-[node name="UnitButton" instance=ExtResource("1_58csb")]
+[node name="UnitButton" node_paths=PackedStringArray("_disabled_lock", "_tier_icon") instance=ExtResource("1_58csb")]
 custom_minimum_size = Vector2(64, 64)
 script = ExtResource("2_tfpmj")
+_disabled_lock = NodePath("MarginContainer/LockTexture")
+_tier_icon = NodePath("TierContainer/TierIcon")
 _tower_id = 0
 
 [node name="TierContainer" type="MarginContainer" parent="." index="0"]
@@ -27,7 +29,6 @@ theme_override_constants/margin_top = -15
 theme_override_constants/margin_right = -15
 
 [node name="TierIcon" type="TextureRect" parent="TierContainer" index="0"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = SubResource("AtlasTexture_fyokm")
@@ -35,7 +36,6 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="LockTexture" type="TextureRect" parent="MarginContainer" index="1"]
-unique_name_in_owner = true
 visible = false
 z_index = 1
 layout_mode = 2

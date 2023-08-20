@@ -8,7 +8,7 @@
 atlas = ExtResource("2_d8h6n")
 region = Rect2(256, 256, 128, 128)
 
-[node name="UnitButton" type="Button"]
+[node name="UnitButton" type="Button" node_paths=PackedStringArray("_rarity_container", "_counter_label")]
 offset_right = 148.0
 offset_bottom = 148.0
 theme = ExtResource("1_7n860")
@@ -16,6 +16,8 @@ icon = SubResource("AtlasTexture_0o8x7")
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("3_kwsps")
+_rarity_container = NodePath("MarginContainer/RarityContainer")
+_counter_label = NodePath("MarginContainer2/AspectRatioContainer/CounterLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 show_behind_parent = true
@@ -28,7 +30,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="RarityContainer" type="PanelContainer" parent="MarginContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 
@@ -51,7 +52,6 @@ theme_override_constants/margin_bottom = -10
 layout_mode = 2
 
 [node name="CounterLabel" type="Label" parent="MarginContainer2/AspectRatioContainer"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 1

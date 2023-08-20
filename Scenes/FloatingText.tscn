@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" path="res://Scenes/FloatingText.gd" id="2"]
 
-[node name="FloatingText" type="Node2D"]
+[node name="FloatingText" type="Node2D" node_paths=PackedStringArray("label")]
 script = ExtResource("2")
+label = NodePath("Label")
 
 [node name="Label" type="Label" parent="."]
 offset_right = 40.0

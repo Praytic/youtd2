@@ -9,11 +9,11 @@ enum GameState {
 }
 
 
-@onready var map_node: Node2D = $Map
-@onready var _pregame_hud: Control = $UI/PregameHUD
-@onready var _pause_hud: Control = $UI/PauseHUD
-@onready var _wave_spawner: WaveSpawner = $Map/WaveSpawner
-@onready var _tutorial_menu: TutorialMenu = $UI/TutorialMenu
+@export var map_node: Node2D
+@export var _pregame_hud: Control
+@export var _pause_hud: Control
+@export var _wave_spawner: WaveSpawner
+@export var _tutorial_menu: TutorialMenu
 
 var _game_state: GameState
 

@@ -3,13 +3,14 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_yuvc1"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.gd" id="2_y71mw"]
 
-[node name="ResourceStatusPanel" type="Panel"]
+[node name="ResourceStatusPanel" type="Panel" node_paths=PackedStringArray("_label")]
 custom_minimum_size = Vector2(120, 40)
 offset_right = 80.0
 offset_bottom = 40.0
 theme = ExtResource("1_yuvc1")
 theme_type_variation = &"ResourceTab"
 script = ExtResource("2_y71mw")
+_label = NodePath("MarginContainer/HBoxContainer/Label")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

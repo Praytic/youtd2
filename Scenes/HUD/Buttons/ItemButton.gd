@@ -9,7 +9,7 @@ const ICON_SIZE_M = 128
 @export var _test_item_id: int: set = set_test_item_id, get = get_test_item_id
 var _item: Item : set = set_item, get = get_item
 
-@onready var _cooldown_indicator: CooldownIndicator = %CooldownIndicator
+@export var _cooldown_indicator: CooldownIndicator
 
 var _hide_cooldown_indicator: bool = false
 

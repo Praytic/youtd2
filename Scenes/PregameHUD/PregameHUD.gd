@@ -21,7 +21,7 @@ var _difficulty: Difficulty.enm
 var _tutorial_enabled: bool
 
 
-@onready var _tab_container: TabContainer = $TabContainer
+@export var _tab_container: TabContainer
 
 
 func _ready():

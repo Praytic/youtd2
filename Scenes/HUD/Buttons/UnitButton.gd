@@ -2,8 +2,8 @@ class_name UnitButton
 extends Button
 
 
-@onready var _rarity_container: PanelContainer = %RarityContainer
-@onready var _counter_label: Label = %CounterLabel
+@export var _rarity_container: PanelContainer
+@export var _counter_label: Label
 
 
 var _count: int: set = set_count

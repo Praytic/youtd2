@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/HUD/WaveStatus.gd" id="2_fsc15"]
 [ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="3_gykof"]
 
-[node name="WaveStatus" type="Control"]
+[node name="WaveStatus" type="Control" node_paths=PackedStringArray("_label", "_start_next_wave_button", "_timer_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +15,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_3h6gw")
 script = ExtResource("2_fsc15")
+_label = NodePath("PanelContainer/VBoxContainer/DetailsLabel")
+_start_next_wave_button = NodePath("PanelContainer/VBoxContainer/HBoxContainer/StartNextWaveButton")
+_timer_label = NodePath("PanelContainer/VBoxContainer/TimerLabel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0

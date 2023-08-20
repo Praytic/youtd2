@@ -44,12 +44,13 @@ region = Rect2(790, 11, 48, 48)
 atlas = ExtResource("3_3osiu")
 region = Rect2(256, 256, 128, 128)
 
-[node name="TopLeftOptions" type="Control"]
+[node name="TopLeftOptions" type="Control" node_paths=PackedStringArray("livesBar")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_3o0hc")
+livesBar = NodePath("MarginContainer/LivesProgressBar")
 
 [node name="SettingsButton" type="TextureButton" parent="."]
 layout_mode = 0

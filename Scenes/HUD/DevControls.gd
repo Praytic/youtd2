@@ -3,10 +3,10 @@ extends Control
 
 @onready var dev_control_buttons = get_tree().get_nodes_in_group("dev_control_button")
 @onready var dev_controls = get_tree().get_nodes_in_group("dev_control")
-@onready var positional_control: PopupMenu = $PositionalControl
+@export var positional_control: PopupMenu
 @onready var oil_ids: Array = []
 @onready var item_ids: Array = []
-@onready var position_info_label: Label = $PositionInfoLabel
+@export var position_info_label: Label
 
 @onready var _map = get_tree().get_root().get_node("GameScene/Map")
 

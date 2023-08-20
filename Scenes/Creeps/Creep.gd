@@ -28,6 +28,9 @@ var _spawn_level: int
 var _total_path_length: float = 0.0
 var _distance_covered: float = 0.0
 
+# TODO: can't use @export here because there's no Creep.tscn
+# - only subclass scenes. Create base class Creep.tscn to
+# fix this.
 @onready var _visual = $Visual
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar

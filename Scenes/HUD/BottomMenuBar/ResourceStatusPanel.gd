@@ -4,8 +4,7 @@ extends Panel
 
 @export var icon_texture: Texture2D
 @export var default_label_text: String
-
-@onready var _label: Label = $MarginContainer/HBoxContainer/Label
+@export var _label: Label
 
 
 func _ready():

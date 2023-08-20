@@ -6,7 +6,7 @@ extends Unit
 
 
 var _item: Item = null
-@onready var _selection_area: Area2D = $SelectionArea
+@export var _selection_area: Area2D
 
 # NOTE: note calling Unit._set_unit_dimensions() because no
 # sprite on base class and dimensions are not important for

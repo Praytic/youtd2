@@ -14,8 +14,8 @@ const HINTS_CSV_PATH: String = "res://Data/hints.csv"
 
 var _text_list: Array[String] = []
 
-@onready var _tree: Tree = $VBoxContainer/HSplitContainer/Tree
-@onready var _hints_text_label: RichTextLabel = $VBoxContainer/HSplitContainer/MarginContainer/HintsTextLabel
+@export var _tree: Tree
+@export var _hints_text_label: RichTextLabel
 
 
 func _ready():

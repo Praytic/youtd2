@@ -10,9 +10,13 @@ bg_color = Color(0.0509804, 0.164706, 0.419608, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfdtb"]
 bg_color = Color(0.278431, 0.388235, 1, 1)
 
-[node name="Tower" type="Node2D"]
+[node name="Tower" type="Node2D" node_paths=PackedStringArray("_range_indicator", "_mana_bar", "_tower_selection_area", "_tower_actions")]
 z_index = 20
 script = ExtResource("2")
+_range_indicator = NodePath("RangeIndicator")
+_mana_bar = NodePath("ManaBar")
+_tower_selection_area = NodePath("TowerSelectionArea")
+_tower_actions = NodePath("TowerActions")
 
 [node name="Base" type="Sprite2D" parent="."]
 position = Vector2(0, -192)

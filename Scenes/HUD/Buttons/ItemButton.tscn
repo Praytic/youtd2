@@ -4,12 +4,12 @@
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButton.gd" id="2_0spo4"]
 [ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://Scenes/HUD/Buttons/CooldownIndicator.tscn" id="3_fy62u"]
 
-[node name="UnitButton2" instance=ExtResource("1_56ir5")]
+[node name="UnitButton2" node_paths=PackedStringArray("_cooldown_indicator") instance=ExtResource("1_56ir5")]
 custom_minimum_size = Vector2(64, 64)
 script = ExtResource("2_0spo4")
 _test_item_id = 0
+_cooldown_indicator = NodePath("MarginContainer/CooldownIndicator")
 
 [node name="CooldownIndicator" parent="MarginContainer" index="0" instance=ExtResource("3_fy62u")]
-unique_name_in_owner = true
 z_index = 1
 layout_mode = 2

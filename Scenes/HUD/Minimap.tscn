@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scenes/HUD/CreepsProjection.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://cq3nuuah81ohr" path="res://Assets/UI/HUD/minimap.png" id="4"]
 
-[node name="Minimap" type="Control"]
+[node name="Minimap" type="Control" node_paths=PackedStringArray("minimap_camera", "minimap_texture", "camera_projection", "creeps_projection")]
 custom_minimum_size = Vector2(216, 216)
 layout_mode = 3
 anchors_preset = 3
@@ -18,6 +18,10 @@ offset_top = -216.0
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("2")
+minimap_camera = NodePath("SubViewportContainer/SubViewport/MinimapCamera")
+minimap_texture = NodePath("SubViewportContainer/SubViewport/MinimapTexture")
+camera_projection = NodePath("SubViewportContainer/SubViewport/CameraProjection")
+creeps_projection = NodePath("SubViewportContainer/SubViewport/CreepsProjection")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 custom_minimum_size = Vector2(216, 216)

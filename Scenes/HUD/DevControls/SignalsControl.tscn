@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" path="res://Scenes/HUD/DevControls/SignalsControl.gd" id="1_3sjri"]
 
-[node name="SignalsControl" type="Control"]
+[node name="SignalsControl" type="Control" node_paths=PackedStringArray("debug_container")]
 process_priority = -1
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1000.0
 offset_bottom = 500.0
 script = ExtResource("1_3sjri")
+debug_container = NodePath("VBoxContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0

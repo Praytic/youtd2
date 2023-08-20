@@ -3,8 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://bqfroocbty8l3" path="res://Assets/Mobs/corpse.png" id="1_51hw1"]
 [ext_resource type="Script" path="res://Scenes/Creeps/CreepCorpse.gd" id="1_mvyph"]
 
-[node name="CreepCorpse" type="Node2D"]
+[node name="CreepCorpse" type="Node2D" node_paths=PackedStringArray("_sprite")]
 script = ExtResource("1_mvyph")
+_sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.65098, 0.196078, 0.196078, 0.588235)

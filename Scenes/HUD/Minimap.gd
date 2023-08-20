@@ -1,10 +1,10 @@
 extends Control
 
 @onready var default_camera = get_node("%Camera2D")
-@onready var minimap_camera = $SubViewportContainer/SubViewport/MinimapCamera
-@onready var minimap_texture = $SubViewportContainer/SubViewport/MinimapTexture
-@onready var camera_projection = $SubViewportContainer/SubViewport/CameraProjection
-@onready var creeps_projection = $SubViewportContainer/SubViewport/CreepsProjection
+@export var minimap_camera: Camera2D
+@export var minimap_texture: TextureRect
+@export var camera_projection: CameraProjection
+@export var creeps_projection: CreepsProjection
 @onready var map = get_node("%Map")
 @onready var minimap_scale: float
 
