@@ -19,7 +19,7 @@ func _add_item_button(item: Item):
 
 
 func _ready():
-	ItemStash.changed.connect(_on_item_stash_changed)
+	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_on_item_stash_changed()
 
 

@@ -5,7 +5,7 @@ extends Node
 # allows adding/removing items.
 
 
-signal changed()
+signal items_changed()
 
 
 var _item_container: ItemContainer
