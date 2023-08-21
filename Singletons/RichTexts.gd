@@ -68,8 +68,9 @@ func get_creep_info(creep: Creep) -> String:
 func get_tower_info(tower_id: int) -> String:
 	var text: String = ""
 
-	var cost_string: String = str(TowerProperties.get_cost(tower_id))
-	var food: int = TowerProperties.get_food_cost(tower_id)
+	var gold_cost: int = TowerProperties.get_cost(tower_id)
+	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
+	var food_cost: int = TowerProperties.get_food_cost(tower_id)
 	var description: String = TowerProperties.get_description(tower_id)
 	var author: String = TowerProperties.get_author(tower_id)
 	var element: Element.enm = TowerProperties.get_element(tower_id)
@@ -81,7 +82,11 @@ func get_tower_info(tower_id: int) -> String:
 	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
 
-	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %s [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost_string, food]
+	if tome_cost != 0:
+		text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %d [img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %d [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, tome_cost, food_cost]
+	else:
+		text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %d [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, food_cost]
+
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
@@ -95,10 +100,15 @@ func get_tower_text(tower_id: int) -> String:
 
 	var requirements_text: String = get_tower_requirements_text(tower_id)
 	var display_name: String = TowerProperties.get_display_name(tower_id)
-	var cost: int = TowerProperties.get_cost(tower_id)
-	var cost_ok: bool = GoldControl.get_gold() >= cost
-	var cost_string: String = get_colored_requirement_number(cost, cost_ok)
-	var food: int = 0
+	var gold_cost: int = TowerProperties.get_cost(tower_id)
+	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
+	var food_cost: int = TowerProperties.get_food_cost(tower_id)
+	var gold_cost_ok: bool = GoldControl.enough_gold_for_tower(tower_id)
+	var tome_cost_ok: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
+	var food_cost_ok: bool = FoodManager.enough_food_for_tower(tower_id)
+	var gold_cost_string: String = get_colored_requirement_number(gold_cost, gold_cost_ok)
+	var tome_cost_string: String = get_colored_requirement_number(tome_cost, tome_cost_ok)
+	var food_cost_string: String = get_colored_requirement_number(food_cost, food_cost_ok)
 	var description: String = TowerProperties.get_description(tower_id)
 	var author: String = TowerProperties.get_author(tower_id)
 	var element: Element.enm = TowerProperties.get_element(tower_id)
@@ -127,7 +137,12 @@ func get_tower_text(tower_id: int) -> String:
 		text += " \n"
 
 	text += "[b]%s[/b]\n" % display_name
-	text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %s [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [cost_string, food]
+
+	if tome_cost != 0:
+		text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %s [img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %s [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
+	else:
+		text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %s [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
+
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 	text += "[color=YELLOW]Element:[/color] %s\n" % element_string

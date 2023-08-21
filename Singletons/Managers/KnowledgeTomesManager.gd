@@ -31,3 +31,10 @@ func spend(amount: int):
 
 func get_current() -> int:
 	return knowledge_tomes
+
+
+func enough_tomes_for_tower(tower_id: int) -> bool:
+	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
+	var enough_tomes: bool = tome_cost <= knowledge_tomes
+
+	return enough_tomes

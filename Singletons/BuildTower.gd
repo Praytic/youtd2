@@ -78,24 +78,15 @@ func _try_to_build():
 	var tower_id: int = _tower_preview.tower_id
 	var can_build: bool = _map.can_build_at_mouse_pos()
 	var can_transform: bool = _map.can_transform_at_mouse_pos()
-	var enough_food: bool = FoodManager.enough_food_for_tower(tower_id)
-	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
 	var mouse_pos: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var tower_under_mouse: Tower = _get_tower_at_position(mouse_pos)
+	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id)
 
 	if !can_build && !can_transform:
 		var error: String = "Can't build here."
 		Messages.add_error(error)
-	elif !enough_gold:
-#		NOTE: have to also check gold right before building
-#		because it is possible for some item or tower
-#		abilities to reduce gold. That means that gold
-#		amount can decrease between starting to build a
-#		tower and trying to build.
-		Messages.add_error("Not enough gold.")
-	elif !enough_food:
-		var error: String = "Not enough food."
-		Messages.add_error(error)
+	elif !enough_resources:
+		add_error_about_resources(tower_id)
 	elif can_transform:
 		_transform_tower(tower_id, tower_under_mouse)
 	else:
@@ -119,6 +110,10 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 	var build_cost: float = TowerProperties.get_cost(new_tower_id)
 	GoldControl.spend_gold(build_cost)
 
+# 	NOTE: don't modify tome count because transform is
+# 	enabled only in random modes and tome costs are 0 in
+# 	random mode
+
 	prev_tower.queue_free()
 
 	cancel()
@@ -134,6 +129,9 @@ func _build_tower(tower_id: int):
 
 	var build_cost: float = TowerProperties.get_cost(tower_id)
 	GoldControl.spend_gold(build_cost)
+
+	var tomes_cost: int = TowerProperties.get_tome_cost(tower_id)
+	KnowledgeTomesManager.spend(tomes_cost)
 	
 	cancel()
 
@@ -154,3 +152,26 @@ func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
 		transform_refund = floori(prev_sell_price * 0.75)
 
 	return transform_refund
+
+
+# Returns true if there are enough resources for tower
+func enough_resources_for_tower(tower_id: int) -> bool:
+	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
+	var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
+	var enough_food: bool = FoodManager.enough_food_for_tower(tower_id)
+	var enough_resources: bool = enough_gold && enough_tomes && enough_food
+
+	return enough_resources
+
+
+func add_error_about_resources(tower_id: int):
+	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
+	var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
+	var enough_food: bool = FoodManager.enough_food_for_tower(tower_id)
+
+	if !enough_gold:
+		Messages.add_error("Not enough gold.")
+	elif !enough_tomes:
+		Messages.add_error("Not enough tomes.")
+	elif !enough_food:
+		Messages.add_error("Not enough food.")

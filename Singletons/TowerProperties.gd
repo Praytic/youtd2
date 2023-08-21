@@ -347,3 +347,19 @@ func get_food_cost(tower_id: int) -> int:
 	var food_cost: int = food_cost_map[rarity]
 
 	return food_cost
+
+
+func get_tome_cost(tower_id: int) -> int:
+	if Globals.game_mode_is_random():
+		return 0
+
+	var tome_cost_map: Dictionary = {
+		Rarity.enm.COMMON: 0,
+		Rarity.enm.UNCOMMON: 4,
+		Rarity.enm.RARE: 10,
+		Rarity.enm.UNIQUE: 25,
+	}
+	var rarity: Rarity.enm = get_rarity(tower_id)
+	var tome_cost: int = tome_cost_map[rarity]
+
+	return tome_cost
