@@ -6,21 +6,22 @@ signal changed()
 
 const MAX_FOOD_CAP: int = 99
 const INITIAL_FOOD_CAP: int = 55
-const FOOD_PER_TOWER: int = 2
 
 var current_food: int = 0
 var food_cap: int = INITIAL_FOOD_CAP
 
 
-func enough_food_for_tower() -> bool:
-	var food_after_add: int = current_food + FOOD_PER_TOWER
+func enough_food_for_tower(tower_id: int) -> bool:
+	var food_cost: int = TowerProperties.get_food_cost(tower_id)
+	var food_after_add: int = current_food + food_cost
 	var enough_food: bool = food_after_add <= food_cap
 
 	return enough_food
 
 
-func add_tower():
-	var new_food: int = current_food + FOOD_PER_TOWER
+func add_tower(tower_id: int):
+	var food_cost: int = TowerProperties.get_food_cost(tower_id)
+	var new_food: int = current_food + food_cost
 
 	if new_food > food_cap:
 		push_error("Tried to change food above cap.")
@@ -31,8 +32,9 @@ func add_tower():
 	changed.emit()
 
 
-func remove_tower():
-	var new_food: int = current_food - FOOD_PER_TOWER
+func remove_tower(tower_id: int):
+	var food_cost: int = TowerProperties.get_food_cost(tower_id)
+	var new_food: int = current_food - food_cost
 	
 	if new_food < 0:
 		push_error("Tried to change food below 0.")

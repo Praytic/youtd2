@@ -69,7 +69,7 @@ func get_tower_info(tower_id: int) -> String:
 	var text: String = ""
 
 	var cost_string: String = str(TowerProperties.get_cost(tower_id))
-	var food: int = FoodManager.FOOD_PER_TOWER
+	var food: int = TowerProperties.get_food_cost(tower_id)
 	var description: String = TowerProperties.get_description(tower_id)
 	var author: String = TowerProperties.get_author(tower_id)
 	var element: Element.enm = TowerProperties.get_element(tower_id)

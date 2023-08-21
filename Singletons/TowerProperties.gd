@@ -334,3 +334,16 @@ func _get_required_element_level_from_formula(tower_id: int) -> int:
 			return element_level
 
 	return 1
+
+
+func get_food_cost(tower_id: int) -> int:
+	var food_cost_map: Dictionary = {
+		Rarity.enm.COMMON: 2,
+		Rarity.enm.UNCOMMON: 3,
+		Rarity.enm.RARE: 4,
+		Rarity.enm.UNIQUE: 6,
+	}
+	var rarity: Rarity.enm = get_rarity(tower_id)
+	var food_cost: int = food_cost_map[rarity]
+
+	return food_cost

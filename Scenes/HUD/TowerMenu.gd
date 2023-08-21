@@ -277,6 +277,8 @@ func _on_sell_button_pressed():
 	if !_selling_for_real:
 		_set_selling_for_real(true)
 		return
+
+	var tower_id: int = tower.get_id()
 	
 # 	Return tower items to storage
 	var item_list: Array[Item] = tower.get_items()
@@ -293,7 +295,7 @@ func _on_sell_button_pressed():
 
 	SelectUnit.set_selected_unit(null)
 
-	FoodManager.remove_tower()
+	FoodManager.remove_tower(tower_id)
 
 
 func _set_selling_for_real(value: bool):

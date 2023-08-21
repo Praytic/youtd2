@@ -78,7 +78,7 @@ func _try_to_build():
 	var tower_id: int = _tower_preview.tower_id
 	var can_build: bool = _map.can_build_at_mouse_pos()
 	var can_transform: bool = _map.can_transform_at_mouse_pos()
-	var enough_food: bool = FoodManager.enough_food_for_tower()
+	var enough_food: bool = FoodManager.enough_food_for_tower(tower_id)
 	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
 	var mouse_pos: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var tower_under_mouse: Tower = _get_tower_at_position(mouse_pos)
@@ -127,7 +127,7 @@ func _build_tower(tower_id: int):
 	new_tower.position = build_position
 	Utils.add_object_to_world(new_tower)
 	tower_built.emit(tower_id)
-	FoodManager.add_tower()
+	FoodManager.add_tower(tower_id)
 
 	var build_cost: float = TowerProperties.get_cost(tower_id)
 	GoldControl.spend_gold(build_cost)
