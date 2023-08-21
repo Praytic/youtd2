@@ -25,8 +25,8 @@ func _ready():
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 
 
-func have_space() -> bool:
-	return _item_container.have_space()
+func have_item_space() -> bool:
+	return _item_container.have_item_space()
 
 
 func add_item(item: Item, index: int = 0):

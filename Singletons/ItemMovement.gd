@@ -5,18 +5,12 @@ extends Node
 # and tower inventories. Note that while an item is being
 # moved, it is parented to this class.
 
-const ITEM_STASH_VISUAL_CAPACITY: int = 8
-
-enum MoveSource {
-	ITEM_STASH,
-	TOWER,
-	CUBE,
-}
-
 
 var _moved_item: Item = null
-var _move_source: MoveSource
-var _source_tower: Tower = null
+# Container from which currently moved item came from. Item
+# will return to this container if the player cancels item
+# movement.
+var _source_container: ItemContainer = null
 
 
 func _unhandled_input(event: InputEvent):
@@ -39,18 +33,105 @@ func in_progress() -> bool:
 
 func item_was_clicked_in_tower_inventory(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
-
+	var tower: Tower = clicked_item.get_carrier()
+	
 	if shift_click:
-		var tower: Tower = clicked_item.get_carrier()
 		tower.remove_item(clicked_item)
 		ItemStash.add_item(clicked_item)
 		
 		return
 
-	if !_can_start_moving():
+	var container: ItemContainer = tower._item_container
+	_item_was_clicked_in_item_container(container, clicked_item)
+
+
+func item_was_clicked_in_item_stash(clicked_item: Item):
+	var shift_click: bool = Input.is_action_pressed("shift")
+
+	if shift_click:
+		if !HoradricCube.have_item_space():
+			Messages.add_error("No space for item")
+
+			return
+			
+		ItemStash.remove_item(clicked_item)
+		HoradricCube.add_item(clicked_item)
+
 		return
 
-	var tower: Tower = clicked_item.get_carrier()
+	var container: ItemContainer = ItemStash._item_container
+	_item_was_clicked_in_item_container(container, clicked_item)
+
+
+func item_was_clicked_in_horadric_cube(clicked_item: Item):
+	var shift_click: bool = Input.is_action_pressed("shift")
+	
+	if shift_click:
+		HoradricCube.remove_item(clicked_item)
+		ItemStash.add_item(clicked_item)
+
+		return
+
+	var container: ItemContainer = HoradricCube._item_container
+	_item_was_clicked_in_item_container(container, clicked_item)
+
+
+# NOTE: add item to item stash at position 0 so that if
+# there are many items and item stash is in scroll mode, the
+# player will see the item appear on the left side of the
+# item stash. Default scroll position for item stash
+# displays the left side.
+func item_stash_was_clicked():
+	var container: ItemContainer = ItemStash._item_container
+	var add_index: int = 0
+	_item_container_was_clicked(container, add_index)
+
+
+func horadric_menu_was_clicked():
+	var container: ItemContainer = HoradricCube._item_container
+	var add_index: int = container.get_item_count()
+	_item_container_was_clicked(container, add_index)
+
+
+func tower_was_clicked(tower: Tower):
+	var container: ItemContainer = tower._item_container
+	var add_index: int = container.get_item_count()
+	_item_container_was_clicked(container, add_index)
+
+
+func cancel():
+	if !in_progress():
+		return
+
+# 	Return item back to where it was before we started
+# 	moving it
+	remove_child(_moved_item)
+
+#	NOTE: if cancelling and tower inventory or cube are
+#	full, then return item to stash. Item stash has
+#	unlimited capacity.
+# 
+#	NOTE: note that source container may become invalid if
+#	it was a tower and it wass sold before cancelling.
+	if is_instance_valid(_source_container) && _source_container.have_item_space():
+		_source_container.add_item(_moved_item)
+	else:
+		ItemStash.add_item(_moved_item)
+
+	_end_move_process()
+
+
+# When an item is clicked in an item container, two possible results:
+# 
+# 1. If no item is currently being moved, then we start
+#    moving the clicked item.
+# 
+# 2. If an item is currently being moved, then we swap the
+#    items. We put the old moved item in the container and
+#    start moving the clicked item.
+func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item: Item):
+	if !_can_start_moving():
+		return
 
 #	If an item is currently getting moved, add it back to
 #	tower at the position of the clicked item
@@ -65,165 +146,50 @@ func item_was_clicked_in_tower_inventory(clicked_item: Item):
 #		new moved item. Need to handle the case where
 #		inventory is full correctly, so must remove clicked
 #		item first before adding moved item.
-		var clicked_index: int = tower.get_item_index(clicked_item)
-		tower.remove_item(clicked_item)
+		var clicked_index: int = container.get_item_index(clicked_item)
+		container.remove_item(clicked_item)
 		remove_child(prev_moved_item)
-		tower.add_item(prev_moved_item, clicked_index)
+		container.add_item(prev_moved_item, clicked_index)
 	else:
-		tower.remove_item(clicked_item)
+		container.remove_item(clicked_item)
 	
-	_start_moving_item(clicked_item, MoveSource.TOWER, tower)
+	add_child(clicked_item)
 
-
-func item_was_clicked_in_item_stash(clicked_item: Item):
-	var shift_click: bool = Input.is_action_pressed("shift")
-
-	if shift_click:
-		if !HoradricCube.have_space():
-			Messages.add_error("No space for item")
-
-			return
-			
-		ItemStash.remove_item(clicked_item)
-		HoradricCube.add_item(clicked_item)
-
-		return
-
-	if !_can_start_moving():
-		return
-
-#	If an item is currently getting moved, add it back to
-#	stash at the position of the clicked item
-	if in_progress():
-		var clicked_index: int = ItemStash.get_item_index(clicked_item)
-		remove_child(_moved_item)
-		ItemStash.add_item(_moved_item, clicked_index)
-		_end_move_process()
-
-	ItemStash.remove_item(clicked_item)
-	_start_moving_item(clicked_item, MoveSource.ITEM_STASH)
-
-
-func item_was_clicked_in_horadric_cube(clicked_item: Item):
-	var shift_click: bool = Input.is_action_pressed("shift")
+	_moved_item = clicked_item
+	_source_container = container
+	MouseState.set_state(MouseState.enm.MOVE_ITEM)
 	
-	if shift_click:
-		HoradricCube.remove_item(clicked_item)
-		ItemStash.add_item(clicked_item)
-
-		return
-
-	if !_can_start_moving():
-		return
-
-#	If an item is currently getting moved, add it to
-#	horadric cube at the position of clicked item. Note that
-#	we need to check if we can add this kind of item.
-	if in_progress():
-		var prev_moved_item: Item = _moved_item
-		_end_move_process()
-
-		var clicked_index: int = HoradricCube.get_item_index(clicked_item)
-		HoradricCube.remove_item(clicked_item)
-		remove_child(prev_moved_item)
-		HoradricCube.add_item(prev_moved_item, clicked_index)
-	else:
-		HoradricCube.remove_item(clicked_item)
-	
-	_start_moving_item(clicked_item, MoveSource.CUBE)
+	var item_cursor_icon: Texture2D = _get_item_cursor_icon(clicked_item)
+	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
+	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
 
 
-# This is called when the empty space in item stash is
-# clicked. Move item to item stash when this happens.
-func item_stash_was_clicked():
+# When an item container is clicked, we add the currently
+# moved item to that container.
+func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
 	if !in_progress():
 		return
 
-#	NOTE: add item to item stash at position 0 so that if
+	if !container.can_add_item(_moved_item):
+		Messages.add_error("No space for item")
+
+		return
+
+#	NOTE: add item to container at position 0 so that if
 #	there are many items and item stash is in scroll mode,
 #	the player will see the item appear on the left side of
 #	the item stash. Default scroll position for item stash
 #	displays the left side.
 	remove_child(_moved_item)
-	ItemStash.add_item(_moved_item, 0)
+	container.add_item(_moved_item, add_index)
 	_end_move_process()
-
-
-func horadric_menu_was_clicked():
-	if !in_progress():
-		return
-
-	if !HoradricCube.have_space():
-		Messages.add_error("No space for item")
-
-		return
-
-	remove_child(_moved_item)
-	var add_index: int = HoradricCube.get_item_count()
-	HoradricCube.add_item(_moved_item, add_index)
-	_end_move_process()
-
-
-func tower_was_clicked(tower: Tower):
-	if !in_progress():
-		return
-
-	var is_oil: bool = ItemProperties.get_is_oil(_moved_item.get_id())
-
-	if !tower.have_item_space() && !is_oil:
-		Messages.add_error("No space for item")
-
-		return
-
-	remove_child(_moved_item)
-	tower.add_item(_moved_item)
-	_end_move_process()
-
-
-func cancel():
-	if !in_progress():
-		return
-
-# 	Return item back to where it was before we started
-# 	moving it
-	remove_child(_moved_item)
-
-#	NOTE: if cancelling and tower inventory or cube are
-#	full, then return item to stash
-	match _move_source:
-		MoveSource.ITEM_STASH: ItemStash.add_item(_moved_item)
-		MoveSource.TOWER:
-			if _source_tower.have_item_space():
-				_source_tower.add_item(_moved_item)
-			else:
-				ItemStash.add_item(_moved_item)
-		MoveSource.CUBE: 
-			if _source_tower.have_space():
-				HoradricCube.add_item(_moved_item)
-			else:
-				ItemStash.add_item(_moved_item)
-
-	_end_move_process()
-
-
-func _start_moving_item(item: Item, move_source: MoveSource, source_tower: Tower = null):
-	add_child(item)
-
-	_moved_item = item
-	_move_source = move_source
-	_source_tower = source_tower
-	MouseState.set_state(MouseState.enm.MOVE_ITEM)
-	
-	var item_cursor_icon: Texture2D = _get_item_cursor_icon(item)
-	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
-	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
 
 
 func _end_move_process():
 	MouseState.set_state(MouseState.enm.NONE)
 
 	_moved_item = null
-	_source_tower = null
+	_source_container = null
 
 #	NOTE: for some reason need to call this twice to reset
 #	the cursor. Calling it once causes the cursor to

@@ -109,6 +109,7 @@ func _ready():
 
 	var inventory_capacity: int = get_inventory_capacity()
 	_item_container = TowerItemContainer.new(inventory_capacity, self)
+	add_child(_item_container)
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 
 	add_to_group("towers")
@@ -266,7 +267,8 @@ func count_free_slots() -> int:
 
 # NOTE: tower.haveItemSpace() in JASS
 func have_item_space() -> bool:
-	return _item_container.have_space()
+	return _item_container.have_item_space()
+
 
 # Adds item to tower and applies item effects. Note that
 # item must be unparented before this f-n is called.

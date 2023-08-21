@@ -25,16 +25,20 @@ func increase_capacity(new_capacity: int):
 	_capacity = new_capacity
 
 
-func have_space() -> bool:
+func have_item_space() -> bool:
 	var item_count: int = get_item_count()
 	var result: bool = item_count < _capacity
 
 	return result
 
 
+func can_add_item(_item: Item) -> bool:
+	return have_item_space()
+
+
 func add_item(item: Item, index: int = 0):
-	if !have_space():
-		push_error("Tried to put items over capacity. Use HoradricCube.have_space() before adding items.")
+	if !have_item_space():
+		push_error("Tried to put items over capacity. Use have_item_space() before adding items.")
 
 		return
 

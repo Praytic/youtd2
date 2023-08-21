@@ -43,3 +43,13 @@ func remove_item(item: Item):
 
 func get_oil_list() -> Array[Item]:
 	return _oil_list.duplicate()
+
+
+# NOTE: if item is oil, then we don't care about item space
+# - can add unlimited amount of oils
+func can_add_item(item: Item) -> bool:
+	var item_id: int = item.get_id()
+	var is_oil: bool = ItemProperties.get_is_oil(item_id)
+	var can_add: bool = have_item_space() || is_oil
+
+	return can_add
