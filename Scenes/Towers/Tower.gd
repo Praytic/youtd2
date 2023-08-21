@@ -137,18 +137,18 @@ func _ready():
 		var preceding_oil_list: Array = _temp_preceding_tower.get_oils()
 
 		for oil_item in preceding_oil_list:
-			_temp_preceding_tower.remove_item(oil_item)
-			add_item(oil_item)
+			_temp_preceding_tower._item_container.remove_item(oil_item)
+			_item_container.add_item(oil_item)
 
 #		NOTE: for upgrade case, inventory will always be
 #		same size or bigger but for transform case inventory
 #		may be smaller. Handle transform case by returning
 #		any extra items to stash.
 		for item in preceding_item_list:
-			_temp_preceding_tower.remove_item(item)
+			_temp_preceding_tower._item_container.remove_item(item)
 
 			if have_item_space():
-				add_item(item)
+				_item_container.add_item(item)
 			else:
 				item.fly_to_stash_from_pos(position)
 
@@ -270,20 +270,6 @@ func have_item_space() -> bool:
 	return _item_container.have_item_space()
 
 
-# Adds item to tower and applies item effects. Note that
-# item must be unparented before this f-n is called.
-func add_item(item: Item, slot_index: int = 0):
-	_item_container.add_item(item, slot_index)
-
-
-# Removes item from tower. Note that item will not be
-# dropped on the ground. It will be in a detached state
-# without a parent. Use Item.drop() to place the item on the
-# ground after removal.
-func remove_item(item: Item):
-	_item_container.remove_item(item)
-
-
 func get_oils() -> Array[Item]:
 	return _item_container.get_oil_list()
 
@@ -294,10 +280,6 @@ func get_items() -> Array[Item]:
 
 func get_item_count() -> int:
 	return _item_container.get_item_count()
-
-
-func get_item_index(item: Item) -> int:
-	return _item_container.get_item_index(item)
 
 
 # NOTE: slot_number starts at 1 instead of 0

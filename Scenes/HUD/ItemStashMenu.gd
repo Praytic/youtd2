@@ -27,7 +27,7 @@ func _on_item_stash_changed():
 	for child in get_children():
 		remove_child(child)
 
-	var item_list: Array[Item] = ItemStash.get_item_list()
+	var item_list: Array[Item] = ItemStash._item_container.get_item_list()
 
 	for item in item_list:
 		_add_item_button(item)

@@ -138,5 +138,5 @@ func _on_stash_margin_container_gui_input(event):
 
 
 func _on_item_stash_changed():
-	var item_button_count: int = ItemStash.get_item_count()
+	var item_button_count: int = ItemStash._item_container.get_item_count()
 	_item_menu_button.text = str(item_button_count)

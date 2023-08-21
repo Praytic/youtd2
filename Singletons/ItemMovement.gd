@@ -35,9 +35,10 @@ func item_was_clicked_in_tower_inventory(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 	var tower: Tower = clicked_item.get_carrier()
 	
-	if shift_click:
-		tower.remove_item(clicked_item)
-		ItemStash.add_item(clicked_item)
+	if shift_click && !in_progress():
+		tower._item_container.remove_item(clicked_item)
+		var add_index: int = 0
+		ItemStash._item_container.add_item(clicked_item, add_index)
 		
 		return
 
@@ -48,14 +49,15 @@ func item_was_clicked_in_tower_inventory(clicked_item: Item):
 func item_was_clicked_in_item_stash(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 
-	if shift_click:
-		if !HoradricCube.have_item_space():
+	if shift_click && !in_progress():
+		if !HoradricCube._item_container.have_item_space():
 			Messages.add_error("No space for item")
 
 			return
 			
-		ItemStash.remove_item(clicked_item)
-		HoradricCube.add_item(clicked_item)
+		ItemStash._item_container.remove_item(clicked_item)
+		var add_index: int = HoradricCube._item_container.get_item_count()
+		HoradricCube._item_container.add_item(clicked_item, add_index)
 
 		return
 
@@ -67,8 +69,9 @@ func item_was_clicked_in_horadric_cube(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 	
 	if shift_click:
-		HoradricCube.remove_item(clicked_item)
-		ItemStash.add_item(clicked_item)
+		HoradricCube._item_container.remove_item(clicked_item)
+		var add_index: int = 0
+		ItemStash._item_container.add_item(clicked_item, add_index)
 
 		return
 
@@ -116,7 +119,7 @@ func cancel():
 	if is_instance_valid(_source_container) && _source_container.have_item_space():
 		_source_container.add_item(_moved_item)
 	else:
-		ItemStash.add_item(_moved_item)
+		ItemStash._item_container.add_item(_moved_item)
 
 	_end_move_process()
 

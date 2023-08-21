@@ -25,30 +25,6 @@ func _ready():
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 
 
-func have_item_space() -> bool:
-	return _item_container.have_item_space()
-
-
-func add_item(item: Item, index: int = 0):
-	_item_container.add_item(item, index)
-
-
-func remove_item(item: Item):
-	_item_container.remove_item(item)
-
-
-func get_item_list() -> Array[Item]:
-	return _item_container.get_item_list()
-
-
-func get_item_count() -> int:
-	return _item_container.get_item_count()
-
-
-func get_item_index(item: Item) -> int:
-	return _item_container.get_item_index(item)
-
-
 func can_transmute() -> bool:
 	var current_recipe: Recipe = _get_current_recipe()
 	var recipe_is_valid: bool = current_recipe != Recipe.NONE
@@ -116,7 +92,7 @@ func transmute():
 	_remove_all_items()
 
 	var result_item: Item = Item.make(result_item_id)
-	add_item(result_item)
+	_item_container.add_item(result_item)
 
 
 func _get_result_item_for_recipe(recipe: Recipe) -> int:
