@@ -308,10 +308,8 @@ func pickup(tower: Tower) -> bool:
 	item_drop.remove_child(self)
 	item_drop.queue_free()
 
-	_add_to_tower(tower)
-
 	var slot_index: int = tower.get_item_count()
-	tower._add_item_internal(self, slot_index)
+	tower.add_item(self, slot_index)
 	
 	return true
 
@@ -323,11 +321,11 @@ func drop():
 	if _carrier == null:
 		return
 
+# 	NOTE: save drop_pos before removing because _carrier
+# 	will not be available after removal
 	var drop_pos: Vector2 = _carrier.get_visual_position()
 
-	var carrier: Tower = _carrier
-	_remove_from_tower()
-	carrier._remove_item_internal(self)
+	_carrier.remove_item(self)
 	Item._create_item_drop(self, drop_pos)
 
 

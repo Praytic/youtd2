@@ -275,20 +275,7 @@ func have_item_space() -> bool:
 # item must be unparented before this f-n is called.
 func add_item(item: Item, slot_index: int = 0):
 	item._add_to_tower(self)
-	_add_item_internal(item, slot_index)
-
-
-# Removes item from tower. Note that item will not be
-# dropped on the ground. It will be in a detached state
-# without a parent.
-func remove_item(item: Item):
-	item._remove_from_tower()
-	_remove_item_internal(item)
-
-
-# Add item to tower's item list, doesn't apply item effects.
-# Use Item.pickup() for that.
-func _add_item_internal(item: Item, slot_index: int = 0):
+	
 	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
 
 	if is_oil:
@@ -297,9 +284,13 @@ func _add_item_internal(item: Item, slot_index: int = 0):
 		_item_container.add_item(item, slot_index)
 
 
-# Remove item from tower's item list or oil list, doesn't
-# remove item effects. Use Item.drop() for that.
-func _remove_item_internal(item: Item):
+# Removes item from tower. Note that item will not be
+# dropped on the ground. It will be in a detached state
+# without a parent. Use Item.drop() to place the item on the
+# ground after removal.
+func remove_item(item: Item):
+	item._remove_from_tower()
+
 	var item_id: int = item.get_id()
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 
