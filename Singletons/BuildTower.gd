@@ -103,6 +103,9 @@ func _try_to_build():
 
 
 func _transform_tower(new_tower_id: int, prev_tower: Tower):
+	FoodManager.remove_tower(prev_tower.get_id())
+	FoodManager.add_tower(new_tower_id)
+
 	var new_tower: Tower = TowerManager.get_tower(new_tower_id)
 	new_tower.position = prev_tower.position
 	new_tower._temp_preceding_tower = prev_tower
