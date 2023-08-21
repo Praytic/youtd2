@@ -58,8 +58,7 @@ var _order_stop_requested: bool = false
 var _current_attack_cooldown: float = 0.0
 var _target_order_issued: bool = false
 var _target_order_target: Unit
-var _item_container: ItemContainer
-var _oil_container: ItemContainer
+var _item_container: TowerItemContainer
 var _specials_modifier: Modifier = Modifier.new()
 # NOTE: preceding tower reference is valid only during
 # creation. It is also always null for first tier towers.
@@ -109,10 +108,8 @@ func _ready():
 		return
 
 	var inventory_capacity: int = get_inventory_capacity()
-	_item_container = ItemContainer.new(inventory_capacity)
+	_item_container = TowerItemContainer.new(inventory_capacity, self)
 	_item_container.items_changed.connect(_on_item_container_items_changed)
-
-	_oil_container = ItemContainer.new(10000)
 
 	add_to_group("towers")
 
@@ -274,14 +271,7 @@ func have_item_space() -> bool:
 # Adds item to tower and applies item effects. Note that
 # item must be unparented before this f-n is called.
 func add_item(item: Item, slot_index: int = 0):
-	item._add_to_tower(self)
-	
-	var is_oil: bool = ItemProperties.get_is_oil(item.get_id())
-
-	if is_oil:
-		_oil_container.add_item(item)
-	else:
-		_item_container.add_item(item, slot_index)
+	_item_container.add_item(item, slot_index)
 
 
 # Removes item from tower. Note that item will not be
@@ -289,19 +279,11 @@ func add_item(item: Item, slot_index: int = 0):
 # without a parent. Use Item.drop() to place the item on the
 # ground after removal.
 func remove_item(item: Item):
-	item._remove_from_tower()
-
-	var item_id: int = item.get_id()
-	var is_oil: bool = ItemProperties.get_is_oil(item_id)
-
-	if is_oil:
-		_oil_container.remove_item(item)
-	else:
-		_item_container.remove_item(item)
+	_item_container.remove_item(item)
 
 
 func get_oils() -> Array[Item]:
-	return _oil_container.get_item_list()
+	return _item_container.get_oil_list()
 
 
 func get_items() -> Array[Item]:
