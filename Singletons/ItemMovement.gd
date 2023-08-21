@@ -64,6 +64,10 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 		var add_index: int = horadric_cube_container.get_item_count()
 		horadric_cube_container.add_item(clicked_item, add_index)
 
+#		NOTE: this is needed to prevent the click getting
+#		passed to SelectUnit which closes the tower menu
+		get_viewport().set_input_as_handled()
+
 		return
 
 	var container: ItemContainer = ItemStash.get_item_container()
