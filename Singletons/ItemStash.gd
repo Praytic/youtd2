@@ -23,5 +23,9 @@ func _ready():
 		_item_container.add_item(item)
 
 
+func get_item_container() -> ItemContainer:
+	return _item_container
+
+
 func _on_item_container_items_changed():
-	changed.emit()
+	items_changed.emit()

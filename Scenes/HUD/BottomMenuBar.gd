@@ -25,7 +25,7 @@ func _ready():
 	_research_button.mouse_exited.connect(_on_button_mouse_exited)
 	_research_button.pressed.connect(_on_button_pressed)
 	KnowledgeTomesManager.knowledge_tomes_change.connect(_on_knowledge_tomes_change)
-	ItemStash.changed.connect(_on_item_stash_changed)
+	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_on_item_stash_changed()
 	
 	set_element(Element.enm.ICE)
@@ -138,5 +138,6 @@ func _on_stash_margin_container_gui_input(event):
 
 
 func _on_item_stash_changed():
-	var item_button_count: int = ItemStash._item_container.get_item_count()
+	var item_stash_container: ItemContainer = ItemStash.get_item_container()
+	var item_button_count: int = item_stash_container.get_item_count()
 	_item_menu_button.text = str(item_button_count)

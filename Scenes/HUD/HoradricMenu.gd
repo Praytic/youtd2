@@ -24,7 +24,8 @@ func _on_items_changed():
 		old_button.queue_free()
 
 #	Create buttons for new list
-	var item_list: Array[Item] = HoradricCube._item_container.get_item_list()
+	var horadric_cube_container: ItemContainer = HoradricCube.get_item_container()
+	var item_list: Array[Item] = horadric_cube_container.get_item_list()
 	for item in item_list:
 		var item_button: ItemButton = ItemButton.make(item)
 		var button_container: UnitButtonContainer = UnitButtonContainer.make()

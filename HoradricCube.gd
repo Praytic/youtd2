@@ -25,6 +25,10 @@ func _ready():
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 
 
+func get_item_container() -> ItemContainer:
+	return _item_container
+
+
 func can_transmute() -> bool:
 	var current_recipe: Recipe = _get_current_recipe()
 	var recipe_is_valid: bool = current_recipe != Recipe.NONE

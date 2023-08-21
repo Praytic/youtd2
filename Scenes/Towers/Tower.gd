@@ -137,7 +137,7 @@ func _ready():
 		var preceding_oil_list: Array = _temp_preceding_tower.get_oils()
 
 		for oil_item in preceding_oil_list:
-			_temp_preceding_tower._item_container.remove_item(oil_item)
+			_temp_preceding_tower.get_item_container().remove_item(oil_item)
 			_item_container.add_item(oil_item)
 
 #		NOTE: for upgrade case, inventory will always be
@@ -145,7 +145,7 @@ func _ready():
 #		may be smaller. Handle transform case by returning
 #		any extra items to stash.
 		for item in preceding_item_list:
-			_temp_preceding_tower._item_container.remove_item(item)
+			_temp_preceding_tower.get_item_container().remove_item(item)
 
 			if have_item_space():
 				_item_container.add_item(item)
@@ -233,6 +233,10 @@ func _process(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+
+func get_item_container() -> ItemContainer:
+	return _item_container
 
 
 # Tower is attacking while it has valid targets in range.

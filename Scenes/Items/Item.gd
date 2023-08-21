@@ -308,8 +308,9 @@ func pickup(tower: Tower) -> bool:
 	item_drop.remove_child(self)
 	item_drop.queue_free()
 
-	var slot_index: int = tower._item_container.get_item_count()
-	tower._item_container.add_item(self, slot_index)
+	var tower_container: ItemContainer = tower.get_item_container()
+	var slot_index: int = tower_container.get_item_count()
+	tower_container.add_item(self, slot_index)
 	
 	return true
 
@@ -325,7 +326,8 @@ func drop():
 # 	will not be available after removal
 	var drop_pos: Vector2 = _carrier.get_visual_position()
 
-	_carrier._item_container.remove_item(self)
+	var carrier_container: ItemContainer = _carrier.get_item_container()
+	carrier_container.remove_item(self)
 	Item._create_item_drop(self, drop_pos)
 
 
@@ -401,5 +403,6 @@ func _remove_from_tower():
 func _on_flying_item_finished_flying():
 	var parent: Node = get_parent()
 	parent.remove_child(self)
-	ItemStash._item_container.add_item(self)
+	var item_stash_container: ItemContainer = ItemStash.get_item_container()
+	item_stash_container.add_item(self)
 	parent.queue_free()

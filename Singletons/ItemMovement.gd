@@ -36,13 +36,15 @@ func item_was_clicked_in_tower_inventory(clicked_item: Item):
 	var tower: Tower = clicked_item.get_carrier()
 	
 	if shift_click && !in_progress():
-		tower._item_container.remove_item(clicked_item)
+		var tower_container: ItemContainer = tower.get_item_container()
+		var item_stash_container: ItemContainer = ItemStash.get_item_container()
+		tower_container.remove_item(clicked_item)
 		var add_index: int = 0
-		ItemStash._item_container.add_item(clicked_item, add_index)
+		item_stash_container.add_item(clicked_item, add_index)
 		
 		return
 
-	var container: ItemContainer = tower._item_container
+	var container: ItemContainer = tower.get_item_container()
 	_item_was_clicked_in_item_container(container, clicked_item)
 
 
@@ -50,18 +52,21 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 
 	if shift_click && !in_progress():
-		if !HoradricCube._item_container.have_item_space():
+		var horadric_cube_container: ItemContainer = HoradricCube.get_item_container()
+		var item_stash_container: ItemContainer = ItemStash.get_item_container()
+		
+		if !horadric_cube_container.have_item_space():
 			Messages.add_error("No space for item")
 
 			return
 			
-		ItemStash._item_container.remove_item(clicked_item)
-		var add_index: int = HoradricCube._item_container.get_item_count()
-		HoradricCube._item_container.add_item(clicked_item, add_index)
+		item_stash_container.remove_item(clicked_item)
+		var add_index: int = horadric_cube_container.get_item_count()
+		horadric_cube_container.add_item(clicked_item, add_index)
 
 		return
 
-	var container: ItemContainer = ItemStash._item_container
+	var container: ItemContainer = ItemStash.get_item_container()
 	_item_was_clicked_in_item_container(container, clicked_item)
 
 
@@ -69,13 +74,16 @@ func item_was_clicked_in_horadric_cube(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 	
 	if shift_click:
-		HoradricCube._item_container.remove_item(clicked_item)
+		var horadric_cube_container: ItemContainer = HoradricCube.get_item_container()
+		var item_stash_container: ItemContainer = ItemStash.get_item_container()
+
+		horadric_cube_container.remove_item(clicked_item)
 		var add_index: int = 0
-		ItemStash._item_container.add_item(clicked_item, add_index)
+		item_stash_container.add_item(clicked_item, add_index)
 
 		return
 
-	var container: ItemContainer = HoradricCube._item_container
+	var container: ItemContainer = HoradricCube.get_item_container()
 	_item_was_clicked_in_item_container(container, clicked_item)
 
 
@@ -85,19 +93,19 @@ func item_was_clicked_in_horadric_cube(clicked_item: Item):
 # item stash. Default scroll position for item stash
 # displays the left side.
 func item_stash_was_clicked():
-	var container: ItemContainer = ItemStash._item_container
+	var container: ItemContainer = ItemStash.get_item_container()
 	var add_index: int = 0
 	_item_container_was_clicked(container, add_index)
 
 
 func horadric_menu_was_clicked():
-	var container: ItemContainer = HoradricCube._item_container
+	var container: ItemContainer = HoradricCube.get_item_container()
 	var add_index: int = container.get_item_count()
 	_item_container_was_clicked(container, add_index)
 
 
 func tower_was_clicked(tower: Tower):
-	var container: ItemContainer = tower._item_container
+	var container: ItemContainer = tower.get_item_container()
 	var add_index: int = container.get_item_count()
 	_item_container_was_clicked(container, add_index)
 
@@ -119,7 +127,8 @@ func cancel():
 	if is_instance_valid(_source_container) && _source_container.have_item_space():
 		_source_container.add_item(_moved_item)
 	else:
-		ItemStash._item_container.add_item(_moved_item)
+		var item_stash_container: ItemContainer = ItemStash.get_item_container()
+		item_stash_container.add_item(_moved_item)
 
 	_end_move_process()
 
