@@ -6,18 +6,6 @@ extends GridContainer
 # implemented by ItemStash class.
 
 
-func _add_item_button(item: Item):
-	var item_button: ItemButton = ItemButton.make(item)
-	item_button.hide_cooldown_indicator()
-
-	var button_container = UnitButtonContainer.make()
-	button_container.add_child(item_button)
-
-	add_child(button_container)
-
-	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
-
-
 func _ready():
 	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_on_item_stash_changed()
@@ -31,6 +19,18 @@ func _on_item_stash_changed():
 
 	for item in item_list:
 		_add_item_button(item)
+
+
+func _add_item_button(item: Item):
+	var item_button: ItemButton = ItemButton.make(item)
+	item_button.hide_cooldown_indicator()
+
+	var button_container = UnitButtonContainer.make()
+	button_container.add_child(item_button)
+
+	add_child(button_container)
+
+	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 
 
 func _on_item_button_pressed(item_button: ItemButton):

@@ -32,6 +32,31 @@ func can_transmute() -> bool:
 	return recipe_is_valid
 
 
+func transmute():
+	var current_recipe: Recipe = _get_current_recipe()
+	
+	if current_recipe == Recipe.NONE:
+		return
+
+	var failed_because_max_rarity: bool = _cant_increase_rarity_further(current_recipe)
+	if failed_because_max_rarity:
+		Messages.add_error("Can't transmute, ingredients are already at max rarity.")
+
+		return
+
+	var result_item_id: int = _get_result_item_for_recipe(current_recipe)
+
+	if result_item_id == 0:
+		push_error("Transmute failed to generate any items, this shouldn't happen.")
+
+		return
+
+	_remove_all_items()
+
+	var result_item: Item = Item.make(result_item_id)
+	_item_container.add_item(result_item)
+
+
 func _get_current_recipe() -> Recipe:
 	var item_type_map: Dictionary = {}
 	var rarity_map: Dictionary = {}
@@ -68,31 +93,6 @@ func _get_current_recipe() -> Recipe:
 			return Recipe.FIVE_ITEMS
 
 	return Recipe.NONE
-
-
-func transmute():
-	var current_recipe: Recipe = _get_current_recipe()
-	
-	if current_recipe == Recipe.NONE:
-		return
-
-	var failed_because_max_rarity: bool = _cant_increase_rarity_further(current_recipe)
-	if failed_because_max_rarity:
-		Messages.add_error("Can't transmute, ingredients are already at max rarity.")
-
-		return
-
-	var result_item_id: int = _get_result_item_for_recipe(current_recipe)
-
-	if result_item_id == 0:
-		push_error("Transmute failed to generate any items, this shouldn't happen.")
-
-		return
-
-	_remove_all_items()
-
-	var result_item: Item = Item.make(result_item_id)
-	_item_container.add_item(result_item)
 
 
 func _get_result_item_for_recipe(recipe: Recipe) -> int:
