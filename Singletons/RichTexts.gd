@@ -255,16 +255,29 @@ func add_color_to_numbers(text: String) -> String:
 	var tag_open: String = "[color=GOLD]"
 	var tag_close: String = "[/color]"
 	var tag_is_opened: bool = false
+	var inside_existing_tag: bool = false
 
 	while index < colored_text.length():
 		var c: String = colored_text[index]
+		var string_before_c: String = colored_text.substr(0, index)
+
+		if !inside_existing_tag && string_before_c.ends_with("[color="):
+			inside_existing_tag = true
+
 		var next: String
 		if index + 1 < colored_text.length():
 			next = colored_text[index + 1]
 		else:
 			next = ""
 
-		if tag_is_opened:
+		if inside_existing_tag:
+#			NOTE: color tags can contain numbers, for
+#			example: [color=1e90ffff]foo[/color]. In such
+#			cases, we do not color these numbers because
+#			that would break the existing color tag.
+			if string_before_c.ends_with("[/color]"):
+				inside_existing_tag = false
+		elif tag_is_opened:
 			var c_is_valid_part_of_number: bool = c.is_valid_int() || c == "%" || c == "s"
 
 			if c == ".":
