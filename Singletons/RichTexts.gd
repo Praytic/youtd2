@@ -51,8 +51,8 @@ func get_creep_info(creep: Creep) -> String:
 	var category_string: String = CreepCategory.convert_to_colored_string(category)
 	var armor_type: ArmorType.enm = creep.get_armor_type()
 	var armor_type_string: String = ArmorType.convert_to_colored_string(armor_type)
-	var armor: int = creep.get_base_armor()
-	var armor_bonus: int = creep.get_overall_armor_bonus()
+	var armor: float = creep.get_base_armor()
+	var armor_bonus: float = creep.get_overall_armor_bonus()
 	var armor_bonus_string: String = (str(armor_bonus) if armor_bonus < 0 else "+" + str(armor_bonus)) if armor_bonus != 0 else ""
 	var damage_reduction: float = creep.get_current_armor_damage_reduction()
 	var damage_reduction_string: String = Utils.format_percent(damage_reduction, 0)

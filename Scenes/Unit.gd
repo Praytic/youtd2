@@ -1197,14 +1197,14 @@ func purge_buff(friendly: bool) -> bool:
 func get_base_mana() -> float:
 	return 0.0
 
-func get_base_mana_bonus():
+func get_base_mana_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_MANA]
 
-func get_base_mana_bonus_percent():
+func get_base_mana_bonus_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_MANA_PERC])
 
 # NOTE: analog of GetUnitState(unit, UNIT_STATE_MAX_MANA) in JASS
-func get_overall_mana():
+func get_overall_mana() -> float:
 	return max(0, (get_base_mana() + get_base_mana_bonus()) * get_base_mana_bonus_percent())
 
 # Returns current percentage of mana
@@ -1219,29 +1219,29 @@ func get_mana_ratio() -> float:
 func get_base_mana_regen() -> float:
 	return 0.0
 
-func get_base_mana_regen_bonus():
+func get_base_mana_regen_bonus() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_MANA_REGEN])
 
-func get_base_mana_regen_bonus_percent():
+func get_base_mana_regen_bonus_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC])
 
-func get_overall_mana_regen():
+func get_overall_mana_regen() -> float:
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * get_base_mana_regen_bonus_percent()
 
 # NOTE: analog of GetUnitState(unit, UNIT_STATE_LIFE) in JASS
 func get_health() -> float:
 	return _health
 
-func get_base_health():
+func get_base_health() -> float:
 	return _base_health
 
 func set_base_health(value: float):
 	_base_health = value
 
-func get_base_health_bonus():
+func get_base_health_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_HP]
 
-func get_base_health_bonus_percent():
+func get_base_health_bonus_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_HP_PERC])
 
 # NOTE: do not allow max hp to go below 1 because that
@@ -1261,13 +1261,13 @@ func get_health_ratio() -> float:
 func get_base_health_regen():
 	return _base_health_regen
 
-func get_base_health_regen_bonus():
+func get_base_health_regen_bonus() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_HP_REGEN])
 
-func get_base_health_regen_bonus_percent():
+func get_base_health_regen_bonus_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC])
 
-func get_overall_health_regen():
+func get_overall_health_regen() -> float:
 	return (get_base_health_regen() + get_base_health_regen_bonus()) * get_base_health_regen_bonus_percent()
 
 func get_prop_move_speed() -> float:
@@ -1352,10 +1352,10 @@ func get_base_armor_bonus() -> float:
 func get_base_armor_bonus_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_ARMOR_PERC])
 
-func get_overall_armor():
+func get_overall_armor() -> float:
 	return (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent()
 
-func get_overall_armor_bonus():
+func get_overall_armor_bonus() -> float:
 	return (get_base_armor() + get_base_armor_bonus()) * get_base_armor_bonus_percent() - get_base_armor()
 
 func get_dps_bonus() -> float:
