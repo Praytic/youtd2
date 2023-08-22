@@ -55,19 +55,19 @@ func on_autocast(event: Event):
 		if tower == null:
 			break
 
-		var creep_mana_before: float = Unit.get_unit_state(creep, Unit.State.MANA)
+		var creep_mana_before: float = creep.get_mana()
 
 		if zap_count >= 3:
 			break
 
-		var tower_mana_before: float = Unit.get_unit_state(tower, Unit.State.MANA)
+		var tower_mana_before: float = tower.get_mana()
 		var stolen_mana: float = tower_mana_before * 0.3
 
 		var creep_mana_after: float = creep_mana_before + stolen_mana
-		Unit.set_unit_state(creep, Unit.State.MANA, creep_mana_after)
+		creep.set_mana(creep_mana_after)
 
 		var tower_mana_after: float = tower_mana_before - stolen_mana
-		Unit.set_unit_state(tower, Unit.State.MANA, tower_mana_after)
+		tower.set_mana(tower_mana_after)
 
 		cb_silence.apply_only_timed(creep, tower, 5.0) 
 

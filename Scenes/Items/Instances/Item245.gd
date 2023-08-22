@@ -18,16 +18,16 @@ func load_triggers(triggers: BuffType):
 
 func on_pickup():
 	var itm: Item = self
-	itm.user_real = Unit.get_unit_state(itm.get_carrier(), Unit.State.MANA)
+	itm.user_real = itm.get_carrier().get_mana()
 
 
 func periodic(event: Event):
 	var itm: Item = self
 	var u: Unit = itm.get_carrier()
-	var cur_mana: float = Unit.get_unit_state(u, Unit.State.MANA)
+	var cur_mana: float = u.get_mana()
 
 	if cur_mana < itm.user_real && u.calc_chance(0.25):
-		Unit.set_unit_state(u, Unit.State.MANA, itm.user_real)
+		u.set_mana(itm.user_real)
 		var effect: int = Effect.create_simple_at_unit("AImaTarget.mdl", u)
 		Effect.destroy_effect(effect)
 	else:

@@ -28,13 +28,6 @@ signal selected()
 signal unselected()
 
 
-enum State {
-	LIFE,
-	MAX_LIFE,
-	MANA,
-	MAX_MANA,
-}
-
 enum DamageSource {
 	Attack,
 	Spell
@@ -249,7 +242,7 @@ func add_mana_perc(ratio: float):
 # NOTE: unit.addMana() in JASS
 func add_mana(mana_added: float):
 	var new_mana: float = _mana + mana_added
-	_set_mana(new_mana)
+	set_mana(new_mana)
 
 
 func add_autocast(autocast: Autocast):
@@ -584,7 +577,7 @@ func set_stunned(value: bool):
 func subtract_mana(amount: float, show_text: bool) -> float:
 	var old_mana: float = _mana
 	var new_mana: float = clampf(_mana - amount, 0.0, _mana)
-	_set_mana(new_mana)
+	set_mana(new_mana)
 
 	var actual_subtracted: float = old_mana - new_mana
 
@@ -597,31 +590,9 @@ func subtract_mana(amount: float, show_text: bool) -> float:
 		else:
 			text = "-%s" % amount_string
 
-		get_player().display_floating_text_color(amount_string, self, Color.BLUE, 1.0)
+		get_player().display_floating_text_color(text, self, Color.BLUE, 1.0)
 
 	return actual_subtracted
-
-
-# NOTE: this f-n exists for compatiblity with original API
-# used in tower scripts
-# NOTE: GetUnitState() in JASS
-static func get_unit_state(unit: Unit, state: Unit.State) -> float:
-	match state:
-		Unit.State.LIFE: return unit._health
-		Unit.State.MAX_LIFE: return unit.get_overall_health()
-		Unit.State.MANA: return unit._mana
-		Unit.State.MAX_MANA: return unit.get_overall_mana()
-
-	return 0.0
-
-
-# NOTE: SetUnitState() in JASS
-static func set_unit_state(unit: Unit, state: Unit.State, value: float):
-	match state:
-		Unit.State.LIFE: unit._set_health(value)
-		Unit.State.MAX_LIFE: return
-		Unit.State.MANA: unit._set_mana(value)
-		Unit.State.MAX_MANA: return
 
 
 #########################
@@ -715,13 +686,15 @@ func load_triggers(_triggers_buff_type: BuffType):
 	pass
 
 
-func _set_mana(new_mana: float):
+# NOTE: analog of SetUnitState(unit, UNIT_STATE_MANA) in JASS
+func set_mana(new_mana: float):
 	var overall_mana: float = get_overall_mana()
 	_mana = clampf(new_mana, 0.0, overall_mana)
 	mana_changed.emit()
 
 
-func _set_health(new_health: float):
+# NOTE: analog of SetUnitState(unit, UNIT_STATE_LIFE) in JASS
+func set_health(new_health: float):
 	var overall_health: float = get_overall_health()
 	_health = clampf(new_health, 0.0, overall_health)
 	health_changed.emit()
@@ -739,10 +712,10 @@ func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: fl
 
 func _on_regen_timer_timeout():
 	var mana_regen: float = get_overall_mana_regen()
-	_set_mana(_mana + mana_regen)
+	set_mana(_mana + mana_regen)
 
 	var health_regen: float = get_overall_health_regen()
-	_set_health(_health + health_regen)
+	set_health(_health + health_regen)
 
 
 func _do_attack(attack_event: Event):
@@ -790,7 +763,7 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource):
 func receive_damage(damage: float) -> bool:
 	var health_before_damage: float = _health
 
-	_set_health(_health - damage)
+	set_health(_health - damage)
 
 	if Config.damage_numbers():
 		get_player().display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
@@ -1230,6 +1203,7 @@ func get_base_mana_bonus():
 func get_base_mana_bonus_percent():
 	return max(0, _mod_value_map[Modification.Type.MOD_MANA_PERC])
 
+# NOTE: analog of GetUnitState(unit, UNIT_STATE_MAX_MANA) in JASS
 func get_overall_mana():
 	return max(0, (get_base_mana() + get_base_mana_bonus()) * get_base_mana_bonus_percent())
 
@@ -1254,6 +1228,7 @@ func get_base_mana_regen_bonus_percent():
 func get_overall_mana_regen():
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * get_base_mana_regen_bonus_percent()
 
+# NOTE: analog of GetUnitState(unit, UNIT_STATE_LIFE) in JASS
 func get_health() -> float:
 	return _health
 
@@ -1272,7 +1247,8 @@ func get_base_health_bonus_percent():
 # NOTE: do not allow max hp to go below 1 because that
 # doesn't make sense and the combat system won't work
 # correctly if a unit has max hp of 0
-func get_overall_health():
+# NOTE: analog of GetUnitState(unit, UNIT_STATE_MAX_LIFE) in JASS
+func get_overall_health() -> float:
 	return max(1, (get_base_health() + get_base_health_bonus()) * get_base_health_bonus_percent())
 
 # Returns current percentage of health
@@ -1360,6 +1336,7 @@ func get_current_armor_damage_reduction() -> float:
 
 	return reduction
 
+# NOTE: analog of GetUnitState(unit, UNIT_STATE_MANA) in JASS
 func get_mana() -> float:
 	return _mana
 

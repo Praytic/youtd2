@@ -31,12 +31,9 @@ func load_specials(modifier: Modifier):
 func on_attack(_event: Event):
 	var tower: Tower = self
 
-	var tower_unit: Unit = tower as Unit
-	var mana: float = Unit.get_unit_state(tower_unit, Unit.State.MANA)
+	var mana: float = tower.get_mana()
 
 	if mana < 1:
 		tower.order_stop()
 	else:
-		Unit.set_unit_state(tower_unit, Unit.State.MANA, mana - 1)
-
-	tower_unit = null
+		tower.set_mana(mana - 1)

@@ -14,7 +14,7 @@ func on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 
-	var life: float = Unit.get_unit_state(creep, Unit.State.LIFE)
+	var life: float = creep.get_health()
 	var mana_ratio: float = creep.get_mana_ratio()
 	var damage_is_mortal: bool = (life - event.damage) <= 0
 	var chance_success: bool = creep.calc_chance(0.5)
@@ -22,4 +22,4 @@ func on_damaged(event: Event):
 
 	if damage_is_mortal && chance_success && enough_mana:
 		var life_after_heal: float = life + event.damage
-		Unit.set_unit_state(creep, Unit.State.LIFE, life_after_heal)
+		creep.set_health(life_after_heal)

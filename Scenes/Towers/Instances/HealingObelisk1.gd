@@ -50,7 +50,7 @@ func on_damage(event: Event):
 			await get_tree().create_timer(1.0).timeout
 
 			if Utils.unit_is_valid(tower) && Utils.unit_is_valid(target):
-				Unit.set_unit_state(target, Unit.State.LIFE, Unit.get_unit_state(target, Unit.State.LIFE) + healing)
+				target.set_health(target.get_health() + healing)
 				SFX.sfx_at_unit("HolyBoltSpecialArt.mdl", target)
 				tower.get_player().display_floating_text_x("+" + str(healing), target, 0, 255, 0, 255, 0.05, 0.0, 2.0)
 			else:

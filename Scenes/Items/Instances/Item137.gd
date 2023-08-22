@@ -23,5 +23,5 @@ func on_attack(event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 
-	if tower.subtract_mana(0.05 * Unit.get_unit_state(tower, Unit.State.MAX_MANA), false) == 0:
+	if tower.subtract_mana(0.05 * tower.get_overall_mana(), false) == 0:
 		tower.order_stop()

@@ -25,10 +25,10 @@ func on_damaged(event: Event):
 
 	event.damage *= damage_reduction
 
-	var mana_before: float = Unit.get_unit_state(creep, Unit.State.MANA)
+	var mana_before: float = creep.get_mana()
 	var mana_after: float = mana_before - 5
 
-	Unit.set_unit_state(creep, Unit.State.MANA, mana_after)
+	creep.set_mana(mana_after)
 
 	if mana_after <= 0:
 #		TODO: explode, leaving no corpse
