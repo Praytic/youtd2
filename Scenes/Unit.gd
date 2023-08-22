@@ -581,12 +581,23 @@ func set_stunned(value: bool):
 
 # Returns the amount of mana that was subtracted.
 # NOTE: unit.subtractMana() in JASS
-func subtract_mana(amount: float, _mystery_bool: bool) -> float:
+func subtract_mana(amount: float, show_text: bool) -> float:
 	var old_mana: float = _mana
 	var new_mana: float = clampf(_mana - amount, 0.0, _mana)
 	_set_mana(new_mana)
 
 	var actual_subtracted: float = old_mana - new_mana
+
+	if show_text:
+		var text: String
+		var amount_string: String = Utils.format_float(actual_subtracted, 1)
+
+		if actual_subtracted >= 0:
+			text = "+%s" % amount_string
+		else:
+			text = "-%s" % amount_string
+
+		get_player().display_floating_text_color(amount_string, self, Color.BLUE, 1.0)
 
 	return actual_subtracted
 
