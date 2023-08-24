@@ -34,6 +34,19 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 				CreepCategory.convert_to_string(wave.get_race()), \
 				ArmorType.convert_to_string(wave.get_armor_type())])
 		
+		var special_name_list: Array[String] = []
+		for special in wave.get_specials():
+			var special_name: String = WaveSpecial.get_special_name(special)
+			special_name_list.append(special_name)
+
+		var specials_string: String
+		if !special_name_list.is_empty():
+			specials_string = ",".join(special_name_list)
+		else:
+			specials_string = "none"
+
+		print_verbose("    Specials: %s" % specials_string)
+
 		wave.add_to_group("wave")
 
 		_wave_list.append(wave)
