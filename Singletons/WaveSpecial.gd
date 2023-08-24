@@ -14,6 +14,8 @@ enum CsvProperty {
 	HP_MODIFIER,
 	REQUIRED_WAVE_LEVEL,
 	FREQUENCY,
+	APPLICABLE_SIZES,
+	CHAMPION_OR_BOSS_WAVE_ONLY,
 	DESCRIPTION,
 	ENABLED,
 }
@@ -88,14 +90,14 @@ func _init():
 		buff.set_buff_tooltip(tooltip)
 
 
-func get_random(level: int, creep_size: CreepSize.enm) -> Array[int]:
+func get_random(level: int, creep_size: CreepSize.enm, wave_has_champions: bool) -> Array[int]:
 	var is_challenge: bool = CreepSize.is_challenge(creep_size)
 
 	if is_challenge:
 		return []
 
 	var random_special_list: Array[int] = []
-	var available_special_list: Array[int] = _get_available_specials(level)
+	var available_special_list: Array[int] = _get_available_specials(level, creep_size, wave_has_champions)
 
 	var special_count: int
 	if level <= Constants.MIN_WAVE_FOR_SPECIAL:
@@ -159,11 +161,22 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
 
 	for special in special_list:
+		var creep_size: CreepSize.enm = creep.get_size()
+		var special_only_for_champions_or_bosses: bool = _get_champion_or_boss_wave_only(special)
+		var size_ok: bool
+		if special_only_for_champions_or_bosses:
+			size_ok = creep_size == CreepSize.enm.BOSS || creep_size == CreepSize.enm.CHAMPION
+		else:
+			size_ok = true
+
+		if !size_ok:
+			continue
+
 		var buff: BuffType = _buff_map[special]
 		buff.apply_to_unit_permanent(creep, creep, 0)
 
 
-func _get_available_specials(level: int) -> Array[int]:
+func _get_available_specials(level: int, creep_size: CreepSize.enm, wave_has_champions: bool) -> Array[int]:
 	var all_special_list: Array = _properties.keys()
 	var available_special_list: Array[int] = []
 
@@ -174,9 +187,22 @@ func _get_available_specials(level: int) -> Array[int]:
 
 		if !is_enabled:
 			continue
-		
+
 		var required_level: int = _get_required_wave_level(special)
-		var is_available: bool = wave_level >= required_level
+		var level_ok: bool = wave_level >= required_level
+
+		var applicable_sizes: Array[CreepSize.enm] = _get_applicable_sizes(special)
+		var size_ok: bool = applicable_sizes.has(creep_size)
+
+		var champion_or_boss_wave_only: bool = _get_champion_or_boss_wave_only(special)
+		var wave_is_champion_or_boss: bool = wave_has_champions || creep_size == CreepSize.enm.BOSS
+		var wave_power_ok: bool
+		if champion_or_boss_wave_only:
+			wave_power_ok = wave_is_champion_or_boss
+		else:
+			wave_power_ok = true
+
+		var is_available: bool = level_ok && size_ok && wave_power_ok
 
 		if is_available:
 			available_special_list.append(special)
@@ -194,6 +220,38 @@ func _get_frequency(special: int) -> int:
 	var frequency: int = _get_property(special, WaveSpecial.CsvProperty.FREQUENCY).to_int()
 
 	return frequency
+
+
+func _get_applicable_sizes(special: int) -> Array[CreepSize.enm]:
+	var size_list_string: String = _get_property(special, WaveSpecial.CsvProperty.APPLICABLE_SIZES)
+
+	if size_list_string == "all":
+		return [CreepSize.enm.MASS, CreepSize.enm.NORMAL, CreepSize.enm.AIR, CreepSize.enm.BOSS]
+
+	var size_list: Array[CreepSize.enm] = []
+
+	var size_string_list: Array = size_list_string.split(",")
+
+	for size_string in size_string_list:
+		var creep_size: CreepSize.enm = CreepSize.from_string(size_string)
+		size_list.append(creep_size)
+
+	return size_list
+
+
+# NOTE: this is separate from "applicable sizes" because
+# this defines if wave buff can apply to specific creep, not
+# the whole wave. For example if the wave is 10 normal + 1
+# champion, then special can apply to whole wave but the
+# buff portion will apply only to the champion. Note that
+# health modifiers still apply to whole wave.
+#
+# TODO: double check if health modifiers apply to whole wave
+# if special is only for champions.
+func _get_champion_or_boss_wave_only(special: int) -> bool:
+	var champion_or_boss_wave_only: bool = _get_property(special, WaveSpecial.CsvProperty.CHAMPION_OR_BOSS_WAVE_ONLY) == "TRUE"
+
+	return champion_or_boss_wave_only
 
 
 func get_description(special: int) -> String:

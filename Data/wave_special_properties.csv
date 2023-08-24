@@ -1,42 +1,42 @@
-id,name,short name,hp modifier,required wave level,frequency,description,enabled
-0,Speed,Speed,-0.2,0,100,These creeps have 25% increased movement speed,1
-1,Greater Speed,Speed+,-0.33,16,80,These creeps have 60% increased movement speed,1
-2,Xtreme Speed,Speed++,-0.3,24,60,These creeps always move at maximum speed,1
-3,Slow,Slow,0.35,32,80,These creeps have only 66% of their normal movespeed,1
-4,Invisible,Invisible,-0.075,0,130,Your builder and some towers are able to see invisible units,0
-5,Strong,Strong,0.2,16,100,"These creeps have 20% more HP, but grant 50% more exp and 25% more bounty",1
-6,Rich,Rich,0,0,100,These creeps grant 60% more bounty but no experience,1
-7,Relic Raider,Raider,0,0,100,These creeps grant only 50% bounty but have an 80% increased item drop chance and +30% item quality,1
-8,Ultra Wisdom,Wisdom,0,0,100,These creeps give no bounty and do not drop items but grant 300% experience,1
-9,Armored,Armor,-0.25,0,100,These creeps have increased armor,1
-10,Heavy Armored,Armor+,-0.35,16,100,These creeps have greatly increased armor,1
-11,Xtreme Armor,Armor++,-0.67,32,80,These creeps have extremely high armor but 25% decreased movement speed,1
-12,Evasion,Evade,-0.2,16,140,These creeps evade 25% of all attacks,1
-13,Xtreme Evasion,Evade+,-0.65,40,110,These creeps evade 66% of all attack,1
-14,Ghost,Ghost,-0.77,64,140,These creeps have a 90% chance to ignore the damage of a non-spell non-magic attack,1
-15,Spell Resistance,Resist,-0.12,8,130,These creeps receive -50% damage from spells,1
-16,Greater Spell Resistance,Resist+,-0.36,24,130,These creeps receive -80% damage from spells,1
-17,Magic Immunity,Immune,-0.36,24,180,"As long as these creeps have at least 10 mana, they are immune to all spell damage, magic attacks and targetable active abilities",1
-18,Ethereal,Ether,-0.52,24,200,"These creeps periodically become ethereal, gaining immunity against physical attacks, but taking 40% more damage from magic attacks and spells",1
-19,Slow Aura,Slow,-0.4,24,150,These creeps slow the attackspeed of towers in 800 range by 50%,1
-20,Mana Drain Aura,Drain,-0.2,32,150,These creeps decrease the mana regeneration of towers in 1200 range by 200%,1
-21,Spellbinder,Binder,-0.2,48,120,"These creeps zap up to 3 mana-using towers in 1100 range every 5 seconds, stealing up to 30% of each tower's mana and silencing it for 5 seconds. Costs the creep 50 mana per zap.",1
-22,Stun Revenge,Stun,-0.57,32,100,"Whenever attacked, these creeps have a 30% chance to stun the attacker for 3 seconds",1
-23,Regeneration,Regen,-0.17,16,140,These creeps regenerate hitpoints over time,1
-24,Xtreme Regeneration,Regen+,-0.48,32,110,These creeps regenerate a large amount of hitpoints over time,1
-25,Second Chance,Chance,-0.47,32,160,"Whenever these creeps receive mortal damage, they have a 50% chance to heal themselves if they have 1/3 of their mana left",1
-26,Semi-Mechanical,Mech,-0.28,40,150,These creeps have -50% debuff duration,1
-27,Mechanical,Mech+,-0.62,56,150,These creeps have -90% debuff duration,1
-28,Meaty,Meaty,0.15,80,100,Champions and bosses with this ability drop additional food upon death.,0
-29,Evolving,Evolving,-0.3,56,150,"Any instance of damage above 5% of the creep's max hp will grant it 40% resistance against the attacking element, with halved effect on successive procs.",1
-30,Unlucky,Unlucky,-0.15,56,150,"When attacked, these creeps have a 30% chance to reduce their attacker's triggerchances by 10% for 8 seconds. Stacks.",1
-31,Flock,Flock,-0.5,40,250,Birds are migrating from the winter countries! Double the usual amount will spawn.,0
-32,Gravid,Gravid,-0.53,40,200,The children of these creeps jump out when their parents die. They mature quickly...,0
-33,Protector,Protect,-0.2,64,240,"When a nearby creep dies, champions will channel a curse on the killing tower, reducing its attack and spell damage by 130% and its multicrit count by 2.",1
-34,Manashield,Shield,-0.55,28,150,"These creeps reduce damage they take by up to 80% by using mana. Less mana, less damage reduction. These creeps will explode when out of mana, leaving no corpse.",1
-35,Manashield+,Shield+,-0.75,80,150,"These creeps reduce damage they take by up to 80% based on how much mana they have left. These creeps will explode when out of mana, leaving no corpse.",1
-36,Necromancer,Necro,-0.25,50,150,"When a lesser creep dies, a nearby champion with this ability will use mana to raise the dead lesser creep as a skeleton after a delay of 3 seconds.",0
-37,Purge Revenge,Purge,-0.5,32,100,These creeps have a 15% chance to purge their attacker of 2 purgeable buffs and slow its attack speed by 150% for 4 seconds.,1
-38,Fireball,Fireball,-0.03,240,0,These creeps have a 5% chance to destroy the attacking tower if it is below level 15.,1
-39,Dart,Dart,0.2,240,170,"These creeps have only 40% of their normal movespeed, but have a 5% chance to dart forward when damaged. 6 second cooldown.",1
-40,Broody,Brood,-0.3,240,40,These creeps lay an egg every 6 seconds at the cost of 30 mana.,0
+id,name,short name,hp modifier,required wave level,frequency,creep sizes,applies only to champions or bosses,description,enabled
+0,Speed,Speed,-0.2,0,100,all,FALSE,These creeps have 25% increased movement speed,1
+1,Greater Speed,Speed+,-0.33,16,80,all,FALSE,These creeps have 60% increased movement speed,1
+2,Xtreme Speed,Speed++,-0.3,24,60,all,FALSE,These creeps always move at maximum speed,1
+3,Slow,Slow,0.35,32,80,all,FALSE,These creeps have only 66% of their normal movespeed,1
+4,Invisible,Invisible,-0.075,0,130,"normal,mass,air",FALSE,Your builder and some towers are able to see invisible units,0
+5,Strong,Strong,0.2,16,100,"normal,mass,air",FALSE,"These creeps have 20% more HP, but grant 50% more exp and 25% more bounty",1
+6,Rich,Rich,0,0,100,all,FALSE,These creeps grant 60% more bounty but no experience,1
+7,Relic Raider,Raider,0,0,100,all,FALSE,These creeps grant only 50% bounty but have an 80% increased item drop chance and +30% item quality,1
+8,Ultra Wisdom,Wisdom,0,0,100,all,FALSE,These creeps give no bounty and do not drop items but grant 300% experience,1
+9,Armored,Armor,-0.25,0,100,all,FALSE,These creeps have increased armor,1
+10,Heavy Armored,Armor+,-0.35,16,100,all,FALSE,These creeps have greatly increased armor,1
+11,Xtreme Armor,Armor++,-0.67,32,80,all,FALSE,These creeps have extremely high armor but 25% decreased movement speed,1
+12,Evasion,Evade,-0.2,16,140,all,FALSE,These creeps evade 25% of all attacks,1
+13,Xtreme Evasion,Evade+,-0.65,40,110,all,FALSE,These creeps evade 66% of all attack,1
+14,Ghost,Ghost,-0.77,64,140,all,FALSE,These creeps have a 90% chance to ignore the damage of a non-spell non-magic attack,1
+15,Spell Resistance,Resist,-0.12,8,130,all,FALSE,These creeps receive -50% damage from spells,1
+16,Greater Spell Resistance,Resist+,-0.36,24,130,all,FALSE,These creeps receive -80% damage from spells,1
+17,Magic Immunity,Immune,-0.36,24,180,all,FALSE,"As long as these creeps have at least 10 mana, they are immune to all spell damage, magic attacks and targetable active abilities",1
+18,Ethereal,Ether,-0.52,24,200,all,FALSE,"These creeps periodically become ethereal, gaining immunity against physical attacks, but taking 40% more damage from magic attacks and spells",1
+19,Slow Aura,Slow,-0.4,24,150,"normal,mass,boss",TRUE,These creeps slow the attackspeed of towers in 800 range by 50%,1
+20,Mana Drain Aura,Drain,-0.2,32,150,"normal,mass,boss",TRUE,These creeps decrease the mana regeneration of towers in 1200 range by 200%,1
+21,Spellbinder,Binder,-0.2,48,120,"normal,mass,boss",TRUE,"These creeps zap up to 3 mana-using towers in 1100 range every 5 seconds, stealing up to 30% of each tower's mana and silencing it for 5 seconds. Costs the creep 50 mana per zap.",1
+22,Stun Revenge,Stun,-0.57,32,100,all,FALSE,"Whenever attacked, these creeps have a 30% chance to stun the attacker for 3 seconds",1
+23,Regeneration,Regen,-0.17,16,140,all,FALSE,These creeps regenerate hitpoints over time,1
+24,Xtreme Regeneration,Regen+,-0.48,32,110,all,FALSE,These creeps regenerate a large amount of hitpoints over time,1
+25,Second Chance,Chance,-0.47,32,160,all,FALSE,"Whenever these creeps receive mortal damage, they have a 50% chance to heal themselves if they have 1/3 of their mana left",1
+26,Semi-Mechanical,Mech,-0.28,40,150,all,FALSE,These creeps have -50% debuff duration,1
+27,Mechanical,Mech+,-0.62,56,150,all,FALSE,These creeps have -90% debuff duration,1
+28,Meaty,Meaty,0.15,80,100,"normal,mass,boss",TRUE,Champions and bosses with this ability drop additional food upon death.,0
+29,Evolving,Evolving,-0.3,56,150,"mass,normal",FALSE,"Any instance of damage above 5% of the creep's max hp will grant it 40% resistance against the attacking element, with halved effect on successive procs.",1
+30,Unlucky,Unlucky,-0.15,56,150,all,FALSE,"When attacked, these creeps have a 30% chance to reduce their attacker's triggerchances by 10% for 8 seconds. Stacks.",1
+31,Flock,Flock,-0.5,40,250,air,FALSE,Birds are migrating from the winter countries! Double the usual amount will spawn.,0
+32,Gravid,Gravid,-0.53,40,200,"normal,mass,boss",TRUE,The children of these creeps jump out when their parents die. They mature quickly...,0
+33,Protector,Protect,-0.2,64,240,"mass,normal",TRUE,"When a nearby creep dies, champions will channel a curse on the killing tower, reducing its attack and spell damage by 130% and its multicrit count by 2.",1
+34,Manashield,Shield,-0.55,28,150,"mass,normal",FALSE,"These creeps reduce damage they take by up to 80% by using mana. Less mana, less damage reduction. These creeps will explode when out of mana, leaving no corpse.",1
+35,Manashield+,Shield+,-0.75,80,150,"mass,normal",FALSE,"These creeps reduce damage they take by up to 80% based on how much mana they have left. These creeps will explode when out of mana, leaving no corpse.",1
+36,Necromancer,Necro,-0.25,50,150,"mass,normal",TRUE,"When a lesser creep dies, a nearby champion with this ability will use mana to raise the dead lesser creep as a skeleton after a delay of 3 seconds.",0
+37,Purge Revenge,Purge,-0.5,32,100,all,FALSE,These creeps have a 15% chance to purge their attacker of 2 purgeable buffs and slow its attack speed by 150% for 4 seconds.,1
+38,Fireball,Fireball,-0.03,240,0,boss,TRUE,These creeps have a 5% chance to destroy the attacking tower if it is below level 15.,1
+39,Dart,Dart,0.2,240,170,boss,TRUE,"These creeps have only 40% of their normal movespeed, but have a 5% chance to dart forward when damaged. 6 second cooldown.",1
+40,Broody,Brood,-0.3,240,40,boss,TRUE,These creeps lay an egg every 6 seconds at the cost of 30 mana.,0

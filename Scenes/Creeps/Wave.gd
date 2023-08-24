@@ -68,7 +68,11 @@ func _init(level: int, difficulty: int):
 	_creep_size = Wave._generate_creep_size(_level)
 	_armor_type = Wave._get_random_armor_type(_level, _creep_size)
 	_creep_combination = Wave._generate_creep_combination(_level, _creep_size)
-	_specials = WaveSpecial.get_random(_level, _creep_size) if Config.hard_all_wave_special().is_empty() else Config.hard_all_wave_special()
+	var wave_has_champions: bool = _creep_combination.has(CreepSize.enm.CHAMPION)
+	if !Config.hard_all_wave_special().is_empty():
+		_specials = Config.hard_all_wave_special()
+	else:
+		_specials = WaveSpecial.get_random(_level, _creep_size, wave_has_champions)
 	_base_hp = Wave._calculate_base_hp(_level, difficulty)
 	_base_armor = Wave._calculate_base_armor(_level, difficulty)
 
