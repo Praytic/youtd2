@@ -12,9 +12,27 @@ enum Recipe {
 	NONE,
 }
 
+var _level_bonus_map: Dictionary = {
+	Recipe.TWO_OILS: [],
+	Recipe.FOUR_OILS: [],
+	Recipe.THREE_ITEMS: [5, 25],
+	Recipe.FIVE_ITEMS: [0, 20],
+	Recipe.NONE: [],
+}
+
 
 const CAPACITY: int = 5
+const LEVEL_MOD_UNLUCKY: int = -9
+const LEVEL_MOD_NORMAL: int = 0
+const LEVEL_MOD_LUCKY: int = 7
+const LEVEL_MOD_SUPER_LUCKY: int = 18
 
+const _bonus_mod_chance_map: Dictionary = {
+	LEVEL_MOD_UNLUCKY: 20,
+	LEVEL_MOD_NORMAL: 50,
+	LEVEL_MOD_LUCKY: 20,
+	LEVEL_MOD_SUPER_LUCKY: 10
+}
 
 var _item_container: ItemContainer
 
@@ -102,15 +120,28 @@ func _get_current_recipe() -> Recipe:
 func _get_result_item_for_recipe(recipe: Recipe) -> int:
 	var result_rarity: Rarity.enm = _get_result_rarity(recipe)
 	var result_item_type: ItemType.enm = _get_result_item_type(recipe)
-	var rarity_string: String = Rarity.convert_to_string(result_rarity)
-	var item_type_string: String = ItemType.convert_to_string(result_item_type)
-	var possible_results: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, item_type_string)
-	possible_results = Properties.filter_item_id_list(possible_results, Item.CsvProperty.RARITY, rarity_string)
+	var avg_ingredient_level: int = _get_average_ingredient_level()
+	var random_bonus_mod: int = _get_random_bonus_mod()
+	var lvl_min: int = avg_ingredient_level + _level_bonus_map[recipe][0] + random_bonus_mod	
+	var lvl_max: int = avg_ingredient_level + _level_bonus_map[recipe][1] + random_bonus_mod	
+	var result_item: int
 
-	if possible_results.is_empty():
-		return 0
+	match result_item_type:
+		ItemType.enm.OIL: result_item = ItemDropCalc.get_random_oil_item(result_rarity)
+		ItemType.enm.REGULAR: result_item = ItemDropCalc.get_random_item_at_or_below_rarity_bounded(result_rarity, lvl_min, lvl_max)
+		_:
+			push_error("Invalid recipe")
+			result_item = 0
 
-	var result_item: int = possible_results.pick_random()
+	var luck_message: String
+	match random_bonus_mod:
+		LEVEL_MOD_UNLUCKY: luck_message = "Transmute was [color=RED]unlucky[/color]: [color=GOLD]%d[/color] levels!" % random_bonus_mod
+		LEVEL_MOD_NORMAL: luck_message = ""
+		LEVEL_MOD_LUCKY: luck_message =  "Transmute was [color=GREEN]lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
+		LEVEL_MOD_SUPER_LUCKY: luck_message =  "Transmute was [color=GOLD]super lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
+
+	if !luck_message.is_empty():
+		Messages.add_normal(luck_message)
 
 	return result_item
 
@@ -176,3 +207,28 @@ func _remove_all_items():
 
 func _on_item_container_items_changed():
 	items_changed.emit()
+
+
+func _get_average_ingredient_level() -> int:
+	var item_list: Array[Item] = _item_container.get_item_list()
+
+	if item_list.is_empty():
+		return 0
+
+	var sum: float = 0.0
+
+	for item in item_list:
+		var item_id: int = item.get_id()
+		var level: int = ItemProperties.get_required_wave_level(item_id)
+		sum += level
+
+	var item_count: int = item_list.size()
+	var average_level: int = floori(sum / item_count)
+
+	return average_level
+
+
+func _get_random_bonus_mod() -> int:
+	var bonus_mod: int = Utils.random_weighted_pick(_bonus_mod_chance_map)
+
+	return bonus_mod
