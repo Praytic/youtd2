@@ -147,3 +147,6 @@ func smart_targeting() -> bool:
 # Leave at 0 to use normal health values.
 func override_creep_health() -> float:
 	return ProjectSettings.get_setting("application/config/override_creep_health") as float
+
+func print_sfx_errors() -> bool:
+	return ProjectSettings.get_setting("application/config/print_sfx_errors") as bool
