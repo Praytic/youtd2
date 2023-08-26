@@ -363,12 +363,16 @@ func format_float(x: float, digits: int) -> String:
 # formatPercent() in JASS
 func format_percent(x: float, digits: int) -> String:
 	var x_percent: float = x * 100
-	var sign_string: String
-	if x >= 0:
-		sign_string = ""
-	else:
-		sign_string = "-"
-	var out: String = "%s%s%%" % [sign_string, String.num(x_percent, digits)]
+	var out: String = "%s%%" % String.num(x_percent, digits)
+
+	return out
+
+
+func format_percent_no_sign(x: float, digits: int) -> String:
+	var out: String = format_percent(x, digits)
+	print("before=", out)
+	out = out.trim_prefix("-")
+	print("after=", out)
 
 	return out
 
