@@ -296,7 +296,7 @@ func _get_target_for_buff_autocast() -> Unit:
 
 # NOTE: target arg may be null if autocast is immediate
 func _do_cast(target: Unit):
-	_caster.subtract_mana(mana_cost, true)
+	_caster.subtract_mana(mana_cost, false)
 	_cooldown_timer.start()
 	
 	if !handler.is_null():
