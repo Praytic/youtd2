@@ -16,7 +16,7 @@ func _init(type: String, radius: float, parent: Node):
 	
 	magical_sight_debuff = BuffType.create_aura_effect_type("magical_sight_debuff", false, self)
 	magical_sight_debuff.add_event_on_create(on_effect_create)
-	magical_sight_debuff.set_event_on_cleanup(on_effect_cleanup)
+	magical_sight_debuff.add_event_on_cleanup(on_effect_cleanup)
 	
 	magical_sight_debuff.set_buff_tooltip("Seen\nThis unit has been seen by Magical Sight; it is visible to other units.")
 

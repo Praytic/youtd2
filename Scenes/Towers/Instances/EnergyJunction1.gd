@@ -86,7 +86,7 @@ func tower_init():
 	sir_junction_buff.set_buff_icon("@@0@@")
 	sir_junction_buff.add_event_on_create(junction_on_create)
 	sir_junction_buff.add_event_on_attack(junction_on_damage)
-	sir_junction_buff.set_event_on_cleanup(junction_on_cleanup)
+	sir_junction_buff.add_event_on_cleanup(junction_on_cleanup)
 	sir_junction_buff.set_buff_tooltip("Jolt\nThis tower has been jolted; it has increased attackspeed and will deal extra damage when attacking.")
 
 	var autocast: Autocast = Autocast.make()

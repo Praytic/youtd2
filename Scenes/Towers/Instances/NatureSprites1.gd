@@ -169,7 +169,7 @@ func tower_init():
 	dave_gift = BuffType.new("dave_gift", 5, 0, true, self)
 	dave_gift.set_buff_icon("@@0@@")
 	dave_gift.add_event_on_create(gift_create)
-	dave_gift.set_event_on_cleanup(effect_clean)
+	dave_gift.add_event_on_cleanup(effect_clean)
 #	TODO:
 	dave_gift.set_buff_tooltip("Nature's Gift\nThis tower is affected by Nature's Gift; it has increased random stat.")
 

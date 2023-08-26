@@ -239,8 +239,8 @@ func add_event_on_unit_comes_in_range(handler: Callable, radius: float, target_t
 	_range_handler_list.append(data)
 
 
-# NOTE: buffType.setEventOnCleanup() in JASS
-func set_event_on_cleanup(handler: Callable):
+# NOTE: buffType.addEventOnCleanup() in JASS
+func add_event_on_cleanup(handler: Callable):
 	add_event_handler(Event.Type.CLEANUP, handler)
 
 
@@ -294,7 +294,7 @@ func add_event_on_damaged(handler: Callable):
 	add_event_handler(Event.Type.DAMAGED, handler)
 
 
-# NOTE: buffType.addEventOnExpire() in JASS
+# NOTE: buffType.setEventOnExpire() in JASS
 func set_event_on_expire(handler: Callable):
 	add_event_handler(Event.Type.EXPIRE, handler)
 

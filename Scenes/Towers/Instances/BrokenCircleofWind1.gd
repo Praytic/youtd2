@@ -44,7 +44,7 @@ func tower_init():
 	sternbogen_broken_wind.set_buff_icon("@@0@@")
 	sternbogen_broken_wind.add_event_on_create(cyclone_creep_up)
 	sternbogen_broken_wind.add_periodic_event(cyclone_creep_turn, 0.1)
-	sternbogen_broken_wind.set_event_on_cleanup(cyclone_creep_down)
+	sternbogen_broken_wind.add_event_on_cleanup(cyclone_creep_down)
 
 
 func on_attack(event: Event):

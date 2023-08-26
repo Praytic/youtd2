@@ -52,7 +52,7 @@ func tower_init():
 	drol_liftBuff = CbStun.new("drol_liftBuff", 2.0, 0, false, self)
 	drol_liftBuff.add_event_on_create(drol_lift_up)
 	drol_liftBuff.add_periodic_event(drol_lift_period, 0.1)
-	drol_liftBuff.set_event_on_cleanup(drol_lift_down)
+	drol_liftBuff.add_event_on_cleanup(drol_lift_down)
 	drol_liftBuff.set_buff_modifier(m)
 	drol_liftBuff.set_buff_icon("@@0@@")
 	drol_liftBuff.set_buff_tooltip("Ascended\nThis unit has been Ascended; it can't move and will grant extra experience if killed while in the air.")
