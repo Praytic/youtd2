@@ -240,6 +240,10 @@ func _on_upgrade_button_pressed():
 
 	_update_upgrade_button(tower)
 
+# 	NOTE: call this to force an update of tooltip so it
+# 	switches to next tier
+	_on_tower_upgrade_button_mouse_entered()
+
 
 func _get_upgrade_id_for_tower(tower: Tower) -> int:
 	var family_id: int = tower.get_family()
