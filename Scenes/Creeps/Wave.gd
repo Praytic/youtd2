@@ -217,6 +217,11 @@ func get_creep_sizes() -> Array:
 
 
 func get_base_hp() -> float:
+	if Config.override_creep_health() != 0:
+		var override_creep_health: float = Config.override_creep_health()
+
+		return override_creep_health
+
 	return _base_hp
 
 

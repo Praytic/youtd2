@@ -142,3 +142,8 @@ func hard_all_wave_special() -> Array[int]:
 
 func smart_targeting() -> bool:
 	return ProjectSettings.get_setting("application/config/smart_targeting") as bool
+
+# Override health values for all creeps to a some value.
+# Leave at 0 to use normal health values.
+func override_creep_health() -> float:
+	return ProjectSettings.get_setting("application/config/override_creep_health") as float
