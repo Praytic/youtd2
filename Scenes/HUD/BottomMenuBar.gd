@@ -65,8 +65,6 @@ func _on_knowledge_tomes_change():
 	var current_element: Element.enm = _build_bar.get_element()
 	var can_afford: bool = ElementLevel.can_afford_research(current_element)
 	_research_button.set_disabled(!can_afford)
-	
-	_on_button_mouse_entered()
 
 
 # NOTE: below are getters for elements inside bottom menu
