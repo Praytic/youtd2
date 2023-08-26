@@ -24,8 +24,8 @@ extends Tower
 
 
 # func get_autocast_description() -> String:
-# 	var foo: String = String.num(_stats.foo, 2)
-# 	var bar: String = String.num(_stats.bar, 2)
+# 	var foo: String = Utils.format_float(_stats.foo, 2)
+# 	var bar: String = Utils.format_float(_stats.bar, 2)
 
 # 	var text: String = ""
 
