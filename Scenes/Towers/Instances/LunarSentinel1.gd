@@ -30,7 +30,7 @@ func get_lunar_grace_description() -> String:
 	text += "Smites a target creep dealing %s spelldamage to it. There is a 12.5%% chance to empower the smite with lunar energy dealing %s additional spell damage, stunning the target for 0.3 seconds and making it receive %s%% more damage from spells for 2.5 seconds.\n" % [spell_damage, spell_damage, damage_from_spells]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s inital and chanced spell damage\n" % spell_damage_add
-	text += "+0.5%% chance\n"
+	text += "+0.5% chance\n"
 	text += "+%s initial damage at level 15\n" % damage_at_15
 	text += "+%s%% spell damage received at level 15\n" % damage_from_spells_at_15
 	text += "+0.1 seconds stun at level 25"
