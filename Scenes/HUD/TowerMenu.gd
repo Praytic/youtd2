@@ -63,6 +63,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	if prev_unit != null and prev_unit is Tower:
 		prev_unit.items_changed.disconnect(on_tower_items_changed)
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
+		prev_unit.level_changed.disconnect(_update_unit_level_label)
 
 	if prev_unit != null and prev_unit is Creep:
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
@@ -70,6 +71,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	if tower != null:
 		tower.items_changed.connect(on_tower_items_changed.bind(tower))
 		tower.buff_list_changed.connect(_on_unit_buff_list_changed.bind(tower))
+		tower.level_changed.connect(_update_unit_level_label.bind(tower))
 		on_tower_items_changed(tower)
 		_update_upgrade_button(tower)
 		_update_unit_name_label(tower)

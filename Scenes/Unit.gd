@@ -7,6 +7,9 @@ extends Node2D
 # NOTE: can't use static typing for Buff because of cyclic
 # dependency
 
+# NOTE: level_changed() always gets emitted, while
+# level_up() gets emitted only when level increases.
+signal level_changed
 signal level_up
 signal attack(event)
 signal attacked(event)
@@ -1427,10 +1430,11 @@ func _change_experience(amount: float) -> float:
 
 	_experience = new_exp
 
-	var level_changed: bool = new_level != old_level
+	var level_has_changed: bool = new_level != old_level
 	
-	if level_changed:
+	if level_has_changed:
 		set_level(new_level)
+		level_changed.emit()
 
 	var leveled_up: bool = new_level > old_level
 
