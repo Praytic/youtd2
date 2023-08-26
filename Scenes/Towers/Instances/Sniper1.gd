@@ -55,7 +55,7 @@ func load_specials(modifier: Modifier):
 func rocket_hit(p: Projectile, _t: Unit):
 	p.do_spell_damage_pb_aoe(p.user_real, 100, 0)
 	var effect: int = Effect.add_special_effect("NeutralBuildingExplosion.mdl", p.x, p.y)
-	Effect.destroy_effect(effect)
+	Effect.destroy_effect_after_its_over(effect)
 
 
 func tower_init():

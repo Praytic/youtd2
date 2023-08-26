@@ -20,4 +20,4 @@ func on_kill(event: Event):
 	var tower: Tower = itm.get_carrier()
 	tower.add_mana_perc(0.07)
 	var effect: int = Effect.create_simple_at_unit("VampPotionCaster.mdl", tower)
-	Effect.destroy_effect(effect)
+	Effect.destroy_effect_after_its_over(effect)

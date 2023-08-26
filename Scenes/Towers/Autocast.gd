@@ -320,11 +320,11 @@ func _do_cast(target: Unit):
 
 	if !caster_art.is_empty():
 		var effect: int = Effect.create_simple_at_unit(caster_art, _caster)
-		Effect.destroy_effect(effect)
+		Effect.destroy_effect_after_its_over(effect)
 
 	if !target_art.is_empty() && target != null:
 		var effect: int = Effect.create_simple_at_unit(target_art, target)
-		Effect.destroy_effect(effect)
+		Effect.destroy_effect_after_its_over(effect)
 
 
 func _can_cast() -> bool:

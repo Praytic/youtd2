@@ -60,7 +60,7 @@ func dot(event: Event):
 	var T: Tower = B.get_caster()
 	T.do_spell_damage(B.get_buffed_unit(), B.user_real, T.calc_spell_crit_no_bonus())
 	var effect: int = Effect.add_special_effect_target("Abilities\\Spells\\NightElf\\CorrosiveBreath\\ChimaeraAcidTargetArt.mdl", T, "head")
-	Effect.destroy_effect(effect)
+	Effect.destroy_effect_after_its_over(effect)
 
 
 func tower_init():

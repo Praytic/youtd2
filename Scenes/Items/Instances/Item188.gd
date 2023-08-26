@@ -42,7 +42,7 @@ func drol_lift_down(event: Event):
 	c.adjust_height(-300, 2500)
 	Effect.destroy_effect(b.user_int)
 	var bolt_impact: int = Effect.create_simple_at_unit("res://Scenes/Effects/WarStompCaster.tscn", c)
-	Effect.destroy_effect(bolt_impact)
+	Effect.destroy_effect_after_its_over(bolt_impact)
 
 
 func tower_init():

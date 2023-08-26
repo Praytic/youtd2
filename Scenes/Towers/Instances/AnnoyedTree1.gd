@@ -37,7 +37,7 @@ func load_triggers(triggers: BuffType):
 func rock_hit(p: Projectile, _target: Unit):
 	p.do_spell_damage_pb_aoe(p.user_real, 100, 0)
 	var effect: int = Effect.add_special("ImpaleTargetDust.mdl", p.position.x, p.position.y)
-	Effect.destroy_effect(effect)
+	Effect.destroy_effect_after_its_over(effect)
 
 
 func tower_init():

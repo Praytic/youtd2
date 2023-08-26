@@ -58,7 +58,7 @@ func on_damage(_event: Event):
 	var U: Unit
 	var B: Buff = null
 	var effect: int = Effect.add_special_effect_target("Abilities\\Spells\\NightElf\\BattleRoar\\RoarCaster.mdl", tower, "origin")
-	Effect.destroy_effect(effect)
+	Effect.destroy_effect_after_its_over(effect)
 
 	while true:
 		U = I.next()

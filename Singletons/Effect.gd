@@ -104,8 +104,27 @@ func set_lifetime(effect_id: int, lifetime: float):
 	timer.timeout.connect(_on_lifetime_timer_timeout.bind(effect_id))
 
 
-# NOTE: DestroyEffect() in JASS()
+# NOTE: Effect.destroy() and DestroyEffect() in JASS()
 func destroy_effect(effect_id: int):
+	if !_effect_map.has(effect_id):
+		return
+
+	var effect: Node2D = _effect_map[effect_id]
+	_effect_map.erase(effect_id)
+	effect.queue_free()
+
+	_free_id_list.append(effect_id)
+
+
+# NOTE: Effect.destroy() and DestroyEffect() in JASS()
+# 
+# Call this instead of destroy_effect() if the script calls
+# destroy f-n right after creating the effect.
+# 
+# NOTE: not sure how original JASS scripts determined
+# whether to destroy an effect immediately or after
+# animation has finished. All the scripts call the same f-n.
+func destroy_effect_after_its_over(effect_id: int):
 	if !_effect_map.has(effect_id):
 		return
 
@@ -137,12 +156,8 @@ func _make_effect_id() -> int:
 
 
 func _on_lifetime_timer_timeout(effect_id: int):
-	_on_effect_animation_finished(effect_id)
+	destroy_effect(effect_id)
 
 
 func _on_effect_animation_finished(effect_id: int):
-	var effect: Node2D = _effect_map[effect_id]
-	_effect_map.erase(effect_id)
-	effect.queue_free()
-
-	_free_id_list.append(effect_id)
+	destroy_effect(effect_id)

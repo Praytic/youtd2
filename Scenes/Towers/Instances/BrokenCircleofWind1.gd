@@ -99,9 +99,9 @@ func cyclone_creep_down(event: Event):
 	Effect.destroy_effect(b.user_int)
 # 	effects
 	var thunder_clap_effect: int = Effect.create_simple_at_unit("res://Scenes/Effects/ThunderClapCaster.tscn", c)
-	Effect.destroy_effect(thunder_clap_effect)
+	Effect.destroy_effect_after_its_over(thunder_clap_effect)
 	var bolt_impact: int = Effect.create_simple_at_unit("res://Scenes/Effects/BoltImpact.tscn", c)
-	Effect.destroy_effect(bolt_impact)
+	Effect.destroy_effect_after_its_over(bolt_impact)
 #   do damage
 	if c.get_size() == CreepSize.enm.CHAMPION:
 		ratio = 1.25

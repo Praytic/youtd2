@@ -29,6 +29,6 @@ func periodic(event: Event):
 	if cur_mana < itm.user_real && u.calc_chance(0.25):
 		u.set_mana(itm.user_real)
 		var effect: int = Effect.create_simple_at_unit("AImaTarget.mdl", u)
-		Effect.destroy_effect(effect)
+		Effect.destroy_effect_after_its_over(effect)
 	else:
 		itm.user_real = cur_mana
