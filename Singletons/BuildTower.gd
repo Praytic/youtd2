@@ -116,6 +116,8 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 
 	prev_tower.queue_free()
 
+	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
+
 	cancel()
 
 
@@ -132,6 +134,8 @@ func _build_tower(tower_id: int):
 
 	var tomes_cost: int = TowerProperties.get_tome_cost(tower_id)
 	KnowledgeTomesManager.spend(tomes_cost)
+
+	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
 	
 	cancel()
 

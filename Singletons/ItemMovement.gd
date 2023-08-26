@@ -179,6 +179,8 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
 	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
 
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3")
+
 
 # When an item container is clicked, we add the currently
 # moved item to that container.
@@ -199,6 +201,8 @@ func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
 	remove_child(_moved_item)
 	container.add_item(_moved_item, add_index)
 	_end_move_process()
+
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3")
 
 
 func _end_move_process():
