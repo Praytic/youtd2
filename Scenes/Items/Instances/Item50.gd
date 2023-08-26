@@ -15,7 +15,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_spell_casted(on_spell_cast)
 
 
-func on_pickip():
+func on_pickup():
 	var itm: Item = self
 	itm.user_int = 0
 

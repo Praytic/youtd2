@@ -37,7 +37,7 @@ func on_damage(event: Event):
 		itm.set_charges(int(itm.user_real))
 
 
-func on_pickip():
+func on_pickup():
 	var itm: Item = self
 	itm.user_real = 0.0
 	itm.ser_charges(0)

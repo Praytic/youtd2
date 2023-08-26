@@ -248,7 +248,7 @@ func on_create():
 
 # Override this in tower subclass to implement the "On Item
 # Pickup" trigger. Called after item is picked up by tower.
-func on_pickip():
+func on_pickup():
 	pass
 
 
@@ -366,7 +366,7 @@ func _add_to_tower(tower: Tower):
 
 # 	NOTE: call on_pick() after setting carrier so that it's
 # 	available inside on_pickup() implementations.
-	on_pickip()
+	on_pickup()
 
 	_carrier.add_modifier(_modifier)
 

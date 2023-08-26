@@ -26,7 +26,7 @@ func on_drop():
 	itm.user_real = tower.remove_exp_flat(50)
 
 
-func on_pickip():
+func on_pickup():
 	var itm: Item = self
 	var tower: Unit = itm.get_carrier()
 	var r: float = itm.user_real
