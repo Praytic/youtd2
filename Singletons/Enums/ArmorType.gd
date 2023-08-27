@@ -9,6 +9,15 @@ enum enm {
 	ZOD,
 }
 
+var _list: Array[ArmorType.enm] = [
+	ArmorType.enm.HEL,
+	ArmorType.enm.MYT,
+	ArmorType.enm.LUA,
+	ArmorType.enm.SOL,
+	ArmorType.enm.SIF,
+	ArmorType.enm.ZOD,
+]
+
 const _string_map: Dictionary = {
 	ArmorType.enm.HEL: "hel",
 	ArmorType.enm.MYT: "myt",
@@ -39,3 +48,23 @@ func convert_to_colored_string(type: ArmorType.enm) -> String:
 
 	return out
 
+
+func get_list() -> Array[ArmorType.enm]:
+	return _list.duplicate()
+
+
+# Returns text which says how much damage this armor type
+# takes from each attack type.
+func get_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
+	var text: String = ""
+
+	var attack_type_list: Array[AttackType.enm] = AttackType.get_list()
+
+	for attack_type in attack_type_list:
+		var attack_type_name: String = AttackType.convert_to_string(attack_type).capitalize()
+		var damage_taken: float = AttackType.get_damage_against(attack_type, armor_type)
+		var damage_taken_string: String = Utils.format_percent(damage_taken, 2)
+
+		text += "%s:\t %s\n" % [attack_type_name, damage_taken_string]
+
+	return text

@@ -157,6 +157,9 @@ func _update_info_label(unit: Unit):
 		assert(unit != null, "Unit is of unknown type. Can't get info label for it.")
 	_info_label.text = contents
 
+	var tooltip_for_info_label: String = _get_tooltip_for_info_label(unit)
+	_info_label.set_tooltip_text(tooltip_for_info_label)
+
 
 func _update_specials_label(unit: Unit):
 	var text: String = ""
@@ -388,3 +391,28 @@ func _on_items_container_gui_input(event):
 
 	if left_click && tower != null:
 		ItemMovement.tower_was_clicked(tower)
+
+
+func _get_tooltip_for_info_label(unit: Unit) -> String:
+	if unit is Tower:
+		var tower: Tower = unit as Tower
+		var attack_type: AttackType.enm = tower.get_attack_type()
+		var attack_type_name: String = AttackType.convert_to_string(attack_type).capitalize()
+		var text_for_damage_against: String = AttackType.get_text_for_damage_dealt(attack_type)
+
+		var tooltip: String = ""
+		tooltip += "%s attacks deal this much damage\nagainst armor types:\n" % attack_type_name
+		tooltip += text_for_damage_against
+
+		return tooltip
+	else:
+		var creep: Creep = unit as Creep
+		var armor_type: ArmorType.enm = creep.get_armor_type()
+		var armor_type_name: String = ArmorType.convert_to_string(armor_type).capitalize()
+		var text_for_damage_taken: String = ArmorType.get_text_for_damage_taken(armor_type)
+	
+		var tooltip: String = ""
+		tooltip += "%s armor takes this much damage\nfrom attack types:\n" % armor_type_name
+		tooltip += text_for_damage_taken
+
+		return tooltip
