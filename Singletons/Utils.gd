@@ -370,9 +370,7 @@ func format_percent(x: float, digits: int) -> String:
 
 func format_percent_no_sign(x: float, digits: int) -> String:
 	var out: String = format_percent(x, digits)
-	print("before=", out)
 	out = out.trim_prefix("-")
-	print("after=", out)
 
 	return out
 
