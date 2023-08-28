@@ -12,7 +12,7 @@ var text: String = "placeholder"
 var duration: float = 1.0
 var color: Color = Color.WHITE
 var animated: bool = true
-var _type: Type = Type.BOUNCE_TO_RIGHT
+var _type: Type = Type.GO_UP
 
 func _ready():
 	label.text = text
