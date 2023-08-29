@@ -9,9 +9,9 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Mining[/color]\n"
-	text += "Every 15 seconds there is a 40%% chance to find 3 gold.\n"
+	text += "Every 15 seconds there is a 40% chance to find 3 gold.\n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+2%% chance\n"
+	text += "+2% chance\n"
 	text += "+1 gold at lvl 25\n"
 
 	return text
