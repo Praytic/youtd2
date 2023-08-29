@@ -47,7 +47,6 @@ func load_specials(modifier: Modifier):
 
 func on_autocast(event: Event):
 	var tower: Tower = self
-	var b: Buff = event.get_buff()
 
 	if tower.user_real < _stats.frenzy_max_bonus:
 		tower.user_real = tower.user_real + 0.005

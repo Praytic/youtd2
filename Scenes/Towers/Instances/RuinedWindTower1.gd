@@ -14,7 +14,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func on_attack(event: Event):
+func on_attack(_event: Event):
 	var tower: Tower = self
 
 	var itm: Item
