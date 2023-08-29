@@ -17,13 +17,13 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_wind_shear_description() -> String:
-	var attackspeed: String = String.num(_stats.attackspeed * 100, 2)
-	var chain_damage: String = String.num(100 * (1.0 + _stats.user_real_base * 0.04), 2)
-	var chain_damage_add: String = String.num(_stats.user_real_add * 0.04 * 100, 2)
+	var attackspeed: String = Utils.format_percent(_stats.attackspeed, 2)
+	var chain_damage: String = Utils.format_float(100 * (1.0 + _stats.user_real_base * 0.04), 2)
+	var chain_damage_add: String = Utils.format_float(100 * _stats.user_real_add * 0.04, 2)
 
 	var text: String = ""
 
-	text += "Increases the attackspeed of a tower in 300 range by %s%% and gives it a 25%% attackspeed adjusted chance to cast a chain of lightning which deals %s initial spelldamage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attackspeed, chain_damage]
+	text += "Increases the attackspeed of a tower in 300 range by %s and gives it a 25%% attackspeed adjusted chance to cast a chain of lightning which deals %s initial spelldamage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attackspeed, chain_damage]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% attackspeed\n"
 	text += "+%s spelldamage\n" % chain_damage_add

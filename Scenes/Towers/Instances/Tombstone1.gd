@@ -13,15 +13,15 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var chance_base: String = String.num(_stats.chance_base * 100, 2)
-	var chance_add: String = String.num(_stats.chance_add * 100, 2)
+	var chance_base: String = Utils.format_percent(_stats.chance_base, 2)
+	var chance_add: String = Utils.format_percent(_stats.chance_add, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Tomb's Curse[/color]\n"
-	text += "This tower has a %s%% chance on attack to kill a non boss, non champion target immediately.\n" % chance_base
+	text += "This tower has a %s chance on attack to kill a non boss, non champion target immediately.\n" % chance_base
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s%% chance" % chance_add
+	text += "+%s chance" % chance_add
 	
 	return text
 

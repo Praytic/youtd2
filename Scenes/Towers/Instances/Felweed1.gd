@@ -13,28 +13,28 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var bonus_7: String = String.num((_stats.bonus_7 - 1.0) * 100, 2)
-	var bonus_8: String = String.num((_stats.bonus_8 - 1.0) * 100, 2)
-	var bonus_9: String = String.num((_stats.bonus_9 - 1.0) * 100, 2)
-	var bonus_10: String = String.num((_stats.bonus_10 - 1.0) * 100, 2)
+	var bonus_7: String = Utils.format_percent(_stats.bonus_7 - 1.0, 2)
+	var bonus_8: String = Utils.format_percent(_stats.bonus_8 - 1.0, 2)
+	var bonus_9: String = Utils.format_percent(_stats.bonus_9 - 1.0, 2)
+	var bonus_10: String = Utils.format_percent(_stats.bonus_10 - 1.0, 2)
 
-	var bonus_7_add: String = String.num((_stats.bonus_7_add) * 100, 2)
-	var bonus_8_add: String = String.num((_stats.bonus_8_add) * 100, 2)
-	var bonus_9_add: String = String.num((_stats.bonus_9_add) * 100, 2)
-	var bonus_10_add: String = String.num((_stats.bonus_10_add) * 100, 2)
+	var bonus_7_add: String = Utils.format_percent(_stats.bonus_7_add, 2)
+	var bonus_8_add: String = Utils.format_percent(_stats.bonus_8_add, 2)
+	var bonus_9_add: String = Utils.format_percent(_stats.bonus_9_add, 2)
+	var bonus_10_add: String = Utils.format_percent(_stats.bonus_10_add, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Fireblossom[/color]\n"
-	text += "Every 7th attack deals %s%% bonus damage.\n" % bonus_7
-	text += "Every 8th attack deals %s%% bonus damage.\n" % bonus_8
-	text += "Every 9th attack deals %s%% bonus damage.\n" % bonus_9
-	text += "Every 10th attack deals %s%% bonus damage.\n" % bonus_10
+	text += "Every 7th attack deals %s bonus damage.\n" % bonus_7
+	text += "Every 8th attack deals %s bonus damage.\n" % bonus_8
+	text += "Every 9th attack deals %s bonus damage.\n" % bonus_9
+	text += "Every 10th attack deals %s bonus damage.\n" % bonus_10
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s%% bonus damage every 7th attack.\n" % bonus_7_add
-	text += "+%s%% bonus damage every 8th attack.\n" % bonus_8_add
-	text += "+%s%% bonus damage every 9th attack.\n" % bonus_9_add
-	text += "+%s%% bonus damage every 10th attack." % bonus_10_add
+	text += "+%s bonus damage every 7th attack.\n" % bonus_7_add
+	text += "+%s bonus damage every 8th attack.\n" % bonus_8_add
+	text += "+%s bonus damage every 9th attack.\n" % bonus_9_add
+	text += "+%s bonus damage every 10th attack." % bonus_10_add
 
 	return text
 

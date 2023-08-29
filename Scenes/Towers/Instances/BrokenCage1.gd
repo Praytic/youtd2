@@ -12,15 +12,15 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var damage: String = String.num(_stats.damage * 100, 2)
-	var damage_add: String = String.num(_stats.damage_add * 100, 2)
+	var damage: String = Utils.format_percent(_stats.damage, 2)
+	var damage_add: String = Utils.format_percent(_stats.damage_add, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Banish[/color]\n"
-	text += "Magic, undead and nature creeps damaged by this tower suffer an additional %s%% of that damage as spelldamage.\n" % damage
+	text += "Magic, undead and nature creeps damaged by this tower suffer an additional %s of that damage as spelldamage.\n" % damage
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s%% damage" % damage_add
+	text += "+%s damage" % damage_add
 
 	return text
 

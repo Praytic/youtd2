@@ -15,20 +15,20 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var slow_value: String = String.num(_stats.slow_value * 0.001 * 100, 2)
-	var extra_damage: String = String.num(_stats.extra_damage, 2)
-	var stun_duration: String = String.num(_stats.stun_duration, 2)
-	var damage_and_stun_chance: String = String.num(_stats.damage_and_stun_chance, 2)
-	var extra_damage_add: String = String.num(_stats.extra_damage * 0.02, 2)
-	var slow_add: String = String.num(_stats.slow_value / 20.0 * 0.001 * 100, 2)
+	var slow_value: String = Utils.format_percent(_stats.slow_value * 0.001, 2)
+	var slow_add: String = Utils.format_percent(_stats.slow_value / 20.0 * 0.001, 2)
+	var extra_damage: String = Utils.format_float(_stats.extra_damage, 2)
+	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
+	var damage_and_stun_chance: String = Utils.format_percent(_stats.damage_and_stun_chance * 0.01, 2)
+	var extra_damage_add: String = Utils.format_float(_stats.extra_damage * 0.02, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Glacial Wrath[/color]\n"
-	text += "Attacks of this tower slow the attacked creep by %s%% for 3 seconds. Each attack has a %s%% to deal %s spelldamage and stun the target for %s seconds. The chance to stun the target is increased by %s%% per attack and resets after a target is stunned.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance]
+	text += "Attacks of this tower slow the attacked creep by %s for 3 seconds. Each attack has a %s change to deal %s spelldamage and stun the target for %s seconds. The chance to stun the target is increased by %s per attack and resets after a target is stunned.\n" % [slow_value, damage_and_stun_chance, extra_damage, stun_duration, damage_and_stun_chance]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spelldamage\n" % extra_damage_add
-	text += "+%s%% slow" % slow_add
+	text += "+%s slow" % slow_add
 
 	return text
 

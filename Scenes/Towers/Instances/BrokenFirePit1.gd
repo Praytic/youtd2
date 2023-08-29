@@ -15,13 +15,13 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var bonus_crit: String = String.num((0.15 + _stats.power * 0.001) * 100, 2)
-	var duration: String = String.num(_stats.duration, 2)
+	var bonus_crit: String = Utils.format_percent((0.15 + _stats.power * 0.001), 2)
+	var duration: String = Utils.format_float(_stats.duration, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Hot Coals[/color]\n"
-	text += "Whenever this tower kills a creep it gains %s%% bonus crit chance for %s seconds.\n" % [bonus_crit, duration]
+	text += "Whenever this tower kills a creep it gains %s bonus crit chance for %s seconds.\n" % [bonus_crit, duration]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.05 sec duration\n"
 	text += "+0.3% crit chance"

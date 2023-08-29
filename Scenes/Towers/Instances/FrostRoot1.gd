@@ -13,8 +13,8 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var damage: String = String.num(_stats.damage, 2)
-	var damage_add: String = String.num(_stats.damage_add, 2)
+	var damage: String = Utils.format_float(_stats.damage, 2)
+	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
 	var text: String = ""
 

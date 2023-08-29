@@ -18,21 +18,21 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var magical_sight_range: String = String.num(_stats.magical_sight_range, 2)
-	var duration: String = String.num(_stats.duration, 2)
-	var mod_value: String = String.num(_stats.mod_value / 10, 2)
-	var duration_add: String = String.num(_stats.duration_add, 2)
-	var mod_value_add: String = String.num(_stats.mod_value_add / 10.0, 2)
+	var magical_sight_range: String = Utils.format_float(_stats.magical_sight_range, 2)
+	var duration: String = Utils.format_float(_stats.duration, 2)
+	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
+	var mod_value: String = Utils.format_float(_stats.mod_value * 0.1 * 0.01, 2)
+	var mod_value_add: String = Utils.format_float(_stats.mod_value_add * 0.1 * 0.01, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Magical Sight[/color]\n"
 	text += "Can see invisible enemy units in %s range.\n" % magical_sight_range
 	text += "[color=GOLD]Power of Light[/color]\n"
-	text += "The mighty holy light weakens enemy undead creeps for %s seconds, so they will receive %s%% more damage from physical and spell attacks.\n" % [duration, mod_value]
+	text += "The mighty holy light weakens enemy undead creeps for %s seconds, so they will receive %s more damage from physical and spell attacks.\n" % [duration, mod_value]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s seconds\n" % duration_add
-	text += "+%s%% damage" % mod_value_add
+	text += "+%s damage" % mod_value_add
 
 	return text
 

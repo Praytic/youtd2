@@ -16,14 +16,14 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var increased_spell_damage: String = String.num((0.02 + 0.01 * _stats.apply_level) * 100, 2)
-	var periodic_damage: String = String.num(_stats.periodic_damage, 2)
-	var periodic_damage_add: String = String.num(_stats.periodic_damage_add, 2)
+	var increased_spell_damage: String = Utils.format_percent((0.02 + 0.01 * _stats.apply_level), 2)
+	var periodic_damage: String = Utils.format_float(_stats.periodic_damage, 2)
+	var periodic_damage_add: String = Utils.format_float(_stats.periodic_damage_add, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Rend[/color]\n"
-	text += "The tentacle has a 25%% chance to rend a target, making it suffer %s%% increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage]
+	text += "The tentacle has a 25%% chance to rend a target, making it suffer %s increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% chance\n"
 	text += "+%s spell damage per second" % periodic_damage_add

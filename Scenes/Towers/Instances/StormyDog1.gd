@@ -15,14 +15,14 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var attack_speed: String = String.num(_stats.buff_scale * 0.0005 * 100, 2)
+	var attack_speed: String = Utils.format_percent(_stats.buff_scale * 0.0005, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Thunderous Roar[/color]\n"
-	text += "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack speed of all towers in 420 range by 5%% for 5 seconds. If a tower already has the thunderous roar buff the attack speed is increased by %s%% and the duration is refreshed. Stacks up to 100 times.\n" % attack_speed
+	text += "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack speed of all towers in 420 range by 5%% for 5 seconds. If a tower already has the thunderous roar buff the attack speed is increased by %s and the duration is refreshed. Stacks up to 100 times.\n" % attack_speed
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s%% attack speed" % attack_speed
+	text += "+%s attack speed" % attack_speed
 
 	return text
 

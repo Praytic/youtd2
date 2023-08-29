@@ -12,10 +12,10 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var smite_damage: String = String.num(_stats.smite_damage, 2)
-	var smite_damage_add: String = String.num(_stats.smite_damage_add, 2)
-	var armor_reduce: String = String.num(_stats.armor_reduce, 2)
-	var armor_reduce_boss: String = String.num(_stats.armor_reduce_boss, 2)
+	var smite_damage: String = Utils.format_float(_stats.smite_damage, 2)
+	var smite_damage_add: String = Utils.format_float(_stats.smite_damage_add, 2)
+	var armor_reduce: String = Utils.format_float(_stats.armor_reduce, 2)
+	var armor_reduce_boss: String = Utils.format_float(_stats.armor_reduce_boss, 2)
 
 	var text: String = ""
 

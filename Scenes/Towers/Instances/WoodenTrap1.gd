@@ -15,11 +15,11 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var cooldown: String = String.num(_stats.cooldown, 2)
-	var max_targets: String = String.num(_stats.max_targets, 2)
-	var base_damage: String = String.num(_stats.base_damage, 2)
-	var damage_add: String = String.num(_stats.damage_add, 2)
-	var stun_duration: String = String.num(_stats.stun_duration, 2)
+	var cooldown: String = Utils.format_float(_stats.cooldown, 2)
+	var max_targets: String = Utils.format_float(_stats.max_targets, 2)
+	var base_damage: String = Utils.format_float(_stats.base_damage, 2)
+	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
+	var stun_duration: String = Utils.format_float(_stats.stun_duration, 2)
 
 	var text: String = ""
 

@@ -15,16 +15,16 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var regen_reduction: String = String.num(5 + _stats.firedot_level_add / 10, 2)
-	var regen_reduction_add: String = String.num(_stats.firedot_level_multiply / 10, 2)
+	var regen_reduction: String = Utils.format_percent(0.05 + _stats.firedot_level_add * 0.1 * 0.01, 2)
+	var regen_reduction_add: String = Utils.format_percent(_stats.firedot_level_multiply * 0.1 * 0.01, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Ignite[/color]\n"
-	text += "The geyser has a 30%% chance on damaging a creep to ignite the target, dealing 15%% of the tower's attack damage as spell damage per second and reducing the target's health regeneration by %s%% for 8 seconds.\n" % regen_reduction
+	text += "The geyser has a 30%% chance on damaging a creep to ignite the target, dealing 15%% of the tower's attack damage as spell damage per second and reducing the target's health regeneration by %s for 8 seconds.\n" % regen_reduction
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% attack damage\n"
-	text += "+%s%% health regeneration reduction\n" % regen_reduction_add
+	text += "+%s health regeneration reduction\n" % regen_reduction_add
 
 	return text
 

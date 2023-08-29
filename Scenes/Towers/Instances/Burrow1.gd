@@ -11,15 +11,15 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var armor_ignored: String = String.num(_stats.armor_ignored * 100, 2)
-	var armor_ignored_add: String = String.num(_stats.armor_ignored_add * 100, 2)
+	var armor_ignored: String = Utils.format_percent(_stats.armor_ignored, 2)
+	var armor_ignored_add: String = Utils.format_percent(_stats.armor_ignored_add, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Piercing Shot[/color]\n"
-	text += "%s%% of this tower's attack damage cannot be reduced by armor resistances.\n" % armor_ignored
+	text += "%s of this tower's attack damage cannot be reduced by armor resistances.\n" % armor_ignored
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s%% damage ratio" % armor_ignored_add
+	text += "+%s damage ratio" % armor_ignored_add
 
 	return text
 

@@ -14,19 +14,19 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var catch_chance: String = String.num(_stats.catch_chance * 100, 2)
-	var cyclone_duration: String = String.num(_stats.cyclone_duration, 2)
-	var cyclone_damage: String = String.num(_stats.cyclone_damage, 2)
-	var cyclone_damage_add: String = String.num(_stats.cyclone_damage_add, 2)
-	var catch_chance_add: String = String.num(_stats.catch_chance_add * 100, 2)
+	var catch_chance: String = Utils.format_percent(_stats.catch_chance, 2)
+	var cyclone_duration: String = Utils.format_float(_stats.cyclone_duration, 2)
+	var cyclone_damage: String = Utils.format_float(_stats.cyclone_damage, 2)
+	var cyclone_damage_add: String = Utils.format_float(_stats.cyclone_damage_add, 2)
+	var catch_chance_add: String = Utils.format_percent(_stats.catch_chance_add, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Wind of Death[/color]\n"
-	text += "On attack this tower has a %s%% chance to catch a ground, non-boss unit in a cyclone for %s seconds, dealing %s physical damage to all units in 300 AoE when it falls back down. Falling champions deal 25 more damage.\n" % [catch_chance, cyclone_duration, cyclone_damage]
+	text += "On attack this tower has a %s chance to catch a ground, non-boss unit in a cyclone for %s seconds, dealing %s physical damage to all units in 300 AoE when it falls back down. Falling champions deal 25 more damage.\n" % [catch_chance, cyclone_duration, cyclone_damage]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % cyclone_damage_add
-	text += "+%s%% chance to catch" % catch_chance_add
+	text += "+%s chance to catch" % catch_chance_add
 
 	return text
 

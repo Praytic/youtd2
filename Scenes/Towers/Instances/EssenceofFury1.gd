@@ -15,9 +15,9 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var poison_damage: String = String.num(_stats.poison_damage, 2)
-	var poison_damage_add: String = String.num(_stats.poison_damage_add, 2)
-	var poison_duration_add: String = String.num(_stats.poison_duration_add, 2)
+	var poison_damage: String = Utils.format_float(_stats.poison_damage, 2)
+	var poison_damage_add: String = Utils.format_float(_stats.poison_damage_add, 2)
+	var poison_duration_add: String = Utils.format_float(_stats.poison_duration_add, 2)
 
 	var text: String = ""
 

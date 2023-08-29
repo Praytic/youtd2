@@ -21,14 +21,14 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var stack_bonus: String = String.num(_stats.level_multiplier * 0.0005 * 100, 2)
+	var stack_bonus: String = Utils.format_percent(_stats.level_multiplier * 0.0005, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Roar[/color]\n"
-	text += "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack damage of all towers in 420 range by 5%% for 5 seconds. If a tower has allready the roar buff the attack damage is increased by %s%% and the duration is refreshed. Stacks up to 100 times.\n" % stack_bonus
+	text += "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack damage of all towers in 420 range by 5%% for 5 seconds. If a tower has allready the roar buff the attack damage is increased by %s and the duration is refreshed. Stacks up to 100 times.\n" % stack_bonus
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s%% attack damage" % stack_bonus
+	text += "+%s attack damage" % stack_bonus
 
 	return text
 

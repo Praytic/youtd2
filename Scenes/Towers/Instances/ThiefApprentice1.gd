@@ -18,8 +18,8 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var gold: String = String.num(_stats.gold / 10.0, 2)
-	var gold_add: String = String.num(_stats.gold * 0.04 / 10.0, 3)
+	var gold: String = Utils.format_float(_stats.gold / 10.0, 2)
+	var gold_add: String = Utils.format_float(_stats.gold * 0.04 / 10.0, 3)
 
 	var text: String = ""
 

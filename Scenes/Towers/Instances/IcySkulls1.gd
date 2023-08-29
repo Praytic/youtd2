@@ -14,18 +14,18 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var slow_base: String = String.num(_stats.slow_base * 100, 2)
-	var duration_base: String = String.num(_stats.duration_base, 2)
-	var duration_add: String = String.num(_stats.duration_add, 2)
-	var slow_add: String = String.num(_stats.slow_add * 100, 2)
+	var slow_base: String = Utils.format_percent(_stats.slow_base, 2)
+	var slow_add: String = Utils.format_percent(_stats.slow_add, 2)
+	var duration_base: String = Utils.format_float(_stats.duration_base, 2)
+	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Icy Touch[/color]\n"
-	text += "Slows attacked units by %s%% for %s seconds.\n" % [slow_base, duration_base]
+	text += "Slows attacked units by %s for %s seconds.\n" % [slow_base, duration_base]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s seconds duration\n" % duration_add
-	text += "+%s%% slow" % slow_add
+	text += "+%s slow" % slow_add
 	
 	return text
 

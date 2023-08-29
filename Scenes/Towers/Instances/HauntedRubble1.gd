@@ -14,18 +14,18 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var chance: String = String.num(_stats.chance * 100, 2)
-	var chance_for_bosses: String = String.num(_stats.chance * 2 / 3 * 100, 2)
-	var slow_value: String = String.num(_stats.slow_value * 100, 2)
-	var chance_add: String = String.num(_stats.chance_add * 100, 2)
-	var chance_add_for_bosses: String = String.num(_stats.chance_add * 2 / 3 * 100, 2)
+	var chance: String = Utils.format_percent(_stats.chance, 2)
+	var chance_for_bosses: String = Utils.format_percent(_stats.chance * 2 / 3, 2)
+	var slow_value: String = Utils.format_percent(_stats.slow_value, 2)
+	var chance_add: String = Utils.format_percent(_stats.chance_add, 2)
+	var chance_add_for_bosses: String = Utils.format_percent(_stats.chance_add * 2 / 3, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Atrophy[/color]\n"
-	text += "When this tower attacks a creep it has a %s%% (%s%% for bosses) chance to slow it by %s%% for 5 seconds.\n" % [chance, chance_for_bosses, slow_value]
+	text += "When this tower attacks a creep it has a %s (%s for bosses) chance to slow it by %s for 5 seconds.\n" % [chance, chance_for_bosses, slow_value]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s%% (%s%% for bosses) chance" % [chance_add, chance_add_for_bosses]
+	text += "+%s (%s for bosses) chance" % [chance_add, chance_add_for_bosses]
 
 	return text
 

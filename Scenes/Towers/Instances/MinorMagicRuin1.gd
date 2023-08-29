@@ -16,15 +16,15 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var exp_bonus: String = String.num(_stats.exp_bonus * 100, 2)
-	var exp_bonus_add: String = String.num(_stats.exp_bonus_add * 100, 2)
+	var exp_bonus: String = Utils.format_percent(_stats.exp_bonus, 2)
+	var exp_bonus_add: String = Utils.format_percent(_stats.exp_bonus_add, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Illuminate[/color]\n"
-	text += "Attacks debuff the target, making it grant %s%% more experience once killed. This effect last 5 seconds.\n" % exp_bonus
+	text += "Attacks debuff the target, making it grant %s more experience once killed. This effect last 5 seconds.\n" % exp_bonus
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s%% experience\n" % exp_bonus_add
+	text += "+%s experience\n" % exp_bonus_add
 	text += "+0.2 seconds"
 
 	return text

@@ -19,11 +19,11 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var bonus_damage: String = String.num(_stats.bonus_damage, 2)
-	var bonus_damage_other: String = String.num(_stats.bonus_damage * 0.3, 2)
-	var explode_damage: String = String.num(_stats.explode_damage, 2)
-	var bonus_damage_add: String = String.num(_stats.bonus_damage_add, 2)
-	var bonus_damage_add_other: String = String.num(_stats.bonus_damage_add * 0.3, 2)
+	var bonus_damage: String = Utils.format_float(_stats.bonus_damage, 2)
+	var bonus_damage_other: String = Utils.format_float(_stats.bonus_damage * 0.3, 2)
+	var explode_damage: String = Utils.format_float(_stats.explode_damage, 2)
+	var bonus_damage_add: String = Utils.format_float(_stats.bonus_damage_add, 2)
+	var bonus_damage_add_other: String = Utils.format_float(_stats.bonus_damage_add * 0.3, 2)
 
 	var text: String = ""
 

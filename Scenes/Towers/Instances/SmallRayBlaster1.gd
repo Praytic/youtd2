@@ -15,17 +15,17 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var value: String = String.num(_stats.value / 100.0, 2)
-	var value_add: String = String.num(_stats.value_add / 100.0, 2)
-	var duration: String = String.num(_stats.duration * 100, 2)
+	var value: String = Utils.format_float(_stats.value * 0.01 * 0.01, 2)
+	var value_add: String = Utils.format_float(_stats.value_add * 0.01 * 0.01, 2)
+	var duration: String = Utils.format_float(_stats.duration, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Phaze[/color]\n"
-	text += "Whenever this tower damages a creep it increases its item drop chance and item drop quality by %s%% for %s seconds. \n" % [value, duration]
+	text += "Whenever this tower damages a creep it increases its item drop chance and item drop quality by %s for %s seconds. \n" % [value, duration]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s%% item drop quality\n" % value_add
-	text += "+%s%% item drop chance\n" % value_add
+	text += "+%s item drop quality\n" % value_add
+	text += "+%s item drop chance\n" % value_add
 	text += "+0.1 seconds" 
 
 	return text

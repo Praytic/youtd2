@@ -16,18 +16,18 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_soul_chill_description() -> String:
-	var aoe_damage: String = String.num(_stats.aoe_damage, 2)
-	var slow_value: String = String.num(_stats.slow_value / 10.0, 2)
-	var aoe_damage_add: String = String.num(_stats.aoe_damage_add, 2)
-	var slow_value_add: String = String.num(_stats.slow_value_add / 10.0, 2)
-	var slow_duration_add: String = String.num(_stats.slow_duration_add, 2)
+	var aoe_damage: String = Utils.format_float(_stats.aoe_damage, 2)
+	var aoe_damage_add: String = Utils.format_float(_stats.aoe_damage_add, 2)
+	var slow_value: String = Utils.format_float(_stats.slow_value * 0.1 * 0.01, 2)
+	var slow_value_add: String = Utils.format_float(_stats.slow_value_add * 0.1 * 0.01, 2)
+	var slow_duration_add: String = Utils.format_float(_stats.slow_duration_add, 2)
 
 	var text: String = ""
 
-	text += "Chills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s%% for 4 seconds.\n" % [aoe_damage, slow_value]
+	text += "Chills the souls of all creeps in 250 AoE of the target, dealing %s spelldamage and slowing them by %s for 4 seconds.\n" % [aoe_damage, slow_value]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % aoe_damage_add
-	text += "+%s%% slow\n" % slow_value_add
+	text += "+%s slow\n" % slow_value_add
 	text += "+%s seconds duration\n" % slow_duration_add
 
 	return text

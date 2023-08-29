@@ -19,7 +19,7 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var exp_teach: String = String.num(_stats.exp_teach, 2)
+	var exp_teach: String = Utils.format_float(_stats.exp_teach, 2)
 
 	var text: String = ""
 
