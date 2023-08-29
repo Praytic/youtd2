@@ -19,7 +19,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Hail of Axes[/color]\n"
-	text += "Militia guardians throw axes to up to 3 enemies at once, but each attack has 33%% chance to miss.  If there are less creeps than attacks, the remaining axes will hit the main target.\n"
+	text += "Militia guardians throw axes to up to 3 enemies at once, but each attack has 33% chance to miss.  If there are less creeps than attacks, the remaining axes will hit the main target.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-%s chance to miss\n" % miss_chance_add

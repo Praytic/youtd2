@@ -27,7 +27,7 @@ func get_extra_tooltip_text() -> String:
 	text += "Every time the thief damages a creep there is a 10%% chance he steals %s gold.\n" % gold
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s gold\n" % gold_add
-	text += "+0.4%% chance"
+	text += "+0.4% chance"
 
 	return text
 

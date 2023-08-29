@@ -60,7 +60,7 @@ func get_autocast_description() -> String:
 	text += "+%s buff duration for Ice\n" % buff_duration
 	text += "+%s attack speed for Storm\n" % attackspeed
 	text += "+%s item chance for Iron\n" % item_chance
-	text += "The buffed tower has a 25%% chance to receive another random effect in addition to the first one.\n"
+	text += "The buffed tower has a 25% chance to receive another random effect in addition to the first one.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s experience\n" % exp_received_add

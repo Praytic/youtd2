@@ -33,8 +33,8 @@ func get_blizzard_description() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % blizzard_damage_add
 	text += "+%s%% slow\n" % slow_add
-	text += "+1%% chance for slow\n"
-	text += "+0.1%% chance for stun\n"
+	text += "+1% chance for slow\n"
+	text += "+0.1% chance for stun\n"
 
 	return text
 

@@ -25,7 +25,7 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=GOLD]Rend[/color]\n"
 	text += "The tentacle has a 25%% chance to rend a target, making it suffer %s%% increased spell damage and dealing %s spell damage per second for 6 seconds. Does not stack.\n" % [increased_spell_damage, periodic_damage]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1%% chance\n"
+	text += "+1% chance\n"
 	text += "+%s spell damage per second" % periodic_damage_add
 
 	return text

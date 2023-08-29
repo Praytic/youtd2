@@ -23,7 +23,7 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=GOLD]Ignite[/color]\n"
 	text += "The geyser has a 30%% chance on damaging a creep to ignite the target, dealing 15%% of the tower's attack damage as spell damage per second and reducing the target's health regeneration by %s%% for 8 seconds.\n" % regen_reduction
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6%% attack damage\n"
+	text += "+0.6% attack damage\n"
 	text += "+%s%% health regeneration reduction\n" % regen_reduction_add
 
 	return text

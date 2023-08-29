@@ -25,7 +25,7 @@ func get_wind_shear_description() -> String:
 
 	text += "Increases the attackspeed of a tower in 300 range by %s%% and gives it a 25%% attackspeed adjusted chance to cast a chain of lightning which deals %s initial spelldamage and hits up to 3 targets dealing 25%% less damage each bounce. Effect lasts for 5 seconds.\n" % [attackspeed, chain_damage]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1%% attackspeed\n"
+	text += "+1% attackspeed\n"
 	text += "+%s spelldamage\n" % chain_damage_add
 	text += "+0.1 sec duration\n"
 

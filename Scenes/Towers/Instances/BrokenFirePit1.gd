@@ -24,7 +24,7 @@ func get_extra_tooltip_text() -> String:
 	text += "Whenever this tower kills a creep it gains %s%% bonus crit chance for %s seconds.\n" % [bonus_crit, duration]
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.05 sec duration\n"
-	text += "+0.3%% crit chance"
+	text += "+0.3% crit chance"
 
 	return text
 

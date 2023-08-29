@@ -25,7 +25,7 @@ func get_extra_tooltip_text() -> String:
 	text += "Has a 20%% chance on attack to fire %s extra projectiles at random creeps in 300 range around the main target. Each extra projectile deals the same amount of damage as a normal attack.\n" % num_shots
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+1%% chance\n"
+	text += "+1% chance\n"
 	text += "+1 extra projectile at levels 15 and 25\n"
 
 	return text

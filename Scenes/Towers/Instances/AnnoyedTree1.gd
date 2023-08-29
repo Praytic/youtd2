@@ -24,7 +24,7 @@ func get_extra_tooltip_text() -> String:
 	text += "30%% chance to throw a rock towards the attacked unit. On impact it deals %s spell damage in a %s AoE. \n" % [damage, rock_range]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.6%% chance\n"
+	text += "+0.6% chance\n"
 	text += "+%s damage\n" % damage_add
 
 	return text

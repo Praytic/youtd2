@@ -23,7 +23,7 @@ func get_extra_tooltip_text() -> String:
 	text += "This tower plunders %s gold each attack.\n" % plunder_amount
 	text += " \n"
 	text += "[color=GOLD]Treasure Seeker - Aura[/color]\n"
-	text += "Increases the bounty gain of towers in 300 range by 10%%.\n"
+	text += "Increases the bounty gain of towers in 300 range by 10%.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s bounty\n" % bounty_level_add

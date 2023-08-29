@@ -26,7 +26,7 @@ func get_extra_tooltip_text() -> String:
 	text += "Damaged targets have a 20%% chance to get blasted by an ice nova, dealing %s damage and slowing units in %s range by %s for %s seconds. Has a 30%% bonus chance to crit.\n" % [aoe_damage, aoe_range, slow_value, slow_duration]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.4%% chance\n"
+	text += "+0.4% chance\n"
 	text += "+%s damage\n" % [aoe_damage_add]
 
 	return text
