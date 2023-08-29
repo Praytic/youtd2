@@ -17,7 +17,7 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var num_shots: String = str(_stats.num_shots)
+	var num_shots: String = Utils.format_float(_stats.num_shots, 2)
 
 	var text: String = ""
 

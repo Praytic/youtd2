@@ -15,12 +15,12 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_autocast_description() -> String:
-	var damage_1: String = str(_stats.damage)
-	var damage_2: String = str(_stats.damage * 2)
-	var damage_3: String = str(_stats.damage * 3)
-	var damage_add_1: String = str(_stats.damage)
-	var damage_add_2: String = str(_stats.damage * 2)
-	var damage_add_3: String = str(_stats.damage * 3)
+	var damage_1: String = Utils.format_float(_stats.damage, 2)
+	var damage_2: String = Utils.format_float(_stats.damage * 2, 2)
+	var damage_3: String = Utils.format_float(_stats.damage * 3, 2)
+	var damage_add_1: String = Utils.format_float(_stats.damage, 2)
+	var damage_add_2: String = Utils.format_float(_stats.damage * 2, 2)
+	var damage_add_3: String = Utils.format_float(_stats.damage * 3, 2)
 
 	var text: String = ""
 

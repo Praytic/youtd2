@@ -11,8 +11,8 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var bug_dmg: String = str(_stats.bug_dmg)
-	var production_for_decrease: String = str(_stats.production_for_decrease)
+	var bug_dmg: String = Utils.format_float(_stats.bug_dmg, 2)
+	var production_for_decrease: String = Utils.format_float(_stats.production_for_decrease, 2)
 
 	var text: String = ""
 

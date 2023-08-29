@@ -14,9 +14,9 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var damage: String = str(_stats.damage * 100)
-	var damage_add: String = str(_stats.damage_add * 100)
-	var rock_range: String = str(_stats.rock_range)
+	var damage: String = Utils.format_float(_stats.damage * 100, 2)
+	var damage_add: String = Utils.format_float(_stats.damage_add * 100, 2)
+	var rock_range: String = Utils.format_float(_stats.rock_range, 2)
 
 	var text: String = ""
 

@@ -26,8 +26,8 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var rocket_damage: String = str(_stats.rocket_damage * 100)
-	var rocket_damage_add: String = str(_stats.rocket_damage_add * 100)
+	var rocket_damage: String = Utils.format_float(_stats.rocket_damage * 100, 2)
+	var rocket_damage_add: String = Utils.format_float(_stats.rocket_damage_add * 100, 2)
 	var text: String = ""
 
 	text += "[color=GOLD]Rocket Strike[/color]\n"
