@@ -368,13 +368,6 @@ func format_percent(x: float, digits: int) -> String:
 	return out
 
 
-func format_percent_no_sign(x: float, digits: int) -> String:
-	var out: String = format_percent(x, digits)
-	out = out.trim_prefix("-")
-
-	return out
-
-
 # formatPercentAddColor() in JASS
 func format_percent_add_color(x: float, digits: int) -> String:
 	var uncolored: String = format_percent(x, digits)
