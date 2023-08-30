@@ -15,19 +15,18 @@ extends Tower
 var cedi_sniper_rocket: ProjectileType
 
 
-# NOTE: this value is multiplied by 100
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {rocket_damage = 4, rocket_damage_add = 0.1, aoe_radius = 150},
-		2: {rocket_damage = 12, rocket_damage_add = 0.3, aoe_radius = 160},
-		3: {rocket_damage = 24, rocket_damage_add = 0.6, aoe_radius = 170},
-		4: {rocket_damage = 40, rocket_damage_add = 1.0, aoe_radius = 180},
+		1: {rocket_damage = 400, rocket_damage_add = 10, aoe_radius = 150},
+		2: {rocket_damage = 1200, rocket_damage_add = 30, aoe_radius = 160},
+		3: {rocket_damage = 2400, rocket_damage_add = 60, aoe_radius = 170},
+		4: {rocket_damage = 4000, rocket_damage_add = 100, aoe_radius = 180},
 	}
 
 
 func get_extra_tooltip_text() -> String:
-	var rocket_damage: String = Utils.format_float(_stats.rocket_damage * 100, 2)
-	var rocket_damage_add: String = Utils.format_float(_stats.rocket_damage_add * 100, 2)
+	var rocket_damage: String = Utils.format_float(_stats.rocket_damage, 2)
+	var rocket_damage_add: String = Utils.format_float(_stats.rocket_damage_add, 2)
 	var text: String = ""
 
 	text += "[color=GOLD]Rocket Strike[/color]\n"
@@ -53,7 +52,8 @@ func load_specials(modifier: Modifier):
 
 
 func rocket_hit(p: Projectile, _t: Unit):
-	p.do_spell_damage_pb_aoe(p.user_real, 100, 0)
+	var tower: Tower = self
+	p.do_spell_damage_pb_aoe(p.user_real, _stats.rocket_damage + _stats.rocket_damage_add * tower.get_level(), 0)
 	var effect: int = Effect.add_special_effect("NeutralBuildingExplosion.mdl", p.x, p.y)
 	Effect.destroy_effect_after_its_over(effect)
 
@@ -69,5 +69,5 @@ func on_attack(event: Event):
 	if !tower.calc_chance(0.30 + 0.006 * tower.get_level()):
 		return
 
-	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(cedi_sniper_rocket, tower, _stats.rocket_damage + tower.get_level() * _stats.rocket_damage_add, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)
+	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(cedi_sniper_rocket, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)
 	projectile.user_real = _stats.aoe_radius 

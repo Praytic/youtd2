@@ -6,16 +6,16 @@ var boekie_tree_rock: ProjectileType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {damage = 1.5, damage_add = 0.05, rock_range = 300},
-		2: {damage = 6.0, damage_add = 0.20, rock_range = 350},
-		3: {damage = 12.0, damage_add = 0.40, rock_range = 400},
-		4: {damage = 19.5, damage_add = 0.65, rock_range = 450},
+		1: {damage = 150, damage_add = 5, rock_range = 300},
+		2: {damage = 600, damage_add = 20, rock_range = 350},
+		3: {damage = 1200, damage_add = 40, rock_range = 400},
+		4: {damage = 1950, damage_add = 65, rock_range = 450},
 	}
 
 
 func get_extra_tooltip_text() -> String:
-	var damage: String = Utils.format_float(_stats.damage * 100, 2)
-	var damage_add: String = Utils.format_float(_stats.damage_add * 100, 2)
+	var damage: String = Utils.format_float(_stats.damage, 2)
+	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 	var rock_range: String = Utils.format_float(_stats.rock_range, 2)
 
 	var text: String = ""
@@ -35,7 +35,8 @@ func load_triggers(triggers: BuffType):
 
 
 func rock_hit(p: Projectile, _target: Unit):
-	p.do_spell_damage_pb_aoe(p.user_real, 100, 0)
+	var tower: Tower = self
+	p.do_spell_damage_pb_aoe(p.user_real, _stats.damage + _stats.damage_add * tower.get_level(), 0)
 	var effect: int = Effect.add_special("ImpaleTargetDust.mdl", p.position.x, p.position.y)
 	Effect.destroy_effect_after_its_over(effect)
 
@@ -51,4 +52,4 @@ func on_attack(event: Event):
 	if !tower.calc_chance(0.3 + 0.06 * tower.get_level()):
 		return
 
-	Projectile.create_linear_interpolation_from_unit_to_unit(boekie_tree_rock, tower, _stats.damage + tower.get_level() * _stats.damage_add, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true).user_real = _stats.rock_range
+	Projectile.create_linear_interpolation_from_unit_to_unit(boekie_tree_rock, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true).user_real = _stats.rock_range
