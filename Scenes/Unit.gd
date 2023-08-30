@@ -745,6 +745,10 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -
 # 	NOTE: all spell damage is reduced by this amount
 	if damage_source == DamageSource.Spell:
 		damage *= Constants.SPELL_DAMAGE_RATIO
+		
+# 	Immune creeps take 0 damage from spells
+	if damage_source == DamageSource.Spell && target.is_immune():
+		damage = 0
 
 	var damaged_event: Event = Event.new(self)
 	damaged_event.damage = damage
