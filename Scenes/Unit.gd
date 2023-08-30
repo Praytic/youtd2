@@ -764,28 +764,17 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -
 		if damage > _best_hit:
 			_best_hit = damage
 
-	var damage_killed_unit: bool = target.receive_damage(damage)
+	var health_before_damage: float = target.get_health()
+	target.set_health(health_before_damage - damage)
+
+	if Config.damage_numbers():
+		get_player().display_floating_text_color(str(int(damage)), target, Color.RED, 1.0)
+
+	var health_after_damage: float = target.get_health()
+	var damage_killed_unit: bool = health_before_damage > 0 && health_after_damage <= 0
 
 	if damage_killed_unit:
 		target._killed_by_unit(self)
-
-	return damage_killed_unit
-
-
-# NOTE: this f-n is also used by
-# DummyUnit.do_spell_damage(), so it can't emit "damaged" or
-# "killed_by" events because DummyUnit is not a subclass of
-# Unit so creep is technically not killed or damaged by any
-# unit in such cases.
-func receive_damage(damage: float) -> bool:
-	var health_before_damage: float = _health
-
-	set_health(_health - damage)
-
-	if Config.damage_numbers():
-		get_player().display_floating_text_color(str(int(damage)), self, Color.RED, 1.0)
-
-	var damage_killed_unit: bool = health_before_damage > 0 && _health <= 0
 
 	return damage_killed_unit
 
