@@ -50,4 +50,4 @@ func on_autocast(event: Event):
 	var tower: Tower = self
 
 	SFX.sfx_at_unit("Abilities\\Spells\\Other\\Incinerate\\FireLordDeathExplode.mdl", event.get_target())
-	tower.do_spell_damage_aoe_unit(event.get_target(), 200, _stats.damage * tower.get_level() * _stats.damage_add, tower.calc_spell_crit_no_bonus(), 0.0)
+	tower.do_spell_damage_aoe_unit(event.get_target(), 200, _stats.damage + _stats.damage_add * tower.get_level(), tower.calc_spell_crit_no_bonus(), 0.0)
