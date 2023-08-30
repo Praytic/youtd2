@@ -25,6 +25,18 @@ const _color_map: Dictionary = {
 	CreepCategory.enm.HUMANOID: Color.TAN,
 }
 
+
+func from_string(string: String) -> CreepCategory.enm:
+	var key = _string_map.find_key(string)
+	
+	if key != null:
+		return key
+	else:
+		push_error("Invalid string: \"%s\". Possible values: %s" % [string, _string_map.values()])
+
+		return CreepCategory.enm.UNDEAD
+
+
 func convert_to_string(type: CreepCategory.enm) -> String:
 	return _string_map[type]
 

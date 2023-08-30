@@ -64,7 +64,7 @@ var _creep_size: CreepSize.enm
 func _init(level: int, difficulty: int):
 	_level = level
 
-	_race = randi_range(0, CreepCategory.enm.size() - 1) as CreepCategory.enm
+	_race = Wave._generate_creep_race()
 	_creep_size = Wave._generate_creep_size(_level)
 	_armor_type = Wave._get_random_armor_type(_level, _creep_size)
 	_creep_combination = Wave._generate_creep_combination(_level, _creep_size)
@@ -333,8 +333,26 @@ static func _calculate_base_armor(level: int, difficulty: Difficulty.enm) -> flo
 	return base_armor
 
 
+static func _generate_creep_race() -> CreepCategory.enm:
+	var override_creep_race_string: String = Config.override_creep_race()
+	if !override_creep_race_string.is_empty():
+		var override_creep_race: CreepCategory.enm = CreepCategory.from_string(override_creep_race_string)
+
+		return override_creep_race
+
+	var random_race: CreepCategory.enm = randi_range(0, CreepCategory.enm.size() - 1) as CreepCategory.enm
+
+	return random_race
+
+
 # TODO: handle final wave, should be final boss
 static func _generate_creep_size(level: int) -> CreepSize.enm:
+	var override_creep_size_string: String = Config.override_creep_size()
+	if !override_creep_size_string.is_empty():
+		var override_creep_size: CreepSize.enm = CreepSize.from_string(override_creep_size_string)
+
+		return override_creep_size
+
 	var challenge: bool = (level % 8) == 0
 	var challenge_mass: bool = (level % 120) % 16 == 0 && (level % 120) != 0
 
@@ -350,6 +368,12 @@ static func _generate_creep_size(level: int) -> CreepSize.enm:
 
 
 static func _get_random_armor_type(wave_level: int, creep_size: CreepSize.enm) -> ArmorType.enm:
+	var override_creep_armor_string: String = Config.override_creep_armor()
+	if !override_creep_armor_string.is_empty():
+		var override_creep_armor: ArmorType.enm = ArmorType.from_string(override_creep_armor_string)
+
+		return override_creep_armor
+
 	var is_challenge: bool = CreepSize.is_challenge(creep_size)
 
 	if is_challenge:

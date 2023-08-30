@@ -37,6 +37,17 @@ const _color_map: Dictionary = {
 }
 
 
+func from_string(string: String) -> ArmorType.enm:
+	var key = _string_map.find_key(string)
+	
+	if key != null:
+		return key
+	else:
+		push_error("Invalid string: \"%s\". Possible values: %s" % [string, _string_map.values()])
+
+		return ArmorType.enm.ZOD
+
+
 func convert_to_string(type: ArmorType.enm) -> String:
 	return _string_map[type]
 

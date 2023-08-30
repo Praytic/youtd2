@@ -148,5 +148,14 @@ func smart_targeting() -> bool:
 func override_creep_health() -> float:
 	return ProjectSettings.get_setting("application/config/override_creep_health") as float
 
+func override_creep_size() -> String:
+	return ProjectSettings.get_setting("application/config/override_creep_size") as String
+
+func override_creep_armor() -> String:
+	return ProjectSettings.get_setting("application/config/override_creep_armor") as String
+
+func override_creep_race() -> String:
+	return ProjectSettings.get_setting("application/config/override_creep_race") as String
+
 func print_sfx_errors() -> bool:
 	return ProjectSettings.get_setting("application/config/print_sfx_errors") as bool
