@@ -35,4 +35,3 @@ func periodic(_event: Event):
 
 	if T != null:
 		Projectile.create_from_unit_to_unit(PT, U, 1.00, U.calc_spell_crit_no_bonus(), U, T, true, false, false)
-		I.destroy()

@@ -99,10 +99,6 @@ func on_attack(event: Event):
 
 			add = !add
 
-#	If the Iterate is not destroyed yet, destroy it
-	if !it_destroyed:
-		it.destroy()
-
 
 func on_damage(event: Event):
 	var tower: Tower = self

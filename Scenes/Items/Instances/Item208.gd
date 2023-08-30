@@ -70,5 +70,4 @@ func on_damage(event: Event):
 				i = i - 1
 
 				if i == 0:
-					I.destroy()
 					break

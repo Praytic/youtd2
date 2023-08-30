@@ -65,12 +65,11 @@ func next_random() -> Unit:
 	return next_unit
 
 
-# NOTE: Original API has this f-n but in Godot Iterate will
-# get cleaned up automatically. Leave it as a stub to call
-# in tower scripts.
 # NOTE: iterate.destroy() in JASS
-func destroy():
-	pass
+# JASS engine had this f-n but it's not needed in Godot
+# engine - do not call it.
+# func destroy():
+	# pass
 
 
 # NOTE: iterate.count() in JASS

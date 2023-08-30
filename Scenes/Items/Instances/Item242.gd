@@ -43,8 +43,3 @@ func on_damage(_event: Event):
 
 				if count == 0:
 					break
-
-			if next != null:
-				in_range.destroy()
-		else:
-			in_range.destroy()

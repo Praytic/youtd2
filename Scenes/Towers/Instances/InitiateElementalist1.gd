@@ -230,8 +230,6 @@ func on_attack_3(event: Event):
 			# TODO: implement lightning, it's an advanced visual(effect)
 			# Lightning.create_from_unit_to_unit("CLPB", tower, u).set_lifetime(0.15)
 
-		if u != null:
-			it.destroy()
 
 func on_attack_4(event: Event):
 	var tower: Tower = self
@@ -305,8 +303,6 @@ func on_attack_4(event: Event):
 			# TODO: implement lightning, it's an advanced visual(effect)
 			# Lightning.create_from_unit_to_unit("CLPB", tower, u).set_lifetime(0.15)
 
-		if u != null:
-			it.destroy()
 
 func on_create(_preceding: Tower):
 	var tower: Tower = self

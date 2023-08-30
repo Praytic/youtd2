@@ -47,7 +47,6 @@ func on_autocast(_event: Event):
 			break
 
 	if next != null:
-		it.destroy()
 		tower.add_exp_flat(next.remove_exp_flat(randi_range(15, 60)))
 		SFX.sfx_on_unit("AnimateDeadTarget.mdl", next, "head")
 		SFX.sfx_on_unit("DeathCoilSpecialArt.mdl", tower, "head")

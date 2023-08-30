@@ -66,9 +66,6 @@ func new_attack(tower: Tower, num_shots: int, creep: Creep):
 
 		await get_tree().create_timer(0.2).timeout
 
-	if next != null:
-		it.destroy()
-
 
 func tower_init():
 	ball = ProjectileType.create("PurgeBuffTarget.mdl", 4, 1000)

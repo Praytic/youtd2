@@ -73,7 +73,6 @@ func periodic(event: Event):
 		if U.is_immune():
 			break
 
-	I.destroy()
 	dmg = T.get_current_attack_damage_with_bonus() * (T.get_prop_spell_damage_dealt() * (0.2 + 0.008 * T.get_level()))
 	P = Projectile.create_linear_interpolation_from_unit_to_unit(PT, T, 1.0, 1.0, T, U, 0.35, true)
 	P.user_real = dmg

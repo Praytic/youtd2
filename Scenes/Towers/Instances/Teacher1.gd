@@ -72,8 +72,6 @@ func teacher_attack(tower: Tower, xp: float):
 			p.user_int = result.get_instance_id()
 			p.user_int2 = tower.get_instance_id()
 
-			in_range.destroy()
-
 
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(on_attack)

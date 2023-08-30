@@ -69,6 +69,11 @@ func periodic(_event: Event):
 
 	itm.drop()
 
+	if tower_in_range.count() == 0:
+		itm.fly_to_stash(0.0)
+
+		return
+
 	while true:
 		tower_in_range = towers_in_range.next_random()
 
@@ -82,8 +87,3 @@ func periodic(_event: Event):
 			ball.user_int2 = tower_in_range.get_instance_id()
 
 			break
-
-	if tower_in_range != null:
-		towers_in_range.destroy()
-	else:
-		itm.fly_to_stash(0.0)

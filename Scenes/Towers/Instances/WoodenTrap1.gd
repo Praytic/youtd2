@@ -64,9 +64,6 @@ func trap(event: Event, tower, cooldown: float, base_damage: float, damage_add: 
 
 		next = it.next_random()
 
-	if next != null:
-		it.destroy()
-
 	if num_targets > 0:
 #		Trapping successful; go into cooldown.
 		event.enable_advanced(cooldown - lvl * 0.2, false)
