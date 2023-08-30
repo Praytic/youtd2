@@ -15,7 +15,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 
 
-func on_kill(event: Event):
+func on_kill(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 	tower.add_mana_perc(0.07)

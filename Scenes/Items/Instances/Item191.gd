@@ -40,7 +40,7 @@ func on_attack(event: Event):
 			itm.user_real = itm.user_real + reward_value
 
 	itm.user_int = max(itm.user_int, creep_level)
-	itm.user_int2 = Utils.get_game_time()
+	itm.user_int2 = roundi(Utils.get_game_time())
 
 
 func on_create():

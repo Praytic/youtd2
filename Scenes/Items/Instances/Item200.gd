@@ -39,11 +39,11 @@ func on_attack(event: Event):
 	var choose: int
 	var target: Creep
 	var tower: Tower
-	var owner: Player
+	var player: Player
 
 	if itm.user_int <= 0:
 		tower = itm.get_carrier()
-		owner = itm.get_player()
+		player = itm.get_player()
 		choose = randi_range(1, 6)
 
 		if choose <= 4:
@@ -53,20 +53,20 @@ func on_attack(event: Event):
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 1)
 			target.drop_item(tower, false)
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -1)
-			owner.display_floating_text("One Item", tower, 0, 0, 255)
+			player.display_floating_text("One Item", tower, 0, 0, 255)
 		elif choose == 2:
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.5)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.5)
-			owner.display_floating_text("Two Items", tower, 0, 0, 255)
+			player.display_floating_text("Two Items", tower, 0, 0, 255)
 		elif choose == 3:
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
 			target.drop_item(tower, false)
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -0.25)
-			owner.display_floating_text("Three Items", tower, 0, 0, 255)
+			player.display_floating_text("Three Items", tower, 0, 0, 255)
 		elif choose == 4:
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			target.drop_item(tower, false)
@@ -75,15 +75,15 @@ func on_attack(event: Event):
 			tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.1)
 			itm.user_real = itm.user_real + 0.1
 			itm.user_real2 = itm.user_real2 + 0.1
-			owner.display_floating_text("Two Items + Bonus!", tower, 0, 0, 255)
+			player.display_floating_text("Two Items + Bonus!", tower, 0, 0, 255)
 		elif choose == 5:
 			tower.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.25)
 			itm.user_real2 = itm.user_real2 + 0.25
-			owner.display_floating_text("Item Chance", tower, 0, 255, 0)
+			player.display_floating_text("Item Chance", tower, 0, 255, 0)
 		elif choose == 6:
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			itm.user_real = itm.user_real + 0.25
-			owner.display_floating_text("Item Quality", tower, 0, 255, 0)
+			player.display_floating_text("Item Quality", tower, 0, 255, 0)
 
 
 func on_create():

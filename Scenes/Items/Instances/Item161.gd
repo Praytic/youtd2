@@ -32,7 +32,7 @@ func item_init():
 	stern_Commander_Attack.set_buff_tooltip("Attack!\nThis unit has been commanded to attack; it has increased attack speed.")
 
 
-func on_attack(event: Event):
+func on_attack(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier() 
 	var in_range: Iterate

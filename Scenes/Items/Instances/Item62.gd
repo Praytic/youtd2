@@ -19,7 +19,7 @@ func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.20, 0.0)
 
 
-func periodic(event: Event):
+func periodic(_event: Event):
 	var itm: Item = self
 	var night: float = Utils.get_time_of_day()
 	var target_effect: int

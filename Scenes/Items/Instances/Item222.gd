@@ -19,7 +19,7 @@ func on_damage(event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 	var cd: float = tower.get_base_attack_speed()
-	var range: float = tower.get_range()
+	var tower_range: float = tower.get_range()
 
 	if event.is_main_target():
-		tower.add_exp(0.2 * cd * (800 / range))
+		tower.add_exp(0.2 * cd * (800 / tower_range))

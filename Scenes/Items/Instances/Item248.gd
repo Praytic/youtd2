@@ -16,7 +16,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 10)
 
 
-func on_autocast(event: Event):
+func on_autocast(_event: Event):
 	var itm: Item = self
 	var i: int = itm.get_charges()
 	var tower: Tower = itm.get_carrier()
@@ -99,6 +99,6 @@ func on_pickup():
 	check_level(itm)
 
 
-func periodic(event: Event):
+func periodic(_event: Event):
 	var itm: Item = self
 	check_level(itm)

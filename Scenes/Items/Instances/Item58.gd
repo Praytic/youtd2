@@ -34,11 +34,3 @@ func item_init():
 	aura.power_add = 10
 	aura.aura_effect = Neotopia_Drumspeed
 	add_aura(aura)
-
-
-func on_damage(event: Event):
-	var itm: Item = self
-
-
-func on_autocast(event: Event):
-	var itm: Item = self

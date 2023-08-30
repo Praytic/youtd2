@@ -16,9 +16,7 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
 	var T: Creep = event.get_target()
-	var U: Tower = itm.get_carrier()
 
 	if T.get_armor_type() == ArmorType.enm.LUA:
 		event.damage = event.damage * 1.25

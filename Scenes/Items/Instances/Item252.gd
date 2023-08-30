@@ -38,7 +38,7 @@ func on_pickup():
 	itm.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_DAMAGE, itm.user_real)
 
 
-func on_kill(event: Event):
+func on_kill(_event: Event):
 	var itm: Item = self
 
 	if itm.user_real < 3:

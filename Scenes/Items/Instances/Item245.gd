@@ -21,7 +21,7 @@ func on_pickup():
 	itm.user_real = itm.get_carrier().get_mana()
 
 
-func periodic(event: Event):
+func periodic(_event: Event):
 	var itm: Item = self
 	var u: Unit = itm.get_carrier()
 	var cur_mana: float = u.get_mana()

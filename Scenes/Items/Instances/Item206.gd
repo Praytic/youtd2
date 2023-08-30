@@ -31,7 +31,7 @@ func item_init():
 	set_autocast(autocast)
 
 
-func on_autocast(event: Event):
+func on_autocast(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 450)

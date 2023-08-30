@@ -16,13 +16,13 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 15)
 
 
-func periodic(event: Event):
+func periodic(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 	var next: Tower
 	var in_range: Iterate
 	var count: int
-	var exp: float
+	var experience: float
 
 #	test if tower is level 2 or higher
 	if tower.get_level() > 1:
@@ -32,7 +32,7 @@ func periodic(event: Event):
 
 		if count > 0:
 # 			(8 + number of towers) / number of towers
-			exp = (8.0 + count) / count
+			experience = (8.0 + count) / count
 			tower.remove_exp_flat(10)
 
 			while true:
@@ -41,7 +41,7 @@ func periodic(event: Event):
 				if next == null:
 					break
 
-				next.add_exp_flat(exp)
+				next.add_exp_flat(experience)
 				SFX.sfx_at_unit("PolyMorphTarget.mdl", next)
 				count = count - 1
 

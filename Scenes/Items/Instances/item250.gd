@@ -27,7 +27,7 @@ func item_init():
 	crit_blade_multiboard.set_key(0, "Crit Gained")
 
 
-func on_attack(event: Event):
+func on_attack(_event: Event):
 	var itm: Item = self
 
 	if (itm.get_carrier().get_number_of_crits() > 0):

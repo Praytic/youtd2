@@ -81,7 +81,7 @@ func on_create():
 	itm.user_int = 10
 
 
-func periodic(event: Event):
+func periodic(_event: Event):
 	var itm: Item = self
 	itm.user_int = itm.user_int + 3
 

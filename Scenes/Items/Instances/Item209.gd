@@ -2,9 +2,9 @@
 extends Item
 
 
-var BT: BuffType
-var CD: BuffType
-var C: Cast
+var entangling_roots_buff: BuffType
+var cooldown_buff: BuffType
+var blizzard_cast: Cast
 
 
 func get_extra_tooltip_text() -> String:
@@ -20,18 +20,18 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func overgrowth_dmg(event: Event, C: DummyUnit):
-	var U: Creep = event.get_target()
-	var tower: Tower = C.get_caster()
+func overgrowth_dmg(event: Event, dummy: DummyUnit):
+	var target: Creep = event.get_target()
+	var tower: Tower = dummy.get_caster()
 	event.damage = 0
 
-	if U.get_buff_of_type(CD) == null:
-		BT.apply(tower, U, 0)
+	if target.get_buff_of_type(cooldown_buff) == null:
+		entangling_roots_buff.apply(tower, target, 0)
 
-		if U.get_size() < CreepSize.enm.BOSS:
-			CD.apply(tower, U, 0)
+		if target.get_size() < CreepSize.enm.BOSS:
+			cooldown_buff.apply(tower, target, 0)
 		else:
-			CD.apply_only_timed(tower, U, -1)
+			cooldown_buff.apply_only_timed(tower, target, -1)
 
 
 func periodic_dmg(event: Event):
@@ -40,14 +40,14 @@ func periodic_dmg(event: Event):
 
 
 func item_init():
-	BT = CbStun.new("cb_stun", 1.8, 0, false, self)
-	BT.add_periodic_event(periodic_dmg, 1.0)
-	BT.set_buff_icon("@@1@@")
+	entangling_roots_buff = CbStun.new("entangling_roots_buff", 1.8, 0, false, self)
+	entangling_roots_buff.add_periodic_event(periodic_dmg, 1.0)
+	entangling_roots_buff.set_buff_icon("@@1@@")
 
-	CD = BuffType.new("Item209_CD", 4.8, 0.0, false, self)
+	cooldown_buff = BuffType.new("Item209_cooldown_buff", 4.8, 0.0, false, self)
 
-	C = Cast.new("@@0@@", "blizzard", 4.0)
-	C.set_damage_event(overgrowth_dmg)
+	blizzard_cast = Cast.new("@@0@@", "blizzard", 4.0)
+	blizzard_cast.set_damage_event(overgrowth_dmg)
 	
 
 func on_damage(event: Event):
@@ -56,6 +56,6 @@ func on_damage(event: Event):
 	var tower: Tower = itm.get_carrier()
 
 	if event.is_main_target() && tower.calc_chance(tower.get_base_attack_speed() * 0.06):
-		C.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
+		blizzard_cast.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
 		var effect: int = Effect.create_colored("Roots.mdl", target.get_visual_position().x, target.get_visual_position().y, 0.0, 270.0, 1.2, Color8(210, 255, 180, 255))
 		Effect.set_lifetime(effect, 2.5)

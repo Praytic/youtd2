@@ -45,7 +45,7 @@ func item_init():
 	drol_hangover.set_buff_tooltip("Drunk\nThis unit is Drunk; it has reduced attack speed and it will become stunned soon.")
 
 
-func on_attack(event: Event):
+func on_attack(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 	var speed: float = tower.get_base_attack_speed()

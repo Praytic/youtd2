@@ -19,7 +19,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
-func on_attack(event: Event):
+func on_attack(_event: Event):
 	var itm: Item = self
 	itm.user_real = itm.user_real + 50.0 + 1.0 * itm.get_carrier().get_level()
 	itm.set_charges(int(itm.user_real))

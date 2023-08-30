@@ -33,7 +33,6 @@ func item_init():
 func periodic(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
-	var lvl: int = tower.get_level()
 	var iterate: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 1000)
 	var loop_counter: int = 3
 

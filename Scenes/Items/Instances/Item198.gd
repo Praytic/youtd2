@@ -27,18 +27,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func daem_frog_attack(tower: Tower, target: Unit, temp: int):
-	var p: Projectile
-	var x: float = tower.get_visual_position().x
-	var y: float = tower.get_visual_position().y
-	var angle: float
-	var homerange: float = 190
-
-	angle = atan2(target.get_visual_position().y - y, target.get_visual_position().x - x)
-#    p = Projectile.new(daem_frog_PT, ...)
-	p.user_int = temp
-	p.user_real = tower.get_current_attack_damage_with_bonus()
-	p.user_real2 = tower.calcAttackMulticrit(0, 0, 0)
+func daem_frog_attack(_tower: Tower, _target: Unit, _temp: int):
+	pass
 
 
 func daem_frog_collision(p: Projectile, target: Unit):

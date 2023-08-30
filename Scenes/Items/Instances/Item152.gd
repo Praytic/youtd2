@@ -20,7 +20,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 12)
 
 
-func periodic(event: Event):
+func periodic(_event: Event):
 	var itm: Item = self
 
 	var tower: Unit = itm.get_carrier()

@@ -19,7 +19,7 @@ func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.75, 0.01)
 
 
-func on_attack(event: Event):
+func on_attack(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 

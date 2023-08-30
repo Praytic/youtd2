@@ -15,7 +15,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_damage)
 
 
-func on_damage(event: Event):
+func on_damage(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 	var next: Tower

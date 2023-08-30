@@ -30,7 +30,7 @@ func item_init():
 	sir_sleeve_buff.set_buff_tooltip("Enraged\nThis unit is Enraged; it has increased attack speed, spell damage and attack damage.")
 
 
-func on_attack(event: Event):
+func on_attack(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 	var b: Buff = tower.get_buff_of_group("sir_sleeve_group")

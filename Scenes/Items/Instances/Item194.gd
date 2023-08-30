@@ -16,10 +16,8 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var itm: Item = self
-	var T: Creep = event.get_target()
-	var U: Tower = itm.get_carrier()
+	var target: Creep = event.get_target()
 
-	if T.get_armor_type() == ArmorType.enm.SIF:
+	if target.get_armor_type() == ArmorType.enm.SIF:
 		event.damage = event.damage * 1.25
-		SFX.sfx_on_unit("BansheeMissile.mdl", T, "chest")
+		SFX.sfx_on_unit("BansheeMissile.mdl", target, "chest")

@@ -37,7 +37,7 @@ func on_pickup():
 	itm.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, itm.user_real)
 
 
-func on_kill(event: Event):
+func on_kill(_event: Event):
 	var itm: Item = self
 	itm.get_carrier().modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, -itm.user_real)
 	itm.user_real = itm.user_real + 0.0015

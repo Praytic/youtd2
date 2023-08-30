@@ -31,6 +31,6 @@ func item_init():
 	BT.set_buff_tooltip("Playtime\nThis unit is affected by Toy Boy; it has reduced attack speed.")
 
 
-func periodic(event: Event):
+func periodic(_event: Event):
 	var itm: Item = self
 	BT.apply(itm.get_carrier(), itm.get_carrier(), 1)

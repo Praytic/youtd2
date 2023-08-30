@@ -33,7 +33,7 @@ func item_init():
 	BT.set_buff_tooltip("Rampage\nThis unit is on a Rampage; it has increased attack speed, multi crit count, critical damage and critical chance.")
 
 
-func on_attack(event: Event):
+func on_attack(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 
