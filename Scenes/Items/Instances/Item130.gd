@@ -24,7 +24,7 @@ func hippo_hit(p: Projectile, creep: Unit):
 	var caster: Unit = p.get_caster()
 
 	if creep.is_immune() == false:
-		caster.do_spell_damage_aoe(p.x, p.y, 200, 1250 + caster.get_level() * 50, 1.0, caster.calc_spell_crit_no_bonus())
+		caster.do_spell_damage_aoe(p.position.x, p.position.y, 200, 1250 + caster.get_level() * 50, 1.0, caster.calc_spell_crit_no_bonus())
 		var effect: int = Effect.create_scaled("AncientProtectorMissile", p.global_position.x, p.global_position.y, 0, 0, 0.8)
 		Effect.destroy_effect_after_its_over(effect)
 
