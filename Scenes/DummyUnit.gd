@@ -34,6 +34,13 @@ func set_kill_event(handler: Callable):
 # Spell). The DummyUnit then becomes crit or non-crit at the
 # moment of creation and stays that way while it is alive.
 func do_spell_damage(target: Unit, amount: float):
+#	NOTE: caster may become invalid if tower launches a
+#	projectile and is then sold before projectile reaches
+#	the target.
+	var caster_is_valid: bool = Utils.unit_is_valid(_caster)
+	if !caster_is_valid:
+		return
+
 	var spell_damage: float = Unit.get_spell_damage(amount, _crit_ratio, _caster, target) * _damage_ratio
 
 	var damage_killed_unit: bool = target.receive_damage(spell_damage)
