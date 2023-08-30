@@ -1,6 +1,12 @@
 class_name Iterate
 
 
+# NOTE: cannot use any typing for unit lists here, so no
+# "Array[Unit]" or "foo: Unit" is allowed. Using typing
+# causes runtime errors because stored unit references may
+# become invalid due to units dying, in which case their
+# references turn into "Object" type.
+
 enum NextOrder {
 	FRONT,
 	RANDOM,
@@ -13,8 +19,8 @@ var _center_unit_last_known_pos: Vector2
 var _center_pos: Vector2
 var _target_type: TargetType
 var _radius: float
-var _next_list: Array[Unit] = []
-var _already_returned_list: Array[Unit] = []
+var _next_list: Array = []
+var _already_returned_list: Array = []
 
 
 # NOTE: Iterate.overUnitsInRangeOf() in JASS
@@ -91,7 +97,7 @@ func _next_internal(next_order: NextOrder) -> Unit:
 
 #	Remove units that became invalid
 	_next_list = _next_list.filter(
-		func(unit: Unit) -> bool:
+		func(unit) -> bool:
 			var unit_is_valid: bool = Utils.unit_is_valid(unit)
 
 			if !unit_is_valid:
@@ -102,7 +108,7 @@ func _next_internal(next_order: NextOrder) -> Unit:
 
 #	Remove units that went out of range
 	_next_list = _next_list.filter(
-		func(unit: Unit) -> bool:
+		func(unit) -> bool:
 			var distance: float = Isometric.vector_distance_to(_get_center_pos(), unit.position)
 			var unit_is_in_range: bool = distance < _radius
 
@@ -114,7 +120,7 @@ func _next_internal(next_order: NextOrder) -> Unit:
 
 # 	If ran out units, add units that entered into range
 	if _next_list.is_empty():
-		var units_in_range: Array[Unit] = Utils.get_units_in_range(_target_type, _get_center_pos(), _radius)
+		var units_in_range: Array = Utils.get_units_in_range(_target_type, _get_center_pos(), _radius)
 
 		for unit in units_in_range:
 			var unit_already_returned: bool = _already_returned_list.has(unit)
