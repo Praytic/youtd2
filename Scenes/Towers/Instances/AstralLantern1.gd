@@ -31,4 +31,4 @@ func on_damage(event: Event):
 	var tower: Unit = self
 
 	if event.get_target().is_invisible():
-		event.damage = event.damage * (_stats.damage_base * _stats.damage_add * tower.get_level())
+		event.damage = event.damage * (_stats.damage_base + tower.get_level() * _stats.damage_add)
