@@ -30,7 +30,7 @@ func _ready():
 		var current_damage_reduction = max(0, 1.0 - _damage_reduction * i)
 		var current_damage: float = _damage * current_damage_reduction
 
-		do_spell_damage(hit_unit, _damage)
+		do_spell_damage(hit_unit, current_damage)
 		visited_unit_list.append(hit_unit)
 		current_position = hit_unit.position
 
