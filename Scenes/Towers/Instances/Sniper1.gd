@@ -53,7 +53,7 @@ func load_specials(modifier: Modifier):
 
 func rocket_hit(p: Projectile, _t: Unit):
 	var tower: Tower = self
-	p.do_spell_damage_pb_aoe(p.user_real, _stats.rocket_damage + _stats.rocket_damage_add * tower.get_level(), 0)
+	p.do_spell_damage_pb_aoe(_stats.aoe_radius, _stats.rocket_damage + _stats.rocket_damage_add * tower.get_level(), 0)
 	var effect: int = Effect.add_special_effect("NeutralBuildingExplosion.mdl", p.x, p.y)
 	Effect.destroy_effect_after_its_over(effect)
 
@@ -70,4 +70,3 @@ func on_attack(event: Event):
 		return
 
 	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(cedi_sniper_rocket, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)
-	projectile.user_real = _stats.aoe_radius 

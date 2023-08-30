@@ -36,7 +36,7 @@ func load_triggers(triggers: BuffType):
 
 func rock_hit(p: Projectile, _target: Unit):
 	var tower: Tower = self
-	p.do_spell_damage_pb_aoe(p.user_real, _stats.damage + _stats.damage_add * tower.get_level(), 0)
+	p.do_spell_damage_pb_aoe(_stats.rock_range, _stats.damage + _stats.damage_add * tower.get_level(), 0)
 	var effect: int = Effect.add_special("ImpaleTargetDust.mdl", p.position.x, p.position.y)
 	Effect.destroy_effect_after_its_over(effect)
 
@@ -52,4 +52,4 @@ func on_attack(event: Event):
 	if !tower.calc_chance(0.3 + 0.06 * tower.get_level()):
 		return
 
-	Projectile.create_linear_interpolation_from_unit_to_unit(boekie_tree_rock, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true).user_real = _stats.rock_range
+	Projectile.create_linear_interpolation_from_unit_to_unit(boekie_tree_rock, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)
