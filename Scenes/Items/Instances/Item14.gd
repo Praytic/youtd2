@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Pay With Blood[/color]\n"
-	text += "Every 10 seconds the user of this item loses 2 experience.\N"
+	text += "Every 10 seconds the user of this item loses 2 experience.\n"
 
 	return text
 
@@ -17,7 +17,7 @@ func load_modifier(modifier: Modifier):
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_periodic(periodic, 10)
+	triggers.add_periodic_event(periodic, 10)
 
 
 func periodic(_event: Event):

@@ -23,7 +23,7 @@ func get_extra_tooltip_text() -> String:
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-	triggers.add_event_on_periodic(periodic, 5)
+	triggers.add_periodic_event(periodic, 5)
 
 
 func item_init():

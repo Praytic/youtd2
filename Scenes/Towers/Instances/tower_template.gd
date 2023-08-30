@@ -38,7 +38,7 @@ extends Tower
 
 # func load_triggers(triggers: BuffType):
 # 	triggers.add_event_on_damage(on_damage)
-# 	triggers.add_event_periodic(periodic, 5)
+# 	triggers.add_periodic_event(periodic, 5)
 
 
 # func load_specials(modifier: Modifier):

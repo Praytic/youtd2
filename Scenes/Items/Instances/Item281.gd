@@ -12,7 +12,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_spell_cast(on_spell_cast)
+	triggers.add_event_on_spell_casted(on_spell_cast)
 
 
 func on_spell_cast(event: Event):

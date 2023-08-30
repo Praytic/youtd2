@@ -25,7 +25,7 @@ func item_init():
 
 func on_create():
 	var itm: Item = self
-	itm.ser_real = 0
+	itm.user_real = 0
 
 
 func on_drop():

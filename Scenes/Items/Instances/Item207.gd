@@ -19,7 +19,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_periodic(periodic, 0.1)
+	triggers.add_periodic_event(periodic, 0.1)
 
 
 func hit_PT(P: Projectile, U: Unit):

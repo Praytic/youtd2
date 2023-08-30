@@ -15,7 +15,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_modifier(modifier: Modifier):
-    modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.ATTACKSPEED, 0.15)
+    modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.37, 0)
 
 
 func item_init():

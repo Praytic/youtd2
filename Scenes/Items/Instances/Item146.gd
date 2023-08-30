@@ -15,7 +15,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_periodic(periodic, 10)
+	triggers.add_periodic_event(periodic, 10)
 
 
 func load_modifier(modifier: Modifier):

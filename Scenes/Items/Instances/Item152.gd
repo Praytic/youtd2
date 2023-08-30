@@ -17,7 +17,7 @@ func load_modifier(modifier: Modifier):
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_periodic(periodic, 12)
+	triggers.add_periodic_event(periodic, 12)
 
 
 func periodic(event: Event):
