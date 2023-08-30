@@ -102,6 +102,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._range = type._range
 	projectile._collision_radius = type._collision_radius
 	projectile._collision_target_type = type._collision_target_type
+	projectile._damage_bonus_to_size_map = type._damage_bonus_to_size_map
 
 	projectile._damage_ratio = damage_ratio
 	projectile._crit_ratio = crit_ratio

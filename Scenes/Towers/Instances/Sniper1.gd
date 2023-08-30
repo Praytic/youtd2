@@ -1,17 +1,6 @@
 extends Tower
 
 
-# NOTE: removed the "Rocket deals 125% damage to mass
-# creeps." ability. Because:
-# 
-# 1. Requires a special feature called DamageTable, which is
-#    used only by this tower.
-# 
-# 2. The damage table in original script actually sets
-#    damage mod to 0.95, not 1.5 like in description. Maybe
-#    a typo in original script.
-
-
 var cedi_sniper_rocket: ProjectileType
 
 
@@ -61,6 +50,9 @@ func rocket_hit(p: Projectile, _t: Unit):
 func tower_init():
 	cedi_sniper_rocket = ProjectileType.create_interpolate("RocketMissile.mdl", 750)
 	cedi_sniper_rocket.set_event_on_interpolation_finished(rocket_hit)
+#	NOTE: -70% from tower specials +95% from this = 125%
+#	total damage to mass
+	cedi_sniper_rocket.set_bonus_to_size(CreepSize.enm.MASS, 0.95)
 
 
 func on_attack(event: Event):
@@ -69,4 +61,4 @@ func on_attack(event: Event):
 	if !tower.calc_chance(0.30 + 0.006 * tower.get_level()):
 		return
 
-	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(cedi_sniper_rocket, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)
+	Projectile.create_linear_interpolation_from_unit_to_unit(cedi_sniper_rocket, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)

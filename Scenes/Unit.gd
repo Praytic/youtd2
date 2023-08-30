@@ -408,20 +408,12 @@ func calc_attack_multicrit_no_bonus() -> float:
 	return calc_attack_multicrit(0, 0, 0)
 
 
-static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit, target: Unit) -> float:
-	var dealt_mod: float = caster.get_prop_spell_damage_dealt()
-	var received_mod: float = target.get_prop_spell_damage_received()
-	var damage_total: float = damage_base * dealt_mod * received_mod * crit_ratio
-
-	return damage_total
-
-
 # NOTE: unit.doSpellDamage() in JASS
 func do_spell_damage(target: Unit, damage: float, crit_ratio: float) -> bool:
-# 	NOTE: apply spell damage ratio here. It's the same value
-# 	for all armor types, weird but that's how it works in
-# 	original.
-	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target)
+	var caster: Unit = self
+	var dealt_mod: float = caster.get_prop_spell_damage_dealt()
+	var received_mod: float = target.get_prop_spell_damage_received()
+	var damage_total: float = damage * dealt_mod * received_mod * crit_ratio
 
 	var killed_unit: bool = _do_damage(target, damage_total, DamageSource.Spell)
 

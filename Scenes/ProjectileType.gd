@@ -11,6 +11,12 @@ var _target_hit_handler: Callable = Callable()
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
 var _collision_handler: Callable = Callable()
+var _damage_bonus_to_size_map: Dictionary = {}
+
+
+func _init():
+	#	NOTE: fix "unused" warning
+	_damage_bonus_to_size_map = _damage_bonus_to_size_map
 
 
 # ProjectileType.create() in JASS
@@ -85,3 +91,8 @@ func set_event_on_interpolation_finished(handler: Callable):
 # projectileType.setAcceleration() in JASS
 func set_acceleration(_value: float):
 	pass
+
+
+# NOTE: DamageTable.setBonusToSize() in JASS
+func set_bonus_to_size(creep_size: CreepSize.enm, bonus: float):
+	_damage_bonus_to_size_map[creep_size] = bonus
