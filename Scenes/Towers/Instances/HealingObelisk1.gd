@@ -34,7 +34,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_level_up(on_level_up)
 
 
-func on_damage(_event: Event):
+func on_damage(event: Event):
 	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var loop_count: int = tower.user_int
@@ -59,7 +59,7 @@ func on_damage(_event: Event):
 			loop_count = loop_count - 1
 
 
-func on_level_up(event: Event):
+func on_level_up(_event: Event):
 	var tower: Tower = self
 	var level: int = tower.get_level()
 
