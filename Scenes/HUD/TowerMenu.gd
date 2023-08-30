@@ -29,6 +29,11 @@ var _selling_for_real: bool = false
 
 
 func _ready():
+#	NOTE: fix unused warnings
+	_unit_info_label = _unit_info_label
+	_unit_specials_container = _unit_specials_container
+	_specials_container = _specials_container
+	
 	hide()
 	
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
