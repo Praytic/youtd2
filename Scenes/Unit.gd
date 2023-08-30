@@ -417,13 +417,15 @@ static func get_spell_damage(damage_base: float, crit_ratio: float, caster: Unit
 
 
 # NOTE: unit.doSpellDamage() in JASS
-func do_spell_damage(target: Unit, damage: float, crit_ratio: float):
+func do_spell_damage(target: Unit, damage: float, crit_ratio: float) -> bool:
 # 	NOTE: apply spell damage ratio here. It's the same value
 # 	for all armor types, weird but that's how it works in
 # 	original.
-	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target) * Constants.SPELL_DAMAGE_RATIO
+	var damage_total: float = Unit.get_spell_damage(damage, crit_ratio, self, target)
 
-	_do_damage(target, damage_total, DamageSource.Spell)
+	var killed_unit: bool = _do_damage(target, damage_total, DamageSource.Spell)
+
+	return killed_unit
 
 
 # NOTE: unit.doAttackDamage() in JASS
@@ -733,12 +735,16 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource):
+func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -> bool:
 	var size_mod: float = _get_damage_mod_for_creep_size(target)
 	var category_mod: float = _get_damage_mod_for_creep_category(target)
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
 
 	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
+
+# 	NOTE: all spell damage is reduced by this amount
+	if damage_source == DamageSource.Spell:
+		damage *= Constants.SPELL_DAMAGE_RATIO
 
 	var damaged_event: Event = Event.new(self)
 	damaged_event.damage = damage
@@ -747,15 +753,19 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource):
 
 	damage = damaged_event.damage
 
-	_damage_dealt_total += damage
+#	NOTE: record stats about damage only for attack damage
+	if damage_source == DamageSource.Attack:
+		_damage_dealt_total += damage
 
-	if damage > _best_hit:
-		_best_hit = damage
+		if damage > _best_hit:
+			_best_hit = damage
 
 	var damage_killed_unit: bool = target.receive_damage(damage)
 
 	if damage_killed_unit:
 		target._killed_by_unit(self)
+
+	return damage_killed_unit
 
 
 # NOTE: this f-n is also used by

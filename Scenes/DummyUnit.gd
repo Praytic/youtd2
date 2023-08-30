@@ -10,6 +10,7 @@ var _damage_ratio: float = 1.0
 var _crit_ratio: float = 0.0
 var _damage_event_handler: Callable = Callable()
 var _kill_event_handler: Callable = Callable()
+var _damage_bonus_to_size_map: Dictionary = {}
 
 
 func get_caster() -> Unit:
@@ -41,16 +42,12 @@ func do_spell_damage(target: Unit, amount: float):
 	if !caster_is_valid:
 		return
 
-	var spell_damage: float = Unit.get_spell_damage(amount, _crit_ratio, _caster, target) * _damage_ratio
-
-	var damage_killed_unit: bool = target.receive_damage(spell_damage)
+	var damage_killed_unit: bool = _caster.do_spell_damage(target, amount * _damage_ratio, _crit_ratio)
 
 	if damage_killed_unit:
 		if _kill_event_handler.is_valid():
 			var killed_event: Event = Event.new(target)
 			_kill_event_handler.call(killed_event, self)
-
-		target._killed_by_unit(_caster)
 	else:
 		if _damage_event_handler.is_valid():
 			var damage_event: Event = Event.new(target)
