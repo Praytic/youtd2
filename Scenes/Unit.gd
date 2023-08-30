@@ -755,6 +755,8 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -
 	damaged_event._is_spell_damage = damage_source == DamageSource.Spell
 	target.damaged.emit(damaged_event)
 
+# 	NOTE: update damage value because it could've been
+# 	altered by event handlers of target's "damaged" event
 	damage = damaged_event.damage
 
 #	NOTE: record stats about damage only for attack damage
