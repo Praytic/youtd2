@@ -18,10 +18,10 @@ var cedi_sniper_rocket: ProjectileType
 # NOTE: this value is multiplied by 100
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {rocket_damage = 4, rocket_damage_add = 0.1},
-		2: {rocket_damage = 12, rocket_damage_add = 0.3},
-		3: {rocket_damage = 24, rocket_damage_add = 0.6},
-		4: {rocket_damage = 40, rocket_damage_add = 1.0},
+		1: {rocket_damage = 4, rocket_damage_add = 0.1, aoe_radius = 150},
+		2: {rocket_damage = 12, rocket_damage_add = 0.3, aoe_radius = 160},
+		3: {rocket_damage = 24, rocket_damage_add = 0.6, aoe_radius = 170},
+		4: {rocket_damage = 40, rocket_damage_add = 1.0, aoe_radius = 180},
 	}
 
 
@@ -70,4 +70,4 @@ func on_attack(event: Event):
 		return
 
 	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(cedi_sniper_rocket, tower, _stats.rocket_damage + tower.get_level() * _stats.rocket_damage_add, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)
-	projectile.user_real = 150 
+	projectile.user_real = _stats.aoe_radius 
