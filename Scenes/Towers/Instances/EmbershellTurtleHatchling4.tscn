@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://gie0vat3aih1"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_t4pt8"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/EmbershellTurtleHatchling1.gd" id="2_a25ax"]
+[ext_resource type="Texture2D" uid="uid://d0c4eyx32d2wr" path="res://Assets/Towers/Instances/embershell_turtle_hatchling_atlas.png" id="3_g6ndi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_g6ndi")
+region = Rect2(0, 300, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_t4pt8")]
+script = ExtResource("2_a25ax")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(0, 115)
+texture = SubResource("AtlasTexture_lrt4k")

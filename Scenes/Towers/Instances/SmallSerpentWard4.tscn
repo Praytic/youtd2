@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1u3i61ckk4cw"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_uwk2y"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/SmallSerpentWard1.gd" id="2_vbubn"]
+[ext_resource type="Texture2D" uid="uid://c45bvdd5xj7hm" path="res://Assets/Towers/Instances/small_serpent_ward_atlas.png" id="3_woued"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_woued")
+region = Rect2(0, 300, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_uwk2y")]
+script = ExtResource("2_vbubn")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(0, 115)
+texture = SubResource("AtlasTexture_lrt4k")

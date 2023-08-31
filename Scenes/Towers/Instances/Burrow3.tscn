@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjy5sn3e2lxeu"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_cpwjl"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/Burrow1.gd" id="2_g82o1"]
+[ext_resource type="Texture2D" uid="uid://ck72ou6qt316y" path="res://Assets/Towers/Instances/burrow_atlas.png" id="3_vfp61"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_vfp61")
+region = Rect2(600, 0, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_cpwjl")]
+script = ExtResource("2_g82o1")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(0, 115)
+texture = SubResource("AtlasTexture_lrt4k")

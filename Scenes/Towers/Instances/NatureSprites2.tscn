@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8mn8a5oekb4o"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_bxgeh"]
+[ext_resource type="Texture2D" uid="uid://c1viu2jr1hk4x" path="res://Assets/Towers/Instances/nature_sprites_atlas.png" id="2_q53da"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("2_q53da")
+region = Rect2(300, 0, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_bxgeh")]
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(0, 115)
+texture = SubResource("AtlasTexture_lrt4k")
