@@ -20,9 +20,6 @@ func _ready():
 	for element_button in get_element_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 	
-	_research_button.mouse_entered.connect(_on_button_mouse_entered)
-	_research_button.mouse_exited.connect(_on_button_mouse_exited)
-	_research_button.pressed.connect(_on_button_pressed)
 	KnowledgeTomesManager.knowledge_tomes_change.connect(_on_knowledge_tomes_change)
 	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_on_item_stash_changed()
@@ -40,8 +37,8 @@ func _process(_delta):
 	_building_menu_button.text = str(_build_bar.get_child_count())
 
 
-func _on_button_pressed():
-	var element = _build_bar.get_element()
+func _on_upgrade_element_button_pressed():
+	var element: Element.enm = _build_bar.get_element()
 	ElementLevel.increment(element)
 
 	var cost: int = ElementLevel.get_research_cost(element)
@@ -51,12 +48,12 @@ func _on_button_pressed():
 		_research_button.disabled = true
 
 
-func _on_button_mouse_entered():
-	var element = _build_bar.get_element()
+func _on_upgrade_element_button_mouse_entered():
+	var element: Element.enm = _build_bar.get_element()
 	EventBus.research_button_mouse_entered.emit(element)
 
 
-func _on_button_mouse_exited():
+func _on_upgrade_element_button_mouse_exited():
 	EventBus.research_button_mouse_exited.emit()
 
 
