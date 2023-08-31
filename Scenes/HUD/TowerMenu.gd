@@ -246,7 +246,7 @@ func _on_upgrade_button_pressed():
 	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
 	GoldControl.spend_gold(upgrade_cost)
 
-	_update_upgrade_button(tower)
+	_update_upgrade_button(upgrade_tower)
 
 # 	NOTE: call this to force an update of tooltip so it
 # 	switches to next tier
