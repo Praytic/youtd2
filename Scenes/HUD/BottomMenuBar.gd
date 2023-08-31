@@ -43,9 +43,8 @@ func _on_upgrade_element_button_pressed():
 
 	var cost: int = ElementLevel.get_research_cost(element)
 	KnowledgeTomesManager.spend(cost)
-	
-	if ElementLevel.get_current(element) == ElementLevel.get_max():
-		_research_button.disabled = true
+
+	_update_upgrade_element_button()
 
 
 func _on_upgrade_element_button_mouse_entered():
@@ -58,9 +57,7 @@ func _on_upgrade_element_button_mouse_exited():
 
 
 func _on_knowledge_tomes_change():
-	var current_element: Element.enm = _build_bar.get_element()
-	var can_afford: bool = ElementLevel.can_afford_research(current_element)
-	_research_button.set_disabled(!can_afford)
+	_update_upgrade_element_button()
 
 
 # NOTE: below are getters for elements inside bottom menu
@@ -131,3 +128,13 @@ func _on_item_stash_changed():
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
 	var item_button_count: int = item_stash_container.get_item_count()
 	_item_menu_button.text = str(item_button_count)
+
+
+func _update_upgrade_element_button():
+	var element: Element.enm = _build_bar.get_element()
+	var can_afford: bool = ElementLevel.can_afford_research(element)
+	var current_level: int = ElementLevel.get_current(element)
+	var reached_max_level: bool = current_level == ElementLevel.get_max()
+	var button_is_enabled: bool = can_afford && !reached_max_level
+
+	_research_button.set_disabled(!button_is_enabled)
