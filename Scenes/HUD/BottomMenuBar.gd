@@ -44,6 +44,9 @@ func _on_upgrade_element_button_pressed():
 	var cost: int = ElementLevel.get_research_cost(element)
 	KnowledgeTomesManager.spend(cost)
 
+#	NOTE: force update of button tooltip
+	_on_upgrade_element_button_mouse_entered()
+
 	_update_upgrade_element_button()
 
 
