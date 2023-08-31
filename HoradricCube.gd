@@ -5,16 +5,16 @@ signal items_changed()
 
 
 enum Recipe {
-	TWO_OILS,
-	FOUR_OILS,
+	TWO_OILS_OR_CONSUMABLES,
+	FOUR_OILS_OR_CONSUMABLES,
 	THREE_ITEMS,
 	FIVE_ITEMS,
 	NONE,
 }
 
 var _level_bonus_map: Dictionary = {
-	Recipe.TWO_OILS: [0, 0],
-	Recipe.FOUR_OILS: [0, 0],
+	Recipe.TWO_OILS_OR_CONSUMABLES: [0, 0],
+	Recipe.FOUR_OILS_OR_CONSUMABLES: [0, 0],
 	Recipe.THREE_ITEMS: [5, 25],
 	Recipe.FIVE_ITEMS: [0, 20],
 	Recipe.NONE: [0, 0],
@@ -95,19 +95,17 @@ func _get_current_recipe() -> Recipe:
 	var item_type_list: Array = item_type_map.keys()
 	var rarity_list: Array = rarity_map.keys()
 	var all_items: bool = item_type_list == [ItemType.enm.REGULAR]
-	var all_oils: bool = item_type_list == [ItemType.enm.OIL]
-	var same_type: bool = item_type_list.size() == 1
+	var all_oils_or_consumables: bool = !item_type_list.has(ItemType.enm.REGULAR)
 	var same_rarity: bool = rarity_list.size() == 1
 	var item_count: int = item_list.size()
 
-	if !same_type || !same_rarity:
+	if !same_rarity:
 		return Recipe.NONE
-
-	if all_oils:
+	elif all_oils_or_consumables:
 		if item_count == 2:
-			return Recipe.TWO_OILS
+			return Recipe.TWO_OILS_OR_CONSUMABLES
 		elif item_count == 4:
-			return Recipe.FOUR_OILS
+			return Recipe.FOUR_OILS_OR_CONSUMABLES
 	elif all_items:
 		if item_count == 3:
 			return Recipe.THREE_ITEMS
@@ -127,7 +125,7 @@ func _get_result_item_for_recipe(recipe: Recipe) -> int:
 	var result_item: int
 
 	match result_item_type:
-		ItemType.enm.OIL: result_item = ItemDropCalc.get_random_oil_item(result_rarity)
+		ItemType.enm.OIL: result_item = ItemDropCalc.get_random_oil_or_consumable(result_rarity)
 		ItemType.enm.REGULAR: result_item = ItemDropCalc.get_random_item_at_or_below_rarity_bounded(result_rarity, lvl_min, lvl_max)
 		_:
 			push_error("Invalid recipe")
@@ -149,7 +147,7 @@ func _get_result_item_for_recipe(recipe: Recipe) -> int:
 func _cant_increase_rarity_further(recipe: Recipe) -> bool:
 	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity()
 	var can_increase_rarity: bool = ingredient_rarity != Rarity.enm.UNIQUE
-	var recipe_increases_rarity: bool = recipe == Recipe.FOUR_OILS || recipe == Recipe.FIVE_ITEMS
+	var recipe_increases_rarity: bool = recipe == Recipe.FOUR_OILS_OR_CONSUMABLES || recipe == Recipe.FIVE_ITEMS
 	var recipe_fails: bool = recipe_increases_rarity && !can_increase_rarity
 
 	return recipe_fails
@@ -160,8 +158,8 @@ func _get_result_rarity(recipe: Recipe) -> Rarity.enm:
 	var next_rarity: Rarity.enm = _get_next_rarity(ingredient_rarity)
 
 	match recipe:
-		Recipe.TWO_OILS: return ingredient_rarity
-		Recipe.FOUR_OILS: return next_rarity
+		Recipe.TWO_OILS_OR_CONSUMABLES: return ingredient_rarity
+		Recipe.FOUR_OILS_OR_CONSUMABLES: return next_rarity
 		Recipe.THREE_ITEMS: return ingredient_rarity
 		Recipe.FIVE_ITEMS: return next_rarity
 		_: return Rarity.enm.COMMON
@@ -169,8 +167,8 @@ func _get_result_rarity(recipe: Recipe) -> Rarity.enm:
 
 func _get_result_item_type(recipe: Recipe) -> ItemType.enm:
 	match recipe:
-		Recipe.TWO_OILS: return ItemType.enm.OIL
-		Recipe.FOUR_OILS: return ItemType.enm.OIL
+		Recipe.TWO_OILS_OR_CONSUMABLES: return ItemType.enm.OIL
+		Recipe.FOUR_OILS_OR_CONSUMABLES: return ItemType.enm.OIL
 		Recipe.THREE_ITEMS: return ItemType.enm.REGULAR
 		Recipe.FIVE_ITEMS: return ItemType.enm.REGULAR
 		_: return ItemType.enm.OIL

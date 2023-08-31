@@ -71,8 +71,7 @@ func _calculate_item_drop(creep_level: int, quality_multiplier: float) -> int:
 
 			rarity = rarity - 1
 
-		var include_consumables: bool = true
-		var random_oil_or_consumable: int = get_random_oil_item(rarity, include_consumables)
+		var random_oil_or_consumable: int = get_random_oil_or_consumable(rarity)
 
 		return random_oil_or_consumable
 	else:
@@ -82,7 +81,7 @@ func _calculate_item_drop(creep_level: int, quality_multiplier: float) -> int:
 		return random_regular_item
 
 
-func get_random_oil_item(rarity: int, include_consumables: bool = false) -> int:
+func get_random_oil_or_consumable(rarity: int) -> int:
 #	Find all items which are oils and fall into selected
 #	rarity
 	var rarity_string: String = Rarity.convert_to_string(rarity)
@@ -91,11 +90,7 @@ func get_random_oil_item(rarity: int, include_consumables: bool = false) -> int:
 	var oil_item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, oil_type_string)
 	var consumable_item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, consumable_type_string)
 
-	var item_list: Array
-	if include_consumables:
-		item_list = oil_item_list + consumable_item_list
-	else:
-		item_list = oil_item_list
+	var item_list: Array = oil_item_list + consumable_item_list
 
 	item_list = Properties.filter_item_id_list(item_list, Item.CsvProperty.RARITY, rarity_string)
 
