@@ -32,7 +32,7 @@ func display_floating_text_color(text: String, unit: Unit, color: Color, time: f
 	floating_text.text = text
 	floating_text.color = color
 	floating_text.duration = time
-	floating_text.position = unit.position
+	floating_text.position = unit.get_visual_position()
 	_floating_text_container.add_child(floating_text)
 
 
@@ -63,7 +63,7 @@ func display_static_floating_text(text: String, unit: Unit, color_r: int, color_
 	floating_text.text = text
 	floating_text.color = Color8(color_r, color_g, color_b)
 	floating_text.duration = time
-	floating_text.position = unit.position
+	floating_text.position = unit.get_position()
 	_floating_text_container.add_child(floating_text)
 
 
