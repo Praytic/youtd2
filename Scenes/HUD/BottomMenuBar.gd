@@ -103,6 +103,8 @@ func set_element(element: Element.enm):
 	var scroll_bar: HScrollBar = _stash_scroll_container.get_h_scroll_bar()
 	scroll_bar.set_value(0.0)
 
+	_update_upgrade_element_button()
+
 
 func get_element_buttons() -> Array:
 	return get_tree().get_nodes_in_group("element_button")
@@ -138,6 +140,7 @@ func _update_upgrade_element_button():
 	var can_afford: bool = ElementLevel.can_afford_research(element)
 	var current_level: int = ElementLevel.get_current(element)
 	var reached_max_level: bool = current_level == ElementLevel.get_max()
-	var button_is_enabled: bool = can_afford && !reached_max_level
+	var tower_stash_is_visible: bool = _build_bar.is_visible()
+	var button_is_enabled: bool = tower_stash_is_visible && can_afford && !reached_max_level
 
 	_research_button.set_disabled(!button_is_enabled)
