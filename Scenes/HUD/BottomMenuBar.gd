@@ -8,7 +8,6 @@ signal test_signal()
 @export var _build_bar: GridContainer
 @export var _item_menu_button: Button
 @export var _building_menu_button: Button
-@export var _research_panel: Control
 @export var _research_button: Button
 @export var _elements_container: HBoxContainer
 @export var _tomes_status: ResourceStatusPanel
@@ -124,10 +123,6 @@ func _on_ElementButton_pressed(element_button):
 
 func _on_BuildMenuButton_pressed():
 	set_element(_build_bar.get_element())
-
-
-func _on_research_button_pressed():
-	_research_panel.visible = !_research_panel.visible
 
 
 func _on_stash_margin_container_gui_input(event):
