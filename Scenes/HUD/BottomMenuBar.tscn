@@ -31,31 +31,31 @@ region = Rect2(448, 0, 64, 64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u05n0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yosl1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pv3qf"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f6j32"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wbh8"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g85wt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2co53"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3gnbp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mn48"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m4m67"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6fyc"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(256, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qnihk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x07r1"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m8fs0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_obbbn"]
 atlas = ExtResource("4_r2xy7")
 region = Rect2(384, 0, 64, 64)
 
@@ -182,37 +182,37 @@ size_flags_vertical = 8
 
 [node name="IceButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_yosl1")
+texture_normal = SubResource("AtlasTexture_pv3qf")
 element = 0
 
 [node name="NatureButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_f6j32")
+texture_normal = SubResource("AtlasTexture_2wbh8")
 element = 1
 
 [node name="FireButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_g85wt")
+texture_normal = SubResource("AtlasTexture_2co53")
 element = 2
 
 [node name="AstralButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_3gnbp")
+texture_normal = SubResource("AtlasTexture_7mn48")
 element = 3
 
 [node name="DarknessButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_m4m67")
+texture_normal = SubResource("AtlasTexture_m6fyc")
 element = 4
 
 [node name="IronButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_qnihk")
+texture_normal = SubResource("AtlasTexture_x07r1")
 element = 5
 
 [node name="StormButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("4_hhy3t")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_m8fs0")
+texture_normal = SubResource("AtlasTexture_obbbn")
 element = 6
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
@@ -289,6 +289,9 @@ script = ExtResource("13_b8pl0")
 icon_texture = SubResource("AtlasTexture_h4urn")
 default_label_text = "0/60"
 
+[connection signal="mouse_entered" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/BuildingMenuButton" to="." method="_on_BuildMenuButton_pressed"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
