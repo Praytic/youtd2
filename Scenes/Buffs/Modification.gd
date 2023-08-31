@@ -71,6 +71,7 @@ const types_without_percent: Array = [
 	Type.MOD_HP_REGEN,
 	Type.MOD_MANA,
 	Type.MOD_MANA_REGEN,
+	Type.MOD_MULTICRIT_COUNT,
 ]
 
 
@@ -151,7 +152,7 @@ func get_type_string() -> String:
 		Type.MOD_ATK_CRIT_DAMAGE: return "crit damage"
 		Type.MOD_ATK_DAMAGE_RECEIVED: return "damage received"
 		Type.MOD_ATTACKSPEED: return "attack speed"
-		Type.MOD_MULTICRIT_COUNT: return "multicrit count"
+		Type.MOD_MULTICRIT_COUNT: return "multicrit"
 		Type.MOD_ITEM_CHANCE_ON_KILL: return "item chance on kill"
 		Type.MOD_ITEM_QUALITY_ON_KILL: return "item quality on kill"
 		Type.MOD_ITEM_CHANCE_ON_DEATH: return "item chance on death"
