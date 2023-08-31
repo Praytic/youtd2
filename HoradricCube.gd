@@ -13,11 +13,11 @@ enum Recipe {
 }
 
 var _level_bonus_map: Dictionary = {
-	Recipe.TWO_OILS: [],
-	Recipe.FOUR_OILS: [],
+	Recipe.TWO_OILS: [0, 0],
+	Recipe.FOUR_OILS: [0, 0],
 	Recipe.THREE_ITEMS: [5, 25],
 	Recipe.FIVE_ITEMS: [0, 20],
-	Recipe.NONE: [],
+	Recipe.NONE: [0, 0],
 }
 
 
