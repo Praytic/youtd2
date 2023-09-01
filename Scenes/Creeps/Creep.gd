@@ -35,7 +35,7 @@ var _distance_covered: float = 0.0
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
-# @onready var _map = get_tree().get_root().get_node("GameScene/Map")
+@onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
 
 #########################
@@ -56,10 +56,6 @@ func _ready():
 	if _size == CreepSize.enm.AIR:
 		var height: float = 2 * Constants.TILE_HEIGHT
 		_visual.position.y = -height
-		z_index = 100
-		_path.default_z = z_index
-	else:
-		z_index = 10
 	
 	SelectUnit.connect_unit(self, _selection_area)
 	
@@ -78,10 +74,7 @@ func _process(delta):
 	var creep_animation: String = _get_creep_animation()
 	_sprite.play(creep_animation)
 
-# TODO: Disabled. Need to modify z_index inside the code of the actor, not the target.
-#	Update z index based on current visual height
-#	var height: float = -_visual.position.y
-#	z_index = _map.world_height_to_z_index(height)
+	z_index = _calculate_current_z_index()
 
 
 #########################
@@ -194,8 +187,6 @@ func _move(delta):
 		set_unit_facing(move_angle)
 	
 	if reached_path_point:
-		var new_z_index = _path.get_z(_current_path_index)
-		z_index = new_z_index
 		_current_path_index += 1
 
 
@@ -356,7 +347,7 @@ func get_display_name() -> String:
 func set_path(path: Path2D):
 	_path = path
 	position = path.get_curve().get_point_position(0) + path.position
-	_path.default_z = z_index
+	_path.default_z = 10
 	_total_path_length = _calculate_path_length(path)
 
 
@@ -418,3 +409,15 @@ func _calculate_path_length(path: Path2D) -> float:
 		length += distance
 
 	return length
+
+
+# NOTE: when a creep has non-zero height, we need to adjust
+# it's z index so that the sprite is drawn correctly in
+# front of tiles.
+func _calculate_current_z_index() -> int:
+	var base_z_index: int = _path.get_z(_current_path_index)
+	var height: float = -_visual.position.y
+	var height_z_index = _map.world_height_to_z_index(height)
+	var total_z_index: int = base_z_index + height_z_index
+
+	return total_z_index
