@@ -114,6 +114,10 @@ func _update_tooltip():
 
 func _get_specials_string(wave: Wave) -> String:
 	var special_list: Array[int] = wave.get_specials()
+
+	if special_list.is_empty():
+		return "None"
+
 	var string_list: Array[String] = []
 
 	for special in special_list:
