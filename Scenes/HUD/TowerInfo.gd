@@ -1,4 +1,4 @@
-class_name TowerInfo extends Control
+class_name TowerInfo extends GridContainer
 
 # Displays detailed information about the stats of the
 # currently selected tower. Hidden by default. Becomes
