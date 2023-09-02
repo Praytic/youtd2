@@ -12,19 +12,22 @@ var _moved_item: Item = null
 # movement.
 var _source_container: ItemContainer = null
 
+@onready var _map = get_tree().get_root().get_node("GameScene/Map")
+
 
 func _unhandled_input(event: InputEvent):
 	var cancelled: bool = event.is_action_released("ui_cancel")
 	var left_click: bool = event.is_action_released("left_click")
 	var hovered_unit: Unit = SelectUnit.get_hovered_unit()
 	var target_tower: Tower = hovered_unit as Tower
-	var clicked_on_tower: bool = left_click && target_tower != null
 
 	if cancelled:
 		cancel()
-	elif clicked_on_tower:
-		tower_was_clicked(target_tower)
-		get_viewport().set_input_as_handled()
+	elif left_click && in_progress():
+		if target_tower != null:
+			tower_was_clicked(target_tower)
+		else:
+			_return_item_to_stash()
 
 
 func in_progress() -> bool:
@@ -187,6 +190,8 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 
 	SFX.play_sfx("res://Assets/SFX/move_item.mp3")
 
+	get_viewport().set_input_as_handled()
+
 
 # When an item container is clicked, we add the currently
 # moved item to that container.
@@ -209,6 +214,8 @@ func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
 	_end_move_process()
 
 	SFX.play_sfx("res://Assets/SFX/move_item.mp3")
+
+	get_viewport().set_input_as_handled()
 
 
 func _end_move_process():
@@ -249,3 +256,16 @@ func _can_start_moving() -> bool:
 	var can_start: bool = MouseState.get_state() == MouseState.enm.NONE || MouseState.get_state() == MouseState.enm.MOVE_ITEM
 
 	return can_start
+
+
+# Return item to stash with a flying animation so player
+# understands what is happening.
+func _return_item_to_stash():
+	var drop_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
+
+	remove_child(_moved_item)
+	Item._create_item_drop(_moved_item, drop_position)
+	_moved_item.fly_to_stash(0.0)
+	_end_move_process()
+
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3")
