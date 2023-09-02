@@ -16,6 +16,7 @@ _start_next_wave_button = NodePath("StartNextWaveButton")
 [node name="TabContainer" type="TabContainer" parent="."]
 custom_minimum_size = Vector2(640, 250)
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 theme_override_styles/panel = ExtResource("3_s05a4")
 
 [node name="Wave Status" parent="TabContainer" instance=ExtResource("2_l18jy")]
