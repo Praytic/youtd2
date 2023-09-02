@@ -26,7 +26,7 @@ func _get_game_stats_text() -> String:
 	var score_string: String = TowerInfo.int_format(score)
 
 	var lives: float = Globals.portal_lives
-	var lives_string: String = Utils.format_percent(lives / 100.0, 2)
+	var lives_string: String = Utils.format_percent(floori(lives) / 100.0, 2)
 
 	var wave_level: float = WaveLevel.get_current()
 	var wave_level_string: String = str(wave_level)
