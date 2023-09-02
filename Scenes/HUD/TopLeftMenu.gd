@@ -7,6 +7,7 @@ extends VBoxContainer
 
 func _ready():
 	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
+	EventBus.game_over.connect(_on_game_over)
 
 
 func _on_start_next_wave_button_pressed():
@@ -16,4 +17,8 @@ func _on_start_next_wave_button_pressed():
 
 
 func _on_all_waves_started():
+	_start_next_wave_button.disabled = true
+
+
+func _on_game_over():
 	_start_next_wave_button.disabled = true

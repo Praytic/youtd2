@@ -219,5 +219,6 @@ static func _generate_creep_data_list(wave: Wave) -> Array[CreepData]:
 func _last_wave_was_started() -> bool:
 	var wave_index: int = WaveLevel.get_current() - 1
 	var after_last_wave: bool = wave_index >= _wave_list.size()
+	var game_over: bool = Globals.game_over
 
-	return after_last_wave
+	return after_last_wave || game_over
