@@ -4,10 +4,10 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://Scenes/HUD/TopLeftMenu.tscn" id="10_agdn3"]
 [ext_resource type="PackedScene" uid="uid://c376o14gmtncc" path="res://Scenes/HUD/HoradricMenu.tscn" id="10_tcgum"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
-[ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="13_0id32"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="15_rfxf1"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
@@ -109,30 +109,6 @@ offset_right = 430.0
 offset_bottom = 14.0
 scale = Vector2(0.55408, 0.55408)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_top = 250.0
-offset_right = 40.0
-offset_bottom = 290.0
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-
-[node name="TopMenuBar" parent="MarginContainer" instance=ExtResource("6")]
-layout_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="WaveStatus" parent="." instance=ExtResource("13_0id32")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 1
-grow_vertical = 1
-
 [node name="TowerMenu" parent="." instance=ExtResource("15_rfxf1")]
 layout_mode = 1
 offset_left = 0.00012207
@@ -181,6 +157,23 @@ offset_left = -201.0
 offset_top = -133.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TopLeftMenu" parent="MarginContainer/VBoxContainer" instance=ExtResource("10_agdn3")]
+layout_mode = 2
+
+[node name="TopMenuBar" parent="MarginContainer/VBoxContainer" instance=ExtResource("6")]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
 [connection signal="pressed" from="RollTowersButton" to="." method="_on_roll_towers_button_pressed"]

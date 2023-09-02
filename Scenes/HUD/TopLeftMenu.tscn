@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3grhp7bp5t54"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/TopLeftMenu.gd" id="1_d4k6r"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_lhpbt"]
+[ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="2_l18jy"]
+[ext_resource type="PackedScene" uid="uid://jm3vhrboca8b" path="res://Scenes/HUD/GameStats.tscn" id="3_k62ty"]
+[ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="3_s05a4"]
+
+[node name="TopLeftMenu" type="VBoxContainer" node_paths=PackedStringArray("_start_next_wave_button")]
+offset_right = 640.0
+offset_bottom = 317.0
+theme = ExtResource("1_lhpbt")
+script = ExtResource("1_d4k6r")
+_start_next_wave_button = NodePath("StartNextWaveButton")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+custom_minimum_size = Vector2(640, 250)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_s05a4")
+
+[node name="Wave Status" parent="TabContainer" instance=ExtResource("2_l18jy")]
+layout_mode = 2
+
+[node name="Game Stats" parent="TabContainer" instance=ExtResource("3_k62ty")]
+visible = false
+layout_mode = 2
+
+[node name="StartNextWaveButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "Start next wave"
+
+[connection signal="pressed" from="StartNextWaveButton" to="." method="_on_start_next_wave_button_pressed"]

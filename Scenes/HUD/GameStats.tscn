@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://jm3vhrboca8b"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_fcvcc"]
+[ext_resource type="Script" path="res://Scenes/HUD/GameStats.gd" id="2_yyjiq"]
+
+[node name="GameStats" type="VBoxContainer" node_paths=PackedStringArray("_label")]
+offset_right = 600.0
+offset_bottom = 210.0
+theme = ExtResource("1_fcvcc")
+script = ExtResource("2_yyjiq")
+_label = NodePath("RichTextLabel")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+theme_override_constants/table_h_separation = 20
+theme_override_font_sizes/normal_font_size = 18
+text = "Game stats go here"
+fit_content = true

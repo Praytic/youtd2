@@ -1,4 +1,4 @@
-extends Control
+extends VBoxContainer
 
 
 # Displays next wave level how much time is left before it
@@ -7,14 +7,12 @@ extends Control
 
 @export var _label: RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
-@export var _start_next_wave_button: Button
 @export var _timer_label: RichTextLabel
 
 
 func _ready():
 	WaveLevel.changed.connect(_update_all_labels)
 	_wave_spawner.generated_all_waves.connect(_update_all_labels)
-	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
 
 	_update_all_labels()
 
@@ -112,16 +110,6 @@ func _update_tooltip():
 		tooltip += "Wave %d: %s\n" % [level, specials_string]
 
 	_label.set_tooltip_text(tooltip)
-
-
-func _on_start_next_wave_button_pressed():
-	var success = _wave_spawner.force_start_next_wave()
-	if !success:
-		Messages.add_error("Can't start next wave, wave is still in progress.")
-
-
-func _on_all_waves_started():
-	_start_next_wave_button.disabled = true
 
 
 func _get_specials_string(wave: Wave) -> String:
