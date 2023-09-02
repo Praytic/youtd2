@@ -13,6 +13,14 @@ func _process(_delta: float):
 func _get_game_stats_text() -> String:
 	var tower_list: Array[Tower] = _get_tower_list()
 
+	var game_length_string: String = _get_game_length_string()
+
+	var game_mode: GameMode.enm = Globals.game_mode
+	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
+
+	var difficulty: Difficulty.enm = Globals.difficulty
+	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
+
 # 	TODO: load score value here when scoring is implemented
 	var score: int = 0
 	var score_string: String = TowerInfo.int_format(score)
@@ -55,6 +63,8 @@ func _get_game_stats_text() -> String:
 
 	var text: String = ""
 
+	text += "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
+	text += " \n"
 	text += "[table=5]"
 	text += "[cell][color=GOLD]Score[/color][/cell][cell][color=GOLD]Lives[/color][/cell][cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Total damage[/color][/cell][cell][color=GOLD]Gold[/color][/cell]"
 	text += "[cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [score_string, lives_string, wave_level_string, total_damage_string, gold_string]
@@ -69,6 +79,19 @@ func _get_game_stats_text() -> String:
 	text += "[/table]"
 
 	return text
+
+
+func _get_game_length_string() -> String:
+	var game_length: int = Globals.wave_count
+	var game_length_string: String
+
+	match game_length:
+		Constants.WAVE_COUNT_TRIAL: game_length_string = "Trial"
+		Constants.WAVE_COUNT_FULL: game_length_string = "Full"
+		Constants.WAVE_COUNT_NEVERENDING: game_length_string = "Neverending"
+		_: "Unknown"
+
+	return game_length_string
 
 
 func _get_total_damage(tower_list: Array[Tower]) -> float:

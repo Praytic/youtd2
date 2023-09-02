@@ -14,6 +14,12 @@ const _string_map: Dictionary = {
 	GameMode.enm.TOTALLY_RANDOM: "totally_random",
 }
 
+const _display_string_map: Dictionary = {
+	GameMode.enm.BUILD: "build",
+	GameMode.enm.RANDOM_WITH_UPGRADES: "upgrade",
+	GameMode.enm.TOTALLY_RANDOM: "random",
+}
+
 const _sell_ratio_map: Dictionary = {
 	GameMode.enm.BUILD: 0.5,
 	GameMode.enm.RANDOM_WITH_UPGRADES: 0.75,
@@ -23,6 +29,10 @@ const _sell_ratio_map: Dictionary = {
 
 func convert_to_string(type: GameMode.enm):
 	return _string_map[type]
+
+
+func convert_to_display_string(type: GameMode.enm):
+	return _display_string_map[type]
 
 
 func from_string(string: String) -> GameMode.enm:

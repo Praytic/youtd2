@@ -20,7 +20,9 @@ const tower_actions_scene: PackedScene = preload("res://Scenes/HUD/TowerActions.
 const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/EmptySlotButton.tscn")
 
 
+var wave_count: int
 var game_mode: GameMode.enm
+var difficulty: Difficulty.enm
 var portal_lives: float = 100.0
 var game_over: bool = false
 

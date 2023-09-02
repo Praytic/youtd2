@@ -68,6 +68,9 @@ func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficul
 	Messages.add_normal("You can pause the game by pressing F10")
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
+
+	Globals.wave_count = wave_count
+	Globals.difficulty = difficulty
 	
 	if tutorial_enabled:
 		_game_state = GameState.TUTORIAL
