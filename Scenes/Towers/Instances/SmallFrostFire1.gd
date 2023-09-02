@@ -18,8 +18,8 @@ func get_tier_stats() -> Dictionary:
 func get_soul_chill_description() -> String:
 	var aoe_damage: String = Utils.format_float(_stats.aoe_damage, 2)
 	var aoe_damage_add: String = Utils.format_float(_stats.aoe_damage_add, 2)
-	var slow_value: String = Utils.format_float(_stats.slow_value * 0.1 * 0.01, 2)
-	var slow_value_add: String = Utils.format_float(_stats.slow_value_add * 0.1 * 0.01, 2)
+	var slow_value: String = Utils.format_percent(_stats.slow_value * 0.1 * 0.01, 2)
+	var slow_value_add: String = Utils.format_percent(_stats.slow_value_add * 0.1 * 0.01, 2)
 	var slow_duration_add: String = Utils.format_float(_stats.slow_duration_add, 2)
 
 	var text: String = ""

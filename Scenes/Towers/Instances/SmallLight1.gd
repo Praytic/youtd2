@@ -21,8 +21,8 @@ func get_extra_tooltip_text() -> String:
 	var magical_sight_range: String = Utils.format_float(_stats.magical_sight_range, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
-	var mod_value: String = Utils.format_float(_stats.mod_value * 0.1 * 0.01, 2)
-	var mod_value_add: String = Utils.format_float(_stats.mod_value_add * 0.1 * 0.01, 2)
+	var mod_value: String = Utils.format_percent(_stats.mod_value * 0.1 * 0.01, 2)
+	var mod_value_add: String = Utils.format_percent(_stats.mod_value_add * 0.1 * 0.01, 2)
 
 	var text: String = ""
 

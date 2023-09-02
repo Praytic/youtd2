@@ -15,8 +15,8 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var value: String = Utils.format_float(_stats.value * 0.01 * 0.01, 2)
-	var value_add: String = Utils.format_float(_stats.value_add * 0.01 * 0.01, 2)
+	var value: String = Utils.format_percent(_stats.value * 0.01 * 0.01, 2)
+	var value_add: String = Utils.format_percent(_stats.value_add * 0.01 * 0.01, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 
 	var text: String = ""
