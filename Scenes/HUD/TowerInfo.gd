@@ -1,4 +1,4 @@
-extends Control
+class_name TowerInfo extends Control
 
 # Displays detailed information about the stats of the
 # currently selected tower. Hidden by default. Becomes
@@ -51,7 +51,7 @@ func set_tower_tooltip_text(tower):
 
 	for tower_stat_label in _tower_stat_int_labels:
 		var stat = _get_stat(tower_stat_label, tower)
-		tower_stat_label.text = _int_format(stat)
+		tower_stat_label.text = TowerInfo.int_format(stat)
 
 	for tower_stat_label in _tower_stat_float_labels:
 		var stat = _get_stat(tower_stat_label, tower)
@@ -90,7 +90,7 @@ func _get_stat(tower_stat_label: Label, tower):
 	var stat = tower.call(getter_name)
 	return stat
 
-func _int_format(num: float) -> String:
+static func int_format(num: float) -> String:
 	# Determine the appropriate suffix for the number
 	var suffix = ""
 	if num >= 1_000_000_000_000:
