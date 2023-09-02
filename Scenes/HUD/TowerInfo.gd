@@ -134,7 +134,7 @@ func _multiplier_format(number) -> String:
 	return "x%.2f" % number
 
 func _float_format(number) -> String:
-	return "%.2f" % number
+	return Utils.format_float(number, 2)
 
 
 func _update_exp_for_next_lvl_labels(tower: Tower):
