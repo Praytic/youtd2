@@ -115,10 +115,8 @@ func _int_format(num: float) -> String:
 	
 	# Add commas to the integer part of the number
 	var digits = num_str.length()
-	if digits > 3:
-		num_str = num_str.substr(0, digits % 3) + "," + num_str.substr(digits % 3)
-		for i in range(digits - digits % 3 - 3, -1, -3):
-			num_str = num_str.substr(0, i+1) + "," + num_str.substr(i+1)
+	for i in range(digits - 3, 0, -3):
+		num_str = num_str.insert(i, ",")
 	
 	# Combine the integer part, fractional part, and suffix into the final string
 	return num_str + frac_str + suffix
