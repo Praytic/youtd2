@@ -29,3 +29,12 @@ var game_over: bool = false
 
 func game_mode_is_random() -> bool:
 	return Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM
+
+
+func reduce_portal_lives(amount: float):
+	portal_lives = max(0.0, portal_lives - amount)
+
+	if portal_lives == 0.0 && !game_over:
+		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
+		game_over = true
+		EventBus.game_over.emit()

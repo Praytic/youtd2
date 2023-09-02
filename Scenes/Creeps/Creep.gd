@@ -118,8 +118,6 @@ func reach_portal():
 	var damage_done_string: String = Utils.format_percent(damage_done, 2)
 	var size_string: String = CreepSize.convert_to_string(_size)
 
-	Globals.portal_lives -= damage_to_portal
-
 	if _size == CreepSize.enm.BOSS:
 		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
 	else:
@@ -128,10 +126,7 @@ func reach_portal():
 	if damage_to_portal > 0:
 		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
 
-	if Globals.portal_lives < 0 && !Globals.game_over:
-		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
-		Globals.game_over = true
-		EventBus.game_over.emit()
+	Globals.reduce_portal_lives(damage_to_portal)
 
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 	queue_free()
