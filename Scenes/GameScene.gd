@@ -39,9 +39,15 @@ func _ready():
 
 
 func _unhandled_input(event: InputEvent):
+#	NOTE: need to check that cancel press is not consumed by
+#	another action so that player can cancel item movement
+#	or deselect without also pausing the game.
+	var cancel_consumed_by_mouse_action: bool = MouseState.get_state() != MouseState.enm.NONE
+	var cancel_consumed_by_deselect_unit: bool = SelectUnit.get_selected_unit() != null
+	var cancel_pressed: bool = event.is_action_released("ui_cancel") && !cancel_consumed_by_mouse_action && !cancel_consumed_by_deselect_unit
 	var pause_pressed: bool = event.is_action_released("pause")
 	
-	if pause_pressed:
+	if pause_pressed || cancel_pressed:
 		match _game_state:
 			GameState.PLAYING: _pause_the_game()
 			GameState.PAUSED: _unpause_the_game()
@@ -65,7 +71,7 @@ func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficul
 
 	Messages.add_normal("Welcome to youtd 2!")
 	Messages.add_normal("Game settings: %d waves, %s difficulty" % [wave_count, difficulty_string])
-	Messages.add_normal("You can pause the game by pressing F10")
+	Messages.add_normal("You can pause the game by pressing [color=GOLD]Esc[/color]")
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
 
