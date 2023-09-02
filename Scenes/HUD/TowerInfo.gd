@@ -121,7 +121,7 @@ static func int_format(num: float) -> String:
 	# Combine the integer part, fractional part, and suffix into the final string
 	return num_str + frac_str + suffix
 
-func _percent_signed_format(number, base = 0.0) -> String:
+func _percent_signed_format(number, base = 1.0) -> String:
 	var sign_str = ""
 	match sign(number - base):
 		-1.0: sign_str = "-"
