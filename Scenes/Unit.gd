@@ -761,6 +761,8 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -
 	var health_before_damage: float = target.get_health()
 	target.set_health(health_before_damage - damage)
 
+	Globals.add_to_total_damage(damage)
+
 	if Config.damage_numbers():
 		get_player().display_floating_text_color(str(int(damage)), target, Color.RED, 1.0)
 

@@ -25,6 +25,7 @@ var game_mode: GameMode.enm
 var difficulty: Difficulty.enm
 var portal_lives: float = 100.0
 var game_over: bool = false
+var _total_damage: float = 0.0
 
 
 func game_mode_is_random() -> bool:
@@ -38,3 +39,17 @@ func reduce_portal_lives(amount: float):
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
 		game_over = true
 		EventBus.game_over.emit()
+
+
+func get_lives_string() -> String:
+	var lives_string: String = Utils.format_percent(floori(portal_lives) / 100.0, 2)
+
+	return lives_string
+
+
+func add_to_total_damage(amount: float):
+	_total_damage += amount
+
+
+func get_total_damage() -> float:
+	return _total_damage

@@ -25,13 +25,12 @@ func _get_game_stats_text() -> String:
 	var score: int = 0
 	var score_string: String = TowerInfo.int_format(score)
 
-	var lives: float = Globals.portal_lives
-	var lives_string: String = Utils.format_percent(floori(lives) / 100.0, 2)
+	var lives_string: String = Globals.get_lives_string()
 
 	var wave_level: float = WaveLevel.get_current()
 	var wave_level_string: String = str(wave_level)
 
-	var total_damage: float = _get_total_damage(tower_list)
+	var total_damage: float = Globals.get_total_damage()
 	var total_damage_string: String = TowerInfo.int_format(total_damage)
 
 	var gold: float = GoldControl.get_gold()
@@ -92,16 +91,6 @@ func _get_game_length_string() -> String:
 		_: "Unknown"
 
 	return game_length_string
-
-
-func _get_total_damage(tower_list: Array[Tower]) -> float:
-	var total_damage: float = 0
-
-	for tower in tower_list:
-		var tower_damage: float = tower.get_damage()
-		total_damage += tower_damage
-
-	return total_damage
 
 
 func _get_most_damage_tower(tower_list: Array[Tower]) -> Tower:
