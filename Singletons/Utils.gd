@@ -91,8 +91,9 @@ func get_player_state(_player: Player, state: PlayerState.enm) -> float:
 
 
 # NOTE: Game.getGameTime() in JASS
+# Returns time in seconds since the game started
 func get_game_time() -> float:
-	var time: float = Time.get_unix_time_from_system()
+	var time: float = Time.get_ticks_msec() / 1000.0
 
 	return time
 
