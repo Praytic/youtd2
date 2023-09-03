@@ -75,6 +75,7 @@ func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficul
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
 
+	Globals._ticks_at_game_start = Time.get_ticks_msec()
 	Globals.wave_count = wave_count
 	Globals.difficulty = difficulty
 	
