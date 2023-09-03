@@ -6,6 +6,7 @@ extends VBoxContainer
 
 
 @export var _label: RichTextLabel
+@export var _stats_label: RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
 @export var _timer_label: RichTextLabel
 
@@ -15,6 +16,7 @@ func _ready():
 	_wave_spawner.generated_all_waves.connect(_update_all_labels)
 
 	_update_all_labels()
+	_on_update_stats_timer_timeout()
 
 
 func _process(_delta: float):
@@ -87,7 +89,6 @@ func _update_details_label():
 	_label.append_text(text)
 
 
-
 func _update_tooltip():
 	var tooltip: String = ""
 
@@ -140,3 +141,28 @@ func _get_specials_string_short(wave: Wave) -> String:
 	var specials_string: String = ", ".join(string_list)
 
 	return specials_string
+
+
+func _on_update_stats_timer_timeout():
+# 	TODO: load score value here when scoring is implemented
+	var score: int = 0
+	var score_string: String = TowerInfo.int_format(score)
+
+	var lives_string: String = Globals.get_lives_string()
+
+	var total_damage: float = Globals.get_total_damage()
+	var total_damage_string: String = TowerInfo.int_format(total_damage)
+
+	var gold_farmed: float = GoldControl.get_gold_farmed()
+	var gold_farmed_string: String = TowerInfo.int_format(floori(gold_farmed))
+
+	var text: String = ""
+	text += " \n"
+	text += "[table=4]"
+	text += "[cell][color=GOLD]Score:[/color][/cell][cell]%s[/cell][cell][color=GOLD]Lives:[/color][/cell][cell]%s[/cell]" % [score_string, lives_string]
+	text += " \n"
+	text += "[cell][color=GOLD]Total damage:[/color][/cell][cell]%s[/cell][cell][color=GOLD]Gold Farmed:[/color][/cell][cell]%s[/cell]" % [total_damage_string, gold_farmed_string]
+	text += "[/table]\n"
+
+	_stats_label.clear()
+	_stats_label.append_text(text)

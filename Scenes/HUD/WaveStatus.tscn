@@ -3,12 +3,13 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_3h6gw"]
 [ext_resource type="Script" path="res://Scenes/HUD/WaveStatus.gd" id="2_fsc15"]
 
-[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_timer_label")]
+[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_timer_label")]
 offset_right = 600.0
 offset_bottom = 123.0
 theme = ExtResource("1_3h6gw")
 script = ExtResource("2_fsc15")
 _label = NodePath("DetailsLabel")
+_stats_label = NodePath("StatsLabel")
 _timer_label = NodePath("TimerLabel")
 
 [node name="TimerLabel" type="RichTextLabel" parent="."]
@@ -25,3 +26,14 @@ theme_override_font_sizes/normal_font_size = 18
 text = "[Table with details about next 5 waves]
 "
 fit_content = true
+
+[node name="StatsLabel" type="RichTextLabel" parent="."]
+layout_mode = 2
+theme_override_constants/table_h_separation = 20
+theme_override_font_sizes/normal_font_size = 18
+fit_content = true
+
+[node name="UpdateStatsTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="UpdateStatsTimer" to="." method="_on_update_stats_timer_timeout"]

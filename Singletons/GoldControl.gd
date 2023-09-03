@@ -12,6 +12,7 @@ var _income_rate: float = 1.0
 var _interest_rate: float = 0.05
 
 var _gold: float : set = set_gold, get = get_gold
+var _gold_farmed: float = 0.0
 
 
 #########################
@@ -45,6 +46,8 @@ func add_income(wave_level: int):
 #########################
 
 func add_gold(value: float):
+	_gold_farmed += value
+
 	var new_total: float = _gold + value
 	set_gold(new_total)
 
@@ -65,6 +68,11 @@ func set_gold(value: float):
 
 func get_gold() -> float:
 	return _gold
+
+
+# Returns the sum of all gold gains
+func get_gold_farmed() -> float:
+	return _gold_farmed
 
 
 func enough_gold_for_tower(tower_id: int) -> bool:
