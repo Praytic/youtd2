@@ -10,6 +10,13 @@ func _ready():
 	EventBus.game_over.connect(_on_game_over)
 
 
+func _unhandled_input(event: InputEvent):
+	var start_next_wave_keybind_pressed: bool = event.is_action_released("start_next_wave")
+
+	if start_next_wave_keybind_pressed:
+		_on_start_next_wave_button_pressed()
+
+
 func _on_start_next_wave_button_pressed():
 	var success = _wave_spawner.force_start_next_wave()
 	if !success:
