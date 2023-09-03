@@ -13,11 +13,11 @@ func get_tier_stats() -> Dictionary:
 	}
 
 func get_extra_tooltip_text() -> String:
-	var aoe_damage: String = Utils.format_float(_stats.aoe_damage, 0)
-	var aoe_range: String = Utils.format_float(_stats.aoe_range, 0)
-	var slow_value: String = Utils.format_percent(_stats.slow_value / 1000.0, 1)
-	var slow_duration: String = Utils.format_float(_stats.slow_duration, 0)
-	var aoe_damage_add: String = Utils.format_float(_stats.aoe_damage_add, 0)
+	var aoe_damage: String = Utils.format_float(_stats.aoe_damage, 2)
+	var aoe_range: String = Utils.format_float(_stats.aoe_range, 2)
+	var slow_value: String = Utils.format_percent(_stats.slow_value / 1000.0, 2)
+	var slow_duration: String = Utils.format_float(_stats.slow_duration, 2)
+	var aoe_damage_add: String = Utils.format_float(_stats.aoe_damage_add, 2)
 
 
 	var text: String = ""

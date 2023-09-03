@@ -86,8 +86,7 @@ func tower_init():
 	autocast.target_art = ""
 	autocast.cooldown = 10
 	autocast.is_extended = false
-	autocast.mana_cost = 5
-	# autocast.mana_cost = 95
+	autocast.mana_cost = 95
 	autocast.buff_type = null
 	autocast.target_type = null
 	autocast.auto_range = 900

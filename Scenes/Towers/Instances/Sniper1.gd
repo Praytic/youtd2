@@ -19,7 +19,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Rocket Strike[/color]\n"
-	text += "30%% chance to fire a rocket towards the attacked unit. On impact it deals %s damage in a 150 AoE.\n" % rocket_damage
+	text += "30%% chance to fire a rocket towards the attacked unit. On impact it deals %s damage in a 150 AoE. Deals 125%% damage to mass creeps.\n" % rocket_damage
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% chance\n"

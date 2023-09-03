@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 
 
 func get_extra_tooltip_text() -> String:
-	var trigger_chance_add: String = Utils.format_percent(_stats.trigger_chance_add / 100, 2)
+	var trigger_chance_add: String = Utils.format_percent(_stats.trigger_chance_add * 0.001, 2)
 	var elemental_wrath_chance: String = Utils.format_percent(_stats.elemental_wrath_chance, 2)
 
 	var text: String = ""
@@ -25,7 +25,7 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.1 seconds duration\n"
-	text += "%s trigger chance increase\n" % trigger_chance_add
+	text += "+%s trigger chance increase\n" % trigger_chance_add
 	text += " \n"
 	text += "[color=GOLD]Mimic[/color]\n"
 	text += "The Ghost's attacks are varied, and its damage type will either be good or bad against its target. Trigger chance adjusts the good/bad attacks to be better.\n"

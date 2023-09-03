@@ -27,13 +27,14 @@ func get_wind_shear_description() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% attackspeed\n"
 	text += "+%s spelldamage\n" % chain_damage_add
+	text += "+1 target at level 20\n"
 	text += "+0.1 sec duration\n"
 
 	return text
 
 
 func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.00, 0.01)
+	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.00, 0.1)
 
 
 func phantom_attack(event: Event):

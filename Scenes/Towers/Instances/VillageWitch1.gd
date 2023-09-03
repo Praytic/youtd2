@@ -21,27 +21,25 @@ func get_love_potion_description() -> String:
 
 	var text: String = ""
 
-	text += "[color=GOLD]Love Potion[/color]\n"
 	text += "The witch throws a bottle of love potion on the target, slowing it by %s and increasing its item drop chance by %s. The potion lasts 7 seconds.\n" % [potion_slow, potion_item_chance]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.375% slow\n"
 	text += "+0.3% Item drop chance\n"
-	text += " \n"
-	text += "Mana cost: 25, 1100 range, 3s cooldown\n"
 
 	return text
 
 
 func get_extra_tooltip_text() -> String:
-	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.001, 0)
+	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.01, 0)
 	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
 	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 0)
 	var mod_attackspeed: String = Utils.format_percent(_stats.mod_attackspeed, 0)
-	var soul_chance_decrease: String = Utils.format_percent(_stats.soul_chance_decrease * 0.001, 0)
+	var soul_chance_decrease: String = Utils.format_percent(_stats.soul_chance_decrease * 0.01, 0)
 
 	var text: String = ""
 
+	text += "[color=GOLD]Soul Split[/color]\n"
 	text += "When the witch attacks, it has a %s chance to deal %s spell damage to its target, increasing the witch's attackspeed by %s and decreasing the chance to trigger this spell by %s. These effects last 10 seconds and stack. If the target is under the influence of a Love Potion, the attackspeed bonus, the damage and the duration of this spell are doubled.\n" % [soul_chance, soul_damage, mod_attackspeed, soul_chance_decrease]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
@@ -86,7 +84,7 @@ func tower_init():
 	cedi_love_missile.enable_homing(cedi_love, 0.0)
 
 	var autocast: Autocast = Autocast.make()
-	autocast.title = "Soul Split"
+	autocast.title = "Love Potion"
 	autocast.description = get_love_potion_description()
 	autocast.icon = "res://Resources/Textures/gold.tres"
 	autocast.caster_art = ""

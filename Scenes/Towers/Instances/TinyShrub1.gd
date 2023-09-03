@@ -7,6 +7,10 @@ extends Tower
 # value in JASS code + base value for stat, in others it's
 # same as value in JASS code without adding base value for
 # stat. Used same values as in JASS code.
+# 
+# For example, for first tier
+# Tooltip from original game says: "+2% crit chance (+0.35%/lvl)
+# Values from JASS code: "+0.75% crit chance (+0.2%/lvl)"
 
 
 func get_tier_stats() -> Dictionary:

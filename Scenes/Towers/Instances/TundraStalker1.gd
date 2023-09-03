@@ -29,7 +29,7 @@ func get_extra_tooltip_text() -> String:
 func get_ice_claw_description() -> String:
 	var spell_damage: String = Utils.format_float(_stats.spell_damage, 2)
 	var spell_damage_add: String = Utils.format_float(_stats.spell_damage_add, 2)
-	var slow_amount: String = Utils.format_percent(0.2 + 0.05 * get_tier(), 2)
+	var slow_amount: String = Utils.format_percent(0.2 + 0.05 * _stats.buff_level, 2)
 
 	var text: String = ""
 
