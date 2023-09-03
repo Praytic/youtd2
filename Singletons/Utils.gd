@@ -1,6 +1,8 @@
 extends Node
 
 
+var _ticks_at_game_start: int = -1
+
 @onready var _object_container: get = get_object_container
 
 func get_object_container():
@@ -94,8 +96,11 @@ func get_player_state(_player: Player, state: PlayerState.enm) -> float:
 # Returns time in seconds since the game started. Note that
 # this doesn't include the time spent in pre game menu.
 func get_game_time() -> float:
+	if _ticks_at_game_start == -1:
+		return 0.0
+
 	var ticks_now: int = Time.get_ticks_msec()
-	var ticks_since_game_start: int = ticks_now - Globals._ticks_at_game_start
+	var ticks_since_game_start: int = ticks_now - _ticks_at_game_start
 	var time_in_seconds: float = ticks_since_game_start / 1000.0
 
 	return time_in_seconds
