@@ -1,9 +1,8 @@
 class_name CreepEthereal extends BuffType
 
 
-# TODO: find out the the value for period and duration
-const ETHEREAL_PERIOD: float = 10.0
-const ETHEREAL_DURATION: float = 5.0
+const ETHEREAL_PERIOD: float = 5.0
+const ETHEREAL_DURATION: float = 2.0
 
 
 var ethereal_active_buff: BuffType
