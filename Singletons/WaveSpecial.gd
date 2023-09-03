@@ -16,6 +16,7 @@ enum CsvProperty {
 	FREQUENCY,
 	APPLICABLE_SIZES,
 	CHAMPION_OR_BOSS_WAVE_ONLY,
+	GROUP_LIST,
 	DESCRIPTION,
 	ENABLED,
 }
@@ -72,14 +73,16 @@ var _buff_map: Dictionary = {
 	40: CreepBroody.new(self),
 }
 
-var _armor_specials: Array[int] = [9, 10, 11]
-var _spell_res_specials: Array[int] = [15, 16]
+# Map of group [String] to special [int]
+var _group_to_special_map: Dictionary = {}
 
 var _properties: Dictionary = {}
 
 
 func _init():
 	Properties._load_csv_properties(PROPERTIES_PATH, _properties, WaveSpecial.CsvProperty.ID)
+	_group_to_special_map = _make_group_to_special_map()
+	print_verbose("_group_to_special_map = ", _group_to_special_map)
 
 	for special in _buff_map.keys():
 		var buff: BuffType = _buff_map[special]
@@ -96,8 +99,13 @@ func get_random(level: int, creep_size: CreepSize.enm, wave_has_champions: bool)
 	if is_challenge:
 		return []
 
-	var random_special_list: Array[int] = []
-	var available_special_list: Array[int] = _get_available_specials(level, creep_size, wave_has_champions)
+	var available_specials_for_first: Array[int] = _get_available_specials_for_first_special(level, creep_size, wave_has_champions)
+	var first_special: int = _get_random_special(available_specials_for_first)
+
+	var available_specials_for_second: Array[int] = _get_available_specials_for_second_special(first_special, available_specials_for_first)
+	var second_special: int = _get_random_special(available_specials_for_second)
+
+	var generated_specials: Array[int] = [first_special, second_special]
 
 	var special_count: int
 	if level <= Constants.MIN_WAVE_FOR_SPECIAL:
@@ -105,37 +113,38 @@ func get_random(level: int, creep_size: CreepSize.enm, wave_has_champions: bool)
 	else:
 		special_count = Utils.random_weighted_pick(_special_count_chances)
 
+	var random_special_list: Array[int] = []
+
+	for i in range(0, special_count):
+		var special: int = generated_specials[i]
+
+		if special != -1:
+			random_special_list.append(special)
+
+	return random_special_list
+
+
+func arrays_intersect(a: Array, b: Array) -> bool:
+	for element in a:
+		if b.has(element):
+			return true
+
+	return false
+
+
+func _get_random_special(available_special_list: Array[int]) -> int:
+	if available_special_list.is_empty():
+		return -1
+
 	var special_to_frequency_map: Dictionary = {}
 
 	for special in available_special_list:
 		var frequency: int = _get_frequency(special)
 		special_to_frequency_map[special] = frequency
 
-	for _i in range(0, special_count):
-		if available_special_list.is_empty():
-			break
+	var random_special: int = Utils.random_weighted_pick(special_to_frequency_map)
 
-		var random_special: int = Utils.random_weighted_pick(special_to_frequency_map)
-
-		random_special_list.append(random_special)
-
-#		Prevent picking same special multiple times
-		special_to_frequency_map.erase(random_special)
-
-#		Do not combine armor and spell resistance specials
-#		in same wave - it's unfair
-		var is_armor_special: bool = _armor_specials.has(random_special)
-		var is_spell_res_special: bool = _spell_res_specials.has(random_special)
-
-		if is_armor_special:
-			for spell_res_special in _spell_res_specials:
-				available_special_list.erase(spell_res_special)
-
-		if is_spell_res_special:
-			for armor_special in _armor_specials:
-				available_special_list.erase(armor_special)
-
-	return random_special_list
+	return random_special
 
 
 func get_special_name(special: int) -> String:
@@ -176,7 +185,7 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 		buff.apply_to_unit_permanent(creep, creep, 0)
 
 
-func _get_available_specials(level: int, creep_size: CreepSize.enm, wave_has_champions: bool) -> Array[int]:
+func _get_available_specials_for_first_special(level: int, creep_size: CreepSize.enm, wave_has_champions: bool) -> Array[int]:
 	var all_special_list: Array = _properties.keys()
 	var available_special_list: Array[int] = []
 
@@ -208,6 +217,28 @@ func _get_available_specials(level: int, creep_size: CreepSize.enm, wave_has_cha
 			available_special_list.append(special)
 
 	return available_special_list
+
+
+func _get_available_specials_for_second_special(first_special: int, available_specials_for_first: Array[int]) -> Array[int]:
+	if first_special == -1:
+		return []
+
+	var result: Array[int] = available_specials_for_first.duplicate()
+
+	var groups_of_first_special: Array[String] = _get_group_list(first_special)
+
+# 	Filter out specials which are in the same group as
+# 	the first special
+	for group in groups_of_first_special:
+		var specials_in_group: Array = _group_to_special_map[group]
+
+		for special in specials_in_group:
+			result.erase(special)
+
+#	NOTE: don't pick same special twice
+	result.erase(first_special)
+
+	return result
 
 
 func _get_required_wave_level(special: int) -> int:
@@ -252,6 +283,17 @@ func _get_champion_or_boss_wave_only(special: int) -> bool:
 	var champion_or_boss_wave_only: bool = _get_property(special, WaveSpecial.CsvProperty.CHAMPION_OR_BOSS_WAVE_ONLY) == "TRUE"
 
 	return champion_or_boss_wave_only
+
+
+func _get_group_list(special: int) -> Array[String]:
+	var group_list_packed: PackedStringArray = _get_property(special, WaveSpecial.CsvProperty.GROUP_LIST).split(",")
+	
+	var group_list: Array[String] = []
+	
+	for group in group_list_packed:
+		group_list.append(group)
+
+	return group_list
 
 
 func get_description(special: int) -> String:
@@ -307,3 +349,20 @@ func _get_property(special: int, property: WaveSpecial.CsvProperty) -> String:
 	var property_value: String = map[property]
 
 	return property_value
+
+
+func _make_group_to_special_map() -> Dictionary:
+	var result: Dictionary = {}
+
+	var special_list: Array = _properties.keys()
+
+	for special in special_list:
+		var group_list: Array[String] = _get_group_list(special)
+
+		for group in group_list:
+			if !result.has(group):
+				result[group] = []
+
+			result[group].append(special)
+
+	return result
