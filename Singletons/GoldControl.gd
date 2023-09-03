@@ -11,7 +11,7 @@ const MAX_GOLD = 999999
 var _income_rate: float = 1.0
 var _interest_rate: float = 0.05
 
-var _gold: float : set = set_gold, get = get_gold
+var _gold: float
 var _gold_farmed: float = 0.0
 
 
@@ -53,15 +53,15 @@ func add_gold(value: float, source_is_income: bool = false):
 		_gold_farmed += value
 
 	var new_total: float = _gold + value
-	set_gold(new_total)
+	_set_gold(new_total)
 
 
 func spend_gold(value: float):
 	var new_total: float = _gold - value
-	set_gold(new_total)
+	_set_gold(new_total)
 
 
-func set_gold(value: float):
+func _set_gold(value: float):
 	if (value >= MAX_GOLD):
 		print_debug("Max gold reached: %s" % value)
 	elif (_gold < 0):
