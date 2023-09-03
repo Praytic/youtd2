@@ -20,7 +20,7 @@ func _ready():
 	for element_button in get_element_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 	
-	KnowledgeTomesManager.knowledge_tomes_change.connect(_on_knowledge_tomes_change)
+	KnowledgeTomesManager.changed.connect(_on_knowledge_tomes_changed)
 	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_on_item_stash_changed()
 	
@@ -59,7 +59,7 @@ func _on_upgrade_element_button_mouse_exited():
 	EventBus.research_button_mouse_exited.emit()
 
 
-func _on_knowledge_tomes_change():
+func _on_knowledge_tomes_changed():
 	_update_upgrade_element_button()
 
 

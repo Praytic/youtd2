@@ -1,6 +1,6 @@
 extends Node
 
-signal knowledge_tomes_change()
+signal changed()
 
 
 const MAX_KNOWLEDGE_TOMES: int = 999999
@@ -18,15 +18,15 @@ func _ready():
 	
 func set_knowledge_tomes(value):
 	knowledge_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
-	knowledge_tomes_change.emit()
+	changed.emit()
 	
 func add_knowledge_tomes(value = income):
 	set_knowledge_tomes(knowledge_tomes + value)
 
 
 func spend(amount: int):
-	knowledge_tomes -= amount
-	knowledge_tomes_change.emit()
+	var new_value: int = knowledge_tomes - amount
+	set_knowledge_tomes(new_value)
 
 
 func get_current() -> int:

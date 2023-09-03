@@ -44,8 +44,8 @@ func _ready():
 	
 	WaveLevel.changed.connect(_on_update_requirements_changed)
 	ElementLevel.changed.connect(_on_update_requirements_changed)
-	GoldControl.gold_change.connect(_on_update_requirements_changed)
-	KnowledgeTomesManager.knowledge_tomes_change.connect(_on_update_requirements_changed)
+	GoldControl.changed.connect(_on_update_requirements_changed)
+	KnowledgeTomesManager.changed.connect(_on_update_requirements_changed)
 	
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
