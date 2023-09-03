@@ -40,8 +40,10 @@ func _ready():
 	
 	_on_selected_unit_changed(null)
 	
-	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
-	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
+	WaveLevel.changed.connect(_on_update_requirements_changed)
+	ElementLevel.changed.connect(_on_update_requirements_changed)
+	GoldControl.gold_change.connect(_on_update_requirements_changed)
+	KnowledgeTomesManager.knowledge_tomes_change.connect(_on_update_requirements_changed)
 	
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
@@ -52,7 +54,7 @@ func _ready():
 		_inventory_empty_slots.add_child(empty_slot_button)
 
 
-func _on_wave_or_element_level_changed():
+func _on_update_requirements_changed():
 	var tower = get_selected_tower()
 	if tower != null:
 		_update_upgrade_button(tower)
@@ -272,7 +274,10 @@ func _update_upgrade_button(tower: Tower):
 
 	var can_upgrade: bool
 	if upgrade_id != -1:
-		can_upgrade = TowerProperties.requirements_are_satisfied(upgrade_id) || Config.ignore_requirements()
+		var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(upgrade_id) || Config.ignore_requirements()
+		var enough_gold: bool = GoldControl.enough_gold_for_tower(upgrade_id)
+		var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(upgrade_id)
+		can_upgrade = requirements_are_satisfied && enough_gold && enough_tomes
 	else:
 		can_upgrade = false
 
