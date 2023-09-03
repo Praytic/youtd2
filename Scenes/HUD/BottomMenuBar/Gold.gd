@@ -5,10 +5,9 @@ func _ready():
 	super()
 
 	GoldControl.gold_change.connect(_on_gold_change)
-
-	var initial_value: int = int(GoldControl.get_gold())
-	_on_gold_change(initial_value)
+	_on_gold_change()
 
 
-func _on_gold_change(new_value):
+func _on_gold_change():
+	var new_value: float = GoldControl.get_gold()
 	set_label_text(str(int(new_value)))

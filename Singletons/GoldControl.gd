@@ -3,7 +3,7 @@ extends Node
 # Singleton that manages gold and income
 
 
-signal gold_change(value)
+signal gold_change()
 
 
 const MAX_GOLD = 999999
@@ -61,7 +61,7 @@ func set_gold(value: float):
 		print_debug("Negative gold reached: %s" % value)
 
 	_gold = clampf(value, 0, MAX_GOLD)
-	gold_change.emit(_gold)
+	gold_change.emit()
 
 func get_gold() -> float:
 	return _gold
