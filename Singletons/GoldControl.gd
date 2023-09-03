@@ -36,7 +36,8 @@ func add_income(wave_level: int):
 	var current_gold: int = floori(_gold)
 	var interest: int = floori(min(current_gold * _interest_rate, 1000))
 	var income: int = upkeep + interest
-	GoldControl.add_gold(income)
+	var source_is_income: bool = true
+	GoldControl.add_gold(income, source_is_income)
 
 	Messages.add_normal("Income: %d upkeep, %d interest." % [upkeep, interest])
 
@@ -45,8 +46,11 @@ func add_income(wave_level: int):
 ### Setters / Getters ###
 #########################
 
-func add_gold(value: float):
-	_gold_farmed += value
+func add_gold(value: float, source_is_income: bool = false):
+#	NOTE: gold framed should include only gold gained from
+#	creep kills or item/tower effects
+	if !source_is_income:
+		_gold_farmed += value
 
 	var new_total: float = _gold + value
 	set_gold(new_total)
