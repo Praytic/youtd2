@@ -5,7 +5,7 @@ extends Item
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Spend a charge to buy a random item for 500 gold. The item will be of level 14-25 and uncommon or higher rarity."
+	text += "Spend a charge to buy a random item for 500 gold. The item will be of level 14-25 and uncommon or higher rarity.\n"
 	text += " \n"
 	text += "Gains a charge every 5th wave, up to a maximum of 5 charges. This ability is not affected by item quality.\n"
 

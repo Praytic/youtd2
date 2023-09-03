@@ -9,7 +9,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Attack![/color]\n"
-	text += "Every attack there is a 2% attackspeed adjusted chance to issue an attack order. When this happens, all towers in 350 range gain +50% attack speed for 4 seconds."
+	text += "Every attack there is a 2% attackspeed adjusted chance to issue an attack order. When this happens, all towers in 350 range gain +50% attack speed for 4 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.01% chance\n"

@@ -9,7 +9,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Skadi's Influence - Aura[/color]\n"
-	text += "Slows movementspeed of creeps in 800 range by 14%."
+	text += "Slows movementspeed of creeps in 800 range by 14%.\n"
 
 	return text
 

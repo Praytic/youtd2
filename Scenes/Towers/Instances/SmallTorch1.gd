@@ -18,6 +18,7 @@ func get_fire_blast_description() -> String:
 	var text: String = ""
 
 	text += "Releases a blast of fire that strikes all targets in 200 AoE around the main target for %s damage.\n" % damage
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % damage_add
 

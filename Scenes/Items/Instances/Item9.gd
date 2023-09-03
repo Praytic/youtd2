@@ -13,7 +13,7 @@ var boekie_backpackMB: MultiboardValues
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "Every 150 seconds the next kill will drop an item for sure."
+	text += "Every 150 seconds the next kill will drop an item for sure.\n"
 
 	return text
 

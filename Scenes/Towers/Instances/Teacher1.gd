@@ -25,6 +25,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Knowledge[/color]\n"
 	text += "When the teacher attacks there's a 10%% chance a random tower in 600 range will learn from her, gaining %s experience. \n" % exp_teach
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% chance"
 

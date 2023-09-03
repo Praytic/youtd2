@@ -24,6 +24,7 @@ func get_autocast_description() -> String:
 	var text: String = ""
 
 	text += "Increases the target's maximum mana by %s, its mana regeneration by %s and its spell damage by %s. The buff lasts 5 seconds.\n" % [mod_mana_max, mod_mana_regen, mod_spell_damage]
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s mana regeneration\n" % mod_mana_regen_add
 	text += "+%s mana \n" % mod_mana_max_add

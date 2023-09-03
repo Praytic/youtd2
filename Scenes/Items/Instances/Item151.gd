@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Learning to Kill[/color]\n"
-	text += "The tower gains 1 additional experience for each kill."
+	text += "The tower gains 1 additional experience for each kill.\n"
 
 	return text
 

@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Bartuc's Spirit[/color]\n"
-	text += "Every 10th attack will release a burst of magic doing 2000 spell damage to units in a range of 300 around the target."
+	text += "Every 10th attack will release a burst of magic doing 2000 spell damage to units in a range of 300 around the target.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+80 spell damage\n"

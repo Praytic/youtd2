@@ -21,7 +21,7 @@ extends Item
 # func get_autocast_description() -> String:
 # 	var text: String = ""
 
-# 	text += "Description"
+# 	text += "Description\n"
 # 	text += " \n"
 # 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 # 	text += "foo\n"

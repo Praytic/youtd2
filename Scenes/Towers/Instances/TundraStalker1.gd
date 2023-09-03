@@ -34,6 +34,7 @@ func get_ice_claw_description() -> String:
 	var text: String = ""
 
 	text += "Ravages a target creep in 850 range, causing it to suffer %s spell damage per second and be slowed by %s. Effect lasts 5 seconds.\n" % [spell_damage, slow_amount]
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage per second\n" % spell_damage_add
 	text += "+0.2 second duration\n"

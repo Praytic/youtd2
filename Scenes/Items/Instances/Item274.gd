@@ -9,6 +9,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Curse of the Grave[/color]\n"
 	text += "This item has a 0.25% attackspeed adjusted chance on attack to kill a non boss, non champion target immediately.\n"
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.01% chance\n"
 

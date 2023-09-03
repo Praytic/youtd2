@@ -20,6 +20,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Frozen Thorn[/color]\n"
 	text += "Has a 15%% chance to deal %s additional spell damage each time it deals damage.\n" % damage
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage" % damage_add
 

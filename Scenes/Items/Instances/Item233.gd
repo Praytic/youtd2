@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Duplication[/color]\n"
-	text += "This item duplicates after being carried for 12 waves. The duplicate will be 6 waves slower to duplicate."
+	text += "This item duplicates after being carried for 12 waves. The duplicate will be 6 waves slower to duplicate.\n"
 
 	return text
 

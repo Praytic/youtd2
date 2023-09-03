@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Headhunt[/color]\n"
-	text += "Gives 2 additional gold for every creep the carrier kills."
+	text += "Gives 2 additional gold for every creep the carrier kills.\n"
 
 	return text
 

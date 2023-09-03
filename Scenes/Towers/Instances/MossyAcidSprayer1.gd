@@ -24,6 +24,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Acid Coating[/color]\n"
 	text += "Decreases the armor of damaged units by %s for 3 seconds.\n" % armor_base
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s armor reduction\n" % armor_add
 	text += "+0.12 seconds"

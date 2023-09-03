@@ -7,6 +7,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Power Supply[/color]\n"
 	text += "The carrier deals 8% of its goldcost as spelldamage per attack. This amount is attackspeed adjusted.\n"
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.1% goldcost as spelldamage\n"
 

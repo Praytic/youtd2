@@ -7,7 +7,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Share Knowledge[/color]\n"
-	text += "Every 15 seconds this tower loses 10 experience to teach other random towers in 400 range. Up to five towers in range gain an equal split of 8 experience, plus 1 experience for each tower affected. This ability doesn't work if the item carrier is not at least level 2 and is unaffected by tower exp ratios."
+	text += "Every 15 seconds this tower loses 10 experience to teach other random towers in 400 range. Up to five towers in range gain an equal split of 8 experience, plus 1 experience for each tower affected. This ability doesn't work if the item carrier is not at least level 2 and is unaffected by tower exp ratios.\n"
 
 	return text
 

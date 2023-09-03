@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Learn[/color]\n"
-	text += "Every 12 seconds the user of this item gains 1 experience."
+	text += "Every 12 seconds the user of this item gains 1 experience.\n"
 
 	return text
 

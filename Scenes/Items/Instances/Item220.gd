@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Nermind's Eye[/color]\n"
-	text += "Reveals invisible enemies in 750 range."
+	text += "Reveals invisible enemies in 750 range.\n"
 
 	return text
 

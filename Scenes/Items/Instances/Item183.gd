@@ -9,7 +9,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Charity Aura - Aura[/color]\n"
-	text += "Increases maximum mana, spell damage and trigger chances for all towers in 300 range by 2%."
+	text += "Increases maximum mana, spell damage and trigger chances for all towers in 300 range by 2%.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.4% maximum mana\n"

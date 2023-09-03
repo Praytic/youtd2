@@ -23,11 +23,14 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Chainlightning[/color]\n"
 	text += "This tower has a 19.5%% chance on attack to release a chainlightning that does %s damage and hits up to 3 units.\n" % chain_damage
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % chain_dmg_add
 	text += "+0.25% chance\n"
+	text += " \n"
 	text += "[color=GOLD]Force Attack[/color]\n"
 	text += "This tower deals %s spell damage on attack.\n" % on_attack_damage
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage" % on_attack_damage_add
 

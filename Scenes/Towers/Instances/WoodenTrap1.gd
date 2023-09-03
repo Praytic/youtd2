@@ -25,6 +25,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Activate Trap[/color]\n"
 	text += "Every %s seconds this tower traps %s creeps in 950 range, dealing %s spelldamage and stunning them for %s seconds.\n" % [cooldown, max_targets, base_damage, stun_duration]
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spelldamage\n" % damage_add
 	text += "-0.2 seconds cooldown"

@@ -7,7 +7,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Conduct Magic[/color]\n"
-	text += "Whenever the carrier of this item is targeted by a spell it gains +20% attackspeed for 10 seconds."
+	text += "Whenever the carrier of this item is targeted by a spell it gains +20% attackspeed for 10 seconds.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.5% attackspeed\n"

@@ -19,6 +19,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Spray and Pray[/color]\n"
 	text += "Each attack of this tower has a 33% chance to miss the target.\n"
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-%s miss chance" % miss_chance_add
 

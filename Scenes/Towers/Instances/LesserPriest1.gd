@@ -21,6 +21,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Smite[/color]\n"
 	text += "When this tower damages a creep it has 5%% chance to smite it, dealing %s spelldamage.\n" % smite_damage
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+2% chance\n"
 	text += "+%s spelldamage\n" % smite_damage_add

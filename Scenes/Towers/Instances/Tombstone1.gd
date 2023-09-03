@@ -20,6 +20,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Tomb's Curse[/color]\n"
 	text += "This tower has a %s chance on attack to kill a non boss, non champion target immediately.\n" % chance_base
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s chance" % chance_add
 	

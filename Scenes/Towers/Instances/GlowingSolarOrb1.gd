@@ -21,6 +21,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Afterglow[/color]\n"
 	text += "The Orb has a 5%% chance to reduce armor of units it damages by %s for 5 seconds. This chance is doubled for bosses.\n" % armor_decrease
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% chance\n"
 	text += "+0.25 seconds duration"

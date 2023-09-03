@@ -23,6 +23,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Icy Touch[/color]\n"
 	text += "Slows attacked units by %s for %s seconds.\n" % [slow_base, duration_base]
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s seconds duration\n" % duration_add
 	text += "+%s slow" % slow_add

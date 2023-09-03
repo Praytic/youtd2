@@ -13,7 +13,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Ball Lightning[/color]\n"
-	text += "Every 3 seconds this item jumps to another tower. If no other tower in  1500 range has an empty slot, this item will fly to stash."
+	text += "Every 3 seconds this item jumps to another tower. If no other tower in  1500 range has an empty slot, this item will fly to stash.\n"
 
 	return text
 

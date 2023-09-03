@@ -30,11 +30,12 @@ func get_extra_tooltip_text() -> String:
 	text += "Every 8th attack deals %s bonus damage.\n" % bonus_8
 	text += "Every 9th attack deals %s bonus damage.\n" % bonus_9
 	text += "Every 10th attack deals %s bonus damage.\n" % bonus_10
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s bonus damage every 7th attack.\n" % bonus_7_add
 	text += "+%s bonus damage every 8th attack.\n" % bonus_8_add
 	text += "+%s bonus damage every 9th attack.\n" % bonus_9_add
-	text += "+%s bonus damage every 10th attack." % bonus_10_add
+	text += "+%s bonus damage every 10th attack.\n" % bonus_10_add
 
 	return text
 

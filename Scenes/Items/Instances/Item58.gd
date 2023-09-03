@@ -7,7 +7,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Warsong Double Bass - Aura[/color]\n"
-	text += "The catchy Bass Line of the drums increases the attackspeed of towers in 200 range, by 7.5%."
+	text += "The catchy Bass Line of the drums increases the attackspeed of towers in 200 range, by 7.5%.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.1% attack speed\n"

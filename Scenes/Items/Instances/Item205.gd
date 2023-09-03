@@ -9,10 +9,10 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Rot - Aura[/color]\n"
-	text += "Grants 12% bonus damage against nature to all towers within 200 range."
+	text += "Grants 12% bonus damage against nature to all towers within 200 range.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+0.24% damage"
+	text += "+0.24% damage\n"
 
 	return text
 

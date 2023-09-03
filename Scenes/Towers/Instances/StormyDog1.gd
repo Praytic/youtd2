@@ -21,6 +21,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Thunderous Roar[/color]\n"
 	text += "Whenever this tower damages a unit it has 30%% chance to release a battle cry. The cry increases the attack speed of all towers in 420 range by 5%% for 5 seconds. If a tower already has the thunderous roar buff the attack speed is increased by %s and the duration is refreshed. Stacks up to 100 times.\n" % attack_speed
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s attack speed" % attack_speed
 

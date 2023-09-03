@@ -25,11 +25,14 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Soul Scattering[/color]\n"
 	text += "10%% chance on attack to reduce its own attackspeed by 60%% and make the target receive %s more spell damage. Both effects last %s seconds.\n" % [banish_lvl, banish_duration]
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% attackspeed\n"
 	text += "+%s spell damage received\n" % banish_lvl_add
+	text += " \n"
 	text += "[color=GOLD]Shadowstrike[/color]\n"
 	text += "This tower has a 25%% chance on attack to deal %s spell damage.\n" % damage
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage\n" % damage_add
 	text += "+0.5% chance"

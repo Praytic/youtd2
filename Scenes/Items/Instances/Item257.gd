@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Shrapnel Munition[/color]\n"
-	text += "Deals an additional 25% damage as spell damage against creeps with Lua armor."
+	text += "Deals an additional 25% damage as spell damage against creeps with Lua armor.\n"
 
 	return text
 

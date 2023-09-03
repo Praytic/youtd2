@@ -30,6 +30,7 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=GOLD]Burn[/color]\n"
 	text += "Starts to burn a target. On every further hit of a fire tower, the target will receive more bonus damage then before. Burning Structures will increase the bonus damage by %s, any other fire towers by %s. If the unit dies, it explodes and deals %s damage to nearby units in a range of 200.\n" % [bonus_damage, bonus_damage_other, explode_damage]
 	text += "Lasts 5 seconds after the last attack of a fire tower.\n"
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage gain (Burning Structrues)\n" % bonus_damage_add
 	text += "+%s damage gain (Other fire towers)\n" % bonus_damage_add_other

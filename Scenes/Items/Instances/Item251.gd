@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Script Reading[/color]\n"
-	text += "Whenever the carrier casts its own active ability it gains [0.2 x cooldown] experience and grants [0.5 x cooldown] gold."
+	text += "Whenever the carrier casts its own active ability it gains [0.2 x cooldown] experience and grants [0.5 x cooldown] gold.\n"
 
 	return text
 

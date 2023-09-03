@@ -30,6 +30,7 @@ extends Tower
 # 	var text: String = ""
 
 # 	text += "Description\n"
+#	text += " \n"
 # 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 # 	text += "foo\n"
 

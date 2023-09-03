@@ -30,6 +30,7 @@ func get_blizzard_description() -> String:
 	var text: String = ""
 
 	text += "Summons %s waves of icy spikes which fall down to earth. Each wave deals %s damage in an AoE of %s. Each time a unit is damaged by this spell there is a chance of %s to slow the unit by %s for %s seconds and a chance of %s to stun the unit for %s seconds.\n" % [blizzard_wave_count, blizzard_damage, blizzard_radius, slow_chance, slow, slow_duration, stun_chance, stun_duration]
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % blizzard_damage_add
 	text += "+%s slow\n" % slow_add

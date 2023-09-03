@@ -27,6 +27,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Entangle[/color]\n"
 	text += "Has a chance of 12.5%% to entangle the attacked target for %s seconds. Entangled targets are immobile and suffer %s damage per second. Cannot entangle air or boss units. \n" % [entangle_duration, base_entangle_dps]
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.2% chance to entangle\n"
 	text += "+%s damage per second" % base_entangle_dps_add

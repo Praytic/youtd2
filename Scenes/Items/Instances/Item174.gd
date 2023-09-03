@@ -10,7 +10,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Putrescent Presence - Aura[/color]\n"
-	text += "Decreases the attack speed of towers in 350 range by 20% and increases the attack and spell damage taken by creeps in 800 range by 20%."
+	text += "Decreases the attack speed of towers in 350 range by 20% and increases the attack and spell damage taken by creeps in 800 range by 20%.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.4% damage taken\n"

@@ -23,6 +23,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Poisonous Skin - Aura[/color]\n"
 	text += "This and any towers in 200 range gain a poisonous attack. The poison deals %s spell damage per second for 5 seconds. The effect stacks and is attack speed and range adjusted.\n" % dmg
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage per second" % dmg_add
 

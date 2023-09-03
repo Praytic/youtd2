@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Vampiric Absorption[/color]\n"
-	text += "The skull's carrier restores 7% of its maximum mana whenever it kills a creep."
+	text += "The skull's carrier restores 7% of its maximum mana whenever it kills a creep.\n"
 
 	return text
 

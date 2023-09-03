@@ -9,7 +9,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Improve Item[/color]\n"
-	text += "Every kill increases item quality by 0.15%. The quality improvement is bound to the item."
+	text += "Every kill increases item quality by 0.15%. The quality improvement is bound to the item.\n"
 
 	return text
 

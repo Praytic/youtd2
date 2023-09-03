@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Reward the Faithful[/color]\n"
-	text += "Whenever the carrier of this item casts a spell on a friendly tower both towers gain 1 experience."
+	text += "Whenever the carrier of this item casts a spell on a friendly tower both towers gain 1 experience.\n"
 
 	return text
 

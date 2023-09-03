@@ -17,6 +17,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Light in the Dark[/color]\n"
 	text += "Deals %s additional damage to invisible creeps.\n" % damage_base
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage" % damage_add
 

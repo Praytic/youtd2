@@ -10,7 +10,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Anti-Immunity Missile[/color]\n"
-	text += "Fires immune-seeking missiles. The attack range, speed, damage and type is the same as the carrier's, unless the attack type is Magic, which is dealt as Essence damage. Damage is scaled by 20% of the tower's spell damage."
+	text += "Fires immune-seeking missiles. The attack range, speed, damage and type is the same as the carrier's, unless the attack type is Magic, which is dealt as Essence damage. Damage is scaled by 20% of the tower's spell damage.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.8% scaling\n"

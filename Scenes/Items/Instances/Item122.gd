@@ -6,7 +6,7 @@ func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Greed Is Good[/color]\n"
-	text += "On attack there is a 20% attackspeed adjusted chance to deal 10% of your current gold as spelldamage to the target."
+	text += "On attack there is a 20% attackspeed adjusted chance to deal 10% of your current gold as spelldamage to the target.\n"
 
 	return text
 

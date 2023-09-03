@@ -18,6 +18,7 @@ func get_release_lightning_description() -> String:
 	var text: String = ""
 
 	text += "This tower releases a lightning bolt that strikes the target for %s damage.\n" % damage
+	text += " \n"
 	text +="[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % damage_add
 

@@ -7,6 +7,7 @@ func get_extra_tooltip_text() -> String:
 
 	text += "[color=GOLD]Magic Powers[/color]\n"
 	text += "This item deals 100 spelldamage multiplied with the base attack speed of the tower on each attack.\n"
+	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+5 damage"
 
