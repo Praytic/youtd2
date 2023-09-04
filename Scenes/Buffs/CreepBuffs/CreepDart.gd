@@ -1,9 +1,9 @@
 class_name CreepDart extends BuffType
 
 
-# TODO: how long do creeps dart? Set it to 2s for now
-
-# TODO: what's the movespeed modifier while darting?
+# TODO: original game implemented darting by making the
+# creep "jump" forward along the path instantly. For now,
+# this special is implemented as a speedup instead.
 
 
 var creep_darting: BuffType
@@ -35,6 +35,9 @@ func _init(parent: Node):
 func on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
+
+	if !creep.calc_chance(0.05):
+		return
 
 	var active_darting: Buff = creep.get_buff_of_type(creep_darting)
 	var active_tired: Buff = creep.get_buff_of_type(creep_tired)
