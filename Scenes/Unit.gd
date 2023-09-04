@@ -77,7 +77,7 @@ var _unfriendly_buff_list: Array[Buff]
 var _direct_modifier_list: Array
 var _base_health: float = 100.0 : get = get_base_health, set = set_base_health
 var _health: float = 0.0
-var _base_health_regen: float = 1.0
+var _base_health_regen: float = 0.0
 var _invisible: bool = false
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
