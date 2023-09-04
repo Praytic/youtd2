@@ -1,7 +1,7 @@
 class_name WaveSpawner extends Node
 
 
-var TIME_BEFORE_FIRST_WAVE: float = 120.0
+var TIME_BEFORE_FIRST_WAVE: float = 180.0
 var TIME_BETWEEN_WAVES: float = 15.0
 
 
