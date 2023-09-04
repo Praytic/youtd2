@@ -1,10 +1,6 @@
 class_name CreepSecondChance extends BuffType
 
 
-# TODO: what is the value of heal and does it consume mana?
-# Currently creep heals for how much damage is taken.
-
-
 func _init(parent: Node):
 	super("creep_second_chance", 0, 0, true, parent)
 	add_event_on_damaged(on_damaged)
@@ -21,5 +17,6 @@ func on_damaged(event: Event):
 	var enough_mana: bool = mana_ratio > 0.33
 
 	if damage_is_mortal && chance_success && enough_mana:
-		var life_after_heal: float = life + event.damage
-		creep.set_health(life_after_heal)
+		var life_after_heal: float = randf_range(0.2, 1.0) * creep.get_overall_health() * mana_ratio + event.damage
+		creep.set_health_over_max(life_after_heal)
+		creep.get_player().display_floating_text_color("Second chance!", creep, Color.RED, 1.0)

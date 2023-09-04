@@ -694,6 +694,11 @@ func set_health(new_health: float):
 	health_changed.emit()
 
 
+func set_health_over_max(new_health: float):
+	_health = max(new_health, 0.0)
+	health_changed.emit()
+
+
 func _get_aoe_damage(target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
 	var distance: float = Isometric.vector_distance_to(position, target.position)
 	var target_is_on_the_sides: bool = (distance / radius) > 0.5
