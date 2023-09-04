@@ -22,8 +22,8 @@ id,name,short name,hp modifier,required wave level,frequency,creep sizes,applies
 20,Mana Drain Aura,Drain,-0.2,32,150,"normal,mass,boss",TRUE,demana,These creeps decrease the mana regeneration of towers in 1200 range by 200%,1
 21,Spellbinder,Binder,-0.2,48,120,"normal,mass,boss",TRUE,demana,"These creeps zap up to 3 mana-using towers in 1100 range every 5 seconds, stealing up to 30% of each tower's mana and silencing it for 5 seconds. Costs the creep 50 mana per zap.",1
 22,Stun Revenge,Stun,-0.57,32,100,all,FALSE,,"Whenever attacked, these creeps have a 30% chance to stun the attacker for 3 seconds",1
-23,Regeneration,Regen,-0.17,16,140,all,FALSE,"regen,regen-ethereal,regen-evo,regen-protector",These creeps regenerate hitpoints over time,0
-24,Xtreme Regeneration,Regen+,-0.48,32,110,all,FALSE,"regen,regen-ethereal,regen-evo,regen-protector",These creeps regenerate a large amount of hitpoints over time,0
+23,Regeneration,Regen,-0.17,16,140,all,FALSE,"regen,regen-ethereal,regen-evo,regen-protector",These creeps regenerate hitpoints over time,1
+24,Xtreme Regeneration,Regen+,-0.48,32,110,all,FALSE,"regen,regen-ethereal,regen-evo,regen-protector",These creeps regenerate a large amount of hitpoints over time,1
 25,Second Chance,Chance,-0.47,32,160,all,FALSE,"regen,regen-evo,seccha","Whenever these creeps receive mortal damage, they have a 50% chance to heal themselves if they have 1/3 of their mana left",0
 26,Semi-Mechanical,Mech,-0.28,40,150,all,FALSE,mech-ethereal,These creeps have -50% debuff duration,1
 27,Mechanical,Mech+,-0.62,56,150,all,FALSE,mech-ethereal,These creeps have -90% debuff duration,1
