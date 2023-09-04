@@ -5,6 +5,7 @@ extends Node
 # creep waves.
 
 const PROPERTIES_PATH: String = "res://Data/wave_special_properties.csv"
+const FLOCK: int = 31
 
 
 enum CsvProperty {
@@ -62,7 +63,7 @@ var _buff_map: Dictionary = {
 	28: CreepMeaty.new(self),
 	29: CreepEvolving.new(self),
 	30: CreepUnlucky.new(self),
-	31: CreepFlock.new(self),
+	WaveSpecial.FLOCK: CreepFlock.new(self),
 	32: CreepGravid.new(self),
 	33: CreepProtector.new(self),
 	34: CreepManaShield.new(self),

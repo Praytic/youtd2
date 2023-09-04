@@ -1,13 +1,6 @@
 class_name CreepFlock extends BuffType
 
 
-# TODO: implement the "spawn double the usual amount" part.
-# Has to be done in the wave itself.
-
-# TODO: also, I think this special should only apply to air
-# creeps.
-
-
 func _init(parent: Node):
 	super("creep_flock", 0, 0, true, parent)
 	var modifier: Modifier = Modifier.new()

@@ -73,6 +73,14 @@ func _init(level: int, difficulty: int):
 	_base_hp = Wave._calculate_base_hp(_level, difficulty)
 	_base_armor = Wave._calculate_base_armor(_level, difficulty)
 
+#	NOTE: double the amount of creeps when wave special is
+#	"Flock"
+	if _specials.has(WaveSpecial.FLOCK):
+		var original_combination: Array[CreepSize.enm] = _creep_combination.duplicate()
+
+		for creep_size in original_combination:
+			_creep_combination.append(creep_size)
+
 
 func _ready():
 	set_name("Wave")

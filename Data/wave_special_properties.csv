@@ -30,7 +30,7 @@ id,name,short name,hp modifier,required wave level,frequency,creep sizes,applies
 28,Meaty,Meaty,0.15,80,100,"normal,mass,boss",TRUE,,FALSE,Champions and bosses with this ability drop additional food upon death.,0
 29,Evolving,Evolving,-0.3,56,150,"mass,normal",FALSE,regen-evo,FALSE,"Any instance of damage above 5% of the creep's max hp will grant it 40% resistance against the attacking element, with halved effect on successive procs.",1
 30,Unlucky,Unlucky,-0.15,56,150,all,FALSE,,FALSE,"When attacked, these creeps have a 30% chance to reduce their attacker's triggerchances by 10% for 8 seconds. Stacks.",1
-31,Flock,Flock,-0.5,40,250,air,FALSE,"exp,bounty,relic",FALSE,Birds are migrating from the winter countries! Double the usual amount will spawn.,0
+31,Flock,Flock,-0.5,40,250,air,FALSE,"exp,bounty,relic",FALSE,Birds are migrating from the winter countries! Double the usual amount will spawn.,1
 32,Gravid,Gravid,-0.53,40,200,"normal,mass,boss",TRUE,"exp,bounty,seccha,relic,gravid-ethereal",FALSE,The children of these creeps jump out when their parents die. They mature quickly...,0
 33,Protector,Protect,-0.2,64,240,"mass,normal",TRUE,regen-protector,FALSE,"When a nearby creep dies, champions will channel a curse on the killing tower, reducing its attack and spell damage by 130% and its multicrit count by 2.",1
 34,Manashield,Shield,-0.55,28,150,"mass,normal",FALSE,"mshield,mshield-speed,corpse",TRUE,"These creeps reduce damage they take by up to 80% by using mana. Less mana, less damage reduction. These creeps will explode when out of mana, leaving no corpse.",1
