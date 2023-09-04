@@ -304,7 +304,7 @@ func get_description(special: int) -> String:
 
 
 func get_enabled(special: int) -> bool:
-	var enabled: int = _get_property(special, WaveSpecial.CsvProperty.ENABLED).to_int()
+	var enabled: bool = _get_property(special, WaveSpecial.CsvProperty.ENABLED) == "TRUE"
 
 	return enabled
 
