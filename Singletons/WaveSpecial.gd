@@ -95,6 +95,10 @@ func _init():
 
 
 func get_random(level: int, creep_size: CreepSize.enm, wave_has_champions: bool) -> Array[int]:
+	var override_wave_specials: Array[int] = Config.override_wave_specials()
+	if !override_wave_specials.is_empty():
+		return override_wave_specials
+
 	var is_challenge: bool = CreepSize.is_challenge(creep_size)
 
 	if is_challenge:

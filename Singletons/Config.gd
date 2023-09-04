@@ -127,12 +127,13 @@ func default_tutorial_enabled() -> bool:
 func random_button_counters() -> bool:
 	return ProjectSettings.get_setting("application/config/random_button_counters") as bool
 
-# All waves have this Specials combination,
-# for testing purposes.
-func hard_all_wave_special() -> Array[int]:
-	var value = ProjectSettings.get_setting("application/config/hard_all_wave_special")
+# Override wave specials so that all waves have these
+# specials. Can be a single special or a comma-separated
+# list.
+func override_wave_specials() -> Array[int]:
+	var value = ProjectSettings.get_setting("application/config/override_wave_specials")
 	var result: Array[int] = []
-	if value is String:
+	if value is String && value != "":
 		var arr_specials = value.split(",")
 		for special in arr_specials:
 			result.append(special.to_int())
