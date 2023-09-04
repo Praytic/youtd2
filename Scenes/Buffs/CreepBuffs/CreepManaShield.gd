@@ -1,9 +1,17 @@
 class_name CreepManaShield extends BuffType
 
+# TODO: add explode visual and also make it so that there's
+# no corpse.
 
-# TODO: what is the formula for "Less mana, less damage reduction."? Made up a placeholder formula for now.
-
-# TODO: how much mana is spend per damage reduction?
+static var _max_cost_map: Dictionary = {
+	CreepSize.enm.MASS: 3,
+	CreepSize.enm.NORMAL: 6,
+	CreepSize.enm.AIR: 12,
+	CreepSize.enm.CHAMPION: 12,
+	CreepSize.enm.BOSS: 12,
+	CreepSize.enm.CHALLENGE_MASS: 0,
+	CreepSize.enm.CHALLENGE_BOSS: 0,
+}
 
 
 func _init(parent: Node):
@@ -13,19 +21,27 @@ func _init(parent: Node):
 
 
 func on_damaged(event: Event):
+	var spend_mana: bool = true
+	CreepManaShield.shield_effect(event, spend_mana)
+
+
+static func shield_effect(event: Event, spend_mana: bool):
+	var caster: Unit = event.get_target()
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 
+	var creep_size: CreepSize.enm = creep.get_size()
+	var shield_cost_max: float = _max_cost_map[creep_size]
+	var shield_cost: float = min(80 * event.damage / creep.get_overall_health(), shield_cost_max) * 100
+
 	var mana_ratio = creep.get_mana_ratio()
-	var damage_reduction: float = clampf(1.0 - mana_ratio, 0.2, 1.0)
+	var damage_ratio: float = clampf(1.0 - 0.8 * mana_ratio, 0.2, 1.0)
+	event.damage *= damage_ratio
 
-	event.damage *= damage_reduction
+	if spend_mana:
+		creep.subtract_mana(shield_cost, false)
 
-	var mana_before: float = creep.get_mana()
-	var mana_after: float = mana_before - 5
-
-	creep.set_mana(mana_after)
-
-	if mana_after <= 0:
-#		TODO: explode, leaving no corpse
-		pass
+#	NOTE: when creep reaches 0 mana it's supposed to
+#	explode. Simulate this by killing creep instantly.
+	if creep.get_mana() == 0:
+		caster.kill_instantly(creep)
