@@ -82,6 +82,8 @@ var _invisible: bool = false
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
 var _mana: float = 0.0
+var _base_mana: float = 0.0
+var _base_mana_regen: float = 0.0
 var _base_armor: float = 0.0
 var _dealt_damage_signal_in_progress: bool = false
 var _kill_count: int = 0
@@ -205,11 +207,6 @@ func _ready():
 	regen_timer.timeout.connect(_on_regen_timer_timeout)
 	add_child(regen_timer)
 	regen_timer.start()
-
-#	NOTE: mana starts at 0 on purpose, so that newly built
-#	towers need to regene mana first before they can use it.
-	_mana = 0
-	_health = get_overall_health()
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 	load_triggers(triggers_buff_type)
@@ -1195,9 +1192,14 @@ func purge_buff(friendly: bool) -> bool:
 	else:
 		return false
 
-# NOTE: real value returned in subclass version
+
+func set_base_mana(base_mana: float):
+	_base_mana = base_mana
+	set_mana(base_mana)
+
+
 func get_base_mana() -> float:
-	return 0.0
+	return _base_mana
 
 func get_base_mana_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_MANA]
@@ -1217,9 +1219,11 @@ func get_mana_ratio() -> float:
 	return ratio
 
 
-# NOTE: real value returned in subclass version
+func set_base_mana_regen(base_mana_regen: float):
+	_base_mana_regen = base_mana_regen
+
 func get_base_mana_regen() -> float:
-	return 0.0
+	return _base_mana_regen
 
 func get_base_mana_regen_bonus() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_MANA_REGEN])
@@ -1239,6 +1243,7 @@ func get_base_health() -> float:
 
 func set_base_health(value: float):
 	_base_health = value
+	set_health(value)
 
 func get_base_health_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_HP]

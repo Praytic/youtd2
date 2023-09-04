@@ -85,6 +85,16 @@ const health_multiplier_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 12.0,
 }
 
+const _base_mana_map: Dictionary = {
+	CreepSize.enm.MASS: 100,
+	CreepSize.enm.NORMAL: 200,
+	CreepSize.enm.AIR: 400,
+	CreepSize.enm.CHAMPION: 300,
+	CreepSize.enm.BOSS: 2000,
+	CreepSize.enm.CHALLENGE_MASS: 100,
+	CreepSize.enm.CHALLENGE_BOSS: 3000,
+}
+
 func from_string(string: String) -> CreepSize.enm:
 	var key = _string_map.find_key(string)
 	
@@ -128,3 +138,7 @@ func is_challenge(type: CreepSize.enm) -> bool:
 	var out: bool = type == CreepSize.enm.CHALLENGE_MASS || type == CreepSize.enm.CHALLENGE_BOSS
 
 	return out
+
+
+func get_base_mana(type: CreepSize.enm) -> float:
+	return _base_mana_map[type]

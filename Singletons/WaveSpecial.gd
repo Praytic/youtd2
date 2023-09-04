@@ -17,6 +17,7 @@ enum CsvProperty {
 	APPLICABLE_SIZES,
 	CHAMPION_OR_BOSS_WAVE_ONLY,
 	GROUP_LIST,
+	USES_MANA,
 	DESCRIPTION,
 	ENABLED,
 }
@@ -169,20 +170,15 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 	var hp_modifier: float = _get_hp_modifier(special_list)
 	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
 
+	var creep_base_mana: float = _get_creep_base_mana(special_list, creep)
+	creep.set_base_mana(creep_base_mana)
+
 	for special in special_list:
-		var creep_size: CreepSize.enm = creep.get_size()
-		var special_only_for_champions_or_bosses: bool = _get_champion_or_boss_wave_only(special)
-		var size_ok: bool
-		if special_only_for_champions_or_bosses:
-			size_ok = creep_size == CreepSize.enm.BOSS || creep_size == CreepSize.enm.CHAMPION
-		else:
-			size_ok = true
+		var special_applies: bool = _special_applies_to_creep(special, creep)
 
-		if !size_ok:
-			continue
-
-		var buff: BuffType = _buff_map[special]
-		buff.apply_to_unit_permanent(creep, creep, 0)
+		if special_applies:
+			var buff: BuffType = _buff_map[special]
+			buff.apply_to_unit_permanent(creep, creep, 0)
 
 
 func _get_available_specials_for_first_special(level: int, creep_size: CreepSize.enm, wave_has_champions: bool) -> Array[int]:
@@ -339,6 +335,12 @@ func _get_hp_modifier(special_list: Array[int]) -> float:
 			return max_mod
 
 
+func _get_uses_mana(special: int) -> bool:
+	var uses_mana: bool = _get_property(special, WaveSpecial.CsvProperty.USES_MANA) == "TRUE"
+
+	return uses_mana
+
+
 func _get_property(special: int, property: WaveSpecial.CsvProperty) -> String:
 	if !_properties.has(special):
 		push_error("No properties for special: ", special)
@@ -366,3 +368,35 @@ func _make_group_to_special_map() -> Dictionary:
 			result[group].append(special)
 
 	return result
+
+
+func _get_creep_base_mana(special_list: Array[int], creep: Creep) -> float:
+	var creep_should_have_mana: bool = false
+
+	for special in special_list:
+		var special_applies: bool = _special_applies_to_creep(special, creep)
+		var special_uses_mana: bool = _get_uses_mana(special)
+
+		if special_applies && special_uses_mana:
+			creep_should_have_mana = true
+
+	var creep_base_mana: float
+	if creep_should_have_mana:
+		var creep_size: CreepSize.enm = creep.get_size()
+		creep_base_mana = CreepSize.get_base_mana(creep_size)
+	else:
+		creep_base_mana = 0
+
+	return creep_base_mana
+
+
+func _special_applies_to_creep(special: int, creep: Creep) -> bool:
+	var creep_size: CreepSize.enm = creep.get_size()
+	var special_only_for_champions_or_bosses: bool = _get_champion_or_boss_wave_only(special)
+	var special_applies: bool
+	if special_only_for_champions_or_bosses:
+		special_applies = creep_size == CreepSize.enm.BOSS || creep_size == CreepSize.enm.CHAMPION
+	else:
+		special_applies = true
+
+	return special_applies
