@@ -26,6 +26,7 @@ var difficulty: Difficulty.enm
 var portal_lives: float = 100.0
 var game_over: bool = false
 var _total_damage: float = 0.0
+var built_at_least_one_tower: bool = false
 
 
 func game_mode_is_random() -> bool:

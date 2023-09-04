@@ -137,6 +137,8 @@ func _build_tower(tower_id: int):
 
 	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
 	
+	Globals.built_at_least_one_tower = true
+
 	cancel()
 
 
