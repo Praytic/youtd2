@@ -148,7 +148,7 @@ func _on_update_stats_timer_timeout():
 	var score: int = 0
 	var score_string: String = TowerInfo.int_format(score)
 
-	var lives_string: String = Globals.get_lives_string()
+	var lives_string: String = PortalLives.get_lives_string()
 
 	var total_damage: float = Globals.get_total_damage()
 	var total_damage_string: String = TowerInfo.int_format(total_damage)

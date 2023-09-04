@@ -25,7 +25,7 @@ func _get_game_stats_text() -> String:
 	var score: int = 0
 	var score_string: String = TowerInfo.int_format(score)
 
-	var lives_string: String = Globals.get_lives_string()
+	var lives_string: String = PortalLives.get_lives_string()
 
 	var wave_level: float = WaveLevel.get_current()
 	var wave_level_string: String = str(wave_level)

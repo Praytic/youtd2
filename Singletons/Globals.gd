@@ -23,7 +23,6 @@ const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/E
 var wave_count: int
 var game_mode: GameMode.enm
 var difficulty: Difficulty.enm
-var portal_lives: float = 100.0
 var game_over: bool = false
 var _total_damage: float = 0.0
 var built_at_least_one_tower: bool = false
@@ -31,21 +30,6 @@ var built_at_least_one_tower: bool = false
 
 func game_mode_is_random() -> bool:
 	return Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM
-
-
-func reduce_portal_lives(amount: float):
-	portal_lives = max(0.0, portal_lives - amount)
-
-	if portal_lives == 0.0 && !game_over:
-		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
-		game_over = true
-		EventBus.game_over.emit()
-
-
-func get_lives_string() -> String:
-	var lives_string: String = Utils.format_percent(floori(portal_lives) / 100.0, 2)
-
-	return lives_string
 
 
 func add_to_total_damage(amount: float):

@@ -126,7 +126,7 @@ func reach_portal():
 	if damage_to_portal > 0:
 		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
 
-	Globals.reduce_portal_lives(damage_to_portal)
+	PortalLives.deal_damage(damage_to_portal)
 
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 	queue_free()

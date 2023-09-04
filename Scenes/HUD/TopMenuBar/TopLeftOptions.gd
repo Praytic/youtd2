@@ -5,5 +5,7 @@ extends Control
 
 
 func _process(_delta: float):
-	livesBar.value = max(Globals.portal_lives, 0)
-	livesBar.tooltip_text = "Lives left: %s" % Globals.portal_lives
+	var portal_lives: float = PortalLives.get_current()
+	var portal_lives_string: String = PortalLives.get_lives_string()
+	livesBar.value = max(portal_lives, 0)
+	livesBar.tooltip_text = "Lives left: %s" % portal_lives_string
