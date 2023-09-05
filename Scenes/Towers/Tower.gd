@@ -113,7 +113,7 @@ func _ready():
 	set_base_mana(base_mana)
 	set_mana(0)
 
-	var base_mana_regen: float = get_csv_property(CsvProperty.MANA).to_float()
+	var base_mana_regen: float = get_csv_property(CsvProperty.MANA_REGEN).to_float()
 	set_base_mana_regen(base_mana_regen)
 
 	var inventory_capacity: int = get_inventory_capacity()
