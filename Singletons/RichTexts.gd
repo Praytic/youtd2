@@ -65,8 +65,10 @@ func get_creep_info(creep: Creep) -> String:
 	return text
 
 
-func get_tower_info(tower_id: int) -> String:
+func get_tower_info(tower: Tower) -> String:
 	var text: String = ""
+	
+	var tower_id: int = tower.get_id()
 
 	var gold_cost: int = TowerProperties.get_cost(tower_id)
 	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
@@ -81,6 +83,8 @@ func get_tower_info(tower_id: int) -> String:
 	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
 	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
+	var mana: int = floori(tower.get_mana())
+	var overall_mana: int = floori(tower.get_overall_mana())
 
 	if tome_cost != 0:
 		text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %d [img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %d [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, tome_cost, food_cost]
@@ -91,6 +95,9 @@ func get_tower_info(tower_id: int) -> String:
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
 	text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
+
+	if overall_mana != 0:
+		text += "[color=YELLOW]Mana:[/color] %d/%d\n" % [mana, overall_mana]
 
 	return text
 

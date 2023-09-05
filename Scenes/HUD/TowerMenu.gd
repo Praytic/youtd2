@@ -183,7 +183,7 @@ func _update_unit_icon(unit: Unit):
 func _update_info_label(unit: Unit):
 	var contents
 	if unit is Tower:
-		contents = RichTexts.get_tower_info(unit.get_id())
+		contents = RichTexts.get_tower_info(unit)
 	elif unit is Creep:
 		contents = RichTexts.get_creep_info(unit)
 	else:
