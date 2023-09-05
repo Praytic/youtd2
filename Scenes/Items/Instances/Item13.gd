@@ -49,7 +49,7 @@ func periodic(_event: Event):
 		else:
 			cb_stun.apply_only_timed(tower, creep, 0.5)
 
-		Utils.sfx_at_unit("feralspirittarget.mdl", creep)
+		SFX.sfx_at_unit("feralspirittarget.mdl", creep)
 
 		if loop_counter == 0:
 			break
