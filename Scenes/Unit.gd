@@ -1200,7 +1200,6 @@ func purge_buff(friendly: bool) -> bool:
 
 func set_base_mana(base_mana: float):
 	_base_mana = base_mana
-	set_mana(base_mana)
 
 
 func get_base_mana() -> float:
@@ -1248,7 +1247,6 @@ func get_base_health() -> float:
 
 func set_base_health(value: float):
 	_base_health = value
-	set_health(value)
 
 func get_base_health_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_HP]

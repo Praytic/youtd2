@@ -177,6 +177,7 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 
 	var creep_base_mana: float = _get_creep_base_mana(special_list, creep)
 	creep.set_base_mana(creep_base_mana)
+	creep.set_mana(creep_base_mana)
 
 	for special in special_list:
 		var special_applies: bool = _special_applies_to_creep(special, creep)

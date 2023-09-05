@@ -185,6 +185,7 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 	creep.set_armor_type(wave.get_armor_type())
 	creep.set_category(wave.get_race())
 	creep.set_base_health(creep_health)
+	creep.set_health(creep_health)
 	creep.set_base_armor(creep_armor)
 	creep.set_spawn_level(wave.get_level())
 
