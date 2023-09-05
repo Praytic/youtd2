@@ -51,6 +51,9 @@ const CREEP_SCENE_INSTANCES_PATHS = {
 	"NatureMass": "res://Scenes/Creeps/Instances/Nature/NatureMassCreep.tscn",
 	"NatureNormal": "res://Scenes/Creeps/Instances/Nature/NatureNormalCreep.tscn",
 	"NatureChampion": "res://Scenes/Creeps/Instances/Nature/NatureChampionCreep.tscn",
+	
+	"ChallengeBoss": "res://Scenes/Creeps/Instances/Challenge/ChallengeBossCreep.tscn",
+	"ChallengeMass": "res://Scenes/Creeps/Instances/Challenge/ChallengeMassCreep.tscn",
 }
 
 

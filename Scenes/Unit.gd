@@ -168,6 +168,7 @@ var _mod_value_map: Dictionary = {
 	Modification.Type.MOD_DMG_TO_NATURE: 1.0,
 	Modification.Type.MOD_DMG_TO_ORC: 1.0,
 	Modification.Type.MOD_DMG_TO_HUMANOID: 1.0,
+	Modification.Type.MOD_DMG_TO_CHALLENGE: 1.0,
 
 	Modification.Type.MOD_DMG_FROM_ASTRAL: 1.0,
 	Modification.Type.MOD_DMG_FROM_DARKNESS: 1.0,
@@ -1380,6 +1381,7 @@ func _get_damage_mod_for_creep_category(creep: Creep) -> float:
 		CreepCategory.enm.NATURE: Modification.Type.MOD_DMG_TO_NATURE,
 		CreepCategory.enm.ORC: Modification.Type.MOD_DMG_TO_ORC,
 		CreepCategory.enm.HUMANOID: Modification.Type.MOD_DMG_TO_HUMANOID,
+		CreepCategory.enm.CHALLENGE: Modification.Type.MOD_DMG_TO_CHALLENGE,
 	}
 
 	var creep_category: CreepCategory.enm = creep.get_category() as CreepCategory.enm

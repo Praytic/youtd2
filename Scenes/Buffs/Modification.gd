@@ -51,6 +51,7 @@ enum Type {
 	MOD_DMG_TO_NATURE,
 	MOD_DMG_TO_ORC,
 	MOD_DMG_TO_HUMANOID,
+	MOD_DMG_TO_CHALLENGE,
 
 	MOD_DMG_FROM_ASTRAL,
 	MOD_DMG_FROM_DARKNESS,
@@ -187,6 +188,7 @@ func get_type_string() -> String:
 		Type.MOD_DMG_TO_NATURE: return "damage to nature"
 		Type.MOD_DMG_TO_ORC: return "damage to orc"
 		Type.MOD_DMG_TO_HUMANOID: return "damage to humanoid"
+		Type.MOD_DMG_TO_CHALLENGE: return "damage to challenge"
 
 		Type.MOD_DMG_FROM_ASTRAL: return "damage from astral"
 		Type.MOD_DMG_FROM_DARKNESS: return "damage from darkness"

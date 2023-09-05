@@ -6,6 +6,7 @@ enum enm {
 	NATURE,
 	ORC,
 	HUMANOID,
+	CHALLENGE,
 }
 
 
@@ -15,6 +16,7 @@ const _string_map: Dictionary = {
 	CreepCategory.enm.NATURE: "nature",
 	CreepCategory.enm.ORC: "orc",
 	CreepCategory.enm.HUMANOID: "humanoid",
+	CreepCategory.enm.CHALLENGE: "challenge",
 }
 
 const _color_map: Dictionary = {
@@ -23,6 +25,7 @@ const _color_map: Dictionary = {
 	CreepCategory.enm.NATURE: Color.LIME_GREEN,
 	CreepCategory.enm.ORC: Color.DARK_SEA_GREEN,
 	CreepCategory.enm.HUMANOID: Color.TAN,
+	CreepCategory.enm.CHALLENGE: Color.GRAY,
 }
 
 

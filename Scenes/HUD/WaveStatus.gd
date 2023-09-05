@@ -75,6 +75,9 @@ func _update_details_label():
 		var race: CreepCategory.enm = wave.get_race()
 		var race_string: String = CreepCategory.convert_to_colored_string(race)
 
+		if race == CreepCategory.enm.CHALLENGE:
+			race_string = "---"
+
 		var size_string: String = wave.get_creep_combination_string()
 
 		var armor_type: ArmorType.enm = wave.get_armor_type()
@@ -91,6 +94,8 @@ func _update_details_label():
 
 func _update_tooltip():
 	var tooltip: String = ""
+
+	tooltip += "Wave specials:\n"
 
 	var current_wave_level: int = WaveLevel.get_current()
 	
