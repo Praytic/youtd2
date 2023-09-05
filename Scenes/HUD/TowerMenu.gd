@@ -56,6 +56,13 @@ func _ready():
 		_inventory_empty_slots.add_child(empty_slot_button)
 
 
+func _process(_delta: float):
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+
+	if selected_unit != null:
+		_update_info_label(selected_unit)
+
+
 func _on_game_mode_was_chosen():
 	var sell_ratio: float = GameMode.get_sell_ratio(Globals.game_mode)
 	var sell_percentage: String = Utils.format_percent(sell_ratio, 0)
@@ -102,6 +109,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_update_unit_level_label(tower)
 		_on_unit_buff_list_changed(tower)
 		_update_info_label(tower)
+		_update_info_label_tooltip(tower)
 		_update_specials_label(tower)
 		_update_unit_icon(tower)
 		_update_inventory_empty_slots(tower)
@@ -118,6 +126,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_update_unit_name_label(creep)
 		_on_unit_buff_list_changed(creep)
 		_update_info_label(creep)
+		_update_info_label_tooltip(creep)
 		_update_specials_label(creep)
 		_update_unit_icon(creep)
 		_update_unit_level_label(creep)
@@ -180,6 +189,11 @@ func _update_info_label(unit: Unit):
 	else:
 		assert(unit != null, "Unit is of unknown type. Can't get info label for it.")
 	_info_label.text = contents
+
+
+func _update_info_label_tooltip(unit: Unit):
+	if unit == null:
+		return
 
 	var tooltip_for_info_label: String = _get_tooltip_for_info_label(unit)
 	_info_label.set_tooltip_text(tooltip_for_info_label)
