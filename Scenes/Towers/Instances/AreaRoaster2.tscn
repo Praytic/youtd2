@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://x45noienvfk4"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_nmgyi"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/AreaRoaster1.gd" id="2_8wclw"]
-[ext_resource type="Texture2D" uid="uid://dyxuqeew0h17u" path="res://Assets/Towers/Instances/area_roster_atlas.png" id="3_080ql"]
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_44ca8"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/AreaRoaster1.gd" id="2_pijcm"]
+[ext_resource type="Texture2D" uid="uid://dyxuqeew0h17u" path="res://Assets/Towers/Instances/area_roster_atlas.png" id="3_8pr2h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_080ql")
+atlas = ExtResource("3_8pr2h")
 region = Rect2(300, 0, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_nmgyi")]
-script = ExtResource("2_8wclw")
+[node name="Tower" instance=ExtResource("1_44ca8")]
+script = ExtResource("2_pijcm")
 
 [node name="Model" type="Node2D" parent="." index="3"]
 position = Vector2(0, -193)
