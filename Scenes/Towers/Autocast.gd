@@ -408,39 +408,41 @@ func get_target_error_message(target: Unit) -> String:
 	if target == null:
 		return "No target selected"
 
-	var distance_to_target: float = Isometric.vector_distance_to(target.position, _caster.position)
-	var target_is_in_range: bool = distance_to_target <= auto_range
+	var target_is_in_range: bool = _get_target_is_in_range(target)
+	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
 
 	if !target_is_in_range:
 		return "Target is out of range"
 
-	var manual_target_type: TargetType = _get_target_type_for_manual_cast()
-	if !manual_target_type.match(target):
+	if !target_type_is_valid:
 		return "Not a valid target for this ability"
 
-	return "Target is okay"
+	return "Target is valid"
 
 
 func check_target_for_unit_autocast(target: Unit) -> bool:
 	if target == null:
 		return false
 
-# 	NOTE: caster may have higher attack range than autocast
-# 	so we need to check that target is in range of autocast
+	var target_is_in_range: bool = _get_target_is_in_range(target)
+	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
+	var target_is_ok: bool = target_is_in_range && target_type_is_valid
+
+	return target_is_ok
+
+
+func _get_target_is_in_range(target: Unit) -> bool:
 	var distance_to_target: float = Isometric.vector_distance_to(target.position, _caster.position)
 	var target_is_in_range: bool = distance_to_target <= auto_range
 
-	if !target_is_in_range:
-		return false
+	return target_is_in_range
 
-#	NOTE: only creep targets are allowed for unit type
-#	autocasts
+
+func _get_target_type_is_valid_for_manual_cast(target: Unit) -> bool:
 	var manual_target_type: TargetType = _get_target_type_for_manual_cast()
+	var type_is_ok: bool = manual_target_type.match(target)
 
-	if !manual_target_type.match(target):
-		return false
-
-	return true
+	return type_is_ok
 
 
 func _get_target_type_for_manual_cast() -> TargetType:
