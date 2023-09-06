@@ -117,5 +117,5 @@ func on_create(preceding_tower: Tower):
 func on_tower_details() -> MultiboardValues:
 	var tower = self
 
-	limfa_teacherboard.set_value(0, Utils.format_float(tower.user_real_2, 1))
+	limfa_teacherboard.set_value(0, Utils.format_float(tower.user_real2, 1))
 	return limfa_teacherboard
