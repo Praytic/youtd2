@@ -404,6 +404,23 @@ func _type_is_targeted() -> bool:
 	return _targeted_type_list.has(autocast_type)
 
 
+func get_target_error_message(target: Unit) -> String:
+	if target == null:
+		return "No target selected"
+
+	var distance_to_target: float = Isometric.vector_distance_to(target.position, _caster.position)
+	var target_is_in_range: bool = distance_to_target <= auto_range
+
+	if !target_is_in_range:
+		return "Target is out of range"
+
+	var manual_target_type: TargetType = _get_target_type_for_manual_cast()
+	if !manual_target_type.match(target):
+		return "Not a valid target for this ability"
+
+	return "Target is okay"
+
+
 func check_target_for_unit_autocast(target: Unit) -> bool:
 	if target == null:
 		return false

@@ -22,6 +22,7 @@ func _unhandled_input(event: InputEvent):
 
 	if left_click && target != null:
 		var target_is_ok: bool = _autocast.check_target_for_unit_autocast(target)
+		var target_error_message: String = _autocast.get_target_error_message(target)
 
 		if target_is_ok:
 			var cast_success: bool = _autocast.do_cast_manually_finish_for_manual_target(target)
@@ -33,7 +34,7 @@ func _unhandled_input(event: InputEvent):
 #			also select the target unit
 			get_viewport().set_input_as_handled()
 		else:
-			Messages.add_error("Invalid target")
+			Messages.add_error(target_error_message)
 
 
 func start(autocast: Autocast):
