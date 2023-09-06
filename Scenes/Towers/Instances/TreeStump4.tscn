@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_w33nw"]
 [ext_resource type="Script" path="res://Scenes/Towers/Instances/TreeStump1.gd" id="2_md1r5"]
-[ext_resource type="Texture2D" uid="uid://cq4ts214mckli" path="res://Assets/Towers/Instances/tree_sump_atlas.png" id="3_jlygv"]
+[ext_resource type="Texture2D" uid="uid://cjb5202et8paj" path="res://Assets/Towers/Instances/tree_stump_atlas.png" id="3_vwbe0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q32kx"]
-atlas = ExtResource("3_jlygv")
+atlas = ExtResource("3_vwbe0")
 region = Rect2(2.08165e-12, 300, 300, 300)
 
 [node name="TreeStump" instance=ExtResource("1_w33nw")]
