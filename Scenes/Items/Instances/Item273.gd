@@ -34,7 +34,7 @@ func item_init():
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
+	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
 	autocast.target_self = true
 	autocast.cooldown = 4
 	autocast.is_extended = false
