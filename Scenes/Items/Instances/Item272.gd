@@ -20,6 +20,13 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
+	var m: Modifier = Modifier.new()
+	m.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.1, 0)
+	boekie_scroll_damage = BuffType.new("boekie_scroll_damage", 0.0, 0.0, true, self)
+	boekie_scroll_damage.set_buff_modifier(m)
+	boekie_scroll_damage.set_buff_icon("@@0@@")
+	boekie_scroll_damage.set_buff_tooltip("Strength Boost\nThis unit is affected by Strength Boost; it has increased base damage.")
+
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Strength Boost"
 	autocast.description = get_autocast_description()
@@ -63,15 +70,6 @@ func on_autocast(_event: Event):
 	itm.set_charges(itm.user_int)
 	await get_tree().create_timer(0.1).timeout
 	itm.set_charges(itm.user_int)
-
-
-func tower_init():
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.1, 0)
-	boekie_scroll_damage = BuffType.new("boekie_scroll_damage", 0.0, 0.0, true, self)
-	boekie_scroll_damage.set_buff_modifier(m)
-	boekie_scroll_damage.set_buff_icon("@@0@@")
-	boekie_scroll_damage.set_buff_tooltip("Strength Boost\nThis unit is affected by Strength Boost; it has increased base damage.")
 
 
 func on_create():
