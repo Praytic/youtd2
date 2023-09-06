@@ -240,6 +240,9 @@ func get_units_in_range(type: TargetType, center: Vector2, radius: float, includ
 
 
 func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float, include_invisible: bool = false) -> Array[Unit]:
+	if type == null:
+		return []
+
 	var node_list: Array[Node] = []
 
 	match type._unit_type:
