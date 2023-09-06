@@ -24,7 +24,7 @@ func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -0.20, 0.0)
 
 
-func tower_init():
+func item_init():
 	var m: Modifier = Modifier.new()
 	poussix_multi_aura = BuffType.create_aura_effect_type("poussix_multi_aura", true, self)
 	m.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.02, 0.004)

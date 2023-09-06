@@ -17,7 +17,7 @@ func get_extra_tooltip_text() -> String:
 	return text
 
 
-func tower_init():
+func item_init():
 	var m: Modifier = Modifier.new()
 	undead_aura = BuffType.create_aura_effect_type("undead_aura", true, self)
 	m.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.12, 0.0024)

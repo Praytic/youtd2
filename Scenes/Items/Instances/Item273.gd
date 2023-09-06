@@ -20,6 +20,13 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
+	var m: Modifier = Modifier.new()
+	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0)
+	boekie_scroll_damage = BuffType.new("boekie_scroll_damage", 0.0, 0.0, true, self)
+	boekie_scroll_damage.set_buff_modifier(m)
+	boekie_scroll_damage.set_buff_icon("@@0@@")
+	boekie_scroll_damage.set_buff_tooltip("Speed Boost\nThis unit is affected by Scroll of Speed; it has increased attack speed.")
+
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Speed Boost"
 	autocast.description = get_autocast_description()
@@ -27,7 +34,7 @@ func item_init():
 	autocast.caster_art = ""
 	autocast.target_art = ""
 	autocast.num_buffs_before_idle = 0
-	autocast.autocast_type = Autocast.Type.AC_TYPE_ALWAYS_BUFF
+	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE
 	autocast.target_self = true
 	autocast.cooldown = 4
 	autocast.is_extended = false
@@ -63,15 +70,6 @@ func on_autocast(_event: Event):
 	itm.set_charges(itm.user_int)
 	await get_tree().create_timer(0.1).timeout
 	itm.set_charges(itm.user_int)
-
-
-func tower_init():
-	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.1, 0)
-	boekie_scroll_damage = BuffType.new("boekie_scroll_damage", 0.0, 0.0, true, self)
-	boekie_scroll_damage.set_buff_modifier(m)
-	boekie_scroll_damage.set_buff_icon("@@0@@")
-	boekie_scroll_damage.set_buff_tooltip("Speed Boost\nThis unit is affected by Scroll of Speed; it has increased attack speed.")
 
 
 func on_create():

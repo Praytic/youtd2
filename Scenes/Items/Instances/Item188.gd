@@ -45,7 +45,7 @@ func drol_lift_down(event: Event):
 	Effect.destroy_effect_after_its_over(bolt_impact)
 
 
-func tower_init():
+func item_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_EXP_GRANTED, 0.2, 0.008)
 

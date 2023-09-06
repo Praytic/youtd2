@@ -41,12 +41,14 @@ anchor_bottom = 1.0
 offset_top = -300.0
 offset_right = 40.0
 grow_vertical = 0
+mouse_filter = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_bottom = 300
 
 [node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer3"]
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("1_mod6x")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
@@ -58,15 +60,18 @@ offset_left = -350.0
 offset_right = 350.0
 offset_bottom = 300.0
 grow_horizontal = 2
+mouse_filter = 2
 theme_override_constants/margin_top = 300
 
 [node name="ErrorMessageContainer" type="VBoxContainer" parent="MarginContainer2"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
+mouse_filter = 2
 theme = ExtResource("1_mod6x")
 
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="BottomMenuBar" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true

@@ -49,8 +49,8 @@ func tower_init():
 	autocast.caster_art = ""
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
 	autocast.is_extended = false
-	autocast.auto_range = 90
-	autocast.cast_range = 90
+	autocast.auto_range = 900
+	autocast.cast_range = 900
 	autocast.num_buffs_before_idle = 0
 	autocast.target_art = "Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl"
 	autocast.buff_type = null

@@ -19,7 +19,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_spell_targeted(on_spell_target)
 
 
-func tower_init():
+func item_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.20, 0.005)
 	boekie_magicConductor_buff = BuffType.new("boekie_magicConductor_buff", 0.0, 0.0, true, self)
