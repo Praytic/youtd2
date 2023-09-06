@@ -160,3 +160,6 @@ func override_creep_race() -> String:
 
 func print_sfx_errors() -> bool:
 	return ProjectSettings.get_setting("application/config/print_sfx_errors") as bool
+
+func unlimited_food() -> bool:
+	return ProjectSettings.get_setting("application/config/unlimited_food") as bool
