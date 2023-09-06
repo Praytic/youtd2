@@ -45,7 +45,8 @@ func get_creep_info(creep: Creep) -> String:
 	text += "[img=32x32]res://Resources/Textures/wave.tres[/img] %s\n" % wave
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non nulla nec nunc dictum sodales."
 	text += "[color=YELLOW]Health:[/color] %d/%d\n" % [health, overall_health]
-	text += "[color=YELLOW]Mana:[/color] %d/%d\n" % [mana, overall_mana]
+	if overall_mana > 0:
+		text += "[color=YELLOW]Mana:[/color] %d/%d\n" % [mana, overall_mana]
 
 	var category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
 	var category_string: String = CreepCategory.convert_to_colored_string(category)
