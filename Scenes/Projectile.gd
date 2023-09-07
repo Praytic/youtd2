@@ -36,6 +36,7 @@ var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
 var _collision_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
+var _called_cleanup_already: bool = false
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -263,6 +264,14 @@ func _on_lifetime_timeout():
 
 
 func _cleanup():
+#	NOTE: cleanup may be triggered multiple times from
+#	projectile reaching target or one of the handler nodes
+#	getting removed. Call cleanup only once.
+	if _called_cleanup_already:
+		return
+
+	_called_cleanup_already = true
+
 	if _cleanup_handler.is_valid():
 		_cleanup_handler.call(self)
 

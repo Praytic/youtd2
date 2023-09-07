@@ -22,6 +22,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 3.0)
 
 
+func load_modifier(modifier: Modifier):
+	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.5, 0.0)
+
+
 func ball_lightning_jump(ball: Projectile):
 	var tower: Tower = ball.get_caster()
 	var towers_in_range: Iterate 
@@ -69,7 +73,7 @@ func periodic(_event: Event):
 
 	itm.drop()
 
-	if tower_in_range.count() == 0:
+	if towers_in_range.count() == 0:
 		itm.fly_to_stash(0.0)
 
 		return
