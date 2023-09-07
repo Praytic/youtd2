@@ -155,6 +155,10 @@ func set_caster(caster: Unit):
 	_caster = caster
 
 
+func get_caster() -> Unit:
+	return _caster
+
+
 func toggle_auto_mode():
 	if !can_use_auto_mode():
 		Messages.add_error("This ability cannot be casted automatically")
@@ -300,7 +304,7 @@ func _do_cast(target: Unit):
 	_cooldown_timer.start()
 	
 	if !handler.is_null():
-		var autocast_event = Event.new(target)
+		var autocast_event: Event = _make_autocast_event(target)
 		handler.call(autocast_event)
 	elif buff_type != null:
 		buff_type.apply(_caster, target, _caster.get_level())
@@ -309,13 +313,11 @@ func _do_cast(target: Unit):
 
 		return
 
-	var spell_casted_event: Event = Event.new(target)
-	spell_casted_event._autocast = self
+	var spell_casted_event: Event = _make_autocast_event(target)
 	_caster.spell_casted.emit(spell_casted_event)
 
 	if target != null:
-		var spell_targeted_event: Event = Event.new(target)
-		spell_targeted_event._autocast = self
+		var spell_targeted_event: Event = _make_autocast_event(target)
 		target.spell_targeted.emit(spell_targeted_event)
 
 	if !caster_art.is_empty():
@@ -325,6 +327,13 @@ func _do_cast(target: Unit):
 	if !target_art.is_empty() && target != null:
 		var effect: int = Effect.create_simple_at_unit(target_art, target)
 		Effect.destroy_effect_after_its_over(effect)
+
+
+func _make_autocast_event(target: Unit) -> Event:
+	var event: Event = Event.new(target)
+	event._autocast = self
+
+	return event
 
 
 func _can_cast() -> bool:

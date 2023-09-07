@@ -41,5 +41,5 @@ func on_spell_cast(event: Event):
 		if T.calc_chance(0.2):
 			t.set_mana(t.get_mana() + t.get_overall_mana() * (0.15 + T.get_level() * 0.006))
 			var effect: int = Effect.create_simple_at_unit("ReplenishManaCasterOverhead.mdl", T)
-			Effect.destroy(effect)
+			Effect.destroy_effect_after_its_over(effect)
 			itm.user_int = roundi(Utils.get_game_time())

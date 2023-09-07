@@ -79,6 +79,7 @@ var _base_health: float = 100.0 : get = get_base_health, set = set_base_health
 var _health: float = 0.0
 var _base_health_regen: float = 0.0
 var _invisible: bool = false
+var _immune: bool = false
 var _selected: bool = false : get = is_selected
 var _experience: float = 0.0
 var _mana: float = 0.0
@@ -951,7 +952,12 @@ func get_current_target() -> Unit:
 
 # NOTE: unit.isImmune() in JASS
 func is_immune() -> bool:
-	return false
+	return _immune
+
+
+func set_immune(immune: bool):
+	_immune = immune
+
 
 # Adds modifier directly to unit. Modifier will
 # automatically scale with this unit's level. If you need to

@@ -117,7 +117,7 @@ func on_tower_details() -> MultiboardValues:
 	return Maj_spellbook
 
 
-func periodic():
+func periodic(event: Event):
 	var itm: Item = self
 	var level: int = itm.getOnwer().get_level()
 

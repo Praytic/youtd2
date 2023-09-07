@@ -28,7 +28,7 @@ const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 
 # NOTE: this is used in Creep.gd to determine which items
 # will not drop.
-const disabled_item_list: Array[int] = [140, 198, 254]
+static var disabled_item_list: Array[int] = [140, 198, 254]
 
 static var _item_drop_scene_map: Dictionary = {
 	"res://Scenes/Items/CommonItem.tscn": preload("res://Scenes/Items/CommonItem.tscn"),
