@@ -108,7 +108,7 @@ func item_init():
 
 	hammer_aura = BuffType.new("hammer_aura", -1, 0, true, self)
 	hammer_aura.set_buff_icon("@@1@@")
-	hammer_aura.add_event_on_create(hammer_aura_trig)
+	hammer_aura.add_event_on_damaged(hammer_aura_trig)
 
 
 func on_drop():
