@@ -492,11 +492,18 @@ func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_
 
 # NOTE: unit.doSpellDamageAoEUnit() in JASS
 func do_spell_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
-	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), target.position, radius)
+	do_spell_damage_aoe(target.get_x(), target.get_y(), radius, damage, crit_ratio, sides_ratio)
+
+
+# NOTE: unit.doSpellDamageAoE() in JASS
+func do_spell_damage_aoe(x: float, y: float, radius: float, damage: float, crit_ratio: float, sides_ratio: float):
+	var aoe_center: Vector2 = Vector2(x, y)
+	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), aoe_center, radius)
 
 	for creep in creep_list:
 		var damage_for_creep: float = _get_aoe_damage(creep, radius, damage, sides_ratio)
 		do_spell_damage(creep, damage_for_creep, crit_ratio)
+
 
 # NOTE: unit.killInstantly() in JASS
 func kill_instantly(target: Unit):
