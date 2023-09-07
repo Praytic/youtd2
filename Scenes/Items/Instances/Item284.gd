@@ -37,5 +37,13 @@ func on_attack(event: Event):
 	var creep: Unit = event.get_target()
 	var p: Projectile
 
+	if !tower.calc_chance(0.4 + 0.004 * tower.get_level()):
+		return
+
+	await get_tree().create_timer(0.1).timeout
+
+	if !Utils.unit_is_valid(tower) || !Utils.unit_is_valid(creep):
+		return
+
 	p = Projectile.create_from_unit_to_unit(boekie_multi_gun, tower, 1, 0, tower, creep, true, false, false)
 	p.setScale(0.75)
