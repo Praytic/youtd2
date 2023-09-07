@@ -42,7 +42,7 @@ func on_drop():
 
 			new.fly_to_stash(0.0)
 
-		itm.ser_charges(itm.user_int)
+		itm.set_charges(itm.user_int)
 
 
 func on_pickup():

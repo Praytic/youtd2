@@ -40,4 +40,4 @@ func on_damage(event: Event):
 func on_pickup():
 	var itm: Item = self
 	itm.user_real = 0.0
-	itm.ser_charges(0)
+	itm.set_charges(0)
