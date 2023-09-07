@@ -43,7 +43,8 @@ func on_create(event: Event):
 
 
 func on_autocast(event: Event):
-	var creep: Unit = event.get_target()
+	var autocast: Autocast = event.get_autocast_type()
+	var creep: Unit = autocast.get_caster()
 
 	var I: Iterate = Iterate.over_units_in_range_of_caster(creep, TargetType.new(TargetType.TOWERS), 1100.0)
 
