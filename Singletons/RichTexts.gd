@@ -215,6 +215,7 @@ func get_item_text(item: Item) -> String:
 	var author: String = ItemProperties.get_author(item_id)
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 	var is_consumable: bool = ItemProperties.is_consumable(item_id)
+	var is_disabled: bool = Item.disabled_item_list.has(item_id)
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
@@ -251,7 +252,10 @@ func get_item_text(item: Item) -> String:
 
 	if is_oil:
 		text += " \n[color=ORANGE]Use oil on a tower to alter it permanently. The effects stay when the tower is transformed or upgraded![/color]"
-	
+
+	if is_disabled:
+		text += " \n[color=RED]THIS ITEM IS DISABLED[/color]"
+
 	return text
 
 
