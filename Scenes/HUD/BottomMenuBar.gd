@@ -116,8 +116,7 @@ func _on_ItemMenuButton_pressed():
 
 func _on_ElementButton_pressed(element_button):
 	set_element(element_button.element)
-	var can_afford_upgrade: bool = ElementLevel.can_afford_research(element_button.element)
-	_research_button.set_disabled(!can_afford_upgrade)
+	_update_upgrade_element_button()
 
 
 func _on_BuildMenuButton_pressed():
