@@ -31,7 +31,7 @@ func item_init():
 
 func on_spell_target(_event: Event):
 	var itm: Item = self
-	var tower: Tower = itm.get_carrie()
+	var tower: Tower = itm.get_carrier()
 	var lvl: int = tower.get_level()
 
 	boekie_magicConductor_buff.apply_custom_timed(tower, tower, lvl, 10.0)
