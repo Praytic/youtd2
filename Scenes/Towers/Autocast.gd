@@ -223,6 +223,11 @@ func do_cast_manually():
 
 		return
 
+	if target == null && !_type_is_immediate():
+		Messages.add_error("No valid target")
+
+		return
+
 	_do_cast(target)
 
 
@@ -248,8 +253,9 @@ func _on_auto_timer_timeout():
 
 	var target: Unit = _get_target_for_auto_mode()
 
-# 	NOTE: null target is okay for immediate autocasts
-# 	because they do not need a target
+#	NOTE: no error message here like in manual case becase
+#	this is the auto case and adding an error message here
+#	would cause spam
 	if target == null && !_type_is_immediate():
 		return
 
