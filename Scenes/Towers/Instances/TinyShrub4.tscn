@@ -6,7 +6,7 @@
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("3")
-region = Rect2(40, 324, 221, 252)
+region = Rect2(0, 300, 300, 300)
 
 [node name="TinyShrub4" instance=ExtResource("1")]
 script = ExtResource("2")
@@ -15,7 +15,7 @@ script = ExtResource("2")
 position = Vector2(0, -193)
 
 [node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
-position = Vector2(-3, 122)
+position = Vector2(-3, 116)
 texture = SubResource("2")
 
 [node name="Muzzle" type="Marker2D" parent="Model" index="1"]

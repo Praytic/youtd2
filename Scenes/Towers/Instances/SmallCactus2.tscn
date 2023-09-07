@@ -6,7 +6,7 @@
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("3")
-region = Rect2(374, 61, 153, 179)
+region = Rect2(300, 0, 300, 300)
 
 [node name="SmallCactus2" instance=ExtResource("1")]
 script = ExtResource("2")
@@ -14,5 +14,5 @@ script = ExtResource("2")
 [node name="Model" type="Node2D" parent="." index="3"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
-position = Vector2(0, -62)
+position = Vector2(0, -75)
 texture = SubResource("2")
