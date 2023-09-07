@@ -289,7 +289,7 @@ func _get_target_for_unit_autocast() -> Unit:
 
 func _get_target_for_buff_autocast() -> Unit:
 	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.position, auto_range)
-	Utils.sort_unit_list_by_distance(unit_list, _caster.position)
+	unit_list.shuffle()
 
 	for unit in unit_list:
 		if buff_type == null:
