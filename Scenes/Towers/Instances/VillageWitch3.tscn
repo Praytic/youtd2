@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_6ww64"]
 [ext_resource type="Script" path="res://Scenes/Towers/Instances/ThiefApprentice1.gd" id="2_x12py"]
-[ext_resource type="Texture2D" uid="uid://cwchcrqoduq0q" path="res://Assets/Towers/Instances/thief_apprentice_atlas.png" id="3_axspw"]
+[ext_resource type="Texture2D" uid="uid://dabfp0sgt4ny6" path="res://Assets/Towers/Instances/village_witch_atlas.png" id="3_ng3js"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
-atlas = ExtResource("3_axspw")
+atlas = ExtResource("3_ng3js")
 region = Rect2(600, 0, 300, 300)
 
 [node name="Tower" instance=ExtResource("1_6ww64")]
