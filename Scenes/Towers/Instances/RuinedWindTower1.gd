@@ -28,5 +28,6 @@ func on_attack(_event: Event):
 
 		if itm != null && itm.get_rarity() != Rarity.enm.COMMON:
 			itm.drop()
+			itm.fly_to_stash(0.0)
 
 		i = i + 1
