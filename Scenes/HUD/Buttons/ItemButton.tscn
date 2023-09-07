@@ -4,12 +4,23 @@
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButton.gd" id="2_0spo4"]
 [ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://Scenes/HUD/Buttons/CooldownIndicator.tscn" id="3_fy62u"]
 
-[node name="UnitButton2" node_paths=PackedStringArray("_cooldown_indicator") instance=ExtResource("1_56ir5")]
+[node name="UnitButton2" node_paths=PackedStringArray("_cooldown_indicator", "_charges_label") instance=ExtResource("1_56ir5")]
 custom_minimum_size = Vector2(64, 64)
 script = ExtResource("2_0spo4")
 _test_item_id = 0
 _cooldown_indicator = NodePath("MarginContainer/CooldownIndicator")
+_charges_label = NodePath("AspectRatioContainer/ChargesLabel")
 
 [node name="CooldownIndicator" parent="MarginContainer" index="0" instance=ExtResource("3_fy62u")]
 z_index = 1
 layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." index="2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.8, 0.8)
+
+[node name="ChargesLabel" type="Label" parent="AspectRatioContainer" index="0"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20

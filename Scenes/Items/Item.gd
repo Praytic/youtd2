@@ -177,12 +177,6 @@ func set_charges(new_count: int):
 	charges_changed.emit()
 
 
-func get_charges_text() -> String:
-	if _charge_count != -1:
-		return str(_charge_count)
-	else:
-		return ""
-
 # NOTE: item.getCharges() in JASS
 func get_charges() -> int:
 	return _charge_count

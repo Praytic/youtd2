@@ -10,8 +10,11 @@ const ICON_SIZE_M = 128
 var _item: Item : set = set_item, get = get_item
 
 @export var _cooldown_indicator: CooldownIndicator
+@export var _charges_label: Label
 
 var _hide_cooldown_indicator: bool = false
+var _hide_charges: bool = false
+var _charges_ever_went_above_zero: bool = false
 
 
 static func make(item: Item) -> ItemButton:
@@ -36,6 +39,8 @@ func _ready():
 	if _hide_cooldown_indicator:
 		_cooldown_indicator.hide()
 
+	_on_item_charges_changed()
+
 
 func _gui_input(event):
 	var pressed_right_click: bool = event.is_action_released("right_click")
@@ -53,12 +58,17 @@ func hide_cooldown_indicator():
 	_hide_cooldown_indicator = true
 
 
+func hide_charges():
+	_hide_charges = true
+
+
 func get_item() -> Item:
 	return _item
 
 
 func set_item(value: Item):
 	_item = value
+	_item.charges_changed.connect(_on_item_charges_changed)
 
 
 func get_test_item_id() -> int:
@@ -83,3 +93,15 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	EventBus.item_button_mouse_exited.emit()
+
+
+func _on_item_charges_changed():
+	var charges_count: int = _item.get_charges()
+	var charges_text: String = str(charges_count)
+	_charges_label.set_text(charges_text)
+
+	if charges_count > 0:
+		_charges_ever_went_above_zero = true
+
+	var charges_should_be_visible: bool = (charges_count > 0 || _charges_ever_went_above_zero) && !_hide_charges
+	_charges_label.set_visible(charges_should_be_visible)
