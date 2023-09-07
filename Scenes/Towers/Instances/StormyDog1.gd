@@ -7,10 +7,10 @@ var cedi_stormdog: BuffType
 func get_tier_stats() -> Dictionary:
 	return {
 		1: {self_attackspeed_add = 0.0, buff_scale = 6},
-		2: {self_attackspeed_add = 1.5, buff_scale = 9},
-		3: {self_attackspeed_add = 1.8, buff_scale = 12},
-		4: {self_attackspeed_add = 2.1, buff_scale = 15},
-		5: {self_attackspeed_add = 2.4, buff_scale = 18},
+		2: {self_attackspeed_add = 0.015, buff_scale = 9},
+		3: {self_attackspeed_add = 0.018, buff_scale = 12},
+		4: {self_attackspeed_add = 0.021, buff_scale = 15},
+		5: {self_attackspeed_add = 0.024, buff_scale = 18},
 	}
 
 
