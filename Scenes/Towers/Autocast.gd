@@ -207,19 +207,19 @@ func do_cast_manually():
 	var target: Unit
 	if _type_is_immediate():
 		target = null
-	elif _type_is_buff():
+	elif _type_is_buff() && handler.is_null():
+#		NOTE: if autocast is buff type and doesn't have a
+#		handler then that means that target will be selected
+#		automatically even for manual cast. Otherwise,
+#		target is selected by player.
 		target = _get_target_for_buff_autocast()
-	elif _type_is_targeted():
+	else:
 #		NOTE: for manual cast on unit, need to exit this f-n
 #		to select target. The cast will finish when player
 #		selects a target and
 #		do_cast_manually_finish_for_manual_target() is
 #		called.
 		SelectTargetForCast.start(self)
-
-		return
-	else:
-		push_error("do_cast_manually doesn't support this autocast type: ", autocast_type)
 
 		return
 
@@ -462,6 +462,12 @@ func _get_target_type_is_valid_for_manual_cast(target: Unit) -> bool:
 
 func _get_target_type_for_manual_cast() -> TargetType:
 	match autocast_type:
+		Autocast.Type.AC_TYPE_ALWAYS_BUFF:
+			if target_type != null:
+				return target_type
+		Autocast.Type.AC_TYPE_OFFENSIVE_BUFF:
+			if target_type != null:
+				return target_type
 		Autocast.Type.AC_TYPE_OFFENSIVE_UNIT: return TargetType.new(TargetType.CREEPS)
 		Autocast.Type.AC_TYPE_NOAC_CREEP: return TargetType.new(TargetType.CREEPS)
 		Autocast.Type.AC_TYPE_NOAC_TOWER: return TargetType.new(TargetType.TOWERS)
