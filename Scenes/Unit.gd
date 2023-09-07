@@ -1471,7 +1471,19 @@ func _change_experience(amount: float) -> float:
 # 		NOTE: display floating text for exp amount only if
 # 		didn't level up to avoid overlapping of the two
 # 		floating texts
-		var exp_text: String = "+%s exp" % String.num(amount, 1)
-		get_player().display_floating_text_color(exp_text, self, Color.LIME_GREEN, 1.0)
+		var sign_string: String
+		if amount >= 0:
+			sign_string = "+"
+		else:
+			sign_string = "-"
+		var number_string: String = String.num(abs(amount), 1)
+		var exp_text: String = "%s%s exp" % [sign_string, number_string]
+		var text_color: Color
+		if amount >= 0:
+			text_color = Color.LIME_GREEN
+		else:
+			text_color = Color.RED
+
+		get_player().display_floating_text_color(exp_text, self, text_color, 1.0)
 
 	return actual_change
