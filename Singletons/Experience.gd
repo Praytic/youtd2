@@ -67,7 +67,7 @@ func make_level_at_exp_map(exp_for_level: Dictionary) -> Dictionary:
 # level
 func get_exp_for_level(level: int) -> int:
 	if _exp_for_level.has(level):
-		var experience: int = _exp_for_level[level]
+		var experience: int = _exp_for_level.get(level, 12345)
 
 		return experience
 	else:
