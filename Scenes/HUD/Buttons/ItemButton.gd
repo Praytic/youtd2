@@ -14,7 +14,6 @@ var _item: Item : set = set_item, get = get_item
 
 var _hide_cooldown_indicator: bool = false
 var _hide_charges: bool = false
-var _charges_ever_went_above_zero: bool = false
 
 
 static func make(item: Item) -> ItemButton:
@@ -100,8 +99,5 @@ func _on_item_charges_changed():
 	var charges_text: String = str(charges_count)
 	_charges_label.set_text(charges_text)
 
-	if charges_count > 0:
-		_charges_ever_went_above_zero = true
-
-	var charges_should_be_visible: bool = (charges_count > 0 || _charges_ever_went_above_zero) && !_hide_charges
+	var charges_should_be_visible: bool = _item.uses_charges() && !_hide_charges
 	_charges_label.set_visible(charges_should_be_visible)

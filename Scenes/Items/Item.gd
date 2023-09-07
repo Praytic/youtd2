@@ -50,6 +50,7 @@ var _id: int = 0
 var _carrier: Tower = null
 var _charge_count: int = -1
 var _visible: bool = true
+var _uses_charges: bool = false
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
@@ -174,12 +175,20 @@ func add_aura(aura: AuraType):
 # NOTE: item.setCharges() in JASS
 func set_charges(new_count: int):
 	_charge_count = new_count
+	_uses_charges = true
 	charges_changed.emit()
 
 
 # NOTE: item.getCharges() in JASS
 func get_charges() -> int:
 	return _charge_count
+
+
+# Returns whether this item uses charges. Used to determine
+# whether to draw charges label.
+func uses_charges() -> bool:
+	return _uses_charges
+
 
 # NOTE: override this in subclass to attach trigger handlers
 # to triggers buff passed in the argument.
