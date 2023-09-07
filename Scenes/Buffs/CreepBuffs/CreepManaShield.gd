@@ -32,7 +32,7 @@ static func shield_effect(event: Event, spend_mana: bool):
 
 	var creep_size: CreepSize.enm = creep.get_size()
 	var shield_cost_max: float = _max_cost_map[creep_size]
-	var shield_cost: float = min(80 * event.damage / creep.get_overall_health(), shield_cost_max) * 100
+	var shield_cost: float = min(80 * event.damage / creep.get_overall_health(), shield_cost_max)
 
 	var mana_ratio = creep.get_mana_ratio()
 	var damage_ratio: float = clampf(1.0 - 0.8 * mana_ratio, 0.2, 1.0)
