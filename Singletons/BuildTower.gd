@@ -101,6 +101,7 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 	new_tower.position = prev_tower.position
 	new_tower._temp_preceding_tower = prev_tower
 	Utils.add_object_to_world(new_tower)
+	tower_built.emit(new_tower_id)
 
 #	Refund build cost for previous tower
 	var refund_value: int = _get_transform_refund(prev_tower.get_id(), new_tower_id)

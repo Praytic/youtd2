@@ -19,7 +19,7 @@ boot_splash/image="res://Assets/icob_ultra_wide.png"
 config/icon="res://Assets/icob_min.png"
 config/windows_native_icon="res://Assets/icob_min.ico"
 config/fast_waves=false
-config/visible_spell_dummys=true
+config/visible_spell_dummys=false
 config/dev_controls=false
 config/preload_all_towers_on_startup=false
 config/test_item_list=[]
@@ -28,12 +28,12 @@ config/minimap_enabled=false
 config/damage_numbers=true
 config/ignore_requirements=false
 config/sfx_enabled=true
-config/starting_gold=99999
-config/starting_tomes=99999
+config/starting_gold=70
+config/starting_tomes=90
 config/starting_research_level=0
 config/load_unreleased_towers=false
 config/always_drop_items=false
-config/ignore_upgrade_requirements=true
+config/ignore_upgrade_requirements=false
 config/enable_zoom_by_touchpad=true
 config/enable_zoom_by_mousewheel=true
 config/show_position_info_label=false
@@ -49,10 +49,9 @@ config/override_creep_health=0
 config/override_creep_size=""
 config/override_creep_armor=""
 config/override_creep_race=""
-config/override_wave_specials=""
+config/override_wave_specials=[]
 config/print_sfx_errors=false
-config/unlimited_food=true
-config/add_test_item=true
+config/unlimited_food=false
 
 [autoload]
 
@@ -103,6 +102,7 @@ PortalLives="*res://Singletons/PortalLives.gd"
 
 [debug]
 
+settings/stdout/verbose_stdout=true
 gdscript/warnings/return_value_discarded=false
 gdscript/warnings/assert_always_false=0
 gdscript/warnings/integer_division=0
