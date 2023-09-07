@@ -387,7 +387,7 @@ func calc_attack_crit(bonus_chance: float, bonus_damage: float) -> float:
 
 # NOTE: unit.calcAttackCritNoBonus() in JASS
 func calc_attack_crit_no_bonus() -> float:
-	var result: float = calc_spell_crit(0.0, 0.0)
+	var result: float = calc_attack_crit(0.0, 0.0)
 
 	return result
 
