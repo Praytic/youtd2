@@ -42,6 +42,6 @@ func on_attack(_event: Event):
 		level = 0
 
 	if level < 120:
-		sir_sleeve_buff.appyl_advanced(tower, tower, 1 + level, level, 1.5)
+		sir_sleeve_buff.apply_advanced(tower, tower, 1 + level, level, 1.5)
 	else:
 		b.refresh_duration()
