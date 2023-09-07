@@ -551,7 +551,8 @@ func _attack_target(target: Unit):
 	projectile.set_tower_crit_damage_ratio(additional_crit_damage_ratio)
 
 	if _attack_style == AttackStyle.BOUNCE:
-		var damage: float = get_current_attack_damage_with_bonus()
+		var randomize_damage: bool = true
+		var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
 
 		projectile.user_real = damage
 		projectile.user_int = 0
@@ -680,7 +681,8 @@ func _on_projectile_target_hit(projectile: Projectile, target: Unit):
 
 
 func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
-	var damage: float = get_current_attack_damage_with_bonus()
+	var randomize_damage: bool = true
+	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
@@ -698,7 +700,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 	if _splash_map.is_empty():
 		return
 
-	var damage: float = get_current_attack_damage_with_bonus()
+	var randomize_damage: bool = true
+	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
@@ -895,9 +898,11 @@ func get_base_damage():
 	return TowerProperties.get_base_damage(_id)
 
 # NOTE: tower.getCurrentAttackDamageBase() in JASS
-# NOTE: need special arg "randomize_damage" to get
-# non-random values  randomize to display in TowerInfo
-func get_current_attack_damage_base(randomize_damage: bool = true) -> float:
+# NOTE: by default this value is based on the average of
+# tower's min and max damage. When tower is calculating
+# attack damage, the randomize_damage arg is set to true so
+# that this f-n returns random value between min and max.
+func get_current_attack_damage_base(randomize_damage: bool = false) -> float:
 	var damage_min: float = get_damage_min()
 	var damage_max: float = get_damage_max()
 
@@ -910,7 +915,7 @@ func get_current_attack_damage_base(randomize_damage: bool = true) -> float:
 	return damage
 
 # NOTE: tower.getCurrentAttackDamageWithBonus() in JASS
-func get_current_attack_damage_with_bonus(randomize_damage: bool = true) -> float:
+func get_current_attack_damage_with_bonus(randomize_damage: bool = false) -> float:
 	var base_damage: float = get_current_attack_damage_base(randomize_damage)
 	var base_bonus: float = get_base_damage_bonus()
 	var base_bonus_percent: float = get_base_damage_bonus_percent()
@@ -930,8 +935,7 @@ func get_current_attack_damage_with_bonus(randomize_damage: bool = true) -> floa
 
 # NOTE: getter for TowerInfo
 func get_overall_damage() -> float:
-	var randomize_damage: bool = false
-	return get_current_attack_damage_with_bonus(randomize_damage)
+	return get_current_attack_damage_with_bonus()
 
 # NOTE: getter for TowerInfo
 # How much damage the tower deals with its attack per second on average (not counting in any crits). 
