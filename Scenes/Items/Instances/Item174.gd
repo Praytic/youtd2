@@ -22,7 +22,7 @@ func get_extra_tooltip_text() -> String:
 func item_init():
 	var m_tower: Modifier = Modifier.new()
 	maj_rot_tower_buff = BuffType.create_aura_effect_type("maj_rot_tower_buff", false, self)
-	maj_rot_creep_buff = BuffType.create_aura_effect_type("maj_rot_creep_buff", true, self)
+	maj_rot_creep_buff = BuffType.create_aura_effect_type("maj_rot_creep_buff", false, self)
 	maj_rot_tower_buff.set_buff_icon("@@0@@")
 	maj_rot_creep_buff.set_buff_icon("@@1@@")
 	m_tower.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.2, 0.002)
