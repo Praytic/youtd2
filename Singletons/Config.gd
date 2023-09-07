@@ -131,14 +131,12 @@ func random_button_counters() -> bool:
 # specials. Can be a single special or a comma-separated
 # list.
 func override_wave_specials() -> Array[int]:
-	var value = ProjectSettings.get_setting("application/config/override_wave_specials")
+	var array: Array = ProjectSettings.get_setting("application/config/override_wave_specials") as Array
+
 	var result: Array[int] = []
-	if value is String && value != "":
-		var arr_specials = value.split(",")
-		for special in arr_specials:
-			result.append(special.to_int())
-	if value is int:
-		result.append(value)
+	for value in array:
+		result.append(value as int)
+
 	return result
 
 func smart_targeting() -> bool:
