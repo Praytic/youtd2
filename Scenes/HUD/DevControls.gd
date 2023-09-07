@@ -91,4 +91,5 @@ func _on_PositionalControl_id_pressed(id):
 		var clicked_pos: Vector2 = positional_control.position
 		var hud_to_world: Transform2D = get_viewport().get_canvas_transform().affine_inverse()
 		var clicked_pos_in_world: Vector2 = hud_to_world * clicked_pos
-		Item.create(null, id, clicked_pos_in_world)
+		var item: Item = Item.create(null, id, clicked_pos_in_world)
+		item.fly_to_stash(0.0)
