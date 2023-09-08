@@ -22,7 +22,7 @@ func _ready():
 		_setup_animation()
 
 	var queue_free_tween = create_tween()
-	queue_free_tween.tween_callback(queue_free).set_delay(1.0)
+	queue_free_tween.tween_callback(queue_free).set_delay(duration)
 
 
 # NOTE: must be called before adding floating text
@@ -72,4 +72,4 @@ func _setup_animation_go_up():
 	var modulate_tween = create_tween()
 	modulate_tween.tween_property(self, "modulate",
 		Color(modulate.r, modulate.g, modulate.b, 0),
-		0.3 * duration).set_trans(Tween.TRANS_LINEAR).set_delay(0.9 * duration)
+		0.3 * duration).set_trans(Tween.TRANS_LINEAR).set_delay(0.7 * duration)
