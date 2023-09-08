@@ -613,21 +613,15 @@ func _get_next_bounce_target(prev_target: Creep) -> Creep:
 
 
 func _update_target_list():
-	var attack_range: float = get_range()
-
-# Remove targets that have went out of range, became invisible
+#	Remove targets that have become invalid. Targets can
+#	become invalid by moving out of range, becoming
+#	invisible
 	var removed_target_list: Array = []
 
 	for target in _target_list:
-		if !is_instance_valid(target):
-			removed_target_list.append(target)
+		var target_is_valid: bool = _target_is_valid(target)
 
-			continue
-
-		var distance: float = Isometric.vector_distance_to(position, target.position)
-		var out_of_range: bool = distance > attack_range
-
-		if out_of_range || target.is_invisible():
+		if !target_is_valid:
 			removed_target_list.append(target)
 
 	for target in removed_target_list:
@@ -637,7 +631,9 @@ func _update_target_list():
 			target.death.disconnect(_on_target_death)
 
 # 	Add new targets that have entered into range
+	var attack_range: float = get_range()
 	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, position, attack_range)
+
 	if Config.smart_targeting():
 		Utils.sort_creep_list_for_targeting(creeps_in_range, position)
 	else:
@@ -648,9 +644,11 @@ func _update_target_list():
 
 	while creeps_in_range.size() > 0 && _target_list.size() < _target_count_max:
 		var new_target: Creep = creeps_in_range.pop_front()
+		var target_is_valid: bool = _target_is_valid(new_target)
 
-		_target_list.append(new_target)
-		new_target.death.connect(_on_target_death.bind(new_target))
+		if target_is_valid:
+			_target_list.append(new_target)
+			new_target.death.connect(_on_target_death.bind(new_target))
 
 
 func _remove_target(target: Creep):
@@ -988,3 +986,26 @@ func get_inventory_capacity() -> int:
 
 func _on_item_container_items_changed():
 	items_changed.emit()
+
+
+# NOTE: this f-n does some unnecessary work in some cases
+# but it's simpler this way. For example, it checks if
+# target is invisible even though the get_units_in_range()
+# f-n already filters out invisible creeps.
+func _target_is_valid(target: Creep) -> bool:
+#	NOTE: return early here, so that if unit instance is
+#	invalid, we don't call f-ns on it - that would cause
+#	errors
+	var unit_is_valid: bool = Utils.unit_is_valid(target)
+	if !unit_is_valid:
+		return false
+
+	var distance_to_target: float = Isometric.vector_distance_to(position, target.position)
+	var attack_range: float = get_range()
+	var out_of_range: bool = distance_to_target > attack_range
+
+	var target_is_invisible: bool = target.is_invisible()
+
+	var target_is_valid: bool = !out_of_range && !target_is_invisible
+
+	return target_is_valid
