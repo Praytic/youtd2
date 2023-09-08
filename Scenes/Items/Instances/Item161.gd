@@ -24,8 +24,8 @@ func load_triggers(triggers: BuffType):
 
 func item_init():
 	var m: Modifier = Modifier.new() 
-	m.add_modification(Modification.Type.MOD_MOVESPEED, -0.05, 0) 
-	stern_Commander_Attack = BuffType.new("stern_Commander_Attack", 4, 0.1, false, self)
+	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.50, 0) 
+	stern_Commander_Attack = BuffType.new("stern_Commander_Attack", 4, 0.1, true, self)
 	stern_Commander_Attack.set_buff_modifier(m) 
 	stern_Commander_Attack.set_stacking_group("stern_Commander_Attack")
 	stern_Commander_Attack.set_buff_icon("@@0@@")
