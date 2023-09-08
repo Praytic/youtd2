@@ -585,18 +585,20 @@ func subtract_mana(amount: float, show_text: bool) -> float:
 	var new_mana: float = clampf(_mana - amount, 0.0, _mana)
 	set_mana(new_mana)
 
-	var actual_subtracted: float = old_mana - new_mana
+	var actual_change: float = new_mana - old_mana
 
 	if show_text:
 		var text: String
-		var amount_string: String = Utils.format_float(actual_subtracted, 1)
+		var amount_string: String = Utils.format_float(abs(actual_change), 1)
 
-		if actual_subtracted >= 0:
+		if actual_change >= 0:
 			text = "+%s" % amount_string
 		else:
 			text = "-%s" % amount_string
 
 		get_player().display_floating_text_color(text, self, Color.BLUE, 1.0)
+
+	var actual_subtracted: float = abs(actual_change)
 
 	return actual_subtracted
 
