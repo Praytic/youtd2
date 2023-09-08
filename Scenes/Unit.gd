@@ -792,9 +792,7 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -
 		else:
 			damage_text = "miss"
 		
-		var rand_range_float = func(min: float, max: float) -> float: \
-			return min + randf() * (max - min)
-		var approx_position = Vector2(rand_range_float.call(-50, 50), 0) + target.get_visual_position()
+		var approx_position = Vector2(randf_range(-50, 50), 0) + target.get_visual_position()
 		
 		get_player().display_floating_text_color(damage_text, approx_position, damage_color, 1.0)
 
