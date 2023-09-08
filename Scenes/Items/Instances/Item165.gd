@@ -36,4 +36,4 @@ func item_init():
 
 func on_autocast(event: Event):
 	var itm: Item = self
-	event.get_target().add_exp(1.0 * itm.get_carrier().get_level() * 0.04)
+	event.get_target().add_exp(1.0 + itm.get_carrier().get_level() * 0.04)
