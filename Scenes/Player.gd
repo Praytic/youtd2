@@ -26,17 +26,20 @@ func get_level() -> int:
 	return level
 
 
-# NOTE: player.displayFloatingTextColor() in JASS
-func display_floating_text_color(text: String, position, color: Color, time: float):
-	if position is Unit:
-		position = position.get_visual_position()
-	
+# NOTE: no function like this in JASS
+func display_floating_text_color_at_pos(text: String, position: Vector2, color: Color, time: float):
 	var floating_text = Globals.floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
 	floating_text.duration = time
 	floating_text.position = position
 	_floating_text_container.add_child(floating_text)
+
+
+# NOTE: player.displayFloatingTextColor() in JASS
+func display_floating_text_color(text: String, unit: Unit, color: Color, time: float):
+	var text_pos: Vector2 = unit.get_visual_position()
+	display_floating_text_color_at_pos(text, text_pos, color, time)
 
 
 # TODO: figure out what are the mystery float parameters,

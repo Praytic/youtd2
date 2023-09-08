@@ -794,7 +794,7 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -
 		
 		var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + target.get_visual_position()
 		
-		get_player().display_floating_text_color(damage_text, approx_position, damage_color, 1.0)
+		get_player().display_floating_text_color_at_pos(damage_text, approx_position, damage_color, 1.0)
 
 	var health_after_damage: float = target.get_health()
 	var damage_killed_unit: bool = health_before_damage > 0 && health_after_damage <= 0
