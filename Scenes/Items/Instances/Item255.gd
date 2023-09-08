@@ -73,6 +73,8 @@ func periodic(_event: Event):
 
 	itm.drop()
 
+	var found_tower: bool = false
+
 	if towers_in_range.count() == 0:
 		itm.fly_to_stash(0.0)
 
@@ -90,4 +92,9 @@ func periodic(_event: Event):
 			ball.user_int = itm.get_instance_id()
 			ball.user_int2 = tower_in_range.get_instance_id()
 
+			found_tower = true
+
 			break
+
+	if !found_tower:
+		itm.fly_to_stash(0.0)
