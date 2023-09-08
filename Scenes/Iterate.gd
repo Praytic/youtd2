@@ -59,6 +59,7 @@ func next_random() -> Unit:
 
 	if !_next_list.is_empty():
 		next_unit = _next_list.pick_random()
+		_next_list.erase(next_unit)
 	else:
 		next_unit = null
 
