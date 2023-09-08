@@ -1477,6 +1477,21 @@ func _change_experience(amount: float) -> float:
 		set_level(new_level)
 		level_changed.emit()
 
+	var sign_string: String
+	if amount >= 0:
+		sign_string = "+"
+	else:
+		sign_string = "-"
+	var number_string: String = String.num(abs(amount), 1)
+	var exp_text: String = "%s%s exp" % [sign_string, number_string]
+	var text_color: Color
+	if amount >= 0:
+		text_color = Color.LIME_GREEN
+	else:
+		text_color = Color.RED
+
+	get_player().display_floating_text_color(exp_text, self, text_color, 1.0)
+
 	var leveled_up: bool = new_level > old_level
 
 	if leveled_up:
@@ -1488,26 +1503,9 @@ func _change_experience(amount: float) -> float:
 		Effect.destroy_effect_after_its_over(effect_id)
 
 		var level_up_text: String = "Level %d" % _level
-		get_player().display_floating_text_color(level_up_text, self, Color.GOLD , 1.0)
+		var levelup_text_pos: Vector2 = get_visual_position() + Vector2(0, 40)
+		get_player().display_floating_text_color_at_pos(level_up_text, levelup_text_pos, Color.GOLD , 1.0)
 
 		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
-	else:
-# 		NOTE: display floating text for exp amount only if
-# 		didn't level up to avoid overlapping of the two
-# 		floating texts
-		var sign_string: String
-		if amount >= 0:
-			sign_string = "+"
-		else:
-			sign_string = "-"
-		var number_string: String = String.num(abs(amount), 1)
-		var exp_text: String = "%s%s exp" % [sign_string, number_string]
-		var text_color: Color
-		if amount >= 0:
-			text_color = Color.LIME_GREEN
-		else:
-			text_color = Color.RED
-
-		get_player().display_floating_text_color(exp_text, self, text_color, 1.0)
 
 	return actual_change
