@@ -27,12 +27,15 @@ func get_level() -> int:
 
 
 # NOTE: player.displayFloatingTextColor() in JASS
-func display_floating_text_color(text: String, unit: Unit, color: Color, time: float):
+func display_floating_text_color(text: String, position, color: Color, time: float):
+	if position is Unit:
+		position = position.get_visual_position()
+	
 	var floating_text = Globals.floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
 	floating_text.duration = time
-	floating_text.position = unit.get_visual_position()
+	floating_text.position = position
 	_floating_text_container.add_child(floating_text)
 
 

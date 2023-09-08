@@ -778,7 +778,25 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -
 	Globals.add_to_total_damage(damage)
 
 	if Config.damage_numbers():
-		get_player().display_floating_text_color(str(int(damage)), target, Color.RED, 1.0)
+		var damage_color
+		var damage_text
+		
+		match damage_source:
+			DamageSource.Attack: 
+				damage_color = Color.RED
+			DamageSource.Spell:
+				damage_color = Color.SKY_BLUE
+		
+		if int(damage) != 0:
+			damage_text = str(int(damage))
+		else:
+			damage_text = "miss"
+		
+		var rand_range_float = func(min: float, max: float) -> float: \
+			return min + randf() * (max - min)
+		var approx_position = Vector2(rand_range_float.call(-50, 50), 0) + target.get_visual_position()
+		
+		get_player().display_floating_text_color(damage_text, approx_position, damage_color, 1.0)
 
 	var health_after_damage: float = target.get_health()
 	var damage_killed_unit: bool = health_before_damage > 0 && health_after_damage <= 0
