@@ -14,10 +14,6 @@ func get_extra_tooltip_text() -> String:
 	return text
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.077, 0.0)
-
-
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 

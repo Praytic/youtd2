@@ -21,10 +21,6 @@ func get_autocast_description() -> String:
 	return text
 
 
-func load_modifier(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.077, 0.0)
-
-
 func item_init():
 	var m: Modifier = Modifier.new()
 	drol_talisman = BuffType.new("drol_talisman", 10, 0, true, self)
