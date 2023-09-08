@@ -778,8 +778,8 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -
 	Globals.add_to_total_damage(damage)
 
 	if Config.damage_numbers():
-		var damage_color
-		var damage_text
+		var damage_color: Color
+		var damage_text: String
 		
 		match damage_source:
 			DamageSource.Attack: 
@@ -792,7 +792,7 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource) -
 		else:
 			damage_text = "miss"
 		
-		var approx_position = Vector2(randf_range(-50, 50), 0) + target.get_visual_position()
+		var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + target.get_visual_position()
 		
 		get_player().display_floating_text_color(damage_text, approx_position, damage_color, 1.0)
 
