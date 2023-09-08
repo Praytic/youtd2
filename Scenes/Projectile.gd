@@ -20,7 +20,7 @@ var _last_known_position: Vector2 = Vector2.ZERO
 var _speed: float = 50
 var _explode_on_hit: bool = true
 const CONTACT_DISTANCE: int = 15
-var _game_scene: Node = null
+var _map_node: Node = null
 var _targeted: bool
 var _target_position_on_creation: Vector2
 var _initial_scale: Vector2
@@ -53,7 +53,13 @@ static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, fac
 	projectile._move_type = MoveType.FACING
 	projectile._facing = deg_to_rad(facing)
 
-	projectile._game_scene.add_child(projectile)
+#	NOTE: have to use map node as parent for projectiles
+#	instead of GameScene. Using GameScene as parent would
+#	cause projectiles to continue moving while the game is
+#	paused because GameScene and it's children ignore pause
+#	mode. Map node is specifically configured to be
+#	pausable.
+	projectile._map_node.add_child(projectile)
 
 	return projectile
 
@@ -72,7 +78,7 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 	if type._lifetime > 0.0 && !expire_when_reached:
 		projectile._set_lifetime(type._lifetime)
 
-	projectile._game_scene.add_child(projectile)
+	projectile._map_node.add_child(projectile)
 
 	return projectile
 
@@ -110,7 +116,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._caster = caster
 	projectile.position = from.get_visual_position()
 	projectile._initial_pos = from.get_visual_position()
-	projectile._game_scene = caster.get_tree().get_root().get_node("GameScene")
+	projectile._map_node = caster.get_tree().get_root().get_node("GameScene/Map")
 
 	var handler_list: Array[Callable] = [projectile._cleanup_handler, projectile._interpolation_finished_handler, projectile._target_hit_handler, projectile._collision_handler]
 
@@ -192,7 +198,7 @@ func _process_targeted(delta: float):
 			else:
 				explosion.position = global_position
 
-			_game_scene.add_child(explosion)
+			_map_node.add_child(explosion)
 
 		_cleanup()
 
