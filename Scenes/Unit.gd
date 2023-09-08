@@ -587,7 +587,7 @@ func subtract_mana(amount: float, show_text: bool) -> float:
 
 	var actual_change: float = new_mana - old_mana
 
-	if show_text:
+	if show_text && actual_change != 0:
 		var text: String
 		var amount_string: String = Utils.format_float(abs(actual_change), 1)
 
