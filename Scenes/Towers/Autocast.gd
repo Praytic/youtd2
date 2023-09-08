@@ -88,12 +88,6 @@ var _offensive_type_list: Array[Autocast.Type] = [
 var _unit_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
 ]
-var _targeted_type_list: Array[Autocast.Type] = [
-	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
-	Autocast.Type.AC_TYPE_NOAC_CREEP,
-	Autocast.Type.AC_TYPE_NOAC_TOWER,
-	Autocast.Type.AC_TYPE_NOAC_PLAYER_TOWER,
-]
 
 # NOTE: num_buffs_before_idle, target_type and buff_type are
 # only relevant to "_BUFF" autocast types. For other
@@ -413,10 +407,6 @@ func _type_is_offensive() -> bool:
 
 func _type_is_unit() -> bool:
 	return _unit_type_list.has(autocast_type)
-
-
-func _type_is_targeted() -> bool:
-	return _targeted_type_list.has(autocast_type)
 
 
 func get_target_error_message(target: Unit) -> String:
