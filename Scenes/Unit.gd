@@ -1265,10 +1265,10 @@ func get_base_mana_regen() -> float:
 	return _base_mana_regen
 
 func get_base_mana_regen_bonus() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_MANA_REGEN])
+	return _mod_value_map[Modification.Type.MOD_MANA_REGEN]
 
 func get_base_mana_regen_bonus_percent() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC])
+	return _mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC]
 
 func get_overall_mana_regen() -> float:
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * get_base_mana_regen_bonus_percent()
@@ -1307,10 +1307,10 @@ func get_base_health_regen():
 	return _base_health_regen
 
 func get_base_health_regen_bonus() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_HP_REGEN])
+	return _mod_value_map[Modification.Type.MOD_HP_REGEN]
 
 func get_base_health_regen_bonus_percent() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC])
+	return _mod_value_map[Modification.Type.MOD_HP_REGEN_PERC]
 
 func get_overall_health_regen() -> float:
 	return (get_base_health_regen() + get_base_health_regen_bonus()) * get_base_health_regen_bonus_percent()

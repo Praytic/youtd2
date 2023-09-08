@@ -1,7 +1,5 @@
 class_name CreepManaDrainAura extends BuffType
 
-# TODO: maybe a typo here "reduce mana regen by 200%"? 20%
-# sounds more reasonable.
 
 var slow_aura_effect: BuffType
 
