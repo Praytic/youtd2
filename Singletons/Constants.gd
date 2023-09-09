@@ -14,14 +14,27 @@ const SettingsKey = {
 
 const SETTINGS_PATH: String = "user://settings.cfg"
 
+# NOTE: this tile height is for isometric projection.
 const TILE_HEIGHT: float = 128.0
 
-# NOTE: this was obtained by placing a tower with attack
-# radius of 700 5.5 tiles away from middle of mob path and
-# confirming that the mob path is within attack radius.
-# "Pixels" refers to pixels of raw world tiles, without
-# considering current camera zoom and other factors.
-const WC3_DISTANCE_TO_PIXELS: float = (5.5 * 256) / 700.0
+const TILE_DIAGONAL_LENGTH: float = 256.0
+
+# TILE_SIZE_PIXELS is the size of the a tile in a top-down
+# projection. Derived using the Pythagorean identity.
+const TILE_SIZE_PIXELS: float = sqrt(pow(TILE_DIAGONAL_LENGTH, 2) / 2)
+
+# NOTE: can be checked by placing a range checker in
+# original game and setting ranges to different values,
+# then divide range by tile count.
+# 700 / 5.5 = 127
+# 2000 / 15.5 = 129
+const TILE_SIZE_WC3: float = 128
+
+# NOTE: this constant should be used to convert between wc3
+# distances and youtd2 distances in top-down projection.
+# This cannot be used for converting directly from youtd2 in
+# isometric projection, need to unproject vectors first.
+const WC3_DISTANCE_TO_PIXELS: float = TILE_SIZE_PIXELS / TILE_SIZE_WC3
 
 const DEATH_EXPLODE_EFFECT_SIZE: float = 32.0
 const LEVEL_UP_EFFECT_SIZE: float = 32.0
