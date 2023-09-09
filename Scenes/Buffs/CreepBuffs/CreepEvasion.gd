@@ -16,6 +16,6 @@ static func evasion_effect(event: Event, chance: float):
 	var tower: Unit = event.get_target()
 	var evade_success: bool = creep.calc_chance(chance)
 
-	if evade_success:
+	if evade_success && !event.is_spell_damage():
 		event.damage = 0
 		tower.get_player().display_floating_text_x("Miss", tower, 255, 0, 0, 255, 0.05, 0.0, 2.0)
