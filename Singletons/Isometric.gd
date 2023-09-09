@@ -15,12 +15,12 @@ func vector_move_toward(start: Vector2, end: Vector2, delta: float) -> Vector2:
 
 
 func vector_move_toward_PIXELS(start: Vector2, end: Vector2, delta: float) -> Vector2:
-	var delta_vector_2d = (end - start).normalized() * delta
-	var delta_vector_isometric: Vector2 = Vector2(delta_vector_2d.x, delta_vector_2d.y / 2)
-	var isometric_delta: float = delta_vector_isometric.length()
-	var move_result: Vector2 = start.move_toward(end, isometric_delta)
+	var start_top_down: Vector2 = _isometric_to_top_down(start)
+	var end_top_down: Vector2 = _isometric_to_top_down(end)
+	var move_result_top_down: Vector2 = start_top_down.move_toward(end_top_down, delta)
+	var move_result_isometric: Vector2 = _top_down_to_isometric(move_result_top_down)
 
-	return move_result
+	return move_result_isometric
 
 
 # Takes a vector in isometric space and calculates it's
@@ -54,3 +54,15 @@ func vector_distance_to_PIXELS(a: Vector2, b: Vector2) -> float:
 	var distance: float = vector_length_PIXELS(difference)
 
 	return distance
+
+
+func _isometric_to_top_down(v: Vector2) -> Vector2:
+	var top_down: Vector2 = v * Vector2(1.0, 2.0)
+
+	return top_down
+
+
+func _top_down_to_isometric(v: Vector2) -> Vector2:
+	var top_down: Vector2 = v * Vector2(1.0, 0.5)
+
+	return top_down
