@@ -1510,6 +1510,6 @@ func _change_experience(amount: float) -> float:
 		var levelup_text_pos: Vector2 = get_visual_position() + Vector2(0, 40)
 		get_player().display_floating_text_color_at_pos(level_up_text, levelup_text_pos, Color.GOLD , 1.0)
 
-		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self)
+		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self, -20.0)
 
 	return actual_change

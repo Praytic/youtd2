@@ -188,7 +188,7 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
 	Input.set_custom_mouse_cursor(item_cursor_icon, Input.CURSOR_ARROW, hotspot)
 
-	SFX.play_sfx("res://Assets/SFX/move_item.mp3")
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
 
 	get_viewport().set_input_as_handled()
 
@@ -213,7 +213,7 @@ func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
 	container.add_item(_moved_item, add_index)
 	_end_move_process()
 
-	SFX.play_sfx("res://Assets/SFX/move_item.mp3")
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
 
 	get_viewport().set_input_as_handled()
 
@@ -268,4 +268,4 @@ func _return_item_to_stash():
 	_moved_item.fly_to_stash(0.0)
 	_end_move_process()
 
-	SFX.play_sfx("res://Assets/SFX/move_item.mp3")
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
