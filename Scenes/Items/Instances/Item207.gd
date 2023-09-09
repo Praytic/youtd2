@@ -48,7 +48,7 @@ func on_pickup():
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
 	var T: Tower = itm.get_carrier()
-	var dmg: float = T.get_current_attack_damage_with_bonus() * ( T.get_prop_spell_damage_dealt() * (0.2 + 0.008 * T.getLevel()))
+	var dmg: float = T.get_current_attack_damage_with_bonus() * ( T.get_prop_spell_damage_dealt() * (0.2 + 0.008 * T.get_level()))
 	MB.set_value(0, Utils.format_float(dmg, 0))
 
 	return MB
