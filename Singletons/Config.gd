@@ -161,3 +161,6 @@ func print_sfx_errors() -> bool:
 
 func unlimited_food() -> bool:
 	return ProjectSettings.get_setting("application/config/unlimited_food") as bool
+
+func allow_transform_in_build_mode() -> bool:
+	return ProjectSettings.get_setting("application/config/allow_transform_in_build_mode") as bool

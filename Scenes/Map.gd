@@ -59,7 +59,7 @@ func can_build_at_mouse_pos() -> bool:
 
 
 func can_transform_at_mouse_pos() -> bool:
-	if Globals.game_mode == GameMode.enm.BUILD:
+	if Globals.game_mode == GameMode.enm.BUILD && !Config.allow_transform_in_build_mode():
 		return false
 
 	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
