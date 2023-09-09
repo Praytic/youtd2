@@ -34,8 +34,8 @@ func vector_length(vector_isometric: Vector2) -> float:
 
 
 func vector_length_PIXELS(vector_isometric: Vector2) -> float:
-	var vector_2d: Vector2 = Vector2(vector_isometric.x, vector_isometric.y * 2)
-	var length: float = vector_2d.length()
+	var vector_top_down: Vector2 = _isometric_to_top_down(vector_isometric)
+	var length: float = vector_top_down.length()
 
 	return length
 
@@ -50,8 +50,8 @@ func vector_distance_to(a: Vector2, b: Vector2) -> float:
 # Takes two vectors in isometric space and calculates their
 # distance in 2d space
 func vector_distance_to_PIXELS(a: Vector2, b: Vector2) -> float:
-	var difference: Vector2 = a - b
-	var distance: float = vector_length_PIXELS(difference)
+	var difference_isometric: Vector2 = a - b
+	var distance: float = vector_length_PIXELS(difference_isometric)
 
 	return distance
 
