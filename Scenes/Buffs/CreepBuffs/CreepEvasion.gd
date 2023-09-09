@@ -7,9 +7,13 @@ func _init(parent: Node):
 
 
 func on_damaged(event: Event):
+	CreepEvasion.evasion_effect(event, 0.25)
+
+
+static func evasion_effect(event: Event, chance: float):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
-	var evade_success: bool = creep.calc_chance(0.25)
+	var evade_success: bool = creep.calc_chance(chance)
 
 	if evade_success:
 		event.damage = 0
