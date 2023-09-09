@@ -2,6 +2,16 @@
 extends Item
 
 
+# NOTE: original script implemented miss effect via "attack"
+# event. Not sure how that's supposed to work because
+# setting event.damage to 0 in attack event should have no
+# effect. At least it has no effect in the godot engine, so
+# I changed to this script to use "damage" event. Maybe it
+# does work in JASS engine that way, need to test this item
+# in original game and change how attack event is handled in
+# godot engine if needed.
+
+
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
@@ -17,10 +27,10 @@ func load_modifier(modifier: Modifier):
 
 
 func load_triggers(triggers: BuffType):
-	triggers.add_event_on_attack(on_attack)
+	triggers.add_event_on_damage(on_damage)
 
 
-func on_attack(event: Event):
+func on_damage(event: Event):
 	var itm: Item = self
 	var tower: Unit = itm.get_carrier()
 
