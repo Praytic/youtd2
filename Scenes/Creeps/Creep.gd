@@ -7,8 +7,11 @@ signal moved(delta)
 
 # NOTE: DEFAULT_MOVE_SPEED was obtained by measuring speed
 # in original game. 2000 / 9s ~= 222
+# 
+# MOVE_SPEED_MAX can be found online, search "warcraft 3 max
+# speed 522"
 const MOVE_SPEED_MIN: float = 50.0
-const MOVE_SPEED_MAX: float = 400.0
+const MOVE_SPEED_MAX: float = 522.0
 const DEFAULT_MOVE_SPEED: float = 222.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
