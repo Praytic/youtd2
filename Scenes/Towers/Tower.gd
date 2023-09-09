@@ -38,10 +38,15 @@ enum AttackStyle {
 
 
 const ATTACK_CD_MIN: float = 0.2
-const PROJECTILE_SPEED: int = 1000
+const PROJECTILE_SPEED: int = 1400
 # NOTE: this range needs to be bigger than distance between
-# normal creeps moving at default speed
-const BOUNCE_RANGE: int = 250
+# normal creeps moving at default speed. Can calculate by
+# multiplying CreepSpawner.NORMAL_SPAWN_DELAY_SEC and
+# Creep.DEFAULT_MOVE_SPEED.
+# Current value = 0.9 * 222 = 200
+# + 25 for error margin from timers
+# = 225
+const BOUNCE_RANGE: int = 225
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
 const TARGET_TYPE_GROUND_ONLY: int = TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS
 const TARGET_TYPE_AIR_ONLY: int = TargetType.CREEPS + TargetType.SIZE_AIR

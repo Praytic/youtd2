@@ -2,17 +2,14 @@ class_name Creep
 extends Unit
 
 
-# TODO: implement armor
-
 signal moved(delta)
 
 
-# NOTE: timed creeps moving in original game and their speed
-# was about 200.
-const CREEP_HEALTH_MAX: float = 200.0
+# NOTE: DEFAULT_MOVE_SPEED was obtained by measuring speed
+# in original game. 2000 / 9s ~= 222
 const MOVE_SPEED_MIN: float = 50.0
 const MOVE_SPEED_MAX: float = 400.0
-const DEFAULT_MOVE_SPEED: float = 200.0
+const DEFAULT_MOVE_SPEED: float = 222.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ISOMETRIC_ANGLE_DIFF: float = -30
 const ANIMATION_FOR_DIMENSIONS: String = "default"
@@ -194,7 +191,7 @@ func _get_creep_animation() -> String:
 	var creep_move_speed = _get_move_speed()
 	match get_size():
 		CreepSize.enm.MASS:
-			if creep_move_speed > 180:
+			if creep_move_speed > 200:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
@@ -203,7 +200,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
 		CreepSize.enm.CHALLENGE_MASS:
-			if creep_move_speed > 180:
+			if creep_move_speed > 200:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
@@ -212,7 +209,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
 		CreepSize.enm.BOSS:
-			if creep_move_speed > 320:
+			if creep_move_speed > 350:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
@@ -221,7 +218,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
 		CreepSize.enm.CHALLENGE_BOSS:
-			if creep_move_speed > 320:
+			if creep_move_speed > 350:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
@@ -230,7 +227,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
 		CreepSize.enm.NORMAL, CreepSize.enm.CHAMPION:
-			if creep_move_speed > 240:
+			if creep_move_speed > 260:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
