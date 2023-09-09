@@ -31,11 +31,12 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	sfx_player.play()
 
 
-func sfx_at_pos(sfx_name: String, sfx_position: Vector2):
+func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0):
 	if !Config.sfx_enabled():
 		return
 
 	var sfx_player: AudioStreamPlayer2D = _get_2d_sfx_player()
+	sfx_player.volume_db = volume_db
 	var sfx_stream: AudioStream = _get_sfx(sfx_name)
 
 	var invalid_sfx: bool = sfx_stream.get_length() == 0
@@ -49,15 +50,15 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2):
 
 
 # NOTE: SFXAtUnit() in JASS
-func sfx_at_unit(sfx_name: String, unit: Unit):
+func sfx_at_unit(sfx_name: String, unit: Unit, volume_db: float = 0.0):
 	var sfx_position: Vector2 = unit.get_visual_position()
-	sfx_at_pos(sfx_name, sfx_position)
+	sfx_at_pos(sfx_name, sfx_position, volume_db)
 
 
 # NOTE: SFXOnUnit() in JASS
-func sfx_on_unit(sfx_name: String, unit: Unit, body_part: String):
+func sfx_on_unit(sfx_name: String, unit: Unit, body_part: String, volume_db: float = 0.0):
 	var sfx_position: Vector2 = unit.get_body_part_position(body_part)
-	sfx_at_pos(sfx_name, sfx_position)
+	sfx_at_pos(sfx_name, sfx_position, volume_db)
 
 
 func _get_sfx(sfx_name: String) -> AudioStream:
