@@ -5,6 +5,8 @@ func get_research_text(element: Element.enm) -> String:
 	var text: String = ""
 	
 	var element_string: String = Element.convert_to_colored_string(element)
+	var flavor_text: String = Element.get_flavor_text(element)
+	var main_attack_types: String = Element.get_main_attack_types(element)
 	var research_level: String = get_research_level_label(element)
 	var cost: int = ElementLevel.get_research_cost(element)
 	var can_afford: bool = ElementLevel.can_afford_research(element)
@@ -14,9 +16,14 @@ func get_research_text(element: Element.enm) -> String:
 	text += "[img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %s\n" % cost_string
 
 	match Globals.game_mode:
-		GameMode.enm.BUILD: text += "Research next element level to unlock new towers of this element and to upgrade existing towers to higher tiers.\n"
+		GameMode.enm.BUILD: text += "Research next element level to unlock new towers of this element and to unlock upgrades for existing towers.\n"
 		GameMode.enm.RANDOM_WITH_UPGRADES: text += "Research next element level to unlock new towers of this element and to upgrade existing towers to higher tiers.\n"
 		GameMode.enm.TOTALLY_RANDOM: text += "Research next element level to unlock new towers of this element.\n"
+
+	text += " \n"
+	text += "[color=LIGHTBLUE]%s[/color]\n" % flavor_text
+	text += " \n"
+	text += "[color=GOLD]Main attack types:[/color] %s\n" % main_attack_types
 
 	return text
 

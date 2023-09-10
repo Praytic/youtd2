@@ -23,6 +23,29 @@ const _string_map: Dictionary = {
 	Element.enm.NONE: "none",
 }
 
+const _flavor_text_map: Dictionary = {
+	Element.enm.ICE: "The element of frost magic. Ice towers use slowing and drowning effects on enemies.",
+	Element.enm.NATURE: "The element of life. Nature towers focus on supportive effects to enhance other towers. Strong against orc enemies.",
+	Element.enm.FIRE: "The element of destruction. Fire towers focus on dealing high damage and splash damage. Strong against humand and mass enemies.",
+	Element.enm.ASTRAL: "The good element. Astral towers use special astral related abilities to buff other towers. Strong against undead enemies.",
+	Element.enm.DARKNESS: "The evil element. Darkness towers specialize in curses, necromancy and debuffs which weaken enemies. Strong against nature enemies.",
+	Element.enm.IRON: "The manmade element. Iron towers are balanced all around fighters. Strong against boss enemies.",
+	Element.enm.STORM: "The weather element. Storm towers use lightning and other weather phenomena to deal damage to enemies. Strong against air and magical enemies.",
+	Element.enm.NONE: "none",
+}
+
+const _main_attack_types_map: Dictionary = {
+	Element.enm.ICE: [AttackType.enm.ELEMENTAL, AttackType.enm.ENERGY],
+	Element.enm.NATURE: [AttackType.enm.PHYSICAL, AttackType.enm.DECAY, AttackType.enm.ESSENCE],
+	Element.enm.FIRE: [AttackType.enm.ELEMENTAL, AttackType.enm.DECAY],
+	Element.enm.ASTRAL: [AttackType.enm.ENERGY, AttackType.enm.ELEMENTAL, AttackType.enm.MAGIC],
+	Element.enm.DARKNESS: [AttackType.enm.DECAY, AttackType.enm.PHYSICAL],
+	Element.enm.IRON: [AttackType.enm.PHYSICAL, AttackType.enm.DECAY],
+	Element.enm.STORM: [AttackType.enm.ENERGY, AttackType.enm.PHYSICAL],
+	Element.enm.NONE: [AttackType.enm.PHYSICAL, AttackType.enm.PHYSICAL],
+}
+
+
 const _dmg_from_element_map: Dictionary = {
 	Element.enm.ICE: Modification.Type.MOD_DMG_FROM_ICE,
 	Element.enm.NATURE: Modification.Type.MOD_DMG_FROM_NATURE,
@@ -89,3 +112,22 @@ func get_color(element: Element.enm) -> Color:
 	var color: Color = _color_map[element]
 
 	return color
+
+
+func get_flavor_text(element: Element.enm) -> String:
+	var flavor_text: String = _flavor_text_map[element]
+
+	return flavor_text
+
+
+func get_main_attack_types(element: Element.enm) -> String:
+	var attack_enum_list: Array = _main_attack_types_map[element]
+	var attack_string_list: Array[String] = []
+
+	for attack_enum in attack_enum_list:
+		var attack_string: String = AttackType.convert_to_colored_string(attack_enum)
+		attack_string_list.append(attack_string)
+
+	var combined_string: String = ", ".join(attack_string_list)
+
+	return combined_string
