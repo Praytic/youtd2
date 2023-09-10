@@ -28,8 +28,6 @@ func _on_items_changed():
 	var item_list: Array[Item] = horadric_cube_container.get_item_list()
 	for item in item_list:
 		var item_button: ItemButton = ItemButton.make(item)
-		item_button.hide_cooldown_indicator()
-		item_button.hide_auto_mode_indicator()
 		var button_container: UnitButtonContainer = UnitButtonContainer.make()
 		button_container.add_child(item_button)
 		_items_container.add_child(button_container)

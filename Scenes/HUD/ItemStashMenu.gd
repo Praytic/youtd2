@@ -24,8 +24,6 @@ func _on_item_stash_changed():
 
 func _add_item_button(item: Item):
 	var item_button: ItemButton = ItemButton.make(item)
-	item_button.hide_cooldown_indicator()
-	item_button.hide_auto_mode_indicator()
 	item_button.hide_charges()
 
 	var button_container = UnitButtonContainer.make()

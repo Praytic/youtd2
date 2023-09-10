@@ -163,8 +163,10 @@ func on_tower_items_changed(tower: Tower):
 	var items: Array[Item] = tower.get_items()
 
 	for item in items:
-		var item_button = ItemButton.make(item)
-		var button_container = UnitButtonContainer.make()
+		var item_button: ItemButton = ItemButton.make(item)
+		item_button.show_cooldown_indicator()
+		item_button.show_auto_mode_indicator()
+		var button_container: UnitButtonContainer = UnitButtonContainer.make()
 		button_container.add_child(item_button)
 		_items_box_container.add_child(button_container)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))

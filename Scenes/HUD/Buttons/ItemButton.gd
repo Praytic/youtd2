@@ -13,8 +13,8 @@ var _item: Item : set = set_item, get = get_item
 @export var _auto_mode_indicator: AutoModeIndicator
 @export var _charges_label: Label
 
-var _hide_cooldown_indicator: bool = false
-var _hide_auto_mode_indicator: bool = false
+var _show_cooldown_indicator: bool = false
+var _show_auto_mode_indicator: bool = false
 var _hide_charges: bool = false
 
 
@@ -38,11 +38,8 @@ func _ready():
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 
-	if _hide_cooldown_indicator:
-		_cooldown_indicator.hide()
-	
-	if _hide_auto_mode_indicator:
-		_auto_mode_indicator.hide()
+	_cooldown_indicator.set_visible(_show_cooldown_indicator)
+	_auto_mode_indicator.set_visible(_show_auto_mode_indicator)
 
 	_on_item_charges_changed()
 
@@ -65,12 +62,12 @@ func _gui_input(event):
 			_item.consume()
 
 
-func hide_cooldown_indicator():
-	_hide_cooldown_indicator = true
+func show_cooldown_indicator():
+	_show_cooldown_indicator = true
 
 
-func hide_auto_mode_indicator():
-	_hide_auto_mode_indicator = true
+func show_auto_mode_indicator():
+	_show_auto_mode_indicator = true
 
 
 func hide_charges():
