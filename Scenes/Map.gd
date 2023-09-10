@@ -40,8 +40,9 @@ func get_mouse_pos_on_tilemap_clamped() -> Vector2:
 
 
 func mouse_is_over_buildable_tile() -> bool:
-	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
-	var map_pos: Vector2 = _buildable_area.local_to_map(pos)
+	var global_pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
+	var local_pos: Vector2 = _buildable_area.to_local(global_pos)
+	var map_pos: Vector2 = _buildable_area.local_to_map(local_pos)
 	var buildable_area_cell_exists_at_pos: bool = _buildable_area.get_cell_source_id(0, map_pos) != -1
 
 	return buildable_area_cell_exists_at_pos
