@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcfvrjaq7b8nf"]
+
+[ext_resource type="Texture2D" uid="uid://3bw2tggb8cyu" path="res://Assets/Effects/level_up.png" id="1_ne7hg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8w6hg"]
+atlas = ExtResource("1_ne7hg")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfxpj"]
+atlas = ExtResource("1_ne7hg")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4657d"]
+atlas = ExtResource("1_ne7hg")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ullnv"]
+atlas = ExtResource("1_ne7hg")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jd54x"]
+atlas = ExtResource("1_ne7hg")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0536q"]
+atlas = ExtResource("1_ne7hg")
+region = Rect2(0, 160, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3oy3"]
+atlas = ExtResource("1_ne7hg")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j02vm"]
+atlas = ExtResource("1_ne7hg")
+region = Rect2(0, 224, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_06374"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8w6hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kfxpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4657d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ullnv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jd54x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0536q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3oy3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j02vm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="OilApplication" type="AnimatedSprite2D"]
+modulate = Color(0, 0.639216, 0.792157, 1)
+sprite_frames = SubResource("SpriteFrames_06374")

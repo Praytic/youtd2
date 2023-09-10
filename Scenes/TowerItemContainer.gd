@@ -28,6 +28,11 @@ func add_item(item: Item, slot_index: int = 0):
 	else:
 		super.add_item(item, slot_index)
 
+	if is_oil:
+		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/OilApplication.tscn", _tower)
+		Effect.scale_effect(effect_id, 8)
+		Effect.destroy_effect_after_its_over(effect_id)
+
 
 func remove_item(item: Item):
 	item._remove_from_tower()
