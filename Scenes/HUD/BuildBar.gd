@@ -139,8 +139,11 @@ func _on_game_mode_was_chosen():
 func _on_rolling_starting_towers():
 	var tower_list: Array = _tower_buttons.keys()
 
+#	NOTE: call remove_tower_button() multiple times to remove
+#	all stacks of tower
 	for tower in tower_list:
-		remove_tower_button(tower)
+		while _tower_buttons.has(tower):
+			remove_tower_button(tower)
 
 
 func _on_random_tower_distributed(tower_id: int):
