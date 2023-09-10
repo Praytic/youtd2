@@ -10,9 +10,11 @@ const ICON_SIZE_M = 128
 var _item: Item : set = set_item, get = get_item
 
 @export var _cooldown_indicator: CooldownIndicator
+@export var _auto_mode_indicator: AutoModeIndicator
 @export var _charges_label: Label
 
 var _hide_cooldown_indicator: bool = false
+var _hide_auto_mode_indicator: bool = false
 var _hide_charges: bool = false
 
 
@@ -31,20 +33,30 @@ func _ready():
 
 	if autocast != null:
 		_cooldown_indicator.set_autocast(autocast)
+		_auto_mode_indicator.set_autocast(autocast)
 	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 
 	if _hide_cooldown_indicator:
 		_cooldown_indicator.hide()
+	
+	if _hide_auto_mode_indicator:
+		_auto_mode_indicator.hide()
 
 	_on_item_charges_changed()
 
 
 func _gui_input(event):
 	var pressed_right_click: bool = event.is_action_released("right_click")
+	var pressed_shift: bool = Input.is_action_pressed("shift")
+	var shift_right_click: bool = pressed_shift && pressed_right_click
 
-	if pressed_right_click:
+	if shift_right_click:
+		var autocast: Autocast = _item.get_autocast()
+		if autocast != null:
+			autocast.toggle_auto_mode()
+	elif pressed_right_click:
 		var autocast: Autocast = _item.get_autocast()
 		if autocast != null:
 			autocast.do_cast_manually()
@@ -55,6 +67,10 @@ func _gui_input(event):
 
 func hide_cooldown_indicator():
 	_hide_cooldown_indicator = true
+
+
+func hide_auto_mode_indicator():
+	_hide_auto_mode_indicator = true
 
 
 func hide_charges():

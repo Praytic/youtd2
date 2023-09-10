@@ -250,9 +250,10 @@ func get_item_text(item: Item) -> String:
 		var item_is_on_tower: bool = item.get_carrier() != null
 		var is_manual_cast: bool = !autocast.can_use_auto_mode()
 
-		if item_is_on_tower && is_manual_cast:
+		if item_is_on_tower:
 			text += " \n"
-			text += "[color=YELLOW]Right Click to use item[/color]\n"
+			text += "[color=YELLOW]Shift Right Click to toggle automatic casting.[/color]\n"
+			text += "[color=YELLOW]Right Click to use item.[/color]\n"
 
 	if is_consumable:
 		text += " \n[color=ORANGE]Right Click to use item. Item is consumed after use.[/color]"
