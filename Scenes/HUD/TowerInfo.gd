@@ -71,9 +71,15 @@ func set_tower_tooltip_text(tower):
 
 	_update_exp_for_next_lvl_labels(tower)
 	
+	var tower_oils_text: String = _get_tower_oils_text(tower)
 	var tower_details_text: String = _get_tower_details_text(tower)
+	var combined_details_text: String = ""
+	combined_details_text += tower_oils_text
+	combined_details_text += " \n"
+	combined_details_text += " \n"
+	combined_details_text += tower_details_text
 	_tower_details_label.clear()
-	_tower_details_label.append_text(tower_details_text)
+	_tower_details_label.append_text(combined_details_text)
 
 
 func set_tower(tower_node):
@@ -149,6 +155,28 @@ func _update_exp_for_next_lvl_labels(tower: Tower):
 		_exp_for_next_level_label.text = str(exp_for_next_level)
 
 
+func _get_tower_oils_text(tower: Tower) -> String:
+	var text: String = ""
+
+	text += "[color=PURPLE]Tower Oils:[/color]\n"
+	text += " \n"
+
+	var oil_count_map: Dictionary = _get_oil_count_map(tower)
+
+	var oil_name_list: Array = oil_count_map.keys()
+	oil_name_list.sort()
+
+	for oil_name in oil_name_list:
+		var count: int = oil_count_map[oil_name]
+
+		text += "%s x %s\n" % [str(count), oil_name]
+
+	if oil_count_map.is_empty():
+		text += "None"
+
+	return text
+
+
 func _get_tower_details_text(tower: Tower) -> String:
 	var text: String = ""
 	
@@ -177,3 +205,20 @@ func _get_tower_details_text(tower: Tower) -> String:
 func _on_refresh_timer_timeout():
 	if _current_tower != null:
 		set_tower_tooltip_text(_current_tower)
+
+
+func _get_oil_count_map(tower: Tower) -> Dictionary:
+	var oil_list: Array[Item] = tower.get_item_container().get_oil_list()
+
+	var oil_count_map: Dictionary = {}
+
+	for oil in oil_list:
+		var oil_id: int = oil.get_id()
+		var oil_name: String = ItemProperties.get_display_name(oil_id)
+
+		if !oil_count_map.has(oil_name):
+			oil_count_map[oil_name] = 0
+
+		oil_count_map[oil_name] += 1
+
+	return oil_count_map
