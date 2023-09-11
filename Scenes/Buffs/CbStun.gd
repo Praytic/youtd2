@@ -1,9 +1,7 @@
 class_name CbStun
 extends BuffType
 
-# NOTE: globally available cb_stun in JASS
-
-var _stun_effect_map: Dictionary
+# NOTE: analog of globally available cb_stun in JASS
 
 
 # NOTE: BuffType.createDuplicate(cb_stun...) in JASS
@@ -25,15 +23,9 @@ func on_create(event: Event):
 
 	target.add_stun()
 
-	var stun_effect: int = Effect.create_simple_at_unit("res://Scenes/Effects/StunVisual.tscn", target)
-	_stun_effect_map[buff] = stun_effect
-
 
 func _on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var target = buff.get_buffed_unit()
 
 	target.remove_stun()
-	
-	var stun_effect: int = _stun_effect_map[buff]
-	Effect.destroy_effect(stun_effect)

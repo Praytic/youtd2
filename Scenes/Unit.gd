@@ -92,6 +92,7 @@ var _best_hit: float = 0.0
 var _damage_dealt_total: float = 0.0
 var _silence_count: int = 0
 var _stun_count: int = 0
+var _stun_effect_id: int = -1
 var _visual_only: bool = false
 var _autocast_list: Array[Autocast] = []
 var _stored_visual_modulate: Color = Color.WHITE
@@ -576,11 +577,22 @@ func remove_silence():
 
 
 func add_stun():
+	var stun_started: bool = _stun_count == 0
+
 	_stun_count += 1
+
+	if stun_started:
+		_stun_effect_id = Effect.add_special_effect_target("res://Scenes/Effects/StunVisual.tscn", self, "head")
 
 
 func remove_stun():
 	_stun_count -= 1
+
+	var stun_ended: bool = _stun_count == 0
+	
+	if stun_ended:
+		Effect.destroy_effect(_stun_effect_id)
+		_stun_effect_id = -1
 
 
 # Returns the amount of mana that was subtracted.
