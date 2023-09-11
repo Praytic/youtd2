@@ -300,12 +300,19 @@ func is_consumable() -> bool:
 
 # Picks up an item from the ground and moves it to a tower.
 # Item must be in "dropped" state before this f-n is called.
+# Returns true if item was picked up successfully.
 # NOTE: item.pickup() in JASS
 func pickup(tower: Tower) -> bool:
 	var item_drop: ItemDrop = get_parent() as ItemDrop
 	if item_drop == null:
 		push_error("Called pickup() on item which is not in ItemDrop!")
 
+		return false
+
+	var is_oil: bool = ItemProperties.get_is_oil(get_id())
+	var can_add: bool = tower.have_item_space() || is_oil
+
+	if !can_add:
 		return false
 
 	item_drop.remove_child(self)
