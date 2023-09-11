@@ -23,7 +23,7 @@ func on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var target = buff.get_buffed_unit()
 
-	target.set_stunned(true)
+	target.add_stun()
 
 	var stun_effect: int = Effect.create_simple_at_unit("res://Scenes/Effects/StunVisual.tscn", target)
 	_stun_effect_map[buff] = stun_effect
@@ -33,7 +33,7 @@ func _on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var target = buff.get_buffed_unit()
 
-	target.set_stunned(false)
+	target.remove_stun()
 	
 	var stun_effect: int = _stun_effect_map[buff]
 	Effect.destroy_effect(stun_effect)

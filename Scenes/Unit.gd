@@ -91,7 +91,7 @@ var _kill_count: int = 0
 var _best_hit: float = 0.0
 var _damage_dealt_total: float = 0.0
 var _silence_count: int = 0
-var _stunned: bool = false
+var _stun_count: int = 0
 var _visual_only: bool = false
 var _autocast_list: Array[Autocast] = []
 var _stored_visual_modulate: Color = Color.WHITE
@@ -575,8 +575,12 @@ func remove_silence():
 	_silence_count -= 1
 
 
-func set_stunned(value: bool):
-	_stunned = value
+func add_stun():
+	_stun_count += 1
+
+
+func remove_stun():
+	_stun_count -= 1
 
 
 # Returns the amount of mana that was subtracted.
@@ -1190,7 +1194,7 @@ func is_silenced() -> bool:
 	return _silence_count > 0
 
 func is_stunned() -> bool:
-	return _stunned
+	return _stun_count > 0
 
 # NOTE: overriden in Tower and Creep subclasses
 func is_attacking() -> bool:
