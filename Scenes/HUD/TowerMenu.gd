@@ -166,6 +166,7 @@ func on_tower_items_changed(tower: Tower):
 		var item_button: ItemButton = ItemButton.make(item)
 		item_button.show_cooldown_indicator()
 		item_button.show_auto_mode_indicator()
+		item_button.show_charges()
 		var button_container: UnitButtonContainer = UnitButtonContainer.make()
 		button_container.add_child(item_button)
 		_items_box_container.add_child(button_container)

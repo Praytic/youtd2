@@ -15,7 +15,7 @@ var _item: Item : set = set_item, get = get_item
 
 var _show_cooldown_indicator: bool = false
 var _show_auto_mode_indicator: bool = false
-var _hide_charges: bool = false
+var _show_charges: bool = false
 
 
 static func make(item: Item) -> ItemButton:
@@ -70,8 +70,8 @@ func show_auto_mode_indicator():
 	_show_auto_mode_indicator = true
 
 
-func hide_charges():
-	_hide_charges = true
+func show_charges():
+	_show_charges = true
 
 
 func get_item() -> Item:
@@ -112,5 +112,5 @@ func _on_item_charges_changed():
 	var charges_text: String = str(charges_count)
 	_charges_label.set_text(charges_text)
 
-	var charges_should_be_visible: bool = _item.uses_charges() && !_hide_charges
+	var charges_should_be_visible: bool = _item.uses_charges() && _show_charges
 	_charges_label.set_visible(charges_should_be_visible)

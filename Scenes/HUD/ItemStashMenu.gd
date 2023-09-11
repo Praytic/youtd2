@@ -24,7 +24,6 @@ func _on_item_stash_changed():
 
 func _add_item_button(item: Item):
 	var item_button: ItemButton = ItemButton.make(item)
-	item_button.hide_charges()
 
 	var button_container = UnitButtonContainer.make()
 	button_container.add_child(item_button)
