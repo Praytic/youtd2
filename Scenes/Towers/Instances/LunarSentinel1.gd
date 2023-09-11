@@ -60,7 +60,7 @@ func tower_init():
 
 	add_autocast(autocast)
 
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("lunar_sentinel_stun", 0, 0, false, self)
 
 	var m: Modifier = Modifier.new()
 	sir_moonp_buff = BuffType.new("sir_moonp_buff", 0, 0, false, self)

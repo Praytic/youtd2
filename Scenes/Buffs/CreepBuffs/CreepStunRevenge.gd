@@ -7,7 +7,7 @@ var cb_stun: BuffType
 func _init(parent: Node):
 	super("creep_stun_revenge", 0, 0, true, parent)
 
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("creep_stun_revenge_stun", 0, 0, false, self)
 
 	add_event_on_damaged(on_damaged)
 

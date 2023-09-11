@@ -114,7 +114,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("initiate_elementalist_stun", 0, 0, false, self)
 
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)

@@ -73,7 +73,7 @@ func tower_init():
 
 	Troll_blizzardslow.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone; it has reduced movement speed.")
 
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("cold_troll_stun", 0, 0, false, self)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Blizzard"

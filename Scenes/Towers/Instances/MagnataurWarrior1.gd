@@ -34,7 +34,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func tower_init():
-	cb_stun = CbStun.new("cb_stun", 1.0, 0, false, self)
+	cb_stun = CbStun.new("magnataur_warrior_stun", 1.0, 0, false, self)
 
 
 func on_damage(event: Event):

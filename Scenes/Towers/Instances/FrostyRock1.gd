@@ -47,7 +47,7 @@ func tower_init():
 
 	sir_frost_glacier.set_buff_tooltip("Slowed\nThis unit has been chilled to the bone; it has reduced movement speed.")
 
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("frosty_rock_stun", 0, 0, false, self)
 
 
 func on_damage(event: Event):

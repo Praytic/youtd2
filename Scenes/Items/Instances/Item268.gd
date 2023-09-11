@@ -20,7 +20,7 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("item_268_stun", 0, 0, false, self)
 
 
 func on_damage(event: Event):

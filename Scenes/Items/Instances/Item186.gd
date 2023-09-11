@@ -34,7 +34,7 @@ func drol_drunk(event: Event):
 
 
 func item_init():
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("item_186_stun", 0, 0, false, self)
 
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATTACKSPEED, -0.30, 0.01)

@@ -28,7 +28,7 @@ func load_modifier(modifier: Modifier):
 
 
 func item_init():
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("item_264_stun", 0, 0, false, self)
 
 
 func on_attack(_event: Event):

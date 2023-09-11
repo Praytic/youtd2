@@ -27,7 +27,7 @@ func drol_chainStun(event: Event, d: DummyUnit):
 
 
 func item_init():
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("item_120_stun", 0, 0, false, self)
 	
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.15, 0.0)

@@ -26,7 +26,7 @@ func load_triggers(triggers: BuffType):
 
 
 func item_init():
-	cb_stun = CbStun.new("cb_stun", 0, 0, false, self)
+	cb_stun = CbStun.new("item_282_stun", 0, 0, false, self)
 	
 	var m: Modifier = Modifier.new()
 	var k: Modifier = Modifier.new()

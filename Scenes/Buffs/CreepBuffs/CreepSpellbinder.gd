@@ -8,7 +8,7 @@ var cb_silence: BuffType
 func _init(parent: Node):
 	super("creep_spellbinder", 0, 0, true, parent)
 
-	cb_silence = CbSilence.new("cb_silence", 0, 0, false, self)
+	cb_silence = CbSilence.new("creep_spellbinder_silence", 0, 0, false, self)
 
 	add_event_on_create(on_create)
 
