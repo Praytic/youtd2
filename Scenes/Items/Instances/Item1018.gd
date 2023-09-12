@@ -20,7 +20,7 @@ func load_modifier(modifier: Modifier):
 
 
 func on_pickup():
-	seeker_oil_on_pickup(self, SEEKER_OIL_ID)
+	Item1018.seeker_oil_on_pickup(self, SEEKER_OIL_ID)
 
 
 static func seeker_oil_on_pickup(original_oil: Item, oil_id: int):
