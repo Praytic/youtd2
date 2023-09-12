@@ -85,6 +85,8 @@ func on_attack(event: Event):
 			itm.user_real = itm.user_real + 0.25
 			player.display_floating_text("Item Quality", tower, 0, 255, 0)
 
+	itm.user_int = 15
+
 
 func on_create():
 	var itm: Item = self
@@ -117,9 +119,9 @@ func on_tower_details() -> MultiboardValues:
 	return Maj_spellbook
 
 
-func periodic(event: Event):
+func periodic(_event: Event):
 	var itm: Item = self
-	var level: int = itm.getOnwer().get_level()
+	var level: int = itm.get_player().get_level()
 
 	if itm.user_int2 < level:
 		itm.user_int = itm.user_int - (level - itm.user_int2)

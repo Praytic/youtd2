@@ -3,6 +3,8 @@ class_name WaveSpawner extends Node
 
 var TIME_BEFORE_FIRST_WAVE: float = 180.0
 var TIME_BETWEEN_WAVES: float = 15.0
+var EXTREME_DELAY_AFTER_PREV_WAVE: float = 10.0
+var EXTREME_DELAY_BEFORE_NEXT_WAVE: float = 25.0
 
 
 signal all_waves_started
@@ -14,6 +16,7 @@ var _wave_list: Array[Wave] = []
 
 
 @export var _timer_between_waves: Timer
+@export var _extreme_timer: Timer
 @export var _creep_spawner: CreepSpawner
 
 func _ready():
@@ -75,7 +78,7 @@ func _start_next_wave():
 	var is_first_wave: bool = WaveLevel.get_current() == 0
 	if is_first_wave:
 		Utils._ticks_at_game_start = Time.get_ticks_msec()
-
+	
 	WaveLevel.increase()
 
 	var current_wave: Wave = get_current_wave()
@@ -92,6 +95,9 @@ func _start_next_wave():
 
 	if _last_wave_was_started():
 		all_waves_started.emit()
+	
+	_extreme_timer.stop()
+	_extreme_timer.start(EXTREME_DELAY_AFTER_PREV_WAVE)
 
 
 func _on_CreepSpawner_all_creeps_spawned():
@@ -227,3 +233,13 @@ func _last_wave_was_started() -> bool:
 	var game_over: bool = Globals.game_over
 
 	return after_last_wave || game_over
+
+
+func _on_extreme_timer_timeout():
+	if Globals.difficulty != Difficulty.enm.EXTREME:
+		return
+	
+	if _last_wave_was_started():
+		return
+	
+	_timer_between_waves.start(EXTREME_DELAY_BEFORE_NEXT_WAVE)
