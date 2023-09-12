@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://u7sl0wxhnt55"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ElementButton.gd" id="1_4u01e"]
+[ext_resource type="Texture2D" uid="uid://b36lpf5pdifac" path="res://Assets/UI/HUD/element_progress_circle.png" id="1_r8kbi"]
+[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="3_8w85y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlrnl"]
+atlas = ExtResource("3_8w85y")
+region = Rect2(384, 0, 128, 128)
+
+[node name="ElementButton" type="TextureButton" node_paths=PackedStringArray("texture_progress_bar", "progress_label")]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -96.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = SubResource("AtlasTexture_dlrnl")
+ignore_texture_size = true
+stretch_mode = 4
+script = ExtResource("1_4u01e")
+texture_progress_bar = NodePath("CenterContainer/ElementProgressBar")
+progress_label = NodePath("ElementLevelLabel")
+
+[node name="ElementLevelLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ElementProgressBar" type="TextureProgressBar" parent="CenterContainer"]
+layout_mode = 2
+max_value = 15.0
+fill_mode = 4
+texture_under = ExtResource("1_r8kbi")
+texture_progress = ExtResource("1_r8kbi")
+tint_under = Color(0.25098, 0.25098, 0.25098, 0.513726)
+tint_progress = Color(1, 1, 1, 0.737255)
