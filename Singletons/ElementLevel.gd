@@ -2,7 +2,7 @@ extends Node
 
 signal changed()
 
-const MAX_ELEMENT_LEVEL = 20
+const MAX_ELEMENT_LEVEL = 15
 
 var _element_level_map: Dictionary = {}
 
