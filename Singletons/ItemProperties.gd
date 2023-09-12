@@ -12,7 +12,8 @@ const MAX_ICONS_PER_FAMILY = 5
 func get_icon(item_id: int) -> Texture2D:
 	var icon_atlas_num: int = ItemProperties.get_icon_atlas_num(item_id)
 	var icon_atlas_family: int = ItemProperties.get_icon_atlas_family(item_id)
-	var is_oil = ItemProperties.get_is_oil(item_id)
+	var item_type: ItemType.enm = ItemProperties.get_type(item_id)
+	var is_oil_or_consumable: bool = item_type == ItemType.enm.OIL || item_type == ItemType.enm.CONSUMABLE
 	
 	if icon_atlas_num == -1 or icon_atlas_family == -1:
 		push_error("Unknown icon for item ID [%s]" % item_id)
@@ -20,7 +21,7 @@ func get_icon(item_id: int) -> Texture2D:
 	var item_icon = AtlasTexture.new()
 	var icon_size: int = ICON_SIZE_M
 	
-	if is_oil:
+	if is_oil_or_consumable:
 		item_icon.set_atlas(potion_icons_m)
 	else:
 		item_icon.set_atlas(item_icons_m)
