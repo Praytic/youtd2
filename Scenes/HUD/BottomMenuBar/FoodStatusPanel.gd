@@ -1,12 +1,13 @@
+@tool
 extends ResourceStatusPanel
 
 
 func _ready():
 	super()
 
-	FoodManager.changed.connect(on_food_changed)
-
-	on_food_changed()
+	if not Engine.is_editor_hint():
+		FoodManager.changed.connect(on_food_changed)
+		on_food_changed()
 
 
 func on_food_changed():
