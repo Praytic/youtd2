@@ -3,10 +3,11 @@
 [ext_resource type="Script" path="res://Scenes/Creeps/WaveSpawner.gd" id="1_isnnd"]
 [ext_resource type="PackedScene" uid="uid://b80b85lbixydk" path="res://Scenes/Creeps/CreepSpawner.tscn" id="2_rvsq0"]
 
-[node name="WaveSpawner" type="Node2D" node_paths=PackedStringArray("_timer_between_waves", "_creep_spawner")]
+[node name="WaveSpawner" type="Node2D" node_paths=PackedStringArray("_timer_between_waves", "_extreme_timer", "_creep_spawner")]
 position = Vector2(1, 0)
 script = ExtResource("1_isnnd")
 _timer_between_waves = NodePath("Timer")
+_extreme_timer = NodePath("ExtremeTimer")
 _creep_spawner = NodePath("CreepSpawner")
 
 [node name="Timer" type="Timer" parent="."]
@@ -14,5 +15,9 @@ one_shot = true
 
 [node name="CreepSpawner" parent="." instance=ExtResource("2_rvsq0")]
 
+[node name="ExtremeTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="all_creeps_spawned" from="CreepSpawner" to="." method="_on_CreepSpawner_all_creeps_spawned"]
+[connection signal="timeout" from="ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
