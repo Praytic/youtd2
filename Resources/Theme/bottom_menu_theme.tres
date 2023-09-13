@@ -1,10 +1,7 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://eabew2p3tsgy"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://eabew2p3tsgy"]
 
-[ext_resource type="StyleBox" uid="uid://ln3gwpdseci7" path="res://Resources/Theme/TowerMenu/button_disalbed.tres" id="1_56lle"]
-[ext_resource type="StyleBox" uid="uid://b284lwmb62g6v" path="res://Resources/Theme/TowerMenu/button_hover.tres" id="2_d7ysx"]
-[ext_resource type="StyleBox" uid="uid://di63wj0o7etx1" path="res://Resources/Theme/TowerMenu/button_normal.tres" id="3_cb1vw"]
+[ext_resource type="StyleBox" uid="uid://d1lgejw2sv1ip" path="res://Resources/Theme/Common/tiny_border_box.tres" id="1_qv7rc"]
 [ext_resource type="StyleBox" uid="uid://woorl376lbra" path="res://Resources/Theme/TowerMenu/tower_menu_panel.tres" id="4_vytkq"]
-[ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="5_rmx6e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcb5y"]
 
@@ -22,23 +19,12 @@ corner_radius_bottom_left = 10
 
 [resource]
 Button/font_sizes/font_size = 32
-Button/styles/disabled = ExtResource("1_56lle")
-Button/styles/hover = ExtResource("2_d7ysx")
-Button/styles/normal = ExtResource("3_cb1vw")
-Button/styles/pressed = ExtResource("2_d7ysx")
+Button/styles/disabled = ExtResource("1_qv7rc")
+Button/styles/hover = ExtResource("1_qv7rc")
+Button/styles/normal = ExtResource("1_qv7rc")
+Button/styles/pressed = ExtResource("1_qv7rc")
 InfoContainer/base_type = &"PanelContainer"
 InfoContainer/styles/panel = SubResource("StyleBoxFlat_tcb5y")
 Label/font_sizes/font_size = 16
-MainPanelContainer/base_type = &"PanelContainer"
-MainPanelContainer/styles/panel = ExtResource("4_vytkq")
 Panel/styles/panel = ExtResource("4_vytkq")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_yy7ve")
-TowerNameLabel/font_sizes/font_size = 32
-TowerNameLabel/styles/normal = ExtResource("5_rmx6e")
-WarningButton/base_type = &"Button"
-WarningButton/colors/icon_disabled_color = Color(1, 0.247059, 0.192157, 1)
-WarningButton/colors/icon_focus_color = Color(1, 0.247059, 0.192157, 1)
-WarningButton/colors/icon_hover_color = Color(1, 0.247059, 0.192157, 1)
-WarningButton/colors/icon_hover_pressed_color = Color(1, 0.247059, 0.192157, 1)
-WarningButton/colors/icon_normal_color = Color(1, 0.247059, 0.192157, 1)
-WarningButton/colors/icon_pressed_color = Color(1, 0.247059, 0.192157, 1)
