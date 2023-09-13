@@ -212,7 +212,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
 		CreepSize.enm.BOSS:
-			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.58:
+			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.50:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
@@ -221,7 +221,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
 		CreepSize.enm.CHALLENGE_BOSS:
-			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.58:
+			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.50:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
@@ -230,7 +230,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
 				]
 		CreepSize.enm.NORMAL, CreepSize.enm.CHAMPION:
-			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.17:
+			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.50:
 				animation_order = [
 					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
 				]
