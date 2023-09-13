@@ -1,33 +1,21 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://eabew2p3tsgy"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://eabew2p3tsgy"]
 
 [ext_resource type="StyleBox" uid="uid://d1lgejw2sv1ip" path="res://Resources/Theme/Common/tiny_border_box.tres" id="1_qv7rc"]
+[ext_resource type="StyleBox" uid="uid://bw4wtqgmpri3j" path="res://Resources/Theme/BottomMenuBar/center_panel.tres" id="2_3n6fu"]
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="3_hau48"]
-[ext_resource type="StyleBox" uid="uid://woorl376lbra" path="res://Resources/Theme/TowerMenu/tower_menu_panel.tres" id="4_vytkq"]
+[ext_resource type="StyleBox" uid="uid://c4rv27uxbm00c" path="res://Resources/Theme/BottomMenuBar/side_panel.tres" id="3_ouihy"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcb5y"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy7ve"]
-draw_center = false
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 0.47451)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_42rpv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5lf64"]
 atlas = ExtResource("3_hau48")
-region = Rect2(1086, 3, 160, 197)
+region = Rect2(1085, 207, 176, 178)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q42ds"]
-texture = SubResource("AtlasTexture_42rpv")
-texture_margin_left = 20.377
-texture_margin_top = 28.0664
-texture_margin_right = 17.4934
-region_rect = Rect2(0, 0, 160, 197)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cvu21"]
+texture = SubResource("AtlasTexture_5lf64")
+texture_margin_left = 39.6148
+texture_margin_top = 40.0
+texture_margin_right = 40.0
+texture_margin_bottom = 39.6148
+region_rect = Rect2(1085, 207, 176, 178)
 
 [resource]
 Button/font_sizes/font_size = 32
@@ -35,10 +23,10 @@ Button/styles/disabled = ExtResource("1_qv7rc")
 Button/styles/hover = ExtResource("1_qv7rc")
 Button/styles/normal = ExtResource("1_qv7rc")
 Button/styles/pressed = ExtResource("1_qv7rc")
-InfoContainer/base_type = &"PanelContainer"
-InfoContainer/styles/panel = SubResource("StyleBoxFlat_tcb5y")
+CenterPanel/base_type = &"PanelContainer"
+CenterPanel/styles/panel = SubResource("StyleBoxTexture_cvu21")
 Label/font_sizes/font_size = 16
-Panel/styles/panel = ExtResource("4_vytkq")
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_yy7ve")
+Panel/styles/panel = ExtResource("2_3n6fu")
+RightSidePanel/base_type = &"PanelContainer"
 SidePanel/base_type = &"PanelContainer"
-SidePanel/styles/panel = SubResource("StyleBoxTexture_q42ds")
+SidePanel/styles/panel = ExtResource("3_ouihy")
