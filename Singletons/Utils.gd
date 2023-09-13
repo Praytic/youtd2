@@ -197,32 +197,6 @@ func add_object_to_world(object: Node):
 	get_object_container().add_child(object, true)
 
 
-func circle_polygon_set_radius(collision_polygon: CollisionPolygon2D, radius: float , angle_from = 0, angle_to = 360):
-	var radius_PIXELS: float = to_pixels(radius)
-	circle_polygon_set_radius_PIXELS(collision_polygon, radius_PIXELS, angle_from, angle_to)
-
-
-func circle_polygon_set_radius_PIXELS(collision_polygon: CollisionPolygon2D, radius: float , angle_from = 0, angle_to = 360):
-	var nb_points = radius/20
-	var points_arc = PackedVector2Array()
-	var center = collision_polygon.position
-	
-	for i in range(nb_points + 1):
-		var angle_point = deg_to_rad(angle_from + i * (angle_to - angle_from) / nb_points - 90)
-		var point = center + Vector2(cos(angle_point), sin(angle_point) / 2) * radius
-		points_arc.append(point)
-
-
-# 	NOTE: use call_deferred() here so that
-# 	circle_polygon_set_radius() can be called during physics
-# 	processing. Changing the state of physics objects while
-# 	inside physics processing causes this error: "Can't
-# 	change this state while flushing queries.". This can
-# 	happen when circle_polygon_set_radius() from the slot
-# 	for "body_entered" signal for example.
-	collision_polygon.call_deferred("set_polygon", points_arc)
-
-
 # Chance should be in range [0.0, 1.0]
 # To get chance for event with 10% occurence, call rand_chance(0.1)
 func rand_chance(chance: float) -> bool:
