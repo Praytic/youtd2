@@ -1,10 +1,9 @@
-[gd_scene load_steps=35 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=34 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://eabew2p3tsgy" path="res://Resources/Theme/bottom_menu_theme.tres" id="1_u18mo"]
 [ext_resource type="Theme" uid="uid://dtwj74dyjwmi7" path="res://Resources/Theme/custom_theme.tres" id="4_nd5uj"]
 [ext_resource type="Texture2D" uid="uid://d3gaytlpm3l0a" path="res://Assets/Towers/tower_icons_s.png" id="4_r2xy7"]
 [ext_resource type="Texture2D" uid="uid://4urow6esjtqa" path="res://Assets/Towers/tower_icons_xs.png" id="5_2y3fp"]
-[ext_resource type="PackedScene" uid="uid://boj0nw0dartmw" path="res://Scenes/HUD/Buttons/UnitButtonContainer.tscn" id="5_4kb1u"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://u7sl0wxhnt55" path="res://Scenes/HUD/Buttons/ElementButton.tscn" id="6_blybv"]
 [ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
@@ -33,31 +32,31 @@ region = Rect2(448, 64, 64, 64)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u05n0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e540f"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kimal"]
 atlas = ExtResource("7_u0cig")
 region = Rect2(0, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jwd2b"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yv1wn"]
 atlas = ExtResource("7_u0cig")
 region = Rect2(128, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bdau7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_msyv0"]
 atlas = ExtResource("7_u0cig")
 region = Rect2(256, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5d4sj"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_43hdh"]
 atlas = ExtResource("7_u0cig")
 region = Rect2(384, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8h5cr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_oem0s"]
 atlas = ExtResource("7_u0cig")
 region = Rect2(512, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rxn4u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8aae"]
 atlas = ExtResource("7_u0cig")
 region = Rect2(640, 0, 128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wbvhv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3h523"]
 atlas = ExtResource("7_u0cig")
 region = Rect2(768, 0, 128, 128)
 
@@ -99,7 +98,7 @@ theme = ExtResource("1_u18mo")
 script = ExtResource("6")
 _item_stash_menu = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/ItemStashMenu")
 _build_bar = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/BuildBar")
-_item_menu_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UnitButtonContainer/ItemMenuButton")
+_item_menu_button = NodePath("HBoxContainer/LeftMenu/MarginContainer2/ItemMenuButton")
 _building_menu_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/BuildingMenuButton")
 _research_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton")
 _elements_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer")
@@ -151,10 +150,14 @@ text = "122"
 icon = SubResource("AtlasTexture_ju33v")
 expand_icon = true
 
-[node name="UnitButtonContainer" parent="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2" instance=ExtResource("5_4kb1u")]
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/LeftMenu"]
+show_behind_parent = true
 layout_mode = 2
+theme_override_constants/margin_left = -100
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_bottom = 20
 
-[node name="ItemMenuButton" type="Button" parent="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UnitButtonContainer"]
+[node name="ItemMenuButton" type="Button" parent="HBoxContainer/LeftMenu/MarginContainer2"]
 custom_minimum_size = Vector2(2.08165e-12, 48)
 layout_mode = 2
 tooltip_text = "Switch menu to items"
@@ -181,36 +184,36 @@ layout_mode = 2
 
 [node name="ElementButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_e540f")
+texture_normal = SubResource("AtlasTexture_kimal")
 element = 0
 
 [node name="ElementButton2" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_jwd2b")
+texture_normal = SubResource("AtlasTexture_yv1wn")
 element = 1
 
 [node name="ElementButton3" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_bdau7")
+texture_normal = SubResource("AtlasTexture_msyv0")
 element = 2
 
 [node name="ElementButton4" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_5d4sj")
+texture_normal = SubResource("AtlasTexture_43hdh")
 
 [node name="ElementButton5" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_8h5cr")
+texture_normal = SubResource("AtlasTexture_oem0s")
 element = 4
 
 [node name="ElementButton6" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_rxn4u")
+texture_normal = SubResource("AtlasTexture_u8aae")
 element = 5
 
 [node name="ElementButton7" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_wbvhv")
+texture_normal = SubResource("AtlasTexture_3h523")
 element = 6
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
@@ -291,5 +294,5 @@ default_label_text = "0/60"
 [connection signal="mouse_exited" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/BuildingMenuButton" to="." method="_on_BuildMenuButton_pressed"]
-[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UnitButtonContainer/ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer2/ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
