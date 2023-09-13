@@ -1334,7 +1334,16 @@ func get_overall_health_regen() -> float:
 	return (get_base_health_regen() + get_base_health_regen_bonus()) * get_base_health_regen_bonus_percent()
 
 func get_prop_move_speed() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_MOVESPEED])
+	var base_value: float = _mod_value_map[Modification.Type.MOD_MOVESPEED]
+	var value: float
+
+	if base_value > 1.0:
+		value = base_value
+	else:
+		value = pow(3.0, base_value - 1.0)
+
+	return value
+
 
 func get_prop_move_speed_absolute() -> float:
 	return _mod_value_map[Modification.Type.MOD_MOVESPEED_ABSOLUTE]

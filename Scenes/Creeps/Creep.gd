@@ -10,7 +10,10 @@ signal moved(delta)
 # 
 # MOVE_SPEED_MAX can be found online, search "warcraft 3 max
 # speed 522"
-const MOVE_SPEED_MIN: float = 50.0
+# 
+# NOTE: actual MOVE_SPEED_MIN is never reached because
+# movespeed formula contains pow()
+const MOVE_SPEED_MIN: float = 1.0
 const MOVE_SPEED_MAX: float = 522.0
 const DEFAULT_MOVE_SPEED: float = 222.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
@@ -261,7 +264,7 @@ func _get_move_speed() -> float:
 	var base: float = DEFAULT_MOVE_SPEED
 	var mod: float = get_prop_move_speed()
 	var mod_absolute: float = get_prop_move_speed_absolute()
-	var unclamped: float = base * mod + mod_absolute
+	var unclamped: float = (base + mod_absolute) * mod
 	var move_speed: float = clampf(unclamped, MOVE_SPEED_MIN, MOVE_SPEED_MAX)
 
 	return move_speed
