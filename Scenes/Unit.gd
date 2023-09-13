@@ -1024,12 +1024,12 @@ func set_level(new_level: int):
 
 #	NOTE: apply level change to modifiers
 	for modifier in _direct_modifier_list:
-		_change_modifier_level(modifier, old_level, new_level)
+		_change_modifier_power(modifier, old_level, new_level)
 
 
-func _change_modifier_level(modifier: Modifier, old_level: int, new_level: int):
-	_apply_modifier(modifier, old_level, -1)
-	_apply_modifier(modifier, new_level, 1)
+func _change_modifier_power(modifier: Modifier, old_power: int, new_power: int):
+	_apply_modifier(modifier, old_power, -1)
+	_apply_modifier(modifier, new_power, 1)
 
 
 func is_dead() -> bool:

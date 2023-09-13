@@ -118,7 +118,7 @@ func set_stacking_group(stacking_group: String):
 # 
 # NOTE: buffType.applyAdvanced() in JASS
 func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: float) -> Buff:
-	var higher_prio_buff: Buff = _do_stacking_behavior(target, level)
+	var higher_prio_buff: Buff = _do_stacking_behavior(target, level, power)
 
 	if higher_prio_buff != null:
 		return higher_prio_buff
@@ -343,7 +343,7 @@ func handler_object_is_node(handler: Callable) -> bool:
 # 
 # NOTE: tower and item scripts depend on upgrade and
 # stacking behavior being implemented in this exact manner.
-func _do_stacking_behavior(target: Unit, new_level: int) -> Buff:
+func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff:
 	var active_buff_of_type: Buff = target.get_buff_of_type(self)
 	var active_buff_of_group: Buff = target.get_buff_of_group(_stacking_group)
 	var stacking_by_type: bool = !_type.is_empty() && active_buff_of_type != null
@@ -354,7 +354,7 @@ func _do_stacking_behavior(target: Unit, new_level: int) -> Buff:
 
 		if new_level > active_level:
 #			NOTE: upgrade active buff, no new buff
-			active_buff_of_type._upgrade_by_new_buff(new_level)
+			active_buff_of_type._upgrade_by_new_buff(new_level, new_power)
 
 			return active_buff_of_type
 		elif new_level == active_level:
