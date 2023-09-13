@@ -90,6 +90,30 @@ func set_element(element: Element.enm):
 		else:
 			button.modulate = Color.WHITE.darkened(0.4)
 
+	_build_bar.set_element(element)
+
+#	NOTE: set_value() is a member of Range class which is an
+#	ancestor of HScrollBar class
+	var scroll_bar: HScrollBar = _stash_scroll_container.get_h_scroll_bar()
+	scroll_bar.set_value(0.0)
+
+	_update_upgrade_element_button()
+
+
+func set_item_rarity(rarity: Rarity.enm, type: ItemType.enm):
+#	Dim the color of unselected element buttons
+	var buttons: Array = get_item_rarity_buttons()
+
+	for button in buttons:
+		var button_is_selected: bool = (button.rarity_filter == rarity or button.rarity_filter == null) \
+			and (button.type_filter == type or button.type_filter == null) \
+			and (button.rarity_filter != null and button.type_filter != null)
+
+		if button_is_selected:
+			button.modulate = Color.WHITE
+		else:
+			button.modulate = Color.WHITE.darkened(0.4)
+
 	if element == Element.enm.NONE:
 		_item_stash_menu.show()
 		_build_bar.hide()
@@ -109,6 +133,8 @@ func set_element(element: Element.enm):
 func get_element_buttons() -> Array:
 	return get_tree().get_nodes_in_group("element_button")
 
+func get_item_filter_buttons() -> Array:
+	return get_tree().get_nodes_in_group("item_filter_button")
 
 func _on_ItemMenuButton_pressed():
 	set_element(Element.enm.NONE)

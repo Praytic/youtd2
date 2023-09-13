@@ -103,13 +103,17 @@ func get_element() -> Element.enm:
 func set_element(element: Element.enm):
 	_current_element = element
 	
-	for tower_button in _tower_buttons.values():
-		tower_button.get_parent().hide()
-	
-	var available_towers_for_element = _get_available_tower_buttons_for_element(element)
-	
-	for tower_id in available_towers_for_element:
-		_tower_buttons[tower_id].get_parent().show()
+	if _current_element == Element.enm.NONE:
+		for tower_button in _tower_buttons.values():
+			tower_button.get_parent().show()
+	else:
+		for tower_button in _tower_buttons.values():
+			tower_button.get_parent().hide()
+		
+		var available_towers_for_element = _get_available_tower_buttons_for_element(element)
+		
+		for tower_id in available_towers_for_element:
+			_tower_buttons[tower_id].get_parent().show()
 
 
 func _on_Tower_built(tower_id):
