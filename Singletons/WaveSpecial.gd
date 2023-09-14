@@ -406,3 +406,10 @@ func _special_applies_to_creep(special: int, creep: Creep) -> bool:
 		special_applies = true
 
 	return special_applies
+
+
+func creep_has_flock_special(creep: Creep) -> bool:
+	var flock_special: BuffType = _buff_map[FLOCK]
+	var creep_has_buff: bool = creep.get_buff_of_type(flock_special) != null
+
+	return creep_has_buff
