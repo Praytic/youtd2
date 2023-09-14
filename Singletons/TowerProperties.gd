@@ -256,39 +256,6 @@ func get_towers_in_family(family_id: int) -> Array:
 	return family_list
 
 
-# NOTE: sell price may be different from cost if the tower
-# was upgraded. In those cases sell price will include
-# refunds for upgrades. Note that this is the 100% price
-# without applying any multipliers based on current game
-# mode. Need to not apply multipliers here because this f-n
-# is also used for transform refunds which doesn't need
-# multipliers.
-func get_sell_price(tower_id: int) -> int:
-	var current_cost: int = TowerProperties.get_cost(tower_id)
-	
-	var costs_for_prev_tiers: int = 0
-	var towers_in_family: Array = TowerProperties.get_towers_in_family(tower_id)
-	for prev_tower in towers_in_family:
-		if prev_tower == tower_id:
-			break
-
-		var prev_cost: int = TowerProperties.get_cost(prev_tower)
-		costs_for_prev_tiers += prev_cost
-
-	var sell_price: int = 0
-
-	sell_price += current_cost
-
-#	NOTE: costs for prev tiers is not included if game mode
-#	is Totally Random because in that game mode towers are
-#	built at higher tiers without upgrades.
-	var include_costs_for_prev_tiers: bool = Globals.game_mode != GameMode.enm.TOTALLY_RANDOM
-	if include_costs_for_prev_tiers:
-		sell_price += costs_for_prev_tiers
-
-	return sell_price
-
-
 # NOTE: this formula is the inverse of the formula for tower cost
 # from TowerDistribution._get_max_cost()
 func _get_required_wave_level_from_formula(tower_id: int) -> int:

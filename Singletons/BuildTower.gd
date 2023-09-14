@@ -146,7 +146,7 @@ func _build_tower(tower_id: int):
 # This is the value refunded when a tower is transformed
 # into another tower
 func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
-	var prev_sell_price: int = TowerProperties.get_sell_price(prev_tower_id)
+	var prev_cost: int = TowerProperties.get_cost(prev_tower_id)
 	var prev_family: int = TowerProperties.get_family(prev_tower_id)
 	var new_family: int = TowerProperties.get_family(new_tower_id)
 	var family_is_same: bool = prev_family == new_family
@@ -154,9 +154,9 @@ func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
 	var transform_refund: int
 
 	if family_is_same:
-		transform_refund = floori(prev_sell_price * 1.0)
+		transform_refund = floori(prev_cost * 1.0)
 	else:
-		transform_refund = floori(prev_sell_price * 0.75)
+		transform_refund = floori(prev_cost * 0.75)
 
 	return transform_refund
 
