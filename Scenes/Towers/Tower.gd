@@ -982,9 +982,7 @@ func get_gold_cost() -> int:
 	return get_csv_property(CsvProperty.COST).to_int()
 
 func get_inventory_capacity() -> int:
-	var rarity: Rarity.enm = get_rarity()
-	var tier: int = get_tier()
-	var capacity: int = Constants.INVENTORY_CAPACITY[rarity][tier]
+	var capacity: int = TowerProperties.get_inventory_capacity(_id)
 
 	return capacity
 

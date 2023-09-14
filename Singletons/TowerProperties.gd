@@ -330,3 +330,54 @@ func get_tome_cost(tower_id: int) -> int:
 	var tome_cost: int = tome_cost_map[rarity]
 
 	return tome_cost
+
+
+# Inventory capacity is derived from tower cost and there
+# are also min/max values based on tower rarity.
+# 
+# Examples:
+# 
+# Energy Junction is an uncommon tower which costs 500. 500
+# is between 400 and 1200, so it's capacity is 2. Capacity of 2
+# fits within the [1,4] range of allowed capacities for
+# uncommon towers.
+# 
+# Igloo is a rare tower and costs 700. 700 is between 400
+# and 1200 so it's capacity should be 2 BUT the minimum
+# capacity for rare towers is 3, so Igloo's capacity is 3.
+func get_inventory_capacity(tower_id: int) -> int:
+	var capacity_to_min_cost_map: Dictionary = {
+		1: 0,
+		2: 400,
+		3: 1200,
+		4: 1500,
+		5: 1700,
+		6: 2000,
+	}
+	var min_capacity_map: Dictionary = {
+		Rarity.enm.COMMON: 1,
+		Rarity.enm.UNCOMMON: 1,
+		Rarity.enm.RARE: 3,
+		Rarity.enm.UNIQUE: 5,
+	}
+	var max_capacity_map: Dictionary = {
+		Rarity.enm.COMMON: 4,
+		Rarity.enm.UNCOMMON: 4,
+		Rarity.enm.RARE: 5,
+		Rarity.enm.UNIQUE: 6,
+	}
+
+	var tower_cost: int = get_cost(tower_id)
+	var tower_rarity: Rarity.enm = get_rarity(tower_id)
+	var min_capacity: int = min_capacity_map[tower_rarity]
+	var max_capacity: int = max_capacity_map[tower_rarity]
+
+	for capacity in range(max_capacity, 0, -1):
+		var min_cost: int = capacity_to_min_cost_map[capacity]
+
+		if tower_cost >= min_cost:
+			var clamped_capacity: int = clampi(capacity, min_capacity, max_capacity)
+
+			return clamped_capacity
+
+	return 1
