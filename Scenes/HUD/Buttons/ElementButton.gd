@@ -22,7 +22,12 @@ func _ready():
 	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
-	ElementLevel.changed.connect(_on_element_level_changed)
+
+#	NOTE: ElementButton uses @tool so need this check
+#	because ElementLevel singleton is not available when
+#	this script is running in editor
+	if !Engine.is_editor_hint():
+		ElementLevel.changed.connect(_on_element_level_changed)
 	
 	_on_mouse_exited()
 	_on_element_level_changed()
@@ -35,6 +40,12 @@ func _make_custom_tooltip(for_text: String) -> Object:
 
 
 func _on_element_level_changed():
+#	NOTE: ElementButton uses @tool so need this check
+#	because ElementLevel singleton is not available when
+#	this script is running in editor
+	if Engine.is_editor_hint():
+		return
+
 	var curent_element_level = ElementLevel.get_current(element)
 	texture_progress_bar.value = curent_element_level
 	if curent_element_level == 0:
