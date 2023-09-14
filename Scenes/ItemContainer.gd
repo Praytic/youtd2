@@ -96,5 +96,5 @@ func get_item_at_index(index: int) -> Item:
 
 
 func _on_item_consumed(item: Item):
-	_item_list.erase(item)
-	items_changed.emit()
+	remove_item(item)
+	item.queue_free()
