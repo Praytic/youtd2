@@ -46,6 +46,7 @@ func add_error(text: String):
 		var last_label: RichTextLabel = child_list.back()
 
 		_error_message_container.remove_child(last_label)
+		last_label.queue_free()
 
 
 # Adds a normal message to the left side of the screen.
@@ -73,3 +74,4 @@ func add_normal(text: String):
 		var last_label: RichTextLabel = child_list.front()
 
 		_normal_message_container.remove_child(last_label)
+		last_label.queue_free()

@@ -95,6 +95,7 @@ func remove_tower_button(tower_id):
 	if no_more_towers_in_stack:
 		_tower_buttons.erase(tower_id)
 		remove_child(button_container)
+		button_container.queue_free()
 
 
 func get_element() -> Element.enm:
