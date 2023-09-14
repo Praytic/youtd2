@@ -143,12 +143,6 @@ func _ready():
 # 	Carry over some properties and all items from preceding
 # 	tower
 	if _temp_preceding_tower != null:
-		set_level(_temp_preceding_tower._level)
-		_experience = _temp_preceding_tower._experience
-		_kill_count = _temp_preceding_tower._kill_count
-		_best_hit = _temp_preceding_tower._best_hit
-		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
-
 		var preceding_item_list: Array = _temp_preceding_tower.get_items()
 		var preceding_oil_list: Array = _temp_preceding_tower.get_oils()
 
@@ -156,17 +150,31 @@ func _ready():
 			_temp_preceding_tower.get_item_container().remove_item(oil_item)
 			_item_container.add_item(oil_item)
 
+#		Remove items from preceding tower
+		for item in preceding_item_list:
+			_temp_preceding_tower.get_item_container().remove_item(item)
+
+#		NOTE: must set level and experience after removing
+#		items from preceding tower and before adding items
+#		to new tower. This is to correctly handle items
+#		which grant experience while carried.
+		set_level(_temp_preceding_tower._level)
+		_experience = _temp_preceding_tower._experience
+
+#		Add items to new tower
 #		NOTE: for upgrade case, inventory will always be
 #		same size or bigger but for transform case inventory
 #		may be smaller. Handle transform case by returning
 #		any extra items to stash.
 		for item in preceding_item_list:
-			_temp_preceding_tower.get_item_container().remove_item(item)
-
 			if have_item_space():
 				_item_container.add_item(item)
 			else:
 				item.fly_to_stash_from_pos(position)
+
+		_kill_count = _temp_preceding_tower._kill_count
+		_best_hit = _temp_preceding_tower._best_hit
+		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
 
 #	NOTE: some stats have an innate level-based modifier
 	var innate_modifier: Modifier = Modifier.new()
