@@ -79,11 +79,13 @@ var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 # NOTE: can't use @export because it breaks placeholder
 # tower scenes.
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
-@onready var _mana_bar: ProgressBar = $ManaBar
-@onready var _tower_selection_area: Area2D = $TowerSelectionArea
+@onready var _mana_bar: ProgressBar = $Visual/ManaBar
+@onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
 # NOTE: $Model/Sprite2D node is added in Tower subclass scenes 
+@onready var _model: Node2D = $Model
 @onready var _sprite: Sprite2D = $Model/Sprite2D
-@onready var _tower_actions: Control = $TowerActions
+@onready var _tower_actions: Control = $Visual/TowerActions
+@onready var _visual: Node2D = $Visual
 
 #########################
 ### Code starts here  ###
@@ -110,11 +112,26 @@ func _ready():
 
 #	If this tower is used for towerpreview, then exit early
 #	out of ready() so that no event handlers or auras are
-#	created so that the tower instance is inactive.
+#	created so that the tower instance is inactive. Also,
+#	this early exit has to happen before adjusting positions
+#	of visuals so that tower preview is correctly drawn
+#	under mouse.
 	if _visual_only:
 		_mana_bar.hide()
 
 		return
+
+#	Apply offsets to account for tower being "on the second floor".
+#	Visual nodes get moved up by one tile.
+# 	Also move selection visual because it's placed at ground
+# 	position in Unit.gd but needs to be at visual position
+# 	for towers.
+#	NOTE: important to use "-=" instead of "=" because these
+#	nodes may have default values which we don't want to
+#	override
+	_visual.position.y -= Constants.TILE_HEIGHT
+	_model.position.y -= Constants.TILE_HEIGHT
+	_selection_visual.position.y -= Constants.TILE_HEIGHT
 
 	var base_mana: float = get_csv_property(CsvProperty.MANA).to_float()
 	set_base_mana(base_mana)

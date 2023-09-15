@@ -60,7 +60,9 @@ func position_is_occupied(position: Vector2) -> bool:
 	return occupied
 
 
-func _get_tower_at_position(position: Vector2) -> Tower:
+func _get_tower_at_position(visual_position: Vector2) -> Tower:
+	var position: Vector2 = visual_position + Vector2(0, Constants.TILE_HEIGHT)
+
 	var tower_node_list: Array = get_tree().get_nodes_in_group("towers")
 
 	for tower_node in tower_node_list:
@@ -124,7 +126,8 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 
 func _build_tower(tower_id: int):
 	var new_tower: Tower = TowerManager.get_tower(tower_id)
-	var build_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
+	var visual_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
+	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_HEIGHT)
 	new_tower.position = build_position
 	Utils.add_object_to_world(new_tower)
 	tower_built.emit(tower_id)
