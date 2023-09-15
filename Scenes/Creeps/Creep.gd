@@ -17,7 +17,6 @@ const MOVE_SPEED_MIN: float = 1.0
 const MOVE_SPEED_MAX: float = 522.0
 const DEFAULT_MOVE_SPEED: float = 222.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
-const ISOMETRIC_ANGLE_DIFF: float = -30
 const ANIMATION_FOR_DIMENSIONS: String = "default"
 
 var _path: Path2D : set = set_path
@@ -175,21 +174,15 @@ func _move(delta):
 	_distance_covered += move_distance
 
 	var reached_path_point: bool = (position == path_point)
-
-	var move_direction: Vector2 = path_point - position
-	var move_angle: float = rad_to_deg(move_direction.angle())
-
-#	NOTE: on path turns, the move angle becomes 0 for some
-#	reason so don't update unit facing during that period
-	if int(abs(move_angle)) > 0:
-		set_unit_facing(move_angle)
 	
 	if reached_path_point:
 		_current_path_index += 1
 
+	var new_facing_angle: float = _get_current_movement_angle()
+	set_unit_facing(new_facing_angle)
+
 
 func _get_creep_animation() -> String:
-	
 	var animation_order: Array[String]
 	
 # TODO: Switch when certain speed limit is reached
@@ -199,47 +192,47 @@ func _get_creep_animation() -> String:
 		CreepSize.enm.MASS:
 			if creep_move_speed > DEFAULT_MOVE_SPEED * 0.90:
 				animation_order = [
-					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+					"run_E", "run_S", "run_W", "run_N"
 				]
 			else:
 				animation_order = [
-					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
 				]
 		CreepSize.enm.CHALLENGE_MASS:
 			if creep_move_speed > DEFAULT_MOVE_SPEED * 0.90:
 				animation_order = [
-					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+					"run_E", "run_S", "run_W", "run_N"
 				]
 			else:
 				animation_order = [
-					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
 				]
 		CreepSize.enm.BOSS:
 			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.50:
 				animation_order = [
-					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+					"run_E", "run_S", "run_W", "run_N"
 				]
 			else:
 				animation_order = [
-					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
 				]
 		CreepSize.enm.CHALLENGE_BOSS:
 			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.50:
 				animation_order = [
-					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+					"run_E", "run_S", "run_W", "run_N"
 				]
 			else:
 				animation_order = [
-					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
 				]
 		CreepSize.enm.NORMAL, CreepSize.enm.CHAMPION:
 			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.50:
 				animation_order = [
-					"run_E", "", "run_S", "", "run_W", "", "run_N", ""
+					"run_E", "run_S", "run_W", "run_N"
 				]
 			else:
 				animation_order = [
-					"slow_run_E", "", "slow_run_S", "", "slow_run_W", "", "slow_run_N", ""
+					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
 				]
 		CreepSize.enm.AIR:
 			animation_order = [
@@ -249,7 +242,15 @@ func _get_creep_animation() -> String:
 			animation_order = [
 				"stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand"
 			]
-	var animation_index: int = floor((_facing_angle + ISOMETRIC_ANGLE_DIFF + 10) / 45)
+
+# 	NOTE: convert facing angle to animation index by
+# 	breaking down the 360 degree space into sections. 4 for
+# 	ground units and 8 for air units. Then we figure out
+# 	which section does the facing angle belong to. The index
+# 	of that section will be equal to the animation index.
+	var section_count: int = animation_order.size()
+	var section_angle: float = 360.0 / section_count
+	var animation_index: int = roundi((_facing_angle - section_angle / 2) / section_angle)
 
 	if animation_index >= animation_order.size():
 		print_debug("animation_index out of bounds = ", animation_index)
@@ -301,10 +302,8 @@ func _on_death(_event: Event):
 #########################
 
 
-# NOTE: this angle needs to be for coordinate space with Y
-# axis going down, to match game world coordinate
-# conventions. For example, angle progression of 0, 10, 20
-# goes clock-wise.
+# Sets unit facing to an angle with respect to the positive
+# X axis, in degrees.
 # 
 # NOTE: SetUnitFacing() in JASS
 func set_unit_facing(angle: float):
@@ -424,3 +423,14 @@ func _calculate_current_z_index() -> int:
 	var total_z_index: int = base_z_index + height_z_index
 
 	return total_z_index
+
+
+# Returns current movement angle, top down and in degrees
+func _get_current_movement_angle() -> float:
+	var next_point: Vector2 = _path.get_curve().get_point_position(_current_path_index) + _path.position
+	var facing_vector_isometric: Vector2 = next_point - position
+	var facing_vector_top_down: Vector2 = Isometric._isometric_to_top_down(facing_vector_isometric)
+	var top_down_angle_radians: float = facing_vector_top_down.angle()
+	var top_down_angle_degrees: float = rad_to_deg(top_down_angle_radians)
+
+	return top_down_angle_degrees
