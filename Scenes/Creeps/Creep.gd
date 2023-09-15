@@ -429,7 +429,7 @@ func _calculate_current_z_index() -> int:
 func _get_current_movement_angle() -> float:
 	var next_point: Vector2 = _path.get_curve().get_point_position(_current_path_index) + _path.position
 	var facing_vector_isometric: Vector2 = next_point - position
-	var facing_vector_top_down: Vector2 = Isometric._isometric_to_top_down(facing_vector_isometric)
+	var facing_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(facing_vector_isometric)
 	var top_down_angle_radians: float = facing_vector_top_down.angle()
 	var top_down_angle_degrees: float = rad_to_deg(top_down_angle_radians)
 

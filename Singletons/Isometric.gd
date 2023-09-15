@@ -15,10 +15,10 @@ func vector_move_toward(start: Vector2, end: Vector2, delta: float) -> Vector2:
 
 
 func vector_move_toward_PIXELS(start: Vector2, end: Vector2, delta: float) -> Vector2:
-	var start_top_down: Vector2 = _isometric_to_top_down(start)
-	var end_top_down: Vector2 = _isometric_to_top_down(end)
+	var start_top_down: Vector2 = isometric_vector_to_top_down(start)
+	var end_top_down: Vector2 = isometric_vector_to_top_down(end)
 	var move_result_top_down: Vector2 = start_top_down.move_toward(end_top_down, delta)
-	var move_result_isometric: Vector2 = _top_down_to_isometric(move_result_top_down)
+	var move_result_isometric: Vector2 = top_down_vector_to_isometric(move_result_top_down)
 
 	return move_result_isometric
 
@@ -34,7 +34,7 @@ func vector_length(vector_isometric: Vector2) -> float:
 
 
 func vector_length_PIXELS(vector_isometric: Vector2) -> float:
-	var vector_top_down: Vector2 = _isometric_to_top_down(vector_isometric)
+	var vector_top_down: Vector2 = isometric_vector_to_top_down(vector_isometric)
 	var length: float = vector_top_down.length()
 
 	return length
@@ -56,13 +56,13 @@ func vector_distance_to_PIXELS(a: Vector2, b: Vector2) -> float:
 	return distance
 
 
-func _isometric_to_top_down(v: Vector2) -> Vector2:
+func isometric_vector_to_top_down(v: Vector2) -> Vector2:
 	var top_down: Vector2 = v * Vector2(1.0, 2.0)
 
 	return top_down
 
 
-func _top_down_to_isometric(v: Vector2) -> Vector2:
+func top_down_vector_to_isometric(v: Vector2) -> Vector2:
 	var top_down: Vector2 = v * Vector2(1.0, 0.5)
 
 	return top_down
