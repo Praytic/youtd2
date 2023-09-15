@@ -228,6 +228,7 @@ func _ready():
 
 	selected.connect(on_selected)
 	unselected.connect(on_unselected)
+	tree_exiting.connect(on_tree_exiting)
 
 	_temp_preceding_tower = null
 	
@@ -471,9 +472,16 @@ func load_specials(_modifier: Modifier):
 
 
 # Override this in tower subclass to implement the "On Tower
-# Creation" trigger. This is the analog of "onCreate"
-# function from original API.
+# Creation" trigger.
+# NOTE: onCreate in JASS
 func on_create(_preceding_tower: Tower):
+	pass
+
+
+# Override this in tower subclass to implement the "On Tower
+# Destruction" trigger.
+# NOTE: onDestruct in JASS
+func on_destruct():
 	pass
 
 
@@ -621,6 +629,10 @@ func on_selected():
 func on_unselected():
 	_range_indicator.hide()
 	_tower_actions.hide()
+
+
+func on_tree_exiting():
+	on_destruct()
 
 
 func _get_base_properties() -> Dictionary:
