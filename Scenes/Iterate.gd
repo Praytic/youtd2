@@ -37,6 +37,14 @@ static func over_units_in_range_of_unit(_caster: Unit, target_type: TargetType, 
 	return it
 
 
+static func over_corpses_in_range(_caster: Unit, x: float, y: float, radius: float) -> Iterate:
+	var center_pos: Vector2 = Vector2(x, y)
+#	TODO: replace with TargetType.CORPSES when it's implemented
+	var it: Iterate = Iterate.new(center_pos, TargetType.new(TargetType.CREEPS), radius)
+
+	return it
+
+
 # NOTE: iterate.next() in JASS
 func next() -> Unit:
 	_remove_invalid_units()
@@ -64,6 +72,11 @@ func next_random() -> Unit:
 		next_unit = null
 
 	return next_unit
+
+
+# TODO: implement
+func next_corpse() -> Unit:
+	return null
 
 
 # NOTE: iterate.destroy() in JASS
