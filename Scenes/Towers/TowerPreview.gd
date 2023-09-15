@@ -21,6 +21,12 @@ func _ready():
 
 	_range_indicator.set_radius(attack_range)
 
+#	NOTE: have to move range indicator down because tower sprite is on 2nd floor
+# 	and range indicator needs to be on 1st floor. Also note that setting
+# 	indicator's position doesn't work exactly, probably because of the way
+# 	range indicator is drawn.
+	_range_indicator.y_offset = 128
+
 	var visual_only: bool = true
 	_tower_instance = TowerManager.get_tower(tower_id, visual_only)
 	add_child(_tower_instance)

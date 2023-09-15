@@ -8,6 +8,8 @@ const TEXTURE_SCALE: float = 0.1
 @export var radius: float
 @onready var texture: Texture2D = load("res://Resources/PulsingDot.tres")
 
+var y_offset: float = 0.0
+
 
 func _draw():
 	_draw_circle_arc(self.position, 0, 360, Color.AQUA)
@@ -20,7 +22,7 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 	for i in range(nb_points + 1):
 		var current_angle: float = deg_to_rad(angle_from + i * (angle_to - angle_from) / nb_points)
 		var point_top_down: Vector2 = center + Vector2(radius, 0).rotated(current_angle)
-		var point_isometric: Vector2 = Isometric.top_down_vector_to_isometric(point_top_down)
+		var point_isometric: Vector2 = Isometric.top_down_vector_to_isometric(point_top_down) + Vector2(0, y_offset)
 		points_arc.push_back(point_isometric)
 	
 #	NOTE: need to divide points by scale because scale
