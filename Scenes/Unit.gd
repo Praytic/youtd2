@@ -797,24 +797,7 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource, i
 
 	Globals.add_to_total_damage(damage)
 
-	if Config.damage_numbers():
-		var damage_color: Color
-		var damage_text: String
-		
-		match damage_source:
-			DamageSource.Attack: 
-				damage_color = Color.RED
-			DamageSource.Spell:
-				damage_color = Color.SKY_BLUE
-		
-		if int(damage) != 0:
-			damage_text = str(int(damage))
-		else:
-			damage_text = "miss"
-		
-		var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + target.get_visual_position()
-		
-		get_player().display_floating_text_color_at_pos(damage_text, approx_position, damage_color, 1.0)
+	_add_floating_text_for_damage(damage, damage_source, target)
 
 	var health_after_damage: float = target.get_health()
 	var damage_killed_unit: bool = health_before_damage > 0 && health_after_damage <= 0
@@ -1538,3 +1521,26 @@ func _change_experience(amount: float) -> float:
 		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self, -20.0)
 
 	return actual_change
+
+
+func _add_floating_text_for_damage(damage: float, damage_source: DamageSource, target: Unit):
+	if !Config.damage_numbers():
+		return
+
+	var damage_color: Color
+	var damage_text: String
+	
+	match damage_source:
+		DamageSource.Attack: 
+			damage_color = Color.RED
+		DamageSource.Spell:
+			damage_color = Color.SKY_BLUE
+	
+	if int(damage) != 0:
+		damage_text = str(int(damage))
+	else:
+		damage_text = "miss"
+	
+	var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + target.get_visual_position()
+	
+	get_player().display_floating_text_color_at_pos(damage_text, approx_position, damage_color, 1.0)
