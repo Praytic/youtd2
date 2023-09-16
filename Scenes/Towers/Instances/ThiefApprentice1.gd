@@ -60,8 +60,10 @@ func on_create(_preceding_tower: Tower):
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower = self
-	m0ck_thief_multiboard.set_value(0, str(int(tower.user_real)))
+	var tower: Tower = self
+	var gold_stolen_text: String = Utils.format_float(tower.user_real, 0)
+	m0ck_thief_multiboard.set_value(0, gold_stolen_text)
+	
 	return m0ck_thief_multiboard
 
 

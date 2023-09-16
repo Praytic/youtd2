@@ -72,7 +72,8 @@ func debuff_on_damaged(event: Event):
 
 	if tower.calc_chance(0.2 + b.get_power() * 0.003):
 		event.damage = event.damage * b.user_real
-		tower.get_player().display_small_floating_text(str(event.damage), b.get_buffed_unit(), 128, 255, 255, 20)
+		var damage_text: String = Utils.format_float(event.damage, 0)
+		tower.get_player().display_small_floating_text(damage_text, b.get_buffed_unit(), 128, 255, 255, 20)
 
 
 func hit(p: Projectile, creep: Unit):

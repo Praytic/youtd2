@@ -80,4 +80,5 @@ func on_damage(event: Event):
 		tower.user_real = 0
 
 	if event.damage > damage:
-		tower.get_player().display_small_floating_text(str(int(event.damage)), tower, 255, 150, 150, 0)
+		var bonus_damage_text: String = Utils.format_float(event.damage, 0)
+		tower.get_player().display_small_floating_text(bonus_damage_text, tower, 255, 150, 150, 0)

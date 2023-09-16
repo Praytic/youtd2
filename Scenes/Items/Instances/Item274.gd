@@ -46,6 +46,7 @@ func on_create():
 
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
-
-	boekie_tombstonejibs.set_value(0, str(itm.user_int))
+	var tombstone_kills_text: String = Utils.format_float(itm.user_int, 0)
+	boekie_tombstonejibs.set_value(0, tombstone_kills_text)
+	
 	return boekie_tombstonejibs

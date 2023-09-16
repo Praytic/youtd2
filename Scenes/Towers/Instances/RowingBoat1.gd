@@ -91,6 +91,7 @@ func on_create(preceding_tower: Tower):
 
 func on_tower_details() -> MultiboardValues:
 	var tower: Tower = self
-#	Show total gold, stolen by this tower pirates ability
-	natac_pirates_MultiboardValue.set_value(0, str(tower.user_real))
+	var gold_plundered_text: String = Utils.format_float(tower.user_real, 2)
+	natac_pirates_MultiboardValue.set_value(0, gold_plundered_text)
+	
 	return natac_pirates_MultiboardValue

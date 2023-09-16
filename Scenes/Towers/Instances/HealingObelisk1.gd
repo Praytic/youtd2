@@ -52,7 +52,8 @@ func on_damage(event: Event):
 			if Utils.unit_is_valid(tower) && Utils.unit_is_valid(target):
 				target.set_health(target.get_health() + healing)
 				SFX.sfx_at_unit("HolyBoltSpecialArt.mdl", target)
-				tower.get_player().display_floating_text_x("+" + str(healing), target, 0, 255, 0, 255, 0.05, 0.0, 2.0)
+				var healing_text: String = "+%d" % healing
+				tower.get_player().display_floating_text_x(healing_text, target, 0, 255, 0, 255, 0.05, 0.0, 2.0)
 			else:
 				return
 

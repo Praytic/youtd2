@@ -73,7 +73,7 @@ func on_pickup():
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
 
-#	No decimal places
-	tomy_jahrakal_values.set_value(0, str(int(itm.user_real * 100)) + "%")
+	var attackspeed_bonus_text: String = Utils.format_percent(itm.user_real, 0)
+	tomy_jahrakal_values.set_value(0, attackspeed_bonus_text)
 
 	return tomy_jahrakal_values

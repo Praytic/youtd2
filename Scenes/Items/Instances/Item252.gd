@@ -48,6 +48,7 @@ func on_kill(_event: Event):
 
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
-	hokkei_critbonusMB.set_value(0, "x" + str(itm.user_real))
+	var crit_damage_bonus_text: String = "x" + Utils.format_float(itm.user_real, 3)
+	hokkei_critbonusMB.set_value(0, crit_damage_bonus_text)
 
 	return hokkei_critbonusMB

@@ -103,9 +103,11 @@ func on_tower_details() -> MultiboardValues:
 	var tower: Tower = self
 	var gold_amount: float = GoldControl.get_gold()
 	var excavation_value: int = 20 + int(pow(gold_amount, 0.5) / 5)
+	var gold_gained_text: String = Utils.format_float(tower.user_real, 2)
+	var goldrush_bonus_text: String = "%d%%" % excavation_value
 
-	drol_excavation_multi.set_value(0, str(int(tower.user_real)))
-	drol_excavation_multi.set_value(1, str(excavation_value) + "%")
+	drol_excavation_multi.set_value(0, gold_gained_text)
+	drol_excavation_multi.set_value(1, goldrush_bonus_text)
 
 	return drol_excavation_multi
 

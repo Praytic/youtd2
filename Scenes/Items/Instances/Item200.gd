@@ -112,9 +112,12 @@ func on_pickup():
 
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
-	Maj_spellbook.set_value(0, str(itm.user_int))
-	Maj_spellbook.set_value(1, Utils.format_percent(itm.user_real, 0))
-	Maj_spellbook.set_value(2, Utils.format_percent(itm.user_real2, 0))
+	var waves_left_text: String = Utils.format_float(itm.user_int, 2)
+	var item_quality_text: String = Utils.format_percent(itm.user_real, 0)
+	var item_chance_text: String = Utils.format_percent(itm.user_real2, 0)
+	Maj_spellbook.set_value(0, waves_left_text)
+	Maj_spellbook.set_value(1, item_quality_text)
+	Maj_spellbook.set_value(2, item_chance_text)
 	
 	return Maj_spellbook
 
