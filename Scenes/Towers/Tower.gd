@@ -380,20 +380,6 @@ func issue_target_order(order_type: String, target: Unit):
 #########################
 
 
-# If this is a crit, display floating text with damage and
-# exclamation marks.
-func _do_crit_floating_text(damage: float, crit_count: int):
-	if crit_count == 0:
-		return
-
-	var text: String = str(floor(damage))
-
-	for i in range(0, crit_count):
-		text += "!"
-
-	get_player().display_floating_text_color(text, self, Color.RED, 1.0)
-
-
 # NOTE: change color of projectile according to tower's
 # element. Note that this overrides projectile's natural color so
 # will need to rework this if we decide to make separate
@@ -727,8 +713,6 @@ func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
 
-	_do_crit_floating_text(damage, crit_count)
-	
 #	NOTE: set _number_of_crits here so that it's accesible
 #	in damage event handlers
 	_number_of_crits = crit_count
@@ -745,11 +729,6 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
-
-#	NOTE: only do crit floating text for the main target,
-#	don't do for splash targets because it would look too
-#	cluttered.
-	_do_crit_floating_text(damage, crit_count)
 
 #	NOTE: set _number_of_crits here so that it's accesible
 #	in damage event handlers_number_of_crits = crit_count
@@ -794,7 +773,6 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
-	_do_crit_floating_text(current_damage, crit_count)
 
 #	NOTE: set _number_of_crits here so that it's accesible
 #	in damage event handlers_number_of_crits = crit_count

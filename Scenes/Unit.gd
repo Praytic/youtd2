@@ -796,7 +796,7 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 
 	Globals.add_to_total_damage(damage)
 
-	_add_floating_text_for_damage(damage, damage_source, target)
+	_add_floating_text_for_damage(damage, crit_ratio, damage_source, is_main_target, target)
 
 	var health_after_damage: float = target.get_health()
 	var damage_killed_unit: bool = health_before_damage > 0 && health_after_damage <= 0
@@ -1522,10 +1522,12 @@ func _change_experience(amount: float) -> float:
 	return actual_change
 
 
-func _add_floating_text_for_damage(damage: float, damage_source: DamageSource, target: Unit):
-	if !Config.damage_numbers():
-		return
-
+# NOTE: it would be simpler to accept a "crit_count" arg
+# here instead of "crit_ratio" but that is not possible
+# because the youtd API for do_spell_damage() and
+# do_attack_damage() accepts crit_ratio. For this reason, we
+# have to re-derive the crit_count from crit_ratio.
+func _add_floating_text_for_damage(damage: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, target: Unit):
 	var damage_color: Color
 	var damage_text: String
 	
@@ -1539,7 +1541,41 @@ func _add_floating_text_for_damage(damage: float, damage_source: DamageSource, t
 		damage_text = str(int(damage))
 	else:
 		damage_text = "miss"
+
+	var crit_count: int = _derive_crit_count_from_crit_ratio(crit_ratio, damage_source)
+	var is_critical: bool = crit_count > 0
+
+	for i in range(0, crit_count):
+		damage_text += "!"
+
+	var text_origin_unit: Unit
+	if is_critical && damage_source == DamageSource.Attack:
+		text_origin_unit = self
+	else:
+		text_origin_unit = target
+
+#	NOTE: confusing logic for this boolean but this is how
+#	it worked in original youtd
+	var floating_text_should_be_shown: bool = Config.damage_numbers() || (damage_source == DamageSource.Attack && is_critical && is_main_target) || (damage_source == DamageSource.Spell && is_critical)
+	if !floating_text_should_be_shown:
+		return
 	
-	var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + target.get_visual_position()
+	var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + text_origin_unit.get_visual_position()
 	
 	get_player().display_floating_text_color_at_pos(damage_text, approx_position, damage_color, 1.0)
+
+
+# Example:
+# If crits deal 125% of normal damage and crit ratio is 1.50
+# Then crit count = (1.50 - 1.0) / (1.25 - 1.0) = 0.50 / 0.25 = 2
+func _derive_crit_count_from_crit_ratio(crit_ratio: float, damage_source: DamageSource) -> int:
+	var crit_damage_mod: float
+	match damage_source:
+		DamageSource.Attack:
+			crit_damage_mod	= get_prop_atk_crit_damage()
+		DamageSource.Spell:
+			crit_damage_mod	= get_spell_crit_damage()
+
+	var crit_count: int = roundi((crit_ratio - 1.0) / (crit_damage_mod - 1.0))
+
+	return crit_count
