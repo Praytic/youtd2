@@ -415,10 +415,10 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float) -> bool:
 	var caster: Unit = self
 	var dealt_mod: float = caster.get_prop_spell_damage_dealt()
 	var received_mod: float = target.get_prop_spell_damage_received()
-	var damage_total: float = damage * dealt_mod * received_mod * crit_ratio
+	var damage_total: float = damage * dealt_mod * received_mod
 	var is_main_target: bool = false
 
-	var killed_unit: bool = _do_damage(target, damage_total, DamageSource.Spell, is_main_target)
+	var killed_unit: bool = _do_damage(target, damage_total, crit_ratio,  DamageSource.Spell, is_main_target)
 
 	return killed_unit
 
@@ -466,15 +466,7 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 
 		_dealt_damage_signal_in_progress = false
 
-#	NOTE: according to this comment in one tower script,
-#	crit bonus damage should be applied after damage event:
-#
-# 	Quote: "The engine calculates critical strike extra
-# 	damage ***AFTER*** the onDamage event, so there is no
-# 	need to care about it in this trigger."
-	damage *= crit_ratio
-
-	_do_damage(target, damage, DamageSource.Attack, is_main_target)
+	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target)
 
 
 # NOTE: sides_ratio parameter specifies how much less damage
@@ -760,12 +752,19 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource, is_main_target: bool) -> bool:
+# NOTE: according to this comment in one tower script, crit
+# damage bonus must be applied after "damage" event (not
+# "damaged").
+#
+# Quote: "The engine calculates critical strike extra
+# damage ***AFTER*** the onDamage event, so there is no
+# need to care about it in this trigger."
+func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool) -> bool:
 	var size_mod: float = _get_damage_mod_for_creep_size(target)
 	var category_mod: float = _get_damage_mod_for_creep_category(target)
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
 
-	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
+	var damage: float = damage_base * size_mod * category_mod * armor_type_mod * crit_ratio
 
 # 	NOTE: all spell damage is reduced by this amount
 	if damage_source == DamageSource.Spell:
