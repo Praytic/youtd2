@@ -39,7 +39,6 @@ enum DamageSource {
 
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 const REGEN_PERIOD: float = 1.0
-const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
 var _visual_node: Node2D = null
 var _sprite_dimensions: Vector2 = Vector2(100, 100)
@@ -834,7 +833,7 @@ func _killed_by_unit(caster: Unit):
 
 	var caster_item_chance: float = caster.get_item_drop_ratio()
 	var target_item_chance: float = get_item_drop_ratio_on_death()
-	var item_chance: float = BASE_ITEM_DROP_CHANCE * caster_item_chance * target_item_chance
+	var item_chance: float = Constants.BASE_ITEM_DROP_CHANCE * caster_item_chance * target_item_chance
 
 	var creep: Creep = self as Creep
 

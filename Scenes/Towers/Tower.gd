@@ -37,8 +37,6 @@ enum AttackStyle {
 }
 
 
-const ATTACK_CD_MIN: float = 0.2
-const PROJECTILE_SPEED: int = 1400
 # NOTE: this range needs to be bigger than distance between
 # normal creeps moving at default speed. Can calculate by
 # multiplying CreepSpawner.NORMAL_SPAWN_DELAY_SEC and
@@ -46,11 +44,9 @@ const PROJECTILE_SPEED: int = 1400
 # Current value = 0.9 * 222 = 200
 # + 25 for error margin from timers
 # = 225
-const BOUNCE_RANGE: int = 225
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
 const TARGET_TYPE_GROUND_ONLY: int = TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS
 const TARGET_TYPE_AIR_ONLY: int = TargetType.CREEPS + TargetType.SIZE_AIR
-const INVENTORY_CAPACITY_MAX: int = 6
 
 var _id: int = 0
 var _stats: Dictionary
@@ -153,7 +149,7 @@ func _ready():
 	_on_mana_changed()
 	_mana_bar.visible = get_base_mana() > 0
 
-	_default_projectile_type = ProjectileType.create("", 0.0, PROJECTILE_SPEED)
+	_default_projectile_type = ProjectileType.create("", 0.0, Constants.PROJECTILE_SPEED)
 	_default_projectile_type.enable_homing(_on_projectile_target_hit, 0.0)
 
 # 	Carry over some properties and all items from preceding
@@ -624,7 +620,7 @@ func _get_base_properties() -> Dictionary:
 
 
 func _get_next_bounce_target(prev_target: Creep) -> Creep:
-	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, BOUNCE_RANGE)
+	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, Constants.BOUNCE_ATTACK_RANGE)
 
 	creep_list.erase(prev_target)
 
@@ -878,7 +874,7 @@ func get_overall_cooldown() -> float:
 	var attack_cooldown: float = get_base_cooldown()
 	var attack_speed_mod: float = get_base_attack_speed()
 	var overall_cooldown: float = attack_cooldown / attack_speed_mod
-	overall_cooldown = max(ATTACK_CD_MIN, overall_cooldown)
+	overall_cooldown = max(Constants.ATTACK_COOLDOWN_MIN, overall_cooldown)
 
 	return overall_cooldown
 

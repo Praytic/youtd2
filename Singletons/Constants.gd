@@ -69,3 +69,20 @@ const ATK_CRIT_CHANCE_CAP: float = 0.8
 const ATK_MULTICRIT_DIMISHING: float = 0.8
 const MOD_ATTACKSPEED_MIN: float = 0.2
 const MOD_ATTACKSPEED_MAX: float = 5.0
+const ATTACK_COOLDOWN_MIN: float = 0.2
+
+const PROJECTILE_SPEED: int = 1400
+const BOUNCE_ATTACK_RANGE: int = 225
+const BASE_ITEM_DROP_CHANCE: float = 0.0475
+
+# NOTE: DEFAULT_MOVE_SPEED was obtained by measuring speed
+# in original game. 2000 / 9s ~= 222
+# 
+# MOVE_SPEED_MAX can be found online, search "warcraft 3 max
+# speed 522"
+# 
+# NOTE: actual MOVE_SPEED_MIN is never reached because
+# movespeed formula contains pow()
+const MOVE_SPEED_MIN: float = 1.0
+const MOVE_SPEED_MAX: float = 522.0
+const DEFAULT_MOVE_SPEED: float = 222.0
