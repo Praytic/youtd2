@@ -1,4 +1,8 @@
-[gd_scene format=3 uid="uid://dan6pqpxexgbi"]
+[gd_scene load_steps=3 format=3 uid="uid://dan6pqpxexgbi"]
+
+[ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="1_2itcc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqjbr"]
 
 [node name="ItemFilterButton" type="Button"]
 custom_minimum_size = Vector2(64, 64)
@@ -6,4 +10,22 @@ offset_right = 64.0
 offset_bottom = 64.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_xqjbr")
 toggle_mode = true
+icon = ExtResource("1_2itcc")
+
+[node name="CountLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 10
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1

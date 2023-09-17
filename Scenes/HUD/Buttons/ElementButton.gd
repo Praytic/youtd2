@@ -3,7 +3,7 @@ extends Button
 
 @export var element: Element.enm
 @export var texture_progress_bar: TextureProgressBar
-@export var progress_label: Label
+@export var counter_label: Label
 
 
 var research_mode: bool
@@ -18,6 +18,13 @@ func _ready():
 	_on_element_level_changed()
 
 
+func set_towers_counter(value: int):
+	if value == 0:
+		counter_label.text = ""
+	else:
+		counter_label.text = str(value)
+
+
 func _make_custom_tooltip(for_text: String) -> Object:
 	var label = RichTextLabel.new()
 	label.append_text(for_text)
@@ -27,18 +34,14 @@ func _make_custom_tooltip(for_text: String) -> Object:
 func _on_element_level_changed():
 	var curent_element_level = ElementLevel.get_current(element)
 	texture_progress_bar.value = curent_element_level
-	if curent_element_level == 0:
-		progress_label.text = ""
-	else:
-		progress_label.text = str(curent_element_level)
 
 
 func _on_mouse_entered():
 	texture_progress_bar.show()
-	progress_label.show()
+	counter_label.show()
 
 
 func _on_mouse_exited():
 	texture_progress_bar.hide()
-	progress_label.hide()
+	counter_label.hide()
 

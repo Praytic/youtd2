@@ -6,8 +6,6 @@ signal test_signal()
 
 @export var _item_stash_menu: GridContainer
 @export var _build_bar: GridContainer
-@export var _item_menu_button: Button
-@export var _building_menu_button: Button
 @export var _research_button: Button
 @export var _elements_container: HBoxContainer
 @export var _tomes_status: ResourceStatusPanel
@@ -30,6 +28,7 @@ func _ready():
 	
 	KnowledgeTomesManager.changed.connect(_on_knowledge_tomes_changed)
 	ItemStash.items_changed.connect(_on_item_stash_changed)
+	_build_bar.towers_changed.connect(_on_tower_stash_changed)
 	_on_item_stash_changed()
 	
 	set_element(Element.enm.ICE)
@@ -39,10 +38,6 @@ func _ready():
 	HighlightUI.register_target("tomes_status", _tomes_status)
 	HighlightUI.register_target("gold_status", _gold_status)
 	HighlightUI.register_target("tower_stash", _tower_stash)
-
-
-func _process(_delta):
-	_building_menu_button.text = str(_build_bar.get_child_count())
 
 
 func _on_upgrade_element_button_pressed():
@@ -82,22 +77,16 @@ func get_elements_container() -> Control:
 	return _elements_container
 
 
-func get_item_menu_button() -> Button:
-	return _item_menu_button
+func get_item_rarity_filter_button(rarity: Rarity.enm) -> Button:
+	var target_button
+	for button in _item_rarity_filter_button_group.get_buttons():
+		if button.filter_value == rarity:
+			target_button = button
+			break
+	return target_button
 
 
 func set_element(element: Element.enm):
-#	Dim the color of unselected element buttons
-	var buttons: Array = _element_filter_button_group.get_buttons()
-
-	for button in buttons:
-		var button_is_selected: bool = button.element == element
-
-		if button_is_selected:
-			button.modulate = Color.WHITE
-		else:
-			button.modulate = Color.WHITE.darkened(0.4)
-
 	_build_bar.set_element(element)
 
 #	NOTE: set_value() is a member of Range class which is an
@@ -108,20 +97,20 @@ func set_element(element: Element.enm):
 	_update_upgrade_element_button()
 
 
-func _on_item_rarity_filter_button_toggled():
+func _on_item_rarity_filter_button_toggled(_toggle: bool):
 	var active_button = _item_rarity_filter_button_group.get_pressed_button()
-	_on_item_filter_changed(active_button)
+	_item_stash_menu.set_current_item_rarity_filter(active_button.filter_value)
+	
+#	NOTE: set_value() is a member of Range class which is an
+#	ancestor of HScrollBar class
+	var scroll_bar: HScrollBar = _item_stash_scroll_container.get_h_scroll_bar()
+	scroll_bar.set_value(0.0)
 
 
-func _on_item_type_filter_button_toggled():
+func _on_item_type_filter_button_toggled(_toggle: bool):
 	var active_button = _item_type_filter_button_group.get_pressed_button()
-	_item_stash_menu.set_item_filter()
-
-
-func _on_item_filter_changed(button):
-	_item_stash_menu.set_item_filter() = button.filter_value
-	item_filter_updated.emit(_current_item_rarity_filter, _current_item_type_filter)
-
+	_item_stash_menu.set_current_item_type_filter(active_button.filter_value)
+	
 #	NOTE: set_value() is a member of Range class which is an
 #	ancestor of HScrollBar class
 	var scroll_bar: HScrollBar = _item_stash_scroll_container.get_h_scroll_bar()
@@ -144,8 +133,16 @@ func _on_stash_margin_container_gui_input(event):
 
 func _on_item_stash_changed():
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
-	var item_button_count: int = item_stash_container.get_item_count()
-	_item_menu_button.text = str(item_button_count)
+	for button in _item_rarity_filter_button_group.get_buttons():
+		button.items_count = item_stash_container.get_item_count(button.filter_value, null)
+	for button in _item_type_filter_button_group.get_buttons():
+		button.items_count = item_stash_container.get_item_count(null, button.filter_value)
+
+
+func _on_tower_stash_changed():
+	for button in _element_filter_button_group.get_buttons():
+		var filtered_towers_count = _build_bar.get_towers_count(button.element)
+		button.set_towers_counter(filtered_towers_count)
 
 
 func _update_upgrade_element_button():

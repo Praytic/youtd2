@@ -291,14 +291,13 @@ script = ExtResource("6")
 metadata/_edit_vertical_guides_ = []
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 251)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 130.0
-offset_top = -251.0
-offset_right = -284.0
+offset_top = -199.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = -2
@@ -473,6 +472,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 8
 theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 6
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 40
 
@@ -482,12 +482,20 @@ size_flags_vertical = 4
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/RightMenu/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/RightMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 35
-text = "YOU TD 2"
-horizontal_alignment = 1
-vertical_alignment = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+
+[node name="MenuButton" type="MenuButton" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/RightMenu/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Actions"
+flat = false
+item_count = 2
+popup/item_0/text = " Research Elements"
+popup/item_0/id = 0
+popup/item_1/text = "Merge Items"
+popup/item_1/id = 1
 
 [node name="GoldStatusPanel" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/RightMenu/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
 layout_mode = 2
@@ -506,9 +514,6 @@ layout_mode = 2
 script = ExtResource("13_b8pl0")
 icon_texture = SubResource("AtlasTexture_h4urn")
 default_label_text = "0/60"
-
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/MarginContainer2"]
-layout_mode = 2
 
 [node name="CentralMenu2" type="MarginContainer" parent="HBoxContainer"]
 z_index = -1

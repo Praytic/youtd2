@@ -64,8 +64,8 @@ func remove_item(item: Item):
 # NOTE: important to return a deep copy so that this list
 # can be correctly used in code which adds or removes items
 # from container.
-func get_item_list(rarity_filter, type_filter) -> Array[Item]:
-	var item_list = []
+func get_item_list(rarity_filter = null, type_filter = null) -> Array[Item]:
+	var item_list: Array[Item]
 	for item in _item_list.duplicate():
 		if (item.get_rarity() == rarity_filter or item.get_rarity() == null) \
 			and (item.get_item_type() == type_filter or item.get_item_type() == null):
@@ -73,8 +73,8 @@ func get_item_list(rarity_filter, type_filter) -> Array[Item]:
 	return item_list
 
 
-func get_item_count() -> int:
-	var item_count: int = _item_list.size()
+func get_item_count(rarity_filter = null, type_filter = null) -> int:
+	var item_count: int = get_item_list(rarity_filter, type_filter).size()
 
 	return item_count
 
