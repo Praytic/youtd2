@@ -24,6 +24,7 @@ var _buff: Buff
 # NOTE: damage may be modified in event handlers to change
 # the final effect of the event
 var damage: float
+var _number_of_crits: int = 0
 # target is of type Unit, can't use typing because of cyclic dependency...
 var _target: Unit
 var _is_main_target: bool = false
@@ -79,3 +80,14 @@ func enable_advanced(wait_time: float, one_shot: bool):
 
 	_timer.wait_time = wait_time
 	_timer.one_shot = one_shot
+
+
+# This returns the number of crits for current attack or
+# damage instance. This contains a valid value only inside
+# the following events: attack, attacked, damage, damaged.
+# 
+# NOTE: tower.getNumberOfCrits() in JASS
+# This function belongs to Tower in JASS engine but I moved
+# to Event because it makes more sense.
+func get_number_of_crits() -> int:
+	return _number_of_crits

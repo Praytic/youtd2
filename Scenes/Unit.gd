@@ -96,7 +96,6 @@ var _stun_effect_id: int = -1
 var _visual_only: bool = false
 var _autocast_list: Array[Autocast] = []
 var _stored_visual_modulate: Color = Color.WHITE
-var _number_of_crits: int = 0
 
 var _selection_visual: Node = null
 
@@ -273,19 +272,6 @@ func add_aura(aura_type: AuraType):
 # Node.get_owner() is a built-in godot f-n
 func get_player() -> Player:
 	return _player
-
-
-# This returns the number of crits for current attack or
-# damage instance. This contains a valid value only inside
-# the following events: attack, attacked, damage, damaged.
-# This f-n will always return 0 outside of these events.
-# Note that for "attack" event this will return the crit
-# count for damage which will happen when projectile reaches
-# the target.
-
-# NOTE: unit.getNumberOfCrits() in JASS
-func get_number_of_crits() -> int:
-	return _number_of_crits
 
 
 # NOTE: this is a stub, used in original tower scripts but
@@ -761,11 +747,10 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	var damage_event: Event = Event.new(target)
 	damage_event.damage = damage
 	damage_event._is_main_target = is_main_target
+	damage_event._number_of_crits = crit_count
 	if should_emit_damage_event:
 		_dealt_damage_signal_in_progress = true
-		_number_of_crits = crit_count
 		dealt_damage.emit(damage_event)
-		_number_of_crits = 0
 		_dealt_damage_signal_in_progress = false
 
 # 	NOTE: update damage value because it could've been
@@ -784,9 +769,8 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	damaged_event.damage = damage
 	damaged_event._is_main_target = is_main_target
 	damaged_event._is_spell_damage = damage_source == DamageSource.Spell
-	_number_of_crits = crit_count
+	damaged_event._number_of_crits = crit_count
 	target.damaged.emit(damaged_event)
-	_number_of_crits = 0
 
 # 	NOTE: update damage value because it could've been
 # 	altered by event handlers of target's "damaged" event

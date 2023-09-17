@@ -541,9 +541,8 @@ func _attack_target(target: Unit):
 	_crit_damage_ratio_for_next_attack = 0.0
 
 	var attack_event: Event = Event.new(target)
-	_number_of_crits = crit_count
+	attack_event._number_of_crits = crit_count
 	attack.emit(attack_event)
-	_number_of_crits = 0
 
 #	NOTE: handlers for attack event may order the tower to
 #	stop attacking or switch to a different target. Process
@@ -562,9 +561,8 @@ func _attack_target(target: Unit):
 		return
 
 	var attacked_event: Event = Event.new(target)
-	_number_of_crits = crit_count
+	attacked_event._number_of_crits = crit_count
 	target.attacked.emit(attacked_event)
-	_number_of_crits = 0
 
 	var projectile: Projectile = _make_projectile(self, target)
 	projectile.set_tower_crit_count(crit_count)

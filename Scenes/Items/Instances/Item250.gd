@@ -27,10 +27,10 @@ func item_init():
 	crit_blade_multiboard.set_key(0, "Crit Gained")
 
 
-func on_attack(_event: Event):
+func on_attack(event: Event):
 	var itm: Item = self
 
-	if (itm.get_carrier().get_number_of_crits() > 0):
+	if event.get_number_of_crits() > 0:
 		itm.get_carrier().modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -itm.user_real)
 		itm.user_real = 0
 	else:
