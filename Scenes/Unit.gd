@@ -731,22 +731,6 @@ func _on_regen_timer_timeout():
 	set_health(_health + health_regen)
 
 
-func _do_attack(attack_event: Event, crit_count: int):
-	_number_of_crits = crit_count
-
-	attack.emit(attack_event)
-
-	var target = attack_event.get_target()
-	target._receive_attack()
-
-	_number_of_crits = 0
-
-
-func _receive_attack():
-	var attacked_event: Event = Event.new(self)
-	attacked.emit(attacked_event)
-
-
 func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool) -> bool:
 	var crit_count: int = _derive_crit_count_from_crit_ratio(crit_ratio, damage_source)
 

@@ -540,9 +540,15 @@ func _attack_target(target: Unit):
 	var additional_crit_damage_ratio: float = _crit_damage_ratio_for_next_attack
 	_crit_damage_ratio_for_next_attack = 0.0
 
-	var attack_event: Event = Event.new(target)
+	_number_of_crits = crit_count
 
-	super._do_attack(attack_event, crit_count)
+	var attack_event: Event = Event.new(target)
+	attack.emit(attack_event)
+
+	var attacked_event: Event = Event.new(target)
+	target.attacked.emit(attacked_event)
+
+	_number_of_crits = 0
 
 	if _order_stop_requested:
 		_order_stop_requested = false
