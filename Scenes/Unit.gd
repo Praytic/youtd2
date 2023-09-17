@@ -737,19 +737,12 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-# NOTE: according to this comment in one tower script, crit
-# damage bonus must be applied after "damage" event (not
-# "damaged").
-#
-# Quote: "The engine calculates critical strike extra
-# damage ***AFTER*** the onDamage event, so there is no
-# need to care about it in this trigger."
 func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool) -> bool:
 	var size_mod: float = _get_damage_mod_for_creep_size(target)
 	var category_mod: float = _get_damage_mod_for_creep_category(target)
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
 
-	var damage: float = damage_base * size_mod * category_mod * armor_type_mod * crit_ratio
+	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
 
 # 	NOTE: all spell damage is reduced by this amount
 	if damage_source == DamageSource.Spell:
@@ -778,6 +771,14 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 		dealt_damage.emit(damage_event)
 
 	damage = damage_event.damage
+
+#	NOTE: crit damage bonus must be applied after "damage"
+#	event. This is according to this comment in the original
+#	script for Burrow tower.
+#	Comment: "The engine calculates critical strike extra
+#	damage ***AFTER*** the onDamage event, so there is no
+#	need to care about it in this trigger."
+	damage *= crit_ratio
 
 	_dealt_damage_signal_in_progress = false
 
