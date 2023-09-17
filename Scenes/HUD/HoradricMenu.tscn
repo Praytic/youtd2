@@ -10,7 +10,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjhr8"]
 
-[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_slots_container", "_items_container", "_transmute_button")]
+[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_slots_container", "_items_container", "_transmute_button", "_result_slot", "_transmute_result_label")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -28,7 +28,9 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_0jpan")
 script = ExtResource("2_884ge")
 _slots_container = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container/EmptySlotsContainer")
 _items_container = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container/ItemsContainer")
-_transmute_button = NodePath("")
+_transmute_button = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/AspectRatioContainer/TransmutationButton")
+_result_slot = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/AspectRatioContainer/VBoxContainer/ResultEmptySlot")
+_transmute_result_label = NodePath("MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/TransmuteResultLabel")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 show_behind_parent = true
@@ -69,7 +71,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/AspectRatioContainer"]
+[node name="TransmutationButton" type="Button" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/AspectRatioContainer"]
 layout_mode = 2
 theme_type_variation = &"TransmuteButton"
 
@@ -105,10 +107,13 @@ size_flags_vertical = 3
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="Container" type="PanelContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -117,7 +122,6 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_vjhr8")
 
 [node name="EmptySlotsContainer" type="GridContainer" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container"]
 layout_mode = 2
-size_flags_vertical = 3
 mouse_filter = 2
 columns = 3
 
@@ -150,7 +154,13 @@ stretch_mode = 2
 layout_mode = 2
 columns = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="TransmuteResultLabel" type="RichTextLabel" parent="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+theme_override_font_sizes/normal_font_size = 26
+bbcode_enabled = true
+text = "[center][color=GRAY]Place ingridients here[/color][/center]"
+fit_content = true
 
 [connection signal="gui_input" from="MarginContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container/ItemsContainer" to="." method="_on_items_container_gui_input"]

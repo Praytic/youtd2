@@ -6,15 +6,12 @@ signal test_signal()
 
 @export var _item_stash_menu: GridContainer
 @export var _build_bar: GridContainer
-@export var _research_button: Button
-@export var _horadric_cube_button: Button
 @export var _elements_container: HBoxContainer
 @export var _tomes_status: ResourceStatusPanel
 @export var _gold_status: ResourceStatusPanel
 @export var _tower_stash: GridContainer
 @export var _tower_stash_scroll_container: ScrollContainer
 @export var _item_stash_scroll_container: ScrollContainer
-@export var _horadric_cube: PanelContainer
 @export var _center_menu: VBoxContainer
 
 var _item_rarity_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/item_rarity_filter_button_group.tres")
@@ -32,53 +29,16 @@ func _ready():
 	for element_button in _element_filter_button_group.get_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 	
-	KnowledgeTomesManager.changed.connect(_on_knowledge_tomes_changed)
 	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_build_bar.towers_changed.connect(_on_tower_stash_changed)
-	_horadric_cube_button.pressed.connect(_on_horadric_cube_button_pressed)
 	_on_item_stash_changed()
 	
 	set_element(Element.enm.ICE)
 	
-	HighlightUI.register_target("horadric_cube_button", _horadric_cube_button)
-	HighlightUI.register_target("research_button", _research_button)
 	HighlightUI.register_target("elements_container", _elements_container)
 	HighlightUI.register_target("tomes_status", _tomes_status)
 	HighlightUI.register_target("gold_status", _gold_status)
 	HighlightUI.register_target("tower_stash", _tower_stash)
-
-
-func _on_upgrade_element_button_pressed():
-	var element: Element.enm = _element_filter_button_group.get_pressed_button().element
-	ElementLevel.increment(element)
-
-	var cost: int = ElementLevel.get_research_cost(element)
-	KnowledgeTomesManager.spend(cost)
-
-#	NOTE: force update of button tooltip
-	_on_upgrade_element_button_mouse_entered()
-
-	_update_upgrade_element_button()
-
-
-func _on_upgrade_element_button_mouse_entered():
-	var element: Element.enm = _element_filter_button_group.get_pressed_button().element
-	EventBus.research_button_mouse_entered.emit(element)
-
-
-func _on_upgrade_element_button_mouse_exited():
-	EventBus.research_button_mouse_exited.emit()
-
-
-func _on_knowledge_tomes_changed():
-	_update_upgrade_element_button()
-
-
-# NOTE: below are getters for elements inside bottom menu
-# bar which are used as targets by TutorialMenu. This is to
-# avoid hardcoding paths to these elements in TutorialMenu.
-func get_research_button() -> Control:
-	return _research_button
 
 
 func get_elements_container() -> Control:
@@ -101,8 +61,6 @@ func set_element(element: Element.enm):
 #	ancestor of HScrollBar class
 	var scroll_bar: HScrollBar = _tower_stash_scroll_container.get_h_scroll_bar()
 	scroll_bar.set_value(0.0)
-
-	_update_upgrade_element_button()
 
 
 func _on_item_rarity_filter_button_toggled(_toggle: bool):
@@ -133,7 +91,6 @@ func _on_item_type_filter_button_toggled(_toggle: bool):
 
 func _on_ElementButton_pressed(element_button):
 	set_element(element_button.element)
-	_update_upgrade_element_button()
 
 
 func _on_BuildMenuButton_pressed():
@@ -157,17 +114,3 @@ func _on_tower_stash_changed():
 	for button in _element_filter_button_group.get_buttons():
 		var filtered_towers_count = _build_bar.get_towers_count(button.element)
 		button.set_towers_counter(filtered_towers_count)
-
-
-func _update_upgrade_element_button():
-	var element: Element.enm = _build_bar.get_element()
-	var can_afford: bool = ElementLevel.can_afford_research(element)
-	var current_level: int = ElementLevel.get_current(element)
-	var reached_max_level: bool = current_level == ElementLevel.get_max()
-	var button_is_enabled: bool = can_afford && !reached_max_level
-
-	_research_button.set_disabled(!button_is_enabled)
-
-
-func _on_horadric_cube_button_pressed():
-	_on_horadric_cube_button_pressed

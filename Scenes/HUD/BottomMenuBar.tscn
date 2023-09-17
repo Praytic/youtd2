@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=87 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://eabew2p3tsgy" path="res://Resources/Theme/bottom_menu_theme.tres" id="1_u18mo"]
 [ext_resource type="Theme" uid="uid://dtwj74dyjwmi7" path="res://Resources/Theme/custom_theme.tres" id="4_nd5uj"]
@@ -27,9 +27,7 @@
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemRarityFilterButton.gd" id="15_v3m0n"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemTypeFilterButton.gd" id="16_24l1e"]
 [ext_resource type="ButtonGroup" uid="uid://cycas5vk7h2lw" path="res://Resources/UI/ButtonGroup/item_type_filter_button_group.tres" id="16_qxwth"]
-[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="17_apxp3"]
 [ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://Resources/Textures/UI/Icons/common_icon.tres" id="23_epww5"]
-[ext_resource type="PackedScene" uid="uid://c376o14gmtncc" path="res://Scenes/HUD/HoradricMenu.tscn" id="23_kyf7o"]
 [ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="26_rmo34"]
 [ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Textures/UI/Icons/rare_icon.tres" id="27_obbs7"]
 [ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Textures/UI/Icons/unique_icon.tres" id="28_03ksw"]
@@ -127,14 +125,6 @@ texture = ExtResource("15_1k1ce")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_toos0"]
 texture = ExtResource("15_1k1ce")
 modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kr6cq"]
-atlas = ExtResource("17_apxp3")
-region = Rect2(0, 128, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fq67d"]
-atlas = ExtResource("17_apxp3")
-region = Rect2(128, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rpdmv"]
 atlas = ExtResource("5_2y3fp")
@@ -240,7 +230,7 @@ texture = ExtResource("32_8lj72")
 texture = ExtResource("32_8lj72")
 modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
 
-[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_research_button", "_horadric_cube_button", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_horadric_cube", "_center_menu")]
+[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -252,15 +242,12 @@ theme = ExtResource("1_u18mo")
 script = ExtResource("6")
 _item_stash_menu = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/ItemStashMenu")
 _build_bar = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/BuildBar")
-_research_button = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/MarginContainer/HBoxContainer/ResearchButton")
-_horadric_cube_button = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/MarginContainer/HBoxContainer/CraftButton")
 _elements_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer")
 _tomes_status = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/KnowledgeTomeStatusPanel")
 _gold_status = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/GoldStatusPanel")
 _tower_stash = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/ItemStashMenu")
 _tower_stash_scroll_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer")
 _item_stash_scroll_container = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer")
-_horadric_cube = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/HoradricMenu")
 _center_menu = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu")
 metadata/_edit_vertical_guides_ = []
 
@@ -448,31 +435,12 @@ size_flags_vertical = 4
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu"]
-custom_minimum_size = Vector2(0, 55)
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu"]
 layout_mode = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_right = 30
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/MarginContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="ResearchButton" type="Button" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-tooltip_text = "Research currently selected element"
-theme_type_variation = &"CircleButton"
-icon = SubResource("AtlasTexture_kr6cq")
-icon_alignment = 1
-expand_icon = true
-
-[node name="CraftButton" type="Button" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(55, 55)
-layout_mode = 2
-theme_type_variation = &"CircleButton"
-icon = SubResource("AtlasTexture_fq67d")
-expand_icon = true
+theme_override_font_sizes/font_size = 32
+text = "You TD 2"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="GoldStatusPanel" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
 layout_mode = 2
@@ -491,10 +459,6 @@ layout_mode = 2
 script = ExtResource("13_b8pl0")
 icon_texture = SubResource("AtlasTexture_h4urn")
 default_label_text = "0/60"
-
-[node name="HoradricMenu" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer" instance=ExtResource("23_kyf7o")]
-visible = false
-layout_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2

@@ -5,11 +5,28 @@ extends PanelContainer
 @export var _slots_container: GridContainer
 @export var _items_container: GridContainer
 @export var _transmute_button: Button
+# TODO: Current implementation doesn't allow to easily add resulted
+# transmutation to any EmptySlotButton.
+@export var _result_slot: EmptySlotButton
+# Shows the status of transmutation. E.g. ("Transmute was unlucky: -16 levels")
+@export var _transmute_result_label: RichTextLabel : get = get_transmute_result_label
 
 
 func _ready():
 	HoradricCube.items_changed.connect(_on_items_changed)
+	visibility_changed.connect(_on_visibility_changed)
+	
 	_on_items_changed()
+	hide()
+
+
+func get_transmute_result_label() -> RichTextLabel:
+	return _transmute_result_label
+
+
+func _on_visibility_changed():
+	if not visible:
+		_transmute_result_label.text = "[center][color=GRAY]Place ingridients here[/color][/center]"
 
 
 func _on_items_changed():
@@ -38,7 +55,7 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 
 func _on_transmute_button_pressed():
-	HoradricCube.transmute()
+	_transmute_result_label.text = HoradricCube.transmute()
 
 
 func _on_items_container_gui_input(event):

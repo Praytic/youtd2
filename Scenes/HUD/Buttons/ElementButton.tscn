@@ -57,3 +57,21 @@ texture_under = ExtResource("1_r8kbi")
 texture_progress = ExtResource("1_r8kbi")
 tint_under = Color(0.25098, 0.25098, 0.25098, 0.513726)
 tint_progress = Color(1, 1, 1, 0.737255)
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ResearchElementProgressBar" type="TextureProgressBar" parent="CenterContainer2"]
+layout_mode = 2
+mouse_filter = 2
+fill_mode = 4
+texture_under = ExtResource("1_r8kbi")
+texture_progress = ExtResource("1_r8kbi")
+tint_under = Color(1, 1, 1, 0)
+tint_progress = Color(0, 1, 0, 0.737255)
