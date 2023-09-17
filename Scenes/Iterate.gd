@@ -88,12 +88,14 @@ func next_corpse() -> Unit:
 
 # NOTE: iterate.count() in JASS
 func count() -> int:
+	_remove_invalid_units()
+
 	return _next_list.size()
 
 
 # NOTE: need to remove invalid units before each call to
-# next() because units may be killed or removed from the
-# game while Iterate is used.
+# next() or count() because units may be killed or removed
+# from the game while Iterate is used.
 func _remove_invalid_units():
 	_next_list = _next_list.filter(
 		func(unit) -> bool:
