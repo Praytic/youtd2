@@ -762,14 +762,16 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 # 	for an explanation.
 	var should_emit_damage_event: bool = !_dealt_damage_signal_in_progress && damage_source == DamageSource.Attack
 
-	_dealt_damage_signal_in_progress = true
-
 	var damage_event: Event = Event.new(target)
 	damage_event.damage = damage
 	damage_event._is_main_target = is_main_target
 	if should_emit_damage_event:
+		_dealt_damage_signal_in_progress = true
 		dealt_damage.emit(damage_event)
+		_dealt_damage_signal_in_progress = false
 
+# 	NOTE: update damage value because it could've been
+# 	altered by event handlers of target's "damage" event
 	damage = damage_event.damage
 
 #	NOTE: crit damage bonus must be applied after "damage"
@@ -779,8 +781,6 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 #	damage ***AFTER*** the onDamage event, so there is no
 #	need to care about it in this trigger."
 	damage *= crit_ratio
-
-	_dealt_damage_signal_in_progress = false
 
 	var damaged_event: Event = Event.new(self)
 	damaged_event.damage = damage
