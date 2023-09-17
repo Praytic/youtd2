@@ -64,7 +64,8 @@ func _ready():
 	_target.spell_casted.connect(_on_target_spell_casted)
 	_target.spell_targeted.connect(_on_target_spell_targeted)
 
-	tree_exited.connect(_on_buff_tree_exited)
+	_target.tree_exited.connect(_on_target_tree_exited)
+	_caster.tree_exited.connect(_on_caster_tree_exited)
 
 	var create_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CREATE, create_event)
@@ -155,9 +156,9 @@ func get_buffed_unit() -> Unit:
 
 # NOTE: buff.removeBuff() in JASS
 func remove_buff():
-#	NOTE: if buff is queued for deletion that means it was
-#	already removed and there's no point in removing it
-#	again
+#	NOTE: if the buff is queued for deletion then that means
+#	that the buff was already removed and we shouldn't
+#	remove it again.
 	if is_queued_for_deletion():
 		return
 
@@ -241,15 +242,19 @@ func _on_target_death(death_event: Event):
 	death_event._buff = self
 	_call_event_handler_list(Event.Type.DEATH, death_event)
 
-	var cleanup_event: Event = _make_buff_event(_target)
-	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
+#	NOTE: CLEANUP event will be triggered later in
+#	_on_caster_tree_exited()
 
 
 func _on_handler_node_tree_exited():
 	remove_buff()
 
 
-func _on_buff_tree_exited():
+func _on_target_tree_exited():
+	remove_buff()
+
+
+func _on_caster_tree_exited():
 	remove_buff()
 
 
