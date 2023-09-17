@@ -294,7 +294,7 @@ func get_rarity() -> Rarity.enm:
 	return rarity
 
 
-func get_item_type() -> ItemType.enm:
+func () -> ItemType.enm:
 	return ItemProperties.get_type(_id)
 
 
