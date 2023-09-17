@@ -535,15 +535,18 @@ func _attack_target(target: Unit):
 	var crit_count: int = _generate_crit_count(0.0, 0.0)
 	var crit_ratio: float = _calc_attack_multicrit_from_crit_count(crit_count, 0.0)
 
+	var attack_event: Event = Event.new(target)
+	attack_event._number_of_crits = crit_count
+	attack.emit(attack_event)
+
+#	NOTE: process crit bonuses after attack event so that if
+#	any attack event handlers added crit bonuses, we apply
+#	these bonuses to current attack.
 	crit_count += _bonus_crit_count_for_next_attack
 	_bonus_crit_count_for_next_attack = 0
 
 	crit_ratio += _bonus_crit_ratio_for_next_attack
 	_bonus_crit_ratio_for_next_attack = 0.0
-
-	var attack_event: Event = Event.new(target)
-	attack_event._number_of_crits = crit_count
-	attack.emit(attack_event)
 
 #	NOTE: handlers for attack event may order the tower to
 #	stop attacking or switch to a different target. Process
