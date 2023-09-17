@@ -70,7 +70,6 @@ var _specials_modifier: Modifier = Modifier.new()
 # NOTE: preceding tower reference is valid only during
 # creation. It is also always null for first tier towers.
 var _temp_preceding_tower: Tower = null
-var _number_of_crits: int = 0
 # This attack type determines which targets will be picked
 # for attacking.
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
@@ -287,14 +286,6 @@ func is_attacking() -> bool:
 	var attacking: bool = !_target_list.is_empty()
 
 	return attacking
-
-
-# Returns number of crits for current attack. Only valid in
-# attack and damage event handlers.
-# 
-# NOTE: tower.getNumberOfCrits() in JASS
-func get_number_of_crits() -> int:
-	return _number_of_crits
 
 
 # Disables attacking or any other game interactions for the
@@ -551,11 +542,7 @@ func _attack_target(target: Unit):
 
 	var attack_event: Event = Event.new(target)
 
-#	NOTE: set _number_of_crits here so that it's accesible
-#	in attack event handlers
-	_number_of_crits = crit_count
-	super._do_attack(attack_event)
-	_number_of_crits = 0
+	super._do_attack(attack_event, crit_count)
 
 	if _order_stop_requested:
 		_order_stop_requested = false
@@ -713,11 +700,7 @@ func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
 
-#	NOTE: set _number_of_crits here so that it's accesible
-#	in damage event handlers
-	_number_of_crits = crit_count
 	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, additional_crit_damage_ratio), true, get_attack_type())
-	_number_of_crits = 0
 
 
 func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
@@ -730,11 +713,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
 
-#	NOTE: set _number_of_crits here so that it's accesible
-#	in damage event handlers_number_of_crits = crit_count
-	_number_of_crits = crit_count
 	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, additional_crit_damage_ratio), true, get_attack_type())
-	_number_of_crits = 0
 
 	var splash_target: Unit = target
 	var splash_pos: Vector2 = splash_target.position
@@ -774,11 +753,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
 
-#	NOTE: set _number_of_crits here so that it's accesible
-#	in damage event handlers_number_of_crits = crit_count
-	_number_of_crits = crit_count
 	_do_attack_damage_internal(current_target, current_damage, _calc_attack_multicrit_internal(crit_count, additional_crit_damage_ratio), is_main_target, get_attack_type())
-	_number_of_crits = 0
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_index == _bounce_count_max - 1
