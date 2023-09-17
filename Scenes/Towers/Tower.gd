@@ -533,12 +533,13 @@ func _attack_target(target: Unit):
 #	has the same crit values. Also so that attack and damage
 #	event handlers have access to crit count.
 	var crit_count: int = _generate_crit_count(0.0, 0.0)
+	var crit_ratio: float = _calc_attack_multicrit_from_crit_count(crit_count, 0.0)
 
-	crit_count += _crit_bonus_for_next_attack
-	_crit_bonus_for_next_attack = 0
+	crit_count += _bonus_crit_count_for_next_attack
+	_bonus_crit_count_for_next_attack = 0
 
-	var additional_crit_damage_ratio: float = _crit_damage_ratio_for_next_attack
-	_crit_damage_ratio_for_next_attack = 0.0
+	crit_ratio += _bonus_crit_ratio_for_next_attack
+	_bonus_crit_ratio_for_next_attack = 0.0
 
 	var attack_event: Event = Event.new(target)
 	attack_event._number_of_crits = crit_count
@@ -566,7 +567,7 @@ func _attack_target(target: Unit):
 
 	var projectile: Projectile = _make_projectile(self, target)
 	projectile.set_tower_crit_count(crit_count)
-	projectile.set_tower_crit_damage_ratio(additional_crit_damage_ratio)
+	projectile.set_tower_crit_ratio(crit_ratio)
 
 	if _attack_style == AttackStyle.BOUNCE:
 		var randomize_damage: bool = true
@@ -705,9 +706,9 @@ func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
 
 	var crit_count: int = projectile.get_tower_crit_count()
-	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
+	var crit_ratio: float = projectile.get_tower_crit_ratio()
 
-	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, additional_crit_damage_ratio), true, get_attack_type())
+	_do_attack_damage_internal(target, damage, crit_ratio, true, get_attack_type(), crit_count)
 
 
 func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
@@ -718,9 +719,9 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
 
 	var crit_count: int = projectile.get_tower_crit_count()
-	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
+	var crit_ratio: float = projectile.get_tower_crit_ratio()
 
-	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, additional_crit_damage_ratio), true, get_attack_type())
+	_do_attack_damage_internal(target, damage, crit_ratio, true, get_attack_type(), crit_count)
 
 	var splash_target: Unit = target
 	var splash_pos: Vector2 = splash_target.position
@@ -745,7 +746,7 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 			if creep_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
-				_do_attack_damage_internal(neighbor, splash_damage, _calc_attack_multicrit_internal(crit_count, 0), false, get_attack_type())
+				_do_attack_damage_internal(neighbor, splash_damage, crit_ratio, false, get_attack_type(), crit_count)
 
 				break
 
@@ -758,9 +759,9 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	var is_main_target: bool = is_first_bounce
 
 	var crit_count: int = projectile.get_tower_crit_count()
-	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
+	var crit_ratio: float = projectile.get_tower_crit_ratio()
 
-	_do_attack_damage_internal(current_target, current_damage, _calc_attack_multicrit_internal(crit_count, additional_crit_damage_ratio), is_main_target, get_attack_type())
+	_do_attack_damage_internal(current_target, current_damage, crit_ratio, is_main_target, get_attack_type(), crit_count)
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_index == _bounce_count_max - 1
@@ -782,7 +783,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 #	used when projectile reaches the target to calculate
 #	damage
 	next_projectile.set_tower_crit_count(projectile.get_tower_crit_count())
-	next_projectile.set_tower_crit_damage_ratio(projectile.get_tower_crit_damage_ratio())
+	next_projectile.set_tower_crit_ratio(projectile.get_tower_crit_ratio())
 
 
 func _on_target_death(_event: Event, target: Creep):
