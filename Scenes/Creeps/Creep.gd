@@ -91,6 +91,12 @@ func is_attacking() -> bool:
 
 # NOTE: creep.adjustHeight() in JASS
 func adjust_height(height_wc3: float, speed: float):
+#	NOTE: can't create tween's while node is outside tree.
+#	If creep is outside tree then it's okay to do nothing
+#	because creep is about to get deleted anyway.
+	if !is_inside_tree():
+		return
+	
 # 	NOTE: divide by two because in isometric world vertical
 # 	axis is squished
 	var height_pixels: float = Utils.to_pixels(height_wc3) / 2
