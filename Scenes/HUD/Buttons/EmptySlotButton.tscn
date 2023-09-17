@@ -4,12 +4,13 @@
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/EmptySlotButton.gd" id="1_uyfkq"]
 
 [node name="EmptySlotButton" type="AspectRatioContainer"]
+offset_right = 20.0
+offset_bottom = 20.0
 size_flags_vertical = 3
 stretch_mode = 3
 script = ExtResource("1_uyfkq")
 
 [node name="Button" type="Button" parent="."]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme = ExtResource("1_stkli")
 disabled = true

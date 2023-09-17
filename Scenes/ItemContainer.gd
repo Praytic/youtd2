@@ -67,8 +67,9 @@ func remove_item(item: Item):
 func get_item_list(rarity_filter = null, type_filter = null) -> Array[Item]:
 	var item_list: Array[Item]
 	for item in _item_list.duplicate():
-		if (item.get_rarity() == rarity_filter or item.get_rarity() == null) \
-			and (item.get_item_type() == type_filter or item.get_item_type() == null):
+		var rarity = item.get_rarity() == rarity_filter or rarity_filter == null
+		var type = item.get_item_type() == type_filter or type_filter == null
+		if rarity and type:
 			item_list.append(item)
 	return item_list
 

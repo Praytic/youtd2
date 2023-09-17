@@ -21,6 +21,8 @@ func _ready():
 	for item_id in test_item_list:
 		var item: Item = Item.make(item_id)
 		_item_container.add_item(item)
+	
+	items_changed.emit()
 
 
 func get_item_container() -> ItemContainer:

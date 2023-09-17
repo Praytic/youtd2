@@ -1,57 +1,131 @@
-[gd_scene load_steps=4 format=3 uid="uid://c376o14gmtncc"]
+[gd_scene load_steps=13 format=3 uid="uid://c376o14gmtncc"]
 
+[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="1_w2ofw"]
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_884ge"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptySlotButton.tscn" id="2_h88tu"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_ijtb6"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2uq5s"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(0.117188, 0.117188, 0.117188, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.570313, 0.570313, 0.570313, 1)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
+[sub_resource type="AtlasTexture" id="AtlasTexture_us0y7"]
+atlas = ExtResource("1_w2ofw")
+region = Rect2(790, 74, 48, 48)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ywuq"]
-bg_color = Color(0.172549, 0.172549, 0.172549, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hy0ux"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+texture = SubResource("AtlasTexture_us0y7")
+modulate_color = Color(0.627451, 0.627451, 0.627451, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekymf"]
+
+[sub_resource type="Theme" id="Theme_qp33t"]
+Button/styles/disabled = null
+Button/styles/hover = null
+Button/styles/normal = SubResource("StyleBoxTexture_hy0ux")
+Button/styles/pressed = null
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_ekymf")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfqh1"]
+atlas = ExtResource("2_ijtb6")
+region = Rect2(896, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5u2mq"]
+atlas = ExtResource("2_ijtb6")
+region = Rect2(128, 256, 128, 128)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hu557"]
+load_path = "res://.godot/imported/misc3.png-5036894459f1ac48ad3f8da7f14453d3.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctgwd"]
+atlas = SubResource("CompressedTexture2D_hu557")
+region = Rect2(128, 128, 128, 128)
 
 [node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_slots_container", "_items_container", "_transmute_button")]
-theme_override_styles/panel = SubResource("StyleBoxFlat_2uq5s")
+offset_right = 357.0
+offset_bottom = 260.0
+theme = SubResource("Theme_qp33t")
 script = ExtResource("2_884ge")
 _slots_container = NodePath("VBoxContainer/PanelContainer/EmptySlotsContainer")
 _items_container = NodePath("VBoxContainer/PanelContainer/ItemsContainer")
-_transmute_button = NodePath("VBoxContainer/TransmuteButton")
+_transmute_button = NodePath("VBoxContainer/HBoxContainer/TransmuteButton")
+
+[node name="CancelButton" type="Button" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+tooltip_text = "Check hints for the list of recipes."
+icon = SubResource("AtlasTexture_xfqh1")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-text = "Horadric Cube"
+alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7ywuq")
-
-[node name="EmptySlotsContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="ItemsContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="TransmuteButton" type="Button" parent="VBoxContainer"]
+[node name="TransmuteButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 tooltip_text = "Check hints for the list of recipes."
-text = "Transmute"
+icon = SubResource("AtlasTexture_5u2mq")
+icon_alignment = 1
+expand_icon = true
 
+[node name="ResetButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+tooltip_text = "Check hints for the list of recipes."
+icon = SubResource("AtlasTexture_ctgwd")
+icon_alignment = 1
+expand_icon = true
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EmptySlotsContainer" type="GridContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+columns = 3
+
+[node name="EmptySlotButton" parent="VBoxContainer/PanelContainer/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch_mode = 2
+
+[node name="EmptySlotButton2" parent="VBoxContainer/PanelContainer/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch_mode = 2
+
+[node name="EmptySlotButton3" parent="VBoxContainer/PanelContainer/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch_mode = 2
+
+[node name="EmptySlotButton4" parent="VBoxContainer/PanelContainer/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch_mode = 2
+
+[node name="EmptySlotButton5" parent="VBoxContainer/PanelContainer/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch_mode = 2
+
+[node name="ItemsContainer" type="GridContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+columns = 3
+
+[connection signal="pressed" from="CancelButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_transmute_button_pressed"]
 [connection signal="gui_input" from="VBoxContainer/PanelContainer/ItemsContainer" to="." method="_on_items_container_gui_input"]
-[connection signal="pressed" from="VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]

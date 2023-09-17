@@ -75,19 +75,18 @@ mouse_filter = 2
 
 [node name="BottomMenuBar" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(1400, 0)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
-offset_left = 6.10352e-05
-offset_top = -98.9999
-offset_right = 6.10352e-05
-offset_bottom = -98.9999
+offset_left = -700.0
+offset_right = 700.0
 grow_vertical = 0
-scale = Vector2(0.8, 0.8)
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
+visible = false
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 2
@@ -120,7 +119,6 @@ offset_left = 0.00012207
 offset_top = 6.10352e-05
 offset_right = 0.00012207
 offset_bottom = 6.10352e-05
-scale = Vector2(0.8, 0.8)
 
 [node name="GameOverLabel" type="RichTextLabel" parent="."]
 visible = false

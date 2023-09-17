@@ -2,17 +2,12 @@ extends PanelContainer
 
 
 # Menu for the Horadric Cube. Contains items inside it.
-@export var _slots_container: HBoxContainer
-@export var _items_container: HBoxContainer
+@export var _slots_container: GridContainer
+@export var _items_container: GridContainer
 @export var _transmute_button: Button
 
 
 func _ready():
-	for i in range(0, HoradricCube.CAPACITY):
-		var empty_slot_button: EmptySlotButton = EmptySlotButton.make()
-		empty_slot_button.theme_type_variation = "SmallButton"
-		_slots_container.add_child(empty_slot_button)
-
 	HoradricCube.items_changed.connect(_on_items_changed)
 	_on_items_changed()
 

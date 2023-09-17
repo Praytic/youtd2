@@ -6,7 +6,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kr2o1"]
 
-[node name="ElementButton" type="Button" node_paths=PackedStringArray("texture_progress_bar")]
+[node name="ElementButton" type="Button" node_paths=PackedStringArray("texture_progress_bar", "counter_label")]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
 offset_bottom = 64.0
@@ -19,6 +19,7 @@ toggle_mode = true
 icon = ExtResource("1_pd320")
 script = ExtResource("1_4u01e")
 texture_progress_bar = NodePath("CenterContainer/ElementProgressBar")
+counter_label = NodePath("CounterLabel")
 
 [node name="CounterLabel" type="Label" parent="."]
 visible = false
