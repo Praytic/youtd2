@@ -37,7 +37,6 @@ enum DamageSource {
 }
 
 
-const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 const REGEN_PERIOD: float = 1.0
 const BASE_ITEM_DROP_CHANCE: float = 0.0475
@@ -622,7 +621,7 @@ func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
 	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
 
 	var crit_count: int = 0
-	var current_crit_chance: float = crit_chance
+	var current_crit_chance: float = min(crit_chance, Constants.ATK_CRIT_CHANCE_CAP)
 	
 	for _i in range(multicrit_count_max):
 		var is_critical: bool = Utils.rand_chance(current_crit_chance)
@@ -632,7 +631,7 @@ func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
 
 #			Decrease chance of each subsequent multicrit to
 #			implement diminishing returns.
-			current_crit_chance *= MULTICRIT_DIMINISHING_CHANCE
+			current_crit_chance *= Constants.ATK_MULTICRIT_DIMISHING
 		else:
 			break
 
