@@ -6,19 +6,16 @@ signal research()
 signal researched()
 
 
-const PRESS_DURATION_TO_START_RESEARCH = 0.5
+const PRESS_DURATION_TO_START_RESEARCH = 1
 const PRESS_DURATION_TO_COMPLETE_RESEARCH = 2
 
 
 @export var element: Element.enm
-@export var texture_progress_bar: TextureProgressBar
-@export var counter_label: Label
-@export var research_element_progress_bar: TextureProgressBar
-
-
-var research_in_progress: int = 0
-var button_down_timer: Timer = Timer.new()
-var research_timer: Timer = Timer.new()
+@export var _texture_progress_bar: TextureProgressBar
+@export var _counter_label: Label
+@export var _research_element_progress_bar: TextureProgressBar
+@export var _button_down_timer: Timer
+@export var _research_timer: Timer
 
 
 func _ready():
@@ -27,24 +24,28 @@ func _ready():
 	ElementLevel.changed.connect(_on_element_level_changed)
 	button_down.connect(_on_button_down)
 	button_up.connect(_on_button_up)
-	button_down_timer.timeout.connect(_on_button_down_timeout)
-	research_timer.timeout.connect(_on_research_timer_timeout)
+	_button_down_timer.timeout.connect(_on_button_down_timeout)
+	_research_timer.timeout.connect(_on_research_timer_timeout)
+	
+	_button_down_timer.wait_time = PRESS_DURATION_TO_START_RESEARCH
+	_research_timer.wait_time = PRESS_DURATION_TO_COMPLETE_RESEARCH
 	
 	_on_mouse_exited()
 	_on_element_level_changed()
 
 
 func _process(delta):
-	if not research_timer.is_stopped():
-		var new_research_progress = research_timer.time_left * research_element_progress_bar.max_value / PRESS_DURATION_TO_COMPLETE_RESEARCH
-		research_element_progress_bar.value = new_research_progress
+	if not _research_timer.is_stopped():
+		var new_research_progress = (PRESS_DURATION_TO_COMPLETE_RESEARCH - _research_timer.time_left) * _research_element_progress_bar.max_value / PRESS_DURATION_TO_COMPLETE_RESEARCH
+		_research_element_progress_bar.value = new_research_progress
+		print("_process: %s" % _research_element_progress_bar.value)
 
 
 func set_towers_counter(value: int):
 	if value == 0:
-		counter_label.text = ""
+		_counter_label.text = ""
 	else:
-		counter_label.text = str(value)
+		_counter_label.text = str(value)
 
 
 func _is_able_to_research():
@@ -64,50 +65,63 @@ func _make_custom_tooltip(for_text: String) -> Object:
 
 func _on_element_level_changed():
 	var curent_element_level = ElementLevel.get_current(element)
-	texture_progress_bar.value = curent_element_level
+	_texture_progress_bar.value = curent_element_level
 
 
 func _on_mouse_entered():
-	texture_progress_bar.show()
-	counter_label.show()
+	print("_on_mouse_entered")
+	_texture_progress_bar.show()
+	_counter_label.show()
 	EventBus.research_button_mouse_entered.emit(element)
 
 
 func _on_mouse_exited():
-	texture_progress_bar.hide()
-	counter_label.hide()
-	EventBus.research_button_mouse_exited.emit(element)
+	print("_on_mouse_exited")
+	_texture_progress_bar.hide()
+	_counter_label.hide()
+	EventBus.research_button_mouse_exited.emit()
 
 
 func _on_button_down():
-	button_down_timer.start(PRESS_DURATION_TO_START_RESEARCH)
+	print("_on_button_down")
+	_button_down_timer.start()
 
 
 func _on_button_up():
-	research_timer.stop()
+	print("_on_button_up")
+	_button_down_timer.stop()
+	_research_timer.stop()
+	_research_element_progress_bar.hide()
+	_research_element_progress_bar.value = 0
 
 
-func _on_button_down_timeout(show_error: bool = true):
-	if button_pressed:
+func _on_button_down_timeout():
+	_button_down_timer.stop()
+	print("_on_button_down_timeout")
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if _is_able_to_research():
-			research_element_progress_bar.show()
-			research_timer.start(PRESS_DURATION_TO_COMPLETE_RESEARCH)
-		elif show_error:
+			_research_element_progress_bar.show()
+			_research_timer.start()
+			print("_research_timer.start")
+		else:
 			Messages.add_error("Can't research this element. Not enough tomes.")
 
 
 func _on_research_timer_timeout():
+	_research_timer.stop()
+	print("_on_research_timer_timeout")
 	# Second check that after research_timer player still has
 	# tomes to research the element.
 	if _is_able_to_research():
 		var cost: int = ElementLevel.get_research_cost(element)
 		KnowledgeTomesManager.spend(cost)
 		ElementLevel.increment(element)
-	
-		# If player still holds button down on the element,
-		# we allow him to do next research without any additional
-		# button_down event. But don't show error message in that case.
-		_on_button_down_timeout(false)
+		
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			_on_button_down_timeout()
+		else:
+			_research_element_progress_bar.hide()
+			_research_element_progress_bar.value = 0
 	# If player doesn't have enough tomes after research_timer,
 	# show same error message as after button_down_timer.
 	else:

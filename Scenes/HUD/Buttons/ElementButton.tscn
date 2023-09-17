@@ -6,7 +6,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kr2o1"]
 
-[node name="ElementButton" type="Button" node_paths=PackedStringArray("texture_progress_bar", "counter_label")]
+[node name="ElementButton" type="Button" node_paths=PackedStringArray("_texture_progress_bar", "_counter_label", "_research_element_progress_bar", "_button_down_timer", "_research_timer")]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
 offset_bottom = 64.0
@@ -18,8 +18,11 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_kr2o1")
 toggle_mode = true
 icon = ExtResource("1_pd320")
 script = ExtResource("1_4u01e")
-texture_progress_bar = NodePath("CenterContainer/ElementProgressBar")
-counter_label = NodePath("CounterLabel")
+_texture_progress_bar = NodePath("CenterContainer/ElementProgressBar")
+_counter_label = NodePath("CounterLabel")
+_research_element_progress_bar = NodePath("CenterContainer2/ResearchElementProgressBar")
+_button_down_timer = NodePath("ButtonDownTimer")
+_research_timer = NodePath("ResearchTimer")
 
 [node name="CounterLabel" type="Label" parent="."]
 visible = false
@@ -36,6 +39,26 @@ theme_override_constants/shadow_outline_size = 10
 theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ResearchElementProgressBar" type="TextureProgressBar" parent="CenterContainer2"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+fill_mode = 4
+texture_under = ExtResource("1_r8kbi")
+texture_progress = ExtResource("1_r8kbi")
+tint_under = Color(1, 1, 1, 0)
+tint_progress = Color(0, 1, 0, 0.737255)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 show_behind_parent = true
@@ -58,20 +81,7 @@ texture_progress = ExtResource("1_r8kbi")
 tint_under = Color(0.25098, 0.25098, 0.25098, 0.513726)
 tint_progress = Color(1, 1, 1, 0.737255)
 
-[node name="CenterContainer2" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
+[node name="ResearchTimer" type="Timer" parent="."]
+wait_time = 2.0
 
-[node name="ResearchElementProgressBar" type="TextureProgressBar" parent="CenterContainer2"]
-layout_mode = 2
-mouse_filter = 2
-fill_mode = 4
-texture_under = ExtResource("1_r8kbi")
-texture_progress = ExtResource("1_r8kbi")
-tint_under = Color(1, 1, 1, 0)
-tint_progress = Color(0, 1, 0, 0.737255)
+[node name="ButtonDownTimer" type="Timer" parent="."]

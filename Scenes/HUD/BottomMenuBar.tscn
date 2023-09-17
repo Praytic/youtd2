@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=88 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://eabew2p3tsgy" path="res://Resources/Theme/bottom_menu_theme.tres" id="1_u18mo"]
 [ext_resource type="Theme" uid="uid://dtwj74dyjwmi7" path="res://Resources/Theme/custom_theme.tres" id="4_nd5uj"]
@@ -117,7 +117,6 @@ modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hok0h"]
 texture = ExtResource("15_1k1ce")
-modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evrf4"]
 texture = ExtResource("15_1k1ce")
@@ -125,6 +124,9 @@ texture = ExtResource("15_1k1ce")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_toos0"]
 texture = ExtResource("15_1k1ce")
 modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_04c0r"]
+texture = ExtResource("15_1k1ce")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rpdmv"]
 atlas = ExtResource("5_2y3fp")
@@ -302,7 +304,6 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_ea07t")
 keep_pressed_outside = true
 button_group = ExtResource("5_053go")
 icon = null
-element = 1
 
 [node name="ElementButton3" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
@@ -314,7 +315,6 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_egfcl")
 keep_pressed_outside = true
 button_group = ExtResource("5_053go")
 icon = null
-element = 2
 
 [node name="ElementButton4" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
@@ -326,7 +326,6 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_7ot5h")
 keep_pressed_outside = true
 button_group = ExtResource("5_053go")
 icon = null
-element = 3
 
 [node name="ElementButton5" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
@@ -338,7 +337,6 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_wjusv")
 keep_pressed_outside = true
 button_group = ExtResource("5_053go")
 icon = null
-element = 4
 
 [node name="ElementButton6" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
@@ -350,7 +348,6 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_udj2c")
 keep_pressed_outside = true
 button_group = ExtResource("5_053go")
 icon = null
-element = 5
 
 [node name="ElementButton7" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
@@ -359,10 +356,10 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_hvg8s")
 theme_override_styles/hover = SubResource("StyleBoxTexture_hok0h")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_evrf4")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_toos0")
+theme_override_styles/focus = SubResource("StyleBoxTexture_04c0r")
 keep_pressed_outside = true
 button_group = ExtResource("5_053go")
 icon = null
-element = 6
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
 layout_mode = 2
