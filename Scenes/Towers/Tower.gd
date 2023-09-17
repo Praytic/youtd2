@@ -61,10 +61,10 @@ var _attack_style: AttackStyle = AttackStyle.NORMAL
 var _target_list: Array[Creep] = []
 var _target_count_max: int = 1
 var _default_projectile_type: ProjectileType
-var _order_stop_requested: bool = false
 var _current_attack_cooldown: float = 0.0
-var _target_order_issued: bool = false
-var _target_order_target: Unit
+var _was_ordered_to_stop_attack: bool = false
+var _was_ordered_to_change_target: bool = false
+var _new_target_from_order: Unit
 var _item_container: TowerItemContainer
 var _specials_modifier: Modifier = Modifier.new()
 # NOTE: preceding tower reference is valid only during
@@ -351,7 +351,7 @@ func get_item_tower_details() -> Array[MultiboardValues]:
 
 # NOTE: tower.orderStop() in JASS
 func order_stop():
-	_order_stop_requested = true
+	_was_ordered_to_stop_attack = true
 
 
 # NOTE: "attack" is the only order_type encountered in tower
@@ -362,8 +362,8 @@ func issue_target_order(order_type: String, target: Unit):
 	if order_type != "attack":
 		print_debug("Unhandled order_type in issue_target_order()")
 
-	_target_order_issued = true
-	_target_order_target = target
+	_was_ordered_to_change_target = true
+	_new_target_from_order = target
 
 
 #########################
@@ -548,15 +548,15 @@ func _attack_target(target: Unit):
 #	NOTE: handlers for attack event may order the tower to
 #	stop attacking or switch to a different target. Process
 #	the orders here.
-	if _order_stop_requested:
-		_order_stop_requested = false
+	if _was_ordered_to_stop_attack:
+		_was_ordered_to_stop_attack = false
 
 		return
 
-	if _target_order_issued:
-		_target_order_issued = false
+	if _was_ordered_to_change_target:
+		_was_ordered_to_change_target = false
 
-		target = _target_order_target
+		target = _new_target_from_order
 
 	if target == null:
 		return
