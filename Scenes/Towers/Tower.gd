@@ -707,8 +707,9 @@ func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var crit_ratio: float = projectile.get_tower_crit_ratio()
+	var is_main_target: bool = true
 
-	_do_attack_damage_internal(target, damage, crit_ratio, true, get_attack_type(), crit_count)
+	do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target)
 
 
 func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
@@ -720,8 +721,9 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var crit_ratio: float = projectile.get_tower_crit_ratio()
+	var is_main_target: bool = true
 
-	_do_attack_damage_internal(target, damage, crit_ratio, true, get_attack_type(), crit_count)
+	do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target)
 
 	var splash_target: Unit = target
 	var splash_pos: Vector2 = splash_target.position
@@ -746,7 +748,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 			if creep_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
-				_do_attack_damage_internal(neighbor, splash_damage, crit_ratio, false, get_attack_type(), crit_count)
+				var splash_is_main_target: bool = false
+				do_attack_damage(neighbor, splash_damage, crit_ratio, crit_count, splash_is_main_target)
 
 				break
 
@@ -755,13 +758,12 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	var current_damage: float = projectile.user_real
 	var current_bounce_index: int = projectile.user_int
 
+	var crit_count: int = projectile.get_tower_crit_count()
+	var crit_ratio: float = projectile.get_tower_crit_ratio()
 	var is_first_bounce: bool = current_bounce_index == 0
 	var is_main_target: bool = is_first_bounce
 
-	var crit_count: int = projectile.get_tower_crit_count()
-	var crit_ratio: float = projectile.get_tower_crit_ratio()
-
-	_do_attack_damage_internal(current_target, current_damage, crit_ratio, is_main_target, get_attack_type(), crit_count)
+	do_attack_damage(current_target, current_damage, crit_ratio, crit_count, is_main_target)
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_index == _bounce_count_max - 1

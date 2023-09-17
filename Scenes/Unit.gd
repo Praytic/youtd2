@@ -426,16 +426,13 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float) -> bool:
 
 
 # NOTE: unit.doAttackDamage() in JASS
-func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
+func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float, crit_count: int = -1, is_main_target: bool = false):
 	var attack_type: AttackType.enm = get_attack_type()
-	_do_attack_damage_internal(target, damage_base, crit_ratio, false, attack_type)
+	do_custom_attack_damage(target, damage_base, crit_ratio, attack_type, crit_count, is_main_target)
 
 
 # NOTE: unit.doCustomAttackDamage() in JASS
-func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float, attack_type: AttackType.enm):
-	_do_attack_damage_internal(target, damage_base, crit_ratio, false, attack_type)
-
-func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: float, is_main_target: bool, attack_type: AttackType.enm, crit_count: int = -1):
+func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float, attack_type: AttackType.enm, crit_count: int = -1, is_main_target: bool = false):
 	var armor_mod: float = 1.0 - target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
