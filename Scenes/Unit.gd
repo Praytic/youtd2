@@ -451,21 +451,6 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 	if target.is_immune() && deals_no_damage_to_immune:
 		damage = 0
 
-#   NOTE: do not emit damage event if one is already in
-#   progress. Some towers have damage event handlers that
-#   call doAttackDamage() so recursive damage events would
-#   cause infinite recursion.
-	if !_dealt_damage_signal_in_progress:
-		_dealt_damage_signal_in_progress = true
-
-		var damage_event: Event = Event.new(target)
-		damage_event.damage = damage
-		damage_event._is_main_target = is_main_target
-		dealt_damage.emit(damage_event)
-		damage = damage_event.damage
-
-		_dealt_damage_signal_in_progress = false
-
 	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target)
 
 
@@ -773,6 +758,28 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 # 	Immune creeps take 0 damage from spells
 	if damage_source == DamageSource.Spell && target.is_immune():
 		damage = 0
+
+#   NOTE: do not emit "damage" event if one is already in
+#   progress. Some towers have damage event handlers that
+#   call doAttackDamage() so recursive damage events would
+#   cause infinite recursion.
+# 
+# 	NOTE: only emit "damage" event for damage from attacks.
+# 	Do not emit it for damage from spells. See issue #208
+# 	for an explanation.
+	var should_emit_damage_event: bool = !_dealt_damage_signal_in_progress && damage_source == DamageSource.Attack
+
+	_dealt_damage_signal_in_progress = true
+
+	var damage_event: Event = Event.new(target)
+	damage_event.damage = damage
+	damage_event._is_main_target = is_main_target
+	if should_emit_damage_event:
+		dealt_damage.emit(damage_event)
+
+	damage = damage_event.damage
+
+	_dealt_damage_signal_in_progress = false
 
 	var damaged_event: Event = Event.new(self)
 	damaged_event.damage = damage
