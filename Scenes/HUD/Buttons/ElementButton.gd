@@ -6,8 +6,8 @@ signal research()
 signal researched()
 
 
-const PRESS_DURATION_TO_START_RESEARCH = 1
-const PRESS_DURATION_TO_COMPLETE_RESEARCH = 2
+const PRESS_DURATION_TO_START_RESEARCH = 0.5
+const PRESS_DURATION_TO_COMPLETE_RESEARCH = 1
 
 
 @export var element: Element.enm
