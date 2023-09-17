@@ -13,15 +13,19 @@ signal test_signal()
 @export var _tomes_status: ResourceStatusPanel
 @export var _gold_status: ResourceStatusPanel
 @export var _tower_stash: GridContainer
-@export var _stash_scroll_container: ScrollContainer
+@export var _tower_stash_scroll_container: ScrollContainer
+@export var _item_stash_scroll_container: ScrollContainer
 
-
-var _current_item_rarity_filter: Rarity.enm
-var _current_item_type_filter: ItemType.enm
+var _item_rarity_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/item_rarity_filter_button_group.tres")
+var _item_type_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/item_type_filter_button_group.tres")
+var _element_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/element_filter_button_group.tres")
 
 
 func _ready():
-	for element_button in get_element_buttons():
+	for item_filter_button in _item_rarity_filter_button_group.get_buttons():
+		item_filter_button.toggled.connect(_on_item_rarity_filter_button_toggled)
+	
+	for element_button in _element_filter_button_group.get_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 	
 	KnowledgeTomesManager.changed.connect(_on_knowledge_tomes_changed)
@@ -42,7 +46,7 @@ func _process(_delta):
 
 
 func _on_upgrade_element_button_pressed():
-	var element: Element.enm = _build_bar.get_element()
+	var element: Element.enm = _element_filter_button_group.get_pressed_button().element
 	ElementLevel.increment(element)
 
 	var cost: int = ElementLevel.get_research_cost(element)
@@ -55,7 +59,7 @@ func _on_upgrade_element_button_pressed():
 
 
 func _on_upgrade_element_button_mouse_entered():
-	var element: Element.enm = _build_bar.get_element()
+	var element: Element.enm = _element_filter_button_group.get_pressed_button().element
 	EventBus.research_button_mouse_entered.emit(element)
 
 
@@ -84,7 +88,7 @@ func get_item_menu_button() -> Button:
 
 func set_element(element: Element.enm):
 #	Dim the color of unselected element buttons
-	var buttons: Array = get_element_buttons()
+	var buttons: Array = _element_filter_button_group.get_buttons()
 
 	for button in buttons:
 		var button_is_selected: bool = button.element == element
@@ -98,49 +102,30 @@ func set_element(element: Element.enm):
 
 #	NOTE: set_value() is a member of Range class which is an
 #	ancestor of HScrollBar class
-	var scroll_bar: HScrollBar = _stash_scroll_container.get_h_scroll_bar()
+	var scroll_bar: HScrollBar = _tower_stash_scroll_container.get_h_scroll_bar()
 	scroll_bar.set_value(0.0)
 
 	_update_upgrade_element_button()
 
 
-func _on_item_filter_changed():
-	var buttons: Array = get_item_filter_buttons()
+func _on_item_rarity_filter_button_toggled():
+	var active_button = _item_rarity_filter_button_group.get_pressed_button()
+	_on_item_filter_changed(active_button)
 
-	for button in rarity_buttons:
-		var button_is_selected: bool = (button.filter_value == rarity or button.rarity_filter == null) \
-			and (button.type_filter == type or button.type_filter == null) \
-			and (button.rarity_filter != null and button.type_filter != null)
 
-		if button_is_selected:
-			button.modulate = Color.WHITE
-		else:
-			button.modulate = Color.WHITE.darkened(0.4)
+func _on_item_type_filter_button_toggled():
+	var active_button = _item_type_filter_button_group.get_pressed_button()
+	_item_stash_menu.set_item_filter()
 
-	if element == Element.enm.NONE:
-		_item_stash_menu.show()
-		_build_bar.hide()
-	else:
-		_item_stash_menu.hide()
-		_build_bar.show()
-		_build_bar.set_element(element)
+
+func _on_item_filter_changed(button):
+	_item_stash_menu.set_item_filter() = button.filter_value
+	item_filter_updated.emit(_current_item_rarity_filter, _current_item_type_filter)
 
 #	NOTE: set_value() is a member of Range class which is an
 #	ancestor of HScrollBar class
-	var scroll_bar: HScrollBar = _stash_scroll_container.get_h_scroll_bar()
+	var scroll_bar: HScrollBar = _item_stash_scroll_container.get_h_scroll_bar()
 	scroll_bar.set_value(0.0)
-
-	_update_upgrade_element_button()
-
-
-func get_element_buttons() -> Array:
-	return get_tree().get_nodes_in_group("element_button")
-
-func get_item_filter_buttons() -> Array:
-	return get_tree().get_nodes_in_group("item_filter_button")
-
-func _on_ItemMenuButton_pressed():
-	set_element(Element.enm.NONE)
 
 
 func _on_ElementButton_pressed(element_button):
@@ -168,7 +153,10 @@ func _update_upgrade_element_button():
 	var can_afford: bool = ElementLevel.can_afford_research(element)
 	var current_level: int = ElementLevel.get_current(element)
 	var reached_max_level: bool = current_level == ElementLevel.get_max()
-	var tower_stash_is_visible: bool = _build_bar.is_visible()
-	var button_is_enabled: bool = tower_stash_is_visible && can_afford && !reached_max_level
+	var button_is_enabled: bool = can_afford && !reached_max_level
 
 	_research_button.set_disabled(!button_is_enabled)
+
+
+func _on_item_filter_button_toggled(button_pressed):
+	pass # Replace with function body.

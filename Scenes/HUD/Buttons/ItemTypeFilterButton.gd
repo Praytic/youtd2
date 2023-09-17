@@ -1,3 +1,3 @@
-extends "res://Scenes/HUD/Buttons/ItemFilterButton.gd"
+extends Button
 
 @export var filter_value: ItemType.enm

@@ -288,12 +288,7 @@ grow_vertical = 2
 mouse_force_pass_scroll_events = false
 theme = ExtResource("1_u18mo")
 script = ExtResource("6")
-_build_bar = null
-_elements_container = null
-_tomes_status = null
-_gold_status = null
-_tower_stash = null
-_stash_scroll_container = null
+metadata/_edit_vertical_guides_ = []
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -536,50 +531,45 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="ItemFilterButton1" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" groups=["item_filter_button"] instance=ExtResource("12_6l3wb")]
+[node name="ItemFilterButton1" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_qtpi7")
 theme_override_styles/hover = SubResource("StyleBoxTexture_56vm4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_dssae")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_oii3d")
 theme_override_styles/focus = SubResource("StyleBoxTexture_phwu8")
-toggle_mode = true
 button_group = ExtResource("13_wb254")
 script = ExtResource("15_v3m0n")
-filter_value = 0
 
-[node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" groups=["item_filter_button"] instance=ExtResource("12_6l3wb")]
+[node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_o20ob")
 theme_override_styles/hover = SubResource("StyleBoxTexture_l068u")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_aoswy")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_lu628")
 theme_override_styles/focus = SubResource("StyleBoxTexture_chbkv")
-toggle_mode = true
 button_group = ExtResource("13_wb254")
 script = ExtResource("15_v3m0n")
 filter_value = 1
 
-[node name="ItemFilterButton3" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" groups=["item_filter_button"] instance=ExtResource("12_6l3wb")]
+[node name="ItemFilterButton3" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_5piem")
 theme_override_styles/hover = SubResource("StyleBoxTexture_o3slk")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_xbgks")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_4p5to")
 theme_override_styles/focus = SubResource("StyleBoxTexture_x4gum")
-toggle_mode = true
 button_group = ExtResource("13_wb254")
 script = ExtResource("15_v3m0n")
 filter_value = 2
 
-[node name="ItemFilterButton4" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" groups=["item_filter_button"] instance=ExtResource("12_6l3wb")]
+[node name="ItemFilterButton4" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_twa77")
 theme_override_styles/hover = SubResource("StyleBoxTexture_d2ngo")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_olwpn")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_hmsb3")
 theme_override_styles/focus = SubResource("StyleBoxTexture_oyle5")
-toggle_mode = true
 button_group = ExtResource("13_wb254")
 script = ExtResource("15_v3m0n")
 filter_value = 3
@@ -589,26 +579,23 @@ layout_mode = 2
 size_flags_horizontal = 10
 alignment = 2
 
-[node name="ItemFilterButton1" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" groups=["item_filter_button"] instance=ExtResource("12_6l3wb")]
+[node name="ItemFilterButton1" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_ahejp")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ib584")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pexw0")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_w4dok")
 theme_override_styles/focus = SubResource("StyleBoxTexture_p012y")
-toggle_mode = true
 button_group = ExtResource("16_qxwth")
 script = ExtResource("16_24l1e")
-filter_value = 0
 
-[node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" groups=["item_filter_button"] instance=ExtResource("12_6l3wb")]
+[node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_6dht0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_um3tl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_f781c")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_srwu8")
 theme_override_styles/focus = SubResource("StyleBoxTexture_2y8gy")
-toggle_mode = true
 button_group = ExtResource("16_qxwth")
 script = ExtResource("16_24l1e")
 filter_value = 1

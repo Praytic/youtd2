@@ -294,6 +294,10 @@ func get_rarity() -> Rarity.enm:
 	return rarity
 
 
+func get_item_type() -> ItemType.enm:
+	return ItemProperties.get_type(_id)
+
+
 func is_consumable() -> bool:
 	return ItemProperties.is_consumable(_id)
 

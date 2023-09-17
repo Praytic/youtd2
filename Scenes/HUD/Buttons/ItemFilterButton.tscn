@@ -1,12 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dan6pqpxexgbi"]
-
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemFilterButton.gd" id="2_t3fcs"]
+[gd_scene format=3 uid="uid://dan6pqpxexgbi"]
 
 [node name="ItemFilterButton" type="Button"]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
 offset_bottom = 64.0
-scale = Vector2(0.5, 0.5)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("2_t3fcs")
+toggle_mode = true
