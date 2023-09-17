@@ -30,7 +30,7 @@ func get_extra_tooltip_text() -> String:
 
 
 func load_triggers(triggers_buff_type: BuffType):
-	triggers_buff_type.add_event_on_attack(on_damage)
+	triggers_buff_type.add_event_on_damage(on_damage)
 
 
 func tower_init():
