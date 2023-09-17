@@ -228,7 +228,7 @@ func _ready():
 
 	selected.connect(on_selected)
 	unselected.connect(on_unselected)
-	tree_exiting.connect(on_tree_exiting)
+	tree_exited.connect(on_tree_exited)
 
 	_temp_preceding_tower = null
 	
@@ -617,7 +617,7 @@ func on_unselected():
 	_tower_actions.hide()
 
 
-func on_tree_exiting():
+func on_tree_exited():
 	on_destruct()
 
 

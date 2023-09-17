@@ -100,7 +100,7 @@ func _ready():
 #########################
 
 
-func _on_creep_tree_exiting(creep: Creep):
+func _on_creep_tree_exited(creep: Creep):
 	_alive_creep_list.erase(creep)
 
 	if _alive_creep_list.is_empty() && state == Wave.State.SPAWNED:
@@ -236,7 +236,7 @@ func get_base_armor() -> float:
 
 func add_alive_creep(creep: Creep):
 	_alive_creep_list.append(creep)
-	creep.tree_exiting.connect(_on_creep_tree_exiting.bind(creep))
+	creep.tree_exited.connect(_on_creep_tree_exited.bind(creep))
 
 
 # Calculates base HP for a Creep based on 

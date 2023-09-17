@@ -24,8 +24,7 @@ var _target_list: Array = []
 
 func _ready():
 	_caster.level_up.connect(_on_caster_level_up)
-
-	tree_exiting.connect(_on_tree_exiting)
+	tree_exited.connect(_on_tree_exited)
 
 
 func get_power() -> int:
@@ -85,7 +84,7 @@ func _on_timer_timeout():
 		buff._applied_by_aura_count += 1
 
 
-func _on_tree_exiting():
+func _on_tree_exited():
 	remove_aura_effect_from_units(_target_list)
 
 

@@ -133,10 +133,10 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 			push_error("Callable for Projectile must be a Node type. Callable that caused error:", handler)
 			continue
 
-		if handler_node.tree_exiting.is_connected(projectile._on_handler_node_tree_exiting):
+		if handler_node.tree_exited.is_connected(projectile._on_handler_node_tree_exited):
 			continue
 
-		handler_node.tree_exiting.connect(projectile._on_handler_node_tree_exiting)
+		handler_node.tree_exited.connect(projectile._on_handler_node_tree_exited)
 
 	var sprite_path: String = type._sprite_path
 	var sprite_exists: bool = ResourceLoader.exists(sprite_path)
@@ -302,5 +302,5 @@ func _do_collision():
 		_collision_history.append(unit)
 
 
-func _on_handler_node_tree_exiting():
+func _on_handler_node_tree_exited():
 	_cleanup()
