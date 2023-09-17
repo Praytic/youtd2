@@ -67,3 +67,5 @@ const INNATE_MOD_ATTACKSPEED_LEVEL_ADD: float = 0.01
 
 const ATK_CRIT_CHANCE_CAP: float = 0.8
 const ATK_MULTICRIT_DIMISHING: float = 0.8
+const MOD_ATTACKSPEED_MIN: float = 0.2
+const MOD_ATTACKSPEED_MAX: float = 5.0

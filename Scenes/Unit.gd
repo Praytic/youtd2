@@ -1181,11 +1181,8 @@ func get_spell_crit_damage() -> float:
 # tower's attack cooldown. Note that even though name
 # contains "base", this f-n returns value which includes
 # modifiers.
-# 
-# NOTE: do not allow attackspeed to go to 0 to prevent
-# divisons by 0.
 func get_base_attack_speed() -> float:
-	return clampf(_mod_value_map[Modification.Type.MOD_ATTACKSPEED], 0.01, 100.0)
+	return clampf(_mod_value_map[Modification.Type.MOD_ATTACKSPEED], Constants.MOD_ATTACKSPEED_MIN, Constants.MOD_ATTACKSPEED_MAX)
 
 func get_level() -> int:
 	return _level
