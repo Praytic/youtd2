@@ -85,7 +85,7 @@ func hit(p: Projectile, creep: Unit):
 func tower_init():
 	tolleder_storm_bat = BuffType.new("tolleder_storm_bat", 9, 0.3, false, self)
 	tolleder_storm_bat.set_buff_icon("@@0@@")
-	tolleder_storm_bat.add_event_on_damage(debuff_on_damaged)
+	tolleder_storm_bat.add_event_on_damaged(debuff_on_damaged)
 	tolleder_storm_bat.set_stacking_group("StormBattery")
 	tolleder_storm_bat.set_buff_tooltip("Electrified\nThis creep has been electrified; it will sometimes take extra damage when damaged by attacks or spells.")
 
