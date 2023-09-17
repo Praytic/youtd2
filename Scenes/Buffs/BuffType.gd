@@ -295,7 +295,7 @@ func add_event_on_damaged(handler: Callable):
 
 
 # NOTE: buffType.setEventOnExpire() in JASS
-func set_event_on_expire(handler: Callable):
+func add_event_on_expire(handler: Callable):
 	add_event_handler(Event.Type.EXPIRE, handler)
 
 
