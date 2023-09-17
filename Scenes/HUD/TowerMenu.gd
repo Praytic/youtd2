@@ -257,6 +257,7 @@ func _on_upgrade_button_pressed():
 	if tower == null:
 		return
 
+	var prev_id: int = tower.get_id()
 	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
 
 	if upgrade_id == -1:
@@ -279,7 +280,9 @@ func _on_upgrade_button_pressed():
 
 	SelectUnit.set_selected_unit(upgrade_tower)
 
+	var refund_for_prev_tier: float = TowerProperties.get_cost(prev_id)
 	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
+	GoldControl.add_gold(refund_for_prev_tier)
 	GoldControl.spend_gold(upgrade_cost)
 
 	_update_upgrade_button(upgrade_tower)
@@ -340,9 +343,9 @@ func _on_sell_button_pressed():
 		item.drop()
 		item.fly_to_stash(0.0)
 
-	var sell_price: float = TowerProperties.get_sell_price(tower.get_id())
+	var tower_cost: int = TowerProperties.get_cost(tower_id)
 	var sell_ratio: float = GameMode.get_sell_ratio(Globals.game_mode)
-	sell_price = floor(sell_price * sell_ratio)
+	var sell_price: float = floor(tower_cost * sell_ratio)
 	tower.get_player().give_gold(sell_price, tower, false, true)
 	tower.queue_free()
 

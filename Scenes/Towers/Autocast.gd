@@ -198,15 +198,17 @@ func do_cast_manually():
 
 		return
 
-	var target: Unit
+#	NOTE: immediate autocasts do not have targets even when
+#	manually casted
+# 
+#	NOTE: for other autocast types we switch to selecting
+#	the target. The cast will finish when player selects a
+#	target and do_cast_manually_finish_for_manual_target()
+#	is called.
 	if _type_is_immediate():
-		target = null
-	elif _type_is_buff() && handler.is_null():
-#		NOTE: if autocast is buff type and doesn't have a
-#		handler then that means that target will be selected
-#		automatically even for manual cast. Otherwise,
-#		target is selected by player.
-		target = _get_target_for_buff_autocast()
+
+		var target: Unit = null
+		_do_cast(target)
 	else:
 #		NOTE: for manual cast on unit, need to exit this f-n
 #		to select target. The cast will finish when player
@@ -214,15 +216,6 @@ func do_cast_manually():
 #		do_cast_manually_finish_for_manual_target() is
 #		called.
 		SelectTargetForCast.start(self)
-
-		return
-
-	if target == null && !_type_is_immediate():
-		Messages.add_error("No valid target")
-
-		return
-
-	_do_cast(target)
 
 
 # Returns if cast was successful

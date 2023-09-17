@@ -66,14 +66,10 @@ func make_level_at_exp_map(exp_for_level: Dictionary) -> Dictionary:
 # Returns how much experience is required to reach given
 # level
 func get_exp_for_level(level: int) -> int:
-	if _exp_for_level.has(level):
-		var experience: int = _exp_for_level.get(level, 12345)
+	var value_for_invalid_level: int = 1000000
+	var experience: int = _exp_for_level.get(level, value_for_invalid_level)
 
-		return experience
-	else:
-		push_error("No exp for level value for level: ", level)
-		
-		return 0
+	return experience
 
 
 # Returns what level the tower should be at when it has a

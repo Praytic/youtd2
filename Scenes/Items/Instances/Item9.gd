@@ -73,5 +73,7 @@ func on_create():
 
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
-	boekie_backpackMB.set_value(0, str(itm.user_int))
+	var items_backpacked_text: String = Utils.format_float(itm.user_int, 0)
+	boekie_backpackMB.set_value(0, items_backpacked_text)
+
 	return boekie_backpackMB

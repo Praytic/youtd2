@@ -16,6 +16,10 @@ signal test_signal()
 @export var _stash_scroll_container: ScrollContainer
 
 
+var _current_item_rarity_filter: Rarity.enm
+var _current_item_type_filter: ItemType.enm
+
+
 func _ready():
 	for element_button in get_element_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
@@ -100,12 +104,11 @@ func set_element(element: Element.enm):
 	_update_upgrade_element_button()
 
 
-func set_item_rarity(rarity: Rarity.enm, type: ItemType.enm):
-#	Dim the color of unselected element buttons
-	var buttons: Array = get_item_rarity_buttons()
+func _on_item_filter_changed():
+	var buttons: Array = get_item_filter_buttons()
 
-	for button in buttons:
-		var button_is_selected: bool = (button.rarity_filter == rarity or button.rarity_filter == null) \
+	for button in rarity_buttons:
+		var button_is_selected: bool = (button.filter_value == rarity or button.rarity_filter == null) \
 			and (button.type_filter == type or button.type_filter == null) \
 			and (button.rarity_filter != null and button.type_filter != null)
 

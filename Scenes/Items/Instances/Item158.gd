@@ -34,9 +34,9 @@ func on_create():
 
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
-	
-#	Show total gold digged up
-	drol_digItemMulti.set_value(0, str(itm.user_int))
+	var gold_found_text: String = Utils.format_float(itm.user_int, 0)
+	drol_digItemMulti.set_value(0, gold_found_text)
+
 	return drol_digItemMulti
 
 

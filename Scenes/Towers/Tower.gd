@@ -79,11 +79,13 @@ var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 # NOTE: can't use @export because it breaks placeholder
 # tower scenes.
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
-@onready var _mana_bar: ProgressBar = $ManaBar
-@onready var _tower_selection_area: Area2D = $TowerSelectionArea
+@onready var _mana_bar: ProgressBar = $Visual/ManaBar
+@onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
 # NOTE: $Model/Sprite2D node is added in Tower subclass scenes 
+@onready var _model: Node2D = $Model
 @onready var _sprite: Sprite2D = $Model/Sprite2D
-@onready var _tower_actions: Control = $TowerActions
+@onready var _tower_actions: Control = $Visual/TowerActions
+@onready var _visual: Node2D = $Visual
 
 #########################
 ### Code starts here  ###
@@ -110,11 +112,26 @@ func _ready():
 
 #	If this tower is used for towerpreview, then exit early
 #	out of ready() so that no event handlers or auras are
-#	created so that the tower instance is inactive.
+#	created so that the tower instance is inactive. Also,
+#	this early exit has to happen before adjusting positions
+#	of visuals so that tower preview is correctly drawn
+#	under mouse.
 	if _visual_only:
 		_mana_bar.hide()
 
 		return
+
+#	Apply offsets to account for tower being "on the second floor".
+#	Visual nodes get moved up by one tile.
+# 	Also move selection visual because it's placed at ground
+# 	position in Unit.gd but needs to be at visual position
+# 	for towers.
+#	NOTE: important to use "-=" instead of "=" because these
+#	nodes may have default values which we don't want to
+#	override
+	_visual.position.y -= Constants.TILE_HEIGHT
+	_model.position.y -= Constants.TILE_HEIGHT
+	_selection_visual.position.y -= Constants.TILE_HEIGHT
 
 	var base_mana: float = get_csv_property(CsvProperty.MANA).to_float()
 	set_base_mana(base_mana)
@@ -143,12 +160,6 @@ func _ready():
 # 	Carry over some properties and all items from preceding
 # 	tower
 	if _temp_preceding_tower != null:
-		set_level(_temp_preceding_tower._level)
-		_experience = _temp_preceding_tower._experience
-		_kill_count = _temp_preceding_tower._kill_count
-		_best_hit = _temp_preceding_tower._best_hit
-		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
-
 		var preceding_item_list: Array = _temp_preceding_tower.get_items()
 		var preceding_oil_list: Array = _temp_preceding_tower.get_oils()
 
@@ -156,17 +167,31 @@ func _ready():
 			_temp_preceding_tower.get_item_container().remove_item(oil_item)
 			_item_container.add_item(oil_item)
 
+#		Remove items from preceding tower
+		for item in preceding_item_list:
+			_temp_preceding_tower.get_item_container().remove_item(item)
+
+#		NOTE: must set level and experience after removing
+#		items from preceding tower and before adding items
+#		to new tower. This is to correctly handle items
+#		which grant experience while carried.
+		set_level(_temp_preceding_tower._level)
+		_experience = _temp_preceding_tower._experience
+
+#		Add items to new tower
 #		NOTE: for upgrade case, inventory will always be
 #		same size or bigger but for transform case inventory
 #		may be smaller. Handle transform case by returning
 #		any extra items to stash.
 		for item in preceding_item_list:
-			_temp_preceding_tower.get_item_container().remove_item(item)
-
 			if have_item_space():
 				_item_container.add_item(item)
 			else:
 				item.fly_to_stash_from_pos(position)
+
+		_kill_count = _temp_preceding_tower._kill_count
+		_best_hit = _temp_preceding_tower._best_hit
+		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
 
 #	NOTE: some stats have an innate level-based modifier
 	var innate_modifier: Modifier = Modifier.new()
@@ -203,6 +228,7 @@ func _ready():
 
 	selected.connect(on_selected)
 	unselected.connect(on_unselected)
+	tree_exiting.connect(on_tree_exiting)
 
 	_temp_preceding_tower = null
 	
@@ -354,20 +380,6 @@ func issue_target_order(order_type: String, target: Unit):
 #########################
 
 
-# If this is a crit, display floating text with damage and
-# exclamation marks.
-func _do_crit_floating_text(damage: float, crit_count: int):
-	if crit_count == 0:
-		return
-
-	var text: String = str(floor(damage))
-
-	for i in range(0, crit_count):
-		text += "!"
-
-	get_player().display_floating_text_color(text, self, Color.RED, 1.0)
-
-
 # NOTE: change color of projectile according to tower's
 # element. Note that this overrides projectile's natural color so
 # will need to rework this if we decide to make separate
@@ -446,9 +458,16 @@ func load_specials(_modifier: Modifier):
 
 
 # Override this in tower subclass to implement the "On Tower
-# Creation" trigger. This is the analog of "onCreate"
-# function from original API.
+# Creation" trigger.
+# NOTE: onCreate in JASS
 func on_create(_preceding_tower: Tower):
+	pass
+
+
+# Override this in tower subclass to implement the "On Tower
+# Destruction" trigger.
+# NOTE: onDestruct in JASS
+func on_destruct():
 	pass
 
 
@@ -598,6 +617,10 @@ func on_unselected():
 	_tower_actions.hide()
 
 
+func on_tree_exiting():
+	on_destruct()
+
+
 func _get_base_properties() -> Dictionary:
 	return {}
 
@@ -690,8 +713,6 @@ func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
 
-	_do_crit_floating_text(damage, crit_count)
-	
 #	NOTE: set _number_of_crits here so that it's accesible
 #	in damage event handlers
 	_number_of_crits = crit_count
@@ -708,11 +729,6 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
-
-#	NOTE: only do crit floating text for the main target,
-#	don't do for splash targets because it would look too
-#	cluttered.
-	_do_crit_floating_text(damage, crit_count)
 
 #	NOTE: set _number_of_crits here so that it's accesible
 #	in damage event handlers_number_of_crits = crit_count
@@ -757,7 +773,6 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
-	_do_crit_floating_text(current_damage, crit_count)
 
 #	NOTE: set _number_of_crits here so that it's accesible
 #	in damage event handlers_number_of_crits = crit_count
@@ -982,9 +997,7 @@ func get_gold_cost() -> int:
 	return get_csv_property(CsvProperty.COST).to_int()
 
 func get_inventory_capacity() -> int:
-	var rarity: Rarity.enm = get_rarity()
-	var tier: int = get_tier()
-	var capacity: int = Constants.INVENTORY_CAPACITY[rarity][tier]
+	var capacity: int = TowerProperties.get_inventory_capacity(_id)
 
 	return capacity
 

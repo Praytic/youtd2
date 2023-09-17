@@ -123,7 +123,7 @@ func on_damage(event: Event):
 
 		if is_instance_valid(tower) && tower.get_instance_id() == UID:
 			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -_stats.mod_attackspeed * multiplier)
-			tower.user_real = tower.user_real + 10
+			tower.user_real = tower.user_real + _stats.soul_chance_decrease
 
 
 func on_create(_preceding_tower: Tower):

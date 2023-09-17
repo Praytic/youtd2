@@ -50,4 +50,5 @@ func on_damage(event: Event):
 		event.damage = event.damage * (1.5 + (0.01 * level))
 		SFX.sfx_at_unit("Objects\\Spawnmodels\\Critters\\Albatross\\CritterBloodAlbatross.mdl", creep)
 		cb_stun.apply_only_timed(tower, creep, 0.5 + tower.get_level() * 0.01)
-		tower.get_player().display_small_floating_text(str(int(event.damage)), tower, 255, 150, 150, 0)
+		var damage_text: String = Utils.format_float(event.damage, 0)
+		tower.get_player().display_small_floating_text(damage_text, tower, 255, 150, 150, 0)

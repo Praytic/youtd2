@@ -83,7 +83,7 @@ func periodic(_event: Event):
 	var itm: Item = self
 	itm.user_int = itm.user_int + 3
 
-	if itm.user_int > 11:
+	if itm.user_int >= 11:
 		itm.user_int = 10
 
 	itm.set_charges(itm.user_int)

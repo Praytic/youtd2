@@ -68,7 +68,7 @@ func tower_init():
 	m_25.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.5, 0.0)
 	m_25.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.25, 0.0)
 	m_25.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
-	m_15.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2.0, 0.0)
+	m_25.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2.0, 0.0)
 	gex_rage_buff_25 = BuffType.new("gex_rage_buff_25", 0, 0, true, self)
 	gex_rage_buff_25.set_buff_modifier(m_25)
 	gex_rage_buff_25.set_buff_icon("@@0@@")

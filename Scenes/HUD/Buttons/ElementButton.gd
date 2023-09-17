@@ -1,12 +1,7 @@
-@tool
-extends TextureButton
+extends Button
 
 
-const ICON_SIZE = 128
-
-@onready var element_atlas = preload("res://Assets/Towers/tower_icons_m.png")
-
-@export var element = Element.enm.ASTRAL # (Element.enm)
+@export var element: Element.enm
 @export var texture_progress_bar: TextureProgressBar
 @export var progress_label: Label
 
@@ -15,11 +10,6 @@ var research_mode: bool
 
 
 func _ready():
-	var texture: AtlasTexture = AtlasTexture.new()
-	texture.set_atlas(element_atlas)
-	texture.set_region(Rect2(element * ICON_SIZE, 0, ICON_SIZE, ICON_SIZE))
-	texture_normal = texture
-	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 	ElementLevel.changed.connect(_on_element_level_changed)
@@ -51,3 +41,4 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	texture_progress_bar.hide()
 	progress_label.hide()
+

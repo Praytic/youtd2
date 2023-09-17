@@ -56,6 +56,7 @@ func on_pickup():
 
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
-	crit_blade_multiboard.set_value(0, str(itm.user_real * 100) + "%")
+	var crit_chance_bonus_text: String = Utils.format_percent(itm.user_real, 0)
+	crit_blade_multiboard.set_value(0, crit_chance_bonus_text)
 
 	return crit_blade_multiboard

@@ -415,10 +415,10 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float) -> bool:
 	var caster: Unit = self
 	var dealt_mod: float = caster.get_prop_spell_damage_dealt()
 	var received_mod: float = target.get_prop_spell_damage_received()
-	var damage_total: float = damage * dealt_mod * received_mod * crit_ratio
+	var damage_total: float = damage * dealt_mod * received_mod
 	var is_main_target: bool = false
 
-	var killed_unit: bool = _do_damage(target, damage_total, DamageSource.Spell, is_main_target)
+	var killed_unit: bool = _do_damage(target, damage_total, crit_ratio,  DamageSource.Spell, is_main_target)
 
 	return killed_unit
 
@@ -466,15 +466,7 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 
 		_dealt_damage_signal_in_progress = false
 
-#	NOTE: according to this comment in one tower script,
-#	crit bonus damage should be applied after damage event:
-#
-# 	Quote: "The engine calculates critical strike extra
-# 	damage ***AFTER*** the onDamage event, so there is no
-# 	need to care about it in this trigger."
-	damage *= crit_ratio
-
-	_do_damage(target, damage, DamageSource.Attack, is_main_target)
+	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target)
 
 
 # NOTE: sides_ratio parameter specifies how much less damage
@@ -760,12 +752,19 @@ func _receive_attack():
 	attacked.emit(attacked_event)
 
 
-func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource, is_main_target: bool) -> bool:
+# NOTE: according to this comment in one tower script, crit
+# damage bonus must be applied after "damage" event (not
+# "damaged").
+#
+# Quote: "The engine calculates critical strike extra
+# damage ***AFTER*** the onDamage event, so there is no
+# need to care about it in this trigger."
+func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool) -> bool:
 	var size_mod: float = _get_damage_mod_for_creep_size(target)
 	var category_mod: float = _get_damage_mod_for_creep_category(target)
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
 
-	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
+	var damage: float = damage_base * size_mod * category_mod * armor_type_mod * crit_ratio
 
 # 	NOTE: all spell damage is reduced by this amount
 	if damage_source == DamageSource.Spell:
@@ -797,24 +796,7 @@ func _do_damage(target: Unit, damage_base: float, damage_source: DamageSource, i
 
 	Globals.add_to_total_damage(damage)
 
-	if Config.damage_numbers():
-		var damage_color: Color
-		var damage_text: String
-		
-		match damage_source:
-			DamageSource.Attack: 
-				damage_color = Color.RED
-			DamageSource.Spell:
-				damage_color = Color.SKY_BLUE
-		
-		if int(damage) != 0:
-			damage_text = str(int(damage))
-		else:
-			damage_text = "miss"
-		
-		var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + target.get_visual_position()
-		
-		get_player().display_floating_text_color_at_pos(damage_text, approx_position, damage_color, 1.0)
+	_add_floating_text_for_damage(damage, crit_ratio, damage_source, is_main_target, target)
 
 	var health_after_damage: float = target.get_health()
 	var damage_killed_unit: bool = health_before_damage > 0 && health_after_damage <= 0
@@ -1024,12 +1006,12 @@ func set_level(new_level: int):
 
 #	NOTE: apply level change to modifiers
 	for modifier in _direct_modifier_list:
-		_change_modifier_level(modifier, old_level, new_level)
+		_change_modifier_power(modifier, old_level, new_level)
 
 
-func _change_modifier_level(modifier: Modifier, old_level: int, new_level: int):
-	_apply_modifier(modifier, old_level, -1)
-	_apply_modifier(modifier, new_level, 1)
+func _change_modifier_power(modifier: Modifier, old_power: int, new_power: int):
+	_apply_modifier(modifier, old_power, -1)
+	_apply_modifier(modifier, new_power, 1)
 
 
 func is_dead() -> bool:
@@ -1334,7 +1316,16 @@ func get_overall_health_regen() -> float:
 	return (get_base_health_regen() + get_base_health_regen_bonus()) * get_base_health_regen_bonus_percent()
 
 func get_prop_move_speed() -> float:
-	return max(0, _mod_value_map[Modification.Type.MOD_MOVESPEED])
+	var base_value: float = _mod_value_map[Modification.Type.MOD_MOVESPEED]
+	var value: float
+
+	if base_value > 1.0:
+		value = base_value
+	else:
+		value = pow(3.0, base_value - 1.0)
+
+	return value
+
 
 func get_prop_move_speed_absolute() -> float:
 	return _mod_value_map[Modification.Type.MOD_MOVESPEED_ABSOLUTE]
@@ -1529,3 +1520,62 @@ func _change_experience(amount: float) -> float:
 		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self, -20.0)
 
 	return actual_change
+
+
+# NOTE: it would be simpler to accept a "crit_count" arg
+# here instead of "crit_ratio" but that is not possible
+# because the youtd API for do_spell_damage() and
+# do_attack_damage() accepts crit_ratio. For this reason, we
+# have to re-derive the crit_count from crit_ratio.
+func _add_floating_text_for_damage(damage: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, target: Unit):
+	var damage_color: Color
+	var damage_text: String
+	
+	match damage_source:
+		DamageSource.Attack: 
+			damage_color = Color.RED
+		DamageSource.Spell:
+			damage_color = Color.SKY_BLUE
+	
+	if int(damage) != 0:
+		damage_text = str(int(damage))
+	else:
+		damage_text = "miss"
+
+	var crit_count: int = _derive_crit_count_from_crit_ratio(crit_ratio, damage_source)
+	var is_critical: bool = crit_count > 0
+
+	for i in range(0, crit_count):
+		damage_text += "!"
+
+	var text_origin_unit: Unit
+	if is_critical && damage_source == DamageSource.Attack:
+		text_origin_unit = self
+	else:
+		text_origin_unit = target
+
+#	NOTE: confusing logic for this boolean but this is how
+#	it worked in original youtd
+	var floating_text_should_be_shown: bool = Config.damage_numbers() || (damage_source == DamageSource.Attack && is_critical && is_main_target) || (damage_source == DamageSource.Spell && is_critical)
+	if !floating_text_should_be_shown:
+		return
+	
+	var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + text_origin_unit.get_visual_position()
+	
+	get_player().display_floating_text_color_at_pos(damage_text, approx_position, damage_color, 1.0)
+
+
+# Example:
+# If crits deal 125% of normal damage and crit ratio is 1.50
+# Then crit count = (1.50 - 1.0) / (1.25 - 1.0) = 0.50 / 0.25 = 2
+func _derive_crit_count_from_crit_ratio(crit_ratio: float, damage_source: DamageSource) -> int:
+	var crit_damage_mod: float
+	match damage_source:
+		DamageSource.Attack:
+			crit_damage_mod	= get_prop_atk_crit_damage()
+		DamageSource.Spell:
+			crit_damage_mod	= get_spell_crit_damage()
+
+	var crit_count: int = roundi((crit_ratio - 1.0) / (crit_damage_mod - 1.0))
+
+	return crit_count

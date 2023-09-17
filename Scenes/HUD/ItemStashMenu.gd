@@ -38,6 +38,7 @@ func _on_item_stash_changed():
 	for button in removed_button_list:
 		var button_container: Node = button.get_parent()
 		remove_child(button_container)
+		button_container.queue_free()
 		_item_button_list.erase(button)
 
 # 	Add buttons for items which were added to stash

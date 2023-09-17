@@ -42,8 +42,9 @@ func on_create():
 
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
+	var arms_sold_text: String = Utils.format_float(itm.user_int2, 0)
+	limfa_dealerboard.set_value(0, arms_sold_text)
 
-	limfa_dealerboard.set_value(0, str(itm.user_int2))
 	return limfa_dealerboard
 
 
@@ -59,6 +60,7 @@ func on_unit_in_range(event: Event):
 	if itm.user_int < boss_level && t.calc_chance(0.25):
 		reward_value = t.get_level() + boss_level + 25
 		p.give_gold(reward_value, t, true, false)
-		p.display_floating_text("Arms Sold $" + str(reward_value), t, 0, 255, 0)
+		var arms_sold_text: String = "Arms Sold $%d" % reward_value
+		p.display_floating_text(arms_sold_text, t, 0, 255, 0)
 		itm.user_int = boss_level
 		itm.user_int2 = itm.user_int2 + reward_value

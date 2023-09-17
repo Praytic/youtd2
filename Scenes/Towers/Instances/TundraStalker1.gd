@@ -116,6 +116,7 @@ func on_create(preceding: Tower):
 
 func on_tower_details() -> MultiboardValues:
 	var tower: Tower = self
+	var speed_bonus_text: String = Utils.format_percent(tower.user_real, 1)
+	drol_tundraStalkerValues.set_value(0, speed_bonus_text)
 
-	drol_tundraStalkerValues.set_value(0, str(int(tower.user_real * 100)) + "%")
 	return drol_tundraStalkerValues

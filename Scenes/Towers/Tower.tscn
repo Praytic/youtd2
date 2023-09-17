@@ -25,14 +25,9 @@ polygon = PackedVector2Array(0, -128, 128, 0, 0, 128, -128, 0)
 visible = false
 script = ExtResource("5")
 
-[node name="TowerSelectionArea" type="Area2D" parent="."]
-monitoring = false
-monitorable = false
+[node name="Visual" type="Node2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TowerSelectionArea"]
-polygon = PackedVector2Array(-102, 6, 0, 56, 102, 6, 102, -96, 0, -147, -102, -96)
-
-[node name="ManaBar" type="ProgressBar" parent="."]
+[node name="ManaBar" type="ProgressBar" parent="Visual"]
 offset_left = -150.0
 offset_right = 150.0
 offset_bottom = 20.0
@@ -40,8 +35,15 @@ theme_override_styles/background = SubResource("StyleBoxFlat_25shh")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xfdtb")
 show_percentage = false
 
-[node name="TowerActions" parent="." instance=ExtResource("3_jgb58")]
+[node name="TowerActions" parent="Visual" instance=ExtResource("3_jgb58")]
 offset_left = -73.0
 offset_top = -295.0
 offset_right = -73.0
 offset_bottom = -295.0
+
+[node name="TowerSelectionArea" type="Area2D" parent="Visual"]
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/TowerSelectionArea"]
+polygon = PackedVector2Array(-102, 6, 0, 56, 102, 6, 102, -96, 0, -147, -102, -96)

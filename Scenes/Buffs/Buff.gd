@@ -109,9 +109,7 @@ func get_modifier() -> Modifier:
 
 # NOTE: buff.setLevel() in JASS
 func set_level(level: int):
-	var old_level: int = _level
 	_level = level
-	_target._change_modifier_level(get_modifier(), old_level, level)
 
 
 # Level is used to compare this buff with another buff of
@@ -132,7 +130,9 @@ func get_power() -> int:
 
 # NOTE: buff.setPower() in JASS
 func set_power(power: int):
+	var old_power: int = _power
 	_power = power
+	_target._change_modifier_power(get_modifier(), old_power, power)
 
 
 func get_type() -> String:
@@ -321,10 +321,11 @@ func _refresh_by_new_buff():
 	_call_event_handler_list(Event.Type.REFRESH, refresh_event)
 
 
-func _upgrade_by_new_buff(new_level: int):
+func _upgrade_by_new_buff(new_level: int, new_power: int):
 	refresh_duration()
 	
 	set_level(new_level)
+	set_power(new_power)
 
 	var upgrade_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.UPGRADE, upgrade_event)

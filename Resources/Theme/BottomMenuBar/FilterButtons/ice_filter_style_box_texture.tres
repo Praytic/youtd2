@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=3 format=3 uid="uid://y3o6r0pyteqe"]
+
+[ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="1_4j6ic"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdq78"]
+atlas = ExtResource("1_4j6ic")
+region = Rect2(128, 256, 128, 128)
+
+[resource]
+texture = SubResource("AtlasTexture_pdq78")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)

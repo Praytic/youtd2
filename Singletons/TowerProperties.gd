@@ -256,39 +256,6 @@ func get_towers_in_family(family_id: int) -> Array:
 	return family_list
 
 
-# NOTE: sell price may be different from cost if the tower
-# was upgraded. In those cases sell price will include
-# refunds for upgrades. Note that this is the 100% price
-# without applying any multipliers based on current game
-# mode. Need to not apply multipliers here because this f-n
-# is also used for transform refunds which doesn't need
-# multipliers.
-func get_sell_price(tower_id: int) -> int:
-	var current_cost: int = TowerProperties.get_cost(tower_id)
-	
-	var costs_for_prev_tiers: int = 0
-	var towers_in_family: Array = TowerProperties.get_towers_in_family(tower_id)
-	for prev_tower in towers_in_family:
-		if prev_tower == tower_id:
-			break
-
-		var prev_cost: int = TowerProperties.get_cost(prev_tower)
-		costs_for_prev_tiers += prev_cost
-
-	var sell_price: int = 0
-
-	sell_price += current_cost
-
-#	NOTE: costs for prev tiers is not included if game mode
-#	is Totally Random because in that game mode towers are
-#	built at higher tiers without upgrades.
-	var include_costs_for_prev_tiers: bool = Globals.game_mode != GameMode.enm.TOTALLY_RANDOM
-	if include_costs_for_prev_tiers:
-		sell_price += costs_for_prev_tiers
-
-	return sell_price
-
-
 # NOTE: this formula is the inverse of the formula for tower cost
 # from TowerDistribution._get_max_cost()
 func _get_required_wave_level_from_formula(tower_id: int) -> int:
@@ -363,3 +330,54 @@ func get_tome_cost(tower_id: int) -> int:
 	var tome_cost: int = tome_cost_map[rarity]
 
 	return tome_cost
+
+
+# Inventory capacity is derived from tower cost and there
+# are also min/max values based on tower rarity.
+# 
+# Examples:
+# 
+# Energy Junction is an uncommon tower which costs 500. 500
+# is between 400 and 1200, so it's capacity is 2. Capacity of 2
+# fits within the [1,4] range of allowed capacities for
+# uncommon towers.
+# 
+# Igloo is a rare tower and costs 700. 700 is between 400
+# and 1200 so it's capacity should be 2 BUT the minimum
+# capacity for rare towers is 3, so Igloo's capacity is 3.
+func get_inventory_capacity(tower_id: int) -> int:
+	var capacity_to_min_cost_map: Dictionary = {
+		1: 0,
+		2: 400,
+		3: 1200,
+		4: 1500,
+		5: 1700,
+		6: 2000,
+	}
+	var min_capacity_map: Dictionary = {
+		Rarity.enm.COMMON: 1,
+		Rarity.enm.UNCOMMON: 1,
+		Rarity.enm.RARE: 3,
+		Rarity.enm.UNIQUE: 5,
+	}
+	var max_capacity_map: Dictionary = {
+		Rarity.enm.COMMON: 4,
+		Rarity.enm.UNCOMMON: 4,
+		Rarity.enm.RARE: 5,
+		Rarity.enm.UNIQUE: 6,
+	}
+
+	var tower_cost: int = get_cost(tower_id)
+	var tower_rarity: Rarity.enm = get_rarity(tower_id)
+	var min_capacity: int = min_capacity_map[tower_rarity]
+	var max_capacity: int = max_capacity_map[tower_rarity]
+
+	for capacity in range(max_capacity, 0, -1):
+		var min_cost: int = capacity_to_min_cost_map[capacity]
+
+		if tower_cost >= min_cost:
+			var clamped_capacity: int = clampi(capacity, min_capacity, max_capacity)
+
+			return clamped_capacity
+
+	return 1

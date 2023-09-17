@@ -413,6 +413,6 @@ func _remove_from_tower():
 func _on_flying_item_finished_flying():
 	var parent: Node = get_parent()
 	parent.remove_child(self)
+	parent.queue_free()
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
 	item_stash_container.add_item(self)
-	parent.queue_free()

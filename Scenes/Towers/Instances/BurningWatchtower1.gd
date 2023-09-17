@@ -68,7 +68,8 @@ func damage_on_fire_attack(event: Event):
 		event.damage = event.damage + b.user_real
 
 		if is_burning_tower:
-			attacker.get_player().display_small_floating_text(str(int(b.user_real)), b.get_buffed_unit(), 255, 90, 0, 40.0)
+			var damage_bonus_text: String = Utils.format_float(b.user_real, 0)
+			attacker.get_player().display_small_floating_text(damage_bonus_text, b.get_buffed_unit(), 255, 90, 0, 40.0)
 
 		b.refresh_duration()
 

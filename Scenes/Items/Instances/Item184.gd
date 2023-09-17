@@ -47,6 +47,7 @@ func on_kill(_event: Event):
 
 func on_tower_details() -> MultiboardValues:
 	var itm: Item = self
-	cedi_dps_cloak_mb.set_value(0, str(itm.user_int))
+	var dps_gained_text: String = Utils.format_float(itm.user_int, 0)
+	cedi_dps_cloak_mb.set_value(0, dps_gained_text)
 
 	return cedi_dps_cloak_mb

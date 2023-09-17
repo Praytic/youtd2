@@ -55,6 +55,11 @@ func create_animated(effect_path: String, x: float, y: float, _z: float, _myster
 	return id
 
 
+# NOTE: Effect.createAnimatedScaled() in JASS
+func create_animated_scaled(effect_path: String, x: float, y: float, z: float, mystery1: float, _scale: float) -> int:
+	return create_animated(effect_path, x, y, z, mystery1)
+
+
 # NOTE: Effect.createSimpleAtUnit() in JASS
 func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
 	var position: Vector2 = unit.get_visual_position() 
@@ -102,6 +107,22 @@ func scale_effect(effect_id: int, scale: float):
 func set_lifetime(effect_id: int, lifetime: float):
 	var timer: SceneTreeTimer = get_tree().create_timer(lifetime)
 	timer.timeout.connect(_on_lifetime_timer_timeout.bind(effect_id))
+
+
+# NOTE: effect.setAnimationSpeed() in JASS()
+func set_animation_speed(effect_id: int, speed: float):
+	if !_effect_map.has(effect_id):
+		return
+
+	var effect: Node2D = _effect_map[effect_id]
+
+	if !effect is AnimatedSprite2D:
+		push_error("Called set_animation_speed on effect which is not of type AnimatedSprite2D. Can't change speed in this case.")
+
+		return
+
+	var effect_sprite: AnimatedSprite2D = effect as AnimatedSprite2D
+	effect_sprite.speed_scale = speed
 
 
 # NOTE: Effect.destroy() and DestroyEffect() in JASS()

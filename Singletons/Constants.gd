@@ -46,42 +46,6 @@ const MAX_LEVEL: int = 25
 const SIF_ARMOR_CHANCE: float = 0.15
 const MIN_WAVE_FOR_SPECIAL: int = 8
 
-# Map of rarity -> tier -> inventory capacity
-const INVENTORY_CAPACITY: Dictionary = {
-	Rarity.enm.COMMON: {
-		1: 1,
-		2: 1,
-		3: 1,
-		4: 2,
-		5: 3,
-		6: 4,
-	},
-	Rarity.enm.UNCOMMON: {
-		1: 1,
-		2: 2,
-		3: 3,
-		4: 4,
-		5: 5,
-		6: 6,
-	},
-	Rarity.enm.RARE: {
-		1: 4,
-		2: 5,
-		3: 6,
-		4: 6,
-		5: 6,
-		6: 6,
-	},
-	Rarity.enm.UNIQUE: {
-		1: 5,
-		2: 6,
-		3: 6,
-		4: 6,
-		5: 6,
-		6: 6,
-	}
-}
-
 const INVENTORY_CAPACITY_MAX: int = 6
 
 const WAVE_COUNT_TRIAL: int = 80
