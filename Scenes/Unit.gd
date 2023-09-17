@@ -220,6 +220,9 @@ func _ready():
 #########################
 
 
+# NOTE: this f-n and add_modified_attack_crit() affect only
+# the tower's regular attack. They have no effect on calls
+# to do_attack_damage() in tower scripts.
 # NOTE: unit.addAttackCrit() in JASS
 func add_attack_crit():
 	_bonus_crit_count_for_next_attack = _bonus_crit_count_for_next_attack + 1
@@ -231,6 +234,8 @@ func add_modified_attack_crit(crit_damage_add: float, crit_damage_multiply: floa
 	_bonus_crit_ratio_for_next_attack = (get_prop_atk_crit_damage() - 1.0) * crit_damage_multiply + crit_damage_add
 
 
+# NOTE: this f-n affects all instances of spell damage,
+# including calls to do_spell_damage() in tower scripts.
 # NOTE: unit.addSpellCrit() in JASS
 func add_spell_crit():
 	_bonus_crit_count_for_next_spell += 1
