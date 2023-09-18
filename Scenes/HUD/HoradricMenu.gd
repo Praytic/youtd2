@@ -82,3 +82,11 @@ func _on_title_button_toggled(toggle: bool):
 		_main_container.hide()
 		_title_button.get_parent().set_h_size_flags(SIZE_SHRINK_END)
 	visibility_mode_changed.emit()
+	
+	if toggle:
+		for button in _title_button.button_group.get_buttons():
+			button.hide()
+		_title_button.show()
+	else:
+		for button in _title_button.button_group.get_buttons():
+			button.show()

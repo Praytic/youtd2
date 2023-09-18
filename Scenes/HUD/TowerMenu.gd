@@ -94,7 +94,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	var creep: Creep = get_selected_creep()
 	assert(not (tower != null and creep != null), "Both tower and creep are selected.")
 	
-	visible = tower != null or creep != null
+#	visible = tower != null or creep != null
 
 	if prev_unit != null and prev_unit is Tower:
 		prev_unit.items_changed.disconnect(on_tower_items_changed)
@@ -124,7 +124,6 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		var upgrade_button_should_be_visible: bool = Globals.game_mode == GameMode.enm.BUILD || Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
 		_upgrade_button.set_visible(upgrade_button_should_be_visible)
 		_sell_button.show()
-		show()
 
 	if creep != null:
 		creep.buff_list_changed.connect(_on_unit_buff_list_changed.bind(creep))
@@ -140,7 +139,6 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_tier_icon_texture.hide()
 		_upgrade_button.hide()
 		_sell_button.hide()
-		show()
 	
 	_set_selling_for_real(false)
 
@@ -482,3 +480,11 @@ func _on_unit_name_button_toggled(toggle: bool):
 		_main_container.hide()
 		_unit_name_button.get_parent().set_h_size_flags(SIZE_SHRINK_END)
 	visibility_mode_changed.emit()
+	
+	if toggle:
+		for button in _unit_name_button.button_group.get_buttons():
+			button.hide()
+		_unit_name_button.show()
+	else:
+		for button in _unit_name_button.button_group.get_buttons():
+			button.show()
