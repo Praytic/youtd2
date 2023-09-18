@@ -9,7 +9,6 @@ signal test_signal()
 @export var _elements_container: HBoxContainer
 @export var _tomes_status: ResourceStatusPanel
 @export var _gold_status: ResourceStatusPanel
-@export var _tower_stash: GridContainer
 @export var _tower_stash_scroll_container: ScrollContainer
 @export var _item_stash_scroll_container: ScrollContainer
 @export var _center_menu: VBoxContainer
@@ -31,6 +30,7 @@ func _ready():
 	
 	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_build_bar.towers_changed.connect(_on_tower_stash_changed)
+	
 	_on_item_stash_changed()
 	
 	set_element(Element.enm.ICE)
@@ -38,7 +38,7 @@ func _ready():
 	HighlightUI.register_target("elements_container", _elements_container)
 	HighlightUI.register_target("tomes_status", _tomes_status)
 	HighlightUI.register_target("gold_status", _gold_status)
-	HighlightUI.register_target("tower_stash", _tower_stash)
+	HighlightUI.register_target("tower_stash", _build_bar)
 
 
 func get_elements_container() -> Control:
@@ -60,7 +60,7 @@ func set_element(element: Element.enm):
 #	NOTE: set_value() is a member of Range class which is an
 #	ancestor of HScrollBar class
 	var scroll_bar: HScrollBar = _tower_stash_scroll_container.get_h_scroll_bar()
-	scroll_bar.set_value(0.0)
+	scroll_bar.set_value(100.0)
 
 
 func _on_item_rarity_filter_button_toggled(_toggle: bool):
@@ -105,9 +105,9 @@ func _on_stash_margin_container_gui_input(event):
 func _on_item_stash_changed():
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
 	for button in _item_rarity_filter_button_group.get_buttons():
-		button.items_count = item_stash_container.get_item_count(button.filter_value, null)
+		button.set_items_count(item_stash_container.get_item_count(button.filter_value, null))
 	for button in _item_type_filter_button_group.get_buttons():
-		button.items_count = item_stash_container.get_item_count(null, button.filter_value)
+		button.set_items_count(item_stash_container.get_item_count(null, button.filter_value))
 
 
 func _on_tower_stash_changed():

@@ -27,6 +27,7 @@ _error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
 _normal_message_container = NodePath("MarginContainer3/NormalMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
 _roll_towers_button = NodePath("VBoxContainer/MarginContainer/RollTowersButton")
+metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]
 layout_mode = 1
@@ -76,15 +77,7 @@ mouse_filter = 2
 
 [node name="BottomMenuBar" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1400, 0)
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-offset_left = -700.0
-offset_right = 700.0
-grow_vertical = 0
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
 visible = false

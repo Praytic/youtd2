@@ -52,6 +52,7 @@ func _add_all_towers():
 #	NOTE: call set_element() to show towers for currently
 #	selected element. 
 	set_element(_current_element)
+	towers_changed.emit()
 
 	print_verbose("BuildBar has added all towers.")
 
@@ -191,7 +192,7 @@ func get_towers_count(element = null) -> int:
 	var counter = 0
 	if element:
 		for tower_id in _tower_buttons.keys():
-			if TowerProperties.get_rarity(tower_id):
+			if TowerProperties.get_element(tower_id) == element:
 				counter += 1
 	else:
 		counter = _tower_buttons.size()

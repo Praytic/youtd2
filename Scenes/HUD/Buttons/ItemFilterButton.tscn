@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dan6pqpxexgbi"]
+[gd_scene load_steps=4 format=3 uid="uid://dan6pqpxexgbi"]
 
 [ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="1_2itcc"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemFilterButton.gd" id="2_8s4fn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqjbr"]
 
-[node name="ItemFilterButton" type="Button"]
+[node name="ItemFilterButton" type="Button" node_paths=PackedStringArray("_items_count")]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 64.0
 offset_bottom = 64.0
@@ -13,19 +14,21 @@ size_flags_vertical = 4
 theme_override_styles/normal = SubResource("StyleBoxEmpty_xqjbr")
 toggle_mode = true
 icon = ExtResource("1_2itcc")
+expand_icon = true
+script = ExtResource("2_8s4fn")
+_items_count = NodePath("MarginContainer/CountLabel")
 
-[node name="CountLabel" type="Label" parent="."]
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -6.0
-offset_bottom = -6.0
+offset_bottom = 44.0
 grow_horizontal = 2
-grow_vertical = 2
+theme_override_constants/margin_top = -40
+
+[node name="CountLabel" type="Label" parent="MarginContainer"]
+visible = false
+layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_outline_size = 10
-theme_override_font_sizes/font_size = 40
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -232,13 +232,19 @@ texture = ExtResource("32_8lj72")
 texture = ExtResource("32_8lj72")
 modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
 
-[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu")]
+[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu")]
+custom_minimum_size = Vector2(1500, 0)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -750.0
+offset_right = 750.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
+size_flags_vertical = 8
 mouse_force_pass_scroll_events = false
 theme = ExtResource("1_u18mo")
 script = ExtResource("6")
@@ -247,7 +253,6 @@ _build_bar = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/S
 _elements_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer")
 _tomes_status = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/KnowledgeTomeStatusPanel")
 _gold_status = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/GoldStatusPanel")
-_tower_stash = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/ItemStashMenu")
 _tower_stash_scroll_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer")
 _item_stash_scroll_container = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer")
 _center_menu = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu")
@@ -390,6 +395,7 @@ theme_override_constants/margin_bottom = 15
 [node name="BuildBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 8
 mouse_filter = 2
 theme_override_constants/h_separation = 100
 columns = 999
@@ -497,6 +503,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_oii3d")
 button_group = ExtResource("13_wb254")
 icon = null
 script = ExtResource("15_v3m0n")
+filter_value = 0
 
 [node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
@@ -545,6 +552,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_w4dok")
 button_group = ExtResource("16_qxwth")
 icon = null
 script = ExtResource("16_24l1e")
+filter_value = 0
 
 [node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
