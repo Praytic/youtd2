@@ -38,7 +38,6 @@ func _process(delta):
 	if not _research_timer.is_stopped():
 		var new_research_progress = (PRESS_DURATION_TO_COMPLETE_RESEARCH - _research_timer.time_left) * _research_element_progress_bar.max_value / PRESS_DURATION_TO_COMPLETE_RESEARCH
 		_research_element_progress_bar.value = new_research_progress
-		print("_process: %s" % _research_element_progress_bar.value)
 
 
 func set_towers_counter(value: int):
@@ -69,26 +68,22 @@ func _on_element_level_changed():
 
 
 func _on_mouse_entered():
-	print("_on_mouse_entered")
 	_texture_progress_bar.show()
 	_counter_label.show()
 	EventBus.research_button_mouse_entered.emit(element)
 
 
 func _on_mouse_exited():
-	print("_on_mouse_exited")
 	_texture_progress_bar.hide()
 	_counter_label.hide()
 	EventBus.research_button_mouse_exited.emit()
 
 
 func _on_button_down():
-	print("_on_button_down")
 	_button_down_timer.start()
 
 
 func _on_button_up():
-	print("_on_button_up")
 	_button_down_timer.stop()
 	_research_timer.stop()
 	_research_element_progress_bar.hide()
@@ -97,19 +92,16 @@ func _on_button_up():
 
 func _on_button_down_timeout():
 	_button_down_timer.stop()
-	print("_on_button_down_timeout")
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if _is_able_to_research():
 			_research_element_progress_bar.show()
 			_research_timer.start()
-			print("_research_timer.start")
 		else:
 			Messages.add_error("Can't research this element. Not enough tomes.")
 
 
 func _on_research_timer_timeout():
 	_research_timer.stop()
-	print("_on_research_timer_timeout")
 	# Second check that after research_timer player still has
 	# tomes to research the element.
 	if _is_able_to_research():

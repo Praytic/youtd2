@@ -1,5 +1,8 @@
 class_name UnitMenu
-extends Control
+extends PanelContainer
+
+
+signal visibility_mode_changed()
 
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
@@ -10,7 +13,7 @@ const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.
 @export var _info_button: Button
 @export var _reset_sell_button_timer: Timer
 @export var _items_box_container: HBoxContainer
-@export var _unit_name_label: Label
+@export var _unit_name_button: Button
 @export var _unit_info_label: RichTextLabel
 @export var _unit_icon_texture: TextureRect
 @export var _unit_specials_container: VBoxContainer
@@ -24,6 +27,7 @@ const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.
 @export var _specials_label: RichTextLabel
 @export var _inventory_empty_slots: HBoxContainer
 @export var _inventory: PanelContainer
+@export var _main_container: VBoxContainer
 
 var _selling_for_real: bool = false
 
@@ -34,7 +38,7 @@ func _ready():
 	_unit_specials_container = _unit_specials_container
 	_specials_container = _specials_container
 	
-	hide()
+	_main_container.hide()
 	
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
@@ -50,6 +54,7 @@ func _ready():
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
 	_info_button.toggled.connect(_on_info_button_pressed)
+	_unit_name_button.toggled.connect(_on_unit_name_button_toggled)
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
 		var empty_slot_button: EmptySlotButton = EmptySlotButton.make()
@@ -140,6 +145,10 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	_set_selling_for_real(false)
 
 
+func is_visibility_mode_expanded() -> bool:
+	return _main_container.visible
+
+
 func get_selected_tower() -> Tower:
 	var selected_unit = SelectUnit.get_selected_unit()
 	if selected_unit is Tower:
@@ -228,7 +237,7 @@ func _update_specials_label(unit: Unit):
 
 
 func _update_unit_name_label(unit: Unit):
-	_unit_name_label.text = unit.get_display_name()
+	_unit_name_button.text = unit.get_display_name()
 
 
 func _update_unit_level_label(unit: Unit):
@@ -463,3 +472,13 @@ func _get_tooltip_for_info_label(unit: Unit) -> String:
 		tooltip += text_for_damage_taken
 
 		return tooltip
+
+
+func _on_unit_name_button_toggled(toggle: bool):
+	if toggle:
+		_main_container.show()
+		_unit_name_button.get_parent().set_h_size_flags(SIZE_SHRINK_CENTER)
+	else:
+		_main_container.hide()
+		_unit_name_button.get_parent().set_h_size_flags(SIZE_SHRINK_END)
+	visibility_mode_changed.emit()

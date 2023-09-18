@@ -9,6 +9,7 @@ signal stop_wave()
 @export var _normal_message_container: VBoxContainer
 @export var _game_over_label: RichTextLabel
 @export var _roll_towers_button: Button
+@export var _right_panel_button_group: ButtonGroup
 
 
 func _ready():
@@ -24,6 +25,9 @@ func _ready():
 	EventBus.game_over.connect(_on_game_over)
 	WaveLevel.changed.connect(_on_wave_level_changed)
 	BuildTower.tower_built.connect(_on_tower_built)
+	
+	for button in _right_panel_button_group.get_buttons():
+		button.toggled.connect(_on_right_panel_button_toggled)
 	
 	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
 	_update_tooltip_for_roll_towers_button()
@@ -83,3 +87,14 @@ func _on_wave_level_changed():
 
 func _on_tower_built(_tower_id: int):
 	_roll_towers_button.hide()
+
+
+func _on_right_panel_button_toggled(_toggle: bool):
+	var pressed_button = _right_panel_button_group.get_pressed_button()
+	if pressed_button:
+		for button in _right_panel_button_group.get_buttons():
+			button.hide()
+		pressed_button.show()
+	else:
+		for button in _right_panel_button_group.get_buttons():
+			button.show()
