@@ -1,36 +1,59 @@
-@tool
-extends TextureButton
+extends Button
 
 
-const ICON_SIZE = 128
-
-@onready var element_atlas = preload("res://Assets/Towers/tower_icons_m.png")
-
-@export var element = Element.enm.ASTRAL # (Element.enm)
-@export var texture_progress_bar: TextureProgressBar
-@export var progress_label: Label
+signal trying_to_research()
+signal research()
+signal researched()
 
 
-var research_mode: bool
+const PRESS_DURATION_TO_START_RESEARCH = 0.5
+const PRESS_DURATION_TO_COMPLETE_RESEARCH = 1
+
+
+@export var element: Element.enm
+@export var _texture_progress_bar: TextureProgressBar
+@export var _counter_label: Label
+@export var _research_element_progress_bar: TextureProgressBar
+@export var _button_down_timer: Timer
+@export var _research_timer: Timer
 
 
 func _ready():
-	var texture: AtlasTexture = AtlasTexture.new()
-	texture.set_atlas(element_atlas)
-	texture.set_region(Rect2(element * ICON_SIZE, 0, ICON_SIZE, ICON_SIZE))
-	texture_normal = texture
-	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
-
-#	NOTE: ElementButton uses @tool so need this check
-#	because ElementLevel singleton is not available when
-#	this script is running in editor
-	if !Engine.is_editor_hint():
-		ElementLevel.changed.connect(_on_element_level_changed)
+	ElementLevel.changed.connect(_on_element_level_changed)
+	button_down.connect(_on_button_down)
+	button_up.connect(_on_button_up)
+	_button_down_timer.timeout.connect(_on_button_down_timeout)
+	_research_timer.timeout.connect(_on_research_timer_timeout)
+	
+	_button_down_timer.wait_time = PRESS_DURATION_TO_START_RESEARCH
+	_research_timer.wait_time = PRESS_DURATION_TO_COMPLETE_RESEARCH
 	
 	_on_mouse_exited()
 	_on_element_level_changed()
+
+
+func _process(delta):
+	if not _research_timer.is_stopped():
+		var new_research_progress = (PRESS_DURATION_TO_COMPLETE_RESEARCH - _research_timer.time_left) * _research_element_progress_bar.max_value / PRESS_DURATION_TO_COMPLETE_RESEARCH
+		_research_element_progress_bar.value = new_research_progress
+
+
+func set_towers_counter(value: int):
+	if value == 0:
+		_counter_label.text = ""
+	else:
+		_counter_label.text = str(value)
+
+
+func _is_able_to_research():
+	var can_afford: bool = ElementLevel.can_afford_research(element)
+	var current_level: int = ElementLevel.get_current(element)
+	var reached_max_level: bool = current_level == ElementLevel.get_max()
+	var button_is_enabled: bool = can_afford && !reached_max_level
+
+	return button_is_enabled
 
 
 func _make_custom_tooltip(for_text: String) -> Object:
@@ -40,25 +63,58 @@ func _make_custom_tooltip(for_text: String) -> Object:
 
 
 func _on_element_level_changed():
-#	NOTE: ElementButton uses @tool so need this check
-#	because ElementLevel singleton is not available when
-#	this script is running in editor
-	if Engine.is_editor_hint():
-		return
-
 	var curent_element_level = ElementLevel.get_current(element)
-	texture_progress_bar.value = curent_element_level
-	if curent_element_level == 0:
-		progress_label.text = ""
-	else:
-		progress_label.text = str(curent_element_level)
+	_texture_progress_bar.value = curent_element_level
 
 
 func _on_mouse_entered():
-	texture_progress_bar.show()
-	progress_label.show()
+	_texture_progress_bar.show()
+	_counter_label.show()
+	EventBus.research_button_mouse_entered.emit(element)
 
 
 func _on_mouse_exited():
-	texture_progress_bar.hide()
-	progress_label.hide()
+	_texture_progress_bar.hide()
+	_counter_label.hide()
+	EventBus.research_button_mouse_exited.emit()
+
+
+func _on_button_down():
+	_button_down_timer.start()
+
+
+func _on_button_up():
+	_button_down_timer.stop()
+	_research_timer.stop()
+	_research_element_progress_bar.hide()
+	_research_element_progress_bar.value = 0
+
+
+func _on_button_down_timeout():
+	_button_down_timer.stop()
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if _is_able_to_research():
+			_research_element_progress_bar.show()
+			_research_timer.start()
+		else:
+			Messages.add_error("Can't research this element. Not enough tomes.")
+
+
+func _on_research_timer_timeout():
+	_research_timer.stop()
+	# Second check that after research_timer player still has
+	# tomes to research the element.
+	if _is_able_to_research():
+		var cost: int = ElementLevel.get_research_cost(element)
+		KnowledgeTomesManager.spend(cost)
+		ElementLevel.increment(element)
+		
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			_on_button_down_timeout()
+		else:
+			_research_element_progress_bar.hide()
+			_research_element_progress_bar.value = 0
+	# If player doesn't have enough tomes after research_timer,
+	# show same error message as after button_down_timer.
+	else:
+		Messages.add_error("Can't research this element. Not enough tomes.")

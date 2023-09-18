@@ -1,78 +1,132 @@
-[gd_scene load_steps=34 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=88 format=3 uid="uid://cc70ktmpmbjts"]
 
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3"]
+[ext_resource type="Theme" uid="uid://eabew2p3tsgy" path="res://Resources/Theme/bottom_menu_theme.tres" id="1_u18mo"]
 [ext_resource type="Theme" uid="uid://dtwj74dyjwmi7" path="res://Resources/Theme/custom_theme.tres" id="4_nd5uj"]
-[ext_resource type="Texture2D" uid="uid://d3gaytlpm3l0a" path="res://Assets/Towers/tower_icons_s.png" id="4_r2xy7"]
 [ext_resource type="Texture2D" uid="uid://4urow6esjtqa" path="res://Assets/Towers/tower_icons_xs.png" id="5_2y3fp"]
+[ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://Resources/UI/ButtonGroup/element_filter_button_group.tres" id="5_053go"]
+[ext_resource type="StyleBox" uid="uid://q2y25uf1xpyp" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_normal.tres" id="5_pw3tg"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar.gd" id="6"]
-[ext_resource type="PackedScene" uid="uid://u7sl0wxhnt55" path="res://Scenes/HUD/Buttons/ElementButton.tscn" id="6_blybv"]
+[ext_resource type="PackedScene" uid="uid://c3rx3o4m3ayc1" path="res://Scenes/HUD/Buttons/ElementButton.tscn" id="6_blybv"]
+[ext_resource type="StyleBox" uid="uid://ckjfsihgl3nhp" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_hover.tres" id="6_dcexx"]
 [ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
-[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="7_u0cig"]
+[ext_resource type="StyleBox" uid="uid://behifdalodejt" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_pressed.tres" id="7_pmprt"]
+[ext_resource type="StyleBox" uid="uid://d0qdny6k5khyq" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_disabled.tres" id="8_qg8sp"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemStashMenu.gd" id="8_ww2i1"]
-[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="9_dxvdv"]
 [ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.tscn" id="9_rbj65"]
+[ext_resource type="Texture2D" uid="uid://om2iw3jtshn6" path="res://Resources/Textures/UI/Icons/nature_icon.tres" id="10_0rwi0"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/Gold.gd" id="10_ewb28"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/KnowledgeTome.gd" id="11_hpp3y"]
+[ext_resource type="Texture2D" uid="uid://dt7vupry6p4y1" path="res://Resources/Textures/UI/Icons/fire_icon.tres" id="11_xxlox"]
+[ext_resource type="PackedScene" uid="uid://dan6pqpxexgbi" path="res://Scenes/HUD/Buttons/ItemFilterButton.tscn" id="12_6l3wb"]
+[ext_resource type="Texture2D" uid="uid://bw81x17f8trjj" path="res://Resources/Textures/UI/Icons/astral_icon.tres" id="12_eesh7"]
+[ext_resource type="Texture2D" uid="uid://cmnfe6fi0wgsb" path="res://Resources/Textures/UI/Icons/darkness_icon.tres" id="13_8kubr"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/FoodStatusPanel.gd" id="13_b8pl0"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_agwsv"]
-atlas = ExtResource("9_dxvdv")
-region = Rect2(1086, 3, 160, 197)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_df1u7"]
-texture = SubResource("AtlasTexture_agwsv")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ypogo"]
-atlas = ExtResource("4_r2xy7")
-region = Rect2(448, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ju33v"]
-atlas = ExtResource("4_r2xy7")
-region = Rect2(448, 0, 64, 64)
+[ext_resource type="ButtonGroup" uid="uid://djd6rxett6r2t" path="res://Resources/UI/ButtonGroup/item_rarity_filter_button_group.tres" id="13_wb254"]
+[ext_resource type="Texture2D" uid="uid://ty26wea46uux" path="res://Resources/Textures/UI/Icons/iron_icon.tres" id="14_we00a"]
+[ext_resource type="Texture2D" uid="uid://dlmpx46h3jvmj" path="res://Resources/Textures/UI/Icons/storm_icon.tres" id="15_1k1ce"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemRarityFilterButton.gd" id="15_v3m0n"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemTypeFilterButton.gd" id="16_24l1e"]
+[ext_resource type="ButtonGroup" uid="uid://cycas5vk7h2lw" path="res://Resources/UI/ButtonGroup/item_type_filter_button_group.tres" id="16_qxwth"]
+[ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://Resources/Textures/UI/Icons/common_icon.tres" id="23_epww5"]
+[ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="26_rmo34"]
+[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Textures/UI/Icons/rare_icon.tres" id="27_obbs7"]
+[ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Textures/UI/Icons/unique_icon.tres" id="28_03ksw"]
+[ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="29_q3mpw"]
+[ext_resource type="Texture2D" uid="uid://c50etdjubvudf" path="res://Resources/Textures/UI/Icons/oils_icon.tres" id="32_8lj72"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u05n0"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lrjoc"]
-atlas = ExtResource("7_u0cig")
-region = Rect2(0, 0, 128, 128)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sutn3"]
+texture = ExtResource("10_0rwi0")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uxns8"]
-atlas = ExtResource("7_u0cig")
-region = Rect2(128, 0, 128, 128)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_li745"]
+texture = ExtResource("10_0rwi0")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_540yr"]
-atlas = ExtResource("7_u0cig")
-region = Rect2(256, 0, 128, 128)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eh63f"]
+texture = ExtResource("10_0rwi0")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxujf"]
-atlas = ExtResource("7_u0cig")
-region = Rect2(384, 0, 128, 128)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ea07t"]
+texture = ExtResource("10_0rwi0")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rq0fu"]
-atlas = ExtResource("7_u0cig")
-region = Rect2(512, 0, 128, 128)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o8wa8"]
+texture = ExtResource("11_xxlox")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8edxr"]
-atlas = ExtResource("7_u0cig")
-region = Rect2(640, 0, 128, 128)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y4lma"]
+texture = ExtResource("11_xxlox")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xguai"]
-atlas = ExtResource("7_u0cig")
-region = Rect2(768, 0, 128, 128)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kw7yc"]
+texture = ExtResource("11_xxlox")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_58l2a"]
-atlas = ExtResource("9_dxvdv")
-region = Rect2(0, 133, 1077, 169)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_egfcl"]
+texture = ExtResource("11_xxlox")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k0a7c"]
-texture = SubResource("AtlasTexture_58l2a")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mvu85"]
+texture = ExtResource("12_eesh7")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nxluh"]
-atlas = ExtResource("9_dxvdv")
-region = Rect2(1253, 4, 159, 197)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ex0ly"]
+texture = ExtResource("12_eesh7")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oe0pm"]
-texture = SubResource("AtlasTexture_nxluh")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v4cav"]
+texture = ExtResource("12_eesh7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7ot5h"]
+texture = ExtResource("12_eesh7")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a750c"]
+texture = ExtResource("13_8kubr")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rwsf8"]
+texture = ExtResource("13_8kubr")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yuchi"]
+texture = ExtResource("13_8kubr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wjusv"]
+texture = ExtResource("13_8kubr")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pbakr"]
+texture = ExtResource("14_we00a")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qfnlr"]
+texture = ExtResource("14_we00a")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w3wvg"]
+texture = ExtResource("14_we00a")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_udj2c"]
+texture = ExtResource("14_we00a")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hvg8s"]
+texture = ExtResource("15_1k1ce")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hok0h"]
+texture = ExtResource("15_1k1ce")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_evrf4"]
+texture = ExtResource("15_1k1ce")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_toos0"]
+texture = ExtResource("15_1k1ce")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_04c0r"]
+texture = ExtResource("15_1k1ce")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rpdmv"]
 atlas = ExtResource("5_2y3fp")
@@ -86,86 +140,140 @@ region = Rect2(224, 64, 32, 32)
 atlas = ExtResource("5_2y3fp")
 region = Rect2(224, 128, 32, 32)
 
-[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_item_menu_button", "_building_menu_button", "_research_button", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash", "_stash_scroll_container")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ihuc1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qtpi7"]
+texture = ExtResource("23_epww5")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_56vm4"]
+texture = ExtResource("23_epww5")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dssae"]
+texture = ExtResource("23_epww5")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oii3d"]
+texture = ExtResource("23_epww5")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o20ob"]
+texture = ExtResource("26_rmo34")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l068u"]
+texture = ExtResource("26_rmo34")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aoswy"]
+texture = ExtResource("26_rmo34")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lu628"]
+texture = ExtResource("26_rmo34")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5piem"]
+texture = ExtResource("27_obbs7")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3slk"]
+texture = ExtResource("27_obbs7")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xbgks"]
+texture = ExtResource("27_obbs7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4p5to"]
+texture = ExtResource("27_obbs7")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_twa77"]
+texture = ExtResource("28_03ksw")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d2ngo"]
+texture = ExtResource("28_03ksw")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_olwpn"]
+texture = ExtResource("28_03ksw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hmsb3"]
+texture = ExtResource("28_03ksw")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahejp"]
+texture = ExtResource("29_q3mpw")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ib584"]
+texture = ExtResource("29_q3mpw")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pexw0"]
+texture = ExtResource("29_q3mpw")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w4dok"]
+texture = ExtResource("29_q3mpw")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6dht0"]
+texture = ExtResource("32_8lj72")
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_um3tl"]
+texture = ExtResource("32_8lj72")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f781c"]
+texture = ExtResource("32_8lj72")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_srwu8"]
+texture = ExtResource("32_8lj72")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
+
+[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu")]
+custom_minimum_size = Vector2(1500, 0)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -750.0
+offset_right = 750.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
+size_flags_vertical = 8
 mouse_force_pass_scroll_events = false
-theme = ExtResource("3")
+theme = ExtResource("1_u18mo")
 script = ExtResource("6")
-_item_stash_menu = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/ItemStashMenu")
+_item_stash_menu = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/ItemStashMenu")
 _build_bar = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/BuildBar")
-_item_menu_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ItemMenuButton")
-_building_menu_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/BuildingMenuButton")
-_research_button = NodePath("HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton")
 _elements_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer")
-_tomes_status = NodePath("HBoxContainer/RightMenu/MarginContainer/VBoxContainer/KnowledgeTomeStatusPanel")
-_gold_status = NodePath("HBoxContainer/RightMenu/MarginContainer/VBoxContainer/GoldStatusPanel")
-_tower_stash = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/BuildBar")
-_stash_scroll_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer")
+_tomes_status = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/KnowledgeTomeStatusPanel")
+_gold_status = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/GoldStatusPanel")
+_tower_stash_scroll_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer")
+_item_stash_scroll_container = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer")
+_center_menu = NodePath("HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu")
+metadata/_edit_vertical_guides_ = []
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -240.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme_override_constants/separation = -2
-
-[node name="LeftMenu" type="PanelContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(159, 209)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxTexture_df1u7")
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/LeftMenu"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 18
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/LeftMenu/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-alignment = 1
-
-[node name="UpgradeElementButton" type="Button" parent="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(2.08165e-12, 48)
-layout_mode = 2
-tooltip_text = "Switch menu to items"
-theme = ExtResource("4_nd5uj")
-theme_type_variation = &"TopButton"
-theme_override_font_sizes/font_size = 20
-text = "Upgrade"
-expand_icon = true
-
-[node name="ItemMenuButton" type="Button" parent="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(2.08165e-12, 48)
-layout_mode = 2
-tooltip_text = "Switch menu to items"
-theme = ExtResource("4_nd5uj")
-text = "25"
-icon = SubResource("AtlasTexture_ypogo")
-expand_icon = true
-
-[node name="BuildingMenuButton" type="Button" parent="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(2.08165e-12, 48)
-layout_mode = 2
-tooltip_text = "Switch menu to towers"
-theme = ExtResource("4_nd5uj")
-text = "122"
-icon = SubResource("AtlasTexture_ju33v")
-expand_icon = true
 
 [node name="CentralMenu" type="MarginContainer" parent="HBoxContainer"]
 z_index = -1
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CentralMenu"]
 layout_mode = 2
@@ -174,51 +282,100 @@ theme = ExtResource("4_nd5uj")
 
 [node name="MarginContainer2" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_u05n0")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2"]
 layout_mode = 2
+alignment = 2
 
 [node name="ElementButton" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_lrjoc")
-element = 0
+theme_type_variation = &""
+theme_override_styles/normal = ExtResource("5_pw3tg")
+theme_override_styles/hover = ExtResource("6_dcexx")
+theme_override_styles/pressed = ExtResource("7_pmprt")
+theme_override_styles/disabled = ExtResource("8_qg8sp")
+keep_pressed_outside = true
+button_group = ExtResource("5_053go")
+icon = null
 
 [node name="ElementButton2" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_uxns8")
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_sutn3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_li745")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_eh63f")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ea07t")
+keep_pressed_outside = true
+button_group = ExtResource("5_053go")
+icon = null
 element = 1
 
 [node name="ElementButton3" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_540yr")
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_o8wa8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_y4lma")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_kw7yc")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_egfcl")
+keep_pressed_outside = true
+button_group = ExtResource("5_053go")
+icon = null
 element = 2
 
 [node name="ElementButton4" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_xxujf")
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_mvu85")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ex0ly")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_v4cav")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7ot5h")
+keep_pressed_outside = true
+button_group = ExtResource("5_053go")
+icon = null
+element = 3
 
 [node name="ElementButton5" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_rq0fu")
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_a750c")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rwsf8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_yuchi")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_wjusv")
+keep_pressed_outside = true
+button_group = ExtResource("5_053go")
+icon = null
 element = 4
 
 [node name="ElementButton6" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_8edxr")
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_pbakr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qfnlr")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_w3wvg")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_udj2c")
+keep_pressed_outside = true
+button_group = ExtResource("5_053go")
+icon = null
 element = 5
 
 [node name="ElementButton7" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer2/HBoxContainer" groups=["element_button"] instance=ExtResource("6_blybv")]
 layout_mode = 2
-texture_normal = SubResource("AtlasTexture_xguai")
+theme_type_variation = &""
+theme_override_styles/normal = SubResource("StyleBoxTexture_hvg8s")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hok0h")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_evrf4")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_toos0")
+theme_override_styles/focus = SubResource("StyleBoxTexture_04c0r")
+keep_pressed_outside = true
+button_group = ExtResource("5_053go")
+icon = null
 element = 6
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
-custom_minimum_size = Vector2(1160, 182)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxTexture_k0a7c")
+theme_type_variation = &"SidePanel"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -226,6 +383,7 @@ vertical_scroll_mode = 0
 
 [node name="StashMarginContainer" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer"]
 clip_contents = true
+custom_minimum_size = Vector2(0, 172)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -237,60 +395,202 @@ theme_override_constants/margin_bottom = 15
 [node name="BuildBar" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 8
 mouse_filter = 2
 theme_override_constants/h_separation = 100
 columns = 999
 script = ExtResource("7")
 
-[node name="ItemStashMenu" type="GridContainer" parent="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer"]
-unique_name_in_owner = true
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_bottom = -40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="CenterMenu" type="Panel" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(159, 209)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"CenterPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+
+[node name="CenterMenu" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "You TD 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GoldStatusPanel" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
+layout_mode = 2
+script = ExtResource("10_ewb28")
+icon_texture = SubResource("AtlasTexture_rpdmv")
+default_label_text = "0"
+
+[node name="KnowledgeTomeStatusPanel" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
+layout_mode = 2
+script = ExtResource("11_hpp3y")
+icon_texture = SubResource("AtlasTexture_3eojl")
+default_label_text = "0"
+
+[node name="FoodStatusPanel" parent="HBoxContainer/MarginContainer2/VBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
+layout_mode = 2
+script = ExtResource("13_b8pl0")
+icon_texture = SubResource("AtlasTexture_h4urn")
+default_label_text = "0/60"
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="CentralMenu2" type="MarginContainer" parent="HBoxContainer"]
+z_index = -1
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CentralMenu2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer2" type="PanelContainer" parent="HBoxContainer/CentralMenu2/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ihuc1")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ItemFilterButton1" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_qtpi7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_56vm4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dssae")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_oii3d")
+button_group = ExtResource("13_wb254")
+icon = null
+script = ExtResource("15_v3m0n")
+filter_value = 0
+
+[node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_o20ob")
+theme_override_styles/hover = SubResource("StyleBoxTexture_l068u")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_aoswy")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_lu628")
+button_group = ExtResource("13_wb254")
+icon = null
+script = ExtResource("15_v3m0n")
+filter_value = 1
+
+[node name="ItemFilterButton3" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_5piem")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o3slk")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xbgks")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_4p5to")
+button_group = ExtResource("13_wb254")
+icon = null
+script = ExtResource("15_v3m0n")
+filter_value = 2
+
+[node name="ItemFilterButton4" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_twa77")
+theme_override_styles/hover = SubResource("StyleBoxTexture_d2ngo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_olwpn")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_hmsb3")
+button_group = ExtResource("13_wb254")
+icon = null
+script = ExtResource("15_v3m0n")
+filter_value = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 10
+alignment = 2
+
+[node name="ItemFilterButton1" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" instance=ExtResource("12_6l3wb")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_ahejp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ib584")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pexw0")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_w4dok")
+button_group = ExtResource("16_qxwth")
+icon = null
+script = ExtResource("16_24l1e")
+filter_value = 0
+
+[node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" instance=ExtResource("12_6l3wb")]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_6dht0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_um3tl")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_f781c")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_srwu8")
+button_group = ExtResource("16_qxwth")
+icon = null
+script = ExtResource("16_24l1e")
+filter_value = 1
+
+[node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_type_variation = &"SidePanel"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer"]
+layout_mode = 2
+vertical_scroll_mode = 0
+
+[node name="StashMarginContainer" type="MarginContainer" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 15
+
+[node name="ItemStashMenu" type="GridContainer" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/h_separation = 100
 columns = 999
 script = ExtResource("8_ww2i1")
 
-[node name="RightMenu" type="PanelContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(159, 209)
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxTexture_oe0pm")
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/RightMenu"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/RightMenu/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 6
-alignment = 1
-
-[node name="GoldStatusPanel" parent="HBoxContainer/RightMenu/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
-layout_mode = 2
-script = ExtResource("10_ewb28")
-icon_texture = SubResource("AtlasTexture_rpdmv")
-default_label_text = "0"
-
-[node name="KnowledgeTomeStatusPanel" parent="HBoxContainer/RightMenu/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
-layout_mode = 2
-script = ExtResource("11_hpp3y")
-icon_texture = SubResource("AtlasTexture_3eojl")
-default_label_text = "0"
-
-[node name="FoodStatusPanel" parent="HBoxContainer/RightMenu/MarginContainer/VBoxContainer" instance=ExtResource("9_rbj65")]
-layout_mode = 2
-script = ExtResource("13_b8pl0")
-icon_texture = SubResource("AtlasTexture_h4urn")
-default_label_text = "0/60"
-
-[connection signal="mouse_entered" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_mouse_entered"]
-[connection signal="mouse_exited" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_mouse_exited"]
-[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/ItemMenuButton" to="." method="_on_ItemMenuButton_pressed"]
-[connection signal="pressed" from="HBoxContainer/LeftMenu/MarginContainer/VBoxContainer2/BuildingMenuButton" to="." method="_on_BuildMenuButton_pressed"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]

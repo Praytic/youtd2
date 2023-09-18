@@ -1,10 +1,11 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cdws70axn02qn"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://cdws70axn02qn"]
 
 [ext_resource type="StyleBox" uid="uid://di63wj0o7etx1" path="res://Resources/Theme/TowerMenu/button_normal.tres" id="1_k0xfo"]
 [ext_resource type="StyleBox" uid="uid://ln3gwpdseci7" path="res://Resources/Theme/TowerMenu/button_disalbed.tres" id="1_wfnm0"]
-[ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="2_5k4cq"]
 [ext_resource type="StyleBox" uid="uid://woorl376lbra" path="res://Resources/Theme/TowerMenu/tower_menu_panel.tres" id="2_j17uo"]
 [ext_resource type="StyleBox" uid="uid://b284lwmb62g6v" path="res://Resources/Theme/TowerMenu/button_hover.tres" id="2_n1i2k"]
+[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="5_hwajx"]
+[ext_resource type="StyleBox" uid="uid://nik74qhp637u" path="res://Resources/Theme/TowerMenu/title_button_normal.tres" id="6_sgu5d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcb5y"]
 
@@ -20,6 +21,32 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c67wk"]
+atlas = ExtResource("5_hwajx")
+region = Rect2(1275, 219, 139, 154)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_18e7x"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = SubResource("AtlasTexture_c67wk")
+texture_margin_left = 13.9504
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.9504
+region_rect = Rect2(1275, 219, 139, 154)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tap7f"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = SubResource("AtlasTexture_c67wk")
+texture_margin_left = 13.9504
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.9504
+region_rect = Rect2(1275, 219, 139, 154)
+
 [resource]
 Button/font_sizes/font_size = 32
 Button/styles/disabled = ExtResource("1_wfnm0")
@@ -33,8 +60,11 @@ MainPanelContainer/base_type = &"PanelContainer"
 MainPanelContainer/styles/panel = ExtResource("2_j17uo")
 Panel/styles/panel = ExtResource("2_j17uo")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_yy7ve")
+TowerNameLabel/base_type = &"Button"
 TowerNameLabel/font_sizes/font_size = 32
-TowerNameLabel/styles/normal = ExtResource("2_5k4cq")
+TowerNameLabel/styles/hover = SubResource("StyleBoxTexture_18e7x")
+TowerNameLabel/styles/normal = ExtResource("6_sgu5d")
+TowerNameLabel/styles/pressed = SubResource("StyleBoxTexture_tap7f")
 WarningButton/base_type = &"Button"
 WarningButton/colors/icon_disabled_color = Color(1, 0.247059, 0.192157, 1)
 WarningButton/colors/icon_focus_color = Color(1, 0.247059, 0.192157, 1)

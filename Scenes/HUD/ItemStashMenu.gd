@@ -8,11 +8,25 @@ extends GridContainer
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
+# This field is of nullable Rarity.enm type
+var _current_item_rarity_filter : set = set_current_item_rarity_filter
+# This field is of nullable ItemType.enm type
+var _current_item_type_filter : set = set_current_item_type_filter
 
 
 func _ready():
 	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_on_item_stash_changed()
+
+
+func set_current_item_rarity_filter(value):
+	_current_item_rarity_filter = value
+	ItemStash.items_changed.emit()
+
+
+func set_current_item_type_filter(value):
+	_current_item_type_filter = value
+	ItemStash.items_changed.emit()
 
 
 # NOTE: need to update buttons selectively to minimuze the
@@ -23,7 +37,7 @@ func _ready():
 # perfomance issues.
 func _on_item_stash_changed():
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
-	var item_list: Array[Item] = item_stash_container.get_item_list()
+	var item_list: Array[Item] = item_stash_container.get_item_list(_current_item_rarity_filter, _current_item_type_filter)
 
 # 	Remove buttons for items which were removed from stash
 	var removed_button_list: Array[ItemButton] = []

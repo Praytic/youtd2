@@ -34,7 +34,7 @@ func _ready():
 	var icon: Texture2D = ItemProperties.get_icon(_item_id)
 	_texture_rect.texture = icon
 	
-	var item_menu_button: Control = _bottom_menu_bar.get_item_menu_button()
+	var item_menu_button: Control = _bottom_menu_bar.get_item_rarity_filter_button(ItemProperties.get_rarity(_item_id))
 	var target_pos: Vector2 = item_menu_button.global_position + Vector2(45, 45)
 
 	var pos_tween = create_tween()

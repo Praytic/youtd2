@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=12 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
+[ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="9_3ampi"]
 [ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://Scenes/HUD/TopLeftMenu.tscn" id="10_agdn3"]
-[ext_resource type="PackedScene" uid="uid://c376o14gmtncc" path="res://Scenes/HUD/HoradricMenu.tscn" id="10_tcgum"]
+[ext_resource type="PackedScene" uid="uid://ckiupnhfj32n6" path="res://Scenes/HUD/HoradricMenu2.tscn" id="10_e8qqf"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="15_rfxf1"]
@@ -25,7 +26,8 @@ script = ExtResource("11")
 _error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
 _normal_message_container = NodePath("MarginContainer3/NormalMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
-_roll_towers_button = NodePath("RollTowersButton")
+_roll_towers_button = NodePath("VBoxContainer/MarginContainer/RollTowersButton")
+metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]
 layout_mode = 1
@@ -76,18 +78,9 @@ mouse_filter = 2
 [node name="BottomMenuBar" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-offset_left = 6.10352e-05
-offset_top = -98.9999
-offset_right = 6.10352e-05
-offset_bottom = -98.9999
-grow_vertical = 0
-scale = Vector2(0.8, 0.8)
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
+visible = false
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 2
@@ -101,10 +94,12 @@ mouse_filter = 2
 [node name="ButtonTooltip" parent="." instance=ExtResource("11_ka7k1")]
 visible = false
 layout_mode = 1
-offset_left = 1153.0
-offset_top = 923.0
-offset_right = -767.0
-offset_bottom = -157.0
+anchors_preset = -1
+offset_left = 954.0
+offset_top = 835.0
+offset_right = -966.0
+offset_bottom = -245.0
+grow_vertical = 0
 
 [node name="BuildVersionLabel" parent="." instance=ExtResource("21_ko2ou")]
 layout_mode = 1
@@ -113,14 +108,6 @@ offset_top = -20.0
 offset_right = 430.0
 offset_bottom = 14.0
 scale = Vector2(0.55408, 0.55408)
-
-[node name="TowerMenu" parent="." instance=ExtResource("15_rfxf1")]
-layout_mode = 1
-offset_left = 0.00012207
-offset_top = 6.10352e-05
-offset_right = 0.00012207
-offset_bottom = 6.10352e-05
-scale = Vector2(0.8, 0.8)
 
 [node name="GameOverLabel" type="RichTextLabel" parent="."]
 visible = false
@@ -142,27 +129,6 @@ bbcode_enabled = true
 text = "[color=RED]GAME OVER[/color]"
 fit_content = true
 
-[node name="RollTowersButton" type="Button" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 500.0
-offset_top = 804.0
-offset_right = 789.0
-offset_bottom = 867.0
-text = "Roll starting towers"
-
-[node name="HoradricMenu" parent="." instance=ExtResource("10_tcgum")]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -201.0
-offset_top = -133.0
-grow_horizontal = 0
-grow_vertical = 0
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
 offset_right = 40.0
@@ -181,5 +147,37 @@ visible = false
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = -20
+theme_override_constants/margin_right = 10
+
+[node name="RollTowersButton" type="Button" parent="VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("9_3ampi")
+text = "Roll towers"
+
+[node name="HoradricMenu" parent="VBoxContainer" instance=ExtResource("10_e8qqf")]
+layout_mode = 2
+
+[node name="TowerMenu" parent="VBoxContainer" instance=ExtResource("15_rfxf1")]
+layout_mode = 2
+
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
-[connection signal="pressed" from="RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]

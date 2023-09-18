@@ -1,6 +1,9 @@
 extends GridContainer
 
 
+signal towers_changed()
+
+
 # Map of tower id's => tower buttons. Tower buttons are
 # "stacks" and may contain more than one tower. Buttons
 # should be always created inside a dedicated container,
@@ -10,7 +13,6 @@ extends GridContainer
 
 
 var _current_element: Element.enm = Element.enm.NONE : set = set_element, get = get_element
-var current_size: String
 
 
 func _ready():
@@ -18,6 +20,7 @@ func _ready():
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	TowerDistribution.rolling_starting_towers.connect(_on_rolling_starting_towers)
 	TowerDistribution.random_tower_distributed.connect(_on_random_tower_distributed)
+	towers_changed.emit()
 
 
 func _add_all_towers():
@@ -44,16 +47,17 @@ func _add_all_towers():
 		if !is_released:
 			continue
 
-		add_tower_button(tower_id)
+		add_tower_button(tower_id, false)
 
 #	NOTE: call set_element() to show towers for currently
 #	selected element. 
 	set_element(_current_element)
+	towers_changed.emit()
 
 	print_verbose("BuildBar has added all towers.")
 
 
-func add_tower_button(tower_id):
+func add_tower_button(tower_id, emit_signal: bool = true):
 	if _tower_buttons.has(tower_id):
 		var tower_button: TowerButton = _tower_buttons[tower_id]
 		var new_count: int = tower_button.get_count() + 1
@@ -80,9 +84,12 @@ func add_tower_button(tower_id):
 	if Globals.game_mode_is_random():
 		var insert_index: int = _get_insert_index_for_tower(tower_id)
 		move_child(button_container, insert_index)
+	
+	if emit_signal:
+		towers_changed.emit()
 
 
-func remove_tower_button(tower_id):
+func remove_tower_button(tower_id, emit_signal: bool = true):
 	var button: TowerButton = _tower_buttons[tower_id]
 	var button_container: UnitButtonContainer = button.get_parent()
 
@@ -96,6 +103,9 @@ func remove_tower_button(tower_id):
 		_tower_buttons.erase(tower_id)
 		remove_child(button_container)
 		button_container.queue_free()
+	
+	if emit_signal:
+		towers_changed.emit()
 
 
 func get_element() -> Element.enm:
@@ -104,13 +114,17 @@ func get_element() -> Element.enm:
 func set_element(element: Element.enm):
 	_current_element = element
 	
-	for tower_button in _tower_buttons.values():
-		tower_button.get_parent().hide()
-	
-	var available_towers_for_element = _get_available_tower_buttons_for_element(element)
-	
-	for tower_id in available_towers_for_element:
-		_tower_buttons[tower_id].get_parent().show()
+	if _current_element == Element.enm.NONE:
+		for tower_button in _tower_buttons.values():
+			tower_button.get_parent().show()
+	else:
+		for tower_button in _tower_buttons.values():
+			tower_button.get_parent().hide()
+		
+		var available_towers_for_element = _get_available_tower_buttons_for_element(element)
+		
+		for tower_id in available_towers_for_element:
+			_tower_buttons[tower_id].get_parent().show()
 
 
 func _on_Tower_built(tower_id):
@@ -144,7 +158,7 @@ func _on_rolling_starting_towers():
 #	all stacks of tower
 	for tower in tower_list:
 		while _tower_buttons.has(tower):
-			remove_tower_button(tower)
+			remove_tower_button(tower, false)
 
 
 func _on_random_tower_distributed(tower_id: int):
@@ -172,3 +186,14 @@ func _get_insert_index_for_tower(tower_id: int) -> int:
 		index += 1
 
 	return index
+
+
+func get_towers_count(element = null) -> int:
+	var counter = 0
+	if element:
+		for tower_id in _tower_buttons.keys():
+			if TowerProperties.get_element(tower_id) == element:
+				counter += 1
+	else:
+		counter = _tower_buttons.size()
+	return counter

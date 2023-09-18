@@ -54,29 +54,33 @@ func can_transmute() -> bool:
 	return recipe_is_valid
 
 
-func transmute():
+# Creates new item based on the recipe and adds it to the item container.
+# Returns the message with transmutation details to the caller.
+func transmute() -> String:
 	var current_recipe: Recipe = _get_current_recipe()
 	
 	if current_recipe == Recipe.NONE:
-		return
+		return "Change the ingredients to match an existing recipe."
 
 	var failed_because_max_rarity: bool = _cant_increase_rarity_further(current_recipe)
 	if failed_because_max_rarity:
 		Messages.add_error("Can't transmute, ingredients are already at max rarity.")
 
-		return
+		return "Can't transmute, ingredients are already at max rarity."
 
-	var result_item_id: int = _get_result_item_for_recipe(current_recipe)
+	var result = _get_result_item_for_recipe(current_recipe)
 
-	if result_item_id == 0:
+	if result.item_id == 0:
 		push_error("Transmute failed to generate any items, this shouldn't happen.")
 
-		return
+		return "Something went wrong..."
 
 	_remove_all_items()
 
-	var result_item: Item = Item.make(result_item_id)
+	var result_item: Item = Item.make(result.item_id)
 	_item_container.add_item(result_item)
+	
+	return result.message
 
 
 func _get_current_recipe() -> Recipe:
@@ -115,7 +119,7 @@ func _get_current_recipe() -> Recipe:
 	return Recipe.NONE
 
 
-func _get_result_item_for_recipe(recipe: Recipe) -> int:
+func _get_result_item_for_recipe(recipe: Recipe):
 	var result_rarity: Rarity.enm = _get_result_rarity(recipe)
 	var result_item_type: ItemType.enm = _get_result_item_type(recipe)
 	var avg_ingredient_level: int = _get_average_ingredient_level()
@@ -141,7 +145,7 @@ func _get_result_item_for_recipe(recipe: Recipe) -> int:
 	if !luck_message.is_empty():
 		Messages.add_normal(luck_message)
 
-	return result_item
+	return {"item_id": result_item, "message": luck_message}
 
 
 func _cant_increase_rarity_further(recipe: Recipe) -> bool:
