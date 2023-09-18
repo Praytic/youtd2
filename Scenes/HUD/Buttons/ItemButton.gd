@@ -84,11 +84,17 @@ func set_item(value: Item):
 
 
 func get_test_item_id() -> int:
+	if _test_item_id == -1:
+		return -1
+
 	assert(_item.get_id() == _test_item_id, "Invalid state")
 	return _test_item_id
 
 
 func set_test_item_id(value: int):
+	if value == -1:
+		return
+
 	_test_item_id = value
 	_item = Item.make(value)
 # 	NOTE: normally, item would be parented either to item

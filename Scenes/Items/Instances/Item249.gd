@@ -22,14 +22,14 @@ func item_init():
 	MB.set_key(1, "Golden Trident")
 
 
-func on_attack(_event: Event):
+func on_attack(event: Event):
 	var itm: Item = self
 
 	var tower: Tower = itm.get_carrier()
 	var gold_bonus: float = 2.0
 
-	if tower.get_number_of_crits() > 0:
-		gold_bonus = gold_bonus * tower.get_number_of_crits() * tower.get_base_attack_speed() * tower.get_prop_bounty_received()
+	if event.get_number_of_crits() > 0:
+		gold_bonus = gold_bonus * event.get_number_of_crits() * tower.get_base_attack_speed() * tower.get_prop_bounty_received()
 
 		tower.get_player().give_gold(int(gold_bonus), tower, true, true)
 

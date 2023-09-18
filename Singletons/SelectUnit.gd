@@ -28,8 +28,8 @@ func set_selected_unit(new_selected_unit: Unit):
 	if new_selected_unit != null:
 		new_selected_unit.set_selected(true)
 
-		if !new_selected_unit.tree_exiting.is_connected(on_unit_tree_exiting):
-			new_selected_unit.tree_exiting.connect(on_unit_tree_exiting.bind(new_selected_unit))
+		if !new_selected_unit.tree_exited.is_connected(on_unit_tree_exited):
+			new_selected_unit.tree_exited.connect(on_unit_tree_exited.bind(new_selected_unit))
 
 	_selected_unit = new_selected_unit
 	selected_unit_changed.emit(old_selected_unit)
@@ -45,8 +45,8 @@ func get_hovered_unit() -> Unit:
 
 func on_unit_mouse_entered(unit: Unit):
 	_units_under_mouse_list.append(unit)
-	if !unit.tree_exiting.is_connected(on_unit_tree_exiting):
-		unit.tree_exiting.connect(on_unit_tree_exiting.bind(unit))
+	if !unit.tree_exited.is_connected(on_unit_tree_exited):
+		unit.tree_exited.connect(on_unit_tree_exited.bind(unit))
 	update_hovered_unit()
 
 
@@ -58,7 +58,7 @@ func on_unit_mouse_exited(unit: Unit):
 # NOTE: Need this slot because "mouse_exited" signal doesn't
 # get emitted when units exit the tree because of
 # queue_free().
-func on_unit_tree_exiting(unit: Unit):
+func on_unit_tree_exited(unit: Unit):
 	var selected_unit_is_being_removed: bool = _selected_unit == unit
 	if selected_unit_is_being_removed:
 		set_selected_unit(null)

@@ -5,17 +5,6 @@ extends Unit
 signal moved(delta)
 
 
-# NOTE: DEFAULT_MOVE_SPEED was obtained by measuring speed
-# in original game. 2000 / 9s ~= 222
-# 
-# MOVE_SPEED_MAX can be found online, search "warcraft 3 max
-# speed 522"
-# 
-# NOTE: actual MOVE_SPEED_MIN is never reached because
-# movespeed formula contains pow()
-const MOVE_SPEED_MIN: float = 1.0
-const MOVE_SPEED_MAX: float = 522.0
-const DEFAULT_MOVE_SPEED: float = 222.0
 const HEIGHT_TWEEN_FAST_FORWARD_DELTA: float = 100.0
 const ANIMATION_FOR_DIMENSIONS: String = "default"
 
@@ -91,6 +80,12 @@ func is_attacking() -> bool:
 
 # NOTE: creep.adjustHeight() in JASS
 func adjust_height(height_wc3: float, speed: float):
+#	NOTE: can't create tween's while node is outside tree.
+#	If creep is outside tree then it's okay to do nothing
+#	because creep is about to get deleted anyway.
+	if !is_inside_tree():
+		return
+	
 # 	NOTE: divide by two because in isometric world vertical
 # 	axis is squished
 	var height_pixels: float = Utils.to_pixels(height_wc3) / 2
@@ -190,7 +185,7 @@ func _get_creep_animation() -> String:
 	var creep_move_speed = _get_move_speed()
 	match get_size():
 		CreepSize.enm.MASS:
-			if creep_move_speed > DEFAULT_MOVE_SPEED * 0.90:
+			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 0.90:
 				animation_order = [
 					"run_E", "run_S", "run_W", "run_N"
 				]
@@ -199,7 +194,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
 				]
 		CreepSize.enm.CHALLENGE_MASS:
-			if creep_move_speed > DEFAULT_MOVE_SPEED * 0.90:
+			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 0.90:
 				animation_order = [
 					"run_E", "run_S", "run_W", "run_N"
 				]
@@ -208,7 +203,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
 				]
 		CreepSize.enm.BOSS:
-			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.50:
+			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 1.50:
 				animation_order = [
 					"run_E", "run_S", "run_W", "run_N"
 				]
@@ -217,7 +212,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
 				]
 		CreepSize.enm.CHALLENGE_BOSS:
-			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.50:
+			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 1.50:
 				animation_order = [
 					"run_E", "run_S", "run_W", "run_N"
 				]
@@ -226,7 +221,7 @@ func _get_creep_animation() -> String:
 					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
 				]
 		CreepSize.enm.NORMAL, CreepSize.enm.CHAMPION:
-			if creep_move_speed > DEFAULT_MOVE_SPEED * 1.50:
+			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 1.50:
 				animation_order = [
 					"run_E", "run_S", "run_W", "run_N"
 				]
@@ -262,11 +257,11 @@ func _get_creep_animation() -> String:
 
 
 func _get_move_speed() -> float:
-	var base: float = DEFAULT_MOVE_SPEED
+	var base: float = Constants.DEFAULT_MOVE_SPEED
 	var mod: float = get_prop_move_speed()
 	var mod_absolute: float = get_prop_move_speed_absolute()
 	var unclamped: float = (base + mod_absolute) * mod
-	var move_speed: float = clampf(unclamped, MOVE_SPEED_MIN, MOVE_SPEED_MAX)
+	var move_speed: float = clampf(unclamped, Constants.MOVE_SPEED_MIN, Constants.MOVE_SPEED_MAX)
 
 	return move_speed
 

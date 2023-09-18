@@ -64,7 +64,8 @@ func _ready():
 	_target.spell_casted.connect(_on_target_spell_casted)
 	_target.spell_targeted.connect(_on_target_spell_targeted)
 
-	tree_exiting.connect(_on_buff_tree_exiting)
+	_target.tree_exited.connect(_on_target_tree_exited)
+	_caster.tree_exited.connect(_on_caster_tree_exited)
 
 	var create_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CREATE, create_event)
@@ -155,9 +156,9 @@ func get_buffed_unit() -> Unit:
 
 # NOTE: buff.removeBuff() in JASS
 func remove_buff():
-#	NOTE: if buff is queued for deletion that means it was
-#	already removed and there's no point in removing it
-#	again
+#	NOTE: if the buff is queued for deletion then that means
+#	that the buff was already removed and we shouldn't
+#	remove it again.
 	if is_queued_for_deletion():
 		return
 
@@ -178,7 +179,7 @@ func purge_buff():
 
 
 func _add_event_handler(event_type: Event.Type, handler: Callable):
-	_connect_to_handler_tree_exiting_signal(handler)
+	_connect_to_handler_tree_exited_signal(handler)
 
 	if !event_handler_map.has(event_type):
 		event_handler_map[event_type] = []
@@ -187,7 +188,7 @@ func _add_event_handler(event_type: Event.Type, handler: Callable):
 
 
 func _add_periodic_event(handler: Callable, period: float):
-	_connect_to_handler_tree_exiting_signal(handler)
+	_connect_to_handler_tree_exited_signal(handler)
 	
 	var timer: Timer = Timer.new()
 	add_child(timer)
@@ -198,7 +199,7 @@ func _add_periodic_event(handler: Callable, period: float):
 
 
 func _add_event_handler_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
-	_connect_to_handler_tree_exiting_signal(handler)
+	_connect_to_handler_tree_exited_signal(handler)
 	
 	var buff_range_area: BuffRangeArea = BuffRangeArea.make(radius, target_type, handler)
 	add_child(buff_range_area)
@@ -241,15 +242,19 @@ func _on_target_death(death_event: Event):
 	death_event._buff = self
 	_call_event_handler_list(Event.Type.DEATH, death_event)
 
-	var cleanup_event: Event = _make_buff_event(_target)
-	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
+#	NOTE: CLEANUP event will be triggered later in
+#	_on_caster_tree_exited()
 
 
-func _on_handler_node_tree_exiting():
+func _on_handler_node_tree_exited():
 	remove_buff()
 
 
-func _on_buff_tree_exiting():
+func _on_target_tree_exited():
+	remove_buff()
+
+
+func _on_caster_tree_exited():
 	remove_buff()
 
 
@@ -336,7 +341,7 @@ func _add_aura(aura_type: AuraType):
 	add_child(aura)
 
 
-# Connects to handler object's tree_exiting signal. The slot
+# Connects to handler object's tree_exited signal. The slot
 # will get called when the handler object is removed from
 # the game. For example, if a tower casted a slow on creeps
 # and that tower gets sold, then the debuff will get
@@ -345,11 +350,11 @@ func _add_aura(aura_type: AuraType):
 # *must* be removed because without the object which
 # implements event handlers, the buff cannot continue
 # operating in a correct manner.
-func _connect_to_handler_tree_exiting_signal(handler: Callable):
+func _connect_to_handler_tree_exited_signal(handler: Callable):
 	var handler_node: Node = Utils.get_callable_node(handler)
 
-	if !handler_node.tree_exiting.is_connected(_on_handler_node_tree_exiting):
-		handler_node.tree_exiting.connect(_on_handler_node_tree_exiting)
+	if !handler_node.tree_exited.is_connected(_on_handler_node_tree_exited):
+		handler_node.tree_exited.connect(_on_handler_node_tree_exited)
 
 
 # NOTE: when a buff is queued for deletion it means that the

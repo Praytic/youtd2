@@ -37,10 +37,8 @@ enum DamageSource {
 }
 
 
-const MULTICRIT_DIMINISHING_CHANCE: float = 0.8
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 const REGEN_PERIOD: float = 1.0
-const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
 var _visual_node: Node2D = null
 var _sprite_dimensions: Vector2 = Vector2(100, 100)
@@ -64,9 +62,9 @@ var user_real3: float = 0.0
 # For spells, the bonus is applied to all instances of spell
 # damage, which includes calls to do_spell_damage(), spells
 # casted using Cast class, etc.
-var _crit_bonus_for_next_attack: int = 0
-var _crit_damage_ratio_for_next_attack: float = 0.0
-var _crit_bonus_for_next_spell: int = 0
+var _bonus_crit_count_for_next_attack: int = 0
+var _bonus_crit_ratio_for_next_attack: float = 0.0
+var _bonus_crit_count_for_next_spell: int = 0
 
 var _is_dead: bool = false
 var _level: int = 0 : get = get_level, set = set_level
@@ -221,18 +219,25 @@ func _ready():
 #########################
 
 
+# NOTE: this f-n and add_modified_attack_crit() affect only
+# the tower's regular attack. They have no effect on calls
+# to do_attack_damage() in tower scripts.
 # NOTE: unit.addAttackCrit() in JASS
 func add_attack_crit():
-	_crit_bonus_for_next_attack = _crit_bonus_for_next_attack + 1
-
-func add_modified_attack_crit(_mystery_float: float, crit_damage_ratio: float):
-	_crit_bonus_for_next_attack = _crit_bonus_for_next_attack + 1
-	_crit_damage_ratio_for_next_attack = crit_damage_ratio
+	_bonus_crit_count_for_next_attack = _bonus_crit_count_for_next_attack + 1
+	_bonus_crit_ratio_for_next_attack += get_prop_atk_crit_damage() - 1.0
 
 
+func add_modified_attack_crit(crit_damage_add: float, crit_damage_multiply: float):
+	_bonus_crit_count_for_next_attack = _bonus_crit_count_for_next_attack + 1
+	_bonus_crit_ratio_for_next_attack = (get_prop_atk_crit_damage() - 1.0) * crit_damage_multiply + crit_damage_add
+
+
+# NOTE: this f-n affects all instances of spell damage,
+# including calls to do_spell_damage() in tower scripts.
 # NOTE: unit.addSpellCrit() in JASS
 func add_spell_crit():
-	_crit_bonus_for_next_spell = _crit_bonus_for_next_spell + 1
+	_bonus_crit_count_for_next_spell += 1
 
 
 # NOTE: unit.addManaPerc() in JASS
@@ -272,14 +277,6 @@ func add_aura(aura_type: AuraType):
 # Node.get_owner() is a built-in godot f-n
 func get_player() -> Player:
 	return _player
-
-
-# TODO: implement. Should return the number of crits for
-# current attack. Needs to be accessible inside attack
-# event.
-# NOTE: unit.getNumberOfCrits() in JASS
-func get_number_of_crits() -> int:
-	return 0
 
 
 # NOTE: this is a stub, used in original tower scripts but
@@ -347,21 +344,29 @@ func calc_bad_chance(chance: float) -> bool:
 	return success
 
 
+# NOTE: normally spells can't multicrit but if both normal
+# crit and extra crit from add_spell_crit() happen at the
+# same time, then that's effectively a multicrit.
 # NOTE: unit.calcSpellCrit() in JASS
 func calc_spell_crit(bonus_chance: float, bonus_damage: float) -> float:
 	var crit_chance: float = get_spell_crit_chance() + bonus_chance
 	var crit_damage: float = get_spell_crit_damage() + bonus_damage
 
+	var crit_count: int = 0
+
 	var crit_success: bool = Utils.rand_chance(crit_chance)
-
-	if _crit_bonus_for_next_spell > 0:
-		crit_success = true
-		_crit_bonus_for_next_spell = 0
-
 	if crit_success:
-		return crit_damage
-	else:
-		return 1.0
+		crit_count += 1
+
+	crit_count += _bonus_crit_count_for_next_spell
+	_bonus_crit_count_for_next_spell = 0
+
+	var crit_ratio: float = 1.0
+
+	for i in range(0, crit_count):
+		crit_ratio += crit_damage - 1.0
+
+	return crit_ratio
 
 
 # NOTE: unit.calcSpellCritNoBonus() in JASS
@@ -401,7 +406,7 @@ func calc_attack_crit_no_bonus() -> float:
 # NOTE: unit.calcAttackMulticrit() in JASS
 func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_damage: float) -> float:
 	var crit_count: int = _generate_crit_count(bonus_multicrit, bonus_chance)
-	var crit_damage: float = _calc_attack_multicrit_internal(crit_count, bonus_damage)
+	var crit_damage: float = _calc_attack_multicrit_from_crit_count(crit_count, bonus_damage)
 
 	return crit_damage
 
@@ -424,16 +429,13 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float) -> bool:
 
 
 # NOTE: unit.doAttackDamage() in JASS
-func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float):
+func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float, crit_count: int = -1, is_main_target: bool = false):
 	var attack_type: AttackType.enm = get_attack_type()
-	_do_attack_damage_internal(target, damage_base, crit_ratio, false, attack_type)
+	do_custom_attack_damage(target, damage_base, crit_ratio, attack_type, crit_count, is_main_target)
 
 
 # NOTE: unit.doCustomAttackDamage() in JASS
-func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float, attack_type: AttackType.enm):
-	_do_attack_damage_internal(target, damage_base, crit_ratio, false, attack_type)
-
-func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: float, is_main_target: bool, attack_type: AttackType.enm):
+func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float, attack_type: AttackType.enm, crit_count: int = -1, is_main_target: bool = false):
 	var armor_mod: float = 1.0 - target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
@@ -451,22 +453,7 @@ func _do_attack_damage_internal(target: Unit, damage_base: float, crit_ratio: fl
 	if target.is_immune() && deals_no_damage_to_immune:
 		damage = 0
 
-#   NOTE: do not emit damage event if one is already in
-#   progress. Some towers have damage event handlers that
-#   call doAttackDamage() so recursive damage events would
-#   cause infinite recursion.
-	if !_dealt_damage_signal_in_progress:
-		_dealt_damage_signal_in_progress = true
-
-		var damage_event: Event = Event.new(target)
-		damage_event.damage = damage
-		damage_event._is_main_target = is_main_target
-		dealt_damage.emit(damage_event)
-		damage = damage_event.damage
-
-		_dealt_damage_signal_in_progress = false
-
-	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target)
+	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target, crit_count)
 
 
 # NOTE: sides_ratio parameter specifies how much less damage
@@ -638,7 +625,7 @@ func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
 	var crit_chance: float = get_prop_atk_crit_chance() + bonus_chance
 
 	var crit_count: int = 0
-	var current_crit_chance: float = crit_chance
+	var current_crit_chance: float = min(crit_chance, Constants.ATK_CRIT_CHANCE_CAP)
 	
 	for _i in range(multicrit_count_max):
 		var is_critical: bool = Utils.rand_chance(current_crit_chance)
@@ -648,7 +635,7 @@ func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
 
 #			Decrease chance of each subsequent multicrit to
 #			implement diminishing returns.
-			current_crit_chance *= MULTICRIT_DIMINISHING_CHANCE
+			current_crit_chance *= Constants.ATK_MULTICRIT_DIMISHING
 		else:
 			break
 
@@ -657,7 +644,7 @@ func _generate_crit_count(bonus_multicrit: float, bonus_chance: float) -> int:
 
 # Same as calc_attack_multicrit(), but accepts an already
 # calculated crit count. Used by Tower.
-func _calc_attack_multicrit_internal(crit_count: int, bonus_damage: float) -> float:
+func _calc_attack_multicrit_from_crit_count(crit_count: int, bonus_damage: float) -> float:
 	var crit_damage: float = get_prop_atk_crit_damage() + bonus_damage
 
 # 	NOTE: subtract 1.0 from crit_damage, so we do
@@ -740,31 +727,20 @@ func _on_regen_timer_timeout():
 	set_health(_health + health_regen)
 
 
-func _do_attack(attack_event: Event):
-	attack.emit(attack_event)
+func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, crit_count: int = -1) -> bool:
+#	NOTE: if crit_count is -1, then _do_damage() was called
+#	from f-n like do_attack_damage(), where we only have
+#	access to crit_ratio. In that case derive crit count
+#	from crit ratio. The only case where we have access to
+#	crit_ratio is for regular tower attacks.
+	if crit_count == -1:
+		crit_count = _derive_crit_count_from_crit_ratio(crit_ratio, damage_source)
 
-	var target = attack_event.get_target()
-	target._receive_attack()
-
-
-func _receive_attack():
-	var attacked_event: Event = Event.new(self)
-	attacked.emit(attacked_event)
-
-
-# NOTE: according to this comment in one tower script, crit
-# damage bonus must be applied after "damage" event (not
-# "damaged").
-#
-# Quote: "The engine calculates critical strike extra
-# damage ***AFTER*** the onDamage event, so there is no
-# need to care about it in this trigger."
-func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool) -> bool:
 	var size_mod: float = _get_damage_mod_for_creep_size(target)
 	var category_mod: float = _get_damage_mod_for_creep_category(target)
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
 
-	var damage: float = damage_base * size_mod * category_mod * armor_type_mod * crit_ratio
+	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
 
 # 	NOTE: all spell damage is reduced by this amount
 	if damage_source == DamageSource.Spell:
@@ -774,10 +750,42 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	if damage_source == DamageSource.Spell && target.is_immune():
 		damage = 0
 
+#   NOTE: do not emit "damage" event if one is already in
+#   progress. Some towers have damage event handlers that
+#   call doAttackDamage() so recursive damage events would
+#   cause infinite recursion.
+# 
+# 	NOTE: only emit "damage" event for damage from attacks.
+# 	Do not emit it for damage from spells. See issue #208
+# 	for an explanation.
+	var should_emit_damage_event: bool = !_dealt_damage_signal_in_progress && damage_source == DamageSource.Attack
+
+	var damage_event: Event = Event.new(target)
+	damage_event.damage = damage
+	damage_event._is_main_target = is_main_target
+	damage_event._number_of_crits = crit_count
+	if should_emit_damage_event:
+		_dealt_damage_signal_in_progress = true
+		dealt_damage.emit(damage_event)
+		_dealt_damage_signal_in_progress = false
+
+# 	NOTE: update damage value because it could've been
+# 	altered by event handlers of target's "damage" event
+	damage = damage_event.damage
+
+#	NOTE: crit damage bonus must be applied after "damage"
+#	event. This is according to this comment in the original
+#	script for Burrow tower.
+#	Comment: "The engine calculates critical strike extra
+#	damage ***AFTER*** the onDamage event, so there is no
+#	need to care about it in this trigger."
+	damage *= crit_ratio
+
 	var damaged_event: Event = Event.new(self)
 	damaged_event.damage = damage
 	damaged_event._is_main_target = is_main_target
 	damaged_event._is_spell_damage = damage_source == DamageSource.Spell
+	damaged_event._number_of_crits = crit_count
 	target.damaged.emit(damaged_event)
 
 # 	NOTE: update damage value because it could've been
@@ -796,7 +804,7 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 
 	Globals.add_to_total_damage(damage)
 
-	_add_floating_text_for_damage(damage, crit_ratio, damage_source, is_main_target, target)
+	_add_floating_text_for_damage(damage, crit_count, damage_source, is_main_target, target)
 
 	var health_after_damage: float = target.get_health()
 	var damage_killed_unit: bool = health_before_damage > 0 && health_after_damage <= 0
@@ -825,7 +833,7 @@ func _killed_by_unit(caster: Unit):
 
 	var caster_item_chance: float = caster.get_item_drop_ratio()
 	var target_item_chance: float = get_item_drop_ratio_on_death()
-	var item_chance: float = BASE_ITEM_DROP_CHANCE * caster_item_chance * target_item_chance
+	var item_chance: float = Constants.BASE_ITEM_DROP_CHANCE * caster_item_chance * target_item_chance
 
 	var creep: Creep = self as Creep
 
@@ -1172,11 +1180,8 @@ func get_spell_crit_damage() -> float:
 # tower's attack cooldown. Note that even though name
 # contains "base", this f-n returns value which includes
 # modifiers.
-# 
-# NOTE: do not allow attackspeed to go to 0 to prevent
-# divisons by 0.
 func get_base_attack_speed() -> float:
-	return clampf(_mod_value_map[Modification.Type.MOD_ATTACKSPEED], 0.01, 100.0)
+	return clampf(_mod_value_map[Modification.Type.MOD_ATTACKSPEED], Constants.MOD_ATTACKSPEED_MIN, Constants.MOD_ATTACKSPEED_MAX)
 
 func get_level() -> int:
 	return _level
@@ -1522,12 +1527,7 @@ func _change_experience(amount: float) -> float:
 	return actual_change
 
 
-# NOTE: it would be simpler to accept a "crit_count" arg
-# here instead of "crit_ratio" but that is not possible
-# because the youtd API for do_spell_damage() and
-# do_attack_damage() accepts crit_ratio. For this reason, we
-# have to re-derive the crit_count from crit_ratio.
-func _add_floating_text_for_damage(damage: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, target: Unit):
+func _add_floating_text_for_damage(damage: float, crit_count: int, damage_source: DamageSource, is_main_target: bool, target: Unit):
 	var damage_color: Color
 	var damage_text: String
 	
@@ -1542,7 +1542,6 @@ func _add_floating_text_for_damage(damage: float, crit_ratio: float, damage_sour
 	else:
 		damage_text = "miss"
 
-	var crit_count: int = _derive_crit_count_from_crit_ratio(crit_ratio, damage_source)
 	var is_critical: bool = crit_count > 0
 
 	for i in range(0, crit_count):

@@ -10,7 +10,12 @@ var _damage_ratio: float = 1.0
 var _crit_ratio: float = 0.0
 var _damage_event_handler: Callable = Callable()
 var _kill_event_handler: Callable = Callable()
+var _cleanup_handler: Callable = Callable()
 var _damage_bonus_to_size_map: Dictionary = {}
+
+
+func _ready():
+	_caster.tree_exited.connect(_on_caster_tree_exited)
 
 
 func get_caster() -> Unit:
@@ -20,11 +25,13 @@ func get_caster() -> Unit:
 # NOTE: dummyUnit.setDamageEvent() in JASS
 func set_damage_event(handler: Callable):
 	_damage_event_handler = handler
+	_connect_to_handler_tree_exited_signal(handler)
 
 
 # NOTE: dummyUnit.setKillEvent() in JASS
 func set_kill_event(handler: Callable):
 	_kill_event_handler = handler
+	_connect_to_handler_tree_exited_signal(handler)
 
 
 # NOTE: dummyUnit.doSpellDamage() in JASS
@@ -96,3 +103,30 @@ func _get_mod_for_size(target: Unit) -> float:
 	var mod_for_size: float = 1.0 + 1.0 / dmg_to_size_mod * damage_bonus
 
 	return mod_for_size
+
+
+func _connect_to_handler_tree_exited_signal(handler: Callable):
+	var handler_node: Node = Utils.get_callable_node(handler)
+
+	if !handler_node.tree_exited.is_connected(_on_handler_node_tree_exited):
+		handler_node.tree_exited.connect(_on_handler_node_tree_exited)
+
+
+func _on_handler_node_tree_exited():
+	_cleanup()
+
+
+func _on_caster_tree_exited():
+	_cleanup()
+
+
+func _cleanup():
+	if is_queued_for_deletion():
+		return
+
+#	NOTE: cleanup handler is valid only in Projectile
+#	subclass
+	if _cleanup_handler.is_valid():
+		_cleanup_handler.call(self)
+
+	queue_free()

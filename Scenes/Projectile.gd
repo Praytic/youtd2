@@ -25,8 +25,7 @@ var _targeted: bool
 var _target_position_on_creation: Vector2
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
-var _tower_crit_damage_ratio: float = 0.0
-var _cleanup_handler: Callable = Callable()
+var _tower_crit_ratio: float = 0.0
 var _interpolation_finished_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
 var _initial_pos: Vector2
@@ -36,7 +35,6 @@ var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
 var _collision_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
-var _called_cleanup_already: bool = false
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -118,25 +116,18 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._initial_pos = from.get_visual_position()
 	projectile._map_node = caster.get_tree().get_root().get_node("GameScene/Map")
 
-	var handler_list: Array[Callable] = [projectile._cleanup_handler, projectile._interpolation_finished_handler, projectile._target_hit_handler, projectile._collision_handler]
+	var handler_list: Array[Callable] = [
+		projectile._cleanup_handler,
+		projectile._interpolation_finished_handler,
+		projectile._target_hit_handler,
+		projectile._collision_handler,
+		]
 
 	for handler in handler_list:
-
 		if !handler.is_valid():
 			continue
 
-		var handler_node: Node = Utils.get_callable_node(handler)
-
-		var handler_object_is_node: bool = handler_node != null
-
-		if !handler_object_is_node:
-			push_error("Callable for Projectile must be a Node type. Callable that caused error:", handler)
-			continue
-
-		if handler_node.tree_exiting.is_connected(projectile._on_handler_node_tree_exiting):
-			continue
-
-		handler_node.tree_exiting.connect(projectile._on_handler_node_tree_exiting)
+		projectile._connect_to_handler_tree_exited_signal(handler)
 
 	var sprite_path: String = type._sprite_path
 	var sprite_exists: bool = ResourceLoader.exists(sprite_path)
@@ -155,9 +146,13 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 
 
 func _ready():
+	super()
+
 	_initial_scale = scale
 
 	if _move_type == MoveType.TARGETED:
+		_target.tree_exited.connect(_on_target_tree_exited)
+		
 		if _target.is_dead():
 			_on_target_death(Event.new(null))
 		else:
@@ -229,16 +224,16 @@ func get_tower_crit_count() -> int:
 	return _tower_crit_count
 
 
-func set_tower_crit_count(new_count: int):
-	_tower_crit_count = new_count
+func set_tower_crit_count(tower_crit_count: int):
+	_tower_crit_count = tower_crit_count
 
 
-func get_tower_crit_damage_ratio() -> float:
-	return _tower_crit_damage_ratio
+func get_tower_crit_ratio() -> float:
+	return _tower_crit_ratio
 
 
-func set_tower_crit_damage_ratio(crit_damage_ratio: float):
-	_tower_crit_damage_ratio = crit_damage_ratio
+func set_tower_crit_ratio(tower_crit_ratio: float):
+	_tower_crit_ratio = tower_crit_ratio
 
 
 func _get_target_position() -> Vector2:
@@ -258,6 +253,10 @@ func _on_target_death(_event: Event):
 	_target = null
 
 
+func _on_target_tree_exited():
+	_cleanup()
+
+
 func _set_lifetime(lifetime: float):
 	var timer: Timer = Timer.new()
 	timer.timeout.connect(_on_lifetime_timeout)
@@ -266,21 +265,6 @@ func _set_lifetime(lifetime: float):
 
 
 func _on_lifetime_timeout():
-	queue_free()
-
-
-func _cleanup():
-#	NOTE: cleanup may be triggered multiple times from
-#	projectile reaching target or one of the handler nodes
-#	getting removed. Call cleanup only once.
-	if _called_cleanup_already:
-		return
-
-	_called_cleanup_already = true
-
-	if _cleanup_handler.is_valid():
-		_cleanup_handler.call(self)
-
 	queue_free()
 
 
@@ -300,7 +284,3 @@ func _do_collision():
 	for unit in collided_list:
 		_collision_handler.call(self, unit)
 		_collision_history.append(unit)
-
-
-func _on_handler_node_tree_exiting():
-	_cleanup()

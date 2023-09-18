@@ -37,8 +37,6 @@ enum AttackStyle {
 }
 
 
-const ATTACK_CD_MIN: float = 0.2
-const PROJECTILE_SPEED: int = 1400
 # NOTE: this range needs to be bigger than distance between
 # normal creeps moving at default speed. Can calculate by
 # multiplying CreepSpawner.NORMAL_SPAWN_DELAY_SEC and
@@ -46,11 +44,9 @@ const PROJECTILE_SPEED: int = 1400
 # Current value = 0.9 * 222 = 200
 # + 25 for error margin from timers
 # = 225
-const BOUNCE_RANGE: int = 225
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
 const TARGET_TYPE_GROUND_ONLY: int = TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS
 const TARGET_TYPE_AIR_ONLY: int = TargetType.CREEPS + TargetType.SIZE_AIR
-const INVENTORY_CAPACITY_MAX: int = 6
 
 var _id: int = 0
 var _stats: Dictionary
@@ -61,16 +57,15 @@ var _attack_style: AttackStyle = AttackStyle.NORMAL
 var _target_list: Array[Creep] = []
 var _target_count_max: int = 1
 var _default_projectile_type: ProjectileType
-var _order_stop_requested: bool = false
 var _current_attack_cooldown: float = 0.0
-var _target_order_issued: bool = false
-var _target_order_target: Unit
+var _was_ordered_to_stop_attack: bool = false
+var _was_ordered_to_change_target: bool = false
+var _new_target_from_order: Unit
 var _item_container: TowerItemContainer
 var _specials_modifier: Modifier = Modifier.new()
 # NOTE: preceding tower reference is valid only during
 # creation. It is also always null for first tier towers.
 var _temp_preceding_tower: Tower = null
-var _number_of_crits: int = 0
 # This attack type determines which targets will be picked
 # for attacking.
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
@@ -154,7 +149,7 @@ func _ready():
 	_on_mana_changed()
 	_mana_bar.visible = get_base_mana() > 0
 
-	_default_projectile_type = ProjectileType.create("", 0.0, PROJECTILE_SPEED)
+	_default_projectile_type = ProjectileType.create("", 0.0, Constants.PROJECTILE_SPEED)
 	_default_projectile_type.enable_homing(_on_projectile_target_hit, 0.0)
 
 # 	Carry over some properties and all items from preceding
@@ -228,7 +223,7 @@ func _ready():
 
 	selected.connect(on_selected)
 	unselected.connect(on_unselected)
-	tree_exiting.connect(on_tree_exiting)
+	tree_exited.connect(on_tree_exited)
 
 	_temp_preceding_tower = null
 	
@@ -287,14 +282,6 @@ func is_attacking() -> bool:
 	var attacking: bool = !_target_list.is_empty()
 
 	return attacking
-
-
-# Returns number of crits for current attack. Only valid in
-# attack and damage event handlers.
-# 
-# NOTE: tower.getNumberOfCrits() in JASS
-func get_number_of_crits() -> int:
-	return _number_of_crits
 
 
 # Disables attacking or any other game interactions for the
@@ -360,7 +347,7 @@ func get_item_tower_details() -> Array[MultiboardValues]:
 
 # NOTE: tower.orderStop() in JASS
 func order_stop():
-	_order_stop_requested = true
+	_was_ordered_to_stop_attack = true
 
 
 # NOTE: "attack" is the only order_type encountered in tower
@@ -371,8 +358,8 @@ func issue_target_order(order_type: String, target: Unit):
 	if order_type != "attack":
 		print_debug("Unhandled order_type in issue_target_order()")
 
-	_target_order_issued = true
-	_target_order_target = target
+	_was_ordered_to_change_target = true
+	_new_target_from_order = target
 
 
 #########################
@@ -542,37 +529,44 @@ func _attack_target(target: Unit):
 #	has the same crit values. Also so that attack and damage
 #	event handlers have access to crit count.
 	var crit_count: int = _generate_crit_count(0.0, 0.0)
-
-	crit_count += _crit_bonus_for_next_attack
-	_crit_bonus_for_next_attack = 0
-
-	var additional_crit_damage_ratio: float = _crit_damage_ratio_for_next_attack
-	_crit_damage_ratio_for_next_attack = 0.0
+	var crit_ratio: float = _calc_attack_multicrit_from_crit_count(crit_count, 0.0)
 
 	var attack_event: Event = Event.new(target)
+	attack_event._number_of_crits = crit_count
+	attack.emit(attack_event)
 
-#	NOTE: set _number_of_crits here so that it's accesible
-#	in attack event handlers
-	_number_of_crits = crit_count
-	super._do_attack(attack_event)
-	_number_of_crits = 0
+#	NOTE: process crit bonuses after attack event so that if
+#	any attack event handlers added crit bonuses, we apply
+#	these bonuses to current attack.
+	crit_count += _bonus_crit_count_for_next_attack
+	_bonus_crit_count_for_next_attack = 0
 
-	if _order_stop_requested:
-		_order_stop_requested = false
+	crit_ratio += _bonus_crit_ratio_for_next_attack
+	_bonus_crit_ratio_for_next_attack = 0.0
+
+#	NOTE: handlers for attack event may order the tower to
+#	stop attacking or switch to a different target. Process
+#	the orders here.
+	if _was_ordered_to_stop_attack:
+		_was_ordered_to_stop_attack = false
 
 		return
 
-	if _target_order_issued:
-		_target_order_issued = false
+	if _was_ordered_to_change_target:
+		_was_ordered_to_change_target = false
 
-		target = _target_order_target
+		target = _new_target_from_order
 
 	if target == null:
 		return
 
+	var attacked_event: Event = Event.new(target)
+	attacked_event._number_of_crits = crit_count
+	target.attacked.emit(attacked_event)
+
 	var projectile: Projectile = _make_projectile(self, target)
 	projectile.set_tower_crit_count(crit_count)
-	projectile.set_tower_crit_damage_ratio(additional_crit_damage_ratio)
+	projectile.set_tower_crit_ratio(crit_ratio)
 
 	if _attack_style == AttackStyle.BOUNCE:
 		var randomize_damage: bool = true
@@ -617,7 +611,7 @@ func on_unselected():
 	_tower_actions.hide()
 
 
-func on_tree_exiting():
+func on_tree_exited():
 	on_destruct()
 
 
@@ -626,7 +620,7 @@ func _get_base_properties() -> Dictionary:
 
 
 func _get_next_bounce_target(prev_target: Creep) -> Creep:
-	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, BOUNCE_RANGE)
+	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, Constants.BOUNCE_ATTACK_RANGE)
 
 	creep_list.erase(prev_target)
 
@@ -711,13 +705,10 @@ func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
 
 	var crit_count: int = projectile.get_tower_crit_count()
-	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
+	var crit_ratio: float = projectile.get_tower_crit_ratio()
+	var is_main_target: bool = true
 
-#	NOTE: set _number_of_crits here so that it's accesible
-#	in damage event handlers
-	_number_of_crits = crit_count
-	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, additional_crit_damage_ratio), true, get_attack_type())
-	_number_of_crits = 0
+	do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target)
 
 
 func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
@@ -728,13 +719,10 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
 
 	var crit_count: int = projectile.get_tower_crit_count()
-	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
+	var crit_ratio: float = projectile.get_tower_crit_ratio()
+	var is_main_target: bool = true
 
-#	NOTE: set _number_of_crits here so that it's accesible
-#	in damage event handlers_number_of_crits = crit_count
-	_number_of_crits = crit_count
-	_do_attack_damage_internal(target, damage, _calc_attack_multicrit_internal(crit_count, additional_crit_damage_ratio), true, get_attack_type())
-	_number_of_crits = 0
+	do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target)
 
 	var splash_target: Unit = target
 	var splash_pos: Vector2 = splash_target.position
@@ -759,7 +747,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 			if creep_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
-				_do_attack_damage_internal(neighbor, splash_damage, _calc_attack_multicrit_internal(crit_count, 0), false, get_attack_type())
+				var splash_is_main_target: bool = false
+				do_attack_damage(neighbor, splash_damage, crit_ratio, crit_count, splash_is_main_target)
 
 				break
 
@@ -768,17 +757,12 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	var current_damage: float = projectile.user_real
 	var current_bounce_index: int = projectile.user_int
 
+	var crit_count: int = projectile.get_tower_crit_count()
+	var crit_ratio: float = projectile.get_tower_crit_ratio()
 	var is_first_bounce: bool = current_bounce_index == 0
 	var is_main_target: bool = is_first_bounce
 
-	var crit_count: int = projectile.get_tower_crit_count()
-	var additional_crit_damage_ratio: float = projectile.get_tower_crit_damage_ratio()
-
-#	NOTE: set _number_of_crits here so that it's accesible
-#	in damage event handlers_number_of_crits = crit_count
-	_number_of_crits = crit_count
-	_do_attack_damage_internal(current_target, current_damage, _calc_attack_multicrit_internal(crit_count, additional_crit_damage_ratio), is_main_target, get_attack_type())
-	_number_of_crits = 0
+	do_attack_damage(current_target, current_damage, crit_ratio, crit_count, is_main_target)
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_index == _bounce_count_max - 1
@@ -800,7 +784,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 #	used when projectile reaches the target to calculate
 #	damage
 	next_projectile.set_tower_crit_count(projectile.get_tower_crit_count())
-	next_projectile.set_tower_crit_damage_ratio(projectile.get_tower_crit_damage_ratio())
+	next_projectile.set_tower_crit_ratio(projectile.get_tower_crit_ratio())
 
 
 func _on_target_death(_event: Event, target: Creep):
@@ -890,7 +874,7 @@ func get_overall_cooldown() -> float:
 	var attack_cooldown: float = get_base_cooldown()
 	var attack_speed_mod: float = get_base_attack_speed()
 	var overall_cooldown: float = attack_cooldown / attack_speed_mod
-	overall_cooldown = max(ATTACK_CD_MIN, overall_cooldown)
+	overall_cooldown = max(Constants.ATTACK_COOLDOWN_MIN, overall_cooldown)
 
 	return overall_cooldown
 

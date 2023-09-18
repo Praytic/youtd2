@@ -69,14 +69,7 @@ func _process(_delta: float):
 func _on_game_mode_was_chosen():
 	var sell_ratio: float = GameMode.get_sell_ratio(Globals.game_mode)
 	var sell_percentage: String = Utils.format_percent(sell_ratio, 0)
-
-# 	NOTE: totally random game mode doesn't have the upgrade
-# 	mechanic so don't mention it in tooltip
-	var sell_button_tooltip: String
-	if Globals.game_mode == GameMode.enm.TOTALLY_RANDOM:
-		sell_button_tooltip = "Sell\nYou will get %s of the build cost." % sell_percentage
-	else:
-		sell_button_tooltip = "Sell\nYou will get %s of the build and upgrade costs." % sell_percentage
+	var sell_button_tooltip: String = "Sell\nYou will get %s of the tower cost back." % sell_percentage
 
 	_sell_button.set_tooltip_text(sell_button_tooltip)
 

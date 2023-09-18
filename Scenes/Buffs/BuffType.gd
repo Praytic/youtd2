@@ -14,7 +14,7 @@ extends Node
 #
 # NOTE: BuffType needs to be Node so that it can be used as
 # event handler for Buffs. Buff event handlers must be Node
-# because buff's need to connect to Node's tree_exiting()
+# because buff's need to connect to Node's tree_exited()
 # signal for correct "cleanup" event logic.
 
 
@@ -63,11 +63,11 @@ static func create_aura_effect_type(type: String, friendly: bool, parent: Node) 
 # refreshed. In general, set type to something unique.
 #
 # NOTE: "parent" parameter is needed so that buff can react
-# to parent's "tree_exiting()" signal. For example, let's say
+# to parent's "tree_exited()" signal. For example, let's say
 # this is a debuff buff type that's created and applied by
 # an item to creeps. If that item is removed from the tower,
 # we need to remove all debuffs applied by the item. To do
-# that we need to connect to parent's (item's) tree_exiting
+# that we need to connect to parent's (item's) tree_exited
 # signal, not caster's, because caster (tower) has not been
 # removed and so won't emit that signal.
 func _init(type: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
@@ -295,7 +295,7 @@ func add_event_on_damaged(handler: Callable):
 
 
 # NOTE: buffType.setEventOnExpire() in JASS
-func set_event_on_expire(handler: Callable):
+func add_event_on_expire(handler: Callable):
 	add_event_handler(Event.Type.EXPIRE, handler)
 
 
