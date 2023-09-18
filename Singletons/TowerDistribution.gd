@@ -74,6 +74,9 @@ func _generate_random_towers(wave_level: int) -> Array[int]:
 	var element_list: Array[Element.enm] = _get_possible_element_list()
 	element_list.shuffle()
 
+	if element_list.is_empty():
+		return []
+
 #	On first pass, try to roll each element once. This is
 #	likely to not result in any towers at low element
 #	levels.
@@ -98,6 +101,9 @@ func _generate_random_towers_with_count(wave_level: int, count: int) -> Array[in
 
 	var element_list: Array[Element.enm] = _get_possible_element_list()
 	element_list.shuffle()
+
+	if element_list.is_empty():
+		return []
 
 #	NOTE: original algorithm doesn't do this and iterates
 #	over elements in same order every time. I'm pretty sure
