@@ -1,6 +1,5 @@
-[gd_resource type="Theme" load_steps=27 format=3 uid="uid://c7tov8p6m7vb4"]
+[gd_resource type="Theme" load_steps=26 format=3 uid="uid://c7tov8p6m7vb4"]
 
-[ext_resource type="StyleBox" uid="uid://e57ar8241ex2" path="res://Resources/Theme/HoradricMenu/title_label.tres" id="1_chrfr"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="2_uaxwg"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_04fne"]
@@ -133,9 +132,6 @@ MainPanelContainer/base_type = &"PanelContainer"
 MainPanelContainer/styles/panel = SubResource("StyleBoxTexture_hs6ax")
 Panel/styles/panel = SubResource("StyleBoxTexture_j34v6")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_vfmo2")
-TitleLabel/base_type = &"Label"
-TitleLabel/font_sizes/font_size = 26
-TitleLabel/styles/normal = ExtResource("1_chrfr")
 TransmuteButton/base_type = &"Button"
 TransmuteButton/styles/disabled = SubResource("StyleBoxTexture_88crg")
 TransmuteButton/styles/hover = SubResource("StyleBoxTexture_cge4u")

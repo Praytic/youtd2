@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_8sf0j"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
 [ext_resource type="Script" path="res://Scenes/HUD/TowerMenu.gd" id="2_sqv8k"]
-[ext_resource type="StyleBox" uid="uid://btaejtkq2p7e8" path="res://Resources/Theme/TowerMenu/tower_name_label_normal.tres" id="2_x237m"]
+[ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="3_8hdh7"]
 [ext_resource type="ButtonGroup" uid="uid://ce5xw83da2d6c" path="res://Resources/UI/ButtonGroup/right_panel_button_group.tres" id="4_5rlh7"]
 [ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="4_8bkul"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/TowerMenu/tower_level_label_normal.tres" id="5_t4ptj"]
@@ -91,8 +91,7 @@ theme_override_constants/margin_right = 10
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = ExtResource("2_x237m")
+theme = ExtResource("3_8hdh7")
 toggle_mode = true
 button_group = ExtResource("4_5rlh7")
 text = "Tower Name"
