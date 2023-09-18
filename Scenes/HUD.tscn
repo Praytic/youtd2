@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="9_3ampi"]
 [ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://Scenes/HUD/TopLeftMenu.tscn" id="10_agdn3"]
-[ext_resource type="PackedScene" uid="uid://c376o14gmtncc" path="res://Scenes/HUD/HoradricMenu.tscn" id="10_tcgum"]
+[ext_resource type="PackedScene" uid="uid://ckiupnhfj32n6" path="res://Scenes/HUD/HoradricMenu2.tscn" id="10_e8qqf"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="15_rfxf1"]
@@ -173,11 +173,8 @@ size_flags_horizontal = 8
 theme = ExtResource("9_3ampi")
 text = "Roll towers"
 
-[node name="HoradricMenu" parent="VBoxContainer" instance=ExtResource("10_tcgum")]
-custom_minimum_size = Vector2(0, 0)
+[node name="HoradricMenu" parent="VBoxContainer" instance=ExtResource("10_e8qqf")]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 1
 
 [node name="TowerMenu" parent="VBoxContainer" instance=ExtResource("15_rfxf1")]
 layout_mode = 2

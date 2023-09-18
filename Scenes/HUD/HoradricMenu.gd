@@ -1,8 +1,6 @@
 extends PanelContainer
 
 
-signal visibility_mode_changed()
-
 # Menu for the Horadric Cube. Contains items inside it.
 @export var _slots_container: GridContainer
 @export var _items_container: GridContainer
@@ -12,7 +10,7 @@ signal visibility_mode_changed()
 @export var _result_slot: EmptySlotButton
 # Shows the status of transmutation. E.g. ("Transmute was unlucky: -16 levels")
 @export var _transmute_result_label: RichTextLabel : get = get_transmute_result_label
-@export var _main_container: MarginContainer
+@export var _main_container: VBoxContainer
 @export var _title_button: Button
 
 
@@ -20,6 +18,7 @@ func _ready():
 	HoradricCube.items_changed.connect(_on_items_changed)
 	_main_container.visibility_changed.connect(_on_visibility_changed)
 	_title_button.toggled.connect(_on_title_button_toggled)
+	_items_container.gui_input.connect(_on_items_container_gui_input)
 	
 	_on_items_changed()
 	_main_container.hide()
@@ -81,7 +80,6 @@ func _on_title_button_toggled(toggle: bool):
 	else:
 		_main_container.hide()
 		_title_button.get_parent().set_h_size_flags(SIZE_SHRINK_END)
-	visibility_mode_changed.emit()
 	
 	if toggle:
 		for button in _title_button.button_group.get_buttons():

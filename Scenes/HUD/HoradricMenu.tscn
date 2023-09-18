@@ -13,19 +13,18 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjhr8"]
 
 [node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_slots_container", "_items_container", "_transmute_button", "_result_slot", "_transmute_result_label", "_main_container", "_title_button")]
-custom_minimum_size = Vector2(380, 672)
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -380.0
-offset_top = -336.0
-offset_bottom = 336.0
+offset_left = -220.0
+offset_top = -157.807
+offset_bottom = 157.807
 grow_horizontal = 0
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 8
+size_flags_vertical = 4
 theme = ExtResource("1_lwnyt")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0jpan")
 script = ExtResource("2_884ge")
@@ -47,7 +46,7 @@ theme_override_constants/margin_top = -20
 theme_override_constants/margin_right = 10
 
 [node name="TitleButton" type="Button" parent="MarginContainer2"]
-z_index = 2
+z_index = 1
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -57,13 +56,15 @@ button_group = ExtResource("3_c8d8o")
 text = "Horadric Cube"
 
 [node name="MainContainer" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
 theme_override_constants/margin_right = -40
 
 [node name="PanelContainer" type="PanelContainer" parent="MainContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 theme_type_variation = &"MainPanelContainer"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/PanelContainer"]

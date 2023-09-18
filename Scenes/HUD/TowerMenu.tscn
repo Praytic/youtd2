@@ -50,6 +50,7 @@ offset_bottom = 402.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
+size_flags_vertical = 4
 mouse_force_pass_scroll_events = false
 theme = ExtResource("1_crn3l")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
@@ -97,16 +98,18 @@ button_group = ExtResource("4_5rlh7")
 text = "Tower Name"
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_right = -40
 
 [node name="Panel" type="PanelContainer" parent="MainContainer/MarginContainer"]
 custom_minimum_size = Vector2(600, 800)
 layout_mode = 2
+mouse_filter = 2
 theme_type_variation = &"MainPanelContainer"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel"]

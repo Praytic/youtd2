@@ -2,9 +2,6 @@ class_name UnitMenu
 extends PanelContainer
 
 
-signal visibility_mode_changed()
-
-
 const SELL_BUTTON_RESET_TIME: float = 5.0
 const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.png")
 
@@ -55,6 +52,7 @@ func _ready():
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
 	_info_button.toggled.connect(_on_info_button_pressed)
 	_unit_name_button.toggled.connect(_on_unit_name_button_toggled)
+	visibility_changed.connect(_on_visibility_changed)
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
 		var empty_slot_button: EmptySlotButton = EmptySlotButton.make()
@@ -94,7 +92,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	var creep: Creep = get_selected_creep()
 	assert(not (tower != null and creep != null), "Both tower and creep are selected.")
 	
-#	visible = tower != null or creep != null
+	visible = tower != null or creep != null
 
 	if prev_unit != null and prev_unit is Tower:
 		prev_unit.items_changed.disconnect(on_tower_items_changed)
@@ -472,6 +470,11 @@ func _get_tooltip_for_info_label(unit: Unit) -> String:
 		return tooltip
 
 
+func _on_visibility_changed():
+	if not visible:
+		_on_unit_name_button_toggled(visible)
+
+
 func _on_unit_name_button_toggled(toggle: bool):
 	if toggle:
 		_main_container.show()
@@ -479,7 +482,6 @@ func _on_unit_name_button_toggled(toggle: bool):
 	else:
 		_main_container.hide()
 		_unit_name_button.get_parent().set_h_size_flags(SIZE_SHRINK_END)
-	visibility_mode_changed.emit()
 	
 	if toggle:
 		for button in _unit_name_button.button_group.get_buttons():
