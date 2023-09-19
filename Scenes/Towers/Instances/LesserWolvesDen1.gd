@@ -34,7 +34,7 @@ func get_extra_tooltip_text() -> String:
 func tower_init():
 	var m: Modifier = Modifier.new()
 	speed_aura = BuffType.create_aura_effect_type("speed_aura", true, self)
-	m.add_modification(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attackspeed, _stats.mod_attackspeed_add)
+	m.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, 1.0 / 10000)
 	speed_aura.set_buff_modifier(m)
 	speed_aura.set_buff_icon("@@0@@")
 	speed_aura.set_stacking_group("wolf_aura")
@@ -44,9 +44,9 @@ func tower_init():
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = int(_stats.mod_attackspeed * 1000)
-	aura.level_add = int(_stats.mod_attackspeed_add * 1000)
-	aura.power = 0
-	aura.power_add = 1
+	aura.level = int(_stats.mod_attackspeed * 10000)
+	aura.level_add = int(_stats.mod_attackspeed_add * 10000)
+	aura.power = int(_stats.mod_attackspeed * 10000)
+	aura.power_add = int(_stats.mod_attackspeed_add * 10000)
 	aura.aura_effect = speed_aura
 	add_aura(aura)

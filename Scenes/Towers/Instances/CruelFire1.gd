@@ -33,7 +33,7 @@ func get_extra_tooltip_text() -> String:
 
 func tower_init():
 	var m: Modifier = Modifier.new()
-	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, _stats.mod_crit, _stats.mod_crit_add)
+	m.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0, 1.0 / 10000)
 	boekie_crit_aura = BuffType.create_aura_effect_type("boekie_crit_aura", true, self)
 	boekie_crit_aura.set_buff_icon("@@0@@")
 	boekie_crit_aura.set_buff_modifier(m)
@@ -44,9 +44,9 @@ func tower_init():
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
-	aura.level = 0
-	aura.level_add = 1
-	aura.power = 0
-	aura.power_add = 1
+	aura.level = int(_stats.mod_crit * 10000)
+	aura.level_add = int(_stats.mod_crit_add * 10000)
+	aura.power = int(_stats.mod_crit * 10000)
+	aura.power_add = int(_stats.mod_crit_add * 10000)
 	aura.aura_effect = boekie_crit_aura
 	add_aura(aura)
