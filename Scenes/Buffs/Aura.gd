@@ -23,7 +23,6 @@ var _target_list: Array = []
 
 
 func _ready():
-	_caster.level_up.connect(_on_caster_level_up)
 	tree_exited.connect(_on_tree_exited)
 
 
@@ -33,16 +32,6 @@ func get_power() -> int:
 
 func get_level() -> int:
 	return _level + _caster.get_level() * _level_add
-
-
-# NOTE: when caster levels up, re-apply aura effect. apply()
-# will upgrade the aura effect.
-func _on_caster_level_up():
-	for target in _target_list:
-		if !is_instance_valid(target):
-			continue
-
-		_aura_effect.apply_advanced(_caster, target, get_level(), get_power(), -1)
 
 
 func _on_timer_timeout():
@@ -70,18 +59,16 @@ func _on_timer_timeout():
 # 	Apply buff to units in range
 	var units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _aura_range, _include_invisible)
 
-	for unit in _target_list:
-		units_in_range.erase(unit)
-
 	for unit in units_in_range:
 		if !_target_self && unit == self:
 			continue
 
-		_target_list.append(unit)
-		
-		var buff: Buff = _aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)
+		var active_buff: Buff = unit.get_buff_of_type(_aura_effect)
+		var need_to_apply: bool = active_buff == null || active_buff.get_level() < get_level()
 
-		buff._applied_by_aura_count += 1
+		if need_to_apply:
+			_target_list.append(unit)
+			_aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)
 
 
 func _on_tree_exited():
@@ -95,10 +82,5 @@ func remove_aura_effect_from_units(unit_list: Array):
 
 		var buff: Buff = target.get_buff_of_type(_aura_effect)
 
-		if buff != null:
-			buff._applied_by_aura_count -= 1
-
-			var buff_not_applied_by_any_aura: bool = buff._applied_by_aura_count == 0
-
-			if buff_not_applied_by_any_aura:
-				buff.remove_buff()
+		if buff != null && buff.get_caster() == _caster:
+			buff.remove_buff()

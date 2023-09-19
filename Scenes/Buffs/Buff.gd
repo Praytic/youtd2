@@ -25,9 +25,6 @@ var _stacking_group: String
 var _timer: Timer
 # Map of Event.Type -> list of EventHandler's
 var event_handler_map: Dictionary = {}
-# Used by aura's to know when to remove buff that was
-# applied by aura.
-var _applied_by_aura_count: int = 0
 var _original_duration: float = 0.0
 var _tooltip_text: String
 var _buff_icon: String
@@ -35,9 +32,6 @@ var _purgable: bool
 
 
 func _ready():
-#	NOTE: fix "unused" warning
-	_applied_by_aura_count = _applied_by_aura_count
-
 	if _time > 0.0:
 		_timer = Timer.new()
 		add_child(_timer)
