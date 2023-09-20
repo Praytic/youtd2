@@ -8,8 +8,8 @@
 
 [node name="ElementButton" type="Button" node_paths=PackedStringArray("_texture_progress_bar", "_counter_label", "_research_element_progress_bar", "_button_down_timer", "_research_timer")]
 custom_minimum_size = Vector2(64, 64)
-offset_right = 64.0
-offset_bottom = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
 scale = Vector2(0.5, 0.5)
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -19,52 +19,58 @@ toggle_mode = true
 icon = ExtResource("1_pd320")
 expand_icon = true
 script = ExtResource("1_4u01e")
-_texture_progress_bar = NodePath("CenterContainer/ElementProgressBar")
+_texture_progress_bar = NodePath("MarginContainer2/ElementProgressBar")
 _counter_label = NodePath("MarginContainer/CounterLabel")
-_research_element_progress_bar = NodePath("CenterContainer2/ResearchElementProgressBar")
+_research_element_progress_bar = NodePath("MarginContainer3/ResearchElementProgressBar")
 _button_down_timer = NodePath("ButtonDownTimer")
 _research_timer = NodePath("ResearchTimer")
 
-[node name="CenterContainer2" type="CenterContainer" parent="."]
-show_behind_parent = true
+[node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+theme_override_constants/margin_left = -5
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = -5
+theme_override_constants/margin_bottom = -5
 
-[node name="ResearchElementProgressBar" type="TextureProgressBar" parent="CenterContainer2"]
-visible = false
-layout_mode = 2
-mouse_filter = 2
-fill_mode = 4
-texture_under = ExtResource("1_r8kbi")
-texture_progress = ExtResource("1_r8kbi")
-tint_under = Color(1, 1, 1, 0)
-tint_progress = Color(0, 1, 0, 0.737255)
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="ElementProgressBar" type="TextureProgressBar" parent="CenterContainer"]
+[node name="ElementProgressBar" type="TextureProgressBar" parent="MarginContainer2"]
 visible = false
 layout_mode = 2
 mouse_filter = 2
 max_value = 15.0
 fill_mode = 4
+nine_patch_stretch = true
 texture_under = ExtResource("1_r8kbi")
 texture_progress = ExtResource("1_r8kbi")
 tint_under = Color(0.25098, 0.25098, 0.25098, 0.513726)
 tint_progress = Color(1, 1, 1, 0.737255)
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = -5
+theme_override_constants/margin_top = -5
+theme_override_constants/margin_right = -5
+theme_override_constants/margin_bottom = -5
+
+[node name="ResearchElementProgressBar" type="TextureProgressBar" parent="MarginContainer3"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("1_r8kbi")
+texture_progress = ExtResource("1_r8kbi")
+tint_under = Color(1, 1, 1, 0)
+tint_progress = Color(0, 1, 0, 0.737255)
 
 [node name="ResearchTimer" type="Timer" parent="."]
 wait_time = 2.0
