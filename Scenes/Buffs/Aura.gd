@@ -23,6 +23,7 @@ var _target_list: Array = []
 
 
 func _ready():
+	_caster.level_changed.connect(_on_caster_level_changed)
 	tree_exited.connect(_on_tree_exited)
 
 
@@ -35,16 +36,13 @@ func get_level() -> int:
 
 
 func _on_timer_timeout():
+	_remove_invalid_targets()
+
 # 	Remove buff from units that have went out of range or
 # 	became invisible
 	var removed_target_list: Array = []
 	
 	for target in _target_list:
-		if !is_instance_valid(target):
-			removed_target_list.append(target)
-
-			continue
-
 		var distance: float = Isometric.vector_distance_to(global_position, target.position)
 		var out_of_range: bool = distance > _aura_range
 
@@ -76,11 +74,48 @@ func _on_tree_exited():
 
 
 func remove_aura_effect_from_units(unit_list: Array):
-	for target in unit_list:
-		if !is_instance_valid(target):
-			continue
+	_remove_invalid_targets()
 
+	for target in unit_list:
 		var buff: Buff = target.get_buff_of_type(_aura_effect)
 
 		if buff != null && buff.get_caster() == _caster:
 			buff.remove_buff()
+
+
+func _remove_invalid_targets():
+	var invalid_list: Array = []
+	
+	for target in _target_list:
+		if !is_instance_valid(target):
+			invalid_list.append(target)
+
+	for target in invalid_list:
+		_target_list.erase(target)
+
+
+# Level down the aura buffs here when tower levels down.
+# Note that level ups are handled in _on_timer_timeout().
+# 
+# NOTE: the way lving down is handled is a bit imperfect
+# because if there are two towers with same aura and one of
+# them levels down, then the aura will temporarily level
+# down for 0.2s and then go back up to the level of the
+# strongest aura. It's not critical and I couldn't find a
+# better solution which doesn't break anything else.
+func _on_caster_level_changed():
+	_remove_invalid_targets()
+	
+	var new_level: int = _caster.get_level()
+
+	for target in _target_list:
+		var active_buff: Buff = target.get_buff_of_type(_aura_effect)
+
+		if active_buff == null:
+			continue
+
+		var need_to_level_down: bool = active_buff.get_level() > new_level
+
+		if need_to_level_down:
+			active_buff.set_level(get_level())
+			active_buff.set_power(get_power())
