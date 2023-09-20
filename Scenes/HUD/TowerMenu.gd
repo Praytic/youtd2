@@ -50,7 +50,7 @@ func _ready():
 	
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
-	_info_button.toggled.connect(_on_info_button_pressed)
+	_info_button.pressed.connect(_on_info_button_pressed)
 	_unit_name_button.toggled.connect(_on_unit_name_button_toggled)
 	visibility_changed.connect(_on_visibility_changed)
 	_upgrade_button.mouse_entered.connect(_on_tower_upgrade_button_mouse_entered)
@@ -366,8 +366,8 @@ func _set_selling_for_real(value: bool):
 		_reset_sell_button_timer.stop()
 
 
-func _on_info_button_pressed(button_pressed: bool):
-	if button_pressed:
+func _on_info_button_pressed():
+	if not _unit_stats_menu.visible:
 		_unit_control_menu.hide()
 		_unit_stats_menu.show()
 	else:
