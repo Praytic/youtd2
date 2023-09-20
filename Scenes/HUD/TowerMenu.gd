@@ -287,7 +287,7 @@ func _on_upgrade_button_pressed():
 
 	_update_upgrade_button(upgrade_tower)
 
-	_on_tower_upgrade_button_mouse_exited()
+	_on_tower_upgrade_button_mouse_entered()
 
 
 func _get_upgrade_id_for_tower(tower: Tower) -> int:
