@@ -53,6 +53,8 @@ func _ready():
 	_info_button.toggled.connect(_on_info_button_pressed)
 	_unit_name_button.toggled.connect(_on_unit_name_button_toggled)
 	visibility_changed.connect(_on_visibility_changed)
+	_upgrade_button.mouse_entered.connect(_on_tower_upgrade_button_mouse_entered)
+	_upgrade_button.mouse_exited.connect(_on_tower_upgrade_button_mouse_exited)
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
 		var empty_slot_button: EmptySlotButton = EmptySlotButton.make()
@@ -285,9 +287,7 @@ func _on_upgrade_button_pressed():
 
 	_update_upgrade_button(upgrade_tower)
 
-# 	NOTE: call this to force an update of tooltip so it
-# 	switches to next tier
-	_on_tower_upgrade_button_mouse_entered()
+	_on_tower_upgrade_button_mouse_exited()
 
 
 func _get_upgrade_id_for_tower(tower: Tower) -> int:
