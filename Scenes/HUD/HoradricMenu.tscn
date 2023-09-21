@@ -12,7 +12,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjhr8"]
 
-[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_result_slot", "_transmute_result_label", "_main_container", "_title_button")]
+[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_transmute_result_label", "_main_container", "_title_button")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -30,7 +30,6 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_0jpan")
 script = ExtResource("2_884ge")
 _items_container = NodePath("MainContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container/ItemsContainer")
 _transmute_button = NodePath("MainContainer/PanelContainer/MarginContainer/VBoxContainer/AspectRatioContainer/TransmutationButton")
-_result_slot = NodePath("MainContainer/PanelContainer/MarginContainer/VBoxContainer/AspectRatioContainer/VBoxContainer/ResultEmptySlot")
 _transmute_result_label = NodePath("MainContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/TransmuteResultLabel")
 _main_container = NodePath("MainContainer")
 _title_button = NodePath("MarginContainer2/TitleButton")

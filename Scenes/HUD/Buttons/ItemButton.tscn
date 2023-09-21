@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" path="res://Scenes/HUD/Buttons/AutoModeIndicator.tscn" id="4_e5nkx"]
 
 [node name="UnitButton2" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_charges_label") instance=ExtResource("1_56ir5")]
-custom_minimum_size = Vector2(64, 64)
+offset_right = 141.0
+offset_bottom = 142.0
 script = ExtResource("2_0spo4")
 _cooldown_indicator = NodePath("MarginContainer/CooldownIndicator")
 _auto_mode_indicator = NodePath("MarginContainer/AutoModeIndicator")

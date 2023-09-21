@@ -10,7 +10,6 @@ atlas = ExtResource("4_pixwo")
 region = Rect2(0, 0, 64, 64)
 
 [node name="UnitButton" node_paths=PackedStringArray("_disabled_lock", "_tier_icon") instance=ExtResource("1_58csb")]
-custom_minimum_size = Vector2(64, 64)
 script = ExtResource("2_tfpmj")
 _disabled_lock = NodePath("MarginContainer/LockTexture")
 _tier_icon = NodePath("TierContainer/TierIcon")

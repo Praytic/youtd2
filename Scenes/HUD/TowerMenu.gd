@@ -57,8 +57,10 @@ func _ready():
 	_upgrade_button.mouse_exited.connect(_on_tower_upgrade_button_mouse_exited)
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
+		var button_container: UnitButtonContainer = UnitButtonContainer.make()
 		var empty_slot_button: EmptySlotButton = EmptySlotButton.make()
-		_inventory_empty_slots.add_child(empty_slot_button)
+		button_container.add_child(empty_slot_button)
+		_inventory_empty_slots.add_child(button_container)
 
 
 func _process(_delta: float):
@@ -157,8 +159,8 @@ func get_selected_creep() -> Creep:
 
 
 func on_tower_items_changed(tower: Tower):
-	for button in _items_box_container.get_children():
-		button.queue_free()
+	for unit_button_container in _items_box_container.get_children():
+		unit_button_container.queue_free()
 
 	var items: Array[Item] = tower.get_items()
 
@@ -166,6 +168,7 @@ func on_tower_items_changed(tower: Tower):
 		var item_button: ItemButton = ItemButton.make(item)
 		item_button.show_cooldown_indicator()
 		item_button.show_auto_mode_indicator()
+		item_button.theme_type_variation = "TinyButton"
 		item_button.show_charges()
 		var button_container: UnitButtonContainer = UnitButtonContainer.make()
 		button_container.add_child(item_button)
