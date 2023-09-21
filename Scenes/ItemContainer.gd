@@ -10,14 +10,10 @@ signal items_changed()
 
 var _item_list: Array[Item] = []
 var _capacity: int
-var _fixed_capacity: bool
 
 
-func _init(capacity: int, fixed_capacity = false):
+func _init(capacity: int):
 	_capacity = capacity
-	_fixed_capacity = fixed_capacity
-	if fixed_capacity:
-		_item_list.resize(capacity)
 
 
 func increase_capacity(new_capacity: int):
@@ -46,12 +42,6 @@ func add_item(item: Item, index: int = 0):
 
 		return
 
-	# If we will try to insert an item to an index greater than size(),
-	# the insert will be silently ignored. So need to set it to the last
-	# available position.
-	if not _fixed_capacity and index > _item_list.size():
-		index = _item_list.size()
-	
 	_item_list.insert(index, item)
 	item.consumed.connect(_on_item_consumed.bind(item))
 	add_child(item)
@@ -65,12 +55,7 @@ func remove_item(item: Item):
 
 		return
 
-	if _fixed_capacity:
-		var erase_index = _item_list.find(item)
-		if erase_index != -1:
-			_item_list[erase_index] = null
-	else:
-		_item_list.erase(item)
+	_item_list.erase(item)
 	item.consumed.disconnect(_on_item_consumed)
 	remove_child(item)
 	items_changed.emit()
@@ -82,23 +67,16 @@ func remove_item(item: Item):
 func get_item_list(rarity_filter = null, type_filter = null) -> Array[Item]:
 	var item_list: Array[Item]
 	for item in _item_list.duplicate():
-		if item == null and _fixed_capacity:
-			item_list.append(null)
-		else:
-			var rarity = item.get_rarity() == rarity_filter or rarity_filter == null
-			var type = item.get_item_type() == type_filter or type_filter == null
-			if rarity and type:
-				item_list.append(item)
+		var rarity = item.get_rarity() == rarity_filter or rarity_filter == null
+		var type = item.get_item_type() == type_filter or type_filter == null
+		if rarity and type:
+			item_list.append(item)
 	return item_list
 
 
 func get_item_count(rarity_filter = null, type_filter = null) -> int:
-	var item_count: int
-	var item_list = get_item_list(rarity_filter, type_filter)
-	if _fixed_capacity:
-		item_count = item_list.size() - item_list.count(null) 
-	else:
-		item_count = item_list.size()
+	var item_count: int = get_item_list(rarity_filter, type_filter).size()
+
 	return item_count
 
 
