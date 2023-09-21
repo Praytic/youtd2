@@ -21,6 +21,7 @@ var _level_bonus_map: Dictionary = {
 }
 
 
+const FIXED_POSITIONS_MODE = true
 const CAPACITY: int = 5
 const LEVEL_MOD_UNLUCKY: int = -9
 const LEVEL_MOD_NORMAL: int = 0
@@ -38,7 +39,7 @@ var _item_container: ItemContainer
 
 
 func _ready():
-	_item_container = ItemContainer.new(CAPACITY)
+	_item_container = ItemContainer.new(CAPACITY, FIXED_POSITIONS_MODE)
 	add_child(_item_container)
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 
@@ -101,7 +102,7 @@ func _get_current_recipe() -> Recipe:
 	var all_items: bool = item_type_list == [ItemType.enm.REGULAR]
 	var all_oils_or_consumables: bool = !item_type_list.has(ItemType.enm.REGULAR)
 	var same_rarity: bool = rarity_list.size() == 1
-	var item_count: int = item_list.size()
+	var item_count: int = item_list.size() - item_list.count(null)
 
 	if !same_rarity:
 		return Recipe.NONE
