@@ -5,11 +5,10 @@
 [ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="3_qnmdl"]
 [ext_resource type="ButtonGroup" uid="uid://ce5xw83da2d6c" path="res://Resources/UI/ButtonGroup/right_panel_button_group.tres" id="4_xrxlp"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="5_g7trm"]
-[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptySlotButton.tscn" id="6_6747o"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_6747o"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButtonContainer.gd" id="7_jc0mt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sda8v"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ayynl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
@@ -34,7 +33,7 @@ script = ExtResource("2_1vbsd")
 _slots_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer")
 _items_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer2")
 _transmute_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/AspectRatioContainer/TransmutationButton")
-_result_slot = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/AspectRatioContainer/VBoxContainer/ResultEmptySlot")
+_result_slot = NodePath("")
 _transmute_result_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteResultLabel")
 _main_container = NodePath("MainContainer")
 _title_button = NodePath("MarginContainer2/TitleButton")
@@ -95,24 +94,6 @@ theme_type_variation = &"TransmuteButton"
 icon = ExtResource("5_g7trm")
 expand_icon = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/AspectRatioContainer"]
-layout_mode = 2
-
-[node name="PanelContainer2" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/AspectRatioContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ayynl")
-
-[node name="ResultEmptySlot" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/AspectRatioContainer/VBoxContainer" instance=ExtResource("6_6747o")]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/AspectRatioContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ayynl")
-
 [node name="Inventory" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
 custom_minimum_size = Vector2(0, 93)
 layout_mode = 2
@@ -170,25 +151,50 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 3
 
-[node name="EmptySlotButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer" instance=ExtResource("6_6747o")]
+[node name="UnitButtonContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("7_jc0mt")
 
-[node name="EmptySlotButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer" instance=ExtResource("6_6747o")]
+[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer/UnitButtonContainer" instance=ExtResource("6_6747o")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="EmptySlotButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer" instance=ExtResource("6_6747o")]
+[node name="UnitButtonContainer2" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("7_jc0mt")
 
-[node name="EmptySlotButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer" instance=ExtResource("6_6747o")]
+[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer/UnitButtonContainer2" instance=ExtResource("6_6747o")]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="EmptySlotButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer" instance=ExtResource("6_6747o")]
+[node name="UnitButtonContainer3" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("7_jc0mt")
+
+[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer/UnitButtonContainer3" instance=ExtResource("6_6747o")]
+layout_mode = 2
+
+[node name="UnitButtonContainer4" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("7_jc0mt")
+
+[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer/UnitButtonContainer4" instance=ExtResource("6_6747o")]
+layout_mode = 2
+
+[node name="UnitButtonContainer5" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("7_jc0mt")
+
+[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/EmptySlotsContainer/UnitButtonContainer5" instance=ExtResource("6_6747o")]
+layout_mode = 2
 
 [node name="ItemsContainer2" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer"]
 layout_mode = 2

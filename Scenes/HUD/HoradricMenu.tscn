@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://c7tov8p6m7vb4" path="res://Resources/Theme/HoradricMenu/horadric_menu_theme.tres" id="1_lwnyt"]
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_884ge"]
-[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptySlotButton.tscn" id="2_h88tu"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="2_h88tu"]
 [ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="3_7byg4"]
 [ext_resource type="ButtonGroup" uid="uid://ce5xw83da2d6c" path="res://Resources/UI/ButtonGroup/right_panel_button_group.tres" id="3_c8d8o"]
 
@@ -133,31 +133,6 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_vjhr8")
 layout_mode = 2
 mouse_filter = 2
 columns = 3
-
-[node name="EmptySlotButton" parent="MainContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
-layout_mode = 2
-size_flags_horizontal = 3
-stretch_mode = 2
-
-[node name="EmptySlotButton2" parent="MainContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
-layout_mode = 2
-size_flags_horizontal = 3
-stretch_mode = 2
-
-[node name="EmptySlotButton3" parent="MainContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
-layout_mode = 2
-size_flags_horizontal = 3
-stretch_mode = 2
-
-[node name="EmptySlotButton4" parent="MainContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
-layout_mode = 2
-size_flags_horizontal = 3
-stretch_mode = 2
-
-[node name="EmptySlotButton5" parent="MainContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container/EmptySlotsContainer" instance=ExtResource("2_h88tu")]
-layout_mode = 2
-size_flags_horizontal = 3
-stretch_mode = 2
 
 [node name="ItemsContainer" type="GridContainer" parent="MainContainer/PanelContainer/MarginContainer/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Container"]
 layout_mode = 2
