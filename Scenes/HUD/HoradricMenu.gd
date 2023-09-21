@@ -18,9 +18,6 @@ func _ready():
 	_main_container.visibility_changed.connect(_on_visibility_changed)
 	_title_button.toggled.connect(_on_title_button_toggled)
 	_items_container.gui_input.connect(_on_items_container_gui_input)
-	for unit_button_container in _items_container.get_children():
-		unit_button_container.child_entered_tree.connect(_update_unit_button_container.bind(unit_button_container))
-		unit_button_container.child_exiting_tree.connect(_update_unit_button_container.bind(unit_button_container))
 	
 	_on_items_changed()
 	_main_container.hide()
@@ -41,19 +38,23 @@ func _on_visibility_changed():
 
 func _on_items_changed():
 #	Clear current buttons
-	for item_button in get_tree().get_nodes_in_group("item_button_container"):
-		item_button.queue_free()
-
+	var unit_button_containers = get_tree().get_nodes_in_group("item_button_container")
+	for unit_button_container in unit_button_containers:
+		for unit_button in unit_button_container.get_children():
+			unit_button.queue_free()
+	
 #	Create buttons for new list
 	var horadric_cube_container: ItemContainer = HoradricCube.get_item_container()
 	var item_list: Array[Item] = horadric_cube_container.get_item_list()
-	for item in item_list:
-		var item_button: ItemButton = ItemButton.make(item)
-		var button_container: UnitButtonContainer = UnitButtonContainer.make()
-		button_container.add_to_group("item_button_container")
-		button_container.add_child(item_button)
-		_items_container.add_child(button_container)
-		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+	
+	for i in len(unit_button_containers):
+		var unit_button_container = unit_button_containers[i]
+		if item_list.size() > i:
+			var item_button: ItemButton = ItemButton.make(item_list[i])
+			unit_button_container.add_child(item_button)
+			item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+		else:
+			unit_button_container.add_child(EmptySlotButton.make())
 	
 	var can_transmute: bool = HoradricCube.can_transmute()
 	_transmute_button.set_disabled(!can_transmute)
@@ -90,8 +91,3 @@ func _on_title_button_toggled(toggle: bool):
 	else:
 		for button in _title_button.button_group.get_buttons():
 			button.show()
-
-
-func _update_unit_button_container(unit_button_container):
-	if unit_button_container.get_child_count() == 0:
-		unit_button_container.add_child(EmptySlotButton.make())
