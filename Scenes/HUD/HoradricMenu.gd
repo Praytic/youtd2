@@ -17,7 +17,6 @@ func _ready():
 	HoradricCube.items_changed.connect(_on_items_changed)
 	_main_container.visibility_changed.connect(_on_visibility_changed)
 	_title_button.toggled.connect(_on_title_button_toggled)
-	_items_container.gui_input.connect(_on_items_container_gui_input)
 	
 	_on_items_changed()
 	_main_container.hide()
@@ -54,7 +53,9 @@ func _on_items_changed():
 			unit_button_container.add_child(item_button)
 			item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 		else:
-			unit_button_container.add_child(EmptySlotButton.make())
+			var empty_button: EmptySlotButton = EmptySlotButton.make()
+			unit_button_container.add_child(empty_button)
+			empty_button.pressed.connect(_on_empty_button_pressed.bind(i))
 	
 	var can_transmute: bool = HoradricCube.can_transmute()
 	_transmute_button.set_disabled(!can_transmute)
@@ -69,11 +70,8 @@ func _on_transmute_button_pressed():
 	_transmute_result_label.text = HoradricCube.transmute()
 
 
-func _on_items_container_gui_input(event):
-	var left_click: bool = event.is_action_released("left_click")
-
-	if left_click:
-		ItemMovement.horadric_menu_was_clicked()
+func _on_empty_button_pressed(add_index: int):
+	ItemMovement.horadric_menu_was_clicked(add_index)
 
 
 func _on_title_button_toggled(toggle: bool):

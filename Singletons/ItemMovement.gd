@@ -105,9 +105,10 @@ func item_stash_was_clicked():
 	_item_container_was_clicked(container, add_index)
 
 
-func horadric_menu_was_clicked():
+func horadric_menu_was_clicked(add_index: int = -1):
 	var container: ItemContainer = HoradricCube.get_item_container()
-	var add_index: int = container.get_item_count()
+	if add_index == -1:
+		add_index = container.get_item_count()
 	_item_container_was_clicked(container, add_index)
 
 
