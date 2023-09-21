@@ -4,6 +4,7 @@ extends PanelContainer
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
 const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.png")
+const _tiny_unit_button_theme: Theme = preload("res://Resources/Theme/tiny_unit_button_theme.tres")
 
 @export var _upgrade_button: Button
 @export var _sell_button: Button
@@ -168,7 +169,7 @@ func on_tower_items_changed(tower: Tower):
 		var item_button: ItemButton = ItemButton.make(item)
 		item_button.show_cooldown_indicator()
 		item_button.show_auto_mode_indicator()
-		item_button.theme_type_variation = "TinyButton"
+		item_button.theme = _tiny_unit_button_theme
 		item_button.show_charges()
 		var button_container: UnitButtonContainer = UnitButtonContainer.make()
 		button_container.add_child(item_button)
