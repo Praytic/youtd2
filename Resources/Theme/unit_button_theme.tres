@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=21 format=3 uid="uid://dksfi74d7n0pf"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://dksfi74d7n0pf"]
 
 [ext_resource type="StyleBox" uid="uid://dcjhupdk2mwkl" path="res://Resources/Theme/UnitButton/button_normal.tres" id="1_80ch8"]
+[ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1_r5yn3"]
 [ext_resource type="StyleBox" uid="uid://c8x6v1g5py6r6" path="res://Resources/Theme/UnitButton/button_disabled.tres" id="1_tdptv"]
 [ext_resource type="StyleBox" uid="uid://ceml4iosll1ur" path="res://Resources/Theme/UnitButton/button_hover.tres" id="1_xn0v5"]
 [ext_resource type="StyleBox" uid="uid://b8m81drahps4x" path="res://Resources/Theme/UnitButton/common_rarity_panel_container.tres" id="3_bk18n"]
@@ -12,49 +13,6 @@
 [ext_resource type="StyleBox" uid="uid://rhsusiehbqjb" path="res://Resources/Theme/UnitButton/small_button_disabled.tres" id="7_mn43h"]
 [ext_resource type="StyleBox" uid="uid://k235emid2ajj" path="res://Resources/Theme/UnitButton/small_button_hover.tres" id="8_pql3q"]
 [ext_resource type="StyleBox" uid="uid://carc5koied5gk" path="res://Resources/Theme/UnitButton/small_button_normal.tres" id="9_xj4hs"]
-[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="10_uhgia"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iu5cl"]
-atlas = ExtResource("10_uhgia")
-region = Rect2(853, 74, 48, 48)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iuj2g"]
-content_margin_left = 4.0
-content_margin_right = 4.0
-texture = SubResource("AtlasTexture_iu5cl")
-texture_margin_left = 11.0
-texture_margin_top = 11.0
-texture_margin_right = 11.0
-texture_margin_bottom = 11.0
-modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g4hst"]
-content_margin_left = 4.0
-content_margin_right = 4.0
-texture = SubResource("AtlasTexture_iu5cl")
-texture_margin_left = 11.0
-texture_margin_top = 11.0
-texture_margin_right = 11.0
-texture_margin_bottom = 11.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wqsoj"]
-content_margin_left = 4.0
-content_margin_right = 4.0
-texture = SubResource("AtlasTexture_iu5cl")
-texture_margin_left = 11.0
-texture_margin_top = 11.0
-texture_margin_right = 11.0
-texture_margin_bottom = 11.0
-modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c5tej"]
-content_margin_left = 4.0
-content_margin_right = 4.0
-texture = SubResource("AtlasTexture_iu5cl")
-texture_margin_left = 11.0
-texture_margin_top = 11.0
-texture_margin_right = 11.0
-texture_margin_bottom = 11.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_esyqb"]
 atlas = ExtResource("7_7y0mp")
@@ -68,8 +26,24 @@ texture_margin_bottom = 8.0
 region_rect = Rect2(853, 74, 48, 48)
 
 [resource]
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
 Button/colors/icon_disabled_color = Color(0.392157, 0.392157, 0.392157, 1)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
 Button/colors/icon_normal_color = Color(0.784314, 0.784314, 0.784314, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 2
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_r5yn3")
 Button/styles/disabled = ExtResource("1_tdptv")
 Button/styles/hover = ExtResource("1_xn0v5")
 Button/styles/normal = ExtResource("1_80ch8")
@@ -88,13 +62,6 @@ SmallButton/styles/disabled = ExtResource("7_mn43h")
 SmallButton/styles/hover = ExtResource("8_pql3q")
 SmallButton/styles/normal = ExtResource("9_xj4hs")
 SmallButton/styles/pressed = ExtResource("8_pql3q")
-TinyButton/base_type = &"Button"
-TinyButton/colors/icon_disabled_color = Color(0.392157, 0.392157, 0.392157, 1)
-TinyButton/colors/icon_normal_color = Color(0.784314, 0.784314, 0.784314, 1)
-TinyButton/styles/disabled = SubResource("StyleBoxTexture_iuj2g")
-TinyButton/styles/hover = SubResource("StyleBoxTexture_g4hst")
-TinyButton/styles/normal = SubResource("StyleBoxTexture_wqsoj")
-TinyButton/styles/pressed = SubResource("StyleBoxTexture_c5tej")
 UnclickableButton/base_type = &"Button"
 UnclickableButton/colors/icon_disabled_color = Color(1, 1, 1, 1)
 UnclickableButton/styles/disabled = SubResource("StyleBoxTexture_j2qvk")

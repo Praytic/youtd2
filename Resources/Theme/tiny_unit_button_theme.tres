@@ -1,0 +1,75 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dh1mew0ki50dq"]
+
+[ext_resource type="StyleBox" uid="uid://b8m81drahps4x" path="res://Resources/Theme/UnitButton/common_rarity_panel_container.tres" id="4_28e2h"]
+[ext_resource type="StyleBox" uid="uid://de41wrip7to2f" path="res://Resources/Theme/UnitButtonContainer/counter_label_normal.tres" id="5_cllp3"]
+[ext_resource type="StyleBox" uid="uid://dvslmk5lro1u0" path="res://Resources/Theme/UnitButton/rare_rarity_panel_container.tres" id="6_unpbn"]
+[ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="12_klcgr"]
+[ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="13_15oyb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdruh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.392157, 0.392157, 0.392157, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ub3i"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afavw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.784314, 0.784314, 0.784314, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8qqj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[resource]
+Button/colors/icon_disabled_color = Color(0.392157, 0.392157, 0.392157, 1)
+Button/colors/icon_normal_color = Color(0.784314, 0.784314, 0.784314, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_wdruh")
+Button/styles/hover = SubResource("StyleBoxFlat_6ub3i")
+Button/styles/normal = SubResource("StyleBoxFlat_afavw")
+Button/styles/pressed = SubResource("StyleBoxFlat_o8qqj")
+CommonRarityPanelContainer/base_type = &"PanelContainer"
+CommonRarityPanelContainer/styles/panel = ExtResource("4_28e2h")
+Label/styles/normal = ExtResource("5_cllp3")
+RareRarityPanelContainer/base_type = &"PanelContainer"
+RareRarityPanelContainer/styles/panel = ExtResource("6_unpbn")
+UncommonRarityPanelContainer/base_type = &"PanelContainer"
+UncommonRarityPanelContainer/styles/panel = ExtResource("12_klcgr")
+UniqueRarityPanelContainer/base_type = &"PanelContainer"
+UniqueRarityPanelContainer/styles/panel = ExtResource("13_15oyb")

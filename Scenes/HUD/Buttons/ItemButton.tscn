@@ -17,6 +17,9 @@ _charges_label = NodePath("AspectRatioContainer/ChargesLabel")
 z_index = 1
 layout_mode = 2
 
+[node name="RarityContainer" parent="MarginContainer" index="1"]
+theme_type_variation = &"UncommonRarityPanelContainer"
+
 [node name="AutoModeIndicator" parent="MarginContainer" index="2" instance=ExtResource("4_e5nkx")]
 layout_mode = 2
 
