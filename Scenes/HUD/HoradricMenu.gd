@@ -44,12 +44,11 @@ func _on_items_changed():
 	
 #	Create buttons for new list
 	var horadric_cube_container: ItemContainer = HoradricCube.get_item_container()
-	var item_list: Array[Item] = horadric_cube_container.get_item_list(null, null, true)
+	var item_list: Array[Item] = horadric_cube_container.get_item_list()
 	
 	for i in len(unit_button_containers):
 		var unit_button_container = unit_button_containers[i]
-		if (item_list.size() > i and not HoradricCube.FIXED_POSITIONS_MODE) \
-				or (item_list[i] != null and HoradricCube.FIXED_POSITIONS_MODE):
+		if item_list.size() > i:
 			var item_button: ItemButton = ItemButton.make(item_list[i])
 			unit_button_container.add_child(item_button)
 			item_button.pressed.connect(_on_item_button_pressed.bind(item_button))

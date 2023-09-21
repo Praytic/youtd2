@@ -10,17 +10,13 @@ signal items_changed()
 
 var _item_list: Array[Item] = []
 var _capacity: int
-# Setting this flag to true will allow to add and remove items to desired 
-# positions in the array, instead of appending them right after the 
-# last element in the array. Saying another way - ItemContainer behaves
-# like a Map[int, Item].
-var _fixed_positions: bool
+var _fixed_capacity: bool
 
 
-func _init(capacity: int, fixed_positions: bool = false):
+func _init(capacity: int, fixed_capacity = false):
 	_capacity = capacity
-	_fixed_positions = fixed_positions
-	if fixed_positions:
+	_fixed_capacity = fixed_capacity
+	if fixed_capacity:
 		_item_list.resize(capacity)
 
 
@@ -53,7 +49,7 @@ func add_item(item: Item, index: int = 0):
 	# If we will try to insert an item to an index greater than size(),
 	# the insert will be silently ignored. So need to set it to the last
 	# available position.
-	if not _fixed_positions and index > _item_list.size():
+	if not _fixed_capacity and index > _item_list.size():
 		index = _item_list.size()
 	
 	_item_list.insert(index, item)
@@ -69,7 +65,7 @@ func remove_item(item: Item):
 
 		return
 
-	if _fixed_positions:
+	if _fixed_capacity:
 		var erase_index = _item_list.find(item)
 		if erase_index != -1:
 			_item_list[erase_index] = null
@@ -83,12 +79,11 @@ func remove_item(item: Item):
 # NOTE: important to return a deep copy so that this list
 # can be correctly used in code which adds or removes items
 # from container.
-func get_item_list(rarity_filter = null, type_filter = null, with_empty = false) -> Array[Item]:
+func get_item_list(rarity_filter = null, type_filter = null) -> Array[Item]:
 	var item_list: Array[Item]
 	for item in _item_list.duplicate():
-		if item == null and _fixed_positions:
-			if with_empty:
-				item_list.append(null)
+		if item == null and _fixed_capacity:
+			item_list.append(null)
 		else:
 			var rarity = item.get_rarity() == rarity_filter or rarity_filter == null
 			var type = item.get_item_type() == type_filter or type_filter == null
@@ -100,7 +95,7 @@ func get_item_list(rarity_filter = null, type_filter = null, with_empty = false)
 func get_item_count(rarity_filter = null, type_filter = null) -> int:
 	var item_count: int
 	var item_list = get_item_list(rarity_filter, type_filter)
-	if _fixed_positions:
+	if _fixed_capacity:
 		item_count = item_list.size() - item_list.count(null) 
 	else:
 		item_count = item_list.size()
