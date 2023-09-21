@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://8xsklkw4jhlw"]
+
+[ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_k0gtm"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/EmptyUnitButton.gd" id="1_lftg8"]
+[ext_resource type="StyleBox" uid="uid://d1lgejw2sv1ip" path="res://Resources/Theme/Common/tiny_border_box.tres" id="2_pvgbl"]
+
+[node name="EmptyUnitButton" instance=ExtResource("1_k0gtm")]
+theme_override_styles/disabled = ExtResource("2_pvgbl")
+disabled = true
+icon = null
+script = ExtResource("1_lftg8")
+
+[node name="MarginContainer2" parent="." index="1"]
+visible = false
