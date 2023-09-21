@@ -2,6 +2,13 @@
 extends Item
 
 
+# NOTE: changed the 2nd "one_shot" arg passed to
+# enable_advanced(). Original script passes "true" but this
+# causes the tower to not fire projectiles in youtd2 engine.
+# Not sure if the JASS engine processes the "one_shot" arg
+# in some weird way.
+
+
 var PT: ProjectileType
 var MB: MultiboardValues
 
@@ -62,7 +69,7 @@ func periodic(event: Event):
 	var dmg: float
 	var P: Projectile
 
-	event.enable_advanced(T.get_current_attack_speed(), true)
+	event.enable_advanced(T.get_current_attack_speed(), false)
 
 	while true:
 		U = I.next()
