@@ -304,17 +304,19 @@ vertical_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 10
 
 [node name="InventoryEmptySlots" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2"]
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = 64
 
 [node name="ItemsContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2"]
 layout_mode = 2
+theme_override_constants/separation = 64
 
 [node name="UnitStatsMenu" type="ScrollContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer"]
 visible = false

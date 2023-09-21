@@ -5,8 +5,12 @@
 [ext_resource type="StyleBox" uid="uid://d1lgejw2sv1ip" path="res://Resources/Theme/Common/tiny_border_box.tres" id="2_pvgbl"]
 
 [node name="EmptyUnitButton" instance=ExtResource("1_k0gtm")]
+mouse_filter = 1
+theme_override_styles/normal = ExtResource("2_pvgbl")
+theme_override_styles/hover = ExtResource("2_pvgbl")
+theme_override_styles/pressed = ExtResource("2_pvgbl")
 theme_override_styles/disabled = ExtResource("2_pvgbl")
-disabled = true
+theme_override_styles/focus = ExtResource("2_pvgbl")
 icon = null
 script = ExtResource("1_lftg8")
 

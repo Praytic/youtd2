@@ -4,9 +4,6 @@ extends PanelContainer
 # Menu for the Horadric Cube. Contains items inside it.
 @export var _items_container: GridContainer
 @export var _transmute_button: Button
-# TODO: Current implementation doesn't allow to easily add resulted
-# transmutation to any EmptySlotButton.
-@export var _result_slot: EmptySlotButton
 # Shows the status of transmutation. E.g. ("Transmute was unlucky: -16 levels")
 @export var _transmute_result_label: RichTextLabel : get = get_transmute_result_label
 @export var _main_container: VBoxContainer
@@ -54,7 +51,7 @@ func _on_items_changed():
 			unit_button_container.add_child(item_button)
 			item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 		else:
-			unit_button_container.add_child(EmptySlotButton.make())
+			unit_button_container.add_child(EmptyUnitButton.make())
 	
 	var can_transmute: bool = HoradricCube.can_transmute()
 	_transmute_button.set_disabled(!can_transmute)
