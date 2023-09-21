@@ -4,9 +4,6 @@ extends UnitButton
 
 const ICON_SIZE_M = 128
 
-# NOTE: _test_item_id should be used for testing purposes
-# only. For normal gameplay code use Item.make().
-@export var _test_item_id: int: set = set_test_item_id
 var _item: Item : set = set_item, get = get_item
 
 @export var _cooldown_indicator: CooldownIndicator
@@ -81,20 +78,6 @@ func get_item() -> Item:
 func set_item(value: Item):
 	_item = value
 	_item.charges_changed.connect(_on_item_charges_changed)
-
-
-func set_test_item_id(value: int):
-	if value == -1:
-		return
-
-	_test_item_id = value
-	_item = Item.make(value)
-# 	NOTE: normally, item would be parented either to item
-# 	bar or tower but this code is running for currently
-# 	under construction UnitMenu where item buttons are
-# 	assigned items in a weird by calling set_item_id() (via
-# 	property setter), inside the UnitMenu.tscn.
-	add_child(_item)
 
 
 func _on_mouse_entered():
