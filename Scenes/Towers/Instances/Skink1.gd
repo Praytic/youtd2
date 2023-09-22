@@ -1,6 +1,11 @@
 extends Tower
 
 
+# NOTE: added aura levels which scale with posion damage.
+# Original script doesn't define aura levels, not sure how
+# it managed to work correctly.
+
+
 var cedi_skinkA: BuffType
 var cedi_skinkB: BuffType
 
@@ -76,12 +81,12 @@ func tower_init():
 	cedi_skinkB.set_buff_tooltip("Poison\nThis unit is Poisoned; it will take damage over time.")
 
 	var aura: AuraType = AuraType.new()
-	aura.power_add = 1
-	aura.level_add = 1
-	aura.target_type = TargetType.new(TargetType.TOWERS)
-	aura.level = 0
-	aura.aura_effect = cedi_skinkA
+	aura.level = _stats.dmg * 1000
+	aura.level_add = _stats.dmg_add * 1000
 	aura.power = 0
+	aura.power_add = 1
+	aura.target_type = TargetType.new(TargetType.TOWERS)
+	aura.aura_effect = cedi_skinkA
 	aura.target_self = true
 	aura.aura_range = 200
 

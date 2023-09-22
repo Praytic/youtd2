@@ -316,6 +316,10 @@ func _refresh_by_new_buff():
 #	is caused by an application of buff with same level.
 #	Not triggered when refresh_duration() is called for
 #	other reasons.
+	_emit_refresh_event()
+
+
+func _emit_refresh_event():
 	var refresh_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.REFRESH, refresh_event)
 
@@ -357,3 +361,12 @@ func _connect_to_handler_tree_exited_signal(handler: Callable):
 # deleted, the buff shouldn't respond to them.
 func _can_call_event_handlers() -> bool:
 	return !is_queued_for_deletion()
+
+
+func _change_giver_of_aura_effect(new_caster: Unit):
+	var old_caster: Unit = _caster
+
+	old_caster.tree_exited.disconnect(_on_caster_tree_exited)
+
+	_caster = new_caster
+	_caster.tree_exited.connect(_on_caster_tree_exited)
