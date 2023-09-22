@@ -572,3 +572,5 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 theme = SubResource("Theme_oc2na")
 text = "Transmute"
+
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]

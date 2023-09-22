@@ -45,6 +45,10 @@ func _on_items_changed():
 	_transmute_button.set_disabled(!can_transmute)
 
 
+func _on_transmute_button_pressed():
+	HoradricCube.transmute()
+
+
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	ItemMovement.item_was_clicked_in_horadric_cube(item)
