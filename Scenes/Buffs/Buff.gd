@@ -316,6 +316,10 @@ func _refresh_by_new_buff():
 #	is caused by an application of buff with same level.
 #	Not triggered when refresh_duration() is called for
 #	other reasons.
+	_emit_refresh_event()
+
+
+func _emit_refresh_event():
 	var refresh_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.REFRESH, refresh_event)
 

@@ -83,7 +83,11 @@ func remove_aura_effect_from_units(unit_list: Array):
 		var buff: Buff = target.get_buff_of_type(_aura_effect)
 
 		if buff != null && buff.get_caster() == _caster:
-			buff.remove_buff()
+#			NOTE: use _on_timer_timeout() instead of
+#			remove_buff() so that buff emits the EXPIRE
+#			event. Aura effects are supposed to emit EXPIRE
+#			event according to youtd engine docs.
+			buff._on_timer_timeout()
 
 
 func _remove_invalid_targets():
@@ -127,3 +131,4 @@ func _change_buff_level_to_this_aura_level(buff: Buff):
 	buff.set_level(get_level())
 	buff.set_power(get_power())
 	buff._change_giver_of_aura_effect(_caster)
+	buff._emit_refresh_event()
