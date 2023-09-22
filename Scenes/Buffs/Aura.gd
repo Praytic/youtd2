@@ -62,11 +62,14 @@ func _on_timer_timeout():
 			continue
 
 		var active_buff: Buff = unit.get_buff_of_type(_aura_effect)
-		var need_to_apply: bool = active_buff == null || active_buff.get_level() < get_level()
 
-		if need_to_apply:
-			_target_list.append(unit)
+		if active_buff == null:
 			_aura_effect.apply_advanced(_caster, unit, get_level(), get_power(), -1)
+			_target_list.append(unit)
+		else:
+			var can_increase_level: bool = active_buff.get_level() < get_level()
+			if can_increase_level:
+				_change_buff_level_to_this_aura_level(active_buff)
 
 
 func _on_tree_exited():
@@ -117,5 +120,10 @@ func _on_caster_level_changed():
 		var need_to_level_down: bool = active_buff.get_level() > new_level
 
 		if need_to_level_down:
-			active_buff.set_level(get_level())
-			active_buff.set_power(get_power())
+			_change_buff_level_to_this_aura_level(active_buff)
+
+
+func _change_buff_level_to_this_aura_level(buff: Buff):
+	buff.set_level(get_level())
+	buff.set_power(get_power())
+	buff._change_giver_of_aura_effect(_caster)
