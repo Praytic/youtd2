@@ -33,7 +33,6 @@ class RangeHandlerData:
 
 
 var _type: String
-var _stacking_group: String = ""
 var _time_base: float
 var _time_level_add: float
 var _friendly: bool
@@ -91,12 +90,15 @@ func set_buff_icon(buff_icon: String):
 	_buff_icon = buff_icon
 
 
-# Only one buff in a stacking group can be active on a unit.
-# Applying a buff with same stacking group on top of another
-# buff that is lower level will replace the buff.
+# NOTE: this f-n does nothing. According to original youtd
+# engine docs, stacking group is supposed to make it so that
+# different buff types do not stack with each other. Checked
+# tower and item scripts and all calls to setStackingGroup()
+# use unique strings so this f-n serves no purpose.
+# 
 # NOTE: buffType.setStackingGroup() in JASS
-func set_stacking_group(stacking_group: String):
-	_stacking_group = stacking_group
+func set_stacking_group(_stacking_group: String):
+	pass
 
 
 # Base apply function. Overrides time parameters from
@@ -123,7 +125,6 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._time = time
 	buff._friendly = _friendly
 	buff._type = _type
-	buff._stacking_group = _stacking_group
 	buff._tooltip_text = _tooltip_text
 	buff._buff_icon = _buff_icon
 
@@ -315,43 +316,34 @@ func set_special_effect_simple(_effect: String):
 # to stacking behavior. In addition, this f-n modifies the
 # active buff in certain cases.
 # 
-# NOTE: tower and item scripts depend on upgrade and
-# stacking behavior being implemented in this exact manner.
+# NOTE: the stacking logic has to be in the exact way as
+# defined here. Changing this logic might break some tower
+# and item scripts.
 func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff:
-	var active_buff_of_type: Buff = target.get_buff_of_type(self)
-	var active_buff_of_group: Buff = target.get_buff_of_group(_stacking_group)
-	var stacking_by_type: bool = !_type.is_empty() && active_buff_of_type != null
-	var stacking_by_group: bool = !_stacking_group.is_empty() && active_buff_of_group != null
-
-	if stacking_by_type:
-		var active_level: int = active_buff_of_type.get_level()
-
-		if new_level > active_level:
-#			NOTE: upgrade active buff, no new buff
-			active_buff_of_type._upgrade_by_new_buff(new_level, new_power)
-
-			return active_buff_of_type
-		elif new_level == active_level:
-#			NOTE: refresh active buff, no new buff
-			active_buff_of_type._refresh_by_new_buff()
-
-			return active_buff_of_type
-		elif new_level < active_level:
-#			NOTE: keep active buff, no new buff
-			return active_buff_of_type
-	elif stacking_by_group:
-		var active_level: int = active_buff_of_group.get_level()
-
-		if new_level > active_level:
-#			NOTE: remove active buff, apply new buff
-			active_buff_of_group.remove_buff()
-
-			return null
-		elif new_level <= active_level:
-#			NOTE: keep active buff, no new buff
-			return active_buff_of_group
-	else:
-#		NOTE: no active buff, apply new buff
+	if _type.is_empty():
+#		NOTE: if type is empty string then this buff isn't
+#		affected by stacking behavior
 		return null
-	
-	return null
+
+	var active_buff: Buff = target.get_buff_of_type(self)
+
+	if active_buff == null:
+#		NOTE: no active buff, create new buff
+		return null
+
+	var active_level: int = active_buff.get_level()
+
+	if new_level > active_level:
+#		NOTE: upgrade active buff, no new buff
+		active_buff._upgrade_by_new_buff(new_level, new_power)
+
+		return active_buff
+	elif new_level == active_level:
+#		NOTE: refresh active buff, no new buff
+		active_buff._refresh_by_new_buff()
+
+		return active_buff
+	else :
+#		(new_level < active_level)
+#		NOTE: keep active buff, no new buff
+		return active_buff
