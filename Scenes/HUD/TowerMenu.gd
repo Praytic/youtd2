@@ -59,7 +59,7 @@ func _ready():
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
 		var button_container: UnitButtonContainer = UnitButtonContainer.make()
-		var empty_slot_button: EmptySlotButton = EmptySlotButton.make()
+		var empty_slot_button: EmptyUnitButton = EmptyUnitButton.make()
 		button_container.add_child(empty_slot_button)
 		_inventory_empty_slots.add_child(button_container)
 
