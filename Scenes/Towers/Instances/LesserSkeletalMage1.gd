@@ -1,6 +1,12 @@
 extends Tower
 
 
+# NOTE: fixed bug in original script where buff was lasting
+# too long because level passed to apply() is much greater
+# than tower.get_level() and was multiplied 0.1. Fixed by
+# switching to apply_custom_timed().
+
+
 var boekie_amp_damage: BuffType
 
 
@@ -30,13 +36,14 @@ func get_dark_curse_description() -> String:
 func on_autocast(event: Event):
 	var tower: Tower = self
 	var lvl: int = tower.get_level()
-	boekie_amp_damage.apply(tower, event.get_target(), _stats.buff_level + 6 * lvl)
+	var buff_duration: float = 5 + 0.1 * lvl
+	boekie_amp_damage.apply_custom_timed(tower, event.get_target(), _stats.buff_level + 6 * lvl, buff_duration)
 
 
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.15, 0.001)
-	boekie_amp_damage = BuffType.new("boekie_amp_damage", 5, 0.1, false, self)
+	boekie_amp_damage = BuffType.new("boekie_amp_damage", 0, 0, false, self)
 	boekie_amp_damage.set_buff_modifier(m)
 	boekie_amp_damage.set_stacking_group("boekie_amp_damage")
 	boekie_amp_damage.set_buff_icon("@@0@@")
