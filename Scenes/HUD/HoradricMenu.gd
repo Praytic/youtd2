@@ -4,15 +4,12 @@ extends PanelContainer
 # Menu for the Horadric Cube. Contains items inside it.
 @export var _items_container: GridContainer
 @export var _transmute_button: Button
-# Shows the status of transmutation. E.g. ("Transmute was unlucky: -16 levels")
-@export var _transmute_result_label: RichTextLabel : get = get_transmute_result_label
 @export var _main_container: VBoxContainer
 @export var _title_button: Button
 
 
 func _ready():
 	HoradricCube.items_changed.connect(_on_items_changed)
-	_main_container.visibility_changed.connect(_on_visibility_changed)
 	_title_button.toggled.connect(_on_title_button_toggled)
 	_items_container.gui_input.connect(_on_items_container_gui_input)
 	
@@ -22,15 +19,6 @@ func _ready():
 
 func is_visibility_mode_expanded() -> bool:
 	return _main_container.visible
-
-
-func get_transmute_result_label() -> RichTextLabel:
-	return _transmute_result_label
-
-
-func _on_visibility_changed():
-	if not visible:
-		_transmute_result_label.text = "[center][color=GRAY]Place ingridients here[/color][/center]"
 
 
 func _on_items_changed():
@@ -60,10 +48,6 @@ func _on_items_changed():
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	ItemMovement.item_was_clicked_in_horadric_cube(item)
-
-
-func _on_transmute_button_pressed():
-	_transmute_result_label.text = HoradricCube.transmute()
 
 
 func _on_items_container_gui_input(event):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ckiupnhfj32n6"]
+[gd_scene load_steps=36 format=3 uid="uid://ckiupnhfj32n6"]
 
 [ext_resource type="Theme" uid="uid://c7tov8p6m7vb4" path="res://Resources/Theme/HoradricMenu/horadric_menu_theme.tres" id="1_goc45"]
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_1vbsd"]
@@ -6,7 +6,7 @@
 [ext_resource type="ButtonGroup" uid="uid://ce5xw83da2d6c" path="res://Resources/UI/ButtonGroup/right_panel_button_group.tres" id="4_xrxlp"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="5_g7trm"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_6747o"]
-[ext_resource type="Theme" uid="uid://dksfi74d7n0pf" path="res://Resources/Theme/unit_button_theme.tres" id="6_qdbdo"]
+[ext_resource type="Theme" uid="uid://dh1mew0ki50dq" path="res://Resources/Theme/tiny_unit_button_theme.tres" id="6_k68sm"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButtonContainer.gd" id="7_jc0mt"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="7_s0ddb"]
 
@@ -29,7 +29,162 @@ region = Rect2(768, 0, 128, 128)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_transmute_result_label", "_main_container", "_title_button")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25pjw"]
+content_margin_left = 60.0
+content_margin_top = 20.0
+content_margin_right = 60.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.392157, 0.392157, 0.392157, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sr2xp"]
+content_margin_left = 60.0
+content_margin_top = 20.0
+content_margin_right = 60.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rc3j8"]
+content_margin_left = 60.0
+content_margin_top = 20.0
+content_margin_right = 60.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.784314, 0.784314, 0.784314, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eo028"]
+content_margin_left = 60.0
+content_margin_top = 20.0
+content_margin_right = 60.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3dy8w"]
+load_path = "res://.godot/imported/hud_atlas.png-7fd222bdfe57dc40ed44d66b9782d870.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x64vd"]
+atlas = SubResource("CompressedTexture2D_3dy8w")
+region = Rect2(139, 451, 108, 108)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pglkk"]
+texture = SubResource("AtlasTexture_x64vd")
+texture_margin_left = 16.5289
+texture_margin_top = 17.0
+texture_margin_right = 16.5289
+texture_margin_bottom = 17.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g1wy7"]
+load_path = "res://.godot/imported/hud_atlas.png-7fd222bdfe57dc40ed44d66b9782d870.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxjri"]
+atlas = SubResource("CompressedTexture2D_g1wy7")
+region = Rect2(853, 74, 48, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_smnua"]
+texture = SubResource("AtlasTexture_rxjri")
+texture_margin_left = 11.0
+texture_margin_top = 11.0
+texture_margin_right = 10.89
+texture_margin_bottom = 11.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4dnt0"]
+load_path = "res://.godot/imported/hud_atlas.png-7fd222bdfe57dc40ed44d66b9782d870.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mv3x"]
+atlas = SubResource("CompressedTexture2D_4dnt0")
+region = Rect2(397, 450, 108, 108)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4eotn"]
+texture = SubResource("AtlasTexture_2mv3x")
+texture_margin_left = 16.5289
+texture_margin_top = 17.0
+texture_margin_right = 16.5289
+texture_margin_bottom = 17.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wbchw"]
+load_path = "res://.godot/imported/hud_atlas.png-7fd222bdfe57dc40ed44d66b9782d870.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcsox"]
+atlas = SubResource("CompressedTexture2D_wbchw")
+region = Rect2(270, 450, 108, 108)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fwu2f"]
+texture = SubResource("AtlasTexture_bcsox")
+texture_margin_left = 16.5289
+texture_margin_top = 17.0
+texture_margin_right = 16.5289
+texture_margin_bottom = 17.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ppv4j"]
+load_path = "res://.godot/imported/hud_atlas.png-7fd222bdfe57dc40ed44d66b9782d870.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3i0u"]
+atlas = SubResource("CompressedTexture2D_ppv4j")
+region = Rect2(529, 450, 108, 108)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gqeb4"]
+texture = SubResource("AtlasTexture_j3i0u")
+texture_margin_left = 16.5289
+texture_margin_top = 17.0
+texture_margin_right = 16.5289
+texture_margin_bottom = 17.0
+
+[sub_resource type="Theme" id="Theme_oc2na"]
+Button/colors/icon_disabled_color = Color(0.392157, 0.392157, 0.392157, 1)
+Button/colors/icon_normal_color = Color(0.784314, 0.784314, 0.784314, 1)
+Button/styles/disabled = SubResource("StyleBoxFlat_25pjw")
+Button/styles/hover = SubResource("StyleBoxFlat_sr2xp")
+Button/styles/normal = SubResource("StyleBoxFlat_rc3j8")
+Button/styles/pressed = SubResource("StyleBoxFlat_eo028")
+CommonRarityPanelContainer/base_type = &"PanelContainer"
+CommonRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_pglkk")
+Label/styles/normal = SubResource("StyleBoxTexture_smnua")
+RareRarityPanelContainer/base_type = &"PanelContainer"
+RareRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_4eotn")
+UncommonRarityPanelContainer/base_type = &"PanelContainer"
+UncommonRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_fwu2f")
+UniqueRarityPanelContainer/base_type = &"PanelContainer"
+UniqueRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_gqeb4")
+
+[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_main_container", "_title_button")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -47,8 +202,7 @@ theme = ExtResource("1_goc45")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
 script = ExtResource("2_1vbsd")
 _items_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer")
-_transmute_button = NodePath("")
-_transmute_result_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteResultLabel")
+_transmute_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteButton")
 _main_container = NodePath("MainContainer")
 _title_button = NodePath("MarginContainer2/TitleButton")
 
@@ -171,7 +325,6 @@ vertical_alignment = 1
 
 [node name="SpecialsContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer"]
 layout_mode = 2
@@ -207,105 +360,108 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="SpecialsContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 0
+size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer"]
+[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer"]
 layout_mode = 2
-
-[node name="RecipeContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer/HBoxContainer/RecipeContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
 tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
-theme = ExtResource("6_qdbdo")
-theme_type_variation = &"SmallButton"
-theme_override_colors/font_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_pressed_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_hover_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_focus_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_disabled_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_constants/icon_max_width = 32
-theme_override_font_sizes/font_size = 20
+theme = ExtResource("6_k68sm")
+theme_type_variation = &"TinyUnitButton"
 disabled = true
+icon = SubResource("AtlasTexture_cjbga")
+alignment = 2
+expand_icon = true
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer2"]
+layout_mode = 2
+tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
+theme = ExtResource("6_k68sm")
+theme_type_variation = &"TinyUnitButton"
+disabled = true
+icon = SubResource("AtlasTexture_cjbga")
+alignment = 2
+expand_icon = true
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer3"]
+layout_mode = 2
+tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
+theme = ExtResource("6_k68sm")
+theme_type_variation = &"TinyUnitButton"
+disabled = true
+icon = SubResource("AtlasTexture_cjbga")
+alignment = 2
+expand_icon = true
+
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer4"]
+layout_mode = 2
+tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
+theme = ExtResource("6_k68sm")
+theme_type_variation = &"TinyUnitButton"
+disabled = true
+icon = SubResource("AtlasTexture_cjbga")
+alignment = 2
+expand_icon = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 26
 text = "Rebrew"
-icon = SubResource("AtlasTexture_cjbga")
-alignment = 0
+horizontal_alignment = 1
 
-[node name="RecipeContainer2" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer/HBoxContainer/RecipeContainer2"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("6_qdbdo")
-theme_type_variation = &"SmallButton"
-theme_override_colors/font_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_pressed_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_hover_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_focus_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_disabled_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_constants/icon_max_width = 32
-theme_override_font_sizes/font_size = 20
-disabled = true
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 26
 text = "Distill"
-icon = SubResource("AtlasTexture_cjbga")
-alignment = 0
+horizontal_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer"]
-layout_mode = 2
-
-[node name="RecipeContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer/HBoxContainer2"]
+[node name="Label3" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer/HBoxContainer2/RecipeContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("6_qdbdo")
-theme_type_variation = &"SmallButton"
-theme_override_colors/font_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_pressed_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_hover_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_focus_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_disabled_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_constants/icon_max_width = 32
-theme_override_font_sizes/font_size = 20
-disabled = true
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 26
 text = "Reassemble"
-icon = SubResource("AtlasTexture_cjbga")
-alignment = 0
+horizontal_alignment = 1
 
-[node name="RecipeContainer2" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer/HBoxContainer2"]
+[node name="Label4" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/SpecialsContainer/HBoxContainer2/RecipeContainer2"]
-layout_mode = 2
-size_flags_horizontal = 0
-theme = ExtResource("6_qdbdo")
-theme_type_variation = &"SmallButton"
-theme_override_colors/font_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_pressed_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_hover_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_focus_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_colors/font_disabled_color = Color(0.65098, 0.960784, 0.176471, 1)
-theme_override_constants/icon_max_width = 32
-theme_override_font_sizes/font_size = 20
-disabled = true
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 26
 text = "Perfect"
-icon = SubResource("AtlasTexture_cjbga")
-alignment = 0
+horizontal_alignment = 1
 
 [node name="Inventory" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
 custom_minimum_size = Vector2(0, 93)
@@ -352,9 +508,7 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 20
 
 [node name="ItemsContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer"]
@@ -368,6 +522,7 @@ columns = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment_horizontal = 2
 script = ExtResource("7_jc0mt")
 
 [node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer" instance=ExtResource("6_6747o")]
@@ -386,6 +541,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment_horizontal = 0
 script = ExtResource("7_jc0mt")
 
 [node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer3" instance=ExtResource("6_6747o")]
@@ -395,6 +551,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment_horizontal = 2
 script = ExtResource("7_jc0mt")
 
 [node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer4" instance=ExtResource("6_6747o")]
@@ -409,11 +566,9 @@ script = ExtResource("7_jc0mt")
 [node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer/UnitButtonContainer5" instance=ExtResource("6_6747o")]
 layout_mode = 2
 
-[node name="TransmuteResultLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+[node name="TransmuteButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_font_sizes/normal_font_size = 26
-bbcode_enabled = true
-text = "[center][color=GRAY]Place ingridients here[/color][/center]"
-fit_content = true
+theme = SubResource("Theme_oc2na")
+text = "Transmute"
