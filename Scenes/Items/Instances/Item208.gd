@@ -37,7 +37,7 @@ func BT_dmg(event: Event):
 
 
 func item_init():
-	PT = ProjectileType.create_interpolate("BloodElfSpellThiefMISSILE.mdl", 1000.0)
+	PT = ProjectileType.create_interpolate("BloodElfSpellThiefMISSILE.mdl", 1000.0, self)
 	PT.enable_homing(PT_hit, 0.1)
 
 	BT = BuffType.new("Item208_BT", 5.0, 0.0, false, self)

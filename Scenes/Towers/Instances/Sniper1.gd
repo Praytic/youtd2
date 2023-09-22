@@ -48,7 +48,7 @@ func rocket_hit(p: Projectile, _t: Unit):
 
 
 func tower_init():
-	cedi_sniper_rocket = ProjectileType.create_interpolate("RocketMissile.mdl", 750)
+	cedi_sniper_rocket = ProjectileType.create_interpolate("RocketMissile.mdl", 750, self)
 	cedi_sniper_rocket.set_event_on_interpolation_finished(rocket_hit)
 #	NOTE: -70% from tower specials +95% from this = 125%
 #	total damage to mass

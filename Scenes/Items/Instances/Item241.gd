@@ -32,7 +32,7 @@ func hit(P: Projectile, U: Unit):
 
 
 func item_init():
-	PT = ProjectileType.create("GoldBottleMissile.mdl", 50.0, 1000.0)
+	PT = ProjectileType.create("GoldBottleMissile.mdl", 50.0, 1000.0, self)
 	PT.enable_homing(hit, 0.0)
 
 

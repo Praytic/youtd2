@@ -80,7 +80,7 @@ func tower_init():
 	cedi_soul_buff = BuffType.new("cedi_soul_buff", 10, 0, true, self)
 	cedi_soul_buff.set_buff_icon("@@1@@")
 
-	cedi_love_missile = ProjectileType.create("BottleMissile.mdl", 999.99, 1100)
+	cedi_love_missile = ProjectileType.create("BottleMissile.mdl", 999.99, 1100, self)
 	cedi_love_missile.enable_homing(cedi_love, 0.0)
 
 	var autocast: Autocast = Autocast.make()

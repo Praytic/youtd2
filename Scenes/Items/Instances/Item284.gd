@@ -27,7 +27,7 @@ func hit(p: Projectile, creep: Unit):
 
 
 func item_init():
-	boekie_multi_gun = ProjectileType.create("GlaiveMissile.mdl", 4, 1000)
+	boekie_multi_gun = ProjectileType.create("GlaiveMissile.mdl", 4, 1000, self)
 	boekie_multi_gun.enable_homing(hit, 0)
 
 

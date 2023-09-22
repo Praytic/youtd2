@@ -37,7 +37,7 @@ func daem_frog_collision(p: Projectile, target: Unit):
 
 
 func item_init():
-	daem_frog_PT = ProjectileType.create_ranged("Frog.mdl", 3700.0, 500.0)
+	daem_frog_PT = ProjectileType.create_ranged("Frog.mdl", 3700.0, 500.0, self)
 #    daem_frog_PT.enable_collision(daem_frog_home, 190, TargetType.new(TargetType.CREEPS), false)
 	daem_frog_PT.enable_homing(daem_frog_collision, 0)
 	# daem_frog_PT.enable_periodic(daem_frog_periodic, 0.60)

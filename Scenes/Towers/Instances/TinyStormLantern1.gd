@@ -68,7 +68,7 @@ func new_attack(tower: Tower, num_shots: int, creep: Creep):
 
 
 func tower_init():
-	ball = ProjectileType.create("PurgeBuffTarget.mdl", 4, 1000)
+	ball = ProjectileType.create("PurgeBuffTarget.mdl", 4, 1000, self)
 	ball.enable_homing(hit, 0)
 
 

@@ -73,10 +73,10 @@ func top_crypt_ball_on_hit(p: Projectile, creep: Unit):
 
 
 func tower_init():
-	top_crypt_ball = ProjectileType.create("AnnihilationMissile.mdl", 5, 500)
+	top_crypt_ball = ProjectileType.create("AnnihilationMissile.mdl", 5, 500, self)
 	top_crypt_ball.enable_homing(top_crypt_ball_on_hit, 0)
 
-	meat_pt = ProjectileType.create_interpolate("T_MeatwagonMissile.mdl", 400)
+	meat_pt = ProjectileType.create_interpolate("T_MeatwagonMissile.mdl", 400, self)
 
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.001)

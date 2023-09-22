@@ -30,7 +30,7 @@ func hippo_hit(p: Projectile, creep: Unit):
 
 
 func item_init():
-	drol_hippo = ProjectileType.create("Hippogryph.mdl", 20, 800)
+	drol_hippo = ProjectileType.create("Hippogryph.mdl", 20, 800, self)
 	drol_hippo.disable_explode_on_hit()
 	drol_hippo.disable_explode_on_expiration()
 	drol_hippo.enable_homing(hippo_hit, 0)

@@ -60,7 +60,7 @@ func billy_snowball_hit(p: Projectile, target: Unit):
 
 
 func tower_init():
-	billy_snowball = ProjectileType.create_interpolate("AIobTarget.mdl", 2000)
+	billy_snowball = ProjectileType.create_interpolate("AIobTarget.mdl", 2000, self)
 	billy_snowball.enable_homing(billy_snowball_hit, 0)
 
 	cb_stun = BuffType.new("cb_stun", 0, 0, false, self)

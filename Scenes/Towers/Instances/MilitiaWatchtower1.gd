@@ -49,7 +49,7 @@ func militia_axe_hit(p: Projectile, target: Unit):
 
 
 func tower_init():
-	militia_axe = ProjectileType.create_interpolate("AxeMissile.mdl", 800)
+	militia_axe = ProjectileType.create_interpolate("AxeMissile.mdl", 800, self)
 	militia_axe.set_event_on_interpolation_finished(militia_axe_hit)
 
 

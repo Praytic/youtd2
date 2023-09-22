@@ -22,7 +22,7 @@ func Collision(P: Projectile, targ: Unit):
 
 
 func item_init():
-	PT = ProjectileType.create("Abilities\\Weapons\\DruidoftheTalonMissile\\DruidoftheTalonMissile.mdl", 4.00, 1400.00)
+	PT = ProjectileType.create("Abilities\\Weapons\\DruidoftheTalonMissile\\DruidoftheTalonMissile.mdl", 4.00, 1400.00, self)
 	PT.enable_homing(Collision, 0.0)
 
 

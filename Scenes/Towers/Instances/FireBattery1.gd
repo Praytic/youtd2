@@ -89,7 +89,7 @@ func tower_init():
 	fire_battery_incinerate.set_stacking_group("FireBattery")
 	fire_battery_incinerate.set_buff_tooltip("Incinerate\nThis creep has been incinerated; it will take extra damage from fire towers and it will take damage over time.")
 
-	pt = ProjectileType.create("FireBallMissile.mdl", 10, 1200)
+	pt = ProjectileType.create("FireBallMissile.mdl", 10, 1200, self)
 	pt.enable_homing(hit, 0)
 
 	var autocast: Autocast = Autocast.make()

@@ -91,7 +91,7 @@ func tower_init():
 	poison_battery_poison.set_stacking_group("PoisonBattery")
 	poison_battery_poison.set_buff_tooltip("Poison\nThis creep is poisoned; it will take damage over time and it has reduced movement speed.")
 
-	pt = ProjectileType.create("OrbVenomMissile.mdl", 10, 1200)
+	pt = ProjectileType.create("OrbVenomMissile.mdl", 10, 1200, self)
 	pt.enable_homing(hit, 0)
 
 	var autocast: Autocast = Autocast.make()

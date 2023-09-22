@@ -85,7 +85,7 @@ func tower_init():
 	magic_battery_faerie_fire.set_stacking_group("MagicBattery")
 	magic_battery_faerie_fire.set_buff_tooltip("Faerie Fire\nThis creep has been hit by Faerie Fire; it will take extra damage from spells and has increased debuff duration.")
 
-	pt = ProjectileType.create("ProcMissile.mdl", 10, 1200)
+	pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
 	pt.enable_homing(hit, 0)
 
 	var autocast: Autocast = Autocast.make()

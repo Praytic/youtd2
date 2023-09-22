@@ -46,7 +46,7 @@ func item_init():
 
 	cooldown_buff = BuffType.new("Item209_cooldown_buff", 4.8, 0.0, false, self)
 
-	blizzard_cast = Cast.new("@@0@@", "blizzard", 4.0)
+	blizzard_cast = Cast.new("@@0@@", "blizzard", 4.0, self)
 	blizzard_cast.set_damage_event(overgrowth_dmg)
 	
 

@@ -31,7 +31,7 @@ func PT_Hit(P: Projectile, U: Unit):
 
 
 func item_init():
-	PT = ProjectileType.create_ranged("FireLordDeathExplode.mdl", 350.0, 1000.0)
+	PT = ProjectileType.create_ranged("FireLordDeathExplode.mdl", 350.0, 1000.0, self)
 	PT.enable_collision(PT_Hit, 75.0, TargetType.new(TargetType.CREEPS), false)
 
 

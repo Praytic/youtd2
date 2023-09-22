@@ -35,7 +35,7 @@ func hit_PT(P: Projectile, U: Unit):
 
 
 func item_init():
-	PT = ProjectileType.create_interpolate("TinkerRocketMissile.mdl", 1000)
+	PT = ProjectileType.create_interpolate("TinkerRocketMissile.mdl", 1000, self)
 	PT.set_event_on_interpolation_finished(hit_PT)
 
 	MB = MultiboardValues.new(1)

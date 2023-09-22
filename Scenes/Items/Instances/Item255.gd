@@ -60,7 +60,7 @@ func ball_lightning_jump(ball: Projectile):
 
 
 func item_init():
-	ball_lightning = ProjectileType.create_interpolate("FarseerMissile.mdl", 300)
+	ball_lightning = ProjectileType.create_interpolate("FarseerMissile.mdl", 300, self)
 	ball_lightning.set_event_on_cleanup(ball_lightning_jump)
 
 

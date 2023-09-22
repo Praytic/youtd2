@@ -84,7 +84,7 @@ func tower_init():
 	ice_battery_frozen.set_stacking_group("IceBattery")
 	ice_battery_frozen.set_buff_tooltip("Frozen\nThis creep is frozen; it has reduced movement speed.")
 
-	pt = ProjectileType.create("LichMissile.mdl", 10, 1200)
+	pt = ProjectileType.create("LichMissile.mdl", 10, 1200, self)
 	pt.enable_homing(hit, 0)
 
 	var autocast: Autocast = Autocast.make()

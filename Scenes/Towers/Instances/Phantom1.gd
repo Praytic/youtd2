@@ -63,20 +63,20 @@ func tower_init():
 	
 	drol_phantomBuff.add_event_on_attack(phantom_attack)
 	
-	drol_phantomCast = Cast.new('@@0@@', "chainlightning", 5.0)
+	drol_phantomCast = Cast.new('@@0@@', "chainlightning", 5.0, self)
 	drol_phantomCast.set_source_height(40.0)
 	
-	drol_phantomCast2 = Cast.new('@@1@@', "chainlightning", 5.0)
+	drol_phantomCast2 = Cast.new('@@1@@', "chainlightning", 5.0, self)
 	drol_phantomCast2.set_source_height(40.0)
 
 	drol_phantomBuff.set_buff_tooltip("Wind Shear\nThis unit is affected by Wind Shear; it has increased attack speed and it has a chance to cast a chain of lightning on attack.")
 
-	drol_phantomCast = Cast.new("@@0@@", "chainlightning", 5.00)
+	drol_phantomCast = Cast.new("@@0@@", "chainlightning", 5.00, self)
 	drol_phantomCast.data.chain_lightning.damage = 100
 	drol_phantomCast.data.chain_lightning.damage_reduction = 0.25
 	drol_phantomCast.data.chain_lightning.chain_count = 3
 
-	drol_phantomCast2 = Cast.new("@@0@@", "chainlightning", 5.00)
+	drol_phantomCast2 = Cast.new("@@0@@", "chainlightning", 5.00, self)
 	drol_phantomCast2.data.chain_lightning.damage = 100
 	drol_phantomCast2.data.chain_lightning.damage_reduction = 0.25
 	drol_phantomCast2.data.chain_lightning.chain_count = 4

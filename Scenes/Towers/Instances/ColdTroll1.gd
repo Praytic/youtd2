@@ -66,7 +66,7 @@ func tower_init():
 	Troll_blizzardslow = BuffType.new("Troll_blizzardslow", 0.0, 0.0, false, self)
 	mod2.add_modification(Modification.Type.MOD_MOVESPEED, _stats.slow, _stats.slow_add)
 	Troll_blizzardslow.set_buff_modifier(mod2)
-	Troll_blizzard = Cast.new("@@0@@", "blizzard", 9.00)
+	Troll_blizzard = Cast.new("@@0@@", "blizzard", 9.00, self)
 	Troll_blizzard.set_damage_event(on_blizzard)
 	Troll_blizzardslow.set_stacking_group("cedi_troll_blizzard")
 	Troll_blizzardslow.set_buff_icon("@@2@@")

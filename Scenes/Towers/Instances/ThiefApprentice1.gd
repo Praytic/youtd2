@@ -45,7 +45,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	mOck_steal = ProjectileType.create_interpolate("Abilities\\Weapons\\WardenMissile\\WardenMissile.mdl", 1000)
+	mOck_steal = ProjectileType.create_interpolate("Abilities\\Weapons\\WardenMissile\\WardenMissile.mdl", 1000, self)
 	mOck_steal.set_event_on_interpolation_finished(steal)
 	
 	m0ck_thief_multiboard = MultiboardValues.new(1)

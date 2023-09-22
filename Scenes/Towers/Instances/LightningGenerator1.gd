@@ -43,7 +43,7 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	Chainlightning = Cast.new("@@0@@", "chainlightning", 5.00)
+	Chainlightning = Cast.new("@@0@@", "chainlightning", 5.00, self)
 	Chainlightning.data.chain_lightning.damage = _stats.chain_damage
 	Chainlightning.data.chain_lightning.chain_count = 3
 

@@ -86,13 +86,13 @@ func tower_init():
 	limfa_teacherboard = MultiboardValues.new(1)
 	limfa_teacherboard.set_key(0, "Xp Granted")
 
-	knowledge_green = ProjectileType.create("Objects\\InventoryItems\\tomeGreen\\tomeGreen.mdl", 20.0, 450.00) 
+	knowledge_green = ProjectileType.create("Objects\\InventoryItems\\tomeGreen\\tomeGreen.mdl", 20.0, 450.00, self)
 	knowledge_green.disable_explode_on_hit()
 	knowledge_green.enable_homing(hit, 0)
-	knowledge_blue = ProjectileType.create("Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl", 20.0, 450.00) 
+	knowledge_blue = ProjectileType.create("Objects\\InventoryItems\\tomeBlue\\tomeBlue.mdl", 20.0, 450.00, self)
 	knowledge_blue.disable_explode_on_hit()
 	knowledge_blue.enable_homing(hit, 0)
-	knowledge_red = ProjectileType.create("Objects\\InventoryItems\\tomeRed\\tomeRed.mdl", 20.0, 450.00) 
+	knowledge_red = ProjectileType.create("Objects\\InventoryItems\\tomeRed\\tomeRed.mdl", 20.0, 450.00, self)
 	knowledge_red.disable_explode_on_hit()
 	knowledge_red.enable_homing(hit, 0)
 

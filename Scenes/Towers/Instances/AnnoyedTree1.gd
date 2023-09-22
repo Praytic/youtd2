@@ -42,7 +42,7 @@ func rock_hit(p: Projectile, _target: Unit):
 
 
 func tower_init():
-	boekie_tree_rock = ProjectileType.create_interpolate("RockBoltMissle.mdl", 750)
+	boekie_tree_rock = ProjectileType.create_interpolate("RockBoltMissle.mdl", 750, self)
 	boekie_tree_rock.set_event_on_interpolation_finished(rock_hit)
 
 

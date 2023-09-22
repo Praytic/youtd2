@@ -89,7 +89,7 @@ func tower_init():
 	tolleder_storm_bat.set_stacking_group("StormBattery")
 	tolleder_storm_bat.set_buff_tooltip("Electrified\nThis creep has been electrified; it will sometimes take extra damage when damaged by attacks or spells.")
 
-	pt = ProjectileType.create("FarseerMissile.mdl", 10, 1200)
+	pt = ProjectileType.create("FarseerMissile.mdl", 10, 1200, self)
 	pt.enable_homing(hit, 0)
 
 	var autocast: Autocast = Autocast.make()
