@@ -61,15 +61,6 @@ static func create_aura_effect_type(type: String, friendly: bool, parent: Node) 
 # same type. If new buff has higher lever than current
 # active buff, then current active buff is upgraded and
 # refreshed. In general, set type to something unique.
-#
-# NOTE: "parent" parameter is needed so that buff can react
-# to parent's "tree_exited()" signal. For example, let's say
-# this is a debuff buff type that's created and applied by
-# an item to creeps. If that item is removed from the tower,
-# we need to remove all debuffs applied by the item. To do
-# that we need to connect to parent's (item's) tree_exited
-# signal, not caster's, because caster (tower) has not been
-# removed and so won't emit that signal.
 func _init(type: String, time_base: float, time_level_add: float, friendly: bool, parent: Node):
 	parent.add_child(self)
 	_type = type
@@ -135,6 +126,8 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._stacking_group = _stacking_group
 	buff._tooltip_text = _tooltip_text
 	buff._buff_icon = _buff_icon
+
+	tree_exited.connect(buff._on_buff_type_tree_exited)
 
 	for handler in _common_handler_list:
 		buff._add_event_handler(handler.event_type, handler.handler)
@@ -204,9 +197,6 @@ func apply_to_unit_permanent(caster: Unit, target: Unit, level: int) -> Buff:
 
 
 func add_event_handler(event_type: Event.Type, handler: Callable):
-	if !handler_object_is_node(handler):
-		return
-
 	var data: CommonHandlerData = CommonHandlerData.new()
 	data.handler = handler
 	data.event_type = event_type
@@ -216,9 +206,6 @@ func add_event_handler(event_type: Event.Type, handler: Callable):
 
 # NOTE: buffType.addPeriodicEvent() in JASS
 func add_periodic_event(handler: Callable, period: float):
-	if !handler_object_is_node(handler):
-		return
-		
 	var data: PeriodicHandlerData = PeriodicHandlerData.new()
 	data.handler = handler
 	data.period = period
@@ -228,9 +215,6 @@ func add_periodic_event(handler: Callable, period: float):
 
 # NOTE: buffType.addEventOnUnitComesInRange() in JASS
 func add_event_on_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
-	if !handler_object_is_node(handler):
-		return
-
 	var data: RangeHandlerData = RangeHandlerData.new()
 	data.handler = handler
 	data.radius = radius
@@ -324,16 +308,6 @@ func add_aura(aura_type: AuraType):
 # NOTE: buffType.setSpecialEffectSimple() in JASS
 func set_special_effect_simple(_effect: String):
 	pass
-
-
-func handler_object_is_node(handler: Callable) -> bool:
-	var handler_node: Node = Utils.get_callable_node(handler)
-	var is_node = handler_node != null
-
-	if !is_node:
-		push_error("Objects that store buff event handlers must inherit from type Node. Error was caused by this handler: ", handler)
-
-	return is_node
 
 
 # This f-n will return null if new buff can be applied. It

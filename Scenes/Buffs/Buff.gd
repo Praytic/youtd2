@@ -173,8 +173,6 @@ func purge_buff():
 
 
 func _add_event_handler(event_type: Event.Type, handler: Callable):
-	_connect_to_handler_tree_exited_signal(handler)
-
 	if !event_handler_map.has(event_type):
 		event_handler_map[event_type] = []
 
@@ -182,8 +180,6 @@ func _add_event_handler(event_type: Event.Type, handler: Callable):
 
 
 func _add_periodic_event(handler: Callable, period: float):
-	_connect_to_handler_tree_exited_signal(handler)
-	
 	var timer: Timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = period
@@ -193,8 +189,6 @@ func _add_periodic_event(handler: Callable, period: float):
 
 
 func _add_event_handler_unit_comes_in_range(handler: Callable, radius: float, target_type: TargetType):
-	_connect_to_handler_tree_exited_signal(handler)
-	
 	var buff_range_area: BuffRangeArea = BuffRangeArea.make(radius, target_type, handler)
 	add_child(buff_range_area)
 
@@ -235,13 +229,24 @@ func _on_timer_timeout():
 func _on_target_death(death_event: Event):
 	death_event._buff = self
 	_call_event_handler_list(Event.Type.DEATH, death_event)
-
-#	NOTE: CLEANUP event will be triggered later in
-#	_on_caster_tree_exited()
-
-
-func _on_handler_node_tree_exited():
+	
 	remove_buff()
+
+
+# Explanation of all of the cases where buff needs to be
+# removed due to a "tree_exited" signal:
+# 
+# 1. Buff needs to be removed when buff's target exits the
+#    tree. Target is gone => buff is invalid.
+# 
+# 2. Buff needs to be removed when buff's caster exits the
+#    tree. Caster is gone => event handlers are invalid =>
+#    buff is invalid.
+#
+# 3. Buff needs to be removed when buff's BuffType exits the
+#    tree. This case is necessary to correctly handle buffs
+#    created by items. BuffType is gone => item is gone =>
+#    event handlers are invalid => buff is invalid.
 
 
 func _on_target_tree_exited():
@@ -249,6 +254,10 @@ func _on_target_tree_exited():
 
 
 func _on_caster_tree_exited():
+	remove_buff()
+
+
+func _on_buff_type_tree_exited():
 	remove_buff()
 
 
@@ -337,22 +346,6 @@ func _upgrade_by_new_buff(new_level: int, new_power: int):
 func _add_aura(aura_type: AuraType):
 	var aura: Aura = aura_type.make(get_caster())
 	add_child(aura)
-
-
-# Connects to handler object's tree_exited signal. The slot
-# will get called when the handler object is removed from
-# the game. For example, if a tower casted a slow on creeps
-# and that tower gets sold, then the debuff will get
-# removed. Another example is if an item applied a buff and
-# was moved from tower to storage. In such cases, the buff
-# *must* be removed because without the object which
-# implements event handlers, the buff cannot continue
-# operating in a correct manner.
-func _connect_to_handler_tree_exited_signal(handler: Callable):
-	var handler_node: Node = Utils.get_callable_node(handler)
-
-	if !handler_node.tree_exited.is_connected(_on_handler_node_tree_exited):
-		handler_node.tree_exited.connect(_on_handler_node_tree_exited)
 
 
 # NOTE: when a buff is queued for deletion it means that the
