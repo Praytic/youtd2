@@ -39,4 +39,8 @@ func _set_subclass_data(_data: Cast.SpellData):
 
 
 func _on_lifetime_timer_timeout():
-	queue_free()
+	_cleanup()
+
+
+func _on_cast_type_tree_exited():
+	_cleanup()

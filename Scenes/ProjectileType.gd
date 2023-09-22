@@ -1,4 +1,4 @@
-class_name ProjectileType
+class_name ProjectileType extends Node
 
 var _speed: float
 var _range: float = 0.0
@@ -20,20 +20,22 @@ func _init():
 
 
 # ProjectileType.create() in JASS
-static func create(model: String, lifetime: float, speed: float) -> ProjectileType:
+static func create(model: String, lifetime: float, speed: float, parent: Node) -> ProjectileType:
 	var pt: ProjectileType = ProjectileType.new()
 	pt._speed = speed
 	pt._lifetime = lifetime
 	pt._sprite_path = model
+	parent.add_child(pt)
 	
 	return pt
 
 
 # ProjectileType.createInterpolate() in JASS
-static func create_interpolate(model: String, speed: float) -> ProjectileType:
+static func create_interpolate(model: String, speed: float, parent: Node) -> ProjectileType:
 	var pt: ProjectileType = ProjectileType.new()
 	pt._speed = speed
 	pt._sprite_path = model
+	parent.add_child(pt)
 
 	return pt
 
@@ -41,11 +43,12 @@ static func create_interpolate(model: String, speed: float) -> ProjectileType:
 # Creates a projectile that will travel for a max of
 # range from initial position.
 # ProjectileType.createRanged() in JASS
-static func create_ranged(model: String, the_range: float, speed: float) -> ProjectileType:
+static func create_ranged(model: String, the_range: float, speed: float, parent: Node) -> ProjectileType:
 	var pt: ProjectileType = ProjectileType.new()
 	pt._speed = speed
 	pt._range = the_range
 	pt._sprite_path = model
+	parent.add_child(pt)
 	
 	return pt
 

@@ -1,4 +1,4 @@
-class_name Cast
+class_name Cast extends Node
 
 # Cast is used to store information about spells. Used to
 # create instances of SpellDummy.
@@ -30,7 +30,8 @@ var _damage_event_handler: Callable = Callable()
 
 # NOTE: ability is unused because it's supposed to reference
 # something configured in wc3 object editor.
-func _init(_ability: String, order: String, lifetime: float):
+func _init(_ability: String, order: String, lifetime: float, parent: Node):
+	parent.add_child(self)
 	_order = order
 	_lifetime = lifetime
 
@@ -48,8 +49,9 @@ func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ra
 		return
 
 	var scene: PackedScene = load(spell_scene_path)
-	var instance: DummyUnit = scene.instantiate()
+	var instance: SpellDummy = scene.instantiate()
 	instance.init_spell(caster, _lifetime, data, _damage_event_handler, x, y, damage_ratio, crit_ratio)
+	tree_exited.connect(instance._on_cast_type_tree_exited)
 	caster.add_child(instance)
 
 

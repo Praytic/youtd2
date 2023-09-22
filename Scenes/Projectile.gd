@@ -116,18 +116,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._initial_pos = from.get_visual_position()
 	projectile._map_node = caster.get_tree().get_root().get_node("GameScene/Map")
 
-	var handler_list: Array[Callable] = [
-		projectile._cleanup_handler,
-		projectile._interpolation_finished_handler,
-		projectile._target_hit_handler,
-		projectile._collision_handler,
-		]
-
-	for handler in handler_list:
-		if !handler.is_valid():
-			continue
-
-		projectile._connect_to_handler_tree_exited_signal(handler)
+	type.tree_exited.connect(projectile._on_projectile_type_tree_exited)
 
 	var sprite_path: String = type._sprite_path
 	var sprite_exists: bool = ResourceLoader.exists(sprite_path)
@@ -254,6 +243,10 @@ func _on_target_death(_event: Event):
 
 
 func _on_target_tree_exited():
+	_cleanup()
+
+
+func _on_projectile_type_tree_exited():
 	_cleanup()
 
 

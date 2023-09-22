@@ -25,13 +25,11 @@ func get_caster() -> Unit:
 # NOTE: dummyUnit.setDamageEvent() in JASS
 func set_damage_event(handler: Callable):
 	_damage_event_handler = handler
-	_connect_to_handler_tree_exited_signal(handler)
 
 
 # NOTE: dummyUnit.setKillEvent() in JASS
 func set_kill_event(handler: Callable):
 	_kill_event_handler = handler
-	_connect_to_handler_tree_exited_signal(handler)
 
 
 # NOTE: dummyUnit.doSpellDamage() in JASS
@@ -103,17 +101,6 @@ func _get_mod_for_size(target: Unit) -> float:
 	var mod_for_size: float = 1.0 + 1.0 / dmg_to_size_mod * damage_bonus
 
 	return mod_for_size
-
-
-func _connect_to_handler_tree_exited_signal(handler: Callable):
-	var handler_node: Node = Utils.get_callable_node(handler)
-
-	if !handler_node.tree_exited.is_connected(_on_handler_node_tree_exited):
-		handler_node.tree_exited.connect(_on_handler_node_tree_exited)
-
-
-func _on_handler_node_tree_exited():
-	_cleanup()
 
 
 func _on_caster_tree_exited():

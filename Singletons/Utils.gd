@@ -70,14 +70,6 @@ func get_time_of_day() -> float:
 	return 0.0
 
 
-# NOTE: Returns null if callable doesn't have a valid object
-# or if the object is not a Node type.
-func get_callable_node(callable: Callable) -> Node:
-	var node: Node = instance_from_id(callable.get_object_id()) as Node
-
-	return node
-
-
 # TODO: connect this to actual max level that was picked
 # based on difficulty, etc.
 func get_max_level() -> int:
