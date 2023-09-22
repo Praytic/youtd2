@@ -2,6 +2,9 @@
 extends Item
 
 
+var nerminds_eye: BuffType
+
+
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
@@ -12,6 +15,11 @@ func get_extra_tooltip_text() -> String:
 
 
 func item_init():
-	var buff: BuffType = MagicalSightBuff.new("nerminds_eye_magical_sight", 750, self)
-	buff.set_buff_tooltip("Nermind's Eye\nThis unit has Nermind's Eye; it will reveal invisible units in range.")
-	add_buff(buff)
+	nerminds_eye = MagicalSightBuff.new("nerminds_eye", 750, self)
+	nerminds_eye.set_buff_tooltip("Nermind's Eye\nThis unit has Nermind's Eye; it will reveal invisible units in range.")
+
+
+func on_pickup():
+	var itm: Item = self
+	var carrier: Unit = itm.get_carrier()
+	nerminds_eye.apply_to_unit_permanent(carrier, carrier, 0)	

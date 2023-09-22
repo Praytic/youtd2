@@ -55,9 +55,9 @@ var _uses_charges: bool = false
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
 var _buff_type_list: Array[BuffType] = []
-var _applied_buff_list: Array[Buff] = []
 var _autocast: Autocast = null
 var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
+var _triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 
 
 @onready var _hud: Control = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD")
@@ -74,11 +74,7 @@ func _init(id: int):
 	load_modifier(_modifier)
 	item_init()
 
-	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
-	load_triggers(triggers_buff_type)
-	_buff_type_list.append(triggers_buff_type)
-
-	_buff_type_list.append(_aura_carrier_buff)
+	load_triggers(_triggers_buff_type)
 
 
 # NOTE: need to call on_create() because some item scripts
@@ -159,12 +155,6 @@ func set_autocast(autocast: Autocast):
 
 func get_autocast() -> Autocast:
 	return _autocast
-
-
-# Add buffs that will be applied to carrier while it is
-# carrying this item. This must be called in item_init().
-func add_buff(buff: BuffType):
-	_buff_type_list.append(buff)
 
 
 func add_aura(aura: AuraType):
@@ -387,14 +377,17 @@ func _add_to_tower(tower: Tower):
 	if _autocast != null:
 		_autocast.set_caster(_carrier)
 
-	for buff_type in _buff_type_list:
-		var buff: Buff = buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
-		_applied_buff_list.append(buff)
+	_triggers_buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
+	_aura_carrier_buff.apply_to_unit_permanent(_carrier, _carrier, 0)
 
 
 # NOTE: this f-n only removes the effects. Use Item.drop()
 # or Tower.remove_item() to fully remove an item from a
 # tower.
+# 
+# NOTE: buffs applied by Item will be automatically removed
+# via Buff._on_buff_type_tree_exited(). This includes
+# _triggers_buff_type and _aura_carrier_buff.
 func _remove_from_tower():
 	if _carrier == null:
 		return
@@ -405,11 +398,6 @@ func _remove_from_tower():
 
 	if _autocast != null:
 		_autocast.set_caster(null)
-
-	for buff in _applied_buff_list:
-		buff.remove_buff()
-
-	_applied_buff_list.clear()
 
 	_carrier = null
 

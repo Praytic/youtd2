@@ -2,6 +2,9 @@
 extends Item
 
 
+var eye_of_true_sight: BuffType
+
+
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
@@ -18,9 +21,8 @@ func get_extra_tooltip_text() -> String:
 
 
 func item_init():
-	var buff: BuffType = MagicalSightBuff.new("eye_of_true_sight_magical_sight", 900, self)
-	buff.set_buff_tooltip("Eye of True Sight\nThis unit has Eye of True Sight; it will reveal invisible units in range.")
-	add_buff(buff)
+	eye_of_true_sight = MagicalSightBuff.new("eye_of_true_sight", 900, self)
+	eye_of_true_sight.set_buff_tooltip("Eye of True Sight\nThis unit has Eye of True Sight; it will reveal invisible units in range.")
 
 
 func load_triggers(triggers: BuffType):
@@ -32,3 +34,9 @@ func on_damage(event: Event):
 
 	if event.get_target().is_invisible():
 		event.damage = event.damage * (1.2 + 0.008 * itm.get_carrier().get_level())
+
+
+func on_pickup():
+	var itm: Item = self
+	var carrier: Unit = itm.get_carrier()
+	eye_of_true_sight.apply_to_unit_permanent(carrier, carrier, 0)	
