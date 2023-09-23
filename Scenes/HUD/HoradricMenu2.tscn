@@ -185,15 +185,10 @@ UniqueRarityPanelContainer/base_type = &"PanelContainer"
 UniqueRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_gqeb4")
 
 [node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_main_container", "_title_button")]
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -560.0
-offset_top = -400.0
-offset_bottom = 400.0
-grow_horizontal = 0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -231,8 +226,8 @@ mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 mouse_filter = 2
-theme_override_constants/margin_right = -40
 
 [node name="Panel" type="PanelContainer" parent="MainContainer/MarginContainer"]
 custom_minimum_size = Vector2(600, 800)
