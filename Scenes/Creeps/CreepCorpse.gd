@@ -33,6 +33,9 @@ func setup_sprite(creep_sprite: CreepSprite, death_animation: String):
 	_sprite.scale = creep_sprite.scale
 	_sprite.position = creep_sprite.position
 	_sprite.sprite_frames.set_animation_loop(death_animation, false)
+#	NOTE: play death animation with random speed to make
+#	them look more diverse
+	_sprite.set_speed_scale(randf_range(0.6, 1.0))
 	var animation_offset: Vector2 = creep_sprite.get_offset_for_animation(death_animation)
 	_sprite.set_offset(animation_offset)
 	_sprite.play(death_animation)
