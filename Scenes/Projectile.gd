@@ -26,6 +26,7 @@ var _target_position_on_creation: Vector2
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
 var _tower_crit_ratio: float = 0.0
+var _tower_bounce_visited_list: Array[Unit] = []
 var _interpolation_finished_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
 var _initial_pos: Vector2

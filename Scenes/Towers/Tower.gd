@@ -619,10 +619,11 @@ func _get_base_properties() -> Dictionary:
 	return {}
 
 
-func _get_next_bounce_target(prev_target: Creep) -> Creep:
+func _get_next_bounce_target(prev_target: Creep, visited_list: Array[Unit]) -> Creep:
 	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, Constants.BOUNCE_ATTACK_RANGE)
 
-	creep_list.erase(prev_target)
+	for visited_creep in visited_list:
+		creep_list.erase(visited_creep)
 
 	Utils.sort_unit_list_by_distance(creep_list, prev_target.position)
 
@@ -756,6 +757,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Unit):
 	var current_damage: float = projectile.user_real
 	var current_bounce_index: int = projectile.user_int
+	var bounce_visited_list: Array[Unit] = projectile._tower_bounce_visited_list
+	bounce_visited_list.append(current_target)
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var crit_ratio: float = projectile.get_tower_crit_ratio()
@@ -772,7 +775,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 
 	var next_damage: float = current_damage * (1.0 - _bounce_damage_multiplier)
 
-	var next_target: Creep = _get_next_bounce_target(current_target)
+	var next_target: Creep = _get_next_bounce_target(current_target, bounce_visited_list)
 
 	if next_target == null:
 		return
@@ -780,6 +783,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	var next_projectile: Projectile = _make_projectile(current_target, next_target)
 	next_projectile.user_real = next_damage
 	next_projectile.user_int = current_bounce_index + 1
+	next_projectile._tower_bounce_visited_list = bounce_visited_list
 #	NOTE: save crit count in projectile so that it can be
 #	used when projectile reaches the target to calculate
 #	damage
