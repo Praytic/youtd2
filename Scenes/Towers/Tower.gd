@@ -69,6 +69,7 @@ var _temp_preceding_tower: Tower = null
 # This attack type determines which targets will be picked
 # for attacking.
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
+var _placeholder_modulate: Color = Color.WHITE
 
 
 # NOTE: can't use @export because it breaks placeholder
@@ -208,6 +209,9 @@ func _ready():
 	SelectUnit.connect_unit(self, _tower_selection_area)
 
 	_set_visual_node(_sprite)
+
+	if _placeholder_modulate != Color.WHITE:
+		_sprite.modulate = _placeholder_modulate
 	
 # 	TODO: why is model/sprite2d is used for sprite instead
 # 	of the sprite node attached to root?
@@ -1019,3 +1023,7 @@ func _target_is_valid(target: Creep) -> bool:
 	var target_is_valid: bool = !out_of_range && !target_is_invisible && is_immune_valid
 
 	return target_is_valid
+
+
+func _set_placeholder_modulate(color: Color):
+	_placeholder_modulate = color
