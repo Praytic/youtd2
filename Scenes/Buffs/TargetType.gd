@@ -12,6 +12,7 @@ class_name TargetType
 const CREEPS: int 			= 0x1
 const TOWERS: int 			= 0x2
 const PLAYER_TOWERS: int 	= 0x4
+const CORPSES: int 			= 0x100000
 
 const RACE_UNDEAD: int 		= 0x8
 const RACE_MAGIC: int 		= 0x10
@@ -36,7 +37,8 @@ const ELEMENT_IRON: int 	= 0x80000
 enum UnitType {
 	TOWERS,
 	PLAYER_TOWERS,
-	CREEPS
+	CREEPS,
+	CORPSES
 }
 
 var _unit_type: UnitType
@@ -96,6 +98,7 @@ static func _get_unit_type(bitmask: int) -> UnitType:
 	var creeps_set: bool = Utils.bit_is_set(bitmask, CREEPS)
 	var towers_set: bool = Utils.bit_is_set(bitmask, TOWERS)
 	var player_towers_set: bool = Utils.bit_is_set(bitmask, PLAYER_TOWERS)
+	var corpses_set: bool = Utils.bit_is_set(bitmask, CORPSES)
 
 	if creeps_set:
 		return UnitType.CREEPS
@@ -103,6 +106,8 @@ static func _get_unit_type(bitmask: int) -> UnitType:
 		return UnitType.TOWERS
 	elif player_towers_set:
 		return UnitType.PLAYER_TOWERS
+	elif corpses_set:
+		return UnitType.CORPSES
 	else:
 		return UnitType.CREEPS
 

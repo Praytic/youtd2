@@ -103,18 +103,35 @@ func periodic(_event: Event):
 	var tower: Tower = self
 
 	var corpses_in_range: Iterate = Iterate.over_corpses_in_range(tower, tower.get_x(), tower.get_y(), 1000)
-	var corpse: Unit = corpses_in_range.next_corpse()
 
-	if corpse == null:
+	var target_corpse: Unit = null
+
+	while true:
+		var corpse: Unit = corpses_in_range.next_corpse()
+		
+		if corpse == null:
+			break
+
+		var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), corpse.get_x(), corpse.get_y(), 500)
+
+		if creeps_in_range.count() > 0:
+			target_corpse = corpse
+
+			break
+
+	if target_corpse == null:
 		return
 
-	var explode_effect: int = Effect.add_special_effect("OrcLargeDeathExplode.mdl", tower.get_x(), tower.get_y())
+	var tx: float = target_corpse.get_x()
+	var ty: float = target_corpse.get_y()
+
+	var explode_effect: int = Effect.add_special_effect("OrcLargeDeathExplode.mdl", tx, ty)
 	Effect.destroy_effect_after_its_over(explode_effect)
 
-	var missile_effect: int = Effect.create_scaled("T_MeatwagonMissile.mdl", tower.get_x(), tower.get_y(), 0, randf_range(0, 360), 1.2)
+	var missile_effect: int = Effect.create_scaled("T_MeatwagonMissile.mdl", tx, ty, 0, randf_range(0, 360), 1.2)
 	Effect.destroy_effect_after_its_over(missile_effect)
 
-	var creeps_in_range: Iterate = Iterate.over_units_in_range(tower, corpse.get_x(), corpse.get_y(), 500)
+	var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), tx, ty, 500)
 
 	var buff_level: int = _stats.buff_level + _stats.buff_level_add * tower.get_level()
 

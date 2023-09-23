@@ -215,6 +215,7 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 		TargetType.UnitType.TOWERS: node_list = get_tree().get_nodes_in_group("towers")
 		TargetType.UnitType.PLAYER_TOWERS: node_list = get_tree().get_nodes_in_group("towers")
 		TargetType.UnitType.CREEPS: node_list = get_tree().get_nodes_in_group("creeps")
+		TargetType.UnitType.CORPSES: node_list = get_tree().get_nodes_in_group("corpses")
 
 	var filtered_node_list: Array[Node] = node_list.filter(
 		func(node) -> bool:

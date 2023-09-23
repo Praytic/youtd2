@@ -1,4 +1,4 @@
-extends Node2D
+extends Unit
 
 
 # Corpse visual created after creep dies. Fades away slowly
@@ -10,6 +10,11 @@ const FADE_DURATION: float = 60
 
 
 func _ready():
+	super()
+
+	add_to_group("corpses")
+	_set_visual_node(_sprite)
+
 # 	Randomize sprite position and scale to make sprites look
 # 	varied
 	var random_offset: Vector2 = Vector2(randf_range(-10, 10), randf_range(-10, 10))
