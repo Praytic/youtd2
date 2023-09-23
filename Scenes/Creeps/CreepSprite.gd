@@ -1,5 +1,5 @@
 @tool
-extends AnimatedSprite2D
+class_name CreepSprite extends AnimatedSprite2D
 
 
 @export var sprite_sheets_dir: String
@@ -49,6 +49,20 @@ func _ready():
 # because this is a tool script
 func _process(_delta: float):
 	_update_offset()
+
+
+# NOTE: each animation has a different offset which is
+# created during the packing process. To display the
+# animation at correct position, this offset needs to be
+# applied to sprite.
+# NOTE: if animatedsprited2d is scaled, then offset will
+# be scaled also, so we need to account for that and
+# divide offset by scale
+func get_offset_for_animation(animation_name: String):
+	var packed_offset: Vector2 = _animation_offset_map.get(animation_name, Vector2.ZERO) as Vector2
+	var scaled_offset: Vector2 = packed_offset / scale
+
+	return scaled_offset
 
 
 func _create_animation(animation_name: String, sprite_sheet_path: String):
@@ -101,12 +115,8 @@ func _is_valid_frame(texture_frame: AtlasTexture):
 
 func _update_offset():
 	var animation_name: String = get_animation()
-
-# 	NOTE: if animatedsprited2d is scaled, then offset will
-# 	be scaled also, so we need to account for that and
-# 	divide offset by scale
-	var packed_offset: Vector2 = _animation_offset_map.get(animation_name, Vector2.ZERO) as Vector2
-	set_offset(packed_offset / scale)
+	var current_offset: Vector2 = get_offset_for_animation(animation_name)
+	set_offset(current_offset)
 
 
 func _get_sprite_sheet_path(animation_name: String) -> String:

@@ -28,11 +28,13 @@ func _ready():
 # Copies sprite from creep and starts the death animation.
 # NOTE: need to copy original sprite's position and scale to
 # correctly display the same thing.
-func setup_sprite(creep_sprite: AnimatedSprite2D, death_animation: String):
+func setup_sprite(creep_sprite: CreepSprite, death_animation: String):
 	_sprite.sprite_frames = creep_sprite.sprite_frames.duplicate()
 	_sprite.scale = creep_sprite.scale
 	_sprite.position = creep_sprite.position
 	_sprite.sprite_frames.set_animation_loop(death_animation, false)
+	var animation_offset: Vector2 = creep_sprite.get_offset_for_animation(death_animation)
+	_sprite.set_offset(animation_offset)
 	_sprite.play(death_animation)
 
 
