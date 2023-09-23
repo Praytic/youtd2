@@ -38,6 +38,13 @@ func _ready():
 		_on_pregame_hud_finished(default_wave_count, default_game_mode, default_difficulty, default_tutorial_enabled)
 
 
+func _process(delta: float):
+	var need_to_record_game_time: bool = _game_state == GameState.PLAYING && WaveLevel.get_current() > 0
+
+	if need_to_record_game_time:
+		Utils._current_game_time += delta
+
+
 func _unhandled_input(event: InputEvent):
 #	NOTE: need to check that cancel press is not consumed by
 #	another action so that player can cancel item movement

@@ -74,11 +74,6 @@ func _on_Timer_timeout():
 
 
 func _start_next_wave():
-#	NOTE: start game time timer when first wave starts
-	var is_first_wave: bool = WaveLevel.get_current() == 0
-	if is_first_wave:
-		Utils._ticks_at_game_start = Time.get_ticks_msec()
-	
 	WaveLevel.increase()
 
 	var current_wave: Wave = get_current_wave()
