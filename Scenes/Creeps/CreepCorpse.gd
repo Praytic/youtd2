@@ -4,7 +4,7 @@ extends Unit
 # Corpse visual created after creep dies. Fades away slowly
 # then disappears.
 
-const FADE_DURATION: float = 60
+const FADE_DURATION: float = 10
 
 @export var _sprite: Sprite2D
 
