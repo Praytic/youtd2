@@ -359,6 +359,9 @@ func _can_call_event_handlers() -> bool:
 func _change_giver_of_aura_effect(new_caster: Unit):
 	var old_caster: Unit = _caster
 
+	if old_caster == new_caster:
+		return
+
 	old_caster.tree_exited.disconnect(_on_caster_tree_exited)
 
 	_caster = new_caster
