@@ -33,7 +33,7 @@ func item_init():
 func on_attack(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
-	var b: Buff = tower.get_buff_of_group("sir_sleeve_group")
+	var b: Buff = tower.get_buff_of_type(sir_sleeve_buff)
 
 	var level: int
 	if b != null:

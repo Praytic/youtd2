@@ -84,8 +84,10 @@ func on_attack(_event: Event):
 
 	var lvl: int = tower.get_level()
 
-#	Do not allow retriggering while the furbolg is raged
-	if tower.get_buff_of_group("gex_rage") == null:
+#	Do not allow retriggering while the furbolg is enraged
+	var is_enraged: bool = tower.get_buff_of_type(gex_rage_buff) != null || tower.get_buff_of_type(gex_rage_buff_15) != null || tower.get_buff_of_type(gex_rage_buff_25) != null 
+
+	if !is_enraged:
 		var buff_type: BuffType
 		if lvl < 15:
 			buff_type = gex_rage_buff

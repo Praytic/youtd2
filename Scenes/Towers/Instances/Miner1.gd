@@ -75,7 +75,7 @@ func on_attack(_event: Event):
 	if !tower.calc_chance(0.2):
 		return
 
-	if tower.get_buff_of_group("drol_goldrush") == null:
+	if tower.get_buff_of_type(drol_goldrush) == null:
 		var gold_amount: float = GoldControl.get_gold()
 		drol_goldrush.apply_custom_timed(tower, tower, int(_stats.attackspeed_base + pow(gold_amount,0.5) / _stats.attackspeed_divisor), 5 + tower.get_level() * 0.1)
 
@@ -85,7 +85,7 @@ func on_damage(event: Event):
 
 	var gold_bonus = _stats.goldrush_gold + tower.get_level() * _stats.goldrush_gold_add
 
-	if event.is_main_target() && tower.get_buff_of_group("drol_goldrush") != null:
+	if event.is_main_target() && tower.get_buff_of_type(drol_goldrush) != null:
 		tower.user_real = tower.user_real + gold_bonus
 		tower.get_player().give_gold(gold_bonus, tower, false, true)
 

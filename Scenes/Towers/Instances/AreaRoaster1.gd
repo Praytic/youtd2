@@ -57,7 +57,7 @@ func tower_init():
 
 func on_damage(event: Event):
 	var tower: Tower = self
-	var buffyourno: Buff = event.get_target().get_buff_of_group("sir_area_rooster")
+	var buffyourno: Buff = event.get_target().get_buff_of_type(sir_area_rooster)
 
 	if buffyourno != null:
 		tower.user_int = buffyourno.get_level() + _stats.buff_level_per_stack

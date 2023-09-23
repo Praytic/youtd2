@@ -40,7 +40,7 @@ func on_kill(event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
 
-	if tower.get_buff_of_group("poussix_rageitem_buff") == null:
+	if tower.get_buff_of_type(poussix_rageitem_buff) == null:
 		SFX.sfx_at_unit("StampedMissileDeath.mdl", event.get_target())
 		poussix_rageitem_buff.apply_custom_timed(tower, tower, tower.get_level(), 3.0)
 

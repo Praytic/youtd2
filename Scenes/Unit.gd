@@ -69,7 +69,6 @@ var _bonus_crit_count_for_next_spell: int = 0
 var _is_dead: bool = false
 var _level: int = 0 : get = get_level, set = set_level
 var _buff_type_map: Dictionary
-var _buff_group_map: Dictionary
 var _friendly_buff_list: Array[Buff]
 var _unfriendly_buff_list: Array[Buff]
 var _direct_modifier_list: Array
@@ -874,9 +873,6 @@ func _add_buff_internal(buff: Buff):
 	var buff_type: String = buff.get_type()
 	_buff_type_map[buff_type] = buff
 
-	var stacking_group: String = buff.get_stacking_group()
-	_buff_group_map[stacking_group] = buff
-
 	var friendly: bool = buff.is_friendly()
 	_get_buff_list(friendly).append(buff)
 	var buff_modifier: Modifier = buff.get_modifier()
@@ -952,9 +948,6 @@ func _remove_buff_internal(buff: Buff):
 
 	var buff_type: String = buff.get_type()
 	_buff_type_map.erase(buff_type)
-
-	var stacking_group: String = buff.get_stacking_group()
-	_buff_group_map.erase(stacking_group)
 
 	var friendly: bool = buff.is_friendly()
 	_get_buff_list(friendly).erase(buff)
@@ -1207,11 +1200,12 @@ func get_buff_of_type(buff_type: BuffType) -> Buff:
 	return buff
 
 
+# NOTE: this f-n is not implemented, see comment for
+# BuffType.set_stacking_group() for reason.
+# 
 # NOTE: unit.getBuffOfGroup() in JASS
-func get_buff_of_group(stacking_group: String) -> Buff:
-	var buff = _buff_group_map.get(stacking_group, null)
-
-	return buff
+# func get_buff_of_group(stacking_group: String) -> Buff:
+#	return null
 
 
 # Removes the most recent buff. Returns true if there was a
