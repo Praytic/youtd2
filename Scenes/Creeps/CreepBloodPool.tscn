@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://w47xmru10osr"]
+
+[ext_resource type="Script" path="res://Scenes/Creeps/CreepBloodPool.gd" id="1_5iqax"]
+[ext_resource type="Texture2D" uid="uid://bqfroocbty8l3" path="res://Assets/Mobs/corpse.png" id="1_u8fa2"]
+
+[node name="CreepBloodPool" type="Node2D" node_paths=PackedStringArray("_sprite")]
+script = ExtResource("1_5iqax")
+_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.65098, 0.196078, 0.196078, 0.588235)
+texture = ExtResource("1_u8fa2")

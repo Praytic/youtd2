@@ -1,27 +1,16 @@
-extends Unit
+extends Node2D
 
 
 # Corpse visual created after creep dies. Fades away slowly
-# then disappears. Note that creep corpses are used by some
-# towers, for example the Undistrubed Crypt tower deals aoe
-# damage centered on corpse positions.
+# then disappears. Note that this is not the corpse.
 
 
-const FADE_DURATION: float = 10
+const FADE_DURATION: float = 60
 
 @export var _sprite: Sprite2D
 
 
 func _ready():
-	super()
-
-	add_to_group("corpses")
-	_set_visual_node(_sprite)
-
-#	NOTE: hide the corpse sprite because it currently uses a
-#	placeholder asset
-	_sprite.visible = false
-
 	var fade_tween = create_tween()
 	fade_tween.tween_property(_sprite, "modulate",
 		Color(_sprite.modulate.r, _sprite.modulate.g, _sprite.modulate.b, 0),

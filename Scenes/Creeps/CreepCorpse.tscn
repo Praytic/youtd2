@@ -1,12 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://dsfo2v7m21tqm"]
 
-[ext_resource type="Texture2D" uid="uid://bqfroocbty8l3" path="res://Assets/Mobs/corpse.png" id="1_51hw1"]
 [ext_resource type="Script" path="res://Scenes/Creeps/CreepCorpse.gd" id="1_mvyph"]
+[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="2_igp3s"]
 
 [node name="CreepCorpse" type="Node2D" node_paths=PackedStringArray("_sprite")]
 script = ExtResource("1_mvyph")
 _sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.65098, 0.196078, 0.196078, 0.588235)
-texture = ExtResource("1_51hw1")
+texture = ExtResource("2_igp3s")

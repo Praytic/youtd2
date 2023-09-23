@@ -287,9 +287,22 @@ func _on_death(_event: Event):
 #	look weird for corpse to appear while creep is flying
 #	far above it.
 	if _size != CreepSize.enm.AIR:
+# 	Randomize sprite position and scale to make sprites look
+# 	varied
+		var random_offset: Vector2 = Vector2(randf_range(-10, 10), randf_range(-10, 10))
+		var corpse_position: Vector2 = position + random_offset
+
+		var corpse_scale: Vector2 = Vector2(randf_range(0.95, 1.05), randf_range(0.95, 1.05))
+
 		var corpse: Node2D = Globals.corpse_scene.instantiate()
-		corpse.position = position
+		corpse.position = corpse_position
+		corpse.scale = corpse_scale
 		Utils.add_object_to_world(corpse)
+
+		var blood_pool: Node2D = Globals.blood_pool_scene.instantiate()
+		blood_pool.position = corpse_position
+		blood_pool.scale = corpse_scale
+		Utils.add_object_to_world(blood_pool)
 
 
 #########################
