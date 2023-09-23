@@ -1,12 +1,13 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://b2bbg575pggjf"]
 
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="1_av02q"]
+[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/curvy_border_box.tres" id="2_ml5le"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c67wk"]
 atlas = ExtResource("1_av02q")
 region = Rect2(1275, 219, 139, 154)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fvhea"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4v4xh"]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 5.0
@@ -18,7 +19,7 @@ texture_margin_bottom = 13.9504
 region_rect = Rect2(1275, 219, 139, 154)
 modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pwr4k"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0f8p6"]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 5.0
@@ -29,19 +30,7 @@ texture_margin_right = 14.0
 texture_margin_bottom = 13.9504
 region_rect = Rect2(1275, 219, 139, 154)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yi5ca"]
-content_margin_left = 10.0
-content_margin_right = 10.0
-content_margin_bottom = 5.0
-texture = SubResource("AtlasTexture_c67wk")
-texture_margin_left = 13.9504
-texture_margin_top = 14.0
-texture_margin_right = 14.0
-texture_margin_bottom = 13.9504
-region_rect = Rect2(1275, 219, 139, 154)
-modulate_color = Color(0.588235, 0.588235, 0.588235, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sdhc4"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qtcij"]
 content_margin_left = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 5.0
@@ -54,8 +43,8 @@ region_rect = Rect2(1275, 219, 139, 154)
 
 [resource]
 Button/font_sizes/font_size = 26
-Button/styles/disabled = SubResource("StyleBoxTexture_fvhea")
+Button/styles/disabled = SubResource("StyleBoxTexture_4v4xh")
 Button/styles/focus = null
-Button/styles/hover = SubResource("StyleBoxTexture_pwr4k")
-Button/styles/normal = SubResource("StyleBoxTexture_yi5ca")
-Button/styles/pressed = SubResource("StyleBoxTexture_sdhc4")
+Button/styles/hover = SubResource("StyleBoxTexture_0f8p6")
+Button/styles/normal = ExtResource("2_ml5le")
+Button/styles/pressed = SubResource("StyleBoxTexture_qtcij")

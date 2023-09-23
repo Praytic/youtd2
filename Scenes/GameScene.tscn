@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=18 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD.tscn" id="2"]
@@ -10,6 +10,10 @@
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
+[ext_resource type="Theme" uid="uid://dda56oy4pmsu6" path="res://Resources/Theme/movable_embedded_window_theme.tres" id="11_4yuph"]
+[ext_resource type="Script" path="res://Scenes/MovableEmeddedWindow.gd" id="12_twc0r"]
+[ext_resource type="PackedScene" uid="uid://ckiupnhfj32n6" path="res://Scenes/HUD/HoradricMenu2.tscn" id="13_dy5m1"]
+[ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="14_ubux2"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -22,6 +26,8 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 5619, 2972, 0, 0, 0, 0, 4732, 3420, 0, 0, 0, 0, 4768, 5509, 0, 0, 0, 0, 1724, 5414, 0, 0, 0, 0, 2037, 6782, 0, 0, 0, 0, -95, 7837)
 }
 point_count = 6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0didh"]
 
 [node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_wave_spawner", "_tutorial_menu")]
 process_mode = 3
@@ -110,6 +116,42 @@ offset_bottom = 52.5
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Window" type="Window" parent="UI" node_paths=PackedStringArray("menu", "open_button")]
+transparent_bg = true
+gui_snap_controls_to_pixels = false
+position = Vector2i(1484, 100)
+size = Vector2i(200, 46)
+wrap_controls = true
+transient = true
+max_size = Vector2i(200, 46)
+theme = ExtResource("11_4yuph")
+script = ExtResource("12_twc0r")
+menu = NodePath("HoradricMenu")
+open_button = NodePath("TitleButton")
+start_position = Vector2(2500, 100)
+
+[node name="HoradricMenu" parent="UI/Window" instance=ExtResource("13_dy5m1")]
+visible = false
+custom_minimum_size = Vector2(600, 800)
+offset_bottom = -547.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0didh")
+
+[node name="TitleButton" type="Button" parent="UI/Window"]
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_bottom = 46.0
+grow_horizontal = 0
+theme = ExtResource("14_ubux2")
+text = "Horadric Cube"
+
 [connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]
 [connection signal="finished" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_finished"]
+[connection signal="close_requested" from="UI/Window" to="UI/Window" method="_on_close_requested"]
+[connection signal="theme_changed" from="UI/Window" to="UI/Window" method="_on_theme_changed"]
+[connection signal="pressed" from="UI/Window/TitleButton" to="UI/Window" method="_on_open_requested"]

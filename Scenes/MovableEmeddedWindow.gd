@@ -3,9 +3,10 @@ extends Window
 
 @export var menu: Control
 @export var open_button: BaseButton
-
+@export var start_position: Vector2
 
 func _ready():
+	position = Vector2(start_position.x - menu.size.x, start_position.y)
 	_on_close_requested()
 
 
@@ -16,16 +17,18 @@ func _on_close_requested():
 	max_size = open_button.size
 	min_size = open_button.size
 	reset_size()
+	unresizable = true
+	position.x += menu.size.x - open_button.size.x
 
 
 func _on_open_requested():
 	theme_type_variation = ""
 	open_button.hide()
-#	reset_size()
 	menu.position = Vector2.ZERO
 	menu.show()
-#	menu.set_anchors_and_offsets_preset(15, 0)
 	max_size = Vector2i(32768, 32768)
 	min_size = menu.custom_minimum_size
 	reset_size()
 	menu.reset_size()
+	unresizable = false
+	position.x += open_button.size.x - menu.size.x

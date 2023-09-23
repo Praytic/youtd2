@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=11 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
@@ -6,18 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="9_3ampi"]
 [ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://Scenes/HUD/TopLeftMenu.tscn" id="10_agdn3"]
-[ext_resource type="PackedScene" uid="uid://ckiupnhfj32n6" path="res://Scenes/HUD/HoradricMenu2.tscn" id="10_e8qqf"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
-[ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="11_1m0ie"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
-[ext_resource type="Theme" uid="uid://dda56oy4pmsu6" path="res://Resources/Theme/movable_embedded_window_theme.tres" id="11_kgri8"]
-[ext_resource type="Script" path="res://Scenes/MovableEmeddedWindow.gd" id="13_17req"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/TowerMenu.tscn" id="15_rfxf1"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lbnon"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s8lsw"]
 
 [node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_roll_towers_button")]
 layout_mode = 3
@@ -185,40 +177,5 @@ text = "Roll towers"
 [node name="TowerMenu" parent="VBoxContainer" instance=ExtResource("15_rfxf1")]
 layout_mode = 2
 
-[node name="Window" type="Window" parent="." node_paths=PackedStringArray("menu", "open_button")]
-transparent_bg = true
-gui_snap_controls_to_pixels = false
-initial_position = 1
-size = Vector2i(600, 1347)
-wrap_controls = true
-transient = true
-theme = ExtResource("11_kgri8")
-theme_override_fonts/title_font = ExtResource("11_1m0ie")
-theme_override_styles/embedded_border = SubResource("StyleBoxEmpty_lbnon")
-script = ExtResource("13_17req")
-menu = NodePath("HoradricMenu")
-open_button = NodePath("TitleButton")
-
-[node name="HoradricMenu" parent="Window" instance=ExtResource("10_e8qqf")]
-visible = false
-custom_minimum_size = Vector2(600, 800)
-offset_bottom = -3832.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_s8lsw")
-
-[node name="TitleButton" type="Button" parent="Window"]
-custom_minimum_size = Vector2(200, 0)
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -200.0
-offset_bottom = 46.0
-grow_horizontal = 0
-theme = ExtResource("9_3ampi")
-text = "Horadric Cube"
-
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
-[connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
-[connection signal="pressed" from="Window/TitleButton" to="Window" method="_on_open_requested"]

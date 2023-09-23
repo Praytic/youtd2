@@ -5,7 +5,6 @@ extends PanelContainer
 @export var _items_container: GridContainer
 @export var _transmute_button: Button
 @export var _main_container: VBoxContainer
-@export var _title_button: Button
 
 
 func _ready():

@@ -1,9 +1,16 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dda56oy4pmsu6"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dda56oy4pmsu6"]
 
-[ext_resource type="StyleBox" uid="uid://b87g6tudcwlm3" path="res://Resources/Theme/window_embedded_border_style_box.tres" id="1_2nn00"]
+[sub_resource type="ImageTexture" id="ImageTexture_8dq8n"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_pgqo3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0037n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_er68e"]
 
 [resource]
 ClosedWindow/base_type = &"Window"
-ClosedWindow/icons/close = null
-ClosedWindow/icons/close_pressed = null
-Window/styles/embedded_border = ExtResource("1_2nn00")
+ClosedWindow/icons/close = SubResource("ImageTexture_8dq8n")
+ClosedWindow/icons/close_pressed = SubResource("ImageTexture_pgqo3")
+ClosedWindow/styles/embedded_border = SubResource("StyleBoxEmpty_0037n")
+Window/styles/embedded_border = SubResource("StyleBoxEmpty_er68e")
