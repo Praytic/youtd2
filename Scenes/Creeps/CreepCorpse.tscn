@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsfo2v7m21tqm"]
+[gd_scene load_steps=2 format=3 uid="uid://dsfo2v7m21tqm"]
 
 [ext_resource type="Script" path="res://Scenes/Creeps/CreepCorpse.gd" id="1_mvyph"]
-[ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="2_igp3s"]
 
 [node name="CreepCorpse" type="Node2D" node_paths=PackedStringArray("_sprite")]
 script = ExtResource("1_mvyph")
 _sprite = NodePath("Sprite2D")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_igp3s")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]

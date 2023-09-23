@@ -238,6 +238,21 @@ func _get_creep_animation() -> String:
 				"stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand"
 			]
 
+	var animation: String = _get_animation_based_on_facing_angle(animation_order)
+
+	return animation
+
+
+func _get_death_animation() -> String:
+	var animation_list: Array[String] = [
+		"death_E", "death_S", "death_W", "death_N"
+	];
+	var animation: String = _get_animation_based_on_facing_angle(animation_list)
+
+	return animation
+
+
+func _get_animation_based_on_facing_angle(animation_order: Array[String]) -> String:
 # 	NOTE: convert facing angle to animation index by
 # 	breaking down the 360 degree space into sections. 4 for
 # 	ground units and 8 for air units. Then we figure out
@@ -283,25 +298,22 @@ func _on_death(_event: Event):
 	Effect.destroy_effect_after_its_over(effect_id)
 
 # 	Add corpse object
-#	NOTE: don't add corpse for air creeps because it would
-#	look weird for corpse to appear while creep is flying
-#	far above it.
 	if _size != CreepSize.enm.AIR:
-# 	Randomize sprite position and scale to make sprites look
-# 	varied
-		var random_offset: Vector2 = Vector2(randf_range(-10, 10), randf_range(-10, 10))
-		var corpse_position: Vector2 = position + random_offset
-
-		var corpse_scale: Vector2 = Vector2(randf_range(0.95, 1.05), randf_range(0.95, 1.05))
-
 		var corpse: Node2D = Globals.corpse_scene.instantiate()
-		corpse.position = corpse_position
-		corpse.scale = corpse_scale
+		var death_animation: String = _get_death_animation()
+		print(_sprite.global_position)
+		corpse.setup_sprite(_sprite, death_animation)
+		corpse.position = position
 		Utils.add_object_to_world(corpse)
 
+# 		Randomize position and scale of blood pool to make
+# 		them look varied
+		var random_offset: Vector2 = Vector2(randf_range(-10, 10), randf_range(-10, 10))
+		var blood_position: Vector2 = position + random_offset
+		var blood_scale: Vector2 = Vector2(randf_range(0.95, 1.05), randf_range(0.95, 1.05))
 		var blood_pool: Node2D = Globals.blood_pool_scene.instantiate()
-		blood_pool.position = corpse_position
-		blood_pool.scale = corpse_scale
+		blood_pool.position = blood_position
+		blood_pool.scale = blood_scale
 		Utils.add_object_to_world(blood_pool)
 
 

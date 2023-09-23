@@ -9,7 +9,7 @@ extends Unit
 
 const FADE_DURATION: float = 10
 
-@export var _sprite: Sprite2D
+@export var _sprite: AnimatedSprite2D
 
 
 func _ready():
@@ -18,15 +18,22 @@ func _ready():
 	add_to_group("corpses")
 	_set_visual_node(_sprite)
 
-#	NOTE: hide the corpse sprite because it currently uses a
-#	placeholder asset
-	_sprite.visible = false
-
 	var fade_tween = create_tween()
 	fade_tween.tween_property(_sprite, "modulate",
 		Color(_sprite.modulate.r, _sprite.modulate.g, _sprite.modulate.b, 0),
 		FADE_DURATION).set_trans(Tween.TRANS_LINEAR)
 	fade_tween.finished.connect(on_fade_finished)
+
+
+# Copies sprite from creep and starts the death animation.
+# NOTE: need to copy original sprite's position and scale to
+# correctly display the same thing.
+func setup_sprite(creep_sprite: AnimatedSprite2D, death_animation: String):
+	_sprite.sprite_frames = creep_sprite.sprite_frames.duplicate()
+	_sprite.scale = creep_sprite.scale
+	_sprite.position = creep_sprite.position
+	_sprite.sprite_frames.set_animation_loop(death_animation, false)
+	_sprite.play(death_animation)
 
 
 func on_fade_finished():
