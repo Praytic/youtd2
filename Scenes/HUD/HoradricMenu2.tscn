@@ -1,9 +1,7 @@
-[gd_scene load_steps=36 format=3 uid="uid://ckiupnhfj32n6"]
+[gd_scene load_steps=34 format=3 uid="uid://ckiupnhfj32n6"]
 
 [ext_resource type="Theme" uid="uid://c7tov8p6m7vb4" path="res://Resources/Theme/HoradricMenu/horadric_menu_theme.tres" id="1_goc45"]
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_1vbsd"]
-[ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="3_qnmdl"]
-[ext_resource type="ButtonGroup" uid="uid://ce5xw83da2d6c" path="res://Resources/UI/ButtonGroup/right_panel_button_group.tres" id="4_xrxlp"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="5_g7trm"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_6747o"]
 [ext_resource type="Theme" uid="uid://dh1mew0ki50dq" path="res://Resources/Theme/tiny_unit_button_theme.tres" id="6_k68sm"]
@@ -184,14 +182,14 @@ UncommonRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_fwu2f")
 UniqueRarityPanelContainer/base_type = &"PanelContainer"
 UniqueRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_gqeb4")
 
-[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_main_container", "_title_button")]
+[node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_main_container")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_force_pass_scroll_events = false
 theme = ExtResource("1_goc45")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
@@ -199,26 +197,6 @@ script = ExtResource("2_1vbsd")
 _items_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer")
 _transmute_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteButton")
 _main_container = NodePath("MainContainer")
-_title_button = NodePath("MarginContainer2/TitleButton")
-
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-show_behind_parent = true
-z_index = 1
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = -20
-theme_override_constants/margin_right = 10
-
-[node name="TitleButton" type="Button" parent="MarginContainer2"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("3_qnmdl")
-toggle_mode = true
-button_group = ExtResource("4_xrxlp")
-text = "Horadric Cube"
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2

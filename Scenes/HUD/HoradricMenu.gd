@@ -10,15 +10,9 @@ extends PanelContainer
 
 func _ready():
 	HoradricCube.items_changed.connect(_on_items_changed)
-	_title_button.toggled.connect(_on_title_button_toggled)
 	_items_container.gui_input.connect(_on_items_container_gui_input)
 	
 	_on_items_changed()
-	_main_container.hide()
-
-
-func is_visibility_mode_expanded() -> bool:
-	return _main_container.visible
 
 
 func _on_items_changed():
@@ -59,20 +53,3 @@ func _on_items_container_gui_input(event):
 
 	if left_click:
 		ItemMovement.horadric_menu_was_clicked()
-
-
-func _on_title_button_toggled(toggle: bool):
-	if toggle:
-		_main_container.show()
-		_title_button.get_parent().set_h_size_flags(SIZE_SHRINK_CENTER)
-	else:
-		_main_container.hide()
-		_title_button.get_parent().set_h_size_flags(SIZE_SHRINK_END)
-	
-	if toggle:
-		for button in _title_button.button_group.get_buttons():
-			button.hide()
-		_title_button.show()
-	else:
-		for button in _title_button.button_group.get_buttons():
-			button.show()

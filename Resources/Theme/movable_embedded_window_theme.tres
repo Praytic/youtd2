@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dda56oy4pmsu6"]
+
+[ext_resource type="StyleBox" uid="uid://b87g6tudcwlm3" path="res://Resources/Theme/window_embedded_border_style_box.tres" id="1_2nn00"]
+
+[resource]
+ClosedWindow/base_type = &"Window"
+ClosedWindow/icons/close = null
+ClosedWindow/icons/close_pressed = null
+Window/styles/embedded_border = ExtResource("1_2nn00")
