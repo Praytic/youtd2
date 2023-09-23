@@ -7,7 +7,7 @@ extends Unit
 # damage centered on corpse positions.
 
 
-const FADE_DURATION: float = 10
+const DURATION: float = 10
 
 @export var _sprite: AnimatedSprite2D
 
@@ -21,7 +21,7 @@ func _ready():
 	var fade_tween = create_tween()
 	fade_tween.tween_property(_sprite, "modulate",
 		Color(_sprite.modulate.r, _sprite.modulate.g, _sprite.modulate.b, 0),
-		FADE_DURATION).set_trans(Tween.TRANS_LINEAR)
+		0.2 * DURATION).set_delay(0.8 * DURATION).set_trans(Tween.TRANS_LINEAR)
 	fade_tween.finished.connect(on_fade_finished)
 
 

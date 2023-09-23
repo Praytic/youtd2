@@ -5,17 +5,29 @@ extends Node2D
 # then disappears. Note that this is not the corpse.
 
 
-const FADE_DURATION: float = 60
+const DURATION: float = 60
 
 @export var _sprite: Sprite2D
 
 
 func _ready():
-	var fade_tween = create_tween()
-	fade_tween.tween_property(_sprite, "modulate",
+#	Start out transparent
+	_sprite.modulate.a = 0
+
+#	NOTE: draw blood pool between floor tile and creep
+#	corpse
+	_sprite.z_index = -1
+
+# 	Blood pool fades in shortly after creep death animation
+# 	falls to the ground.
+# 	Then it slowly fades away.
+	var modulate_tween = create_tween()
+	modulate_tween.tween_property(_sprite, "modulate",
+		Color(_sprite.modulate.r, _sprite.modulate.g, _sprite.modulate.b, 1), 1.0).set_delay(1.0)
+	modulate_tween.tween_property(_sprite, "modulate",
 		Color(_sprite.modulate.r, _sprite.modulate.g, _sprite.modulate.b, 0),
-		FADE_DURATION).set_trans(Tween.TRANS_LINEAR)
-	fade_tween.finished.connect(on_fade_finished)
+		0.6 * DURATION).set_delay(0.4 * DURATION).set_trans(Tween.TRANS_LINEAR)
+	modulate_tween.finished.connect(on_fade_finished)
 
 
 func on_fade_finished():
