@@ -20,7 +20,7 @@ var _level_at_exp: Dictionary = make_level_at_exp_map(_exp_for_level)
 func _load_exp_for_level_map() -> Dictionary:
 	var map: Dictionary = {}
 
-	var csv: Array[PackedStringArray] = Utils.load_csv(EXP_FOR_LEVEL_PATH)
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(EXP_FOR_LEVEL_PATH)
 
 	for csv_line in csv:
 		var level: int = csv_line[ExpForLevelColumn.LEVEL].to_int()

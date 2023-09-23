@@ -94,7 +94,7 @@ static func get_metadata_for_sheet(sheet_path: String) -> PackedMetadata:
 
 	var animation_name: String = PackedMetadata._get_animation_name(sheet_path)
 
-	var csv: Array[PackedStringArray] = Utils.load_csv(metadata_path)
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(metadata_path)
 
 	var metadata: PackedMetadata = PackedMetadata.new()
 	for csv_line in csv:

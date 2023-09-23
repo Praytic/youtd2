@@ -19,7 +19,7 @@ var _text_list: Array[String] = []
 
 
 func _ready():
-	var csv: Array[PackedStringArray] = Utils.load_csv(HINTS_CSV_PATH)
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(HINTS_CSV_PATH)
 	
 	var root: TreeItem = _tree.create_item()
 

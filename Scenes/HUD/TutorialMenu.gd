@@ -48,7 +48,7 @@ func _on_game_mode_was_chosen():
 	else:
 		tutorial_path = TUTORIAL_RANDOM_PATH
 
-	var csv: Array[PackedStringArray] = Utils.load_csv(tutorial_path)
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(tutorial_path)
 	
 	_section_list = []
 	

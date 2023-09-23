@@ -1,4 +1,4 @@
-extends Node
+class_name UtilsStatic extends Node
 
 
 var _current_game_time: float = 0.0
@@ -14,7 +14,7 @@ func get_object_container():
 # Returns a list of lines, each line is a list of strings.
 # It's assumed that the first row is title row and it is
 # skipped.
-func load_csv(path: String) -> Array[PackedStringArray]:
+static func load_csv(path: String) -> Array[PackedStringArray]:
 	var file_exists: bool = FileAccess.file_exists(path)
 
 	if !file_exists:

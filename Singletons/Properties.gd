@@ -90,7 +90,7 @@ func filter_item_id_list(item_list: Array, item_property: Item.CsvProperty, filt
 #########################
 
 func _load_csv_properties(properties_path: String, properties_dict: Dictionary, id_column: int):
-	var csv: Array[PackedStringArray] = Utils.load_csv(properties_path)
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(properties_path)
 
 	for csv_line in csv:
 		var properties: Dictionary = _load_csv_line(csv_line)
