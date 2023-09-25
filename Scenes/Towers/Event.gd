@@ -91,3 +91,12 @@ func enable_advanced(wait_time: float, one_shot: bool):
 # to Event because it makes more sense.
 func get_number_of_crits() -> int:
 	return _number_of_crits
+
+
+# Valid only for the following events: attack, attacked,
+# damage, damaged.
+# NOTE: Event.isAttackDamageCritical() in JASS
+func is_attack_damage_critical() -> int:
+	var is_critical: bool = _number_of_crits > 0
+
+	return is_critical

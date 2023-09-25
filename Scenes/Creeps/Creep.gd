@@ -72,6 +72,12 @@ func _process(delta):
 ###       Public      ###
 #########################
 
+
+# NOTE: SetUnitTimeScale() in JASS
+func set_unit_time_scale(time_scale: float):
+	_sprite.set_speed_scale(time_scale)
+
+
 # NOTE: creeps are always considered to be attacking for the
 # purposes of their autocasts.
 func is_attacking() -> bool:
@@ -160,7 +166,7 @@ func _move(delta):
 	var prev_pos: Vector2 = position
 
 	var path_point: Vector2 = _path.get_curve().get_point_position(_current_path_index) + _path.position
-	var move_delta: float = _get_move_speed() * delta
+	var move_delta: float = get_current_movespeed() * delta
 	position = Isometric.vector_move_toward(position, path_point, move_delta)
 	moved.emit(delta)
 	
@@ -181,8 +187,8 @@ func _get_creep_animation() -> String:
 	var animation_order: Array[String]
 	
 # TODO: Switch when certain speed limit is reached
-#	if _get_move_speed() > 300:
-	var creep_move_speed = _get_move_speed()
+#	if get_current_movespeed() > 300:
+	var creep_move_speed = get_current_movespeed()
 	match get_size():
 		CreepSize.enm.MASS:
 			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 0.90:
@@ -271,8 +277,8 @@ func _get_animation_based_on_facing_angle(animation_order: Array[String]) -> Str
 	return animation
 
 
-func _get_move_speed() -> float:
-	var base: float = Constants.DEFAULT_MOVE_SPEED
+func get_current_movespeed() -> float:
+	var base: float = get_base_movespeed()
 	var mod: float = get_prop_move_speed()
 	var mod_absolute: float = get_prop_move_speed_absolute()
 	var unclamped: float = (base + mod_absolute) * mod

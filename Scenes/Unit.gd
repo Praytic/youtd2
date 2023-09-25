@@ -1325,6 +1325,9 @@ func get_prop_move_speed() -> float:
 func get_prop_move_speed_absolute() -> float:
 	return _mod_value_map[Modification.Type.MOD_MOVESPEED_ABSOLUTE]
 
+func get_base_movespeed() -> float:
+	return Constants.DEFAULT_MOVE_SPEED
+
 func get_prop_atk_damage_received() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_ATK_DAMAGE_RECEIVED])
 
