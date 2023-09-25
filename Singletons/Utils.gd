@@ -64,10 +64,15 @@ func get_animated_sprite_dimensions(sprite: AnimatedSprite2D, animation_name: St
 	return sprite_dimensions
 
 
-# TODO: implement. Should return hours i guess?
+# Returns current time of day in the game world, in hours.
+# Between 0.0 and 24.0.
 # NOTE: GetFloatGameState(GAME_STATE_TIME_OF_DAY) in JASS
 func get_time_of_day() -> float:
-	return 0.0
+	var irl_seconds: float = get_game_time()
+	var game_world_hours: float = Constants.INITIAL_TIME_OF_DAY + irl_seconds * Constants.IRL_SECONDS_TO_GAME_WORLD_HOURS
+	var time_of_day: float = fmod(game_world_hours, 24.0)
+
+	return time_of_day
 
 
 # TODO: connect this to actual max level that was picked

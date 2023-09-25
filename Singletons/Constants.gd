@@ -86,3 +86,8 @@ const BASE_ITEM_DROP_CHANCE: float = 0.0475
 const MOVE_SPEED_MIN: float = 1.0
 const MOVE_SPEED_MAX: float = 522.0
 const DEFAULT_MOVE_SPEED: float = 222.0
+
+# 24h = 480 irl seconds
+const IRL_SECONDS_TO_GAME_WORLD_HOURS: float = 24.0 / 480.0
+# Time of day starts at 12:00, noon
+const INITIAL_TIME_OF_DAY: float = 12.0
