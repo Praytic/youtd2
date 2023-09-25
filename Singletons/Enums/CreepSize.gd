@@ -7,8 +7,8 @@ enum enm {
 	NORMAL,
 	AIR,
 	CHAMPION,
-	BOSS,
 	CHALLENGE_MASS,
+	BOSS,
 	CHALLENGE_BOSS,
 }
 
