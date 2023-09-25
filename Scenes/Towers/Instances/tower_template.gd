@@ -7,10 +7,15 @@ extends Tower
 # func get_tier_stats() -> Dictionary:
 # 	return {
 # 		1: {foo = 123},
+# 		2: {foo = 123},
+# 		3: {foo = 123},
 # 	}
 
 
 # func get_extra_tooltip_text() -> String:
+# 	var foo: String = Utils.format_float(_stats.foo, 2)
+# 	var bar: String = Utils.format_float(_stats.bar, 2)
+
 # 	var text: String = ""
 
 # 	text += "[color=GOLD]Title[/color]\n"
@@ -33,13 +38,13 @@ extends Tower
 #	text += " \n"
 # 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 # 	text += "foo\n"
+# 	text += "bar\n"
 
 # 	return text
 
 
 # func load_triggers(triggers: BuffType):
 # 	triggers.add_event_on_damage(on_damage)
-# 	triggers.add_periodic_event(periodic, 5)
 
 
 # func load_specials(modifier: Modifier):
@@ -47,12 +52,11 @@ extends Tower
 
 
 # func tower_init():
-# 	var m: Modifier = Modifier.new()
-# 	m.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 # 	example_buff = BuffType.new("example_buff", 5, 0, true, self)
-# 	example_buff.set_buff_icon("@@0@@")
+# 	var mod: Modifier = Modifier.new()
+# 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 # 	example_buff.set_buff_modifier(m)
-# 	example_buff.set_stacking_group("example_buff")
+# 	example_buff.set_buff_icon("@@0@@")
 # 	example_buff.set_buff_tooltip("Title\nDescription.")
 
 # 	var autocast: Autocast = Autocast.make()
@@ -60,17 +64,17 @@ extends Tower
 # 	autocast.description = get_autocast_description()
 # 	autocast.icon = "res://path/to/icon.png"
 # 	autocast.caster_art = ""
-# 	autocast.num_buffs_before_idle = 0
-# 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
-# 	autocast.cast_range = 1200
-# 	autocast.target_self = false
 # 	autocast.target_art = ""
+# 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT
+# 	autocast.num_buffs_before_idle = 0
+# 	autocast.cast_range = 1200
+# 	autocast.auto_range = 1200
 # 	autocast.cooldown = 1
-# 	autocast.is_extended = false
 # 	autocast.mana_cost = 20
+# 	autocast.target_self = false
+# 	autocast.is_extended = false
 # 	autocast.buff_type = null
 # 	autocast.target_type = null
-# 	autocast.auto_range = 1200
 # 	autocast.handler = on_autocast
 # 	add_autocast(autocast)
 
