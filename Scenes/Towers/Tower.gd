@@ -627,6 +627,9 @@ func _get_next_bounce_target(prev_target: Creep, visited_list: Array[Unit]) -> C
 	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, Constants.BOUNCE_ATTACK_RANGE)
 
 	for visited_creep in visited_list:
+		if !Utils.unit_is_valid(visited_creep):
+			continue
+
 		creep_list.erase(visited_creep)
 
 	Utils.sort_unit_list_by_distance(creep_list, prev_target.position)
