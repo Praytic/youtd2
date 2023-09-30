@@ -120,20 +120,29 @@ func _get_current_recipe() -> Recipe:
 
 
 func _get_result_item_for_recipe(recipe: Recipe):
+	var ingredient_list: Array[int] = _get_ingredient_id_list()
 	var result_rarity: Rarity.enm = _get_result_rarity(recipe)
 	var result_item_type: ItemType.enm = _get_result_item_type(recipe)
 	var avg_ingredient_level: int = _get_average_ingredient_level()
 	var random_bonus_mod: int = _get_random_bonus_mod()
 	var lvl_min: int = avg_ingredient_level + _level_bonus_map[recipe][0] + random_bonus_mod	
 	var lvl_max: int = avg_ingredient_level + _level_bonus_map[recipe][1] + random_bonus_mod	
-	var result_item: int
 
-	match result_item_type:
-		ItemType.enm.OIL: result_item = ItemDropCalc.get_random_oil_or_consumable(result_rarity)
-		ItemType.enm.REGULAR: result_item = ItemDropCalc.get_random_item_at_or_below_rarity_bounded(result_rarity, lvl_min, lvl_max)
-		_:
-			push_error("Invalid recipe")
-			result_item = 0
+# 	Generate a result item which is not equal to any of the
+# 	ingredients
+	var result_item: int
+	var attempt_count: int = 0
+	while true:
+		result_item = _get_result_item_base(result_item_type, result_rarity, lvl_min, lvl_max)
+		attempt_count += 1
+
+		var result_is_different_from_ingredients: bool = !ingredient_list.has(result_item)
+		if result_is_different_from_ingredients:
+			break
+
+		if attempt_count > 100:
+			push_error("Failed to generate unique transmute result after 100 tries. Shouldn't happen.")
+			break
 
 	var luck_message: String
 	match random_bonus_mod:
@@ -146,6 +155,16 @@ func _get_result_item_for_recipe(recipe: Recipe):
 		Messages.add_normal(luck_message)
 
 	return {"item_id": result_item, "message": luck_message}
+
+
+func _get_result_item_base(item_type: ItemType.enm, rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int:
+	match item_type:
+		ItemType.enm.OIL: return ItemDropCalc.get_random_oil_or_consumable(rarity)
+		ItemType.enm.REGULAR: return ItemDropCalc.get_random_item_at_or_below_rarity_bounded(rarity, lvl_min, lvl_max)
+		_:
+			push_error("Invalid recipe")
+	
+	return 0
 
 
 func _cant_increase_rarity_further(recipe: Recipe) -> bool:
@@ -234,3 +253,14 @@ func _get_random_bonus_mod() -> int:
 	var bonus_mod: int = Utils.random_weighted_pick(_bonus_mod_chance_map)
 
 	return bonus_mod
+
+
+func _get_ingredient_id_list() -> Array[int]:
+	var id_list: Array[int] = []
+	var item_list: Array[Item] = _item_container.get_item_list()
+	
+	for item in item_list:
+		var id: int = item.get_id()
+		id_list.append(id)
+
+	return id_list
