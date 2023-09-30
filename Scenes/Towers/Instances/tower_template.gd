@@ -55,7 +55,7 @@ extends Tower
 # 	example_buff = BuffType.new("example_buff", 5, 0, true, self)
 # 	var mod: Modifier = Modifier.new()
 # 	mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
-# 	example_buff.set_buff_modifier(m)
+# 	example_buff.set_buff_modifier(mod)
 # 	example_buff.set_buff_icon("@@0@@")
 # 	example_buff.set_buff_tooltip("Title\nDescription.")
 
@@ -74,7 +74,7 @@ extends Tower
 # 	autocast.target_self = false
 # 	autocast.is_extended = false
 # 	autocast.buff_type = null
-# 	autocast.target_type = null
+# 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 # 	autocast.handler = on_autocast
 # 	add_autocast(autocast)
 
