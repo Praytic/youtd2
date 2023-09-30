@@ -122,3 +122,11 @@ func modify_income_rate(amount: float):
 # NOTE: player.modifyInterestRate in JASS
 func modify_interest_rate(amount: float):
 	GoldControl.modify_interest_rate(amount)
+
+
+# NOTE: player.getNumTowers in JASS
+func get_num_towers() -> int:
+	var tower_list: Array = get_tree().get_nodes_in_group("towers")
+	var num_towers: int = tower_list.size()
+
+	return num_towers

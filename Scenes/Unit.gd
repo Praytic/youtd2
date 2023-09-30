@@ -226,6 +226,13 @@ func add_attack_crit():
 	_bonus_crit_ratio_for_next_attack += get_prop_atk_crit_damage() - 1.0
 
 
+# NOTE: unit.addCustomAttackCrit() in JASS
+func add_custom_attack_crit(custom_crit_ratio: float):
+	_bonus_crit_count_for_next_attack = _bonus_crit_count_for_next_attack + 1
+	_bonus_crit_ratio_for_next_attack = custom_crit_ratio
+
+
+# NOTE: unit.addModifiedAttackCrit() in JASS
 func add_modified_attack_crit(crit_damage_add: float, crit_damage_multiply: float):
 	_bonus_crit_count_for_next_attack = _bonus_crit_count_for_next_attack + 1
 	_bonus_crit_ratio_for_next_attack = (get_prop_atk_crit_damage() - 1.0) * crit_damage_multiply + crit_damage_add

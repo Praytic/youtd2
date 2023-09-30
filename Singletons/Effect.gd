@@ -60,6 +60,10 @@ func create_animated_scaled(effect_path: String, x: float, y: float, z: float, m
 	return create_animated(effect_path, x, y, z, mystery1)
 
 
+# NOTE: Effect.createSimple() in JASS
+func create_simple(effect_path: String, x: float, y: float) -> int:
+	return create_animated(effect_path, x, y, 0.0, 0.0)
+
 # NOTE: Effect.createSimpleAtUnit() in JASS
 func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
 	var position: Vector2 = unit.get_visual_position() 
