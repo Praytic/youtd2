@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3jynpcq4c1bb"]
+
+[ext_resource type="PackedScene" uid="uid://b14bbv4n46f1j" path="res://Scenes/Spells/SpellDummy.tscn" id="1_54xre"]
+[ext_resource type="Script" path="res://Scenes/Spells/SpellSwarm.gd" id="2_uvcqe"]
+
+[node name="SpellSwarm" node_paths=PackedStringArray("_move_timer") instance=ExtResource("1_54xre")]
+script = ExtResource("2_uvcqe")
+_move_timer = NodePath("MoveTimer")
+
+[node name="MoveTimer" type="Timer" parent="." index="2"]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
