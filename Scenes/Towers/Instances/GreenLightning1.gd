@@ -110,7 +110,7 @@ func on_attack(_event: Event):
 	var tower: Tower = self
 	var mana: float = tower.get_mana()
 
-	tower.set_mana(mana + 4 * (1 + tower.get_base_mana_regen_bonus_percent()))
+	tower.set_mana(mana + 4 * tower.get_base_mana_regen_bonus_percent())
 
 	tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, _stats.spell_crit + (tower.get_level() * _stats.spell_crit_add))
 	tower.user_real = tower.user_real + _stats.spell_crit + tower.get_level() * _stats.spell_crit_add

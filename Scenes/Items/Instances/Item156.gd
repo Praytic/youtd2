@@ -23,7 +23,7 @@ func load_triggers(triggers: BuffType):
 func on_damage(event: Event):
 	var itm: Item = self
 	var carrier: Tower = itm.get_carrier()
-	var regen: float = 2.0 + carrier.get_base_mana_regen_bonus_percent()
+	var regen: float = carrier.get_base_mana_regen_bonus_percent()
 	
 	itm.user_int = itm.user_int + 1
 
