@@ -226,6 +226,10 @@ func set_tower_crit_ratio(tower_crit_ratio: float):
 	_tower_crit_ratio = tower_crit_ratio
 
 
+func get_tower_bounce_visited_list() -> Array[Unit]:
+	return _tower_bounce_visited_list
+
+
 func _get_target_position() -> Vector2:
 	if _targeted:
 		if _target != null:

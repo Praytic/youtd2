@@ -57,7 +57,7 @@ func _add_all_towers():
 	print_verbose("BuildBar has added all towers.")
 
 
-func add_tower_button(tower_id, emit_signal: bool = true):
+func add_tower_button(tower_id, should_emit_signal: bool = true):
 	if _tower_buttons.has(tower_id):
 		var tower_button: TowerButton = _tower_buttons[tower_id]
 		var new_count: int = tower_button.get_count() + 1
@@ -85,11 +85,11 @@ func add_tower_button(tower_id, emit_signal: bool = true):
 		var insert_index: int = _get_insert_index_for_tower(tower_id)
 		move_child(button_container, insert_index)
 	
-	if emit_signal:
+	if should_emit_signal:
 		towers_changed.emit()
 
 
-func remove_tower_button(tower_id, emit_signal: bool = true):
+func remove_tower_button(tower_id, should_emit_signal: bool = true):
 	var button: TowerButton = _tower_buttons[tower_id]
 	var button_container: UnitButtonContainer = button.get_parent()
 
@@ -104,7 +104,7 @@ func remove_tower_button(tower_id, emit_signal: bool = true):
 		remove_child(button_container)
 		button_container.queue_free()
 	
-	if emit_signal:
+	if should_emit_signal:
 		towers_changed.emit()
 
 

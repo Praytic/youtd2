@@ -75,9 +75,9 @@ func next_random() -> Unit:
 
 # NOTE: iterate.nextCorpse() in JASS
 func next_corpse() -> Unit:
-	var next_corpse: Unit = next()
+	var corpse: Unit = next()
 
-	return next_corpse
+	return corpse
 
 
 # NOTE: iterate.destroy() in JASS

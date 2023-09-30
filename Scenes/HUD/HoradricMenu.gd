@@ -8,6 +8,9 @@ extends PanelContainer
 
 
 func _ready():
+#	NOTE: this is to fix "unused" warning
+	_main_container = _main_container
+	
 	HoradricCube.items_changed.connect(_on_items_changed)
 	_items_container.gui_input.connect(_on_items_container_gui_input)
 	

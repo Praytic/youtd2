@@ -19,6 +19,9 @@ var _element_filter_button_group: ButtonGroup = preload("res://Resources/UI/Butt
 
 
 func _ready():
+#	NOTE: this is to fix "unused" warning
+	_center_menu = _center_menu	
+	
 	for item_filter_button in _item_rarity_filter_button_group.get_buttons():
 		item_filter_button.toggled.connect(_on_item_rarity_filter_button_toggled)
 	

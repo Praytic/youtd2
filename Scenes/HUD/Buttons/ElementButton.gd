@@ -34,7 +34,7 @@ func _ready():
 	_on_element_level_changed()
 
 
-func _process(delta):
+func _process(_delta: float):
 	if not _research_timer.is_stopped():
 		var new_research_progress = (PRESS_DURATION_TO_COMPLETE_RESEARCH - _research_timer.time_left) * _research_element_progress_bar.max_value / PRESS_DURATION_TO_COMPLETE_RESEARCH
 		_research_element_progress_bar.value = new_research_progress

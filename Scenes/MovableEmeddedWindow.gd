@@ -18,7 +18,7 @@ func _on_close_requested():
 	min_size = open_button.size
 	reset_size()
 	unresizable = true
-	position.x += menu.size.x - open_button.size.x
+	position.x += int(menu.size.x - open_button.size.x)
 
 
 func _on_open_requested():
@@ -31,4 +31,4 @@ func _on_open_requested():
 	reset_size()
 	menu.reset_size()
 	unresizable = false
-	position.x += open_button.size.x - menu.size.x
+	position.x += int(open_button.size.x - menu.size.x)

@@ -54,7 +54,6 @@ var _uses_charges: bool = false
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()
-var _buff_type_list: Array[BuffType] = []
 var _autocast: Autocast = null
 var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 var _triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
@@ -182,7 +181,7 @@ func uses_charges() -> bool:
 
 # NOTE: override this in subclass to attach trigger handlers
 # to triggers buff passed in the argument.
-func load_triggers(_triggers_buff_type: BuffType):
+func load_triggers(_triggers: BuffType):
 	pass
 
 

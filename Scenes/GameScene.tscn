@@ -153,5 +153,4 @@ text = "Horadric Cube"
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]
 [connection signal="finished" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_finished"]
 [connection signal="close_requested" from="UI/Window" to="UI/Window" method="_on_close_requested"]
-[connection signal="theme_changed" from="UI/Window" to="UI/Window" method="_on_theme_changed"]
 [connection signal="pressed" from="UI/Window/TitleButton" to="UI/Window" method="_on_open_requested"]

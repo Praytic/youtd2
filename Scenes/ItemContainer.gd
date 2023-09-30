@@ -65,7 +65,7 @@ func remove_item(item: Item):
 # can be correctly used in code which adds or removes items
 # from container.
 func get_item_list(rarity_filter = null, type_filter = null) -> Array[Item]:
-	var item_list: Array[Item]
+	var item_list: Array[Item] = []
 	for item in _item_list.duplicate():
 		var rarity = item.get_rarity() == rarity_filter or rarity_filter == null
 		var type = item.get_item_type() == type_filter or type_filter == null
