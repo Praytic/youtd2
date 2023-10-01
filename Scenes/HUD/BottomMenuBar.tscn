@@ -496,6 +496,7 @@ size_flags_horizontal = 0
 
 [node name="ItemFilterButton1" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
+tooltip_text = "Show only common items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_qtpi7")
 theme_override_styles/hover = SubResource("StyleBoxTexture_56vm4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_dssae")
@@ -507,6 +508,7 @@ filter_value = 0
 
 [node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
+tooltip_text = "Show only uncommon items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_o20ob")
 theme_override_styles/hover = SubResource("StyleBoxTexture_l068u")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_aoswy")
@@ -518,6 +520,7 @@ filter_value = 1
 
 [node name="ItemFilterButton3" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
+tooltip_text = "Show only rare items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_5piem")
 theme_override_styles/hover = SubResource("StyleBoxTexture_o3slk")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_xbgks")
@@ -529,6 +532,7 @@ filter_value = 2
 
 [node name="ItemFilterButton4" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
+tooltip_text = "Show only unique items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_twa77")
 theme_override_styles/hover = SubResource("StyleBoxTexture_d2ngo")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_olwpn")
@@ -545,6 +549,7 @@ alignment = 2
 
 [node name="ItemFilterButton1" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
+tooltip_text = "Show only regular items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_ahejp")
 theme_override_styles/hover = SubResource("StyleBoxTexture_ib584")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_pexw0")
@@ -556,6 +561,7 @@ filter_value = 0
 
 [node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
+tooltip_text = "Show only oil items"
 theme_override_styles/normal = SubResource("StyleBoxTexture_6dht0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_um3tl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_f781c")
