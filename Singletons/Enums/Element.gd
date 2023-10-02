@@ -62,7 +62,7 @@ const _color_map: Dictionary = {
 	Element.enm.NATURE: Color.LIME_GREEN,
 	Element.enm.FIRE: Color.ORANGE_RED,
 	Element.enm.ASTRAL: Color.MEDIUM_AQUAMARINE,
-	Element.enm.DARKNESS: Color.DARK_VIOLET,
+	Element.enm.DARKNESS: Color.MEDIUM_PURPLE,
 	Element.enm.IRON: Color.TAN,
 	Element.enm.STORM: Color.LIGHT_YELLOW,
 	Element.enm.NONE: Color.WHITE,

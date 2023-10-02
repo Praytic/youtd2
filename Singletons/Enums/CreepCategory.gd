@@ -20,7 +20,7 @@ const _string_map: Dictionary = {
 }
 
 const _color_map: Dictionary = {
-	CreepCategory.enm.UNDEAD: Color.BLUE_VIOLET,
+	CreepCategory.enm.UNDEAD: Color.MEDIUM_PURPLE,
 	CreepCategory.enm.MAGIC: Color.CORNFLOWER_BLUE,
 	CreepCategory.enm.NATURE: Color.LIME_GREEN,
 	CreepCategory.enm.ORC: Color.DARK_SEA_GREEN,

@@ -29,7 +29,7 @@ const _string_map: Dictionary = {
 
 const _color_map: Dictionary = {
 	AttackType.enm.PHYSICAL: Color.TAN,
-	AttackType.enm.DECAY: Color.BLUE_VIOLET,
+	AttackType.enm.DECAY: Color.MEDIUM_PURPLE,
 	AttackType.enm.ENERGY: Color.DODGER_BLUE,
 	AttackType.enm.ESSENCE: Color.AQUAMARINE,
 	AttackType.enm.ELEMENTAL: Color.CORNFLOWER_BLUE,

@@ -28,7 +28,7 @@ const _color_map: Dictionary = {
 	CreepSize.enm.MASS: Color.ORANGE,
 	CreepSize.enm.NORMAL: Color.DARK_SEA_GREEN,
 	CreepSize.enm.AIR: Color.CORNFLOWER_BLUE,
-	CreepSize.enm.CHAMPION: Color.REBECCA_PURPLE,
+	CreepSize.enm.CHAMPION: Color.MEDIUM_PURPLE,
 	CreepSize.enm.BOSS: Color.ORANGE_RED,
 	CreepSize.enm.CHALLENGE_MASS: Color.GOLD,
 	CreepSize.enm.CHALLENGE_BOSS: Color.GOLD,
