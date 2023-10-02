@@ -84,7 +84,7 @@ func _on_item_type_filter_button_toggled(_toggle: bool):
 	if active_button:
 		_item_stash_menu.set_current_item_type_filter(active_button.filter_value)
 	else:
-		_item_stash_menu.set_current_item_type_filter(null)
+		_item_stash_menu.set_current_item_type_filter([])
 	
 #	NOTE: set_value() is a member of Range class which is an
 #	ancestor of HScrollBar class
@@ -108,7 +108,7 @@ func _on_stash_margin_container_gui_input(event):
 func _on_item_stash_changed():
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
 	for button in _item_rarity_filter_button_group.get_buttons():
-		button.set_items_count(item_stash_container.get_item_count(button.filter_value, null))
+		button.set_items_count(item_stash_container.get_item_count(button.filter_value, []))
 	for button in _item_type_filter_button_group.get_buttons():
 		button.set_items_count(item_stash_container.get_item_count(null, button.filter_value))
 

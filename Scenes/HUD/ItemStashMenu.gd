@@ -10,8 +10,7 @@ var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
 # This field is of nullable Rarity.enm type
 var _current_item_rarity_filter : set = set_current_item_rarity_filter
-# This field is of nullable ItemType.enm type
-var _current_item_type_filter : set = set_current_item_type_filter
+var _current_item_type_filter: Array = [] : set = set_current_item_type_filter
 
 
 func _ready():
@@ -24,7 +23,7 @@ func set_current_item_rarity_filter(value):
 	ItemStash.items_changed.emit()
 
 
-func set_current_item_type_filter(value):
+func set_current_item_type_filter(value: Array):
 	_current_item_type_filter = value
 	ItemStash.items_changed.emit()
 

@@ -557,11 +557,11 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_w4dok")
 button_group = ExtResource("16_qxwth")
 icon = null
 script = ExtResource("16_24l1e")
-filter_value = 0
+filter_value = Array[int]([0])
 
 [node name="ItemFilterButton2" parent="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer2/HBoxContainer3/HBoxContainer2" instance=ExtResource("12_6l3wb")]
 layout_mode = 2
-tooltip_text = "Show only oil items"
+tooltip_text = "Show only oils and consumables"
 theme_override_styles/normal = SubResource("StyleBoxTexture_6dht0")
 theme_override_styles/hover = SubResource("StyleBoxTexture_um3tl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_f781c")
@@ -569,7 +569,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_srwu8")
 button_group = ExtResource("16_qxwth")
 icon = null
 script = ExtResource("16_24l1e")
-filter_value = 1
+filter_value = Array[int]([1, 2])
 
 [node name="MarginContainer" type="PanelContainer" parent="HBoxContainer/CentralMenu2/VBoxContainer"]
 layout_mode = 2
