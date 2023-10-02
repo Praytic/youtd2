@@ -269,11 +269,17 @@ func add_event_on_attacked(handler: Callable):
 	add_event_handler(Event.Type.ATTACKED, handler)
 
 
+# This event handler will be called when buffed unit deals
+# attack damage (not spell damage!). Note that this event
+# can't recurse. If your handler deals attack damage, that
+# will not trigger another DAMAGE event.
 # NOTE: buffType.addEventOnDamage() in JASS
 func add_event_on_damage(handler: Callable):
 	add_event_handler(Event.Type.DAMAGE, handler)
 
 
+# This event handler will be called when buffed unit
+# receives attack damage (not spell damage!).
 # NOTE: buffType.addEventOnDamaged() in JASS
 func add_event_on_damaged(handler: Callable):
 	add_event_handler(Event.Type.DAMAGED, handler)

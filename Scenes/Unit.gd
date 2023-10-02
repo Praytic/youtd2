@@ -13,6 +13,8 @@ signal level_changed
 signal level_up
 signal attack(event)
 signal attacked(event)
+# NOTE: dealt_damage() and damaged() are emitted only for
+# attack damage, not for spell damage.
 signal dealt_damage(event)
 signal damaged(event)
 signal kill(event)
