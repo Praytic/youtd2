@@ -121,5 +121,5 @@ func _on_tutorial_menu_finished():
 	_tutorial_menu.hide()
 	_wave_spawner.start_initial_timer()
 
-	Messages.add_normal("The first wave will spawn in 2 minutes.")
+	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
