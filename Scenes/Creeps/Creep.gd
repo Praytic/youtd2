@@ -311,14 +311,8 @@ func _on_death(_event: Event):
 		corpse.position = position
 		Utils.add_object_to_world(corpse)
 
-# 		Randomize position and scale of blood pool to make
-# 		them look varied
-		var random_offset: Vector2 = Vector2(randf_range(-10, 10), randf_range(-10, 10))
-		var blood_position: Vector2 = position + random_offset
-		var blood_scale: Vector2 = Vector2(randf_range(0.95, 1.05), randf_range(0.95, 1.05)) * randf_range(0.7, 1.0)
 		var blood_pool: Node2D = Globals.blood_pool_scene.instantiate()
-		blood_pool.position = blood_position
-		blood_pool.scale = blood_scale
+		blood_pool.position = position
 		Utils.add_object_to_world(blood_pool)
 
 

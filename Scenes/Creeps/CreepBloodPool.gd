@@ -18,7 +18,15 @@ func _ready():
 #	corpse
 	_sprite.z_index = -1
 
-#	Apply random flip to sprite
+
+#	Randomize properties of blood pool to make them look
+#	varied
+	var random_offset: Vector2 = Vector2(randf_range(-10, 10), randf_range(-10, 10))
+	_sprite.position += random_offset
+
+	var random_scale: Vector2 = Vector2(randf_range(0.95, 1.05), randf_range(0.95, 1.05)) * randf_range(0.7, 1.0)
+	_sprite.scale = random_scale
+
 	_sprite.flip_h = Utils.rand_chance(0.5)
 	_sprite.flip_v = Utils.rand_chance(0.5)
 
