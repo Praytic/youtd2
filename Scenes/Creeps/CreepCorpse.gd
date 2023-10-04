@@ -8,6 +8,7 @@ extends Unit
 
 
 const DURATION: float = 10
+const RANDOM_OFFSET: float = 15
 
 @export var _sprite: AnimatedSprite2D
 
@@ -17,6 +18,15 @@ func _ready():
 
 	add_to_group("corpses")
 	_set_visual_node(_sprite)
+
+#	Move corpse to a random small offset during death
+#	animation. Otherwise corpses line up perfectly and it
+#	looks weird.
+	var position_tween = create_tween()
+	var random_position: Vector2 = _sprite.position + Vector2(randf_range(-RANDOM_OFFSET, RANDOM_OFFSET), randf_range(-RANDOM_OFFSET, RANDOM_OFFSET))
+	position_tween.tween_property(_sprite, "position",
+		random_position,
+		0.2 * DURATION).set_trans(Tween.TRANS_LINEAR)
 
 	var fade_tween = create_tween()
 	fade_tween.tween_property(_sprite, "modulate",
