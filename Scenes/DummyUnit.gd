@@ -76,6 +76,14 @@ func do_spell_damage_pb_aoe(radius: float, damage: float, _mystery_float: float)
 	do_spell_damage_aoe(center, radius, damage)
 
 
+func get_dmg_ratio() -> float:
+	return _damage_ratio
+
+
+func get_crit_ratio() -> float:
+	return _crit_ratio
+
+
 # Returns damage modifier based on custom damage table.
 # Normally this will be just 1.0.
 # 

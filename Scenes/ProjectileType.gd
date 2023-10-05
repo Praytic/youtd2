@@ -8,6 +8,7 @@ var _explode_on_hit: bool = true
 var _cleanup_handler: Callable = Callable()
 var _interpolation_finished_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
+var _expiration_handler: Callable = Callable()
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
 var _collision_handler: Callable = Callable()
@@ -88,6 +89,16 @@ func set_event_on_cleanup(handler: Callable):
 # projectileType.setEventOnInterpolationFinished() in JASS
 func set_event_on_interpolation_finished(handler: Callable):
 	_interpolation_finished_handler = handler
+
+
+# This handler will be called when projectile's lifetime
+# timer expires or when projectile travels for the defined
+# range.
+# Example handler:
+# func on_expiration(projectile: Projectile)
+# projectileType.setEventOnExpiration() in JASS
+func set_event_on_expiration(handler: Callable):
+	_expiration_handler = handler
 
 
 # TODO: implement

@@ -35,7 +35,9 @@ var _facing: float = 0.0
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
 var _collision_handler: Callable = Callable()
+var _expiration_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
+var _direction: float = 0.0
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -45,9 +47,10 @@ var user_real2: float = 0.0
 var user_real3: float = 0.0
 
 
-# NOTE: Projectile.createFromUnit() in JASS
-static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, facing: float, damage_ratio: float, crit_ratio: float) -> Projectile:
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from)
+# NOTE: Projectile.create() in JASS
+static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, x: float, y: float, _z: float, facing: float) -> Projectile:
+	var initial_position: Vector2 = Vector2(x, y)
+	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_position)
 
 	projectile._move_type = MoveType.FACING
 	projectile._facing = deg_to_rad(facing)
@@ -63,12 +66,22 @@ static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, fac
 	return projectile
 
 
+# NOTE: Projectile.createFromUnit() in JASS
+static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, facing: float, damage_ratio: float, crit_ratio: float) -> Projectile:
+	var pos: Vector2 = from.get_visual_position()
+	var z: float = 0.0
+	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, pos.x, pos.y, z, facing)
+	
+	return projectile
+
+
 # TODO: ignore_target_z - ignore target height value,
 # projectile flies straight without changing it's height to
 # match target height. Probably relevant to air units?
 # NOTE: Projectile.createFromUnitToUnit() in JASS
 static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from)
+	var initial_pos: Vector2 = from.get_visual_position()
+	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_pos)
 
 	projectile._move_type = MoveType.TARGETED
 	projectile._target = target
@@ -95,7 +108,7 @@ static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, 
 	return create_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, targeted, false, true)
 
 
-static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit) -> Projectile:
+static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2) -> Projectile:
 	var projectile: Projectile = Globals.projectile_scene.instantiate()
 
 	projectile._speed = type._speed
@@ -105,6 +118,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._interpolation_finished_handler = type._interpolation_finished_handler
 	projectile._target_hit_handler = type._target_hit_handler
 	projectile._collision_handler = type._collision_handler
+	projectile._expiration_handler = type._expiration_handler
 	projectile._range = type._range
 	projectile._collision_radius = type._collision_radius
 	projectile._collision_target_type = type._collision_target_type
@@ -113,8 +127,8 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._damage_ratio = damage_ratio
 	projectile._crit_ratio = crit_ratio
 	projectile._caster = caster
-	projectile.position = from.get_visual_position()
-	projectile._initial_pos = from.get_visual_position()
+	projectile.position = initial_pos
+	projectile._initial_pos = initial_pos
 	projectile._map_node = caster.get_tree().get_root().get_node("GameScene/Map")
 
 	type.tree_exited.connect(projectile._on_projectile_type_tree_exited)
@@ -161,7 +175,12 @@ func _process_targeted(delta: float):
 #	Move towards target
 	var target_pos = _get_target_position()
 	var move_delta: float = _speed * delta
+	var prev_pos: Vector2 = position
 	position = Isometric.vector_move_toward(position, target_pos, move_delta)
+
+	var move_vector_isometric: Vector2 = position - prev_pos
+	var move_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(move_vector_isometric)
+	_direction = rad_to_deg(move_vector_top_down.angle())
 
 	var distance: float = Isometric.vector_distance_to(target_pos, position)
 	var reached_target = distance < CONTACT_DISTANCE
@@ -186,19 +205,31 @@ func _process_targeted(delta: float):
 			_map_node.add_child(explosion)
 
 		_cleanup()
+	else:
+		check_range_status()
 
 
 func _process_facing(delta: float):
 	_do_collision()
 
-	var move_vector: Vector2 = Vector2.from_angle(_facing) * _speed * delta
-	position += move_vector
+	var move_vector_top_down: Vector2 = Vector2.from_angle(_facing) * _speed * delta
+	var move_vector_isometric: Vector2 = Isometric.top_down_vector_to_isometric(move_vector_top_down)
+	position += move_vector_isometric
+
+	_direction = rad_to_deg(move_vector_top_down.angle())
+
+	check_range_status()
+
+
+func check_range_status():
+	if _range == 0:
+		return
 
 	var current_travel_distance: float = Isometric.vector_distance_to(_initial_pos, position)
 	var travel_complete: bool = current_travel_distance > _range
 
 	if travel_complete:
-		_cleanup()
+		_expire()
 
 
 func get_target() -> Unit:
@@ -228,6 +259,25 @@ func set_tower_crit_ratio(tower_crit_ratio: float):
 
 func get_tower_bounce_visited_list() -> Array[Unit]:
 	return _tower_bounce_visited_list
+
+
+# Returns current direction of projectile's movement. In
+# angles and from top down perspective.
+# NOTE: projectile.direction in JASS
+func get_direction() -> float:
+	return _direction
+
+
+func get_x() -> float:
+	return position.x
+
+
+func get_y() -> float:
+	return position.y
+
+
+func get_z() -> float:
+	return 0.0
 
 
 func _get_target_position() -> Vector2:
@@ -263,7 +313,7 @@ func _set_lifetime(lifetime: float):
 
 
 func _on_lifetime_timeout():
-	queue_free()
+	_expire()
 
 
 func _do_collision():
@@ -275,6 +325,9 @@ func _do_collision():
 # 	Remove units that have already collided. This way, we
 # 	collide only once per unit.
 	for unit in _collision_history:
+		if !Utils.unit_is_valid(unit):
+			continue
+
 		units_in_range.erase(unit)
 
 	var collided_list: Array = units_in_range
@@ -282,3 +335,10 @@ func _do_collision():
 	for unit in collided_list:
 		_collision_handler.call(self, unit)
 		_collision_history.append(unit)
+
+
+func _expire():
+	if _expiration_handler.is_valid():
+		_expiration_handler.call(self)
+
+	_cleanup()
