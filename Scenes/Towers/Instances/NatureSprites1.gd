@@ -140,10 +140,10 @@ func gift_create(event: Event):
 
 #		Apply the bonus modification
 		target.modify_property(B.user_int2, B.user_real2)
-		B.user_int3 = Effect.create_colored("KeeperGroveMissile.mdl", target.get_x(), target.get_y(), 150, 0, 0.9, Color8(255, 180, 180, 255))
+		B.user_int3 = Effect.create_colored("KeeperGroveMissile.mdl", target.get_visual_x(), target.get_visual_y(), 150, 0, 0.9, Color8(255, 180, 180, 255))
 	else:
 		B.user_int2 = 0
-		B.user_int3 = Effect.create_scaled("KeeperGroveMissile.mdl", target.get_x(), target.get_y(), 150, 0, 0.75)
+		B.user_int3 = Effect.create_scaled("KeeperGroveMissile.mdl", target.get_visual_x(), target.get_visual_y(), 150, 0, 0.75)
 
 
 func effect_clean(event: Event):

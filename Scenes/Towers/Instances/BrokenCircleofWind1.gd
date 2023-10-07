@@ -73,7 +73,7 @@ func cyclone_creep_up(event: Event):
 
 	var c: Unit = b.get_buffed_unit()
 #	(start) cyclone animation
-	b.user_int = Effect.create_animated("res://Scenes/Effects/CycloneTarget.tscn", c.get_x(), c.get_y(), 0.0, 0.0)
+	b.user_int = Effect.create_animated("res://Scenes/Effects/CycloneTarget.tscn", c.get_visual_x(), c.get_visual_y(), 0.0, 0.0)
 	Effect.no_death_animation(b.user_int)
 #   move creep up
 	c.adjust_height(300, 1000)

@@ -97,6 +97,6 @@ func on_attack(event: Event):
 	if !tower.calc_chance(shockwave_chance):
 		return
 
-	var effect: int = Effect.create_simple("HolyBoltSpecialArt.mdl", creep.get_x(), creep.get_y())
+	var effect: int = Effect.create_simple("HolyBoltSpecialArt.mdl", creep.get_visual_x(), creep.get_visual_y())
 	Effect.destroy_effect_after_its_over(effect)
 	shockwave_cast.point_cast_from_unit_on_point(tower, event.get_target(), x, y, shockwave_damage, tower.calc_spell_crit_no_bonus())

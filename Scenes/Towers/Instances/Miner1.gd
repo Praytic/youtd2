@@ -116,7 +116,7 @@ func periodic(_event: Event):
 	var tower: Tower = self
 	var gold_bonus: float = _stats.excavation_gold + tower.get_level() * _stats.excavation_gold_add
 
-	var target_effect: int = Effect.create_scaled("AncientProtectorMissile.mdl", tower.get_x(), tower.get_y(), 0, 0, 0.8)
+	var target_effect: int = Effect.create_scaled("AncientProtectorMissile.mdl", tower.get_visual_x(), tower.get_visual_y(), 0, 0, 0.8)
 	Effect.set_lifetime(target_effect, 0.1)
 
 	if tower.calc_chance(0.25):

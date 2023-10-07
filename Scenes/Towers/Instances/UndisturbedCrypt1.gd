@@ -124,11 +124,13 @@ func periodic(_event: Event):
 
 	var tx: float = target_corpse.get_x()
 	var ty: float = target_corpse.get_y()
+	var tvisualx: float = target_corpse.get_visual_x()
+	var tvisualy: float = target_corpse.get_visual_y()
 
-	var explode_effect: int = Effect.add_special_effect("OrcLargeDeathExplode.mdl", tx, ty)
+	var explode_effect: int = Effect.add_special_effect("OrcLargeDeathExplode.mdl", tvisualx, tvisualy)
 	Effect.destroy_effect_after_its_over(explode_effect)
 
-	var missile_effect: int = Effect.create_scaled("T_MeatwagonMissile.mdl", tx, ty, 0, randf_range(0, 360), 1.2)
+	var missile_effect: int = Effect.create_scaled("T_MeatwagonMissile.mdl", tvisualx, tvisualy, 0, randf_range(0, 360), 1.2)
 	Effect.destroy_effect_after_its_over(missile_effect)
 
 	var creeps_in_range: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), tx, ty, 500)

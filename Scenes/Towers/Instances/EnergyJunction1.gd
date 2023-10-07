@@ -50,7 +50,7 @@ func junction_on_create(event: Event):
 
 #	TODO: implement Lightning, a visual effect
 	# if tower != buffee:
-		# b.user_int = Lightning.create_from_point_toPoint("CLPB", tower.get_x(), tower.get_y(), tower.get_z() - 60, buffee)
+		# b.user_int = Lightning.create_from_point_toPoint("CLPB", tower.get_visual_x(), tower.get_visual_y(), tower.get_z() - 60, buffee)
 
 #	NOTE: add & save attackspeed
 	b.user_real = tower.user_real + tower.user_real2 * tower.get_level()

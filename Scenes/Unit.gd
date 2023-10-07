@@ -1076,6 +1076,14 @@ func get_y() -> float:
 	return position.y
 
 
+func get_visual_x() -> float:
+	return get_visual_position().x
+
+
+func get_visual_y() -> float:
+	return get_visual_position().y
+
+
 # NOTE: Getters for mod values are used in TowerInfo.
 # Getter names need to match the names of label nodes that
 # display the values. For example if getter name is
