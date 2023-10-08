@@ -358,12 +358,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer"]
+[node name="RebrewButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer"]
 layout_mode = 2
 tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
 theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
-disabled = true
 icon = SubResource("AtlasTexture_cjbga")
 alignment = 2
 expand_icon = true
@@ -373,12 +372,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer2"]
+[node name="DistillButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer2"]
 layout_mode = 2
 tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
 theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
-disabled = true
 icon = SubResource("AtlasTexture_cjbga")
 alignment = 2
 expand_icon = true
@@ -388,12 +386,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer3"]
+[node name="ReassembleButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer3"]
 layout_mode = 2
 tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
 theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
-disabled = true
 icon = SubResource("AtlasTexture_cjbga")
 alignment = 2
 expand_icon = true
@@ -403,12 +400,11 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RecipeButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer4"]
+[node name="PerfectButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer4"]
 layout_mode = 2
 tooltip_text = "Converts [color=GOLD]2[/color] oils or consumables of the same rarity into [color=GOLD]1[/color] oil or consumable of the same rarity."
 theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
-disabled = true
 icon = SubResource("AtlasTexture_cjbga")
 alignment = 2
 expand_icon = true
@@ -558,4 +554,8 @@ size_flags_vertical = 8
 theme = SubResource("Theme_oc2na")
 text = "Transmute"
 
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer/RebrewButton" to="." method="_on_rebrew_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer2/DistillButton" to="." method="_on_distill_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer3/ReassembleButton" to="." method="_on_reassemble_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer4/PerfectButton" to="." method="_on_perfect_button_pressed"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/TransmuteButton" to="." method="_on_transmute_button_pressed"]

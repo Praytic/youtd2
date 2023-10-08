@@ -20,6 +20,14 @@ var _level_bonus_map: Dictionary = {
 	Recipe.NONE: [0, 0],
 }
 
+var _recipe_item_count_map: Dictionary = {
+	Recipe.TWO_OILS_OR_CONSUMABLES: 2, 
+	Recipe.FOUR_OILS_OR_CONSUMABLES: 4, 
+	Recipe.THREE_ITEMS: 3, 
+	Recipe.FIVE_ITEMS: 5, 
+	Recipe.NONE: 0, 
+}
+
 
 const CAPACITY: int = 5
 const LEVEL_MOD_UNLUCKY: int = -9
@@ -81,6 +89,81 @@ func transmute() -> String:
 	_item_container.add_item(result_item)
 	
 	return result.message
+
+
+func autofill_recipe(recipe: Recipe) -> bool:
+	var item_stash_container: ItemContainer = ItemStash.get_item_container()
+
+# 	Return current cube contents to item stash
+	var current_contents: Array[Item] = _item_container.get_item_list()
+	for item in current_contents:
+		_item_container.remove_item(item)
+		item_stash_container.add_item(item)
+
+#	Move items from item stash to cube, if there are enough
+#	items for the recipe
+	var autofill_list: Array[Item] = _get_item_list_for_autofill(recipe)
+
+	if autofill_list.is_empty():
+		for item in autofill_list:
+			item_stash_container.remove_item(item)
+			_item_container.add_item(item)
+
+		return true
+	else:
+		Messages.add_error("Not enough items for recipe!")
+
+		return false
+
+
+# Returns list of items which are currently in item stash,
+# which can be used for a recipe. Prioritizes items with
+# lowest rarity and level. Returns empty list if autofill
+# can't be performed.
+func _get_item_list_for_autofill(recipe: Recipe) -> Array[Item]:
+	var recipe_item_type: ItemType.enm = _get_result_item_type(recipe)
+	var recipe_item_count: int = _recipe_item_count_map[recipe]
+
+	var item_stash_container: ItemContainer = ItemStash.get_item_container()
+	var item_list: Array[Item] = item_stash_container.get_item_list()
+
+# 	Filter out items we can't use
+	item_list = item_list.filter(
+		func(item: Item) -> bool:
+			var item_type: ItemType.enm = item.get_item_type()
+			var item_type_match: bool = item_type == recipe_item_type
+
+			return item_type_match
+	)
+
+# 	Sort by rarity and level
+	var rarity_map: Dictionary = {}
+	var rarity_list: Array[Rarity.enm] = Rarity.get_list()
+	for rarity in rarity_list:
+		var items_of_rarity: Array = item_list.filter(
+			func(item: Item) -> bool:
+				var item_rarity: Rarity.enm = item.get_rarity()
+				var rarity_match: bool = item_rarity == rarity
+
+				return rarity_match
+		)
+
+		items_of_rarity.sort_custom(func(a, b): return a.get_required_wave_level() < b.get_required_wave_level())
+
+		rarity_map[rarity] = items_of_rarity
+
+	for rarity in rarity_list:
+		var items_of_rarity: Array = rarity_map[rarity]
+		var item_count_is_enough: bool = items_of_rarity.size() >= recipe_item_count
+
+		if item_count_is_enough:
+			items_of_rarity.resize(recipe_item_count)
+
+			return items_of_rarity
+
+	var invalid_item_list: Array[Item] = []
+
+	return invalid_item_list
 
 
 func _get_current_recipe() -> Recipe:

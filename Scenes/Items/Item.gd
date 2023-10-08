@@ -287,6 +287,10 @@ func get_item_type() -> ItemType.enm:
 	return ItemProperties.get_type(_id)
 
 
+func get_required_wave_level() -> int:
+	return ItemProperties.get_required_wave_level(_id)
+
+
 func is_consumable() -> bool:
 	return ItemProperties.is_consumable(_id)
 
