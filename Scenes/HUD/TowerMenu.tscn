@@ -397,12 +397,12 @@ columns = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 theme_override_constants/margin_top = 15
 
 [node name="CloseButton" type="Button" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
 text = " x "
 
 [connection signal="gui_input" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]

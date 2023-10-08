@@ -557,12 +557,12 @@ text = "Transmute"
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 z_index = 10
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 theme_override_constants/margin_top = 15
 
 [node name="CloseButton" type="Button" parent="MarginContainer3"]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
 text = " x "
 
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer/RebrewButton" to="." method="_on_rebrew_button_pressed"]
