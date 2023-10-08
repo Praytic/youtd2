@@ -26,7 +26,7 @@ script = ExtResource("11")
 _error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
 _normal_message_container = NodePath("MarginContainer3/NormalMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
-_roll_towers_button = NodePath("VBoxContainer/RollTowersButton")
+_roll_towers_button = NodePath("MarginContainer5/VBoxContainer/RollTowersButton")
 _horadric_menu = NodePath("MarginContainer4/HBoxContainer/HoradricMenu")
 metadata/_edit_vertical_guides_ = [960.0]
 
@@ -140,26 +140,31 @@ visible = false
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer5" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -220.0
-offset_top = -26.0
+offset_left = -200.0
+offset_top = -132.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer5"]
+layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="SecondHoradricCubeButton" type="Button" parent="VBoxContainer"]
+[node name="SecondHoradricCubeButton" type="Button" parent="MarginContainer5/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("9_3ampi")
 text = "Horadric Cube"
 
-[node name="RollTowersButton" type="Button" parent="VBoxContainer"]
+[node name="RollTowersButton" type="Button" parent="MarginContainer5/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -175,7 +180,7 @@ offset_left = -1164.0
 offset_bottom = 970.0
 grow_horizontal = 0
 theme_override_constants/margin_top = 150
-theme_override_constants/margin_right = 70
+theme_override_constants/margin_right = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer4"]
 layout_mode = 2
@@ -201,5 +206,5 @@ offset_bottom = -245.0
 grow_vertical = 0
 
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
-[connection signal="pressed" from="VBoxContainer/SecondHoradricCubeButton" to="." method="_on_second_horadric_cube_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
+[connection signal="pressed" from="MarginContainer5/VBoxContainer/SecondHoradricCubeButton" to="." method="_on_second_horadric_cube_button_pressed"]
+[connection signal="pressed" from="MarginContainer5/VBoxContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
