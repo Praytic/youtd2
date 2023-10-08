@@ -184,11 +184,8 @@ UniqueRarityPanelContainer/base_type = &"PanelContainer"
 UniqueRarityPanelContainer/styles/panel = SubResource("StyleBoxTexture_gqeb4")
 
 [node name="HoradricMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_main_container")]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 600.0
+offset_bottom = 819.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_force_pass_scroll_events = false

@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://chojoq00uw7ng"]
+[gd_scene load_steps=17 format=3 uid="uid://chojoq00uw7ng"]
 
 [ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/tower_menu_theme.tres" id="1_crn3l"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_8sf0j"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
 [ext_resource type="Script" path="res://Scenes/HUD/TowerMenu.gd" id="2_sqv8k"]
-[ext_resource type="Theme" uid="uid://b2bbg575pggjf" path="res://Resources/Theme/button_v1.tres" id="3_8hdh7"]
-[ext_resource type="ButtonGroup" uid="uid://ce5xw83da2d6c" path="res://Resources/UI/ButtonGroup/right_panel_button_group.tres" id="4_5rlh7"]
+[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/curvy_border_box.tres" id="3_12t24"]
 [ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="4_8bkul"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/TowerMenu/tower_level_label_normal.tres" id="5_t4ptj"]
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="6_calw6"]
@@ -38,7 +37,7 @@ atlas = ExtResource("2_kbar0")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_unit_name_button", "_unit_info_label", "_unit_icon_texture", "_unit_specials_container", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container")]
+[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_title_label", "_unit_info_label", "_unit_icon_texture", "_unit_specials_container", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -60,7 +59,7 @@ _sell_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxConta
 _info_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UnitInfoButton")
 _reset_sell_button_timer = NodePath("ResetSellButtonTimer")
 _items_box_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/ItemsContainer")
-_unit_name_button = NodePath("MarginContainer2/UnitName")
+_title_label = NodePath("MainContainer/MarginContainer2/TitleLabel")
 _unit_info_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer/SpecialsLabel")
 _unit_icon_texture = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer/IconContainer/UnitIcon")
 _unit_specials_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer/UnitSpecialContainer")
@@ -78,28 +77,22 @@ _main_container = NodePath("MainContainer")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-show_behind_parent = true
-z_index = 1
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = -20
-theme_override_constants/margin_right = 10
-
-[node name="UnitName" type="Button" parent="MarginContainer2"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("3_8hdh7")
-toggle_mode = true
-button_group = ExtResource("4_5rlh7")
-text = "Tower Name"
-
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MainContainer"]
+show_behind_parent = true
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_bottom = -34
+
+[node name="TitleLabel" type="Label" parent="MainContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("3_12t24")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
 layout_mode = 2

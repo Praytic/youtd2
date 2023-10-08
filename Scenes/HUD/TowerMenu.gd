@@ -11,7 +11,7 @@ const _tiny_unit_button_theme: Theme = preload("res://Resources/Theme/tiny_unit_
 @export var _info_button: Button
 @export var _reset_sell_button_timer: Timer
 @export var _items_box_container: HBoxContainer
-@export var _unit_name_button: Button
+@export var _title_label: Label
 @export var _unit_info_label: RichTextLabel
 @export var _unit_icon_texture: TextureRect
 @export var _unit_specials_container: VBoxContainer
@@ -36,8 +36,6 @@ func _ready():
 	_unit_specials_container = _unit_specials_container
 	_specials_container = _specials_container
 	
-	_main_container.hide()
-	
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
 	_on_selected_unit_changed(null)
@@ -52,8 +50,6 @@ func _ready():
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
 	_info_button.pressed.connect(_on_info_button_pressed)
-	_unit_name_button.toggled.connect(_on_unit_name_button_toggled)
-	visibility_changed.connect(_on_visibility_changed)
 	_upgrade_button.mouse_entered.connect(_on_tower_upgrade_button_mouse_entered)
 	_upgrade_button.mouse_exited.connect(_on_tower_upgrade_button_mouse_exited)
 
@@ -232,7 +228,7 @@ func _update_specials_label(unit: Unit):
 
 
 func _update_unit_name_label(unit: Unit):
-	_unit_name_button.text = unit.get_display_name()
+	_title_label.text = unit.get_display_name()
 
 
 func _update_unit_level_label(unit: Unit):
@@ -465,25 +461,3 @@ func _get_tooltip_for_info_label(unit: Unit) -> String:
 		tooltip += text_for_damage_taken
 
 		return tooltip
-
-
-func _on_visibility_changed():
-	if not visible:
-		_on_unit_name_button_toggled(visible)
-
-
-func _on_unit_name_button_toggled(toggle: bool):
-	if toggle:
-		_main_container.show()
-		_unit_name_button.get_parent().set_h_size_flags(SIZE_SHRINK_CENTER)
-	else:
-		_main_container.hide()
-		_unit_name_button.get_parent().set_h_size_flags(SIZE_SHRINK_END)
-	
-	if toggle:
-		for button in _unit_name_button.button_group.get_buttons():
-			button.hide()
-		_unit_name_button.show()
-	else:
-		for button in _unit_name_button.button_group.get_buttons():
-			button.show()

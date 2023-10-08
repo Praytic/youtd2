@@ -9,6 +9,7 @@ signal stop_wave()
 @export var _normal_message_container: VBoxContainer
 @export var _game_over_label: RichTextLabel
 @export var _roll_towers_button: Button
+@export var _horadric_menu: Control
 
 
 func _ready():
@@ -83,3 +84,7 @@ func _on_wave_level_changed():
 
 func _on_tower_built(_tower_id: int):
 	_roll_towers_button.hide()
+
+
+func _on_second_horadric_cube_button_pressed():
+	_horadric_menu.visible = !_horadric_menu.visible
