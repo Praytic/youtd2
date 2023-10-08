@@ -103,8 +103,9 @@ func autofill_recipe(recipe: Recipe) -> bool:
 #	Move items from item stash to cube, if there are enough
 #	items for the recipe
 	var autofill_list: Array[Item] = _get_item_list_for_autofill(recipe)
+	var can_autofill: bool = !autofill_list.is_empty()
 
-	if autofill_list.is_empty():
+	if can_autofill:
 		for item in autofill_list:
 			item_stash_container.remove_item(item)
 			_item_container.add_item(item)
