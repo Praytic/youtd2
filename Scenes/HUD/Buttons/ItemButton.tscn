@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_56ir5"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButton.gd" id="2_0spo4"]
 [ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://Scenes/HUD/Buttons/CooldownIndicator.tscn" id="3_fy62u"]
-[ext_resource type="PackedScene" uid="uid://bovo5mbv22jly" path="res://Scenes/HUD/Buttons/AutoModeIndicator.tscn" id="4_e5nkx"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/Buttons/AutoModeIndicator.tscn" id="4_e5nkx"]
 
 [node name="UnitButton2" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_charges_label") instance=ExtResource("1_56ir5")]
 offset_right = 141.0
