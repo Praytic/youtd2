@@ -97,7 +97,6 @@ theme_override_styles/normal = ExtResource("3_12t24")
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_right = -40
 
 [node name="Panel" type="PanelContainer" parent="MainContainer/MarginContainer"]
 custom_minimum_size = Vector2(600, 800)
@@ -396,4 +395,15 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 8
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+
+[node name="CloseButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = " x "
+
 [connection signal="gui_input" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]
+[connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]

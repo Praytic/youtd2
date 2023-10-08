@@ -461,3 +461,9 @@ func _get_tooltip_for_info_label(unit: Unit) -> String:
 		tooltip += text_for_damage_taken
 
 		return tooltip
+
+
+# When tower menu is closed, deselect the unit which will
+# also close the menu
+func _on_close_button_pressed():
+	SelectUnit.set_selected_unit(null)

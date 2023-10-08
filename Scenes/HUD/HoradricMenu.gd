@@ -71,3 +71,7 @@ func _on_reassemble_button_pressed():
 
 func _on_perfect_button_pressed():
 	HoradricCube.autofill_recipe(HoradricCube.Recipe.FIVE_ITEMS)
+
+
+func _on_close_button_pressed():
+	hide()
