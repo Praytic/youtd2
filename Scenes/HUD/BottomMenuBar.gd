@@ -12,6 +12,7 @@ signal test_signal()
 @export var _tower_stash_scroll_container: ScrollContainer
 @export var _item_stash_scroll_container: ScrollContainer
 @export var _center_menu: VBoxContainer
+@export var _roll_towers_button: Button
 
 var _item_rarity_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/item_rarity_filter_button_group.tres")
 var _item_type_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/item_type_filter_button_group.tres")
@@ -31,8 +32,11 @@ func _ready():
 	for element_button in _element_filter_button_group.get_buttons():
 		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
 	
+	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_build_bar.towers_changed.connect(_on_tower_stash_changed)
+	WaveLevel.changed.connect(_on_wave_level_changed)
+	BuildTower.tower_built.connect(_on_tower_built)
 	
 	_on_item_stash_changed()
 	
@@ -42,7 +46,9 @@ func _ready():
 	HighlightUI.register_target("tomes_status", _tomes_status)
 	HighlightUI.register_target("gold_status", _gold_status)
 	HighlightUI.register_target("tower_stash", _build_bar)
-
+	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
+	
+	_update_tooltip_for_roll_towers_button()
 
 func get_elements_container() -> Control:
 	return _elements_container
@@ -117,3 +123,51 @@ func _on_tower_stash_changed():
 	for button in _element_filter_button_group.get_buttons():
 		var filtered_towers_count = _build_bar.get_towers_count(button.element)
 		button.set_towers_counter(filtered_towers_count)
+
+
+func _on_horadric_cube_button_pressed():
+	EventBus.horadric_menu_visibility_changed.emit()
+
+
+func _on_roll_towers_button_pressed():
+	var research_any_elements: bool = false
+
+	for element in Element.get_list():
+		var researched_element: bool = ElementLevel.get_current(element) > 0
+		if researched_element:
+			research_any_elements = true
+
+	if !research_any_elements:
+		Messages.add_error("Cannot roll towers yet! You need to research at least one element.")
+
+		return
+
+	var can_roll_again: bool = TowerDistribution.roll_starting_towers()
+
+	_update_tooltip_for_roll_towers_button()
+
+	if !can_roll_again:
+		_roll_towers_button.disabled = true
+
+
+func _update_tooltip_for_roll_towers_button():
+	var roll_count: int = TowerDistribution.get_current_starting_tower_roll_amount()
+	var tooltip: String = "Press to get a random set of starting towers.\nYou can reroll if you don't like the initial towers\nbut each time you will get less towers.\nNext roll will give you %d towers" % roll_count
+	_roll_towers_button.set_tooltip_text(tooltip)
+
+
+func _on_game_mode_was_chosen():
+	var roll_button_should_be_visible: bool = Globals.game_mode_is_random()
+	_roll_towers_button.disabled = not roll_button_should_be_visible
+
+
+func _on_wave_level_changed():
+	var new_wave_level: int = WaveLevel.get_current()
+	var start_first_wave: bool = new_wave_level == 1
+
+	if start_first_wave:
+		_roll_towers_button.disabled = true
+
+
+func _on_tower_built(_tower_id: int):
+	_roll_towers_button.disabled = true

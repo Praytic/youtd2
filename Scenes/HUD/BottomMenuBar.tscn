@@ -1,7 +1,9 @@
-[gd_scene load_steps=100 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=104 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://eabew2p3tsgy" path="res://Resources/Theme/bottom_menu_theme.tres" id="1_u18mo"]
+[ext_resource type="StyleBox" uid="uid://yk4phpxsa6q7" path="res://Resources/Theme/BottomMenuBar/rect_container_left_l.tres" id="3_hbgo8"]
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="3_ypj6q"]
+[ext_resource type="Texture2D" uid="uid://r7qkt7vep0ar" path="res://Resources/Textures/UI/Icons/towers_icon.tres" id="4_5y28p"]
 [ext_resource type="StyleBox" uid="uid://ptj8puirdggr" path="res://Resources/Theme/common_button_stylebox_texture.tres" id="4_rt4q8"]
 [ext_resource type="Texture2D" uid="uid://4urow6esjtqa" path="res://Assets/Towers/tower_icons_xs.png" id="5_2y3fp"]
 [ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://Resources/UI/ButtonGroup/element_filter_button_group.tres" id="5_053go"]
@@ -36,6 +38,8 @@
 [ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Textures/UI/Icons/unique_icon.tres" id="28_03ksw"]
 [ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="29_q3mpw"]
 [ext_resource type="Texture2D" uid="uid://c50etdjubvudf" path="res://Resources/Textures/UI/Icons/oils_icon.tres" id="32_8lj72"]
+[ext_resource type="StyleBox" uid="uid://uiev7wofsglu" path="res://Resources/Theme/BottomMenuBar/rect_container_right_l.tres" id="39_i467a"]
+[ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="40_gseps"]
 
 [sub_resource type="SystemFont" id="SystemFont_sqxi7"]
 
@@ -311,16 +315,18 @@ texture = ExtResource("32_8lj72")
 texture = ExtResource("32_8lj72")
 modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
 
-[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu")]
-custom_minimum_size = Vector2(1500, 0)
+[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu", "_roll_towers_button")]
+custom_minimum_size = Vector2(1800, 0)
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -750.0
-offset_right = 750.0
+offset_left = -900.0
+offset_top = 42.0
+offset_right = 900.0
+offset_bottom = 42.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -336,6 +342,7 @@ _gold_status = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/
 _tower_stash_scroll_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer")
 _item_stash_scroll_container = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer")
 _center_menu = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu")
+_roll_towers_button = NodePath("HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer/RollTowersButton")
 metadata/_edit_vertical_guides_ = []
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -348,6 +355,39 @@ offset_top = -288.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = -2
+
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -25
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(180, 253)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("3_hbgo8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer3/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Towers"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="AspectRatioContainer" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RollTowersButton" type="Button" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+tooltip_text = "Roll new towers"
+theme_type_variation = &"MenuButton"
+icon = ExtResource("4_5y28p")
+icon_alignment = 1
+expand_icon = true
 
 [node name="CentralMenu" type="MarginContainer" parent="HBoxContainer"]
 z_index = -1
@@ -665,5 +705,40 @@ theme_override_constants/h_separation = 140
 columns = 999
 script = ExtResource("8_ww2i1")
 
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = -25
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(180, 253)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("39_i467a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Items"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HoradricCubeButton" type="Button" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+tooltip_text = "Open Horadric Cube menu"
+theme_type_variation = &"MenuButton"
+icon = ExtResource("40_gseps")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/HoradricCubeButton" to="." method="_on_horadric_cube_button_pressed"]

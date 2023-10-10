@@ -1,8 +1,7 @@
-[gd_resource type="Theme" load_steps=19 format=3 uid="uid://eabew2p3tsgy"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://eabew2p3tsgy"]
 
 [ext_resource type="StyleBox" uid="uid://crr0tkfd2ggb8" path="res://Resources/Theme/Common/rect_container_center_l.tres" id="2_4l726"]
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="3_hau48"]
-[ext_resource type="StyleBox" uid="uid://d1lgejw2sv1ip" path="res://Resources/Theme/Common/rect_container_s.tres" id="3_vlm6l"]
 [ext_resource type="StyleBox" uid="uid://bw4wtqgmpri3j" path="res://Resources/Theme/BottomMenuBar/rect_container_center_l.tres" id="4_enpnq"]
 [ext_resource type="StyleBox" uid="uid://c4rv27uxbm00c" path="res://Resources/Theme/BottomMenuBar/stash_panel_background.tres" id="5_uofvg"]
 
@@ -90,6 +89,56 @@ content_margin_right = 2.0
 content_margin_bottom = 2.0
 texture = SubResource("AtlasTexture_wfurf")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v3kw"]
+atlas = ExtResource("3_hau48")
+region = Rect2(853, 74, 48, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6lvfq"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = SubResource("AtlasTexture_1v3kw")
+texture_margin_left = 11.0
+texture_margin_top = 11.0
+texture_margin_right = 11.0
+texture_margin_bottom = 11.0
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_raa15"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = SubResource("AtlasTexture_1v3kw")
+texture_margin_left = 11.0
+texture_margin_top = 11.0
+texture_margin_right = 11.0
+texture_margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0wbc"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = SubResource("AtlasTexture_1v3kw")
+texture_margin_left = 11.0
+texture_margin_top = 11.0
+texture_margin_right = 11.0
+texture_margin_bottom = 11.0
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uye1s"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = SubResource("AtlasTexture_1v3kw")
+texture_margin_left = 11.0
+texture_margin_top = 11.0
+texture_margin_right = 11.0
+texture_margin_bottom = 11.0
+
 [sub_resource type="GDScript" id="GDScript_d6mh5"]
 
 [resource]
@@ -107,10 +156,10 @@ CircleButton/styles/normal = SubResource("StyleBoxTexture_eyvb8")
 CircleButton/styles/pressed = SubResource("StyleBoxTexture_6ua8f")
 CustomTextureButton/colors/icon_hover_color = Color(0, 0, 0, 1)
 Label/font_sizes/font_size = 16
-MenuButton/styles/disabled = ExtResource("3_vlm6l")
-MenuButton/styles/hover = ExtResource("3_vlm6l")
-MenuButton/styles/normal = ExtResource("3_vlm6l")
-MenuButton/styles/pressed = ExtResource("3_vlm6l")
+MenuButton/styles/disabled = SubResource("StyleBoxTexture_6lvfq")
+MenuButton/styles/hover = SubResource("StyleBoxTexture_raa15")
+MenuButton/styles/normal = SubResource("StyleBoxTexture_v0wbc")
+MenuButton/styles/pressed = SubResource("StyleBoxTexture_uye1s")
 Panel/styles/panel = ExtResource("4_enpnq")
 RightSidePanel/base_type = &"PanelContainer"
 SidePanel/base_type = &"PanelContainer"
