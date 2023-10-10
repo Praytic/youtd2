@@ -82,24 +82,14 @@ func _calculate_item_drop(creep_level: int, quality_multiplier: float) -> int:
 
 
 func get_random_oil_or_consumable(rarity: int) -> int:
-#	Find all items which are oils and fall into selected
-#	rarity
-	var rarity_string: String = Rarity.convert_to_string(rarity)
-	var oil_type_string: String = ItemType.convert_to_string(ItemType.enm.OIL)
-	var consumable_type_string: String = ItemType.convert_to_string(ItemType.enm.CONSUMABLE)
-	var oil_item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, oil_type_string)
-	var consumable_item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, consumable_type_string)
+	var oil_list: Array = get_oil_and_consumables_list(rarity)
 
-	var item_list: Array = oil_item_list + consumable_item_list
+	if !oil_list.is_empty():
+		var random_item: int = oil_list.pick_random()
 
-	item_list = Properties.filter_item_id_list(item_list, Item.CsvProperty.RARITY, rarity_string)
-
-	if item_list.is_empty():
+		return random_item
+	else:
 		return 0
-
-	var random_item: int = item_list.pick_random()
-
-	return random_item
 
 
 func get_random_item_at_or_below_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) -> int:
@@ -118,6 +108,19 @@ func get_random_item_at_or_below_rarity_bounded(rarity: int, lvl_min: int, lvl_m
 
 # RandomItemSet.permanent.getRandomItemAtRarityBounded() in JASS
 func get_random_item_at_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) -> int:
+	var available_item_list: Array[int] = get_item_list_bounded(rarity, lvl_min, lvl_max)
+
+	var items_are_available: bool = !available_item_list.is_empty()
+
+	if items_are_available:
+		var random_item: int = available_item_list.pick_random()
+
+		return random_item
+	else:
+		return 0
+
+
+func get_item_list_bounded(rarity: int, lvl_min: int, lvl_max: int) -> Array[int]:
 #	Find all items which are not oils and fall into selected
 #	rarity
 	var rarity_string: String = Rarity.convert_to_string(rarity)
@@ -140,11 +143,20 @@ func get_random_item_at_rarity_bounded(rarity: int, lvl_min: int, lvl_max: int) 
 	for disabled_item in Item.disabled_item_list:
 		available_item_list.erase(disabled_item)
 
-	var items_are_available: bool = !available_item_list.is_empty()
+	return available_item_list
 
-	if items_are_available:
-		var random_item: int = available_item_list.pick_random()
 
-		return random_item
-	else:
-		return 0
+func get_oil_and_consumables_list(rarity: int) -> Array:
+#	Find all items which are oils and fall into selected
+#	rarity
+	var rarity_string: String = Rarity.convert_to_string(rarity)
+	var oil_type_string: String = ItemType.convert_to_string(ItemType.enm.OIL)
+	var consumable_type_string: String = ItemType.convert_to_string(ItemType.enm.CONSUMABLE)
+	var oil_item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, oil_type_string)
+	var consumable_item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, consumable_type_string)
+
+	var item_list: Array = oil_item_list + consumable_item_list
+
+	item_list = Properties.filter_item_id_list(item_list, Item.CsvProperty.RARITY, rarity_string)
+
+	return item_list

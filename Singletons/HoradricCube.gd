@@ -204,7 +204,6 @@ func _get_current_recipe() -> Recipe:
 
 
 func _get_result_item_for_recipe(recipe: Recipe):
-	var ingredient_list: Array[int] = _get_ingredient_id_list()
 	var result_rarity: Rarity.enm = _get_result_rarity(recipe)
 	var result_item_type: ItemType.enm = _get_result_item_type(recipe)
 	var avg_ingredient_level: int = _get_average_ingredient_level()
@@ -212,21 +211,16 @@ func _get_result_item_for_recipe(recipe: Recipe):
 	var lvl_min: int = avg_ingredient_level + _level_bonus_map[recipe][0] + random_bonus_mod	
 	var lvl_max: int = avg_ingredient_level + _level_bonus_map[recipe][1] + random_bonus_mod	
 
-# 	Generate a result item which is not equal to any of the
-# 	ingredients
 	var result_item: int
-	var attempt_count: int = 0
-	while true:
-		result_item = _get_result_item_base(result_item_type, result_rarity, lvl_min, lvl_max)
-		attempt_count += 1
 
-		var result_is_different_from_ingredients: bool = !ingredient_list.has(result_item)
-		if result_is_different_from_ingredients:
-			break
-
-		if attempt_count > 100:
-			push_error("Failed to generate unique transmute result after 100 tries. Shouldn't happen.")
-			break
+	match result_item_type:
+		ItemType.enm.OIL:
+			result_item = _get_transmuted_oil_or_consumable(result_rarity)
+		ItemType.enm.REGULAR:
+			result_item = _get_transmuted_item(result_rarity, lvl_min, lvl_max)
+		_:
+			result_item = 0
+			push_error("Invalid recipe")
 
 	var luck_message: String
 	match random_bonus_mod:
@@ -241,14 +235,40 @@ func _get_result_item_for_recipe(recipe: Recipe):
 	return {"item_id": result_item, "message": luck_message}
 
 
-func _get_result_item_base(item_type: ItemType.enm, rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int:
-	match item_type:
-		ItemType.enm.OIL: return ItemDropCalc.get_random_oil_or_consumable(rarity)
-		ItemType.enm.REGULAR: return ItemDropCalc.get_random_item_at_or_below_rarity_bounded(rarity, lvl_min, lvl_max)
-		_:
-			push_error("Invalid recipe")
+func _get_transmuted_oil_or_consumable(rarity: Rarity.enm) -> int:
+	var oil_list: Array = ItemDropCalc.get_oil_and_consumables_list(rarity)
+
+# 	Remove ingredients from item pool so that trasmute result is different from ingredients
+	var ingredient_list: Array[int] = _get_ingredient_id_list()
+	for ingredient in ingredient_list:
+		oil_list.erase(ingredient)
+
+	if oil_list.is_empty():
+		push_error("Possible result pool for transmuting oils is empty. This shouldn't happen.")
+
+		return 0
+
+	var random_oil: int = oil_list.pick_random()
+
+	return random_oil
+
+
+func _get_transmuted_item(rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int:
+	var item_list: Array[int] = ItemDropCalc.get_item_list_bounded(rarity, lvl_min, lvl_max)
+
+# 	Remove ingredients from item pool so that trasmute result is different from ingredients
+	var ingredient_list: Array[int] = _get_ingredient_id_list()
+	for ingredient in ingredient_list:
+		item_list.erase(ingredient)
+
+	if item_list.is_empty():
+		push_error("Possible result pool for transmuting items is empty. This shouldn't happen.")
+
+		return 0
+
+	var random_item: int = item_list.pick_random()
 	
-	return 0
+	return random_item
 
 
 func _cant_increase_rarity_further(recipe: Recipe) -> bool:
