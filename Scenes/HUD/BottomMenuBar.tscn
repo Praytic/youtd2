@@ -323,12 +323,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -900.0
-offset_top = 42.0
-offset_right = 900.0
-offset_bottom = 42.0
+offset_left = -720.0
+offset_top = 0.00012207
+offset_right = 1080.0
+offset_bottom = 0.00012207
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(0.8, 0.8)
 size_flags_horizontal = 4
 size_flags_vertical = 8
 mouse_force_pass_scroll_events = false
@@ -343,7 +344,7 @@ _tower_stash_scroll_container = NodePath("HBoxContainer/CentralMenu/VBoxContaine
 _item_stash_scroll_container = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer")
 _center_menu = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu")
 _roll_towers_button = NodePath("HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer/RollTowersButton")
-metadata/_edit_vertical_guides_ = []
+metadata/_edit_vertical_guides_ = [1280.0]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
