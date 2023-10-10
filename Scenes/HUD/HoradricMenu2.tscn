@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://c7tov8p6m7vb4" path="res://Resources/Theme/HoradricMenu/horadric_menu_theme.tres" id="1_goc45"]
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_1vbsd"]
-[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/curvy_border_box.tres" id="3_xge74"]
+[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_igiq2"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="5_g7trm"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_6747o"]
 [ext_resource type="Theme" uid="uid://dh1mew0ki50dq" path="res://Resources/Theme/tiny_unit_button_theme.tres" id="6_k68sm"]
@@ -210,7 +210,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = ExtResource("3_xge74")
+theme_override_styles/normal = ExtResource("3_igiq2")
 text = "Horadric Cube"
 horizontal_alignment = 1
 

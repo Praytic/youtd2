@@ -1,13 +1,11 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://cdws70axn02qn"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://cdws70axn02qn"]
 
 [ext_resource type="StyleBox" uid="uid://di63wj0o7etx1" path="res://Resources/Theme/TowerMenu/button_normal.tres" id="1_k0xfo"]
 [ext_resource type="StyleBox" uid="uid://ln3gwpdseci7" path="res://Resources/Theme/TowerMenu/button_disalbed.tres" id="1_wfnm0"]
-[ext_resource type="StyleBox" uid="uid://woorl376lbra" path="res://Resources/Theme/TowerMenu/tower_menu_panel.tres" id="2_j17uo"]
 [ext_resource type="StyleBox" uid="uid://b284lwmb62g6v" path="res://Resources/Theme/TowerMenu/button_hover.tres" id="2_n1i2k"]
+[ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="4_5e7xa"]
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="5_hwajx"]
-[ext_resource type="StyleBox" uid="uid://nik74qhp637u" path="res://Resources/Theme/TowerMenu/title_button_normal.tres" id="6_sgu5d"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tcb5y"]
+[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="6_4spi2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yy7ve"]
 draw_center = false
@@ -57,17 +55,15 @@ Button/styles/disabled = ExtResource("1_wfnm0")
 Button/styles/hover = ExtResource("2_n1i2k")
 Button/styles/normal = ExtResource("1_k0xfo")
 Button/styles/pressed = ExtResource("2_n1i2k")
-InfoContainer/base_type = &"PanelContainer"
-InfoContainer/styles/panel = SubResource("StyleBoxFlat_tcb5y")
 Label/font_sizes/font_size = 16
 MainPanelContainer/base_type = &"PanelContainer"
-MainPanelContainer/styles/panel = ExtResource("2_j17uo")
-Panel/styles/panel = ExtResource("2_j17uo")
+MainPanelContainer/styles/panel = ExtResource("4_5e7xa")
+Panel/styles/panel = ExtResource("4_5e7xa")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_yy7ve")
 TowerNameLabel/base_type = &"Button"
 TowerNameLabel/font_sizes/font_size = 32
 TowerNameLabel/styles/hover = SubResource("StyleBoxTexture_18e7x")
-TowerNameLabel/styles/normal = ExtResource("6_sgu5d")
+TowerNameLabel/styles/normal = ExtResource("6_4spi2")
 TowerNameLabel/styles/pressed = SubResource("StyleBoxTexture_tap7f")
 WarningButton/base_type = &"Button"
 WarningButton/colors/icon_disabled_color = Color(1, 0.247059, 0.192157, 1)

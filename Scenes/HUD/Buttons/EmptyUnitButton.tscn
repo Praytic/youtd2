@@ -2,15 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_k0gtm"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/EmptyUnitButton.gd" id="1_lftg8"]
-[ext_resource type="StyleBox" uid="uid://d1lgejw2sv1ip" path="res://Resources/Theme/Common/tiny_border_box.tres" id="2_pvgbl"]
+[ext_resource type="StyleBox" uid="uid://d1lgejw2sv1ip" path="res://Resources/Theme/Common/rect_container_s.tres" id="2_hrl4c"]
 
 [node name="EmptyUnitButton" instance=ExtResource("1_k0gtm")]
 mouse_filter = 1
-theme_override_styles/normal = ExtResource("2_pvgbl")
-theme_override_styles/hover = ExtResource("2_pvgbl")
-theme_override_styles/pressed = ExtResource("2_pvgbl")
-theme_override_styles/disabled = ExtResource("2_pvgbl")
-theme_override_styles/focus = ExtResource("2_pvgbl")
+theme_override_styles/normal = ExtResource("2_hrl4c")
+theme_override_styles/hover = ExtResource("2_hrl4c")
+theme_override_styles/pressed = ExtResource("2_hrl4c")
+theme_override_styles/disabled = ExtResource("2_hrl4c")
+theme_override_styles/focus = ExtResource("2_hrl4c")
 icon = null
 script = ExtResource("1_lftg8")
 
