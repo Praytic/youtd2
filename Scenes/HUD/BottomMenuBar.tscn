@@ -315,7 +315,7 @@ texture = ExtResource("32_8lj72")
 texture = ExtResource("32_8lj72")
 modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
 
-[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu", "_roll_towers_button")]
+[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu", "_roll_towers_button", "_horadric_cube_button")]
 custom_minimum_size = Vector2(1800, 0)
 layout_mode = 3
 anchors_preset = 7
@@ -344,6 +344,7 @@ _tower_stash_scroll_container = NodePath("HBoxContainer/CentralMenu/VBoxContaine
 _item_stash_scroll_container = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer")
 _center_menu = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu")
 _roll_towers_button = NodePath("HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer/RollTowersButton")
+_horadric_cube_button = NodePath("HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/HoradricCubeButton")
 metadata/_edit_vertical_guides_ = [1280.0]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

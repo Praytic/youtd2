@@ -13,6 +13,7 @@ signal test_signal()
 @export var _item_stash_scroll_container: ScrollContainer
 @export var _center_menu: VBoxContainer
 @export var _roll_towers_button: Button
+@export var _horadric_cube_button: Button
 
 var _item_rarity_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/item_rarity_filter_button_group.tres")
 var _item_type_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/item_type_filter_button_group.tres")
@@ -47,6 +48,7 @@ func _ready():
 	HighlightUI.register_target("gold_status", _gold_status)
 	HighlightUI.register_target("tower_stash", _build_bar)
 	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
+	HighlightUI.register_target("horadric_cube_button", _horadric_cube_button)
 	
 	_update_tooltip_for_roll_towers_button()
 
