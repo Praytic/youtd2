@@ -1,39 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://nl0pvhb4rasi"]
+[gd_scene load_steps=5 format=3 uid="uid://nl0pvhb4rasi"]
 
+[ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="1_4g5vq"]
 [ext_resource type="Script" path="res://Scenes/HUD/ButtonTooltip.gd" id="1_xd471"]
-[ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="2_2ti32"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="3_jper7"]
 
-[node name="ButtonTooltip" type="Control" node_paths=PackedStringArray("_label")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 8
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_47fwl"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("1_4g5vq")
+texture_margin_left = 13.9504
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.9504
+region_rect = Rect2(1283, 192, 139, 154)
+modulate_color = Color(1, 1, 1, 0.72549)
+
+[node name="ButtonTooltip" type="PanelContainer" node_paths=PackedStringArray("_label")]
+offset_right = 540.0
+offset_bottom = 139.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_47fwl")
 script = ExtResource("1_xd471")
-_label = NodePath("PanelContainer/RichTextLabel")
+_label = NodePath("MarginContainer/RichTextLabel")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -270.0
-offset_top = -132.0
-offset_right = 270.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = ExtResource("2_2ti32")
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
 custom_minimum_size = Vector2(500, 100)
 layout_mode = 2
-size_flags_vertical = 8
 theme = ExtResource("3_jper7")
 theme_override_font_sizes/normal_font_size = 20
 theme_override_font_sizes/bold_font_size = 20

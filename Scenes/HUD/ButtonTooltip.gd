@@ -1,4 +1,4 @@
-extends Control
+extends PanelContainer
 
 
 # Tooltip used to display tower/item details when their
