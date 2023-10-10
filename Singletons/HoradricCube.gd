@@ -254,12 +254,29 @@ func _get_transmuted_oil_or_consumable(rarity: Rarity.enm) -> int:
 
 
 func _get_transmuted_item(rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int:
-	var item_list: Array[int] = ItemDropCalc.get_item_list_bounded(rarity, lvl_min, lvl_max)
+	var current_lvl_min: int = lvl_min
+	var item_list: Array[int] = []
+	var loop_count: int = 0
 
-# 	Remove ingredients from item pool so that trasmute result is different from ingredients
-	var ingredient_list: Array[int] = _get_ingredient_id_list()
-	for ingredient in ingredient_list:
-		item_list.erase(ingredient)
+#	It's possible for random item pool to be empty if
+#	level of ingredients is too high, in this case,
+#	lower the lower lvl bound to make the pool not empty
+	while item_list.is_empty():
+		item_list = ItemDropCalc.get_item_list_bounded(rarity, current_lvl_min, lvl_max)
+
+# 		Remove ingredients from item pool so that transmute result is different from ingredients
+		var ingredient_list: Array[int] = _get_ingredient_id_list()
+		for ingredient in ingredient_list:
+			item_list.erase(ingredient)
+
+		current_lvl_min -= 10
+
+		loop_count += 1
+
+		if loop_count > 10:
+			item_list = []
+
+			break
 
 	if item_list.is_empty():
 		push_error("Possible result pool for transmuting items is empty. This shouldn't happen.")
