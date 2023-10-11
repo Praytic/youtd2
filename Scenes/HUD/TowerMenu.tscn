@@ -180,7 +180,6 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
-theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ff4500ff]30[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]0[/color]
 [color=LIGHT_BLUE]Basic nature tower with a slightly increased chance to critical strike.[/color]
@@ -213,7 +212,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
 theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Info"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -244,7 +242,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
 theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Specials"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -265,11 +262,6 @@ size_flags_horizontal = 3
 
 [node name="SpecialsLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer"]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 18
-theme_override_font_sizes/bold_font_size = 18
-theme_override_font_sizes/italics_font_size = 18
-theme_override_font_sizes/bold_italics_font_size = 18
-theme_override_font_sizes/mono_font_size = 18
 fit_content = true
 
 [node name="UnitSpecialContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer" instance=ExtResource("6_petcg")]
@@ -302,7 +294,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
 theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
-theme_override_font_sizes/font_size = 20
 text = "Items"
 horizontal_alignment = 1
 vertical_alignment = 1
