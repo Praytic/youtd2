@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="3_ypj6q"]
 [ext_resource type="Texture2D" uid="uid://c7uoycvu5ii8v" path="res://Resources/Textures/UI/Icons/roll_towers_icon.tres" id="4_nef3x"]
 [ext_resource type="StyleBox" uid="uid://ptj8puirdggr" path="res://Resources/Theme/common_button_stylebox_texture.tres" id="4_rt4q8"]
-[ext_resource type="Texture2D" uid="uid://4urow6esjtqa" path="res://Assets/Towers/tower_icons_xs.png" id="5_2y3fp"]
 [ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://Resources/UI/ButtonGroup/element_filter_button_group.tres" id="5_053go"]
 [ext_resource type="StyleBox" uid="uid://b5ejc13k3xkcn" path="res://Resources/Theme/uncommon_button_stylebox_texture.tres" id="5_73ma5"]
 [ext_resource type="StyleBox" uid="uid://q2y25uf1xpyp" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_normal.tres" id="5_pw3tg"]
+[ext_resource type="Texture2D" uid="uid://1sklksk2awnr" path="res://Resources/Textures/UI/Icons/upgrade_element_icon.tres" id="5_webtk"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar.gd" id="6"]
 [ext_resource type="StyleBox" uid="uid://dx5l2exs1a7rk" path="res://Resources/Theme/uncommon_button_stylebox_texture_hover.tres" id="6_52o4t"]
 [ext_resource type="PackedScene" uid="uid://c3rx3o4m3ayc1" path="res://Scenes/HUD/Buttons/ElementButton.tscn" id="6_blybv"]
@@ -33,9 +33,12 @@
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemTypeFilterButton.gd" id="16_24l1e"]
 [ext_resource type="ButtonGroup" uid="uid://cycas5vk7h2lw" path="res://Resources/UI/ButtonGroup/item_type_filter_button_group.tres" id="16_qxwth"]
 [ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://Resources/Textures/UI/Icons/common_icon.tres" id="23_epww5"]
+[ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://Resources/Textures/UI/Icons/gold_icon.tres" id="25_tnas5"]
 [ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="26_rmo34"]
 [ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Textures/UI/Icons/rare_icon.tres" id="27_obbs7"]
+[ext_resource type="Texture2D" uid="uid://d1d4h6m0klgw1" path="res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres" id="27_ymqsm"]
 [ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Textures/UI/Icons/unique_icon.tres" id="28_03ksw"]
+[ext_resource type="Texture2D" uid="uid://baig85lpi88u" path="res://Resources/Textures/UI/Icons/food_icon.tres" id="29_6duxp"]
 [ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="29_q3mpw"]
 [ext_resource type="Texture2D" uid="uid://c50etdjubvudf" path="res://Resources/Textures/UI/Icons/oils_icon.tres" id="32_8lj72"]
 [ext_resource type="StyleBox" uid="uid://uiev7wofsglu" path="res://Resources/Theme/BottomMenuBar/rect_container_right_l.tres" id="39_i467a"]
@@ -213,18 +216,6 @@ modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_04c0r"]
 texture = ExtResource("15_1k1ce")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rpdmv"]
-atlas = ExtResource("5_2y3fp")
-region = Rect2(224, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3eojl"]
-atlas = ExtResource("5_2y3fp")
-region = Rect2(224, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h4urn"]
-atlas = ExtResource("5_2y3fp")
-region = Rect2(224, 128, 32, 32)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qtpi7"]
 texture = ExtResource("23_epww5")
 modulate_color = Color(0.588235, 0.588235, 0.588235, 0.588235)
@@ -343,7 +334,7 @@ _gold_status = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/
 _tower_stash_scroll_container = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer")
 _item_stash_scroll_container = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer")
 _center_menu = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu")
-_roll_towers_button = NodePath("HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer/RollTowersButton")
+_roll_towers_button = NodePath("HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/RollTowersButton")
 _horadric_cube_button = NodePath("HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/HoradricCubeButton")
 metadata/_edit_vertical_guides_ = [1280.0]
 
@@ -379,17 +370,25 @@ text = "Towers"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MarginContainer" type="AspectRatioContainer" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="RollTowersButton" type="Button" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="RollTowersButton" type="Button" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Roll new towers"
 theme_type_variation = &"MenuButton"
+theme_override_constants/icon_max_width = 64
+theme_override_font_sizes/font_size = 26
+text = "Roll
+towers"
 icon = ExtResource("4_nef3x")
-icon_alignment = 1
-expand_icon = true
+
+[node name="UpgradeElementButton" type="Button" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Roll new towers"
+theme_type_variation = &"MenuButton"
+theme_override_constants/icon_max_width = 64
+theme_override_font_sizes/font_size = 26
+text = "Upgrade
+element"
+icon = ExtResource("5_webtk")
 
 [node name="CentralMenu" type="MarginContainer" parent="HBoxContainer"]
 z_index = -1
@@ -563,19 +562,19 @@ vertical_alignment = 1
 [node name="GoldStatusPanel" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
 layout_mode = 2
 script = ExtResource("10_ewb28")
-icon_texture = SubResource("AtlasTexture_rpdmv")
+icon_texture = ExtResource("25_tnas5")
 default_label_text = "0"
 
 [node name="KnowledgeTomeStatusPanel" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
 layout_mode = 2
 script = ExtResource("11_hpp3y")
-icon_texture = SubResource("AtlasTexture_3eojl")
+icon_texture = ExtResource("27_ymqsm")
 default_label_text = "0"
 
 [node name="FoodStatusPanel" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
 layout_mode = 2
 script = ExtResource("13_b8pl0")
-icon_texture = SubResource("AtlasTexture_h4urn")
+icon_texture = ExtResource("29_6duxp")
 default_label_text = "0/60"
 
 [node name="CentralMenu2" type="MarginContainer" parent="HBoxContainer"]
@@ -734,13 +733,17 @@ size_flags_vertical = 3
 
 [node name="HoradricCubeButton" type="Button" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 tooltip_text = "Open Horadric Cube"
 theme_type_variation = &"MenuButton"
+theme_override_constants/icon_max_width = 64
+theme_override_font_sizes/font_size = 26
+text = "Horadric
+cube"
 icon = ExtResource("40_gseps")
-icon_alignment = 1
-expand_icon = true
 
-[connection signal="pressed" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton" to="." method="_on_roll_towers_button_pressed"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
 [connection signal="pressed" from="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/HoradricCubeButton" to="." method="_on_horadric_cube_button_pressed"]

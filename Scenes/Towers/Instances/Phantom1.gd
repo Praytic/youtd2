@@ -84,7 +84,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Wind Shear"
 	autocast.description = get_wind_shear_description()
-	autocast.icon = "res://Resources/Textures/gold.tres"
+	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "Abilities/Spells/Items/AIlm/AIlmTarget.mdl"
 	autocast.num_buffs_before_idle = 0

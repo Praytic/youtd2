@@ -87,7 +87,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Ice Claw\n"
 	autocast.description = get_ice_claw_description()
-	autocast.icon = "res://Resources/Textures/gold.tres"
+	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1
 	autocast.autocast_type = Autocast.Type.AC_TYPE_OFFENSIVE_UNIT

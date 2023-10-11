@@ -42,7 +42,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Soul Chill"
 	autocast.description = get_soul_chill_description()
-	autocast.icon = "res://Resources/Textures/gold.tres"
+	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.cooldown = 1
 	autocast.mana_cost = 20
 	autocast.target_type = null

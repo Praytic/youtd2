@@ -13,7 +13,7 @@ func get_research_text(element: Element.enm) -> String:
 	var cost_string: String = get_colored_requirement_number(cost, can_afford)
 
 	text += "Research %s level %s\n" % [element_string, research_level]
-	text += "[img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %s\n" % cost_string
+	text += "[img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] %s\n" % cost_string
 
 	match Globals.game_mode:
 		GameMode.enm.BUILD: text += "Research next element level to unlock new towers of this element and to unlock upgrades for existing towers.\n"
@@ -95,9 +95,9 @@ func get_tower_info(tower: Tower) -> String:
 	var overall_mana: int = floori(tower.get_overall_mana())
 
 	if tome_cost != 0:
-		text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %d [img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %d [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, tome_cost, food_cost]
+		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %d [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] %d [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, tome_cost, food_cost]
 	else:
-		text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %d [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, food_cost]
+		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %d [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%d[/color]\n" % [gold_cost, food_cost]
 
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
@@ -154,9 +154,9 @@ func get_tower_text(tower_id: int) -> String:
 	text += "[b]%s[/b]\n" % display_name
 
 	if tome_cost != 0:
-		text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %s [img=32x32]res://Resources/Textures/knowledge_tome.tres[/img] %s [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
+		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
 	else:
-		text += "[img=32x32]res://Resources/Textures/gold.tres[/img] %s [img=32x32]res://Resources/Textures/food.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
+		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
 
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author

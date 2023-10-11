@@ -26,10 +26,8 @@ layout_mode = 2
 
 [node name="Icon" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 size_flags_stretch_ratio = 2.0
-stretch_mode = 2
+expand_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
 clip_contents = true
