@@ -363,7 +363,6 @@ func get_display_name() -> String:
 func set_path(path: Path2D):
 	_path = path
 	position = path.get_curve().get_point_position(0) + path.position
-	_path.default_z = 10
 	_total_path_length = _calculate_path_length(path)
 
 
