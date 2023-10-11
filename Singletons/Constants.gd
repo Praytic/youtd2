@@ -12,15 +12,6 @@ const SettingsKey = {
 	SELECTED_TOWER = "selected tower"
 }
 
-
-# NOTE: this is a loose dependency between this value and
-# the actual z_index values defined for each layer in the
-# tilemap. This means that each layer increase = +10 to z_index.
-# floor1 		= 0
-# between1/2 	= 10
-# floor2 		= 20
-const Z_INDEX_PER_LAYER: int = 10
-
 const SETTINGS_PATH: String = "user://settings.cfg"
 
 # NOTE: this tile height is for isometric projection.

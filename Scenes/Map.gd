@@ -79,8 +79,8 @@ func can_transform_at_mouse_pos() -> bool:
 # on layer "between 1/2".
 func world_height_to_z_index(height: float) -> int:
 	var floor_index: int = floor(height) / Constants.TILE_HEIGHT
-	var layer_index: int = floor_index * 2 + 1
-	var layer_z_index: int = layer_index * Constants.Z_INDEX_PER_LAYER
+	var layer_index: int = min(floor_index * 2 + 1, _tilemap.get_layers_count() - 1)
+	var layer_z_index: int = _tilemap.get_layer_z_index(layer_index)
 
 	return layer_z_index
 
