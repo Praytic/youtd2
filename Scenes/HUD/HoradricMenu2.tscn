@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ckiupnhfj32n6"]
+[gd_scene load_steps=37 format=3 uid="uid://ckiupnhfj32n6"]
 
 [ext_resource type="Theme" uid="uid://c7tov8p6m7vb4" path="res://Resources/Theme/HoradricMenu/horadric_menu_theme.tres" id="1_goc45"]
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_1vbsd"]
@@ -6,8 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="5_g7trm"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_6747o"]
 [ext_resource type="Theme" uid="uid://dh1mew0ki50dq" path="res://Resources/Theme/tiny_unit_button_theme.tres" id="6_k68sm"]
+[ext_resource type="Texture2D" uid="uid://b1oind72lxrm4" path="res://Resources/Textures/UI/Icons/rebrew_icon.tres" id="6_vq7tm"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButtonContainer.gd" id="7_jc0mt"]
-[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="7_s0ddb"]
+[ext_resource type="Texture2D" uid="uid://dfqns87v0xu7x" path="res://Resources/Textures/UI/Icons/distill_icon.tres" id="7_t7mtm"]
+[ext_resource type="Texture2D" uid="uid://bk4dvb16ukwx8" path="res://Resources/Textures/UI/Icons/reassemble_icon.tres" id="8_37jfi"]
+[ext_resource type="Texture2D" uid="uid://bvclahxp4mvge" path="res://Resources/Textures/UI/Icons/perfect_icon.tres" id="9_um4bv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sda8v"]
 
@@ -20,10 +23,6 @@ bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o64h1"]
 bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cjbga"]
-atlas = ExtResource("7_s0ddb")
-region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
@@ -363,7 +362,7 @@ layout_mode = 2
 tooltip_text = "Converts 2 oils or consumables of the same rarity into 1 oil or consumable if the same rarity"
 theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
-icon = SubResource("AtlasTexture_cjbga")
+icon = ExtResource("6_vq7tm")
 alignment = 2
 expand_icon = true
 
@@ -377,7 +376,7 @@ layout_mode = 2
 tooltip_text = "Converts 4 oils or consumables of the same rarity into 1 oil or consumable one rarity higher"
 theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
-icon = SubResource("AtlasTexture_cjbga")
+icon = ExtResource("7_t7mtm")
 alignment = 2
 expand_icon = true
 
@@ -391,7 +390,7 @@ layout_mode = 2
 tooltip_text = "Converts 3 permanent items of the same rarity into 1 permanent item of the same rarity."
 theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
-icon = SubResource("AtlasTexture_cjbga")
+icon = ExtResource("8_37jfi")
 alignment = 2
 expand_icon = true
 
@@ -405,7 +404,7 @@ layout_mode = 2
 tooltip_text = "Converts 5 permanent items of the same rarity into 1 item one rarity higher."
 theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
-icon = SubResource("AtlasTexture_cjbga")
+icon = ExtResource("9_um4bv")
 alignment = 2
 expand_icon = true
 
