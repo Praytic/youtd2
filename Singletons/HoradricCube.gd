@@ -122,7 +122,7 @@ func autofill_recipe(recipe: Recipe) -> bool:
 # lowest rarity and level. Returns empty list if autofill
 # can't be performed.
 func _get_item_list_for_autofill(recipe: Recipe) -> Array[Item]:
-	var recipe_item_type: ItemType.enm = _get_result_item_type(recipe)
+	var recipe_item_type: Array[ItemType.enm] = _get_result_item_type_list(recipe)
 	var recipe_item_count: int = _recipe_item_count_map[recipe]
 
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
@@ -132,7 +132,7 @@ func _get_item_list_for_autofill(recipe: Recipe) -> Array[Item]:
 	item_list = item_list.filter(
 		func(item: Item) -> bool:
 			var item_type: ItemType.enm = item.get_item_type()
-			var item_type_match: bool = item_type == recipe_item_type
+			var item_type_match: bool = recipe_item_type.has(item_type)
 
 			return item_type_match
 	)
@@ -205,22 +205,22 @@ func _get_current_recipe() -> Recipe:
 
 func _get_result_item_for_recipe(recipe: Recipe):
 	var result_rarity: Rarity.enm = _get_result_rarity(recipe)
-	var result_item_type: ItemType.enm = _get_result_item_type(recipe)
+	var result_item_type: Array[ItemType.enm] = _get_result_item_type_list(recipe)
 	var avg_ingredient_level: int = _get_average_ingredient_level()
 	var random_bonus_mod: int = _get_random_bonus_mod()
 	var lvl_min: int = avg_ingredient_level + _level_bonus_map[recipe][0] + random_bonus_mod	
 	var lvl_max: int = avg_ingredient_level + _level_bonus_map[recipe][1] + random_bonus_mod	
 
 	var result_item: int
-
-	match result_item_type:
-		ItemType.enm.OIL:
-			result_item = _get_transmuted_oil_or_consumable(result_rarity)
-		ItemType.enm.REGULAR:
-			result_item = _get_transmuted_item(result_rarity, lvl_min, lvl_max)
-		_:
-			result_item = 0
-			push_error("Invalid recipe")
+	var recipe_is_oil_or_consumable: bool = result_item_type.has(ItemType.enm.OIL) && result_item_type.has(ItemType.enm.CONSUMABLE)
+	var recipe_is_regular: bool = result_item_type.has(ItemType.enm.REGULAR)
+	if recipe_is_oil_or_consumable:
+		result_item = _get_transmuted_oil_or_consumable(result_rarity)
+	elif recipe_is_regular:
+		result_item = _get_transmuted_item(result_rarity, lvl_min, lvl_max)
+	else:
+		result_item = 0
+		push_error("Invalid recipe")
 
 	var luck_message: String
 	match random_bonus_mod:
@@ -309,13 +309,13 @@ func _get_result_rarity(recipe: Recipe) -> Rarity.enm:
 		_: return Rarity.enm.COMMON
 
 
-func _get_result_item_type(recipe: Recipe) -> ItemType.enm:
+func _get_result_item_type_list(recipe: Recipe) -> Array[ItemType.enm]:
 	match recipe:
-		Recipe.TWO_OILS_OR_CONSUMABLES: return ItemType.enm.OIL
-		Recipe.FOUR_OILS_OR_CONSUMABLES: return ItemType.enm.OIL
-		Recipe.THREE_ITEMS: return ItemType.enm.REGULAR
-		Recipe.FIVE_ITEMS: return ItemType.enm.REGULAR
-		_: return ItemType.enm.OIL
+		Recipe.TWO_OILS_OR_CONSUMABLES: return [ItemType.enm.OIL, ItemType.enm.CONSUMABLE]
+		Recipe.FOUR_OILS_OR_CONSUMABLES: return [ItemType.enm.OIL, ItemType.enm.CONSUMABLE]
+		Recipe.THREE_ITEMS: return [ItemType.enm.REGULAR]
+		Recipe.FIVE_ITEMS: return [ItemType.enm.REGULAR]
+		_: return [ItemType.enm.REGULAR]
 
 
 func _get_ingredient_rarity() -> Rarity.enm:
