@@ -212,6 +212,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
 theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_override_font_sizes/font_size = 26
 text = "Info"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -242,6 +243,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
 theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_override_font_sizes/font_size = 26
 text = "Specials"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -265,7 +267,6 @@ layout_mode = 2
 fit_content = true
 
 [node name="UnitSpecialContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer" instance=ExtResource("6_petcg")]
-visible = false
 layout_mode = 2
 
 [node name="Inventory" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
@@ -294,6 +295,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
 theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+theme_override_font_sizes/font_size = 26
 text = "Items"
 horizontal_alignment = 1
 vertical_alignment = 1
