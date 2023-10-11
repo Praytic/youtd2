@@ -201,12 +201,12 @@ theme_override_constants/separation = 30
 alignment = 2
 
 [node name="HoradricMenu" parent="MarginContainer4/HBoxContainer2/HBoxContainer" instance=ExtResource("11_lvdfq")]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 8
+size_flags_vertical = 0
 
 [node name="TowerMenu" parent="MarginContainer4/HBoxContainer2/HBoxContainer" instance=ExtResource("15_rfxf1")]
-visible = false
 layout_mode = 2
+size_flags_vertical = 0
 
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]
