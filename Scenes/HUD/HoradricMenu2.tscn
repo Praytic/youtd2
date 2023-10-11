@@ -228,7 +228,7 @@ theme_type_variation = &"MainPanelContainer"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/margin_top = 50
+theme_override_constants/margin_top = 10
 
 [node name="UnitControlMenu" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer"]
 layout_mode = 2
@@ -492,7 +492,7 @@ layout_mode = 2
 mouse_filter = 0
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
-columns = 3
+columns = 5
 
 [node name="UnitButtonContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ItemsContainer" groups=["item_button_container"]]
 layout_mode = 2
