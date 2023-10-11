@@ -14,6 +14,7 @@ signal test_signal()
 @export var _center_menu: VBoxContainer
 @export var _roll_towers_button: Button
 @export var _horadric_cube_button: Button
+@export var _upgrade_element_button: Button
 
 var _item_rarity_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/item_rarity_filter_button_group.tres")
 var _item_type_filter_button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/item_type_filter_button_group.tres")
@@ -38,6 +39,8 @@ func _ready():
 	_build_bar.towers_changed.connect(_on_tower_stash_changed)
 	WaveLevel.changed.connect(_on_wave_level_changed)
 	BuildTower.tower_built.connect(_on_tower_built)
+	ElementLevel.changed.connect(_on_element_level_changed)
+	KnowledgeTomesManager.changed.connect(_on_knowledge_tomes_changed)
 	
 	_on_item_stash_changed()
 	
@@ -49,6 +52,7 @@ func _ready():
 	HighlightUI.register_target("tower_stash", _build_bar)
 	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
 	HighlightUI.register_target("horadric_cube_button", _horadric_cube_button)
+	HighlightUI.register_target("upgrade_element_button", _upgrade_element_button)
 	
 	_update_tooltip_for_roll_towers_button()
 
@@ -173,3 +177,44 @@ func _on_wave_level_changed():
 
 func _on_tower_built(_tower_id: int):
 	_roll_towers_button.disabled = true
+
+
+func _is_able_to_research() -> bool:
+	var element = _build_bar.get_element()
+	var can_afford: bool = ElementLevel.can_afford_research(element)
+	var current_level: int = ElementLevel.get_current(element)
+	var reached_max_level: bool = current_level == ElementLevel.get_max()
+	var button_is_enabled: bool = can_afford && !reached_max_level
+
+	return button_is_enabled
+
+
+func _on_upgrade_element_button_pressed():
+	var element = _build_bar.get_element()
+	if _is_able_to_research():
+		var cost: int = ElementLevel.get_research_cost(element)
+		KnowledgeTomesManager.spend(cost)
+		ElementLevel.increment(element)
+		EventBus.research_button_mouse_entered.emit(element)
+	# If player doesn't have enough tomes after research_timer,
+	# show same error message as after button_down_timer.
+	else:
+		Messages.add_error("Can't research this element. Not enough tomes.")
+		_upgrade_element_button.disabled = true
+
+
+func _on_element_level_changed():
+	_upgrade_element_button.disabled = not _is_able_to_research()
+
+
+func _on_knowledge_tomes_changed():
+	_upgrade_element_button.disabled = not _is_able_to_research()
+
+
+func _on_upgrade_element_mouse_entered():
+	var element = _build_bar.get_element()
+	EventBus.research_button_mouse_entered.emit(element)
+
+
+func _on_upgrade_element_mouse_exited():
+	EventBus.research_button_mouse_exited.emit()

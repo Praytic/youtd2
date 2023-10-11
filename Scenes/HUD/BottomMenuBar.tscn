@@ -306,7 +306,7 @@ texture = ExtResource("32_8lj72")
 texture = ExtResource("32_8lj72")
 modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
 
-[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu", "_roll_towers_button", "_horadric_cube_button")]
+[node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu", "_roll_towers_button", "_horadric_cube_button", "_upgrade_element_button")]
 custom_minimum_size = Vector2(1800, 0)
 layout_mode = 3
 anchors_preset = 7
@@ -336,6 +336,7 @@ _item_stash_scroll_container = NodePath("HBoxContainer/CentralMenu2/VBoxContaine
 _center_menu = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu")
 _roll_towers_button = NodePath("HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/RollTowersButton")
 _horadric_cube_button = NodePath("HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/HoradricCubeButton")
+_upgrade_element_button = NodePath("HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton")
 metadata/_edit_vertical_guides_ = [1280.0]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -382,11 +383,15 @@ icon = ExtResource("4_nef3x")
 
 [node name="UpgradeElementButton" type="Button" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
 layout_mode = 2
-tooltip_text = "Roll new towers"
+tooltip_text = "Research the selected element. This will increase
+ the level of the element by 1. The higher the 
+element level, the greater the rarity of the towers
+ and the higher the chance they will drop after 
+each wave is cleared."
 theme_type_variation = &"MenuButton"
 theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 26
-text = "Upgrade
+text = "Research
 element"
 icon = ExtResource("5_webtk")
 
@@ -420,6 +425,7 @@ theme_override_styles/normal = ExtResource("5_pw3tg")
 theme_override_styles/hover = ExtResource("6_dcexx")
 theme_override_styles/pressed = ExtResource("7_pmprt")
 theme_override_styles/disabled = ExtResource("8_qg8sp")
+button_pressed = true
 keep_pressed_outside = true
 button_group = ExtResource("5_053go")
 icon = null
@@ -743,7 +749,9 @@ cube"
 icon = ExtResource("40_gseps")
 
 [connection signal="pressed" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton" to="." method="_on_roll_towers_button_pressed"]
+[connection signal="mouse_entered" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton" to="." method="_on_upgrade_element_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton" to="." method="_on_upgrade_element_mouse_exited"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
 [connection signal="pressed" from="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/HoradricCubeButton" to="." method="_on_horadric_cube_button_pressed"]
