@@ -60,6 +60,7 @@ script = ExtResource("3_abrkq")
 is_air = true
 
 [node name="ObjectYSort" type="Node2D" parent="Map"]
+z_index = 1
 y_sort_enabled = true
 
 [node name="EffectsContainer" type="Node2D" parent="Map"]
