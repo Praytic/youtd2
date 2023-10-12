@@ -70,6 +70,9 @@ var _triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 
 
 func _init(id: int):
+#	NOTE: fix "unused variable" warning
+	_is_oil_and_was_applied_already = _is_oil_and_was_applied_already
+
 	_id = id
 	load_modifier(_modifier)
 	item_init()
