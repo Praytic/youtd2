@@ -292,6 +292,14 @@ func _generate_random_tower_for_element(wave_level: int, element: Element.enm) -
 
 			return below_max_cost)
 
+#		NOTE: remove all unreleased towers if config option
+#		is enabled
+		if !Config.load_unreleased_towers():
+			group = group.filter(func(tower):
+				var is_released: int = TowerProperties.is_released(tower)
+
+				return is_released)
+
 		if !group.is_empty() || rarity == 0:
 			break
 		else:
