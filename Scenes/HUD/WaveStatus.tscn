@@ -5,7 +5,7 @@
 
 [node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_timer_label")]
 offset_right = 600.0
-offset_bottom = 123.0
+offset_bottom = 134.0
 theme = ExtResource("1_3h6gw")
 script = ExtResource("2_fsc15")
 _label = NodePath("DetailsLabel")
@@ -14,15 +14,15 @@ _timer_label = NodePath("TimerLabel")
 
 [node name="TimerLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/normal_font_size = 22
 text = "Wave X in Y"
 fit_content = true
 
 [node name="DetailsLabel" type="RichTextLabel" parent="."]
-custom_minimum_size = Vector2(600, 100)
+custom_minimum_size = Vector2(700, 100)
 layout_mode = 2
 theme_override_constants/table_h_separation = 20
-theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/normal_font_size = 22
 text = "[Table with details about next 5 waves]
 "
 fit_content = true
@@ -30,7 +30,7 @@ fit_content = true
 [node name="StatsLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
 theme_override_constants/table_h_separation = 20
-theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/normal_font_size = 22
 fit_content = true
 
 [node name="UpdateStatsTimer" type="Timer" parent="."]
