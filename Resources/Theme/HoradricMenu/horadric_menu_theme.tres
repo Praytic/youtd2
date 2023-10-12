@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=24 format=3 uid="uid://c7tov8p6m7vb4"]
+[gd_resource type="Theme" load_steps=21 format=3 uid="uid://c7tov8p6m7vb4"]
 
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="2_uaxwg"]
@@ -63,21 +63,6 @@ texture = SubResource("AtlasTexture_4c0lx")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t7ys"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n7ju6"]
-load_path = "res://.godot/imported/hud_atlas.png-7fd222bdfe57dc40ed44d66b9782d870.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dmqid"]
-atlas = SubResource("CompressedTexture2D_n7ju6")
-region = Rect2(1085, 207, 176, 178)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j34v6"]
-texture = SubResource("AtlasTexture_dmqid")
-texture_margin_left = 39.6148
-texture_margin_top = 40.0
-texture_margin_right = 40.0
-texture_margin_bottom = 39.6148
-region_rect = Rect2(1085, 207, 176, 178)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfmo2"]
 draw_center = false
 border_width_left = 2
@@ -115,13 +100,13 @@ InfoContainer/styles/panel = SubResource("StyleBoxFlat_2t7ys")
 Label/font_sizes/font_size = 26
 MainPanelContainer/base_type = &"PanelContainer"
 MainPanelContainer/styles/panel = ExtResource("1_7apqd")
-Panel/styles/panel = SubResource("StyleBoxTexture_j34v6")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_vfmo2")
 RichTextLabel/font_sizes/bold_font_size = 20
 RichTextLabel/font_sizes/bold_italics_font_size = 20
 RichTextLabel/font_sizes/italics_font_size = 20
 RichTextLabel/font_sizes/mono_font_size = 20
 RichTextLabel/font_sizes/normal_font_size = 20
+TooltipLabel/font_sizes/font_size = 16
 TransmuteButton/base_type = &"Button"
 TransmuteButton/styles/disabled = SubResource("StyleBoxTexture_88crg")
 TransmuteButton/styles/hover = SubResource("StyleBoxTexture_cge4u")
