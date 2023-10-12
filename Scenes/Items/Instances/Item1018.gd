@@ -24,6 +24,15 @@ func on_pickup():
 
 
 static func seeker_oil_on_pickup(original_oil: Item, oil_id: int):
+# 	NOTE: hackfix alert! The _is_oil_and_was_applied_already
+# 	flag is used to know when we are transferring oils from
+# 	one tower to another, either when towers get upgraded or
+# 	transformed. In such cases, we do not do the aoe effect
+# 	of seeker oil again - we only transfer the oil from old
+# 	tower to new tower.
+	if original_oil._is_oil_and_was_applied_already:
+		return
+
 	var is_original_oil: bool = original_oil.user_int == 0
 
 	if !is_original_oil:
