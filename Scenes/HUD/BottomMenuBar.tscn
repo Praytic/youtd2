@@ -1,16 +1,12 @@
-[gd_scene load_steps=104 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=90 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://eabew2p3tsgy" path="res://Resources/Theme/bottom_menu_theme.tres" id="1_u18mo"]
 [ext_resource type="StyleBox" uid="uid://yk4phpxsa6q7" path="res://Resources/Theme/BottomMenuBar/rect_container_left_l.tres" id="3_hbgo8"]
-[ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="3_ypj6q"]
 [ext_resource type="Texture2D" uid="uid://c7uoycvu5ii8v" path="res://Resources/Textures/UI/Icons/roll_towers_icon.tres" id="4_nef3x"]
-[ext_resource type="StyleBox" uid="uid://ptj8puirdggr" path="res://Resources/Theme/common_button_stylebox_texture.tres" id="4_rt4q8"]
 [ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://Resources/UI/ButtonGroup/element_filter_button_group.tres" id="5_053go"]
-[ext_resource type="StyleBox" uid="uid://b5ejc13k3xkcn" path="res://Resources/Theme/uncommon_button_stylebox_texture.tres" id="5_73ma5"]
 [ext_resource type="StyleBox" uid="uid://q2y25uf1xpyp" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_normal.tres" id="5_pw3tg"]
 [ext_resource type="Texture2D" uid="uid://1sklksk2awnr" path="res://Resources/Textures/UI/Icons/upgrade_element_icon.tres" id="5_webtk"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar.gd" id="6"]
-[ext_resource type="StyleBox" uid="uid://dx5l2exs1a7rk" path="res://Resources/Theme/uncommon_button_stylebox_texture_hover.tres" id="6_52o4t"]
 [ext_resource type="PackedScene" uid="uid://c3rx3o4m3ayc1" path="res://Scenes/HUD/Buttons/ElementButton.tscn" id="6_blybv"]
 [ext_resource type="StyleBox" uid="uid://ckjfsihgl3nhp" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_hover.tres" id="6_dcexx"]
 [ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="7"]
@@ -32,6 +28,7 @@
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemRarityFilterButton.gd" id="15_v3m0n"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemTypeFilterButton.gd" id="16_24l1e"]
 [ext_resource type="ButtonGroup" uid="uid://cycas5vk7h2lw" path="res://Resources/UI/ButtonGroup/item_type_filter_button_group.tres" id="16_qxwth"]
+[ext_resource type="StyleBox" uid="uid://8o35dfhhk4km" path="res://Resources/Theme/BottomMenuBar/resource_status_panel.tres" id="20_gir8r"]
 [ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://Resources/Textures/UI/Icons/common_icon.tres" id="23_epww5"]
 [ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://Resources/Textures/UI/Icons/gold_icon.tres" id="25_tnas5"]
 [ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="26_rmo34"]
@@ -43,86 +40,6 @@
 [ext_resource type="Texture2D" uid="uid://c50etdjubvudf" path="res://Resources/Textures/UI/Icons/oils_icon.tres" id="32_8lj72"]
 [ext_resource type="StyleBox" uid="uid://uiev7wofsglu" path="res://Resources/Theme/BottomMenuBar/rect_container_right_l.tres" id="39_i467a"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="40_gseps"]
-
-[sub_resource type="SystemFont" id="SystemFont_sqxi7"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i1uvx"]
-atlas = ExtResource("3_ypj6q")
-region = Rect2(654, 71, 127, 55)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qt7o4"]
-texture = SubResource("AtlasTexture_i1uvx")
-modulate_color = Color(1, 0.576471, 0.458824, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_brgle"]
-texture = SubResource("AtlasTexture_i1uvx")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_glcbg"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_udfje"]
-atlas = ExtResource("3_ypj6q")
-region = Rect2(124, 1, 124, 124)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ku1u2"]
-texture = SubResource("AtlasTexture_udfje")
-texture_margin_left = 10.0
-texture_margin_top = 10.0
-texture_margin_right = 10.0
-texture_margin_bottom = 10.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2tnjv"]
-atlas = ExtResource("3_ypj6q")
-region = Rect2(654, 3, 127, 55)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6dtra"]
-texture = SubResource("AtlasTexture_2tnjv")
-modulate_color = Color(1, 0.439216, 0.486275, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ne6ya"]
-texture = SubResource("AtlasTexture_2tnjv")
-
-[sub_resource type="Theme" id="Theme_1k1ah"]
-Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
-Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
-Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
-Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
-Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-Button/colors/font_outline_color = Color(1, 1, 1, 1)
-Button/colors/font_pressed_color = Color(1, 1, 1, 1)
-Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
-Button/colors/icon_focus_color = Color(1, 1, 1, 1)
-Button/colors/icon_hover_color = Color(1, 1, 1, 1)
-Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
-Button/colors/icon_normal_color = Color(1, 1, 1, 1)
-Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
-Button/constants/h_separation = 2
-Button/constants/outline_size = 0
-Button/font_sizes/font_size = 32
-Button/fonts/font = SubResource("SystemFont_sqxi7")
-Button/styles/hover = SubResource("StyleBoxTexture_qt7o4")
-Button/styles/normal = SubResource("StyleBoxTexture_brgle")
-Button/styles/pressed = SubResource("StyleBoxFlat_glcbg")
-CommonTowerButton/base_type = &"Button"
-CommonTowerButton/styles/disabled = ExtResource("4_rt4q8")
-CommonTowerButton/styles/hover = SubResource("StyleBoxTexture_ku1u2")
-CommonTowerButton/styles/normal = ExtResource("4_rt4q8")
-TopButton/styles/hover = SubResource("StyleBoxTexture_6dtra")
-TopButton/styles/normal = SubResource("StyleBoxTexture_ne6ya")
-UncommonTowerButton/base_type = &"Button"
-UncommonTowerButton/colors/icon_hover_color = Color(1, 1, 1, 0.784314)
-UncommonTowerButton/styles/disabled = ExtResource("5_73ma5")
-UncommonTowerButton/styles/hover = ExtResource("6_52o4t")
-UncommonTowerButton/styles/normal = ExtResource("5_73ma5")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sutn3"]
 texture = ExtResource("10_0rwi0")
@@ -405,7 +322,6 @@ theme_override_constants/margin_bottom = 42
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/CentralMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = SubResource("Theme_1k1ah")
 theme_override_constants/separation = 0
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/CentralMenu/VBoxContainer"]
@@ -543,6 +459,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="CenterMenu" type="PanelContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 254)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -550,9 +467,9 @@ theme_type_variation = &"CenterPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu"]
 layout_mode = 2
-size_flags_vertical = 8
 
 [node name="CenterMenu" type="VBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer"]
+custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 6
@@ -560,25 +477,27 @@ alignment = 1
 
 [node name="Label" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
 text = "You TD 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="GoldStatusPanel" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
 layout_mode = 2
+theme_override_styles/panel = ExtResource("20_gir8r")
 script = ExtResource("10_ewb28")
 icon_texture = ExtResource("25_tnas5")
 default_label_text = "0"
 
 [node name="KnowledgeTomeStatusPanel" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
 layout_mode = 2
+theme_override_styles/panel = ExtResource("20_gir8r")
 script = ExtResource("11_hpp3y")
 icon_texture = ExtResource("27_ymqsm")
 default_label_text = "0"
 
 [node name="FoodStatusPanel" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
 layout_mode = 2
+theme_override_styles/panel = ExtResource("20_gir8r")
 script = ExtResource("13_b8pl0")
 icon_texture = ExtResource("29_6duxp")
 default_label_text = "0/60"
