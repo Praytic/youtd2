@@ -51,6 +51,7 @@ var _carrier: Tower = null
 var _charge_count: int = -1
 var _visible: bool = true
 var _uses_charges: bool = false
+var _is_oil_and_was_applied_already: bool = false
 
 # Call add_modification() on _modifier in subclass to add item effects
 var _modifier: Modifier = Modifier.new()

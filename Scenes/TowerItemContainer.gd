@@ -28,10 +28,17 @@ func add_item(item: Item, slot_index: int = 0):
 	else:
 		super.add_item(item, slot_index)
 
-	if is_oil:
+# 	NOTE: hackfix alert! The _is_oil_and_was_applied_already
+# 	flag is used to know when we are transferring oils from
+# 	one tower to another, either when towers get upgraded or
+# 	transformed. In such cases, we do not show the application
+# 	Effect again.
+	if is_oil && !item._is_oil_and_was_applied_already:
 		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/OilApplication.tscn", _tower)
 		Effect.scale_effect(effect_id, 8)
 		Effect.destroy_effect_after_its_over(effect_id)
+
+		item._is_oil_and_was_applied_already = true
 
 
 func remove_item(item: Item):
