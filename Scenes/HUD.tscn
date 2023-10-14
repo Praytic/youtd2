@@ -188,6 +188,7 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_bottom = 30
 
 [node name="ButtonTooltip" parent="MarginContainer4/HBoxContainer2/MarginContainer" instance=ExtResource("11_ka7k1")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -199,11 +200,13 @@ theme_override_constants/separation = 30
 alignment = 2
 
 [node name="HoradricMenu" parent="MarginContainer4/HBoxContainer2/HBoxContainer" instance=ExtResource("11_lvdfq")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="TowerMenu" parent="MarginContainer4/HBoxContainer2/HBoxContainer" instance=ExtResource("15_rfxf1")]
+visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
