@@ -7,6 +7,7 @@ const TEXTURE_SCALE: float = 0.1
 
 @export var radius: float
 @onready var texture: Texture2D = load("res://Resources/PulsingDot.tres")
+@onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
 var y_offset: float = 0.0
 
@@ -33,7 +34,8 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 	
 	for index_point in range(nb_points):
 		var texture_pos: Vector2 = points_arc[index_point] / TEXTURE_SCALE
-		draw_texture(texture, texture_pos, color)
+		if _map.get_layer_at_pos(points_arc[index_point] + global_position + texture.get_size() * TEXTURE_SCALE / 2) == 0:
+			draw_texture(texture, texture_pos, color)
 
 
 func set_radius(radius_wc3: float):

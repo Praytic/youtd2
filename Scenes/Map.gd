@@ -89,3 +89,19 @@ func get_mouse_world_pos() -> Vector2:
 	var out: Vector2 = _tilemap.get_local_mouse_position()
 
 	return out
+
+
+func get_layer_at_current_pos() -> int:
+	return get_layer_at_pos(_tilemap.get_global_mouse_position())
+
+
+func get_layer_at_pos(pos: Vector2) -> int:
+#	var local_pos = _tilemap.to_local(pos)
+	var cell_at_pos = _tilemap.local_to_map(pos)
+	var result: int = -1
+	for layer in range(_tilemap.get_layers_count() - 1, -1, -1):
+		var data = _tilemap.get_cell_tile_data(layer, cell_at_pos)
+		if data:
+			result = layer
+			break
+	return result
