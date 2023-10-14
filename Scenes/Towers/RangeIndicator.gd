@@ -10,13 +10,16 @@ const TEXTURE_SCALE: float = 0.1
 @onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
 var y_offset: float = 0.0
-
+var ignore_layer: bool = false
 
 func _draw():
 	_draw_circle_arc(self.position, 0, 360, Color.AQUA)
 
 
 func _draw_circle_arc(center, angle_from, angle_to, color):
+	var transparent_color = Color(color).darkened(0.5)
+	transparent_color.a = 0.2
+
 	var nb_points = radius/20
 	var points_arc = PackedVector2Array()
 	
@@ -34,8 +37,10 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 	
 	for index_point in range(nb_points):
 		var texture_pos: Vector2 = points_arc[index_point] / TEXTURE_SCALE
-		if _map.get_layer_at_pos(points_arc[index_point] + global_position + texture.get_size() * TEXTURE_SCALE / 2) == 0:
+		if ignore_layer or _map.get_layer_at_pos(points_arc[index_point] + global_position + texture.get_size() * TEXTURE_SCALE / 2) == 0:
 			draw_texture(texture, texture_pos, color)
+		else:
+			draw_texture(texture, texture_pos, transparent_color)
 
 
 func set_radius(radius_wc3: float):

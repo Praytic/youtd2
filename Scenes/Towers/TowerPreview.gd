@@ -37,9 +37,17 @@ func _physics_process(_delta):
 # 	to tile position when mouse is hovered over a buildable
 # 	tile.
 	if _map.mouse_is_over_buildable_tile():
-		position = _map.get_mouse_pos_on_tilemap_clamped()
+		var new_position = _map.get_mouse_pos_on_tilemap_clamped()
+		if new_position != position:
+			_range_indicator.ignore_layer = false
+			_range_indicator.queue_redraw()
+		position = new_position
 	else:
-		position = get_global_mouse_position()
+		var new_position = get_global_mouse_position()
+		if fmod(position.x, 128) != 0 or fmod(position.y, 128) != 0:
+			_range_indicator.ignore_layer = true
+			_range_indicator.queue_redraw()
+		position = new_position
 
 	if _map.can_build_at_mouse_pos():
 		_tower_instance.modulate = opaque_green
