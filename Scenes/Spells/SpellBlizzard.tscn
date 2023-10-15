@@ -1,7 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://d4gxaau40jg0n"]
+[gd_scene load_steps=4 format=3 uid="uid://d4gxaau40jg0n"]
 
-[ext_resource type="PackedScene" path="res://Scenes/Spells/SpellDummy.tscn" id="1_k5o08"]
+[ext_resource type="PackedScene" uid="uid://b14bbv4n46f1j" path="res://Scenes/Spells/SpellDummy.tscn" id="1_k5o08"]
 [ext_resource type="Script" path="res://Scenes/Spells/SpellBlizzard.gd" id="2_j1d1f"]
+[ext_resource type="Texture2D" uid="uid://cifmqgyviomde" path="res://Assets/Projectiles/projectile.png" id="3_6bej4"]
 
-[node name="SpellBlizzard" instance=ExtResource("1_k5o08")]
+[node name="SpellBlizzard" node_paths=PackedStringArray("_particles", "_wave_timer") instance=ExtResource("1_k5o08")]
 script = ExtResource("2_j1d1f")
+_particles = NodePath("CPUParticles2D")
+_wave_timer = NodePath("WaveTimer")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." index="3"]
+modulate = Color(0.298039, 0.639216, 1, 0.784314)
+position = Vector2(0, -500)
+amount = 6
+lifetime = 0.4
+explosiveness = 0.5
+texture = ExtResource("3_6bej4")
+emission_shape = 2
+emission_sphere_radius = 128.0
+direction = Vector2(0, 1)
+spread = 5.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 800.0
+initial_velocity_max = 800.0
+linear_accel_min = 2000.0
+linear_accel_max = 2000.0
+
+[node name="WaveTimer" type="Timer" parent="." index="4"]
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

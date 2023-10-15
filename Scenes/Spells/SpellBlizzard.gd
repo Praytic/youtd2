@@ -8,28 +8,32 @@ var _wave_count: int = 0
 
 var _completed_wave_count: int = 0
 
+@export var _particles: CPUParticles2D
+@export var _wave_timer: Timer
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	super()
 
-	var wave_timer: Timer = Timer.new()
-	wave_timer.one_shot = false
-	wave_timer.timeout.connect(on_wave_timer_timeout)
-	add_child(wave_timer)
-	wave_timer.start(WAVE_INTERVAL)
+	_wave_timer.start(WAVE_INTERVAL)
 
 #	NOTE: do first wave on creation
-	on_wave_timer_timeout()
+	_on_wave_timer_timeout()
+
+#	Move particles emitter so that they are above target position
+	_particles.position += _target_position - position
 
 
-func on_wave_timer_timeout():
-	if _completed_wave_count >= _wave_count:
-		return
-
+func _on_wave_timer_timeout():
 	do_spell_damage_aoe(_target_position, _radius, _damage)
 
 	_completed_wave_count += 1
+
+	var all_waves_done: bool = _completed_wave_count >= _wave_count
+	if all_waves_done:
+		_wave_timer.stop()
+		_particles.set_emitting(false)
 
 
 # NOTE: subclasses override this to save data that is useful
