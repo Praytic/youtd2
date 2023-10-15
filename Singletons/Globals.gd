@@ -19,6 +19,7 @@ const placeholder_effect_scene: PackedScene = preload("res://Scenes/Effects/Gene
 const placeholder_tower_scene: PackedScene = preload("res://Scenes/Towers/Instances/PlaceholderTower.tscn")
 const tower_actions_scene: PackedScene = preload("res://Scenes/HUD/TowerActions.tscn")
 const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/EmptyUnitButton.tscn")
+const interpolated_sprite_scene: PackedScene = preload("res://Scenes/InterpolatedSprite.tscn")
 
 
 var wave_count: int
