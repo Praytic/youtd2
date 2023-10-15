@@ -4,16 +4,22 @@
 [ext_resource type="Script" path="res://Scenes/Spells/SpellDummy.gd" id="2_l5ik5"]
 [ext_resource type="Texture2D" uid="uid://bte5c4ua8te4k" path="res://Assets/icon.png" id="3_20ho4"]
 
-[node name="SpellDummy" node_paths=PackedStringArray("_debug_sprite", "_lifetime_timer") instance=ExtResource("1_r3nuv")]
+[node name="SpellDummy" node_paths=PackedStringArray("_debug_sprite", "_debug_sprite_target", "_lifetime_timer") instance=ExtResource("1_r3nuv")]
 z_index = 100
 script = ExtResource("2_l5ik5")
 _debug_sprite = NodePath("DebugSprite")
+_debug_sprite_target = NodePath("DebugSpriteTarget")
 _lifetime_timer = NodePath("LifetimeTimer")
 
 [node name="DebugSprite" type="Sprite2D" parent="." index="0"]
+modulate = Color(0.827451, 0, 0.835294, 0.407843)
 texture = ExtResource("3_20ho4")
 
 [node name="LifetimeTimer" type="Timer" parent="." index="1"]
 one_shot = true
+
+[node name="DebugSpriteTarget" type="Sprite2D" parent="." index="2"]
+modulate = Color(0.85098, 0.929412, 0.443137, 0.764706)
+texture = ExtResource("3_20ho4")
 
 [connection signal="timeout" from="LifetimeTimer" to="." method="_on_lifetime_timer_timeout"]

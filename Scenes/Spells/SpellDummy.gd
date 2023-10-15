@@ -9,6 +9,7 @@ var _lifetime: float = 0.0
 
 
 @export var _debug_sprite: Sprite2D
+@export var _debug_sprite_target: Sprite2D
 @export var _lifetime_timer: Timer
 
 
@@ -16,6 +17,8 @@ func _ready():
 	super()
 	
 	_debug_sprite.visible = Config.visible_spell_dummys_enabled()
+	_debug_sprite_target.visible = Config.visible_spell_dummys_enabled()
+	_debug_sprite_target.position = _target_position - position
 
 	_lifetime_timer.start(_lifetime)
 
