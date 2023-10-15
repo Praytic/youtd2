@@ -76,8 +76,8 @@ func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficul
 
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
 
-	Messages.add_normal("Welcome to youtd 2!")
-	Messages.add_normal("Game settings: %d waves, %s difficulty" % [wave_count, difficulty_string])
+	Messages.add_normal("Welcome to You TD 2!")
+	Messages.add_normal("Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, Difficulty.convert_to_string(difficulty), GameMode.convert_to_display_string(game_mode)])
 	Messages.add_normal("You can pause the game by pressing [color=GOLD]Esc[/color]")
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
