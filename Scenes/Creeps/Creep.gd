@@ -386,9 +386,8 @@ func get_damage_to_portal() -> float:
 	else:
 		damage_done_power = 5
 
-	var first_half: float = 2.5 * type_multiplier * (1 - pow(damage_done, damage_done_power)) * 0.5
-	var second_half: float = 2.5 * type_multiplier * 0.5
-	var damage_to_portal: float = first_half + second_half
+	var damage_reduction_from_hp_ratio: float = (1 - pow(damage_done, damage_done_power))
+	var damage_to_portal: float = 2.5 * type_multiplier * damage_reduction_from_hp_ratio
 
 # 	NOTE: flock creeps deal half damage to portal
 	var has_flock_special: bool = WaveSpecial.creep_has_flock_special(self)
