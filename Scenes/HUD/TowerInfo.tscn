@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6l4hi00yx7js"]
 
-[ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/tower_menu_theme.tres" id="1_cyno3"]
+[ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/unit_menu_theme.tres" id="1_cyno3"]
 [ext_resource type="Script" path="res://Scenes/HUD/TowerInfo.gd" id="2"]
+
 
 [node name="TowerInfo" type="GridContainer" node_paths=PackedStringArray("_tower_details_label", "_level_x_at_label", "_exp_for_next_level_label")]
 offset_right = 215.0

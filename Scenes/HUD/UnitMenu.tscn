@@ -1,14 +1,14 @@
 [gd_scene load_steps=18 format=3 uid="uid://chojoq00uw7ng"]
 
-[ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/tower_menu_theme.tres" id="1_crn3l"]
-[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_8sf0j"]
-[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="2_kbar0"]
-[ext_resource type="Script" path="res://Scenes/HUD/TowerMenu.gd" id="2_sqv8k"]
-[ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_hxc1d"]
-[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="4_8bkul"]
-[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/TowerMenu/tower_level_label_normal.tres" id="5_t4ptj"]
-[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="6_calw6"]
-[ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/TowerMenu/TowerSpecialContainer.tscn" id="6_petcg"]
+[ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/unit_menu_theme.tres" id="1_kx1vr"]
+[ext_resource type="Script" path="res://Scenes/HUD/UnitMenu.gd" id="2_mulfo"]
+[ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_dp5xs"]
+[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="4_65e54"]
+[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="5_axr2n"]
+[ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/TowerMenu/TowerSpecialContainer.tscn" id="6_njlch"]
+[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="7_jx6gy"]
+[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="8_jstgw"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="9_02rfc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ue77a"]
 
@@ -16,7 +16,7 @@
 content_margin_left = 20.0
 content_margin_right = 20.0
 content_margin_bottom = 5.0
-texture = ExtResource("3_hxc1d")
+texture = ExtResource("3_dp5xs")
 texture_margin_left = 13.9504
 texture_margin_top = 14.0
 texture_margin_right = 14.0
@@ -25,27 +25,27 @@ region_rect = Rect2(1283, 192, 139, 154)
 modulate_color = Color(0.588235, 0.588235, 0.588235, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6ro0"]
-atlas = ExtResource("2_8sf0j")
+atlas = ExtResource("4_65e54")
 region = Rect2(128, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h6o0y"]
-atlas = ExtResource("4_8bkul")
+atlas = ExtResource("5_axr2n")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gno2"]
-atlas = ExtResource("2_kbar0")
+atlas = ExtResource("9_02rfc")
 region = Rect2(0, 128, 128, 128)
 margin = Rect2(10, 10, 0, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yslek"]
-atlas = ExtResource("2_kbar0")
+atlas = ExtResource("9_02rfc")
 region = Rect2(256, 256, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m846m"]
-atlas = ExtResource("2_kbar0")
+atlas = ExtResource("9_02rfc")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
@@ -63,9 +63,9 @@ grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 mouse_force_pass_scroll_events = false
-theme = ExtResource("1_crn3l")
+theme = ExtResource("1_kx1vr")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ue77a")
-script = ExtResource("2_sqv8k")
+script = ExtResource("2_mulfo")
 _upgrade_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/TowerUpgradeButton")
 _sell_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/SellTowerButton")
 _info_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UnitInfoButton")
@@ -266,7 +266,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 fit_content = true
 
-[node name="UnitSpecialContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer" instance=ExtResource("6_petcg")]
+[node name="UnitSpecialContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer" instance=ExtResource("6_njlch")]
 visible = false
 layout_mode = 2
 
@@ -323,7 +323,7 @@ layout_mode = 2
 mouse_filter = 0
 horizontal_scroll_mode = 0
 
-[node name="TowerInfo" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitStatsMenu" instance=ExtResource("6_calw6")]
+[node name="TowerInfo" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitStatsMenu" instance=ExtResource("7_jx6gy")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -351,7 +351,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = ExtResource("5_t4ptj")
+theme_override_styles/normal = ExtResource("8_jstgw")
 text = "25"
 horizontal_alignment = 1
 vertical_alignment = 1
