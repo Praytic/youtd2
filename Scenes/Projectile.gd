@@ -280,6 +280,14 @@ func get_z() -> float:
 	return 0.0
 
 
+func get_speed() -> float:
+	return _speed
+
+
+func set_speed(new_speed: float):
+	_speed = new_speed
+
+
 func _get_target_position() -> Vector2:
 	if _targeted:
 		if _target != null:
