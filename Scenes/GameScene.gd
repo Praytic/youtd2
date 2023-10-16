@@ -68,16 +68,15 @@ func _on_HUD_stop_wave():
 	$Map/CreepSpawner.stop()
 
 
-# TODO: use game_mode setting
 func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, tutorial_enabled: bool):
 	get_tree().set_pause(false)
 	
 	_pregame_hud.hide()
 
-	var difficulty_string: String = Difficulty.convert_to_string(difficulty).to_upper()
+	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
 
 	Messages.add_normal("Welcome to You TD 2!")
-	Messages.add_normal("Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, Difficulty.convert_to_string(difficulty), GameMode.convert_to_display_string(game_mode)])
+	Messages.add_normal("Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, GameMode.convert_to_display_string(game_mode)])
 	Messages.add_normal("You can pause the game by pressing [color=GOLD]Esc[/color]")
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
