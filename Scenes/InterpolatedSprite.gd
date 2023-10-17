@@ -95,15 +95,18 @@ func _update_transform():
 
 # 	NOTE: if either of the units becomes invalid, use last
 # 	known position of the unit
+# 	NOTE: use is_instance_valid() instead of
+# 	Utils.unit_is_valid() because we also want to keep track
+# 	of positions of dead units
 	var start_pos: Vector2
-	if Utils.unit_is_valid(_start_unit):
+	if is_instance_valid(_start_unit):
 		start_pos = _start_unit.get_visual_position()
 		_last_start_pos = start_pos
 	else:
 		start_pos = _last_start_pos
 
 	var end_pos: Vector2
-	if Utils.unit_is_valid(_end_unit):
+	if is_instance_valid(_end_unit):
 		end_pos = _end_unit.get_visual_position()
 		_last_end_pos = end_pos
 	else:
