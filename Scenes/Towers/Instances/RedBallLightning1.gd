@@ -87,7 +87,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(shock_chance):
 		return
 
-	# TODO: uncomment and adjust when Lightning is implemented
-	# Lightning.create_from_unit_to_unit("AFOD", tower, creep).set_lifetime(0.2)
+	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, creep)
+	lightning.modulate = Color.RED
+	lightning.set_lifetime(0.2)
 
 	tower.do_spell_damage(creep, shock_damage, shock_crit_ratio)

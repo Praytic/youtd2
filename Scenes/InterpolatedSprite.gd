@@ -5,6 +5,16 @@ class_name InterpolatedSprite extends Node2D
 # points. You can pass your own custom AnimatedSprite2D to
 # create() function.
 
+# NOTE: this is the analog of Lightning class in JASS
+# Lightning.createFromUnitToUnit() in JASS
+# Lightning.createFromUnitToPoint() in JASS
+# Lightning.createFromPointToUnit() in JASS
+# Lightning.createFromPointToPoint() in JASS
+# Instead do this:
+# InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, ...)
+
+
+const LIGHTNING: String = "res://Resources/Sprites/LightningAnimation.tscn"
 
 var _sprite_scene_path: String
 var _start_unit: Unit

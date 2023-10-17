@@ -48,9 +48,10 @@ func junction_on_create(event: Event):
 
 	b.user_int = 0
 
-#	TODO: implement Lightning, a visual effect
-	# if tower != buffee:
-		# b.user_int = Lightning.create_from_point_toPoint("CLPB", tower.get_visual_x(), tower.get_visual_y(), tower.get_z() - 60, buffee)
+	if tower != buffee:
+		var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, buffee)
+		lightning.modulate = Color.LIGHT_BLUE
+		b.user_int = lightning.get_instance_id()
 
 #	NOTE: add & save attackspeed
 	b.user_real = tower.user_real + tower.user_real2 * tower.get_level()
@@ -72,9 +73,10 @@ func junction_on_damage(event: Event):
 func junction_on_cleanup(event: Event):
 	var b: Buff = event.get_buff()
 
-# #	TODO: implement Lightning, a visual effect
-# 	if b.user_int != 0:
-# 		Lightning(b.user_int).destroy()
+	if b.user_int != 0:
+		var lightning: InterpolatedSprite = instance_from_id(b.user_int) as InterpolatedSprite
+		if lightning != null:
+			lightning.queue_free()
 
 	b.get_buffed_unit().modify_property(Modification.Type.MOD_ATTACKSPEED, -b.user_real)
 

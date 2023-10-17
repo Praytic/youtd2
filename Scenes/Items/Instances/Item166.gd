@@ -2,11 +2,6 @@
 extends Item
 
 
-# TODO: implement Lightning. A visual effect, like a
-# projectile that flashes instantly from origin to target,
-# doesn't move like normal projectiles.
-
-
 func get_extra_tooltip_text() -> String:
 	var text: String = ""
 
@@ -33,7 +28,7 @@ func on_damage(event: Event):
 
 	if event.is_main_target():
 		if creep.subtract_mana((8 + 0.6 * tower.get_level() * tower.get_base_attack_speed()) * (55 / pow(tower.get_range(), 0.6)), true) > 0:
-			# l = Lightning.createFromUnitToUnit("MFPB",tower,creep)
-			# l.set_color(100, 0, 255, 255)
-			# l.set_lifetime(0.1)
+			var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, creep)
+			lightning.modulate = Color.LIGHT_GREEN
+			lightning.set_lifetime(0.1)
 			SFX.sfx_on_unit("ArcaneTowerAttack.mdl", creep, "origin")

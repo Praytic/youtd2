@@ -3,7 +3,6 @@ extends SpellDummy
 const CHAIN_DISTANCE: float = 300.0
 const VISUAL_LIFETIME: float = 0.4
 const VISUAL_COLOR: Color = Color.SKY_BLUE
-const VISUAL_PATH: String = "res://Resources/Sprites/LightningAnimation.tscn"
 
 var _damage: float = 0.0
 var _damage_reduction: float = 0.0
@@ -27,8 +26,6 @@ func _ready():
 		_create_lightning_section(start_unit, end_unit)
 	
 # 	Apply damage
-#	NOTE: do this after creating visuals in case
-#	we kill one of the units
 	for i in range(0, hit_list.size()):
 		var unit: Unit = hit_list[i]
 		var current_damage_reduction = max(0, 1.0 - _damage_reduction * i)
@@ -60,7 +57,7 @@ func _get_hit_list() -> Array[Unit]:
 
 
 func _create_lightning_section(start_unit: Unit, end_unit: Unit):
-	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(VISUAL_PATH, start_unit, end_unit)
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, start_unit, end_unit)
 	interpolated_sprite.set_lifetime(VISUAL_LIFETIME)
 
 	interpolated_sprite.modulate = VISUAL_COLOR.darkened(0.8)
