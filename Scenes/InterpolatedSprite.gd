@@ -7,7 +7,6 @@ class_name InterpolatedSprite extends Node2D
 
 
 var _sprite_scene_path: String
-var _lifetime: float
 var _start_unit: Unit
 var _end_unit: Unit
 var _last_start_pos: Vector2 = Vector2.ZERO
@@ -17,13 +16,46 @@ var _sprite_width: float
 var _lifetime_timer: Timer
 
 
-static func create_between_units(sprite_scene_path: String, lifetime: float, start_unit: Unit, end_unit: Unit) -> InterpolatedSprite:
+static func create_from_unit_to_unit(sprite_scene_path: String, start_unit: Unit, end_unit: Unit) -> InterpolatedSprite:
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, start_unit, end_unit, Vector2.ZERO, Vector2.ZERO)
+	
+	return interpolated_sprite
+
+
+static func create_from_point_to_point(sprite_scene_path: String, start_pos_3d: Vector3, end_pos_3d: Vector3) -> InterpolatedSprite:
+	var start_pos: Vector2 = Isometric.vector3_to_isometric_vector2(start_pos_3d)
+	var end_pos: Vector2 = Isometric.vector3_to_isometric_vector2(end_pos_3d)
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, null, null, start_pos, end_pos)
+	
+	return interpolated_sprite
+
+
+static func create_from_unit_to_point(sprite_scene_path: String, start_unit: Unit, end_pos_3d: Vector3) -> InterpolatedSprite:
+	var end_pos: Vector2 = Isometric.vector3_to_isometric_vector2(end_pos_3d)
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, start_unit, null, Vector2.ZERO, end_pos)
+	
+	return interpolated_sprite
+
+
+
+static func create_from_point_to_unit(sprite_scene_path: String, start_pos_3d: Vector3, end_unit: Unit) -> InterpolatedSprite:
+	var start_pos: Vector2 = Isometric.vector3_to_isometric_vector2(start_pos_3d)
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite._create_internal(sprite_scene_path, null, end_unit, start_pos, Vector2.ZERO)
+	
+	return interpolated_sprite
+
+
+static func _create_internal(sprite_scene_path: String, start_unit: Unit, end_unit: Unit, start_pos: Vector2, end_pos: Vector2) -> InterpolatedSprite:
 	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.new()
 	interpolated_sprite._sprite_scene_path = sprite_scene_path
-	interpolated_sprite._lifetime = lifetime
 	interpolated_sprite._start_unit = start_unit
 	interpolated_sprite._end_unit = end_unit
-	
+	interpolated_sprite._last_start_pos = start_pos
+	interpolated_sprite._last_end_pos = end_pos
+	interpolated_sprite.z_index = 1000
+
+	Utils.add_object_to_world(interpolated_sprite)
+
 	return interpolated_sprite
 
 
@@ -45,13 +77,16 @@ func _ready():
 	_lifetime_timer = Timer.new()
 	_lifetime_timer.timeout.connect(_on_lifetime_timer_timeout)
 	add_child(_lifetime_timer)
-	_lifetime_timer.start(_lifetime)
 	
 	_update_transform()
 
 
 func _process(_delta: float):
 	_update_transform()
+
+
+func set_lifetime(lifetime: float):
+	_lifetime_timer.start(lifetime)
 
 
 func _update_transform():

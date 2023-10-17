@@ -66,3 +66,12 @@ func top_down_vector_to_isometric(v: Vector2) -> Vector2:
 	var top_down: Vector2 = v * Vector2(1.0, 0.5)
 
 	return top_down
+
+
+# Applies z coordinate by modifying y coordinate of result
+func vector3_to_isometric_vector2(vector3: Vector3) -> Vector2:
+	var x: float = vector3.x
+	var y: float = vector3.y - vector3.z * 0.5
+	var vector2: Vector2 = Vector2(x, y)
+
+	return vector2

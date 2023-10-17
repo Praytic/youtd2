@@ -60,8 +60,8 @@ func _get_hit_list() -> Array[Unit]:
 
 
 func _create_lightning_section(start_unit: Unit, end_unit: Unit):
-	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.create_between_units(VISUAL_PATH, VISUAL_LIFETIME, start_unit, end_unit)
-	interpolated_sprite.z_index = 1000
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(VISUAL_PATH, start_unit, end_unit)
+	interpolated_sprite.set_lifetime(VISUAL_LIFETIME)
 
 	interpolated_sprite.modulate = VISUAL_COLOR.darkened(0.8)
 
@@ -72,8 +72,6 @@ func _create_lightning_section(start_unit: Unit, end_unit: Unit):
 	modulate_tween.tween_property(interpolated_sprite, "modulate",
 		Color.TRANSPARENT,
 		0.1 * VISUAL_LIFETIME).set_delay(0.8 * VISUAL_LIFETIME)
-
-	Utils.add_object_to_world(interpolated_sprite)
 
 
 # NOTE: subclasses override this to save data that is useful
