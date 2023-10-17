@@ -60,6 +60,15 @@ func _get_game_stats_text() -> String:
 		var most_exp: float = most_exp_tower.get_exp()
 		most_exp_value = TowerInfo.int_format(most_exp)
 
+	var most_kills_tower: Tower = _get_most_kills_tower(tower_list)
+	var most_kills_tower_name: String = ""
+	var most_kills_value: String = ""
+	if most_kills_tower != null:
+		most_kills_tower_name = _get_tower_name_colored_by_element(most_kills_tower)
+		var most_kills: float = most_kills_tower.get_kills()
+		most_kills_value = TowerInfo.int_format(most_kills)
+
+
 	var text: String = ""
 
 	text += "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
@@ -75,6 +84,7 @@ func _get_game_stats_text() -> String:
 	text += "[cell]Most Damage:[/cell][cell]%s[/cell][cell]%s[/cell]" % [most_damage_tower_name, most_damage_value]
 	text += "[cell]Best Hit:[/cell][cell]%s[/cell][cell]%s[/cell]" % [best_hit_tower_name, best_hit_value]
 	text += "[cell]Most Exp:[/cell][cell]%s[/cell][cell]%s[/cell]" % [most_exp_tower_name, most_exp_value]
+	text += "[cell]Most Kills:[/cell][cell]%s[/cell][cell]%s[/cell]" % [most_kills_tower_name, most_kills_value]
 	text += "[/table]"
 
 	return text
@@ -115,6 +125,15 @@ func _get_most_exp_tower(tower_list: Array[Tower]) -> Tower:
 	var best_tower: Tower = _get_best_tower_by_criteria(tower_list,
 		func(a: Tower, b: Tower) -> bool:
 			return a.get_exp() > b.get_exp()
+			)
+
+	return best_tower
+
+
+func _get_most_kills_tower(tower_list: Array[Tower]) -> Tower:
+	var best_tower: Tower = _get_best_tower_by_criteria(tower_list,
+		func(a: Tower, b: Tower) -> bool:
+			return a.get_kills() > b.get_kills()
 			)
 
 	return best_tower
