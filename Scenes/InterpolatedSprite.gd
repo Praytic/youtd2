@@ -14,13 +14,11 @@ var _last_start_pos: Vector2 = Vector2.ZERO
 var _last_end_pos: Vector2 = Vector2.ZERO
 var _sprite: AnimatedSprite2D
 var _sprite_width: float
-
-
-@export var _lifetime_timer: Timer
+var _lifetime_timer: Timer
 
 
 static func create_between_units(sprite_scene_path: String, lifetime: float, start_unit: Unit, end_unit: Unit) -> InterpolatedSprite:
-	var interpolated_sprite: InterpolatedSprite = Globals.interpolated_sprite_scene.instantiate()
+	var interpolated_sprite: InterpolatedSprite = InterpolatedSprite.new()
 	interpolated_sprite._sprite_scene_path = sprite_scene_path
 	interpolated_sprite._lifetime = lifetime
 	interpolated_sprite._start_unit = start_unit
@@ -44,6 +42,9 @@ func _ready():
 
 	_sprite_width = _get_sprite_width()
 
+	_lifetime_timer = Timer.new()
+	_lifetime_timer.timeout.connect(_on_lifetime_timer_timeout)
+	add_child(_lifetime_timer)
 	_lifetime_timer.start(_lifetime)
 	
 	_update_transform()
