@@ -26,7 +26,6 @@ func _process(_delta: float):
 func _update_all_labels():
 	_update_timer_label()
 	_update_details_label()
-	_update_tooltip()
 
 
 func _update_timer_label():
@@ -83,54 +82,27 @@ func _update_details_label():
 		var armor_type: ArmorType.enm = wave.get_armor_type()
 		var armor_string: String = ArmorType.convert_to_colored_string(armor_type)
 
+		var specials_description: String = _get_specials_description(wave)
 		var specials_string: String = _get_specials_string_short(wave)
 
-		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [level, size_string, race_string, armor_string, specials_string]
+		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell][hint=%s]%s[/hint][/cell]" % [level, size_string, race_string, armor_string, specials_description, specials_string]
 	
 	text += "[/table]"
 
 	_label.append_text(text)
 
 
-func _update_tooltip():
-	var tooltip: String = ""
-
-	tooltip += "Wave specials:\n"
-
-	var current_wave_level: int = WaveLevel.get_current()
-	
-	var first_wave_index: int
-	if current_wave_level > 0:
-		first_wave_index = current_wave_level
-	else:
-		first_wave_index = 1
-
-	for level in range(first_wave_index, first_wave_index + 5):
-		var wave: Wave = _wave_spawner.get_wave(level)
-
-		if wave == null:
-			break
-
-		var specials_string: String = _get_specials_string(wave)
-
-		tooltip += "Wave %d: %s\n" % [level, specials_string]
-
-	_label.set_tooltip_text(tooltip)
-
-
-func _get_specials_string(wave: Wave) -> String:
+func _get_specials_description(wave: Wave) -> String:
 	var special_list: Array[int] = wave.get_specials()
-
-	if special_list.is_empty():
-		return "None"
-
 	var string_list: Array[String] = []
 
 	for special in special_list:
-		var string: String = WaveSpecial.get_special_name(special)
-		string_list.append(string)
+		var special_name: String = WaveSpecial.get_special_name(special)
+		var special_description: String = WaveSpecial.get_description(special)
+		var line: String = "%s - %s" % [special_name, special_description]
+		string_list.append(line)
 
-	var specials_string: String = ", ".join(string_list)
+	var specials_string: String = "\n".join(string_list)
 
 	return specials_string
 
