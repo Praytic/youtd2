@@ -18,6 +18,7 @@ const _tiny_unit_button_theme: Theme = preload("res://Resources/Theme/tiny_unit_
 @export var _unit_level_label: Label
 @export var _unit_control_menu: VBoxContainer
 @export var _unit_stats_menu: ScrollContainer
+@export var _creep_stats_menu: ScrollContainer
 @export var _buffs_container: GridContainer
 @export var _info_label: RichTextLabel
 @export var _specials_container: VBoxContainer
@@ -117,6 +118,10 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_upgrade_button.set_visible(upgrade_button_should_be_visible)
 		_sell_button.show()
 
+		if _unit_stats_menu.visible:
+			_unit_stats_menu.hide()
+			_creep_stats_menu.show()
+
 	if creep != null:
 		creep.buff_list_changed.connect(_on_unit_buff_list_changed.bind(creep))
 		_update_unit_name_label(creep)
@@ -131,7 +136,11 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_tier_icon_texture.hide()
 		_upgrade_button.hide()
 		_sell_button.hide()
-	
+
+		if _unit_stats_menu.visible:
+			_unit_stats_menu.hide()
+			_creep_stats_menu.show()
+
 	_set_selling_for_real(false)
 
 
@@ -367,12 +376,14 @@ func _set_selling_for_real(value: bool):
 
 
 func _on_info_button_pressed():
-	if not _unit_stats_menu.visible:
-		_unit_control_menu.hide()
-		_unit_stats_menu.show()
-	else:
-		_unit_control_menu.show()
-		_unit_stats_menu.hide()
+	var was_showing_main_page: bool = _unit_control_menu.visible
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+	var show_tower_stats: bool = selected_unit is Tower && was_showing_main_page
+	var show_creep_stats: bool = selected_unit is Creep && was_showing_main_page
+
+	_unit_control_menu.visible = !was_showing_main_page
+	_unit_stats_menu.visible = show_tower_stats
+	_creep_stats_menu.visible = show_creep_stats
 
 
 func _on_unit_buff_list_changed(unit: Unit):

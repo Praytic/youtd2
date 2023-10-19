@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://chojoq00uw7ng"]
+[gd_scene load_steps=19 format=3 uid="uid://chojoq00uw7ng"]
 
 [ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/unit_menu_theme.tres" id="1_kx1vr"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu.gd" id="2_mulfo"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/TowerMenu/TowerSpecialContainer.tscn" id="6_njlch"]
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="7_jx6gy"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="8_jstgw"]
+[ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://Scenes/HUD/CreepInfo.tscn" id="8_rim5q"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="9_02rfc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ue77a"]
@@ -49,7 +50,7 @@ atlas = ExtResource("9_02rfc")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_title_label", "_unit_info_label", "_unit_icon_texture", "_unit_specials_container", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container")]
+[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_title_label", "_unit_info_label", "_unit_icon_texture", "_unit_specials_container", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_creep_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -78,6 +79,7 @@ _unit_specials_container = NodePath("MainContainer/MarginContainer/Panel/MarginC
 _unit_level_label = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/UnitLevelLabel")
 _unit_control_menu = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu")
 _unit_stats_menu = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitStatsMenu")
+_creep_stats_menu = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/CreepStatsMenu")
 _buffs_container = NodePath("MainContainer/MarginContainer3/BuffContainer")
 _info_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
 _specials_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer")
@@ -328,6 +330,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_force_pass_scroll_events = false
+
+[node name="CreepStatsMenu" type="ScrollContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="CreepInfo" parent="MainContainer/MarginContainer/Panel/MarginContainer/CreepStatsMenu" instance=ExtResource("8_rim5q")]
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer"]
 layout_mode = 2

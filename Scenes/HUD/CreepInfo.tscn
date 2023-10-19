@@ -1,0 +1,548 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1l5uiun5nhhx"]
+
+[ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/unit_menu_theme.tres" id="1_7ynh3"]
+[ext_resource type="Script" path="res://Scenes/HUD/CreepInfo.gd" id="2_dgaop"]
+
+[node name="CreepInfo" type="GridContainer" node_paths=PackedStringArray("_base_movespeed", "_movespeed_bonus", "_movespeed_bonus_perc", "_overall_movespeed", "_damage_reduction", "_base_armor", "_armor_bonus", "_armor_bonus_perc", "_overall_armor", "_dmg_from_astral", "_dmg_from_darkness", "_dmg_from_nature", "_dmg_from_ice", "_dmg_from_fire", "_dmg_from_storm", "_dmg_from_iron", "_dmg_from_attacks", "_dmg_from_spells", "_base_health", "_health_bonus", "_health_bonus_perc", "_overall_health", "_base_health_regen", "_health_regen_bonus", "_health_regen_bonus_perc", "_overall_health_regen", "_base_mana", "_mana_bonus", "_mana_bonus_perc", "_overall_mana", "_base_mana_regen", "_mana_regen_bonus", "_mana_regen_bonus_perc", "_overall_mana_regen", "_bounty_ratio", "_exp_ratio", "_item_drop_ratio", "_item_quality_ratio", "_buff_duration", "_debuff_duration")]
+custom_minimum_size = Vector2(500, 0)
+theme = ExtResource("1_7ynh3")
+columns = 2
+script = ExtResource("2_dgaop")
+_base_movespeed = NodePath("PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer/BaseMovespeed")
+_movespeed_bonus = NodePath("PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer/MovespeedBonus")
+_movespeed_bonus_perc = NodePath("PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer/MovespeedBonusPerc")
+_overall_movespeed = NodePath("PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer/OverallMovespeed")
+_damage_reduction = NodePath("PanelContainer/MarginContainer/VBoxContainer/ArmorContainer/DamageReduction")
+_base_armor = NodePath("PanelContainer/MarginContainer/VBoxContainer/ArmorContainer/BaseArmor")
+_armor_bonus = NodePath("PanelContainer/MarginContainer/VBoxContainer/ArmorContainer/ArmorBonus")
+_armor_bonus_perc = NodePath("PanelContainer/MarginContainer/VBoxContainer/ArmorContainer/ArmorBonusPerc")
+_overall_armor = NodePath("PanelContainer/MarginContainer/VBoxContainer/ArmorContainer/OverallArmor")
+_dmg_from_astral = NodePath("PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer/DmgFromAstral")
+_dmg_from_darkness = NodePath("PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer/DmgFromDarkness")
+_dmg_from_nature = NodePath("PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer/DmgFromNature")
+_dmg_from_ice = NodePath("PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer/DmgFromIce")
+_dmg_from_fire = NodePath("PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer/DmgFromFire")
+_dmg_from_storm = NodePath("PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer/DmgFromStorm")
+_dmg_from_iron = NodePath("PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer/DmgFromIron")
+_dmg_from_attacks = NodePath("PanelContainer/MarginContainer/VBoxContainer/DefenseContainer/DmgFromAttacks")
+_dmg_from_spells = NodePath("PanelContainer/MarginContainer/VBoxContainer/DefenseContainer/DmgFromSpells")
+_base_health = NodePath("PanelContainer2/MarginContainer/VBoxContainer/HealthContainer/BaseHealth")
+_health_bonus = NodePath("PanelContainer2/MarginContainer/VBoxContainer/HealthContainer/HealthBonus")
+_health_bonus_perc = NodePath("PanelContainer2/MarginContainer/VBoxContainer/HealthContainer/HealthBonusPerc")
+_overall_health = NodePath("PanelContainer2/MarginContainer/VBoxContainer/HealthContainer/OverallHealth")
+_base_health_regen = NodePath("PanelContainer2/MarginContainer/VBoxContainer/HealthContainer/BaseHealthRegen")
+_health_regen_bonus = NodePath("PanelContainer2/MarginContainer/VBoxContainer/HealthContainer/HealthRegenBonus")
+_health_regen_bonus_perc = NodePath("PanelContainer2/MarginContainer/VBoxContainer/HealthContainer/HealthRegenBonusPerc")
+_overall_health_regen = NodePath("PanelContainer2/MarginContainer/VBoxContainer/HealthContainer/OverallHealthRegen")
+_base_mana = NodePath("PanelContainer2/MarginContainer/VBoxContainer/ManaContainer/BaseMana")
+_mana_bonus = NodePath("PanelContainer2/MarginContainer/VBoxContainer/ManaContainer/ManaBonus")
+_mana_bonus_perc = NodePath("PanelContainer2/MarginContainer/VBoxContainer/ManaContainer/ManaBonusPerc")
+_overall_mana = NodePath("PanelContainer2/MarginContainer/VBoxContainer/ManaContainer/OverallMana")
+_base_mana_regen = NodePath("PanelContainer2/MarginContainer/VBoxContainer/ManaContainer/BaseManaRegen")
+_mana_regen_bonus = NodePath("PanelContainer2/MarginContainer/VBoxContainer/ManaContainer/ManaRegenBonus")
+_mana_regen_bonus_perc = NodePath("PanelContainer2/MarginContainer/VBoxContainer/ManaContainer/ManaRegenBonusPerc")
+_overall_mana_regen = NodePath("PanelContainer2/MarginContainer/VBoxContainer/ManaContainer/OverallManaRegen")
+_bounty_ratio = NodePath("PanelContainer2/MarginContainer/VBoxContainer/MiscContainer/BountyRatio")
+_exp_ratio = NodePath("PanelContainer2/MarginContainer/VBoxContainer/MiscContainer/ExpRatio")
+_item_drop_ratio = NodePath("PanelContainer2/MarginContainer/VBoxContainer/MiscContainer/ItemDropRatio")
+_item_quality_ratio = NodePath("PanelContainer2/MarginContainer/VBoxContainer/MiscContainer/ItemQualityRatio")
+_buff_duration = NodePath("PanelContainer2/MarginContainer/VBoxContainer/MiscContainer/BuffDuration")
+_debuff_duration = NodePath("PanelContainer2/MarginContainer/VBoxContainer/MiscContainer/DebuffDuration")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.415686, 0.596078, 0.996078, 1)
+text = "Movespeed:"
+
+[node name="MovespeedContainer" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer"]
+layout_mode = 2
+text = "Base"
+
+[node name="BaseMovespeed" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer"]
+layout_mode = 2
+text = "Bonus"
+
+[node name="MovespeedBonus" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer"]
+layout_mode = 2
+text = "Bonus %"
+
+[node name="MovespeedBonusPerc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer"]
+layout_mode = 2
+text = "Overall"
+
+[node name="OverallMovespeed" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MovespeedContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.901961, 0.537255, 0.0392157, 1)
+text = "Armor:"
+
+[node name="ArmorContainer" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+text = "Base"
+
+[node name="BaseArmor" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+text = "Bonus"
+
+[node name="ArmorBonus" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+text = "Bonus %"
+
+[node name="ArmorBonusPerc" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+text = "Overall"
+
+[node name="OverallArmor" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label6" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+text = "Dmg reduction"
+
+[node name="DamageReduction" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.388235, 0.709804, 0, 1)
+text = "Defense:"
+
+[node name="DefenseContainer" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DefenseContainer"]
+layout_mode = 2
+text = "Dmg from attacks"
+
+[node name="DmgFromAttacks" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DefenseContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DefenseContainer"]
+layout_mode = 2
+text = "Dmg from spells"
+
+[node name="DmgFromSpells" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DefenseContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.662745, 0.760784, 1)
+text = "Damage from element:"
+
+[node name="DamageFromElementContainer" type="GridContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+text = "Astral"
+
+[node name="DmgFromAstral" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+text = "Darkness"
+
+[node name="DmgFromDarkness" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+text = "Nature"
+
+[node name="DmgFromNature" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+text = "Ice"
+
+[node name="DmgFromIce" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label6" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+text = "Fire"
+
+[node name="DmgFromFire" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label7" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+text = "Storm"
+
+[node name="DmgFromStorm" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label8" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+text = "Iron"
+
+[node name="DmgFromIron" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/DamageFromElementContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.858824, 0.254902, 0.219608, 1)
+text = "Health:"
+
+[node name="HealthContainer" type="GridContainer" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label2" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+text = "Base"
+
+[node name="BaseHealth" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+text = "Bonus"
+
+[node name="HealthBonus" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+text = "Bonus %"
+
+[node name="HealthBonusPerc" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+text = "Overall"
+
+[node name="OverallHealth" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+text = "Base regen"
+
+[node name="BaseHealthRegen" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label6" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+text = "Bonus regen"
+
+[node name="HealthRegenBonus" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label7" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+text = "Bonus regen %"
+
+[node name="HealthRegenBonusPerc" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label8" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+text = "Overall regen"
+
+[node name="OverallHealthRegen" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/HealthContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.380392, 0.517647, 1, 1)
+text = "Mana:"
+
+[node name="ManaContainer" type="GridContainer" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label2" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+text = "Base"
+
+[node name="BaseMana" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+text = "Bonus"
+
+[node name="ManaBonus" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+text = "Bonus %"
+
+[node name="ManaBonusPerc" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+text = "Overall"
+
+[node name="OverallMana" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+text = "Base regen"
+
+[node name="BaseManaRegen" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label6" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+text = "Bonus regen"
+
+[node name="ManaRegenBonus" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label7" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+text = "Bonus regen %"
+
+[node name="ManaRegenBonusPerc" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label8" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+text = "Overall regen"
+
+[node name="OverallManaRegen" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/ManaContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
+text = "Misc:"
+
+[node name="MiscContainer" type="GridContainer" parent="PanelContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label2" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+text = "Bounty ratio"
+
+[node name="BountyRatio" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+text = "Exp ratio"
+
+[node name="ExpRatio" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label4" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+text = "Item drop ratio"
+
+[node name="ItemDropRatio" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label5" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+text = "Item quality ratio"
+
+[node name="ItemQualityRatio" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label6" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+text = "Buff duration"
+
+[node name="BuffDuration" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="Label7" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+text = "Debuff duration"
+
+[node name="DebuffDuration" type="Label" parent="PanelContainer2/MarginContainer/VBoxContainer/MiscContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "123%"
+horizontal_alignment = 2
+
+[node name="RefreshTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="RefreshTimer" to="." method="_on_refresh_timer_timeout"]
