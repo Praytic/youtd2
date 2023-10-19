@@ -16,12 +16,16 @@ const MARGIN: int = 4
 const CELL_WIDTH_WITH_MARGIN: int = CELL_WIDTH + MARGIN * 2
 const CELL_HEIGHT_WITH_MARGIN: int = CELL_HEIGHT + MARGIN * 2
 
+# Cuts out bottom section in v shape
 const polygon_bottom_v: PackedVector2Array = [Vector2(128, 511), Vector2(127, 511), Vector2(0, 447), Vector2(0, 319), Vector2(127, 383), Vector2(128, 383), Vector2(255, 319), Vector2(255, 447)]
-const polygon_top_v_with_cap: PackedVector2Array = [Vector2(128, 383), Vector2(127, 383), Vector2(0, 319), Vector2(0, 191), Vector2(127, 127), Vector2(128, 127), Vector2(255, 191), Vector2(255, 320)]
+# Cuts out top section in hexagon shape. It's basically the
+# rest of the tile above the bottom v shape.
+const polygon_top_hexagon: PackedVector2Array = [Vector2(128, 383), Vector2(127, 383), Vector2(0, 319), Vector2(0, 191), Vector2(127, 127), Vector2(128, 127), Vector2(255, 191), Vector2(255, 320)]
 
-# const polygon_top_v: PackedVector2Array = [Vector2(128, 383), Vector2(127, 383), Vector2(0, 319), Vector2(0, 191), Vector2(127, 255), Vector2(128, 255), Vector2(255, 191), Vector2(255, 320)]
-# NOTE: not sure if this portion is needed
-# const polygon_bottom_with_cap: PackedVector2Array = [Vector2(128, 511), Vector2(127, 511), Vector2(0, 447), Vector2(0, 320), Vector2(127, 256), Vector2(128, 256), Vector2(255, 320), Vector2(255, 447)]
+# NOTE: modify these to change which shape is used to cut
+# bottom/top sections
+const POLYGON_FOR_BOTTOM: PackedVector2Array = polygon_bottom_v
+const POLYGON_FOR_TOP: PackedVector2Array = polygon_top_hexagon
 
 
 func _initialize():
@@ -76,8 +80,8 @@ func process_path(path: String):
 					var tilesheet_y: int = cell_y + MARGIN + CELL_HEIGHT_WITH_MARGIN * row
 					var pixel: Color = original_image.get_pixel(tilesheet_x, tilesheet_y)
 
-					var is_part_of_bottom_v: bool = need_to_copy_pixel(cell_pos, polygon_bottom_v)
-					var is_part_of_top_v: bool = need_to_copy_pixel(cell_pos, polygon_top_v_with_cap)
+					var is_part_of_bottom_v: bool = need_to_copy_pixel(cell_pos, POLYGON_FOR_BOTTOM)
+					var is_part_of_top_v: bool = need_to_copy_pixel(cell_pos, POLYGON_FOR_TOP)
 
 #					NOTE: shift down top section so that
 #					it's bottom section touches bottom of
