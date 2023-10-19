@@ -18,6 +18,7 @@ var _height_tween: Tween = null
 var _spawn_level: int
 var _total_path_length: float = 0.0
 var _distance_covered: float = 0.0
+var _special_list: Array[int] = []
 
 # TODO: can't use @export here because there's no Creep.tscn
 # - only subclass scenes. Create base class Creep.tscn to
@@ -408,6 +409,10 @@ func set_spawn_level(spawn_level: int):
 func get_distance_until_portal() -> float:
 	var distance: float = _total_path_length - _distance_covered
 	return distance
+
+
+func get_special_list() -> Array[int]:
+	return _special_list
 
 
 func _calculate_path_length(path: Path2D) -> float:

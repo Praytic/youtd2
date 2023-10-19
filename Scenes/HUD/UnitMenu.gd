@@ -226,7 +226,7 @@ func _update_specials_label(unit: Unit):
 			text += " \n"
 			text += autocast_text
 	elif unit is Creep:
-		text = ""
+		text = _get_specials_text_for_creep(unit)
 	else:
 		assert(unit != null, "Unit is of unknown type. Can't get specials label for it.")
 	
@@ -478,3 +478,20 @@ func _get_tooltip_for_info_label(unit: Unit) -> String:
 # also close the menu
 func _on_close_button_pressed():
 	SelectUnit.set_selected_unit(null)
+
+
+func _get_specials_text_for_creep(unit: Unit):
+	var text: String = ""
+
+	var creep: Creep = unit as Creep
+
+	var special_list: Array[int] = creep.get_special_list()
+
+	for special in special_list:
+		var special_name: String = WaveSpecial.get_special_name(special)
+		var special_description: String = WaveSpecial.get_description(special)
+		text += "[color=GOLD]%s[/color]\n" % special_name
+		text += "%s\n" % special_description
+		text += " \n"
+
+	return text
