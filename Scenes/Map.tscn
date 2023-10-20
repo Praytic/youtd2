@@ -1,7 +1,6 @@
 [gd_scene load_steps=32 format=3 uid="uid://bjvafnsglmpin"]
 
 [ext_resource type="TileSet" uid="uid://c2ke1gy0rnehu" path="res://Resources/Tilesets/Decorations.tres" id="2_u46x8"]
-[ext_resource type="Texture2D" uid="uid://b1jihcvx3duyq" path="res://Assets/Environment/Props/floor.png" id="3_2j5lc"]
 [ext_resource type="Texture2D" uid="uid://cc6k2jfl41ts3" path="res://Assets/Atlas/Floor.png" id="3_7wmqi"]
 [ext_resource type="Script" path="res://Scenes/Map.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://dpvwypf6jchse" path="res://Assets/Atlas/Walls.png" id="4_rqe6s"]
@@ -15,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bny606e7kxwrj" path="res://Assets/Atlas/StoneWall.png" id="12_kwkcn"]
 [ext_resource type="Texture2D" uid="uid://dlqcmo1shiaf1" path="res://Assets/Atlas/WoodenSupport.png" id="13_yjxoq"]
 [ext_resource type="Texture2D" uid="uid://cj6vux6oykg3q" path="res://Assets/Atlas/Columns.png" id="14_83pwa"]
+[ext_resource type="Texture2D" uid="uid://b1jihcvx3duyq" path="res://Assets/Atlas/Tile.png" id="15_f33p2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnh7f"]
 texture = ExtResource("3_7wmqi")
@@ -829,7 +829,7 @@ sources/15 = SubResource("TileSetAtlasSource_v14a7")
 sources/16 = SubResource("TileSetAtlasSource_s0y48")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fiy5q"]
-texture = ExtResource("3_2j5lc")
+texture = ExtResource("15_f33p2")
 texture_region_size = Vector2i(256, 512)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 192)
