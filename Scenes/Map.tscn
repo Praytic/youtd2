@@ -4,17 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://b1jihcvx3duyq" path="res://Assets/Environment/Props/floor.png" id="3_2j5lc"]
 [ext_resource type="Texture2D" uid="uid://cc6k2jfl41ts3" path="res://Assets/Atlas/Floor.png" id="3_7wmqi"]
 [ext_resource type="Script" path="res://Scenes/Map.gd" id="4"]
-[ext_resource type="Texture2D" uid="uid://dpvwypf6jchse" path="res://Assets/Atlas/Walls-cut.png" id="4_gcth4"]
-[ext_resource type="Texture2D" uid="uid://clf57t6ux7g6s" path="res://Assets/Atlas/StoneWallDecorations-1-cut.png" id="5_ajrxy"]
-[ext_resource type="Texture2D" uid="uid://diefk0ni2q5t1" path="res://Assets/Atlas/StoneWallDecorations-2-cut.png" id="6_qq7fn"]
-[ext_resource type="Texture2D" uid="uid://b2h3ribivyx40" path="res://Assets/Atlas/StoneWallDecorations-3-cut.png" id="7_upmtj"]
-[ext_resource type="Texture2D" uid="uid://b1jfx4oltvvu5" path="res://Assets/Atlas/StoneWallDecorations-4-cut.png" id="8_t4fig"]
-[ext_resource type="Texture2D" uid="uid://t3yknemvbpst" path="res://Assets/Atlas/StoneWallDecorations-5-cut.png" id="9_dlnui"]
-[ext_resource type="Texture2D" uid="uid://daslq15rtflo8" path="res://Assets/Atlas/StoneWallDecorations-6-cut.png" id="10_f1kym"]
+[ext_resource type="Texture2D" uid="uid://dpvwypf6jchse" path="res://Assets/Atlas/Walls.png" id="4_rqe6s"]
+[ext_resource type="Texture2D" uid="uid://clf57t6ux7g6s" path="res://Assets/Atlas/StoneWallDecorations-1.png" id="5_mrq1d"]
+[ext_resource type="Texture2D" uid="uid://diefk0ni2q5t1" path="res://Assets/Atlas/StoneWallDecorations-2.png" id="6_ypmid"]
+[ext_resource type="Texture2D" uid="uid://b2h3ribivyx40" path="res://Assets/Atlas/StoneWallDecorations-3.png" id="7_2026u"]
+[ext_resource type="Texture2D" uid="uid://b1jfx4oltvvu5" path="res://Assets/Atlas/StoneWallDecorations-4.png" id="8_bcmim"]
+[ext_resource type="Texture2D" uid="uid://t3yknemvbpst" path="res://Assets/Atlas/StoneWallDecorations-5.png" id="9_tydhx"]
+[ext_resource type="Texture2D" uid="uid://daslq15rtflo8" path="res://Assets/Atlas/StoneWallDecorations-6.png" id="10_j7jkf"]
 [ext_resource type="Texture2D" uid="uid://bxt8dmk8cq5nr" path="res://Assets/Atlas/Stairs.png" id="11_6xjls"]
-[ext_resource type="Texture2D" uid="uid://bny606e7kxwrj" path="res://Assets/Atlas/StoneWall-cut.png" id="12_d7yhc"]
-[ext_resource type="Texture2D" uid="uid://dlqcmo1shiaf1" path="res://Assets/Atlas/WoodenSupport-cut.png" id="13_4x0kx"]
-[ext_resource type="Texture2D" uid="uid://cj6vux6oykg3q" path="res://Assets/Atlas/Columns-cut.png" id="14_cr52c"]
+[ext_resource type="Texture2D" uid="uid://bny606e7kxwrj" path="res://Assets/Atlas/StoneWall.png" id="12_kwkcn"]
+[ext_resource type="Texture2D" uid="uid://dlqcmo1shiaf1" path="res://Assets/Atlas/WoodenSupport.png" id="13_yjxoq"]
+[ext_resource type="Texture2D" uid="uid://cj6vux6oykg3q" path="res://Assets/Atlas/Columns.png" id="14_83pwa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnh7f"]
 texture = ExtResource("3_7wmqi")
@@ -135,7 +135,7 @@ texture_region_size = Vector2i(256, 256)
 0:7/0/texture_origin = Vector2i(0, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nx3my"]
-texture = ExtResource("4_gcth4")
+texture = ExtResource("4_rqe6s")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
@@ -253,7 +253,7 @@ texture_region_size = Vector2i(256, 512)
 6:5/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ju5co"]
-texture = ExtResource("5_ajrxy")
+texture = ExtResource("5_mrq1d")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
@@ -315,7 +315,7 @@ texture_region_size = Vector2i(256, 512)
 6:2/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0svfc"]
-texture = ExtResource("6_qq7fn")
+texture = ExtResource("6_ypmid")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
@@ -377,7 +377,7 @@ texture_region_size = Vector2i(256, 512)
 0:0/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ob7ih"]
-texture = ExtResource("7_upmtj")
+texture = ExtResource("7_2026u")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
@@ -439,7 +439,7 @@ texture_region_size = Vector2i(256, 512)
 3:1/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6wu3p"]
-texture = ExtResource("8_t4fig")
+texture = ExtResource("8_bcmim")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
@@ -501,7 +501,7 @@ texture_region_size = Vector2i(256, 512)
 6:1/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v14a7"]
-texture = ExtResource("9_dlnui")
+texture = ExtResource("9_tydhx")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
@@ -563,7 +563,7 @@ texture_region_size = Vector2i(256, 512)
 1:1/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s0y48"]
-texture = ExtResource("10_f1kym")
+texture = ExtResource("10_j7jkf")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
@@ -671,7 +671,7 @@ texture_region_size = Vector2i(256, 512)
 4:1/0/texture_origin = Vector2i(0, 172)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6g7ib"]
-texture = ExtResource("12_d7yhc")
+texture = ExtResource("12_kwkcn")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
@@ -693,7 +693,7 @@ texture_region_size = Vector2i(256, 512)
 2:0/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0tvl"]
-texture = ExtResource("13_4x0kx")
+texture = ExtResource("13_yjxoq")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
@@ -773,7 +773,7 @@ texture_region_size = Vector2i(256, 512)
 1:5/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5kff"]
-texture = ExtResource("14_cr52c")
+texture = ExtResource("14_83pwa")
 margins = Vector2i(4, 4)
 separation = Vector2i(8, 8)
 texture_region_size = Vector2i(256, 512)
