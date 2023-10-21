@@ -80,6 +80,13 @@ func set_remaining_duration(duration: float):
 		_timer.start(duration)
 
 
+# NOTE: buff.getRemainingDuration() in JASS
+func get_remaining_duration() -> float:
+	var remaining_duration: float = _timer.get_time_left()
+
+	return remaining_duration
+
+
 # NOTE: buff.isPurgable() in JASS
 func is_purgable() -> bool:
 	return _purgable
