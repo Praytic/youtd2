@@ -119,8 +119,8 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_sell_button.show()
 
 		if _unit_stats_menu.visible:
-			_unit_stats_menu.hide()
-			_creep_stats_menu.show()
+			_creep_stats_menu.hide()
+			_unit_stats_menu.show()
 
 	if creep != null:
 		creep.buff_list_changed.connect(_on_unit_buff_list_changed.bind(creep))
