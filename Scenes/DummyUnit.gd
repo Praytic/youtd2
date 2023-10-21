@@ -12,6 +12,7 @@ var _damage_event_handler: Callable = Callable()
 var _kill_event_handler: Callable = Callable()
 var _cleanup_handler: Callable = Callable()
 var _damage_bonus_to_size_map: Dictionary = {}
+var _cleanup_done: bool = false
 
 
 func _ready():
@@ -116,8 +117,10 @@ func _on_caster_tree_exited():
 
 
 func _cleanup():
-	if is_queued_for_deletion():
+	if _cleanup_done:
 		return
+
+	_cleanup_done = true
 
 #	NOTE: cleanup handler is valid only in Projectile
 #	subclass
