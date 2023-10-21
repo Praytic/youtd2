@@ -27,7 +27,6 @@ var _special_list: Array[int] = []
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite2D
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
-@onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
 
 #########################
@@ -439,12 +438,21 @@ func _calculate_path_length(path: Path2D) -> float:
 # it's z index so that the sprite is drawn correctly in
 # front of tiles.
 func _calculate_current_z_index() -> int:
-	var base_z_index: int = _path.get_z(_current_path_index)
 	var height: float = -_visual.position.y
-	var height_z_index = _map.world_height_to_z_index(height)
-	var total_z_index: int = base_z_index + height_z_index
 
-	return total_z_index
+# 	TODO: "100" is the placeholder. Figure out actual logic
+# 	for how z_index of creep should change as it's height
+# 	increases.
+# 	NOTE: make z_index for air reeps 1 higher because air
+# 	creeps should always be drawn above any ground creep
+# 	which was elevated
+	if height > 100:
+		if get_size() == CreepSize.enm.AIR:
+			return 11
+		else:
+			return 10
+	else:
+		return 0
 
 
 # Returns current movement angle, top down and in degrees
