@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=35 format=3 uid="uid://c2ke1gy0rnehu"]
+[gd_resource type="TileSet" load_steps=36 format=3 uid="uid://c2ke1gy0rnehu"]
 
 [ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://Assets/Atlas/Barrels.png" id="1_6p7yy"]
 [ext_resource type="Texture2D" uid="uid://bm2xysoxbcjbc" path="res://Assets/Atlas/Chests.png" id="2_1v403"]
@@ -533,6 +533,19 @@ texture_region_size = Vector2i(128, 64)
 8:20/1/flip_h = true
 8:20/1/texture_origin = Vector2i(0, 88)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rkgj3"]
+resource_name = "Trees2 floor2"
+texture = ExtResource("4_0igb5")
+texture_region_size = Vector2i(64, 32)
+12:33/size_in_atlas = Vector2i(4, 11)
+12:33/0 = 0
+12:33/0/texture_origin = Vector2i(0, 150)
+12:33/0/y_sort_origin = 128
+8:33/size_in_atlas = Vector2i(4, 11)
+8:33/0 = 0
+8:33/0/texture_origin = Vector2i(0, 150)
+8:33/0/y_sort_origin = 128
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gi2s"]
 texture = ExtResource("6_nndy1")
 texture_region_size = Vector2i(128, 128)
@@ -829,3 +842,4 @@ sources/15 = SubResource("TileSetAtlasSource_dkfhl")
 sources/16 = SubResource("TileSetAtlasSource_psi0x")
 sources/17 = SubResource("TileSetAtlasSource_3i46i")
 sources/1 = SubResource("TileSetAtlasSource_q3iam")
+sources/3 = SubResource("TileSetAtlasSource_rkgj3")
