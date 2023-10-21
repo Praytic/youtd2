@@ -33,8 +33,17 @@ func ball_lightning_jump(ball: Projectile):
 	var target_tower: Tower = instance_from_id(ball.user_int2) as Tower
 	var tower_in_range: Tower
 
-	if itm == null || target_tower == null:
-		push_error("itm or target_tower is null: ", itm, target_tower)
+	if itm == null:
+		push_error("itm is null: ", itm, target_tower)
+	
+		return
+	
+#	NOTE: target tower may become invalid if target tower is
+#	sold or transformed while Ball Lightning is flying to
+#	it.
+	if target_tower != null && Utils.unit_is_valid(target_tower):
+		itm.set_visible(true)
+		itm.fly_to_stash(0.0)
 
 		return
 
