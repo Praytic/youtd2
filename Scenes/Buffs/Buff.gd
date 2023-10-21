@@ -29,6 +29,7 @@ var _original_duration: float = 0.0
 var _tooltip_text: String
 var _buff_icon: String
 var _purgable: bool
+var _cleanup_done: bool = false
 
 
 func _ready():
@@ -157,11 +158,10 @@ func get_buffed_unit() -> Unit:
 
 # NOTE: buff.removeBuff() in JASS
 func remove_buff():
-#	NOTE: if the buff is queued for deletion then that means
-#	that the buff was already removed and we shouldn't
-#	remove it again.
-	if is_queued_for_deletion():
+	if _cleanup_done:
 		return
+
+	_cleanup_done = true
 
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
@@ -360,7 +360,7 @@ func _add_aura(aura_type: AuraType):
 # are triggered in the same frame before the buff is
 # deleted, the buff shouldn't respond to them.
 func _can_call_event_handlers() -> bool:
-	return !is_queued_for_deletion()
+	return !is_queued_for_deletion() && !_cleanup_done
 
 
 func _change_giver_of_aura_effect(new_caster: Unit):
