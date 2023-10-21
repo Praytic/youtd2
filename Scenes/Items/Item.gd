@@ -148,6 +148,9 @@ static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
 func set_visible(visible: bool):
 	_visible = visible
 
+	var item_drop: ItemDrop = get_parent() as ItemDrop
+	if item_drop != null:
+		item_drop.visible = visible
 
 
 func set_autocast(autocast: Autocast):
