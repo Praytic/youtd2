@@ -73,6 +73,13 @@ const MOD_ATTACKSPEED_MAX: float = 5.0
 const ATTACK_COOLDOWN_MIN: float = 0.2
 
 const PROJECTILE_SPEED: int = 1400
+# NOTE: this range needs to be bigger than distance between
+# normal creeps moving at default speed. Can calculate by
+# multiplying CreepSpawner.NORMAL_SPAWN_DELAY_SEC and
+# Creep.DEFAULT_MOVE_SPEED.
+# Current value = 0.9 * 222 = 200
+# + 25 for error margin from timers
+# = 225
 const BOUNCE_ATTACK_RANGE: int = 225
 const BASE_ITEM_DROP_CHANCE: float = 0.0475
 
