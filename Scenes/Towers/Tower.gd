@@ -219,10 +219,9 @@ func _ready():
 	var sprite_dimensions: Vector2 = Utils.get_sprite_dimensions(sprite)
 	_set_unit_dimensions(sprite_dimensions)
 
-#	NOTE: _set_unit_dimensions sets size of selection visual
-#	based on the width of sprite. Override this value
-#	because we want size of selection visual to be the same
-#	for all towers.
+#	NOTE: we want size of selection visual to be the same
+#	for all towers. That's why we're not using sprite
+#	dimensions here like for creeps.
 	_selection_visual.visual_size = TOWER_SELECTION_VISUAL_SIZE
 
 	selected.connect(on_selected)
