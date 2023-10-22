@@ -8,9 +8,6 @@ extends Tower
 # load_triggers() instead of to EventTypeList in
 # tower_init().
 
-# TODO: implement Iterate.over_corpses_in_range() and then
-# finish this script.
-
 
 var top_crypt_ball: ProjectileType
 var meat_pt: ProjectileType
