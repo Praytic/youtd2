@@ -14,7 +14,7 @@ extends MainLoop
 # Output will have 8 rows.
 
 # Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scenes/CombineTiles.gd"
+# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/CombineTiles.gd"
 
 const ARG_COUNT: int = 1
 

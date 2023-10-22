@@ -11,7 +11,7 @@ class_name PackSpriteSheet extends MainLoop
 # 2. Run the script with godot's command line executable:
 # "path/to/godot-console.exe" -s "path/to/PackSpriteSheet.gd" -- "path/to/target/folder" "raw size of frames in sprites sheets" "target size of frames in sprites sheets"
 # Example:
-# "C:\Program Files\Godot\Godot_v4.0.2-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scenes/PackSpriteSheet.gd" -- "C:/Users/kvely/packing-dir/orc" 512 256
+# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/PackSpriteSheet.gd" -- "C:/Users/kvely/packing-dir/orc" 512 256
 # Target size can be same as raw or lower. Raw size must be
 # dividable by target size.
 #
