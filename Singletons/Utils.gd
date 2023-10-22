@@ -75,10 +75,9 @@ func get_time_of_day() -> float:
 	return time_of_day
 
 
-# TODO: connect this to actual max level that was picked
-# based on difficulty, etc.
+# NOTE: Game.getMaxLevel() in JASS
 func get_max_level() -> int:
-	return 80
+	return Globals.wave_count
 
 
 # NOTE: GetPlayerState() in JASS
