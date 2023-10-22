@@ -54,9 +54,6 @@ func on_damage(event: Event):
 	if !tower.calc_chance(chance):
 		return
 
-# 	TODO: remove
-	print("debuff!")
-
 	cedi_black_dragon_bt.apply(tower, event.get_target(), tower.get_level())
 
 
