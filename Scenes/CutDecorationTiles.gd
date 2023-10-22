@@ -9,11 +9,21 @@ extends MainLoop
 # assumes that floor2 tiles are the full height brick
 # versions. If floor2 tiles are "short" dirt tiles, then
 # there will be a gap.
+# 
+# Note also that original file will be renamed to have "
+# (raw).png" suffix if it's not named like that already. New
+# file will have the name of the original file without the
+# suffix.
+# Examples:
+# "foo.png" -> "foo (raw).png" (original) + "foo.png" (cut)
+# "foo (raw).png" -> "foo (raw).png" (original) + "foo.png" (cut)
 
 # Run the script with godot's command line executable:
 # "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scenes/CutDecorationTiles.gd" -- foo.png
 
 const ARG_COUNT: int = 1
+const RAW_SUFFIX: String = " (raw).png"
+const PNG_SUFFIX: String = ".png"
 
 const CELL_WIDTH: int = 256
 const CELL_HEIGHT: int = 512
@@ -57,7 +67,21 @@ func run():
 func process_path(path: String):
 	print("Processing path:", path)
 
-	var original_image: Image = Image.load_from_file(path)
+	var current_dir = DirAccess.open(".")
+
+	var raw_path: String
+	if path.ends_with(RAW_SUFFIX):
+		raw_path = path
+	else:
+		raw_path = path.replace(PNG_SUFFIX, RAW_SUFFIX)
+
+#		If original file doesn't end with raw suffix, rename
+#		it so it has the suffix.
+		current_dir.rename(path, raw_path)
+
+	var result_path: String = raw_path.replace(RAW_SUFFIX, PNG_SUFFIX)
+
+	var original_image: Image = Image.load_from_file(raw_path)
 
 	var column_count: int = int(original_image.get_width() / CELL_WIDTH_WITH_MARGIN)
 	var row_count: int = int(original_image.get_height() / CELL_HEIGHT_WITH_MARGIN)
@@ -92,10 +116,7 @@ func process_path(path: String):
 					if is_part_of_section_3:
 						atlas_image.set_pixel(tilesheet_x, new_tilesheet_y_3, pixel)
 
-
-	var original_filename: String = path.get_file()
-	var new_path: String = path.replace(".png", "-cut.png")
-	atlas_image.save_png(new_path)
+	atlas_image.save_png(result_path)
 
 
 func need_to_copy_pixel(pos: Vector2, polygon: PackedVector2Array):
