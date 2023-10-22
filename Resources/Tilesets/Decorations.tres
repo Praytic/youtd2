@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=36 format=3 uid="uid://c2ke1gy0rnehu"]
+[gd_resource type="TileSet" load_steps=35 format=3 uid="uid://c2ke1gy0rnehu"]
 
 [ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://Assets/Atlas/Barrels.png" id="1_6p7yy"]
 [ext_resource type="Texture2D" uid="uid://bm2xysoxbcjbc" path="res://Assets/Atlas/Chests.png" id="2_1v403"]
@@ -443,15 +443,17 @@ texture_region_size = Vector2i(128, 64)
 texture = ExtResource("4_0igb5")
 texture_region_size = Vector2i(128, 64)
 0:0/size_in_atlas = Vector2i(4, 8)
-0:0/next_alternative_id = 3
+0:0/next_alternative_id = 4
 0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, 82)
+0:0/0/texture_origin = Vector2i(0, 230)
 0:0/1 = 1
 0:0/1/flip_h = true
 0:0/1/texture_origin = Vector2i(0, 182)
+0:0/1/y_sort_origin = 128
 4:0/size_in_atlas = Vector2i(3, 8)
 4:0/next_alternative_id = 3
 4:0/0 = 0
+4:0/0/texture_origin = Vector2i(0, 230)
 4:0/1 = 1
 4:0/1/flip_h = true
 4:0/1/texture_origin = Vector2i(-54, 228)
@@ -472,7 +474,7 @@ texture_region_size = Vector2i(128, 64)
 4:16/size_in_atlas = Vector2i(2, 6)
 4:16/next_alternative_id = 3
 4:16/0 = 0
-4:16/0/texture_origin = Vector2i(0, 148)
+4:16/0/texture_origin = Vector2i(0, 160)
 4:16/1 = 1
 4:16/1/flip_h = true
 4:16/1/texture_origin = Vector2i(-36, 158)
@@ -507,7 +509,7 @@ texture_region_size = Vector2i(128, 64)
 7:0/size_in_atlas = Vector2i(4, 10)
 7:0/next_alternative_id = 3
 7:0/0 = 0
-7:0/0/texture_origin = Vector2i(0, 204)
+7:0/0/texture_origin = Vector2i(0, 250)
 7:0/1 = 1
 7:0/1/flip_h = true
 7:0/1/texture_origin = Vector2i(0, 200)
@@ -521,7 +523,7 @@ texture_region_size = Vector2i(128, 64)
 0:18/size_in_atlas = Vector2i(2, 6)
 0:18/next_alternative_id = 3
 0:18/0 = 0
-0:18/0/texture_origin = Vector2i(0, 133)
+0:18/0/texture_origin = Vector2i(0, 150)
 0:18/1 = 1
 0:18/1/flip_h = true
 0:18/1/texture_origin = Vector2i(0, 136)
@@ -532,19 +534,6 @@ texture_region_size = Vector2i(128, 64)
 8:20/1 = 1
 8:20/1/flip_h = true
 8:20/1/texture_origin = Vector2i(0, 88)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rkgj3"]
-resource_name = "Trees2 floor2"
-texture = ExtResource("4_0igb5")
-texture_region_size = Vector2i(64, 32)
-12:33/size_in_atlas = Vector2i(4, 11)
-12:33/0 = 0
-12:33/0/texture_origin = Vector2i(0, 150)
-12:33/0/y_sort_origin = 128
-8:33/size_in_atlas = Vector2i(4, 11)
-8:33/0 = 0
-8:33/0/texture_origin = Vector2i(0, 150)
-8:33/0/y_sort_origin = 128
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gi2s"]
 texture = ExtResource("6_nndy1")
@@ -842,4 +831,3 @@ sources/15 = SubResource("TileSetAtlasSource_dkfhl")
 sources/16 = SubResource("TileSetAtlasSource_psi0x")
 sources/17 = SubResource("TileSetAtlasSource_3i46i")
 sources/1 = SubResource("TileSetAtlasSource_q3iam")
-sources/3 = SubResource("TileSetAtlasSource_rkgj3")
