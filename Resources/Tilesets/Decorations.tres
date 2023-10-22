@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=35 format=3 uid="uid://c2ke1gy0rnehu"]
+[gd_resource type="TileSet" load_steps=36 format=3 uid="uid://c2ke1gy0rnehu"]
 
 [ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://Assets/Atlas/Barrels.png" id="1_6p7yy"]
 [ext_resource type="Texture2D" uid="uid://bm2xysoxbcjbc" path="res://Assets/Atlas/Chests.png" id="2_1v403"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c8pf2j5h7foy3" path="res://Assets/Atlas/Leaves1.png" id="7_3n6o8"]
 [ext_resource type="Texture2D" uid="uid://dc063ub3asbkw" path="res://Assets/Atlas/Vines3.png" id="7_abx1s"]
 [ext_resource type="Texture2D" uid="uid://buxnmfbtv5pi8" path="res://Assets/Atlas/Vines4.png" id="8_5sf6m"]
-[ext_resource type="Texture2D" uid="uid://c0d8i0bwdo3yc" path="res://Assets/Atlas/ColumnOvergrown.png" id="9_br6gx"]
+[ext_resource type="Texture2D" uid="uid://foqaf7xtvs6b" path="res://Assets/Atlas/ColumnOvergrown.png" id="9_br6gx"]
 [ext_resource type="Texture2D" uid="uid://cr7eyod0vx0jm" path="res://Assets/Atlas/Bushes1.png" id="9_kky7r"]
 [ext_resource type="Texture2D" uid="uid://djxcj0kirygiy" path="res://Assets/Atlas/Vines5.png" id="9_ogd7e"]
 [ext_resource type="Texture2D" uid="uid://equp2843qjpj" path="res://Assets/Atlas/Vines6.png" id="10_5f5fn"]
@@ -163,7 +163,7 @@ texture_region_size = Vector2i(128, 128)
 2:3/size_in_atlas = Vector2i(2, 2)
 2:3/next_alternative_id = 2
 2:3/0 = 0
-2:3/0/texture_origin = Vector2i(0, 30)
+2:3/0/texture_origin = Vector2i(0, 100)
 2:3/1 = 1
 2:3/1/flip_h = true
 2:3/1/texture_origin = Vector2i(0, 36)
@@ -217,7 +217,7 @@ texture_region_size = Vector2i(128, 128)
 4:1/1/texture_origin = Vector2i(0, 16)
 5:1/next_alternative_id = 2
 5:1/0 = 0
-5:1/0/texture_origin = Vector2i(0, 16)
+5:1/0/texture_origin = Vector2i(0, 48)
 5:1/1 = 1
 5:1/1/flip_h = true
 5:1/1/texture_origin = Vector2i(0, 16)
@@ -237,7 +237,7 @@ texture_region_size = Vector2i(128, 128)
 2:2/size_in_atlas = Vector2i(2, 2)
 2:2/next_alternative_id = 2
 2:2/0 = 0
-2:2/0/texture_origin = Vector2i(0, 16)
+2:2/0/texture_origin = Vector2i(0, 90)
 2:2/1 = 1
 2:2/1/flip_h = true
 2:2/1/texture_origin = Vector2i(0, 30)
@@ -532,6 +532,19 @@ texture_region_size = Vector2i(128, 64)
 8:20/1 = 1
 8:20/1/flip_h = true
 8:20/1/texture_origin = Vector2i(0, 88)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rkgj3"]
+resource_name = "Trees2 floor2"
+texture = ExtResource("4_0igb5")
+texture_region_size = Vector2i(64, 32)
+12:33/size_in_atlas = Vector2i(4, 11)
+12:33/0 = 0
+12:33/0/texture_origin = Vector2i(0, 150)
+12:33/0/y_sort_origin = 128
+8:33/size_in_atlas = Vector2i(4, 11)
+8:33/0 = 0
+8:33/0/texture_origin = Vector2i(0, 150)
+8:33/0/y_sort_origin = 128
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4gi2s"]
 texture = ExtResource("6_nndy1")
@@ -829,3 +842,4 @@ sources/15 = SubResource("TileSetAtlasSource_dkfhl")
 sources/16 = SubResource("TileSetAtlasSource_psi0x")
 sources/17 = SubResource("TileSetAtlasSource_3i46i")
 sources/1 = SubResource("TileSetAtlasSource_q3iam")
+sources/3 = SubResource("TileSetAtlasSource_rkgj3")

@@ -70,21 +70,6 @@ func can_transform_at_mouse_pos() -> bool:
 	return can_transform
 
 
-# NOTE: layer index is double floor index because between
-# each floor there is a layer for connecting wall tiles.
-# NOTE: need to add "+1" to floor index so that units are
-# drawn inbetween floor layers. For example, creep standing
-# on the ground with height=0 should be drawn above layer
-# "floor1" but below layer "floor2". So we make it be drawn
-# on layer "between 1/2".
-func world_height_to_z_index(height: float) -> int:
-	var floor_index: int = floor(height) / Constants.TILE_HEIGHT
-	var layer_index: int = floor_index * 2 + 1
-	var layer_z_index: int = layer_index * Constants.Z_INDEX_PER_LAYER
-
-	return layer_z_index
-
-
 func get_mouse_world_pos() -> Vector2:
 	var out: Vector2 = _tilemap.get_local_mouse_position()
 
