@@ -680,6 +680,12 @@ func _set_unit_dimensions(sprite_dimensions: Vector2):
 	_sprite_dimensions = sprite_dimensions
 
 
+# Sets size(radius) of selection circle.
+# Should be called in subclasses.
+func set_selection_size(selection_size: float):
+	_selection_visual.visual_size = selection_size
+
+
 func set_hovered(hovered: bool):
 	if _selected:
 		return

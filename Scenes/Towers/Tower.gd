@@ -215,7 +215,7 @@ func _ready():
 #	NOTE: we want size of selection visual to be the same
 #	for all towers. That's why we're not using sprite
 #	dimensions here like for creeps.
-	_selection_visual.visual_size = TOWER_SELECTION_VISUAL_SIZE
+	set_selection_size(TOWER_SELECTION_VISUAL_SIZE)
 
 	selected.connect(on_selected)
 	unselected.connect(on_unselected)

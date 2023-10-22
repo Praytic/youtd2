@@ -59,7 +59,8 @@ func _ready():
 	var sprite_dimensions: Vector2 = Utils.get_animated_sprite_dimensions(_sprite, ANIMATION_FOR_DIMENSIONS)
 	_set_unit_dimensions(sprite_dimensions)
 
-	_selection_visual.visual_size = min(sprite_dimensions.x, MAX_SELECTION_VISUAL_SIZE)
+	var selection_size: float = min(sprite_dimensions.x, MAX_SELECTION_VISUAL_SIZE)
+	set_selection_size(selection_size)
 
 	death.connect(_on_death)
 
