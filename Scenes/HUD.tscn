@@ -212,7 +212,7 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="MarginContainer6" type="MarginContainer" parent="."]
+[node name="UpperPanel" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -222,32 +222,32 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer6"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UpperPanel"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer6/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UpperPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer6/HBoxContainer/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="UpperPanel/HBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("11_hbwuy")
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer6/HBoxContainer/MarginContainer"]
+[node name="TextureRect2" type="TextureRect" parent="UpperPanel/HBoxContainer/MarginContainer"]
 texture_filter = 4
 layout_mode = 2
 texture = ExtResource("12_2mxp4")
 expand_mode = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer6/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="UpperPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer6/HBoxContainer/MarginContainer2"]
+[node name="TextureRect3" type="TextureRect" parent="UpperPanel/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 texture = ExtResource("11_hbwuy")
 
-[node name="TextureRect4" type="TextureRect" parent="MarginContainer6/HBoxContainer/MarginContainer2"]
+[node name="TextureRect4" type="TextureRect" parent="UpperPanel/HBoxContainer/MarginContainer2"]
 texture_filter = 4
 layout_mode = 2
 texture = ExtResource("13_n0pc1")
