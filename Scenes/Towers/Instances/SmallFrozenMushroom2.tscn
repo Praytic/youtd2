@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_dgcnv"]
 [ext_resource type="Script" path="res://Scenes/Towers/Instances/SmallFrozenMushroom1.gd" id="2_ig2w5"]
-[ext_resource type="Texture2D" uid="uid://wr6rlsqkcjy1" path="res://Assets/Towers/Instances/small_frozen_mushroom.png" id="3_t6tgv"]
+[ext_resource type="Texture2D" uid="uid://bkpvd7btbampk" path="res://Assets/Towers/Instances/small_frozen_mushroom_atlas.png" id="3_30xye"]
 
 [sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("3_t6tgv")
+atlas = ExtResource("3_30xye")
 region = Rect2(300, 2.08165e-12, 300, 300)
 
 [node name="SmallFrozenMushroom1" instance=ExtResource("1_dgcnv")]
