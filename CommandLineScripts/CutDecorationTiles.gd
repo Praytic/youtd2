@@ -31,8 +31,8 @@ const MARGIN: int = 4
 const CELL_WIDTH_WITH_MARGIN: int = CELL_WIDTH + MARGIN * 2
 const CELL_HEIGHT_WITH_MARGIN: int = CELL_HEIGHT + MARGIN * 2
 
-const above_and_left_of_wall: PackedVector2Array = [Vector2(0, 429), Vector2(256, 299), Vector2(256, 0), Vector2(0, 0)]
-const above_and_right_of_wall: PackedVector2Array = [Vector2(0, 299), Vector2(256, 429), Vector2(256, 0), Vector2(0, 0)]
+const above_and_left_of_wall: PackedVector2Array = [Vector2(0, 449), Vector2(256, 319), Vector2(256, 0), Vector2(0, 0)]
+const above_and_right_of_wall: PackedVector2Array = [Vector2(0, 319), Vector2(256, 449), Vector2(256, 0), Vector2(0, 0)]
 
 
 func _initialize():
