@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://hiex318b5cvk"]
+[gd_scene load_steps=5 format=3 uid="uid://hiex318b5cvk"]
 
 [ext_resource type="Script" path="res://Scenes/PauseHUD/PauseHUD.gd" id="1_8lyul"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_v8b77"]
 [ext_resource type="PackedScene" uid="uid://bbrryq35rxvkv" path="res://Scenes/PauseHUD/HintsMenu.tscn" id="3_vf4xx"]
+[ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://Scenes/PauseHUD/CreditsMenu.tscn" id="4_s86r1"]
 
 [node name="PauseHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
 layout_mode = 3
@@ -25,6 +26,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
 [node name="TabContainer" type="TabContainer" parent="."]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,19 +41,30 @@ grow_horizontal = 2
 grow_vertical = 2
 tabs_visible = false
 
-[node name="PauseMenu" type="VBoxContainer" parent="TabContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PauseMenu" type="VBoxContainer" parent="TabContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/PauseMenu"]
+[node name="Label" type="Label" parent="TabContainer/MarginContainer/PauseMenu"]
 layout_mode = 2
 text = "Paused"
 horizontal_alignment = 1
 
-[node name="HintsButton" type="Button" parent="TabContainer/PauseMenu"]
+[node name="HintsButton" type="Button" parent="TabContainer/MarginContainer/PauseMenu"]
 layout_mode = 2
 text = "Hints"
 
-[node name="ResumeButton" type="Button" parent="TabContainer/PauseMenu"]
+[node name="CreditsButton" type="Button" parent="TabContainer/MarginContainer/PauseMenu"]
+layout_mode = 2
+text = "Credits"
+
+[node name="ResumeButton" type="Button" parent="TabContainer/MarginContainer/PauseMenu"]
 layout_mode = 2
 text = "Resume"
 
@@ -59,7 +72,13 @@ text = "Resume"
 visible = false
 layout_mode = 2
 
+[node name="CreditsMenu" parent="TabContainer" instance=ExtResource("4_s86r1")]
+visible = false
+layout_mode = 2
+
 [connection signal="hidden" from="." to="." method="_on_hidden"]
-[connection signal="pressed" from="TabContainer/PauseMenu/HintsButton" to="." method="_on_hints_button_pressed"]
-[connection signal="pressed" from="TabContainer/PauseMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/HintsButton" to="." method="_on_hints_button_pressed"]
+[connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="closed" from="TabContainer/HintsMenu" to="." method="_on_hints_menu_closed"]
+[connection signal="hidden" from="TabContainer/CreditsMenu" to="." method="_on_credits_menu_hidden"]
