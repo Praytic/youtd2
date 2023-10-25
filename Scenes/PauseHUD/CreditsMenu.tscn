@@ -1,0 +1,95 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx0xth6bthpon"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_phxvu"]
+[ext_resource type="Script" path="res://Scenes/PauseHUD/CreditsMenu.gd" id="2_u7bhi"]
+
+[node name="CreditsMenu" type="PanelContainer"]
+custom_minimum_size = Vector2(800, 600)
+theme = ExtResource("1_phxvu")
+script = ExtResource("2_u7bhi")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "YouTD2 was made by:
+ 
+[color=GOLD]Praytic[/color]
+[color=GOLD]Kvel2D[/color]
+ 
+YouTD2 is based on geX's YouTD - a custom map for Warcraft 3 made with the help of many contributors:
+ 
+[color=FORESTGREEN]boekie[/color]
+[color=GOLD]drol[/color]
+[color=FORESTGREEN]cedi[/color]
+[color=GOLD]SirCoqaLot[/color]
+[color=GOLD]Natac[/color]
+[color=RED]geX[/color]
+[color=FORESTGREEN]m0ck[/color]
+[color=GOLD]Majildian[/color]
+[color=GOLD]SternBogen[/color]
+[color=DARKRED]MasterCassim[/color]
+
+[color=GOLD]Neotopia[/color]
+[color=GOLD]Palandu[/color]
+[color=GOLD]Chronos[/color]
+[color=GOLD]Lapsus[/color]
+[color=GOLD]poussix[/color]
+[color=GOLD]IamanEvilMan[/color]
+[color=GOLD]Cyony[/color]
+[color=GOLD]Monolith[/color]
+[color=FORESTGREEN]Glowackos[/color]
+[color=FORESTGREEN]KublaiKhan1[/color]
+[color=GOLD]BetrayedKnight[/color]
+[color=GOLD]Killamasta[/color]
+[color=GOLD]His_Shadow[/color]
+[color=FORESTGREEN]Deemzul[/color]
+[color=GOLD]Shaddow[/color]
+[color=GOLD]D10000[/color]
+[color=GOLD]Coldrocker[/color]
+[color=GOLD]McDoNaldGaNgStA[/color]
+[color=GOLD]SymphonyX[/color]
+[color=GOLD]F12ight[/color]
+[color=GOLD]axllow[/color]
+[color=GOLD]TopBanana[/color]
+[color=GOLD]Nubz[/color]
+[color=GOLD]Kricz[/color]
+[color=GOLD]Sunken[/color]
+[color=GOLD]Cyrganth[/color]
+[color=GOLD]Ranakastrasz[/color]
+[color=GOLD]Khlox-NL-[/color]
+[color=GOLD]LordHellHunter[/color]
+[color=GOLD]Bartuck[/color]
+[color=GOLD]YouJizzTD[/color]
+[color=GOLD]Zloj[/color]
+[color=GOLD]KySoto[/color]
+[color=GOLD]zed[/color]"
+fit_content = true
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Close"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
