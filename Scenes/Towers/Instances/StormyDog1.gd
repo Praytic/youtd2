@@ -28,6 +28,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Thunderous Roar[/color]\n"
+	text += "Whenever this tower damages a unit it has a chance to increase the attack speed of nearby towers.\n"
+
+	return text
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

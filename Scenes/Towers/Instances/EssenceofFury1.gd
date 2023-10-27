@@ -31,6 +31,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Poisoned Heart[/color]\n"
+	text += "Deals damage over time.\n"
+
+	return text
+
+
 func load_specials(_modifier: Modifier):
 	_set_attack_style_bounce(_stats.bounce_count, 0.0)
 

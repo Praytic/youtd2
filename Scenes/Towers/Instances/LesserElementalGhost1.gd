@@ -33,6 +33,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Elemental Wrath[/color]\n"
+	text += "The Ghost has a chance on attack to increase its trigger chance temporarily.\n"
+	text += " \n"
+	text += "[color=GOLD]Mimic[/color]\n"
+	text += "The Ghost is able to deal different damage types.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)

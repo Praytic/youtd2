@@ -25,6 +25,16 @@ func get_ability_description() -> String:
 	return ""
 
 
+# NOTE: short description is the same for all tiers
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Elemental Chaos[/color]\n"
+	text += "Elementalist casts a random spell on attack.\n"
+
+	return text
+
+
 func get_ability_description_1() -> String:
 	var text: String = ""
 

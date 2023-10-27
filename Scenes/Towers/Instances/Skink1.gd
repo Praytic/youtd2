@@ -35,6 +35,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Poisonous Skin - Aura[/color]\n"
+	text += "This and nearby towers gain a poisonous attack.\n"
+
+	return text
+
+
 func poisenskin(event: Event):
 	var B: Buff = event.get_buff()
 

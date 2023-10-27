@@ -31,6 +31,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Lightning Strike[/color]\n"
+	text += "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target.\n"
+
+	return text
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

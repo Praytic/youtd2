@@ -34,6 +34,14 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "This unit will increase nearby towers' mana, mana regeneration and spell damage.\n"
+
+	return text
+
+
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_MANA_PERC, 0.0, 0.001)
@@ -48,6 +56,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Snake Charm"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1

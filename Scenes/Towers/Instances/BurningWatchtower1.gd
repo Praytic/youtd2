@@ -39,6 +39,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Burn[/color]\n"
+	text += "Let's fire towers deal more and more damage to the target, which will explode on death.\n"
+
+	return text
+
+
 # b.userReal: The user Real is the current bonus damage of the buff. Init with 0
 func init_on_create(event: Event):
 	var b: Buff = event.get_buff()

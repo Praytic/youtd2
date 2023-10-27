@@ -33,6 +33,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Activate Trap[/color]\n"
+	text += "Traps random creeps in range.\n"
+
+	return text
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_periodic_event(on_periodic, 2)
 

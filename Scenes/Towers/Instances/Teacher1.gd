@@ -32,6 +32,16 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Knowledge[/color]\n"
+	text += "When the teacher attacks there's a chance that a random nearby tower will gain experience.\n"
+
+	return text
+
+
+
 func hit(p: Projectile, result: Unit):
 	var t: Tower = p.get_caster()
 

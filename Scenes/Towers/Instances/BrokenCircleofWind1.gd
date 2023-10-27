@@ -32,6 +32,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Wind of Death[/color]\n"
+	text += "Chance to catch a non-boss creep in a cyclone and cause physical damage to nearby creeps.\n"
+
+	return text
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(on_attack)
 

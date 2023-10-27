@@ -74,6 +74,14 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Buffs a tower, increasing stats depending on tower's element.\n"
+
+	return text
+
+
 func gift_create(event: Event):
 	var B: Buff = event.get_buff()
 	var target: Tower = B.get_buffed_unit()
@@ -179,6 +187,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Nature's Gift"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 5

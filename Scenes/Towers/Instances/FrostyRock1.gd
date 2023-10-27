@@ -34,6 +34,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Glacial Wrath[/color]\n"
+	text += "Attacked creeps are slowed and each attack increases the chance to stun the target.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

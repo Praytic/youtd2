@@ -34,6 +34,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Rampage[/color]\n"
+	text += "Chance on attack to go into a rampage, increasing attack speed and critical strike stats enormously.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

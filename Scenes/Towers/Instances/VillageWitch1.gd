@@ -30,6 +30,14 @@ func get_love_potion_description() -> String:
 	return text
 
 
+func get_love_potion_description_short() -> String:
+	var text: String = ""
+
+	text += "The witch throws a bottle of love potion on the target, applying a slow and increase target's item drop chance.\n"
+
+	return text
+
+
 func get_ability_description() -> String:
 	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.01, 0)
 	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
@@ -44,6 +52,15 @@ func get_ability_description() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage\n" % soul_damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Soul Split[/color]\n"
+	text += "When the witch attacks, it has a chance to deal extra spell damage and strengthen herself.\n"
 
 	return text
 
@@ -86,6 +103,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Love Potion"
 	autocast.description = get_love_potion_description()
+	autocast.description_short = get_love_potion_description_short()
 	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1

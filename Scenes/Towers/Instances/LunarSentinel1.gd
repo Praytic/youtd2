@@ -39,10 +39,19 @@ func get_lunar_grace_description() -> String:
 	return text
 
 
+func get_lunar_grace_description_short() -> String:
+	var text: String = ""
+
+	text += "Smites a target creep with a chance to stun the creep and make it more vulnerable to spells.\n"
+
+	return text
+
+
 func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Lunar Grace"
 	autocast.description = get_lunar_grace_description()
+	autocast.description_short = get_lunar_grace_description_short()
 	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

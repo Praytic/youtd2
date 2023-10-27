@@ -31,6 +31,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Pirates[/color]\n"
+	text += "Grants gold on attack.\n"
+	text += " \n"
+	text += "[color=GOLD]Treasure Seeker - Aura[/color]\n"
+	text += "Increases the bounty gain of nearby towers.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

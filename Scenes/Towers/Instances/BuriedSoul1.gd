@@ -40,6 +40,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Soul Scattering[/color]\n"
+	text += "Chance on attack reduce its own attack speed and make the target more vulnerable to spells.\n"
+	text += " \n"
+	text += "[color=GOLD]Shadowstrike[/color]\n"
+	text += "Chance on attack to deal additional spell damage.\n"
+
+	return text
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_attack(on_attack)
 

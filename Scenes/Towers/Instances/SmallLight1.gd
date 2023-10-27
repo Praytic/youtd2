@@ -38,6 +38,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Magical Sight[/color]\n"
+	text += "Can see invisible enemy units.\n"
+	text += " \n"
+	text += "[color=GOLD]Power of Light[/color]\n"
+	text += "The mighty holy light weakens enemy undead creeps.\n"
+
+	return text
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

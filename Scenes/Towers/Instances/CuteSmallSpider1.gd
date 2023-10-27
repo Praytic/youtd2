@@ -34,6 +34,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Poisonous Spittle[/color]\n"
+	text += "Deals damage over time, increases with every attack.\n"
+
+	return text
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, -0.30, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.10, 0.0)
