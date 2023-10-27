@@ -427,6 +427,12 @@ func get_ability_description() -> String:
 	return ""
 
 
+# Same as get_ability_description() but shorter. Should not
+# contain any numbers.
+func get_ability_description_short() -> String:
+	return ""
+
+
 # Override in subclass to initialize subclass tower. This is
 # the analog of "init" function from original API.
 func tower_init():

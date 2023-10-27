@@ -98,6 +98,7 @@ var _unit_type_list: Array[Autocast.Type] = [
 # used for regular autocasts that cast automatically.
 var title: String = "Placeholder Title"
 var description: String = "Description"
+var description_short: String = "Description Short"
 var icon: String = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 var caster_art: String = ""
 var cooldown: float = 0.1

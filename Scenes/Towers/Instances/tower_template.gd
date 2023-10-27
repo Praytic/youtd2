@@ -28,6 +28,15 @@ extends Tower
 # 	return text
 
 
+# func get_ability_description_short() -> String:
+# 	var text: String = ""
+
+# 	text += "[color=GOLD]Title[/color]\n"
+# 	text += "Description\n"
+
+# 	return text
+
+
 # func get_autocast_description() -> String:
 # 	var foo: String = Utils.format_float(_stats.foo, 2)
 # 	var bar: String = Utils.format_float(_stats.bar, 2)
@@ -41,6 +50,10 @@ extends Tower
 # 	text += "bar\n"
 
 # 	return text
+
+
+# func get_autocast_description_short() -> String:
+#	return "Description\n"
 
 
 # func load_triggers(triggers: BuffType):
@@ -62,6 +75,7 @@ extends Tower
 # 	var autocast: Autocast = Autocast.make()
 # 	autocast.title = "Title"
 # 	autocast.description = get_autocast_description()
+# 	autocast.description_short = get_autocast_description_short()
 # 	autocast.icon = "res://path/to/icon.png"
 # 	autocast.caster_art = ""
 # 	autocast.target_art = ""
