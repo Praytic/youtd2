@@ -32,6 +32,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Rend[/color]\n"
+	text += "Attacks have a chance to rend the target, which deals damage over time and makes the target vulnerable to spell damage.\n"
+
+	return text
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 

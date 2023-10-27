@@ -34,6 +34,14 @@ func get_soul_chill_description() -> String:
 	return text
 
 
+func get_soul_chill_description_short() -> String:
+	var text: String = ""
+
+	text += "Deals spell damage and slows units in a small area.\n"
+
+	return text
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.25, 0.002)
 
@@ -42,6 +50,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Soul Chill"
 	autocast.description = get_soul_chill_description()
+	autocast.description_short = get_soul_chill_description_short()
 	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.cooldown = 1
 	autocast.mana_cost = 20

@@ -27,6 +27,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Tomb's Curse[/color]\n"
+	text += "Small chance to instantly kill a lesser creep on attack."
+
+	return text
+
+
 func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_event_on_damage(on_damage)
 
