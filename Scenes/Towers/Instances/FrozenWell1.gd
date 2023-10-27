@@ -23,6 +23,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Freezing Mist[/color]\n"
+	text += "When this tower damages a creep it will be slowed.\n"
+	text += " \n"
+	text += "[color=GOLD]Flowing Frost - Aura[/color]\n"
+	text += "Increases buff duration of towers in range.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

@@ -13,6 +13,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Green Dragon Force - Aura[/color]\n"
+	text += "Increases multicrit of towers in range.\n"
+
+	return text
+
+
 func load_specials(modifier: Modifier):
 	_set_attack_style_bounce(4, 0.10)
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.15, 0.005)

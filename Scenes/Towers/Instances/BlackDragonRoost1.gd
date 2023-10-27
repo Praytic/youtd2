@@ -28,6 +28,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Fear the Dark[/color]\n"
+	text += "Whenever this tower damages a creep it has a chance to debuff it so that it takes more damage."
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

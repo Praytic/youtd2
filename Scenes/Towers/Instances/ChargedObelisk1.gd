@@ -18,6 +18,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Electric Field[/color]\n"
+	text += "On every attack this tower shocks a creep in range. This shock deals spelldamage and stuns the creep.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var text: String = ""
 
@@ -26,6 +35,14 @@ func get_autocast_description() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% base attackspeed\n"
 	text += "+0.1% bonus attackspeed\n"
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Applies a buff to target tower which increases attack speed.\n"
 
 	return text
 
@@ -52,6 +69,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Charge"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.target_art = ""

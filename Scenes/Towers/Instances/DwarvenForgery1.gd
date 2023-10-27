@@ -16,6 +16,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Dwarven Polish - Aura[/color]\n"
+	text += "Increases item quality of towers in range.\n"
+
+	return text
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.50, 0.01)
 
