@@ -46,6 +46,23 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Lightning Shield[/color]\n"
+	text += "As the zealot gets pumped up debuff durations are reduced.\n"
+	text += " \n"
+
+	text += "[color=GOLD]Zeal[/color]\n"
+	text += "Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.\n"
+	text += " \n"
+
+	text += "[color=GOLD]Phase Blade[/color]\n"
+	text += "Each attack on the same creep penetrates deeper through its armor.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_attack(on_attack)

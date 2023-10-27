@@ -44,6 +44,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Frag Grenade[/color]\n"
+	text += "When this tower damages a creep it has a chance to fire a frag grenade.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var stim_attackspeed: String = Utils.format_percent(STIM_ATTACKSPEED, 2)
 	var stim_attack_dmg: String = Utils.format_percent(STIM_ATTACK_DMG, 2)
@@ -56,6 +65,14 @@ func get_autocast_description() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s seconds duration\n" % stim_duration_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "This marine uses a stimpack, increasing its attackspeed and decreasing its attackdamage.\n"
 
 	return text
 
@@ -87,6 +104,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Stim"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = "AvatarCaster.mdl"
 	autocast.target_art = ""

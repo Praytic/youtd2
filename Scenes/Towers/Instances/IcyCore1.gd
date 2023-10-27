@@ -27,6 +27,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Frost Aura[/color]\n"
+	text += "Slows nearby creeps.\n"
+
+	return text
+
+
 func tower_init():
 	gex_icy_core_bt = BuffType.create_aura_effect_type("gex_icy_core_bt", false, self)
 	var mod: Modifier = Modifier.new()

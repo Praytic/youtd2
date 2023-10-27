@@ -31,6 +31,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Cleansing Water - Aura[/color]\n"
+	text += "Increases spell damage dealt by nearby towers.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var replenish_range: String = Utils.format_float(REPLENISH_RANGE, 2)
 	var replenish_mana: String = Utils.format_percent(_stats.replenish_mana, 2)
@@ -42,6 +51,14 @@ func get_autocast_description() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s maximum mana\n" % replenish_mana_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Restores mana of nearby towers.\n"
 
 	return text
 
@@ -61,6 +78,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Replenish"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = "ReplenishManaCasterOverhead.mdl"
 	autocast.target_art = ""

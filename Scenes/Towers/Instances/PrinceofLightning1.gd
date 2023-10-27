@@ -41,6 +41,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Lightning Strike[/color]\n"
+	text += "When this tower damages a target there is a chance that a lightning bolt strikes the target.\n"
+	text += " \n"
+	text += "[color=GOLD]Realm of Thunder - Aura[/color]\n"
+	text += "Makes nearby creeps more vulnerable to Storm towers.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

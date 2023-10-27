@@ -36,6 +36,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Phoenixfire[/color]\n"
+	text += "The Phoenix attacks up multiple targets at once and melts their armor.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var erupt_damage: String = Utils.format_float(_stats.erupt_damage, 2)
 	var erupt_range: String = Utils.format_float(ERUPT_RANGE, 2)
@@ -48,6 +57,14 @@ func get_autocast_description() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-%s armor regain\n" % armor_regain_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "When Phoenixfire expires, it erupts and deals AoE damage.\n"
 
 	return text
 
@@ -110,6 +127,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Eruption"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

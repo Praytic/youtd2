@@ -31,6 +31,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Wolven Tenacity - Aura[/color]\n"
+	text += "The strong physical presence of the wolves increases attack speed of nearby towers.\n"
+
+	return text
+
+
 func tower_init():
 	var m: Modifier = Modifier.new()
 	speed_aura = BuffType.create_aura_effect_type("speed_aura", true, self)

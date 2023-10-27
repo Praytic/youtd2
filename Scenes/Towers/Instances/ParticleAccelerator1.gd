@@ -35,6 +35,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Energy Acceleration[/color]\n"
+	text += "Every attack increases attack speed and damage.\n"
+	text += " \n"
+	text += "[color=GOLD]Errant Tachyons[/color]\n"
+	text += "On kill, this tower is stunned and the bonus from Energy Acceleration is lost.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_kill(on_kill)

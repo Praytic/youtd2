@@ -26,6 +26,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Thermal Boost - Aura[/color]\n"
+	text += "Increases damage of nearby towers.\n"
+
+	return text
+
+
 func tower_init():
 	var m: Modifier = Modifier.new()
 	velex_dmg_aura = BuffType.create_aura_effect_type("velex_dmg_aura", true, self)

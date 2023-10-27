@@ -53,12 +53,32 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Bat Swarm[/color]\n"
+	text += "This tower has a chance on attack to release a swarm of bats.\n"
+	text += " \n"
+	text += "[color=GOLD]Creature of the Night[/color]\n"
+	text += "This tower deals more damage during nighttime.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var engulfing_darkness_duration: String = Utils.format_float(ENGULFING_DARKNESS_DURATION, 2)
 
 	var text: String = ""
 
 	text += "This tower engulfs itself in darkness, gaining power as if it's night for %s seconds.\n" % engulfing_darkness_duration
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "This tower engulfs itself in darkness, gaining power as if it's night.\n"
 
 	return text
 
@@ -84,6 +104,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Engulfing Darkness"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = "AnimateDeadTarget.mdl"
 	autocast.target_art = ""

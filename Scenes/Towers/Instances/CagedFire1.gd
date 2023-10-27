@@ -36,6 +36,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Melt[/color]\n"
+	text += "The enormous heat of the caged fire damages nearby creeps and decreases their armor.\n"
+
+	return text
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, -0.50, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.50, 0.01)

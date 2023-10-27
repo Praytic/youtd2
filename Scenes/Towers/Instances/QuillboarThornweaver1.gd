@@ -38,6 +38,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Occasional Quillspray[/color]\n"
+	text += "On attack this tower has a chance to trigger a Quillspray.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var quillspray_stacks_max: String = Utils.format_float(QUILLSPRAY_STACKS_MAX, 2)
 	var quillspray_stack_bonus: String = Utils.format_percent(QUILLSPRAY_STACK_BONUS, 2)
@@ -62,6 +71,14 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "This tower releases thorns from its back, damaging every unit in range.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -77,6 +94,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Quillspray"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.target_art = ""

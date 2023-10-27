@@ -41,6 +41,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Feral Aggression[/color]\n"
+	text += "On every critical hit this tower gains permanent bonus damage.\n"
+	text += " \n"
+	text += "[color=GOLD]Bloodthirst[/color]\n"
+	text += "Whenever this tower kills a unit it becomes enraged.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_event_on_kill(on_kill)

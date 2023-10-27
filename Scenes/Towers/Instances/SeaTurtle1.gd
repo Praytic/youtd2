@@ -33,6 +33,21 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Splash[/color]\n"
+	text += "Every attack the turtle restores some mana.\n"
+	text += " \n"
+	text += "[color=GOLD]Aqua Breath[/color]\n"
+	text += "This tower deals Energy damage equal to its mana.\n"
+	text += " \n"
+	text += "[color=GOLD]Cold Blooded[/color]\n"
+	text += "Every second this tower loses some of its mana.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)

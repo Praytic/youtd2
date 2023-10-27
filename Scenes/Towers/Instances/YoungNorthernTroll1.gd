@@ -52,6 +52,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Ice Smashing Axe[/color]\n"
+	text += "On attack this tower has a chance to throw a giant axe\n"
+	text += " \n"
+	text += "[color=GOLD]Ice Coated Axes[/color]\n"
+	text += "This tower deals bonus damage to slowed creeps.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)

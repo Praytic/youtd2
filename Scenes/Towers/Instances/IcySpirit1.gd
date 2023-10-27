@@ -35,6 +35,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Nova Storm[/color]\n"
+	text += "When this tower attacks there is a chance to blast nearby creeps with ice novas.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

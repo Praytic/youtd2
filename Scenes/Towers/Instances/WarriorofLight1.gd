@@ -48,6 +48,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Ain Soph Aur[/color]\n"
+	text += "This tower has a chance on every attack to create a shockwave of light.\n"
+	text += " \n"
+	text += "[color=GOLD]Aura of Light - Aura[/color]\n"
+	text += "Nearby towers deal more damage to undead creeps.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

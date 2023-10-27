@@ -47,6 +47,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Corpse Explosion[/color]\n"
+	text += "Occasionally explodes nearby corpses and deals AoE damage.\n"
+	text += " \n"
+	text += "[color=GOLD]Critical Mass[/color]\n"
+	text += "Has a chance on attack to shoot multiple projectiles.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_periodic_event(periodic, 5)

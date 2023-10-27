@@ -39,6 +39,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Unstable Energies[/color]\n"
+	text += "This tower has a chance on damage to release a powerful energy blast at the cost of some mana.\n"
+	text += " \n"
+	text += "[color=GOLD]Mana Distortion Field - Aura[/color]\n"
+	text += "Nearby towers range burn creep mana on attack.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

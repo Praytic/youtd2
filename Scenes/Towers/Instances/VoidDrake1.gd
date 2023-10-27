@@ -41,6 +41,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Silence[/color]\n"
+	text += "Units damaged by this tower are silenced.\n"
+	text += " \n"
+	text += "[color=GOLD]Void[/color]\n"
+	text += "Every second, this unit loses experience. This tower will not lose levels in this way. Replacing a tower with this tower will reset the experience to 0 unless the replaced tower is of this tower's family.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 	triggers.add_periodic_event(periodic, 1.0)

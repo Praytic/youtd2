@@ -50,6 +50,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Spellfire[/color]\n"
+	text += "This tower treats all spell modifiers as attack bonuses.\n"
+	text += " \n"
+	text += "[color=GOLD]Spellfire Projectiles[/color]\n"
+	text += "On attack this towers uses all of its mana to make the next attack critical.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

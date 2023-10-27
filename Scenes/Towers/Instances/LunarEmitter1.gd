@@ -30,6 +30,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Moonlight - Aura[/color]\n"
+	text += "Reduces the spell resistance of nearby enemies and increases their vulnerability to damage from Astral, Darkness, Ice and Storm towers.\n"
+
+	return text
+
+
 func load_specials(_modifier: Modifier):
 	_set_attack_style_splash({
 		50: 1.0,

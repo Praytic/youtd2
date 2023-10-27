@@ -32,6 +32,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Ancient Magic - Aura[/color]\n"
+	text += "Increases spell crit chance of nearby towers.\n"
+
+	return text
+
+
 func tower_init():
 	boekie_spell_crit_aura = BuffType.create_aura_effect_type("boekie_spell_crit_aura", true, self)
 	var mod: Modifier = Modifier.new()

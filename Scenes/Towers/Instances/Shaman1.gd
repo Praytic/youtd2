@@ -34,6 +34,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Bloody Experience - Aura[/color]\n"
+	text += "Nearby towers receive experience every time they crit.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var bloodlust_crit_damage: String = Utils.format_float(_stats.bloodlust_crit_damage, 2)
 	var bloodlust_crit_damage_add: String = Utils.format_float(_stats.bloodlust_crit_damage_add, 3)
@@ -50,6 +59,15 @@ func get_autocast_description() -> String:
 	text += "+%s seconds duration\n" % BLOODLUST_DURATION_ADD
 
 	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "The Shaman makes a friendly tower lust for blood, increasing its crit damage and attackspeed.\n"
+
+	return text
+
 
 
 func load_specials(modifier: Modifier):
@@ -73,6 +91,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Bloodlust"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1

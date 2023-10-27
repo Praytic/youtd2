@@ -51,6 +51,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Cursed Attack[/color]\n"
+	text += "This tower has a chance on damage to deal additional spell damage and weaken the target, reducing its movement speed and making it suffer more damage from spells.\n"
+	text += " \n"
+	text += "[color=GOLD]Mortal Coil - Aura[/color]\n"
+	text += "Grants bonus damage against human, orc and nature creeps to nearby towers.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

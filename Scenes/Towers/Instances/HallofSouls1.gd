@@ -38,6 +38,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Revenge of Souls[/color]\n"
+	text += "This tower gains permanent bonus damage and experience every time a creep dies near the tower.\n"
+
+	return text
+
+
 func tower_init():
 	natac_hall_of_souls_bt = BuffType.create_aura_effect_type("natac_hall_of_souls_bt", false, self)
 	natac_hall_of_souls_bt.set_buff_icon("@@0@@")

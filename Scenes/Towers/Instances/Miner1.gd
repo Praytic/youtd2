@@ -45,6 +45,18 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Goldrush[/color]\n"
+	text += "The miner has a chance on attack to go into a goldrush, increasing attackspeed and making each hit gain gold.\n"
+	text += " \n"
+	text += "[color=GOLD]Excavation[/color]\n"
+	text += "Every few seconds the miner has a chance to find gold.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 	triggers.add_event_on_damage(on_damage)

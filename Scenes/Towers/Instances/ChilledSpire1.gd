@@ -45,6 +45,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Cold[/color]\n"
+	text += "This tower has a chance on attack to freeze the attacked creep and reduce its health regeneration.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 

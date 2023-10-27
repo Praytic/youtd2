@@ -48,6 +48,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Twister[/color]\n"
+	text += "Attacks have a chance to summon tornados towards two random creeps.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var sparks_range: String = Utils.format_float(SPARKS_RANGE, 2)
 	var sparks_spell_damage: String = Utils.format_percent(_stats.sparks_spell_damage, 2)
@@ -65,6 +74,14 @@ func get_autocast_description() -> String:
 	text += "+%s spell damage\n" % sparks_spell_damage_add
 	text += "+%s spell critical strike chance\n" % sparks_spell_crit_chance_add
 	text += "+%s seconds duration\n" % sparks_duration_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Increases spell damage and spell crit chance of a nearby tower.\n"
 
 	return text
 
@@ -99,6 +116,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sparks"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.target_art = "MonsoonBoltTarget.mdl"

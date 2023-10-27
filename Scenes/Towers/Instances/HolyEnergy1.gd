@@ -40,6 +40,15 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Glimmer of Hope - Aura[/color]\n"
+	text += "Reduces debuff duration of all towers in range.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var sunlight_range: String = Utils.format_float(SUNLIGHT_RANGE, 2)
 	var sunlight_duration: String = Utils.format_float(SUNLIGHT_DURATION, 2)
@@ -51,6 +60,14 @@ func get_autocast_description() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s seconds\n" % sunlight_duration_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Stuns all towers and creeps in range.\n"
 
 	return text
 
@@ -76,6 +93,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sunlight Burst"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = "Awaken.mdl"
 	autocast.target_art = ""

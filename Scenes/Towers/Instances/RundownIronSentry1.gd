@@ -47,6 +47,17 @@ func get_ability_description() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Alert[/color]\n"
+	text += "Nearby towers get alerted of trespassers.\n"
+	text += " \n"
+	text += "[color=GOLD]Trespasser Awareness[/color]\n"
+	text += "This tower strengthens its defenses when uninvited units enter its territory. There is also a chance that the trespassing creep will permanently have its armor reduced.\n"
+
+	return text
+
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 925, TargetType.new(TargetType.CREEPS))
