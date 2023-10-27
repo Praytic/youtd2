@@ -14,7 +14,7 @@ const STRIKE_CHANCE_ADD: float = 0.004
 const AURA_RANGE: float = 1300
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var strike_chance: String = Utils.format_percent(_stats.strike_chance, 2)
 	var strike_chance_add: String = Utils.format_percent(STRIKE_CHANCE_ADD, 2)
@@ -37,6 +37,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s vulnerability\n" % mod_dmg_from_storm_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Lightning Strike[/color]\n"
+	text += "When this tower damages a target there is a chance that a lightning bolt strikes the target.\n"
+	text += " \n"
+	text += "[color=GOLD]Realm of Thunder - Aura[/color]\n"
+	text += "Makes nearby creeps more vulnerable to Storm towers.\n"
 
 	return text
 

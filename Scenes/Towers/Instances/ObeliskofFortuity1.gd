@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var miss_chance_base: String = Utils.format_percent(_stats.miss_chance_base, 2)
 
 	var text: String = ""
@@ -21,6 +21,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-0.6% miss chance"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Warming Up[/color]\n"
+	text += "This tower is a bit old and has lost the accuracy it had in the past.\n"
 
 	return text
 

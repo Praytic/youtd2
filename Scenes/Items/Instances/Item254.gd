@@ -5,7 +5,7 @@ extends Item
 # TODO: implement. Complicated script. Disabled until implemented. Maybe implement by adding hidden items that are copied from other items?
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
     var text: String = ""
 
     text += "[color=GOLD]Imitation[/color]\n"

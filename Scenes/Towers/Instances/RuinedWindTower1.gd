@@ -1,7 +1,16 @@
 extends Tower
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Rejection[/color]\n"
+	text += "This tower drops all except Common items on attack.\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Rejection[/color]\n"

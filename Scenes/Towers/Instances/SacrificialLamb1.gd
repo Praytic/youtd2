@@ -40,7 +40,7 @@ const SACRIFICE_DMG_LOSS: float = 1.0
 const BUFF_DURATION: float = 6
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var bloodspill_dmg_loss: String = Utils.format_percent(BLOODSPILL_DMG_LOSS, 2)
 	var bloodspill_mod_attackspeed: String = Utils.format_percent(_stats.bloodspill_mod_attackspeed, 2)
 	var bloodspill_mod_attackspeed_add: String = Utils.format_percent(BLOODSPILL_MOD_ATTACKSPEED_ADD, 2)
@@ -62,6 +62,15 @@ func get_extra_tooltip_text() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Blood Spill[/color]\n"
+	text += "On attack, this tower has a chance to lose attack speed and boost the attack speed of nearby towers.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var sacrifice_dmg_loss: String = Utils.format_percent(SACRIFICE_DMG_LOSS, 2)
 	var sacrifice_range: String = Utils.format_float(SACRIFICE_RANGE, 2)
@@ -75,6 +84,14 @@ func get_autocast_description() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s bonus damage\n" % sacrifice_dmg_ratio_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "This tower loses a portion of its damage to boost the dps of a nearby tower.\n"
 
 	return text
 
@@ -117,6 +134,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sacrifice"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = "CarrionSwarmDamage.mdl"
 	autocast.target_art = "DeathPactCaster.mdl"

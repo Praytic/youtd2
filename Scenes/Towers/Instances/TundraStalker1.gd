@@ -15,13 +15,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var frenzy_max_bonus: String = Utils.format_percent(_stats.frenzy_max_bonus, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Frenzy[/color]\n"
 	text += "Each time Ice Claw is cast, attackspeed is increased by 0.5%% permanently. This has a maximum of %s attack speed increase.\n" % frenzy_max_bonus
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Frenzy[/color]\n"
+	text += "Gains a permanent bonus to attack speed each time Ice Claw is cast.\n"
 
 	return text
 
@@ -38,6 +47,14 @@ func get_ice_claw_description() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage per second\n" % spell_damage_add
 	text += "+0.2 second duration\n"
+
+	return text
+
+
+func get_ice_claw_description_short() -> String:
+	var text: String = ""
+
+	text += "Causes the target creep to be slowed and suffer damage over time.\n"
 
 	return text
 
@@ -87,6 +104,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Ice Claw\n"
 	autocast.description = get_ice_claw_description()
+	autocast.description_short = get_ice_claw_description_short()
 	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1

@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 		}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var damage: String = Utils.format_percent(_stats.damage, 2)
 	var damage_add: String = Utils.format_percent(_stats.damage_add, 2)
 
@@ -22,6 +22,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage" % damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Banish[/color]\n"
+	text += "Magic, undead and nature creeps suffer spell damage when hit by this tower.\n"
 
 	return text
 

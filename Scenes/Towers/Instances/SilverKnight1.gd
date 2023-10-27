@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 const TRANSMUTE_CHANCE_ADD: float = 0.0004
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var transmute_chance: String = Utils.format_percent(_stats.transmute_chance, 2)
 	var transmute_chance_add: String = Utils.format_percent(TRANSMUTE_CHANCE_ADD, 2)
 	var transmute_gold: String = Utils.format_float(_stats.transmute_gold, 2)
@@ -29,6 +29,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=GOLD]Gold Gree[/color]\n"
 	text += "On attack this tower deals [%s x squareroot (current gold)] spell damage to its target.\n" % gold_greed_value
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Transmute[/color]\n"
+	text += "This tower has a chance on attack to turn a lesser creep into gold.\n"
+	text += " \n"
+	text += "[color=GOLD]Gold Gree[/color]\n"
+	text += "On attack this tower deals spell damage which scales with current player gold.\n"
 
 	return text
 

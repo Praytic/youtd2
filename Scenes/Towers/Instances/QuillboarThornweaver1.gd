@@ -21,7 +21,7 @@ const QUILLSPRAY_DEBUFF_DURATION: float = 1.5
 const QUILLSPRAY_RANGE: float = 800
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var occasional_quillspray_chance: String = Utils.format_percent(_stats.occasional_quillspray_chance, 2)
 	var occasional_quillspray_chance_add: String = Utils.format_percent(_stats.occasional_quillspray_chance_add, 2)
 
@@ -34,6 +34,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s chance\n" % occasional_quillspray_chance_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Occasional Quillspray[/color]\n"
+	text += "On attack this tower has a chance to trigger a Quillspray.\n"
 
 	return text
 
@@ -62,6 +71,14 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "This tower releases thorns from its back, damaging every unit in range.\n"
+
+	return text
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
@@ -77,6 +94,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Quillspray"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.target_art = ""

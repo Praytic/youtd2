@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var num_shots: String = Utils.format_float(_stats.num_shots, 2)
 
 	var text: String = ""
@@ -27,6 +27,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% chance\n"
 	text += "+1 extra projectile at levels 15 and 25\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Burst Lightning[/color]\n"
+	text += "Has a chance on attack to fire extra projectiles at random creeps around the main target.\n"
 
 	return text
 

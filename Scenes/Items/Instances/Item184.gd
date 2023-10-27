@@ -4,7 +4,7 @@ extends Item
 var cedi_dps_cloak_mb: MultiboardValues
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Soul Power[/color]\n"

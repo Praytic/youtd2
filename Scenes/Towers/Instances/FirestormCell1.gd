@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var firestorm_chance: String = Utils.format_percent(_stats.firestorm_chance, 2)
 	var firestorm_chance_add: String = Utils.format_percent(_stats.firestorm_chance_add, 2)
 	var firestorm_damage: String = Utils.format_float(_stats.firestorm_damage, 2)
@@ -26,6 +26,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s chance\n" % firestorm_chance_add
 	text += "+%s damage\n" % firestorm_damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Firestorm[/color]\n"
+	text += "Attacks have a chance to cause repeating AoE spell damage.\n"
 
 	return text
 

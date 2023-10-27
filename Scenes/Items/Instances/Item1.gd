@@ -5,7 +5,7 @@ extends Item
 var boekie_skadiSlow_aura: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Skadi's Influence - Aura[/color]\n"

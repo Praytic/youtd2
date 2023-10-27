@@ -21,7 +21,7 @@ const STAR_GLAIVE_CHANCE_ADD: float = 0.004
 const STAR_GLAIVE_DMG_RATIO_ADD: float = 0.01
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var shadow_glaive_chance: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE, 2)
 	var shadow_glaive_chance_add: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE_ADD, 2)
 	var shadow_glaive_attackspeed: String = Utils.format_percent(SHADOW_GLAIVE_ATTACKSPEED, 2)
@@ -52,6 +52,17 @@ func get_extra_tooltip_text() -> String:
 
 	return text
 
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Shadow Glaive[/color]\n"
+	text += "This tower has a chance to do a fast follow-up attack which is guaranteed to be critical.\n"
+	text += " \n"
+	text += "[color=GOLD]Star Glaive[/color]\n"
+	text += "Whenever this tower damages a creep there is a chance to deal additional spell damage.\n"
+
+	return text
 
 
 func load_triggers(triggers: BuffType):

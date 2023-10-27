@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var bonus_7: String = Utils.format_percent(_stats.bonus_7 - 1.0, 2)
 	var bonus_8: String = Utils.format_percent(_stats.bonus_8 - 1.0, 2)
 	var bonus_9: String = Utils.format_percent(_stats.bonus_9 - 1.0, 2)
@@ -36,6 +36,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+%s bonus damage every 8th attack.\n" % bonus_8_add
 	text += "+%s bonus damage every 9th attack.\n" % bonus_9_add
 	text += "+%s bonus damage every 10th attack.\n" % bonus_10_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Fireblossom[/color]\n"
+	text += "Every few attacks this tower deals some bonus damage.\n"
 
 	return text
 

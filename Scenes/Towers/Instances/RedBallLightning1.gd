@@ -17,7 +17,7 @@ const SHOCK_CRIT_CHANCE: float = 0.10
 const SHOCK_CRIT_DAMAGE: float = 0.60
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var shock_chance: String = Utils.format_percent(SHOCK_CHANCE, 2)
 	var shock_chance_add: String = Utils.format_percent(SHOCK_CHANCE_ADD, 2)
@@ -42,6 +42,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage\n" % mod_spell_damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Lightning Shock[/color]\n"
+	text += "This tower has a chance to release a lightning shock when attacking.\n"
+	text += " \n"
+	text += "[color=GOLD]Lightning Charge - Aura[/color]\n"
+	text += "Increases spell damage of nearby towers.\n"
 
 	return text
 

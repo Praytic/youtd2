@@ -33,6 +33,14 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Releases a strong lightning on the target."
+
+	return text
+
+
 func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Thunder Shock Dmg")
@@ -40,6 +48,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Thunder Shock"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = "PurgeBuffTarget.mdl"
 	autocast.target_art = ""

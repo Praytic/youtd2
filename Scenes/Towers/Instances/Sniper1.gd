@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var rocket_damage: String = Utils.format_float(_stats.rocket_damage, 2)
 	var rocket_damage_add: String = Utils.format_float(_stats.rocket_damage_add, 2)
 	var text: String = ""
@@ -24,6 +24,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% chance\n"
 	text += "+%s damage\n" % rocket_damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Rocket Strike[/color]\n"
+	text += "Has a chance to deal splash damage when attacking.\n"
 
 	return text
 

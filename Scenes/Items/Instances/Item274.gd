@@ -4,7 +4,7 @@ extends Item
 var boekie_tombstonejibs: MultiboardValues
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Curse of the Grave[/color]\n"

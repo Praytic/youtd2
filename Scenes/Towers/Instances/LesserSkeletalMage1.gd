@@ -33,6 +33,14 @@ func get_dark_curse_description() -> String:
 	return text
 
 
+func get_dark_curse_description_short() -> String:
+	var text: String = ""
+
+	text += "Causes the target creep to receive more attack damage.\n"
+
+	return text
+
+
 func on_autocast(event: Event):
 	var tower: Tower = self
 	var lvl: int = tower.get_level()
@@ -52,6 +60,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Dark Curse"
 	autocast.description = get_dark_curse_description()
+	autocast.description_short = get_dark_curse_description_short()
 	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 3

@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 		4: {slow_value = 140, slow_duration = 5.0, aoe_range = 400, aoe_damage = 2500, aoe_damage_add = 125},
 	}
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aoe_damage: String = Utils.format_float(_stats.aoe_damage, 2)
 	var aoe_range: String = Utils.format_float(_stats.aoe_range, 2)
 	var slow_value: String = Utils.format_percent(_stats.slow_value / 1000.0, 2)
@@ -28,6 +28,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.4% chance\n"
 	text += "+%s damage\n" % [aoe_damage_add]
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Ice Nova[/color]\n"
+	text += "Has a chance to deal AoE damage and slow creeps around the target.\n"
 
 	return text
 

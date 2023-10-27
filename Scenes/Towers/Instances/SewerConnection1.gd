@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var vapor_damage: String = Utils.format_float(_stats.vapor_damage / 10, 2)
 	var vapor_damage_add: String = Utils.format_float(_stats.vapor_damage_add / 10, 2)
 
@@ -26,6 +26,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage per second\n" % vapor_damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Toxic Vapor[/color]\n"
+	text += "Deals damage over time.\n"
 
 	return text
 

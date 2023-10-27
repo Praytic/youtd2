@@ -23,7 +23,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var debuff_effect: String = Utils.format_percent(_stats.buff_level * 0.001, 2)
 	var debuff_effect_add: String = Utils.format_percent(_stats.buff_level_add * 0.001, 2)
 	var critical_mass_chance: String = Utils.format_percent(_stats.critical_mass_chance, 2)
@@ -43,6 +43,18 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.3% initial chance\n"
 	text += "+0.6% extra chance\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Corpse Explosion[/color]\n"
+	text += "Occasionally explodes nearby corpses and deals AoE damage.\n"
+	text += " \n"
+	text += "[color=GOLD]Critical Mass[/color]\n"
+	text += "Has a chance on attack to shoot multiple projectiles.\n"
 
 	return text
 

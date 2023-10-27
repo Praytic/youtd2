@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var stun_temple_duration: String = Utils.format_float(_stats.stun_temple_duration, 2)
 	var stun_knockdown_duration: String = Utils.format_float(_stats.stun_knockdown_duration, 2)
 	var hit_chance_add: String = Utils.format_percent(_stats.hit_chance_add, 2)
@@ -29,6 +29,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s chance to hit\n" % hit_chance_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Vicious Snow Ball[/color]\n"
+	text += "Hurls snowballs at the enemies heads.\n"
 
 	return text
 

@@ -4,11 +4,20 @@ extends Tower
 # bunch of unnecessary things.
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Wrath of the Storm - Aura[/color]\n"
 	text += "The enormous wrath of the dead warrior flows out of this tower undirected. So the tower only hits a random target in range each attack.\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Wrath of the Storm[/color]\n"
+	text += "This tower attacks random targets.\n"
 
 	return text
 

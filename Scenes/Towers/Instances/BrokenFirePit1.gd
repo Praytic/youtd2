@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var bonus_crit: String = Utils.format_percent((0.15 + _stats.power * 0.001), 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 
@@ -26,6 +26,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.05 sec duration\n"
 	text += "+0.3% crit chance"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Hot Coals[/color]\n"
+	text += "Gains increased crit chance on kill.\n"
 
 	return text
 

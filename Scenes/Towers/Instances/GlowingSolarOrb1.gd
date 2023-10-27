@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var armor_decrease: String = Utils.format_float(_stats.armor_decrease, 2)
 
 	var text: String = ""
@@ -25,6 +25,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% chance\n"
 	text += "+0.25 seconds duration"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Afterglow[/color]\n"
+	text += "Has a chance to melt armor of damaged units."
 
 	return text
 

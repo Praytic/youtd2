@@ -34,6 +34,14 @@ func get_wind_shear_description() -> String:
 	return text
 
 
+func get_wind_shear_description_short() -> String:
+	var text: String = ""
+
+	text += "Increases the attackspeed of a tower and gives it a chance to cast chainlightning.\n"
+
+	return text
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.00, 0.1)
 
@@ -84,6 +92,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Wind Shear"
 	autocast.description = get_wind_shear_description()
+	autocast.description_short = get_wind_shear_description_short()
 	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.target_art = "Abilities/Spells/Items/AIlm/AIlmTarget.mdl"

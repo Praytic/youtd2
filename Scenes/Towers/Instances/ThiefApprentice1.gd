@@ -17,7 +17,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var gold: String = Utils.format_float(_stats.gold / 10.0, 2)
 	var gold_add: String = Utils.format_float(_stats.gold * 0.04 / 10.0, 3)
 
@@ -29,6 +29,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s gold\n" % gold_add
 	text += "+0.4% chance"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Steal[/color]\n"
+	text += "The Thief has a chance to get gold when he damages a creep.\n"
 
 	return text
 

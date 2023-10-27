@@ -4,11 +4,20 @@ extends Tower
 var boekie_green_dragon_bt: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Green Dragon Force - Aura[/color]\n"
 	text += "Increases the multicrit of towers in 200 range by 2.\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Green Dragon Force - Aura[/color]\n"
+	text += "Increases multicrit of towers in range.\n"
 
 	return text
 

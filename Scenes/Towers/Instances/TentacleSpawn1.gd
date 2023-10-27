@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var increased_spell_damage: String = Utils.format_percent((0.02 + 0.01 * _stats.apply_level), 2)
 	var periodic_damage: String = Utils.format_float(_stats.periodic_damage, 2)
 	var periodic_damage_add: String = Utils.format_float(_stats.periodic_damage_add, 2)
@@ -28,6 +28,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% chance\n"
 	text += "+%s spell damage per second" % periodic_damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Rend[/color]\n"
+	text += "Attacks have a chance to rend the target, which deals damage over time and makes the target vulnerable to spell damage.\n"
 
 	return text
 

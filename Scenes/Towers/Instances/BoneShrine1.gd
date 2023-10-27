@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var dmg_increase: String = Utils.format_percent(_stats.dmg_increase, 2)
 	var dmg_increase_add: String = Utils.format_percent(_stats.dmg_increase_add, 2)
 
@@ -23,6 +23,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += " +%s damage increased\n" % dmg_increase_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Empowering Darkness[/color]\n"
+	text += "On attack, this tower makes the target more vulnerable to Darkness.\n"
 
 	return text
 

@@ -10,7 +10,7 @@ extends Item
 var fright_poison_dagger_buff: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Deadly Poison[/color]\n"

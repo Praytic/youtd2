@@ -15,17 +15,27 @@ var cb_stun: BuffType
 var kel_slow: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	match get_tier():
-		1: return get_extra_tooltip_text_1()
-		2: return get_extra_tooltip_text_2()
-		3: return get_extra_tooltip_text_3()
-		4: return get_extra_tooltip_text_4()
+		1: return get_ability_description_1()
+		2: return get_ability_description_2()
+		3: return get_ability_description_3()
+		4: return get_ability_description_4()
 
 	return ""
 
 
-func get_extra_tooltip_text_1() -> String:
+# NOTE: short description is the same for all tiers
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Elemental Chaos[/color]\n"
+	text += "Elementalist casts a random spell on attack.\n"
+
+	return text
+
+
+func get_ability_description_1() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Elemental Chaos[/color]\n"
@@ -41,7 +51,7 @@ func get_extra_tooltip_text_1() -> String:
 	return text
 
 
-func get_extra_tooltip_text_2() -> String:
+func get_ability_description_2() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Elemental Chaos[/color]\n"
@@ -59,7 +69,7 @@ func get_extra_tooltip_text_2() -> String:
 	return text
 
 
-func get_extra_tooltip_text_3() -> String:
+func get_ability_description_3() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Elemental Chaos[/color]\n"
@@ -79,7 +89,7 @@ func get_extra_tooltip_text_3() -> String:
 	return text
 
 
-func get_extra_tooltip_text_4() -> String:
+func get_ability_description_4() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Elemental Fury[/color]\n"

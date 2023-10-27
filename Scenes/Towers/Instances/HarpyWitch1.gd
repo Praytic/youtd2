@@ -28,7 +28,7 @@ const SPARKS_DURATION_ADD: float = 0.3
 const TWISTER_DURATION: float = 5.0
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var twister_chance: String = Utils.format_percent(_stats.twister_chance, 2)
 	var twister_chance_add: String = Utils.format_percent(_stats.twister_chance_add, 2)
 	var twister_tornado_count: String = Utils.format_float(_stats.twister_tornado_count, 2)
@@ -44,6 +44,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s chance\n" % twister_chance_add
 	text += "+%s additional damage taken\n" % twister_mod_storm_dmg_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Twister[/color]\n"
+	text += "Attacks have a chance to summon tornados towards two random creeps.\n"
 
 	return text
 
@@ -65,6 +74,14 @@ func get_autocast_description() -> String:
 	text += "+%s spell damage\n" % sparks_spell_damage_add
 	text += "+%s spell critical strike chance\n" % sparks_spell_crit_chance_add
 	text += "+%s seconds duration\n" % sparks_duration_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Increases spell damage and spell crit chance of a nearby tower.\n"
 
 	return text
 
@@ -99,6 +116,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sparks"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.target_art = "MonsoonBoltTarget.mdl"

@@ -40,6 +40,14 @@ func get_blizzard_description() -> String:
 	return text
 
 
+func get_blizzard_description_short() -> String:
+	var text: String = ""
+
+	text += "Summons a mighty blizzard. Each wave has a chance to slow and stun all enemy units in the target area.\n"
+
+	return text
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.5, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.25, 0.0)
@@ -78,6 +86,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Blizzard"
 	autocast.description = get_blizzard_description()
+	autocast.description_short = get_blizzard_description_short()
 	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

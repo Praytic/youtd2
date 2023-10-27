@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var damage_increase: String = Utils.format_percent(_stats.damage_increase, 2)
 	var damage_increase_add: String = Utils.format_percent(_stats.damage_increase_add, 2)
 
@@ -22,6 +22,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % damage_increase_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Thermal Boost - Aura[/color]\n"
+	text += "Increases damage of nearby towers.\n"
 
 	return text
 

@@ -9,7 +9,7 @@ extends Item
 var ball_lightning: ProjectileType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Ball Lightning[/color]\n"

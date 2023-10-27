@@ -17,7 +17,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var damage: String = Utils.format_float(_stats.damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
@@ -30,6 +30,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+%s damage per second\n" % damage_add
 	text += "+0.05 second duration\n"
 	text += "+1 stack every 5 levels"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Poisonous Spittle[/color]\n"
+	text += "Deals damage over time, increases with every attack.\n"
 
 	return text
 

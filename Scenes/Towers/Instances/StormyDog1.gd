@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var attack_speed: String = Utils.format_percent(_stats.buff_scale * 0.0005, 2)
 
 	var text: String = ""
@@ -24,6 +24,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s attack speed" % attack_speed
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Thunderous Roar[/color]\n"
+	text += "Whenever this tower damages a unit it has a chance to increase the attack speed of nearby towers.\n"
 
 	return text
 

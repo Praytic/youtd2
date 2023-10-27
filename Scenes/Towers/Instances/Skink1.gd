@@ -20,7 +20,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var dmg: String = Utils.format_float(_stats.dmg, 2)
 	var dmg_add: String = Utils.format_float(_stats.dmg_add, 2)
 
@@ -31,6 +31,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage per second" % dmg_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Poisonous Skin - Aura[/color]\n"
+	text += "This and nearby towers gain a poisonous attack.\n"
 
 	return text
 

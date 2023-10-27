@@ -7,7 +7,7 @@ extends Item
 # Current implementation is that it starts from 1.0
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Infuse with Regeneration[/color]\n"

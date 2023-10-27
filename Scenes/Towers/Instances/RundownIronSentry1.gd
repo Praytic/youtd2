@@ -18,7 +18,7 @@ const ALERT_MOD_DMG_ADD: float = 0.005
 const ALERT_RANGE: int = 500
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var alert_duration: String = Utils.format_float(_stats.alert_duration, 2)
 	var alert_range: String = Utils.format_float(ALERT_RANGE, 2)
 	var alert_mod_dmg: String = Utils.format_percent(ALERT_MOD_DMG, 2)
@@ -46,6 +46,17 @@ func get_extra_tooltip_text() -> String:
 
 	return text
 
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Alert[/color]\n"
+	text += "Nearby towers get alerted of trespassers.\n"
+	text += " \n"
+	text += "[color=GOLD]Trespasser Awareness[/color]\n"
+	text += "This tower strengthens its defenses when uninvited units enter its territory. There is also a chance that the trespassing creep will permanently have its armor reduced.\n"
+
+	return text
 
 
 func load_triggers(triggers: BuffType):

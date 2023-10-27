@@ -25,10 +25,19 @@ func get_release_lightning_description() -> String:
 	return text
 
 
+func get_release_lightning_description_short() -> String:
+	var text: String = ""
+
+	text += "Releases a lightning bolt."
+
+	return text
+
+
 func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Release Lightning"
 	autocast.description = get_release_lightning_description()
+	autocast.description_short = get_release_lightning_description_short()
 	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

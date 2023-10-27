@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var cooldown: String = Utils.format_float(_stats.cooldown, 2)
 	var max_targets: String = Utils.format_float(_stats.max_targets, 2)
 	var base_damage: String = Utils.format_float(_stats.base_damage, 2)
@@ -29,6 +29,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spelldamage\n" % damage_add
 	text += "-0.2 seconds cooldown"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Activate Trap[/color]\n"
+	text += "Traps random creeps in range.\n"
 
 	return text
 

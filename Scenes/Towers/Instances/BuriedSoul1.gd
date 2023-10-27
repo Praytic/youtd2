@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var banish_lvl: String = Utils.format_percent(_stats.banish_lvl * 0.01, 2)
 	var banish_duration: String = Utils.format_float(_stats.banish_duration, 2)
 	var banish_lvl_add: String = Utils.format_percent(_stats.banish_lvl_add * 0.01, 2)
@@ -36,6 +36,18 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage\n" % damage_add
 	text += "+0.5% chance"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Soul Scattering[/color]\n"
+	text += "Chance on attack reduce its own attack speed and make the target more vulnerable to spells.\n"
+	text += " \n"
+	text += "[color=GOLD]Shadowstrike[/color]\n"
+	text += "Chance on attack to deal additional spell damage.\n"
 
 	return text
 

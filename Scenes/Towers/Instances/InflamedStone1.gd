@@ -27,7 +27,7 @@ func get_tier_stats() -> Dictionary:
 const MANA_THRESHOLD_BASE: float = 20
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var spellfire_ratio: String = Utils.format_percent(_stats.spellfire_ratio, 2)
 	var spellfire_ratio_add: String = Utils.format_percent(_stats.spellfire_ratio_add, 2)
 	var mana_threshold_base: String = Utils.format_float(MANA_THRESHOLD_BASE, 2)
@@ -47,6 +47,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-%s Mana needed\n" % mana_threshold_add
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Spellfire[/color]\n"
+	text += "This tower treats all spell modifiers as attack bonuses.\n"
+	text += " \n"
+	text += "[color=GOLD]Spellfire Projectiles[/color]\n"
+	text += "On attack this towers uses all of its mana to make the next attack critical.\n"
+
 	return text
 
 

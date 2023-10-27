@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var damage: String = Utils.format_float(_stats.damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 
@@ -23,6 +23,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage" % damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Frozen Thorn[/color]\n"
+	text += "Has a chance to deal additional spell damage each time it deals damage.\n"
 
 	return text
 

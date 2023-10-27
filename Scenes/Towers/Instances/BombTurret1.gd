@@ -35,6 +35,14 @@ func get_autocast_description_concussive() -> String:
 	return text
 
 
+func get_autocast_description_concussive_short() -> String:
+	var text: String = ""
+
+	text += "Equips the tower with concussive bombs.\n"
+
+	return text
+
+
 func get_autocast_description_acid() -> String:
 	var bomb_radius: String = Utils.format_float(_stats.bomb_radius, 2)
 	var acid_mod_armor: String = Utils.format_percent(_stats.acid_mod_armor, 2)
@@ -51,6 +59,14 @@ func get_autocast_description_acid() -> String:
 	return text
 
 
+func get_autocast_description_acid_short() -> String:
+	var text: String = ""
+
+	text += "Equips the tower with acid bombs.\n"
+
+	return text
+
+
 func get_autocast_description_smoke() -> String:
 	var bomb_radius: String = Utils.format_float(_stats.bomb_radius, 2)
 	var smoke_duration: String = Utils.format_float(_stats.smoke_duration, 2)
@@ -62,6 +78,14 @@ func get_autocast_description_smoke() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s seconds duration\n" % smoke_duration_add
+
+	return text
+
+
+func get_autocast_description_smoke_short() -> String:
+	var text: String = ""
+
+	text += "Equips the tower with smoke bombs.\n"
 
 	return text
 
@@ -102,6 +126,7 @@ func tower_init():
 	var autocast_concussive: Autocast = Autocast.make()
 	autocast_concussive.title = "Concussive Bombs"
 	autocast_concussive.description = get_autocast_description_concussive()
+	autocast_concussive.description_short = get_autocast_description_concussive_short()
 	autocast_concussive.icon = "res://path/to/icon.png"
 	autocast_concussive.caster_art = ""
 	autocast_concussive.target_art = ""
@@ -121,6 +146,7 @@ func tower_init():
 	var autocast_acid: Autocast = Autocast.make()
 	autocast_acid.title = "Acid Bombs"
 	autocast_acid.description = get_autocast_description_acid()
+	autocast_acid.description_short = get_autocast_description_acid_short()
 	autocast_acid.icon = "res://path/to/icon.png"
 	autocast_acid.caster_art = ""
 	autocast_acid.target_art = ""
@@ -140,6 +166,7 @@ func tower_init():
 	var autocast_smoke: Autocast = Autocast.make()
 	autocast_smoke.title = "Acid Bombs"
 	autocast_smoke.description = get_autocast_description_smoke()
+	autocast_smoke.description_short = get_autocast_description_smoke_short()
 	autocast_smoke.icon = "res://path/to/icon.png"
 	autocast_smoke.caster_art = ""
 	autocast_smoke.target_art = ""

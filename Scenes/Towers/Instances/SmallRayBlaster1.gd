@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var value: String = Utils.format_percent(_stats.value * 0.01 * 0.01, 2)
 	var value_add: String = Utils.format_percent(_stats.value_add * 0.01 * 0.01, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
@@ -28,6 +28,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+%s item drop quality\n" % value_add
 	text += "+%s item drop chance\n" % value_add
 	text += "+0.1 seconds" 
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Phaze[/color]\n"
+	text += "Increases target creep's item drop quality and item drop chance.\n"
 
 	return text
 

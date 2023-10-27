@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var trigger_chance_add: String = Utils.format_percent(_stats.trigger_chance_add * 0.001, 2)
 	var elemental_wrath_chance: String = Utils.format_percent(_stats.elemental_wrath_chance, 2)
 
@@ -29,6 +29,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=GOLD]Mimic[/color]\n"
 	text += "The Ghost's attacks are varied, and its damage type will either be good or bad against its target. Trigger chance adjusts the good/bad attacks to be better.\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Elemental Wrath[/color]\n"
+	text += "The Ghost has a chance on attack to increase its trigger chance temporarily.\n"
+	text += " \n"
+	text += "[color=GOLD]Mimic[/color]\n"
+	text += "The Ghost is able to deal different damage types.\n"
 
 	return text
 

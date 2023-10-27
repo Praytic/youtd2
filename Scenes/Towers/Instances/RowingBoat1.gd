@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var plunder_amount: String = Utils.format_float(_stats.plunder_amount, 2)
 	var bounty_level_add: String = Utils.format_percent(_stats.aura_power_and_lvl * 0.001, 2)
 
@@ -27,6 +27,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s bounty\n" % bounty_level_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Pirates[/color]\n"
+	text += "Grants gold on attack.\n"
+	text += " \n"
+	text += "[color=GOLD]Treasure Seeker - Aura[/color]\n"
+	text += "Increases the bounty gain of nearby towers.\n"
 
 	return text
 

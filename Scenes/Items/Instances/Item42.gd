@@ -5,7 +5,7 @@ extends Item
 var sir_sleeve_buff: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Ancient Rage[/color]\n"

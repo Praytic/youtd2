@@ -15,7 +15,7 @@ const AURA_RANGE: float = 200
 const REPLENISH_RANGE: float = 500
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var mod_spell_dmg: String = Utils.format_percent(_stats.mod_spell_dmg, 2)
 	var mod_spell_dmg_add: String = Utils.format_percent(_stats.mod_spell_dmg_add, 2)
@@ -27,6 +27,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage\n" % mod_spell_dmg_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Cleansing Water - Aura[/color]\n"
+	text += "Increases spell damage dealt by nearby towers.\n"
 
 	return text
 
@@ -46,6 +55,14 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Restores mana of nearby towers.\n"
+
+	return text
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.20, 0.008)
 
@@ -61,6 +78,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Replenish"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = "ReplenishManaCasterOverhead.mdl"
 	autocast.target_art = ""

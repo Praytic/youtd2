@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var damage: String = Utils.format_float(_stats.damage, 2)
 	var damage_add: String = Utils.format_float(_stats.damage_add, 2)
 	var rock_range: String = Utils.format_float(_stats.rock_range, 2)
@@ -26,6 +26,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% chance\n"
 	text += "+%s damage\n" % damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Rock Throw[/color]\n"
+	text += "Chance to throw a rock towards the target.\n"
 
 	return text
 

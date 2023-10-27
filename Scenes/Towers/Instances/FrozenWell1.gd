@@ -5,7 +5,7 @@ var boekie_frozen_well_aura_bt: BuffType
 var boekie_freezing_mist_bt: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Freezing Mist[/color]\n"
@@ -19,6 +19,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.4% buff duration\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Freezing Mist[/color]\n"
+	text += "When this tower damages a creep it will be slowed.\n"
+	text += " \n"
+	text += "[color=GOLD]Flowing Frost - Aura[/color]\n"
+	text += "Increases buff duration of towers in range.\n"
 
 	return text
 

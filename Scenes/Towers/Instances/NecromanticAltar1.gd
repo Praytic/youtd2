@@ -32,10 +32,19 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Hits 3 random creeps with dark powers.\n"
+
+	return text
+
+
 func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Soul Revenge"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://Resources/Textures/UI/Icons/gold_icon.tres"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

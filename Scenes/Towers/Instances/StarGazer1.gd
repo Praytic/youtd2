@@ -10,7 +10,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Magic Split[/color]\n"
@@ -18,6 +18,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+1% damage\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Magic Split[/color]\n"
+	text += "On damage this tower deals 100% of its attack damage as spell damage to the target.\n"
 
 	return text
 

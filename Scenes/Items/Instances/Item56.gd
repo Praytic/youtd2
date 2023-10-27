@@ -9,7 +9,7 @@ extends Item
 var poussix_fright_aura: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Fright Aura - Aura[/color]\n"

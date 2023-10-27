@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var regen_reduction: String = Utils.format_percent(0.05 + _stats.firedot_level_add * 0.1 * 0.01, 2)
 	var regen_reduction_add: String = Utils.format_percent(_stats.firedot_level_multiply * 0.1 * 0.01, 2)
 
@@ -26,6 +26,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.6% attack damage\n"
 	text += "+%s health regeneration reduction\n" % regen_reduction_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Ignite[/color]\n"
+	text += "Damages a target over time and makes decreases target's health regeneration.\n"
 
 	return text
 

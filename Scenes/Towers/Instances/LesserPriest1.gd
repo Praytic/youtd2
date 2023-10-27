@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var smite_damage: String = Utils.format_float(_stats.smite_damage, 2)
 	var smite_damage_add: String = Utils.format_float(_stats.smite_damage_add, 2)
 	var armor_reduce: String = Utils.format_float(_stats.armor_reduce, 2)
@@ -26,6 +26,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+2% chance\n"
 	text += "+%s spelldamage\n" % smite_damage_add
 	text += "%s permanent armor reduction (%s on bosses) at level 25" % [armor_reduce, armor_reduce_boss]
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Smite[/color]\n"
+	text += "When this tower damages a creep it has a chance to smite it.\n"
 
 	return text
 

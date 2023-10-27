@@ -21,7 +21,7 @@ const GRENADE_MOD_DMG_RECEIVED_ADD: float = 0.001
 const GRENADE_MOD_DMG_RECEIVED_MAX: float = 0.50
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var grenade_chance: String = Utils.format_percent(_stats.grenade_chance, 2)
 	var grenade_chance_add: String = Utils.format_percent(_stats.grenade_chance_add, 2)
 	var grenade_count: String = Utils.format_float(_stats.grenade_count, 2)
@@ -44,6 +44,15 @@ func get_extra_tooltip_text() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Frag Grenade[/color]\n"
+	text += "When this tower damages a creep it has a chance to fire a frag grenade.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var stim_attackspeed: String = Utils.format_percent(STIM_ATTACKSPEED, 2)
 	var stim_attack_dmg: String = Utils.format_percent(STIM_ATTACK_DMG, 2)
@@ -56,6 +65,14 @@ func get_autocast_description() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s seconds duration\n" % stim_duration_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "This marine uses a stimpack, increasing its attackspeed and decreasing its attackdamage.\n"
 
 	return text
 
@@ -87,6 +104,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Stim"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = "AvatarCaster.mdl"
 	autocast.target_art = ""

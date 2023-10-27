@@ -2,7 +2,7 @@
 extends Item
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Shrapnel Munition[/color]\n"

@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 const AURA_RANGE: float = 300
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var mod_crit: String = Utils.format_percent(_stats.mod_crit, 2)
 	var mod_crit_add: String = Utils.format_percent(_stats.mod_crit_add, 2)
@@ -27,6 +27,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s chance\n" % mod_crit_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Fire of Fury - Aura[/color]\n"
+	text += "Increases crit chance of nearby towers.\n"
 
 	return text
 

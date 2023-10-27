@@ -6,7 +6,7 @@ var hammer_mark: BuffType
 var hammer_aura: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Even More Magical Weapon[/color]\n"

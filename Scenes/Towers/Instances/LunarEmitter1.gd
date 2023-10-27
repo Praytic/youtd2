@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(_stats.aura_range, 2)
 	var mod_spell_resist: String = Utils.format_percent(_stats.mod_spell_resist, 2)
 	var mod_spell_resist_add: String = Utils.format_percent(_stats.mod_spell_resist_add, 2)
@@ -26,6 +26,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell resistance reduction\n" % mod_spell_resist_add
 	text += "+%s vulnerability\n" % vuln_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Moonlight - Aura[/color]\n"
+	text += "Reduces the spell resistance of nearby enemies and increases their vulnerability to damage from Astral, Darkness, Ice and Storm towers.\n"
 
 	return text
 

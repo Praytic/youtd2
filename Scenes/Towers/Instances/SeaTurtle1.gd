@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 const MANA_LOSS_PER_SEC: float = 0.0175
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var mana_per_attack: String = Utils.format_float(_stats.mana_per_attack, 2)
 	var mana_per_attack_add: String = Utils.format_float(_stats.mana_per_attack_add, 2)
 	var mana_loss_per_sec: String = Utils.format_percent(MANA_LOSS_PER_SEC, 2)
@@ -29,6 +29,21 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=GOLD]Cold Blooded[/color]\n"
 	text += "Every second this tower loses %s of its max mana.\n" % mana_loss_per_sec
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Splash[/color]\n"
+	text += "Every attack the turtle restores some mana.\n"
+	text += " \n"
+	text += "[color=GOLD]Aqua Breath[/color]\n"
+	text += "This tower deals Energy damage equal to its mana.\n"
+	text += " \n"
+	text += "[color=GOLD]Cold Blooded[/color]\n"
+	text += "Every second this tower loses some of its mana.\n"
 
 	return text
 

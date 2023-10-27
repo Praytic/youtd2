@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 const AURA_RANGE: float = 900
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)
 	var mod_armor_add: String = Utils.format_float(_stats.mod_armor_add, 2)
@@ -32,6 +32,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+%s start armor reduction\n" % mod_armor_add
 	text += "+%s armor reduction\n" % periodic_mod_armor_add
 	text += "+%s damage\n" % melt_damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Melt[/color]\n"
+	text += "The enormous heat of the caged fire damages nearby creeps and decreases their armor.\n"
 
 	return text
 

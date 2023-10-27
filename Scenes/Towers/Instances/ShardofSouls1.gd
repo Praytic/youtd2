@@ -25,13 +25,22 @@ const SOUL_LINK_COUNT: int = 3
 const SOUL_CONSUMPTION_EXP_GAIN: int = 1
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var soul_consumption_exp_gain: String = Utils.format_float(SOUL_CONSUMPTION_EXP_GAIN, 2)
 	
 	var text: String = ""
 
 	text += "[color=GOLD]Soul Consumption[/color]\n"
 	text += "Whenever a unit under the effect of Soul Link dies, the Shard of Souls consumes its soul granting %s experience to the tower.\n" % soul_consumption_exp_gain
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Soul Consumption[/color]\n"
+	text += "Whenever a unit under the effect of Soul Link dies, the Shard of Souls consumes its soul granting experience to the tower.\n"
 
 	return text
 
@@ -53,6 +62,14 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Links enemies' souls together. If a linked unit takes damage all other linked units will take a portion of the damage.\n"
+
+	return text
+
+
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.0, 0.02)
 
@@ -67,6 +84,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Soul Link"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 1

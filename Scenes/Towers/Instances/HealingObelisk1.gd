@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var heal_ratio: String = Utils.format_percent(_stats.heal_ratio, 2)
 	var heal_ratio_add: String = Utils.format_percent(_stats.heal_ratio_add, 2)
 
@@ -25,6 +25,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-%s of the damage healed\n" % heal_ratio_add
 	text += "+1 second needed to heal at level 15 and 25\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Grace[/color]\n"
+	text += "A percentage of this tower's damage gets revoked after a while.\n"
 
 	return text
 

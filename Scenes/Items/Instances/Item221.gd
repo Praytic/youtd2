@@ -5,7 +5,7 @@ extends Item
 var eye_of_true_sight: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Eye of True Sight[/color]\n"

@@ -21,7 +21,7 @@ func get_tier_stats() -> Dictionary:
 const AURA_RANGE: float = 1000
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var soul_damage: String = Utils.format_float(_stats.soul_damage, 2)
 	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 2)
 	var soul_experience: String = Utils.format_float(_stats.soul_experience, 2)
@@ -34,6 +34,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage per kill\n" % soul_damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Revenge of Souls[/color]\n"
+	text += "This tower gains permanent bonus damage and experience every time a creep dies near the tower.\n"
 
 	return text
 

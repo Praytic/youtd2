@@ -20,7 +20,7 @@ const SHOCKWAVE_RANGE_FROM_TARGET: float = 500
 const AURA_RADIUS: float = 300
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var shockwave_chance: String = Utils.format_percent(_stats.shockwave_chance, 2)
 	var shockwave_chance_add: String = Utils.format_percent(_stats.shockwave_chance_add, 2)
 	var shockwave_range_from_target: String = Utils.format_float(SHOCKWAVE_RANGE_FROM_TARGET, 2)
@@ -44,6 +44,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % mod_dmg_to_undead_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Ain Soph Aur[/color]\n"
+	text += "This tower has a chance on every attack to create a shockwave of light.\n"
+	text += " \n"
+	text += "[color=GOLD]Aura of Light - Aura[/color]\n"
+	text += "Nearby towers deal more damage to undead creeps.\n"
 
 	return text
 

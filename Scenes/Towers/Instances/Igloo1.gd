@@ -18,7 +18,7 @@ const COLD_SLOW_DURATION: float = 4
 const COLD_RANGE: float = 900
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var cold_range: String = Utils.format_float(COLD_RANGE, 2)
 	var cold_damage: String = Utils.format_float(_stats.cold_damage, 2)
 	var cold_damage_add: String = Utils.format_float(_stats.cold_damage_add, 2)
@@ -35,6 +35,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage \n" % cold_damage_add
 	text += "+%s slow\n" % cold_slow_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Extreme Cold[/color]\n"
+	text += "Damages and slows every unit that comes in range.\n"
 
 	return text
 

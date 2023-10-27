@@ -7,7 +7,7 @@ func load_modifier(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 1.0, 0.01)
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Magical Greed[/color]\n"

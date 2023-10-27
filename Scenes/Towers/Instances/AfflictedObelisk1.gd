@@ -21,7 +21,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var vuln_value: String = Utils.format_percent(_stats.vuln_value, 2)
 	var vuln_value_add: String = Utils.format_percent(_stats.vuln_value_add, 2)
 
@@ -32,6 +32,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s Nature vulnerability\n" % vuln_value_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Slumbering Parasite[/color]\n"
+	text += "This tower deals additional Decay damage after a short delay and increases target's vulnerability to Nature.\n"
 
 	return text
 

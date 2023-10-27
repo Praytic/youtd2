@@ -4,7 +4,7 @@ extends Tower
 var bronze_dragon_bt: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Bronzefication[/color]\n"
@@ -15,6 +15,15 @@ func get_extra_tooltip_text() -> String:
 	text += "-0.8% armor\n"
 	text += "+1% item quality\n"
 	text += "+0.4% chance\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Bronzefication[/color]\n"
+	text += "Each time this tower damages a unit it has a chance to turn the target's flesh into bronze. The unit is slowed, loses half of its health regeneration, has higher item quality and has more armor.\n"
 
 	return text
 

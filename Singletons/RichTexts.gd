@@ -143,7 +143,7 @@ func get_tower_text(tower_id: int) -> String:
 	tower.tower_init()
 	var specials_text: String = tower.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
-	var extra_text: String = tower.get_extra_tooltip_text()
+	var extra_text: String = tower.get_ability_description_short()
 	extra_text = add_color_to_numbers(extra_text)
 	tower.queue_free()
 
@@ -171,7 +171,7 @@ func get_tower_text(tower_id: int) -> String:
 		text += " \n%s\n" % extra_text
 
 	for autocast in tower.get_autocast_list():
-		var autocast_text: String = get_autocast_text(autocast)
+		var autocast_text: String = get_autocast_text_short(autocast)
 		text += " \n"
 		text += autocast_text
 
@@ -226,7 +226,7 @@ func get_item_text(item: Item) -> String:
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
-	var extra_text: String = item.get_extra_tooltip_text()
+	var extra_text: String = item.get_ability_description()
 	extra_text = add_color_to_numbers(extra_text)
 
 	text += "[b]%s[/b]\n" % display_name_colored
@@ -343,13 +343,36 @@ func get_autocast_text(autocast: Autocast) -> String:
 	var title: String = autocast.title
 	var autocast_description: String = autocast.description
 	autocast_description = add_color_to_numbers(autocast_description)
+	var stats_text: String = get_autocast_stats_text(autocast)
+
+	var text: String = ""
+	text += "[color=GOLD]%s[/color]\n" % title
+	text += "%s\n" % autocast_description
+	text += "%s\n" % stats_text
+
+	return text
+
+
+func get_autocast_text_short(autocast: Autocast) -> String:
+	var title: String = autocast.title
+	var autocast_description_short: String = autocast.description_short
+	autocast_description_short = add_color_to_numbers(autocast_description_short)
+	var stats_text: String = get_autocast_stats_text(autocast)
+
+	var text: String = ""
+	text += "[color=GOLD]%s[/color]\n" % title
+	text += "%s\n" % autocast_description_short
+	text += "%s\n" % stats_text
+
+	return text
+
+
+func get_autocast_stats_text(autocast: Autocast) -> String:
 	var mana_cost: String = "Mana cost: %s" % str(autocast.mana_cost)
 	var cast_range: String = "%s range" % str(autocast.cast_range)
 	var autocast_cooldown: String = "%ss cooldown" % str(autocast.cooldown)
 
 	var text: String = ""
-	text += "[color=GOLD]%s[/color]\n" % title
-	text += "%s\n" % autocast_description
 
 	var stats_list: Array[String] = []
 	if autocast.mana_cost > 0:

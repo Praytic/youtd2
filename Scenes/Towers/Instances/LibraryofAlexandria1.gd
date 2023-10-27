@@ -5,7 +5,7 @@ var library_aura_bt: BuffType
 var library_autocast_bt: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Divine Knowledge[/color]\n"
@@ -23,6 +23,18 @@ func get_extra_tooltip_text() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Divine Knowledge[/color]\n"
+	text += "This tower periodically grants experience to a random tower in range.\n"
+	text += " \n"
+	text += "[color=GOLD]Divine Research - Aura[/color]\n"
+	text += "Increases experience gain from creeps in 900 range.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var text: String = ""
 
@@ -31,6 +43,14 @@ func get_autocast_description() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.2 seconds duration \n"
 	text += "+2% experience gain.\n"
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Adds a buff to the target tower which increases the amount of experience the tower gains.\n"
 
 	return text
 
@@ -61,6 +81,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Divine Teachings"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = "AIimTarget.mdl"
 	autocast.target_art = "CharmTarget.mdl"

@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var trigger_chance: String = Utils.format_percent(_stats.trigger_chance, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
@@ -30,6 +30,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+%s sec duration\n" % duration_add
 	text += "+%s attackspeed\n" % attackspeed_add
 	text += "+1 multicrit at lvl 15 and 25\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Rampage[/color]\n"
+	text += "Chance on attack to go into a rampage, increasing attack speed and critical strike stats enormously.\n"
 
 	return text
 

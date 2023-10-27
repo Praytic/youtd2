@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var miss_chance_add: String = Utils.format_percent(_stats.miss_chance_add, 2)
 
 	var text: String = ""
@@ -24,6 +24,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-%s chance to miss\n" % miss_chance_add
 	text += "+1 target at levels 15 and 25\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Hail of Axes[/color]\n"
+	text += "Attacks multiple enemies at once with a chance to miss.\n"
 
 	return text
 

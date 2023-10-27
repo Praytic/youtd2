@@ -17,7 +17,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var magical_sight_range: String = Utils.format_float(_stats.magical_sight_range, 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 	var duration_add: String = Utils.format_float(_stats.duration_add, 2)
@@ -34,6 +34,18 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s seconds\n" % duration_add
 	text += "+%s damage" % mod_value_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Magical Sight[/color]\n"
+	text += "Can see invisible enemy units.\n"
+	text += " \n"
+	text += "[color=GOLD]Power of Light[/color]\n"
+	text += "The mighty holy light weakens enemy undead creeps.\n"
 
 	return text
 

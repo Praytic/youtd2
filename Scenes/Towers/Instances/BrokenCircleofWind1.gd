@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var catch_chance: String = Utils.format_percent(_stats.catch_chance, 2)
 	var cyclone_duration: String = Utils.format_float(_stats.cyclone_duration, 2)
 	var cyclone_damage: String = Utils.format_float(_stats.cyclone_damage, 2)
@@ -28,6 +28,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % cyclone_damage_add
 	text += "+%s chance to catch" % catch_chance_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Wind of Death[/color]\n"
+	text += "Chance to catch a non-boss creep in a cyclone and cause physical damage to nearby creeps.\n"
 
 	return text
 

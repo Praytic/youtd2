@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 }
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var on_damage_chance: String = Utils.format_percent(_stats.on_damage_chance, 2)
 	var damage_add: String = Utils.format_percent(_stats.damage_add, 2)
 
@@ -25,6 +25,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % damage_add
 	text += "+0.01 seconds"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Frozen Spears[/color]\n"
+	text += "Has a small chance to deal bonus damage and stun the target.\n"
 
 	return text
 

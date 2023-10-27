@@ -10,7 +10,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var armor_ignored: String = Utils.format_percent(_stats.armor_ignored, 2)
 	var armor_ignored_add: String = Utils.format_percent(_stats.armor_ignored_add, 2)
 
@@ -21,6 +21,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage ratio" % armor_ignored_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Piercing Shot[/color]\n"
+	text += "A portion of this tower's attack damage ignores creep's armor.\n"
 
 	return text
 

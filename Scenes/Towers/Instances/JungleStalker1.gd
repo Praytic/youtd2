@@ -18,7 +18,7 @@ const BLOODTHIRST_ATTACKSPEED_ADD: float = 0.01
 const BLOODTHIRST_DURATION_ADD: float = 0.05
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var feral_dmg_gain: String = Utils.format_percent(_stats.feral_dmg_gain, 2)
 	var feral_dmg_max: String = Utils.format_percent(_stats.feral_dmg_max, 2)
 	var bloodthirst_attackspeed: String = Utils.format_percent(_stats.bloodthirst_attackspeed, 2)
@@ -37,6 +37,18 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s sec duration\n" % bloodthirst_duration_add
 	text += "+%s attackspeed\n" % bloodthirst_attackspeed_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Feral Aggression[/color]\n"
+	text += "On every critical hit this tower gains permanent bonus damage.\n"
+	text += " \n"
+	text += "[color=GOLD]Bloodthirst[/color]\n"
+	text += "Whenever this tower kills a unit it becomes enraged.\n"
 
 	return text
 

@@ -34,7 +34,7 @@ var BARRAGE_CHANCE: float = 0.20
 var BARRAGE_CHANCE_ADD: float = 0.008
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var barrage_chance: String = Utils.format_percent(BARRAGE_CHANCE, 2)
 	var barrage_chance_add: String = Utils.format_percent(BARRAGE_CHANCE_ADD, 2)
@@ -58,6 +58,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+%s spell crit chance\n" % missile_crit_chance_add
 	text += "+%s spell crit damage\n" % missile_crit_dmg_add
 	text += "+%s max missiles every 5 levels\n" % missile_count_max_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Magical Barrage[/color]\n"
+	text += "Whenever this tower attacks it has a chance to launch magical missiles. The amount of missiles increases whenever a nearby tower casts a spell.\n"
 
 	return text
 

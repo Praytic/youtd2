@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var affected_gold_cost: String = Utils.format_float(_stats.affected_gold_cost, 2)
 	var shield_power: String = Utils.format_percent(_stats.shield_power * 0.0001, 2)
 	var wound_power: String = Utils.format_percent(_stats.wound_power, 2)
@@ -42,6 +42,23 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage per stack\n" % wound_power_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Lightning Shield[/color]\n"
+	text += "As the zealot gets pumped up debuff durations are reduced.\n"
+	text += " \n"
+
+	text += "[color=GOLD]Zeal[/color]\n"
+	text += "Each attack works the Zealot into a greater frenzy, increasing his attack speed but slowing nearby towers.\n"
+	text += " \n"
+
+	text += "[color=GOLD]Phase Blade[/color]\n"
+	text += "Each attack on the same creep penetrates deeper through its armor.\n"
 
 	return text
 

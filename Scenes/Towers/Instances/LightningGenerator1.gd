@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var chain_damage: String = Utils.format_float(_stats.chain_damage, 2)
 	var chain_dmg_add: String = Utils.format_float(_stats.chain_damage * 0.02, 2)
 	var on_attack_damage: String = Utils.format_float(_stats.on_attack_damage, 2)
@@ -33,6 +33,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage" % on_attack_damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Chainlightning[/color]\n"
+	text += "This tower has a chance on attack to release chainlightning.\n"
+	text += " \n"
+	text += "[color=GOLD]Force Attack[/color]\n"
+	text += "This tower's attacks deal spell damage instead of attack damage.\n"
 
 	return text
 

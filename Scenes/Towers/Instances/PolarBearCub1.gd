@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var dmg_increase: String = Utils.format_percent(_stats.dmg_increase * 0.001, 2)
 
 	var text: String = ""
@@ -23,6 +23,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-1% attackspeed reduction at level 15 and 25\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Cold Feet[/color]\n"
+	text += "On attack this tower decreases its attack speed while increasing its damage.\n"
 
 	return text
 

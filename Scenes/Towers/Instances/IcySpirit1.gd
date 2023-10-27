@@ -17,7 +17,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var nova_dmg: String = Utils.format_float(_stats.nova_dmg, 2)
 	var nova_dmg_add: String = Utils.format_float(_stats.nova_dmg_add, 2)
 
@@ -31,6 +31,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+0.5% chance\n"
 	text += "+0.5% slow \n"
 	text += "+1 nova at lvl 15 and 25\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Nova Storm[/color]\n"
+	text += "When this tower attacks there is a chance to blast nearby creeps with ice novas.\n"
 
 	return text
 

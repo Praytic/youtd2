@@ -9,7 +9,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var damage_base: String = Utils.format_percent(_stats.damage_base, 2)
 	var damage_add: String = Utils.format_percent(_stats.damage_add, 2)
 
@@ -20,6 +20,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage" % damage_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Light in the Dark[/color]\n"
+	text += "Deals additional damage to invisible creeps."
 
 	return text
 

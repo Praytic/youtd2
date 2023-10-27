@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var spell_crit: String = Utils.format_percent(_stats.spell_crit, 2)
 	var spell_crit_add: String = Utils.format_percent(_stats.spell_crit_add, 2)
 	var damage_from_mana_multiplier: String = Utils.format_float(_stats.damage_from_mana_multiplier, 2)
@@ -38,6 +38,19 @@ func get_extra_tooltip_text() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Mana Feed[/color]\n"
+	text += "Attacks restore mana to the tower and increase spell crit chance.\n"
+	text += " \n"
+	text += "[color=GOLD]Lightning Burst[/color]\n"
+	text += "Grants a chance to deal extra spell damage on each attack, resets spell crit bonus of Mana Feed.\n"
+	text += " \n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var attack_speed: String = Utils.format_percent(1.0 + 0.02 * _stats.drol_surge_level_bonus, 2)
 
@@ -48,6 +61,14 @@ func get_autocast_description() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+2% attackspeed\n"
 	text += "+1 attack per 5 levels\n"
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Increases the attackspeed of this tower for next few attacks.\n"
 
 	return text
 
@@ -89,6 +110,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Lightning Surge"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

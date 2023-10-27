@@ -14,7 +14,7 @@ extends Tower
 var cedi_black_dragon_bt: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Fear the Dark[/color]\n"
@@ -24,6 +24,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+0.4% chance\n"
 	text += "+0.28 seconds duration\n"
 	text += "1.2% more damage taken\n"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Fear the Dark[/color]\n"
+	text += "Whenever this tower damages a creep it has a chance to debuff it so that it takes more damage."
 
 	return text
 

@@ -36,6 +36,14 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Buffs a tower in range increasing its attackspeed. The buffed tower deals extra attack damage and spell damage.\n"
+
+	return text
+
+
 func load_specials(_modifier: Modifier):
 	_set_attack_air_only()
 
@@ -94,6 +102,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Jolt"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

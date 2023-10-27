@@ -18,7 +18,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var attackspeed_bonus: String = Utils.format_percent((_stats.attackspeed_base + 20) / 100.0, 2)
 	var goldrush_gold: String = Utils.format_float(_stats.goldrush_gold, 2)
 	var goldrush_gold_add: String = Utils.format_float(_stats.goldrush_gold_add, 2)
@@ -41,6 +41,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s gold\n" % excavation_gold_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Goldrush[/color]\n"
+	text += "The miner has a chance on attack to go into a goldrush, increasing attackspeed and making each hit gain gold.\n"
+	text += " \n"
+	text += "[color=GOLD]Excavation[/color]\n"
+	text += "Every few seconds the miner has a chance to find gold.\n"
 
 	return text
 

@@ -19,7 +19,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var slow_amount: String = Utils.format_percent(_stats.slow_amount, 2)
 	var slow_amount_add: String = Utils.format_percent(_stats.slow_amount_add, 2)
 
@@ -35,6 +35,15 @@ func get_extra_tooltip_text() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Frost[/color]\n"
+	text += "Slows the attacked creep.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var projectile_damage: String = Utils.format_float(_stats.projectile_damage, 2)
 	var projectile_damage_add: String = Utils.format_float(_stats.projectile_damage_add, 2)
@@ -45,6 +54,14 @@ func get_autocast_description() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % projectile_damage_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Starts attacking very fast until out of mana.\n"
 
 	return text
 
@@ -90,6 +107,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Battery Overload"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.num_buffs_before_idle = 0

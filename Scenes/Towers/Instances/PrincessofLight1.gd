@@ -22,7 +22,7 @@ const CHANNEL_STACK_COUNT: int = 15
 
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var channel_exp: String = Utils.format_float(_stats.channel_exp, 2)
 	var channel_mod_dmg: String = Utils.format_percent(_stats.channel_mod_dmg, 2)
 	var channel_mod_dmg_add: String = Utils.format_percent(CHANNEL_MOD_DMG_ADD, 2)
@@ -42,6 +42,15 @@ func get_extra_tooltip_text() -> String:
 	return text
 
 
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Channel Energy[/color]\n"
+	text += "Whenever this tower is hit by a friendly spell, the caster of that spell will receive experience and this tower will gain bonus damage.\n"
+
+	return text
+
+
 func get_autocast_description() -> String:
 	var extract_chance: String = Utils.format_percent(EXTRACT_CHANCE, 2)
 	var extract_exp: String = Utils.format_float(_stats.extract_exp, 2)
@@ -57,6 +66,14 @@ func get_autocast_description() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s experience\n" % extract_exp_add
 	text += "+%s extraction\n" % extract_count_add
+
+	return text
+
+
+func get_autocast_description_short() -> String:
+	var text: String = ""
+
+	text += "Casts a buff on a creep. Towers that damage this creep have a chance to extract extra experience.\n"
 
 	return text
 
@@ -85,6 +102,7 @@ func tower_init():
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Extract Experience"
 	autocast.description = get_autocast_description()
+	autocast.description_short = get_autocast_description_short()
 	autocast.icon = "res://path/to/icon.png"
 	autocast.caster_art = ""
 	autocast.target_art = ""

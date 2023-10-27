@@ -19,7 +19,7 @@ const CURSED_DURATION_ADD: float = 0.1
 const AURA_RANGE: float = 350
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var cursed_attack_chance: String = Utils.format_percent(CURSED_ATTACK_CHANCE, 2)
 	var cursed_attack_chance_add: String = Utils.format_percent(CURSED_ATTACK_CHANCE_ADD, 2)
 	var cursed_attack_damage: String = Utils.format_float(_stats.cursed_attack_damage, 2)
@@ -47,6 +47,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage\n" % aura_effect_value_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Cursed Attack[/color]\n"
+	text += "This tower has a chance on damage to deal additional spell damage and weaken the target, reducing its movement speed and making it suffer more damage from spells.\n"
+	text += " \n"
+	text += "[color=GOLD]Mortal Coil - Aura[/color]\n"
+	text += "Grants bonus damage against human, orc and nature creeps to nearby towers.\n"
 
 	return text
 

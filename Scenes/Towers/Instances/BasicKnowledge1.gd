@@ -11,13 +11,22 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var experience: String = Utils.format_float(_stats.exp, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]High Knowledge[/color]\n"
 	text += "Grants %s experience on attack.\n" % experience
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]High Knowledge[/color]\n"
+	text += "Grants minor amount of experience on attack.\n"
 
 	return text
 

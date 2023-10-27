@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var slow_amount: String = Utils.format_percent(_stats.slow_power * 10 * 0.001, 2)
 	var slow_amount_add: String = Utils.format_percent(_stats.slow_power_add * 10 * 0.001, 2)
 
@@ -23,6 +23,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s slow\n" % slow_amount_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=ORANGE]Absolute Zero[/color]\n"
+	text += "Creeps hit by this tower are slowed."
 
 	return text
 

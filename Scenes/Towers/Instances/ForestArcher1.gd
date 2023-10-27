@@ -21,7 +21,7 @@ const SLOW_CHANCE_ADD: float = 0.001
 const SLOW_DURATION_ADD: float = 0.2
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var stun_chance: String = Utils.format_percent(_stats.stun_chance, 2)
 	var stun_chance_add: String = Utils.format_percent(STUN_CHANCE_ADD, 2)
 	var stun_duration: String = Utils.format_float(STUN_DURATION, 2)
@@ -42,6 +42,15 @@ func get_extra_tooltip_text() -> String:
 	text += "+%s seconds stun duration\n" % stun_duration_add
 	text += "+%s chance to slow\n" % slow_chance_add
 	text += "+%s seconds slow duration\n" % slow_duration_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Gift of the Forest[/color]\n"
+	text += "The magical powers of the forest grant this archer enchanted arrows.\n"
 
 	return text
 

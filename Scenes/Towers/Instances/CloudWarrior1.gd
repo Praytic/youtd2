@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var lightning_dmg: String = Utils.format_float(_stats.lightning_dmg, 2)
 	var lightning_dmg_add: String = Utils.format_float(_stats.lightning_dmg_add, 2)
 
@@ -27,6 +27,15 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s damage" % lightning_dmg_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Lightning Strike[/color]\n"
+	text += "Whenever this tower's attack does not bounce it shoots down a delayed lightning bolt onto the target.\n"
 
 	return text
 

@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var armor_base: String = Utils.format_float(_stats.armor_base / 1000.0, 3)
 	var armor_add: String = Utils.format_float(_stats.armor_add / 1000.0, 3)
 
@@ -28,6 +28,15 @@ func get_extra_tooltip_text() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s armor reduction\n" % armor_add
 	text += "+0.12 seconds"
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Acid Coating[/color]\n"
+	text += "Decreases the armor of damaged units.\n"
 
 	return text
 

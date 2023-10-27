@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var buffed_tower_mana_burned: String = Utils.format_float(_stats.aura_level / 100.0, 2)
 	var damage_mana_multiplier: String = Utils.format_float(_stats.damage_mana_multiplier, 2)
 	var aura_mana_cost: String = Utils.format_float(_stats.aura_mana_cost, 2)
@@ -35,6 +35,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spelldamage per mana point burned\n" % damage_per_mana_point_add
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Unstable Energies[/color]\n"
+	text += "This tower has a chance on damage to release a powerful energy blast at the cost of some mana.\n"
+	text += " \n"
+	text += "[color=GOLD]Mana Distortion Field - Aura[/color]\n"
+	text += "Nearby towers range burn creep mana on attack.\n"
 
 	return text
 

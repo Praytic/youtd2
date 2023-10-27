@@ -215,7 +215,7 @@ func _update_specials_label(unit: Unit):
 	var text: String = ""
 	if unit is Tower:
 		var specials_text: String = unit.get_specials_tooltip_text()
-		var extra_text: String = unit.get_extra_tooltip_text()
+		var extra_text: String = unit.get_ability_description()
 
 		text += specials_text
 		text += " \n"

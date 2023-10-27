@@ -17,7 +17,7 @@ const MOD_VALUE_ADD: float = 0.001
 const STUN_DURATION: float = 2
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var mod_value: String = Utils.format_percent(_stats.mod_value, 2)
 	var mod_value_add: String = Utils.format_percent(MOD_VALUE_ADD, 2)
 
@@ -31,6 +31,18 @@ func get_extra_tooltip_text() -> String:
 	text += " \n"
 	text += "[color=GOLD]Errant Tachyons[/color]\n"
 	text += "On kill, this tower is stunned for %s seconds and the bonus from Energy Acceleration is lost.\n" % STUN_DURATION
+
+	return text
+
+
+func get_ability_description_short() -> String:
+	var text: String = ""
+
+	text += "[color=GOLD]Energy Acceleration[/color]\n"
+	text += "Every attack increases attack speed and damage.\n"
+	text += " \n"
+	text += "[color=GOLD]Errant Tachyons[/color]\n"
+	text += "On kill, this tower is stunned and the bonus from Energy Acceleration is lost.\n"
 
 	return text
 

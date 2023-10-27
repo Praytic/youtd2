@@ -16,7 +16,7 @@ const BUFF_DURATION_ADD: float = 0.4
 const MOD_BOUNTY_GAIN_ADD: float = 0.006
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var mod_income: String = Utils.format_percent(_stats.mod_income, 2)
 
 	var text: String = ""
