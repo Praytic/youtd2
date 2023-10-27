@@ -4,7 +4,7 @@ extends Tower
 var dwarven_forgery_aura_bt: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Dwarven Polish - Aura[/color]\n"

@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var armor_base: String = Utils.format_float(_stats.armor_base / 1000.0, 3)
 	var armor_add: String = Utils.format_float(_stats.armor_add / 1000.0, 3)
 

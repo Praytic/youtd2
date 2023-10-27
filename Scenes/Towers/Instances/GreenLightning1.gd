@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var spell_crit: String = Utils.format_percent(_stats.spell_crit, 2)
 	var spell_crit_add: String = Utils.format_percent(_stats.spell_crit_add, 2)
 	var damage_from_mana_multiplier: String = Utils.format_float(_stats.damage_from_mana_multiplier, 2)

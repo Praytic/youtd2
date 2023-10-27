@@ -5,7 +5,7 @@ extends Item
 const SEEKER_ARCANE_OIL_ID: int = 1019
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	return "[color=GOLD]This oil also applies to neighbor towers![/color]"
 
 

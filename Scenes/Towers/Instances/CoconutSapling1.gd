@@ -27,7 +27,7 @@ const STUN_CD: float = 1.5
 const COCONUT_INITIAL_Z: float = 1000 / 2.0
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var coconut_chance_decrease: String = Utils.format_percent(_stats.coconut_chance_decrease, 2)
 	var coconut_damage: String = Utils.format_float(_stats.coconut_damage, 2)
 	var coconut_damage_add: String = Utils.format_float(_stats.coconut_damage_add, 2)

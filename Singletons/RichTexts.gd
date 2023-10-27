@@ -143,7 +143,7 @@ func get_tower_text(tower_id: int) -> String:
 	tower.tower_init()
 	var specials_text: String = tower.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
-	var extra_text: String = tower.get_extra_tooltip_text()
+	var extra_text: String = tower.get_ability_description()
 	extra_text = add_color_to_numbers(extra_text)
 	tower.queue_free()
 
@@ -226,7 +226,7 @@ func get_item_text(item: Item) -> String:
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
-	var extra_text: String = item.get_extra_tooltip_text()
+	var extra_text: String = item.get_ability_description()
 	extra_text = add_color_to_numbers(extra_text)
 
 	text += "[b]%s[/b]\n" % display_name_colored

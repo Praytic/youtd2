@@ -18,7 +18,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var attackspeed_bonus: String = Utils.format_percent((_stats.attackspeed_base + 20) / 100.0, 2)
 	var goldrush_gold: String = Utils.format_float(_stats.goldrush_gold, 2)
 	var goldrush_gold_add: String = Utils.format_float(_stats.goldrush_gold_add, 2)

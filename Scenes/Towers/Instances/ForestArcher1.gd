@@ -21,7 +21,7 @@ const SLOW_CHANCE_ADD: float = 0.001
 const SLOW_DURATION_ADD: float = 0.2
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var stun_chance: String = Utils.format_percent(_stats.stun_chance, 2)
 	var stun_chance_add: String = Utils.format_percent(STUN_CHANCE_ADD, 2)
 	var stun_duration: String = Utils.format_float(STUN_DURATION, 2)

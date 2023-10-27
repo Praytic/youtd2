@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var lightning_dmg: String = Utils.format_float(_stats.lightning_dmg, 2)
 	var lightning_dmg_add: String = Utils.format_float(_stats.lightning_dmg_add, 2)
 

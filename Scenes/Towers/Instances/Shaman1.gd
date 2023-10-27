@@ -18,7 +18,7 @@ const BLOODY_EXPERIENCE_RANGE: float = 250
 const BLOODY_EXPERIENCE_EXP_GAIN: float = 1
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var bloody_experience_level_cap: String = Utils.format_float(_stats.bloody_experience_level_cap, 2)
 	var bloody_experience_range: String = Utils.format_float(_stats.bloody_experience_range, 2)
 	var bloody_experience_gain: String = Utils.format_float(BLOODY_EXPERIENCE_EXP_GAIN, 2)

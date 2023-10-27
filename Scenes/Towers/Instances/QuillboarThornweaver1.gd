@@ -21,7 +21,7 @@ const QUILLSPRAY_DEBUFF_DURATION: float = 1.5
 const QUILLSPRAY_RANGE: float = 800
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var occasional_quillspray_chance: String = Utils.format_percent(_stats.occasional_quillspray_chance, 2)
 	var occasional_quillspray_chance_add: String = Utils.format_percent(_stats.occasional_quillspray_chance_add, 2)
 

@@ -21,7 +21,7 @@ const SWARM_START_RADIUS: float = 100
 const SWARM_END_RADIUS: float = 300
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var on_attack_chance: String = Utils.format_percent(ON_ATTACK_CHANCE, 2)
 	var on_attack_chance_add: String = Utils.format_percent(ON_ATTACK_CHANCE_ADD, 2)
 	var swarm_damage_night: String = Utils.format_float(_stats.swarm_damage_night, 2)

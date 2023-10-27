@@ -21,7 +21,7 @@ const FATIGUE_DURATION: float = 3
 const PURGE_COUNT_FOR_STUN: float = 5
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var on_attack_chance: String = Utils.format_percent(ON_ATTACK_CHANCE, 2)
 	var smashing_axe_dmg: String = Utils.format_percent(_stats.smashing_axe_dmg, 2)
 	var smashing_axe_dmg_add: String = Utils.format_percent(_stats.smashing_axe_dmg_add, 2)

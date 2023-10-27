@@ -7,7 +7,7 @@ var cooldown_buff: BuffType
 var blizzard_cast: Cast
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Entangling Roots[/color]\n"

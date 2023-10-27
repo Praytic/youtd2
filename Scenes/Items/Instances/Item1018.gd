@@ -10,7 +10,7 @@ static var SEEKER_OIL_RANGE: float = 250
 const SEEKER_OIL_ID: int = 1018
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	return "[color=GOLD]This oil also applies to neighbor towers![/color]"
 
 

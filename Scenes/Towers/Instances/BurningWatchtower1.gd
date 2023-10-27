@@ -18,7 +18,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var bonus_damage: String = Utils.format_float(_stats.bonus_damage, 2)
 	var bonus_damage_other: String = Utils.format_float(_stats.bonus_damage * 0.3, 2)
 	var explode_damage: String = Utils.format_float(_stats.explode_damage, 2)

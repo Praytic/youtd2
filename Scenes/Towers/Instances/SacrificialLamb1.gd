@@ -40,7 +40,7 @@ const SACRIFICE_DMG_LOSS: float = 1.0
 const BUFF_DURATION: float = 6
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var bloodspill_dmg_loss: String = Utils.format_percent(BLOODSPILL_DMG_LOSS, 2)
 	var bloodspill_mod_attackspeed: String = Utils.format_percent(_stats.bloodspill_mod_attackspeed, 2)
 	var bloodspill_mod_attackspeed_add: String = Utils.format_percent(BLOODSPILL_MOD_ATTACKSPEED_ADD, 2)

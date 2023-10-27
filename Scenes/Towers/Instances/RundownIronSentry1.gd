@@ -18,7 +18,7 @@ const ALERT_MOD_DMG_ADD: float = 0.005
 const ALERT_RANGE: int = 500
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var alert_duration: String = Utils.format_float(_stats.alert_duration, 2)
 	var alert_range: String = Utils.format_float(ALERT_RANGE, 2)
 	var alert_mod_dmg: String = Utils.format_percent(ALERT_MOD_DMG, 2)

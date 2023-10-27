@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 }
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var chance: String = Utils.format_percent(_stats.chance, 2)
 	var chance_for_bosses: String = Utils.format_percent(_stats.chance * 2 / 3, 2)
 	var slow_value: String = Utils.format_percent(_stats.slow_value, 2)

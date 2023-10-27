@@ -18,7 +18,7 @@ const DEBUFF_DURATION: float = 5.0
 const ERUPT_RANGE: float = 200
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var target_count: String = Utils.format_float(_stats.target_count, 2)
 	var mod_armor: String = Utils.format_float(_stats.mod_armor, 2)
 	var mod_armor_add: String = Utils.format_float(_stats.mod_armor_add, 3)

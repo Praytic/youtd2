@@ -418,12 +418,12 @@ func get_specials_tooltip_text() -> String:
 	return text
 
 
-# Override in subclass to define tower's extra tooltip text.
-# This should contain description of special abilities.
-# String can contain rich text format(BBCode).
+
+# Override in subclass to define the description of tower
+# abilities. String can contain rich text format(BBCode).
 # NOTE: by default all numbers in this text will be colored
 # but you can also define your own custom color tags.
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	return ""
 
 

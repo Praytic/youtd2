@@ -4,7 +4,7 @@ extends Tower
 # bunch of unnecessary things.
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Wrath of the Storm - Aura[/color]\n"

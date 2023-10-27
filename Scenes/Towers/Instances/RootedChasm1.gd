@@ -18,7 +18,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var entangle_duration: String = Utils.format_float(_stats.entangle_duration, 2)
 	var base_entangle_dps: String = Utils.format_float(_stats.base_entangle_dps, 2)
 	var base_entangle_dps_add: String = Utils.format_float(_stats.base_entangle_dps / 20.0, 2)

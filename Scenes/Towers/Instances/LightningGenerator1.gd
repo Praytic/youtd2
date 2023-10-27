@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var chain_damage: String = Utils.format_float(_stats.chain_damage, 2)
 	var chain_dmg_add: String = Utils.format_float(_stats.chain_damage * 0.02, 2)
 	var on_attack_damage: String = Utils.format_float(_stats.on_attack_damage, 2)

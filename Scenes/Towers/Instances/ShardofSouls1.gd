@@ -25,7 +25,7 @@ const SOUL_LINK_COUNT: int = 3
 const SOUL_CONSUMPTION_EXP_GAIN: int = 1
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var soul_consumption_exp_gain: String = Utils.format_float(SOUL_CONSUMPTION_EXP_GAIN, 2)
 	
 	var text: String = ""

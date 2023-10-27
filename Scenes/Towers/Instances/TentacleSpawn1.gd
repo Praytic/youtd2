@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var increased_spell_damage: String = Utils.format_percent((0.02 + 0.01 * _stats.apply_level), 2)
 	var periodic_damage: String = Utils.format_float(_stats.periodic_damage, 2)
 	var periodic_damage_add: String = Utils.format_float(_stats.periodic_damage_add, 2)

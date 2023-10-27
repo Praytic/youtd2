@@ -23,7 +23,7 @@ const FOR_THE_GOD_DURATION: float = 8.0
 const FOR_THE_GOD_DURATION_ADD: float = 0.1
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var blessed_weapon_chance: String = Utils.format_percent(BLESSED_WEAPON_CHANCE, 2)
 	var blessed_weapon_mana_gain: String = Utils.format_float(BLESSED_WEAPON_MANA_GAIN, 2)
 	var blessed_weapon_mana_gain_add: String = Utils.format_float(BLESSED_WEAPON_MANA_GAIN_ADD, 2)

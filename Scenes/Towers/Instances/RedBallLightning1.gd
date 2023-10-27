@@ -17,7 +17,7 @@ const SHOCK_CRIT_CHANCE: float = 0.10
 const SHOCK_CRIT_DAMAGE: float = 0.60
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var shock_chance: String = Utils.format_percent(SHOCK_CHANCE, 2)
 	var shock_chance_add: String = Utils.format_percent(SHOCK_CHANCE_ADD, 2)

@@ -27,7 +27,7 @@ func get_tier_stats() -> Dictionary:
 const MANA_THRESHOLD_BASE: float = 20
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var spellfire_ratio: String = Utils.format_percent(_stats.spellfire_ratio, 2)
 	var spellfire_ratio_add: String = Utils.format_percent(_stats.spellfire_ratio_add, 2)
 	var mana_threshold_base: String = Utils.format_float(MANA_THRESHOLD_BASE, 2)

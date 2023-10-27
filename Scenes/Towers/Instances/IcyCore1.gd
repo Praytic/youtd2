@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(_stats.aura_range, 2)
 	var mod_movespeed: String = Utils.format_percent(_stats.mod_movespeed, 2)
 	var mod_movespeed_add: String = Utils.format_percent(_stats.mod_movespeed_add, 2)

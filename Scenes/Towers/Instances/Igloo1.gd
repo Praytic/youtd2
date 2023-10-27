@@ -18,7 +18,7 @@ const COLD_SLOW_DURATION: float = 4
 const COLD_RANGE: float = 900
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var cold_range: String = Utils.format_float(COLD_RANGE, 2)
 	var cold_damage: String = Utils.format_float(_stats.cold_damage, 2)
 	var cold_damage_add: String = Utils.format_float(_stats.cold_damage_add, 2)

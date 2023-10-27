@@ -6,7 +6,7 @@ var maj_rot_tower_buff: BuffType
 var maj_rot_creep_buff: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Putrescent Presence - Aura[/color]\n"

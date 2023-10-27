@@ -15,7 +15,7 @@ const AURA_RANGE: float = 200
 const REPLENISH_RANGE: float = 500
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var mod_spell_dmg: String = Utils.format_percent(_stats.mod_spell_dmg, 2)
 	var mod_spell_dmg_add: String = Utils.format_percent(_stats.mod_spell_dmg_add, 2)

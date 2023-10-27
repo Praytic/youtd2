@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var exp_bonus: String = Utils.format_percent(_stats.exp_bonus, 2)
 	var exp_bonus_add: String = Utils.format_percent(_stats.exp_bonus_add, 2)
 

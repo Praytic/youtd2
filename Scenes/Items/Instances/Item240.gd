@@ -4,7 +4,7 @@ extends Item
 var BT: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Rampage[/color]\n"

@@ -34,7 +34,7 @@ var BARRAGE_CHANCE: float = 0.20
 var BARRAGE_CHANCE_ADD: float = 0.008
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var barrage_chance: String = Utils.format_percent(BARRAGE_CHANCE, 2)
 	var barrage_chance_add: String = Utils.format_percent(BARRAGE_CHANCE_ADD, 2)

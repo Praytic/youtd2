@@ -22,7 +22,7 @@ const CHANNEL_STACK_COUNT: int = 15
 
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var channel_exp: String = Utils.format_float(_stats.channel_exp, 2)
 	var channel_mod_dmg: String = Utils.format_percent(_stats.channel_mod_dmg, 2)
 	var channel_mod_dmg_add: String = Utils.format_percent(CHANNEL_MOD_DMG_ADD, 2)

@@ -16,7 +16,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var affected_gold_cost: String = Utils.format_float(_stats.affected_gold_cost, 2)
 	var shield_power: String = Utils.format_percent(_stats.shield_power * 0.0001, 2)
 	var wound_power: String = Utils.format_percent(_stats.wound_power, 2)

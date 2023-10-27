@@ -7,7 +7,7 @@ var boekie_gem_slow: BuffType
 var boekie_gem_armor: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Luck![/color]\n"

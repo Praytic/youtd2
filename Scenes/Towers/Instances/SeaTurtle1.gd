@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 const MANA_LOSS_PER_SEC: float = 0.0175
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var mana_per_attack: String = Utils.format_float(_stats.mana_per_attack, 2)
 	var mana_per_attack_add: String = Utils.format_float(_stats.mana_per_attack_add, 2)
 	var mana_loss_per_sec: String = Utils.format_percent(MANA_LOSS_PER_SEC, 2)

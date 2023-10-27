@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var slow_value: String = Utils.format_percent(_stats.slow_value * 0.001, 2)
 	var slow_add: String = Utils.format_percent(_stats.slow_value / 20.0 * 0.001, 2)
 	var extra_damage: String = Utils.format_float(_stats.extra_damage, 2)

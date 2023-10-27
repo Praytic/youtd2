@@ -20,7 +20,7 @@ const SHOCKWAVE_RANGE_FROM_TARGET: float = 500
 const AURA_RADIUS: float = 300
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var shockwave_chance: String = Utils.format_percent(_stats.shockwave_chance, 2)
 	var shockwave_chance_add: String = Utils.format_percent(_stats.shockwave_chance_add, 2)
 	var shockwave_range_from_target: String = Utils.format_float(SHOCKWAVE_RANGE_FROM_TARGET, 2)

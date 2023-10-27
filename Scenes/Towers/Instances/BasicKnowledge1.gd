@@ -11,7 +11,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var experience: String = Utils.format_float(_stats.exp, 2)
 
 	var text: String = ""

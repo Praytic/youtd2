@@ -23,7 +23,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var debuff_effect: String = Utils.format_percent(_stats.buff_level * 0.001, 2)
 	var debuff_effect_add: String = Utils.format_percent(_stats.buff_level_add * 0.001, 2)
 	var critical_mass_chance: String = Utils.format_percent(_stats.critical_mass_chance, 2)

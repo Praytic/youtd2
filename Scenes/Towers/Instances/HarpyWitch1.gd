@@ -28,7 +28,7 @@ const SPARKS_DURATION_ADD: float = 0.3
 const TWISTER_DURATION: float = 5.0
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var twister_chance: String = Utils.format_percent(_stats.twister_chance, 2)
 	var twister_chance_add: String = Utils.format_percent(_stats.twister_chance_add, 2)
 	var twister_tornado_count: String = Utils.format_float(_stats.twister_tornado_count, 2)

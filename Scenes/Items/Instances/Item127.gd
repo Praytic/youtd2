@@ -5,7 +5,7 @@ extends Item
 var drol_moonStone: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Earth and Moon[/color]\n"

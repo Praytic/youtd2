@@ -5,7 +5,7 @@ extends Item
 var slotMachineMB: MultiboardValues
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Wheel of Fortune[/color]\n"

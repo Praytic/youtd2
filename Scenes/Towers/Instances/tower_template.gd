@@ -12,7 +12,7 @@ extends Tower
 # 	}
 
 
-# func get_extra_tooltip_text() -> String:
+# func get_ability_description() -> String:
 # 	var foo: String = Utils.format_float(_stats.foo, 2)
 # 	var bar: String = Utils.format_float(_stats.bar, 2)
 

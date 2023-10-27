@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var heal_ratio: String = Utils.format_percent(_stats.heal_ratio, 2)
 	var heal_ratio_add: String = Utils.format_percent(_stats.heal_ratio_add, 2)
 

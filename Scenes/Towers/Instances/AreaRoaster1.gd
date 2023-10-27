@@ -12,7 +12,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var dmg_from_fire: String = Utils.format_percent(_stats.buff_power * 0.001, 2)
 	var spell_damage: String = Utils.format_float(35 * _stats.buff_level_per_stack, 2)
 	var spell_damage_add: String = Utils.format_float(1.4 * _stats.buff_level_per_stack, 2)

@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var buffed_tower_mana_burned: String = Utils.format_float(_stats.aura_level / 100.0, 2)
 	var damage_mana_multiplier: String = Utils.format_float(_stats.damage_mana_multiplier, 2)
 	var aura_mana_cost: String = Utils.format_float(_stats.aura_mana_cost, 2)

@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var dmg_increase: String = Utils.format_percent(_stats.dmg_increase * 0.001, 2)
 
 	var text: String = ""

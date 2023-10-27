@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var bonus_crit: String = Utils.format_percent((0.15 + _stats.power * 0.001), 2)
 	var duration: String = Utils.format_float(_stats.duration, 2)
 

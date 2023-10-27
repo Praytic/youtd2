@@ -5,7 +5,7 @@ extends Item
 var palandu_SpeedBoard: MultiboardValues
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "Any time the carrier manages to attack the next creep wave within 12 seconds of attacking the current one, it receives bonus exp and gold as a Speed Award. The gold award amount is equal to 12 minus the time interval between attacking the different creep waves. The exp award is half of the gold award.\n"

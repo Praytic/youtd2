@@ -21,7 +21,7 @@ const GRENADE_MOD_DMG_RECEIVED_ADD: float = 0.001
 const GRENADE_MOD_DMG_RECEIVED_MAX: float = 0.50
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var grenade_chance: String = Utils.format_percent(_stats.grenade_chance, 2)
 	var grenade_chance_add: String = Utils.format_percent(_stats.grenade_chance_add, 2)
 	var grenade_count: String = Utils.format_float(_stats.grenade_count, 2)

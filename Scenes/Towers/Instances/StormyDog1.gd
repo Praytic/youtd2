@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var attack_speed: String = Utils.format_percent(_stats.buff_scale * 0.0005, 2)
 
 	var text: String = ""

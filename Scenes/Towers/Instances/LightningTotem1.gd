@@ -16,7 +16,7 @@ const AURA_RANGE: float = 500.0
 const MOD_SPELL_CRIT_ADD: float = 0.002
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var mod_spell_crit: String = Utils.format_percent(_stats.mod_spell_crit, 2)
 	var mod_spell_crit_add: String = Utils.format_percent(MOD_SPELL_CRIT_ADD, 2)
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)

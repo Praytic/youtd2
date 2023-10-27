@@ -14,7 +14,7 @@ const STRIKE_CHANCE_ADD: float = 0.004
 const AURA_RANGE: float = 1300
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var strike_chance: String = Utils.format_percent(_stats.strike_chance, 2)
 	var strike_chance_add: String = Utils.format_percent(STRIKE_CHANCE_ADD, 2)

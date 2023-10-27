@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var slow_base: String = Utils.format_percent(_stats.slow_base, 2)
 	var slow_add: String = Utils.format_percent(_stats.slow_add, 2)
 	var duration_base: String = Utils.format_float(_stats.duration_base, 2)

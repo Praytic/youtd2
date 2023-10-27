@@ -20,7 +20,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var stack_bonus: String = Utils.format_percent(_stats.level_multiplier * 0.0005, 2)
 
 	var text: String = ""

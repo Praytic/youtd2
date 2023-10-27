@@ -30,7 +30,7 @@ func get_love_potion_description() -> String:
 	return text
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var soul_chance: String = Utils.format_percent(_stats.soul_chance * 0.01, 0)
 	var soul_damage: String = Utils.format_float(_stats.soul_damage, 0)
 	var soul_damage_add: String = Utils.format_float(_stats.soul_damage_add, 0)

@@ -17,7 +17,7 @@ const MOD_VALUE_ADD: float = 0.001
 const STUN_DURATION: float = 2
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var mod_value: String = Utils.format_percent(_stats.mod_value, 2)
 	var mod_value_add: String = Utils.format_percent(MOD_VALUE_ADD, 2)
 

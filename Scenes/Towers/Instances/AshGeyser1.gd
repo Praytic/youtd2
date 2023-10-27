@@ -14,7 +14,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var regen_reduction: String = Utils.format_percent(0.05 + _stats.firedot_level_add * 0.1 * 0.01, 2)
 	var regen_reduction_add: String = Utils.format_percent(_stats.firedot_level_multiply * 0.1 * 0.01, 2)
 

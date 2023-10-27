@@ -24,7 +24,7 @@ func get_tier_stats() -> Dictionary:
 const FREEZE_DURATION_ADD: float = 0.05
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var freeze_chance: String = Utils.format_percent(_stats.freeze_chance, 2)
 	var freeze_chance_add: String = Utils.format_percent(_stats.freeze_chance_add, 2)
 	var freeze_duration: String = Utils.format_float(_stats.freeze_duration, 2)

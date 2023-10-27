@@ -19,7 +19,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var mod_spell_damage: String = Utils.format_percent(_stats.mod_spell_damage, 2)
 	var mod_spell_damage_add: String = Utils.format_percent(_stats.mod_spell_damage_add, 2)
 	var mod_debuff_duration: String = Utils.format_percent(_stats.mod_debuff_duration, 2)

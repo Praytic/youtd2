@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var catch_chance: String = Utils.format_percent(_stats.catch_chance, 2)
 	var cyclone_duration: String = Utils.format_float(_stats.cyclone_duration, 2)
 	var cyclone_damage: String = Utils.format_float(_stats.cyclone_damage, 2)

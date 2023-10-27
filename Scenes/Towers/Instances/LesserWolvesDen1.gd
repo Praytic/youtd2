@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 const AURA_RANGE: float = 200
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var mod_attack_speed: String = Utils.format_percent(_stats.mod_attackspeed, 2)
 	var mod_attack_speed_add: String = Utils.format_percent(_stats.mod_attackspeed_add, 2)

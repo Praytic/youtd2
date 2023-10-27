@@ -21,7 +21,7 @@ const STAR_GLAIVE_CHANCE_ADD: float = 0.004
 const STAR_GLAIVE_DMG_RATIO_ADD: float = 0.01
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var shadow_glaive_chance: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE, 2)
 	var shadow_glaive_chance_add: String = Utils.format_percent(SHADOW_GLAIVE_CHANCE_ADD, 2)
 	var shadow_glaive_attackspeed: String = Utils.format_percent(SHADOW_GLAIVE_ATTACKSPEED, 2)

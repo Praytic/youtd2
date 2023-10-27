@@ -24,7 +24,7 @@ const GLIMMER_MOD_DEBUFF_DURATION: float = 0.15
 const GLIMMER_MOD_DEBUFF_DURATION_ADD: float = 0.002
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
 	var glimmer_mod_debuff_duration: String = Utils.format_percent(GLIMMER_MOD_DEBUFF_DURATION, 2)
 	var glimmer_mod_debuff_duration_add: String = Utils.format_percent(GLIMMER_MOD_DEBUFF_DURATION_ADD, 2)

@@ -13,7 +13,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var rocket_damage: String = Utils.format_float(_stats.rocket_damage, 2)
 	var rocket_damage_add: String = Utils.format_float(_stats.rocket_damage_add, 2)
 	var text: String = ""

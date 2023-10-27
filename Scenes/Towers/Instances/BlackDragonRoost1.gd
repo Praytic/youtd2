@@ -14,7 +14,7 @@ extends Tower
 var cedi_black_dragon_bt: BuffType
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Fear the Dark[/color]\n"

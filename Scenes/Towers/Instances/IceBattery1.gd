@@ -19,7 +19,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var slow_amount: String = Utils.format_percent(_stats.slow_amount, 2)
 	var slow_amount_add: String = Utils.format_percent(_stats.slow_amount_add, 2)
 

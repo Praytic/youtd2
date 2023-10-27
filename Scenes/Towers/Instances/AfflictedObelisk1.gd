@@ -21,7 +21,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var vuln_value: String = Utils.format_percent(_stats.vuln_value, 2)
 	var vuln_value_add: String = Utils.format_percent(_stats.vuln_value_add, 2)
 

@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 	}
 
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var frenzy_max_bonus: String = Utils.format_percent(_stats.frenzy_max_bonus, 2)
 
 	var text: String = ""

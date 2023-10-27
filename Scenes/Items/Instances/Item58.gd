@@ -3,7 +3,7 @@ extends Item
 
 var Neotopia_Drumspeed: BuffType
 
-func get_extra_tooltip_text() -> String:
+func get_ability_description() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Warsong Double Bass - Aura[/color]\n"
