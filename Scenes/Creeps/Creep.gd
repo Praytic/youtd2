@@ -286,6 +286,17 @@ func get_current_movespeed() -> float:
 	return move_speed
 
 
+func teleport_to_old_position(old_position: Vector2):
+	position = old_position
+
+# 	NOTE: we need to recalculate current path index after
+# 	teleporting back to old position because the creep
+# 	could've went back far enough that it change to one of
+# 	the previous path segments. This is 100% guaranteed to
+# 	happen if the creep is teleported during turns.
+	_current_path_index = _calculate_current_path_index()
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -442,3 +453,27 @@ func _get_current_movement_angle() -> float:
 	var top_down_angle_degrees: float = rad_to_deg(top_down_angle_radians)
 
 	return top_down_angle_degrees
+
+
+# NOTE: this f-n is a bit costly so should only be used
+# occasionally. Currently, it's used for
+# teleport_to_old_pos() which means that it gets called once
+# every 6s when there's a Timevault tower.
+func _calculate_current_path_index() -> int:
+	var creep_pos: Vector2 = position - _path.position
+	var curve: Curve2D = _path.get_curve()
+
+	for i in range(curve.point_count - 1, 0, -1):
+		var prev: Vector2 = curve.get_point_position(i - 1)
+		var current: Vector2 = curve.get_point_position(i)
+		
+		if current == creep_pos:
+			continue
+		
+		var closest_point_on_segment: Vector2 = Geometry2D.get_closest_point_to_segment(creep_pos, current, prev)
+		var current_position_is_on_segment: bool = creep_pos.is_equal_approx(closest_point_on_segment)
+
+		if current_position_is_on_segment:
+			return i
+
+	return -1
