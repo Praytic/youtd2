@@ -20,8 +20,6 @@ var _current_path_index: int = 0
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
 var _spawn_level: int
-var _total_path_length: float = 0.0
-var _distance_covered: float = 0.0
 var _special_list: Array[int] = []
 
 # TODO: can't use @export here because there's no Creep.tscn
@@ -170,17 +168,11 @@ func _move(delta):
 
 		return
 
-	var prev_pos: Vector2 = position
-
 	var path_point: Vector2 = _path.get_curve().get_point_position(_current_path_index) + _path.position
 	var move_delta: float = get_current_movespeed() * delta
 	position = Isometric.vector_move_toward(position, path_point, move_delta)
 	moved.emit(delta)
 	
-	var new_pos: Vector2 = position
-	var move_distance: float = Isometric.vector_distance_to(prev_pos, new_pos)
-	_distance_covered += move_distance
-
 	var reached_path_point: bool = (position == path_point)
 	
 	if reached_path_point:
@@ -370,7 +362,6 @@ func get_display_name() -> String:
 func set_path(path: Path2D):
 	_path = path
 	position = path.get_curve().get_point_position(0) + path.position
-	_total_path_length = _calculate_path_length(path)
 
 
 func get_damage_to_portal() -> float:
@@ -412,33 +403,8 @@ func set_spawn_level(spawn_level: int):
 	_spawn_level = spawn_level
 
 
-func get_distance_until_portal() -> float:
-	var distance: float = _total_path_length - _distance_covered
-	return distance
-
-
 func get_special_list() -> Array[int]:
 	return _special_list
-
-
-func _calculate_path_length(path: Path2D) -> float:
-	var length: float = 0.0
-
-	var curve: Curve2D = path.get_curve()
-	var prev_point: Vector2
-
-	for index in range(0, curve.point_count):
-		var point: Vector2 = curve.get_point_position(index)
-		
-		if index == 0:
-			prev_point = point
-			continue
-
-		var distance: float = Isometric.vector_distance_to(point, prev_point)
-
-		length += distance
-
-	return length
 
 
 # NOTE: when a creep has non-zero height, we need to adjust
