@@ -182,6 +182,11 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
 bbcode_enabled = true
 text = "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ff4500ff]30[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]0[/color]
 [color=LIGHT_BLUE]Basic nature tower with a slightly increased chance to critical strike.[/color]
@@ -266,6 +271,15 @@ size_flags_horizontal = 3
 
 [node name="SpecialsLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer"]
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+bbcode_enabled = true
+text = "	[color=GOLD]320[/color] AoE: [color=GOLD]50%[/color] damage
+[color=GOLD]+15%[/color] damage to mass ([color=GOLD]+1%[/color]/lvl)
+[color=GOLD]+15%[/color] damage to humanoid ([color=GOLD]+1%[/color]/lvl)"
 fit_content = true
 
 [node name="UnitSpecialContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer" instance=ExtResource("6_njlch")]
