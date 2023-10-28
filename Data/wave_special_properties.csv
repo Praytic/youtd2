@@ -18,8 +18,8 @@ id,name,short name,hp modifier,required wave level,frequency,creep sizes,applies
 16,Greater Spell Resistance,Resist+,-0.36,24,130,all,FALSE,"armor-spellres,spellres",FALSE,These creeps receive -80% damage from spells,TRUE
 17,Magic Immunity,Immune,-0.36,24,180,all,FALSE,"armor-spellres,immune-evasion,spellres",TRUE,"As long as these creeps have at least 10 mana, they are immune to all spell damage, magic attacks and targetable active abilities",TRUE
 18,Ethereal,Ether,-0.52,24,200,all,FALSE,"spellres,regen-ethereal,mech-ethereal,ghost-ethereal,gravid-ethereal",FALSE,"These creeps periodically become ethereal, gaining immunity against physical attacks, but taking 40% more damage from magic attacks and spells",TRUE
-19,Slow Aura,Slow,-0.4,24,150,"normal,mass,boss",TRUE,,FALSE,These creeps slow the attackspeed of towers in 800 range by 50%,TRUE
-20,Mana Drain Aura,Drain,-0.2,32,150,"normal,mass,boss",TRUE,demana,FALSE,These creeps decrease the mana regeneration of towers in 1200 range by 200%,TRUE
+19,Slow Aura,Slow Aura,-0.4,24,150,"normal,mass,boss",TRUE,,FALSE,These creeps slow the attackspeed of towers in 800 range by 50%,TRUE
+20,Mana Drain Aura,Drain Aura,-0.2,32,150,"normal,mass,boss",TRUE,demana,FALSE,These creeps decrease the mana regeneration of towers in 1200 range by 200%,TRUE
 21,Spellbinder,Binder,-0.2,48,120,"normal,mass,boss",TRUE,demana,TRUE,"These creeps zap up to 3 mana-using towers in 1100 range every 5 seconds, stealing up to 30% of each tower's mana and silencing it for 5 seconds. Costs the creep 50 mana per zap.",TRUE
 22,Stun Revenge,Stun,-0.57,32,100,all,FALSE,,FALSE,"Whenever attacked, these creeps have a 30% chance to stun the attacker for 3 seconds",TRUE
 23,Regeneration,Regen,-0.17,16,140,all,FALSE,"regen,regen-ethereal,regen-evo,regen-protector",FALSE,These creeps regenerate hitpoints over time,TRUE
