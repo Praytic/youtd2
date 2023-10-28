@@ -15,7 +15,7 @@ func start(timer_name: String):
 
 		return
 
-	var start_time: float = Utils.get_game_time()
+	var start_time: float = Time.get_ticks_msec() / 1000.0
 	_elapsed_timer_map[timer_name] = start_time
 
 
@@ -34,9 +34,9 @@ func _end_internal(timer_name: String, verbose: bool):
 		return
 
 	var start_time: float = _elapsed_timer_map[timer_name]
-	var end_time: float = Utils.get_game_time()
+	var end_time: float = Time.get_ticks_msec() / 1000.0
 	var elapsed_time: float = end_time - start_time
-	var time_string: String = Utils.format_float(elapsed_time, 4)
+	var time_string: String = Utils.format_float(elapsed_time, 8)
 	var message: String = "Elapsed time for %s = %s" % [timer_name, time_string]
 
 	if verbose:
