@@ -232,6 +232,7 @@ func check_range_status():
 		_expire()
 
 
+# NOTE: getHomingTarget() in JASS
 func get_target() -> Unit:
 	return _target
 

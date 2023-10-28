@@ -30,7 +30,7 @@ func get_ability_description_short() -> String:
 	text += "This tower periodically grants experience to a random tower in range.\n"
 	text += " \n"
 	text += "[color=GOLD]Divine Research - Aura[/color]\n"
-	text += "Increases experience gain from creeps in 900 range.\n"
+	text += "Increases experience gain from creeps in range.\n"
 
 	return text
 
