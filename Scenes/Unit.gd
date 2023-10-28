@@ -747,7 +747,7 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 		crit_count = _derive_crit_count_from_crit_ratio(crit_ratio, damage_source)
 
 	var size_mod: float = _get_damage_mod_for_creep_size(target)
-	var category_mod: float = _get_damage_mod_for_creep_category(target)
+	var category_mod: float = get_damage_to_category(target.get_category())
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
 
 	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
@@ -1434,22 +1434,6 @@ func get_overall_armor_bonus() -> float:
 func get_dps_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_DPS_ADD]
 
-func _get_damage_mod_for_creep_category(creep: Creep) -> float:
-	const creep_category_to_mod_map: Dictionary = {
-		CreepCategory.enm.UNDEAD: Modification.Type.MOD_DMG_TO_MASS,
-		CreepCategory.enm.MAGIC: Modification.Type.MOD_DMG_TO_MAGIC,
-		CreepCategory.enm.NATURE: Modification.Type.MOD_DMG_TO_NATURE,
-		CreepCategory.enm.ORC: Modification.Type.MOD_DMG_TO_ORC,
-		CreepCategory.enm.HUMANOID: Modification.Type.MOD_DMG_TO_HUMANOID,
-		CreepCategory.enm.CHALLENGE: Modification.Type.MOD_DMG_TO_CHALLENGE,
-	}
-
-	var creep_category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
-	var mod_type: Modification.Type = creep_category_to_mod_map[creep_category]
-	var damage_mod: float = _mod_value_map[mod_type]
-
-	return damage_mod
-
 func _get_damage_mod_for_creep_armor_type(creep: Creep) -> float:
 	var attack_type: AttackType.enm = get_attack_type()
 	var armor_type: ArmorType.enm = creep.get_armor_type()
@@ -1473,6 +1457,15 @@ func _get_damage_mod_for_creep_size(creep: Creep) -> float:
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
+
+
+# NOTE: unit.getDamageToCategory() in JASS
+func get_damage_to_category(category: CreepCategory.enm) -> float:
+	var mod_type: Modification.Type = CreepCategory.convert_to_mod_dmg_type(category)
+	var damage_mod: float = _mod_value_map[mod_type]
+
+	return damage_mod
+
 
 func get_attack_type() -> AttackType.enm:
 	return AttackType.enm.PHYSICAL
