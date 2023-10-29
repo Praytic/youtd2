@@ -72,10 +72,7 @@ func get_item_rarity_filter_button(rarity: Rarity.enm) -> Button:
 func set_element(element: Element.enm):
 	_build_bar.set_element(element)
 
-#	NOTE: set_value() is a member of Range class which is an
-#	ancestor of HScrollBar class
-	var scroll_bar: HScrollBar = _tower_stash_scroll_container.get_h_scroll_bar()
-	scroll_bar.set_value(0.0)
+	Utils.reset_scroll_container(_tower_stash_scroll_container)
 
 
 func _on_item_rarity_filter_button_toggled(_toggle: bool):

@@ -367,3 +367,11 @@ func from_pixels(distance_pixels: float) -> float:
 	var distance: float = distance_pixels / Constants.WC3_DISTANCE_TO_PIXELS
 
 	return distance
+
+
+func reset_scroll_container(scroll_container: ScrollContainer):
+	var h_scroll_bar: HScrollBar = scroll_container.get_h_scroll_bar()
+	h_scroll_bar.set_value(0.0)
+
+	var v_scroll_bar: VScrollBar = scroll_container.get_v_scroll_bar()
+	v_scroll_bar.set_value(0.0)
