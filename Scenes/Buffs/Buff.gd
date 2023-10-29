@@ -161,8 +161,6 @@ func remove_buff():
 	if _cleanup_done:
 		return
 
-	_cleanup_done = true
-
 	var cleanup_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CLEANUP, cleanup_event)
 
@@ -214,6 +212,19 @@ func _on_unit_came_in_range(handler: Callable, unit: Unit):
 func _call_event_handler_list(event_type: Event.Type, event: Event):
 	if !_can_call_event_handlers():
 		return
+
+#	NOTE: we need to set the _cleanup_done flag in this
+#	precise place.
+#   - It has to be set after we call
+#     _can_call_event_handlers() because
+#     _can_call_event_handlers returns false if this flag is
+#     set.
+#	- It also has to be set before we call event handlers so
+#	  that cleanup handler gets called once but then doesn't
+#	  recurse into another cleanup handler. (yes, some
+#	  cleanup handlers can trigger another cleanup event).
+	if event_type == Event.Type.CLEANUP:
+		_cleanup_done = true
 
 	if !event_handler_map.has(event_type):
 		return
