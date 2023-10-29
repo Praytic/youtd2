@@ -217,14 +217,18 @@ func _update_specials_label(unit: Unit):
 		var specials_text: String = unit.get_specials_tooltip_text()
 		var extra_text: String = unit.get_ability_description()
 
-		text += specials_text
-		text += " \n"
-		text += extra_text
+		if !specials_text.is_empty():
+			text += specials_text
+			text += " \n"
+
+		if !extra_text.is_empty():
+			text += extra_text
+			text += " \n"
 
 		for autocast in unit.get_autocast_list():
 			var autocast_text: String = RichTexts.get_autocast_text(autocast)
-			text += " \n"
 			text += autocast_text
+			text += " \n"
 	elif unit is Creep:
 		text = _get_specials_text_for_creep(unit)
 	else:
