@@ -50,7 +50,7 @@ atlas = ExtResource("9_02rfc")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
-[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_title_label", "_unit_info_label", "_unit_icon_texture", "_unit_specials_container", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_creep_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container")]
+[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_title_label", "_unit_info_label", "_unit_icon_texture", "_unit_specials_container", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_creep_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container", "_specials_scroll_container")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -88,6 +88,7 @@ _specials_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/
 _inventory_empty_slots = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots")
 _inventory = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory")
 _main_container = NodePath("MainContainer")
+_specials_scroll_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 

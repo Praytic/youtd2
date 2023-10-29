@@ -27,6 +27,7 @@ const _tiny_unit_button_theme: Theme = preload("res://Resources/Theme/tiny_unit_
 @export var _inventory_empty_slots: HBoxContainer
 @export var _inventory: PanelContainer
 @export var _main_container: VBoxContainer
+@export var _specials_scroll_container: ScrollContainer
 
 var _selling_for_real: bool = false
 
@@ -83,6 +84,11 @@ func _on_update_requirements_changed():
 
 
 func _on_selected_unit_changed(prev_unit: Unit):
+#	Reset all scroll positions when switching to a different unit
+	Utils.reset_scroll_container(_specials_scroll_container)
+	Utils.reset_scroll_container(_unit_stats_menu)
+	Utils.reset_scroll_container(_creep_stats_menu)
+
 	var tower: Tower = get_selected_tower()
 	var creep: Creep = get_selected_creep()
 	assert(not (tower != null and creep != null), "Both tower and creep are selected.")
