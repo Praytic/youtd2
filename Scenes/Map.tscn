@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bjvafnsglmpin"]
+[gd_scene load_steps=60 format=3 uid="uid://bjvafnsglmpin"]
 
 [ext_resource type="TileSet" uid="uid://c2ke1gy0rnehu" path="res://Resources/Tilesets/Decorations.tres" id="2_u46x8"]
 [ext_resource type="Texture2D" uid="uid://cc6k2jfl41ts3" path="res://Assets/Atlas/Floor.png" id="3_7wmqi"]
@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://cj6vux6oykg3q" path="res://Assets/Atlas/Columns.png" id="14_83pwa"]
 [ext_resource type="Texture2D" uid="uid://b1jihcvx3duyq" path="res://Assets/Atlas/Tile.png" id="15_f33p2"]
 [ext_resource type="Texture2D" uid="uid://bym82gj3xe6i" path="res://Assets/Atlas/Bridges.png" id="15_u7trf"]
+[ext_resource type="Texture2D" uid="uid://bffgtw36ue5e" path="res://Assets/Atlas/WallVines1.png" id="20_1ty8x"]
+[ext_resource type="Texture2D" uid="uid://5v3qmvlnvt74" path="res://Assets/Atlas/WallVines1 (connectors).png" id="22_hjh62"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_078ui"]
 texture = ExtResource("3_bwx0l")
@@ -2812,6 +2814,19 @@ texture_region_size = Vector2i(256, 512)
 4:1/0/texture_origin = Vector2i(0, 192)
 4:1/0/y_sort_origin = 128
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0vba0"]
+texture = ExtResource("20_1ty8x")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:2/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5kff"]
 texture = ExtResource("14_83pwa")
 margins = Vector2i(4, 4)
@@ -2945,6 +2960,19 @@ texture_region_size = Vector2i(256, 512)
 1:8/0/texture_origin = Vector2i(0, 192)
 1:8/0/y_sort_origin = 128
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_efunk"]
+texture = ExtResource("22_hjh62")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_knjx8"]
 tile_shape = 1
 tile_layout = 5
@@ -2980,6 +3008,8 @@ sources/0 = SubResource("TileSetAtlasSource_078ui")
 sources/2 = SubResource("TileSetAtlasSource_gxawd")
 sources/4 = SubResource("TileSetAtlasSource_avgj8")
 sources/6 = SubResource("TileSetAtlasSource_cerkb")
+sources/7 = SubResource("TileSetAtlasSource_0vba0")
+sources/8 = SubResource("TileSetAtlasSource_efunk")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fiy5q"]
 texture = ExtResource("15_f33p2")
