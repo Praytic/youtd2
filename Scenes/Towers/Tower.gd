@@ -269,6 +269,20 @@ func _process(delta: float):
 #########################
 
 
+func force_attack_target(forced_target: Creep):
+#	NOTE: if tower can attack 1 target, then we simply stop
+#	attacking current target. If tower can attack multiple
+#	targets, then we substitute one of the targets with the
+#	forced target. Note that if the forced target is out of
+#	range, we add it anyway and the tower will later
+#	automatically remove out of range forced target find a
+#	new valid target before next attack.
+	if !_target_list.is_empty():
+		_remove_target(_target_list[0])
+
+	_add_target(forced_target)
+
+
 func get_item_container() -> ItemContainer:
 	return _item_container
 
@@ -675,8 +689,12 @@ func _update_target_list():
 		var target_is_valid: bool = _target_is_valid(new_target)
 
 		if target_is_valid:
-			_target_list.append(new_target)
-			new_target.death.connect(_on_target_death.bind(new_target))
+			_add_target(new_target)
+
+
+func _add_target(target: Creep):
+	_target_list.append(target)
+	target.death.connect(_on_target_death.bind(target))
 
 
 func _remove_target(target: Creep):
