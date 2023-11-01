@@ -375,3 +375,14 @@ func reset_scroll_container(scroll_container: ScrollContainer):
 
 	var v_scroll_bar: VScrollBar = scroll_container.get_v_scroll_bar()
 	v_scroll_bar.set_value(0.0)
+
+
+func get_tower_list() -> Array[Tower]:
+	var tower_node_list: Array[Node] = get_tree().get_nodes_in_group("towers")
+	var tower_list: Array[Tower] = []
+
+	for tower_node in tower_node_list:
+		var tower: Tower = tower_node as Tower
+		tower_list.append(tower)
+
+	return tower_list

@@ -11,7 +11,7 @@ func _process(_delta: float):
 
 
 func _get_game_stats_text() -> String:
-	var tower_list: Array[Tower] = _get_tower_list()
+	var tower_list: Array[Tower] = Utils.get_tower_list()
 
 	var game_length_string: String = _get_game_length_string()
 
@@ -153,17 +153,6 @@ func _get_best_tower_by_criteria(tower_list: Array[Tower], criteria_callable: Ca
 			best_tower = tower
 
 	return best_tower
-
-
-func _get_tower_list() -> Array[Tower]:
-	var tower_node_list: Array[Node] = get_tree().get_nodes_in_group("towers")
-	var tower_list: Array[Tower] = []
-
-	for tower_node in tower_node_list:
-		var tower: Tower = tower_node as Tower
-		tower_list.append(tower)
-
-	return tower_list
 
 
 func _get_tower_name_colored_by_element(tower: Tower) -> String:
