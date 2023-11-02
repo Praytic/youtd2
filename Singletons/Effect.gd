@@ -70,7 +70,7 @@ func create_simple_on_unit(effect_path: String, unit: Unit, body_part: String) -
 
 # NOTE: AddSpecialEffectTarget() in JASS()
 func add_special_effect_target(effect_path: String, unit: Unit, body_part: String) -> int:
-	return create_simple_on_unit(effect_path, unit, "chest")
+	return create_simple_on_unit(effect_path, unit, body_part)
 
 
 # NOTE: AddSpecialEffect() in JASS()
