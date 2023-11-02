@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://4s07c8mxro5e"]
+
+[ext_resource type="Texture2D" uid="uid://djotx5jk18gc0" path="res://Assets/Effects/arrow.png" id="1_vgk2e"]
+[ext_resource type="Script" path="res://Scenes/Effects/TargetArrow.gd" id="2_80dmy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8hiko"]
+atlas = ExtResource("1_vgk2e")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e22gq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8hiko")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="TargetArrow" type="AnimatedSprite2D"]
+modulate = Color(1, 1, 1, 0.784314)
+sprite_frames = SubResource("SpriteFrames_e22gq")
+offset = Vector2(0, -100)
+script = ExtResource("2_80dmy")

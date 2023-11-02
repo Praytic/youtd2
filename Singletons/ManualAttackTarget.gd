@@ -43,3 +43,6 @@ func _do_manual_targetting():
 
 	for tower in tower_list:
 		tower.force_attack_target(hovered_creep)
+
+	var effect: int = Effect.create_simple_on_unit("res://Scenes/Effects/TargetArrow.tscn", hovered_creep, "head")
+	Effect.set_lifetime(effect, 2.0)
