@@ -1059,16 +1059,24 @@ func get_body_part_position(body_part: String) -> Vector2:
 		return get_visual_position()
 
 	var sprite_center: Vector2 = _visual_node.global_position
+	var body_part_offset: Vector2 = get_body_part_offset(body_part)
+	var body_part_position: Vector2 = sprite_center + body_part_offset
+
+	return body_part_position
+
+
+func get_body_part_offset(body_part: String) -> Vector2:
 	var sprite_height: float = float(_sprite_dimensions.y)
 
 	match body_part:
-		"head": return sprite_center - Vector2(0, sprite_height / 2)
-		"chest": return sprite_center
-		"origin": return sprite_center + Vector2(0, sprite_height / 2)
+		"head": return Vector2(0, -sprite_height / 2)
+		"chest": return Vector2.ZERO
+		"origin": return Vector2(0, sprite_height / 2)
 		_:
 			push_error("Unhandled body part: ", body_part)
 
-			return get_visual_position()
+			return Vector2.ZERO
+
 
 # NOTE: unit.getX() in JASS
 func get_x() -> float:
@@ -1086,6 +1094,10 @@ func get_visual_x() -> float:
 
 func get_visual_y() -> float:
 	return get_visual_position().y
+
+
+func get_visual_node() -> Node2D:
+	return _visual_node
 
 
 # NOTE: Getters for mod values are used in TowerInfo.

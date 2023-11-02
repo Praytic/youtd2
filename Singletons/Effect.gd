@@ -1,6 +1,12 @@
 extends Node
 
 
+# Functions to create "effects" which are used to add visual
+# indicators of buffs and abilities. Functions which take a
+# Unit instead of a position will make the effect follow the
+# unit.
+
+
 # NOTE: Enable to check if any effects do not have scenes.
 # Disabling for now because at this point most effects won't
 # have scenes.
@@ -24,33 +30,11 @@ func _ready():
 # NOTE: effect must be an AnimatedSprite2D scene
 # NOTE: Effect.createAnimated() in JASS
 func create_animated(effect_path: String, x: float, y: float, _z: float, _mystery2: float) -> int:
-	var effect_path_exists: bool = ResourceLoader.exists(effect_path)
-
-	var effect_scene: PackedScene
-	if effect_path_exists:
-		effect_scene = load(effect_path)
-	else:
-		effect_scene = Globals.placeholder_effect_scene
-
-		if PRINT_INVALID_PATH_ERROR:
-			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
-
-	var effect: Node2D = effect_scene.instantiate()
-
-	if !effect is AnimatedSprite2D:
-		print_debug("Effect scene must be AnimatedSprite2D. Effect path with problem:", effect_path, ". Using placeholder effect.")
-
-		effect.queue_free()
-		effect = Globals.placeholder_effect_scene.instantiate()
-
+	var id: int = _create_internal(effect_path)
+	var effect: Node2D = _effect_map[id]
 	effect.position = Vector2(x, y)
 	_effects_container.add_child(effect)
-
 	effect.play()
-
-	var id: int = _make_effect_id()
-
-	_effect_map[id] = effect
 
 	return id
 
@@ -66,20 +50,27 @@ func create_simple(effect_path: String, x: float, y: float) -> int:
 
 # NOTE: Effect.createSimpleAtUnit() in JASS
 func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
-	var position: Vector2 = unit.get_visual_position() 
-	return create_animated(effect_path, position.x, position.y, 0.0, 0.0)
+	return create_simple_on_unit(effect_path, unit, "chest")
 
 
 # NOTE: Effect.createSimpleOnUnit() in JASS
-func create_simple_on_unit(effect_path: String, unit: Unit, _body_part: String) -> int:
-	return create_simple_at_unit(effect_path, unit)
+func create_simple_on_unit(effect_path: String, unit: Unit, body_part: String) -> int:
+	var id: int = _create_internal(effect_path)
+	var effect: Node2D = _effect_map[id]
+
+	var body_part_offset: Vector2 = unit.get_body_part_offset(body_part)
+	effect.offset += body_part_offset
+
+	var unit_visual: Node2D = unit.get_visual_node()
+	unit_visual.add_child(effect)
+	effect.play()
+
+	return id
 
 
-# NOTE: Effect.createSimpleOnUnit() in JASS
 # NOTE: AddSpecialEffectTarget() in JASS()
 func add_special_effect_target(effect_path: String, unit: Unit, body_part: String) -> int:
-	var position: Vector2 = unit.get_body_part_position(body_part) 
-	return create_animated(effect_path, position.x, position.y, 0.0, 0.0)
+	return create_simple_on_unit(effect_path, unit, "chest")
 
 
 # NOTE: AddSpecialEffect() in JASS()
@@ -166,6 +157,32 @@ func destroy_effect_after_its_over(effect_id: int):
 # NOTE: effect.noDeathAnimation() in JASS()
 func no_death_animation(_effect_id: int):
 	pass
+
+
+func _create_internal(effect_path: String) -> int:
+	var effect_path_exists: bool = ResourceLoader.exists(effect_path)
+
+	var effect_scene: PackedScene
+	if effect_path_exists:
+		effect_scene = load(effect_path)
+	else:
+		effect_scene = Globals.placeholder_effect_scene
+
+		if PRINT_INVALID_PATH_ERROR:
+			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
+
+	var effect: Node2D = effect_scene.instantiate()
+
+	if !effect is AnimatedSprite2D:
+		print_debug("Effect scene must be AnimatedSprite2D. Effect path with problem:", effect_path, ". Using placeholder effect.")
+
+		effect.queue_free()
+		effect = Globals.placeholder_effect_scene.instantiate()
+
+	var id: int = _make_effect_id()
+	_effect_map[id] = effect
+
+	return id
 
 
 func _make_effect_id() -> int:
