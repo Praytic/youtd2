@@ -18,7 +18,7 @@ func _ready():
 	
 	for setting in _setting_to_checkbox_map.keys():
 		var checkbox: CheckBox = _setting_to_checkbox_map[setting]
-		var enabled: bool = Settings.get_setting(setting) as bool
+		var enabled: bool = Settings.get_bool_setting(setting)
 		checkbox.set_pressed(enabled)
 
 
