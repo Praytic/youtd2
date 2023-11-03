@@ -39,6 +39,10 @@ func get_item_name(item_id: int) -> String:
 	return get_property(item_id, Item.CsvProperty.NAME)
 
 
+func get_old_name(item_id: int) -> String:
+	return get_property(item_id, Item.CsvProperty.OLD_NAME)
+
+
 func get_author(item_id: int) -> String:
 	return get_property(item_id, Item.CsvProperty.AUTHOR)
 

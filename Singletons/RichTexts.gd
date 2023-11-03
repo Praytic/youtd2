@@ -215,14 +215,17 @@ func get_item_text(item: Item) -> String:
 
 	var item_id: int = item.get_id()
 	var display_name: String = ItemProperties.get_display_name(item_id)
+	var old_name: String = ItemProperties.get_old_name(item_id)
 	var rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
 	var rarity_color: Color = Rarity.get_color(rarity)
 	var display_name_colored: String = Utils.get_colored_string(display_name, rarity_color)
+	var old_name_colored: String = Utils.get_colored_string(old_name, rarity_color)
 	var description: String = ItemProperties.get_description(item_id)
 	var author: String = ItemProperties.get_author(item_id)
 	var is_oil: bool = ItemProperties.get_is_oil(item_id)
 	var is_consumable: bool = ItemProperties.is_consumable(item_id)
 	var is_disabled: bool = Item.disabled_item_list.has(item_id)
+	var show_old_name: bool = Settings.get_bool_setting(Settings.SHOW_OLD_ITEM_NAMES)
 
 	var specials_text: String = item.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
@@ -230,6 +233,8 @@ func get_item_text(item: Item) -> String:
 	extra_text = add_color_to_numbers(extra_text)
 
 	text += "[b]%s[/b]\n" % display_name_colored
+	if show_old_name:
+		text += "(Formerly known as [b]%s[/b])\n" % old_name_colored
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 
