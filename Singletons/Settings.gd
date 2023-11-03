@@ -12,11 +12,13 @@ const SETTINGS_PATH: String = "user://settings.save"
 
 # List of setting names
 const SHOW_OLD_ITEM_NAMES: String = "show_old_item_names"
+const SHOW_ALL_DAMAGE_NUMBERS: String = "show_all_damage_numbers"
 
 
 var _cache: Dictionary = {}
 var _default_value_map: Dictionary = {
 	SHOW_OLD_ITEM_NAMES: false,
+	SHOW_ALL_DAMAGE_NUMBERS: false,
 }
 
 

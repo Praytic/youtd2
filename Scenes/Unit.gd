@@ -1574,7 +1574,8 @@ func _add_floating_text_for_damage(damage: float, crit_count: int, damage_source
 
 #	NOTE: confusing logic for this boolean but this is how
 #	it worked in original youtd
-	var floating_text_should_be_shown: bool = Config.damage_numbers() || (damage_source == DamageSource.Attack && is_critical && is_main_target) || (damage_source == DamageSource.Spell && is_critical)
+	var show_all_damage_numbers: bool = Settings.get_setting(Settings.SHOW_ALL_DAMAGE_NUMBERS)
+	var floating_text_should_be_shown: bool = show_all_damage_numbers || (damage_source == DamageSource.Attack && is_critical && is_main_target) || (damage_source == DamageSource.Spell && is_critical)
 	if !floating_text_should_be_shown:
 		return
 	
