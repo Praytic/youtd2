@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" path="res://Scenes/PauseHUD/SettingsMenu.gd" id="2_2dtmk"]
 
-[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers")]
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx")]
 custom_minimum_size = Vector2(800, 600)
 script = ExtResource("2_2dtmk")
 _old_item_names = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/OldItemNames")
 _damage_numbers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DamageNumbers")
+_enable_sfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/EnableSfx")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -50,6 +51,16 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Show all damage numbers"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EnableSfx" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Enable sound effects"
 
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

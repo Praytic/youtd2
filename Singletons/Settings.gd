@@ -13,12 +13,14 @@ const SETTINGS_PATH: String = "user://settings.save"
 # List of setting names
 const SHOW_OLD_ITEM_NAMES: String = "show_old_item_names"
 const SHOW_ALL_DAMAGE_NUMBERS: String = "show_all_damage_numbers"
+const ENABLE_SFX: String = "enable_sfx"
 
 
 var _cache: Dictionary = {}
 var _default_value_map: Dictionary = {
 	SHOW_OLD_ITEM_NAMES: false,
 	SHOW_ALL_DAMAGE_NUMBERS: false,
+	ENABLE_SFX: true,
 }
 
 
@@ -36,6 +38,12 @@ func get_setting(setting: String) -> Variant:
 
 	var default_value: Variant = _default_value_map[setting]
 	var value: Variant = _cache.get(setting, default_value)
+
+	return value
+
+
+func get_bool_setting(setting: String) -> bool:
+	var value: bool = get_setting(setting) as bool
 
 	return value
 

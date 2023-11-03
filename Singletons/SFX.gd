@@ -12,7 +12,7 @@ var _sfx_player_list: Array = []
 # NOTE: this f-n is non-positional. Current viewport
 # position doesn't affect the sfx.
 func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0):
-	if !Config.sfx_enabled():
+	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
 	var sfx_player: AudioStreamPlayer = _get_sfx_player()
@@ -32,7 +32,7 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 
 
 func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0):
-	if !Config.sfx_enabled():
+	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
 	var sfx_player: AudioStreamPlayer2D = _get_2d_sfx_player()

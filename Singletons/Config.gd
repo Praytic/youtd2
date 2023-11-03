@@ -58,11 +58,6 @@ func damage_numbers() -> bool:
 func ignore_requirements() -> bool:
 	return ProjectSettings.get_setting("application/config/ignore_requirements") as bool
 
-# Enables sound effects. Currently disabled because sfx are
-# a work in progress.
-func sfx_enabled() -> bool:
-	return ProjectSettings.get_setting("application/config/sfx_enabled") as bool
-
 # Enable to make creeps always drop items on death.
 # Normally, items drop rarely, depending on creep's and
 # caster's item chance stats.
