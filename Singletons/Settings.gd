@@ -1,0 +1,49 @@
+extends Node
+
+
+# Allows getting and setting persistent settings. Inteded to
+# be used by settings which are editable by the player
+# ingame. Settings are saved to a file on hard drive. Note
+# that this is different from Config which doesn't persist
+# changes. For example, on Windows the path would be:
+# %appdata%/Roaming/Godot/...
+
+const SETTINGS_PATH: String = "user://settings.save"
+
+# List of setting names
+const SHOW_OLD_ITEM_NAMES: String = "show_old_item_names"
+
+
+var _cache: Dictionary = {}
+var _default_value_map: Dictionary = {
+	SHOW_OLD_ITEM_NAMES: false,
+}
+
+
+func _ready():
+	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.READ)
+	var cache_string: String = settings_file.get_line()
+	_cache = JSON.parse_string(cache_string) as Dictionary
+
+
+func get_setting(setting: String) -> Variant:
+	if !_default_value_map.has(setting):
+		push_error("No such setting exists:" % setting)
+
+		return null
+
+	var default_value: Variant = _default_value_map[setting]
+	var value: Variant = _cache.get(setting, default_value)
+
+	return value
+
+
+func set_setting(setting: String, value: Variant):
+	_cache[setting] = value
+
+
+# Save all changes to file
+func flush():
+	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
+	var cache_string: String = JSON.stringify(_cache)
+	settings_file.store_line(cache_string)
