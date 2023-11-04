@@ -19,7 +19,7 @@ extends MainLoop
 # "foo (raw).png" -> "foo (raw).png" (original) + "foo.png" (cut)
 
 # Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/CutDecorationTiles.gd" -- foo.png
+# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/CutTilesIntoDecorations.gd" -- foo.png
 
 const ARG_COUNT: int = 1
 const RAW_SUFFIX: String = " (raw).png"
@@ -36,9 +36,9 @@ const above_and_right_of_wall: PackedVector2Array = [Vector2(0, 319), Vector2(25
 
 
 func _initialize():
-	print("CutDecorationTiles.gd begin")
+	print("Begin")
 	run()
-	print("CutDecorationTiles.gd end")
+	print("End")
 
 
 # NOTE: returning true from _process() is the only way to

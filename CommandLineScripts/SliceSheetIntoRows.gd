@@ -1,14 +1,17 @@
 extends MainLoop
 
 
-# Script to take an image and slice it into slices.
-# Each slice is named with "original_name-N.png"
+# Script to take an image and slice it into slices. Each
+# slice is named with "original_name-N.png". Use this to
+# break down very large tilesheets into multiple smaller
+# tilesheets.
+
 #
 # Examples:
 # "foo.png" -> "foo-1.png", "foo-2.png"...
 
 # Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/SliceImage.gd" -- foo.png 6
+# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/SliceSheetIntoRows.gd" -- foo.png 6
 
 const ARG_COUNT: int = 2
 
@@ -20,9 +23,9 @@ const CELL_HEIGHT_WITH_MARGIN: int = CELL_HEIGHT + MARGIN * 2
 
 
 func _initialize():
-	print("SliceImage.gd begin")
+	print("Begin")
 	run()
-	print("SliceImage.gd end")
+	print("End")
 
 
 # NOTE: returning true from _process() is the only way to

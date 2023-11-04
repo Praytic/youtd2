@@ -1,20 +1,22 @@
 extends MainLoop
 
 
-# Script to take tile images produced by blender export
-# script and combine them into an atlas image.
+# Script to take results of blender export and turn it into
+# spritesheets.
+# Input: directory structure with separate sprites.
+# Output: a set of spritesheets
 
 # Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/GenerateAtlas.gd"
+# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/ConvertBlenderExport.gd"
 
 const CELL_WIDTH = 512
 const COLUMNS = 4 
 const ANIMATIONS = ["floating", "slow_run", "run", "death", "stunned"]
 
 func _initialize():
-	print("GenerateAtlas.gd begin")
+	print("Begin")
 	run()
-	print("GenerateAtlas.gd end")
+	print("End")
 
 
 # NOTE: returning true from _process() is the only way to

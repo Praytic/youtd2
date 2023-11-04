@@ -31,9 +31,9 @@ var _original_frame_size: int = 0
 
 
 func _initialize():	
-	print("PackSpriteSheet.gd begin")
+	print("Begin")
 	run()
-	print("PackSpriteSheet.gd end")
+	print("End")
 
 
 # NOTE: returning true from _process() is the only way to

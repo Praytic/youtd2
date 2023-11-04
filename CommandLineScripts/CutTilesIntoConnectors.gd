@@ -4,9 +4,11 @@ extends MainLoop
 # Script to take a tileset and cut into 2 sections:
 # 1. part below floor1
 # 2. part above floor1
+# These tiles are intended to be used as "connectors" to be
+# placed between two layers of floor tiles.
 
 # Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/CutTiles.gd" -- foo.png
+# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/CutTilesIntoConnectors.gd" -- foo.png
 
 const ARG_COUNT: int = 1
 
@@ -29,9 +31,9 @@ const POLYGON_FOR_TOP: PackedVector2Array = polygon_top_hexagon
 
 
 func _initialize():
-	print("CutTiles.gd begin")
+	print("Begin")
 	run()
-	print("CutTiles.gd end")
+	print("End")
 
 
 # NOTE: returning true from _process() is the only way to
