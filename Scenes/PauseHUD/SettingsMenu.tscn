@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" path="res://Scenes/PauseHUD/SettingsMenu.gd" id="2_2dtmk"]
 
-[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx")]
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx", "_mouse_scroll", "_keyboard_scroll")]
 custom_minimum_size = Vector2(800, 600)
 script = ExtResource("2_2dtmk")
 _old_item_names = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/OldItemNames")
 _damage_numbers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DamageNumbers")
 _enable_sfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/EnableSfx")
+_mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MouseScroll")
+_keyboard_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/KeyboardScroll")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -31,6 +33,7 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -61,6 +64,26 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "Enable sound effects"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mouse scroll:"
+
+[node name="MouseScroll" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.25
+value = 0.5
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Keyboard scroll:"
+
+[node name="KeyboardScroll" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.25
+value = 0.5
 
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

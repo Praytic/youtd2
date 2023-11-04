@@ -5,7 +5,7 @@ signal camera_zoomed(zoom_value)
 
 const MOVE_BY_MOUSE_MARGIN: float = 0.01
 
-@export var cam_move_speed: float = 2000.0
+@export var cam_move_speed_base: float = 1500.0
 @export var maximum_zoom_in: float = 0.4
 @export var minimum_zoom_out: float = 1.0
 @export var zoom_sensitivity: float = 1.0
@@ -18,18 +18,40 @@ func _ready():
 
 
 func _physics_process(delta):
-	var move_direction: Vector2 = Vector2.ZERO
+	var speed_from_mouse: float = _get_cam_speed_from_setting(Settings.MOUSE_SCROLL)
+	var speed_from_keyboard: float = _get_cam_speed_from_setting(Settings.KEYBOARD_SCROLL)
+
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
 	var screen_size: Vector2 = get_viewport_rect().size
 
-	if Input.is_action_pressed("ui_left") or (mouse_pos.x / screen_size.x) < MOVE_BY_MOUSE_MARGIN:
-		move_direction.x += -1.0
-	if Input.is_action_pressed("ui_right") or (mouse_pos.x / screen_size.x) > 1.0 - MOVE_BY_MOUSE_MARGIN:
-		move_direction.x += 1.0
-	if Input.is_action_pressed("ui_up") or (mouse_pos.y / screen_size.y) < MOVE_BY_MOUSE_MARGIN:
-		move_direction.y += -1.0
-	if Input.is_action_pressed("ui_down") or (mouse_pos.y / screen_size.y) > 1.0 - MOVE_BY_MOUSE_MARGIN:
-		move_direction.y += 1.0
+	var move_direction_from_mouse: Vector2 = Vector2.ZERO
+	if (mouse_pos.x / screen_size.x) < MOVE_BY_MOUSE_MARGIN:
+		move_direction_from_mouse.x += -1.0
+	if (mouse_pos.x / screen_size.x) > 1.0 - MOVE_BY_MOUSE_MARGIN:
+		move_direction_from_mouse.x += 1.0
+	if (mouse_pos.y / screen_size.y) < MOVE_BY_MOUSE_MARGIN:
+		move_direction_from_mouse.y += -1.0
+	if (mouse_pos.y / screen_size.y) > 1.0 - MOVE_BY_MOUSE_MARGIN:
+		move_direction_from_mouse.y += 1.0
+
+	var move_direction_from_keyboard: Vector2 = Vector2.ZERO
+	if Input.is_action_pressed("ui_left"):
+		move_direction_from_keyboard.x += -1.0
+	if Input.is_action_pressed("ui_right"):
+		move_direction_from_keyboard.x += 1.0
+	if Input.is_action_pressed("ui_up"):
+		move_direction_from_keyboard.y += -1.0
+	if Input.is_action_pressed("ui_down"):
+		move_direction_from_keyboard.y += 1.0
+
+	var move_direction: Vector2 = Vector2.ZERO
+	var move_speed: float = 0.0
+	if move_direction_from_keyboard != Vector2.ZERO:
+		move_direction = move_direction_from_keyboard
+		move_speed = speed_from_keyboard
+	elif move_direction_from_mouse != Vector2.ZERO:
+		move_direction = move_direction_from_mouse
+		move_speed = speed_from_mouse
 
 #	NOTE: normalize direction vector so that camera moves at
 #	the same speed in all directions
@@ -37,7 +59,7 @@ func _physics_process(delta):
 
 	if (move_direction != Vector2.ZERO):
 		var zoom_ratio = sqrt(zoom.x)
-		var shift_vector: Vector2 = move_direction * delta * cam_move_speed * zoom_ratio
+		var shift_vector: Vector2 = move_direction * delta * move_speed * zoom_ratio
 		position = get_screen_center_position() + shift_vector
 		
 		camera_moved.emit(shift_vector)
@@ -76,3 +98,13 @@ func _zoom(event):
 	zoom = Vector2(new_zoom, new_zoom)
 	
 	camera_zoomed.emit(zoom)
+
+
+# NOTE: setting value is in range of [0.0, 1.0]
+# Convert to actual speed.
+func _get_cam_speed_from_setting(setting: String) -> float:
+	var setting_value: float = Settings.get_setting(setting) as float
+	var speed_ratio: float = 1.0 + 2.0 * setting_value
+	var speed: float = cam_move_speed_base * speed_ratio
+
+	return speed

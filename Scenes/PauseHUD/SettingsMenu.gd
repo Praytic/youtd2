@@ -4,8 +4,11 @@ extends PanelContainer
 @export var _old_item_names: CheckBox
 @export var _damage_numbers: CheckBox
 @export var _enable_sfx: CheckBox
+@export var _mouse_scroll: Slider
+@export var _keyboard_scroll: Slider
 
 var _setting_to_checkbox_map: Dictionary
+var _setting_to_slider_map: Dictionary
 
 
 func _ready():
@@ -20,6 +23,16 @@ func _ready():
 		var checkbox: CheckBox = _setting_to_checkbox_map[setting]
 		var enabled: bool = Settings.get_bool_setting(setting)
 		checkbox.set_pressed(enabled)
+		
+	_setting_to_slider_map = {
+		Settings.MOUSE_SCROLL: _mouse_scroll,
+		Settings.KEYBOARD_SCROLL: _keyboard_scroll,
+	}
+	
+	for setting in _setting_to_slider_map.keys():
+		var slider: Slider = _setting_to_slider_map[setting]
+		var value: float = Settings.get_setting(setting) as float
+		slider.value = value
 
 
 func _on_close_button_pressed():
@@ -27,6 +40,11 @@ func _on_close_button_pressed():
 		var checkbox: CheckBox = _setting_to_checkbox_map[setting]
 		var enabled: bool = checkbox.is_pressed()
 		Settings.set_setting(setting, enabled)
+	
+	for setting in _setting_to_slider_map.keys():
+		var slider: Slider = _setting_to_slider_map[setting]
+		var value: float = slider.value
+		Settings.set_setting(setting, value)
 	
 	Settings.flush()
 	

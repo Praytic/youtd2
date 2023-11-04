@@ -14,6 +14,8 @@ const SETTINGS_PATH: String = "user://settings.save"
 const SHOW_OLD_ITEM_NAMES: String = "show_old_item_names"
 const SHOW_ALL_DAMAGE_NUMBERS: String = "show_all_damage_numbers"
 const ENABLE_SFX: String = "enable_sfx"
+const MOUSE_SCROLL: String = "mouse_scroll"
+const KEYBOARD_SCROLL: String = "keyboard_scroll"
 
 
 var _cache: Dictionary = {}
@@ -21,6 +23,8 @@ var _default_value_map: Dictionary = {
 	SHOW_OLD_ITEM_NAMES: false,
 	SHOW_ALL_DAMAGE_NUMBERS: false,
 	ENABLE_SFX: true,
+	MOUSE_SCROLL: 0.5,
+	KEYBOARD_SCROLL: 0.5,
 }
 
 
