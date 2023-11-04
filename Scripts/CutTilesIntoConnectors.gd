@@ -8,7 +8,7 @@ extends MainLoop
 # placed between two layers of floor tiles.
 
 # Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/CommandLineScripts/CutTilesIntoConnectors.gd" -- foo.png
+# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/CutTilesIntoConnectors.gd" -- foo.png
 
 const ARG_COUNT: int = 1
 
