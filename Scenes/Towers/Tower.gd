@@ -534,6 +534,16 @@ func _try_to_attack() -> bool:
 
 		attack_count += 1
 
+#		NOTE: handlers for attack event (inside
+#		_attack_target) may order the tower to stop
+#		attacking or switch to a different target. Process
+#		the orders here. This part is to stop attacking if
+#		tower has multishot.
+		if _was_ordered_to_stop_attack:
+			_was_ordered_to_stop_attack = false
+
+			break
+
 	var attack_success: bool = attack_count > 0
 
 	return attack_success
@@ -570,8 +580,6 @@ func _attack_target(target: Unit, target_is_first: bool):
 #	stop attacking or switch to a different target. Process
 #	the orders here.
 	if _was_ordered_to_stop_attack:
-		_was_ordered_to_stop_attack = false
-
 		return
 
 	if _was_ordered_to_change_target:
