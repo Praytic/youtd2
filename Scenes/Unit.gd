@@ -11,6 +11,10 @@ extends Node2D
 # level_up() gets emitted only when level increases.
 signal level_changed
 signal level_up
+# NOTE: attack event is triggered right before tower fires a
+# projectile at the target. Note that if tower has multishot
+# ability, attack event will be triggered only once for the
+# first target.
 signal attack(event)
 signal attacked(event)
 # NOTE: dealt_damage() and damaged() are emitted only for
