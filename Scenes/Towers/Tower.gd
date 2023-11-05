@@ -672,6 +672,13 @@ func _update_target_list():
 		if is_instance_valid(target):
 			target.death.disconnect(_on_target_death)
 
+# 	Remove targets if target list size is too large. For
+# 	example, if a tower ability temporarily increased target
+# 	count to 3 and then it went back down to 1.
+	while _target_list.size() > _target_count_max:
+		_target_list.pop_back()
+
+
 # 	Add new targets that have entered into range
 	var attack_range: float = get_range()
 	var creeps_in_range: Array = Utils.get_units_in_range(_attack_target_type, position, attack_range)
