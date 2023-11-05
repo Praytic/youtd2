@@ -30,8 +30,22 @@ var _default_value_map: Dictionary = {
 
 func _ready():
 	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.READ)
-	var cache_string: String = settings_file.get_line()
-	_cache = JSON.parse_string(cache_string) as Dictionary
+
+	if settings_file != null:
+		var cache_string: String = settings_file.get_line()
+		_cache = JSON.parse_string(cache_string) as Dictionary
+		
+		print_verbose("Opened settings file at path:", settings_file.get_path_absolute())
+	else:
+		var open_error: Error = FileAccess.get_open_error()
+		if open_error == Error.ERR_FILE_NOT_FOUND:
+			print_verbose("No settings file found. Will create new one from scratch.")
+		else:
+			push_error("Failed to open settings file. Error:", error_string(open_error))
+
+		_cache = _default_value_map
+#		NOTE: save defaults to file to create settings file for the first time
+		flush()
 
 
 func get_setting(setting: String) -> Variant:
