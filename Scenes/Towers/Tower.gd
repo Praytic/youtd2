@@ -528,7 +528,8 @@ func _try_to_attack() -> bool:
 		if target == null:
 			break
 
-		_attack_target(target)
+		var target_is_first: bool = attack_count == 0
+		_attack_target(target, target_is_first)
 		already_attacked_list.append(target)
 
 		attack_count += 1
@@ -538,7 +539,7 @@ func _try_to_attack() -> bool:
 	return attack_success
 
 
-func _attack_target(target: Unit):
+func _attack_target(target: Unit, target_is_first: bool):
 #	NOTE: need to generate crit number here early instead of
 #	right before dealing damage, so that for attacks like
 #	splash damage and bounce attacks all of the damage dealt
@@ -547,9 +548,14 @@ func _attack_target(target: Unit):
 	var crit_count: int = _generate_crit_count(0.0, 0.0)
 	var crit_ratio: float = _calc_attack_multicrit_from_crit_count(crit_count, 0.0)
 
-	var attack_event: Event = Event.new(target)
-	attack_event._number_of_crits = crit_count
-	attack.emit(attack_event)
+#	NOTE: emit attack event only for the "first" target so
+#	that if the tower has multishot ability, the attack
+#	event is emitted only once per series of attacks. This
+#	is the way it works in original game.
+	if target_is_first:
+		var attack_event: Event = Event.new(target)
+		attack_event._number_of_crits = crit_count
+		attack.emit(attack_event)
 
 #	NOTE: process crit bonuses after attack event so that if
 #	any attack event handlers added crit bonuses, we apply
