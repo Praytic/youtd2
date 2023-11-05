@@ -94,6 +94,7 @@ var _stun_count: int = 0
 var _stun_effect_id: int = -1
 var _visual_only: bool = false
 var _autocast_list: Array[Autocast] = []
+var _aura_list: Array[Aura] = []
 
 var _selection_visual: Node = null
 
@@ -219,6 +220,14 @@ func _ready():
 #########################
 
 
+# Triggers REFRESH event for all buffs applied by auras of
+# this unit.
+# NOTE: Unit.refreshAuras() in JASS
+func refresh_auras():
+	for aura in _aura_list:
+		aura.refresh()
+
+
 # NOTE: this f-n and add_modified_attack_crit() affect only
 # the tower's regular attack. They have no effect on calls
 # to do_attack_damage() in tower scripts.
@@ -272,6 +281,7 @@ func get_autocast_list() -> Array[Autocast]:
 
 func add_aura(aura_type: AuraType):
 	var aura: Aura = aura_type.make(self)
+	_aura_list.append(aura)
 	add_child(aura)
 
 

@@ -27,6 +27,25 @@ func _ready():
 	tree_exited.connect(_on_tree_exited)
 
 
+# Triggers REFRESH event for buffs applied by this aura.
+func refresh():
+	var units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _aura_range, _include_invisible)
+
+	for unit in units_in_range:
+		var buff: Buff = unit.get_buff_of_type(_aura_effect)
+
+		if buff == null:
+			continue
+
+		var buff_caster: Unit = buff.get_caster()
+		var buff_was_applied_by_this_aura: bool = buff_caster == _caster
+
+		if !buff_was_applied_by_this_aura:
+			continue
+		
+		buff._emit_refresh_event()
+
+
 func get_power() -> int:
 	return _power + _caster.get_level() * _power_add
 
