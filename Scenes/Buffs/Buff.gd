@@ -113,6 +113,7 @@ func get_modifier() -> Modifier:
 # NOTE: buff.setLevel() in JASS
 func set_level(level: int):
 	_level = level
+	set_power(level)
 
 
 # Level is used to compare this buff with another buff of
