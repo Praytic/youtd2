@@ -32,7 +32,7 @@ func _ready():
 	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.READ)
 
 	if settings_file != null:
-		var cache_string: String = settings_file.get_line()
+		var cache_string: String = settings_file.get_as_text()
 		_cache = JSON.parse_string(cache_string) as Dictionary
 		
 		print_verbose("Opened settings file at path:", settings_file.get_path_absolute())
