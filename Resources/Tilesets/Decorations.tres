@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=83 format=3 uid="uid://c2ke1gy0rnehu"]
+[gd_resource type="TileSet" load_steps=85 format=3 uid="uid://c2ke1gy0rnehu"]
 
 [ext_resource type="Texture2D" uid="uid://b81pfo1kyprgb" path="res://Assets/Atlas/Planks.png" id="1_5r0h1"]
 [ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://Assets/Atlas/Barrels.png" id="1_6p7yy"]
@@ -33,6 +33,12 @@
 [ext_resource type="Texture2D" uid="uid://bhr0qxmrq3oc1" path="res://Assets/Atlas/stoneWall-6.png" id="23_qn583"]
 [ext_resource type="Texture2D" uid="uid://bxt8dmk8cq5nr" path="res://Assets/Atlas/Stairs.png" id="24_1s21o"]
 [ext_resource type="Texture2D" uid="uid://bwduwot75qxs8" path="res://Assets/Atlas/SpiralStairs.png" id="26_3yu8a"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_3glom"]
+tile_data = PackedInt32Array(0, 2, 65544, 131074, 2, 65549)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_7h0so"]
+tile_data = PackedInt32Array(0, 2, 8, 655370, 2, 13)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6it4p"]
 texture = ExtResource("1_5r0h1")
@@ -460,13 +466,14 @@ texture_region_size = Vector2i(128, 64)
 4:8/1 = 1
 4:8/1/flip_h = true
 4:8/1/texture_origin = Vector2i(-36, 216)
-0:8/size_in_atlas = Vector2i(4, 10)
-0:8/next_alternative_id = 3
+0:8/size_in_atlas = Vector2i(4, 5)
+0:8/next_alternative_id = 4
 0:8/0 = 0
-0:8/0/texture_origin = Vector2i(0, 258)
+0:8/0/z_index = 6
 0:8/1 = 1
 0:8/1/flip_h = true
 0:8/1/texture_origin = Vector2i(0, 254)
+0:8/1/z_index = 6
 4:16/size_in_atlas = Vector2i(2, 6)
 4:16/next_alternative_id = 3
 4:16/0 = 0
@@ -510,12 +517,17 @@ texture_region_size = Vector2i(128, 64)
 7:0/1/flip_h = true
 7:0/1/texture_origin = Vector2i(0, 200)
 2:18/size_in_atlas = Vector2i(2, 6)
-2:18/next_alternative_id = 3
+2:18/next_alternative_id = 5
 2:18/0 = 0
 2:18/0/texture_origin = Vector2i(0, 154)
 2:18/1 = 1
 2:18/1/flip_h = true
 2:18/1/texture_origin = Vector2i(0, 156)
+2:18/3 = 3
+2:18/3/z_index = 6
+2:18/4 = 4
+2:18/4/flip_h = true
+2:18/4/z_index = 6
 0:18/size_in_atlas = Vector2i(2, 6)
 0:18/next_alternative_id = 3
 0:18/0 = 0
@@ -530,6 +542,11 @@ texture_region_size = Vector2i(128, 64)
 8:20/1 = 1
 8:20/1/flip_h = true
 8:20/1/texture_origin = Vector2i(0, 88)
+0:13/size_in_atlas = Vector2i(4, 5)
+0:13/next_alternative_id = 3
+0:13/0 = 0
+0:13/1 = 1
+0:13/1/flip_h = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ebcbt"]
 texture = ExtResource("1_6p7yy")
@@ -1620,8 +1637,11 @@ texture_region_size = Vector2i(256, 512)
 0:0/0/texture_origin = Vector2i(0, 192)
 1:0/0 = 0
 1:0/0/texture_origin = Vector2i(0, 192)
+2:0/next_alternative_id = 2
 2:0/0 = 0
 2:0/0/texture_origin = Vector2i(0, 192)
+2:0/1 = 1
+2:0/1/texture_origin = Vector2i(0, -8)
 3:0/0 = 0
 3:0/0/texture_origin = Vector2i(0, 192)
 4:0/0 = 0
@@ -3533,7 +3553,7 @@ texture_region_size = Vector2i(128, 128)
 texture = ExtResource("10_5f5fn")
 texture_region_size = Vector2i(128, 128)
 0:0/size_in_atlas = Vector2i(4, 2)
-0:0/next_alternative_id = 3
+0:0/next_alternative_id = 5
 0:0/0 = 0
 0:0/1 = 1
 0:0/1/flip_h = true
@@ -3572,13 +3592,17 @@ texture_region_size = Vector2i(128, 128)
 2:0/size_in_atlas = Vector2i(2, 2)
 2:0/next_alternative_id = 2
 2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 64)
 2:0/1 = 1
 2:0/1/flip_h = true
+2:0/1/texture_origin = Vector2i(0, 64)
 4:0/size_in_atlas = Vector2i(4, 3)
 4:0/next_alternative_id = 2
 4:0/0 = 0
+4:0/0/texture_origin = Vector2i(0, 128)
 4:0/1 = 1
 4:0/1/flip_h = true
+4:0/1/texture_origin = Vector2i(0, 128)
 
 [resource]
 tile_shape = 1
@@ -3633,3 +3657,5 @@ sources/52 = SubResource("TileSetAtlasSource_c4c23")
 sources/0 = SubResource("TileSetAtlasSource_6it4p")
 sources/1 = SubResource("TileSetAtlasSource_jku06")
 sources/3 = SubResource("TileSetAtlasSource_rermi")
+pattern_0 = SubResource("TileMapPattern_3glom")
+pattern_1 = SubResource("TileMapPattern_7h0so")
