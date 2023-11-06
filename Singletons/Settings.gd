@@ -73,5 +73,5 @@ func set_setting(setting: String, value: Variant):
 # Save all changes to file
 func flush():
 	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
-	var cache_string: String = JSON.stringify(_cache)
+	var cache_string: String = JSON.stringify(_cache, "    ")
 	settings_file.store_line(cache_string)
