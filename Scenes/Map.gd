@@ -7,8 +7,10 @@ extends Node2D
 @export var _buildable_area: TileMap
 @onready var camera: Camera2D = %Map/Camera2D
 
-var _buildable_area_alpha_increases: bool = false
-var _buildable_area_alpha_cap = 0.5
+const BUILDABLE_PULSE_ALPHA_MIN = 0.1
+const BUILDABLE_PULSE_ALPHA_MAX = 0.5
+const BUILDABLE_PULSE_PERIOD = 1.0
+
 
 func _ready():
 	var s = play_area.scale
@@ -25,20 +27,16 @@ func _ready():
 	
 	MouseState.mouse_state_changed.connect(_build_mode_changed)
 
-
-func _physics_process(delta):
-	_build_area_color_pulsate(delta)
-
-
-func _build_area_color_pulsate(delta):
-	var alpha = _buildable_area.modulate.a
-	if _buildable_area_alpha_increases:
-		alpha += delta
-		_buildable_area_alpha_increases = alpha + delta < _buildable_area_alpha_cap
-	else:
-		alpha -= delta
-		_buildable_area_alpha_increases = alpha - delta < 0
-	_buildable_area.modulate = Color(0, 255, 255, alpha)
+#	Make buildable area pulse by tweening it's alpha between
+#	min and max
+	var buildable_area_tween = create_tween()
+	buildable_area_tween.tween_property(_buildable_area, "modulate",
+		Color(1.0, 1.0, 1.0, BUILDABLE_PULSE_ALPHA_MIN),
+		0.5 * BUILDABLE_PULSE_PERIOD).set_trans(Tween.TRANS_LINEAR)
+	buildable_area_tween.tween_property(_buildable_area, "modulate",
+		Color(1.0, 1.0, 1.0, BUILDABLE_PULSE_ALPHA_MAX),
+		0.5 * BUILDABLE_PULSE_PERIOD).set_trans(Tween.TRANS_LINEAR).set_delay(0.5 * BUILDABLE_PULSE_PERIOD)
+	buildable_area_tween.set_loops()
 
 
 func _build_mode_changed():
