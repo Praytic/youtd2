@@ -10,4 +10,5 @@ _range_indicator = NodePath("RangeIndicator")
 
 [node name="RangeIndicator" type="Node2D" parent="."]
 script = ExtResource("2")
+draw_transparently_on_floor2 = true
 texture_color = Color(0, 1, 1, 1)
