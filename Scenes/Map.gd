@@ -11,6 +11,8 @@ const BUILDABLE_PULSE_ALPHA_MIN = 0.1
 const BUILDABLE_PULSE_ALPHA_MAX = 0.5
 const BUILDABLE_PULSE_PERIOD = 1.0
 
+var _floor2_layer: int = -1
+
 
 func _ready():
 	var s = play_area.scale
@@ -37,6 +39,8 @@ func _ready():
 		Color(1.0, 1.0, 1.0, BUILDABLE_PULSE_ALPHA_MAX),
 		0.5 * BUILDABLE_PULSE_PERIOD).set_trans(Tween.TRANS_LINEAR).set_delay(0.5 * BUILDABLE_PULSE_PERIOD)
 	buildable_area_tween.set_loops()
+
+	_floor2_layer = _find_floor2_layer()
 
 
 func _build_mode_changed():
@@ -97,17 +101,26 @@ func get_mouse_world_pos() -> Vector2:
 	return out
 
 
-func get_layer_at_current_pos() -> int:
-	return get_layer_at_pos(_tilemap.get_global_mouse_position())
-
-
-func get_layer_at_pos(pos: Vector2) -> int:
-#	var local_pos = _tilemap.to_local(pos)
+# NOTE: determine whether a position is on ground by
+# checking if there's a floor2 tile at position. Need to do
+# it this way instead of checking if there's floor1 tile at
+# position. There are cases where there's both floor1 and
+# floor2 tile on same position and for such cases position
+# is considered "not on the ground".
+func pos_is_on_ground(pos: Vector2) -> bool:
 	var cell_at_pos = _tilemap.local_to_map(pos)
-	var result: int = -1
-	for layer in range(_tilemap.get_layers_count() - 1, -1, -1):
-		var data = _tilemap.get_cell_tile_data(layer, cell_at_pos)
-		if data:
-			result = layer
-			break
-	return result
+	var tile_data: TileData = _tilemap.get_cell_tile_data(_floor2_layer, cell_at_pos)
+	var floor2_has_tile_at_pos: bool = tile_data != null
+	var is_on_ground: bool = !floor2_has_tile_at_pos
+
+	return is_on_ground
+
+
+func _find_floor2_layer() -> int:
+	for layer in range(0, _tilemap.get_layers_count()):
+		var layer_name: String = _tilemap.get_layer_name(layer)
+
+		if layer_name == "floor2":
+			return layer
+
+	return -1

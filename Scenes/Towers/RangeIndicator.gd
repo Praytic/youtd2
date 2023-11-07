@@ -37,10 +37,16 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 	
 	for index_point in range(nb_points):
 		var texture_pos: Vector2 = points_arc[index_point] / TEXTURE_SCALE
-		if ignore_layer or _map.get_layer_at_pos(points_arc[index_point] + global_position + texture.get_size() * TEXTURE_SCALE / 2) == 0:
-			draw_texture(texture, texture_pos, color)
+		var global_point_pos: Vector2 = points_arc[index_point] + global_position + texture.get_size() * TEXTURE_SCALE / 2
+		var pos_is_on_ground: bool = _map.pos_is_on_ground(global_point_pos)
+
+		var color_at_pos: Color
+		if pos_is_on_ground:
+			color_at_pos = color
 		else:
-			draw_texture(texture, texture_pos, transparent_color)
+			color_at_pos = transparent_color
+
+		draw_texture(texture, texture_pos, color_at_pos)
 
 
 func set_radius(radius_wc3: float):

@@ -28,7 +28,6 @@ func _process(_delta: float):
 	accumulated_info["global_mouse_position"] = get_global_mouse_position()
 	accumulated_info["mouse_pos_on_tilemap_clamped"] = _map.get_mouse_pos_on_tilemap_clamped()
 	accumulated_info["mouse_pos_on_tilemap"] = _map.get_mouse_world_pos()
-#	accumulated_info["current_layer"] = _map.get_layer_at_current_pos()
 	position_info_label.text = _dict_join(accumulated_info)
 
 
