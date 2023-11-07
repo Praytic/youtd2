@@ -224,6 +224,10 @@ func _ready():
 #########################
 
 
+func get_aura_list() -> Array[Aura]:
+	return _aura_list
+
+
 # Triggers REFRESH event for all buffs applied by auras of
 # this unit.
 # NOTE: Unit.refreshAuras() in JASS

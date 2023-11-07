@@ -68,6 +68,7 @@ var _placeholder_modulate: Color = Color.WHITE
 # NOTE: can't use @export because it breaks placeholder
 # tower scenes.
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
+@onready var _aura_range_indicator: RangeIndicator = $Visual/AuraRangeIndicator
 @onready var _mana_bar: ProgressBar = $Visual/ManaBar
 @onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
 # NOTE: $Model/Sprite2D node is added in Tower subclass scenes 
@@ -225,6 +226,17 @@ func _ready():
 	
 	# Need to create instance only if Tower has active specials
 	_tower_actions.set_tower(self)
+
+# 	NOTE: we must setup aura range indicator after calling
+# 	tower_init() because auras are added during
+# 	tower_init().
+	var aura_range: float
+	if !_aura_list.is_empty():
+		var first_aura: Aura = _aura_list.front()
+		aura_range = first_aura.get_range()
+	else:
+		aura_range = 123
+	_aura_range_indicator.set_radius(aura_range)
 	
 
 
@@ -632,11 +644,15 @@ func get_tier_stats() -> Dictionary:
 
 
 func on_selected():
+	if !_aura_list.is_empty():
+		_aura_range_indicator.show()
 	_range_indicator.show()
 	_tower_actions.show()
 
 
 func on_unselected():
+	if !_aura_list.is_empty():
+		_aura_range_indicator.hide()
 	_range_indicator.hide()
 	_tower_actions.hide()
 

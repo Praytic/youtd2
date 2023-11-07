@@ -6,14 +6,19 @@ extends Node2D
 const TEXTURE_SCALE: float = 0.1
 
 @export var radius: float
+@export var draw_transparently_on_floor2: bool
+@export var texture_color: Color
 @onready var texture: Texture2D = load("res://Resources/PulsingDot.tres")
 @onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
+# NOTE: y_offset is used by TowerPreview to draw range
+# indicator at an offset so that it's at same y coord as the
+# tower sprite.
 var y_offset: float = 0.0
 var ignore_layer: bool = false
 
 func _draw():
-	_draw_circle_arc(self.position, 0, 360, Color.AQUA)
+	_draw_circle_arc(self.position, 0, 360, texture_color)
 
 
 func _draw_circle_arc(center, angle_from, angle_to, color):
@@ -41,10 +46,13 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 		var pos_is_on_ground: bool = _map.pos_is_on_ground(global_point_pos)
 
 		var color_at_pos: Color
-		if pos_is_on_ground:
-			color_at_pos = color
+		if draw_transparently_on_floor2:
+			if pos_is_on_ground:
+				color_at_pos = color
+			else:
+				color_at_pos = transparent_color
 		else:
-			color_at_pos = transparent_color
+			color_at_pos = color
 
 		draw_texture(texture, texture_pos, color_at_pos)
 

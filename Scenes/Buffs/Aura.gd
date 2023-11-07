@@ -54,6 +54,10 @@ func get_level() -> int:
 	return _level + _caster.get_level() * _level_add
 
 
+func get_range() -> float:
+	return _aura_range
+
+
 func _on_timer_timeout():
 	_remove_invalid_targets()
 
