@@ -71,9 +71,13 @@ func set_tower_tooltip_text(tower):
 
 	_update_exp_for_next_lvl_labels(tower)
 	
+	var tower_ranges_text: String = _get_tower_ranges_text(tower)
 	var tower_oils_text: String = _get_tower_oils_text(tower)
 	var tower_details_text: String = _get_tower_details_text(tower)
 	var combined_details_text: String = ""
+	combined_details_text += tower_ranges_text
+	combined_details_text += " \n"
+	combined_details_text += " \n"
 	combined_details_text += tower_oils_text
 	combined_details_text += " \n"
 	combined_details_text += " \n"
@@ -196,6 +200,32 @@ func _get_tower_details_text(tower: Tower) -> String:
 			var value: String = multiboard.get_value(row)
 
 			text += "[cell]%s:[/cell][cell]%s[/cell]\n" % [key, value]
+
+	text += "[/table]"
+
+	return text
+
+
+func _get_tower_ranges_text(tower: Tower) -> String:
+	var text: String = ""
+
+	var attack_range: float = tower.get_range()
+	var attack_range_string: String = Utils.format_float(attack_range, 0)
+
+	var aura_list: Array[Aura] = tower.get_aura_list()
+	
+	text += "[color=GOLD]Ranges:[/color]\n \n"
+
+	text += "[table=2]"
+
+	text += "[cell]Attack Range:[/cell][cell][color=AQUA]%s[/color][/cell]\n" % attack_range_string
+
+	if !aura_list.is_empty():
+		var first_aura: Aura = aura_list.front()
+		var aura_range: float = first_aura.get_range()
+		var aura_range_string: String = Utils.format_float(aura_range, 0)
+
+		text += "[cell]Aura Range:[/cell][cell][color=ORANGE]%s[/color][/cell]\n" % aura_range_string
 
 	text += "[/table]"
 
