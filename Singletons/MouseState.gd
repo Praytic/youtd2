@@ -5,6 +5,9 @@ extends Node
 # while the action is in progress.
 
 
+signal mouse_state_changed()
+
+
 enum enm {
 	NONE,
 	BUILD_TOWER,
@@ -17,6 +20,7 @@ var _current_state: MouseState.enm = MouseState.enm.NONE
 
 func set_state(state: MouseState.enm):
 	_current_state = state
+	mouse_state_changed.emit()
 
 
 func get_state() -> MouseState.enm:
