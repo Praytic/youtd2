@@ -39,10 +39,13 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 #	the texture
 	var transform_scale: Vector2 = Vector2(TEXTURE_SCALE, TEXTURE_SCALE)
 	draw_set_transform(Vector2.ZERO, 0.0, transform_scale)
-	
+
+#	NOTE: need to subtract half texture size from point
+#	position because draw_texture() uses top-left corner of
+#	texture as origin.
 	for index_point in range(nb_points):
-		var texture_pos: Vector2 = points_arc[index_point] / TEXTURE_SCALE
-		var global_point_pos: Vector2 = points_arc[index_point] + global_position + texture.get_size() * TEXTURE_SCALE / 2
+		var texture_pos: Vector2 = points_arc[index_point] / TEXTURE_SCALE - texture.get_size() / 2
+		var global_point_pos: Vector2 = points_arc[index_point] + global_position
 		var pos_is_on_ground: bool = _map.pos_is_on_ground(global_point_pos)
 
 		var color_at_pos: Color
