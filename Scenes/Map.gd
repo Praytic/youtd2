@@ -1,6 +1,5 @@
 extends Node2D
 
-const BUILDABLE_AREA_LAYER: int = 3
 
 @export var play_area: Area2D
 @export var play_area_shape: CollisionShape2D
@@ -8,6 +7,8 @@ const BUILDABLE_AREA_LAYER: int = 3
 @export var _buildable_area: TileMap
 @onready var camera: Camera2D = %Map/Camera2D
 
+var _buildable_area_alpha_increases: bool = false
+var _buildable_area_alpha_cap = 0.5
 
 func _ready():
 	var s = play_area.scale
@@ -21,10 +22,32 @@ func _ready():
 	camera.position = pp
 	print_verbose("Set camera limits to [lb: %s, lt: %s, ll: %s, lr: %s] and pos [%s]" \
 		% [camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right, pp])
+	
+	MouseState.mouse_state_changed.connect(_build_mode_changed)
+
+
+func _physics_process(delta):
+	_build_area_color_pulsate(delta)
+
+
+func _build_area_color_pulsate(delta):
+	var alpha = _buildable_area.modulate.a
+	if _buildable_area_alpha_increases:
+		alpha += delta
+		_buildable_area_alpha_increases = alpha + delta < _buildable_area_alpha_cap
+	else:
+		alpha -= delta
+		_buildable_area_alpha_increases = alpha - delta < 0
+	_buildable_area.modulate = Color(0, 255, 255, alpha)
+
+
+func _build_mode_changed():
+	_buildable_area.visible = MouseState.get_state() == MouseState.enm.BUILD_TOWER
 
 
 func get_play_area_size() -> Vector2:
 	return play_area_shape.get_shape().size
+
 
 func get_play_area_pos() -> Vector2:
 	return play_area_shape.global_position
