@@ -17,6 +17,13 @@ const TEXTURE_SCALE: float = 0.1
 var y_offset: float = 0.0
 var ignore_layer: bool = false
 
+
+static func make() -> RangeIndicator:
+	var range_indicator: RangeIndicator = Globals.range_indicator_scene.instantiate()
+
+	return range_indicator
+
+
 func _draw():
 	_draw_circle_arc(self.position, 0, 360, texture_color)
 

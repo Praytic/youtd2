@@ -63,12 +63,12 @@ var _temp_preceding_tower: Tower = null
 # for attacking.
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var _placeholder_modulate: Color = Color.WHITE
+var _aura_range_indicator_list: Array[RangeIndicator] = []
 
 
 # NOTE: can't use @export because it breaks placeholder
 # tower scenes.
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
-@onready var _aura_range_indicator: RangeIndicator = $Visual/AuraRangeIndicator
 @onready var _mana_bar: ProgressBar = $Visual/ManaBar
 @onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
 # NOTE: $Model/Sprite2D node is added in Tower subclass scenes 
@@ -83,11 +83,10 @@ var _placeholder_modulate: Color = Color.WHITE
 
 # NOTE: these f-ns needs to be called here and not in
 # ready() so that we can form tooltip text for button
-# tooltip
+# tooltip.
+# NOTE: this is also called separately when tower is used by
+# TowerPreview.
 func _internal_tower_init():
-	if _visual_only:
-		return
-
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
 	var tier: int = get_tier()
@@ -196,6 +195,18 @@ func _ready():
 	add_modifier(_specials_modifier)
 
 	tower_init()
+
+#	NOTE: must setup aura's after calling tower_init()
+#	because auras use buff types which are initialized
+#	inside tower_init().
+	var aura_type_list: Array[AuraType] = get_aura_types()
+	for aura_type in aura_type_list:
+		add_aura(aura_type)
+
+#	NOTE: add aura range indicators to "visual" for correct
+#	positioning on y axis.
+	_aura_range_indicator_list = Utils.add_range_indicators_for_auras(aura_type_list, _visual)
+
 	on_create(_temp_preceding_tower)
 
 	_on_modify_property()
@@ -222,22 +233,13 @@ func _ready():
 	unselected.connect(on_unselected)
 	tree_exited.connect(on_tree_exited)
 
+#	Hide range indicators at creation
+	on_unselected()
+
 	_temp_preceding_tower = null
 	
 	# Need to create instance only if Tower has active specials
 	_tower_actions.set_tower(self)
-
-# 	NOTE: we must setup aura range indicator after calling
-# 	tower_init() because auras are added during
-# 	tower_init().
-	var aura_range: float
-	if !_aura_list.is_empty():
-		var first_aura: Aura = _aura_list.front()
-		aura_range = first_aura.get_range()
-	else:
-		aura_range = 123
-	_aura_range_indicator.set_radius(aura_range)
-	
 
 
 # NOTE: need to do attack timing without Timer because Timer
@@ -465,6 +467,13 @@ func tower_init():
 	pass
 
 
+# Override in subclass to define auras.
+func get_aura_types() -> Array[AuraType]:
+	var empty_list: Array[AuraType] = []
+
+	return empty_list
+
+
 # NOTE: override this in subclass to add tower specials.
 # This includes adding modifiers and changing attack styles
 # to splash or bounce.
@@ -644,15 +653,15 @@ func get_tier_stats() -> Dictionary:
 
 
 func on_selected():
-	if !_aura_list.is_empty():
-		_aura_range_indicator.show()
+	for indicator in _aura_range_indicator_list:
+		indicator.show()
 	_range_indicator.show()
 	_tower_actions.show()
 
 
 func on_unselected():
-	if !_aura_list.is_empty():
-		_aura_range_indicator.hide()
+	for indicator in _aura_range_indicator_list:
+		indicator.hide()
 	_range_indicator.hide()
 	_tower_actions.hide()
 

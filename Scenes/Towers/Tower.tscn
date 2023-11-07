@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1u2fghaw2oji"]
+[gd_scene load_steps=6 format=3 uid="uid://d1u2fghaw2oji"]
 
 [ext_resource type="Script" path="res://Scenes/Towers/Tower.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://bbq8xnlx68q72" path="res://Scenes/HUD/TowerActions.tscn" id="3_jgb58"]
-[ext_resource type="PackedScene" uid="uid://oqea8bsilibl" path="res://Scenes/Towers/RangeIndicator.tscn" id="4_ys6hg"]
 [ext_resource type="Script" path="res://Scenes/Towers/RangeIndicator.gd" id="5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25shh"]
@@ -50,8 +49,3 @@ monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/TowerSelectionArea"]
 polygon = PackedVector2Array(-102, 6, 0, 56, 102, 6, 102, -96, 0, -147, -102, -96)
-
-[node name="AuraRangeIndicator" parent="Visual" instance=ExtResource("4_ys6hg")]
-visible = false
-scale = Vector2(1, 1)
-texture_color = Color(1, 0.556863, 0, 1)

@@ -92,6 +92,8 @@ extends Tower
 # 	autocast.handler = on_autocast
 # 	add_autocast(autocast)
 
+
+# func get_aura_types() -> Array[AuraType]:
 # 	var aura: AuraType = AuraType.new()
 # 	aura.aura_range = 200
 # 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -101,7 +103,8 @@ extends Tower
 # 	aura.power = 0
 # 	aura.power_add = 1
 # 	aura.aura_effect = aura_effect
-# 	add_aura(aura)
+
+# 	return [aura]
 
 
 # func on_damage(event: Event):

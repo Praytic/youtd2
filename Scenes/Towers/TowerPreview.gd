@@ -31,6 +31,9 @@ func _ready():
 	_tower_instance = TowerManager.get_tower(tower_id, visual_only)
 	add_child(_tower_instance)
 
+	var aura_type_list: Array[AuraType] = _tower_instance.get_aura_types()
+	Utils.add_range_indicators_for_auras(aura_type_list, self)
+
 
 func _physics_process(_delta):
 # 	Show tower preview under map normally, but make it stick

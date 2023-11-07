@@ -386,3 +386,32 @@ func get_tower_list() -> Array[Tower]:
 		tower_list.append(tower)
 
 	return tower_list
+
+
+func add_range_indicators_for_auras(aura_type_list: Array[AuraType], parent: Node) -> Array[RangeIndicator]:
+	var indicator_list: Array[RangeIndicator] = []
+
+	for aura_type in aura_type_list:
+		var aura_range: float = aura_type.aura_range
+		var range_indicator: RangeIndicator = RangeIndicator.make()
+		range_indicator.set_radius(aura_range)
+		range_indicator.texture_color = Color.ORANGE
+
+#		NOTE: auras which affect towers will be drawn at
+#		same height as tower.
+#		Auras which affect creeps will be drawn one level
+#		lower, so that the aura is "on the ground".
+		var y_offset: float
+		var target_type: TargetType = aura_type.target_type
+		var unit_type: TargetType.UnitType = target_type._unit_type
+		if unit_type == TargetType.UnitType.CREEPS:
+			y_offset = Constants.TILE_HEIGHT
+		else:
+			y_offset = 0
+
+		range_indicator.y_offset = y_offset
+
+		parent.add_child(range_indicator)
+		indicator_list.append(range_indicator)
+
+	return indicator_list
