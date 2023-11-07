@@ -110,6 +110,8 @@ func tower_init():
 	autocast.handler = on_autocast
 	add_autocast(autocast)
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -119,7 +121,7 @@ func tower_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = dave_glimmer_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_autocast(_event: Event):

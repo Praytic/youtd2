@@ -108,6 +108,8 @@ func tower_init():
 	autocast.handler = on_autocast
 	add_autocast(autocast)
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = _stats.bloody_experience_range
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -117,7 +119,7 @@ func tower_init():
 	aura.power = 1
 	aura.power_add = 0
 	aura.aura_effect = hs_bloody_exp_aura
-	add_aura(aura)
+	return [aura]
 
 
 func on_autocast(event: Event):

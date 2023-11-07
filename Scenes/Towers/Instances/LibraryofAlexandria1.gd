@@ -98,6 +98,8 @@ func tower_init():
 	autocast.handler = on_autocast
 	add_autocast(autocast)
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 900
 	aura.target_type = TargetType.new(TargetType.CREEPS)
@@ -107,7 +109,7 @@ func tower_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = library_aura_bt
-	add_aura(aura)
+	return [aura]
 
 
 func periodic(_event: Event):

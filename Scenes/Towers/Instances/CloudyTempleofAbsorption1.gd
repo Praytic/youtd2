@@ -147,6 +147,8 @@ func tower_init():
 	autocast2.handler = on_autocast_adjust_threshold
 	add_autocast(autocast2)
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 1000
 	aura.target_type = TargetType.new(TargetType.CREEPS)
@@ -156,7 +158,7 @@ func tower_init():
 	aura.power = 1
 	aura.power_add = 1
 	aura.aura_effect = natac_cloudy_temple_aura_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_autocast_cloud_thunderstorm(_event: Event):

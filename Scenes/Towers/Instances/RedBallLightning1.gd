@@ -74,6 +74,8 @@ func tower_init():
 	red_ball_lightning_bt.set_buff_icon("@@0@@")
 	red_ball_lightning_bt.set_buff_tooltip("Lightning Charge Aura\nThis tower is under the effect of Lightning Charge Aura; it deals extra spell damage.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura_level: int = int(_stats.mod_spell_damage * 10000)
 	var aura_level_add: int = int(_stats.mod_spell_damage_add * 10000)
 
@@ -86,7 +88,7 @@ func tower_init():
 	aura.power = aura_level
 	aura.power_add = aura_level_add
 	aura.aura_effect = red_ball_lightning_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_damage(event: Event):

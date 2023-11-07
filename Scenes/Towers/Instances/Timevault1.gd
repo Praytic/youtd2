@@ -46,6 +46,8 @@ func tower_init():
 	sir_timevault_aura_bt.set_buff_icon("@@0@@")
 	sir_timevault_aura_bt.set_buff_tooltip("Title\nDescription.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 600
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -55,7 +57,7 @@ func tower_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = sir_timevault_aura_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_damage(event: Event):

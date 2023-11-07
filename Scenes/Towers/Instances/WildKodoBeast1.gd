@@ -61,6 +61,8 @@ func tower_init():
 	sir_kodo_aura_bt.add_event_on_refresh(sir_kodo_aura_bt_on_refresh)
 	sir_kodo_aura_bt.set_buff_tooltip("Kodo Dung\nThis tower smells Kodo Dung; it has increased damage, attack speed, crit chance and crit damage.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 400
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -70,7 +72,7 @@ func tower_init():
 	aura.power = 100
 	aura.power_add = 2
 	aura.aura_effect = sir_kodo_aura_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_attack(event: Event):

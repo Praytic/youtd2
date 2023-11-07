@@ -58,6 +58,8 @@ func tower_init():
 	lunar_emitter_bt.set_buff_icon("@@0@@")
 	lunar_emitter_bt.set_buff_tooltip("Moonlight Aura\nThis unit is under the effect of Moonlight Aura; it has reduced spell resistance and takes extra damage from Astral, Darkness, Ice and Storm towers.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura_level: int = int(_stats.vuln * 1000)
 	var aura_level_add: int = int(_stats.vuln_add * 1000)
 
@@ -70,4 +72,4 @@ func tower_init():
 	aura.power = aura_level
 	aura.power_add = aura_level_add
 	aura.aura_effect = lunar_emitter_bt
-	add_aura(aura)
+	return [aura]

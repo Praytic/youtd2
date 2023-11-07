@@ -92,6 +92,8 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Spells Harvested")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -101,7 +103,7 @@ func tower_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = cedi_spell_gathering_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_attack(event: Event):

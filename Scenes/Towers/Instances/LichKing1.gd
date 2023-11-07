@@ -69,6 +69,8 @@ func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Stored Damage")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 900
 	aura.target_type = TargetType.new(TargetType.CREEPS)
@@ -78,7 +80,7 @@ func tower_init():
 	aura.power = 500
 	aura.power_add = 20
 	aura.aura_effect = natac_lich_aura_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_damage(event: Event):

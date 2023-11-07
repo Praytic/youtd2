@@ -68,6 +68,8 @@ func tower_init():
 	natac_pirates_MultiboardValue = MultiboardValues.new(1)
 	natac_pirates_MultiboardValue.set_key(0, "Gold Plundered")
 
+	
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 300
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -77,7 +79,7 @@ func tower_init():
 	aura.power = 100
 	aura.power_add = _stats.aura_power_and_lvl
 	aura.aura_effect = natac_treasureSeeker_Buff
-	add_aura(aura)
+	return [aura]
 
 
 func on_attack(_event: Event):

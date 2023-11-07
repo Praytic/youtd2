@@ -89,6 +89,8 @@ func tower_init():
 	cedi_skinkB.add_periodic_event(dot, 1.0)
 	cedi_skinkB.set_buff_tooltip("Poison\nThis unit is Poisoned; it will take damage over time.")
 
+	
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.level = _stats.dmg * 1000
 	aura.level_add = _stats.dmg_add * 1000
@@ -98,8 +100,7 @@ func tower_init():
 	aura.aura_effect = cedi_skinkA
 	aura.target_self = true
 	aura.aura_range = 200
-
-	add_aura(aura)
+	return [aura]
 
 
 func on_create(_preceding_tower: Tower):

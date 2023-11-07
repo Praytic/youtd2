@@ -91,6 +91,8 @@ func tower_init():
 	drol_mortal_aura.set_stacking_group("drol_mortal_aura")
 	drol_mortal_aura.set_buff_tooltip("Mortal Coil Aura\nThis unit is under the effect of Mortal Coil Aura; it will deal extra damage against human, orc and nature creeps.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -100,7 +102,7 @@ func tower_init():
 	aura.power = _stats.aura_level
 	aura.power_add = _stats.aura_level_add
 	aura.aura_effect = drol_mortal_aura
-	add_aura(aura)
+	return [aura]
 
 
 func on_damage(event: Event):

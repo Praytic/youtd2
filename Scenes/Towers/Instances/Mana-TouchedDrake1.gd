@@ -79,6 +79,8 @@ func tower_init():
 	sir_drake_aura.add_event_on_attack(drake_aura_manaburn)
 	sir_drake_aura.set_buff_tooltip("Mana Distortion Field\nThis tower is under the effect of Mana Distortion Field; it will mana burn enemies.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -88,7 +90,7 @@ func tower_init():
 	aura.power = _stats.aura_power
 	aura.power_add = _stats.aura_power_add
 	aura.aura_effect = sir_drake_aura
-	add_aura(aura)
+	return [aura]
 
 
 func on_damage(event: Event):

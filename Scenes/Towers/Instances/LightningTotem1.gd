@@ -50,6 +50,8 @@ func tower_init():
 	boekie_spell_crit_aura.set_stacking_group("boekie_spell_crit_aura")
 	boekie_spell_crit_aura.set_buff_tooltip("Ancient Magic\nThis tower is under the effect of Ancient Magic Aura; it has increase spell crit chance.")
 
+	
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -59,4 +61,4 @@ func tower_init():
 	aura.power = _stats.aura_level
 	aura.power_add = 2
 	aura.aura_effect = boekie_spell_crit_aura
-	add_aura(aura)
+	return [aura]

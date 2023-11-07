@@ -95,6 +95,8 @@ func tower_init():
 	autocast.handler = on_autocast
 	add_autocast(autocast)
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura_level: int = int(_stats.mod_spell_dmg * 1000)
 	var aura_level_add: int = int(_stats.mod_spell_dmg_add * 1000)
 
@@ -107,7 +109,7 @@ func tower_init():
 	aura.power = aura_level
 	aura.power_add = aura_level_add
 	aura.aura_effect = regen_well_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_autocast(_event: Event):

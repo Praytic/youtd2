@@ -53,6 +53,8 @@ func tower_init():
 	natac_hall_of_souls_bt.add_event_on_create(bt_on_create)
 	natac_hall_of_souls_bt.add_event_on_death(bt_on_death)
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
@@ -62,7 +64,7 @@ func tower_init():
 	aura.power = 1
 	aura.power_add = 0
 	aura.aura_effect = natac_hall_of_souls_bt
-	add_aura(aura)
+	return [aura]
 
 
 # Carry over soul damage from previous tier

@@ -44,6 +44,8 @@ func tower_init():
 	velex_dmg_aura.set_buff_icon("@@0@@")
 	velex_dmg_aura.set_buff_tooltip("Thermal Boost\nThis tower is affected by Thermal Boost; it will deal extra damage.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -53,4 +55,4 @@ func tower_init():
 	aura.power = int(_stats.damage_increase * 10000)
 	aura.power_add = int(_stats.damage_increase_add * 10000)
 	aura.aura_effect = velex_dmg_aura
-	add_aura(aura)
+	return [aura]

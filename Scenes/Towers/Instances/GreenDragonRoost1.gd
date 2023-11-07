@@ -36,6 +36,8 @@ func tower_init():
 	boekie_green_dragon_bt.set_buff_icon("@@0@@")
 	boekie_green_dragon_bt.set_buff_tooltip("Green Dragon Force Aura\nThis tower is under the effect of Green Dragon Force Aura; it has increased multicrit.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -45,4 +47,4 @@ func tower_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = boekie_green_dragon_bt
-	add_aura(aura)
+	return [aura]

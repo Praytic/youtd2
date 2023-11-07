@@ -44,9 +44,11 @@ func tower_init():
 	gex_icy_core_bt.set_buff_icon("@@0@@")
 	gex_icy_core_bt.set_buff_tooltip("Frost Aura\nThis creep is under the effect of Frost Aura; it has reduced movement speed.")
 
+	
+func get_aura_types() -> Array[AuraType]:
 	var aura_level: int = int(_stats.mod_movespeed * 1000)
 	var aura_level_add: int = int(_stats.mod_movespeed_add * 1000)
-
+	
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = _stats.aura_range
 	aura.target_type = TargetType.new(TargetType.CREEPS)
@@ -56,4 +58,4 @@ func tower_init():
 	aura.power = aura_level
 	aura.power_add = aura_level_add
 	aura.aura_effect = gex_icy_core_bt
-	add_aura(aura)
+	return [aura]

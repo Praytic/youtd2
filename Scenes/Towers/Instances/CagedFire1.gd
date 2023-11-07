@@ -58,6 +58,8 @@ func tower_init():
 	cedi_melt_bt.set_buff_icon("@@0@@")
 	cedi_melt_bt.set_buff_tooltip("Melting\nThis unit is melting; it has decreased armor and is periodically taking damage.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = AURA_RANGE
 	aura.target_type = TargetType.new(TargetType.CREEPS)
@@ -67,7 +69,8 @@ func tower_init():
 	aura.power = 1
 	aura.power_add = 0
 	aura.aura_effect = cedi_melt_bt
-	add_aura(aura)
+	
+	return [aura]
 
 
 func cedi_melt_bt_on_create(event: Event):

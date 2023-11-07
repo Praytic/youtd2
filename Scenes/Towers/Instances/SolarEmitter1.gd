@@ -58,6 +58,8 @@ func tower_init():
 	solar_emitter_bt.set_buff_icon("@@0@@")
 	solar_emitter_bt.set_buff_tooltip("Sunshine Aura\nThis unit is under the effect of Sunshine Aura; it has reduced armor and takes extra damage from Astral, Fire, Iron and Nature towers.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura_level: int = int(_stats.vuln * 1000)
 	var aura_level_add: int = int(_stats.vuln_add * 1000)
 
@@ -70,4 +72,4 @@ func tower_init():
 	aura.power = aura_level
 	aura.power_add = aura_level_add
 	aura.aura_effect = solar_emitter_bt
-	add_aura(aura)
+	return [aura]

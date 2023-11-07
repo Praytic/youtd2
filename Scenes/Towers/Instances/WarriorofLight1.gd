@@ -80,6 +80,8 @@ func tower_init():
 	shockwave_cast.data.swarm.start_radius = SHOCKWAVE_START_RADIUS
 	shockwave_cast.data.swarm.end_radius = SHOCKWAVE_END_RADIUS
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura_level: int = int(_stats.mod_dmg_to_undead * 1000)
 	var aura_level_add: int = int(_stats.mod_dmg_to_undead_add * 1000)
 
@@ -92,7 +94,7 @@ func tower_init():
 	aura.power = aura_level
 	aura.power_add = aura_level_add
 	aura.aura_effect = mock_warrior_of_light_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_attack(event: Event):

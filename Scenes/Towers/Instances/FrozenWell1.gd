@@ -61,6 +61,8 @@ func tower_init():
 	boekie_freezing_mist_bt.set_buff_icon("@@1@@")
 	boekie_freezing_mist_bt.set_buff_tooltip("Freezing Mist\nThis unit was hit by Freezing Mist; it has reduced movement speed.")
 
+
+func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 500
 	aura.target_type = TargetType.new(TargetType.TOWERS)
@@ -70,7 +72,7 @@ func tower_init():
 	aura.power = 0
 	aura.power_add = 1
 	aura.aura_effect = boekie_frozen_well_aura_bt
-	add_aura(aura)
+	return [aura]
 
 
 func on_damage(event: Event):
