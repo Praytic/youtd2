@@ -1,11 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=17 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD.tscn" id="2"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="5_pan23"]
+[ext_resource type="Shader" path="res://Resources/Shaders/FoggyCamera.gdshader" id="5_qgk1p"]
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="6_y63oe"]
+[ext_resource type="Shader" path="res://Resources/Shaders/SaturationBurn.gdshader" id="7_gxbw6"]
 [ext_resource type="PackedScene" uid="uid://d1xny6jmxj5i6" path="res://Scenes/PregameHUD/PregameHUD.tscn" id="8_idpxe"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
@@ -22,6 +24,17 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 5819, 2872, 0, 0, 0, 0, 4732, 3420, 0, 0, 0, 0, 4768, 5509, 0, 0, 0, 0, 1724, 5414, 0, 0, 0, 0, 2037, 6782, 0, 0, 0, 0, -95, 7837)
 }
 point_count = 6
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cij5r"]
+shader = ExtResource("7_gxbw6")
+shader_parameter/vignette_intensity = 1.214
+shader_parameter/edge_saturation = 0.174
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6fevd"]
+shader = ExtResource("5_qgk1p")
+shader_parameter/vignette_intensity = 0.299
+shader_parameter/vignette_opacity = 0.742
+shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
 [node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_wave_spawner", "_tutorial_menu")]
 process_mode = 3
@@ -83,6 +96,24 @@ script = ExtResource("1")
 [node name="WaveSpawner" parent="Map" instance=ExtResource("5_pan23")]
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DesaturationFilter" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_cij5r")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VignetteFilter" type="ColorRect" parent="UI"]
+material = SubResource("ShaderMaterial_6fevd")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="HUD" parent="UI" instance=ExtResource("2")]
 unique_name_in_owner = true
