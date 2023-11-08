@@ -279,6 +279,9 @@ func _get_target_for_buff_autocast() -> Unit:
 	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.position, auto_range)
 	unit_list.shuffle()
 
+	if !target_self:
+		unit_list.erase(_caster)
+
 	for unit in unit_list:
 		if buff_type == null:
 			return unit
