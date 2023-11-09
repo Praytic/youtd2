@@ -71,6 +71,7 @@ func get_item_rarity_filter_button(rarity: Rarity.enm) -> Button:
 
 func set_element(element: Element.enm):
 	_build_bar.set_element(element)
+	_update_upgrade_element_button_state()
 
 	Utils.reset_scroll_container(_tower_stash_scroll_container)
 
@@ -193,19 +194,22 @@ func _on_upgrade_element_button_pressed():
 		KnowledgeTomesManager.spend(cost)
 		ElementLevel.increment(element)
 		EventBus.research_button_mouse_entered.emit(element)
-	# If player doesn't have enough tomes after research_timer,
-	# show same error message as after button_down_timer.
 	else:
+#		NOTE: this case should really never happen because
+#		button should be disabled (not pressable) if element
+#		can't be researched.
 		Messages.add_error("Can't research this element. Not enough tomes.")
-		_upgrade_element_button.disabled = true
+		push_error("Research element button was in incorrect state. It was enabled even though current element cannot be researched - and player was able to press it.")
+
+	_update_upgrade_element_button_state()
 
 
 func _on_element_level_changed():
-	_upgrade_element_button.disabled = not _is_able_to_research()
+	_update_upgrade_element_button_state()
 
 
 func _on_knowledge_tomes_changed():
-	_upgrade_element_button.disabled = not _is_able_to_research()
+	_update_upgrade_element_button_state()
 
 
 func _on_upgrade_element_mouse_entered():
@@ -215,3 +219,8 @@ func _on_upgrade_element_mouse_entered():
 
 func _on_upgrade_element_mouse_exited():
 	EventBus.research_button_mouse_exited.emit()
+
+
+func _update_upgrade_element_button_state():
+	_upgrade_element_button.disabled = !_is_able_to_research()
+
