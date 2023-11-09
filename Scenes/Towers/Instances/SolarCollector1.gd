@@ -59,9 +59,14 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
+# NOTE: this tower's tooltip in original game includes
+# innate stats in some cases
+# spell crit chance = yes
+# spell crit chance add = no
+# spell crit damage = yes
 func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.10, 0.005)
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 2.0, 0.0)
+	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0875, 0.005)
+	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.75, 0.0)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, _stats.mana_add)
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, _stats.mana_regen_add)
 

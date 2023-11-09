@@ -54,8 +54,12 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
+# NOTE: this tower's tooltip in original game includes
+# innate stats in some cases
+# crit dmg = yes
+# attackspeed add = no
 func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 2.0 - Constants.INNATE_MOD_ATK_CRIT_DAMAGE, 0.0)
+	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.75, 0.0)
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.03)
 
 

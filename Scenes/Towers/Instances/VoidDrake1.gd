@@ -58,6 +58,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 
 
+# NOTE: this tower's tooltip in original game does NOT
+# include innate stats
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, -_stats.mod_exp_gain, -_stats.mod_exp_gain_add)
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.04)

@@ -70,6 +70,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
+# NOTE: this tower's tooltip in original game does NOT
+# include innate stats
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.024)
 	_set_attack_style_bounce(4, 0.25)

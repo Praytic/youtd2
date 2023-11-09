@@ -1,11 +1,12 @@
 extends Tower
 
 
-# NOTE: the values for special in the tooltip in original
-# game contain slightly different values because they
-# include the sum of specials + default stat values
-
-
+# NOTE: this tower's tooltip in original game includes
+# innate stats in some cases
+# crit chance = yes
+# crit chance add = no
+# crit dmg = yes
+# crit dmg add = no
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.1375, 0.015)
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.45, 0.03)

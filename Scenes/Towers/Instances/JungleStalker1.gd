@@ -7,13 +7,12 @@ var boekie_jungle_stalker_mb: MultiboardValues
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {crit_chance = 0.150, feral_dmg_gain = 0.002, feral_dmg_max = 2.00, bloodthirst_attackspeed = 1.00, bloodthirst_duration = 3, rage_buff_level_base = 0},
-		2: {crit_chance = 0.175, feral_dmg_gain = 0.003, feral_dmg_max = 2.25, bloodthirst_attackspeed = 1.25, bloodthirst_duration = 4, rage_buff_level_base = 25},
-		3: {crit_chance = 0.200, feral_dmg_gain = 0.004, feral_dmg_max = 2.50, bloodthirst_attackspeed = 1.50, bloodthirst_duration = 5, rage_buff_level_base = 50},
+		1: {crit_chance = 0.1375, feral_dmg_gain = 0.002, feral_dmg_max = 2.00, bloodthirst_attackspeed = 1.00, bloodthirst_duration = 3, rage_buff_level_base = 0},
+		2: {crit_chance = 0.1625, feral_dmg_gain = 0.003, feral_dmg_max = 2.25, bloodthirst_attackspeed = 1.25, bloodthirst_duration = 4, rage_buff_level_base = 25},
+		3: {crit_chance = 0.1875, feral_dmg_gain = 0.004, feral_dmg_max = 2.50, bloodthirst_attackspeed = 1.50, bloodthirst_duration = 5, rage_buff_level_base = 50},
 	}
 
 
-const CRIT_CHANCE_ADD: float = 0.005
 const BLOODTHIRST_ATTACKSPEED_ADD: float = 0.01
 const BLOODTHIRST_DURATION_ADD: float = 0.05
 
@@ -58,8 +57,12 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 
 
+# NOTE: this tower's tooltip in original game includes
+# innate stats in some cases
+# crit chance = yes
+# crit chance add = no
 func load_specials(modifier: Modifier):
-	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, _stats.crit_chance - Constants.INNATE_MOD_ATK_CRIT_CHANCE, CRIT_CHANCE_ADD - Constants.INNATE_MOD_ATK_CRIT_CHANCE_LEVEL_ADD)
+	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, _stats.crit_chance, 0.005)
 
 
 func tower_init():

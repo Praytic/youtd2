@@ -1,16 +1,12 @@
 extends Tower
 
 
-# NOTE: there are some discrepancies between values for
-# specials in tower descriptions vs actual values in JASS
-# code. In some places value in description is equal to
-# value in JASS code + base value for stat, in others it's
-# same as value in JASS code without adding base value for
-# stat. Used same values as in JASS code.
-# 
-# For example, for first tier
-# Tooltip from original game says: "+2% crit chance (+0.35%/lvl)
-# Values from JASS code: "+0.75% crit chance (+0.2%/lvl)"
+# NOTE: this tower's tooltip in original game includes
+# innate stats in some cases
+# crit chance = yes
+# crit chance add = yes for tier1, no for tiers>1 (yes, it's that weird)
+# crit dmg = yes
+# crit dmg add = no
 
 
 func get_tier_stats() -> Dictionary:
