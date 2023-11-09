@@ -177,17 +177,17 @@ func get_type_string() -> String:
 		Type.MOD_MANA_REGEN: return "mana regen"
 		Type.MOD_MANA_REGEN_PERC: return "mana regen"
 
-		Type.MOD_DMG_TO_MASS: return "damage to mass"
-		Type.MOD_DMG_TO_NORMAL: return "damage to normal"
-		Type.MOD_DMG_TO_CHAMPION: return "damage to champion"
-		Type.MOD_DMG_TO_BOSS: return "damage to boss"
+		Type.MOD_DMG_TO_MASS: return "damage to masses"
+		Type.MOD_DMG_TO_NORMAL: return "damage to normals"
+		Type.MOD_DMG_TO_CHAMPION: return "damage to champions"
+		Type.MOD_DMG_TO_BOSS: return "damage to bosses"
 		Type.MOD_DMG_TO_AIR: return "damage to air"
 
 		Type.MOD_DMG_TO_UNDEAD: return "damage to undead"
 		Type.MOD_DMG_TO_MAGIC: return "damage to magic"
 		Type.MOD_DMG_TO_NATURE: return "damage to nature"
-		Type.MOD_DMG_TO_ORC: return "damage to orc"
-		Type.MOD_DMG_TO_HUMANOID: return "damage to humanoid"
+		Type.MOD_DMG_TO_ORC: return "damage to orcs"
+		Type.MOD_DMG_TO_HUMANOID: return "damage to humanoids"
 		Type.MOD_DMG_TO_CHALLENGE: return "damage to challenge"
 
 		Type.MOD_DMG_FROM_ASTRAL: return "damage from astral"
