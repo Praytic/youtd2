@@ -22,10 +22,15 @@ func get_ability_description_short() -> String:
 	return text
 
 
+# NOTE: tooltip in original game includes innate stats in some cases
+# crit chance = yes
+# crit chance add = no
+# crit dmg = yes
+# crit dmg add = no
 func load_specials(modifier: Modifier):
 	_set_attack_style_bounce(4, 0.10)
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.15, 0.005)
-	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 1.5, 0.05)
+	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.1375, 0.005)
+	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.25, 0.05)
 
 
 func tower_init():
