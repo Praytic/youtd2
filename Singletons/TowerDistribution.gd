@@ -294,7 +294,7 @@ func _generate_random_tower_for_element(wave_level: int, element: Element.enm) -
 
 #		NOTE: remove all unreleased towers if config option
 #		is enabled
-		if !Config.load_unreleased_towers():
+		if !Settings.get_bool_setting(Settings.ENABLE_UNRELEASED_TOWERS):
 			group = group.filter(func(tower):
 				var is_released: int = TowerProperties.is_released(tower)
 

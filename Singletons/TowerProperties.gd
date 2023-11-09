@@ -55,7 +55,7 @@ func get_tier_icon_texture(tower_id: int) -> Texture2D:
 
 
 func is_released(tower_id: int) -> bool:
-	if Config.load_unreleased_towers():
+	if Settings.get_bool_setting(Settings.ENABLE_UNRELEASED_TOWERS):
 		return true
 
 	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.RELEASE).to_int() as bool
