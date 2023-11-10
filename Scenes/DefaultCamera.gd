@@ -3,13 +3,15 @@ extends Camera2D
 signal camera_moved(shift_vector)
 signal camera_zoomed(zoom_value)
 
-const MOVE_BY_MOUSE_MARGIN: float = 0.01
 
 @export var cam_move_speed_base: float = 1500.0
 @export var maximum_zoom_in: float = 0.4
 @export var minimum_zoom_out: float = 1.0
 @export var zoom_sensitivity: float = 1.0
 @export var mousewheel_zoom_speed: float = 0.4
+@export var SLOW_SCROLL_MARGIN: float = 0.010
+@export var FAST_SCROLL_MARGIN: float = 0.002
+@export var SLOW_SCROLL_MULTIPLIER: float = 0.5
 
 
 func _ready():
@@ -24,15 +26,27 @@ func _physics_process(delta):
 	var mouse_pos: Vector2 = get_viewport().get_mouse_position()
 	var screen_size: Vector2 = get_viewport_rect().size
 
+	var mouse_ratio: Vector2 = mouse_pos / screen_size
+
 	var move_direction_from_mouse: Vector2 = Vector2.ZERO
-	if (mouse_pos.x / screen_size.x) < MOVE_BY_MOUSE_MARGIN:
+	if mouse_ratio.x < SLOW_SCROLL_MARGIN:
 		move_direction_from_mouse.x += -1.0
-	if (mouse_pos.x / screen_size.x) > 1.0 - MOVE_BY_MOUSE_MARGIN:
+	if mouse_ratio.x > 1.0 - SLOW_SCROLL_MARGIN:
 		move_direction_from_mouse.x += 1.0
-	if (mouse_pos.y / screen_size.y) < MOVE_BY_MOUSE_MARGIN:
+	if mouse_ratio.y < SLOW_SCROLL_MARGIN:
 		move_direction_from_mouse.y += -1.0
-	if (mouse_pos.y / screen_size.y) > 1.0 - MOVE_BY_MOUSE_MARGIN:
+	if mouse_ratio.y > 1.0 - SLOW_SCROLL_MARGIN:
 		move_direction_from_mouse.y += 1.0
+		
+	var mouse_scroll_at_fast_speed: bool = false
+	if mouse_ratio.x < FAST_SCROLL_MARGIN:
+		mouse_scroll_at_fast_speed = true
+	if mouse_ratio.y < FAST_SCROLL_MARGIN:
+		mouse_scroll_at_fast_speed = true
+	if mouse_ratio.y > 1.0 - FAST_SCROLL_MARGIN:
+		mouse_scroll_at_fast_speed = true
+	if mouse_ratio.x > 1.0 - FAST_SCROLL_MARGIN:
+		mouse_scroll_at_fast_speed = true
 
 	var move_direction_from_keyboard: Vector2 = Vector2.ZERO
 	if Input.is_action_pressed("ui_left"):
@@ -52,6 +66,9 @@ func _physics_process(delta):
 	elif move_direction_from_mouse != Vector2.ZERO:
 		move_direction = move_direction_from_mouse
 		move_speed = speed_from_mouse
+
+		if !mouse_scroll_at_fast_speed:
+			move_speed *= SLOW_SCROLL_MULTIPLIER
 
 #	NOTE: normalize direction vector so that camera moves at
 #	the same speed in all directions
