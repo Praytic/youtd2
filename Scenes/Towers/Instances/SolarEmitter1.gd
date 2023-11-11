@@ -34,7 +34,7 @@ func get_ability_description_short() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]Sunshine - Aura[/color]\n"
-	text += "Reduces the armor of creeps in range and makes them more vulnerabile to damage from Astral, Fire, Iron and Nature towers by.\n"
+	text += "Reduces the armor of creeps in range and makes them more vulnerable to damage from Astral, Fire, Iron and Nature towers.\n"
 
 	return text
 

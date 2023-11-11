@@ -46,7 +46,7 @@ func get_ability_description_short() -> String:
 	text += "This tower has a chance on damage to release a powerful energy blast at the cost of some mana.\n"
 	text += " \n"
 	text += "[color=GOLD]Mana Distortion Field - Aura[/color]\n"
-	text += "Nearby towers range burn creep mana on attack.\n"
+	text += "Nearby towers burn creep mana when attacking.\n"
 
 	return text
 
