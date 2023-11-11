@@ -718,10 +718,7 @@ func _update_target_list():
 			removed_target_list.append(target)
 
 	for target in removed_target_list:
-		_target_list.erase(target)
-		
-		if is_instance_valid(target):
-			target.death.disconnect(_on_target_death)
+		_remove_target(target)
 
 # 	Remove targets if target list size is too large. For
 # 	example, if a tower ability temporarily increased target
