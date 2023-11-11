@@ -47,7 +47,9 @@ var _splash_map: Dictionary = {}
 var _bounce_count_max: int = 0
 var _bounce_damage_multiplier: float = 0.0
 var _attack_style: AttackStyle = AttackStyle.NORMAL
-var _target_list: Array[Creep] = []
+# NOTE: _target_list must be an untyped Array because it may
+# contain invalid instances.
+var _target_list: Array = []
 var _target_count_max: int = 1
 var _default_projectile_type: ProjectileType
 var _current_attack_cooldown: float = 0.0
@@ -541,6 +543,14 @@ func _try_to_attack() -> bool:
 		var target: Creep = null
 
 		for the_target in _target_list:
+#			NOTE: need to check for unit validy here because
+#			targets during multishot attacks may become
+#			invalid. For example, if a previously attacked
+#			creep has a debuff which makes it explode and it
+#			kills another target nearby.
+			if !Utils.unit_is_valid(the_target):
+				continue
+
 			var already_attacked: bool = already_attacked_list.has(the_target)
 
 			if !already_attacked:
@@ -745,7 +755,9 @@ func _add_target(target: Creep):
 	target.death.connect(_on_target_death.bind(target))
 
 
-func _remove_target(target: Creep):
+# NOTE: arg needs to be untyped because it may be an invalid
+# instance.
+func _remove_target(target):
 	if is_instance_valid(target):
 		target.death.disconnect(_on_target_death)
 
@@ -1069,7 +1081,9 @@ func _on_item_container_items_changed():
 # but it's simpler this way. For example, it checks if
 # target is invisible even though the get_units_in_range()
 # f-n already filters out invisible creeps.
-func _target_is_valid(target: Creep) -> bool:
+# NOTE: arg needs to be untyped because it may be an invalid
+# instance.
+func _target_is_valid(target) -> bool:
 #	NOTE: return early here, so that if unit instance is
 #	invalid, we don't call f-ns on it - that would cause
 #	errors
