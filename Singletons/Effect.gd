@@ -125,10 +125,16 @@ func destroy_effect(effect_id: int):
 	if !_effect_map.has(effect_id):
 		return
 
-	var effect: Node2D = _effect_map[effect_id]
-	_effect_map.erase(effect_id)
-	effect.queue_free()
+#	NOTE: effect instance may be invalid if effect was added
+#	as child of unit, that unit died, effect's lifetime
+#	timer timed out and called destroy_effect(). In such
+#	cases the effect instance is already free'd so we skip
+#	freeing it here.
+	if is_instance_valid(_effect_map[effect_id]):
+		var effect: Node2D = _effect_map[effect_id]
+		effect.queue_free()
 
+	_effect_map.erase(effect_id)
 	_free_id_list.append(effect_id)
 
 
