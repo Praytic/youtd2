@@ -60,7 +60,7 @@ func tower_init():
 	gex_rage_buff.set_buff_modifier(m)
 	gex_rage_buff.set_buff_icon("@@0@@")
 	gex_rage_buff.set_stacking_group("gex_rage")
-	gex_rage_buff.set_buff_tooltip("Title\nDescription.")
+	gex_rage_buff.set_buff_tooltip("Rampage\nThis tower is on a Rampage; it has increased attackspeed, crit chance and crit damage.")
 
 	var m_15: Modifier = Modifier.new()
 	m_15.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.5, 0.0)
@@ -71,7 +71,7 @@ func tower_init():
 	gex_rage_buff_15.set_buff_modifier(m_15)
 	gex_rage_buff_15.set_buff_icon("@@0@@")
 	gex_rage_buff_15.set_stacking_group("gex_rage")
-	gex_rage_buff_15.set_buff_tooltip("Title\nDescription.")
+	gex_rage_buff_15.set_buff_tooltip("Rampage\nThis tower is on a Rampage; it has increased attackspeed, crit chance, crit damage and increased multicrit.")
 
 	var m_25: Modifier = Modifier.new()
 	m_25.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.5, 0.0)
@@ -82,7 +82,7 @@ func tower_init():
 	gex_rage_buff_25.set_buff_modifier(m_25)
 	gex_rage_buff_25.set_buff_icon("@@0@@")
 	gex_rage_buff_25.set_stacking_group("gex_rage")
-	gex_rage_buff_25.set_buff_tooltip("Title\nDescription.")
+	gex_rage_buff_25.set_buff_tooltip("Rampage\nThis tower is on a Rampage; it has increased attackspeed, crit chance, crit damage and increased multicrit.")
 
 
 func on_attack(_event: Event):

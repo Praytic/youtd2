@@ -44,7 +44,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.30, 0.006)
 	sir_timevault_aura_bt.set_buff_modifier(mod)
 	sir_timevault_aura_bt.set_buff_icon("@@0@@")
-	sir_timevault_aura_bt.set_buff_tooltip("Title\nDescription.")
+	sir_timevault_aura_bt.set_buff_tooltip("Time Travel\nThis unit is scheduled for Time Travel; it will soon be teleported back to an old position.")
 
 
 func get_aura_types() -> Array[AuraType]:

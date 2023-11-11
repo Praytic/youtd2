@@ -119,7 +119,7 @@ func tower_init():
 	tomy_phoenix_fire_buff.set_buff_modifier(mod)
 	tomy_phoenix_fire_buff.add_event_on_cleanup(phoenix_fire_buff_on_cleanup)
 	tomy_phoenix_fire_buff.add_event_on_purge(phoenix_fire_buff_on_purge)
-	tomy_phoenix_fire_buff.set_buff_tooltip("Title\nDescription.")
+	tomy_phoenix_fire_buff.set_buff_tooltip("Phoenixfire\nThis unit is affected by Phoenixfire; it has reduced armor and it will explode when the debuff expires.")
 
 	tomy_phoenix_pt = ProjectileType.create_interpolate("Phoenix_Missile.mdl", 800, self)
 	tomy_phoenix_pt.set_event_on_interpolation_finished(tomy_phoenix_attack_hit)
