@@ -142,3 +142,19 @@ func is_challenge(type: CreepSize.enm) -> bool:
 
 func get_base_mana(type: CreepSize.enm) -> float:
 	return _base_mana_map[type]
+
+
+func convert_to_mod_dmg_type(category: CreepSize.enm) -> Modification.Type:
+	const creep_size_to_mod_map: Dictionary = {
+		CreepSize.enm.MASS: Modification.Type.MOD_DMG_TO_MASS,
+		CreepSize.enm.NORMAL: Modification.Type.MOD_DMG_TO_NORMAL,
+		CreepSize.enm.CHAMPION: Modification.Type.MOD_DMG_TO_CHAMPION,
+		CreepSize.enm.BOSS: Modification.Type.MOD_DMG_TO_BOSS,
+		CreepSize.enm.AIR: Modification.Type.MOD_DMG_TO_AIR,
+		CreepSize.enm.CHALLENGE_MASS: Modification.Type.MOD_DMG_TO_MASS,
+		CreepSize.enm.CHALLENGE_BOSS: Modification.Type.MOD_DMG_TO_BOSS,
+	}
+
+	var mod_type: Modification.Type = creep_size_to_mod_map[category]
+
+	return mod_type

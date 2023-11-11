@@ -764,7 +764,8 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	if crit_count == -1:
 		crit_count = _derive_crit_count_from_crit_ratio(crit_ratio, damage_source)
 
-	var size_mod: float = _get_damage_mod_for_creep_size(target)
+	var target_size: CreepSize.enm = target.get_size()
+	var size_mod: float = get_damage_to_size(target_size)
 	var category_mod: float = get_damage_to_category(target.get_category())
 	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
 
@@ -1343,6 +1344,7 @@ func get_overall_health() -> float:
 	return max(1, (get_base_health() + get_base_health_bonus()) * get_base_health_bonus_percent())
 
 # Returns current percentage of health
+# NOTE: unit.getLifePercent() in JASS
 func get_health_ratio() -> float:
 	var overall_health: float = get_overall_health()
 	var ratio: float = Utils.get_ratio(_health, overall_health)
@@ -1471,27 +1473,18 @@ func _get_damage_mod_for_creep_armor_type(creep: Creep) -> float:
 
 	return damage_mod
 
-func _get_damage_mod_for_creep_size(creep: Creep) -> float:
-	const creep_size_to_mod_map: Dictionary = {
-		CreepSize.enm.MASS: Modification.Type.MOD_DMG_TO_MASS,
-		CreepSize.enm.NORMAL: Modification.Type.MOD_DMG_TO_NORMAL,
-		CreepSize.enm.CHAMPION: Modification.Type.MOD_DMG_TO_CHAMPION,
-		CreepSize.enm.BOSS: Modification.Type.MOD_DMG_TO_BOSS,
-		CreepSize.enm.AIR: Modification.Type.MOD_DMG_TO_AIR,
-		CreepSize.enm.CHALLENGE_MASS: Modification.Type.MOD_DMG_TO_MASS,
-		CreepSize.enm.CHALLENGE_BOSS: Modification.Type.MOD_DMG_TO_BOSS,
-	}
 
-	var creep_size: CreepSize.enm = creep.get_size()
-	var mod_type: Modification.Type = creep_size_to_mod_map[creep_size]
+# NOTE: unit.getDamageToCategory() in JASS
+func get_damage_to_category(category: CreepCategory.enm) -> float:
+	var mod_type: Modification.Type = CreepCategory.convert_to_mod_dmg_type(category)
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
 
 
-# NOTE: unit.getDamageToCategory() in JASS
-func get_damage_to_category(category: CreepCategory.enm) -> float:
-	var mod_type: Modification.Type = CreepCategory.convert_to_mod_dmg_type(category)
+# NOTE: unit.getDamageToSize() in JASS
+func get_damage_to_size(creep_size: CreepSize.enm) -> float:
+	var mod_type: Modification.Type = CreepSize.convert_to_mod_dmg_type(creep_size)
 	var damage_mod: float = _mod_value_map[mod_type]
 
 	return damage_mod
