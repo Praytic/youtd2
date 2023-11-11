@@ -429,9 +429,6 @@ func get_specials_tooltip_text() -> String:
 	elif attacks_air_only:
 		text += "[color=RED]Attacks AIR only[/color]\n"
 
-	if _target_count_max > 1:
-		text += "[b][color=GOLD]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_max
-
 	match _attack_style:
 		AttackStyle.SPLASH:
 			text += _get_splash_attack_tooltip_text()
@@ -442,6 +439,11 @@ func get_specials_tooltip_text() -> String:
 
 	var modifier_text: String = _specials_modifier.get_tooltip_text()
 	text += modifier_text
+
+	if _target_count_max > 1:
+		if !text.is_empty():
+			text += " \n"
+		text += "[b][color=GOLD]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_max
 
 	return text
 
