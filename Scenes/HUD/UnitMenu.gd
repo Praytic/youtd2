@@ -91,6 +91,8 @@ func _on_selected_unit_changed(prev_unit: Unit):
 
 	var tower: Tower = get_selected_tower()
 	var creep: Creep = get_selected_creep()
+	var selected_tower: bool = tower != null
+	var selected_creep: bool = creep != null
 	assert(not (tower != null and creep != null), "Both tower and creep are selected.")
 	
 	visible = tower != null or creep != null
@@ -103,7 +105,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	if prev_unit != null and prev_unit is Creep:
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
 	
-	if tower != null:
+	if selected_tower:
 		tower.items_changed.connect(on_tower_items_changed.bind(tower))
 		tower.buff_list_changed.connect(_on_unit_buff_list_changed.bind(tower))
 		tower.level_changed.connect(_update_unit_level_label.bind(tower))
@@ -123,12 +125,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		var upgrade_button_should_be_visible: bool = Globals.game_mode == GameMode.enm.BUILD || Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
 		_upgrade_button.set_visible(upgrade_button_should_be_visible)
 		_sell_button.show()
-
-		if _unit_stats_menu.visible:
-			_creep_stats_menu.hide()
-			_unit_stats_menu.show()
-
-	if creep != null:
+	elif selected_creep:
 		creep.buff_list_changed.connect(_on_unit_buff_list_changed.bind(creep))
 		_update_unit_name_label(creep)
 		_on_unit_buff_list_changed(creep)
@@ -143,9 +140,9 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_upgrade_button.hide()
 		_sell_button.hide()
 
-		if _unit_stats_menu.visible:
-			_unit_stats_menu.hide()
-			_creep_stats_menu.show()
+	if !_is_showing_main_page():
+		_unit_stats_menu.visible = selected_tower
+		_creep_stats_menu.visible = selected_creep
 
 	_set_selling_for_real(false)
 
@@ -386,7 +383,7 @@ func _set_selling_for_real(value: bool):
 
 
 func _on_info_button_pressed():
-	var was_showing_main_page: bool = _unit_control_menu.visible
+	var was_showing_main_page: bool = _is_showing_main_page()
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 	var show_tower_stats: bool = selected_unit is Tower && was_showing_main_page
 	var show_creep_stats: bool = selected_unit is Creep && was_showing_main_page
@@ -505,3 +502,9 @@ func _get_specials_text_for_creep(unit: Unit):
 		text += " \n"
 
 	return text
+
+
+func _is_showing_main_page() -> bool:
+	var showing_main_page: bool = _unit_control_menu.visible
+
+	return showing_main_page
