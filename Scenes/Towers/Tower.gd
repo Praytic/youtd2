@@ -820,6 +820,13 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 	creep_list.erase(splash_target)
 
 	for neighbor in creep_list:
+#		NOTE: need to check validity because splash attack
+#		may trigger an exploding creep ability which will
+#		kill other splash attack targets before they are
+#		processed.
+		if !Utils.unit_is_valid(neighbor):
+			continue
+
 		var distance: float = Isometric.vector_distance_to(splash_pos, neighbor.position)
 
 		for splash_range in splash_range_list:
