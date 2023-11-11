@@ -75,13 +75,8 @@ static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, fac
 	return projectile
 
 
-# TODO: ignore_target_z - ignore target height value,
-# projectile flies straight without changing it's height to
-# match target height. Probably relevant to air units?
-# NOTE: Projectile.createFromUnitToUnit() in JASS
-static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var initial_pos: Vector2 = from.get_visual_position()
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_pos)
+static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
 
 	projectile._move_type = MoveType.TARGETED
 	projectile._target = target
@@ -91,6 +86,13 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 		projectile._set_lifetime(type._lifetime)
 
 	projectile._map_node.add_child(projectile)
+
+	return projectile
+
+
+static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, targeted: bool, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var from_pos: Vector2 = from.get_visual_position()
+	var projectile: Projectile = Projectile.create_from_point_to_unit(type, caster, damage_ratio, crit_ratio, from_pos, target, targeted, ignore_target_z, expire_when_reached)
 
 	return projectile
 
