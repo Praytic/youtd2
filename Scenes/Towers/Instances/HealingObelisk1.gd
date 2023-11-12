@@ -1,8 +1,5 @@
 extends Tower
 
-# NOTE: not a real tower script, used as a template for
-# tower scripts.
-
 
 func get_tier_stats() -> Dictionary:
 	return {
