@@ -17,6 +17,7 @@ const ENABLE_SFX: String = "enable_sfx"
 const ENABLE_UNRELEASED_TOWERS: String = "enable_unreleased_towers"
 const MOUSE_SCROLL: String = "mouse_scroll"
 const KEYBOARD_SCROLL: String = "keyboard_scroll"
+const ENABLE_MOUSE_SCROLL: String = "enable_mouse_scroll"
 
 
 var _cache: Dictionary = {}
@@ -27,6 +28,7 @@ var _default_value_map: Dictionary = {
 	ENABLE_UNRELEASED_TOWERS: false,
 	MOUSE_SCROLL: 0.5,
 	KEYBOARD_SCROLL: 0.5,
+	ENABLE_MOUSE_SCROLL: true,
 }
 
 

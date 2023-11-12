@@ -20,6 +20,7 @@ func _ready():
 
 
 func _physics_process(delta):
+	var mouse_scroll_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_MOUSE_SCROLL)
 	var speed_from_mouse: float = _get_cam_speed_from_setting(Settings.MOUSE_SCROLL)
 	var speed_from_keyboard: float = _get_cam_speed_from_setting(Settings.KEYBOARD_SCROLL)
 
@@ -63,7 +64,7 @@ func _physics_process(delta):
 	if move_direction_from_keyboard != Vector2.ZERO:
 		move_direction = move_direction_from_keyboard
 		move_speed = speed_from_keyboard
-	elif move_direction_from_mouse != Vector2.ZERO:
+	elif move_direction_from_mouse != Vector2.ZERO && mouse_scroll_is_enabled:
 		move_direction = move_direction_from_mouse
 		move_speed = speed_from_mouse
 

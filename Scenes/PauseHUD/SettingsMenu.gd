@@ -5,6 +5,7 @@ extends PanelContainer
 @export var _damage_numbers: CheckBox
 @export var _enable_sfx: CheckBox
 @export var _enable_unreleased_towers: CheckBox
+@export var _enable_mouse_scroll: CheckBox
 @export var _mouse_scroll: Slider
 @export var _keyboard_scroll: Slider
 
@@ -19,6 +20,7 @@ func _ready():
 		Settings.SHOW_ALL_DAMAGE_NUMBERS: _damage_numbers,
 		Settings.ENABLE_SFX: _enable_sfx,
 		Settings.ENABLE_UNRELEASED_TOWERS: _enable_unreleased_towers,
+		Settings.ENABLE_MOUSE_SCROLL: _enable_mouse_scroll,
 	}
 	
 	for setting in _setting_to_checkbox_map.keys():
