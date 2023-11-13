@@ -204,7 +204,7 @@ func _process_targeted(delta: float):
 			else:
 				explosion.position = global_position
 
-			_map_node.add_child(explosion)
+			Utils.add_object_to_world(explosion)
 
 		_cleanup()
 	else:
