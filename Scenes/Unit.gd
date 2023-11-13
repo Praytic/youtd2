@@ -224,6 +224,14 @@ func _ready():
 #########################
 
 
+# Returns name used in the combat log
+func get_log_name():
+	var instance_id: int = get_instance_id()
+	var log_name: String = "Unit-%d" % instance_id
+
+	return log_name
+
+
 func get_aura_list() -> Array[Aura]:
 	return _aura_list
 
@@ -831,6 +839,8 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	var health_before_damage: float = target.get_health()
 	target.set_health(health_before_damage - damage)
 
+	CombatLog.log_damage(self, target, damage_source, damage, crit_ratio)
+
 	Globals.add_to_total_damage(damage)
 
 	_add_floating_text_for_damage(damage, crit_count, damage_source, is_main_target, target)
@@ -885,6 +895,8 @@ func _killed_by_unit(caster: Unit):
 
 # Called when unit kills target unit
 func _accept_kill(target: Unit):
+	CombatLog.log_kill(self, target)
+	
 	var experience_gained: float = _get_experience_for_target(target)
 	_change_experience(experience_gained)
 
@@ -1553,6 +1565,8 @@ func _change_experience(amount: float) -> float:
 		get_player().display_floating_text_color_at_pos(level_up_text, levelup_text_pos, Color.GOLD , 1.0)
 
 		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self, -20.0)
+
+	CombatLog.log_experience(self, amount)
 
 	return actual_change
 

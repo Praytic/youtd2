@@ -297,6 +297,8 @@ func _get_target_for_buff_autocast() -> Unit:
 
 # NOTE: target arg may be null if autocast is immediate
 func _do_cast(target: Unit):
+	CombatLog.log_autocast(_caster, target, self)
+
 	_caster.subtract_mana(mana_cost, false)
 	_cooldown_timer.start()
 	

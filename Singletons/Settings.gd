@@ -8,6 +8,8 @@ extends Node
 # changes. For example, on Windows the path would be:
 # %appdata%/Roaming/Godot/...
 
+signal changed()
+
 const SETTINGS_PATH: String = "user://settings.save"
 
 # List of setting names
@@ -18,6 +20,11 @@ const ENABLE_UNRELEASED_TOWERS: String = "enable_unreleased_towers"
 const MOUSE_SCROLL: String = "mouse_scroll"
 const KEYBOARD_SCROLL: String = "keyboard_scroll"
 const ENABLE_MOUSE_SCROLL: String = "enable_mouse_scroll"
+const SHOW_COMBAT_LOG: String = "show_combat_log"
+# NOTE: storing x and y separately instead of Vector2
+# because Vector2 can't be deserialized from JSON
+const COMBAT_LOG_X: String = "combat_log_x"
+const COMBAT_LOG_Y: String = "combat_log_y"
 
 
 var _cache: Dictionary = {}
@@ -29,6 +36,9 @@ var _default_value_map: Dictionary = {
 	MOUSE_SCROLL: 0.5,
 	KEYBOARD_SCROLL: 0.5,
 	ENABLE_MOUSE_SCROLL: true,
+	SHOW_COMBAT_LOG: false,
+	COMBAT_LOG_X: 20,
+	COMBAT_LOG_Y: 600,
 }
 
 
@@ -79,3 +89,5 @@ func flush():
 	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
 	var cache_string: String = JSON.stringify(_cache, "    ")
 	settings_file.store_line(cache_string)
+
+	changed.emit()

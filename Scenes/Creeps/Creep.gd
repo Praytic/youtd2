@@ -22,6 +22,9 @@ var _height_tween: Tween = null
 var _spawn_level: int
 var _special_list: Array[int] = []
 
+static var _id_max: int = 1
+var _id: int
+
 # TODO: can't use @export here because there's no Creep.tscn
 # - only subclass scenes. Create base class Creep.tscn to
 # fix this.
@@ -37,6 +40,9 @@ var _special_list: Array[int] = []
 
 func _ready():
 	super()
+
+	_id = _id_max
+	_id_max += 1
 
 	add_to_group("creeps")
 	
@@ -76,6 +82,13 @@ func _process(delta):
 #########################
 ###       Public      ###
 #########################
+
+
+func get_log_name() -> String:
+	var size_name: String = CreepSize.convert_to_string(get_size())
+	var log_name: String = "%s-%d" % [size_name, _id]
+
+	return log_name
 
 
 # NOTE: SetUnitTimeScale() in JASS

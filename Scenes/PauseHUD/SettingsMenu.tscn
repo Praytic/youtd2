@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/PauseHUD/SettingsMenu.gd" id="2_2dtmk"]
 
-[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx", "_enable_unreleased_towers", "_enable_mouse_scroll", "_mouse_scroll", "_keyboard_scroll")]
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx", "_enable_unreleased_towers", "_enable_mouse_scroll", "_show_combat_log", "_mouse_scroll", "_keyboard_scroll")]
 custom_minimum_size = Vector2(800, 600)
 script = ExtResource("2_2dtmk")
 _old_item_names = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/OldItemNames")
@@ -10,6 +10,7 @@ _damage_numbers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxCo
 _enable_sfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/EnableSfx")
 _enable_unreleased_towers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/EnableUnreleasedTowers")
 _enable_mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/EnableMouseScroll")
+_show_combat_log = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6/ShowCombatLog")
 _mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MouseScroll")
 _keyboard_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/KeyboardScroll")
 
@@ -86,6 +87,16 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 text = "Enable mouse scroll"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ShowCombatLog" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Show combat log"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2

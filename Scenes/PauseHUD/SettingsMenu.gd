@@ -6,6 +6,7 @@ extends PanelContainer
 @export var _enable_sfx: CheckBox
 @export var _enable_unreleased_towers: CheckBox
 @export var _enable_mouse_scroll: CheckBox
+@export var _show_combat_log: CheckBox
 @export var _mouse_scroll: Slider
 @export var _keyboard_scroll: Slider
 
@@ -21,6 +22,7 @@ func _ready():
 		Settings.ENABLE_SFX: _enable_sfx,
 		Settings.ENABLE_UNRELEASED_TOWERS: _enable_unreleased_towers,
 		Settings.ENABLE_MOUSE_SCROLL: _enable_mouse_scroll,
+		Settings.SHOW_COMBAT_LOG: _show_combat_log,
 	}
 	
 	for setting in _setting_to_checkbox_map.keys():

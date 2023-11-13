@@ -65,6 +65,12 @@ func _ready():
 	var create_event: Event = _make_buff_event(_target)
 	_call_event_handler_list(Event.Type.CREATE, create_event)
 
+#	NOTE: every unit has a trigger buff, don't add it to
+#	combat log - it would clutter up the log
+	var is_trigger_buff: bool = get_type().is_empty()
+	if !is_trigger_buff:
+		CombatLog.log_buff_apply(_caster, _target, self)
+
 
 func is_friendly() -> bool:
 	return _friendly

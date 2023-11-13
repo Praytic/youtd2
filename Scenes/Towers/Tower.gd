@@ -244,6 +244,11 @@ func _ready():
 	_tower_actions.set_tower(self)
 
 
+func get_log_name() -> String:
+	return get_display_name()
+
+
+
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
 func _process(delta: float):

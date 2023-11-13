@@ -1,0 +1,78 @@
+[gd_scene load_steps=4 format=3 uid="uid://bx5csta8pr8j0"]
+
+[ext_resource type="PackedScene" uid="uid://b5c8ayamq02xc" path="res://Scenes/HUD/MovableWindow.tscn" id="1_idb0e"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="2_0ysdc"]
+[ext_resource type="Script" path="res://Scenes/HUD/CombatLogWindow.gd" id="2_oel1x"]
+
+[node name="CombatLogWindow" node_paths=PackedStringArray("_label", "_up_button", "_down_button") instance=ExtResource("1_idb0e")]
+custom_minimum_size = Vector2(1000, 600)
+offset_right = 500.0
+offset_bottom = 340.0
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
+theme = ExtResource("2_0ysdc")
+script = ExtResource("2_oel1x")
+_label = NodePath("MarginContainer/HBoxContainer/PanelContainer2/RichTextLabel")
+_up_button = NodePath("MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/UpButton")
+_down_button = NodePath("MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/DownButton")
+
+[node name="MarginContainer" type="MarginContainer" parent="." index="1"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" index="0"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="ClearButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer" index="0"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "🚮"
+
+[node name="UpButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "🔼"
+
+[node name="DownButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer" index="2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "🔽"
+
+[node name="AutoDownButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer" index="3"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+tooltip_text = "Scroll down to newest entries"
+theme_override_font_sizes/font_size = 30
+text = "⏬"
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer/PanelContainer2" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 2
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/bold_font_size = 22
+theme_override_font_sizes/italics_font_size = 22
+theme_override_font_sizes/bold_italics_font_size = 22
+theme_override_font_sizes/mono_font_size = 22
+text = "text"
+selection_enabled = true
+
+[connection signal="drag_finished" from="." to="." method="_on_drag_finished"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/AutoDownButton" to="." method="_on_auto_down_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=15 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ckiupnhfj32n6" path="res://Scenes/HUD/HoradricMenu2.tscn" id="11_lvdfq"]
 [ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://Assets/UI/HUD/darkness_face.png" id="12_2mxp4"]
 [ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://Assets/UI/HUD/tranquility_face.png" id="13_n0pc1"]
+[ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://Scenes/HUD/CombatLogWindow.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/UnitMenu.tscn" id="15_rfxf1"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
@@ -254,5 +255,12 @@ texture_filter = 4
 layout_mode = 2
 texture = ExtResource("13_n0pc1")
 expand_mode = 1
+
+[node name="CombatLogWindow" parent="." instance=ExtResource("14_g64vx")]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 600.0
+offset_right = 1020.0
+offset_bottom = 1200.0
 
 [connection signal="hidden" from="BottomMenuBar" to="." method="_on_right_menu_bar_hidden"]

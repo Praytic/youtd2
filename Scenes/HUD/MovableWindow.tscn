@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5c8ayamq02xc"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/MovableWindow.gd" id="1_kbggf"]
+
+[node name="MovableWindow" type="VBoxContainer" node_paths=PackedStringArray("_title_panel")]
+custom_minimum_size = Vector2(500, 300)
+script = ExtResource("1_kbggf")
+_title_panel = NodePath("TitlePanel")
+
+[node name="TitlePanel" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TitleLabel" type="Label" parent="TitlePanel"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Combat Log"
