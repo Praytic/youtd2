@@ -50,6 +50,7 @@ config/override_wave_specials=[]
 config/print_sfx_errors=false
 config/unlimited_food=false
 config/allow_transform_in_build_mode=false
+config/load_only_orc_scenes=true
 
 [autoload]
 
@@ -103,6 +104,7 @@ CombatLog="*res://Singletons/CombatLog.gd"
 
 [debug]
 
+settings/stdout/print_fps=true
 settings/stdout/verbose_stdout=true
 gdscript/warnings/return_value_discarded=false
 gdscript/warnings/assert_always_false=0

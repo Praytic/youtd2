@@ -496,6 +496,15 @@ static func get_scene_name_for_creep_type(creep_size: CreepSize.enm, creep_race:
 
 	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
 	var creep_race_string: String = CreepCategory.convert_to_string(creep_race)
+#	NOTE: currently, all creep races use orc scenes. Loading
+#	only orc scenes because loading creep scenes is taking a
+#	long time in-game and it serves no purpose, because
+#	again, all creeps are orcs visually.
+# 	Remove this when other creep race scenes are added but
+# 	should also improve perfomance so that loading creep
+# 	scenes doesn't lag the game.
+	if Config.load_only_orc_scenes():
+		creep_race_string = CreepCategory.convert_to_string(CreepCategory.enm.ORC)
 	var scene_name: String = creep_race_string.capitalize() + creep_size_string.capitalize()
 
 	return scene_name

@@ -155,3 +155,6 @@ func unlimited_food() -> bool:
 
 func allow_transform_in_build_mode() -> bool:
 	return ProjectSettings.get_setting("application/config/allow_transform_in_build_mode") as bool
+
+func load_only_orc_scenes() -> bool:
+	return ProjectSettings.get_setting("application/config/load_only_orc_scenes") as bool
