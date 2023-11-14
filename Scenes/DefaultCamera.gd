@@ -31,13 +31,13 @@ func _physics_process(delta):
 
 	var move_direction_from_mouse: Vector2 = Vector2.ZERO
 	if mouse_ratio.x < SLOW_SCROLL_MARGIN:
-		move_direction_from_mouse.x += -1.0
+		move_direction_from_mouse += Vector2.LEFT
 	if mouse_ratio.x > 1.0 - SLOW_SCROLL_MARGIN:
-		move_direction_from_mouse.x += 1.0
+		move_direction_from_mouse += Vector2.RIGHT
 	if mouse_ratio.y < SLOW_SCROLL_MARGIN:
-		move_direction_from_mouse.y += -1.0
+		move_direction_from_mouse += Vector2.UP
 	if mouse_ratio.y > 1.0 - SLOW_SCROLL_MARGIN:
-		move_direction_from_mouse.y += 1.0
+		move_direction_from_mouse += Vector2.DOWN
 		
 	var mouse_scroll_at_fast_speed: bool = false
 	if mouse_ratio.x < FAST_SCROLL_MARGIN:
@@ -51,13 +51,13 @@ func _physics_process(delta):
 
 	var move_direction_from_keyboard: Vector2 = Vector2.ZERO
 	if Input.is_action_pressed("ui_left"):
-		move_direction_from_keyboard.x += -1.0
+		move_direction_from_keyboard += Vector2.LEFT
 	if Input.is_action_pressed("ui_right"):
-		move_direction_from_keyboard.x += 1.0
+		move_direction_from_keyboard += Vector2.RIGHT
 	if Input.is_action_pressed("ui_up"):
-		move_direction_from_keyboard.y += -1.0
+		move_direction_from_keyboard += Vector2.UP
 	if Input.is_action_pressed("ui_down"):
-		move_direction_from_keyboard.y += 1.0
+		move_direction_from_keyboard += Vector2.DOWN
 
 	var move_direction: Vector2 = Vector2.ZERO
 	var move_speed: float = 0.0
