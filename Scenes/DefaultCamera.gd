@@ -5,8 +5,8 @@ signal camera_zoomed(zoom_value)
 
 
 @export var cam_move_speed_base: float = 1500.0
-@export var maximum_zoom_in: float = 0.4
-@export var minimum_zoom_out: float = 1.0
+@export var zoom_min: float = 0.7
+@export var zoom_max: float = 1.1
 @export var zoom_sensitivity: float = 1.0
 @export var mousewheel_zoom_speed: float = 0.4
 @export var SLOW_SCROLL_MARGIN: float = 0.010
@@ -96,7 +96,7 @@ func _zoom(event):
 		new_zoom = zoom.y + zoom_amount
 	elif event is InputEventMouseButton && Config.enable_zoom_by_mousewheel():
 #		Make zoom change slower as the camera gets more zoomed in
-		var slow_down_multiplier = zoom.x / minimum_zoom_out
+		var slow_down_multiplier = zoom.x / zoom_max
 		var zoom_change = mousewheel_zoom_speed * slow_down_multiplier
 		
 		match event.get_button_index():
@@ -108,11 +108,8 @@ func _zoom(event):
 				return
 	else:
 		return
-
-	if (new_zoom < maximum_zoom_in):
-		new_zoom = maximum_zoom_in
-	elif (new_zoom > minimum_zoom_out):
-		new_zoom = minimum_zoom_out
+	
+	new_zoom = clampf(new_zoom, zoom_min, zoom_max)
 	zoom = Vector2(new_zoom, new_zoom)
 	
 	camera_zoomed.emit(zoom)
