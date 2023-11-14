@@ -14,13 +14,13 @@ extends MainLoop
 # Output will have 8 rows.
 
 # Run the script with godot's command line executable:
-# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/CreateTilesheet.gd"
+# "C:\Program Files\Godot\Godot_v4.1.1-stable_win64_console.exe" -s "C:/Users/kvely/youtd2/Scripts/CreateTilesheet.gd" -- "barrel"
 
 const ARG_COUNT: int = 1
 
 const CELL_WIDTH: int = 256
 const CELL_HEIGHT: int = 512
-const MARGIN: int = 4
+const MARGIN: int = 0
 const CELL_WIDTH_WITH_MARGIN: int = CELL_WIDTH + MARGIN * 2
 const CELL_HEIGHT_WITH_MARGIN: int = CELL_HEIGHT + MARGIN * 2
 const RESULT_COLUMN_COUNT: int = 8

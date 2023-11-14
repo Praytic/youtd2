@@ -27,7 +27,7 @@ const PNG_SUFFIX: String = ".png"
 
 const CELL_WIDTH: int = 256
 const CELL_HEIGHT: int = 512
-const MARGIN: int = 4
+const MARGIN: int = 0
 const CELL_WIDTH_WITH_MARGIN: int = CELL_WIDTH + MARGIN * 2
 const CELL_HEIGHT_WITH_MARGIN: int = CELL_HEIGHT + MARGIN * 2
 
