@@ -18,6 +18,8 @@ func _ready():
 	if OS.get_name() == "macOS":
 		zoom_sensitivity = 0.1
 
+	zoom = Vector2.ONE * zoom_min
+
 
 func _physics_process(delta):
 	var mouse_scroll_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_MOUSE_SCROLL)
