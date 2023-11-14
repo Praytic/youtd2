@@ -18,7 +18,7 @@ static func load_csv(path: String) -> Array[PackedStringArray]:
 	var file_exists: bool = FileAccess.file_exists(path)
 
 	if !file_exists:
-		print_debug("Failed to load CSV because file doesn't exist. Path: %s", % path)
+		print_debug("Failed to load CSV because file doesn't exist. Path: %s", path)
 
 		return []
 
