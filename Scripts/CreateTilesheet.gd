@@ -65,8 +65,8 @@ func process(filename_beginning: String):
 		return
 
 	var file_count: int = filename_list.size()
-	var result_column_count: int = RESULT_COLUMN_COUNT
-	var result_row_count: int = ceil(float(file_count) / RESULT_COLUMN_COUNT)
+	var result_column_count: int = min(file_count, RESULT_COLUMN_COUNT)
+	var result_row_count: int = ceil(float(file_count) / result_column_count)
 	var result_width: int = result_column_count * CELL_WIDTH_WITH_MARGIN
 	var result_height: int = result_row_count * CELL_HEIGHT_WITH_MARGIN
 
