@@ -75,4 +75,5 @@ text = "text"
 selection_enabled = true
 
 [connection signal="drag_finished" from="." to="." method="_on_drag_finished"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer/AutoDownButton" to="." method="_on_auto_down_button_pressed"]
