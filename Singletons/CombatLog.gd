@@ -18,6 +18,7 @@ enum Type {
 	EXP,
 	ABILITY,
 	AUTOCAST,
+	ITEM_CHARGE,
 }
 
 class Entry:
@@ -46,6 +47,8 @@ class Entry:
 			Type.BUFF_APPLY: return "BUFF_APPLY"
 			Type.EXP: return "EXP"
 			Type.ABILITY: return "ABILITY"
+			Type.AUTOCAST: return "AUTOCAST"
+			Type.ITEM_CHARGE: return "ITEM_CHARGE"
 
 		return "unknown event type"
 
@@ -193,6 +196,39 @@ class AutocastEntry extends Entry:
 			_string = "%s: %s %s %s" % [timestamp_string, type_string, _caster_name, autocast_name_string]
 
 
+class ItemChargeEntry extends Entry:
+	var _carrier_name: String
+	var _item_name: String
+	var _old_charge: int
+	var _new_charge: int
+
+	func _init(item: Item, old_charge: int, new_charge: int):
+		super(CombatLog.Type.ITEM_CHARGE)
+
+		var carrier: Unit = item.get_carrier()
+		if carrier != null:
+			_carrier_name = carrier.get_log_name()
+		else:
+			_carrier_name = "null"
+		_item_name = ItemProperties.get_display_name(item.get_id())
+		_item_name = Utils.get_colored_string(_item_name, Color.LIGHT_BLUE)
+		_old_charge = old_charge
+		_new_charge = new_charge
+
+		var timestamp_string: String = get_timestamp_string()
+		var type_string: String = get_type_string()
+
+		var change_color: Color
+		if new_charge > old_charge:
+			change_color = Color.GREEN
+		else:
+			change_color = Color.RED
+		var change_string: String = "%d->%d" % [old_charge, new_charge]
+		change_string = Utils.get_colored_string(change_string, change_color)
+
+		_string = "%s: %s %s item=\"%s\" %s" % [timestamp_string, type_string, _carrier_name, _item_name, change_string]
+
+
 const LOG_SIZE_MAX: int = 1000
 
 var _entry_list: Array[Entry] = []
@@ -248,6 +284,11 @@ func log_ability(caster: Unit, target: Unit, ability: String):
 # NOTE: target arg may be null
 func log_autocast(caster: Unit, target: Unit, autocast: Autocast):
 	var entry: AutocastEntry = AutocastEntry.new(caster, target, autocast)
+	_log_internal(entry)
+
+
+func log_item_charge(item: Item, old_charge: int, new_charge: int):
+	var entry: ItemChargeEntry = ItemChargeEntry.new(item, old_charge, new_charge)
 	_log_internal(entry)
 
 

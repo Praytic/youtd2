@@ -171,6 +171,9 @@ func add_aura(aura: AuraType):
 # Sets the charge count that is displayed on the item icon.
 # NOTE: item.setCharges() in JASS
 func set_charges(new_count: int):
+	var old_count: int = _charge_count
+	CombatLog.log_item_charge(self, old_count, new_count)
+
 	_charge_count = new_count
 	_uses_charges = true
 	charges_changed.emit()
