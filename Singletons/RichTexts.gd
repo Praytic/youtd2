@@ -68,7 +68,7 @@ func get_creep_info(creep: Creep) -> String:
 
 	text += "[color=YELLOW]Race:[/color] %s\n" % category_string
 	text += "[color=YELLOW]Armor Type:[/color] %s\n" % armor_type_string
-	text += "[color=YELLOW]Armor:[/color] %s %s\n" % [str(armor), armor_bonus_string]
+	text += "[color=YELLOW]Armor:[/color] %s %s\n" % [armor_string, armor_bonus_string]
 	
 	return text
 
