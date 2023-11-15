@@ -1,10 +1,9 @@
 extends MainLoop
 
 
-# Script to take a decoration tileset and transform into 3 variations:
-# 1. original
-# 2. cut version to place above and left of floor2
-# 3. cut version to place above and right of floor2
+# Script to take a decoration tileset and transform into 2 variations:
+# 1. cut version to place above and left of floor2
+# 2. cut version to place above and right of floor2
 # Note that this script adds +20 to height because it
 # assumes that floor2 tiles are the full height brick
 # versions. If floor2 tiles are "short" dirt tiles, then
@@ -85,7 +84,7 @@ func process_path(path: String):
 
 	var column_count: int = int(original_image.get_width() / CELL_WIDTH_WITH_MARGIN)
 	var row_count: int = int(original_image.get_height() / CELL_HEIGHT_WITH_MARGIN)
-	var new_row_count: int = row_count * 3
+	var new_row_count: int = row_count * 2
 	var new_column_count: int = column_count
 	var new_tilesheet_width: int = new_column_count * CELL_WIDTH_WITH_MARGIN
 	var new_tilesheet_height: int = new_row_count * CELL_HEIGHT_WITH_MARGIN
@@ -104,17 +103,14 @@ func process_path(path: String):
 					var is_part_of_section_2: bool = need_to_copy_pixel(cell_pos, above_and_left_of_wall)
 					var is_part_of_section_3: bool = need_to_copy_pixel(cell_pos, above_and_right_of_wall)
 
-					var new_tilesheet_y_1: int = cell_y + MARGIN + CELL_HEIGHT_WITH_MARGIN * row * 3
+					var new_tilesheet_y_1: int = cell_y + MARGIN + CELL_HEIGHT_WITH_MARGIN * row * 2
 					var new_tilesheet_y_2: int = new_tilesheet_y_1 + CELL_HEIGHT_WITH_MARGIN
-					var new_tilesheet_y_3: int = new_tilesheet_y_2 + CELL_HEIGHT_WITH_MARGIN
-
-					atlas_image.set_pixel(tilesheet_x, new_tilesheet_y_1, pixel)
 
 					if is_part_of_section_2:
-						atlas_image.set_pixel(tilesheet_x, new_tilesheet_y_2, pixel)
+						atlas_image.set_pixel(tilesheet_x, new_tilesheet_y_1, pixel)
 
 					if is_part_of_section_3:
-						atlas_image.set_pixel(tilesheet_x, new_tilesheet_y_3, pixel)
+						atlas_image.set_pixel(tilesheet_x, new_tilesheet_y_2, pixel)
 
 	atlas_image.save_png(result_path)
 
