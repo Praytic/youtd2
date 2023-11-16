@@ -1,8 +1,9 @@
-[gd_scene load_steps=68 format=3 uid="uid://bjvafnsglmpin"]
+[gd_scene load_steps=69 format=3 uid="uid://bjvafnsglmpin"]
 
 [ext_resource type="PackedScene" uid="uid://draoeomqfupu0" path="res://Scenes/PrerenderedBackground.tscn" id="2_v8xf2"]
 [ext_resource type="Texture2D" uid="uid://clmdky06iit26" path="res://Assets/Atlas/EmptyTiles.png" id="3_bwx0l"]
 [ext_resource type="Script" path="res://Scenes/Map.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://dyhkyat4wudpp" path="res://Scenes/BackgroundMap.tscn" id="5_mqtkg"]
 [ext_resource type="Texture2D" uid="uid://cc6k2jfl41ts3" path="res://Assets/Atlas/Floor.png" id="6_uc8yk"]
 [ext_resource type="Texture2D" uid="uid://bs5du2vlow0f4" path="res://Assets/Atlas/Walls (connectors).png" id="7_8j3t8"]
 [ext_resource type="Texture2D" uid="uid://b81pfo1kyprgb" path="res://Assets/Atlas/Planks.png" id="8_fbqcx"]
@@ -1799,6 +1800,9 @@ _prerendered_background = NodePath("PrerenderedBackground")
 _foreground_map = NodePath("ForegroundMap")
 
 [node name="PrerenderedBackground" parent="." instance=ExtResource("2_v8xf2")]
+visible = false
+
+[node name="BackgroundMap" parent="." instance=ExtResource("5_mqtkg")]
 
 [node name="BuildableArea" type="TileMap" parent="."]
 visible = false
@@ -1819,21 +1823,21 @@ format = 2
 layer_0/name = "floor100"
 layer_0/y_sort_enabled = true
 layer_0/z_index = 99
-layer_0/tile_data = PackedInt32Array(2162695, 65536, 0, 2293767, 65536, 0, 2097160, 131073, 6, 2162696, 10, 1, 2228232, 10, 1, 2293768, 10, 1, 2162697, 393226, 1, 2228233, 393226, 1, 2293769, 393226, 1)
+layer_0/tile_data = PackedInt32Array(2162695, 65536, 0, 2293767, 65536, 0, 2097160, 131073, 6, 2162696, 10, 1, 2228232, 10, 1, 2293768, 10, 1, 2162697, 393226, 1, 2228233, 393226, 1, 2293769, 393226, 1, -1769481, 65536, 0)
 layer_1/name = "floor101"
 layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = true
 layer_1/y_sort_origin = 0
 layer_1/z_index = 100
-layer_1/tile_data = PackedInt32Array(2162695, 327706, 3, 2293767, 327706, 3, 2424839, 327706, 3, 2031623, 327706, 3, 2097160, 393226, 1, 2162696, 65541, 1, 2228232, 393226, 1, 2293768, 65541, 1, 2359304, 393226, 1, 2424840, 65541, 1, -1835018, 131072, 131072, -1835017, 131072, 131072, -1900553, 3, 7, -1966089, 3, 7)
+layer_1/tile_data = PackedInt32Array(2162695, 327706, 3, 2293767, 327706, 3, 2424839, 327706, 3, 2031623, 327706, 3, 2097160, 393226, 1, 2162696, 65541, 1, 2228232, 393226, 1, 2293768, 65541, 1, 2359304, 393226, 1, 2424840, 65541, 1, -1835018, 131072, 131072, -1900553, 3, 7, -1966089, 3, 7)
 layer_2/name = "floor102"
 layer_2/enabled = true
 layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = true
 layer_2/y_sort_origin = 0
 layer_2/z_index = 101
-layer_2/tile_data = PackedInt32Array(2031623, 196634, 3, 2097159, 262164, 196611, 2162695, 196634, 3, 2228231, 262164, 196611, 2293767, 196634, 3, 2359303, 262164, 196611, 2424839, 196634, 3, -1900554, 131072, 131072, -1900555, 131072, 131072, -1900556, 131072, 0, -1966090, 3, 7, -2031626, 3, 7)
+layer_2/tile_data = PackedInt32Array(2031623, 196634, 3, 2097159, 262164, 196611, 2162695, 196634, 3, 2228231, 262164, 196611, 2293767, 196634, 3, 2359303, 262164, 196611, 2424839, 196634, 3, -1900554, 131072, 131072, -1900555, 131072, 131072, -1900556, 131072, 0, -1966090, 3, 7, -2031626, 3, 7, -1638409, 393217, 2, -1703945, 327681, 2, -1835017, 327681, 2, -1769481, 262145, 2)
 layer_3/name = "floor103"
 layer_3/enabled = true
 layer_3/modulate = Color(1, 1, 1, 1)
