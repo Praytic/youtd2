@@ -3,18 +3,18 @@ extends Node2D
 
 @export var play_area: Area2D
 @export var play_area_shape: CollisionShape2D
-@export var _tilemap: TileMap
+@export var _black_border: Node2D
 @export var _buildable_area: TileMap
-@onready var camera: Camera2D = %Map/Camera2D
+@export var _prerendered_background: Node2D
+@export var _foreground_map: TileMap
 
 const BUILDABLE_PULSE_ALPHA_MIN = 0.1
 const BUILDABLE_PULSE_ALPHA_MAX = 0.5
 const BUILDABLE_PULSE_PERIOD = 1.0
 
-var _floor2_layer: int = -1
-
 
 func _ready():
+	var camera: Camera2D = get_viewport().get_camera_2d()
 	var s = play_area.scale
 	var ss = play_area_shape.scale
 	var ps = get_play_area_size()
@@ -40,7 +40,25 @@ func _ready():
 		0.5 * BUILDABLE_PULSE_PERIOD).set_trans(Tween.TRANS_LINEAR).set_delay(0.5 * BUILDABLE_PULSE_PERIOD)
 	buildable_area_tween.set_loops()
 
-	_floor2_layer = _find_floor2_layer()
+	_prerendered_background.visible = Config.use_prerendered_background()
+	_foreground_map.visible = Config.use_prerendered_background()
+
+#	NOTE: create real tilemap if not using prerendered
+#	version. We do this here instead of in scene to avoid
+#	the real tilemap eating VRAM while being hidden.
+	if !Config.use_prerendered_background():
+		print_verbose("Using raw map (not prerendered)")
+		var background_map_scene: PackedScene = load("res://Scenes/BackgroundMap.tscn")
+		var background_map = background_map_scene.instantiate()
+		_buildable_area.add_sibling(background_map)
+	else:
+		print_verbose("Using prerendered map")
+
+
+func setup_for_prerendering():
+	_prerendered_background.hide()
+	_black_border.hide()
+	_foreground_map.hide()
 
 
 func _build_mode_changed():
@@ -96,31 +114,10 @@ func can_transform_at_mouse_pos() -> bool:
 
 
 func get_mouse_world_pos() -> Vector2:
-	var out: Vector2 = _tilemap.get_local_mouse_position()
+	var out: Vector2 = _buildable_area.get_local_mouse_position()
 
 	return out
 
 
-# NOTE: determine whether a position is on ground by
-# checking if there's a floor2 tile at position. Need to do
-# it this way instead of checking if there's floor1 tile at
-# position. There are cases where there's both floor1 and
-# floor2 tile on same position and for such cases position
-# is considered "not on the ground".
-func pos_is_on_ground(pos: Vector2) -> bool:
-	var cell_at_pos = _tilemap.local_to_map(pos)
-	var tile_data: TileData = _tilemap.get_cell_tile_data(_floor2_layer, cell_at_pos)
-	var floor2_has_tile_at_pos: bool = tile_data != null
-	var is_on_ground: bool = !floor2_has_tile_at_pos
-
-	return is_on_ground
-
-
-func _find_floor2_layer() -> int:
-	for layer in range(0, _tilemap.get_layers_count()):
-		var layer_name: String = _tilemap.get_layer_name(layer)
-
-		if layer_name == "floor2":
-			return layer
-
-	return -1
+func pos_is_on_ground(_pos: Vector2) -> bool:
+	return true
