@@ -13,8 +13,8 @@ extends MainLoop
 
 const ARG_COUNT: int = 1
 
-const CELL_WIDTH: int = 128
-const CELL_HEIGHT: int = 128
+const CELL_WIDTH: int = 256
+const CELL_HEIGHT: int = 512
 
 
 func _initialize():
