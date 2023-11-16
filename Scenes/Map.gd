@@ -41,7 +41,6 @@ func _ready():
 	buildable_area_tween.set_loops()
 
 	_prerendered_background.visible = Config.use_prerendered_background()
-	_foreground_map.visible = Config.use_prerendered_background()
 
 #	NOTE: create real tilemap if not using prerendered
 #	version. We do this here instead of in scene to avoid
