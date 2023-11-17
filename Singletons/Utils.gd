@@ -54,12 +54,12 @@ func get_sprite_dimensions(sprite: Sprite2D) -> Vector2:
 	return sprite_dimensions
 
 
+# NOTE: can't use get_used_rect() here because creep atlases
+# are compressed.
 func get_animated_sprite_dimensions(sprite: AnimatedSprite2D, animation_name: String) -> Vector2:
 	var sprite_frames: SpriteFrames = sprite.sprite_frames
 	var texture: Texture2D = sprite_frames.get_frame_texture(animation_name, 0)
-	var image: Image = texture.get_image()
-	var used_rect: Rect2i = image.get_used_rect()
-	var sprite_dimensions: Vector2 = Vector2(used_rect.size) * sprite.scale
+	var sprite_dimensions: Vector2 = texture.get_size()
 
 	return sprite_dimensions
 

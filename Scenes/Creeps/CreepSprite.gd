@@ -89,6 +89,12 @@ func _create_animation(animation_name: String, sprite_sheet_path: String):
 	var cols: int = metadata.get_col_count()
 	var cell_size: Vector2 = Vector2(sprite_sheet_atlas.get_width() / cols, sprite_sheet_atlas.get_height() / rows)
 
+#	NOTE: sprite count used to be not needed when we could
+#	use get_used_rect() to detect whether a frame is empty
+#	or not. Compression was turned on for creep atlases and
+#	now we can't use get_used_rect() anymore.
+	var sprite_count: int = metadata.get_sprite_count()
+
 	if sprite_frames.has_animation(animation_name):
 		sprite_frames.clear(animation_name)
 
@@ -97,6 +103,10 @@ func _create_animation(animation_name: String, sprite_sheet_path: String):
 
 	for row in range(0, rows):
 		for col in range(0, cols):
+			var added_all_frames: bool = sprite_frames.get_frame_count(animation_name) == sprite_count
+			if added_all_frames:
+				break
+
 			_create_animation_frame(animation_name, row, col, sprite_sheet_atlas, cell_size)
 
 
@@ -106,11 +116,7 @@ func _create_animation_frame(anim, row, col, sprite_sheet, cell_size: Vector2):
 	texture.region = Rect2(col * cell_size.x, row * cell_size.y, cell_size.x, cell_size.y)
 
 	print_verbose("texture.region=", texture.region)
-	if _is_valid_frame(texture):
-		sprite_frames.add_frame(anim, texture)
-
-func _is_valid_frame(texture_frame: AtlasTexture):
-	return texture_frame.get_image().get_used_rect().size != Vector2i(0, 0)
+	sprite_frames.add_frame(anim, texture)
 
 
 func _update_offset():

@@ -95,10 +95,11 @@ func process_sheet(sheet_path: String):
 		sprite_sheet.resize(new_size.x, new_size.y)
 
 	var max_used_rect: Rect2i = get_max_used_rect(sprite_sheet)
+	var sprite_count: int = get_sprite_count(sprite_sheet)
 	var packed_sheet: Image = create_packed_sheet(sprite_sheet, max_used_rect)
 
 	packed_sheet.save_png(sheet_path)
-	save_metadata(sheet_path, packed_sheet, max_used_rect)
+	save_metadata(sheet_path, packed_sheet, max_used_rect, sprite_count)
 
 
 # Calculate a rect that fits all sprites in the sprite sheet
@@ -128,6 +129,30 @@ func get_max_used_rect(sheet_image: Image) -> Rect2i:
 			max_used_rect = max_used_rect.merge(used_rect)
 	
 	return max_used_rect
+
+
+func get_sprite_count(sheet_image: Image) -> int:
+	var sprite_count: int = 0
+
+	var sheet_texture: ImageTexture = ImageTexture.create_from_image(sheet_image)
+	
+	var original_size: Vector2 = Vector2(_original_frame_size, _original_frame_size)
+	var row_count: int = int(float(sheet_image.get_height()) / original_size.y)
+	var column_count: int = int(float(sheet_image.get_width()) / original_size.x)
+	
+	for row in range(0, row_count):
+		for col in range(0, column_count):
+			sprite_count
+			var used_rect: Rect2i = get_used_rect_at_cell(sheet_texture, row, col, original_size)
+
+			var sprite_is_empty: bool = used_rect.size == Vector2i(0, 0)
+
+			if !sprite_is_empty:
+				sprite_count += 1
+			else:
+				break
+	
+	return sprite_count
 
 
 # Get used rect for sprite in sprite sheet at position
@@ -167,7 +192,7 @@ func create_packed_sheet(sheet_image: Image, max_used_rect: Rect2i) -> Image:
 	return packed_sheet
 
 
-func save_metadata(sheet_path: String, packed_sheet: Image, max_used_rect: Rect2i):
+func save_metadata(sheet_path: String, packed_sheet: Image, max_used_rect: Rect2i, sprite_count: int):
 	var metadata_path: String = PackedMetadata.get_metadata_path(sheet_path)
 
 # 	Create and write first line if opening metadata file for
@@ -186,7 +211,7 @@ func save_metadata(sheet_path: String, packed_sheet: Image, max_used_rect: Rect2
 	var used_rect_center: Vector2 = max_used_rect.position + max_used_rect.size / 2
 	var offset_pixels: Vector2 = used_rect_center - original_center
 
-	var metadata: PackedMetadata = PackedMetadata.make(sheet_path, packed_sheet, max_used_rect, offset_pixels)
+	var metadata: PackedMetadata = PackedMetadata.make(sheet_path, packed_sheet, max_used_rect, offset_pixels, sprite_count)
 	var metadata_csv_line: Array = metadata.convert_to_csv_line()
 
 	var metadata_file: FileAccess = FileAccess.open(metadata_path, FileAccess.READ_WRITE)

@@ -17,6 +17,7 @@ enum Column {
 	NAME = 0,
 	ROW_COUNT,
 	COL_COUNT,
+	SPRITE_COUNT,
 	OFFSET_X,
 	OFFSET_Y,
 	COUNT,
@@ -27,6 +28,7 @@ const METADATA_FILENAME: String = "metadata.csv"
 var _name: String = ""
 var _row_count: int = 0
 var _col_count: int = 0
+var _sprite_count: int = 0
 var _offset: Vector2 = Vector2.ZERO
 
 
@@ -38,15 +40,20 @@ func get_col_count() -> int:
 	return _col_count
 
 
+func get_sprite_count() -> int:
+	return _sprite_count
+
+
 func get_offset() -> Vector2:
 	return _offset
 
 
-static func make(sheet_path: String, packed_sheet: Image, rect: Rect2i, offset_pixels: Vector2) -> PackedMetadata:
+static func make(sheet_path: String, packed_sheet: Image, rect: Rect2i, offset_pixels: Vector2, sprite_count: int) -> PackedMetadata:
 	var metadata: PackedMetadata = PackedMetadata.new()
 	metadata._name = PackedMetadata._get_animation_name(sheet_path)
 	metadata._row_count = roundi(float(packed_sheet.get_height()) / rect.size.y)
 	metadata._col_count = roundi(float(packed_sheet.get_width()) / rect.size.x)
+	metadata._sprite_count = sprite_count
 	metadata._offset = offset_pixels / Vector2(packed_sheet.get_size())
 
 	return metadata
@@ -59,6 +66,7 @@ func convert_to_csv_line() -> Array:
 	csv_line[Column.NAME] = _name
 	csv_line[Column.ROW_COUNT] = _row_count
 	csv_line[Column.COL_COUNT] = _col_count
+	csv_line[Column.SPRITE_COUNT] = _sprite_count
 	csv_line[Column.OFFSET_X] = _offset.x
 	csv_line[Column.OFFSET_Y] = _offset.y
 
@@ -75,6 +83,7 @@ static func convert_from_csv_line(csv_line: Array) -> PackedMetadata:
 
 	var row_count: int = csv_line[Column.ROW_COUNT].to_int()
 	var col_count: int = csv_line[Column.COL_COUNT].to_int()
+	var sprite_count: int = csv_line[Column.SPRITE_COUNT].to_int()
 
 	var offset_x: float = csv_line[Column.OFFSET_X].to_float()
 	var offset_y: float = csv_line[Column.OFFSET_Y].to_float()
@@ -84,6 +93,7 @@ static func convert_from_csv_line(csv_line: Array) -> PackedMetadata:
 	metadata._name = name
 	metadata._row_count = row_count
 	metadata._col_count = col_count
+	metadata._sprite_count = sprite_count
 	metadata._offset = offset
 
 	return metadata
@@ -125,6 +135,7 @@ static func get_legend_line() -> Array:
 		"name",
 		"row_count",
 		"col_count",
+		"sprite_count",
 		"offset_x",
 		"offset_y",
 	]
