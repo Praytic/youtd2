@@ -359,17 +359,17 @@ func fly_to_stash(_mystery_float: float):
 	if !is_on_ground:
 		return
 
-	var start_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
+	var item_drop_screen_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
 
 	parent_item_drop.remove_child(self)
 	parent_item_drop.queue_free()
 
-	fly_to_stash_from_pos(start_pos)
+	fly_to_stash_from_pos(item_drop_screen_pos)
 
 
 # Same as fly_to_stash() but can be used on unparented item
-func fly_to_stash_from_pos(start_pos: Vector2):
-	var flying_item: FlyingItem = FlyingItem.create(_id, start_pos)
+func fly_to_stash_from_pos(screen_pos: Vector2):
+	var flying_item: FlyingItem = FlyingItem.create(_id, screen_pos)
 	flying_item.finished_flying.connect(_on_flying_item_finished_flying)
 	flying_item.add_child(self)
 	flying_item.visible = _visible

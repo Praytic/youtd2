@@ -178,7 +178,8 @@ func _ready():
 			if have_item_space():
 				_item_container.add_item(item)
 			else:
-				item.fly_to_stash_from_pos(position)
+				var tower_screen_pos: Vector2 = _visual.get_screen_transform().get_origin()
+				item.fly_to_stash_from_pos(tower_screen_pos)
 
 		_kill_count = _temp_preceding_tower._kill_count
 		_best_hit = _temp_preceding_tower._best_hit
