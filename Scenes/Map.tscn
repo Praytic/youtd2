@@ -1,22 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://bjvafnsglmpin"]
+[gd_scene load_steps=21 format=3 uid="uid://bjvafnsglmpin"]
 
 [ext_resource type="PackedScene" uid="uid://draoeomqfupu0" path="res://Scenes/PrerenderedBackground.tscn" id="2_v8xf2"]
-[ext_resource type="Texture2D" uid="uid://clmdky06iit26" path="res://Assets/Atlas/EmptyTiles.png" id="3_bwx0l"]
+[ext_resource type="Texture2D" uid="uid://2v03j2bnie6o" path="res://Assets/Atlas/EmptyTiles.png" id="3_bwx0l"]
 [ext_resource type="Script" path="res://Scenes/Map.gd" id="4"]
-[ext_resource type="Texture2D" uid="uid://cc6k2jfl41ts3" path="res://Assets/Atlas/Floor.png" id="6_uc8yk"]
-[ext_resource type="Texture2D" uid="uid://bs5du2vlow0f4" path="res://Assets/Atlas/Walls (connectors).png" id="7_8j3t8"]
-[ext_resource type="Texture2D" uid="uid://bohlfk0mm2her" path="res://Assets/Atlas/foreground-tiles.png" id="9_2by4m"]
-[ext_resource type="Texture2D" uid="uid://caebpel23q5gj" path="res://Assets/Atlas/stoneWall-4.png" id="13_id36a"]
-[ext_resource type="Texture2D" uid="uid://bhr0qxmrq3oc1" path="res://Assets/Atlas/stoneWall-6.png" id="15_ee4di"]
-[ext_resource type="Texture2D" uid="uid://b1jihcvx3duyq" path="res://Assets/Atlas/Tile.png" id="15_f33p2"]
-[ext_resource type="Texture2D" uid="uid://bxt8dmk8cq5nr" path="res://Assets/Atlas/Stairs.png" id="19_sgef0"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fiy5q"]
-texture = ExtResource("15_f33p2")
-texture_region_size = Vector2i(256, 512)
-use_texture_padding = false
-0:0/0 = 0
-0:0/0/texture_origin = Vector2i(0, 192)
+[ext_resource type="Texture2D" uid="uid://28he7nw8q1lo" path="res://Assets/Atlas/Floor.png" id="6_uc8yk"]
+[ext_resource type="Texture2D" uid="uid://bophfhadvwiby" path="res://Assets/Atlas/Walls (connectors).png" id="7_8j3t8"]
+[ext_resource type="Texture2D" uid="uid://x3gkw36655e5" path="res://Assets/Atlas/tiles-for-path.png" id="10_nk0rq"]
+[ext_resource type="Texture2D" uid="uid://bjyiulsbinsdr" path="res://Assets/Atlas/stoneWall-4.png" id="13_id36a"]
+[ext_resource type="Texture2D" uid="uid://o2wu4rgd5fic" path="res://Assets/Atlas/stoneWall-6.png" id="15_ee4di"]
+[ext_resource type="Texture2D" uid="uid://c2ui4kf3f3fnc" path="res://Assets/Atlas/Stairs.png" id="19_sgef0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4htcd"]
 texture = ExtResource("3_bwx0l")
@@ -33,7 +25,6 @@ use_texture_padding = false
 tile_shape = 1
 tile_layout = 5
 tile_size = Vector2i(256, 128)
-sources/0 = SubResource("TileSetAtlasSource_fiy5q")
 sources/1 = SubResource("TileSetAtlasSource_4htcd")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_078ui"]
@@ -577,7 +568,7 @@ use_texture_padding = false
 6:1/1/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6rs4t"]
-texture = ExtResource("9_2by4m")
+texture = ExtResource("10_nk0rq")
 texture_region_size = Vector2i(256, 512)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 192)

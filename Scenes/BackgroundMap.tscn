@@ -1,26 +1,26 @@
 [gd_scene load_steps=60 format=3 uid="uid://dyhkyat4wudpp"]
 
+[ext_resource type="Texture2D" uid="uid://dcbt2kwtx82t2" path="res://Assets/background-tiles-do-not-export/EmptyTiles.png" id="1_aglt7"]
 [ext_resource type="TileSet" uid="uid://c2ke1gy0rnehu" path="res://Resources/Tilesets/Decorations.tres" id="1_lf0ei"]
-[ext_resource type="Texture2D" uid="uid://clmdky06iit26" path="res://Assets/Atlas/EmptyTiles.png" id="2_y63lk"]
-[ext_resource type="Texture2D" uid="uid://cc6k2jfl41ts3" path="res://Assets/Atlas/Floor.png" id="3_qgtsx"]
-[ext_resource type="Texture2D" uid="uid://bs5du2vlow0f4" path="res://Assets/Atlas/Walls (connectors).png" id="4_rmsty"]
-[ext_resource type="Texture2D" uid="uid://b81pfo1kyprgb" path="res://Assets/Atlas/Planks.png" id="5_sm57i"]
-[ext_resource type="Texture2D" uid="uid://bvemb24ayyj7k" path="res://Assets/Atlas/stoneWall-0.png" id="6_owxtt"]
-[ext_resource type="Texture2D" uid="uid://dx5nhd7d7kr2x" path="res://Assets/Atlas/stoneWall-1.png" id="7_57wef"]
-[ext_resource type="Texture2D" uid="uid://dof4f8pprnr7w" path="res://Assets/Atlas/stoneWall-2.png" id="8_g1gib"]
-[ext_resource type="Texture2D" uid="uid://btx887ijqft8g" path="res://Assets/Atlas/stoneWall-3.png" id="9_jvgcu"]
-[ext_resource type="Texture2D" uid="uid://caebpel23q5gj" path="res://Assets/Atlas/stoneWall-4.png" id="10_7fqhv"]
-[ext_resource type="Texture2D" uid="uid://dkl0b1n6ognt1" path="res://Assets/Atlas/stoneWall-5.png" id="11_iyvjl"]
-[ext_resource type="Texture2D" uid="uid://bhr0qxmrq3oc1" path="res://Assets/Atlas/stoneWall-6.png" id="12_7xykb"]
-[ext_resource type="Texture2D" uid="uid://gohunsflm3bx" path="res://Assets/Atlas/StoneWallDecorations (connectors).png" id="13_ki3oj"]
-[ext_resource type="Texture2D" uid="uid://bym82gj3xe6i" path="res://Assets/Atlas/Bridges.png" id="14_ryu78"]
-[ext_resource type="Texture2D" uid="uid://dlqcmo1shiaf1" path="res://Assets/Atlas/WoodenSupport.png" id="15_5ad1k"]
-[ext_resource type="Texture2D" uid="uid://bxt8dmk8cq5nr" path="res://Assets/Atlas/Stairs.png" id="16_kam8a"]
-[ext_resource type="Texture2D" uid="uid://1n1bnc0g25yj" path="res://Assets/Atlas/WoodenPile.png" id="17_rdx0c"]
-[ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://Assets/Atlas/Barrels.png" id="18_b2ebj"]
-[ext_resource type="Texture2D" uid="uid://uhpepaw1enyf" path="res://Assets/Atlas/WallVines1.png" id="19_fvud0"]
-[ext_resource type="Texture2D" uid="uid://cj6vux6oykg3q" path="res://Assets/Atlas/Columns.png" id="20_83dbp"]
-[ext_resource type="Texture2D" uid="uid://5v3qmvlnvt74" path="res://Assets/Atlas/WallVines1 (connectors).png" id="21_1dr8f"]
+[ext_resource type="Texture2D" uid="uid://pegkfth2xgl2" path="res://Assets/background-tiles-do-not-export/Floor.png" id="2_16d11"]
+[ext_resource type="Texture2D" uid="uid://b23cvv817rmvn" path="res://Assets/background-tiles-do-not-export/Walls (connectors).png" id="3_m4f2u"]
+[ext_resource type="Texture2D" uid="uid://v68x43yjwsii" path="res://Assets/background-tiles-do-not-export/Planks.png" id="4_u8iq6"]
+[ext_resource type="Texture2D" uid="uid://bdqh5njst6o0n" path="res://Assets/background-tiles-do-not-export/stoneWall-0.png" id="5_1onkn"]
+[ext_resource type="Texture2D" uid="uid://c50k2wd1vx0ld" path="res://Assets/background-tiles-do-not-export/stoneWall-1.png" id="6_0625o"]
+[ext_resource type="Texture2D" uid="uid://bplhweiwouusv" path="res://Assets/background-tiles-do-not-export/stoneWall-2.png" id="7_t4pq6"]
+[ext_resource type="Texture2D" uid="uid://wc7dqhn8p0yx" path="res://Assets/background-tiles-do-not-export/stoneWall-3.png" id="8_inedh"]
+[ext_resource type="Texture2D" uid="uid://cafd776juqse2" path="res://Assets/background-tiles-do-not-export/stoneWall-4.png" id="9_oxmcs"]
+[ext_resource type="Texture2D" uid="uid://45n2ngt1m8oj" path="res://Assets/background-tiles-do-not-export/stoneWall-5.png" id="10_uwnje"]
+[ext_resource type="Texture2D" uid="uid://dekgehbfe6pqh" path="res://Assets/background-tiles-do-not-export/stoneWall-6.png" id="11_qx1pu"]
+[ext_resource type="Texture2D" uid="uid://bx0a7kwcrwo1k" path="res://Assets/background-tiles-do-not-export/StoneWallDecorations (connectors).png" id="12_vb0f8"]
+[ext_resource type="Texture2D" uid="uid://c3bix88ned5j6" path="res://Assets/background-tiles-do-not-export/Bridges.png" id="13_6vikb"]
+[ext_resource type="Texture2D" uid="uid://1nbmx2dsyxut" path="res://Assets/background-tiles-do-not-export/WoodenSupport.png" id="14_wrdpg"]
+[ext_resource type="Texture2D" uid="uid://ftlk8nheg3ki" path="res://Assets/background-tiles-do-not-export/Stairs.png" id="15_kiv1l"]
+[ext_resource type="Texture2D" uid="uid://ds26yrqw8jvt1" path="res://Assets/background-tiles-do-not-export/WoodenPile.png" id="16_eg57d"]
+[ext_resource type="Texture2D" uid="uid://b3pl6ickp5lvl" path="res://Assets/background-tiles-do-not-export/Barrels.png" id="17_iux81"]
+[ext_resource type="Texture2D" uid="uid://m18bce1kiqho" path="res://Assets/background-tiles-do-not-export/WallVines1.png" id="18_drkuv"]
+[ext_resource type="Texture2D" uid="uid://bgylbx2mimufx" path="res://Assets/background-tiles-do-not-export/Columns.png" id="19_1sul7"]
+[ext_resource type="Texture2D" uid="uid://7yt6rmnfdaof" path="res://Assets/background-tiles-do-not-export/WallVines1 (connectors).png" id="20_4iw6g"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_d2fx0"]
 tile_data = PackedInt32Array(131072, 131082, 1, 131073, 131082, 1, 2, 262154, 1, 65538, 262154, 1, 131074, 393226, 1)
@@ -74,7 +74,7 @@ tile_data = PackedInt32Array(65536, 196634, 0, 131072, 196634, 0, 196608, 196634
 tile_data = PackedInt32Array(0, 65562, 0, 1, 65562, 0, 131073, 458776, 0, 196609, 458776, 0, 262145, 458776, 0, 327681, 458776, 0, 393217, 458776, 0, 458753, 458776, 0, 2, 65562, 0, 65539, 26, 0, 131075, 26, 0, 196611, 26, 0, 262147, 26, 0, 327683, 26, 0, 393219, 26, 0, 458755, 26, 0, 524291, 26, 0)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_078ui"]
-texture = ExtResource("2_y63lk")
+texture = ExtResource("1_aglt7")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/next_alternative_id = 2
@@ -102,7 +102,7 @@ use_texture_padding = false
 2:0/2/modulate = Color(0.305882, 0.27451, 0.227451, 1)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnh7f"]
-texture = ExtResource("3_qgtsx")
+texture = ExtResource("2_16d11")
 texture_region_size = Vector2i(256, 256)
 use_texture_padding = false
 0:0/0 = 0
@@ -245,7 +245,7 @@ use_texture_padding = false
 0:7/0/texture_origin = Vector2i(0, 44)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nx3my"]
-texture = ExtResource("4_rmsty")
+texture = ExtResource("3_m4f2u")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 1:2/0 = 0
@@ -366,7 +366,7 @@ use_texture_padding = false
 5:6/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gxawd"]
-texture = ExtResource("5_sm57i")
+texture = ExtResource("4_u8iq6")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/0 = 0
@@ -403,7 +403,7 @@ use_texture_padding = false
 4:1/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r6gfl"]
-texture = ExtResource("6_owxtt")
+texture = ExtResource("5_1onkn")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:1/next_alternative_id = 2
@@ -561,7 +561,7 @@ use_texture_padding = false
 0:4/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_600do"]
-texture = ExtResource("7_57wef")
+texture = ExtResource("6_0625o")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:1/0 = 0
@@ -662,7 +662,7 @@ use_texture_padding = false
 7:5/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dyfl2"]
-texture = ExtResource("8_g1gib")
+texture = ExtResource("7_t4pq6")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 2:1/0 = 0
@@ -763,7 +763,7 @@ use_texture_padding = false
 7:0/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wdkas"]
-texture = ExtResource("9_jvgcu")
+texture = ExtResource("8_inedh")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/0 = 0
@@ -864,7 +864,7 @@ use_texture_padding = false
 7:5/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4ijar"]
-texture = ExtResource("10_7fqhv")
+texture = ExtResource("9_oxmcs")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/0 = 0
@@ -961,7 +961,7 @@ use_texture_padding = false
 7:5/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ybafw"]
-texture = ExtResource("11_iyvjl")
+texture = ExtResource("10_uwnje")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/0 = 0
@@ -1072,7 +1072,7 @@ use_texture_padding = false
 3:6/0/texture_origin = Vector2i(0, 105)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uumm5"]
-texture = ExtResource("12_7xykb")
+texture = ExtResource("11_qx1pu")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/0 = 0
@@ -1169,7 +1169,7 @@ use_texture_padding = false
 2:3/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q8s53"]
-texture = ExtResource("13_ki3oj")
+texture = ExtResource("12_vb0f8")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 1:1/0 = 0
@@ -1378,7 +1378,7 @@ use_texture_padding = false
 5:3/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_avgj8"]
-texture = ExtResource("14_ryu78")
+texture = ExtResource("13_6vikb")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/0 = 0
@@ -1399,7 +1399,7 @@ use_texture_padding = false
 1:2/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0tvl"]
-texture = ExtResource("15_5ad1k")
+texture = ExtResource("14_wrdpg")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:2/0 = 0
@@ -1497,7 +1497,7 @@ use_texture_padding = false
 0:8/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a6dct"]
-texture = ExtResource("16_kam8a")
+texture = ExtResource("15_kiv1l")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/0 = 0
@@ -1557,7 +1557,7 @@ use_texture_padding = false
 6:1/1/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1hvd6"]
-texture = ExtResource("17_rdx0c")
+texture = ExtResource("16_eg57d")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/0 = 0
@@ -1586,7 +1586,7 @@ use_texture_padding = false
 6:0/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ryqdi"]
-texture = ExtResource("18_b2ebj")
+texture = ExtResource("17_iux81")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:0/0 = 0
@@ -1615,7 +1615,7 @@ use_texture_padding = false
 4:1/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0vba0"]
-texture = ExtResource("19_fvud0")
+texture = ExtResource("18_drkuv")
 texture_region_size = Vector2i(256, 256)
 use_texture_padding = false
 0:0/0 = 0
@@ -1629,7 +1629,7 @@ use_texture_padding = false
 2:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5kff"]
-texture = ExtResource("20_83dbp")
+texture = ExtResource("19_1sul7")
 texture_region_size = Vector2i(256, 512)
 use_texture_padding = false
 0:3/0 = 0
@@ -1682,7 +1682,7 @@ use_texture_padding = false
 0:8/0/texture_origin = Vector2i(0, 192)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_efunk"]
-texture = ExtResource("21_1dr8f")
+texture = ExtResource("20_4iw6g")
 texture_region_size = Vector2i(256, 256)
 use_texture_padding = false
 0:0/0 = 0
