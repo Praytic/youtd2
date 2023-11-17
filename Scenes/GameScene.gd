@@ -27,7 +27,7 @@ func _ready():
 
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 
-	if show_pregame_settings_menu:
+	if show_pregame_settings_menu && !Config.run_prerender_tool():
 		_pregame_hud.show()
 	else:
 #		Skip pregame settings menu and load default values
