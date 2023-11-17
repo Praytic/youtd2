@@ -67,7 +67,9 @@ func process_path(path: String):
 			var blit_dst: Vector2i = Vector2i(0, 0)
 			result_image.blit_rect(original_image, src_rect, blit_dst)
 
-			var result_path: String = path.replace(".png", "-%d.png" % tile_index)
+			var tile_index_padded: String = str(tile_index).lpad(3, "0")
+
+			var result_path: String = path.replace(".png", "-%s.png" % tile_index_padded)
 			result_image.save_png(result_path)
 			
 			tile_index += 1
