@@ -231,25 +231,33 @@ class ItemChargeEntry extends Entry:
 
 const LOG_SIZE_MAX: int = 1000
 
-var _entry_list: Array[Entry] = []
+var _entry_map: Dictionary = {}
+
+var _min_index: int = 0
+var _max_index: int = 0
 
 
-func size() -> int:
-	return _entry_list.size()
+func get_min_index() -> int:
+	return _min_index
+
+
+func get_max_index() -> int:
+	return _max_index
 
 
 func get_entry_string(index: int) -> String:
-	if index >= _entry_list.size():
-		return "out of bounds"
+	if _entry_map.is_empty() || _min_index > index || index >= _max_index:
+		return ""
 
-	var entry: CombatLog.Entry = _entry_list[index]
+	var entry: CombatLog.Entry = _entry_map[index]
 	var entry_string: String = entry.get_string()
 
 	return entry_string
 
 
 func clear():
-	_entry_list.resize(0)
+	_min_index = _max_index
+	_entry_map.clear()
 
 
 func log_damage(caster: Unit, target: Unit, damage_source: Unit.DamageSource, damage: float, crit_ratio: float):
@@ -293,10 +301,14 @@ func log_item_charge(item: Item, old_charge: int, new_charge: int):
 
 
 func _log_internal(entry: Entry):
-	_entry_list.insert(0, entry)
+	var new_index: int = _max_index
+	_max_index += 1
+
+	_entry_map[new_index] = entry
 
 #	Delete old entries when list gets too big.
 #	We need to limit log length to prevent CombatLog
 #	using up too much memory.
-	while _entry_list.size() > LOG_SIZE_MAX:
-		_entry_list.pop_back()
+	if _max_index > LOG_SIZE_MAX:
+		_entry_map.erase(_min_index)
+		_min_index += 1

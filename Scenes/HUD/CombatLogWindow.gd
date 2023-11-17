@@ -13,11 +13,16 @@ extends MovableWindow
 # nicely with the rest of the game in terms of input.
 
 
+# NOTE: 22 lines is the amount of lines which fit within
+# combat log window without causing the scrollbar to appear.
+const DISPLAYED_LINE_COUNT: int = 22
+
 @export var _label: RichTextLabel
 @export var _up_button: Button
 @export var _down_button: Button
 
-var _auto_scroll_enabled: bool = true
+var _auto_scroll_to_newest: bool = true
+var _displayed_max_index: int = 0
 
 
 func _ready():
@@ -29,40 +34,24 @@ func _ready():
 	global_position = Vector2(saved_pos_x, saved_pos_y)
 
 
-# Disable auto scroll when player scrolls using mouse wheel
-# or mouse gesture
-func _unhandled_input(event: InputEvent):
-	var scroll_input: bool
-
-	if event is InputEventMagnifyGesture:
-		scroll_input = true
-	elif event is InputEventMouseButton:
-		var input_button: MouseButton = event.get_button_index()
-		var used_mouse_button_wheel: bool = input_button == MOUSE_BUTTON_WHEEL_DOWN || input_button == MOUSE_BUTTON_WHEEL_UP
-
-		if used_mouse_button_wheel:
-			scroll_input = true
-		else:
-			scroll_input = false
-	else:
-		scroll_input = false
-
-	if scroll_input:
-		_auto_scroll_enabled = false
-
-
 func _process(_delta: float):
 	if !visible:
 		return
 
-#	Update text
 	var text: String = ""
+
+	var displayed_min_index: int = _displayed_max_index - DISPLAYED_LINE_COUNT
 	
-	for i in range(CombatLog.size() - 1, 0, -1):
+	for i in range(displayed_min_index, _displayed_max_index):
 		var entry_string: String = CombatLog.get_entry_string(i)
-		text += entry_string
-		text += "\n"
-	
+
+		if !entry_string.is_empty():
+			text += entry_string
+			text += "\n"
+		else:
+#			Pad lines which are out of bounds
+			text += " \n"
+
 	_label.clear()
 	_label.append_text(text)
 
@@ -71,22 +60,26 @@ func _process(_delta: float):
 	var down_is_pressed: bool = _down_button.is_pressed()
 
 	if up_is_pressed || down_is_pressed:
-		_auto_scroll_enabled = false
-
-	var v_scroll_bar: VScrollBar = _label.get_v_scroll_bar()
-	var scroll_max: float = v_scroll_bar.max_value
-	var entry_count: int = CombatLog.size()
-	var scroll_per_entry: float = scroll_max / entry_count
-	var current_scroll: float = v_scroll_bar.get_value()
+		_auto_scroll_to_newest = false
 
 	if up_is_pressed:
-		var new_scroll: float = clampf(current_scroll - scroll_per_entry, 0, scroll_max)
-		v_scroll_bar.set_value(new_scroll)
+#		Add +1 so that at least one line is displayed at any
+#		time
+		_displayed_max_index = max(CombatLog.get_min_index() + 1, _displayed_max_index - 1)
 	elif down_is_pressed:
-		var new_scroll: float = clampf(current_scroll + scroll_per_entry, 0, scroll_max)
-		v_scroll_bar.set_value(new_scroll)
-	elif _auto_scroll_enabled:
-		v_scroll_bar.set_value(scroll_max)
+		_displayed_max_index = min(CombatLog.get_max_index(), _displayed_max_index + 1)
+
+		var scrolled_to_bottom: bool = _displayed_max_index == CombatLog.get_max_index()
+		if scrolled_to_bottom:
+			_auto_scroll_to_newest = true
+	elif _auto_scroll_to_newest:
+		_displayed_max_index = CombatLog.get_max_index()
+
+#	Current display position can go out of bounds while
+#	CombatLog erases messages which are too old. Move the
+#	index up in this case.
+	if _displayed_max_index < CombatLog.get_min_index():
+		_displayed_max_index = CombatLog.get_min_index() + 1
 
 
 func _on_settings_changed():
@@ -95,7 +88,7 @@ func _on_settings_changed():
 
 
 func _on_auto_down_button_pressed():
-	_auto_scroll_enabled = true
+	_auto_scroll_to_newest = true
 
 
 func _on_clear_button_pressed():
