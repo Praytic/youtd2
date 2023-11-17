@@ -214,6 +214,8 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 		TargetType.UnitType.CREEPS: node_list = get_tree().get_nodes_in_group("creeps")
 		TargetType.UnitType.CORPSES: node_list = get_tree().get_nodes_in_group("corpses")
 
+	var target_is_tower: bool = type._unit_type == TargetType.UnitType.TOWERS
+
 	var filtered_node_list: Array[Node] = node_list.filter(
 		func(node) -> bool:
 			var unit: Unit = node as Unit
@@ -228,6 +230,23 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 					return false
 
 			var distance: float = Isometric.vector_distance_to_PIXELS(center, unit.position)
+
+#			NOTE: in original youtd, auras and abilities
+#			which affect towers in range are extended by
+#			half a tile so that the aura affects a tower if
+#			the range reaches the tile of the tower, not the
+#			center.
+# 
+#			If we don't extend the range, then towers like
+#			Skink will affect less towers than in the
+#			original.
+# 
+#			Note that this doesn't apply to creeps - in that
+#			case, the default distance to unit position is
+#			used.
+			if target_is_tower:
+				distance = max(0, distance - Constants.TILE_SIZE_PIXELS / 2)
+
 			var creep_is_in_range = distance <= radius
 
 			if !creep_is_in_range:
