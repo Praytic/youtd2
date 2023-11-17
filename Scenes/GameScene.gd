@@ -14,6 +14,7 @@ enum GameState {
 @export var _pause_hud: Control
 @export var _wave_spawner: WaveSpawner
 @export var _tutorial_menu: TutorialMenu
+@export var _ui_canvas_layer: CanvasLayer
 
 var _game_state: GameState
 
@@ -26,7 +27,7 @@ func _ready():
 
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 
-	if show_pregame_settings_menu:
+	if show_pregame_settings_menu && !Config.run_prerender_tool():
 		_pregame_hud.show()
 	else:
 #		Skip pregame settings menu and load default values
@@ -36,6 +37,14 @@ func _ready():
 		var default_tutorial_enabled: bool = Config.default_tutorial_enabled()
 
 		_on_pregame_hud_finished(default_wave_count, default_game_mode, default_difficulty, default_tutorial_enabled)
+
+	if Config.run_prerender_tool():
+		var running_on_web: bool = OS.get_name() == "Web"
+
+		if !running_on_web:
+			PrerenderTool.run(self, _ui_canvas_layer, map_node)
+		else:
+			push_error("config/run_prerender_tool is enabled by mistake. Skipping prerender because this is a Web build.")
 
 
 func _process(delta: float):

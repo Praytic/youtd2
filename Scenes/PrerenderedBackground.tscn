@@ -1,0 +1,84 @@
+[gd_scene load_steps=17 format=3 uid="uid://draoeomqfupu0"]
+
+[ext_resource type="Texture2D" uid="uid://ypaxigip5fjn" path="res://Assets/PrerenderedMap/photo1.png" id="1_hdd0d"]
+[ext_resource type="Texture2D" uid="uid://ds85pw4h63rff" path="res://Assets/PrerenderedMap/photo2.png" id="2_huink"]
+[ext_resource type="Texture2D" uid="uid://c5kgsh70c3syv" path="res://Assets/PrerenderedMap/photo3.png" id="3_tl30h"]
+[ext_resource type="Texture2D" uid="uid://xf007d4j730u" path="res://Assets/PrerenderedMap/photo4.png" id="4_pqbbw"]
+[ext_resource type="Texture2D" uid="uid://b8164kknykil3" path="res://Assets/PrerenderedMap/photo5.png" id="5_glqvf"]
+[ext_resource type="Texture2D" uid="uid://bna1u724cfw00" path="res://Assets/PrerenderedMap/photo6.png" id="6_u6dne"]
+[ext_resource type="Texture2D" uid="uid://bbx22ej3hk4il" path="res://Assets/PrerenderedMap/photo7.png" id="7_2xg8v"]
+[ext_resource type="Texture2D" uid="uid://cji5uolvfnue6" path="res://Assets/PrerenderedMap/photo8.png" id="8_b4g53"]
+[ext_resource type="Texture2D" uid="uid://bi77pa5q44bes" path="res://Assets/PrerenderedMap/photo9.png" id="9_4pk0s"]
+[ext_resource type="Texture2D" uid="uid://dq2ep8477jr2n" path="res://Assets/PrerenderedMap/photo10.png" id="10_6ykto"]
+[ext_resource type="Texture2D" uid="uid://b2dti8urho2os" path="res://Assets/PrerenderedMap/photo11.png" id="11_y8ya2"]
+[ext_resource type="Texture2D" uid="uid://blgjy1nbtke3k" path="res://Assets/PrerenderedMap/photo12.png" id="12_g5d0u"]
+[ext_resource type="Texture2D" uid="uid://euvq8wofn4wm" path="res://Assets/PrerenderedMap/photo13.png" id="13_ls0vp"]
+[ext_resource type="Texture2D" uid="uid://cse40y8ncj6t" path="res://Assets/PrerenderedMap/photo14.png" id="14_bmcks"]
+[ext_resource type="Texture2D" uid="uid://j0wuv2knknq5" path="res://Assets/PrerenderedMap/photo15.png" id="15_2rwf1"]
+[ext_resource type="Texture2D" uid="uid://ckdu2jxjs2o05" path="res://Assets/PrerenderedMap/photo16.png" id="16_uky6h"]
+
+[node name="PrerenderedBackground" type="Node2D"]
+
+[node name="Sprite2D1" type="Sprite2D" parent="."]
+position = Vector2(-3072, -3072)
+texture = ExtResource("1_hdd0d")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-1024, -3072)
+texture = ExtResource("2_huink")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(1024, -3072)
+texture = ExtResource("3_tl30h")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(3072, -3072)
+texture = ExtResource("4_pqbbw")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+position = Vector2(-3072, -1024)
+texture = ExtResource("5_glqvf")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+position = Vector2(-1024, -1024)
+texture = ExtResource("6_u6dne")
+
+[node name="Sprite2D7" type="Sprite2D" parent="."]
+position = Vector2(1024, -1024)
+texture = ExtResource("7_2xg8v")
+
+[node name="Sprite2D8" type="Sprite2D" parent="."]
+position = Vector2(3072, -1024)
+texture = ExtResource("8_b4g53")
+
+[node name="Sprite2D9" type="Sprite2D" parent="."]
+position = Vector2(-3072, 1024)
+texture = ExtResource("9_4pk0s")
+
+[node name="Sprite2D10" type="Sprite2D" parent="."]
+position = Vector2(-1024, 1024)
+texture = ExtResource("10_6ykto")
+
+[node name="Sprite2D11" type="Sprite2D" parent="."]
+position = Vector2(1024, 1024)
+texture = ExtResource("11_y8ya2")
+
+[node name="Sprite2D12" type="Sprite2D" parent="."]
+position = Vector2(3072, 1024)
+texture = ExtResource("12_g5d0u")
+
+[node name="Sprite2D13" type="Sprite2D" parent="."]
+position = Vector2(-3072, 3072)
+texture = ExtResource("13_ls0vp")
+
+[node name="Sprite2D14" type="Sprite2D" parent="."]
+position = Vector2(-1024, 3072)
+texture = ExtResource("14_bmcks")
+
+[node name="Sprite2D15" type="Sprite2D" parent="."]
+position = Vector2(1024, 3072)
+texture = ExtResource("15_2rwf1")
+
+[node name="Sprite2D16" type="Sprite2D" parent="."]
+position = Vector2(3072, 3072)
+texture = ExtResource("16_uky6h")
