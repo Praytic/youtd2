@@ -1,9 +1,8 @@
-[gd_scene load_steps=69 format=3 uid="uid://bjvafnsglmpin"]
+[gd_scene load_steps=68 format=3 uid="uid://bjvafnsglmpin"]
 
 [ext_resource type="PackedScene" uid="uid://draoeomqfupu0" path="res://Scenes/PrerenderedBackground.tscn" id="2_v8xf2"]
 [ext_resource type="Texture2D" uid="uid://clmdky06iit26" path="res://Assets/Atlas/EmptyTiles.png" id="3_bwx0l"]
 [ext_resource type="Script" path="res://Scenes/Map.gd" id="4"]
-[ext_resource type="PackedScene" uid="uid://dyhkyat4wudpp" path="res://Scenes/BackgroundMap.tscn" id="5_mqtkg"]
 [ext_resource type="Texture2D" uid="uid://cc6k2jfl41ts3" path="res://Assets/Atlas/Floor.png" id="6_uc8yk"]
 [ext_resource type="Texture2D" uid="uid://bs5du2vlow0f4" path="res://Assets/Atlas/Walls (connectors).png" id="7_8j3t8"]
 [ext_resource type="Texture2D" uid="uid://b81pfo1kyprgb" path="res://Assets/Atlas/Planks.png" id="8_fbqcx"]
@@ -22,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bxt8dmk8cq5nr" path="res://Assets/Atlas/Stairs.png" id="19_sgef0"]
 [ext_resource type="Texture2D" uid="uid://1n1bnc0g25yj" path="res://Assets/Atlas/WoodenPile.png" id="20_smfvi"]
 [ext_resource type="Texture2D" uid="uid://b8kaotwoawygm" path="res://Assets/Atlas/Barrels.png" id="21_rvmek"]
-[ext_resource type="Texture2D" uid="uid://uhpepaw1enyf" path="res://Assets/Atlas/WallVines1.png" id="22_f8swn"]
+[ext_resource type="Texture2D" uid="uid://bffgtw36ue5e" path="res://Assets/Atlas/WallVines1.png" id="22_f8swn"]
 [ext_resource type="Texture2D" uid="uid://cj6vux6oykg3q" path="res://Assets/Atlas/Columns.png" id="23_s8o67"]
 [ext_resource type="Texture2D" uid="uid://5v3qmvlnvt74" path="res://Assets/Atlas/WallVines1 (connectors).png" id="24_tnm48"]
 
@@ -1800,9 +1799,6 @@ _prerendered_background = NodePath("PrerenderedBackground")
 _foreground_map = NodePath("ForegroundMap")
 
 [node name="PrerenderedBackground" parent="." instance=ExtResource("2_v8xf2")]
-visible = false
-
-[node name="BackgroundMap" parent="." instance=ExtResource("5_mqtkg")]
 
 [node name="BuildableArea" type="TileMap" parent="."]
 visible = false
