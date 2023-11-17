@@ -59,7 +59,7 @@ func create_simple_on_unit(effect_path: String, unit: Unit, body_part: String) -
 	var effect: Node2D = _effect_map[id]
 
 	var body_part_offset: Vector2 = unit.get_body_part_offset(body_part)
-	effect.offset += body_part_offset
+	effect.offset += body_part_offset / effect.scale.y
 
 	var unit_visual: Node2D = unit.get_visual_node()
 	unit_visual.add_child(effect)
