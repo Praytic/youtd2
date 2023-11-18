@@ -381,3 +381,10 @@ func get_inventory_capacity(tower_id: int) -> int:
 			return clamped_capacity
 
 	return 1
+
+
+func get_generated_tooltip(tower_id: int) -> String:
+	var tower_tooltips: Dictionary = Properties.get_tower_tooltips()
+	var tooltip: String = tower_tooltips[tower_id][1]
+
+	return tooltip

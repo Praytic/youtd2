@@ -113,6 +113,24 @@ func get_tower_info(tower: Tower) -> String:
 func get_tower_text(tower_id: int) -> String:
 	var text: String = ""
 
+	if Config.use_saved_tooltips():
+		text = TowerProperties.get_generated_tooltip(tower_id)
+	else:
+		text = generate_tower_tooltip(tower_id)
+	
+	return text
+
+
+# NOTE: calling this function causes a lag spike so it
+# should not be used during runtime in production builds.
+# Lag spike happens because we need to create a temporary
+# tower instance to get all the information needed for the
+# tooltip. We work around that by using SaveTooltipsTool to
+# run this function for all towers and save results to file.
+# Then we load that file and use tooltips from the file.
+func generate_tower_tooltip(tower_id: int) -> String:
+	var text: String = ""
+	
 	var requirements_text: String = get_tower_requirements_text(tower_id)
 	var display_name: String = TowerProperties.get_display_name(tower_id)
 	var gold_cost: int = TowerProperties.get_cost(tower_id)

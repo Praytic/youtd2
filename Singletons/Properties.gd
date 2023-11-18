@@ -7,10 +7,12 @@ extends Node
 
 const _ITEM_CSV_PROPERTIES_PATH = "res://Data/item_properties.csv"
 const _TOWER_CSV_PROPERTIES_PATH = "res://Data/tower_properties.csv"
+const TOWER_TOOLTIPS_PATH = "res://Data/tower_tooltips.csv"
 
 
 var _tower_csv_properties: Dictionary = {} : get = get_tower_csv_properties
 var _item_csv_properties: Dictionary = {} : get = get_item_csv_properties
+var _tower_tooltips: Dictionary = {} : get = get_tower_tooltips
 
 
 #########################
@@ -20,6 +22,7 @@ var _item_csv_properties: Dictionary = {} : get = get_item_csv_properties
 func _ready():
 	_load_csv_properties(_TOWER_CSV_PROPERTIES_PATH, _tower_csv_properties, Tower.CsvProperty.ID)
 	_load_csv_properties(_ITEM_CSV_PROPERTIES_PATH, _item_csv_properties, Item.CsvProperty.ID)
+	_load_csv_properties(TOWER_TOOLTIPS_PATH, _tower_tooltips, 0)
 
 
 #########################
@@ -117,3 +120,6 @@ func get_item_csv_properties():
 
 func get_tower_csv_properties():
 	return _tower_csv_properties
+
+func get_tower_tooltips():
+	return _tower_tooltips

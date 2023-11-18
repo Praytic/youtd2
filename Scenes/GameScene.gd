@@ -46,6 +46,9 @@ func _ready():
 		else:
 			push_error("config/run_prerender_tool is enabled by mistake. Skipping prerender because this is a Web build.")
 
+	if Config.run_save_tooltips_tool():
+		SaveTooltipsTool.run()
+
 
 func _process(delta: float):
 	var need_to_record_game_time: bool = _game_state == GameState.PLAYING && WaveLevel.get_current() > 0
