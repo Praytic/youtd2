@@ -385,6 +385,10 @@ func get_inventory_capacity(tower_id: int) -> int:
 
 func get_generated_tooltip(tower_id: int) -> String:
 	var tower_tooltips: Dictionary = Properties.get_tower_tooltips()
+
+	if !tower_tooltips.has(tower_id) || !tower_tooltips[tower_id].has(1):
+		return "[missing tooltip]"
+
 	var tooltip: String = tower_tooltips[tower_id][1]
 
 	return tooltip
