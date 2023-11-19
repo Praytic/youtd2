@@ -101,6 +101,8 @@ func _internal_tower_init():
 func _ready():
 	super()
 
+	_set_visual_node(_sprite)
+
 #	If this tower is used for towerpreview, then exit early
 #	out of ready() so that no event handlers or auras are
 #	created so that the tower instance is inactive. Also,
@@ -215,8 +217,6 @@ func _ready():
 	_on_modify_property()
 
 	SelectUnit.connect_unit(self, _tower_selection_area)
-
-	_set_visual_node(_sprite)
 
 	if _placeholder_modulate != Color.WHITE:
 		_sprite.modulate = _placeholder_modulate

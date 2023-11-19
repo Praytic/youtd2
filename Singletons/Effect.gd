@@ -65,6 +65,8 @@ func create_simple_on_unit(effect_path: String, unit: Unit, body_part: String) -
 	if unit_visual != null:
 		unit_visual.add_child(effect)
 		effect.play()
+	else:
+		push_error("Couldn't add effect to unit because unit_visual is null. Make sure that Unit._set_visual_node() is called before any possible effects.")
 
 	return id
 
