@@ -101,7 +101,7 @@ func _internal_tower_init():
 func _ready():
 	super()
 
-	_set_visual_node(_sprite)
+	_set_visual_node(_visual)
 
 #	If this tower is used for towerpreview, then exit early
 #	out of ready() so that no event handlers or auras are
