@@ -221,8 +221,11 @@ func _ready():
 	if _placeholder_modulate != Color.WHITE:
 		_sprite.modulate = _placeholder_modulate
 	
-# 	TODO: why is model/sprite2d is used for sprite instead
-# 	of the sprite node attached to root?
+# 	NOTE: tower scenes have two sprites: "Base" and
+# 	"Model/Sprite2D". We use "Model/Sprite2D" because that
+# 	is the actual sprite. "Base" is a vestigial thing
+# 	inherited from Building.tscn and is currently invisible
+# 	and unused.
 	var sprite: Sprite2D = $Model/Sprite2D
 	var sprite_dimensions: Vector2 = Utils.get_sprite_dimensions(sprite)
 	_set_unit_dimensions(sprite_dimensions)
