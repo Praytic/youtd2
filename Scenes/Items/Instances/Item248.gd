@@ -77,6 +77,8 @@ func item_init():
 	autocast.cast_range = 0
 	autocast.auto_range = 0
 	autocast.handler = on_autocast
+	autocast.item_owner = self
+	autocast.dont_cast_at_zero_charges = true
 	set_autocast(autocast)
 
 

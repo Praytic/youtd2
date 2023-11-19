@@ -119,6 +119,8 @@ var target_type: TargetType = null
 var target_art: String = ""
 var auto_range: float = 1000
 var handler: Callable = Callable()
+var item_owner: Item = null
+var dont_cast_at_zero_charges: bool = false
 
 var _caster: Unit = null
 var _is_item_autocast: bool = false
@@ -237,6 +239,11 @@ func do_cast_manually_finish_for_manual_target(target: Unit) -> bool:
 
 func _on_auto_timer_timeout():
 	if !_can_cast():
+		return
+
+	var cant_cast_because_zero_charges: bool = item_owner != null && item_owner.get_charges() == 0 && dont_cast_at_zero_charges
+
+	if cant_cast_because_zero_charges:
 		return
 
 	var target: Unit = _get_target_for_auto_mode()
