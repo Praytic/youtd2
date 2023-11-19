@@ -30,6 +30,7 @@ var _tooltip_text: String
 var _buff_icon: String
 var _purgable: bool
 var _cleanup_done: bool = false
+var _inherited_periodic_timers: Dictionary = {}
 
 
 func _ready():
@@ -192,11 +193,24 @@ func _add_event_handler(event_type: Event.Type, handler: Callable):
 
 
 func _add_periodic_event(handler: Callable, period: float):
-	var timer: Timer = Timer.new()
+	var timer: Timer
+
+#	NOTE: inheriting periodic timers is a hack to to
+# 	preserve item cooldowns when item is removed from tower
+	if _inherited_periodic_timers.has(handler):
+		timer = _inherited_periodic_timers[handler]
+
+		if timer.get_parent() != null:
+			timer.get_parent().remove_child(timer)
+			timer.set_paused(false)
+	else:
+		timer = Timer.new()
+		timer.wait_time = period
+		timer.one_shot = false
+		timer.autostart = true
+		_inherited_periodic_timers[handler] = timer
+
 	add_child(timer)
-	timer.wait_time = period
-	timer.one_shot = false
-	timer.autostart = true
 	timer.timeout.connect(_on_periodic_event_timer_timeout.bind(handler, timer))
 
 

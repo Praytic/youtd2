@@ -59,6 +59,8 @@ var _modifier: Modifier = Modifier.new()
 var _autocast: Autocast = null
 var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 var _triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
+var _triggers_buff: Buff = null
+var _inherited_periodic_timers: Dictionary = {}
 
 
 @onready var _hud: Control = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD")
@@ -390,7 +392,9 @@ func _add_to_tower(tower: Tower):
 	if _autocast != null:
 		_autocast.set_caster(_carrier)
 
-	_triggers_buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
+	_triggers_buff_type._inherited_periodic_timers = _inherited_periodic_timers.duplicate()
+
+	_triggers_buff = _triggers_buff_type.apply_to_unit_permanent(_carrier, _carrier, 0)
 	_aura_carrier_buff.apply_to_unit_permanent(_carrier, _carrier, 0)
 
 
@@ -401,6 +405,21 @@ func _add_to_tower(tower: Tower):
 # NOTE: buffs applied by Item will be automatically removed
 # via Buff._on_buff_type_tree_exited(). This includes
 # _triggers_buff_type and _aura_carrier_buff.
+# 
+# NOTE: the code for _inherited_periodic_timers is a hack to
+# preserve item cooldowns when item is removed from tower.
+# It works like this:
+# 1. When item is first added to a tower, it creates a
+#    "triggers" buff which creates timers for periodic
+#    events.
+# 2. When that item is removed from the tower, triggers buff
+#    is deleted but the timers are saved in the item
+#    instance.
+# 3. When the item is added back to a tower, the new
+#    triggers buff "inherits" timers from previous buff.
+# 4. Repeat.
+# 
+# In other cases, buffs do not inherit timers.
 func _remove_from_tower():
 	if _carrier == null:
 		return
@@ -411,6 +430,11 @@ func _remove_from_tower():
 
 	if _autocast != null:
 		_autocast.set_caster(null)
+
+	_inherited_periodic_timers = _triggers_buff._inherited_periodic_timers.duplicate()
+	for timer in _inherited_periodic_timers.values():
+		timer.reparent(self)
+		timer.set_paused(true)
 
 	_carrier = null
 

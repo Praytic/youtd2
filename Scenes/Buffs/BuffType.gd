@@ -43,6 +43,7 @@ var _range_handler_list: Array[RangeHandlerData] = []
 var _aura_type_list: Array[AuraType] = []
 var _tooltip_text: String = ""
 var _buff_icon: String = ""
+var _inherited_periodic_timers: Dictionary = {}
 
 
 # NOTE: BuffType.createAuraEffectType() in JASS
@@ -127,6 +128,11 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._type = _type
 	buff._tooltip_text = _tooltip_text
 	buff._buff_icon = _buff_icon
+
+# 	NOTE: this is part of the hack to preserve item
+# 	cooldowns when item is removed from tower. Must be done
+# 	before calling _add_periodic_event().
+	buff._inherited_periodic_timers = _inherited_periodic_timers.duplicate()
 
 	tree_exited.connect(buff._on_buff_type_tree_exited)
 
