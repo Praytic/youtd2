@@ -70,12 +70,18 @@ func on_damage(event: Event):
 		return
 
 	var old_position: Vector2 = creep.position
+	var old_path_index: int = creep._current_path_index
 	var effect: int = Effect.add_special_effect_target("ManaDrainTarget.mdl", creep, "origin")
 
 	await get_tree().create_timer(3.0).timeout
 
 	Effect.destroy_effect(effect)
 
+#	NOTE: need to also restore old path index because
+#	otherwise the creep would be teleported to old position
+#	but will go in a straight line towards some further path
+#	point.
 	if Utils.unit_is_valid(creep):
-		creep.teleport_to_old_position(old_position)
+		creep.position = old_position
+		creep._current_path_index = old_path_index
 		SFX.sfx_at_unit("MassTeleportCaster.mdl", creep)
