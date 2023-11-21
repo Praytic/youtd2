@@ -10,64 +10,32 @@ extends PanelContainer
 
 @export var _label: RichTextLabel
 
+var _current_button: Button = null
+
 
 func _ready():
 	EventBus.tower_button_mouse_entered.connect(_on_tower_button_mouse_entered)
-	EventBus.tower_button_mouse_exited.connect(_on_tower_button_mouse_exited)
 	EventBus.item_button_mouse_entered.connect(_on_item_button_mouse_entered)
-	EventBus.item_button_mouse_exited.connect(_on_item_button_mouse_exited)
-
 	EventBus.research_button_mouse_entered.connect(_on_research_button_mouse_entered)
-	EventBus.research_button_mouse_exited.connect(_on_research_button_mouse_exited)
-
 	EventBus.autocast_button_mouse_entered.connect(_on_autocast_button_mouse_entered)
-	EventBus.autocast_button_mouse_exited.connect(_on_autocast_button_mouse_exited)
 
 
-func _on_tower_button_mouse_entered(tower_id: int):
-	show()
-
-	_label.clear()
-
-	var tower_info_text: String = RichTexts.get_tower_text(tower_id)
-	_label.append_text(tower_info_text)
+func _on_tower_button_mouse_entered(tower_id: int, button: Button):
+	var text: String = RichTexts.get_tower_text(tower_id)
+	_on_generic_button_mouse_entered(button, text)
 
 
-func _on_tower_button_mouse_exited():
-	hide()
+func _on_item_button_mouse_entered(item: Item, button: Button):
+	var text: String = RichTexts.get_item_text(item)
+	_on_generic_button_mouse_entered(button, text)
 
 
-func _on_item_button_mouse_entered(item: Item):
-	show()
-
-	_label.clear()
-
-	var tower_info_text: String = RichTexts.get_item_text(item)
-	_label.append_text(tower_info_text)
-
-
-func _on_item_button_mouse_exited():
-	hide()
-
-
-func _on_research_button_mouse_entered(element: Element.enm):
-	show()
-
-	_label.clear()
-
+func _on_research_button_mouse_entered(element: Element.enm, button: Button):
 	var text: String = RichTexts.get_research_text(element)
-	_label.append_text(text)
+	_on_generic_button_mouse_entered(button, text)
 
 
-func _on_research_button_mouse_exited():
-	hide()
-
-
-func _on_autocast_button_mouse_entered(autocast: Autocast):
-	show()
-
-	_label.clear()
-
+func _on_autocast_button_mouse_entered(autocast: Autocast, button: Button):
 	var text: String = ""
 
 	text += RichTexts.get_autocast_text(autocast)
@@ -78,8 +46,28 @@ func _on_autocast_button_mouse_entered(autocast: Autocast):
 
 	text += "[color=YELLOW]Left Click to cast ability[/color]\n"
 
+	_on_generic_button_mouse_entered(button, text)
+
+
+func _on_generic_button_mouse_entered(button: Button, text: String):
+	_clear_current_button()
+
+	_current_button = button
+	_current_button.mouse_exited.connect(_clear_current_button)
+	_current_button.tree_exiting.connect(_clear_current_button)
+	_current_button.hidden.connect(_clear_current_button)
+
+	_label.clear()
 	_label.append_text(text)
 
+	show()
 
-func _on_autocast_button_mouse_exited():
+
+func _clear_current_button():
+	if _current_button != null && is_instance_valid(_current_button):
+		_current_button.mouse_exited.disconnect(_clear_current_button)
+		_current_button.tree_exiting.disconnect(_clear_current_button)
+		_current_button.hidden.disconnect(_clear_current_button)
+
+	_current_button = null
 	hide()

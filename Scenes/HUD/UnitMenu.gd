@@ -53,7 +53,6 @@ func _ready():
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
 	_info_button.pressed.connect(_on_info_button_pressed)
 	_upgrade_button.mouse_entered.connect(_on_tower_upgrade_button_mouse_entered)
-	_upgrade_button.mouse_exited.connect(_on_tower_upgrade_button_mouse_exited)
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
 		var button_container: UnitButtonContainer = UnitButtonContainer.make()
@@ -441,11 +440,7 @@ func _on_tower_upgrade_button_mouse_entered():
 	if upgrade_id == -1:
 		return
 
-	EventBus.tower_button_mouse_entered.emit(upgrade_id)
-
-
-func _on_tower_upgrade_button_mouse_exited():
-	EventBus.tower_button_mouse_exited.emit()
+	EventBus.tower_button_mouse_entered.emit(upgrade_id, _upgrade_button)
 
 
 func _on_items_container_gui_input(event):

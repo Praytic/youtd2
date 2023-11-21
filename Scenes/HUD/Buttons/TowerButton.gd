@@ -25,7 +25,6 @@ func _ready():
 		set_count(randi_range(2, 20))
 	
 	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
 	pressed.connect(_on_pressed)
 
 	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
@@ -51,11 +50,7 @@ func _on_wave_or_element_level_changed():
 
 
 func _on_mouse_entered():
-	EventBus.tower_button_mouse_entered.emit(_tower_id)
-
-
-func _on_mouse_exited():
-	EventBus.tower_button_mouse_exited.emit()
+	EventBus.tower_button_mouse_entered.emit(_tower_id, self)
 
 
 func _on_pressed():

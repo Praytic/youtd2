@@ -172,12 +172,6 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 	else:
 		container.remove_item(clicked_item)
 
-# 	NOTE: call this to make sure that button tooltip for
-# 	item button goes away. Need to do this because when the
-# 	item button gets removed it doesn't emit "mouse_exited"
-# 	signal.
-	EventBus.item_button_mouse_exited.emit()
-	
 	add_child(clicked_item)
 
 	_moved_item = clicked_item

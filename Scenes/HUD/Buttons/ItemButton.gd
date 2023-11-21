@@ -33,7 +33,6 @@ func _ready():
 		_auto_mode_indicator.set_autocast(autocast)
 	
 	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
 
 	_cooldown_indicator.set_visible(_show_cooldown_indicator)
 	_auto_mode_indicator.set_visible(_show_auto_mode_indicator)
@@ -81,11 +80,7 @@ func set_item(value: Item):
 
 
 func _on_mouse_entered():
-	EventBus.item_button_mouse_entered.emit(_item)
-
-
-func _on_mouse_exited():
-	EventBus.item_button_mouse_exited.emit()
+	EventBus.item_button_mouse_entered.emit(_item, self)
 
 
 func _on_item_charges_changed():

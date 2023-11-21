@@ -11,7 +11,6 @@ func _ready():
 	_auto_mode_indicator.set_autocast(_autocast)
 
 	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
 	
 	var button_stylebox: StyleBox = get_theme_stylebox("normal", "Button")
 
@@ -35,11 +34,7 @@ func set_autocast(autocast: Autocast):
 
 
 func _on_mouse_entered():
-	EventBus.autocast_button_mouse_entered.emit(_autocast)
-
-
-func _on_mouse_exited():
-	EventBus.autocast_button_mouse_exited.emit()
+	EventBus.autocast_button_mouse_entered.emit(_autocast, self)
 
 
 func _on_pressed():

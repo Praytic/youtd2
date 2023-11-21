@@ -8,9 +8,8 @@ extends Node
 # For example:
 # 
 # ButtonTooltip needs to react to ItemButton's
-# mouse_entered() and mouse_exited() signals. Connecting
-# these two components normally would require the following
-# chain:
+# mouse_entered() signals. Connecting these two components
+# normally would require the following chain:
 # 
 # ItemButton->ItemStashMenu->BottomMenuBar->HUD->ButtonTooltip
 # 
@@ -25,14 +24,10 @@ extends Node
 # distance between the components
 
 
-signal item_button_mouse_entered(item: Item)
-signal item_button_mouse_exited()
-signal tower_button_mouse_entered(tower_id: int)
-signal tower_button_mouse_exited()
-signal research_button_mouse_entered(element: Element.enm)
-signal research_button_mouse_exited()
-signal autocast_button_mouse_entered(autocast: Autocast)
-signal autocast_button_mouse_exited()
+signal item_button_mouse_entered(item: Item, button: Button)
+signal tower_button_mouse_entered(tower_id: int, button: Button)
+signal research_button_mouse_entered(element: Element.enm, button: Button)
+signal autocast_button_mouse_entered(autocast: Autocast, button: Button)
 signal game_over()
 signal game_mode_was_chosen()
 signal horadric_menu_visibility_changed()

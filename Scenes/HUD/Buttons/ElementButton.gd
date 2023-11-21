@@ -70,13 +70,12 @@ func _on_element_level_changed():
 func _on_mouse_entered():
 	_texture_progress_bar.show()
 	_counter_label.show()
-	EventBus.research_button_mouse_entered.emit(element)
+	EventBus.research_button_mouse_entered.emit(element, self)
 
 
 func _on_mouse_exited():
 	_texture_progress_bar.hide()
 	_counter_label.hide()
-	EventBus.research_button_mouse_exited.emit()
 
 
 func _on_button_down():
