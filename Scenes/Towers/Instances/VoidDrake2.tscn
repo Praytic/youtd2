@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvqergyl07e3d"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_ccspc"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/VoidDrake1.gd" id="2_kjqnp"]
+[ext_resource type="Texture2D" uid="uid://q8j71furbpig" path="res://Assets/Towers/Instances/void_drake_atlas.png" id="3_foruh"]
+
+[node name="Tower" instance=ExtResource("1_ccspc")]
+script = ExtResource("2_kjqnp")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(-5, 131)
+texture = ExtResource("3_foruh")
