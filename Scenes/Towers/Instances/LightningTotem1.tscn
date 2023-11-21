@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://md7s7ywe8uh6"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_21bve"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/LightningTotem1.gd" id="2_82dwk"]
+[ext_resource type="Texture2D" uid="uid://ll10c8o47ncm" path="res://Assets/Towers/Instances/lightning_totem_atlas.png" id="3_d8vbu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
+atlas = ExtResource("3_d8vbu")
+region = Rect2(0, 0, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_21bve")]
+script = ExtResource("2_82dwk")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(-5, 148)
+scale = Vector2(0.65, 0.65)
+texture = SubResource("AtlasTexture_d0cuo")

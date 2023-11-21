@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://devnhvbolj2f6"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_g5o8c"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/InexperiencedHuntress1.gd" id="2_fvrsb"]
+[ext_resource type="Texture2D" uid="uid://bchnnmm651l5b" path="res://Assets/Towers/Instances/inexperienced_huntress_atlas.png" id="3_glwkw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
+atlas = ExtResource("3_glwkw")
+region = Rect2(0, 0, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_g5o8c")]
+script = ExtResource("2_fvrsb")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(-1, 138)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_d0cuo")

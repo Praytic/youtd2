@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmwecv041d06e"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_qiiya"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/LittlePhoenix1.gd" id="2_snndf"]
+[ext_resource type="Texture2D" uid="uid://b1r68lrsjby0a" path="res://Assets/Towers/Instances/little_phoenix_atlas.png" id="3_5pj78"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
+atlas = ExtResource("3_5pj78")
+region = Rect2(300, 0, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_qiiya")]
+script = ExtResource("2_snndf")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(-2, 123)
+scale = Vector2(0.94, 0.94)
+texture = SubResource("AtlasTexture_d0cuo")

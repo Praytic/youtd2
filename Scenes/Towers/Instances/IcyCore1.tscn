@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bo6d1i8nmo1od"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_jvfd4"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/IcyCore1.gd" id="2_6ic8u"]
+[ext_resource type="Texture2D" uid="uid://bgv1bfxf8ryfr" path="res://Assets/Towers/Instances/icy_core_atlas.png" id="3_tahmt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_tahmt")
+region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_jvfd4")]
+script = ExtResource("2_6ic8u")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(1, 128)
+scale = Vector2(0.75, 0.75)
+texture = SubResource("AtlasTexture_lrt4k")

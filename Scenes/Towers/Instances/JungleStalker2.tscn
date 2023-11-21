@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dux7ta5e7um8a"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_t6mf3"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/JungleStalker1.gd" id="2_evcsi"]
+[ext_resource type="Texture2D" uid="uid://4s6nk7y1jhc5" path="res://Assets/Towers/Instances/jungle_stalker_atlas.png" id="3_5ym02"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
+atlas = ExtResource("3_5ym02")
+region = Rect2(0, 0, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_t6mf3")]
+script = ExtResource("2_evcsi")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(-6, 112)
+texture = SubResource("AtlasTexture_d0cuo")

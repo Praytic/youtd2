@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://mvdvkyj2e6xp"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_muoxg"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/PrincessofLight1.gd" id="2_gfwj3"]
+[ext_resource type="Texture2D" uid="uid://b02mrnpkap4ss" path="res://Assets/Towers/Instances/princess_of_light_atlas.png" id="3_fhemo"]
+
+[node name="Tower" instance=ExtResource("1_muoxg")]
+script = ExtResource("2_gfwj3")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(-6, 148)
+scale = Vector2(0.536667, 0.536667)
+texture = ExtResource("3_fhemo")
