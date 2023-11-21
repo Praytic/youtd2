@@ -70,7 +70,9 @@ func _on_element_level_changed():
 func _on_mouse_entered():
 	_texture_progress_bar.show()
 	_counter_label.show()
-	EventBus.research_button_mouse_entered.emit(element, self)
+
+	var tooltip: String = RichTexts.get_research_text(element)
+	ButtonTooltip.show_tooltip(self, tooltip)
 
 
 func _on_mouse_exited():

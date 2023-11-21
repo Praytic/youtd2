@@ -50,7 +50,8 @@ func _on_wave_or_element_level_changed():
 
 
 func _on_mouse_entered():
-	EventBus.tower_button_mouse_entered.emit(_tower_id, self)
+	var tooltip: String = RichTexts.get_tower_text(_tower_id)
+	ButtonTooltip.show_tooltip(self, tooltip)
 
 
 func _on_pressed():

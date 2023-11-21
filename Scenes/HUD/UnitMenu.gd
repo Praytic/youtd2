@@ -440,7 +440,8 @@ func _on_tower_upgrade_button_mouse_entered():
 	if upgrade_id == -1:
 		return
 
-	EventBus.tower_button_mouse_entered.emit(upgrade_id, _upgrade_button)
+	var tooltip: String = RichTexts.get_tower_text(upgrade_id)
+	ButtonTooltip.show_tooltip(_upgrade_button, tooltip)
 
 
 func _on_items_container_gui_input(event):

@@ -1,4 +1,4 @@
-extends PanelContainer
+class_name ButtonTooltip extends PanelContainer
 
 
 # Tooltip used to display tower/item details when their
@@ -8,48 +8,25 @@ extends PanelContainer
 # mouse cursor.
 
 
+static var _global_self: ButtonTooltip = null
+
 @export var _label: RichTextLabel
 
 var _current_button: Button = null
 
 
 func _ready():
-	EventBus.tower_button_mouse_entered.connect(_on_tower_button_mouse_entered)
-	EventBus.item_button_mouse_entered.connect(_on_item_button_mouse_entered)
-	EventBus.research_button_mouse_entered.connect(_on_research_button_mouse_entered)
-	EventBus.autocast_button_mouse_entered.connect(_on_autocast_button_mouse_entered)
+	ButtonTooltip._global_self = self
 
 
-func _on_tower_button_mouse_entered(tower_id: int, button: Button):
-	var text: String = RichTexts.get_tower_text(tower_id)
-	_on_generic_button_mouse_entered(button, text)
+static func show_tooltip(button: Button, tooltip: String):
+	if ButtonTooltip._global_self == null:
+		return
+
+	_global_self._show_tooltip(button, tooltip)
 
 
-func _on_item_button_mouse_entered(item: Item, button: Button):
-	var text: String = RichTexts.get_item_text(item)
-	_on_generic_button_mouse_entered(button, text)
-
-
-func _on_research_button_mouse_entered(element: Element.enm, button: Button):
-	var text: String = RichTexts.get_research_text(element)
-	_on_generic_button_mouse_entered(button, text)
-
-
-func _on_autocast_button_mouse_entered(autocast: Autocast, button: Button):
-	var text: String = ""
-
-	text += RichTexts.get_autocast_text(autocast)
-	text += " \n"
-
-	if autocast.can_use_auto_mode():
-		text += "[color=YELLOW]Right Click to toggle automatic casting on and off[/color]\n"
-
-	text += "[color=YELLOW]Left Click to cast ability[/color]\n"
-
-	_on_generic_button_mouse_entered(button, text)
-
-
-func _on_generic_button_mouse_entered(button: Button, text: String):
+func _show_tooltip(button: Button, tooltip: String):
 	_clear_current_button()
 
 	_current_button = button
@@ -58,7 +35,7 @@ func _on_generic_button_mouse_entered(button: Button, text: String):
 	_current_button.hidden.connect(_clear_current_button)
 
 	_label.clear()
-	_label.append_text(text)
+	_label.append_text(tooltip)
 
 	show()
 

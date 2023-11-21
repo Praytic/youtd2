@@ -80,7 +80,8 @@ func set_item(value: Item):
 
 
 func _on_mouse_entered():
-	EventBus.item_button_mouse_entered.emit(_item, self)
+	var tooltip: String = RichTexts.get_item_text(_item)
+	ButtonTooltip.show_tooltip(self, tooltip)
 
 
 func _on_item_charges_changed():
