@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://diu7yskrwpq3r"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_snnd6"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/SolarEmitter1.gd" id="2_nixp3"]
+[ext_resource type="Texture2D" uid="uid://ipbpglyl00jm" path="res://Assets/Towers/Instances/solar_emitter_atlas.png" id="3_hervi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_hervi")
+region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_snnd6")]
+script = ExtResource("2_nixp3")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(-6, 148)
+scale = Vector2(0.536667, 0.536667)
+texture = SubResource("AtlasTexture_lrt4k")
