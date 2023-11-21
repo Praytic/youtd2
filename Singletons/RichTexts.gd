@@ -390,6 +390,21 @@ func get_autocast_text_short(autocast: Autocast) -> String:
 	return text
 
 
+func get_autocast_tooltip(autocast: Autocast) -> String:
+	var text: String = ""
+
+	text += RichTexts.get_autocast_text(autocast)
+	text += " \n"
+
+	if autocast.can_use_auto_mode():
+		text += "[color=YELLOW]Right Click to toggle automatic casting on and off[/color]\n"
+		text += " \n"
+
+	text += "[color=YELLOW]Left Click to cast ability[/color]\n"
+
+	return text
+
+
 func get_autocast_stats_text(autocast: Autocast) -> String:
 	var mana_cost: String = "Mana cost: %s" % str(autocast.mana_cost)
 	var cast_range: String = "%s range" % str(autocast.cast_range)
