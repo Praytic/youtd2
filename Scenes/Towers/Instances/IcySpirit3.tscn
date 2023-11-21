@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cg2sxwf3onlxw"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_3lu6d"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/IcySpirit1.gd" id="2_b8hwm"]
+[ext_resource type="Texture2D" uid="uid://dkgcdxsorgkvb" path="res://Assets/Towers/Instances/icy_spirit_atlas.png" id="3_riq5o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_riq5o")
+region = Rect2(300, 0, 300, 300)
+
+[node name="Tower" instance=ExtResource("1_3lu6d")]
+script = ExtResource("2_b8hwm")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+position = Vector2(0, -193)
+
+[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
+position = Vector2(-1, 153)
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
+position = Vector2(16, 123)
+texture = SubResource("AtlasTexture_lrt4k")
