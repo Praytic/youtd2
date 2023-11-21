@@ -34,16 +34,7 @@ func set_autocast(autocast: Autocast):
 
 
 func _on_mouse_entered():
-	var tooltip: String = ""
-
-	tooltip += RichTexts.get_autocast_text(_autocast)
-	tooltip += " \n"
-
-	if _autocast.can_use_auto_mode():
-		tooltip += "[color=YELLOW]Right Click to toggle automatic casting on and off[/color]\n"
-
-	tooltip += "[color=YELLOW]Left Click to cast ability[/color]\n"
-
+	var tooltip: String = RichTexts.get_autocast_tooltip(_autocast)
 	ButtonTooltip.show_tooltip(self, tooltip)
 
 
