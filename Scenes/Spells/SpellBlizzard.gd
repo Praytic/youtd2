@@ -38,7 +38,7 @@ func _on_wave_timer_timeout():
 
 # NOTE: subclasses override this to save data that is useful
 # for them
-func _set_subclass_data(data: Cast.SpellData):
+func _set_subclass_data(data: SpellType.SpellData):
 	_damage = data.blizzard.damage
 	_radius = data.blizzard.radius
 	_wave_count = data.blizzard.wave_count

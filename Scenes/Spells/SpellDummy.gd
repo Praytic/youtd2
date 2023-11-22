@@ -1,7 +1,7 @@
 class_name SpellDummy extends DummyUnit
 
 
-# Instance of a spell. Should be created using Cast.
+# Instance of a spell. Should be created using SpellType.
 
 
 var _target_position: Vector2 = Vector2.ZERO
@@ -23,7 +23,7 @@ func _ready():
 	_lifetime_timer.start(_lifetime)
 
 
-func init_spell(caster: Unit, lifetime: float, data: Cast.SpellData, damage_event_handler: Callable, x: float, y: float, damage_ratio: float, crit_ratio: float):
+func init_spell(caster: Unit, lifetime: float, data: SpellType.SpellData, damage_event_handler: Callable, x: float, y: float, damage_ratio: float, crit_ratio: float):
 	_caster = caster
 	_lifetime = lifetime
 	_set_subclass_data(data)
@@ -37,7 +37,7 @@ func init_spell(caster: Unit, lifetime: float, data: Cast.SpellData, damage_even
 
 # NOTE: subclasses override this to save data that is useful
 # for them
-func _set_subclass_data(_data: Cast.SpellData):
+func _set_subclass_data(_data: SpellType.SpellData):
 	pass
 
 

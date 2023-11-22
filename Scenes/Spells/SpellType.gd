@@ -1,7 +1,9 @@
-class_name Cast extends Node
+class_name SpellType extends Node
 
-# Cast is used to store information about spells. Used to
+# SpellType is used to store information about spells. Used to
 # create instances of SpellDummy.
+
+# NOTE: this class is called "Cast" in JASS
 
 
 class BlizzardData:

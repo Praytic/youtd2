@@ -91,7 +91,7 @@ func _get_current_radius() -> float:
 
 # NOTE: subclasses override this to save data that is useful
 # for them
-func _set_subclass_data(data: Cast.SpellData):
+func _set_subclass_data(data: SpellType.SpellData):
 	_damage = data.swarm.damage
 	_start_radius = data.swarm.start_radius
 	_end_radius = data.swarm.end_radius
