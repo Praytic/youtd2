@@ -117,7 +117,7 @@ func on_damage(event: Event):
 
 		cedi_protectress_slow_bt.apply(tower, next, tower.get_level())
 
-	tower.set_visual_modulate(Color.WHITE)
+	tower.set_sprite_color(Color.WHITE)
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -dmg_bonus_from_meld)
 	dmg_bonus_from_meld = 0.0
 	seconds_since_last_attack = 0
@@ -131,7 +131,7 @@ func periodic(event: Event):
 	if seconds_since_last_attack < 12:
 		seconds_since_last_attack += 1
 
-		tower.set_visual_modulate(Color8(255, 255, 255, 255 - 15 * seconds_since_last_attack))
+		tower.set_sprite_color(Color8(255, 255, 255, 255 - 15 * seconds_since_last_attack))
 		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, bonus_add)
 		dmg_bonus_from_meld += bonus_add
 

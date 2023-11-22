@@ -102,6 +102,7 @@ func _ready():
 	super()
 
 	_set_visual_node(_visual)
+	_set_sprite_node(_sprite)
 
 #	If this tower is used for towerpreview, then exit early
 #	out of ready() so that no event handlers or auras are

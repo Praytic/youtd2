@@ -47,6 +47,7 @@ const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 const REGEN_PERIOD: float = 1.0
 
 var _visual_node: Node2D = null
+var _sprite_node: Node2D = null
 var _sprite_dimensions: Vector2 = Vector2(100, 100)
 
 # NOTE: userInt/userInt2/... in JASS
@@ -697,6 +698,10 @@ func _set_visual_node(visual_node: Node2D):
 	_visual_node = visual_node
 
 
+func _set_sprite_node(sprite_node: Node2D):
+	_sprite_node = sprite_node
+
+
 # Call this in subclass to set dimensions of unit. Use
 # Utils.get_sprite_dimensions() or
 # Utils.get_animated_sprite_dimensions() to get the
@@ -1004,12 +1009,13 @@ func _on_modify_property():
 #########################
 
 # NOTE: use this instead of changing modulate directly for
-# Unit node. This version will not affect colors for
-# selection visual and health bars.
+# Unit node. If you change modulate directly for the whole
+# creep or tower, then the health bars and selection visuals
+# would also get recolored.
 # NOTE: SetUnitVertexColor() in JASS
-func set_visual_modulate(new_modulate: Color):
-	if _visual_node != null:
-		_visual_node.modulate = new_modulate
+func set_sprite_color(new_color: Color):
+	if _sprite_node != null:
+		_sprite_node.modulate = new_color
 
 
 # NOTE: overriden in Tower to return non-null value

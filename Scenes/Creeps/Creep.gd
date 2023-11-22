@@ -59,6 +59,7 @@ func _ready():
 	SelectUnit.connect_unit(self, _selection_area)
 	
 	_set_visual_node(_visual)
+	_set_sprite_node(_sprite)
 
 	var sprite_dimensions: Vector2 = Utils.get_animated_sprite_dimensions(_sprite, ANIMATION_FOR_DIMENSIONS)
 	_set_unit_dimensions(sprite_dimensions)

@@ -69,13 +69,13 @@ func on_damage(event: Event):
 func cedi_black_dragon_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var unit: Unit = buff.get_buffed_unit()
-	unit.set_visual_modulate(Color8(125, 125, 125, 255))
+	unit.set_sprite_color(Color8(125, 125, 125, 255))
 
 
 func cedi_black_dragon_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var unit: Unit = buff.get_buffed_unit()
-	unit.set_visual_modulate(Color8(255, 255, 255, 255))
+	unit.set_sprite_color(Color8(255, 255, 255, 255))
 
 
 func cedi_black_dragon_bt_on_damage(event: Event):
