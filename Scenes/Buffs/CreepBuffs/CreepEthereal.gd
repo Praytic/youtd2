@@ -13,6 +13,8 @@ func _init(parent: Node):
 
 	ethereal_active_buff = BuffType.new("creep_ethereal_active", ETHEREAL_DURATION, 0, true, self)
 	ethereal_active_buff.add_event_on_damaged(on_damaged)
+	ethereal_active_buff.add_event_on_create(on_create)
+	ethereal_active_buff.add_event_on_cleanup(on_cleanup)
 	ethereal_active_buff.set_buff_tooltip("Ethereal\nThis unit is Ethereal; it is immune against physical attacks but will take more damage from magic attacks and spells.")
 
 	add_periodic_event(on_periodic, ETHEREAL_PERIOD)
@@ -33,3 +35,17 @@ func on_damaged(event: Event):
 		event.damage *= 1.4
 	else:
 		event.damage = 0
+
+
+# NOTE: these two f-ns make the creep look transparent while
+# ethereal
+func on_create(event: Event):
+	var buff: Buff = event.get_buff()
+	var creep: Unit = buff.get_buffed_unit()
+	creep.set_sprite_color(Color.html("aaffaaaa"))
+
+
+func on_cleanup(event: Event):
+	var buff: Buff = event.get_buff()
+	var creep: Unit = buff.get_buffed_unit()
+	creep.set_sprite_color(Color.WHITE)
