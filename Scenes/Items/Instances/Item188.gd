@@ -24,7 +24,7 @@ func load_triggers(triggers_buff_type: BuffType):
 func drol_lift_up(event: Event):
 	var b: Buff = event.get_buff()
 	var c: Unit = b.get_buffed_unit()
-	b.user_int = Effect.create_simple_on_unit("res://Scenes/Effects/SpiritOfVengeanceMissile.tscn", c, "origin")
+	b.user_int = Effect.create_simple_on_unit("res://Scenes/Effects/SpiritOfVengeanceMissile.tscn", c, Unit.BodyPart.ORIGIN)
 	c.adjust_height(300, 150)
 
 

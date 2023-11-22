@@ -59,7 +59,7 @@ func on_damage(event: Event):
 	var level: int = tower.get_level()
 
 	tower.do_spell_damage(creep, _stats.smite_damage + (level * _stats.smite_damage_add), tower.calc_spell_crit_no_bonus())
-	SFX.sfx_on_unit("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl", creep, "origin")
+	SFX.sfx_on_unit("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl", creep, Unit.BodyPart.ORIGIN)
 
 	if level == 25:
 		if creep.get_size() < CreepSize.enm.BOSS:

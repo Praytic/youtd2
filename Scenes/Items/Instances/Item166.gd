@@ -31,4 +31,4 @@ func on_damage(event: Event):
 			var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, creep)
 			lightning.modulate = Color.LIGHT_GREEN
 			lightning.set_lifetime(0.1)
-			SFX.sfx_on_unit("ArcaneTowerAttack.mdl", creep, "origin")
+			SFX.sfx_on_unit("ArcaneTowerAttack.mdl", creep, Unit.BodyPart.ORIGIN)

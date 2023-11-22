@@ -61,7 +61,7 @@ func drol_tentacleDamage(event: Event):
 
 	if !b.get_buffed_unit().is_immune():
 		b.get_caster().do_spell_damage(b.get_buffed_unit(), b.user_real, b.get_caster().calc_spell_crit_no_bonus())
-		SFX.sfx_on_unit("Objects/Spawnmodels/Human/HumanBlood/HumanBloodRifleman.mdl", b.get_buffed_unit(), "chest")
+		SFX.sfx_on_unit("Objects/Spawnmodels/Human/HumanBlood/HumanBloodRifleman.mdl", b.get_buffed_unit(), Unit.BodyPart.CHEST)
 
 
 func on_damage(event: Event):

@@ -102,7 +102,7 @@ func on_autocast(event: Event):
 	var damage: float = _stats.release_energy_dmg + _stats.release_energy_dmg_add * tower.get_level()
 
 	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
-	SFX.sfx_on_unit("ReviveHuman.mdl", creep, "origin")
+	SFX.sfx_on_unit("ReviveHuman.mdl", creep, Unit.BodyPart.ORIGIN)
 
 	var stun_duration: float
 	if creep_size < CreepSize.enm.BOSS:

@@ -136,7 +136,7 @@ func periodic(_event: Event):
 			if do_stun:
 				cb_stun.apply_only_timed(tower, bolt_target, 0.5)
 
-			SFX.sfx_on_unit("MonsoonBoltTarget.mdl", bolt_target, "origin")
+			SFX.sfx_on_unit("MonsoonBoltTarget.mdl", bolt_target, Unit.BodyPart.ORIGIN)
 
 		bolt_count -= 1
 	else:

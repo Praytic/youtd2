@@ -67,7 +67,7 @@ func on_damage(_event: Event):
 	var I: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 420.0)
 	var U: Unit
 	var B: Buff = null
-	var effect: int = Effect.add_special_effect_target("Abilities\\Spells\\NightElf\\BattleRoar\\RoarCaster.mdl", tower, "origin")
+	var effect: int = Effect.add_special_effect_target("Abilities\\Spells\\NightElf\\BattleRoar\\RoarCaster.mdl", tower, Unit.BodyPart.ORIGIN)
 	Effect.destroy_effect_after_its_over(effect)
 
 	while true:

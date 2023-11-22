@@ -111,4 +111,4 @@ func on_damage(event: Event):
 		return
 
 	tower.do_spell_damage(event.get_target(), stair_glaive_damage, tower.calc_spell_crit_no_bonus())
-	SFX.sfx_on_unit("StarfallTarget.mdl", event.get_target(), "origin")
+	SFX.sfx_on_unit("StarfallTarget.mdl", event.get_target(), Unit.BodyPart.ORIGIN)

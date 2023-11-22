@@ -42,7 +42,7 @@ func on_attack(_event: Event):
 
 	if tower.calc_chance(speed * (0.02 + 0.001 * tower.get_level())):
 		spieler.display_floating_text("Attack!", tower, 255, 0, 0)
-		SFX.sfx_on_unit("RoarCaster.mdl", tower, "origin")
+		SFX.sfx_on_unit("RoarCaster.mdl", tower, Unit.BodyPart.ORIGIN)
 		in_range = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 350)
 
 		while true:

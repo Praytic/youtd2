@@ -20,4 +20,4 @@ func on_damage(event: Event):
 
 	if target.get_armor_type() == ArmorType.enm.MYT:
 		event.damage = event.damage * 1.25
-		SFX.sfx_on_unit("CrushingWaveDamage.mdl", target, "chest")
+		SFX.sfx_on_unit("CrushingWaveDamage.mdl", target, Unit.BodyPart.CHEST)

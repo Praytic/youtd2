@@ -101,4 +101,4 @@ func on_damage(event: Event):
 		return
 
 	tower.do_spell_damage(creep, strike_damage, tower.calc_spell_crit_no_bonus())
-	SFX.sfx_on_unit("MonsoonBoltTarget.mdl", creep, "origin")
+	SFX.sfx_on_unit("MonsoonBoltTarget.mdl", creep, Unit.BodyPart.ORIGIN)

@@ -20,4 +20,4 @@ func on_damage(event: Event):
 
 	if T.get_armor_type() == ArmorType.enm.HEL:
 		event.damage = event.damage * 1.25
-		SFX.sfx_on_unit("DispelMagicTarget.mdl", T, "chest")
+		SFX.sfx_on_unit("DispelMagicTarget.mdl", T, Unit.BodyPart.CHEST)

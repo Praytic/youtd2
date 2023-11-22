@@ -21,4 +21,4 @@ func on_damage(event: Event):
 
 	if t.get_armor_type() == ArmorType.enm.SIF:
 		itm.get_carrier().do_spell_damage(t, event.damage * 0.25, itm.get_carrier().calc_spell_crit_no_bonus())
-		SFX.sfx_on_unit("SpellBreakerAttack.mdl", t, "origin")
+		SFX.sfx_on_unit("SpellBreakerAttack.mdl", t, Unit.BodyPart.ORIGIN)

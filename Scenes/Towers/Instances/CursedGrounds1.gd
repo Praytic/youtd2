@@ -118,4 +118,4 @@ func on_damage(event: Event):
 		var buff_level: int = int(_stats.mod_movespeed * 1000)
 		var buff_duration: float = CURSED_DURATION + CURSED_DURATION_ADD * level
 		drol_slow.apply_custom_timed(tower, creep, buff_level, buff_duration)
-		SFX.sfx_on_unit("feralspirittarget.mdl", creep, "origin")
+		SFX.sfx_on_unit("feralspirittarget.mdl", creep, Unit.BodyPart.ORIGIN)

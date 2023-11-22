@@ -48,5 +48,5 @@ func on_autocast(_event: Event):
 
 	if next != null:
 		tower.add_exp_flat(next.remove_exp_flat(randi_range(15, 60)))
-		SFX.sfx_on_unit("AnimateDeadTarget.mdl", next, "head")
-		SFX.sfx_on_unit("DeathCoilSpecialArt.mdl", tower, "head")
+		SFX.sfx_on_unit("AnimateDeadTarget.mdl", next, Unit.BodyPart.HEAD)
+		SFX.sfx_on_unit("DeathCoilSpecialArt.mdl", tower, Unit.BodyPart.HEAD)

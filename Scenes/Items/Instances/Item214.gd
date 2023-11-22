@@ -32,7 +32,7 @@ func on_damage(event: Event):
 
 	if itm.user_real >= 100.0:
 		event.damage = event.damage / AttackType.get_damage_against(T.get_attack_type(), C.get_armor_type()) * AttackType.get_damage_against(AttackType.enm.ELEMENTAL, C.get_armor_type())
-		SFX.sfx_on_unit("IncinerateBuff.mdl", C, "chest")
+		SFX.sfx_on_unit("IncinerateBuff.mdl", C, Unit.BodyPart.CHEST)
 		itm.user_real = itm.user_real - 100.0
 		itm.set_charges(int(itm.user_real))
 
