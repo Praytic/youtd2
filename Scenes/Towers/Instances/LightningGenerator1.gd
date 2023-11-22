@@ -1,7 +1,7 @@
 extends Tower
 
 
-var Chainlightning: Cast
+var Chainlightning_st: SpellType
 
 
 func get_tier_stats() -> Dictionary:
@@ -55,9 +55,9 @@ func load_triggers(triggers: BuffType):
 
 
 func tower_init():
-	Chainlightning = Cast.new("@@0@@", "chainlightning", 5.00, self)
-	Chainlightning.data.chain_lightning.damage = _stats.chain_damage
-	Chainlightning.data.chain_lightning.chain_count = 3
+	Chainlightning_st = SpellType.new("@@0@@", "chainlightning", 5.00, self)
+	Chainlightning_st.data.chain_lightning.damage = _stats.chain_damage
+	Chainlightning_st.data.chain_lightning.chain_count = 3
 
 
 func on_attack(event: Event):
@@ -66,7 +66,7 @@ func on_attack(event: Event):
 	if !tower.calc_chance(0.195 + tower.get_level() * 0.0025):
 		return
 
-	Chainlightning.target_cast_from_caster(tower, event.get_target(), 1.0 + tower.get_level() * 0.02, tower.calc_spell_crit_no_bonus())
+	Chainlightning_st.target_cast_from_caster(tower, event.get_target(), 1.0 + tower.get_level() * 0.02, tower.calc_spell_crit_no_bonus())
 
 
 func on_damage(event: Event):

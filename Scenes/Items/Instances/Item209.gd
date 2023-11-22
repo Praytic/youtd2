@@ -4,7 +4,7 @@ extends Item
 
 var entangling_roots_buff: BuffType
 var cooldown_buff: BuffType
-var blizzard_cast: Cast
+var blizzard_st: SpellType
 
 
 func get_ability_description() -> String:
@@ -46,8 +46,8 @@ func item_init():
 
 	cooldown_buff = BuffType.new("Item209_cooldown_buff", 4.8, 0.0, false, self)
 
-	blizzard_cast = Cast.new("@@0@@", "blizzard", 4.0, self)
-	blizzard_cast.set_damage_event(overgrowth_dmg)
+	blizzard_st = SpellType.new("@@0@@", "blizzard", 4.0, self)
+	blizzard_st.set_damage_event(overgrowth_dmg)
 	
 
 func on_damage(event: Event):
@@ -56,6 +56,6 @@ func on_damage(event: Event):
 	var tower: Tower = itm.get_carrier()
 
 	if event.is_main_target() && tower.calc_chance(tower.get_base_attack_speed() * 0.06):
-		blizzard_cast.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
+		blizzard_st.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
 		var effect: int = Effect.create_colored("Roots.mdl", target.get_visual_position().x, target.get_visual_position().y, 0.0, 270.0, 1.2, Color8(210, 255, 180, 255))
 		Effect.set_lifetime(effect, 2.5)

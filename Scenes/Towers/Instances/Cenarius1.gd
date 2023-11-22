@@ -16,7 +16,7 @@ var cenarius_entangle_bt: BuffType
 var cenarius_thorned_bt: BuffType
 var cenarius_tranquility_bt: BuffType
 var cenarius_leaf_storm_bt: BuffType
-var cenarius_leaf_storm_cast: Cast
+var cenarius_leaf_storm_st: SpellType
 
 
 func get_ability_description() -> String:
@@ -108,11 +108,11 @@ func tower_init():
 	# ProjectileType.add_periodic_event() is implemented.
 	# roots_pt.add_periodic_event(roots_pt_periodic, 0.2)
 
-	cenarius_leaf_storm_cast = Cast.new("@@0@@", "blizzard", 4.00, self)
-	cenarius_leaf_storm_cast.set_damage_event(cenarius_leaf_storm_cast_on_damage)
-	cenarius_leaf_storm_cast.data.blizzard.damage = 1.0
-	cenarius_leaf_storm_cast.data.blizzard.radius = 200
-	cenarius_leaf_storm_cast.data.blizzard.wave_count = 3
+	cenarius_leaf_storm_st = SpellType.new("@@0@@", "blizzard", 4.00, self)
+	cenarius_leaf_storm_st.set_damage_event(cenarius_leaf_storm_st_on_damage)
+	cenarius_leaf_storm_st.data.blizzard.damage = 1.0
+	cenarius_leaf_storm_st.data.blizzard.radius = 200
+	cenarius_leaf_storm_st.data.blizzard.wave_count = 3
 
 	var cenarius_leaf_storm_mod: Modifier = Modifier.new()
 	cenarius_leaf_storm_bt = BuffType.new("cenarius_leaf_storm_bt", 1.0, 0.04, false, self)
@@ -172,7 +172,7 @@ func on_damage(event: Event):
 	if !tower.calc_chance(leaf_storm_chance):
 		return
 
-	cenarius_leaf_storm_cast.target_cast_from_caster(tower, target, damage_ratio, tower.calc_spell_crit_no_bonus())
+	cenarius_leaf_storm_st.target_cast_from_caster(tower, target, damage_ratio, tower.calc_spell_crit_no_bonus())
 
 
 func on_unit_in_range(event: Event):
@@ -205,7 +205,7 @@ func cenarius_entangle_bt_periodic(event: Event):
 	caster.do_spell_damage(target, damage, caster.calc_spell_crit_no_bonus())
 
 
-func cenarius_leaf_storm_cast_on_damage(event: Event, dummy_unit: DummyUnit):
+func cenarius_leaf_storm_st_on_damage(event: Event, dummy_unit: DummyUnit):
 	var tower: Tower = dummy_unit.get_caster()
 	var target: Unit = event.get_target()
 	cenarius_leaf_storm_bt.apply(tower, target, tower.get_level())

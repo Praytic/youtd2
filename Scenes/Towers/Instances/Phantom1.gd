@@ -2,8 +2,8 @@ extends Tower
 
 
 var drol_phantomBuff: BuffType
-var drol_phantomCast: Cast
-var drol_phantomCast2: Cast
+var drol_phantom_st: SpellType
+var drol_phantom_st_2: SpellType
 
 
 func get_tier_stats() -> Dictionary:
@@ -53,10 +53,10 @@ func phantom_attack(event: Event):
 
 	if b.get_caster().get_level() < 20:
 		if twr.calc_chance(0.25 * twr.get_base_attack_speed()):
-			drol_phantomCast.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
+			drol_phantom_st.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
 	else:
 		if twr.calc_chance(0.25 * twr.get_base_attack_speed()):
-			drol_phantomCast2.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
+			drol_phantom_st_2.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
 
 
 func tower_init():
@@ -71,23 +71,23 @@ func tower_init():
 	
 	drol_phantomBuff.add_event_on_attack(phantom_attack)
 	
-	drol_phantomCast = Cast.new('@@0@@', "chainlightning", 5.0, self)
-	drol_phantomCast.set_source_height(40.0)
+	drol_phantom_st = SpellType.new('@@0@@', "chainlightning", 5.0, self)
+	drol_phantom_st.set_source_height(40.0)
 	
-	drol_phantomCast2 = Cast.new('@@1@@', "chainlightning", 5.0, self)
-	drol_phantomCast2.set_source_height(40.0)
+	drol_phantom_st_2 = SpellType.new('@@1@@', "chainlightning", 5.0, self)
+	drol_phantom_st_2.set_source_height(40.0)
 
 	drol_phantomBuff.set_buff_tooltip("Wind Shear\nThis unit is affected by Wind Shear; it has increased attack speed and it has a chance to cast a chain of lightning on attack.")
 
-	drol_phantomCast = Cast.new("@@0@@", "chainlightning", 5.00, self)
-	drol_phantomCast.data.chain_lightning.damage = 100
-	drol_phantomCast.data.chain_lightning.damage_reduction = 0.25
-	drol_phantomCast.data.chain_lightning.chain_count = 3
+	drol_phantom_st = SpellType.new("@@0@@", "chainlightning", 5.00, self)
+	drol_phantom_st.data.chain_lightning.damage = 100
+	drol_phantom_st.data.chain_lightning.damage_reduction = 0.25
+	drol_phantom_st.data.chain_lightning.chain_count = 3
 
-	drol_phantomCast2 = Cast.new("@@0@@", "chainlightning", 5.00, self)
-	drol_phantomCast2.data.chain_lightning.damage = 100
-	drol_phantomCast2.data.chain_lightning.damage_reduction = 0.25
-	drol_phantomCast2.data.chain_lightning.chain_count = 4
+	drol_phantom_st_2 = SpellType.new("@@0@@", "chainlightning", 5.00, self)
+	drol_phantom_st_2.data.chain_lightning.damage = 100
+	drol_phantom_st_2.data.chain_lightning.damage_reduction = 0.25
+	drol_phantom_st_2.data.chain_lightning.chain_count = 4
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Wind Shear"

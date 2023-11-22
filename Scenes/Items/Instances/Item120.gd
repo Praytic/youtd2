@@ -2,7 +2,7 @@
 extends Item
 
 
-var drol_chainCast: Cast
+var drol_chain_st: SpellType
 var cb_stun: BuffType
 
 
@@ -32,11 +32,11 @@ func item_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.15, 0.0)
 
-	drol_chainCast = Cast.new("@@0@@", "chainlightning", 5.0, self)
-	drol_chainCast.set_damage_event(drol_chainStun)
-	drol_chainCast.data.chain_lightning.damage = 250
-	drol_chainCast.data.chain_lightning.damage_reduction = 0.25
-	drol_chainCast.data.chain_lightning.chain_count = 3
+	drol_chain_st = SpellType.new("@@0@@", "chainlightning", 5.0, self)
+	drol_chain_st.set_damage_event(drol_chainStun)
+	drol_chain_st.data.chain_lightning.damage = 250
+	drol_chain_st.data.chain_lightning.damage_reduction = 0.25
+	drol_chain_st.data.chain_lightning.chain_count = 3
 
 
 func on_attack(event: Event):
@@ -46,4 +46,4 @@ func on_attack(event: Event):
 	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_chance(0.125 * speed):
-		drol_chainCast.target_cast_from_caster(tower, event.get_target(), 1, tower.calc_spell_crit_no_bonus())
+		drol_chain_st.target_cast_from_caster(tower, event.get_target(), 1, tower.calc_spell_crit_no_bonus())

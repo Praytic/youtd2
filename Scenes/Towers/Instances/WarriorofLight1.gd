@@ -1,7 +1,7 @@
 extends Tower
 
 
-var shockwave_cast: Cast
+var shockwave_st: SpellType
 var mock_warrior_of_light_bt: BuffType
 
 
@@ -75,10 +75,10 @@ func tower_init():
 #	NOTE: original script and tooltip don't mention the
 #	radius of swarm so made it the same as for "Hell Bat"
 #	tower
-	shockwave_cast = Cast.new("@@0@@", "carrionswarm", 1, self)
-	shockwave_cast.data.swarm.damage = 1.0
-	shockwave_cast.data.swarm.start_radius = SHOCKWAVE_START_RADIUS
-	shockwave_cast.data.swarm.end_radius = SHOCKWAVE_END_RADIUS
+	shockwave_st = SpellType.new("@@0@@", "carrionswarm", 1, self)
+	shockwave_st.data.swarm.damage = 1.0
+	shockwave_st.data.swarm.start_radius = SHOCKWAVE_START_RADIUS
+	shockwave_st.data.swarm.end_radius = SHOCKWAVE_END_RADIUS
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -113,4 +113,4 @@ func on_attack(event: Event):
 
 	var effect: int = Effect.create_simple("HolyBoltSpecialArt.mdl", creep.get_visual_x(), creep.get_visual_y())
 	Effect.destroy_effect_after_its_over(effect)
-	shockwave_cast.point_cast_from_unit_on_point(tower, event.get_target(), x, y, shockwave_damage, tower.calc_spell_crit_no_bonus())
+	shockwave_st.point_cast_from_unit_on_point(tower, event.get_target(), x, y, shockwave_damage, tower.calc_spell_crit_no_bonus())

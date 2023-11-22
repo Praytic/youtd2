@@ -2,7 +2,7 @@ extends Tower
 
 
 var dave_darkness: BuffType
-var dave_bats: Cast
+var dave_bats_st: SpellType
 
 
 func get_tier_stats() -> Dictionary:
@@ -96,10 +96,10 @@ func tower_init():
 #	NOTE: settubg danage to "1.0" here because value for
 #	actual damage is passed when spell is casted as
 #	"damage_ratio"
-	dave_bats = Cast.new("@@0@@", "carrionswarm", 3.0, self)
-	dave_bats.data.swarm.damage = 1.0
-	dave_bats.data.swarm.start_radius = SWARM_START_RADIUS
-	dave_bats.data.swarm.end_radius = SWARM_END_RADIUS
+	dave_bats_st = SpellType.new("@@0@@", "carrionswarm", 3.0, self)
+	dave_bats_st.data.swarm.damage = 1.0
+	dave_bats_st.data.swarm.start_radius = SWARM_START_RADIUS
+	dave_bats_st.data.swarm.end_radius = SWARM_END_RADIUS
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Engulfing Darkness"
@@ -136,7 +136,7 @@ func on_attack(event: Event):
 	else:
 		damage_ratio = _stats.swarm_damage_day + _stats.swarm_damage_day_add * level
 
-	dave_bats.target_cast_from_caster(tower, event.get_target(), damage_ratio, tower.calc_spell_crit_no_bonus())
+	dave_bats_st.target_cast_from_caster(tower, event.get_target(), damage_ratio, tower.calc_spell_crit_no_bonus())
 
 
 func on_damage(event: Event):
