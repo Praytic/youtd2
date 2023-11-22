@@ -49,6 +49,7 @@ const REGEN_PERIOD: float = 1.0
 var _visual_node: Node2D = null
 var _sprite_node: Node2D = null
 var _sprite_dimensions: Vector2 = Vector2(100, 100)
+var _base_sprite_color: Color = Color.WHITE
 
 # NOTE: userInt/userInt2/... in JASS
 var user_int: int = 0
@@ -700,6 +701,7 @@ func _set_visual_node(visual_node: Node2D):
 
 func _set_sprite_node(sprite_node: Node2D):
 	_sprite_node = sprite_node
+	_sprite_node.modulate = _base_sprite_color
 
 
 # Call this in subclass to set dimensions of unit. Use
@@ -1008,14 +1010,26 @@ func _on_modify_property():
 ### Setters / Getters ###
 #########################
 
-# NOTE: use this instead of changing modulate directly for
-# Unit node. If you change modulate directly for the whole
-# creep or tower, then the health bars and selection visuals
-# would also get recolored.
+
+# Sets sprite's base color. Sprite will have this color
+# forever and it will be mixed with the color passed to
+# set_sprite_color(). This is intended to be called once
+# when creeps are created to apply color based on wave
+# specials.
+func set_sprite_base_color(base_color: Color):
+	_base_sprite_color = base_color
+
+	if _sprite_node != null:
+		_sprite_node.modulate = _base_sprite_color
+
+
+# Changes color of sprite. Note that this color will be
+# mixed with base color - it does not overwrite it. Pass
+# Color.WHITE to reset to base color.
 # NOTE: SetUnitVertexColor() in JASS
 func set_sprite_color(new_color: Color):
 	if _sprite_node != null:
-		_sprite_node.modulate = new_color
+		_sprite_node.modulate = _base_sprite_color * new_color
 
 
 # NOTE: overriden in Tower to return non-null value
