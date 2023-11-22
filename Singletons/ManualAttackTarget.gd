@@ -50,6 +50,6 @@ func _do_manual_targetting():
 #	NOTE: destroy prev effect so that there's only one arrow
 #	up at a time
 	Effect.destroy_effect(_prev_effect_id)
-	var effect: int = Effect.create_simple_on_unit("res://Scenes/Effects/TargetArrow.tscn", hovered_creep, "head")
+	var effect: int = Effect.create_simple_on_unit("res://Scenes/Effects/TargetArrow.tscn", hovered_creep, Unit.BodyPart.HEAD)
 	Effect.set_lifetime(effect, 2.0)
 	_prev_effect_id = effect

@@ -56,7 +56,7 @@ func sfx_at_unit(sfx_name: String, unit: Unit, volume_db: float = 0.0):
 
 
 # NOTE: SFXOnUnit() in JASS
-func sfx_on_unit(sfx_name: String, unit: Unit, body_part: String, volume_db: float = 0.0):
+func sfx_on_unit(sfx_name: String, unit: Unit, body_part: Unit.BodyPart, volume_db: float = 0.0):
 	var sfx_position: Vector2 = unit.get_body_part_position(body_part)
 	sfx_at_pos(sfx_name, sfx_position, volume_db)
 

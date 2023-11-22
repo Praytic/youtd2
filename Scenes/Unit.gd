@@ -42,6 +42,12 @@ enum DamageSource {
 	Spell
 }
 
+enum BodyPart {
+	HEAD,
+	CHEST,
+	ORIGIN
+}
+
 
 const INVISIBLE_MODULATE: Color = Color(1, 1, 1, 0.5)
 const REGEN_PERIOD: float = 1.0
@@ -596,7 +602,7 @@ func add_stun():
 	_stun_count += 1
 
 	if stun_started:
-		_stun_effect_id = Effect.add_special_effect_target("res://Scenes/Effects/StunVisual.tscn", self, "head")
+		_stun_effect_id = Effect.add_special_effect_target("res://Scenes/Effects/StunVisual.tscn", self, Unit.BodyPart.HEAD)
 
 
 func remove_stun():
@@ -1092,18 +1098,18 @@ func get_visual_position() -> Vector2:
 		return global_position
 
 # Returns approximate position of the body part of unit in
-# the world. Accepts "origin", "chest" or "head".
+# the world.
 # NOTE: body parts were used in original API based on
 # coordinates of body parts of 3D models. Approximate this
 # feature for 2d tiles by defining body part positions as:
-# "origin" = bottom of sprite
-# "chest" = middle of sprite
-# "head" = top of sprite
+# ORIGIN = bottom of sprite
+# CHEST = middle of sprite
+# HEAD = top of sprite
 # Note that "sprite" here means the occupied part of the
 # texture. Some sprites occupy only a small portion of the
 # total texture so using texture center/dimensions would
 # cause incorrect results.
-func get_body_part_position(body_part: String) -> Vector2:
+func get_body_part_position(body_part: Unit.BodyPart) -> Vector2:
 	if _visual_node == null:
 		print_debug("No selection area2d defined")
 
@@ -1116,17 +1122,15 @@ func get_body_part_position(body_part: String) -> Vector2:
 	return body_part_position
 
 
-func get_body_part_offset(body_part: String) -> Vector2:
+func get_body_part_offset(body_part: Unit.BodyPart) -> Vector2:
 	var sprite_height: float = float(_sprite_dimensions.y)
 
 	match body_part:
-		"head": return Vector2(0, -sprite_height * 0.5)
-		"chest": return Vector2(0, -sprite_height * 0.25)
-		"origin": return Vector2.ZERO
-		_:
-			push_error("Unhandled body part: ", body_part)
-
-			return Vector2.ZERO
+		BodyPart.HEAD: return Vector2(0, -sprite_height * 0.5)
+		BodyPart.CHEST: return Vector2(0, -sprite_height * 0.25)
+		BodyPart.ORIGIN: return Vector2.ZERO
+	
+	return Vector2.ZERO
 
 
 # NOTE: unit.getX() in JASS

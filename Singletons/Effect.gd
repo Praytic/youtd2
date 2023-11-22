@@ -50,11 +50,11 @@ func create_simple(effect_path: String, x: float, y: float) -> int:
 
 # NOTE: Effect.createSimpleAtUnit() in JASS
 func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
-	return create_simple_on_unit(effect_path, unit, "chest")
+	return create_simple_on_unit(effect_path, unit, Unit.BodyPart.CHEST)
 
 
 # NOTE: Effect.createSimpleOnUnit() in JASS
-func create_simple_on_unit(effect_path: String, unit: Unit, body_part: String) -> int:
+func create_simple_on_unit(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
 	var id: int = _create_internal(effect_path)
 	var effect: Node2D = _effect_map[id]
 
@@ -72,7 +72,7 @@ func create_simple_on_unit(effect_path: String, unit: Unit, body_part: String) -
 
 
 # NOTE: AddSpecialEffectTarget() in JASS()
-func add_special_effect_target(effect_path: String, unit: Unit, body_part: String) -> int:
+func add_special_effect_target(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
 	return create_simple_on_unit(effect_path, unit, body_part)
 
 
