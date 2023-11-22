@@ -19,6 +19,7 @@ enum CsvProperty {
 	CHAMPION_OR_BOSS_WAVE_ONLY,
 	GROUP_LIST,
 	USES_MANA,
+	COLOR,
 	DESCRIPTION,
 	ENABLED,
 }
@@ -180,6 +181,9 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 	var creep_base_mana: float = _get_creep_base_mana(special_list, creep)
 	creep.set_base_mana(creep_base_mana)
 	creep.set_mana(creep_base_mana)
+
+	var base_color: Color = _get_base_color(special_list)
+	creep.set_sprite_base_color(base_color)
 
 	for special in special_list:
 		var special_applies: bool = _special_applies_to_creep(special, creep)
@@ -347,6 +351,19 @@ func _get_uses_mana(special: int) -> bool:
 	var uses_mana: bool = _get_property(special, WaveSpecial.CsvProperty.USES_MANA) == "TRUE"
 
 	return uses_mana
+
+
+# NOTE: in case creep has multiple specials, we return color
+# of the first one. Mixing colors wouldn't look good.
+func _get_base_color(special_list: Array[int]) -> Color:
+	if special_list.is_empty():
+		return Color.WHITE
+	
+	var first_special: int = special_list[0]
+	var color_html: String = _get_property(first_special, WaveSpecial.CsvProperty.COLOR)
+	var color: Color = Color.html(color_html)
+
+	return color
 
 
 func _get_property(special: int, property: WaveSpecial.CsvProperty) -> String:
