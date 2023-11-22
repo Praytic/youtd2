@@ -193,7 +193,9 @@ func _on_upgrade_element_button_pressed():
 		var cost: int = ElementLevel.get_research_cost(element)
 		KnowledgeTomesManager.spend(cost)
 		ElementLevel.increment(element)
-		EventBus.research_button_mouse_entered.emit(element, _upgrade_element_button)
+
+		var tooltip: String = RichTexts.get_research_text(element)
+		ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
 	else:
 #		NOTE: this case should really never happen because
 #		button should be disabled (not pressable) if element
@@ -213,8 +215,9 @@ func _on_knowledge_tomes_changed():
 
 
 func _on_upgrade_element_mouse_entered():
-	var element = _build_bar.get_element()
-	EventBus.research_button_mouse_entered.emit(element, _upgrade_element_button)
+	var element: Element.enm = _build_bar.get_element()
+	var tooltip: String = RichTexts.get_research_text(element)
+	ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
 
 
 func _update_upgrade_element_button_state():
