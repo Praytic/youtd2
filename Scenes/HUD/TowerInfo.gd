@@ -1,12 +1,9 @@
 class_name TowerInfo extends GridContainer
 
 # Displays detailed information about the stats of the
-# currently selected tower. Hidden by default. Becomes
-# visible when player pushes the expand button in the
-# TowerInfoHeader.
+# currently selected tower. Can be toggled in unit menu by
+# pressing the "info" button.
 
-
-var _current_tower: Tower = null
 
 @onready var _tower_stat_int_labels: Array = get_tree().get_nodes_in_group("tower_stat_int")
 @onready var _tower_stat_float_labels: Array = get_tree().get_nodes_in_group("tower_stat_float")
@@ -22,27 +19,26 @@ var _current_tower: Tower = null
 func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 
-	_on_selected_unit_changed()
+
+func _on_selected_unit_changed(_prev_unit):
+	update_text()
 
 
-func _on_selected_unit_changed(_prev_unit = null):
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
-
-	if selected_unit != null && selected_unit is Tower:
-# 		NOTE: show() is not called here because tower
-# 		tooltip is shown when a button in tooltip header is
-# 		pressed
-		set_tower_tooltip_text(selected_unit)
-	else:
-		_current_tower = null
+func _on_refresh_timer_timeout():
+	update_text()
 
 
 #########################
 ###       Public      ###
 #########################
 
-func set_tower_tooltip_text(tower):
-	_current_tower = tower
+func update_text():
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+
+	if !selected_unit is Tower:
+		return
+
+	var tower: Tower = selected_unit as Tower
 
 #	NOTE: don't set tooltips for towers that haven't been
 #	added to scene tree yet because their _ready() functions
@@ -86,10 +82,6 @@ func set_tower_tooltip_text(tower):
 	combined_details_text += tower_details_text
 	_tower_details_label.clear()
 	_tower_details_label.append_text(combined_details_text)
-
-
-func set_tower(tower_node):
-	set_tower_tooltip_text(tower_node)
 
 
 #########################
@@ -232,11 +224,6 @@ func _get_tower_ranges_text(tower: Tower) -> String:
 	text += "[/table]"
 
 	return text
-
-
-func _on_refresh_timer_timeout():
-	if _current_tower != null:
-		set_tower_tooltip_text(_current_tower)
 
 
 func _get_oil_count_map(tower: Tower) -> Dictionary:
