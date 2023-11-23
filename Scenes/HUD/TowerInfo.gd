@@ -33,6 +33,8 @@ func _on_selected_unit_changed(_prev_unit = null):
 # 		tooltip is shown when a button in tooltip header is
 # 		pressed
 		set_tower_tooltip_text(selected_unit)
+	else:
+		_current_tower = null
 
 
 #########################
