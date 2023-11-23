@@ -1823,6 +1823,73 @@ Decreases attackspeed of all towers in range. Increases mana regeneration of the
 [color=GOLD]+20%[/color] bounty received ([color=GOLD]+0.9%[/color]/lvl)
 
 "
+130,"[b]Storm Focus[/b]
+[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]2800[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
+[color=LIGHT_BLUE]Advanced storm tower that emphasizes the use of anti air towers. [/color]
+[color=YELLOW]Author:[/color] SirCoqalot.
+[color=YELLOW]Element:[/color] [color=ffffe0ff]Storm[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]3907[/color] dps, [color=1e90ffff]Energy[/color], [color=GOLD]1600[/color] range
+ 
+[color=YELLOW]Specials:[/color]
+[color=RED]Attacks AIR only[/color]
+[color=GOLD]+10%[/color] damage to air
+
+ 
+[color=GOLD]Gust - Aura[/color]
+Towers in range around the Storm Focus gain additional attackdamage scaled by their bonus damage against air.
+
+ 
+[color=GOLD]Freezing Gust[/color]
+Casts a buff on a tower in range, doubling the effect of 'Gust'.
+ 
+Mana cost: [color=GOLD]15[/color], [color=GOLD]800[/color] range, [color=GOLD]0.1s[/color] cooldown
+
+ 
+[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
+"
+132,"[b]Eredar Warlock[/b]
+[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]2800[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
+[color=LIGHT_BLUE]Daemonic entity that will stun allied towers and temporarily steal their damage for itself and will threaten nearby units by occasionally releasing shadowboltwaves. [/color]
+[color=YELLOW]Author:[/color] SirCoqalot.
+[color=YELLOW]Element:[/color] [color=9370dbff]Darkness[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]584[/color] dps, [color=7fffd4ff]Essence[/color], [color=GOLD]890[/color] range
+ 
+[color=GOLD]Shadowbolt Wave[/color]
+Has a chance to release a wave of shadowbolts.
+
+ 
+[color=GOLD]Siphon Essence[/color]
+Stuns nearby towers and steals their damage.
+
+ 
+[color=GOLD]400[/color] range, [color=GOLD]2.5s[/color] cooldown
+
+ 
+[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
+"
+133,"[b]Eredar Diabolist[/b]
+[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]4600[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
+[color=LIGHT_BLUE]Daemonic entity that will stun allied towers and temporarily steal their damage for itself and will threaten nearby units by occasionalyl releasing shadowboltwaves. Also suppresses lifeforce killing too weak enemies instantly. [/color]
+[color=YELLOW]Author:[/color] SirCoqalot.
+[color=YELLOW]Element:[/color] [color=9370dbff]Darkness[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]959[/color] dps, [color=7fffd4ff]Essence[/color], [color=GOLD]890[/color] range
+ 
+[color=GOLD]Shadowbolt Wave[/color]
+Has a chance to release a wave of shadowbolts.
+ 
+[color=GOLD]Slow Decay - Aura[/color]
+Eredar Diabolist will instantly kill all low health creeps in range.
+
+ 
+[color=GOLD]Siphon Essence[/color]
+Stuns nearby towers and steals their damage.
+
+ 
+[color=GOLD]400[/color] range, [color=GOLD]1.5s[/color] cooldown
+
+ 
+[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
+"
 134,"[b]Lesser Elemental Ghost[/b]
 [img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]180[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]4[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]3[/color][/color]
 [color=LIGHT_BLUE]A mysterious Ghost, which deals different damage types.[/color]
@@ -3660,6 +3727,32 @@ This tower deals bonus damage to slowed creeps.
 [color=GOLD]Rampage[/color]
 Chance on attack to go into a rampage, increasing attack speed and critical strike stats enormously.
 
+"
+253,"[b]Cenarius[/b]
+[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]2800[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
+[color=LIGHT_BLUE]Damn, there are no trees.[/color]
+[color=YELLOW]Author:[/color] cedi
+[color=YELLOW]Element:[/color] [color=32cd32ff]Nature[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]960[/color] dps, [color=9370dbff]Decay[/color], [color=GOLD]950[/color] range
+ 
+[color=GOLD]Leaf Storm[/color]
+Chance to summon a leaf storm at the target's position, slowing enemy units inside and dealing damage over time.
+ 
+[color=GOLD]Thorned![/color]
+When a unit comes in range it recieves the thorned debuff. The debuff increases the damage taken from nature towers.
+ 
+[color=GOLD]Tranquility - Aura[/color]
+Decreases the attackspeed of all nearby towers and increases their attackdamage.
+
+ 
+[color=GOLD]Entangling Roots[/color]
+Launches roots towards the target which will entangle creeps.
+
+ 
+Mana cost: [color=GOLD]90[/color], [color=GOLD]950[/color] range, [color=GOLD]10s[/color] cooldown
+
+ 
+[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
 "
 254,"[b]Skink[/b]
 [img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]150[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]4[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]3[/color][/color]
