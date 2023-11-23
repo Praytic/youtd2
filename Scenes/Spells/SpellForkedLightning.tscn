@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtt1y06kkd14b"]
+
+[ext_resource type="PackedScene" uid="uid://b14bbv4n46f1j" path="res://Scenes/Spells/SpellDummy.tscn" id="1_vvpme"]
+[ext_resource type="Script" path="res://Scenes/Spells/SpellForkedLightning.gd" id="2_pwt26"]
+
+[node name="SpellForkedLightning" instance=ExtResource("1_vvpme")]
+script = ExtResource("2_pwt26")
