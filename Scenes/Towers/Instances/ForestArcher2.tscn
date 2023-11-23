@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy754u5xfvfun"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_kuj4o"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/ForestArcher1.gd" id="2_vuxjl"]
+[ext_resource type="Texture2D" uid="uid://dww13k0a504b1" path="res://Assets/Towers/Instances/forest_archer_atlas.png" id="3_18cbx"]
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("3_18cbx")
+region = Rect2(0, 0, 300, 300)
+
+[node name="ForestArcher" instance=ExtResource("1_kuj4o")]
+script = ExtResource("2_vuxjl")
+
+[node name="Model" type="Node2D" parent="." index="3"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
+position = Vector2(4, -71)
+scale = Vector2(0.85, 0.85)
+texture = SubResource("2")
