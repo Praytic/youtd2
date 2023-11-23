@@ -7,6 +7,7 @@ extends Node2D
 @export var _buildable_area: TileMap
 @export var _prerendered_background: Node2D
 @export var _foreground_map: TileMap
+@export var _ground_indicator_map: TileMap
 
 const BUILDABLE_PULSE_ALPHA_MIN = 0.1
 const BUILDABLE_PULSE_ALPHA_MAX = 0.5
@@ -118,5 +119,9 @@ func get_mouse_world_pos() -> Vector2:
 	return out
 
 
-func pos_is_on_ground(_pos: Vector2) -> bool:
-	return true
+func pos_is_on_ground(pos: Vector2) -> bool:
+	var map_pos = _ground_indicator_map.local_to_map(pos)
+	var tile_data_at_pos: TileData = _ground_indicator_map.get_cell_tile_data(0, map_pos)
+	var tile_exists: bool = tile_data_at_pos != null
+
+	return tile_exists
