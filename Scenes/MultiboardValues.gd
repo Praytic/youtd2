@@ -1,5 +1,4 @@
 class_name MultiboardValues
-extends Node
 
 
 var _size: int = 0
