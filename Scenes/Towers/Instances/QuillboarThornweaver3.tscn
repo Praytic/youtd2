@@ -6,7 +6,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
 atlas = ExtResource("3_tbpn8")
-region = Rect2(0, 0, 300, 300)
+region = Rect2(300, 0, 300, 300)
 
 [node name="Tower" instance=ExtResource("1_lufkj")]
 script = ExtResource("2_kr1q6")
@@ -18,6 +18,6 @@ position = Vector2(0, -193)
 position = Vector2(-1, 153)
 
 [node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
-position = Vector2(-1, 144)
-scale = Vector2(0.7, 0.7)
+position = Vector2(-1, 125)
+scale = Vector2(0.9, 0.9)
 texture = SubResource("AtlasTexture_d0cuo")
