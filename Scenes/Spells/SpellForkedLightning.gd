@@ -75,5 +75,5 @@ func _create_lightning_section(start_unit: Unit, end_unit: Unit):
 # NOTE: subclasses override this to save data that is useful
 # for them
 func _set_subclass_data(data: SpellType.SpellData):
-	_damage = data.chain_lightning.damage
+	_damage = data.forked_lightning.damage
 	_target_count = data.forked_lightning.target_count
