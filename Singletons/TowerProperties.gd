@@ -18,6 +18,28 @@ var _min_required_wave_for_build_mode = {
 	Rarity.enm.UNIQUE: 60
 }
 
+var _element_map: Dictionary = {}
+var _attack_type_map: Dictionary = {}
+var _rarity_map: Dictionary = {}
+
+
+# NOTE: convert some property strings to enums in _ready()
+# so that we avoid this overhead during runtime.
+func _ready():
+	for tower_id in Properties.get_tower_id_list():
+		var element_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.ELEMENT)
+		var element: Element.enm = Element.from_string(element_string)
+
+		var attack_type_string: String = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_TYPE)
+		var attack_type: AttackType.enm = AttackType.from_string(attack_type_string)
+
+		var rarity_string: String = get_csv_property(tower_id,Tower. CsvProperty.RARITY)
+		var rarity: Rarity.enm = Rarity.convert_from_string(rarity_string)
+		
+		_element_map[tower_id] = element
+		_attack_type_map[tower_id] = attack_type
+		_rarity_map[tower_id] = rarity
+
 
 func get_icon_texture(tower_id: int) -> Texture2D:
 	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(tower_id)
@@ -73,8 +95,7 @@ func get_icon_atlas_num(tower_id: int) -> int:
 
 
 func get_element(tower_id: int) -> Element.enm:
-	var element_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.ELEMENT)
-	var element: Element.enm = Element.from_string(element_string)
+	var element: Element.enm = _element_map[tower_id]
 
 	return element
 
@@ -89,8 +110,7 @@ func get_csv_property(tower_id: int, csv_property: Tower.CsvProperty) -> String:
 
 
 func get_rarity(tower_id: int) -> Rarity.enm:
-	var rarity_string: String = get_csv_property(tower_id, Tower.CsvProperty.RARITY)
-	var rarity: Rarity.enm = Rarity.convert_from_string(rarity_string)
+	var rarity: Rarity.enm = _rarity_map[tower_id]
 
 	return rarity
 	
@@ -149,8 +169,7 @@ func get_base_cooldown(tower_id: int) -> float:
 
 
 func get_attack_type(tower_id: int) -> AttackType.enm:
-	var attack_type_string: String = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_TYPE)
-	var attack_type: AttackType.enm = AttackType.from_string(attack_type_string)
+	var attack_type: AttackType.enm = _attack_type_map[tower_id]
 
 	return attack_type
 
