@@ -228,37 +228,34 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 	if target_is_tower:
 		radius += Constants.TILE_SIZE_PIXELS / 2
 
-	var filtered_node_list: Array[Node] = node_list.filter(
-		func(node) -> bool:
-			var unit: Unit = node as Unit
-
-			if unit.is_dead():
-				return false
-
-			if type != null:
-				var type_match: bool = type.match(unit)
-
-				if !type_match:
-					return false
-
-			var creep_is_in_range = Isometric.vector_in_range_PIXELS(center, unit.position, radius)
-
-			if !creep_is_in_range:
-				return false
-
-			if unit is Creep:
-				var creep: Creep = unit as Creep
-
-				if creep.is_invisible() && !include_invisible:
-					return false
-
-			return true
-	)
-	
+#	NOTE: not using Array.filter() here because it takes
+#	more time than for loop
 	var filtered_unit_list: Array[Unit] = []
 	
-	for node in filtered_node_list:
-		filtered_unit_list.append(node as Unit)
+	for node in node_list:
+		var unit: Unit = node as Unit
+
+		if unit.is_dead():
+			continue
+
+		if type != null:
+			var type_match: bool = type.match(unit)
+
+			if !type_match:
+				continue
+
+		var creep_is_in_range = Isometric.vector_in_range_PIXELS(center, unit.position, radius)
+
+		if !creep_is_in_range:
+			continue
+
+		if unit is Creep:
+			var creep: Creep = unit as Creep
+
+			if creep.is_invisible() && !include_invisible:
+				continue
+
+		filtered_unit_list.append(unit)
 
 	return filtered_unit_list
 
