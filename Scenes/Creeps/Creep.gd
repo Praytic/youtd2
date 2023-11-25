@@ -110,6 +110,13 @@ func adjust_height(height_wc3: float, speed: float):
 #	because creep is about to get deleted anyway.
 	if !is_inside_tree():
 		return
+
+	var creep_is_air: bool = get_size() == CreepSize.enm.AIR
+
+#	NOTE: shouldn't change height of air creeps - it would
+#	look weird
+	if creep_is_air:
+		return
 	
 # 	NOTE: divide by two because in isometric world vertical
 # 	axis is squished
