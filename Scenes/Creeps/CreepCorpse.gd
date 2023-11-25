@@ -1,4 +1,4 @@
-extends Unit
+class_name CreepCorpse extends Unit
 
 
 # Corpse visual created after creep dies. Fades away slowly
