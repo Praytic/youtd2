@@ -4,6 +4,10 @@ extends Node2D
 # Aura applies an aura effect(buff) to targets in range of
 # caster. Should be created using AuraType.
 
+# NOTE: it is important to use get_units_in_range() for all
+# aura range checking code. get_units_in_range() does the
+# special range extension for towers - other range/distance
+# functions don't.
 
 var _aura_range: float = 10.0
 var _target_type: TargetType = null
@@ -61,12 +65,14 @@ func get_range() -> float:
 func _on_timer_timeout():
 	_remove_invalid_targets()
 
+	var units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _aura_range, _include_invisible)
+
 # 	Remove buff from units that have went out of range or
 # 	became invisible
 	var removed_target_list: Array = []
-	
+
 	for target in _target_list:
-		var in_range = Isometric.vector_in_range(global_position, target.position, _aura_range)
+		var in_range = units_in_range.has(target)
 
 		if !in_range || (target.is_invisible() && !_include_invisible):
 			removed_target_list.append(target)
@@ -77,8 +83,6 @@ func _on_timer_timeout():
 	remove_aura_effect_from_units(removed_target_list)
 
 # 	Apply buff to units in range
-	var units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _aura_range, _include_invisible)
-
 	for unit in units_in_range:
 		if !_target_self && unit == self:
 			continue
