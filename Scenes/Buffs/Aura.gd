@@ -66,10 +66,9 @@ func _on_timer_timeout():
 	var removed_target_list: Array = []
 	
 	for target in _target_list:
-		var distance: float = Isometric.vector_distance_to(global_position, target.position)
-		var out_of_range: bool = distance > _aura_range
+		var in_range = Isometric.vector_in_range(global_position, target.position, _aura_range)
 
-		if out_of_range || (target.is_invisible() && !_include_invisible):
+		if !in_range || (target.is_invisible() && !_include_invisible):
 			removed_target_list.append(target)
 
 	for target in removed_target_list:

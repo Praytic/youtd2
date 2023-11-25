@@ -443,8 +443,7 @@ func check_target_for_unit_autocast(target: Unit) -> bool:
 
 
 func _get_target_is_in_range(target: Unit) -> bool:
-	var distance_to_target: float = Isometric.vector_distance_to(target.position, _caster.position)
-	var target_is_in_range: bool = distance_to_target <= auto_range
+	var target_is_in_range: bool = Isometric.vector_in_range(target.position, _caster.position, auto_range)
 
 	return target_is_in_range
 

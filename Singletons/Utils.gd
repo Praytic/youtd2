@@ -214,7 +214,19 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 		TargetType.UnitType.CREEPS: node_list = get_tree().get_nodes_in_group("creeps")
 		TargetType.UnitType.CORPSES: node_list = get_tree().get_nodes_in_group("corpses")
 
+#	NOTE: in original youtd, auras and abilities which
+#	affect towers in range are extended by half a tile so
+#	that the aura affects a tower if the range reaches the
+#	tile of the tower, not the center.
+# 
+#	If we don't extend the range, then towers like Skink
+# 	will affect less towers than in the original.
+# 
+#	Note that this doesn't apply to creeps - in that case,
+#	the default distance to unit position is used.
 	var target_is_tower: bool = type._unit_type == TargetType.UnitType.TOWERS
+	if target_is_tower:
+		radius += Constants.TILE_SIZE_PIXELS / 2
 
 	var filtered_node_list: Array[Node] = node_list.filter(
 		func(node) -> bool:
@@ -229,25 +241,7 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 				if !type_match:
 					return false
 
-			var distance: float = Isometric.vector_distance_to_PIXELS(center, unit.position)
-
-#			NOTE: in original youtd, auras and abilities
-#			which affect towers in range are extended by
-#			half a tile so that the aura affects a tower if
-#			the range reaches the tile of the tower, not the
-#			center.
-# 
-#			If we don't extend the range, then towers like
-#			Skink will affect less towers than in the
-#			original.
-# 
-#			Note that this doesn't apply to creeps - in that
-#			case, the default distance to unit position is
-#			used.
-			if target_is_tower:
-				distance = max(0, distance - Constants.TILE_SIZE_PIXELS / 2)
-
-			var creep_is_in_range = distance <= radius
+			var creep_is_in_range = Isometric.vector_in_range_PIXELS(center, unit.position, radius)
 
 			if !creep_is_in_range:
 				return false
@@ -301,11 +295,12 @@ class AttackTargetSorter:
 	func sort(a: Unit, b: Unit):
 		var level_a: float = a.get_spawn_level()
 		var level_b: float = b.get_spawn_level()
-		var distance_a: float = Isometric.vector_distance_to(a.position, origin)
-		var distance_b: float = Isometric.vector_distance_to(b.position, origin)
 
 		var less_than: bool
 		if level_a == level_b:
+			var distance_a: float = Isometric.vector_distance_to(a.position, origin)
+			var distance_b: float = Isometric.vector_distance_to(b.position, origin)
+
 			less_than = distance_a < distance_b
 		else:
 			less_than = level_a < level_b

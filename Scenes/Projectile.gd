@@ -184,8 +184,7 @@ func _process_targeted(delta: float):
 	var move_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(move_vector_isometric)
 	_direction = rad_to_deg(move_vector_top_down.angle())
 
-	var distance: float = Isometric.vector_distance_to(target_pos, position)
-	var reached_target = distance < CONTACT_DISTANCE
+	var reached_target = Isometric.vector_in_range(target_pos, position, CONTACT_DISTANCE)
 
 	if reached_target:
 		if _target != null:

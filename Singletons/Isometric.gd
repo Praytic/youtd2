@@ -75,3 +75,23 @@ func vector3_to_isometric_vector2(vector3: Vector3) -> Vector2:
 	var vector2: Vector2 = Vector2(x, y)
 
 	return vector2
+
+
+func vector_in_range(start: Vector2, end: Vector2, radius: float) -> bool:
+	var radius_pixels = Utils.to_pixels(radius)
+	var in_range: bool = vector_in_range_PIXELS(start, end, radius_pixels)
+
+	return in_range
+
+
+# NOTE: comparing squared values is faster. You should use
+# this function over vector_distance_to() wherever it's
+# possible.
+func vector_in_range_PIXELS(start: Vector2, end: Vector2, radius: float) -> bool:
+	var diff: Vector2 = start - end
+	diff.y *= 2
+	var distance_squared: float = diff.x * diff.x + diff.y * diff.y
+	var radius_squared: float = radius * radius
+	var in_range: bool = distance_squared <= radius_squared
+
+	return in_range

@@ -253,7 +253,6 @@ func get_log_name() -> String:
 	return get_display_name()
 
 
-
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
 func _process(delta: float):
@@ -1105,9 +1104,8 @@ func _target_is_valid(target) -> bool:
 	if !unit_is_valid:
 		return false
 
-	var distance_to_target: float = Isometric.vector_distance_to(position, target.position)
 	var attack_range: float = get_range()
-	var out_of_range: bool = distance_to_target > attack_range
+	var in_range = Isometric.vector_in_range(position, target.position, attack_range)
 
 	var target_is_invisible: bool = target.is_invisible()
 
@@ -1115,7 +1113,7 @@ func _target_is_valid(target) -> bool:
 	var tower_is_magic: bool = get_attack_type() == AttackType.enm.MAGIC
 	var is_immune_valid: bool = !(target_is_immune && tower_is_magic)
 
-	var target_is_valid: bool = !out_of_range && !target_is_invisible && is_immune_valid
+	var target_is_valid: bool = in_range && !target_is_invisible && is_immune_valid
 
 	return target_is_valid
 
