@@ -259,12 +259,15 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 	return filtered_unit_list
 
 
+# NOTE: use squared distances to get better perfomance. Also
+# don't convert from WC3 to pixel units because it doesn't
+# matter for sorting purposes.
 class DistanceSorter:
 	var origin = Vector2.ZERO
 
 	func sort(a: Unit, b: Unit):
-		var distance_a: float = Isometric.vector_distance_to(a.position, origin)
-		var distance_b: float = Isometric.vector_distance_to(b.position, origin)
+		var distance_a: float = Isometric.vector_distance_squared_PIXELS(a.position, origin)
+		var distance_b: float = Isometric.vector_distance_squared_PIXELS(b.position, origin)
 		var less_than: bool = distance_a < distance_b
 
 		return less_than
@@ -294,8 +297,8 @@ class AttackTargetSorter:
 
 		var less_than: bool
 		if level_a == level_b:
-			var distance_a: float = Isometric.vector_distance_to(a.position, origin)
-			var distance_b: float = Isometric.vector_distance_to(b.position, origin)
+			var distance_a: float = Isometric.vector_distance_squared_PIXELS(a.position, origin)
+			var distance_b: float = Isometric.vector_distance_squared_PIXELS(b.position, origin)
 
 			less_than = distance_a < distance_b
 		else:

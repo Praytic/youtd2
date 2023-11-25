@@ -56,6 +56,14 @@ func vector_distance_to_PIXELS(a: Vector2, b: Vector2) -> float:
 	return distance
 
 
+func vector_distance_squared_PIXELS(a: Vector2, b: Vector2) -> float:
+	var diff: Vector2 = a - b
+	diff.y *= 2
+	var distance_squared: float = diff.x * diff.x + diff.y * diff.y
+
+	return distance_squared
+
+
 func isometric_vector_to_top_down(v: Vector2) -> Vector2:
 	var top_down: Vector2 = v * Vector2(1.0, 2.0)
 
