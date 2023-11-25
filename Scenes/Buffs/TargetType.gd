@@ -19,7 +19,8 @@ const RACE_MAGIC: int 		= 0x10
 const RACE_NATURE: int 		= 0x20
 const RACE_ORC: int 		= 0x40
 const RACE_HUMANOID: int 	= 0x80
-const RACE_ALL: int 		= RACE_UNDEAD | RACE_MAGIC | RACE_NATURE | RACE_ORC | RACE_HUMANOID
+const RACE_CHALLENGE: int 	= 0x200000
+const RACE_ALL: int 		= RACE_UNDEAD | RACE_MAGIC | RACE_NATURE | RACE_ORC | RACE_HUMANOID | RACE_CHALLENGE
 
 const SIZE_MASS: int 		= 0x100
 const SIZE_NORMAL: int 		= 0x200
@@ -54,6 +55,7 @@ static var _creep_category_to_bit: Dictionary = {
 	CreepCategory.enm.NATURE: RACE_NATURE,
 	CreepCategory.enm.ORC: RACE_ORC,
 	CreepCategory.enm.HUMANOID: RACE_HUMANOID,
+	CreepCategory.enm.CHALLENGE: RACE_CHALLENGE,
 }
 
 static var _creep_size_to_bit: Dictionary = {
@@ -62,6 +64,8 @@ static var _creep_size_to_bit: Dictionary = {
 	CreepSize.enm.CHAMPION: SIZE_CHAMPION,
 	CreepSize.enm.BOSS: SIZE_BOSS,
 	CreepSize.enm.AIR: SIZE_AIR,
+	CreepSize.enm.CHALLENGE_BOSS: SIZE_BOSS,
+	CreepSize.enm.CHALLENGE_MASS: SIZE_MASS,
 }
 
 enum UnitType {
