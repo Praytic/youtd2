@@ -107,6 +107,7 @@ var _stun_effect_id: int = -1
 var _visual_only: bool = false
 var _autocast_list: Array[Autocast] = []
 var _aura_list: Array[Aura] = []
+var _target_bitmask: int = 0x0
 
 var _selection_visual: Node = null
 
@@ -210,6 +211,8 @@ func _ready():
 	if _visual_only:
 		return
 
+	_target_bitmask = TargetType.make_unit_bitmask(self)
+
 	_selection_visual = Selection.new()
 	_selection_visual.hide()
 	_selection_visual.z_index = -1
@@ -230,6 +233,10 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+
+func get_target_bitmask() -> int:
+	return _target_bitmask
 
 
 # Returns name used in the combat log

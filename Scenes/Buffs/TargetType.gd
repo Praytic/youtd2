@@ -19,12 +19,14 @@ const RACE_MAGIC: int 		= 0x10
 const RACE_NATURE: int 		= 0x20
 const RACE_ORC: int 		= 0x40
 const RACE_HUMANOID: int 	= 0x80
+const RACE_ALL: int 		= RACE_UNDEAD | RACE_MAGIC | RACE_NATURE | RACE_ORC | RACE_HUMANOID
 
 const SIZE_MASS: int 		= 0x100
 const SIZE_NORMAL: int 		= 0x200
 const SIZE_CHAMPION: int 	= 0x400
 const SIZE_BOSS: int 		= 0x800
 const SIZE_AIR: int 		= 0x1000
+const SIZE_ALL: int 		= SIZE_MASS | SIZE_NORMAL | SIZE_CHAMPION | SIZE_BOSS | SIZE_AIR
 
 const ELEMENT_ASTRAL: int 	= 0x2000
 const ELEMENT_DARKNESS: int = 0x4000
@@ -33,6 +35,34 @@ const ELEMENT_FIRE: int 	= 0x10000
 const ELEMENT_ICE: int 		= 0x20000
 const ELEMENT_STORM: int 	= 0x40000
 const ELEMENT_IRON: int 	= 0x80000
+const ELEMENT_ALL: int 		= ELEMENT_ASTRAL | ELEMENT_DARKNESS | ELEMENT_NATURE | ELEMENT_FIRE | ELEMENT_ICE | ELEMENT_STORM | ELEMENT_IRON
+
+
+static var _tower_element_to_bit: Dictionary = {
+	Element.enm.ASTRAL: TargetType.ELEMENT_ASTRAL,
+	Element.enm.DARKNESS: TargetType.ELEMENT_DARKNESS,
+	Element.enm.NATURE: TargetType.ELEMENT_NATURE,
+	Element.enm.FIRE: TargetType.ELEMENT_FIRE,
+	Element.enm.ICE: TargetType.ELEMENT_ICE,
+	Element.enm.STORM: TargetType.ELEMENT_STORM,
+	Element.enm.IRON: TargetType.ELEMENT_IRON,
+}
+
+static var _creep_category_to_bit: Dictionary = {
+	CreepCategory.enm.UNDEAD: RACE_UNDEAD,
+	CreepCategory.enm.MAGIC: RACE_MAGIC,
+	CreepCategory.enm.NATURE: RACE_NATURE,
+	CreepCategory.enm.ORC: RACE_ORC,
+	CreepCategory.enm.HUMANOID: RACE_HUMANOID,
+}
+
+static var _creep_size_to_bit: Dictionary = {
+	CreepSize.enm.MASS: SIZE_MASS,
+	CreepSize.enm.NORMAL: SIZE_NORMAL,
+	CreepSize.enm.CHAMPION: SIZE_CHAMPION,
+	CreepSize.enm.BOSS: SIZE_BOSS,
+	CreepSize.enm.AIR: SIZE_AIR,
+}
 
 enum UnitType {
 	TOWERS,
@@ -42,56 +72,47 @@ enum UnitType {
 }
 
 var _unit_type: UnitType
-var _creep_size_list: Array = []
-var _creep_category_list: Array = []
-var _tower_element_list: Array = []
 var _bitmask: int = 0
 
 
 func _init(bitmask: int):
 	_bitmask = bitmask
 	_unit_type = TargetType._get_unit_type(bitmask)
-	_creep_size_list = TargetType._get_creep_size_list(bitmask)
-	_creep_category_list = TargetType._get_creep_category_list(bitmask)
-	_tower_element_list = TargetType._get_tower_element_list(bitmask)
+
+	var group_bitmask_list: Array[int] = [
+		ELEMENT_ALL,
+		RACE_ALL,
+		SIZE_ALL,
+	]
+	
+#	NOTE: if target type was created with no bit specified
+#	for group (element, race or size) then it is assumed
+#	that we should accept all variations for that group.
+#	Therefore we set all bits from those group bitmasks.
+	for all_bitmask in group_bitmask_list:
+		var no_filter_for_section: bool = _bitmask & all_bitmask == 0
+		if no_filter_for_section:
+			_bitmask |= all_bitmask
+
+#	NOTE: treat PLAYER_TOWERS as TOWERS and vice versa. Will
+#	figure out how to deal with it properly later.
+	if _bitmask & PLAYER_TOWERS == PLAYER_TOWERS:
+		_bitmask |= TOWERS
+	if _bitmask & TOWERS == TOWERS:
+		_bitmask |= PLAYER_TOWERS
 
 
 func to_int() -> int:
 	return _bitmask
 
 
+# NOTE: need to use bitmask to get optimal performance.
+# TargetType.match() will get called very frequently via
+# Utils.get_units_in_range().
 func match(unit: Unit) -> bool:
-	var is_creep = unit is Creep
-	var is_tower = unit is Tower
+	var is_match: bool = _bitmask & unit.get_target_bitmask() == unit.get_target_bitmask()
 
-	match _unit_type:
-		UnitType.CREEPS:
-			if !is_creep:
-				return false
-		UnitType.TOWERS:
-			if !is_tower:
-				return false
-		UnitType.PLAYER_TOWERS:
-			if !is_tower:
-				return false
-
-	if is_creep:
-		var creep_size: int = unit.get_size()
-		var creep_category: int = unit.get_category()
-
-		if !_creep_size_list.is_empty() && !_creep_size_list.has(creep_size):
-			return false
-
-		if !_creep_category_list.is_empty() && !_creep_category_list.has(creep_category):
-			return false
-
-	if is_tower:
-		var tower_element: int = unit.get_element()
-
-		if !_tower_element_list.is_empty() && !_tower_element_list.has(tower_element):
-			return false
-
-	return true
+	return is_match
 
 
 static func _get_unit_type(bitmask: int) -> UnitType:
@@ -112,66 +133,30 @@ static func _get_unit_type(bitmask: int) -> UnitType:
 		return UnitType.CREEPS
 
 
-static func _get_creep_size_list(bitmask: int) -> Array[CreepSize.enm]:
-	var bit_to_size_map: Dictionary = {
-		SIZE_MASS: CreepSize.enm.MASS,
-		SIZE_NORMAL: CreepSize.enm.NORMAL,
-		SIZE_CHAMPION: CreepSize.enm.CHAMPION,
-		SIZE_BOSS: CreepSize.enm.BOSS,
-		SIZE_AIR: CreepSize.enm.AIR,
-	}
+static func make_unit_bitmask(unit: Unit) -> int:
+	var bitmask: int = 0
 
-	var list: Array[CreepSize.enm] = []
+	if unit is Tower:
+		var tower: Tower = unit as Tower
 
-	for bit in bit_to_size_map.keys():
-		var element: CreepSize.enm = bit_to_size_map[bit]
-		var is_set: bool = Utils.bit_is_set(bitmask, bit)
+		var element: Element.enm = tower.get_element()
+		var element_bit: int = _tower_element_to_bit[element]
+		
+		bitmask |= TargetType.TOWERS
+		bitmask |= TargetType.PLAYER_TOWERS
+		bitmask |= element_bit
+	elif unit is Creep:
+		var creep: Creep = unit as Creep
 
-		if is_set:
-			list.append(element)
+		var category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
+		var category_bit: int = _creep_category_to_bit[category]
+		var size: CreepSize.enm = creep.get_size()
+		var size_bit: int = _creep_size_to_bit[size]
 
-	return list
+		bitmask |= TargetType.CREEPS
+		bitmask |= category_bit
+		bitmask |= size_bit
+	elif unit is CreepCorpse:
+		bitmask |= TargetType.CORPSES
 
-
-static func _get_creep_category_list(bitmask: int) -> Array[CreepCategory.enm]:
-	var bit_to_category_map: Dictionary = {
-		RACE_UNDEAD: CreepCategory.enm.UNDEAD,
-		RACE_MAGIC: CreepCategory.enm.MAGIC,
-		RACE_NATURE: CreepCategory.enm.NATURE,
-		RACE_ORC: CreepCategory.enm.ORC,
-		RACE_HUMANOID: CreepCategory.enm.HUMANOID,
-	}
-
-	var list: Array[CreepCategory.enm] = []
-
-	for bit in bit_to_category_map.keys():
-		var category: CreepCategory.enm = bit_to_category_map[bit]
-		var is_set: bool = Utils.bit_is_set(bitmask, bit)
-
-		if is_set:
-			list.append(category)
-
-	return list
-
-
-static func _get_tower_element_list(bitmask: int) -> Array[Element.enm]:
-	var bit_to_element_map: Dictionary = {
-		ELEMENT_ASTRAL: Element.enm.ASTRAL,
-		ELEMENT_DARKNESS: Element.enm.DARKNESS,
-		ELEMENT_NATURE: Element.enm.NATURE,
-		ELEMENT_FIRE: Element.enm.FIRE,
-		ELEMENT_ICE: Element.enm.ICE,
-		ELEMENT_STORM: Element.enm.STORM,
-		ELEMENT_IRON: Element.enm.IRON,
-	}
-
-	var list: Array[Element.enm] = []
-
-	for bit in bit_to_element_map.keys():
-		var element: Element.enm = bit_to_element_map[bit]
-		var is_set: bool = Utils.bit_is_set(bitmask, bit)
-
-		if is_set:
-			list.append(element)
-
-	return list
+	return bitmask
