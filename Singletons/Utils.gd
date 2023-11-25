@@ -238,11 +238,10 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 		if unit.is_dead():
 			continue
 
-		if type != null:
-			var type_match: bool = type.match(unit)
+		var type_match: bool = type.match(unit)
 
-			if !type_match:
-				continue
+		if !type_match:
+			continue
 
 		var creep_is_in_range = Isometric.vector_in_range_PIXELS(center, unit.position, radius)
 
