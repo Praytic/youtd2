@@ -106,10 +106,6 @@ func _init(bitmask: int):
 		_bitmask |= PLAYER_TOWERS
 
 
-func to_int() -> int:
-	return _bitmask
-
-
 # NOTE: need to use bitmask to get optimal performance.
 # TargetType.match() will get called very frequently via
 # Utils.get_units_in_range().

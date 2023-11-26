@@ -38,8 +38,8 @@ enum AttackStyle {
 
 
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
-const TARGET_TYPE_GROUND_ONLY: int = TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS
-const TARGET_TYPE_AIR_ONLY: int = TargetType.CREEPS + TargetType.SIZE_AIR
+var TARGET_TYPE_GROUND_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS)
+var TARGET_TYPE_AIR_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_AIR)
 
 var _id: int = 0
 var _stats: Dictionary
@@ -437,8 +437,8 @@ func _make_projectile(from: Unit, target: Unit) -> Projectile:
 func get_specials_tooltip_text() -> String:
 	var text: String = ""
 
-	var attacks_ground_only: bool = _attack_target_type.to_int() == TARGET_TYPE_GROUND_ONLY
-	var attacks_air_only: bool = _attack_target_type.to_int() == TARGET_TYPE_AIR_ONLY
+	var attacks_ground_only: bool = _attack_target_type == TARGET_TYPE_GROUND_ONLY
+	var attacks_air_only: bool = _attack_target_type == TARGET_TYPE_AIR_ONLY
 	if attacks_ground_only:
 		text += "[color=RED]Attacks GROUND only[/color]\n"
 	elif attacks_air_only:
@@ -513,11 +513,11 @@ func on_destruct():
 
 
 func _set_attack_ground_only():
-	_attack_target_type = TargetType.new(TARGET_TYPE_GROUND_ONLY)
+	_attack_target_type = TARGET_TYPE_GROUND_ONLY
 
 
 func _set_attack_air_only():
-	_attack_target_type = TargetType.new(TARGET_TYPE_AIR_ONLY)
+	_attack_target_type = TARGET_TYPE_AIR_ONLY
 
 
 func _set_attack_style_splash(splash_map: Dictionary):
