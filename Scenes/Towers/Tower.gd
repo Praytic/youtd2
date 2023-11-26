@@ -259,6 +259,10 @@ func _process(delta: float):
 	if _visual_only:
 		return
 
+	var tower_does_not_attack: bool = (get_base_cooldown() == 0 || get_range() == 0)
+	if tower_does_not_attack:
+		return
+
 	if is_stunned():
 		return
 
