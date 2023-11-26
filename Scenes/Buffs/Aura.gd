@@ -84,7 +84,7 @@ func _on_timer_timeout():
 
 # 	Apply buff to units in range
 	for unit in units_in_range:
-		if !_target_self && unit == self:
+		if !_target_self && unit == _caster:
 			continue
 
 		var active_buff: Buff = unit.get_buff_of_type(_aura_effect)
