@@ -419,6 +419,33 @@ This tower strengthens its defenses when uninvited units enter its territory. Th
  
 [color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
 "
+34,"[b]Grab-o-Bot[/b]
+[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]3500[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
+[color=LIGHT_BLUE]When you think it looks very fragile, you're right. But its also a devastating machine.[/color]
+[color=YELLOW]Author:[/color] cedi
+[color=YELLOW]Element:[/color] [color=d2b48cff]Iron[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]1647[/color] dps, [color=9370dbff]Decay[/color], [color=GOLD]900[/color] range
+ 
+[color=YELLOW]Specials:[/color]
+[color=GREENYELLOW]Splash attack:[/color]
+	[color=GOLD]75[/color] AoE: [color=GOLD]100%[/color] damage
+	[color=GOLD]100[/color] AoE: [color=GOLD]66%[/color] damage
+	[color=GOLD]125[/color] AoE: [color=GOLD]33%[/color] damage
+
+ 
+[color=GOLD]Grapple[/color]
+Chance to grab the target, holding it in place for [color=GOLD]2.5[/color] seconds.
+
+ 
+[color=GOLD]Shock[/color]
+Slams all creeps in around the target, dealing damage and stunning them.
+
+ 
+Mana cost: [color=GOLD]50[/color], [color=GOLD]900[/color] range, [color=GOLD]15s[/color] cooldown
+
+ 
+[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
+"
 35,"[b]Hell Rock[/b]
 [img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]2350[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]2[/color][/color]
 [color=LIGHT_BLUE]Basic tower with low splash damage[/color]
@@ -604,6 +631,42 @@ On attack this tower deals spell damage which scales with current player gold.
 [color=GOLD]+25%[/color] damage to masses ([color=GOLD]+1.6%[/color]/lvl)
 [color=GOLD]+25%[/color] damage to humanoids ([color=GOLD]+1.6%[/color]/lvl)
 
+"
+46,"[b]Astral Rift[/b]
+[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]3000[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
+[color=LIGHT_BLUE]A powerful vortex with the ability to move things through space itself. [/color]
+[color=YELLOW]Author:[/color] i_m0ck_death
+[color=YELLOW]Element:[/color] [color=66cdaaff]Astral[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]1434[/color] dps, [color=1e90ffff]Energy[/color], [color=GOLD]750[/color] range
+ 
+[color=GOLD]Spacial Rift[/color]
+This tower has chance to move damaged creeps back by [color=GOLD]175[/color] units.
+ 
+[color=GOLD]Presence of the Rift - Aura[/color]
+Deals periodic damage to creeps in range, scaled by their movement speed.
+
+ 
+[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
+"
+47,"[b]Mud Golem[/b]
+[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]3000[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
+[color=LIGHT_BLUE]Advanced nature tower that will deal damage in an AoE around itself and will slow damaged targets. Also gives nearby towers a chance to deal damage and slow targets in an AoE around iteself. [/color]
+[color=YELLOW]Author:[/color] SirCoqalot.
+[color=YELLOW]Element:[/color] [color=32cd32ff]Nature[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]1150[/color] dps, [color=9370dbff]Decay[/color], [color=GOLD]750[/color] range
+ 
+[color=YELLOW]Specials:[/color]
+[color=RED]Attacks GROUND only[/color]
+
+ 
+[color=GOLD]Ground Smash[/color]
+Damages all creeps in range and slows them.
+ 
+[color=GOLD]Earthquake Aura - Aura[/color]
+Towers in range have a chance to trigger Ground Smash.
+
+ 
+[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
 "
 48,"[b]Quillboar Thornweaver[/b]
 [img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]800[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]10[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]4[/color][/color]
@@ -1847,6 +1910,28 @@ Mana cost: [color=GOLD]15[/color], [color=GOLD]800[/color] range, [color=GOLD]0.
  
 [color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
 "
+131,"[b]Genis Sage[/b]
+[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]3500[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
+[color=LIGHT_BLUE]Powerful mage who is adept in using the water magics.[/color]
+[color=YELLOW]Author:[/color] i_m0ck_death
+[color=YELLOW]Element:[/color] [color=6495edff]Ice[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]1261[/color] dps, [color=1e90ffff]Energy[/color], [color=GOLD]900[/color] range
+ 
+[color=GOLD]Speed Cast[/color]
+Chance to increase trigger chances and attackspeed.
+ 
+[color=GOLD]Aqua Edge[/color]
+Chance to launch [color=GOLD]3[/color] blades of water at target.
+ 
+[color=GOLD]Spread[/color]
+Chance to lift creeps up for in AoE around the damaged creep.
+ 
+[color=GOLD]Magic Boost[/color]
+Chance to increase spell damage of nearby towers.
+
+ 
+[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
+"
 132,"[b]Eredar Warlock[/b]
 [img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]2800[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
 [color=LIGHT_BLUE]Daemonic entity that will stun allied towers and temporarily steal their damage for itself and will threaten nearby units by occasionally releasing shadowboltwaves. [/color]
@@ -2383,6 +2468,26 @@ Has a chance on attack to shoot multiple projectiles.
 [color=GOLD]Atrophy[/color]
 Reduces movement speed of target.
 
+"
+167,"[b]Lightning Eye[/b]
+[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]3000[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]25[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]6[/color][/color]
+[color=LIGHT_BLUE]Whatever you do, do not make eye contact. [/color]
+[color=YELLOW]Author:[/color] i_m0ck_death
+[color=YELLOW]Element:[/color] [color=ffffe0ff]Storm[/color]
+[color=YELLOW]Attack:[/color] [color=GOLD]1171[/color] dps, [color=1e90ffff]Energy[/color], [color=GOLD]800[/color] range
+ 
+[color=YELLOW]Specials:[/color]
+[color=GOLD]-10%[/color] damage to bosses
+
+ 
+[color=GOLD]Glare[/color]
+The Eye launches a forked lightning on every attack.
+ 
+[color=GOLD]Static Field - Aura[/color]
+Towers in range have their damage increased when attacking immune creeps.
+
+ 
+[color=ORANGE]NOTE: the visuals for this tower are not ready yet. Current icon and sprite are placeholder.s[/color]
 "
 168,"[b]Queen of Light[/b]
 [img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] [color=ffd700ff]3100[/color] [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] [color=ffd700ff]10[/color] [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD][color=ffd700ff]4[/color][/color]
