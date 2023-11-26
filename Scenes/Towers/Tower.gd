@@ -299,6 +299,10 @@ func _process(delta: float):
 
 
 func force_attack_target(forced_target: Creep):
+	var type_ok: bool = _attack_target_type.match(forced_target)
+	if !type_ok:
+		return
+
 #	NOTE: if tower can attack 1 target, then we simply stop
 #	attacking current target. If tower can attack multiple
 #	targets, then we substitute one of the targets with the
