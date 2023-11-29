@@ -415,7 +415,7 @@ func issue_target_order(order_type: String, target: Unit):
 # will need to rework this if we decide to make separate
 # projectile sprites for each element.
 func _make_projectile(from: Unit, target: Unit) -> Projectile:
-	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, from, target, true, false, true)
+	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, from, target, true, false, false)
 
 	var element_color: Color
 	var element: Element.enm = get_element()

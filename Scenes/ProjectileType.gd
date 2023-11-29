@@ -1,6 +1,9 @@
 class_name ProjectileType extends Node
 
+var _move_type: Projectile.MoveType
 var _speed: float
+var _acceleration: float = 0.0
+var _homing_control_value: float
 var _range: float = 0.0
 var _lifetime: float = 0.0
 var _sprite_path: String = ""
@@ -8,6 +11,8 @@ var _explode_on_hit: bool = true
 var _cleanup_handler: Callable = Callable()
 var _interpolation_finished_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
+var _periodic_handler: Callable = Callable()
+var _periodic_handler_period: float = 0.0
 var _expiration_handler: Callable = Callable()
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
@@ -23,6 +28,7 @@ func _init():
 # ProjectileType.create() in JASS
 static func create(model: String, lifetime: float, speed: float, parent: Node) -> ProjectileType:
 	var pt: ProjectileType = ProjectileType.new()
+	pt._move_type = Projectile.MoveType.NORMAL
 	pt._speed = speed
 	pt._lifetime = lifetime
 	pt._sprite_path = model
@@ -34,6 +40,7 @@ static func create(model: String, lifetime: float, speed: float, parent: Node) -
 # ProjectileType.createInterpolate() in JASS
 static func create_interpolate(model: String, speed: float, parent: Node) -> ProjectileType:
 	var pt: ProjectileType = ProjectileType.new()
+	pt._move_type = Projectile.MoveType.INTERPOLATED
 	pt._speed = speed
 	pt._sprite_path = model
 	parent.add_child(pt)
@@ -46,6 +53,7 @@ static func create_interpolate(model: String, speed: float, parent: Node) -> Pro
 # ProjectileType.createRanged() in JASS
 static func create_ranged(model: String, the_range: float, speed: float, parent: Node) -> ProjectileType:
 	var pt: ProjectileType = ProjectileType.new()
+	pt._move_type = Projectile.MoveType.NORMAL
 	pt._speed = speed
 	pt._range = the_range
 	pt._sprite_path = model
@@ -72,9 +80,26 @@ func enable_collision(handler: Callable, radius: float, target_type: TargetType,
 	_collision_target_type = target_type
 
 
+# "homing_control_value" determines how fast the projectile
+# will turn towards the homing target. This value is in
+# degrees per second. If you set homing_control_value it too
+# low, then the projectile can miss the target!
+# 
+# Set homing_control_value to 0 to make the projectile turn
+# instantly towards the target.
+# 
 # projectileType.enableHoming() in JASS
-func enable_homing(target_hit_handler: Callable, _mystery_float: float):
+func enable_homing(target_hit_handler: Callable, homing_control_value: float):
 	_target_hit_handler = target_hit_handler
+	_homing_control_value = homing_control_value
+
+
+# Example handler:
+# func periodic_handler(p: Projectile)
+# NOTE: projectileType.enable_periodic() in JASS
+func enable_periodic(handler: Callable, period: float):
+	_periodic_handler = handler
+	_periodic_handler_period = period
 
 
 # Example handler:
@@ -101,10 +126,9 @@ func set_event_on_expiration(handler: Callable):
 	_expiration_handler = handler
 
 
-# TODO: implement
 # projectileType.setAcceleration() in JASS
-func set_acceleration(_value: float):
-	pass
+func set_acceleration(value: float):
+	_acceleration = value
 
 
 # NOTE: DamageTable.setBonusToSize() in JASS

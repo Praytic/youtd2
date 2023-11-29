@@ -2,42 +2,48 @@ class_name Projectile
 extends DummyUnit
 
 
-# Projectile moves towards the target and disappears when it
-# reaches the target.
+# Projectile are moving objects which have an origin and can
+# be setup to move towards a point or unit. The most common
+# use case is to fire a projectile from a tower towards a
+# creep to deal damage.
 
 enum MoveType {
-	TARGETED,
-	FACING,
+	NORMAL,
+	INTERPOLATED,
 }
 
 
 const FALLBACK_PROJECTILE_SPRITE: String = "res://Scenes/Effects/ProjectileVisual.tscn"
 const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 
-var _move_type: MoveType = MoveType.TARGETED
-var _target: Unit = null
-var _last_known_position: Vector2 = Vector2.ZERO
+var _move_type: MoveType
+var _target_unit: Unit = null
+var _target_pos: Vector2 = Vector2.ZERO
+var _is_homing: bool = false
+var _homing_control_value: float
 var _speed: float = 50
+var _acceleration: float = 0
 var _explode_on_hit: bool = true
 const CONTACT_DISTANCE: int = 15
 var _map_node: Node = null
-var _targeted: bool
-var _target_position_on_creation: Vector2
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
 var _tower_crit_ratio: float = 0.0
 var _tower_bounce_visited_list: Array[Unit] = []
 var _interpolation_finished_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
+var _periodic_handler: Callable = Callable()
 var _initial_pos: Vector2
 var _range: float = 0.0
-var _facing: float = 0.0
+var _direction: float = 0.0
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
 var _collision_handler: Callable = Callable()
 var _expiration_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
-var _direction: float = 0.0
+var _collision_enabled: bool = true
+var _periodic_enabled: bool = true
+var _lifetime_timer: Timer = null
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -52,8 +58,7 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 	var initial_position: Vector2 = Vector2(x, y)
 	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_position)
 
-	projectile._move_type = MoveType.FACING
-	projectile._facing = deg_to_rad(facing)
+	projectile.set_direction(facing)
 
 #	NOTE: have to use map node as parent for projectiles
 #	instead of GameScene. Using GameScene as parent would
@@ -75,15 +80,26 @@ static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, fac
 	return projectile
 
 
-static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
 
-	projectile._move_type = MoveType.TARGETED
-	projectile._target = target
-	projectile._targeted = targeted
-	projectile._target_position_on_creation = target.get_visual_position()
-	if type._lifetime > 0.0 && !expire_when_reached:
-		projectile._set_lifetime(type._lifetime)
+static func create_from_point_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target_pos: Vector2, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var projectile: Projectile = _create_internal_with_target_pos(type, caster, damage_ratio, crit_ratio, from_pos, target_pos, expire_when_reached)
+
+	projectile._map_node.add_child(projectile)
+
+	return projectile
+
+
+static func create_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target_pos: Vector2, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var from_pos: Vector2 = from.get_visual_position()
+	var projectile: Projectile = _create_internal_with_target_pos(type, caster, damage_ratio, crit_ratio, from_pos, target_pos, expire_when_reached)
+
+	projectile._map_node.add_child(projectile)
+
+	return projectile
+
+
+static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var projectile: Projectile = _create_internal_with_target_unit(type, caster, damage_ratio, crit_ratio, from_pos, target, targeted, expire_when_reached)
 
 	projectile._map_node.add_child(projectile)
 
@@ -101,20 +117,27 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 # normal create()
 # NOTE: Projectile.createLinearInterpolationFromUnitToUnit() in JASS
 static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, targeted: bool) -> Projectile:
-	return create_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, targeted, false, true)
+	var from_pos: Vector2 = from.get_visual_position()
+	var projectile: Projectile = _create_internal_with_target_unit(type, caster, damage_ratio, crit_ratio, from_pos, target, targeted, false)
+	projectile._map_node.add_child(projectile)
+
+	return projectile
 
 
 # TODO: implement
 # NOTE: Projectile.createBezierInterpolationFromUnitToUnit() in JASS
 static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, _side_arc: float, _steepness: float, targeted: bool) -> Projectile:
-	return create_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, targeted, false, true)
+	return create_linear_interpolation_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, 0.0, targeted)
 
 
 static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2) -> Projectile:
 	var projectile: Projectile = Globals.projectile_scene.instantiate()
 
-	projectile._speed = type._speed
+	projectile.set_speed(type._speed)
+	projectile._acceleration = type._acceleration
 	projectile._explode_on_hit = type._explode_on_hit
+	projectile._move_type = type._move_type
+	projectile._homing_control_value = type._homing_control_value
 
 	projectile._cleanup_handler = type._cleanup_handler
 	projectile._interpolation_finished_handler = type._interpolation_finished_handler
@@ -125,6 +148,15 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._collision_radius = type._collision_radius
 	projectile._collision_target_type = type._collision_target_type
 	projectile._damage_bonus_to_size_map = type._damage_bonus_to_size_map
+
+	var periodic_handler_is_defined: bool = type._periodic_handler.is_valid() && type._periodic_handler_period > 0
+	if periodic_handler_is_defined:
+		projectile._periodic_handler = type._periodic_handler
+		var timer: Timer = Timer.new()
+		timer.wait_time = type._periodic_handler_period
+		timer.autostart = true
+		timer.timeout.connect(projectile._on_periodic_timer_timeout)
+		projectile.add_child(timer)
 
 	projectile._damage_ratio = damage_ratio
 	projectile._crit_ratio = crit_ratio
@@ -151,35 +183,115 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	return projectile
 
 
+static func _create_internal_with_target_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2, target: Unit, targeted: bool, expire_when_reached: bool) -> Projectile:
+	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_pos)
+
+	var target_pos: Vector2 = target.get_visual_position()
+
+#	NOTE: if projectile has a target but is not targeted,
+#	then it will travel towards the position at which the
+#	target was during projectile's creation. It will not
+#	follow target's movement.
+	if targeted:
+		projectile.set_homing_target(target)
+	else:
+		projectile._target_pos = target_pos
+
+	var initial_direction: float = _get_direction_to_target(projectile, target_pos)
+	projectile.set_direction(initial_direction)
+
+	projectile._setup_lifetime(target_pos, type._lifetime, expire_when_reached)
+
+	return projectile
+
+
+static func _create_internal_with_target_pos(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2, target_pos: Vector2, expire_when_reached: bool) -> Projectile:
+	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_pos)
+
+	var initial_direction: float = _get_direction_to_target(projectile, target_pos)
+	projectile.set_direction(initial_direction)
+	
+	projectile._setup_lifetime(target_pos, type._lifetime, expire_when_reached)
+
+	return projectile
+
+
 func _ready():
 	super()
 
 	_initial_scale = scale
 
-	if _move_type == MoveType.TARGETED:
-		_target.tree_exited.connect(_on_target_tree_exited)
-		
-		if _target.is_dead():
-			_on_target_death(Event.new(null))
-		else:
-			_target.death.connect(_on_target_death)
-
 
 func _process(delta):
 	match _move_type:
-		MoveType.TARGETED: _process_targeted(delta)
-		MoveType.FACING: _process_facing(delta)
+		MoveType.NORMAL: _process_normal(delta)
+		MoveType.INTERPOLATED: _process_interpolated(delta)
 
 
-func _process_targeted(delta: float):
+func _process_normal(delta: float):
+	_do_collision()
+
+	if _range > 0:
+		var travel_vector_isometric: Vector2 = position - _initial_pos
+		var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
+		var current_travel_distance: float = travel_vector_top_down.length()
+		var travel_complete: bool = current_travel_distance >= _range
+
+		if travel_complete:
+			_expire()
+
+			return
+
+	_do_homing_behavior(delta)
+
+# 	Apply acceleration
+	var new_speed: float = _speed + _acceleration * delta
+	set_speed(new_speed)
+
+#	Move forward, based on current direction
+	var target_pos_isometric: Vector2 = _get_target_position()
+	var move_vector_top_down: Vector2 = (Vector2(1, 0) * _speed * delta).rotated(deg_to_rad(_direction))
+	var move_vector_isometric: Vector2 = Isometric.top_down_vector_to_isometric(move_vector_top_down)
+
+	position += move_vector_isometric
+
+	if _is_homing:
+		var reached_target = Isometric.vector_in_range(target_pos_isometric, position, CONTACT_DISTANCE)
+
+		if reached_target:
+			if _target_unit != null:
+				if _target_hit_handler.is_valid():
+					_target_hit_handler.call(self, _target_unit)
+
+				if _interpolation_finished_handler.is_valid():
+					_interpolation_finished_handler.call(self, _target_unit)
+
+			if _explode_on_hit:
+				var explosion = Globals.explosion_scene.instantiate()
+
+				if _target_unit != null:
+					explosion.position = _target_unit.get_visual_position()
+					explosion.z_index = _target_unit.z_index
+				else:
+					explosion.position = global_position
+
+				Utils.add_object_to_world(explosion)
+
+			_cleanup()
+
+
+func _process_interpolated(delta: float):
 	_do_collision()
 
 #	Move towards target
-	var target_pos = _get_target_position()
+	var target_pos: Vector2 = _get_target_position()
 	var move_delta: float = _speed * delta
 	var prev_pos: Vector2 = position
 	position = Isometric.vector_move_toward(position, target_pos, move_delta)
 
+#	Save current direction value so that user of projectile
+#	can check it if needed. Note that direction value is not
+#	used during interpolated movement.
 	var move_vector_isometric: Vector2 = position - prev_pos
 	var move_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(move_vector_isometric)
 	_direction = rad_to_deg(move_vector_top_down.angle())
@@ -187,55 +299,30 @@ func _process_targeted(delta: float):
 	var reached_target = Isometric.vector_in_range(target_pos, position, CONTACT_DISTANCE)
 
 	if reached_target:
-		if _target != null:
+		if _target_unit != null:
 			if _target_hit_handler.is_valid():
-				_target_hit_handler.call(self, _target)
+				_target_hit_handler.call(self, _target_unit)
 
 			if _interpolation_finished_handler.is_valid():
-				_interpolation_finished_handler.call(self, _target)
+				_interpolation_finished_handler.call(self, _target_unit)
 
 		if _explode_on_hit:
 			var explosion = Globals.explosion_scene.instantiate()
 
-			if _target != null:
-				explosion.position = _target.get_visual_position()
-				explosion.z_index = _target.z_index
+			if _target_unit != null:
+				explosion.position = _target_unit.get_visual_position()
+				explosion.z_index = _target_unit.z_index
 			else:
 				explosion.position = global_position
 
 			Utils.add_object_to_world(explosion)
 
 		_cleanup()
-	else:
-		check_range_status()
-
-
-func _process_facing(delta: float):
-	_do_collision()
-
-	var move_vector_top_down: Vector2 = Vector2.from_angle(_facing) * _speed * delta
-	var move_vector_isometric: Vector2 = Isometric.top_down_vector_to_isometric(move_vector_top_down)
-	position += move_vector_isometric
-
-	_direction = rad_to_deg(move_vector_top_down.angle())
-
-	check_range_status()
-
-
-func check_range_status():
-	if _range == 0:
-		return
-
-	var current_travel_distance: float = Isometric.vector_distance_to(_initial_pos, position)
-	var travel_complete: bool = current_travel_distance > _range
-
-	if travel_complete:
-		_expire()
 
 
 # NOTE: getHomingTarget() in JASS
 func get_target() -> Unit:
-	return _target
+	return _target_unit
 
 
 # NOTE: projectile.setScale() in JASS
@@ -264,10 +351,19 @@ func get_tower_bounce_visited_list() -> Array[Unit]:
 
 
 # Returns current direction of projectile's movement. In
-# angles and from top down perspective.
+# degrees and from top down perspective.
 # NOTE: projectile.direction in JASS
 func get_direction() -> float:
 	return _direction
+
+
+# Sets direction of projectile. In degrees and top down
+# perspective.
+# NOTE: this f-n must be used instead of modifying the value
+# directly. This is to ensure that direction is always
+# normalized.
+func set_direction(direction: float):
+	_direction = _normalize_angle(direction)
 
 
 func get_x() -> float:
@@ -287,24 +383,77 @@ func get_speed() -> float:
 
 
 func set_speed(new_speed: float):
-	_speed = new_speed
+	_speed = clampf(new_speed, 0, Constants.PROJECTILE_SPEED_MAX)
 
 
-func _get_target_position() -> Vector2:
-	if _targeted:
-		if _target != null:
-			var target_pos: Vector2 = _target.get_visual_position()
+func set_acceleration(new_acceleration: float):
+	_acceleration = new_acceleration
 
-			return target_pos
+
+# NOTE: if new target is null, then homing is disabled
+func set_homing_target(new_target: Unit):
+	var old_target: Unit = _target_unit
+
+	if old_target != null && !old_target.death.is_connected(_on_target_death):
+		old_target.death.disconnect(_on_target_death)
+
+	if new_target != null:
+#		NOTE: need to check for target death here because a
+#		projectile may be launched towards a dead target.
+#		For example if some other part of tower script
+#		killed the target right before projectile was
+#		created.
+		if !new_target.is_dead():
+			if !new_target.death.is_connected(_on_target_death):
+				new_target.death.connect(_on_target_death)
+
+			_target_unit = new_target
+			_is_homing = true
 		else:
-			return _last_known_position
+			_target_unit = null
 	else:
-		return _target_position_on_creation
+		_target_unit = null
+		_target_pos = Vector2.ZERO
+		_is_homing = false
+
+
+# NOTE: setCollisionEnabled() in JASS
+func set_collision_enabled(enabled: bool):
+	_collision_enabled = enabled
+
+
+# NOTE: disablePeriodic() in JASS
+func disable_periodic():
+	_periodic_enabled = false
+
+
+func set_remaining_lifetime(new_lifetime: float):
+	if _lifetime_timer == null:
+		_set_lifetime(new_lifetime)
+	else:
+		_lifetime_timer.stop()
+		_lifetime_timer.start(new_lifetime)
+
+
+func set_color(color: Color):
+	modulate = color
+
+
+# Returns target position which is equal to current position
+# of target unit. If target unit dies, then this function
+# will return the last position of target unit.
+func _get_target_position() -> Vector2:
+	if _target_unit != null:
+		var target_unit_pos: Vector2 = _target_unit.get_visual_position()
+
+		return target_unit_pos
+	else:
+		return _target_pos
 
 
 func _on_target_death(_event: Event):
-	_last_known_position = _get_target_position()
-	_target = null
+	_target_pos = _target_unit.get_visual_position()
+	_target_unit = null
 
 
 func _on_target_tree_exited():
@@ -316,10 +465,11 @@ func _on_projectile_type_tree_exited():
 
 
 func _set_lifetime(lifetime: float):
-	var timer: Timer = Timer.new()
-	timer.timeout.connect(_on_lifetime_timeout)
-	timer.autostart = true
-	timer.wait_time = lifetime
+	_lifetime_timer = Timer.new()
+	_lifetime_timer.timeout.connect(_on_lifetime_timeout)
+	_lifetime_timer.autostart = true
+	_lifetime_timer.wait_time = lifetime
+	add_child(_lifetime_timer)
 
 
 func _on_lifetime_timeout():
@@ -327,6 +477,9 @@ func _on_lifetime_timeout():
 
 
 func _do_collision():
+	if !_collision_enabled:
+		return
+
 	if !_collision_handler.is_valid():
 		return
 
@@ -347,8 +500,87 @@ func _do_collision():
 		_collision_history.append(unit)
 
 
+# Homing behavior is implemented here. If target pos or
+# target unit is defined, the projectile will turn to face
+# towards it.
+func _do_homing_behavior(delta: float):
+	var target_pos_isometric: Vector2 = _get_target_position()
+
+	if !_is_homing:
+		return
+
+	var turn_instantly: float = _homing_control_value == 0
+	var target_pos: Vector2 = Isometric.isometric_vector_to_top_down(target_pos_isometric)
+	var projectile_pos: Vector2 = Isometric.isometric_vector_to_top_down(position)
+	var desired_direction_vector: Vector2 = target_pos - projectile_pos
+	var desired_direction: float = rad_to_deg(desired_direction_vector.angle())
+
+	if turn_instantly:
+		set_direction(desired_direction)
+
+		return
+
+	var current_direction_vector: Vector2 = Vector2.from_angle(deg_to_rad(_direction))
+	var direction_diff: float = rad_to_deg(current_direction_vector.angle_to(desired_direction_vector))
+	var turn_amount: float = sign(direction_diff) * min(_homing_control_value * delta, abs(direction_diff))
+	var new_direction: float = _direction + turn_amount
+	
+	set_direction(new_direction)
+
+
 func _expire():
 	if _expiration_handler.is_valid():
 		_expiration_handler.call(self)
 
 	_cleanup()
+
+
+func _on_periodic_timer_timeout():
+	if _periodic_enabled:
+		return
+
+	if _periodic_handler.is_valid():
+		_periodic_handler.call(self)
+
+
+# NOTE: angle should be in degrees. Normalizes the angle to
+# [-180, 180] range to match convention used by Vector2
+# functions. For example, 220 would be converted to -140.
+func _normalize_angle(angle: float) -> float:
+	var normalized_angle: float
+	if angle > 180:
+		normalized_angle = angle - 360
+	elif angle < -180:
+		normalized_angle = angle + 360
+	else:
+		normalized_angle = angle
+
+	return normalized_angle
+
+
+static func _get_direction_to_target(projectile: Projectile, target_pos: Vector2) -> float:
+	var target_pos_isometric: Vector2 = target_pos
+	var projectile_pos_top_down: Vector2 = Isometric.isometric_vector_to_top_down(projectile.position)
+	var target_pos_top_down: Vector2 = Isometric.isometric_vector_to_top_down(target_pos_isometric)
+	var angle_to_target_pos: float = projectile_pos_top_down.angle_to_point(target_pos_top_down)
+	var direction: float = rad_to_deg(angle_to_target_pos)
+	
+	return direction
+
+
+func _setup_lifetime(target_pos: Vector2, lifetime_arg: float, expire_when_reached: bool):
+	var no_lifetime: bool = !expire_when_reached && lifetime_arg == 0
+
+	if no_lifetime:
+		return
+
+	var lifetime: float
+	if expire_when_reached:
+		var travel_vector_isometric: Vector2 = target_pos - position
+		var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
+		var travel_distance: float = travel_vector_top_down.length()
+		lifetime = travel_distance / _speed
+	else:
+		lifetime = lifetime_arg
+
+	_set_lifetime(lifetime)
