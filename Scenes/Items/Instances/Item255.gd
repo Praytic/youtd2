@@ -41,7 +41,7 @@ func ball_lightning_jump(ball: Projectile):
 #	NOTE: target tower may become invalid if target tower is
 #	sold or transformed while Ball Lightning is flying to
 #	it.
-	if target_tower != null && Utils.unit_is_valid(target_tower):
+	if target_tower != null && !Utils.unit_is_valid(target_tower):
 		itm.set_visible(true)
 		itm.fly_to_stash(0.0)
 
