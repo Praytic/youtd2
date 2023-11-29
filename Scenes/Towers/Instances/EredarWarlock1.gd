@@ -163,11 +163,15 @@ func roll_for_shadow_wave():
 		return
 
 	var angle: float = 0.0
+	var tower_pos: Vector2 = tower.get_visual_position()
 
 #	Create projectiles which radiate around the tower
 	for i in range(0, _stats.bolt_count):
 		angle += 360 / _stats.bolt_count
-		Projectile.create_from_unit(wave_shadowbolt_pt, tower, tower, angle, 1.0, 1.0)	
+		var offset_top_down: Vector2 = Vector2(300, 0).rotated(deg_to_rad(angle))
+		var offset_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_top_down)
+		var target_pos: Vector2 = tower_pos + offset_isometric
+		Projectile.create_from_unit_to_point(wave_shadowbolt_pt, tower, 1.0, 1.0, tower, target_pos, false, false)	
 
 
 func sir_eredar_siphon_bt_on_attack(event: Event):
