@@ -85,34 +85,40 @@ static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, fac
 
 
 
+# NOTE: Projectile.createFromPointToPoint() in JASS
 static func create_from_point_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target_pos: Vector2, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal_with_target_pos(type, caster, damage_ratio, crit_ratio, from_pos, target_pos, expire_when_reached)
-
-	projectile._map_node.add_child(projectile)
-
-	return projectile
-
-
-static func create_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target_pos: Vector2, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var from_pos: Vector2 = from.get_visual_position()
-	var projectile: Projectile = _create_internal_with_target_pos(type, caster, damage_ratio, crit_ratio, from_pos, target_pos, expire_when_reached)
-
-	projectile._map_node.add_child(projectile)
+	var from_unit: Unit = null
+	var target_unit: Unit = null
+	var targeted: bool = false
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
 
 	return projectile
 
 
-static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal_with_target_unit(type, caster, damage_ratio, crit_ratio, from_pos, target, targeted, expire_when_reached)
-
-	projectile._map_node.add_child(projectile)
+# NOTE: Projectile.createFromUnitToPoint() in JASS
+static func create_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector2, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var from_pos: Vector2 = Vector2.ZERO
+	var target_unit: Unit = null
+	var targeted: bool = false
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
 
 	return projectile
 
 
-static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, targeted: bool, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var from_pos: Vector2 = from.get_visual_position()
-	var projectile: Projectile = Projectile.create_from_point_to_unit(type, caster, damage_ratio, crit_ratio, from_pos, target, targeted, ignore_target_z, expire_when_reached)
+# NOTE: Projectile.createFromPointToUnit() in JASS
+static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target_unit: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var from_unit: Unit = null
+	var target_pos: Vector2 = Vector2.ZERO
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
+
+	return projectile
+
+
+# NOTE: Projectile.createFromUnitToUnit() in JASS
+static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var from_pos: Vector2 = Vector2.ZERO
+	var target_pos: Vector2 = Vector2.ZERO
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
 
 	return projectile
 
@@ -214,35 +220,28 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	return projectile
 
 
-static func _create_internal_with_target_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2, target: Unit, targeted: bool, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_pos)
+static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector2, target_unit: Unit, target_pos: Vector2, targeted: bool, expire_when_reached: bool) -> Projectile:
+	if from_unit != null:
+		from_pos = from_unit.get_visual_position()
 
-	var target_pos: Vector2 = target.get_visual_position()
+	if target_unit != null:
+		target_pos = target_unit.get_visual_position()
+
+	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
 
 #	NOTE: if projectile has a target but is not targeted,
 #	then it will travel towards the position at which the
 #	target was during projectile's creation. It will not
 #	follow target's movement.
-	if targeted:
-		projectile.set_homing_target(target)
+	if target_unit != null && targeted:
+		projectile.set_homing_target(target_unit)
 	else:
 		projectile._target_pos = target_pos
 
 	var initial_direction: float = _get_direction_to_target(projectile, target_pos)
 	projectile.set_direction(initial_direction)
 
-	projectile._setup_lifetime(target_pos, type._lifetime, expire_when_reached)
-
-	return projectile
-
-
-static func _create_internal_with_target_pos(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2, target_pos: Vector2, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_pos)
-
-	var initial_direction: float = _get_direction_to_target(projectile, target_pos)
-	projectile.set_direction(initial_direction)
-	
-	projectile._setup_lifetime(target_pos, type._lifetime, expire_when_reached)
+	projectile._map_node.add_child(projectile)
 
 	return projectile
 
