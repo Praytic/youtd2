@@ -19,13 +19,16 @@ const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 var _move_type: MoveType
 var _target_unit: Unit = null
 var _target_pos: Vector2 = Vector2.ZERO
+var _interpolation_start: Vector2
+var _interpolation_distance: float
+var _interpolation_progress: float = 0
+var _z_arc: float = 0
 var _is_homing: bool = false
 var _homing_control_value: float
 var _speed: float = 50
 var _acceleration: float = 0
 var _explode_on_hit: bool = true
 const CONTACT_DISTANCE: int = 15
-var _map_node: Node = null
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
 var _tower_crit_ratio: float = 0.0
@@ -43,7 +46,6 @@ var _expiration_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
 var _collision_enabled: bool = true
 var _periodic_enabled: bool = true
-var _lifetime_timer: Timer = null
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -51,6 +53,9 @@ var user_int3: int = 0
 var user_real: float = 0.0
 var user_real2: float = 0.0
 var user_real3: float = 0.0
+
+
+@export var _lifetime_timer: Timer
 
 
 # NOTE: Projectile.create() in JASS
@@ -66,7 +71,7 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 #	paused because GameScene and it's children ignore pause
 #	mode. Map node is specifically configured to be
 #	pausable.
-	projectile._map_node.add_child(projectile)
+	Utils.add_object_to_world(projectile)
 
 	return projectile
 
@@ -81,53 +86,86 @@ static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, fac
 
 
 
+# NOTE: Projectile.createFromPointToPoint() in JASS
 static func create_from_point_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target_pos: Vector2, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal_with_target_pos(type, caster, damage_ratio, crit_ratio, from_pos, target_pos, expire_when_reached)
-
-	projectile._map_node.add_child(projectile)
-
-	return projectile
-
-
-static func create_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target_pos: Vector2, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var from_pos: Vector2 = from.get_visual_position()
-	var projectile: Projectile = _create_internal_with_target_pos(type, caster, damage_ratio, crit_ratio, from_pos, target_pos, expire_when_reached)
-
-	projectile._map_node.add_child(projectile)
+	var from_unit: Unit = null
+	var target_unit: Unit = null
+	var targeted: bool = false
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
 
 	return projectile
 
 
-static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal_with_target_unit(type, caster, damage_ratio, crit_ratio, from_pos, target, targeted, expire_when_reached)
-
-	projectile._map_node.add_child(projectile)
-
-	return projectile
-
-
-static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, targeted: bool, ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
-	var from_pos: Vector2 = from.get_visual_position()
-	var projectile: Projectile = Projectile.create_from_point_to_unit(type, caster, damage_ratio, crit_ratio, from_pos, target, targeted, ignore_target_z, expire_when_reached)
+# NOTE: Projectile.createFromUnitToPoint() in JASS
+static func create_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector2, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var from_pos: Vector2 = Vector2.ZERO
+	var target_unit: Unit = null
+	var targeted: bool = false
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
 
 	return projectile
 
 
-# TODO: implement actual interpolation, for now calling
-# normal create()
+# NOTE: Projectile.createFromPointToUnit() in JASS
+static func create_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target_unit: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var from_unit: Unit = null
+	var target_pos: Vector2 = Vector2.ZERO
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
+
+	return projectile
+
+
+# NOTE: Projectile.createFromUnitToUnit() in JASS
+static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, targeted: bool, _ignore_target_z: bool, expire_when_reached: bool) -> Projectile:
+	var from_pos: Vector2 = Vector2.ZERO
+	var target_pos: Vector2 = Vector2.ZERO
+	var projectile: Projectile = _create_internal_from_to(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, targeted, expire_when_reached)
+
+	return projectile
+
+
+# NOTE: Projectile.createLinearInterpolationFromPointToPoint() in JASS
+static func create_linear_interpolation_from_point_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target_pos: Vector2, z_arc: float) -> Projectile:
+	var from_unit: Unit = null
+	var target_unit: Unit = null
+	var targeted: bool = false
+	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+
+	return projectile
+
+
+# NOTE: Projectile.createLinearInterpolationFromPointToUnit() in JASS
+static func create_linear_interpolation_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target_unit: Unit, z_arc: float, targeted: bool) -> Projectile:
+	var from_unit: Unit = null
+	var target_pos: Vector2 = Vector2.ZERO
+	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+
+	return projectile
+
+
+# NOTE: Projectile.createLinearInterpolationFromUnitToPoint() in JASS
+static func create_linear_interpolation_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector2, z_arc: float) -> Projectile:
+	var from_pos: Vector2 = Vector2.ZERO
+	var target_unit: Unit = null
+	var targeted: bool = false
+	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+
+	return projectile
+
+
 # NOTE: Projectile.createLinearInterpolationFromUnitToUnit() in JASS
-static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, targeted: bool) -> Projectile:
-	var from_pos: Vector2 = from.get_visual_position()
-	var projectile: Projectile = _create_internal_with_target_unit(type, caster, damage_ratio, crit_ratio, from_pos, target, targeted, false)
-	projectile._map_node.add_child(projectile)
+static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, z_arc: float, targeted: bool) -> Projectile:
+	var from_pos: Vector2 = Vector2.ZERO
+	var target_pos: Vector2 = Vector2.ZERO
+	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
 
 	return projectile
 
 
 # TODO: implement
 # NOTE: Projectile.createBezierInterpolationFromUnitToUnit() in JASS
-static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, _side_arc: float, _steepness: float, targeted: bool) -> Projectile:
-	return create_linear_interpolation_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, 0.0, targeted)
+static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, z_arc: float, _side_arc: float, _steepness: float, targeted: bool) -> Projectile:
+	return create_linear_interpolation_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, z_arc, targeted)
 
 
 static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2) -> Projectile:
@@ -163,7 +201,9 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._caster = caster
 	projectile.position = initial_pos
 	projectile._initial_pos = initial_pos
-	projectile._map_node = caster.get_tree().get_root().get_node("GameScene/Map")
+
+	if type._lifetime > 0:
+		projectile.set_remaining_lifetime(type._lifetime)
 
 	type.tree_exited.connect(projectile._on_projectile_type_tree_exited)
 
@@ -183,35 +223,67 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	return projectile
 
 
-static func _create_internal_with_target_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2, target: Unit, targeted: bool, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_pos)
+static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector2, target_unit: Unit, target_pos: Vector2, targeted: bool, expire_when_reached: bool) -> Projectile:
+	if from_unit != null:
+		from_pos = from_unit.get_visual_position()
 
-	var target_pos: Vector2 = target.get_visual_position()
+	if target_unit != null:
+		target_pos = target_unit.get_visual_position()
+
+	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
 
 #	NOTE: if projectile has a target but is not targeted,
 #	then it will travel towards the position at which the
 #	target was during projectile's creation. It will not
 #	follow target's movement.
-	if targeted:
-		projectile.set_homing_target(target)
+	if target_unit != null && targeted:
+		projectile.set_homing_target(target_unit)
 	else:
 		projectile._target_pos = target_pos
 
 	var initial_direction: float = _get_direction_to_target(projectile, target_pos)
 	projectile.set_direction(initial_direction)
 
-	projectile._setup_lifetime(target_pos, type._lifetime, expire_when_reached)
+	if expire_when_reached:
+		var travel_vector_isometric: Vector2 = target_pos - from_pos
+		var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
+		var travel_distance: float = travel_vector_top_down.length()
+		var time_until_reached: float = travel_distance / projectile._speed
+		projectile.set_remaining_lifetime(time_until_reached)
+
+	Utils.add_object_to_world(projectile)
 
 	return projectile
 
 
-static func _create_internal_with_target_pos(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2, target_pos: Vector2, expire_when_reached: bool) -> Projectile:
-	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, initial_pos)
+static func _create_internal_interpolated(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector2, target_unit: Unit, target_pos: Vector2, z_arc: float, targeted: bool) -> Projectile:
+	if from_unit != null:
+		from_pos = from_unit.get_visual_position()
+	if target_unit != null:
+		target_pos = target_unit.get_visual_position()
 
-	var initial_direction: float = _get_direction_to_target(projectile, target_pos)
-	projectile.set_direction(initial_direction)
-	
-	projectile._setup_lifetime(target_pos, type._lifetime, expire_when_reached)
+	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
+
+	if target_unit != null:
+#		NOTE: if projectile has a target but is not
+#		targeted, then it will travel towards the position
+#		at which the target was during projectile's
+#		creation. It will not follow target's movement.
+		if targeted:
+			projectile.set_homing_target(target_unit)
+		else:
+			projectile._target_pos = target_pos
+
+	projectile._interpolation_start = from_pos
+
+	projectile._z_arc = z_arc
+
+	var travel_vector_isometric: Vector2 = target_pos - from_pos
+	var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
+	var travel_distance: float = travel_vector_top_down.length()
+	projectile._interpolation_distance = travel_distance
+
+	Utils.add_object_to_world(projectile)
 
 	return projectile
 
@@ -283,20 +355,20 @@ func _process_normal(delta: float):
 func _process_interpolated(delta: float):
 	_do_collision()
 
-#	Move towards target
 	var target_pos: Vector2 = _get_target_position()
-	var move_delta: float = _speed * delta
-	var prev_pos: Vector2 = position
-	position = Isometric.vector_move_toward(position, target_pos, move_delta)
+	
+	_interpolation_progress += _speed * delta
+	_interpolation_progress = min(_interpolation_progress, _interpolation_distance)
+	var progress_ratio: float = _interpolation_progress / _interpolation_distance
+	var current_pos_2d: Vector2 = _interpolation_start.lerp(target_pos, progress_ratio)
+	var z_max: float = _z_arc * _interpolation_distance
+	var z: float = z_max * sin(progress_ratio * PI)
+	var current_pos_3d: Vector3 = Vector3(current_pos_2d.x, current_pos_2d.y, z)
+	var current_pos: Vector2 = Isometric.vector3_to_isometric_vector2(current_pos_3d)
 
-#	Save current direction value so that user of projectile
-#	can check it if needed. Note that direction value is not
-#	used during interpolated movement.
-	var move_vector_isometric: Vector2 = position - prev_pos
-	var move_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(move_vector_isometric)
-	_direction = rad_to_deg(move_vector_top_down.angle())
+	position = current_pos
 
-	var reached_target = Isometric.vector_in_range(target_pos, position, CONTACT_DISTANCE)
+	var reached_target: float = progress_ratio == 1.0
 
 	if reached_target:
 		if _target_unit != null:
@@ -428,11 +500,12 @@ func disable_periodic():
 
 
 func set_remaining_lifetime(new_lifetime: float):
-	if _lifetime_timer == null:
-		_set_lifetime(new_lifetime)
-	else:
+	if is_inside_tree():
 		_lifetime_timer.stop()
 		_lifetime_timer.start(new_lifetime)
+	else:
+		_lifetime_timer.autostart = true
+		_lifetime_timer.wait_time = new_lifetime
 
 
 func set_color(color: Color):
@@ -466,13 +539,12 @@ func _on_projectile_type_tree_exited():
 
 func _set_lifetime(lifetime: float):
 	_lifetime_timer = Timer.new()
-	_lifetime_timer.timeout.connect(_on_lifetime_timeout)
 	_lifetime_timer.autostart = true
 	_lifetime_timer.wait_time = lifetime
 	add_child(_lifetime_timer)
 
 
-func _on_lifetime_timeout():
+func _on_lifetime_timer_timeout():
 	_expire()
 
 
@@ -566,21 +638,3 @@ static func _get_direction_to_target(projectile: Projectile, target_pos: Vector2
 	var direction: float = rad_to_deg(angle_to_target_pos)
 	
 	return direction
-
-
-func _setup_lifetime(target_pos: Vector2, lifetime_arg: float, expire_when_reached: bool):
-	var no_lifetime: bool = !expire_when_reached && lifetime_arg == 0
-
-	if no_lifetime:
-		return
-
-	var lifetime: float
-	if expire_when_reached:
-		var travel_vector_isometric: Vector2 = target_pos - position
-		var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
-		var travel_distance: float = travel_vector_top_down.length()
-		lifetime = travel_distance / _speed
-	else:
-		lifetime = lifetime_arg
-
-	_set_lifetime(lifetime)
