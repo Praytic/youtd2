@@ -163,8 +163,8 @@ static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, 
 
 # TODO: implement
 # NOTE: Projectile.createBezierInterpolationFromUnitToUnit() in JASS
-static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, _side_arc: float, _steepness: float, targeted: bool) -> Projectile:
-	return create_linear_interpolation_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, 0.0, targeted)
+static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, z_arc: float, _side_arc: float, _steepness: float, targeted: bool) -> Projectile:
+	return create_linear_interpolation_from_unit_to_unit(type, caster, damage_ratio, crit_ratio, from, target, z_arc, targeted)
 
 
 static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2) -> Projectile:
