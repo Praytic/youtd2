@@ -117,8 +117,35 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 	return projectile
 
 
-# TODO: implement actual interpolation, for now calling
-# normal create()
+# NOTE: Projectile.createLinearInterpolationFromPointToPoint() in JASS
+static func create_linear_interpolation_from_point_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target_pos: Vector2, z_arc: float) -> Projectile:
+	var from_unit: Unit = null
+	var target_unit: Unit = null
+	var targeted: bool = false
+	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+
+	return projectile
+
+
+# NOTE: Projectile.createLinearInterpolationFromPointToUnit() in JASS
+static func create_linear_interpolation_from_point_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_pos: Vector2, target_unit: Unit, z_arc: float, targeted: bool) -> Projectile:
+	var from_unit: Unit = null
+	var target_pos: Vector2 = Vector2.ZERO
+	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+
+	return projectile
+
+
+# NOTE: Projectile.createLinearInterpolationFromUnitToPoint() in JASS
+static func create_linear_interpolation_from_unit_to_point(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_pos: Vector2, z_arc: float) -> Projectile:
+	var from_pos: Vector2 = Vector2.ZERO
+	var target_unit: Unit = null
+	var targeted: bool = false
+	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
+
+	return projectile
+
+
 # NOTE: Projectile.createLinearInterpolationFromUnitToUnit() in JASS
 static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, z_arc: float, targeted: bool) -> Projectile:
 	var from_pos: Vector2 = Vector2.ZERO
