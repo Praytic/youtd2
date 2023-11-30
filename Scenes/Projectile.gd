@@ -29,7 +29,6 @@ var _speed: float = 50
 var _acceleration: float = 0
 var _explode_on_hit: bool = true
 const CONTACT_DISTANCE: int = 15
-var _map_node: Node = null
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
 var _tower_crit_ratio: float = 0.0
@@ -72,7 +71,7 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 #	paused because GameScene and it's children ignore pause
 #	mode. Map node is specifically configured to be
 #	pausable.
-	projectile._map_node.add_child(projectile)
+	Utils.add_object_to_world(projectile)
 
 	return projectile
 
@@ -202,7 +201,6 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._caster = caster
 	projectile.position = initial_pos
 	projectile._initial_pos = initial_pos
-	projectile._map_node = caster.get_tree().get_root().get_node("GameScene/Map")
 
 	if type._lifetime > 0:
 		projectile.set_remaining_lifetime(type._lifetime)
@@ -253,7 +251,7 @@ static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_
 		var time_until_reached: float = travel_distance / projectile._speed
 		projectile.set_remaining_lifetime(time_until_reached)
 
-	projectile._map_node.add_child(projectile)
+	Utils.add_object_to_world(projectile)
 
 	return projectile
 
@@ -285,7 +283,7 @@ static func _create_internal_interpolated(type: ProjectileType, caster: Unit, da
 	var travel_distance: float = travel_vector_top_down.length()
 	projectile._interpolation_distance = travel_distance
 
-	projectile._map_node.add_child(projectile)
+	Utils.add_object_to_world(projectile)
 
 	return projectile
 
