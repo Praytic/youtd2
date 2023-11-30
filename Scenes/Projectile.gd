@@ -47,7 +47,6 @@ var _expiration_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
 var _collision_enabled: bool = true
 var _periodic_enabled: bool = true
-var _lifetime_timer: Timer = null
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -55,6 +54,9 @@ var user_int3: int = 0
 var user_real: float = 0.0
 var user_real2: float = 0.0
 var user_real3: float = 0.0
+
+
+@export var _lifetime_timer: Timer
 
 
 # NOTE: Projectile.create() in JASS
@@ -202,6 +204,9 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._initial_pos = initial_pos
 	projectile._map_node = caster.get_tree().get_root().get_node("GameScene/Map")
 
+	if type._lifetime > 0:
+		projectile.set_remaining_lifetime(type._lifetime)
+
 	type.tree_exited.connect(projectile._on_projectile_type_tree_exited)
 
 	var sprite_path: String = type._sprite_path
@@ -240,6 +245,13 @@ static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_
 
 	var initial_direction: float = _get_direction_to_target(projectile, target_pos)
 	projectile.set_direction(initial_direction)
+
+	if expire_when_reached:
+		var travel_vector_isometric: Vector2 = target_pos - from_pos
+		var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
+		var travel_distance: float = travel_vector_top_down.length()
+		var time_until_reached: float = travel_distance / projectile._speed
+		projectile.set_remaining_lifetime(time_until_reached)
 
 	projectile._map_node.add_child(projectile)
 
@@ -490,11 +502,12 @@ func disable_periodic():
 
 
 func set_remaining_lifetime(new_lifetime: float):
-	if _lifetime_timer == null:
-		_set_lifetime(new_lifetime)
-	else:
+	if is_inside_tree():
 		_lifetime_timer.stop()
 		_lifetime_timer.start(new_lifetime)
+	else:
+		_lifetime_timer.autostart = true
+		_lifetime_timer.wait_time = new_lifetime
 
 
 func set_color(color: Color):
@@ -528,13 +541,12 @@ func _on_projectile_type_tree_exited():
 
 func _set_lifetime(lifetime: float):
 	_lifetime_timer = Timer.new()
-	_lifetime_timer.timeout.connect(_on_lifetime_timeout)
 	_lifetime_timer.autostart = true
 	_lifetime_timer.wait_time = lifetime
 	add_child(_lifetime_timer)
 
 
-func _on_lifetime_timeout():
+func _on_lifetime_timer_timeout():
 	_expire()
 
 
@@ -628,21 +640,3 @@ static func _get_direction_to_target(projectile: Projectile, target_pos: Vector2
 	var direction: float = rad_to_deg(angle_to_target_pos)
 	
 	return direction
-
-
-func _setup_lifetime(target_pos: Vector2, lifetime_arg: float, expire_when_reached: bool):
-	var no_lifetime: bool = !expire_when_reached && lifetime_arg == 0
-
-	if no_lifetime:
-		return
-
-	var lifetime: float
-	if expire_when_reached:
-		var travel_vector_isometric: Vector2 = target_pos - position
-		var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
-		var travel_distance: float = travel_vector_top_down.length()
-		lifetime = travel_distance / _speed
-	else:
-		lifetime = lifetime_arg
-
-	_set_lifetime(lifetime)
