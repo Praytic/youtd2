@@ -26,9 +26,15 @@ func PT_hit(P: Projectile, U: Unit):
 	if B != null:
 		P.user_real = P.user_real * 1.40
 
+	var buff_level: int
+	if B != null:
+		buff_level = B.get_level()
+	else:
+		buff_level = 0
+	
 	T.do_attack_damage(U, P.user_real * 0.45, 1.0)
 
-	BT.apply(T, U, B.get_level())
+	BT.apply(T, U, buff_level)
 
 
 func BT_dmg(event: Event):
@@ -37,7 +43,7 @@ func BT_dmg(event: Event):
 
 
 func item_init():
-	PT = ProjectileType.create_interpolate("BloodElfSpellThiefMISSILE.mdl", 1000.0, self)
+	PT = ProjectileType.create("BloodElfSpellThiefMISSILE.mdl", 0.0, 1000.0, self)
 	PT.enable_homing(PT_hit, 0.1)
 
 	BT = BuffType.new("Item208_BT", 5.0, 0.0, false, self)
