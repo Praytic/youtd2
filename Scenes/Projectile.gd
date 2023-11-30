@@ -19,6 +19,10 @@ const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 var _move_type: MoveType
 var _target_unit: Unit = null
 var _target_pos: Vector2 = Vector2.ZERO
+var _interpolation_start: Vector2
+var _interpolation_distance: float
+var _interpolation_progress: float = 0
+var _z_arc: float = 0
 var _is_homing: bool = false
 var _homing_control_value: float
 var _speed: float = 50
@@ -116,10 +120,10 @@ static func create_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_
 # TODO: implement actual interpolation, for now calling
 # normal create()
 # NOTE: Projectile.createLinearInterpolationFromUnitToUnit() in JASS
-static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from: Unit, target: Unit, _z_arc: float, targeted: bool) -> Projectile:
-	var from_pos: Vector2 = from.get_visual_position()
-	var projectile: Projectile = _create_internal_with_target_unit(type, caster, damage_ratio, crit_ratio, from_pos, target, targeted, false)
-	projectile._map_node.add_child(projectile)
+static func create_linear_interpolation_from_unit_to_unit(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, target_unit: Unit, z_arc: float, targeted: bool) -> Projectile:
+	var from_pos: Vector2 = Vector2.ZERO
+	var target_pos: Vector2 = Vector2.ZERO
+	var projectile: Projectile = _create_internal_interpolated(type, caster, damage_ratio, crit_ratio, from_unit, from_pos, target_unit, target_pos, z_arc, targeted)
 
 	return projectile
 
@@ -216,6 +220,38 @@ static func _create_internal_with_target_pos(type: ProjectileType, caster: Unit,
 	return projectile
 
 
+static func _create_internal_interpolated(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector2, target_unit: Unit, target_pos: Vector2, z_arc: float, targeted: bool) -> Projectile:
+	if from_unit != null:
+		from_pos = from_unit.get_visual_position()
+	if target_unit != null:
+		target_pos = target_unit.get_visual_position()
+
+	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
+
+	if target_unit != null:
+#		NOTE: if projectile has a target but is not
+#		targeted, then it will travel towards the position
+#		at which the target was during projectile's
+#		creation. It will not follow target's movement.
+		if targeted:
+			projectile.set_homing_target(target_unit)
+		else:
+			projectile._target_pos = target_pos
+
+	projectile._interpolation_start = from_pos
+
+	projectile._z_arc = z_arc
+
+	var travel_vector_isometric: Vector2 = target_pos - from_pos
+	var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
+	var travel_distance: float = travel_vector_top_down.length()
+	projectile._interpolation_distance = travel_distance
+
+	projectile._map_node.add_child(projectile)
+
+	return projectile
+
+
 func _ready():
 	super()
 
@@ -283,20 +319,20 @@ func _process_normal(delta: float):
 func _process_interpolated(delta: float):
 	_do_collision()
 
-#	Move towards target
 	var target_pos: Vector2 = _get_target_position()
-	var move_delta: float = _speed * delta
-	var prev_pos: Vector2 = position
-	position = Isometric.vector_move_toward(position, target_pos, move_delta)
+	
+	_interpolation_progress += _speed * delta
+	_interpolation_progress = min(_interpolation_progress, _interpolation_distance)
+	var progress_ratio: float = _interpolation_progress / _interpolation_distance
+	var current_pos_2d: Vector2 = _interpolation_start.lerp(target_pos, progress_ratio)
+	var z_max: float = _z_arc * _interpolation_distance
+	var z: float = z_max * sin(progress_ratio * PI)
+	var current_pos_3d: Vector3 = Vector3(current_pos_2d.x, current_pos_2d.y, z)
+	var current_pos: Vector2 = Isometric.vector3_to_isometric_vector2(current_pos_3d)
 
-#	Save current direction value so that user of projectile
-#	can check it if needed. Note that direction value is not
-#	used during interpolated movement.
-	var move_vector_isometric: Vector2 = position - prev_pos
-	var move_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(move_vector_isometric)
-	_direction = rad_to_deg(move_vector_top_down.angle())
+	position = current_pos
 
-	var reached_target = Isometric.vector_in_range(target_pos, position, CONTACT_DISTANCE)
+	var reached_target: float = progress_ratio == 1.0
 
 	if reached_target:
 		if _target_unit != null:
