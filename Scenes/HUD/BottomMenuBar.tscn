@@ -1,6 +1,6 @@
 [gd_scene load_steps=90 format=3 uid="uid://cc70ktmpmbjts"]
 
-[ext_resource type="Theme" uid="uid://eabew2p3tsgy" path="res://Resources/Theme/bottom_menu_theme.tres" id="1_u18mo"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_r4ocg"]
 [ext_resource type="StyleBox" uid="uid://yk4phpxsa6q7" path="res://Resources/Theme/BottomMenuBar/rect_container_left_l.tres" id="3_hbgo8"]
 [ext_resource type="Texture2D" uid="uid://c7uoycvu5ii8v" path="res://Resources/Textures/UI/Icons/roll_towers_icon.tres" id="4_nef3x"]
 [ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://Resources/UI/ButtonGroup/element_filter_button_group.tres" id="5_053go"]
@@ -241,7 +241,7 @@ scale = Vector2(0.8, 0.8)
 size_flags_horizontal = 4
 size_flags_vertical = 8
 mouse_force_pass_scroll_events = false
-theme = ExtResource("1_u18mo")
+theme = ExtResource("1_r4ocg")
 script = ExtResource("6")
 _item_stash_menu = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/ItemStashMenu")
 _build_bar = NodePath("HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer/BuildBar")
