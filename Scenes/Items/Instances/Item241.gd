@@ -39,8 +39,12 @@ func item_init():
 func on_damage(event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
+	var chance: float = 0.15
 	var r: float = event.damage * (0.75 + 0.01 * tower.get_level())
 	var P: Projectile
+
+	if !tower.calc_chance(chance):
+		return
 
 	if event.is_main_target():
 		if event.get_target().get_category() == CreepCategory.enm.UNDEAD:
