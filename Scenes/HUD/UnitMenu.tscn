@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://chojoq00uw7ng"]
 
-[ext_resource type="Theme" uid="uid://cdws70axn02qn" path="res://Resources/Theme/unit_menu_theme.tres" id="1_kx1vr"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ucvet"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu.gd" id="2_mulfo"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_dp5xs"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="4_65e54"]
@@ -64,7 +64,7 @@ grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 mouse_force_pass_scroll_events = false
-theme = ExtResource("1_kx1vr")
+theme = ExtResource("1_ucvet")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ue77a")
 script = ExtResource("2_mulfo")
 _upgrade_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/TowerUpgradeButton")
@@ -393,6 +393,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 tooltip_text = "Upgrade"
 focus_mode = 0
+theme_type_variation = &"CircleButton"
 icon = SubResource("AtlasTexture_0gno2")
 expand_icon = true
 
@@ -403,6 +404,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 tooltip_text = "Stat Details"
 focus_mode = 0
+theme_type_variation = &"CircleButton"
 icon = SubResource("AtlasTexture_yslek")
 expand_icon = true
 
@@ -413,6 +415,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 tooltip_text = "Sell"
 focus_mode = 0
+theme_type_variation = &"CircleButton"
 icon = SubResource("AtlasTexture_m846m")
 expand_icon = true
 
@@ -435,6 +438,8 @@ theme_override_constants/margin_top = 15
 
 [node name="CloseButton" type="Button" parent="MarginContainer"]
 layout_mode = 2
+theme_type_variation = &"CircleButton"
+theme_override_font_sizes/font_size = 32
 text = " x "
 
 [connection signal="gui_input" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]
