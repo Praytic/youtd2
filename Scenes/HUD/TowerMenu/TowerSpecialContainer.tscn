@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1jo2a8vlvwlb"]
+[gd_scene load_steps=3 format=3 uid="uid://b1jo2a8vlvwlb"]
 
-[ext_resource type="Theme" uid="uid://dksfi74d7n0pf" path="res://Resources/Theme/unit_button_theme.tres" id="1_y1hop"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_rv1kn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cjbga"]
@@ -16,7 +15,6 @@ grow_vertical = 2
 
 [node name="TowerSpecialButton" type="Button" parent="."]
 layout_mode = 2
-theme = ExtResource("1_y1hop")
 theme_type_variation = &"SmallButton"
 theme_override_colors/font_color = Color(0.65098, 0.960784, 0.176471, 1)
 theme_override_colors/font_pressed_color = Color(0.65098, 0.960784, 0.176471, 1)
