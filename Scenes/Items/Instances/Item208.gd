@@ -54,6 +54,12 @@ func item_init():
 
 func on_damage(event: Event):
 	var itm: Item = self
+	var tower: Unit = itm.get_carrier()
+
+	var fragmentation_round_chance: float = 0.40
+
+	if !tower.calc_chance(fragmentation_round_chance):
+		return
 
 	var I: Iterate
 	var U: Unit
