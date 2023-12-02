@@ -1,11 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://ckiupnhfj32n6"]
+[gd_scene load_steps=36 format=3 uid="uid://ckiupnhfj32n6"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_2cipq"]
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_1vbsd"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_igiq2"]
 [ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="5_g7trm"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_6747o"]
-[ext_resource type="Theme" uid="uid://dh1mew0ki50dq" path="res://Resources/Theme/tiny_unit_button_theme.tres" id="6_k68sm"]
 [ext_resource type="Texture2D" uid="uid://b1oind72lxrm4" path="res://Resources/Textures/UI/Icons/rebrew_icon.tres" id="6_vq7tm"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButtonContainer.gd" id="7_jc0mt"]
 [ext_resource type="Texture2D" uid="uid://dfqns87v0xu7x" path="res://Resources/Textures/UI/Icons/distill_icon.tres" id="7_t7mtm"]
@@ -357,7 +356,6 @@ size_flags_vertical = 3
 [node name="RebrewButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer"]
 layout_mode = 2
 tooltip_text = "Converts 2 oils or consumables of the same rarity into 1 oil or consumable if the same rarity"
-theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("6_vq7tm")
 alignment = 2
@@ -371,7 +369,6 @@ size_flags_vertical = 3
 [node name="DistillButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer2"]
 layout_mode = 2
 tooltip_text = "Converts 4 oils or consumables of the same rarity into 1 oil or consumable one rarity higher"
-theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("7_t7mtm")
 alignment = 2
@@ -385,7 +382,6 @@ size_flags_vertical = 3
 [node name="ReassembleButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer3"]
 layout_mode = 2
 tooltip_text = "Converts 3 permanent items of the same rarity into 1 permanent item of the same rarity."
-theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("8_37jfi")
 alignment = 2
@@ -399,7 +395,6 @@ size_flags_vertical = 3
 [node name="PerfectButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer4"]
 layout_mode = 2
 tooltip_text = "Converts 5 permanent items of the same rarity into 1 item one rarity higher."
-theme = ExtResource("6_k68sm")
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("9_um4bv")
 alignment = 2
