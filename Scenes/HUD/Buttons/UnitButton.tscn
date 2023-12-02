@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dfhvyitmlng5w"]
 
-[ext_resource type="Theme" uid="uid://dksfi74d7n0pf" path="res://Resources/Theme/unit_button_theme.tres" id="1_7n860"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ar4gw"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="2_d8h6n"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/UnitButton.gd" id="3_kwsps"]
 
@@ -12,7 +12,8 @@ region = Rect2(256, 256, 128, 128)
 offset_right = 148.0
 offset_bottom = 148.0
 focus_mode = 0
-theme = ExtResource("1_7n860")
+theme = ExtResource("1_ar4gw")
+theme_type_variation = &"UnitButton"
 icon = SubResource("AtlasTexture_0o8x7")
 icon_alignment = 1
 expand_icon = true
@@ -56,5 +57,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_vertical = 1
+theme_type_variation = &"CounterLabel"
 horizontal_alignment = 1
 vertical_alignment = 2
