@@ -1,16 +1,22 @@
-[gd_resource type="Theme" load_steps=34 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=50 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
+[ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
 [ext_resource type="StyleBox" uid="uid://11b5t8jsfbdk" path="res://Resources/Theme/TowerActions/button_disabled.tres" id="1_vdqn7"]
 [ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="2"]
 [ext_resource type="StyleBox" uid="uid://cp7fygn5qoudb" path="res://Resources/Theme/TowerActions/button_pressed.tres" id="2_1ucqc"]
 [ext_resource type="StyleBox" uid="uid://crr0tkfd2ggb8" path="res://Resources/Theme/Common/rect_container_center_l.tres" id="2_4l726"]
+[ext_resource type="Texture2D" uid="uid://h5ppp14fvtrd" path="res://Assets/UI/HUD/horadric_cube.png" id="2_uaxwg"]
 [ext_resource type="StyleBox" uid="uid://6go01ssqkmws" path="res://Resources/Theme/TowerActions/button_normal.tres" id="3_o7vtc"]
+[ext_resource type="StyleBox" uid="uid://b8m81drahps4x" path="res://Resources/Theme/UnitButton/common_rarity_panel_container.tres" id="4_28e2h"]
 [ext_resource type="StyleBox" uid="uid://bw4wtqgmpri3j" path="res://Resources/Theme/BottomMenuBar/rect_container_center_l.tres" id="4_enpnq"]
 [ext_resource type="StyleBox" uid="uid://c4rv27uxbm00c" path="res://Resources/Theme/BottomMenuBar/stash_panel_background.tres" id="5_uofvg"]
+[ext_resource type="StyleBox" uid="uid://dvslmk5lro1u0" path="res://Resources/Theme/UnitButton/rare_rarity_panel_container.tres" id="6_unpbn"]
 [ext_resource type="StyleBox" uid="uid://bdt0si03bssd5" path="res://Resources/Theme/item_button_hover.tres" id="8_332gl"]
 [ext_resource type="Texture2D" uid="uid://dl22jvey8l5fo" path="res://Assets/UI/HUD/hud_atlas.png" id="8_dlncl"]
 [ext_resource type="StyleBox" uid="uid://xj6rw0giypad" path="res://Resources/Theme/item_button_normal.tres" id="8_t77il"]
+[ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="12_klcgr"]
+[ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="13_15oyb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iu5cl"]
 atlas = ExtResource("8_dlncl")
@@ -96,6 +102,8 @@ content_margin_right = 2.0
 content_margin_bottom = 2.0
 texture = SubResource("AtlasTexture_wfurf")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t7ys"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_co3qy"]
 atlas = ExtResource("8_dlncl")
 region = Rect2(872, 49, 31, 31)
@@ -157,6 +165,18 @@ texture_margin_top = 11.0
 texture_margin_right = 11.0
 texture_margin_bottom = 11.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vfmo2"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.47451)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxFlat" id="8"]
 bg_color = Color(0.215686, 0.215686, 0.258824, 0.376471)
 corner_radius_top_left = 10
@@ -164,7 +184,81 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdruh"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.392157, 0.392157, 0.392157, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ub3i"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afavw"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.784314, 0.784314, 0.784314, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8qqj"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [sub_resource type="StyleBoxEmpty" id="11"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_88crg"]
+texture = ExtResource("2_uaxwg")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cge4u"]
+texture = ExtResource("2_uaxwg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jahl7"]
+texture = ExtResource("2_uaxwg")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_52r8a"]
+texture = ExtResource("2_uaxwg")
 
 [sub_resource type="FontFile" id="1"]
 fallbacks = Array[Font]([ExtResource("1")])
@@ -408,24 +502,45 @@ CircleButton/styles/disabled = SubResource("StyleBoxTexture_03gih")
 CircleButton/styles/hover = SubResource("StyleBoxTexture_ts633")
 CircleButton/styles/normal = SubResource("StyleBoxTexture_eyvb8")
 CircleButton/styles/pressed = SubResource("StyleBoxTexture_6ua8f")
+CommonRarityPanelContainer/base_type = &"PanelContainer"
+CommonRarityPanelContainer/styles/panel = ExtResource("4_28e2h")
 CustomTextureButton/colors/icon_hover_color = Color(0, 0, 0, 1)
 CustomTextureButton/font_sizes/font_size = 32
 HudMarginContainer/base_type = &"MarginContainer"
 HudMarginContainer/constants/margin_left = 40
 HudMarginContainer/constants/margin_right = 40
 Icons/icons/DayTime = ExtResource("2")
+InfoContainer/base_type = &"PanelContainer"
+InfoContainer/styles/panel = SubResource("StyleBoxFlat_2t7ys")
 InfoPanel/styles/panel = SubResource("StyleBoxTexture_770c7")
 Label/font_sizes/font_size = 32
+MainPanelContainer/base_type = &"PanelContainer"
+MainPanelContainer/styles/panel = ExtResource("1_7apqd")
 MenuButton/styles/disabled = SubResource("StyleBoxTexture_6lvfq")
 MenuButton/styles/hover = SubResource("StyleBoxTexture_raa15")
 MenuButton/styles/normal = SubResource("StyleBoxTexture_v0wbc")
 MenuButton/styles/pressed = SubResource("StyleBoxTexture_uye1s")
 Panel/styles/panel = ExtResource("4_enpnq")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_vfmo2")
+RareRarityPanelContainer/base_type = &"PanelContainer"
+RareRarityPanelContainer/styles/panel = ExtResource("6_unpbn")
 ResourceTab/base_type = &"Panel"
 ResourceTab/styles/panel = SubResource("8")
+RichTextLabel/font_sizes/bold_font_size = 20
+RichTextLabel/font_sizes/bold_italics_font_size = 20
+RichTextLabel/font_sizes/italics_font_size = 20
+RichTextLabel/font_sizes/mono_font_size = 20
+RichTextLabel/font_sizes/normal_font_size = 20
 RightSidePanel/base_type = &"PanelContainer"
 SidePanel/base_type = &"PanelContainer"
 SidePanel/styles/panel = ExtResource("5_uofvg")
+TinyUnitButton/base_type = &"Button"
+TinyUnitButton/colors/icon_disabled_color = Color(0.392157, 0.392157, 0.392157, 1)
+TinyUnitButton/colors/icon_normal_color = Color(0.784314, 0.784314, 0.784314, 1)
+TinyUnitButton/styles/disabled = SubResource("StyleBoxFlat_wdruh")
+TinyUnitButton/styles/hover = SubResource("StyleBoxFlat_6ub3i")
+TinyUnitButton/styles/normal = SubResource("StyleBoxFlat_afavw")
+TinyUnitButton/styles/pressed = SubResource("StyleBoxFlat_o8qqj")
 TowerActions/styles/disabled = ExtResource("1_vdqn7")
 TowerActions/styles/hover = ExtResource("2_1ucqc")
 TowerActions/styles/normal = ExtResource("3_o7vtc")
@@ -435,3 +550,12 @@ TowerButton/styles/focus = SubResource("11")
 TowerButton/styles/hover = ExtResource("8_332gl")
 TowerButton/styles/normal = ExtResource("8_t77il")
 TowerButton/styles/pressed = ExtResource("8_332gl")
+TransmuteButton/base_type = &"Button"
+TransmuteButton/styles/disabled = SubResource("StyleBoxTexture_88crg")
+TransmuteButton/styles/hover = SubResource("StyleBoxTexture_cge4u")
+TransmuteButton/styles/normal = SubResource("StyleBoxTexture_jahl7")
+TransmuteButton/styles/pressed = SubResource("StyleBoxTexture_52r8a")
+UncommonRarityPanelContainer/base_type = &"PanelContainer"
+UncommonRarityPanelContainer/styles/panel = ExtResource("12_klcgr")
+UniqueRarityPanelContainer/base_type = &"PanelContainer"
+UniqueRarityPanelContainer/styles/panel = ExtResource("13_15oyb")
