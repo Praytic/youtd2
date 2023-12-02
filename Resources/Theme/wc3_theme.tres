@@ -1,8 +1,11 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=19 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
+[ext_resource type="StyleBox" uid="uid://11b5t8jsfbdk" path="res://Resources/Theme/TowerActions/button_disabled.tres" id="1_vdqn7"]
 [ext_resource type="Texture2D" uid="uid://bbtfapahyrrl8" path="res://Assets/UI/HUD/day_time_icon.png" id="2"]
+[ext_resource type="StyleBox" uid="uid://cp7fygn5qoudb" path="res://Resources/Theme/TowerActions/button_pressed.tres" id="2_1ucqc"]
 [ext_resource type="StyleBox" uid="uid://bk3t86frjtjm5" path="res://Resources/Theme/button_styleboxflat_disabled.tres" id="3"]
+[ext_resource type="StyleBox" uid="uid://6go01ssqkmws" path="res://Resources/Theme/TowerActions/button_normal.tres" id="3_o7vtc"]
 [ext_resource type="StyleBox" uid="uid://bq8u0oqtro84y" path="res://Resources/Theme/button_styleboxflat.tres" id="4"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_hover.tres" id="5"]
 [ext_resource type="StyleBox" path="res://Resources/Theme/button_styleboxflat_pressed.tres" id="6"]
@@ -282,6 +285,10 @@ Label/fonts/font = SubResource("1")
 ResourceTab/base_type = &"Panel"
 ResourceTab/styles/panel = SubResource("8")
 TooltipLabel/font_sizes/font_size = 16
+TowerActions/styles/disabled = ExtResource("1_vdqn7")
+TowerActions/styles/hover = ExtResource("2_1ucqc")
+TowerActions/styles/normal = ExtResource("3_o7vtc")
+TowerActions/styles/pressed = ExtResource("2_1ucqc")
 TowerButton/styles/disabled = ExtResource("8_332gl")
 TowerButton/styles/focus = SubResource("11")
 TowerButton/styles/hover = ExtResource("8_332gl")
