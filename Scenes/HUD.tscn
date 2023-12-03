@@ -1,6 +1,5 @@
-[gd_scene load_steps=15 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=14 format=3 uid="uid://cngv1rgplre2c"]
 
-[ext_resource type="Theme" uid="uid://btle8natrh3qt" path="res://Resources/Theme/wc3_theme_with_text_shadow.tres" id="1_mod6x"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
@@ -56,7 +55,6 @@ theme_override_constants/margin_bottom = 300
 custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 mouse_filter = 2
-theme = ExtResource("1_mod6x")
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -74,7 +72,6 @@ theme_override_constants/margin_top = 300
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 mouse_filter = 2
-theme = ExtResource("1_mod6x")
 
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2
