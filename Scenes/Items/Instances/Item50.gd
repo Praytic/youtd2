@@ -26,5 +26,6 @@ func on_spell_cast(_event: Event):
 	itm.user_int = itm.user_int + 1
 
 	if itm.user_int >= 5:
+		CombatLog.log_item_ability(self, null, "Magic Weapon")
 		itm.get_carrier().add_spell_crit()
 		itm.user_int = 0

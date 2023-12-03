@@ -34,4 +34,5 @@ func on_attack(event: Event):
 	var tower: Tower = itm.get_carrier()
 
 	if tower.calc_chance(0.10 * tower.get_base_attack_speed()):
+		CombatLog.log_item_ability(self, event.get_target(), "Resonance")
 		drol_spellDmgRecieved.apply(tower, event.get_target(), tower.get_level())

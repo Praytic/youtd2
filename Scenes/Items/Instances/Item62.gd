@@ -29,6 +29,8 @@ func periodic(_event: Event):
 	Effect.set_lifetime(target_effect, 2.0)
 
 	if night >= 18.00 || night < 6.00:
+		CombatLog.log_item_ability(self, null, "Celestial Wisdom Night")
 		tower.add_exp(4.0)
 	else:
+		CombatLog.log_item_ability(self, null, "Celestial Wisdom Day")
 		tower.add_exp(2.0)

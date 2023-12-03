@@ -66,9 +66,9 @@ func on_attack(event: Event):
 	if !tower.calc_chance(frog_chance):
 		return
 
-	CombatLog.log_ability(tower, target, "Frog Piper")
-
 	if target.get_size() != CreepSize.enm.AIR:
+		CombatLog.log_ability(tower, target, "Frog Piper")
+		
 		daem_frog_attack(itm.get_carrier(), target, randi_range(-40, -20))
 		daem_frog_attack(itm.get_carrier(), target, randi_range(-20, -0))
 		daem_frog_attack(itm.get_carrier(), target, randi_range(0, 20))

@@ -36,4 +36,5 @@ func on_attack(event: Event):
 	var speed: float = tower.get_base_attack_speed()  
 
 	if tower.calc_chance(0.25 * speed) == true:
+		CombatLog.log_item_ability(self, event.get_target(), "Spiderling Poison")
 		boekie_spiderling_slow.apply(tower, event.get_target(), 1)

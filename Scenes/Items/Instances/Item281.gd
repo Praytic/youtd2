@@ -21,5 +21,7 @@ func on_spell_cast(event: Event):
 	var target_unit: Unit = event.get_target()
 
 	if target_unit is Tower:
+		CombatLog.log_item_ability(self, null, "Reward the Faithful")
+		
 		target_unit.add_exp(1)
 		tower.add_exp(1)

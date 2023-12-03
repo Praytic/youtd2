@@ -37,4 +37,6 @@ func on_attack(_event: Event):
 	var twr: Tower = itm.get_carrier()
 
 	if Utils.rand_chance(0.15 / twr.get_prop_trigger_chances()):
+		CombatLog.log_item_ability(self, null, "Tricky Weapon")
+
 		cb_stun.apply_only_timed(twr, twr, 1)

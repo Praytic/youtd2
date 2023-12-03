@@ -61,6 +61,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(fragmentation_round_chance):
 		return
 
+	CombatLog.log_item_ability(self, null, "Fragmentation Round")
+
 	var I: Iterate
 	var U: Unit
 	var Targ: Unit

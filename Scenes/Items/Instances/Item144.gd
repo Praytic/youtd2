@@ -19,4 +19,5 @@ func on_kill(_event: Event):
 	var itm: Item = self
 
 	var tower: Tower = itm.get_carrier()
+	CombatLog.log_item_ability(self, null, "Headhunt")
 	itm.get_carrier().get_player().give_gold(2, tower, true, true)

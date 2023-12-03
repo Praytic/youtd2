@@ -33,4 +33,5 @@ func item_init():
 
 func periodic(_event: Event):
 	var itm: Item = self
+	CombatLog.log_item_ability(self, null, "Play with me!")
 	BT.apply(itm.get_carrier(), itm.get_carrier(), 1)

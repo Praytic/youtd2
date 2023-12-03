@@ -34,4 +34,5 @@ func item_init():
 func periodic(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
+	CombatLog.log_item_ability(self, null, "Earth and Moon")
 	drol_moonStone.apply(tower, tower, tower.get_level())
