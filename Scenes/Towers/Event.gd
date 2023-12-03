@@ -73,13 +73,19 @@ func is_main_target() -> bool:
 func is_spell_damage() -> bool:
 	return _is_spell_damage
 
+# Changes the properties of the current PERIODIC event. Does
+# nothing when called for other types of events. Note that
+# if "one shot" is set to true, then the periodic event will
+# trigger one more time and then stop forever.
 # Event.enableAdvanced() in JASS
 func enable_advanced(wait_time: float, one_shot: bool):
 	if _timer == null:
 		return
 
+	_timer.stop()
 	_timer.wait_time = wait_time
 	_timer.one_shot = one_shot
+	_timer.start()
 
 
 # This returns the number of crits for current attack or
