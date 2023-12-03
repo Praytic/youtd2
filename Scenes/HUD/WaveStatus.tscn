@@ -14,7 +14,7 @@ _timer_label = NodePath("TimerLabel")
 
 [node name="TimerLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 22
+theme_override_constants/table_h_separation = 20
 text = "Wave X in Y"
 fit_content = true
 
@@ -22,7 +22,6 @@ fit_content = true
 custom_minimum_size = Vector2(700, 100)
 layout_mode = 2
 theme_override_constants/table_h_separation = 20
-theme_override_font_sizes/normal_font_size = 22
 text = "[Table with details about next 5 waves]
 "
 fit_content = true
@@ -31,7 +30,6 @@ hint_underlined = false
 [node name="StatsLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
 theme_override_constants/table_h_separation = 20
-theme_override_font_sizes/normal_font_size = 22
 fit_content = true
 
 [node name="UpdateStatsTimer" type="Timer" parent="."]

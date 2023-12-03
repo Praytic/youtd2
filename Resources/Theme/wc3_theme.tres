@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=58 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=59 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -22,6 +22,7 @@
 [ext_resource type="StyleBox" uid="uid://xj6rw0giypad" path="res://Resources/Theme/item_button_normal.tres" id="8_t77il"]
 [ext_resource type="StyleBox" uid="uid://carc5koied5gk" path="res://Resources/Theme/UnitButton/small_button_normal.tres" id="9_xj4hs"]
 [ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="12_klcgr"]
+[ext_resource type="StyleBox" uid="uid://bw17avoi3cj5m" path="res://Resources/Theme/SelectedUnitInfo/panel_container.tres" id="13_1k0pw"]
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="13_15oyb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iu5cl"]
@@ -533,10 +534,10 @@ GameMessageRichTextLabel/base_type = &"RichTextLabel"
 GameMessageRichTextLabel/constants/shadow_offset_x = 2
 GameMessageRichTextLabel/constants/shadow_offset_y = 2
 GameMessageRichTextLabel/font_sizes/bold_font_size = 30
-GameMessageRichTextLabel/font_sizes/bold_italics_font_size = 30
-GameMessageRichTextLabel/font_sizes/italics_font_size = 30
-GameMessageRichTextLabel/font_sizes/mono_font_size = 30
-GameMessageRichTextLabel/font_sizes/normal_font_size = 30
+GameMessageRichTextLabel/font_sizes/bold_italics_font_size = 16
+GameMessageRichTextLabel/font_sizes/italics_font_size = 16
+GameMessageRichTextLabel/font_sizes/mono_font_size = 16
+GameMessageRichTextLabel/font_sizes/normal_font_size = 16
 HudMarginContainer/base_type = &"MarginContainer"
 HudMarginContainer/constants/margin_left = 40
 HudMarginContainer/constants/margin_right = 40
@@ -572,6 +573,7 @@ SmallButton/styles/disabled = ExtResource("7_mn43h")
 SmallButton/styles/hover = ExtResource("8_pql3q")
 SmallButton/styles/normal = ExtResource("9_xj4hs")
 SmallButton/styles/pressed = ExtResource("8_pql3q")
+TabContainer/styles/panel = ExtResource("13_1k0pw")
 TinyUnitButton/base_type = &"Button"
 TinyUnitButton/colors/icon_disabled_color = Color(0.392157, 0.392157, 0.392157, 1)
 TinyUnitButton/colors/icon_normal_color = Color(0.784314, 0.784314, 0.784314, 1)
