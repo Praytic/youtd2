@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://22mf4myucw0w"]
+[gd_scene load_steps=7 format=3 uid="uid://22mf4myucw0w"]
 
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_58csb"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/TowerButton.gd" id="2_tfpmj"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="2_ugy1x"]
 [ext_resource type="Texture2D" uid="uid://bya4q121hruh1" path="res://Resources/Textures/UI/unit_button_disabled.tres" id="3_tes0f"]
 [ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="4_pixwo"]
 
@@ -10,6 +11,8 @@ atlas = ExtResource("4_pixwo")
 region = Rect2(0, 0, 64, 64)
 
 [node name="UnitButton" node_paths=PackedStringArray("_disabled_lock", "_tier_icon") instance=ExtResource("1_58csb")]
+theme = ExtResource("2_ugy1x")
+theme_type_variation = &"UnitButton"
 script = ExtResource("2_tfpmj")
 _disabled_lock = NodePath("MarginContainer/LockTexture")
 _tier_icon = NodePath("TierContainer/TierIcon")
@@ -39,3 +42,6 @@ visible = false
 z_index = 1
 layout_mode = 2
 texture = ExtResource("3_tes0f")
+
+[node name="CounterLabel" parent="MarginContainer2/AspectRatioContainer" index="0"]
+theme_type_variation = &"CounterLabel"
