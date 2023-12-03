@@ -171,6 +171,36 @@ class AbilityEntry extends Entry:
 			_string = "%s: %s %s %s" % [timestamp_string, type_string, _caster_name, ability_string]
 
 
+class ItemAbilityEntry extends Entry:
+	var _carrier_name: String
+	var _item_name: String
+	var _target_name: String
+	var _ability: String
+
+	func _init(item: Item, target: Unit, ability: String):
+		super(CombatLog.Type.ABILITY)
+
+		var carrier: Unit = item.get_carrier()
+		_carrier_name = carrier.get_log_name()
+		_item_name = item.get_display_name()
+		if target != null:
+			_target_name = target.get_log_name()
+		else:
+			_target_name = ""
+		_ability = ability
+
+		var timestamp_string: String = get_timestamp_string()
+		var type_string: String = get_type_string()
+		var carrier_string: String = "[color=GREEN]\"%s\"[/color]" % _carrier_name
+		var item_string: String = "[color=ORANGE]\"%s\"[/color]" % _item_name
+		var ability_string: String = "[color=LIGHT_BLUE]\"%s\"[/color]" % ability
+
+		if target != null:
+			_string = "%s: %s %s %s->%s %s" % [timestamp_string, type_string, carrier_string, item_string, _target_name, ability_string]
+		else:
+			_string = "%s: %s %s %s %s" % [timestamp_string, type_string, carrier_string, item_string, ability_string]
+
+
 class AutocastEntry extends Entry:
 	var _caster_name: String
 	var _target_name: String
@@ -286,6 +316,12 @@ func log_buff_apply(caster: Unit, target: Unit, buff: Buff):
 # NOTE: target arg may be null
 func log_ability(caster: Unit, target: Unit, ability: String):
 	var entry: AbilityEntry = AbilityEntry.new(caster, target, ability)
+	_log_internal(entry)
+
+
+# NOTE: target arg may be null
+func log_item_ability(item: Item, target: Unit, ability: String):
+	var entry: ItemAbilityEntry = ItemAbilityEntry.new(item, target, ability)
 	_log_internal(entry)
 
 
