@@ -37,7 +37,7 @@ func on_spell_cast(event: Event):
 #	  No cheating
 		return
 
-	if itm.user_int / 25 + 10.0 < Utils.get_game_time() / 25:
+	if itm.user_int + 10.0 < Utils.get_game_time():
 		if T.calc_chance(0.2):
 			CombatLog.log_item_ability(self, null, "Magical Greed")
 
