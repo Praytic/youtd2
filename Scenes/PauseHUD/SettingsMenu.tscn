@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx86ea3loo8a2"]
+[gd_scene load_steps=2 format=3 uid="uid://cx86ea3loo8a2"]
 
 [ext_resource type="Script" path="res://Scenes/PauseHUD/SettingsMenu.gd" id="2_2dtmk"]
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="2_vrheb"]
 
 [node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx", "_enable_unreleased_towers", "_enable_mouse_scroll", "_show_combat_log", "_mouse_scroll", "_keyboard_scroll", "_interface_size_scroll")]
 custom_minimum_size = Vector2(800, 600)
@@ -15,7 +14,6 @@ _show_combat_log = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxC
 _mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MouseScroll")
 _keyboard_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/KeyboardScroll")
 _interface_size_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/InterfaceSizeScroll")
-_default_theme = ExtResource("2_vrheb")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

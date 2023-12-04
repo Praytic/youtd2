@@ -30,7 +30,6 @@ func add_error(text: String):
 	label.append_text(formatted_text)
 	label.fit_content = true
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.theme_type_variation = "GameMessageRichTextLabel"
 
 	label.modulate = Color.WHITE
 	var modulate_tween: Tween = create_tween()
@@ -68,7 +67,6 @@ func add_normal(text: String):
 	label.append_text(text)
 	label.fit_content = true
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	label.theme_type_variation = "GameMessageRichTextLabel"
 
 	label.modulate = Color.WHITE
 	var modulate_tween: Tween = create_tween()

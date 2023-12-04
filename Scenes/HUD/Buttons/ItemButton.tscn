@@ -1,16 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs7talxfb2fac"]
+[gd_scene load_steps=5 format=3 uid="uid://bs7talxfb2fac"]
 
 [ext_resource type="PackedScene" uid="uid://dfhvyitmlng5w" path="res://Scenes/HUD/Buttons/UnitButton.tscn" id="1_56ir5"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemButton.gd" id="2_0spo4"]
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="2_2a30o"]
 [ext_resource type="PackedScene" uid="uid://d1i5vdh8yrhbx" path="res://Scenes/HUD/Buttons/CooldownIndicator.tscn" id="3_fy62u"]
 [ext_resource type="PackedScene" uid="uid://bovo5mbv22jly" path="res://Scenes/HUD/Buttons/AutoModeIndicator.tscn" id="4_e5nkx"]
 
 [node name="UnitButton2" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_charges_label") instance=ExtResource("1_56ir5")]
 offset_right = 141.0
 offset_bottom = 142.0
-theme = ExtResource("2_2a30o")
-theme_type_variation = &"UnitButton"
 script = ExtResource("2_0spo4")
 _cooldown_indicator = NodePath("MarginContainer/CooldownIndicator")
 _auto_mode_indicator = NodePath("MarginContainer/AutoModeIndicator")
@@ -25,9 +22,6 @@ theme_type_variation = &"UncommonRarityPanelContainer"
 
 [node name="AutoModeIndicator" parent="MarginContainer" index="2" instance=ExtResource("4_e5nkx")]
 layout_mode = 2
-
-[node name="CounterLabel" parent="MarginContainer2/AspectRatioContainer" index="0"]
-theme_type_variation = &"CounterLabel"
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="." index="2"]
 layout_mode = 0
