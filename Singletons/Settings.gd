@@ -9,6 +9,8 @@ extends Node
 # %appdata%/Roaming/Godot/...
 
 signal changed()
+signal show_combat_log_changed()
+signal interface_size_changed(new_scale: float)
 
 const SETTINGS_PATH: String = "user://settings.save"
 
@@ -25,6 +27,7 @@ const SHOW_COMBAT_LOG: String = "show_combat_log"
 # because Vector2 can't be deserialized from JSON
 const COMBAT_LOG_X: String = "combat_log_x"
 const COMBAT_LOG_Y: String = "combat_log_y"
+const INTERFACE_SIZE: String = "interface_size"
 
 
 var _cache: Dictionary = {}
@@ -39,6 +42,7 @@ var _default_value_map: Dictionary = {
 	SHOW_COMBAT_LOG: false,
 	COMBAT_LOG_X: 20,
 	COMBAT_LOG_Y: 600,
+	INTERFACE_SIZE: 1.0,
 }
 
 
@@ -62,6 +66,7 @@ func _ready():
 		flush()
 
 
+
 func get_setting(setting: String) -> Variant:
 	if !_default_value_map.has(setting):
 		push_error("No such setting exists:" % setting)
@@ -80,8 +85,13 @@ func get_bool_setting(setting: String) -> bool:
 	return value
 
 
-func set_setting(setting: String, value: Variant):
+func set_setting(value: Variant, setting: String):
 	_cache[setting] = value
+	
+	changed.emit()
+	match setting:
+		SHOW_COMBAT_LOG: show_combat_log_changed.emit()
+		INTERFACE_SIZE: interface_size_changed.emit(value)
 
 
 # Save all changes to file
@@ -89,5 +99,7 @@ func flush():
 	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
 	var cache_string: String = JSON.stringify(_cache, "    ")
 	settings_file.store_line(cache_string)
-
+	
 	changed.emit()
+	show_combat_log_changed.emit()
+	interface_size_changed.emit(_cache[INTERFACE_SIZE])

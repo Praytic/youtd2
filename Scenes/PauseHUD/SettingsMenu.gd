@@ -9,6 +9,8 @@ extends PanelContainer
 @export var _show_combat_log: CheckBox
 @export var _mouse_scroll: Slider
 @export var _keyboard_scroll: Slider
+@export var _interface_size_scroll: Slider
+@export var _default_theme: Theme
 
 var _setting_to_checkbox_map: Dictionary
 var _setting_to_slider_map: Dictionary
@@ -33,24 +35,32 @@ func _ready():
 	_setting_to_slider_map = {
 		Settings.MOUSE_SCROLL: _mouse_scroll,
 		Settings.KEYBOARD_SCROLL: _keyboard_scroll,
+		Settings.INTERFACE_SIZE: _interface_size_scroll,
 	}
 	
 	for setting in _setting_to_slider_map.keys():
 		var slider: Slider = _setting_to_slider_map[setting]
 		var value: float = Settings.get_setting(setting) as float
 		slider.value = value
+	
+	Settings.interface_size_changed.connect(_apply_theme_scale)
+	_interface_size_scroll.value_changed.connect(Settings.set_setting.bind(Settings.INTERFACE_SIZE))
+
+func _apply_theme_scale():
+	var theme_scale = Settings.get_setting(Settings.INTERFACE_SIZE) as float
+	_default_theme.apply_scale(theme_scale)
 
 
 func _on_close_button_pressed():
 	for setting in _setting_to_checkbox_map.keys():
 		var checkbox: CheckBox = _setting_to_checkbox_map[setting]
 		var enabled: bool = checkbox.is_pressed()
-		Settings.set_setting(setting, enabled)
+		Settings.set_setting(enabled, setting)
 	
 	for setting in _setting_to_slider_map.keys():
 		var slider: Slider = _setting_to_slider_map[setting]
 		var value: float = slider.value
-		Settings.set_setting(setting, value)
+		Settings.set_setting(value, setting)
 	
 	Settings.flush()
 	
