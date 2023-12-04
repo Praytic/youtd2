@@ -203,7 +203,7 @@ func generate_tower_tooltip(tower_id: int) -> String:
 
 
 # NOTE: TowerProperties.get_generated_tooltip returns cached tooltips
-# with no dynamic info such as colored wave/gold requirements text. This
+# with no dynamic info such as colored wave/research requirements text. This
 # function combines cached tower description with such dynamic information
 # from get_tower_requirements_text.
 func get_generated_tower_tooltip_with_tower_requirements(tower_id: int) -> String:
