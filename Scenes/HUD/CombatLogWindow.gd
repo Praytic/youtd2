@@ -96,6 +96,6 @@ func _on_clear_button_pressed():
 
 
 func _on_drag_finished():
-	Settings.set_setting(global_position.x, Settings.COMBAT_LOG_X)
-	Settings.set_setting(global_position.y, Settings.COMBAT_LOG_Y)
+	Settings.set_setting(Settings.COMBAT_LOG_X, global_position.x)
+	Settings.set_setting(Settings.COMBAT_LOG_Y, global_position.y, )
 	Settings.flush()
