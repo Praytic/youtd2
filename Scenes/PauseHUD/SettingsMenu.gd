@@ -51,9 +51,9 @@ func _ready():
 	_interface_size_button_group.pressed.connect(_on_interface_size_changed)
 
 
-func _apply_theme_scale():
-	var theme_scale = Settings.get_setting(Settings.INTERFACE_SIZE) as float
-	get_tree().root.content_scale_factor = theme_scale
+func _apply_theme_scale(new_scale: float):
+#	var theme_scale = Settings.get_setting(Settings.INTERFACE_SIZE) as float
+	get_tree().root.content_scale_factor = new_scale
 
 
 func _on_close_button_pressed():

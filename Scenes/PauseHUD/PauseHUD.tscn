@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://hiex318b5cvk"]
+[gd_scene load_steps=7 format=3 uid="uid://hiex318b5cvk"]
 
 [ext_resource type="Script" path="res://Scenes/PauseHUD/PauseHUD.gd" id="1_8lyul"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_v8b77"]
 [ext_resource type="PackedScene" uid="uid://bbrryq35rxvkv" path="res://Scenes/PauseHUD/HintsMenu.tscn" id="3_vf4xx"]
 [ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://Scenes/PauseHUD/CreditsMenu.tscn" id="4_s86r1"]
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/PauseHUD/SettingsMenu.tscn" id="5_y1l7h"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_n1vi6"]
 
 [node name="PauseHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
 layout_mode = 3
@@ -84,6 +86,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
 visible = false
 layout_mode = 2
+_interface_size_button_group = SubResource("ButtonGroup_n1vi6")
 
 [node name="CreditsMenu" parent="TabContainer" instance=ExtResource("4_s86r1")]
 visible = false

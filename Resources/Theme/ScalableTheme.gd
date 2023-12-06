@@ -221,7 +221,7 @@ var _saved_sbox_props: Dictionary
 
 func _init() -> void:
 	
-	call_deferred("_subscribe_to_signal")
+#	call_deferred("_subscribe_to_signal")
 	
 	_saved_constants = _save_constants()
 	_saved_tex_sizes = _save_texture_sizes()
