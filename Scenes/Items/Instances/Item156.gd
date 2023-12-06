@@ -28,6 +28,8 @@ func on_damage(event: Event):
 	itm.user_int = itm.user_int + 1
 
 	if itm.user_int >= 5:
+		CombatLog.log_item_ability(self, null, "Infuse with Regeneration")
+		
 		event.damage = event.damage * regen
 		itm.user_int = 0
 		var damage_text: String = Utils.format_float(event.damage, 0)

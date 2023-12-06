@@ -32,6 +32,8 @@ func on_attack(event: Event):
 	var creep: Unit = event.get_target()
 
 	if creep.get_size() < CreepSize.enm.CHAMPION && tower.calc_chance((0.0025 + (tower.get_level() * 0.0001)) * tower.get_base_attack_speed()):
+		CombatLog.log_item_ability(self, null, "Curse of the Grave")
+
 		tower.kill_instantly(creep)
 		SFX.sfx_at_unit("Abilities\\Spells\\Undead\\DeathCoil\\DeathCoilSpecialArt.mdl", creep)
 		itm.user_int = itm.user_int + 1

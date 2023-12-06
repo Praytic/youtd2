@@ -35,5 +35,7 @@ func on_damage(event: Event):
 	var tower: Unit = itm.get_carrier()
 
 	if !tower.calc_chance(0.90):
+		CombatLog.log_item_ability(self, null, "Miss")
+
 		event.damage = 0
 		tower.get_player().display_floating_text_x("Miss", tower, 255, 0, 0, 255, 0.05, 0.0, 2.0)

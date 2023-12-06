@@ -27,6 +27,7 @@ func periodic(_event: Event):
 	var cur_mana: float = u.get_mana()
 
 	if cur_mana < itm.user_real && u.calc_chance(0.25):
+		CombatLog.log_item_ability(self, null, "Circle of Power")
 		u.set_mana(itm.user_real)
 		var effect: int = Effect.create_simple_at_unit("AImaTarget.mdl", u)
 		Effect.destroy_effect_after_its_over(effect)

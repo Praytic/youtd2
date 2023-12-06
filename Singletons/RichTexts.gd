@@ -114,7 +114,7 @@ func get_tower_text(tower_id: int) -> String:
 	var text: String = ""
 
 	if Config.use_saved_tooltips():
-		text = TowerProperties.get_generated_tooltip(tower_id)
+		text = get_generated_tower_tooltip_with_tower_requirements(tower_id)
 	else:
 		text = generate_tower_tooltip(tower_id)
 	
@@ -201,6 +201,25 @@ func generate_tower_tooltip(tower_id: int) -> String:
 	
 	return text
 
+
+# NOTE: TowerProperties.get_generated_tooltip returns cached tooltips
+# with no dynamic info such as colored wave/research requirements text. This
+# function combines cached tower description with such dynamic information
+# from get_tower_requirements_text.
+func get_generated_tower_tooltip_with_tower_requirements(tower_id: int) -> String:
+	var generated_tooltip_text = TowerProperties.get_generated_tooltip(tower_id)
+	var requirements_text = get_tower_requirements_text(tower_id)
+	
+	var text = ""
+	
+	if !requirements_text.is_empty():
+		text += "%s\n" % requirements_text
+		text += " \n"
+	
+	text += generated_tooltip_text
+	
+	return text
+	
 
 func get_tower_requirements_text(tower_id: int) -> String:
 	var text: String = ""

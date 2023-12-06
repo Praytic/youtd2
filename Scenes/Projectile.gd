@@ -608,7 +608,7 @@ func _expire():
 
 
 func _on_periodic_timer_timeout():
-	if _periodic_enabled:
+	if !_periodic_enabled:
 		return
 
 	if _periodic_handler.is_valid():

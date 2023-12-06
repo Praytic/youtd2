@@ -24,5 +24,6 @@ func on_damage(event: Event):
 	var itm: Item = self
 
 	if Utils.rand_chance(0.10):
+		CombatLog.log_item_ability(self, null, "Drunk!")
 		itm.get_carrier().get_player().display_small_floating_text("Miss", itm.get_carrier(), 255, 0, 0, 40.0)
 		event.damage = 0

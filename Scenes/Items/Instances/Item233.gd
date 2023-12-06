@@ -32,6 +32,8 @@ func on_drop():
 		itm.user_int3 = cur_level
 
 		if itm.user_int <= 0:
+			CombatLog.log_item_ability(self, null, "Duplication")
+			
 			tower = itm.get_carrier()
 			var new: Item = Item.create(tower.get_player(), itm.get_id(), tower.get_visual_position())
 

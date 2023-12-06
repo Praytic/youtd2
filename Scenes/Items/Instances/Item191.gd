@@ -31,9 +31,10 @@ func on_attack(event: Event):
 	var t: Unit
 
 	if itm.user_int > 0 && itm.user_int < creep_level:
-		reward_value = 12.0 - (Utils.get_game_time() - itm.user_int2) / 25
+		reward_value = 12.0 - (Utils.get_game_time() - itm.user_int2)
 
 		if reward_value > 0:
+			CombatLog.log_item_ability(self, null, "Reward")
 			t = itm.get_carrier()
 			t.get_player().give_gold(reward_value, t, true, true)
 			t.add_exp(reward_value / 2)

@@ -57,4 +57,6 @@ func on_attack(_event: Event):
 	if !tower.calc_chance(0.1 + 0.004 * tower.get_level()):
 		return
 
+	CombatLog.log_item_ability(self, null, "Follow up")
+
 	BT.apply(itm.get_carrier(), itm.get_carrier(), itm.get_carrier().get_level())

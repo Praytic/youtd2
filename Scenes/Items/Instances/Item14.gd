@@ -22,4 +22,5 @@ func load_triggers(triggers: BuffType):
 
 func periodic(_event: Event):
 	var itm: Item = self
+	CombatLog.log_item_ability(self, null, "Pay With Blood")
 	itm.get_carrier().remove_exp(2)

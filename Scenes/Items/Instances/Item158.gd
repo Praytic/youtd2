@@ -48,11 +48,15 @@ func periodic(_event: Event):
 
 	target_effect = Effect.create_scaled("Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl", tower.get_visual_position().x, tower.get_visual_position().y, 0, 0, 0.8)
 	Effect.set_lifetime(target_effect, 0.1)
-
+	
 	if tower.calc_chance(0.40 + tower.get_level() * 0.02):
+		CombatLog.log_item_ability(self, null, "Mining Success")
+		
 		if tower.get_level() < 25:
 			tower.get_player().give_gold(3, tower, false, true)
 			itm.user_int = itm.user_int + 3
 		else:
 			tower.get_player().give_gold(4, tower, false, true)
 			itm.user_int = itm.user_int + 4
+	else:
+		CombatLog.log_item_ability(self, null, "Mining Fail")

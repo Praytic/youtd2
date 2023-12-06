@@ -46,4 +46,5 @@ func on_attack(event: Event):
 	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_chance(0.125 * speed):
+		CombatLog.log_item_ability(self, event.get_target(), "Purify")
 		drol_chain_st.target_cast_from_caster(tower, event.get_target(), 1, tower.calc_spell_crit_no_bonus())

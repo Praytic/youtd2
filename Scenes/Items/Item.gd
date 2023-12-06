@@ -284,6 +284,12 @@ func get_player() -> Player:
 	return _owner
 
 
+func get_display_name() -> String:
+	var display_name: String = ItemProperties.get_display_name(_id)
+
+	return display_name
+
+
 func get_rarity() -> Rarity.enm:
 	var rarity: Rarity.enm = ItemProperties.get_rarity(_id)
 

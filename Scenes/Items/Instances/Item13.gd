@@ -36,6 +36,8 @@ func periodic(_event: Event):
 	var iterate: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 1000)
 	var loop_counter: int = 3
 
+	CombatLog.log_item_ability(self, null, "Activate Trap")
+
 	while true:
 		var creep: Unit = iterate.next_random()
 

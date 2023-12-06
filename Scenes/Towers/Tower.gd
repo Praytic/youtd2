@@ -578,9 +578,19 @@ func _try_to_attack() -> bool:
 		if target == null:
 			break
 
+		var original_target: Unit = target
+
 		var target_is_first: bool = attack_count == 0
-		_attack_target(target, target_is_first)
+		target = _attack_target(target, target_is_first)
 		already_attacked_list.append(target)
+
+#		NOTE: manually swap targets if target was changed
+#		via issue_target_order() during _attack_target().
+		var was_ordered_to_change_target: bool = original_target != target
+
+		if was_ordered_to_change_target:
+			_remove_target(original_target)
+			_add_target(target)
 
 		attack_count += 1
 
@@ -599,7 +609,10 @@ func _try_to_attack() -> bool:
 	return attack_success
 
 
-func _attack_target(target: Unit, target_is_first: bool):
+# NOTE: returns the target which was actually attacked. May
+# be different from input target if tower was ordered to
+# switch to new target.
+func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 #	NOTE: need to generate crit number here early instead of
 #	right before dealing damage, so that for attacks like
 #	splash damage and bounce attacks all of the damage dealt
@@ -630,7 +643,7 @@ func _attack_target(target: Unit, target_is_first: bool):
 #	stop attacking or switch to a different target. Process
 #	the orders here.
 	if _was_ordered_to_stop_attack:
-		return
+		return target
 
 	if _was_ordered_to_change_target:
 		_was_ordered_to_change_target = false
@@ -638,7 +651,7 @@ func _attack_target(target: Unit, target_is_first: bool):
 		target = _new_target_from_order
 
 	if target == null:
-		return
+		return target
 
 	var attacked_event: Event = Event.new(target)
 	attacked_event._number_of_crits = crit_count
@@ -667,6 +680,8 @@ func _attack_target(target: Unit, target_is_first: bool):
 		_: sfx_path = "res://Assets/SFX/swosh-08.mp3"
 
 	SFX.sfx_at_unit(sfx_path, self, -20.0)
+
+	return target
 
 
 # Override this in subclass to define custom stats for each

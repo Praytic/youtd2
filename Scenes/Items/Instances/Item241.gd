@@ -46,6 +46,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(chance):
 		return
 
+	CombatLog.log_item_ability(self, null, "Big Badaboom")
+
 	if event.is_main_target():
 		if event.get_target().get_category() == CreepCategory.enm.UNDEAD:
 			r = r * 1.5

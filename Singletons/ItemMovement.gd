@@ -152,6 +152,9 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 	if !_can_start_moving():
 		return
 
+	if in_progress() && !_check_consumable_into_tower_case(container):
+		return
+
 #	If an item is currently getting moved, add it back to
 #	tower at the position of the clicked item
 	if in_progress():
@@ -191,6 +194,9 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 # moved item to that container.
 func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
 	if !in_progress():
+		return
+
+	if !_check_consumable_into_tower_case(container):
 		return
 
 	if !container.can_add_item(_moved_item):
@@ -263,3 +269,20 @@ func _return_item_to_stash():
 	_end_move_process()
 
 	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
+
+
+# Checks if currently moved item can't be placed into
+# container because container belongs to tower and item is
+# consumable. Also adds an error messages if needed.
+# Returns true if can move.
+func _check_consumable_into_tower_case(container: ItemContainer) -> bool:
+	if _moved_item == null:
+		return true
+
+	var cant_move_consumable_to_tower: bool = _moved_item.is_consumable() && container is TowerItemContainer
+	var move_ok: bool = !cant_move_consumable_to_tower
+
+	if !move_ok:
+		Messages.add_error("Can't place consumables into towers")
+
+	return move_ok

@@ -51,4 +51,5 @@ func on_attack(_event: Event):
 	var speed: float = tower.get_base_attack_speed()
 
 	if tower.calc_bad_chance(0.1 * speed):
+		CombatLog.log_item_ability(self, null, "Hangover")
 		drol_hangover.apply(tower, tower, tower.get_level())

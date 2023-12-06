@@ -23,5 +23,7 @@ func load_triggers(triggers: BuffType):
 func periodic(_event: Event):
 	var itm: Item = self
 
+	CombatLog.log_item_ability(self, null, "Learn")
+	
 	var tower: Unit = itm.get_carrier()
 	tower.add_exp(1)

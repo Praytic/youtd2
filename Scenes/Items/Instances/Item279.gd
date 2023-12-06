@@ -34,4 +34,5 @@ func on_spell_target(_event: Event):
 	var tower: Tower = itm.get_carrier()
 	var lvl: int = tower.get_level()
 
+	CombatLog.log_item_ability(self, null, "Conduct Magic")
 	boekie_magicConductor_buff.apply_custom_timed(tower, tower, lvl, 10.0)

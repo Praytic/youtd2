@@ -45,14 +45,18 @@ func on_kill(_event: Event):
 	var t: Tower
 	t = itm.get_carrier()
 
-	if t.calc_chance(0.25):
+	if t.calc_chance(0.25):		
 		if Utils.rand_chance(0.33):
 			if itm.user_real >= -0.20:
+				CombatLog.log_item_ability(self, null, "Lower Item Chance")
+				
 				itm.user_real = itm.user_real - 0.04
 				t.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, -0.04)
 				t.get_player().display_small_floating_text("Item Chance Lowered!", t, 255, 0, 0, 30)
 		else:
 			if itm.user_real <= 0.44:
+				CombatLog.log_item_ability(self, null, "Raise Item Chance")
+				
 				itm.user_real = itm.user_real + 0.04
 				t.modify_property(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.04)
 				t.get_player().display_small_floating_text("Item Chance Raised!", t, 0, 0, 255, 30)

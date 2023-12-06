@@ -22,4 +22,5 @@ func on_damage(event: Event):
 	var speed: float = tower.get_base_attack_speed()  
 
 	if event.is_main_target() && tower.calc_chance(0.2 * speed) == true:
+		CombatLog.log_item_ability(self, event.get_target(), "Enlighten")
 		event.get_target().modify_property(Modification.Type.MOD_EXP_GRANTED, 0.05)

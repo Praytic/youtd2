@@ -22,6 +22,8 @@ func on_attack(_event: Event):
 	itm.user_int = itm.user_int + 1
 
 	if itm.user_int == 5:
+		CombatLog.log_item_ability(self, null, "Heavy Weapon")
+		
 		tower.add_attack_crit()
 
 		itm.user_int = 0
