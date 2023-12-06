@@ -44,7 +44,8 @@ func _ready():
 		slider.value = value
 	
 	Settings.interface_size_changed.connect(_apply_theme_scale)
-	_interface_size_scroll.value_changed.connect(Settings.set_setting.bind(Settings.INTERFACE_SIZE))
+	_interface_size_scroll.value_changed.connect(_on_interface_size_scroll_value_changed)
+
 
 func _apply_theme_scale():
 	var theme_scale = Settings.get_setting(Settings.INTERFACE_SIZE) as float
@@ -55,13 +56,17 @@ func _on_close_button_pressed():
 	for setting in _setting_to_checkbox_map.keys():
 		var checkbox: CheckBox = _setting_to_checkbox_map[setting]
 		var enabled: bool = checkbox.is_pressed()
-		Settings.set_setting(enabled, setting)
+		Settings.set_setting(setting, enabled)
 	
 	for setting in _setting_to_slider_map.keys():
 		var slider: Slider = _setting_to_slider_map[setting]
 		var value: float = slider.value
-		Settings.set_setting(value, setting)
+		Settings.set_setting(setting, value)
 	
 	Settings.flush()
 	
 	hide()
+
+
+func _on_interface_size_scroll_value_changed(value: float):
+	Settings.set_setting(Settings.INTERFACE_SIZE, value)

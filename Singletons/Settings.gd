@@ -85,7 +85,7 @@ func get_bool_setting(setting: String) -> bool:
 	return value
 
 
-func set_setting(value: Variant, setting: String):
+func set_setting(setting: String, value: Variant):
 	_cache[setting] = value
 	
 	changed.emit()
