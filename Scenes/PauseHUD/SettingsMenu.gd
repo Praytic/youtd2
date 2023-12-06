@@ -9,11 +9,12 @@ extends PanelContainer
 @export var _show_combat_log: CheckBox
 @export var _mouse_scroll: Slider
 @export var _keyboard_scroll: Slider
-@export var _interface_size_scroll: Slider
-@export var _default_theme: Theme
+@export var _interface_size_button_group: ButtonGroup
+
 
 var _setting_to_checkbox_map: Dictionary
 var _setting_to_slider_map: Dictionary
+var _setting_to_button_group_map: Dictionary
 
 
 func _ready():
@@ -35,7 +36,10 @@ func _ready():
 	_setting_to_slider_map = {
 		Settings.MOUSE_SCROLL: _mouse_scroll,
 		Settings.KEYBOARD_SCROLL: _keyboard_scroll,
-		Settings.INTERFACE_SIZE: _interface_size_scroll,
+	}
+	
+	_setting_to_button_group_map = {
+		Settings.INTERFACE_SIZE: _interface_size_button_group,
 	}
 	
 	for setting in _setting_to_slider_map.keys():
@@ -44,12 +48,12 @@ func _ready():
 		slider.value = value
 	
 	Settings.interface_size_changed.connect(_apply_theme_scale)
-	_interface_size_scroll.value_changed.connect(_on_interface_size_scroll_value_changed)
+	_interface_size_button_group.pressed.connect(_on_interface_size_changed)
 
 
 func _apply_theme_scale():
 	var theme_scale = Settings.get_setting(Settings.INTERFACE_SIZE) as float
-	_default_theme.apply_scale(theme_scale)
+#	_default_theme.apply_scale(theme_scale)
 
 
 func _on_close_button_pressed():
@@ -68,5 +72,8 @@ func _on_close_button_pressed():
 	hide()
 
 
-func _on_interface_size_scroll_value_changed(value: float):
-	Settings.set_setting(Settings.INTERFACE_SIZE, value)
+func _on_interface_size_changed(button: Button):
+	match button.text:
+		"Small": Settings.set_setting(Settings.INTERFACE_SIZE, 0.5)
+		"Medium": Settings.set_setting(Settings.INTERFACE_SIZE, 0.75)
+		"Large": Settings.set_setting(Settings.INTERFACE_SIZE, 1)

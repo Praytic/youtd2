@@ -247,8 +247,8 @@ func _print_props(props: Dictionary):
 
 
 func apply_scale(factor: float):
-	_scale_constants(factor)
-	_scale_textures(factor)
+#	_scale_constants(factor)
+#	_scale_textures(factor)
 	_scale_fonts(factor)
 #	_scale_styleboxes(factor)
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cx86ea3loo8a2"]
+[gd_scene load_steps=3 format=3 uid="uid://cx86ea3loo8a2"]
 
 [ext_resource type="Script" path="res://Scenes/PauseHUD/SettingsMenu.gd" id="2_2dtmk"]
+[ext_resource type="ButtonGroup" uid="uid://di3e75guncq3c" path="res://Resources/UI/ButtonGroup/interface_size_setting_button_group.tres" id="2_fh8ol"]
 
-[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx", "_enable_unreleased_towers", "_enable_mouse_scroll", "_show_combat_log", "_mouse_scroll", "_keyboard_scroll", "_interface_size_scroll")]
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx", "_enable_unreleased_towers", "_enable_mouse_scroll", "_show_combat_log", "_mouse_scroll", "_keyboard_scroll")]
 custom_minimum_size = Vector2(800, 600)
 script = ExtResource("2_2dtmk")
 _old_item_names = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/OldItemNames")
@@ -13,7 +14,7 @@ _enable_mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/V
 _show_combat_log = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6/ShowCombatLog")
 _mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MouseScroll")
 _keyboard_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/KeyboardScroll")
-_interface_size_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/InterfaceSizeScroll")
+_interface_size_button_group = ExtResource("2_fh8ol")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -123,12 +124,34 @@ value = 0.5
 layout_mode = 2
 text = "Interface size:"
 
-[node name="InterfaceSizeScroll" type="HSlider" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-min_value = 0.5
-max_value = 1.5
-step = 0.25
-value = 1.0
+size_flags_vertical = 3
+
+[node name="SmallInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+toggle_mode = true
+button_group = ExtResource("2_fh8ol")
+text = "Small"
+flat = true
+
+[node name="MediumInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("2_fh8ol")
+text = "Medium"
+flat = true
+
+[node name="LargeInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
+toggle_mode = true
+button_group = ExtResource("2_fh8ol")
+text = "Large"
+flat = true
 
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
