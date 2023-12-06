@@ -53,7 +53,7 @@ func _ready():
 
 func _apply_theme_scale():
 	var theme_scale = Settings.get_setting(Settings.INTERFACE_SIZE) as float
-#	_default_theme.apply_scale(theme_scale)
+	get_tree().root.content_scale_factor = theme_scale
 
 
 func _on_close_button_pressed():
@@ -74,6 +74,6 @@ func _on_close_button_pressed():
 
 func _on_interface_size_changed(button: Button):
 	match button.text:
-		"Small": Settings.set_setting(Settings.INTERFACE_SIZE, 0.5)
-		"Medium": Settings.set_setting(Settings.INTERFACE_SIZE, 0.75)
-		"Large": Settings.set_setting(Settings.INTERFACE_SIZE, 1)
+		"Small": Settings.set_setting(Settings.INTERFACE_SIZE, 0.75)
+		"Medium": Settings.set_setting(Settings.INTERFACE_SIZE, 1)
+		"Large": Settings.set_setting(Settings.INTERFACE_SIZE, 1.25)

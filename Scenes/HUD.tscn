@@ -31,12 +31,71 @@ _game_over_label = NodePath("GameOverLabel")
 _horadric_menu = NodePath("MarginContainer4/HBoxContainer2/HBoxContainer/HoradricMenu")
 metadata/_edit_vertical_guides_ = [960.0]
 
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UpperPanel" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/UpperPanel"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/UpperPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/UpperPanel/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("11_hbwuy")
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/UpperPanel/HBoxContainer/MarginContainer"]
+texture_filter = 4
+layout_mode = 2
+texture = ExtResource("12_2mxp4")
+expand_mode = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/UpperPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="TextureRect3" type="TextureRect" parent="VBoxContainer/UpperPanel/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("11_hbwuy")
+
+[node name="TextureRect4" type="TextureRect" parent="VBoxContainer/UpperPanel/HBoxContainer/MarginContainer2"]
+texture_filter = 4
+layout_mode = 2
+texture = ExtResource("13_n0pc1")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TopLeftMenu" parent="VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("10_agdn3")]
+layout_mode = 2
+
+[node name="TopMenuBar" parent="VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("6")]
+visible = false
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]
 layout_mode = 1
-offset_left = 124.0
-offset_top = 68.0
-offset_right = 124.0
-offset_bottom = 68.0
 mouse_filter = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
@@ -124,24 +183,6 @@ bbcode_enabled = true
 text = "[color=RED]GAME OVER[/color]"
 fit_content = true
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 150
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="TopLeftMenu" parent="MarginContainer/VBoxContainer" instance=ExtResource("10_agdn3")]
-layout_mode = 2
-
-[node name="TopMenuBar" parent="MarginContainer/VBoxContainer" instance=ExtResource("6")]
-visible = false
-layout_mode = 2
-metadata/_edit_use_anchors_ = true
-
 [node name="MarginContainer5" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3
@@ -209,49 +250,6 @@ size_flags_vertical = 0
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
-
-[node name="UpperPanel" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UpperPanel"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UpperPanel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="TextureRect" type="TextureRect" parent="UpperPanel/HBoxContainer/MarginContainer"]
-layout_mode = 2
-texture = ExtResource("11_hbwuy")
-
-[node name="TextureRect2" type="TextureRect" parent="UpperPanel/HBoxContainer/MarginContainer"]
-texture_filter = 4
-layout_mode = 2
-texture = ExtResource("12_2mxp4")
-expand_mode = 1
-
-[node name="MarginContainer2" type="MarginContainer" parent="UpperPanel/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="TextureRect3" type="TextureRect" parent="UpperPanel/HBoxContainer/MarginContainer2"]
-layout_mode = 2
-texture = ExtResource("11_hbwuy")
-
-[node name="TextureRect4" type="TextureRect" parent="UpperPanel/HBoxContainer/MarginContainer2"]
-texture_filter = 4
-layout_mode = 2
-texture = ExtResource("13_n0pc1")
-expand_mode = 1
 
 [node name="CombatLogWindow" parent="." instance=ExtResource("14_g64vx")]
 layout_mode = 0
