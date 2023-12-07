@@ -42,7 +42,7 @@ var _default_value_map: Dictionary = {
 	SHOW_COMBAT_LOG: false,
 	COMBAT_LOG_X: 20,
 	COMBAT_LOG_Y: 600,
-	INTERFACE_SIZE: 0.5,
+	INTERFACE_SIZE: 1,
 }
 
 
@@ -63,7 +63,8 @@ func _ready():
 
 		_cache = _default_value_map
 #		NOTE: save defaults to file to create settings file for the first time
-		flush()
+	
+	call_deferred("flush")
 
 
 

@@ -32,7 +32,6 @@ func _ready():
 	if OS.get_name() == "macOS":
 		zoom_sensitivity = 0.1
 	
-	_adjust_to_interface_scale(1.0)
 	_zoom = Vector2.ONE
 	zoom = _zoom * _interface_size_factor
 	
