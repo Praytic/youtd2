@@ -38,21 +38,32 @@ func _ready():
 		Settings.KEYBOARD_SCROLL: _keyboard_scroll,
 	}
 	
-	_setting_to_button_group_map = {
-		Settings.INTERFACE_SIZE: _interface_size_button_group,
-	}
-	
 	for setting in _setting_to_slider_map.keys():
 		var slider: Slider = _setting_to_slider_map[setting]
 		var value: float = Settings.get_setting(setting) as float
 		slider.value = value
 	
-	Settings.interface_size_changed.connect(_apply_theme_scale)
-	_interface_size_button_group.pressed.connect(_on_interface_size_changed)
+	_setting_to_button_group_map = {
+		Settings.INTERFACE_SIZE: _interface_size_button_group,
+	}
+	
+	for setting in _setting_to_button_group_map.keys():
+		var button_group: ButtonGroup = _setting_to_button_group_map[setting]
+		var value: float = Settings.get_setting(setting)
+		for button in button_group.get_buttons():
+			if button.text == value:
+				button.set_pressed_no_signal(true)
+				break
+	
+	Settings.interface_size_changed.connect(_apply_new_interface_size)
 
 
-func _apply_theme_scale(new_scale: float):
-#	var theme_scale = Settings.get_setting(Settings.INTERFACE_SIZE) as float
+func _apply_new_interface_size(size_label: String):
+	var new_scale: float
+	match size_label:
+		"Small": new_scale = 0.75
+		"Medium": new_scale = 1
+		"Large": new_scale = 1.25
 	get_tree().root.content_scale_factor = new_scale
 
 
@@ -67,13 +78,11 @@ func _on_close_button_pressed():
 		var value: float = slider.value
 		Settings.set_setting(setting, value)
 	
+	for setting in _setting_to_button_group_map.keys():
+		var button_group: ButtonGroup = _setting_to_button_group_map[setting]
+		var value: float = button_group.get_pressed_button().text
+		Settings.set_setting(setting, value)
+	
 	Settings.flush()
 	
 	hide()
-
-
-func _on_interface_size_changed(button: Button):
-	match button.text:
-		"Small": Settings.set_setting(Settings.INTERFACE_SIZE, 0.75)
-		"Medium": Settings.set_setting(Settings.INTERFACE_SIZE, 1)
-		"Large": Settings.set_setting(Settings.INTERFACE_SIZE, 1.25)

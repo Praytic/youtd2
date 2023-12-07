@@ -42,7 +42,7 @@ var _default_value_map: Dictionary = {
 	SHOW_COMBAT_LOG: false,
 	COMBAT_LOG_X: 20,
 	COMBAT_LOG_Y: 600,
-	INTERFACE_SIZE: 1,
+	INTERFACE_SIZE: "Medium",
 }
 
 
