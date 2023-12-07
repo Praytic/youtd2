@@ -48,12 +48,6 @@ func _ready():
 
 	if Config.run_save_tooltips_tool():
 		SaveTooltipsTool.run()
-		
-	Settings.interface_size_changed.connect(_apply_interface_scale)
-
-
-func _apply_interface_scale(new_scale: float):
-	_ui_canvas_layer.content_scale_factor = new_scale
 
 
 func _process(delta: float):

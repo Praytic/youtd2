@@ -49,7 +49,7 @@ var _default_value_map: Dictionary = {
 func _ready():
 	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.READ)
 
-	if settings_file != null:
+	if settings_file != null and settings_file.get_length() > 0:
 		var cache_string: String = settings_file.get_as_text()
 		_cache = JSON.parse_string(cache_string) as Dictionary
 		

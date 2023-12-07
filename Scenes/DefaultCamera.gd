@@ -95,7 +95,7 @@ func _physics_process(delta):
 
 func _unhandled_input(event: InputEvent):
 	_handle_zoom(event)
-	print("zoom: %s | factor: %s" % [zoom, _get_viewport_scale_factor()])
+	print("zoom: %s | factor: %s | camera: %s" % [zoom, _interface_size_factor, get_viewport_rect()])
 
 
 # NOTE: this will be called by CameraZoomArea
@@ -139,7 +139,9 @@ func _get_cam_speed_from_setting(setting: String) -> float:
 # This function is needed because content_scale_factor of root Window
 # affects all Nodes. So we need to readjust Camera2D to fit new viewport.
 func _adjust_to_interface_scale(_new_scale: float):
-	_interface_size_factor = _new_scale
+	# TODO3: What contant should I pick for zoom factor?
+#	_interface_size_factor = _get_viewport_scale_factor()
+	_interface_size_factor = 1.0/_new_scale
 	print_verbose("Camera zoom adjusted scale_factor. New value [%s]" % _interface_size_factor)
 
 
