@@ -1,5 +1,15 @@
 extends Camera2D
 
+
+# NOTE: camera has to handle game pause in a special way so
+# that it's zoom is properly updated when interface scale is
+# changed in settings menu. Camera's process mode is set to
+# ALWAYS so that it ignores pause but then in _process() and
+# _handle_input() it will return early if game is paused.
+# This is so that player can't change camera zoom or move
+# camera while game is paused.
+
+
 signal camera_moved(shift_vector)
 signal camera_zoomed(zoom_value)
 
@@ -30,6 +40,14 @@ func _ready():
 
 
 func _physics_process(delta):
+#	NOTE: perform this operation even during pause so that
+#	camera reacts correctly to interface scale getting
+#	changed in settings menu.
+	zoom = _interface_size_factor * _zoom
+	
+	if get_tree().is_paused():
+		return
+
 	var mouse_scroll_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_MOUSE_SCROLL)
 	var speed_from_mouse: float = _get_cam_speed_from_setting(Settings.MOUSE_SCROLL)
 	var speed_from_keyboard: float = _get_cam_speed_from_setting(Settings.KEYBOARD_SCROLL)
@@ -91,11 +109,12 @@ func _physics_process(delta):
 		position = get_screen_center_position() + shift_vector
 		
 		camera_moved.emit(shift_vector)
-	
-	zoom = _interface_size_factor * _zoom
 
 
 func _unhandled_input(event: InputEvent):
+	if get_tree().is_paused():
+		return
+
 	_handle_zoom(event)
 
 
