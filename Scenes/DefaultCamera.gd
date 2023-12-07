@@ -13,8 +13,10 @@ signal camera_zoomed(zoom_value)
 @export var FAST_SCROLL_MARGIN: float = 0.002
 @export var SLOW_SCROLL_MULTIPLIER: float = 0.5
 
+
 var _interface_size_factor: float
 var _zoom: Vector2
+
 
 func _ready():
 	if OS.get_name() == "macOS":
@@ -95,7 +97,6 @@ func _physics_process(delta):
 
 func _unhandled_input(event: InputEvent):
 	_handle_zoom(event)
-	print("zoom: %s | factor: %s | camera: %s" % [zoom, _interface_size_factor, get_viewport_rect()])
 
 
 # NOTE: this will be called by CameraZoomArea
@@ -139,10 +140,7 @@ func _get_cam_speed_from_setting(setting: String) -> float:
 # This function is needed because content_scale_factor of root Window
 # affects all Nodes. So we need to readjust Camera2D to fit new viewport.
 func _adjust_to_interface_scale(_new_scale: float):
-	# TODO3: What contant should I pick for zoom factor?
-#	_interface_size_factor = _get_viewport_scale_factor()
 	_interface_size_factor = 1.0/_new_scale
-	print_verbose("Camera zoom adjusted scale_factor. New value [%s]" % _interface_size_factor)
 
 
 func _get_viewport_scale_factor() -> float: 
