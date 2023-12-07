@@ -13,12 +13,18 @@ signal camera_zoomed(zoom_value)
 @export var FAST_SCROLL_MARGIN: float = 0.002
 @export var SLOW_SCROLL_MULTIPLIER: float = 0.5
 
+var _interface_size_factor: float
+var _zoom: Vector2
 
 func _ready():
 	if OS.get_name() == "macOS":
 		zoom_sensitivity = 0.1
-
-	zoom = Vector2.ONE * zoom_min
+	
+	_adjust_to_interface_scale(1.0)
+	_zoom = Vector2.ONE
+	zoom = _zoom * _interface_size_factor
+	
+	Settings.interface_size_changed.connect(_adjust_to_interface_scale)
 
 
 func _physics_process(delta):
@@ -83,22 +89,25 @@ func _physics_process(delta):
 		position = get_screen_center_position() + shift_vector
 		
 		camera_moved.emit(shift_vector)
+	
+	zoom = _interface_size_factor * _zoom
 
 
 func _unhandled_input(event: InputEvent):
-	_zoom(event)
+	_handle_zoom(event)
+	print("zoom: %s | factor: %s" % [zoom, _get_viewport_scale_factor()])
 
 
 # NOTE: this will be called by CameraZoomArea
-func _zoom(event):
-	var new_zoom = zoom.x
+func _handle_zoom(event):
+	var new_zoom = _zoom.x
 
 	if event is InputEventMagnifyGesture && Config.enable_zoom_by_touchpad():
 		var zoom_amount = -(event.factor - 1.0) * zoom_sensitivity
-		new_zoom = zoom.y + zoom_amount
+		new_zoom = _zoom.y + zoom_amount
 	elif event is InputEventMouseButton && Config.enable_zoom_by_mousewheel():
 #		Make zoom change slower as the camera gets more zoomed in
-		var slow_down_multiplier = zoom.x / zoom_max
+		var slow_down_multiplier = _zoom.x / zoom_max
 		var zoom_change = mousewheel_zoom_speed * slow_down_multiplier
 		
 		match event.get_button_index():
@@ -112,9 +121,9 @@ func _zoom(event):
 		return
 	
 	new_zoom = clampf(new_zoom, zoom_min, zoom_max)
-	zoom = Vector2(new_zoom, new_zoom)
+	_zoom = Vector2(new_zoom, new_zoom)
 	
-	camera_zoomed.emit(zoom)
+	camera_zoomed.emit(_zoom)
 
 
 # NOTE: setting value is in range of [0.0, 1.0]
@@ -125,3 +134,17 @@ func _get_cam_speed_from_setting(setting: String) -> float:
 	var speed: float = cam_move_speed_base * speed_ratio
 
 	return speed
+
+
+# This function is needed because content_scale_factor of root Window
+# affects all Nodes. So we need to readjust Camera2D to fit new viewport.
+func _adjust_to_interface_scale(_new_scale: float):
+	_interface_size_factor = _new_scale
+	print_verbose("Camera zoom adjusted scale_factor. New value [%s]" % _interface_size_factor)
+
+
+func _get_viewport_scale_factor() -> float: 
+	var factor = min(
+		(float(get_viewport().size.x) / get_viewport().get_visible_rect().size.x),
+		(float(get_viewport().size.y) / get_viewport().get_visible_rect().size.y))
+	return factor

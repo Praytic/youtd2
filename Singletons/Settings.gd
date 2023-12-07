@@ -87,11 +87,6 @@ func get_bool_setting(setting: String) -> bool:
 
 func set_setting(setting: String, value: Variant):
 	_cache[setting] = value
-	
-	changed.emit()
-	match setting:
-		SHOW_COMBAT_LOG: show_combat_log_changed.emit()
-		INTERFACE_SIZE: interface_size_changed.emit(value)
 
 
 # Save all changes to file
