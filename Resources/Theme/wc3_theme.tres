@@ -1,4 +1,4 @@
-[gd_resource type="Theme" script_class="ScalableTheme" load_steps=60 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=59 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -24,7 +24,6 @@
 [ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="12_klcgr"]
 [ext_resource type="StyleBox" uid="uid://bw17avoi3cj5m" path="res://Resources/Theme/SelectedUnitInfo/panel_container.tres" id="13_1k0pw"]
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="13_15oyb"]
-[ext_resource type="Script" path="res://Resources/Theme/ScalableTheme.gd" id="25_smusr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iu5cl"]
 atlas = ExtResource("8_dlncl")
@@ -629,4 +628,3 @@ UnitButton/styles/disabled = ExtResource("1_xn0v5")
 UnitButton/styles/hover = ExtResource("1_xn0v5")
 UnitButton/styles/normal = ExtResource("1_xn0v5")
 UnitButton/styles/pressed = ExtResource("1_xn0v5")
-script = ExtResource("25_smusr")
