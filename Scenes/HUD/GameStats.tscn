@@ -4,15 +4,25 @@
 [ext_resource type="Script" path="res://Scenes/HUD/GameStats.gd" id="2_yyjiq"]
 
 [node name="GameStats" type="VBoxContainer" node_paths=PackedStringArray("_label")]
-offset_right = 600.0
-offset_bottom = 210.0
+offset_right = 621.0
+offset_bottom = 348.0
+size_flags_horizontal = 0
+size_flags_vertical = 2
 theme = ExtResource("1_fcvcc")
 script = ExtResource("2_yyjiq")
 _label = NodePath("RichTextLabel")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
 theme_override_constants/table_h_separation = 20
-theme_override_font_sizes/normal_font_size = 22
-text = "Game stats go here"
+bbcode_enabled = true
+text = "[color=GOLD]Neverending[/color], [color=GOLD]Build[/color], [color=4169e1ff]Beginner[/color]
+ 
+[table=5][cell][color=GOLD]Score[/color][/cell][cell][color=GOLD]Lives[/color][/cell][cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Total damage[/color][/cell][cell][color=GOLD]Gold[/color][/cell][cell]0[/cell][cell]0%[/cell][cell]2[/cell][cell]0[/cell][cell]999999[/cell][/table] 
+ 
+[color=GOLD]Best Towers:[/color]
+[table=3][cell]Most Damage:[/cell][cell][/cell][cell][/cell][cell]Best Hit:[/cell][cell][/cell][cell][/cell][cell]Most Exp:[/cell][cell][/cell][cell][/cell][cell]Most Kills:[/cell][cell][/cell][cell][/cell][/table]"
 fit_content = true
+autowrap_mode = 0

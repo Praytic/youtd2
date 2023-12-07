@@ -1,5 +1,15 @@
 extends Camera2D
 
+
+# NOTE: camera has to handle game pause in a special way so
+# that it's zoom is properly updated when interface scale is
+# changed in settings menu. Camera's process mode is set to
+# ALWAYS so that it ignores pause but then in _process() and
+# _handle_input() it will return early if game is paused.
+# This is so that player can't change camera zoom or move
+# camera while game is paused.
+
+
 signal camera_moved(shift_vector)
 signal camera_zoomed(zoom_value)
 
@@ -14,14 +24,30 @@ signal camera_zoomed(zoom_value)
 @export var SLOW_SCROLL_MULTIPLIER: float = 0.5
 
 
+var _interface_size_factor: float
+var _zoom: Vector2
+
+
 func _ready():
 	if OS.get_name() == "macOS":
 		zoom_sensitivity = 0.1
-
-	zoom = Vector2.ONE * zoom_min
+	
+	_adjust_to_interface_scale(1.0)
+	_zoom = Vector2.ONE
+	zoom = _zoom * _interface_size_factor
+	
+	Settings.interface_size_changed.connect(_adjust_to_interface_scale)
 
 
 func _physics_process(delta):
+#	NOTE: perform this operation even during pause so that
+#	camera reacts correctly to interface scale getting
+#	changed in settings menu.
+	zoom = _interface_size_factor * _zoom
+	
+	if get_tree().is_paused():
+		return
+
 	var mouse_scroll_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_MOUSE_SCROLL)
 	var speed_from_mouse: float = _get_cam_speed_from_setting(Settings.MOUSE_SCROLL)
 	var speed_from_keyboard: float = _get_cam_speed_from_setting(Settings.KEYBOARD_SCROLL)
@@ -86,19 +112,22 @@ func _physics_process(delta):
 
 
 func _unhandled_input(event: InputEvent):
-	_zoom(event)
+	if get_tree().is_paused():
+		return
+
+	_handle_zoom(event)
 
 
 # NOTE: this will be called by CameraZoomArea
-func _zoom(event):
-	var new_zoom = zoom.x
+func _handle_zoom(event):
+	var new_zoom = _zoom.x
 
 	if event is InputEventMagnifyGesture && Config.enable_zoom_by_touchpad():
 		var zoom_amount = -(event.factor - 1.0) * zoom_sensitivity
-		new_zoom = zoom.y + zoom_amount
+		new_zoom = _zoom.y + zoom_amount
 	elif event is InputEventMouseButton && Config.enable_zoom_by_mousewheel():
 #		Make zoom change slower as the camera gets more zoomed in
-		var slow_down_multiplier = zoom.x / zoom_max
+		var slow_down_multiplier = _zoom.x / zoom_max
 		var zoom_change = mousewheel_zoom_speed * slow_down_multiplier
 		
 		match event.get_button_index():
@@ -112,9 +141,9 @@ func _zoom(event):
 		return
 	
 	new_zoom = clampf(new_zoom, zoom_min, zoom_max)
-	zoom = Vector2(new_zoom, new_zoom)
+	_zoom = Vector2(new_zoom, new_zoom)
 	
-	camera_zoomed.emit(zoom)
+	camera_zoomed.emit(_zoom)
 
 
 # NOTE: setting value is in range of [0.0, 1.0]
@@ -125,3 +154,16 @@ func _get_cam_speed_from_setting(setting: String) -> float:
 	var speed: float = cam_move_speed_base * speed_ratio
 
 	return speed
+
+
+# This function is needed because content_scale_factor of root Window
+# affects all Nodes. So we need to readjust Camera2D to fit new viewport.
+func _adjust_to_interface_scale(_new_scale: float):
+	_interface_size_factor = 1.0/_new_scale
+
+
+func _get_viewport_scale_factor() -> float: 
+	var factor = min(
+		(float(get_viewport().size.x) / get_viewport().get_visible_rect().size.x),
+		(float(get_viewport().size.y) / get_viewport().get_visible_rect().size.y))
+	return factor

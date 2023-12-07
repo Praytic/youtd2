@@ -26,7 +26,7 @@ var _displayed_max_index: int = 0
 
 
 func _ready():
-	Settings.changed.connect(_on_settings_changed)
+	Settings.show_combat_log_changed.connect(_on_settings_changed)
 	_on_settings_changed()
 	
 	var saved_pos_x: float = Settings.get_setting(Settings.COMBAT_LOG_X) as float
@@ -97,5 +97,5 @@ func _on_clear_button_pressed():
 
 func _on_drag_finished():
 	Settings.set_setting(Settings.COMBAT_LOG_X, global_position.x)
-	Settings.set_setting(Settings.COMBAT_LOG_Y, global_position.y)
+	Settings.set_setting(Settings.COMBAT_LOG_Y, global_position.y, )
 	Settings.flush()
