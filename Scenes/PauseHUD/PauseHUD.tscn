@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://Scenes/PauseHUD/CreditsMenu.tscn" id="4_s86r1"]
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/PauseHUD/SettingsMenu.tscn" id="5_y1l7h"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_n1vi6"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_q5gd2"]
 
 [node name="PauseHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
 layout_mode = 3
@@ -86,7 +86,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_n1vi6")
+_interface_size_button_group = SubResource("ButtonGroup_q5gd2")
 
 [node name="CreditsMenu" parent="TabContainer" instance=ExtResource("4_s86r1")]
 visible = false
