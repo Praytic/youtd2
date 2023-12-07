@@ -52,19 +52,15 @@ func _ready():
 		var value: String = Settings.get_setting(setting)
 		for button in button_group.get_buttons():
 			if button.text == value:
-				button.set_pressed_no_signal(true)
+				button.set_pressed(true)
 				break
 	
 	Settings.interface_size_changed.connect(_apply_new_interface_size)
+	Settings.flush()
 
 
-func _apply_new_interface_size(size_label: String):
-	var new_scale: float
-	match size_label:
-		"Small": new_scale = 0.75
-		"Medium": new_scale = 1
-		"Large": new_scale = 1.25
-	get_tree().root.content_scale_factor = new_scale
+func _apply_new_interface_size(new_size: float):
+	get_tree().root.content_scale_factor = new_size
 
 
 func _on_close_button_pressed():
@@ -80,7 +76,7 @@ func _on_close_button_pressed():
 	
 	for setting in _setting_to_button_group_map.keys():
 		var button_group: ButtonGroup = _setting_to_button_group_map[setting]
-		var value: float = button_group.get_pressed_button().text
+		var value: String = button_group.get_pressed_button().text
 		Settings.set_setting(setting, value)
 	
 	Settings.flush()

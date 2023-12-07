@@ -28,6 +28,11 @@ const SHOW_COMBAT_LOG: String = "show_combat_log"
 const COMBAT_LOG_X: String = "combat_log_x"
 const COMBAT_LOG_Y: String = "combat_log_y"
 const INTERFACE_SIZE: String = "interface_size"
+const INTERFACE_SIZE_DICT: Dictionary = {
+	"Small": 0.75,
+	"Medium": 1.0,
+	"Large": 1.25
+}
 
 
 var _cache: Dictionary = {}
@@ -96,7 +101,7 @@ func flush():
 	
 	changed.emit()
 	show_combat_log_changed.emit()
-	interface_size_changed.emit(_cache[INTERFACE_SIZE])
+	interface_size_changed.emit(INTERFACE_SIZE_DICT[_cache[INTERFACE_SIZE]])
 
 
 func _invalidate_cache():
