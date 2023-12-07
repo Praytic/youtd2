@@ -411,3 +411,15 @@ func get_generated_tooltip(tower_id: int) -> String:
 	var tooltip: String = tower_tooltips[tower_id][1]
 
 	return tooltip
+
+
+func get_dps(tower_id: int) -> float:
+	var damage: int = TowerProperties.get_base_damage(tower_id)
+	var cooldown: float = TowerProperties.get_base_cooldown(tower_id)
+
+	if cooldown == 0:
+		return 0
+
+	var dps: int = damage / cooldown
+
+	return dps

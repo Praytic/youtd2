@@ -1065,7 +1065,15 @@ func get_overall_damage() -> float:
 # NOTE: getter for TowerInfo
 # How much damage the tower deals with its attack per second on average (not counting in any crits). 
 func get_overall_dps():
-	return get_overall_damage() / get_overall_cooldown()
+	var damage: float = get_overall_damage()
+	var cooldown: float = get_overall_cooldown()
+
+	if cooldown == 0:
+		return 0
+
+	var dps: float = damage / cooldown
+
+	return dps
 
 # How much damage the tower deals with its attack per second on average when 
 # counting attack crits and multicrits.
