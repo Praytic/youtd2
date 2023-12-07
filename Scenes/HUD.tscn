@@ -98,14 +98,12 @@ clip_contents = true
 custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 300)
-layout_mode = 2
-
-[node name="BottomMenuBar" parent="VBoxContainer/CenterContainer" instance=ExtResource("5")]
+[node name="BottomMenuBar" parent="VBoxContainer" instance=ExtResource("5")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(1900, 288)
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_horizontal = 4
+size_flags_vertical = 8
 metadata/_edit_vertical_guides_ = []
 
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]

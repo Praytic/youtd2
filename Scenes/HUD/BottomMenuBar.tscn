@@ -224,11 +224,13 @@ texture = ExtResource("32_8lj72")
 modulate_color = Color(0.196078, 0.196078, 0.196078, 0.588235)
 
 [node name="BottomMenuBar" type="Control" node_paths=PackedStringArray("_item_stash_menu", "_build_bar", "_elements_container", "_tomes_status", "_gold_status", "_tower_stash_scroll_container", "_item_stash_scroll_container", "_center_menu", "_roll_towers_button", "_horadric_cube_button", "_upgrade_element_button")]
-custom_minimum_size = Vector2(1800, 0)
+custom_minimum_size = Vector2(1517, 288)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1043.0
+offset_bottom = -1152.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_force_pass_scroll_events = false
