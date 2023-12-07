@@ -85,7 +85,9 @@ layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 3
 
 [node name="NormalMessageContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]

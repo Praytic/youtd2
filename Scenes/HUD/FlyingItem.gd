@@ -17,7 +17,7 @@ var _item_id: int = 0
 # variable causes confusing runtime errors. Might be a
 # cyclic dependency issue? Thought it was fixed with the
 # release of Godot 4.
-@onready var _bottom_menu_bar = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD").get_node("VBoxContainer").get_node("BottomMenuBar")
+@onready var _bottom_menu_bar = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD").get_node("%BottomMenuBar")
 
 
 static func create(item_id: int, start_pos: Vector2) -> FlyingItem:
