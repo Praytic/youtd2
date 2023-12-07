@@ -62,9 +62,14 @@ func get_creep_info(creep: Creep) -> String:
 	var armor: float = creep.get_base_armor()
 	var armor_string: String = Utils.format_float(armor, 2)
 	var armor_bonus: float = creep.get_overall_armor_bonus()
-	var armor_bonus_string: String = Utils.format_float(armor_bonus, 2)
+	
+	var armor_bonus_string: String
 	if armor_bonus > 0:
-		armor_bonus_string = "+%s" % armor_bonus_string
+		armor_bonus_string = "+%s" % Utils.format_float(armor_bonus, 2)
+	elif armor_bonus < 0:
+		armor_bonus_string = "%s" % Utils.format_float(armor_bonus, 2)
+	else:
+		armor_bonus_string = ""
 
 	text += "[color=YELLOW]Race:[/color] %s\n" % category_string
 	text += "[color=YELLOW]Armor Type:[/color] %s\n" % armor_type_string
