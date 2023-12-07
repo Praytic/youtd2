@@ -49,7 +49,7 @@ func _ready():
 	
 	for setting in _setting_to_button_group_map.keys():
 		var button_group: ButtonGroup = _setting_to_button_group_map[setting]
-		var value: float = Settings.get_setting(setting)
+		var value: String = Settings.get_setting(setting)
 		for button in button_group.get_buttons():
 			if button.text == value:
 				button.set_pressed_no_signal(true)
