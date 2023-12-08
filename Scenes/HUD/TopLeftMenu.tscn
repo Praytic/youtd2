@@ -1,18 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3grhp7bp5t54"]
+[gd_scene load_steps=6 format=3 uid="uid://b3grhp7bp5t54"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/TopLeftMenu.gd" id="1_d4k6r"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_lhpbt"]
 [ext_resource type="PackedScene" uid="uid://4tcjyre0hoji" path="res://Scenes/HUD/WaveStatus.tscn" id="2_l18jy"]
 [ext_resource type="PackedScene" uid="uid://jm3vhrboca8b" path="res://Scenes/HUD/GameStats.tscn" id="3_k62ty"]
 
-[node name="TopLeftMenu" type="VBoxContainer" node_paths=PackedStringArray("_start_next_wave_button")]
-offset_right = 640.0
-offset_bottom = 317.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwtay"]
+
+[node name="TopLeftMenu" type="PanelContainer" node_paths=PackedStringArray("_start_next_wave_button")]
 theme = ExtResource("1_lhpbt")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_hwtay")
 script = ExtResource("1_d4k6r")
-_start_next_wave_button = NodePath("StartNextWaveButton")
+_start_next_wave_button = NodePath("MarginContainer/StartNextWaveButton")
 
 [node name="TabContainer" type="TabContainer" parent="."]
+self_modulate = Color(1, 1, 1, 0.705882)
 custom_minimum_size = Vector2(640, 250)
 layout_mode = 2
 
@@ -23,12 +25,19 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="StartNextWaveButton" type="Button" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="StartNextWaveButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
 tooltip_text = "Start next wave early
 You can also use this by pressing the N key"
 theme_override_font_sizes/font_size = 25
-text = "Start next wave"
+text = "Next wave"
 
-[connection signal="pressed" from="StartNextWaveButton" to="." method="_on_start_next_wave_button_pressed"]
+[connection signal="pressed" from="MarginContainer/StartNextWaveButton" to="." method="_on_start_next_wave_button_pressed"]

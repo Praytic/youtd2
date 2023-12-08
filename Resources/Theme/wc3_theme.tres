@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=59 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=63 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -22,8 +22,8 @@
 [ext_resource type="StyleBox" uid="uid://xj6rw0giypad" path="res://Resources/Theme/item_button_normal.tres" id="8_t77il"]
 [ext_resource type="StyleBox" uid="uid://carc5koied5gk" path="res://Resources/Theme/UnitButton/small_button_normal.tres" id="9_xj4hs"]
 [ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="12_klcgr"]
-[ext_resource type="StyleBox" uid="uid://bw17avoi3cj5m" path="res://Resources/Theme/SelectedUnitInfo/panel_container.tres" id="13_1k0pw"]
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="13_15oyb"]
+[ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="14_02q6i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iu5cl"]
 atlas = ExtResource("8_dlncl")
@@ -190,6 +190,53 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4b6ct"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("14_02q6i")
+texture_margin_left = 13.9504
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.9504
+region_rect = Rect2(1283, 192, 139, 141)
+modulate_color = Color(0.588235, 0.588235, 0.588235, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t5v3h"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("14_02q6i")
+texture_margin_left = 13.9504
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.9504
+region_rect = Rect2(1283, 192, 139, 141)
+modulate_color = Color(1, 1, 1, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hqcpk"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("14_02q6i")
+texture_margin_left = 13.9504
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.9504
+region_rect = Rect2(1283, 192, 139, 141)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_86j4s"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("14_02q6i")
+texture_margin_left = 13.9504
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 13.9504
+region_rect = Rect2(1283, 192, 139, 141)
+modulate_color = Color(0.784314, 0.784314, 0.784314, 0.784314)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wdruh"]
 content_margin_left = 4.0
@@ -578,7 +625,12 @@ SmallButton/styles/disabled = ExtResource("7_mn43h")
 SmallButton/styles/hover = ExtResource("8_pql3q")
 SmallButton/styles/normal = ExtResource("9_xj4hs")
 SmallButton/styles/pressed = ExtResource("8_pql3q")
-TabContainer/styles/panel = ExtResource("13_1k0pw")
+TabContainer/constants/side_margin = 40
+TabContainer/styles/panel = ExtResource("1_7apqd")
+TabContainer/styles/tab_disabled = SubResource("StyleBoxTexture_4b6ct")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_t5v3h")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_hqcpk")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_86j4s")
 TinyUnitButton/base_type = &"Button"
 TinyUnitButton/colors/icon_disabled_color = Color(0.392157, 0.392157, 0.392157, 1)
 TinyUnitButton/colors/icon_normal_color = Color(0.784314, 0.784314, 0.784314, 1)
