@@ -26,93 +26,100 @@ size_flags_vertical = 4
 theme = ExtResource("1_xs0tv")
 script = ExtResource("11")
 _error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
-_normal_message_container = NodePath("All/Center/CenterLeft/MarginContainer/NormalMessageContainer")
+_normal_message_container = NodePath("MarginContainer/All/Center/CenterLeft/MarginContainer/NormalMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
-_horadric_menu = NodePath("All/Center/CenterRight/HBoxContainer/HoradricMenu")
+_horadric_menu = NodePath("MarginContainer/All/Center/CenterRight/HBoxContainer/HoradricMenu")
 metadata/_edit_vertical_guides_ = [960.0]
 
-[node name="All" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="All" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Top" type="HBoxContainer" parent="All"]
+[node name="Top" type="HBoxContainer" parent="MarginContainer/All"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="All/Top"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Top"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="TextureRect" type="TextureRect" parent="All/Top/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/All/Top/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("11_hbwuy")
 
-[node name="TextureRect2" type="TextureRect" parent="All/Top/MarginContainer"]
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/All/Top/MarginContainer"]
 texture_filter = 4
 layout_mode = 2
 texture = ExtResource("12_2mxp4")
 expand_mode = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="All/Top"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/All/Top"]
 layout_mode = 2
 size_flags_horizontal = 10
 
-[node name="TextureRect3" type="TextureRect" parent="All/Top/MarginContainer2"]
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/All/Top/MarginContainer2"]
 layout_mode = 2
 texture = ExtResource("11_hbwuy")
 
-[node name="TextureRect4" type="TextureRect" parent="All/Top/MarginContainer2"]
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/All/Top/MarginContainer2"]
 texture_filter = 4
 layout_mode = 2
 texture = ExtResource("13_n0pc1")
 expand_mode = 1
 
-[node name="Center" type="Control" parent="All"]
+[node name="Center" type="Control" parent="MarginContainer/All"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="CenterLeft" type="VBoxContainer" parent="All/Center"]
+[node name="CenterLeft" type="VBoxContainer" parent="MarginContainer/All/Center"]
 layout_mode = 2
 offset_right = 1000.0
 offset_bottom = 993.0
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="All/Center/CenterLeft"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/All/Center/CenterLeft"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="TopLeftMenu" parent="All/Center/CenterLeft/VBoxContainer" instance=ExtResource("10_agdn3")]
+[node name="TopLeftMenu" parent="MarginContainer/All/Center/CenterLeft/VBoxContainer" instance=ExtResource("10_agdn3")]
 layout_mode = 2
 
-[node name="TopMenuBar" parent="All/Center/CenterLeft/VBoxContainer" instance=ExtResource("6")]
+[node name="TopMenuBar" parent="MarginContainer/All/Center/CenterLeft/VBoxContainer" instance=ExtResource("6")]
 visible = false
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="All/Center/CenterLeft"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center/CenterLeft"]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 
-[node name="NormalMessageContainer" type="VBoxContainer" parent="All/Center/CenterLeft/MarginContainer"]
+[node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer/All/Center/CenterLeft/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="CombatLogWindow" parent="All/Center/CenterLeft/MarginContainer" instance=ExtResource("14_g64vx")]
+[node name="CombatLogWindow" parent="MarginContainer/All/Center/CenterLeft/MarginContainer" instance=ExtResource("14_g64vx")]
 visible = false
 clip_contents = true
 custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 
-[node name="CenterRight" type="VBoxContainer" parent="All/Center"]
+[node name="CenterRight" type="VBoxContainer" parent="MarginContainer/All/Center"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -123,35 +130,35 @@ size_flags_horizontal = 3
 mouse_filter = 2
 alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="All/Center/CenterRight"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Center/CenterRight"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 30
 alignment = 2
 
-[node name="ButtonTooltip" parent="All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_ka7k1")]
+[node name="ButtonTooltip" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_ka7k1")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="HoradricMenu" parent="All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_lvdfq")]
+[node name="HoradricMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_lvdfq")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="TowerMenu" parent="All/Center/CenterRight/HBoxContainer" instance=ExtResource("15_rfxf1")]
+[node name="TowerMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("15_rfxf1")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Bottom" type="HBoxContainer" parent="All"]
+[node name="Bottom" type="HBoxContainer" parent="MarginContainer/All"]
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="BottomMenuBar" parent="All/Bottom" instance=ExtResource("5")]
+[node name="BottomMenuBar" parent="MarginContainer/All/Bottom" instance=ExtResource("5")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(1900, 288)
 layout_mode = 2
