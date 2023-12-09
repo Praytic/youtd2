@@ -466,7 +466,7 @@ func set_acceleration(new_acceleration: float):
 func set_homing_target(new_target: Unit):
 	var old_target: Unit = _target_unit
 
-	if old_target != null && !old_target.death.is_connected(_on_target_death):
+	if old_target != null && old_target.death.is_connected(_on_target_death):
 		old_target.death.disconnect(_on_target_death)
 
 	if new_target != null:
