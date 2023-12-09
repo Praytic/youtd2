@@ -171,3 +171,4 @@ func _on_identity_request_completed(result, response_code, headers, body):
 		push_error("Error occurred while to get an identity: %s" % json["errors"])
 	else:
 		_username_label.text = json["user"]["username"]
+		_username_label.show()
