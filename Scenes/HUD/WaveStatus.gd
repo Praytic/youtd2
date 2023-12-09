@@ -168,7 +168,7 @@ func _on_update_stats_timer_timeout():
 func _on_identity_request_completed(result, response_code, headers, body):
 	var json: Dictionary = JSON.parse_string(body.get_string_from_utf8())
 	if json.has("errors"):
-		push_error("Error occurred while to get an identity: %s" % json["errors"])
+		push_error("Error occurred while trying to get an identity: %s" % json["errors"])
 	else:
 		_username_label.text = json["user"]["username"]
 		_username_label.show()
