@@ -344,9 +344,13 @@ func _on_periodic_event_timer_timeout(handler: Callable, timer: Timer):
 	if !_can_call_event_handlers():
 		return
 
+	Globals.is_inside_periodic_event = true
+	
 	var periodic_event: Event = _make_buff_event(_target)
 	periodic_event._timer = timer
 	handler.call(periodic_event)
+
+	Globals.is_inside_periodic_event = false
 
 
 # Convenience function to make an event with "_buff" variable set to self

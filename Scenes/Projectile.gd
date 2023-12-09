@@ -19,6 +19,7 @@ const PRINT_SPRITE_NOT_FOUND_ERROR: bool = false
 var _move_type: MoveType
 var _target_unit: Unit = null
 var _target_pos: Vector2 = Vector2.ZERO
+var _interpolation_is_stopped: bool = false
 var _interpolation_start: Vector2
 var _interpolation_distance: float
 var _interpolation_progress: float = 0
@@ -34,8 +35,10 @@ var _tower_crit_count: int = 0
 var _tower_crit_ratio: float = 0.0
 var _tower_bounce_visited_list: Array[Unit] = []
 var _interpolation_finished_handler: Callable = Callable()
+var _interpolation_finished_no_target_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
 var _periodic_handler: Callable = Callable()
+var _avert_destruct_requested: bool = false
 var _initial_pos: Vector2
 var _range: float = 0.0
 var _direction: float = 0.0
@@ -56,6 +59,10 @@ var user_real3: float = 0.0
 
 
 @export var _lifetime_timer: Timer
+
+
+func avert_destruction():
+	_avert_destruct_requested = true
 
 
 # NOTE: Projectile.create() in JASS
@@ -83,7 +90,6 @@ static func create_from_unit(type: ProjectileType, caster: Unit, from: Unit, fac
 	var projectile: Projectile = Projectile.create(type, caster, damage_ratio, crit_ratio, pos.x, pos.y, z, facing)
 	
 	return projectile
-
 
 
 # NOTE: Projectile.createFromPointToPoint() in JASS
@@ -179,6 +185,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 
 	projectile._cleanup_handler = type._cleanup_handler
 	projectile._interpolation_finished_handler = type._interpolation_finished_handler
+	projectile._interpolation_finished_no_target_handler = type._interpolation_finished_no_target_handler
 	projectile._target_hit_handler = type._target_hit_handler
 	projectile._collision_handler = type._collision_handler
 	projectile._expiration_handler = type._expiration_handler
@@ -259,31 +266,14 @@ static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_
 static func _create_internal_interpolated(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, from_unit: Unit, from_pos: Vector2, target_unit: Unit, target_pos: Vector2, z_arc: float, targeted: bool) -> Projectile:
 	if from_unit != null:
 		from_pos = from_unit.get_visual_position()
-	if target_unit != null:
-		target_pos = target_unit.get_visual_position()
 
 	var projectile: Projectile = _create_internal(type, caster, damage_ratio, crit_ratio, from_pos)
 
-	if target_unit != null:
-#		NOTE: if projectile has a target but is not
-#		targeted, then it will travel towards the position
-#		at which the target was during projectile's
-#		creation. It will not follow target's movement.
-		if targeted:
-			projectile.set_homing_target(target_unit)
-		else:
-			projectile._target_pos = target_pos
-
-	projectile._interpolation_start = from_pos
-
 	projectile._z_arc = z_arc
 
-	var travel_vector_isometric: Vector2 = target_pos - from_pos
-	var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
-	var travel_distance: float = travel_vector_top_down.length()
-	projectile._interpolation_distance = travel_distance
-
 	Utils.add_object_to_world(projectile)
+
+	projectile._start_interpolation_internal(target_unit, target_pos, targeted)
 
 	return projectile
 
@@ -338,6 +328,13 @@ func _process_normal(delta: float):
 				if _interpolation_finished_handler.is_valid():
 					_interpolation_finished_handler.call(self, _target_unit)
 
+#			Handler can request projectile to not destroy
+#			itself. In that case do no explosion or cleanup.
+			if _avert_destruct_requested:
+				_avert_destruct_requested = false
+
+				return
+
 			if _explode_on_hit:
 				var explosion = Globals.explosion_scene.instantiate()
 
@@ -355,6 +352,9 @@ func _process_normal(delta: float):
 func _process_interpolated(delta: float):
 	_do_collision()
 
+	if _interpolation_is_stopped:
+		return
+
 	var target_pos: Vector2 = _get_target_position()
 	
 	_interpolation_progress += _speed * delta
@@ -371,12 +371,21 @@ func _process_interpolated(delta: float):
 	var reached_target: float = progress_ratio == 1.0
 
 	if reached_target:
-		if _target_unit != null:
-			if _target_hit_handler.is_valid():
-				_target_hit_handler.call(self, _target_unit)
+		if _target_unit != null && _target_hit_handler.is_valid():
+			_target_hit_handler.call(self, _target_unit)
 
-			if _interpolation_finished_handler.is_valid():
-				_interpolation_finished_handler.call(self, _target_unit)
+		if _target_unit != null && _interpolation_finished_handler.is_valid():
+			_interpolation_finished_handler.call(self, _target_unit)
+
+		if _interpolation_finished_no_target_handler.is_valid():
+			_interpolation_finished_no_target_handler.call(self)
+
+#		Handler can request projectile to not destroy
+#		itself. In that case do no explosion or cleanup.
+		if _avert_destruct_requested:
+			_avert_destruct_requested = false
+
+			return
 
 		if _explode_on_hit:
 			var explosion = Globals.explosion_scene.instantiate()
@@ -390,6 +399,35 @@ func _process_interpolated(delta: float):
 			Utils.add_object_to_world(explosion)
 
 		_cleanup()
+
+
+func stop_interpolation():
+	_interpolation_is_stopped = true
+	set_homing_target(null)
+	_interpolation_progress = 0
+	_interpolation_distance = 0
+
+
+func start_interpolation_to_point(target_pos: Vector2, _z_arc_arg: float):
+	var target_unit: Unit = null
+	var targeted: bool = false
+	_start_interpolation_internal(target_unit, target_pos, targeted)
+
+
+func start_interpolation_to_unit(target_unit: Unit, _z_arc_arg: float, targeted: bool):
+	var target_pos: Vector2 = target_unit.position
+	_start_interpolation_internal(target_unit, target_pos, targeted)
+
+
+func start_bezier_interpolation_to_point(target_pos: Vector2, _z_arc_arg: float, _size_arc: float, _steepness: float):
+	var target_unit: Unit = null
+	var targeted: bool = false
+	_start_interpolation_internal(target_unit, target_pos, targeted)
+
+
+func start_bezier_interpolation_to_unit(target_unit: Unit, _z_arc_arg: float, _size_arc: float, _steepness: float, targeted: bool):
+	var target_pos: Vector2 = target_unit.position
+	_start_interpolation_internal(target_unit, target_pos, targeted)
 
 
 # NOTE: getHomingTarget() in JASS
@@ -466,7 +504,7 @@ func set_acceleration(new_acceleration: float):
 func set_homing_target(new_target: Unit):
 	var old_target: Unit = _target_unit
 
-	if old_target != null && !old_target.death.is_connected(_on_target_death):
+	if old_target != null && old_target.death.is_connected(_on_target_death):
 		old_target.death.disconnect(_on_target_death)
 
 	if new_target != null:
@@ -526,6 +564,7 @@ func _get_target_position() -> Vector2:
 
 func _on_target_death(_event: Event):
 	_target_pos = _target_unit.get_visual_position()
+	_target_unit.death.disconnect(_on_target_death)
 	_target_unit = null
 
 
@@ -638,3 +677,34 @@ static func _get_direction_to_target(projectile: Projectile, target_pos: Vector2
 	var direction: float = rad_to_deg(angle_to_target_pos)
 	
 	return direction
+
+
+# NOTE: before this f-n is called, projectile must be added
+# to world and have a valid position
+func _start_interpolation_internal(target_unit: Unit, target_pos: Vector2, targeted: bool):
+	if target_unit != null:
+		target_pos = target_unit.get_visual_position()
+
+	if target_unit != null:
+#		NOTE: if projectile has a target but is not
+#		targeted, then it will travel towards the position
+#		at which the target was during projectile's
+#		creation. It will not follow target's movement.
+		if targeted:
+			set_homing_target(target_unit)
+		else:
+			_target_pos = target_pos
+	else:
+		set_homing_target(null)
+		_target_pos = target_pos
+
+	var from_pos: Vector2 = position
+	_interpolation_start = from_pos
+
+	_interpolation_is_stopped = false
+
+	var travel_vector_isometric: Vector2 = target_pos - from_pos
+	var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
+	var travel_distance: float = travel_vector_top_down.length()
+	_interpolation_progress = 0
+	_interpolation_distance = travel_distance

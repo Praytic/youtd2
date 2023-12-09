@@ -420,6 +420,6 @@ func get_dps(tower_id: int) -> float:
 	if cooldown == 0:
 		return 0
 
-	var dps: int = damage / cooldown
+	var dps: float = damage / cooldown
 
 	return dps

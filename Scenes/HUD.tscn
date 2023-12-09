@@ -38,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
@@ -45,6 +46,7 @@ theme_override_constants/margin_bottom = 15
 
 [node name="All" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="Top" type="HBoxContainer" parent="MarginContainer/All"]
@@ -112,12 +114,6 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-
-[node name="CombatLogWindow" parent="MarginContainer/All/Center/CenterLeft/MarginContainer" instance=ExtResource("14_g64vx")]
-visible = false
-clip_contents = true
-custom_minimum_size = Vector2(0, 0)
-layout_mode = 2
 
 [node name="CenterRight" type="VBoxContainer" parent="MarginContainer/All/Center"]
 layout_mode = 1
@@ -191,6 +187,16 @@ mouse_filter = 2
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="CombatLogWindow" parent="." instance=ExtResource("14_g64vx")]
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+offset_left = 15.0
+offset_top = 644.0
+offset_right = 1015.0
+offset_bottom = 1147.0
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
 visible = false

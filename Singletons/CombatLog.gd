@@ -59,22 +59,23 @@ class DamageEntry extends Entry:
 	var _target_name: String
 	var _damage_source: Unit.DamageSource
 	var _damage: float
-	var _crit_ratio: float
+	var _crit_count: int
 
-	func _init(caster: Unit, target: Unit, damage_source: Unit.DamageSource, damage: float, crit_ratio: float):
+	func _init(caster: Unit, target: Unit, damage_source: Unit.DamageSource, damage: float, crit_count: int):
 		super(CombatLog.Type.DAMAGE)
 
 		_caster_name = caster.get_log_name()
 		_target_name = target.get_log_name()
 		_damage_source = damage_source
 		_damage = damage
-		_crit_ratio = crit_ratio
+		_crit_count = crit_count
 
 		var timestamp_string: String = get_timestamp_string()
 		var type_string: String = get_type_string()
-		var crit_string: String
-		if _crit_ratio > 1.0:
-			crit_string = " (Critical)"
+		var crit_string: String = ""
+		if crit_count > 0:
+			for i in range(0, crit_count):
+				crit_string += "!"
 		else:
 			crit_string = ""
 		var damage_color: Color
@@ -290,8 +291,8 @@ func clear():
 	_entry_map.clear()
 
 
-func log_damage(caster: Unit, target: Unit, damage_source: Unit.DamageSource, damage: float, crit_ratio: float):
-	var entry: DamageEntry = DamageEntry.new(caster, target, damage_source, damage, crit_ratio)
+func log_damage(caster: Unit, target: Unit, damage_source: Unit.DamageSource, damage: float, crit_count: int):
+	var entry: DamageEntry = DamageEntry.new(caster, target, damage_source, damage, crit_count)
 	_log_internal(entry)
 
 

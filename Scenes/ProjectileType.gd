@@ -10,6 +10,7 @@ var _sprite_path: String = ""
 var _explode_on_hit: bool = true
 var _cleanup_handler: Callable = Callable()
 var _interpolation_finished_handler: Callable = Callable()
+var _interpolation_finished_no_target_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
 var _periodic_handler: Callable = Callable()
 var _periodic_handler_period: float = 0.0
@@ -114,6 +115,16 @@ func set_event_on_cleanup(handler: Callable):
 # projectileType.setEventOnInterpolationFinished() in JASS
 func set_event_on_interpolation_finished(handler: Callable):
 	_interpolation_finished_handler = handler
+
+
+# Example handler:
+# func on_interpolation_finished(projectile: Projectile)
+# This function did not exist in JASS. This version will be
+# called even if projectile has no target or the target
+# died. Normal finished handler will not be called if
+# there's no target.
+func set_event_on_interpolation_finished_no_target(handler: Callable):
+	_interpolation_finished_no_target_handler = handler
 
 
 # This handler will be called when projectile's lifetime
