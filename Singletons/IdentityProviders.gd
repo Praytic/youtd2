@@ -16,7 +16,7 @@ class ItchIndentityProvider extends IdentityProvider:
 	var _http_request: HTTPRequest
 	
 	func _init(http_request: HTTPRequest):
-		_api_key = "c84OMEkW9gub0tSc6tdG0dkJ0yjqF3tY2bS0jmgt"
+		_api_key = OS.get_environment("ITCHIO_API_KEY")
 		_http_request = http_request
 	
 	func get_identity():
