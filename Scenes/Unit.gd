@@ -815,7 +815,7 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 # 	NOTE: only emit "damage" event for damage from attacks.
 # 	Do not emit it for damage from spells. See issue #208
 # 	for an explanation.
-	var should_emit_damage_event: bool = !_dealt_damage_signal_in_progress && damage_source == DamageSource.Attack
+	var should_emit_damage_event: bool = !_dealt_damage_signal_in_progress && damage_source == DamageSource.Attack && !Globals.is_inside_periodic_event
 
 	var damage_event: Event = Event.new(target)
 	damage_event.damage = damage

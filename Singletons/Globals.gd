@@ -29,6 +29,10 @@ var game_over: bool = false
 var _total_damage: float = 0.0
 var built_at_least_one_tower: bool = false
 
+# NOTE: HACK BELOW
+# See GlaiveMaster script for explanation.
+var is_inside_periodic_event: bool = false
+
 
 func game_mode_is_random() -> bool:
 	return Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM
