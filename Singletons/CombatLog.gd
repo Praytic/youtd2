@@ -72,7 +72,7 @@ class DamageEntry extends Entry:
 
 		var timestamp_string: String = get_timestamp_string()
 		var type_string: String = get_type_string()
-		var crit_string: String
+		var crit_string: String = ""
 		if crit_count > 0:
 			for i in range(0, crit_count):
 				crit_string += "!"
