@@ -33,7 +33,6 @@ func _ready():
 		zoom_sensitivity = 0.1
 	
 	_zoom = Vector2.ONE
-	zoom = _zoom * _interface_size_factor
 	
 	Settings.interface_size_changed.connect(_adjust_to_interface_scale)
 
