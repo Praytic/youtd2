@@ -47,9 +47,6 @@ extends Node
 # about which autocast types can use auto mode. Types not in
 # the list are always in manual mode.
 
-# TODO: implement POINT autocast types. Need to first get to
-# a script that uses that type. Types in the list can switch
-# between auto and manual modes.
 
 enum Type {
 	AC_TYPE_ALWAYS_BUFF,
@@ -57,10 +54,12 @@ enum Type {
 	AC_TYPE_OFFENSIVE_BUFF,
 	AC_TYPE_OFFENSIVE_UNIT,
 	AC_TYPE_OFFENSIVE_IMMEDIATE,
+	AC_TYPE_OFFENSIVE_POINT,
 	AC_TYPE_NOAC_IMMEDIATE,
 	AC_TYPE_NOAC_CREEP,
 	AC_TYPE_NOAC_TOWER,
 	AC_TYPE_NOAC_PLAYER_TOWER,
+	AC_TYPE_NOAC_POINT,
 }
 
 
@@ -84,9 +83,14 @@ var _offensive_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_OFFENSIVE_BUFF,
 	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
 	Autocast.Type.AC_TYPE_OFFENSIVE_IMMEDIATE,
+	Autocast.Type.AC_TYPE_OFFENSIVE_POINT,
 ]
 var _unit_type_list: Array[Autocast.Type] = [
 	Autocast.Type.AC_TYPE_OFFENSIVE_UNIT,
+]
+var _point_type_list: Array[Autocast.Type] = [
+	Autocast.Type.AC_TYPE_OFFENSIVE_POINT,
+	Autocast.Type.AC_TYPE_NOAC_POINT,
 ]
 
 # NOTE: num_buffs_before_idle, target_type and buff_type are
@@ -121,6 +125,8 @@ var auto_range: float = 1000
 var handler: Callable = Callable()
 var item_owner: Item = null
 var dont_cast_at_zero_charges: bool = false
+# NOTE: only used for POINT type autocasts
+var _target_pos: Vector2 = Vector2.ZERO
 
 var _caster: Unit = null
 var _is_item_autocast: bool = false
@@ -212,6 +218,12 @@ func do_cast_manually():
 
 		var target: Unit = null
 		_do_cast(target)
+	elif _type_is_point():
+#		NOTE: for manual cast on unit, need to exit this f-n
+#		to select point in world. The cast will finish when
+#		player selects a point and
+#		do_cast_manually_finish_for_point() is called.
+		SelectPointForCast.start(self)
 	else:
 #		NOTE: for manual cast on unit, need to exit this f-n
 #		to select target. The cast will finish when player
@@ -232,6 +244,30 @@ func do_cast_manually_finish_for_manual_target(target: Unit) -> bool:
 
 		return false
 
+	_do_cast(target)
+
+	return true
+
+
+func do_cast_manually_finish_for_point(target_pos: Vector2) -> bool:
+#	NOTE: while player was selecting a target, conditions
+#	for cast may have changed. For example tower's mana may
+#	have been drained. So we need to check if we can cast
+#	again.
+	if !_can_cast():
+		_add_cast_error_message()
+
+		return false
+
+	var in_range: float = Isometric.vector_in_range(_caster.position, target_pos, cast_range)
+
+	if !in_range:
+		Messages.add_error("Out of range")
+
+		return false
+
+	_target_pos = target_pos
+	var target: Unit = null
 	_do_cast(target)
 
 	return true
@@ -403,6 +439,10 @@ func _type_is_immediate() -> bool:
 	return _immediate_type_list.has(autocast_type)
 
 
+func _type_is_point() -> bool:
+	return _point_type_list.has(autocast_type)
+
+
 func _type_is_buff() -> bool:
 	return _buff_type_list.has(autocast_type)
 
@@ -471,3 +511,7 @@ func _get_target_type_for_manual_cast() -> TargetType:
 	push_error("_get_target_type_for_manual_cast doesn't support type: ", autocast_type)
 
 	return TargetType.new(0)
+
+
+func get_target_pos() -> Vector2:
+	return _target_pos

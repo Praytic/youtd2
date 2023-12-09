@@ -13,6 +13,7 @@ enum enm {
 	BUILD_TOWER,
 	MOVE_ITEM,
 	SELECT_TARGET_FOR_CAST,
+	SELECT_POINT_FOR_CAST,
 }
 
 var _current_state: MouseState.enm = MouseState.enm.NONE
