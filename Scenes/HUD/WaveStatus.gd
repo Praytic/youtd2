@@ -9,6 +9,11 @@ extends VBoxContainer
 @export var _stats_label: RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
 @export var _timer_label: RichTextLabel
+@export var _username_label: Label
+@export var _http_request: HTTPRequest
+
+
+var _identity_provider: IdentityProviders.IdentityProvider
 
 
 func _ready():
@@ -17,6 +22,10 @@ func _ready():
 
 	_update_all_labels()
 	_on_update_stats_timer_timeout()
+	
+	_identity_provider = IdentityProviders.ItchIndentityProvider.new(_http_request)
+	_identity_provider.get_identity()
+	_http_request.request_completed.connect(_on_identity_request_completed)
 
 
 func _process(_delta: float):
@@ -154,3 +163,11 @@ func _on_update_stats_timer_timeout():
 
 	_stats_label.clear()
 	_stats_label.append_text(text)
+
+
+func _on_identity_request_completed(result, response_code, headers, body):
+	var json: Dictionary = JSON.parse_string(body.get_string_from_utf8())
+	if json.has("errors"):
+		push_error("Error occurred while to get an identity: %s" % json["errors"])
+	else:
+		_username_label.text = json["user"]["username"]
