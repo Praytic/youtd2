@@ -859,7 +859,7 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	var health_before_damage: float = target.get_health()
 	target.set_health(health_before_damage - damage)
 
-	CombatLog.log_damage(self, target, damage_source, damage, crit_ratio)
+	CombatLog.log_damage(self, target, damage_source, damage, crit_count)
 
 	Globals.add_to_total_damage(damage)
 
