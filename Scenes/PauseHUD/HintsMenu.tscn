@@ -49,6 +49,7 @@ text = "Hint text goes here."
 [node name="CloseButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
 text = "Close"
 
 [connection signal="item_selected" from="VBoxContainer/HSplitContainer/Tree" to="." method="_on_tree_item_selected"]

@@ -40,16 +40,19 @@ alignment = 2
 
 [node name="ClearButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer" index="0"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 30
 text = "🚮"
 
 [node name="UpButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer" index="1"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 30
 text = "🔼"
 
 [node name="DownButton" type="Button" parent="MarginContainer/HBoxContainer/PanelContainer/VBoxContainer" index="2"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 30
 text = "🔽"
 
@@ -58,6 +61,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 tooltip_text = "Scroll down to newest entries"
+focus_mode = 0
 theme_override_font_sizes/font_size = 30
 text = "⏬"
 

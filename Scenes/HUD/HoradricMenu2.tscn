@@ -361,6 +361,7 @@ size_flags_vertical = 3
 [node name="RebrewButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer"]
 layout_mode = 2
 tooltip_text = "Converts 2 oils or consumables of the same rarity into 1 oil or consumable if the same rarity"
+focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("6_vq7tm")
 alignment = 2
@@ -374,6 +375,7 @@ size_flags_vertical = 3
 [node name="DistillButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer2"]
 layout_mode = 2
 tooltip_text = "Converts 4 oils or consumables of the same rarity into 1 oil or consumable one rarity higher"
+focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("7_t7mtm")
 alignment = 2
@@ -387,6 +389,7 @@ size_flags_vertical = 3
 [node name="ReassembleButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer3"]
 layout_mode = 2
 tooltip_text = "Converts 3 permanent items of the same rarity into 1 permanent item of the same rarity."
+focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("8_37jfi")
 alignment = 2
@@ -400,6 +403,7 @@ size_flags_vertical = 3
 [node name="PerfectButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/VBoxContainer/HBoxContainer/AspectRatioContainer4"]
 layout_mode = 2
 tooltip_text = "Converts 5 permanent items of the same rarity into 1 item one rarity higher."
+focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("9_um4bv")
 alignment = 2
@@ -545,6 +549,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+focus_mode = 0
 theme = SubResource("Theme_oc2na")
 text = "Transmute"
 
@@ -557,6 +562,7 @@ theme_override_constants/margin_top = 15
 
 [node name="CloseButton" type="Button" parent="MarginContainer3"]
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"CircleButton"
 theme_override_font_sizes/font_size = 32
 text = " x "

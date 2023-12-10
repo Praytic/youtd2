@@ -15,22 +15,27 @@ text = "Select Difficulty:"
 
 [node name="BeginnerButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Beginner"
 
 [node name="EasyButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Easy"
 
 [node name="MediumButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Medium"
 
 [node name="HardButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Hard"
 
 [node name="ExtremeButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Extreme"
 
 [connection signal="pressed" from="BeginnerButton" to="." method="_on_beginner_button_pressed"]

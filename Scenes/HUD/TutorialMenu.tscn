@@ -32,6 +32,7 @@ layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Close"
 
 [node name="Spacer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -40,10 +41,12 @@ size_flags_horizontal = 3
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Back"
 
 [node name="NextButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Next"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
