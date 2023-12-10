@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=59 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=64 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -67,6 +67,16 @@ content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
 texture = SubResource("AtlasTexture_wfurf")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s43g1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s61dw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6l34k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5cxbq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_efi1j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t7ys"]
 
@@ -539,8 +549,14 @@ CircleButton/styles/pressed = SubResource("StyleBoxTexture_6ua8f")
 CommonRarityPanelContainer/base_type = &"PanelContainer"
 CommonRarityPanelContainer/styles/panel = ExtResource("4_28e2h")
 CounterLabel/styles/normal = ExtResource("5_rng1l")
+CustomTextureButton/base_type = &"Button"
 CustomTextureButton/colors/icon_hover_color = Color(0, 0, 0, 1)
 CustomTextureButton/font_sizes/font_size = 32
+CustomTextureButton/styles/disabled = SubResource("StyleBoxEmpty_s43g1")
+CustomTextureButton/styles/focus = SubResource("StyleBoxEmpty_s61dw")
+CustomTextureButton/styles/hover = SubResource("StyleBoxEmpty_6l34k")
+CustomTextureButton/styles/normal = SubResource("StyleBoxEmpty_5cxbq")
+CustomTextureButton/styles/pressed = SubResource("StyleBoxEmpty_efi1j")
 EmptySlot/base_type = &"Button"
 EmptySlot/styles/disabled = ExtResource("5_ggt4h")
 EmptySlot/styles/focus = ExtResource("5_ggt4h")

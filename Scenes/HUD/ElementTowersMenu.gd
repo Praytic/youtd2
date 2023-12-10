@@ -25,7 +25,6 @@ func _ready():
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	TowerDistribution.rolling_starting_towers.connect(_on_rolling_starting_towers)
 	TowerDistribution.random_tower_distributed.connect(_on_random_tower_distributed)
-	towers_changed.connect(_tower_buttons_scroll_container.update_scroll_bar)
 	towers_changed.emit()
 
 
