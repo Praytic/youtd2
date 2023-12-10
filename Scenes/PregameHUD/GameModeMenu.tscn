@@ -9,18 +9,21 @@ script = ExtResource("2_aiuo5")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
+theme_type_variation = &"LabelLarge"
 text = "Game Mode"
 
 [node name="BuildButton" type="Button" parent="."]
 layout_mode = 2
 tooltip_text = "You have access to all towers and choose
 towers yourself."
+focus_mode = 0
 text = "Build (lame)"
 
 [node name="RandomButton" type="Button" parent="."]
 layout_mode = 2
 tooltip_text = "You get random towers after each wave and
 can upgrade them."
+focus_mode = 0
 text = "Random with upgrade"
 
 [node name="TotallyRandomButton" type="Button" parent="."]
@@ -28,6 +31,7 @@ layout_mode = 2
 tooltip_text = "You get random towers after each wave but
 cannot upgrade them. You wil get upgraded
 variants randomly."
+focus_mode = 0
 text = "Totally random"
 
 [connection signal="pressed" from="BuildButton" to="." method="_on_build_button_pressed"]

@@ -12,6 +12,7 @@ region = Rect2(640, 6016, 128, 128)
 
 [node name="AutocastButton" type="Button" node_paths=PackedStringArray("_cooldown_indicator", "_auto_mode_indicator", "_indicator_container")]
 custom_minimum_size = Vector2(64, 64)
+focus_mode = 0
 theme = ExtResource("3_rtugu")
 theme_type_variation = &"TowerActions"
 icon = SubResource("AtlasTexture_2y68o")

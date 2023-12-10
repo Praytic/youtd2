@@ -4,8 +4,9 @@
 [ext_resource type="Script" path="res://Scenes/HUD/TutorialMenu.gd" id="2_a3117"]
 
 [node name="TutorialMenu" type="PanelContainer" node_paths=PackedStringArray("_text_label", "_back_button", "_next_button")]
-custom_minimum_size = Vector2(400, 400)
+custom_minimum_size = Vector2(600, 500)
 theme = ExtResource("1_hsqnm")
+theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_a3117")
 _text_label = NodePath("MarginContainer/VBoxContainer/TextLabel")
 _back_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/BackButton")
@@ -31,6 +32,7 @@ layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Close"
 
 [node name="Spacer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
@@ -39,10 +41,12 @@ size_flags_horizontal = 3
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Back"
 
 [node name="NextButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Next"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

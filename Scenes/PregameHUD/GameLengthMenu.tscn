@@ -12,18 +12,22 @@ script = ExtResource("2_xlfdg")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
+theme_type_variation = &"LabelLarge"
 text = "Select game length:"
 
 [node name="TrialButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Trial (80 waves)"
 
 [node name="FullButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Full (120 waves)"
 
 [node name="NeverendingButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Neverending (240 waves)"
 
 [connection signal="pressed" from="TrialButton" to="." method="_on_trial_button_pressed"]

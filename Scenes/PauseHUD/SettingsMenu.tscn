@@ -29,6 +29,7 @@ theme_override_constants/separation = 15
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"LabelLarge"
 text = "Settings"
 horizontal_alignment = 1
 
@@ -130,6 +131,7 @@ size_flags_vertical = 3
 
 [node name="SmallInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
+focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 toggle_mode = true
 button_group = ExtResource("2_fh8ol")
@@ -138,6 +140,7 @@ flat = true
 
 [node name="MediumInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
+focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 toggle_mode = true
 button_pressed = true
@@ -147,6 +150,7 @@ flat = true
 
 [node name="LargeInterfaceSizeButton" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
+focus_mode = 0
 theme_override_colors/font_color = Color(1, 1, 1, 0.588235)
 toggle_mode = true
 button_group = ExtResource("2_fh8ol")
@@ -156,6 +160,7 @@ flat = true
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
 text = "Close"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

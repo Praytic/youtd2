@@ -11,14 +11,17 @@ script = ExtResource("2_7kgvb")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
+theme_type_variation = &"LabelLarge"
 text = "Do you want a Tutorial?"
 
 [node name="YesButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "Yes"
 
 [node name="NoButton" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 0
 text = "No"
 
 [connection signal="pressed" from="YesButton" to="." method="_on_yes_button_pressed"]
