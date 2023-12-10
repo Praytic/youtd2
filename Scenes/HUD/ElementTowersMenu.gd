@@ -1,0 +1,245 @@
+# ElementTowersMenu.gd
+extends PanelContainer
+
+
+signal towers_changed()
+
+
+# Map of tower id's => tower buttons. Tower buttons are
+# "stacks" and may contain more than one tower.
+@onready var _tower_buttons: Dictionary = {}
+
+@export var _upgrade_element_button: Button
+@export var _tower_buttons_container: GridContainer
+
+var _current_element: Element.enm = Element.enm.ICE : set = set_element, get = get_element
+
+
+#########################
+### Code starts here  ###
+#########################
+
+func _ready():
+	BuildTower.tower_built.connect(_on_tower_built)
+	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
+	TowerDistribution.rolling_starting_towers.connect(_on_rolling_starting_towers)
+	TowerDistribution.random_tower_distributed.connect(_on_random_tower_distributed)
+	towers_changed.emit()
+
+
+#########################
+###       Public      ###
+#########################
+
+func add_tower_button(tower_id, should_emit_signal: bool = true):
+	if _tower_buttons.has(tower_id):
+		var tower_button: TowerButton = _tower_buttons[tower_id]
+		var new_count: int = tower_button.get_count() + 1
+		tower_button.set_count(new_count)
+		
+		return
+	
+	var tower_button = TowerButton.make(tower_id)
+	_tower_buttons[tower_id] = tower_button
+	var tower_element: Element.enm = TowerProperties.get_element(tower_id)
+	var tower_should_be_visible: bool = tower_element == _current_element
+	tower_button.set_visible(tower_should_be_visible)
+	_tower_buttons_container.add_child(tower_button)
+	
+#	NOTE: in random modes, sort towers by rarity and place
+#	new towers in the front of the list.
+# 
+#	Only do this for random game modes because in build mode
+#	towers are sorted in _add_all_towers().
+	if Globals.game_mode_is_random():
+		var insert_index: int = _get_insert_index_for_tower(tower_id)
+		move_child(tower_button, insert_index)
+	
+	if should_emit_signal:
+		towers_changed.emit()
+
+
+func remove_tower_button(tower_id, should_emit_signal: bool = true):
+	var button: TowerButton = _tower_buttons[tower_id]
+	var button_container: UnitButtonContainer = button.get_parent()
+
+	var tower_button: TowerButton = _tower_buttons[tower_id]
+	var new_count: int = tower_button.get_count() - 1
+	tower_button.set_count(new_count)
+
+	var no_more_towers_in_stack: bool = new_count == 0
+
+	if no_more_towers_in_stack:
+		_tower_buttons.erase(tower_id)
+		remove_child(button_container)
+		button_container.queue_free()
+	
+	if should_emit_signal:
+		towers_changed.emit()
+
+
+#########################
+###      Private      ###
+#########################
+
+func _add_all_towers():
+	print_verbose("Start adding all towers to ElementTowersMenu.")
+
+	var first_tier_towers: Array = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.TIER, str(1))
+
+#	Sort towers by rarity and cost
+	first_tier_towers.sort_custom(
+		func(a, b):
+			var rarity_a: Rarity.enm = TowerProperties.get_rarity(a)
+			var rarity_b: Rarity.enm = TowerProperties.get_rarity(b)
+			var cost_a: int = TowerProperties.get_cost(a)
+			var cost_b: int = TowerProperties.get_cost(b)
+			
+			if rarity_a == rarity_b:
+				return cost_a < cost_b
+			else:
+				return rarity_a < rarity_b
+				)
+
+	for tower_id in first_tier_towers:
+		var is_released: bool = TowerProperties.is_released(tower_id)
+		if !is_released:
+			continue
+
+		add_tower_button(tower_id, false)
+
+#	NOTE: call set_element() to show towers for currently
+#	selected element. 
+	set_element(_current_element)
+	towers_changed.emit()
+
+	print_verbose("ElementTowersMenu has added all towers.")
+
+
+func _update_upgrade_element_button_state():
+	_upgrade_element_button.disabled = !ElementLevel.is_able_to_research(_current_element)
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_tower_built(tower_id):
+	match Globals.game_mode:
+		GameMode.enm.BUILD: return
+		GameMode.enm.RANDOM_WITH_UPGRADES: remove_tower_button(tower_id)
+		GameMode.enm.TOTALLY_RANDOM: remove_tower_button(tower_id)
+
+
+func _on_upgrade_element_button_pressed():
+	var element = _current_element
+	if ElementLevel.is_able_to_research(element):
+		var cost: int = ElementLevel.get_research_cost(element)
+		KnowledgeTomesManager.spend(cost)
+		ElementLevel.increment(element)
+
+		var tooltip: String = RichTexts.get_research_text(element)
+		ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
+	else:
+#		NOTE: this case should really never happen because
+#		button should be disabled (not pressable) if element
+#		can't be researched.
+		Messages.add_error("Can't research this element. Not enough tomes.")
+		push_error("Research element button was in incorrect state. It was enabled even though current element cannot be researched - and player was able to press it.")
+
+	_update_upgrade_element_button_state()
+
+
+func _on_close_button_pressed():
+	hide()
+
+
+func _on_game_mode_was_chosen():
+	if Globals.game_mode == GameMode.enm.BUILD:
+		_add_all_towers()
+
+
+func _on_rolling_starting_towers():
+	var tower_list: Array = _tower_buttons.keys()
+
+#	NOTE: call remove_tower_button() multiple times to remove
+#	all stacks of tower
+	for tower in tower_list:
+		while _tower_buttons.has(tower):
+			remove_tower_button(tower, false)
+
+
+func _on_random_tower_distributed(tower_id: int):
+	add_tower_button(tower_id)
+
+
+#########################
+### Setters / Getters ###
+#########################
+
+func get_element() -> Element.enm:
+	return _current_element
+
+
+func set_element(element: Element.enm):
+	_current_element = element
+	
+	if _current_element == Element.enm.NONE:
+		for tower_button in _tower_buttons.values():
+			tower_button.get_parent().show()
+	else:
+		for tower_button in _tower_buttons.values():
+			tower_button.get_parent().hide()
+		
+		var available_towers_for_element = _get_available_tower_buttons_for_element(element)
+		
+		for tower_id in available_towers_for_element:
+			_tower_buttons[tower_id].get_parent().show()
+
+
+func _get_insert_index_for_tower(tower_id: int) -> int:
+	var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
+	var index: int = 0
+	var tower_buttons: Array = get_tower_buttons()
+
+	for button in tower_buttons:
+		var this_tower_id: int = button.get_tower_id()
+		var this_rarity: Rarity.enm = TowerProperties.get_rarity(this_tower_id)
+
+		if this_rarity <= rarity:
+			break
+
+		index += 1
+
+	return index
+
+
+func get_towers_count(element = null) -> int:
+	var counter = 0
+	if element:
+		for tower_id in _tower_buttons.keys():
+			if TowerProperties.get_element(tower_id) == element:
+				counter += 1
+	else:
+		counter = _tower_buttons.size()
+	return counter
+
+
+func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
+	var element_string: String = Element.convert_to_string(element)
+	var tower_id_list = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.ELEMENT, element_string)
+	
+	var res: Array = []
+	for tower_id in tower_id_list:
+		if _tower_buttons.has(tower_id):
+			res.append(tower_id)
+	
+	return res
+
+
+func get_tower_buttons() -> Array:
+	return get_tree().get_nodes_in_group("tower_button")
+
+
+func get_empty_slots() -> Array:
+	return get_tree().get_nodes_in_group("empty_slot")

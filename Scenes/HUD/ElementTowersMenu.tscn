@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvo433axo22w3"]
+[gd_scene load_steps=10 format=3 uid="uid://c42oxolxql4fm"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_uh0n3"]
-[ext_resource type="Script" path="res://Scenes/HUD/BuildBar.gd" id="2_2sqfb"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu.gd" id="2_78i0l"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_onsb2"]
 [ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="4_hw31b"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="10_y8460"]
@@ -18,7 +18,7 @@ region = Rect2(0, 256, 128, 128)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="ElementTowersMenu" type="PanelContainer"]
+[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container")]
 offset_right = 600.0
 offset_bottom = 736.0
 size_flags_horizontal = 4
@@ -26,7 +26,9 @@ size_flags_vertical = 4
 mouse_force_pass_scroll_events = false
 theme = ExtResource("1_uh0n3")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
-script = ExtResource("2_2sqfb")
+script = ExtResource("2_78i0l")
+_upgrade_element_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton")
+_tower_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -132,7 +134,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_right = 15
 
-[node name="TransmuteButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="UpgradeElementButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -212,91 +214,71 @@ custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="TowersContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
+[node name="TowerButtonsContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 0
 columns = 5
 
-[node name="EmptyUnitButton1" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton1" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton6" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton6" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton7" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton7" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton8" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton8" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton9" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton9" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton10" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton10" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton11" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton11" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton12" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton12" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton13" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton13" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton14" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton14" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton15" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton15" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton16" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton16" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton17" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton17" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton18" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton18" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton19" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton19" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
-[node name="EmptyUnitButton20" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowersContainer" instance=ExtResource("10_y8460")]
-custom_minimum_size = Vector2(96, 96)
+[node name="EmptyUnitButton20" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer" groups=["empty_slot"] instance=ExtResource("10_y8460")]
 layout_mode = 2
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
@@ -312,5 +294,5 @@ theme_type_variation = &"CircleButton"
 theme_override_font_sizes/font_size = 32
 text = " x "
 
-[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/TransmuteButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_transmute_button_pressed"]
 [connection signal="pressed" from="MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]
