@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/HUD/WaveStatus.gd" id="2_fsc15"]
 
 [node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_timer_label")]
+custom_minimum_size = Vector2(650, 0)
 offset_right = 600.0
 offset_bottom = 134.0
 theme = ExtResource("1_3h6gw")
