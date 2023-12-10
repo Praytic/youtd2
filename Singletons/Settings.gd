@@ -57,7 +57,7 @@ func _ready():
 	if settings_file != null and settings_file.get_length() > 0:
 		var cache_string: String = settings_file.get_as_text()
 		_cache = JSON.parse_string(cache_string) as Dictionary
-		_invalidate_cache()
+		_validate_cache()
 		
 		print_verbose("Opened settings file at path:", settings_file.get_path_absolute())
 	else:
@@ -106,8 +106,12 @@ func flush():
 	interface_size_changed.emit(new_scale)
 
 
-func _invalidate_cache():
-	for _cache_key in _cache.keys():
+func _validate_cache():
+	for _cache_key in _default_value_map.keys():
+		if !_cache.has(_cache_key):
+			push_error("Settings file doesn't have value for [%s]. Resetting it to default." % _cache_key)
+			_cache[_cache_key] = _default_value_map[_cache_key]
+
 #		Cache should have comparable types with the default map
 		if typeof(_default_value_map[_cache_key]) != typeof(_cache[_cache_key]):
 			push_error("Saved setting [%s] has incorrect type. Resetting it to default." % _cache_key)
