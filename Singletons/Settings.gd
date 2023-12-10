@@ -101,7 +101,9 @@ func flush():
 	
 	changed.emit()
 	show_combat_log_changed.emit()
-	interface_size_changed.emit(INTERFACE_SIZE_DICT[_cache[INTERFACE_SIZE]])
+
+	var new_scale: float = get_interface_size()
+	interface_size_changed.emit(new_scale)
 
 
 func _invalidate_cache():
@@ -110,3 +112,10 @@ func _invalidate_cache():
 		if typeof(_default_value_map[_cache_key]) != typeof(_cache[_cache_key]):
 			push_error("Saved setting [%s] has incorrect type. Resetting it to default." % _cache_key)
 			_cache[_cache_key] = _default_value_map[_cache_key]
+
+
+func get_interface_size() -> float:
+	var interface_size_string: String = _cache[Settings.INTERFACE_SIZE]
+	var interface_size: float = INTERFACE_SIZE_DICT[interface_size_string]
+
+	return interface_size
