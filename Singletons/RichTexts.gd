@@ -131,10 +131,13 @@ func get_tower_text(tower_id: int) -> String:
 # tooltip. We work around that by using SaveTooltipsTool to
 # run this function for all towers and save results to file.
 # Then we load that file and use tooltips from the file.
+# 
+# NOTE: requirements text is not included because it needs
+# to have numbers which dynamically change to red color if a requirement
+# is not met.
 func generate_tower_tooltip(tower_id: int) -> String:
 	var text: String = ""
 	
-	var requirements_text: String = get_tower_requirements_text(tower_id)
 	var display_name: String = TowerProperties.get_display_name(tower_id)
 	var gold_cost: int = TowerProperties.get_cost(tower_id)
 	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
@@ -165,10 +168,6 @@ func generate_tower_tooltip(tower_id: int) -> String:
 	var extra_text: String = tower.get_ability_description_short()
 	extra_text = add_color_to_numbers(extra_text)
 	tower.queue_free()
-
-	if !requirements_text.is_empty():
-		text += "%s\n" % requirements_text
-		text += " \n"
 
 	text += "[b]%s[/b]\n" % display_name
 
