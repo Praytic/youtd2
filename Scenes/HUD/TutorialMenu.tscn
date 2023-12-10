@@ -6,6 +6,7 @@
 [node name="TutorialMenu" type="PanelContainer" node_paths=PackedStringArray("_text_label", "_back_button", "_next_button")]
 custom_minimum_size = Vector2(400, 400)
 theme = ExtResource("1_hsqnm")
+theme_type_variation = &"MainPanelContainer"
 script = ExtResource("2_a3117")
 _text_label = NodePath("MarginContainer/VBoxContainer/TextLabel")
 _back_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer/BackButton")
