@@ -132,22 +132,14 @@ func get_tower_text(tower_id: int) -> String:
 # run this function for all towers and save results to file.
 # Then we load that file and use tooltips from the file.
 # 
-# NOTE: requirements text is not included because it needs
-# to have numbers which dynamically change to red color if a requirement
-# is not met.
+# NOTE: this generated part of the tooltip doesn't include
+# text which needs to dynamically change color. That is, the
+# requirements text and gold, tome and food costs. These
+# parts are prepended in
+# get_generated_tower_tooltip_with_tower_requirements().
 func generate_tower_tooltip(tower_id: int) -> String:
 	var text: String = ""
 	
-	var display_name: String = TowerProperties.get_display_name(tower_id)
-	var gold_cost: int = TowerProperties.get_cost(tower_id)
-	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
-	var food_cost: int = TowerProperties.get_food_cost(tower_id)
-	var gold_cost_ok: bool = GoldControl.enough_gold_for_tower(tower_id)
-	var tome_cost_ok: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
-	var food_cost_ok: bool = FoodManager.enough_food_for_tower(tower_id)
-	var gold_cost_string: String = get_colored_requirement_number(gold_cost, gold_cost_ok)
-	var tome_cost_string: String = get_colored_requirement_number(tome_cost, tome_cost_ok)
-	var food_cost_string: String = get_colored_requirement_number(food_cost, food_cost_ok)
 	var description: String = TowerProperties.get_description(tower_id)
 	var author: String = TowerProperties.get_author(tower_id)
 	var element: Element.enm = TowerProperties.get_element(tower_id)
@@ -168,13 +160,6 @@ func generate_tower_tooltip(tower_id: int) -> String:
 	var extra_text: String = tower.get_ability_description_short()
 	extra_text = add_color_to_numbers(extra_text)
 	tower.queue_free()
-
-	text += "[b]%s[/b]\n" % display_name
-
-	if tome_cost != 0:
-		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
-	else:
-		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
 
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
@@ -209,12 +194,29 @@ func generate_tower_tooltip(tower_id: int) -> String:
 func get_generated_tower_tooltip_with_tower_requirements(tower_id: int) -> String:
 	var generated_tooltip_text = TowerProperties.get_generated_tooltip(tower_id)
 	var requirements_text = get_tower_requirements_text(tower_id)
+	var display_name: String = TowerProperties.get_display_name(tower_id)
+	var gold_cost: int = TowerProperties.get_cost(tower_id)
+	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
+	var food_cost: int = TowerProperties.get_food_cost(tower_id)
+	var gold_cost_ok: bool = GoldControl.enough_gold_for_tower(tower_id)
+	var tome_cost_ok: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
+	var food_cost_ok: bool = FoodManager.enough_food_for_tower(tower_id)
+	var gold_cost_string: String = get_colored_requirement_number(gold_cost, gold_cost_ok)
+	var tome_cost_string: String = get_colored_requirement_number(tome_cost, tome_cost_ok)
+	var food_cost_string: String = get_colored_requirement_number(food_cost, food_cost_ok)
 	
 	var text = ""
 	
 	if !requirements_text.is_empty():
 		text += "%s\n" % requirements_text
 		text += " \n"
+
+	text += "[b]%s[/b]\n" % display_name
+
+	if tome_cost != 0:
+		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, tome_cost_string, food_cost_string]
+	else:
+		text += "[img=32x32]res://Resources/Textures/UI/Icons/gold_icon.tres[/img] %s [img=32x32]res://Resources/Textures/UI/Icons/food_icon.tres[/img] [color=GOLD]%s[/color]\n" % [gold_cost_string, food_cost_string]
 	
 	text += generated_tooltip_text
 	
