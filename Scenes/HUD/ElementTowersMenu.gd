@@ -44,6 +44,7 @@ func add_tower_button(tower_id, should_emit_signal: bool = true):
 	var tower_element: Element.enm = TowerProperties.get_element(tower_id)
 	var tower_should_be_visible: bool = tower_element == _current_element
 	tower_button.set_visible(tower_should_be_visible)
+	tower_button.add_to_group("tower_button")
 	_tower_buttons_container.add_child(tower_button)
 	
 #	NOTE: in random modes, sort towers by rarity and place
@@ -61,8 +62,7 @@ func add_tower_button(tower_id, should_emit_signal: bool = true):
 
 func remove_tower_button(tower_id, should_emit_signal: bool = true):
 	var button: TowerButton = _tower_buttons[tower_id]
-	var button_container: UnitButtonContainer = button.get_parent()
-
+	
 	var tower_button: TowerButton = _tower_buttons[tower_id]
 	var new_count: int = tower_button.get_count() - 1
 	tower_button.set_count(new_count)
@@ -71,8 +71,8 @@ func remove_tower_button(tower_id, should_emit_signal: bool = true):
 
 	if no_more_towers_in_stack:
 		_tower_buttons.erase(tower_id)
-		remove_child(button_container)
-		button_container.queue_free()
+		_tower_buttons_container.remove_child(button)
+		button.queue_free()
 	
 	if should_emit_signal:
 		towers_changed.emit()
