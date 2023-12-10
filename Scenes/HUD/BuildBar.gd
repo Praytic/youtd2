@@ -1,4 +1,4 @@
-extends GridContainer
+extends Control
 
 
 signal towers_changed()
