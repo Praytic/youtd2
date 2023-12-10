@@ -45,4 +45,14 @@ autowrap_mode = 0
 [node name="UpdateStatsTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="GetIdentity" type="HTTPRequest" parent="."]
+accept_gzip = false
+timeout = 5.0
+
+[node name="UsernameLabel" type="Label" parent="."]
+visible = false
+layout_mode = 2
+text = "username"
+horizontal_alignment = 1
+
 [connection signal="timeout" from="UpdateStatsTimer" to="." method="_on_update_stats_timer_timeout"]

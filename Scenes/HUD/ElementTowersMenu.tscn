@@ -1,0 +1,320 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvo433axo22w3"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_uh0n3"]
+[ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="2_thxn8"]
+[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_onsb2"]
+[ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="4_hw31b"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="10_y8460"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sda8v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k678"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tli8x"]
+atlas = ExtResource("4_hw31b")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_items_container", "_transmute_button", "_main_container")]
+offset_right = 600.0
+offset_bottom = 736.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_force_pass_scroll_events = false
+theme = ExtResource("1_uh0n3")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
+script = ExtResource("2_thxn8")
+_items_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer")
+_transmute_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/TransmuteButton")
+_main_container = NodePath("MainContainer")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MainContainer"]
+z_index = 1
+layout_mode = 2
+theme_override_constants/margin_bottom = -34
+
+[node name="TitleButton" type="Label" parent="MainContainer/MarginContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("3_onsb2")
+text = "Ice Towers"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="MainContainer/MarginContainer"]
+custom_minimum_size = Vector2(600, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_type_variation = &"MainPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_top = 10
+
+[node name="UnitControlMenu" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="InfoContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1k678")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"InfoContainerLabel"
+theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+text = "Info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="IconContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+alignment_vertical = 0
+
+[node name="ElementIcon" type="TextureRect" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/IconContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = SubResource("AtlasTexture_tli8x")
+expand_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="TransmuteButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "UPGRADE"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="InfoLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+bbcode_enabled = true
+text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and drowning effects on enemies.[/color]
+
+[color=GOLD]Main attack types:[/color] Elemental, Energy"
+fit_content = true
+scroll_active = false
+
+[node name="Inventory" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="PanelContainer" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gadtu")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" type="Label" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"InfoContainerLabel"
+theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+text = "Towers"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_right = -10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemsContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
+custom_minimum_size = Vector2(0, 2000)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+columns = 5
+
+[node name="EmptyUnitButton1" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton6" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton7" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton8" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton9" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton10" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton11" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton12" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton13" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton14" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton15" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton16" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton17" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton18" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton19" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="EmptyUnitButton20" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/ItemsContainer" instance=ExtResource("10_y8460")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="."]
+z_index = 10
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 15
+
+[node name="CloseButton" type="Button" parent="MarginContainer3"]
+layout_mode = 2
+theme_type_variation = &"CircleButton"
+theme_override_font_sizes/font_size = 32
+text = " x "
+
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/TransmuteButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="pressed" from="MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]
