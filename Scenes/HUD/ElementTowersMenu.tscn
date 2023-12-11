@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c42oxolxql4fm"]
+[gd_scene load_steps=13 format=3 uid="uid://dvo433axo22w3"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_uh0n3"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu.gd" id="2_78i0l"]
@@ -6,9 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="4_hw31b"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/TowerButtonsScrollContainer.gd" id="6_y5mrm"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="7_jodiw"]
-[ext_resource type="PackedScene" uid="uid://c3rx3o4m3ayc1" path="res://Scenes/HUD/Buttons/ElementButton.tscn" id="8_eusf2"]
+[ext_resource type="PackedScene" uid="uid://b1irit3e5ned1" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="8_ys01i"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="10_y8460"]
-[ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://Resources/UI/ButtonGroup/element_filter_button_group.tres" id="13_075en"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sda8v"]
 
@@ -19,37 +18,10 @@ bg_color = Color(0, 0, 0, 1)
 atlas = ExtResource("4_hw31b")
 region = Rect2(0, 256, 128, 128)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_no4dk"]
-load_path = "res://.godot/imported/misc5.png-21b7825a26c4506c8c5b986531d88bdc.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cy78w"]
-atlas = SubResource("CompressedTexture2D_no4dk")
-region = Rect2(0, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_udpbi"]
-atlas = ExtResource("4_hw31b")
-region = Rect2(256, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fjhx4"]
-atlas = ExtResource("4_hw31b")
-region = Rect2(384, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_apu81"]
-atlas = ExtResource("4_hw31b")
-region = Rect2(512, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_b88p7"]
-atlas = ExtResource("4_hw31b")
-region = Rect2(640, 256, 128, 128)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ien3q"]
-atlas = ExtResource("4_hw31b")
-region = Rect2(768, 256, 128, 128)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_tower_buttons_scroll_container")]
+[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_tower_buttons_scroll_container", "_elements_container")]
 offset_right = 600.0
 offset_bottom = 736.0
 size_flags_horizontal = 4
@@ -61,6 +33,7 @@ script = ExtResource("2_78i0l")
 _upgrade_element_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton")
 _tower_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/TowerButtonsContainer2")
 _tower_buttons_scroll_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer")
+_elements_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ElementsContainer")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -170,6 +143,7 @@ theme_override_constants/margin_right = 15
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+focus_mode = 0
 text = "UPGRADE"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer"]
@@ -195,81 +169,6 @@ text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and
 [color=GOLD]Main attack types:[/color] Elemental, Energy"
 fit_content = true
 scroll_active = false
-
-[node name="VBoxContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="ElementButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("8_eusf2")]
-layout_mode = 2
-button_group = ExtResource("13_075en")
-icon = SubResource("AtlasTexture_cy78w")
-
-[node name="ElementButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("_texture_progress_bar", "_counter_label", "_research_element_progress_bar", "_button_down_timer", "_research_timer") instance=ExtResource("8_eusf2")]
-layout_mode = 2
-button_group = ExtResource("13_075en")
-element = 1
-_texture_progress_bar = NodePath("../ElementButton/MarginContainer2/ElementProgressBar")
-_counter_label = NodePath("../ElementButton/MarginContainer/TowersCountLabel")
-_research_element_progress_bar = NodePath("../ElementButton/MarginContainer3/ResearchElementProgressBar")
-_button_down_timer = NodePath("../ElementButton/ButtonDownTimer")
-_research_timer = NodePath("../ElementButton/ResearchTimer")
-
-[node name="ElementButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("_texture_progress_bar", "_counter_label", "_research_element_progress_bar", "_button_down_timer", "_research_timer") instance=ExtResource("8_eusf2")]
-layout_mode = 2
-button_group = ExtResource("13_075en")
-icon = SubResource("AtlasTexture_udpbi")
-element = 2
-_texture_progress_bar = NodePath("../ElementButton/MarginContainer2/ElementProgressBar")
-_counter_label = NodePath("../ElementButton/MarginContainer/TowersCountLabel")
-_research_element_progress_bar = NodePath("../ElementButton/MarginContainer3/ResearchElementProgressBar")
-_button_down_timer = NodePath("../ElementButton/ButtonDownTimer")
-_research_timer = NodePath("../ElementButton/ResearchTimer")
-
-[node name="ElementButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("_texture_progress_bar", "_counter_label", "_research_element_progress_bar", "_button_down_timer", "_research_timer") instance=ExtResource("8_eusf2")]
-layout_mode = 2
-button_group = ExtResource("13_075en")
-icon = SubResource("AtlasTexture_fjhx4")
-element = 3
-_texture_progress_bar = NodePath("../ElementButton/MarginContainer2/ElementProgressBar")
-_counter_label = NodePath("../ElementButton/MarginContainer/TowersCountLabel")
-_research_element_progress_bar = NodePath("../ElementButton/MarginContainer3/ResearchElementProgressBar")
-_button_down_timer = NodePath("../ElementButton/ButtonDownTimer")
-_research_timer = NodePath("../ElementButton/ResearchTimer")
-
-[node name="ElementButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("_texture_progress_bar", "_counter_label", "_research_element_progress_bar", "_button_down_timer", "_research_timer") instance=ExtResource("8_eusf2")]
-layout_mode = 2
-button_group = ExtResource("13_075en")
-icon = SubResource("AtlasTexture_apu81")
-element = 4
-_texture_progress_bar = NodePath("../ElementButton/MarginContainer2/ElementProgressBar")
-_counter_label = NodePath("../ElementButton/MarginContainer/TowersCountLabel")
-_research_element_progress_bar = NodePath("../ElementButton/MarginContainer3/ResearchElementProgressBar")
-_button_down_timer = NodePath("../ElementButton/ButtonDownTimer")
-_research_timer = NodePath("../ElementButton/ResearchTimer")
-
-[node name="ElementButton6" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("_texture_progress_bar", "_counter_label", "_research_element_progress_bar", "_button_down_timer", "_research_timer") instance=ExtResource("8_eusf2")]
-layout_mode = 2
-button_group = ExtResource("13_075en")
-icon = SubResource("AtlasTexture_b88p7")
-element = 5
-_texture_progress_bar = NodePath("../ElementButton/MarginContainer2/ElementProgressBar")
-_counter_label = NodePath("../ElementButton/MarginContainer/TowersCountLabel")
-_research_element_progress_bar = NodePath("../ElementButton/MarginContainer3/ResearchElementProgressBar")
-_button_down_timer = NodePath("../ElementButton/ButtonDownTimer")
-_research_timer = NodePath("../ElementButton/ResearchTimer")
-
-[node name="ElementButton7" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("_texture_progress_bar", "_counter_label", "_research_element_progress_bar", "_button_down_timer", "_research_timer") instance=ExtResource("8_eusf2")]
-layout_mode = 2
-button_group = ExtResource("13_075en")
-icon = SubResource("AtlasTexture_ien3q")
-element = 6
-_texture_progress_bar = NodePath("../ElementButton/MarginContainer2/ElementProgressBar")
-_counter_label = NodePath("../ElementButton/MarginContainer/TowersCountLabel")
-_research_element_progress_bar = NodePath("../ElementButton/MarginContainer3/ResearchElementProgressBar")
-_button_down_timer = NodePath("../ElementButton/ButtonDownTimer")
-_research_timer = NodePath("../ElementButton/ResearchTimer")
 
 [node name="Inventory" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -402,6 +301,10 @@ text = "15"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ElementsContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2" instance=ExtResource("8_ys01i")]
+layout_mode = 2
+size_flags_horizontal = 0
+
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 z_index = 10
 layout_mode = 2
@@ -415,5 +318,6 @@ theme_type_variation = &"CircleButton"
 theme_override_font_sizes/font_size = 32
 text = " x "
 
-[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="mouse_entered" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_mouse_entered"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
 [connection signal="pressed" from="MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]

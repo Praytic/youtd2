@@ -12,8 +12,7 @@ signal towers_changed()
 @export var _upgrade_element_button: Button
 @export var _tower_buttons_container: GridContainer
 @export var _tower_buttons_scroll_container: ScrollContainer
-
-var _current_element: Element.enm = Element.enm.ICE : set = set_element, get = get_element
+@export var _elements_container: VBoxContainer
 
 
 #########################
@@ -21,11 +20,16 @@ var _current_element: Element.enm = Element.enm.ICE : set = set_element, get = g
 #########################
 
 func _ready():
+	_elements_container.element_changed.connect(_update_element)
 	BuildTower.tower_built.connect(_on_tower_built)
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	TowerDistribution.rolling_starting_towers.connect(_on_rolling_starting_towers)
 	TowerDistribution.random_tower_distributed.connect(_on_random_tower_distributed)
+	ElementLevel.changed.connect(_on_element_level_changed)
+	KnowledgeTomesManager.changed.connect(_on_knowledge_tomes_changed)
 	towers_changed.emit()
+	
+	HighlightUI.register_target("tower_stash", _tower_buttons_container)
 
 
 #########################
@@ -43,7 +47,7 @@ func add_tower_button(tower_id, should_emit_signal: bool = true):
 	var tower_button = TowerButton.make(tower_id)
 	_tower_buttons[tower_id] = tower_button
 	var tower_element: Element.enm = TowerProperties.get_element(tower_id)
-	var tower_should_be_visible: bool = tower_element == _current_element
+	var tower_should_be_visible: bool = tower_element == _elements_container.get_element()
 	tower_button.set_visible(tower_should_be_visible)
 	tower_button.add_to_group("tower_button")
 	_tower_buttons_container.add_child(tower_button)
@@ -83,6 +87,22 @@ func remove_tower_button(tower_id, should_emit_signal: bool = true):
 ###      Private      ###
 #########################
 
+func _update_element():
+	var current_element = _elements_container.get_element()
+	
+	if current_element == Element.enm.NONE:
+		for tower_button in _tower_buttons.values():
+			tower_button.show()
+	else:
+		for tower_button in _tower_buttons.values():
+			tower_button.hide()
+		
+		var available_towers_for_element = _get_available_tower_buttons_for_element(current_element)
+		
+		for tower_id in available_towers_for_element:
+			_tower_buttons[tower_id].show()
+
+
 func _add_all_towers():
 	print_verbose("Start adding all towers to ElementTowersMenu.")
 
@@ -109,16 +129,17 @@ func _add_all_towers():
 
 		add_tower_button(tower_id, false)
 
-#	NOTE: call set_element() to show towers for currently
+#	NOTE: call _update_element() to show towers for currently
 #	selected element. 
-	set_element(_current_element)
+	_update_element()
 	towers_changed.emit()
 
 	print_verbose("ElementTowersMenu has added all towers.")
 
 
 func _update_upgrade_element_button_state():
-	_upgrade_element_button.disabled = !ElementLevel.is_able_to_research(_current_element)
+	var current_element = _elements_container.get_element()
+	_upgrade_element_button.disabled = !ElementLevel.is_able_to_research(current_element)
 
 
 #########################
@@ -132,8 +153,14 @@ func _on_tower_built(tower_id):
 		GameMode.enm.TOTALLY_RANDOM: remove_tower_button(tower_id)
 
 
+func _on_upgrade_element_mouse_entered():
+	var element: Element.enm = _elements_container.get_element()
+	var tooltip: String = RichTexts.get_research_text(element)
+	ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
+
+
 func _on_upgrade_element_button_pressed():
-	var element = _current_element
+	var element = _elements_container.get_element()
 	if ElementLevel.is_able_to_research(element):
 		var cost: int = ElementLevel.get_research_cost(element)
 		KnowledgeTomesManager.spend(cost)
@@ -174,29 +201,16 @@ func _on_random_tower_distributed(tower_id: int):
 	add_tower_button(tower_id)
 
 
+func _on_element_level_changed():
+	_update_upgrade_element_button_state()
+
+
+func _on_knowledge_tomes_changed():
+	_update_upgrade_element_button_state()
+
 #########################
 ### Setters / Getters ###
 #########################
-
-func get_element() -> Element.enm:
-	return _current_element
-
-
-func set_element(element: Element.enm):
-	_current_element = element
-	
-	if _current_element == Element.enm.NONE:
-		for tower_button in _tower_buttons.values():
-			tower_button.get_parent().show()
-	else:
-		for tower_button in _tower_buttons.values():
-			tower_button.get_parent().hide()
-		
-		var available_towers_for_element = _get_available_tower_buttons_for_element(element)
-		
-		for tower_id in available_towers_for_element:
-			_tower_buttons[tower_id].get_parent().show()
-
 
 func _get_insert_index_for_tower(tower_id: int) -> int:
 	var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)

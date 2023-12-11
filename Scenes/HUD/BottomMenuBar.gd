@@ -5,7 +5,6 @@ signal research_element()
 signal test_signal()
 
 @export var _item_stash_menu: GridContainer
-@export var _build_bar: GridContainer
 @export var _elements_container: HBoxContainer
 @export var _tomes_status: ResourceStatusPanel
 @export var _gold_status: ResourceStatusPanel
@@ -31,25 +30,16 @@ func _ready():
 	for item_filter_button in _item_type_filter_button_group.get_buttons():
 		item_filter_button.toggled.connect(_on_item_type_filter_button_toggled)
 	
-	for element_button in _element_filter_button_group.get_buttons():
-		element_button.pressed.connect(_on_ElementButton_pressed.bind(element_button))
-	
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	ItemStash.items_changed.connect(_on_item_stash_changed)
-	_build_bar.towers_changed.connect(_on_tower_stash_changed)
 	WaveLevel.changed.connect(_on_wave_level_changed)
 	BuildTower.tower_built.connect(_on_tower_built)
-	ElementLevel.changed.connect(_on_element_level_changed)
-	KnowledgeTomesManager.changed.connect(_on_knowledge_tomes_changed)
 	
 	_on_item_stash_changed()
-	
-	set_element(Element.enm.ICE)
 	
 	HighlightUI.register_target("elements_container", _elements_container)
 	HighlightUI.register_target("tomes_status", _tomes_status)
 	HighlightUI.register_target("gold_status", _gold_status)
-	HighlightUI.register_target("tower_stash", _build_bar)
 	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
 	HighlightUI.register_target("horadric_cube_button", _horadric_cube_button)
 	HighlightUI.register_target("upgrade_element_button", _upgrade_element_button)
@@ -67,13 +57,6 @@ func get_item_rarity_filter_button(rarity: Rarity.enm) -> Button:
 			target_button = button
 			break
 	return target_button
-
-
-func set_element(element: Element.enm):
-	_build_bar.set_element(element)
-	_update_upgrade_element_button_state()
-
-	Utils.reset_scroll_container(_tower_stash_scroll_container)
 
 
 func _on_item_rarity_filter_button_toggled(_toggle: bool):
@@ -102,14 +85,6 @@ func _on_item_type_filter_button_toggled(_toggle: bool):
 	scroll_bar.set_value(0.0)
 
 
-func _on_ElementButton_pressed(element_button):
-	set_element(element_button.element)
-
-
-func _on_BuildMenuButton_pressed():
-	set_element(_build_bar.get_element())
-
-
 func _on_stash_margin_container_gui_input(event):
 	if event.is_action_released("left_click") && _item_stash_menu.is_visible():
 		ItemMovement.item_stash_was_clicked()
@@ -121,12 +96,6 @@ func _on_item_stash_changed():
 		button.set_items_count(item_stash_container.get_item_count(button.filter_value, []))
 	for button in _item_type_filter_button_group.get_buttons():
 		button.set_items_count(item_stash_container.get_item_count(null, button.filter_value))
-
-
-func _on_tower_stash_changed():
-	for button in _element_filter_button_group.get_buttons():
-		var filtered_towers_count = _build_bar.get_towers_count(button.element)
-		button.set_towers_counter(filtered_towers_count)
 
 
 func _on_horadric_cube_button_pressed():
@@ -175,51 +144,4 @@ func _on_wave_level_changed():
 
 func _on_tower_built(_tower_id: int):
 	_roll_towers_button.disabled = true
-
-
-func _is_able_to_research() -> bool:
-	var element = _build_bar.get_element()
-	var can_afford: bool = ElementLevel.can_afford_research(element)
-	var current_level: int = ElementLevel.get_current(element)
-	var reached_max_level: bool = current_level == ElementLevel.get_max()
-	var button_is_enabled: bool = can_afford && !reached_max_level
-
-	return button_is_enabled
-
-
-func _on_upgrade_element_button_pressed():
-	var element = _build_bar.get_element()
-	if _is_able_to_research():
-		var cost: int = ElementLevel.get_research_cost(element)
-		KnowledgeTomesManager.spend(cost)
-		ElementLevel.increment(element)
-
-		var tooltip: String = RichTexts.get_research_text(element)
-		ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
-	else:
-#		NOTE: this case should really never happen because
-#		button should be disabled (not pressable) if element
-#		can't be researched.
-		Messages.add_error("Can't research this element. Not enough tomes.")
-		push_error("Research element button was in incorrect state. It was enabled even though current element cannot be researched - and player was able to press it.")
-
-	_update_upgrade_element_button_state()
-
-
-func _on_element_level_changed():
-	_update_upgrade_element_button_state()
-
-
-func _on_knowledge_tomes_changed():
-	_update_upgrade_element_button_state()
-
-
-func _on_upgrade_element_mouse_entered():
-	var element: Element.enm = _build_bar.get_element()
-	var tooltip: String = RichTexts.get_research_text(element)
-	ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
-
-
-func _update_upgrade_element_button_state():
-	_upgrade_element_button.disabled = !_is_able_to_research()
 
