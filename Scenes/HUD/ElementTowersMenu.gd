@@ -25,6 +25,7 @@ signal towers_changed()
 @export var _element_icon: TextureRect
 @export var _title: Label
 @export var _element_level_label: Label
+@export var _element_info_label: RichTextLabel
 
 
 #########################
@@ -168,6 +169,18 @@ func _update_element_level_label():
 	var current_element = _elements_container.get_element()
 	_element_level_label.text = str(ElementLevel.get_current(current_element))
 
+
+func _update_info_label():
+	var current_element = _elements_container.get_element()
+	var flavor_text: String = Element.get_flavor_text(current_element)
+	var main_attack_types: String = Element.get_main_attack_types(current_element)
+	var text = ""
+	text += "[color=LIGHTBLUE]%s[/color]\n" % flavor_text
+	text += " \n"
+	text += "[color=GOLD]Main attack types:[/color] %s\n" % main_attack_types
+	_element_info_label.text = text
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -178,6 +191,7 @@ func _on_element_changed():
 	_update_element_icon()
 	_update_title()
 	_update_element_level_label()
+	_update_info_label()
 
 
 func _on_tower_built(tower_id):
@@ -236,6 +250,7 @@ func _on_random_tower_distributed(tower_id: int):
 
 
 func _on_element_level_changed():
+	_update_element_level_label()
 	_update_upgrade_element_button_state()
 
 
