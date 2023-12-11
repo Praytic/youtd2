@@ -18,7 +18,10 @@ func _ready():
 	super._ready()
 	set_rarity(TowerProperties.get_rarity(_tower_id))
 	set_icon(TowerProperties.get_icon_texture(_tower_id))
-	set_tier_icon(_tower_id)
+	if GameMode.enm.TOTALLY_RANDOM:
+		set_tier_icon(_tower_id)
+	else:
+		_tier_icon.hide()
 	
 	# TODO: Just for testing
 	if Config.random_button_counters() && randi()%3 == 0:
