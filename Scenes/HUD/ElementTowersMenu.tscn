@@ -21,7 +21,7 @@ region = Rect2(0, 256, 128, 128)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_tower_buttons_scroll_container", "_elements_container", "_element_icon", "_title")]
+[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_tower_buttons_scroll_container", "_elements_container", "_element_icon", "_title", "_element_level_label")]
 offset_right = 600.0
 offset_bottom = 736.0
 size_flags_horizontal = 4
@@ -36,6 +36,7 @@ _tower_buttons_scroll_container = NodePath("MainContainer/MarginContainer/Panel/
 _elements_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ElementsContainer")
 _element_icon = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/IconContainer/ElementIcon")
 _title = NodePath("MainContainer/MarginContainer2/TitleLabel")
+_element_level_label = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ElementLevelLabel")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -289,7 +290,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
 
-[node name="UnitLevelLabel" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2"]
+[node name="ElementLevelLabel" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 0

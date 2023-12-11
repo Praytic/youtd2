@@ -24,6 +24,7 @@ signal towers_changed()
 @export var _elements_container: VBoxContainer
 @export var _element_icon: TextureRect
 @export var _title: Label
+@export var _element_level_label: Label
 
 
 #########################
@@ -157,10 +158,15 @@ func _update_element_icon():
 	var current_element = _elements_container.get_element()
 	_element_icon.texture = _element_icons[current_element]
 
+
 func _update_title():
 	var current_element = _elements_container.get_element()
 	_title.text = Element.enm.keys()[current_element]
 
+
+func _update_element_level_label():
+	var current_element = _elements_container.get_element()
+	_element_level_label.text = str(ElementLevel.get_current(current_element))
 
 #########################
 ###     Callbacks     ###
@@ -171,6 +177,7 @@ func _on_element_changed():
 	_update_upgrade_element_button_state()
 	_update_element_icon()
 	_update_title()
+	_update_element_level_label()
 
 
 func _on_tower_built(tower_id):
