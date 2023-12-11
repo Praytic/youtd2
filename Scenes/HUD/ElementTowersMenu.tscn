@@ -21,7 +21,7 @@ region = Rect2(0, 256, 128, 128)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_tower_buttons_scroll_container", "_elements_container", "_element_icon")]
+[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_tower_buttons_scroll_container", "_elements_container", "_element_icon", "_title")]
 offset_right = 600.0
 offset_bottom = 736.0
 size_flags_horizontal = 4
@@ -35,6 +35,7 @@ _tower_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginC
 _tower_buttons_scroll_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer")
 _elements_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ElementsContainer")
 _element_icon = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/IconContainer/ElementIcon")
+_title = NodePath("MainContainer/MarginContainer2/TitleLabel")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -45,13 +46,13 @@ z_index = 1
 layout_mode = 2
 theme_override_constants/margin_bottom = -34
 
-[node name="TitleButton" type="Label" parent="MainContainer/MarginContainer2"]
+[node name="TitleLabel" type="Label" parent="MainContainer/MarginContainer2"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = ExtResource("3_onsb2")
-text = "Ice Towers"
+text = "ICE"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
