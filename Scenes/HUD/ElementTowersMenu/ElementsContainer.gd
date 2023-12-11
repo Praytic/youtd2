@@ -5,7 +5,7 @@ extends VBoxContainer
 signal element_changed()
 
 
-@onready var _button_group: ButtonGroup = load("res://Resources/UI/ButtonGroup/element_filter_button_group.tres")
+@onready var _button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/element_filter_button_group.tres")
 
 
 var _current_element: Element.enm = Element.enm.ICE : set = set_element, get = get_element

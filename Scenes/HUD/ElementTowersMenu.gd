@@ -8,11 +8,21 @@ signal towers_changed()
 # Map of tower id's => tower buttons. Tower buttons are
 # "stacks" and may contain more than one tower.
 @onready var _tower_buttons: Dictionary = {}
+@onready var _element_icons: Dictionary = {
+	Element.enm.ICE: preload("res://Resources/Textures/UI/Icons/ice_icon.tres"),
+	Element.enm.NATURE: preload("res://Resources/Textures/UI/Icons/nature_icon.tres"),
+	Element.enm.ASTRAL: preload("res://Resources/Textures/UI/Icons/astral_icon.tres"),
+	Element.enm.DARKNESS: preload("res://Resources/Textures/UI/Icons/darkness_icon.tres"),
+	Element.enm.FIRE: preload("res://Resources/Textures/UI/Icons/fire_icon.tres"),
+	Element.enm.IRON: preload("res://Resources/Textures/UI/Icons/iron_icon.tres"),
+	Element.enm.STORM: preload("res://Resources/Textures/UI/Icons/storm_icon.tres"),
+}
 
 @export var _upgrade_element_button: Button
 @export var _tower_buttons_container: GridContainer
 @export var _tower_buttons_scroll_container: ScrollContainer
 @export var _elements_container: VBoxContainer
+@export var _element_icon: TextureRect
 
 
 #########################
@@ -142,6 +152,11 @@ func _update_upgrade_element_button_state():
 	_upgrade_element_button.disabled = !ElementLevel.is_able_to_research(current_element)
 
 
+func _update_element_icon():
+	var current_element = _elements_container.get_element()
+	_element_icon.texture = _element_icons[current_element]
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -149,6 +164,7 @@ func _update_upgrade_element_button_state():
 func _on_element_changed():
 	_update_element()
 	_update_upgrade_element_button_state()
+	_update_element_icon()
 
 
 func _on_tower_built(tower_id):
