@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b1irit3e5ned1"]
+[gd_scene load_steps=37 format=3 uid="uid://b1irit3e5ned1"]
 
 [ext_resource type="PackedScene" uid="uid://c3rx3o4m3ayc1" path="res://Scenes/HUD/Buttons/ElementButton.tscn" id="1_0qma8"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.gd" id="1_u5xus"]
@@ -6,7 +6,6 @@
 [ext_resource type="StyleBox" uid="uid://ckjfsihgl3nhp" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_hover.tres" id="3_1daat"]
 [ext_resource type="StyleBox" uid="uid://behifdalodejt" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_pressed.tres" id="4_d1mbg"]
 [ext_resource type="StyleBox" uid="uid://d0qdny6k5khyq" path="res://Resources/Theme/BottomMenuBar/FilterButtons/ice_filter_style_box_texture_disabled.tres" id="5_y1rw8"]
-[ext_resource type="ButtonGroup" uid="uid://btb8xdpulas1s" path="res://Resources/UI/ButtonGroup/element_filter_button_group.tres" id="6_k7xk7"]
 [ext_resource type="Texture2D" uid="uid://om2iw3jtshn6" path="res://Resources/Textures/UI/Icons/nature_icon.tres" id="7_jiwxt"]
 [ext_resource type="Texture2D" uid="uid://dt7vupry6p4y1" path="res://Resources/Textures/UI/Icons/fire_icon.tres" id="8_nb61j"]
 [ext_resource type="Texture2D" uid="uid://bw81x17f8trjj" path="res://Resources/Textures/UI/Icons/astral_icon.tres" id="9_uh2ua"]
@@ -117,7 +116,6 @@ theme_override_styles/pressed = ExtResource("4_d1mbg")
 theme_override_styles/disabled = ExtResource("5_y1rw8")
 button_pressed = true
 keep_pressed_outside = true
-button_group = ExtResource("6_k7xk7")
 icon = null
 
 [node name="ElementButton2" parent="." groups=["element_button"] instance=ExtResource("1_0qma8")]
@@ -128,7 +126,6 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_li745")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_eh63f")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_ea07t")
 keep_pressed_outside = true
-button_group = ExtResource("6_k7xk7")
 icon = null
 element = 1
 
@@ -140,7 +137,6 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_y4lma")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_kw7yc")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_egfcl")
 keep_pressed_outside = true
-button_group = ExtResource("6_k7xk7")
 icon = null
 element = 2
 
@@ -152,7 +148,6 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_ex0ly")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_v4cav")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_7ot5h")
 keep_pressed_outside = true
-button_group = ExtResource("6_k7xk7")
 icon = null
 element = 3
 
@@ -164,7 +159,6 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_rwsf8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_yuchi")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_wjusv")
 keep_pressed_outside = true
-button_group = ExtResource("6_k7xk7")
 icon = null
 element = 4
 
@@ -176,7 +170,6 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_qfnlr")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_w3wvg")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_udj2c")
 keep_pressed_outside = true
-button_group = ExtResource("6_k7xk7")
 icon = null
 element = 5
 
@@ -188,14 +181,13 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_hok0h")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_evrf4")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_toos0")
 keep_pressed_outside = true
-button_group = ExtResource("6_k7xk7")
 icon = null
 element = 6
 
-[connection signal="pressed" from="ElementButton" to="." method="_on_element_button_pressed"]
-[connection signal="pressed" from="ElementButton2" to="." method="_on_element_button_pressed"]
-[connection signal="pressed" from="ElementButton3" to="." method="_on_element_button_pressed"]
-[connection signal="pressed" from="ElementButton4" to="." method="_on_element_button_pressed"]
-[connection signal="pressed" from="ElementButton5" to="." method="_on_element_button_pressed"]
-[connection signal="pressed" from="ElementButton6" to="." method="_on_element_button_pressed"]
-[connection signal="pressed" from="ElementButton7" to="." method="_on_element_button_pressed"]
+[connection signal="pressed" from="ElementButton" to="." method="_on_element_button_pressed" binds= [0]]
+[connection signal="pressed" from="ElementButton2" to="." method="_on_element_button_pressed" binds= [1]]
+[connection signal="pressed" from="ElementButton3" to="." method="_on_element_button_pressed" binds= [2]]
+[connection signal="pressed" from="ElementButton4" to="." method="_on_element_button_pressed" binds= [3]]
+[connection signal="pressed" from="ElementButton5" to="." method="_on_element_button_pressed" binds= [4]]
+[connection signal="pressed" from="ElementButton6" to="." method="_on_element_button_pressed" binds= [5]]
+[connection signal="pressed" from="ElementButton7" to="." method="_on_element_button_pressed" binds= [6]]

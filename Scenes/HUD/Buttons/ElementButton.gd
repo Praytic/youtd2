@@ -119,3 +119,7 @@ func _on_research_timer_timeout():
 	# show same error message as after button_down_timer.
 	else:
 		Messages.add_error("Can't research this element. Not enough tomes.")
+
+
+func _on_element_button_pressed(extra_arg_0):
+	pass # Replace with function body.

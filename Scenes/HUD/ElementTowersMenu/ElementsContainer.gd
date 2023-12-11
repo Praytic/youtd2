@@ -5,25 +5,20 @@ extends VBoxContainer
 signal element_changed()
 
 
-@onready var _button_group: ButtonGroup = preload("res://Resources/UI/ButtonGroup/element_filter_button_group.tres")
-
-
-var _current_element: Element.enm = Element.enm.ICE : set = set_element, get = get_element
-
-
-func set_element(element: Element.enm):
-	_current_element = element
-	for button in _button_group.get_buttons():
-		if button.element == element:
-			button.set_pressed(true)
-			break
+var _current_element: Element.enm = Element.enm.ICE : get = get_element
 
 
 func get_element() -> Element.enm:
 	return _current_element
 
 
-func _on_element_button_pressed():
-	var pressed_button = _button_group.get_pressed_button()
-	_current_element = pressed_button.element
+func _on_element_button_pressed(element: Element.enm):
+	_current_element = element
+	for button in get_children():
+		var is_current = button.element == _current_element
+		var is_researched = ElementLevel.get_current(button.element) > 0 
+		if is_current or is_researched:
+			button.set_pressed_no_signal(true)
+		else:
+			button.set_pressed_no_signal(false)
 	element_changed.emit()
