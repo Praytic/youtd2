@@ -20,7 +20,7 @@ signal towers_changed()
 #########################
 
 func _ready():
-	_elements_container.element_changed.connect(_update_element)
+	_elements_container.element_changed.connect(_on_element_changed)
 	BuildTower.tower_built.connect(_on_tower_built)
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	TowerDistribution.rolling_starting_towers.connect(_on_rolling_starting_towers)
@@ -145,6 +145,11 @@ func _update_upgrade_element_button_state():
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_element_changed():
+	_update_element()
+	_update_upgrade_element_button_state()
+
 
 func _on_tower_built(tower_id):
 	match Globals.game_mode:
