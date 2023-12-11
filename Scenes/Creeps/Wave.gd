@@ -305,6 +305,8 @@ static func _calculate_base_hp(level: int, difficulty: Difficulty.enm) -> float:
 	return health
 
 
+# NOTE: base armor for waves is rounded down - this is
+# intentional and how it works in original game
 static func _calculate_base_armor(level: int, difficulty: Difficulty.enm) -> float:
 	var a: float
 	var b: float
@@ -333,7 +335,7 @@ static func _calculate_base_armor(level: int, difficulty: Difficulty.enm) -> flo
 			c = 0.001
 
 	var j: int = level - 1
-	var base_armor: float = a + j * (b + j * c)
+	var base_armor: float = floor(a + j * (b + j * c))
 
 	return base_armor
 
