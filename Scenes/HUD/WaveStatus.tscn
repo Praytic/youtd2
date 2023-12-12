@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/HUD/WaveStatus.gd" id="2_fsc15"]
 
 [node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_timer_label")]
+custom_minimum_size = Vector2(650, 0)
 offset_right = 600.0
 offset_bottom = 134.0
 theme = ExtResource("1_3h6gw")
@@ -44,15 +45,5 @@ autowrap_mode = 0
 
 [node name="UpdateStatsTimer" type="Timer" parent="."]
 autostart = true
-
-[node name="GetIdentity" type="HTTPRequest" parent="."]
-accept_gzip = false
-timeout = 5.0
-
-[node name="UsernameLabel" type="Label" parent="."]
-visible = false
-layout_mode = 2
-text = "username"
-horizontal_alignment = 1
 
 [connection signal="timeout" from="UpdateStatsTimer" to="." method="_on_update_stats_timer_timeout"]
