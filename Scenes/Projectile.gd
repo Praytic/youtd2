@@ -500,15 +500,18 @@ func set_homing_target(new_target: Unit):
 #		projectile may be launched towards a dead target.
 #		For example if some other part of tower script
 #		killed the target right before projectile was
-#		created.
+#		created. In such cases, projectile will move to the
+#		position where target was during death.
 		if !new_target.is_dead():
 			if !new_target.death.is_connected(_on_target_death):
 				new_target.death.connect(_on_target_death)
 
 			_target_unit = new_target
-			_is_homing = true
 		else:
 			_target_unit = null
+			_target_pos = new_target.position
+
+		_is_homing = true
 	else:
 		_target_unit = null
 		_target_pos = Vector2.ZERO
