@@ -144,7 +144,7 @@ _tower_stash_scroll_container = NodePath("HBoxContainer/CentralMenu/VBoxContaine
 _item_stash_scroll_container = NodePath("HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer")
 _center_menu = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu")
 _roll_towers_button = NodePath("HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/RollTowersButton")
-_horadric_cube_button = NodePath("HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/HoradricCubeButton")
+_horadric_cube_button = NodePath("HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/ItemStashMenuButton")
 _upgrade_element_button = NodePath("HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton")
 metadata/_edit_vertical_guides_ = [1280.0]
 
@@ -467,7 +467,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HoradricCubeButton" type="Button" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer"]
+[node name="ItemStashMenuButton" type="Button" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 tooltip_text = "Open Horadric Cube"
@@ -483,4 +484,4 @@ icon = ExtResource("40_gseps")
 [connection signal="pressed" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
 [connection signal="gui_input" from="HBoxContainer/CentralMenu2/VBoxContainer/MarginContainer/ScrollContainer/StashMarginContainer" to="." method="_on_stash_margin_container_gui_input"]
-[connection signal="pressed" from="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/HoradricCubeButton" to="." method="_on_horadric_cube_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/AspectRatioContainer/ItemStashMenuButton" to="." method="_on_horadric_cube_button_pressed"]

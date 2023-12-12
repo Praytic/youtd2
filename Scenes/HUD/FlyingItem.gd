@@ -13,11 +13,7 @@ var _item_id: int = 0
 
 @export var _texture_rect: TextureRect
 
-# NOTE: adding type "BottomMenuBar" to "_bottom_menu_bar"
-# variable causes confusing runtime errors. Might be a
-# cyclic dependency issue? Thought it was fixed with the
-# release of Godot 4.
-@onready var _bottom_menu_bar = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD").get_node("%BottomMenuBar")
+@onready var _fly_to_node = get_tree().get_root().get_node("GameScene/%HUD/%BottomMenuBar/%ItemStashMenuButton")
 
 
 static func create(item_id: int, start_pos: Vector2) -> FlyingItem:
@@ -34,8 +30,7 @@ func _ready():
 	var icon: Texture2D = ItemProperties.get_icon(_item_id)
 	_texture_rect.texture = icon
 	
-	var item_menu_button: Control = _bottom_menu_bar.get_item_rarity_filter_button(ItemProperties.get_rarity(_item_id))
-	var target_pos: Vector2 = item_menu_button.global_position + Vector2(45, 45)
+	var target_pos: Vector2 = _fly_to_node.global_position + Vector2(45, 45)
 
 	var pos_tween = create_tween()
 	pos_tween.tween_property(self, "position",
