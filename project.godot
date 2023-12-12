@@ -22,12 +22,12 @@ config/fast_waves=false
 config/visible_spell_dummys=false
 config/dev_controls=true
 config/preload_all_towers_on_startup=false
-config/test_item_list=[]
+config/test_item_list=[268]
 config/version="v0.1.0-SNAPSHOT"
 config/minimap_enabled=false
 config/ignore_requirements=true
-config/starting_gold=9999999
-config/starting_tomes=999999
+config/starting_gold=7000
+config/starting_tomes=90
 config/starting_research_level=0
 config/always_drop_items=false
 config/ignore_upgrade_requirements=true
@@ -39,7 +39,7 @@ config/show_pregame_settings_menu=false
 config/default_wave_count=240
 config/default_game_mode="build"
 config/default_tutorial_enabled=false
-config/default_difficulty="beginner"
+config/default_difficulty="medium"
 config/random_button_counters=false
 config/smart_targeting=true
 config/override_creep_health=0
@@ -55,6 +55,8 @@ config/run_prerender_tool=false
 config/use_prerendered_background=true
 config/run_save_tooltips_tool=false
 config/use_saved_tooltips=true
+#config/default_game_mode="random_with_upgrades"
+#config/show_pregame_settings_menu=false
 
 [autoload]
 
@@ -106,11 +108,11 @@ ManualAttackTarget="*res://Singletons/ManualAttackTarget.gd"
 Settings="*res://Singletons/Settings.gd"
 CombatLog="*res://Singletons/CombatLog.gd"
 SelectPointForCast="*res://Singletons/SelectPointForCast.gd"
+IdentityProviders="*res://Singletons/IdentityProviders.gd"
 
 [debug]
 
 settings/stdout/print_fps=true
-settings/stdout/verbose_stdout=true
 gdscript/warnings/return_value_discarded=false
 gdscript/warnings/assert_always_false=0
 gdscript/warnings/integer_division=0
@@ -192,6 +194,10 @@ start_next_wave={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":78,"key_label":0,"unicode":110,"echo":false,"script":null)
 ]
 }
+
+[input_devices]
+
+pointing/name="YouTD 2"
 
 [physics]
 

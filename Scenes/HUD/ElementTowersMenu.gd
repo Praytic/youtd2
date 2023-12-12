@@ -26,6 +26,7 @@ signal towers_changed()
 @export var _title: Label
 @export var _element_level_label: Label
 @export var _element_info_label: RichTextLabel
+@export var _roll_towers_button: Button
 
 
 #########################
@@ -43,6 +44,11 @@ func _ready():
 	towers_changed.emit()
 	
 	HighlightUI.register_target("tower_stash", _tower_buttons_container)
+	HighlightUI.register_target("upgrade_element_button", _upgrade_element_button)
+	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
+	HighlightUI.register_target("elements_container", _elements_container)
+	
+	_update_tooltip_for_roll_towers_button()
 
 
 #########################
@@ -99,6 +105,12 @@ func remove_tower_button(tower_id, should_emit_signal: bool = true):
 #########################
 ###      Private      ###
 #########################
+
+func _update_tooltip_for_roll_towers_button():
+	var roll_count: int = TowerDistribution.get_current_starting_tower_roll_amount()
+	var tooltip: String = "Press to get a random set of starting towers.\nYou can reroll if you don't like the initial towers\nbut each time you will get less towers.\nNext roll will give you %d towers" % roll_count
+	_roll_towers_button.set_tooltip_text(tooltip)
+
 
 func _update_element():
 	var current_element = _elements_container.get_element()
@@ -233,6 +245,10 @@ func _on_close_button_pressed():
 func _on_game_mode_was_chosen():
 	if Globals.game_mode == GameMode.enm.BUILD:
 		_add_all_towers()
+		_roll_towers_button.hide()
+	else:
+		_roll_towers_button.show()
+
 
 
 func _on_rolling_starting_towers():
@@ -307,3 +323,24 @@ func get_tower_buttons() -> Array:
 
 func get_empty_slots() -> Array:
 	return get_tree().get_nodes_in_group("empty_slot")
+
+
+func _on_roll_towers_button_pressed():
+	var research_any_elements: bool = false
+	
+	for element in Element.get_list():
+		var researched_element: bool = ElementLevel.get_current(element) > 0
+		if researched_element:
+			research_any_elements = true
+	
+	if !research_any_elements:
+		Messages.add_error("Cannot roll towers yet! You need to research at least one element.")
+	
+		return
+	
+	var can_roll_again: bool = TowerDistribution.roll_starting_towers()
+	
+	_update_tooltip_for_roll_towers_button()
+	
+	if !can_roll_again:
+		_roll_towers_button.disabled = true
