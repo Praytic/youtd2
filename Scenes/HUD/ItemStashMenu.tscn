@@ -1,27 +1,26 @@
-[gd_scene load_steps=13 format=3 uid="uid://ino0lr2m12uh"]
+[gd_scene load_steps=15 format=3 uid="uid://ino0lr2m12uh"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ndu1t"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu.gd" id="2_1p8w3"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_7s34h"]
-[ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="4_b6hbg"]
+[ext_resource type="Texture2D" uid="uid://b1oind72lxrm4" path="res://Resources/Textures/UI/Icons/rebrew_icon.tres" id="4_iy7pd"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="5_phoyr"]
+[ext_resource type="Texture2D" uid="uid://dfqns87v0xu7x" path="res://Resources/Textures/UI/Icons/distill_icon.tres" id="5_pr6yq"]
+[ext_resource type="Texture2D" uid="uid://bk4dvb16ukwx8" path="res://Resources/Textures/UI/Icons/reassemble_icon.tres" id="6_10i6k"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/TowerButtonsScrollContainer.gd" id="6_pd5wx"]
-[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="7_bg6xe"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="8_b8ld5"]
+[ext_resource type="Texture2D" uid="uid://bvclahxp4mvge" path="res://Resources/Textures/UI/Icons/perfect_icon.tres" id="7_xqx70"]
+[ext_resource type="PackedScene" uid="uid://d0snws11d0wjs" path="res://Scenes/HUD/ItemStashMenu/RarityFilterContainer.tscn" id="10_pry25"]
+[ext_resource type="PackedScene" uid="uid://ib3y0a6h0v46" path="res://Scenes/HUD/ItemStashMenu/ItemTypeFilterContainer.tscn" id="11_isi7i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sda8v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k678"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tli8x"]
-atlas = ExtResource("4_b6hbg")
-region = Rect2(0, 256, 128, 128)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_tower_buttons_scroll_container", "_elements_container", "_element_icon", "_title", "_element_level_label", "_element_info_label")]
+[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_tower_buttons_scroll_container", "_title", "_element_info_label")]
 offset_right = 600.0
 offset_bottom = 736.0
 size_flags_horizontal = 4
@@ -31,12 +30,9 @@ theme = ExtResource("1_ndu1t")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
 script = ExtResource("2_1p8w3")
 _upgrade_element_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton")
-_tower_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2")
+_tower_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer")
 _tower_buttons_scroll_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer")
-_elements_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ElementsContainer")
-_element_icon = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/IconContainer/ElementIcon")
 _title = NodePath("MainContainer/MarginContainer2/TitleLabel")
-_element_level_label = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ElementLevelLabel")
 _element_info_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/InfoLabel")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
@@ -54,7 +50,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
 theme_override_styles/normal = ExtResource("3_7s34h")
-text = "ICE"
+text = "INVENTORY"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
@@ -108,7 +104,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
 theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
-text = "Info"
+text = "Horadric Cube"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -122,33 +118,90 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
+alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 0
 
-[node name="IconContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+columns = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 2
+alignment_vertical = 2
+
+[node name="RebrewButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+tooltip_text = "Converts 2 oils or consumables of the same rarity into 1 oil or consumable if the same rarity"
+theme_type_variation = &"TinyUnitButton"
+icon = ExtResource("4_iy7pd")
+alignment = 2
+expand_icon = true
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 2
+
+[node name="DistillButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer2"]
+layout_mode = 2
+tooltip_text = "Converts 4 oils or consumables of the same rarity into 1 oil or consumable one rarity higher"
+theme_type_variation = &"TinyUnitButton"
+icon = ExtResource("5_pr6yq")
+alignment = 2
+expand_icon = true
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 2
 alignment_vertical = 0
 
-[node name="ElementIcon" type="TextureRect" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/IconContainer"]
-custom_minimum_size = Vector2(100, 100)
+[node name="ReassembleButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer3"]
 layout_mode = 2
-texture = SubResource("AtlasTexture_tli8x")
-expand_mode = 2
+tooltip_text = "Converts 3 permanent items of the same rarity into 1 permanent item of the same rarity."
+theme_type_variation = &"TinyUnitButton"
+icon = ExtResource("6_10i6k")
+alignment = 2
+expand_icon = true
+
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="PerfectButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer4"]
+layout_mode = 2
+tooltip_text = "Converts 5 permanent items of the same rarity into 1 item one rarity higher."
+theme_type_variation = &"TinyUnitButton"
+icon = ExtResource("7_xqx70")
+alignment = 2
+expand_icon = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_constants/margin_left = 15
-theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="UpgradeElementButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 focus_mode = 0
-text = "UPGRADE"
+text = "MERGE"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -159,6 +212,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="InfoLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
@@ -173,6 +227,39 @@ text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and
 [color=GOLD]Main attack types:[/color] Elemental, Energy"
 fit_content = true
 scroll_active = false
+
+[node name="EmptySlotsContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="EmptyUnitButton1" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/EmptySlotsContainer" instance=ExtResource("5_phoyr")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="EmptyUnitButton12" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/EmptySlotsContainer" instance=ExtResource("5_phoyr")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="EmptyUnitButton11" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/EmptySlotsContainer" instance=ExtResource("5_phoyr")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/EmptySlotsContainer" instance=ExtResource("5_phoyr")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/EmptySlotsContainer" instance=ExtResource("5_phoyr")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="EmptyUnitButton6" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/EmptySlotsContainer" instance=ExtResource("5_phoyr")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
 
 [node name="Inventory" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -199,7 +286,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"InfoContainerLabel"
 theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
-text = "Towers"
+text = "Items"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -273,7 +360,7 @@ script = ExtResource("6_pd5wx")
 layout_mode = 2
 theme_override_constants/margin_bottom = 10
 
-[node name="TowerButtonsContainer2" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+[node name="ItemButtonsContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -286,8 +373,8 @@ columns = 4
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
-theme_override_constants/margin_left = -20
-theme_override_constants/margin_top = -20
+theme_override_constants/margin_left = -30
+theme_override_constants/margin_top = 40
 theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="MainContainer/MarginContainer/MarginContainer"]
@@ -295,23 +382,12 @@ layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
 
-[node name="ElementLevelLabel" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(80, 80)
+[node name="RarityFilterContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2" instance=ExtResource("10_pry25")]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = ExtResource("7_bg6xe")
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="ElementsContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2" instance=ExtResource("8_b8ld5")]
+[node name="ItemTypeFilterContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2" instance=ExtResource("11_isi7i")]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_vertical = 10
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 z_index = 10

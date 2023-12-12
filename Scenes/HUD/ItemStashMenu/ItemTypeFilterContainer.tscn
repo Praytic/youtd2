@@ -1,0 +1,62 @@
+[gd_scene load_steps=13 format=3 uid="uid://ib3y0a6h0v46"]
+
+[ext_resource type="PackedScene" uid="uid://dan6pqpxexgbi" path="res://Scenes/HUD/Buttons/ItemFilterButton.tscn" id="1_q4p2d"]
+[ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="2_ftq7a"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemTypeFilterButton.gd" id="4_8btv5"]
+[ext_resource type="Texture2D" uid="uid://c50etdjubvudf" path="res://Resources/Textures/UI/Icons/oils_icon.tres" id="5_fd3uu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahejp"]
+texture = ExtResource("2_ftq7a")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ib584"]
+texture = ExtResource("2_ftq7a")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pexw0"]
+texture = ExtResource("2_ftq7a")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w4dok"]
+texture = ExtResource("2_ftq7a")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6dht0"]
+texture = ExtResource("5_fd3uu")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_um3tl"]
+texture = ExtResource("5_fd3uu")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f781c"]
+texture = ExtResource("5_fd3uu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_srwu8"]
+texture = ExtResource("5_fd3uu")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[node name="ItemTypeFilterContainer" type="VBoxContainer"]
+size_flags_horizontal = 10
+alignment = 2
+
+[node name="ItemFilterButton1" parent="." instance=ExtResource("1_q4p2d")]
+layout_mode = 2
+tooltip_text = "Show only regular items"
+theme_override_styles/normal = SubResource("StyleBoxTexture_ahejp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ib584")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pexw0")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_w4dok")
+icon = null
+script = ExtResource("4_8btv5")
+filter_value = Array[int]([0])
+
+[node name="ItemFilterButton2" parent="." instance=ExtResource("1_q4p2d")]
+layout_mode = 2
+tooltip_text = "Show only oils and consumables"
+theme_override_styles/normal = SubResource("StyleBoxTexture_6dht0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_um3tl")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_f781c")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_srwu8")
+icon = null
+script = ExtResource("4_8btv5")
+filter_value = Array[int]([1, 2])
