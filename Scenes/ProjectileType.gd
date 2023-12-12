@@ -65,7 +65,7 @@ static func create_ranged(model: String, the_range: float, speed: float, parent:
 
 # projectileType.disableExplodeOnHit() in JASS
 func disable_explode_on_hit():
-	_explode_on_hit = true
+	_explode_on_hit = false
 
 
 # TODO: implement
