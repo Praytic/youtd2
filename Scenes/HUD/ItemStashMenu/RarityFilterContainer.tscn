@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://d0snws11d0wjs"]
+[gd_scene load_steps=24 format=3 uid="uid://d0snws11d0wjs"]
 
 [ext_resource type="PackedScene" uid="uid://dan6pqpxexgbi" path="res://Scenes/HUD/Buttons/ItemFilterButton.tscn" id="1_jtguh"]
+[ext_resource type="Script" path="res://Scenes/HUD/ItemStashMenu/ItemFilterContainer.gd" id="1_nfudw"]
 [ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://Resources/Textures/UI/Icons/common_icon.tres" id="2_61hhn"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/ItemRarityFilterButton.gd" id="4_lvpfk"]
 [ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="5_a2vcv"]
@@ -69,6 +70,7 @@ modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
 
 [node name="RarityFilterContainer" type="VBoxContainer"]
 size_flags_horizontal = 0
+script = ExtResource("1_nfudw")
 
 [node name="ItemFilterButton1" parent="." instance=ExtResource("1_jtguh")]
 layout_mode = 2
@@ -113,3 +115,8 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_hmsb3")
 icon = null
 script = ExtResource("4_lvpfk")
 filter_value = 3
+
+[connection signal="toggled" from="ItemFilterButton1" to="." method="_on_filter_button_pressed"]
+[connection signal="toggled" from="ItemFilterButton2" to="." method="_on_filter_button_pressed"]
+[connection signal="toggled" from="ItemFilterButton3" to="." method="_on_filter_button_pressed"]
+[connection signal="toggled" from="ItemFilterButton4" to="." method="_on_filter_button_pressed"]

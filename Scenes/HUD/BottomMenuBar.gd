@@ -95,7 +95,7 @@ func _on_item_stash_changed():
 	for button in _item_rarity_filter_button_group.get_buttons():
 		button.set_items_count(item_stash_container.get_item_count(button.filter_value, []))
 	for button in _item_type_filter_button_group.get_buttons():
-		button.set_items_count(item_stash_container.get_item_count(null, button.filter_value))
+		button.set_items_count(item_stash_container.get_item_count([], button.filter_value))
 
 
 func _on_horadric_cube_button_pressed():

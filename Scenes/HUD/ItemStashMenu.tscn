@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://ino0lr2m12uh"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ndu1t"]
-[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu.gd" id="2_1p8w3"]
+[ext_resource type="Script" path="res://Scenes/HUD/ItemStashMenu.gd" id="2_8kq4a"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_7s34h"]
 [ext_resource type="Texture2D" uid="uid://b1oind72lxrm4" path="res://Resources/Textures/UI/Icons/rebrew_icon.tres" id="4_iy7pd"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="5_phoyr"]
@@ -20,7 +20,7 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_tower_buttons_scroll_container", "_title", "_element_info_label")]
+[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter_container", "_item_type_filter_container", "_item_buttons_container")]
 offset_right = 600.0
 offset_bottom = 736.0
 size_flags_horizontal = 4
@@ -28,12 +28,10 @@ size_flags_vertical = 4
 mouse_force_pass_scroll_events = false
 theme = ExtResource("1_ndu1t")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
-script = ExtResource("2_1p8w3")
-_upgrade_element_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton")
-_tower_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer")
-_tower_buttons_scroll_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer")
-_title = NodePath("MainContainer/MarginContainer2/TitleLabel")
-_element_info_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/InfoLabel")
+script = ExtResource("2_8kq4a")
+_rarity_filter_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/RarityFilterContainer")
+_item_type_filter_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ItemTypeFilterContainer")
+_item_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -358,12 +356,12 @@ script = ExtResource("6_pd5wx")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/margin_bottom = 10
 
 [node name="ItemButtonsContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 mouse_filter = 0
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10

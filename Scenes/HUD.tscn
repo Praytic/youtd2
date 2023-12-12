@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=15 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://Scenes/HUD/TopLeftMenu.tscn" id="10_agdn3"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
+[ext_resource type="PackedScene" uid="uid://ino0lr2m12uh" path="res://Scenes/HUD/ItemStashMenu.tscn" id="11_5i6a2"]
 [ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://Resources/Textures/UI/portal_lives_round_bg.tres" id="11_hbwuy"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://ckiupnhfj32n6" path="res://Scenes/HUD/HoradricMenu2.tscn" id="11_lvdfq"]
@@ -149,6 +150,9 @@ size_flags_vertical = 0
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
+
+[node name="ItemStashMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_5i6a2")]
+layout_mode = 2
 
 [node name="Bottom" type="HBoxContainer" parent="MarginContainer/All"]
 layout_mode = 2
