@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=14 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="PackedScene" uid="uid://ckiupnhfj32n6" path="res://Scenes/HUD/HoradricMenu2.tscn" id="11_lvdfq"]
 [ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://Assets/UI/HUD/darkness_face.png" id="12_2mxp4"]
-[ext_resource type="PackedScene" uid="uid://dvo433axo22w3" path="res://Scenes/HUD/ElementTowersMenu.tscn" id="12_8mntx"]
 [ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://Assets/UI/HUD/tranquility_face.png" id="13_n0pc1"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://Scenes/HUD/CombatLogWindow.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/UnitMenu.tscn" id="15_rfxf1"]
@@ -39,6 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
@@ -46,6 +46,7 @@ theme_override_constants/margin_bottom = 15
 
 [node name="All" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 20
 
 [node name="Top" type="HBoxContainer" parent="MarginContainer/All"]
@@ -114,12 +115,6 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="CombatLogWindow" parent="MarginContainer/All/Center/CenterLeft/MarginContainer" instance=ExtResource("14_g64vx")]
-visible = false
-clip_contents = true
-custom_minimum_size = Vector2(0, 0)
-layout_mode = 2
-
 [node name="CenterRight" type="VBoxContainer" parent="MarginContainer/All/Center"]
 layout_mode = 1
 anchors_preset = 15
@@ -153,11 +148,6 @@ size_flags_vertical = 0
 [node name="TowerMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("15_rfxf1")]
 visible = false
 layout_mode = 2
-size_flags_vertical = 0
-
-[node name="ElementTowersMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("12_8mntx")]
-layout_mode = 2
-size_flags_horizontal = 8
 size_flags_vertical = 0
 
 [node name="Bottom" type="HBoxContainer" parent="MarginContainer/All"]
@@ -197,6 +187,16 @@ mouse_filter = 2
 [node name="FirstNodeDummy" type="Control" parent="MarginContainer2/ErrorMessageContainer"]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="CombatLogWindow" parent="." instance=ExtResource("14_g64vx")]
+visible = false
+clip_contents = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+offset_left = 15.0
+offset_top = 644.0
+offset_right = 1015.0
+offset_bottom = 1147.0
 
 [node name="Minimap" parent="." instance_placeholder="res://Scenes/HUD/Minimap.tscn"]
 visible = false
