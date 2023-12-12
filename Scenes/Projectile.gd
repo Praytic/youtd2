@@ -336,15 +336,7 @@ func _process_normal(delta: float):
 				return
 
 			if _explode_on_hit:
-				var explosion = Globals.explosion_scene.instantiate()
-
-				if _target_unit != null:
-					explosion.position = _target_unit.get_visual_position()
-					explosion.z_index = _target_unit.z_index
-				else:
-					explosion.position = global_position
-
-				Utils.add_object_to_world(explosion)
+				_do_explosion_visual()
 
 			_cleanup()
 
@@ -388,15 +380,7 @@ func _process_interpolated(delta: float):
 			return
 
 		if _explode_on_hit:
-			var explosion = Globals.explosion_scene.instantiate()
-
-			if _target_unit != null:
-				explosion.position = _target_unit.get_visual_position()
-				explosion.z_index = _target_unit.z_index
-			else:
-				explosion.position = global_position
-
-			Utils.add_object_to_world(explosion)
+			_do_explosion_visual()
 
 		_cleanup()
 
@@ -708,3 +692,9 @@ func _start_interpolation_internal(target_unit: Unit, target_pos: Vector2, targe
 	var travel_distance: float = travel_vector_top_down.length()
 	_interpolation_progress = 0
 	_interpolation_distance = travel_distance
+
+
+func _do_explosion_visual():
+	var explosion = Globals.explosion_scene.instantiate()
+	explosion.position = position
+	Utils.add_object_to_world(explosion)
