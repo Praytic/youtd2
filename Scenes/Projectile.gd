@@ -379,6 +379,8 @@ func _process_interpolated(delta: float):
 		if _avert_destruct_requested:
 			_avert_destruct_requested = false
 
+			stop_interpolation()
+
 			return
 
 		if _explode_on_hit:
