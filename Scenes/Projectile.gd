@@ -29,6 +29,7 @@ var _homing_control_value: float
 var _speed: float = 50
 var _acceleration: float = 0
 var _explode_on_hit: bool = true
+var _explode_on_expiration: bool = true
 const CONTACT_DISTANCE: int = 15
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
@@ -180,6 +181,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile.set_speed(type._speed)
 	projectile._acceleration = type._acceleration
 	projectile._explode_on_hit = type._explode_on_hit
+	projectile._explode_on_expiration = type._explode_on_expiration
 	projectile._move_type = type._move_type
 	projectile._homing_control_value = type._homing_control_value
 
@@ -626,6 +628,9 @@ func _do_homing_behavior(delta: float):
 func _expire():
 	if _expiration_handler.is_valid():
 		_expiration_handler.call(self)
+
+	if _explode_on_expiration:
+		_do_explosion_visual()
 
 	_cleanup()
 
