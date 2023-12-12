@@ -54,10 +54,8 @@ func _ready():
 	_upgrade_button.mouse_entered.connect(_on_tower_upgrade_button_mouse_entered)
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
-		var button_container: UnitButtonContainer = UnitButtonContainer.make()
 		var empty_slot_button: EmptyUnitButton = EmptyUnitButton.make()
-		button_container.add_child(empty_slot_button)
-		_inventory_empty_slots.add_child(button_container)
+		_inventory_empty_slots.add_child(empty_slot_button)
 
 
 func _process(_delta: float):
@@ -177,9 +175,7 @@ func on_tower_items_changed(tower: Tower):
 		item_button.show_auto_mode_indicator()
 		item_button.theme_type_variation = "TinyUnitButton"
 		item_button.show_charges()
-		var button_container: UnitButtonContainer = UnitButtonContainer.make()
-		button_container.add_child(item_button)
-		_items_box_container.add_child(button_container)
+		_items_box_container.add_child(item_button)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 
 

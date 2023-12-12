@@ -35,6 +35,7 @@ signal towers_changed()
 
 func _ready():
 	_elements_container.element_changed.connect(_on_element_changed)
+	WaveLevel.changed.connect(_on_wave_level_changed)
 	BuildTower.tower_built.connect(_on_tower_built)
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 	TowerDistribution.rolling_starting_towers.connect(_on_rolling_starting_towers)
@@ -272,6 +273,14 @@ func _on_element_level_changed():
 
 func _on_knowledge_tomes_changed():
 	_update_upgrade_element_button_state()
+
+
+func _on_wave_level_changed():
+	var new_wave_level: int = WaveLevel.get_current()
+	var start_first_wave: bool = new_wave_level == 1
+
+	if start_first_wave:
+		_roll_towers_button.disabled = true
 
 
 #########################
