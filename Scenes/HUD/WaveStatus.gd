@@ -10,8 +10,12 @@ extends VBoxContainer
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
 @export var _timer_label: RichTextLabel
 
+var _armor_hint_map: Dictionary
+
 
 func _ready():
+	_armor_hint_map = _generate_armor_hints()
+
 	WaveLevel.changed.connect(_update_all_labels)
 	_wave_spawner.generated_all_waves.connect(_update_all_labels)
 
@@ -80,12 +84,13 @@ func _update_details_label():
 		var size_string: String = wave.get_creep_combination_string()
 
 		var armor_type: ArmorType.enm = wave.get_armor_type()
+		var armor_hint: String = _armor_hint_map[armor_type]
 		var armor_string: String = ArmorType.convert_to_colored_string(armor_type)
 
 		var specials_description: String = _get_specials_description(wave)
 		var specials_string: String = _get_specials_string_short(wave)
 
-		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell][hint=%s]%s[/hint][/cell]" % [level, size_string, race_string, armor_string, specials_description, specials_string]
+		text += "[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell][hint=%s]%s[/hint][/cell][cell][hint=%s]%s[/hint][/cell]" % [level, size_string, race_string, armor_hint, armor_string, specials_description, specials_string]
 	
 	text += "[/table]"
 
@@ -154,3 +159,16 @@ func _on_update_stats_timer_timeout():
 
 	_stats_label.clear()
 	_stats_label.append_text(text)
+
+
+func _generate_armor_hints() -> Dictionary:
+	var out: Dictionary = {}
+
+	for armor_type in ArmorType.get_list():
+		var hint: String = ""
+		hint += "Damage from:\n"
+		hint += ArmorType.get_text_for_damage_taken(armor_type)
+
+		out[armor_type] = hint
+
+	return out

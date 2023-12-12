@@ -40,7 +40,6 @@ const WC3_DISTANCE_TO_PIXELS: float = TILE_SIZE_PIXELS / TILE_SIZE_WC3
 const DEATH_EXPLODE_EFFECT_SIZE: float = 32.0
 const LEVEL_UP_EFFECT_SIZE: float = 32.0
 
-const ARMOR_COEFFICIENT: float = 0.04
 const SPELL_DAMAGE_RATIO: float = 0.9
 
 const MAX_LEVEL: int = 25

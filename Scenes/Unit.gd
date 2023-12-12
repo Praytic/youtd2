@@ -1470,17 +1470,20 @@ func get_damage_add() -> float:
 func get_damage_add_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_DAMAGE_ADD_PERC])
 
-func get_base_armor_damage_reduction() -> float:
-	var armor: float = get_base_armor()
-	var coeff: float = Constants.ARMOR_COEFFICIENT
-	var reduction: float = min(1.0, (armor * coeff) / (1.0 + armor * coeff))
-
-	return reduction
-
 func get_current_armor_damage_reduction() -> float:
 	var armor: float = get_overall_armor()
-	var coeff: float = Constants.ARMOR_COEFFICIENT
-	var reduction: float = clampf((armor * coeff) / (1.0 + armor * coeff), 0.0, 1.0)
+
+	var reduction: float
+	if armor >= 0:
+		reduction = armor / (armor + 25)
+	else:
+		reduction = 0.0
+#		NOTE: JASS code has the formula below, not sure why.
+#		This would mean that if armor is reduced below 0
+#		then reduction would be negative - meaning that
+#		creep would get healed??? Probably somewhere else in
+#		JASS code this value would be forced to 0 anyway.
+		# reduction = pow(0.94, -armor) - 1.0
 
 	return reduction
 
