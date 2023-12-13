@@ -223,7 +223,7 @@ func do_cast_manually():
 #		to select point in world. The cast will finish when
 #		player selects a point and
 #		do_cast_manually_finish_for_point() is called.
-		SelectTargetForCast.start(self)
+		SelectPointForCast.start(self)
 	else:
 #		NOTE: for manual cast on unit, need to exit this f-n
 #		to select target. The cast will finish when player
