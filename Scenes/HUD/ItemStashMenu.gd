@@ -2,6 +2,9 @@
 extends PanelContainer
 
 
+# This UI element displays items which are currently in the
+# item stash. Note that adding/removing items from stash is
+# implemented by ItemStash class.
 @export var _rarity_filter_container: VBoxContainer
 @export var _item_type_filter_container: VBoxContainer
 @export var _item_buttons_container: GridContainer
