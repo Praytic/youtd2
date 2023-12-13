@@ -105,6 +105,7 @@ PortalLives="*res://Singletons/PortalLives.gd"
 ManualAttackTarget="*res://Singletons/ManualAttackTarget.gd"
 Settings="*res://Singletons/Settings.gd"
 CombatLog="*res://Singletons/CombatLog.gd"
+SelectPointForCast="*res://Singletons/SelectPointForCast.gd"
 
 [debug]
 
@@ -128,6 +129,7 @@ enabled=PackedStringArray()
 
 [gui]
 
+theme/custom="res://Resources/Theme/wc3_theme.tres"
 theme/custom_font="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf"
 common/drop_mouse_on_gui_input_disabled=true
 
