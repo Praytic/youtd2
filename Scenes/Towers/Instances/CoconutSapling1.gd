@@ -24,7 +24,7 @@ func get_tier_stats() -> Dictionary:
 const STUN_DURATION: float = 0.5
 const STUN_CD: float = 1.5
 # NOTE: divide by 2 to account for isometric projection
-const COCONUT_INITIAL_Z: float = 1000 / 2.0
+const COCONUT_RANGE: float = 1000
 
 
 func get_ability_description() -> String:
@@ -65,7 +65,7 @@ func load_specials(modifier: Modifier):
 
 
 func tower_init():
-	var pt_range: float = COCONUT_INITIAL_Z
+	var pt_range: float = COCONUT_RANGE
 	var pt_speed: float = 1000
 	cedi_coco_pt = ProjectileType.create_ranged("catapultmissile.mdl", pt_range, pt_speed, self)
 	cedi_coco_pt.set_event_on_expiration(cedi_coco_pt_on_hit)
@@ -98,7 +98,8 @@ func on_damage(event: Event):
 		var offset_vector_top_down: Vector2 = Vector2(radius, 0).rotated(angle)
 		var offset_vector_isometric: Vector2 = Isometric.top_down_vector_to_isometric(offset_vector_top_down)
 		var coconut_pos: Vector2 = target.position + offset_vector_isometric
-		coconut_pos.y -= COCONUT_INITIAL_Z
+#		NOTE: divide by 2 to account for isometric projection
+		coconut_pos.y -= COCONUT_RANGE / 2.0
 		var projectile: Projectile = Projectile.create(cedi_coco_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), coconut_pos.x, coconut_pos.y, 0.0, 90)
 		projectile.setScale(0.30)
 		var random_speed: float = projectile.get_speed() * randf_range(0.75, 1.25)
