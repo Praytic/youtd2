@@ -53,13 +53,14 @@ theme_override_styles/panel = ExtResource("3_hbgo8")
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer3/PanelContainer"]
 layout_mode = 2
 
-[node name="UpgradeElementButton" type="Button" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
+[node name="ElementTowersButton" type="Button" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Research the selected element. This will increase
  the level of the element by 1. The higher the 
 element level, the greater the rarity of the towers
  and the higher the chance they will drop after 
 each wave is cleared."
+focus_mode = 0
 text = "TOWERS"
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
@@ -134,8 +135,5 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 tooltip_text = "Open Horadric Cube"
+focus_mode = 0
 text = "ITEMS"
-
-[connection signal="mouse_entered" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton" to="." method="_on_upgrade_element_mouse_entered"]
-[connection signal="pressed" from="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
-[connection signal="pressed" from="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/ItemStashMenuButton" to="." method="_on_horadric_cube_button_pressed"]

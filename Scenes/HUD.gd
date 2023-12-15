@@ -8,7 +8,8 @@ signal stop_wave()
 @export var _error_message_container: VBoxContainer
 @export var _normal_message_container: VBoxContainer
 @export var _game_over_label: RichTextLabel
-@export var _horadric_menu: Control
+@export var _elements_tower_menu: Control
+@export var _item_stash_menu: Control
 
 
 func _ready():
@@ -21,7 +22,6 @@ func _ready():
 	SFX.connect_sfx_to_signal_in_group("res://Assets/SFX/menu_sound_5.wav", "pressed", "sfx_menu_click")
 
 	EventBus.game_over.connect(_on_game_over)
-	EventBus.horadric_menu_visibility_changed.connect(_on_horadric_cube_visibility_changed)
 
 
 func get_error_message_container() -> VBoxContainer:
@@ -36,5 +36,10 @@ func _on_game_over():
 	_game_over_label.show()
 
 
-func _on_horadric_cube_visibility_changed():
-	_horadric_menu.visible = !_horadric_menu.visible
+func _on_towers_button_pressed():
+	_elements_tower_menu.show()
+
+
+func _on_items_button_pressed():
+	_item_stash_menu.show()
+
