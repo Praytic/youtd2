@@ -15,7 +15,7 @@ Besides being a community-based game, it's still a great, well-balanced Tower De
 
 - Stable release of the game - (https://praytic.itch.io/youtd2)
 - Official website - (https://youtd2.com/)
-- Discord - (discord.gg/EksA2CfCS9)
+- Discord - (https://discord.gg/EksA2CfCS9)
 - Devlog - (https://praytic.itch.io/youtd2/devlog)
 - YouTube - (https://youtube.com/@YouTD2-zj5be)
 - Twitter - (https://twitter.com/Icob2Games)
