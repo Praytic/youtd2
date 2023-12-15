@@ -91,6 +91,23 @@ func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	ItemMovement.item_was_clicked_in_item_stash(item)
 
+
+func _on_rebrew_button_pressed():
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.TWO_OILS_OR_CONSUMABLES)
+
+
+func _on_distill_button_pressed():
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.FOUR_OILS_OR_CONSUMABLES)
+
+
+func _on_reassemble_button_pressed():
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.THREE_ITEMS)
+
+
+func _on_perfect_button_pressed():
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.FIVE_ITEMS)
+
+
 #########################
 ### Setters / Getters ###
 #########################
