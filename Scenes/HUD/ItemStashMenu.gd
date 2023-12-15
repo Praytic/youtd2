@@ -87,6 +87,10 @@ func _on_item_stash_changed():
 	_prev_item_list = item_list.duplicate()
 
 
+func _on_transmute_button_pressed():
+	HoradricCube.transmute()
+
+
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	ItemMovement.item_was_clicked_in_item_stash(item)

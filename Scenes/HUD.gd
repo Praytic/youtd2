@@ -23,7 +23,6 @@ func _ready():
 	SFX.connect_sfx_to_signal_in_group("res://Assets/SFX/menu_sound_5.wav", "pressed", "sfx_menu_click")
 
 	EventBus.game_over.connect(_on_game_over)
-	_unit_menu.visibility_changed.connect(_on_unit_menu_visibility_changed)
 
 
 func get_error_message_container() -> VBoxContainer:
@@ -36,11 +35,6 @@ func get_normal_message_container() -> VBoxContainer:
 
 func _on_game_over():
 	_game_over_label.show()
-
-
-func _on_unit_menu_visibility_changed():
-	if _unit_menu.visible:
-		_elements_tower_menu.hide()
 
 
 func _on_towers_button_pressed():
