@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://chojoq00uw7ng"]
+[gd_scene load_steps=20 format=3 uid="uid://chojoq00uw7ng"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ucvet"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu.gd" id="2_mulfo"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="4_65e54"]
 [ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="5_axr2n"]
 [ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/TowerMenu/TowerSpecialContainer.tscn" id="6_njlch"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="7_0rpr1"]
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="7_jx6gy"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="8_jstgw"]
 [ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://Scenes/HUD/CreepInfo.tscn" id="8_rim5q"]
@@ -56,9 +57,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -560.0
-offset_top = -402.0
-offset_bottom = 402.0
+offset_left = -699.0
+offset_top = -444.0
+offset_right = -69.0
+offset_bottom = 446.0
 grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 8
@@ -115,8 +117,9 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Panel" type="PanelContainer" parent="MainContainer/MarginContainer"]
-custom_minimum_size = Vector2(700, 900)
+custom_minimum_size = Vector2(630, 809)
 layout_mode = 2
+size_flags_horizontal = 0
 mouse_filter = 2
 theme_type_variation = &"MainPanelContainer"
 
@@ -307,19 +310,37 @@ vertical_alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory"]
 layout_mode = 2
-theme_override_constants/margin_left = 40
+theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 40
+theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 
 [node name="InventoryEmptySlots" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 64
+
+[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="EmptyUnitButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="EmptyUnitButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
 
 [node name="ItemsContainer" type="HBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 64
 
 [node name="UnitStatsMenu" type="ScrollContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer"]
 visible = false

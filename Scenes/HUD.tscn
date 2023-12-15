@@ -148,10 +148,14 @@ layout_mode = 2
 size_flags_vertical = 0
 
 [node name="ItemStashMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_5i6a2")]
+visible = false
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="ElementTowersMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_gv2lk")]
+visible = false
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="Bottom" type="HBoxContainer" parent="MarginContainer/All"]
 layout_mode = 2
@@ -159,10 +163,8 @@ size_flags_vertical = 8
 
 [node name="BottomMenuBar" parent="MarginContainer/All/Bottom" instance=ExtResource("5")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(1900, 288)
 layout_mode = 2
 size_flags_horizontal = 6
-size_flags_vertical = 8
 metadata/_edit_vertical_guides_ = []
 
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]

@@ -1,4 +1,4 @@
-extends Control
+extends PanelContainer
 
 
 @export var _tomes_status: ResourceStatusPanel

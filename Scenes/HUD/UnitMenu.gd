@@ -4,6 +4,7 @@ extends PanelContainer
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
 const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.png")
+const ITEMS_CONTAINER_BUTTON_SIZE = 100
 
 @export var _upgrade_button: Button
 @export var _sell_button: Button
@@ -52,6 +53,7 @@ func _ready():
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
 	_info_button.pressed.connect(_on_info_button_pressed)
 	_upgrade_button.mouse_entered.connect(_on_tower_upgrade_button_mouse_entered)
+	_items_box_container.child_entered_tree.connect(_on_items_box_container_child_entered_tree)
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
 		var empty_slot_button: EmptyUnitButton = EmptyUnitButton.make()
@@ -77,6 +79,10 @@ func _on_update_requirements_changed():
 	var tower = get_selected_tower()
 	if tower != null:
 		_update_upgrade_button(tower)
+
+
+func _on_items_box_container_child_entered_tree(node):
+	node.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
 
 
 func _on_selected_unit_changed(prev_unit: Unit):

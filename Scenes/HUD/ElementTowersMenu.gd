@@ -246,7 +246,7 @@ func _on_close_button_pressed():
 func _on_game_mode_was_chosen():
 	if Globals.game_mode == GameMode.enm.BUILD:
 		_add_all_towers()
-		_roll_towers_button.show()
+		_roll_towers_button.hide()
 	else:
 		_roll_towers_button.show()
 
