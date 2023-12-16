@@ -535,6 +535,12 @@ func do_spell_damage_aoe(x: float, y: float, radius: float, damage: float, crit_
 		do_spell_damage(creep, damage_for_creep, crit_ratio)
 
 
+# Deals aoe damage from the position of the unit
+# NOTE: dummyUnit.doSpellDamagePBAoE() in JASS
+func do_spell_damage_pb_aoe(radius: float, damage: float, crit_ratio: float, sides_ratio: float):
+	do_spell_damage_aoe(position.x, position.y, radius, damage, crit_ratio, sides_ratio)
+
+
 # NOTE: unit.killInstantly() in JASS
 func kill_instantly(target: Unit):
 	target._killed_by_unit(self)
