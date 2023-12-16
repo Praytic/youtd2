@@ -501,7 +501,7 @@ func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float
 	if target.is_immune() && deals_no_damage_to_immune:
 		damage = 0
 
-	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target, crit_count)
+	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target, attack_type, crit_count)
 
 
 # NOTE: sides_ratio parameter specifies how much less damage
@@ -790,7 +790,7 @@ func _on_regen_timer_timeout():
 	set_health(_health + health_regen)
 
 
-func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, crit_count: int = -1) -> bool:
+func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, attack_type: AttackType.enm = get_attack_type(), crit_count: int = -1) -> bool:
 #	NOTE: if crit_count is -1, then _do_damage() was called
 #	from f-n like do_attack_damage(), where we only have
 #	access to crit_ratio. In that case derive crit count
@@ -802,7 +802,8 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	var target_size: CreepSize.enm = target.get_size()
 	var size_mod: float = get_damage_to_size(target_size)
 	var category_mod: float = get_damage_to_category(target.get_category())
-	var armor_type_mod: float = _get_damage_mod_for_creep_armor_type(target)
+	var armor_type: ArmorType.enm = target.get_armor_type()
+	var armor_type_mod: float = AttackType.get_damage_against(attack_type, armor_type)
 
 	var damage: float = damage_base * size_mod * category_mod * armor_type_mod
 
@@ -1518,13 +1519,6 @@ func get_overall_armor_bonus() -> float:
 
 func get_dps_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_DPS_ADD]
-
-func _get_damage_mod_for_creep_armor_type(creep: Creep) -> float:
-	var attack_type: AttackType.enm = get_attack_type()
-	var armor_type: ArmorType.enm = creep.get_armor_type()
-	var damage_mod: float = AttackType.get_damage_against(attack_type, armor_type)
-
-	return damage_mod
 
 
 # NOTE: unit.getDamageToCategory() in JASS
