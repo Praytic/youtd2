@@ -169,6 +169,8 @@ func soul_link_on_damaged(event: Event):
 
 	var creeps_in_range: Iterate = Iterate.over_units_in_range_of_unit(caster, TargetType.new(TargetType.CREEPS), buff.get_buffed_unit(), 10000)
 
+	CombatLog.log_ability(caster, null, "Soul Link share damage")
+
 	while creeps_in_range.count() > 0:
 		var creep: Unit = creeps_in_range.next()
 		var creep_buff: Buff = creep.get_buff_of_type(tomy_soul_link)
@@ -194,4 +196,5 @@ func soul_link_on_damaged(event: Event):
 func soul_link_on_death(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
+	CombatLog.log_ability(caster, null, "Soul Consumption")
 	caster.add_exp(SOUL_CONSUMPTION_EXP_GAIN)

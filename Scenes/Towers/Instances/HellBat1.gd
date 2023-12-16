@@ -130,6 +130,8 @@ func on_attack(event: Event):
 	if !tower.calc_chance(chance):
 		return
 
+	CombatLog.log_ability(tower, creep, "Bat Swarm")
+
 	var damage_ratio: int
 	if time_is_night():
 		damage_ratio = _stats.swarm_damage_night + _stats.swarm_damage_night_add * level

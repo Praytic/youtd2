@@ -120,6 +120,8 @@ func on_attack(_event: Event):
 	if !tower.calc_chance(chance):
 		return
 
+	CombatLog.log_ability(tower, null, "Occasional Quillspray")
+
 	do_quillspray_series()
 
 
@@ -151,12 +153,15 @@ func do_quillspray_series():
 
 	if level == 25:
 		if tower.calc_chance(_stats.triple_chance):
+			CombatLog.log_ability(tower, null, "Tripple Quillspray")
 			quillspray(tower, 1500)
 			quillspray(tower, 1700)
 		else:
+			CombatLog.log_ability(tower, null, "Double Quillspray")
 			quillspray(tower, 1500)
 	elif level > 15:
 		if tower.calc_chance(_stats.double_chance):
+			CombatLog.log_ability(tower, null, "Double Quillspray")
 			quillspray(tower, 1500)
 
 

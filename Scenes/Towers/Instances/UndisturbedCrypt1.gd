@@ -75,6 +75,8 @@ func burst_fire(tower: Tower, chance: float, target: Creep):
 		if !tower.calc_chance(chance) || num_shots >= 14 || !Utils.unit_is_valid(target):
 			break
 
+	CombatLog.log_ability(tower, null, "Critical Mass %d" % num_shots)
+
 
 func top_crypt_ball_on_hit(p: Projectile, creep: Unit):
 	var tower: Tower = p.get_caster()

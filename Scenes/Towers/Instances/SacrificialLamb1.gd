@@ -170,6 +170,8 @@ func on_attack(_event: Event):
 	if num_towers == 0:
 		return
 
+	CombatLog.log_ability(tower, null, "Blood Spill")
+
 	SFX.sfx_at_unit("HumanBloodKnight.mdl", tower)
 
 	while true:

@@ -114,6 +114,8 @@ func on_damage(event: Event):
 		return
 
 	if !creep.is_immune():
+		CombatLog.log_ability(tower, creep, "Cursed Attack")
+
 		tower.do_spell_damage(creep, _stats.cursed_attack_damage + _stats.cursed_attack_damage_add * level, tower.calc_spell_crit_no_bonus())
 		var buff_level: int = int(_stats.mod_movespeed * 1000)
 		var buff_duration: float = CURSED_DURATION + CURSED_DURATION_ADD * level

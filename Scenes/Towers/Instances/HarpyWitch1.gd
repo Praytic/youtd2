@@ -143,6 +143,8 @@ func on_attack(_event: Event):
 	if !tower.calc_chance(twister_chance):
 		return
 
+	CombatLog.log_ability(tower, null, "Twister")
+
 	while true:
 		var target: Unit = it.next_random()
 

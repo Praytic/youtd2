@@ -176,6 +176,8 @@ func boekie_extract_exp_bt_on_damaged(event: Event):
 	if !tower.calc_chance(EXTRACT_CHANCE):
 		return
 
+	CombatLog.log_ability(tower, event.get_target(), "Extract Experience")
+
 	if extract_count > 0:
 		event.get_target().add_exp(exp_gain)
 		buff.user_int -= 1

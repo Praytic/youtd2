@@ -123,6 +123,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(BLESSED_WEAPON_CHANCE):
 		return
 
+	CombatLog.log_ability(tower, event.get_target(), "Blessed Weapon")
+
 	var damage: float = _stats.blessed_weapon_damage + BLESSED_WEAPON_DAMAGE_ADD * tower.get_level()
 	var mana_gain: float = BLESSED_WEAPON_MANA_GAIN + BLESSED_WEAPON_MANA_GAIN_ADD * tower.get_level()
 

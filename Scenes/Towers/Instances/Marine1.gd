@@ -129,6 +129,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(grenade_chance):
 		return
 
+	CombatLog.log_ability(tower, null, "Frag Grenade")
+
 	var projectile: Projectile = Projectile.create_from_unit_to_unit(boekie_shard_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), false, true, false)
 #	Set user_int to 1 to mark this grenade as "main grenade"
 	projectile.user_int = 1

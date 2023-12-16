@@ -99,6 +99,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(0.28 + 0.0048 * tower.get_level()):
 		return
 
+	CombatLog.log_ability(tower, event.get_target(), "Unstable Energies")
+
 	tower.do_attack_damage(event.get_target(), _stats.damage_mana_multiplier * tower.get_mana(), tower.calc_attack_multicrit(0, 0, 0))
 	tower.subtract_mana(tower.get_mana() * (0.75 - 0.01 * tower.get_level()), true)
 	SFX.sfx_at_unit("AlmaTarget.dml", event.get_target())

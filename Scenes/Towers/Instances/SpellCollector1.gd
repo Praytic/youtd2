@@ -124,7 +124,9 @@ func on_attack(event: Event):
 
 	if !tower.calc_chance(chance):
 		return
-	
+
+	CombatLog.log_ability(tower, null, "Magical Barrage")
+
 	for i in range(0, missile_count):
 		if !Utils.unit_is_valid(tower) || !Utils.unit_is_valid(target):
 			return
