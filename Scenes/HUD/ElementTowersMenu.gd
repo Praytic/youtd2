@@ -79,7 +79,7 @@ func add_tower_button(tower_id, should_emit_signal: bool = true):
 #	towers are sorted in _add_all_towers().
 	if Globals.game_mode_is_random():
 		var insert_index: int = _get_insert_index_for_tower(tower_id)
-		move_child(tower_button, insert_index)
+		_tower_buttons_container.move_child(tower_button, insert_index)
 	
 	if should_emit_signal:
 		towers_changed.emit()
