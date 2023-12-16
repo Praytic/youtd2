@@ -95,6 +95,8 @@ func on_attack(event: Event):
 	if !enough_grow_count_for_landslide:
 		return
 
+	CombatLog.log_ability(tower, target, "Landslide")
+
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 300)
 
 	while true:

@@ -129,9 +129,11 @@ func on_attack(event: Event):
 	var do_emitter: bool = tower.calc_chance(chance)
 
 	if do_sapper:
+		CombatLog.log_ability(tower, target, "Goblin Sapper")
 		Projectile.create_from_unit_to_unit(cedi_goblin_sapper_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 
 	if do_robot:
+		CombatLog.log_ability(tower, target, "Clockwork Engineer")
 		var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 500)
 		var next: Unit = it.next_random()
 
@@ -143,6 +145,7 @@ func on_attack(event: Event):
 			Projectile.create_linear_interpolation_from_unit_to_unit(cedi_goblin_robot_pt, tower, 1.0, 1.0, tower, next, 0.35, true)
 
 	if do_emitter:
+		CombatLog.log_ability(tower, null, "Probability Field Emitter")
 		var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 500)
 		var next: Unit = it.next_random()
 
@@ -157,6 +160,7 @@ func on_attack(event: Event):
 
 	var used_ability: bool = do_sapper || do_robot || do_emitter
 	if !used_ability:
+		CombatLog.log_ability(tower, null, "Reimbursement")
 		tower.get_player().give_gold(5, tower, true, true)
 
 

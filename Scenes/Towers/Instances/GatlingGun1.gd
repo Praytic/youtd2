@@ -86,6 +86,8 @@ func on_attack(event: Event):
 	if !tower.calc_chance(rapid_gun_fire_chance):
 		return
 
+	CombatLog.log_ability(tower, target, "Rapid Gun Fire")
+
 #	Increment amount of extra attacks until the chance isn't
 #	met or max is reached.
 	var projectile_count: int = 1

@@ -116,6 +116,8 @@ func on_attack(event: Event):
 	if !tower.calc_chance(acid_skull_chance):
 		return
 
+	CombatLog.log_ability(tower, target, "Acid Skull")
+
 	Projectile.create_from_unit_to_unit(acid_skull_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 
 
@@ -126,6 +128,8 @@ func on_damage(event: Event):
 
 	if !tower.calc_chance(soulsteal_chance):
 		return
+
+	CombatLog.log_ability(tower, target, "Soul Steal")
 
 	sir_soul_vault_soulsteal_bt.apply(tower, target, tower.get_level())
 

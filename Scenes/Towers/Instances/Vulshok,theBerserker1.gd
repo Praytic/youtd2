@@ -89,12 +89,14 @@ func on_attack(event: Event):
 
 #	Crit (every 3rd)
 	if attack_count % 3 == 0:
+		CombatLog.log_ability(tower, null, "Crit")
 		tower.add_attack_crit()
 #		So the triggered attackdamage can crit too!
 		crit = 1
 
 #	Bonus damage (every 7th)
 	if attack_count % 7 == 0:
+		CombatLog.log_ability(tower, null, "Bonus Damage")
 #		Splashed bonus damage (every 84th)
 		if attack_count % 12 == 0:
 			tower.do_attack_damage_aoe_unit(target, 200, 3000 + 200 * level, tower.calc_attack_multicrit(0, 0, crit), 0)
@@ -107,10 +109,13 @@ func on_attack(event: Event):
 
 #	Splash (every 12th)
 	if attack_count % 12 == 0:
+		CombatLog.log_ability(tower, null, "Splash")
 		do_splash_next = true
 
 #	Growth (every 15th)
 	if attack_count % 15 == 0:
+		CombatLog.log_ability(tower, null, "Growth")
+		
 		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.005)
 
 #		Rare text has increased chance to show with increased triggerchances. ;]

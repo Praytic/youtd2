@@ -156,6 +156,8 @@ func on_damage(event: Event):
 	if current_bonus >= bonus_max:
 		return
 
+	CombatLog.log_ability(tower, creep, "Sample Collection")
+
 	tower.get_player().display_small_floating_text("Sample Collected", creep, 200, 200, 200, 40.0)
 	var new_bonus: int = min(current_bonus + 50, bonus_max)
 	bonus_map[creep_category] = new_bonus

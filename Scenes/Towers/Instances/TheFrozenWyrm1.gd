@@ -51,8 +51,10 @@ func on_damage(event: Event):
 	var stun_chance: float = 0.05 + 0.002 * level
 
 	if tower.calc_chance(slow_chance):
+		CombatLog.log_ability(tower, target, "Freezing Breath slow")
 		cassim_wyrm_slow_bt.apply(tower, target, level)
 
 	if tower.calc_chance(stun_chance):
+		CombatLog.log_ability(tower, target, "Freezing Breath stun")
 		cassim_wyrm_stun_bt.apply(tower, target, level)
 

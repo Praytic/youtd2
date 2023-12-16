@@ -58,6 +58,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(chance):
 		return
 
+	CombatLog.log_ability(tower, target, "Inject Parasite")
+
 	boekie_nerubian_queen_bt.apply(tower, target, tower.get_level())
 
 

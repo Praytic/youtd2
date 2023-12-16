@@ -91,6 +91,8 @@ func on_attack(event: Event):
 	if !tower.calc_chance(chance):
 		return
 
+	CombatLog.log_ability(tower, target, "Energyball")
+
 	tomy_energyball_start(target)
 
 
@@ -111,6 +113,7 @@ func periodic(_event: Event):
 			break
 
 		if tower.calc_chance(chance):
+			CombatLog.log_ability(tower, target, "Energy Detection")
 			tomy_energyball_start(target)
 
 

@@ -172,6 +172,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(leaf_storm_chance):
 		return
 
+	CombatLog.log_ability(tower, target, "Leaf Storm")
+
 	cenarius_leaf_storm_st.target_cast_from_caster(tower, target, damage_ratio, tower.calc_spell_crit_no_bonus())
 
 
