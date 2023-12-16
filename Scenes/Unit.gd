@@ -543,6 +543,7 @@ func do_spell_damage_pb_aoe(radius: float, damage: float, crit_ratio: float, sid
 
 # NOTE: unit.killInstantly() in JASS
 func kill_instantly(target: Unit):
+	CombatLog.log_ability(self, target, "Instant Kill")
 	target._killed_by_unit(self)
 
 

@@ -66,8 +66,11 @@ func drol_tentacleDamage(event: Event):
 
 func on_damage(event: Event):
 	var tower = self
+	var target: Unit = event.get_target()
 
 	if !tower.calc_chance(0.25 + tower.get_level() * 0.01):
 		return
 
-	drol_tentacleDot.apply(tower, event.get_target(), _stats.apply_level).user_real = _stats.periodic_damage + _stats.periodic_damage_add * tower.get_level()
+	CombatLog.log_ability(tower, target, "Rend")
+	
+	drol_tentacleDot.apply(tower, target, _stats.apply_level).user_real = _stats.periodic_damage + _stats.periodic_damage_add * tower.get_level()
