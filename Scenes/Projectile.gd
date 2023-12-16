@@ -29,6 +29,7 @@ var _homing_control_value: float
 var _speed: float = 50
 var _acceleration: float = 0
 var _explode_on_hit: bool = true
+var _explode_on_expiration: bool = true
 const CONTACT_DISTANCE: int = 15
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
@@ -180,6 +181,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile.set_speed(type._speed)
 	projectile._acceleration = type._acceleration
 	projectile._explode_on_hit = type._explode_on_hit
+	projectile._explode_on_expiration = type._explode_on_expiration
 	projectile._move_type = type._move_type
 	projectile._homing_control_value = type._homing_control_value
 
@@ -336,15 +338,7 @@ func _process_normal(delta: float):
 				return
 
 			if _explode_on_hit:
-				var explosion = Globals.explosion_scene.instantiate()
-
-				if _target_unit != null:
-					explosion.position = _target_unit.get_visual_position()
-					explosion.z_index = _target_unit.z_index
-				else:
-					explosion.position = global_position
-
-				Utils.add_object_to_world(explosion)
+				_do_explosion_visual()
 
 			_cleanup()
 
@@ -385,18 +379,12 @@ func _process_interpolated(delta: float):
 		if _avert_destruct_requested:
 			_avert_destruct_requested = false
 
+			stop_interpolation()
+
 			return
 
 		if _explode_on_hit:
-			var explosion = Globals.explosion_scene.instantiate()
-
-			if _target_unit != null:
-				explosion.position = _target_unit.get_visual_position()
-				explosion.z_index = _target_unit.z_index
-			else:
-				explosion.position = global_position
-
-			Utils.add_object_to_world(explosion)
+			_do_explosion_visual()
 
 		_cleanup()
 
@@ -512,15 +500,18 @@ func set_homing_target(new_target: Unit):
 #		projectile may be launched towards a dead target.
 #		For example if some other part of tower script
 #		killed the target right before projectile was
-#		created.
+#		created. In such cases, projectile will move to the
+#		position where target was during death.
 		if !new_target.is_dead():
 			if !new_target.death.is_connected(_on_target_death):
 				new_target.death.connect(_on_target_death)
 
 			_target_unit = new_target
-			_is_homing = true
 		else:
 			_target_unit = null
+			_target_pos = new_target.position
+
+		_is_homing = true
 	else:
 		_target_unit = null
 		_target_pos = Vector2.ZERO
@@ -643,6 +634,9 @@ func _expire():
 	if _expiration_handler.is_valid():
 		_expiration_handler.call(self)
 
+	if _explode_on_expiration:
+		_do_explosion_visual()
+
 	_cleanup()
 
 
@@ -708,3 +702,9 @@ func _start_interpolation_internal(target_unit: Unit, target_pos: Vector2, targe
 	var travel_distance: float = travel_vector_top_down.length()
 	_interpolation_progress = 0
 	_interpolation_distance = travel_distance
+
+
+func _do_explosion_visual():
+	var explosion = Globals.explosion_scene.instantiate()
+	explosion.position = position
+	Utils.add_object_to_world(explosion)

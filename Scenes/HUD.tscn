@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=16 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://Resources/Textures/UI/portal_lives_round_bg.tres" id="11_hbwuy"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://Assets/UI/HUD/darkness_face.png" id="12_2mxp4"]
+[ext_resource type="Script" path="res://Scenes/AutocastTooltipContainer.gd" id="13_fj5t7"]
 [ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://Assets/UI/HUD/tranquility_face.png" id="13_n0pc1"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://Scenes/HUD/CombatLogWindow.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/UnitMenu.tscn" id="15_rfxf1"]
@@ -112,6 +113,7 @@ custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer/All/Center/CenterLeft/MarginContainer"]
 layout_mode = 2
@@ -242,6 +244,18 @@ theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
 text = "[color=RED]GAME OVER[/color]"
 fit_content = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." node_paths=PackedStringArray("_tooltip")]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("13_fj5t7")
+_tooltip = NodePath("ButtonTooltipForAutocast")
+
+[node name="ButtonTooltipForAutocast" parent="VBoxContainer" instance=ExtResource("11_ka7k1")]
+visible = false
+layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/All/Bottom/BottomMenuBar/HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ElementTowersButton" to="." method="_on_towers_button_pressed"]
 [connection signal="pressed" from="MarginContainer/All/Bottom/BottomMenuBar/HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/ItemStashMenuButton" to="." method="_on_items_button_pressed"]

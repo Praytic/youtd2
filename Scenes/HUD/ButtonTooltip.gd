@@ -8,22 +8,34 @@ class_name ButtonTooltip extends PanelContainer
 # mouse cursor.
 
 
-static var _global_self: ButtonTooltip = null
+static var _tooltip_general: ButtonTooltip = null
+static var _tooltip_autocast: ButtonTooltip = null
 
 @export var _label: RichTextLabel
+@export var used_for_autocasts: bool = false
 
 var _current_button: Button = null
 
 
 func _ready():
-	ButtonTooltip._global_self = self
+	if used_for_autocasts:
+		_tooltip_autocast = self
+	else:
+		_tooltip_general = self
 
 
 static func show_tooltip(button: Button, tooltip: String):
-	if ButtonTooltip._global_self == null:
+	var tooltip_instance: ButtonTooltip
+	if button is AutocastButton:
+		tooltip_instance = ButtonTooltip._tooltip_autocast
+	else:
+		tooltip_instance = ButtonTooltip._tooltip_general
+	
+	if tooltip_instance == null:
+		push_error("No tooltip instance")
 		return
 
-	_global_self._show_tooltip(button, tooltip)
+	tooltip_instance._show_tooltip(button, tooltip)
 
 
 func _show_tooltip(button: Button, tooltip: String):

@@ -8,6 +8,7 @@ var _range: float = 0.0
 var _lifetime: float = 0.0
 var _sprite_path: String = ""
 var _explode_on_hit: bool = true
+var _explode_on_expiration: bool = true
 var _cleanup_handler: Callable = Callable()
 var _interpolation_finished_handler: Callable = Callable()
 var _interpolation_finished_no_target_handler: Callable = Callable()
@@ -65,13 +66,12 @@ static func create_ranged(model: String, the_range: float, speed: float, parent:
 
 # projectileType.disableExplodeOnHit() in JASS
 func disable_explode_on_hit():
-	_explode_on_hit = true
+	_explode_on_hit = false
 
 
-# TODO: implement
 # projectileType.disableExplodeOnExpiration() in JASS
 func disable_explode_on_expiration():
-	pass
+	_explode_on_expiration = false
 
 
 # projectileType.enableCollision() in JASS
