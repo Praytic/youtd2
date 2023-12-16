@@ -88,6 +88,8 @@ func debuff_on_damaged(event: Event):
 	var tower: Tower = b.get_caster()
 
 	if tower.calc_chance(0.2 + b.get_power() * 0.003):
+		CombatLog.log_ability(tower, b.get_buffed_unit(), "Electrify Effect")
+
 		event.damage = event.damage * b.user_real
 		var damage_text: String = Utils.format_float(event.damage, 0)
 		tower.get_player().display_small_floating_text(damage_text, b.get_buffed_unit(), 128, 255, 255, 20)

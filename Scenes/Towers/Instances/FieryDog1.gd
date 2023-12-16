@@ -64,6 +64,8 @@ func on_damage(_event: Event):
 	if !tower.calc_chance(0.3):
 		return
 
+	CombatLog.log_ability(tower, null, "Roar")
+
 	var I: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 420.0)
 	var U: Unit
 	var B: Buff = null

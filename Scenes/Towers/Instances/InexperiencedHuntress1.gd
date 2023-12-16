@@ -99,6 +99,8 @@ func on_attack(_event: Event):
 	if !tower.calc_chance(shadow_glaive_chance):
 		return
 
+	CombatLog.log_ability(tower, null, "Shadow Glaive")
+
 	cedi_shadow_glaive_bt.apply(tower, tower, tower.get_level())
 
 
@@ -109,6 +111,8 @@ func on_damage(event: Event):
 
 	if !tower.calc_chance(star_glaive_chance):
 		return
+
+	CombatLog.log_ability(tower, event.get_target(), "Star Glaive")
 
 	tower.do_spell_damage(event.get_target(), stair_glaive_damage, tower.calc_spell_crit_no_bonus())
 	SFX.sfx_on_unit("StarfallTarget.mdl", event.get_target(), Unit.BodyPart.ORIGIN)

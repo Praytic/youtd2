@@ -66,6 +66,8 @@ func on_attack(event: Event):
 
 	if (target.get_size() == CreepSize.enm.MASS || target.get_size() == CreepSize.enm.NORMAL || target.get_size() == CreepSize.enm.CHAMPION):
 		if (tower.calc_chance(_stats.catch_chance + (_stats.catch_chance_add * tower.get_level()))):
+			CombatLog.log_ability(tower, target, "Wind of Death")
+
 			b = target.get_buff_of_type(sternbogen_broken_wind)
 			
 			if b != null:
@@ -102,6 +104,8 @@ func cyclone_creep_down(event: Event):
 	var t: Unit = b.get_caster()
 	var c: Unit = b.get_buffed_unit()
 	var ratio: float = 1
+
+	CombatLog.log_ability(t, c, "Wind of Death End")
 
 #	set units back (down)
 	c.adjust_height(-300, 2500)

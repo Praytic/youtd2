@@ -70,6 +70,8 @@ func on_attack(_event: Event):
 		return
 
 	if tower.get_buff_of_type(tomy_ElementalWrath) == null:
+		CombatLog.log_ability(tower, null, "Elemental Wrath")
+
 		tomy_ElementalWrath.apply_custom_timed(tower, tower, 150 + tower.get_level() * _stats.trigger_chance_add, 5.0 + 0.1 * tower.get_level())
 
 

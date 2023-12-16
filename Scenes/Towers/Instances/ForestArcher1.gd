@@ -92,8 +92,12 @@ func on_damage(event: Event):
 	var slow_level: int = int(slow_duration * 1000)
 
 	if tower.calc_chance(_stats.stun_chance + STUN_CHANCE_ADD * level):
+		CombatLog.log_ability(tower, creep, "Gift of the Forest Stun")
+
 		cb_stun.apply_only_timed(tower, creep, STUN_DURATION + STUN_DURATION_ADD * level)
 	elif tower.calc_chance(_stats.slow_chance + SLOW_CHANCE_ADD * level):
+		CombatLog.log_ability(tower, creep, "Gift of the Forest Slow")
+
 		slow_debuff.apply_custom_timed(tower, creep, slow_level, slow_duration)
 
 

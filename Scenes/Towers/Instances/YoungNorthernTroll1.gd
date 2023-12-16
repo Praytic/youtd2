@@ -96,6 +96,8 @@ func on_attack(event: Event):
 	if !tower.calc_chance(ON_ATTACK_CHANCE):
 		return
 
+	CombatLog.log_ability(tower, creep, "Ice Smashing Axe")
+
 	var projectile: Projectile = Projectile.create_linear_interpolation_from_unit_to_unit(dave_axe_pt, tower, 1, 1, tower, creep, 0.2, true)
 	var dmg_per_purge: float = _stats.smashing_axe_dmg + _stats.smashing_axe_dmg_add * level
 	projectile.user_real = dmg_per_purge

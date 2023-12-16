@@ -88,6 +88,8 @@ func on_attack(_event: Event):
 		return
 
 	if tower.get_buff_of_type(drol_goldrush) == null:
+		CombatLog.log_ability(tower, null, "Goldrush")
+
 		var gold_amount: float = GoldControl.get_gold()
 		drol_goldrush.apply_custom_timed(tower, tower, int(_stats.attackspeed_base + pow(gold_amount,0.5) / _stats.attackspeed_divisor), 5 + tower.get_level() * 0.1)
 
@@ -132,5 +134,9 @@ func periodic(_event: Event):
 	Effect.set_lifetime(target_effect, 0.1)
 
 	if tower.calc_chance(0.25):
+		CombatLog.log_ability(tower, null, "Excavation")
+
 		tower.user_real = tower.user_real + gold_bonus
 		tower.get_player().give_gold(gold_bonus, tower, false, true)
+	else:
+		CombatLog.log_ability(tower, null, "Excavation Fail")

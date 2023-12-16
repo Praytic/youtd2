@@ -95,6 +95,8 @@ func on_attack(event: Event):
 	var i: int
 	b = creep.get_buff_of_type(ashbringer_firestorm_buff)
 
+	CombatLog.log_ability(tower, creep, "Firestorm")
+
 	if b != null:
 		ashbringer_firestorm_damage(tower, creep)
 		i = b.get_power() + 2

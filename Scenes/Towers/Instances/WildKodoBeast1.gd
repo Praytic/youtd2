@@ -85,6 +85,8 @@ func on_attack(event: Event):
 	if !tower.calc_chance(chance):
 		return
 
+	CombatLog.log_ability(tower, target, "Devour")
+
 	tower.do_spell_damage(target, devour_damage, tower.calc_spell_crit_no_bonus())
 	SFX.sfx_at_unit("DevourEffectArt.mdl", target)
 	devour_count += 1

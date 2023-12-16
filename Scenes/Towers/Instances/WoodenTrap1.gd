@@ -52,6 +52,9 @@ func tower_init():
 
 func on_periodic(event: Event):
 	var tower = self
+	
+	CombatLog.log_ability(tower, null, "Activate Trap")
+
 	trap(event, tower, _stats.cooldown, _stats.base_damage, _stats.damage_add, _stats.stun_duration, _stats.max_targets)
 
 

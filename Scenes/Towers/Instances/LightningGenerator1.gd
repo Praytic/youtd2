@@ -66,6 +66,8 @@ func on_attack(event: Event):
 	if !tower.calc_chance(0.195 + tower.get_level() * 0.0025):
 		return
 
+	CombatLog.log_ability(tower, event.get_target(), "Chainlightning")
+
 	Chainlightning_st.target_cast_from_caster(tower, event.get_target(), 1.0 + tower.get_level() * 0.02, tower.calc_spell_crit_no_bonus())
 
 

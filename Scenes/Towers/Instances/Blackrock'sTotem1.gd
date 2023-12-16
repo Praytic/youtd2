@@ -116,6 +116,8 @@ func on_attack(_event: Event):
 	if !tower.calc_chance(chance):
 		return
 
+	CombatLog.log_ability(tower, null, "Fighter Totem")
+
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 500)
 
 	while true:
@@ -146,6 +148,8 @@ func on_autocast(event: Event):
 
 	if !tower.calc_chance(shamanic_totem_chance):
 		return
+
+	CombatLog.log_ability(tower, null, "Shamanic Totem")
 
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 500)
 

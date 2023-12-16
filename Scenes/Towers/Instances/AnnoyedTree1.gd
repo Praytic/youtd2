@@ -61,4 +61,6 @@ func on_attack(event: Event):
 	if !tower.calc_chance(0.3 + 0.06 * tower.get_level()):
 		return
 
+	CombatLog.log_ability(tower, event.get_target(), "Rock Thorw")
+
 	Projectile.create_linear_interpolation_from_unit_to_unit(boekie_tree_rock, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)

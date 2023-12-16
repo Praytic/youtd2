@@ -101,6 +101,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(shock_chance):
 		return
 
+	CombatLog.log_ability(tower, creep, "Lightning Shock")
+
 	var lightning: InterpolatedSprite = InterpolatedSprite.create_from_unit_to_unit(InterpolatedSprite.LIGHTNING, tower, creep)
 	lightning.modulate = Color.RED
 	lightning.set_lifetime(0.2)

@@ -97,6 +97,8 @@ func on_attack(_event: Event):
 	var is_enraged: bool = tower.get_buff_of_type(gex_rage_buff) != null || tower.get_buff_of_type(gex_rage_buff_15) != null || tower.get_buff_of_type(gex_rage_buff_25) != null 
 
 	if !is_enraged:
+		CombatLog.log_ability(tower, null, "Rampage")
+
 		var buff_type: BuffType
 		if lvl < 15:
 			buff_type = gex_rage_buff

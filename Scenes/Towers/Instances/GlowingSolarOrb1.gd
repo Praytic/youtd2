@@ -74,4 +74,6 @@ func on_damage(event: Event):
 		size_factor = 2.0
 
 	if tower.calc_chance((0.05 + lvl * 0.006) * size_factor):
+		CombatLog.log_ability(tower, creep, "Afterglow")
+		
 		cassim_armor.apply_custom_timed(tower, creep, _stats.armor_decrease, 5 + lvl * 0.25)

@@ -125,10 +125,13 @@ func tower_init():
 func on_attack(event: Event):
 	var tower: Tower = self
 	var level: int = tower.get_level()
+	var target: Unit = event.get_target()
 	var chance: float = ON_ATTACK_CHANCE + ON_ATTACK_CHANCE_ADD * level
 
 	if !tower.calc_chance(chance):
 		return
+
+	CombatLog.log_ability(tower, target, "Bat Swarm")
 
 	var damage_ratio: int
 	if time_is_night():
@@ -136,7 +139,7 @@ func on_attack(event: Event):
 	else:
 		damage_ratio = _stats.swarm_damage_day + _stats.swarm_damage_day_add * level
 
-	dave_bats_st.target_cast_from_caster(tower, event.get_target(), damage_ratio, tower.calc_spell_crit_no_bonus())
+	dave_bats_st.target_cast_from_caster(tower, target, damage_ratio, tower.calc_spell_crit_no_bonus())
 
 
 func on_damage(event: Event):

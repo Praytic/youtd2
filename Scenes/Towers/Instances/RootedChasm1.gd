@@ -69,7 +69,10 @@ func on_damage(event: Event):
 
 	var target: Creep = event.get_target()
 
+
 	if target.get_size() < CreepSize.enm.BOSS && target.get_size() != CreepSize.enm.AIR:
+		CombatLog.log_ability(tower, target, "Entangle")
+		
 		chasm_entangle.apply(tower, target, 0)
 
 #		NOTE: not sure what reorder() does. Tower script

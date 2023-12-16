@@ -89,6 +89,8 @@ func on_damage(event: Event):
 	if creep.is_immune() || already_has_buff:
 		return
 
+	CombatLog.log_ability(tower, creep, "Cold")
+
 	sir_frost.apply_custom_timed(tower, creep, buff_level, buff_duration)
 	SFX.sfx_at_unit("FreezingBreathTargetArt.mdl", creep)
 

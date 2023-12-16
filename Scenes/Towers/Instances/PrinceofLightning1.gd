@@ -100,5 +100,7 @@ func on_damage(event: Event):
 	if !tower.calc_chance(strike_chance):
 		return
 
+	CombatLog.log_ability(tower, creep, "Lightning Strike")
+
 	tower.do_spell_damage(creep, strike_damage, tower.calc_spell_crit_no_bonus())
 	SFX.sfx_on_unit("MonsoonBoltTarget.mdl", creep, Unit.BodyPart.ORIGIN)

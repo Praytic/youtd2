@@ -108,5 +108,7 @@ func on_attack(_event: Event):
 	var custom_crit_ratio: float = tower.get_prop_atk_crit_damage() + (mana - mana_threshold) * _stats.extra_crit_dmg_per_mana
 
 	if extra_crit:
+		CombatLog.log_ability(tower, null, "Spellfire Projectiles")
+
 		tower.subtract_mana(mana, false)
 		tower.add_custom_attack_crit(custom_crit_ratio)

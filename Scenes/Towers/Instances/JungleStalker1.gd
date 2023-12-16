@@ -92,6 +92,8 @@ func on_kill(_event: Event):
 	var buff_duration: float = _stats.bloodthirst_duration + BLOODTHIRST_DURATION_ADD * lvl
 
 	if tower.get_buff_of_type(boekie_rage_buff) == null:
+		CombatLog.log_ability(tower, null, "Bloodthirst")
+
 		boekie_rage_buff.apply_custom_timed(tower, tower, buff_level, buff_duration)
 
 

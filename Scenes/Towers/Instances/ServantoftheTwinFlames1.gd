@@ -115,10 +115,14 @@ func on_attack(event: Event):
 	var pulse_damage: float = get_pulse_damage()
 
 	if tower.calc_chance(spell_crit_chance):
+		CombatLog.log_ability(tower, target, "Red Flame")
+
 		Projectile.create_bezier_interpolation_from_unit_to_unit(dave_red_pt, tower, 1, 1, tower, target, 0, 0.3, 0, true)
 		red_flame_count += 1
 
 	if tower.calc_chance(attack_crit_chance):
+		CombatLog.log_ability(tower, target, "Green Flame")
+		
 		Projectile.create_bezier_interpolation_from_unit_to_unit(dave_green_pt, tower, 1, 1, tower, target, 0, -0.3, 0, true)
 		green_flame_count += 1
 
@@ -126,6 +130,8 @@ func on_attack(event: Event):
 	var do_green_pulse: bool = green_flame_count >= flame_count_for_pulse
 
 	if do_red_pulse:
+		CombatLog.log_ability(tower, null, "Red Pulse")
+		
 		red_flame_count = 0
 
 		var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 900)
@@ -142,6 +148,8 @@ func on_attack(event: Event):
 			Effect.set_lifetime(effect, 0.5)
 
 	if do_green_pulse:
+		CombatLog.log_ability(tower, null, "Green Pulse")
+		
 		green_flame_count = 0
 		
 		var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 900)

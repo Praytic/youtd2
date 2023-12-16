@@ -91,6 +91,8 @@ func on_attack(event: Event):
 	var num_shots: int = _stats.num_shots
 	var twr_level: int = tower.get_level()
 
+	CombatLog.log_ability(tower, creep, "Burst Lightning")
+
 	if twr_level == 25:
 		num_shots = num_shots + 2
 	elif twr_level >= 15:

@@ -88,6 +88,8 @@ func on_attack(_event: Event):
 	if tower_already_has_hellfire:
 		return
 
+	CombatLog.log_ability(tower, null, "Hellfire")
+
 	boekie_lord_hellfire_bt.apply(tower, tower, level)
 
 

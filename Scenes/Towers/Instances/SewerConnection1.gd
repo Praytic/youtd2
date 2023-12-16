@@ -66,4 +66,6 @@ func on_attack(event: Event):
 	if !tower.calc_chance(0.3):
 		return
 
+	CombatLog.log_ability(tower, event.get_target(), "Toxic Vapor")
+
 	D1000_Toxic_vapor.apply(tower, event.get_target(), int(tower.get_level() * _stats.vapor_damage_add + _stats.vapor_damage))

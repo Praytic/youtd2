@@ -72,4 +72,6 @@ func on_damage(event: Event):
 	if !tower.calc_chance(0.3):
 		return
 
+	CombatLog.log_ability(tower, event.get_target(), "Ignite")
+
 	drol_fireDot.apply(tower, event.get_target(), tower.get_level() * _stats.firedot_level_multiply + _stats.firedot_level_add).user_real = tower.get_current_attack_damage_with_bonus() * (0.15 + tower.get_level() * 0.006)

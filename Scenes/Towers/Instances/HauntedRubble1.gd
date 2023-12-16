@@ -67,6 +67,6 @@ func on_attack(event: Event):
 		calc = tower.calc_chance(_stats.chance + tower.get_level() * _stats.chance_add)
 
 	if calc == true:
-		
+		CombatLog.log_ability(tower, creep, "Atrophy")
 
 		velex_slow.apply_custom_timed(tower, event.get_target(), int(_stats.slow_value * 1000), 5.0)

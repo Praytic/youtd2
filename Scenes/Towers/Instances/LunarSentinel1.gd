@@ -92,6 +92,8 @@ func on_autocast(event: Event):
 		tower.do_spell_damage(target, _stats.spell_damage_15 + level * _stats.spell_damage_add, tower.calc_spell_crit_no_bonus())
 
 	if tower.calc_chance(0.125 + level * 0.005) == true:
+		CombatLog.log_ability(tower, target, "Lunar Grace Bonus")
+
 		tower.do_spell_damage(target, _stats.spell_damage + level * _stats.spell_damage_chance_add, tower.calc_spell_crit_no_bonus())
 
 		if level < 25:
