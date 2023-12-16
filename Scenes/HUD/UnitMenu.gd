@@ -4,7 +4,7 @@ extends PanelContainer
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
 const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.png")
-const ITEMS_CONTAINER_BUTTON_SIZE = 100
+const ITEMS_CONTAINER_BUTTON_SIZE = 82
 
 @export var _upgrade_button: Button
 @export var _sell_button: Button
