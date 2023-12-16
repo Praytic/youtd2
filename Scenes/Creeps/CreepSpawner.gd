@@ -207,9 +207,7 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 
 func _on_Timer_timeout():
 	if _creep_spawn_queue.is_empty():
-		print_verbose("Stop creep spawn. Queue is exhausted.")
-		_timer_between_creeps.stop()
-		all_creeps_spawned.emit()
+		push_error("Creep spawn queue is empty during first timeout. This should never happen.")
 
 		return
 
@@ -217,3 +215,13 @@ func _on_Timer_timeout():
 
 	var creep: Creep = spawn_creep(creep_data)
 	creep_spawned.emit(creep)
+
+#	NOTE: it's important to check this at the end of timeout
+#	handler. If this is checked at the start then there will
+#	be a time delay between the last creep spawning and
+#	emission of all_creeps_spawned signal. This causes bugs
+#	when creep is killed during that delay.
+	if _creep_spawn_queue.is_empty():
+		print_verbose("Stop creep spawn. Queue is exhausted.")
+		_timer_between_creeps.stop()
+		all_creeps_spawned.emit()
