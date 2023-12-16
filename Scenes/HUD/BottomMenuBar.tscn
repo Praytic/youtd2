@@ -123,3 +123,5 @@ size_flags_vertical = 0
 tooltip_text = "Open Horadric Cube"
 focus_mode = 0
 text = "ITEMS"
+
+[connection signal="gui_input" from="HBoxContainer/MarginContainer2/PanelContainer" to="." method="_on_items_menu_gui_input"]
