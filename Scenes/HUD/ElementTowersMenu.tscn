@@ -122,6 +122,7 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 size_flags_stretch_ratio = 0.3
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
@@ -153,7 +154,7 @@ text = "UPGRADE"
 
 [node name="MarginContainer3" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
@@ -182,7 +183,7 @@ theme_override_font_sizes/italics_font_size = 24
 theme_override_font_sizes/bold_italics_font_size = 24
 theme_override_font_sizes/mono_font_size = 24
 bbcode_enabled = true
-text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and drowning effects on enemies.[/color]
+text = "[color=LIGHT_BLUE]The element of frost magic. Ice towers use slowing and drowning effects on enemies. The element of frost magic. Ice towers use slowing and drowning effects on enemies.[/color]
 
 [color=GOLD]Main attack types:[/color] Elemental, Energy"
 fit_content = true
