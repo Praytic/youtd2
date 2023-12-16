@@ -1002,6 +1002,10 @@ func get_overall_cooldown() -> float:
 	return overall_cooldown
 
 
+func get_remaining_cooldown() -> float:
+	return max(0, _current_attack_cooldown)
+
+
 # NOTE: this f-n returns overall cooldown even though that
 # doesn't match the name. See "M.E.F.I.S. Rocket" tower
 # script for proof.
