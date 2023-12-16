@@ -65,6 +65,8 @@ func on_damage(event: Event):
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), targ, 250)
 	var next: Unit
 
+	CombatLog.log_ability(tower, targ, "Ice Nova")
+
 	while true:
 		next = it.next()
 

@@ -77,6 +77,8 @@ func teacher_attack(tower: Tower, xp: float):
 			elif i == 3:
 				pt = knowledge_blue
 
+			CombatLog.log_ability(tower, result, "Knowledge")
+
 			p = Projectile.create_from_unit_to_unit(pt, tower, 1.0, 1.0, tower, result, true, false, true)
 			p.setScale(0.7)
 			p.user_real = xp

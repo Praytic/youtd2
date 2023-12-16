@@ -39,6 +39,9 @@ func load_triggers(triggers: BuffType):
 
 func on_kill(_event: Event):
 	var tower: Tower = self
+
+	CombatLog.log_ability(tower, null, "Create Bug #%d" % (tower.user_int + 1))
+
 	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE, max(_stats.bug_dmg - tower.user_int / _stats.production_for_decrease, 1))
 	tower.user_int = tower.user_int + 1
 

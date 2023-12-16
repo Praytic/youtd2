@@ -70,4 +70,6 @@ func on_attack(event: Event):
 	if !tower.calc_chance(0.30 + 0.006 * tower.get_level()):
 		return
 
+	CombatLog.log_ability(tower, event.get_target(), "Rocket Strike")
+
 	Projectile.create_linear_interpolation_from_unit_to_unit(cedi_sniper_rocket, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), 0.25, true)

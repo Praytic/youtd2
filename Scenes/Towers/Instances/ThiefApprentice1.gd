@@ -82,6 +82,8 @@ func on_damage(event: Event):
 	if !tower.calc_chance(0.1 + tower.get_level() * 0.004):
 		return
 	
+	CombatLog.log_ability(tower, event.get_target(), "Steal")
+
 	Projectile.create_linear_interpolation_from_unit_to_unit(mOck_steal, tower, 0, 0, event.get_target(), tower, 0, true)
 
 

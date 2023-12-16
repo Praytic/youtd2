@@ -69,6 +69,8 @@ func on_damage(event: Event):
 	tower.get_player().display_floating_text_x(current_chance_text, tower, 50, 150, 255, 255, 0.05, 2, 3)
 
 	if tower.calc_chance(tower.user_real) == true && !event.get_target().is_immune():
+		CombatLog.log_ability(tower, creep, "Glacial Wrath Bonus")
+
 		cb_stun.apply_only_timed(tower, event.get_target(), 0.8)
 		tower.do_spell_damage(creep, _stats.extra_damage * (1 + tower.get_level() * 0.02), tower.calc_spell_crit_no_bonus())
 		tower.user_real = _stats.damage_and_stun_chance

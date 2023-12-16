@@ -58,6 +58,8 @@ func on_damage(event: Event):
 	var creep: Unit = event.get_target()
 	var level: int = tower.get_level()
 
+	CombatLog.log_ability(tower, creep, "Shadowstrike")
+
 	tower.do_spell_damage(creep, _stats.smite_damage + (level * _stats.smite_damage_add), tower.calc_spell_crit_no_bonus())
 	SFX.sfx_on_unit("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt.mdl", creep, Unit.BodyPart.ORIGIN)
 

@@ -55,6 +55,8 @@ func on_damage(event: Event):
 	var creep: Unit = event.get_target()
 	var level: float = tower.get_level()
 
+	CombatLog.log_ability(tower, creep, "Frozen Spears")
+
 	if event.is_main_target():
 		event.damage = event.damage * (1.5 + (0.01 * level))
 		SFX.sfx_at_unit("Objects\\Spawnmodels\\Critters\\Albatross\\CritterBloodAlbatross.mdl", creep)

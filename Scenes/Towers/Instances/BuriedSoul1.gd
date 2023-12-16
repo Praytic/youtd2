@@ -81,9 +81,13 @@ func on_attack(event: Event):
 	var creep: Creep = event.get_target()
 
 	if tower.calc_chance(0.1):
+		CombatLog.log_ability(tower, creep, "Soul Scattering")
+
 		sir_banish.apply_custom_timed(tower, creep, int((_stats.banish_lvl + _stats.banish_lvl_add * lvl) * 100), _stats.banish_duration)
 		sir_cripple.apply_custom_timed(tower, tower, lvl, _stats.cripple_duration)
 
 	if tower.calc_chance(0.25 + 0.005 * lvl):
+		CombatLog.log_ability(tower, creep, "Shadowstrike")
+		
 		tower.do_spell_damage(creep, _stats.damage + tower.get_level() * _stats.damage_add, tower.calc_spell_crit_no_bonus())
 		SFX.sfx_on_unit("Abilities\\Spells\\Undead\\DeathPact\\DeathPactTarget.mdl", creep, Unit.BodyPart.ORIGIN)
