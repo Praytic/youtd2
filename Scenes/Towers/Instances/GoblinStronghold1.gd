@@ -192,6 +192,9 @@ func cedi_goblin_sapper_pt_on_hit(projectile: Projectile, target: Unit):
 
 
 func cedi_goblin_robot_pt_on_hit(projectile: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = projectile.get_caster()
 	var level: int = tower.get_level()
 	var buff_level: int = randi_range(100, 400) + 6 * level
@@ -206,6 +209,9 @@ func cedi_goblin_robot_pt_on_hit(projectile: Projectile, target: Unit):
 
 
 func cedi_goblin_emitter_pt_on_hit(projectile: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = projectile.get_caster()
 	var level: int = tower.get_level()
 	var buff_level: int = randi_range(300, 600) + 6 * level

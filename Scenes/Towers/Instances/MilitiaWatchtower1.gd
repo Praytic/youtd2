@@ -49,6 +49,9 @@ func load_specials(modifier: Modifier):
 
 
 func militia_axe_hit(p: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = p.get_caster()
 
 	if tower.calc_bad_chance(0.33 - _stats.miss_chance_add * tower.get_level()):

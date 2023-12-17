@@ -127,7 +127,7 @@ func tower_init():
 
 	bounder_pt = ProjectileType.create_interpolate("GlaiveMissile.mdl", 2000, self)
 	bounder_pt.enable_collision(bounder_pt_on_collision, 100, TargetType.new(TargetType.CREEPS), false)
-	bounder_pt.set_event_on_interpolation_finished_no_target(bounder_pt_on_finished)
+	bounder_pt.set_event_on_interpolation_finished(bounder_pt_on_finished)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Glaivesaw"
@@ -287,7 +287,7 @@ func bounder_pt_on_collision(p: Projectile, target: Unit):
 	ashbringer_lacerate_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
 
 
-func bounder_pt_on_finished(p: Projectile):
+func bounder_pt_on_finished(p: Projectile, _target: Unit):
 	var bounces: int = p.user_int2
 	var bounce_is_over: bool = bounces == 0
 
@@ -342,7 +342,8 @@ func storm_pt_on_finished(p: Projectile, creep: Unit):
 	if moving_to_target == 1:
 		p.avert_destruction()
 		var damage: float = p.user_real
-		ashbringer_lacerate_damage(creep, damage, tower.calc_attack_multicrit_no_bonus())
+		if creep != null:
+			ashbringer_lacerate_damage(creep, damage, tower.calc_attack_multicrit_no_bonus())
 		p.start_bezier_interpolation_to_point(return_pos, 0, 0.3, 0.17)
 		moving_to_target = 0
 		p.user_int = moving_to_target

@@ -130,7 +130,7 @@ func tower_init():
 	bombardment_pt.set_event_on_cleanup(bombardment_pt_on_hit)
 
 	icicle_prop_pt = ProjectileType.create_interpolate("FrostBoltMissile.mdl", 200, self)
-	icicle_prop_pt.set_event_on_interpolation_finished_no_target(icicle_prop_pt_on_finished)
+	icicle_prop_pt.set_event_on_interpolation_finished(icicle_prop_pt_on_finished)
 	icicle_prop_pt.disable_explode_on_expiration()
 
 	icicle_missile_pt = ProjectileType.create("FrostBoltMissile.mdl", 5, 1400, self)
@@ -261,7 +261,7 @@ func ashbringer_icicle_store():
 	ashbringer_ebonfrost_icicle_bt.apply(tower, tower, icicle_list.size())
 
 
-func icicle_prop_pt_on_finished(p: Projectile):
+func icicle_prop_pt_on_finished(p: Projectile, _target: Unit):
 	var icicle_x: float = p.user_real
 	var icicle_y: float = p.user_real2
 	var angle: float = p.user_real3

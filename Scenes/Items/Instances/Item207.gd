@@ -30,6 +30,9 @@ func load_triggers(triggers: BuffType):
 
 
 func hit_PT(P: Projectile, U: Unit):
+	if U == null:
+		return
+
 	var T: Tower = P.get_caster()
 	T.do_custom_attack_damage(U, P.user_real, T.calc_attack_multicrit(0, 0, 0), P.user_int)
 

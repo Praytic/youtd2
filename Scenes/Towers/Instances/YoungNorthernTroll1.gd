@@ -121,6 +121,9 @@ func on_damage(event: Event):
 
 
 func on_projectile_hit(projectile: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower = projectile.get_caster()
 	var purged_count: int = 0
 	var damage: float = tower.get_current_attack_damage_with_bonus()

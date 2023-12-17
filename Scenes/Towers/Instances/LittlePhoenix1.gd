@@ -79,6 +79,9 @@ func load_specials(modifier: Modifier):
 
 
 func tomy_phoenix_attack_hit(_p: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = self
 	
 	_apply_phoenix_fire_buff(target)

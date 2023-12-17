@@ -203,12 +203,18 @@ func on_damage(event: Event):
 
 
 func dave_red_pt_on_hit(_projectile: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = self
 	var damage: float = get_flame_damage()
 	tower.do_attack_damage(creep, damage, tower.calc_attack_multicrit_no_bonus())
 
 
 func dave_green_pt_on_hit(_projectile: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = self
 	var damage: float = get_flame_damage()
 	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())

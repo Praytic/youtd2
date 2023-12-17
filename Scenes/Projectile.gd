@@ -36,7 +36,6 @@ var _tower_crit_count: int = 0
 var _tower_crit_ratio: float = 0.0
 var _tower_bounce_visited_list: Array[Unit] = []
 var _interpolation_finished_handler: Callable = Callable()
-var _interpolation_finished_no_target_handler: Callable = Callable()
 var _target_hit_handler: Callable = Callable()
 var _periodic_handler: Callable = Callable()
 var _avert_destruct_requested: bool = false
@@ -187,7 +186,6 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 
 	projectile._cleanup_handler = type._cleanup_handler
 	projectile._interpolation_finished_handler = type._interpolation_finished_handler
-	projectile._interpolation_finished_no_target_handler = type._interpolation_finished_no_target_handler
 	projectile._target_hit_handler = type._target_hit_handler
 	projectile._collision_handler = type._collision_handler
 	projectile._expiration_handler = type._expiration_handler
@@ -362,11 +360,10 @@ func _process_interpolated(delta: float):
 	var reached_target: float = progress_ratio == 1.0
 
 	if reached_target:
-		if _target_unit != null && _interpolation_finished_handler.is_valid():
+#		NOTE: finished handler will get called even if
+#		target unit is dead and null. This is intentional.
+		if _interpolation_finished_handler.is_valid():
 			_interpolation_finished_handler.call(self, _target_unit)
-
-		if _interpolation_finished_no_target_handler.is_valid():
-			_interpolation_finished_no_target_handler.call(self)
 
 #		Handler can request projectile to not destroy
 #		itself. In that case do no explosion or cleanup.
