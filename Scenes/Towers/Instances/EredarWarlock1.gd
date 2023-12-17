@@ -230,6 +230,9 @@ func wave_shadowbolt_pt_on_expire(projectile: Projectile):
 
 
 func attack_shadowbolt_pt_on_hit(p: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = p.get_caster()
 	var damage: float = _stats.bolt_damage + _stats.bolt_damage_add * tower.get_level()
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())

@@ -123,6 +123,9 @@ func tomy_energyball_start(target: Creep):
 
 
 func tomy_owl_pt_on_hit(projectile: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = self
 
 	var aoe_range: float = 100 + 1 * tower.get_level()

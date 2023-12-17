@@ -22,6 +22,9 @@ func load_triggers(triggers: BuffType):
 
 
 func hit(p: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = p.get_caster()
 	tower.do_attack_damage(creep, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit(0, 0, 0))
 

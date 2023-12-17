@@ -117,6 +117,9 @@ func on_kill(_event: Event):
 
 
 func frostbolt_pt_on_hit(p: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = p.get_caster()
 	var level: int = tower.get_level()
 	var buff: Buff = creep.get_buff_of_type(dave_taita_touch_bt)

@@ -81,6 +81,9 @@ func on_autocast(event: Event):
 
 
 func cedi_love(p: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Unit = p.get_caster()
 	cedi_love_potion.apply(tower, target, p.user_int)
 

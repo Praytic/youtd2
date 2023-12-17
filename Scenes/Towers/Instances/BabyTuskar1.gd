@@ -53,6 +53,9 @@ func load_specials(modifier: Modifier):
 
 
 func billy_snowball_hit(p: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var t: Unit = p.get_caster()
 
 	if p.user_int == 0:

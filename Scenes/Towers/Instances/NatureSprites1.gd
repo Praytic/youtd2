@@ -169,6 +169,9 @@ func effect_clean(event: Event):
 
 
 func sprite_hit(P: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = P.get_caster()
 	dave_gift.apply(tower, target, tower.get_level())
 

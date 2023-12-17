@@ -96,6 +96,9 @@ func debuff_on_damaged(event: Event):
 
 
 func hit(p: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = p.get_caster()
 	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
 	tolleder_storm_bat.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())

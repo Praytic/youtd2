@@ -22,13 +22,15 @@ func load_triggers(triggers: BuffType):
 
 
 func hit(P: Projectile, U: Unit):
+	if U == null:
+		return
+
 	var e: int
 	var C: Tower = P.get_caster()
 
-	if U != null:
-		C.do_spell_damage_aoe_unit(U, 400, P.user_real, C.calc_spell_crit_no_bonus(), 0)
-		e = Effect.create_scaled("FaerieDragonMissile.mdl", U.get_visual_position().x, U.get_visual_position().y, 80, 0, 5)
-		Effect.set_lifetime(e, 0.01)
+	C.do_spell_damage_aoe_unit(U, 400, P.user_real, C.calc_spell_crit_no_bonus(), 0)
+	e = Effect.create_scaled("FaerieDragonMissile.mdl", U.get_visual_position().x, U.get_visual_position().y, 80, 0, 5)
+	Effect.set_lifetime(e, 0.01)
 
 
 func item_init():

@@ -43,6 +43,9 @@ func get_ability_description_short() -> String:
 
 
 func hit(p: Projectile, result: Unit):
+	if result == null:
+		return
+
 	var t: Tower = p.get_caster()
 
 	if result.get_instance_id() == p.user_int:

@@ -162,6 +162,9 @@ func periodic(_event: Event):
 
 
 func rock_pt_on_hit(projectile: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = projectile.get_caster()
 	var damage: float = 700 + 50 * tower.get_level() + 15 * grow_count
 

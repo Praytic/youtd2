@@ -79,6 +79,9 @@ func burst_fire(tower: Tower, chance: float, target: Creep):
 
 
 func top_crypt_ball_on_hit(p: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = p.get_caster()
 	tower.do_attack_damage(creep, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit(0, 0, 0))
 

@@ -154,3 +154,10 @@ extends Tower
 # 	example_multiboard.set_value(1, "Bar value")
 
 # 	return example_multiboard
+
+
+# func example_pt_on_hit(p: Projectile, target: Unit):
+# 	if target == null:
+# 		return
+
+# 	tower.do_spell_damage(target, 123, tower.calc_spell_crit_no_bonus())

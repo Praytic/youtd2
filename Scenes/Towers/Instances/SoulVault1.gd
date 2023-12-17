@@ -135,6 +135,9 @@ func on_damage(event: Event):
 
 
 func acid_skull_pt_on_hit(_projectile: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 225)
 

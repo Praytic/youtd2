@@ -130,6 +130,9 @@ func on_autocast(_event: Event):
 
 
 func on_projectile_hit(projectile: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = projectile.get_caster()
 	var active_buff: Buff = creep.get_buff_of_type(sir_boar_debuff)
 	var buff_level: int

@@ -152,6 +152,9 @@ func periodic(_event: Event):
 
 
 func ball_pt_on_hit(projectile: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = projectile.get_caster()
 	var explode_chance: float = 0.10 + 0.003 * tower.get_level()
 	var exploded: bool = tower.calc_chance(explode_chance)

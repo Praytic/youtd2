@@ -20,6 +20,9 @@ func load_triggers(triggers: BuffType):
 
 
 func PT_hit(P: Projectile, U: Unit):
+	if U == null:
+		return
+
 	var T: Tower = P.get_caster()
 	var B: Buff = U.get_buff_of_type(BT)
 

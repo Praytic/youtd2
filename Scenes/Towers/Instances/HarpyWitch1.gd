@@ -168,6 +168,9 @@ func on_autocast(event: Event):
 
 
 func harpy_missile_on_hit(projectile: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = projectile.get_caster()
 	var buff_level: int = _stats.twister_level_base + _stats.twister_level_multiply * tower.get_level()
 	tower.do_attack_damage(creep, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit_no_bonus())

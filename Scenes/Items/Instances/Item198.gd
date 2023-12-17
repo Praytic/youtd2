@@ -44,6 +44,9 @@ func daem_frog_attack(tower: Tower, target: Unit, temp: int):
 
 
 func daem_frog_PT_on_hit(p: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = p.get_caster()
 	tower.do_attack_damage(target, p.user_real, p.user_real2)
 

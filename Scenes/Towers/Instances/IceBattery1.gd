@@ -83,6 +83,9 @@ func on_autocast(_event: Event):
 
 
 func hit(p: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = p.get_caster()
 	var buff_level: int = int((_stats.slow_amount + _stats.slow_amount_add * tower.get_level()) * 1000)
 	var buff_power: int = tower.get_level()

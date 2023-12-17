@@ -183,6 +183,9 @@ func dave_council_aura_bt_on_spell_casted(event: Event):
 
 
 func dave_council_pt_on_hit(p: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var tower: Tower = p.get_caster()
 	var projectile_damage: float = p.user_real
 	tower.do_spell_damage(creep, projectile_damage, tower.calc_spell_crit_no_bonus())

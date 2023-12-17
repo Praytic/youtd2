@@ -21,6 +21,9 @@ func load_triggers(triggers: BuffType):
 
 
 func hippo_hit(p: Projectile, creep: Unit):
+	if creep == null:
+		return
+
 	var caster: Unit = p.get_caster()
 
 	if creep.is_immune() == false:

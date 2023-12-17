@@ -18,6 +18,9 @@ func load_triggers(triggers: BuffType):
 
 
 func Collision(P: Projectile, targ: Unit):
+	if targ == null:
+		return
+
 	P.get_caster().do_spell_damage(targ, 60.00, P.get_caster().calc_spell_crit_no_bonus()) 
 
 

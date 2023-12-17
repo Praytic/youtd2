@@ -331,6 +331,9 @@ func ashbringer_frostburn_bt_periodic(event: Event):
 
 
 func icicle_missile_pt_on_hit(_p: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = self
 	var damage: float = (3000 + 80 * tower.get_level()) * (1.0 + 0.02 * fired_icicle_count)
 

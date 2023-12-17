@@ -208,5 +208,8 @@ func glow_harby_awaken_bt_on_cleanup(_event: Event):
 
 
 func harby_pt_on_hit(p: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var damage: float = p.user_real
 	p.do_spell_damage(target, damage)
