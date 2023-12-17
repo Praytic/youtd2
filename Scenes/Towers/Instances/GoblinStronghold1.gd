@@ -165,6 +165,9 @@ func on_attack(event: Event):
 
 
 func cedi_goblin_sapper_pt_on_hit(projectile: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = projectile.get_caster()
 	var level: int = tower.get_level()
 	var sapper_damage: float = randi_range(1350, 7650) + 180 * level
@@ -179,7 +182,7 @@ func cedi_goblin_sapper_pt_on_hit(projectile: Projectile, target: Unit):
 	var effect: int = Effect.add_special_effect("NeutralBuildingExplosion.mdl", projectile.get_x(), projectile.get_y())
 	Effect.destroy_effect_after_its_over(effect)
 
-	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 250)
+	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250)
 	
 	while true:
 		var next: Unit = it.next()
