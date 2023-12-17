@@ -321,9 +321,11 @@ func _process_normal(delta: float):
 		var reached_target = Isometric.vector_in_range(target_pos_isometric, position, CONTACT_DISTANCE)
 
 		if reached_target:
-			if _target_unit != null:
-				if _target_hit_handler.is_valid():
-					_target_hit_handler.call(self, _target_unit)
+#			NOTE: finished handler will get called even if
+#			target unit is dead and null. This is
+#			intentional.
+			if _target_hit_handler.is_valid():
+				_target_hit_handler.call(self, _target_unit)
 
 #			Handler can request projectile to not destroy
 #			itself. In that case do no explosion or cleanup.

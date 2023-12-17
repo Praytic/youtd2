@@ -88,6 +88,10 @@ func enable_collision(handler: Callable, radius: float, target_type: TargetType,
 # Set homing_control_value to 0 to make the projectile turn
 # instantly towards the target.
 # 
+# NOTE: target hit handler will still get called if target
+# died. In that case, target argument will be null so you
+# need to do a null check if you use the target.
+# 
 # projectileType.enableHoming() in JASS
 func enable_homing(target_hit_handler: Callable, homing_control_value: float):
 	_target_hit_handler = target_hit_handler
@@ -110,8 +114,8 @@ func set_event_on_cleanup(handler: Callable):
 
 
 # NOTE: finished handler will still get called if target
-# died. In that cases target argument will be null and you
-# need to check for that case.
+# died. In that case, target argument will be null so you
+# need to do a null check if you use the target.
 # 
 # Example handler:
 # func on_interpolation_finished(projectile: Projectile, target: Unit)
