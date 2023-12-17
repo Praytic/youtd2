@@ -84,7 +84,7 @@ func tower_init():
 	dave_fatigue_bt.set_buff_icon("@@0@@")
 	dave_fatigue_bt.set_buff_tooltip("Fatigue\nThis unit is affected by Fatigue; it has reduced attack speed.")
 
-	dave_axe_pt = ProjectileType.create("RexxarMissile.mdl", 4, 900, self)
+	dave_axe_pt = ProjectileType.create_interpolate("RexxarMissile.mdl", 900, self)
 	dave_axe_pt.set_event_on_interpolation_finished(on_projectile_hit)
 
 

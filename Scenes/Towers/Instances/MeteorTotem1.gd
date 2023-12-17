@@ -69,7 +69,7 @@ func tower_init():
 	sir_totem_torture_bt.add_event_on_damaged(sir_totem_torture_bt_on_damaged)
 	sir_totem_torture_bt.set_buff_tooltip("Torture\nThis tower is affected by Torture; it will take extra damage sometimes.")
 
-	sir_totem_pt = ProjectileType.create("LordofFlameMissile.mdl", 10, 950, self)
+	sir_totem_pt = ProjectileType.create_interpolate("LordofFlameMissile.mdl", 950, self)
 	sir_totem_pt.set_event_on_interpolation_finished(sir_totem_pt_on_hit)
 
 	var autocast: Autocast = Autocast.make()

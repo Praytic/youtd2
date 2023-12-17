@@ -98,10 +98,10 @@ func tower_init():
 	dave_spell_bt.set_buff_icon("@@0@@")
 	dave_spell_bt.set_buff_tooltip("Spell Discipline\nThis tower has Spell Discipline; it has increased spell crit chance.")
 
-	dave_red_pt = ProjectileType.create("RedDragonMissile.mdl", 4, 1000, self)
+	dave_red_pt = ProjectileType.create_interpolate("RedDragonMissile.mdl", 1000, self)
 	dave_red_pt.set_event_on_interpolation_finished(dave_red_pt_on_hit)
 
-	dave_green_pt = ProjectileType.create("GreenDragonMissile.mdl", 4, 1000, self)
+	dave_green_pt = ProjectileType.create_interpolate("GreenDragonMissile.mdl", 1000, self)
 	dave_green_pt.set_event_on_interpolation_finished(dave_green_pt_on_hit)
 
 
