@@ -327,9 +327,6 @@ func _process_normal(delta: float):
 				if _target_hit_handler.is_valid():
 					_target_hit_handler.call(self, _target_unit)
 
-				if _interpolation_finished_handler.is_valid():
-					_interpolation_finished_handler.call(self, _target_unit)
-
 #			Handler can request projectile to not destroy
 #			itself. In that case do no explosion or cleanup.
 			if _avert_destruct_requested:
@@ -365,9 +362,6 @@ func _process_interpolated(delta: float):
 	var reached_target: float = progress_ratio == 1.0
 
 	if reached_target:
-		if _target_unit != null && _target_hit_handler.is_valid():
-			_target_hit_handler.call(self, _target_unit)
-
 		if _target_unit != null && _interpolation_finished_handler.is_valid():
 			_interpolation_finished_handler.call(self, _target_unit)
 
