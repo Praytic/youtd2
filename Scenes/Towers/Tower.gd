@@ -414,8 +414,8 @@ func issue_target_order(order_type: String, target: Unit):
 # element. Note that this overrides projectile's natural color so
 # will need to rework this if we decide to make separate
 # projectile sprites for each element.
-func _make_projectile(from: Unit, target: Unit) -> Projectile:
-	var projectile: Projectile = Projectile.create_from_unit_to_unit(_default_projectile_type, self, 0, 0, from, target, true, false, false)
+func _make_projectile(from_pos: Vector2, target: Unit) -> Projectile:
+	var projectile: Projectile = Projectile.create_from_point_to_unit(_default_projectile_type, self, 0, 0, from_pos, target, true, false, false)
 
 	var element_color: Color
 	var element: Element.enm = get_element()
@@ -657,7 +657,8 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 	attacked_event._number_of_crits = crit_count
 	target.attacked.emit(attacked_event)
 
-	var projectile: Projectile = _make_projectile(self, target)
+	var tower_pos: Vector2 = get_visual_position()
+	var projectile: Projectile = _make_projectile(tower_pos, target)
 	projectile.set_tower_crit_count(crit_count)
 	projectile.set_tower_crit_ratio(crit_ratio)
 
@@ -718,8 +719,8 @@ func _get_base_properties() -> Dictionary:
 	return {}
 
 
-func _get_next_bounce_target(prev_target: Creep, visited_list: Array[Unit]) -> Creep:
-	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, prev_target.position, Constants.BOUNCE_ATTACK_RANGE)
+func _get_next_bounce_target(bounce_pos: Vector2, visited_list: Array[Unit]) -> Creep:
+	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, bounce_pos, Constants.BOUNCE_ATTACK_RANGE)
 
 	for visited_creep in visited_list:
 		if !Utils.unit_is_valid(visited_creep):
@@ -727,7 +728,7 @@ func _get_next_bounce_target(prev_target: Creep, visited_list: Array[Unit]) -> C
 
 		creep_list.erase(visited_creep)
 
-	Utils.sort_unit_list_by_distance(creep_list, prev_target.position)
+	Utils.sort_unit_list_by_distance(creep_list, bounce_pos)
 
 	if !creep_list.is_empty():
 		var next_target = creep_list[0]
@@ -814,6 +815,9 @@ func _on_projectile_target_hit(projectile: Projectile, target: Unit):
 
 
 func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var randomize_damage: bool = true
 	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
 
@@ -835,10 +839,14 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 	var crit_ratio: float = projectile.get_tower_crit_ratio()
 	var is_main_target: bool = true
 
-	do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target)
+	if target != null:
+		do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target)
 
-	var splash_target: Unit = target
-	var splash_pos: Vector2 = splash_target.position
+	var splash_pos: Vector2
+	if target != null:
+		splash_pos = target.position
+	else:
+		splash_pos = projectile.position
 
 #	Process splash ranges from closest to furthers,
 #	so that strongest damage is applied
@@ -849,7 +857,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 
 	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, splash_pos, splash_range_max)
 
-	creep_list.erase(splash_target)
+	if target != null:
+		creep_list.erase(target)
 
 	for neighbor in creep_list:
 #		NOTE: need to check validity because splash attack
@@ -877,14 +886,22 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	var current_damage: float = projectile.user_real
 	var current_bounce_index: int = projectile.user_int
 	var bounce_visited_list: Array[Unit] = projectile.get_tower_bounce_visited_list()
-	bounce_visited_list.append(current_target)
+	if current_target != null:
+		bounce_visited_list.append(current_target)
 
 	var crit_count: int = projectile.get_tower_crit_count()
 	var crit_ratio: float = projectile.get_tower_crit_ratio()
 	var is_first_bounce: bool = current_bounce_index == 0
 	var is_main_target: bool = is_first_bounce
 
-	do_attack_damage(current_target, current_damage, crit_ratio, crit_count, is_main_target)
+	var bounce_pos: Vector2
+	if current_target != null:
+		bounce_pos = current_target.position
+	else:
+		bounce_pos = projectile.position
+
+	if current_target != null:
+		do_attack_damage(current_target, current_damage, crit_ratio, crit_count, is_main_target)
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_index == _bounce_count_max - 1
@@ -894,12 +911,12 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 
 	var next_damage: float = current_damage * (1.0 - _bounce_damage_multiplier)
 
-	var next_target: Creep = _get_next_bounce_target(current_target, bounce_visited_list)
+	var next_target: Creep = _get_next_bounce_target(bounce_pos, bounce_visited_list)
 
 	if next_target == null:
 		return
 
-	var next_projectile: Projectile = _make_projectile(current_target, next_target)
+	var next_projectile: Projectile = _make_projectile(bounce_pos, next_target)
 	next_projectile.user_real = next_damage
 	next_projectile.user_int = current_bounce_index + 1
 	next_projectile._tower_bounce_visited_list = bounce_visited_list
