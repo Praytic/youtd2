@@ -4,6 +4,7 @@ extends PanelContainer
 
 const SELL_BUTTON_RESET_TIME: float = 5.0
 const _default_buff_icon: Texture2D = preload("res://Assets/Buffs/question_mark.png")
+const ITEMS_CONTAINER_BUTTON_SIZE = 82
 
 @export var _upgrade_button: Button
 @export var _sell_button: Button
@@ -52,12 +53,11 @@ func _ready():
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
 	_info_button.pressed.connect(_on_info_button_pressed)
 	_upgrade_button.mouse_entered.connect(_on_tower_upgrade_button_mouse_entered)
+	_items_box_container.child_entered_tree.connect(_on_items_box_container_child_entered_tree)
 
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
-		var button_container: UnitButtonContainer = UnitButtonContainer.make()
 		var empty_slot_button: EmptyUnitButton = EmptyUnitButton.make()
-		button_container.add_child(empty_slot_button)
-		_inventory_empty_slots.add_child(button_container)
+		_inventory_empty_slots.add_child(empty_slot_button)
 
 
 func _process(_delta: float):
@@ -79,6 +79,10 @@ func _on_update_requirements_changed():
 	var tower = get_selected_tower()
 	if tower != null:
 		_update_upgrade_button(tower)
+
+
+func _on_items_box_container_child_entered_tree(node):
+	node.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
 
 
 func _on_selected_unit_changed(prev_unit: Unit):
@@ -177,9 +181,7 @@ func on_tower_items_changed(tower: Tower):
 		item_button.show_auto_mode_indicator()
 		item_button.theme_type_variation = "TinyUnitButton"
 		item_button.show_charges()
-		var button_container: UnitButtonContainer = UnitButtonContainer.make()
-		button_container.add_child(item_button)
-		_items_box_container.add_child(button_container)
+		_items_box_container.add_child(item_button)
 		item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 
 

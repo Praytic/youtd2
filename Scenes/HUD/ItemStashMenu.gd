@@ -1,32 +1,52 @@
-extends GridContainer
+# ItemStashMenu
+extends PanelContainer
 
 
 # This UI element displays items which are currently in the
 # item stash. Note that adding/removing items from stash is
 # implemented by ItemStash class.
+@export var _rarity_filter_container: VBoxContainer
+@export var _item_type_filter_container: VBoxContainer
+@export var _item_buttons_container: GridContainer
 
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
-# This field is of nullable Rarity.enm type
-var _current_item_rarity_filter : set = set_current_item_rarity_filter
-var _current_item_type_filter: Array = [] : set = set_current_item_type_filter
 
+
+#########################
+### Code starts here  ###
+#########################
 
 func _ready():
+	_rarity_filter_container.filter_changed.connect(_on_item_stash_changed)
+	_item_type_filter_container.filter_changed.connect(_on_item_stash_changed)
 	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_on_item_stash_changed()
 
 
-func set_current_item_rarity_filter(value):
-	_current_item_rarity_filter = value
-	ItemStash.items_changed.emit()
+#########################
+###       Public      ###
+#########################
 
 
-func set_current_item_type_filter(value: Array):
-	_current_item_type_filter = value
-	ItemStash.items_changed.emit()
+#########################
+###      Private      ###
+#########################
 
+func _add_item_button(item: Item, index: int):
+	var item_button: ItemButton = ItemButton.make(item)
+
+	_item_button_list.append(item_button)
+	_item_buttons_container.add_child(item_button)
+	_item_buttons_container.move_child(item_button, index)
+
+	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+
+
+#########################
+###     Callbacks     ###
+#########################
 
 # NOTE: need to update buttons selectively to minimuze the
 # amount of times buttons are created/destroyed and avoid
@@ -35,8 +55,10 @@ func set_current_item_type_filter(value: Array):
 # through the item list and add new buttons but that causes
 # perfomance issues.
 func _on_item_stash_changed():
+	var rarity_filter = _rarity_filter_container.get_filter()
+	var item_type_filter = _item_type_filter_container.get_filter()
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
-	var item_list: Array[Item] = item_stash_container.get_item_list(_current_item_rarity_filter, _current_item_type_filter)
+	var item_list: Array[Item] = item_stash_container.get_item_list(rarity_filter, item_type_filter)
 
 # 	Remove buttons for items which were removed from stash
 	var removed_button_list: Array[ItemButton] = []
@@ -49,9 +71,8 @@ func _on_item_stash_changed():
 			removed_button_list.append(button)
 
 	for button in removed_button_list:
-		var button_container: Node = button.get_parent()
-		remove_child(button_container)
-		button_container.queue_free()
+		_item_buttons_container.remove_child(button)
+		button.queue_free()
 		_item_button_list.erase(button)
 
 # 	Add buttons for items which were added to stash
@@ -66,19 +87,40 @@ func _on_item_stash_changed():
 	_prev_item_list = item_list.duplicate()
 
 
-func _add_item_button(item: Item, index: int):
-	var item_button: ItemButton = ItemButton.make(item)
+func _on_item_buttons_container_gui_input(event):
+	var left_click: bool = event.is_action_released("left_click")
 
-	var button_container = UnitButtonContainer.make()
-	button_container.add_child(item_button)
-	_item_button_list.append(item_button)
+	if left_click:
+		ItemMovement.item_stash_was_clicked()
 
-	add_child(button_container)
-	move_child(button_container, index)
-
-	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
+func _on_transmute_button_pressed():
+	HoradricCube.transmute()
 
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
 	ItemMovement.item_was_clicked_in_item_stash(item)
+
+
+func _on_rebrew_button_pressed():
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.TWO_OILS_OR_CONSUMABLES)
+
+
+func _on_distill_button_pressed():
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.FOUR_OILS_OR_CONSUMABLES)
+
+
+func _on_reassemble_button_pressed():
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.THREE_ITEMS)
+
+
+func _on_perfect_button_pressed():
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.FIVE_ITEMS)
+
+
+func _on_close_button_pressed():
+	hide()
+
+#########################
+### Setters / Getters ###
+#########################

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=63 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=64 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -11,6 +11,7 @@
 [ext_resource type="StyleBox" uid="uid://6go01ssqkmws" path="res://Resources/Theme/TowerActions/button_normal.tres" id="3_o7vtc"]
 [ext_resource type="StyleBox" uid="uid://b8m81drahps4x" path="res://Resources/Theme/UnitButton/common_rarity_panel_container.tres" id="4_28e2h"]
 [ext_resource type="StyleBox" uid="uid://bw4wtqgmpri3j" path="res://Resources/Theme/BottomMenuBar/rect_container_center_l.tres" id="4_enpnq"]
+[ext_resource type="StyleBox" uid="uid://ccdh5fd3bpu1w" path="res://Resources/Theme/ElementTowersInfo/empty_button_style_box.tres" id="5_ggt4h"]
 [ext_resource type="StyleBox" uid="uid://de41wrip7to2f" path="res://Resources/Theme/UnitButtonContainer/counter_label_normal.tres" id="5_rng1l"]
 [ext_resource type="StyleBox" uid="uid://c4rv27uxbm00c" path="res://Resources/Theme/BottomMenuBar/stash_panel_background.tres" id="5_uofvg"]
 [ext_resource type="StyleBox" uid="uid://dvslmk5lro1u0" path="res://Resources/Theme/UnitButton/rare_rarity_panel_container.tres" id="6_unpbn"]
@@ -24,48 +25,6 @@
 [ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="12_klcgr"]
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="13_15oyb"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="14_02q6i"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_iu5cl"]
-atlas = ExtResource("8_dlncl")
-region = Rect2(853, 74, 48, 48)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_25id6"]
-content_margin_left = 4.0
-content_margin_right = 4.0
-texture = SubResource("AtlasTexture_iu5cl")
-texture_margin_left = 11.0
-texture_margin_top = 11.0
-texture_margin_right = 11.0
-texture_margin_bottom = 11.0
-modulate_color = Color(0.588235, 0.588235, 0.588235, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p8ovb"]
-content_margin_left = 4.0
-content_margin_right = 4.0
-texture = SubResource("AtlasTexture_iu5cl")
-texture_margin_left = 11.0
-texture_margin_top = 11.0
-texture_margin_right = 11.0
-texture_margin_bottom = 11.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pjq46"]
-content_margin_left = 4.0
-content_margin_right = 4.0
-texture = SubResource("AtlasTexture_iu5cl")
-texture_margin_left = 11.0
-texture_margin_top = 11.0
-texture_margin_right = 11.0
-texture_margin_bottom = 11.0
-modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aknl5"]
-content_margin_left = 4.0
-content_margin_right = 4.0
-texture = SubResource("AtlasTexture_iu5cl")
-texture_margin_left = 11.0
-texture_margin_top = 11.0
-texture_margin_right = 11.0
-texture_margin_bottom = 11.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjpfd"]
 atlas = ExtResource("8_dlncl")
@@ -108,6 +67,16 @@ content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
 texture = SubResource("AtlasTexture_wfurf")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s43g1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s61dw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6l34k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5cxbq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_efi1j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t7ys"]
 
@@ -627,11 +596,11 @@ cache/0/36/0/kerning_overrides/36/0 = Vector2(0, 0)
 [resource]
 default_font = SubResource("1")
 default_font_size = 24
-Button/font_sizes/font_size = 32
-Button/styles/disabled = SubResource("StyleBoxTexture_25id6")
-Button/styles/hover = SubResource("StyleBoxTexture_p8ovb")
-Button/styles/normal = SubResource("StyleBoxTexture_pjq46")
-Button/styles/pressed = SubResource("StyleBoxTexture_aknl5")
+Button/font_sizes/font_size = 24
+Button/styles/disabled = ExtResource("7_mn43h")
+Button/styles/hover = ExtResource("8_pql3q")
+Button/styles/normal = ExtResource("9_xj4hs")
+Button/styles/pressed = ExtResource("8_pql3q")
 CenterPanel/base_type = &"PanelContainer"
 CenterPanel/styles/panel = ExtResource("2_4l726")
 CircleButton/base_type = &"Button"
@@ -642,8 +611,20 @@ CircleButton/styles/pressed = SubResource("StyleBoxTexture_6ua8f")
 CommonRarityPanelContainer/base_type = &"PanelContainer"
 CommonRarityPanelContainer/styles/panel = ExtResource("4_28e2h")
 CounterLabel/styles/normal = ExtResource("5_rng1l")
+CustomTextureButton/base_type = &"Button"
 CustomTextureButton/colors/icon_hover_color = Color(0, 0, 0, 1)
 CustomTextureButton/font_sizes/font_size = 32
+CustomTextureButton/styles/disabled = SubResource("StyleBoxEmpty_s43g1")
+CustomTextureButton/styles/focus = SubResource("StyleBoxEmpty_s61dw")
+CustomTextureButton/styles/hover = SubResource("StyleBoxEmpty_6l34k")
+CustomTextureButton/styles/normal = SubResource("StyleBoxEmpty_5cxbq")
+CustomTextureButton/styles/pressed = SubResource("StyleBoxEmpty_efi1j")
+EmptySlot/base_type = &"Button"
+EmptySlot/styles/disabled = ExtResource("5_ggt4h")
+EmptySlot/styles/focus = ExtResource("5_ggt4h")
+EmptySlot/styles/hover = ExtResource("5_ggt4h")
+EmptySlot/styles/normal = ExtResource("5_ggt4h")
+EmptySlot/styles/pressed = ExtResource("5_ggt4h")
 GameMessageRichTextLabel/base_type = &"RichTextLabel"
 GameMessageRichTextLabel/constants/shadow_offset_x = 2
 GameMessageRichTextLabel/constants/shadow_offset_y = 2

@@ -3,6 +3,7 @@ extends Node
 signal changed()
 
 const MAX_ELEMENT_LEVEL = 15
+const STARTING_ELEMENT_COST = 20
 
 var _element_level_map: Dictionary = {}
 
@@ -32,7 +33,7 @@ func get_max() -> int:
 
 func get_research_cost(element: Element.enm) -> int:
 	var level: int = get_current(element)
-	var cost: int = 20 + level
+	var cost: int = STARTING_ELEMENT_COST + level
 
 	return cost
 
@@ -43,3 +44,11 @@ func can_afford_research(element: Element.enm) -> bool:
 	var can_afford: bool = tome_count >= cost
 
 	return can_afford
+
+func is_able_to_research(element: Element.enm) -> bool:
+	var can_afford: bool = can_afford_research(element)
+	var current_level: int = get_current(element)
+	var reached_max_level: bool = current_level == ElementLevel.get_max()
+	var is_able: bool = can_afford && !reached_max_level
+
+	return is_able
