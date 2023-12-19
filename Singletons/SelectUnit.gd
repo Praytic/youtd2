@@ -92,13 +92,6 @@ func _unhandled_input(event):
 	if !can_select:
 		return
 
-	var cancel_pressed: bool = event.is_action_released("ui_cancel")
-
-	if cancel_pressed && _selected_unit != null:
-		set_selected_unit(null)
-
-		return
-
 	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:

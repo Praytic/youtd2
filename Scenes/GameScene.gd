@@ -12,6 +12,7 @@ enum GameState {
 @export var map_node: Node2D
 @export var _pregame_hud: Control
 @export var _pause_hud: Control
+@export var _hud: HUD
 @export var _wave_spawner: WaveSpawner
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
@@ -58,15 +59,15 @@ func _process(delta: float):
 
 
 func _unhandled_input(event: InputEvent):
-#	NOTE: need to check that cancel press is not consumed by
-#	another action so that player can cancel item movement
-#	or deselect without also pausing the game.
+	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
 	var cancel_consumed_by_mouse_action: bool = MouseState.get_state() != MouseState.enm.NONE
-	var cancel_consumed_by_deselect_unit: bool = SelectUnit.get_selected_unit() != null
-	var cancel_pressed: bool = event.is_action_released("ui_cancel") && !cancel_consumed_by_mouse_action && !cancel_consumed_by_deselect_unit
-	var pause_pressed: bool = event.is_action_released("pause")
+	var cancel_consumed_to_close_windows: bool = _hud.any_window_is_open()
+	var cancel_was_consumed: bool = cancel_consumed_by_mouse_action || cancel_consumed_to_close_windows
 	
-	if pause_pressed || cancel_pressed:
+	if cancel_pressed && cancel_consumed_to_close_windows:
+		_hud.close_all_windows()
+	
+	if cancel_pressed && !cancel_was_consumed:
 		match _game_state:
 			GameState.PLAYING: _pause_the_game()
 			GameState.PAUSED: _unpause_the_game()

@@ -12,6 +12,8 @@ signal stop_wave()
 @export var _item_stash_menu: Control
 @export var _unit_menu: Control
 
+@onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _unit_menu]
+
 
 func _ready():
 	if Config.minimap_enabled():
@@ -48,3 +50,19 @@ func _on_items_button_pressed():
 	if _elements_tower_menu.visible:
 		_elements_tower_menu.hide()
 
+
+func any_window_is_open() -> bool:
+	for window in _window_list:
+		if window.visible:
+			return true
+	
+	return false
+
+
+func close_all_windows():
+	for window in _window_list:
+		window.hide()
+	
+#	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
+	SelectUnit.set_selected_unit(null)
+	
