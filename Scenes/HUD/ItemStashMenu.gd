@@ -53,7 +53,7 @@ func _fill_item_buttons_container_with_empty_slots():
 	
 	for empty_slot_idx in range(_empty_slots.size()):
 		var current_slot: EmptyUnitButton = _empty_slots[empty_slot_idx]
-		var slot_visibility = empty_slot_idx < min(columns * rows, _empty_slots.size()) - items
+		var slot_visibility = empty_slot_idx < max(columns * rows, _empty_slots.size()) - items
 		current_slot.visible = slot_visibility
 
 #########################
