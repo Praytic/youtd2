@@ -70,6 +70,10 @@ func transmute() -> String:
 	if current_recipe == Recipe.NONE:
 		return "Change the ingredients to match an existing recipe."
 
+#	NOTE: autofill will not move unique items into cube if
+#	recipe raises rarity BUT player can still manually setup
+#	a situation like this. That's why we need a secondary
+#	check here.
 	var failed_because_max_rarity: bool = _cant_increase_rarity_further(current_recipe)
 	if failed_because_max_rarity:
 		Messages.add_error("Can't transmute, ingredients are already at max rarity.")
@@ -136,6 +140,19 @@ func _get_item_list_for_autofill(recipe: Recipe) -> Array[Item]:
 
 			return item_type_match
 	)
+
+# 	Filter out unique items if recipe raises rarity
+	var raise_rarity_recipe_list: Array = [Recipe.FOUR_OILS_OR_CONSUMABLES, Recipe.FIVE_ITEMS]
+	var recipe_raises_rarity: bool = raise_rarity_recipe_list.has(recipe)
+	if recipe_raises_rarity:
+		print("recipe_raises_rarity")
+		item_list = item_list.filter(
+			func(item: Item) -> bool:
+				var item_rarity: Rarity.enm = item.get_rarity()
+				var rarity_ok: bool = item_rarity != Rarity.enm.UNIQUE
+
+				return rarity_ok
+		)
 
 # 	Sort by rarity and level
 	var rarity_map: Dictionary = {}
