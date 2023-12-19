@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ino0lr2m12uh"]
+[gd_scene load_steps=15 format=3 uid="uid://ino0lr2m12uh"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ndu1t"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemStashMenu.gd" id="2_8kq4a"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="5_phoyr"]
 [ext_resource type="Texture2D" uid="uid://dfqns87v0xu7x" path="res://Resources/Textures/UI/Icons/distill_icon.tres" id="5_pr6yq"]
 [ext_resource type="Texture2D" uid="uid://bk4dvb16ukwx8" path="res://Resources/Textures/UI/Icons/reassemble_icon.tres" id="6_10i6k"]
-[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/TowerButtonsScrollContainer.gd" id="6_pd5wx"]
 [ext_resource type="Texture2D" uid="uid://bvclahxp4mvge" path="res://Resources/Textures/UI/Icons/perfect_icon.tres" id="7_xqx70"]
 [ext_resource type="PackedScene" uid="uid://d0snws11d0wjs" path="res://Scenes/HUD/ItemStashMenu/RarityFilterContainer.tscn" id="10_pry25"]
 [ext_resource type="PackedScene" uid="uid://ib3y0a6h0v46" path="res://Scenes/HUD/ItemStashMenu/ItemTypeFilterContainer.tscn" id="11_isi7i"]
@@ -170,7 +169,6 @@ layout_mode = 2
 custom_minimum_size = Vector2(2.08165e-12, 390)
 layout_mode = 2
 horizontal_scroll_mode = 0
-script = ExtResource("6_pd5wx")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
