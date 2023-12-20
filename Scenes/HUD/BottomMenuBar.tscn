@@ -1,47 +1,72 @@
-[gd_scene load_steps=14 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=24 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_r4ocg"]
-[ext_resource type="StyleBox" uid="uid://yk4phpxsa6q7" path="res://Resources/Theme/BottomMenuBar/rect_container_left_l.tres" id="3_hbgo8"]
+[ext_resource type="StyleBox" uid="uid://d3bw27j20dwra" path="res://Resources/Theme/BottomMenuBar/rect_container_top_menu.tres" id="3_yvqb7"]
+[ext_resource type="Texture2D" uid="uid://ddjiu85tn8wbv" path="res://Resources/Textures/UI/Icons/ice_icon.tres" id="4_pv8xo"]
+[ext_resource type="PackedScene" uid="uid://dloheeay6i0pj" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="4_u06tq"]
+[ext_resource type="Texture2D" uid="uid://om2iw3jtshn6" path="res://Resources/Textures/UI/Icons/nature_icon.tres" id="5_qaduo"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://dt7vupry6p4y1" path="res://Resources/Textures/UI/Icons/fire_icon.tres" id="6_a3kob"]
+[ext_resource type="Texture2D" uid="uid://bw81x17f8trjj" path="res://Resources/Textures/UI/Icons/astral_icon.tres" id="7_qrtbc"]
+[ext_resource type="Texture2D" uid="uid://cmnfe6fi0wgsb" path="res://Resources/Textures/UI/Icons/darkness_icon.tres" id="8_y4kok"]
+[ext_resource type="Texture2D" uid="uid://ty26wea46uux" path="res://Resources/Textures/UI/Icons/iron_icon.tres" id="9_iqjhc"]
 [ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.tscn" id="9_rbj65"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/Gold.gd" id="10_ewb28"]
+[ext_resource type="Texture2D" uid="uid://dlmpx46h3jvmj" path="res://Resources/Textures/UI/Icons/storm_icon.tres" id="10_ngw2k"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/KnowledgeTome.gd" id="11_hpp3y"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/FoodStatusPanel.gd" id="13_b8pl0"]
 [ext_resource type="StyleBox" uid="uid://8o35dfhhk4km" path="res://Resources/Theme/BottomMenuBar/resource_status_panel.tres" id="20_gir8r"]
+[ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="21_dumfr"]
+[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Textures/UI/Icons/rare_icon.tres" id="22_urg0b"]
+[ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Textures/UI/Icons/unique_icon.tres" id="23_4cabh"]
 [ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://Resources/Textures/UI/Icons/gold_icon.tres" id="25_tnas5"]
 [ext_resource type="Texture2D" uid="uid://d1d4h6m0klgw1" path="res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres" id="27_ymqsm"]
 [ext_resource type="Texture2D" uid="uid://baig85lpi88u" path="res://Resources/Textures/UI/Icons/food_icon.tres" id="29_6duxp"]
-[ext_resource type="StyleBox" uid="uid://uiev7wofsglu" path="res://Resources/Theme/BottomMenuBar/rect_container_right_l.tres" id="39_i467a"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrkv0"]
 
 [node name="BottomMenuBar" type="PanelContainer" node_paths=PackedStringArray("_tomes_status", "_gold_status")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 73.0
+grow_horizontal = 2
+size_flags_horizontal = 3
 mouse_force_pass_scroll_events = false
 theme = ExtResource("1_r4ocg")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrkv0")
 script = ExtResource("6")
-_tomes_status = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu/KnowledgeTomeStatusPanel")
-_gold_status = NodePath("HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu/GoldStatusPanel")
+_tomes_status = NodePath("HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/KnowledgeTomeStatusPanel")
+_gold_status = NodePath("HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/GoldStatusPanel")
 metadata/_edit_vertical_guides_ = [1280.0]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = -2
 
 [node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MarginContainer3"]
-custom_minimum_size = Vector2(180, 253)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_styles/panel = ExtResource("3_hbgo8")
+theme_override_styles/panel = ExtResource("3_yvqb7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer3/PanelContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer3/PanelContainer"]
 layout_mode = 2
 
-[node name="ElementTowersButton" type="Button" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ElementTowersButton" type="Button" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 2.08165e-12)
 layout_mode = 2
 tooltip_text = "Research the selected element. This will increase
  the level of the element by 1. The higher the 
@@ -51,77 +76,159 @@ each wave is cleared."
 focus_mode = 0
 text = "TOWERS"
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="ShortResourceStatusPanel" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("4_pv8xo")
 
-[node name="CenterMenu" type="PanelContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 254)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_type_variation = &"CenterPanel"
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu"]
+[node name="ShortResourceStatusPanel2" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
 layout_mode = 2
 
-[node name="CenterMenu" type="VBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer"]
-custom_minimum_size = Vector2(180, 0)
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 6
-alignment = 1
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel2/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("5_qaduo")
 
-[node name="Label" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu"]
+[node name="ShortResourceStatusPanel3" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
 layout_mode = 2
-text = "You TD 2"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="GoldStatusPanel" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
-layout_mode = 2
-theme_override_styles/panel = ExtResource("20_gir8r")
-script = ExtResource("10_ewb28")
-icon_texture = ExtResource("25_tnas5")
-default_label_text = "0"
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel3/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("6_a3kob")
 
-[node name="KnowledgeTomeStatusPanel" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
+[node name="ShortResourceStatusPanel4" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("20_gir8r")
-script = ExtResource("11_hpp3y")
-icon_texture = ExtResource("27_ymqsm")
-default_label_text = "0"
 
-[node name="FoodStatusPanel" parent="HBoxContainer/MarginContainer/VBoxContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel4/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("7_qrtbc")
+
+[node name="ShortResourceStatusPanel5" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
 layout_mode = 2
-theme_override_styles/panel = ExtResource("20_gir8r")
-script = ExtResource("13_b8pl0")
-icon_texture = ExtResource("29_6duxp")
-default_label_text = "0/60"
+
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel5/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("8_y4kok")
+
+[node name="ShortResourceStatusPanel6" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel6/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("9_iqjhc")
+
+[node name="ShortResourceStatusPanel7" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel7/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("10_ngw2k")
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MarginContainer2"]
-custom_minimum_size = Vector2(180, 253)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/panel = ExtResource("39_i467a")
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = ExtResource("3_yvqb7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer2/PanelContainer"]
 layout_mode = 2
+theme_override_constants/separation = -6
 
-[node name="ItemStashMenuButton" type="Button" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ItemStashMenuButton" type="Button" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/MarginContainer3"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 2.08165e-12)
 layout_mode = 2
 size_flags_vertical = 0
 tooltip_text = "Open Horadric Cube"
 focus_mode = 0
 text = "ITEMS"
 
+[node name="ShortResourceStatusPanel" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
+layout_mode = 2
+
+[node name="ShortResourceStatusPanel2" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/ShortResourceStatusPanel2/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("21_dumfr")
+
+[node name="ShortResourceStatusPanel3" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/ShortResourceStatusPanel3/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("22_urg0b")
+
+[node name="ShortResourceStatusPanel4" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer" instance=ExtResource("4_u06tq")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/ShortResourceStatusPanel4/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("23_4cabh")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="CenterMenu" type="PanelContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_yvqb7")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/CenterMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="CenterMenu" type="HBoxContainer" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="GoldStatusPanel" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
+custom_minimum_size = Vector2(160, 50)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("20_gir8r")
+script = ExtResource("10_ewb28")
+icon_texture = ExtResource("25_tnas5")
+default_label_text = "0"
+
+[node name="KnowledgeTomeStatusPanel" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("20_gir8r")
+script = ExtResource("11_hpp3y")
+icon_texture = ExtResource("27_ymqsm")
+default_label_text = "0"
+
+[node name="FoodStatusPanel" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("9_rbj65")]
+custom_minimum_size = Vector2(160, 40)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("20_gir8r")
+script = ExtResource("13_b8pl0")
+icon_texture = ExtResource("29_6duxp")
+default_label_text = "0/60"
+
+[node name="MarginContainer4" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/MarginContainer4"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_yvqb7")
+
 [connection signal="gui_input" from="HBoxContainer/MarginContainer2/PanelContainer" to="." method="_on_items_menu_gui_input"]
+
+[editable path="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel"]
+[editable path="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel2"]
+[editable path="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel3"]
+[editable path="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel4"]
+[editable path="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel5"]
+[editable path="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel6"]
+[editable path="HBoxContainer/MarginContainer3/PanelContainer/VBoxContainer/ShortResourceStatusPanel7"]
+[editable path="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/ShortResourceStatusPanel2"]
+[editable path="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/ShortResourceStatusPanel3"]
+[editable path="HBoxContainer/MarginContainer2/PanelContainer/VBoxContainer/ShortResourceStatusPanel4"]
