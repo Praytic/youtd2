@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://cledjfag3vyv5"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_osxgh"]
+[ext_resource type="PackedScene" uid="uid://dloheeay6i0pj" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="2_p7e3w"]
+[ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="2_rdu0u"]
+[ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="3_02p6f"]
+[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Textures/UI/Icons/rare_icon.tres" id="4_smc85"]
+[ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Textures/UI/Icons/unique_icon.tres" id="5_d1ay2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i8sg6"]
+
+[node name="ItemsCard" type="PanelContainer"]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_osxgh")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_i8sg6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = -6
+
+[node name="ShortResourceStatusPanel" parent="HBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_p7e3w")]
+layout_mode = 2
+
+[node name="ShortResourceStatusPanel2" parent="HBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_p7e3w")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="HBoxContainer/PanelContainer/VBoxContainer/ShortResourceStatusPanel2/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("3_02p6f")
+
+[node name="ShortResourceStatusPanel3" parent="HBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_p7e3w")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="HBoxContainer/PanelContainer/VBoxContainer/ShortResourceStatusPanel3/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("4_smc85")
+
+[node name="ShortResourceStatusPanel4" parent="HBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource("2_p7e3w")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="HBoxContainer/PanelContainer/VBoxContainer/ShortResourceStatusPanel4/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("5_d1ay2")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer"]
+layout_mode = 2
+stretch_mode = 1
+
+[node name="ItemStashMenuButton" type="Button" parent="HBoxContainer/AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Open Horadric Cube"
+focus_mode = 0
+theme_type_variation = &"LargeCircleButton"
+icon = ExtResource("2_rdu0u")
+icon_alignment = 1
+
+[editable path="HBoxContainer/PanelContainer/VBoxContainer/ShortResourceStatusPanel2"]
+[editable path="HBoxContainer/PanelContainer/VBoxContainer/ShortResourceStatusPanel3"]
+[editable path="HBoxContainer/PanelContainer/VBoxContainer/ShortResourceStatusPanel4"]
