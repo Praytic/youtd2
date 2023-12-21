@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=21 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_r4ocg"]
 [ext_resource type="StyleBox" uid="uid://dt873umx4sexx" path="res://Resources/Theme/BottomMenuBar/rect_container_top_menu.tres" id="3_yvqb7"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/Gold.gd" id="10_ewb28"]
 [ext_resource type="Texture2D" uid="uid://dlmpx46h3jvmj" path="res://Resources/Textures/UI/Icons/storm_icon.tres" id="10_ngw2k"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/KnowledgeTome.gd" id="11_hpp3y"]
-[ext_resource type="PackedScene" uid="uid://bsanprxuqto5m" path="res://Scenes/HUD/ItemsMenuCard.tscn" id="12_kvnwu"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/FoodStatusPanel.gd" id="13_b8pl0"]
 [ext_resource type="StyleBox" uid="uid://8o35dfhhk4km" path="res://Resources/Theme/BottomMenuBar/resource_status_panel.tres" id="20_gir8r"]
 [ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://Resources/Textures/UI/Icons/gold_icon.tres" id="25_tnas5"]
@@ -120,9 +119,6 @@ texture = ExtResource("10_ngw2k")
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-
-[node name="PanelContainer" parent="HBoxContainer/MarginContainer2" instance=ExtResource("12_kvnwu")]
-layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2

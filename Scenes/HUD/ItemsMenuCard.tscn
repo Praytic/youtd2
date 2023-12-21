@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_kyqg2"]
 [ext_resource type="PackedScene" uid="uid://ngr2je0iun8h" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="2_1l4ql"]
-[ext_resource type="Script" path="res://Scenes/HUD/ItemsMenuCard.gd" id="2_equcp"]
+[ext_resource type="Script" path="res://Scenes/HUD/ButtonStatusCard.gd" id="2_hgg20"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="2_l11y6"]
 [ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="3_8ncus"]
 [ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="4_a2ebb"]
@@ -28,7 +28,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("1_kyqg2")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ni3r1")
-script = ExtResource("2_equcp")
+script = ExtResource("2_hgg20")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
