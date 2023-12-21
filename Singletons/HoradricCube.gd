@@ -145,7 +145,6 @@ func _get_item_list_for_autofill(recipe: Recipe) -> Array[Item]:
 	var raise_rarity_recipe_list: Array = [Recipe.FOUR_OILS_OR_CONSUMABLES, Recipe.FIVE_ITEMS]
 	var recipe_raises_rarity: bool = raise_rarity_recipe_list.has(recipe)
 	if recipe_raises_rarity:
-		print("recipe_raises_rarity")
 		item_list = item_list.filter(
 			func(item: Item) -> bool:
 				var item_rarity: Rarity.enm = item.get_rarity()
