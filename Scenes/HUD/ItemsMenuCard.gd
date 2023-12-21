@@ -4,7 +4,6 @@ extends PanelContainer
 
 @export var _main_button: Button
 
-
 @onready var _hidable_status_panels: Array = get_tree().get_nodes_in_group("hidable_status_panel")
 
 
