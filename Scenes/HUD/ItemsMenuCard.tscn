@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsanprxuqto5m"]
+
+[ext_resource type="StyleBox" uid="uid://dt873umx4sexx" path="res://Resources/Theme/BottomMenuBar/rect_container_top_menu.tres" id="1_75rp4"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_kyqg2"]
+[ext_resource type="PackedScene" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="2_1l4ql"]
+[ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="3_8ncus"]
+[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Textures/UI/Icons/rare_icon.tres" id="4_pc6hb"]
+[ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Textures/UI/Icons/unique_icon.tres" id="5_c4rrq"]
+
+[node name="PanelContainer" type="PanelContainer"]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_kyqg2")
+theme_override_styles/panel = ExtResource("1_75rp4")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = -6
+
+[node name="ShortResourceStatusPanel" parent="VBoxContainer" instance=ExtResource("2_1l4ql")]
+layout_mode = 2
+
+[node name="ShortResourceStatusPanel2" parent="VBoxContainer" instance=ExtResource("2_1l4ql")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="VBoxContainer/ShortResourceStatusPanel2/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("3_8ncus")
+
+[node name="ShortResourceStatusPanel3" parent="VBoxContainer" instance=ExtResource("2_1l4ql")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="VBoxContainer/ShortResourceStatusPanel3/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("4_pc6hb")
+
+[node name="ShortResourceStatusPanel4" parent="VBoxContainer" instance=ExtResource("2_1l4ql")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="VBoxContainer/ShortResourceStatusPanel4/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("5_c4rrq")
+
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ItemStashMenuButton" type="Button" parent="VBoxContainer/MarginContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 2.08165e-12)
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "Open Horadric Cube"
+focus_mode = 0
+theme_type_variation = &"BigCircleButton"
+text = "ITEMS"
+
+[editable path="VBoxContainer/ShortResourceStatusPanel2"]
+[editable path="VBoxContainer/ShortResourceStatusPanel3"]
+[editable path="VBoxContainer/ShortResourceStatusPanel4"]
