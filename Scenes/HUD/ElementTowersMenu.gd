@@ -19,8 +19,7 @@ signal towers_changed()
 }
 
 @export var _upgrade_element_button: Button
-@export var _tower_buttons_container: GridContainer
-@export var _tower_buttons_scroll_container: ScrollContainer
+@export var _tower_buttons_container: UnitButtonsContainer
 @export var _elements_container: VBoxContainer
 @export var _element_icon: TextureRect
 @export var _title: Label
@@ -56,7 +55,7 @@ func _ready():
 ###       Public      ###
 #########################
 
-func add_tower_button(tower_id, should_emit_signal: bool = true):
+func add_tower_button(tower_id, should_emit_signal: bool = true, insert_index = null):
 	if _tower_buttons.has(tower_id):
 		var tower_button: TowerButton = _tower_buttons[tower_id]
 		var new_count: int = tower_button.get_count() + 1
@@ -71,18 +70,13 @@ func add_tower_button(tower_id, should_emit_signal: bool = true):
 	tower_button.set_visible(tower_should_be_visible)
 	tower_button.add_to_group("tower_button")
 	_tower_buttons_container.add_child(tower_button)
-	
-#	NOTE: in random modes, sort towers by rarity and place
-#	new towers in the front of the list.
-# 
-#	Only do this for random game modes because in build mode
-#	towers are sorted in _add_all_towers().
-	if Globals.game_mode_is_random():
-		var insert_index: int = _get_insert_index_for_tower(tower_id)
+	if insert_index != null:
 		_tower_buttons_container.move_child(tower_button, insert_index)
 	
 	if should_emit_signal:
 		towers_changed.emit()
+	
+	_update_empty_slots()
 
 
 func remove_tower_button(tower_id, should_emit_signal: bool = true):
@@ -101,6 +95,8 @@ func remove_tower_button(tower_id, should_emit_signal: bool = true):
 	
 	if should_emit_signal:
 		towers_changed.emit()
+	
+	_update_empty_slots()
 
 
 #########################
@@ -148,12 +144,13 @@ func _add_all_towers():
 				return rarity_a < rarity_b
 				)
 
-	for tower_id in first_tier_towers:
+	for i in range(first_tier_towers.size()):
+		var tower_id = first_tier_towers[i]
 		var is_released: bool = TowerProperties.is_released(tower_id)
 		if !is_released:
 			continue
 
-		add_tower_button(tower_id, false)
+		add_tower_button(tower_id, false, i)
 
 #	NOTE: call _update_element() to show towers for currently
 #	selected element. 
@@ -194,6 +191,11 @@ func _update_info_label():
 	_element_info_label.text = text
 
 
+func _update_empty_slots():
+	var current_element = _elements_container.get_element()
+	var towers = _get_available_tower_buttons_for_element(current_element).size()
+	_tower_buttons_container.update_empty_slots(towers)
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -205,6 +207,7 @@ func _on_element_changed():
 	_update_title()
 	_update_element_level_label()
 	_update_info_label()
+	_update_empty_slots()
 
 
 func _on_tower_built(tower_id):
@@ -263,7 +266,13 @@ func _on_rolling_starting_towers():
 
 
 func _on_random_tower_distributed(tower_id: int):
-	add_tower_button(tower_id)
+#	NOTE: in random modes, sort towers by rarity and place
+#	new towers in the front of the list.
+#	
+#	Only do this for random game modes because in build mode
+#	towers are sorted in _add_all_towers().
+	var insert_index: int = _get_insert_index_for_tower(tower_id)
+	add_tower_button(tower_id, true, insert_index)
 
 
 func _on_element_level_changed():

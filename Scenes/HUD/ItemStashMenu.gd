@@ -7,8 +7,7 @@ extends PanelContainer
 # implemented by ItemStash class.
 @export var _rarity_filter_container: VBoxContainer
 @export var _item_type_filter_container: VBoxContainer
-@export var _item_buttons_container: GridContainer
-
+@export var _item_buttons_container: UnitButtonsContainer
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
@@ -36,6 +35,7 @@ func _ready():
 
 func _add_item_button(item: Item, index: int):
 	var item_button: ItemButton = ItemButton.make(item)
+	item_button.add_to_group("item_button")
 
 	_item_button_list.append(item_button)
 	_item_buttons_container.add_child(item_button)
@@ -43,6 +43,10 @@ func _add_item_button(item: Item, index: int):
 
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 
+
+func _fill_item_buttons_container_with_empty_slots():
+	var items = _item_button_list.size()
+	_item_buttons_container.update_empty_slots(items)
 
 #########################
 ###     Callbacks     ###
@@ -85,6 +89,8 @@ func _on_item_stash_changed():
 			_add_item_button(item, i)
 
 	_prev_item_list = item_list.duplicate()
+	
+	_fill_item_buttons_container_with_empty_slots()
 
 
 func _on_item_buttons_container_gui_input(event):
@@ -92,6 +98,7 @@ func _on_item_buttons_container_gui_input(event):
 
 	if left_click:
 		ItemMovement.item_stash_was_clicked()
+
 
 func _on_transmute_button_pressed():
 	HoradricCube.transmute()
@@ -120,6 +127,7 @@ func _on_perfect_button_pressed():
 
 func _on_close_button_pressed():
 	hide()
+
 
 #########################
 ### Setters / Getters ###
