@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dloheeay6i0pj"]
+[gd_scene load_steps=3 format=3 uid="uid://ngr2je0iun8h"]
 
+[ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.gd" id="1_ox7ia"]
 [ext_resource type="Texture2D" uid="uid://dnfyls46vqccy" path="res://Resources/Textures/UI/Icons/common_icon.tres" id="1_uerio"]
 
-[node name="ShortResourceStatusPanel" type="MarginContainer"]
+[node name="ShortResourceStatusPanel" type="MarginContainer" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label")]
 custom_minimum_size = Vector2(100, 65)
+script = ExtResource("1_ox7ia")
+_resource_count_label = NodePath("HBoxContainer/MarginContainer/ResourceCountLabel")
+_new_resource_count_label = NodePath("HBoxContainer/MarginContainer/NewResourceCountLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
