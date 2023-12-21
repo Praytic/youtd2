@@ -7,9 +7,7 @@ extends PanelContainer
 # implemented by ItemStash class.
 @export var _rarity_filter_container: VBoxContainer
 @export var _item_type_filter_container: VBoxContainer
-@export var _item_buttons_container: GridContainer
-
-@onready var _empty_slots: Array = _item_buttons_container.get_children()
+@export var _item_buttons_container: UnitButtonsContainer
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
@@ -47,14 +45,8 @@ func _add_item_button(item: Item, index: int):
 
 
 func _fill_item_buttons_container_with_empty_slots():
-	var columns = _item_buttons_container.columns
 	var items = _item_button_list.size()
-	var rows = ceil((items * 1.0) / columns)
-	
-	for empty_slot_idx in range(_empty_slots.size()):
-		var current_slot: EmptyUnitButton = _empty_slots[empty_slot_idx]
-		var slot_visibility = empty_slot_idx < max(columns * rows, _empty_slots.size()) - items
-		current_slot.visible = slot_visibility
+	_item_buttons_container.update_empty_slots(items)
 
 #########################
 ###     Callbacks     ###

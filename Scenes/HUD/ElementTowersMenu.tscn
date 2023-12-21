@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvo433axo22w3"]
+[gd_scene load_steps=13 format=3 uid="uid://dvo433axo22w3"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_uh0n3"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu.gd" id="2_78i0l"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_onsb2"]
 [ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="4_hw31b"]
+[ext_resource type="Script" path="res://Scenes/HUD/UnitButtonsContainer.gd" id="5_14lu8"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="7_jodiw"]
 [ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="8_ys01i"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="10_y8460"]
@@ -249,6 +250,7 @@ mouse_filter = 0
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 4
+script = ExtResource("5_14lu8")
 
 [node name="EmptyUnitButton1" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
 layout_mode = 2

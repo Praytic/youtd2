@@ -17,10 +17,9 @@ signal towers_changed()
 	Element.enm.IRON: preload("res://Resources/Textures/UI/Icons/iron_icon.tres"),
 	Element.enm.STORM: preload("res://Resources/Textures/UI/Icons/storm_icon.tres"),
 }
-@onready var _empty_slots: Array = _tower_buttons_container.get_children()
 
 @export var _upgrade_element_button: Button
-@export var _tower_buttons_container: GridContainer
+@export var _tower_buttons_container: UnitButtonsContainer
 @export var _elements_container: VBoxContainer
 @export var _element_icon: TextureRect
 @export var _title: Label
@@ -193,15 +192,9 @@ func _update_info_label():
 
 
 func _update_empty_slots():
-	var columns = _tower_buttons_container.columns
 	var current_element = _elements_container.get_element()
 	var towers = _get_available_tower_buttons_for_element(current_element).size()
-	var rows = ceil((towers * 1.0) / columns)
-	
-	for empty_slot_idx in range(_empty_slots.size()):
-		var current_slot: EmptyUnitButton = _empty_slots[empty_slot_idx]
-		var slot_visibility = empty_slot_idx < max(columns * rows, _empty_slots.size()) - towers
-		current_slot.visible = slot_visibility
+	_tower_buttons_container.update_empty_slots(towers)
 
 #########################
 ###     Callbacks     ###

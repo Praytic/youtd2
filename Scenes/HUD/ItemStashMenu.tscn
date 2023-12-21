@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://ino0lr2m12uh"]
+[gd_scene load_steps=16 format=3 uid="uid://ino0lr2m12uh"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ndu1t"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemStashMenu.gd" id="2_8kq4a"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_7s34h"]
 [ext_resource type="Texture2D" uid="uid://b1oind72lxrm4" path="res://Resources/Textures/UI/Icons/rebrew_icon.tres" id="4_iy7pd"]
 [ext_resource type="Script" path="res://Scenes/HUD/HoradricMenu.gd" id="4_wks64"]
+[ext_resource type="Script" path="res://Scenes/HUD/UnitButtonsContainer.gd" id="4_yluat"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="5_phoyr"]
 [ext_resource type="Texture2D" uid="uid://dfqns87v0xu7x" path="res://Resources/Textures/UI/Icons/distill_icon.tres" id="5_pr6yq"]
 [ext_resource type="Texture2D" uid="uid://bk4dvb16ukwx8" path="res://Resources/Textures/UI/Icons/reassemble_icon.tres" id="6_10i6k"]
@@ -137,6 +138,7 @@ mouse_filter = 0
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 4
+script = ExtResource("4_yluat")
 
 [node name="EmptyUnitButton1" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer" instance=ExtResource("5_phoyr")]
 layout_mode = 2
