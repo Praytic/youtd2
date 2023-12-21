@@ -38,41 +38,55 @@ theme_override_constants/margin_right = 50
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ebngv")
 
-[node name="GridContainer" type="HFlowContainer" parent="MarginContainer/PanelContainer"]
-custom_minimum_size = Vector2(350, 2.08165e-12)
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+columns = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="ItemsCountPanel" parent="MarginContainer/PanelContainer/GridContainer" instance=ExtResource("2_1l4ql")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/GridContainer/ItemsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ItemsCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_1l4ql")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/ItemsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("4_a2ebb")
 
-[node name="CommonsCountPanel" parent="MarginContainer/PanelContainer/GridContainer" instance=ExtResource("2_1l4ql")]
+[node name="CommonsCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+visible = false
 layout_mode = 2
 
-[node name="UncommonsCountPanel" parent="MarginContainer/PanelContainer/GridContainer" instance=ExtResource("2_1l4ql")]
+[node name="UncommonsCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+visible = false
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/GridContainer/UncommonsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/UncommonsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("3_8ncus")
 
-[node name="OilsCountPanel" parent="MarginContainer/PanelContainer/GridContainer" instance=ExtResource("2_1l4ql")]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/GridContainer/OilsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="OilsCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("2_1l4ql")]
+layout_mode = 2
+
+[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/OilsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("5_837ye")
 
-[node name="RaresCountPanel" parent="MarginContainer/PanelContainer/GridContainer" instance=ExtResource("2_1l4ql")]
+[node name="RaresCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+visible = false
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/GridContainer/RaresCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/RaresCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("4_pc6hb")
 
-[node name="UniquesCountPanel" parent="MarginContainer/PanelContainer/GridContainer" instance=ExtResource("2_1l4ql")]
+[node name="UniquesCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+visible = false
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/GridContainer/UniquesCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/UniquesCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("5_c4rrq")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
@@ -91,9 +105,9 @@ button_pressed = true
 icon = ExtResource("4_a2ebb")
 icon_alignment = 1
 
-[editable path="MarginContainer/PanelContainer/GridContainer/ItemsCountPanel"]
-[editable path="MarginContainer/PanelContainer/GridContainer/CommonsCountPanel"]
-[editable path="MarginContainer/PanelContainer/GridContainer/UncommonsCountPanel"]
-[editable path="MarginContainer/PanelContainer/GridContainer/OilsCountPanel"]
-[editable path="MarginContainer/PanelContainer/GridContainer/RaresCountPanel"]
-[editable path="MarginContainer/PanelContainer/GridContainer/UniquesCountPanel"]
+[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/ItemsCountPanel"]
+[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/CommonsCountPanel"]
+[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/UncommonsCountPanel"]
+[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/OilsCountPanel"]
+[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/RaresCountPanel"]
+[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/UniquesCountPanel"]
