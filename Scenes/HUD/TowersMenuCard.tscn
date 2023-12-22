@@ -37,7 +37,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ni3r1")
 script = ExtResource("2_o5u5x")
 _main_button = NodePath("AspectRatioContainer/ItemStashMenuButton")
 _expand_button = NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton")
-_hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator"), NodePath("PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel")]
+_hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator"), NodePath("PanelContainer/HBoxContainer/GridContainer")]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -71,56 +71,51 @@ layout_mode = 2
 texture = ExtResource("5_ycddg")
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 columns = 4
 
 [node name="IceTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("6_trfm4")
 
 [node name="NatureTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("7_hh3gj")
 
 [node name="FireTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("8_3aneo")
 
 [node name="AstralTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("9_d4j65")
 
 [node name="DarknessTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("10_tffkc")
 
 [node name="IronTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("11_x3q82")
 
 [node name="StormTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
@@ -137,8 +132,6 @@ layout_mode = 2
 tooltip_text = "Open Items menu"
 focus_mode = 0
 theme_type_variation = &"BigCircleButton"
-toggle_mode = true
-button_pressed = true
 icon = ExtResource("5_ycddg")
 icon_alignment = 1
 expand_icon = true

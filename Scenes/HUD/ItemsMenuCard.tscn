@@ -32,7 +32,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ni3r1")
 script = ExtResource("2_hgg20")
 _main_button = NodePath("AspectRatioContainer/ItemStashMenuButton")
 _expand_button = NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton")
-_hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator2"), NodePath("PanelContainer/HBoxContainer/GridContainer/CommonsCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/RaresCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel")]
+_hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator2"), NodePath("PanelContainer/HBoxContainer/GridContainer")]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -73,32 +73,30 @@ layout_mode = 2
 texture = ExtResource("5_837ye")
 
 [node name="VSeparator2" type="VSeparator" parent="PanelContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 columns = 2
 
 [node name="CommonsCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("2_1l4ql")]
-visible = false
 layout_mode = 2
 
 [node name="UncommonsCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("2_1l4ql")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("3_8ncus")
 
 [node name="RaresCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("2_1l4ql")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/RaresCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("4_pc6hb")
 
 [node name="UniquesCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("2_1l4ql")]
-visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
