@@ -9,10 +9,11 @@ extends PanelContainer
 
 
 func _ready():
-	_expand_button.toggled.connect(_on_main_button_toggled)
+	_expand_button.toggled.connect(_on_expand_button_toggled)
 
 
-func _on_main_button_toggled(toggled):
+func _on_expand_button_toggled(toggled):
+	_expand_button.visible = not toggled
 	for status_panel in _hidable_status_panels:
 		status_panel.visible = toggled
 
