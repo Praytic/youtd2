@@ -161,16 +161,22 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="MenuCards" type="VBoxContainer" parent="MarginContainer/All/Center/CenterRight/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center/CenterRight/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_right = 50
+
+[node name="MenuCards" type="VBoxContainer" parent="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 10
 
-[node name="TowersMenuCard" parent="MarginContainer/All/Center/CenterRight/HBoxContainer/MenuCards" instance=ExtResource("13_xklr1")]
+[node name="TowersMenuCard" parent="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards" instance=ExtResource("13_xklr1")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="ItemsMenuCard" parent="MarginContainer/All/Center/CenterRight/HBoxContainer/MenuCards" instance=ExtResource("12_er7w7")]
+[node name="ItemsMenuCard" parent="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards" instance=ExtResource("12_er7w7")]
 layout_mode = 2
 size_flags_horizontal = 8
 

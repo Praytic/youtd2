@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=73 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=78 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -22,6 +22,7 @@
 [ext_resource type="StyleBox" uid="uid://k235emid2ajj" path="res://Resources/Theme/UnitButton/small_button_hover.tres" id="8_pql3q"]
 [ext_resource type="StyleBox" uid="uid://xj6rw0giypad" path="res://Resources/Theme/item_button_normal.tres" id="8_t77il"]
 [ext_resource type="StyleBox" uid="uid://carc5koied5gk" path="res://Resources/Theme/UnitButton/small_button_normal.tres" id="9_xj4hs"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="10_7mhq7"]
 [ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://Resources/Textures/UI/portal_lives_round_bg.tres" id="10_r42uk"]
 [ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="12_klcgr"]
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="13_15oyb"]
@@ -92,6 +93,21 @@ texture = SubResource("AtlasTexture_wfurf")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5cxbq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_efi1j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f8clf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dldvb"]
+atlas = ExtResource("10_7mhq7")
+region = Rect2(640, 128, 128, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wifc2"]
+texture = SubResource("AtlasTexture_dldvb")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ehwjq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t7ys"]
 
@@ -659,6 +675,10 @@ EmptySlot/styles/focus = ExtResource("5_ggt4h")
 EmptySlot/styles/hover = ExtResource("5_ggt4h")
 EmptySlot/styles/normal = ExtResource("5_ggt4h")
 EmptySlot/styles/pressed = ExtResource("5_ggt4h")
+ExpandButton/base_type = &"Button"
+ExpandButton/styles/disabled = SubResource("StyleBoxEmpty_f8clf")
+ExpandButton/styles/normal = SubResource("StyleBoxTexture_wifc2")
+ExpandButton/styles/pressed = SubResource("StyleBoxEmpty_ehwjq")
 GameMessageRichTextLabel/base_type = &"RichTextLabel"
 GameMessageRichTextLabel/constants/shadow_offset_x = 2
 GameMessageRichTextLabel/constants/shadow_offset_y = 2

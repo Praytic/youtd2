@@ -117,6 +117,24 @@ icon = ExtResource("5_ycddg")
 icon_alignment = 1
 expand_icon = true
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = -10
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+stretch_mode = 1
+
+[node name="ExpandButton" type="Button" parent="MarginContainer/AspectRatioContainer2"]
+layout_mode = 2
+theme_type_variation = &"ExpandButton"
+toggle_mode = true
+icon_alignment = 1
+expand_icon = true
+
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel"]
 [editable path="PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"]
 [editable path="PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"]
