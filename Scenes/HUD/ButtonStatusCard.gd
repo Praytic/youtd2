@@ -2,7 +2,6 @@ class_name ButtonStatusCard
 extends PanelContainer
 
 
-@export var _main_button: Button
 @export var _expand_button: Button
 @export var _hidable_status_panels: Array[Control]
 

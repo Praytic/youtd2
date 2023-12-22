@@ -26,7 +26,7 @@ texture_margin_right = 14.0
 texture_margin_bottom = 13.9504
 region_rect = Rect2(1283, 192, 139, 154)
 
-[node name="TowersMenuCard" type="PanelContainer" node_paths=PackedStringArray("_main_button", "_expand_button", "_hidable_status_panels")]
+[node name="TowersMenuCard" type="PanelContainer" node_paths=PackedStringArray("_expand_button", "_hidable_status_panels")]
 custom_minimum_size = Vector2(2.08165e-12, 100)
 offset_right = 175.0
 offset_bottom = 59.0
@@ -35,7 +35,6 @@ size_flags_vertical = 0
 theme = ExtResource("1_tyvge")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ni3r1")
 script = ExtResource("2_o5u5x")
-_main_button = NodePath("AspectRatioContainer/ItemStashMenuButton")
 _expand_button = NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton")
 _hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator"), NodePath("PanelContainer/HBoxContainer/GridContainer")]
 
@@ -126,8 +125,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 stretch_mode = 1
 
-[node name="ItemStashMenuButton" type="Button" parent="AspectRatioContainer"]
-unique_name_in_owner = true
+[node name="MainButton" type="Button" parent="AspectRatioContainer"]
 layout_mode = 2
 tooltip_text = "Open Items menu"
 focus_mode = 0

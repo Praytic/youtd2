@@ -11,6 +11,8 @@ signal stop_wave()
 @export var _elements_tower_menu: Control
 @export var _item_stash_menu: Control
 @export var _unit_menu: Control
+@export var _towers_menu_card: ButtonStatusCard
+@export var _items_menu_card: ButtonStatusCard
 
 @onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _unit_menu]
 
@@ -41,12 +43,16 @@ func _on_game_over():
 
 func _on_towers_button_pressed():
 	_elements_tower_menu.show()
+	_towers_menu_card.hide()
+	_items_menu_card.hide()
 	if _item_stash_menu.visible:
 		_item_stash_menu.hide()
 
 
 func _on_items_button_pressed():
 	_item_stash_menu.show()
+	_towers_menu_card.hide()
+	_items_menu_card.hide()
 	if _elements_tower_menu.visible:
 		_elements_tower_menu.hide()
 
@@ -63,6 +69,13 @@ func close_all_windows():
 	for window in _window_list:
 		window.hide()
 	
+	_towers_menu_card.show()
+	_items_menu_card.show()
 #	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
 	SelectUnit.set_selected_unit(null)
 	
+
+
+func _on_close_button_pressed():
+	_towers_menu_card.show()
+	_items_menu_card.show()
