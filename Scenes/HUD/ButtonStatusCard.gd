@@ -4,8 +4,7 @@ extends PanelContainer
 
 @export var _main_button: Button
 @export var _expand_button: Button
-
-@onready var _hidable_status_panels: Array = get_tree().get_nodes_in_group("hidable_status_panel_2")
+@export var _hidable_status_panels: Array[Control]
 
 
 func _on_expand_button_toggled(toggled):

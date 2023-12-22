@@ -26,7 +26,7 @@ texture_margin_right = 14.0
 texture_margin_bottom = 13.9504
 region_rect = Rect2(1283, 192, 139, 154)
 
-[node name="TowersMenuCard" type="PanelContainer" node_paths=PackedStringArray("_main_button", "_expand_button")]
+[node name="TowersMenuCard" type="PanelContainer" node_paths=PackedStringArray("_main_button", "_expand_button", "_hidable_status_panels")]
 custom_minimum_size = Vector2(2.08165e-12, 100)
 offset_right = 175.0
 offset_bottom = 59.0
@@ -37,6 +37,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ni3r1")
 script = ExtResource("2_o5u5x")
 _main_button = NodePath("AspectRatioContainer/ItemStashMenuButton")
 _expand_button = NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton")
+_hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator"), NodePath("PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel")]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -69,56 +70,56 @@ layout_mode = 2
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("5_ycddg")
 
-[node name="VSeparator" type="VSeparator" parent="PanelContainer/HBoxContainer" groups=["hidable_status_panel_2"]]
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 columns = 4
 
-[node name="IceTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel_2"] instance=ExtResource("4_gnw3m")]
+[node name="IceTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
 visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("6_trfm4")
 
-[node name="NatureTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel_2"] instance=ExtResource("4_gnw3m")]
+[node name="NatureTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
 visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("7_hh3gj")
 
-[node name="FireTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel_2"] instance=ExtResource("4_gnw3m")]
+[node name="FireTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
 visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("8_3aneo")
 
-[node name="AstralTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel_2"] instance=ExtResource("4_gnw3m")]
+[node name="AstralTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
 visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("9_d4j65")
 
-[node name="DarknessTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel_2"] instance=ExtResource("4_gnw3m")]
+[node name="DarknessTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
 visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("10_tffkc")
 
-[node name="IronTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel_2"] instance=ExtResource("4_gnw3m")]
+[node name="IronTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
 visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("11_x3q82")
 
-[node name="StormTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel_2"] instance=ExtResource("4_gnw3m")]
+[node name="StormTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" instance=ExtResource("4_gnw3m")]
 visible = false
 layout_mode = 2
 
