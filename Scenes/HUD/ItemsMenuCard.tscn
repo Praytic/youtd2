@@ -14,7 +14,7 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ebngv"]
 content_margin_left = 10.0
-content_margin_right = 100.0
+content_margin_right = 53.0
 content_margin_bottom = 5.0
 texture = ExtResource("2_l11y6")
 texture_margin_left = 13.9504
@@ -30,61 +30,57 @@ theme = ExtResource("1_kyqg2")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ni3r1")
 script = ExtResource("2_hgg20")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_right = 50
-
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ebngv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ItemsCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_1l4ql")]
+[node name="ItemsCountPanel" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_1l4ql")]
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/ItemsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/VBoxContainer/HBoxContainer/ItemsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("4_a2ebb")
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" groups=["hidable_status_panel"]]
+[node name="VSeparator2" type="VSeparator" parent="PanelContainer/VBoxContainer/HBoxContainer" groups=["hidable_status_panel"]]
 layout_mode = 2
 
-[node name="CommonsCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+[node name="CommonsCountPanel" parent="PanelContainer/VBoxContainer/HBoxContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
 layout_mode = 2
 
-[node name="UncommonsCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+[node name="UncommonsCountPanel" parent="PanelContainer/VBoxContainer/HBoxContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/UncommonsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/VBoxContainer/HBoxContainer/UncommonsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("3_8ncus")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="OilsCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("2_1l4ql")]
+[node name="OilsCountPanel" parent="PanelContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("2_1l4ql")]
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/OilsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/VBoxContainer/HBoxContainer2/OilsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("5_837ye")
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2" groups=["hidable_status_panel"]]
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/VBoxContainer/HBoxContainer2" groups=["hidable_status_panel"]]
 layout_mode = 2
 
-[node name="RaresCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+[node name="RaresCountPanel" parent="PanelContainer/VBoxContainer/HBoxContainer2" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/RaresCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/VBoxContainer/HBoxContainer2/RaresCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("4_pc6hb")
 
-[node name="UniquesCountPanel" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+[node name="UniquesCountPanel" parent="PanelContainer/VBoxContainer/HBoxContainer2" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/UniquesCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/VBoxContainer/HBoxContainer2/UniquesCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("5_c4rrq")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
@@ -102,10 +98,11 @@ toggle_mode = true
 button_pressed = true
 icon = ExtResource("4_a2ebb")
 icon_alignment = 1
+expand_icon = true
 
-[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/ItemsCountPanel"]
-[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/CommonsCountPanel"]
-[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/UncommonsCountPanel"]
-[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/OilsCountPanel"]
-[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/RaresCountPanel"]
-[editable path="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer2/UniquesCountPanel"]
+[editable path="PanelContainer/VBoxContainer/HBoxContainer/ItemsCountPanel"]
+[editable path="PanelContainer/VBoxContainer/HBoxContainer/CommonsCountPanel"]
+[editable path="PanelContainer/VBoxContainer/HBoxContainer/UncommonsCountPanel"]
+[editable path="PanelContainer/VBoxContainer/HBoxContainer2/OilsCountPanel"]
+[editable path="PanelContainer/VBoxContainer/HBoxContainer2/RaresCountPanel"]
+[editable path="PanelContainer/VBoxContainer/HBoxContainer2/UniquesCountPanel"]

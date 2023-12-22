@@ -17,7 +17,7 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ebngv"]
 content_margin_left = 10.0
-content_margin_right = 100.0
+content_margin_right = 50.0
 content_margin_bottom = 5.0
 texture = ExtResource("3_4s80j")
 texture_margin_left = 13.9504
@@ -27,93 +27,77 @@ texture_margin_bottom = 13.9504
 region_rect = Rect2(1283, 192, 139, 154)
 
 [node name="TowersMenuCard" type="PanelContainer"]
+offset_right = 443.0
+offset_bottom = 103.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("1_tyvge")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ni3r1")
 script = ExtResource("2_o5u5x")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_right = 50
-
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ebngv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="TowersCountPanel" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("4_gnw3m")]
+[node name="TowersCountPanel" parent="PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("4_gnw3m")]
 layout_mode = 2
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("5_ycddg")
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/PanelContainer/HBoxContainer" groups=["hidable_status_panel"]]
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/HBoxContainer" groups=["hidable_status_panel"]]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/PanelContainer/HBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 columns = 4
 
-[node name="IceTowersCountPanel" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
+[node name="IceTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
 layout_mode = 2
-_resource_count_label = NodePath("")
-_new_resource_count_label = NodePath("")
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("6_trfm4")
 
-[node name="NatureTowersCountPanel" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
+[node name="NatureTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
 layout_mode = 2
-_resource_count_label = NodePath("")
-_new_resource_count_label = NodePath("")
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("7_hh3gj")
 
-[node name="FireTowersCountPanel" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
+[node name="FireTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
 layout_mode = 2
-_resource_count_label = NodePath("")
-_new_resource_count_label = NodePath("")
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("8_3aneo")
 
-[node name="AstralTowersCountPanel" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
+[node name="AstralTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
 layout_mode = 2
-_resource_count_label = NodePath("")
-_new_resource_count_label = NodePath("")
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("9_d4j65")
 
-[node name="DarknessTowersCountPanel" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
+[node name="DarknessTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
 layout_mode = 2
-_resource_count_label = NodePath("")
-_new_resource_count_label = NodePath("")
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("10_tffkc")
 
-[node name="IronTowersCountPanel" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
+[node name="IronTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
 layout_mode = 2
-_resource_count_label = NodePath("")
-_new_resource_count_label = NodePath("")
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("11_x3q82")
 
-[node name="StormTowersCountPanel" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
+[node name="StormTowersCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("4_gnw3m")]
 layout_mode = 2
-_resource_count_label = NodePath("")
-_new_resource_count_label = NodePath("")
 
-[node name="ResourceIconTexture" parent="MarginContainer/PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("12_na752")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
@@ -124,19 +108,20 @@ stretch_mode = 1
 [node name="ItemStashMenuButton" type="Button" parent="AspectRatioContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "Open Horadric Cube"
+tooltip_text = "Open Items menu"
 focus_mode = 0
 theme_type_variation = &"BigCircleButton"
 toggle_mode = true
 button_pressed = true
 icon = ExtResource("5_ycddg")
 icon_alignment = 1
+expand_icon = true
 
-[editable path="MarginContainer/PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel"]
-[editable path="MarginContainer/PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"]
-[editable path="MarginContainer/PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"]
-[editable path="MarginContainer/PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"]
-[editable path="MarginContainer/PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"]
-[editable path="MarginContainer/PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"]
-[editable path="MarginContainer/PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"]
-[editable path="MarginContainer/PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel"]
