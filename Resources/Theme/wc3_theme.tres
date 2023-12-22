@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=78 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=80 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -96,6 +96,17 @@ texture = SubResource("AtlasTexture_wfurf")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f8clf"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3xv5"]
+atlas = ExtResource("10_7mhq7")
+region = Rect2(640, 128, 128, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c46h0"]
+texture = SubResource("AtlasTexture_o3xv5")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_dldvb"]
 atlas = ExtResource("10_7mhq7")
 region = Rect2(640, 128, 128, 128)
@@ -106,6 +117,7 @@ texture_margin_left = 10.0
 texture_margin_top = 10.0
 texture_margin_right = 10.0
 texture_margin_bottom = 10.0
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ehwjq"]
 
@@ -677,6 +689,7 @@ EmptySlot/styles/normal = ExtResource("5_ggt4h")
 EmptySlot/styles/pressed = ExtResource("5_ggt4h")
 ExpandButton/base_type = &"Button"
 ExpandButton/styles/disabled = SubResource("StyleBoxEmpty_f8clf")
+ExpandButton/styles/hover = SubResource("StyleBoxTexture_c46h0")
 ExpandButton/styles/normal = SubResource("StyleBoxTexture_wifc2")
 ExpandButton/styles/pressed = SubResource("StyleBoxEmpty_ehwjq")
 GameMessageRichTextLabel/base_type = &"RichTextLabel"

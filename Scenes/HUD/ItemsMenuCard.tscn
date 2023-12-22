@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://lfjdye40vpwn"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_kyqg2"]
-[ext_resource type="PackedScene" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="2_1l4ql"]
+[ext_resource type="PackedScene" uid="uid://ngr2je0iun8h" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="2_1l4ql"]
 [ext_resource type="Script" path="res://Scenes/HUD/ButtonStatusCard.gd" id="2_hgg20"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="2_l11y6"]
 [ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="3_8ncus"]
@@ -24,6 +24,7 @@ texture_margin_bottom = 13.9504
 region_rect = Rect2(1283, 192, 139, 154)
 
 [node name="ItemsMenuCard" type="PanelContainer" node_paths=PackedStringArray("_main_button", "_expand_button")]
+custom_minimum_size = Vector2(2.08165e-12, 100)
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("1_kyqg2")
@@ -48,6 +49,7 @@ stretch_mode = 1
 [node name="ExpandButton" type="Button" parent="PanelContainer/HBoxContainer/AspectRatioContainer2"]
 custom_minimum_size = Vector2(2.08165e-12, 40)
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ExpandButton"
 toggle_mode = true
 icon_alignment = 1
@@ -77,21 +79,25 @@ layout_mode = 2
 columns = 2
 
 [node name="CommonsCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+visible = false
 layout_mode = 2
 
 [node name="UncommonsCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("3_8ncus")
 
 [node name="RaresCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/RaresCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("4_pc6hb")
 
 [node name="UniquesCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" groups=["hidable_status_panel"] instance=ExtResource("2_1l4ql")]
+visible = false
 layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
@@ -114,9 +120,7 @@ icon = ExtResource("4_a2ebb")
 icon_alignment = 1
 expand_icon = true
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-theme_override_constants/margin_left = -10
+[connection signal="toggled" from="PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton" to="." method="_on_expand_button_toggled"]
 
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"]
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"]

@@ -5,11 +5,7 @@ extends PanelContainer
 @export var _main_button: Button
 @export var _expand_button: Button
 
-@onready var _hidable_status_panels: Array = get_tree().get_nodes_in_group("hidable_status_panel")
-
-
-func _ready():
-	_expand_button.toggled.connect(_on_expand_button_toggled)
+@onready var _hidable_status_panels: Array = get_tree().get_nodes_in_group("hidable_status_panel_2")
 
 
 func _on_expand_button_toggled(toggled):
@@ -22,4 +18,4 @@ func _unhandled_input(event):
 	var cancelled: bool = event.is_action_released("ui_cancel")
 	var left_click: bool = event.is_action_released("left_click")
 	if cancelled or left_click:
-		_expand_button.toggled.emit(false)
+		_expand_button.set_pressed(false)
