@@ -106,9 +106,9 @@ func close_all_windows():
 
 
 func _on_close_button_pressed():
-	if any_window_is_open():
+	if not _elements_tower_menu.visible and not _item_stash_menu.visible:
 		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-	else:
+	elif not any_window_is_open():
 		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
