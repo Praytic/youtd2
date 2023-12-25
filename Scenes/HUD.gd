@@ -41,22 +41,34 @@ func _on_game_over():
 	_game_over_label.show()
 
 
-func _on_towers_button_pressed():
-	_elements_tower_menu.show()
-	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-	
-	if _item_stash_menu.visible:
-		_item_stash_menu.hide()
-
-
-func _on_items_button_pressed():
-	_item_stash_menu.show()
-	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-	
-	if _elements_tower_menu.visible:
+func _on_towers_button_toggled(toggled):
+	if toggled:
+		_elements_tower_menu.show()
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+	else:
 		_elements_tower_menu.hide()
+		if _item_stash_menu.visible:
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		else:
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+
+
+func _on_items_button_toggled(toggled):
+	if toggled:
+		_item_stash_menu.show()
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+	else:
+		_item_stash_menu.hide()
+		if _elements_tower_menu.visible:
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		else:
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 
 
 func _unhandled_input(event):
@@ -85,3 +97,9 @@ func close_all_windows():
 #	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
 	SelectUnit.set_selected_unit(null)
 	
+
+
+func _on_close_button_pressed():
+	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+
