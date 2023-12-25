@@ -43,16 +43,18 @@ func _on_game_over():
 
 func _on_towers_button_pressed():
 	_elements_tower_menu.show()
-	_towers_menu_card.hide()
-	_items_menu_card.hide()
+	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+	
 	if _item_stash_menu.visible:
 		_item_stash_menu.hide()
 
 
 func _on_items_button_pressed():
 	_item_stash_menu.show()
-	_towers_menu_card.hide()
-	_items_menu_card.hide()
+	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+	
 	if _elements_tower_menu.visible:
 		_elements_tower_menu.hide()
 
@@ -69,8 +71,9 @@ func close_all_windows():
 	for window in _window_list:
 		window.hide()
 	
-	_towers_menu_card.show()
-	_items_menu_card.show()
+	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+	
 #	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
 	SelectUnit.set_selected_unit(null)
 	

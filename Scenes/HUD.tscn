@@ -32,11 +32,11 @@ script = ExtResource("11")
 _error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
 _normal_message_container = NodePath("MarginContainer/All/Center/CenterLeft/MarginContainer/NormalMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
-_elements_tower_menu = NodePath("MarginContainer/All/Center/CenterRight/HBoxContainer/ElementTowersMenu")
-_item_stash_menu = NodePath("MarginContainer/All/Center/CenterRight/HBoxContainer/ItemStashMenu")
-_unit_menu = NodePath("MarginContainer/All/Center/CenterRight/HBoxContainer/UnitMenu")
-_towers_menu_card = NodePath("MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard")
-_items_menu_card = NodePath("MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/ItemsMenuCard")
+_elements_tower_menu = NodePath("MarginContainer/All/Center/HBoxContainer/ElementTowersMenu")
+_item_stash_menu = NodePath("MarginContainer/All/Center/HBoxContainer/ItemStashMenu")
+_unit_menu = NodePath("MarginContainer/All/Center/HBoxContainer/UnitMenu")
+_towers_menu_card = NodePath("MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard")
+_items_menu_card = NodePath("MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/ItemsMenuCard")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -124,61 +124,67 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="CenterRight" type="VBoxContainer" parent="MarginContainer/All/Center"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-alignment = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Center/CenterRight"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/All/Center"]
 layout_mode = 2
+offset_right = 2530.0
+offset_bottom = 1193.0
 size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 30
 alignment = 2
 
-[node name="ButtonTooltip" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_ka7k1")]
+[node name="ButtonTooltip" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("11_ka7k1")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="UnitMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("15_rfxf1")]
+[node name="UnitMenu" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("15_rfxf1")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="ItemStashMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_5i6a2")]
+[node name="ItemStashMenu" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("11_5i6a2")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="ElementTowersMenu" parent="MarginContainer/All/Center/CenterRight/HBoxContainer" instance=ExtResource("11_gv2lk")]
+[node name="ElementTowersMenu" parent="MarginContainer/All/Center/HBoxContainer" instance=ExtResource("11_gv2lk")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center/CenterRight/HBoxContainer"]
+[node name="AspectRatioContainer" type="Panel" parent="MarginContainer/All/Center/HBoxContainer"]
+z_index = -1
+custom_minimum_size = Vector2(80, 2.08165e-12)
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 4
-theme_override_constants/margin_right = 50
+size_flags_vertical = 0
 
-[node name="MenuCards" type="VBoxContainer" parent="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -216.0
+offset_top = 63.0
+offset_right = -49.0
+offset_bottom = 273.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="MenuCards" type="VBoxContainer" parent="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 10
 
-[node name="TowersMenuCard" parent="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards" instance=ExtResource("13_xklr1")]
+[node name="TowersMenuCard" parent="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards" instance=ExtResource("13_xklr1")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="ItemsMenuCard" parent="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards" instance=ExtResource("12_er7w7")]
+[node name="ItemsMenuCard" parent="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards" instance=ExtResource("12_er7w7")]
 layout_mode = 2
 size_flags_horizontal = 8
 
@@ -280,28 +286,27 @@ _tooltip = NodePath("ButtonTooltipForAutocast")
 visible = false
 layout_mode = 2
 
-[connection signal="pressed" from="MarginContainer/All/Center/CenterRight/HBoxContainer/ItemStashMenu/MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="MarginContainer/All/Center/CenterRight/HBoxContainer/ElementTowersMenu/MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard/AspectRatioContainer/MainButton" to="." method="_on_towers_button_pressed"]
-[connection signal="pressed" from="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/ItemsMenuCard/AspectRatioContainer/MainButton" to="." method="_on_items_button_pressed"]
+[connection signal="pressed" from="MarginContainer/All/Center/HBoxContainer/ElementTowersMenu/MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard/AspectRatioContainer/MainButton" to="." method="_on_towers_button_pressed"]
+[connection signal="pressed" from="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/ItemsMenuCard/AspectRatioContainer/MainButton" to="." method="_on_items_button_pressed"]
 
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/UnitMenu"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/ItemStashMenu"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/ElementTowersMenu"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/ItemsMenuCard"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/GridContainer/CommonsCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/GridContainer/RaresCountPanel"]
-[editable path="MarginContainer/All/Center/CenterRight/HBoxContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/UnitMenu"]
+[editable path="MarginContainer/All/Center/HBoxContainer/ItemStashMenu"]
+[editable path="MarginContainer/All/Center/HBoxContainer/ElementTowersMenu"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/TowersMenuCard/PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/ItemsMenuCard"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/GridContainer/CommonsCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/GridContainer/RaresCountPanel"]
+[editable path="MarginContainer/All/Center/HBoxContainer/AspectRatioContainer/MarginContainer/MenuCards/ItemsMenuCard/PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel"]
 [editable path="MarginContainer/All/Bottom/BottomMenuBar"]

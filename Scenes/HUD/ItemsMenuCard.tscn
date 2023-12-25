@@ -23,8 +23,10 @@ texture_margin_right = 14.0
 texture_margin_bottom = 13.9504
 region_rect = Rect2(1283, 192, 139, 154)
 
-[node name="ItemsMenuCard" type="PanelContainer" node_paths=PackedStringArray("_expand_button", "_hidable_status_panels")]
+[node name="ItemsMenuCard" type="PanelContainer" node_paths=PackedStringArray("_expand_button", "_hidable_status_panels", "_status_panels", "_panels_container")]
 custom_minimum_size = Vector2(2.08165e-12, 100)
+offset_right = 167.0
+offset_bottom = 100.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("1_kyqg2")
@@ -32,6 +34,8 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ni3r1")
 script = ExtResource("2_hgg20")
 _expand_button = NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton")
 _hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator2"), NodePath("PanelContainer/HBoxContainer/GridContainer")]
+_status_panels = [NodePath("PanelContainer/HBoxContainer/GridContainer"), NodePath("PanelContainer/HBoxContainer/VSeparator2"), NodePath("PanelContainer/HBoxContainer/VBoxContainer"), NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2")]
+_panels_container = NodePath("PanelContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -51,7 +55,6 @@ custom_minimum_size = Vector2(2.08165e-12, 40)
 layout_mode = 2
 focus_mode = 0
 theme_type_variation = &"ExpandButton"
-toggle_mode = true
 icon_alignment = 1
 expand_icon = true
 
@@ -117,7 +120,7 @@ icon = ExtResource("4_a2ebb")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="toggled" from="PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton" to="." method="_on_expand_button_toggled"]
+[connection signal="toggled" from="PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton" to="." method="_on_expand_button_pressed"]
 
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"]
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"]
