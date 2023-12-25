@@ -23,7 +23,7 @@ texture_margin_right = 14.0
 texture_margin_bottom = 13.9504
 region_rect = Rect2(1283, 192, 139, 154)
 
-[node name="ItemsMenuCard" type="PanelContainer" node_paths=PackedStringArray("_expand_button", "_hidable_status_panels", "_status_panels", "_panels_container")]
+[node name="ItemsMenuCard" type="PanelContainer" node_paths=PackedStringArray("_expand_button", "_hidable_status_panels", "_status_panels", "_panels_container", "_empty_container")]
 custom_minimum_size = Vector2(2.08165e-12, 100)
 offset_right = 167.0
 offset_bottom = 100.0
@@ -36,6 +36,7 @@ _expand_button = NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2/Ex
 _hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator2"), NodePath("PanelContainer/HBoxContainer/GridContainer")]
 _status_panels = [NodePath("PanelContainer/HBoxContainer/GridContainer"), NodePath("PanelContainer/HBoxContainer/VSeparator2"), NodePath("PanelContainer/HBoxContainer/VBoxContainer"), NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2")]
 _panels_container = NodePath("PanelContainer")
+_empty_container = NodePath("PanelContainer/HBoxContainer/EmptySpace")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -76,6 +77,11 @@ texture = ExtResource("5_837ye")
 
 [node name="VSeparator2" type="VSeparator" parent="PanelContainer/HBoxContainer"]
 visible = false
+layout_mode = 2
+
+[node name="EmptySpace" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 2.08165e-12)
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/HBoxContainer"]

@@ -59,6 +59,14 @@ func _on_items_button_pressed():
 		_elements_tower_menu.hide()
 
 
+func _unhandled_input(event):
+	var cancelled: bool = event.is_action_released("ui_cancel")
+	var left_click: bool = event.is_action_released("left_click")
+	if (cancelled or left_click) and not any_window_is_open():
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+
+
 func any_window_is_open() -> bool:
 	for window in _window_list:
 		if window.visible:
@@ -77,8 +85,3 @@ func close_all_windows():
 #	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
 	SelectUnit.set_selected_unit(null)
 	
-
-
-func _on_close_button_pressed():
-	_towers_menu_card.show()
-	_items_menu_card.show()
