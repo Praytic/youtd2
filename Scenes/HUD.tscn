@@ -160,6 +160,9 @@ button_group = ExtResource("10_8ub83")
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="GridContainer" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer" index="4"]
+columns = 2
+
 [node name="MainButton" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/AspectRatioContainer" index="0"]
 toggle_mode = true
 button_group = ExtResource("10_8ub83")
