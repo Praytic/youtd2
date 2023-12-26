@@ -8,6 +8,7 @@ extends PanelContainer
 @export var _rarity_filter_container: VBoxContainer
 @export var _item_type_filter_container: VBoxContainer
 @export var _item_buttons_container: UnitButtonsContainer
+@export var _resource_status_panel: ShortResourceStatusPanel
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
@@ -91,6 +92,8 @@ func _on_item_stash_changed():
 	_prev_item_list = item_list.duplicate()
 	
 	_fill_item_buttons_container_with_empty_slots()
+	
+	_resource_status_panel.count_tracker.set_value(_item_button_list.size())
 
 
 func _on_item_buttons_container_gui_input(event):

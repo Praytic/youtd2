@@ -428,3 +428,20 @@ func add_range_indicators_for_auras(aura_type_list: Array[AuraType], parent: Nod
 		indicator_list.append(range_indicator)
 
 	return indicator_list
+
+class ValueTracker:
+	var _value : set = set_value, get = get_value
+	var _value_change : get = get_value_change
+	
+	func set_value(value):
+		_value_change = max(0, value - _value)
+		_value = value
+	
+	func get_value():
+		return _value
+	
+	func get_value_change():
+		return _value_change
+	
+	func change_ack():
+		_value_change = 0
