@@ -8,7 +8,14 @@ extends PanelContainer
 @export var _rarity_filter_container: VBoxContainer
 @export var _item_type_filter_container: VBoxContainer
 @export var _item_buttons_container: UnitButtonsContainer
-@export var _resource_status_panel: ShortResourceStatusPanel
+
+@export var _items_status_panel: ShortResourceStatusPanel
+@export var _oils_status_panel: ShortResourceStatusPanel
+@export var _commons_status_panel: ShortResourceStatusPanel
+@export var _uncommons_status_panel: ShortResourceStatusPanel
+@export var _rares_status_panel: ShortResourceStatusPanel
+@export var _uniques_status_panel: ShortResourceStatusPanel
+
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
@@ -48,6 +55,23 @@ func _add_item_button(item: Item, index: int):
 func _fill_item_buttons_container_with_empty_slots():
 	var items = _item_button_list.size()
 	_item_buttons_container.update_empty_slots(items)
+
+
+func _update_resource_status_panels():
+	var item_stash_container: ItemContainer = ItemStash.get_item_container()
+	var items_count: int = item_stash_container.get_item_list([], [ItemType.enm.REGULAR]).size()
+	var oils_count: int = item_stash_container.get_item_list([], [ItemType.enm.CONSUMABLE, ItemType.enm.OIL]).size()
+	var commons_count: int = item_stash_container.get_item_list([Rarity.enm.COMMON], []).size()
+	var uncommons_count: int = item_stash_container.get_item_list([Rarity.enm.UNCOMMON], []).size()
+	var rares_count: int = item_stash_container.get_item_list([Rarity.enm.RARE], []).size()
+	var uniques_count: int = item_stash_container.get_item_list([Rarity.enm.UNIQUE], []).size()
+	
+	_items_status_panel.set_count(items_count)
+	_oils_status_panel.set_count(oils_count)
+	_commons_status_panel.set_count(commons_count)
+	_uncommons_status_panel.set_count(uncommons_count)
+	_rares_status_panel.set_count(rares_count)
+	_uniques_status_panel.set_count(uniques_count)
 
 #########################
 ###     Callbacks     ###
@@ -92,8 +116,7 @@ func _on_item_stash_changed():
 	_prev_item_list = item_list.duplicate()
 	
 	_fill_item_buttons_container_with_empty_slots()
-	
-	_resource_status_panel.set_count(_item_button_list.size())
+	_update_resource_status_panels()
 
 
 func _on_item_buttons_container_gui_input(event):

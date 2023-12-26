@@ -319,19 +319,5 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="MarginContainer3" type="MarginContainer" parent="."]
-z_index = 10
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-theme_override_constants/margin_top = 15
-
-[node name="CloseButton" type="Button" parent="MarginContainer3"]
-layout_mode = 2
-theme_type_variation = &"CircleButton"
-theme_override_font_sizes/font_size = 32
-text = " x "
-
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer3/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
-[connection signal="pressed" from="MarginContainer3/CloseButton" to="." method="_on_close_button_pressed"]

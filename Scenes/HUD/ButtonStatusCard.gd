@@ -2,6 +2,9 @@ class_name ButtonStatusCard
 extends PanelContainer
 
 
+signal visibility_level_changed(old_visibility_level: VisibilityLevel, new_visibility_level: VisibilityLevel)
+
+
 enum VisibilityLevel {
 	FULL = 0,
 	ESSENTIALS = 1,
@@ -15,6 +18,9 @@ enum VisibilityLevel {
 @export var _status_panels: Array[Control]
 @export var _panels_container: Control
 @export var _empty_container: Container
+
+
+var _visibility_level: VisibilityLevel = VisibilityLevel.ESSENTIALS
 
 
 func _on_expand_button_pressed():
@@ -46,3 +52,6 @@ func change_visibility_level(visibility_level: VisibilityLevel):
 		VisibilityLevel.MENU_CLOSED:
 			_panels_container.visible = false
 			_empty_container.visible = false
+	
+	visibility_level_changed.emit(_visibility_level, visibility_level)
+	_visibility_level = visibility_level
