@@ -8,8 +8,8 @@ custom_minimum_size = Vector2(70, 40)
 offset_right = 114.0
 offset_bottom = 40.0
 script = ExtResource("1_ox7ia")
-_resource_count_label = NodePath("")
-_new_resource_count_label = NodePath("")
+_resource_count_label = NodePath("HBoxContainer/MarginContainer/ResourceCountLabel")
+_new_resource_count_label = NodePath("HBoxContainer/MarginContainer/NewResourceCountLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

@@ -93,7 +93,7 @@ func _on_item_stash_changed():
 	
 	_fill_item_buttons_container_with_empty_slots()
 	
-	_resource_status_panel.count_tracker.set_value(_item_button_list.size())
+	_resource_status_panel.set_count(_item_button_list.size())
 
 
 func _on_item_buttons_container_gui_input(event):

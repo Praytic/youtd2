@@ -6,9 +6,22 @@ extends MarginContainer
 @export var _new_resource_count_label: Label
 
 
-var count_tracker: Utils.ValueTracker
+var _count: int : set = set_count
+var _unchecked_count: int
 
 
 func _process(delta):
-	_resource_count_label.text = str(count_tracker.get_value())
-	_new_resource_count_label.text = str(count_tracker.get_value_change())
+	_resource_count_label.text = str(min(_count, 99))
+	if _unchecked_count > 0:
+		_new_resource_count_label.text = "(+%s)" % str(min(_unchecked_count, 99))
+	else:
+		_new_resource_count_label.text = ""
+
+
+func set_count(value: int):
+	_unchecked_count += max(0, value - _count)
+	_count = value
+
+
+func ack_count():
+	_unchecked_count = 0
