@@ -27,6 +27,14 @@ signal towers_changed()
 @export var _element_info_label: RichTextLabel
 @export var _roll_towers_button: Button
 
+@export var _towers_status_panel: ShortResourceStatusPanel
+@export var _ice_towers_status_panel: ShortResourceStatusPanel
+@export var _nature_towers_status_panel: ShortResourceStatusPanel
+@export var _fire_towers_status_panel: ShortResourceStatusPanel
+@export var _astral_towers_status_panel: ShortResourceStatusPanel
+@export var _darkness_towers_status_panel: ShortResourceStatusPanel
+@export var _iron_towers_status_panel: ShortResourceStatusPanel
+@export var _storm_towers_status_panel: ShortResourceStatusPanel
 
 #########################
 ### Code starts here  ###
@@ -102,6 +110,26 @@ func remove_tower_button(tower_id, should_emit_signal: bool = true):
 #########################
 ###      Private      ###
 #########################
+
+func _update_resource_status_panels():
+	var fire_count: int = get_towers_count(Element.enm.FIRE)
+	var astral_count: int = get_towers_count(Element.enm.ASTRAL)
+	var nature_count: int = get_towers_count(Element.enm.NATURE)
+	var ice_count: int = get_towers_count(Element.enm.ICE)
+	var iron_count: int = get_towers_count(Element.enm.IRON)
+	var storm_count: int = get_towers_count(Element.enm.STORM)
+	var darkness_count: int = get_towers_count(Element.enm.DARKNESS)
+	var towers_count: int = get_towers_count()
+	
+	_towers_status_panel.set_count(towers_count)
+	_fire_towers_status_panel.set_count(fire_count)
+	_astral_towers_status_panel.set_count(astral_count)
+	_nature_towers_status_panel.set_count(nature_count)
+	_ice_towers_status_panel.set_count(ice_count)
+	_iron_towers_status_panel.set_count(iron_count)
+	_storm_towers_status_panel.set_count(storm_count)
+	_darkness_towers_status_panel.set_count(darkness_count)
+
 
 func _update_tooltip_for_roll_towers_button():
 	var roll_count: int = TowerDistribution.get_current_starting_tower_roll_amount()
@@ -292,6 +320,30 @@ func _on_wave_level_changed():
 		_roll_towers_button.disabled = true
 
 
+func _on_roll_towers_button_pressed():
+	var research_any_elements: bool = false
+	
+	for element in Element.get_list():
+		var researched_element: bool = ElementLevel.get_current(element) > 0
+		if researched_element:
+			research_any_elements = true
+	
+	if !research_any_elements:
+		Messages.add_error("Cannot roll towers yet! You need to research at least one element.")
+	
+		return
+	
+	var can_roll_again: bool = TowerDistribution.roll_starting_towers()
+	
+	_update_tooltip_for_roll_towers_button()
+	
+	if !can_roll_again:
+		_roll_towers_button.disabled = true
+
+
+func _on_towers_changed():
+	_update_resource_status_panels()
+
 #########################
 ### Setters / Getters ###
 #########################
@@ -344,22 +396,3 @@ func get_empty_slots() -> Array:
 	return get_tree().get_nodes_in_group("empty_slot")
 
 
-func _on_roll_towers_button_pressed():
-	var research_any_elements: bool = false
-	
-	for element in Element.get_list():
-		var researched_element: bool = ElementLevel.get_current(element) > 0
-		if researched_element:
-			research_any_elements = true
-	
-	if !research_any_elements:
-		Messages.add_error("Cannot roll towers yet! You need to research at least one element.")
-	
-		return
-	
-	var can_roll_again: bool = TowerDistribution.roll_starting_towers()
-	
-	_update_tooltip_for_roll_towers_button()
-	
-	if !can_roll_again:
-		_roll_towers_button.disabled = true
