@@ -381,7 +381,7 @@ func _get_insert_index_for_tower(tower_id: int) -> int:
 
 func get_towers_count(element = null) -> int:
 	var counter = 0
-	if element:
+	if element != null:
 		for tower_id in _tower_buttons.keys():
 			if TowerProperties.get_element(tower_id) == element:
 				counter += 1
