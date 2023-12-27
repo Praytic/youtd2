@@ -41,6 +41,15 @@ func _on_game_over():
 	_game_over_label.show()
 
 
+func _on_close_button_pressed():
+	if not _item_stash_menu.visible:
+		_items_menu_card.get_main_button().set_pressed_no_signal(false)
+		_items_menu_card.get_main_button().toggled.emit(false) 
+	if not _elements_tower_menu.visible:
+		_towers_menu_card.get_main_button().set_pressed_no_signal(false)
+		_towers_menu_card.get_main_button().toggled.emit(false)
+
+
 func _on_towers_button_toggled(toggled):
 	if toggled:
 		_elements_tower_menu.show()
@@ -50,7 +59,7 @@ func _on_towers_button_toggled(toggled):
 		_elements_tower_menu.hide()
 		if _item_stash_menu.visible:
 			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
 		elif any_window_is_open():
 			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
@@ -79,6 +88,8 @@ func _on_items_button_toggled(toggled):
 			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 	
 	_item_stash_menu.ack_status_panels()
+
+
 
 func _unhandled_input(event):
 	var cancelled: bool = event.is_action_released("ui_cancel")

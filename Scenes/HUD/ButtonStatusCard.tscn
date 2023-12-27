@@ -19,7 +19,7 @@ texture_margin_bottom = 13.9504
 region_rect = Rect2(1283, 192, 139, 154)
 modulate_color = Color(1, 1, 1, 0.784314)
 
-[node name="ButtonStatusCard" type="PanelContainer" node_paths=PackedStringArray("_expand_button", "_hidable_status_panels", "_status_panels", "_panels_container", "_empty_container")]
+[node name="ButtonStatusCard" type="PanelContainer" node_paths=PackedStringArray("_expand_button", "_hidable_status_panels", "_status_panels", "_panels_container", "_empty_container", "_main_button")]
 custom_minimum_size = Vector2(2.08165e-12, 100)
 anchors_preset = 1
 anchor_left = 1.0
@@ -38,6 +38,7 @@ _hidable_status_panels = [NodePath("PanelContainer/HBoxContainer/VSeparator"), N
 _status_panels = [NodePath("PanelContainer/HBoxContainer/AspectRatioContainer2"), NodePath("PanelContainer/HBoxContainer/VBoxContainer"), NodePath("PanelContainer/HBoxContainer/VSeparator"), NodePath("PanelContainer/HBoxContainer/GridContainer")]
 _panels_container = NodePath("PanelContainer")
 _empty_container = NodePath("PanelContainer/HBoxContainer/EmptySpace")
+_main_button = NodePath("AspectRatioContainer/MainButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2

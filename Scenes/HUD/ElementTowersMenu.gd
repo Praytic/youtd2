@@ -382,18 +382,15 @@ func _get_insert_index_for_tower(tower_id: int) -> int:
 
 
 func get_towers_count(element = null) -> int:
-	print("get_towers_count: %s" % element)
 	var counter = 0
 	if element != null:
 		for tower_id in _tower_buttons.keys():
 			if TowerProperties.get_element(tower_id) == element:
 				var buttons_count = _tower_buttons[tower_id].get_count()
-				print("%s: %s" % [Element.enm.keys()[element], buttons_count])
 				counter += buttons_count
 	else:
 		for tower_id in _tower_buttons.keys():
 			var buttons_count = _tower_buttons[tower_id].get_count()
-			print("%s: %s" % ["ALL", buttons_count])
 			counter += buttons_count
 	return counter
 

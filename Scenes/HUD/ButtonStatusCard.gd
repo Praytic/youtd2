@@ -18,6 +18,7 @@ enum VisibilityLevel {
 @export var _status_panels: Array[Control]
 @export var _panels_container: Control
 @export var _empty_container: Container
+@export var _main_button: Button : get = get_main_button
 
 
 var _visibility_level: VisibilityLevel = VisibilityLevel.ESSENTIALS
@@ -57,5 +58,5 @@ func change_visibility_level(visibility_level: VisibilityLevel):
 	_visibility_level = visibility_level
 
 
-func _on_close_button_pressed():
-	change_visibility_level(VisibilityLevel.ESSENTIALS)
+func get_main_button() -> Button:
+	return _main_button

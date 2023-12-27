@@ -345,10 +345,9 @@ layout_mode = 2
 [connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/AspectRatioContainer/MainButton" to="." method="_on_towers_button_toggled"]
 [connection signal="visibility_level_changed" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard" to="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" method="_on_items_status_card_visibility_level_changed"]
 [connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/AspectRatioContainer/MainButton" to="." method="_on_items_button_toggled"]
-[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu/MarginContainer/CloseButton" to="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard" method="_on_close_button_pressed"]
-[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu/MarginContainer/CloseButton" to="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard" method="_on_close_button_pressed"]
-[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu/MarginContainer/CloseButton" to="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard" method="_on_close_button_pressed"]
-[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu/MarginContainer/CloseButton" to="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard" method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
 
 [editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard"]
 [editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2"]
