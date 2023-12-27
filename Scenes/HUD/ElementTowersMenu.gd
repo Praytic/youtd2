@@ -284,6 +284,7 @@ func _on_upgrade_element_button_pressed():
 
 
 func _on_close_button_pressed():
+	ack_status_panels()
 	hide()
 
 

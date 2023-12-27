@@ -426,9 +426,23 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 10
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 15
+
+[node name="CloseButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+theme_override_font_sizes/font_size = 32
+text = " x "
+
 [connection signal="gui_input" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer" to="." method="_on_item_buttons_container_gui_input"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer/RebrewButton" to="." method="_on_rebrew_button_pressed"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer2/DistillButton" to="." method="_on_distill_button_pressed"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer3/ReassembleButton" to="." method="_on_reassemble_button_pressed"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer4/PerfectButton" to="." method="_on_perfect_button_pressed"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/TransmuteButton" to="." method="_on_transmute_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
