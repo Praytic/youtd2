@@ -13,7 +13,7 @@ var _item_id: int = 0
 
 @export var _texture_rect: TextureRect
 
-@onready var _fly_to_node = get_tree().get_root().get_node("GameScene/%HUD/%BottomMenuBar/%ItemStashMenuButton")
+@onready var _fly_to_node = get_tree().get_root().get_node("GameScene/%HUD/%ItemsStatusCard/%MainButton")
 
 
 static func create(item_id: int, start_pos: Vector2) -> FlyingItem:

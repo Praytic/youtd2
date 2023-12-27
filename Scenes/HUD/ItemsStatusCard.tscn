@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://dj7llpr0oenw7"]
+
+[ext_resource type="PackedScene" uid="uid://b4giw0t33nkpi" path="res://Scenes/HUD/ButtonStatusCard.tscn" id="1_od2y8"]
+[ext_resource type="PackedScene" uid="uid://ngr2je0iun8h" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="2_nyu6g"]
+[ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="3_eblou"]
+[ext_resource type="Texture2D" uid="uid://c50etdjubvudf" path="res://Resources/Textures/UI/Icons/oils_icon.tres" id="4_eovi7"]
+[ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="5_ta573"]
+[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Textures/UI/Icons/rare_icon.tres" id="6_gbfb1"]
+[ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Textures/UI/Icons/unique_icon.tres" id="7_ih1p1"]
+
+[node name="ItemsStatusCard" instance=ExtResource("1_od2y8")]
+
+[node name="ItemsCountPanel" parent="PanelContainer/HBoxContainer/VBoxContainer" index="0" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") instance=ExtResource("2_nyu6g")]
+layout_mode = 2
+_resource_count_label = NodePath("")
+_new_resource_count_label = NodePath("")
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("3_eblou")
+
+[node name="OilsCountPanel" parent="PanelContainer/HBoxContainer/VBoxContainer" index="1" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") instance=ExtResource("2_nyu6g")]
+layout_mode = 2
+_resource_count_label = NodePath("")
+_new_resource_count_label = NodePath("")
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("4_eovi7")
+
+[node name="CommonsCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="0" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") instance=ExtResource("2_nyu6g")]
+layout_mode = 2
+_resource_count_label = NodePath("")
+_new_resource_count_label = NodePath("")
+
+[node name="UncommonsCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="1" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") instance=ExtResource("2_nyu6g")]
+layout_mode = 2
+_resource_count_label = NodePath("")
+_new_resource_count_label = NodePath("")
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("5_ta573")
+
+[node name="RaresCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="2" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") instance=ExtResource("2_nyu6g")]
+layout_mode = 2
+_resource_count_label = NodePath("")
+_new_resource_count_label = NodePath("")
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/RaresCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("6_gbfb1")
+
+[node name="UniquesCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="3" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label") instance=ExtResource("2_nyu6g")]
+layout_mode = 2
+_resource_count_label = NodePath("")
+_new_resource_count_label = NodePath("")
+
+[node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
+texture = ExtResource("7_ih1p1")
+
+[editable path="PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"]
+[editable path="PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/CommonsCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/RaresCountPanel"]
+[editable path="PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel"]

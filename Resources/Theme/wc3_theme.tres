@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=64 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=80 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -22,9 +22,25 @@
 [ext_resource type="StyleBox" uid="uid://k235emid2ajj" path="res://Resources/Theme/UnitButton/small_button_hover.tres" id="8_pql3q"]
 [ext_resource type="StyleBox" uid="uid://xj6rw0giypad" path="res://Resources/Theme/item_button_normal.tres" id="8_t77il"]
 [ext_resource type="StyleBox" uid="uid://carc5koied5gk" path="res://Resources/Theme/UnitButton/small_button_normal.tres" id="9_xj4hs"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="10_7mhq7"]
+[ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://Resources/Textures/UI/portal_lives_round_bg.tres" id="10_r42uk"]
 [ext_resource type="StyleBox" uid="uid://dqn63cj0ar4qv" path="res://Resources/Theme/UnitButton/uncommon_rarity_panel_container.tres" id="12_klcgr"]
 [ext_resource type="StyleBox" uid="uid://b6c3y3hvg15qk" path="res://Resources/Theme/UnitButton/unique_rarity_panel_container.tres" id="13_15oyb"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="14_02q6i"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5aqc"]
+texture = ExtResource("10_r42uk")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o1y8y"]
+texture = ExtResource("10_r42uk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rt2ji"]
+texture = ExtResource("10_r42uk")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5ln1"]
+texture = ExtResource("10_r42uk")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjpfd"]
 atlas = ExtResource("8_dlncl")
@@ -78,6 +94,33 @@ texture = SubResource("AtlasTexture_wfurf")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_efi1j"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f8clf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3xv5"]
+atlas = ExtResource("10_7mhq7")
+region = Rect2(640, 128, 128, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c46h0"]
+texture = SubResource("AtlasTexture_o3xv5")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dldvb"]
+atlas = ExtResource("10_7mhq7")
+region = Rect2(640, 128, 128, 128)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wifc2"]
+texture = SubResource("AtlasTexture_dldvb")
+texture_margin_left = 10.0
+texture_margin_top = 10.0
+texture_margin_right = 10.0
+texture_margin_bottom = 10.0
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ehwjq"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2t7ys"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_co3qy"]
@@ -90,6 +133,20 @@ texture_margin_left = 20.0
 texture_margin_top = 4.0
 texture_margin_right = 20.0
 texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7t6hr"]
+texture = ExtResource("10_r42uk")
+modulate_color = Color(0.392157, 0.392157, 0.392157, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q1dmk"]
+texture = ExtResource("10_r42uk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e3c08"]
+texture = ExtResource("10_r42uk")
+modulate_color = Color(0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_htago"]
+texture = ExtResource("10_r42uk")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1v3kw"]
 atlas = ExtResource("8_dlncl")
@@ -596,6 +653,11 @@ cache/0/36/0/kerning_overrides/36/0 = Vector2(0, 0)
 [resource]
 default_font = SubResource("1")
 default_font_size = 24
+BigCircleButton/base_type = &"Button"
+BigCircleButton/styles/disabled = SubResource("StyleBoxTexture_q5aqc")
+BigCircleButton/styles/hover = SubResource("StyleBoxTexture_o1y8y")
+BigCircleButton/styles/normal = SubResource("StyleBoxTexture_rt2ji")
+BigCircleButton/styles/pressed = SubResource("StyleBoxTexture_q5ln1")
 Button/font_sizes/font_size = 24
 Button/styles/disabled = ExtResource("7_mn43h")
 Button/styles/hover = ExtResource("8_pql3q")
@@ -625,6 +687,11 @@ EmptySlot/styles/focus = ExtResource("5_ggt4h")
 EmptySlot/styles/hover = ExtResource("5_ggt4h")
 EmptySlot/styles/normal = ExtResource("5_ggt4h")
 EmptySlot/styles/pressed = ExtResource("5_ggt4h")
+ExpandButton/base_type = &"Button"
+ExpandButton/styles/disabled = SubResource("StyleBoxEmpty_f8clf")
+ExpandButton/styles/hover = SubResource("StyleBoxTexture_c46h0")
+ExpandButton/styles/normal = SubResource("StyleBoxTexture_wifc2")
+ExpandButton/styles/pressed = SubResource("StyleBoxEmpty_ehwjq")
 GameMessageRichTextLabel/base_type = &"RichTextLabel"
 GameMessageRichTextLabel/constants/shadow_offset_x = 2
 GameMessageRichTextLabel/constants/shadow_offset_y = 2
@@ -643,8 +710,15 @@ InfoPanel/styles/panel = SubResource("StyleBoxTexture_770c7")
 Label/font_sizes/font_size = 24
 LabelLarge/base_type = &"Label"
 LabelLarge/font_sizes/font_size = 36
+LabelSmall/base_type = &"Label"
+LabelSmall/font_sizes/font_size = 18
 LabelTitle/base_type = &"Label"
 LabelTitle/font_sizes/font_size = 26
+LargeCircleButton/base_type = &"Button"
+LargeCircleButton/styles/disabled = SubResource("StyleBoxTexture_7t6hr")
+LargeCircleButton/styles/hover = SubResource("StyleBoxTexture_q1dmk")
+LargeCircleButton/styles/normal = SubResource("StyleBoxTexture_e3c08")
+LargeCircleButton/styles/pressed = SubResource("StyleBoxTexture_htago")
 MainPanelContainer/base_type = &"PanelContainer"
 MainPanelContainer/styles/panel = ExtResource("1_7apqd")
 MenuButton/styles/disabled = SubResource("StyleBoxTexture_6lvfq")

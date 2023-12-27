@@ -11,6 +11,8 @@ signal stop_wave()
 @export var _elements_tower_menu: Control
 @export var _item_stash_menu: Control
 @export var _unit_menu: Control
+@export var _towers_menu_card: ButtonStatusCard
+@export var _items_menu_card: ButtonStatusCard
 
 @onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _unit_menu]
 
@@ -39,16 +41,48 @@ func _on_game_over():
 	_game_over_label.show()
 
 
-func _on_towers_button_pressed():
-	_elements_tower_menu.show()
-	if _item_stash_menu.visible:
-		_item_stash_menu.hide()
-
-
-func _on_items_button_pressed():
-	_item_stash_menu.show()
-	if _elements_tower_menu.visible:
+func _on_towers_button_toggled(toggled):
+	if toggled:
+		_elements_tower_menu.show()
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+	else:
 		_elements_tower_menu.hide()
+		if _item_stash_menu.visible:
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		elif any_window_is_open():
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		else:
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+
+
+func _on_items_button_toggled(toggled):
+	if toggled:
+		_item_stash_menu.show()
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+	else:
+		_item_stash_menu.hide()
+		if _elements_tower_menu.visible:
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		elif any_window_is_open():
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		else:
+			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+
+
+func _unhandled_input(event):
+	var cancelled: bool = event.is_action_released("ui_cancel")
+	var left_click: bool = event.is_action_released("left_click")
+	if (cancelled or left_click) and not any_window_is_open():
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 
 
 func any_window_is_open() -> bool:
@@ -63,6 +97,8 @@ func close_all_windows():
 	for window in _window_list:
 		window.hide()
 	
+	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+	
 #	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
 	SelectUnit.set_selected_unit(null)
-	
