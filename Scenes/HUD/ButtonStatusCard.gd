@@ -55,3 +55,7 @@ func change_visibility_level(visibility_level: VisibilityLevel):
 	
 	visibility_level_changed.emit(_visibility_level, visibility_level)
 	_visibility_level = visibility_level
+
+
+func _on_close_button_pressed():
+	change_visibility_level(VisibilityLevel.ESSENTIALS)
