@@ -39,6 +39,7 @@ func _ready():
 # TODO: Can be improved by actually acknowledging each new item
 # button when it's visible to player at least once.
 func ack_status_panels():
+	_update_resource_status_panels()
 	_items_status_panel.ack_count()
 	_oils_status_panel.ack_count()
 	_commons_status_panel.ack_count()

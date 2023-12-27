@@ -110,6 +110,7 @@ func remove_tower_button(tower_id, should_emit_signal: bool = true):
 # TODO: Can be improved by actually acknowledging each new tower
 # button when it's visible to player at least once.
 func ack_status_panels():
+	_update_resource_status_panels()
 	_towers_status_panel.ack_count()
 	_fire_towers_status_panel.ack_count()
 	_astral_towers_status_panel.ack_count()
@@ -381,13 +382,19 @@ func _get_insert_index_for_tower(tower_id: int) -> int:
 
 
 func get_towers_count(element = null) -> int:
+	print("get_towers_count: %s" % element)
 	var counter = 0
 	if element != null:
 		for tower_id in _tower_buttons.keys():
 			if TowerProperties.get_element(tower_id) == element:
-				counter += 1
+				var buttons_count = _tower_buttons[tower_id].get_count()
+				print("%s: %s" % [Element.enm.keys()[element], buttons_count])
+				counter += buttons_count
 	else:
-		counter = _tower_buttons.size()
+		for tower_id in _tower_buttons.keys():
+			var buttons_count = _tower_buttons[tower_id].get_count()
+			print("%s: %s" % ["ALL", buttons_count])
+			counter += buttons_count
 	return counter
 
 

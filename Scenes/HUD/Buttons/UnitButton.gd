@@ -6,7 +6,7 @@ extends Button
 @export var _counter_label: Label
 
 
-var _count: int: set = set_count
+var _count: int: set = set_count, get = get_count
 var _rarity: Rarity.enm: get = get_rarity, set = set_rarity
 
 
