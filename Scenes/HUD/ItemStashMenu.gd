@@ -152,6 +152,12 @@ func _on_perfect_button_pressed():
 
 
 func _on_close_button_pressed():
+	_items_status_panel.ack_count()
+	_oils_status_panel.ack_count()
+	_commons_status_panel.ack_count()
+	_uncommons_status_panel.ack_count()
+	_rares_status_panel.ack_count()
+	_uniques_status_panel.ack_count()
 	hide()
 
 

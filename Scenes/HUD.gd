@@ -57,6 +57,8 @@ func _on_towers_button_toggled(toggled):
 		else:
 			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+	
+	_elements_tower_menu.ack_status_panels()
 
 
 func _on_items_button_toggled(toggled):
@@ -75,7 +77,8 @@ func _on_items_button_toggled(toggled):
 		else:
 			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-
+	
+	_item_stash_menu.ack_status_panels()
 
 func _unhandled_input(event):
 	var cancelled: bool = event.is_action_released("ui_cancel")
