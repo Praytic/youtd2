@@ -30,18 +30,15 @@ texture = ExtResource("1_uerio")
 expand_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(45, 2.08165e-12)
 layout_mode = 2
-theme_override_constants/margin_left = 3
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = -5
 theme_override_constants/margin_right = -3
 theme_override_constants/margin_bottom = -5
 
 [node name="ResourceCountLabel" type="Label" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
 text = "99"
-horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="NewResourceCountLabel" type="Label" parent="HBoxContainer/MarginContainer"]
