@@ -11,7 +11,7 @@ var _unchecked_count: int
 
 
 func _process(delta):
-	_resource_count_label.text = str(min(_count, 99))
+	_resource_count_label.text = str(min(_count, 999))
 	if _unchecked_count > 0:
 		_new_resource_count_label.text = "(+%s)" % str(min(_unchecked_count, 99))
 	else:
