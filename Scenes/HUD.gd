@@ -116,3 +116,13 @@ func close_all_windows():
 	
 #	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
 	SelectUnit.set_selected_unit(null)
+
+
+func _on_unit_menu_visibility_changed():
+	if not _item_stash_menu.visible:
+		_items_menu_card.get_main_button().set_pressed_no_signal(false)
+		_items_menu_card.get_main_button().toggled.emit(false) 
+	if not _elements_tower_menu.visible:
+		_towers_menu_card.get_main_button().set_pressed_no_signal(false)
+		_towers_menu_card.get_main_button().toggled.emit(false)
+
