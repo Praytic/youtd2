@@ -344,6 +344,7 @@ func _on_roll_towers_button_pressed():
 func _on_towers_changed():
 	_update_resource_status_panels()
 
+
 #########################
 ### Setters / Getters ###
 #########################
