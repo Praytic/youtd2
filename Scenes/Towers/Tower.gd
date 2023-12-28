@@ -791,6 +791,9 @@ func _add_target(target: Creep):
 # NOTE: arg needs to be untyped because it may be an invalid
 # instance.
 func _remove_target(target):
+	if !_target_list.has(target):
+		return
+
 	if is_instance_valid(target):
 		target.death.disconnect(_on_target_death)
 
