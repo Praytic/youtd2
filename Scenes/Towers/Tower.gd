@@ -401,6 +401,9 @@ func issue_target_order(order_type: String, target: Unit):
 	if order_type != "attack":
 		print_debug("Unhandled order_type in issue_target_order()")
 
+	if target == null:
+		return
+
 	_was_ordered_to_change_target = true
 	_new_target_from_order = target
 
