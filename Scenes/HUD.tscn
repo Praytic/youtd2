@@ -341,6 +341,7 @@ _tooltip = NodePath("ButtonTooltipForAutocast")
 [node name="ButtonTooltipForAutocast" parent="VBoxContainer" instance=ExtResource("11_ka7k1")]
 visible = false
 layout_mode = 2
+used_for_autocasts = true
 
 [connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/AspectRatioContainer/MainButton" to="." method="_on_towers_button_toggled"]
 [connection signal="visibility_level_changed" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard" to="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" method="_on_items_status_card_visibility_level_changed"]
