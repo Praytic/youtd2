@@ -23,6 +23,7 @@ const range_indicator_scene: PackedScene = preload("res://Scenes/Towers/RangeInd
 
 var wave_count: int
 var game_mode: GameMode.enm
+var player_mode: PlayerMode.enm
 var difficulty: Difficulty.enm
 var game_over: bool = false
 var _total_damage: float = 0.0

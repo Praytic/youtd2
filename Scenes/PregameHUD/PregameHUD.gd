@@ -6,6 +6,7 @@ extends Control
 
 
 enum Tab {
+	PLAYER_MODE,
 	GAME_LENGTH,
 	DISTRIBUTION,
 	DIFFICULTY,
@@ -13,8 +14,9 @@ enum Tab {
 }
 
 
-signal finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm)
+signal finished(_player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm)
 
+var _player_mode: PlayerMode.enm
 var _wave_count: int
 var _game_mode: GameMode.enm
 var _difficulty: Difficulty.enm
@@ -25,6 +27,11 @@ var _tutorial_enabled: bool
 
 
 func _ready():
+	_tab_container.current_tab = Tab.PLAYER_MODE
+
+
+func _on_player_mode_menu_finished(player_mode: PlayerMode.enm):
+	_player_mode = player_mode
 	_tab_container.current_tab = Tab.GAME_LENGTH
 
 
@@ -48,4 +55,4 @@ func _on_difficulty_menu_finished(difficulty: Difficulty.enm):
 func _on_tutorial_question_menu_finished(tutorial_enabled: bool):
 	_tutorial_enabled = tutorial_enabled
 	
-	finished.emit(_wave_count, _game_mode, _difficulty, _tutorial_enabled)
+	finished.emit(_player_mode, _wave_count, _game_mode, _difficulty, _tutorial_enabled)

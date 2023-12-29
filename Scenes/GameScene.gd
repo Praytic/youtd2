@@ -32,12 +32,13 @@ func _ready():
 		_pregame_hud.show()
 	else:
 #		Skip pregame settings menu and load default values
+		var default_player_mode: PlayerMode.enm = Config.default_player_mode()
 		var default_wave_count: int = Config.default_wave_count()
 		var default_game_mode: GameMode.enm = Config.default_game_mode()
 		var default_difficulty: Difficulty.enm = Config.default_difficulty()
 		var default_tutorial_enabled: bool = Config.default_tutorial_enabled()
 
-		_on_pregame_hud_finished(default_wave_count, default_game_mode, default_difficulty, default_tutorial_enabled)
+		_on_pregame_hud_finished(default_player_mode, default_wave_count, default_game_mode, default_difficulty, default_tutorial_enabled)
 
 	if Config.run_prerender_tool():
 		var running_on_web: bool = OS.get_name() == "Web"
@@ -81,7 +82,7 @@ func _on_HUD_stop_wave():
 	$Map/CreepSpawner.stop()
 
 
-func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, tutorial_enabled: bool):
+func _on_pregame_hud_finished(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, tutorial_enabled: bool):
 	get_tree().set_pause(false)
 	
 	_pregame_hud.hide()
@@ -104,6 +105,7 @@ func _on_pregame_hud_finished(wave_count: int, game_mode: GameMode.enm, difficul
 		_on_tutorial_menu_finished()
 
 	Globals.game_mode = game_mode
+	Globals.player_mode = player_mode
 	EventBus.game_mode_was_chosen.emit()
 
 

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn0e2tvm4c2aq"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ltps8"]
+[ext_resource type="Script" path="res://Scenes/PregameHUD/PlayerModeMenu.gd" id="2_s46t8"]
+
+[node name="PlayerModeMenu" type="VBoxContainer"]
+offset_right = 377.0
+offset_bottom = 235.0
+size_flags_vertical = 0
+theme = ExtResource("1_ltps8")
+script = ExtResource("2_s46t8")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "PLAYER MODE"
+horizontal_alignment = 1
+
+[node name="SingleButton" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+text = "SINGLE"
+
+[node name="CoopButton" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+text = "CO-OP"
+
+[connection signal="pressed" from="SingleButton" to="." method="_on_single_button_pressed"]
+[connection signal="pressed" from="CoopButton" to="." method="_on_coop_button_pressed"]
