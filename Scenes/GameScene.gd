@@ -28,12 +28,12 @@ func _ready():
 	
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 	
-	if OS.get_cmdline_args().has("--headless"):
+	if OS.has_feature("dedicated_server") or DisplayServer.get_name() == "headless":
 		var room_code = _get_cmdline_value("room_code")
 		assert(room_code, "Room code wasn't provided with headless mode enabled.")
-		print(room_code)
+		print("Room code: %s" % room_code)
 		Globals.room_code = room_code
-
+	
 	if show_pregame_settings_menu && !Config.run_prerender_tool():
 		_pregame_hud.show()
 	else:
@@ -161,6 +161,6 @@ func _get_cmdline_value(key: String):
 		if arguments.get(key).is_empty():
 			cmdline_value = true
 		else:
-			arguments.get(key)
+			cmdline_value = arguments.get(key)
 	
 	return cmdline_value
