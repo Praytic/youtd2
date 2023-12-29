@@ -22,11 +22,17 @@ var _game_state: GameState
 
 func _ready():
 	print_verbose("GameScene has loaded.")
-
+	
 	_game_state = GameState.PREGAME
 	get_tree().set_pause(true)
-
+	
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
+	
+	if OS.get_cmdline_args().has("--headless"):
+		var room_code = _get_cmdline_value("room_code")
+		assert(room_code, "Room code wasn't provided with headless mode enabled.")
+		print(room_code)
+		Globals.room_code = room_code
 
 	if show_pregame_settings_menu && !Config.run_prerender_tool():
 		_pregame_hud.show()
@@ -137,3 +143,24 @@ func _on_tutorial_menu_finished():
 
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
+
+
+func _get_cmdline_value(key: String):
+	var arguments = {}
+	for argument in OS.get_cmdline_user_args():
+		if argument.find("=") > -1:
+			var key_value = argument.split("=")
+			arguments[key_value[0].lstrip("--")] = key_value[1]
+		else:
+			# Options without an argument will be present in the dictionary,
+			# with the value set to an empty string.
+			arguments[argument.lstrip("--")] = ""
+	
+	var cmdline_value = false
+	if arguments.has(key):
+		if arguments.get(key).is_empty():
+			cmdline_value = true
+		else:
+			arguments.get(key)
+	
+	return cmdline_value

@@ -98,6 +98,14 @@ func show_pregame_settings_menu() -> bool:
 func default_wave_count() -> int:
 	return ProjectSettings.get_setting("application/config/default_wave_count") as int
 
+
+func default_player_mode() -> PlayerMode.enm:
+	var player_mode_string: String = ProjectSettings.get_setting("application/config/default_player_mode") as String
+	var player_mode: PlayerMode.enm = PlayerMode.from_string(player_mode_string)
+
+	return player_mode
+
+
 func default_game_mode() -> GameMode.enm:
 	var game_mode_string: String = ProjectSettings.get_setting("application/config/default_game_mode") as String
 	var game_mode: GameMode.enm = GameMode.from_string(game_mode_string)

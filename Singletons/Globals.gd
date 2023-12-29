@@ -28,6 +28,7 @@ var difficulty: Difficulty.enm
 var game_over: bool = false
 var _total_damage: float = 0.0
 var built_at_least_one_tower: bool = false
+var room_code: String
 
 # NOTE: HACK BELOW
 # See GlaiveMaster script for explanation.
