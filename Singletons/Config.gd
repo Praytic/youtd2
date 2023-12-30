@@ -178,3 +178,6 @@ func run_save_tooltips_tool() -> bool:
 
 func use_saved_tooltips() -> bool:
 	return ProjectSettings.get_setting("application/config/use_saved_tooltips") as bool
+
+func unlimited_portal_lives() -> bool:
+	return ProjectSettings.get_setting("application/config/unlimited_portal_lives") as bool

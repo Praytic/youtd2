@@ -15,7 +15,8 @@ func get_lives_string() -> String:
 
 
 func deal_damage(damage: float):
-	_portal_lives = max(0.0, _portal_lives - damage)
+	if not Config.unlimited_portal_lives():
+		_portal_lives = max(0.0, _portal_lives - damage)
 
 	if _portal_lives == 0.0 && !Globals.game_over:
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
