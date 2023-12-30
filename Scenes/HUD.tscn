@@ -160,32 +160,8 @@ button_group = ExtResource("10_8ub83")
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ItemsCountPanel" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/VBoxContainer" index="0" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label")]
-_resource_count_label = NodePath("HBoxContainer/MarginContainer/ResourceCountLabel")
-_new_resource_count_label = NodePath("HBoxContainer/MarginContainer/NewResourceCountLabel")
-
-[node name="OilsCountPanel" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/VBoxContainer" index="1" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label")]
-_resource_count_label = NodePath("HBoxContainer/MarginContainer/ResourceCountLabel")
-_new_resource_count_label = NodePath("HBoxContainer/MarginContainer/NewResourceCountLabel")
-
 [node name="GridContainer" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer" index="4"]
 columns = 2
-
-[node name="CommonsCountPanel" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer" index="0" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label")]
-_resource_count_label = NodePath("HBoxContainer/MarginContainer/ResourceCountLabel")
-_new_resource_count_label = NodePath("HBoxContainer/MarginContainer/NewResourceCountLabel")
-
-[node name="UncommonsCountPanel" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer" index="1" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label")]
-_resource_count_label = NodePath("HBoxContainer/MarginContainer/ResourceCountLabel")
-_new_resource_count_label = NodePath("HBoxContainer/MarginContainer/NewResourceCountLabel")
-
-[node name="RaresCountPanel" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer" index="2" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label")]
-_resource_count_label = NodePath("HBoxContainer/MarginContainer/ResourceCountLabel")
-_new_resource_count_label = NodePath("HBoxContainer/MarginContainer/NewResourceCountLabel")
-
-[node name="UniquesCountPanel" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer" index="3" node_paths=PackedStringArray("_resource_count_label", "_new_resource_count_label")]
-_resource_count_label = NodePath("HBoxContainer/MarginContainer/ResourceCountLabel")
-_new_resource_count_label = NodePath("HBoxContainer/MarginContainer/NewResourceCountLabel")
 
 [node name="MainButton" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/AspectRatioContainer" index="0"]
 toggle_mode = true
@@ -344,7 +320,6 @@ layout_mode = 2
 used_for_autocasts = true
 
 [connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/AspectRatioContainer/MainButton" to="." method="_on_towers_button_toggled"]
-[connection signal="visibility_level_changed" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard" to="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" method="_on_items_status_card_visibility_level_changed"]
 [connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/AspectRatioContainer/MainButton" to="." method="_on_items_button_toggled"]
 [connection signal="visibility_changed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu" to="." method="_on_unit_menu_visibility_changed"]
 [connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
