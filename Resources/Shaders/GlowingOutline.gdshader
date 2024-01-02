@@ -5,6 +5,11 @@ uniform vec4 line_color : source_color = vec4(1);
 uniform float line_thickness : hint_range(0, 10) = 1.0;
 
 void fragment() {
+	vec4 pixel_color = texture(TEXTURE, UV);
+	if (pixel_color.a > 0.5) {
+		discard;
+	}
+	
 	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
 	
 	float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;

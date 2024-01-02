@@ -705,13 +705,14 @@ func on_selected():
 		indicator.show()
 	_range_indicator.show()
 	_tower_actions.show()
-
+	_sprite_node.z_index = 1
 
 func on_unselected():
 	for indicator in _aura_range_indicator_list:
 		indicator.hide()
 	_range_indicator.hide()
 	_tower_actions.hide()
+	_sprite_node.z_index = 0
 
 
 func on_tree_exited():

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctjam7ai1u7y7"]
+[gd_scene load_steps=6 format=3 uid="uid://ctjam7ai1u7y7"]
 
 [ext_resource type="Script" path="res://Scenes/Towers/Instances/IcySkulls1.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cxrx1kx7omawd" path="res://Assets/Towers/Instances/icy_skulls_atlas.png" id="2"]
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="3"]
+[ext_resource type="Material" uid="uid://c55eehmcdc4nb" path="res://Resources/Shaders/GlowingOutline.material" id="4_2ookn"]
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = ExtResource("2")
@@ -19,4 +20,18 @@ position = Vector2(-1, 153)
 
 [node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
 position = Vector2(1, 126)
+texture = SubResource("1")
+
+[node name="SelectionOutline" type="TextureRect" parent="Model/Sprite2D" index="0"]
+visible = false
+material = ExtResource("4_2ookn")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -150.0
+offset_right = -150.0
+offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = SubResource("1")

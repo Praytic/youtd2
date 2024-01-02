@@ -110,6 +110,7 @@ var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
 
 var _selection_visual: Node = null
+var _selection_outline: TextureRect = null
 
 # This is the count of towers that are currently able to see
 # this invisible creep. If there any towers that can see this
@@ -215,7 +216,7 @@ func _ready():
 
 	_selection_visual = Selection.new()
 	_selection_visual.hide()
-	_selection_visual.z_index = -1
+	_selection_visual.z_index = 0
 	add_child(_selection_visual)
 	
 	var regen_timer: Timer = Timer.new()
@@ -722,6 +723,7 @@ func _set_visual_node(visual_node: Node2D):
 func _set_sprite_node(sprite_node: Node2D):
 	_sprite_node = sprite_node
 	_sprite_node.modulate = _base_sprite_color
+	_selection_outline = _sprite_node.get_node("SelectionOutline")
 
 
 # Call this in subclass to set dimensions of unit. Use
@@ -745,6 +747,7 @@ func set_hovered(hovered: bool):
 
 	_selection_visual.modulate = Color.WHITE
 	_selection_visual.set_visible(hovered)
+	_selection_outline.set_visible(hovered)
 
 
 # NOTE: override this in subclass to attach trigger handlers
@@ -1450,6 +1453,8 @@ func set_selected(selected_arg: bool):
 
 	_selection_visual.modulate = selection_color
 	_selection_visual.set_visible(selected_arg)
+	_selection_outline.material.set_shader_parameter("line_color", selection_color)
+	_selection_outline.set_visible(selected_arg)
 	_selected = selected_arg
 
 	if selected_arg:
