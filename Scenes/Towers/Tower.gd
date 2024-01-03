@@ -74,8 +74,8 @@ var _aura_range_indicator_list: Array[RangeIndicator] = []
 @onready var _mana_bar: ProgressBar = $Visual/ManaBar
 @onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
 # NOTE: $Model/Sprite2D node is added in Tower subclass scenes 
-@onready var _model: Node2D = $Model
-@onready var _sprite: Sprite2D = $Model/Sprite2D
+@onready var _model: Node2D = $Visual
+@onready var _sprite: Sprite2D = $Visual/Sprite2D
 @onready var _tower_actions: Control = $Visual/TowerActions
 @onready var _visual: Node2D = $Visual
 
@@ -103,7 +103,7 @@ func _ready():
 
 	_set_visual_node(_visual)
 	_set_sprite_node(_sprite)
-	_selection_outline = $Model/Sprite2D/SelectionOutline
+	_selection_outline = $Visual/SelectionOutline
 
 #	If this tower is used for towerpreview, then exit early
 #	out of ready() so that no event handlers or auras are
