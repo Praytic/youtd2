@@ -24,6 +24,7 @@ texture = SubResource("1")
 
 [node name="SelectionOutline" type="TextureRect" parent="Model/Sprite2D" index="0"]
 visible = false
+z_index = 1
 material = ExtResource("4_653b4")
 anchors_preset = 15
 anchor_right = 1.0

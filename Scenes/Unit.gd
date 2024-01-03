@@ -216,7 +216,7 @@ func _ready():
 
 	_selection_visual = Selection.new()
 	_selection_visual.hide()
-	_selection_visual.z_index = 0
+	_selection_visual.z_index = -1
 	add_child(_selection_visual)
 	
 	var regen_timer: Timer = Timer.new()
