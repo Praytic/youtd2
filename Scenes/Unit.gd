@@ -746,6 +746,7 @@ func set_hovered(hovered: bool):
 		return
 
 	_selection_visual.modulate = Color.WHITE
+	_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
 	_selection_visual.set_visible(hovered)
 	_selection_outline.set_visible(hovered)
 
