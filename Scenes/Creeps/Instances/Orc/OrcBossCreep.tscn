@@ -1,4 +1,4 @@
-[gd_scene load_steps=612 format=3 uid="uid://qnplmo5s1n0e"]
+[gd_scene load_steps=613 format=3 uid="uid://qnplmo5s1n0e"]
 
 [ext_resource type="PackedScene" uid="uid://rjsk7xfdmn7t" path="res://Scenes/Creeps/Instances/BossCreep.tscn" id="1_f1n5r"]
 [ext_resource type="Texture2D" uid="uid://b1s341ilp1g0f" path="res://Assets/Mobs/orc/boss/death_E.png" id="2_68ab1"]
@@ -21,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://bs4eogf4qp1si" path="res://Assets/Mobs/orc/boss/stunned_N.png" id="19_smsff"]
 [ext_resource type="Texture2D" uid="uid://blhn57yxicrc" path="res://Assets/Mobs/orc/boss/stunned_S.png" id="20_lscn5"]
 [ext_resource type="Texture2D" uid="uid://x8pxq2hka3c" path="res://Assets/Mobs/orc/boss/stunned_W.png" id="21_538qq"]
-[ext_resource type="Material" uid="uid://c55eehmcdc4nb" path="res://Resources/Shaders/GlowingOutline.material" id="22_of7si"]
 [ext_resource type="Script" path="res://Scenes/Creeps/CreepSprite.gd" id="23_amju3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cknyu"]
@@ -4238,6 +4237,41 @@ animations = [{
 resource_local_to_scene = true
 bg_color = Color(0.176471, 0.960784, 0, 1)
 
+[sub_resource type="Shader" id="Shader_k36v2"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform vec4 line_color : source_color = vec4(1);
+uniform float line_thickness : hint_range(0, 10) = 1.0;
+
+void fragment() {
+	vec4 pixel_color = texture(TEXTURE, UV);
+	if (pixel_color.a > 0.5) {
+		discard;
+	}
+	
+	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
+	
+	float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
+	outline = min(outline, 1.0);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = mix(color, line_color, outline - color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ql1b0"]
+resource_local_to_scene = true
+shader = SubResource("Shader_k36v2")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 2.0
+
 [node name="Creep" instance=ExtResource("1_f1n5r")]
 
 [node name="Sprite2D" parent="Visual" index="0"]
@@ -4276,7 +4310,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_iu1ub")
 [node name="SelectionOutline" type="AnimatedSprite2D" parent="Visual" index="3"]
 visible = false
 z_index = 1
-material = ExtResource("22_of7si")
+material = SubResource("ShaderMaterial_ql1b0")
 position = Vector2(0, -140)
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_7faco")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=239 format=3 uid="uid://doajvw1ljnpjc"]
+[gd_scene load_steps=240 format=3 uid="uid://doajvw1ljnpjc"]
 
 [ext_resource type="PackedScene" uid="uid://c8fo4a5w0txrx" path="res://Scenes/Creeps/Instances/AirCreep.tscn" id="1_qtrnl"]
 [ext_resource type="Texture2D" uid="uid://b5se2dom7rt6d" path="res://Assets/Mobs/orc/air/fly_E.png" id="2_8lsel"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://dejolx201xt4l" path="res://Assets/Mobs/orc/air/fly_SE.png" id="7_ybjie"]
 [ext_resource type="Texture2D" uid="uid://beysr35mknwqu" path="res://Assets/Mobs/orc/air/fly_SW.png" id="8_ks8tp"]
 [ext_resource type="Texture2D" uid="uid://ddhb3w0ho041v" path="res://Assets/Mobs/orc/air/fly_W.png" id="9_ej7kg"]
-[ext_resource type="Material" uid="uid://c55eehmcdc4nb" path="res://Resources/Shaders/GlowingOutline.material" id="10_lfeu6"]
 [ext_resource type="Script" path="res://Scenes/Creeps/CreepSprite.gd" id="11_kbri1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bbyki"]
@@ -1639,12 +1638,47 @@ animations = [{
 resource_local_to_scene = true
 bg_color = Color(0.176471, 0.960784, 0, 1)
 
+[sub_resource type="Shader" id="Shader_dgbi2"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform vec4 line_color : source_color = vec4(1);
+uniform float line_thickness : hint_range(0, 10) = 1.0;
+
+void fragment() {
+	vec4 pixel_color = texture(TEXTURE, UV);
+	if (pixel_color.a > 0.5) {
+		discard;
+	}
+	
+	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
+	
+	float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
+	outline = min(outline, 1.0);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = mix(color, line_color, outline - color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sejjc"]
+resource_local_to_scene = true
+shader = SubResource("Shader_dgbi2")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 3.0
+
 [node name="Creep" instance=ExtResource("1_qtrnl")]
 
 [node name="Sprite2D" parent="Visual" index="0"]
 sprite_frames = SubResource("SpriteFrames_ip4aq")
 animation = &"fly_NW"
-frame_progress = 0.0820833
+frame_progress = 0.735888
 offset = Vector2(-1.25, 14.375)
 sprite_sheets_dir = "res://Assets/Mobs/orc/air"
 _animation_offset_map = {
@@ -1665,7 +1699,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_xdpo1")
 [node name="SelectionOutline" type="AnimatedSprite2D" parent="Visual" index="3"]
 visible = false
 z_index = 1
-material = ExtResource("10_lfeu6")
+material = SubResource("ShaderMaterial_sejjc")
 position = Vector2(0, -20)
 scale = Vector2(1.6, 1.6)
 sprite_frames = SubResource("SpriteFrames_ip4aq")
