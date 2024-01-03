@@ -49,10 +49,6 @@ func _ready():
 # because this is a tool script
 func _process(_delta: float):
 	_update_offset()
-	var selection_outline: TextureRect = get_node("SelectionOutline")
-	if selection_outline and selection_outline.visible:
-		selection_outline.texture = sprite_frames.get_frame_texture(animation, frame)
-
 
 # NOTE: each animation has a different offset which is
 # created during the packing process. To display the

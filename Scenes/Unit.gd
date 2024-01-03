@@ -110,7 +110,7 @@ var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
 
 var _selection_visual: Node = null
-var _selection_outline: TextureRect = null
+var _selection_outline: Node = null
 
 # This is the count of towers that are currently able to see
 # this invisible creep. If there any towers that can see this
@@ -723,7 +723,6 @@ func _set_visual_node(visual_node: Node2D):
 func _set_sprite_node(sprite_node: Node2D):
 	_sprite_node = sprite_node
 	_sprite_node.modulate = _base_sprite_color
-	_selection_outline = _sprite_node.get_node("SelectionOutline")
 
 
 # Call this in subclass to set dimensions of unit. Use

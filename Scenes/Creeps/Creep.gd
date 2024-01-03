@@ -60,6 +60,7 @@ func _ready():
 	
 	_set_visual_node(_visual)
 	_set_sprite_node(_sprite)
+	_selection_outline = $Visual/SelectionOutline
 
 	var sprite_dimensions: Vector2 = Utils.get_animated_sprite_dimensions(_sprite, ANIMATION_FOR_DIMENSIONS)
 	_set_unit_dimensions(sprite_dimensions)
@@ -76,6 +77,7 @@ func _process(delta):
 
 	var creep_animation: String = _get_creep_animation()
 	_sprite.play(creep_animation)
+	_selection_outline.play(creep_animation)
 
 	z_index = _calculate_current_z_index()
 
@@ -95,6 +97,7 @@ func get_log_name() -> String:
 # NOTE: SetUnitTimeScale() in JASS
 func set_unit_time_scale(time_scale: float):
 	_sprite.set_speed_scale(time_scale)
+	_selection_outline.set_speed_scale(time_scale)
 
 
 # NOTE: creeps are always considered to be attacking for the
@@ -352,6 +355,7 @@ func set_unit_facing(angle: float):
 	var animation: String = _get_creep_animation()
 	if animation != "":
 		_sprite.play(animation)
+		_selection_outline.play(animation)
 
 
 # NOTE: GetUnitFacing() in JASS

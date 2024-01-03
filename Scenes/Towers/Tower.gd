@@ -103,6 +103,7 @@ func _ready():
 
 	_set_visual_node(_visual)
 	_set_sprite_node(_sprite)
+	_selection_outline = $Model/Sprite2D/SelectionOutline
 
 #	If this tower is used for towerpreview, then exit early
 #	out of ready() so that no event handlers or auras are
