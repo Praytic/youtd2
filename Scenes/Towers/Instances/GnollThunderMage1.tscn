@@ -47,7 +47,8 @@ shader_parameter/line_thickness = 6.0
 script = ExtResource("2_xk4iy")
 
 [node name="Sprite2D" parent="Visual" index="0"]
-position = Vector2(-5, -45)
+position = Vector2(-5, -38)
+scale = Vector2(0.55, 0.55)
 texture = SubResource("AtlasTexture_d0cuo")
 
 [node name="SelectionOutline" parent="Visual" index="4"]

@@ -47,7 +47,8 @@ shader_parameter/line_thickness = 6.0
 script = ExtResource("2_eapl4")
 
 [node name="Sprite2D" parent="Visual" index="0"]
-position = Vector2(7, -47)
+position = Vector2(7, -44)
+scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_voii6")
 
 [node name="SelectionOutline" parent="Visual" index="4"]
