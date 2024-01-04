@@ -26,3 +26,10 @@ Read our [Contributing guidance](https://github.com/Praytic/youtd2/contribute) t
 
 ### Required Tools
 [Godot](https://github.com/godotengine/godot) is a feature-packed, cross-platform game engine to create 2D and 3D games from a unified interface. This game is written with [GDScript](https://gdscript.com/) language on Godot engine. You can download the latest version from their official [website](https://godotengine.org/).
+
+### Required Permissions
+Before opening the project inside Godot editor, make sure you download game assets from [original](https://drive.google.com/drive/u/1/folders/1V9GN1uoX9-mu2J5IoWPaNJU2aC_ejGIA) or [obfuscated](https://drive.google.com/drive/folders/1U4wTjBu2qo1cInH3IAowsFC5yq56V5uQ?usp=drive_link) folder and put the contents inside [Assets]([url](https://github.com/Praytic/youtd2/tree/main/Assets)) directory. Ask owners of the repository if you don't have permissions to these folders.
+
+## License
+
+YouTD 2 code is licensed under the [MIT licence](https://github.com/Praytic/youtd2/tree/main?tab=MIT-1-ov-file#readme). The majority of content inside shared [Assets](https://drive.google.com/drive/u/1/folders/1V9GN1uoX9-mu2J5IoWPaNJU2aC_ejGIA) folder is licensed under [CC-BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode). Please see the licence file inside Assets folder for more information.
