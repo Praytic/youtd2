@@ -46,12 +46,6 @@ shader_parameter/line_thickness = 6.0
 [node name="RottedFlashingGrave" instance=ExtResource("1_wpfga")]
 script = ExtResource("2_n8wjh")
 
-[node name="Model" type="Node2D" parent="." index="3"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
-position = Vector2(-4, -77)
-texture = SubResource("2")
-
 [node name="Sprite2D" parent="Visual" index="0"]
 position = Vector2(-4, -77)
 texture = SubResource("2")

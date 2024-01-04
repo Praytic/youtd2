@@ -46,12 +46,6 @@ shader_parameter/line_thickness = 6.0
 [node name="MinorMagicRuin" instance=ExtResource("1_i0ut5")]
 script = ExtResource("2_6uuf2")
 
-[node name="Model" type="Node2D" parent="." index="3"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
-position = Vector2(1, -80)
-texture = SubResource("2")
-
 [node name="Sprite2D" parent="Visual" index="0"]
 position = Vector2(1, -80)
 texture = SubResource("2")

@@ -46,12 +46,6 @@ shader_parameter/line_thickness = 6.0
 [node name="SmallFrozenMushroom1" instance=ExtResource("1_dgcnv")]
 script = ExtResource("2_ig2w5")
 
-[node name="Model" type="Node2D" parent="." index="3"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
-position = Vector2(-5, -75)
-texture = SubResource("2")
-
 [node name="Sprite2D" parent="Visual" index="0"]
 position = Vector2(-5, -75)
 texture = SubResource("2")

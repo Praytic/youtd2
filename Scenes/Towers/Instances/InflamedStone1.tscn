@@ -46,17 +46,6 @@ shader_parameter/line_thickness = 6.0
 [node name="Tower" instance=ExtResource("1_dhobb")]
 script = ExtResource("2_4j170")
 
-[node name="Model" type="Node2D" parent="." index="3"]
-position = Vector2(0, -193)
-
-[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
-position = Vector2(-1, 153)
-
-[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
-position = Vector2(-2.38419e-07, 140)
-scale = Vector2(0.7, 0.7)
-texture = SubResource("AtlasTexture_d0cuo")
-
 [node name="Sprite2D" parent="Visual" index="0"]
 position = Vector2(-2.38419e-07, -53)
 texture = SubResource("AtlasTexture_d0cuo")

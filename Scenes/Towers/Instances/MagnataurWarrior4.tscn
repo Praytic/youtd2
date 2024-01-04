@@ -46,16 +46,6 @@ shader_parameter/line_thickness = 6.0
 [node name="Tower" instance=ExtResource("1_laphb")]
 script = ExtResource("2_oq75d")
 
-[node name="Model" type="Node2D" parent="." index="3"]
-position = Vector2(0, -193)
-
-[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
-position = Vector2(-1, 153)
-
-[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
-position = Vector2(0, 115)
-texture = SubResource("AtlasTexture_lrt4k")
-
 [node name="Sprite2D" parent="Visual" index="0"]
 position = Vector2(0, -78)
 texture = SubResource("AtlasTexture_lrt4k")

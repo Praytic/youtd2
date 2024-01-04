@@ -46,16 +46,6 @@ shader_parameter/line_thickness = 6.0
 [node name="AbandonedPit" instance=ExtResource("1_xgg5c")]
 script = ExtResource("2_oe5e5")
 
-[node name="Model" type="Node2D" parent="." index="3"]
-position = Vector2(0, -193)
-
-[node name="Muzzle" type="Marker2D" parent="Model" index="0"]
-position = Vector2(-1, 153)
-
-[node name="Sprite2D" type="Sprite2D" parent="Model" index="1"]
-position = Vector2(-9, 117)
-texture = SubResource("AtlasTexture_lrt4k")
-
 [node name="Sprite2D" parent="Visual" index="0"]
 position = Vector2(-9, -76)
 texture = SubResource("AtlasTexture_lrt4k")

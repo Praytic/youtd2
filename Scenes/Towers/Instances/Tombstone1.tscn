@@ -46,16 +46,6 @@ shader_parameter/line_thickness = 6.0
 [node name="Tombstone" instance=ExtResource("1")]
 script = ExtResource("2")
 
-[node name="Model" type="Node2D" parent="." index="3"]
-position = Vector2(0, -193)
-
-[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
-position = Vector2(-2, 109)
-texture = SubResource("2")
-
-[node name="Muzzle" type="Marker2D" parent="Model" index="1"]
-position = Vector2(-1, 153)
-
 [node name="Sprite2D" parent="Visual" index="0"]
 position = Vector2(-2, -84)
 texture = SubResource("2")
