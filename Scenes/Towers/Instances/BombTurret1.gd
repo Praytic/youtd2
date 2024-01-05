@@ -164,7 +164,7 @@ func tower_init():
 	add_autocast(autocast_acid)
 
 	var autocast_smoke: Autocast = Autocast.make()
-	autocast_smoke.title = "Acid Bombs"
+	autocast_smoke.title = "Smoke Bombs"
 	autocast_smoke.description = get_autocast_description_smoke()
 	autocast_smoke.description_short = get_autocast_description_smoke_short()
 	autocast_smoke.icon = "res://path/to/icon.png"
