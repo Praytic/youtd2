@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgyavpxpvv344"]
+[gd_scene load_steps=7 format=3 uid="uid://cgyavpxpvv344"]
 
 [ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_tv3he"]
 [ext_resource type="Script" path="res://Scenes/Towers/Instances/MossyAcidSprayer1.gd" id="2_ux378"]
@@ -8,11 +8,49 @@
 atlas = ExtResource("3_67knf")
 region = Rect2(600, 2.08165e-12, 300, 300)
 
+[sub_resource type="Shader" id="Shader_eimx7"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform vec4 line_color : source_color = vec4(1);
+uniform float line_thickness : hint_range(0, 10) = 1.0;
+
+void fragment() {
+	vec4 pixel_color = texture(TEXTURE, UV);
+	if (pixel_color.a > 0.5) {
+		discard;
+	}
+	
+	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
+	
+	float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
+	outline = min(outline, 1.0);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = mix(color, line_color, outline - color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_63x8t"]
+resource_local_to_scene = true
+shader = SubResource("Shader_eimx7")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 6.0
+
 [node name="MossyAcidSprayer" instance=ExtResource("1_tv3he")]
 script = ExtResource("2_ux378")
 
-[node name="Model" type="Node2D" parent="." index="3"]
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(3, -82)
+texture = SubResource("2")
 
-[node name="Sprite2D" type="Sprite2D" parent="Model" index="0"]
+[node name="SelectionOutline" parent="Visual" index="4"]
+material = SubResource("ShaderMaterial_63x8t")
 position = Vector2(3, -82)
 texture = SubResource("2")

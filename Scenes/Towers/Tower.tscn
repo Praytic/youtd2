@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1u2fghaw2oji"]
+[gd_scene load_steps=7 format=3 uid="uid://d1u2fghaw2oji"]
 
 [ext_resource type="Script" path="res://Scenes/Towers/Tower.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://bbq8xnlx68q72" path="res://Scenes/HUD/TowerActions.tscn" id="3_jgb58"]
+[ext_resource type="Material" uid="uid://c55eehmcdc4nb" path="res://Resources/Shaders/GlowingOutline.material" id="4_bd1f3"]
 [ext_resource type="Script" path="res://Scenes/Towers/RangeIndicator.gd" id="5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25shh"]
@@ -29,7 +30,15 @@ texture_color = Color(0, 1, 1, 1)
 [node name="Visual" type="Node2D" parent="."]
 z_index = 1
 
+[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+
+[node name="SelectionOutline" type="Sprite2D" parent="Visual"]
+visible = false
+z_index = 1
+material = ExtResource("4_bd1f3")
+
 [node name="ManaBar" type="ProgressBar" parent="Visual"]
+z_index = 1
 offset_left = -75.0
 offset_right = 75.0
 offset_bottom = 20.0

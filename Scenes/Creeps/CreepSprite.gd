@@ -50,7 +50,6 @@ func _ready():
 func _process(_delta: float):
 	_update_offset()
 
-
 # NOTE: each animation has a different offset which is
 # created during the packing process. To display the
 # animation at correct position, this offset needs to be

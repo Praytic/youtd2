@@ -73,9 +73,7 @@ var _aura_range_indicator_list: Array[RangeIndicator] = []
 @onready var _range_indicator: RangeIndicator = $RangeIndicator
 @onready var _mana_bar: ProgressBar = $Visual/ManaBar
 @onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
-# NOTE: $Model/Sprite2D node is added in Tower subclass scenes 
-@onready var _model: Node2D = $Model
-@onready var _sprite: Sprite2D = $Model/Sprite2D
+@onready var _sprite: Sprite2D = $Visual/Sprite2D
 @onready var _tower_actions: Control = $Visual/TowerActions
 @onready var _visual: Node2D = $Visual
 
@@ -103,6 +101,7 @@ func _ready():
 
 	_set_visual_node(_visual)
 	_set_sprite_node(_sprite)
+	_selection_outline = $Visual/SelectionOutline
 
 #	If this tower is used for towerpreview, then exit early
 #	out of ready() so that no event handlers or auras are
@@ -124,7 +123,6 @@ func _ready():
 #	nodes may have default values which we don't want to
 #	override
 	_visual.position.y -= Constants.TILE_HEIGHT
-	_model.position.y -= Constants.TILE_HEIGHT
 	_selection_visual.position.y -= Constants.TILE_HEIGHT
 
 	var base_mana: float = get_csv_property(CsvProperty.MANA).to_float()
@@ -223,11 +221,11 @@ func _ready():
 		_sprite.modulate = _placeholder_modulate
 	
 # 	NOTE: tower scenes have two sprites: "Base" and
-# 	"Model/Sprite2D". We use "Model/Sprite2D" because that
+# 	"Visual/Sprite2D". We use "Visual/Sprite2D" because that
 # 	is the actual sprite. "Base" is a vestigial thing
 # 	inherited from Building.tscn and is currently invisible
 # 	and unused.
-	var sprite: Sprite2D = $Model/Sprite2D
+	var sprite: Sprite2D = $Visual/Sprite2D
 	var sprite_dimensions: Vector2 = Utils.get_sprite_dimensions(sprite)
 	_set_unit_dimensions(sprite_dimensions)
 
@@ -705,7 +703,6 @@ func on_selected():
 		indicator.show()
 	_range_indicator.show()
 	_tower_actions.show()
-
 
 func on_unselected():
 	for indicator in _aura_range_indicator_list:

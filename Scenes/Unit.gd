@@ -110,6 +110,7 @@ var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
 
 var _selection_visual: Node = null
+var _selection_outline: Node = null
 
 # This is the count of towers that are currently able to see
 # this invisible creep. If there any towers that can see this
@@ -744,7 +745,9 @@ func set_hovered(hovered: bool):
 		return
 
 	_selection_visual.modulate = Color.WHITE
+	_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
 	_selection_visual.set_visible(hovered)
+	_selection_outline.set_visible(hovered)
 
 
 # NOTE: override this in subclass to attach trigger handlers
@@ -1450,6 +1453,8 @@ func set_selected(selected_arg: bool):
 
 	_selection_visual.modulate = selection_color
 	_selection_visual.set_visible(selected_arg)
+	_selection_outline.material.set_shader_parameter("line_color", selection_color)
+	_selection_outline.set_visible(selected_arg)
 	_selected = selected_arg
 
 	if selected_arg:
