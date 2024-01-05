@@ -213,8 +213,6 @@ func _ready():
 
 	on_create(_temp_preceding_tower)
 
-	_on_modify_property()
-
 	SelectUnit.connect_unit(self, _tower_selection_area)
 
 	if _placeholder_modulate != Color.WHITE:

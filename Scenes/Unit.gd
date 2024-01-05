@@ -29,7 +29,6 @@ signal health_changed()
 signal mana_changed()
 signal spell_casted(event: Event)
 signal spell_targeted(event: Event)
-signal earn_gold(amount: float, _mystery_bool_1: bool, _mystery_bool_2: bool)
 signal buff_list_changed()
 
 
@@ -570,8 +569,6 @@ func _modify_property_internal(mod_type: Modification.Type, value: float, direct
 	var new_mana_max: float = get_overall_mana()
 	_mana = mana_ratio * new_mana_max
 
-	_on_modify_property()
-
 
 # NOTE: this modifies only creep's ability to be invisible.
 # It won't be invisible if the creep is within range of
@@ -1025,9 +1022,6 @@ func _remove_buff_internal(buff: Buff):
 	var friendly: bool = buff.is_friendly()
 	_get_buff_list(friendly).erase(buff)
 	buff_list_changed.emit()
-
-func _on_modify_property():
-	pass
 
 
 #########################
