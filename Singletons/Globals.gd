@@ -39,6 +39,10 @@ func game_mode_is_random() -> bool:
 	return Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM
 
 
+func game_mode_allows_transform() -> bool:
+	return Globals.game_mode != GameMode.enm.BUILD || Config.allow_transform_in_build_mode()
+
+
 func add_to_total_damage(amount: float):
 	_total_damage += amount
 

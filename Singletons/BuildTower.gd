@@ -82,10 +82,16 @@ func _try_to_build():
 	var can_transform: bool = _map.can_transform_at_mouse_pos()
 	var mouse_pos: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var tower_under_mouse: Tower = _get_tower_at_position(mouse_pos)
+	var attempting_to_transform: bool = tower_under_mouse != null
 	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id)
 
 	if !can_build && !can_transform:
-		var error: String = "Can't build here."
+		var error: String
+		if attempting_to_transform && !Globals.game_mode_allows_transform():
+			error = "Can't transform towers in build mode."
+		else:
+			error = "Can't build here."
+
 		Messages.add_error(error)
 	elif !enough_resources:
 		add_error_about_resources(tower_id)
