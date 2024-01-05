@@ -92,7 +92,6 @@ func get_ability_description_short() -> String:
 func get_autocast_description() -> String:
 	var text: String = ""
 
-	text += "[color=GOLD]Glaivesaw[/color]\n"
 	text += "Create a Glaivesaw at the target location. Glaivesaws deal 50% of attack damage as Lacerate damage to enemies within 150 range per second. Limit 3.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
