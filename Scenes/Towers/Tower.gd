@@ -81,12 +81,10 @@ var _aura_range_indicator_list: Array[RangeIndicator] = []
 ### Code starts here  ###
 #########################
 
-# NOTE: these f-ns needs to be called here and not in
-# ready() so that we can form tooltip text for button
+# NOTE: this function is extracted from _ready() so that it
+# can be called in RichTexts.gd when generating tower
 # tooltip.
-# NOTE: this is also called separately when tower is used by
-# TowerPreview.
-func _internal_tower_init():
+func init_stats_and_specials():
 # 	Load stats for current tier. Stats are defined in
 # 	subclass.
 	var tier: int = get_tier()
@@ -94,6 +92,7 @@ func _internal_tower_init():
 	_stats = tier_stats[tier]
 
 	load_specials(_specials_modifier)
+	add_modifier(_specials_modifier)
 
 
 func _ready():
@@ -196,7 +195,7 @@ func _ready():
 	innate_modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD)
 	add_modifier(innate_modifier)
 
-	add_modifier(_specials_modifier)
+	init_stats_and_specials()
 
 	tower_init()
 

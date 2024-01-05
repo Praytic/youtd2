@@ -151,9 +151,10 @@ func generate_tower_tooltip(tower_id: int) -> String:
 
 # 	NOTE: creating a tower instance just to get the tooltip
 # 	text is weird, but the alternatives are worse. Need to
-# 	call tower_init() so that autocasts are setup and we can
-# 	get their descriptions.
+# 	call init_stats_and_specials() and tower_init() so that
+# 	tower initializes all the info needed for tooltips.
 	var tower: Tower = TowerManager.get_tower(tower_id)
+	tower.init_stats_and_specials()
 	tower.tower_init()
 	var specials_text: String = tower.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)

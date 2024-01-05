@@ -70,7 +70,6 @@ func get_tower(id: int, visual_only: bool = false) -> Tower:
 	tower.set_id(id)
 	if visual_only:
 		tower.set_visual_only()
-	tower._internal_tower_init()
 
 	if scene == Globals.placeholder_tower_scene:
 		var element: Element.enm = tower.get_element()
