@@ -7,6 +7,9 @@ signal changed()
 
 
 const MAX_GOLD = 999999
+# NOTE: interest gain max value is from JASS code for
+# original game
+const INTEREST_GAIN_MAX: int = 1000
 
 var _income_rate: float = 1.0
 var _interest_rate: float = 0.05
@@ -34,7 +37,7 @@ func modify_interest_rate(amount: float):
 func add_income(wave_level: int):
 	var upkeep: int = floori((20 + wave_level * 2) * _income_rate)
 	var current_gold: int = floori(_gold)
-	var interest: int = floori(min(current_gold * _interest_rate, 1000))
+	var interest: int = floori(min(current_gold * _interest_rate, INTEREST_GAIN_MAX))
 	var income: int = upkeep + interest
 	var source_is_income: bool = true
 	GoldControl.add_gold(income, source_is_income)
