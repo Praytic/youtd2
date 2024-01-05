@@ -902,7 +902,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 
 	var bounce_pos: Vector2
 	if current_target != null:
-		bounce_pos = current_target.position
+		bounce_pos = current_target.get_visual_position()
 	else:
 		bounce_pos = projectile.position
 

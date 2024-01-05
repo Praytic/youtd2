@@ -408,7 +408,7 @@ func start_interpolation_to_point(target_pos: Vector2, _z_arc_arg: float):
 
 
 func start_interpolation_to_unit(target_unit: Unit, _z_arc_arg: float, targeted: bool):
-	var target_pos: Vector2 = target_unit.position
+	var target_pos: Vector2 = target_unit.get_visual_position()
 	_start_interpolation_internal(target_unit, target_pos, targeted)
 
 
@@ -419,7 +419,7 @@ func start_bezier_interpolation_to_point(target_pos: Vector2, _z_arc_arg: float,
 
 
 func start_bezier_interpolation_to_unit(target_unit: Unit, _z_arc_arg: float, _size_arc: float, _steepness: float, targeted: bool):
-	var target_pos: Vector2 = target_unit.position
+	var target_pos: Vector2 = target_unit.get_visual_position()
 	_start_interpolation_internal(target_unit, target_pos, targeted)
 
 
@@ -514,7 +514,7 @@ func set_homing_target(new_target: Unit):
 			_target_unit = new_target
 		else:
 			_target_unit = null
-			_target_pos = new_target.position
+			_target_pos = new_target.get_visual_position()
 
 		_is_homing = true
 	else:
