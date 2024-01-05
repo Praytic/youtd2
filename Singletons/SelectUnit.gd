@@ -15,8 +15,8 @@ var _selected_unit: Unit = null
 # Connect a unit to the selection system. Selection area
 # will be used to detect when the mouse is over the unit.
 func connect_unit(unit: Unit, selection_area: Area2D):
-	selection_area.mouse_entered.connect(on_unit_mouse_entered.bind(unit))
-	selection_area.mouse_exited.connect(on_unit_mouse_exited.bind(unit))
+	selection_area.mouse_entered.connect(_on_unit_mouse_entered.bind(unit))
+	selection_area.mouse_exited.connect(_on_unit_mouse_exited.bind(unit))
 
 
 func set_selected_unit(new_selected_unit: Unit):
@@ -43,14 +43,14 @@ func get_hovered_unit() -> Unit:
 	return _hovered_unit
 
 
-func on_unit_mouse_entered(unit: Unit):
+func _on_unit_mouse_entered(unit: Unit):
 	_units_under_mouse_list.append(unit)
 	if !unit.tree_exited.is_connected(on_unit_tree_exited):
 		unit.tree_exited.connect(on_unit_tree_exited.bind(unit))
 	update_hovered_unit()
 
 
-func on_unit_mouse_exited(unit: Unit):
+func _on_unit_mouse_exited(unit: Unit):
 	_units_under_mouse_list.erase(unit)
 	update_hovered_unit()
 

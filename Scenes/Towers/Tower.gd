@@ -231,12 +231,12 @@ func _ready():
 #	dimensions here like for creeps.
 	set_selection_size(TOWER_SELECTION_VISUAL_SIZE)
 
-	selected.connect(on_selected)
-	unselected.connect(on_unselected)
-	tree_exited.connect(on_tree_exited)
+	selected.connect(_on_selected)
+	unselected.connect(_on_unselected)
+	tree_exited.connect(_on_tree_exited)
 
 #	Hide range indicators at creation
-	on_unselected()
+	_on_unselected()
 
 	_temp_preceding_tower = null
 	
@@ -695,20 +695,20 @@ func get_tier_stats() -> Dictionary:
 	return default_out
 
 
-func on_selected():
+func _on_selected():
 	for indicator in _aura_range_indicator_list:
 		indicator.show()
 	_range_indicator.show()
 	_tower_actions.show()
 
-func on_unselected():
+func _on_unselected():
 	for indicator in _aura_range_indicator_list:
 		indicator.hide()
 	_range_indicator.hide()
 	_tower_actions.hide()
 
 
-func on_tree_exited():
+func _on_tree_exited():
 	on_destruct()
 
 
