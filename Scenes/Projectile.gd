@@ -362,6 +362,11 @@ func _process_interpolated(delta: float):
 	var reached_target: float = progress_ratio == 1.0
 
 	if reached_target:
+#		NOTE: need to set _interpolation_is_stopped flag to
+#		true here so that we can detect if it got changed by
+#		the "finished" handler
+		_interpolation_is_stopped = true
+
 #		NOTE: finished handler will get called even if
 #		target unit is dead and null. This is intentional.
 		if _interpolation_finished_handler.is_valid():
@@ -372,7 +377,14 @@ func _process_interpolated(delta: float):
 		if _avert_destruct_requested:
 			_avert_destruct_requested = false
 
-			stop_interpolation()
+#			NOTE: only stop interpolation here if
+#			_interpolation_is_stopped is still true. If it
+#			is false, then it got changed by the code inside
+#			"finished" handler, which happens when
+#			"finished" handler starts a new interpolation
+#			after averting destruction.
+			if _interpolation_is_stopped:
+				stop_interpolation()
 
 			return
 
