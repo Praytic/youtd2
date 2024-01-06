@@ -20,7 +20,7 @@ var _source_container: ItemContainer = null
 #########################
 
 func _unhandled_input(event: InputEvent):
-	var cancelled: bool = event.is_action_released("ui_cancel")
+	var cancelled: bool = event.is_action_released("ui_cancel") || event.is_action_released("right_click")
 	var left_click: bool = event.is_action_released("left_click")
 	var hovered_unit: Unit = SelectUnit.get_hovered_unit()
 	var target_tower: Tower = hovered_unit as Tower

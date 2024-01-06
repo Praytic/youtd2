@@ -16,7 +16,7 @@ func _unhandled_input(event: InputEvent):
 	if !_in_progress():
 		return
 
-	var cancelled: bool = event.is_action_released("ui_cancel")
+	var cancelled: bool = event.is_action_released("ui_cancel") || event.is_action_released("right_click")
 
 	if cancelled:
 		cancel()
