@@ -19,11 +19,11 @@ func on_drop():
     var itm: Item = self
     var tower: Tower = itm.get_carrier()
     var target_count: int = tower.get_target_count()
-    tower._set_target_count(target_count - 3)
+    tower.set_target_count(target_count - 3)
 
 
 func on_pickup():
     var itm: Item = self
     var tower: Tower = itm.get_carrier()
     var target_count: int = tower.get_target_count()
-    tower._set_target_count(target_count + 3)
+    tower.set_target_count(target_count + 3)

@@ -73,7 +73,7 @@ func get_autocast_description_short() -> String:
 
 
 func load_specials(modifier: Modifier):
-	_set_target_count(3)
+	set_target_count(3)
 
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 	modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.0, 0.01)

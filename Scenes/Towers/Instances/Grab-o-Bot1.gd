@@ -46,7 +46,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_style_splash({
+	set_attack_style_splash({
 		75: 1.00,
 		100: 0.66,
 		125: 0.33,

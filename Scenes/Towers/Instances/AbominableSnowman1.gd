@@ -12,4 +12,4 @@ func get_tier_stats() -> Dictionary:
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_style_bounce(2, _stats.bounce_damage_multiplier)
+	set_attack_style_bounce(2, _stats.bounce_damage_multiplier)

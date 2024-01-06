@@ -12,4 +12,4 @@ func get_tier_stats() -> Dictionary:
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_style_splash({_stats.splash_radius: 0.25})
+	set_attack_style_splash({_stats.splash_radius: 0.25})

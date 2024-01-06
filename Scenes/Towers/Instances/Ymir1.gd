@@ -58,7 +58,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	_set_attack_style_splash({400: 0.25})
+	set_attack_style_splash({400: 0.25})
 	modifier.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.10)
 

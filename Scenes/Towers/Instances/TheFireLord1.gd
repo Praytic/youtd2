@@ -130,7 +130,7 @@ func hellfire_on_create(event: Event):
 
 	var current_target_count: int = tower.get_target_count()
 	var new_target_count: int = current_target_count + target_count_bonus
-	tower._set_target_count(new_target_count)
+	tower.set_target_count(new_target_count)
 
 
 func hellfire_on_cleanup(event: Event):
@@ -140,4 +140,4 @@ func hellfire_on_cleanup(event: Event):
 
 	var current_target_count: int = tower.get_target_count()
 	var new_target_count: int = current_target_count - target_count_bonus
-	tower._set_target_count(new_target_count)
+	tower.set_target_count(new_target_count)

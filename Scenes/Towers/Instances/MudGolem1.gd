@@ -46,7 +46,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_ground_only()
+	set_attack_ground_only()
 
 
 func tower_init():

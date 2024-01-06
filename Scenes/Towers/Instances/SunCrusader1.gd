@@ -81,8 +81,8 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	_set_attack_ground_only()
-	_set_attack_style_bounce(5, 0.1)
+	set_attack_ground_only()
+	set_attack_style_bounce(5, 0.1)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, _stats.mod_dmg_to_undead, 0.0)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0, 1)
 

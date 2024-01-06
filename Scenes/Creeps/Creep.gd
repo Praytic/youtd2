@@ -143,8 +143,8 @@ func adjust_height(height_wc3: float, speed: float):
 		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
 
-func reach_portal():
-	var damage_to_portal = get_damage_to_portal()
+func _reach_portal():
+	var damage_to_portal = _get_damage_to_portal()
 	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
 	var damage_done: float = 1.0 - get_health_ratio()
 	var damage_done_string: String = Utils.format_percent(damage_done, 2)
@@ -188,7 +188,7 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 func _move(delta):
 	var path_is_over: bool = _current_path_index >= _path.get_curve().get_point_count()
 	if path_is_over:
-		reach_portal()
+		_reach_portal()
 
 		return
 
@@ -389,7 +389,7 @@ func set_path(path: Path2D):
 	position = path.get_curve().get_point_position(0) + path.position
 
 
-func get_damage_to_portal() -> float:
+func _get_damage_to_portal() -> float:
 #	NOTE: final wave boss deals full damage to portal
 	var is_final_wave: bool = _spawn_level == Constants.FINAL_WAVE
 

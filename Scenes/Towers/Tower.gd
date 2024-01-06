@@ -514,20 +514,20 @@ func on_destruct():
 	pass
 
 
-func _set_attack_ground_only():
+func set_attack_ground_only():
 	_attack_target_type = TARGET_TYPE_GROUND_ONLY
 
 
-func _set_attack_air_only():
+func set_attack_air_only():
 	_attack_target_type = TARGET_TYPE_AIR_ONLY
 
 
-func _set_attack_style_splash(splash_map: Dictionary):
+func set_attack_style_splash(splash_map: Dictionary):
 	_attack_style = AttackStyle.SPLASH
 	_splash_map = splash_map
 
 
-func _set_attack_style_bounce(bounce_count_max: int, bounce_damage_multiplier: float):
+func set_attack_style_bounce(bounce_count_max: int, bounce_damage_multiplier: float):
 	_attack_style = AttackStyle.BOUNCE
 	_bounce_count_max = bounce_count_max
 	_bounce_damage_multiplier = bounce_damage_multiplier
@@ -535,7 +535,7 @@ func _set_attack_style_bounce(bounce_count_max: int, bounce_damage_multiplier: f
 
 # NOTE: if your tower needs to attack more than 1 target,
 # call this f-n once in _ready() method of subclass
-func _set_target_count(count: int):
+func set_target_count(count: int):
 	_target_count_max = count
 
 
@@ -710,10 +710,6 @@ func _on_unselected():
 
 func _on_tree_exited():
 	on_destruct()
-
-
-func _get_base_properties() -> Dictionary:
-	return {}
 
 
 func _get_next_bounce_target(bounce_pos: Vector2, visited_list: Array[Unit]) -> Creep:

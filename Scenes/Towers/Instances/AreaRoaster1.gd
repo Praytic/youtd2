@@ -43,7 +43,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	_set_target_count(4)
+	set_target_count(4)
 
 
 func sir_area_damage(event: Event):

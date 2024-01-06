@@ -62,7 +62,7 @@ func load_triggers(triggers: BuffType):
 # spell crit chance = yes
 # spell crit chance add = no
 func load_specials(modifier: Modifier):
-	_set_attack_style_bounce(5, 0.30)
+	set_attack_style_bounce(5, 0.30)
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0375, _stats.mod_spell_crit_add)
 
 

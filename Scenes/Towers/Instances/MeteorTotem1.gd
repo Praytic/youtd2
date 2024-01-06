@@ -54,7 +54,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_style_splash({325: 0.5})
+	set_attack_style_splash({325: 0.5})
 
 
 func tower_init():

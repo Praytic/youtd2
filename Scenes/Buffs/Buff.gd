@@ -143,7 +143,7 @@ func get_power() -> int:
 func set_power(power: int):
 	var old_power: int = _power
 	_power = power
-	_target._change_modifier_power(get_modifier(), old_power, power)
+	_target.change_modifier_power(get_modifier(), old_power, power)
 
 
 func get_type() -> String:

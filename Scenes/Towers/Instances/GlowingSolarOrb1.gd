@@ -47,7 +47,7 @@ func load_specials(modifier: Modifier):
 		125: _stats.splash_125_damage,
 		225: _stats.splash_225_damage,
 	}
-	_set_attack_style_splash(splash_map)
+	set_attack_style_splash(splash_map)
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.15, 0.0)
 

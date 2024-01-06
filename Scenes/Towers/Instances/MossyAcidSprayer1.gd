@@ -46,7 +46,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_style_bounce(3, 0.15)
+	set_attack_style_bounce(3, 0.15)
 
 
 func tower_init():

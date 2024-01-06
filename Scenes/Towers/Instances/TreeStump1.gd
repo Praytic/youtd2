@@ -12,4 +12,4 @@ func get_tier_stats() -> Dictionary:
 
 
 func load_specials(_modifier: Modifier):
-	_set_target_count(_stats.target_count_max)
+	set_target_count(_stats.target_count_max)

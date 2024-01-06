@@ -28,7 +28,7 @@ func get_ability_description_short() -> String:
 # crit dmg = yes
 # crit dmg add = no
 func load_specials(modifier: Modifier):
-	_set_attack_style_bounce(4, 0.10)
+	set_attack_style_bounce(4, 0.10)
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.1375, 0.005)
 	modifier.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.25, 0.05)
 

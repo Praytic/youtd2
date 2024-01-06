@@ -61,7 +61,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	_set_attack_style_splash({100: 1.0})
+	set_attack_style_splash({100: 1.0})
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.25, 0.005)
 
 

@@ -41,7 +41,7 @@ func get_ability_description_short() -> String:
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_style_bounce(_stats.bounce_count, 0.0)
+	set_attack_style_bounce(_stats.bounce_count, 0.0)
 
 
 func load_triggers(triggers: BuffType):

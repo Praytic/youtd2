@@ -45,7 +45,7 @@ func get_autocast_description_short() -> String:
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_air_only()
+	set_attack_air_only()
 
 
 

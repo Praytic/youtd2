@@ -43,7 +43,7 @@ func get_autocast_description_short() -> String:
 
 
 func load_specials(modifier: Modifier):
-	_set_attack_air_only()
+	set_attack_air_only()
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.10, 0.0)
 
 

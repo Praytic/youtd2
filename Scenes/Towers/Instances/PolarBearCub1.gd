@@ -41,7 +41,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_style_splash({300: 0.35})
+	set_attack_style_splash({300: 0.35})
 
 
 func on_cleanup(event: Event):

@@ -40,7 +40,7 @@ func get_ability_description_short() -> String:
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_style_splash({
+	set_attack_style_splash({
 		50: 1.0,
 		350: 0.4,
 		})

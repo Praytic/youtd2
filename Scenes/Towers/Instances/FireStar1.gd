@@ -43,7 +43,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	_set_target_count(14)
+	set_target_count(14)
 
 
 func tower_init():

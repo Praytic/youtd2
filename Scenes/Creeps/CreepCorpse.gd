@@ -32,7 +32,7 @@ func _ready():
 	fade_tween.tween_property(_sprite, "modulate",
 		Color(_sprite.modulate.r, _sprite.modulate.g, _sprite.modulate.b, 0),
 		0.2 * DURATION).set_delay(0.8 * DURATION).set_trans(Tween.TRANS_LINEAR)
-	fade_tween.finished.connect(on_fade_finished)
+	fade_tween.finished.connect(_on_fade_finished)
 
 
 # Copies sprite from creep and starts the death animation.
@@ -51,5 +51,5 @@ func setup_sprite(creep_sprite: CreepSprite, death_animation: String):
 	_sprite.play(death_animation)
 
 
-func on_fade_finished():
+func _on_fade_finished():
 	queue_free()

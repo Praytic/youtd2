@@ -69,7 +69,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	_set_target_count(3)
+	set_target_count(3)
 
 
 func tower_init():
@@ -105,11 +105,11 @@ func on_level_up(_event: Event):
 	var tower: Tower = self
 
 	if tower.get_level() == 15:
-		_set_target_count(4)
+		set_target_count(4)
 
 
 func on_create(_preceding: Tower):
 	var tower: Tower = self
 
 	if tower.get_level() >= 15:
-		_set_target_count(4)
+		set_target_count(4)

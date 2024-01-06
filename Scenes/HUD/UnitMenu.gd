@@ -100,7 +100,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	visible = tower != null or creep != null
 
 	if prev_unit != null and prev_unit is Tower:
-		prev_unit.items_changed.disconnect(on_tower_items_changed)
+		prev_unit.items_changed.disconnect(_on_tower_items_changed)
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
 		prev_unit.level_changed.disconnect(_update_unit_level_label)
 
@@ -108,10 +108,10 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
 	
 	if selected_tower:
-		tower.items_changed.connect(on_tower_items_changed.bind(tower))
+		tower.items_changed.connect(_on_tower_items_changed.bind(tower))
 		tower.buff_list_changed.connect(_on_unit_buff_list_changed.bind(tower))
 		tower.level_changed.connect(_update_unit_level_label.bind(tower))
-		on_tower_items_changed(tower)
+		_on_tower_items_changed(tower)
 		_update_upgrade_button(tower)
 		_update_unit_name_label(tower)
 		_update_unit_level_label(tower)
@@ -169,7 +169,7 @@ func get_selected_creep() -> Creep:
 		return null
 
 
-func on_tower_items_changed(tower: Tower):
+func _on_tower_items_changed(tower: Tower):
 	for unit_button_container in _items_box_container.get_children():
 		unit_button_container.queue_free()
 

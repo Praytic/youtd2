@@ -48,8 +48,8 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	_set_attack_ground_only()
-	_set_attack_style_splash({
+	set_attack_ground_only()
+	set_attack_style_splash({
 		25: 1.0,
 		150: 0.4,
 		250: 0.1,
