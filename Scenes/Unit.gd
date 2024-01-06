@@ -103,7 +103,6 @@ var _damage_dealt_total: float = 0.0
 var _silence_count: int = 0
 var _stun_count: int = 0
 var _stun_effect_id: int = -1
-var _visual_only: bool = false
 var _autocast_list: Array[Autocast] = []
 var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
@@ -208,9 +207,6 @@ func _init():
 			push_error("No default value defined for modification type: ", mod_type)
 
 func _ready():
-	if _visual_only:
-		return
-
 	_target_bitmask = TargetType.make_unit_bitmask(self)
 
 	_selection_visual = Selection.new()

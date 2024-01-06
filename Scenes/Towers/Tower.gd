@@ -66,6 +66,7 @@ var _temp_preceding_tower: Tower = null
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var _placeholder_modulate: Color = Color.WHITE
 var _aura_range_indicator_list: Array[RangeIndicator] = []
+var _visual_only: bool = false
 
 
 # NOTE: can't use @export because it breaks placeholder
@@ -96,12 +97,6 @@ func init_stats_and_specials():
 
 
 func _ready():
-	super()
-
-	_set_visual_node(_visual)
-	_set_sprite_node(_sprite)
-	_selection_outline = $Visual/SelectionOutline
-
 #	If this tower is used for towerpreview, then exit early
 #	out of ready() so that no event handlers or auras are
 #	created so that the tower instance is inactive. Also,
@@ -112,6 +107,12 @@ func _ready():
 		_mana_bar.hide()
 
 		return
+
+	super()
+
+	_set_visual_node(_visual)
+	_set_sprite_node(_sprite)
+	_selection_outline = $Visual/SelectionOutline
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 	load_triggers(triggers_buff_type)
