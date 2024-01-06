@@ -51,6 +51,10 @@ var _default_value_map: Dictionary = {
 }
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	var settings_file: FileAccess = FileAccess.open(SETTINGS_PATH, FileAccess.READ)
 
@@ -70,6 +74,10 @@ func _ready():
 		_cache = _default_value_map
 #		NOTE: save defaults to file to create settings file for the first time
 
+
+#########################
+###       Public      ###
+#########################
 
 func get_setting(setting: String) -> Variant:
 	if !_default_value_map.has(setting):
@@ -106,6 +114,17 @@ func flush():
 	interface_size_changed.emit(new_scale)
 
 
+func get_interface_size() -> float:
+	var interface_size_string: String = _cache[Settings.INTERFACE_SIZE]
+	var interface_size: float = INTERFACE_SIZE_DICT[interface_size_string]
+
+	return interface_size
+
+
+#########################
+###      Private      ###
+#########################
+
 func _validate_cache():
 	for _cache_key in _default_value_map.keys():
 		if !_cache.has(_cache_key):
@@ -116,10 +135,3 @@ func _validate_cache():
 		if typeof(_default_value_map[_cache_key]) != typeof(_cache[_cache_key]):
 			push_error("Saved setting [%s] has incorrect type. Resetting it to default." % _cache_key)
 			_cache[_cache_key] = _default_value_map[_cache_key]
-
-
-func get_interface_size() -> float:
-	var interface_size_string: String = _cache[Settings.INTERFACE_SIZE]
-	var interface_size: float = INTERFACE_SIZE_DICT[interface_size_string]
-
-	return interface_size

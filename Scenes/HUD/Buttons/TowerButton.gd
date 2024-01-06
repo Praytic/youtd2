@@ -8,11 +8,9 @@ extends UnitButton
 @export var _tower_id: int: get = get_tower_id, set = set_tower_id
 
 
-static func make(tower_id: int):
-	var tower_button = Globals.tower_button_scene.instantiate()
-	tower_button.set_tower_id(tower_id)
-	return tower_button
-
+#########################
+###     Built-in      ###
+#########################
 
 func _ready():
 	super._ready()
@@ -35,6 +33,10 @@ func _ready():
 	_on_wave_or_element_level_changed()
 
 
+#########################
+###       Public      ###
+#########################
+
 func get_tower_id() -> int:
 	return _tower_id
 
@@ -42,6 +44,13 @@ func get_tower_id() -> int:
 func set_tower_id(value: int):
 	_tower_id = value
 
+
+func set_tier_icon(tower_id: int):
+	_tier_icon.texture = TowerProperties.get_tier_icon_texture(tower_id)
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_wave_or_element_level_changed():
 	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id) || Config.ignore_requirements()
@@ -66,5 +75,12 @@ func _on_pressed():
 		BuildTower.add_error_about_resources(_tower_id)
 
 
-func set_tier_icon(tower_id: int):
-	_tier_icon.texture = TowerProperties.get_tier_icon_texture(tower_id)
+#########################
+###       Static      ###
+#########################
+
+static func make(tower_id: int):
+	var tower_button = Globals.tower_button_scene.instantiate()
+	tower_button.set_tower_id(tower_id)
+	return tower_button
+

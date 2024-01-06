@@ -23,9 +23,9 @@ var _free_id_list: Array = []
 @onready var _effects_container: Node = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("EffectsContainer")
 
 
-func _ready():
-	pass
-
+#########################
+###       Public      ###
+#########################
 
 # NOTE: effect must be an AnimatedSprite2D scene
 # NOTE: Effect.createAnimated() in JASS
@@ -168,6 +168,10 @@ func no_death_animation(_effect_id: int):
 	pass
 
 
+#########################
+###      Private      ###
+#########################
+
 func _create_internal(effect_path: String) -> int:
 	var effect_path_exists: bool = ResourceLoader.exists(effect_path)
 
@@ -205,6 +209,10 @@ func _make_effect_id() -> int:
 
 		return id
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_lifetime_timer_timeout(effect_id: int):
 	destroy_effect(effect_id)

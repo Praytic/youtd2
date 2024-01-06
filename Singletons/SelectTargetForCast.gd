@@ -8,6 +8,10 @@ var _autocast: Autocast = null
 var _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _unhandled_input(event: InputEvent):
 	if !_in_progress():
 		return
@@ -37,6 +41,10 @@ func _unhandled_input(event: InputEvent):
 			Messages.add_error(target_error_message)
 
 
+#########################
+###       Public      ###
+#########################
+
 func start(autocast: Autocast):
 	var can_start: bool = MouseState.get_state() == MouseState.enm.NONE || MouseState.get_state() == MouseState.enm.SELECT_TARGET_FOR_CAST
 	if !can_start:
@@ -63,6 +71,10 @@ func cancel():
 	Input.set_custom_mouse_cursor(null)
 	Input.set_custom_mouse_cursor(null)
 
+
+#########################
+###      Private      ###
+#########################
 
 func _in_progress() -> bool:
 	return MouseState.get_state() == MouseState.enm.SELECT_TARGET_FOR_CAST

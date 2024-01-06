@@ -16,23 +16,19 @@ class_name TowerInfo extends GridContainer
 @export var _exp_for_next_level_label: Label
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 
 
-func _on_selected_unit_changed(_prev_unit):
-	update_text()
-
-
-func _on_refresh_timer_timeout():
-	update_text()
-
-
 #########################
-###       Public      ###
+###      Private      ###
 #########################
 
-func update_text():
+func _update_text():
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 
 	if !selected_unit is Tower:
@@ -84,15 +80,12 @@ func update_text():
 	_tower_details_label.append_text(combined_details_text)
 
 
-#########################
-###      Private      ###
-#########################
-
 func _get_stat(tower_stat_label: Label, tower):
 	var stat_name = tower_stat_label.get_name()
 	var getter_name = "get_" + Utils.camel_to_snake(stat_name)
 	var stat = tower.call(getter_name)
 	return stat
+
 
 static func int_format(num: float) -> String:
 	# Determine the appropriate suffix for the number
@@ -125,6 +118,7 @@ static func int_format(num: float) -> String:
 	# Combine the integer part, fractional part, and suffix into the final string
 	return num_str + frac_str + suffix
 
+
 func _percent_signed_format(number: float, base: float = 1.0) -> String:
 	var diff_from_base: float = number - base
 	var formatted: String = Utils.format_percent(diff_from_base, 0)
@@ -134,8 +128,10 @@ func _percent_signed_format(number: float, base: float = 1.0) -> String:
 
 	return formatted
 
+
 func _multiplier_format(number) -> String:
 	return "x%.2f" % number
+
 
 func _float_format(number) -> String:
 	return Utils.format_float(number, 2)
@@ -241,3 +237,15 @@ func _get_oil_count_map(tower: Tower) -> Dictionary:
 		oil_count_map[oil_name] += 1
 
 	return oil_count_map
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_selected_unit_changed(_prev_unit):
+	_update_text()
+
+
+func _on_refresh_timer_timeout():
+	_update_text()

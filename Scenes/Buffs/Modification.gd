@@ -81,37 +81,49 @@ var value_base: float
 var level_add: float
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init(type_arg: Modification.Type, value_base_arg: float, level_add_arg: float):
 	type = type_arg
 	value_base = value_base_arg
 	level_add = level_add_arg
 
 
+#########################
+###       Public      ###
+#########################
+
 func get_tooltip_text() -> String:
 	var base_is_zero = abs(value_base) < 0.0001
 	var add_is_zero = abs(level_add) < 0.0001
 
-	var type_string: String = get_type_string()
+	var type_string: String = _get_type_string()
 
 	var text: String
 	
 	if !base_is_zero && !add_is_zero:
-		text = "%s %s (%s/lvl)\n" % [format_percentage(value_base), type_string, format_percentage(level_add)]
+		text = "%s %s (%s/lvl)\n" % [_format_percentage(value_base), type_string, _format_percentage(level_add)]
 	elif !base_is_zero && add_is_zero:
-		text = "%s %s\n" % [format_percentage(value_base), type_string]
+		text = "%s %s\n" % [_format_percentage(value_base), type_string]
 	elif base_is_zero && !add_is_zero:
-		text = "%s %s/lvl\n" % [format_percentage(level_add), type_string]
+		text = "%s %s/lvl\n" % [_format_percentage(level_add), type_string]
 	else:
 		text = ""
 
 	return text
 
 
+#########################
+###      Private      ###
+#########################
+
 # Formats percentage values for use in tooltip text
 # 0.1 = +10%
 # -0.1 = -10%
 # 0.001 = +0.1%
-func format_percentage(value: float) -> String:
+func _format_percentage(value: float) -> String:
 	var sign_string: String
 	if value > 0.0:
 		sign_string = "+"
@@ -137,7 +149,7 @@ func format_percentage(value: float) -> String:
 	return base_string
 
 
-func get_type_string() -> String:
+func _get_type_string() -> String:
 	match type:
 		Type.MOD_ARMOR: return "armor"
 		Type.MOD_ARMOR_PERC: return "armor"

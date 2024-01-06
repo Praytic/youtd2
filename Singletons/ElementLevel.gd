@@ -8,12 +8,20 @@ const STARTING_ELEMENT_COST = 20
 var _element_level_map: Dictionary = {}
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init():
 	var starting_level = Config.starting_research_level()
 
 	for element in Element.enm.values():
 		_element_level_map[element] = starting_level
 
+
+#########################
+###       Public      ###
+#########################
 
 func increment(element: Element.enm):
 	assert(element + 1 <= MAX_ELEMENT_LEVEL and element + 1 > 0, "Invalid element level.")

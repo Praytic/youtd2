@@ -3,15 +3,14 @@ extends Node
 
 var preloaded_towers: Dictionary
 const towers_dir: String = "res://Scenes/Towers/Instances"
-# var tower_props: Dictionary
 
 
+#########################
+###     Built-in      ###
+#########################
 
 func _ready():
 	print_verbose("Start loading TowerManager.")
-	
-	# Merge JSON props with references to other JSON props into one
-	# var tower_props_flattened = _flattened_properties()
 	
 	# Load all tower resources to dict and associate them with tower IDs
 	
@@ -31,24 +30,10 @@ func _ready():
 
 	_print_tower_counts()
 
-	# # Change the key of the tower_props dict to ID instead of Filename
-	# for key in tower_props_flattened:
-	# 	tower_props[tower_props_flattened[key].id] = tower_props_flattened[key]
 
-
-# Merge JSON props with references to other JSON props into one
-# func _flattened_properties() -> Dictionary:
-# 	# var props: Dictionary = Properties.towers
-# 	var props: Dictionary = {}
-# 	var family_props: Dictionary = Properties.tower_families
-# 	var flattened_props: Dictionary = {}
-# 	for tower_name in props:
-# 		var flattened_tower_props = props[tower_name]
-# 		for key in family_props[flattened_tower_props.family_id]:
-# 			flattened_tower_props[key] = family_props[flattened_tower_props.family_id][key]
-# 		flattened_props[tower_name] = flattened_tower_props
-# 	return flattened_props
-
+#########################
+###       Public      ###
+#########################
 
 # Return new unique instance of the Tower by its ID. Get
 # script for tower and attach to scene. Script name matches
@@ -83,6 +68,10 @@ func get_tower_family_id(id: int) -> int:
 	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
 	return csv_properties[Tower.CsvProperty.FAMILY_ID]
 
+
+#########################
+###      Private      ###
+#########################
 
 func _get_tower_script_path(id: int) -> String:
 	var family_name: String = _get_family_name(id)

@@ -10,6 +10,10 @@ var _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
 @onready var _map = get_tree().get_root().get_node("GameScene").get_node("%Map")
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _unhandled_input(event: InputEvent):
 	if !_in_progress():
 		return
@@ -32,6 +36,10 @@ func _unhandled_input(event: InputEvent):
 #		select the target unit
 		get_viewport().set_input_as_handled()
 
+
+#########################
+###       Public      ###
+#########################
 
 func start(autocast: Autocast):
 	var can_start: bool = MouseState.get_state() == MouseState.enm.NONE || MouseState.get_state() == MouseState.enm.SELECT_POINT_FOR_CAST
@@ -59,6 +67,10 @@ func cancel():
 	Input.set_custom_mouse_cursor(null)
 	Input.set_custom_mouse_cursor(null)
 
+
+#########################
+###      Private      ###
+#########################
 
 func _in_progress() -> bool:
 	return MouseState.get_state() == MouseState.enm.SELECT_POINT_FOR_CAST

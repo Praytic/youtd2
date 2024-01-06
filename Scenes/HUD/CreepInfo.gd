@@ -55,19 +55,20 @@ extends GridContainer
 @export var _buff_duration: Label
 @export var _debuff_duration: Label
 
+
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 
 
-func _on_selected_unit_changed(_prev_unit: Unit):
-	update_text()
+#########################
+###      Private      ###
+#########################
 
-
-func _on_refresh_timer_timeout():
-	update_text()
-
-
-func update_text():
+func _update_text():
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 
 	if !selected_unit is Creep:
@@ -241,3 +242,15 @@ func update_text():
 	var debuff_duration: float = creep.get_prop_debuff_duration()
 	var debuff_duration_string: String = Utils.format_percent(debuff_duration, 0)
 	_debuff_duration.set_text(debuff_duration_string)
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_selected_unit_changed(_prev_unit: Unit):
+	_update_text()
+
+
+func _on_refresh_timer_timeout():
+	_update_text()

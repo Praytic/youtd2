@@ -197,9 +197,8 @@ var _mod_value_map: Dictionary = {
 
 
 #########################
-### Code starts here  ###
+###     Built-in      ###
 #########################
-
 
 func _init():
 	for mod_type in Modification.Type.values():
@@ -226,21 +225,28 @@ func _ready():
 ###       Public      ###
 #########################
 
+# Removes the most recent buff. Returns true if there was a
+# buff to remove and false otherwise.
+# NOTE: unit.purgeBuff() in JASS
+func purge_buff(friendly: bool) -> bool:
+	var buff_list: Array[Buff] = _get_buff_list(friendly)
 
-func get_target_bitmask() -> int:
-	return _target_bitmask
+	var purgable_list: Array[Buff] = []
 
+	for buff in buff_list:
+		if buff.is_purgable():
+			purgable_list.append(buff)
 
-# Returns name used in the combat log
-func get_log_name():
-	var instance_id: int = get_instance_id()
-	var log_name: String = "Unit-%d" % instance_id
-
-	return log_name
-
-
-func get_aura_list() -> Array[Aura]:
-	return _aura_list
+#	NOTE: buff is removed from the list further down the
+#	chain from purge_buff() call.
+	if !purgable_list.is_empty():
+		var buff: Buff = purgable_list.back()
+		buff.purge_buff()
+		
+		buff_list_changed.emit()
+		return true
+	else:
+		return false
 
 
 # Triggers REFRESH event for all buffs applied by auras of
@@ -298,32 +304,10 @@ func add_autocast(autocast: Autocast):
 	add_child(autocast)
 
 
-func get_autocast_list() -> Array[Autocast]:
-	return _autocast_list
-
-
 func add_aura(aura_type: AuraType):
 	var aura: Aura = aura_type.make(self)
 	_aura_list.append(aura)
 	add_child(aura)
-
-
-# NOTE: for now just returning the one single player
-# instance since multiplayer isn't implemented. Also, the
-# name isn't "get_player()" because that is already a
-# function of Node class.
-# 
-# NOTE: unit.getOwner() in JASS
-# Node.get_owner() is a built-in godot f-n
-func get_player() -> Player:
-	return _player
-
-
-# NOTE: this is a stub, used in original tower scripts but
-# not needed in godot engine.
-# NOTE: unit.setAnimationByIndex() in JASS
-func set_animation_by_index(_unit: Unit, _index: int):
-	pass
 
 
 # Unaffected by tower exp ratios. Levels up unit if added
@@ -451,6 +435,9 @@ func calc_attack_multicrit(bonus_multicrit: float, bonus_chance: float, bonus_da
 	return crit_damage
 
 
+# NOTE: no such function in JASS. Added for convenience
+# because calc_attack_multicrit(0, 0, 0) is called very
+# often.
 func calc_attack_multicrit_no_bonus() -> float:
 	return calc_attack_multicrit(0, 0, 0)
 
@@ -528,7 +515,7 @@ func do_spell_damage_aoe(x: float, y: float, radius: float, damage: float, crit_
 
 
 # Deals aoe damage from the position of the unit
-# NOTE: dummyUnit.doSpellDamagePBAoE() in JASS
+# NOTE: unit.doSpellDamagePBAoE() in JASS
 func do_spell_damage_pb_aoe(radius: float, damage: float, crit_ratio: float, sides_ratio: float):
 	do_spell_damage_aoe(position.x, position.y, radius, damage, crit_ratio, sides_ratio)
 
@@ -544,30 +531,24 @@ func modify_property(mod_type: Modification.Type, value: float):
 	_modify_property_internal(mod_type, value, 1)
 
 
-func _modify_property_internal(mod_type: Modification.Type, value: float, direction: int):
-	var health_ratio: float = get_health_ratio()
-	var mana_ratio: float = get_mana_ratio()
-
-	var current_value: float = _mod_value_map[mod_type]
-	var new_value: float = current_value + direction * value
-	_mod_value_map[mod_type] = new_value
-
-#	NOTE: restore original health and mana ratios. For
-#	example, if original mana was 50/100 and mana was
-#	increased by 50, then final values will be 75/150 to
-#	preserve the 50% ratio.
-	var new_health_max: float = get_overall_health()
-	_health = health_ratio * new_health_max
-	var new_mana_max: float = get_overall_mana()
-	_mana = mana_ratio * new_mana_max
+# Adds modifier directly to unit. Modifier will
+# automatically scale with this unit's level. If you need to
+# make a modifier that scales with another unit's level, use
+# buffs.
+func add_modifier(modifier: Modifier):
+	_apply_modifier(modifier, _level, 1)
+	_direct_modifier_list.append(modifier)
 
 
-# NOTE: this modifies only creep's ability to be invisible.
-# It won't be invisible if the creep is within range of
-# towers that can see invisible units.
-func set_invisible(invisible: bool):
-	_invisible = invisible
-	_update_invisible_modulate()
+func remove_modifier(modifier: Modifier):
+	if _direct_modifier_list.has(modifier):
+		_apply_modifier(modifier, _level, -1)
+		_direct_modifier_list.append(modifier)
+
+
+func change_modifier_power(modifier: Modifier, old_power: int, new_power: int):
+	_apply_modifier(modifier, old_power, -1)
+	_apply_modifier(modifier, new_power, 1)
 
 
 # These two functions are used to implement magical sight
@@ -648,19 +629,132 @@ func subtract_mana(amount: float, show_text: bool) -> float:
 ###      Private      ###
 #########################
 
+func _modify_property_internal(mod_type: Modification.Type, value: float, direction: int):
+	var health_ratio: float = get_health_ratio()
+	var mana_ratio: float = get_mana_ratio()
 
-# Returns a prop value after applying diminishing returns to
-# it. Diminishing returns reduce effectiveness of mods as
-# the prop value gets further away from [0.6, 1.7] range.
-func _get_prop_with_diminishing_returns(type: Modification.Type) -> float:
-	var value: float = max(0, _mod_value_map[type])
+	var current_value: float = _mod_value_map[mod_type]
+	var new_value: float = current_value + direction * value
+	_mod_value_map[mod_type] = new_value
 
-	if value > 1.7:
-		return 1.7 + (value - 1.7) / pow(1.0 + value - 1.7, 0.66)
-	elif value < 0.6:
-		return 0.6 / pow(1.0 + 0.6 - value, 1.6)
+#	NOTE: restore original health and mana ratios. For
+#	example, if original mana was 50/100 and mana was
+#	increased by 50, then final values will be 75/150 to
+#	preserve the 50% ratio.
+	var new_health_max: float = get_overall_health()
+	_health = health_ratio * new_health_max
+	var new_mana_max: float = get_overall_mana()
+	_mana = mana_ratio * new_mana_max
+
+
+# Changes experience of unit. Change can be positive or
+# negative. Level will also be changed accordingly. Note
+# that level downs are possible.
+# TODO: should level_up event trigger multiple times for
+# same level if tower levels down and then back up?
+func _change_experience(amount: float) -> float:
+	var old_exp: float = _experience
+	var new_exp: float = max(0.0, _experience + amount)
+	var actual_change = new_exp - old_exp
+	var old_level: int = _level
+	var new_level: int = Experience.get_level_at_exp(new_exp)
+
+	_experience = new_exp
+
+	var level_has_changed: bool = new_level != old_level
+	
+	if level_has_changed:
+		set_level(new_level)
+		level_changed.emit()
+
+	var sign_string: String
+	if amount >= 0:
+		sign_string = "+"
 	else:
-		return value
+		sign_string = "-"
+	var number_string: String = String.num(abs(amount), 1)
+	var exp_text: String = "%s%s exp" % [sign_string, number_string]
+	var text_color: Color
+	if amount >= 0:
+		text_color = Color.LIME_GREEN
+	else:
+		text_color = Color.RED
+
+	get_player().display_floating_text_color(exp_text, self, text_color, 1.0)
+
+	var leveled_up: bool = new_level > old_level
+
+	if leveled_up:
+		level_up.emit()
+
+		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
+		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
+		Effect.scale_effect(effect_id, effect_scale)
+		Effect.destroy_effect_after_its_over(effect_id)
+
+		var level_up_text: String = "Level %d" % _level
+		var levelup_text_pos: Vector2 = get_visual_position() + Vector2(0, 40)
+		get_player().display_floating_text_color_at_pos(level_up_text, levelup_text_pos, Color.GOLD , 1.0)
+
+		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self, -20.0)
+
+	CombatLog.log_experience(self, amount)
+
+	return actual_change
+
+
+func _add_floating_text_for_damage(damage: float, crit_count: int, damage_source: DamageSource, is_main_target: bool, target: Unit):
+	var damage_color: Color
+	var damage_text: String
+	
+	match damage_source:
+		DamageSource.Attack: 
+			damage_color = Color.RED
+		DamageSource.Spell:
+			damage_color = Color.SKY_BLUE
+	
+	if int(damage) != 0:
+		damage_text = str(int(damage))
+	else:
+		damage_text = "miss"
+
+	var is_critical: bool = crit_count > 0
+
+	for i in range(0, crit_count):
+		damage_text += "!"
+
+	var text_origin_unit: Unit
+	if is_critical && damage_source == DamageSource.Attack:
+		text_origin_unit = self
+	else:
+		text_origin_unit = target
+
+#	NOTE: confusing logic for this boolean but this is how
+#	it worked in original youtd
+	var show_all_damage_numbers: bool = Settings.get_bool_setting(Settings.SHOW_ALL_DAMAGE_NUMBERS)
+	var floating_text_should_be_shown: bool = show_all_damage_numbers || (damage_source == DamageSource.Attack && is_critical && is_main_target) || (damage_source == DamageSource.Spell && is_critical)
+	if !floating_text_should_be_shown:
+		return
+	
+	var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + text_origin_unit.get_visual_position()
+	
+	get_player().display_floating_text_color_at_pos(damage_text, approx_position, damage_color, 1.0)
+
+
+# Example:
+# If crits deal 125% of normal damage and crit ratio is 1.50
+# Then crit count = (1.50 - 1.0) / (1.25 - 1.0) = 0.50 / 0.25 = 2
+func _derive_crit_count_from_crit_ratio(crit_ratio: float, damage_source: DamageSource) -> int:
+	var crit_damage_mod: float
+	match damage_source:
+		DamageSource.Attack:
+			crit_damage_mod	= get_prop_atk_crit_damage()
+		DamageSource.Spell:
+			crit_damage_mod	= get_spell_crit_damage()
+
+	var crit_count: int = roundi((crit_ratio - 1.0) / (crit_damage_mod - 1.0))
+
+	return crit_count
 
 
 # Generates a random crit count. Different number every
@@ -701,79 +795,6 @@ func _calc_attack_multicrit_from_crit_count(crit_count: int, bonus_damage: float
 	total_crit_damage = max(0.0, total_crit_damage)
 
 	return total_crit_damage
-
-
-# Set node which will be used to determine the visual
-# position of the unit.
-func _set_visual_node(visual_node: Node2D):
-	_visual_node = visual_node
-
-
-func _set_sprite_node(sprite_node: Node2D):
-	_sprite_node = sprite_node
-	_sprite_node.modulate = _base_sprite_color
-
-
-# Call this in subclass to set dimensions of unit. Use
-# Utils.get_sprite_dimensions() or
-# Utils.get_animated_sprite_dimensions() to get the
-# dimensions of the sprite in subclass. This will be used to
-# calculate positions of different body parts of the unit.
-func _set_unit_dimensions(sprite_dimensions: Vector2):
-	_sprite_dimensions = sprite_dimensions
-
-
-# Sets size(radius) of selection circle.
-# Should be called in subclasses.
-func set_selection_size(selection_size: float):
-	_selection_visual.visual_size = selection_size
-
-
-func set_hovered(hovered: bool):
-	if _selected:
-		return
-
-	_selection_visual.modulate = Color.WHITE
-	_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
-	_selection_visual.set_visible(hovered)
-	_selection_outline.set_visible(hovered)
-
-
-# NOTE: analog of SetUnitState(unit, UNIT_STATE_MANA) in JASS
-func set_mana(new_mana: float):
-	var overall_mana: float = get_overall_mana()
-	_mana = clampf(new_mana, 0.0, overall_mana)
-	mana_changed.emit()
-
-
-# NOTE: analog of SetUnitState(unit, UNIT_STATE_LIFE) in JASS
-func set_health(new_health: float):
-	var overall_health: float = get_overall_health()
-	_health = clampf(new_health, 0.0, overall_health)
-	health_changed.emit()
-
-
-func set_health_over_max(new_health: float):
-	_health = max(new_health, 0.0)
-	health_changed.emit()
-
-
-func _get_aoe_damage(aoe_center: Vector2, target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
-	var distance: float = Isometric.vector_distance_to(aoe_center, target.position)
-	var target_is_on_the_sides: bool = (distance / radius) > 0.5
-
-	if target_is_on_the_sides:
-		return damage * (1.0 - sides_ratio)
-	else:
-		return damage
-
-
-func _on_regen_timer_timeout():
-	var mana_regen: float = get_overall_mana_regen()
-	set_mana(_mana + mana_regen)
-
-	var health_regen: float = get_overall_health_regen()
-	set_health(_health + health_regen)
 
 
 func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, attack_type: AttackType.enm = get_attack_type(), crit_count: int = -1) -> bool:
@@ -955,6 +976,44 @@ func _update_invisible_modulate():
 		modulate = Color(1, 1, 1, 1)
 
 
+func _remove_buff_internal(buff: Buff):
+	var buff_modifier: Modifier = buff.get_modifier()
+	_apply_modifier(buff_modifier, buff.get_power(), -1)
+
+	var buff_type: String = buff.get_type()
+	_buff_type_map.erase(buff_type)
+
+	var friendly: bool = buff.is_friendly()
+	_get_buff_list(friendly).erase(buff)
+	buff_list_changed.emit()
+
+
+# Set node which will be used to determine the visual
+# position of the unit.
+func _set_visual_node(visual_node: Node2D):
+	_visual_node = visual_node
+
+
+func _set_sprite_node(sprite_node: Node2D):
+	_sprite_node = sprite_node
+	_sprite_node.modulate = _base_sprite_color
+
+
+# Call this in subclass to set dimensions of unit. Use
+# Utils.get_sprite_dimensions() or
+# Utils.get_animated_sprite_dimensions() to get the
+# dimensions of the sprite in subclass. This will be used to
+# calculate positions of different body parts of the unit.
+func _set_unit_dimensions(sprite_dimensions: Vector2):
+	_sprite_dimensions = sprite_dimensions
+
+
+# Sets size(radius) of selection circle.
+# Should be called in subclasses.
+func _set_selection_size(selection_size: float):
+	_selection_visual.visual_size = selection_size
+
+
 func _get_bounty_for_target(target: Unit) -> int:
 	if !target is Creep:
 		return 0
@@ -994,25 +1053,90 @@ func _get_buff_list(friendly: bool) -> Array[Buff]:
 		return _unfriendly_buff_list
 
 
+func _get_aoe_damage(aoe_center: Vector2, target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
+	var distance: float = Isometric.vector_distance_to(aoe_center, target.position)
+	var target_is_on_the_sides: bool = (distance / radius) > 0.5
+
+	if target_is_on_the_sides:
+		return damage * (1.0 - sides_ratio)
+	else:
+		return damage
+
+
+# Returns a prop value after applying diminishing returns to
+# it. Diminishing returns reduce effectiveness of mods as
+# the prop value gets further away from [0.6, 1.7] range.
+func _get_prop_with_diminishing_returns(type: Modification.Type) -> float:
+	var value: float = max(0, _mod_value_map[type])
+
+	if value > 1.7:
+		return 1.7 + (value - 1.7) / pow(1.0 + value - 1.7, 0.66)
+	elif value < 0.6:
+		return 0.6 / pow(1.0 + 0.6 - value, 1.6)
+	else:
+		return value
+
+
 #########################
 ###     Callbacks     ###
 #########################
 
-func _remove_buff_internal(buff: Buff):
-	var buff_modifier: Modifier = buff.get_modifier()
-	_apply_modifier(buff_modifier, buff.get_power(), -1)
+func _on_regen_timer_timeout():
+	var mana_regen: float = get_overall_mana_regen()
+	set_mana(_mana + mana_regen)
 
-	var buff_type: String = buff.get_type()
-	_buff_type_map.erase(buff_type)
-
-	var friendly: bool = buff.is_friendly()
-	_get_buff_list(friendly).erase(buff)
-	buff_list_changed.emit()
+	var health_regen: float = get_overall_health_regen()
+	set_health(_health + health_regen)
 
 
 #########################
 ### Setters / Getters ###
 #########################
+
+func get_target_bitmask() -> int:
+	return _target_bitmask
+
+
+# Returns name used in the combat log
+func get_log_name():
+	var instance_id: int = get_instance_id()
+	var log_name: String = "Unit-%d" % instance_id
+
+	return log_name
+
+
+func get_aura_list() -> Array[Aura]:
+	return _aura_list
+
+
+func get_autocast_list() -> Array[Autocast]:
+	return _autocast_list
+
+
+# NOTE: for now just returning the one single player
+# instance since multiplayer isn't implemented. Also, the
+# name isn't "get_player()" because that is already a
+# function of Node class.
+# 
+# NOTE: unit.getOwner() in JASS
+# Node.get_owner() is a built-in godot f-n
+func get_player() -> Player:
+	return _player
+
+
+# NOTE: this is a stub, used in original tower scripts but
+# not needed in godot engine.
+# NOTE: unit.setAnimationByIndex() in JASS
+func set_animation_by_index(_unit: Unit, _index: int):
+	pass
+
+
+# NOTE: this modifies only creep's ability to be invisible.
+# It won't be invisible if the creep is within range of
+# towers that can see invisible units.
+func set_invisible(invisible: bool):
+	_invisible = invisible
+	_update_invisible_modulate()
 
 
 # Sets sprite's base color. Sprite will have this color
@@ -1050,21 +1174,6 @@ func set_immune(immune: bool):
 	_immune = immune
 
 
-# Adds modifier directly to unit. Modifier will
-# automatically scale with this unit's level. If you need to
-# make a modifier that scales with another unit's level, use
-# buffs.
-func add_modifier(modifier: Modifier):
-	_apply_modifier(modifier, _level, 1)
-	_direct_modifier_list.append(modifier)
-
-
-func remove_modifier(modifier: Modifier):
-	if _direct_modifier_list.has(modifier):
-		_apply_modifier(modifier, _level, -1)
-		_direct_modifier_list.append(modifier)
-
-
 func set_level(new_level: int):
 	var old_level: int = _level
 	_level = new_level
@@ -1072,11 +1181,6 @@ func set_level(new_level: int):
 #	NOTE: apply level change to modifiers
 	for modifier in _direct_modifier_list:
 		change_modifier_power(modifier, old_level, new_level)
-
-
-func change_modifier_power(modifier: Modifier, old_power: int, new_power: int):
-	_apply_modifier(modifier, old_power, -1)
-	_apply_modifier(modifier, new_power, 1)
 
 
 func is_dead() -> bool:
@@ -1290,28 +1394,11 @@ func get_buff_of_type(buff_type: BuffType) -> Buff:
 #	return null
 
 
-# Removes the most recent buff. Returns true if there was a
-# buff to remove and false otherwise.
-# NOTE: unit.purgeBuff() in JASS
-func purge_buff(friendly: bool) -> bool:
-	var buff_list: Array[Buff] = _get_buff_list(friendly)
-
-	var purgable_list: Array[Buff] = []
-
-	for buff in buff_list:
-		if buff.is_purgable():
-			purgable_list.append(buff)
-
-#	NOTE: buff is removed from the list further down the
-#	chain from purge_buff() call.
-	if !purgable_list.is_empty():
-		var buff: Buff = purgable_list.back()
-		buff.purge_buff()
-		
-		buff_list_changed.emit()
-		return true
-	else:
-		return false
+# NOTE: analog of SetUnitState(unit, UNIT_STATE_MANA) in JASS
+func set_mana(new_mana: float):
+	var overall_mana: float = get_overall_mana()
+	_mana = clampf(new_mana, 0.0, overall_mana)
+	mana_changed.emit()
 
 
 func set_base_mana(base_mana: float):
@@ -1353,6 +1440,19 @@ func get_base_mana_regen_bonus_percent() -> float:
 
 func get_overall_mana_regen() -> float:
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * get_base_mana_regen_bonus_percent()
+
+
+# NOTE: analog of SetUnitState(unit, UNIT_STATE_LIFE) in JASS
+func set_health(new_health: float):
+	var overall_health: float = get_overall_health()
+	_health = clampf(new_health, 0.0, overall_health)
+	health_changed.emit()
+
+
+func set_health_over_max(new_health: float):
+	_health = max(new_health, 0.0)
+	health_changed.emit()
+
 
 # NOTE: analog of GetUnitState(unit, UNIT_STATE_LIFE) in JASS
 func get_health() -> float:
@@ -1420,6 +1520,17 @@ func get_prop_atk_damage_received() -> float:
 
 func get_display_name() -> String:
 	return "Generic Unit"
+
+
+func set_hovered(hovered: bool):
+	if _selected:
+		return
+
+	_selection_visual.modulate = Color.WHITE
+	_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
+	_selection_visual.set_visible(hovered)
+	_selection_outline.set_visible(hovered)
+
 
 func is_selected() -> bool:
 	return _selected
@@ -1533,113 +1644,3 @@ func reached_max_level() -> bool:
 	var is_max_level: bool = _level == Constants.MAX_LEVEL
 
 	return is_max_level
-
-
-# Changes experience of unit. Change can be positive or
-# negative. Level will also be changed accordingly. Note
-# that level downs are possible.
-# TODO: should level_up event trigger multiple times for
-# same level if tower levels down and then back up?
-func _change_experience(amount: float) -> float:
-	var old_exp: float = _experience
-	var new_exp: float = max(0.0, _experience + amount)
-	var actual_change = new_exp - old_exp
-	var old_level: int = _level
-	var new_level: int = Experience.get_level_at_exp(new_exp)
-
-	_experience = new_exp
-
-	var level_has_changed: bool = new_level != old_level
-	
-	if level_has_changed:
-		set_level(new_level)
-		level_changed.emit()
-
-	var sign_string: String
-	if amount >= 0:
-		sign_string = "+"
-	else:
-		sign_string = "-"
-	var number_string: String = String.num(abs(amount), 1)
-	var exp_text: String = "%s%s exp" % [sign_string, number_string]
-	var text_color: Color
-	if amount >= 0:
-		text_color = Color.LIME_GREEN
-	else:
-		text_color = Color.RED
-
-	get_player().display_floating_text_color(exp_text, self, text_color, 1.0)
-
-	var leveled_up: bool = new_level > old_level
-
-	if leveled_up:
-		level_up.emit()
-
-		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
-		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
-		Effect.scale_effect(effect_id, effect_scale)
-		Effect.destroy_effect_after_its_over(effect_id)
-
-		var level_up_text: String = "Level %d" % _level
-		var levelup_text_pos: Vector2 = get_visual_position() + Vector2(0, 40)
-		get_player().display_floating_text_color_at_pos(level_up_text, levelup_text_pos, Color.GOLD , 1.0)
-
-		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self, -20.0)
-
-	CombatLog.log_experience(self, amount)
-
-	return actual_change
-
-
-func _add_floating_text_for_damage(damage: float, crit_count: int, damage_source: DamageSource, is_main_target: bool, target: Unit):
-	var damage_color: Color
-	var damage_text: String
-	
-	match damage_source:
-		DamageSource.Attack: 
-			damage_color = Color.RED
-		DamageSource.Spell:
-			damage_color = Color.SKY_BLUE
-	
-	if int(damage) != 0:
-		damage_text = str(int(damage))
-	else:
-		damage_text = "miss"
-
-	var is_critical: bool = crit_count > 0
-
-	for i in range(0, crit_count):
-		damage_text += "!"
-
-	var text_origin_unit: Unit
-	if is_critical && damage_source == DamageSource.Attack:
-		text_origin_unit = self
-	else:
-		text_origin_unit = target
-
-#	NOTE: confusing logic for this boolean but this is how
-#	it worked in original youtd
-	var show_all_damage_numbers: bool = Settings.get_bool_setting(Settings.SHOW_ALL_DAMAGE_NUMBERS)
-	var floating_text_should_be_shown: bool = show_all_damage_numbers || (damage_source == DamageSource.Attack && is_critical && is_main_target) || (damage_source == DamageSource.Spell && is_critical)
-	if !floating_text_should_be_shown:
-		return
-	
-	var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + text_origin_unit.get_visual_position()
-	
-	get_player().display_floating_text_color_at_pos(damage_text, approx_position, damage_color, 1.0)
-
-
-# Example:
-# If crits deal 125% of normal damage and crit ratio is 1.50
-# Then crit count = (1.50 - 1.0) / (1.25 - 1.0) = 0.50 / 0.25 = 2
-func _derive_crit_count_from_crit_ratio(crit_ratio: float, damage_source: DamageSource) -> int:
-	var crit_damage_mod: float
-	match damage_source:
-		DamageSource.Attack:
-			crit_damage_mod	= get_prop_atk_crit_damage()
-		DamageSource.Spell:
-			crit_damage_mod	= get_spell_crit_damage()
-
-	var crit_count: int = roundi((crit_ratio - 1.0) / (crit_damage_mod - 1.0))
-
-	return crit_count

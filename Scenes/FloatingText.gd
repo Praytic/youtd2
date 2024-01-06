@@ -14,6 +14,11 @@ var color: Color = Color.WHITE
 var animated: bool = true
 var _type: Type = Type.GO_UP
 
+
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	label.text = text
 	modulate = color
@@ -25,11 +30,19 @@ func _ready():
 	queue_free_tween.tween_callback(queue_free).set_delay(duration)
 
 
+#########################
+###       Public      ###
+#########################
+
 # NOTE: must be called before adding floating text
 # to the scene tree
 func set_type(type: FloatingText.Type):
 	_type = type
 
+
+#########################
+###      Private      ###
+#########################
 
 func _setup_animation():
 	match _type:

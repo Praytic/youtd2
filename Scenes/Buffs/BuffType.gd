@@ -46,12 +46,9 @@ var _buff_icon: String = ""
 var _inherited_periodic_timers: Dictionary = {}
 
 
-# NOTE: BuffType.createAuraEffectType() in JASS
-static func create_aura_effect_type(type: String, friendly: bool, parent: Node) -> BuffType:
-	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, friendly, parent)
-
-	return buff_type
-
+#########################
+###     Built-in      ###
+#########################
 
 # NOTE: type string determines what happens when a buff is
 # applied while the target already has active buffs. If buff
@@ -69,38 +66,9 @@ func _init(type: String, time_base: float, time_level_add: float, friendly: bool
 	_friendly = friendly
 
 
-func get_type() -> String:
-	return _type
-
-
-# NOTE: buffType.setBuffModifier() in JASS
-func set_buff_modifier(modifier: Modifier):
-	_modifier = modifier
-
-
-# This tooltip will be displayed when the buff is applied to
-# a unit and player hovers the mouse over the buff icon.
-# Note that this should be plain text, rich text format not
-# supported.
-func set_buff_tooltip(tooltip: String):
-	_tooltip_text = tooltip
-
-
-# NOTE: buffType.setBuffIcon() in JASS
-func set_buff_icon(buff_icon: String):
-	_buff_icon = buff_icon
-
-
-# NOTE: this f-n does nothing. According to original youtd
-# engine docs, stacking group is supposed to make it so that
-# different buff types do not stack with each other. Checked
-# tower and item scripts and all calls to setStackingGroup()
-# use unique strings so this f-n serves no purpose.
-# 
-# NOTE: buffType.setStackingGroup() in JASS
-func set_stacking_group(_stacking_group: String):
-	pass
-
+#########################
+###       Public      ###
+#########################
 
 # Base apply function. Overrides time parameters from
 # init(). Returns the new buff that was applied or currently
@@ -315,13 +283,9 @@ func add_aura(aura_type: AuraType):
 	_aura_type_list.append(aura_type)
 
 
-# TODO: implement. Probably need to display this effect on
-# buffed unit while buff is active.
-# 
-# NOTE: buffType.setSpecialEffectSimple() in JASS
-func set_special_effect_simple(_effect: String):
-	pass
-
+#########################
+###      Private      ###
+#########################
 
 # This f-n will return null if new buff can be applied. It
 # returns an active buff if new buff cannot be applied due
@@ -359,3 +323,59 @@ func _do_stacking_behavior(target: Unit, new_level: int, new_power: int) -> Buff
 #		(new_level < active_level)
 #		NOTE: keep active buff, no new buff
 		return active_buff
+
+
+#########################
+### Setters / Getters ###
+#########################
+
+func get_type() -> String:
+	return _type
+
+
+# NOTE: buffType.setBuffModifier() in JASS
+func set_buff_modifier(modifier: Modifier):
+	_modifier = modifier
+
+
+# This tooltip will be displayed when the buff is applied to
+# a unit and player hovers the mouse over the buff icon.
+# Note that this should be plain text, rich text format not
+# supported.
+func set_buff_tooltip(tooltip: String):
+	_tooltip_text = tooltip
+
+
+# NOTE: buffType.setBuffIcon() in JASS
+func set_buff_icon(buff_icon: String):
+	_buff_icon = buff_icon
+
+
+# NOTE: this f-n does nothing. According to original youtd
+# engine docs, stacking group is supposed to make it so that
+# different buff types do not stack with each other. Checked
+# tower and item scripts and all calls to setStackingGroup()
+# use unique strings so this f-n serves no purpose.
+# 
+# NOTE: buffType.setStackingGroup() in JASS
+func set_stacking_group(_stacking_group: String):
+	pass
+
+
+# TODO: implement. Probably need to display this effect on
+# buffed unit while buff is active.
+# 
+# NOTE: buffType.setSpecialEffectSimple() in JASS
+func set_special_effect_simple(_effect: String):
+	pass
+
+
+#########################
+###       Static      ###
+#########################
+
+# NOTE: BuffType.createAuraEffectType() in JASS
+static func create_aura_effect_type(type: String, friendly: bool, parent: Node) -> BuffType:
+	var buff_type: BuffType = BuffType.new(type, 0.0, 0.0, friendly, parent)
+
+	return buff_type

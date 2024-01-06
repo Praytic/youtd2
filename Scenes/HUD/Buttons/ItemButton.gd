@@ -15,11 +15,9 @@ var _show_auto_mode_indicator: bool = false
 var _show_charges: bool = false
 
 
-static func make(item: Item) -> ItemButton:
-	var item_button: ItemButton = Globals.item_button_scene.instantiate()
-	item_button.set_item(item)
-	return item_button
-
+#########################
+###     Built-in      ###
+#########################
 
 func _ready():
 	super._ready()
@@ -58,6 +56,10 @@ func _gui_input(event):
 			_item.consume()
 
 
+#########################
+###       Public      ###
+#########################
+
 func show_cooldown_indicator():
 	_show_cooldown_indicator = true
 
@@ -79,6 +81,10 @@ func set_item(value: Item):
 	_item.charges_changed.connect(_on_item_charges_changed)
 
 
+#########################
+###     Callbacks     ###
+#########################
+
 func _on_mouse_entered():
 	var tooltip: String = RichTexts.get_item_text(_item)
 	ButtonTooltip.show_tooltip(self, tooltip)
@@ -91,3 +97,13 @@ func _on_item_charges_changed():
 
 	var charges_should_be_visible: bool = _item.uses_charges() && _show_charges
 	_charges_label.set_visible(charges_should_be_visible)
+
+
+#########################
+###       Static      ###
+#########################
+
+static func make(item: Item) -> ItemButton:
+	var item_button: ItemButton = Globals.item_button_scene.instantiate()
+	item_button.set_item(item)
+	return item_button

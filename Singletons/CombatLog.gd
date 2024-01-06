@@ -268,6 +268,10 @@ var _min_index: int = 0
 var _max_index: int = 0
 
 
+#########################
+###       Public      ###
+#########################
+
 func get_min_index() -> int:
 	return _min_index
 
@@ -336,6 +340,10 @@ func log_item_charge(item: Item, old_charge: int, new_charge: int):
 	var entry: ItemChargeEntry = ItemChargeEntry.new(item, old_charge, new_charge)
 	_log_internal(entry)
 
+
+#########################
+###      Private      ###
+#########################
 
 func _log_internal(entry: Entry):
 	var new_index: int = _max_index

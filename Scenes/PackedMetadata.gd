@@ -32,6 +32,10 @@ var _sprite_count: int = 0
 var _offset: Vector2 = Vector2.ZERO
 
 
+#########################
+###       Public      ###
+#########################
+
 func get_row_count() -> int:
 	return _row_count
 
@@ -48,17 +52,6 @@ func get_offset() -> Vector2:
 	return _offset
 
 
-static func make(sheet_path: String, packed_sheet: Image, rect: Rect2i, offset_pixels: Vector2, sprite_count: int) -> PackedMetadata:
-	var metadata: PackedMetadata = PackedMetadata.new()
-	metadata._name = PackedMetadata._get_animation_name(sheet_path)
-	metadata._row_count = roundi(float(packed_sheet.get_height()) / rect.size.y)
-	metadata._col_count = roundi(float(packed_sheet.get_width()) / rect.size.x)
-	metadata._sprite_count = sprite_count
-	metadata._offset = offset_pixels / Vector2(packed_sheet.get_size())
-
-	return metadata
-
-
 func convert_to_csv_line() -> Array:
 	var csv_line: Array = []
 	csv_line.resize(Column.COUNT)
@@ -71,6 +64,21 @@ func convert_to_csv_line() -> Array:
 	csv_line[Column.OFFSET_Y] = _offset.y
 
 	return csv_line
+
+
+#########################
+###       Static      ###
+#########################
+
+static func make(sheet_path: String, packed_sheet: Image, rect: Rect2i, offset_pixels: Vector2, sprite_count: int) -> PackedMetadata:
+	var metadata: PackedMetadata = PackedMetadata.new()
+	metadata._name = PackedMetadata._get_animation_name(sheet_path)
+	metadata._row_count = roundi(float(packed_sheet.get_height()) / rect.size.y)
+	metadata._col_count = roundi(float(packed_sheet.get_width()) / rect.size.x)
+	metadata._sprite_count = sprite_count
+	metadata._offset = offset_pixels / Vector2(packed_sheet.get_size())
+
+	return metadata
 
 
 static func convert_from_csv_line(csv_line: Array) -> PackedMetadata:

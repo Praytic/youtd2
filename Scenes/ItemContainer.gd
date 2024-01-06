@@ -12,9 +12,17 @@ var _item_list: Array[Item] = []
 var _capacity: int
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init(capacity: int):
 	_capacity = capacity
 
+
+#########################
+###       Public      ###
+#########################
 
 func increase_capacity(new_capacity: int):
 	if new_capacity < _capacity:
@@ -100,6 +108,10 @@ func get_item_at_index(index: int) -> Item:
 	else:
 		return null
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_item_consumed(item: Item):
 	remove_item(item)

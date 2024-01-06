@@ -79,6 +79,10 @@ var _unit_type: UnitType
 var _bitmask: int = 0
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init(bitmask: int):
 	_bitmask = bitmask
 	_unit_type = TargetType._get_unit_type(bitmask)
@@ -106,6 +110,10 @@ func _init(bitmask: int):
 		_bitmask |= PLAYER_TOWERS
 
 
+#########################
+###       Public      ###
+#########################
+
 # NOTE: need to use bitmask to get optimal performance.
 # TargetType.match() will get called very frequently via
 # Utils.get_units_in_range().
@@ -114,6 +122,10 @@ func match(unit: Unit) -> bool:
 
 	return is_match
 
+
+#########################
+###       Static      ###
+#########################
 
 static func _get_unit_type(bitmask: int) -> UnitType:
 	var creeps_set: bool = Utils.bit_is_set(bitmask, CREEPS)

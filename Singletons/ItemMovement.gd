@@ -15,6 +15,10 @@ var _source_container: ItemContainer = null
 @onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _unhandled_input(event: InputEvent):
 	var cancelled: bool = event.is_action_released("ui_cancel")
 	var left_click: bool = event.is_action_released("left_click")
@@ -29,6 +33,10 @@ func _unhandled_input(event: InputEvent):
 		else:
 			_return_item_to_stash()
 
+
+#########################
+###       Public      ###
+#########################
 
 func in_progress() -> bool:
 	return MouseState.get_state() == MouseState.enm.MOVE_ITEM
@@ -139,6 +147,10 @@ func cancel():
 
 	_end_move_process()
 
+
+#########################
+###      Private      ###
+#########################
 
 # When an item is clicked in an item container, two possible results:
 # 

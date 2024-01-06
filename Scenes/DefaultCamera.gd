@@ -28,6 +28,10 @@ var _interface_size_factor: float
 var _zoom: Vector2
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	if OS.get_name() == "macOS":
 		zoom_sensitivity = 0.1
@@ -117,6 +121,10 @@ func _unhandled_input(event: InputEvent):
 
 	_handle_zoom(event)
 
+
+#########################
+###      Private      ###
+#########################
 
 # NOTE: this will be called by CameraZoomArea
 func _handle_zoom(event):

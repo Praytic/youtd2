@@ -17,6 +17,10 @@ var _setting_to_slider_map: Dictionary
 var _setting_to_button_group_map: Dictionary
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 #	NOTE: need to init this in ready() because this map uses @export vars which are not ready before ready()
 	_setting_to_checkbox_map = {
@@ -59,9 +63,17 @@ func _ready():
 	Settings.flush()
 
 
+#########################
+###      Private      ###
+#########################
+
 func _apply_new_interface_size(new_size: float):
 	get_tree().root.content_scale_factor = new_size
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_close_button_pressed():
 	for setting in _setting_to_checkbox_map.keys():

@@ -14,6 +14,10 @@ const BUILDABLE_PULSE_ALPHA_MAX = 0.5
 const BUILDABLE_PULSE_PERIOD = 1.0
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	var camera: Camera2D = get_viewport().get_camera_2d()
 	var s = play_area.scale
@@ -28,7 +32,7 @@ func _ready():
 	print_verbose("Set camera limits to [lb: %s, lt: %s, ll: %s, lr: %s] and pos [%s]" \
 		% [camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right, pp])
 	
-	MouseState.mouse_state_changed.connect(_build_mode_changed)
+	MouseState.mouse_state_changed.connect(_on_mouse_state_changed)
 
 #	Make buildable area pulse by tweening it's alpha between
 #	min and max
@@ -55,14 +59,14 @@ func _ready():
 		print_verbose("Using prerendered map")
 
 
+#########################
+###       Public      ###
+#########################
+
 func setup_for_prerendering():
 	_prerendered_background.hide()
 	_black_border.hide()
 	_foreground_map.hide()
-
-
-func _build_mode_changed():
-	_buildable_area.visible = MouseState.get_state() == MouseState.enm.BUILD_TOWER
 
 
 func get_play_area_size() -> Vector2:
@@ -125,3 +129,11 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 	var tile_exists: bool = tile_data_at_pos != null
 
 	return tile_exists
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_mouse_state_changed():
+	_buildable_area.visible = MouseState.get_state() == MouseState.enm.BUILD_TOWER

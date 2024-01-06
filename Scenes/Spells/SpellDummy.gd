@@ -15,6 +15,10 @@ var _lifetime: float = 0.0
 @export var _lifetime_timer: Timer
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	super()
 	
@@ -24,6 +28,10 @@ func _ready():
 
 	_lifetime_timer.start(_lifetime)
 
+
+#########################
+###       Public      ###
+#########################
 
 func init_spell(caster: Unit, target: Unit, lifetime: float, data: SpellType.SpellData, damage_event_handler: Callable, x: float, y: float, damage_ratio: float, crit_ratio: float):
 	_caster = caster
@@ -38,11 +46,19 @@ func init_spell(caster: Unit, target: Unit, lifetime: float, data: SpellType.Spe
 	_crit_ratio = crit_ratio
 
 
+#########################
+###      Private      ###
+#########################
+
 # NOTE: subclasses override this to save data that is useful
 # for them
 func _set_subclass_data(_data: SpellType.SpellData):
 	pass
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_lifetime_timer_timeout():
 	_cleanup()

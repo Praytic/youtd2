@@ -13,10 +13,18 @@ var _oil_list: Array[Item] = []
 var _tower: Tower
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init(capacity: int, tower: Tower):
 	super(capacity)
 	_tower = tower
 
+
+#########################
+###       Public      ###
+#########################
 
 func add_item(item: Item, slot_index: int = 0):
 	item._add_to_tower(_tower)

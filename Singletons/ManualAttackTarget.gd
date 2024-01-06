@@ -15,6 +15,10 @@ extends Node
 var _prev_effect_id: int = 0
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _unhandled_input(event):
 # 	NOTE: Can't select when mouse is busy with some other
 # 	action, for example moving items.
@@ -27,6 +31,10 @@ func _unhandled_input(event):
 	if right_click:
 		_do_manual_targetting()
 
+
+#########################
+###      Private      ###
+#########################
 
 func _do_manual_targetting():
 	var selected_unit: Unit = SelectUnit.get_selected_unit()

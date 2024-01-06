@@ -18,6 +18,10 @@ const PRESS_DURATION_TO_COMPLETE_RESEARCH = 1
 @export var _research_timer: Timer
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
@@ -39,6 +43,9 @@ func _process(_delta: float):
 		var new_research_progress = (PRESS_DURATION_TO_COMPLETE_RESEARCH - _research_timer.time_left) * _research_element_progress_bar.max_value / PRESS_DURATION_TO_COMPLETE_RESEARCH
 		_research_element_progress_bar.value = new_research_progress
 
+#########################
+###       Public      ###
+#########################
 
 func set_towers_counter(value: int):
 	if value == 0:
@@ -46,6 +53,10 @@ func set_towers_counter(value: int):
 	else:
 		_counter_label.text = str(value)
 
+
+#########################
+###      Private      ###
+#########################
 
 func _is_able_to_research():
 	var can_afford: bool = ElementLevel.can_afford_research(element)
@@ -61,6 +72,10 @@ func _make_custom_tooltip(for_text: String) -> Object:
 	label.append_text(for_text)
 	return label
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_element_level_changed():
 	var curent_element_level = ElementLevel.get_current(element)

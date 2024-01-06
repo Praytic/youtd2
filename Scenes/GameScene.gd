@@ -20,6 +20,10 @@ enum GameState {
 var _game_state: GameState
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	print_verbose("GameScene has loaded.")
 	
@@ -80,6 +84,52 @@ func _unhandled_input(event: InputEvent):
 			GameState.PAUSED: _unpause_the_game()
 
 
+#########################
+###      Private      ###
+#########################
+
+func _pause_the_game():
+#	Cancel any in progress mouse actions
+	BuildTower.cancel()
+	ItemMovement.cancel()
+	SelectTargetForCast.cancel()
+
+	_game_state = GameState.PAUSED
+	get_tree().set_pause(true)
+	_pause_hud.show()
+
+
+func _unpause_the_game():
+	_game_state = GameState.PLAYING
+	get_tree().set_pause(false)
+	_pause_hud.hide()
+
+
+func _get_cmdline_value(key: String):
+	var arguments = {}
+	for argument in OS.get_cmdline_user_args():
+		if argument.find("=") > -1:
+			var key_value = argument.split("=")
+			arguments[key_value[0].lstrip("--")] = key_value[1]
+		else:
+			# Options without an argument will be present in the dictionary,
+			# with the value set to an empty string.
+			arguments[argument.lstrip("--")] = ""
+	
+	var cmdline_value = false
+	if arguments.has(key):
+		if arguments.get(key).is_empty():
+			cmdline_value = true
+		else:
+			cmdline_value = arguments.get(key)
+	
+	return cmdline_value
+
+
+#########################
+###     Callbacks     ###
+#########################
+
 func _on_HUD_start_wave(wave_index):
 	$Map/CreepSpawner.start(wave_index)
 
@@ -115,23 +165,6 @@ func _on_pregame_hud_finished(player_mode: PlayerMode.enm, wave_count: int, game
 	EventBus.game_mode_was_chosen.emit()
 
 
-func _pause_the_game():
-#	Cancel any in progress mouse actions
-	BuildTower.cancel()
-	ItemMovement.cancel()
-	SelectTargetForCast.cancel()
-
-	_game_state = GameState.PAUSED
-	get_tree().set_pause(true)
-	_pause_hud.show()
-
-
-func _unpause_the_game():
-	_game_state = GameState.PLAYING
-	get_tree().set_pause(false)
-	_pause_hud.hide()
-
-
 func _on_pause_hud_resume_pressed():
 	_unpause_the_game()
 
@@ -143,24 +176,3 @@ func _on_tutorial_menu_finished():
 
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
-
-
-func _get_cmdline_value(key: String):
-	var arguments = {}
-	for argument in OS.get_cmdline_user_args():
-		if argument.find("=") > -1:
-			var key_value = argument.split("=")
-			arguments[key_value[0].lstrip("--")] = key_value[1]
-		else:
-			# Options without an argument will be present in the dictionary,
-			# with the value set to an empty string.
-			arguments[argument.lstrip("--")] = ""
-	
-	var cmdline_value = false
-	if arguments.has(key):
-		if arguments.get(key).is_empty():
-			cmdline_value = true
-		else:
-			cmdline_value = arguments.get(key)
-	
-	return cmdline_value

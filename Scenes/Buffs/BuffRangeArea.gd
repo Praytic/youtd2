@@ -14,14 +14,9 @@ var _radius: float
 var _prev_units_in_range: Array = []
 
 
-static func make(radius: float, target_type: TargetType, handler: Callable) -> BuffRangeArea:
-	var buff_range_area: BuffRangeArea = Globals.buff_range_area_scene.instantiate()
-	buff_range_area._radius = radius
-	buff_range_area._target_type = target_type
-	buff_range_area._handler = handler
-
-	return buff_range_area
-
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_timer_timeout():
 	var all_units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _radius)
@@ -42,3 +37,16 @@ func _on_timer_timeout():
 			unit_came_in_range.emit(_handler, unit)
 
 	_prev_units_in_range = matching_units
+
+
+#########################
+###       Static      ###
+#########################
+
+static func make(radius: float, target_type: TargetType, handler: Callable) -> BuffRangeArea:
+	var buff_range_area: BuffRangeArea = Globals.buff_range_area_scene.instantiate()
+	buff_range_area._radius = radius
+	buff_range_area._target_type = target_type
+	buff_range_area._handler = handler
+
+	return buff_range_area

@@ -26,9 +26,17 @@ var _tutorial_enabled: bool
 @export var _tab_container: TabContainer
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	_tab_container.current_tab = Tab.PLAYER_MODE
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_player_mode_menu_finished(player_mode: PlayerMode.enm):
 	_player_mode = player_mode
@@ -49,7 +57,6 @@ func _on_difficulty_menu_finished(difficulty: Difficulty.enm):
 	_difficulty = difficulty
 	
 	_tab_container.current_tab = Tab.TUTORIAL_QUESTION
-
 
 
 func _on_tutorial_question_menu_finished(tutorial_enabled: bool):

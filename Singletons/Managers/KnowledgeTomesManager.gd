@@ -11,15 +11,19 @@ var _knowledge_tomes: int
 var _income: int = INITIAL_KNOWLEDGE_TOMES_INCOME
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	var starting_tomes: int = Config.starting_tomes()
 	_set_knowledge_tomes(starting_tomes)
 
 	
-func _set_knowledge_tomes(value):
-	_knowledge_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
-	changed.emit()
-	
+#########################
+###       Public      ###
+#########################
+
 func add_knowledge_tomes(value = _income):
 	_set_knowledge_tomes(_knowledge_tomes + value)
 
@@ -38,3 +42,12 @@ func enough_tomes_for_tower(tower_id: int) -> bool:
 	var enough_tomes: bool = tome_cost <= _knowledge_tomes
 
 	return enough_tomes
+
+
+#########################
+###      Private      ###
+#########################
+
+func _set_knowledge_tomes(value):
+	_knowledge_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
+	changed.emit()

@@ -66,6 +66,10 @@ var _background_load_in_progress: bool = false
 @export var _timer_between_creeps: Timer
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	_timer_between_creeps.set_autostart(true)
 	_timer_between_creeps.set_one_shot(false)
@@ -81,6 +85,10 @@ func _process(_delta: float):
 		else:
 			_start_background_load()
 
+
+#########################
+###       Public      ###
+#########################
 
 # Go through all waves to get the order in which creep
 # scenes are used. Need this order to do background loading
@@ -100,42 +108,6 @@ func setup_background_load_queue(wave_list: Array[Wave]):
 	_background_load_queue = queue
 
 	print_verbose("_background_load_queue = ", _background_load_queue)
-
-
-func _start_background_load():
-	var scene_name: String = _background_load_queue.front()
-	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
-	ResourceLoader.load_threaded_request(scene_path, "", false)
-	_background_load_in_progress = true
-
-	print_verbose("Starting to load creep scene: ", scene_name)
-	ElapsedTimer.start("Elapsed time for loading creep scene:" + scene_name)
-
-
-func _process_background_load():
-	var scene_name: String = _background_load_queue.front()
-	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
-
-	var finished: bool = ResourceLoader.load_threaded_get_status(scene_path) == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED
-
-	if finished:
-		var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
-		_creep_scenes[scene_name] = scene
-		_background_load_queue.pop_front()
-		_background_load_in_progress = false
-
-		print_verbose("Finished loading creep scene: ", scene_name)
-		ElapsedTimer.end_verbose("Elapsed time for loading creep scene:" + scene_name)
-
-
-# Waits until creep scene is done loading
-func _wait_for_background_load(scene_name: String):
-	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
-
-	var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
-	_creep_scenes[scene_name] = scene
-	_background_load_queue.pop_front()
-	_background_load_in_progress = false
 
 
 func queue_spawn_creep(creep_data: CreepData):
@@ -204,6 +176,51 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 
 	return creep
 
+
+#########################
+###      Private      ###
+#########################
+
+
+func _start_background_load():
+	var scene_name: String = _background_load_queue.front()
+	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
+	ResourceLoader.load_threaded_request(scene_path, "", false)
+	_background_load_in_progress = true
+
+	print_verbose("Starting to load creep scene: ", scene_name)
+	ElapsedTimer.start("Elapsed time for loading creep scene:" + scene_name)
+
+
+func _process_background_load():
+	var scene_name: String = _background_load_queue.front()
+	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
+
+	var finished: bool = ResourceLoader.load_threaded_get_status(scene_path) == ResourceLoader.ThreadLoadStatus.THREAD_LOAD_LOADED
+
+	if finished:
+		var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
+		_creep_scenes[scene_name] = scene
+		_background_load_queue.pop_front()
+		_background_load_in_progress = false
+
+		print_verbose("Finished loading creep scene: ", scene_name)
+		ElapsedTimer.end_verbose("Elapsed time for loading creep scene:" + scene_name)
+
+
+# Waits until creep scene is done loading
+func _wait_for_background_load(scene_name: String):
+	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
+
+	var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
+	_creep_scenes[scene_name] = scene
+	_background_load_queue.pop_front()
+	_background_load_in_progress = false
+
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_Timer_timeout():
 	if _creep_spawn_queue.is_empty():

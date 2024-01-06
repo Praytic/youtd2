@@ -8,10 +8,26 @@ extends Control
 var _tower: Tower : set = set_tower
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	_on_selected_unit_changed()
 
+
+#########################
+###       Public      ###
+#########################
+
+func set_tower(value: Tower):
+	_tower = value
+
+
+#########################
+###      Private      ###
+#########################
 
 func _update_autocasts(tower: Tower):
 	_clear_autocasts()
@@ -28,6 +44,11 @@ func _clear_autocasts():
 	for button in _autocasts_container.get_children():
 		button.queue_free()
 
+
+#########################
+###     Callbacks     ###
+#########################
+
 func _on_selected_unit_changed(_prev_unit = null):
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 	
@@ -38,7 +59,3 @@ func _on_selected_unit_changed(_prev_unit = null):
 		_update_autocasts(tower)
 	else:
 		_clear_autocasts()
-
-
-func set_tower(value: Tower):
-	_tower = value

@@ -18,6 +18,10 @@ var _text_list: Array[String] = []
 @export var _hints_text_label: RichTextLabel
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(HINTS_CSV_PATH)
 	
@@ -39,6 +43,10 @@ func _ready():
 	var first_item: TreeItem = root.get_child(0)
 	_tree.set_selected(first_item, 0)
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_close_button_pressed():
 	closed.emit()

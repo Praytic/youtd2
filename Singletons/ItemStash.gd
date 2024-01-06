@@ -11,6 +11,10 @@ signal items_changed()
 var _item_container: ItemContainer
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	_item_container = ItemContainer.new(10000)
 	add_child(_item_container)
@@ -25,9 +29,17 @@ func _ready():
 	items_changed.emit()
 
 
+#########################
+###       Public      ###
+#########################
+
 func get_item_container() -> ItemContainer:
 	return _item_container
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_item_container_items_changed():
 	items_changed.emit()

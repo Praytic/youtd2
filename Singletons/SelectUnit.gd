@@ -12,6 +12,27 @@ var _hovered_unit: Unit = null
 var _selected_unit: Unit = null
 
 
+#########################
+###     Built-in      ###
+#########################
+
+func _unhandled_input(event):
+# 	NOTE: Can't select when mouse is busy with some other
+# 	action, for example moving items.
+	var can_select: bool = MouseState.get_state() == MouseState.enm.NONE
+	if !can_select:
+		return
+
+	var left_click: bool = event.is_action_released("left_click")
+
+	if left_click:
+		set_selected_unit(_hovered_unit)
+
+
+#########################
+###       Public      ###
+#########################
+
 # Connect a unit to the selection system. Selection area
 # will be used to detect when the mouse is over the unit.
 func connect_unit(unit: Unit, selection_area: Area2D):
@@ -43,6 +64,27 @@ func get_hovered_unit() -> Unit:
 	return _hovered_unit
 
 
+func update_hovered_unit():
+	var old_hovered_unit: Unit = _hovered_unit
+
+	if old_hovered_unit != null:
+		old_hovered_unit.set_hovered(false)
+		_hovered_unit = null
+
+#	NOTE: sort list by y position so that if units overlap,
+#	the one in isometric front (higher y) gets picked
+	_units_under_mouse_list.sort_custom(func(a, b): return a.get_visual_position().y > b.get_visual_position().y)
+
+	if _units_under_mouse_list.size() > 0:
+		var new_hovered_unit = _units_under_mouse_list[0]
+		new_hovered_unit.set_hovered(true)
+		_hovered_unit = new_hovered_unit
+
+
+#########################
+###     Callbacks     ###
+#########################
+
 func _on_unit_mouse_entered(unit: Unit):
 	_units_under_mouse_list.append(unit)
 	if !unit.tree_exited.is_connected(_on_unit_tree_exited):
@@ -66,33 +108,3 @@ func _on_unit_tree_exited(unit: Unit):
 	if _units_under_mouse_list.has(unit):
 		_units_under_mouse_list.erase(unit)
 		update_hovered_unit()
-
-
-func update_hovered_unit():
-	var old_hovered_unit: Unit = _hovered_unit
-
-	if old_hovered_unit != null:
-		old_hovered_unit.set_hovered(false)
-		_hovered_unit = null
-
-#	NOTE: sort list by y position so that if units overlap,
-#	the one in isometric front (higher y) gets picked
-	_units_under_mouse_list.sort_custom(func(a, b): return a.get_visual_position().y > b.get_visual_position().y)
-
-	if _units_under_mouse_list.size() > 0:
-		var new_hovered_unit = _units_under_mouse_list[0]
-		new_hovered_unit.set_hovered(true)
-		_hovered_unit = new_hovered_unit
-
-
-func _unhandled_input(event):
-# 	NOTE: Can't select when mouse is busy with some other
-# 	action, for example moving items.
-	var can_select: bool = MouseState.get_state() == MouseState.enm.NONE
-	if !can_select:
-		return
-
-	var left_click: bool = event.is_action_released("left_click")
-
-	if left_click:
-		set_selected_unit(_hovered_unit)

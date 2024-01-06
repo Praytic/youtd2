@@ -43,6 +43,10 @@ var _lifetime: float
 var _damage_event_handler: Callable = Callable()
 
 
+#########################
+###     Built-in      ###
+#########################
+
 # NOTE: ability is unused because it's supposed to reference
 # something configured in wc3 object editor.
 func _init(_ability: String, order: String, lifetime: float, parent: Node):
@@ -51,24 +55,13 @@ func _init(_ability: String, order: String, lifetime: float, parent: Node):
 	_lifetime = lifetime
 
 
+#########################
+###       Public      ###
+#########################
+
 # NOTE: cast.setDamageEvent() in JASS
 func set_damage_event(handler: Callable):
 	_damage_event_handler = handler
-
-
-# NOTE: cast.pointCastFromCasterOnPoint() in JASS
-func _cast_generic(caster: Unit, origin: Unit, target: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):
-	var spell_scene_path: String = _get_spell_scene_path()
-	
-	if spell_scene_path.is_empty():
-		return
-
-	var scene: PackedScene = load(spell_scene_path)
-	var instance: SpellDummy = scene.instantiate()
-	instance.position = origin.position
-	instance.init_spell(caster, target, _lifetime, data, _damage_event_handler, x, y, damage_ratio, crit_ratio)
-	tree_exited.connect(instance._on_cast_type_tree_exited)
-	Utils.add_object_to_world(instance)
 
 
 func point_cast_from_unit_on_point(caster: Unit, origin: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):
@@ -104,6 +97,25 @@ func point_cast_from_target_on_target(caster: Unit, target: Unit, damage_ratio: 
 # NOTE: cast.setSourceHeight() in JASS
 func set_source_height(_height: float):
 	pass
+
+
+#########################
+###      Private      ###
+#########################
+
+# NOTE: cast.pointCastFromCasterOnPoint() in JASS
+func _cast_generic(caster: Unit, origin: Unit, target: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):
+	var spell_scene_path: String = _get_spell_scene_path()
+	
+	if spell_scene_path.is_empty():
+		return
+
+	var scene: PackedScene = load(spell_scene_path)
+	var instance: SpellDummy = scene.instantiate()
+	instance.position = origin.position
+	instance.init_spell(caster, target, _lifetime, data, _damage_event_handler, x, y, damage_ratio, crit_ratio)
+	tree_exited.connect(instance._on_cast_type_tree_exited)
+	Utils.add_object_to_world(instance)
 
 
 func _get_spell_scene_path() -> String:

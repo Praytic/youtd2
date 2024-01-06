@@ -8,6 +8,11 @@ extends Unit
 var _item: Item = null
 @export var _selection_area: Area2D
 
+
+#########################
+###     Built-in      ###
+#########################
+
 # NOTE: note calling Unit._set_unit_dimensions() because no
 # sprite on base class and dimensions are not important for
 # ItemDrop's.
@@ -24,6 +29,10 @@ func _ready():
 	z_index = 100
 
 
+#########################
+###       Public      ###
+#########################
+
 # NOTE: this must be called once after the itemdrop is created
 # but before it's added to game scene.
 func set_item(item: Item):
@@ -32,6 +41,11 @@ func set_item(item: Item):
 
 func get_id() -> int:
 	return _item.get_id()
+
+
+#########################
+###     Callbacks     ###
+#########################
 
 # NOTE: don't allow picking up invisible items
 func _on_selected():

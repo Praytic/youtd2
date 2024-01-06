@@ -68,9 +68,8 @@ var _inherited_periodic_timers: Dictionary = {}
 
 
 #########################
-### Code starts here  ###
+###     Built-in      ###
 #########################
-
 
 func _init(id: int):
 #	NOTE: fix "unused variable" warning
@@ -89,62 +88,27 @@ func _ready():
 	on_create()
 
 
-# Creates item on the ground. Item is stored inside an
-# ItemDrop object.
-# NOTE: Item.create() in JASS
-static func create(_player: Player, item_id: int, position: Vector2) -> Item:
-	var item: Item = Item.make(item_id)
-	Item._create_item_drop(item, position)
+#########################
+###       Public      ###
+#########################
+
+func add_aura(aura: AuraType):
+	_aura_carrier_buff.add_aura(aura)
+
+
+# Consume item. Only applicable to items of consumable type.
+func consume():
+	on_consume()
+
+	print_verbose("Item was consumed. Removing item from game.")
 	
-	return item
+	consumed.emit()
 
 
-static func make(id: int) -> Item:
-	var item_script_path: String = get_item_script_path(id)
-	var script_exists: bool = ResourceLoader.exists(item_script_path)
-	
-	if !script_exists:
-		if PRINT_SCRIPT_NOT_FOUND_ERROR:
-			print_debug("No item script found for id:", id, ". Tried at path:", item_script_path)
+func get_specials_tooltip_text() -> String:
+	var text: String = _modifier.get_tooltip_text()
 
-		item_script_path = FAILLBACK_SCRIPT
-
-	var item_script = load(item_script_path)
-
-	if item_script == null:
-		return null
-
-	var item: Item = item_script.new(id)
-
-	return item
-
-
-static func get_item_script_path(item_id: int):
-	var path: String = "res://Scenes/Items/Instances/Item%d.gd" % item_id
-
-	return path
-
-
-static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
-	var id: int = item.get_id()
-	var rarity: Rarity.enm = ItemProperties.get_rarity(id)
-	var rarity_string: String = Rarity.convert_to_string(rarity)
-	var item_drop_scene_path: String
-	if ItemProperties.get_is_oil(id):
-		item_drop_scene_path = "res://Scenes/Items/RedOil.tscn"
-	else:
-		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
-	var item_drop_scene = _item_drop_scene_map[item_drop_scene_path]
-	var item_drop: ItemDrop = item_drop_scene.instantiate()
-	item_drop.position = position
-	item_drop.visible = item._visible
-
-	item_drop.set_item(item)
-	item_drop.add_child(item)
-
-	Utils.add_object_to_world(item_drop)
-	
-	return item_drop
+	return text
 
 
 # NOTE: SetItemVisible() in JASS
@@ -166,48 +130,24 @@ func get_autocast() -> Autocast:
 	return _autocast
 
 
-func add_aura(aura: AuraType):
-	_aura_carrier_buff.add_aura(aura)
+#########################
+###  Override methods ###
+#########################
+
+# NOTE: below are the methods which should be overriden in
+# scripts for item instances (subclasses).
 
 
-# Sets the charge count that is displayed on the item icon.
-# NOTE: item.setCharges() in JASS
-func set_charges(new_count: int):
-	var old_count: int = _charge_count
-	CombatLog.log_item_charge(self, old_count, new_count)
-
-	_charge_count = new_count
-	_uses_charges = true
-	charges_changed.emit()
-
-
-# NOTE: item.getCharges() in JASS
-func get_charges() -> int:
-	return _charge_count
-
-
-# Returns whether this item uses charges. Used to determine
-# whether to draw charges label.
-func uses_charges() -> bool:
-	return _uses_charges
-
-
-# NOTE: override this in subclass to attach trigger handlers
-# to triggers buff passed in the argument.
+# Override this in subclass to attach trigger handlers to
+# triggers buff passed in the argument.
 func load_triggers(_triggers: BuffType):
 	pass
 
 
-# Override in subclass to add define the modifier that will
-# be added to carrier of the item
+# Override in subclass to define the modifier that will be
+# added to carrier of the item
 func load_modifier(_modifier_arg: Modifier):
 	pass
-
-
-func get_specials_tooltip_text() -> String:
-	var text: String = _modifier.get_tooltip_text()
-
-	return text
 
 
 # Override in subclass to define the description of item
@@ -219,17 +159,9 @@ func get_ability_description() -> String:
 
 
 # Override in subclass to initialize subclass item
+# NOTE: item.init() in JASS
 func item_init():
 	pass
-
-
-# Consume item. Only applicable to items of consumable type.
-func consume():
-	on_consume()
-
-	print_verbose("Item was consumed. Removing item from game.")
-	
-	consumed.emit()
 
 
 # Override in subclass script to implement the effect that
@@ -238,30 +170,29 @@ func on_consume():
 	pass
 
 
-# Override this in tower subclass to implement the "On Item
-# Creation" trigger. This is the analog of "onCreate"
-# function from original API.
+# NOTE: item.onCreate() in JASS
 func on_create():
 	pass
 
 
-# Override this in tower subclass to implement the "On Item
-# Pickup" trigger. Called after item is picked up by tower.
+# NOTE: item.onPickup() in JASS
 func on_pickup():
 	pass
 
 
-# Override this in tower subclass to implement the "On Item
-# Drop" trigger. Called before item is dropped by tower.
+# NOTE: item.onDrop() in JASS
 func on_drop():
 	pass
 
 
-# Override in subclass to define an extra multiboard for the
-# carrier tower.
+# NOTE: item.onTowerDetails() in JASS
 func on_tower_details() -> MultiboardValues:
 	return null
 
+
+#########################
+###      Private      ###
+#########################
 
 # NOTE: item.getItemType() in JASS
 # In JASS engine, getItemType() returns the id.
@@ -440,9 +371,102 @@ func _remove_from_tower():
 	_carrier = null
 
 
+#########################
+###     Callbacks     ###
+#########################
+
 func _on_flying_item_finished_flying():
 	var parent: Node = get_parent()
 	parent.remove_child(self)
 	parent.queue_free()
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
 	item_stash_container.add_item(self)
+
+
+#########################
+### Setters / Getters ###
+#########################
+
+
+# Sets the charge count that is displayed on the item icon.
+# NOTE: item.setCharges() in JASS
+func set_charges(new_count: int):
+	var old_count: int = _charge_count
+	CombatLog.log_item_charge(self, old_count, new_count)
+
+	_charge_count = new_count
+	_uses_charges = true
+	charges_changed.emit()
+
+
+# NOTE: item.getCharges() in JASS
+func get_charges() -> int:
+	return _charge_count
+
+
+# Returns whether this item uses charges. Used to determine
+# whether to draw charges label.
+func uses_charges() -> bool:
+	return _uses_charges
+
+
+#########################
+###       Static      ###
+#########################
+
+# Creates item on the ground. Item is stored inside an
+# ItemDrop object.
+# NOTE: Item.create() in JASS
+static func create(_player: Player, item_id: int, position: Vector2) -> Item:
+	var item: Item = Item.make(item_id)
+	Item._create_item_drop(item, position)
+	
+	return item
+
+
+static func make(id: int) -> Item:
+	var item_script_path: String = get_item_script_path(id)
+	var script_exists: bool = ResourceLoader.exists(item_script_path)
+	
+	if !script_exists:
+		if PRINT_SCRIPT_NOT_FOUND_ERROR:
+			print_debug("No item script found for id:", id, ". Tried at path:", item_script_path)
+
+		item_script_path = FAILLBACK_SCRIPT
+
+	var item_script = load(item_script_path)
+
+	if item_script == null:
+		return null
+
+	var item: Item = item_script.new(id)
+
+	return item
+
+
+static func get_item_script_path(item_id: int):
+	var path: String = "res://Scenes/Items/Instances/Item%d.gd" % item_id
+
+	return path
+
+
+static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
+	var id: int = item.get_id()
+	var rarity: Rarity.enm = ItemProperties.get_rarity(id)
+	var rarity_string: String = Rarity.convert_to_string(rarity)
+	var item_drop_scene_path: String
+	if ItemProperties.get_is_oil(id):
+		item_drop_scene_path = "res://Scenes/Items/RedOil.tscn"
+	else:
+		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
+	var item_drop_scene = _item_drop_scene_map[item_drop_scene_path]
+	var item_drop: ItemDrop = item_drop_scene.instantiate()
+	item_drop.position = position
+	item_drop.visible = item._visible
+
+	item_drop.set_item(item)
+	item_drop.add_child(item)
+
+	Utils.add_object_to_world(item_drop)
+	
+	return item_drop

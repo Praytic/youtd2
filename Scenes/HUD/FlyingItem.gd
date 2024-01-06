@@ -16,14 +16,9 @@ var _item_id: int = 0
 @onready var _fly_to_node = get_tree().get_root().get_node("GameScene/%HUD/%ItemsStatusCard/%MainButton")
 
 
-static func create(item_id: int, start_pos: Vector2) -> FlyingItem:
-	var flying_item: FlyingItem = Globals.flying_item_scene.instantiate()
-	flying_item.position = start_pos
-	flying_item._item_id = item_id
-	flying_item.scale = Vector2(0.5, 0.5)
-
-	return flying_item
-
+#########################
+###     Built-in      ###
+#########################
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,5 +41,22 @@ func _ready():
 	finished_tween.tween_callback(_on_tween_finished).set_delay(ANIMATION_DURATION)
 
 
+#########################
+###     Callbacks     ###
+#########################
+
 func _on_tween_finished():
 	finished_flying.emit()
+
+
+#########################
+###       Static      ###
+#########################
+
+static func create(item_id: int, start_pos: Vector2) -> FlyingItem:
+	var flying_item: FlyingItem = Globals.flying_item_scene.instantiate()
+	flying_item.position = start_pos
+	flying_item._item_id = item_id
+	flying_item.scale = Vector2(0.5, 0.5)
+
+	return flying_item

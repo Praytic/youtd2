@@ -17,6 +17,10 @@ signal stop_wave()
 @onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _unit_menu]
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	if Config.minimap_enabled():
 		$Minimap.call_deferred("create_instance")
@@ -29,13 +33,31 @@ func _ready():
 	EventBus.game_over.connect(_on_game_over)
 
 
-func get_error_message_container() -> VBoxContainer:
-	return _error_message_container
+func _unhandled_input(event):
+	var cancelled: bool = event.is_action_released("ui_cancel")
+	var left_click: bool = event.is_action_released("left_click")
+	if (cancelled or left_click) and not any_window_is_open():
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 
 
-func get_normal_message_container() -> VBoxContainer:
-	return _normal_message_container
+#########################
+###       Public      ###
+#########################
 
+func close_all_windows():
+	for window in _window_list:
+		window.hide()
+	
+	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+	
+#	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
+	SelectUnit.set_selected_unit(null)
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_game_over():
 	_game_over_label.show()
@@ -90,34 +112,6 @@ func _on_items_button_toggled(toggled):
 	_item_stash_menu.ack_status_panels()
 
 
-
-func _unhandled_input(event):
-	var cancelled: bool = event.is_action_released("ui_cancel")
-	var left_click: bool = event.is_action_released("left_click")
-	if (cancelled or left_click) and not any_window_is_open():
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-
-
-func any_window_is_open() -> bool:
-	for window in _window_list:
-		if window.visible:
-			return true
-	
-	return false
-
-
-func close_all_windows():
-	for window in _window_list:
-		window.hide()
-	
-	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-	
-#	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
-	SelectUnit.set_selected_unit(null)
-
-
 func _on_unit_menu_visibility_changed():
 	if not _item_stash_menu.visible:
 		_items_menu_card.get_main_button().set_pressed_no_signal(false)
@@ -126,3 +120,22 @@ func _on_unit_menu_visibility_changed():
 		_towers_menu_card.get_main_button().set_pressed_no_signal(false)
 		_towers_menu_card.get_main_button().toggled.emit(false)
 
+
+#########################
+### Setters / Getters ###
+#########################
+
+func get_error_message_container() -> VBoxContainer:
+	return _error_message_container
+
+
+func get_normal_message_container() -> VBoxContainer:
+	return _normal_message_container
+
+
+func any_window_is_open() -> bool:
+	for window in _window_list:
+		if window.visible:
+			return true
+	
+	return false

@@ -15,23 +15,17 @@ var _damage_bonus_to_size_map: Dictionary = {}
 var _cleanup_done: bool = false
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	_caster.tree_exited.connect(_on_caster_tree_exited)
 
 
-func get_caster() -> Unit:
-	return _caster
-
-
-# NOTE: dummyUnit.setDamageEvent() in JASS
-func set_damage_event(handler: Callable):
-	_damage_event_handler = handler
-
-
-# NOTE: dummyUnit.setKillEvent() in JASS
-func set_kill_event(handler: Callable):
-	_kill_event_handler = handler
-
+#########################
+###       Public      ###
+#########################
 
 # NOTE: dummyUnit.doSpellDamage() in JASS
 # 
@@ -77,12 +71,22 @@ func do_spell_damage_pb_aoe(radius: float, damage: float, _mystery_float: float)
 	do_spell_damage_aoe(center, radius, damage)
 
 
-func get_dmg_ratio() -> float:
-	return _damage_ratio
+#########################
+###      Private      ###
+#########################
 
+func _cleanup():
+	if _cleanup_done:
+		return
 
-func get_crit_ratio() -> float:
-	return _crit_ratio
+	_cleanup_done = true
+
+#	NOTE: cleanup handler is valid only in Projectile
+#	subclass
+	if _cleanup_handler.is_valid():
+		_cleanup_handler.call(self)
+
+	queue_free()
 
 
 # Returns damage modifier based on custom damage table.
@@ -112,19 +116,35 @@ func _get_mod_for_size(target: Unit) -> float:
 	return mod_for_size
 
 
+#########################
+###     Callbacks     ###
+#########################
+
 func _on_caster_tree_exited():
 	_cleanup()
 
 
-func _cleanup():
-	if _cleanup_done:
-		return
+#########################
+### Setters / Getters ###
+#########################
 
-	_cleanup_done = true
+func get_caster() -> Unit:
+	return _caster
 
-#	NOTE: cleanup handler is valid only in Projectile
-#	subclass
-	if _cleanup_handler.is_valid():
-		_cleanup_handler.call(self)
 
-	queue_free()
+# NOTE: dummyUnit.setDamageEvent() in JASS
+func set_damage_event(handler: Callable):
+	_damage_event_handler = handler
+
+
+# NOTE: dummyUnit.setKillEvent() in JASS
+func set_kill_event(handler: Callable):
+	_kill_event_handler = handler
+
+
+func get_dmg_ratio() -> float:
+	return _damage_ratio
+
+
+func get_crit_ratio() -> float:
+	return _crit_ratio

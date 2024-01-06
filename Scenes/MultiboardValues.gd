@@ -6,6 +6,10 @@ var _key_map: Dictionary = {}
 var _value_map: Dictionary = {}
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init(size_arg: int):
 	_size = size_arg
 
@@ -13,6 +17,10 @@ func _init(size_arg: int):
 		_key_map[index] = ""
 		_value_map[index] = ""
 
+
+#########################
+###       Public      ###
+#########################
 
 # NOTE: multiboard.setKey() in JASS
 func set_key(index: int, key: String):

@@ -140,11 +140,9 @@ var _is_item_autocast: bool = false
 @export var _auto_timer: Timer
 
 
-static func make() -> Autocast:
-	var autocast: Autocast = Globals.autocast_scene.instantiate()
-
-	return autocast
-
+#########################
+###     Built-in      ###
+#########################
 
 func _ready():
 	_cooldown_timer.wait_time = cooldown
@@ -154,13 +152,9 @@ func _ready():
 		_auto_timer.set_paused(true)
 
 
-func set_caster(caster: Unit):
-	_caster = caster
-
-
-func get_caster() -> Unit:
-	return _caster
-
+#########################
+###       Public      ###
+#########################
 
 func toggle_auto_mode():
 	if !can_use_auto_mode():
@@ -176,27 +170,6 @@ func auto_mode_is_enabled() -> bool:
 	var is_enabled: bool = !_auto_timer.is_paused()
 
 	return is_enabled
-
-
-# NOTE: autocast.getCooldown() in JASS
-func get_cooldown() -> float:
-	return cooldown
-
-func get_remaining_cooldown() -> float:
-	if !is_node_ready():
-		push_error("Autocast cannot perform the request because it hasn't been added to the scene tree. Make sure that autocast's parent and it's ancestors have been added to the scene tree. Parent: ", get_parent())
-
-		return 0.0
-
-	return _cooldown_timer.time_left
-
-# NOTE: autocast.getManacost() in JASS
-func get_manacost() -> int:
-	return mana_cost
-
-
-func is_item_autocast() -> bool:
-	return _is_item_autocast
 
 
 # This is called when player triggers autocast by pressing
@@ -273,69 +246,20 @@ func do_cast_manually_finish_for_point(target_pos: Vector2) -> bool:
 	return true
 
 
-func _on_auto_timer_timeout():
-	if !_can_cast():
-		return
+func check_target_for_unit_autocast(target: Unit) -> bool:
+	if target == null:
+		return false
 
-	var cant_cast_because_zero_charges: bool = item_owner != null && item_owner.get_charges() == 0 && dont_cast_at_zero_charges
+	var target_is_in_range: bool = _get_target_is_in_range(target)
+	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
+	var target_is_ok: bool = target_is_in_range && target_type_is_valid
 
-	if cant_cast_because_zero_charges:
-		return
-
-	var target: Unit = _get_target_for_auto_mode()
-
-#	NOTE: no error message here like in manual case becase
-#	this is the auto case and adding an error message here
-#	would cause spam
-	if target == null && !_type_is_immediate():
-		return
-
-	_do_cast(target)
+	return target_is_ok
 
 
-func _get_target_for_auto_mode() -> Unit:
-	if _type_is_buff():
-		return _get_target_for_buff_autocast()
-	elif _type_is_unit():
-		return _get_target_for_unit_autocast()
-	elif _type_is_immediate():
-#		Immediate autocasts have no target
-		return null
-	else:
-		return null
-
-
-func _get_target_for_unit_autocast() -> Unit:
-# 	NOTE: use tower's current attack target instead of
-# 	searching for nearby units ourselves.
-	var target: Unit = _caster.get_current_target()
-
-	var target_is_ok: bool = check_target_for_unit_autocast(target)
-
-	if target_is_ok:
-		return target
-	else:
-		return null
-
-
-func _get_target_for_buff_autocast() -> Unit:
-	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.position, auto_range)
-	unit_list.shuffle()
-
-	if !target_self:
-		unit_list.erase(_caster)
-
-	for unit in unit_list:
-		if buff_type == null:
-			return unit
-
-		var buff: Buff = unit.get_buff_of_type(buff_type)
-		var unit_has_buff: bool = buff != null
-
-		if !unit_has_buff:
-			return unit
-
-	return null
+#########################
+###      Private      ###
+#########################
 
 
 # NOTE: target arg may be null if autocast is immediate
@@ -407,27 +331,6 @@ func _add_cast_error_message():
 		Messages.add_error(cast_error)
 
 
-func _get_cast_error() -> String:
-	if _caster == null:
-		return ""
-
-	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
-	var enough_mana: bool = _caster.get_mana() >= mana_cost
-	var silenced: bool = _caster.is_silenced()
-	var stunned: bool = _caster.is_stunned()
-
-	if on_cooldown:
-		return "This ability is not ready yet"
-	elif !enough_mana:
-		return "Not enough mana"
-	elif silenced:
-		return "Can't cast ability because caster is silenced"
-	elif stunned:
-		return "Can't cast ability because caster is stunned"
-	else:
-		return ""
-
-
 # Some autocast types are always manual
 func can_use_auto_mode() -> bool:
 	var can_use: bool = _types_that_can_use_auto_mode.has(autocast_type)
@@ -453,33 +356,6 @@ func _type_is_offensive() -> bool:
 
 func _type_is_unit() -> bool:
 	return _unit_type_list.has(autocast_type)
-
-
-func get_target_error_message(target: Unit) -> String:
-	if target == null:
-		return "No target selected"
-
-	var target_is_in_range: bool = _get_target_is_in_range(target)
-	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
-
-	if !target_is_in_range:
-		return "Target is out of range"
-
-	if !target_type_is_valid:
-		return "Not a valid target for this ability"
-
-	return "Target is valid"
-
-
-func check_target_for_unit_autocast(target: Unit) -> bool:
-	if target == null:
-		return false
-
-	var target_is_in_range: bool = _get_target_is_in_range(target)
-	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
-	var target_is_ok: bool = target_is_in_range && target_type_is_valid
-
-	return target_is_ok
 
 
 func _get_target_is_in_range(target: Unit) -> bool:
@@ -513,5 +389,155 @@ func _get_target_type_for_manual_cast() -> TargetType:
 	return TargetType.new(0)
 
 
+func _get_target_for_auto_mode() -> Unit:
+	if _type_is_buff():
+		return _get_target_for_buff_autocast()
+	elif _type_is_unit():
+		return _get_target_for_unit_autocast()
+	elif _type_is_immediate():
+#		Immediate autocasts have no target
+		return null
+	else:
+		return null
+
+
+func _get_target_for_unit_autocast() -> Unit:
+# 	NOTE: use tower's current attack target instead of
+# 	searching for nearby units ourselves.
+	var target: Unit = _caster.get_current_target()
+
+	var target_is_ok: bool = check_target_for_unit_autocast(target)
+
+	if target_is_ok:
+		return target
+	else:
+		return null
+
+
+func _get_target_for_buff_autocast() -> Unit:
+	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.position, auto_range)
+	unit_list.shuffle()
+
+	if !target_self:
+		unit_list.erase(_caster)
+
+	for unit in unit_list:
+		if buff_type == null:
+			return unit
+
+		var buff: Buff = unit.get_buff_of_type(buff_type)
+		var unit_has_buff: bool = buff != null
+
+		if !unit_has_buff:
+			return unit
+
+	return null
+
+
+func _get_cast_error() -> String:
+	if _caster == null:
+		return ""
+
+	var on_cooldown: bool = _cooldown_timer.get_time_left() > 0
+	var enough_mana: bool = _caster.get_mana() >= mana_cost
+	var silenced: bool = _caster.is_silenced()
+	var stunned: bool = _caster.is_stunned()
+
+	if on_cooldown:
+		return "This ability is not ready yet"
+	elif !enough_mana:
+		return "Not enough mana"
+	elif silenced:
+		return "Can't cast ability because caster is silenced"
+	elif stunned:
+		return "Can't cast ability because caster is stunned"
+	else:
+		return ""
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_auto_timer_timeout():
+	if !_can_cast():
+		return
+
+	var cant_cast_because_zero_charges: bool = item_owner != null && item_owner.get_charges() == 0 && dont_cast_at_zero_charges
+
+	if cant_cast_because_zero_charges:
+		return
+
+	var target: Unit = _get_target_for_auto_mode()
+
+#	NOTE: no error message here like in manual case becase
+#	this is the auto case and adding an error message here
+#	would cause spam
+	if target == null && !_type_is_immediate():
+		return
+
+	_do_cast(target)
+
+
+#########################
+### Setters / Getters ###
+#########################
+
+func set_caster(caster: Unit):
+	_caster = caster
+
+
+func get_caster() -> Unit:
+	return _caster
+
+
+# NOTE: autocast.getCooldown() in JASS
+func get_cooldown() -> float:
+	return cooldown
+
+
+func get_remaining_cooldown() -> float:
+	if !is_node_ready():
+		push_error("Autocast cannot perform the request because it hasn't been added to the scene tree. Make sure that autocast's parent and it's ancestors have been added to the scene tree. Parent: ", get_parent())
+
+		return 0.0
+
+	return _cooldown_timer.time_left
+
+# NOTE: autocast.getManacost() in JASS
+func get_manacost() -> int:
+	return mana_cost
+
+
+func is_item_autocast() -> bool:
+	return _is_item_autocast
+
+
 func get_target_pos() -> Vector2:
 	return _target_pos
+
+
+func get_target_error_message(target: Unit) -> String:
+	if target == null:
+		return "No target selected"
+
+	var target_is_in_range: bool = _get_target_is_in_range(target)
+	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
+
+	if !target_is_in_range:
+		return "Target is out of range"
+
+	if !target_type_is_valid:
+		return "Not a valid target for this ability"
+
+	return "Target is valid"
+
+
+#########################
+###       Static      ###
+#########################
+
+static func make() -> Autocast:
+	var autocast: Autocast = Globals.autocast_scene.instantiate()
+
+	return autocast

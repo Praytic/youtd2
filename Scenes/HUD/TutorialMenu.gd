@@ -37,32 +37,17 @@ var _current_section: int
 @export var _next_button: Button
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 
 
-func _on_game_mode_was_chosen():
-	var tutorial_path: String
-	if Globals.game_mode == GameMode.enm.BUILD:
-		tutorial_path = TUTORIAL_BUILD_PATH
-	else:
-		tutorial_path = TUTORIAL_RANDOM_PATH
-
-	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(tutorial_path)
-	
-	_section_list = []
-	
-	for csv_line in csv:
-		var section: Section = Section.new()
-		section.title = csv_line[TutorialColumn.TITLE]
-		section.highlight_target = csv_line[TutorialColumn.HIGHLIGHT_TARGET]
-		section.text = csv_line[TutorialColumn.TEXT]
-
-		_section_list.append(section)
-	
-	_current_section = 0
-	_change_section(0)
-
+#########################
+###      Private      ###
+#########################
 
 func _change_section(change_amount: int):
 	var prev_section: Section = _section_list[_current_section]
@@ -92,6 +77,33 @@ func _change_section(change_amount: int):
 	var new_highlight_target: String = section.highlight_target
 	if !new_highlight_target.is_empty():
 		HighlightUI.start_highlight(new_highlight_target)
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_game_mode_was_chosen():
+	var tutorial_path: String
+	if Globals.game_mode == GameMode.enm.BUILD:
+		tutorial_path = TUTORIAL_BUILD_PATH
+	else:
+		tutorial_path = TUTORIAL_RANDOM_PATH
+
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(tutorial_path)
+	
+	_section_list = []
+	
+	for csv_line in csv:
+		var section: Section = Section.new()
+		section.title = csv_line[TutorialColumn.TITLE]
+		section.highlight_target = csv_line[TutorialColumn.HIGHLIGHT_TARGET]
+		section.text = csv_line[TutorialColumn.TEXT]
+
+		_section_list.append(section)
+	
+	_current_section = 0
+	_change_section(0)
 
 
 func _on_close_button_pressed():

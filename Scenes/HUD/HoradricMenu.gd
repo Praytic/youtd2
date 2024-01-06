@@ -9,6 +9,10 @@ const ITEMS_CONTAINER_BUTTON_SIZE = 100
 @export var _transmute_button: Button
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	HoradricCube.items_changed.connect(_on_items_changed)
 	_items_container.gui_input.connect(_on_items_container_gui_input)
@@ -16,6 +20,10 @@ func _ready():
 	
 	_on_items_changed()
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_items_container_child_entered_tree(node):
 	node.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)

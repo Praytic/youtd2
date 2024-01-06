@@ -13,6 +13,10 @@ extends VBoxContainer
 var _armor_hint_map: Dictionary
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	_armor_hint_map = _generate_armor_hints()
 
@@ -26,6 +30,10 @@ func _ready():
 func _process(_delta: float):
 	_update_timer_label()
 
+
+#########################
+###      Private      ###
+#########################
 
 func _update_all_labels():
 	_update_timer_label()
@@ -125,6 +133,23 @@ func _get_specials_string_short(wave: Wave) -> String:
 	return specials_string
 
 
+func _generate_armor_hints() -> Dictionary:
+	var out: Dictionary = {}
+
+	for armor_type in ArmorType.get_list():
+		var hint: String = ""
+		hint += "Damage from:\n"
+		hint += ArmorType.get_text_for_damage_taken(armor_type)
+
+		out[armor_type] = hint
+
+	return out
+
+
+#########################
+###     Callbacks     ###
+#########################
+
 func _on_update_stats_timer_timeout():
 # 	TODO: load score value here when scoring is implemented
 	var score: int = 0
@@ -159,16 +184,3 @@ func _on_update_stats_timer_timeout():
 
 	_stats_label.clear()
 	_stats_label.append_text(text)
-
-
-func _generate_armor_hints() -> Dictionary:
-	var out: Dictionary = {}
-
-	for armor_type in ArmorType.get_list():
-		var hint: String = ""
-		hint += "Damage from:\n"
-		hint += ArmorType.get_text_for_damage_taken(armor_type)
-
-		out[armor_type] = hint
-
-	return out

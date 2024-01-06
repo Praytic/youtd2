@@ -9,6 +9,10 @@ extends Node
 var _elapsed_timer_map: Dictionary = {}
 
 
+#########################
+###       Public      ###
+#########################
+
 func start(timer_name: String):
 	if _elapsed_timer_map.has(timer_name):
 		push_error("Timer already in progress for name:", timer_name)
@@ -26,6 +30,10 @@ func end(timer_name: String):
 func end_verbose(timer_name: String):
 	_end_internal(timer_name, true)
 
+
+#########################
+###      Private      ###
+#########################
 
 func _end_internal(timer_name: String, verbose: bool):
 	if !_elapsed_timer_map.has(timer_name):

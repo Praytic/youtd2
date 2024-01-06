@@ -19,12 +19,21 @@ var _wave_list: Array[Wave] = []
 @export var _extreme_timer: Timer
 @export var _creep_spawner: CreepSpawner
 
+
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	if Config.fast_waves_enabled():
 		TIME_BETWEEN_WAVES = 0.1
 
 	_timer_between_waves.set_autostart(false)
 
+
+#########################
+###       Public      ###
+#########################
 
 func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	for wave_level in range(1, wave_count + 1):
@@ -69,9 +78,24 @@ func start_initial_timer():
 	_timer_between_waves.start(TIME_BEFORE_FIRST_WAVE)
 
 
-func _on_Timer_timeout():
-	_start_next_wave()
+func force_start_next_wave() -> bool:
+	var current_wave: Wave = get_current_wave()
+	var before_first_wave: bool = WaveLevel.get_current() == 0
+	var current_wave_finished_spawning: bool = current_wave != null && current_wave.state != Wave.State.SPAWNING
+	var can_start_next_wave: bool = !_last_wave_was_started() && (before_first_wave || current_wave_finished_spawning)
 
+	if can_start_next_wave:
+		_timer_between_waves.stop()
+		_start_next_wave()
+
+		return true
+	else:
+		return false
+
+
+#########################
+###      Private      ###
+#########################
 
 func _start_next_wave():
 	WaveLevel.increase()
@@ -95,11 +119,90 @@ func _start_next_wave():
 	_extreme_timer.start(EXTREME_DELAY_AFTER_PREV_WAVE)
 
 
+func _add_message_about_wave(wave: Wave):
+	var combination_string: String = wave.get_creep_combination_string()
+
+	var creep_race: CreepCategory.enm = wave.get_race()
+	var race_string: String = CreepCategory.convert_to_colored_string(creep_race)
+
+	var creep_armor: ArmorType.enm = wave.get_armor_type()
+	var armor_string: String = ArmorType.convert_to_colored_string(creep_armor)
+
+	Messages.add_normal("=== LEVEL [color=GOLD]%s[/color] ===" % wave.get_level())
+	Messages.add_normal("%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
+
+	var special_list: Array[int] = wave.get_specials()
+
+	for special in special_list:
+		var special_name: String = WaveSpecial.get_special_name(special)
+		var description: String = WaveSpecial.get_description(special)
+		var special_string: String = "[color=BLUE]%s[/color] - %s" % [special_name, description]
+
+		Messages.add_normal(special_string)
+
+
+func _last_wave_was_started() -> bool:
+	var wave_index: int = WaveLevel.get_current() - 1
+	var after_last_wave: bool = wave_index >= _wave_list.size()
+	var game_over: bool = Globals.game_over
+
+	return after_last_wave || game_over
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_extreme_timer_timeout():
+	if Globals.difficulty != Difficulty.enm.EXTREME:
+		return
+	
+	if _last_wave_was_started():
+		return
+	
+	_timer_between_waves.start(EXTREME_DELAY_BEFORE_NEXT_WAVE)
+
+
+func _on_Timer_timeout():
+	_start_next_wave()
+
+
 func _on_CreepSpawner_all_creeps_spawned():
 	var current_wave = get_current_wave()
 	current_wave.state = Wave.State.SPAWNED
 	print_verbose("Wave has been spawned [%s]." % current_wave)
 
+
+func _on_wave_finished(wave: Wave):
+	print_verbose("Wave [%s] is finished." % wave)
+
+	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % wave.get_level())
+
+	var wave_level: int = wave.get_level()
+	GoldControl.add_income(wave_level)
+	KnowledgeTomesManager.add_knowledge_tomes()
+
+	if Globals.game_mode_is_random():
+		TowerDistribution.roll_towers(wave_level)
+
+	var any_wave_is_active: bool = false
+
+	for this_wave in _wave_list:
+		if this_wave.state == Wave.State.SPAWNING || this_wave.state == Wave.State.SPAWNED:
+			any_wave_is_active = true
+
+			break
+
+	if !any_wave_is_active:
+		if _last_wave_was_started():
+			all_waves_cleared.emit()
+		else:
+			_timer_between_waves.start(TIME_BETWEEN_WAVES)
+
+
+#########################
+### Setters / Getters ###
+#########################
 
 func get_current_wave() -> Wave:
 	var current_level: int = WaveLevel.get_current()
@@ -140,69 +243,9 @@ func wave_is_in_progress() -> float:
 	return out
 
 
-func force_start_next_wave() -> bool:
-	var current_wave: Wave = get_current_wave()
-	var before_first_wave: bool = WaveLevel.get_current() == 0
-	var current_wave_finished_spawning: bool = current_wave != null && current_wave.state != Wave.State.SPAWNING
-	var can_start_next_wave: bool = !_last_wave_was_started() && (before_first_wave || current_wave_finished_spawning)
-
-	if can_start_next_wave:
-		_timer_between_waves.stop()
-		_start_next_wave()
-
-		return true
-	else:
-		return false
-
-
-func _on_wave_finished(wave: Wave):
-	print_verbose("Wave [%s] is finished." % wave)
-
-	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % wave.get_level())
-
-	var wave_level: int = wave.get_level()
-	GoldControl.add_income(wave_level)
-	KnowledgeTomesManager.add_knowledge_tomes()
-
-	if Globals.game_mode_is_random():
-		TowerDistribution.roll_towers(wave_level)
-
-	var any_wave_is_active: bool = false
-
-	for this_wave in _wave_list:
-		if this_wave.state == Wave.State.SPAWNING || this_wave.state == Wave.State.SPAWNED:
-			any_wave_is_active = true
-
-			break
-
-	if !any_wave_is_active:
-		if _last_wave_was_started():
-			all_waves_cleared.emit()
-		else:
-			_timer_between_waves.start(TIME_BETWEEN_WAVES)
-
-
-func _add_message_about_wave(wave: Wave):
-	var combination_string: String = wave.get_creep_combination_string()
-
-	var creep_race: CreepCategory.enm = wave.get_race()
-	var race_string: String = CreepCategory.convert_to_colored_string(creep_race)
-
-	var creep_armor: ArmorType.enm = wave.get_armor_type()
-	var armor_string: String = ArmorType.convert_to_colored_string(creep_armor)
-
-	Messages.add_normal("=== LEVEL [color=GOLD]%s[/color] ===" % wave.get_level())
-	Messages.add_normal("%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
-
-	var special_list: Array[int] = wave.get_specials()
-
-	for special in special_list:
-		var special_name: String = WaveSpecial.get_special_name(special)
-		var description: String = WaveSpecial.get_description(special)
-		var special_string: String = "[color=BLUE]%s[/color] - %s" % [special_name, description]
-
-		Messages.add_normal(special_string)
-
+#########################
+###       Static      ###
+#########################
 
 static func _generate_creep_data_list(wave: Wave) -> Array[CreepData]:
 	var creep_data_list: Array[CreepData] = []
@@ -220,21 +263,3 @@ static func _generate_creep_data_list(wave: Wave) -> Array[CreepData]:
 		creep_data_list.append(creep_data)
 	
 	return creep_data_list
-
-
-func _last_wave_was_started() -> bool:
-	var wave_index: int = WaveLevel.get_current() - 1
-	var after_last_wave: bool = wave_index >= _wave_list.size()
-	var game_over: bool = Globals.game_over
-
-	return after_last_wave || game_over
-
-
-func _on_extreme_timer_timeout():
-	if Globals.difficulty != Difficulty.enm.EXTREME:
-		return
-	
-	if _last_wave_was_started():
-		return
-	
-	_timer_between_waves.start(EXTREME_DELAY_BEFORE_NEXT_WAVE)

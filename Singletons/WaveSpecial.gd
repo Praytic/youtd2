@@ -82,6 +82,10 @@ var _group_to_special_map: Dictionary = {}
 var _properties: Dictionary = {}
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init():
 	Properties._load_csv_properties(PROPERTIES_PATH, _properties, WaveSpecial.CsvProperty.ID)
 	_group_to_special_map = _make_group_to_special_map()
@@ -95,6 +99,10 @@ func _init():
 
 		buff.set_buff_tooltip(tooltip)
 
+
+#########################
+###       Public      ###
+#########################
 
 func get_random(level: int, creep_size: CreepSize.enm, wave_has_champions: bool) -> Array[int]:
 	var override_wave_specials: Array[int] = Config.override_wave_specials()
@@ -139,21 +147,6 @@ func arrays_intersect(a: Array, b: Array) -> bool:
 	return false
 
 
-func _get_random_special(available_special_list: Array[int]) -> int:
-	if available_special_list.is_empty():
-		return -1
-
-	var special_to_frequency_map: Dictionary = {}
-
-	for special in available_special_list:
-		var frequency: int = _get_frequency(special)
-		special_to_frequency_map[special] = frequency
-
-	var random_special: int = Utils.random_weighted_pick(special_to_frequency_map)
-
-	return random_special
-
-
 func get_special_name(special: int) -> String:
 	var string: String = _get_property(special, WaveSpecial.CsvProperty.NAME)
 
@@ -191,6 +184,44 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 		if special_applies:
 			var buff: BuffType = _buff_map[special]
 			buff.apply_to_unit_permanent(creep, creep, 0)
+
+
+func get_description(special: int) -> String:
+	var description: String = _get_property(special, WaveSpecial.CsvProperty.DESCRIPTION)
+
+	return description
+
+
+func get_enabled(special: int) -> bool:
+	var enabled: bool = _get_property(special, WaveSpecial.CsvProperty.ENABLED) == "TRUE"
+
+	return enabled
+
+
+func creep_has_flock_special(creep: Creep) -> bool:
+	var flock_special: BuffType = _buff_map[FLOCK]
+	var creep_has_buff: bool = creep.get_buff_of_type(flock_special) != null
+
+	return creep_has_buff
+
+
+#########################
+###      Private      ###
+#########################
+
+func _get_random_special(available_special_list: Array[int]) -> int:
+	if available_special_list.is_empty():
+		return -1
+
+	var special_to_frequency_map: Dictionary = {}
+
+	for special in available_special_list:
+		var frequency: int = _get_frequency(special)
+		special_to_frequency_map[special] = frequency
+
+	var random_special: int = Utils.random_weighted_pick(special_to_frequency_map)
+
+	return random_special
 
 
 func _get_available_specials_for_first_special(level: int, creep_size: CreepSize.enm, wave_has_champions: bool) -> Array[int]:
@@ -304,18 +335,6 @@ func _get_group_list(special: int) -> Array[String]:
 	return group_list
 
 
-func get_description(special: int) -> String:
-	var description: String = _get_property(special, WaveSpecial.CsvProperty.DESCRIPTION)
-
-	return description
-
-
-func get_enabled(special: int) -> bool:
-	var enabled: bool = _get_property(special, WaveSpecial.CsvProperty.ENABLED) == "TRUE"
-
-	return enabled
-
-
 func _get_hp_modifier(special_list: Array[int]) -> float:
 	if special_list.is_empty():
 		return 0.0
@@ -425,10 +444,3 @@ func _special_applies_to_creep(special: int, creep: Creep) -> bool:
 		special_applies = true
 
 	return special_applies
-
-
-func creep_has_flock_special(creep: Creep) -> bool:
-	var flock_special: BuffType = _buff_map[FLOCK]
-	var creep_has_buff: bool = creep.get_buff_of_type(flock_special) != null
-
-	return creep_has_buff

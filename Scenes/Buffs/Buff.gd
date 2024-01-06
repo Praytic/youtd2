@@ -33,6 +33,10 @@ var _cleanup_done: bool = false
 var _inherited_periodic_timers: Dictionary = {}
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	if _time > 0.0:
 		_timer = Timer.new()
@@ -73,95 +77,13 @@ func _ready():
 		CombatLog.log_buff_apply(_caster, _target, self)
 
 
-func is_friendly() -> bool:
-	return _friendly
-
+#########################
+###       Public      ###
+#########################
 
 # NOTE: buff.refreshDuration() in JASS
 func refresh_duration():
 	set_remaining_duration(_original_duration)
-
-
-# NOTE: buff.setRemainingDuration() in JASS
-func set_remaining_duration(duration: float):
-	if _timer != null:
-		_timer.start(duration)
-
-
-# NOTE: buff.getRemainingDuration() in JASS
-func get_remaining_duration() -> float:
-	var remaining_duration: float = _timer.get_time_left()
-
-	return remaining_duration
-
-
-# NOTE: buff.isPurgable() in JASS
-func is_purgable() -> bool:
-	return _purgable
-
-
-func get_buff_icon() -> String:
-	return _buff_icon
-
-
-# NOTE: if no tooltip text is defined, return type name to
-# at least make it possible to identify the buff
-func get_tooltip_text() -> String:
-	if !_tooltip_text.is_empty():
-		return _tooltip_text
-	else:
-		return _type
-
-
-func get_modifier() -> Modifier:
-	return _modifier
-
-
-# NOTE: buff.setLevel() in JASS
-func set_level(level: int):
-	_level = level
-	set_power(level)
-
-
-# Level is used to compare this buff with another buff of
-# same type that is active on target and determine which
-# buff is stronger. Stronger buff will end up remaining
-# active on the target.
-# NOTE: buff.getLevel() in JASS
-func get_level() -> int:
-	return _level
-
-
-# Power level is used to calculate the total time and total
-# value of modifiers.
-# NOTE: buff.getPower() in JASS
-func get_power() -> int:
-	return _power
-
-
-# NOTE: buff.setPower() in JASS
-func set_power(power: int):
-	var old_power: int = _power
-	_power = power
-	_target.change_modifier_power(get_modifier(), old_power, power)
-
-
-func get_type() -> String:
-	return _type
-
-
-func get_stacking_group() -> String:
-	return _stacking_group
-
-
-# NOTE: buff.getCaster() in JASS
-func get_caster() -> Unit:
-	return _caster
-
-
-# NOTE: buff.getBuffedUnit() in JASS
-func get_buffed_unit() -> Unit:
-	return _target
 
 
 # NOTE: buff.removeBuff() in JASS
@@ -184,6 +106,10 @@ func purge_buff():
 
 	remove_buff()
 
+
+#########################
+###      Private      ###
+#########################
 
 func _add_event_handler(event_type: Event.Type, handler: Callable):
 	if !event_handler_map.has(event_type):
@@ -221,15 +147,6 @@ func _add_event_handler_unit_comes_in_range(handler: Callable, radius: float, ta
 	buff_range_area.unit_came_in_range.connect(_on_unit_came_in_range)
 
 
-func _on_unit_came_in_range(handler: Callable, unit: Unit):
-	if !_can_call_event_handlers():
-		return
-
-	var range_event: Event = _make_buff_event(unit)
-
-	handler.call(range_event)
-
-
 func _call_event_handler_list(event_type: Event.Type, event: Event):
 	if !_can_call_event_handlers():
 		return
@@ -256,6 +173,77 @@ func _call_event_handler_list(event_type: Event.Type, event: Event):
 
 	for handler in handler_list:
 		handler.call(event)
+
+
+# Convenience function to make an event with "_buff" variable set to self
+func _make_buff_event(target_arg: Unit) -> Event:
+	var event: Event = Event.new(target_arg)
+	event._buff = self
+
+	return event
+
+
+func _refresh_by_new_buff():
+	refresh_duration()
+
+#	NOTE: refresh event is triggered only when refresh
+#	is caused by an application of buff with same level.
+#	Not triggered when refresh_duration() is called for
+#	other reasons.
+	_emit_refresh_event()
+
+
+func _emit_refresh_event():
+	var refresh_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.REFRESH, refresh_event)
+
+
+func _upgrade_by_new_buff(new_level: int, new_power: int):
+	refresh_duration()
+	
+	set_level(new_level)
+	set_power(new_power)
+
+	var upgrade_event: Event = _make_buff_event(_target)
+	_call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
+
+
+func _add_aura(aura_type: AuraType):
+	var aura: Aura = aura_type.make(get_caster())
+	add_child(aura)
+
+
+# NOTE: when a buff is queued for deletion it means that the
+# buff was removed from the target unit. If any other events
+# are triggered in the same frame before the buff is
+# deleted, the buff shouldn't respond to them.
+func _can_call_event_handlers() -> bool:
+	return !is_queued_for_deletion() && !_cleanup_done
+
+
+func _change_giver_of_aura_effect(new_caster: Unit):
+	var old_caster: Unit = _caster
+
+	if old_caster == new_caster:
+		return
+
+	old_caster.tree_exited.disconnect(_on_caster_tree_exited)
+
+	_caster = new_caster
+	_caster.tree_exited.connect(_on_caster_tree_exited)
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_unit_came_in_range(handler: Callable, unit: Unit):
+	if !_can_call_event_handlers():
+		return
+
+	var range_event: Event = _make_buff_event(unit)
+
+	handler.call(range_event)
 
 
 func _on_timer_timeout():
@@ -353,59 +341,91 @@ func _on_periodic_event_timer_timeout(handler: Callable, timer: Timer):
 	Globals.is_inside_periodic_event = false
 
 
-# Convenience function to make an event with "_buff" variable set to self
-func _make_buff_event(target_arg: Unit) -> Event:
-	var event: Event = Event.new(target_arg)
-	event._buff = self
+#########################
+### Setters / Getters ###
+#########################
 
-	return event
-
-
-func _refresh_by_new_buff():
-	refresh_duration()
-
-#	NOTE: refresh event is triggered only when refresh
-#	is caused by an application of buff with same level.
-#	Not triggered when refresh_duration() is called for
-#	other reasons.
-	_emit_refresh_event()
+func is_friendly() -> bool:
+	return _friendly
 
 
-func _emit_refresh_event():
-	var refresh_event: Event = _make_buff_event(_target)
-	_call_event_handler_list(Event.Type.REFRESH, refresh_event)
+# NOTE: buff.setRemainingDuration() in JASS
+func set_remaining_duration(duration: float):
+	if _timer != null:
+		_timer.start(duration)
 
 
-func _upgrade_by_new_buff(new_level: int, new_power: int):
-	refresh_duration()
-	
-	set_level(new_level)
-	set_power(new_power)
+# NOTE: buff.getRemainingDuration() in JASS
+func get_remaining_duration() -> float:
+	var remaining_duration: float = _timer.get_time_left()
 
-	var upgrade_event: Event = _make_buff_event(_target)
-	_call_event_handler_list(Event.Type.UPGRADE, upgrade_event)
+	return remaining_duration
 
 
-func _add_aura(aura_type: AuraType):
-	var aura: Aura = aura_type.make(get_caster())
-	add_child(aura)
+# NOTE: buff.isPurgable() in JASS
+func is_purgable() -> bool:
+	return _purgable
 
 
-# NOTE: when a buff is queued for deletion it means that the
-# buff was removed from the target unit. If any other events
-# are triggered in the same frame before the buff is
-# deleted, the buff shouldn't respond to them.
-func _can_call_event_handlers() -> bool:
-	return !is_queued_for_deletion() && !_cleanup_done
+func get_buff_icon() -> String:
+	return _buff_icon
 
 
-func _change_giver_of_aura_effect(new_caster: Unit):
-	var old_caster: Unit = _caster
+# NOTE: if no tooltip text is defined, return type name to
+# at least make it possible to identify the buff
+func get_tooltip_text() -> String:
+	if !_tooltip_text.is_empty():
+		return _tooltip_text
+	else:
+		return _type
 
-	if old_caster == new_caster:
-		return
 
-	old_caster.tree_exited.disconnect(_on_caster_tree_exited)
+func get_modifier() -> Modifier:
+	return _modifier
 
-	_caster = new_caster
-	_caster.tree_exited.connect(_on_caster_tree_exited)
+
+# NOTE: buff.setLevel() in JASS
+func set_level(level: int):
+	_level = level
+	set_power(level)
+
+
+# Level is used to compare this buff with another buff of
+# same type that is active on target and determine which
+# buff is stronger. Stronger buff will end up remaining
+# active on the target.
+# NOTE: buff.getLevel() in JASS
+func get_level() -> int:
+	return _level
+
+
+# Power level is used to calculate the total time and total
+# value of modifiers.
+# NOTE: buff.getPower() in JASS
+func get_power() -> int:
+	return _power
+
+
+# NOTE: buff.setPower() in JASS
+func set_power(power: int):
+	var old_power: int = _power
+	_power = power
+	_target.change_modifier_power(get_modifier(), old_power, power)
+
+
+func get_type() -> String:
+	return _type
+
+
+func get_stacking_group() -> String:
+	return _stacking_group
+
+
+# NOTE: buff.getCaster() in JASS
+func get_caster() -> Unit:
+	return _caster
+
+
+# NOTE: buff.getBuffedUnit() in JASS
+func get_buffed_unit() -> Unit:
+	return _target

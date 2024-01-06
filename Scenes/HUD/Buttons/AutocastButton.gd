@@ -6,6 +6,11 @@ var _autocast: Autocast = null
 @export var _auto_mode_indicator: AutoModeIndicator
 @export var _indicator_container: MarginContainer
 
+
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	_cooldown_indicator.set_autocast(_autocast)
 	_auto_mode_indicator.set_autocast(_autocast)
@@ -29,9 +34,17 @@ func _gui_input(event):
 		_autocast.toggle_auto_mode()
 
 
+#########################
+###       Public      ###
+#########################
+
 func set_autocast(autocast: Autocast):
 	_autocast = autocast
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_mouse_entered():
 	var tooltip: String = RichTexts.get_autocast_tooltip(_autocast)

@@ -19,12 +19,16 @@ var _gold_farmed: float = 0.0
 
 
 #########################
-### Code starts here  ###
+###     Built-in      ###
 #########################
 
 func _ready():
 	_gold = Config.starting_gold()
 
+
+#########################
+###       Public      ###
+#########################
 
 func modify_income_rate(amount: float):
 	_income_rate = _income_rate + amount

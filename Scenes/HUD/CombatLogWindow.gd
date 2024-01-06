@@ -25,6 +25,10 @@ var _auto_scroll_to_newest: bool = true
 var _displayed_max_index: int = 0
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	Settings.show_combat_log_changed.connect(_on_settings_changed)
 	_on_settings_changed()
@@ -81,6 +85,10 @@ func _process(_delta: float):
 	if _displayed_max_index < CombatLog.get_min_index():
 		_displayed_max_index = CombatLog.get_min_index() + 1
 
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_settings_changed():
 	var show_combat_log: bool = Settings.get_bool_setting(Settings.SHOW_COMBAT_LOG)

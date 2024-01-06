@@ -9,6 +9,11 @@ var _sfx_player_list: Array = []
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 
 
+
+#########################
+###       Public      ###
+#########################
+
 # NOTE: this f-n is non-positional. Current viewport
 # position doesn't affect the sfx.
 func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0):
@@ -60,6 +65,20 @@ func sfx_on_unit(sfx_name: String, unit: Unit, body_part: Unit.BodyPart, volume_
 	var sfx_position: Vector2 = unit.get_body_part_position(body_part)
 	sfx_at_pos(sfx_name, sfx_position, volume_db)
 
+
+func connect_sfx_to_signal_in_group(sfx_name, signal_name, group_name):
+	var nodes = get_tree().get_nodes_in_group(group_name)
+	for node in nodes:
+		if node.has_signal(signal_name):
+			node.connect(signal_name, func(): SFX.play_sfx(sfx_name))
+			print_verbose("Node [%s] is in group [sfx_menu_click] and has [pressed] signal. Connect a sound to it." % node)
+		else:
+			print_verbose("Node [%s] is in group [sfx_menu_click] but has no [pressed] signal." % node)
+
+
+#########################
+###      Private      ###
+#########################
 
 func _get_sfx(sfx_name: String) -> AudioStream:
 	if _loaded_sfx_map.has(sfx_name):
@@ -118,13 +137,3 @@ func _get_2d_sfx_player() -> AudioStreamPlayer2D:
 	_game_scene.add_child(new_sfx_player)
 
 	return new_sfx_player
-
-
-func connect_sfx_to_signal_in_group(sfx_name, signal_name, group_name):
-	var nodes = get_tree().get_nodes_in_group(group_name)
-	for node in nodes:
-		if node.has_signal(signal_name):
-			node.connect(signal_name, func(): SFX.play_sfx(sfx_name))
-			print_verbose("Node [%s] is in group [sfx_menu_click] and has [pressed] signal. Connect a sound to it." % node)
-		else:
-			print_verbose("Node [%s] is in group [sfx_menu_click] but has no [pressed] signal." % node)

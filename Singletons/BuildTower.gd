@@ -12,6 +12,10 @@ var _tower_preview: TowerPreview = null
 @onready var _map = _game_scene.get_node("%Map")
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _unhandled_input(event):
 	if !in_progress():
 		return
@@ -26,6 +30,10 @@ func _unhandled_input(event):
 	if left_click:
 		_try_to_build()
 
+
+#########################
+###       Public      ###
+#########################
 
 func in_progress() -> bool:
 	return MouseState.get_state() == MouseState.enm.BUILD_TOWER
@@ -59,6 +67,33 @@ func position_is_occupied(position: Vector2) -> bool:
 
 	return occupied
 
+
+# Returns true if there are enough resources for tower
+func enough_resources_for_tower(tower_id: int) -> bool:
+	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
+	var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
+	var enough_food: bool = FoodManager.enough_food_for_tower(tower_id)
+	var enough_resources: bool = enough_gold && enough_tomes && enough_food
+
+	return enough_resources
+
+
+func add_error_about_resources(tower_id: int):
+	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
+	var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
+	var enough_food: bool = FoodManager.enough_food_for_tower(tower_id)
+
+	if !enough_gold:
+		Messages.add_error("Not enough gold.")
+	elif !enough_tomes:
+		Messages.add_error("Not enough tomes.")
+	elif !enough_food:
+		Messages.add_error("Not enough food.")
+
+
+#########################
+###      Private      ###
+#########################
 
 func _get_tower_at_position(visual_position: Vector2) -> Tower:
 	var position: Vector2 = visual_position + Vector2(0, Constants.TILE_HEIGHT)
@@ -168,26 +203,3 @@ func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
 		transform_refund = floori(prev_cost * 0.75)
 
 	return transform_refund
-
-
-# Returns true if there are enough resources for tower
-func enough_resources_for_tower(tower_id: int) -> bool:
-	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
-	var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
-	var enough_food: bool = FoodManager.enough_food_for_tower(tower_id)
-	var enough_resources: bool = enough_gold && enough_tomes && enough_food
-
-	return enough_resources
-
-
-func add_error_about_resources(tower_id: int):
-	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
-	var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
-	var enough_food: bool = FoodManager.enough_food_for_tower(tower_id)
-
-	if !enough_gold:
-		Messages.add_error("Not enough gold.")
-	elif !enough_tomes:
-		Messages.add_error("Not enough tomes.")
-	elif !enough_food:
-		Messages.add_error("Not enough food.")

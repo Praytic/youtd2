@@ -14,6 +14,10 @@ var _target_map: Dictionary = {}
 var _active_tween_map: Dictionary = {}
 
 
+#########################
+###       Public      ###
+#########################
+
 # Register target by name. It will be available for
 # highlighting.
 func register_target(target_name: String, target: Control):
@@ -54,6 +58,10 @@ func stop_highlight(target_name: String):
 	target.modulate = Color.WHITE
 	tween.kill()
 
+
+#########################
+###      Private      ###
+#########################
 
 func _get_target(target_name: String) -> Control:
 	if !_target_map.has(target_name):

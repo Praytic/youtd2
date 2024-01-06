@@ -25,10 +25,18 @@ var _tower_groups_first_tier_only: Dictionary
 var _starting_roll_count: int = 6
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	_tower_groups_all_tiers = _generate_tower_groups(false)
 	_tower_groups_first_tier_only = _generate_tower_groups(true)
 
+
+#########################
+###       Public      ###
+#########################
 
 # Called at the start of the game when the "roll towers"
 # button is pressed. Each call reduces the resulting amount
@@ -65,6 +73,10 @@ func roll_towers(wave_level: int):
 	var tower_list: Array[int] = _generate_random_towers(wave_level)
 	_add_towers_to_stash(tower_list)
 
+
+#########################
+###      Private      ###
+#########################
 
 # Adds random towers. The amount will be at least one and
 # more towers will be added for higher wave levels.

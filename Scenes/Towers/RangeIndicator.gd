@@ -18,15 +18,25 @@ var y_offset: float = 0.0
 var ignore_layer: bool = false
 
 
-static func make() -> RangeIndicator:
-	var range_indicator: RangeIndicator = Globals.range_indicator_scene.instantiate()
-
-	return range_indicator
-
+#########################
+###     Built-in      ###
+#########################
 
 func _draw():
 	_draw_circle_arc(self.position, 0, 360, texture_color)
 
+
+#########################
+###       Public      ###
+#########################
+
+func set_radius(radius_wc3: float):
+	radius = Utils.to_pixels(radius_wc3)
+
+
+#########################
+###      Private      ###
+#########################
 
 func _draw_circle_arc(center, angle_from, angle_to, color):
 	var transparent_color = Color(color).darkened(0.5)
@@ -67,5 +77,11 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 		draw_texture(texture, texture_pos, color_at_pos)
 
 
-func set_radius(radius_wc3: float):
-	radius = Utils.to_pixels(radius_wc3)
+#########################
+###       Static      ###
+#########################
+
+static func make() -> RangeIndicator:
+	var range_indicator: RangeIndicator = Globals.range_indicator_scene.instantiate()
+
+	return range_indicator

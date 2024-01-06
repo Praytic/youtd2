@@ -21,47 +21,18 @@ var _collision_handler: Callable = Callable()
 var _damage_bonus_to_size_map: Dictionary = {}
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init():
 	#	NOTE: fix "unused" warning
 	_damage_bonus_to_size_map = _damage_bonus_to_size_map
 
 
-# ProjectileType.create() in JASS
-static func create(model: String, lifetime: float, speed: float, parent: Node) -> ProjectileType:
-	var pt: ProjectileType = ProjectileType.new()
-	pt._move_type = Projectile.MoveType.NORMAL
-	pt._speed = speed
-	pt._lifetime = lifetime
-	pt._sprite_path = model
-	parent.add_child(pt)
-	
-	return pt
-
-
-# ProjectileType.createInterpolate() in JASS
-static func create_interpolate(model: String, speed: float, parent: Node) -> ProjectileType:
-	var pt: ProjectileType = ProjectileType.new()
-	pt._move_type = Projectile.MoveType.INTERPOLATED
-	pt._speed = speed
-	pt._sprite_path = model
-	parent.add_child(pt)
-
-	return pt
-
-
-# Creates a projectile that will travel for a max of
-# range from initial position.
-# ProjectileType.createRanged() in JASS
-static func create_ranged(model: String, the_range: float, speed: float, parent: Node) -> ProjectileType:
-	var pt: ProjectileType = ProjectileType.new()
-	pt._move_type = Projectile.MoveType.NORMAL
-	pt._speed = speed
-	pt._range = the_range
-	pt._sprite_path = model
-	parent.add_child(pt)
-	
-	return pt
-
+#########################
+###       Public      ###
+#########################
 
 # projectileType.disableExplodeOnHit() in JASS
 func disable_explode_on_hit():
@@ -106,6 +77,10 @@ func enable_periodic(handler: Callable, period: float):
 	_periodic_handler_period = period
 
 
+#########################
+### Setters / Getters ###
+#########################
+
 # Example handler:
 # func on_cleanup(projectile: Projectile)
 # projectileType.setEventOnCleanup() in JASS
@@ -142,3 +117,44 @@ func set_acceleration(value: float):
 # NOTE: DamageTable.setBonusToSize() in JASS
 func set_bonus_to_size(creep_size: CreepSize.enm, bonus: float):
 	_damage_bonus_to_size_map[creep_size] = bonus
+
+
+#########################
+###       Static      ###
+#########################
+
+# ProjectileType.create() in JASS
+static func create(model: String, lifetime: float, speed: float, parent: Node) -> ProjectileType:
+	var pt: ProjectileType = ProjectileType.new()
+	pt._move_type = Projectile.MoveType.NORMAL
+	pt._speed = speed
+	pt._lifetime = lifetime
+	pt._sprite_path = model
+	parent.add_child(pt)
+	
+	return pt
+
+
+# ProjectileType.createInterpolate() in JASS
+static func create_interpolate(model: String, speed: float, parent: Node) -> ProjectileType:
+	var pt: ProjectileType = ProjectileType.new()
+	pt._move_type = Projectile.MoveType.INTERPOLATED
+	pt._speed = speed
+	pt._sprite_path = model
+	parent.add_child(pt)
+
+	return pt
+
+
+# Creates a projectile that will travel for a max of
+# range from initial position.
+# ProjectileType.createRanged() in JASS
+static func create_ranged(model: String, the_range: float, speed: float, parent: Node) -> ProjectileType:
+	var pt: ProjectileType = ProjectileType.new()
+	pt._move_type = Projectile.MoveType.NORMAL
+	pt._speed = speed
+	pt._range = the_range
+	pt._sprite_path = model
+	parent.add_child(pt)
+	
+	return pt

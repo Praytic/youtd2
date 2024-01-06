@@ -35,7 +35,7 @@ var _id: int
 
 
 #########################
-### Code starts here  ###
+###     Built-in      ###
 #########################
 
 func _ready():
@@ -66,7 +66,7 @@ func _ready():
 	_set_unit_dimensions(sprite_dimensions)
 
 	var selection_size: float = min(sprite_dimensions.x, MAX_SELECTION_VISUAL_SIZE)
-	set_selection_size(selection_size)
+	_set_selection_size(selection_size)
 
 	death.connect(_on_death)
 
@@ -85,26 +85,6 @@ func _process(delta):
 #########################
 ###       Public      ###
 #########################
-
-
-func get_log_name() -> String:
-	var size_name: String = CreepSize.convert_to_string(get_size())
-	var log_name: String = "%s-%d" % [size_name, _id]
-
-	return log_name
-
-
-# NOTE: SetUnitTimeScale() in JASS
-func set_unit_time_scale(time_scale: float):
-	_sprite.set_speed_scale(time_scale)
-	_selection_outline.set_speed_scale(time_scale)
-
-
-# NOTE: creeps are always considered to be attacking for the
-# purposes of their autocasts.
-func is_attacking() -> bool:
-	return true
-
 
 # NOTE: creep.adjustHeight() in JASS
 func adjust_height(height_wc3: float, speed: float):
@@ -143,27 +123,6 @@ func adjust_height(height_wc3: float, speed: float):
 		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 
 
-func _reach_portal():
-	var damage_to_portal = _get_damage_to_portal()
-	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
-	var damage_done: float = 1.0 - get_health_ratio()
-	var damage_done_string: String = Utils.format_percent(damage_done, 2)
-	var size_string: String = CreepSize.convert_to_string(_size)
-
-	if _size == CreepSize.enm.BOSS:
-		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
-	else:
-		Messages.add_normal("Failed to kill a %s" % size_string.to_upper())		
-
-	if damage_to_portal > 0:
-		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
-
-	PortalLives.deal_damage(damage_to_portal)
-
-	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
-	queue_free()
-
-
 # NOTE: creep.dropItem() in JASS
 func drop_item(caster: Tower, _mystery_bool: bool):
 	var random_item: int = ItemDropCalc.get_random_item(caster, self)
@@ -185,6 +144,48 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 ###      Private      ###
 #########################
 
+# NOTE: when a creep has non-zero height, we need to adjust
+# it's z index so that the sprite is drawn correctly in
+# front of tiles.
+func _calculate_current_z_index() -> int:
+	var height: float = -_visual.position.y
+
+# 	TODO: "100" is the placeholder. Figure out actual logic
+# 	for how z_index of creep should change as it's height
+# 	increases.
+# 	NOTE: make z_index for air reeps 1 higher because air
+# 	creeps should always be drawn above any ground creep
+# 	which was elevated
+	if height > 100:
+		if get_size() == CreepSize.enm.AIR:
+			return 11
+		else:
+			return 10
+	else:
+		return 0
+
+
+func _reach_portal():
+	var damage_to_portal = _get_damage_to_portal()
+	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
+	var damage_done: float = 1.0 - get_health_ratio()
+	var damage_done_string: String = Utils.format_percent(damage_done, 2)
+	var size_string: String = CreepSize.convert_to_string(_size)
+
+	if _size == CreepSize.enm.BOSS:
+		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
+	else:
+		Messages.add_normal("Failed to kill a %s" % size_string.to_upper())		
+
+	if damage_to_portal > 0:
+		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
+
+	PortalLives.deal_damage(damage_to_portal)
+
+	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
+	queue_free()
+
+
 func _move(delta):
 	var path_is_over: bool = _current_path_index >= _path.get_curve().get_point_count()
 	if path_is_over:
@@ -204,6 +205,53 @@ func _move(delta):
 
 	var new_facing_angle: float = _get_current_movement_angle()
 	set_unit_facing(new_facing_angle)
+
+
+# Returns current movement angle, top down and in degrees
+func _get_current_movement_angle() -> float:
+	var path_curve: Curve2D = _path.get_curve()
+
+	if _current_path_index >= path_curve.point_count:
+		return _facing_angle
+
+	var next_point: Vector2 = path_curve.get_point_position(_current_path_index) + _path.position
+	var facing_vector_isometric: Vector2 = next_point - position
+	var facing_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(facing_vector_isometric)
+	var top_down_angle_radians: float = facing_vector_top_down.angle()
+	var top_down_angle_degrees: float = rad_to_deg(top_down_angle_radians)
+
+	return top_down_angle_degrees
+
+
+func _get_damage_to_portal() -> float:
+#	NOTE: final wave boss deals full damage to portal
+	var is_final_wave: bool = _spawn_level == Constants.FINAL_WAVE
+
+	if is_final_wave:
+		return 100.0
+
+	if _size == CreepSize.enm.CHALLENGE_MASS || _size == CreepSize.enm.CHALLENGE_BOSS:
+		return 0
+
+	var damage_done: float = 1.0 - get_health_ratio()
+
+	var type_multiplier: float = CreepSize.get_portal_damage_multiplier(_size)
+
+	var damage_done_power: float
+	if _size == CreepSize.enm.BOSS:
+		damage_done_power = 4
+	else:
+		damage_done_power = 5
+
+	var damage_reduction_from_hp_ratio: float = (1 - pow(damage_done, damage_done_power))
+	var damage_to_portal: float = 2.5 * type_multiplier * damage_reduction_from_hp_ratio
+
+# 	NOTE: flock creeps deal half damage to portal
+	var has_flock_special: bool = WaveSpecial.creep_has_flock_special(self)
+	if has_flock_special:
+		damage_to_portal *= 0.5
+
+	return damage_to_portal
 
 
 func _get_creep_animation() -> String:
@@ -300,16 +348,6 @@ func _get_animation_based_on_facing_angle(animation_order: Array[String]) -> Str
 	return animation
 
 
-func get_current_movespeed() -> float:
-	var base: float = get_base_movespeed()
-	var mod: float = get_prop_move_speed()
-	var mod_absolute: float = get_prop_move_speed_absolute()
-	var unclamped: float = (base + mod_absolute) * mod
-	var move_speed: float = clampf(unclamped, Constants.MOVE_SPEED_MIN, Constants.MOVE_SPEED_MAX)
-
-	return move_speed
-
-
 #########################
 ###     Callbacks     ###
 #########################
@@ -342,6 +380,34 @@ func _on_death(_event: Event):
 #########################
 ### Setters / Getters ###
 #########################
+
+func get_log_name() -> String:
+	var size_name: String = CreepSize.convert_to_string(get_size())
+	var log_name: String = "%s-%d" % [size_name, _id]
+
+	return log_name
+
+
+# NOTE: SetUnitTimeScale() in JASS
+func set_unit_time_scale(time_scale: float):
+	_sprite.set_speed_scale(time_scale)
+	_selection_outline.set_speed_scale(time_scale)
+
+
+# NOTE: creeps are always considered to be attacking for the
+# purposes of their autocasts.
+func is_attacking() -> bool:
+	return true
+
+
+func get_current_movespeed() -> float:
+	var base: float = get_base_movespeed()
+	var mod: float = get_prop_move_speed()
+	var mod_absolute: float = get_prop_move_speed_absolute()
+	var unclamped: float = (base + mod_absolute) * mod
+	var move_speed: float = clampf(unclamped, Constants.MOVE_SPEED_MIN, Constants.MOVE_SPEED_MAX)
+
+	return move_speed
 
 
 # Sets unit facing to an angle with respect to the positive
@@ -389,37 +455,6 @@ func set_path(path: Path2D):
 	position = path.get_curve().get_point_position(0) + path.position
 
 
-func _get_damage_to_portal() -> float:
-#	NOTE: final wave boss deals full damage to portal
-	var is_final_wave: bool = _spawn_level == Constants.FINAL_WAVE
-
-	if is_final_wave:
-		return 100.0
-
-	if _size == CreepSize.enm.CHALLENGE_MASS || _size == CreepSize.enm.CHALLENGE_BOSS:
-		return 0
-
-	var damage_done: float = 1.0 - get_health_ratio()
-
-	var type_multiplier: float = CreepSize.get_portal_damage_multiplier(_size)
-
-	var damage_done_power: float
-	if _size == CreepSize.enm.BOSS:
-		damage_done_power = 4
-	else:
-		damage_done_power = 5
-
-	var damage_reduction_from_hp_ratio: float = (1 - pow(damage_done, damage_done_power))
-	var damage_to_portal: float = 2.5 * type_multiplier * damage_reduction_from_hp_ratio
-
-# 	NOTE: flock creeps deal half damage to portal
-	var has_flock_special: bool = WaveSpecial.creep_has_flock_special(self)
-	if has_flock_special:
-		damage_to_portal *= 0.5
-
-	return damage_to_portal
-
-
 func get_spawn_level() -> int:
 	return _spawn_level
 
@@ -430,40 +465,3 @@ func set_spawn_level(spawn_level: int):
 
 func get_special_list() -> Array[int]:
 	return _special_list
-
-
-# NOTE: when a creep has non-zero height, we need to adjust
-# it's z index so that the sprite is drawn correctly in
-# front of tiles.
-func _calculate_current_z_index() -> int:
-	var height: float = -_visual.position.y
-
-# 	TODO: "100" is the placeholder. Figure out actual logic
-# 	for how z_index of creep should change as it's height
-# 	increases.
-# 	NOTE: make z_index for air reeps 1 higher because air
-# 	creeps should always be drawn above any ground creep
-# 	which was elevated
-	if height > 100:
-		if get_size() == CreepSize.enm.AIR:
-			return 11
-		else:
-			return 10
-	else:
-		return 0
-
-
-# Returns current movement angle, top down and in degrees
-func _get_current_movement_angle() -> float:
-	var path_curve: Curve2D = _path.get_curve()
-
-	if _current_path_index >= path_curve.point_count:
-		return _facing_angle
-
-	var next_point: Vector2 = path_curve.get_point_position(_current_path_index) + _path.position
-	var facing_vector_isometric: Vector2 = next_point - position
-	var facing_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(facing_vector_isometric)
-	var top_down_angle_radians: float = facing_vector_top_down.angle()
-	var top_down_angle_degrees: float = rad_to_deg(top_down_angle_radians)
-
-	return top_down_angle_degrees

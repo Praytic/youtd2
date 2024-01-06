@@ -45,11 +45,19 @@ const _bonus_mod_chance_map: Dictionary = {
 var _item_container: ItemContainer
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _ready():
 	_item_container = ItemContainer.new(CAPACITY)
 	add_child(_item_container)
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 
+
+#########################
+###       Public      ###
+#########################
 
 func get_item_container() -> ItemContainer:
 	return _item_container
@@ -120,6 +128,10 @@ func autofill_recipe(recipe: Recipe) -> bool:
 
 		return false
 
+
+#########################
+###      Private      ###
+#########################
 
 # Returns list of items which are currently in item stash,
 # which can be used for a recipe. Prioritizes items with
@@ -363,10 +375,6 @@ func _remove_all_items():
 		item.queue_free()
 
 
-func _on_item_container_items_changed():
-	items_changed.emit()
-
-
 func _get_average_ingredient_level() -> int:
 	var item_list: Array[Item] = _item_container.get_item_list()
 
@@ -401,3 +409,12 @@ func _get_ingredient_id_list() -> Array[int]:
 		id_list.append(id)
 
 	return id_list
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_item_container_items_changed():
+	items_changed.emit()
+

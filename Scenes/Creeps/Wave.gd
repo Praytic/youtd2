@@ -91,14 +91,8 @@ func _ready():
 
 
 #########################
-###       Public      ###
+###     Callbacks     ###
 #########################
-
-
-#########################
-###      Private      ###
-#########################
-
 
 func _on_creep_tree_exited(creep: Creep):
 	_alive_creep_list.erase(creep)
@@ -106,11 +100,6 @@ func _on_creep_tree_exited(creep: Creep):
 	if _alive_creep_list.is_empty() && state == Wave.State.SPAWNED:
 		state = Wave.State.FINISHED
 		finished.emit()
-
-
-#########################
-###     Callbacks     ###
-#########################
 
 
 #########################

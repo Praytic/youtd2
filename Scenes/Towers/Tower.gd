@@ -78,23 +78,10 @@ var _is_tower_preview: bool = false
 @onready var _tower_actions: Control = $Visual/TowerActions
 @onready var _visual: Node2D = $Visual
 
+
 #########################
-### Code starts here  ###
+###     Built-in      ###
 #########################
-
-# NOTE: this function is extracted from _ready() so that it
-# can be called in RichTexts.gd when generating tower
-# tooltip.
-func init_stats_and_specials():
-# 	Load stats for current tier. Stats are defined in
-# 	subclass.
-	var tier: int = get_tier()
-	var tier_stats: Dictionary = get_tier_stats()
-	_stats = tier_stats[tier]
-
-	load_specials(_specials_modifier)
-	add_modifier(_specials_modifier)
-
 
 func _ready():
 #	If this tower is used for towerpreview, then exit early
@@ -234,7 +221,7 @@ func _ready():
 #	NOTE: we want size of selection visual to be the same
 #	for all towers. That's why we're not using sprite
 #	dimensions here like for creeps.
-	set_selection_size(TOWER_SELECTION_VISUAL_SIZE)
+	_set_selection_size(TOWER_SELECTION_VISUAL_SIZE)
 
 	selected.connect(_on_selected)
 	unselected.connect(_on_unselected)
@@ -247,10 +234,6 @@ func _ready():
 	
 	# Need to create instance only if Tower has active specials
 	_tower_actions.set_tower(self)
-
-
-func get_log_name() -> String:
-	return get_display_name()
 
 
 # NOTE: need to do attack timing without Timer because Timer
@@ -297,6 +280,19 @@ func _process(delta: float):
 ###       Public      ###
 #########################
 
+# NOTE: this function is extracted from _ready() so that it
+# can be called in RichTexts.gd when generating tower
+# tooltip.
+func init_stats_and_specials():
+# 	Load stats for current tier. Stats are defined in
+# 	subclass.
+	var tier: int = get_tier()
+	var tier_stats: Dictionary = get_tier_stats()
+	_stats = tier_stats[tier]
+
+	load_specials(_specials_modifier)
+	add_modifier(_specials_modifier)
+
 
 func force_attack_target(forced_target: Creep):
 	var type_ok: bool = _attack_target_type.match(forced_target)
@@ -314,78 +310,6 @@ func force_attack_target(forced_target: Creep):
 		_remove_target(_target_list[0])
 
 	_add_target(forced_target)
-
-
-func get_item_container() -> ItemContainer:
-	return _item_container
-
-
-# Tower is attacking while it has valid targets in range.
-func is_attacking() -> bool:
-	var attacking: bool = !_target_list.is_empty()
-
-	return attacking
-
-
-# Disables attacking or any other game interactions for the
-# tower. Must be called before add_child().
-func set_is_tower_preview():
-	_is_tower_preview = true
-
-
-# NOTE: tower.countFreeSlots() in JASS
-func count_free_slots() -> int:
-	var item_count: int = _item_container.get_item_count()
-	var capacity: int = _item_container.get_capacity()
-	var free_slots = capacity - item_count
-
-	return free_slots
-
-
-# NOTE: tower.haveItemSpace() in JASS
-func have_item_space() -> bool:
-	return _item_container.have_item_space()
-
-
-func get_oils() -> Array[Item]:
-	return _item_container.get_oil_list()
-
-
-func get_items() -> Array[Item]:
-	return _item_container.get_item_list()
-
-
-func get_item_count() -> int:
-	return _item_container.get_item_count()
-
-
-# NOTE: slot_number starts at 1 instead of 0
-# NOTE: tower.getHeldItem() in JASS
-func get_held_item(slot_number: int) -> Item:
-	var slot_index: int = slot_number - 1
-	return _item_container.get_item_at_index(slot_index)
-
-
-# Called by TowerInfo to get the part of the tooltip that
-# is specific to the subclass
-func on_tower_details() -> MultiboardValues:
-	var empty_multiboard: MultiboardValues = MultiboardValues.new(0)
-
-	return empty_multiboard
-
-
-func get_item_tower_details() -> Array[MultiboardValues]:
-	var out: Array[MultiboardValues] = []
-
-	var item_list: Array[Item] = _item_container.get_item_list()
-	
-	for item in item_list:
-		var board: MultiboardValues = item.on_tower_details()
-
-		if board != null:
-			out.append(board)
-
-	return out
 
 
 # NOTE: tower.orderStop() in JASS
@@ -409,8 +333,114 @@ func issue_target_order(order_type: String, target: Unit):
 
 
 #########################
+###  Override methods ###
+#########################
+
+# NOTE: below are the methods which should be overriden in
+# scripts for tower instances (subclasses).
+
+# Override in subclass to define custom stats for each tower
+# tier. Access as _stats.
+func get_tier_stats() -> Dictionary:
+	var tier: int = get_tier()
+	var default_out: Dictionary = {}
+
+	for i in range(1, tier + 1):
+		default_out[i] = {}
+
+	return default_out
+
+
+# Override in subclass to define the description of tower
+# abilities. String can contain rich text format(BBCode).
+# NOTE: by default all numbers in this text will be colored
+# but you can also define your own custom color tags.
+func get_ability_description() -> String:
+	return ""
+
+
+# Same as get_ability_description() but shorter. Should not
+# contain any numbers.
+func get_ability_description_short() -> String:
+	return ""
+
+
+# Override in subclass to attach trigger handlers to
+# triggers buff passed in the argument.
+func load_triggers(_triggers_buff_type: BuffType):
+	pass
+
+
+# Override in subclass to add tower specials. This includes
+# adding modifiers and changing attack styles to splash or
+# bounce.
+func load_specials(_modifier: Modifier):
+	pass
+
+
+# Override in subclass to initialize subclass tower.
+# NOTE: do *NOT* use _init() function in tower scripts -
+# that is a built-in Godot function and it is called too
+# early.
+# NOTE: tower.init() in JASS
+func tower_init():
+	pass
+
+
+# Override in subclass to define auras.
+func get_aura_types() -> Array[AuraType]:
+	var empty_list: Array[AuraType] = []
+
+	return empty_list
+
+
+# NOTE: tower.onCreate() in JASS
+func on_create(_preceding_tower: Tower):
+	pass
+
+
+# NOTE: tower.onDestruct() in JASS
+func on_destruct():
+	pass
+
+
+# NOTE: tower.onTowerDetails() in JASS
+func on_tower_details() -> MultiboardValues:
+	var empty_multiboard: MultiboardValues = MultiboardValues.new(0)
+
+	return empty_multiboard
+
+
+#########################
 ###      Private      ###
 #########################
+
+# NOTE: this f-n does some unnecessary work in some cases
+# but it's simpler this way. For example, it checks if
+# target is invisible even though the get_units_in_range()
+# f-n already filters out invisible creeps.
+# NOTE: arg needs to be untyped because it may be an invalid
+# instance.
+func _target_is_valid(target) -> bool:
+#	NOTE: return early here, so that if unit instance is
+#	invalid, we don't call f-ns on it - that would cause
+#	errors
+	var unit_is_valid: bool = Utils.unit_is_valid(target)
+	if !unit_is_valid:
+		return false
+
+	var attack_range: float = get_range()
+	var in_range = Isometric.vector_in_range(position, target.position, attack_range)
+
+	var target_is_invisible: bool = target.is_invisible()
+
+	var target_is_immune: bool = target.is_immune()
+	var tower_is_magic: bool = get_attack_type() == AttackType.enm.MAGIC
+	var is_immune_valid: bool = !(target_is_immune && tower_is_magic)
+
+	var target_is_valid: bool = in_range && !target_is_invisible && is_immune_valid
+
+	return target_is_valid
 
 
 # NOTE: change color of projectile according to tower's
@@ -436,123 +466,6 @@ func _make_projectile(from_pos: Vector2, target: Unit) -> Projectile:
 	projectile.modulate = element_color
 
 	return projectile
-
-
-# This shouldn't be overriden in subclasses. This will
-# automatically generate a string for specials that subclass
-# defines in load_specials().
-func get_specials_tooltip_text() -> String:
-	var text: String = ""
-
-	var attacks_ground_only: bool = _attack_target_type == TARGET_TYPE_GROUND_ONLY
-	var attacks_air_only: bool = _attack_target_type == TARGET_TYPE_AIR_ONLY
-	if attacks_ground_only:
-		text += "[color=RED]Attacks GROUND only[/color]\n"
-	elif attacks_air_only:
-		text += "[color=RED]Attacks AIR only[/color]\n"
-
-	match _attack_style:
-		AttackStyle.SPLASH:
-			text += _get_splash_attack_tooltip_text()
-		AttackStyle.BOUNCE:
-			text += _get_bounce_attack_tooltip_text()
-		AttackStyle.NORMAL:
-			text += ""
-
-	var modifier_text: String = _specials_modifier.get_tooltip_text()
-	text += modifier_text
-
-	if _target_count_max > 1:
-		if !text.is_empty():
-			text += " \n"
-		text += "[b][color=GOLD]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_max
-
-	return text
-
-
-
-# Override in subclass to define the description of tower
-# abilities. String can contain rich text format(BBCode).
-# NOTE: by default all numbers in this text will be colored
-# but you can also define your own custom color tags.
-func get_ability_description() -> String:
-	return ""
-
-
-# Same as get_ability_description() but shorter. Should not
-# contain any numbers.
-func get_ability_description_short() -> String:
-	return ""
-
-
-# NOTE: override this in subclass to attach trigger handlers
-# to triggers buff passed in the argument.
-func load_triggers(_triggers_buff_type: BuffType):
-	pass
-
-
-# Override in subclass to initialize subclass tower. This is
-# the analog of "init" function from original API.
-func tower_init():
-	pass
-
-
-# Override in subclass to define auras.
-func get_aura_types() -> Array[AuraType]:
-	var empty_list: Array[AuraType] = []
-
-	return empty_list
-
-
-# NOTE: override this in subclass to add tower specials.
-# This includes adding modifiers and changing attack styles
-# to splash or bounce.
-func load_specials(_modifier: Modifier):
-	pass
-
-
-# Override this in tower subclass to implement the "On Tower
-# Creation" trigger.
-# NOTE: onCreate in JASS
-func on_create(_preceding_tower: Tower):
-	pass
-
-
-# Override this in tower subclass to implement the "On Tower
-# Destruction" trigger.
-# NOTE: onDestruct in JASS
-func on_destruct():
-	pass
-
-
-func set_attack_ground_only():
-	_attack_target_type = TARGET_TYPE_GROUND_ONLY
-
-
-func set_attack_air_only():
-	_attack_target_type = TARGET_TYPE_AIR_ONLY
-
-
-func set_attack_style_splash(splash_map: Dictionary):
-	_attack_style = AttackStyle.SPLASH
-	_splash_map = splash_map
-
-
-func set_attack_style_bounce(bounce_count_max: int, bounce_damage_multiplier: float):
-	_attack_style = AttackStyle.BOUNCE
-	_bounce_count_max = bounce_count_max
-	_bounce_damage_multiplier = bounce_damage_multiplier
-
-
-# NOTE: if your tower needs to attack more than 1 target,
-# call this f-n once in _ready() method of subclass
-func set_target_count(count: int):
-	_target_count_max = count
-
-
-# NOTE: tower.getTargetCount() in JASS
-func get_target_count() -> int:
-	return _target_count_max
 
 
 func _try_to_attack() -> bool:
@@ -694,54 +607,6 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 	return target
 
 
-# Override this in subclass to define custom stats for each
-# tower tier. Access as _stats.
-func get_tier_stats() -> Dictionary:
-	var tier: int = get_tier()
-	var default_out: Dictionary = {}
-
-	for i in range(1, tier + 1):
-		default_out[i] = {}
-
-	return default_out
-
-
-func _on_selected():
-	for indicator in _aura_range_indicator_list:
-		indicator.show()
-	_range_indicator.show()
-	_tower_actions.show()
-
-func _on_unselected():
-	for indicator in _aura_range_indicator_list:
-		indicator.hide()
-	_range_indicator.hide()
-	_tower_actions.hide()
-
-
-func _on_tree_exited():
-	on_destruct()
-
-
-func _get_next_bounce_target(bounce_pos: Vector2, visited_list: Array[Unit]) -> Creep:
-	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, bounce_pos, Constants.BOUNCE_ATTACK_RANGE)
-
-	for visited_creep in visited_list:
-		if !Utils.unit_is_valid(visited_creep):
-			continue
-
-		creep_list.erase(visited_creep)
-
-	Utils.sort_unit_list_by_distance(creep_list, bounce_pos)
-
-	if !creep_list.is_empty():
-		var next_target = creep_list[0]
-
-		return next_target
-	else:
-		return null
-
-
 func _update_target_list():
 #	Remove targets that have become invalid. Targets can
 #	become invalid by moving out of range, becoming
@@ -801,9 +666,76 @@ func _remove_target(target):
 	_target_list.erase(target)
 
 
+func _get_splash_attack_tooltip_text() -> String:
+	var text: String = "[color=GREENYELLOW]Splash attack:[/color]\n"
+
+	var splash_range_list: Array = _splash_map.keys()
+	splash_range_list.sort()
+
+	for splash_range in splash_range_list:
+		var splash_ratio: float = _splash_map[splash_range]
+		var splash_percentage: int = floor(splash_ratio * 100)
+		text += "\t%d AoE: %d%% damage\n" % [splash_range, splash_percentage]
+
+	return text
+
+
+func _get_bounce_attack_tooltip_text() -> String:
+	var text: String = "[color=GREENYELLOW]Bounce attack:[/color]\n\t%d targets\n\t-%d%% damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
+
+	return text
+
+
+func _set_placeholder_modulate(color: Color):
+	_placeholder_modulate = color
+
+
+func _get_next_bounce_target(bounce_pos: Vector2, visited_list: Array[Unit]) -> Creep:
+	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, bounce_pos, Constants.BOUNCE_ATTACK_RANGE)
+
+	for visited_creep in visited_list:
+		if !Utils.unit_is_valid(visited_creep):
+			continue
+
+		creep_list.erase(visited_creep)
+
+	Utils.sort_unit_list_by_distance(creep_list, bounce_pos)
+
+	if !creep_list.is_empty():
+		var next_target = creep_list[0]
+
+		return next_target
+	else:
+		return null
+
+
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_selected():
+	for indicator in _aura_range_indicator_list:
+		indicator.show()
+	_range_indicator.show()
+	_tower_actions.show()
+
+func _on_unselected():
+	for indicator in _aura_range_indicator_list:
+		indicator.hide()
+	_range_indicator.hide()
+	_tower_actions.hide()
+
+
+func _on_tree_exited():
+	on_destruct()
+
+
+func _on_target_death(_event: Event, target: Creep):
+	_remove_target(target)
+
+
+func _on_item_container_items_changed():
+	items_changed.emit()
 
 
 func _on_mana_changed():
@@ -934,33 +866,141 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	next_projectile.set_tower_crit_ratio(projectile.get_tower_crit_ratio())
 
 
-func _on_target_death(_event: Event, target: Creep):
-	_remove_target(target)
-
-
-func _get_splash_attack_tooltip_text() -> String:
-	var text: String = "[color=GREENYELLOW]Splash attack:[/color]\n"
-
-	var splash_range_list: Array = _splash_map.keys()
-	splash_range_list.sort()
-
-	for splash_range in splash_range_list:
-		var splash_ratio: float = _splash_map[splash_range]
-		var splash_percentage: int = floor(splash_ratio * 100)
-		text += "\t%d AoE: %d%% damage\n" % [splash_range, splash_percentage]
-
-	return text
-
-
-func _get_bounce_attack_tooltip_text() -> String:
-	var text: String = "[color=GREENYELLOW]Bounce attack:[/color]\n\t%d targets\n\t-%d%% damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
-
-	return text
-
-
 #########################
 ### Setters / Getters ###
 #########################
+
+
+# NOTE: call this in load_specials() of tower instance
+func set_attack_ground_only():
+	_attack_target_type = TARGET_TYPE_GROUND_ONLY
+
+
+# NOTE: call this in load_specials() of tower instance
+func set_attack_air_only():
+	_attack_target_type = TARGET_TYPE_AIR_ONLY
+
+
+# NOTE: call this in load_specials() of tower instance
+func set_attack_style_splash(splash_map: Dictionary):
+	_attack_style = AttackStyle.SPLASH
+	_splash_map = splash_map
+
+
+# NOTE: call this in load_specials() of tower instance
+func set_attack_style_bounce(bounce_count_max: int, bounce_damage_multiplier: float):
+	_attack_style = AttackStyle.BOUNCE
+	_bounce_count_max = bounce_count_max
+	_bounce_damage_multiplier = bounce_damage_multiplier
+
+
+# NOTE: call this in load_specials() of tower instance
+func set_target_count(count: int):
+	_target_count_max = count
+
+
+# NOTE: tower.getTargetCount() in JASS
+func get_target_count() -> int:
+	return _target_count_max
+
+
+# Tower is attacking while it has valid targets in range.
+func is_attacking() -> bool:
+	var attacking: bool = !_target_list.is_empty()
+
+	return attacking
+
+
+# Disables attacking or any other game interactions for the
+# tower. Must be called before add_child().
+func set_is_tower_preview():
+	_is_tower_preview = true
+
+
+# NOTE: tower.countFreeSlots() in JASS
+func count_free_slots() -> int:
+	var item_count: int = _item_container.get_item_count()
+	var capacity: int = _item_container.get_capacity()
+	var free_slots = capacity - item_count
+
+	return free_slots
+
+
+# NOTE: tower.haveItemSpace() in JASS
+func have_item_space() -> bool:
+	return _item_container.have_item_space()
+
+
+func get_oils() -> Array[Item]:
+	return _item_container.get_oil_list()
+
+
+func get_items() -> Array[Item]:
+	return _item_container.get_item_list()
+
+
+func get_item_count() -> int:
+	return _item_container.get_item_count()
+
+
+# NOTE: slot_number starts at 1 instead of 0
+# NOTE: tower.getHeldItem() in JASS
+func get_held_item(slot_number: int) -> Item:
+	var slot_index: int = slot_number - 1
+	return _item_container.get_item_at_index(slot_index)
+
+
+func get_item_tower_details() -> Array[MultiboardValues]:
+	var out: Array[MultiboardValues] = []
+
+	var item_list: Array[Item] = _item_container.get_item_list()
+	
+	for item in item_list:
+		var board: MultiboardValues = item.on_tower_details()
+
+		if board != null:
+			out.append(board)
+
+	return out
+
+
+func get_log_name() -> String:
+	return get_display_name()
+
+
+func get_item_container() -> ItemContainer:
+	return _item_container
+
+
+# This function automatically generates a string for
+# specials that tower instance defined in load_specials().
+func get_specials_tooltip_text() -> String:
+	var text: String = ""
+
+	var attacks_ground_only: bool = _attack_target_type == TARGET_TYPE_GROUND_ONLY
+	var attacks_air_only: bool = _attack_target_type == TARGET_TYPE_AIR_ONLY
+	if attacks_ground_only:
+		text += "[color=RED]Attacks GROUND only[/color]\n"
+	elif attacks_air_only:
+		text += "[color=RED]Attacks AIR only[/color]\n"
+
+	match _attack_style:
+		AttackStyle.SPLASH:
+			text += _get_splash_attack_tooltip_text()
+		AttackStyle.BOUNCE:
+			text += _get_bounce_attack_tooltip_text()
+		AttackStyle.NORMAL:
+			text += ""
+
+	var modifier_text: String = _specials_modifier.get_tooltip_text()
+	text += modifier_text
+
+	if _target_count_max > 1:
+		if !text.is_empty():
+			text += " \n"
+		text += "[b][color=GOLD]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_max
+
+	return text
 
 
 func get_current_target() -> Unit:
@@ -1143,39 +1183,3 @@ func get_inventory_capacity() -> int:
 	var capacity: int = TowerProperties.get_inventory_capacity(_id)
 
 	return capacity
-
-
-func _on_item_container_items_changed():
-	items_changed.emit()
-
-
-# NOTE: this f-n does some unnecessary work in some cases
-# but it's simpler this way. For example, it checks if
-# target is invisible even though the get_units_in_range()
-# f-n already filters out invisible creeps.
-# NOTE: arg needs to be untyped because it may be an invalid
-# instance.
-func _target_is_valid(target) -> bool:
-#	NOTE: return early here, so that if unit instance is
-#	invalid, we don't call f-ns on it - that would cause
-#	errors
-	var unit_is_valid: bool = Utils.unit_is_valid(target)
-	if !unit_is_valid:
-		return false
-
-	var attack_range: float = get_range()
-	var in_range = Isometric.vector_in_range(position, target.position, attack_range)
-
-	var target_is_invisible: bool = target.is_invisible()
-
-	var target_is_immune: bool = target.is_immune()
-	var tower_is_magic: bool = get_attack_type() == AttackType.enm.MAGIC
-	var is_immune_valid: bool = !(target_is_immune && tower_is_magic)
-
-	var target_is_valid: bool = in_range && !target_is_invisible && is_immune_valid
-
-	return target_is_valid
-
-
-func _set_placeholder_modulate(color: Color):
-	_placeholder_modulate = color

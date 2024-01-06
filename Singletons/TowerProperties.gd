@@ -23,6 +23,10 @@ var _attack_type_map: Dictionary = {}
 var _rarity_map: Dictionary = {}
 
 
+#########################
+###     Built-in      ###
+#########################
+
 # NOTE: convert some property strings to enums in _ready()
 # so that we avoid this overhead during runtime.
 func _ready():
@@ -40,6 +44,10 @@ func _ready():
 		_attack_type_map[tower_id] = attack_type
 		_rarity_map[tower_id] = rarity
 
+
+#########################
+###       Public      ###
+#########################
 
 func get_icon_texture(tower_id: int) -> Texture2D:
 	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(tower_id)
@@ -275,53 +283,6 @@ func get_towers_in_family(family_id: int) -> Array:
 	return family_list
 
 
-# NOTE: this formula is the inverse of the formula for tower cost
-# from TowerDistribution._get_max_cost()
-func _get_required_wave_level_from_formula(tower_id: int) -> int:
-# 	NOTE: prevent value inside sqrt() from going below 0
-	var tower_cost: int = get_cost(tower_id)
-	var wave_level: int = ceili((sqrt(max(0.01, 60 * tower_cost - 3575)) - 25) / 6)
-
-	if wave_level < 0:
-		return 0
-
-	return wave_level
-
-
-# TODO: adjust to be accurate. Some of the min costs in the
-# map may be higher than they should be. This will cause
-# this f-n to return element level which is 1 less than it
-# was in original game.
-func _get_required_element_level_from_formula(tower_id: int) -> int:
-	var element_level_to_min_cost_map: Dictionary = {
-		1: 140,
-		2: 220,
-		3: 350,
-		4: 500,
-		5: 680,
-		6: 900,
-		7: 1100,
-		8: 1300,
-		9: 1600,
-		10: 2000,
-		11: 2130,
-		12: 2450,
-		13: 2750,
-		14: 3150,
-		15: 4000,
-	}
-
-	var tower_cost: int = get_cost(tower_id)
-
-	for element_level in range(15, 0, -1):
-		var min_cost: int = element_level_to_min_cost_map[element_level]
-
-		if tower_cost >= min_cost:
-			return element_level
-
-	return 1
-
-
 func get_food_cost(tower_id: int) -> int:
 	var food_cost_map: Dictionary = {
 		Rarity.enm.COMMON: 2,
@@ -423,3 +384,54 @@ func get_dps(tower_id: int) -> float:
 	var dps: float = damage / cooldown
 
 	return dps
+
+
+#########################
+###      Private      ###
+#########################
+
+# NOTE: this formula is the inverse of the formula for tower cost
+# from TowerDistribution._get_max_cost()
+func _get_required_wave_level_from_formula(tower_id: int) -> int:
+# 	NOTE: prevent value inside sqrt() from going below 0
+	var tower_cost: int = get_cost(tower_id)
+	var wave_level: int = ceili((sqrt(max(0.01, 60 * tower_cost - 3575)) - 25) / 6)
+
+	if wave_level < 0:
+		return 0
+
+	return wave_level
+
+
+# TODO: adjust to be accurate. Some of the min costs in the
+# map may be higher than they should be. This will cause
+# this f-n to return element level which is 1 less than it
+# was in original game.
+func _get_required_element_level_from_formula(tower_id: int) -> int:
+	var element_level_to_min_cost_map: Dictionary = {
+		1: 140,
+		2: 220,
+		3: 350,
+		4: 500,
+		5: 680,
+		6: 900,
+		7: 1100,
+		8: 1300,
+		9: 1600,
+		10: 2000,
+		11: 2130,
+		12: 2450,
+		13: 2750,
+		14: 3150,
+		15: 4000,
+	}
+
+	var tower_cost: int = get_cost(tower_id)
+
+	for element_level in range(15, 0, -1):
+		var min_cost: int = element_level_to_min_cost_map[element_level]
+
+		if tower_cost >= min_cost:
+			return element_level
+
+	return 1
