@@ -27,8 +27,8 @@ func _ready():
 # 	range indicator is drawn.
 	_range_indicator.y_offset = 128
 
-	var visual_only: bool = true
-	_tower_instance = TowerManager.get_tower(tower_id, visual_only)
+	var is_tower_preview: bool = true
+	_tower_instance = TowerManager.get_tower(tower_id, is_tower_preview)
 	add_child(_tower_instance)
 
 	var aura_type_list: Array[AuraType] = _tower_instance.get_aura_types()

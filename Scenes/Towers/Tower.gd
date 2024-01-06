@@ -66,7 +66,7 @@ var _temp_preceding_tower: Tower = null
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var _placeholder_modulate: Color = Color.WHITE
 var _aura_range_indicator_list: Array[RangeIndicator] = []
-var _visual_only: bool = false
+var _is_tower_preview: bool = false
 
 
 # NOTE: can't use @export because it breaks placeholder
@@ -103,7 +103,7 @@ func _ready():
 #	this early exit has to happen before adjusting positions
 #	of visuals so that tower preview is correctly drawn
 #	under mouse.
-	if _visual_only:
+	if _is_tower_preview:
 		_mana_bar.hide()
 
 		return
@@ -256,7 +256,7 @@ func get_log_name() -> String:
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
 func _process(delta: float):
-	if _visual_only:
+	if _is_tower_preview:
 		return
 
 	var tower_does_not_attack: bool = (get_base_cooldown() == 0 || get_range() == 0)
@@ -329,8 +329,8 @@ func is_attacking() -> bool:
 
 # Disables attacking or any other game interactions for the
 # tower. Must be called before add_child().
-func set_visual_only():
-	_visual_only = true
+func set_is_tower_preview():
+	_is_tower_preview = true
 
 
 # NOTE: tower.countFreeSlots() in JASS
