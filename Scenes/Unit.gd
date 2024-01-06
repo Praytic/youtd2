@@ -225,10 +225,6 @@ func _ready():
 	add_child(regen_timer)
 	regen_timer.start()
 
-	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
-	load_triggers(triggers_buff_type)
-	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
-
 
 #########################
 ###       Public      ###
@@ -745,12 +741,6 @@ func set_hovered(hovered: bool):
 	_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
 	_selection_visual.set_visible(hovered)
 	_selection_outline.set_visible(hovered)
-
-
-# NOTE: override this in subclass to attach trigger handlers
-# to triggers buff passed in the argument.
-func load_triggers(_triggers_buff_type: BuffType):
-	pass
 
 
 # NOTE: analog of SetUnitState(unit, UNIT_STATE_MANA) in JASS

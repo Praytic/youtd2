@@ -113,6 +113,10 @@ func _ready():
 
 		return
 
+	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
+	load_triggers(triggers_buff_type)
+	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
+
 #	Apply offsets to account for tower being "on the second floor".
 #	Visual nodes get moved up by one tile.
 # 	Also move selection visual because it's placed at ground
@@ -478,6 +482,12 @@ func get_ability_description() -> String:
 # contain any numbers.
 func get_ability_description_short() -> String:
 	return ""
+
+
+# NOTE: override this in subclass to attach trigger handlers
+# to triggers buff passed in the argument.
+func load_triggers(_triggers_buff_type: BuffType):
+	pass
 
 
 # Override in subclass to initialize subclass tower. This is
