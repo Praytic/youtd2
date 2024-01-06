@@ -258,6 +258,9 @@ func _on_tower_built(tower_id):
 		GameMode.enm.RANDOM_WITH_UPGRADES: remove_tower_button(tower_id)
 		GameMode.enm.TOTALLY_RANDOM: remove_tower_button(tower_id)
 
+	if Globals.game_mode_is_random():
+		_roll_towers_button.disabled = true
+
 
 func _on_upgrade_element_mouse_entered():
 	var element: Element.enm = _elements_container.get_element()
