@@ -20,13 +20,19 @@ var _active_tween_map: Dictionary = {}
 
 # Register target by name. It will be available for
 # highlighting.
-func register_target(target_name: String, target: Control):
+func register_target(target_name: String, target: Control, append: bool = false):
 	if _target_map.has(target_name):
 		push_error("Element with name [%s] is already registered" % target_name)
 
 		return
-
-	_target_map[target_name] = target
+	
+	if append:
+		if _target_map.has(target_name):
+			_target_map[target_name].append(target)
+		else:
+			_target_map[target_name] = [target]
+	else:
+		_target_map[target_name] = target
 
 
 func start_highlight(target_name: String):

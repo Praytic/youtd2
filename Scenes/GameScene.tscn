@@ -101,6 +101,7 @@ script = ExtResource("1")
 
 [node name="TutorialMenu" parent="UI" instance=ExtResource("10_x7sb7")]
 visible = false
+z_index = 1
 
 [node name="DesaturationFilter" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_cij5r")

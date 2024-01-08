@@ -1,14 +1,6 @@
 extends Node
 
 
-enum GameState {
-	PREGAME,
-	TUTORIAL,
-	PLAYING,
-	PAUSED,
-}
-
-
 @export var map_node: Node2D
 @export var _pregame_hud: Control
 @export var _pause_hud: Control
@@ -16,8 +8,6 @@ enum GameState {
 @export var _wave_spawner: WaveSpawner
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
-
-var _game_state: GameState
 
 
 #########################
@@ -27,7 +17,7 @@ var _game_state: GameState
 func _ready():
 	print_verbose("GameScene has loaded.")
 	
-	_game_state = GameState.PREGAME
+	Globals.set_game_state(GameState.PREGAME)
 	get_tree().set_pause(true)
 	
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
@@ -63,7 +53,7 @@ func _ready():
 
 
 func _process(delta: float):
-	var need_to_record_game_time: bool = _game_state == GameState.PLAYING && WaveLevel.get_current() > 0
+	var need_to_record_game_time: bool = Globals.get_game_state() == Globals.GameState.PLAYING && WaveLevel.get_current() > 0
 
 	if need_to_record_game_time:
 		Utils._current_game_time += delta
@@ -79,9 +69,9 @@ func _unhandled_input(event: InputEvent):
 		_hud.close_all_windows()
 	
 	if cancel_pressed && !cancel_was_consumed:
-		match _game_state:
-			GameState.PLAYING: _pause_the_game()
-			GameState.PAUSED: _unpause_the_game()
+		match Globals.get_game_state():
+			Globals.GameState.PLAYING: _pause_the_game()
+			Globals.GameState.PAUSED: _unpause_the_game()
 
 
 #########################
@@ -94,13 +84,13 @@ func _pause_the_game():
 	ItemMovement.cancel()
 	SelectTargetForCast.cancel()
 
-	_game_state = GameState.PAUSED
+	Globals.set_game_state(Globals.GameState.PAUSED)
 	get_tree().set_pause(true)
 	_pause_hud.show()
 
 
 func _unpause_the_game():
-	_game_state = GameState.PLAYING
+	Globals.set_game_state(Globals.GameState.PLAYING)
 	get_tree().set_pause(false)
 	_pause_hud.hide()
 
@@ -155,7 +145,7 @@ func _on_pregame_hud_finished(player_mode: PlayerMode.enm, wave_count: int, game
 	Globals.difficulty = difficulty
 	
 	if tutorial_enabled:
-		_game_state = GameState.TUTORIAL
+		Globals.set_game_state(GameState.TUTORIAL)
 		_tutorial_menu.show()
 	else:
 		_on_tutorial_menu_finished()
@@ -170,9 +160,11 @@ func _on_pause_hud_resume_pressed():
 
 
 func _on_tutorial_menu_finished():
-	_game_state = GameState.PLAYING
+	Globals.set_game_state(GameState.PLAYING)
 	_tutorial_menu.hide()
 	_wave_spawner.start_initial_timer()
 
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
+
+
