@@ -80,6 +80,8 @@ theme_override_font_sizes/italics_font_size = 22
 theme_override_font_sizes/bold_italics_font_size = 22
 theme_override_font_sizes/mono_font_size = 22
 text = "text"
+scroll_active = false
+scroll_following = true
 selection_enabled = true
 
 [connection signal="drag_finished" from="." to="." method="_on_drag_finished"]
