@@ -21,62 +21,59 @@ var _active_tween_map: Dictionary = {}
 # Register target by name. It will be available for
 # highlighting.
 func register_target(target_name: String, target: Control, append: bool = false):
-	if _target_map.has(target_name):
-		push_error("Element with name [%s] is already registered" % target_name)
-
-		return
-	
-	if append:
-		if _target_map.has(target_name):
-			_target_map[target_name].append(target)
-		else:
-			_target_map[target_name] = [target]
+	if append and _target_map.has(target_name):
+		_target_map[target_name].append(target)
 	else:
-		_target_map[target_name] = target
+		_target_map[target_name] = [target]
 
 
 func start_highlight(target_name: String):
-	var target: Control = _get_target(target_name)
+	var targets = _get_target_controls(target_name)
 
-	if target == null:
+	if targets.is_empty():
 		return
 
-	var tween: Tween = create_tween()
-	tween.tween_property(target, "modulate", Color.YELLOW.darkened(0.2), HIGHLIGHT_PERIOD)
-	tween.tween_property(target, "modulate", Color.WHITE, HIGHLIGHT_PERIOD)
-	tween.tween_property(target, "z_index", 2, HIGHLIGHT_PERIOD)
-	tween.set_loops()
+	for target in targets:
+		var tween: Tween = create_tween()
+		tween.tween_property(target, "modulate", Color.YELLOW.darkened(0.2), HIGHLIGHT_PERIOD)
+		tween.tween_property(target, "modulate", Color.WHITE, HIGHLIGHT_PERIOD)
+		tween.tween_property(target, "z_index", 2, HIGHLIGHT_PERIOD)
+		tween.set_loops()
 
-	_active_tween_map[target_name] = tween
+		if _active_tween_map.has(target_name):
+			_active_tween_map[target_name].append(tween)
+		else:
+			_active_tween_map[target_name] = [tween]
 
 
 func stop_highlight(target_name: String):
-	var target: Control = _get_target(target_name)
+	var targets = _get_target_controls(target_name)
 
-	if target == null:
+	if targets.is_empty():
 		return
 
 	if !_active_tween_map.has(target_name):
 		push_error("There is no active tween for target with name [%s]" % target_name)
 
 		return
-
-	var tween: Tween = _active_tween_map[target_name]
-	target.modulate = Color.WHITE
-	target.z_index = 0
-	tween.kill()
+	
+	for target in targets:
+		for tween in _active_tween_map[target_name]:
+			target.modulate = Color.WHITE
+			tween.kill()
+		target.z_index = 0
 
 
 #########################
 ###      Private      ###
 #########################
 
-func _get_target(target_name: String) -> Control:
+func _get_target_controls(target_name: String) -> Array:
 	if !_target_map.has(target_name):
 		push_error("No target with name [%s] has been registered" % target_name)
 
-		return null
+		return []
 
-	var target: Control = _target_map[target_name]
+	var target = _target_map[target_name]
 
 	return target

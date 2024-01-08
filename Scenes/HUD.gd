@@ -32,8 +32,8 @@ func _ready():
 
 	EventBus.game_over.connect(_on_game_over)
 	
-	HighlightUI.register_target("tower_stash_button", _towers_menu_card)
-	HighlightUI.register_target("item_stash_button", _items_menu_card)
+	HighlightUI.register_target("tower_stash_button", _towers_menu_card.get_main_button())
+	HighlightUI.register_target("item_stash_button", _items_menu_card.get_main_button())
 
 
 func _unhandled_input(event):
