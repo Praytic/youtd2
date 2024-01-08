@@ -43,15 +43,11 @@ shader_parameter/line_thickness = 6.0
 
 [node name="Creep" instance=ExtResource("1_jb4ka")]
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="Visual" index="0"]
+[node name="Sprite" parent="Visual" index="0"]
 position = Vector2(0, -20)
 scale = Vector2(1.6, 1.6)
 
-[node name="Sprite" parent="Visual" index="1"]
-position = Vector2(0, -20)
-scale = Vector2(1.6, 1.6)
-
-[node name="HealthBar" parent="Visual" index="2"]
+[node name="HealthBar" parent="Visual" index="1"]
 offset_left = -80.0
 offset_right = 80.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_84yt1")
@@ -59,7 +55,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_84yt1")
 [node name="CollisionPolygon2D" parent="Visual/SelectionArea" index="0"]
 polygon = PackedVector2Array(-68, -79, -1, -108, 75, -78, 108, -1, 78, 69, 2, 104, -78, 69, -101, -1)
 
-[node name="SelectionOutline" parent="Visual" index="4"]
+[node name="SelectionOutline" parent="Visual" index="3"]
 material = SubResource("ShaderMaterial_g3kw8")
 position = Vector2(0, -20)
 scale = Vector2(1.6, 1.6)
