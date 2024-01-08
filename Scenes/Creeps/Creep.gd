@@ -29,7 +29,7 @@ var _id: int
 # - only subclass scenes. Create base class Creep.tscn to
 # fix this.
 @onready var _visual = $Visual
-@onready var _sprite: AnimatedSprite2D = $Visual/Sprite2D
+@onready var _sprite: AnimatedSprite2D = $Visual/Sprite
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
 
