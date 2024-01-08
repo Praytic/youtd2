@@ -31,6 +31,9 @@ func _ready():
 	SFX.connect_sfx_to_signal_in_group("res://Assets/SFX/menu_sound_5.wav", "pressed", "sfx_menu_click")
 
 	EventBus.game_over.connect(_on_game_over)
+	
+	HighlightUI.register_target("tower_stash_button", _towers_menu_card)
+	HighlightUI.register_target("item_stash_button", _items_menu_card)
 
 
 func _unhandled_input(event):

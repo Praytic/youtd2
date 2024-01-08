@@ -17,7 +17,7 @@ extends Node
 func _ready():
 	print_verbose("GameScene has loaded.")
 	
-	Globals.set_game_state(GameState.PREGAME)
+	Globals.set_game_state(Globals.GameState.PREGAME)
 	get_tree().set_pause(true)
 	
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
@@ -145,7 +145,7 @@ func _on_pregame_hud_finished(player_mode: PlayerMode.enm, wave_count: int, game
 	Globals.difficulty = difficulty
 	
 	if tutorial_enabled:
-		Globals.set_game_state(GameState.TUTORIAL)
+		Globals.set_game_state(Globals.GameState.TUTORIAL)
 		_tutorial_menu.show()
 	else:
 		_on_tutorial_menu_finished()
@@ -160,7 +160,7 @@ func _on_pause_hud_resume_pressed():
 
 
 func _on_tutorial_menu_finished():
-	Globals.set_game_state(GameState.PLAYING)
+	Globals.set_game_state(Globals.GameState.PLAYING)
 	_tutorial_menu.hide()
 	_wave_spawner.start_initial_timer()
 

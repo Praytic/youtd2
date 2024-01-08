@@ -22,7 +22,7 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k678"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter_container", "_item_type_filter_container", "_item_buttons_container")]
+[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter_container", "_item_type_filter_container", "_item_buttons_container", "_horadric_cube_container")]
 offset_right = 614.0
 offset_bottom = 802.0
 size_flags_horizontal = 4
@@ -34,6 +34,7 @@ script = ExtResource("2_8kq4a")
 _rarity_filter_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/RarityFilterContainer")
 _item_type_filter_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ItemTypeFilterContainer")
 _item_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer")
+_horadric_cube_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube")
 
 [node name="MarginContainer3" type="MarginContainer" parent="."]
 visible = false

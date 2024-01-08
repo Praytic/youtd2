@@ -54,6 +54,7 @@ func _ready():
 	HighlightUI.register_target("upgrade_element_button", _upgrade_element_button)
 	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
 	HighlightUI.register_target("elements_container", _elements_container)
+	HighlightUI.register_target("element_level", _element_level_label)
 	
 	_update_tooltip_for_roll_towers_button()
 
