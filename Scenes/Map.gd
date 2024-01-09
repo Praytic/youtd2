@@ -137,3 +137,4 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 
 func _on_mouse_state_changed():
 	_buildable_area.visible = MouseState.get_state() == MouseState.enm.BUILD_TOWER
+

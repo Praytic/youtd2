@@ -32,6 +32,7 @@ func _ready():
 	_on_item_stash_changed()
 	
 	HighlightUI.register_target("item_stash", _item_buttons_container)
+	HighlightUI.register_target("item_placed_inside_tower", _item_buttons_container)
 	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
 
 

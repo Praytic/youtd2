@@ -52,6 +52,7 @@ func _ready():
 	towers_changed.emit()
 	
 	HighlightUI.register_target("tower_stash", _tower_buttons_container)
+	HighlightUI.register_target("tower_placed_on_map", _tower_buttons_container)
 	_tower_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash"))
 	
 	_update_tooltip_for_roll_towers_button()
@@ -251,6 +252,9 @@ func _on_element_changed():
 
 
 func _on_tower_built(tower_id):
+	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
+		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
+	
 	match Globals.game_mode:
 		GameMode.enm.BUILD: return
 		GameMode.enm.RANDOM_WITH_UPGRADES: remove_tower_button(tower_id)
