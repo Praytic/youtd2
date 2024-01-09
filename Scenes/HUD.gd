@@ -32,8 +32,14 @@ func _ready():
 
 	EventBus.game_over.connect(_on_game_over)
 	
+	# Tutorial setup
+	var towers_menu_button = _towers_menu_card.get_main_button()
 	HighlightUI.register_target("tower_stash_button", _towers_menu_card.get_main_button())
+	towers_menu_button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash_button"))
+	var items_menu_button = _items_menu_card.get_main_button()
 	HighlightUI.register_target("item_stash_button", _items_menu_card.get_main_button())
+	items_menu_button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash_button"))
+	
 
 
 func _unhandled_input(event):

@@ -44,6 +44,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer"]
+z_index = 1
 layout_mode = 2
 theme_override_constants/margin_bottom = -34
 
@@ -57,7 +58,6 @@ text = "ICE"
 horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
-z_index = -1
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2

@@ -6,9 +6,11 @@ extends Node
 # start_highlight() and stop_highlight() to highlight
 # registered targets.
 
+# When user does a specific action to acknowledge the highlighted
+# area, this signal should be emitted.
+signal highlight_target_ack(highlight_target: String)
 
 const HIGHLIGHT_PERIOD: float = 0.5
-
 
 var _target_map: Dictionary = {}
 var _active_tween_map: Dictionary = {}
@@ -37,7 +39,7 @@ func start_highlight(target_name: String):
 		var tween: Tween = create_tween()
 		tween.tween_property(target, "modulate", Color.YELLOW.darkened(0.2), HIGHLIGHT_PERIOD)
 		tween.tween_property(target, "modulate", Color.WHITE, HIGHLIGHT_PERIOD)
-		tween.tween_property(target, "z_index", 2, HIGHLIGHT_PERIOD)
+		tween.tween_property(target, "z_index", 3, HIGHLIGHT_PERIOD)
 		tween.set_loops()
 
 		if _active_tween_map.has(target_name):

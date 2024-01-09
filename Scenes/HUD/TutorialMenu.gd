@@ -13,6 +13,7 @@ class_name TutorialMenu extends PanelContainer
 
 signal finished()
 
+
 class Section:
 	var title: String
 	var highlight_target: String
@@ -42,12 +43,18 @@ var _current_section: int
 #########################
 
 func _ready():
+	HighlightUI.highlight_target_ack.connect(_on_highlight_target_ack)
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 
 
 #########################
 ###      Private      ###
 #########################
+
+func _on_highlight_target_ack(highlight_target: String):
+	if _section_list[_current_section].highlight_target == highlight_target:
+		_change_section(1)
+
 
 func _change_section(change_amount: int):
 	var prev_section: Section = _section_list[_current_section]
