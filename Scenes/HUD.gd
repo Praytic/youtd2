@@ -84,6 +84,7 @@ func _on_close_button_pressed():
 func _on_towers_button_toggled(toggled):
 	if toggled:
 		_elements_tower_menu.show()
+		_unit_menu.hide()
 		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
 		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 	else:
@@ -104,6 +105,7 @@ func _on_towers_button_toggled(toggled):
 func _on_items_button_toggled(toggled):
 	if toggled:
 		_item_stash_menu.show()
+		_unit_menu.hide()
 		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
 	else:
@@ -122,12 +124,18 @@ func _on_items_button_toggled(toggled):
 
 
 func _on_unit_menu_visibility_changed():
-	if not _item_stash_menu.visible:
-		_items_menu_card.get_main_button().set_pressed_no_signal(false)
-		_items_menu_card.get_main_button().toggled.emit(false) 
-	if not _elements_tower_menu.visible:
-		_towers_menu_card.get_main_button().set_pressed_no_signal(false)
-		_towers_menu_card.get_main_button().toggled.emit(false)
+	if _unit_menu.visible:
+		_item_stash_menu.hide()
+		_elements_tower_menu.hide()
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+	else:
+		if not _item_stash_menu.visible:
+			_items_menu_card.get_main_button().set_pressed_no_signal(false)
+			_items_menu_card.get_main_button().toggled.emit(false) 
+		if not _elements_tower_menu.visible:
+			_towers_menu_card.get_main_button().set_pressed_no_signal(false)
+			_towers_menu_card.get_main_button().toggled.emit(false)
 
 
 #########################
