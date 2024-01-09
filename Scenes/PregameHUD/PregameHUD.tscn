@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1xny6jmxj5i6"]
+[gd_scene load_steps=8 format=3 uid="uid://d1xny6jmxj5i6"]
 
-[ext_resource type="Shader" path="res://Resources/Shaders/ShadowExceptNode.gdshader" id="1_1wm2h"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_i3yfj"]
 [ext_resource type="Script" path="res://Scenes/PregameHUD/PregameHUD.gd" id="2_ljcwn"]
 [ext_resource type="PackedScene" uid="uid://cfr6nyshcgv1h" path="res://Scenes/PregameHUD/DifficultyMenu.tscn" id="3_rhl0k"]
@@ -9,12 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://drfy31rct5o3k" path="res://Scenes/PregameHUD/GameModeMenu.tscn" id="5_w0t1q"]
 [ext_resource type="PackedScene" uid="uid://bk4o75m1nr3cw" path="res://Scenes/PregameHUD/TutorialQuestionMenu.tscn" id="6_6h63j"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a31lu"]
-shader = ExtResource("1_1wm2h")
-shader_parameter/shadow_saturation = 0.5
-
 [node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
-material = SubResource("ShaderMaterial_a31lu")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
