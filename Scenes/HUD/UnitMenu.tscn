@@ -100,7 +100,6 @@ mouse_filter = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer"]
 show_behind_parent = true
-z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -113,6 +112,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_j6gup")
 text = "Unit"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer"]
+z_index = -1
 layout_mode = 2
 mouse_filter = 2
 
