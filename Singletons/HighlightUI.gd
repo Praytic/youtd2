@@ -39,7 +39,7 @@ func start_highlight(target_name: String):
 		var tween: Tween = create_tween()
 		tween.tween_property(target, "modulate", Color.YELLOW.darkened(0.2), HIGHLIGHT_PERIOD)
 		tween.tween_property(target, "modulate", Color.WHITE, HIGHLIGHT_PERIOD)
-		tween.tween_property(target, "z_index", target.z_index + 3, HIGHLIGHT_PERIOD)
+		tween.tween_property(target, "z_index", 3, HIGHLIGHT_PERIOD)
 		tween.set_loops()
 
 		if _active_tween_map.has(target_name):
@@ -60,10 +60,11 @@ func stop_highlight(target_name: String):
 		return
 	
 	for target in targets:
-		for tween in _active_tween_map[target_name]:
-			target.modulate = Color.WHITE
-			tween.kill()
-		target.z_index -= 3
+		if target != null:
+			for tween in _active_tween_map[target_name]:
+				target.modulate = Color.WHITE
+				tween.kill()
+			target.z_index = 0
 
 
 #########################
