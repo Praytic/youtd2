@@ -8,7 +8,6 @@ extends PanelContainer
 @export var _rarity_filter_container: VBoxContainer
 @export var _item_type_filter_container: VBoxContainer
 @export var _item_buttons_container: UnitButtonsContainer
-@export var _horadric_cube_container: PanelContainer
 
 @export var _items_status_panel: ShortResourceStatusPanel
 @export var _oils_status_panel: ShortResourceStatusPanel
@@ -32,7 +31,8 @@ func _ready():
 	ItemStash.items_changed.connect(_on_item_stash_changed)
 	_on_item_stash_changed()
 	
-	HighlightUI.register_target("horadric_cube", _horadric_cube_container)
+	HighlightUI.register_target("item_stash", _item_buttons_container)
+	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
 
 
 #########################

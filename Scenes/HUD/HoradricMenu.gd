@@ -18,6 +18,9 @@ func _ready():
 	_items_container.gui_input.connect(_on_items_container_gui_input)
 	_items_container.child_entered_tree.connect(_on_items_container_child_entered_tree)
 	
+	HighlightUI.register_target("horadric_cube", self)
+	self.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("horadric_cube"))
+	
 	_on_items_changed()
 
 

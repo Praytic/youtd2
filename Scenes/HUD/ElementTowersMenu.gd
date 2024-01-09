@@ -51,6 +51,9 @@ func _ready():
 	KnowledgeTomesManager.changed.connect(_on_knowledge_tomes_changed)
 	towers_changed.emit()
 	
+	HighlightUI.register_target("tower_stash", _tower_buttons_container)
+	_tower_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash"))
+	
 	_update_tooltip_for_roll_towers_button()
 
 
