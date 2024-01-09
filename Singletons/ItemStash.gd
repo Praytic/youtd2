@@ -19,6 +19,7 @@ func _ready():
 	_item_container = ItemContainer.new(10000)
 	add_child(_item_container)
 	_item_container.items_changed.connect(_on_item_container_items_changed)
+	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 
 	var test_item_list: Array = Config.test_item_list()
 
@@ -43,3 +44,11 @@ func get_item_container() -> ItemContainer:
 
 func _on_item_container_items_changed():
 	items_changed.emit()
+
+
+func _on_game_mode_was_chosen():
+	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
+		var item: Item = Item.make(80)
+		var oil: Item = Item.make(1001)
+		_item_container.add_item(item)
+		_item_container.add_item(oil)

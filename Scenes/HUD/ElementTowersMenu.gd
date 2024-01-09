@@ -52,7 +52,6 @@ func _ready():
 	towers_changed.emit()
 	
 	HighlightUI.register_target("tower_stash", _tower_buttons_container)
-	HighlightUI.register_target("tower_placed_on_map", _tower_buttons_container)
 	_tower_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash"))
 	
 	_update_tooltip_for_roll_towers_button()
