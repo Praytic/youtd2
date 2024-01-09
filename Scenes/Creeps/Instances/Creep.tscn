@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmcahg14hpv5j"]
+[gd_scene load_steps=9 format=3 uid="uid://cmcahg14hpv5j"]
 
 [ext_resource type="Script" path="res://Scenes/Creeps/Creep.gd" id="1_pofyw"]
+[ext_resource type="Script" path="res://Scenes/Creeps/CreepSprite.gd" id="2_412am"]
+[ext_resource type="Material" uid="uid://c55eehmcdc4nb" path="res://Resources/Shaders/GlowingOutline.material" id="3_0kgkk"]
 [ext_resource type="Script" path="res://Scenes/Creeps/HealthBar.gd" id="3_bsm61"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fcpqs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_woyy6"]
 bg_color = Color(0.0862745, 0.00392157, 0, 0.721569)
@@ -18,10 +22,16 @@ expand_margin_bottom = 2.0
 resource_local_to_scene = true
 bg_color = Color(0.176471, 0.960784, 0, 1)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_vhoqf"]
+
 [node name="Creep" type="Node2D"]
 script = ExtResource("1_pofyw")
 
 [node name="Visual" type="Node2D" parent="."]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Visual"]
+sprite_frames = SubResource("SpriteFrames_fcpqs")
+script = ExtResource("2_412am")
 
 [node name="HealthBar" type="ProgressBar" parent="Visual"]
 offset_left = -50.0
@@ -43,5 +53,12 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/SelectionArea"]
+
+[node name="SelectionOutline" type="AnimatedSprite2D" parent="Visual"]
+visible = false
+z_index = 1
+material = ExtResource("3_0kgkk")
+sprite_frames = SubResource("SpriteFrames_vhoqf")
+script = ExtResource("2_412am")
 
 [connection signal="value_changed" from="Visual/HealthBar" to="Visual/HealthBar" method="_on_value_changed"]

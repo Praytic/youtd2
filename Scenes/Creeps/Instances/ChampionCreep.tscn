@@ -1,18 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgt1us7ja6jjy"]
+[gd_scene load_steps=5 format=3 uid="uid://dgt1us7ja6jjy"]
 
 [ext_resource type="PackedScene" uid="uid://cmcahg14hpv5j" path="res://Scenes/Creeps/Instances/Creep.tscn" id="1_le1vj"]
-[ext_resource type="Script" path="res://Scenes/Creeps/CreepSprite.gd" id="22_6nl8n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o06ks"]
 resource_local_to_scene = true
 bg_color = Color(0.176471, 0.960784, 0, 1)
 
+[sub_resource type="Shader" id="Shader_eimx7"]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform vec4 line_color : source_color = vec4(1);
+uniform float line_thickness : hint_range(0, 10) = 1.0;
+
+void fragment() {
+	vec4 pixel_color = texture(TEXTURE, UV);
+	if (pixel_color.a > 0.5) {
+		discard;
+	}
+	
+	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
+	
+	float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, 0)).a;
+	outline += texture(TEXTURE, UV + vec2(0, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
+	outline += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
+	outline = min(outline, 1.0);
+	
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = mix(color, line_color, outline - color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvfm0"]
+resource_local_to_scene = true
+shader = SubResource("Shader_eimx7")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 6.0
+
 [node name="Creep" instance=ExtResource("1_le1vj")]
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="Visual" index="0"]
+[node name="Sprite" parent="Visual" index="0"]
 position = Vector2(0, -90)
 scale = Vector2(1.8, 1.8)
-script = ExtResource("22_6nl8n")
 
 [node name="HealthBar" parent="Visual" index="1"]
 offset_left = -82.0
@@ -23,3 +56,8 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_o06ks")
 
 [node name="CollisionPolygon2D" parent="Visual/SelectionArea" index="0"]
 polygon = PackedVector2Array(67, -140, 76, -70, 47, 30, -46, 33, -85, -75, -54, -149, -2, -171)
+
+[node name="SelectionOutline" parent="Visual" index="3"]
+material = SubResource("ShaderMaterial_wvfm0")
+position = Vector2(0, -90)
+scale = Vector2(1.8, 1.8)
