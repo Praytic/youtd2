@@ -60,5 +60,3 @@ monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/TowerSelectionArea"]
 polygon = PackedVector2Array(-102, 6, 0, 56, 102, 6, 102, -96, 0, -147, -102, -96)
-
-[connection signal="selected" from="." to="." method="_on_selected"]
