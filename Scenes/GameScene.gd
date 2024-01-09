@@ -161,7 +161,7 @@ func _on_pause_hud_resume_pressed():
 
 func _on_tutorial_menu_finished():
 	Globals.set_game_state(Globals.GameState.PLAYING)
-	_tutorial_menu.hide()
+	_tutorial_menu.queue_free()
 	_wave_spawner.start_initial_timer()
 
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
