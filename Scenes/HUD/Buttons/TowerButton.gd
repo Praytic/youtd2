@@ -60,6 +60,7 @@ func _on_wave_or_element_level_changed():
 	else:
 		if Globals.get_game_state() == Globals.GameState.TUTORIAL:
 			HighlightUI.register_target("tower_stash_unlocked", self, true)
+			self.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash_unlocked"))
 		_disabled_lock.hide()
 
 

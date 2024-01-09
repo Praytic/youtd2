@@ -8,6 +8,11 @@ signal element_changed()
 var _current_element: Element.enm = Element.enm.ICE : get = get_element
 
 
+func _ready():
+	HighlightUI.register_target("elements_container", self)
+	self.element_changed.connect(func(): HighlightUI.highlight_target_ack.emit("elements_container"))
+
+
 func get_element() -> Element.enm:
 	return _current_element
 

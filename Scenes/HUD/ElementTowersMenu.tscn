@@ -1,11 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvo433axo22w3"]
+[gd_scene load_steps=16 format=3 uid="uid://dvo433axo22w3"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_uh0n3"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu.gd" id="2_78i0l"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/RollTowersButton.gd" id="2_yu6qi"]
 [ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_onsb2"]
 [ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="4_hw31b"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitButtonsContainer.gd" id="5_14lu8"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/UpgradeElementButton.gd" id="5_mt234"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="7_jodiw"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementLevelLabel.gd" id="8_8bbt7"]
 [ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="8_ys01i"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="10_y8460"]
 
@@ -21,7 +24,7 @@ region = Rect2(0, 256, 128, 128)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="ElementTowersMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_element_button", "_tower_buttons_container", "_elements_container", "_element_icon", "_title", "_element_level_label", "_element_info_label", "_roll_towers_button")]
+[node name="ElementTowersMenu" type="PanelContainer"]
 offset_right = 600.0
 offset_bottom = 736.0
 size_flags_horizontal = 4
@@ -30,14 +33,6 @@ mouse_force_pass_scroll_events = false
 theme = ExtResource("1_uh0n3")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
 script = ExtResource("2_78i0l")
-_upgrade_element_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton")
-_tower_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2")
-_elements_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ElementsContainer")
-_element_icon = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/IconContainer/ElementIcon")
-_title = NodePath("MainContainer/MarginContainer2/TitleLabel")
-_element_level_label = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ElementLevelLabel")
-_element_info_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/InfoLabel")
-_roll_towers_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer3/RollTowersButton")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -150,6 +145,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 focus_mode = 0
 text = "UPGRADE"
+script = ExtResource("5_mt234")
 
 [node name="MarginContainer3" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -163,6 +159,7 @@ layout_mode = 2
 size_flags_vertical = 0
 focus_mode = 0
 text = "ROLL"
+script = ExtResource("2_yu6qi")
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -314,6 +311,7 @@ theme_override_styles/normal = ExtResource("7_jodiw")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("8_8bbt7")
 
 [node name="ElementsContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2" instance=ExtResource("8_ys01i")]
 layout_mode = 2
@@ -334,5 +332,4 @@ text = " x "
 
 [connection signal="towers_changed" from="." to="." method="_on_towers_changed"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer3/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]
 [connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
