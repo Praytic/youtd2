@@ -410,7 +410,14 @@ func _on_upgrade_button_pressed():
 
 	_update_upgrade_button(upgrade_tower)
 
-	_on_tower_upgrade_button_mouse_entered()
+#	NOTE: hide and show upgrade button to trigger
+#	mouse_entered() signal to refresh the button tooltip.
+#	Note that we cannot manually call
+#	_on_tower_upgrade_button_mouse_entered() because it
+#	doesn't work correctly for the case where upgrade button
+#	was pressed using the keyboard shortcut.
+	_upgrade_button.hide()
+	_upgrade_button.show()
 
 
 func _on_reset_sell_button_timer_timeout():
