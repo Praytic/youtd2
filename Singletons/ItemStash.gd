@@ -47,6 +47,7 @@ func _on_item_container_items_changed():
 
 
 func _on_game_mode_was_chosen():
+	# Adds two common items to player's inventory during the tutorial section
 	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
 		var item: Item = Item.make(80)
 		var oil: Item = Item.make(1001)
