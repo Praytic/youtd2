@@ -20,24 +20,24 @@ config/icon="res://Assets/icob_min.png"
 config/windows_native_icon="res://Assets/icob_min.ico"
 config/fast_waves=false
 config/visible_spell_dummys=false
-config/dev_controls=true
+config/dev_controls=false
 config/preload_all_towers_on_startup=false
 config/test_item_list=[]
 config/version="v0.1.0-SNAPSHOT"
 config/minimap_enabled=false
-config/ignore_requirements=true
-config/starting_gold=9999999
-config/starting_tomes=999999
+config/ignore_requirements=false
+config/starting_gold=70
+config/starting_tomes=90
 config/starting_research_level=0
 config/always_drop_items=false
-config/ignore_upgrade_requirements=true
+config/ignore_upgrade_requirements=false
 config/enable_zoom_by_touchpad=true
 config/enable_zoom_by_mousewheel=true
 config/show_position_info_label=false
 config/print_errors_about_towers=false
 config/show_pregame_settings_menu=true
 config/default_player_mode="single"
-config/default_wave_count=240
+config/default_wave_count=80
 config/default_game_mode="build"
 config/default_tutorial_enabled=false
 config/default_difficulty="beginner"
@@ -49,14 +49,14 @@ config/override_creep_armor=""
 config/override_creep_race=""
 config/override_wave_specials=[]
 config/print_sfx_errors=false
-config/unlimited_food=true
-config/allow_transform_in_build_mode=true
+config/unlimited_food=false
+config/allow_transform_in_build_mode=false
 config/load_only_orc_scenes=true
 config/run_prerender_tool=false
 config/use_prerendered_background=true
 config/run_save_tooltips_tool=false
 config/use_saved_tooltips=true
-config/unlimited_portal_lives=true
+config/unlimited_portal_lives=false
 
 [autoload]
 
@@ -122,6 +122,7 @@ gdscript/warnings/integer_division=0
 
 window/size/viewport_width=2560
 window/size/viewport_height=1440
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
