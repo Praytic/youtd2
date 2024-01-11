@@ -10,13 +10,6 @@ func _ready():
 	EventBus.game_over.connect(_on_game_over)
 
 
-func _unhandled_input(event: InputEvent):
-	var start_next_wave_keybind_pressed: bool = event.is_action_released("start_next_wave")
-
-	if start_next_wave_keybind_pressed:
-		_on_start_next_wave_button_pressed()
-
-
 func _on_start_next_wave_button_pressed():
 	if !Globals.built_at_least_one_tower:
 		Messages.add_error("You have to build some towers before you can start a wave!")

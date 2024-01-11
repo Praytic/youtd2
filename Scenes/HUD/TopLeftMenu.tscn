@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3grhp7bp5t54"]
+[gd_scene load_steps=8 format=3 uid="uid://b3grhp7bp5t54"]
 
 [ext_resource type="Script" path="res://Scenes/HUD/TopLeftMenu.gd" id="1_d4k6r"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_lhpbt"]
@@ -6,6 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://jm3vhrboca8b" path="res://Scenes/HUD/GameStats.tscn" id="3_k62ty"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwtay"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_srlh2"]
+device = -1
+keycode = 78
+unicode = 110
+
+[sub_resource type="Shortcut" id="Shortcut_gogd1"]
+events = [SubResource("InputEventKey_srlh2")]
 
 [node name="TopLeftMenu" type="PanelContainer" node_paths=PackedStringArray("_start_next_wave_button")]
 theme = ExtResource("1_lhpbt")
@@ -35,10 +43,10 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
-tooltip_text = "Start next wave early
-You can also use this by pressing the N key"
+tooltip_text = "Start next wave"
 focus_mode = 0
 theme_override_font_sizes/font_size = 25
+shortcut = SubResource("Shortcut_gogd1")
 text = "Next wave"
 
 [connection signal="pressed" from="MarginContainer/StartNextWaveButton" to="." method="_on_start_next_wave_button_pressed"]
