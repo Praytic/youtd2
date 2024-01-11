@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dj7llpr0oenw7"]
+[gd_scene load_steps=10 format=3 uid="uid://dj7llpr0oenw7"]
 
 [ext_resource type="PackedScene" uid="uid://b4giw0t33nkpi" path="res://Scenes/HUD/ButtonStatusCard.tscn" id="1_od2y8"]
 [ext_resource type="PackedScene" uid="uid://ngr2je0iun8h" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="2_nyu6g"]
@@ -7,6 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://bbgnvq4hx2ady" path="res://Resources/Textures/UI/Icons/uncommon_icon.tres" id="5_ta573"]
 [ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Textures/UI/Icons/rare_icon.tres" id="6_gbfb1"]
 [ext_resource type="Texture2D" uid="uid://fhntdx77to0k" path="res://Resources/Textures/UI/Icons/unique_icon.tres" id="7_ih1p1"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_8lii1"]
+device = -1
+keycode = 73
+unicode = 105
+
+[sub_resource type="Shortcut" id="Shortcut_4xrdp"]
+events = [SubResource("InputEventKey_8lii1")]
 
 [node name="ItemsStatusCard" instance=ExtResource("1_od2y8")]
 
@@ -42,6 +50,9 @@ layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("7_ih1p1")
+
+[node name="MainButton" parent="AspectRatioContainer" index="0"]
+shortcut = SubResource("Shortcut_4xrdp")
 
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"]
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"]
