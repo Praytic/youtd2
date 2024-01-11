@@ -1,6 +1,14 @@
 extends Node
 
 
+enum GameState {
+	PREGAME,
+	TUTORIAL,
+	PLAYING,
+	PAUSED,
+}
+
+
 const item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 const tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
 const floating_text_scene: PackedScene = preload("res://Scenes/FloatingText.tscn")
@@ -29,6 +37,7 @@ var game_over: bool = false
 var _total_damage: float = 0.0
 var built_at_least_one_tower: bool = false
 var room_code: String
+var _game_state: GameState
 
 # NOTE: HACK BELOW
 # See GlaiveMaster script for explanation.
@@ -49,3 +58,11 @@ func add_to_total_damage(amount: float):
 
 func get_total_damage() -> float:
 	return _total_damage
+
+
+func set_game_state(value: GameState):
+	_game_state = value
+
+
+func get_game_state() -> GameState:
+	return _game_state
