@@ -1,12 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://hiex318b5cvk"]
+[gd_scene load_steps=8 format=3 uid="uid://hiex318b5cvk"]
 
 [ext_resource type="Script" path="res://Scenes/PauseHUD/PauseHUD.gd" id="1_8lyul"]
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_v8b77"]
 [ext_resource type="PackedScene" uid="uid://bbrryq35rxvkv" path="res://Scenes/PauseHUD/HintsMenu.tscn" id="3_vf4xx"]
 [ext_resource type="PackedScene" uid="uid://bx0xth6bthpon" path="res://Scenes/PauseHUD/CreditsMenu.tscn" id="4_s86r1"]
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/PauseHUD/SettingsMenu.tscn" id="5_y1l7h"]
+[ext_resource type="PackedScene" uid="uid://d58y3fnrkntu" path="res://Scenes/PauseHUD/HelpMenu.tscn" id="6_q6xgl"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_30850"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_v1yqy"]
 
 [node name="PauseHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
 layout_mode = 3
@@ -60,6 +61,10 @@ theme_type_variation = &"LabelLarge"
 text = "Paused"
 horizontal_alignment = 1
 
+[node name="HelpButton" type="Button" parent="TabContainer/MarginContainer/PauseMenu"]
+layout_mode = 2
+text = "Help"
+
 [node name="HintsButton" type="Button" parent="TabContainer/MarginContainer/PauseMenu"]
 layout_mode = 2
 focus_mode = 0
@@ -84,6 +89,10 @@ layout_mode = 2
 focus_mode = 0
 text = "Resume"
 
+[node name="HelpMenu" parent="TabContainer" instance=ExtResource("6_q6xgl")]
+visible = false
+layout_mode = 2
+
 [node name="HintsMenu" parent="TabContainer" instance=ExtResource("3_vf4xx")]
 visible = false
 layout_mode = 2
@@ -91,17 +100,19 @@ layout_mode = 2
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_30850")
+_interface_size_button_group = SubResource("ButtonGroup_v1yqy")
 
 [node name="CreditsMenu" parent="TabContainer" instance=ExtResource("4_s86r1")]
 visible = false
 layout_mode = 2
 
 [connection signal="hidden" from="." to="." method="_on_hidden"]
+[connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/HintsButton" to="." method="_on_hints_button_pressed"]
 [connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="hidden" from="TabContainer/HelpMenu" to="." method="_on_help_menu_hidden"]
 [connection signal="closed" from="TabContainer/HintsMenu" to="." method="_on_hints_menu_closed"]
 [connection signal="hidden" from="TabContainer/SettingsMenu" to="." method="_on_settings_menu_hidden"]
 [connection signal="hidden" from="TabContainer/CreditsMenu" to="." method="_on_credits_menu_hidden"]

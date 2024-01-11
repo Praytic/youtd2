@@ -263,21 +263,12 @@ func _on_tower_built(tower_id):
 		_roll_towers_button.disabled = true
 
 
-func _on_upgrade_element_mouse_entered():
-	var element: Element.enm = _elements_container.get_element()
-	var tooltip: String = RichTexts.get_research_text(element)
-	ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
-
-
 func _on_upgrade_element_button_pressed():
 	var element = _elements_container.get_element()
 	if ElementLevel.is_able_to_research(element):
 		var cost: int = ElementLevel.get_research_cost(element)
 		KnowledgeTomesManager.spend(cost)
 		ElementLevel.increment(element)
-
-		var tooltip: String = RichTexts.get_research_text(element)
-		ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
 	else:
 #		NOTE: this case should really never happen because
 #		button should be disabled (not pressable) if element

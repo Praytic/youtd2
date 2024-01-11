@@ -3,6 +3,7 @@ extends Control
 
 enum PauseTab {
 	MAIN = 0,
+	HELP,
 	HINTS,
 	SETTINGS,
 	CREDITS,
@@ -17,6 +18,10 @@ signal resume_pressed()
 
 func _on_resume_button_pressed():
 	resume_pressed.emit()
+
+
+func _on_help_button_pressed():
+	_tab_container.current_tab = PauseTab.HELP
 
 
 func _on_hints_button_pressed():
@@ -44,4 +49,8 @@ func _on_credits_menu_hidden():
 
 
 func _on_settings_menu_hidden():
+	_tab_container.current_tab = PauseTab.MAIN
+
+
+func _on_help_menu_hidden():
 	_tab_container.current_tab = PauseTab.MAIN
