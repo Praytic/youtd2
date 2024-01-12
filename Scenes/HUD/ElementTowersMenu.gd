@@ -55,6 +55,7 @@ func _ready():
 	_tower_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash"))
 	
 	_update_tooltip_for_roll_towers_button()
+	_on_element_changed()
 
 
 #########################
