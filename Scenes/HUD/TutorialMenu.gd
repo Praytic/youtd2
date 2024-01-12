@@ -47,7 +47,7 @@ func _ready():
 	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
 
 
-func _process(delta):
+func _process(_delta: float):
 	visible = MouseState.get_state() != MouseState.enm.MOVE_ITEM and \
 		MouseState.get_state() != MouseState.enm.BUILD_TOWER and \
 		Globals.get_game_state() == Globals.GameState.TUTORIAL
