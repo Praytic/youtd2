@@ -263,7 +263,7 @@ func _on_tower_built(tower_id):
 		_roll_towers_button.disabled = true
 
 
-func _on_upgrade_element_mouse_entered():
+func _on_upgrade_element_button_mouse_entered():
 	var element: Element.enm = _elements_container.get_element()
 	var tooltip: String = RichTexts.get_research_text(element)
 	ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
@@ -276,8 +276,13 @@ func _on_upgrade_element_button_pressed():
 		KnowledgeTomesManager.spend(cost)
 		ElementLevel.increment(element)
 
-		var tooltip: String = RichTexts.get_research_text(element)
-		ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
+#		Hide and show button to refresh button tooltip.
+#		NOTE: can't call
+#		_on_upgrade_element_button_mouse_entered() directly
+#		here because it doesn't work right when button is
+#		pressed via shortcut.
+		_upgrade_element_button.hide()
+		_upgrade_element_button.show()
 	else:
 #		NOTE: this case should really never happen because
 #		button should be disabled (not pressable) if element
