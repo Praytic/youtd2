@@ -190,6 +190,14 @@ func _process_interpolated(delta: float):
 	var current_pos_3d: Vector3 = Vector3(current_pos_2d.x, current_pos_2d.y, z)
 	var current_pos: Vector2 = Isometric.vector3_to_isometric_vector2(current_pos_3d)
 
+#	NOTE: save direction so it can be accessed by users of
+#	projectile via get_direction(). Note that unlike normal
+#	projectiles, interpolated projectiles don't actually use
+#	direction for movement logic.
+	var move_vector_isometric: Vector2 = current_pos - position
+	var move_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(move_vector_isometric)
+	_direction = rad_to_deg(move_vector_top_down.angle())
+
 	position = current_pos
 
 	var reached_target: float = progress_ratio == 1.0
