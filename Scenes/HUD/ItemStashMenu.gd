@@ -15,7 +15,7 @@ extends PanelContainer
 @export var _uncommons_status_panel: ShortResourceStatusPanel
 @export var _rares_status_panel: ShortResourceStatusPanel
 @export var _uniques_status_panel: ShortResourceStatusPanel
-
+@export var _menu_card: ButtonStatusCard
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
@@ -35,6 +35,9 @@ func _ready():
 	HighlightUI.register_target("item_placed_inside_tower", _item_buttons_container)
 	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
 
+
+func _process(_delta):
+	visible = _menu_card.get_main_button().is_pressed()
 
 #########################
 ###       Public      ###

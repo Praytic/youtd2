@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dvo433axo22w3"]
+[gd_scene load_steps=16 format=3 uid="uid://dvo433axo22w3"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_uh0n3"]
 [ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu.gd" id="2_78i0l"]
@@ -20,14 +20,6 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="AtlasTexture" id="AtlasTexture_tli8x"]
 atlas = ExtResource("4_hw31b")
 region = Rect2(0, 256, 128, 128)
-
-[sub_resource type="InputEventKey" id="InputEventKey_gugyc"]
-device = -1
-keycode = 69
-unicode = 101
-
-[sub_resource type="Shortcut" id="Shortcut_tq4q7"]
-events = [SubResource("InputEventKey_gugyc")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
@@ -160,7 +152,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 focus_mode = 0
-shortcut = SubResource("Shortcut_tq4q7")
 text = "UPGRADE"
 script = ExtResource("5_mt234")
 

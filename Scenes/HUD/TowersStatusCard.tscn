@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bx03slt7u3oce"]
+[gd_scene load_steps=11 format=3 uid="uid://bx03slt7u3oce"]
 
 [ext_resource type="PackedScene" uid="uid://b4giw0t33nkpi" path="res://Scenes/HUD/ButtonStatusCard.tscn" id="1_r4shn"]
 [ext_resource type="PackedScene" uid="uid://ngr2je0iun8h" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="4_dt3ka"]
@@ -10,14 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://cmnfe6fi0wgsb" path="res://Resources/Textures/UI/Icons/darkness_icon.tres" id="10_o5dij"]
 [ext_resource type="Texture2D" uid="uid://ty26wea46uux" path="res://Resources/Textures/UI/Icons/iron_icon.tres" id="11_fxvk8"]
 [ext_resource type="Texture2D" uid="uid://dlmpx46h3jvmj" path="res://Resources/Textures/UI/Icons/storm_icon.tres" id="12_u7vft"]
-
-[sub_resource type="InputEventKey" id="InputEventKey_vl08n"]
-device = -1
-keycode = 84
-unicode = 116
-
-[sub_resource type="Shortcut" id="Shortcut_lrntq"]
-events = [SubResource("InputEventKey_vl08n")]
 
 [node name="TowersStatusCard" instance=ExtResource("1_r4shn")]
 
@@ -68,9 +60,6 @@ layout_mode = 2
 
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("12_u7vft")
-
-[node name="MainButton" parent="AspectRatioContainer" index="0"]
-shortcut = SubResource("Shortcut_lrntq")
 
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2"]
 [editable path="PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"]

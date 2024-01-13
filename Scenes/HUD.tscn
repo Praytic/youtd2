@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=21 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
@@ -14,13 +14,14 @@
 [ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://Resources/Textures/UI/portal_lives_round_bg.tres" id="11_hbwuy"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://Assets/UI/HUD/darkness_face.png" id="12_2mxp4"]
+[ext_resource type="PackedScene" uid="uid://chji25qhonjwa" path="res://Scenes/HUD/UnitStatusCard.tscn" id="12_rwl1n"]
 [ext_resource type="Script" path="res://Scenes/AutocastTooltipContainer.gd" id="13_fj5t7"]
 [ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://Assets/UI/HUD/tranquility_face.png" id="13_n0pc1"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://Scenes/HUD/CombatLogWindow.tscn" id="14_g64vx"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/UnitMenu.tscn" id="15_rfxf1"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_tower_menu", "_item_stash_menu", "_unit_menu", "_towers_menu_card", "_items_menu_card")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_tower_menu", "_item_stash_menu", "_unit_menu", "_towers_menu_card", "_items_menu_card", "_unit_status_menu_card")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,6 +40,7 @@ _item_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxCont
 _unit_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu")
 _towers_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard")
 _items_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard")
+_unit_status_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -140,11 +142,13 @@ size_flags_vertical = 4
 mouse_filter = 2
 
 [node name="MenuCards" type="VBoxContainer" parent="MarginContainer/All/Center/MenuCardsContainer"]
-layout_mode = 2
-offset_left = -459.0
+layout_mode = 1
+anchors_preset = -1
+offset_left = -131.0
 offset_top = 66.0
 offset_right = 36.0
 offset_bottom = 279.0
+grow_horizontal = 0
 size_flags_horizontal = 8
 theme_override_constants/separation = 10
 
@@ -167,6 +171,14 @@ columns = 2
 toggle_mode = true
 button_group = ExtResource("10_8ub83")
 icon = ExtResource("10_q3hi6")
+
+[node name="UnitStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("12_rwl1n")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MainButton" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard/AspectRatioContainer" index="0"]
+toggle_mode = true
+button_group = ExtResource("10_8ub83")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center"]
 layout_mode = 1
@@ -191,12 +203,14 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="UnitMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("15_rfxf1")]
+[node name="UnitMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_level_panel", "_menu_card") instance=ExtResource("15_rfxf1")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
+_level_panel = NodePath("../../../MenuCardsContainer/MenuCards/UnitStatusCard/PanelContainer/HBoxContainer/VBoxContainer/LevelPanel")
+_menu_card = NodePath("../../../MenuCardsContainer/MenuCards/UnitStatusCard")
 
-[node name="ItemStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_items_status_panel", "_oils_status_panel", "_commons_status_panel", "_uncommons_status_panel", "_rares_status_panel", "_uniques_status_panel") instance=ExtResource("11_5i6a2")]
+[node name="ItemStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_items_status_panel", "_oils_status_panel", "_commons_status_panel", "_uncommons_status_panel", "_rares_status_panel", "_uniques_status_panel", "_menu_card") instance=ExtResource("11_5i6a2")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
@@ -206,8 +220,9 @@ _commons_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsSta
 _uncommons_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel")
 _rares_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/RaresCountPanel")
 _uniques_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel")
+_menu_card = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard")
 
-[node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_towers_status_panel", "_ice_towers_status_panel", "_nature_towers_status_panel", "_fire_towers_status_panel", "_astral_towers_status_panel", "_darkness_towers_status_panel", "_iron_towers_status_panel", "_storm_towers_status_panel") instance=ExtResource("11_gv2lk")]
+[node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_towers_status_panel", "_ice_towers_status_panel", "_nature_towers_status_panel", "_fire_towers_status_panel", "_astral_towers_status_panel", "_darkness_towers_status_panel", "_iron_towers_status_panel", "_storm_towers_status_panel", "_menu_card") instance=ExtResource("11_gv2lk")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
@@ -219,6 +234,7 @@ _astral_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/To
 _darkness_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel")
 _iron_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel")
 _storm_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel")
+_menu_card = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard")
 
 [node name="Bottom" type="HBoxContainer" parent="MarginContainer/All"]
 layout_mode = 2
@@ -319,12 +335,9 @@ visible = false
 layout_mode = 2
 used_for_autocasts = true
 
-[connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/AspectRatioContainer/MainButton" to="." method="_on_towers_button_toggled"]
-[connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/AspectRatioContainer/MainButton" to="." method="_on_items_button_toggled"]
-[connection signal="visibility_changed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu" to="." method="_on_unit_menu_visibility_changed"]
-[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="visibility_changed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu" to="." method="_on_right_side_menu_visibility_changed"]
+[connection signal="visibility_changed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" to="." method="_on_right_side_menu_visibility_changed"]
+[connection signal="visibility_changed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu" to="." method="_on_right_side_menu_visibility_changed"]
 
 [editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard"]
 [editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2"]
@@ -342,6 +355,8 @@ used_for_autocasts = true
 [editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel"]
 [editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/RaresCountPanel"]
 [editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel"]
+[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard"]
+[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard/PanelContainer/HBoxContainer/VBoxContainer/LevelPanel"]
 [editable path="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu"]
 [editable path="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu"]
 [editable path="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu"]

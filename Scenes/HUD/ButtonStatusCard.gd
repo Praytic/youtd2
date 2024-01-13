@@ -13,7 +13,7 @@ enum VisibilityLevel {
 }
 
 
-@export var _expand_button: Button
+@export var _expand_button: Button : get = get_expand_button
 @export var _hidable_status_panels: Array[Control]
 @export var _status_panels: Array[Control]
 @export var _panels_container: Control
@@ -22,6 +22,13 @@ enum VisibilityLevel {
 
 
 var _visibility_level: VisibilityLevel = VisibilityLevel.ESSENTIALS
+
+
+func _unhandled_input(event):
+	var cancelled: bool = event.is_action_released("ui_cancel")
+	var left_click: bool = event.is_action_released("left_click")
+	if (cancelled or left_click) and _visibility_level == VisibilityLevel.FULL:
+		change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 
 
 func _on_expand_button_pressed():
@@ -60,3 +67,7 @@ func change_visibility_level(visibility_level: VisibilityLevel):
 
 func get_main_button() -> Button:
 	return _main_button
+
+
+func get_expand_button() -> Button:
+	return _expand_button

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://chojoq00uw7ng"]
+[gd_scene load_steps=20 format=3 uid="uid://chojoq00uw7ng"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ucvet"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu.gd" id="2_mulfo"]
@@ -37,14 +37,6 @@ region = Rect2(256, 0, 64, 64)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="InputEventKey" id="InputEventKey_3p2ki"]
-device = -1
-keycode = 85
-unicode = 117
-
-[sub_resource type="Shortcut" id="Shortcut_gi5f6"]
-events = [SubResource("InputEventKey_3p2ki")]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gno2"]
 atlas = ExtResource("9_02rfc")
 region = Rect2(0, 128, 128, 128)
@@ -53,14 +45,6 @@ margin = Rect2(10, 10, 0, 20)
 [sub_resource type="AtlasTexture" id="AtlasTexture_yslek"]
 atlas = ExtResource("9_02rfc")
 region = Rect2(256, 256, 128, 128)
-
-[sub_resource type="InputEventKey" id="InputEventKey_8sgsd"]
-device = -1
-keycode = 82
-unicode = 114
-
-[sub_resource type="Shortcut" id="Shortcut_4gk67"]
-events = [SubResource("InputEventKey_8sgsd")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m846m"]
 atlas = ExtResource("9_02rfc")
@@ -422,7 +406,6 @@ size_flags_vertical = 0
 tooltip_text = "Upgrade"
 focus_mode = 0
 theme_type_variation = &"CircleButton"
-shortcut = SubResource("Shortcut_gi5f6")
 icon = SubResource("AtlasTexture_0gno2")
 expand_icon = true
 
@@ -445,7 +428,6 @@ size_flags_vertical = 0
 tooltip_text = "Sell"
 focus_mode = 0
 theme_type_variation = &"CircleButton"
-shortcut = SubResource("Shortcut_4gk67")
 icon = SubResource("AtlasTexture_m846m")
 expand_icon = true
 

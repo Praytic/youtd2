@@ -35,6 +35,7 @@ signal towers_changed()
 @export var _darkness_towers_status_panel: ShortResourceStatusPanel
 @export var _iron_towers_status_panel: ShortResourceStatusPanel
 @export var _storm_towers_status_panel: ShortResourceStatusPanel
+@export var _menu_card: ButtonStatusCard
 
 #########################
 ### Code starts here  ###
@@ -56,6 +57,9 @@ func _ready():
 	
 	_update_tooltip_for_roll_towers_button()
 
+
+func _process(_delta):
+	visible = _menu_card.get_main_button().is_pressed()
 
 #########################
 ###       Public      ###

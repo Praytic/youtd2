@@ -29,6 +29,9 @@ const ITEMS_CONTAINER_BUTTON_SIZE = 82
 @export var _main_container: VBoxContainer
 @export var _specials_scroll_container: ScrollContainer
 
+@export var _level_panel: ShortResourceStatusPanel
+@export var _menu_card: ButtonStatusCard
+
 var _selling_for_real: bool = false
 
 
@@ -66,8 +69,11 @@ func _ready():
 
 func _process(_delta: float):
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
-
-	if selected_unit != null:
+	var menu_card_toggled = _menu_card.get_main_button().is_pressed()
+	
+	visible = menu_card_toggled and selected_unit != null
+	
+	if selected_unit != null and menu_card_toggled:
 		_update_info_label(selected_unit)
 
 
@@ -95,9 +101,15 @@ func get_selected_creep() -> Creep:
 		return null
 
 
+# TODO: Can't be implemented right now because we need to store
+# _unchecked_count per unit instance
+func ack_status_panels():
+	pass
+
 #########################
 ###      Private      ###
 #########################
+
 
 func _update_unit_icon(unit: Unit):
 	if unit is Tower:
