@@ -1020,10 +1020,7 @@ func _get_bounty_for_target(target: Unit) -> int:
 
 	var tower: Unit = self
 	var creep: Creep = target as Creep
-	var creep_size: CreepSize.enm = creep.get_size()
-	var gold_multiplier: float = CreepSize.get_gold_multiplier(creep_size)
-	var spawn_level: int = creep.get_spawn_level()
-	var bounty_base: float = gold_multiplier * (spawn_level / 8 + 1)
+	var bounty_base: float = creep.get_base_bounty_value()
 	var granted_mod: float = creep.get_prop_bounty_granted()
 	var received_mod: float = tower.get_prop_bounty_received()
 	var bounty: int = floori(bounty_base * granted_mod * received_mod)
@@ -1168,6 +1165,12 @@ func get_current_target() -> Unit:
 # NOTE: unit.isImmune() in JASS
 func is_immune() -> bool:
 	return _immune
+
+
+# TODO: implement
+# NOTE: unit.isBanished() in JASS
+func is_banished() -> bool:
+	return false
 
 
 func set_immune(immune: bool):
