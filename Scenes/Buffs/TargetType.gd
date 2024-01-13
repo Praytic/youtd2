@@ -38,6 +38,11 @@ const ELEMENT_STORM: int 	= 0x40000
 const ELEMENT_IRON: int 	= 0x80000
 const ELEMENT_ALL: int 		= ELEMENT_ASTRAL | ELEMENT_DARKNESS | ELEMENT_NATURE | ELEMENT_FIRE | ELEMENT_ICE | ELEMENT_STORM | ELEMENT_IRON
 
+const RARITY_COMMON: int 	= 0x400000
+const RARITY_UNCOMMON: int 	= 0x800000
+const RARITY_RARE: int 		= 0x1000000
+const RARITY_UNIQUE: int 	= 0x2000000
+const RARITY_ALL: int 		= RARITY_COMMON | RARITY_UNCOMMON | RARITY_RARE | RARITY_UNIQUE
 
 static var _tower_element_to_bit: Dictionary = {
 	Element.enm.ASTRAL: TargetType.ELEMENT_ASTRAL,
@@ -68,6 +73,13 @@ static var _creep_size_to_bit: Dictionary = {
 	CreepSize.enm.CHALLENGE_MASS: SIZE_MASS,
 }
 
+static var _tower_rarity_to_bit: Dictionary = {
+	Rarity.enm.COMMON: TargetType.RARITY_COMMON,
+	Rarity.enm.UNCOMMON: TargetType.RARITY_UNCOMMON,
+	Rarity.enm.RARE: TargetType.RARITY_RARE,
+	Rarity.enm.UNIQUE: TargetType.RARITY_UNIQUE,
+}
+
 enum UnitType {
 	TOWERS,
 	PLAYER_TOWERS,
@@ -91,6 +103,7 @@ func _init(bitmask: int):
 		ELEMENT_ALL,
 		RACE_ALL,
 		SIZE_ALL,
+		RARITY_ALL,
 	]
 	
 #	NOTE: if target type was created with no bit specified
@@ -153,10 +166,13 @@ static func make_unit_bitmask(unit: Unit) -> int:
 
 		var element: Element.enm = tower.get_element()
 		var element_bit: int = _tower_element_to_bit[element]
+		var rarity: Rarity.enm = tower.get_rarity()
+		var rarity_bit: int = _tower_rarity_to_bit[rarity]
 		
 		bitmask |= TargetType.TOWERS
 		bitmask |= TargetType.PLAYER_TOWERS
 		bitmask |= element_bit
+		bitmask |= rarity_bit
 	elif unit is Creep:
 		var creep: Creep = unit as Creep
 
