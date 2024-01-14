@@ -20,6 +20,8 @@ func _on_selected_unit_changed(prev_unit):
 			get_main_button().set_pressed(true)
 		
 		_level_panel.set_count(selected_unit.get_level())
+		_level_panel.ack_count()
+		
 		var icon_texture
 		if selected_unit is Tower:
 			icon_texture = TowerProperties.get_icon_texture(selected_unit.get_id())
