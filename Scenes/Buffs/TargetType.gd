@@ -12,32 +12,37 @@ class_name TargetType
 const CREEPS: int 			= 0x1
 const TOWERS: int 			= 0x2
 const PLAYER_TOWERS: int 	= 0x4
-const CORPSES: int 			= 0x100000
+const CORPSES: int 			= 0x8
 
-const RACE_UNDEAD: int 		= 0x8
-const RACE_MAGIC: int 		= 0x10
-const RACE_NATURE: int 		= 0x20
-const RACE_ORC: int 		= 0x40
-const RACE_HUMANOID: int 	= 0x80
-const RACE_CHALLENGE: int 	= 0x200000
+const RACE_UNDEAD: int 		= 0x10
+const RACE_MAGIC: int 		= 0x20
+const RACE_NATURE: int 		= 0x40
+const RACE_ORC: int 		= 0x80
+const RACE_HUMANOID: int 	= 0x100
+const RACE_CHALLENGE: int 	= 0x200
 const RACE_ALL: int 		= RACE_UNDEAD | RACE_MAGIC | RACE_NATURE | RACE_ORC | RACE_HUMANOID | RACE_CHALLENGE
 
-const SIZE_MASS: int 		= 0x100
-const SIZE_NORMAL: int 		= 0x200
-const SIZE_CHAMPION: int 	= 0x400
-const SIZE_BOSS: int 		= 0x800
-const SIZE_AIR: int 		= 0x1000
+const SIZE_MASS: int 		= 0x400
+const SIZE_NORMAL: int 		= 0x800
+const SIZE_CHAMPION: int 	= 0x1000
+const SIZE_BOSS: int 		= 0x2000
+const SIZE_AIR: int 		= 0x4000
 const SIZE_ALL: int 		= SIZE_MASS | SIZE_NORMAL | SIZE_CHAMPION | SIZE_BOSS | SIZE_AIR
 
-const ELEMENT_ASTRAL: int 	= 0x2000
-const ELEMENT_DARKNESS: int = 0x4000
-const ELEMENT_NATURE: int 	= 0x8000
-const ELEMENT_FIRE: int 	= 0x10000
-const ELEMENT_ICE: int 		= 0x20000
-const ELEMENT_STORM: int 	= 0x40000
-const ELEMENT_IRON: int 	= 0x80000
+const ELEMENT_ASTRAL: int 	= 0x8000
+const ELEMENT_DARKNESS: int = 0x10000
+const ELEMENT_NATURE: int 	= 0x20000
+const ELEMENT_FIRE: int 	= 0x40000
+const ELEMENT_ICE: int 		= 0x80000
+const ELEMENT_STORM: int 	= 0x100000
+const ELEMENT_IRON: int 	= 0x200000
 const ELEMENT_ALL: int 		= ELEMENT_ASTRAL | ELEMENT_DARKNESS | ELEMENT_NATURE | ELEMENT_FIRE | ELEMENT_ICE | ELEMENT_STORM | ELEMENT_IRON
 
+const RARITY_COMMON: int 	= 0x400000
+const RARITY_UNCOMMON: int 	= 0x800000
+const RARITY_RARE: int 		= 0x1000000
+const RARITY_UNIQUE: int 	= 0x2000000
+const RARITY_ALL: int 		= RARITY_COMMON | RARITY_UNCOMMON | RARITY_RARE | RARITY_UNIQUE
 
 static var _tower_element_to_bit: Dictionary = {
 	Element.enm.ASTRAL: TargetType.ELEMENT_ASTRAL,
@@ -68,6 +73,13 @@ static var _creep_size_to_bit: Dictionary = {
 	CreepSize.enm.CHALLENGE_MASS: SIZE_MASS,
 }
 
+static var _tower_rarity_to_bit: Dictionary = {
+	Rarity.enm.COMMON: TargetType.RARITY_COMMON,
+	Rarity.enm.UNCOMMON: TargetType.RARITY_UNCOMMON,
+	Rarity.enm.RARE: TargetType.RARITY_RARE,
+	Rarity.enm.UNIQUE: TargetType.RARITY_UNIQUE,
+}
+
 enum UnitType {
 	TOWERS,
 	PLAYER_TOWERS,
@@ -91,6 +103,7 @@ func _init(bitmask: int):
 		ELEMENT_ALL,
 		RACE_ALL,
 		SIZE_ALL,
+		RARITY_ALL,
 	]
 	
 #	NOTE: if target type was created with no bit specified
@@ -153,10 +166,13 @@ static func make_unit_bitmask(unit: Unit) -> int:
 
 		var element: Element.enm = tower.get_element()
 		var element_bit: int = _tower_element_to_bit[element]
+		var rarity: Rarity.enm = tower.get_rarity()
+		var rarity_bit: int = _tower_rarity_to_bit[rarity]
 		
 		bitmask |= TargetType.TOWERS
 		bitmask |= TargetType.PLAYER_TOWERS
 		bitmask |= element_bit
+		bitmask |= rarity_bit
 	elif unit is Creep:
 		var creep: Creep = unit as Creep
 

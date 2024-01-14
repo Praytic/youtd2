@@ -75,11 +75,17 @@ func point_cast_from_caster_on_point(caster: Unit, x: float, y: float, damage_ra
 	_cast_generic(caster, origin, target, x, y, damage_ratio, crit_ratio)
 
 
-# NOTE: cast.targetCastFromCasterOnPoint() in JASS
+# NOTE: cast.targetCastFromCaster() in JASS
 func target_cast_from_caster(caster: Unit, target: Unit, damage_ratio: float, crit_ratio: float):
 	var origin: Unit = caster
 	var x: float = target.position.x
 	var y: float = target.position.y
+	_cast_generic(caster, origin, target, x, y, damage_ratio, crit_ratio)
+
+
+# NOTE: cast.targetCastFromPoint() in JASS
+func target_cast_from_point(caster: Unit, target: Unit, x: float, y: float, damage_ratio: float, crit_ratio: float):
+	var origin: Unit = caster
 	_cast_generic(caster, origin, target, x, y, damage_ratio, crit_ratio)
 
 

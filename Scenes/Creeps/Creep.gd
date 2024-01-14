@@ -381,6 +381,16 @@ func _on_death(_event: Event):
 ### Setters / Getters ###
 #########################
 
+# NOTE: creep.getBaseBountyValue() in JASS
+func get_base_bounty_value() -> float:
+	var creep_size: CreepSize.enm = get_size()
+	var gold_multiplier: float = CreepSize.get_gold_multiplier(creep_size)
+	var spawn_level: int = get_spawn_level()
+	var bounty: float = gold_multiplier * (spawn_level / 8 + 1)
+
+	return bounty
+
+
 func get_log_name() -> String:
 	var size_name: String = CreepSize.convert_to_string(get_size())
 	var log_name: String = "%s-%d" % [size_name, _id]
