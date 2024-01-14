@@ -48,7 +48,7 @@ func change_visibility_level(visibility_level: VisibilityLevel):
 				status_panel.visible = true
 			for status_panel in _hidable_status_panels:
 				status_panel.visible = false
-			_expand_button.visible = true 
+			_expand_button.visible = not _hidable_status_panels.is_empty()
 			_panels_container.visible = true
 			_empty_container.visible = false
 		VisibilityLevel.MENU_OPENED: 
