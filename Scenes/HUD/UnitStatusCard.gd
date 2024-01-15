@@ -35,7 +35,7 @@ func _update_main_button_icon():
 		if selected_unit is Tower:
 			icon_texture = TowerProperties.get_icon_texture(selected_unit.get_id())
 		elif selected_unit is Creep:
-			icon_texture = CreepProperties.get_icon_texture(selected_unit.get_id())
+			icon_texture = CreepProperties.get_icon_texture(selected_unit)
 		get_main_button().set_button_icon(icon_texture)
 
 
