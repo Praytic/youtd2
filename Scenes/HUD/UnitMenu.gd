@@ -30,7 +30,6 @@ const ITEMS_CONTAINER_BUTTON_SIZE = 82
 @export var _specials_scroll_container: ScrollContainer
 
 @export var _level_panel: ShortResourceStatusPanel
-@export var _menu_card: ButtonStatusCard
 
 var _selling_for_real: bool = false
 
@@ -65,16 +64,6 @@ func _ready():
 	for i in range(0, Constants.INVENTORY_CAPACITY_MAX):
 		var empty_slot_button: EmptyUnitButton = EmptyUnitButton.make()
 		_inventory_empty_slots.add_child(empty_slot_button)
-
-
-func _process(_delta: float):
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
-	var menu_card_toggled = _menu_card.get_main_button().is_pressed()
-	
-	visible = menu_card_toggled and selected_unit != null
-	
-	if selected_unit != null and menu_card_toggled:
-		_update_info_label(selected_unit)
 
 
 #########################
@@ -314,8 +303,6 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	var selected_creep: bool = creep != null
 	assert(not (tower != null and creep != null), "Both tower and creep are selected.")
 	
-	visible = tower != null or creep != null
-
 	if prev_unit != null and prev_unit is Tower:
 		prev_unit.items_changed.disconnect(_on_tower_items_changed)
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)

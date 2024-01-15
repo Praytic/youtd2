@@ -58,8 +58,28 @@ func close_all_windows():
 
 
 #########################
+###      Private      ###
+#########################
+
+func _update_menus_visibility():
+	_elements_tower_menu.visible = _towers_menu_card.get_main_button().is_pressed()
+	_item_stash_menu.visible = _items_menu_card.get_main_button().is_pressed()
+	_unit_menu.visible = _unit_status_menu_card.get_main_button().is_pressed()
+
+
+#########################
 ###     Callbacks     ###
 #########################
+
+
+func _on_main_button_toggled(_button_pressed):
+	_update_menus_visibility()
+
+
+func _on_close_button_pressed():
+	_update_menus_visibility()
+
+
 
 func _on_game_over():
 	_game_over_label.show()

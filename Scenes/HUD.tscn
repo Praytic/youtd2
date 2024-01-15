@@ -174,6 +174,7 @@ icon = ExtResource("10_q3hi6")
 
 [node name="UnitStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("12_rwl1n")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="MainButton" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard/AspectRatioContainer" index="0"]
@@ -203,12 +204,11 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="UnitMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_level_panel", "_menu_card") instance=ExtResource("15_rfxf1")]
+[node name="UnitMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_level_panel") instance=ExtResource("15_rfxf1")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
 _level_panel = NodePath("../../../MenuCardsContainer/MenuCards/UnitStatusCard/PanelContainer/HBoxContainer/VBoxContainer/LevelPanel")
-_menu_card = NodePath("../../../MenuCardsContainer/MenuCards/UnitStatusCard")
 
 [node name="ItemStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_items_status_panel", "_oils_status_panel", "_commons_status_panel", "_uncommons_status_panel", "_rares_status_panel", "_uniques_status_panel", "_menu_card") instance=ExtResource("11_5i6a2")]
 visible = false
@@ -335,9 +335,15 @@ visible = false
 layout_mode = 2
 used_for_autocasts = true
 
+[connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/AspectRatioContainer/MainButton" to="." method="_on_main_button_toggled"]
+[connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/AspectRatioContainer/MainButton" to="." method="_on_main_button_toggled"]
+[connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard/AspectRatioContainer/MainButton" to="." method="_on_main_button_toggled"]
 [connection signal="visibility_changed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu" to="." method="_on_right_side_menu_visibility_changed"]
+[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="visibility_changed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" to="." method="_on_right_side_menu_visibility_changed"]
+[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="visibility_changed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu" to="." method="_on_right_side_menu_visibility_changed"]
+[connection signal="pressed" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
 
 [editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard"]
 [editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2"]

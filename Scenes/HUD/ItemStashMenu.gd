@@ -36,9 +36,6 @@ func _ready():
 	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
 
 
-func _process(_delta):
-	visible = _menu_card.get_main_button().is_pressed()
-
 #########################
 ###       Public      ###
 #########################
@@ -170,8 +167,8 @@ func _on_perfect_button_pressed():
 
 
 func _on_close_button_pressed():
+	_menu_card.get_main_button().set_pressed(false)
 	ack_status_panels()
-	hide()
 
 
 #########################
