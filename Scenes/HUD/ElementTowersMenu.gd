@@ -52,10 +52,11 @@ func _ready():
 	towers_changed.emit()
 	
 	HighlightUI.register_target("tower_stash", _tower_buttons_container)
-	_tower_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash"))
+	HighlightUI.register_target("upgrade_element_button", _upgrade_element_button)
+	HighlightUI.register_target("roll_towers_button", _roll_towers_button)
+	HighlightUI.register_target("elements_container", _elements_container)
 	
 	_update_tooltip_for_roll_towers_button()
-	_on_element_changed()
 
 
 #########################
@@ -252,9 +253,6 @@ func _on_element_changed():
 
 
 func _on_tower_built(tower_id):
-	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
-		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
-	
 	match Globals.game_mode:
 		GameMode.enm.BUILD: return
 		GameMode.enm.RANDOM_WITH_UPGRADES: remove_tower_button(tower_id)
@@ -264,7 +262,7 @@ func _on_tower_built(tower_id):
 		_roll_towers_button.disabled = true
 
 
-func _on_upgrade_element_button_mouse_entered():
+func _on_upgrade_element_mouse_entered():
 	var element: Element.enm = _elements_container.get_element()
 	var tooltip: String = RichTexts.get_research_text(element)
 	ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
@@ -277,13 +275,8 @@ func _on_upgrade_element_button_pressed():
 		KnowledgeTomesManager.spend(cost)
 		ElementLevel.increment(element)
 
-#		Hide and show button to refresh button tooltip.
-#		NOTE: can't call
-#		_on_upgrade_element_button_mouse_entered() directly
-#		here because it doesn't work right when button is
-#		pressed via shortcut.
-		_upgrade_element_button.hide()
-		_upgrade_element_button.show()
+		var tooltip: String = RichTexts.get_research_text(element)
+		ButtonTooltip.show_tooltip(_upgrade_element_button, tooltip)
 	else:
 #		NOTE: this case should really never happen because
 #		button should be disabled (not pressable) if element
