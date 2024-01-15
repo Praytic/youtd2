@@ -193,7 +193,7 @@ func _move(delta):
 
 		return
 
-	var path_point: Vector2 = _path.get_curve().get_point_position(_current_path_index) + _path.position
+	var path_point: Vector2 = _path.get_curve().get_point_position(_current_path_index)
 	var move_delta: float = get_current_movespeed() * delta
 	position = Isometric.vector_move_toward(position, path_point, move_delta)
 	moved.emit(delta)
@@ -214,7 +214,7 @@ func _get_current_movement_angle() -> float:
 	if _current_path_index >= path_curve.point_count:
 		return _facing_angle
 
-	var next_point: Vector2 = path_curve.get_point_position(_current_path_index) + _path.position
+	var next_point: Vector2 = path_curve.get_point_position(_current_path_index)
 	var facing_vector_isometric: Vector2 = next_point - position
 	var facing_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(facing_vector_isometric)
 	var top_down_angle_radians: float = facing_vector_top_down.angle()
@@ -462,7 +462,7 @@ func get_display_name() -> String:
 
 func set_path(path: Path2D):
 	_path = path
-	position = path.get_curve().get_point_position(0) + path.position
+	position = path.get_curve().get_point_position(0)
 
 
 func get_spawn_level() -> int:
