@@ -29,8 +29,6 @@ const ITEMS_CONTAINER_BUTTON_SIZE = 82
 @export var _main_container: VBoxContainer
 @export var _specials_scroll_container: ScrollContainer
 
-@export var _level_panel: ShortResourceStatusPanel
-
 var _selling_for_real: bool = false
 
 

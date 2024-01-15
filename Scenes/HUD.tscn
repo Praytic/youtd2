@@ -204,11 +204,10 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="UnitMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_level_panel") instance=ExtResource("15_rfxf1")]
+[node name="UnitMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("15_rfxf1")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
-_level_panel = NodePath("../../../MenuCardsContainer/MenuCards/UnitStatusCard/PanelContainer/HBoxContainer/VBoxContainer/LevelPanel")
 
 [node name="ItemStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_items_status_panel", "_oils_status_panel", "_commons_status_panel", "_uncommons_status_panel", "_rares_status_panel", "_uniques_status_panel", "_menu_card") instance=ExtResource("11_5i6a2")]
 visible = false
