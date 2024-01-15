@@ -3,13 +3,8 @@ class_name UtilsStatic extends Node
 
 var _current_game_time: float = 0.0
 
-@onready var _object_container: get = get_object_container
+@onready var _object_container: Node2D
 
-func get_object_container():
-	if _object_container == null:
-		return get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
-	else:
-		return _object_container
 
 # Returns a list of lines, each line is a list of strings.
 # It's assumed that the first row is title row and it is
@@ -183,7 +178,10 @@ func unit_is_valid(unit) -> bool:
 
 
 func add_object_to_world(object: Node):
-	get_object_container().add_child(object, true)
+	if _object_container == null:
+		_object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
+
+	_object_container.add_child(object, true)
 
 
 # Chance should be in range [0.0, 1.0]
