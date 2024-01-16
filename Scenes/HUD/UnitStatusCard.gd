@@ -11,20 +11,19 @@ func _ready():
 func _on_selected_unit_changed(prev_unit):
 	var selected_unit = SelectUnit.get_selected_unit()
 	
-	match [selected_unit != null, prev_unit != null]:
-		[true, _]:
-			visible = true
-			get_main_button().set_pressed(true)
-			if !selected_unit.level_changed.is_connected(_update_level_panel):
-				selected_unit.level_changed.connect(_update_level_panel)
-			_update_level_panel()
-			_update_main_button_icon()
-		[false, _]:
-			visible = false
-			get_main_button().set_pressed(false)
-		[_, false]:
-			if !prev_unit.level_changed.is_connected(_update_level_panel):
-				prev_unit.level_changed.disconnect(_update_level_panel)
+	if selected_unit != null:
+		visible = true
+		get_main_button().set_pressed(true)
+		if !selected_unit.level_changed.is_connected(_update_level_panel):
+			selected_unit.level_changed.connect(_update_level_panel)
+		if prev_unit != null && prev_unit.level_changed.is_connected(_update_level_panel):
+			prev_unit.level_changed.disconnect(_update_level_panel)
+		
+		_update_level_panel()
+		_update_main_button_icon()
+	else:
+		visible = false
+		get_main_button().set_pressed(false)
 
 
 func _update_main_button_icon():
