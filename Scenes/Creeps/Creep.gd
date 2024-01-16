@@ -424,6 +424,7 @@ func get_current_movespeed() -> float:
 
 # Sets unit facing to an angle with respect to the positive
 # X axis, in degrees.
+# NOTE: angle is top down
 # 
 # NOTE: SetUnitFacing() in JASS
 func set_unit_facing(angle: float):
@@ -436,6 +437,7 @@ func set_unit_facing(angle: float):
 		_selection_outline.play(animation)
 
 
+# NOTE: angle is top down
 # NOTE: GetUnitFacing() in JASS
 func get_unit_facing() -> float:
 	return _facing_angle
