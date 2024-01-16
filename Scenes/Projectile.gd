@@ -401,10 +401,6 @@ func _on_target_tree_exiting():
 	_clear_target()
 
 
-func _on_target_tree_exited():
-	_cleanup()
-
-
 func _on_projectile_type_tree_exited():
 	_cleanup()
 
