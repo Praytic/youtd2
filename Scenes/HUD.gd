@@ -74,10 +74,12 @@ func _update_menus_visibility():
 
 func _on_main_button_toggled(_button_pressed):
 	_update_menus_visibility()
+	_update_cards_visibility()
 
 
 func _on_close_button_pressed():
 	_update_menus_visibility()
+	_update_cards_visibility()
 
 
 
@@ -85,7 +87,7 @@ func _on_game_over():
 	_game_over_label.show()
 
 
-func _on_right_side_menu_visibility_changed():
+func _update_cards_visibility():
 	match [_elements_tower_menu.visible, _item_stash_menu.visible, _unit_menu.visible]:
 		[false, false, false]:
 			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
@@ -103,8 +105,6 @@ func _on_right_side_menu_visibility_changed():
 			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
 			_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_:
-			push_error("Unexpected state of right side menus: %s" % [[_elements_tower_menu.visible, _item_stash_menu.visible, _unit_menu.visible]])
 
 
 #########################
