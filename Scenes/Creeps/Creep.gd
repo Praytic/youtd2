@@ -15,6 +15,7 @@ const MAX_SELECTION_VISUAL_SIZE: float = 120.0
 const run_animations: Array[String] = ["run_E", "run_S", "run_W", "run_N"]
 const slow_run_animations: Array[String] = ["slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"]
 const fly_animations: Array[String] = ["fly_E", "fly_SE", "fly_S", "fly_SW", "fly_W", "fly_NW", "fly_N", "fly_NE"]
+const death_animations: Array[String] = ["death_E", "death_S", "death_W", "death_N"]
 
 # This is a threshold speed at which creeps will switch from
 # "slow run" to "fast run" animations.
@@ -291,10 +292,7 @@ func _get_creep_animation() -> String:
 
 
 func _get_death_animation() -> String:
-	var animation_list: Array[String] = [
-		"death_E", "death_S", "death_W", "death_N"
-	];
-	var animation: String = _get_animation_based_on_facing_angle(animation_list)
+	var animation: String = _get_animation_based_on_facing_angle(death_animations)
 
 	return animation
 
