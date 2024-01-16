@@ -15,7 +15,7 @@ extends PanelContainer
 @export var _uncommons_status_panel: ShortResourceStatusPanel
 @export var _rares_status_panel: ShortResourceStatusPanel
 @export var _uniques_status_panel: ShortResourceStatusPanel
-
+@export var _menu_card: ButtonStatusCard
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
@@ -50,6 +50,12 @@ func ack_status_panels():
 	_uncommons_status_panel.ack_count()
 	_rares_status_panel.ack_count()
 	_uniques_status_panel.ack_count()
+
+
+func close():
+	if _menu_card.get_main_button().is_pressed():
+		_menu_card.get_main_button().set_pressed(false)
+		ack_status_panels()
 
 
 #########################
@@ -167,8 +173,7 @@ func _on_perfect_button_pressed():
 
 
 func _on_close_button_pressed():
-	ack_status_panels()
-	hide()
+	close()
 
 
 #########################

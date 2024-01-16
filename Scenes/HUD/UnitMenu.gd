@@ -64,16 +64,13 @@ func _ready():
 		_inventory_empty_slots.add_child(empty_slot_button)
 
 
-func _process(_delta: float):
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
-
-	if selected_unit != null:
-		_update_info_label(selected_unit)
-
-
 #########################
 ###       Public      ###
 #########################
+
+func close():
+	SelectUnit.set_selected_unit(null)
+
 
 func is_visibility_mode_expanded() -> bool:
 	return _main_container.visible
@@ -95,9 +92,15 @@ func get_selected_creep() -> Creep:
 		return null
 
 
+# TODO: Can't be implemented right now because we need to store
+# _unchecked_count per unit instance
+func ack_status_panels():
+	pass
+
 #########################
 ###      Private      ###
 #########################
+
 
 func _update_unit_icon(unit: Unit):
 	if unit is Tower:
@@ -302,8 +305,6 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	var selected_creep: bool = creep != null
 	assert(not (tower != null and creep != null), "Both tower and creep are selected.")
 	
-	visible = tower != null or creep != null
-
 	if prev_unit != null and prev_unit is Tower:
 		prev_unit.items_changed.disconnect(_on_tower_items_changed)
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
@@ -527,4 +528,4 @@ func _on_items_container_gui_input(event):
 # When tower menu is closed, deselect the unit which will
 # also close the menu
 func _on_close_button_pressed():
-	SelectUnit.set_selected_unit(null)
+	close()

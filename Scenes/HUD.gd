@@ -13,6 +13,7 @@ signal stop_wave()
 @export var _unit_menu: Control
 @export var _towers_menu_card: ButtonStatusCard
 @export var _items_menu_card: ButtonStatusCard
+@export var _unit_status_menu_card: ButtonStatusCard
 
 @onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _unit_menu]
 
@@ -39,15 +40,9 @@ func _ready():
 	var items_menu_button = _items_menu_card.get_main_button()
 	HighlightUI.register_target("item_stash_button", _items_menu_card.get_main_button())
 	items_menu_button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash_button"))
-	
-
-
-func _unhandled_input(event):
-	var cancelled: bool = event.is_action_released("ui_cancel")
-	var left_click: bool = event.is_action_released("left_click")
-	if (cancelled or left_click) and not any_window_is_open():
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+	var unit_status_menu_button = _unit_status_menu_card.get_main_button()
+	HighlightUI.register_target("unit_status_menu_button", _unit_status_menu_card.get_main_button())
+	unit_status_menu_button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("unit_status_menu_button"))
 
 
 #########################
@@ -56,78 +51,62 @@ func _unhandled_input(event):
 
 func close_all_windows():
 	for window in _window_list:
-		window.hide()
-	
-	_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-	_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+		window.close()
 	
 #	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
+#	NOTE: this method is called twice due to UnitMenu window `close()` method.
 	SelectUnit.set_selected_unit(null)
+
+
+#########################
+###      Private      ###
+#########################
+
+func _update_menus_visibility():
+	_elements_tower_menu.visible = _towers_menu_card.get_main_button().is_pressed()
+	_item_stash_menu.visible = _items_menu_card.get_main_button().is_pressed()
+	_unit_menu.visible = _unit_status_menu_card.get_main_button().is_pressed()
+
 
 #########################
 ###     Callbacks     ###
 #########################
 
+
+func _on_main_button_toggled(_button_pressed):
+	_update_menus_visibility()
+	_update_cards_visibility()
+
+
+func _on_close_button_pressed():
+	_update_menus_visibility()
+	_update_cards_visibility()
+
+
+
 func _on_game_over():
 	_game_over_label.show()
 
 
-func _on_close_button_pressed():
-	if not _item_stash_menu.visible:
-		_items_menu_card.get_main_button().set_pressed_no_signal(false)
-		_items_menu_card.get_main_button().toggled.emit(false) 
-	if not _elements_tower_menu.visible:
-		_towers_menu_card.get_main_button().set_pressed_no_signal(false)
-		_towers_menu_card.get_main_button().toggled.emit(false)
-
-
-func _on_towers_button_toggled(toggled):
-	if toggled:
-		_elements_tower_menu.show()
+func _update_cards_visibility():
+	if _unit_menu.visible:
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+	elif _item_stash_menu.visible:
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+	elif _elements_tower_menu.visible:
 		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 	else:
-		_elements_tower_menu.hide()
-		if _item_stash_menu.visible:
-			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-		elif any_window_is_open():
-			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		else:
-			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-	
-	_elements_tower_menu.ack_status_panels()
+		# nothing is visible
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 
-
-func _on_items_button_toggled(toggled):
-	if toggled:
-		_item_stash_menu.show()
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-	else:
-		_item_stash_menu.hide()
-		if _elements_tower_menu.visible:
-			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		elif any_window_is_open():
-			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		else:
-			_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-	
-	_item_stash_menu.ack_status_panels()
-
-
-func _on_unit_menu_visibility_changed():
-	if not _item_stash_menu.visible:
-		_items_menu_card.get_main_button().set_pressed_no_signal(false)
-		_items_menu_card.get_main_button().toggled.emit(false) 
-	if not _elements_tower_menu.visible:
-		_towers_menu_card.get_main_button().set_pressed_no_signal(false)
-		_towers_menu_card.get_main_button().toggled.emit(false)
 
 
 #########################

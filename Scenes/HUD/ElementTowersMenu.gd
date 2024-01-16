@@ -35,6 +35,8 @@ signal towers_changed()
 @export var _darkness_towers_status_panel: ShortResourceStatusPanel
 @export var _iron_towers_status_panel: ShortResourceStatusPanel
 @export var _storm_towers_status_panel: ShortResourceStatusPanel
+@export var _menu_card: ButtonStatusCard
+
 
 #########################
 ### Code starts here  ###
@@ -119,6 +121,11 @@ func ack_status_panels():
 	_storm_towers_status_panel.ack_count()
 	_darkness_towers_status_panel.ack_count()
 
+
+func close():
+	if _menu_card.get_main_button().is_pressed():
+		_menu_card.get_main_button().set_pressed(false)
+		ack_status_panels()
 
 #########################
 ###      Private      ###
@@ -276,7 +283,7 @@ func _on_upgrade_element_button_pressed():
 		var cost: int = ElementLevel.get_research_cost(element)
 		KnowledgeTomesManager.spend(cost)
 		ElementLevel.increment(element)
-
+		
 #		Hide and show button to refresh button tooltip.
 #		NOTE: can't call
 #		_on_upgrade_element_button_mouse_entered() directly
@@ -295,8 +302,7 @@ func _on_upgrade_element_button_pressed():
 
 
 func _on_close_button_pressed():
-	ack_status_panels()
-	hide()
+	close()
 
 
 func _on_game_mode_was_chosen():
@@ -423,5 +429,3 @@ func get_tower_buttons() -> Array:
 
 func get_empty_slots() -> Array:
 	return get_tree().get_nodes_in_group("empty_slot")
-
-
