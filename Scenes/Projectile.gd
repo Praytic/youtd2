@@ -371,6 +371,13 @@ func _get_target_position() -> Vector2:
 		return _target_pos
 
 
+func _clear_target():
+	_target_pos = _target_unit.get_visual_position()
+	_target_unit.death.disconnect(_on_target_death)
+	_target_unit.tree_exiting.disconnect(_on_target_tree_exiting)
+	_target_unit = null
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -384,9 +391,14 @@ func _on_periodic_timer_timeout():
 
 
 func _on_target_death(_event: Event):
-	_target_pos = _target_unit.get_visual_position()
-	_target_unit.death.disconnect(_on_target_death)
-	_target_unit = null
+	_clear_target()
+
+
+# NOTE: we need to clear target both on death() and on
+# tree_exiting() signal because creeps get removed from the
+# game without dying, when they reach the portal.
+func _on_target_tree_exiting():
+	_clear_target()
 
 
 func _on_target_tree_exited():
@@ -492,6 +504,9 @@ func set_homing_target(new_target: Unit):
 		if !new_target.is_dead():
 			if !new_target.death.is_connected(_on_target_death):
 				new_target.death.connect(_on_target_death)
+
+			if !new_target.tree_exiting.is_connected(_on_target_tree_exiting):
+				new_target.tree_exiting.connect(_on_target_tree_exiting)
 
 			_target_unit = new_target
 		else:
