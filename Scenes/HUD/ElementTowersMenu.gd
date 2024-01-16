@@ -278,6 +278,14 @@ func _on_upgrade_element_button_pressed():
 		var cost: int = ElementLevel.get_research_cost(element)
 		KnowledgeTomesManager.spend(cost)
 		ElementLevel.increment(element)
+		
+#		Hide and show button to refresh button tooltip.
+#		NOTE: can't call
+#		_on_upgrade_element_button_mouse_entered() directly
+#		here because it doesn't work right when button is
+#		pressed via shortcut.
+		_upgrade_element_button.hide()
+		_upgrade_element_button.show()
 	else:
 #		NOTE: this case should really never happen because
 #		button should be disabled (not pressable) if element
