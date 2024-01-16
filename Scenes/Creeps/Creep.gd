@@ -337,7 +337,7 @@ func _get_animation_based_on_facing_angle(animation_order: Array[String]) -> Str
 # 	of that section will be equal to the animation index.
 	var section_count: int = animation_order.size()
 	var section_angle: float = 360.0 / section_count
-	var animation_index: int = floori((_facing_angle - section_angle / 2) / section_angle)
+	var animation_index: int = roundi((_facing_angle - section_angle / 2) / section_angle)
 
 	if animation_index >= animation_order.size():
 		print_debug("animation_index out of bounds = ", animation_index)
