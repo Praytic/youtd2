@@ -12,6 +12,22 @@ const ANIMATION_FOR_DIMENSIONS: String = "default"
 # selection visual doesn't clip into floor2 tiles.
 const MAX_SELECTION_VISUAL_SIZE: float = 120.0
 
+const run_animations: Array[String] = ["run_E", "run_S", "run_W", "run_N"]
+const slow_run_animations: Array[String] = ["slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"]
+const fly_animations: Array[String] = ["fly_E", "fly_SE", "fly_S", "fly_SW", "fly_W", "fly_NW", "fly_N", "fly_NE"]
+
+# This is a threshold speed at which creeps will switch from
+# "slow run" to "fast run" animations.
+const run_animation_threshold_map: Dictionary = {
+	CreepSize.enm.MASS: Constants.DEFAULT_MOVE_SPEED * 0.90,
+	CreepSize.enm.NORMAL: Constants.DEFAULT_MOVE_SPEED * 1.50,
+	CreepSize.enm.AIR: Constants.DEFAULT_MOVE_SPEED * 1.50,
+	CreepSize.enm.CHAMPION: Constants.DEFAULT_MOVE_SPEED * 1.50,
+	CreepSize.enm.BOSS: Constants.DEFAULT_MOVE_SPEED * 1.50,
+	CreepSize.enm.CHALLENGE_MASS: Constants.DEFAULT_MOVE_SPEED * 0.90,
+	CreepSize.enm.CHALLENGE_BOSS: Constants.DEFAULT_MOVE_SPEED * 1.50,
+}
+
 var _path: Path2D : set = set_path
 var _size: CreepSize.enm
 var _category: CreepCategory.enm : set = set_category, get = get_category
@@ -255,65 +271,21 @@ func _get_damage_to_portal() -> float:
 
 
 func _get_creep_animation() -> String:
-	var animation_order: Array[String]
+	var animation_list: Array[String]
 	
-	var creep_move_speed = get_current_movespeed()
-	match get_size():
-		CreepSize.enm.MASS:
-			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 0.90:
-				animation_order = [
-					"run_E", "run_S", "run_W", "run_N"
-				]
-			else:
-				animation_order = [
-					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
-				]
-		CreepSize.enm.CHALLENGE_MASS:
-			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 0.90:
-				animation_order = [
-					"run_E", "run_S", "run_W", "run_N"
-				]
-			else:
-				animation_order = [
-					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
-				]
-		CreepSize.enm.BOSS:
-			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 1.50:
-				animation_order = [
-					"run_E", "run_S", "run_W", "run_N"
-				]
-			else:
-				animation_order = [
-					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
-				]
-		CreepSize.enm.CHALLENGE_BOSS:
-			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 1.50:
-				animation_order = [
-					"run_E", "run_S", "run_W", "run_N"
-				]
-			else:
-				animation_order = [
-					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
-				]
-		CreepSize.enm.NORMAL, CreepSize.enm.CHAMPION:
-			if creep_move_speed > Constants.DEFAULT_MOVE_SPEED * 1.50:
-				animation_order = [
-					"run_E", "run_S", "run_W", "run_N"
-				]
-			else:
-				animation_order = [
-					"slow_run_E", "slow_run_S", "slow_run_W", "slow_run_N"
-				]
-		CreepSize.enm.AIR:
-			animation_order = [
-				"fly_E", "fly_SE", "fly_S", "fly_SW", "fly_W", "fly_NW", "fly_N", "fly_NE"
-			]
-		_:
-			animation_order = [
-				"stand", "stand", "stand", "stand", "stand", "stand", "stand", "stand"
-			]
+	if get_size() == CreepSize.enm.AIR:
+		animation_list = fly_animations
+	else:
+		var creep_move_speed: float = get_current_movespeed()
+		var fast_run_threshold: float = run_animation_threshold_map[get_size()]
+		var use_run_animations: bool = creep_move_speed > fast_run_threshold
 
-	var animation: String = _get_animation_based_on_facing_angle(animation_order)
+		if use_run_animations:
+			animation_list = run_animations
+		else:
+			animation_list = slow_run_animations
+
+	var animation: String = _get_animation_based_on_facing_angle(animation_list)
 
 	return animation
 
