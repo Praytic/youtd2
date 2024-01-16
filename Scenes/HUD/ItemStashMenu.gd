@@ -52,6 +52,12 @@ func ack_status_panels():
 	_uniques_status_panel.ack_count()
 
 
+func close():
+	if _menu_card.get_main_button().is_pressed():
+		_menu_card.get_main_button().set_pressed(false)
+		ack_status_panels()
+
+
 #########################
 ###      Private      ###
 #########################
@@ -167,8 +173,7 @@ func _on_perfect_button_pressed():
 
 
 func _on_close_button_pressed():
-	_menu_card.get_main_button().set_pressed(false)
-	ack_status_panels()
+	close()
 
 
 #########################

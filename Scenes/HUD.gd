@@ -51,9 +51,10 @@ func _ready():
 
 func close_all_windows():
 	for window in _window_list:
-		window.hide()
+		window.close()
 	
 #	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
+#	NOTE: this method is called twice due to UnitMenu window `close()` method.
 	SelectUnit.set_selected_unit(null)
 
 

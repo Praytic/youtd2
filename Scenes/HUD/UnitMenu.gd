@@ -68,6 +68,10 @@ func _ready():
 ###       Public      ###
 #########################
 
+func close():
+	SelectUnit.set_selected_unit(null)
+
+
 func is_visibility_mode_expanded() -> bool:
 	return _main_container.visible
 
@@ -524,4 +528,4 @@ func _on_items_container_gui_input(event):
 # When tower menu is closed, deselect the unit which will
 # also close the menu
 func _on_close_button_pressed():
-	SelectUnit.set_selected_unit(null)
+	close()

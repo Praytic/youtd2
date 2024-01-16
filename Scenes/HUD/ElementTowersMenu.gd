@@ -122,6 +122,11 @@ func ack_status_panels():
 	_darkness_towers_status_panel.ack_count()
 
 
+func close():
+	if _menu_card.get_main_button().is_pressed():
+		_menu_card.get_main_button().set_pressed(false)
+		ack_status_panels()
+
 #########################
 ###      Private      ###
 #########################
@@ -297,8 +302,7 @@ func _on_upgrade_element_button_pressed():
 
 
 func _on_close_button_pressed():
-	_menu_card.get_main_button().set_pressed(false)
-	ack_status_panels()
+	close()
 
 
 func _on_game_mode_was_chosen():
