@@ -104,7 +104,7 @@ func _on_right_side_menu_visibility_changed():
 			_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 			_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 		_:
-			push_error("Unexpected state of right side menus.")
+			push_error("Unexpected state of right side menus: %s" % [[_elements_tower_menu.visible, _item_stash_menu.visible, _unit_menu.visible]])
 
 
 #########################
