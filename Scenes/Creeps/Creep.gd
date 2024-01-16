@@ -257,8 +257,6 @@ func _get_damage_to_portal() -> float:
 func _get_creep_animation() -> String:
 	var animation_order: Array[String]
 	
-# TODO: Switch when certain speed limit is reached
-#	if get_current_movespeed() > 300:
 	var creep_move_speed = get_current_movespeed()
 	match get_size():
 		CreepSize.enm.MASS:
