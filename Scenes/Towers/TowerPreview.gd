@@ -29,6 +29,11 @@ func _ready():
 
 	var is_tower_preview: bool = true
 	_tower_instance = TowerManager.get_tower(tower_id, is_tower_preview)
+#	NOTE: have to init stats because we call
+#	get_aura_types() on tower. For some towers, calling
+#	get_aura_types() will touch _stats variable, which is
+#	initialized by init_stats_and_specials().
+	_tower_instance.init_stats_and_specials()
 	add_child(_tower_instance)
 
 	var aura_type_list: Array[AuraType] = _tower_instance.get_aura_types()
