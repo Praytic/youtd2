@@ -19,6 +19,7 @@ enum VisibilityLevel {
 @export var _panels_container: Control
 @export var _empty_container: Container
 @export var _main_button: Button : get = get_main_button
+@export var _short_resource_status_panels: Array[ShortResourceStatusPanel]
 
 
 var _visibility_level: VisibilityLevel = VisibilityLevel.ESSENTIALS
@@ -36,6 +37,7 @@ func _on_expand_button_pressed():
 
 
 func change_visibility_level(visibility_level: VisibilityLevel):
+	var prev_visibility_level = _visibility_level
 	match visibility_level:
 		VisibilityLevel.FULL: 
 			for status_panel in _status_panels:
@@ -51,17 +53,24 @@ func change_visibility_level(visibility_level: VisibilityLevel):
 			_expand_button.visible = !_hidable_status_panels.is_empty()
 			_panels_container.visible = true
 			_empty_container.visible = false
+			if prev_visibility_level == VisibilityLevel.MENU_OPENED:
+				for panel in _short_resource_status_panels:
+					panel.ack_count()
 		VisibilityLevel.MENU_OPENED: 
 			for status_panel in _status_panels:
 				status_panel.visible = false
 			_expand_button.visible = false
 			_panels_container.visible = true
 			_empty_container.visible = true
+			for panel in _short_resource_status_panels:
+				panel.ack_count()
 		VisibilityLevel.MENU_CLOSED:
 			_panels_container.visible = false
 			_empty_container.visible = false
+			for panel in _short_resource_status_panels:
+				panel.ack_count()
 	
-	visibility_level_changed.emit(_visibility_level, visibility_level)
+	visibility_level_changed.emit(prev_visibility_level, visibility_level)
 	_visibility_level = visibility_level
 
 

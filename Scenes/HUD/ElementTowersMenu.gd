@@ -108,24 +108,10 @@ func remove_tower_button(tower_id, should_emit_signal: bool = true):
 	_update_empty_slots()
 
 
-# TODO: Can be improved by actually acknowledging each new tower
-# button when it's visible to player at least once.
-func ack_status_panels():
-	_update_resource_status_panels()
-	_towers_status_panel.ack_count()
-	_fire_towers_status_panel.ack_count()
-	_astral_towers_status_panel.ack_count()
-	_nature_towers_status_panel.ack_count()
-	_ice_towers_status_panel.ack_count()
-	_iron_towers_status_panel.ack_count()
-	_storm_towers_status_panel.ack_count()
-	_darkness_towers_status_panel.ack_count()
-
-
 func close():
 	if _menu_card.get_main_button().is_pressed():
 		_menu_card.get_main_button().set_pressed(false)
-		ack_status_panels()
+		_update_resource_status_panels()
 
 #########################
 ###      Private      ###

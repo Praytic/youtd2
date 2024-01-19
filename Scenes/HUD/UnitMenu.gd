@@ -92,11 +92,6 @@ func get_selected_creep() -> Creep:
 		return null
 
 
-# TODO: Can't be implemented right now because we need to store
-# _unchecked_count per unit instance
-func ack_status_panels():
-	pass
-
 #########################
 ###      Private      ###
 #########################

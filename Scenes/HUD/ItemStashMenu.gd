@@ -40,22 +40,10 @@ func _ready():
 ###       Public      ###
 #########################
 
-# TODO: Can be improved by actually acknowledging each new item
-# button when it's visible to player at least once.
-func ack_status_panels():
-	_update_resource_status_panels()
-	_items_status_panel.ack_count()
-	_oils_status_panel.ack_count()
-	_commons_status_panel.ack_count()
-	_uncommons_status_panel.ack_count()
-	_rares_status_panel.ack_count()
-	_uniques_status_panel.ack_count()
-
-
 func close():
 	if _menu_card.get_main_button().is_pressed():
 		_menu_card.get_main_button().set_pressed(false)
-		ack_status_panels()
+		_update_resource_status_panels()
 
 
 #########################

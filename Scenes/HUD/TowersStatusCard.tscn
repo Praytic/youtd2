@@ -19,7 +19,8 @@ unicode = 116
 [sub_resource type="Shortcut" id="Shortcut_lrntq"]
 events = [SubResource("InputEventKey_vl08n")]
 
-[node name="TowersStatusCard" instance=ExtResource("1_r4shn")]
+[node name="TowersStatusCard" node_paths=PackedStringArray("_short_resource_status_panels") instance=ExtResource("1_r4shn")]
+_short_resource_status_panels = [NodePath("PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2"), NodePath("PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel")]
 
 [node name="TowersCountPanel2" parent="PanelContainer/HBoxContainer/VBoxContainer" index="0" instance=ExtResource("4_dt3ka")]
 layout_mode = 2

@@ -16,7 +16,8 @@ unicode = 105
 [sub_resource type="Shortcut" id="Shortcut_4xrdp"]
 events = [SubResource("InputEventKey_8lii1")]
 
-[node name="ItemsStatusCard" instance=ExtResource("1_od2y8")]
+[node name="ItemsStatusCard" node_paths=PackedStringArray("_short_resource_status_panels") instance=ExtResource("1_od2y8")]
+_short_resource_status_panels = [NodePath("PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"), NodePath("PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/CommonsCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/RaresCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel")]
 
 [node name="ItemsCountPanel" parent="PanelContainer/HBoxContainer/VBoxContainer" index="0" instance=ExtResource("2_nyu6g")]
 layout_mode = 2
