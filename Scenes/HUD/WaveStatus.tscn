@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://4tcjyre0hoji"]
+[gd_scene load_steps=5 format=3 uid="uid://4tcjyre0hoji"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_3h6gw"]
 [ext_resource type="Script" path="res://Scenes/HUD/WaveStatus.gd" id="2_fsc15"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_srlh2"]
+device = -1
+keycode = 78
+unicode = 110
+
+[sub_resource type="Shortcut" id="Shortcut_u7iub"]
+events = [SubResource("InputEventKey_srlh2")]
 
 [node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_timer_label")]
 custom_minimum_size = Vector2(650, 0)
@@ -10,11 +18,13 @@ offset_bottom = 134.0
 theme = ExtResource("1_3h6gw")
 script = ExtResource("2_fsc15")
 _label = NodePath("DetailsLabel")
-_stats_label = NodePath("StatsLabel")
+_stats_label = NodePath("HBoxContainer2/StatsLabel")
 _timer_label = NodePath("TimerLabel")
 
 [node name="TimerLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
 theme_override_constants/table_h_separation = 20
 bbcode_enabled = true
 text = "Wave [color=GOLD]2[/color]
@@ -31,7 +41,10 @@ scroll_active = false
 autowrap_mode = 0
 hint_underlined = false
 
-[node name="StatsLabel" type="RichTextLabel" parent="."]
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="StatsLabel" type="RichTextLabel" parent="HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/table_h_separation = 20
 bbcode_enabled = true
@@ -42,6 +55,16 @@ text = "
 "
 fit_content = true
 autowrap_mode = 0
+
+[node name="StartNextWaveButton" type="Button" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "Start next wave"
+focus_mode = 0
+theme_override_font_sizes/font_size = 25
+shortcut = SubResource("Shortcut_u7iub")
+text = "Next wave"
 
 [node name="UpdateStatsTimer" type="Timer" parent="."]
 autostart = true
