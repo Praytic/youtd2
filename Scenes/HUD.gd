@@ -83,6 +83,17 @@ func _on_close_button_pressed():
 	_update_cards_visibility()
 
 
+func _on_unit_menu_hidden():
+	_on_close_button_pressed()
+
+
+func _on_element_towers_menu_hidden():
+	_on_close_button_pressed()
+
+
+func _on_item_stash_menu_hidden():
+	_on_close_button_pressed()
+
 
 func _on_game_over():
 	_game_over_label.show()
