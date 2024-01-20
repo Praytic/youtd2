@@ -9,6 +9,7 @@ extends VBoxContainer
 @export var _stats_label: RichTextLabel
 @onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
 @export var _timer_label: RichTextLabel
+@export var _start_next_wave_button: Button
 
 var _armor_hint_map: Dictionary
 
@@ -18,6 +19,9 @@ var _armor_hint_map: Dictionary
 #########################
 
 func _ready():
+	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
+	EventBus.game_over.connect(_on_game_over)
+
 	_armor_hint_map = _generate_armor_hints()
 
 	WaveLevel.changed.connect(_update_all_labels)
@@ -184,3 +188,11 @@ func _on_update_stats_timer_timeout():
 
 	_stats_label.clear()
 	_stats_label.append_text(text)
+
+
+func _on_all_waves_started():
+	_start_next_wave_button.disabled = true
+
+
+func _on_game_over():
+	_start_next_wave_button.disabled = true

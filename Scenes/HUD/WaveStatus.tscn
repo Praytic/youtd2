@@ -11,7 +11,7 @@ unicode = 110
 [sub_resource type="Shortcut" id="Shortcut_u7iub"]
 events = [SubResource("InputEventKey_srlh2")]
 
-[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_timer_label")]
+[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_timer_label", "_start_next_wave_button")]
 custom_minimum_size = Vector2(650, 0)
 offset_right = 600.0
 offset_bottom = 134.0
@@ -20,6 +20,7 @@ script = ExtResource("2_fsc15")
 _label = NodePath("DetailsLabel")
 _stats_label = NodePath("HBoxContainer2/StatsLabel")
 _timer_label = NodePath("TimerLabel")
+_start_next_wave_button = NodePath("HBoxContainer2/StartNextWaveButton")
 
 [node name="TimerLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
