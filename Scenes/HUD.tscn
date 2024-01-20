@@ -245,12 +245,6 @@ layout_mode = 2
 size_flags_horizontal = 6
 metadata/_edit_vertical_guides_ = []
 
-[node name="GoldStatusPanel" parent="MarginContainer/All/Bottom/BottomMenuBar/HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" index="0"]
-custom_minimum_size = Vector2(200, 50)
-
-[node name="FoodStatusPanel" parent="MarginContainer/All/Bottom/BottomMenuBar/HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" index="2"]
-custom_minimum_size = Vector2(200, 40)
-
 [node name="DevControls" parent="." instance_placeholder="res://Scenes/HUD/DevControls.tscn"]
 visible = false
 layout_mode = 1
@@ -368,4 +362,3 @@ used_for_autocasts = true
 [editable path="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu"]
 [editable path="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu"]
 [editable path="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu"]
-[editable path="MarginContainer/All/Bottom/BottomMenuBar"]
