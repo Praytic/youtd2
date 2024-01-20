@@ -4,6 +4,27 @@ class_name UtilsStatic extends Node
 var _current_game_time: float = 0.0
 
 @onready var _object_container: Node2D
+@onready var _creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("CreepPathGround")
+
+
+# NOTE: point should be isometric
+func is_point_on_creep_path(point: Vector2) -> bool:
+	var curve: Curve2D = _creep_path_ground.curve
+
+	var min_distance: float = 10000.0
+	var prev: Vector2 = curve.get_point_position(0)
+
+	for i in range(1, curve.point_count):
+		var curr: Vector2 = curve.get_point_position(i)
+
+		var closest_point: Vector2 = Geometry2D.get_closest_point_to_segment(point, prev, curr)
+		var distance: float = closest_point.distance_to(point)
+
+		min_distance = min(min_distance, distance)
+
+		prev = curr
+
+	return min_distance < 100
 
 
 # Returns a list of lines, each line is a list of strings.

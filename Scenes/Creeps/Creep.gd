@@ -103,6 +103,35 @@ func _process(delta):
 ###       Public      ###
 #########################
 
+# Creep moves to a point on path, which is closest to given
+# point.
+func move_to_point(point: Vector2):
+	var curve: Curve2D = _path.curve
+
+	var min_distance: float = 10000.0
+	var min_index: int = -1
+	var min_position: Vector2 = Vector2.ZERO
+	var prev: Vector2 = curve.get_point_position(0)
+
+	for i in range(1, curve.point_count):
+		var curr: Vector2 = curve.get_point_position(i)
+		var closest_point: Vector2 = Geometry2D.get_closest_point_to_segment(point, prev, curr)
+		var distance: float = closest_point.distance_to(point)
+
+		if distance < min_distance:
+			min_distance = distance
+			min_index = i
+			min_position = closest_point
+
+		prev = curr
+
+	if min_index == -1:
+		return
+	
+	position = min_position
+	_current_path_index = min_index
+
+
 # NOTE: creep.adjustHeight() in JASS
 func adjust_height(height_wc3: float, speed: float):
 #	NOTE: can't create tween's while node is outside tree.
