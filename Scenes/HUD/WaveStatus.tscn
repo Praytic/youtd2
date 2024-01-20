@@ -70,4 +70,5 @@ text = "Next wave"
 [node name="UpdateStatsTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="pressed" from="HBoxContainer2/StartNextWaveButton" to="." method="_on_start_next_wave_button_pressed"]
 [connection signal="timeout" from="UpdateStatsTimer" to="." method="_on_update_stats_timer_timeout"]
