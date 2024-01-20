@@ -3,6 +3,7 @@ extends PanelContainer
 
 
 signal visibility_level_changed(old_visibility_level: VisibilityLevel, new_visibility_level: VisibilityLevel)
+signal main_button_toggled()
 
 
 enum VisibilityLevel {
@@ -80,3 +81,7 @@ func get_main_button() -> Button:
 
 func get_expand_button() -> Button:
 	return _expand_button
+
+
+func _on_main_button_toggled(_toggled_on: bool):
+	main_button_toggled.emit()

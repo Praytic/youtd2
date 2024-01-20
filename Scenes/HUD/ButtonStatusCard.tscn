@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4giw0t33nkpi"]
+[gd_scene load_steps=8 format=3 uid="uid://b4giw0t33nkpi"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_tyvge"]
 [ext_resource type="Script" path="res://Scenes/HUD/ButtonStatusCard.gd" id="2_o5u5x"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_4s80j"]
+[ext_resource type="ButtonGroup" uid="uid://deklccjgbh0k0" path="res://Resources/UI/ButtonGroup/menu_cards_button_group.tres" id="4_kq8xt"]
 [ext_resource type="Texture2D" uid="uid://r7qkt7vep0ar" path="res://Resources/Textures/UI/Icons/towers_icon.tres" id="5_ycddg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ni3r1"]
@@ -91,8 +92,11 @@ tooltip_text = "Open Towers menu"
 focus_mode = 0
 theme_type_variation = &"BigCircleButton"
 theme_override_constants/icon_max_width = 90
+toggle_mode = true
+button_group = ExtResource("4_kq8xt")
 icon = ExtResource("5_ycddg")
 icon_alignment = 1
 expand_icon = true
 
 [connection signal="pressed" from="PanelContainer/HBoxContainer/AspectRatioContainer2/ExpandButton" to="." method="_on_expand_button_pressed"]
+[connection signal="toggled" from="AspectRatioContainer/MainButton" to="." method="_on_main_button_toggled"]

@@ -1,13 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://cngv1rgplre2c"]
+[gd_scene load_steps=19 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://bx03slt7u3oce" path="res://Scenes/HUD/TowersStatusCard.tscn" id="8_ts7ak"]
 [ext_resource type="PackedScene" uid="uid://dj7llpr0oenw7" path="res://Scenes/HUD/ItemsStatusCard.tscn" id="9_16kcd"]
-[ext_resource type="ButtonGroup" uid="uid://deklccjgbh0k0" path="res://Resources/UI/ButtonGroup/menu_cards_button_group.tres" id="10_8ub83"]
 [ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://Scenes/HUD/TopLeftMenu.tscn" id="10_agdn3"]
-[ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="10_q3hi6"]
 [ext_resource type="Script" path="res://Scenes/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://ino0lr2m12uh" path="res://Scenes/HUD/ItemStashMenu.tscn" id="11_5i6a2"]
 [ext_resource type="PackedScene" uid="uid://dvo433axo22w3" path="res://Scenes/HUD/ElementTowersMenu.tscn" id="11_gv2lk"]
@@ -156,30 +154,14 @@ theme_override_constants/separation = 10
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MainButton" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/AspectRatioContainer" index="0"]
-toggle_mode = true
-button_group = ExtResource("10_8ub83")
-
 [node name="ItemsStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("9_16kcd")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="GridContainer" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer" index="4"]
-columns = 2
-
-[node name="MainButton" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/AspectRatioContainer" index="0"]
-toggle_mode = true
-button_group = ExtResource("10_8ub83")
-icon = ExtResource("10_q3hi6")
 
 [node name="UnitStatusCard" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards" instance=ExtResource("12_rwl1n")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-
-[node name="MainButton" parent="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard/AspectRatioContainer" index="0"]
-toggle_mode = true
-button_group = ExtResource("10_8ub83")
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/All/Center"]
 layout_mode = 1
@@ -334,28 +316,9 @@ visible = false
 layout_mode = 2
 used_for_autocasts = true
 
-[connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/AspectRatioContainer/MainButton" to="." method="_on_main_button_toggled"]
-[connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/AspectRatioContainer/MainButton" to="." method="_on_main_button_toggled"]
-[connection signal="toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard/AspectRatioContainer/MainButton" to="." method="_on_main_button_toggled"]
+[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard" to="." method="_on_main_button_toggled"]
+[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard" to="." method="_on_main_button_toggled"]
+[connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard" to="." method="_on_main_button_toggled"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu" to="." method="_on_unit_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" to="." method="_on_item_stash_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu" to="." method="_on_element_towers_menu_hidden"]
-
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/CommonsCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/RaresCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard"]
-[editable path="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard/PanelContainer/HBoxContainer/VBoxContainer/LevelPanel"]

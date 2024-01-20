@@ -31,6 +31,9 @@ layout_mode = 2
 [node name="ResourceIconTexture" parent="PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel/HBoxContainer/MarginContainer2/AspectRatioContainer" index="0"]
 texture = ExtResource("4_eovi7")
 
+[node name="GridContainer" parent="PanelContainer/HBoxContainer" index="4"]
+columns = 2
+
 [node name="CommonsCountPanel" parent="PanelContainer/HBoxContainer/GridContainer" index="0" instance=ExtResource("2_nyu6g")]
 layout_mode = 2
 
@@ -54,6 +57,7 @@ texture = ExtResource("7_ih1p1")
 
 [node name="MainButton" parent="AspectRatioContainer" index="0"]
 shortcut = SubResource("Shortcut_4xrdp")
+icon = ExtResource("3_eblou")
 
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"]
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"]

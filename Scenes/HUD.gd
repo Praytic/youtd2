@@ -91,7 +91,7 @@ func _update_menus_and_cards_visibility():
 #########################
 
 
-func _on_main_button_toggled(_button_pressed):
+func _on_main_button_toggled():
 	_update_menus_and_cards_visibility()
 
 
