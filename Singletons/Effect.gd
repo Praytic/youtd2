@@ -168,6 +168,15 @@ func no_death_animation(_effect_id: int):
 	pass
 
 
+func set_position(effect_id: int, position: Vector2):
+	if !_effect_map.has(effect_id):
+		return
+
+	var effect = _effect_map[effect_id]
+
+	effect.position = position
+
+
 #########################
 ###      Private      ###
 #########################
