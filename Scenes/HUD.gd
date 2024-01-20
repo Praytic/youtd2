@@ -62,44 +62,11 @@ func close_all_windows():
 ###      Private      ###
 #########################
 
-func _update_menus_visibility():
+func _update_menus_and_cards_visibility():
 	_elements_tower_menu.visible = _towers_menu_card.get_main_button().is_pressed()
 	_item_stash_menu.visible = _items_menu_card.get_main_button().is_pressed()
 	_unit_menu.visible = _unit_status_menu_card.get_main_button().is_pressed()
 
-
-#########################
-###     Callbacks     ###
-#########################
-
-
-func _on_main_button_toggled(_button_pressed):
-	_update_menus_visibility()
-	_update_cards_visibility()
-
-
-func _on_close_button_pressed():
-	_update_menus_visibility()
-	_update_cards_visibility()
-
-
-func _on_unit_menu_hidden():
-	_on_close_button_pressed()
-
-
-func _on_element_towers_menu_hidden():
-	_on_close_button_pressed()
-
-
-func _on_item_stash_menu_hidden():
-	_on_close_button_pressed()
-
-
-func _on_game_over():
-	_game_over_label.show()
-
-
-func _update_cards_visibility():
 	if _unit_menu.visible:
 		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
 		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
@@ -118,6 +85,30 @@ func _update_cards_visibility():
 		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 
+
+#########################
+###     Callbacks     ###
+#########################
+
+
+func _on_main_button_toggled(_button_pressed):
+	_update_menus_and_cards_visibility()
+
+
+func _on_unit_menu_hidden():
+	_update_menus_and_cards_visibility()
+
+
+func _on_element_towers_menu_hidden():
+	_update_menus_and_cards_visibility()
+
+
+func _on_item_stash_menu_hidden():
+	_update_menus_and_cards_visibility()
+
+
+func _on_game_over():
+	_game_over_label.show()
 
 
 #########################
