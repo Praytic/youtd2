@@ -281,7 +281,7 @@ func _do_homing_behavior(delta: float):
 
 	var current_direction_vector: Vector2 = Vector2.from_angle(deg_to_rad(_direction))
 	var direction_diff: float = rad_to_deg(current_direction_vector.angle_to(desired_direction_vector))
-	var turn_amount: float = sign(direction_diff) * min(_homing_control_value * delta, abs(direction_diff))
+	var turn_amount: float = sign(direction_diff) * min(rad_to_deg(_homing_control_value) * delta, abs(direction_diff))
 	var new_direction: float = _direction + turn_amount
 	
 	set_direction(new_direction)
