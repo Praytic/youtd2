@@ -19,4 +19,6 @@ func on_damaged(event: Event):
 	if damage_is_mortal && chance_success && enough_mana:
 		var life_after_heal: float = randf_range(0.2, 1.0) * creep.get_overall_health() * mana_ratio + event.damage
 		creep.set_health_over_max(life_after_heal)
+		var mana_to_subtract: float = creep.get_overall_mana() / 3
+		creep.subtract_mana(mana_to_subtract, false)
 		creep.get_player().display_floating_text_color("Second chance!", creep, Color.RED, 1.0)
