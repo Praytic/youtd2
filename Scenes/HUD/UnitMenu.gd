@@ -68,6 +68,13 @@ func _ready():
 ###       Public      ###
 #########################
 
+func _process(_delta: float):
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+
+	if selected_unit != null:
+		_update_info_label(selected_unit)
+
+
 func close():
 	SelectUnit.set_selected_unit(null)
 
