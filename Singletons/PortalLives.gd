@@ -22,3 +22,7 @@ func deal_damage(damage: float):
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
 		Globals.game_over = true
 		EventBus.game_over.emit()
+
+
+func modify_portal_lives(amount: float):
+	_portal_lives += amount
