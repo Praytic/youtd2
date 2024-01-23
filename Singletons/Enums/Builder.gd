@@ -2,23 +2,22 @@ extends Node
 
 
 enum enm {
-	NONE,
+	NONE = 0,
 	BLADEMASTER,
 	QUEEN,
 }
 
 
-const _string_map: Dictionary = {
-	Builder.enm.NONE: "none",
-	Builder.enm.BLADEMASTER: "blademaster",
-	Builder.enm.QUEEN: "queen",
+const PROPERTIES_PATH: String = "res://Data/builder_properties.csv"
+
+enum CsvProperty {
+	ID,
+	DISPLAY_NAME,
+	SHORT_NAME,
+	DESCRIPTION,
 }
 
-const _display_string_map: Dictionary = {
-	Builder.enm.NONE: "none",
-	Builder.enm.BLADEMASTER: "Blademaster",
-	Builder.enm.QUEEN: "Queen of the Seven Skies",
-}
+var _string_map: Dictionary = {}
 
 var _tower_buff_map: Dictionary = {
 	Builder.enm.NONE: null,
@@ -33,6 +32,7 @@ var _creep_buff_map: Dictionary = {
 }
 
 var _selected_builder: Builder.enm = Builder.enm.NONE
+var _properties: Dictionary = {}
 
 
 #########################
@@ -40,13 +40,21 @@ var _selected_builder: Builder.enm = Builder.enm.NONE
 #########################
 
 func _ready():
+	Properties._load_csv_properties(PROPERTIES_PATH, _properties, Builder.CsvProperty.ID)
+
+	for builder_id in _properties.keys():
+		var builder: Builder.enm = builder_id as Builder.enm
+		var short_name: String = get_short_name(builder)
+
+		_string_map[builder] = short_name
+
 	for builder in _tower_buff_map.keys():
 		var bt: BuffType = _tower_buff_map[builder]
 
 		if bt == null:
 			continue
 
-		var builder_name: String = Builder.get_display_string(builder)
+		var builder_name: String = Builder.get_display_name(builder)
 		bt.set_buff_tooltip("Buff from builder %s" % builder_name)
 
 		bt.set_hidden()
@@ -57,7 +65,7 @@ func _ready():
 		if bt == null:
 			continue
 
-		var builder_name: String = Builder.get_display_string(builder)
+		var builder_name: String = Builder.get_display_name(builder)
 		bt.set_buff_tooltip("Buff from builder %s" % builder_name)
 
 		bt.set_hidden()
@@ -74,10 +82,6 @@ func set_selected_builder(builder: Builder.enm):
 	_selected_builder = builder
 
 
-func convert_to_string(type: Builder.enm) -> String:
-	return _string_map[type]
-
-
 func from_string(string: String) -> Builder.enm:
 	var key = _string_map.find_key(string)
 	
@@ -89,8 +93,16 @@ func from_string(string: String) -> Builder.enm:
 		return Builder.enm.NONE
 
 
-func get_display_string(type: Builder.enm) -> String:
-	return _display_string_map[type]
+func get_display_name(builder: int) -> String:
+	var string: String = _get_property(builder, Builder.CsvProperty.DISPLAY_NAME)
+
+	return string
+
+
+func get_short_name(builder: int) -> String:
+	var string: String = _get_property(builder, Builder.CsvProperty.SHORT_NAME)
+
+	return string
 
 
 func get_buff_for_unit(unit: Unit) -> BuffType:
@@ -109,6 +121,18 @@ func get_buff_for_unit(unit: Unit) -> BuffType:
 #########################
 ###      Private      ###
 #########################
+
+func _get_property(builder: int, property: Builder.CsvProperty) -> String:
+	if !_properties.has(builder):
+		push_error("No properties for builder: ", builder)
+
+		return ""
+
+	var map: Dictionary = _properties[builder]
+	var property_value: String = map[property]
+
+	return property_value
+
 
 func _make_blademaster_tower_bt() -> BuffType:
 	var bt: BuffType = BuffType.new("", 0, 0, true, self)
