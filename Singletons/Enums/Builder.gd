@@ -5,6 +5,7 @@ enum enm {
 	NONE = 0,
 	BLADEMASTER,
 	QUEEN,
+	ADVENTURER,
 }
 
 
@@ -23,12 +24,14 @@ var _tower_buff_map: Dictionary = {
 	Builder.enm.NONE: null,
 	Builder.enm.BLADEMASTER: _make_blademaster_tower_bt(),
 	Builder.enm.QUEEN: _make_queen_tower_bt(),
+	Builder.enm.ADVENTURER: _make_adventurer_tower_bt(),
 }
 
 var _creep_buff_map: Dictionary = {
 	Builder.enm.NONE: null,
 	Builder.enm.BLADEMASTER: null,
 	Builder.enm.QUEEN: _make_queen_creep_bt(),
+	Builder.enm.ADVENTURER: null,
 }
 
 var _selected_builder: Builder.enm = Builder.enm.NONE
@@ -174,3 +177,13 @@ func _queen_creep_bt_on_create(event: Event):
 
 	if creep_size == CreepSize.enm.AIR:
 		creep.modify_property(Modification.Type.MOD_MOVESPEED_ABSOLUTE, -60)
+
+
+func _make_adventurer_tower_bt() -> BuffType:
+	var bt: BuffType = BuffType.new("", 0, 0, true, self)
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.15, 0.0)
+	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.20, 0.0)
+	bt.set_buff_modifier(mod)
+
+	return bt
