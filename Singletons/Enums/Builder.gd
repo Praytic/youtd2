@@ -3,23 +3,28 @@ extends Node
 
 enum enm {
 	NONE,
+	BLADEMASTER,
 }
 
 
 const _string_map: Dictionary = {
 	Builder.enm.NONE: "none",
+	Builder.enm.BLADEMASTER: "blademaster",
 }
 
 const _display_string_map: Dictionary = {
 	Builder.enm.NONE: "none",
+	Builder.enm.BLADEMASTER: "Blademaster",
 }
 
 var _tower_buff_map: Dictionary = {
 	Builder.enm.NONE: null,
+	Builder.enm.BLADEMASTER: _make_blademaster_tower_bt(),
 }
 
 var _creep_buff_map: Dictionary = {
 	Builder.enm.NONE: null,
+	Builder.enm.BLADEMASTER: null,
 }
 
 var _selected_builder: Builder.enm = Builder.enm.NONE
@@ -94,3 +99,18 @@ func get_buff_for_unit(unit: Unit) -> BuffType:
 		buff = null
 
 	return buff
+
+
+#########################
+###      Private      ###
+#########################
+
+func _make_blademaster_tower_bt() -> BuffType:
+	var bt: BuffType = BuffType.new("", 0, 0, true, self)
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_ATK_CRIT_CHANCE, 0.08, 0.0)
+	mod.add_modification(Modification.Type.MOD_ATK_CRIT_DAMAGE, 0.40, 0.0)
+	mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 1.0, 0.0)
+	bt.set_buff_modifier(mod)
+
+	return bt
