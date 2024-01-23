@@ -44,6 +44,7 @@ var _aura_type_list: Array[AuraType] = []
 var _tooltip_text: String = ""
 var _buff_icon: String = ""
 var _inherited_periodic_timers: Dictionary = {}
+var _is_hidden: bool = false
 
 
 #########################
@@ -95,6 +96,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 	buff._friendly = _friendly
 	buff._type = _type
 	buff._tooltip_text = _tooltip_text
+	buff._is_hidden = _is_hidden
 	buff._buff_icon = _buff_icon
 
 # 	NOTE: this is part of the hack to preserve item
@@ -368,6 +370,13 @@ func set_stacking_group(_stacking_group: String):
 # NOTE: buffType.setSpecialEffectSimple() in JASS
 func set_special_effect_simple(_effect: String):
 	pass
+
+
+# NOTE: if a buff is hidden, it will not be displayed in the
+# unit menu. Note that for development purposes, you can
+# force hidden buffs to be shown via config.
+func set_hidden():
+	_is_hidden = true
 
 
 #########################

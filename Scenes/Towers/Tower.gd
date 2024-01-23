@@ -102,6 +102,8 @@ func _ready():
 	_selection_outline = $Visual/SelectionOutline
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
+	triggers_buff_type.set_hidden()
+	triggers_buff_type.set_buff_tooltip("Triggers buff for tower")
 	load_triggers(triggers_buff_type)
 	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
 

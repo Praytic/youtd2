@@ -181,3 +181,6 @@ func use_saved_tooltips() -> bool:
 
 func unlimited_portal_lives() -> bool:
 	return ProjectSettings.get_setting("application/config/unlimited_portal_lives") as bool
+
+func show_hidden_buffs() -> bool:
+	return ProjectSettings.get_setting("application/config/show_hidden_buffs") as bool

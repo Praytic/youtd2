@@ -79,6 +79,14 @@ func _init(id: int):
 	load_modifier(_modifier)
 	item_init()
 
+	var item_name: String = get_display_name()
+
+	_aura_carrier_buff.set_buff_tooltip("Aura carrier buff for item %s" % item_name)
+	_aura_carrier_buff.set_hidden()
+	
+	_triggers_buff_type.set_buff_tooltip("Triggers buff for item %s" % item_name)
+	_triggers_buff_type.set_hidden()
+
 	load_triggers(_triggers_buff_type)
 
 

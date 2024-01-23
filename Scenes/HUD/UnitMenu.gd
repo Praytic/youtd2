@@ -475,17 +475,15 @@ func _on_unit_buff_list_changed(unit: Unit):
 	buff_list.append_array(friendly_buff_list)
 	buff_list.append_array(unfriendly_buff_list)
 
-# 	NOTE: remove trigger buffs, they have empty type and
-# 	shouldn't be displayed
-	var trigger_buff_list: Array[Buff] = []
+	var hidden_buff_list: Array[Buff] = []
 
 	for buff in buff_list:
-		var is_trigger_buff: bool = buff.get_type().is_empty()
-		if is_trigger_buff:
-			trigger_buff_list.append(buff)
+		if buff.is_hidden():
+			hidden_buff_list.append(buff)
 
-	for buff in trigger_buff_list:
-		buff_list.erase(buff)
+	if !Config.show_hidden_buffs():
+		for buff in hidden_buff_list:
+			buff_list.erase(buff)
 
 	for buff_icon in _buffs_container.get_children():
 		buff_icon.queue_free()
@@ -498,7 +496,9 @@ func _on_unit_buff_list_changed(unit: Unit):
 		var texture_path: String = buff.get_buff_icon()
 
 		if !ResourceLoader.exists(texture_path):
-			if buff.is_friendly():
+			if buff.is_hidden():
+				texture_path = "res://Assets/Buffs/question_mark.png"
+			elif buff.is_friendly():
 				texture_path = "res://Assets/Buffs/buff_plus.png"
 			else:
 				texture_path = "res://Assets/Buffs/buff_minus.png"

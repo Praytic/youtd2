@@ -31,6 +31,7 @@ var _buff_icon: String
 var _purgable: bool
 var _cleanup_done: bool = false
 var _inherited_periodic_timers: Dictionary = {}
+var _is_hidden: bool
 
 
 #########################
@@ -429,3 +430,7 @@ func get_caster() -> Unit:
 # NOTE: buff.getBuffedUnit() in JASS
 func get_buffed_unit() -> Unit:
 	return _target
+
+
+func is_hidden() -> bool:
+	return _is_hidden
