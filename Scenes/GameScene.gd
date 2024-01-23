@@ -27,6 +27,11 @@ func _ready():
 		assert(room_code, "Room code wasn't provided with headless mode enabled.")
 		print("Room code: %s" % room_code)
 		Globals.room_code = room_code
+
+	# TODO: load builder chosen via GUI. Keep loading
+	# default builder if skipping pregame hud.
+	var default_builder: Builder.enm = Config.default_builder()
+	Builder.set_selected_builder(default_builder)
 	
 	if show_pregame_settings_menu && !Config.run_prerender_tool():
 		_pregame_hud.show()

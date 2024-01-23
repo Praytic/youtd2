@@ -41,6 +41,7 @@ config/default_wave_count=80
 config/default_game_mode="build"
 config/default_tutorial_enabled=false
 config/default_difficulty="beginner"
+config/default_builder="none"
 config/random_button_counters=false
 config/smart_targeting=true
 config/override_creep_health=0
@@ -110,6 +111,7 @@ Settings="*res://Singletons/Settings.gd"
 CombatLog="*res://Singletons/CombatLog.gd"
 SelectPointForCast="*res://Singletons/SelectPointForCast.gd"
 PlayerMode="*res://Singletons/Enums/PlayerMode.gd"
+Builder="*res://Singletons/Enums/Builder.gd"
 
 [debug]
 

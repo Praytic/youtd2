@@ -184,3 +184,9 @@ func unlimited_portal_lives() -> bool:
 
 func show_hidden_buffs() -> bool:
 	return ProjectSettings.get_setting("application/config/show_hidden_buffs") as bool
+
+func default_builder() -> Builder.enm:
+	var builder_string: String = ProjectSettings.get_setting("application/config/default_builder") as String
+	var builder: Builder.enm = Builder.from_string(builder_string)
+
+	return builder
