@@ -7,6 +7,7 @@ enum enm {
 	QUEEN,
 	ADVENTURER,
 	IRON_MAIDEN,
+	FARSEER,
 }
 
 
@@ -27,6 +28,7 @@ var _tower_buff_map: Dictionary = {
 	Builder.enm.QUEEN: _make_queen_tower_bt(),
 	Builder.enm.ADVENTURER: _make_adventurer_tower_bt(),
 	Builder.enm.IRON_MAIDEN: null,
+	Builder.enm.FARSEER: _make_farseer_tower_bt(),
 }
 
 var _creep_buff_map: Dictionary = {
@@ -35,6 +37,7 @@ var _creep_buff_map: Dictionary = {
 	Builder.enm.QUEEN: _make_queen_creep_bt(),
 	Builder.enm.ADVENTURER: null,
 	Builder.enm.IRON_MAIDEN: null,
+	Builder.enm.FARSEER: null,
 }
 
 var _selected_builder: Builder.enm = Builder.enm.NONE
@@ -129,6 +132,15 @@ func get_buff_for_unit(unit: Unit) -> BuffType:
 	return buff
 
 
+func apply_bonus_to_range(original_range: float) -> float:
+	if _selected_builder != Builder.enm.FARSEER:
+		return original_range
+
+	var total_range: float = original_range + 75
+
+	return total_range
+
+
 #########################
 ###      Private      ###
 #########################
@@ -192,6 +204,15 @@ func _make_adventurer_tower_bt() -> BuffType:
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_ITEM_CHANCE_ON_KILL, 0.15, 0.0)
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.20, 0.0)
+	bt.set_buff_modifier(mod)
+
+	return bt
+
+
+func _make_farseer_tower_bt() -> BuffType:
+	var bt: BuffType = MagicalSightBuff.new("", 700, self)
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.10, 0.0)
 	bt.set_buff_modifier(mod)
 
 	return bt

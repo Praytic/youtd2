@@ -183,9 +183,10 @@ func get_attack_type(tower_id: int) -> AttackType.enm:
 
 
 func get_range(tower_id: int) -> float:
-	var attack_range: float = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_RANGE).to_float()
+	var original_range: float = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_RANGE).to_float()
+	var total_range: float = Builder.apply_bonus_to_range(original_range)
 
-	return attack_range
+	return total_range
 
 
 func get_required_element_level(tower_id: int) -> int:

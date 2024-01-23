@@ -424,7 +424,7 @@ func add_range_indicators_for_auras(aura_type_list: Array[AuraType], parent: Nod
 	var indicator_list: Array[RangeIndicator] = []
 
 	for aura_type in aura_type_list:
-		var aura_range: float = aura_type.aura_range
+		var aura_range: float = aura_type.get_range()
 		var range_indicator: RangeIndicator = RangeIndicator.make()
 		range_indicator.set_radius(aura_range)
 		range_indicator.texture_color = Color.ORANGE
