@@ -31,15 +31,7 @@ func _ready():
 	if show_pregame_settings_menu && !Config.run_prerender_tool():
 		_pregame_hud.show()
 	else:
-#		Skip pregame settings menu and load default values
-		var default_player_mode: PlayerMode.enm = Config.default_player_mode()
-		var default_wave_count: int = Config.default_wave_count()
-		var default_game_mode: GameMode.enm = Config.default_game_mode()
-		var default_difficulty: Difficulty.enm = Config.default_difficulty()
-		var default_builder: Builder.enm = Config.default_builder()
-		var default_tutorial_enabled: bool = Config.default_tutorial_enabled()
-
-		_on_pregame_hud_finished(default_player_mode, default_wave_count, default_game_mode, default_difficulty, default_builder, default_tutorial_enabled)
+		_transition_from_pregame_settings_state()
 
 	if Config.run_prerender_tool():
 		var running_on_web: bool = OS.get_name() == "Web"
@@ -129,32 +121,34 @@ func _on_HUD_stop_wave():
 	$Map/CreepSpawner.stop()
 
 
-func _on_pregame_hud_finished(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, builder: Builder.enm, tutorial_enabled: bool):
-	get_tree().set_pause(false)
-	
-	_pregame_hud.hide()
+func _on_pregame_hud_hidden():
+	_transition_from_pregame_settings_state()
 
+
+func _transition_from_pregame_settings_state():
+	get_tree().set_pause(false)
+
+	PregameSettings.finalized.emit()
+
+	var wave_count: int = PregameSettings.get_wave_count()
+	var difficulty: Difficulty.enm = PregameSettings.get_difficulty()
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
+	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
+	var game_mode_string: String = GameMode.convert_to_string(game_mode)
 
 	Messages.add_normal("Welcome to You TD 2!")
-	Messages.add_normal("Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, GameMode.convert_to_display_string(game_mode)])
+	Messages.add_normal("Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
 	Messages.add_normal("You can pause the game by pressing [color=GOLD]Esc[/color]")
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
 
-	PregameSettings._wave_count = wave_count
-	PregameSettings._game_mode = game_mode
-	PregameSettings._player_mode = player_mode
-	PregameSettings._difficulty = difficulty
-	PregameSettings._builder = builder
-	PregameSettings._tutorial_enabled = tutorial_enabled
-	PregameSettings.finalized.emit()
+	var tutorial_enabled: bool = PregameSettings.get_tutorial_enabled()
 	
 	if tutorial_enabled:
 		Globals.set_game_state(Globals.GameState.TUTORIAL)
 		_tutorial_menu.show()
 	else:
-		_on_tutorial_menu_finished()
+		_transition_from_tutorial_state()
 
 
 func _on_pause_hud_resume_pressed():
@@ -162,11 +156,13 @@ func _on_pause_hud_resume_pressed():
 
 
 func _on_tutorial_menu_finished():
+	_transition_from_tutorial_state()
+
+
+func _transition_from_tutorial_state():
 	Globals.set_game_state(Globals.GameState.PLAYING)
 	_tutorial_menu.queue_free()
 	_wave_spawner.start_initial_timer()
 
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
-
-

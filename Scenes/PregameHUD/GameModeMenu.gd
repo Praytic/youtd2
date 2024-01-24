@@ -1,11 +1,12 @@
 extends VBoxContainer
 
 
-signal finished(game_mode: GameMode.enm)
+signal finished()
 
 
 func _on_generic_button_pressed(game_mode: GameMode.enm):
-	finished.emit(game_mode)
+	PregameSettings._game_mode = game_mode
+	finished.emit()
 
 
 func _on_build_button_pressed():

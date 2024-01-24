@@ -1,11 +1,12 @@
 extends VBoxContainer
 
 
-signal finished(wave_count: int)
+signal finished()
 
 
 func _on_generic_button_pressed(wave_count: int):
-	finished.emit(wave_count)
+	PregameSettings._wave_count = wave_count
+	finished.emit()
 
 
 func _on_trial_button_pressed():

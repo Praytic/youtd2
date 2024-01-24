@@ -67,9 +67,9 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[connection signal="finished" from="TabContainer/PlayerModeMenu" to="." method="_on_player_mode_menu_finished"]
-[connection signal="finished" from="TabContainer/GameLengthMenu" to="." method="_on_game_length_menu_finished"]
-[connection signal="finished" from="TabContainer/GameModeMenu" to="." method="_on_game_mode_menu_finished"]
-[connection signal="finished" from="TabContainer/DifficultyMenu" to="." method="_on_difficulty_menu_finished"]
-[connection signal="finished" from="TabContainer/BuilderMenu" to="." method="_on_builder_menu_finished"]
-[connection signal="finished" from="TabContainer/TutorialQuestionMenu" to="." method="_on_tutorial_question_menu_finished"]
+[connection signal="finished" from="TabContainer/PlayerModeMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="TabContainer/GameLengthMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="TabContainer/GameModeMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="TabContainer/DifficultyMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="TabContainer/BuilderMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="TabContainer/TutorialQuestionMenu" to="." method="_on_submenu_finished"]

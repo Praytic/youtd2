@@ -132,5 +132,5 @@ process_mode = 3
 visible = false
 
 [connection signal="finished" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_finished"]
-[connection signal="finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_finished"]
+[connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]

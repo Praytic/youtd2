@@ -5,7 +5,7 @@ class_name BuilderMenu extends ScrollContainer
 # programmatically inside _ready().
 
 
-signal finished(builder: Builder.enm)
+signal finished()
 
 
 @export var _beginner_container: VBoxContainer
@@ -31,4 +31,5 @@ func _ready():
 
 
 func _on_generic_button_pressed(builder: Builder.enm):
-	finished.emit(builder)
+	PregameSettings._builder = builder
+	finished.emit()

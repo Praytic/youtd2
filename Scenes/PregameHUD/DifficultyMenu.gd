@@ -1,11 +1,12 @@
 class_name DifficultyMenu extends VBoxContainer
 
 
-signal finished(difficulty: Difficulty.enm)
+signal finished()
 
 
 func _on_generic_button_pressed(difficulty: Difficulty.enm):
-	finished.emit(difficulty)
+	PregameSettings._difficulty = difficulty
+	finished.emit()
 
 
 func _on_beginner_button_pressed():

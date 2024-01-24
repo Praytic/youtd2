@@ -2,7 +2,8 @@ extends Node
 
 
 # This is storage for settings which are selected by the
-# player when the game first starts. This values are set
+# player when the game first starts. The settings are
+# selected via the PregameHUD scene. This values are set
 # once and never changed after that.
 
 
@@ -17,6 +18,18 @@ var _player_mode: PlayerMode.enm
 var _difficulty: Difficulty.enm
 var _builder: Builder.enm
 var _tutorial_enabled: bool
+
+
+# NOTE: these default values will be used if pregame menu is
+# skipped. These values must be set in _ready() to avoid
+# problems with order of Singleton initializations.
+func _ready():
+	_wave_count = Config.default_wave_count()
+	_game_mode = Config.default_game_mode()
+	_player_mode = Config.default_player_mode()
+	_difficulty = Config.default_difficulty()
+	_builder = Config.default_builder()
+	_tutorial_enabled = Config.default_tutorial_enabled()
 
 
 func get_wave_count() -> int:
