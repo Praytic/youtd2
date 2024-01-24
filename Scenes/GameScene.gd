@@ -166,5 +166,5 @@ func _on_pregame_hud_hidden():
 	_transition_from_pregame_settings_state()
 
 
-func _on_tutorial_menu_finished():
+func _on_tutorial_menu_hidden():
 	_transition_from_tutorial_state()

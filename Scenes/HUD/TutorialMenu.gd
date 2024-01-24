@@ -11,9 +11,6 @@ class_name TutorialMenu extends PanelContainer
 # those targets.
 
 
-signal finished()
-
-
 class Section:
 	var title: String
 	var highlight_target: String
@@ -120,12 +117,12 @@ func _on_pregame_settings_finalized():
 
 
 func _on_close_button_pressed():
-	finished.emit()
-
 	var section: Section = _section_list[_current_section]
 	var highlight_target: String = section.highlight_target
 	if !highlight_target.is_empty():
 		HighlightUI.stop_highlight(highlight_target)
+	
+	hide()
 
 
 func _on_next_button_pressed():
