@@ -98,14 +98,6 @@ func get_list() -> Array[Builder.enm]:
 	]
 
 
-# Apply global effects of selected builder
-func _on_pregame_settings_finalized():
-	var selected_builder: Builder.enm = PregameSettings.get_builder()
-
-	match selected_builder:
-		Builder.enm.IRON_MAIDEN: _do_iron_maiden_global_effect()
-
-
 func from_string(string: String) -> Builder.enm:
 	var key = _string_map.find_key(string)
 	
@@ -273,3 +265,12 @@ func _on_wave_level_changed():
 	if regen_amount != 0:
 		var regen_amount_string: String = Utils.format_percent(regen_amount / 100, 1)
 		Messages.add_normal("You gain %s lives thanks to the Iron Maiden." % regen_amount_string)
+
+
+# Apply global effects of selected builder
+func _on_pregame_settings_finalized():
+	var selected_builder: Builder.enm = PregameSettings.get_builder()
+
+	match selected_builder:
+		Builder.enm.IRON_MAIDEN: _do_iron_maiden_global_effect()
+
