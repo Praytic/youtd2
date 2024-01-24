@@ -150,14 +150,6 @@ func _transition_from_tutorial_state():
 ###     Callbacks     ###
 #########################
 
-func _on_HUD_start_wave(wave_index):
-	$Map/CreepSpawner.start(wave_index)
-
-
-func _on_HUD_stop_wave():
-	$Map/CreepSpawner.stop()
-
-
 func _on_pause_hud_resume_pressed():
 	_unpause_the_game()
 
