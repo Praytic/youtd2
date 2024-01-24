@@ -111,22 +111,6 @@ func _get_cmdline_value(key: String):
 	return cmdline_value
 
 
-#########################
-###     Callbacks     ###
-#########################
-
-func _on_HUD_start_wave(wave_index):
-	$Map/CreepSpawner.start(wave_index)
-
-
-func _on_HUD_stop_wave():
-	$Map/CreepSpawner.stop()
-
-
-func _on_pregame_hud_hidden():
-	_transition_from_pregame_settings_state()
-
-
 func _transition_from_pregame_settings_state():
 	get_tree().set_pause(false)
 
@@ -153,14 +137,6 @@ func _transition_from_pregame_settings_state():
 		_transition_from_tutorial_state()
 
 
-func _on_pause_hud_resume_pressed():
-	_unpause_the_game()
-
-
-func _on_tutorial_menu_finished():
-	_transition_from_tutorial_state()
-
-
 func _transition_from_tutorial_state():
 	Globals.set_game_state(Globals.GameState.PLAYING)
 	_tutorial_menu.queue_free()
@@ -168,3 +144,27 @@ func _transition_from_tutorial_state():
 
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_HUD_start_wave(wave_index):
+	$Map/CreepSpawner.start(wave_index)
+
+
+func _on_HUD_stop_wave():
+	$Map/CreepSpawner.stop()
+
+
+func _on_pause_hud_resume_pressed():
+	_unpause_the_game()
+
+
+func _on_pregame_hud_hidden():
+	_transition_from_pregame_settings_state()
+
+
+func _on_tutorial_menu_finished():
+	_transition_from_tutorial_state()
