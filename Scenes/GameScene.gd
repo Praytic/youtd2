@@ -16,11 +16,29 @@ extends Node
 
 func _ready():
 	print_verbose("GameScene has loaded.")
-	
+
+#	NOTE: below are special tools which are not run during
+#	normal gameplay.
+	if Config.run_save_tooltips_tool():
+		SaveTooltipsTool.run()
+
+	if Config.run_prerender_tool():
+		var running_on_web: bool = OS.get_name() == "Web"
+
+		if !running_on_web:
+			PrerenderTool.run(self, _ui_canvas_layer, map_node)
+			Globals.set_game_state(Globals.GameState.PREGAME)
+
+#			NOTE: do early return here so that the game is
+#			not paused and we can take pictures of the map
+#			properly.
+			return
+		else:
+			push_error("config/run_prerender_tool is enabled by mistake. Skipping prerender because this is a Web build.")
+
+# 	NOTE: this is where normal gameplay starts
 	Globals.set_game_state(Globals.GameState.PREGAME)
 	get_tree().set_pause(true)
-	
-	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 	
 	if OS.has_feature("dedicated_server") or DisplayServer.get_name() == "headless":
 		var room_code = _get_cmdline_value("room_code")
@@ -28,21 +46,12 @@ func _ready():
 		print("Room code: %s" % room_code)
 		Globals.room_code = room_code
 
-	if show_pregame_settings_menu && !Config.run_prerender_tool():
+	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
+
+	if show_pregame_settings_menu:
 		_pregame_hud.show()
 	else:
 		_transition_from_pregame_settings_state()
-
-	if Config.run_prerender_tool():
-		var running_on_web: bool = OS.get_name() == "Web"
-
-		if !running_on_web:
-			PrerenderTool.run(self, _ui_canvas_layer, map_node)
-		else:
-			push_error("config/run_prerender_tool is enabled by mistake. Skipping prerender because this is a Web build.")
-
-	if Config.run_save_tooltips_tool():
-		SaveTooltipsTool.run()
 
 
 func _unhandled_input(event: InputEvent):
