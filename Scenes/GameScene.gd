@@ -45,13 +45,6 @@ func _ready():
 		SaveTooltipsTool.run()
 
 
-func _process(delta: float):
-	var need_to_record_game_time: bool = Globals.get_game_state() == Globals.GameState.PLAYING && WaveLevel.get_current() > 0
-
-	if need_to_record_game_time:
-		Utils._current_game_time += delta
-
-
 func _unhandled_input(event: InputEvent):
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
 	var cancel_consumed_by_mouse_action: bool = MouseState.get_state() != MouseState.enm.NONE

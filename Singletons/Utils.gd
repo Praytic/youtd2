@@ -7,6 +7,13 @@ var _current_game_time: float = 0.0
 @onready var _creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("CreepPathGround")
 
 
+func _process(delta: float):
+	var need_to_record_game_time: bool = Globals.get_game_state() == Globals.GameState.PLAYING && WaveLevel.get_current() > 0
+
+	if need_to_record_game_time:
+		_current_game_time += delta
+
+
 # NOTE: point should be isometric
 func is_point_on_creep_path(point: Vector2) -> bool:
 	var curve: Curve2D = _creep_path_ground.curve
