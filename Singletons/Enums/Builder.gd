@@ -86,6 +86,17 @@ func _ready():
 ###       Public      ###
 #########################
 
+
+func get_list() -> Array[Builder.enm]:
+	return [
+		Builder.enm.BLADEMASTER,
+		Builder.enm.QUEEN,
+		Builder.enm.ADVENTURER,
+		Builder.enm.IRON_MAIDEN,
+		Builder.enm.FARSEER,
+	]
+
+
 # This function should be called once at the start of the
 # game. It will also apply any global effects of selected
 # builder.
@@ -115,6 +126,12 @@ func get_display_name(builder: int) -> String:
 
 func get_short_name(builder: int) -> String:
 	var string: String = _get_property(builder, Builder.CsvProperty.SHORT_NAME)
+
+	return string
+
+
+func get_description(builder: int) -> String:
+	var string: String = _get_property(builder, Builder.CsvProperty.DESCRIPTION)
 
 	return string
 

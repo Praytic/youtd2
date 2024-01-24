@@ -28,11 +28,6 @@ func _ready():
 		print("Room code: %s" % room_code)
 		Globals.room_code = room_code
 
-	# TODO: load builder chosen via GUI. Keep loading
-	# default builder if skipping pregame hud.
-	var default_builder: Builder.enm = Config.default_builder()
-	Builder.set_selected_builder(default_builder)
-	
 	if show_pregame_settings_menu && !Config.run_prerender_tool():
 		_pregame_hud.show()
 	else:
@@ -41,9 +36,10 @@ func _ready():
 		var default_wave_count: int = Config.default_wave_count()
 		var default_game_mode: GameMode.enm = Config.default_game_mode()
 		var default_difficulty: Difficulty.enm = Config.default_difficulty()
+		var default_builder: Builder.enm = Config.default_builder()
 		var default_tutorial_enabled: bool = Config.default_tutorial_enabled()
 
-		_on_pregame_hud_finished(default_player_mode, default_wave_count, default_game_mode, default_difficulty, default_tutorial_enabled)
+		_on_pregame_hud_finished(default_player_mode, default_wave_count, default_game_mode, default_difficulty, default_builder, default_tutorial_enabled)
 
 	if Config.run_prerender_tool():
 		var running_on_web: bool = OS.get_name() == "Web"
@@ -133,7 +129,7 @@ func _on_HUD_stop_wave():
 	$Map/CreepSpawner.stop()
 
 
-func _on_pregame_hud_finished(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, tutorial_enabled: bool):
+func _on_pregame_hud_finished(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, builder: Builder.enm, tutorial_enabled: bool):
 	get_tree().set_pause(false)
 	
 	_pregame_hud.hide()
@@ -148,6 +144,8 @@ func _on_pregame_hud_finished(player_mode: PlayerMode.enm, wave_count: int, game
 
 	Globals.wave_count = wave_count
 	Globals.difficulty = difficulty
+	
+	Builder.set_selected_builder(builder)
 	
 	if tutorial_enabled:
 		Globals.set_game_state(Globals.GameState.TUTORIAL)

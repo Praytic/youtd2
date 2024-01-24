@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://4dakdefm73rd"]
+
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_3giap"]
+[ext_resource type="Script" path="res://Scenes/PregameHUD/BuilderMenu.gd" id="2_rrrdq"]
+
+[node name="BuilderMenu" type="ScrollContainer" node_paths=PackedStringArray("_beginner_container", "_advanced_container", "_specialist_container", "_hardcore_container")]
+custom_minimum_size = Vector2(400, 400)
+size_flags_vertical = 0
+theme = ExtResource("1_3giap")
+script = ExtResource("2_rrrdq")
+_beginner_container = NodePath("VBoxContainer/BeginnerContainer")
+_advanced_container = NodePath("VBoxContainer/AdvancedContainer")
+_specialist_container = NodePath("VBoxContainer/SpecialistContainer")
+_hardcore_container = NodePath("VBoxContainer/HardcoreContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelLarge"
+text = "Select Builder:"
+
+[node name="BeginnerContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/BeginnerContainer"]
+layout_mode = 2
+text = "Beginner"
+
+[node name="AdvancedContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/AdvancedContainer"]
+layout_mode = 2
+text = "Advanced"
+
+[node name="SpecialistContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/SpecialistContainer"]
+layout_mode = 2
+text = "Specialist
+"
+
+[node name="HardcoreContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HardcoreContainer"]
+layout_mode = 2
+text = "Hardcore"

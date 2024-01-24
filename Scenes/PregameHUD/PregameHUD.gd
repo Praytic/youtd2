@@ -10,16 +10,18 @@ enum Tab {
 	GAME_LENGTH,
 	DISTRIBUTION,
 	DIFFICULTY,
+	BUILDER,
 	TUTORIAL_QUESTION,
 }
 
 
-signal finished(_player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm)
+signal finished(_player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, builder: Builder.enm, tutorial_enabled: bool)
 
 var _player_mode: PlayerMode.enm
 var _wave_count: int
 var _game_mode: GameMode.enm
 var _difficulty: Difficulty.enm
+var _builder: Builder.enm
 var _tutorial_enabled: bool
 
 
@@ -56,10 +58,15 @@ func _on_game_mode_menu_finished(game_mode: GameMode.enm):
 func _on_difficulty_menu_finished(difficulty: Difficulty.enm):
 	_difficulty = difficulty
 	
+	_tab_container.current_tab = Tab.BUILDER
+
+
+func _on_builder_menu_finished(builder: Builder.enm):
+	_builder = builder
 	_tab_container.current_tab = Tab.TUTORIAL_QUESTION
 
 
 func _on_tutorial_question_menu_finished(tutorial_enabled: bool):
 	_tutorial_enabled = tutorial_enabled
 	
-	finished.emit(_player_mode, _wave_count, _game_mode, _difficulty, _tutorial_enabled)
+	finished.emit(_player_mode, _wave_count, _game_mode, _difficulty, _builder, _tutorial_enabled)
