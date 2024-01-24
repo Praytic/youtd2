@@ -40,7 +40,6 @@ var _creep_buff_map: Dictionary = {
 	Builder.enm.FARSEER: null,
 }
 
-var _selected_builder: Builder.enm = Builder.enm.NONE
 var _properties: Dictionary = {}
 
 
@@ -81,6 +80,8 @@ func _ready():
 
 	WaveLevel.changed.connect(_on_wave_level_changed)
 
+	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
+
 
 #########################
 ###       Public      ###
@@ -97,13 +98,11 @@ func get_list() -> Array[Builder.enm]:
 	]
 
 
-# This function should be called once at the start of the
-# game. It will also apply any global effects of selected
-# builder.
-func set_selected_builder(builder: Builder.enm):
-	_selected_builder = builder
+# Apply global effects of selected builder
+func _on_pregame_settings_finalized():
+	var selected_builder: Builder.enm = PregameSettings.get_builder()
 
-	match builder:
+	match selected_builder:
 		Builder.enm.IRON_MAIDEN: _do_iron_maiden_global_effect()
 
 
@@ -139,10 +138,12 @@ func get_description(builder: int) -> String:
 func get_buff_for_unit(unit: Unit) -> BuffType:
 	var buff: BuffType
 
+	var selected_builder: Builder.enm = PregameSettings.get_builder()
+
 	if unit is Tower:
-		buff = _tower_buff_map.get(_selected_builder, null)
+		buff = _tower_buff_map.get(selected_builder, null)
 	elif unit is Creep:
-		buff = _creep_buff_map.get(_selected_builder, null)
+		buff = _creep_buff_map.get(selected_builder, null)
 	else:
 		buff = null
 
@@ -150,7 +151,9 @@ func get_buff_for_unit(unit: Unit) -> BuffType:
 
 
 func apply_bonus_to_range(original_range: float) -> float:
-	if _selected_builder != Builder.enm.FARSEER:
+	var selected_builder: Builder.enm = PregameSettings.get_builder()
+
+	if selected_builder != Builder.enm.FARSEER:
 		return original_range
 
 	var total_range: float = original_range + 75
@@ -244,7 +247,9 @@ func _do_iron_maiden_global_effect():
 #########################
 
 func _on_wave_level_changed():
-	if _selected_builder != Builder.enm.IRON_MAIDEN:
+	var selected_builder: Builder.enm = PregameSettings.get_builder()
+
+	if selected_builder != Builder.enm.IRON_MAIDEN:
 		return
 
 	var portal_lives: float = PortalLives.get_current()

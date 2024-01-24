@@ -122,7 +122,7 @@ func _try_to_build():
 
 	if !can_build && !can_transform:
 		var error: String
-		if attempting_to_transform && !Globals.game_mode_allows_transform():
+		if attempting_to_transform && !PregameSettings.game_mode_allows_transform():
 			error = "Can't transform towers in build mode."
 		else:
 			error = "Can't build here."

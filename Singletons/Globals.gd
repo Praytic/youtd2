@@ -29,10 +29,6 @@ const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/E
 const range_indicator_scene: PackedScene = preload("res://Scenes/Towers/RangeIndicator.tscn")
 
 
-var wave_count: int
-var game_mode: GameMode.enm
-var player_mode: PlayerMode.enm
-var difficulty: Difficulty.enm
 var game_over: bool = false
 var _total_damage: float = 0.0
 var built_at_least_one_tower: bool = false
@@ -42,14 +38,6 @@ var _game_state: GameState
 # NOTE: HACK BELOW
 # See GlaiveMaster script for explanation.
 var is_inside_periodic_event: bool = false
-
-
-func game_mode_is_random() -> bool:
-	return Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES || Globals.game_mode == GameMode.enm.TOTALLY_RANDOM
-
-
-func game_mode_allows_transform() -> bool:
-	return Globals.game_mode != GameMode.enm.BUILD || Config.allow_transform_in_build_mode()
 
 
 func add_to_total_damage(amount: float):

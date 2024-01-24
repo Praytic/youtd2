@@ -142,20 +142,19 @@ func _on_pregame_hud_finished(player_mode: PlayerMode.enm, wave_count: int, game
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
 
-	Globals.wave_count = wave_count
-	Globals.difficulty = difficulty
-	
-	Builder.set_selected_builder(builder)
+	PregameSettings._wave_count = wave_count
+	PregameSettings._game_mode = game_mode
+	PregameSettings._player_mode = player_mode
+	PregameSettings._difficulty = difficulty
+	PregameSettings._builder = builder
+	PregameSettings._tutorial_enabled = tutorial_enabled
+	PregameSettings.finalized.emit()
 	
 	if tutorial_enabled:
 		Globals.set_game_state(Globals.GameState.TUTORIAL)
 		_tutorial_menu.show()
 	else:
 		_on_tutorial_menu_finished()
-
-	Globals.game_mode = game_mode
-	Globals.player_mode = player_mode
-	EventBus.game_mode_was_chosen.emit()
 
 
 func _on_pause_hud_resume_pressed():

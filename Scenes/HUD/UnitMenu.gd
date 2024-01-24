@@ -46,7 +46,7 @@ func _ready():
 	
 	_on_selected_unit_changed(null)
 
-	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
+	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	
 	WaveLevel.changed.connect(_on_update_requirements_changed)
 	ElementLevel.changed.connect(_on_update_requirements_changed)
@@ -277,8 +277,9 @@ func _set_selling_for_real(value: bool):
 ###     Callbacks     ###
 #########################
 
-func _on_game_mode_was_chosen():
-	var sell_ratio: float = GameMode.get_sell_ratio(Globals.game_mode)
+func _on_pregame_settings_finalized():
+	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
+	var sell_ratio: float = GameMode.get_sell_ratio(game_mode)
 	var sell_percentage: String = Utils.format_percent(sell_ratio, 0)
 	var sell_button_tooltip: String = "Sell\nYou will get %s of the tower cost back." % sell_percentage
 
@@ -332,7 +333,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		
 		_inventory.show()
 		_tier_icon_texture.show()
-		var upgrade_button_should_be_visible: bool = Globals.game_mode == GameMode.enm.BUILD || Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
+		var upgrade_button_should_be_visible: bool = PregameSettings.get_game_mode() == GameMode.enm.BUILD || PregameSettings.get_game_mode() == GameMode.enm.RANDOM_WITH_UPGRADES
 		_upgrade_button.set_visible(upgrade_button_should_be_visible)
 		_sell_button.show()
 	elif selected_creep:
@@ -446,7 +447,7 @@ func _on_sell_button_pressed():
 		item.fly_to_stash(0.0)
 
 	var tower_cost: int = TowerProperties.get_cost(tower_id)
-	var sell_ratio: float = GameMode.get_sell_ratio(Globals.game_mode)
+	var sell_ratio: float = GameMode.get_sell_ratio(PregameSettings.get_game_mode())
 	var sell_price: float = floor(tower_cost * sell_ratio)
 	tower.get_player().give_gold(sell_price, tower, false, true)
 	tower.queue_free()

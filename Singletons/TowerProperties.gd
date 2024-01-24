@@ -215,7 +215,7 @@ func get_required_wave_level(tower_id: int) -> int:
 	else:
 		required_wave = _get_required_wave_level_from_formula(tower_id)
 
-	if Globals.game_mode == GameMode.enm.BUILD:
+	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
 		var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
 		var min_required_wave: int = _min_required_wave_for_build_mode[rarity]
 		required_wave = max(required_wave, min_required_wave)
@@ -258,9 +258,9 @@ func requirements_are_satisfied(tower_id: int) -> bool:
 # 
 #   For "totally random" mode, all towers come from tower
 #   distribution, so we can ignore requirements completely.
-	if Globals.game_mode == GameMode.enm.RANDOM_WITH_UPGRADES && tier == 1:
+	if PregameSettings.get_game_mode() == GameMode.enm.RANDOM_WITH_UPGRADES && tier == 1:
 		return true
-	elif Globals.game_mode == GameMode.enm.TOTALLY_RANDOM:
+	elif PregameSettings.get_game_mode() == GameMode.enm.TOTALLY_RANDOM:
 		return true
 
 	var out: bool = element_level_foo(tower_id) && wave_level_foo(tower_id)
@@ -298,7 +298,7 @@ func get_food_cost(tower_id: int) -> int:
 
 
 func get_tome_cost(tower_id: int) -> int:
-	if Globals.game_mode_is_random():
+	if PregameSettings.game_mode_is_random():
 		return 0
 
 	var tome_cost_map: Dictionary = {

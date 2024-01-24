@@ -154,7 +154,7 @@ func _last_wave_was_started() -> bool:
 #########################
 
 func _on_extreme_timer_timeout():
-	if Globals.difficulty != Difficulty.enm.EXTREME:
+	if PregameSettings.get_difficulty() != Difficulty.enm.EXTREME:
 		return
 	
 	if _last_wave_was_started():
@@ -182,7 +182,7 @@ func _on_wave_finished(wave: Wave):
 	GoldControl.add_income(wave_level)
 	KnowledgeTomesManager.add_knowledge_tomes()
 
-	if Globals.game_mode_is_random():
+	if PregameSettings.game_mode_is_random():
 		TowerDistribution.roll_towers(wave_level)
 
 	var any_wave_is_active: bool = false

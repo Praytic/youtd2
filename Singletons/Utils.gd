@@ -93,7 +93,7 @@ func get_time_of_day() -> float:
 
 # NOTE: Game.getMaxLevel() in JASS
 func get_max_level() -> int:
-	return Globals.wave_count
+	return PregameSettings.get_wave_count()
 
 
 # NOTE: GetPlayerState() in JASS

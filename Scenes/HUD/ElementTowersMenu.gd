@@ -46,7 +46,7 @@ func _ready():
 	_elements_container.element_changed.connect(_on_element_changed)
 	WaveLevel.changed.connect(_on_wave_level_changed)
 	BuildTower.tower_built.connect(_on_tower_built)
-	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
+	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	TowerDistribution.rolling_starting_towers.connect(_on_rolling_starting_towers)
 	TowerDistribution.random_tower_distributed.connect(_on_random_tower_distributed)
 	ElementLevel.changed.connect(_on_element_level_changed)
@@ -248,12 +248,12 @@ func _on_tower_built(tower_id):
 	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
 		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
 	
-	match Globals.game_mode:
+	match PregameSettings.get_game_mode():
 		GameMode.enm.BUILD: return
 		GameMode.enm.RANDOM_WITH_UPGRADES: remove_tower_button(tower_id)
 		GameMode.enm.TOTALLY_RANDOM: remove_tower_button(tower_id)
 
-	if Globals.game_mode_is_random():
+	if PregameSettings.game_mode_is_random():
 		_roll_towers_button.disabled = true
 
 
@@ -291,8 +291,8 @@ func _on_close_button_pressed():
 	close()
 
 
-func _on_game_mode_was_chosen():
-	if Globals.game_mode == GameMode.enm.BUILD:
+func _on_pregame_settings_finalized():
+	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
 		_add_all_towers()
 		_roll_towers_button.hide()
 	else:

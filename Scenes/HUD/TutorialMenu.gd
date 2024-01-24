@@ -44,7 +44,7 @@ var _current_section: int
 
 func _ready():
 	HighlightUI.highlight_target_ack.connect(_on_highlight_target_ack)
-	EventBus.game_mode_was_chosen.connect(_on_game_mode_was_chosen)
+	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 
 
 func _process(_delta: float):
@@ -96,9 +96,9 @@ func _change_section(change_amount: int):
 ###     Callbacks     ###
 #########################
 
-func _on_game_mode_was_chosen():
+func _on_pregame_settings_finalized():
 	var tutorial_path: String
-	if Globals.game_mode == GameMode.enm.BUILD:
+	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
 		tutorial_path = TUTORIAL_BUILD_PATH
 	else:
 		tutorial_path = TUTORIAL_RANDOM_PATH

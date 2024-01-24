@@ -15,10 +15,10 @@ func _get_game_stats_text() -> String:
 
 	var game_length_string: String = _get_game_length_string()
 
-	var game_mode: GameMode.enm = Globals.game_mode
+	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
 	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
 
-	var difficulty: Difficulty.enm = Globals.difficulty
+	var difficulty: Difficulty.enm = PregameSettings.get_difficulty()
 	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
 
 # 	TODO: load score value here when scoring is implemented
@@ -91,7 +91,7 @@ func _get_game_stats_text() -> String:
 
 
 func _get_game_length_string() -> String:
-	var game_length: int = Globals.wave_count
+	var game_length: int = PregameSettings.get_wave_count()
 	var game_length_string: String
 
 	match game_length:

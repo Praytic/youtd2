@@ -7,7 +7,6 @@ extends Node
 
 
 signal game_over()
-signal game_mode_was_chosen()
 # When user does a specific action to acknowledge the highlighted
 # area, this signal should be emitted.
 signal highlight_target_ack(highlight_target: String)
