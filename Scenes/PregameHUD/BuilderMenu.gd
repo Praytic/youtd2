@@ -26,8 +26,15 @@ func _ready():
 		button.tooltip_text = "%s\n \n%s" % [display_name, description]
 		button.pressed.connect(_on_generic_button_pressed.bind(builder))
 		
-# 		TODO: place buttons into containers based on the tier of the builder
-		_beginner_container.add_child(button)
+		var container_for_button: VBoxContainer
+		var builder_tier: BuilderTier.enm = Builder.get_tier(builder)
+		match builder_tier:
+			BuilderTier.enm.BEGINNER: container_for_button = _beginner_container
+			BuilderTier.enm.ADVANCED: container_for_button = _advanced_container
+			BuilderTier.enm.SPECIALIST: container_for_button = _specialist_container
+			BuilderTier.enm.HARDCORE: container_for_button = _hardcore_container
+		
+		container_for_button.add_child(button)
 
 
 func _on_generic_button_pressed(builder: Builder.enm):
