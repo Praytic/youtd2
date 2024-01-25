@@ -23,7 +23,7 @@ func _ready():
 		
 		var button: Button = Globals.button_with_rich_tooltip_scene.instantiate()
 		button.text = display_name
-		button.tooltip_text = description
+		button.tooltip_text = "%s\n \n%s" % [display_name, description]
 		button.pressed.connect(_on_generic_button_pressed.bind(builder))
 		
 # 		TODO: place buttons into containers based on the tier of the builder
