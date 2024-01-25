@@ -3,11 +3,16 @@ extends Node
 
 enum enm {
 	NONE = 0,
+
+# 	Beginner
 	BLADEMASTER,
 	QUEEN,
 	ADVENTURER,
 	IRON_MAIDEN,
 	FARSEER,
+
+# 	Advanced
+	ELEMENTALIST,
 }
 
 
@@ -29,6 +34,7 @@ var _tower_buff_map: Dictionary = {
 	Builder.enm.ADVENTURER: _make_adventurer_tower_bt(),
 	Builder.enm.IRON_MAIDEN: null,
 	Builder.enm.FARSEER: _make_farseer_tower_bt(),
+	Builder.enm.ELEMENTALIST: _make_elementalist_tower_bt(),
 }
 
 var _creep_buff_map: Dictionary = {
@@ -38,6 +44,7 @@ var _creep_buff_map: Dictionary = {
 	Builder.enm.ADVENTURER: null,
 	Builder.enm.IRON_MAIDEN: null,
 	Builder.enm.FARSEER: null,
+	Builder.enm.ELEMENTALIST: null,
 }
 
 var _properties: Dictionary = {}
@@ -95,6 +102,8 @@ func get_list() -> Array[Builder.enm]:
 		Builder.enm.ADVENTURER,
 		Builder.enm.IRON_MAIDEN,
 		Builder.enm.FARSEER,
+
+		Builder.enm.ELEMENTALIST,
 	]
 
 
@@ -230,8 +239,29 @@ func _make_farseer_tower_bt() -> BuffType:
 	return bt
 
 
-func _do_iron_maiden_global_effect():
+func _on_pregame_settings_finalized_iron_maiden():
 	PortalLives.modify_portal_lives(50)
+
+
+func _make_elementalist_tower_bt() -> BuffType:
+	var bt: BuffType = BuffType.new("", 0, 0, true, self)
+	var mod: Modifier = Modifier.new()
+	mod.add_modification(Modification.Type.MOD_DMG_TO_ORC, 0.25, 0.0)
+	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.20, 0.0)
+	mod.add_modification(Modification.Type.MOD_DMG_TO_NATURE, -0.20, 0.0)
+	mod.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, -0.05, 0.0)
+	bt.set_buff_modifier(mod)
+
+	return bt
+
+
+func _on_pregame_settings_finalized_elementalist():
+	KnowledgeTomesManager.add_knowledge_tomes(65)
+	FoodManager.modify_food_cap(20)
+
+
+func _on_wave_level_changed_elementalist():
+	KnowledgeTomesManager.add_knowledge_tomes(2)
 
 
 #########################
@@ -241,9 +271,12 @@ func _do_iron_maiden_global_effect():
 func _on_wave_level_changed():
 	var selected_builder: Builder.enm = PregameSettings.get_builder()
 
-	if selected_builder != Builder.enm.IRON_MAIDEN:
-		return
+	match selected_builder:
+		Builder.enm.IRON_MAIDEN: _on_wave_level_changed_iron_maiden()
+		Builder.enm.ELEMENTALIST: _on_wave_level_changed_elementalist()
 
+
+func _on_wave_level_changed_iron_maiden():
 	var portal_lives: float = PortalLives.get_current()
 
 # 	NOTE: the tooltip says 50% and 10%, but that is in
@@ -272,5 +305,5 @@ func _on_pregame_settings_finalized():
 	var selected_builder: Builder.enm = PregameSettings.get_builder()
 
 	match selected_builder:
-		Builder.enm.IRON_MAIDEN: _do_iron_maiden_global_effect()
-
+		Builder.enm.IRON_MAIDEN: _on_pregame_settings_finalized_iron_maiden()
+		Builder.enm.ELEMENTALIST: _on_pregame_settings_finalized_elementalist()
