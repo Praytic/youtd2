@@ -27,6 +27,7 @@ const placeholder_tower_scene: PackedScene = preload("res://Scenes/Towers/Instan
 const tower_actions_scene: PackedScene = preload("res://Scenes/HUD/TowerActions.tscn")
 const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/EmptyUnitButton.tscn")
 const range_indicator_scene: PackedScene = preload("res://Scenes/Towers/RangeIndicator.tscn")
+const button_with_rich_tooltip_scene: PackedScene = preload("res://Scenes/HUD/ButtonWithRichTooltip.tscn")
 
 
 var game_over: bool = false

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=80 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=81 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -323,6 +323,18 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sa26r"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = ExtResource("14_02q6i")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+region_rect = Rect2(1283, 192, 139, 154)
+modulate_color = Color(1, 1, 1, 0.72549)
 
 [sub_resource type="StyleBoxEmpty" id="11"]
 
@@ -765,6 +777,7 @@ TinyUnitButton/styles/disabled = SubResource("StyleBoxFlat_wdruh")
 TinyUnitButton/styles/hover = SubResource("StyleBoxFlat_6ub3i")
 TinyUnitButton/styles/normal = SubResource("StyleBoxFlat_afavw")
 TinyUnitButton/styles/pressed = SubResource("StyleBoxFlat_o8qqj")
+TooltipPanel/styles/panel = SubResource("StyleBoxTexture_sa26r")
 TowerActions/styles/disabled = ExtResource("1_vdqn7")
 TowerActions/styles/hover = ExtResource("2_1ucqc")
 TowerActions/styles/normal = ExtResource("3_o7vtc")

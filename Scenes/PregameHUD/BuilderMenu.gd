@@ -21,7 +21,7 @@ func _ready():
 		var display_name: String = Builder.get_display_name(builder)
 		var description: String = Builder.get_description(builder)
 		
-		var button: Button = Button.new()
+		var button: Button = Globals.button_with_rich_tooltip_scene.instantiate()
 		button.text = display_name
 		button.tooltip_text = description
 		button.pressed.connect(_on_generic_button_pressed.bind(builder))
