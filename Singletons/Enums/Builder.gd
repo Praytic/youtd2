@@ -22,6 +22,7 @@ enum CsvProperty {
 	ID,
 	DISPLAY_NAME,
 	SHORT_NAME,
+	TIER,
 	DESCRIPTION,
 }
 
@@ -128,6 +129,13 @@ func get_short_name(builder: int) -> String:
 	var string: String = _get_property(builder, Builder.CsvProperty.SHORT_NAME)
 
 	return string
+
+
+func get_tier(builder: int) -> BuilderTier.enm:
+	var tier_string: String = _get_property(builder, Builder.CsvProperty.TIER)
+	var tier: BuilderTier.enm = BuilderTier.from_string(tier_string)
+
+	return tier
 
 
 func get_description(builder: int) -> String:
