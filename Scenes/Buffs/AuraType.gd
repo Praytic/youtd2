@@ -36,10 +36,11 @@ func make(caster: Unit) -> Aura:
 
 
 # NOTE: need to apply bonus from Farseer builder here and
-# not anywhere later like in Aura.gd so this bonus is
-# displayed correctly by aura range indicator of tower
-# preview.
+# not anywhere later like in Aura.gd. If we apply this bonus
+# later, it will not be correctly displayed by aura range
+# indicator.
 func get_range() -> float:
-	var total_range: float = Builder.apply_bonus_to_range(aura_range)
+	var builder_range_bonus: float = Globals.get_builder_range_bonus()
+	var total_range: float = aura_range + builder_range_bonus
 
 	return total_range

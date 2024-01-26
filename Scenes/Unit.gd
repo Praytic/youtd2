@@ -220,9 +220,8 @@ func _ready():
 	add_child(regen_timer)
 	regen_timer.start()
 
-	var builder_bt: BuffType = Builder.get_buff_for_unit(self)
-	if builder_bt != null:
-		builder_bt.apply(self, self, get_level())
+	var builder: Builder = Globals.get_builder()
+	builder.apply_buff(self)
 
 
 #########################

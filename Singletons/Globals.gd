@@ -35,6 +35,8 @@ var _total_damage: float = 0.0
 var built_at_least_one_tower: bool = false
 var room_code: String
 var _game_state: GameState
+var _builder_instance: Builder
+var _builder_range_bonus: float = 0
 
 # NOTE: HACK BELOW
 # See GlaiveMaster script for explanation.
@@ -55,3 +57,11 @@ func set_game_state(value: GameState):
 
 func get_game_state() -> GameState:
 	return _game_state
+
+
+func get_builder() -> Builder:
+	return _builder_instance
+
+
+func get_builder_range_bonus() -> float:
+	return _builder_range_bonus

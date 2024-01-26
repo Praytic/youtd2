@@ -114,6 +114,11 @@ func _get_cmdline_value(key: String):
 func _transition_from_pregame_settings_state():
 	get_tree().set_pause(false)
 
+	var builder_id: int = PregameSettings.get_builder_id()
+	var builder_instance: Builder = Builder.create_instance(builder_id)
+	add_child(builder_instance)
+	Globals._builder_instance = builder_instance
+
 	PregameSettings.finalized.emit()
 
 	var wave_count: int = PregameSettings.get_wave_count()

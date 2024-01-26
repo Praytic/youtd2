@@ -15,11 +15,11 @@ signal finished()
 
 
 func _ready():
-	var builder_list: Array[Builder.enm] = Builder.get_list()
+	var builder_list: Array = BuilderProperties.get_id_list()
 	
 	for builder in builder_list:
-		var display_name: String = Builder.get_display_name(builder)
-		var description: String = Builder.get_description(builder)
+		var display_name: String = BuilderProperties.get_display_name(builder)
+		var description: String = BuilderProperties.get_description(builder)
 		
 		var button: Button = Globals.button_with_rich_tooltip_scene.instantiate()
 		button.text = display_name
@@ -27,7 +27,7 @@ func _ready():
 		button.pressed.connect(_on_generic_button_pressed.bind(builder))
 		
 		var container_for_button: VBoxContainer
-		var builder_tier: BuilderTier.enm = Builder.get_tier(builder)
+		var builder_tier: BuilderTier.enm = BuilderProperties.get_tier(builder)
 		match builder_tier:
 			BuilderTier.enm.BEGINNER: container_for_button = _beginner_container
 			BuilderTier.enm.ADVANCED: container_for_button = _advanced_container
@@ -37,6 +37,6 @@ func _ready():
 		container_for_button.add_child(button)
 
 
-func _on_generic_button_pressed(builder: Builder.enm):
-	PregameSettings._builder = builder
+func _on_generic_button_pressed(builder_id: int):
+	PregameSettings._builder_id = builder_id
 	finished.emit()
