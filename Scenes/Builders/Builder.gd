@@ -18,8 +18,6 @@ var _creep_buff: BuffType
 #########################
 
 func _ready():
-	WaveLevel.changed.connect(_on_wave_level_changed)
-
 	_tower_buff = _get_tower_buff()
 	_creep_buff = _get_creep_buff()
 	
@@ -33,6 +31,10 @@ func _ready():
 		_creep_buff.set_buff_tooltip("Buff from builder %s" % builder_name)
 		_creep_buff.set_hidden()
 
+
+#########################
+###       Public      ###
+#########################
 
 func apply_buff(unit: Unit):
 	var buff: BuffType
@@ -51,10 +53,6 @@ func apply_buff(unit: Unit):
 #########################
 ###  Override methods ###
 #########################
-
-func _on_wave_level_changed():
-	pass
-
 
 func _get_tower_buff() -> BuffType:
 	return null

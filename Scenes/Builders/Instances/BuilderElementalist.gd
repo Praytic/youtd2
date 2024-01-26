@@ -4,6 +4,7 @@ extends Builder
 func _init():
 	KnowledgeTomesManager.add_knowledge_tomes(65)
 	FoodManager.modify_food_cap(20)
+	WaveLevel.changed.connect(_on_wave_level_changed)
 
 
 func _get_tower_buff() -> BuffType:
@@ -20,4 +21,3 @@ func _get_tower_buff() -> BuffType:
 
 func _on_wave_level_changed():
 	KnowledgeTomesManager.add_knowledge_tomes(2)
-

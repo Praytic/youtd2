@@ -3,6 +3,7 @@ extends Builder
 
 func _init():
 	PortalLives.modify_portal_lives(50)
+	WaveLevel.changed.connect(_on_wave_level_changed)
 
 
 func _on_wave_level_changed():
