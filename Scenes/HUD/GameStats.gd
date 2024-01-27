@@ -30,6 +30,9 @@ func _get_game_stats_text() -> String:
 	var wave_level: float = WaveLevel.get_current()
 	var wave_level_string: String = str(wave_level)
 
+	var builder_id: int = PregameSettings.get_builder_id()
+	var builder_name: String = BuilderProperties.get_display_name(builder_id)
+
 	var total_damage: float = Globals.get_total_damage()
 	var total_damage_string: String = TowerInfo.int_format(total_damage)
 
@@ -72,6 +75,8 @@ func _get_game_stats_text() -> String:
 	var text: String = ""
 
 	text += "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
+	text += " \n"
+	text += "[color=GOLD]Builder:[/color] %s\n" % builder_name
 	text += " \n"
 	text += "[table=5]"
 	text += "[cell][color=GOLD]Score[/color][/cell][cell][color=GOLD]Lives[/color][/cell][cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Total damage[/color][/cell][cell][color=GOLD]Gold[/color][/cell]"
