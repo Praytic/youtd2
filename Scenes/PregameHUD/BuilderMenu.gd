@@ -35,6 +35,10 @@ func _ready():
 			BuilderTier.enm.HARDCORE: container_for_button = _hardcore_container
 		
 		container_for_button.add_child(button)
+	
+#	TODO: unhide these containers when their builders are implemented
+	_specialist_container.hide()
+	_hardcore_container.hide()
 
 
 func _on_generic_button_pressed(builder_id: int):
