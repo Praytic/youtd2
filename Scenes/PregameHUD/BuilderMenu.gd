@@ -18,6 +18,11 @@ func _ready():
 	var builder_list: Array = BuilderProperties.get_id_list()
 	
 	for builder in builder_list:
+		var short_name: String = BuilderProperties.get_short_name(builder)
+
+		if short_name == "none":
+			continue
+
 		var display_name: String = BuilderProperties.get_display_name(builder)
 		var description: String = BuilderProperties.get_description(builder)
 		
