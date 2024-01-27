@@ -1,4 +1,4 @@
-class_name BuilderMenu extends ScrollContainer
+class_name BuilderMenu extends VBoxContainer
 
 
 # NOTE: the buttons for this menu are created
