@@ -37,6 +37,7 @@ var room_code: String
 var _game_state: GameState
 var _builder_instance: Builder
 var _builder_range_bonus: float = 0
+var _builder_tower_lvl_bonus: int = 0
 
 # NOTE: HACK BELOW
 # See GlaiveMaster script for explanation.
@@ -65,3 +66,7 @@ func get_builder() -> Builder:
 
 func get_builder_range_bonus() -> float:
 	return _builder_range_bonus
+
+
+func get_builder_tower_lvl_bonus() -> int:
+	return _builder_tower_lvl_bonus

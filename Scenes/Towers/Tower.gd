@@ -178,6 +178,17 @@ func _ready():
 		_kill_count = _temp_preceding_tower._kill_count
 		_best_hit = _temp_preceding_tower._best_hit
 		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
+	else:
+#		NOTE: only apply builder tower lvl bonus if tower is
+#		"fresh". When tower is transformed or upgraded, it
+#		inherits level of preceding tower and this builder
+#		lvl bonus can't be applied.
+		var tower_lvl_bonus: int = Globals.get_builder_tower_lvl_bonus()
+
+		if tower_lvl_bonus > 0:
+			set_level(tower_lvl_bonus)
+			var experience_for_level: int = Experience.get_exp_for_level(tower_lvl_bonus)
+			_experience = experience_for_level
 
 #	NOTE: some stats have an innate level-based modifier
 	var innate_modifier: Modifier = Modifier.new()
