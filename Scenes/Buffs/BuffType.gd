@@ -335,6 +335,16 @@ func get_type() -> String:
 	return _type
 
 
+# Defines a modifier which will be applied to target unit.
+# Note that unlike modifiers applied via Unit.add_modifier()
+# function, buff modifiers will not react to unit level ups.
+# The strength of buff modifiers depends on buff's power.
+# Buff power is defined when buff is applied and can be
+# manually modified later via Buff.set_power(). Buff power
+# may also change when a stronger buff of same type is
+# applied on top of an old buff. The most common case is to
+# set buff power to caster level and leave it unchanged
+# for the duration of the buff.
 # NOTE: buffType.setBuffModifier() in JASS
 func set_buff_modifier(modifier: Modifier):
 	_modifier = modifier

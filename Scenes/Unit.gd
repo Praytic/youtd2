@@ -535,9 +535,7 @@ func modify_property(mod_type: Modification.Type, value: float):
 
 
 # Adds modifier directly to unit. Modifier will
-# automatically scale with this unit's level. If you need to
-# make a modifier that scales with another unit's level, use
-# buffs.
+# automatically scale with this unit's level.
 func add_modifier(modifier: Modifier):
 	_apply_modifier(modifier, _level, 1)
 	_direct_modifier_list.append(modifier)
