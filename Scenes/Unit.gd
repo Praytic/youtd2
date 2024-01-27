@@ -221,7 +221,7 @@ func _ready():
 	regen_timer.start()
 
 	var builder: Builder = Globals.get_builder()
-	builder.apply_buff(self)
+	builder.apply_effects(self)
 
 
 #########################
