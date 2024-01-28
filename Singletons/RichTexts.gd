@@ -91,6 +91,7 @@ func get_tower_info(tower: Tower) -> String:
 	var element: Element.enm = TowerProperties.get_element(tower_id)
 	var element_string: String = Element.convert_to_colored_string(element)
 	var dps: int = floori(TowerProperties.get_dps(tower_id))
+	var attack_enabled: bool = TowerProperties.get_attack_enabled(tower_id)
 	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
 	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
@@ -105,7 +106,8 @@ func get_tower_info(tower: Tower) -> String:
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
-	text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
+	if attack_enabled:
+		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
 
 	if overall_mana != 0:
 		text += "[color=YELLOW]Mana:[/color] %d/%d\n" % [mana, overall_mana]
@@ -145,6 +147,7 @@ func generate_tower_tooltip(tower_id: int) -> String:
 	var element: Element.enm = TowerProperties.get_element(tower_id)
 	var element_string: String = Element.convert_to_colored_string(element)
 	var dps: int = floori(TowerProperties.get_dps(tower_id))
+	var attack_enabled: bool = TowerProperties.get_attack_enabled(tower_id)
 	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
 	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
@@ -165,7 +168,8 @@ func generate_tower_tooltip(tower_id: int) -> String:
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
 	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
-	text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
+	if attack_enabled:
+		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
 
 	if !specials_text.is_empty():
 		text += " \n[color=YELLOW]Specials:[/color]\n"
