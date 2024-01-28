@@ -30,7 +30,7 @@ var _displayed_max_index: int = 0
 #########################
 
 func _ready():
-	Settings.show_combat_log_changed.connect(_on_settings_changed)
+	Settings.changed.connect(_on_settings_changed)
 	_on_settings_changed()
 	
 	var saved_pos_x: float = Settings.get_setting(Settings.COMBAT_LOG_X) as float

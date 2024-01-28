@@ -37,6 +37,8 @@ func _ready():
 			push_error("config/run_prerender_tool is enabled by mistake. Skipping prerender because this is a Web build.")
 
 # 	NOTE: this is where normal gameplay starts
+	Settings.changed.connect(_on_settings_changed)
+	
 	Globals.set_game_state(Globals.GameState.PREGAME)
 	get_tree().set_pause(true)
 	
@@ -165,3 +167,8 @@ func _on_pregame_hud_hidden():
 
 func _on_tutorial_menu_hidden():
 	_transition_from_tutorial_state()
+
+
+func _on_settings_changed():
+	var interface_size: float = Settings.get_interface_size()
+	get_tree().root.content_scale_factor = interface_size

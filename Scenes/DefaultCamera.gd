@@ -38,9 +38,8 @@ func _ready():
 	
 	_zoom = Vector2.ONE
 	
-	Settings.interface_size_changed.connect(_adjust_to_interface_scale)
-	var initial_interface_scale: float = Settings.get_interface_size()
-	_adjust_to_interface_scale(initial_interface_scale)
+	Settings.changed.connect(_on_settings_changed)
+	_on_settings_changed()
 
 
 func _physics_process(delta):
@@ -166,8 +165,9 @@ func _get_cam_speed_from_setting(setting: String) -> float:
 
 # This function is needed because content_scale_factor of root Window
 # affects all Nodes. So we need to readjust Camera2D to fit new viewport.
-func _adjust_to_interface_scale(_new_size: float):
-	_interface_size_factor = 1.0/_new_size
+func _on_settings_changed():
+	var interface_size: float = Settings.get_interface_size()
+	_interface_size_factor = 1.0 / interface_size
 
 
 func _get_viewport_scale_factor() -> float: 

@@ -9,8 +9,6 @@ extends Node
 # %appdata%/Roaming/Godot/...
 
 signal changed()
-signal show_combat_log_changed()
-signal interface_size_changed(new_scale: float)
 
 const SETTINGS_PATH: String = "user://settings.save"
 
@@ -108,10 +106,6 @@ func flush():
 	settings_file.store_line(cache_string)
 	
 	changed.emit()
-	show_combat_log_changed.emit()
-
-	var new_scale: float = get_interface_size()
-	interface_size_changed.emit(new_scale)
 
 
 func get_interface_size() -> float:

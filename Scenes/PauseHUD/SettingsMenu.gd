@@ -60,7 +60,6 @@ func _ready():
 	all_controls.append(_setting_to_button_group_map.keys())
 	all_controls.append(_setting_to_slider_map.keys())
 	
-	Settings.interface_size_changed.connect(_apply_new_interface_size)
 	Settings.flush()
 
 	_load_current_settings()
@@ -69,10 +68,6 @@ func _ready():
 #########################
 ###      Private      ###
 #########################
-
-func _apply_new_interface_size(new_size: float):
-	get_tree().root.content_scale_factor = new_size
-
 
 func _load_current_settings():
 	for setting in _setting_to_checkbox_map.keys():
