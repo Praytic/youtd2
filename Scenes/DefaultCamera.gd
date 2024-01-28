@@ -1,15 +1,6 @@
 extends Camera2D
 
 
-# NOTE: camera has to handle game pause in a special way so
-# that it's zoom is properly updated when interface scale is
-# changed in settings menu. Camera's process mode is set to
-# ALWAYS so that it ignores pause but then in _process() and
-# _handle_input() it will return early if game is paused.
-# This is so that player can't change camera zoom or move
-# camera while game is paused.
-
-
 signal camera_moved(shift_vector)
 signal camera_zoomed(zoom_value)
 
@@ -24,7 +15,6 @@ signal camera_zoomed(zoom_value)
 @export var SLOW_SCROLL_MULTIPLIER: float = 0.5
 
 
-var _interface_size_factor: float = 1.0
 var _zoom_multiplier: float = 1.0
 
 
@@ -35,20 +25,9 @@ var _zoom_multiplier: float = 1.0
 func _ready():
 	if OS.get_name() == "macOS":
 		zoom_sensitivity = 0.1
-	
-	Settings.changed.connect(_on_settings_changed)
-	_on_settings_changed()
 
 
 func _physics_process(delta):
-#	NOTE: perform this operation even during pause so that
-#	camera reacts correctly to interface scale getting
-#	changed in settings menu.
-	zoom = Vector2.ONE * _interface_size_factor * _zoom_multiplier
-	
-	if get_tree().is_paused():
-		return
-
 	var mouse_scroll_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_MOUSE_SCROLL)
 	var speed_from_mouse: float = _get_cam_speed_from_setting(Settings.MOUSE_SCROLL)
 	var speed_from_keyboard: float = _get_cam_speed_from_setting(Settings.KEYBOARD_SCROLL)
@@ -112,16 +91,30 @@ func _physics_process(delta):
 		camera_moved.emit(shift_vector)
 
 
+# NOTE: player inputs modify zoom_multiplier variable
+# instead of directly modifying zoom because zoom needs to
+# also be divided by interface size. See update_zoom().
 func _unhandled_input(event: InputEvent):
-	if get_tree().is_paused():
-		return
-
 	var new_zoom_multiplier: float = _get_new_zoom_multiplier(event)
 	var zoom_multiplier_changed: bool = new_zoom_multiplier != _zoom_multiplier
 
 	if zoom_multiplier_changed:
 		_zoom_multiplier = new_zoom_multiplier
 		camera_zoomed.emit(_zoom_multiplier)
+		update_zoom()
+
+
+#########################
+###       Public      ###
+#########################
+
+# NOTE: need to divide zoom by interface size because
+# interface size is implemented by changing Window's
+# content_scale_factor, which also affects how camera
+# renders.
+func update_zoom():
+	var interface_size: float = Settings.get_interface_size()
+	zoom = Vector2.ONE * _zoom_multiplier / interface_size
 
 
 #########################
@@ -171,14 +164,3 @@ func _get_viewport_scale_factor() -> float:
 		(float(get_viewport().size.x) / get_viewport().get_visible_rect().size.x),
 		(float(get_viewport().size.y) / get_viewport().get_visible_rect().size.y))
 	return factor
-
-
-#########################
-###     Callbacks     ###
-#########################
-
-# This function is needed because content_scale_factor of root Window
-# affects all Nodes. So we need to readjust Camera2D to fit new viewport.
-func _on_settings_changed():
-	var interface_size: float = Settings.get_interface_size()
-	_interface_size_factor = 1.0 / interface_size

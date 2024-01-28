@@ -8,6 +8,7 @@ extends Node
 @export var _wave_spawner: WaveSpawner
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
+@export var _camera: Camera2D
 
 
 #########################
@@ -173,3 +174,10 @@ func _on_tutorial_menu_hidden():
 func _on_settings_changed():
 	var interface_size: float = Settings.get_interface_size()
 	get_tree().root.content_scale_factor = interface_size
+
+#	NOTE: need to call update_zoom() to update camera zoom
+#	when interface size is changed in settings menu. Calling
+#	update_zoom() inside Camera script via callback does not
+#	work because the game is paused while the settings menu
+#	is open.
+	_camera.update_zoom()
