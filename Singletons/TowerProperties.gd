@@ -195,6 +195,12 @@ func get_attack_type(tower_id: int) -> AttackType.enm:
 
 func get_range(tower_id: int) -> float:
 	var original_range: float = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_RANGE).to_float()
+
+	if original_range == 0.0:
+		push_error("Tower attack range must be greater than 0. Forcing value to 1.")
+
+		original_range = 1
+
 	var builder_range_bonus: float = Globals.get_builder_range_bonus()
 	var total_range: float = original_range + builder_range_bonus
 
