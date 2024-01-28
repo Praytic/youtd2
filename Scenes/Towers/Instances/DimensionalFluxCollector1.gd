@@ -8,11 +8,6 @@ extends Tower
 # aura does that already and removes the buff when creeps go
 # out of range.
 
-# TODO: changed get_current_attack_speed() to
-# get_base_attack_speed(). I might have messed up
-# get_current_attack_speed(), need to double check if it
-# should return attackspeed values or attack cooldown.
-
 
 var cedi_flux_aura_bt: BuffType
 var cedi_flux_link_bt: BuffType
@@ -158,7 +153,7 @@ func on_tower_details() -> MultiboardValues:
 
 func periodic(event: Event):
 	var tower: Tower = self
-	var attack_speed: float = tower.get_base_attack_speed()
+	var attack_speed: float = tower.get_current_attack_speed()
 
 	event.enable_advanced(attack_speed, false)
 

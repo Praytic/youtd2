@@ -1359,12 +1359,8 @@ func get_spell_crit_chance() -> float:
 func get_spell_crit_damage() -> float:
 	return max(1.0, _mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE])
 
-# Returns current value of "attack speed" stat which scales
-# tower's attack cooldown. Note that even though name
-# contains "base", this f-n returns value which includes
-# modifiers.
-func get_base_attack_speed() -> float:
-	return clampf(_mod_value_map[Modification.Type.MOD_ATTACKSPEED], Constants.MOD_ATTACKSPEED_MIN, Constants.MOD_ATTACKSPEED_MAX)
+func get_attackspeed_modifier() -> float:
+	return _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
 
 func get_level() -> int:
 	return _level

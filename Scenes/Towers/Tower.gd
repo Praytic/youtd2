@@ -255,7 +255,7 @@ func _process(delta: float):
 	if _is_tower_preview:
 		return
 
-	var tower_does_not_attack: bool = (get_base_cooldown() == 0 || get_range() == 0)
+	var tower_does_not_attack: bool = get_range() == 0
 	if tower_does_not_attack:
 		return
 
@@ -273,9 +273,9 @@ func _process(delta: float):
 #	tower would be doing nothing for 90 seconds. Instead of
 #	that, we recalculate the cooldown so that tower can
 #	start attacking normally again.
-	var overall_cooldown: float = get_overall_cooldown()
-	if _current_attack_cooldown > overall_cooldown:
-		_current_attack_cooldown = overall_cooldown
+	var attackspeed: float = get_current_attack_speed()
+	if _current_attack_cooldown > attackspeed:
+		_current_attack_cooldown = attackspeed
 
 	if _current_attack_cooldown > 0.0:
 		_current_attack_cooldown -= delta
@@ -286,7 +286,7 @@ func _process(delta: float):
 # 		NOTE: important to add, not set! So that if game is
 # 		lagging, all of the attacks fire instead of skipping.
 		if attack_success:
-			_current_attack_cooldown += get_overall_cooldown()
+			_current_attack_cooldown += attackspeed
 
 
 #########################
@@ -1063,34 +1063,31 @@ func get_element() -> Element.enm:
 func get_category() -> int:
 	return get_element()
 
-# How many the seconds the tower needs to reload without modifications.
-func get_base_cooldown() -> float:
-	return TowerProperties.get_base_cooldown(_id)
+# This is the base time between tower attacks, before
+# applying modifications. Do not confuse this value with
+# MOD_ATTACKSPEED.
+# attackspeed = time in seconds
+# MOD_ATTACKSPEED = multiplier which reduces/increases the time
+# NOTE: tower.getBaseAttackSpeed() in JASS
+func get_base_attack_speed() -> float:
+	return TowerProperties.get_base_attackspeed(_id)
 
-# The result of the calculation of the Base Cooldown and the Attack Speed. 
-# This is the real rate with which the tower will attack. 
-# Example: If the Base Cooldown is 2.0 seconds and the tower has 125% attackspeed, 
-# then the real attack cooldown will be 2.0/1.25 == 1.6 seconds.
-func get_overall_cooldown() -> float:
-	var attack_cooldown: float = get_base_cooldown()
-	var attack_speed_mod: float = get_base_attack_speed()
-	var overall_cooldown: float = attack_cooldown / attack_speed_mod
-	overall_cooldown = max(Constants.ATTACK_COOLDOWN_MIN, overall_cooldown)
+# This is the actual time between tower attacks, after
+# applying modifications.
+# Example: If the base attackspeed is 2.0 seconds and the
+# tower has 1.25 attackspeed, then the real attack cooldown
+# will be 2.0/1.25 == 1.6 seconds.
+# NOTE: tower.getCurrentAttackSpeed() in JASS
+func get_current_attack_speed() -> float:
+	var attackspeed: float = get_base_attack_speed()
+	var attack_speed_mod: float = get_attackspeed_modifier()
+	var current_attackspeed: float = attackspeed / clampf(attack_speed_mod, Constants.MOD_ATTACKSPEED_MIN, Constants.MOD_ATTACKSPEED_MAX)
 
-	return overall_cooldown
+	return current_attackspeed
 
 
 func get_remaining_cooldown() -> float:
 	return max(0, _current_attack_cooldown)
-
-
-# NOTE: this f-n returns overall cooldown even though that
-# doesn't match the name. See "M.E.F.I.S. Rocket" tower
-# script for proof.
-# 
-# NOTE: tower.getCurrentAttackSpeed() in JASS
-func get_current_attack_speed() -> float:
-	return get_overall_cooldown()
 
 func get_csv_property(csv_property: Tower.CsvProperty) -> String:
 	return TowerProperties.get_csv_property(_id, csv_property)
@@ -1129,8 +1126,8 @@ func get_current_attack_damage_with_bonus(randomize_damage: bool = false) -> flo
 	var damage_add: float = get_damage_add()
 	var damage_add_percent: float = get_damage_add_percent()
 	var dps_bonus: float = get_dps_bonus()
-	var cooldown: float = get_overall_cooldown()
-	var dps_mod: float = dps_bonus * cooldown
+	var attackspeed: float = get_current_attack_speed()
+	var dps_mod: float = dps_bonus * attackspeed
 
 	var overall_base_damage: float = (base_damage + base_bonus) * base_bonus_percent
 	var overall_damage: float = (overall_base_damage + damage_add) * damage_add_percent + dps_mod
@@ -1148,12 +1145,8 @@ func get_overall_damage() -> float:
 # How much damage the tower deals with its attack per second on average (not counting in any crits). 
 func get_overall_dps():
 	var damage: float = get_overall_damage()
-	var cooldown: float = get_overall_cooldown()
-
-	if cooldown == 0:
-		return 0
-
-	var dps: float = damage / cooldown
+	var attackspeed: float = get_current_attack_speed()
+	var dps: float = damage / attackspeed
 
 	return dps
 

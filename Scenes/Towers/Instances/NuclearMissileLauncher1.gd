@@ -75,8 +75,8 @@ func on_damage(event: Event):
 func periodic(_event: Event):
 	var tower: Tower = self
 	var remaining_cd: float = tower.get_remaining_cooldown()
-	var overall_cd: float = tower.get_overall_cooldown()
-	var cd_ratio: float = 1.0 - remaining_cd / overall_cd
+	var attackspeed: float = tower.get_current_attack_speed()
+	var cd_ratio: float = 1.0 - remaining_cd / attackspeed
 
 	_progress_bar.set_as_ratio(cd_ratio)
 
