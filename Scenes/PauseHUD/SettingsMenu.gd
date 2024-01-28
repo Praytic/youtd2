@@ -55,8 +55,6 @@ func _ready():
 		var button_group: ButtonGroup = _setting_to_button_group_map[setting]
 		button_group.pressed.connect(_on_button_group_pressed)
 	
-	Settings.flush()
-
 	_load_current_settings()
 
 
