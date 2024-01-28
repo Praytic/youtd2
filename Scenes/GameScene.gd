@@ -38,7 +38,8 @@ func _ready():
 
 # 	NOTE: this is where normal gameplay starts
 	Settings.changed.connect(_on_settings_changed)
-	
+	_on_settings_changed()
+
 	Globals.set_game_state(Globals.GameState.PREGAME)
 	get_tree().set_pause(true)
 	
