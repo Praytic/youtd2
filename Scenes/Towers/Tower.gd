@@ -1151,6 +1151,14 @@ func get_overall_dps():
 
 	return dps
 
+# NOTE: getter for TowerInfo
+func get_base_cooldown() -> float:
+	return get_base_attack_speed()
+
+# NOTE: getter for TowerInfo
+func get_overall_cooldown() -> float:
+	return get_current_attack_speed()
+
 # How much damage the tower deals with its attack per second on average when 
 # counting attack crits and multicrits.
 func get_dps_with_crit():
