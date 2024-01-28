@@ -70,7 +70,10 @@ func _ready():
 			push_error("Failed to open settings file. Error:", error_string(open_error))
 
 		_cache = _default_value_map
-#		NOTE: save defaults to file to create settings file for the first time
+
+#		NOTE: call flush() to save default settings to file.
+#		This will create settings file for the first time.
+		flush()
 
 
 #########################
