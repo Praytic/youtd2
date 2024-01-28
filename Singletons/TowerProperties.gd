@@ -181,6 +181,12 @@ func get_base_attackspeed(tower_id: int) -> float:
 	return attackspeed
 
 
+func get_attack_enabled(tower_id: int) -> bool:
+	var attack_enabled: bool = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_ENABLED) == "TRUE"
+
+	return attack_enabled
+
+
 func get_attack_type(tower_id: int) -> AttackType.enm:
 	var attack_type: AttackType.enm = _attack_type_map[tower_id]
 

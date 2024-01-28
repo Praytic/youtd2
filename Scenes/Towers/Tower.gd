@@ -15,6 +15,7 @@ enum CsvProperty {
 	AUTHOR,
 	RARITY,
 	ELEMENT,
+	ATTACK_ENABLED,
 	ATTACK_TYPE,
 	ATTACK_RANGE,
 	ATTACK_CD,
@@ -255,8 +256,8 @@ func _process(delta: float):
 	if _is_tower_preview:
 		return
 
-	var tower_does_not_attack: bool = get_range() == 0
-	if tower_does_not_attack:
+	var attack_enabled: bool = get_attack_enabled()
+	if !attack_enabled:
 		return
 
 	if is_stunned():
@@ -1190,3 +1191,6 @@ func get_inventory_capacity() -> int:
 	var capacity: int = TowerProperties.get_inventory_capacity(_id)
 
 	return capacity
+
+func get_attack_enabled() -> bool:
+	return TowerProperties.get_attack_enabled(_id)
