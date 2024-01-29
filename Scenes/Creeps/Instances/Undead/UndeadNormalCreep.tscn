@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbyi25evnepsj"]
+[gd_scene load_steps=3 format=3 uid="uid://bbyi25evnepsj"]
 
 [ext_resource type="PackedScene" uid="uid://cxslevowepx6k" path="res://Scenes/Creeps/Instances/NormalCreep.tscn" id="1_g0fvr"]
 
@@ -6,49 +6,34 @@
 resource_local_to_scene = true
 bg_color = Color(0.176471, 0.960784, 0, 1)
 
-[sub_resource type="Shader" id="Shader_eimx7"]
-code = "shader_type canvas_item;
-render_mode unshaded;
-
-uniform vec4 line_color : source_color = vec4(1);
-uniform float line_thickness : hint_range(0, 10) = 1.0;
-
-void fragment() {
-	vec4 pixel_color = texture(TEXTURE, UV);
-	if (pixel_color.a > 0.5) {
-		discard;
-	}
-	
-	vec2 size = TEXTURE_PIXEL_SIZE * line_thickness;
-	
-	float outline = texture(TEXTURE, UV + vec2(-size.x, 0)).a;
-	outline += texture(TEXTURE, UV + vec2(0, size.y)).a;
-	outline += texture(TEXTURE, UV + vec2(size.x, 0)).a;
-	outline += texture(TEXTURE, UV + vec2(0, -size.y)).a;
-	outline += texture(TEXTURE, UV + vec2(-size.x, size.y)).a;
-	outline += texture(TEXTURE, UV + vec2(size.x, size.y)).a;
-	outline += texture(TEXTURE, UV + vec2(-size.x, -size.y)).a;
-	outline += texture(TEXTURE, UV + vec2(size.x, -size.y)).a;
-	outline = min(outline, 1.0);
-	
-	vec4 color = texture(TEXTURE, UV);
-	COLOR = mix(color, line_color, outline - color.a);
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_my51d"]
-resource_local_to_scene = true
-shader = SubResource("Shader_eimx7")
-shader_parameter/line_color = Color(1, 1, 1, 1)
-shader_parameter/line_thickness = 6.0
-
 [node name="Creep" instance=ExtResource("1_g0fvr")]
 
 [node name="Sprite" parent="Visual" index="0"]
+offset = Vector2(-11.4286, 12.1429)
 sprite_sheets_dir = "res://Assets/Mobs/orc/normal"
+_animation_offset_map = {
+"death_E": Vector2(24, 44),
+"death_N": Vector2(51, 17),
+"death_S": Vector2(-52, 34),
+"death_W": Vector2(-24, 12),
+"default": Vector2(-16, 17),
+"floating_E": Vector2(6, 0),
+"floating_N": Vector2(26, -7),
+"floating_S": Vector2(-27, -4),
+"floating_W": Vector2(-6, -10),
+"run_E": Vector2(3, 22),
+"run_N": Vector2(16, 17),
+"run_S": Vector2(-16, 17),
+"run_W": Vector2(-3, 10),
+"slow_run_E": Vector2(19, 18),
+"slow_run_N": Vector2(27, 11),
+"slow_run_S": Vector2(-27, 17),
+"slow_run_W": Vector2(-19, 8),
+"stunned_E": Vector2(18, 25),
+"stunned_N": Vector2(19, 8),
+"stunned_S": Vector2(-20, 15),
+"stunned_W": Vector2(-18, 12)
+}
 
 [node name="HealthBar" parent="Visual" index="1"]
 theme_override_styles/fill = SubResource("StyleBoxFlat_8wvgx")
-
-[node name="SelectionOutline" parent="Visual" index="3"]
-material = SubResource("ShaderMaterial_my51d")
-sprite_sheets_dir = "res://Assets/Mobs/orc/normal"
