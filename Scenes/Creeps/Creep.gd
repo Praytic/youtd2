@@ -76,8 +76,8 @@ func _ready():
 	SelectUnit.connect_unit(self, _selection_area)
 	
 	_set_visual_node(_visual)
-	_set_sprite_node(_sprite)
-	_selection_outline = $Visual/SelectionOutline
+	var outline_thickness: float = _get_outline_thickness()
+	_set_sprite_node(_sprite, outline_thickness)
 
 	var sprite_dimensions: Vector2 = Utils.get_animated_sprite_dimensions(_sprite, ANIMATION_FOR_DIMENSIONS)
 	_set_unit_dimensions(sprite_dimensions)
@@ -345,6 +345,21 @@ func _get_animation_based_on_facing_angle(animation_order: Array[String]) -> Str
 	var animation: String = animation_order[animation_index]
 
 	return animation
+
+
+# NOTE: different thickness is used for different sizes to
+# account for differences in sprite scale.
+func _get_outline_thickness() -> float:
+	match get_size():
+		CreepSize.enm.MASS: return 4.5
+		CreepSize.enm.NORMAL: return 3.8
+		CreepSize.enm.AIR: return 3.0
+		CreepSize.enm.CHAMPION: return 6.0
+		CreepSize.enm.BOSS: return 2.0
+		CreepSize.enm.CHALLENGE_MASS: return 4.5
+		CreepSize.enm.CHALLENGE_BOSS: return 2.0
+
+	return 10.0
 
 
 #########################

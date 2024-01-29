@@ -99,8 +99,8 @@ func _ready():
 	super()
 
 	_set_visual_node(_visual)
-	_set_sprite_node(_sprite)
-	_selection_outline = $Visual/SelectionOutline
+	var outline_thickness: float = 6.0
+	_set_sprite_node(_sprite, outline_thickness)
 
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 	triggers_buff_type.set_hidden()
@@ -228,8 +228,7 @@ func _ready():
 # 	is the actual sprite. "Base" is a vestigial thing
 # 	inherited from Building.tscn and is currently invisible
 # 	and unused.
-	var sprite: Sprite2D = $Visual/Sprite2D
-	var sprite_dimensions: Vector2 = Utils.get_sprite_dimensions(sprite)
+	var sprite_dimensions: Vector2 = Utils.get_sprite_dimensions(_sprite)
 	_set_unit_dimensions(sprite_dimensions)
 
 #	NOTE: we want size of selection visual to be the same

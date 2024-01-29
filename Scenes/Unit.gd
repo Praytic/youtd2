@@ -995,9 +995,32 @@ func _set_visual_node(visual_node: Node2D):
 	_visual_node = visual_node
 
 
-func _set_sprite_node(sprite_node: Node2D):
+# Save the sprite node. Also create a duplicate outline
+# sprite base on the original sprite.
+# NOTE: sprite is Sprite2D in case of tower and
+# AnimatedSprite2D in case of Creeps. The operations we do
+# here are valid for both types.
+func _set_sprite_node(sprite_node: Node2D, outline_thickness: float):
 	_sprite_node = sprite_node
 	_sprite_node.modulate = _base_sprite_color
+
+#	NOTE: create a duplicate sprite to use it as selection
+#	outline. Outline is implemented by using a shader which
+#	draws an outline around the sprite and erases the
+#	original sprite.
+# 	NOTE: also duplicate the shader so that shader
+# 	parameters are individual to scenes.
+	var sprite_for_outline = sprite_node.duplicate()
+	var selection_shader: ShaderMaterial = Globals.outline_shader.duplicate()
+	sprite_for_outline.set_material(selection_shader)
+	sprite_for_outline.get_material().set_shader_parameter("line_thickness", outline_thickness)
+
+	_sprite_node.add_sibling(sprite_for_outline)
+	_selection_outline = sprite_for_outline
+
+#	NOTE: initially hide the outline, it will get shown when
+#	unit is hovered or selected.
+	_selection_outline.hide()
 
 
 # Call this in subclass to set dimensions of unit. Use
