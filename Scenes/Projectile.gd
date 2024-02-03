@@ -347,6 +347,10 @@ static func _get_direction_to_target(projectile: Projectile, target_pos: Vector2
 # NOTE: before this f-n is called, projectile must be added
 # to world and have a valid position
 func _start_interpolation_internal(target_unit: Unit, target_pos: Vector2, targeted: bool):
+#	NOTE: need to clear previous target (if it exists) to
+#	disconnect from signals
+	set_homing_target(null)
+
 	if target_unit != null:
 		target_pos = target_unit.get_visual_position()
 
@@ -394,6 +398,9 @@ func _get_target_position() -> Vector2:
 
 
 func _clear_target():
+	if _target_unit == null:
+		return
+
 	_target_pos = _target_unit.get_visual_position()
 	_target_unit.death.disconnect(_on_target_death)
 	_target_unit.tree_exiting.disconnect(_on_target_tree_exiting)
