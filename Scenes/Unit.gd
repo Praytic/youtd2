@@ -680,8 +680,7 @@ func _change_experience(amount: float) -> float:
 
 	get_player().display_floating_text_color(exp_text, self, text_color, 1.0)
 
-
-	if leveled_up:
+	if level_increased:
 		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
 		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
 		Effect.scale_effect(effect_id, effect_scale)
@@ -1264,6 +1263,13 @@ func get_x() -> float:
 # NOTE: unit.getY() in JASS
 func get_y() -> float:
 	return position.y
+
+
+# TODO: implement. Note this should not return z_index,
+# that's a different value.
+# NOTE: unit.getZ() in JASS
+func get_z() -> float:
+	return 0.0
 
 
 func get_visual_x() -> float:

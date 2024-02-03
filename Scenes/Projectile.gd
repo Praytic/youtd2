@@ -49,6 +49,8 @@ var _expiration_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
 var _collision_enabled: bool = true
 var _periodic_enabled: bool = true
+var _periodic_timer: Timer = null
+var _spawn_time: float
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -69,6 +71,7 @@ func _ready():
 	super()
 
 	_initial_scale = scale
+	_spawn_time = Utils.get_game_time()
 
 
 func _process(delta):
@@ -117,6 +120,20 @@ func start_bezier_interpolation_to_unit(target_unit: Unit, _z_arc_arg: float, _s
 # NOTE: disablePeriodic() in JASS
 func disable_periodic():
 	_periodic_enabled = false
+
+
+# NOTE: enablePeriodic() in JASS
+func enable_periodic(time: float):
+	_periodic_enabled = true
+
+	if _periodic_timer != null:
+		_periodic_timer.wait_time = time
+
+
+# NOTE: setCollisionParameters() in JASS
+func set_collision_parameters(radius: float, target_type: TargetType):
+	_collision_radius = radius
+	_collision_target_type = target_type
 
 
 #########################
@@ -476,6 +493,11 @@ func get_z() -> float:
 	return 0.0
 
 
+# TODO: implement
+func set_z(_z: float):
+	pass
+
+
 func get_speed() -> float:
 	return _speed
 
@@ -537,6 +559,14 @@ func set_remaining_lifetime(new_lifetime: float):
 
 func set_color(color: Color):
 	modulate = color
+
+
+# Returns time in seconds passed since projectile spawned.
+func get_age() -> float:
+	var current_time: float = Utils.get_game_time()
+	var age: float = current_time - _spawn_time
+
+	return age
 
 
 #########################
@@ -676,6 +706,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	if periodic_handler_is_defined:
 		projectile._periodic_handler = type._periodic_handler
 		var timer: Timer = Timer.new()
+		projectile._periodic_timer = timer
 		timer.wait_time = type._periodic_handler_period
 		timer.autostart = true
 		timer.timeout.connect(projectile._on_periodic_timer_timeout)
