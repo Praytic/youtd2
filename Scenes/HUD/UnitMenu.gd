@@ -166,7 +166,12 @@ func _update_unit_name_label(unit: Unit):
 	_title_label.text = unit.get_display_name()
 
 
-func _update_unit_level_label(unit: Unit):
+func _update_unit_level_label():
+	var unit: Unit = SelectUnit.get_selected_unit()
+
+	if unit == null:
+		return
+
 	_unit_level_label.text = str(unit.get_level())
 
 
@@ -311,7 +316,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	if prev_unit != null and prev_unit is Tower:
 		prev_unit.items_changed.disconnect(_on_tower_items_changed)
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
-		prev_unit.level_changed.disconnect(_update_unit_level_label)
+		prev_unit.level_up.disconnect(_on_unit_level_up)
 
 	if prev_unit != null and prev_unit is Creep:
 		prev_unit.buff_list_changed.disconnect(_on_unit_buff_list_changed)
@@ -319,11 +324,11 @@ func _on_selected_unit_changed(prev_unit: Unit):
 	if selected_tower:
 		tower.items_changed.connect(_on_tower_items_changed.bind(tower))
 		tower.buff_list_changed.connect(_on_unit_buff_list_changed.bind(tower))
-		tower.level_changed.connect(_update_unit_level_label.bind(tower))
+		tower.level_up.connect(_on_unit_level_up)
 		_on_tower_items_changed(tower)
 		_update_upgrade_button(tower)
 		_update_unit_name_label(tower)
-		_update_unit_level_label(tower)
+		_update_unit_level_label()
 		_on_unit_buff_list_changed(tower)
 		_update_info_label(tower)
 		_update_info_label_tooltip(tower)
@@ -344,7 +349,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_update_info_label_tooltip(creep)
 		_update_specials_label(creep)
 		_update_unit_icon(creep)
-		_update_unit_level_label(creep)
+		_update_unit_level_label()
 		
 		_inventory.hide()
 		_tier_icon_texture.hide()
@@ -532,3 +537,7 @@ func _on_items_container_gui_input(event):
 # also close the menu
 func _on_close_button_pressed():
 	close()
+
+
+func _on_unit_level_up(_level_increased: bool):
+	_update_unit_level_label()

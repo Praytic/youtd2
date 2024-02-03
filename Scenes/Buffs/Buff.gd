@@ -294,8 +294,9 @@ func _on_target_kill(event: Event):
 	_call_event_handler_list(Event.Type.KILL, event)
 
 
-func _on_target_level_up():
+func _on_target_level_up(level_increased: bool):
 	var event: Event = _make_buff_event(_target)
+	event._is_level_up = level_increased
 	_call_event_handler_list(Event.Type.LEVEL_UP, event)
 
 

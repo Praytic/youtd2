@@ -7,10 +7,8 @@ extends Node2D
 # NOTE: can't use static typing for Buff because of cyclic
 # dependency
 
-# NOTE: level_changed() always gets emitted, while
-# level_up() gets emitted only when level increases.
-signal level_changed
-signal level_up
+# NOTE: level_up() is almost emitted when unit level decreases
+signal level_up(level_increased: bool)
 # NOTE: attack event is triggered right before tower fires a
 # projectile at the target. Note that if tower has multishot
 # ability, attack event will be triggered only once for the
@@ -651,8 +649,6 @@ func _modify_property_internal(mod_type: Modification.Type, value: float, direct
 # Changes experience of unit. Change can be positive or
 # negative. Level will also be changed accordingly. Note
 # that level downs are possible.
-# TODO: should level_up event trigger multiple times for
-# same level if tower levels down and then back up?
 func _change_experience(amount: float) -> float:
 	var old_exp: float = _experience
 	var new_exp: float = max(0.0, _experience + amount)
@@ -663,10 +659,11 @@ func _change_experience(amount: float) -> float:
 	_experience = new_exp
 
 	var level_has_changed: bool = new_level != old_level
+	var level_increased: bool = new_level > old_level
 	
 	if level_has_changed:
 		set_level(new_level)
-		level_changed.emit()
+		level_up.emit(level_increased)
 
 	var sign_string: String
 	if amount >= 0:
@@ -683,11 +680,8 @@ func _change_experience(amount: float) -> float:
 
 	get_player().display_floating_text_color(exp_text, self, text_color, 1.0)
 
-	var leveled_up: bool = new_level > old_level
 
 	if leveled_up:
-		level_up.emit()
-
 		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
 		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
 		Effect.scale_effect(effect_id, effect_scale)

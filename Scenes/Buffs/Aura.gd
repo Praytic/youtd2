@@ -31,7 +31,7 @@ var _target_list: Array = []
 #########################
 
 func _ready():
-	_caster.level_changed.connect(_on_caster_level_changed)
+	_caster.level_up.connect(_on_caster_level_up)
 	tree_exited.connect(_on_tree_exited)
 
 
@@ -159,7 +159,7 @@ func _on_tree_exited():
 # down for 0.2s and then go back up to the level of the
 # strongest aura. It's not critical and I couldn't find a
 # better solution which doesn't break anything else.
-func _on_caster_level_changed():
+func _on_caster_level_up(_level_increased: bool):
 	_remove_invalid_targets()
 	
 	var new_level: int = _caster.get_level()

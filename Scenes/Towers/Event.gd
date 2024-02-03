@@ -34,6 +34,7 @@ var _is_spell_damage: bool = false
 # duration of periodic event.
 var _timer: Timer = null
 var _autocast: Autocast = null
+var _is_level_up: bool = true
 
 
 #########################
@@ -106,3 +107,10 @@ func is_attack_damage_critical() -> int:
 	var is_critical: bool = _number_of_crits > 0
 
 	return is_critical
+
+
+# Returns true if current LEVEL_UP event was triggered when
+# tower level increased. False if tower level decreased.
+# NOTE: "Event.isLevelUp()" in JASS
+func is_level_up() -> bool:
+	return _is_level_up
