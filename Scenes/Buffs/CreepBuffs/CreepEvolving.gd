@@ -18,7 +18,7 @@ func on_damaged(event: Event):
 	var creep: Unit = buff.get_buffed_unit()
 
 	var life_max: float = creep.get_overall_health()
-	var damage_ratio: float = event.damage / life_max
+	var damage_ratio: float = Utils.divide_safe(event.damage, life_max)
 
 	var attacker: Unit = event.get_target()
 	var tower: Tower = attacker as Tower

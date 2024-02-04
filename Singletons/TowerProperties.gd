@@ -396,7 +396,7 @@ func get_generated_tooltip(tower_id: int) -> String:
 func get_dps(tower_id: int) -> float:
 	var damage: int = TowerProperties.get_base_damage(tower_id)
 	var attackspeed: float = TowerProperties.get_base_attackspeed(tower_id)
-	var dps: float = damage / attackspeed
+	var dps: float = Utils.divide_safe(damage, attackspeed)
 
 	return dps
 

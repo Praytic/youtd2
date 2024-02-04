@@ -70,7 +70,7 @@ func _get_move_progress() -> float:
 	var start_pos: Vector2 = position
 	var distance_travelled: float = Isometric.vector_distance_to(_current_swarm_pos, start_pos)
 	var total_distance: float = Isometric.vector_distance_to(start_pos, _target_position)
-	var move_progress: float = distance_travelled / total_distance
+	var move_progress: float = Utils.divide_safe(distance_travelled, total_distance, 1.0)
 
 	return move_progress
 

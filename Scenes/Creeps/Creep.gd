@@ -162,7 +162,7 @@ func adjust_height(height_wc3: float, speed: float):
 
 	_height_tween = create_tween()
 
-	var duration: float = abs(height_pixels / speed)
+	var duration: float = abs(Utils.divide_safe(height_pixels, speed, 1.0))
 
 	_height_tween.tween_property(_visual, "position",
 		Vector2(_visual.position.x, _visual.position.y - height_pixels),

@@ -124,14 +124,18 @@ func get_colored_string(string: String, color: Color) -> String:
 	return out
 
 
-# Gets the ratio of two floats. If divisor is 0, returns 0.
-func get_ratio(a: float, b: float) -> float:
-	if b > 0.0:
+# Divides two floats. In case of division by 0, returns
+# "result_when_divide_by_zero" arg, 0 by default.
+# NOTE: this function must be used instead of "/" whenever
+# there's division by variable which has any chance of
+# being 0.
+func divide_safe(a: float, b: float, result_when_divide_by_zero: float = 0.0) -> float:
+	if b != 0.0:
 		var ratio: float = a / b
 
 		return ratio
 	else:
-		return 0.0
+		return result_when_divide_by_zero
 
 
 # Accepts a map of elements to weights and returns a random

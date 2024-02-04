@@ -344,7 +344,7 @@ func remove_exp_flat(amount: float) -> float:
 # NOTE: unit.removeExp() in JASS
 func remove_exp(amount_no_bonus: float) -> float:
 	var received_mod: float = get_prop_exp_received()
-	var amount: float = amount_no_bonus / max(0.1, received_mod)
+	var amount: float = Utils.divide_safe(amount_no_bonus, received_mod)
 	var actual_change: float = _change_experience(-amount)
 	var actual_removed: float = abs(actual_change)
 
@@ -367,7 +367,7 @@ func calc_chance(chance_base: float) -> bool:
 # NOTE: unit.calcBadChance() in JASS
 func calc_bad_chance(chance: float) -> bool:
 	var mod_trigger_chances: float = get_prop_trigger_chances()
-	var final_chance: float = chance / mod_trigger_chances
+	var final_chance: float = Utils.divide_safe(chance, mod_trigger_chances)
 	var success: bool = Utils.rand_chance(final_chance)
 
 	return success
@@ -750,7 +750,7 @@ func _derive_crit_count_from_crit_ratio(crit_ratio: float, damage_source: Damage
 		DamageSource.Spell:
 			crit_damage_mod	= get_spell_crit_damage()
 
-	var crit_count: int = roundi((crit_ratio - 1.0) / (crit_damage_mod - 1.0))
+	var crit_count: int = roundi(Utils.divide_safe((crit_ratio - 1.0), (crit_damage_mod - 1.0)))
 
 	return crit_count
 
@@ -1062,7 +1062,8 @@ func _get_buff_list(friendly: bool) -> Array[Buff]:
 
 func _get_aoe_damage(aoe_center: Vector2, target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
 	var distance: float = Isometric.vector_distance_to(aoe_center, target.position)
-	var target_is_on_the_sides: bool = (distance / radius) > 0.5
+	var distance_ratio: float = Utils.divide_safe(distance, radius)
+	var target_is_on_the_sides: bool = distance_ratio > 0.5
 
 	if target_is_on_the_sides:
 		return damage * (1.0 - sides_ratio)
@@ -1437,7 +1438,7 @@ func get_overall_mana() -> float:
 # Returns current percentage of mana
 func get_mana_ratio() -> float:
 	var overall_mana: float = get_overall_mana()
-	var ratio: float = Utils.get_ratio(_mana, overall_mana)
+	var ratio: float = Utils.divide_safe(_mana, overall_mana)
 
 	return ratio
 
@@ -1497,7 +1498,7 @@ func get_overall_health() -> float:
 # NOTE: unit.getLifePercent() in JASS
 func get_health_ratio() -> float:
 	var overall_health: float = get_overall_health()
-	var ratio: float = Utils.get_ratio(_health, overall_health)
+	var ratio: float = Utils.divide_safe(_health, overall_health)
 
 	return ratio
 

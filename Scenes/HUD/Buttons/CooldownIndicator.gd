@@ -114,7 +114,7 @@ func _get_progress() -> float:
 
 		var cooldown: float = _autocast.get_cooldown()
 		var remaining_cooldown: float = _autocast.get_remaining_cooldown()
-		var progress: float = remaining_cooldown / cooldown
+		var progress: float = Utils.divide_safe(remaining_cooldown, cooldown)
 
 		return progress
 

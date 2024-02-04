@@ -200,12 +200,7 @@ func _process_interpolated(delta: float):
 	
 	_interpolation_progress += _speed * delta
 	_interpolation_progress = min(_interpolation_progress, _interpolation_distance)
-#	NOTE: prevent division by 0
-	var progress_ratio: float
-	if _interpolation_distance != 0:
-		progress_ratio = _interpolation_progress / _interpolation_distance
-	else:
-		progress_ratio = 1.0
+	var progress_ratio: float = Utils.divide_safe(_interpolation_progress, _interpolation_distance, 1.0)
 	var current_pos_2d: Vector2 = _interpolation_start.lerp(target_pos, progress_ratio)
 	var z_max: float = _z_arc * _interpolation_distance
 	var z: float = z_max * sin(progress_ratio * PI)
@@ -771,11 +766,8 @@ static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_
 		var travel_vector_isometric: Vector2 = target_pos - from_pos
 		var travel_vector_top_down: Vector2 = Isometric.isometric_vector_to_top_down(travel_vector_isometric)
 		var travel_distance: float = travel_vector_top_down.length()
-
-#		NOTE: prevent division by 0
-		if projectile._speed != 0:
-			var time_until_reached: float = travel_distance / projectile._speed
-			projectile.set_remaining_lifetime(time_until_reached)
+		var time_until_reached: float = Utils.divide_safe(travel_distance, projectile._speed, 1.0)
+		projectile.set_remaining_lifetime(time_until_reached)
 
 	Utils.add_object_to_world(projectile)
 

@@ -111,7 +111,7 @@ func _get_mod_for_size(target: Unit) -> float:
 	var creep_size: CreepSize.enm = creep.get_size()
 	var dmg_to_size_mod: float = _caster.get_damage_to_size(creep_size)
 	var damage_bonus: float = _damage_bonus_to_size_map.get(creep_size, 0.0)
-	var mod_for_size: float = 1.0 + 1.0 / dmg_to_size_mod * damage_bonus
+	var mod_for_size: float = 1.0 + Utils.divide_safe(damage_bonus, dmg_to_size_mod)
 
 	return mod_for_size
 
