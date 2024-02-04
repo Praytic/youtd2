@@ -339,7 +339,7 @@ func remove_exp_flat(amount: float) -> float:
 	return actual_removed
 
 
-# Affected by "exp recieved" modification.
+# Affected by "exp received" modification.
 # NOTE: unit.removeExp() in JASS
 func remove_exp(amount_no_bonus: float) -> float:
 	var received_mod: float = get_prop_exp_received()
@@ -360,11 +360,14 @@ func calc_chance(chance_base: float) -> bool:
 
 
 # "Bad" chance is for events that decrease tower's
-# perfomance, for example missing attack. Bad chances are
-# unaffected by Modification.Type.MOD_TRIGGER_CHANCES.
+# perfomance, for example missing attack. Higher value of
+# MOD_TRIGGER_CHANCES decreases the chance of bad things
+# happening.
 # NOTE: unit.calcBadChance() in JASS
 func calc_bad_chance(chance: float) -> bool:
-	var success: bool = Utils.rand_chance(chance)
+	var mod_trigger_chances: float = get_prop_trigger_chances()
+	var final_chance: float = chance / mod_trigger_chances
+	var success: bool = Utils.rand_chance(final_chance)
 
 	return success
 
