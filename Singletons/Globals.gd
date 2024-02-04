@@ -40,10 +40,6 @@ var _builder_instance: Builder
 var _builder_range_bonus: float = 0
 var _builder_tower_lvl_bonus: int = 0
 
-# NOTE: HACK BELOW
-# See GlaiveMaster script for explanation.
-var is_inside_periodic_event: bool = false
-
 
 func add_to_total_damage(amount: float):
 	_total_damage += amount

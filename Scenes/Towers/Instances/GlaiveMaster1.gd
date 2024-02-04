@@ -15,22 +15,6 @@ extends Tower
 # as 0 damage in combat log and then non-zero damage from
 # Lacerate. It looks weird but works as intended.
 
-# TODO: had to add a hack workaround to fix problem with
-# damage events. The problem is that this tower does the
-# "Lacerate" ability on DAMAGE event. Lacerate ability
-# itself does the dot which deals damage. So what can happen
-# is that Lacerate is used, it applies a dot, then that dot
-# damages creep and reapplies a new dot, forever. To avoid
-# this, I added a flag Globals.is_inside_periodic_event
-# which prevents DAMAGE event from emitting while a PERIODIC
-# event is in progress. Note that there are other similar
-# cases. For example Tentacle Spawn tower has a chance on
-# DAMAGE to apply a dot but in that case the issue is solved
-# by the dot dealing spell damage and DAMAGE event is not
-# emitted for spell damage instances. Need to figure out the
-# actual conditions for when DAMAGE event should not be
-# emitted and implement them in a less hacky way.
-
 
 class Glaivesaw:
 	var position: Vector2

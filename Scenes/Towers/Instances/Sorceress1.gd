@@ -249,13 +249,8 @@ func on_attack(event: Event):
 	p.set_z(60)
 
 
-# NOTE: added check for is_main_target to prevent all damage
-# from this tower getting cancelled. Original script doesn't
-# have this check. Similar situation as in other towers
-# which set damage to 0 in ON_DAMAGE.
 func on_damage(event: Event):
-	if event.is_main_target():
-		event.damage = 0
+	event.damage = 0
 
 
 func on_level_up(event: Event):

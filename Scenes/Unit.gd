@@ -15,8 +15,10 @@ signal level_up(level_increased: bool)
 # first target.
 signal attack(event)
 signal attacked(event)
-# NOTE: dealt_damage() and damaged() are emitted only for
-# attack damage, not for spell damage.
+# NOTE: dealt_damage() is emitted only for damage which is
+# caused by tower attacks. This includes multishot, splash
+# and bounce. It is not emitted when doAttackDamage() is
+# called in tower scripts.
 signal dealt_damage(event)
 signal damaged(event)
 signal kill(event)
@@ -94,7 +96,6 @@ var _mana: float = 0.0
 var _base_mana: float = 0.0
 var _base_mana_regen: float = 0.0
 var _base_armor: float = 0.0
-var _dealt_damage_signal_in_progress: bool = false
 var _kill_count: int = 0
 var _best_hit: float = 0.0
 var _damage_dealt_total: float = 0.0
@@ -460,13 +461,13 @@ func do_spell_damage(target: Unit, damage: float, crit_ratio: float) -> bool:
 
 
 # NOTE: unit.doAttackDamage() in JASS
-func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float, crit_count: int = -1, is_main_target: bool = false):
+func do_attack_damage(target: Unit, damage_base: float, crit_ratio: float, crit_count: int = -1, is_main_target: bool = false, emit_damage_event: bool = false):
 	var attack_type: AttackType.enm = get_attack_type()
-	do_custom_attack_damage(target, damage_base, crit_ratio, attack_type, crit_count, is_main_target)
+	do_custom_attack_damage(target, damage_base, crit_ratio, attack_type, crit_count, is_main_target, emit_damage_event)
 
 
 # NOTE: unit.doCustomAttackDamage() in JASS
-func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float, attack_type: AttackType.enm, crit_count: int = -1, is_main_target: bool = false):
+func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float, attack_type: AttackType.enm, crit_count: int = -1, is_main_target: bool = false, emit_damage_event: bool = false):
 	var armor_mod: float = 1.0 - target.get_current_armor_damage_reduction()
 	var received_mod: float = target.get_prop_atk_damage_received()
 	var element_mod: float = 1.0
@@ -484,7 +485,7 @@ func do_custom_attack_damage(target: Unit, damage_base: float, crit_ratio: float
 	if target.is_immune() && deals_no_damage_to_immune:
 		damage = 0
 
-	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target, attack_type, crit_count)
+	_do_damage(target, damage, crit_ratio, DamageSource.Attack, is_main_target, attack_type, crit_count, emit_damage_event)
 
 
 # NOTE: sides_ratio parameter specifies how much less damage
@@ -794,7 +795,7 @@ func _calc_attack_multicrit_from_crit_count(crit_count: int, bonus_damage: float
 	return total_crit_damage
 
 
-func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, attack_type: AttackType.enm = get_attack_type(), crit_count: int = -1) -> bool:
+func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_source: DamageSource, is_main_target: bool, attack_type: AttackType.enm = get_attack_type(), crit_count: int = -1, emit_damage_event: bool = false) -> bool:
 #	NOTE: if crit_count is -1, then _do_damage() was called
 #	from f-n like do_attack_damage(), where we only have
 #	access to crit_ratio. In that case derive crit count
@@ -819,28 +820,17 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	if damage_source == DamageSource.Spell && target.is_immune():
 		damage = 0
 
-#   NOTE: do not emit "damage" event if one is already in
-#   progress. Some towers have damage event handlers that
-#   call doAttackDamage() so recursive damage events would
-#   cause infinite recursion.
-# 
-# 	NOTE: only emit "damage" event for damage from attacks.
-# 	Do not emit it for damage from spells. See issue #208
-# 	for an explanation.
-	var should_emit_damage_event: bool = !_dealt_damage_signal_in_progress && damage_source == DamageSource.Attack && !Globals.is_inside_periodic_event
-
-	var damage_event: Event = Event.new(target)
-	damage_event.damage = damage
-	damage_event._is_main_target = is_main_target
-	damage_event._number_of_crits = crit_count
-	if should_emit_damage_event:
-		_dealt_damage_signal_in_progress = true
+#	NOTE: emit_damage_event arg is true only for tower
+#	attacks, false for all other calls to this function
+	if emit_damage_event:
+		var damage_event: Event = Event.new(target)
+		damage_event.damage = damage
+		damage_event._is_main_target = is_main_target
+		damage_event._number_of_crits = crit_count
 		dealt_damage.emit(damage_event)
-		_dealt_damage_signal_in_progress = false
-
-# 	NOTE: update damage value because it could've been
-# 	altered by event handlers of target's "damage" event
-	damage = damage_event.damage
+# 		NOTE: update damage value because it could've been
+# 		altered by DAMAGE callbacks
+		damage = damage_event.damage
 
 #	NOTE: crit damage bonus must be applied after "damage"
 #	event. This is according to this comment in the original

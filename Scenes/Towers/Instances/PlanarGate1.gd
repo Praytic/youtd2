@@ -134,11 +134,7 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-# 	NOTE: original script doesn't check is_main_target. Not
-# 	sure how it works without this check. Had to add it so
-# 	damage of falcons is not set to 0.
-	if event.is_main_target():
-		event.damage = 0
+	event.damage = 0
 
 
 func on_autocast(_event: Event):

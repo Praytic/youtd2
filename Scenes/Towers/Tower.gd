@@ -777,8 +777,9 @@ func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
 	var crit_count: int = projectile.get_tower_crit_count()
 	var crit_ratio: float = projectile.get_tower_crit_ratio()
 	var is_main_target: bool = true
-
-	do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target)
+	var emit_damage_event: bool = true
+	
+	do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target, emit_damage_event)
 
 
 func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
@@ -793,7 +794,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 	var is_main_target: bool = true
 
 	if target != null:
-		do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target)
+		var emit_damage_event: bool = true
+		do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target, emit_damage_event)
 
 	var splash_pos: Vector2
 	if target != null:
@@ -830,7 +832,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
 				var splash_is_main_target: bool = false
-				do_attack_damage(neighbor, splash_damage, crit_ratio, crit_count, splash_is_main_target)
+				var emit_damage_event: bool = true
+				do_attack_damage(neighbor, splash_damage, crit_ratio, crit_count, splash_is_main_target, emit_damage_event)
 
 				break
 
@@ -854,7 +857,8 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 		bounce_pos = projectile.position
 
 	if current_target != null:
-		do_attack_damage(current_target, current_damage, crit_ratio, crit_count, is_main_target)
+		var emit_damage_event: bool = true
+		do_attack_damage(current_target, current_damage, crit_ratio, crit_count, is_main_target, emit_damage_event)
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_index == _bounce_count_max - 1

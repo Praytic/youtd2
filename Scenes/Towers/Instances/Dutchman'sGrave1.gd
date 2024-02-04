@@ -1,22 +1,5 @@
 extends Tower
 
-# TODO: there's an issue with DAMAGE event again.
-# 
-# 1. This tower sets event.damage to 0 in DAMAGE event callback.
-# 2. This tower also launches projectiles which deal AoE damage on hit.
-# 3. Projectiles trigger DAMAGE event too.
-# 4. Without any deviations from original script, this results in those projectiles ALSO dealing 0 damage.
-# 5. I fixed this by only setting event.damage to 0 if is_main_target is true.
-# 6. is_main_target is true for normal attack and false for do_attack_damage_aoe_unit().
-# 
-# Original script worked without checking for is_main_target
-# in original youtd engine. This means that there has to be
-# some mismatch between youtd engine and youtd2 engine.
-# Maybe do_attack_damage_aoe_unit() is not supposed to emit
-# DAMAGE event? I know for sure that do_attack_damage()
-# emits DAMAGE event, because of the way "Militia
-# Watchtower" works.
-
 
 var cedi_dutch_panic_bt: BuffType
 var dutchman_pt: ProjectileType
@@ -166,8 +149,7 @@ func on_attack(event: Event):
 # NOTE: set damage to 0 because actual damage is dealt via
 # cannonball_pt_on_hit()
 func on_damage(event: Event):
-	if event.is_main_target():
-		event.damage = 0
+	event.damage = 0
 
 
 func on_kill(event: Event):
