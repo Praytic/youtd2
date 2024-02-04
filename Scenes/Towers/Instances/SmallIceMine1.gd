@@ -62,7 +62,7 @@ func on_damage(event: Event):
 		return
 
 	var targ: Unit = event.get_target()
-	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), targ, 250)
+	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), targ, _stats.aoe_range)
 	var next: Unit
 
 	CombatLog.log_ability(tower, targ, "Ice Nova")
@@ -73,7 +73,8 @@ func on_damage(event: Event):
 		if next == null:
 			break
 
-		maj_ice_nova_slow.apply_custom_timed(tower, next, 75, 2.0)
+		maj_ice_nova_slow.apply_custom_timed(tower, next, _stats.slow_value, _stats.slow_duration)
 
-	tower.do_spell_damage_aoe_unit(targ, 250, 150 + (tower.get_level() * 7.5), tower.calc_spell_crit(0.3, 0.0), 0)
+	var damage: float = _stats.aoe_damage + _stats.aoe_damage_add * tower.get_level()
+	tower.do_spell_damage_aoe_unit(targ, _stats.aoe_range, damage, tower.calc_spell_crit(0.3, 0.0), 0)
 	SFX.sfx_at_unit("FrostNovaTarget.mdl", targ)
