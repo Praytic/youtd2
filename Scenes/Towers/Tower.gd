@@ -428,6 +428,18 @@ func on_tower_details() -> MultiboardValues:
 ###      Private      ###
 #########################
 
+
+func _do_damage_from_projectile(projectile: Projectile, target: Unit, damage: float, is_main_target: bool):
+	if target == null:
+		return
+
+	var crit_count: int = projectile.get_tower_crit_count()
+	var crit_ratio: float = projectile.get_tower_crit_ratio()
+	var emit_damage_event: bool = true
+
+	do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target, emit_damage_event)
+
+
 # NOTE: this f-n does some unnecessary work in some cases
 # but it's simpler this way. For example, it checks if
 # target is invisible even though the get_units_in_range()
@@ -768,38 +780,26 @@ func _on_projectile_target_hit(projectile: Projectile, target: Unit):
 
 
 func _on_projectile_target_hit_normal(projectile: Projectile, target: Unit):
-	if target == null:
-		return
-
 	var randomize_damage: bool = true
 	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
-
-	var crit_count: int = projectile.get_tower_crit_count()
-	var crit_ratio: float = projectile.get_tower_crit_ratio()
 	var is_main_target: bool = true
-	var emit_damage_event: bool = true
 	
-	do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target, emit_damage_event)
+	_do_damage_from_projectile(projectile, target, damage, is_main_target)
 
 
-func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
+func _on_projectile_target_hit_splash(projectile: Projectile, main_target: Unit):
 	if _splash_map.is_empty():
 		return
 
 	var randomize_damage: bool = true
 	var damage: float = get_current_attack_damage_with_bonus(randomize_damage)
-
-	var crit_count: int = projectile.get_tower_crit_count()
-	var crit_ratio: float = projectile.get_tower_crit_ratio()
 	var is_main_target: bool = true
 
-	if target != null:
-		var emit_damage_event: bool = true
-		do_attack_damage(target, damage, crit_ratio, crit_count, is_main_target, emit_damage_event)
+	_do_damage_from_projectile(projectile, main_target, damage, is_main_target)
 
 	var splash_pos: Vector2
-	if target != null:
-		splash_pos = target.position
+	if main_target != null:
+		splash_pos = main_target.position
 	else:
 		splash_pos = projectile.position
 
@@ -812,8 +812,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 
 	var creep_list: Array = Utils.get_units_in_range(_attack_target_type, splash_pos, splash_range_max)
 
-	if target != null:
-		creep_list.erase(target)
+	if main_target != null:
+		creep_list.erase(main_target)
 
 	for neighbor in creep_list:
 #		NOTE: need to check validity because splash attack
@@ -831,9 +831,8 @@ func _on_projectile_target_hit_splash(projectile: Projectile, target: Unit):
 			if creep_is_in_range:
 				var splash_damage_ratio: float = _splash_map[splash_range]
 				var splash_damage: float = damage * splash_damage_ratio
-				var splash_is_main_target: bool = false
-				var emit_damage_event: bool = true
-				do_attack_damage(neighbor, splash_damage, crit_ratio, crit_count, splash_is_main_target, emit_damage_event)
+				var splash_is_main_target: bool = true
+				_do_damage_from_projectile(projectile, neighbor, splash_damage, splash_is_main_target)
 
 				break
 
@@ -845,8 +844,6 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	if current_target != null:
 		bounce_visited_list.append(current_target)
 
-	var crit_count: int = projectile.get_tower_crit_count()
-	var crit_ratio: float = projectile.get_tower_crit_ratio()
 	var is_first_bounce: bool = current_bounce_index == 0
 	var is_main_target: bool = is_first_bounce
 
@@ -856,9 +853,7 @@ func _on_projectile_target_hit_bounce(projectile: Projectile, current_target: Un
 	else:
 		bounce_pos = projectile.position
 
-	if current_target != null:
-		var emit_damage_event: bool = true
-		do_attack_damage(current_target, current_damage, crit_ratio, crit_count, is_main_target, emit_damage_event)
+	_do_damage_from_projectile(projectile, current_target, current_damage, is_main_target)
 
 # 	Launch projectile for next bounce, if bounce isn't over
 	var bounce_end: bool = current_bounce_index == _bounce_count_max - 1
