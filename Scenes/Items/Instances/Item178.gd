@@ -49,7 +49,7 @@ func on_damage(event: Event):
 	if event.is_main_target():
 		T = itm.get_carrier()
 		C = event.get_target()
-		level_add = int(100.0 * T.get_current_attack_speed())
+		level_add = int(100.0 * T.get_current_attackspeed())
 		dur = 5 + 0.1 * T.get_level()
 
 		B = T.get_buff_of_type(pos)

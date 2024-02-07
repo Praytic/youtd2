@@ -52,11 +52,11 @@ func get_ability_description_short() -> String:
 
 
 func get_autocast_description() -> String:
-	var attack_speed: String = Utils.format_percent(1.0 + 0.02 * _stats.drol_surge_level_bonus, 2)
+	var attackspeed: String = Utils.format_percent(1.0 + 0.02 * _stats.drol_surge_level_bonus, 2)
 
 	var text: String = ""
 
-	text += "Increases the attackspeed of this tower by %s for the next 5 attacks. The surge fades after 8 seconds.\n" % attack_speed
+	text += "Increases the attackspeed of this tower by %s for the next 5 attacks. The surge fades after 8 seconds.\n" % attackspeed
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+2% attackspeed\n"

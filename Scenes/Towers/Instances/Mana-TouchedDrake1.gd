@@ -65,7 +65,7 @@ func drake_aura_manaburn(event: Event):
 	var target: Unit = event.get_target()
 	var caster: Unit = b.get_caster()
 	var mana_drained: float
-	var speed: float = tower.get_base_attack_speed() * 800 / tower.get_range()
+	var speed: float = tower.get_base_attackspeed() * 800 / tower.get_range()
 
 	if target.get_mana() > 0 && caster.subtract_mana(caster.user_real * speed, false) > 0:
 		mana_drained = target.subtract_mana(b.get_level() / 100.0 * speed, true)

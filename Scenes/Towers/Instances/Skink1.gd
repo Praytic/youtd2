@@ -51,7 +51,7 @@ func poisenskin(event: Event):
 	var T: Tower = B.get_buffed_unit()
 	var U: Unit = event.get_target()
 	var P: Buff = U.get_buff_of_type(cedi_skinkB)
-	var dmg: float = (C.user_real + C.user_real2 * C.get_level()) * T.get_current_attack_speed() / (T.get_range() / 800.0)
+	var dmg: float = (C.user_real + C.user_real2 * C.get_level()) * T.get_current_attackspeed() / (T.get_range() / 800.0)
 
 	if P != null:
 		if P.get_caster().get_instance_id() == P.user_int:

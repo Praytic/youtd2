@@ -52,12 +52,12 @@ func phantom_attack(event: Event):
 	var twr: Tower = b.get_buffed_unit()
 
 	if b.get_caster().get_level() < 20:
-		if twr.calc_chance(0.25 * twr.get_base_attack_speed()):
+		if twr.calc_chance(0.25 * twr.get_base_attackspeed()):
 			CombatLog.log_ability(twr, event.get_target(), "Wind Shear Bonus")
 
 			drol_phantom_st.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())
 	else:
-		if twr.calc_chance(0.25 * twr.get_base_attack_speed()):
+		if twr.calc_chance(0.25 * twr.get_base_attackspeed()):
 			CombatLog.log_ability(twr, event.get_target(), "Wind Shear Super Bonus")
 			
 			drol_phantom_st_2.target_cast_from_caster(twr, event.get_target(), 1.0 + b.user_real * 0.04, twr.calc_spell_crit_no_bonus())

@@ -181,7 +181,7 @@ func sir_eredar_siphon_bt_on_attack(event: Event):
 	var eredar: Tower = buff.get_caster()
 	var attacker: Tower = buff.get_buffed_unit()
 	var target: Unit = event.get_target()
-	var dmg: float = 3 * attacker.get_current_attack_damage_with_bonus() / attacker.get_current_attack_speed()
+	var dmg: float = 3 * attacker.get_current_attack_damage_with_bonus() / attacker.get_current_attackspeed()
 	var stun_duration: float = 2.5 - 0.02 * eredar.get_level()
 
 	cb_stun.apply_only_timed(eredar, attacker, stun_duration)

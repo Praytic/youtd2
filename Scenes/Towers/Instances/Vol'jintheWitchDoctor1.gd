@@ -164,7 +164,7 @@ func on_attack(event: Event):
 #			The first ward has been created => Start the Periodic Event
 			if active_ward_count == 1:
 				periodic_is_enabled = true
-				periodic_interval = tower.get_current_attack_speed()
+				periodic_interval = tower.get_current_attackspeed()
 
 		counter += 1
 		if counter > (max_wards - 1):
@@ -246,7 +246,7 @@ func periodic(event: Event):
 #	NOTE: original script calls enable_advanced()
 #	selectively in some spots. Call it always here to ensure
 #	that periodic interval always equals to attackspeed.
-	event.enable_advanced(tower.get_current_attack_speed(), false)
+	event.enable_advanced(tower.get_current_attackspeed(), false)
 	
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 800)
 
@@ -294,7 +294,7 @@ func periodic(event: Event):
 	if active_ward_count > 0:
 # 		Activate the event
 		periodic_is_enabled = true
-		periodic_interval = tower.get_current_attack_speed()
+		periodic_interval = tower.get_current_attackspeed()
 
 
 func on_autocast(_event: Event):

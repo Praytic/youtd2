@@ -78,7 +78,7 @@ func tower_init():
 func on_attack(event: Event):
 	var tower: Tower = self
 	var target: Unit = event.get_target()
-	var projectile_count_max: int = int(tower.get_current_attack_speed() / 0.1)
+	var projectile_count_max: int = int(tower.get_current_attackspeed() / 0.1)
 	var dmg_ratio: float = 1.0
 
 	var rapid_gun_fire_chance: float = 0.65 + 0.004 * tower.get_level()

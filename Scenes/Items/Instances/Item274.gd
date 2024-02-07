@@ -31,7 +31,7 @@ func on_attack(event: Event):
 	var tower: Tower = itm.get_carrier()
 	var creep: Unit = event.get_target()
 
-	if creep.get_size() < CreepSize.enm.CHAMPION && tower.calc_chance((0.0025 + (tower.get_level() * 0.0001)) * tower.get_base_attack_speed()):
+	if creep.get_size() < CreepSize.enm.CHAMPION && tower.calc_chance((0.0025 + (tower.get_level() * 0.0001)) * tower.get_base_attackspeed()):
 		CombatLog.log_item_ability(self, null, "Curse of the Grave")
 
 		tower.kill_instantly(creep)

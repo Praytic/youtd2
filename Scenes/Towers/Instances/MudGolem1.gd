@@ -87,7 +87,7 @@ func sir_golem_aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var tower: Tower = buff.get_caster()
 	var buffed_tower: Tower = buff.get_buffed_unit()
-	var ground_smash_chance: float = (0.03 + 0.0004 * tower.get_level()) * buffed_tower.get_base_attack_speed()
+	var ground_smash_chance: float = (0.03 + 0.0004 * tower.get_level()) * buffed_tower.get_base_attackspeed()
 
 	if !buffed_tower.calc_chance(ground_smash_chance):
 		return

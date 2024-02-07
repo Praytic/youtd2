@@ -212,7 +212,7 @@ func cedi_steam_bt_on_attack(event: Event):
 	var caster: Tower = buff.get_caster()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 	var lvl: int = caster.get_level()
-	var power_surge_chance: float = 0.01 * caster.get_base_attack_speed()
+	var power_surge_chance: float = 0.01 * caster.get_base_attackspeed()
 
 	if !caster.calc_chance(power_surge_chance):
 		return

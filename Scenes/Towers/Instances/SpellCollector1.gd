@@ -120,7 +120,7 @@ func on_attack(event: Event):
 	else:
 		missile_count = 1
 
-	var delay_between_missiles: float = max(0.2, tower.get_current_attack_speed() / missile_count)
+	var delay_between_missiles: float = max(0.2, tower.get_current_attackspeed() / missile_count)
 
 	if !tower.calc_chance(chance):
 		return

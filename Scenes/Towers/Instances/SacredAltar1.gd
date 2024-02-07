@@ -58,7 +58,7 @@ func boekie_altar_gift_bt_on_attack(event: Event):
 	var caster: Tower = buff.get_caster()
 	var tower: Tower = buff.get_buffed_unit()
 	var target: Creep = event.get_target()
-	var entangle_chance: float = (0.10 + 0.002 * caster.get_level()) * tower.get_base_attack_speed()
+	var entangle_chance: float = (0.10 + 0.002 * caster.get_level()) * tower.get_base_attackspeed()
 	var target_is_boss: bool = target.get_size() >= CreepSize.enm.BOSS
 	var target_is_air: bool = target.get_size() == CreepSize.enm.AIR
 

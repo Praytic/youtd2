@@ -18,7 +18,7 @@ func load_triggers(triggers: BuffType):
 func on_damage(event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
-	var cd: float = tower.get_base_attack_speed()
+	var cd: float = tower.get_base_attackspeed()
 	var tower_range: float = tower.get_range()
 
 	if event.is_main_target():

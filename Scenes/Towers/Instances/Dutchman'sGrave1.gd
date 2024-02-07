@@ -191,7 +191,7 @@ func dutchman_pt_periodic(p: Projectile):
 
 	timer_cannonball -= 0.1
 	if timer_cannonball <= 0.0:
-		timer_cannonball += tower.get_current_attack_speed()
+		timer_cannonball += tower.get_current_attackspeed()
 		shoot_cannonball()
 
 	timer_soul -= 0.1

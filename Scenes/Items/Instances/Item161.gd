@@ -38,7 +38,7 @@ func on_attack(_event: Event):
 	var in_range: Iterate
 	var nxt: Tower
 	var spieler: Player = tower.get_player()
-	var speed: float = tower.get_base_attack_speed()
+	var speed: float = tower.get_base_attackspeed()
 
 	if tower.calc_chance(speed * (0.02 + 0.001 * tower.get_level())):
 		CombatLog.log_item_ability(self, null, "Attack!")

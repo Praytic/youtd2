@@ -153,9 +153,9 @@ func on_tower_details() -> MultiboardValues:
 
 func periodic(event: Event):
 	var tower: Tower = self
-	var attack_speed: float = tower.get_current_attack_speed()
+	var attackspeed: float = tower.get_current_attackspeed()
 
-	event.enable_advanced(attack_speed, false)
+	event.enable_advanced(attackspeed, false)
 
 	if linked_tower == null:
 #		NOT LINKED! Do nothing!
@@ -168,7 +168,7 @@ func periodic(event: Event):
 #		No dmg to deal! Do nothing!
 		return
 
-	link_time += attack_speed
+	link_time += attackspeed
 
 	var linked_for_10_sec: bool = link_time >= 10.0
 

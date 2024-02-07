@@ -126,7 +126,7 @@ func on_damage(event: Event):
 func periodic(event: Event):
 	var tower: Tower = self
 	var bonus_add: float = 0.18 + 0.01 * tower.get_level()
-	var updated_period: float = tower.get_current_attack_speed() / 2.2
+	var updated_period: float = tower.get_current_attackspeed() / 2.2
 
 	if seconds_since_last_attack < 12:
 		seconds_since_last_attack += 1

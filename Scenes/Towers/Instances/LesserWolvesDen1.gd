@@ -17,16 +17,16 @@ const AURA_RANGE: float = 200
 
 func get_ability_description() -> String:
 	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
-	var mod_attack_speed: String = Utils.format_percent(_stats.mod_attackspeed, 2)
-	var mod_attack_speed_add: String = Utils.format_percent(_stats.mod_attackspeed_add, 2)
+	var mod_attackspeed: String = Utils.format_percent(_stats.mod_attackspeed, 2)
+	var mod_attackspeed_add: String = Utils.format_percent(_stats.mod_attackspeed_add, 2)
 
 	var text: String = ""
 
 	text += "[color=GOLD]Wolven Tenacity - Aura[/color]\n"
-	text += "The strong physical presence of the wolves encourages nearby towers within a %s radius, to increase their attack speed by %s.\n" % [aura_range, mod_attack_speed]
+	text += "The strong physical presence of the wolves encourages nearby towers within a %s radius, to increase their attack speed by %s.\n" % [aura_range, mod_attackspeed]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
-	text += "+%s attack speed\n" % mod_attack_speed_add
+	text += "+%s attack speed\n" % mod_attackspeed_add
 
 	return text
 

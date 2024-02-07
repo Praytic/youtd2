@@ -169,7 +169,7 @@ func mock_nortrom_aura_bt_on_attack(event: Event):
 	var tower: Tower = buff.get_caster()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var target: Creep = event.get_target()
-	var silence_chance: float = (0.03 + 0.0008 * tower.get_level()) * buffed_unit.get_base_attack_speed()
+	var silence_chance: float = (0.03 + 0.0008 * tower.get_level()) * buffed_unit.get_base_attackspeed()
 
 	if !tower.calc_chance(silence_chance):
 		return

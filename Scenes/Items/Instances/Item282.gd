@@ -50,7 +50,7 @@ func on_damage(event: Event):
 	var target: Unit = event.get_target()
 	var a: int = randi_range(0, 4)
 	var tower: Tower = itm.get_carrier()
-	var speed: float = tower.get_base_attack_speed()
+	var speed: float = tower.get_base_attackspeed()
 
 	if tower.calc_chance(0.20 * speed) && event.is_main_target() == true:
 		

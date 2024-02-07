@@ -125,7 +125,7 @@ func sir_totem_attraction_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed: Tower = buff.get_buffed_unit()
 
-	if buffed.calc_chance(buffed.get_base_attack_speed() * 0.35):
+	if buffed.calc_chance(buffed.get_base_attackspeed() * 0.35):
 		var triggered_by_attack: bool = true
 		release_meteor(buff, triggered_by_attack)
 

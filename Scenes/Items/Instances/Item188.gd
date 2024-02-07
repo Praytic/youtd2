@@ -63,6 +63,6 @@ func on_damage(event: Event):
 	var tower: Tower = itm.get_carrier()
 	var size: CreepSize.enm = event.get_target().get_size()
 
-	if event.is_main_target() && tower.calc_chance(0.08 * tower.get_base_attack_speed()) && (size == CreepSize.enm.MASS || size == CreepSize.enm.CHALLENGE_MASS || size == CreepSize.enm.NORMAL):
+	if event.is_main_target() && tower.calc_chance(0.08 * tower.get_base_attackspeed()) && (size == CreepSize.enm.MASS || size == CreepSize.enm.CHALLENGE_MASS || size == CreepSize.enm.NORMAL):
 		CombatLog.log_item_ability(self, null, "Ascension")
 		drol_liftBuff.apply(tower, event.get_target(), tower.get_level())

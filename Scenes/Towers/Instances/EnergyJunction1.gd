@@ -71,7 +71,7 @@ func junction_on_damage(event: Event):
 	var caster: Tower = b.get_caster()
 	var buffee: Tower = b.get_buffed_unit()
 	var creep: Creep = event.get_target()
-	var damage: float = caster.user_real3 * (1 + caster.get_level() / 25.0) * buffee.get_base_attack_speed()
+	var damage: float = caster.user_real3 * (1 + caster.get_level() / 25.0) * buffee.get_base_attackspeed()
 
 	buffee.do_spell_damage(creep, damage, buffee.calc_spell_crit_no_bonus())
 	buffee.do_attack_damage(creep, damage, buffee.calc_attack_multicrit(0, 0, 0))

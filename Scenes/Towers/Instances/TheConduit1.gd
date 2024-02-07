@@ -228,7 +228,7 @@ func ash_conduit_unleash_bt_update(buff: Buff):
 	buff.user_real = (caster.get_prop_spell_damage_dealt() - 1.0) * caster_level_factor
 	buff.user_real2 = (caster.get_spell_crit_chance() - spell_crit_chance_innate) * caster_level_factor
 	buff.user_real3 = (caster.get_spell_crit_damage() - spell_crit_dmg_innate) * caster_level_factor
-	buff.user_int = int((caster.get_base_attack_speed() - attackspeed_innate) * caster_level_factor * 1000.0)
+	buff.user_int = int((caster.get_base_attackspeed() - attackspeed_innate) * caster_level_factor * 1000.0)
 	buff.user_int2 = int((caster.get_prop_trigger_chances() - 1.0) * caster_level_factor * 1000.0)
 
 	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)

@@ -21,4 +21,4 @@ func load_triggers(triggers: BuffType):
 func on_attack(event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
-	tower.do_spell_damage(event.get_target(), (100 + (tower.get_level() * 5)) * tower.get_base_attack_speed(), tower.calc_spell_crit_no_bonus())
+	tower.do_spell_damage(event.get_target(), (100 + (tower.get_level() * 5)) * tower.get_base_attackspeed(), tower.calc_spell_crit_no_bonus())

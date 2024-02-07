@@ -36,6 +36,6 @@ func on_damage(event: Event):
 
 	var tower: Tower = itm.get_carrier()
 
-	if tower.calc_chance(0.15 * tower.get_base_attack_speed()):
+	if tower.calc_chance(0.15 * tower.get_base_attackspeed()):
 		CombatLog.log_item_ability(self, null, "Silver Threads")
 		drol_broach.apply(tower, event.get_target(), tower.get_level())

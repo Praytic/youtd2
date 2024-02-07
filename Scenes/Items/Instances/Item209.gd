@@ -55,7 +55,7 @@ func on_damage(event: Event):
 	var target: Creep = event.get_target()
 	var tower: Tower = itm.get_carrier()
 
-	if event.is_main_target() && tower.calc_chance(tower.get_base_attack_speed() * 0.06):
+	if event.is_main_target() && tower.calc_chance(tower.get_base_attackspeed() * 0.06):
 		CombatLog.log_item_ability(self, null, "Entangling Roots")
 	
 		blizzard_st.point_cast_from_target_on_target(tower, target, 1.0, 1.0)

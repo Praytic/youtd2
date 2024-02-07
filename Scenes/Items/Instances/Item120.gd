@@ -43,7 +43,7 @@ func on_attack(event: Event):
 	var itm: Item = self
 
 	var tower: Tower = itm.get_carrier()
-	var speed: float = tower.get_base_attack_speed()
+	var speed: float = tower.get_base_attackspeed()
 
 	if tower.calc_chance(0.125 * speed):
 		CombatLog.log_item_ability(self, event.get_target(), "Purify")
