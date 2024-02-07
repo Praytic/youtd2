@@ -1000,39 +1000,6 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "160"
 
-[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer3/MarginContainer3/VBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="DisplayRanges" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer7"]
-modulate = Color(0.6, 0.341176, 0.113725, 1)
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
-text = "Display ranges:"
-
-[node name="MarginContainer8" type="MarginContainer" parent="PanelContainer3/MarginContainer3/VBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="DisplayRangesContainer" type="GridContainer" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer8"]
-layout_mode = 2
-size_flags_horizontal = 3
-columns = 2
-
-[node name="Label42" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
-text = "Attack range"
-
-[node name="Range" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 1
-text = "830"
-horizontal_alignment = 2
-
 [node name="PanelContainer2" type="PanelContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
