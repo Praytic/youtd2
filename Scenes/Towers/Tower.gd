@@ -1091,13 +1091,13 @@ func get_remaining_cooldown() -> float:
 func get_csv_property(csv_property: Tower.CsvProperty) -> String:
 	return TowerProperties.get_csv_property(_id, csv_property)
 
-func get_damage_min():
+func get_damage_min() -> int:
 	return TowerProperties.get_damage_min(_id)
 
-func get_damage_max():
+func get_damage_max() -> int:
 	return TowerProperties.get_damage_max(_id)
 
-func get_base_damage():
+func get_base_damage() -> int:
 	return TowerProperties.get_base_damage(_id)
 
 # NOTE: tower.getCurrentAttackDamageBase() in JASS
@@ -1142,7 +1142,7 @@ func get_overall_damage() -> float:
 
 # NOTE: getter for TowerInfo
 # How much damage the tower deals with its attack per second on average (not counting in any crits). 
-func get_overall_dps():
+func get_overall_dps() -> float:
 	var damage: float = get_overall_damage()
 	var attackspeed: float = get_current_attackspeed()
 	var dps: float = damage / attackspeed
@@ -1159,19 +1159,19 @@ func get_overall_cooldown() -> float:
 
 # How much damage the tower deals with its attack per second on average when 
 # counting attack crits and multicrits.
-func get_dps_with_crit():
+func get_dps_with_crit() -> float:
 	return get_overall_dps() * get_crit_multiplier()
 
 # How much damage the tower dealt in total
-func get_damage():
+func get_damage() -> float:
 	return _damage_dealt_total
 
 # How much kills the tower has in total
-func get_kills():
+func get_kills() -> int:
 	return _kill_count
 
 # What was the max hit damage the tower dealt
-func get_best_hit():
+func get_best_hit() -> float:
 	return _best_hit
 
 # NOTE: tower.getRange() in JASS

@@ -1502,7 +1502,7 @@ func get_health_ratio() -> float:
 
 	return ratio
 
-func get_base_health_regen():
+func get_base_health_regen() -> float:
 	return _base_health_regen
 
 func get_base_health_regen_bonus() -> float:
