@@ -1278,15 +1278,19 @@ func get_visual_node() -> Node2D:
 	return _visual_node
 
 
+# NOTE: "getProp_BuffDuration()" in JASS
 func get_prop_buff_duration() -> float:
 	return _get_prop_with_diminishing_returns(Modification.Type.MOD_BUFF_DURATION)
 
+# NOTE: "getProp_DebuffDuration()" in JASS
 func get_prop_debuff_duration() -> float:
 	return _get_prop_with_diminishing_returns(Modification.Type.MOD_DEBUFF_DURATION)
 
+# NOTE: "getProp_AtkCritChance()" in JASS
 func get_prop_atk_crit_chance() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_ATK_CRIT_CHANCE])
 
+# NOTE: "getProp_AtkCritDamage()" in JASS
 func get_prop_atk_crit_damage() -> float:
 	return max(1.0, _mod_value_map[Modification.Type.MOD_ATK_CRIT_DAMAGE])
 
@@ -1295,15 +1299,19 @@ func get_prop_atk_crit_damage() -> float:
 func get_crit_multiplier() -> float:
 	return 1 + get_prop_atk_crit_chance() * get_prop_atk_crit_damage()
 
+# NOTE: "getProp_BountyReceived()" in JASS
 func get_prop_bounty_received() -> float:
 	return _get_prop_with_diminishing_returns(Modification.Type.MOD_BOUNTY_RECEIVED)
 
+# NOTE: "getProp_BountyGranted()" in JASS
 func get_prop_bounty_granted() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_BOUNTY_GRANTED])
 
+# NOTE: "getProp_ExpReceived()" in JASS
 func get_prop_exp_received() -> float:
 	return _get_prop_with_diminishing_returns(Modification.Type.MOD_EXP_RECEIVED)
 
+# NOTE: "getProp_ExpGranted()" in JASS
 func get_prop_exp_granted() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_EXP_GRANTED])
 
@@ -1337,9 +1345,6 @@ func get_damage_to_magic() -> float:
 func get_damage_to_orc() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_DMG_TO_ORC])
 
-func get_exp_ratio() -> float:
-	return get_prop_exp_received()
-
 func get_item_drop_ratio() -> float:
 	return _get_prop_with_diminishing_returns(Modification.Type.MOD_ITEM_CHANCE_ON_KILL)
 
@@ -1352,21 +1357,26 @@ func get_item_drop_ratio_on_death() -> float:
 func get_item_quality_ratio_on_death() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_ITEM_QUALITY_ON_DEATH])
 
+# NOTE: "getProp_TriggerChances()" in JASS
 func get_prop_trigger_chances() -> float:
 	return _get_prop_with_diminishing_returns(Modification.Type.MOD_TRIGGER_CHANCES)
 
 func get_prop_multicrit_count() -> int:
 	return int(max(0, _mod_value_map[Modification.Type.MOD_MULTICRIT_COUNT]))
 
+# NOTE: "getProp_SpellDmgDealt()" in JASS
 func get_prop_spell_damage_dealt() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_DEALT])
 
+# NOTE: "getProp_SpellDmgReceived()" in JASS
 func get_prop_spell_damage_received() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_SPELL_DAMAGE_RECEIVED])
 
+# NOTE: "getProp_SpellCritChance()" in JASS
 func get_spell_crit_chance() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_SPELL_CRIT_CHANCE])
 
+# NOTE: "getProp_SpellCritDamage()" in JASS
 func get_spell_crit_damage() -> float:
 	return max(1.0, _mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE])
 
@@ -1425,7 +1435,7 @@ func get_base_mana_bonus() -> float:
 func get_base_mana_bonus_percent() -> float:
 	return max(0, _mod_value_map[Modification.Type.MOD_MANA_PERC])
 
-# NOTE: analog of GetUnitState(unit, UNIT_STATE_MAX_MANA) in JASS
+# NOTE: "GetUnitState(unit, UNIT_STATE_MAX_MANA)" in JASS
 func get_overall_mana() -> float:
 	return max(0, (get_base_mana() + get_base_mana_bonus()) * get_base_mana_bonus_percent())
 
@@ -1443,9 +1453,11 @@ func set_base_mana_regen(base_mana_regen: float):
 func get_base_mana_regen() -> float:
 	return _base_mana_regen
 
+# NOTE: "getProp_ManaRegBonus()" in JASS
 func get_base_mana_regen_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_MANA_REGEN]
 
+# NOTE: "getProp_ManaRegPercBonus()" in JASS
 func get_base_mana_regen_bonus_percent() -> float:
 	return _mod_value_map[Modification.Type.MOD_MANA_REGEN_PERC]
 
