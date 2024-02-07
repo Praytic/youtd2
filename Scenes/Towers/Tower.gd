@@ -1136,11 +1136,10 @@ func get_current_attack_damage_with_bonus(randomize_damage: bool = false) -> flo
 	return overall_damage
 
 
-# NOTE: getter for TowerInfo
 func get_overall_damage() -> float:
 	return get_current_attack_damage_with_bonus()
 
-# NOTE: getter for TowerInfo
+
 # How much damage the tower deals with its attack per second on average (not counting in any crits). 
 func get_overall_dps() -> float:
 	var damage: float = get_overall_damage()
@@ -1149,13 +1148,6 @@ func get_overall_dps() -> float:
 
 	return dps
 
-# NOTE: getter for TowerInfo
-func get_base_cooldown() -> float:
-	return get_base_attackspeed()
-
-# NOTE: getter for TowerInfo
-func get_overall_cooldown() -> float:
-	return get_current_attackspeed()
 
 # How much damage the tower deals with its attack per second on average when 
 # counting attack crits and multicrits.

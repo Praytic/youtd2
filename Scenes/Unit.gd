@@ -1278,12 +1278,6 @@ func get_visual_node() -> Node2D:
 	return _visual_node
 
 
-# NOTE: Getters for mod values are used in TowerInfo.
-# Getter names need to match the names of label nodes that
-# display the values. For example if getter name is
-# get_prop_trigger_chances(), then label name must be
-# PropTriggerChances.
-
 func get_prop_buff_duration() -> float:
 	return _get_prop_with_diminishing_returns(Modification.Type.MOD_BUFF_DURATION)
 
