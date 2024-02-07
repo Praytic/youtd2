@@ -3,16 +3,62 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ns44b"]
 [ext_resource type="Script" path="res://Scenes/HUD/TowerInfo.gd" id="2"]
 
-[node name="TowerInfo" type="GridContainer" node_paths=PackedStringArray("_tower_details_label", "_level_x_at_label", "_exp_for_next_level_label")]
+[node name="TowerInfo" type="GridContainer" node_paths=PackedStringArray("_base_damage", "_base_damage_bonus", "_base_damage_bonus_perc", "_damage_add", "_damage_add_perc", "_overall_damage", "_base_cooldown", "_attackspeed", "_overall_cooldown", "_overall_dps", "_crit_chance", "_crit_damage", "_multicrit", "_dps_with_crit", "_spell_damage", "_spell_crit_chance", "_spell_crit_damage", "_total_damage", "_best_hit", "_kills", "_experience", "_level_x_at_left", "_level_x_at_right", "_base_mana", "_mana_bonus", "_mana_bonus_perc", "_overall_mana", "_base_mana_regen", "_mana_regen_bonus", "_mana_regen_bonus_perc", "_overall_mana_regen", "_bounty_ratio", "_exp_ratio", "_item_drop_ratio", "_item_quality_ratio", "_trigger_chances", "_buff_duration", "_debuff_duration", "_dmg_to_undead", "_dmg_to_magical", "_dmg_to_nature", "_dmg_to_orc", "_dmg_to_humanoid", "_dmg_to_mass", "_dmg_to_normal", "_dmg_to_air", "_dmg_to_champion", "_dmg_to_boss", "_tower_details_label")]
 offset_right = 215.0
 offset_bottom = 1763.0
 size_flags_vertical = 0
 theme = ExtResource("1_ns44b")
 columns = 2
 script = ExtResource("2")
+_base_damage = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer/BaseDamage")
+_base_damage_bonus = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer/BaseDamageBonus")
+_base_damage_bonus_perc = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer/BaseDamageBonusPercent")
+_damage_add = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer/DamageAdd")
+_damage_add_perc = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer/DamageAddPercent")
+_overall_damage = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer/OverallDamage")
+_base_cooldown = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer/BaseCooldown")
+_attackspeed = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer/AttackspeedModifier")
+_overall_cooldown = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer/OverallCooldown")
+_overall_dps = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer/OverallDPS")
+_crit_chance = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer/PropAtkCritChance")
+_crit_damage = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer/PropAtkCritDamage")
+_multicrit = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer/PropMulticritCount")
+_dps_with_crit = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer/DPS_WithCrit")
+_spell_damage = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer/PropSpellDamageDealt")
+_spell_crit_chance = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer/SpellCritChance")
+_spell_crit_damage = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer/SpellCritDamage")
+_total_damage = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/Damage")
+_best_hit = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/BestHit")
+_kills = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/Kills")
+_experience = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/Exp")
+_level_x_at_left = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/LevelXAt")
+_level_x_at_right = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/ExperienceForNextLevel")
+_base_mana = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer/BaseMana")
+_mana_bonus = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer/BaseManaBonus")
+_mana_bonus_perc = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer/BaseManaBonusPercent")
+_overall_mana = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer/OverallMana")
+_base_mana_regen = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer/BaseManaRegen")
+_mana_regen_bonus = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer/BaseManaRegenBonus")
+_mana_regen_bonus_perc = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer/BaseManaRegenBonusPercent")
+_overall_mana_regen = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer/OverallManaRegen")
+_bounty_ratio = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer/PropBountyReceived")
+_exp_ratio = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer/ExpRatio")
+_item_drop_ratio = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer/ItemDropRatio")
+_item_quality_ratio = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer/ItemQualityRatio")
+_trigger_chances = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer/PropTriggerChances")
+_buff_duration = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer/PropBuffDuration")
+_debuff_duration = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer/PropDebuffDuration")
+_dmg_to_undead = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer/DamageToUndead")
+_dmg_to_magical = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer/DamageToMagic")
+_dmg_to_nature = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer/DamageToNature")
+_dmg_to_orc = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer/DamageToOrc")
+_dmg_to_humanoid = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer/DamageToHumanoid")
+_dmg_to_mass = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer/DamageToMass")
+_dmg_to_normal = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer/DamageToNormal")
+_dmg_to_air = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer/DamageToAir")
+_dmg_to_champion = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer/DamageToChampion")
+_dmg_to_boss = NodePath("PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer/DamageToBoss")
 _tower_details_label = NodePath("PanelContainer2/MultiboardContainer/TowerDetailsLabel")
-_level_x_at_label = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/LevelXAt")
-_exp_for_next_level_label = NodePath("PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer/ExperienceForNextLevel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -57,7 +103,7 @@ tooltip_text = "The standard attack damage the tower deals without any bonuses a
 mouse_filter = 1
 text = "Base damage"
 
-[node name="BaseDamage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
+[node name="BaseDamage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -71,7 +117,7 @@ tooltip_text = "This value is added on the base damage. It is calculated into th
 mouse_filter = 1
 text = "Base bonus"
 
-[node name="BaseDamageBonus" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
+[node name="BaseDamageBonus" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -85,7 +131,7 @@ tooltip_text = "After adding the Base Bonus, this percentage is added to the dam
 mouse_filter = 1
 text = "Base bonus %"
 
-[node name="BaseDamageBonusPercent" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_percent_signed"]]
+[node name="BaseDamageBonusPercent" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -99,7 +145,7 @@ tooltip_text = "This value is added to the towers damage after the Base Damage c
 mouse_filter = 1
 text = "Damage add"
 
-[node name="DamageAdd" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
+[node name="DamageAdd" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -113,7 +159,7 @@ tooltip_text = "After the Damage Add was added to the Base Damage, this percenta
 mouse_filter = 1
 text = "Damage add %"
 
-[node name="DamageAddPercent" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_percent_signed"]]
+[node name="DamageAddPercent" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -126,7 +172,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Overall damage"
 
-[node name="OverallDamage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer" groups=["tower_stat_int"]]
+[node name="OverallDamage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer2/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -148,7 +194,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Base cooldown"
 
-[node name="BaseCooldown" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer" groups=["tower_stat_int"]]
+[node name="BaseCooldown" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -161,7 +207,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Attackspeed"
 
-[node name="AttackspeedModifier" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer" groups=["tower_stat_percent"]]
+[node name="AttackspeedModifier" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -174,7 +220,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Overall cooldown"
 
-[node name="OverallCooldown" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer" groups=["tower_stat_float"]]
+[node name="OverallCooldown" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer3/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -196,7 +242,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Overall DPS"
 
-[node name="OverallDPS" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer" groups=["tower_stat_int"]]
+[node name="OverallDPS" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer5/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -218,7 +264,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Crit chance"
 
-[node name="PropAtkCritChance" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_percent"]]
+[node name="PropAtkCritChance" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -231,7 +277,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Crit damage"
 
-[node name="PropAtkCritDamage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_multiplier"]]
+[node name="PropAtkCritDamage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -244,7 +290,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Multicrit count"
 
-[node name="PropMulticritCount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer" groups=["tower_stat_int"]]
+[node name="PropMulticritCount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer6/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -266,7 +312,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "DPS with crit"
 
-[node name="DPS_WithCrit" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer" groups=["tower_stat_int"]]
+[node name="DPS_WithCrit" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer7/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -299,7 +345,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Spell damage"
 
-[node name="PropSpellDamageDealt" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer" groups=["tower_stat_percent"]]
+[node name="PropSpellDamageDealt" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -312,7 +358,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Crit chance"
 
-[node name="SpellCritChance" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer" groups=["tower_stat_percent"]]
+[node name="SpellCritChance" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -325,7 +371,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Crit damage"
 
-[node name="SpellCritDamage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer" groups=["tower_stat_multiplier"]]
+[node name="SpellCritDamage" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer8/AttackContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -372,7 +418,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Damage"
 
-[node name="Damage" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
+[node name="Damage" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -385,7 +431,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Best Hit"
 
-[node name="BestHit" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
+[node name="BestHit" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -398,7 +444,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Kills"
 
-[node name="Kills" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
+[node name="Kills" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -411,7 +457,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Experience"
 
-[node name="Exp" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer" groups=["tower_stat_int"]]
+[node name="Exp" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer2/VeteranContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -456,7 +502,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Base mana"
 
-[node name="BaseMana" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_int"]]
+[node name="BaseMana" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -469,7 +515,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Mana bonus"
 
-[node name="BaseManaBonus" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_int"]]
+[node name="BaseManaBonus" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -482,7 +528,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Mana bonus %"
 
-[node name="BaseManaBonusPercent" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_percent_signed"]]
+[node name="BaseManaBonusPercent" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -495,7 +541,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Overall mana"
 
-[node name="OverallMana" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_int"]]
+[node name="OverallMana" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -508,7 +554,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Base mana regen"
 
-[node name="BaseManaRegen" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_float"]]
+[node name="BaseManaRegen" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -521,7 +567,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Mana regen bonus"
 
-[node name="BaseManaRegenBonus" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_float"]]
+[node name="BaseManaRegenBonus" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -534,7 +580,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Mana regen bonus %"
 
-[node name="BaseManaRegenBonusPercent" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_percent_signed"]]
+[node name="BaseManaRegenBonusPercent" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -547,7 +593,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Overall mana reg"
 
-[node name="OverallManaRegen" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer" groups=["tower_stat_float"]]
+[node name="OverallManaRegen" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer4/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -578,7 +624,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Bounty ratio"
 
-[node name="PropBountyReceived" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
+[node name="PropBountyReceived" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -591,7 +637,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Exp ratio"
 
-[node name="ExpRatio" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
+[node name="ExpRatio" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -604,7 +650,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Item drop ratio"
 
-[node name="ItemDropRatio" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
+[node name="ItemDropRatio" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -617,7 +663,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Item quality ratio"
 
-[node name="ItemQualityRatio" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
+[node name="ItemQualityRatio" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -630,7 +676,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Trigger chances"
 
-[node name="PropTriggerChances" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
+[node name="PropTriggerChances" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -643,7 +689,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Buff duration"
 
-[node name="PropBuffDuration" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
+[node name="PropBuffDuration" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -656,7 +702,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Debuff duration"
 
-[node name="PropDebuffDuration" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer" groups=["tower_stat_percent"]]
+[node name="PropDebuffDuration" type="Label" parent="PanelContainer4/MarginContainer2/VBoxContainer2/MarginContainer6/ManaContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -706,7 +752,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Undead"
 
-[node name="DamageToUndead" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
+[node name="DamageToUndead" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -719,7 +765,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Magical"
 
-[node name="DamageToMagic" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
+[node name="DamageToMagic" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -732,7 +778,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Nature"
 
-[node name="DamageToNature" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
+[node name="DamageToNature" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -745,7 +791,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Orc"
 
-[node name="DamageToOrc" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
+[node name="DamageToOrc" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -758,7 +804,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Humanoid"
 
-[node name="DamageToHumanoid" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer" groups=["tower_stat_percent"]]
+[node name="DamageToHumanoid" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer/DamageRaceContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -791,7 +837,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Mass"
 
-[node name="DamageToMass" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
+[node name="DamageToMass" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -804,7 +850,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Normal"
 
-[node name="DamageToNormal" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
+[node name="DamageToNormal" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -817,7 +863,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Air"
 
-[node name="DamageToAir" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
+[node name="DamageToAir" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -830,7 +876,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Champion"
 
-[node name="DamageToChampion" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
+[node name="DamageToChampion" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -843,7 +889,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Boss"
 
-[node name="DamageToBoss" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer" groups=["tower_stat_percent"]]
+[node name="DamageToBoss" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer2/DamageSizeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
@@ -980,7 +1026,7 @@ size_flags_horizontal = 3
 mouse_filter = 1
 text = "Attack range"
 
-[node name="Range" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer" groups=["tower_stat_int"]]
+[node name="Range" type="Label" parent="PanelContainer3/MarginContainer3/VBoxContainer3/MarginContainer8/DisplayRangesContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1

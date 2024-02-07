@@ -5,15 +5,70 @@ class_name TowerInfo extends GridContainer
 # pressing the "info" button.
 
 
-@onready var _tower_stat_int_labels: Array = get_tree().get_nodes_in_group("tower_stat_int")
-@onready var _tower_stat_float_labels: Array = get_tree().get_nodes_in_group("tower_stat_float")
-@onready var _tower_stat_percent_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent")
-@onready var _tower_stat_percent_signed_labels: Array = get_tree().get_nodes_in_group("tower_stat_percent_signed")
-@onready var _tower_stat_multiplier_labels: Array = get_tree().get_nodes_in_group("tower_stat_multiplier")
+# Attack
+@export var _base_damage: Label
+@export var _base_damage_bonus: Label
+@export var _base_damage_bonus_perc: Label
+@export var _damage_add: Label
+@export var _damage_add_perc: Label
+@export var _overall_damage: Label
+@export var _base_cooldown: Label
+@export var _attackspeed: Label
+@export var _overall_cooldown: Label
+@export var _overall_dps: Label
+@export var _crit_chance: Label
+@export var _crit_damage: Label
+@export var _multicrit: Label
+@export var _dps_with_crit: Label
 
+# Spells
+@export var _spell_damage: Label
+@export var _spell_crit_chance: Label
+@export var _spell_crit_damage: Label
+
+# Veteran
+@export var _total_damage: Label
+@export var _best_hit: Label
+@export var _kills: Label
+@export var _experience: Label
+@export var _level_x_at_left: Label
+@export var _level_x_at_right: Label
+
+# Mana
+@export var _base_mana: Label
+@export var _mana_bonus: Label
+@export var _mana_bonus_perc: Label
+@export var _overall_mana: Label
+@export var _base_mana_regen: Label
+@export var _mana_regen_bonus: Label
+@export var _mana_regen_bonus_perc: Label
+@export var _overall_mana_regen: Label
+
+# Misc
+@export var _bounty_ratio: Label
+@export var _exp_ratio: Label
+@export var _item_drop_ratio: Label
+@export var _item_quality_ratio: Label
+@export var _trigger_chances: Label
+@export var _buff_duration: Label
+@export var _debuff_duration: Label
+
+# Damage to race
+@export var _dmg_to_undead: Label
+@export var _dmg_to_magical: Label
+@export var _dmg_to_nature: Label
+@export var _dmg_to_orc: Label
+@export var _dmg_to_humanoid: Label
+
+# Damage to size
+@export var _dmg_to_mass: Label
+@export var _dmg_to_normal: Label
+@export var _dmg_to_air: Label
+@export var _dmg_to_champion: Label
+@export var _dmg_to_boss: Label
+
+# Details
 @export var _tower_details_label: RichTextLabel
-@export var _level_x_at_label: Label
-@export var _exp_for_next_level_label: Label
 
 
 #########################
@@ -43,50 +98,173 @@ func _update_text():
 	if !tower.is_inside_tree():
 		return
 
-	for tower_stat_label in _tower_stat_int_labels:
-		var stat = _get_stat(tower_stat_label, tower)
-		tower_stat_label.text = TowerInfo.int_format(stat)
+#	Attack
+	var base_damage: int = tower.get_base_damage()
+	_base_damage.text = int_format(base_damage)
 
-	for tower_stat_label in _tower_stat_float_labels:
-		var stat = _get_stat(tower_stat_label, tower)
-		tower_stat_label.text = _float_format(stat)
-	
-	for tower_stat_label in _tower_stat_percent_labels:
-		var stat = _get_stat(tower_stat_label, tower)
-		tower_stat_label.text = Utils.format_percent(stat, 1)
+	var base_damage_bonus: float = tower.get_base_damage_bonus()
+	_base_damage_bonus.text = int_format(base_damage_bonus)
 
-	for tower_stat_label in _tower_stat_percent_signed_labels:
-		var stat = _get_stat(tower_stat_label, tower)
-		tower_stat_label.text = _percent_signed_format(stat)
-	
-	for tower_stat_label in _tower_stat_multiplier_labels:
-		var stat = _get_stat(tower_stat_label, tower)
-		tower_stat_label.text = _multiplier_format(stat)
+	var base_damage_bonus_perc: float = tower.get_base_damage_bonus_percent() - 1.0
+	_base_damage_bonus_perc.text = _percent_signed_format(base_damage_bonus_perc)
 
-	_update_exp_for_next_lvl_labels(tower)
+	var damage_add: float = tower.get_damage_add()
+	_damage_add.text = int_format(damage_add)
+
+	var damage_add_perc: float = tower.get_damage_add_percent() - 1.0
+	_damage_add_perc.text = _percent_signed_format(damage_add_perc)
+
+	var overall_damage: float = tower.get_overall_damage()
+	_overall_damage.text = int_format(overall_damage)
+
+	var base_cooldown: float = tower.get_base_attackspeed()
+	_base_cooldown.text = Utils.format_float(base_cooldown, 2)
+
+	var attackspeed: float = tower.get_attackspeed_modifier()
+	_attackspeed.text = Utils.format_percent(attackspeed, 0)
+
+	var overall_cooldown: float = tower.get_current_attackspeed()
+	_overall_cooldown.text = Utils.format_float(overall_cooldown, 2)
+
+	var overall_dps: float = tower.get_overall_dps()
+	_overall_dps.text = int_format(overall_dps)
+
+	var crit_chance: float = tower.get_prop_atk_crit_chance()
+	_crit_chance.text = Utils.format_percent(crit_chance, 1)
+
+	var crit_damage: float = tower.get_prop_atk_crit_damage()
+	_crit_damage.text = _multiplier_format(crit_damage)
+
+	var multicrit: int = tower.get_prop_multicrit_count()
+	_multicrit.text = int_format(multicrit)
+
+	var dps_with_crit: float = tower.get_dps_with_crit()
+	_dps_with_crit.text = int_format(dps_with_crit)
+
+#	Spells
+	var spell_damage: float = tower.get_prop_spell_damage_dealt()
+	_spell_damage.text = Utils.format_percent(spell_damage, 0)
 	
-	var tower_ranges_text: String = _get_tower_ranges_text(tower)
-	var tower_oils_text: String = _get_tower_oils_text(tower)
-	var tower_details_text: String = _get_tower_details_text(tower)
-	var combined_details_text: String = ""
-	combined_details_text += tower_ranges_text
-	combined_details_text += " \n"
-	combined_details_text += " \n"
-	combined_details_text += tower_oils_text
-	combined_details_text += " \n"
-	combined_details_text += " \n"
-	combined_details_text += tower_details_text
+	var spell_crit_chance: float = tower.get_spell_crit_chance()
+	_spell_crit_chance.text = Utils.format_percent(spell_crit_chance, 1)
+
+	var spell_crit_damage: float = tower.get_spell_crit_damage()
+	_spell_crit_damage.text = _multiplier_format(spell_crit_damage)
+
+#	Veteran
+	var total_damage: float = tower.get_damage()
+	_total_damage.text = int_format(total_damage)
+
+	var best_hit: float = tower.get_best_hit()
+	_best_hit.text = int_format(best_hit)
+
+	var kills: float = tower.get_kills()
+	_kills.text = int_format(kills)
+
+	var experience: float = tower.get_exp()
+	_experience.text = int_format(experience)
+
+	var next_level: int = tower.get_level() + 1
+	var exp_for_next_level: int = Experience.get_exp_for_level(next_level)
+	
+	if tower.reached_max_level():
+		_level_x_at_left.text = "Max level reached!"
+		_level_x_at_right.text = ""
+	else:
+		_level_x_at_left.text = "Level %s at" % str(next_level)
+		_level_x_at_right.text = int_format(exp_for_next_level)
+
+# 	Mana
+	var base_mana: float = tower.get_base_mana()
+	_base_mana.text = int_format(base_mana)
+
+	var mana_bonus: float = tower.get_base_mana_bonus()
+	_mana_bonus.text = int_format(mana_bonus)
+
+	var mana_bonus_perc: float = tower.get_base_mana_bonus_percent() - 1.0
+	_mana_bonus_perc.text = _percent_signed_format(mana_bonus_perc)
+
+	var overall_mana: float = tower.get_overall_mana()
+	_overall_mana.text = int_format(overall_mana)
+
+	var base_mana_regen: float = tower.get_base_mana_regen()
+	_base_mana_regen.text = Utils.format_float(base_mana_regen, 1)
+
+	var mana_regen_bonus: float = tower.get_base_mana_regen_bonus()
+	_mana_regen_bonus.text = Utils.format_float(mana_regen_bonus, 1)
+
+	var mana_regen_bonus_perc: float = tower.get_base_mana_regen_bonus_percent() - 1.0
+	_mana_regen_bonus_perc.text = _percent_signed_format(mana_regen_bonus_perc)
+
+	var overall_mana_regen: float = tower.get_overall_mana_regen()
+	_overall_mana_regen.text = Utils.format_float(overall_mana_regen, 1)
+
+#	Misc
+	var bounty_ratio: float = tower.get_prop_bounty_granted()
+	_bounty_ratio.text = Utils.format_percent(bounty_ratio, 0)
+
+	var exp_ratio: float = tower.get_prop_exp_granted()
+	_exp_ratio.text = Utils.format_percent(exp_ratio, 0)
+
+	var item_drop_ratio: float = tower.get_item_drop_ratio_on_death()
+	_item_drop_ratio.text = Utils.format_percent(item_drop_ratio, 0)
+
+	var item_quality_ratio: float = tower.get_item_quality_ratio_on_death()
+	_item_quality_ratio.text = Utils.format_percent(item_quality_ratio, 0)
+
+	var trigger_chances: float = tower.get_prop_trigger_chances()
+	_trigger_chances.text = Utils.format_percent(trigger_chances, 0)
+
+	var buff_duration: float = tower.get_prop_buff_duration()
+	_buff_duration.text = Utils.format_percent(buff_duration, 0)
+
+	var debuff_duration: float = tower.get_prop_debuff_duration()
+	_debuff_duration.text = Utils.format_percent(debuff_duration, 0)
+
+#	Damage to race
+	var dmg_to_undead: float = tower.get_damage_to_undead()
+	_dmg_to_undead.text = Utils.format_percent(dmg_to_undead, 0)
+
+	var dmg_to_magical: float = tower.get_damage_to_magic()
+	_dmg_to_magical.text = Utils.format_percent(dmg_to_magical, 0)
+
+	var dmg_to_nature: float = tower.get_damage_to_nature()
+	_dmg_to_nature.text = Utils.format_percent(dmg_to_nature, 0)
+
+	var dmg_to_orc: float = tower.get_damage_to_orc()
+	_dmg_to_orc.text = Utils.format_percent(dmg_to_orc, 0)
+
+	var dmg_to_humanoid: float = tower.get_damage_to_humanoid()
+	_dmg_to_humanoid.text = Utils.format_percent(dmg_to_humanoid, 0)
+
+#	Damage to size
+	var dmg_to_mass: float = tower.get_damage_to_mass()
+	_dmg_to_mass.text = Utils.format_percent(dmg_to_mass, 0)
+
+	var dmg_to_normal: float = tower.get_damage_to_magic()
+	_dmg_to_normal.text = Utils.format_percent(dmg_to_normal, 0)
+
+	var dmg_to_air: float = tower.get_damage_to_air()
+	_dmg_to_air.text = Utils.format_percent(dmg_to_air, 0)
+
+	var dmg_to_champion: float = tower.get_damage_to_champion()
+	_dmg_to_champion.text = Utils.format_percent(dmg_to_champion, 0)
+
+	var dmg_to_boss: float = tower.get_damage_to_boss()
+	_dmg_to_boss.text = Utils.format_percent(dmg_to_boss, 0)
+
+#	Details
+	var tower_details_text: String = _generate_tower_details_text(tower)
 	_tower_details_label.clear()
-	_tower_details_label.append_text(combined_details_text)
+	_tower_details_label.append_text(tower_details_text)
 
 
-func _get_stat(tower_stat_label: Label, tower):
-	var stat_name = tower_stat_label.get_name()
-	var getter_name = "get_" + Utils.camel_to_snake(stat_name)
-	var stat = tower.call(getter_name)
-	return stat
-
-
+# Formats numbers which can go above million and need to be
+# shortened.
+# Examples:
+# 1340 = "1,340"
+# 1340000 = "1.34M"
+# 1340000000 = "1.34G"
 static func int_format(num: float) -> String:
 	# Determine the appropriate suffix for the number
 	var suffix = ""
@@ -119,11 +297,10 @@ static func int_format(num: float) -> String:
 	return num_str + frac_str + suffix
 
 
-func _percent_signed_format(number: float, base: float = 1.0) -> String:
-	var diff_from_base: float = number - base
-	var formatted: String = Utils.format_percent(diff_from_base, 0)
+func _percent_signed_format(number: float) -> String:
+	var formatted: String = Utils.format_percent(number, 0)
 
-	if diff_from_base >= 0:
+	if int(number) > 0:
 		formatted = "+%s" % formatted
 
 	return formatted
@@ -137,16 +314,21 @@ func _float_format(number) -> String:
 	return Utils.format_float(number, 2)
 
 
-func _update_exp_for_next_lvl_labels(tower: Tower):
-	var next_level: int = tower.get_level() + 1
-	var exp_for_next_level: int = Experience.get_exp_for_level(next_level)
-	
-	if tower.reached_max_level():
-		_level_x_at_label.text = "Max level reached!"
-		_exp_for_next_level_label.text = ""
-	else:
-		_level_x_at_label.text = "Level %s at" % str(next_level)
-		_exp_for_next_level_label.text = str(exp_for_next_level)
+func _generate_tower_details_text(tower: Tower) -> String:
+	var ranges_text: String = _get_tower_ranges_text(tower)
+	var oils_text: String = _get_tower_oils_text(tower)
+	var details_text: String = _get_tower_details_text(tower)
+
+	var text: String = ""
+	text += ranges_text
+	text += " \n"
+	text += " \n"
+	text += oils_text
+	text += " \n"
+	text += " \n"
+	text += details_text
+
+	return text
 
 
 func _get_tower_oils_text(tower: Tower) -> String:
