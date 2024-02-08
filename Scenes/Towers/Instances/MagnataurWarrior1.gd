@@ -49,7 +49,7 @@ func tower_init():
 func on_damage(event: Event):
 	var tower: Tower = self
 
-	if !tower.calc_chance(0.1):
+	if !tower.calc_chance(_stats.on_damage_chance):
 		return
 
 	var creep: Unit = event.get_target()
@@ -58,7 +58,7 @@ func on_damage(event: Event):
 	CombatLog.log_ability(tower, creep, "Frozen Spears")
 
 	if event.is_main_target():
-		event.damage = event.damage * (1.5 + (0.01 * level))
+		event.damage = event.damage * (1.5 + (_stats.damage_add * level))
 		SFX.sfx_at_unit("Objects\\Spawnmodels\\Critters\\Albatross\\CritterBloodAlbatross.mdl", creep)
 		cb_stun.apply_only_timed(tower, creep, 0.5 + tower.get_level() * 0.01)
 		var damage_text: String = Utils.format_float(event.damage, 0)
