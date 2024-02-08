@@ -177,7 +177,7 @@ func cedi_goblin_sapper_pt_on_hit(projectile: Projectile, target: Unit):
 		return
 
 	var floating_text: String = "%d%% slow" % (slow_buff_level / 10) 
-	tower.get_player().display_small_floating_text(floating_text, target, 100, 100, 255, 40)
+	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 100, 255), 40)
 
 	var effect: int = Effect.add_special_effect("NeutralBuildingExplosion.mdl", projectile.get_x(), projectile.get_y())
 	Effect.destroy_effect_after_its_over(effect)
@@ -208,7 +208,7 @@ func cedi_goblin_robot_pt_on_hit(projectile: Projectile, target: Unit):
 	cedi_goblin_robot_bt.apply(tower, target, buff_level)
 
 	var floating_text: String = "%d%% AS and DMG" % (buff_level / 10) 
-	tower.get_player().display_small_floating_text(floating_text, target, 100, 255, 100, 40)
+	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 255, 100), 40)
 
 
 func cedi_goblin_emitter_pt_on_hit(projectile: Projectile, target: Unit):
@@ -225,4 +225,4 @@ func cedi_goblin_emitter_pt_on_hit(projectile: Projectile, target: Unit):
 	cedi_goblin_emitter_bt.apply(tower, target, buff_level)
 
 	var floating_text: String = "%d%% Trigger Chance" % (buff_level / 10) 
-	tower.get_player().display_small_floating_text(floating_text, target, 100, 255, 100, 40)
+	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 255, 100), 40)

@@ -199,7 +199,7 @@ func on_damage(event: Event):
 
 	if purged_count != 0:
 		var floating_text: String = Utils.format_float(event.damage, 0)
-		tower.get_player().display_small_floating_text(floating_text, tower, 255, 150, 255, 0)
+		tower.get_player().display_small_floating_text(floating_text, tower, Color8(255, 150, 255), 0)
 
 
 func on_create(_preceding: Tower):

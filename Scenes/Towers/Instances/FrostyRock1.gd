@@ -66,7 +66,7 @@ func on_damage(event: Event):
 
 	sir_frost_glacier.apply_custom_timed(tower, creep, _stats.slow_value * (1 + tower.get_level() / 20.0), 3)
 	var current_chance_text: String = "%s Chance" % Utils.format_percent(tower.user_real, 0)
-	tower.get_player().display_floating_text_x(current_chance_text, tower, 50, 150, 255, 255, 0.05, 2, 3)
+	tower.get_player().display_floating_text_x(current_chance_text, tower, Color8(50, 150, 255, 255), 0.05, 2, 3)
 
 	if tower.calc_chance(tower.user_real) == true && !event.get_target().is_immune():
 		CombatLog.log_ability(tower, creep, "Glacial Wrath Bonus")

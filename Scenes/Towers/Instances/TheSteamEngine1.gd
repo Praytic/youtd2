@@ -157,7 +157,7 @@ func periodic(_event: Event):
 	power_level = 0
 	engine_update_mana_use()
 	engine_update_anims()
-	tower.get_player().display_floating_text("Power Level: 0", tower, 50, 150, 100)
+	tower.get_player().display_floating_text("Power Level: 0", tower, Color8(50, 150, 100))
 	cedi_steam_stun.apply_only_timed(tower, tower, 120)
 
 
@@ -257,7 +257,7 @@ func on_autocast_speed_up(_event: Event):
 	engine_update_anims()
 
 	var floating_text: String = "Power Level: %d" % power_level
-	tower.get_player().display_floating_text(floating_text, tower, 50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level)
+	tower.get_player().display_floating_text(floating_text, tower, Color8(50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level))
 
 
 func on_autocast_speed_down(_event: Event):
@@ -271,4 +271,4 @@ func on_autocast_speed_down(_event: Event):
 	engine_update_anims()
 
 	var floating_text: String = "Power Level: %d" % power_level
-	tower.get_player().display_floating_text(floating_text, tower, 50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level)
+	tower.get_player().display_floating_text(floating_text, tower, Color8(50 + 4 * power_level, 150 - 3 * power_level, 100 - 2 * power_level))

@@ -59,7 +59,7 @@ func on_damage(event: Event):
 				target.set_health(target.get_health() + healing)
 				SFX.sfx_at_unit("HolyBoltSpecialArt.mdl", target)
 				var healing_text: String = "+%d" % healing
-				tower.get_player().display_floating_text_x(healing_text, target, 0, 255, 0, 255, 0.05, 0.0, 2.0)
+				tower.get_player().display_floating_text_x(healing_text, target, Color8(0, 255, 0, 255), 0.05, 0.0, 2.0)
 			else:
 				return
 

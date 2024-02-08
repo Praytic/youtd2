@@ -38,4 +38,4 @@ func on_damage(event: Event):
 		CombatLog.log_item_ability(self, null, "Miss")
 
 		event.damage = 0
-		tower.get_player().display_floating_text_x("Miss", tower, 255, 0, 0, 255, 0.05, 0.0, 2.0)
+		tower.get_player().display_floating_text_x("Miss", tower, Color8(255, 0, 0, 255), 0.05, 0.0, 2.0)

@@ -76,7 +76,7 @@ func on_damage(event: Event):
 	else:
 		tower.do_spell_damage(creep, gold_greed_damage, tower.calc_spell_crit_no_bonus())
 		var gold_greed_text: String = str(int(tower.get_prop_spell_damage_dealt() * gold_greed_damage))
-		tower.get_player().display_floating_text_x(gold_greed_text, creep, 255, 200, 0, 255, 0.05, 0.0, 2.0)
+		tower.get_player().display_floating_text_x(gold_greed_text, creep, Color8(255, 200, 0, 255), 0.05, 0.0, 2.0)
 
 
 

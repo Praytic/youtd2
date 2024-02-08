@@ -57,20 +57,20 @@ func on_damage(event: Event):
 		if a < 1:
 			CombatLog.log_item_ability(self, null, "Stun!")
 			cb_stun.apply_only_timed(tower, target, 0.5)
-			tower.get_player().display_small_floating_text("Stun!", tower, 255, 165, 0, 30)
+			tower.get_player().display_small_floating_text("Stun!", tower, Color8(255, 165, 0), 30)
 		elif a < 2:
 			CombatLog.log_item_ability(self, null, "Slow!")
 			boekie_gem_slow.apply_custom_timed(tower, target, 100, 3)
-			tower.get_player().display_small_floating_text("Slow!", tower, 255, 165, 0, 30)
+			tower.get_player().display_small_floating_text("Slow!", tower, Color8(255, 165, 0), 30)
 		elif a < 3:
 			CombatLog.log_item_ability(self, null, "Gold!")
 			tower.get_player().give_gold(10, tower, true, true)
-			tower.get_player().display_small_floating_text("Gold!", tower, 255, 165, 0, 30)
+			tower.get_player().display_small_floating_text("Gold!", tower, Color8(255, 165, 0), 30)
 		elif a < 4:
 			CombatLog.log_item_ability(self, null, "Exp!")
 			tower.add_exp(1.0)
-			tower.get_player().display_small_floating_text("Exp!", tower, 255, 165, 0, 30)
+			tower.get_player().display_small_floating_text("Exp!", tower, Color8(255, 165, 0), 30)
 		elif a < 5:
 			CombatLog.log_item_ability(self, null, "Armor!")
 			boekie_gem_armor.apply_custom_timed(tower, target, 5, 3)
-			tower.get_player().display_small_floating_text("Armor!", tower, 255, 165, 0, 30)
+			tower.get_player().display_small_floating_text("Armor!", tower, Color8(255, 165, 0), 30)

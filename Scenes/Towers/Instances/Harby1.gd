@@ -117,7 +117,7 @@ func on_attack(event: Event):
 			arcane_mana_replenish(tower)
 
 		var floating_text: String = "+%s" % Utils.format_float(damage, 0)
-		tower.get_player().display_floating_text_x(floating_text, tower, 255, 0, 255, 255, 0.05, 2, 3)
+		tower.get_player().display_floating_text_x(floating_text, tower, Color8(255, 0, 255, 255), 0.05, 2, 3)
 		p.user_real = damage
 		# p.set_model("IllidanMissile.mdl")
 	else:

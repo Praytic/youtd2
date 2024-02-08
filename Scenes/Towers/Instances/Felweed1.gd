@@ -90,4 +90,4 @@ func on_damage(event: Event):
 
 	if event.damage > damage:
 		var bonus_damage_text: String = Utils.format_float(event.damage, 0)
-		tower.get_player().display_small_floating_text(bonus_damage_text, tower, 255, 150, 150, 0)
+		tower.get_player().display_small_floating_text(bonus_damage_text, tower, Color8(255, 150, 150), 0)

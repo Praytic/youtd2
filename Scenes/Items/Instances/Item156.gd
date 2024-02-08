@@ -33,7 +33,7 @@ func on_damage(event: Event):
 		event.damage = event.damage * regen
 		itm.user_int = 0
 		var damage_text: String = Utils.format_float(event.damage, 0)
-		carrier.get_player().display_small_floating_text(damage_text, carrier, 255, 0, 255, 40.0)
+		carrier.get_player().display_small_floating_text(damage_text, carrier, Color8(255, 0, 255), 40.0)
 
 
 func on_create():

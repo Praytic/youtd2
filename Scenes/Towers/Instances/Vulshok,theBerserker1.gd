@@ -129,7 +129,7 @@ func on_attack(event: Event):
 		else:
 			floating_text = "ROAR!"
 
-		tower.get_player().display_floating_text(floating_text, tower, 255, 100, 100)
+		tower.get_player().display_floating_text(floating_text, tower, Color8(255, 100, 100))
 
 #		Increase model size
 #		TODO: set_unit_scale() is not implemented yet

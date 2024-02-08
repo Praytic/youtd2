@@ -134,7 +134,7 @@ func on_damage(event: Event):
 			CombatLog.log_ability(tower, event.get_target(), "Soul Split x2")
 			
 			multiplier = 2.0
-			tower.get_player().display_floating_text_x("Double", tower, 255, 0, 0, 255, 64, 1, 2)
+			tower.get_player().display_floating_text_x("Double", tower, Color8(255, 0, 0, 255), 64, 1, 2)
 		else:
 			CombatLog.log_ability(tower, event.get_target(), "Soul Split")
 

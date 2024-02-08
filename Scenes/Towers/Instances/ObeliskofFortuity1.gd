@@ -44,4 +44,4 @@ func on_damage(event: Event):
 	if tower.calc_bad_chance(_stats.miss_chance_base - tower.get_level() * 0.006):
 		CombatLog.log_ability(tower, event.get_target(), "Warming Up")
 		event.damage = 0
-		tower.get_player().display_floating_text_x("Miss", tower, 255, 0, 0, 255, 0.05, 0.0, 2.0)
+		tower.get_player().display_floating_text_x("Miss", tower, Color8(255, 0, 0, 255), 0.05, 0.0, 2.0)

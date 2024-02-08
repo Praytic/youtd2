@@ -242,4 +242,4 @@ func dave_council_darkness_on_expire(event: Event):
 	SFX.sfx_at_unit("DeathCoilSpecialArt.mdl", target)
 
 	var floating_text: String = Utils.format_float(final_damage, 0)
-	tower.get_player().display_floating_text(floating_text, target, 50, 50, 50)
+	tower.get_player().display_floating_text(floating_text, target, Color8(50, 50, 50))

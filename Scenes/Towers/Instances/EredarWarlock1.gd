@@ -201,7 +201,7 @@ func sir_eredar_siphon_bt_on_attack(event: Event):
 	Effect.destroy_effect_after_its_over(attacker_effect)
 
 	var floating_text: String = Utils.format_float(dmg, 0)
-	eredar.get_player().display_floating_text_x(floating_text, target, 255, 0, 150, 255, 0.05, 0.0, 2.0)
+	eredar.get_player().display_floating_text_x(floating_text, target, Color8(255, 0, 150, 255), 0.05, 0.0, 2.0)
 
 	var target_effect: int = Effect.create_simple("ImpaleHitTarget.mdl", target.get_visual_x(), target.get_visual_y())
 	Effect.destroy_effect_after_its_over(target_effect)

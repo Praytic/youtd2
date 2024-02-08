@@ -149,14 +149,14 @@ func natac_lich_aura_bt_on_cleanup(event: Event):
 
 	if !target.is_dead():
 		if caster.stored_damage > 0:
-			caster.get_player().display_floating_text("Feel the Wrath!", caster, 15, 15, 200)
+			caster.get_player().display_floating_text("Feel the Wrath!", caster, Color8(15, 15, 200))
 			var stored_damage_ratio: float = 0.5 + 0.04 * caster.get_level()
 			damage += caster.stored_damage * stored_damage_ratio
 			caster.stored_damage = 0.0
 
 		SFX.sfx_at_unit("FrostNovaTarget.mdl", target)
 		caster.do_spell_damage(target, damage, caster.calc_spell_crit_no_bonus())
-		caster.get_player().display_floating_text(Utils.format_float(damage, 0), caster, 15, 15, 200)
+		caster.get_player().display_floating_text(Utils.format_float(damage, 0), caster, Color8(15, 15, 200))
 	else:
 		caster.stored_damage += damage
-		caster.get_player().display_floating_text("+" + Utils.format_float(damage, 0), caster, 15, 15, 200)
+		caster.get_player().display_floating_text("+" + Utils.format_float(damage, 0), caster, Color8(15, 15, 200))

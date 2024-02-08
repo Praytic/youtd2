@@ -71,7 +71,7 @@ func on_attack(event: Event):
 		fun_text = ""
 
 	if !fun_text.is_empty():
-		tower.get_player().display_floating_text_x(fun_text, tower, 50, 150, 255, 255, 0.05, 2, 3)
+		tower.get_player().display_floating_text_x(fun_text, tower, Color8(50, 150, 255, 255), 0.05, 2, 3)
 
 	for i in range(0, attack_count):
 		await get_tree().create_timer(time_between_attacks).timeout

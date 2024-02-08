@@ -119,7 +119,7 @@ func on_damage(event: Event):
 	var damage: float = distance_to_target * 12.0 * tower.get_current_attack_damage_with_bonus() / tower.get_base_damage()
 
 	tower.do_attack_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
-	tower.get_player().display_floating_text_x(str(int(damage)), target, 255, 200, 0, 255, 0.05, 0.0, 2.0)
+	tower.get_player().display_floating_text_x(str(int(damage)), target, Color8(255, 200, 0, 255), 0.05, 0.0, 2.0)
 
 	var slow_power: int = int(distance_to_target * 3)
 	sir_stormcoil_slow_bt.apply_advanced(tower, target, 0, slow_power, 1.5)
@@ -144,7 +144,7 @@ func sir_stormcoil_surge_bt_periodic(event: Event):
 	var damage: float = 4 * distance_to_target * (1 + 0.02 * tower.get_level())
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
-	tower.get_player().display_floating_text_x(str(int(damage)), target, 150, 150, 255, 255, 0.05, 0.0, 2.0)
+	tower.get_player().display_floating_text_x(str(int(damage)), target, Color8(150, 150, 255, 255), 0.05, 0.0, 2.0)
 	SFX.sfx_at_unit("AIlbSpecialArt.mdl", target)
 
 

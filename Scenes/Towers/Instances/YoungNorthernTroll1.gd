@@ -117,7 +117,7 @@ func on_damage(event: Event):
 		var dmg_ratio: float = max(0.0, slow_percent * (_stats.coated_axes_dmg + _stats.coated_axes_dmg_add * level))
 		var bonus_damage: float = event.damage * dmg_ratio
 		event.damage += bonus_damage
-		tower.get_player().display_small_floating_text("+" + str(int(bonus_damage)), creep, 100, 100, 255, 0)
+		tower.get_player().display_small_floating_text("+" + str(int(bonus_damage)), creep, Color8(100, 100, 255), 0)
 
 
 func on_projectile_hit(projectile: Projectile, creep: Unit):

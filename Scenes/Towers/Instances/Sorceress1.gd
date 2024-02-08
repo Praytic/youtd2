@@ -278,7 +278,7 @@ func on_autocast_choose(_event: Event):
 		current_missile_mod = 0 as MissileMod
 
 	var floating_text: String = missile_mod_to_string[current_missile_mod]
-	tower.get_player().display_small_floating_text(floating_text, tower, 255, 255, 255, 40)
+	tower.get_player().display_small_floating_text(floating_text, tower, Color8(255, 255, 255), 40)
 
 
 func on_autocast_add(_event: Event):
@@ -315,7 +315,7 @@ func on_autocast_add(_event: Event):
 	var dmg_changed: bool = dmg_before != dmg_after
 
 	if !dmg_changed:
-		tower.get_player().display_small_floating_text("Can't increase modification any further!", tower, 255, 0, 0, 40)
+		tower.get_player().display_small_floating_text("Can't increase modification any further!", tower, Color8(255, 0, 0), 40)
 
 
 func on_autocast_remove(_event: Event):
@@ -352,7 +352,7 @@ func on_autocast_remove(_event: Event):
 	var dmg_changed: bool = dmg_before != dmg_after
 
 	if !dmg_changed:
-		tower.get_player().display_small_floating_text("Can't decrease modification any further!", tower, 255, 0, 0, 40)
+		tower.get_player().display_small_floating_text("Can't decrease modification any further!", tower, Color8(255, 0, 0), 40)
 
 
 # NOTE: original script does a weird thing with multiple

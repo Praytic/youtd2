@@ -92,7 +92,7 @@ func debuff_on_damaged(event: Event):
 
 		event.damage = event.damage * b.user_real
 		var damage_text: String = Utils.format_float(event.damage, 0)
-		tower.get_player().display_small_floating_text(damage_text, b.get_buffed_unit(), 128, 255, 255, 20)
+		tower.get_player().display_small_floating_text(damage_text, b.get_buffed_unit(), Color8(128, 255, 255), 20)
 
 
 func hit(p: Projectile, creep: Unit):

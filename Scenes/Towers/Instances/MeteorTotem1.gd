@@ -166,4 +166,4 @@ func sir_totem_torture_bt_on_damaged(event: Event):
 	if event.damage >= 500 && !event.is_spell_damage():
 		caster.do_spell_damage(target, damage, 1.0)
 		var floating_text: String = Utils.format_float(damage * caster.get_prop_spell_damage_dealt(), 0)
-		caster.get_player().display_small_floating_text(floating_text, target, 255, 150, 150, 20)
+		caster.get_player().display_small_floating_text(floating_text, target, Color8(255, 150, 150), 20)

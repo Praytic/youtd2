@@ -203,7 +203,7 @@ func bouncing_pt_on_hit(p: Projectile, target: Unit):
 
 		var floating_text: String = str(int(p.user_real3)) + crit_str
 
-		tower.get_player().display_floating_text(floating_text, tower, 255, 0, 0)
+		tower.get_player().display_floating_text(floating_text, tower, Color8(255, 0, 0))
 
 #	Check if the buff was applied on the tower when it
 #	launched this projectile, and if the target isn't immune

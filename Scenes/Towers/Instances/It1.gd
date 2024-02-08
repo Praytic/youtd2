@@ -226,7 +226,7 @@ func on_autocast_recreation(event: Event):
 			Effect.no_death_animation(sum.recreation_effect)
 	else:
 		sum.to_pos = last_pos
-		tower.get_player().display_small_floating_text("Invalid location!", tower, 255, 150, 0, 30)
+		tower.get_player().display_small_floating_text("Invalid location!", tower, Color8(255, 150, 0), 30)
 
 
 func on_autocast_corruption(event: Event):
@@ -234,7 +234,7 @@ func on_autocast_corruption(event: Event):
 	var autocast: Autocast = event.get_autocast_type()
 
 	if !recreation_field_exists:
-		tower.get_player().display_small_floating_text("You must place the recreation field first!", tower, 255, 150, 0, 30)
+		tower.get_player().display_small_floating_text("You must place the recreation field first!", tower, Color8(255, 150, 0), 30)
 		
 		return
 

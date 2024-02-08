@@ -174,7 +174,7 @@ func on_autocast_adjust_threshold(_event: Event):
 		threshold_for_cloudy_thunderstorm_autocast = 0.0
 
 	var floating_text: String = Utils.format_percent(threshold_for_cloudy_thunderstorm_autocast, 0)
-	tower.get_player().display_small_floating_text(floating_text, tower, 155, 155, 255, 40.0)
+	tower.get_player().display_small_floating_text(floating_text, tower, Color8(155, 155, 255), 40.0)
 
 
 func on_tower_details() -> MultiboardValues:
@@ -290,7 +290,7 @@ func natac_cloudy_temple_pt_on_hit(projectile: Projectile, tower: Unit):
 
 	var actual_granted_mana: float = min(max_mana - current_mana, granted_mana)
 	var floating_text: String = "+%s" % str(int(actual_granted_mana))
-	tower.get_player().display_small_floating_text(floating_text, tower, 0, 0, 255, 40)
+	tower.get_player().display_small_floating_text(floating_text, tower, Color8(0, 0, 255), 40)
 
 	var mana_is_full: bool = current_mana + granted_mana >= max_mana
 

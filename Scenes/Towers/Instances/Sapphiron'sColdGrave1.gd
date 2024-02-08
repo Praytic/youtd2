@@ -93,4 +93,4 @@ func shard_pt_on_collide(p: Projectile, target: Unit):
 
 	var total_dmg_from_ice: float = buff.user_real
 	var floating_text: String = Utils.format_percent(total_dmg_from_ice, 0)
-	caster.get_player().display_floating_text(floating_text, target, 255, 191, 255)
+	caster.get_player().display_floating_text(floating_text, target, Color8(255, 191, 255))

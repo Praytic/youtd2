@@ -158,7 +158,7 @@ func on_damage(event: Event):
 
 	CombatLog.log_ability(tower, creep, "Sample Collection")
 
-	tower.get_player().display_small_floating_text("Sample Collected", creep, 200, 200, 200, 40.0)
+	tower.get_player().display_small_floating_text("Sample Collected", creep, Color8(200, 200, 200), 40.0)
 	var new_bonus: int = min(current_bonus + 50, bonus_max)
 	bonus_map[creep_category] = new_bonus
 	force_show_research_message = true
