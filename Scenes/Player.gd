@@ -47,16 +47,6 @@ func display_floating_text(text: String, unit: Unit, color: Color):
 	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
 
 
-func display_static_floating_text(text: String, unit: Unit, color: Color, time: float):
-	var floating_text = Globals.floating_text_scene.instantiate()
-	floating_text.animated = false
-	floating_text.text = text
-	floating_text.color = color
-	floating_text.duration = time
-	floating_text.position = unit.get_position()
-	_floating_text_container.add_child(floating_text)
-
-
 # NOTE: player.displaySmallFloatingText() in JASS
 func display_small_floating_text(text: String, unit: Unit, color: Color, _mystery_float: float):
 	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
