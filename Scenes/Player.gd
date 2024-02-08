@@ -39,12 +39,13 @@ func display_floating_text_color_at_pos(text: String, position: Vector2, color: 
 # NOTE: player.displayFloatingTextX() in JASS
 func display_floating_text_x(text: String, unit: Unit, color: Color, _velocity: float, _fadepoint: float, time: float):
 	var text_pos: Vector2 = unit.get_visual_position()
-	display_floating_text_color_at_pos(text, unit, color, time)
+	display_floating_text_color_at_pos(text, text_pos, color, time)
 
 
 # NOTE: player.displayFloatingTextX2() in JASS
-func display_floating_text_x_2(text: String, unit: Unit, color: Color, _mystery_float_1: float, _mystery_float_2: float, time: float, _mystery_float_3: float, _mystery_float_4: float):
-	display_floating_text_x(text, unit, color, _mystery_float_1, _mystery_float_2, time) 
+func display_floating_text_x_2(text: String, unit: Unit, color: Color, _velocity: float, _fadepoint: float, time: float, _scale: float, random_offset: float):
+	var position: Vector2 = unit.get_visual_position() + Vector2(randf_range(-random_offset, random_offset), randf_range(-random_offset, random_offset))
+	display_floating_text_color_at_pos(text, position, color, time) 
 
 
 # NOTE: player.displayFloatingText() in JASS

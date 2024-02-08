@@ -734,9 +734,7 @@ func _add_floating_text_for_damage(damage: float, crit_count: int, damage_source
 	if !floating_text_should_be_shown:
 		return
 	
-	var approx_position: Vector2 = Vector2(randf_range(-50, 50), 0) + text_origin_unit.get_visual_position()
-	
-	get_player().display_floating_text_color_at_pos(damage_text, approx_position, damage_color, 1.0)
+	get_player().display_floating_text_x_2(damage_text, text_origin_unit, damage_color, 0, 0, 1.0, 0, 50)
 
 
 # Example:
