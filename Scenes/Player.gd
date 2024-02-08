@@ -49,12 +49,6 @@ func display_floating_text_x(text: String, unit: Unit, color: Color, _mystery_fl
 	display_floating_text_color(text, unit, color, time)
 
 
-# TODO: implement, what is the difference?
-# NOTE: player.displayFloatingTextX2() in JASS
-func display_floating_text_x_2(text: String, unit: Unit, color: Color, _mystery_float_1: float, _mystery_float_2: float, time: float, _mystery_float_3: float, _mystery_float_4: float):
-	display_floating_text_x(text, unit, color, _mystery_float_1, _mystery_float_2, time) 
-
-
 # TODO: implement, not sure what the difference is between this and then _x version.
 # _x probably adds an x offset to the start location of floating text
 # NOTE: player.displayFloatingText() in JASS
