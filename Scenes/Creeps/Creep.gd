@@ -183,7 +183,7 @@ func drop_item(caster: Tower, _mystery_bool: bool):
 	var item_rarity: Rarity.enm = ItemProperties.get_rarity(random_item)
 	var rarity_color: Color = Rarity.get_color(item_rarity)
 
-	caster.get_player().display_floating_text_color(item_name, self, rarity_color, 2)
+	caster.get_player().display_floating_text(item_name, self, rarity_color)
 
 
 #########################

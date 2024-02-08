@@ -204,7 +204,7 @@ func xeno_buff_towers(is_type_change: bool):
 	var floating_text: String = "%s Research Published" % category_string
 
 	if (is_type_change && power_level > 0) || force_show_research_message:
-		tower.get_player().display_floating_text_color(floating_text, tower, category_color, 1.0)
+		tower.get_player().display_floating_text(floating_text, tower, category_color)
 		force_show_research_message = false
 
 	var category_to_bt: Dictionary = {

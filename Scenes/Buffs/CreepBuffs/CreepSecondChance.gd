@@ -21,4 +21,4 @@ func on_damaged(event: Event):
 		creep.set_health_over_max(life_after_heal)
 		var mana_to_subtract: float = creep.get_overall_mana() / 3
 		creep.subtract_mana(mana_to_subtract, false)
-		creep.get_player().display_floating_text_color("Second chance!", creep, Color.RED, 1.0)
+		creep.get_player().display_floating_text("Second chance!", creep, Color.RED)

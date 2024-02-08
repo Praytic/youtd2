@@ -621,7 +621,7 @@ func subtract_mana(amount: float, show_text: bool) -> float:
 		else:
 			text = "-%s" % amount_string
 
-		get_player().display_floating_text_color(text, self, Color.BLUE, 1.0)
+		get_player().display_floating_text(text, self, Color.BLUE)
 
 	var actual_subtracted: float = abs(actual_change)
 
@@ -682,7 +682,7 @@ func _change_experience(amount: float) -> float:
 	else:
 		text_color = Color.RED
 
-	get_player().display_floating_text_color(exp_text, self, text_color, 1.0)
+	get_player().display_floating_text(exp_text, self, text_color)
 
 	if level_increased:
 		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)

@@ -36,21 +36,12 @@ func display_floating_text_color_at_pos(text: String, position: Vector2, color: 
 	_floating_text_container.add_child(floating_text)
 
 
-# NOTE: player.displayFloatingTextColor() in JASS
-func display_floating_text_color(text: String, unit: Unit, color: Color, time: float):
-	var text_pos: Vector2 = unit.get_visual_position()
-	display_floating_text_color_at_pos(text, text_pos, color, time)
-
-
-# TODO: figure out what are the mystery float parameters,
-# probably related to tween
 # NOTE: player.displayFloatingTextX() in JASS
-func display_floating_text_x(text: String, unit: Unit, color: Color, _mystery_float_1: float, _mystery_float_2: float, time: float):
-	display_floating_text_color(text, unit, color, time)
+func display_floating_text_x(text: String, unit: Unit, color: Color, _velocity: float, _fadepoint: float, time: float):
+	var text_pos: Vector2 = unit.get_visual_position()
+	display_floating_text_color_at_pos(text, unit, color, time)
 
 
-# TODO: implement, not sure what the difference is between this and then _x version.
-# _x probably adds an x offset to the start location of floating text
 # NOTE: player.displayFloatingText() in JASS
 func display_floating_text(text: String, unit: Unit, color: Color):
 	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
@@ -104,7 +95,7 @@ func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 		else:
 			color = Color.RED
 
-		display_floating_text_color(text, unit, color, 1.0)
+		display_floating_text(text, unit, color)
 
 
 # NOTE: player.modifyIncomeRate in JASS
