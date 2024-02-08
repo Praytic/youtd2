@@ -45,37 +45,36 @@ func display_floating_text_color(text: String, unit: Unit, color: Color, time: f
 # TODO: figure out what are the mystery float parameters,
 # probably related to tween
 # NOTE: player.displayFloatingTextX() in JASS
-func display_floating_text_x(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, color_a: int, _mystery_float_1: float, _mystery_float_2: float, time: float):
-	var color: Color = Color8(color_r, color_g, color_b, color_a)
+func display_floating_text_x(text: String, unit: Unit, color: Color, _mystery_float_1: float, _mystery_float_2: float, time: float):
 	display_floating_text_color(text, unit, color, time)
 
 
 # TODO: implement, what is the difference?
 # NOTE: player.displayFloatingTextX2() in JASS
-func display_floating_text_x_2(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, color_a: int, _mystery_float_1: float, _mystery_float_2: float, time: float, _mystery_float_3: float, _mystery_float_4: float):
-	display_floating_text_x(text, unit, color_r, color_g, color_b, color_a, _mystery_float_1, _mystery_float_2, time) 
+func display_floating_text_x_2(text: String, unit: Unit, color: Color, _mystery_float_1: float, _mystery_float_2: float, time: float, _mystery_float_3: float, _mystery_float_4: float):
+	display_floating_text_x(text, unit, color, _mystery_float_1, _mystery_float_2, time) 
 
 
 # TODO: implement, not sure what the difference is between this and then _x version.
 # _x probably adds an x offset to the start location of floating text
 # NOTE: player.displayFloatingText() in JASS
-func display_floating_text(text: String, unit: Unit, color_r: int, color_g: int, color_b: int):
-	display_floating_text_x(text, unit, color_r, color_g, color_b, 255, 0.0, 0.0, 1.0)
+func display_floating_text(text: String, unit: Unit, color: Color):
+	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
 
 
-func display_static_floating_text(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, time: float):
+func display_static_floating_text(text: String, unit: Unit, color: Color, time: float):
 	var floating_text = Globals.floating_text_scene.instantiate()
 	floating_text.animated = false
 	floating_text.text = text
-	floating_text.color = Color8(color_r, color_g, color_b)
+	floating_text.color = color
 	floating_text.duration = time
 	floating_text.position = unit.get_position()
 	_floating_text_container.add_child(floating_text)
 
 
 # NOTE: player.displaySmallFloatingText() in JASS
-func display_small_floating_text(text: String, unit: Unit, color_r: int, color_g: int, color_b: int, _mystery_float: float):
-	display_floating_text_x(text, unit, color_r, color_g, color_b, 255, 0.0, 0.0, 1.0)
+func display_small_floating_text(text: String, unit: Unit, color: Color, _mystery_float: float):
+	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
 
 
 # TODO: Move to the "owner" class that is returned by
