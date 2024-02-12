@@ -198,7 +198,7 @@ func on_create(_preceding_tower: Tower):
 
 func on_destruct():
 	for drake in drake_list:
-		drake.queue_free()
+		drake.projectile.queue_free()
 
 	drake_list.clear()
 
