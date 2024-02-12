@@ -468,6 +468,7 @@ shortcut = SubResource("Shortcut_gi5f6")
 text = "1"
 expand_icon = true
 script = ExtResource("12_kjdy0")
+_buff_group_number = 1
 
 [node name="BuffGroup2" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
@@ -480,6 +481,8 @@ theme_type_variation = &"CircleButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "2"
 expand_icon = true
+script = ExtResource("12_kjdy0")
+_buff_group_number = 2
 
 [node name="BuffGroup3" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
@@ -492,6 +495,8 @@ theme_type_variation = &"CircleButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "3"
 expand_icon = true
+script = ExtResource("12_kjdy0")
+_buff_group_number = 3
 
 [node name="BuffGroup4" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
@@ -504,6 +509,8 @@ theme_type_variation = &"CircleButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "4"
 expand_icon = true
+script = ExtResource("12_kjdy0")
+_buff_group_number = 4
 
 [node name="BuffGroup5" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
@@ -516,6 +523,8 @@ theme_type_variation = &"CircleButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "5"
 expand_icon = true
+script = ExtResource("12_kjdy0")
+_buff_group_number = 5
 
 [node name="BuffGroup6" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
@@ -528,6 +537,8 @@ theme_type_variation = &"CircleButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "6"
 expand_icon = true
+script = ExtResource("12_kjdy0")
+_buff_group_number = 6
 
 [node name="MarginContainer3" type="MarginContainer" parent="MainContainer"]
 layout_mode = 2
@@ -555,4 +566,9 @@ text = " x "
 
 [connection signal="gui_input" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]
 [connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup1" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup1" method="_on_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup2" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup2" method="_on_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup3" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup3" method="_on_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup4" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup4" method="_on_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup5" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup5" method="_on_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup6" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup6" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
