@@ -999,6 +999,10 @@ func _set_sprite_node(sprite_node: Node2D, outline_thickness: float):
 	sprite_for_outline.set_material(selection_shader)
 	sprite_for_outline.get_material().set_shader_parameter("line_thickness", outline_thickness)
 
+#	NOTE: set z_index of outline so that it's drawn above
+#	all other units
+	sprite_for_outline.z_index = 1
+
 	_sprite_node.add_sibling(sprite_for_outline)
 	_selection_outline = sprite_for_outline
 
