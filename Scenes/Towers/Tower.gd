@@ -102,12 +102,6 @@ func _ready():
 	var outline_thickness: float = 6.0
 	_set_sprite_node(_sprite, outline_thickness)
 
-	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
-	triggers_buff_type.set_hidden()
-	triggers_buff_type.set_buff_tooltip("Triggers buff for tower")
-	load_triggers(triggers_buff_type)
-	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
-
 #	Apply offsets to account for tower being "on the second floor".
 #	Visual nodes get moved up by one tile.
 # 	Also move selection visual because it's placed at ground
@@ -202,6 +196,15 @@ func _ready():
 	add_modifier(innate_modifier)
 
 	init_stats_and_specials()
+
+#	NOTE: need to call load_triggers() after calling
+#	init_stats_and_specials() because stats must be
+#	available in load_triggers().
+	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
+	triggers_buff_type.set_hidden()
+	triggers_buff_type.set_buff_tooltip("Triggers buff for tower")
+	load_triggers(triggers_buff_type)
+	triggers_buff_type.apply_to_unit_permanent(self, self, 0)
 
 	tower_init()
 
