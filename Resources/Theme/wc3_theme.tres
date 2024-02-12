@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=81 format=3 uid="uid://bql5sxaowafw3"]
+[gd_resource type="Theme" load_steps=85 format=3 uid="uid://bql5sxaowafw3"]
 
 [ext_resource type="FontFile" uid="uid://d1pnwehsosppo" path="res://Assets/UI/Fonts/Friz Quadrata Std Medium.otf" id="1"]
 [ext_resource type="StyleBox" uid="uid://vnjg5mo0nmg" path="res://Resources/Theme/Common/rect_container_l.tres" id="1_7apqd"]
@@ -46,7 +46,7 @@ texture = ExtResource("10_r42uk")
 atlas = ExtResource("8_dlncl")
 region = Rect2(790, 74, 48, 48)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_03gih"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nrl13"]
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
@@ -58,7 +58,7 @@ modulate_color = Color(0.466667, 0.466667, 0.466667, 1)
 atlas = ExtResource("8_dlncl")
 region = Rect2(790, 74, 48, 48)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ts633"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_brhe4"]
 content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
@@ -68,6 +68,36 @@ texture = SubResource("AtlasTexture_wfurf")
 [sub_resource type="AtlasTexture" id="AtlasTexture_us0y7"]
 atlas = ExtResource("8_dlncl")
 region = Rect2(790, 74, 48, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d8adj"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+texture = SubResource("AtlasTexture_us0y7")
+modulate_color = Color(0.627451, 0.627451, 0.627451, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bjyac"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+texture = SubResource("AtlasTexture_wfurf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_03gih"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+texture = SubResource("AtlasTexture_fjpfd")
+modulate_color = Color(0.466667, 0.466667, 0.466667, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ts633"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+texture = SubResource("AtlasTexture_wfurf")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eyvb8"]
 content_margin_left = 2.0
@@ -670,6 +700,11 @@ BigCircleButton/styles/disabled = SubResource("StyleBoxTexture_q5aqc")
 BigCircleButton/styles/hover = SubResource("StyleBoxTexture_o1y8y")
 BigCircleButton/styles/normal = SubResource("StyleBoxTexture_rt2ji")
 BigCircleButton/styles/pressed = SubResource("StyleBoxTexture_q5ln1")
+BuffGroupButton/base_type = &"Button"
+BuffGroupButton/styles/disabled = SubResource("StyleBoxTexture_nrl13")
+BuffGroupButton/styles/hover = SubResource("StyleBoxTexture_brhe4")
+BuffGroupButton/styles/normal = SubResource("StyleBoxTexture_d8adj")
+BuffGroupButton/styles/pressed = SubResource("StyleBoxTexture_bjyac")
 Button/font_sizes/font_size = 24
 Button/styles/disabled = ExtResource("7_mn43h")
 Button/styles/hover = ExtResource("8_pql3q")

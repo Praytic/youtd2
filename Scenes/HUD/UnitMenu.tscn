@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://chojoq00uw7ng"]
+[gd_scene load_steps=25 format=3 uid="uid://chojoq00uw7ng"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ucvet"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu.gd" id="2_mulfo"]
@@ -11,6 +11,7 @@
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="8_jstgw"]
 [ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://Scenes/HUD/CreepInfo.tscn" id="8_rim5q"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="9_02rfc"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/BuffGroupButton.gd" id="12_kjdy0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ue77a"]
 
@@ -449,6 +450,85 @@ shortcut = SubResource("Shortcut_4gk67")
 icon = SubResource("AtlasTexture_m846m")
 expand_icon = true
 
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="BuffGroup1" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
+focus_mode = 0
+theme_type_variation = &"BuffGroupButton"
+shortcut = SubResource("Shortcut_gi5f6")
+text = "1"
+expand_icon = true
+script = ExtResource("12_kjdy0")
+
+[node name="BuffGroup2" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+shortcut = SubResource("Shortcut_gi5f6")
+text = "2"
+expand_icon = true
+
+[node name="BuffGroup3" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+shortcut = SubResource("Shortcut_gi5f6")
+text = "3"
+expand_icon = true
+
+[node name="BuffGroup4" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+shortcut = SubResource("Shortcut_gi5f6")
+text = "4"
+expand_icon = true
+
+[node name="BuffGroup5" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+shortcut = SubResource("Shortcut_gi5f6")
+text = "5"
+expand_icon = true
+
+[node name="BuffGroup6" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
+focus_mode = 0
+theme_type_variation = &"CircleButton"
+shortcut = SubResource("Shortcut_gi5f6")
+text = "6"
+expand_icon = true
+
 [node name="MarginContainer3" type="MarginContainer" parent="MainContainer"]
 layout_mode = 2
 size_flags_vertical = 8
@@ -474,4 +554,5 @@ theme_override_font_sizes/font_size = 32
 text = " x "
 
 [connection signal="gui_input" from="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/ItemsContainer" to="." method="_on_items_container_gui_input"]
+[connection signal="pressed" from="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup1" to="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup1" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
