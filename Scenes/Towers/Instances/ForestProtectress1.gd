@@ -131,7 +131,10 @@ func periodic(event: Event):
 	if seconds_since_last_attack < 12:
 		seconds_since_last_attack += 1
 
-		tower.set_sprite_color(Color8(255, 255, 255, 255 - 15 * seconds_since_last_attack))
+#		NOTE: original script uses alpha of (255 - 15 * seconds_since_last_attack).
+#		Changed it to 7 because tower sprite was getting too
+#		transparent.
+		tower.set_sprite_color(Color8(255, 255, 255, 255 - 7 * seconds_since_last_attack))
 		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, bonus_add)
 		dmg_bonus_from_meld += bonus_add
 
