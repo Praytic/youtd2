@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://1om1t21b0x0x"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_sqy13"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/PlanarGate1.gd" id="2_jmeyg"]
+[ext_resource type="Texture2D" uid="uid://cenjpspdm8yok" path="res://Assets/Towers/Instances/planar_gate_atlas.png" id="3_8ovfw"]
+
+[node name="PlanarGate" instance=ExtResource("1_sqy13")]
+script = ExtResource("2_jmeyg")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(0, -66)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_8ovfw")

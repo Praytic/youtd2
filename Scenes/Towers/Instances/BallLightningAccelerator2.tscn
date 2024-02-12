@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://crm0mxm2ya8um"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_m80lf"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/BallLightningAccelerator1.gd" id="2_3q0sq"]
+[ext_resource type="Texture2D" uid="uid://dpdwsqilejewx" path="res://Assets/Towers/Instances/ball_lightning_accelerator_atlas.png" id="3_qi6q5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
+atlas = ExtResource("3_qi6q5")
+region = Rect2(0, 0, 300, 300)
+
+[node name="BallLightningAccelerator" instance=ExtResource("1_m80lf")]
+script = ExtResource("2_3q0sq")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(0, -83)
+texture = SubResource("AtlasTexture_lrt4k")

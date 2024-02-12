@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcxps81d07xyw"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_pfuww"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/GreenDragonRoost1.gd" id="2_7pmsq"]
+[ext_resource type="Texture2D" uid="uid://bt7yunlayknc2" path="res://Assets/Towers/Instances/green_dragon_roost_atlas.png" id="3_0dqni"]
+
+[node name="GreenDragonRoost" instance=ExtResource("1_pfuww")]
+script = ExtResource("2_7pmsq")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(-6, -80)
+texture = ExtResource("3_0dqni")

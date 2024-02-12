@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://btgo8tdpcp7qv"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_2nxfe"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/TheFireLord1.gd" id="2_a0kfe"]
+[ext_resource type="Texture2D" uid="uid://x6ep3qcmnnv3" path="res://Assets/Towers/Instances/the_fire_lord_atlas.png" id="3_cefsy"]
+
+[node name="TheFireLord" instance=ExtResource("1_2nxfe")]
+script = ExtResource("2_a0kfe")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(1, -77)
+texture = ExtResource("3_cefsy")

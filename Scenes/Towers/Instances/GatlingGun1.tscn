@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cesi1cpi0sgu7"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_5ob33"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/GatlingGun1.gd" id="2_gm1kk"]
+[ext_resource type="Texture2D" uid="uid://bq7116e4hxvui" path="res://Assets/Towers/Instances/gatling_gun_atlas.png" id="3_ka553"]
+
+[node name="GatlingGun" instance=ExtResource("1_5ob33")]
+script = ExtResource("2_gm1kk")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(-8, -65)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_ka553")

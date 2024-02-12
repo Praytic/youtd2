@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3a68k1htvjqi"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_cuph4"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/WildKodoBeast1.gd" id="2_igyhk"]
+[ext_resource type="Texture2D" uid="uid://7gwfshm6fefj" path="res://Assets/Towers/Instances/wild_kodo_beast_atlas.png" id="3_4oi7f"]
+
+[node name="WildKodoBeast" instance=ExtResource("1_cuph4")]
+script = ExtResource("2_igyhk")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(-5, -70)
+texture = ExtResource("3_4oi7f")
