@@ -129,7 +129,7 @@ func on_create(_preceding: Tower):
 
 func on_destruct():
 	var tower: Tower = self
-	tower.add_exp_float(tower.exp_exchanged)
+	tower.add_exp_flat(tower.exp_exchanged)
 
 
 func on_tower_details() -> MultiboardValues:
