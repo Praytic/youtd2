@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6ahsc51g2pfn"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_0vt8n"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/TheConduit1.gd" id="2_ojetn"]
+[ext_resource type="Texture2D" uid="uid://edr52j3n5rue" path="res://Assets/Towers/Instances/the_conduit_atlas.png" id="3_fsjod"]
+
+[node name="TheConduit" instance=ExtResource("1_0vt8n")]
+script = ExtResource("2_ojetn")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(4, -70)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("3_fsjod")

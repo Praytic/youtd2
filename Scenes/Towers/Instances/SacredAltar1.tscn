@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://cetpjdi5w1261"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_4xloe"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/SacredAltar1.gd" id="2_n67fj"]
+[ext_resource type="Texture2D" uid="uid://b8m1abh7x3lnm" path="res://Assets/Towers/Instances/sacred_altar_atlas.png" id="3_rws2w"]
+
+[node name="SacredAltar" instance=ExtResource("1_4xloe")]
+script = ExtResource("2_n67fj")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(-2, -78)
+texture = ExtResource("3_rws2w")

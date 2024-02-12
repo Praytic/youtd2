@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv8d3j6nutacj"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_7ctub"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/Grab-o-Bot1.gd" id="2_tqab2"]
+[ext_resource type="Texture2D" uid="uid://kvvit8bmsupq" path="res://Assets/Towers/Instances/grab-o-bot_atlas.png" id="3_b02c1"]
+
+[node name="Grab-o-Bot" instance=ExtResource("1_7ctub")]
+script = ExtResource("2_tqab2")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(-5, -71)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_b02c1")

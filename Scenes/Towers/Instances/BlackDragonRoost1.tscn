@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://da7bx6gkhmj52"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_pdmqu"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/BlackDragonRoost1.gd" id="2_ogcxm"]
+[ext_resource type="Texture2D" uid="uid://dwo33uoponcvs" path="res://Assets/Towers/Instances/black_dragon_roost_atlas.png" id="3_axncx"]
+
+[node name="BlackDragonRoost" instance=ExtResource("1_pdmqu")]
+script = ExtResource("2_ogcxm")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(0, -73)
+texture = ExtResource("3_axncx")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvf5g8ocln7ok"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_hugo0"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/TimeManipulator1.gd" id="2_77rsq"]
+[ext_resource type="Texture2D" uid="uid://dqodshyxyl0gp" path="res://Assets/Towers/Instances/time_manipulator_atlas.png" id="3_7mfc4"]
+
+[node name="TimeManipulator" instance=ExtResource("1_hugo0")]
+script = ExtResource("2_77rsq")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(-4, -64)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_7mfc4")

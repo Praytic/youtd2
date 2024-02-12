@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://iebbinbu13ak"]
+
+[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_lcpa1"]
+[ext_resource type="Script" path="res://Scenes/Towers/Instances/OwlofWisdom1.gd" id="2_548yl"]
+[ext_resource type="Texture2D" uid="uid://c5olmcm0cnv13" path="res://Assets/Towers/Instances/owl_of_wisdom_atlas.png" id="3_ex8g8"]
+
+[node name="OwlofWisdom" instance=ExtResource("1_lcpa1")]
+script = ExtResource("2_548yl")
+
+[node name="Sprite2D" parent="Visual" index="0"]
+position = Vector2(-4, -58)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_ex8g8")
