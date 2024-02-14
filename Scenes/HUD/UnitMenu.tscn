@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://chojoq00uw7ng"]
+[gd_scene load_steps=26 format=3 uid="uid://chojoq00uw7ng"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ucvet"]
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu.gd" id="2_mulfo"]
@@ -67,6 +67,10 @@ events = [SubResource("InputEventKey_8sgsd")]
 atlas = ExtResource("9_02rfc")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm7a5"]
+atlas = ExtResource("9_02rfc")
+region = Rect2(0, 256, 128, 128)
 
 [node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_title_label", "_unit_info_label", "_unit_icon_texture", "_unit_specials_container", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_creep_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container", "_specials_scroll_container")]
 anchors_preset = 6
@@ -470,6 +474,32 @@ expand_icon = true
 script = ExtResource("12_kjdy0")
 _buff_group_number = 1
 
+[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jm7a5")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BuffGroup2" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
@@ -477,12 +507,38 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
 focus_mode = 0
-theme_type_variation = &"CircleButton"
+theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "2"
 expand_icon = true
 script = ExtResource("12_kjdy0")
 _buff_group_number = 2
+
+[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jm7a5")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+2"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BuffGroup3" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
@@ -491,12 +547,38 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
 focus_mode = 0
-theme_type_variation = &"CircleButton"
+theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "3"
 expand_icon = true
 script = ExtResource("12_kjdy0")
 _buff_group_number = 3
+
+[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jm7a5")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+3"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BuffGroup4" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
@@ -505,12 +587,38 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
 focus_mode = 0
-theme_type_variation = &"CircleButton"
+theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "4"
 expand_icon = true
 script = ExtResource("12_kjdy0")
 _buff_group_number = 4
+
+[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jm7a5")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+4"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BuffGroup5" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
@@ -519,12 +627,38 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
 focus_mode = 0
-theme_type_variation = &"CircleButton"
+theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "5"
 expand_icon = true
 script = ExtResource("12_kjdy0")
 _buff_group_number = 5
+
+[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jm7a5")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+5"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BuffGroup6" type="Button" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
@@ -533,12 +667,38 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
 focus_mode = 0
-theme_type_variation = &"CircleButton"
+theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "6"
 expand_icon = true
 script = ExtResource("12_kjdy0")
 _buff_group_number = 6
+
+[node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_jm7a5")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "
+
+
+
+6"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MarginContainer3" type="MarginContainer" parent="MainContainer"]
 layout_mode = 2
