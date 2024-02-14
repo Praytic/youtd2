@@ -14,6 +14,7 @@ signal buff_group_changed(group_number: int, mode: BuffGroup.Mode)
 
 func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
+	
 
 
 func _on_selected_unit_changed(_prev_unit: Unit):
