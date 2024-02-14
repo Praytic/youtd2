@@ -435,25 +435,18 @@ func _get_target_for_buff_autocast() -> Unit:
 	return null
 
 
-func _filter_target_units_for_caster_buff_group(caster: Unit, targets: Array):
-	var filtered_targets = []
-	var outgoing_groups = []
-	for caster_group in caster.get_groups():
-		if BuffGroup.is_buff_group(caster_group):
-			var group_mode = BuffGroup.get_buff_group_mode(caster_group)
-			var group_number = BuffGroup.get_buff_group_number(caster_group)
-			if group_mode == BuffGroup.Mode.OUTGOING:
-				outgoing_groups.append(group_number)
+func _filter_target_units_for_caster_buff_group(caster: Unit, targets: Array) -> Array:
+	var caster_outgoing_buff_groups: Array[String] = caster.get_buff_groups(BuffGroup.Mode.OUTGOING)
 	
-	if !outgoing_groups.is_empty():
-		for target in targets:
-			for target_group in target.get_groups():
-				if BuffGroup.is_buff_group(target_group):
-					var group_mode = BuffGroup.get_buff_group_mode(target_group)
-					var group_number = BuffGroup.get_buff_group_number(target_group)
-					if group_mode == BuffGroup.Mode.INCOMING && outgoing_groups.has(group_number):
-						filtered_targets.append(target)
-						break
+	if caster_outgoing_buff_groups.is_empty():
+		return targets
+	
+	var filtered_targets: Array = []
+	for target in targets:
+		for target_group in target.get_buff_groups(BuffGroup.Mode.INCOMING):
+			var group_number: int = BuffGroup.get_buff_group_number(target_group)
+			if caster_outgoing_buff_groups.has(group_number):
+				filtered_targets.append(target)
 	
 	return filtered_targets
 

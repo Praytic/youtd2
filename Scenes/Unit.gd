@@ -105,6 +105,7 @@ var _stun_effect_id: int = -1
 var _autocast_list: Array[Autocast] = []
 var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
+var _buff_groups: Array[String] = []
 
 var _selection_visual: Node = null
 var _selection_outline: Node = null
@@ -1669,3 +1670,13 @@ func reached_max_level() -> bool:
 	var is_max_level: bool = _level == Constants.MAX_LEVEL
 
 	return is_max_level
+
+
+func get_buff_groups(filter_mode: BuffGroup.Mode = BuffGroup.Mode.BOTH) -> Array[String]:
+	if filter_mode == BuffGroup.Mode.BOTH:
+		return _buff_groups
+	
+	var is_outgoing_group: Callable = func(group): \
+		BuffGroup.get_buff_group_mode(group) == filter_mode
+	return _buff_groups.filter(is_outgoing_group)
+	
