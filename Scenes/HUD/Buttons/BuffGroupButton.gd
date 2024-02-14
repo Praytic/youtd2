@@ -49,10 +49,18 @@ func _next_buff_group_mode():
 
 func _update_visual():
 	match get_current_mode():
-		BuffGroup.Mode.NONE: _texture_rect.texture = _buff_group_none_icon
-		BuffGroup.Mode.OUTGOING: _texture_rect.texture = _buff_group_outgoing_icon
-		BuffGroup.Mode.INCOMING: _texture_rect.texture = _buff_group_incoming_icon
-		BuffGroup.Mode.BOTH: _texture_rect.texture = _buff_group_both_icon
+		BuffGroup.Mode.NONE: 
+			_texture_rect.texture = _buff_group_none_icon
+			tooltip_text = "Activate this buff group for the tower to automatically recieve/apply buffs to other towers in the same buff group."
+		BuffGroup.Mode.OUTGOING: 
+			_texture_rect.texture = _buff_group_outgoing_icon
+			tooltip_text = "This tower will apply buffs other towers in group %s." % _buff_group_number
+		BuffGroup.Mode.INCOMING: 
+			_texture_rect.texture = _buff_group_incoming_icon
+			tooltip_text = "This tower will receive buffs from other towers in group %s." % _buff_group_number
+		BuffGroup.Mode.BOTH: 
+			_texture_rect.texture = _buff_group_both_icon
+			tooltip_text = "This tower will receive and apply buffs to other towers in group %s." % _buff_group_number
 
 
 func get_current_mode() -> BuffGroup.Mode:
