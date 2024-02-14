@@ -441,11 +441,14 @@ func _filter_target_units_for_caster_buff_group(caster: Unit, targets: Array) ->
 	if caster_outgoing_buff_groups.is_empty():
 		return targets
 	
+	var caster_outgoing_buff_group_numbers: Array = caster_outgoing_buff_groups.map(func(group): \
+		return BuffGroup.get_buff_group_number(group))
+	
 	var filtered_targets: Array = []
 	for target in targets:
 		for target_group in target.get_buff_groups(BuffGroup.Mode.INCOMING):
 			var group_number: int = BuffGroup.get_buff_group_number(target_group)
-			if caster_outgoing_buff_groups.has(group_number):
+			if caster_outgoing_buff_group_numbers.has(group_number):
 				filtered_targets.append(target)
 	
 	return filtered_targets
