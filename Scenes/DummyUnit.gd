@@ -57,18 +57,19 @@ func do_spell_damage(target: Unit, damage: float):
 
 
 # NOTE: dummyUnit.doSpellDamageAoE() in JASS
-func do_spell_damage_aoe(center: Vector2, radius: float, damage: float):
+func do_spell_damage_aoe(center: Vector2, radius: float, damage: float, sides_ratio: float):
 	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), center, radius)
 
 	for creep in creep_list:
-		do_spell_damage(creep, damage)
+		var damage_for_creep: float = Utils.get_aoe_damage(center, creep, radius, damage, sides_ratio)
+		do_spell_damage(creep, damage_for_creep)
 
 
 # Deals aoe damage from the position of the dummy unit
 # NOTE: dummyUnit.doSpellDamagePBAoE() in JASS
-func do_spell_damage_pb_aoe(radius: float, damage: float, _mystery_float: float):
+func do_spell_damage_pb_aoe(radius: float, damage: float, sides_ratio: float):
 	var center: Vector2 = position
-	do_spell_damage_aoe(center, radius, damage)
+	do_spell_damage_aoe(center, radius, damage, sides_ratio)
 
 
 #########################

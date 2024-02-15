@@ -458,3 +458,21 @@ func add_range_indicators_for_auras(aura_type_list: Array[AuraType], parent: Nod
 		indicator_list.append(range_indicator)
 
 	return indicator_list
+
+
+# Returns AoE damage dealt to unit, taking into account how
+# far the unit is from the AoE center. Normally, all units
+# inside the AoE range will receive the same damage but if
+# the "sides_ratio" arg is not 0, units far away from center
+# will receive less damage. For example, if sides_ratio is
+# 0.10, then units far away from the center of aoe will
+# receive 10% less damage.
+func get_aoe_damage(aoe_center: Vector2, target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
+	var distance: float = Isometric.vector_distance_to(aoe_center, target.position)
+	var distance_ratio: float = Utils.divide_safe(distance, radius)
+	var target_is_on_the_sides: bool = distance_ratio > 0.5
+
+	if target_is_on_the_sides:
+		return damage * (1.0 - sides_ratio)
+	else:
+		return damage

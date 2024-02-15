@@ -26,7 +26,7 @@ func _ready():
 
 
 func _on_wave_timer_timeout():
-	do_spell_damage_aoe(_target_position, _radius, _damage)
+	do_spell_damage_aoe(_target_position, _radius, _damage, 0.0)
 
 	_completed_wave_count += 1
 

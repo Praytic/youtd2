@@ -500,7 +500,7 @@ func do_attack_damage_aoe_unit(target: Unit, radius: float, damage: float, crit_
 	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), aoe_center, radius)
 
 	for creep in creep_list:
-		var damage_for_creep: float = _get_aoe_damage(aoe_center, creep, radius, damage, sides_ratio)
+		var damage_for_creep: float = Utils.get_aoe_damage(aoe_center, creep, radius, damage, sides_ratio)
 		do_attack_damage(creep, damage_for_creep, crit_ratio)
 
 
@@ -515,7 +515,7 @@ func do_spell_damage_aoe(x: float, y: float, radius: float, damage: float, crit_
 	var creep_list: Array = Utils.get_units_in_range(TargetType.new(TargetType.CREEPS), aoe_center, radius)
 
 	for creep in creep_list:
-		var damage_for_creep: float = _get_aoe_damage(aoe_center, creep, radius, damage, sides_ratio)
+		var damage_for_creep: float = Utils.get_aoe_damage(aoe_center, creep, radius, damage, sides_ratio)
 		do_spell_damage(creep, damage_for_creep, crit_ratio)
 
 
@@ -1059,17 +1059,6 @@ func _get_buff_list(friendly: bool) -> Array[Buff]:
 		return _friendly_buff_list
 	else:
 		return _unfriendly_buff_list
-
-
-func _get_aoe_damage(aoe_center: Vector2, target: Unit, radius: float, damage: float, sides_ratio: float) -> float:
-	var distance: float = Isometric.vector_distance_to(aoe_center, target.position)
-	var distance_ratio: float = Utils.divide_safe(distance, radius)
-	var target_is_on_the_sides: bool = distance_ratio > 0.5
-
-	if target_is_on_the_sides:
-		return damage * (1.0 - sides_ratio)
-	else:
-		return damage
 
 
 # Returns a prop value after applying diminishing returns to
