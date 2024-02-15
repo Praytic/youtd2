@@ -416,6 +416,7 @@ func _get_target_for_unit_autocast() -> Unit:
 
 func _get_target_for_buff_autocast() -> Unit:
 	var unit_list: Array = Utils.get_units_in_range(target_type, _caster.position, auto_range)
+	unit_list = _filter_target_units_for_caster_buff_group(_caster, unit_list)
 	unit_list.shuffle()
 
 	if !target_self:
@@ -432,6 +433,25 @@ func _get_target_for_buff_autocast() -> Unit:
 			return unit
 
 	return null
+
+
+func _filter_target_units_for_caster_buff_group(caster: Unit, targets: Array) -> Array:
+	var caster_outgoing_buff_groups: Array[String] = caster.get_buff_groups(BuffGroup.Mode.OUTGOING)
+	
+	if caster_outgoing_buff_groups.is_empty():
+		return targets
+	
+	var caster_outgoing_buff_group_numbers: Array = caster_outgoing_buff_groups.map(func(group): \
+		return BuffGroup.get_buff_group_number(group))
+	
+	var filtered_targets: Array = []
+	for target in targets:
+		for target_group in target.get_buff_groups(BuffGroup.Mode.INCOMING):
+			var group_number: int = BuffGroup.get_buff_group_number(target_group)
+			if caster_outgoing_buff_group_numbers.has(group_number):
+				filtered_targets.append(target)
+	
+	return filtered_targets
 
 
 func _get_cast_error() -> String:
