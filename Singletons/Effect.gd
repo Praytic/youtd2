@@ -29,7 +29,7 @@ var _free_id_list: Array = []
 
 # NOTE: effect must be an AnimatedSprite2D scene
 # NOTE: Effect.createAnimated() in JASS
-func create_animated(effect_path: String, x: float, y: float, _z: float, _mystery2: float) -> int:
+func create_animated(effect_path: String, x: float, y: float, _z: float, _facing: float) -> int:
 	var id: int = _create_internal(effect_path)
 	var effect: Node2D = _effect_map[id]
 	effect.position = Vector2(x, y)
@@ -83,14 +83,14 @@ func add_special_effect(effect_path: String, x: float, y: float) -> int:
 
 # TODO: implement scale parameter
 # NOTE: Effect.createScaled() in JASS()
-func create_scaled(effect_path: String, x: float, y: float, z: float, _mystery2: float, _scale: float) -> int:
-	return create_animated(effect_path, x, y, z, _mystery2)
+func create_scaled(effect_path: String, x: float, y: float, z: float, facing: float, _scale: float) -> int:
+	return create_animated(effect_path, x, y, z, facing)
 
 
 # TODO: implement color
 # NOTE: Effect.createColored() in JASS()
-func create_colored(effect_path: String, x: float, y: float, z: float, _mystery2: float, _scale: float, _color: Color):
-	return create_animated(effect_path, x, y, z, _mystery2)
+func create_colored(effect_path: String, x: float, y: float, z: float, facing: float, _scale: float, _color: Color):
+	return create_animated(effect_path, x, y, z, facing)
 
 
 func scale_effect(effect_id: int, scale: float):
