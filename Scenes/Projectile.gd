@@ -44,6 +44,7 @@ var _range: float = 0.0
 var _direction: float = 0.0
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
+var _expire_on_collision: bool = false
 var _collision_handler: Callable = Callable()
 var _expiration_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
@@ -141,7 +142,10 @@ func set_collision_parameters(radius: float, target_type: TargetType):
 #########################
 
 func _process_normal(delta: float):
-	_do_collision_behavior()
+	var expired_by_collision: bool = _do_collision_behavior()
+
+	if expired_by_collision:
+		return
 
 	if _range > 0:
 		var travel_vector_isometric: Vector2 = position - _initial_pos
@@ -191,7 +195,10 @@ func _process_normal(delta: float):
 
 
 func _process_interpolated(delta: float):
-	_do_collision_behavior()
+	var expired_by_collision: bool = _do_collision_behavior()
+
+	if expired_by_collision:
+		return
 
 	if _interpolation_is_stopped:
 		return
@@ -252,12 +259,13 @@ func _process_interpolated(delta: float):
 		_cleanup()
 
 
-func _do_collision_behavior():
+# Returns true if projectile expired because of a collision
+func _do_collision_behavior() -> bool:
 	if !_collision_enabled:
-		return
+		return false
 
 	if !_collision_handler.is_valid():
-		return
+		return false
 
 	var units_in_range: Array[Unit] = Utils.get_units_in_range(_collision_target_type, global_position, _collision_radius)
 
@@ -274,6 +282,13 @@ func _do_collision_behavior():
 	for unit in collided_list:
 		_collision_handler.call(self, unit)
 		_collision_history.append(unit)
+
+		if _expire_on_collision:
+			_expire()
+
+			return true
+
+	return false
 
 
 # Homing behavior is implemented here. If target pos or
@@ -702,6 +717,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._range = type._range
 	projectile._collision_radius = type._collision_radius
 	projectile._collision_target_type = type._collision_target_type
+	projectile._expire_on_collision = type._expire_on_collision
 	projectile._damage_bonus_to_size_map = type._damage_bonus_to_size_map
 
 	var periodic_handler_is_defined: bool = type._periodic_handler.is_valid() && type._periodic_handler_period > 0

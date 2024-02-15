@@ -17,6 +17,7 @@ var _periodic_handler_period: float = 0.0
 var _expiration_handler: Callable = Callable()
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
+var _expire_on_collision: bool = false
 var _collision_handler: Callable = Callable()
 var _damage_bonus_to_size_map: Dictionary = {}
 
@@ -45,10 +46,11 @@ func disable_explode_on_expiration():
 
 
 # projectileType.enableCollision() in JASS
-func enable_collision(handler: Callable, radius: float, target_type: TargetType, _mystery_bool: bool):
+func enable_collision(handler: Callable, radius: float, target_type: TargetType, expire_on_collision: bool):
 	_collision_handler = handler
 	_collision_radius = radius
 	_collision_target_type = target_type
+	_expire_on_collision = expire_on_collision
 
 
 # "homing_control_value" determines how fast the projectile
