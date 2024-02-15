@@ -170,7 +170,13 @@ func adjust_height(height_wc3: float, speed: float):
 
 
 # NOTE: creep.dropItem() in JASS
-func drop_item(caster: Tower, _mystery_bool: bool):
+
+# NOTE: _use_creep_player is supposed to switch between
+# using the player which owns the tower vs the player which
+# owns the lane on which the creep spawned. Currently, the
+# concept of "item being owned by a player" is not
+# implemented.
+func drop_item(caster: Tower, _use_creep_player: bool):
 	var random_item: int = ItemDropCalc.get_random_item(caster, self)
 
 	if random_item == 0:
