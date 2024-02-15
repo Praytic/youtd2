@@ -26,36 +26,48 @@ func get_level() -> int:
 	return level
 
 
-# NOTE: no function like this in JASS
-func display_floating_text_color_at_pos(text: String, position: Vector2, color: Color, time: float):
+# NOTE: player.displayFloatingTextX() in JASS
+func display_floating_text_x(text: String, unit: Unit, color: Color, velocity: float, fadepoint: float, time: float):
 	var floating_text = Globals.floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
 	floating_text.duration = time
-	floating_text.position = position
+	floating_text.fadepoint = fadepoint
+	floating_text.position = unit.get_visual_position()
+	floating_text.velocity = Vector2(0, -velocity)
 	_floating_text_container.add_child(floating_text)
 
 
-# NOTE: player.displayFloatingTextX() in JASS
-func display_floating_text_x(text: String, unit: Unit, color: Color, _velocity: float, _fadepoint: float, time: float):
-	var text_pos: Vector2 = unit.get_visual_position()
-	display_floating_text_color_at_pos(text, text_pos, color, time)
-
-
 # NOTE: player.displayFloatingTextX2() in JASS
-func display_floating_text_x_2(text: String, unit: Unit, color: Color, _velocity: float, _fadepoint: float, time: float, _scale: float, random_offset: float):
-	var position: Vector2 = unit.get_visual_position() + Vector2(randf_range(-random_offset, random_offset), randf_range(-random_offset, random_offset))
-	display_floating_text_color_at_pos(text, position, color, time) 
+func display_floating_text_x_2(text: String, unit: Unit, color: Color, velocity: float, fadepoint: float, time: float, _scale: float, random_offset: float):
+	var floating_text = Globals.floating_text_scene.instantiate()
+	floating_text.text = text
+	floating_text.color = color
+	floating_text.duration = time
+	floating_text.fadepoint = fadepoint
+	floating_text.position = unit.get_visual_position()
+	floating_text.random_offset = random_offset
+	floating_text.velocity = Vector2(0, -velocity)
+	_floating_text_container.add_child(floating_text)
 
 
 # NOTE: player.displayFloatingText() in JASS
 func display_floating_text(text: String, unit: Unit, color: Color):
-	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
+	var floating_text = Globals.floating_text_scene.instantiate()
+	floating_text.text = text
+	floating_text.color = color
+	floating_text.position = unit.get_visual_position()
+	_floating_text_container.add_child(floating_text)
 
 
 # NOTE: player.displaySmallFloatingText() in JASS
-func display_small_floating_text(text: String, unit: Unit, color: Color, _mystery_float: float):
-	display_floating_text_x(text, unit, color, 0.0, 0.0, 1.0)
+func display_small_floating_text(text: String, unit: Unit, color: Color, random_offset: float):
+	var floating_text = Globals.floating_text_scene.instantiate()
+	floating_text.text = text
+	floating_text.color = color
+	floating_text.position = unit.get_visual_position()
+	floating_text.random_offset = random_offset
+	_floating_text_container.add_child(floating_text)
 
 
 # TODO: Move to the "owner" class that is returned by

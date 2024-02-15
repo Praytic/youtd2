@@ -691,8 +691,7 @@ func _change_experience(amount: float) -> float:
 		Effect.destroy_effect_after_its_over(effect_id)
 
 		var level_up_text: String = "Level %d" % _level
-		var levelup_text_pos: Vector2 = get_visual_position() + Vector2(0, 40)
-		get_player().display_floating_text_color_at_pos(level_up_text, levelup_text_pos, Color.GOLD , 1.0)
+		get_player().display_floating_text(level_up_text, self, Color.GOLD)
 
 		SFX.sfx_at_unit("res://Assets/SFX/level_up.mp3", self, -20.0)
 
