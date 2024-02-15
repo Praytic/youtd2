@@ -298,7 +298,7 @@ func _generate_random_tower_for_element(wave_level: int, element: Element.enm) -
 	var group: Array
 	while true:
 		group = group_map[element][rarity]
-		group = group.filter(func(tower):
+		group = group.filter(func(tower) -> bool:
 			var cost: int = TowerProperties.get_cost(tower)
 			var below_max_cost: bool = cost < max_cost
 
@@ -307,7 +307,7 @@ func _generate_random_tower_for_element(wave_level: int, element: Element.enm) -
 #		NOTE: remove all unreleased towers if config option
 #		is enabled
 		if !Settings.get_bool_setting(Settings.ENABLE_UNRELEASED_TOWERS):
-			group = group.filter(func(tower):
+			group = group.filter(func(tower) -> bool:
 				var is_released: int = TowerProperties.is_released(tower)
 
 				return is_released)

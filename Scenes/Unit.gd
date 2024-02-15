@@ -1664,7 +1664,7 @@ func get_buff_groups(filter_mode: BuffGroup.Mode = BuffGroup.Mode.BOTH) -> Array
 	if filter_mode == BuffGroup.Mode.BOTH:
 		return _buff_groups
 	
-	var is_outgoing_group: Callable = func(group): \
+	var is_outgoing_group: Callable = func(group) -> bool: \
 		return BuffGroup.get_buff_group_mode(group) == filter_mode
 	return _buff_groups.filter(is_outgoing_group)
 	

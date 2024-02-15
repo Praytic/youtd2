@@ -66,7 +66,7 @@ func process_dir(dir_path: String):
 # 	Process sheets in current dir
 	var sheet_list: Array = DirAccess.get_files_at(dir_path)
 	sheet_list = sheet_list.filter(
-		func(sheet: String):
+		func(sheet: String) -> bool:
 			var is_png: bool = sheet.ends_with(".png")
 			return is_png
 			)
