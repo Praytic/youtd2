@@ -38,7 +38,7 @@ func _next_buff_group_mode():
 	elif previous_mode != BuffGroup.Mode.NONE:
 		BuffGroup.remove_unit_from_buff_group(get_buff_group_number(), previous_mode)
 	
-	var mode: BuffGroup.Mode = (previous_mode + 1) % BuffGroup.modes_list.size()
+	var mode: BuffGroup.Mode = (previous_mode + 1) % BuffGroup.modes_list.size() as BuffGroup.Mode
 	
 	if mode == BuffGroup.Mode.BOTH:
 		BuffGroup.add_unit_to_buff_group(get_buff_group_number(), BuffGroup.Mode.INCOMING)
