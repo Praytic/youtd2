@@ -381,7 +381,7 @@ func _on_death(_event: Event):
 # 	Death visual
 	var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/DeathExplode.tscn", self)
 	var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.DEATH_EXPLODE_EFFECT_SIZE
-	Effect.scale_effect(effect_id, effect_scale)
+	Effect.set_scale(effect_id, effect_scale)
 	Effect.destroy_effect_after_its_over(effect_id)
 
 # 	Add corpse object

@@ -156,7 +156,7 @@ func on_attack(event: Event):
 			var x: float = ward.position.x
 			var y: float = ward.position.y
 			ward.effect = Effect.create_animated("SerpentWard.mdl", x, y, tower.get_z() - 20, -(45.0 + 90.0 * counter / 4))
-			# Effect.scale_effect(effect, 0.4)
+			Effect.set_scale(effect, 0.4)
 
 			ward.duration = (6.0 + 0.1 * tower.get_level()) * tower.get_prop_buff_duration()
 

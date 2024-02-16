@@ -93,7 +93,8 @@ func create_colored(effect_path: String, x: float, y: float, z: float, facing: f
 	return create_animated(effect_path, x, y, z, facing)
 
 
-func scale_effect(effect_id: int, scale: float):
+# NOTE: effect.setScale() in JASS()
+func set_scale(effect_id: int, scale: float):
 	if !_effect_map.has(effect_id):
 		return
 

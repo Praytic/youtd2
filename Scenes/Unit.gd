@@ -688,7 +688,7 @@ func _change_experience(amount: float) -> float:
 	if level_increased:
 		var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/LevelUp.tscn", self)
 		var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.LEVEL_UP_EFFECT_SIZE
-		Effect.scale_effect(effect_id, effect_scale)
+		Effect.set_scale(effect_id, effect_scale)
 		Effect.destroy_effect_after_its_over(effect_id)
 
 		var level_up_text: String = "Level %d" % _level
