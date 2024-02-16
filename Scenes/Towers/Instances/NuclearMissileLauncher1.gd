@@ -64,10 +64,11 @@ func on_damage(event: Event):
 
 # 	NOTE: do not remove buff if user_int is above 0 so that
 # 	the multiple launchers work correctly together
-	if target_buff != null && target_buff.user_int <= 0:
-		target_buff.remove_buff()
-	else:
-		target_buff.user_int -= 1
+	if target_buff != null:
+		if target_buff.user_int <= 0:
+			target_buff.remove_buff()
+		else:
+			target_buff.user_int -= 1
 
 	SFX.sfx_on_unit("BottleMissile.mdl", target, Unit.BodyPart.ORIGIN)
 
