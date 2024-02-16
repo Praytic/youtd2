@@ -58,6 +58,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 #	Dummy Buff, to count the times a unit entered
 	cedi_valor_lastline_dummy_bt = BuffType.new("cedi_valor_lastline_dummy_bt", -1.0, 0, false, self)
+	cedi_valor_lastline_dummy_bt.set_hidden()
 
 #	Real buff, adding the damage bonus.
 	cedi_valor_lastline_real_bt = BuffType.new("cedi_valor_lastline_real_bt", -1.0, 0, false, self)
