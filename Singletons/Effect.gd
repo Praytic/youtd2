@@ -81,16 +81,21 @@ func add_special_effect(effect_path: String, x: float, y: float) -> int:
 	return create_animated(effect_path, x, y, 0.0, 0.0)
 
 
-# TODO: implement scale parameter
 # NOTE: Effect.createScaled() in JASS()
-func create_scaled(effect_path: String, x: float, y: float, z: float, facing: float, _scale: float) -> int:
-	return create_animated(effect_path, x, y, z, facing)
+func create_scaled(effect_path: String, x: float, y: float, z: float, facing: float, scale: float) -> int:
+	var effect: int = create_animated(effect_path, x, y, z, facing)
+	Effect.set_scale(effect, scale)
+
+	return scale
 
 
-# TODO: implement color
 # NOTE: Effect.createColored() in JASS()
-func create_colored(effect_path: String, x: float, y: float, z: float, facing: float, _scale: float, _color: Color):
-	return create_animated(effect_path, x, y, z, facing)
+func create_colored(effect_path: String, x: float, y: float, z: float, facing: float, scale: float, color: Color):
+	var effect: int = create_animated(effect_path, x, y, z, facing)
+	Effect.set_scale(effect, scale)
+	Effect.set_color(effect, color)
+
+	return effect
 
 
 # NOTE: effect.setScale() in JASS()
@@ -99,7 +104,15 @@ func set_scale(effect_id: int, scale: float):
 		return
 
 	var effect = _effect_map[effect_id]
-	effect.scale *= scale
+	effect.scale = Vector2.ONE * scale
+
+
+func set_color(effect_id: int, color: Color):
+	if !_effect_map.has(effect_id):
+		return
+
+	var effect = _effect_map[effect_id]
+	effect.modulate = color
 
 
 # NOTE: effect.setLifetime() in JASS()
