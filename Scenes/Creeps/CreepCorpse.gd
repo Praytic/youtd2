@@ -16,7 +16,6 @@ const RANDOM_OFFSET: float = 15
 func _ready():
 	super()
 
-	add_to_group("corpses")
 	_set_visual_node(_sprite)
 
 #	Move corpse to a random small offset during death
@@ -53,3 +52,14 @@ func setup_sprite(creep_sprite: CreepSprite, death_animation: String):
 
 func _on_fade_finished():
 	queue_free()
+
+
+# NOTE: need to add to group after animation is finished and
+# not inside _ready() so that this node is considered a
+# "corpse" only after the animation is finished. This
+# means that this node won't be visible when towers search
+# for corpses via Iterate. Otherwise, there are problems
+# with towers like "Plagued Crypt" which destroy corpses
+# too early before death animation is finished.
+func _on_sprite_2d_animation_finished():
+	add_to_group("corpses")
