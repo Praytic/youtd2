@@ -86,13 +86,10 @@ func on_damage(event: Event):
 	Projectile.create_from_unit_to_unit(firestar_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 
 
-# TODO: why does hit handler do the Ignite application
-# again? Shouldn't it already be handled by DAMAGE handler?
-# Maybe in original youtd engine DAMAGE event doesn't get
-# triggered for this kind of situation? Projectile ON HIT
-# which calls do_attack_damage()? Or maybe this is a bug in
-# original script, it's possible.
 func firestar_pt_on_hit(p: Projectile, target: Unit):
+	if target == null:
+		return
+
 	var tower: Tower = p.get_caster()
 	var level: int = tower.get_level()
 	var buff: Buff = target.get_buff_of_type(cedi_firestar_burn_bt)
