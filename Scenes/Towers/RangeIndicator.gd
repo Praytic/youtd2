@@ -4,7 +4,6 @@ extends Node2D
 # Shows range of a tower by drawing a circle of pulsing dots.
 
 const TEXTURE_SCALE: float = 0.1
-var glowing_outline_material = preload("res://Resources/Shaders/GlowingOutline.material")
 
 @export var radius: float
 @export var enable_floor_collisions: bool = true
