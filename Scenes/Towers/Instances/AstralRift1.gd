@@ -97,7 +97,8 @@ func on_damage(event: Event):
 
 	tower.subtract_mana(30, false)
 
-	var tower_effect: int = Effect.create_scaled("ReplenishManaCaster.mdl", tower.get_visual_x(), tower.get_visual_y(), 10, 0, 30)
+# 	NOTE: original script uses 30 for effect scale
+	var tower_effect: int = Effect.create_scaled("ReplenishManaCaster.mdl", tower.get_visual_x(), tower.get_visual_y(), 10, 0, 6)
 	Effect.set_lifetime(tower_effect, 1.0)
 
 	var target_effect: int = Effect.create_simple("AIilTarget.mdl", target.get_visual_x(), target.get_visual_y())
