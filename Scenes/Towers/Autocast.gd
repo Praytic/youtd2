@@ -283,7 +283,7 @@ func _do_cast(target: Unit):
 	_caster.spell_casted.emit(spell_casted_event)
 
 	if target != null:
-		var spell_targeted_event: Event = _make_autocast_event(target)
+		var spell_targeted_event: Event = _make_autocast_event(_caster)
 		target.spell_targeted.emit(spell_targeted_event)
 
 	if !caster_art.is_empty():
