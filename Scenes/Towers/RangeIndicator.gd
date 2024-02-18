@@ -53,9 +53,9 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 	draw_set_transform(Vector2.ZERO, 0.0, transform_scale)
 	
 	if enable_floor_collisions:
-		draw_arc(center + Vector2(0, y_offset) * 2, radius, deg_to_rad(angle_from), deg_to_rad(angle_to), 100, transparent_color, 10.0, true)
+		draw_arc(center + Vector2(0, y_offset) * 2, radius, deg_to_rad(angle_from), deg_to_rad(angle_to), 100, transparent_color, 5.0, true)
 	else:
-		draw_arc(center + Vector2(0, y_offset) * 2, radius, deg_to_rad(angle_from), deg_to_rad(angle_to), 100, color, 10.0, true)
+		draw_arc(center + Vector2(0, y_offset) * 2, radius, deg_to_rad(angle_from), deg_to_rad(angle_to), 100, color, 5.0, true)
 		return
 	
 	# Calculate floor collisions for range indicator points.
@@ -85,7 +85,7 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 	# Only draw arcs which are on the ground floor, because previously
 	# we already draw the whole circle with transparent color.
 	for angles_tuple in angles_tuple_array:
-		draw_arc(center + Vector2(0, y_offset) * 2, radius, angles_tuple.y, angles_tuple.x, 20, color, 10.0, true)
+		draw_arc(center + Vector2(0, y_offset) * 2, radius, angles_tuple.y, angles_tuple.x, 20, color, 5.0, true)
 
 
 #########################
