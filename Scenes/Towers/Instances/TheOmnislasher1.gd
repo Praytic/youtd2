@@ -56,7 +56,13 @@ func on_attack(event: Event):
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 1200)
 
 	SFX.sfx_on_unit("MirrorImageCaster.mdl", tower, Unit.BodyPart.ORIGIN)
-	# SetUnitVertexColor(tower, 255, 255, 255, 0)
+	
+	# NOTE: original script here makes the tower invisible
+	# and pauses it. This is because the tower creates an
+	# effect that looks like the tower is moving around the
+	# game world. In youtd2 there's no such effect model
+	# yet, so will keep the tower visible for now.
+	# tower.set_sprite_color(tower, Color8(255, 255, 255, 0)
 	# PauseUnit(tower, true)
 
 	var fun_text: String
@@ -101,10 +107,10 @@ func damage(tower: Tower, target: Unit):
 
 	Effect.set_lifetime(blademaster, 0.4)
 	# Effect.set_animation(blademaster, "attack")
-	# Effect.set_scale(blademaster, 0.4)
-	# Effect.no_death_animation(blademaster)
+	Effect.set_scale(blademaster, 0.4)
+	Effect.no_death_animation(blademaster)
 	Effect.set_lifetime(mirrorimage, 0.4)
-	# Effect.set_scale(mirrorimage, 0.4)
+	Effect.set_scale(mirrorimage, 0.4)
 
 	tower.do_attack_damage(target, tower.get_current_attack_damage_with_bonus() / 10, tower.calc_attack_multicrit_no_bonus())
 
