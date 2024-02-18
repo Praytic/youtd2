@@ -79,7 +79,7 @@ func on_autocast(event: Event):
 	if !recast_happened:
 		return
 
-	tower.get_player().display_small_floating_text("MULTICAST!", tower, 0, 255, 0, 0.0)
+	tower.get_player().display_small_floating_text("MULTICAST!", tower, Color8(0, 255, 0), 0.0)
 
 	var cast_count: int
 	if lvl == 25:
