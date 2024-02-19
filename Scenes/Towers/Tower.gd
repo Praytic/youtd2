@@ -51,7 +51,8 @@ var _attack_style: AttackStyle = AttackStyle.NORMAL
 # NOTE: _target_list must be an untyped Array because it may
 # contain invalid instances.
 var _target_list: Array = []
-var _target_count_max: int = 1
+var _target_count_from_tower: int = 1
+var _target_count_from_item: int = 0
 var _default_projectile_type: ProjectileType
 var _current_attack_cooldown: float = 0.0
 var _was_ordered_to_stop_attack: bool = false
@@ -511,7 +512,7 @@ func _try_to_attack() -> bool:
 	var attack_count: int = 0
 	var already_attacked_list: Array = []
 
-	while attack_count < _target_count_max:
+	while attack_count < get_target_count():
 		var target: Creep = null
 
 		for the_target in _target_list:
@@ -658,7 +659,7 @@ func _update_target_list():
 # 	Remove targets if target list size is too large. For
 # 	example, if a tower ability temporarily increased target
 # 	count to 3 and then it went back down to 1.
-	while _target_list.size() > _target_count_max:
+	while _target_list.size() > get_target_count():
 		_target_list.pop_back()
 
 
@@ -674,7 +675,7 @@ func _update_target_list():
 	for target in _target_list:
 		creeps_in_range.erase(target)
 
-	while creeps_in_range.size() > 0 && _target_list.size() < _target_count_max:
+	while creeps_in_range.size() > 0 && _target_list.size() < get_target_count():
 		var new_target: Creep = creeps_in_range.pop_front()
 		var target_is_valid: bool = _target_is_valid(new_target)
 
@@ -917,12 +918,20 @@ func set_attack_style_bounce(bounce_count_max: int, bounce_damage_multiplier: fl
 
 # NOTE: call this in load_specials() of tower instance
 func set_target_count(count: int):
-	_target_count_max = count
+	_target_count_from_tower = count
+
+
+func set_target_count_from_item(count: int):
+	_target_count_from_item = count
+
+
+func get_target_count_from_item() -> int:
+	return _target_count_from_item
 
 
 # NOTE: tower.getTargetCount() in JASS
 func get_target_count() -> int:
-	return _target_count_max
+	return _target_count_from_tower + _target_count_from_item
 
 
 # Tower is attacking while it has valid targets in range.
@@ -1016,10 +1025,13 @@ func get_specials_tooltip_text() -> String:
 	var modifier_text: String = _specials_modifier.get_tooltip_text()
 	text += modifier_text
 
-	if _target_count_max > 1:
+#	NOTE: need to use _target_count_from_tower without
+#	adding _target_count_from_item so that item's bonus is
+#	not displayed in tower info.
+	if _target_count_from_tower > 1:
 		if !text.is_empty():
 			text += " \n"
-		text += "[b][color=GOLD]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_max
+		text += "[b][color=GOLD]Multishot:[/color][/b]\nAttacks up to %d targets at the same time.\n" % _target_count_from_tower
 
 	return text
 

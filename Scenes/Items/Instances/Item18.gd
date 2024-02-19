@@ -18,12 +18,12 @@ func load_modifier(modifier: Modifier):
 func on_drop():
     var itm: Item = self
     var tower: Tower = itm.get_carrier()
-    var target_count: int = tower.get_target_count()
-    tower.set_target_count(target_count - 3)
+    var target_count: int = tower.get_target_count_from_item()
+    tower.set_target_count_from_item(target_count - 3)
 
 
 func on_pickup():
     var itm: Item = self
     var tower: Tower = itm.get_carrier()
-    var target_count: int = tower.get_target_count()
-    tower.set_target_count(target_count + 3)
+    var target_count: int = tower.get_target_count_from_item()
+    tower.set_target_count_from_item(target_count + 3)
