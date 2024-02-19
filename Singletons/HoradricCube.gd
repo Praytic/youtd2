@@ -113,7 +113,7 @@ func autofill_recipe(recipe: Recipe, rarity_filter: Array = []) -> bool:
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
 
 # 	Return current cube contents to item stash
-	var current_contents: Array[Item] = _item_container.get_item_list(rarity_filter)
+	var current_contents: Array[Item] = _item_container.get_item_list()
 	for item in current_contents:
 		_item_container.remove_item(item)
 		item_stash_container.add_item(item)
