@@ -3,12 +3,34 @@
 [ext_resource type="Script" path="res://Scenes/Towers/TowerPreview.gd" id="1"]
 [ext_resource type="Script" path="res://Scenes/Towers/RangeIndicator.gd" id="2"]
 
-[node name="TowerPreview" type="Node2D" node_paths=PackedStringArray("_range_indicator")]
+[node name="TowerPreview" type="Node2D" node_paths=PackedStringArray("_range_indicator", "_pedestal_up", "_pedestal_right", "_pedestal_down", "_pedestal_left")]
 z_index = 100
 script = ExtResource("1")
 _range_indicator = NodePath("RangeIndicator")
+_pedestal_up = NodePath("Pedestal/PedestalUp")
+_pedestal_right = NodePath("Pedestal/PedestalRight")
+_pedestal_down = NodePath("Pedestal/PedestalDown")
+_pedestal_left = NodePath("Pedestal/PedestalLeft")
 
 [node name="RangeIndicator" type="Node2D" parent="."]
 script = ExtResource("2")
-draw_transparently_on_floor2 = true
 texture_color = Color(0, 1, 1, 1)
+
+[node name="Pedestal" type="Node2D" parent="."]
+z_index = -100
+
+[node name="PedestalUp" type="Polygon2D" parent="Pedestal"]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, -64, -32, 0, -64, 64, -32)
+
+[node name="PedestalRight" type="Polygon2D" parent="Pedestal"]
+color = Color(0, 1, 0, 1)
+polygon = PackedVector2Array(0, 0, 64, -32, 128, 0, 64, 32)
+
+[node name="PedestalDown" type="Polygon2D" parent="Pedestal"]
+color = Color(0, 0, 1, 1)
+polygon = PackedVector2Array(0, 0, 64, 32, 0, 64, -64, 32)
+
+[node name="PedestalLeft" type="Polygon2D" parent="Pedestal"]
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(0, 0, -64, 32, -128, 0, -64, -32)

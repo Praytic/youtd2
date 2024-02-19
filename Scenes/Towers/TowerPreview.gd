@@ -13,6 +13,10 @@ var tower_id: int
 var _tower_instance: Node2D
 
 @export var _range_indicator: RangeIndicator
+@export var _pedestal_up: Polygon2D
+@export var _pedestal_right: Polygon2D
+@export var _pedestal_down: Polygon2D
+@export var _pedestal_left: Polygon2D
 
 
 func _ready():
@@ -44,22 +48,37 @@ func _physics_process(_delta):
 # 	Show tower preview under map normally, but make it stick
 # 	to tile position when mouse is hovered over a buildable
 # 	tile.
-	var new_position
-	if _map.mouse_is_over_buildable_tile():
-		new_position = _map.get_mouse_pos_on_tilemap_clamped()
-		if new_position != position:
-			_range_indicator.visible = true
-			_range_indicator.ignore_layer = false
-			_range_indicator.queue_redraw()
-	else:
-		new_position = get_global_mouse_position()
-		if fmod(position.x, 128) != 0 or fmod(position.y, 128) != 0:
-			_range_indicator.visible = false
+	var old_position: Vector2 = position
+	var new_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	position = new_position
 
-	if _map.can_build_at_mouse_pos():
-		_tower_instance.modulate = opaque_green
-	elif _map.can_transform_at_mouse_pos():
+	if new_position != old_position:
+		_range_indicator.visible = true
+		_range_indicator.ignore_layer = false
+		_range_indicator.queue_redraw()
+
+	var can_transform: bool = _map.can_transform_at_mouse_pos()
+
+	if can_transform:
 		_tower_instance.modulate = opaque_blue
 	else:
-		_tower_instance.modulate = opaque_red
+		_tower_instance.modulate = Color.WHITE
+
+	var build_info: Array = _map.get_build_info_for_mouse_pos()
+	var polygon_list: Array = [
+		_pedestal_up,
+		_pedestal_right,
+		_pedestal_down,
+		_pedestal_left,
+	]
+
+	for i in range(0, 4):
+		var quarter_tile_is_ok: bool = build_info[i]
+		var pedestal: Polygon2D = polygon_list[i]
+
+		if can_transform:
+			pedestal.color = opaque_blue
+		elif quarter_tile_is_ok:
+			pedestal.color = Color(Color.GREEN, 0.5)
+		else:
+			pedestal.color = Color(Color.RED, 0.5)
