@@ -96,8 +96,24 @@ func mouse_is_over_buildable_tile() -> bool:
 
 
 func can_build_at_mouse_pos() -> bool:
-	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
-	var occupied: bool = BuildTower.position_is_occupied(pos)
+	var pos: Vector2i = Vector2i(get_mouse_pos_on_tilemap_clamped())
+	var tile_size: Vector2i = _buildable_area.tile_set.tile_size
+	var adjacent_positions = [ \
+		pos + Vector2i(tile_size.x, 0), \
+		pos + Vector2i(-tile_size.x, 0), \
+		pos + Vector2i(0, tile_size.y), \
+		pos + Vector2i(0, -tile_size.y), \
+		pos + Vector2i(tile_size.x, tile_size.y) / 2, \
+		pos + Vector2i(-tile_size.x, tile_size.y) / 2, \
+		pos + Vector2i(tile_size.x, -tile_size.y) / 2, \
+		pos + Vector2i(-tile_size.x, -tile_size.y) / 2, \
+		pos
+	]
+	var occupied: bool
+	for adj_pos in adjacent_positions:
+		if BuildTower.position_is_occupied(Vector2(adj_pos)):
+			occupied = true
+			break
 
 	var buildable_tile: bool = mouse_is_over_buildable_tile()
 
