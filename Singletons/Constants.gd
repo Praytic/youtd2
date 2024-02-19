@@ -89,9 +89,10 @@ const BASE_ITEM_DROP_CHANCE: float = 0.0475
 # MOVE_SPEED_MAX can be found online, search "warcraft 3 max
 # speed 522"
 # 
-# NOTE: actual MOVE_SPEED_MIN is never reached because
-# movespeed formula contains pow()
-const MOVE_SPEED_MIN: float = 1.0
+# NOTE: MOVE_SPEED_MIN is 100 because this appears to be the
+# minimum limit applied internaly inside the WC3
+# SetUnitMoveSpeed() function.
+const MOVE_SPEED_MIN: float = 100.0
 const MOVE_SPEED_MAX: float = 522.0
 const DEFAULT_MOVE_SPEED: float = 222.0
 
