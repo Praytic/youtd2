@@ -85,7 +85,7 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 	# Only draw arcs which are on the ground floor, because previously
 	# we already draw the whole circle with transparent color.
 	for angles_tuple in angles_tuple_array:
-		draw_arc(center + Vector2(0, y_offset) * 2, radius, angles_tuple.y, angles_tuple.x, 20, color, 5.0, true)
+		draw_arc(center + Vector2(0, y_offset) * 2, radius, angles_tuple.y, angles_tuple.x, 100, color, 5.0, true)
 
 
 #########################
