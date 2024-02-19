@@ -621,6 +621,7 @@ _ground_indicator_map = NodePath("GroundIndicatorMap")
 [node name="PrerenderedBackground" parent="." instance=ExtResource("2_v8xf2")]
 
 [node name="BuildableArea" type="TileMap" parent="."]
+visible = false
 y_sort_enabled = true
 position = Vector2(128, -32)
 tile_set = SubResource("TileSet_088v3")
