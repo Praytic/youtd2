@@ -184,6 +184,7 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 # can be built on this position, only that this quarter tile
 # is valid for building.
 func _get_quarter_is_occuppied(quarter: Vector2) -> bool:
+	var tile_size: Vector2i = _buildable_area.tile_set.tile_size
 	var corner_list: Array = [
 		quarter + Vector2(0, -tile_size.y) / 2,
 		quarter + Vector2(tile_size.x, 0) / 2,
@@ -191,14 +192,14 @@ func _get_quarter_is_occuppied(quarter: Vector2) -> bool:
 		quarter + Vector2(-tile_size.x, 0) / 2,
 	]
 
-	var quarter: bool = false
+	var quarter_is_occupied: bool = false
 	for corner in corner_list:
 		var corner_is_occupied: bool = BuildTower.position_is_occupied(corner)
 
 		if corner_is_occupied:
-			quarter = true
+			quarter_is_occupied = true
 
-	return quarter
+	return quarter_is_occupied
 
 
 #########################
