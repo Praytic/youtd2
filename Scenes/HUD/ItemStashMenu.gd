@@ -17,6 +17,11 @@ extends PanelContainer
 @export var _uniques_status_panel: ShortResourceStatusPanel
 @export var _menu_card: ButtonStatusCard
 
+@export var _rebrew_button: Button
+@export var _distill_button: Button
+@export var _reassemble_button: Button
+@export var _perfect_button: Button
+
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
 
@@ -82,6 +87,25 @@ func _update_resource_status_panels():
 	_rares_status_panel.set_count(rares_count)
 	_uniques_status_panel.set_count(uniques_count)
 
+
+func _update_horadric_cube_recipes(item_list: Array[Item]):
+	_distill_button.disabled = true
+	_rebrew_button.disabled = true
+	_reassemble_button.disabled = true
+	_perfect_button.disabled = true
+
+	if HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.FOUR_OILS_OR_CONSUMABLES, item_list):
+		_distill_button.disabled = false
+		_rebrew_button.disabled = false
+	elif HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.TWO_OILS_OR_CONSUMABLES, item_list):
+		_rebrew_button.disabled = false
+	if HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.FIVE_ITEMS, item_list):
+		_perfect_button.disabled = false
+		_reassemble_button.disabled = false
+	elif HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.THREE_ITEMS, item_list):
+		_reassemble_button.disabled = false
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -126,6 +150,7 @@ func _on_item_stash_changed():
 	
 	_fill_item_buttons_container_with_empty_slots()
 	_update_resource_status_panels()
+	_update_horadric_cube_recipes(item_list)
 
 
 func _on_item_buttons_container_gui_input(event):
@@ -145,19 +170,23 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 
 func _on_rebrew_button_pressed():
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.TWO_OILS_OR_CONSUMABLES)
+	var rarity_filter = _rarity_filter_container.get_filter()
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.TWO_OILS_OR_CONSUMABLES, rarity_filter)
 
 
 func _on_distill_button_pressed():
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.FOUR_OILS_OR_CONSUMABLES)
+	var rarity_filter = _rarity_filter_container.get_filter()
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.FOUR_OILS_OR_CONSUMABLES, rarity_filter)
 
 
 func _on_reassemble_button_pressed():
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.THREE_ITEMS)
+	var rarity_filter = _rarity_filter_container.get_filter()
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.THREE_ITEMS, rarity_filter)
 
 
 func _on_perfect_button_pressed():
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.FIVE_ITEMS)
+	var rarity_filter = _rarity_filter_container.get_filter()
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.FIVE_ITEMS, rarity_filter)
 
 
 func _on_close_button_pressed():
