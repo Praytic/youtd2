@@ -63,8 +63,13 @@ func get_item_container() -> ItemContainer:
 	return _item_container
 
 
+func has_recipe_ingredients(recipe: Recipe, item_list: Array[Item]) -> bool:
+	return !_get_item_list_for_autofill(recipe, item_list).is_empty()
+
+
 func can_transmute() -> bool:
-	var current_recipe: Recipe = _get_current_recipe()
+	var item_list: Array[Item] = _item_container.get_item_list()
+	var current_recipe: Recipe = _get_current_recipe(item_list)
 	var recipe_is_valid: bool = current_recipe != Recipe.NONE
 
 	return recipe_is_valid
@@ -73,7 +78,8 @@ func can_transmute() -> bool:
 # Creates new item based on the recipe and adds it to the item container.
 # Returns the message with transmutation details to the caller.
 func transmute() -> String:
-	var current_recipe: Recipe = _get_current_recipe()
+	var item_list: Array[Item] = _item_container.get_item_list()
+	var current_recipe: Recipe = _get_current_recipe(item_list)
 	
 	if current_recipe == Recipe.NONE:
 		return "Change the ingredients to match an existing recipe."
@@ -103,18 +109,19 @@ func transmute() -> String:
 	return result.message
 
 
-func autofill_recipe(recipe: Recipe) -> bool:
+func autofill_recipe(recipe: Recipe, rarity_filter: Array = []) -> bool:
 	var item_stash_container: ItemContainer = ItemStash.get_item_container()
 
 # 	Return current cube contents to item stash
-	var current_contents: Array[Item] = _item_container.get_item_list()
+	var current_contents: Array[Item] = _item_container.get_item_list(rarity_filter)
 	for item in current_contents:
 		_item_container.remove_item(item)
 		item_stash_container.add_item(item)
 
 #	Move items from item stash to cube, if there are enough
 #	items for the recipe
-	var autofill_list: Array[Item] = _get_item_list_for_autofill(recipe)
+	var item_list: Array[Item] = item_stash_container.get_item_list(rarity_filter)
+	var autofill_list: Array[Item] = _get_item_list_for_autofill(recipe, item_list)
 	var can_autofill: bool = !autofill_list.is_empty()
 
 	if can_autofill:
@@ -133,16 +140,13 @@ func autofill_recipe(recipe: Recipe) -> bool:
 ###      Private      ###
 #########################
 
-# Returns list of items which are currently in item stash,
+# Returns list of filtered items from the provided item_list,
 # which can be used for a recipe. Prioritizes items with
 # lowest rarity and level. Returns empty list if autofill
 # can't be performed.
-func _get_item_list_for_autofill(recipe: Recipe) -> Array[Item]:
+func _get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) -> Array[Item]:
 	var recipe_item_type: Array[ItemType.enm] = _get_result_item_type_list(recipe)
 	var recipe_item_count: int = _recipe_item_count_map[recipe]
-
-	var item_stash_container: ItemContainer = ItemStash.get_item_container()
-	var item_list: Array[Item] = item_stash_container.get_item_list()
 
 # 	Filter out items we can't use
 	item_list = item_list.filter(
@@ -195,11 +199,10 @@ func _get_item_list_for_autofill(recipe: Recipe) -> Array[Item]:
 	return invalid_item_list
 
 
-func _get_current_recipe() -> Recipe:
+func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	var item_type_map: Dictionary = {}
 	var rarity_map: Dictionary = {}
-	var item_list: Array[Item] = _item_container.get_item_list()
-
+	
 	for item in item_list:
 		var item_id: int = item.get_id()
 		var item_type: ItemType.enm = ItemProperties.get_type(item_id)
