@@ -176,9 +176,7 @@ func _ready():
 		_damage_dealt_total = _temp_preceding_tower._damage_dealt_total
 		
 #		Transition all buff groups from preceding tower
-		for group in _temp_preceding_tower.get_groups():
-			if !is_in_group(group):
-				add_to_group(group)
+		_buff_groups = _temp_preceding_tower._buff_groups.duplicate()
 	else:
 #		NOTE: only apply builder tower lvl bonus if tower is
 #		"fresh". When tower is transformed or upgraded, it
