@@ -200,16 +200,16 @@ func _update_text():
 	_overall_mana_regen.text = Utils.format_float(overall_mana_regen, 1)
 
 #	Misc
-	var bounty_ratio: float = tower.get_prop_bounty_granted()
+	var bounty_ratio: float = tower.get_prop_bounty_received()
 	_bounty_ratio.text = Utils.format_percent(bounty_ratio, 0)
 
-	var exp_ratio: float = tower.get_prop_exp_granted()
+	var exp_ratio: float = tower.get_prop_exp_received()
 	_exp_ratio.text = Utils.format_percent(exp_ratio, 0)
 
-	var item_drop_ratio: float = tower.get_item_drop_ratio_on_death()
+	var item_drop_ratio: float = tower.get_item_drop_ratio()
 	_item_drop_ratio.text = Utils.format_percent(item_drop_ratio, 0)
 
-	var item_quality_ratio: float = tower.get_item_quality_ratio_on_death()
+	var item_quality_ratio: float = tower.get_item_quality_ratio()
 	_item_quality_ratio.text = Utils.format_percent(item_quality_ratio, 0)
 
 	var trigger_chances: float = tower.get_prop_trigger_chances()
