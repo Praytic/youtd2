@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/PauseHUD/SettingsMenu.tscn" id="5_y1l7h"]
 [ext_resource type="PackedScene" uid="uid://d58y3fnrkntu" path="res://Scenes/PauseHUD/HelpMenu.tscn" id="6_q6xgl"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_eyr43"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_a4f1x"]
 
 [node name="PauseHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
 layout_mode = 3
@@ -30,7 +30,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
 [node name="TabContainer" type="TabContainer" parent="."]
-custom_minimum_size = Vector2(300, 350)
+custom_minimum_size = Vector2(300, 409)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -100,7 +100,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_eyr43")
+_interface_size_button_group = SubResource("ButtonGroup_a4f1x")
 
 [node name="CreditsMenu" parent="TabContainer" instance=ExtResource("4_s86r1")]
 visible = false
