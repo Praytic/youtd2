@@ -1,17 +1,34 @@
 @tool
 class_name CooldownIndicator extends Control
 
-# Displays a rotating shadow over a square area.
+# Displays a rotating shadow polygon over a square area.
+# When remaining cooldown ratio is 100% the shadow will
+# cover the whole icon. As the remaining cooldown goes down,
+# the shadow will rotate and fold until it goes away.
 
 
-const ANGLE_STEP: int = 15
+# NOTE: this angle determines the distance between progress
+# points, in degrees
+const ANGLE_STEP: int = 5
 
 
-var _base_point_list: Array[Vector2] = []
+static var _progress_point_list: Array[Vector2]
+static var _center_point: Vector2
+static var _top_middle_point: Vector2
+static var _top_left_point: Vector2
+static var _top_right_point: Vector2
+static var _bottom_left_point: Vector2
+static var _bottom_right_point: Vector2
+
 var _autocast: Autocast = null
-var _progress_in_editor = 1.0
-var _current_size: float = 0
-var _drawn_point_count: int = -1
+var _progress_in_editor: float = 1.0
+
+
+func _init():
+#	Setup points once inside static vars and reuse for all
+#	instances of CooldownIndicator
+	if CooldownIndicator._progress_point_list.is_empty():
+		CooldownIndicator._setup_points()
 
 
 func set_autocast(autocast: Autocast):
@@ -21,82 +38,96 @@ func set_autocast(autocast: Autocast):
 # Pick points on a square, spaced out by angle from
 # center. There is definitely a better way to do this but
 # whatever.
-static func _generate_base_points(icon_size: float) -> Array[Vector2]:
-	var point_list: Array[Vector2] = []
+static func _setup_points():
+	_center_point = Vector2(0.5, 0.5)
+	_top_left_point = Vector2(0.0, 0.0)
+	_top_middle_point = Vector2(0.5, 0.0)
+	_top_right_point = Vector2(1.0, 0.0)
+	_bottom_left_point = Vector2(0.0, 1.0)
+	_bottom_right_point = Vector2(1.0, 1.0)
 
-	var icon_half_size: float = icon_size / 2
-
-#	Center point
-	point_list.append(Vector2(icon_half_size, icon_half_size))
+#	Generate "progress points", these points are spread
+#	evenly along a square perimeter.
 
 # 	From top center to top left
 	for angle in range(0, 45, ANGLE_STEP):
-		var x: float = icon_half_size - icon_half_size * tan(deg_to_rad(angle))
+		var x: float = 0.5 - 0.5 * tan(deg_to_rad(angle))
 		var y: float = 0
 		var point: Vector2 = Vector2(x, y)
-		point_list.append(point)
+		_progress_point_list.append(point)
 
 #	From top left to bottom left
 	for angle in range(-45, 45, ANGLE_STEP):
 		var x: float = 0
-		var y: float = icon_half_size + icon_half_size * tan(deg_to_rad(angle))
+		var y: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
 		var point: Vector2 = Vector2(x, y)
-		point_list.append(point)
+		_progress_point_list.append(point)
 
 # 	From bottom left to bottom right
 	for angle in range(-45, 45, ANGLE_STEP):
-		var x: float = icon_half_size + icon_half_size * tan(deg_to_rad(angle))
-		var y: float = icon_size
+		var x: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
+		var y: float = 1.0
 		var point: Vector2 = Vector2(x, y)
-		point_list.append(point)
+		_progress_point_list.append(point)
 
 #	From bottom right to top right
 	for angle in range(45, -45, -ANGLE_STEP):
-		var x: float = icon_size
-		var y: float = icon_half_size + icon_half_size * tan(deg_to_rad(angle))
+		var x: float = 1.0
+		var y: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
 		var point: Vector2 = Vector2(x, y)
-		point_list.append(point)
+		_progress_point_list.append(point)
 
 # 	From top right to top center
 	for angle in range(-45, 0, ANGLE_STEP):
-		var x: float = icon_half_size - icon_half_size * tan(deg_to_rad(angle))
+		var x: float = 0.5 - 0.5 * tan(deg_to_rad(angle))
 		var y: float = 0
 		var point: Vector2 = Vector2(x, y)
-		point_list.append(point)
+		_progress_point_list.append(point)
+
+
+static func _generate_draw_points(progress: float, icon_size: float) -> PackedVector2Array:
+	var current_progress_point: int = int(progress * (_progress_point_list.size() - 1))
+	
+	if current_progress_point < 3:
+		return []
+
+	var point_list: PackedVector2Array = []
+
+	var progress_point: Vector2 = _progress_point_list[current_progress_point]
+	point_list.append(progress_point)
+
+#	Pick appropriate corner points, to complete the polygon
+	if progress >= 7 / 8.0:
+		point_list.append(_top_right_point)
+	if progress >= 5 / 8.0:
+		point_list.append(_bottom_right_point)
+	if progress >= 3 / 8.0:
+		point_list.append(_bottom_left_point)
+	if progress >= 1 / 8.0:
+		point_list.append(_top_left_point)
+	
+#	Top middle and center points are always drawn
+	point_list.append(_top_middle_point)
+	point_list.append(_center_point)
+
+#	Scale all points so that they match the icon size
+	for i in point_list.size():
+		point_list[i] *= icon_size
 	
 	return point_list
 
 
 func _process(_delta: float):
-	var progress: float = _get_progress()
-	var point_count: int = _get_point_count(progress)
-	var need_to_redraw: bool = _drawn_point_count != point_count
-
-	if need_to_redraw:
-		_drawn_point_count = point_count
-		queue_redraw()
+	queue_redraw()
 
 
 func _draw():
-#	NOTE: check for size changes here so that size is
-#	correct when this script runs in editor. If this script
-#	ran only ingame, then doing this in _ready() would've
-#	been enough.
-	var icon_size: float = size.x
-	if icon_size != _current_size:
-		_base_point_list = CooldownIndicator._generate_base_points(icon_size)
-
 	var progress: float = _get_progress()
+	var icon_size: float = size.x
+	var point_list: PackedVector2Array = CooldownIndicator._generate_draw_points(progress, icon_size)
 
-	var point_list: PackedVector2Array = []
-	var point_count: int = _get_point_count(progress)
-	
-	if point_count < 3:
+	if point_list.is_empty():
 		return
-
-	for i in range(0, point_count):
-		var point: Vector2 = _base_point_list[i]
-		point_list.append(point)
 
 	draw_colored_polygon(point_list, Color(0, 0, 0, 0.5))
 
@@ -117,9 +148,3 @@ func _get_progress() -> float:
 		var progress: float = Utils.divide_safe(remaining_cooldown, cooldown)
 
 		return progress
-
-
-func _get_point_count(progress: float) -> int:
-	var point_count: int = int(progress * _base_point_list.size())
-
-	return point_count
