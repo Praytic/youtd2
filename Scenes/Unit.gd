@@ -849,12 +849,10 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 # 	altered by event handlers of target's "damaged" event
 	damage = damaged_event.damage
 
-#	NOTE: record stats about damage only for attack damage
-	if damage_source == DamageSource.Attack:
-		_damage_dealt_total += damage
+	_damage_dealt_total += damage
 
-		if damage > _best_hit:
-			_best_hit = damage
+	if damage > _best_hit:
+		_best_hit = damage
 
 	var health_before_damage: float = target.get_health()
 	target.set_health(health_before_damage - damage)
