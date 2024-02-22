@@ -24,6 +24,10 @@ var _autocast: Autocast = null
 var _progress_in_editor: float = 1.0
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init():
 #	Setup points once inside static vars and reuse for all
 #	instances of CooldownIndicator
@@ -31,9 +35,54 @@ func _init():
 		CooldownIndicator._setup_points()
 
 
+func _process(_delta: float):
+	queue_redraw()
+
+
+func _draw():
+	var progress: float = _get_progress()
+	var icon_size: float = size.x
+	var point_list: PackedVector2Array = CooldownIndicator._generate_draw_points(progress, icon_size)
+
+	if point_list.is_empty():
+		return
+
+	draw_colored_polygon(point_list, Color(0, 0, 0, 0.5))
+
+
+#########################
+###       Public      ###
+#########################
+
 func set_autocast(autocast: Autocast):
 	_autocast = autocast
 
+
+#########################
+###      Private      ###
+#########################
+
+func _get_progress() -> float:
+	if Engine.is_editor_hint():
+		_progress_in_editor -= 0.005
+		if _progress_in_editor < 0:
+			_progress_in_editor = 1.0
+
+		return _progress_in_editor
+	else:
+		if _autocast == null:
+			return 0.0
+
+		var cooldown: float = _autocast.get_cooldown()
+		var remaining_cooldown: float = _autocast.get_remaining_cooldown()
+		var progress: float = Utils.divide_safe(remaining_cooldown, cooldown)
+
+		return progress
+
+
+#########################
+###       Static      ###
+#########################
 
 # Pick points on a square, spaced out by angle from
 # center. There is definitely a better way to do this but
@@ -115,36 +164,3 @@ static func _generate_draw_points(progress: float, icon_size: float) -> PackedVe
 		point_list[i] *= icon_size
 	
 	return point_list
-
-
-func _process(_delta: float):
-	queue_redraw()
-
-
-func _draw():
-	var progress: float = _get_progress()
-	var icon_size: float = size.x
-	var point_list: PackedVector2Array = CooldownIndicator._generate_draw_points(progress, icon_size)
-
-	if point_list.is_empty():
-		return
-
-	draw_colored_polygon(point_list, Color(0, 0, 0, 0.5))
-
-
-func _get_progress() -> float:
-	if Engine.is_editor_hint():
-		_progress_in_editor -= 0.005
-		if _progress_in_editor < 0:
-			_progress_in_editor = 1.0
-
-		return _progress_in_editor
-	else:
-		if _autocast == null:
-			return 0.0
-
-		var cooldown: float = _autocast.get_cooldown()
-		var remaining_cooldown: float = _autocast.get_remaining_cooldown()
-		var progress: float = Utils.divide_safe(remaining_cooldown, cooldown)
-
-		return progress
