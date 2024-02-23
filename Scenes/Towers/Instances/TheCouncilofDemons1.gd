@@ -71,6 +71,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Impenetrable Darkness", 850, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	dave_council_darkness_bt = BuffType.new("dave_council_darkness_bt", 5, 0, false, self)
 	var dave_council_darkness_mod: Modifier = Modifier.new()
