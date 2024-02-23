@@ -50,6 +50,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_kill(on_kill)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Flaming Inferno", 950, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	multiboard = MultiboardValues.new(3)
 	multiboard.set_key(0, "Gold Hoarded")

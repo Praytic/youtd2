@@ -34,6 +34,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, 0.25, 0.01)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+return [Tower.RangeData.new("Monolith of Chaos", 750, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	cedi_monolith_chaos_bt = BuffType.new("cedi_monolith_chaos_bt", 3.0, 0.1, false, self)
 	var mod: Modifier = Modifier.new()

@@ -56,6 +56,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, -0.50, 0.0)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Extreme Cold", 900, TargetType.new(TargetType.CREEPS))]
+
+
 func boekie_igloo_end(event: Event):
 	var buff: Buff = event.get_buff()
 	cb_stun.apply_only_timed(buff.get_caster(), buff.get_buffed_unit(), _stats.stun_duration)

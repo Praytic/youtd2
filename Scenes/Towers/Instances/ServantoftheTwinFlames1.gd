@@ -83,6 +83,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Twin Pulses", 900, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	dave_physical_bt = BuffType.new("dave_physical_bt", 7, 0, true, self)
 	var dave_physical_mod: Modifier = Modifier.new()

@@ -79,6 +79,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.25, 0.05)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Unleash Attack", 1200, TargetType.new(TargetType.CREEPS)), Tower.RangeData.new("Unleash Buff", 350, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	ash_conduit_aura_bt = BuffType.create_aura_effect_type("ash_conduit_aura_bt", true, self)
 	ash_conduit_aura_bt.set_buff_icon("@@2@@")

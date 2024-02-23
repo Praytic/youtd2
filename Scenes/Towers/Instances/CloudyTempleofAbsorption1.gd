@@ -91,6 +91,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 500.0)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Cloudy Thunderstorm", 1000, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	natac_cloudy_temple_aura_bt = BuffType.create_aura_effect_type("natac_cloudy_temple_aura_bt", false, self)
 	natac_cloudy_temple_aura_bt.set_buff_icon("@@1@@")

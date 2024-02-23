@@ -69,6 +69,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.16)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Mystical Trance", 900, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	drol_mushroom_debuff_bt = BuffType.new("drol_mushroom_debuff_bt", 3600, 0, false, self)
 	drol_mushroom_debuff_bt.set_buff_icon("@@0@@")

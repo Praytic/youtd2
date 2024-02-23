@@ -99,6 +99,10 @@ func load_specials(_modifier: Modifier):
 	set_attack_style_bounce(2, 0.0)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Glaivesaw", 1000, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	ashbringer_lacerate_bt = BuffType.new("ashbringer_lacerate_bt", 5, 0, false, self)
 	ashbringer_lacerate_bt.set_buff_icon("@@1@@")

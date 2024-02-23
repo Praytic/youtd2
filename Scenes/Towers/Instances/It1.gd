@@ -95,6 +95,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.10, 0.005)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Recreation Field", 800, TargetType.new(TargetType.CREEPS)), Tower.RangeData.new("Corruption Field", 800, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Spelldamage Bonus")

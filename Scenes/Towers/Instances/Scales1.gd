@@ -81,6 +81,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.20, 0.008)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Lightmare", 1500, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	lightning_st = SpellType.new("@@0@@", "forkedlightning", 2.0, self)
 	# TODO: implement SpellType.set_source_height()

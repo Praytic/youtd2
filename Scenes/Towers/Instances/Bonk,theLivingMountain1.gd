@@ -65,6 +65,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.25, 0.005)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Crush!", 500, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	cb_stun = CbStun.new("bonk_stun", 0, 0, false, self)
 	

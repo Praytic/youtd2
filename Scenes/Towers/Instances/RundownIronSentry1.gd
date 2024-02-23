@@ -63,6 +63,9 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 925, TargetType.new(TargetType.CREEPS))
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Alert", 500, TargetType.new(TargetType.TOWERS))]
+
 
 func tower_init():
 	glow_alert_bt = BuffType.new("glow_alert_bt", 0, 0, true, self)

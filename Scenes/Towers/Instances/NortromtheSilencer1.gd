@@ -64,6 +64,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 7.0)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Curse of the Silent", 800, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	cb_silence = CbSilence.new("nortrom_silence", 0, 0, false, self)
 

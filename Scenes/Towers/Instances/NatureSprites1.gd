@@ -176,6 +176,10 @@ func sprite_hit(P: Projectile, target: Unit):
 	dave_gift.apply(tower, target, tower.get_level())
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Nature's Gift", 500, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	dave_gift = BuffType.new("dave_gift", 5, 0, true, self)
 	dave_gift.set_buff_icon("@@0@@")

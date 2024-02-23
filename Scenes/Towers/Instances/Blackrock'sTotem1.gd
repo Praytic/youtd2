@@ -65,6 +65,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Shamanic Totem", 500, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Fighter Totem", 500, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	poussix_blackrock_physique_bt = BuffType.new("poussix_blackrock_physique_bt", 5, 0.2, true, self)
 	var poussix_blackrock_physique_mod: Modifier = Modifier.new()

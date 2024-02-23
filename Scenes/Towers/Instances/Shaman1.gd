@@ -76,6 +76,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.1375, 0.0)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Bloodlust", 500, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	hs_bloodlust_buff = BuffType.new("hs_bloodlust_buff", 0, 0, true, self)
 	var bloodlust_mod: Modifier = Modifier.new()

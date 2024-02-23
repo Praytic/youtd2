@@ -104,6 +104,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, _stats.mod_mana_regen_add)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Sacrifice", 500, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Blood Spill", 200, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	dave_blood_target_bt = BuffType.new("dave_blood_target_bt", BUFF_DURATION, 0, true, self)
 	var dave_blood_target: Modifier = Modifier.new()

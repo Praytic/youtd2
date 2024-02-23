@@ -63,6 +63,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.10)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Blood of Ymir", 900, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	iaman_ymir_blood_bt = BuffType.new("iaman_ymir_blood_bt", 6.0, 0.08, false, self)
 	var iaman_ymir_blood_mod: Modifier = Modifier.new()

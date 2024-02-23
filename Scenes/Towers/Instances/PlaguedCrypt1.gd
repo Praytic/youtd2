@@ -56,6 +56,10 @@ func load_specials(_modifier: Modifier):
 		})
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Army of the Damned", 1150, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	cedi_crypt_plague_bt = BuffType.new("cedi_crypt_plague_bt", 5.0, 0.2, false, self)
 	cedi_crypt_plague_bt.set_buff_icon("@@0@@")

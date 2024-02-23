@@ -47,6 +47,10 @@ func get_autocast_description_short() -> String:
 	return text
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Electric Field", 1000, TargetType.new(TargetType.CREEPS))]
+
+
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 

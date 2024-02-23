@@ -70,6 +70,10 @@ func get_autocast_description_short() -> String:
 	return "Stuns nearby towers and steals their damage.\n"
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Shadowbolt Wave", 1000, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	cb_stun = CbStun.new("eredar_warlock_stun", 0, 0, false, self)
 

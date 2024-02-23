@@ -81,6 +81,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Probability Field Emitter", 500, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Clockwork Engineer", 500, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	cedi_goblin_sapper_pt = ProjectileType.create("GoblinSapper.mdl", 20, 700, self)
 	cedi_goblin_sapper_pt.enable_homing(cedi_goblin_sapper_pt_on_hit, 0)

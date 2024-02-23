@@ -59,6 +59,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Strong Wind", 900, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	stern_chaining_aura_bt = BuffType.create_aura_effect_type("stern_chaining_aura_bt", false, self)
 	stern_chaining_aura_bt.set_buff_icon("@@0@@")

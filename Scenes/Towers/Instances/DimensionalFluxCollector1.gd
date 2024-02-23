@@ -61,6 +61,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Dimensional Link", 800, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Dimensional Monitor", 2000, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	cedi_flux_aura_bt = BuffType.create_aura_effect_type("cedi_flux_aura_bt", false, self)
 	cedi_flux_aura_bt.add_event_on_damaged(cedi_flux_aura_bt_on_damaged)

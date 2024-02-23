@@ -59,6 +59,10 @@ func load_specials(_modifier: Modifier):
 	magical_sight.apply_to_unit_permanent(self, self, 0)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Magical Sight", _stats.magical_sight_range, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	var light_mod: Modifier = Modifier.new()
 	sternbogen_holy_buff = BuffType.new("sternbogen_holy_buff", 0.0, 0.0, false, self)

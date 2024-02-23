@@ -47,6 +47,10 @@ func get_ability_description_short() -> String:
 	return text
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Revenge of Souls", 1000, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	natac_hall_of_souls_bt = BuffType.create_aura_effect_type("natac_hall_of_souls_bt", false, self)
 	natac_hall_of_souls_bt.set_buff_icon("@@0@@")

@@ -46,6 +46,10 @@ func get_autocast_description() -> String:
 	return text
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Golden Influence", 400, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	boekie_coin_machine_bt = BuffType.new("boekie_coin_machine_bt", 0, 0, true, self)
 	var mod: Modifier = Modifier.new()

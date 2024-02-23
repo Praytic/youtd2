@@ -84,6 +84,10 @@ func load_specials(_modifier: Modifier):
 	set_attack_style_splash({300: 1.0})
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Intense Heat Buff", 350, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Unleash Buff", 350, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	ashbringer_heart_aura_bt = BuffType.create_aura_effect_type("ashbringer_heart_aura_bt", true, self)
 	ashbringer_heart_aura_bt.set_buff_icon("@@1@@")

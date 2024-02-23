@@ -63,6 +63,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.04)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Ice Claw", 850, TargetType.new(TargetType.TOWERS))]
+
+
 func on_autocast(event: Event):
 	var tower: Tower = self
 

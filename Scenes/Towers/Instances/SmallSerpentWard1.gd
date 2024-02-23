@@ -42,6 +42,10 @@ func get_autocast_description_short() -> String:
 	return text
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Snake Charm", 200, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	var m: Modifier = Modifier.new()
 	m.add_modification(Modification.Type.MOD_MANA_PERC, 0.0, 0.001)

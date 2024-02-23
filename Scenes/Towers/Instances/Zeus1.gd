@@ -69,6 +69,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 5.0)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Thunderstorm", 1000, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	cb_stun = CbStun.new("zeus_stun", 0, 0, false, self)
 

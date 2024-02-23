@@ -95,6 +95,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.08)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Maledict", 800, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	sir_voljin_maledict_bt = BuffType.new("sir_voljin_maledict_bt", 0, 0, false, self)
 	sir_voljin_maledict_bt.set_buff_icon("@@0@@")

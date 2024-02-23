@@ -50,6 +50,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.50, 0.01)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Melt", 900, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	cedi_melt_bt = BuffType.create_aura_effect_type("cedi_melt_bt", false, self)
 	cedi_melt_bt.add_event_on_create(cedi_melt_bt_on_create)

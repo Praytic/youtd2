@@ -88,6 +88,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 950, TargetType.new(TargetType.CREEPS))
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Entangling Roots", 1000, TargetType.new(TargetType.CREEPS)), Tower.RangeData.new("Thorned!", 950, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	cenarius_tranquility_bt = BuffType.create_aura_effect_type("cenarius_tranquility_bt", true, self)
 	var cenarius_tranquility_mod: Modifier = Modifier.new()

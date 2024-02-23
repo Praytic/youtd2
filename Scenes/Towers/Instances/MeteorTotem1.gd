@@ -57,6 +57,10 @@ func load_specials(_modifier: Modifier):
 	set_attack_style_splash({325: 0.5})
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Attraction", 500, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	sir_totem_attraction_bt = BuffType.new("sir_totem_attraction_bt", 2.5, 0.05, true, self)
 	sir_totem_attraction_bt.add_event_on_attack(sir_totem_attraction_bt_on_attack)

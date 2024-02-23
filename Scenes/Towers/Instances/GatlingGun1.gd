@@ -63,6 +63,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0875, 0.005)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Sentry", 800, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	ball_pt = ProjectileType.create("BoatMissile.mdl", 4, 1000, self)
 	ball_pt.enable_homing(ball_pt_on_hit, 0)

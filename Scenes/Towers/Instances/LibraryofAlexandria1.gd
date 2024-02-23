@@ -63,6 +63,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.04)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Divine Teachings", 500, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Divine Knowledge", 500, TargetType.new(TargetType.TOWERS))]
+
+
 func tower_init():
 	library_aura_bt = BuffType.create_aura_effect_type("library_aura_bt", true, self)
 	var library_aura_mod: Modifier = Modifier.new()

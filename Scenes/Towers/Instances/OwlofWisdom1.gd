@@ -78,6 +78,10 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.01)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Energy Aura", 900, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	tomy_owl_pt = ProjectileType.create("DarkSummonMissile.mdl", 5.0, 950.0, self)
 	tomy_owl_pt.enable_homing(tomy_owl_pt_on_hit, 0)

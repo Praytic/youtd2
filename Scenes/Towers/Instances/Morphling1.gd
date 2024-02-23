@@ -103,6 +103,10 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_damage(on_damage)
 
 
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return [Tower.RangeData.new("Morphling Strike", 900, TargetType.new(TargetType.CREEPS))]
+
+
 func tower_init():
 	dave_morph_damage_bt = BuffType.new("dave_morph_damage_bt", -1, 0, true, self)
 	var dave_morph_damage_bt_mod: Modifier = Modifier.new()
