@@ -35,7 +35,7 @@ func load_specials(modifier: Modifier):
 
 
 func get_ability_ranges() -> Array[Tower.RangeData]:
-return [Tower.RangeData.new("Monolith of Chaos", 750, TargetType.new(TargetType.CREEPS))]
+	return [Tower.RangeData.new("Monolith of Chaos", 750, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():
