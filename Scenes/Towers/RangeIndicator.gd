@@ -43,7 +43,6 @@ func _draw_circle_arc(center, angle_from, angle_to, color):
 	transparent_color.a = 0.2
 
 	var nb_points = 100
-	var points_arc = PackedVector2Array()
 	var angles_tuple_array: Array = [] 
 	var on_ground_start_angle: float = -1.0
 	var on_ground = false

@@ -324,7 +324,7 @@ func get_range_data() -> Array[Tower.RangeData]:
 #	with selection circle.
 	var free_color_list: Array = [Color.AQUA, Color.ORANGE, Color.YELLOW, Color.PURPLE, Color.PINK, Color.RED, Color.LIGHT_BLUE]
 
-	var get_next_range_color: Callable = func(radius: float) -> Color:
+	var get_next_range_color: Callable = func() -> Color:
 		if free_color_list.is_empty():
 			push_error("Ran out of range colors. Define more colors in free_color_list.")
 
@@ -335,7 +335,7 @@ func get_range_data() -> Array[Tower.RangeData]:
 		return new_color
 
 	var attack_range: RangeData = RangeData.new("Attack Range", get_range(), TargetType.new(TargetType.CREEPS))
-	attack_range.color = get_next_range_color.call(attack_range.radius)
+	attack_range.color = get_next_range_color.call()
 	if get_attack_enabled():
 		list.append(attack_range)
 
@@ -345,13 +345,13 @@ func get_range_data() -> Array[Tower.RangeData]:
 		var aura: AuraType = aura_list[i]
 		var aura_name: String = "Aura %d" % (i + 1)
 		var aura_range: RangeData = RangeData.new(aura_name, aura.get_range(), aura.target_type)
-		aura_range.color = get_next_range_color.call(aura_range.radius)
+		aura_range.color = get_next_range_color.call()
 		list.append(aura_range)
 
 	var ability_list: Array[RangeData] = get_ability_ranges()
 
 	for ability_range in ability_list:
-		ability_range.color = get_next_range_color.call(ability_range.radius)
+		ability_range.color = get_next_range_color.call()
 		list.append(ability_range)
 
 	return list
