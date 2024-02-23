@@ -431,22 +431,43 @@ func get_tower_list() -> Array[Tower]:
 	return tower_list
 
 
-func add_range_indicators_for_auras(aura_type_list: Array[AuraType], parent: Node) -> Array[RangeIndicator]:
-	var indicator_list: Array[RangeIndicator] = []
+# Setup range indicators for tower attack, auras and extra
+# abilities.
+# NOTE: tower stats must be initialized before calling this
+func setup_range_indicators(tower: Tower, parent: Node2D):
+	var range_data_list: Array[Tower.RangeData] = tower.get_range_data()
 
-	for aura_type in aura_type_list:
-		var aura_range: float = aura_type.get_range()
+	var occupied_radius_list: Array = []
+
+	for range_data in range_data_list:
+#		NOTE: if there are multiple ranges with same radius,
+#		shift them slightly so that they don't get drawn on
+#		top of each other.
+		var indicator_radius: float = range_data.radius
+
+		while occupied_radius_list.has(indicator_radius):
+			indicator_radius -= 10
+
+#			It's theoretically possible for there to be no
+#			available radius, in that case - give up
+			if indicator_radius == 10:
+				break
+
+		occupied_radius_list.append(indicator_radius)
+
 		var range_indicator: RangeIndicator = RangeIndicator.make()
 		range_indicator.enable_floor_collisions = false
-		range_indicator.set_radius(aura_range)
-		range_indicator.texture_color = Color.ORANGE
+		range_indicator.set_radius(indicator_radius)
+		range_indicator.texture_color = range_data.color
 
-#		NOTE: auras which affect towers will be drawn at
-#		same height as tower.
-#		Auras which affect creeps will be drawn one level
-#		lower, so that the aura is "on the ground".
+#		NOTE: range indicators which affect towers will be
+#		drawn at same height as tower.
+#		 
+#		Range indicators which affect creeps will be drawn
+#		one level lower, so that the indicator is "on the
+#		ground".
 		var y_offset: float
-		var target_type: TargetType = aura_type.target_type
+		var target_type: TargetType = range_data.target_type
 		var unit_type: TargetType.UnitType = target_type._unit_type
 		if unit_type == TargetType.UnitType.CREEPS:
 			y_offset = Constants.TILE_HEIGHT
@@ -456,9 +477,7 @@ func add_range_indicators_for_auras(aura_type_list: Array[AuraType], parent: Nod
 		range_indicator.y_offset = y_offset
 
 		parent.add_child(range_indicator)
-		indicator_list.append(range_indicator)
-
-	return indicator_list
+		tower._range_indicator_list.append(range_indicator)
 
 
 # Returns AoE damage dealt to unit, taking into account how

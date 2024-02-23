@@ -381,23 +381,17 @@ func _get_tower_details_text(tower: Tower) -> String:
 func _get_tower_ranges_text(tower: Tower) -> String:
 	var text: String = ""
 
-	var attack_range: float = tower.get_range()
-	var attack_range_string: String = Utils.format_float(attack_range, 0)
+	var range_data_list: Array[Tower.RangeData] = tower.get_range_data()
 
-	var aura_list: Array[Aura] = tower.get_aura_list()
-	
 	text += "[color=GOLD]Ranges:[/color]\n \n"
 
 	text += "[table=2]"
 
-	text += "[cell]Attack Range:[/cell][cell][color=AQUA]%s[/color][/cell]\n" % attack_range_string
+	for range_data in range_data_list:
+		var radius_string: String = Utils.format_float(range_data.radius, 0)
+		radius_string = Utils.get_colored_string(radius_string, range_data.color)
 
-	if !aura_list.is_empty():
-		var first_aura: Aura = aura_list.front()
-		var aura_range: float = first_aura.get_range()
-		var aura_range_string: String = Utils.format_float(aura_range, 0)
-
-		text += "[cell]Aura Range:[/cell][cell][color=ORANGE]%s[/color][/cell]\n" % aura_range_string
+		text += "[cell]%s:[/cell][cell]%s[/cell]\n" % [range_data.name, radius_string]
 
 	text += "[/table]"
 

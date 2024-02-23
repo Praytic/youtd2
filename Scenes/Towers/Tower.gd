@@ -38,6 +38,20 @@ enum AttackStyle {
 }
 
 
+# This class is used when displaying ranges in tower details
+# and when setting up range indicators.
+class RangeData:
+	var name: String
+	var radius: float
+	var target_type: TargetType
+	var color: Color = Color.WHITE
+
+	func _init(name_arg: String, radius_arg: float, target_type_arg: TargetType):
+		name = name_arg
+		radius = radius_arg
+		target_type = target_type_arg
+
+
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
 var TARGET_TYPE_GROUND_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS)
 var TARGET_TYPE_AIR_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_AIR)
@@ -67,13 +81,12 @@ var _temp_preceding_tower: Tower = null
 # for attacking.
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var _placeholder_modulate: Color = Color.WHITE
-var _aura_range_indicator_list: Array[RangeIndicator] = []
+var _range_indicator_list: Array[RangeIndicator] = []
 var _is_tower_preview: bool = false
 
 
 # NOTE: can't use @export because it breaks placeholder
 # tower scenes.
-@onready var _range_indicator: RangeIndicator = $RangeIndicator
 @onready var _mana_bar: ProgressBar = $Visual/ManaBar
 @onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
 @onready var _sprite: Sprite2D = $Visual/Sprite2D
@@ -127,9 +140,6 @@ func _ready():
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 
 	add_to_group("towers")
-
-	var attack_range: float = get_range()
-	_range_indicator.set_radius(attack_range)
 
 	mana_changed.connect(_on_mana_changed)
 	_on_mana_changed()
@@ -221,7 +231,7 @@ func _ready():
 
 #	NOTE: add aura range indicators to "visual" for correct
 #	positioning on y axis.
-	_aura_range_indicator_list = Utils.add_range_indicators_for_auras(aura_type_list, _visual)
+	Utils.setup_range_indicators(self, _visual)
 
 	on_create(_temp_preceding_tower)
 
@@ -299,6 +309,53 @@ func _process(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+# Composes range data which contains name, radius and color
+# for each range of tower. This includes attack range,
+# auras, extra abilities. Used by tower details and when
+# setting up range indicators.
+# 
+# Each range is assigned a unique color. Attack range is
+# always same AQUA color, for consistency.
+func get_range_data() -> Array[Tower.RangeData]:
+	var list: Array[Tower.RangeData] = []
+
+#	NOTE: avoid using any greenish colors to avoid confusion
+#	with selection circle.
+	var free_color_list: Array = [Color.AQUA, Color.ORANGE, Color.YELLOW, Color.PURPLE, Color.PINK, Color.RED, Color.LIGHT_BLUE]
+
+	var get_next_range_color: Callable = func(radius: float) -> Color:
+		if free_color_list.is_empty():
+			push_error("Ran out of range colors. Define more colors in free_color_list.")
+
+			return Color.WHITE
+
+		var new_color: Color = free_color_list.pop_front()
+
+		return new_color
+
+	var attack_range: RangeData = RangeData.new("Attack Range", get_range(), TargetType.new(TargetType.CREEPS))
+	attack_range.color = get_next_range_color.call(attack_range.radius)
+	if get_attack_enabled():
+		list.append(attack_range)
+
+	var aura_list: Array[AuraType] = get_aura_types()
+
+	for i in aura_list.size():
+		var aura: AuraType = aura_list[i]
+		var aura_name: String = "Aura %d" % (i + 1)
+		var aura_range: RangeData = RangeData.new(aura_name, aura.get_range(), aura.target_type)
+		aura_range.color = get_next_range_color.call(aura_range.radius)
+		list.append(aura_range)
+
+	var ability_list: Array[RangeData] = get_ability_ranges()
+
+	for ability_range in ability_list:
+		ability_range.color = get_next_range_color.call(ability_range.radius)
+		list.append(ability_range)
+
+	return list
+
 
 # NOTE: this function is extracted from _ready() so that it
 # can be called in RichTexts.gd when generating tower
@@ -429,6 +486,14 @@ func on_tower_details() -> MultiboardValues:
 	var empty_multiboard: MultiboardValues = MultiboardValues.new(0)
 
 	return empty_multiboard
+
+
+# Override in subclass to define ranges for abilities which
+# are not an aura or autocast. Ranges for auras and autocast
+# are displayed automatically and should not be included in
+# this list.
+func get_ability_ranges() -> Array[Tower.RangeData]:
+	return []
 
 
 #########################
@@ -746,15 +811,13 @@ func _get_next_bounce_target(bounce_pos: Vector2, visited_list: Array[Unit]) -> 
 #########################
 
 func _on_selected():
-	for indicator in _aura_range_indicator_list:
+	for indicator in _range_indicator_list:
 		indicator.show()
-	_range_indicator.show()
 	_tower_actions.show()
 
 func _on_unselected():
-	for indicator in _aura_range_indicator_list:
+	for indicator in _range_indicator_list:
 		indicator.hide()
-	_range_indicator.hide()
 	_tower_actions.hide()
 
 
