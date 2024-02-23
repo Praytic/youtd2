@@ -100,3 +100,9 @@ const DEFAULT_MOVE_SPEED: float = 222.0
 const IRL_SECONDS_TO_GAME_WORLD_HOURS: float = 24.0 / 480.0
 # Time of day starts at 12:00, noon
 const INITIAL_TIME_OF_DAY: float = 12.0
+
+
+# NOTE: there was no damage max in original game. This is
+# just an arbitrary number to protect against bugs. This
+# value is well above the maximum possible creep hp.
+const DAMAGE_MAX: float = 1000000000

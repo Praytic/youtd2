@@ -854,6 +854,14 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 	if damage > _best_hit:
 		_best_hit = damage
 
+	if damage < 0:
+		push_error("Damage somehow turned negative.")
+		damage = 0
+
+	if damage > Constants.DAMAGE_MAX:
+		push_error("Damage somehow overflowed. Damage = %f" % damage)
+		damage = Constants.DAMAGE_MAX
+
 	var health_before_damage: float = target.get_health()
 	target.set_health(health_before_damage - damage)
 
