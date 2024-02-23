@@ -228,7 +228,7 @@ func dave_council_darkness_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var stored_damage: float = buff.user_real
 	stored_damage += event.damage
-	buff.user_real += stored_damage
+	buff.user_real = stored_damage
 
 
 func dave_council_darkness_on_expire(event: Event):
