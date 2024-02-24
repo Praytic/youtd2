@@ -220,7 +220,7 @@ func _calculate_current_z_index() -> int:
 func _reach_portal():
 	var damage_to_portal = _get_damage_to_portal()
 	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
-	var damage_done: float = 1.0 - get_health_ratio()
+	var damage_done: float = get_damage_done()
 	var damage_done_string: String = Utils.format_percent(damage_done, 2)
 	var size_string: String = CreepSize.convert_to_string(_size)
 
@@ -285,7 +285,7 @@ func _get_damage_to_portal() -> float:
 	if _size == CreepSize.enm.CHALLENGE_MASS || _size == CreepSize.enm.CHALLENGE_BOSS:
 		return 0
 
-	var damage_done: float = 1.0 - get_health_ratio()
+	var damage_done: float = get_damage_done()
 
 	var type_multiplier: float = CreepSize.get_portal_damage_multiplier(_size)
 

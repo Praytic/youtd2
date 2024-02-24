@@ -87,6 +87,7 @@ var _unfriendly_buff_list: Array[Buff]
 var _direct_modifier_list: Array
 var _base_health: float = 100.0 : get = get_base_health, set = set_base_health
 var _health: float = 0.0
+var _lowest_health: float = 0.0
 var _base_health_regen: float = 0.0
 var _invisible: bool = false
 var _immune: bool = false
@@ -1462,13 +1463,27 @@ func get_overall_mana_regen() -> float:
 	return (get_base_mana_regen() + get_base_mana_regen_bonus()) * get_base_mana_regen_bonus_percent()
 
 
+# Returns damage done, in percentage.
+# Example: current health = 30/100 => damage done = 0.7 (70%)
+func get_damage_done() -> float:
+	var overall_health: float = get_overall_health()
+	var lowest_health_ratio: float = Utils.divide_safe(_lowest_health, overall_health)
+	var damage_done: float = 1.0 - lowest_health_ratio
+	
+	return damage_done
+
+
 # NOTE: analog of SetUnitState(unit, UNIT_STATE_LIFE) in JASS
 func set_health(new_health: float):
 	var overall_health: float = get_overall_health()
 	_health = clampf(new_health, 0.0, overall_health)
+	if _health < _lowest_health:
+		_lowest_health = _health
 	health_changed.emit()
 
 
+# NOTE: need this function for "Second Chance" special where
+# creep health needs to be set over max health.
 func set_health_over_max(new_health: float):
 	_health = max(new_health, 0.0)
 	health_changed.emit()
@@ -1483,6 +1498,7 @@ func get_base_health() -> float:
 
 func set_base_health(value: float):
 	_base_health = value
+	_lowest_health = value
 
 func get_base_health_bonus() -> float:
 	return _mod_value_map[Modification.Type.MOD_HP]
