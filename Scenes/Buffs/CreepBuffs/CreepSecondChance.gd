@@ -22,3 +22,8 @@ func on_damaged(event: Event):
 		var mana_to_subtract: float = creep.get_overall_mana() / 3
 		creep.subtract_mana(mana_to_subtract, false)
 		creep.get_player().display_floating_text("Second chance!", creep, Color.RED)
+
+#		NOTE: this is how it works in original game. Need to
+#		modify lowest health so that the creep deals less
+#		portal damage after reviving.
+		creep._lowest_health = creep.get_health() * creep.get_mana_ratio()
