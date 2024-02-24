@@ -51,4 +51,10 @@ monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/SelectionArea"]
 
+[node name="CreepBuffsContainer" type="HBoxContainer" parent="Visual"]
+offset_left = -51.0
+offset_top = -159.0
+offset_right = 51.0
+offset_bottom = -128.0
+
 [connection signal="value_changed" from="Visual/HealthBar" to="Visual/HealthBar" method="_on_value_changed"]

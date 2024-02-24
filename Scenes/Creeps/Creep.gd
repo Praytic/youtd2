@@ -49,6 +49,7 @@ var _id: int
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
+@onready var _creep_buffs_container = $Visual/CreepBuffsContainer
 
 
 #########################
@@ -497,3 +498,8 @@ func set_spawn_level(spawn_level: int):
 
 func get_special_list() -> Array[int]:
 	return _special_list
+
+
+func set_hovered(hovered: bool):
+	super.set_hovered(hovered)
+	_creep_buffs_container.set_visible(hovered)
