@@ -154,6 +154,11 @@ func _transition_from_tutorial_state():
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
 
+#	NOTE: tower tests need to run after everything else has
+#	been initialized
+	if Config.run_test_towers_tool():
+		TestTowersTool.run(self)
+
 
 #########################
 ###     Callbacks     ###

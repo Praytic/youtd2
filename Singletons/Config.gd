@@ -167,6 +167,9 @@ func allow_transform_in_build_mode() -> bool:
 func load_only_orc_scenes() -> bool:
 	return ProjectSettings.get_setting("application/config/load_only_orc_scenes") as bool
 
+func run_test_towers_tool() -> bool:
+	return ProjectSettings.get_setting("application/config/run_test_towers_tool") as bool
+
 func run_prerender_tool() -> bool:
 	return ProjectSettings.get_setting("application/config/run_prerender_tool") as bool
 
