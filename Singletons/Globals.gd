@@ -11,9 +11,9 @@ enum GameState {
 
 const item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 const tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
-const floating_text_scene: PackedScene = preload("res://Scenes/FloatingText.tscn")
-const explosion_scene: PackedScene = preload("res://Scenes/Explosion.tscn")
-const projectile_scene: PackedScene = preload("res://Scenes/Projectile.tscn")
+const floating_text_scene: PackedScene = preload("res://Scenes/HUD/FloatingText.tscn")
+const explosion_scene: PackedScene = preload("res://Scenes/Effects/Explosion.tscn")
+const projectile_scene: PackedScene = preload("res://Scenes/Unit/Projectile.tscn")
 const aura_scene: PackedScene = preload("res://Scenes/Buffs/Aura.tscn")
 const buff_range_area_scene: PackedScene = preload("res://Scenes/Buffs/BuffRangeArea.tscn")
 const corpse_scene: PackedScene = preload("res://Scenes/Creeps/CreepCorpse.tscn")
