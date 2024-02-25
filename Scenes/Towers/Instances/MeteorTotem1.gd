@@ -1,6 +1,15 @@
 extends Tower
 
 
+# NOTE: the autocast target_self in original script is set
+# to true BUT the autocast callback does a check "if target
+# != tower:", so the final behavior is Meteor Totem does NOT
+# apply the Attraction buff to itself.
+# 
+# I set autocast target_self to false to make it less
+# confusing.
+
+
 var sir_totem_attraction_bt: BuffType
 var sir_totem_torture_bt: BuffType
 var sir_totem_pt: ProjectileType
