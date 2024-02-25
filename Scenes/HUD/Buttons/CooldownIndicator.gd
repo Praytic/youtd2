@@ -28,13 +28,6 @@ var _progress_in_editor: float = 1.0
 ###     Built-in      ###
 #########################
 
-func _init():
-#	Setup points once inside static vars and reuse for all
-#	instances of CooldownIndicator
-	if CooldownIndicator._progress_point_list.is_empty():
-		CooldownIndicator._setup_points()
-
-
 func _process(_delta: float):
 	queue_redraw()
 
@@ -84,10 +77,12 @@ func _get_progress() -> float:
 ###       Static      ###
 #########################
 
+# Setup points once inside static vars and reuse for all
+# instances of CooldownIndicator.
 # Pick points on a square, spaced out by angle from
 # center. There is definitely a better way to do this but
 # whatever.
-static func _setup_points():
+static func _static_init():
 	_center_point = Vector2(0.5, 0.5)
 	_top_left_point = Vector2(0.0, 0.0)
 	_top_middle_point = Vector2(0.5, 0.0)
