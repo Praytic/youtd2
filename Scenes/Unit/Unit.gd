@@ -108,7 +108,7 @@ var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
 var _buff_groups: Array[String] = []
 
-var _selection_visual: Node = null
+var _selection_indicator: Node = null
 var _selection_outline: Node = null
 
 # This is the count of towers that are currently able to see
@@ -209,10 +209,10 @@ func _init():
 func _ready():
 	_target_bitmask = TargetType.make_unit_bitmask(self)
 
-	_selection_visual = Selection.new()
-	_selection_visual.hide()
-	_selection_visual.z_index = -1
-	add_child(_selection_visual)
+	_selection_indicator = SelectionIndicator.new()
+	_selection_indicator.hide()
+	_selection_indicator.z_index = -1
+	add_child(_selection_indicator)
 	
 	var regen_timer: Timer = Timer.new()
 	regen_timer.one_shot = false
@@ -1030,7 +1030,7 @@ func _set_unit_dimensions(sprite_dimensions: Vector2):
 # Sets size(radius) of selection circle.
 # Should be called in subclasses.
 func _set_selection_size(selection_size: float):
-	_selection_visual.visual_size = selection_size
+	_selection_indicator.visual_size = selection_size
 
 
 func _get_bounty_for_target(target: Unit) -> int:
@@ -1562,9 +1562,9 @@ func set_hovered(hovered: bool):
 	if _selected:
 		return
 
-	_selection_visual.modulate = Color.WHITE
+	_selection_indicator.modulate = Color.WHITE
 	_selection_outline.material.set_shader_parameter("line_color", Color.WHITE)
-	_selection_visual.set_visible(hovered)
+	_selection_indicator.set_visible(hovered)
 	_selection_outline.set_visible(hovered)
 
 
@@ -1578,8 +1578,8 @@ func set_selected(selected_arg: bool):
 	else:
 		selection_color = Color.GREEN
 
-	_selection_visual.modulate = selection_color
-	_selection_visual.set_visible(selected_arg)
+	_selection_indicator.modulate = selection_color
+	_selection_indicator.set_visible(selected_arg)
 	_selection_outline.material.set_shader_parameter("line_color", selection_color)
 	_selection_outline.set_visible(selected_arg)
 	_selected = selected_arg

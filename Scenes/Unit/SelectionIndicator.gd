@@ -1,7 +1,7 @@
-class_name Selection extends Node2D
+class_name SelectionIndicator extends Node2D
 
 # Draws a circle to indicate unit being selected or unit
-# being hovered by mouse
+# being hovered by mouse.
 
 # NOTE: set this to change size of drawn circle
 var visual_size: float = 10.0
