@@ -1,4 +1,4 @@
-extends Node
+class_name ItemType extends Node
 
 enum enm {
 	REGULAR,
@@ -6,18 +6,18 @@ enum enm {
 	CONSUMABLE,
 }
 
-const _string_map: Dictionary = {
+static var _string_map: Dictionary = {
 	ItemType.enm.REGULAR: "regular",
 	ItemType.enm.OIL: "oil",
 	ItemType.enm.CONSUMABLE: "consumable",
 }
 
 
-func convert_to_string(type: ItemType.enm) -> String:
+static func convert_to_string(type: ItemType.enm) -> String:
 	return _string_map[type]
 
 
-func from_string(string: String) -> ItemType.enm:
+static func from_string(string: String) -> ItemType.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:

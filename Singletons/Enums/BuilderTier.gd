@@ -1,4 +1,4 @@
-extends Node
+class_name BuilderTier extends Node
 
 
 enum enm {
@@ -9,7 +9,7 @@ enum enm {
 }
 
 
-const _string_map: Dictionary = {
+static var _string_map: Dictionary = {
 	BuilderTier.enm.BEGINNER: "beginner",
 	BuilderTier.enm.ADVANCED: "advanced",
 	BuilderTier.enm.SPECIALIST: "specialist",
@@ -17,11 +17,11 @@ const _string_map: Dictionary = {
 }
 
 
-func convert_to_string(type: BuilderTier.enm):
+static func convert_to_string(type: BuilderTier.enm):
 	return _string_map[type]
 
 
-func from_string(string: String) -> BuilderTier.enm:
+static func from_string(string: String) -> BuilderTier.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:

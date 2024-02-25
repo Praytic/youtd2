@@ -1,4 +1,4 @@
-extends Node
+class_name Element extends Node
 
 enum enm {
 	ICE ,
@@ -12,7 +12,7 @@ enum enm {
 }
 
 
-const _string_map: Dictionary = {
+static var _string_map: Dictionary = {
 	Element.enm.ICE: "ice",
 	Element.enm.NATURE: "nature",
 	Element.enm.FIRE: "fire",
@@ -23,7 +23,7 @@ const _string_map: Dictionary = {
 	Element.enm.NONE: "none",
 }
 
-const _flavor_text_map: Dictionary = {
+static var _flavor_text_map: Dictionary = {
 	Element.enm.ICE: "The element of frost magic. Ice towers use slowing and drowning effects on enemies.",
 	Element.enm.NATURE: "The element of life. Nature towers focus on supportive effects to enhance other towers. Strong against orc enemies.",
 	Element.enm.FIRE: "The element of destruction. Fire towers focus on dealing high damage and splash damage. Strong against humand and mass enemies.",
@@ -34,7 +34,7 @@ const _flavor_text_map: Dictionary = {
 	Element.enm.NONE: "none",
 }
 
-const _main_attack_types_map: Dictionary = {
+static var _main_attack_types_map: Dictionary = {
 	Element.enm.ICE: [AttackType.enm.ELEMENTAL, AttackType.enm.ENERGY],
 	Element.enm.NATURE: [AttackType.enm.PHYSICAL, AttackType.enm.DECAY, AttackType.enm.ESSENCE],
 	Element.enm.FIRE: [AttackType.enm.ELEMENTAL, AttackType.enm.DECAY],
@@ -46,7 +46,7 @@ const _main_attack_types_map: Dictionary = {
 }
 
 
-const _dmg_from_element_map: Dictionary = {
+static var _dmg_from_element_map: Dictionary = {
 	Element.enm.ICE: Modification.Type.MOD_DMG_FROM_ICE,
 	Element.enm.NATURE: Modification.Type.MOD_DMG_FROM_NATURE,
 	Element.enm.FIRE: Modification.Type.MOD_DMG_FROM_FIRE,
@@ -57,7 +57,7 @@ const _dmg_from_element_map: Dictionary = {
 	Element.enm.NONE: Modification.Type.MOD_DMG_FROM_ICE,
 }
 
-const _color_map: Dictionary = {
+static var _color_map: Dictionary = {
 	Element.enm.ICE: Color.CORNFLOWER_BLUE,
 	Element.enm.NATURE: Color.LIME_GREEN,
 	Element.enm.FIRE: Color.ORANGE_RED,
@@ -69,7 +69,7 @@ const _color_map: Dictionary = {
 }
 
 
-func from_string(string: String) -> Element.enm:
+static func from_string(string: String) -> Element.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:
@@ -80,15 +80,15 @@ func from_string(string: String) -> Element.enm:
 		return Element.enm.ICE
 
 
-func convert_to_string(element: Element.enm) -> String:
+static func convert_to_string(element: Element.enm) -> String:
 	return _string_map[element]
 
 
-func convert_to_dmg_from_element_mod(element: Element.enm) -> Modification.Type:
+static func convert_to_dmg_from_element_mod(element: Element.enm) -> Modification.Type:
 	return _dmg_from_element_map[element]
 
 
-func convert_to_colored_string(type: Element.enm) -> String:
+static func convert_to_colored_string(type: Element.enm) -> String:
 	var string: String = convert_to_string(type).capitalize()
 	var color: Color = get_color(type)
 	var out: String = Utils.get_colored_string(string, color)
@@ -96,7 +96,7 @@ func convert_to_colored_string(type: Element.enm) -> String:
 	return out
 
 
-func get_list() -> Array[Element.enm]:
+static func get_list() -> Array[Element.enm]:
 	return [
 		Element.enm.ICE,
 		Element.enm.NATURE,
@@ -108,19 +108,19 @@ func get_list() -> Array[Element.enm]:
 	]
 
 
-func get_color(element: Element.enm) -> Color:
+static func get_color(element: Element.enm) -> Color:
 	var color: Color = _color_map[element]
 
 	return color
 
 
-func get_flavor_text(element: Element.enm) -> String:
+static func get_flavor_text(element: Element.enm) -> String:
 	var flavor_text: String = _flavor_text_map[element]
 
 	return flavor_text
 
 
-func get_main_attack_types(element: Element.enm) -> String:
+static func get_main_attack_types(element: Element.enm) -> String:
 	var attack_enum_list: Array = _main_attack_types_map[element]
 	var attack_string_list: Array[String] = []
 

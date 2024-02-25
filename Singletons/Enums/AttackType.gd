@@ -1,4 +1,4 @@
-extends Node
+class_name AttackType extends Node
 
 enum enm {
 	PHYSICAL,
@@ -9,7 +9,7 @@ enum enm {
 	MAGIC,
 }
 
-var _list: Array[AttackType.enm] = [
+static var _list: Array[AttackType.enm] = [
 	AttackType.enm.PHYSICAL,
 	AttackType.enm.DECAY,
 	AttackType.enm.ENERGY,
@@ -18,7 +18,7 @@ var _list: Array[AttackType.enm] = [
 	AttackType.enm.MAGIC,
 ]
 
-const _string_map: Dictionary = {
+static var _string_map: Dictionary = {
 	AttackType.enm.PHYSICAL: "physical",
 	AttackType.enm.DECAY: "decay",
 	AttackType.enm.ENERGY: "energy",
@@ -27,7 +27,7 @@ const _string_map: Dictionary = {
 	AttackType.enm.MAGIC: "magic",
 }
 
-const _color_map: Dictionary = {
+static var _color_map: Dictionary = {
 	AttackType.enm.PHYSICAL: Color.TAN,
 	AttackType.enm.DECAY: Color.MEDIUM_PURPLE,
 	AttackType.enm.ENERGY: Color.DODGER_BLUE,
@@ -36,7 +36,7 @@ const _color_map: Dictionary = {
 	AttackType.enm.MAGIC: Color.DEEP_SKY_BLUE,
 }
 
-const _no_damage_to_immune_map: Dictionary = {
+static var _no_damage_to_immune_map: Dictionary = {
 	AttackType.enm.PHYSICAL: false,
 	AttackType.enm.DECAY: false,
 	AttackType.enm.ENERGY: false,
@@ -45,7 +45,7 @@ const _no_damage_to_immune_map: Dictionary = {
 	AttackType.enm.MAGIC: true,
 }
 
-const _damage_to_armor_map: Dictionary = {
+static var _damage_to_armor_map: Dictionary = {
 	AttackType.enm.PHYSICAL: {
 		ArmorType.enm.LUA: 1.8,
 		ArmorType.enm.SOL: 1.2,
@@ -97,11 +97,11 @@ const _damage_to_armor_map: Dictionary = {
 }
 
 
-func convert_to_string(type: AttackType.enm):
+static func convert_to_string(type: AttackType.enm):
 	return _string_map[type]
 
 
-func from_string(string: String) -> AttackType.enm:
+static func from_string(string: String) -> AttackType.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:
@@ -113,17 +113,17 @@ func from_string(string: String) -> AttackType.enm:
 
 
 # NOTE: AttackType.PHYSICAL.getDamageAgainst() in JASS
-func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) -> float:
+static func get_damage_against(attack_type: AttackType.enm, armor_type: ArmorType.enm) -> float:
 	var damage: float = _damage_to_armor_map[attack_type][armor_type]
 
 	return damage
 
 
-func deals_no_damage_to_immune(attack_type: AttackType.enm) -> bool:
+static func deals_no_damage_to_immune(attack_type: AttackType.enm) -> bool:
 	return _no_damage_to_immune_map[attack_type]
 
 
-func convert_to_colored_string(type: AttackType.enm) -> String:
+static func convert_to_colored_string(type: AttackType.enm) -> String:
 	var string: String = convert_to_string(type).capitalize()
 	var color: Color = _color_map[type]
 	var out: String = Utils.get_colored_string(string, color)
@@ -131,13 +131,13 @@ func convert_to_colored_string(type: AttackType.enm) -> String:
 	return out
 
 
-func get_list() -> Array[AttackType.enm]:
+static func get_list() -> Array[AttackType.enm]:
 	return _list.duplicate()
 
 
 # Returns text which says how much damage this attack type
 # deals against each armor type.
-func get_text_for_damage_dealt(attack_type: AttackType.enm) -> String:
+static func get_text_for_damage_dealt(attack_type: AttackType.enm) -> String:
 	var text: String = ""
 
 	var armor_type_list: Array[ArmorType.enm] = ArmorType.get_list()

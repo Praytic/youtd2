@@ -1,4 +1,4 @@
-extends Node
+class_name PlayerMode extends Node
 
 
 enum enm {
@@ -10,18 +10,18 @@ enum enm {
 }
 
 
-const _string_map: Dictionary = {
+static var _string_map: Dictionary = {
 	PlayerMode.enm.SINGLE: "single",
 	PlayerMode.enm.COOP: "coop",
 	PlayerMode.enm.SERVER: "server",
 }
 
 
-func convert_to_string(type: PlayerMode.enm):
+static func convert_to_string(type: PlayerMode.enm):
 	return _string_map[type]
 
 
-func from_string(string: String) -> PlayerMode.enm:
+static func from_string(string: String) -> PlayerMode.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:

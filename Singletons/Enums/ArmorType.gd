@@ -1,4 +1,4 @@
-extends Node
+class_name ArmorType extends Node
 
 enum enm {
 	HEL,
@@ -9,7 +9,7 @@ enum enm {
 	ZOD,
 }
 
-var _list: Array[ArmorType.enm] = [
+static var _list: Array[ArmorType.enm] = [
 	ArmorType.enm.HEL,
 	ArmorType.enm.MYT,
 	ArmorType.enm.LUA,
@@ -18,7 +18,7 @@ var _list: Array[ArmorType.enm] = [
 	ArmorType.enm.ZOD,
 ]
 
-const _string_map: Dictionary = {
+static var _string_map: Dictionary = {
 	ArmorType.enm.HEL: "hel",
 	ArmorType.enm.MYT: "myt",
 	ArmorType.enm.LUA: "lua",
@@ -27,7 +27,7 @@ const _string_map: Dictionary = {
 	ArmorType.enm.ZOD: "zod",
 }
 
-const _color_map: Dictionary = {
+static var _color_map: Dictionary = {
 	ArmorType.enm.HEL: Color.ORANGE_RED,
 	ArmorType.enm.MYT: Color.CORNFLOWER_BLUE,
 	ArmorType.enm.LUA: Color.LIME_GREEN,
@@ -37,7 +37,7 @@ const _color_map: Dictionary = {
 }
 
 
-func from_string(string: String) -> ArmorType.enm:
+static func from_string(string: String) -> ArmorType.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:
@@ -48,11 +48,11 @@ func from_string(string: String) -> ArmorType.enm:
 		return ArmorType.enm.ZOD
 
 
-func convert_to_string(type: ArmorType.enm) -> String:
+static func convert_to_string(type: ArmorType.enm) -> String:
 	return _string_map[type]
 
 
-func convert_to_colored_string(type: ArmorType.enm) -> String:
+static func convert_to_colored_string(type: ArmorType.enm) -> String:
 	var string: String = convert_to_string(type).capitalize()
 	var color: Color = _color_map[type]
 	var out: String = Utils.get_colored_string(string, color)
@@ -60,13 +60,13 @@ func convert_to_colored_string(type: ArmorType.enm) -> String:
 	return out
 
 
-func get_list() -> Array[ArmorType.enm]:
+static func get_list() -> Array[ArmorType.enm]:
 	return _list.duplicate()
 
 
 # Returns text which says how much damage this armor type
 # takes from each attack type.
-func get_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
+static func get_text_for_damage_taken(armor_type: ArmorType.enm) -> String:
 	var text: String = ""
 
 	var attack_type_list: Array[AttackType.enm] = AttackType.get_list()

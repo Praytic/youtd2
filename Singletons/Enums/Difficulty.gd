@@ -1,4 +1,4 @@
-extends Node
+class_name Difficulty extends Node
 
 
 enum enm {
@@ -10,7 +10,7 @@ enum enm {
 }
 
 
-const _string_map: Dictionary = {
+static var _string_map: Dictionary = {
 	Difficulty.enm.BEGINNER: "beginner",
 	Difficulty.enm.EASY: "easy",
 	Difficulty.enm.MEDIUM: "medium",
@@ -18,7 +18,7 @@ const _string_map: Dictionary = {
 	Difficulty.enm.EXTREME: "extreme",
 }
 
-const _color_map: Dictionary = {
+static var _color_map: Dictionary = {
 	Difficulty.enm.BEGINNER: Color.ROYAL_BLUE,
 	Difficulty.enm.EASY: Color.LIME_GREEN,
 	Difficulty.enm.MEDIUM: Color.YELLOW,
@@ -27,11 +27,11 @@ const _color_map: Dictionary = {
 }
 
 
-func convert_to_string(type: Difficulty.enm):
+static func convert_to_string(type: Difficulty.enm):
 	return _string_map[type]
 
 
-func from_string(string: String) -> Difficulty.enm:
+static func from_string(string: String) -> Difficulty.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:
@@ -42,13 +42,13 @@ func from_string(string: String) -> Difficulty.enm:
 		return Difficulty.enm.BEGINNER
 
 
-func get_color(difficulty: Difficulty.enm) -> Color:
+static func get_color(difficulty: Difficulty.enm) -> Color:
 	var color: Color = _color_map[difficulty]
 
 	return color
 
 
-func convert_to_colored_string(type: Difficulty.enm) -> String:
+static func convert_to_colored_string(type: Difficulty.enm) -> String:
 	var string: String = convert_to_string(type).capitalize()
 	var color: Color = get_color(type)
 	var out: String = Utils.get_colored_string(string, color)

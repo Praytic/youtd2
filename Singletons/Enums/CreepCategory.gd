@@ -1,4 +1,4 @@
-extends Node
+class_name CreepCategory extends Node
 
 enum enm {
 	UNDEAD,
@@ -10,7 +10,7 @@ enum enm {
 }
 
 
-const _string_map: Dictionary = {
+static var _string_map: Dictionary = {
 	CreepCategory.enm.UNDEAD: "undead",
 	CreepCategory.enm.MAGIC: "magic",
 	CreepCategory.enm.NATURE: "nature",
@@ -19,7 +19,7 @@ const _string_map: Dictionary = {
 	CreepCategory.enm.CHALLENGE: "challenge",
 }
 
-const _color_map: Dictionary = {
+static var _color_map: Dictionary = {
 	CreepCategory.enm.UNDEAD: Color.MEDIUM_PURPLE,
 	CreepCategory.enm.MAGIC: Color.CORNFLOWER_BLUE,
 	CreepCategory.enm.NATURE: Color.LIME_GREEN,
@@ -29,7 +29,7 @@ const _color_map: Dictionary = {
 }
 
 
-func from_string(string: String) -> CreepCategory.enm:
+static func from_string(string: String) -> CreepCategory.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:
@@ -40,17 +40,17 @@ func from_string(string: String) -> CreepCategory.enm:
 		return CreepCategory.enm.UNDEAD
 
 
-func convert_to_string(type: CreepCategory.enm) -> String:
+static func convert_to_string(type: CreepCategory.enm) -> String:
 	return _string_map[type]
 
 
-func get_color(type: CreepCategory.enm) -> Color:
+static func get_color(type: CreepCategory.enm) -> Color:
 	var color: Color = _color_map[type]
 
 	return color
 
 
-func convert_to_colored_string(type: CreepCategory.enm) -> String:
+static func convert_to_colored_string(type: CreepCategory.enm) -> String:
 	var string: String = convert_to_string(type).capitalize()
 	var color: Color = _color_map[type]
 	var out: String = Utils.get_colored_string(string, color)
@@ -58,7 +58,7 @@ func convert_to_colored_string(type: CreepCategory.enm) -> String:
 	return out
 
 
-func convert_to_mod_dmg_type(category: CreepCategory.enm) -> Modification.Type:
+static func convert_to_mod_dmg_type(category: CreepCategory.enm) -> Modification.Type:
 	const creep_category_to_mod_map: Dictionary = {
 		CreepCategory.enm.UNDEAD: Modification.Type.MOD_DMG_TO_MASS,
 		CreepCategory.enm.MAGIC: Modification.Type.MOD_DMG_TO_MAGIC,

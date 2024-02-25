@@ -1,4 +1,4 @@
-extends Node
+class_name CreepSize extends Node
 
 
 # NOTE: order is important to be able to compare
@@ -13,7 +13,7 @@ enum enm {
 }
 
 
-const _string_map: Dictionary = {
+static var _string_map: Dictionary = {
 	CreepSize.enm.MASS: "mass",
 	CreepSize.enm.NORMAL: "normal",
 	CreepSize.enm.AIR: "air",
@@ -24,7 +24,7 @@ const _string_map: Dictionary = {
 }
 
 
-const _color_map: Dictionary = {
+static var _color_map: Dictionary = {
 	CreepSize.enm.MASS: Color.ORANGE,
 	CreepSize.enm.NORMAL: Color.DARK_SEA_GREEN,
 	CreepSize.enm.AIR: Color.CORNFLOWER_BLUE,
@@ -35,7 +35,7 @@ const _color_map: Dictionary = {
 }
 
 
-const _item_drop_roll_count: Dictionary = {
+static var _item_drop_roll_count: Dictionary = {
 	CreepSize.enm.MASS: 1,
 	CreepSize.enm.NORMAL: 2,
 	CreepSize.enm.AIR: 4,
@@ -45,7 +45,7 @@ const _item_drop_roll_count: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 
-const _experience_map: Dictionary = {
+static var _experience_map: Dictionary = {
 	CreepSize.enm.MASS: 1,
 	CreepSize.enm.NORMAL: 2,
 	CreepSize.enm.AIR: 4,
@@ -55,7 +55,7 @@ const _experience_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 
-const _portal_damage_multiplier_map: Dictionary = {
+static var _portal_damage_multiplier_map: Dictionary = {
 	CreepSize.enm.MASS: 1,
 	CreepSize.enm.NORMAL: 2,
 	CreepSize.enm.AIR: 4,
@@ -65,7 +65,7 @@ const _portal_damage_multiplier_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 0,
 }
 
-const _gold_multiplier_map: Dictionary = {
+static var _gold_multiplier_map: Dictionary = {
 	CreepSize.enm.MASS: 1,
 	CreepSize.enm.NORMAL: 2,
 	CreepSize.enm.AIR: 2,
@@ -75,7 +75,7 @@ const _gold_multiplier_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 0,
 }
 
-const health_multiplier_map: Dictionary = {
+static var health_multiplier_map: Dictionary = {
 	CreepSize.enm.MASS: 0.3,
 	CreepSize.enm.NORMAL: 1.0,
 	CreepSize.enm.AIR: 1.0,
@@ -85,7 +85,7 @@ const health_multiplier_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 12.0,
 }
 
-const _base_mana_map: Dictionary = {
+static var _base_mana_map: Dictionary = {
 	CreepSize.enm.MASS: 100,
 	CreepSize.enm.NORMAL: 200,
 	CreepSize.enm.AIR: 400,
@@ -95,7 +95,7 @@ const _base_mana_map: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 3000,
 }
 
-func from_string(string: String) -> CreepSize.enm:
+static func from_string(string: String) -> CreepSize.enm:
 	var key = _string_map.find_key(string)
 	
 	if key != null:
@@ -106,11 +106,11 @@ func from_string(string: String) -> CreepSize.enm:
 		return CreepSize.enm.MASS
 
 
-func convert_to_string(type: CreepSize.enm) -> String:
+static func convert_to_string(type: CreepSize.enm) -> String:
 	return _string_map[type]
 
 
-func convert_to_colored_string(type: CreepSize.enm) -> String:
+static func convert_to_colored_string(type: CreepSize.enm) -> String:
 	var string: String = convert_to_string(type).capitalize()
 	var color: Color = _color_map[type]
 	var out: String = Utils.get_colored_string(string, color)
@@ -118,33 +118,33 @@ func convert_to_colored_string(type: CreepSize.enm) -> String:
 	return out
 
 
-func get_item_drop_roll_count(type: CreepSize.enm) -> int:
+static func get_item_drop_roll_count(type: CreepSize.enm) -> int:
 	return _item_drop_roll_count[type]
 
 
-func get_experience(type: CreepSize.enm) -> float:
+static func get_experience(type: CreepSize.enm) -> float:
 	return _experience_map[type]
 
 
-func get_gold_multiplier(type: CreepSize.enm) -> float:
+static func get_gold_multiplier(type: CreepSize.enm) -> float:
 	return _gold_multiplier_map[type]
 
 
-func get_portal_damage_multiplier(type: CreepSize.enm) -> float:
+static func get_portal_damage_multiplier(type: CreepSize.enm) -> float:
 	return _portal_damage_multiplier_map[type]
 
 
-func is_challenge(type: CreepSize.enm) -> bool:
+static func is_challenge(type: CreepSize.enm) -> bool:
 	var out: bool = type == CreepSize.enm.CHALLENGE_MASS || type == CreepSize.enm.CHALLENGE_BOSS
 
 	return out
 
 
-func get_base_mana(type: CreepSize.enm) -> float:
+static func get_base_mana(type: CreepSize.enm) -> float:
 	return _base_mana_map[type]
 
 
-func convert_to_mod_dmg_type(category: CreepSize.enm) -> Modification.Type:
+static func convert_to_mod_dmg_type(category: CreepSize.enm) -> Modification.Type:
 	const creep_size_to_mod_map: Dictionary = {
 		CreepSize.enm.MASS: Modification.Type.MOD_DMG_TO_MASS,
 		CreepSize.enm.NORMAL: Modification.Type.MOD_DMG_TO_NORMAL,
