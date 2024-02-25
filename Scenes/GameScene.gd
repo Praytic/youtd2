@@ -1,4 +1,4 @@
-extends Node
+class_name GameScene extends Node
 
 
 @export var map_node: Node2D
@@ -9,6 +9,8 @@ extends Node
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
+@export var _object_y_sort: Node2D
+static var _static_object_y_sort: Node2D = null
 
 
 #########################
@@ -17,6 +19,8 @@ extends Node
 
 func _ready():
 	print_verbose("GameScene has loaded.")
+	
+	_static_object_y_sort = _object_y_sort
 
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
@@ -71,6 +75,19 @@ func _unhandled_input(event: InputEvent):
 		match Globals.get_game_state():
 			Globals.GameState.PLAYING: _pause_the_game()
 			Globals.GameState.PAUSED: _unpause_the_game()
+
+
+#########################
+###      Public       ###
+#########################
+
+static func add_object_to_world(object: Node):
+	if _static_object_y_sort == null:
+		push_error("add_object_to_world() was called too early")
+
+		return
+
+	_static_object_y_sort.add_child(object, true)
 
 
 #########################

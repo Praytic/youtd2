@@ -1,7 +1,6 @@
 class_name UtilsStatic extends Node
 
 
-@onready var _object_container: Node2D
 @onready var _creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("CreepPathGround")
 
 
@@ -180,13 +179,6 @@ func unit_is_valid(unit) -> bool:
 	var is_valid: bool = is_instance_valid(unit) && !unit.is_dead()
 
 	return is_valid
-
-
-func add_object_to_world(object: Node):
-	if _object_container == null:
-		_object_container = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("ObjectYSort")
-
-	_object_container.add_child(object, true)
 
 
 # Chance should be in range [0.0, 1.0]

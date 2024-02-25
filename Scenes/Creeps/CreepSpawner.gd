@@ -166,7 +166,7 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 
 	wave.add_alive_creep(creep)
 
-	Utils.add_object_to_world(creep)
+	GameScene.add_object_to_world(creep)
 	print_verbose("Creep has been spawned [%s]." % creep)
 
 #	NOTE: buffs must be applied after creep has been added to

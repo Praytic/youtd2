@@ -392,7 +392,7 @@ func _start_interpolation_internal(target_unit: Unit, target_pos: Vector2, targe
 func _do_explosion_visual():
 	var explosion = Globals.explosion_scene.instantiate()
 	explosion.position = position
-	Utils.add_object_to_world(explosion)
+	GameScene.add_object_to_world(explosion)
 
 
 # Returns target position which is equal to current position
@@ -603,7 +603,7 @@ static func create(type: ProjectileType, caster: Unit, damage_ratio: float, crit
 #	paused because GameScene and it's children ignore pause
 #	mode. Map node is specifically configured to be
 #	pausable.
-	Utils.add_object_to_world(projectile)
+	GameScene.add_object_to_world(projectile)
 
 	return projectile
 
@@ -785,7 +785,7 @@ static func _create_internal_from_to(type: ProjectileType, caster: Unit, damage_
 		var time_until_reached: float = Utils.divide_safe(travel_distance, projectile._speed, 1.0)
 		projectile.set_remaining_lifetime(time_until_reached)
 
-	Utils.add_object_to_world(projectile)
+	GameScene.add_object_to_world(projectile)
 
 	return projectile
 
@@ -798,7 +798,7 @@ static func _create_internal_interpolated(type: ProjectileType, caster: Unit, da
 
 	projectile._z_arc = z_arc
 
-	Utils.add_object_to_world(projectile)
+	GameScene.add_object_to_world(projectile)
 
 	projectile._start_interpolation_internal(target_unit, target_pos, targeted)
 
