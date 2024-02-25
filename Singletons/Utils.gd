@@ -466,7 +466,7 @@ func setup_range_indicators(tower: Tower, parent: Node2D):
 #		fully located on the second floor.
 		range_indicator.enable_floor_collisions = unit_type == TargetType.UnitType.CREEPS
 		range_indicator.set_radius(indicator_radius)
-		range_indicator.texture_color = range_data.color
+		range_indicator.color = range_data.color
 
 #		NOTE: range indicators which affect towers will be
 #		drawn at same height as tower.
