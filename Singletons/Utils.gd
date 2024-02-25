@@ -455,8 +455,16 @@ func setup_range_indicators(tower: Tower, parent: Node2D):
 
 		occupied_radius_list.append(indicator_radius)
 
+		var target_type: TargetType = range_data.target_type
+		var unit_type: TargetType.UnitType = target_type._unit_type
+
 		var range_indicator: RangeIndicator = RangeIndicator.make()
-		range_indicator.enable_floor_collisions = false
+#		NOTE: enable floor collisions only for range
+#		indicators intended for creeps. For other range
+#		indicators, like tower auras, we should not do
+#		floor collisions because the range indicator may be
+#		fully located on the second floor.
+		range_indicator.enable_floor_collisions = unit_type == TargetType.UnitType.CREEPS
 		range_indicator.set_radius(indicator_radius)
 		range_indicator.texture_color = range_data.color
 
@@ -467,8 +475,6 @@ func setup_range_indicators(tower: Tower, parent: Node2D):
 #		one level lower, so that the indicator is "on the
 #		ground".
 		var y_offset: float
-		var target_type: TargetType = range_data.target_type
-		var unit_type: TargetType.UnitType = target_type._unit_type
 		if unit_type == TargetType.UnitType.CREEPS:
 			y_offset = Constants.TILE_HEIGHT
 		else:
