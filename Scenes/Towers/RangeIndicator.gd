@@ -23,7 +23,7 @@ var _prev_pos: Vector2 = Vector2.INF
 #########################
 
 func _draw():
-	_draw_circle_arc(self.position, 0, 360, color)
+	_draw_circle_arc(self.position, 0, 360)
 
 
 # NOTE: redraw when position changes because depending on
@@ -51,7 +51,7 @@ func set_radius(radius_wc3: float):
 ###      Private      ###
 #########################
 
-func _draw_circle_arc(center: Vector2, angle_from: float, angle_to: float, color: Color):
+func _draw_circle_arc(center: Vector2, angle_from: float, angle_to: float):
 	var transparent_color: Color = Color(color).darkened(0.5)
 	transparent_color.a = 0.2
 
