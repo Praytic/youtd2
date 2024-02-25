@@ -16,6 +16,7 @@ const TEXTURE_SCALE: float = 0.1
 # tower sprite.
 var y_offset: float = 0.0
 var ignore_layer: bool = false
+var _prev_pos: Vector2 = Vector2.INF
 
 
 #########################
@@ -24,6 +25,19 @@ var ignore_layer: bool = false
 
 func _draw():
 	_draw_circle_arc(self.position, 0, 360, texture_color)
+
+
+# NOTE: redraw when position changes because depending on
+# position, we need to draw different transparency sections.
+# For towers, we never redraw because they don't move.
+# For tower preview, we redraw as the mouse moves around.
+func _process(_delta: float):
+	var new_pos: Vector2 = global_position
+	var pos_changed: bool = new_pos != _prev_pos
+	_prev_pos = new_pos
+
+	if pos_changed:
+		queue_redraw()
 
 
 #########################
