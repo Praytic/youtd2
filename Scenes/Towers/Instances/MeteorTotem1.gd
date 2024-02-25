@@ -164,7 +164,7 @@ func release_meteor(buff: Buff, triggered_by_attack: bool):
 func sir_totem_torture_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
-	var damage: float = event.damage * (0.08 * 0.001 * caster.get_level())
+	var damage: float = event.damage * (0.08 + 0.001 * caster.get_level())
 	var target: Creep = buff.get_buffed_unit()
 
 	if event.damage >= 500 && !event.is_spell_damage():
