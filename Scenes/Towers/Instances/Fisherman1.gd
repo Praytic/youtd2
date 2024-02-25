@@ -131,7 +131,7 @@ func on_tower_details() -> MultiboardValues:
 
 func fisherman_slow_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
-	var net_start_time: float = Utils.get_game_time()
+	var net_start_time: float = GameTime.get_time()
 	buff.user_real = net_start_time
 
 
@@ -142,7 +142,7 @@ func fisherman_slow_bt_on_expire(event: Event):
 	var lvl: int = tower.get_level()
 	var movespeed_for_strangle: float = 120 + 2.4 * lvl
 	var net_start_time: float = buff.user_real
-	var net_duration: float = Utils.get_game_time() - net_start_time
+	var net_duration: float = GameTime.get_time() - net_start_time
 	var target_can_be_strangled: bool = target.get_current_movespeed() <= movespeed_for_strangle || target.is_stunned()
 	var strangle_chance: float = (0.03 + 0.002 * lvl) * (net_duration / 3.0)
 	var damage_for_boss: float = tower.get_current_attack_damage_with_bonus() * (4 + 0.16 * lvl)

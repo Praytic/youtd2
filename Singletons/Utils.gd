@@ -1,17 +1,8 @@
 class_name UtilsStatic extends Node
 
 
-var _current_game_time: float = 0.0
-
 @onready var _object_container: Node2D
 @onready var _creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("CreepPathGround")
-
-
-func _process(delta: float):
-	var need_to_record_game_time: bool = Globals.get_game_state() == Globals.GameState.PLAYING && WaveLevel.get_current() > 0
-
-	if need_to_record_game_time:
-		_current_game_time += delta
 
 
 # NOTE: point should be isometric
@@ -87,17 +78,6 @@ func get_animated_sprite_dimensions(sprite: AnimatedSprite2D, animation_name: St
 	return sprite_dimensions
 
 
-# Returns current time of day in the game world, in hours.
-# Between 0.0 and 24.0.
-# NOTE: GetFloatGameState(GAME_STATE_TIME_OF_DAY) in JASS
-func get_time_of_day() -> float:
-	var irl_seconds: float = get_game_time()
-	var game_world_hours: float = Constants.INITIAL_TIME_OF_DAY + irl_seconds * Constants.IRL_SECONDS_TO_GAME_WORLD_HOURS
-	var time_of_day: float = fmod(game_world_hours, 24.0)
-
-	return time_of_day
-
-
 # NOTE: Game.getMaxLevel() in JASS
 func get_max_level() -> int:
 	return PregameSettings.get_wave_count()
@@ -109,13 +89,6 @@ func get_player_state(_player: Player, state: PlayerState.enm) -> float:
 		PlayerState.enm.RESOURCE_GOLD: return GoldControl.get_gold()
 
 	return 0.0
-
-
-# NOTE: Game.getGameTime() in JASS
-# Returns time in seconds since the game started. Note that
-# this doesn't include the time spent in pre game menu.
-func get_game_time() -> float:
-	return _current_game_time
 
 
 func get_colored_string(string: String, color: Color) -> String:

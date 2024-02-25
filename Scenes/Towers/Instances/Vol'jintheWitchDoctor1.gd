@@ -179,13 +179,13 @@ func on_damage(event: Event):
 	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var purged_count: int = 0
-	var purify_is_on_cd: bool = tower.time_for_next_purify > Utils.get_game_time()
+	var purify_is_on_cd: bool = tower.time_for_next_purify > GameTime.get_time()
 	
 	if purify_is_on_cd:
 		return
 
 	var purify_cd: float = 4.0 - 0.04 * tower.get_level()
-	tower.time_for_next_purify = Utils.get_game_time() + purify_cd
+	tower.time_for_next_purify = GameTime.get_time() + purify_cd
 
 #	Remove buffs (positive and negative buffs) and count them
 	while true:
@@ -225,7 +225,7 @@ func on_create(_preceding: Tower):
 		ward_list.append(ward)
 
 	active_ward_count = 0
-	time_for_next_purify = Utils.get_game_time() - 4
+	time_for_next_purify = GameTime.get_time() - 4
 	periodic_interval = 0.0
 
 

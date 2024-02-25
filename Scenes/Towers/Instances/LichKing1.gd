@@ -101,7 +101,7 @@ func natac_lich_aura_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Unit = buff.get_caster()
 
-	var buff_apply_time: int = int(Utils.get_game_time())
+	var buff_apply_time: int = int(GameTime.get_time())
 	var max_dps: int = buff.get_level()
 	var buff_stored_damage: float = 0.0
 	var caster_id: int = caster.get_instance_id()
@@ -144,7 +144,7 @@ func natac_lich_aura_bt_on_cleanup(event: Event):
 	var max_dps: int = buff.user_int2
 	var buff_stored_damage: float = buff.user_real
 
-	var damage: float = (Utils.get_game_time() - apply_time) * max_dps
+	var damage: float = (GameTime.get_time() - apply_time) * max_dps
 	damage += buff_stored_damage
 
 	if !target.is_dead():

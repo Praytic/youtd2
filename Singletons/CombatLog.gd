@@ -28,7 +28,7 @@ class Entry:
 
 	func _init(type: CombatLog.Type):
 		_type = type
-		_timestamp = Utils.get_game_time()
+		_timestamp = GameTime.get_time()
 		_string = "default log entry string"
 
 
