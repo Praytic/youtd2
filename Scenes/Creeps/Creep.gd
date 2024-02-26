@@ -517,3 +517,8 @@ func set_special_list(special_list: Array[int]):
 func set_hovered(hovered: bool):
 	super.set_hovered(hovered)
 	_creep_specials_container.set_visible(hovered)
+
+
+func set_selected(selected: bool):
+	super.set_selected(selected)
+	_creep_specials_container.set_visible(selected)
