@@ -82,7 +82,7 @@ func load_triggers(triggers: BuffType):
 
 
 func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Magic Boost", 350, TargetType.new(TargetType.CREEPS))]
+	return [Tower.RangeData.new("Magic Boost", 350, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():
