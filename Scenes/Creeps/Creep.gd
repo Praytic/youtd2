@@ -510,6 +510,8 @@ func set_special_list(special_list: Array[int]):
 		var icon_texture_rect: PackedScene = load(icon_path) 
 		
 		_creep_specials_container.add_child(icon_texture_rect.instantiate())
+	
+	_special_list = special_list
 
 
 func set_hovered(hovered: bool):
