@@ -3,9 +3,9 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_r4ocg"]
 [ext_resource type="StyleBox" uid="uid://dt873umx4sexx" path="res://Resources/Theme/BottomMenuBar/rect_container_top_menu.tres" id="3_yvqb7"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar.gd" id="6"]
+[ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/GoldStatusPanel.gd" id="6_o045d"]
+[ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/KnowledgeTomeStatusPanel.gd" id="8_3y8kb"]
 [ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.tscn" id="9_rbj65"]
-[ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/Gold.gd" id="10_ewb28"]
-[ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/KnowledgeTome.gd" id="11_hpp3y"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/FoodStatusPanel.gd" id="13_b8pl0"]
 [ext_resource type="StyleBox" uid="uid://8o35dfhhk4km" path="res://Resources/Theme/BottomMenuBar/resource_status_panel.tres" id="20_gir8r"]
 [ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://Resources/Textures/UI/Icons/gold_icon.tres" id="25_tnas5"]
@@ -65,7 +65,7 @@ alignment = 1
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("20_gir8r")
-script = ExtResource("10_ewb28")
+script = ExtResource("6_o045d")
 icon_texture = ExtResource("25_tnas5")
 default_label_text = "0"
 
@@ -73,7 +73,7 @@ default_label_text = "0"
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("20_gir8r")
-script = ExtResource("11_hpp3y")
+script = ExtResource("8_3y8kb")
 icon_texture = ExtResource("27_ymqsm")
 default_label_text = "0"
 
