@@ -125,7 +125,7 @@ func _ready():
 #	nodes may have default values which we don't want to
 #	override
 	_visual.position.y -= Constants.TILE_HEIGHT
-	_selection_visual.position.y -= Constants.TILE_HEIGHT
+	_selection_indicator.position.y -= Constants.TILE_HEIGHT
 
 	var base_mana: float = get_csv_property(CsvProperty.MANA).to_float()
 	set_base_mana(base_mana)

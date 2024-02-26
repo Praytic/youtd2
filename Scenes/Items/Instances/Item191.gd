@@ -31,7 +31,7 @@ func on_attack(event: Event):
 	var t: Unit
 
 	if itm.user_int > 0 && itm.user_int < creep_level:
-		reward_value = 12.0 - (Utils.get_game_time() - itm.user_int2)
+		reward_value = 12.0 - (GameTime.get_time() - itm.user_int2)
 
 		if reward_value > 0:
 			CombatLog.log_item_ability(self, null, "Reward")
@@ -41,7 +41,7 @@ func on_attack(event: Event):
 			itm.user_real = itm.user_real + reward_value
 
 	itm.user_int = max(itm.user_int, creep_level)
-	itm.user_int2 = roundi(Utils.get_game_time())
+	itm.user_int2 = roundi(GameTime.get_time())
 
 
 func on_create():

@@ -28,11 +28,56 @@ var _progress_in_editor: float = 1.0
 ###     Built-in      ###
 #########################
 
-func _init():
-#	Setup points once inside static vars and reuse for all
-#	instances of CooldownIndicator
-	if CooldownIndicator._progress_point_list.is_empty():
-		CooldownIndicator._setup_points()
+# Setup points once inside static vars and reuse for all
+# instances of CooldownIndicator.
+# Pick points on a square, spaced out by angle from
+# center. There is definitely a better way to do this but
+# whatever.
+static func _static_init():
+	_center_point = Vector2(0.5, 0.5)
+	_top_left_point = Vector2(0.0, 0.0)
+	_top_middle_point = Vector2(0.5, 0.0)
+	_top_right_point = Vector2(1.0, 0.0)
+	_bottom_left_point = Vector2(0.0, 1.0)
+	_bottom_right_point = Vector2(1.0, 1.0)
+
+#	Generate "progress points", these points are spread
+#	evenly along a square perimeter.
+
+# 	From top center to top left
+	for angle in range(0, 45, ANGLE_STEP):
+		var x: float = 0.5 - 0.5 * tan(deg_to_rad(angle))
+		var y: float = 0
+		var point: Vector2 = Vector2(x, y)
+		_progress_point_list.append(point)
+
+#	From top left to bottom left
+	for angle in range(-45, 45, ANGLE_STEP):
+		var x: float = 0
+		var y: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
+		var point: Vector2 = Vector2(x, y)
+		_progress_point_list.append(point)
+
+# 	From bottom left to bottom right
+	for angle in range(-45, 45, ANGLE_STEP):
+		var x: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
+		var y: float = 1.0
+		var point: Vector2 = Vector2(x, y)
+		_progress_point_list.append(point)
+
+#	From bottom right to top right
+	for angle in range(45, -45, -ANGLE_STEP):
+		var x: float = 1.0
+		var y: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
+		var point: Vector2 = Vector2(x, y)
+		_progress_point_list.append(point)
+
+# 	From top right to top center
+	for angle in range(-45, 0, ANGLE_STEP):
+		var x: float = 0.5 - 0.5 * tan(deg_to_rad(angle))
+		var y: float = 0
+		var point: Vector2 = Vector2(x, y)
+		_progress_point_list.append(point)
 
 
 func _process(_delta: float):
@@ -83,56 +128,6 @@ func _get_progress() -> float:
 #########################
 ###       Static      ###
 #########################
-
-# Pick points on a square, spaced out by angle from
-# center. There is definitely a better way to do this but
-# whatever.
-static func _setup_points():
-	_center_point = Vector2(0.5, 0.5)
-	_top_left_point = Vector2(0.0, 0.0)
-	_top_middle_point = Vector2(0.5, 0.0)
-	_top_right_point = Vector2(1.0, 0.0)
-	_bottom_left_point = Vector2(0.0, 1.0)
-	_bottom_right_point = Vector2(1.0, 1.0)
-
-#	Generate "progress points", these points are spread
-#	evenly along a square perimeter.
-
-# 	From top center to top left
-	for angle in range(0, 45, ANGLE_STEP):
-		var x: float = 0.5 - 0.5 * tan(deg_to_rad(angle))
-		var y: float = 0
-		var point: Vector2 = Vector2(x, y)
-		_progress_point_list.append(point)
-
-#	From top left to bottom left
-	for angle in range(-45, 45, ANGLE_STEP):
-		var x: float = 0
-		var y: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
-		var point: Vector2 = Vector2(x, y)
-		_progress_point_list.append(point)
-
-# 	From bottom left to bottom right
-	for angle in range(-45, 45, ANGLE_STEP):
-		var x: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
-		var y: float = 1.0
-		var point: Vector2 = Vector2(x, y)
-		_progress_point_list.append(point)
-
-#	From bottom right to top right
-	for angle in range(45, -45, -ANGLE_STEP):
-		var x: float = 1.0
-		var y: float = 0.5 + 0.5 * tan(deg_to_rad(angle))
-		var point: Vector2 = Vector2(x, y)
-		_progress_point_list.append(point)
-
-# 	From top right to top center
-	for angle in range(-45, 0, ANGLE_STEP):
-		var x: float = 0.5 - 0.5 * tan(deg_to_rad(angle))
-		var y: float = 0
-		var point: Vector2 = Vector2(x, y)
-		_progress_point_list.append(point)
-
 
 static func _generate_draw_points(progress: float, icon_size: float) -> PackedVector2Array:
 	var current_progress_point: int = int(progress * (_progress_point_list.size() - 1))

@@ -21,7 +21,7 @@ func load_modifier(modifier: Modifier):
 
 func periodic(_event: Event):
 	var itm: Item = self
-	var night: float = Utils.get_time_of_day()
+	var night: float = GameTime.get_time_of_day()
 	var target_effect: int
 	var tower: Unit = itm.get_carrier()
 

@@ -167,7 +167,7 @@ func _on_update_stats_timer_timeout():
 	var gold_farmed: float = GoldControl.get_gold_farmed()
 	var gold_farmed_string: String = TowerInfo.int_format(floori(gold_farmed))
 
-	var game_time: float = Utils.get_game_time()
+	var game_time: float = GameTime.get_time()
 	var game_time_hours: int = floori(game_time / 3600)
 	var game_time_minutes: int = floori((game_time - game_time_hours * 3600) / 60)
 	var game_time_seconds: int = floori(game_time - game_time_hours * 3600 - game_time_minutes * 60)

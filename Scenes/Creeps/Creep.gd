@@ -391,11 +391,11 @@ func _on_death(_event: Event):
 		var death_animation: String = _get_death_animation()
 		corpse.setup_sprite(_sprite, death_animation)
 		corpse.position = position
-		Utils.add_object_to_world(corpse)
+		GameScene.add_object_to_world(corpse)
 
 		var blood_pool: Node2D = Globals.blood_pool_scene.instantiate()
 		blood_pool.position = position
-		Utils.add_object_to_world(blood_pool)
+		GameScene.add_object_to_world(blood_pool)
 
 
 #########################
