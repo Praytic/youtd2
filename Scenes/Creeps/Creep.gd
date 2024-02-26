@@ -506,15 +506,10 @@ func set_special_list(special_list: Array[int]):
 	for special_id in special_list:
 		var special = WaveSpecial.get_special_buff_map()[special_id]
 		var icon_name = special.get_script().resource_path.get_file().trim_suffix(".gd")
-		var icon_name_camel = Utils.camel_to_snake(icon_name)
-		var icon_path: String = "res://Resources/Textures/UI/Icons/CreepBuffs/%s.tres" % icon_name_camel
-		var icon_texture: Texture2D = load(icon_path) 
-		var icon_texture_rect: TextureRect = TextureRect.new()
-		icon_texture_rect.texture = icon_texture
-		icon_texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
-		icon_texture_rect.name = icon_name + "Special"
+		var icon_path: String = "res://Scenes/Creeps/Specials/%sSpecial.tscn" % icon_name
+		var icon_texture_rect: PackedScene = load(icon_path) 
 		
-		_creep_specials_container.add_child(icon_texture_rect)
+		_creep_specials_container.add_child(icon_texture_rect.instantiate())
 
 
 func set_hovered(hovered: bool):
