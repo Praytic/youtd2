@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf783dn7rl3wl"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/GlowingOutline2.gdshader" id="1_6nmdr"]
+[ext_resource type="Texture2D" uid="uid://dy6pmoeog7xwx" path="res://Resources/Textures/UI/Icons/CreepBuffs/creep_slow.tres" id="2_cjlqi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_haw6a"]
+resource_local_to_scene = true
+shader = ExtResource("1_6nmdr")
+shader_parameter/max_line_width = 3.0
+shader_parameter/min_line_width = 2.08165e-12
+shader_parameter/freq = 10.0
+shader_parameter/block_size = 4.0
+shader_parameter/outline_colour = Color(0.0784314, 0.576471, 1, 1)
+shader_parameter/base_colour = Color(0.733333, 1, 0.733333, 1)
+
+[node name="CreepSlowSpecial" type="TextureRect"]
+modulate = Color(1, 0.117647, 1, 1)
+material = SubResource("ShaderMaterial_haw6a")
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("2_cjlqi")
+expand_mode = 3

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://6cjvjiids6ld"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/GlowingOutline2.gdshader" id="1_fpx8o"]
+[ext_resource type="Texture2D" uid="uid://digugf0f1udtb" path="res://Resources/Textures/UI/Icons/CreepBuffs/creep_protector.tres" id="2_ux0c6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_haw6a"]
+resource_local_to_scene = true
+shader = ExtResource("1_fpx8o")
+shader_parameter/max_line_width = 3.0
+shader_parameter/min_line_width = 2.08165e-12
+shader_parameter/freq = 10.0
+shader_parameter/block_size = 4.0
+shader_parameter/outline_colour = Color(0.756863, 0.592157, 0.403922, 1)
+shader_parameter/base_colour = Color(1, 0.894118, 0.709804, 1)
+
+[node name="CreepProtectorSpecial" type="TextureRect"]
+modulate = Color(1, 0.117647, 1, 1)
+material = SubResource("ShaderMaterial_haw6a")
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("2_ux0c6")
+expand_mode = 3

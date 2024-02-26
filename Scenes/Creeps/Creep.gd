@@ -49,7 +49,7 @@ var _id: int
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
-@onready var _creep_buffs_container = $Visual/CreepBuffsContainer
+@onready var _creep_specials_container = $Visual/CreepSpecialsContainer
 
 
 #########################
@@ -500,6 +500,23 @@ func get_special_list() -> Array[int]:
 	return _special_list
 
 
+func set_special_list(special_list: Array[int]):
+	var creep_specials = _creep_specials_container.get_children()
+	creep_specials.clear()
+	for special_id in special_list:
+		var special = WaveSpecial.get_special_buff_map()[special_id]
+		var icon_name = special.get_script().resource_path.get_file().trim_suffix(".gd")
+		var icon_name_camel = Utils.camel_to_snake(icon_name)
+		var icon_path: String = "res://Resources/Textures/UI/Icons/CreepBuffs/%s.tres" % icon_name_camel
+		var icon_texture: Texture2D = load(icon_path) 
+		var icon_texture_rect: TextureRect = TextureRect.new()
+		icon_texture_rect.texture = icon_texture
+		icon_texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		icon_texture_rect.name = icon_name + "Special"
+		
+		_creep_specials_container.add_child(icon_texture_rect)
+
+
 func set_hovered(hovered: bool):
 	super.set_hovered(hovered)
-	_creep_buffs_container.set_visible(hovered)
+	_creep_specials_container.set_visible(hovered)

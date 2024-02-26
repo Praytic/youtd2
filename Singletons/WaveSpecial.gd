@@ -166,7 +166,7 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 
 			return
 
-	creep._special_list = special_list
+	creep.set_special_list(special_list)
 
 	var hp_modifier: float = _get_hp_modifier(special_list)
 	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
@@ -444,3 +444,7 @@ func _special_applies_to_creep(special: int, creep: Creep) -> bool:
 		special_applies = true
 
 	return special_applies
+
+
+func get_special_buff_map() -> Dictionary:
+	return _buff_map
