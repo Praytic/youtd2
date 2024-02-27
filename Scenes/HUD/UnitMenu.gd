@@ -14,7 +14,6 @@ const ITEMS_CONTAINER_BUTTON_SIZE = 82
 @export var _title_label: Label
 @export var _unit_info_label: RichTextLabel
 @export var _unit_icon_texture: TextureRect
-@export var _creep_special_template: VBoxContainer
 @export var _unit_level_label: Label
 @export var _unit_control_menu: VBoxContainer
 @export var _unit_stats_menu: ScrollContainer

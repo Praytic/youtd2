@@ -107,8 +107,6 @@ func _process(delta):
 # Non-idempotent setup method which adds specials icons
 # to the SpecialsIconContainer.
 func setup_special_list():
-	var creep_specials = _specials_icon_container.get_children()
-	
 	for special_id in _special_list:
 		var special = WaveSpecial.get_special_buff(special_id)
 		var icon_name = special.get_script().resource_path.get_file().trim_suffix(".gd")
@@ -526,6 +524,6 @@ func set_hovered(hovered: bool):
 		_specials_icon_container.set_visible(is_selected())
 
 
-func set_selected(selected: bool):
-	super.set_selected(selected)
-	_specials_icon_container.set_visible(selected)
+func set_selected(value: bool):
+	super.set_selected(value)
+	_specials_icon_container.set_visible(value)
