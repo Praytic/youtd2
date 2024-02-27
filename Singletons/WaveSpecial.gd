@@ -22,6 +22,7 @@ enum CsvProperty {
 	COLOR,
 	DESCRIPTION,
 	ENABLED,
+	ICON_PATH,
 }
 
 
@@ -147,6 +148,13 @@ func arrays_intersect(a: Array, b: Array) -> bool:
 	return false
 
 
+func get_special_icon(special: int) -> TextureRect:
+	var icon_path: String = _get_property(special, WaveSpecial.CsvProperty.ICON_PATH)
+	var icon: PackedScene = load(icon_path)
+	
+	return icon.instantiate()
+
+
 func get_special_name(special: int) -> String:
 	var string: String = _get_property(special, WaveSpecial.CsvProperty.NAME)
 
@@ -166,7 +174,8 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 
 			return
 
-	creep._special_list = special_list
+	creep.set_special_list(special_list)
+	creep.setup_special_list()
 
 	var hp_modifier: float = _get_hp_modifier(special_list)
 	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
@@ -444,3 +453,7 @@ func _special_applies_to_creep(special: int, creep: Creep) -> bool:
 		special_applies = true
 
 	return special_applies
+
+
+func get_special_buff(special_id) -> BuffType:
+	return _buff_map[special_id]

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_dp5xs"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="4_65e54"]
 [ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="5_axr2n"]
+[ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/TowerMenu/SpecialContainer.tscn" id="6_njlch"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="7_0rpr1"]
 [ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="7_jx6gy"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="8_jstgw"]
@@ -71,7 +72,7 @@ margin = Rect2(10, 10, 20, 20)
 atlas = ExtResource("9_02rfc")
 region = Rect2(0, 256, 128, 128)
 
-[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_title_label", "_unit_info_label", "_unit_icon_texture", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_creep_stats_menu", "_buffs_container", "_info_label", "_specials_container", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container", "_specials_scroll_container")]
+[node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_title_label", "_unit_info_label", "_unit_icon_texture", "_creep_special_template", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_creep_stats_menu", "_buffs_container", "_info_label", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container", "_specials_scroll_container", "_creep_specials_container", "_tower_specials_container")]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -95,21 +96,23 @@ _info_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxConta
 _reset_sell_button_timer = NodePath("ResetSellButtonTimer")
 _items_box_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/ItemsContainer")
 _title_label = NodePath("MainContainer/MarginContainer2/TitleLabel")
-_unit_info_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer/SpecialsLabel")
+_unit_info_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/TowerSpecialsContainer/SpecialsLabel")
 _unit_icon_texture = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer/IconContainer/UnitIcon")
+_creep_special_template = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/CreepSpecialsContainer/SpecialContainer")
 _unit_level_label = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/UnitLevelLabel")
 _unit_control_menu = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu")
 _unit_stats_menu = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitStatsMenu")
 _creep_stats_menu = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/CreepStatsMenu")
 _buffs_container = NodePath("MainContainer/MarginContainer3/BuffContainer")
 _info_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer2/InfoLabel")
-_specials_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer")
 _tier_icon_texture = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/InfoContainer/HBoxContainer/MarginContainer/MarginContainer/AspectRatioContainer/TierIcon")
-_specials_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer/SpecialsLabel")
+_specials_label = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/TowerSpecialsContainer/SpecialsLabel")
 _inventory_empty_slots = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots")
 _inventory = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory")
 _main_container = NodePath("MainContainer")
 _specials_scroll_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer")
+_creep_specials_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/CreepSpecialsContainer")
+_tower_specials_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/TowerSpecialsContainer")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 
@@ -281,17 +284,26 @@ theme_override_constants/margin_bottom = 10
 [node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="SpecialsContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer"]
+[node name="TowerSpecialsContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SpecialsLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/SpecialsContainer"]
+[node name="SpecialsLabel" type="RichTextLabel" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/TowerSpecialsContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "	[color=GOLD]320[/color] AoE: [color=GOLD]50%[/color] damage
 [color=GOLD]+15%[/color] damage to mass ([color=GOLD]+1%[/color]/lvl)
 [color=GOLD]+15%[/color] damage to humanoid ([color=GOLD]+1%[/color]/lvl)"
 fit_content = true
+
+[node name="CreepSpecialsContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpecialContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/CreepSpecialsContainer" instance=ExtResource("6_njlch")]
+visible = false
+layout_mode = 2
 
 [node name="Inventory" type="PanelContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu"]
 custom_minimum_size = Vector2(0, 93)

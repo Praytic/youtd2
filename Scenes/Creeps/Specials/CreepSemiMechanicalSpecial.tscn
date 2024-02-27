@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhsl4h3i1yovg"]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/GlowingOutline2.gdshader" id="1_7sf1x"]
+[ext_resource type="Texture2D" uid="uid://d3o7wv5cxj5lo" path="res://Resources/Textures/UI/Icons/CreepBuffs/creep_semi_mechanical.tres" id="2_p3ku5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_haw6a"]
+resource_local_to_scene = true
+shader = ExtResource("1_7sf1x")
+shader_parameter/max_line_width = 3.0
+shader_parameter/min_line_width = 2.08165e-12
+shader_parameter/freq = 10.0
+shader_parameter/block_size = 4.0
+shader_parameter/outline_colour = Color(0.756863, 0.756863, 0.756863, 1)
+shader_parameter/base_colour = Color(0.364706, 0.47451, 0.815686, 1)
+
+[node name="CreepSemiMechanicalSpecial" type="TextureRect"]
+modulate = Color(1, 0.117647, 1, 1)
+material = SubResource("ShaderMaterial_haw6a")
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("2_p3ku5")
+expand_mode = 3
