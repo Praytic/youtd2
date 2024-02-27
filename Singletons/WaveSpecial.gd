@@ -455,5 +455,5 @@ func _special_applies_to_creep(special: int, creep: Creep) -> bool:
 	return special_applies
 
 
-func get_special_buff_map() -> Dictionary:
-	return _buff_map
+func get_special_buff(special_id) -> BuffType:
+	return _buff_map[special_id]
