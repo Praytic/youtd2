@@ -520,7 +520,10 @@ func set_special_list(special_list: Array[int]):
 
 func set_hovered(hovered: bool):
 	super.set_hovered(hovered)
-	_specials_icon_container.set_visible(hovered)
+	if hovered:
+		_specials_icon_container.set_visible(hovered)
+	else:
+		_specials_icon_container.set_visible(is_selected())
 
 
 func set_selected(selected: bool):
