@@ -42,7 +42,6 @@ func _ready():
 		container_for_button.add_child(button)
 	
 #	TODO: unhide these containers when their builders are implemented
-	_specialist_container.hide()
 	_hardcore_container.hide()
 
 

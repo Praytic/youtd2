@@ -1,7 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://cngv1rgplre2c"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_xs0tv"]
-[ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://cdamkmych2jb3" path="res://Scenes/HUD/TopMenuBar.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://bx03slt7u3oce" path="res://Scenes/HUD/TowersStatusCard.tscn" id="8_ts7ak"]
 [ext_resource type="PackedScene" uid="uid://dj7llpr0oenw7" path="res://Scenes/HUD/ItemsStatusCard.tscn" id="9_16kcd"]
@@ -16,6 +15,7 @@
 [ext_resource type="Script" path="res://Scenes/HUD/AutocastTooltipContainer.gd" id="13_fj5t7"]
 [ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://Assets/UI/HUD/tranquility_face.png" id="13_n0pc1"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://Scenes/HUD/CombatLogWindow.tscn" id="14_g64vx"]
+[ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar/BottomMenuBar.tscn" id="15_ir4hq"]
 [ext_resource type="PackedScene" uid="uid://chojoq00uw7ng" path="res://Scenes/HUD/UnitMenu.tscn" id="15_rfxf1"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
@@ -221,7 +221,7 @@ _menu_card = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard")
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="BottomMenuBar" parent="MarginContainer/All/Bottom" instance=ExtResource("5")]
+[node name="BottomMenuBar" parent="MarginContainer/All/Bottom" instance=ExtResource("15_ir4hq")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
