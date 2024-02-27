@@ -140,7 +140,7 @@ func _update_creep_specials_container(creep: Creep):
 		var special_name: String = WaveSpecial.get_special_name(special)
 		var special_description: String = WaveSpecial.get_description(special)
 		var special_icon: TextureRect = WaveSpecial.get_special_icon(special)
-		var creep_special = SpecialContainer.make(special_name, special_icon, special_description)
+		var creep_special: SpecialContainer = SpecialContainer.make(special_name, special_icon, special_description)
 		
 		_creep_specials_container.add_child(creep_special)
 

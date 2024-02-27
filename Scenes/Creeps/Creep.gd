@@ -108,8 +108,8 @@ func _process(delta):
 # to the SpecialsIconContainer.
 func setup_special_list():
 	for special_id in _special_list:
-		var special = WaveSpecial.get_special_buff(special_id)
-		var icon_name = special.get_script().resource_path.get_file().trim_suffix(".gd")
+		var special: BuffType = WaveSpecial.get_special_buff(special_id)
+		var icon_name: String = special.get_script().resource_path.get_file().trim_suffix(".gd")
 		var icon_path: String = "res://Scenes/Creeps/Specials/%sSpecial.tscn" % icon_name
 		var icon_texture_rect: PackedScene = load(icon_path) 
 		
