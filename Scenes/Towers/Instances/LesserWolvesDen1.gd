@@ -6,17 +6,14 @@ var speed_aura: BuffType
 
 func get_tier_stats() -> Dictionary:
 	return {
-		1: {mod_attackspeed = 0.10, mod_attackspeed_add = 0.0050},
-		2: {mod_attackspeed = 0.15, mod_attackspeed_add = 0.0075},
-		3: {mod_attackspeed = 0.20, mod_attackspeed_add = 0.0100},
+		1: {mod_attackspeed = 0.10, mod_attackspeed_add = 0.0050, aura_range = 200},
+		2: {mod_attackspeed = 0.15, mod_attackspeed_add = 0.0075, aura_range = 250},
+		3: {mod_attackspeed = 0.20, mod_attackspeed_add = 0.0100, aura_range = 300},
 	}
 
 
-const AURA_RANGE: float = 200
-
-
 func get_ability_description() -> String:
-	var aura_range: String = Utils.format_float(AURA_RANGE, 2)
+	var aura_range: String = Utils.format_float(_stats.aura_range, 2)
 	var mod_attackspeed: String = Utils.format_percent(_stats.mod_attackspeed, 2)
 	var mod_attackspeed_add: String = Utils.format_percent(_stats.mod_attackspeed_add, 2)
 
@@ -52,7 +49,7 @@ func tower_init():
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()
-	aura.aura_range = AURA_RANGE
+	aura.aura_range = _stats.aura_range
 	aura.target_type = TargetType.new(TargetType.TOWERS)
 	aura.target_self = true
 	aura.level = int(_stats.mod_attackspeed * 10000)
