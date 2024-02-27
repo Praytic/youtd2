@@ -14,20 +14,21 @@ const ITEMS_CONTAINER_BUTTON_SIZE = 82
 @export var _title_label: Label
 @export var _unit_info_label: RichTextLabel
 @export var _unit_icon_texture: TextureRect
-@export var _unit_specials_container: VBoxContainer
+@export var _creep_special_template: VBoxContainer
 @export var _unit_level_label: Label
 @export var _unit_control_menu: VBoxContainer
 @export var _unit_stats_menu: ScrollContainer
 @export var _creep_stats_menu: ScrollContainer
 @export var _buffs_container: GridContainer
 @export var _info_label: RichTextLabel
-@export var _specials_container: VBoxContainer
 @export var _tier_icon_texture: TextureRect
 @export var _specials_label: RichTextLabel
 @export var _inventory_empty_slots: HBoxContainer
 @export var _inventory: PanelContainer
 @export var _main_container: VBoxContainer
 @export var _specials_scroll_container: ScrollContainer
+@export var _creep_specials_container: Container
+@export var _tower_specials_container: Container
 
 var _selling_for_real: bool = false
 
@@ -39,8 +40,6 @@ var _selling_for_real: bool = false
 func _ready():
 #	NOTE: fix unused warnings
 	_unit_info_label = _unit_info_label
-	_unit_specials_container = _unit_specials_container
-	_specials_container = _specials_container
 	
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
@@ -133,28 +132,37 @@ func _update_info_label_tooltip(unit: Unit):
 	_info_label.set_tooltip_text(tooltip_for_info_label)
 
 
-func _update_specials_label(unit: Unit):
+func _update_creep_specials_container(creep: Creep):
+	var special_list: Array[int] = creep.get_special_list()
+	for special_container in _creep_specials_container.get_children():
+		special_container.queue_free()
+
+	for special in special_list:
+		var special_name: String = WaveSpecial.get_special_name(special)
+		var special_description: String = WaveSpecial.get_description(special)
+		var special_icon: TextureRect = WaveSpecial.get_special_icon(special)
+		var creep_special = SpecialContainer.make(special_name, special_icon, special_description)
+		
+		_creep_specials_container.add_child(creep_special)
+
+
+func _update_specials_label(unit: Tower):
 	var text: String = ""
-	if unit is Tower:
-		var specials_text: String = unit.get_specials_tooltip_text()
-		var extra_text: String = unit.get_ability_description()
+	var specials_text: String = unit.get_specials_tooltip_text()
+	var extra_text: String = unit.get_ability_description()
 
-		if !specials_text.is_empty():
-			text += specials_text
-			text += " \n"
+	if !specials_text.is_empty():
+		text += specials_text
+		text += " \n"
 
-		if !extra_text.is_empty():
-			text += extra_text
-			text += " \n"
+	if !extra_text.is_empty():
+		text += extra_text
+		text += " \n"
 
-		for autocast in unit.get_autocast_list():
-			var autocast_text: String = RichTexts.get_autocast_text(autocast)
-			text += autocast_text
-			text += " \n"
-	elif unit is Creep:
-		text = _get_specials_text_for_creep(unit)
-	else:
-		assert(unit != null, "Unit is of unknown type. Can't get specials label for it.")
+	for autocast in unit.get_autocast_list():
+		var autocast_text: String = RichTexts.get_autocast_text(autocast)
+		text += autocast_text
+		text += " \n"
 	
 	text = RichTexts.add_color_to_numbers(text)
 
@@ -332,6 +340,8 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_on_unit_buff_list_changed(tower)
 		_update_info_label(tower)
 		_update_info_label_tooltip(tower)
+#		NOTE: Towers still don't have icons for their specials.
+#		Once we introduce icons, we'd have to switch to _update_creep_specials_container
 		_update_specials_label(tower)
 		_update_unit_icon(tower)
 		_update_inventory_empty_slots(tower)
@@ -341,13 +351,15 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		var upgrade_button_should_be_visible: bool = PregameSettings.get_game_mode() == GameMode.enm.BUILD || PregameSettings.get_game_mode() == GameMode.enm.RANDOM_WITH_UPGRADES
 		_upgrade_button.set_visible(upgrade_button_should_be_visible)
 		_sell_button.show()
+		_creep_specials_container.hide()
+		_tower_specials_container.show()
 	elif selected_creep:
 		creep.buff_list_changed.connect(_on_unit_buff_list_changed.bind(creep))
 		_update_unit_name_label(creep)
 		_on_unit_buff_list_changed(creep)
 		_update_info_label(creep)
 		_update_info_label_tooltip(creep)
-		_update_specials_label(creep)
+		_update_creep_specials_container(creep)
 		_update_unit_icon(creep)
 		_update_unit_level_label()
 		
@@ -355,6 +367,8 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_tier_icon_texture.hide()
 		_upgrade_button.hide()
 		_sell_button.hide()
+		_creep_specials_container.show()
+		_tower_specials_container.hide()
 
 	if !_is_showing_main_page():
 		_unit_stats_menu.visible = selected_tower

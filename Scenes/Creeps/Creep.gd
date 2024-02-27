@@ -37,7 +37,7 @@ var _current_path_index: int = 0
 var _facing_angle: float = 0.0
 var _height_tween: Tween = null
 var _spawn_level: int
-var _special_list: Array[int] = []
+var _special_list: Array[int] = [] : set = set_special_list, get = get_special_list
 
 static var _id_max: int = 1
 var _id: int
@@ -49,7 +49,7 @@ var _id: int
 @onready var _sprite: AnimatedSprite2D = $Visual/Sprite
 @onready var _health_bar = $Visual/HealthBar
 @onready var _selection_area: Area2D = $Visual/SelectionArea
-@onready var _creep_specials_container = $Visual/CreepSpecialsContainer
+@onready var _specials_icon_container: Container = $Visual/SpecialsIconContainer
 
 
 #########################
@@ -103,6 +103,20 @@ func _process(delta):
 #########################
 ###       Public      ###
 #########################
+
+# Non-idempotent setup method which adds specials icons
+# to the SpecialsIconContainer.
+func setup_special_list():
+	var creep_specials = _specials_icon_container.get_children()
+	
+	for special_id in _special_list:
+		var special = WaveSpecial.get_special_buff_map()[special_id]
+		var icon_name = special.get_script().resource_path.get_file().trim_suffix(".gd")
+		var icon_path: String = "res://Scenes/Creeps/Specials/%sSpecial.tscn" % icon_name
+		var icon_texture_rect: PackedScene = load(icon_path) 
+		
+		_specials_icon_container.add_child(icon_texture_rect.instantiate())
+
 
 # Creep moves to a point on path, which is closest to given
 # point.
@@ -501,24 +515,14 @@ func get_special_list() -> Array[int]:
 
 
 func set_special_list(special_list: Array[int]):
-	var creep_specials = _creep_specials_container.get_children()
-	creep_specials.clear()
-	for special_id in special_list:
-		var special = WaveSpecial.get_special_buff_map()[special_id]
-		var icon_name = special.get_script().resource_path.get_file().trim_suffix(".gd")
-		var icon_path: String = "res://Scenes/Creeps/Specials/%sSpecial.tscn" % icon_name
-		var icon_texture_rect: PackedScene = load(icon_path) 
-		
-		_creep_specials_container.add_child(icon_texture_rect.instantiate())
-	
 	_special_list = special_list
 
 
 func set_hovered(hovered: bool):
 	super.set_hovered(hovered)
-	_creep_specials_container.set_visible(hovered)
+	_specials_icon_container.set_visible(hovered)
 
 
 func set_selected(selected: bool):
 	super.set_selected(selected)
-	_creep_specials_container.set_visible(selected)
+	_specials_icon_container.set_visible(selected)

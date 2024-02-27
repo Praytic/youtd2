@@ -14,5 +14,8 @@ position = Vector2(0, -60)
 [node name="HealthBar" parent="Visual" index="1"]
 theme_override_styles/fill = SubResource("StyleBoxFlat_bsor8")
 
+[node name="SpecialsIconContainer" parent="Visual/HealthBar" index="0"]
+layout_mode = 0
+
 [node name="CollisionPolygon2D" parent="Visual/SelectionArea" index="0"]
 polygon = PackedVector2Array(50, -108, 61, -32, 32, 23, -31, 23, -67, -40, -50, -108)
