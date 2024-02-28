@@ -12,6 +12,7 @@ enum CsvProperty {
 	ID,
 	NAME,
 	SHORT_NAME,
+	SCRIPT_NAME,
 	HP_MODIFIER,
 	REQUIRED_WAVE_LEVEL,
 	FREQUENCY,
@@ -33,49 +34,7 @@ const _special_count_chances: Dictionary = {
 }
 
 
-var _buff_map: Dictionary = {
-	0: CreepSpeed.new(self),
-	1: CreepGreaterSpeed.new(self),
-	2: CreepXtremeSpeed.new(self),
-	3: CreepSlow.new(self),
-	4: CreepInvisible.new(self),
-	5: CreepStrong.new(self),
-	6: CreepRich.new(self),
-	7: CreepRelicRaider.new(self),
-	8: CreepUltraWisdom.new(self),
-	9: CreepArmored.new(self),
-	10: CreepHeavyArmored.new(self),
-	11: CreepXtremeArmor.new(self),
-	12:	CreepEvasion.new(self),
-	13:	CreepXtremeEvasion.new(self),
-	14:	CreepGhost.new(self),
-	15:	CreepSpellResistance.new(self),
-	16:	CreepGreaterSpellResistance.new(self),
-	17:	CreepMagicImmunity.new(self),
-	18:	CreepEthereal.new(self),
-	19: CreepSlowAura.new(self),
-	20: CreepManaDrainAura.new(self),
-	21: CreepSpellbinder.new(self),
-	22: CreepStunRevenge.new(self),
-	23: CreepRegeneration.new(self),
-	24: CreepXtremeRegeneration.new(self),
-	25: CreepSecondChance.new(self),
-	26: CreepSemiMechanical.new(self),
-	27: CreepMechanical.new(self),
-	28: CreepMeaty.new(self),
-	29: CreepEvolving.new(self),
-	30: CreepUnlucky.new(self),
-	WaveSpecial.FLOCK: CreepFlock.new(self),
-	32: CreepGravid.new(self),
-	33: CreepProtector.new(self),
-	34: CreepManaShield.new(self),
-	35: CreepManaShieldPlus.new(self),
-	36: CreepNecromancer.new(self),
-	37: CreepPurgeRevenge.new(self),
-	38: CreepFireball.new(self),
-	39: CreepDart.new(self),
-	40: CreepBroody.new(self),
-}
+var _buff_map: Dictionary = {}
 
 # Map of group [String] to special [int]
 var _group_to_special_map: Dictionary = {}
@@ -92,13 +51,24 @@ func _init():
 	_group_to_special_map = _make_group_to_special_map()
 	print_verbose("_group_to_special_map = ", _group_to_special_map)
 
-	for special in _buff_map.keys():
-		var buff: BuffType = _buff_map[special]
+	for special in _properties.keys():
+		var script_name: String = get_special_script_name(special)
+		var script_path: String = "res://Scenes/Buffs/CreepBuffs/%s.gd" % script_name
+		
+		var special_bt: BuffType
+		var script: Script = load(script_path)
+		if script != null:
+			special_bt = script.new(self)
+		else:
+			push_error("Failed to load script for special: %s" % script_path)
+			special_bt = BuffType.new("creep_invalid_special", 0.0, 0, false, self)
+
 		var special_name: String = get_special_name(special)
 		var description: String = get_description(special)
 		var tooltip: String = "%s\n%s" % [special_name, description]
-
-		buff.set_buff_tooltip(tooltip)
+		special_bt.set_buff_tooltip(tooltip)
+		
+		_buff_map[special] = special_bt
 
 
 #########################
@@ -163,6 +133,12 @@ func get_special_name(special: int) -> String:
 
 func get_short_name(special: int) -> String:
 	var string: String = _get_property(special, WaveSpecial.CsvProperty.SHORT_NAME)
+
+	return string
+
+
+func get_special_script_name(special: int) -> String:
+	var string: String = _get_property(special, WaveSpecial.CsvProperty.SCRIPT_NAME)
 
 	return string
 
