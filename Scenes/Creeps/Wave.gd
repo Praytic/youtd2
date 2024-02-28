@@ -70,7 +70,7 @@ func _init(level: int, difficulty: int):
 	_creep_combination = Wave._generate_creep_combination(_level, _creep_size)
 	var wave_has_champions: bool = _creep_combination.has(CreepSize.enm.CHAMPION)
 	_specials = WaveSpecial.get_random(_level, _creep_size, wave_has_champions)
-	_base_hp = Wave._calculate_base_hp(_level, difficulty)
+	_base_hp = Wave._calculate_base_hp(_level, difficulty, _armor_type)
 	_base_armor = Wave._calculate_base_armor(_level, difficulty)
 
 #	NOTE: double the amount of creeps when wave special is
@@ -230,7 +230,7 @@ func add_alive_creep(creep: Creep):
 
 # Calculates base HP for a Creep based on 
 # the wave level 
-static func _calculate_base_hp(level: int, difficulty: Difficulty.enm) -> float:
+static func _calculate_base_hp(level: int, difficulty: Difficulty.enm, armor_type: ArmorType.enm) -> float:
 	var a: float
 	var b: float
 	var c: float
@@ -290,6 +290,9 @@ static func _calculate_base_hp(level: int, difficulty: Difficulty.enm) -> float:
 	var j: int = level - 1
 	var health: float = a + j * (b + j * (c + j * (d + j * (e + j * (f + j * g)))))
 	health = health * extra_hp_multiplier
+
+	if armor_type == ArmorType.enm.SIF:
+		health *= SIF_CREEP_HEALTH_MULTIPLIER
 
 	return health
 
