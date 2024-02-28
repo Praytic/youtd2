@@ -224,6 +224,16 @@ func _ready():
 	var builder: Builder = Globals.get_builder()
 	builder.apply_effects(self)
 
+#	NOTE: add dummy sprite and selection outline, in case
+#	some Unit subclass doesn't set them up. This prevents
+#	null access.
+	_sprite_node = Sprite2D.new()
+	add_child(_sprite_node)
+	_selection_outline = Sprite2D.new()
+	var selection_shader: ShaderMaterial = Globals.outline_shader.duplicate()
+	_selection_outline.set_material(selection_shader)
+	add_child(_selection_outline)
+
 
 #########################
 ###       Public      ###
@@ -992,6 +1002,12 @@ func _set_visual_node(visual_node: Node2D):
 # AnimatedSprite2D in case of Creeps. The operations we do
 # here are valid for both types.
 func _set_sprite_node(sprite_node: Node2D, outline_thickness: float):
+#	NOTE: delete existing sprite node and selection outline
+	if _sprite_node != null:
+		_sprite_node.queue_free()
+	if _selection_outline != null:
+		_selection_outline.queue_free()
+
 	_sprite_node = sprite_node
 	_sprite_node.modulate = _base_sprite_color
 
@@ -1152,9 +1168,7 @@ func set_invisible(invisible: bool):
 # specials.
 func set_sprite_base_color(base_color: Color):
 	_base_sprite_color = base_color
-
-	if _sprite_node != null:
-		_sprite_node.modulate = _base_sprite_color
+	_sprite_node.modulate = _base_sprite_color
 
 
 # Changes color of sprite. Note that this color will be
@@ -1162,8 +1176,7 @@ func set_sprite_base_color(base_color: Color):
 # Color.WHITE to reset to base color.
 # NOTE: SetUnitVertexColor() in JASS
 func set_sprite_color(new_color: Color):
-	if _sprite_node != null:
-		_sprite_node.modulate = _base_sprite_color * new_color
+	_sprite_node.modulate = _base_sprite_color * new_color
 
 
 # NOTE: overriden in Tower to return non-null value
