@@ -55,7 +55,7 @@ func _init():
 #	Load buff types
 	for special in _properties.keys():
 		var script_name: String = get_special_script_name(special)
-		var script_path: String = "res://Scenes/Buffs/CreepBuffs/%s.gd" % script_name
+		var script_path: String = "res://Scenes/Creeps/SpecialBuffs/%s.gd" % script_name
 		
 		var special_bt: BuffType
 		var script: Script = load(script_path)
@@ -76,7 +76,7 @@ func _init():
 #	Load icons
 	for special in _properties.keys():
 		var script_name: String = get_special_script_name(special)
-		var icon_path: String = "res://Scenes/Creeps/Specials/%sSpecial.tscn" % script_name
+		var icon_path: String = "res://Scenes/Creeps/SpecialIcons/%sSpecial.tscn" % script_name
 		var icon_scene: PackedScene = load(icon_path)
 
 		if icon_scene == null:
