@@ -33,6 +33,7 @@ var bonus_map: Dictionary = {
 	CreepCategory.enm.NATURE: 0,
 	CreepCategory.enm.ORC: 0,
 	CreepCategory.enm.HUMANOID: 0,
+	CreepCategory.enm.CHALLENGE: 0,
 }
 
 
@@ -172,6 +173,10 @@ func periodic(_event: Event):
 func xeno_manage_bonuses(is_type_change: bool, current_bonus: int):
 	var tower: Tower = self
 
+# 	NOTE: ignore challenge creeps
+	if current_creep_category == CreepCategory.enm.CHALLENGE:
+		return
+
 	if is_type_change:
 		for category in bonus_map.keys():
 			bonus_map[category] = bonus_map[category] / 2
@@ -192,12 +197,12 @@ func xeno_manage_bonuses(is_type_change: bool, current_bonus: int):
 func xeno_buff_towers(is_type_change: bool):
 	var tower: Tower = self
 
-	var power_level: int = bonus_map[current_creep_category]
-	prev_creep_category = current_creep_category
-
 # 	NOTE: ignore challenge creeps
 	if current_creep_category == CreepCategory.enm.CHALLENGE:
 		return
+
+	var power_level: int = bonus_map[current_creep_category]
+	prev_creep_category = current_creep_category
 
 	var category_string = CreepCategory.convert_to_string(current_creep_category).capitalize()
 	var category_color: Color = CreepCategory.get_color(current_creep_category)
@@ -213,6 +218,7 @@ func xeno_buff_towers(is_type_change: bool):
 		CreepCategory.enm.NATURE: palandu_xeno_nature_bt,
 		CreepCategory.enm.ORC: palandu_xeno_orc_bt,
 		CreepCategory.enm.HUMANOID: palandu_xeno_humanoid_bt,
+		CreepCategory.enm.CHALLENGE: palandu_xeno_humanoid_bt,
 	}
 	var selected_buff: BuffType = category_to_bt[current_creep_category]
 
