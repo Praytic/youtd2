@@ -224,6 +224,14 @@ func _ready():
 	var builder: Builder = Globals.get_builder()
 	builder.apply_effects(self)
 
+#	NOTE: add dummy selection outline, in case some Unit
+#	subclass doesn't setup a real sprite. This prevents
+#	crashes due to null access.
+	_selection_outline = Sprite2D.new()
+	var selection_shader: ShaderMaterial = Globals.outline_shader.duplicate()
+	_selection_outline.set_material(selection_shader)
+	add_child(_selection_outline)
+
 
 #########################
 ###       Public      ###
@@ -1011,6 +1019,9 @@ func _set_sprite_node(sprite_node: Node2D, outline_thickness: float):
 	sprite_for_outline.z_index = 1
 
 	_sprite_node.add_sibling(sprite_for_outline)
+#	NOTE: delete existing outline
+	if _selection_outline != null:
+		_selection_outline.queue_free()
 	_selection_outline = sprite_for_outline
 
 #	NOTE: initially hide the outline, it will get shown when
