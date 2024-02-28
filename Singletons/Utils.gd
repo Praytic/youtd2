@@ -238,9 +238,9 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 		if !type_match:
 			continue
 
-		var creep_is_in_range = Isometric.vector_in_range_PIXELS(center, unit.position, radius)
+		var unit_is_in_range = Isometric.vector_in_range_PIXELS(center, unit.position, radius)
 
-		if !creep_is_in_range:
+		if !unit_is_in_range:
 			continue
 
 		if unit is Creep:
