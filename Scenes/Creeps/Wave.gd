@@ -292,7 +292,7 @@ static func _calculate_base_hp(level: int, difficulty: Difficulty.enm, armor_typ
 	health = health * extra_hp_multiplier
 
 	if armor_type == ArmorType.enm.SIF:
-		health *= SIF_CREEP_HEALTH_MULTIPLIER
+		health *= Constants.SIF_CREEP_HEALTH_MULTIPLIER
 
 	return health
 
