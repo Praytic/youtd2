@@ -192,6 +192,10 @@ func creep_has_flock_special(creep: Creep) -> bool:
 	return creep_has_buff
 
 
+func get_special_buff(special_id: int) -> BuffType:
+	return _buff_map[special_id]
+
+
 #########################
 ###      Private      ###
 #########################
@@ -449,7 +453,3 @@ func _find_flock_id() -> int:
 		flock_id = 0
 
 	return flock_id
-
-
-func get_special_buff(special_id: int) -> BuffType:
-	return _buff_map[special_id]
