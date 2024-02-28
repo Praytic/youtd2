@@ -42,6 +42,8 @@ func on_attack(event: Event):
 	var player: Player
 
 	if itm.user_int <= 0:
+		itm.user_int = 15
+		
 		tower = itm.get_carrier()
 		player = itm.get_player()
 		choose = randi_range(1, 6)
@@ -84,8 +86,6 @@ func on_attack(event: Event):
 			tower.modify_property(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.25)
 			itm.user_real = itm.user_real + 0.25
 			player.display_floating_text("Item Quality", tower, Color8(0, 255, 0))
-
-	itm.user_int = 15
 
 
 func on_create():
