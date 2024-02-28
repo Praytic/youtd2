@@ -290,7 +290,8 @@ func _get_current_movement_angle() -> float:
 
 func _get_damage_to_portal() -> float:
 #	NOTE: final wave boss deals full damage to portal
-	var is_final_wave: bool = _spawn_level == Constants.FINAL_WAVE
+	var wave_count: int = PregameSettings.get_wave_count()
+	var is_final_wave: bool = _spawn_level == wave_count
 
 	if is_final_wave:
 		return 100.0
