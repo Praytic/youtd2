@@ -104,12 +104,8 @@ func _process(delta):
 ###       Public      ###
 #########################
 
-# Non-idempotent setup method which adds specials icons
-# to the SpecialsIconContainer.
-func setup_special_list():
-	for special_id in _special_list:
-		var special_icon: TextureRect = WaveSpecial.get_special_icon(special_id)
-		_specials_icon_container.add_child(special_icon)
+func add_special_icon(special_icon: TextureRect):
+	_specials_icon_container.add_child(special_icon)
 
 
 # Creep moves to a point on path, which is closest to given

@@ -165,8 +165,11 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 
 			return
 
+	for special in special_list:
+		var special_icon: TextureRect = WaveSpecial.get_special_icon(special)
+		creep.add_special_icon(special_icon)
+
 	creep.set_special_list(special_list)
-	creep.setup_special_list()
 
 	var hp_modifier: float = _get_hp_modifier(special_list)
 	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
