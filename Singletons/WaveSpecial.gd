@@ -5,7 +5,7 @@ extends Node
 # creep waves.
 
 const PROPERTIES_PATH: String = "res://Data/wave_special_properties.csv"
-const FLOCK: int = 31
+var FLOCK: int
 
 
 enum CsvProperty {
@@ -69,6 +69,8 @@ func _init():
 		special_bt.set_buff_tooltip(tooltip)
 		
 		_buff_map[special] = special_bt
+
+	FLOCK = _find_flock_id()
 
 
 #########################
@@ -429,6 +431,24 @@ func _special_applies_to_creep(special: int, creep: Creep) -> bool:
 		special_applies = true
 
 	return special_applies
+
+
+func _find_flock_id() -> int:
+	var flock_id: int = -1
+	for special in _properties.keys():
+		var special_name: String = get_special_name(special)
+
+		if special_name == "Flock":
+			flock_id = special
+
+			break
+
+	if flock_id == -1:
+		push_error("Failed to find flock special and map it to id.")
+
+		flock_id = 0
+
+	return flock_id
 
 
 func get_special_buff(special_id: int) -> BuffType:
