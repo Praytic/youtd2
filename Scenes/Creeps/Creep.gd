@@ -108,12 +108,8 @@ func _process(delta):
 # to the SpecialsIconContainer.
 func setup_special_list():
 	for special_id in _special_list:
-		var special: BuffType = WaveSpecial.get_special_buff(special_id)
-		var icon_name: String = special.get_script().resource_path.get_file().trim_suffix(".gd")
-		var icon_path: String = "res://Scenes/Creeps/Specials/%sSpecial.tscn" % icon_name
-		var icon_texture_rect: PackedScene = load(icon_path) 
-		
-		_specials_icon_container.add_child(icon_texture_rect.instantiate())
+		var special_icon: TextureRect = WaveSpecial.get_special_icon(special_id)
+		_specials_icon_container.add_child(special_icon)
 
 
 # Creep moves to a point on path, which is closest to given

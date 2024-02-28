@@ -35,6 +35,7 @@ const _special_count_chances: Dictionary = {
 
 
 var _buff_map: Dictionary = {}
+var _icon_map: Dictionary = {}
 
 # Map of group [String] to special [int]
 var _group_to_special_map: Dictionary = {}
@@ -51,6 +52,7 @@ func _init():
 	_group_to_special_map = _make_group_to_special_map()
 	print_verbose("_group_to_special_map = ", _group_to_special_map)
 
+#	Load buff types
 	for special in _properties.keys():
 		var script_name: String = get_special_script_name(special)
 		var script_path: String = "res://Scenes/Buffs/CreepBuffs/%s.gd" % script_name
@@ -69,6 +71,17 @@ func _init():
 		special_bt.set_buff_tooltip(tooltip)
 		
 		_buff_map[special] = special_bt
+
+#	Load icons
+	for special in _properties.keys():
+		var script_name: String = get_special_script_name(special)
+		var icon_path: String = "res://Scenes/Creeps/Specials/%sSpecial.tscn" % script_name
+		var icon_scene: PackedScene = load(icon_path)
+
+		if icon_scene == null:
+			push_error("Failed to load icon scene for special: %s" % icon_path)
+
+		_icon_map[special] = icon_scene
 
 	FLOCK = _find_flock_id()
 
@@ -121,10 +134,10 @@ func arrays_intersect(a: Array, b: Array) -> bool:
 
 
 func get_special_icon(special: int) -> TextureRect:
-	var icon_path: String = _get_property(special, WaveSpecial.CsvProperty.ICON_PATH)
-	var icon: PackedScene = load(icon_path)
-	
-	return icon.instantiate()
+	var icon_scene: PackedScene = _icon_map[special]
+	var icon: TextureRect = icon_scene.instantiate()
+
+	return icon
 
 
 func get_special_name(special: int) -> String:
