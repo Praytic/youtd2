@@ -497,7 +497,8 @@ func get_display_name() -> String:
 
 func set_path(path: Path2D):
 	_path = path
-	position = path.get_curve().get_point_position(0)
+	if path:
+		position = path.get_curve().get_point_position(0)
 
 
 func get_spawn_level() -> int:

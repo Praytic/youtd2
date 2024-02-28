@@ -137,7 +137,7 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 # 	wait for the creep scene to load. This will freeze the
 # 	game. Should only happen if the player starts the first
 # 	wave immediately after game starts.
-	var scene_not_loaded: bool = !_creep_scenes.has(creep_scene_name)
+	var scene_not_loaded: bool = !_creep_scenes.has(creep_scene_name) || _creep_scenes[creep_scene_name] == null
 
 	if scene_not_loaded:
 		print_verbose("Creep spawned too early. Waiting for loading of creep scene to finish: ", creep_scene_name)
@@ -212,7 +212,7 @@ func _process_background_load():
 func _wait_for_background_load(scene_name: String):
 	var scene_path: String = CREEP_SCENE_INSTANCES_PATHS[scene_name]
 
-	var scene: PackedScene = ResourceLoader.load_threaded_get(scene_path)
+	var scene: PackedScene = ResourceLoader.load(scene_path)
 	_creep_scenes[scene_name] = scene
 	_background_load_queue.pop_front()
 	_background_load_in_progress = false

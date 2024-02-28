@@ -58,7 +58,8 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 			specials_string = "none"
 
 		print_verbose("    Specials: %s" % specials_string)
-
+		_print_creep_hp_overall(wave)
+		
 		wave.add_to_group("wave")
 
 		_wave_list.append(wave)
@@ -147,6 +148,23 @@ func _last_wave_was_started() -> bool:
 	var game_over: bool = Globals.game_over
 
 	return after_last_wave || game_over
+
+
+# Only use when OS.is_stdout_verbose() is true to reduce unnecessary computations
+func _print_creep_hp_overall(wave: Wave):
+	if !OS.is_stdout_verbose():
+		return
+	
+	var creep_hp_by_size: Dictionary = {}
+	
+	var creep_data_list = WaveSpawner._generate_creep_data_list(wave)
+	for creep_data in creep_data_list:
+		var creep: Creep = _creep_spawner.spawn_creep(creep_data)
+		creep_hp_by_size[creep.get_size()] = creep.get_overall_health()
+		creep.queue_free()
+	
+	for creep_size in creep_hp_by_size.keys():
+		print_verbose("%s's HP: %s" % [CreepSize.enm.keys()[creep_size], creep_hp_by_size[creep_size]])
 
 
 #########################
