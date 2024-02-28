@@ -62,7 +62,8 @@ func _init():
 		if script != null:
 			special_bt = script.new(self)
 		else:
-			push_error("Failed to load script for special: %s" % script_path)
+			push_error("Failed to load buff script for special: %s" % script_path)
+#			NOTE: create dummy buff to avoid errors
 			special_bt = BuffType.new("creep_invalid_special", 0.0, 0, false, self)
 
 		var special_name: String = get_special_name(special)
@@ -159,12 +160,6 @@ func get_special_script_name(special: int) -> String:
 
 
 func apply_to_creep(special_list: Array[int], creep: Creep):
-	for special in special_list:
-		if !_buff_map.has(special):
-			push_error("No buff for special: ", special)
-
-			return
-
 	for special in special_list:
 		var special_icon: TextureRect = WaveSpecial.get_special_icon(special)
 		creep.add_special_icon(special_icon)
