@@ -5,7 +5,7 @@
 
 [sub_resource type="InputEventKey" id="InputEventKey_srlh2"]
 device = -1
-keycode = 78
+physical_keycode = 78
 unicode = 110
 
 [sub_resource type="Shortcut" id="Shortcut_u7iub"]
@@ -61,10 +61,11 @@ autowrap_mode = 0
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-tooltip_text = "Start next wave"
+tooltip_text = "Start next wave (N)"
 focus_mode = 0
 theme_override_font_sizes/font_size = 25
 shortcut = SubResource("Shortcut_u7iub")
+shortcut_in_tooltip = false
 text = "Next wave"
 
 [node name="UpdateStatsTimer" type="Timer" parent="."]

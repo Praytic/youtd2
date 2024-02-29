@@ -13,7 +13,7 @@
 
 [sub_resource type="InputEventKey" id="InputEventKey_vl08n"]
 device = -1
-keycode = 84
+physical_keycode = 84
 unicode = 116
 
 [sub_resource type="Shortcut" id="Shortcut_lrntq"]
@@ -71,7 +71,9 @@ layout_mode = 2
 texture = ExtResource("12_u7vft")
 
 [node name="MainButton" parent="AspectRatioContainer" index="0"]
+tooltip_text = "Open Towers menu (T)"
 shortcut = SubResource("Shortcut_lrntq")
+shortcut_in_tooltip = false
 
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2"]
 [editable path="PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel"]

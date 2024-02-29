@@ -40,7 +40,7 @@ bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_3p2ki"]
 device = -1
-keycode = 85
+physical_keycode = 85
 unicode = 117
 
 [sub_resource type="Shortcut" id="Shortcut_gi5f6"]
@@ -57,7 +57,7 @@ region = Rect2(256, 256, 128, 128)
 
 [sub_resource type="InputEventKey" id="InputEventKey_8sgsd"]
 device = -1
-keycode = 82
+physical_keycode = 82
 unicode = 114
 
 [sub_resource type="Shortcut" id="Shortcut_4gk67"]
@@ -429,10 +429,11 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-tooltip_text = "Upgrade"
+tooltip_text = "Upgrade (U)"
 focus_mode = 0
 theme_type_variation = &"CircleButton"
 shortcut = SubResource("Shortcut_gi5f6")
+shortcut_in_tooltip = false
 icon = SubResource("AtlasTexture_0gno2")
 expand_icon = true
 
@@ -452,10 +453,11 @@ custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-tooltip_text = "Sell"
+tooltip_text = "Sell (R)"
 focus_mode = 0
 theme_type_variation = &"CircleButton"
 shortcut = SubResource("Shortcut_4gk67")
+shortcut_in_tooltip = false
 icon = SubResource("AtlasTexture_m846m")
 expand_icon = true
 

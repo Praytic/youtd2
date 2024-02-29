@@ -10,7 +10,7 @@
 
 [sub_resource type="InputEventKey" id="InputEventKey_8lii1"]
 device = -1
-keycode = 73
+physical_keycode = 73
 unicode = 105
 
 [sub_resource type="Shortcut" id="Shortcut_4xrdp"]
@@ -56,7 +56,9 @@ layout_mode = 2
 texture = ExtResource("7_ih1p1")
 
 [node name="MainButton" parent="AspectRatioContainer" index="0"]
+tooltip_text = "Open Towers menu (I)"
 shortcut = SubResource("Shortcut_4xrdp")
+shortcut_in_tooltip = false
 icon = ExtResource("3_eblou")
 
 [editable path="PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"]
