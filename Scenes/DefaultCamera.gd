@@ -16,6 +16,7 @@ signal camera_zoomed(zoom_value)
 
 
 var _zoom_multiplier: float = 1.0
+var _drag_origin: Vector2 = Vector2.INF
 
 
 #########################
@@ -67,6 +68,9 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_down"):
 		move_direction_from_keyboard += Vector2.DOWN
 
+#	NOTE: keep different ways of moving the camera
+#	exclusive. Do not allow moving by keyboard and moving by
+#	scroll at the same time.
 	var move_direction: Vector2 = Vector2.ZERO
 	var move_speed: float = 0.0
 	if move_direction_from_keyboard != Vector2.ZERO:
@@ -82,8 +86,30 @@ func _physics_process(delta):
 #	NOTE: normalize direction vector so that camera moves at
 #	the same speed in all directions
 	move_direction = move_direction.normalized()
+	
+	var current_mouse_pos: Vector2 = get_viewport().get_mouse_position()
+	var drag_started: bool = Input.is_action_just_pressed("middle_click")
+	var drag_in_progress: bool = Input.is_action_pressed("middle_click")
+	
+#	When drag starts, remember position which was clicked.
+	if drag_started:
+		_drag_origin = current_mouse_pos
+	
+#	While dragging, move the camera based on offset between
+#	drag origin and current mouse position. Constantly
+#	update drag origin so that new offsets can be
+#	recalculated.
+	var move_offset_from_drag: Vector2 = Vector2.ZERO
+	if drag_in_progress && current_mouse_pos != _drag_origin:
+		move_offset_from_drag = _drag_origin - current_mouse_pos
+		_drag_origin = current_mouse_pos
 
-	if (move_direction != Vector2.ZERO):
+#	NOTE: keep different ways of moving the camera
+#	exclusive. Do not allow moving by keyboard/scroll during
+#	drag.
+	if drag_in_progress:
+		position = get_screen_center_position() + move_offset_from_drag
+	elif move_direction != Vector2.ZERO:
 		var zoom_ratio = sqrt(zoom.x)
 		var shift_vector: Vector2 = move_direction * delta * move_speed * zoom_ratio
 		position = get_screen_center_position() + shift_vector
