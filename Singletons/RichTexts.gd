@@ -95,6 +95,7 @@ func get_tower_info(tower: Tower) -> String:
 	var attack_type: AttackType.enm = TowerProperties.get_attack_type(tower_id)
 	var attack_type_string: String = AttackType.convert_to_colored_string(attack_type)
 	var attack_range: int = floor(TowerProperties.get_range(tower_id))
+	var damage_string: String = _get_tower_damage_string(tower)
 	var mana: int = floori(tower.get_mana())
 	var overall_mana: int = floori(tower.get_overall_mana())
 
@@ -108,6 +109,7 @@ func get_tower_info(tower: Tower) -> String:
 	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
 	if attack_enabled:
 		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
+		text += "[color=YELLOW]Damage:[/color] %s (%d dps)\n" % [damage_string]
 
 	if overall_mana != 0:
 		text += "[color=YELLOW]Mana:[/color] %d/%d\n" % [mana, overall_mana]
@@ -453,3 +455,35 @@ func get_autocast_stats_text(autocast: Autocast) -> String:
 		text += stats_line
 
 	return text
+
+
+# Returns tower damage in this format:
+# "10-20 +3"
+func _get_tower_damage_string(tower: Tower) -> String:
+	var dmg_min_base: float = tower.get_damage_min()
+	var dmg_max_base: float = tower.get_damage_max()
+
+	var base_bonus_absolute: float = tower.get_base_damage_bonus()
+	var base_bonus_percent: float = tower.get_base_damage_bonus_percent()
+
+	var dmg_min: float = (dmg_min_base + base_bonus_absolute) * base_bonus_percent
+	var dmg_max: float = (dmg_max_base + base_bonus_absolute) * base_bonus_percent
+	var dmg_with_base_bonus: float = (dmg_min + dmg_max) / 2
+	
+	var damage_add_absolute: float = tower.get_damage_add()
+	var damage_add_percent: float = tower.get_damage_add_percent()
+	var dmg_with_add_bonus: float = (dmg_with_base_bonus + damage_add_absolute) * damage_add_percent
+
+	var bonus_from_damage_add: int = floori(dmg_with_add_bonus - dmg_with_base_bonus)
+
+	var damage_add_string: String
+	if bonus_from_damage_add > 0:
+		damage_add_string = " [color=GREEN]+%d[/color]" % bonus_from_damage_add
+	elif bonus_from_damage_add < 0:
+		damage_add_string = " [color=RED]%d[/color]" % bonus_from_damage_add
+	else:
+		damage_add_string = ""
+
+	var string: String = "%d-%d%s" % [floori(dmg_min), floori(dmg_max), damage_add_string]
+
+	return string
