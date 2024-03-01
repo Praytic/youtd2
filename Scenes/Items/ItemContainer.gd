@@ -74,11 +74,14 @@ func remove_item(item: Item):
 # from container.
 func get_item_list(rarity_filter: Array = [], type_filter: Array = []) -> Array[Item]:
 	var item_list: Array[Item] = []
+
 	for item in _item_list.duplicate():
-		var rarity = rarity_filter.has(item.get_rarity()) or rarity_filter.is_empty()
-		var type = type_filter.has(item.get_item_type()) or type_filter.is_empty()
-		if rarity and type:
+		var rarity_ok: bool = rarity_filter.has(item.get_rarity()) || rarity_filter.is_empty()
+		var type_ok: bool = type_filter.has(item.get_item_type()) || type_filter.is_empty()
+
+		if rarity_ok && type_ok:
 			item_list.append(item)
+
 	return item_list
 
 
