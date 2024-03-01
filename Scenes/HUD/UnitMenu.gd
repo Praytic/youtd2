@@ -43,8 +43,6 @@ func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
 	_on_selected_unit_changed(null)
-
-	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	
 	WaveLevel.changed.connect(_on_update_requirements_changed)
 	ElementLevel.changed.connect(_on_update_requirements_changed)
@@ -223,6 +221,16 @@ func _update_upgrade_button(tower: Tower):
 	_upgrade_button.set_disabled(!can_upgrade)
 
 
+func _update_sell_tooltip(tower: Tower):
+	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
+	var sell_ratio: float = GameMode.get_sell_ratio(game_mode)
+	var sell_ratio_string: String = Utils.format_percent(sell_ratio, 0)
+	var sell_price: int = TowerProperties.get_sell_price(tower.get_id())
+	var tooltip: String = "Sell tower\nYou will receive %d gold (%s of original cost)." % [sell_price, sell_ratio_string]
+
+	_sell_button.set_tooltip_text(tooltip)
+
+
 func _get_specials_text_for_creep(unit: Unit):
 	var text: String = ""
 
@@ -289,15 +297,6 @@ func _set_selling_for_real(value: bool):
 ###     Callbacks     ###
 #########################
 
-func _on_pregame_settings_finalized():
-	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
-	var sell_ratio: float = GameMode.get_sell_ratio(game_mode)
-	var sell_percentage: String = Utils.format_percent(sell_ratio, 0)
-	var sell_button_tooltip: String = "Sell\nYou will get %s of the tower cost back." % sell_percentage
-
-	_sell_button.set_tooltip_text(sell_button_tooltip)
-
-
 func _on_update_requirements_changed():
 	var tower = get_selected_tower()
 	if tower != null:
@@ -344,6 +343,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		_update_specials_label(tower)
 		_update_unit_icon(tower)
 		_update_inventory_empty_slots(tower)
+		_update_sell_tooltip(tower)
 		
 		_inventory.show()
 		_tier_icon_texture.show()
@@ -464,9 +464,7 @@ func _on_sell_button_pressed():
 		item.drop()
 		item.fly_to_stash(0.0)
 
-	var tower_cost: int = TowerProperties.get_cost(tower_id)
-	var sell_ratio: float = GameMode.get_sell_ratio(PregameSettings.get_game_mode())
-	var sell_price: float = floor(tower_cost * sell_ratio)
+	var sell_price: int = TowerProperties.get_sell_price(tower_id)
 	tower.get_player().give_gold(sell_price, tower, false, true)
 	tower.queue_free()
 

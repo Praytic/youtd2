@@ -140,6 +140,15 @@ func get_cost(tower_id: int) -> int:
 	return cost
 
 
+func get_sell_price(tower_id: int) -> int:
+	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
+	var sell_ratio: float = GameMode.get_sell_ratio(game_mode)
+	var cost: float = TowerProperties.get_cost(tower_id)
+	var sell_price: int = floori(cost * sell_ratio)
+
+	return sell_price
+
+
 func get_description(tower_id: int) -> String:
 	var description: String = get_csv_property(tower_id, Tower.CsvProperty.DESCRIPTION)
 
