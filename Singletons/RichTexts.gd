@@ -109,7 +109,7 @@ func get_tower_info(tower: Tower) -> String:
 	text += "[color=YELLOW]Element:[/color] %s\n" % element_string
 	if attack_enabled:
 		text += "[color=YELLOW]Attack:[/color] [color=GOLD]%d[/color] dps, %s, [color=GOLD]%d[/color] range\n" % [dps, attack_type_string, attack_range]
-		text += "[color=YELLOW]Damage:[/color] %s (%d dps)\n" % [damage_string]
+		text += "[color=YELLOW]Damage:[/color] %s\n" % [damage_string]
 
 	if overall_mana != 0:
 		text += "[color=YELLOW]Mana:[/color] %d/%d\n" % [mana, overall_mana]
