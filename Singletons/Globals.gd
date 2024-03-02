@@ -40,6 +40,7 @@ var _game_state: GameState
 var _builder_instance: Builder
 var _builder_range_bonus: float = 0
 var _builder_tower_lvl_bonus: int = 0
+var _builder_item_slots_bonus: int = 0
 
 
 func add_to_total_damage(amount: float):
@@ -68,3 +69,7 @@ func get_builder_range_bonus() -> float:
 
 func get_builder_tower_lvl_bonus() -> int:
 	return _builder_tower_lvl_bonus
+
+
+func get_builder_item_slots_bonus() -> int:
+	return _builder_item_slots_bonus

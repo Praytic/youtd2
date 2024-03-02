@@ -380,15 +380,19 @@ func get_inventory_capacity(tower_id: int) -> int:
 	var min_capacity: int = min_capacity_map[tower_rarity]
 	var max_capacity: int = max_capacity_map[tower_rarity]
 
+	var result_capacity: int = 1
+
 	for capacity in range(max_capacity, 0, -1):
 		var min_cost: int = capacity_to_min_cost_map[capacity]
 
 		if tower_cost >= min_cost:
-			var clamped_capacity: int = clampi(capacity, min_capacity, max_capacity)
+			result_capacity = clampi(capacity, min_capacity, max_capacity)
 
-			return clamped_capacity
+			break
 
-	return 1
+	result_capacity += Globals.get_builder_item_slots_bonus()
+
+	return result_capacity
 
 
 func get_generated_tooltip(tower_id: int) -> String:
