@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ino0lr2m12uh"]
+[gd_scene load_steps=19 format=3 uid="uid://ino0lr2m12uh"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ndu1t"]
 [ext_resource type="Script" path="res://Scenes/HUD/ItemStashMenu.gd" id="2_8kq4a"]
@@ -11,7 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://bk4dvb16ukwx8" path="res://Resources/Textures/UI/Icons/reassemble_icon.tres" id="6_10i6k"]
 [ext_resource type="Texture2D" uid="uid://bvclahxp4mvge" path="res://Resources/Textures/UI/Icons/perfect_icon.tres" id="7_xqx70"]
 [ext_resource type="PackedScene" uid="uid://d0snws11d0wjs" path="res://Scenes/HUD/ItemStashMenu/RarityFilterContainer.tscn" id="10_pry25"]
+[ext_resource type="Texture2D" uid="uid://c7uoycvu5ii8v" path="res://Resources/Textures/UI/Icons/roll_towers_icon.tres" id="11_0n7rh"]
 [ext_resource type="PackedScene" uid="uid://ib3y0a6h0v46" path="res://Scenes/HUD/ItemStashMenu/ItemTypeFilterContainer.tscn" id="11_isi7i"]
+[ext_resource type="Texture2D" uid="uid://1sklksk2awnr" path="res://Resources/Textures/UI/Icons/upgrade_element_icon.tres" id="12_sptqu"]
+[ext_resource type="Texture2D" uid="uid://do0ipsu6xkehe" path="res://Resources/Textures/UI/Icons/rare_icon.tres" id="13_w767w"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sda8v"]
 
@@ -21,7 +24,7 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1k678"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter_container", "_item_type_filter_container", "_item_buttons_container", "_rebrew_button", "_distill_button", "_reassemble_button", "_perfect_button")]
+[node name="ItemStashMenu" type="PanelContainer" node_paths=PackedStringArray("_rarity_filter_container", "_item_type_filter_container", "_item_buttons_container", "_backpacker_recipes", "_rebrew_button", "_distill_button", "_reassemble_button", "_perfect_button", "_liquefy_button", "_precipitate_button", "_imbue_button")]
 offset_right = 614.0
 offset_bottom = 802.0
 size_flags_horizontal = 4
@@ -33,10 +36,14 @@ script = ExtResource("2_8kq4a")
 _rarity_filter_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/RarityFilterContainer")
 _item_type_filter_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ItemTypeFilterContainer")
 _item_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer")
-_rebrew_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer/RebrewButton")
-_distill_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer2/DistillButton")
-_reassemble_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer3/ReassembleButton")
-_perfect_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer4/PerfectButton")
+_backpacker_recipes = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes")
+_rebrew_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/RebrewButton")
+_distill_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer2/DistillButton")
+_reassemble_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer3/ReassembleButton")
+_perfect_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer4/PerfectButton")
+_liquefy_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer1/LiquefyButton")
+_precipitate_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer2/PrecipitateButton")
+_imbue_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer3/ImbueButton")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -234,18 +241,22 @@ theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 0
 
-[node name="HBoxContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="HBoxContainer" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 columns = 2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 2
 alignment_vertical = 2
 
-[node name="RebrewButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer"]
+[node name="RebrewButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer"]
 layout_mode = 2
 tooltip_text = "Converts 2 oils or consumables of the same rarity into 1 oil or consumable if the same rarity"
 focus_mode = 0
@@ -254,14 +265,14 @@ icon = ExtResource("4_iy7pd")
 alignment = 2
 expand_icon = true
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 0
 alignment_vertical = 2
 
-[node name="DistillButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer2"]
+[node name="DistillButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer2"]
 layout_mode = 2
 tooltip_text = "Converts 4 oils or consumables of the same rarity into 1 oil or consumable one rarity higher"
 focus_mode = 0
@@ -270,14 +281,14 @@ icon = ExtResource("5_pr6yq")
 alignment = 2
 expand_icon = true
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 2
 alignment_vertical = 0
 
-[node name="ReassembleButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer3"]
+[node name="ReassembleButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer3"]
 layout_mode = 2
 tooltip_text = "Converts 3 permanent items of the same rarity into 1 permanent item of the same rarity."
 focus_mode = 0
@@ -286,19 +297,80 @@ icon = ExtResource("6_10i6k")
 alignment = 2
 expand_icon = true
 
-[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment_horizontal = 0
 alignment_vertical = 0
 
-[node name="PerfectButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer4"]
+[node name="PerfectButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer4"]
 layout_mode = 2
 tooltip_text = "Converts 5 permanent items of the same rarity into 1 item one rarity higher."
 focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("7_xqx70")
+alignment = 2
+expand_icon = true
+
+[node name="BackpackerRecipes" type="GridContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+columns = 3
+
+[node name="AspectRatioContainer1" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="LiquefyButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer1"]
+layout_mode = 2
+tooltip_text = "Converts 2 permanent items of the same rarity into 3 oils or
+consumables two rarities lower."
+focus_mode = 0
+theme_type_variation = &"TinyUnitButton"
+icon = ExtResource("11_0n7rh")
+alignment = 2
+expand_icon = true
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="PrecipitateButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer2"]
+layout_mode = 2
+tooltip_text = "Converts 6 oils or consumables of the same rarity into 1
+permanent item two rarities higher. The level of the new item is
+completely random."
+focus_mode = 0
+theme_type_variation = &"TinyUnitButton"
+icon = ExtResource("12_sptqu")
+alignment = 2
+expand_icon = true
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment_horizontal = 0
+alignment_vertical = 0
+
+[node name="ImbueButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer3"]
+layout_mode = 2
+tooltip_text = "Converts 1 permanent item and 5 oils or consumables of the 
+same rarity into 1 permanent item one rarity higher.
+The level of the new item is equal to the level of ingredient item
+plus 15 to 30 levels. Can have lucky or unlucky conversions!"
+focus_mode = 0
+theme_type_variation = &"TinyUnitButton"
+icon = ExtResource("13_w767w")
 alignment = 2
 expand_icon = true
 
@@ -414,9 +486,12 @@ theme_override_font_sizes/font_size = 32
 text = " x "
 
 [connection signal="gui_input" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/ItemButtonsContainer" to="." method="_on_item_buttons_container_gui_input"]
-[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer/RebrewButton" to="." method="_on_rebrew_button_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer2/DistillButton" to="." method="_on_distill_button_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer3/ReassembleButton" to="." method="_on_reassemble_button_pressed"]
-[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/AspectRatioContainer4/PerfectButton" to="." method="_on_perfect_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer/RebrewButton" to="." method="_on_rebrew_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer2/DistillButton" to="." method="_on_distill_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer3/ReassembleButton" to="." method="_on_reassemble_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer4/PerfectButton" to="." method="_on_perfect_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer1/LiquefyButton" to="." method="_on_liquefy_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer2/PrecipitateButton" to="." method="_on_precipitate_button_pressed"]
+[connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer3/ImbueButton" to="." method="_on_imbue_button_pressed"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/TransmuteButton" to="." method="_on_transmute_button_pressed"]
 [connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]

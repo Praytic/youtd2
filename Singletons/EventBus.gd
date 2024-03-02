@@ -10,3 +10,4 @@ signal game_over()
 # When user does a specific action to acknowledge the highlighted
 # area, this signal should be emitted.
 signal highlight_target_ack(highlight_target: String)
+signal selected_backpacker_builder()

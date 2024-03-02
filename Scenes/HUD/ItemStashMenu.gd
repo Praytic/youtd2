@@ -16,11 +16,16 @@ extends PanelContainer
 @export var _rares_status_panel: ShortResourceStatusPanel
 @export var _uniques_status_panel: ShortResourceStatusPanel
 @export var _menu_card: ButtonStatusCard
+@export var _backpacker_recipes: GridContainer
 
 @export var _rebrew_button: Button
 @export var _distill_button: Button
 @export var _reassemble_button: Button
 @export var _perfect_button: Button
+
+@export var _liquefy_button: Button
+@export var _precipitate_button: Button
+@export var _imbue_button: Button
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
@@ -39,6 +44,8 @@ func _ready():
 	HighlightUI.register_target("item_stash", _item_buttons_container)
 	HighlightUI.register_target("item_placed_inside_tower", _item_buttons_container)
 	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
+
+	EventBus.selected_backpacker_builder.connect(_on_selected_backpacker_builder)
 
 
 #########################
@@ -93,6 +100,12 @@ func _update_horadric_cube_recipes(item_list: Array[Item]):
 	_rebrew_button.disabled = true
 	_reassemble_button.disabled = true
 	_perfect_button.disabled = true
+
+# 	TODO: enable these buttons if their recipe is possible.
+# 	Need to first implement recipes.
+	_liquefy_button.disabled = true
+	_precipitate_button.disabled = true
+	_imbue_button.disabled = true
 
 	if HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.FOUR_OILS_OR_CONSUMABLES, item_list):
 		_distill_button.disabled = false
@@ -187,6 +200,25 @@ func _on_reassemble_button_pressed():
 func _on_perfect_button_pressed():
 	var rarity_filter = _rarity_filter_container.get_filter()
 	HoradricCube.autofill_recipe(HoradricCube.Recipe.FIVE_ITEMS, rarity_filter)
+
+
+# TODO: implement
+func _on_liquefy_button_pressed():
+	pass
+
+
+# TODO: implement
+func _on_precipitate_button_pressed():
+	pass
+
+
+# TODO: implement
+func _on_imbue_button_pressed():
+	pass
+
+
+func _on_selected_backpacker_builder():
+	_backpacker_recipes.show()
 
 
 func _on_close_button_pressed():
