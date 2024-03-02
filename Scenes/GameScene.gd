@@ -176,6 +176,9 @@ func _transition_from_tutorial_state():
 	if Config.run_test_towers_tool():
 		TestTowersTool.run(self)
 
+	if Config.run_test_horadric_tool():
+		TestHoradricTool.run()
+
 
 #########################
 ###     Callbacks     ###
