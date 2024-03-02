@@ -1,30 +1,37 @@
 extends Node
 
 
+# NOTE: implements transmutation of items. The UI for
+# horadric cube is located in ItemStashMenu scene.
+# 
+# Tests for some horadric functions can be found in
+# TestHoradricTool.gd
+
+
 signal items_changed()
 
 
 enum Recipe {
-	TWO_OILS_OR_CONSUMABLES,
-	FOUR_OILS_OR_CONSUMABLES,
-	THREE_ITEMS,
-	FIVE_ITEMS,
+	REBREW,
+	DISTILL,
+	REASSEMBLE,
+	PERFECT,
 	NONE,
 }
 
 var _level_bonus_map: Dictionary = {
-	Recipe.TWO_OILS_OR_CONSUMABLES: [0, 0],
-	Recipe.FOUR_OILS_OR_CONSUMABLES: [0, 0],
-	Recipe.THREE_ITEMS: [5, 25],
-	Recipe.FIVE_ITEMS: [0, 20],
+	Recipe.REBREW: [0, 0],
+	Recipe.DISTILL: [0, 0],
+	Recipe.REASSEMBLE: [5, 25],
+	Recipe.PERFECT: [0, 20],
 	Recipe.NONE: [0, 0],
 }
 
 var _recipe_item_count_map: Dictionary = {
-	Recipe.TWO_OILS_OR_CONSUMABLES: 2, 
-	Recipe.FOUR_OILS_OR_CONSUMABLES: 4, 
-	Recipe.THREE_ITEMS: 3, 
-	Recipe.FIVE_ITEMS: 5, 
+	Recipe.REBREW: 2, 
+	Recipe.DISTILL: 4, 
+	Recipe.REASSEMBLE: 3, 
+	Recipe.PERFECT: 5, 
 	Recipe.NONE: 0, 
 }
 
@@ -158,7 +165,7 @@ func _get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) -> Arra
 	)
 
 # 	Filter out unique items if recipe raises rarity
-	var raise_rarity_recipe_list: Array = [Recipe.FOUR_OILS_OR_CONSUMABLES, Recipe.FIVE_ITEMS]
+	var raise_rarity_recipe_list: Array = [Recipe.DISTILL, Recipe.PERFECT]
 	var recipe_raises_rarity: bool = raise_rarity_recipe_list.has(recipe)
 	if recipe_raises_rarity:
 		item_list = item_list.filter(
@@ -222,14 +229,14 @@ func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 		return Recipe.NONE
 	elif all_oils_or_consumables:
 		if item_count == 2:
-			return Recipe.TWO_OILS_OR_CONSUMABLES
+			return Recipe.REBREW
 		elif item_count == 4:
-			return Recipe.FOUR_OILS_OR_CONSUMABLES
+			return Recipe.DISTILL
 	elif all_items:
 		if item_count == 3:
-			return Recipe.THREE_ITEMS
+			return Recipe.REASSEMBLE
 		elif item_count == 5:
-			return Recipe.FIVE_ITEMS
+			return Recipe.PERFECT
 
 	return Recipe.NONE
 
@@ -322,7 +329,7 @@ func _get_transmuted_item(rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int
 func _cant_increase_rarity_further(recipe: Recipe) -> bool:
 	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity()
 	var can_increase_rarity: bool = ingredient_rarity != Rarity.enm.UNIQUE
-	var recipe_increases_rarity: bool = recipe == Recipe.FOUR_OILS_OR_CONSUMABLES || recipe == Recipe.FIVE_ITEMS
+	var recipe_increases_rarity: bool = recipe == Recipe.DISTILL || recipe == Recipe.PERFECT
 	var recipe_fails: bool = recipe_increases_rarity && !can_increase_rarity
 
 	return recipe_fails
@@ -333,19 +340,19 @@ func _get_result_rarity(recipe: Recipe) -> Rarity.enm:
 	var next_rarity: Rarity.enm = _get_next_rarity(ingredient_rarity)
 
 	match recipe:
-		Recipe.TWO_OILS_OR_CONSUMABLES: return ingredient_rarity
-		Recipe.FOUR_OILS_OR_CONSUMABLES: return next_rarity
-		Recipe.THREE_ITEMS: return ingredient_rarity
-		Recipe.FIVE_ITEMS: return next_rarity
+		Recipe.REBREW: return ingredient_rarity
+		Recipe.DISTILL: return next_rarity
+		Recipe.REASSEMBLE: return ingredient_rarity
+		Recipe.PERFECT: return next_rarity
 		_: return Rarity.enm.COMMON
 
 
 func _get_result_item_type_list(recipe: Recipe) -> Array[ItemType.enm]:
 	match recipe:
-		Recipe.TWO_OILS_OR_CONSUMABLES: return [ItemType.enm.OIL, ItemType.enm.CONSUMABLE]
-		Recipe.FOUR_OILS_OR_CONSUMABLES: return [ItemType.enm.OIL, ItemType.enm.CONSUMABLE]
-		Recipe.THREE_ITEMS: return [ItemType.enm.REGULAR]
-		Recipe.FIVE_ITEMS: return [ItemType.enm.REGULAR]
+		Recipe.REBREW: return [ItemType.enm.OIL, ItemType.enm.CONSUMABLE]
+		Recipe.DISTILL: return [ItemType.enm.OIL, ItemType.enm.CONSUMABLE]
+		Recipe.REASSEMBLE: return [ItemType.enm.REGULAR]
+		Recipe.PERFECT: return [ItemType.enm.REGULAR]
 		_: return [ItemType.enm.REGULAR]
 
 

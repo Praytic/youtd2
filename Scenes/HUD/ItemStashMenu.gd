@@ -107,15 +107,15 @@ func _update_horadric_cube_recipes(item_list: Array[Item]):
 	_precipitate_button.disabled = true
 	_imbue_button.disabled = true
 
-	if HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.FOUR_OILS_OR_CONSUMABLES, item_list):
+	if HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.DISTILL, item_list):
 		_distill_button.disabled = false
 		_rebrew_button.disabled = false
-	elif HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.TWO_OILS_OR_CONSUMABLES, item_list):
+	elif HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.REBREW, item_list):
 		_rebrew_button.disabled = false
-	if HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.FIVE_ITEMS, item_list):
+	if HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.PERFECT, item_list):
 		_perfect_button.disabled = false
 		_reassemble_button.disabled = false
-	elif HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.THREE_ITEMS, item_list):
+	elif HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.REASSEMBLE, item_list):
 		_reassemble_button.disabled = false
 
 
@@ -184,22 +184,22 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 func _on_rebrew_button_pressed():
 	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.TWO_OILS_OR_CONSUMABLES, rarity_filter)
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.REBREW, rarity_filter)
 
 
 func _on_distill_button_pressed():
 	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.FOUR_OILS_OR_CONSUMABLES, rarity_filter)
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.DISTILL, rarity_filter)
 
 
 func _on_reassemble_button_pressed():
 	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.THREE_ITEMS, rarity_filter)
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.REASSEMBLE, rarity_filter)
 
 
 func _on_perfect_button_pressed():
 	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.FIVE_ITEMS, rarity_filter)
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.PERFECT, rarity_filter)
 
 
 # TODO: implement
