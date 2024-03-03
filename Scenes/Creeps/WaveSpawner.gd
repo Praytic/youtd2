@@ -60,8 +60,6 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		print_verbose("    Specials: %s" % specials_string)
 		_print_creep_hp_overall(wave)
 		
-		wave.add_to_group("wave")
-
 		_wave_list.append(wave)
 		
 		wave.finished.connect(_on_wave_finished.bind(wave))
@@ -70,7 +68,7 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 
 	_creep_spawner.setup_background_load_queue(_wave_list)
 	
-	print_verbose("Waves have been initialized. Total waves: %s" % get_waves().size())
+	print_verbose("Waves have been initialized. Total waves: %s" % _wave_list.size())
 
 	generated_all_waves.emit()
 
@@ -229,13 +227,6 @@ func get_current_wave() -> Wave:
 	return current_wave
 
 
-func get_waves() -> Array:
-	return get_tree().get_nodes_in_group("wave")
-
-
-# NOTE: use _wave_list instead of get_waves() because
-# get_waves() uses get_nodes_in_group() which is not
-# ordered.
 func get_wave(level: int) -> Wave:
 	var index: int = level - 1
 
