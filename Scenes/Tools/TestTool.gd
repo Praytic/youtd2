@@ -50,9 +50,12 @@ static func run(test_name: String, test_case_list: Array, test_case_function: Ca
 	print("--- Finished testing of %s ---" % test_name)
 
 
-static func compare(actual, expected):
+static func compare(actual, expected, description: String = ""):
 	if actual != expected:
-		var fail_message: String = "Compared values are not the same\n\tActual: %s\n\tExpected: %s" % [str(actual), str(expected)]
+		var fail_message: String = "Compared values are not the same\n\tActual: %s\n\tExpected: %s." % [str(actual), str(expected)]
+		if !description.is_empty():
+			fail_message += " Description: \"%s\"" % description
+
 		TestTool._errors_for_current_test_case.append(fail_message)
 
 

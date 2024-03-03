@@ -58,7 +58,7 @@ static func test_get_item_list_for_autofill():
 		var actual_result_item_list: Array[Item] = HoradricCube._get_item_list_for_autofill(recipe, ingredient_item_list)
 		var actual_result_list: Array[int] = Utils.item_list_to_item_id_list(actual_result_item_list)
 
-		TestTool.compare(actual_result_list, expected_result_list)
+		TestTool.compare(actual_result_list, expected_result_list, "result list")
 
 	TestTool.run("get_item_list_for_autofill()", test_case_list, test_case_function)
 
@@ -104,12 +104,12 @@ static func test_get_result_item_for_recipe():
 
 		var expected_result_count: int = test_case.expected_result_count
 		var actual_result_count: int = result_item_list.size()
-		TestTool.compare(actual_result_count, expected_result_count)
+		TestTool.compare(actual_result_count, expected_result_count, "result count")
 
 		var expected_result_rarity: Rarity.enm = test_case.expected_result_rarity
 		for result_item in result_item_list:
 			var actual_result_rarity: Rarity.enm = ItemProperties.get_rarity(result_item)
-			TestTool.compare(actual_result_rarity, expected_result_rarity)
+			TestTool.compare(actual_result_rarity, expected_result_rarity, "result rarity")
 
 		var expected_result_item_type: Array[ItemType.enm] = test_case.expected_result_item_type
 		for result_item in result_item_list:
