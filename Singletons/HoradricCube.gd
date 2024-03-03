@@ -24,14 +24,6 @@ enum Recipe {
 	IMBUE = 7,
 }
 
-const RECIPE_LIST: Array[Recipe] = [
-	Recipe.REBREW,
-	Recipe.DISTILL,
-	Recipe.REASSEMBLE,
-	Recipe.PERFECT,
-	Recipe.NONE,
-]
-
 
 const CAPACITY: int = 5
 const LEVEL_MOD_UNLUCKY: int = -9
@@ -212,7 +204,9 @@ func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 
 	var item_id_list: Array[int] = Utils.item_list_to_item_id_list(item_list)
 
-	for recipe in RECIPE_LIST:
+	var recipe_list: Array = RecipeProperties.get_id_list()
+
+	for recipe in recipe_list:
 		var autofill_item_list: Array[Item] = _get_item_list_for_autofill(recipe, item_list)
 		var autofill_id_list: Array[int] = Utils.item_list_to_item_id_list(autofill_item_list)
 
