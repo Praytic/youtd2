@@ -48,6 +48,15 @@ static func test_get_item_list_for_autofill():
 
 		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.DISTILL, [2008, 2008, 2008, 2008, 2008], [], "4 unique oils for DISTILL. Invalid because can't raise rarity further."),
 		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.PERFECT, [1, 1, 1, 1, 1], [], "5 permanent items for PERFECT. Invalid because can't raise rarity further."),
+
+		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.LIQUEFY, [8, 8], [8, 8], "2 rare items for LIQUEFY"),
+		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.LIQUEFY, [3, 3], [], "2 uncommon items for LIQUEFY. Invalid because LIEQUEFY needs to reduce rarity by 2."),
+
+		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.PRECIPITATE, [1001, 1001, 1001, 1001, 1001, 1001], [1001, 1001, 1001, 1001, 1001, 1001], "PRECIPITATE 6 common oils."),
+		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.PRECIPITATE, [1003, 1003, 1003, 1003, 1003, 1003], [], "PRECIPITATE 6 rare oils. Invalid because rarity too high."),
+
+		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.IMBUE, [2, 1001, 1001, 1001, 1001], [2, 1001, 1001, 1001, 1001], "IMBUE 1 common item and 4 oils."),
+		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.IMBUE, [1, 1022, 1022, 1022, 1022], [], "IMBUE 1 unique item and 4 oils. Invalid because rarity too high"),
 	]
 
 	var test_case_function: Callable = func(test_case: TestCase_get_item_list_for_autofill):
@@ -89,8 +98,8 @@ static func test_get_result_item_for_recipe():
 		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.LIQUEFY, [8, 8], Rarity.enm.COMMON, [ItemType.enm.OIL, ItemType.enm.CONSUMABLE], 3, "LIQUEFY 2 rare items into 3 common oils"),
 		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.LIQUEFY, [1, 1], Rarity.enm.UNCOMMON, [ItemType.enm.OIL, ItemType.enm.CONSUMABLE], 3, "LIQUEFY 2 unique items into 3 uncommon oils"),
 
-		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.PRECIPITATE, [1001, 1001], Rarity.enm.RARE, [ItemType.enm.REGULAR], 1, "PRECIPITATE 6 common oils into 1 rare item"),
-		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.PRECIPITATE, [1002, 1002], Rarity.enm.UNIQUE, [ItemType.enm.REGULAR], 1, "PRECIPITATE 6 uncommon oils into 1 rare item"),
+		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.PRECIPITATE, [1001, 1001], Rarity.enm.RARE, [ItemType.enm.REGULAR], 1, "PRECIPITATE 6 common oils"),
+		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.PRECIPITATE, [1002, 1002], Rarity.enm.UNIQUE, [ItemType.enm.REGULAR], 1, "PRECIPITATE 6 uncommon oils"),
 		
 		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.IMBUE, [2, 1001, 1001, 1001, 1001], Rarity.enm.UNCOMMON, [ItemType.enm.REGULAR], 1, "IMBUE 1 common item and 4 common oils into 1 uncommon item"),
 
@@ -114,6 +123,6 @@ static func test_get_result_item_for_recipe():
 		var expected_result_item_type: Array[ItemType.enm] = test_case.expected_result_item_type
 		for result_item in result_item_list:
 			var actual_result_item_type: ItemType.enm = ItemProperties.get_type(result_item)
-			TestTool.verify(expected_result_item_type.has(actual_result_item_type))
+			TestTool.verify(expected_result_item_type.has(actual_result_item_type), "result item type")
 
 	TestTool.run("get_result_item_for_recipe()", test_case_list, test_case_function)

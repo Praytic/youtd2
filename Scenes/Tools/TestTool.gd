@@ -54,7 +54,7 @@ static func compare(actual, expected, description: String = ""):
 	if actual != expected:
 		var fail_message: String = "Compared values are not the same\n\tActual: %s\n\tExpected: %s." % [str(actual), str(expected)]
 		if !description.is_empty():
-			fail_message += " Description: \"%s\"" % description
+			fail_message += "\n\tDescription: \"%s\"" % description
 
 		TestTool._errors_for_current_test_case.append(fail_message)
 
