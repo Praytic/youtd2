@@ -78,26 +78,24 @@ func can_transmute() -> bool:
 
 # Creates new item based on the recipe and adds it to the item container.
 # Returns the message with transmutation details to the caller.
-func transmute() -> String:
+func transmute():
 	var item_list: Array[Item] = _item_container.get_item_list()
 	var current_recipe: Recipe = _get_current_recipe(item_list)
 	
 	if current_recipe == Recipe.NONE:
 		return "Change the ingredients to match an existing recipe."
 
-	var result = _get_result_item_for_recipe(current_recipe, item_list)
+	var result_item_id: int = _get_result_item_for_recipe(current_recipe, item_list)
 
-	if result.item_id == 0:
+	if result_item_id == 0:
 		push_error("Transmute failed to generate any items, this shouldn't happen.")
 
 		return "Something went wrong..."
 
 	_remove_all_items()
 
-	var result_item: Item = Item.make(result.item_id)
+	var result_item: Item = Item.make(result_item_id)
 	_item_container.add_item(result_item)
-	
-	return result.message
 
 
 func autofill_recipe(recipe: Recipe, rarity_filter: Array = []) -> bool:
@@ -222,7 +220,7 @@ func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	return Recipe.NONE
 
 
-func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]):
+func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> int:
 	var rarity_change_from_recipe: int = RecipeProperties.get_rarity_change(recipe)
 	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity(item_list)
 	var result_rarity: Rarity.enm = (ingredient_rarity + rarity_change_from_recipe) as Rarity.enm
@@ -253,7 +251,7 @@ func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]):
 	if !luck_message.is_empty():
 		Messages.add_normal(luck_message)
 
-	return {"item_id": result_item, "message": luck_message}
+	return result_item
 
 
 func _get_transmuted_oil_or_consumable(item_list: Array[Item], rarity: Rarity.enm) -> int:

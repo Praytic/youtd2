@@ -89,8 +89,7 @@ static func test_get_result_item_for_recipe():
 		var recipe: HoradricCube.Recipe = test_case.recipe
 		var ingredient_id_list: Array[int] = test_case.ingredient_list
 		var ingredient_item_list: Array[Item] = TestHoradricTool.item_id_list_to_item_list(ingredient_id_list)
-		var result_tuple = HoradricCube._get_result_item_for_recipe(recipe, ingredient_item_list)
-		var result_item: int = result_tuple.item_id
+		var result_item: int = HoradricCube._get_result_item_for_recipe(recipe, ingredient_item_list)
 
 		var expected_result_rarity: Rarity.enm = test_case.expected_result_rarity
 		var actual_result_rarity: Rarity.enm = ItemProperties.get_rarity(result_item)
