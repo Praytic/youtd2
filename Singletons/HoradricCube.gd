@@ -206,11 +206,11 @@ func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	if item_list.is_empty():
 		return Recipe.NONE
 
-	var item_id_list: Array[int] = TestHoradricTool.item_list_to_item_id_list(item_list)
+	var item_id_list: Array[int] = Utils.item_list_to_item_id_list(item_list)
 
 	for recipe in RECIPE_LIST:
 		var autofill_item_list: Array[Item] = _get_item_list_for_autofill(recipe, item_list)
-		var autofill_id_list: Array[int] = TestHoradricTool.item_list_to_item_id_list(autofill_item_list)
+		var autofill_id_list: Array[int] = Utils.item_list_to_item_id_list(autofill_item_list)
 
 		var recipe_matches: bool = item_id_list == autofill_id_list
 
@@ -258,7 +258,7 @@ func _get_transmuted_oil_or_consumable(item_list: Array[Item], rarity: Rarity.en
 	var oil_list: Array = ItemDropCalc.get_oil_and_consumables_list(rarity)
 
 # 	Remove ingredients from item pool so that trasmute result is different from ingredients
-	var ingredient_list: Array[int] = _get_ingredient_id_list(item_list)
+	var ingredient_list: Array[int] = Utils.item_list_to_item_id_list(item_list)
 	for ingredient in ingredient_list:
 		oil_list.erase(ingredient)
 
@@ -284,7 +284,7 @@ func _get_transmuted_item(ingredient_item_list: Array[Item], rarity: Rarity.enm,
 		item_list = ItemDropCalc.get_item_list_bounded(rarity, current_lvl_min, lvl_max)
 
 # 		Remove ingredients from item pool so that transmute result is different from ingredients
-		var ingredient_list: Array[int] = _get_ingredient_id_list(ingredient_item_list)
+		var ingredient_list: Array[int] = Utils.item_list_to_item_id_list(ingredient_item_list)
 		for ingredient in ingredient_list:
 			item_list.erase(ingredient)
 
@@ -355,16 +355,6 @@ func _get_random_bonus_mod() -> int:
 	var bonus_mod: int = Utils.random_weighted_pick(_bonus_mod_chance_map)
 
 	return bonus_mod
-
-
-func _get_ingredient_id_list(item_list: Array[Item]) -> Array[int]:
-	var id_list: Array[int] = []
-	
-	for item in item_list:
-		var id: int = item.get_id()
-		id_list.append(id)
-
-	return id_list
 
 
 #########################

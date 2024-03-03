@@ -467,3 +467,26 @@ func get_aoe_damage(aoe_center: Vector2, target: Unit, radius: float, damage: fl
 		return damage * (1.0 - sides_ratio)
 	else:
 		return damage
+
+
+func item_id_list_to_item_list(item_id_list: Array[int]) -> Array[Item]:
+	var item_list: Array[Item] = []
+
+	for item_id in item_id_list:
+		var item: Item = Item.make(item_id)
+		item_list.append(item)
+
+	return item_list
+
+
+func item_list_to_item_id_list(item_list: Array[Item]) -> Array[int]:
+	var item_id_list: Array[int] = []
+
+	for item in item_list:
+		var item_id: int = item.get_id()
+		item_id_list.append(item_id)
+
+#	NOTE: sort so that item lists can be compared
+	item_id_list.sort()
+
+	return item_id_list
