@@ -56,5 +56,11 @@ static func compare(actual, expected):
 		TestTool._errors_for_current_test_case.append(fail_message)
 
 
+static func verify(condition: bool, message: String):
+	if !condition:
+		var fail_message: String = "Verify failed: %s" % [message]
+		TestTool._errors_for_current_test_case.append(fail_message)
+
+
 static func print_totals():
 	print("Totals: %d passed, %d failed" % [TestTool._passed_count, TestTool._failed_count])

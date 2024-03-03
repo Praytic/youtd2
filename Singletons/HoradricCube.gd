@@ -85,7 +85,7 @@ func transmute() -> String:
 	if current_recipe == Recipe.NONE:
 		return "Change the ingredients to match an existing recipe."
 
-	var result = _get_result_item_for_recipe(current_recipe)
+	var result = _get_result_item_for_recipe(current_recipe, item_list)
 
 	if result.item_id == 0:
 		push_error("Transmute failed to generate any items, this shouldn't happen.")
@@ -222,23 +222,23 @@ func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	return Recipe.NONE
 
 
-func _get_result_item_for_recipe(recipe: Recipe):
+func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]):
 	var rarity_change_from_recipe: int = RecipeProperties.get_rarity_change(recipe)
-	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity()
+	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity(item_list)
 	var result_rarity: Rarity.enm = (ingredient_rarity + rarity_change_from_recipe) as Rarity.enm
 	var result_item_type: Array[ItemType.enm] = RecipeProperties.get_result_item_type(recipe)
-	var avg_ingredient_level: int = _get_average_ingredient_level()
+	var avg_ingredient_level: int = _get_average_ingredient_level(item_list)
 	var random_bonus_mod: int = _get_random_bonus_mod()
 	var lvl_min: int = avg_ingredient_level + RecipeProperties.get_lvl_bonus_min(recipe) + random_bonus_mod	
-	var lvl_max: int = avg_ingredient_level + RecipeProperties.get_lvl_bonus_max(recipe) + random_bonus_mod	
+	var lvl_max: int = avg_ingredient_level + RecipeProperties.get_lvl_bonus_max(recipe) + random_bonus_mod
 
 	var result_item: int
 	var recipe_is_oil_or_consumable: bool = result_item_type.has(ItemType.enm.OIL) && result_item_type.has(ItemType.enm.CONSUMABLE)
 	var recipe_is_regular: bool = result_item_type.has(ItemType.enm.REGULAR)
 	if recipe_is_oil_or_consumable:
-		result_item = _get_transmuted_oil_or_consumable(result_rarity)
+		result_item = _get_transmuted_oil_or_consumable(item_list, result_rarity)
 	elif recipe_is_regular:
-		result_item = _get_transmuted_item(result_rarity, lvl_min, lvl_max)
+		result_item = _get_transmuted_item(item_list, result_rarity, lvl_min, lvl_max)
 	else:
 		result_item = 0
 		push_error("Invalid recipe")
@@ -256,11 +256,11 @@ func _get_result_item_for_recipe(recipe: Recipe):
 	return {"item_id": result_item, "message": luck_message}
 
 
-func _get_transmuted_oil_or_consumable(rarity: Rarity.enm) -> int:
+func _get_transmuted_oil_or_consumable(item_list: Array[Item], rarity: Rarity.enm) -> int:
 	var oil_list: Array = ItemDropCalc.get_oil_and_consumables_list(rarity)
 
 # 	Remove ingredients from item pool so that trasmute result is different from ingredients
-	var ingredient_list: Array[int] = _get_ingredient_id_list()
+	var ingredient_list: Array[int] = _get_ingredient_id_list(item_list)
 	for ingredient in ingredient_list:
 		oil_list.erase(ingredient)
 
@@ -274,7 +274,7 @@ func _get_transmuted_oil_or_consumable(rarity: Rarity.enm) -> int:
 	return random_oil
 
 
-func _get_transmuted_item(rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int:
+func _get_transmuted_item(ingredient_item_list: Array[Item], rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int:
 	var current_lvl_min: int = lvl_min
 	var item_list: Array[int] = []
 	var loop_count: int = 0
@@ -286,7 +286,7 @@ func _get_transmuted_item(rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int
 		item_list = ItemDropCalc.get_item_list_bounded(rarity, current_lvl_min, lvl_max)
 
 # 		Remove ingredients from item pool so that transmute result is different from ingredients
-		var ingredient_list: Array[int] = _get_ingredient_id_list()
+		var ingredient_list: Array[int] = _get_ingredient_id_list(ingredient_item_list)
 		for ingredient in ingredient_list:
 			item_list.erase(ingredient)
 
@@ -309,9 +309,7 @@ func _get_transmuted_item(rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int
 	return random_item
 
 
-func _get_ingredient_rarity() -> Rarity.enm:
-	var item_list: Array[Item] = _item_container.get_item_list()
-	
+func _get_ingredient_rarity(item_list: Array[Item]) -> Rarity.enm:
 	if item_list.is_empty():
 		return Rarity.enm.COMMON
 
@@ -338,9 +336,7 @@ func _remove_all_items():
 		item.queue_free()
 
 
-func _get_average_ingredient_level() -> int:
-	var item_list: Array[Item] = _item_container.get_item_list()
-
+func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 	if item_list.is_empty():
 		return 0
 
@@ -363,9 +359,8 @@ func _get_random_bonus_mod() -> int:
 	return bonus_mod
 
 
-func _get_ingredient_id_list() -> Array[int]:
+func _get_ingredient_id_list(item_list: Array[Item]) -> Array[int]:
 	var id_list: Array[int] = []
-	var item_list: Array[Item] = _item_container.get_item_list()
 	
 	for item in item_list:
 		var id: int = item.get_id()
