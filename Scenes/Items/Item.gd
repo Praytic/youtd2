@@ -9,21 +9,6 @@ signal charges_changed()
 signal consumed()
 
 
-enum CsvProperty {
-	ID,
-	NAME,
-	OLD_NAME,
-	SCRIPT_NAME,
-	TYPE,
-	AUTHOR,
-	RARITY,
-	COST,
-	DESCRIPTION,
-	REQUIRED_WAVE_LEVEL,
-	ICON_ATLAS_FAMILY,
-	ICON_ATLAS_NUM,
-}
-
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 

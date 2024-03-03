@@ -125,8 +125,8 @@ func get_item_list_bounded(rarity: int, lvl_min: int, lvl_max: int) -> Array[int
 #	rarity
 	var rarity_string: String = Rarity.convert_to_string(rarity)
 	var regular_type_string: String = ItemType.convert_to_string(ItemType.enm.REGULAR)
-	var item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, regular_type_string)
-	item_list = Properties.filter_item_id_list(item_list, Item.CsvProperty.RARITY, rarity_string)
+	var item_list: Array = ItemProperties.get_id_list_by_filter(ItemProperties.CsvProperty.TYPE, regular_type_string)
+	item_list = ItemProperties.filter_item_id_list(item_list, ItemProperties.CsvProperty.RARITY, rarity_string)
 
 # 	Filter the item list by level
 	var available_item_list: Array[int] = []
@@ -152,11 +152,11 @@ func get_oil_and_consumables_list(rarity: int) -> Array:
 	var rarity_string: String = Rarity.convert_to_string(rarity)
 	var oil_type_string: String = ItemType.convert_to_string(ItemType.enm.OIL)
 	var consumable_type_string: String = ItemType.convert_to_string(ItemType.enm.CONSUMABLE)
-	var oil_item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, oil_type_string)
-	var consumable_item_list: Array = Properties.get_item_id_list_by_filter(Item.CsvProperty.TYPE, consumable_type_string)
+	var oil_item_list: Array = ItemProperties.get_id_list_by_filter(ItemProperties.CsvProperty.TYPE, oil_type_string)
+	var consumable_item_list: Array = ItemProperties.get_id_list_by_filter(ItemProperties.CsvProperty.TYPE, consumable_type_string)
 
 	var item_list: Array = oil_item_list + consumable_item_list
 
-	item_list = Properties.filter_item_id_list(item_list, Item.CsvProperty.RARITY, rarity_string)
+	item_list = ItemProperties.filter_item_id_list(item_list, ItemProperties.CsvProperty.RARITY, rarity_string)
 
 	return item_list
