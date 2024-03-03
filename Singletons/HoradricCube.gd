@@ -19,6 +19,9 @@ enum Recipe {
 	DISTILL = 2,
 	REASSEMBLE = 3,
 	PERFECT = 4,
+	LIQUEFY = 5,
+	PRECIPITATE = 6,
+	IMBUE = 7,
 }
 
 const RECIPE_LIST: Array[Recipe] = [
@@ -231,6 +234,12 @@ func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> Arra
 	var lvl_min: int = avg_ingredient_level + RecipeProperties.get_lvl_bonus_min(recipe) + random_bonus_mod	
 	var lvl_max: int = avg_ingredient_level + RecipeProperties.get_lvl_bonus_max(recipe) + random_bonus_mod
 
+#	NOTE: for PRECIPITATE recipe need to pick completely
+#	random level
+	if recipe == Recipe.PRECIPITATE:
+		lvl_min = 0
+		lvl_max = 100000
+
 	var recipe_is_oil_or_consumable: bool = result_item_type.has(ItemType.enm.OIL) && result_item_type.has(ItemType.enm.CONSUMABLE)
 	var recipe_is_regular: bool = result_item_type.has(ItemType.enm.REGULAR)
 
@@ -346,6 +355,13 @@ func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 	var sum: float = 0.0
 
 	for item in item_list:
+#		NOTE: only check level of permanent items. Skip oils
+#		and consumables. Important for Imbue recipe.
+		var item_is_permanent: bool = ItemProperties.get_type(item.get_id()) == ItemType.enm.REGULAR
+
+		if !item_is_permanent:
+			continue
+
 		var item_id: int = item.get_id()
 		var level: int = ItemProperties.get_required_wave_level(item_id)
 		sum += level

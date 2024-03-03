@@ -85,6 +85,15 @@ static func test_get_result_item_for_recipe():
 		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.DISTILL, [1001, 1001, 1001, 1001], Rarity.enm.UNCOMMON, [ItemType.enm.OIL, ItemType.enm.CONSUMABLE], 1, "rebrew 4 common oils into uncommon oil"),
 		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.REASSEMBLE, [64, 64, 64], Rarity.enm.COMMON, [ItemType.enm.REGULAR], 1, "reassemble 3 common permanent items"),
 		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.PERFECT, [64, 64, 64, 64, 64], Rarity.enm.UNCOMMON, [ItemType.enm.REGULAR], 1, "perfect 5 common permanent items into uncommon item"),
+
+		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.LIQUEFY, [8, 8], Rarity.enm.COMMON, [ItemType.enm.OIL, ItemType.enm.CONSUMABLE], 3, "LIQUEFY 2 rare items into 3 common oils"),
+		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.LIQUEFY, [1, 1], Rarity.enm.UNCOMMON, [ItemType.enm.OIL, ItemType.enm.CONSUMABLE], 3, "LIQUEFY 2 unique items into 3 uncommon oils"),
+
+		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.PRECIPITATE, [1001, 1001], Rarity.enm.RARE, [ItemType.enm.REGULAR], 1, "PRECIPITATE 6 common oils into 1 rare item"),
+		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.PRECIPITATE, [1002, 1002], Rarity.enm.UNIQUE, [ItemType.enm.REGULAR], 1, "PRECIPITATE 6 uncommon oils into 1 rare item"),
+		
+		TestCase_get_result_item_for_recipe.new(HoradricCube.Recipe.IMBUE, [2, 1001, 1001, 1001, 1001], Rarity.enm.UNCOMMON, [ItemType.enm.REGULAR], 1, "IMBUE 1 common item and 4 common oils into 1 uncommon item"),
+
 	]
 
 	var test_case_function: Callable = func(test_case: TestCase_get_result_item_for_recipe):
@@ -105,6 +114,6 @@ static func test_get_result_item_for_recipe():
 		var expected_result_item_type: Array[ItemType.enm] = test_case.expected_result_item_type
 		for result_item in result_item_list:
 			var actual_result_item_type: ItemType.enm = ItemProperties.get_type(result_item)
-			TestTool.verify(expected_result_item_type.has(actual_result_item_type), "item type match")
+			TestTool.verify(expected_result_item_type.has(actual_result_item_type))
 
-	TestTool.run("get_item_list_for_autofill()", test_case_list, test_case_function)
+	TestTool.run("get_result_item_for_recipe()", test_case_list, test_case_function)

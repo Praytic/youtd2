@@ -1,7 +1,5 @@
 extends Builder
 
-# TODO: implement +3 extra cube recipes
-
 
 func _init():
     Globals._builder_item_slots_bonus = 2

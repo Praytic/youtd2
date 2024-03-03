@@ -34,6 +34,9 @@ var _item_button_list: Array[ItemButton] = []
 	HoradricCube.Recipe.DISTILL: _distill_button,
 	HoradricCube.Recipe.REASSEMBLE: _reassemble_button,
 	HoradricCube.Recipe.PERFECT: _perfect_button,
+	HoradricCube.Recipe.LIQUEFY: _liquefy_button,
+	HoradricCube.Recipe.PRECIPITATE: _precipitate_button,
+	HoradricCube.Recipe.IMBUE: _imbue_button,
 }
 
 
@@ -215,17 +218,20 @@ func _on_perfect_button_pressed():
 
 # TODO: implement
 func _on_liquefy_button_pressed():
-	pass
+	var rarity_filter = _rarity_filter_container.get_filter()
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.LIQUEFY, rarity_filter)
 
 
 # TODO: implement
 func _on_precipitate_button_pressed():
-	pass
+	var rarity_filter = _rarity_filter_container.get_filter()
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.PRECIPITATE, rarity_filter)
 
 
 # TODO: implement
 func _on_imbue_button_pressed():
-	pass
+	var rarity_filter = _rarity_filter_container.get_filter()
+	HoradricCube.autofill_recipe(HoradricCube.Recipe.IMBUE, rarity_filter)
 
 
 func _on_selected_backpacker_builder():
