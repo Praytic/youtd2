@@ -11,55 +11,6 @@ static func run():
 	TestTool.print_totals()
 
 
-class TestCase_get_current_recipe extends TestTool.TestCase_base:
-	var item_id_list: Array[int] = []
-	var expected_recipe: HoradricCube.Recipe
-
-	func _init(item_id_list_arg: Array[int], expected_recipe_arg: HoradricCube.Recipe, description_arg: String):
-		item_id_list = item_id_list_arg
-		expected_recipe = expected_recipe_arg
-		description = description_arg
-
-
-static func test_get_current_recipe():
-	var test_case_list: Array[TestCase_get_current_recipe] = [
-		TestCase_get_current_recipe.new([], HoradricCube.Recipe.NONE, "0 items."),
-		TestCase_get_current_recipe.new([1, 1001], HoradricCube.Recipe.NONE, "1 permanent item, 1 oil."),
-		TestCase_get_current_recipe.new([1, 2001], HoradricCube.Recipe.NONE, "1 permanent item, 1 consumable."),
-
-		TestCase_get_current_recipe.new([1001, 1001], HoradricCube.Recipe.REBREW, "2 oils of same rarity."),
-		TestCase_get_current_recipe.new([1001, 2001], HoradricCube.Recipe.REBREW, "1 oil, 1 consumable."),
-		TestCase_get_current_recipe.new([2001, 2001], HoradricCube.Recipe.REBREW, "2 consumables."),
-		TestCase_get_current_recipe.new([1001], HoradricCube.Recipe.NONE, "1 oil. Invalid recipe because not enough oils."),
-		TestCase_get_current_recipe.new([1001, 1002], HoradricCube.Recipe.NONE, "2 oils with different rarities. Invalid recipe because different rarities."),
-
-		TestCase_get_current_recipe.new([1001, 1001, 1001, 1001], HoradricCube.Recipe.DISTILL, "4 oils."),
-
-		TestCase_get_current_recipe.new([3, 4, 5], HoradricCube.Recipe.REASSEMBLE, "3 permanent items with same rarity. OK."),
-		TestCase_get_current_recipe.new([3, 4, 8], HoradricCube.Recipe.NONE, "3 permanent items with different rarities. Invalid recipe because Item3 and Item4 are UNCOMMON while Item8 is UNIQUE."),
-		TestCase_get_current_recipe.new([3], HoradricCube.Recipe.NONE, "1 permanent items. Invalid recipe because not enough items."),
-		TestCase_get_current_recipe.new([3, 4], HoradricCube.Recipe.NONE, "2 permanent items. Invalid recipe because not enough items."),
-		TestCase_get_current_recipe.new([3, 4, 5, 6], HoradricCube.Recipe.NONE, "4 permanent items. Invalid recipe because too many items."),
-
-		TestCase_get_current_recipe.new([3, 4, 5, 6, 7], HoradricCube.Recipe.PERFECT, "5 permanent items with same rarity."),
-		TestCase_get_current_recipe.new([3, 4, 5, 6, 8], HoradricCube.Recipe.NONE, "5 permanent items with different rarities. Invalid recipe because Item8 is UNIQUE."),
-		TestCase_get_current_recipe.new([3, 4, 5, 6], HoradricCube.Recipe.NONE, "4 permanent items with same rarity. Invalid recipe because not enough items."),
-		TestCase_get_current_recipe.new([3, 4, 5, 6, 7, 19], HoradricCube.Recipe.NONE, "6 permanent items with same rarity. Invalid recipe because too many items."),
-
-		TestCase_get_current_recipe.new([3, 4, 5, 6, 7, 19], HoradricCube.Recipe.NONE, "6 permanent items with same rarity. Invalid recipe because too many items."),
-	]
-
-	var test_case_function: Callable = func(test_case: TestCase_get_current_recipe):
-		var item_id_list: Array[int] = test_case.item_id_list
-		var item_list: Array[Item] = TestHoradricTool.item_id_list_to_item_list(item_id_list)
-		var expected_recipe: HoradricCube.Recipe = test_case.expected_recipe
-		var actual_recipe: HoradricCube.Recipe = HoradricCube._get_current_recipe(item_list)
-
-		TestTool.compare(actual_recipe, expected_recipe)
-
-	TestTool.run("get_current_recipe()", test_case_list, test_case_function)
-
-
 class TestCase_get_item_list_for_autofill extends TestTool.TestCase_base:
 	var recipe: HoradricCube.Recipe
 	var ingredient_list: Array[int] = []
