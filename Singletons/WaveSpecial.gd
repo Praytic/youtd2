@@ -48,7 +48,7 @@ var _properties: Dictionary = {}
 #########################
 
 func _init():
-	Properties._load_csv_properties(PROPERTIES_PATH, _properties, WaveSpecial.CsvProperty.ID)
+	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, WaveSpecial.CsvProperty.ID)
 	_group_to_special_map = _make_group_to_special_map()
 	print_verbose("_group_to_special_map = ", _group_to_special_map)
 

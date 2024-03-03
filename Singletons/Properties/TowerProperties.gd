@@ -1,9 +1,35 @@
 extends Node
 
-# Convenience getters for tower properties. Actual values
-# are stored in Properties, this class contains getters.
+
+# NOTE: order of CsvProperty enums must match the order of
+# the columns in tower_properties.csv
+enum CsvProperty {
+	NAME,
+	TIER,
+	ID,
+	FAMILY_ID,
+	AUTHOR,
+	RARITY,
+	ELEMENT,
+	ATTACK_ENABLED,
+	ATTACK_TYPE,
+	ATTACK_RANGE,
+	ATTACK_CD,
+	ATTACK_DAMAGE_MIN,
+	ATTACK_DAMAGE_MAX,
+	MANA,
+	MANA_REGEN,
+	COST,
+	DESCRIPTION,
+	REQUIRED_ELEMENT_LEVEL,
+	REQUIRED_WAVE_LEVEL,
+	ICON_ATLAS_NUM,
+	RELEASE,
+}
 
 
+const PROPERTIES_PATH = "res://Data/tower_properties.csv"
+const TOWER_TOOLTIPS_PATH = "res://Data/tower_tooltips.csv"
 const ICON_SIZE_M = 128
 const TIER_ICON_SIZE_M = 64
 const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
@@ -18,6 +44,8 @@ var _min_required_wave_for_build_mode = {
 	Rarity.enm.UNIQUE: 60
 }
 
+var _properties: Dictionary = {}
+var _tower_tooltips: Dictionary = {}
 var _element_map: Dictionary = {}
 var _attack_type_map: Dictionary = {}
 var _rarity_map: Dictionary = {}
@@ -30,14 +58,17 @@ var _rarity_map: Dictionary = {}
 # NOTE: convert some property strings to enums in _ready()
 # so that we avoid this overhead during runtime.
 func _ready():
-	for tower_id in Properties.get_tower_id_list():
-		var element_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.ELEMENT)
+	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
+	UtilsStatic.load_csv_properties(TOWER_TOOLTIPS_PATH, _tower_tooltips, 0)
+	
+	for tower_id in get_tower_id_list():
+		var element_string: String = _get_property(tower_id, CsvProperty.ELEMENT)
 		var element: Element.enm = Element.from_string(element_string)
 
-		var attack_type_string: String = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_TYPE)
+		var attack_type_string: String = _get_property(tower_id, CsvProperty.ATTACK_TYPE)
 		var attack_type: AttackType.enm = AttackType.from_string(attack_type_string)
 
-		var rarity_string: String = get_csv_property(tower_id,Tower. CsvProperty.RARITY)
+		var rarity_string: String = _get_property(tower_id, CsvProperty.RARITY)
 		var rarity: Rarity.enm = Rarity.convert_from_string(rarity_string)
 		
 		_element_map[tower_id] = element
@@ -48,6 +79,27 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_properties(tower_id: int) -> Dictionary:
+	if _properties.has(tower_id):
+		var out: Dictionary = _properties[tower_id]
+
+		return out
+	else:
+		return {}
+
+
+func get_tower_id_list() -> Array:
+	return _properties.keys()
+
+
+func get_tower_id_list_by_filter(tower_property: CsvProperty, filter_value: String) -> Array:
+	var result_list = []
+	for tower_id in _properties.keys():
+		if _properties[tower_id][tower_property] == filter_value:
+			result_list.append(tower_id)
+	return result_list
+
 
 func get_icon_texture(tower_id: int) -> Texture2D:
 	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(tower_id)
@@ -68,7 +120,7 @@ func get_icon_texture(tower_id: int) -> Texture2D:
 
 
 func get_tier(tower_id: int) -> int:
-	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.TIER).to_int()
+	return _get_property(tower_id, CsvProperty.TIER).to_int()
 
 
 func get_tier_icon_texture(tower_id: int) -> Texture2D:
@@ -88,11 +140,11 @@ func is_released(tower_id: int) -> bool:
 	if Settings.get_bool_setting(Settings.ENABLE_UNRELEASED_TOWERS):
 		return true
 
-	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.RELEASE).to_int() as bool
+	return _get_property(tower_id, CsvProperty.RELEASE).to_int() as bool
 
 
 func get_icon_atlas_num(tower_id: int) -> int:
-	var icon_atlas_num_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.ICON_ATLAS_NUM)
+	var icon_atlas_num_string: String = _get_property(tower_id, CsvProperty.ICON_ATLAS_NUM)
 
 	if !icon_atlas_num_string.is_empty():
 		var icon_atlas_num: int = icon_atlas_num_string.to_int()
@@ -108,15 +160,6 @@ func get_element(tower_id: int) -> Element.enm:
 	return element
 
 
-func get_csv_property(tower_id: int, csv_property: Tower.CsvProperty) -> String:
-	assert(tower_id != 0, "Tower is undefined.")
-	
-	var properties: Dictionary = Properties.get_tower_csv_properties_by_id(tower_id)
-	var value: String = properties[csv_property]
-
-	return value
-
-
 func get_rarity(tower_id: int) -> Rarity.enm:
 	var rarity: Rarity.enm = _rarity_map[tower_id]
 
@@ -124,7 +167,7 @@ func get_rarity(tower_id: int) -> Rarity.enm:
 	
 
 func get_display_name(tower_id: int) -> String:
-	return get_csv_property(tower_id, Tower.CsvProperty.NAME)
+	return _get_property(tower_id, CsvProperty.NAME)
 
 
 func get_tooltip_text(tower_id: int) -> String:
@@ -135,7 +178,7 @@ func get_tooltip_text(tower_id: int) -> String:
 
 
 func get_cost(tower_id: int) -> int:
-	var cost: int = get_csv_property(tower_id, Tower.CsvProperty.COST) as int
+	var cost: int = _get_property(tower_id, CsvProperty.COST) as int
 
 	return cost
 
@@ -150,25 +193,25 @@ func get_sell_price(tower_id: int) -> int:
 
 
 func get_description(tower_id: int) -> String:
-	var description: String = get_csv_property(tower_id, Tower.CsvProperty.DESCRIPTION)
+	var description: String = _get_property(tower_id, CsvProperty.DESCRIPTION)
 
 	return description
 
 
 func get_author(tower_id: int) -> String:
-	var author: String = get_csv_property(tower_id, Tower.CsvProperty.AUTHOR)
+	var author: String = _get_property(tower_id, CsvProperty.AUTHOR)
 
 	return author
 
 
 func get_damage_min(tower_id: int) -> int:
-	var damage_min: int = get_csv_property(tower_id, Tower.CsvProperty.ATTACK_DAMAGE_MIN).to_int()
+	var damage_min: int = _get_property(tower_id, CsvProperty.ATTACK_DAMAGE_MIN).to_int()
 
 	return damage_min
 
 
 func get_damage_max(tower_id: int) -> int:
-	var damage_max: int = get_csv_property(tower_id, Tower.CsvProperty.ATTACK_DAMAGE_MAX).to_int()
+	var damage_max: int = _get_property(tower_id, CsvProperty.ATTACK_DAMAGE_MAX).to_int()
 
 	return damage_max
 
@@ -180,7 +223,7 @@ func get_base_damage(tower_id: int) -> int:
 
 
 func get_base_attackspeed(tower_id: int) -> float:
-	var attackspeed: float = get_csv_property(tower_id, Tower. CsvProperty.ATTACK_CD).to_float()
+	var attackspeed: float = _get_property(tower_id,  CsvProperty.ATTACK_CD).to_float()
 
 	if attackspeed == 0.0:
 		push_error("Base attackspeed for tower %d is equal to 0.0. Attackspeed must greater than 0.0, even if the tower doesn't attack. Returning 1.0 instead.")
@@ -191,7 +234,7 @@ func get_base_attackspeed(tower_id: int) -> float:
 
 
 func get_attack_enabled(tower_id: int) -> bool:
-	var attack_enabled: bool = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_ENABLED) == "TRUE"
+	var attack_enabled: bool = _get_property(tower_id, CsvProperty.ATTACK_ENABLED) == "TRUE"
 
 	return attack_enabled
 
@@ -203,7 +246,7 @@ func get_attack_type(tower_id: int) -> AttackType.enm:
 
 
 func get_range(tower_id: int) -> float:
-	var original_range: float = get_csv_property(tower_id,Tower. CsvProperty.ATTACK_RANGE).to_float()
+	var original_range: float = _get_property(tower_id, CsvProperty.ATTACK_RANGE).to_float()
 
 	if original_range == 0.0:
 		push_error("Tower attack range must be greater than 0. Forcing value to 1.")
@@ -217,7 +260,7 @@ func get_range(tower_id: int) -> float:
 
 
 func get_required_element_level(tower_id: int) -> int:
-	var element_level_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.REQUIRED_ELEMENT_LEVEL)
+	var element_level_string: String = _get_property(tower_id, CsvProperty.REQUIRED_ELEMENT_LEVEL)
 	var element_level_is_defined: bool = !element_level_string.is_empty()
 
 	var element_level: int
@@ -233,7 +276,7 @@ func get_required_element_level(tower_id: int) -> int:
 
 
 func get_required_wave_level(tower_id: int) -> int:
-	var required_wave_string: String = TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.REQUIRED_WAVE_LEVEL)
+	var required_wave_string: String = _get_property(tower_id, CsvProperty.REQUIRED_WAVE_LEVEL)
 	var required_wave_is_defined: bool = !required_wave_string.is_empty()
 
 	var required_wave: int
@@ -297,12 +340,12 @@ func requirements_are_satisfied(tower_id: int) -> bool:
 
 # NOTE: tower.getFamily() in JASS
 func get_family(tower_id: int) -> int:
-	return TowerProperties.get_csv_property(tower_id, Tower.CsvProperty.FAMILY_ID).to_int()
+	return _get_property(tower_id, CsvProperty.FAMILY_ID).to_int()
 
 
 # NOTE: sorted by tier
 func get_towers_in_family(family_id: int) -> Array:
-	var family_list: Array = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.FAMILY_ID, str(family_id))
+	var family_list: Array = get_tower_id_list_by_filter(CsvProperty.FAMILY_ID, str(family_id))
 	family_list.sort_custom(func(a, b): 
 		var tier_a: int = TowerProperties.get_tier(a)
 		var tier_b: int = TowerProperties.get_tier(b)
@@ -396,12 +439,10 @@ func get_inventory_capacity(tower_id: int) -> int:
 
 
 func get_generated_tooltip(tower_id: int) -> String:
-	var tower_tooltips: Dictionary = Properties.get_tower_tooltips()
-
-	if !tower_tooltips.has(tower_id) || !tower_tooltips[tower_id].has(1):
+	if !_tower_tooltips.has(tower_id) || !_tower_tooltips[tower_id].has(1):
 		return "[missing tooltip]"
 
-	var tooltip: String = tower_tooltips[tower_id][1]
+	var tooltip: String = _tower_tooltips[tower_id][1]
 
 	return tooltip
 
@@ -414,9 +455,33 @@ func get_dps(tower_id: int) -> float:
 	return dps
 
 
+func get_mana(tower_id: int) -> int:
+	var mana: int = _get_property(tower_id, CsvProperty.MANA) as int
+
+	return mana
+
+
+func get_mana_regen(tower_id: int) -> int:
+	var mana_regen: int = _get_property(tower_id, CsvProperty.MANA_REGEN) as int
+
+	return mana_regen
+
+
 #########################
 ###      Private      ###
 #########################
+
+func _get_property(tower_id: int, csv_property: CsvProperty) -> String:
+	if !_properties.has(tower_id):
+		push_error("No properties for tower: ", tower_id)
+
+		return ""
+	
+	var properties: Dictionary = _properties[tower_id]
+	var value: String = properties[csv_property]
+
+	return value
+
 
 # NOTE: this formula is the inverse of the formula for tower cost
 # from TowerDistribution._get_max_cost()

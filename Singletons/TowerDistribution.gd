@@ -250,7 +250,7 @@ func _generate_tower_groups(first_tier_only: bool) -> Dictionary:
 		for rarity in Rarity.get_list():
 			result[element][rarity] = Array()
 
-	var all_towers: Array = Properties.get_tower_id_list()
+	var all_towers: Array = TowerProperties.get_tower_id_list()
 
 #	Sort tower list by cost so that all resulting tower
 #	groups are also sorted by cost

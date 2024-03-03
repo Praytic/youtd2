@@ -5,32 +5,6 @@ extends Building
 signal items_changed()
 
 
-# NOTE: order of CsvProperty enums must match the order of
-# the columns in tower_properties.csv
-enum CsvProperty {
-	NAME,
-	TIER,
-	ID,
-	FAMILY_ID,
-	AUTHOR,
-	RARITY,
-	ELEMENT,
-	ATTACK_ENABLED,
-	ATTACK_TYPE,
-	ATTACK_RANGE,
-	ATTACK_CD,
-	ATTACK_DAMAGE_MIN,
-	ATTACK_DAMAGE_MAX,
-	MANA,
-	MANA_REGEN,
-	COST,
-	DESCRIPTION,
-	REQUIRED_ELEMENT_LEVEL,
-	REQUIRED_WAVE_LEVEL,
-	ICON_ATLAS_NUM,
-	RELEASE,
-}
-
 enum AttackStyle {
 	NORMAL,
 	SPLASH,
@@ -127,11 +101,11 @@ func _ready():
 	_visual.position.y -= Constants.TILE_HEIGHT
 	_selection_indicator.position.y -= Constants.TILE_HEIGHT
 
-	var base_mana: float = get_csv_property(CsvProperty.MANA).to_float()
+	var base_mana: int = TowerProperties.get_mana(_id)
 	set_base_mana(base_mana)
 	set_mana(0)
 
-	var base_mana_regen: float = get_csv_property(CsvProperty.MANA_REGEN).to_float()
+	var base_mana_regen: int = TowerProperties.get_mana_regen(_id)
 	set_base_mana_regen(base_mana_regen)
 
 	var inventory_capacity: int = get_inventory_capacity()
@@ -1104,10 +1078,6 @@ func get_current_target() -> Unit:
 		return null
 
 
-func get_item_name() -> String:
-	return get_csv_property(CsvProperty.NAME)
-
-
 # NOTE: this must be called once after the tower is created
 # but before it's added to game scene
 func set_id(id: int):
@@ -1168,9 +1138,6 @@ func get_current_attackspeed() -> float:
 
 func get_remaining_cooldown() -> float:
 	return max(0, _current_attack_cooldown)
-
-func get_csv_property(csv_property: Tower.CsvProperty) -> String:
-	return TowerProperties.get_csv_property(_id, csv_property)
 
 func get_damage_min() -> int:
 	return TowerProperties.get_damage_min(_id)
@@ -1264,7 +1231,7 @@ func get_attack_type() -> AttackType.enm:
 
 # NOTE: tower.getGoldCost() in JASS
 func get_gold_cost() -> int:
-	return get_csv_property(CsvProperty.COST).to_int()
+	return TowerProperties.get_cost(_id)
 
 func get_inventory_capacity() -> int:
 	var capacity: int = TowerProperties.get_inventory_capacity(_id)

@@ -17,7 +17,7 @@ func _ready():
 	var preload_towers: bool = Config.preload_all_towers_on_startup()
 
 	if preload_towers:
-		var tower_id_list: Array = Properties.get_tower_id_list()
+		var tower_id_list: Array = TowerProperties.get_tower_id_list()
 
 		for tower_id in tower_id_list:
 			var tower_scene: PackedScene = _get_tower_scene(tower_id)
@@ -64,11 +64,6 @@ func get_tower(id: int, is_tower_preview: bool = false) -> Tower:
 	return tower
 
 
-func get_tower_family_id(id: int) -> int:
-	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
-	return csv_properties[Tower.CsvProperty.FAMILY_ID]
-
-
 #########################
 ###      Private      ###
 #########################
@@ -99,10 +94,9 @@ func _get_tower_script_path_or_placeholder(id: int) -> String:
 # Scene filename = [name of first tier tower in family] +
 # tier For example for "Greater Shrub" = "TinyShrub3.tscn"
 func _get_tower_scene(id: int) -> PackedScene:
-	var csv_properties: Dictionary = Properties.get_tower_csv_properties_by_id(id)
 	var family_name: String = _get_family_name(id)
-	var tier: String = csv_properties[Tower.CsvProperty.TIER]
-	var scene_path: String = "%s/%s%s.tscn" % [towers_dir, family_name, tier]
+	var tier: int = TowerProperties.get_tier(id)
+	var scene_path: String = "%s/%s%s.tscn" % [towers_dir, family_name, str(tier)]
 
 	var scene_exists: bool = ResourceLoader.exists(scene_path)
 	if scene_exists:
@@ -155,7 +149,7 @@ func _print_tower_counts():
 func _get_tower_count_map() -> Dictionary:
 	var tower_count_map: Dictionary = {}
 
-	var tower_id_list: Array = Properties.get_tower_id_list()
+	var tower_id_list: Array = TowerProperties.get_tower_id_list()
 
 	for tower_id in tower_id_list:
 		var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)

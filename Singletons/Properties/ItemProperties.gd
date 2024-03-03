@@ -33,7 +33,7 @@ var _properties: Dictionary = {}
 #########################
 
 func _ready():
-	Properties._load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
+	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
 
 
 #########################

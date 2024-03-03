@@ -58,6 +58,28 @@ static func load_csv(path: String) -> Array[PackedStringArray]:
 	return list
 
 
+# Loads properties from a csv file.
+# Transforms rows of "id1, prop1, prop2..."
+# Into a list of maps of [id1: {prop1: "prop1 value", prop2: "prop2 value"...
+static func load_csv_properties(properties_path: String, properties_dict: Dictionary, id_column: int):
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(properties_path)
+
+	for csv_line in csv:
+		var properties: Dictionary = UtilsStatic.load_csv_line(csv_line)
+		var id: int = properties[id_column].to_int()
+		properties_dict[id] = properties
+
+
+static func load_csv_line(csv_line) -> Dictionary:
+	var out: Dictionary = {}
+
+	for property in range(csv_line.size()):
+		var csv_string: String = csv_line[property]
+		out[property] = csv_string
+
+	return out
+
+
 func get_sprite_dimensions(sprite: Sprite2D) -> Vector2:
 	var texture: Texture2D = sprite.texture
 	var image: Image = texture.get_image()

@@ -162,7 +162,7 @@ func _update_element():
 func _add_all_towers():
 	print_verbose("Start adding all towers to ElementTowersMenu.")
 
-	var first_tier_towers: Array = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.TIER, str(1))
+	var first_tier_towers: Array = TowerProperties.get_tower_id_list_by_filter(TowerProperties.CsvProperty.TIER, str(1))
 
 #	Sort towers by rarity and cost
 	first_tier_towers.sort_custom(
@@ -399,7 +399,7 @@ func get_towers_count(element = null) -> int:
 
 func _get_available_tower_buttons_for_element(element: Element.enm) -> Array:
 	var element_string: String = Element.convert_to_string(element)
-	var tower_id_list = Properties.get_tower_id_list_by_filter(Tower.CsvProperty.ELEMENT, element_string)
+	var tower_id_list = TowerProperties.get_tower_id_list_by_filter(TowerProperties.CsvProperty.ELEMENT, element_string)
 	
 	var res: Array = []
 	for tower_id in tower_id_list:

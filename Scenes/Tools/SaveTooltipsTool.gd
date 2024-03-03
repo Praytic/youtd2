@@ -17,7 +17,7 @@ const RESULT_FILENAME: String = "Data/tower_tooltips.csv"
 static func run():
 	print("Saving tooltips...")
 	
-	var tower_id_list: Array = Properties.get_tower_id_list()
+	var tower_id_list: Array = TowerProperties.get_tower_id_list()
 
 #	NOTE: sort id's so that diffs for the csv file are not
 #	messy

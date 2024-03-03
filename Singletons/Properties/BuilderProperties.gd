@@ -22,7 +22,7 @@ var _string_to_id_map: Dictionary = {}
 #########################
 
 func _ready():
-	Properties._load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
+	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
 
 	_string_to_id_map = _make_string_to_id_map()
 

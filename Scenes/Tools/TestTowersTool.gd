@@ -8,7 +8,7 @@ class_name TestTowersTool extends Node
 
 static func run(gamescene: Node):
 	var scene_tree: SceneTree = gamescene.get_tree()
-	var tower_id_list: Array = Properties.get_tower_id_list()
+	var tower_id_list: Array = TowerProperties.get_tower_id_list()
 
 	var i: int = 0
 
