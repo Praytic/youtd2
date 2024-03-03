@@ -114,8 +114,8 @@ func _get_specials_description(wave: Wave) -> String:
 	var string_list: Array[String] = []
 
 	for special in special_list:
-		var special_name: String = WaveSpecial.get_special_name(special)
-		var special_description: String = WaveSpecial.get_description(special)
+		var special_name: String = WaveSpecialProperties.get_special_name(special)
+		var special_description: String = WaveSpecialProperties.get_description(special)
 		var line: String = "%s - %s" % [special_name, special_description]
 		string_list.append(line)
 
@@ -129,7 +129,7 @@ func _get_specials_string_short(wave: Wave) -> String:
 	var string_list: Array[String] = []
 
 	for special in special_list:
-		var string: String = WaveSpecial.get_short_name(special)
+		var string: String = WaveSpecialProperties.get_short_name(special)
 		string_list.append(string)
 
 	var specials_string: String = ", ".join(string_list)

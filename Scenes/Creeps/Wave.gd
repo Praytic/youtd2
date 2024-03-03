@@ -75,7 +75,7 @@ func _init(level: int, difficulty: int):
 
 #	NOTE: double the amount of creeps when wave special is
 #	"Flock"
-	if _specials.has(WaveSpecial.FLOCK):
+	if _specials.has(WaveSpecialProperties.FLOCK):
 		var original_combination: Array[CreepSize.enm] = _creep_combination.duplicate()
 
 		for creep_size in original_combination:

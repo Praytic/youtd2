@@ -2,29 +2,8 @@ extends Node
 
 
 # Functions for dealing with specials that are applied to
-# creep waves.
-
-const PROPERTIES_PATH: String = "res://Data/wave_special_properties.csv"
-var FLOCK: int
-
-
-enum CsvProperty {
-	ID,
-	NAME,
-	SHORT_NAME,
-	SCRIPT_NAME,
-	HP_MODIFIER,
-	REQUIRED_WAVE_LEVEL,
-	FREQUENCY,
-	APPLICABLE_SIZES,
-	CHAMPION_OR_BOSS_WAVE_ONLY,
-	GROUP_LIST,
-	USES_MANA,
-	COLOR,
-	DESCRIPTION,
-	ENABLED,
-	ICON_PATH,
-}
+# creep waves. Note that getters for wave special properties
+# are located in as separate class WaveSpecialProperties.
 
 
 const _special_count_chances: Dictionary = {
@@ -32,59 +11,6 @@ const _special_count_chances: Dictionary = {
 	1: 50,
 	2: 20,
 }
-
-
-var _buff_map: Dictionary = {}
-var _icon_map: Dictionary = {}
-
-# Map of group [String] to special [int]
-var _group_to_special_map: Dictionary = {}
-
-var _properties: Dictionary = {}
-
-
-#########################
-###     Built-in      ###
-#########################
-
-func _init():
-	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, WaveSpecial.CsvProperty.ID)
-	_group_to_special_map = _make_group_to_special_map()
-	print_verbose("_group_to_special_map = ", _group_to_special_map)
-
-#	Load buff types
-	for special in _properties.keys():
-		var script_name: String = get_special_script_name(special)
-		var script_path: String = "res://Scenes/Creeps/SpecialBuffs/%s.gd" % script_name
-		
-		var special_bt: BuffType
-		var script: Script = load(script_path)
-		if script != null:
-			special_bt = script.new(self)
-		else:
-			push_error("Failed to load buff script for special: %s" % script_path)
-#			NOTE: create dummy buff to avoid errors
-			special_bt = BuffType.new("creep_invalid_special", 0.0, 0, false, self)
-
-		var special_name: String = get_special_name(special)
-		var description: String = get_description(special)
-		var tooltip: String = "%s\n%s" % [special_name, description]
-		special_bt.set_buff_tooltip(tooltip)
-		
-		_buff_map[special] = special_bt
-
-#	Load icons
-	for special in _properties.keys():
-		var script_name: String = get_special_script_name(special)
-		var icon_path: String = "res://Scenes/Creeps/SpecialIcons/%sSpecial.tscn" % script_name
-		var icon_scene: PackedScene = load(icon_path)
-
-		if icon_scene == null:
-			push_error("Failed to load icon scene for special: %s" % icon_path)
-
-		_icon_map[special] = icon_scene
-
-	FLOCK = _find_flock_id()
 
 
 #########################
@@ -126,42 +52,9 @@ func get_random(level: int, creep_size: CreepSize.enm, wave_has_champions: bool)
 	return random_special_list
 
 
-func arrays_intersect(a: Array, b: Array) -> bool:
-	for element in a:
-		if b.has(element):
-			return true
-
-	return false
-
-
-func get_special_icon(special: int) -> TextureRect:
-	var icon_scene: PackedScene = _icon_map[special]
-	var icon: TextureRect = icon_scene.instantiate()
-
-	return icon
-
-
-func get_special_name(special: int) -> String:
-	var string: String = _get_property(special, WaveSpecial.CsvProperty.NAME)
-
-	return string
-
-
-func get_short_name(special: int) -> String:
-	var string: String = _get_property(special, WaveSpecial.CsvProperty.SHORT_NAME)
-
-	return string
-
-
-func get_special_script_name(special: int) -> String:
-	var string: String = _get_property(special, WaveSpecial.CsvProperty.SCRIPT_NAME)
-
-	return string
-
-
 func apply_to_creep(special_list: Array[int], creep: Creep):
 	for special in special_list:
-		var special_icon: TextureRect = WaveSpecial.get_special_icon(special)
+		var special_icon: TextureRect = WaveSpecialProperties.get_special_icon(special)
 		creep.add_special_icon(special_icon)
 
 	creep.set_special_list(special_list)
@@ -173,38 +66,22 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 	creep.set_base_mana(creep_base_mana)
 	creep.set_mana(creep_base_mana)
 
-	var base_color: Color = _get_base_color(special_list)
+	var base_color: Color = WaveSpecialProperties.get_base_color(special_list)
 	creep.set_sprite_base_color(base_color)
 
 	for special in special_list:
 		var special_applies: bool = _special_applies_to_creep(special, creep)
 
 		if special_applies:
-			var buff: BuffType = _buff_map[special]
+			var buff: BuffType = WaveSpecialProperties.get_special_buff(special)
 			buff.apply_to_unit_permanent(creep, creep, 0)
 
 
-func get_description(special: int) -> String:
-	var description: String = _get_property(special, WaveSpecial.CsvProperty.DESCRIPTION)
-
-	return description
-
-
-func get_enabled(special: int) -> bool:
-	var enabled: bool = _get_property(special, WaveSpecial.CsvProperty.ENABLED) == "TRUE"
-
-	return enabled
-
-
 func creep_has_flock_special(creep: Creep) -> bool:
-	var flock_special: BuffType = _buff_map[FLOCK]
+	var flock_special: BuffType = WaveSpecialProperties.get_special_buff(WaveSpecialProperties.FLOCK)
 	var creep_has_buff: bool = creep.get_buff_of_type(flock_special) != null
 
 	return creep_has_buff
-
-
-func get_special_buff(special_id: int) -> BuffType:
-	return _buff_map[special_id]
 
 
 #########################
@@ -218,7 +95,7 @@ func _get_random_special(available_special_list: Array[int]) -> int:
 	var special_to_frequency_map: Dictionary = {}
 
 	for special in available_special_list:
-		var frequency: int = _get_frequency(special)
+		var frequency: int = WaveSpecialProperties.get_frequency(special)
 		special_to_frequency_map[special] = frequency
 
 	var random_special: int = Utils.random_weighted_pick(special_to_frequency_map)
@@ -227,24 +104,24 @@ func _get_random_special(available_special_list: Array[int]) -> int:
 
 
 func _get_available_specials_for_first_special(level: int, creep_size: CreepSize.enm, wave_has_champions: bool) -> Array[int]:
-	var all_special_list: Array = _properties.keys()
+	var all_special_list: Array = WaveSpecialProperties.get_all_specials_list()
 	var available_special_list: Array[int] = []
 
 	var wave_level: int = level
 
 	for special in all_special_list:
-		var is_enabled: bool = WaveSpecial.get_enabled(special)
+		var is_enabled: bool = WaveSpecialProperties.get_enabled(special)
 
 		if !is_enabled:
 			continue
 
-		var required_level: int = _get_required_wave_level(special)
+		var required_level: int = WaveSpecialProperties.get_required_wave_level(special)
 		var level_ok: bool = wave_level >= required_level
 
-		var applicable_sizes: Array[CreepSize.enm] = _get_applicable_sizes(special)
+		var applicable_sizes: Array[CreepSize.enm] = WaveSpecialProperties.get_applicable_sizes(special)
 		var size_ok: bool = applicable_sizes.has(creep_size)
 
-		var champion_or_boss_wave_only: bool = _get_champion_or_boss_wave_only(special)
+		var champion_or_boss_wave_only: bool = WaveSpecialProperties.get_champion_or_boss_wave_only(special)
 		var wave_is_champion_or_boss: bool = wave_has_champions || creep_size == CreepSize.enm.BOSS
 		var wave_power_ok: bool
 		if champion_or_boss_wave_only:
@@ -266,12 +143,12 @@ func _get_available_specials_for_second_special(first_special: int, available_sp
 
 	var result: Array[int] = available_specials_for_first.duplicate()
 
-	var groups_of_first_special: Array[String] = _get_group_list(first_special)
+	var groups_of_first_special: Array[String] = WaveSpecialProperties.get_group_list(first_special)
 
 # 	Filter out specials which are in the same group as
 # 	the first special
 	for group in groups_of_first_special:
-		var specials_in_group: Array = _group_to_special_map[group]
+		var specials_in_group: Array = WaveSpecialProperties.get_specials_in_group(group)
 
 		for special in specials_in_group:
 			result.erase(special)
@@ -282,61 +159,6 @@ func _get_available_specials_for_second_special(first_special: int, available_sp
 	return result
 
 
-func _get_required_wave_level(special: int) -> int:
-	var level: int = _get_property(special, WaveSpecial.CsvProperty.REQUIRED_WAVE_LEVEL).to_int()
-
-	return level
-
-
-func _get_frequency(special: int) -> int:
-	var frequency: int = _get_property(special, WaveSpecial.CsvProperty.FREQUENCY).to_int()
-
-	return frequency
-
-
-func _get_applicable_sizes(special: int) -> Array[CreepSize.enm]:
-	var size_list_string: String = _get_property(special, WaveSpecial.CsvProperty.APPLICABLE_SIZES)
-
-	if size_list_string == "all":
-		return [CreepSize.enm.MASS, CreepSize.enm.NORMAL, CreepSize.enm.AIR, CreepSize.enm.BOSS]
-
-	var size_list: Array[CreepSize.enm] = []
-
-	var size_string_list: Array = size_list_string.split(",")
-
-	for size_string in size_string_list:
-		var creep_size: CreepSize.enm = CreepSize.from_string(size_string)
-		size_list.append(creep_size)
-
-	return size_list
-
-
-# NOTE: this is separate from "applicable sizes" because
-# this defines if wave buff can apply to specific creep, not
-# the whole wave. For example if the wave is 10 normal + 1
-# champion, then special can apply to whole wave but the
-# buff portion will apply only to the champion. Note that
-# health modifiers still apply to whole wave.
-#
-# TODO: double check if health modifiers apply to whole wave
-# if special is only for champions.
-func _get_champion_or_boss_wave_only(special: int) -> bool:
-	var champion_or_boss_wave_only: bool = _get_property(special, WaveSpecial.CsvProperty.CHAMPION_OR_BOSS_WAVE_ONLY) == "TRUE"
-
-	return champion_or_boss_wave_only
-
-
-func _get_group_list(special: int) -> Array[String]:
-	var group_list_packed: PackedStringArray = _get_property(special, WaveSpecial.CsvProperty.GROUP_LIST).split(",")
-	
-	var group_list: Array[String] = []
-	
-	for group in group_list_packed:
-		group_list.append(group)
-
-	return group_list
-
-
 func _get_hp_modifier(special_list: Array[int]) -> float:
 	if special_list.is_empty():
 		return 0.0
@@ -344,7 +166,7 @@ func _get_hp_modifier(special_list: Array[int]) -> float:
 	var hp_mod_list: Array[float] = []
 
 	for special in special_list:
-		var hp_modifier: float = _get_property(special, WaveSpecial.CsvProperty.HP_MODIFIER).to_float()
+		var hp_modifier: float = WaveSpecialProperties.get_hp_modifier(special)
 
 		hp_mod_list.append(hp_modifier)
 
@@ -368,60 +190,12 @@ func _get_hp_modifier(special_list: Array[int]) -> float:
 			return max_mod
 
 
-func _get_uses_mana(special: int) -> bool:
-	var uses_mana: bool = _get_property(special, WaveSpecial.CsvProperty.USES_MANA) == "TRUE"
-
-	return uses_mana
-
-
-# NOTE: in case creep has multiple specials, we return color
-# of the first one. Mixing colors wouldn't look good.
-func _get_base_color(special_list: Array[int]) -> Color:
-	if special_list.is_empty():
-		return Color.WHITE
-	
-	var first_special: int = special_list[0]
-	var color_html: String = _get_property(first_special, WaveSpecial.CsvProperty.COLOR)
-	var color: Color = Color.html(color_html)
-
-	return color
-
-
-func _get_property(special: int, property: WaveSpecial.CsvProperty) -> String:
-	if !_properties.has(special):
-		push_error("No properties for special: ", special)
-
-		return ""
-
-	var map: Dictionary = _properties[special]
-	var property_value: String = map[property]
-
-	return property_value
-
-
-func _make_group_to_special_map() -> Dictionary:
-	var result: Dictionary = {}
-
-	var special_list: Array = _properties.keys()
-
-	for special in special_list:
-		var group_list: Array[String] = _get_group_list(special)
-
-		for group in group_list:
-			if !result.has(group):
-				result[group] = []
-
-			result[group].append(special)
-
-	return result
-
-
 func _get_creep_base_mana(special_list: Array[int], creep: Creep) -> float:
 	var creep_should_have_mana: bool = false
 
 	for special in special_list:
 		var special_applies: bool = _special_applies_to_creep(special, creep)
-		var special_uses_mana: bool = _get_uses_mana(special)
+		var special_uses_mana: bool = WaveSpecialProperties.get_uses_mana(special)
 
 		if special_applies && special_uses_mana:
 			creep_should_have_mana = true
@@ -438,7 +212,7 @@ func _get_creep_base_mana(special_list: Array[int], creep: Creep) -> float:
 
 func _special_applies_to_creep(special: int, creep: Creep) -> bool:
 	var creep_size: CreepSize.enm = creep.get_size()
-	var special_only_for_champions_or_bosses: bool = _get_champion_or_boss_wave_only(special)
+	var special_only_for_champions_or_bosses: bool = WaveSpecialProperties.get_champion_or_boss_wave_only(special)
 	var special_applies: bool
 	if special_only_for_champions_or_bosses:
 		special_applies = creep_size == CreepSize.enm.BOSS || creep_size == CreepSize.enm.CHAMPION
@@ -446,21 +220,3 @@ func _special_applies_to_creep(special: int, creep: Creep) -> bool:
 		special_applies = true
 
 	return special_applies
-
-
-func _find_flock_id() -> int:
-	var flock_id: int = -1
-	for special in _properties.keys():
-		var special_name: String = get_special_name(special)
-
-		if special_name == "Flock":
-			flock_id = special
-
-			break
-
-	if flock_id == -1:
-		push_error("Failed to find flock special and map it to id.")
-
-		flock_id = 0
-
-	return flock_id

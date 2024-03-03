@@ -48,7 +48,7 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		
 		var special_name_list: Array[String] = []
 		for special in wave.get_specials():
-			var special_name: String = WaveSpecial.get_special_name(special)
+			var special_name: String = WaveSpecialProperties.get_special_name(special)
 			special_name_list.append(special_name)
 
 		var specials_string: String
@@ -133,8 +133,8 @@ func _add_message_about_wave(wave: Wave):
 	var special_list: Array[int] = wave.get_specials()
 
 	for special in special_list:
-		var special_name: String = WaveSpecial.get_special_name(special)
-		var description: String = WaveSpecial.get_description(special)
+		var special_name: String = WaveSpecialProperties.get_special_name(special)
+		var description: String = WaveSpecialProperties.get_description(special)
 		var special_string: String = "[color=BLUE]%s[/color] - %s" % [special_name, description]
 
 		Messages.add_normal(special_string)

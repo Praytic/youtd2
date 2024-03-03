@@ -135,9 +135,9 @@ func _update_creep_specials_container(creep: Creep):
 		special_container.queue_free()
 
 	for special in special_list:
-		var special_name: String = WaveSpecial.get_special_name(special)
-		var special_description: String = WaveSpecial.get_description(special)
-		var special_icon: TextureRect = WaveSpecial.get_special_icon(special)
+		var special_name: String = WaveSpecialProperties.get_special_name(special)
+		var special_description: String = WaveSpecialProperties.get_description(special)
+		var special_icon: TextureRect = WaveSpecialProperties.get_special_icon(special)
 		var creep_special: SpecialContainer = SpecialContainer.make(special_name, special_icon, special_description)
 		
 		_creep_specials_container.add_child(creep_special)
@@ -239,8 +239,8 @@ func _get_specials_text_for_creep(unit: Unit):
 	var special_list: Array[int] = creep.get_special_list()
 
 	for special in special_list:
-		var special_name: String = WaveSpecial.get_special_name(special)
-		var special_description: String = WaveSpecial.get_description(special)
+		var special_name: String = WaveSpecialProperties.get_special_name(special)
+		var special_description: String = WaveSpecialProperties.get_description(special)
 		text += "[color=GOLD]%s[/color]\n" % special_name
 		text += "%s\n" % special_description
 		text += " \n"
