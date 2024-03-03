@@ -18,26 +18,8 @@ extends PanelContainer
 @export var _menu_card: ButtonStatusCard
 @export var _backpacker_recipes: GridContainer
 
-@export var _rebrew_button: Button
-@export var _distill_button: Button
-@export var _reassemble_button: Button
-@export var _perfect_button: Button
-
-@export var _liquefy_button: Button
-@export var _precipitate_button: Button
-@export var _imbue_button: Button
-
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
-@onready var _recipe_button_map: Dictionary = {
-	HoradricCube.Recipe.REBREW: _rebrew_button,
-	HoradricCube.Recipe.DISTILL: _distill_button,
-	HoradricCube.Recipe.REASSEMBLE: _reassemble_button,
-	HoradricCube.Recipe.PERFECT: _perfect_button,
-	HoradricCube.Recipe.LIQUEFY: _liquefy_button,
-	HoradricCube.Recipe.PRECIPITATE: _precipitate_button,
-	HoradricCube.Recipe.IMBUE: _imbue_button,
-}
 
 
 #########################
@@ -55,11 +37,12 @@ func _ready():
 	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
 
 	EventBus.selected_backpacker_builder.connect(_on_selected_backpacker_builder)
-
-	for recipe in _recipe_button_map.keys():
-		var button: Control = _recipe_button_map[recipe]
-		var recipe_description: String = RecipeProperties.get_description(recipe)
-		button.set_tooltip_text(recipe_description)
+	
+	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
+	for node in recipe_buttons:
+		var recipe_button: RecipeButton = node as RecipeButton
+		var recipe: HoradricCube.Recipe = recipe_button.recipe
+		recipe_button.pressed.connect(_on_recipe_button_pressed.bind(recipe))
 
 
 #########################
@@ -110,27 +93,14 @@ func _update_resource_status_panels():
 
 
 func _update_horadric_cube_recipes(item_list: Array[Item]):
-	_distill_button.disabled = true
-	_rebrew_button.disabled = true
-	_reassemble_button.disabled = true
-	_perfect_button.disabled = true
-
-# 	TODO: enable these buttons if their recipe is possible.
-# 	Need to first implement recipes.
-	_liquefy_button.disabled = true
-	_precipitate_button.disabled = true
-	_imbue_button.disabled = true
-
-	if HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.DISTILL, item_list):
-		_distill_button.disabled = false
-		_rebrew_button.disabled = false
-	elif HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.REBREW, item_list):
-		_rebrew_button.disabled = false
-	if HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.PERFECT, item_list):
-		_perfect_button.disabled = false
-		_reassemble_button.disabled = false
-	elif HoradricCube.has_recipe_ingredients(HoradricCube.Recipe.REASSEMBLE, item_list):
-		_reassemble_button.disabled = false
+	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
+	
+	for node in recipe_buttons:
+		var recipe_button: RecipeButton = node as RecipeButton
+		var recipe: HoradricCube.Recipe = recipe_button.recipe
+		var autofill_is_possible: bool = HoradricCube.has_recipe_ingredients(recipe, item_list)
+		
+		recipe_button.disabled = !autofill_is_possible
 
 
 #########################
@@ -196,42 +166,9 @@ func _on_item_button_pressed(item_button: ItemButton):
 	ItemMovement.item_was_clicked_in_item_stash(item)
 
 
-func _on_rebrew_button_pressed():
-	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.REBREW, rarity_filter)
-
-
-func _on_distill_button_pressed():
-	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.DISTILL, rarity_filter)
-
-
-func _on_reassemble_button_pressed():
-	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.REASSEMBLE, rarity_filter)
-
-
-func _on_perfect_button_pressed():
-	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.PERFECT, rarity_filter)
-
-
-# TODO: implement
-func _on_liquefy_button_pressed():
-	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.LIQUEFY, rarity_filter)
-
-
-# TODO: implement
-func _on_precipitate_button_pressed():
-	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.PRECIPITATE, rarity_filter)
-
-
-# TODO: implement
-func _on_imbue_button_pressed():
-	var rarity_filter = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(HoradricCube.Recipe.IMBUE, rarity_filter)
+func _on_recipe_button_pressed(recipe: HoradricCube.Recipe):
+	var rarity_filter: Array = _rarity_filter_container.get_filter()
+	HoradricCube.autofill_recipe(recipe, rarity_filter)
 
 
 func _on_selected_backpacker_builder():
