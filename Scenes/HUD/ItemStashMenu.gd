@@ -29,6 +29,12 @@ extends PanelContainer
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
+@onready var _recipe_button_map: Dictionary = {
+	HoradricCube.Recipe.REBREW: _rebrew_button,
+	HoradricCube.Recipe.DISTILL: _distill_button,
+	HoradricCube.Recipe.REASSEMBLE: _reassemble_button,
+	HoradricCube.Recipe.PERFECT: _perfect_button,
+}
 
 
 #########################
@@ -46,6 +52,11 @@ func _ready():
 	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
 
 	EventBus.selected_backpacker_builder.connect(_on_selected_backpacker_builder)
+
+	for recipe in _recipe_button_map.keys():
+		var button: Control = _recipe_button_map[recipe]
+		var recipe_description: String = RecipeProperties.get_description(recipe)
+		button.set_tooltip_text(recipe_description)
 
 
 #########################

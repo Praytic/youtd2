@@ -258,7 +258,6 @@ alignment_vertical = 2
 
 [node name="RebrewButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer"]
 layout_mode = 2
-tooltip_text = "Converts 2 oils or consumables of the same rarity into 1 oil or consumable if the same rarity"
 focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("4_iy7pd")
@@ -274,7 +273,6 @@ alignment_vertical = 2
 
 [node name="DistillButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer2"]
 layout_mode = 2
-tooltip_text = "Converts 4 oils or consumables of the same rarity into 1 oil or consumable one rarity higher"
 focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("5_pr6yq")
@@ -290,7 +288,6 @@ alignment_vertical = 0
 
 [node name="ReassembleButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer3"]
 layout_mode = 2
-tooltip_text = "Converts 3 permanent items of the same rarity into 1 permanent item of the same rarity."
 focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("6_10i6k")
@@ -306,7 +303,6 @@ alignment_vertical = 0
 
 [node name="PerfectButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/AspectRatioContainer4"]
 layout_mode = 2
-tooltip_text = "Converts 5 permanent items of the same rarity into 1 item one rarity higher."
 focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("7_xqx70")
@@ -329,8 +325,6 @@ alignment_vertical = 0
 
 [node name="LiquefyButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer1"]
 layout_mode = 2
-tooltip_text = "Converts 2 permanent items of the same rarity into 3 oils or
-consumables two rarities lower."
 focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("11_0n7rh")
@@ -346,9 +340,6 @@ alignment_vertical = 0
 
 [node name="PrecipitateButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer2"]
 layout_mode = 2
-tooltip_text = "Converts 6 oils or consumables of the same rarity into 1
-permanent item two rarities higher. The level of the new item is
-completely random."
 focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("12_sptqu")
@@ -364,10 +355,6 @@ alignment_vertical = 0
 
 [node name="ImbueButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/HoradricCube/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/VBoxContainer/BackpackerRecipes/AspectRatioContainer3"]
 layout_mode = 2
-tooltip_text = "Converts 1 permanent item and 5 oils or consumables of the 
-same rarity into 1 permanent item one rarity higher.
-The level of the new item is equal to the level of ingredient item
-plus 15 to 30 levels. Can have lucky or unlucky conversions!"
 focus_mode = 0
 theme_type_variation = &"TinyUnitButton"
 icon = ExtResource("13_w767w")
