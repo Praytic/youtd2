@@ -85,17 +85,18 @@ func transmute():
 	if current_recipe == Recipe.NONE:
 		return "Change the ingredients to match an existing recipe."
 
-	var result_item_id: int = _get_result_item_for_recipe(current_recipe, item_list)
+	var result_item_id_list: Array[int] = _get_result_item_for_recipe(current_recipe, item_list)
 
-	if result_item_id == 0:
+	if result_item_id_list.is_empty():
 		push_error("Transmute failed to generate any items, this shouldn't happen.")
 
 		return "Something went wrong..."
 
 	_remove_all_items()
 
-	var result_item: Item = Item.make(result_item_id)
-	_item_container.add_item(result_item)
+	for item_id in result_item_id_list:
+		var result_item: Item = Item.make(item_id)
+		_item_container.add_item(result_item)
 
 
 func autofill_recipe(recipe: Recipe, rarity_filter: Array = []) -> bool:
@@ -220,7 +221,7 @@ func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	return Recipe.NONE
 
 
-func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> int:
+func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> Array[int]:
 	var rarity_change_from_recipe: int = RecipeProperties.get_rarity_change(recipe)
 	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity(item_list)
 	var result_rarity: Rarity.enm = (ingredient_rarity + rarity_change_from_recipe) as Rarity.enm
@@ -230,16 +231,20 @@ func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> int:
 	var lvl_min: int = avg_ingredient_level + RecipeProperties.get_lvl_bonus_min(recipe) + random_bonus_mod	
 	var lvl_max: int = avg_ingredient_level + RecipeProperties.get_lvl_bonus_max(recipe) + random_bonus_mod
 
-	var result_item: int
 	var recipe_is_oil_or_consumable: bool = result_item_type.has(ItemType.enm.OIL) && result_item_type.has(ItemType.enm.CONSUMABLE)
 	var recipe_is_regular: bool = result_item_type.has(ItemType.enm.REGULAR)
-	if recipe_is_oil_or_consumable:
-		result_item = _get_transmuted_oil_or_consumable(item_list, result_rarity)
-	elif recipe_is_regular:
-		result_item = _get_transmuted_item(item_list, result_rarity, lvl_min, lvl_max)
-	else:
-		result_item = 0
-		push_error("Invalid recipe")
+
+	var result_item_list: Array[int] = []
+	
+	var result_count: int = RecipeProperties.get_result_count(recipe)
+
+	for i in range(0, result_count):
+		if recipe_is_oil_or_consumable:
+			var result_item: int = _get_transmuted_oil_or_consumable(item_list, result_rarity)
+			result_item_list.append(result_item)
+		elif recipe_is_regular:
+			var result_item: int = _get_transmuted_item(item_list, result_rarity, lvl_min, lvl_max)
+			result_item_list.append(result_item)
 
 	var luck_message: String
 	match random_bonus_mod:
@@ -251,7 +256,7 @@ func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> int:
 	if !luck_message.is_empty():
 		Messages.add_normal(luck_message)
 
-	return result_item
+	return result_item_list
 
 
 func _get_transmuted_oil_or_consumable(item_list: Array[Item], rarity: Rarity.enm) -> int:

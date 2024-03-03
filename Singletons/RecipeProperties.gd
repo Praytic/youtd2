@@ -9,6 +9,7 @@ enum CsvProperty {
 	PERMANENT_COUNT,
 	USABLE_COUNT,
 	RESULT_ITEM_TYPE,
+	RESULT_COUNT,
 	RARITY_CHANGE,
 	LVL_BONUS_MIN,
 	LVL_BONUS_MAX,
@@ -72,6 +73,12 @@ func get_result_item_type(recipe: int) -> Array[ItemType.enm]:
 		result_item_type = []
 
 	return result_item_type
+
+
+func get_result_count(recipe: int) -> int:
+	var result_count: int = _get_property(recipe, CsvProperty.RESULT_COUNT) as int
+
+	return result_count
 
 
 func get_rarity_change(recipe: int) -> int:
