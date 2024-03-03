@@ -30,11 +30,6 @@ enum CsvProperty {
 
 const PROPERTIES_PATH = "res://Data/tower_properties.csv"
 const TOWER_TOOLTIPS_PATH = "res://Data/tower_tooltips.csv"
-const ICON_SIZE_M = 128
-const TIER_ICON_SIZE_M = 64
-const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
-const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
-const _placeholder_tower_icon: Texture2D = preload("res://Resources/UI/PlaceholderTowerIcon.tres")
 
 
 var _min_required_wave_for_build_mode = {
@@ -101,39 +96,8 @@ func get_tower_id_list_by_filter(tower_property: CsvProperty, filter_value: Stri
 	return result_list
 
 
-func get_icon_texture(tower_id: int) -> Texture2D:
-	var icon_atlas_num: int = TowerProperties.get_icon_atlas_num(tower_id)
-
-	var tower_has_no_icon: bool = icon_atlas_num == -1
-	if tower_has_no_icon:
-		return _placeholder_tower_icon
-	
-	var tower_icon = AtlasTexture.new()
-	var icon_size: int
-	
-	tower_icon.set_atlas(_tower_icons_m)
-	icon_size = ICON_SIZE_M
-	
-	var region: Rect2 = Rect2(TowerProperties.get_element(tower_id) * icon_size, icon_atlas_num * icon_size, icon_size, icon_size)
-	tower_icon.set_region(region)
-	return tower_icon
-
-
 func get_tier(tower_id: int) -> int:
 	return _get_property(tower_id, CsvProperty.TIER).to_int()
-
-
-func get_tier_icon_texture(tower_id: int) -> Texture2D:
-	var tower_rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
-	var tower_tier = TowerProperties.get_tier(tower_id) - 1
-	var tier_icon = AtlasTexture.new()
-	var icon_size: int
-	
-	tier_icon.set_atlas(_tier_icons_m)
-	icon_size = TIER_ICON_SIZE_M
-	
-	tier_icon.set_region(Rect2(tower_tier * icon_size, tower_rarity * icon_size, icon_size, icon_size))
-	return tier_icon
 
 
 func is_released(tower_id: int) -> bool:

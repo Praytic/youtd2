@@ -15,7 +15,7 @@ extends UnitButton
 func _ready():
 	super._ready()
 	set_rarity(TowerProperties.get_rarity(_tower_id))
-	set_icon(TowerProperties.get_icon_texture(_tower_id))
+	set_icon(UnitIcons.get_tower_icon(_tower_id))
 	if PregameSettings.get_game_mode() == GameMode.enm.TOTALLY_RANDOM:
 		set_tier_icon(_tower_id)
 	else:
@@ -46,7 +46,7 @@ func set_tower_id(value: int):
 
 
 func set_tier_icon(tower_id: int):
-	_tier_icon.texture = TowerProperties.get_tier_icon_texture(tower_id)
+	_tier_icon.texture = UnitIcons.get_tower_tier_icon(tower_id)
 
 #########################
 ###     Callbacks     ###

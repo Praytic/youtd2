@@ -102,10 +102,10 @@ func get_selected_creep() -> Creep:
 
 func _update_unit_icon(unit: Unit):
 	if unit is Tower:
-		_unit_icon_texture.texture = TowerProperties.get_icon_texture(unit.get_id())
-		_tier_icon_texture.texture = TowerProperties.get_tier_icon_texture(unit.get_id())
+		_unit_icon_texture.texture = UnitIcons.get_tower_icon(unit.get_id())
+		_tier_icon_texture.texture = UnitIcons.get_tower_tier_icon(unit.get_id())
 	elif unit is Creep:
-		_unit_icon_texture.texture = CreepProperties.get_icon_texture(unit)
+		_unit_icon_texture.texture = UnitIcons.get_creep_icon(unit)
 	else:
 		assert(unit != null, "Unit is of unknown type. Can't get info label for it.")
 
