@@ -45,6 +45,8 @@ static func test_get_current_recipe():
 		TestCase_get_current_recipe.new([3, 4, 5, 6, 8], HoradricCube.Recipe.NONE, "5 permanent items with different rarities. Invalid recipe because Item8 is UNIQUE."),
 		TestCase_get_current_recipe.new([3, 4, 5, 6], HoradricCube.Recipe.NONE, "4 permanent items with same rarity. Invalid recipe because not enough items."),
 		TestCase_get_current_recipe.new([3, 4, 5, 6, 7, 19], HoradricCube.Recipe.NONE, "6 permanent items with same rarity. Invalid recipe because too many items."),
+
+		TestCase_get_current_recipe.new([3, 4, 5, 6, 7, 19], HoradricCube.Recipe.NONE, "6 permanent items with same rarity. Invalid recipe because too many items."),
 	]
 
 	var test_case_function: Callable = func(test_case: TestCase_get_current_recipe):
@@ -92,6 +94,9 @@ static func test_get_item_list_for_autofill():
 		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.PERFECT, [], [], "0 items for perfect"),
 		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.DISTILL, [], [], "0 items for distill"),
 		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.REBREW, [], [], "0 items for rebrew"),
+
+		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.DISTILL, [2008, 2008, 2008, 2008, 2008], [], "4 unique oils for DISTILL. Invalid because can't raise rarity further."),
+		TestCase_get_item_list_for_autofill.new(HoradricCube.Recipe.PERFECT, [1, 1, 1, 1, 1], [], "5 permanent items for PERFECT. Invalid because can't raise rarity further."),
 	]
 
 	var test_case_function: Callable = func(test_case: TestCase_get_item_list_for_autofill):

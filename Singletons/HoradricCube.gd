@@ -19,20 +19,38 @@ enum Recipe {
 	NONE,
 }
 
+const RECIPE_LIST: Array[Recipe] = [
+	Recipe.REBREW,
+	Recipe.DISTILL,
+	Recipe.REASSEMBLE,
+	Recipe.PERFECT,
+	Recipe.NONE,
+]
+
+
+class IngredientData:
+	var item_type_list: Array[ItemType.enm]
+	var required_count: int
+
+	func _init(item_type_list_arg: Array[ItemType.enm], count_arg: int):
+		item_type_list = item_type_list_arg
+		required_count = count_arg
+
+
+var _ingredient_map: Dictionary = {
+	Recipe.REBREW: [IngredientData.new([ItemType.enm.OIL, ItemType.enm.CONSUMABLE], 2)],
+	Recipe.DISTILL: [IngredientData.new([ItemType.enm.OIL, ItemType.enm.CONSUMABLE], 4)],
+	Recipe.REASSEMBLE: [IngredientData.new([ItemType.enm.REGULAR], 3)],
+	Recipe.PERFECT: [IngredientData.new([ItemType.enm.REGULAR], 5)],
+	Recipe.NONE: [],
+}
+
 var _level_bonus_map: Dictionary = {
 	Recipe.REBREW: [0, 0],
 	Recipe.DISTILL: [0, 0],
 	Recipe.REASSEMBLE: [5, 25],
 	Recipe.PERFECT: [0, 20],
 	Recipe.NONE: [0, 0],
-}
-
-var _recipe_item_count_map: Dictionary = {
-	Recipe.REBREW: 2, 
-	Recipe.DISTILL: 4, 
-	Recipe.REASSEMBLE: 3, 
-	Recipe.PERFECT: 5, 
-	Recipe.NONE: 0, 
 }
 
 
@@ -47,6 +65,14 @@ const _bonus_mod_chance_map: Dictionary = {
 	LEVEL_MOD_NORMAL: 50,
 	LEVEL_MOD_LUCKY: 20,
 	LEVEL_MOD_SUPER_LUCKY: 10
+}
+
+const _rarity_change_map: Dictionary = {
+	Recipe.REBREW: 0,
+	Recipe.DISTILL: 1,
+	Recipe.REASSEMBLE: 0,
+	Recipe.PERFECT: 1,
+	Recipe.NONE: 0,
 }
 
 var _item_container: ItemContainer
@@ -90,16 +116,6 @@ func transmute() -> String:
 	
 	if current_recipe == Recipe.NONE:
 		return "Change the ingredients to match an existing recipe."
-
-#	NOTE: autofill will not move unique items into cube if
-#	recipe raises rarity BUT player can still manually setup
-#	a situation like this. That's why we need a secondary
-#	check here.
-	var failed_because_max_rarity: bool = _cant_increase_rarity_further(current_recipe)
-	if failed_because_max_rarity:
-		Messages.add_error("Can't transmute, ingredients are already at max rarity.")
-
-		return "Can't transmute, ingredients are already at max rarity."
 
 	var result = _get_result_item_for_recipe(current_recipe)
 
@@ -152,16 +168,34 @@ func autofill_recipe(recipe: Recipe, rarity_filter: Array = []) -> bool:
 # lowest rarity and level. Returns empty list if autofill
 # can't be performed.
 func _get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) -> Array[Item]:
-	var recipe_item_type: Array[ItemType.enm] = _get_result_item_type_list(recipe)
-	var recipe_item_count: int = _recipe_item_count_map[recipe]
+	var current_rarity: Rarity.enm = Rarity.enm.COMMON
 
-# 	Filter out items we can't use
+	while current_rarity <= Rarity.enm.UNIQUE:
+		var result_list: Array[Item] = _get_item_list_for_autofill_for_rarity(recipe, item_list, current_rarity)
+
+		if !result_list.is_empty():
+			return result_list
+		
+		current_rarity = (current_rarity + 1) as Rarity.enm
+
+	return []
+
+
+func _get_item_list_for_autofill_for_rarity(recipe: Recipe, item_list: Array[Item], rarity: Rarity.enm) -> Array[Item]:
+	var rarity_change_from_recipe: int = _rarity_change_map[recipe]
+	var result_rarity: int = rarity + rarity_change_from_recipe
+	var result_rarity_is_valid: bool = Rarity.enm.COMMON <= result_rarity && result_rarity <= Rarity.enm.UNIQUE
+
+	if !result_rarity_is_valid:
+		return []
+
+# 	Filter rarities
 	item_list = item_list.filter(
 		func(item: Item) -> bool:
-			var item_type: ItemType.enm = item.get_item_type()
-			var item_type_match: bool = recipe_item_type.has(item_type)
+			var item_rarity: Rarity.enm = item.get_rarity()
+			var rarity_match: bool = item_rarity == rarity
 
-			return item_type_match
+			return rarity_match
 	)
 
 # 	Filter out unique items if recipe raises rarity
@@ -176,73 +210,59 @@ func _get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) -> Arra
 				return rarity_ok
 		)
 
-# 	Sort by rarity and level
-	var rarity_map: Dictionary = {}
-	var rarity_list: Array[Rarity.enm] = Rarity.get_list()
-	for rarity in rarity_list:
-		var items_of_rarity: Array = item_list.filter(
-			func(item: Item) -> bool:
-				var item_rarity: Rarity.enm = item.get_rarity()
-				var rarity_match: bool = item_rarity == rarity
+# 	Sort by level to prioritize lower level items first
+	item_list.sort_custom(func(a, b): return a.get_required_wave_level() < b.get_required_wave_level())
 
-				return rarity_match
+	var result_list: Array[Item] = []
+
+	for ingredient in _ingredient_map[recipe]:
+		var item_type_list: Array[ItemType.enm] = ingredient.item_type_list
+		var required_count: int = ingredient.required_count
+
+		var sub_list: Array[Item] = item_list.filter(
+			func(item: Item) -> bool:
+				var item_type: ItemType.enm = item.get_item_type()
+				var item_type_match: bool = item_type_list.has(item_type)
+
+				return item_type_match
 		)
 
-		items_of_rarity.sort_custom(func(a, b): return a.get_required_wave_level() < b.get_required_wave_level())
-
-		rarity_map[rarity] = items_of_rarity
-
-	for rarity in rarity_list:
-		var items_of_rarity: Array = rarity_map[rarity]
-		var item_count_is_enough: bool = items_of_rarity.size() >= recipe_item_count
+		var item_count_is_enough: bool = sub_list.size() >= required_count
 
 		if item_count_is_enough:
-			items_of_rarity.resize(recipe_item_count)
+			sub_list.resize(required_count)
+			result_list.append_array(sub_list)
+		else:
+			return []
 
-			return items_of_rarity
-
-	var invalid_item_list: Array[Item] = []
-
-	return invalid_item_list
+	return result_list
 
 
+# Returns recipe which matches the given item list. Do this
+# by getting an autofill list and checking if autofill list
+# is equal to input list.
 func _get_current_recipe(item_list: Array[Item]) -> Recipe:
-	var item_type_map: Dictionary = {}
-	var rarity_map: Dictionary = {}
-	
-	for item in item_list:
-		var item_id: int = item.get_id()
-		var item_type: ItemType.enm = ItemProperties.get_type(item_id)
-		var rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
-
-		item_type_map[item_type] = true
-		rarity_map[rarity] = true
-
-	var item_type_list: Array = item_type_map.keys()
-	var rarity_list: Array = rarity_map.keys()
-	var all_items: bool = item_type_list == [ItemType.enm.REGULAR]
-	var all_oils_or_consumables: bool = !item_type_list.has(ItemType.enm.REGULAR)
-	var same_rarity: bool = rarity_list.size() == 1
-	var item_count: int = item_list.size()
-
-	if !same_rarity:
+	if item_list.is_empty():
 		return Recipe.NONE
-	elif all_oils_or_consumables:
-		if item_count == 2:
-			return Recipe.REBREW
-		elif item_count == 4:
-			return Recipe.DISTILL
-	elif all_items:
-		if item_count == 3:
-			return Recipe.REASSEMBLE
-		elif item_count == 5:
-			return Recipe.PERFECT
 
+	var item_id_list: Array[int] = TestHoradricTool.item_list_to_item_id_list(item_list)
+
+	for recipe in RECIPE_LIST:
+		var autofill_item_list: Array[Item] = _get_item_list_for_autofill(recipe, item_list)
+		var autofill_id_list: Array[int] = TestHoradricTool.item_list_to_item_id_list(autofill_item_list)
+
+		var recipe_matches: bool = item_id_list == autofill_id_list
+
+		if recipe_matches:
+			return recipe
+	
 	return Recipe.NONE
 
 
 func _get_result_item_for_recipe(recipe: Recipe):
-	var result_rarity: Rarity.enm = _get_result_rarity(recipe)
+	var rarity_change_from_recipe: int = _rarity_change_map[recipe]
+	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity()
+	var result_rarity: Rarity.enm = (ingredient_rarity + rarity_change_from_recipe) as Rarity.enm
 	var result_item_type: Array[ItemType.enm] = _get_result_item_type_list(recipe)
 	var avg_ingredient_level: int = _get_average_ingredient_level()
 	var random_bonus_mod: int = _get_random_bonus_mod()
@@ -324,27 +344,6 @@ func _get_transmuted_item(rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int
 	var random_item: int = item_list.pick_random()
 	
 	return random_item
-
-
-func _cant_increase_rarity_further(recipe: Recipe) -> bool:
-	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity()
-	var can_increase_rarity: bool = ingredient_rarity != Rarity.enm.UNIQUE
-	var recipe_increases_rarity: bool = recipe == Recipe.DISTILL || recipe == Recipe.PERFECT
-	var recipe_fails: bool = recipe_increases_rarity && !can_increase_rarity
-
-	return recipe_fails
-
-
-func _get_result_rarity(recipe: Recipe) -> Rarity.enm:
-	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity()
-	var next_rarity: Rarity.enm = _get_next_rarity(ingredient_rarity)
-
-	match recipe:
-		Recipe.REBREW: return ingredient_rarity
-		Recipe.DISTILL: return next_rarity
-		Recipe.REASSEMBLE: return ingredient_rarity
-		Recipe.PERFECT: return next_rarity
-		_: return Rarity.enm.COMMON
 
 
 func _get_result_item_type_list(recipe: Recipe) -> Array[ItemType.enm]:
