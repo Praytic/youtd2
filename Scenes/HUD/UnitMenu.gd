@@ -509,7 +509,7 @@ func _on_unit_buff_list_changed(unit: Unit):
 
 	for buff in buff_list:
 		var tooltip: String = buff.get_tooltip_text()
-		var buff_icon = TextureRect.new()
+		var buff_icon: TextureRectWithRichTooltip = TextureRectWithRichTooltip.new()
 		buff_icon.set_tooltip_text(tooltip)
 
 		var texture_path: String = buff.get_buff_icon()
