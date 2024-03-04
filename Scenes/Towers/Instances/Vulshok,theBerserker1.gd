@@ -75,7 +75,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.10, -0.001)
 	boekie_vulshok_slow_bt.set_buff_modifier(mod)
 	boekie_vulshok_slow_bt.set_buff_icon("@@0@@")
-	boekie_vulshok_slow_bt.set_buff_tooltip("Maimed\nThis creep is maimed; it has reduced movement speed.")
+	boekie_vulshok_slow_bt.set_buff_tooltip("Maimed\nReduces movement speed.")
 	boekie_vulshok_slow_bt.add_periodic_event(boekie_vulshok_slow_bt_periodic, 1.0)
 
 

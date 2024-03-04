@@ -73,7 +73,7 @@ func tower_init():
 	cedi_steam_bt.add_event_on_attack(cedi_steam_bt_on_attack)
 	cedi_steam_bt.add_periodic_event(cedi_steam_bt_periodic, 1.0)
 	cedi_steam_bt.add_event_on_cleanup(cedi_steam_bt_on_cleanup)
-	cedi_steam_bt.set_buff_tooltip("Steam Power\nThis tower is powered by Steam Power; it has increased attack damage and attack speed.")
+	cedi_steam_bt.set_buff_tooltip("Steam Power\nIncreases attack damage and attack speed.")
 
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Power Level")

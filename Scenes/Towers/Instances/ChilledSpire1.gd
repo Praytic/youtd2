@@ -66,7 +66,7 @@ func tower_init():
 	sir_frost.set_buff_icon("@@0@@")
 	sir_frost.add_event_on_create(sir_frost_on_create)
 	sir_frost.add_event_on_cleanup(sir_frost_on_cleanup)
-	sir_frost.set_buff_tooltip("Frozen\nThis unit is frozen; it has reduced health regeneration.")
+	sir_frost.set_buff_tooltip("Frozen\nReduces health regeneration.")
 
 
 func on_damage(event: Event):

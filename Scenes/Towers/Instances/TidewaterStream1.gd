@@ -66,14 +66,14 @@ func tower_init():
 	cedi_tidewater_aura_mod.add_modification(Modification.Type.MOD_ARMOR, 0.1, 0.004)
 	cedi_tidewater_aura_bt.set_buff_modifier(cedi_tidewater_aura_mod)
 	cedi_tidewater_aura_bt.set_buff_icon("@@0@@")
-	cedi_tidewater_aura_bt.set_buff_tooltip("Calming Noises Aura\nThis tower is under the effect of Calming Noises Aura; it has increased spell crit chance.")
+	cedi_tidewater_aura_bt.set_buff_tooltip("Calming Noises Aura\nIncreases spell crit chance.")
 
 	cedi_tidewater_splash_bt = BuffType.new("cedi_tidewater_splash_bt", 6.0, 0, false, self)
 	var cedi_tidewater_splash_mod: Modifier = Modifier.new()
 	cedi_tidewater_splash_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.125, 0.005)
 	cedi_tidewater_splash_bt.set_buff_modifier(cedi_tidewater_splash_mod)
 	cedi_tidewater_splash_bt.set_buff_icon("@@1@@")
-	cedi_tidewater_splash_bt.set_buff_tooltip("Splash\nThis unit has been splashed; it will take extra spell damage.")
+	cedi_tidewater_splash_bt.set_buff_tooltip("Splash\nIncreases spell damage taken.")
 
 	water_pt = ProjectileType.create_ranged("Waterfall.mdl", 1200, 700, self)
 	water_pt.enable_collision(water_pt_on_hit, 200, TargetType.new(TargetType.CREEPS), false)

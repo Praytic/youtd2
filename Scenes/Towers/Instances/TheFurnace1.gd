@@ -94,7 +94,7 @@ func tower_init():
 	ashbringer_heart_aura_bt.add_event_on_create(ashbringer_heart_aura_bt_on_create)
 	ashbringer_heart_aura_bt.add_periodic_event(ashbringer_heart_aura_bt_periodic, 5.0)
 	ashbringer_heart_aura_bt.add_event_on_cleanup(ashbringer_heart_aura_bt_on_cleanup)
-	ashbringer_heart_aura_bt.set_buff_tooltip("Flames of the Forge\nThis tower has increased attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
+	ashbringer_heart_aura_bt.set_buff_tooltip("Flames of the Forge\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
 
 	ashbringer_intense_bt = BuffType.new("ashbringer_intense_bt", 4, 0, true, self)
 	var ashbringer_intense_bt_mod: Modifier = Modifier.new()
@@ -102,11 +102,11 @@ func tower_init():
 	ashbringer_intense_bt_mod.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0, 0.0005)
 	ashbringer_intense_bt.set_buff_modifier(ashbringer_intense_bt_mod)
 	ashbringer_intense_bt.set_buff_icon("@@2@@")
-	ashbringer_intense_bt.set_buff_tooltip("Intense Heat\nThis tower has increased attack and spell crit chance.")
+	ashbringer_intense_bt.set_buff_tooltip("Intense Heat\nIncreases attack crit chance and spell crit chance.")
 
 	ashbringer_linger_bt = BuffType.new("ashbringer_linger_bt", 10, 0, false, self)
 	ashbringer_linger_bt.add_periodic_event(ashbringer_linger_bt_periodic, 1.0)
-	ashbringer_linger_bt.set_buff_tooltip("Lingering Flames\nThis unit receives periodic damage.")
+	ashbringer_linger_bt.set_buff_tooltip("Lingering Flames\nDeals damage over time.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Intense Heat"

@@ -102,7 +102,7 @@ func tower_init():
 
 	palandu_xeno_aura_bt = BuffType.create_aura_effect_type("palandu_xeno_aura_bt", true, self)
 	palandu_xeno_aura_bt.set_buff_icon("@@0@@")
-	palandu_xeno_aura_bt.set_buff_tooltip("Xeno Research\nThis tower is enhanced by a nearby Xeno Research Facility.")
+	palandu_xeno_aura_bt.set_buff_tooltip("Xeno Research\nEnhanced by a nearby Xeno Research Facility.")
 
 	
 func get_aura_types() -> Array[AuraType]:

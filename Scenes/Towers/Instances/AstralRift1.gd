@@ -56,12 +56,12 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.3, -0.01)
 	mock_rift_slow_bt.set_buff_modifier(mod)
 	mock_rift_slow_bt.set_buff_icon("@@1@@")
-	mock_rift_slow_bt.set_buff_tooltip("Startled\nThis unit is startled; it has reduced movement speed.")
+	mock_rift_slow_bt.set_buff_tooltip("Startled\nReduces movement speed.")
 
 	mock_rift_aura_bt = BuffType.create_aura_effect_type("mock_rift_aura_bt", false, self)
 	mock_rift_aura_bt.set_buff_icon("@@0@@")
 	mock_rift_aura_bt.add_periodic_event(mock_rift_aura_bt_periodic, 1.0)
-	mock_rift_aura_bt.set_buff_tooltip("Presence of the Rift Aura\nThis creep is affected by Presence of the Rift Aura; it will take periodic damage.")
+	mock_rift_aura_bt.set_buff_tooltip("Presence of the Rift Aura\nDeals damage over time.")
 
 
 func get_aura_types() -> Array[AuraType]:

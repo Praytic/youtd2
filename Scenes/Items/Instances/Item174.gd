@@ -32,8 +32,8 @@ func item_init():
 	m_creep.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.2, 0.004)
 	maj_rot_creep_buff.set_buff_modifier(m_creep)
 
-	maj_rot_tower_buff.set_buff_tooltip("Putrescent Presence\nThis unit is under the effect of Putrescent Presence Aura; it has reduced attack speed.")
-	maj_rot_creep_buff.set_buff_tooltip("Putrescent Presence\nThis unit is under the effect of Putrescent Presence Aura; it will receive more damage from attacks and spells.")
+	maj_rot_tower_buff.set_buff_tooltip("Putrescent Presence\nReduces attack speed.")
+	maj_rot_creep_buff.set_buff_tooltip("Putrescent Presence\nIncreases attack and spell damage taken.")
 
 	var aura_tower: AuraType = AuraType.new()
 	aura_tower.aura_range = 350

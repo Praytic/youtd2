@@ -30,7 +30,7 @@ func item_init():
 	BT = BuffType.new("item240_BT", 4, 0, true, self)
 	BT.set_buff_icon("@@0@@")
 	BT.set_buff_modifier(m) 
-	BT.set_buff_tooltip("Rampage\nThis unit is on a Rampage; it has increased attack speed, multi crit count, critical damage and critical chance.")
+	BT.set_buff_tooltip("Rampage\nIncreases attack speed, multicrit, critical damage and critical chance.")
 
 
 func on_attack(_event: Event):

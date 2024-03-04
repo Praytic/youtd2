@@ -102,26 +102,26 @@ func tower_init():
 	dave_concussive_creep_mod.add_modification(Modification.Type.MOD_MOVESPEED, -_stats.concussive_mod_movespeed, -_stats.concussive_mod_movespeed_add)
 	dave_concussive_creep_bt.set_buff_modifier(dave_concussive_creep_mod)
 	dave_concussive_creep_bt.set_buff_icon("@@2@@")
-	dave_concussive_creep_bt.set_buff_tooltip("Concussion\nThis unit has Concussion; it has reduced movement speed.")
+	dave_concussive_creep_bt.set_buff_tooltip("Concussion\nReduces movement speed.")
 
 	dave_acid_creep_bt = BuffType.new("dave_acid_creep_bt", ACID_DURATION, 0, false, self)
 	var dave_acid_creep_mod: Modifier = Modifier.new()
 	dave_acid_creep_mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -_stats.acid_mod_armor, -_stats.acid_mod_armor_add)
 	dave_acid_creep_bt.set_buff_modifier(dave_acid_creep_mod)
 	dave_acid_creep_bt.set_buff_icon("@@4@@")
-	dave_acid_creep_bt.set_buff_tooltip("Acid Corrosion\nThis unit is covered in acid; it has reduced armor.")
+	dave_acid_creep_bt.set_buff_tooltip("Acid Corrosion\nReduces armor.")
 
 	dave_concussive_tower_bt = BuffType.new("dave_concussive_tower_bt", -1, 0, true, self)
 	dave_concussive_tower_bt.set_buff_icon("@@0@@")
-	dave_concussive_tower_bt.set_buff_tooltip("Concussive Bombs\nThis tower is equiped with Concussive Bombs; each attack slows creeps around the target.")
+	dave_concussive_tower_bt.set_buff_tooltip("Concussive Bombs\nEach attack slows creeps around the target.")
 
 	dave_acid_tower_bt = BuffType.new("dave_acid_tower_bt", -1, 0, true, self)
 	dave_acid_tower_bt.set_buff_icon("@@1@@")
-	dave_acid_tower_bt.set_buff_tooltip("Acid Bombs\nThis tower is equiped with Acid Bombs; each attack reduces the armor of creeps around the target.")
+	dave_acid_tower_bt.set_buff_tooltip("Acid Bombs\nEach attack reduces the armor of creeps around the target.")
 
 	dave_smoke_tower_bt = BuffType.new("dave_smoke_tower_bt", -1, 0, true, self)
 	dave_smoke_tower_bt.set_buff_icon("@@3@@")
-	dave_smoke_tower_bt.set_buff_tooltip("Acid Bombs\nThis tower is equiped with Smoke Bombs; each attack silences creeps around the target.")
+	dave_smoke_tower_bt.set_buff_tooltip("Acid Bombs\nEach attack silences creeps around the target.")
 
 	var autocast_concussive: Autocast = Autocast.make()
 	autocast_concussive.title = "Concussive Bombs"

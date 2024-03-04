@@ -107,7 +107,7 @@ func tower_init():
 	dark_battery_corruption.set_buff_icon("@@0@@")
 	dark_battery_corruption.set_buff_modifier(modifier)
 	dark_battery_corruption.set_stacking_group("DarkBattery")
-	dark_battery_corruption.set_buff_tooltip("Corruption\nThis creep is affected by Corruption; it will take extra damage from attacks and spells.")
+	dark_battery_corruption.set_buff_tooltip("Corruption\nIncreases attack and spell damage taken.")
 
 	pt = ProjectileType.create("ProcMissile.mdl", 10, 1200, self)
 	pt.enable_homing(hit, 0)

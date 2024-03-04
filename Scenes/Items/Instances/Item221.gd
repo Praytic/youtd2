@@ -22,7 +22,7 @@ func get_ability_description() -> String:
 
 func item_init():
 	eye_of_true_sight = MagicalSightBuff.new("eye_of_true_sight", 900, self)
-	eye_of_true_sight.set_buff_tooltip("Eye of True Sight\nThis unit has Eye of True Sight; it will reveal invisible units in range.")
+	eye_of_true_sight.set_buff_tooltip("Eye of True Sight\nReveals invisible units in range.")
 
 
 func load_triggers(triggers: BuffType):

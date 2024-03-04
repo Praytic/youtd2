@@ -72,7 +72,7 @@ func tower_init():
 	# TODO: implement BuffType.set_special_effect_advanced()
 	# maj_manip_field_bt.set_special_effect_advanced("EnergyField.mdl", 0, 0, 0, 3.5, 0, 255, 255, 255, 255, 180)
 	maj_manip_field_bt.add_periodic_event(maj_manip_field_bt_periodic, 1.0)
-	maj_manip_field_bt.set_buff_tooltip("Time Field\nThis tower is dealing future damage to nearby creeps.")
+	maj_manip_field_bt.set_buff_tooltip("Time Field\nDeals future damage to nearby creeps.")
 
 	maj_manip_aura_bt = BuffType.create_aura_effect_type("maj_manip_aura_bt", true, self)
 	var maj_manip_aura_bt_mod: Modifier = Modifier.new()
@@ -82,7 +82,7 @@ func tower_init():
 	maj_manip_aura_bt_mod.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.125, 0.015)
 	maj_manip_aura_bt.set_buff_modifier(maj_manip_aura_bt_mod)
 	maj_manip_aura_bt.set_buff_icon("@@0@@")
-	maj_manip_aura_bt.set_buff_tooltip("Time Twist Aura\nThis tower has increased experience gain, attack speed, mana regen and buff duration.")
+	maj_manip_aura_bt.set_buff_tooltip("Time Twist Aura\nIncreases experience gained, attack speed, mana regen and buff duration.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Exp Exchanged")

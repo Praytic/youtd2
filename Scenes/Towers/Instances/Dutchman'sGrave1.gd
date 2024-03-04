@@ -103,7 +103,7 @@ func tower_init():
 	cedi_dutch_panic_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.20, -0.002)
 	cedi_dutch_panic_bt.set_buff_modifier(cedi_dutch_panic_bt_mod)
 	cedi_dutch_panic_bt.set_buff_icon("@@2@@")
-	cedi_dutch_panic_bt.set_buff_tooltip("Panic\nThis unit has reduced defenses.")
+	cedi_dutch_panic_bt.set_buff_tooltip("Panic\nReduces armor and move speed.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Souls")

@@ -139,7 +139,7 @@ func tower_init():
 	dave_morph_slow_bt_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.15, 0.002)
 	dave_morph_slow_bt.set_buff_modifier(dave_morph_slow_bt_mod)
 	dave_morph_slow_bt.set_buff_icon("@@3@@")
-	dave_morph_slow_bt.set_buff_tooltip("Swift Strike\nThis unit has reduced movement speed and takes extra damage from Nature.")
+	dave_morph_slow_bt.set_buff_tooltip("Swift Strike\nIncreases damage taken from Nature towers.")
 
 	damage_pt = ProjectileType.create("SpiritOfVengeanceMissile.mdl", 4, 800, self)
 	damage_pt.enable_homing(damage_pt_on_hit, 0)

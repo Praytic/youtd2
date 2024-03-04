@@ -47,7 +47,7 @@ func tower_init():
 	boekie_crit_aura.set_buff_icon("@@0@@")
 	boekie_crit_aura.set_buff_modifier(m)
 	boekie_crit_aura.set_stacking_group("crit_aura")
-	boekie_crit_aura.set_buff_tooltip("Fire of Fury\nThis tower is under the effect of Fire of Fury; it has increased crit chance.")
+	boekie_crit_aura.set_buff_tooltip("Fire of Fury\nIncreases crit chance.")
 
 
 func get_aura_types() -> Array[AuraType]:

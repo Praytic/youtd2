@@ -58,7 +58,7 @@ func tower_init():
 	cedi_stormdog = BuffType.new("cedi_stormdog", 5.0, 0.0, true, self)
 	cedi_stormdog.set_buff_icon("@@1@@")
 	cedi_stormdog.set_buff_modifier(mod)
-	cedi_stormdog.set_buff_tooltip("Thunderous Roar\nThis unit is affected by Thunderous Roar; it has increased attack speed.")
+	cedi_stormdog.set_buff_tooltip("Thunderous Roar\nIncreases attack speed.")
 
 
 func on_damage(_event: Event):

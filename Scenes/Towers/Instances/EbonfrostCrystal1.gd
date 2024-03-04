@@ -103,7 +103,7 @@ func tower_init():
 	ashbringer_frostburn_bt = BuffType.new("ashbringer_frostburn_bt", 5, 0, false, self)
 	ashbringer_frostburn_bt.set_buff_icon("@@0@@")
 	ashbringer_frostburn_bt.add_periodic_event(ashbringer_frostburn_bt_periodic, 1.0)
-	ashbringer_frostburn_bt.set_buff_tooltip("Frostburn\nThis unit is affected by Frostburn; it will take periodic damage.")
+	ashbringer_frostburn_bt.set_buff_tooltip("Frostburn\nDeals damage over time.")
 
 	ashbringer_ebonfrost_shatter_bt = BuffType.new("ashbringer_ebonfrost_shatter_bt", 5, 0, false, self)
 	ashbringer_ebonfrost_shatter_bt.set_buff_icon("@@1@@")
@@ -112,7 +112,7 @@ func tower_init():
 	ashbringer_ebonfrost_shatter_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_RECEIVED, 0.0, 1.0)
 	ashbringer_ebonfrost_shatter_bt.set_buff_modifier(ashbringer_ebonfrost_shatter_mod)
 	ashbringer_ebonfrost_shatter_bt.add_event_on_create(ashbringer_ebonfrost_shatter_bt_on_create)
-	ashbringer_ebonfrost_shatter_bt.set_buff_tooltip("Shatter\nThis unit was Shattered; it will take extra damage.")
+	ashbringer_ebonfrost_shatter_bt.set_buff_tooltip("Shatter\nIncreases attack and spell damage taken.")
 
 	ashbringer_ebonfrost_icicle_bt = BuffType.new("ashbringer_ebonfrost_icicle_bt", -1, 0, true, self)
 	var ashbringer_ebonfrost_icicle_mod: Modifier = Modifier.new()
@@ -120,7 +120,7 @@ func tower_init():
 	ashbringer_ebonfrost_icicle_mod.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.5)
 	ashbringer_ebonfrost_icicle_bt.set_buff_modifier(ashbringer_ebonfrost_icicle_mod)
 	ashbringer_ebonfrost_icicle_bt.set_buff_icon("@@2@@")
-	ashbringer_ebonfrost_icicle_bt.set_buff_tooltip("Icicle\nThis tower is empowered by an Icicle; it has increased attack damage and mana regen.")
+	ashbringer_ebonfrost_icicle_bt.set_buff_tooltip("Icicle\nIncreases attack damage and mana rengeration.")
 
 # 	NOTE: in original script, this ProjectileType.create()
 # 	is called here but this ProjectileType is later used as

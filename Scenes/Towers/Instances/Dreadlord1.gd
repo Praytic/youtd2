@@ -75,7 +75,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MANA_REGEN, 20, 0.8)
 	poussix_dreadlord_bt.set_buff_modifier(mod)
 	poussix_dreadlord_bt.set_buff_icon("@@2@@")
-	poussix_dreadlord_bt.set_buff_tooltip("Dreadlord's Awakening\nThe dreadlord has awaked; it has increased attack speed and mana regen.")
+	poussix_dreadlord_bt.set_buff_tooltip("Dreadlord's Awakening\nIncreases attack speed and mana regen.")
 
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Attackspeed Bonus")

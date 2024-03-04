@@ -44,7 +44,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_TRIGGER_CHANCES, 0.30, 0.006)
 	sir_timevault_aura_bt.set_buff_modifier(mod)
 	sir_timevault_aura_bt.set_buff_icon("@@0@@")
-	sir_timevault_aura_bt.set_buff_tooltip("Timesurge\nThis tower has increased trigger chances.")
+	sir_timevault_aura_bt.set_buff_tooltip("Timesurge\nIncreases trigger chances.")
 
 
 func get_aura_types() -> Array[AuraType]:

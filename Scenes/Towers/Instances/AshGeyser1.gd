@@ -63,7 +63,7 @@ func tower_init():
 	drol_fireDot.set_buff_modifier(drol_fireMod)
 	drol_fireDot.add_periodic_event(drol_fireDot_Damage, 1)
 
-	drol_fireDot.set_buff_tooltip("On Fire\nThis unit is On Fire; it will take damage over time and it has reduced health regeneration.")
+	drol_fireDot.set_buff_tooltip("On Fire\nDeals damage over time and reduces health regeneration.")
 
 
 func on_damage(event: Event):

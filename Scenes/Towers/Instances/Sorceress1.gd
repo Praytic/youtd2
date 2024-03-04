@@ -147,7 +147,7 @@ func tower_init():
 	cedi_sorc_slow_bt_mod.add_modification(Modification.Type.MOD_MOVESPEED, 0.0, -0.01)
 	cedi_sorc_slow_bt.set_buff_modifier(cedi_sorc_slow_bt_mod)
 	cedi_sorc_slow_bt.set_buff_icon("@@0@@")
-	cedi_sorc_slow_bt.set_buff_tooltip("Magic Missile Slow\nThis unit has reduced movement speed.")
+	cedi_sorc_slow_bt.set_buff_tooltip("Magic Missile Slow\nReduces movement speed.")
 
 	cedi_sorc_armor_bt = BuffType.new("cedi_sorc_armor_bt", 5, 0, false, self)
 	var cedi_sorc_armor_bt_mod: Modifier = Modifier.new()

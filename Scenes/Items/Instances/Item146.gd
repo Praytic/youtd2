@@ -28,7 +28,7 @@ func item_init():
 	BT = BuffType.new("Item146_BT", 2.0, 0, false, self)
 	BT.set_buff_icon("@@0@@")
 	BT.set_buff_modifier(m)
-	BT.set_buff_tooltip("Playtime\nThis unit is affected by Toy Boy; it has reduced attack speed.")
+	BT.set_buff_tooltip("Playtime\nReduces attack speed.")
 
 
 func periodic(_event: Event):

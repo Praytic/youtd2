@@ -70,7 +70,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.0, 0.001)
 	mock_warrior_of_light_bt.set_buff_modifier(mod)
 	mock_warrior_of_light_bt.set_buff_icon("@@1@@")
-	mock_warrior_of_light_bt.set_buff_tooltip("Aura of Light\nThis tower is under the effect of Aura of Light; it deals extra damage to undead creeps.")
+	mock_warrior_of_light_bt.set_buff_tooltip("Aura of Light\nIncreases damage dealt to Undead creeps.")
 
 #	NOTE: original script and tooltip don't mention the
 #	radius of swarm so made it the same as for "Hell Bat"

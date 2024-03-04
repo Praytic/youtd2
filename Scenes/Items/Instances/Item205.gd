@@ -24,7 +24,7 @@ func item_init():
 	nature_aura.set_buff_modifier(m)
 	nature_aura.set_stacking_group("nature_aura")
 	nature_aura.set_buff_icon("@@0@@")
-	nature_aura.set_buff_tooltip("Rot\nThis unit is affected by Rot; it will deal more damage to nature units.")
+	nature_aura.set_buff_tooltip("Rot\nIncreases damage dealt to Nature.")
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200

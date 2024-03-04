@@ -70,14 +70,14 @@ func tower_init():
 	ash_arcanestorm_attraction_bt = BuffType.new("ash_arcanestorm_attraction_bt", -1, 0, false, self)
 	ash_arcanestorm_attraction_bt.set_buff_icon("@@3@@")
 	ash_arcanestorm_attraction_bt.add_event_on_death(ash_arcanestorm_attraction_bt_on_death)
-	ash_arcanestorm_attraction_bt.set_buff_tooltip("Attraction\nThis unit will deal damage to nearby units when it dies.")
+	ash_arcanestorm_attraction_bt.set_buff_tooltip("Attraction\nSpreads Attraction and deals damage to nearby units when target dies.")
 
 	ash_arcanestorm_manastorm_bt = BuffType.new("ash_arcanestorm_manastorm_bt", 2.0, 0, true, self)
 	var ash_arcanestorm_manastorm_bt_mod: Modifier = Modifier.new()
 	ash_arcanestorm_manastorm_bt_mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 3, 0)
 	ash_arcanestorm_manastorm_bt.set_buff_modifier(ash_arcanestorm_manastorm_bt_mod)
 	ash_arcanestorm_manastorm_bt.set_buff_icon("@@2@@")
-	ash_arcanestorm_manastorm_bt.set_buff_tooltip("Mana Storm\nThis tower has increased multicrit.")
+	ash_arcanestorm_manastorm_bt.set_buff_tooltip("Mana Storm\nIncreases multicrit.")
 
 	surge_st = SpellType.new("@@0@@", "chainlightning", 1.0, self)
 	surge_st.data.chain_lightning.damage = 0

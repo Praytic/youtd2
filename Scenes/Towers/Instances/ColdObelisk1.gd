@@ -52,7 +52,7 @@ func tower_init():
 	mc_slow = BuffType.new("mc_slow", 0, 0, false, self)
 	mc_slow.set_buff_icon("@@0@@")
 	mc_slow.set_buff_modifier(slow)
-	mc_slow.set_buff_tooltip("Absolute Zero\nThis unit has been frozen; it has reduced movement speed.")
+	mc_slow.set_buff_tooltip("Absolute Zero\nReduces movement speed.")
 
 
 func on_damage(event: Event):

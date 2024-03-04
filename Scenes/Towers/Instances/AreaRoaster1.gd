@@ -61,7 +61,7 @@ func tower_init():
 	sir_area_rooster.set_buff_modifier(m)
 	sir_area_rooster.add_periodic_event(sir_area_damage, 0.5)
 	sir_area_rooster.set_stacking_group("sir_area_rooster")
-	sir_area_rooster.set_buff_tooltip("Ignite\nThis unit has been ignited; it will take spell damage over time and will receive extra damage from fire towers.")
+	sir_area_rooster.set_buff_tooltip("Ignite\nDeals spell damage over time and increases damage taken from Fire towers.")
 
 
 func on_damage(event: Event):

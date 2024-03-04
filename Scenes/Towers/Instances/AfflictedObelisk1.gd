@@ -52,7 +52,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	dummy_obelisk_debuff = BuffType.new("dummy_obelisk_debuff", 0, 0, false, self)
 	dummy_obelisk_debuff.set_buff_icon("@@0@@")
-	dummy_obelisk_debuff.set_buff_tooltip("Slumbering Parasite\nThis unit is infected with a parasite; it has increased vulnerability to Nature towers and it will take damage when the parasite surfaces.")
+	dummy_obelisk_debuff.set_buff_tooltip("Slumbering Parasite\nIncreases damage taken from Nature towers and deals damage when the parasite surfaces.")
 
 
 func on_damage(event: Event):

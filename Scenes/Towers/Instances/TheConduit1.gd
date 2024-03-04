@@ -86,7 +86,7 @@ func get_ability_ranges() -> Array[Tower.RangeData]:
 func tower_init():
 	ash_conduit_aura_bt = BuffType.create_aura_effect_type("ash_conduit_aura_bt", true, self)
 	ash_conduit_aura_bt.set_buff_icon("@@2@@")
-	ash_conduit_aura_bt.set_buff_tooltip("Conduit Aura\nThis tower has increased attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
+	ash_conduit_aura_bt.set_buff_tooltip("Conduit Aura\nIncreases attack speed, trigger chances, spell damage, spell crit chance and spell crit damage.")
 
 	ash_conduit_unleash_bt = BuffType.new("ash_conduit_unleash_bt", 3, 0, false, self)
 	var ash_conduit_unleash_bt_mod: Modifier = Modifier.new()
@@ -96,7 +96,7 @@ func tower_init():
 	ash_conduit_unleash_bt.add_event_on_create(ash_conduit_unleash_bt_on_create)
 	ash_conduit_unleash_bt.add_event_on_cleanup(ash_conduit_unleash_bt_on_cleanup)
 	ash_conduit_unleash_bt.add_periodic_event(ash_conduit_unleash_bt_periodic, 5)
-	ash_conduit_unleash_bt.set_buff_tooltip("Unleash\nThis tower has increased spell crit damage.")
+	ash_conduit_unleash_bt.set_buff_tooltip("Unleash\nIncreases spell crit damage.")
 
 	unleash_st = SpellType.new("@@1@@", "chainlightning", 1.0, self)
 #	TODO: implement SpellType.set_source_height()

@@ -42,7 +42,7 @@ func load_specials(modifier: Modifier):
 func tower_init():
 	khan_omni_bt = BuffType.new("khan_omni_bt", -1, 0, false, self)
 	khan_omni_bt.set_buff_icon("@@0@@")
-	khan_omni_bt.set_buff_tooltip("Omnislashed\nThis unit got Omnislashed; it will take extra damage from Physical attacks.")
+	khan_omni_bt.set_buff_tooltip("Omnislashed\nIncreases damage taken from Physical attacks.")
 	khan_omni_bt.add_event_on_damaged(khan_omni_bt_on_damaged)
 
 

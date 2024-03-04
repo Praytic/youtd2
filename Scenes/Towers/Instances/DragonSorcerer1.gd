@@ -42,7 +42,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.006)
 	boekie_dragon_sorcerer_bt.set_buff_modifier(mod)
 	boekie_dragon_sorcerer_bt.set_buff_icon("@@0@@")
-	boekie_dragon_sorcerer_bt.set_buff_tooltip("Burning Mark\nThis tower has the Burning Mark; it has increased multicrit, crit chance and attack speed.")
+	boekie_dragon_sorcerer_bt.set_buff_tooltip("Burning Mark\nIncreases multicrit, crit chance and attack speed.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Burning Mark"

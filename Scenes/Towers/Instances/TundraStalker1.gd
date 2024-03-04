@@ -100,7 +100,7 @@ func tower_init():
 	drol_tundraStalker.add_periodic_event(drol_f_tundraStalker, 1)
 	drol_tundraStalker.add_event_on_cleanup(drol_fade_tundraStalker)
 
-	drol_tundraStalker.set_buff_tooltip("Ice Claw\nThis unit is suffering periodic damage and has reduced move speed.")
+	drol_tundraStalker.set_buff_tooltip("Ice Claw\nDeals damage over time and reduces movement speed.")
 
 	drol_tundraStalkerValues = MultiboardValues.new(1)
 	drol_tundraStalkerValues.set_key(0, "Speed Bonus")

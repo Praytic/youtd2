@@ -75,14 +75,14 @@ func tower_init():
 	dave_knight_will_positive_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.002)
 	dave_knight_will_positive_bt.set_buff_modifier(dave_knight_will_positive_bt_mod)
 	dave_knight_will_positive_bt.set_buff_icon("@@0@@")
-	dave_knight_will_positive_bt.set_buff_tooltip("Will of the Undying\nThis tower is empowered by Will of the Undying; it will deal more damage.")
+	dave_knight_will_positive_bt.set_buff_tooltip("Will of the Undying\nIncreases attack damage.")
 
 	dave_knight_will_negative_bt = BuffType.new("dave_knight_will_negative_bt", 5, 0, false, self)
 	var dave_knight_will_negative_bt_mod: Modifier = Modifier.new()
 	dave_knight_will_negative_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.002)
 	dave_knight_will_negative_bt.set_buff_modifier(dave_knight_will_negative_bt_mod)
 	dave_knight_will_negative_bt.set_buff_icon("@@1@@")
-	dave_knight_will_negative_bt.set_buff_tooltip("Will of the Undying\nThis tower is drained by Will of the Undying; it will deal less damage.")
+	dave_knight_will_negative_bt.set_buff_tooltip("Will of the Undying\nReduces attack damage.")
 
 	dave_knight_withering_bt = BuffType.new("dave_knight_withering_bt", 4, 0, false, self)
 	var dave_knight_withering_bt_mod: Modifier = Modifier.new()
@@ -91,7 +91,7 @@ func tower_init():
 	dave_knight_withering_bt_mod.add_modification(Modification.Type.MOD_BOUNTY_GRANTED, -0.5, 0.01)
 	dave_knight_withering_bt.set_buff_modifier(dave_knight_withering_bt_mod)
 	dave_knight_withering_bt.set_buff_icon("@@2@@")
-	dave_knight_withering_bt.set_buff_tooltip("Withering Presence\nThis tower is affected by Withering Presence; it has reduced health regeneration and will periodically lose health.")
+	dave_knight_withering_bt.set_buff_tooltip("Withering Presence\nReduces health regeneration and periodically steals health.")
 	dave_knight_withering_bt.add_periodic_event(dave_knight_withering_bt_periodic, 1.0)
 
 	var autocast: Autocast = Autocast.make()

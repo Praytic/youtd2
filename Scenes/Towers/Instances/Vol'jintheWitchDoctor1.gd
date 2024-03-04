@@ -105,7 +105,7 @@ func tower_init():
 	sir_voljin_maledict_bt.add_event_on_damaged(sir_voljin_maledict_bt_on_damaged)
 	sir_voljin_maledict_bt.add_event_on_expire(sir_voljin_maledict_bt_on_expire)
 	sir_voljin_maledict_bt.add_event_on_purge(sir_voljin_maledict_bt_on_purge)
-	sir_voljin_maledict_bt.set_buff_tooltip("Maledict\nThis unit will receive damage in the future.")
+	sir_voljin_maledict_bt.set_buff_tooltip("Maledict\nDeals damage in the future.")
 
 	voljin_pt = ProjectileType.create("SerpentWardMissile.mdl", 10, 1200, self)
 	voljin_pt.enable_homing(voljin_pt_on_hit, 0)

@@ -28,7 +28,7 @@ func item_init():
 	drol_moonStone = BuffType.new("drol_moonStone", 5, 0, true, self)
 	drol_moonStone.set_buff_icon("@@0@@")
 	drol_moonStone.set_buff_modifier(m)
-	drol_moonStone.set_buff_tooltip("Earth and Moon\nThis unit is affected by Crescent Stone; it has increased trigger chances.")
+	drol_moonStone.set_buff_tooltip("Earth and Moon\nIncreases trigger chances.")
 
 
 func periodic(_event: Event):

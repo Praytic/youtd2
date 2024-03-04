@@ -43,7 +43,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	sir_bone_debuff = BuffType.new("sir_bone_debuff", 0, 0, false, self)
 	sir_bone_debuff.set_buff_icon("@@0@@")
-	sir_bone_debuff.set_buff_tooltip("Curse of Shadow\nThis unit is afflicted with Curse of Shadow; it will receive extra damage from darkness towers.")
+	sir_bone_debuff.set_buff_tooltip("Curse of Shadow\nIncreases damage taken from Darkness towers.")
 
 
 func on_attack(event: Event):

@@ -103,7 +103,7 @@ func tower_init():
 	top_corpse_buff = BuffType.new("top_corpse_buff", 8, 0.25, false, self)
 	top_corpse_buff.set_buff_icon("@@0@@")
 	top_corpse_buff.set_buff_modifier(m)
-	top_corpse_buff.set_buff_tooltip("Corpse Explosion\nThis unit has been hit by a Corpse Explosion; it will take extra damage from darkness towers and has reduced movement speed.")
+	top_corpse_buff.set_buff_tooltip("Corpse Explosion\nIncreases damage taken from Darkness towers and reduces movement speed.")
 
 
 func on_attack(event: Event):

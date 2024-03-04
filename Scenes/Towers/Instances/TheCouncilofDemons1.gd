@@ -85,7 +85,7 @@ func tower_init():
 	dave_council_darkness_bt.add_periodic_event(dave_council_darkness_periodic, 1.0)
 	dave_council_darkness_bt.add_event_on_damaged(dave_council_darkness_on_damaged)
 	dave_council_darkness_bt.add_event_on_expire(dave_council_darkness_on_expire)
-	dave_council_darkness_bt.set_buff_tooltip("Impenetrable Darkness\nThis unit is affected by Impenetrable Darkness; it will receive extra spell damage but less attack damage and it will also take extra damage when the debuff expires.")
+	dave_council_darkness_bt.set_buff_tooltip("Impenetrable Darkness\nIncreases spell damage taken but reduces attack damage taken. Also deals damage on expiry.")
 
 	dave_council_maledict_bt = BuffType.new("dave_council_maledict_bt", 5, 0, false, self)
 	var dave_council_maledict_mod: Modifier = Modifier.new()
@@ -93,19 +93,19 @@ func tower_init():
 	dave_council_maledict_bt.set_buff_modifier(dave_council_maledict_mod)
 	dave_council_maledict_bt.set_buff_icon("@@1@@")
 	dave_council_maledict_bt.add_event_on_spell_targeted(dave_council_maledict_on_spell_targeted)
-	dave_council_maledict_bt.set_buff_tooltip("Maledict\nThis unit is affected by Maledict; it will receive extra spell damage.")
+	dave_council_maledict_bt.set_buff_tooltip("Maledict\nIncreases spell damage taken.")
 
 	dave_council_mana_bt = BuffType.new("dave_council_mana_bt", 3, 0, true, self)
 	var dave_council_mana_mod: Modifier = Modifier.new()
 	dave_council_mana_mod.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 1.0, 0.02)
 	dave_council_mana_bt.set_buff_modifier(dave_council_mana_mod)
 	dave_council_mana_bt.set_buff_icon("@@3@@")
-	dave_council_mana_bt.set_buff_tooltip("Demonic Mana\nThis tower is gaining Demonic Mana; it has increased mana regeneration.")
+	dave_council_mana_bt.set_buff_tooltip("Demonic Mana\nIcreases mana regeneration.")
 
 	dave_council_aura_bt = BuffType.create_aura_effect_type("dave_council_aura_bt", true, self)
 	dave_council_aura_bt.set_buff_icon("@@2@@")
 	dave_council_aura_bt.add_event_on_spell_casted(dave_council_aura_bt_on_spell_casted)
-	dave_council_aura_bt.set_buff_tooltip("Demonic Edict Aura\nThis tower is under the effect of Demonic Edict Aura; it will fire an extra projectile when casting spells.")
+	dave_council_aura_bt.set_buff_tooltip("Demonic Edict Aura\nFires an extra projectile when tower casts spells.")
 
 	dave_council_pt = ProjectileType.create("DemonHunterMissile.mdl", 4, 1300, self)
 	dave_council_pt.enable_homing(dave_council_pt_on_hit, 0)

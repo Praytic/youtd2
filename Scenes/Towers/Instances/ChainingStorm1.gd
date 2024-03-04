@@ -69,7 +69,7 @@ func tower_init():
 	stern_chaining_aura_bt.add_event_on_create(stern_chaining_aura_bt_on_create)
 	stern_chaining_aura_bt.add_periodic_event(stern_chaining_aura_bt_periodic, 1.0)
 	stern_chaining_aura_bt.add_event_on_cleanup(stern_chaining_aura_bt_on_cleanup)
-	stern_chaining_aura_bt.set_buff_tooltip("Strong Wind\nThis unit has reduced movement speed and will receive periodic damage.")
+	stern_chaining_aura_bt.set_buff_tooltip("Strong Wind\nReduces movement speed and deals damage over time.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Storm Power")

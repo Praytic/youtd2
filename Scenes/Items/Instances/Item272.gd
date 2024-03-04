@@ -25,7 +25,7 @@ func item_init():
 	boekie_scroll_damage = BuffType.new("boekie_scroll_damage", 0.0, 0.0, true, self)
 	boekie_scroll_damage.set_buff_modifier(m)
 	boekie_scroll_damage.set_buff_icon("@@0@@")
-	boekie_scroll_damage.set_buff_tooltip("Strength Boost\nThis unit is affected by Strength Boost; it has increased base damage.")
+	boekie_scroll_damage.set_buff_tooltip("Strength Boost\nIncreases base attack damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Strength Boost"

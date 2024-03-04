@@ -53,7 +53,7 @@ func tower_init():
 	cedi_black_dragon_bt.add_event_on_create(cedi_black_dragon_bt_on_create)
 	cedi_black_dragon_bt.add_event_on_cleanup(cedi_black_dragon_bt_on_cleanup)
 	cedi_black_dragon_bt.add_event_on_damaged(cedi_black_dragon_bt_on_damage)
-	cedi_black_dragon_bt.set_buff_tooltip("Fear the Dark\nThis unit is weakened by the dark; it will take extra damage.")
+	cedi_black_dragon_bt.set_buff_tooltip("Fear the Dark\nIncreases damage taken.")
 
 
 func on_damage(event: Event):

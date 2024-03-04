@@ -56,7 +56,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
 	boekie_coin_machine_bt.set_buff_modifier(mod)
 	boekie_coin_machine_bt.set_buff_icon("@@0@@")
-	boekie_coin_machine_bt.set_buff_tooltip("Golden Influence\nThis tower is under the Golden Influence; it has increased bounty gain.")
+	boekie_coin_machine_bt.set_buff_tooltip("Golden Influence\nIncreases bounty gained.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Golden Influence"

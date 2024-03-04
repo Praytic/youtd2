@@ -34,7 +34,7 @@ func item_init():
 	poussix_multi_aura.set_stacking_group("multi_aura")
 	poussix_multi_aura.set_buff_icon("@@0@@")
 
-	poussix_multi_aura.set_buff_tooltip("Charitable Presence\nThis tower is under the effect of Charitable Presence Aura; it has increased maximum mana, spell damage and trigger chances.")
+	poussix_multi_aura.set_buff_tooltip("Charitable Presence\nIncreases maximum mana, spell damage and trigger chances.")
 
 	var aura_type: AuraType = AuraType.new()
 	aura_type.aura_range = 300

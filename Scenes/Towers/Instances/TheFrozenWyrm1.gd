@@ -40,7 +40,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.27, -0.002)
 	cassim_wyrm_slow_bt.set_buff_modifier(mod)
 	cassim_wyrm_slow_bt.set_buff_icon("@@0@@")
-	cassim_wyrm_slow_bt.set_buff_tooltip("Freezing Breath\nThis creep was under the Freezing Breath; it has reduced movement speed.")
+	cassim_wyrm_slow_bt.set_buff_tooltip("Freezing Breath\nReduces movement speed.")
 
 
 func on_damage(event: Event):

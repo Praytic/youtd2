@@ -11,7 +11,7 @@ func _init(parent: Node):
 	var modifier: Modifier = Modifier.new()
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, -2.0, 0.0)
 	slow_aura_effect.set_buff_modifier(modifier)
-	slow_aura_effect.set_buff_tooltip("Drain Gang\nThis unit is being Drained; it's mana is being drained and it has reduced mana regeneration.")
+	slow_aura_effect.set_buff_tooltip("Drain Gang\nDrains mana and reduces mana regeneration.")
 
 	var aura: AuraType = AuraType.new()
 	aura.power_add = 0

@@ -94,7 +94,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 0.0, 0.001)
 	cedi_crusader_buff.set_buff_modifier(mod)
 	cedi_crusader_buff.set_buff_icon("@@1@@")
-	cedi_crusader_buff.set_buff_tooltip("For the God\nThis tower is affected by For the God; it deals extra attack damage and has increased experience gain.")
+	cedi_crusader_buff.set_buff_tooltip("For the God\nIncreases attack damage and experience gain.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "For the God"

@@ -24,7 +24,7 @@ func item_init():
 	drol_debuff_aura = BuffType.create_aura_effect_type("drol_debuff_aura", true, self)
 	drol_debuff_aura.set_buff_icon("@@0@@")
 	drol_debuff_aura.set_buff_modifier(m)
-	drol_debuff_aura.set_buff_tooltip("Forcefield\nThis unit is affected by Forcefield Generator; it has reduced debuff duration.")
+	drol_debuff_aura.set_buff_tooltip("Forcefield\nReduces debuff duration.")
 
 	var aura: AuraType = AuraType.new()
 	aura.aura_range = 200

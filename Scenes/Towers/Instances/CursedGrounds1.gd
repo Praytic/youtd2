@@ -79,7 +79,7 @@ func tower_init():
 	drol_slow.set_buff_modifier(drol_slow_mod)
 	drol_slow.set_buff_icon("@@0@@")
 	drol_slow.set_stacking_group("drol_slow1")
-	drol_slow.set_buff_tooltip("Curse\nThis unit has been cursed; it has reduced movement speed and will take extra damage from spells.")
+	drol_slow.set_buff_tooltip("Curse\nReduces movement speed and increases spell damage taken.")
 
 	drol_mortal_aura = BuffType.create_aura_effect_type("drol_mortal_aura", true, self)
 	var drol_mortal_aura_mod: Modifier = Modifier.new()
@@ -89,7 +89,7 @@ func tower_init():
 	drol_mortal_aura.set_buff_modifier(drol_mortal_aura_mod)
 	drol_mortal_aura.set_buff_icon("@@1@@")
 	drol_mortal_aura.set_stacking_group("drol_mortal_aura")
-	drol_mortal_aura.set_buff_tooltip("Mortal Coil Aura\nThis unit is under the effect of Mortal Coil Aura; it will deal extra damage against human, orc and nature creeps.")
+	drol_mortal_aura.set_buff_tooltip("Mortal Coil Aura\nIncreases damage dealt against Human, Orc and Nature creeps.")
 
 
 func get_aura_types() -> Array[AuraType]:

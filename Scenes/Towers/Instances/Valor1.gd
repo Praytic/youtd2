@@ -67,7 +67,7 @@ func tower_init():
 #	Real buff, adding the damage bonus.
 	cedi_valor_lastline_real_bt = BuffType.new("cedi_valor_lastline_real_bt", -1.0, 0, false, self)
 	cedi_valor_lastline_real_bt.set_buff_icon("@@0@@")
-	cedi_valor_lastline_real_bt.set_buff_tooltip("Last Line of Defense\nThis unit is going through the Last Line of Defense; it will take extra damage.")
+	cedi_valor_lastline_real_bt.set_buff_tooltip("Last Line of Defense\nIncreases damage taken.")
 
 	cedi_valor_wewillnotfall_bt = BuffType.create_aura_effect_type("cedi_valor_wewillnotfall_bt", true, self)
 	var cedi_valor_aura_mod: Modifier = Modifier.new()
@@ -77,7 +77,7 @@ func tower_init():
 	cedi_valor_wewillnotfall_bt.add_event_on_create(cedi_valor_wewillnotfall_bt_on_create)
 	cedi_valor_wewillnotfall_bt.add_periodic_event(cedi_valor_wewillnotfall_bt_periodic, 15.0)
 	cedi_valor_wewillnotfall_bt.add_event_on_cleanup(cedi_valor_wewillnotfall_bt_on_cleanup)
-	cedi_valor_wewillnotfall_bt.set_buff_tooltip("We Will Not Fall! Aura\nThis tower is under the effect of We Will Not Fall! Aura; it will deal more damage based on lost portal lives.")
+	cedi_valor_wewillnotfall_bt.set_buff_tooltip("We Will Not Fall! Aura\nIncreases damage dealt based on lost portal lives.")
 
 	cedi_valor_light_bt = BuffType.new("cedi_valor_light_bt", 5.0, 0, false, self)
 	var cedi_valor_light_mod: Modifier = Modifier.new()
@@ -85,7 +85,7 @@ func tower_init():
 	cedi_valor_light_bt.set_buff_modifier(cedi_valor_light_mod)
 	cedi_valor_light_bt.set_buff_icon("@@2@@")
 	cedi_valor_light_bt.add_periodic_event(cedi_valor_light_bt_periodic, 1.0)
-	cedi_valor_light_bt.set_buff_tooltip("Valor's Light\nThis unit is affected by Valor's Light; it will deal more damage based on lost portal lives.")
+	cedi_valor_light_bt.set_buff_tooltip("Valor's Light\nReduces movement speed.")
 
 func get_aura_types() -> Array[AuraType]:
 	var aura: AuraType = AuraType.new()

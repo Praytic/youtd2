@@ -99,11 +99,11 @@ func tower_init():
 	natac_cloudy_temple_aura_bt = BuffType.create_aura_effect_type("natac_cloudy_temple_aura_bt", false, self)
 	natac_cloudy_temple_aura_bt.set_buff_icon("@@1@@")
 	natac_cloudy_temple_aura_bt.add_event_on_damaged(natac_cloudy_temple_aura_bt_on_damaged)
-	natac_cloudy_temple_aura_bt.set_buff_tooltip("Cloud of Absorption Aura\nThis unit is under the effect of Cloud of Absorption Aura; it will convert any overkill damage to mana for aura giver.")
+	natac_cloudy_temple_aura_bt.set_buff_tooltip("Cloud of Absorption Aura\nConverts any overkill damage to mana for aura giver.")
 
 	natac_cloudy_temple_storm_bt = BuffType.new("natac_cloudy_temple_storm_bt", -1.0, 0.0, false, self)
 	natac_cloudy_temple_storm_bt.add_event_on_damaged(natac_cloudy_temple_storm_bt_on_damaged)
-	natac_cloudy_temple_storm_bt.set_buff_tooltip("Cloudy Thunderstorm\nThis unit is affected by Cloudy Thunderstorm; it receives periodic damage.")
+	natac_cloudy_temple_storm_bt.set_buff_tooltip("Cloudy Thunderstorm\nDeals damage over time.")
 
 	natac_cloudy_temple_pt = ProjectileType.create_ranged("FarserrMissile.mdl", 1000 + 100, 500, self)
 	natac_cloudy_temple_pt.enable_homing(natac_cloudy_temple_pt_on_hit, 0.0)

@@ -60,7 +60,7 @@ func tower_init():
 	cedi_melt_bt.add_periodic_event(cedi_melt_bt_on_periodic, 1.0)
 	cedi_melt_bt.add_event_on_cleanup(cedi_melt_bt_on_cleanup)
 	cedi_melt_bt.set_buff_icon("@@0@@")
-	cedi_melt_bt.set_buff_tooltip("Melting\nThis unit is melting; it has decreased armor and is periodically taking damage.")
+	cedi_melt_bt.set_buff_tooltip("Melting\nDecreases armor and deals damage over time.")
 
 
 func get_aura_types() -> Array[AuraType]:

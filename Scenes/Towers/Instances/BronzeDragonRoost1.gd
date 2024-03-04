@@ -47,7 +47,7 @@ func tower_init():
 	bronze_dragon_bt.set_buff_icon("@@0@@")
 	bronze_dragon_bt.add_event_on_create(bronze_dragon_bt_on_create)
 	bronze_dragon_bt.add_event_on_cleanup(bronze_dragon_bt_on_cleanup)
-	bronze_dragon_bt.set_buff_tooltip("Bronzefication\nThis unit has been Bronzefied; it has reduced movement speed, reduced health regeneration, increased item quality and increased armor.")
+	bronze_dragon_bt.set_buff_tooltip("Bronzefication\nReduces movement speed and health regeneration. Increases item quality and armor.")
 
 
 func on_damage(event: Event):

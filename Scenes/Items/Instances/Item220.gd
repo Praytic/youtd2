@@ -16,7 +16,7 @@ func get_ability_description() -> String:
 
 func item_init():
 	nerminds_eye = MagicalSightBuff.new("nerminds_eye", 750, self)
-	nerminds_eye.set_buff_tooltip("Nermind's Eye\nThis unit has Nermind's Eye; it will reveal invisible units in range.")
+	nerminds_eye.set_buff_tooltip("Nermind's Eye\nReveals invisible units in range.")
 
 
 func on_pickup():

@@ -99,10 +99,10 @@ func tower_init():
 	storm_zealot_slow.set_buff_icon("@@3@@")
 	storm_zealot_shield.set_buff_icon("@@2@@")
 
-	storm_zealot_fury.set_buff_tooltip("Zeal\nThis tower is affected by Zeal; it has increased attack speed.")
-	storm_zealot_wound.set_buff_tooltip("Phase Wound\nThis unit is wounded by a phase blade; zealot's attacks against this unit will penetrate through some of the unit's armor.")
-	storm_zealot_slow.set_buff_tooltip("Zeal Drain\nThis tower is affected by Zeal Drain; it has decreased attack speed.")
-	storm_zealot_shield.set_buff_tooltip("Lightning Shield\nThis tower is affected by Lightning Shield; it has reduced debuff duration.")
+	storm_zealot_fury.set_buff_tooltip("Zeal\nIncreases attack speed.")
+	storm_zealot_wound.set_buff_tooltip("Phase Wound\nZealot's attacks will penetrate through some of the armor.")
+	storm_zealot_slow.set_buff_tooltip("Zeal Drain\nDecreases attack speed.")
+	storm_zealot_shield.set_buff_tooltip("Lightning Shield\nReduces debuff duration.")
 
 	storm_zealot_shield.add_event_on_cleanup(storm_zealot_shield_cleanup)
 

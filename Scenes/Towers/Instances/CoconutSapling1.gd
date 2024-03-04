@@ -74,7 +74,7 @@ func tower_init():
 
 	cedi_coco_bt = CbStun.new("cedi_coco_bt", STUN_CD, 0, false, self)
 	cedi_coco_bt.set_buff_icon("@@0@@")
-	cedi_coco_bt.set_buff_tooltip("Coconut Cooldown\nThis unit has recently been stunned by a coconut; it is temporarily immune to coconut stuns.")
+	cedi_coco_bt.set_buff_tooltip("Coconut Cooldown\nRecently stunned by a coconut; temporarily immune to coconut stuns.")
 
 
 func on_damage(event: Event):

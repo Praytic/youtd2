@@ -25,7 +25,7 @@ func item_init():
 	drol_spellDmgRecieved = BuffType.new("drol_spellDmgRecieved", 5, 0, false, self)
 	drol_spellDmgRecieved.set_buff_icon("@@0@@")
 	drol_spellDmgRecieved.set_buff_modifier(m)
-	drol_spellDmgRecieved.set_buff_tooltip("Resonance\nThis unit is afflicted by Resonance; it will receive more damage from spells.")
+	drol_spellDmgRecieved.set_buff_tooltip("Resonance\nIncreases spell damage taken.")
 
 
 func on_attack(event: Event):

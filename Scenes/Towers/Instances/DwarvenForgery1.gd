@@ -35,7 +35,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ITEM_QUALITY_ON_KILL, 0.15, 0.004)
 	dwarven_forgery_aura_bt.set_buff_modifier(mod)
 	dwarven_forgery_aura_bt.set_buff_icon("@@0@@")
-	dwarven_forgery_aura_bt.set_buff_tooltip("Dwarven Polish Aura\nThis tower is under the effect of Dwarven Polish Aura; it has increased item quality ratio.")
+	dwarven_forgery_aura_bt.set_buff_tooltip("Dwarven Polish Aura\nIncreases quality of dropped items.")
 
 
 func get_aura_types() -> Array[AuraType]:

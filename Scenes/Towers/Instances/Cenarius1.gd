@@ -99,12 +99,12 @@ func tower_init():
 	cenarius_tranquility_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.4, 0.004)
 	cenarius_tranquility_bt.set_buff_modifier(cenarius_tranquility_mod)
 	cenarius_tranquility_bt.set_buff_icon("@@2@@")
-	cenarius_tranquility_bt.set_buff_tooltip("Tranquility Aura\nThis tower is under the effect of Tranquility Aura; it has reduced attack speed but will deal extra damage.")
+	cenarius_tranquility_bt.set_buff_tooltip("Tranquility Aura\nReduces attack speed and increases attack damage.")
 
 	cenarius_entangle_bt = CbStun.new("cenarius_entangle_bt", 1.5, 0.02, false, self)
 	cenarius_entangle_bt.set_buff_icon("@@4@@")
 	cenarius_entangle_bt.add_periodic_event(cenarius_entangle_bt_periodic, 1.0)
-	cenarius_entangle_bt.set_buff_tooltip("Entangle\nThis creep is entangled; it can't move and will take periodic damage.")
+	cenarius_entangle_bt.set_buff_tooltip("Entangle\nPrevents movement and deals damage over time.")
 
 	roots_pt = ProjectileType.create_ranged("", 1000, 600, self)
 	roots_pt.enable_collision(roots_pt_on_hit, 175, TargetType.new(TargetType.CREEPS), false)
@@ -130,7 +130,7 @@ func tower_init():
 	cenarius_thorned_mod.add_modification(Modification.Type.MOD_DMG_FROM_NATURE, 0.3, 0.006)
 	cenarius_thorned_bt.set_buff_modifier(cenarius_thorned_mod)
 	cenarius_thorned_bt.set_buff_icon("@@7@@")
-	cenarius_thorned_bt.set_buff_tooltip("Thorned\nThis creep has been thorned; it will take extra damage from Nature towers.")
+	cenarius_thorned_bt.set_buff_tooltip("Thorned\nIncreases damage taken from Nature towers.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Entangling Roots"
