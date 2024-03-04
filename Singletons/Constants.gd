@@ -15,6 +15,8 @@ const SettingsKey = {
 
 const SETTINGS_PATH: String = "user://settings.cfg"
 
+const TILE_SIZE: Vector2 = Vector2(256, 128)
+
 # NOTE: this tile height is for isometric projection.
 const TILE_HEIGHT: float = 128.0
 

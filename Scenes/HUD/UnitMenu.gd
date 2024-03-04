@@ -464,6 +464,8 @@ func _on_sell_button_pressed():
 		item.drop()
 		item.fly_to_stash(0.0)
 
+	BuildTower.clear_space_occupied_by_tower(tower)
+
 	var sell_price: int = TowerProperties.get_sell_price(tower_id)
 	tower.get_player().give_gold(sell_price, tower, false, true)
 	tower.queue_free()

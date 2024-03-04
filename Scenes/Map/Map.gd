@@ -137,7 +137,7 @@ func get_build_info_for_mouse_pos() -> Array:
 	
 	for i in range(0, 4):
 		var quarter_pos: Vector2 = quarter_list[i]
-		var quarter_pos_is_occupied: bool = _get_quarter_is_occuppied(quarter_pos)
+		var quarter_pos_is_occupied: bool = BuildTower.quarter_is_occupied(quarter_pos)
 
 		var local_pos: Vector2 = _buildable_area.to_local(quarter_pos)
 		var map_pos: Vector2 = _buildable_area.local_to_map(local_pos)
@@ -154,7 +154,7 @@ func can_transform_at_mouse_pos() -> bool:
 		return false
 
 	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
-	var there_is_a_tower_under_mouse: bool = BuildTower.position_is_occupied(pos)
+	var there_is_a_tower_under_mouse: bool = BuildTower.tower_exists_on_position(pos)
 	var can_transform: bool = there_is_a_tower_under_mouse
 
 	return can_transform
@@ -172,34 +172,6 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 	var tile_exists: bool = tile_data_at_pos != null
 
 	return tile_exists
-
-
-#########################
-###      Private      ###
-#########################
-
-
-# NOTE: a quarter tile is occupied if any of it's corners
-# contain a tower. Note that this doesn't mean that a tower
-# can be built on this position, only that this quarter tile
-# is valid for building.
-func _get_quarter_is_occuppied(quarter: Vector2) -> bool:
-	var tile_size: Vector2i = _buildable_area.tile_set.tile_size
-	var corner_list: Array = [
-		quarter + Vector2(0, -tile_size.y) / 2,
-		quarter + Vector2(tile_size.x, 0) / 2,
-		quarter + Vector2(0, tile_size.y) / 2,
-		quarter + Vector2(-tile_size.x, 0) / 2,
-	]
-
-	var quarter_is_occupied: bool = false
-	for corner in corner_list:
-		var corner_is_occupied: bool = BuildTower.position_is_occupied(corner)
-
-		if corner_is_occupied:
-			quarter_is_occupied = true
-
-	return quarter_is_occupied
 
 
 #########################

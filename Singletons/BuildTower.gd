@@ -5,11 +5,24 @@ extends Node
 signal tower_built(tower_id)
 
 
+# List of offsets from tower center position which are used
+# to generate positions of quarter tiles.
+const QUARTER_OFFSET_LIST: Array = [
+	Constants.TILE_SIZE * Vector2(0, -0.25),
+	Constants.TILE_SIZE * Vector2(0, 0.25),
+	Constants.TILE_SIZE * Vector2(0.25, 0),
+	Constants.TILE_SIZE * Vector2(-0.25, 0),
+]
+
 var _tower_preview: TowerPreview = null
 
 
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 @onready var _map = _game_scene.get_node("%Map")
+
+# List of positions of quarter tiles which are occupied by
+# towers. Each tower occupies 4 quarter tiles.
+var _occupied_quarter_list: Array[Vector2] = []
 
 
 #########################
@@ -61,11 +74,17 @@ func cancel():
 	_tower_preview.queue_free()
 
 
-func position_is_occupied(position: Vector2) -> bool:
-	var tower_at_position: Tower = _get_tower_at_position(position)
-	var occupied: bool = tower_at_position != null
+func quarter_is_occupied(position: Vector2) -> bool:
+	var occupied: bool = _occupied_quarter_list.has(position)
 
 	return occupied
+
+
+func tower_exists_on_position(position: Vector2) -> bool:
+	var tower_at_position: Tower = _get_tower_at_position(position)
+	var has_tower: bool = tower_at_position != null
+
+	return has_tower
 
 
 # Returns true if there are enough resources for tower
@@ -89,6 +108,17 @@ func add_error_about_resources(tower_id: int):
 		Messages.add_error("Not enough tomes.")
 	elif !enough_food:
 		Messages.add_error("Not enough food.")
+
+
+func clear_space_occupied_by_tower(tower: Tower):
+#	NOTE: need to subtract tile height because tower's
+#	position is on the ground and occupied spaces are on the
+#	2nd floor
+	var visual_position: Vector2 = tower.position - Vector2(0, Constants.TILE_SIZE.y)
+
+	for offset in QUARTER_OFFSET_LIST:
+		var pos: Vector2 = visual_position + offset
+		_occupied_quarter_list.erase(pos)
 
 
 #########################
@@ -183,6 +213,13 @@ func _build_tower(tower_id: int):
 	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
 	
 	Globals.built_at_least_one_tower = true
+
+#	NOTE: use visual_position for quarters because we need
+#	2nd floor position. Visual position is on 2nd floor
+#	while build position is on 1st floor.
+	for offset in QUARTER_OFFSET_LIST:
+		var pos: Vector2 = visual_position + offset
+		_occupied_quarter_list.append(pos)
 
 	cancel()
 
