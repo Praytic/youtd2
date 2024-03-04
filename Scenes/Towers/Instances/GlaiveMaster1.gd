@@ -107,7 +107,7 @@ func tower_init():
 	ashbringer_lacerate_bt = BuffType.new("ashbringer_lacerate_bt", 5, 0, false, self)
 	ashbringer_lacerate_bt.set_buff_icon("@@1@@")
 	ashbringer_lacerate_bt.add_periodic_event(ashbringer_lacerate_bt_periodic, 1.0)
-	ashbringer_lacerate_bt.set_buff_tooltip("Lacerate\nThis unit is affected by Lacerate; it will take periodic damage.")
+	ashbringer_lacerate_bt.set_buff_tooltip("Lacerate\nDeals damage over time.")
 
 	storm_pt = ProjectileType.create_interpolate("SentinelMissile.mdl", 900, self)
 	storm_pt.set_event_on_interpolation_finished(storm_pt_on_finished)

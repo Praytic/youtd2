@@ -85,7 +85,7 @@ func tower_init():
 	drol_phantom_st_2 = SpellType.new('@@1@@', "chainlightning", 5.0, self)
 	drol_phantom_st_2.set_source_height(40.0)
 
-	drol_phantomBuff.set_buff_tooltip("Wind Shear\nThis unit is affected by Wind Shear; it has increased attack speed and it has a chance to cast a chain of lightning on attack.")
+	drol_phantomBuff.set_buff_tooltip("Wind Shear\nIncreases attack speed and grants a chance to cast chain of lightning on attack.")
 
 	drol_phantom_st = SpellType.new("@@0@@", "chainlightning", 5.00, self)
 	drol_phantom_st.data.chain_lightning.damage = 100

@@ -74,7 +74,7 @@ func tower_init():
 	drol_goldrush.set_buff_icon("@@0@@")
 	drol_goldrush.set_buff_modifier(m)
 	drol_goldrush.set_stacking_group("drol_goldrush")
-	drol_goldrush.set_buff_tooltip("Goldrush\nThis tower is affected by Goldrush; it has increased attackspeed and makes gold every time it attacks.")
+	drol_goldrush.set_buff_tooltip("Goldrush\nIncreases attack speed and gives gold every time tower attacks.")
 
 	drol_excavation_multi = MultiboardValues.new(2)
 	drol_excavation_multi.set_key(0, "Gold gained")

@@ -79,7 +79,7 @@ func tower_init():
 	slow_debuff.set_buff_icon("@@2@@")
 	slow_debuff.set_buff_modifier(mod)
 	slow_debuff.set_stacking_group("ForestArcherStacks")
-	slow_debuff.set_buff_tooltip("Forest Roots\nThis unit is affected by Forest Roots; it has reduced movement speed.")
+	slow_debuff.set_buff_tooltip("Forest Roots\nReduces movement speed.")
 
 	cb_stun = CbStun.new("forest_archer_stun", 0, 0, false, self)
 

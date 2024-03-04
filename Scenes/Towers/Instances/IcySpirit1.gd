@@ -59,7 +59,7 @@ func tower_init():
 	boekie_icy_spirit_buff = BuffType.new("boekie_icy_spirit_buff", 5, 0, false, self)
 	boekie_icy_spirit_buff.set_buff_icon("@@0@@")
 	boekie_icy_spirit_buff.set_buff_modifier(m)
-	boekie_icy_spirit_buff.set_buff_tooltip("Frozen\nThis unit is frozen; it has reduced movement speed.")
+	boekie_icy_spirit_buff.set_buff_tooltip("Frozen\nReduces movement speed.")
 
 
 func on_attack(_event: Event):

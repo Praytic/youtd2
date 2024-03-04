@@ -42,7 +42,7 @@ func tower_init():
 	velex_dmg_aura.set_buff_modifier(m)
 	velex_dmg_aura.set_stacking_group("dmg_aura")
 	velex_dmg_aura.set_buff_icon("@@0@@")
-	velex_dmg_aura.set_buff_tooltip("Thermal Boost\nThis tower is affected by Thermal Boost; it will deal extra damage.")
+	velex_dmg_aura.set_buff_tooltip("Thermal Boost\nIncreases attack damage.")
 
 
 func get_aura_types() -> Array[AuraType]:

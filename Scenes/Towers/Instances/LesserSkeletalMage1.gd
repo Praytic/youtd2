@@ -55,7 +55,7 @@ func tower_init():
 	boekie_amp_damage.set_buff_modifier(m)
 	boekie_amp_damage.set_stacking_group("boekie_amp_damage")
 	boekie_amp_damage.set_buff_icon("@@0@@")
-	boekie_amp_damage.set_buff_tooltip("Dark Curse\nThis unit is under the effect of Dark Curse; it will receive more damage from attacks.")
+	boekie_amp_damage.set_buff_tooltip("Dark Curse\nIncreases attack damage taken.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Dark Curse"

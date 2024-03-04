@@ -59,13 +59,13 @@ func tower_init():
 	sir_frost_furbolg.set_stacking_group("sir_frost_furbolg")
 	sir_frost_furbolg.set_buff_icon("@@0@@")
 	sir_frost_furbolg.add_event_on_cleanup(on_cleanup)
-	sir_frost_furbolg.set_buff_tooltip("Cold Feet\nThis tower's feet are cold; it has decreased attackspeed.")
+	sir_frost_furbolg.set_buff_tooltip("Cold Feet\nDecreases attack speed.")
 
 	sir_frost_furbolg_2 = BuffType.new("sir_frost_furbolg_2", 0, 0, true, self)
 	m2.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0, 0.001)
 	sir_frost_furbolg_2.set_buff_modifier(m2)
 	sir_frost_furbolg_2.set_buff_icon("@@0@@")
-	sir_frost_furbolg_2.set_buff_tooltip("Cold Arms\nThis tower's arms are cold; it deals extra damage.")
+	sir_frost_furbolg_2.set_buff_tooltip("Cold Arms\nIncreases attack damage.")
 
 
 func on_attack(_event: Event):

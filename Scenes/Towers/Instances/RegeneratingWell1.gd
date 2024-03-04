@@ -77,7 +77,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.001)
 	regen_well_bt.set_buff_modifier(mod)
 	regen_well_bt.set_buff_icon("@@0@@")
-	regen_well_bt.set_buff_tooltip("Cleansing Water Aura\nThis tower is under the effect of Cleansing Water Aura; it deals extra spell damage.")
+	regen_well_bt.set_buff_tooltip("Cleansing Water Aura\nIncreases spell damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Replenish"

@@ -51,7 +51,7 @@ func tower_init():
 	drol_magic_ruin.set_buff_modifier(astral_mod)
 	drol_magic_ruin.set_buff_icon("@@0@@")
 	
-	drol_magic_ruin.set_buff_tooltip("Illuminate\nThis unit has been Illuminated; it will grant more experience when killed.")
+	drol_magic_ruin.set_buff_tooltip("Illuminate\nIncreases experience granted.")
 
 
 func on_damage(event: Event):

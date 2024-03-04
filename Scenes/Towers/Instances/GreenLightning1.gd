@@ -105,7 +105,7 @@ func tower_init():
 	drol_surge.set_buff_modifier(m)
 	drol_surge.set_buff_icon("@@1@@")
 	drol_surge.add_event_on_attack(surge)
-	drol_surge.set_buff_tooltip("Mana Feed\nThis tower is affected by Mana Feed; it's spell crit chance is increased.")
+	drol_surge.set_buff_tooltip("Mana Feed\nIncreases spell crit chance.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Lightning Surge"

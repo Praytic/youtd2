@@ -114,26 +114,26 @@ func tower_init():
 	dave_blood_target.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, BLOODSPILL_MOD_ATTACKSPEED_ADD)
 	dave_blood_target_bt.set_buff_modifier(dave_blood_target)
 	dave_blood_target_bt.set_buff_icon("@@0@@")
-	dave_blood_target_bt.set_buff_tooltip("Blood Spill Boost\nThis tower is affected by Blood Spill Boost; it has increased attack speed.")
+	dave_blood_target_bt.set_buff_tooltip("Blood Spill Boost\nIncreases attack speed.")
 
 	dave_blood_altar_bt = BuffType.new("dave_blood_altar_bt", BUFF_DURATION, 0, false, self)
 	var dave_blood_altar: Modifier = Modifier.new()
 	dave_blood_altar.add_modification(Modification.Type.MOD_ATTACKSPEED, -BLOODSPILL_DMG_LOSS, 0.0)
 	dave_blood_altar_bt.set_buff_modifier(dave_blood_altar)
 	dave_blood_altar_bt.set_buff_icon("@@1@@")
-	dave_blood_altar_bt.set_buff_tooltip("Blood Spill Fatigue\nThis tower is affected by Blood Spill Fatigue; it's damage is reduced by 100%.")
+	dave_blood_altar_bt.set_buff_tooltip("Blood Spill Fatigue\nReduces attack damage by 100%.")
 
 	dave_sacrifice_target_bt = BuffType.new("dave_sacrifice_target_bt", BUFF_DURATION, 0, true, self)
 	dave_sacrifice_target_bt.set_buff_icon("@@2@@")
 	dave_sacrifice_target_bt.add_event_on_cleanup(dave_sacrifice_target_on_cleanup)
-	dave_sacrifice_target_bt.set_buff_tooltip("Sacrifice Boost\nThis tower is affected by Sacrifice Boost; it has increased dps.")
+	dave_sacrifice_target_bt.set_buff_tooltip("Sacrifice Boost\nIncreases DPS.")
 
 	dave_sacrifice_altar_bt = BuffType.new("dave_sacrifice_altar_bt", BUFF_DURATION, 0, false, self)
 	var dave_sacrifice_altar: Modifier = Modifier.new()
 	dave_sacrifice_altar.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -SACRIFICE_DMG_LOSS, 0.0)
 	dave_sacrifice_altar_bt.set_buff_modifier(dave_sacrifice_altar)
 	dave_sacrifice_altar_bt.set_buff_icon("@@3@@")
-	dave_sacrifice_altar_bt.set_buff_tooltip("Sacrifice Fatigue\nThis tower is affected by Sacrifice Fatigue; it's damage is reduced by 100%.")
+	dave_sacrifice_altar_bt.set_buff_tooltip("Sacrifice Fatigue\nReduces attack damage by 100%.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Sacrifice"

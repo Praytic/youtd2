@@ -92,7 +92,7 @@ func tower_init():
 	ash_soulflame_aura_bt.add_event_on_create(ash_soulflame_aura_bt_on_create)
 	ash_soulflame_aura_bt.add_event_on_cleanup(ash_soulflame_aura_bt_on_cleanup)
 	ash_soulflame_aura_bt.add_periodic_event(ash_soulflame_aura_bt_periodic, 5)
-	ash_soulflame_aura_bt.set_buff_tooltip("Evil Device\nThis tower has increased attack speed, trigger changes, spell damage, spell crit chance and damage.")
+	ash_soulflame_aura_bt.set_buff_tooltip("Evil Device\nIncreases attack speed, trigger changes, spell damage, spell crit chance and attack damage.")
 
 	ash_soulflame_soulfire_bt = BuffType.new("ash_soulflame_soulfire_bt", 5, 0, false, self)
 	var ash_soulflame_soulfire_bt_mod: Modifier = Modifier.new()
@@ -101,14 +101,14 @@ func tower_init():
 	ash_soulflame_soulfire_bt.set_buff_icon("@@1@@")
 	ash_soulflame_soulfire_bt.add_periodic_event(ash_soulflame_soulfire_bt_periodic, 1)
 	ash_soulflame_soulfire_bt.add_event_on_death(ash_soulflame_soulfire_bt_on_death)
-	ash_soulflame_soulfire_bt.set_buff_tooltip("Soulfire\nThis unit is receiving periodic damage.")
+	ash_soulflame_soulfire_bt.set_buff_tooltip("Soulfire\nDeals damage over time.")
 
 	ash_soulflame_awaken_bt = BuffType.new("ash_soulflame_awaken_bt", 3, 0, true, self)
 	var ash_soulflame_awaken_bt_mod: Modifier = Modifier.new()
 	ash_soulflame_awaken_bt_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	ash_soulflame_awaken_bt.set_buff_modifier(ash_soulflame_awaken_bt_mod)
 	ash_soulflame_awaken_bt.set_buff_icon("@@3@@")
-	ash_soulflame_awaken_bt.set_buff_tooltip("Awaken\nThis tower has increased attack speed.")
+	ash_soulflame_awaken_bt.set_buff_tooltip("Awaken\nIncreases attack speed.")
 
 	soulflame_pt = ProjectileType.create("AvengerMissile.mdl", 5, 9000, self)
 

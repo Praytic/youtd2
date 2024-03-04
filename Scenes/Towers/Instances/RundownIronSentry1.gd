@@ -73,14 +73,14 @@ func tower_init():
 	alert_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, ALERT_MOD_DMG, ALERT_MOD_DMG_ADD)
 	glow_alert_bt.set_buff_modifier(alert_mod)
 	glow_alert_bt.set_buff_icon("@@0@@")
-	glow_alert_bt.set_buff_tooltip("Alert\nThis tower has been alerted; it has increased base damage.")
+	glow_alert_bt.set_buff_tooltip("Alert\nIncreases base attack damage.")
 
 	glow_trespasser_bt = BuffType.new("glow_trespasser_bt", -1, 0, false, self)
 	var trespasser_mod: Modifier = Modifier.new()
 	trespasser_mod.add_modification(Modification.Type.MOD_ARMOR, 0.0, -0.01)
 	glow_trespasser_bt.set_buff_modifier(trespasser_mod)
 	glow_trespasser_bt.set_buff_icon("@@1@@")
-	glow_trespasser_bt.set_buff_tooltip("Trespasser\nThis unit is a tresspasser; it has reduced armor.")
+	glow_trespasser_bt.set_buff_tooltip("Trespasser\nReduces armor.")
 
 
 func on_unit_in_range(event: Event):

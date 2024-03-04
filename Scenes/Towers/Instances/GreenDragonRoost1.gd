@@ -39,7 +39,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MULTICRIT_COUNT, 2, 0.0)
 	boekie_green_dragon_bt.set_buff_modifier(mod)
 	boekie_green_dragon_bt.set_buff_icon("@@0@@")
-	boekie_green_dragon_bt.set_buff_tooltip("Green Dragon Force Aura\nThis tower is under the effect of Green Dragon Force Aura; it has increased multicrit.")
+	boekie_green_dragon_bt.set_buff_tooltip("Green Dragon Force Aura\nIncreases multicrit.")
 
 
 func get_aura_types() -> Array[AuraType]:

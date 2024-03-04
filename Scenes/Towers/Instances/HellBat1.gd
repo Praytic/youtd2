@@ -91,7 +91,7 @@ func load_triggers(triggers: BuffType):
 func tower_init():
 	dave_darkness = BuffType.new("dave_darkness", 5, 0, true, self)
 	dave_darkness.set_buff_icon("@@2@@")
-	dave_darkness.set_buff_tooltip("Engulfing Darkness\nThis tower is affected by Engulfing Darkness; it is more powerful as if it's night.")
+	dave_darkness.set_buff_tooltip("Engulfing Darkness\nPowerful as if it was night.")
 
 #	NOTE: settubg danage to "1.0" here because value for
 #	actual damage is passed when spell is casted as

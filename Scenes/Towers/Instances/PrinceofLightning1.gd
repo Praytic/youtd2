@@ -72,7 +72,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.0, 0.001)
 	prince_of_lightning_bt.set_buff_modifier(mod)
 	prince_of_lightning_bt.set_buff_icon("@@0@@")
-	prince_of_lightning_bt.set_buff_tooltip("Real of Thunder Aura\nThis tower is under the effect of Realm of Thunder Aura; it takes extra damage from Storm towers.")
+	prince_of_lightning_bt.set_buff_tooltip("Real of Thunder Aura\nIncreases damage taken from Storm towers.")
 
 	
 func get_aura_types() -> Array[AuraType]:

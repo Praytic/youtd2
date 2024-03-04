@@ -70,7 +70,7 @@ func tower_init():
 	light_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, 0.0, 0.001)
 	sternbogen_holy_buff.set_buff_modifier(light_mod)
 	sternbogen_holy_buff.set_buff_icon("@@1@@")
-	sternbogen_holy_buff.set_buff_tooltip("Holy Weakness\nThis unit has Holy Weakness; it will receive more damage from attacks and spells.")
+	sternbogen_holy_buff.set_buff_tooltip("Holy Weakness\nIncreases attack damage taken and spell damage taken.")
 
 
 func on_damage(event: Event):

@@ -71,13 +71,13 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_MOVESPEED, -0.50, 0.0)
 	cedi_protectress_slow_bt.set_buff_modifier(mod)
 	cedi_protectress_slow_bt.set_buff_icon("@@0@@")
-	cedi_protectress_slow_bt.set_buff_tooltip("Protectress's Wrath\nThis unit is affected by Protectreess's Wrath; it has reduced movement speed.")
+	cedi_protectress_slow_bt.set_buff_tooltip("Protectress's Wrath\nReduces movement speed.")
 
 	cedi_protectress_aura_bt = BuffType.create_aura_effect_type("cedi_protectress_aura_bt", true, self)
 	cedi_protectress_aura_bt.set_buff_icon("@@1@@")
 	cedi_protectress_aura_bt.add_event_on_attack(cedi_protectress_aura_bt_on_attack)
 	cedi_protectress_aura_bt.add_event_on_cleanup(cedi_protectress_aura_bt_on_cleanup)
-	cedi_protectress_aura_bt.set_buff_tooltip("Strike the Unprepared Aura\nThis tower is under the effect of Strike the Unprepared Aura; it will get increased crit chance based on target's health.")
+	cedi_protectress_aura_bt.set_buff_tooltip("Strike the Unprepared Aura\nIncreases crit chance based on target's health.")
 
 
 func get_aura_types() -> Array[AuraType]:

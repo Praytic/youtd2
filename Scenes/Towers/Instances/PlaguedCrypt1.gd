@@ -79,7 +79,7 @@ func tower_init():
 	cedi_crypt_army_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.05)
 	cedi_crypt_army_bt.set_buff_modifier(cedi_crypt_army_mod)
 	cedi_crypt_army_bt.set_buff_icon("@@1@@")
-	cedi_crypt_army_bt.set_buff_tooltip("Army of the Damned\nThis tower is supported by Army of the Damned; it has increased attack speed and damage.")
+	cedi_crypt_army_bt.set_buff_tooltip("Army of the Damned\nIncreases attack speed and attack damage.")
 
 	multiboard = MultiboardValues.new(2)
 	multiboard.set_key(0, "Souls Extracted")

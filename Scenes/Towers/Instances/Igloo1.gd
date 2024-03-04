@@ -72,7 +72,7 @@ func tower_init():
 	boekie_igloo_buff.set_buff_icon("@@0@@")
 	boekie_igloo_buff.set_buff_modifier(modifier)
 	boekie_igloo_buff.add_event_on_expire(boekie_igloo_end)
-	boekie_igloo_buff.set_buff_tooltip("Extreme Cold\nThis unit is affected by Extreme cold; it has reduced movement speed and will be stunned when the debuff expires.")
+	boekie_igloo_buff.set_buff_tooltip("Extreme Cold\nReduces movement speed and stuns creep when the debuff expires.")
 
 	cb_stun = CbStun.new("igloo_stun", 0, 0, false, self)
 

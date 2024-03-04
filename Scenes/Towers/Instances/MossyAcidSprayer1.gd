@@ -56,7 +56,7 @@ func tower_init():
 	cedi_acidarmor.set_buff_icon("@@0@@")
 	cedi_acidarmor.set_buff_modifier(m)
 
-	cedi_acidarmor.set_buff_tooltip("Acid Corosion\nThis unit has been hit with Acid Coating; it has reduced armor.")
+	cedi_acidarmor.set_buff_tooltip("Acid Corosion\nReduces armor.")
 
 
 func on_damage(event: Event):

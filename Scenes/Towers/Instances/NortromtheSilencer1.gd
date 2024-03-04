@@ -74,7 +74,7 @@ func tower_init():
 	mock_nortrom_aura_bt = BuffType.create_aura_effect_type("mock_nortrom_aura_bt", true, self)
 	mock_nortrom_aura_bt.set_buff_icon("@@0@@")
 	mock_nortrom_aura_bt.add_event_on_attack(mock_nortrom_aura_bt_on_attack)
-	mock_nortrom_aura_bt.set_buff_tooltip("Global Silence\nThis tower has a chance to silence creeps.")
+	mock_nortrom_aura_bt.set_buff_tooltip("Global Silence\nChance to silence creeps.")
 
 	glaive_pt = ProjectileType.create_interpolate("BloodElfSpellThiefMISSILE.mdl", 1000, self)
 	glaive_pt.set_event_on_interpolation_finished(glaive_pt_on_hit)

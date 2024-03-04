@@ -36,7 +36,7 @@ func tower_init():
 	boekie_altar_gift_bt = BuffType.create_aura_effect_type("boekie_altar_gift_bt", true, self)
 	boekie_altar_gift_bt.set_buff_icon("@@1@@")
 	boekie_altar_gift_bt.add_event_on_attack(boekie_altar_gift_bt_on_attack)
-	boekie_altar_gift_bt.set_buff_tooltip("Gift of Nature\nThis tower has the Gift of Nature; it has a chance to entangle creeps..")
+	boekie_altar_gift_bt.set_buff_tooltip("Gift of Nature\nChance to entangle creeps.")
 
 
 func get_aura_types() -> Array[AuraType]:

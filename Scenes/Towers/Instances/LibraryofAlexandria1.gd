@@ -73,14 +73,14 @@ func tower_init():
 	library_aura_mod.add_modification(Modification.Type.MOD_EXP_GRANTED, 0.30, 0.01)
 	library_aura_bt.set_buff_modifier(library_aura_mod)
 	library_aura_bt.set_buff_icon("@@0@@")
-	library_aura_bt.set_buff_tooltip("Divine Research Aura\nThis unit is under the effect of Divine Research Aura; it will grant extra experience.")
+	library_aura_bt.set_buff_tooltip("Divine Research Aura\nIncreases experience granted.")
 
 	library_autocast_bt = BuffType.new("library_autocast_bt", 10, 0.2, true, self)
 	var library_divine_teachings_mod: Modifier = Modifier.new()
 	library_divine_teachings_mod.add_modification(Modification.Type.MOD_EXP_RECEIVED, 1.0, 0.02)
 	library_autocast_bt.set_buff_modifier(library_divine_teachings_mod)
 	library_autocast_bt.set_buff_icon("@@1@@")
-	library_autocast_bt.set_buff_tooltip("Divine Teachings\nThis tower is affected by Divine Teachings; it will receive extra experience.")
+	library_autocast_bt.set_buff_tooltip("Divine Teachings\nIncreases experience received.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Divine Teachings"

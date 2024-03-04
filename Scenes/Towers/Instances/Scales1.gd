@@ -96,7 +96,7 @@ func tower_init():
 	cedi_scales_electrify_bt = BuffType.new("cedi_scales_electrify_bt", 5, 0, false, self)
 	cedi_scales_electrify_bt.set_buff_icon("@@2@@")
 	cedi_scales_electrify_bt.add_periodic_event(cedi_scales_electrify_bt_periodic, 1.0)
-	cedi_scales_electrify_bt.set_buff_tooltip("Electrify\nThis unit causes nearby nearby units to periodically take damage.")
+	cedi_scales_electrify_bt.set_buff_tooltip("Electrify\nDeals damage to nearby creeps.")
 
 	multiboard = MultiboardValues.new(3)
 	multiboard.set_key(0, "Spell Damage Bonus")

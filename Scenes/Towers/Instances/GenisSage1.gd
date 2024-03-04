@@ -92,19 +92,19 @@ func tower_init():
 	mock_genis_speedcast_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.25, 0.01)
 	mock_genis_speedcast_bt.set_buff_modifier(mock_genis_speedcast_mod)
 	mock_genis_speedcast_bt.set_buff_icon("@@1@@")
-	mock_genis_speedcast_bt.set_buff_tooltip("Speed Cast\n.This tower is Speed Casting; it has increased trigger chances and attack speed.")
+	mock_genis_speedcast_bt.set_buff_tooltip("Speed Cast\n.Increases trigger chances and attack speed.")
 
 	mock_genis_spread_bt = CbStun.new("mock_genis_spread_bt", 0.8, 0, false, self)
 	mock_genis_spread_bt.add_event_on_create(mock_genis_spread_bt_on_create)
 	mock_genis_spread_bt.add_event_on_cleanup(mock_genis_spread_bt_on_cleanup)
-	mock_genis_spread_bt.set_buff_tooltip("Spread\nThis unit is affected by Spread; it can't move.")
+	mock_genis_spread_bt.set_buff_tooltip("Spread\nStunned.")
 
 	mock_genis_magic_boost_bt = BuffType.new("mock_genis_magic_boost_bt", 3, 0, true, self)
 	var mock_genis_magic_boost_mod: Modifier = Modifier.new()
 	mock_genis_magic_boost_mod.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.2, 0.01)
 	mock_genis_magic_boost_bt.set_buff_modifier(mock_genis_magic_boost_mod)
 	mock_genis_magic_boost_bt.set_buff_icon("@@2@@")
-	mock_genis_magic_boost_bt.set_buff_tooltip("Magic Boost\nThis tower has been Magic Boosted; it will deal extra spell damage.")
+	mock_genis_magic_boost_bt.set_buff_tooltip("Magic Boost\nIncreases spell damage.")
 
 	mock_genis_edge_st = SpellType.new("@@0@@", "carrionswarm", 1, self)
 	mock_genis_edge_st.data.swarm.damage = 1.0

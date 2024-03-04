@@ -68,7 +68,7 @@ func tower_init():
 	fisherman_dps_boost_mod.add_modification(Modification.Type.MOD_DPS_ADD, 0.0, 0.001)
 	fisherman_dps_boost_bt.set_buff_modifier(fisherman_dps_boost_mod)
 	fisherman_dps_boost_bt.set_buff_icon("@@0@@")
-	fisherman_dps_boost_bt.set_buff_tooltip("Fresh Fish!\nThis tower smells fresh fish; it has increased dps.")
+	fisherman_dps_boost_bt.set_buff_tooltip("Fresh Fish!\nIncreases DPS.")
 
 	fisherman_slow_bt = BuffType.new("fisherman_slow_bt", 3, 0, false, self)
 	var fisherman_slow_mod: Modifier = Modifier.new()
@@ -77,7 +77,7 @@ func tower_init():
 	fisherman_slow_bt.set_buff_icon("@@1@@")
 	fisherman_slow_bt.add_event_on_create(fisherman_slow_bt_on_create)
 	fisherman_slow_bt.add_event_on_expire(fisherman_slow_bt_on_expire)
-	fisherman_slow_bt.set_buff_tooltip("Strangled\nThis unit is strangled; it has reduced movement speed.")
+	fisherman_slow_bt.set_buff_tooltip("Strangled\nReduces movement speed.")
 
 	multiboard = MultiboardValues.new(1)
 	multiboard.set_key(0, "Strangled Units")

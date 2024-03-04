@@ -44,7 +44,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ARMOR_PERC, -1.0, 0.50)
 	cedi_monolith_chaos_bt.set_buff_modifier(mod)
 	cedi_monolith_chaos_bt.set_buff_icon("@@0@@")
-	cedi_monolith_chaos_bt.set_buff_tooltip("Chaos\nThis unit feels Chaos; it lost all of it's armor.")
+	cedi_monolith_chaos_bt.set_buff_tooltip("Chaos\nRemoves all armor.")
 
 
 func on_unit_in_range(event: Event, ):

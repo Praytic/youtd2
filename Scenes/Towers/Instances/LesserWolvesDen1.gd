@@ -44,7 +44,7 @@ func tower_init():
 	speed_aura.set_buff_modifier(m)
 	speed_aura.set_buff_icon("@@0@@")
 	speed_aura.set_stacking_group("wolf_aura")
-	speed_aura.set_buff_tooltip("Wolven Tenacity\nThis tower is under the effect of Wolven Tenacity; it has increased attack speed.")
+	speed_aura.set_buff_tooltip("Wolven Tenacity\nIncreases attack speed.")
 
 
 func get_aura_types() -> Array[AuraType]:

@@ -77,7 +77,7 @@ func tower_init():
 	sir_drake_aura = BuffType.create_aura_effect_type("sir_drake_aura", true, self)
 	sir_drake_aura.set_buff_icon("@@0@@")
 	sir_drake_aura.add_event_on_attack(drake_aura_manaburn)
-	sir_drake_aura.set_buff_tooltip("Mana Distortion Field\nThis tower is under the effect of Mana Distortion Field; it will mana burn enemies.")
+	sir_drake_aura.set_buff_tooltip("Mana Distortion Field\nMana burns creeps on attack.")
 
 
 func get_aura_types() -> Array[AuraType]:

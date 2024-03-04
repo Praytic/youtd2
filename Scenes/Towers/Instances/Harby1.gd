@@ -66,14 +66,14 @@ func load_specials(modifier: Modifier):
 
 func tower_init():
 	glow_harby_aura_bt = BuffType.create_aura_effect_type("glow_harby_aura_bt", true, self)
-	glow_harby_aura_bt.set_buff_tooltip("Arcane Aura\nThis tower is under the effect of Arcane Aura; it has a chance to replenish mana when casting.")
+	glow_harby_aura_bt.set_buff_tooltip("Arcane Aura\nChance to replenish mana when casting.")
 	glow_harby_aura_bt.set_buff_icon("@@1@@")
 	glow_harby_aura_bt.add_event_on_create(glow_harby_aura_bt_on_create)
 	glow_harby_aura_bt.add_event_on_spell_casted(glow_harby_aura_bt_on_spell_casted)
 
 	glow_harby_awaken_bt = BuffType.new("glow_harby_awaken_bt", 5, 0, true, self)
 	glow_harby_awaken_bt.set_buff_icon("@@0@@")
-	glow_harby_awaken_bt.set_buff_tooltip("Grotesque Awakening\nThis tower has temporarily awakened to attack.")
+	glow_harby_awaken_bt.set_buff_tooltip("Grotesque Awakening\nTemporarily awakened to attack.")
 	glow_harby_awaken_bt.add_event_on_create(glow_harby_awaken_bt_on_create)
 	glow_harby_awaken_bt.add_event_on_cleanup(glow_harby_awaken_bt_on_cleanup)
 

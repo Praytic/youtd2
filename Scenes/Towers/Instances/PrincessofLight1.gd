@@ -90,14 +90,14 @@ func tower_init():
 	boekie_extract_exp_bt = BuffType.new("boekie_extract_exp_bt", EXTRACT_DURATION, 0, false, self)
 	boekie_extract_exp_bt.add_event_on_damaged(boekie_extract_exp_bt_on_damaged)
 	boekie_extract_exp_bt.set_buff_icon("@@0@@")
-	boekie_extract_exp_bt.set_buff_tooltip("Extract Experience\nThis unit is affected by Extract Experience; it has a chance to grant extra experience on damage.")
+	boekie_extract_exp_bt.set_buff_tooltip("Extract Experience\nChance to grant extra experience on damage.")
 
 	boekie_channel_energy_bt = BuffType.new("boekie_channel_energy_bt", -1, 0, true, self)
 	var mod: Modifier = Modifier.new()
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.001)
 	boekie_channel_energy_bt.set_buff_modifier(mod)
 	boekie_channel_energy_bt.set_buff_icon("@@1@@")
-	boekie_channel_energy_bt.set_buff_tooltip("Channel Energy\nThis tower is under the effect of Channel Energy; it deals extra damage.")
+	boekie_channel_energy_bt.set_buff_tooltip("Channel Energy\nIncreases attack damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Extract Experience"

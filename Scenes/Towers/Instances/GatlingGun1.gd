@@ -76,7 +76,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.005)
 	boekie_gatling_bt.set_buff_modifier(mod)
 	boekie_gatling_bt.set_buff_icon("@@0@@")
-	boekie_gatling_bt.set_buff_tooltip("Sentry\nThis tower acts as a Sentry; it deals bonus attack damage.")
+	boekie_gatling_bt.set_buff_tooltip("Sentry\nIncreases attack damage.")
 
 
 func on_attack(event: Event):

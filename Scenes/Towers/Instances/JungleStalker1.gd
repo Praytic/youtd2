@@ -71,7 +71,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 1.0, BLOODTHIRST_ATTACKSPEED_ADD)
 	boekie_rage_buff.set_buff_modifier(mod)
 	boekie_rage_buff.set_buff_icon("@@0@@")
-	boekie_rage_buff.set_buff_tooltip("Enraged\nThis tower is enraged; it has increased attackspeed.")
+	boekie_rage_buff.set_buff_tooltip("Enraged\nIncreases attack speed.")
 
 	boekie_jungle_stalker_mb = MultiboardValues.new(1)
 	boekie_jungle_stalker_mb.set_key(0, "Damage Bonus")

@@ -186,7 +186,7 @@ func tower_init():
 	dave_gift.add_event_on_create(gift_create)
 	dave_gift.add_event_on_cleanup(effect_clean)
 #	TODO:
-	dave_gift.set_buff_tooltip("Nature's Gift\nThis tower is affected by Nature's Gift; it has increased random stat.")
+	dave_gift.set_buff_tooltip("Nature's Gift\nIncreases random stat.")
 
 	dave_sprite = ProjectileType.create("KeeperGroveMissile.mdl", 4, 400, self)
 	dave_sprite.enable_homing(sprite_hit, 0)

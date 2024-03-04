@@ -110,7 +110,7 @@ func tower_init():
 	cedi_goblin_robot_bt.set_buff_icon("@@3@@")
 	# TODO: BuffType.set_special_effect() is not implemented yet
 	# cedi_goblin_robot_bt.set_special_effect("HeroTinkerRobot.mdl", 120, 0.7)
-	cedi_goblin_robot_bt.set_buff_tooltip("Clockwork Engineer\nThis tower is receiving assistance from Clockwork Engineer; it has increased attack speed and damage.")
+	cedi_goblin_robot_bt.set_buff_tooltip("Clockwork Engineer\nIncreases attack speed and attack damage.")
 
 	cedi_goblin_emitter_bt = BuffType.new("cedi_goblin_emitter_bt", 5, 0, true, self)
 	var cedi_goblin_emitter_mod: Modifier = Modifier.new()
@@ -119,7 +119,7 @@ func tower_init():
 	cedi_goblin_emitter_bt.set_buff_icon("@@4@@")
 	# TODO: BuffType.set_special_effect() is not implemented yet
 	# cedi_goblin_emitter_bt.set_special_effect("GoblinLandMine.mdl", 120, 1.0)
-	cedi_goblin_emitter_bt.set_buff_tooltip("Probability Field Emitter\nThis tower is affected by a Probability Field Emitter; it has increased trigger chances.")
+	cedi_goblin_emitter_bt.set_buff_tooltip("Probability Field Emitter\nIncreases trigger chances.")
 
 
 func on_attack(event: Event):

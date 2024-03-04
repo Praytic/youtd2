@@ -60,7 +60,7 @@ func tower_init():
 	tomy_ElementalWrath = BuffType.new("tomy_ElementalWrath", 5, 0, true, self)
 	tomy_ElementalWrath.set_buff_icon("@@0@@")
 	tomy_ElementalWrath.set_buff_modifier(modifier)
-	tomy_ElementalWrath.set_buff_tooltip("Elemental Wrath\nThis unit has Elemental Wrath; it's trigger chance is increased")
+	tomy_ElementalWrath.set_buff_tooltip("Elemental Wrath\nIncreases trigger chances.")
 
 
 func on_attack(_event: Event):

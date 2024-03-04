@@ -89,7 +89,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION, -GLIMMER_MOD_DEBUFF_DURATION_ADD)
 	dave_glimmer_bt.set_buff_modifier(mod)
 	dave_glimmer_bt.set_buff_icon("@@1@@")
-	dave_glimmer_bt.set_buff_tooltip("Glimmer of Hope Aura\nThis tower is under the effect of Glimmer of Hope Aura; it has reduced debuff duration.")
+	dave_glimmer_bt.set_buff_tooltip("Glimmer of Hope Aura\nReduces debuff duration.")
 
 	dave_sunlight_bt = CbStun.new("dave_sunlight_bt", SUNLIGHT_DURATION, SUNLIGHT_DURATION_ADD, false, self)
 	dave_sunlight_bt.set_buff_icon("@@2@@")

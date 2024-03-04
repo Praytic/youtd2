@@ -63,7 +63,7 @@ func tower_init():
 	bounty_mod.add_modification(Modification.Type.MOD_BOUNTY_RECEIVED, 0.0, 0.001)
 	natac_treasureSeeker_Buff.set_buff_modifier(bounty_mod)
 	natac_treasureSeeker_Buff.set_buff_icon("@@0@@")
-	natac_treasureSeeker_Buff.set_buff_tooltip("Treasure Seeker Aura\nThis unit is under the effect of Treasure Seeker Aura; it will receive extra bounty.")
+	natac_treasureSeeker_Buff.set_buff_tooltip("Treasure Seeker Aura\nIncreases bounty gained.")
 
 	natac_pirates_MultiboardValue = MultiboardValues.new(1)
 	natac_pirates_MultiboardValue.set_key(0, "Gold Plundered")

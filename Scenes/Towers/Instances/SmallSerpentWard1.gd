@@ -55,7 +55,7 @@ func tower_init():
 	sir_serpent_buff.set_buff_icon("@@0@@")
 	sir_serpent_buff.set_buff_modifier(m)
 	sir_serpent_buff.set_stacking_group("sir_serpent_buff")
-	sir_serpent_buff.set_buff_tooltip("Snake Charm\nThis tower is affected by Snake Charm; it has increased maximum mana, mana regeneration and spell damage.")
+	sir_serpent_buff.set_buff_tooltip("Snake Charm\nIncreases maximum mana, mana regeneration and spell damage.")
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Snake Charm"

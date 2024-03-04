@@ -83,7 +83,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_ATTACKSPEED, SHADOW_GLAIVE_ATTACKSPEED, SHADOW_GLAIVE_ATTACKSPEED_ADD)
 	cedi_shadow_glaive_bt.set_buff_modifier(mod)
 	cedi_shadow_glaive_bt.set_buff_icon("@@0@@")
-	cedi_shadow_glaive_bt.set_buff_tooltip("Shadow Glaive\nThis unit holds a Shadow Glaive; it's next attack will be faster and critical.")
+	cedi_shadow_glaive_bt.set_buff_tooltip("Shadow Glaive\nNext attack will be faster and will always be critical.")
 
 
 func on_attack(_event: Event):

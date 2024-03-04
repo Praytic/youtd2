@@ -56,7 +56,7 @@ func tower_init():
 	mod.add_modification(Modification.Type.MOD_DMG_FROM_STORM, 0.0, 0.001)
 	lunar_emitter_bt.set_buff_modifier(mod)
 	lunar_emitter_bt.set_buff_icon("@@0@@")
-	lunar_emitter_bt.set_buff_tooltip("Moonlight Aura\nThis unit is under the effect of Moonlight Aura; it has reduced spell resistance and takes extra damage from Astral, Darkness, Ice and Storm towers.")
+	lunar_emitter_bt.set_buff_tooltip("Moonlight Aura\nIncreases spell damage taken and damage taken from Astral, Darkness, Ice and Storm towers.")
 
 
 func get_aura_types() -> Array[AuraType]:

@@ -48,7 +48,7 @@ func tower_init():
 
 	cedi_sapphiron_bt = BuffType.new("cedi_sapphiron_bt", -1, 0, false, self)
 	cedi_sapphiron_bt.set_buff_icon("@@0@@")
-	cedi_sapphiron_bt.set_buff_tooltip("Liquide Ice\nThis unit is affected by Liquide Ice; it will take extra damage from Ice towers.")
+	cedi_sapphiron_bt.set_buff_tooltip("Liquide Ice\nIncreases damage taken from Ice towers.")
 
 
 func on_damage(event: Event):

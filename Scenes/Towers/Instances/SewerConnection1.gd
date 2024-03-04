@@ -57,7 +57,7 @@ func tower_init():
 	D1000_Toxic_vapor = BuffType.new("D1000_Toxic_vapor", 10, 0, false, self)
 	D1000_Toxic_vapor.set_buff_icon("@@0@@")
 	D1000_Toxic_vapor.add_periodic_event(D1000_Toxic_Damage, 1)
-	D1000_Toxic_vapor.set_buff_tooltip("Toxic Vapor\nThis unit is afflicted with Toxic Vapor; it receives periodic damage.")
+	D1000_Toxic_vapor.set_buff_tooltip("Toxic Vapor\nDeals damage over time.")
 
 
 func on_attack(event: Event):

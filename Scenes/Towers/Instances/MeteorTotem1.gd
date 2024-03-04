@@ -75,12 +75,12 @@ func tower_init():
 	sir_totem_attraction_bt.add_event_on_attack(sir_totem_attraction_bt_on_attack)
 	sir_totem_attraction_bt.add_event_on_spell_casted(sir_totem_attraction_bt_on_spell_casted)
 	sir_totem_attraction_bt.set_buff_icon("@@0@@")
-	sir_totem_attraction_bt.set_buff_tooltip("Attraction\nThis tower is affected by Attraction; it will release a meteor on a random target.")
+	sir_totem_attraction_bt.set_buff_tooltip("Attraction\nReleases a meteor on a random creep.")
 
 	sir_totem_torture_bt = BuffType.new("sir_totem_torture_bt", 2.5, 0.05, false, self)
 	sir_totem_torture_bt.set_buff_icon("@@1@@")
 	sir_totem_torture_bt.add_event_on_damaged(sir_totem_torture_bt_on_damaged)
-	sir_totem_torture_bt.set_buff_tooltip("Torture\nThis tower is affected by Torture; it will take extra damage sometimes.")
+	sir_totem_torture_bt.set_buff_tooltip("Torture\nSometimes deals damage.")
 
 	sir_totem_pt = ProjectileType.create_interpolate("LordofFlameMissile.mdl", 950, self)
 	sir_totem_pt.set_event_on_interpolation_finished(sir_totem_pt_on_hit)

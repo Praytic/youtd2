@@ -49,7 +49,7 @@ func tower_init():
 	mock_eye_aura_bt = BuffType.create_aura_effect_type("mock_eye_aura_bt", true, self)
 	mock_eye_aura_bt.set_buff_icon("@@1@@")
 	mock_eye_aura_bt.add_event_on_damage(mock_eye_aura_bt_on_damage)
-	mock_eye_aura_bt.set_buff_tooltip("Static Field Aura\nThis tower is under the effect of Static Field Aura; it will deal extra damage to immune creeps.")
+	mock_eye_aura_bt.set_buff_tooltip("Static Field Aura\nIncreases damage dealt to immune creeps.")
 
 	mock_eye_glare_st = SpellType.new("@@0@@", "forkedlightning", 1, self)
 	mock_eye_glare_st.data.forked_lightning.damage = 1.0

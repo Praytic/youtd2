@@ -31,7 +31,7 @@ func tower_init():
 	natac_nuclear_target_bt.set_buff_icon("@@0@@")
 	natac_nuclear_target_bt.add_event_on_create(natac_nuclear_target_bt_on_create)
 	natac_nuclear_target_bt.add_event_on_refresh(natac_nuclear_target_bt_on_refresh)
-	natac_nuclear_target_bt.set_buff_tooltip("Targeted\nThis unit is targeted by a Nuclear Launcher.")
+	natac_nuclear_target_bt.set_buff_tooltip("Targeted\nTargeted by a Nuclear Launcher.")
 
 
 func on_create(_preceding_tower: Tower):

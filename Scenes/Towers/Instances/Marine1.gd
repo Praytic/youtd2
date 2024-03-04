@@ -88,14 +88,14 @@ func tower_init():
 	boekie_stim_mod.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, -STIM_ATTACK_DMG, 0.0)
 	boekie_stim_bt.set_buff_modifier(boekie_stim_mod)
 	boekie_stim_bt.set_buff_icon("@@0@@")
-	boekie_stim_bt.set_buff_tooltip("Stimpack\nThis tower has been injected with a Stimpack; it has increased attackspeed but deals less damage.")
+	boekie_stim_bt.set_buff_tooltip("Stimpack\nIncreases attack speed and decreases attack damage.")
 
 	boekie_grenade_bt = BuffType.new("boekie_grenade_bt", STIM_DURATION, STIM_DURATION_ADD, true, self)
 	var boekie_grenade_mod: Modifier = Modifier.new()
 	boekie_grenade_mod.add_modification(Modification.Type.MOD_ATK_DAMAGE_RECEIVED, GRENADE_MOD_DMG_RECEIVED, GRENADE_MOD_DMG_RECEIVED_ADD)
 	boekie_grenade_bt.set_buff_modifier(boekie_grenade_mod)
 	boekie_grenade_bt.set_buff_icon("@@1@@")
-	boekie_grenade_bt.set_buff_tooltip("Fragged\nThis unit has been hit by a Frag Grenade; it will take extra attack damage.")
+	boekie_grenade_bt.set_buff_tooltip("Fragged\nIncreases attack damage taken.")
 
 	boekie_shard_pt = ProjectileType.create_ranged("GyroCopterMissile.mdl", 400, 500, self)
 	boekie_shard_pt.set_event_on_expiration(boekie_shard_on_expiration)
