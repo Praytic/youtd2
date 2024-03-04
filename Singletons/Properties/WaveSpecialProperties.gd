@@ -61,6 +61,8 @@ func _ready():
 		var tooltip: String = "%s\n%s" % [special_name, description]
 		special_bt.set_buff_tooltip(tooltip)
 		
+		special_bt.set_hidden()
+		
 		_buff_map[special] = special_bt
 
 #	Load icons
