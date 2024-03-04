@@ -41,9 +41,6 @@ func _ready():
 		
 		container_for_button.add_child(button)
 	
-#	TODO: unhide these containers when their builders are implemented
-	_hardcore_container.hide()
-
 
 func _on_generic_button_pressed(builder_id: int):
 	PregameSettings._builder_id = builder_id

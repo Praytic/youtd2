@@ -41,6 +41,7 @@ var _builder_instance: Builder
 var _builder_range_bonus: float = 0
 var _builder_tower_lvl_bonus: int = 0
 var _builder_item_slots_bonus: int = 0
+var _builder_allows_adjacent_towers: bool = true
 
 
 func add_to_total_damage(amount: float):
@@ -73,3 +74,7 @@ func get_builder_tower_lvl_bonus() -> int:
 
 func get_builder_item_slots_bonus() -> int:
 	return _builder_item_slots_bonus
+
+
+func get_builder_allows_adjacent_towers() -> bool:
+	return _builder_allows_adjacent_towers

@@ -7,11 +7,40 @@ signal tower_built(tower_id)
 
 # List of offsets from tower center position which are used
 # to generate positions of quarter tiles.
-const QUARTER_OFFSET_LIST: Array = [
+const QUARTER_OFFSET_LIST_NORMAL: Array[Vector2] = [
 	Constants.TILE_SIZE * Vector2(0, -0.25),
 	Constants.TILE_SIZE * Vector2(0, 0.25),
 	Constants.TILE_SIZE * Vector2(0.25, 0),
 	Constants.TILE_SIZE * Vector2(-0.25, 0),
+]
+
+# Alternative list for Maverick builder which doesn't allow
+# adjacent towers.
+const QUARTER_OFFSET_LIST_BIG: Array[Vector2] = [
+	Constants.TILE_SIZE * Vector2(0, 0.25),
+	Constants.TILE_SIZE * Vector2(0, -0.25),
+	Constants.TILE_SIZE * Vector2(0.25, 0),
+	Constants.TILE_SIZE * Vector2(-0.25, 0),
+
+	Constants.TILE_SIZE * Vector2(0.75, 0),
+	Constants.TILE_SIZE * Vector2(-0.75, 0),
+	Constants.TILE_SIZE * Vector2(0, 0.75),
+	Constants.TILE_SIZE * Vector2(0, -0.75),
+
+	Constants.TILE_SIZE * Vector2(0.75, 0),
+	Constants.TILE_SIZE * Vector2(-0.75, 0),
+	Constants.TILE_SIZE * Vector2(0, 0.75),
+	Constants.TILE_SIZE * Vector2(0, -0.75),
+
+	Constants.TILE_SIZE * Vector2(0.25, 0.5),
+	Constants.TILE_SIZE * Vector2(-0.25, 0.5),
+	Constants.TILE_SIZE * Vector2(0.25, -0.5),
+	Constants.TILE_SIZE * Vector2(-0.25, -0.5),
+
+	Constants.TILE_SIZE * Vector2(0.5, 0.25),
+	Constants.TILE_SIZE * Vector2(-0.5, 0.25),
+	Constants.TILE_SIZE * Vector2(0.5, -0.25),
+	Constants.TILE_SIZE * Vector2(-0.5, -0.25),
 ]
 
 var _tower_preview: TowerPreview = null
@@ -116,7 +145,7 @@ func clear_space_occupied_by_tower(tower: Tower):
 #	2nd floor
 	var visual_position: Vector2 = tower.position - Vector2(0, Constants.TILE_SIZE.y)
 
-	for offset in QUARTER_OFFSET_LIST:
+	for offset in _get_quarter_offset_list():
 		var pos: Vector2 = visual_position + offset
 		_occupied_quarter_list.erase(pos)
 
@@ -217,7 +246,7 @@ func _build_tower(tower_id: int):
 #	NOTE: use visual_position for quarters because we need
 #	2nd floor position. Visual position is on 2nd floor
 #	while build position is on 1st floor.
-	for offset in QUARTER_OFFSET_LIST:
+	for offset in _get_quarter_offset_list():
 		var pos: Vector2 = visual_position + offset
 		_occupied_quarter_list.append(pos)
 
@@ -240,3 +269,10 @@ func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
 		transform_refund = floori(prev_cost * 0.75)
 
 	return transform_refund
+
+
+func _get_quarter_offset_list() -> Array[Vector2]:
+	if Globals.get_builder_allows_adjacent_towers():
+		return QUARTER_OFFSET_LIST_NORMAL
+	else:
+		return QUARTER_OFFSET_LIST_BIG
