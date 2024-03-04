@@ -1,17 +1,17 @@
 [gd_scene load_steps=26 format=3 uid="uid://chojoq00uw7ng"]
 
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ucvet"]
-[ext_resource type="Script" path="res://Scenes/HUD/UnitMenu.gd" id="2_mulfo"]
-[ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_dp5xs"]
-[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="4_65e54"]
-[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="5_axr2n"]
-[ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/TowerMenu/SpecialContainer.tscn" id="6_njlch"]
-[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="7_0rpr1"]
-[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/TowerInfo.tscn" id="7_jx6gy"]
-[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="8_jstgw"]
-[ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://Scenes/HUD/CreepInfo.tscn" id="8_rim5q"]
-[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="9_02rfc"]
-[ext_resource type="Script" path="res://Scenes/HUD/Buttons/BuffGroupButton.gd" id="12_kjdy0"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_75fdd"]
+[ext_resource type="Script" path="res://Scenes/HUD/UnitMenu/UnitMenu.gd" id="2_pro4w"]
+[ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_ohac4"]
+[ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="4_qk3wn"]
+[ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="5_btk8p"]
+[ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/UnitMenu/SpecialContainer.tscn" id="6_a84rj"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="7_qeiim"]
+[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/UnitMenu/TowerInfo.tscn" id="8_sjiun"]
+[ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://Scenes/HUD/UnitMenu/CreepInfo.tscn" id="9_pxg46"]
+[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="10_qy15m"]
+[ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="11_7r7bw"]
+[ext_resource type="Script" path="res://Scenes/HUD/Buttons/BuffGroupButton.gd" id="12_f0tjb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ue77a"]
 
@@ -19,7 +19,7 @@
 content_margin_left = 20.0
 content_margin_right = 20.0
 content_margin_bottom = 5.0
-texture = ExtResource("3_dp5xs")
+texture = ExtResource("3_ohac4")
 texture_margin_left = 13.9504
 texture_margin_top = 14.0
 texture_margin_right = 14.0
@@ -28,11 +28,11 @@ region_rect = Rect2(1283, 192, 139, 154)
 modulate_color = Color(0.588235, 0.588235, 0.588235, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6ro0"]
-atlas = ExtResource("4_65e54")
+atlas = ExtResource("4_qk3wn")
 region = Rect2(128, 128, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h6o0y"]
-atlas = ExtResource("5_axr2n")
+atlas = ExtResource("5_btk8p")
 region = Rect2(256, 0, 64, 64)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gadtu"]
@@ -47,12 +47,12 @@ unicode = 117
 events = [SubResource("InputEventKey_3p2ki")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gno2"]
-atlas = ExtResource("9_02rfc")
+atlas = ExtResource("11_7r7bw")
 region = Rect2(0, 128, 128, 128)
 margin = Rect2(10, 10, 0, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yslek"]
-atlas = ExtResource("9_02rfc")
+atlas = ExtResource("11_7r7bw")
 region = Rect2(256, 256, 128, 128)
 
 [sub_resource type="InputEventKey" id="InputEventKey_8sgsd"]
@@ -64,12 +64,12 @@ unicode = 114
 events = [SubResource("InputEventKey_8sgsd")]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m846m"]
-atlas = ExtResource("9_02rfc")
+atlas = ExtResource("11_7r7bw")
 region = Rect2(128, 256, 128, 128)
 margin = Rect2(10, 10, 20, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jm7a5"]
-atlas = ExtResource("9_02rfc")
+atlas = ExtResource("11_7r7bw")
 region = Rect2(0, 256, 128, 128)
 
 [node name="UnitMenu" type="PanelContainer" node_paths=PackedStringArray("_upgrade_button", "_sell_button", "_info_button", "_reset_sell_button_timer", "_items_box_container", "_title_label", "_unit_info_label", "_unit_icon_texture", "_unit_level_label", "_unit_control_menu", "_unit_stats_menu", "_creep_stats_menu", "_buffs_container", "_info_label", "_tier_icon_texture", "_specials_label", "_inventory_empty_slots", "_inventory", "_main_container", "_specials_scroll_container", "_creep_specials_container", "_tower_specials_container")]
@@ -87,9 +87,9 @@ grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 mouse_force_pass_scroll_events = false
-theme = ExtResource("1_ucvet")
+theme = ExtResource("1_75fdd")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ue77a")
-script = ExtResource("2_mulfo")
+script = ExtResource("2_pro4w")
 _upgrade_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/TowerUpgradeButton")
 _sell_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/SellTowerButton")
 _info_button = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/UnitInfoButton")
@@ -300,7 +300,7 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SpecialContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/CreepSpecialsContainer" instance=ExtResource("6_njlch")]
+[node name="SpecialContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/SpecialsContainer/MarginContainer2/ScrollContainer/CreepSpecialsContainer" instance=ExtResource("6_a84rj")]
 visible = false
 layout_mode = 2
 
@@ -345,27 +345,27 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 mouse_filter = 2
 
-[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+[node name="EmptyUnitButton" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_qeiim")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+[node name="EmptyUnitButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_qeiim")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+[node name="EmptyUnitButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_qeiim")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_qeiim")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_qeiim")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
-[node name="EmptyUnitButton6" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_0rpr1")]
+[node name="EmptyUnitButton6" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitControlMenu/Inventory/MarginContainer2/InventoryEmptySlots" instance=ExtResource("7_qeiim")]
 custom_minimum_size = Vector2(82, 82)
 layout_mode = 2
 
@@ -378,7 +378,7 @@ layout_mode = 2
 mouse_filter = 0
 horizontal_scroll_mode = 0
 
-[node name="TowerInfo" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitStatsMenu" instance=ExtResource("7_jx6gy")]
+[node name="TowerInfo" parent="MainContainer/MarginContainer/Panel/MarginContainer/UnitStatsMenu" instance=ExtResource("8_sjiun")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -388,7 +388,7 @@ mouse_force_pass_scroll_events = false
 visible = false
 layout_mode = 2
 
-[node name="CreepInfo" parent="MainContainer/MarginContainer/Panel/MarginContainer/CreepStatsMenu" instance=ExtResource("8_rim5q")]
+[node name="CreepInfo" parent="MainContainer/MarginContainer/Panel/MarginContainer/CreepStatsMenu" instance=ExtResource("9_pxg46")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer"]
@@ -413,7 +413,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = ExtResource("8_jstgw")
+theme_override_styles/normal = ExtResource("10_qy15m")
 text = "25"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -478,7 +478,7 @@ theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "1"
 expand_icon = true
-script = ExtResource("12_kjdy0")
+script = ExtResource("12_f0tjb")
 _buff_group_number = 1
 
 [node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup1"]
@@ -518,7 +518,7 @@ theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "2"
 expand_icon = true
-script = ExtResource("12_kjdy0")
+script = ExtResource("12_f0tjb")
 _buff_group_number = 2
 
 [node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup2"]
@@ -558,7 +558,7 @@ theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "3"
 expand_icon = true
-script = ExtResource("12_kjdy0")
+script = ExtResource("12_f0tjb")
 _buff_group_number = 3
 
 [node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup3"]
@@ -598,7 +598,7 @@ theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "4"
 expand_icon = true
-script = ExtResource("12_kjdy0")
+script = ExtResource("12_f0tjb")
 _buff_group_number = 4
 
 [node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup4"]
@@ -638,7 +638,7 @@ theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "5"
 expand_icon = true
-script = ExtResource("12_kjdy0")
+script = ExtResource("12_f0tjb")
 _buff_group_number = 5
 
 [node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup5"]
@@ -678,7 +678,7 @@ theme_type_variation = &"BuffGroupButton"
 shortcut = SubResource("Shortcut_gi5f6")
 text = "6"
 expand_icon = true
-script = ExtResource("12_kjdy0")
+script = ExtResource("12_f0tjb")
 _buff_group_number = 6
 
 [node name="TextureRect" type="TextureRect" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2/VBoxContainer/VBoxContainer/BuffGroup6"]

@@ -1,16 +1,16 @@
 [gd_scene load_steps=18 format=3 uid="uid://dvo433axo22w3"]
 
-[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_uh0n3"]
-[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu.gd" id="2_78i0l"]
-[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/RollTowersButton.gd" id="2_yu6qi"]
-[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_onsb2"]
-[ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="4_hw31b"]
-[ext_resource type="Script" path="res://Scenes/HUD/UnitButtonsContainer.gd" id="5_14lu8"]
-[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/UpgradeElementButton.gd" id="5_mt234"]
-[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="7_jodiw"]
-[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementLevelLabel.gd" id="8_8bbt7"]
-[ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="8_ys01i"]
-[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="10_y8460"]
+[ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_nr3uk"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersMenu.gd" id="2_a6fwb"]
+[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="3_b1732"]
+[ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="4_gs6ff"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/UpgradeElementButton.gd" id="5_l3x8m"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/RollTowersButton.gd" id="6_66fav"]
+[ext_resource type="Script" path="res://Scenes/HUD/UnitButtonsContainer.gd" id="7_kjaoc"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="8_1a61a"]
+[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="9_tetkh"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementLevelLabel.gd" id="10_ovrqg"]
+[ext_resource type="PackedScene" uid="uid://l8hrrql7ne16" path="res://Scenes/HUD/ElementTowersMenu/ElementsContainer.tscn" id="11_mhgdk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sda8v"]
 
@@ -18,7 +18,7 @@
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tli8x"]
-atlas = ExtResource("4_hw31b")
+atlas = ExtResource("4_gs6ff")
 region = Rect2(0, 256, 128, 128)
 
 [sub_resource type="InputEventKey" id="InputEventKey_gugyc"]
@@ -38,9 +38,9 @@ offset_bottom = 736.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_force_pass_scroll_events = false
-theme = ExtResource("1_uh0n3")
+theme = ExtResource("1_nr3uk")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_sda8v")
-script = ExtResource("2_78i0l")
+script = ExtResource("2_a6fwb")
 _upgrade_element_button = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton")
 _tower_buttons_container = NodePath("MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2")
 _elements_container = NodePath("MainContainer/MarginContainer/MarginContainer/VBoxContainer2/ElementsContainer")
@@ -64,7 +64,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
-theme_override_styles/normal = ExtResource("3_onsb2")
+theme_override_styles/normal = ExtResource("3_b1732")
 text = "ICE"
 horizontal_alignment = 1
 
@@ -164,7 +164,7 @@ focus_mode = 0
 shortcut = SubResource("Shortcut_tq4q7")
 shortcut_in_tooltip = false
 text = "UPGRADE"
-script = ExtResource("5_mt234")
+script = ExtResource("5_l3x8m")
 
 [node name="MarginContainer3" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -178,7 +178,7 @@ layout_mode = 2
 size_flags_vertical = 0
 focus_mode = 0
 text = "ROLL"
-script = ExtResource("2_yu6qi")
+script = ExtResource("6_66fav")
 
 [node name="MarginContainer2" type="MarginContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -264,42 +264,42 @@ mouse_filter = 0
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 4
-script = ExtResource("5_14lu8")
+script = ExtResource("7_kjaoc")
 
-[node name="EmptyUnitButton1" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton1" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton12" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton12" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton11" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton11" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton4" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton5" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton6" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton6" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton7" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton7" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton8" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton8" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton9" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton9" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton10" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton10" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton2" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
-[node name="EmptyUnitButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("10_y8460")]
+[node name="EmptyUnitButton3" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("8_1a61a")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer"]
@@ -325,13 +325,13 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = ExtResource("7_jodiw")
+theme_override_styles/normal = ExtResource("9_tetkh")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
-script = ExtResource("8_8bbt7")
+script = ExtResource("10_ovrqg")
 
-[node name="ElementsContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2" instance=ExtResource("8_ys01i")]
+[node name="ElementsContainer" parent="MainContainer/MarginContainer/MarginContainer/VBoxContainer2" instance=ExtResource("11_mhgdk")]
 layout_mode = 2
 size_flags_horizontal = 0
 

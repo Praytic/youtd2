@@ -29,7 +29,7 @@ const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/E
 const range_indicator_scene: PackedScene = preload("res://Scenes/Towers/RangeIndicator.tscn")
 const button_with_rich_tooltip_scene: PackedScene = preload("res://Scenes/HUD/ButtonWithRichTooltip.tscn")
 const outline_shader: Material = preload("res://Resources/Shaders/GlowingOutline.material")
-const special_container: PackedScene = preload("res://Scenes/HUD/TowerMenu/SpecialContainer.tscn")
+const special_container: PackedScene = preload("res://Scenes/HUD/UnitMenu/SpecialContainer.tscn")
 
 
 var game_over: bool = false
