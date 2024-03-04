@@ -463,7 +463,7 @@ func setup_range_indicators(tower: Tower, parent: Node2D):
 #		ground".
 		var y_offset: float
 		if unit_type == TargetType.UnitType.CREEPS:
-			y_offset = Constants.TILE_HEIGHT
+			y_offset = Constants.TILE_SIZE.y
 		else:
 			y_offset = 0
 

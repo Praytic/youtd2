@@ -98,8 +98,8 @@ func _ready():
 #	NOTE: important to use "-=" instead of "=" because these
 #	nodes may have default values which we don't want to
 #	override
-	_visual.position.y -= Constants.TILE_HEIGHT
-	_selection_indicator.position.y -= Constants.TILE_HEIGHT
+	_visual.position.y -= Constants.TILE_SIZE.y
+	_selection_indicator.position.y -= Constants.TILE_SIZE.y
 
 	var base_mana: int = TowerProperties.get_mana(_id)
 	set_base_mana(base_mana)

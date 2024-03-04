@@ -86,16 +86,15 @@ func get_mouse_pos_on_tilemap_clamped() -> Vector2:
 
 #	NOTE: after clamping, we also need to further modify
 #	position so it's on the closest corner of the currently
-#	moused over tile. This is because buildable tiles are
-#	quarter-sized and the tower will be built on a
+#	moused over quarter tile. This is because buildable
+#	tiles are quarter-sized and the tower will be built on a
 #	corner/intersection of the quarter tile, not the center
 #	of the quarter tile!
-	var tile_size: Vector2i = _buildable_area.tile_set.tile_size
 	var corner_pos_list: Array = [
-		center + Vector2(0, -tile_size.y) / 2,
-		center + Vector2(tile_size.x, 0) / 2,
-		center + Vector2(0, tile_size.y) / 2,
-		center + Vector2(-tile_size.x, 0) / 2,
+		center + Constants.TILE_SIZE * Vector2(0, -0.25),
+		center + Constants.TILE_SIZE * Vector2(0.25, 0),
+		center + Constants.TILE_SIZE * Vector2(0, 0.25),
+		center + Constants.TILE_SIZE * Vector2(-0.25, 0),
 	]
 
 	var min_corner_pos: Vector2 = corner_pos_list[0]
@@ -125,12 +124,11 @@ func can_build_at_mouse_pos() -> bool:
 # tower. Order: [up, right, down, left]
 func get_build_info_for_mouse_pos() -> Array:
 	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
-	var tile_size: Vector2i = _buildable_area.tile_set.tile_size
 	var quarter_list: Array = [
-		pos + Vector2(0, -tile_size.y) / 2,
-		pos + Vector2(tile_size.x, 0) / 2,
-		pos + Vector2(0, tile_size.y) / 2,
-		pos + Vector2(-tile_size.x, 0) / 2,
+		pos + Constants.TILE_SIZE * Vector2(0, -0.25),
+		pos + Constants.TILE_SIZE * Vector2(0.25, 0),
+		pos + Constants.TILE_SIZE * Vector2(0, 0.25),
+		pos + Constants.TILE_SIZE * Vector2(-0.25, 0),
 	]
 
 	var build_info: Array = [false, false, false, false]

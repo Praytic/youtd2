@@ -71,7 +71,7 @@ func _ready():
 	health_changed.connect(_on_health_changed)
 
 	if _size == CreepSize.enm.AIR:
-		var height: float = 2 * Constants.TILE_HEIGHT
+		var height: float = 2 * Constants.TILE_SIZE.y
 		_visual.position.y = -height
 	
 	SelectUnit.connect_unit(self, _selection_area)
