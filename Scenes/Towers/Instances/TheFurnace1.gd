@@ -173,6 +173,9 @@ func on_autocast(_event: Event):
 	var tower_mana: float = tower.get_mana()
 	var fxscale: float = 0.8 + min(tower_mana, 3000) / 3000 * 0.9
 
+#	NOTE: increase scale because original one is too small
+	fxscale *= 5
+
 	var effect: int = Effect.create_scaled("SmallFlameSpawn.mdl", tower.get_visual_x(), tower.get_visual_y(), 0, 270, fxscale)
 	Effect.set_lifetime(effect, 6.6)
 
