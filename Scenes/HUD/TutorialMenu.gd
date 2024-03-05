@@ -44,12 +44,6 @@ func _ready():
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 
 
-func _process(_delta: float):
-	visible = MouseState.get_state() != MouseState.enm.MOVE_ITEM and \
-		MouseState.get_state() != MouseState.enm.BUILD_TOWER and \
-		Globals.get_game_state() == Globals.GameState.TUTORIAL
-
-
 #########################
 ###      Private      ###
 #########################
