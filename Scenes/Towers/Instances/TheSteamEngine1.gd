@@ -175,6 +175,7 @@ func on_tower_details() -> MultiboardValues:
 # TODO: functions used here are not implemented. Need to
 # implement them and then update this code to use new
 # functions.
+# NOTE: engine_UpdateAnims() in original script
 func engine_update_anims():
 	pass
 	# var tower: Tower = self
@@ -186,6 +187,7 @@ func engine_update_anims():
 # Changes mana regen of tower based on current count of
 # towers affected by aura. Note that regen here can be
 # negative. More towers = more mana spent.
+# NOTE: engine_UpdateManaUse() in original script
 func engine_update_mana_use():
 	var tower: Tower = self
 	var new_mana_degen: float = power_level * sqrt(powered_tower_count) * 10 / 100.0
@@ -194,6 +196,7 @@ func engine_update_mana_use():
 	current_mana_degen = new_mana_degen
 
 
+# NOTE: steam_buff_onCreate() in original script
 func cedi_steam_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
@@ -207,6 +210,7 @@ func cedi_steam_bt_on_create(event: Event):
 	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, mod_value / 2.0)
 
 
+# NOTE: steam_buff_onAttack() in original script
 func cedi_steam_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
@@ -224,18 +228,20 @@ func cedi_steam_bt_on_attack(event: Event):
 
 
 # Update value of property mods based on current power level of Steam Engine
+# NOTE: steam_buff_periodic() in original script
 func cedi_steam_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
 
 	var current_mod_value: float = buff.user_real
 	var new_mod_value: float = 0.06 * power_level
-	var mod_value_delta: float = current_mod_value - new_mod_value
+	var mod_value_delta: float = new_mod_value - current_mod_value
 	buff.user_real = new_mod_value
 	buffed_tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, mod_value_delta)
 	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, mod_value_delta / 2.0)
 
 
+# NOTE: steam_buff_onCleanup() in original script
 func cedi_steam_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_tower: Unit = buff.get_buffed_unit()
