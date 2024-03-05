@@ -45,7 +45,7 @@ func get_ability_description_short() -> String:
 	text += " \n"
 
 	text += "[color=GOLD]Demonic Edict - Aura[/color]\n"
-	text += "Whenever a tower in range casts a spell on a creep, this tower fires an extra projectile and increases mana regeneration of casting tower.\n"
+	text += "Whenever a tower in range casts a spell on a creep (doesn't include AoE spells), this tower fires an extra projectile and increases mana regeneration of casting tower.\n"
 
 	return text
 
