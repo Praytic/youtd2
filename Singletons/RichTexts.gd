@@ -468,19 +468,24 @@ func _get_tower_damage_string(tower: Tower) -> String:
 
 	var dmg_min: float = (dmg_min_base + base_bonus_absolute) * base_bonus_percent
 	var dmg_max: float = (dmg_max_base + base_bonus_absolute) * base_bonus_percent
-	var dmg_with_base_bonus: float = (dmg_min + dmg_max) / 2
+	var dmg_base: float = (dmg_min + dmg_max) / 2
 	
 	var damage_add_absolute: float = tower.get_damage_add()
 	var damage_add_percent: float = tower.get_damage_add_percent()
-	var dmg_with_add_bonus: float = (dmg_with_base_bonus + damage_add_absolute) * damage_add_percent
 
-	var bonus_from_damage_add: int = floori(dmg_with_add_bonus - dmg_with_base_bonus)
+	var dps_bonus: float = tower.get_dps_bonus()
+	var attackspeed: float = tower.get_current_attackspeed()
+	var dps_mod: float = dps_bonus * attackspeed
+
+	var damage_total: float = (dmg_base + damage_add_absolute) * damage_add_percent + dps_mod
+
+	var damage_add: int = floori(damage_total - dmg_base)
 
 	var damage_add_string: String
-	if bonus_from_damage_add > 0:
-		damage_add_string = " [color=GREEN]+%d[/color]" % bonus_from_damage_add
-	elif bonus_from_damage_add < 0:
-		damage_add_string = " [color=RED]%d[/color]" % bonus_from_damage_add
+	if damage_add > 0:
+		damage_add_string = " [color=GREEN]+%d[/color]" % damage_add
+	elif damage_add < 0:
+		damage_add_string = " [color=RED]%d[/color]" % damage_add
 	else:
 		damage_add_string = ""
 
