@@ -57,7 +57,7 @@ func tower_init():
 	autocast.auto_range = 500
 	autocast.cooldown = 2
 	autocast.mana_cost = 20
-	autocast.target_self = false
+	autocast.target_self = true
 	autocast.is_extended = false
 	autocast.buff_type = boekie_dragon_sorcerer_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
