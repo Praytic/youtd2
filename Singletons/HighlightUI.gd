@@ -61,12 +61,13 @@ func stop_highlight(target_name: String):
 		push_error("There is no active tween for target with name [%s]" % target_name)
 
 		return
+
+	for tween in _active_tween_map[target_name]:
+		tween.kill()
 	
 	for target in targets:
 		if is_instance_valid(target):
-			for tween in _active_tween_map[target_name]:
-				target.modulate = Color.WHITE
-				tween.kill()
+			target.modulate = Color.WHITE
 			target.z_index = 0
 
 
