@@ -86,7 +86,7 @@ func tower_init():
 	poussix_blackrock_spell_bt.set_buff_icon("@@2@@")
 	poussix_blackrock_spell_bt.set_buff_tooltip("Shamanic Totem\nIncreases spell damage.")
 
-	poussix_blackrock_damage_bt = BuffType.new("poussix_blackrock_damage_bt", 5, 0.2, true, self)
+	poussix_blackrock_damage_bt = BuffType.new("poussix_blackrock_damage_bt", 5, 0.2, false, self)
 	poussix_blackrock_damage_bt.set_buff_icon("@@1@@")
 	poussix_blackrock_damage_bt.set_buff_tooltip("Demonic Fire\nChance to permanently increase damage taken from Fire towers.")
 	poussix_blackrock_damage_bt.add_event_on_damaged(poussix_blackrock_damage_bt_on_damaged)
