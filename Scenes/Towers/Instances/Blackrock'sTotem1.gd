@@ -89,7 +89,7 @@ func tower_init():
 	poussix_blackrock_damage_bt = BuffType.new("poussix_blackrock_damage_bt", 5, 0.2, true, self)
 	poussix_blackrock_damage_bt.set_buff_icon("@@1@@")
 	poussix_blackrock_damage_bt.set_buff_tooltip("Demonic Fire\nChance to permanently increase damage taken from Fire towers.")
-	poussix_blackrock_damage_bt.add_event_on_damage(poussix_blackrock_damage_bt_on_damaged)
+	poussix_blackrock_damage_bt.add_event_on_damaged(poussix_blackrock_damage_bt_on_damaged)
 
 	var autocast: Autocast = Autocast.make()
 	autocast.title = "Demonic Fire"
