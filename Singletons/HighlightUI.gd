@@ -30,12 +30,12 @@ func register_target(target_name: String, target: Control, append: bool = false)
 
 
 func start_highlight(target_name: String):
-	var targets = _get_target_controls(target_name)
+	var target_list: Array = _get_target_controls(target_name)
 
-	if targets.is_empty():
+	if target_list.is_empty():
 		return
 
-	for target in targets:
+	for target in target_list:
 #		NOTE: need to call create_tween() on target node so
 #		that tween is bound to target and handles target
 #		getting removed correctly
@@ -52,9 +52,9 @@ func start_highlight(target_name: String):
 
 
 func stop_highlight(target_name: String):
-	var targets = _get_target_controls(target_name)
+	var target_list: Array = _get_target_controls(target_name)
 
-	if targets.is_empty():
+	if target_list.is_empty():
 		return
 
 	if !_active_tween_map.has(target_name):
@@ -65,7 +65,7 @@ func stop_highlight(target_name: String):
 	for tween in _active_tween_map[target_name]:
 		tween.kill()
 	
-	for target in targets:
+	for target in target_list:
 		if is_instance_valid(target):
 			target.modulate = Color.WHITE
 			target.z_index = 0
@@ -81,6 +81,6 @@ func _get_target_controls(target_name: String) -> Array:
 
 		return []
 
-	var target = _target_map[target_name]
+	var target_list: Array = _target_map[target_name]
 
-	return target
+	return target_list
