@@ -399,6 +399,8 @@ func get_inventory_capacity(tower_id: int) -> int:
 
 	result_capacity += Globals.get_builder_item_slots_bonus()
 
+	result_capacity = min(result_capacity, Constants.INVENTORY_CAPACITY_MAX)
+
 	return result_capacity
 
 
