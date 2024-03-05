@@ -479,7 +479,7 @@ func _get_tower_damage_string(tower: Tower) -> String:
 
 	var damage_total: float = (dmg_base + damage_add_absolute) * damage_add_percent + dps_mod
 
-	var damage_add: int = floori(damage_total - dmg_base)
+	var damage_add: int = roundi(damage_total - dmg_base)
 
 	var damage_add_string: String
 	if damage_add > 0:
