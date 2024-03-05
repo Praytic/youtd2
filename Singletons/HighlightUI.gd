@@ -36,7 +36,10 @@ func start_highlight(target_name: String):
 		return
 
 	for target in targets:
-		var tween: Tween = create_tween()
+#		NOTE: need to call create_tween() on target node so
+#		that tween is bound to target and handles target
+#		getting removed correctly
+		var tween: Tween = target.create_tween()
 		tween.tween_property(target, "modulate", Color.YELLOW.darkened(0.2), HIGHLIGHT_PERIOD)
 		tween.tween_property(target, "modulate", Color.WHITE, HIGHLIGHT_PERIOD)
 		tween.tween_property(target, "z_index", 3, HIGHLIGHT_PERIOD)
