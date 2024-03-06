@@ -72,8 +72,8 @@ func get_autocast_description_short() -> String:
 
 func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
-	triggers.add_event_on_damage(on_damage_2)
-	triggers.add_event_on_damage(on_damage_2)
+	triggers.add_event_on_damage(on_damage_for_electrify)
+	triggers.add_event_on_damage(on_damage_for_overcharge)
 	triggers.add_periodic_event(periodic, 0.33)
 
 
@@ -146,7 +146,7 @@ func on_attack(_event: Event):
 		i_scale_level = i2
 
 
-func on_damage_1(event: Event):
+func on_damage_for_electrify(event: Event):
 	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
@@ -159,7 +159,7 @@ func on_damage_1(event: Event):
 	cedi_scales_electrify_bt.apply(tower, target, level)
 
 
-func on_damage_2(event: Event):
+func on_damage_for_overcharge(event: Event):
 	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
