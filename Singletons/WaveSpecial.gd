@@ -65,10 +65,7 @@ func apply_to_creep(special_list: Array[int], creep: Creep):
 
 	creep.set_special_list(applied_list)
 
-#	TODO: should hp modifier and creep base mana be modified
-#	by all specials or only by applied specials. Currently
-#	it's modified by all specials (game is slightly easier).
-	var hp_modifier: float = _get_hp_modifier(special_list)
+	var hp_modifier: float = _get_hp_modifier(applied_list)
 	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
 
 #	NOTE: creep needs mana only if the *applied* specials
@@ -182,7 +179,7 @@ func _get_hp_modifier(special_list: Array[int]) -> float:
 		hp_mod_list.append(hp_modifier)
 
 	hp_mod_list.sort()
-	
+
 	if hp_mod_list.size() == 1:
 		return hp_mod_list.front()
 	else:
