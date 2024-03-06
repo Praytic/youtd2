@@ -366,7 +366,7 @@ func _get_outline_thickness() -> float:
 		CreepSize.enm.MASS: return 4.5
 		CreepSize.enm.NORMAL: return 3.8
 		CreepSize.enm.AIR: return 3.0
-		CreepSize.enm.CHAMPION: return 6.0
+		CreepSize.enm.CHAMPION: return 2.8
 		CreepSize.enm.BOSS: return 2.0
 		CreepSize.enm.CHALLENGE_MASS: return 4.5
 		CreepSize.enm.CHALLENGE_BOSS: return 2.0
