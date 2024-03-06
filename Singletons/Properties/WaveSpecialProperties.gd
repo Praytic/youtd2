@@ -192,7 +192,7 @@ func get_uses_mana(special: int) -> bool:
 
 
 func get_hp_modifier(special: int) -> float:
-	var hp_modifier: bool = _get_property(special, CsvProperty.HP_MODIFIER) as float
+	var hp_modifier: float = _get_property(special, CsvProperty.HP_MODIFIER) as float
 
 	return hp_modifier
 
