@@ -242,7 +242,8 @@ func overcharge_damage(tower: Tower, target: Unit, level: int):
 
 
 # NOTE: "elec()" in original script
-func cedi_scales_electrify_bt_periodic(buff: Buff):
+func cedi_scales_electrify_bt_periodic(event: Event):
+	var buff: Buff = event.get_buff()
 	var tower: Tower = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 225)
