@@ -223,6 +223,7 @@ func mock_eye_glare_st_on_damage(event: Event, dummy: SpellDummy):
 
 func overcharge_damage(tower: Tower, target: Unit, level: int):
 	var i: int = 0
+	var damage: float = 900 + 36 * level
 
 	while true:
 		var target_health_ratio: float = target.get_health_ratio()
@@ -237,6 +238,8 @@ func overcharge_damage(tower: Tower, target: Unit, level: int):
 
 		var effect: int = Effect.add_special_effect_target("MonsoonBoltTarget.mdl", target, Unit.BodyPart.ORIGIN)
 		Effect.destroy_effect_after_its_over(effect)
+		
+		tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus() )
 
 		i += 1
 
