@@ -107,10 +107,10 @@ func damage(tower: Tower, target: Unit):
 
 	Effect.set_lifetime(blademaster, 0.4)
 	# Effect.set_animation(blademaster, "attack")
-	Effect.set_scale(blademaster, 0.4)
+	Effect.set_scale(blademaster, 5)
 	Effect.no_death_animation(blademaster)
 	Effect.set_lifetime(mirrorimage, 0.4)
-	Effect.set_scale(mirrorimage, 0.4)
+	Effect.set_scale(mirrorimage, 5)
 
 	tower.do_attack_damage(target, tower.get_current_attack_damage_with_bonus() / 10, tower.calc_attack_multicrit_no_bonus())
 

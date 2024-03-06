@@ -258,7 +258,7 @@ func feeding(tower: Tower):
 		if corpse != null:
 			corpse.hide()
 
-			var effect: int = Effect.create_scaled("HumanBloodFootman.mdl", tower.get_visual_x() + 10, tower.get_visual_y(), tower.get_z() - 120, 0, 0.15)
+			var effect: int = Effect.create_scaled("HumanBloodFootman.mdl", tower.get_visual_x() + 10, tower.get_visual_y(), tower.get_z() - 120, 0, 5)
 			Effect.set_lifetime(effect, 0.8)
 
 			var feed_amount: int
@@ -345,7 +345,7 @@ func blue_drake_on_hit(p: Projectile, _target: Unit):
 	if it.count() == 0:
 		return
 
-	var effect: int = Effect.create_scaled("FrostNovaTarget.mdl", p.get_x(), p.get_y(), p.get_z(), 0, 0.2)
+	var effect: int = Effect.create_scaled("FrostNovaTarget.mdl", p.get_x(), p.get_y(), p.get_z(), 0, 5)
 	Effect.set_lifetime(effect, 2.0)
 
 	var drake_damage: float = 6000 + 150 * tower.get_level()

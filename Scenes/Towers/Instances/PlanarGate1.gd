@@ -144,17 +144,17 @@ func on_autocast(_event: Event):
 
 	maj_planar_eruption_bt.apply(tower, tower, tower.get_level())
 
-	var effect1: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 1, Color8(1, 255, 255, 255))
+	var effect1: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect1, 0.5)
 
 	await get_tree().create_timer(0.3).timeout
 
-	var effect2: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 2, Color8(1, 255, 255, 255))
+	var effect2: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect2, 0.5)
 	
 	await get_tree().create_timer(0.3).timeout
 	
-	var effect3: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 3, Color8(1, 255, 255, 255))
+	var effect3: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect3, 0.5)
 
 

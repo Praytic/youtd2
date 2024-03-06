@@ -116,7 +116,7 @@ func boekie_nerubian_queen_bt_on_death(event: Event):
 	if new_host == null:
 		if temp == null:
 #			No one to jump to! parasite dies :(
-			var death_effect: int = Effect.create_scaled("Spider.mdl", creep.get_visual_x(), creep.get_visual_y(), 0, 0, 0.2)
+			var death_effect: int = Effect.create_scaled("Spider.mdl", creep.get_visual_x(), creep.get_visual_y(), 0, 0, 5)
 			Effect.destroy_effect_after_its_over(death_effect)
 			
 			return

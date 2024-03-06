@@ -201,7 +201,7 @@ func on_damage(event: Event):
 				break
 			dave_concussive_creep_bt.apply(tower, creep, level)
 	
-		var effect: int = Effect.create_scaled("ThunderClapCaster.mdl", main_target.get_visual_x(), main_target.get_visual_y(), 0, 0, 1.0)
+		var effect: int = Effect.create_scaled("ThunderClapCaster.mdl", main_target.get_visual_x(), main_target.get_visual_y(), 0, 0, 5)
 		Effect.set_lifetime(effect, 0.2)
 	elif is_acid:
 		while true:
@@ -210,7 +210,7 @@ func on_damage(event: Event):
 				break
 			dave_acid_creep_bt.apply(tower, creep, level)
 
-		var effect: int = Effect.create_scaled("ThunderClapCaster.mdl", main_target.get_visual_x(), main_target.get_visual_y(), 0, 0, 1.3)
+		var effect: int = Effect.create_scaled("ThunderClapCaster.mdl", main_target.get_visual_x(), main_target.get_visual_y(), 0, 0, 5)
 		Effect.set_lifetime(effect, 0.2)
 	elif is_smoke:
 		while true:
@@ -221,7 +221,7 @@ func on_damage(event: Event):
 			var buff_duration: float = _stats.smoke_duration + _stats.smoke_duration_add * level
 			cb_silence.apply_only_timed(tower, creep, buff_duration)
 
-		var effect: int = Effect.create_scaled("CloudOfFog.mdl", main_target.get_visual_x(), main_target.get_visual_y(), 0, 0, 0.8)
+		var effect: int = Effect.create_scaled("CloudOfFog.mdl", main_target.get_visual_x(), main_target.get_visual_y(), 0, 0, 5)
 		Effect.set_lifetime(effect, 0.5)
 
 

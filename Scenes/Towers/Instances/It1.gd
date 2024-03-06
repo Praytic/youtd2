@@ -160,10 +160,7 @@ func on_attack(_event: Event):
 
 	tower.do_spell_damage_aoe(sum.from_pos.x, sum.from_pos.y, 250.0, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
 
-#	40.0 Oo
-#	(this is original script writer expressing surprise at
-#	the "40.0" scale value)
-	var dmg1: int = Effect.create_colored("ArcaneTowerAttack.mdl", sum.from_pos.x, sum.from_pos.y, 100.0, 270.0, 40.0, Color8(0, 0, 0, 255))
+	var dmg1: int = Effect.create_colored("ArcaneTowerAttack.mdl", sum.from_pos.x, sum.from_pos.y, 100.0, 270.0, 5, Color8(0, 0, 0, 255))
 	Effect.set_lifetime(dmg1, 1.0)
 
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), sum.from_pos.x, sum.from_pos.y, 250.0)
@@ -201,7 +198,7 @@ func on_attack(_event: Event):
 		Effect.set_lifetime(tp2, 1.0)
 
 	tower.do_spell_damage_aoe(sum.to_pos.x, sum.to_pos.y, 250.0, aoe_dmg, tower.calc_spell_crit_no_bonus(), 0.0)
-	var dmg2: int = Effect.create_colored("ArcaneTowerAttack.mdl", sum.to_pos.x, sum.to_pos.y, 100.0, 270.0, 40.0, Color8(0, 0, 0, 255))
+	var dmg2: int = Effect.create_colored("ArcaneTowerAttack.mdl", sum.to_pos.x, sum.to_pos.y, 100.0, 270.0, 5, Color8(0, 0, 0, 255))
 	Effect.set_lifetime(dmg2, 1.0)
 
 #	NOTE: this is how the 1 sec cooldown for teleport is
@@ -226,7 +223,7 @@ func on_autocast_recreation(event: Event):
 			Effect.set_position(sum.recreation_effect, sum.to_pos)
 		else:
 			recreation_field_exists = true
-			sum.recreation_effect = Effect.create_colored("VampiricAura.mdl", sum.to_pos.x, sum.to_pos.y, 0, 270.0, 2.0, Color8(255, 0, 0, 255))
+			sum.recreation_effect = Effect.create_colored("VampiricAura.mdl", sum.to_pos.x, sum.to_pos.y, 0, 270.0, 5, Color8(255, 0, 0, 255))
 			Effect.no_death_animation(sum.recreation_effect)
 	else:
 		sum.to_pos = last_pos
@@ -250,7 +247,7 @@ func on_autocast_corruption(event: Event):
 		Effect.set_position(sum.corruption_effect, sum.from_pos)
 	else:
 		corruption_field_exists = true
-		sum.corruption_effect = Effect.create_colored("VampiricAura.mdl", sum.from_pos.x, sum.from_pos.y, 0, 270.0, 2.0, Color8(0, 0, 255, 255))
+		sum.corruption_effect = Effect.create_colored("VampiricAura.mdl", sum.from_pos.x, sum.from_pos.y, 0, 270.0, 5, Color8(0, 0, 255, 255))
 		Effect.no_death_animation(sum.corruption_effect)
 
 

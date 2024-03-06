@@ -62,6 +62,6 @@ func on_pickup():
 func on_kill(_event: Event):
 	var itm: Item = self
 	var tower: Tower = itm.get_carrier()
-	var effect: int = Effect.create_scaled("SpiritTouchTarget.mdl", tower.get_visual_position().x, tower.get_visual_position().y, 10.0, 0.0, 1.2)
+	var effect: int = Effect.create_scaled("SpiritTouchTarget.mdl", tower.get_visual_position().x, tower.get_visual_position().y, 10.0, 0.0, 5)
 	Effect.destroy_effect_after_its_over(effect)
 

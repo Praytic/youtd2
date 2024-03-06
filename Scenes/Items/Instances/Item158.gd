@@ -46,7 +46,7 @@ func periodic(_event: Event):
 	var tower: Tower = itm.get_carrier()
 	var target_effect: int
 
-	target_effect = Effect.create_scaled("Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl", tower.get_visual_position().x, tower.get_visual_position().y, 0, 0, 0.8)
+	target_effect = Effect.create_scaled("Abilities\\Weapons\\AncientProtectorMissile\\AncientProtectorMissile.mdl", tower.get_visual_position().x, tower.get_visual_position().y, 0, 0, 5)
 	Effect.set_lifetime(target_effect, 0.1)
 	
 	if tower.calc_chance(0.40 + tower.get_level() * 0.02):

@@ -263,9 +263,9 @@ func line_damage(origin_x: float, origin_y: float, direction: float):
 
 			deal_damage(next, damage)
 
-		var clap_effect: int = Effect.create_scaled("ThunderClapCaster", current_pos.x, current_pos.y, 0.0, 0.0, 0.5)
+		var clap_effect: int = Effect.create_scaled("ThunderClapCaster", current_pos.x, current_pos.y, 0.0, 0.0, 5)
 		Effect.set_lifetime(clap_effect, 1.5)
-		var bolt_effect: int = Effect.create_colored("MonsoonBoltTarget", current_pos.x, current_pos.y, 0.0, 0.0, 2.0, Color8(0, 0, 0, 255))
+		var bolt_effect: int = Effect.create_colored("MonsoonBoltTarget", current_pos.x, current_pos.y, 0.0, 0.0, 5, Color8(0, 0, 0, 255))
 		Effect.set_lifetime(bolt_effect, 2.5)
 
 		damage *= dmg_multiplier

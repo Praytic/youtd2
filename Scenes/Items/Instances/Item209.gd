@@ -59,5 +59,5 @@ func on_damage(event: Event):
 		CombatLog.log_item_ability(self, null, "Entangling Roots")
 	
 		blizzard_st.point_cast_from_target_on_target(tower, target, 1.0, 1.0)
-		var effect: int = Effect.create_colored("Roots.mdl", target.get_visual_position().x, target.get_visual_position().y, 0.0, 270.0, 1.2, Color8(210, 255, 180, 255))
+		var effect: int = Effect.create_colored("Roots.mdl", target.get_visual_position().x, target.get_visual_position().y, 0.0, 270.0, 5, Color8(210, 255, 180, 255))
 		Effect.set_lifetime(effect, 2.5)
