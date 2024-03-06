@@ -167,7 +167,6 @@ func on_autocast(event: Event):
 	var target: Unit = event.get_target()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.TOWERS), tower, 350)
 	var cast_damage: float = (400 + 8 * tower.get_level()) * tower.get_player().get_level()
-	var damage_ratio: float = 1.0 + 0.02 * tower.get_level()
 
 	while true:
 		var next: Unit = it.next()
@@ -177,8 +176,15 @@ func on_autocast(event: Event):
 
 		ash_conduit_unleash_bt.apply(tower, next, tower.get_level())
 
-	unleash_st.target_cast_from_caster(tower, target, damage_ratio, tower.calc_spell_crit_no_bonus())
-	tower.do_spell_damage(target, cast_damage, tower.calc_spell_crit_no_bonus())
+#	NOTE: original script does a weird thing where it casts
+#	chain lightning (which deals damage) and also deals
+#	damage using tower.doSpellDamage(). doSpellDamage() does
+#	the actual damage amount. chain lightning deals a small
+#	amount (like 6) which looks confusing.
+# 
+#	Changed it to deal damage only once, via chain
+#	lightning.
+	unleash_st.target_cast_from_caster(tower, target, cast_damage, tower.calc_spell_crit_no_bonus())
 
 
 # NOTE: "ashbringer_conduit_create()" in original script
