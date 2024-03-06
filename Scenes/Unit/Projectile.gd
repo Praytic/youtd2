@@ -44,7 +44,7 @@ var _range: float = 0.0
 var _direction: float = 0.0
 var _collision_radius: float = 0.0
 var _collision_target_type: TargetType = null
-var _expire_on_collision: bool = false
+var _destroy_on_collision: bool = false
 var _collision_handler: Callable = Callable()
 var _expiration_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
@@ -142,9 +142,9 @@ func set_collision_parameters(radius: float, target_type: TargetType):
 #########################
 
 func _process_normal(delta: float):
-	var expired_by_collision: bool = _do_collision_behavior()
+	var destroyed_by_collision: bool = _do_collision_behavior()
 
-	if expired_by_collision:
+	if destroyed_by_collision:
 		return
 
 	if _range > 0:
@@ -195,9 +195,9 @@ func _process_normal(delta: float):
 
 
 func _process_interpolated(delta: float):
-	var expired_by_collision: bool = _do_collision_behavior()
+	var destroyed_by_collision: bool = _do_collision_behavior()
 
-	if expired_by_collision:
+	if destroyed_by_collision:
 		return
 
 	if _interpolation_is_stopped:
@@ -283,8 +283,8 @@ func _do_collision_behavior() -> bool:
 		_collision_handler.call(self, unit)
 		_collision_history.append(unit)
 
-		if _expire_on_collision:
-			_expire()
+		if _destroy_on_collision:
+			_cleanup()
 
 			return true
 
@@ -717,7 +717,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	projectile._range = type._range
 	projectile._collision_radius = type._collision_radius
 	projectile._collision_target_type = type._collision_target_type
-	projectile._expire_on_collision = type._expire_on_collision
+	projectile._destroy_on_collision = type._destroy_on_collision
 	projectile._damage_bonus_to_size_map = type._damage_bonus_to_size_map
 
 	var periodic_handler_is_defined: bool = type._periodic_handler.is_valid() && type._periodic_handler_period > 0
