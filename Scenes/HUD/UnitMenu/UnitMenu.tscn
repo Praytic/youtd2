@@ -387,6 +387,7 @@ mouse_force_pass_scroll_events = false
 [node name="CreepStatsMenu" type="ScrollContainer" parent="MainContainer/MarginContainer/Panel/MarginContainer"]
 visible = false
 layout_mode = 2
+horizontal_scroll_mode = 0
 
 [node name="CreepInfo" parent="MainContainer/MarginContainer/Panel/MarginContainer/CreepStatsMenu" instance=ExtResource("9_pxg46")]
 layout_mode = 2
