@@ -53,28 +53,39 @@ func get_random(level: int, creep_size: CreepSize.enm, wave_has_champions: bool)
 
 
 func apply_to_creep(special_list: Array[int], creep: Creep):
-	for special in special_list:
-		var special_icon: TextureRect = WaveSpecialProperties.get_special_icon(special)
-		creep.add_special_icon(special_icon)
+#	NOTE: need to filter specials because a special may not
+#	apply to all creeps in wave. A common scenario is when a
+#	special applies only to champions
+	var applied_list: Array[int] = special_list.filter(
+		func(special: int) -> bool:
+			var special_applies: bool = _special_applies_to_creep(special, creep)
 
-	creep.set_special_list(special_list)
+			return special_applies
+	)
 
+	creep.set_special_list(applied_list)
+
+#	TODO: should hp modifier and creep base mana be modified
+#	by all specials or only by applied specials. Currently
+#	it's modified by all specials (game is slightly easier).
 	var hp_modifier: float = _get_hp_modifier(special_list)
 	creep.modify_property(Modification.Type.MOD_HP_PERC, hp_modifier)
 
-	var creep_base_mana: float = _get_creep_base_mana(special_list, creep)
+#	NOTE: creep needs mana only if the *applied* specials
+#	require mana.
+	var creep_base_mana: float = _get_creep_base_mana(applied_list, creep)
 	creep.set_base_mana(creep_base_mana)
 	creep.set_mana(creep_base_mana)
 
-	var base_color: Color = WaveSpecialProperties.get_base_color(special_list)
+	var base_color: Color = WaveSpecialProperties.get_base_color(applied_list)
 	creep.set_sprite_base_color(base_color)
 
-	for special in special_list:
-		var special_applies: bool = _special_applies_to_creep(special, creep)
+	for special in applied_list:
+		var special_icon: TextureRect = WaveSpecialProperties.get_special_icon(special)
+		creep.add_special_icon(special_icon)
 
-		if special_applies:
-			var buff: BuffType = WaveSpecialProperties.get_special_buff(special)
-			buff.apply_to_unit_permanent(creep, creep, 0)
+		var buff: BuffType = WaveSpecialProperties.get_special_buff(special)
+		buff.apply_to_unit_permanent(creep, creep, 0)
 
 
 func creep_has_flock_special(creep: Creep) -> bool:
