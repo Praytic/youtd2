@@ -123,14 +123,6 @@ func get_max_level() -> int:
 	return PregameSettings.get_wave_count()
 
 
-# NOTE: GetPlayerState() in JASS
-func get_player_state(_player: Player, state: PlayerState.enm) -> float:
-	match state:
-		PlayerState.enm.RESOURCE_GOLD: return GoldControl.get_gold()
-
-	return 0.0
-
-
 func get_colored_string(string: String, color: Color) -> String:
 	var out: String = "[color=%s]%s[/color]" % [color.to_html(), string]
 
