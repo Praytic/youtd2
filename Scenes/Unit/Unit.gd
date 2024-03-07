@@ -1391,8 +1391,20 @@ func get_spell_crit_chance() -> float:
 func get_spell_crit_damage() -> float:
 	return max(1.0, _mod_value_map[Modification.Type.MOD_SPELL_CRIT_DAMAGE])
 
+
+# NOTE: in original game, attackspeed mod is not clamped
+# when displayed, only when used. So if attackspeed is -50%
+# it would show as "-50%" in tower details but would
+# actually by clamped to the min value (20%).
+# 
+# Changed it so that both displayed and actually used values
+# are clamped.
 func get_attackspeed_modifier() -> float:
-	return _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
+	var attackspeed_mod: float = _mod_value_map[Modification.Type.MOD_ATTACKSPEED]
+	attackspeed_mod = clampf(attackspeed_mod, Constants.MOD_ATTACKSPEED_MIN, Constants.MOD_ATTACKSPEED_MAX)
+
+	return attackspeed_mod
+
 
 func get_level() -> int:
 	return _level

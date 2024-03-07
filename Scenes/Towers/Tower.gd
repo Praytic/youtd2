@@ -1131,7 +1131,7 @@ func get_base_attackspeed() -> float:
 func get_current_attackspeed() -> float:
 	var attackspeed: float = get_base_attackspeed()
 	var attackspeed_mod: float = get_attackspeed_modifier()
-	var current_attackspeed: float = attackspeed / clampf(attackspeed_mod, Constants.MOD_ATTACKSPEED_MIN, Constants.MOD_ATTACKSPEED_MAX)
+	var current_attackspeed: float = attackspeed / attackspeed_mod
 
 	return current_attackspeed
 
