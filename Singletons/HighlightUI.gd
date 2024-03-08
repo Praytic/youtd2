@@ -28,6 +28,11 @@ func register_target(target_name: String, target: Control, append: bool = false)
 	else:
 		_target_map[target_name] = [target]
 
+#	NOTE: need to remove target when it exits tree to avoid
+#	using invalid reference
+	if !target.tree_exited.is_connected(_on_target_tree_exited):
+		target.tree_exited.connect(_on_target_tree_exited.bind(target))
+
 
 func start_highlight(target_name: String):
 	var target_list: Array = _get_target_controls(target_name)
@@ -84,3 +89,12 @@ func _get_target_controls(target_name: String) -> Array:
 	var target_list: Array = _target_map[target_name]
 
 	return target_list
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_target_tree_exited(target: Control):
+	for target_name in _target_map.keys():
+		_target_map[target_name].erase(target)
