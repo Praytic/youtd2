@@ -646,7 +646,7 @@ func _attack_target(target: Unit, target_is_first: bool) -> Unit:
 	if target == null:
 		return target
 
-	var attacked_event: Event = Event.new(target)
+	var attacked_event: Event = Event.new(self)
 	attacked_event._number_of_crits = crit_count
 	target.attacked.emit(attacked_event)
 
