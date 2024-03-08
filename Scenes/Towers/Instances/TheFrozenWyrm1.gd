@@ -10,6 +10,12 @@ func get_ability_description() -> String:
 
 	text += "[color=GOLD]Freezing Breath[/color]\n"
 	text += "Each creep damaged by this tower's attacks has a 25% chance to get slowed by 27% for 4 seconds and a 5% chance to get stunned for 1.5 seconds.\n"
+	text += " \n"
+	text += "[color=ORANGE]Level Bonus:[/color]\n"
+	text += "+1% chance to slow\n"
+	text += "+0.2% chance to stun\n"
+	text += "+0.2% slow\n"
+	text += "+0.24s slow duration\n"
 
 	return text
 
