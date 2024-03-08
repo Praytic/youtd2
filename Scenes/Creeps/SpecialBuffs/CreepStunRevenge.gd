@@ -9,10 +9,10 @@ func _init(parent: Node):
 
 	cb_stun = CbStun.new("creep_stun_revenge_stun", 0, 0, false, self)
 
-	add_event_on_damaged(on_damaged)
+	add_event_on_attacked(on_attacked)
 
 
-func on_damaged(event: Event):
+func on_attacked(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 	var attacker: Unit = event.get_target()
