@@ -121,7 +121,7 @@ func _cast_generic(caster: Unit, origin: Unit, target: Unit, x: float, y: float,
 	instance.position = origin.position
 	instance.init_spell(caster, target, _lifetime, data, _damage_event_handler, x, y, damage_ratio, crit_ratio)
 	tree_exited.connect(instance._on_cast_type_tree_exited)
-	GameScene.add_object_to_world(instance)
+	Utils.add_object_to_world(instance)
 
 
 func _get_spell_scene_path() -> String:

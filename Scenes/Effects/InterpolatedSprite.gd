@@ -172,6 +172,6 @@ static func _create_internal(sprite_scene_path: String, start_unit: Unit, end_un
 	interpolated_sprite._last_end_pos = end_pos
 	interpolated_sprite.z_index = 1000
 
-	GameScene.add_object_to_world(interpolated_sprite)
+	Utils.add_object_to_world(interpolated_sprite)
 
 	return interpolated_sprite

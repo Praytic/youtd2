@@ -36,7 +36,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_object_container")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera")]
 process_mode = 3
 script = ExtResource("9")
 map_node = NodePath("Map")
@@ -47,7 +47,6 @@ _wave_spawner = NodePath("Map/WaveSpawner")
 _tutorial_menu = NodePath("UI/TutorialMenu")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("Map/Camera2D")
-_object_container = NodePath("Map/ObjectContainer")
 
 [node name="Player" type="Node" parent="."]
 script = ExtResource("6_y63oe")

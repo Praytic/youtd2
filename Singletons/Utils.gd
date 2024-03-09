@@ -1,6 +1,17 @@
 class_name UtilsStatic extends Node
 
 
+func add_object_to_world(object: Node):
+	var object_container: Node = get_tree().get_root().get_node("GameScene/Map/ObjectContainer")
+	
+	if object_container == null:
+		push_error("add_object_to_world() failed because object container doesn't exist")
+
+		return
+
+	object_container.add_child(object, true)
+
+
 # TODO: currently, we assure that text fits inside the
 # richtextlabel tooltip by setting the minimum size. If all
 # lines in the text are shorter than the minimum size, there

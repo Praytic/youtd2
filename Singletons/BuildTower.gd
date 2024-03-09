@@ -202,7 +202,7 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 	var new_tower: Tower = TowerManager.get_tower(new_tower_id)
 	new_tower.position = prev_tower.position
 	new_tower._temp_preceding_tower = prev_tower
-	GameScene.add_object_to_world(new_tower)
+	Utils.add_object_to_world(new_tower)
 	tower_built.emit(new_tower_id)
 
 #	Refund build cost for previous tower
@@ -230,7 +230,7 @@ func _build_tower(tower_id: int):
 	var visual_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	new_tower.position = build_position
-	GameScene.add_object_to_world(new_tower)
+	Utils.add_object_to_world(new_tower)
 	tower_built.emit(tower_id)
 	FoodManager.add_tower(tower_id)
 

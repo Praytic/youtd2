@@ -420,7 +420,7 @@ func _on_upgrade_button_pressed():
 	var upgrade_tower: Tower = TowerManager.get_tower(upgrade_id)
 	upgrade_tower.position = tower.position
 	upgrade_tower._temp_preceding_tower = tower
-	GameScene.add_object_to_world(upgrade_tower)
+	Utils.add_object_to_world(upgrade_tower)
 	tower.queue_free()
 
 	SelectUnit.set_selected_unit(upgrade_tower)

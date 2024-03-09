@@ -460,6 +460,6 @@ static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
 	item_drop.set_item(item)
 	item_drop.add_child(item)
 
-	GameScene.add_object_to_world(item_drop)
+	Utils.add_object_to_world(item_drop)
 	
 	return item_drop

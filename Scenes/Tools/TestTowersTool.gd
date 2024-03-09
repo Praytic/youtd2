@@ -27,7 +27,7 @@ static func run(gamescene: Node):
 #		Test building tower
 		var tower: Tower = TowerManager.get_tower(tower_id)
 		tower.position = Vector2(123, 123)
-		GameScene.add_object_to_world(tower)
+		Utils.add_object_to_world(tower)
 		await scene_tree.create_timer(0.01).timeout
 		tower.queue_free()
 		await scene_tree.create_timer(0.01).timeout
