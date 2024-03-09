@@ -1,19 +1,5 @@
 extends Node
 
-const Groups = {
-	BUILD_AREA_GROUP = "build_area"
-}
-
-const SettingsSection = {
-	HUD = "hud"
-}
-
-const SettingsKey = {
-	SELECTED_TOWER = "selected tower"
-}
-
-
-const SETTINGS_PATH: String = "user://settings.cfg"
 
 # NOTE: this tile size is for isometric projection.
 const TILE_SIZE: Vector2 = Vector2(256, 128)
