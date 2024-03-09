@@ -42,14 +42,11 @@ var _special_list: Array[int] = [] : set = set_special_list, get = get_special_l
 static var _id_max: int = 1
 var _id: int
 
-# TODO: can't use @export here because there's no Creep.tscn
-# - only subclass scenes. Create base class Creep.tscn to
-# fix this.
-@onready var _visual = $Visual
-@onready var _sprite: AnimatedSprite2D = $Visual/Sprite
-@onready var _health_bar = $Visual/HealthBar
-@onready var _selection_area: Area2D = $Visual/SelectionArea
-@onready var _specials_icon_container: Container = $Visual/SpecialsIconContainer
+@export var _visual: Node2D
+@export var _sprite: AnimatedSprite2D
+@export var _health_bar: ProgressBar
+@export var _selection_area: Area2D
+@export var _specials_icon_container: HBoxContainer
 
 
 #########################
