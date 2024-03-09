@@ -205,7 +205,13 @@ func _on_wave_finished(wave: Wave):
 		if _last_wave_was_started():
 			all_waves_cleared.emit()
 		else:
-			_timer_between_waves.start(TIME_BETWEEN_WAVES)
+#			NOTE: need this check because when game is
+#			restarted there's a weird situation where
+#			_on_wave_finished() is called after
+#			_timer_between_waves is removed from tree.
+#			Supress error and ignore it.
+			if _timer_between_waves.is_inside_tree():
+				_timer_between_waves.start(TIME_BETWEEN_WAVES)
 
 
 #########################
