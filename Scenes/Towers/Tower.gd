@@ -54,13 +54,13 @@ var _temp_preceding_tower: Tower = null
 # This attack type determines which targets will be picked
 # for attacking.
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
-var _placeholder_modulate: Color = Color.WHITE
 var _range_indicator_list: Array[RangeIndicator] = []
 var _is_tower_preview: bool = false
 
 
-# NOTE: can't use @export because it breaks placeholder
-# tower scenes.
+# NOTE: need to use @onready instead of @export because
+# Towers.get_tower() calls set_script() on towers which
+# rests export vars.
 @onready var _mana_bar: ProgressBar = $Visual/ManaBar
 @onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
 @onready var _sprite: Sprite2D = $Visual/Sprite2D
@@ -211,9 +211,6 @@ func _ready():
 
 	SelectUnit.connect_unit(self, _tower_selection_area)
 
-	if _placeholder_modulate != Color.WHITE:
-		_sprite.modulate = _placeholder_modulate
-	
 # 	NOTE: tower scenes have two sprites: "Base" and
 # 	"Visual/Sprite2D". We use "Visual/Sprite2D" because that
 # 	is the actual sprite. "Base" is a vestigial thing
@@ -755,10 +752,6 @@ func _get_bounce_attack_tooltip_text() -> String:
 	var text: String = "[color=GREENYELLOW]Bounce attack:[/color]\n\t%d targets\n\t-%d%% damage per bounce\n" % [_bounce_count_max, floor(_bounce_damage_multiplier * 100)]
 
 	return text
-
-
-func _set_placeholder_modulate(color: Color):
-	_placeholder_modulate = color
 
 
 func _get_next_bounce_target(bounce_pos: Vector2, visited_list: Array[Unit]) -> Creep:

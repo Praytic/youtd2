@@ -80,10 +80,6 @@ func enable_zoom_by_mousewheel() -> bool:
 func show_position_info_label() -> bool:
 	return ProjectSettings.get_setting("application/config/show_position_info_label") as bool
 
-# Print errors about towers, like missing icons or scenes.
-func print_errors_about_towers() -> bool:
-	return ProjectSettings.get_setting("application/config/print_errors_about_towers") as bool
-
 
 # Set to false to skip the pregame settings menu. In that
 # case, the default values for settings will be loaded.

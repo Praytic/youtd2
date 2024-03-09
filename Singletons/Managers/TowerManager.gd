@@ -48,18 +48,13 @@ func get_tower(id: int, is_tower_preview: bool = false) -> Tower:
 		preloaded_towers[id] = tower_scene
 	
 	var scene: PackedScene = preloaded_towers[id]
-	var tower = scene.instantiate()
-	var tower_script_path: String = _get_tower_script_path_or_placeholder(id)
-	var tower_script = load(tower_script_path)
+	var tower: Tower = scene.instantiate()
+	var tower_script: Variant = _get_tower_script(id)
 	tower.set_script(tower_script)
 	tower.set_id(id)
+
 	if is_tower_preview:
 		tower.set_is_tower_preview()
-
-	if scene == Globals.placeholder_tower_scene:
-		var element: Element.enm = tower.get_element()
-		var element_color: Color = Element.get_color(element)
-		tower._set_placeholder_modulate(element_color)
 
 	return tower
 
@@ -68,46 +63,46 @@ func get_tower(id: int, is_tower_preview: bool = false) -> Tower:
 ###      Private      ###
 #########################
 
-func _get_tower_script_path(id: int) -> String:
+# Get tower script based on tower scene name.
+# Examples:
+# TinyShrub1.tscn -> TinyShrub1.gd
+# TinyShrub2.tscn -> TinyShrub1.gd
+# TinyShrub3.tscn -> TinyShrub1.gd
+# ...
+func _get_tower_script(id: int) -> Variant:
 	var family_name: String = _get_family_name(id)
-	var path: String = "%s/%s1.gd" % [towers_dir, family_name]
+	var script_path: String = "%s/%s1.gd" % [towers_dir, family_name]
+	
+	var script_exists: bool = ResourceLoader.exists(script_path)
+	if !script_exists:
+		push_error("No script found for id:", id, ". Tried at path:", script_path)
+		
+		return null
 
-	return path
+	var script: Variant = load(script_path)
 
-
-# Get path of tower script based on tower scene name. If
-# scene name is TinyShrub4.tscn, then script name will be
-# TinyShrub1.gd. Returns placeholder script if no script was
-# found.
-func _get_tower_script_path_or_placeholder(id: int) -> String:
-	var path: String = _get_tower_script_path(id)
-	var script_exists: bool = ResourceLoader.exists(path)
-
-	if script_exists:
-		return path
-	else:
-		push_error("No script found for id:", id, ". Tried at path:", path)
-
-		return "res://Scenes/Towers/Tower.gd"
+	return script
 
 
 # Scene filename = [name of first tier tower in family] +
-# tier For example for "Greater Shrub" = "TinyShrub3.tscn"
+# tier.
+# Examples:
+# "Tiny Shrub" -> "TinyShrub1.tscn"
+# "Greater Shrub" -> "TinyShrub3.tscn"
 func _get_tower_scene(id: int) -> PackedScene:
 	var family_name: String = _get_family_name(id)
 	var tier: int = TowerProperties.get_tier(id)
 	var scene_path: String = "%s/%s%s.tscn" % [towers_dir, family_name, str(tier)]
-
+	
 	var scene_exists: bool = ResourceLoader.exists(scene_path)
-	if scene_exists:
-		var scene: PackedScene = load(scene_path)
+	if !scene_exists:
+		push_error("No scene found for id:", id, ". Tried at path:", scene_path)
 
-		return scene
-	else:
-		if Config.print_errors_about_towers():
-			push_error("No scene found for id:", id, ". Tried at path:", scene_path)
+		return null
 
-		return Globals.placeholder_tower_scene
+	var scene: PackedScene = load(scene_path)
+
+	return scene
 
 
 # Family name is the name of the first tier tower in the
