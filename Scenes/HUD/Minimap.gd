@@ -39,13 +39,13 @@ func _update_view_rect():
 	camera_projection.queue_redraw()
 
 
-func _on_ObjectYSort_child_entered_tree(child: Node):
+func _on_ObjectContainer_child_entered_tree(child: Node):
 	if child is Creep:
 		var creep: Creep = child as Creep
 		creep.moved.connect(_on_Creep_moved.bind(creep))
 
 
-func _on_ObjectYSort_child_exiting_tree(child: Node):
+func _on_ObjectContainer_child_exiting_tree(child: Node):
 	if child is Creep:
 		var creep: Creep = child as Creep
 		creep.moved.disconnect(_on_Creep_moved)
