@@ -13,8 +13,6 @@ var _item_id: int = 0
 
 @export var _texture_rect: TextureRect
 
-@onready var _fly_to_node = get_tree().get_root().get_node("GameScene/%HUD/%ItemsStatusCard/%MainButton")
-
 
 #########################
 ###     Built-in      ###
@@ -24,9 +22,11 @@ var _item_id: int = 0
 func _ready():
 	var icon: Texture2D = ItemProperties.get_icon(_item_id)
 	_texture_rect.texture = icon
-	
-	var target_pos: Vector2 = _fly_to_node.global_position + Vector2(45, 45)
 
+	var hud: Control = get_tree().get_root().get_node("GameScene/UI/HUD")
+	var item_stash_button: Button = hud.get_item_stash_button()
+	var target_pos: Vector2 = item_stash_button.global_position + Vector2(45, 45)
+	
 	var pos_tween = create_tween()
 	pos_tween.tween_property(self, "position",
 		target_pos,

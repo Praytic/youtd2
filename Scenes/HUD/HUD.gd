@@ -123,6 +123,10 @@ func get_normal_message_container() -> VBoxContainer:
 	return _normal_message_container
 
 
+func get_item_stash_button() -> Button:
+	return _items_menu_card.get_main_button()
+
+
 func any_window_is_open() -> bool:
 	for window in _window_list:
 		if window.visible:
