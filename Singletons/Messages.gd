@@ -11,7 +11,7 @@ const NORMAL_DELAY_BEFORE_FADE_START: float = 10.0
 const NORMAL_FADE_DURATION: float = 2.0
 
 
-@onready var _hud: HUD = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD")
+@onready var _hud: HUD = get_tree().get_root().get_node("GameScene/UI/HUD")
 
 
 # Adds an error message to the center of the screen. Note

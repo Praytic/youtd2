@@ -20,7 +20,7 @@ var _id_max: int = 1
 var _effect_map: Dictionary = {}
 var _free_id_list: Array = []
 
-@onready var _effects_container: Node = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("EffectsContainer")
+@onready var _effects_container: Node = get_tree().get_root().get_node("GameScene/Map/EffectsContainer")
 
 
 #########################

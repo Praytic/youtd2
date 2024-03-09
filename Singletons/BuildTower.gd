@@ -47,7 +47,7 @@ var _tower_preview: TowerPreview = null
 
 
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
-@onready var _map = _game_scene.get_node("%Map")
+@onready var _map: Node = get_tree().get_root().get_node("GameScene/Map")
 
 # List of positions of quarter tiles which are occupied by
 # towers. Each tower occupies 4 quarter tiles.

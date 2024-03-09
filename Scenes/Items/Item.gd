@@ -48,7 +48,7 @@ var _triggers_buff: Buff = null
 var _inherited_periodic_timers: Dictionary = {}
 
 
-@onready var _hud: Control = get_tree().get_root().get_node("GameScene").get_node("UI").get_node("HUD")
+@onready var _hud: Control = get_tree().get_root().get_node("GameScene/UI/HUD")
 @onready var _owner: Player = get_tree().get_root().get_node("GameScene/Player")
 
 

@@ -1,7 +1,7 @@
 class_name UtilsStatic extends Node
 
 
-@onready var _creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene").get_node("Map").get_node("CreepPathGround")
+@onready var _creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/Map/CreepPathGround")
 
 
 # TODO: currently, we assure that text fits inside the

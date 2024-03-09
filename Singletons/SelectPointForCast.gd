@@ -7,7 +7,7 @@ var _autocast: Autocast = null
 
 var _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
 
-@onready var _map = get_tree().get_root().get_node("GameScene").get_node("%Map")
+@onready var _map = get_tree().get_root().get_node("GameScene/Map")
 
 
 #########################
