@@ -1,9 +1,6 @@
 class_name UtilsStatic extends Node
 
 
-@onready var _creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/Map/CreepPathGround")
-
-
 # TODO: currently, we assure that text fits inside the
 # richtextlabel tooltip by setting the minimum size. If all
 # lines in the text are shorter than the minimum size, there
@@ -25,7 +22,8 @@ func make_rich_text_tooltip(for_text: String) -> RichTextLabel:
 
 # NOTE: point should be isometric
 func is_point_on_creep_path(point: Vector2) -> bool:
-	var curve: Curve2D = _creep_path_ground.curve
+	var creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/Map/CreepPathGround")
+	var curve: Curve2D = creep_path_ground.curve
 
 	var min_distance: float = 10000.0
 	var prev: Vector2 = curve.get_point_position(0)

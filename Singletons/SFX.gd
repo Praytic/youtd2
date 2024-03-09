@@ -6,10 +6,6 @@ var _2d_sfx_player_list: Array = []
 var _sfx_player_list: Array = []
 
 
-@onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
-
-
-
 #########################
 ###       Public      ###
 #########################
@@ -121,7 +117,8 @@ func _get_sfx_player() -> AudioStreamPlayer:
 
 	var new_sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
 	_sfx_player_list.append(new_sfx_player)
-	_game_scene.add_child(new_sfx_player)
+	var game_scene: Node = get_tree().get_root().get_node("GameScene")
+	game_scene.add_child(new_sfx_player)
 
 	return new_sfx_player
 
@@ -134,6 +131,7 @@ func _get_2d_sfx_player() -> AudioStreamPlayer2D:
 
 	var new_sfx_player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 	_2d_sfx_player_list.append(new_sfx_player)
-	_game_scene.add_child(new_sfx_player)
+	var game_scene: Node = get_tree().get_root().get_node("GameScene")
+	game_scene.add_child(new_sfx_player)
 
 	return new_sfx_player

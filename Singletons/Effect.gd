@@ -20,8 +20,6 @@ var _id_max: int = 1
 var _effect_map: Dictionary = {}
 var _free_id_list: Array = []
 
-@onready var _effects_container: Node = get_tree().get_root().get_node("GameScene/Map/EffectsContainer")
-
 
 #########################
 ###       Public      ###
@@ -33,7 +31,8 @@ func create_animated(effect_path: String, x: float, y: float, _z: float, _facing
 	var id: int = _create_internal(effect_path)
 	var effect: Node2D = _effect_map[id]
 	effect.position = Vector2(x, y)
-	_effects_container.add_child(effect)
+	var effects_container: Node = get_tree().get_root().get_node("GameScene/Map/EffectsContainer")
+	effects_container.add_child(effect)
 	effect.play()
 
 	return id

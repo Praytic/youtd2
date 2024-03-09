@@ -11,9 +11,6 @@ const NORMAL_DELAY_BEFORE_FADE_START: float = 10.0
 const NORMAL_FADE_DURATION: float = 2.0
 
 
-@onready var _hud: HUD = get_tree().get_root().get_node("GameScene/UI/HUD")
-
-
 # Adds an error message to the center of the screen. Note
 # that error messages are always colored red.
 func add_error(text: String):
@@ -22,7 +19,8 @@ func add_error(text: String):
 	if !is_inside_tree():
 		return
 
-	var _error_message_container: VBoxContainer = _hud.get_error_message_container()
+	var hud: HUD = get_tree().get_root().get_node("GameScene/UI/HUD")
+	var error_message_container: VBoxContainer = hud.get_error_message_container()
 
 	var formatted_text: String = "[center][color=RED]%s[/color][/center]" % text
 
@@ -40,18 +38,18 @@ func add_error(text: String):
 
 #	NOTE: have to add label under dummy because there's no
 #	insert_child() f-n available.
-	var first_node_dummy: Control = _error_message_container.get_children()[0]
+	var first_node_dummy: Control = error_message_container.get_children()[0]
 	first_node_dummy.add_sibling(label)
 
 #	NOTE: subtract 1 from size to account for dummy child
-	var label_count: int = _error_message_container.get_children().size() - 1
+	var label_count: int = error_message_container.get_children().size() - 1
 	var reached_max: bool = label_count >= ERROR_MESSAGE_MAX + 1
 
 	if reached_max:
-		var child_list: Array = _error_message_container.get_children()
+		var child_list: Array = error_message_container.get_children()
 		var last_label: RichTextLabel = child_list.back()
 
-		_error_message_container.remove_child(last_label)
+		error_message_container.remove_child(last_label)
 		last_label.queue_free()
 
 
@@ -62,7 +60,8 @@ func add_normal(text: String):
 	if !is_inside_tree():
 		return
 
-	var _normal_message_container: VBoxContainer = _hud.get_normal_message_container()
+	var hud: HUD = get_tree().get_root().get_node("GameScene/UI/HUD")
+	var normal_message_container: VBoxContainer = hud.get_normal_message_container()
 
 	var label: RichTextLabel = RichTextLabel.new()
 	label.append_text(text)
@@ -76,14 +75,14 @@ func add_normal(text: String):
 		Color(label.modulate.r, label.modulate.g, label.modulate.b, 0),
 		NORMAL_FADE_DURATION).set_delay(NORMAL_DELAY_BEFORE_FADE_START)
 
-	_normal_message_container.add_child(label)
+	normal_message_container.add_child(label)
 
-	var label_count: int = _normal_message_container.get_children().size()
+	var label_count: int = normal_message_container.get_children().size()
 	var reached_max: bool = label_count >= NORMAL_MESSAGE_MAX + 1
 
 	if reached_max:
-		var child_list: Array = _normal_message_container.get_children()
+		var child_list: Array = normal_message_container.get_children()
 		var last_label: RichTextLabel = child_list.front()
 
-		_normal_message_container.remove_child(last_label)
+		normal_message_container.remove_child(last_label)
 		last_label.queue_free()

@@ -46,9 +46,6 @@ const QUARTER_OFFSET_LIST_BIG: Array[Vector2] = [
 var _tower_preview: TowerPreview = null
 
 
-@onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
-@onready var _map: Node = get_tree().get_root().get_node("GameScene/Map")
-
 # List of positions of quarter tiles which are occupied by
 # towers. Each tower occupies 4 quarter tiles.
 var _occupied_quarter_list: Array[Vector2] = []
@@ -91,7 +88,9 @@ func start(tower_id: int):
 
 	_tower_preview = Globals.tower_preview_scene.instantiate()
 	_tower_preview.tower_id = tower_id
-	_game_scene.add_child(_tower_preview)
+
+	var game_scene: Node = get_tree().get_root().get_node("GameScene")
+	game_scene.add_child(_tower_preview)
 
 
 func cancel():
@@ -172,9 +171,10 @@ func _get_tower_at_position(visual_position: Vector2) -> Tower:
 
 func _try_to_build():
 	var tower_id: int = _tower_preview.tower_id
-	var can_build: bool = _map.can_build_at_mouse_pos()
-	var can_transform: bool = _map.can_transform_at_mouse_pos()
-	var mouse_pos: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
+	var map: Map = get_tree().get_root().get_node("GameScene/Map")
+	var can_build: bool = map.can_build_at_mouse_pos()
+	var can_transform: bool = map.can_transform_at_mouse_pos()
+	var mouse_pos: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 	var tower_under_mouse: Tower = _get_tower_at_position(mouse_pos)
 	var attempting_to_transform: bool = tower_under_mouse != null
 	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id)
@@ -226,7 +226,8 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 
 func _build_tower(tower_id: int):
 	var new_tower: Tower = TowerManager.get_tower(tower_id)
-	var visual_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
+	var map: Map = get_tree().get_root().get_node("GameScene/Map")
+	var visual_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	new_tower.position = build_position
 	GameScene.add_object_to_world(new_tower)

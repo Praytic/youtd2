@@ -12,8 +12,6 @@ var _moved_item: Item = null
 # movement.
 var _source_container: ItemContainer = null
 
-@onready var _map = get_tree().get_root().get_node("GameScene/Map")
-
 
 #########################
 ###     Built-in      ###
@@ -273,7 +271,8 @@ func _can_start_moving() -> bool:
 # Return item to stash with a flying animation so player
 # understands what is happening.
 func _return_item_to_stash():
-	var drop_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
+	var map: Map = get_tree().get_root().get_node("GameScene/Map")
+	var drop_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 
 	remove_child(_moved_item)
 	Item._create_item_drop(_moved_item, drop_position)
