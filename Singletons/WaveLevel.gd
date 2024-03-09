@@ -8,7 +8,15 @@ extends Node
 signal changed()
 
 
-var _current_level: int = 0
+var _current_level: int
+
+
+#########################
+###       Public      ###
+#########################
+
+func reset():
+	_current_level = 0
 
 
 # Current level is the level of the last started wave.

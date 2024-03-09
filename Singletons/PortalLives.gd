@@ -1,7 +1,11 @@
 extends Node
 
 
-var _portal_lives: float = 100.0
+var _portal_lives: float
+
+
+func reset():
+	_portal_lives = 100
 
 
 func get_current() -> float:

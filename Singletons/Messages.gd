@@ -14,12 +14,11 @@ const NORMAL_FADE_DURATION: float = 2.0
 # Adds an error message to the center of the screen. Note
 # that error messages are always colored red.
 func add_error(text: String):
-#	NOTE: need this early return to avoid errors when game
-#	is closed
-	if !is_inside_tree():
+	var hud: HUD = get_tree().get_root().get_node_or_null("GameScene/UI/HUD")
+
+	if hud == null:
 		return
 
-	var hud: HUD = get_tree().get_root().get_node("GameScene/UI/HUD")
 	var error_message_container: VBoxContainer = hud.get_error_message_container()
 
 	var formatted_text: String = "[center][color=RED]%s[/color][/center]" % text
@@ -55,12 +54,11 @@ func add_error(text: String):
 
 # Adds a normal message to the left side of the screen.
 func add_normal(text: String):
-#	NOTE: need this early return to avoid errors when game
-#	is closed
-	if !is_inside_tree():
+	var hud: HUD = get_tree().get_root().get_node_or_null("GameScene/UI/HUD")
+	
+	if hud == null:
 		return
-
-	var hud: HUD = get_tree().get_root().get_node("GameScene/UI/HUD")
+	
 	var normal_message_container: VBoxContainer = hud.get_normal_message_container()
 
 	var label: RichTextLabel = RichTextLabel.new()

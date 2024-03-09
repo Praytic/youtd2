@@ -23,7 +23,7 @@ var _tutorial_enabled: bool
 # NOTE: these default values will be used if pregame menu is
 # skipped. These values must be set in _ready() to avoid
 # problems with order of Singleton initializations.
-func _ready():
+func reset():
 	_wave_count = Config.default_wave_count()
 	_game_mode = Config.default_game_mode()
 	_player_mode = Config.default_player_mode()

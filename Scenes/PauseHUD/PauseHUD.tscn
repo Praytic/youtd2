@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cx86ea3loo8a2" path="res://Scenes/PauseHUD/SettingsMenu.tscn" id="5_y1l7h"]
 [ext_resource type="PackedScene" uid="uid://d58y3fnrkntu" path="res://Scenes/PauseHUD/HelpMenu.tscn" id="6_q6xgl"]
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_a4f1x"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_632ga"]
 
 [node name="PauseHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
 layout_mode = 3
@@ -30,7 +30,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
 [node name="TabContainer" type="TabContainer" parent="."]
-custom_minimum_size = Vector2(300, 409)
+custom_minimum_size = Vector2(300, 480)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -80,6 +80,10 @@ layout_mode = 2
 focus_mode = 0
 text = "Credits"
 
+[node name="RestartButton" type="Button" parent="TabContainer/MarginContainer/PauseMenu"]
+layout_mode = 2
+text = "Restart"
+
 [node name="Spacer" type="VBoxContainer" parent="TabContainer/MarginContainer/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -100,7 +104,7 @@ layout_mode = 2
 [node name="SettingsMenu" parent="TabContainer" instance=ExtResource("5_y1l7h")]
 visible = false
 layout_mode = 2
-_interface_size_button_group = SubResource("ButtonGroup_a4f1x")
+_interface_size_button_group = SubResource("ButtonGroup_632ga")
 
 [node name="CreditsMenu" parent="TabContainer" instance=ExtResource("4_s86r1")]
 visible = false
@@ -111,6 +115,7 @@ layout_mode = 2
 [connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/HintsButton" to="." method="_on_hints_button_pressed"]
 [connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="TabContainer/MarginContainer/PauseMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="hidden" from="TabContainer/HelpMenu" to="." method="_on_help_menu_hidden"]
 [connection signal="closed" from="TabContainer/HintsMenu" to="." method="_on_hints_menu_closed"]

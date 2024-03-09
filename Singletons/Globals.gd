@@ -31,16 +31,26 @@ const outline_shader: Material = preload("res://Resources/Shaders/GlowingOutline
 const special_container: PackedScene = preload("res://Scenes/HUD/UnitMenu/SpecialContainer.tscn")
 
 
-var game_over: bool = false
-var _total_damage: float = 0.0
-var built_at_least_one_tower: bool = false
+var game_over: bool
+var _total_damage: float
+var built_at_least_one_tower: bool
 var room_code: String
 var _game_state: GameState
 var _builder_instance: Builder
-var _builder_range_bonus: float = 0
-var _builder_tower_lvl_bonus: int = 0
-var _builder_item_slots_bonus: int = 0
-var _builder_allows_adjacent_towers: bool = true
+var _builder_range_bonus: float
+var _builder_tower_lvl_bonus: int
+var _builder_item_slots_bonus: int
+var _builder_allows_adjacent_towers: bool
+
+
+func reset():
+	game_over = false
+	_total_damage = 0
+	built_at_least_one_tower = false
+	_builder_range_bonus = 0
+	_builder_tower_lvl_bonus = 0
+	_builder_item_slots_bonus = 0
+	_builder_allows_adjacent_towers = true
 
 
 func add_to_total_damage(amount: float):

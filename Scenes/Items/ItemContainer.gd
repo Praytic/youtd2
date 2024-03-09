@@ -112,6 +112,13 @@ func get_item_at_index(index: int) -> Item:
 		return null
 
 
+func clear():
+	for item in _item_list:
+		item.queue_free()
+
+	_item_list.clear()	
+
+
 #########################
 ###     Callbacks     ###
 #########################

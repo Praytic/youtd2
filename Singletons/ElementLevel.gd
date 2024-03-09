@@ -12,16 +12,23 @@ var _element_level_map: Dictionary = {}
 ###     Built-in      ###
 #########################
 
-func _init():
-	var starting_level = Config.starting_research_level()
-
-	for element in Element.enm.values():
-		_element_level_map[element] = starting_level
+func _ready():
+	for element in Element.get_list():
+		_element_level_map[element] = 0
 
 
 #########################
 ###       Public      ###
 #########################
+
+func reset():
+	var starting_level: int = Config.starting_research_level()
+
+	for element in Element.get_list():
+		_element_level_map[element] = starting_level
+	
+	changed.emit()
+
 
 func increment(element: Element.enm):
 	assert(element + 1 <= MAX_ELEMENT_LEVEL and element + 1 > 0, "Invalid element level.")

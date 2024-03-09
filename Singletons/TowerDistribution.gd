@@ -22,7 +22,7 @@ signal random_tower_distributed(tower_id)
 # Element -> Rarity -> Array of tower id's
 var _tower_groups_all_tiers: Dictionary
 var _tower_groups_first_tier_only: Dictionary
-var _starting_roll_count: int = 6
+var _starting_roll_count: int
 
 
 #########################
@@ -37,6 +37,10 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func reset():
+	_starting_roll_count = 6
+
 
 # Called at the start of the game when the "roll towers"
 # button is pressed. Each call reduces the resulting amount

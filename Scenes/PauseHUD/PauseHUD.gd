@@ -11,6 +11,7 @@ enum PauseTab {
 
 
 signal resume_pressed()
+signal restart_pressed()
 
 
 @export var _tab_container: TabContainer
@@ -54,3 +55,7 @@ func _on_settings_menu_hidden():
 
 func _on_help_menu_hidden():
 	_tab_container.current_tab = PauseTab.MAIN
+
+
+func _on_restart_button_pressed():
+	restart_pressed.emit()

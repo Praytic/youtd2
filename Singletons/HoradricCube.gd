@@ -55,6 +55,10 @@ func _ready():
 ###       Public      ###
 #########################
 
+func reset():
+	_item_container.clear()
+	
+
 func get_item_container() -> ItemContainer:
 	return _item_container
 

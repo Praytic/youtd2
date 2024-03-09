@@ -36,6 +36,11 @@ func _unhandled_input(event: InputEvent):
 ###       Public      ###
 #########################
 
+func reset():
+	_moved_item = null
+	_source_container = null
+
+
 func in_progress() -> bool:
 	return MouseState.get_state() == MouseState.enm.MOVE_ITEM
 

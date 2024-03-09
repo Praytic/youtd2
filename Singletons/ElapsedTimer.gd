@@ -13,6 +13,10 @@ var _elapsed_timer_map: Dictionary = {}
 ###       Public      ###
 #########################
 
+func reset():
+	_elapsed_timer_map.clear()
+
+
 func start(timer_name: String):
 	if _elapsed_timer_map.has(timer_name):
 		push_error("Timer already in progress for name:", timer_name)

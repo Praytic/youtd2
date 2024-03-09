@@ -262,15 +262,21 @@ class ItemChargeEntry extends Entry:
 
 const LOG_SIZE_MAX: int = 1000
 
-var _entry_map: Dictionary = {}
+var _entry_map: Dictionary
 
-var _min_index: int = 0
-var _max_index: int = 0
+var _min_index: int
+var _max_index: int
 
 
 #########################
 ###       Public      ###
 #########################
+
+func reset():
+	_entry_map = {}
+	_min_index = 0
+	_max_index = 0
+	
 
 func get_min_index() -> int:
 	return _min_index

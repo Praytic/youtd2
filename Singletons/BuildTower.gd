@@ -74,6 +74,11 @@ func _unhandled_input(event):
 ###       Public      ###
 #########################
 
+func reset():
+	_tower_preview = null
+	_occupied_quarter_list.clear()
+
+
 func in_progress() -> bool:
 	return MouseState.get_state() == MouseState.enm.BUILD_TOWER
 

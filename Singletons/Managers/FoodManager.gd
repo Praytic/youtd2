@@ -7,8 +7,17 @@ signal changed()
 const MAX_FOOD_CAP: int = 99
 const INITIAL_FOOD_CAP: int = 55
 
-var current_food: int = 0
-var food_cap: int = INITIAL_FOOD_CAP
+var current_food: int
+var food_cap: int
+
+
+#########################
+###       Public      ###
+#########################
+
+func reset():
+	current_food = 0
+	food_cap = INITIAL_FOOD_CAP
 
 
 func enough_food_for_tower(tower_id: int) -> bool:

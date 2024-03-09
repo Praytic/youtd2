@@ -3,7 +3,7 @@ extends Node
 # This class keeps track of game time.
 
 
-var _current_game_time: float = 0.0
+var _current_game_time: float
 
 
 #########################
@@ -20,6 +20,10 @@ func _process(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func reset():
+	_current_game_time = 0
+
 
 # NOTE: Game.getGameTime() in JASS
 # Returns time in seconds since the game started. Note that

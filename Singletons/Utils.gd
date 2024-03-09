@@ -2,11 +2,9 @@ class_name UtilsStatic extends Node
 
 
 func add_object_to_world(object: Node):
-	var object_container: Node = get_tree().get_root().get_node("GameScene/ObjectContainer")
+	var object_container: Node = get_tree().get_root().get_node_or_null("GameScene/ObjectContainer")
 	
 	if object_container == null:
-		push_error("add_object_to_world() failed because object container doesn't exist")
-
 		return
 
 	object_container.add_child(object, true)

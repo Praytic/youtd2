@@ -8,21 +8,19 @@ const INITIAL_KNOWLEDGE_TOMES_INCOME: int = 8
 
 
 var _knowledge_tomes: int
-var _income: int = INITIAL_KNOWLEDGE_TOMES_INCOME
+var _income: int
 
 
-#########################
-###     Built-in      ###
-#########################
-
-func _ready():
-	var starting_tomes: int = Config.starting_tomes()
-	_set_knowledge_tomes(starting_tomes)
-
-	
 #########################
 ###       Public      ###
 #########################
+
+func reset():
+	_income = INITIAL_KNOWLEDGE_TOMES_INCOME
+
+	var starting_tomes: int = Config.starting_tomes()
+	_set_knowledge_tomes(starting_tomes)
+
 
 func add_knowledge_tomes(value = _income):
 	_set_knowledge_tomes(_knowledge_tomes + value)

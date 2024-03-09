@@ -21,6 +21,14 @@ func _ready():
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 
+
+#########################
+###       Public      ###
+#########################
+
+func reset():
+	_item_container.clear()
+
 	var test_item_list: Array = Config.test_item_list()
 
 	for item_id in test_item_list:
@@ -29,10 +37,6 @@ func _ready():
 	
 	items_changed.emit()
 
-
-#########################
-###       Public      ###
-#########################
 
 func get_item_container() -> ItemContainer:
 	return _item_container

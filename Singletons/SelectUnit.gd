@@ -7,9 +7,9 @@ extends Node
 signal selected_unit_changed(prev_unit: Unit)
 
 
-var _units_under_mouse_list: Array[Unit] = []
-var _hovered_unit: Unit = null
-var _selected_unit: Unit = null
+var _units_under_mouse_list: Array[Unit]
+var _hovered_unit: Unit
+var _selected_unit: Unit
 
 
 #########################
@@ -32,6 +32,12 @@ func _unhandled_input(event):
 #########################
 ###       Public      ###
 #########################
+
+func reset():
+	_units_under_mouse_list = []
+	_hovered_unit = null
+	_selected_unit = null
+	
 
 # Connect a unit to the selection system. Selection area
 # will be used to detect when the mouse is over the unit.

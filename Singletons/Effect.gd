@@ -16,22 +16,28 @@ const PRINT_INVALID_PATH_ERROR: bool = false
 # 
 # NOTE: this is for compatibility with original tower script
 # API
-var _id_max: int = 1
-var _effect_map: Dictionary = {}
-var _free_id_list: Array = []
+var _id_max: int
+var _effect_map: Dictionary
+var _free_id_list: Array
 
 
-#########################
-###       Public      ###
-#########################
+func reset():
+	_id_max = 1
+	_effect_map = {}
+	_free_id_list = []
+
 
 # NOTE: effect must be an AnimatedSprite2D scene
 # NOTE: Effect.createAnimated() in JASS
 func create_animated(effect_path: String, x: float, y: float, _z: float, _facing: float) -> int:
+	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/EffectsContainer")
+	
+	if effects_container == null:
+		return 0
+
 	var id: int = _create_internal(effect_path)
 	var effect: Node2D = _effect_map[id]
 	effect.position = Vector2(x, y)
-	var effects_container: Node = get_tree().get_root().get_node("GameScene/EffectsContainer")
 	effects_container.add_child(effect)
 	effect.play()
 

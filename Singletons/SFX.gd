@@ -2,13 +2,19 @@ extends Node
 
 
 var _loaded_sfx_map: Dictionary = {}
-var _2d_sfx_player_list: Array = []
-var _sfx_player_list: Array = []
+var _2d_sfx_player_list: Array
+var _sfx_player_list: Array
 
 
 #########################
 ###       Public      ###
 #########################
+
+# NOTE: don't need to reset sfx because they are Resources
+func reset():
+	_2d_sfx_player_list = []
+	_sfx_player_list = []
+
 
 # NOTE: this f-n is non-positional. Current viewport
 # position doesn't affect the sfx.

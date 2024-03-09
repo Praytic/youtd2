@@ -3,7 +3,7 @@ extends Node
 # Implements selection of point when player is casting a
 # tower ability manually, and autocast is POINT type
 
-var _autocast: Autocast = null
+var _autocast: Autocast
 
 const _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
 
@@ -39,6 +39,10 @@ func _unhandled_input(event: InputEvent):
 #########################
 ###       Public      ###
 #########################
+
+func reset():
+	_autocast = null
+
 
 func start(autocast: Autocast):
 	var can_start: bool = MouseState.get_state() == MouseState.enm.NONE || MouseState.get_state() == MouseState.enm.SELECT_POINT_FOR_CAST

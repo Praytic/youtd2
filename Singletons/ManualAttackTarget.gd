@@ -12,7 +12,7 @@ extends Node
 #    will switch to the target.
 
 
-var _prev_effect_id: int = 0
+var _prev_effect_id: int
 
 
 #########################
@@ -35,6 +35,10 @@ func _unhandled_input(event):
 #########################
 ###      Private      ###
 #########################
+
+func reset():
+	_prev_effect_id = 0
+
 
 func _do_manual_targetting():
 	var selected_unit: Unit = SelectUnit.get_selected_unit()

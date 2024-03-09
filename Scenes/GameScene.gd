@@ -18,6 +18,11 @@ class_name GameScene extends Node
 func _ready():
 	print_verbose("GameScene has loaded.")
 	
+#	NOTE: resetting singletons here covers two cases:
+#	1. launching the game
+#	2. restarting the game
+	_reset_singletons()
+
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
 	if Config.run_save_tooltips_tool():
@@ -163,6 +168,34 @@ func _transition_from_tutorial_state():
 		TestHoradricTool.run()
 
 
+# TODO: move global state into nodes which are children of
+# GameScene so that it's automatically reset
+func _reset_singletons():
+	FoodManager.reset()
+	KnowledgeTomesManager.reset()
+	BuildTower.reset()
+	CombatLog.reset()
+	Effect.reset()
+	ElapsedTimer.reset()
+	ElementLevel.reset()
+	GameTime.reset()
+	Globals.reset()
+	GoldControl.reset()
+	HoradricCube.reset()
+	ItemMovement.reset()
+	ItemStash.reset()
+	ManualAttackTarget.reset()
+	MouseState.reset()
+	PortalLives.reset()
+	PregameSettings.reset()
+	SelectPointForCast.reset()
+	SelectTargetForCast.reset()
+	SelectUnit.reset()
+	SFX.reset()
+	TowerDistribution.reset()
+	WaveLevel.reset()
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -189,3 +222,7 @@ func _on_settings_changed():
 #	work because the game is paused while the settings menu
 #	is open.
 	_camera.update_zoom()
+
+
+func _on_pause_hud_restart_pressed():
+	get_tree().reload_current_scene()

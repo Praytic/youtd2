@@ -16,7 +16,11 @@ enum enm {
 	SELECT_POINT_FOR_CAST,
 }
 
-var _current_state: MouseState.enm = MouseState.enm.NONE
+var _current_state: MouseState.enm
+
+
+func reset():
+	_current_state = MouseState.enm.NONE
 
 
 func set_state(state: MouseState.enm):

@@ -11,24 +11,23 @@ const MAX_GOLD = 999999
 # original game
 const INTEREST_GAIN_MAX: int = 1000
 
-var _income_rate: float = 1.0
-var _interest_rate: float = 0.05
+var _income_rate: float
+var _interest_rate: float
 
 var _gold: float
-var _gold_farmed: float = 0.0
-
-
-#########################
-###     Built-in      ###
-#########################
-
-func _ready():
-	_gold = Config.starting_gold()
+var _gold_farmed: float
 
 
 #########################
 ###       Public      ###
 #########################
+
+func reset():
+	_income_rate = 1.0
+	_interest_rate = 0.05
+	_gold = Config.starting_gold()
+	_gold_farmed = 0
+
 
 func modify_income_rate(amount: float):
 	_income_rate = _income_rate + amount
