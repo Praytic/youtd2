@@ -180,9 +180,6 @@ func _add_all_towers():
 
 	for i in range(first_tier_towers.size()):
 		var tower_id = first_tier_towers[i]
-		var is_released: bool = TowerProperties.is_released(tower_id)
-		if !is_released:
-			continue
 
 		add_tower_button(tower_id, false, i)
 

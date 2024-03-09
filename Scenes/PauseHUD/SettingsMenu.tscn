@@ -3,13 +3,12 @@
 [ext_resource type="Script" path="res://Scenes/PauseHUD/SettingsMenu.gd" id="2_2dtmk"]
 [ext_resource type="ButtonGroup" uid="uid://di3e75guncq3c" path="res://Resources/UI/ButtonGroup/interface_size_setting_button_group.tres" id="2_fh8ol"]
 
-[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx", "_enable_unreleased_towers", "_enable_mouse_scroll", "_show_combat_log", "_mouse_scroll", "_keyboard_scroll", "_apply_button")]
+[node name="SettingsMenu" type="PanelContainer" node_paths=PackedStringArray("_old_item_names", "_damage_numbers", "_enable_sfx", "_enable_mouse_scroll", "_show_combat_log", "_mouse_scroll", "_keyboard_scroll", "_apply_button")]
 custom_minimum_size = Vector2(800, 600)
 script = ExtResource("2_2dtmk")
 _old_item_names = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer/OldItemNames")
 _damage_numbers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer2/DamageNumbers")
 _enable_sfx = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3/EnableSfx")
-_enable_unreleased_towers = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4/EnableUnreleasedTowers")
 _enable_mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer5/EnableMouseScroll")
 _show_combat_log = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer6/ShowCombatLog")
 _mouse_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MouseScroll")
@@ -71,16 +70,6 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 text = "Enable sound effects"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="EnableUnreleasedTowers" type="CheckBox" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-text = "Enable unreleased towers (must restart to apply)"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2

@@ -1091,8 +1091,6 @@ func get_family() -> int:
 func get_icon_atlas_num() -> int:
 	return TowerProperties.get_icon_atlas_num(_id)
 
-func is_released() -> bool:
-	return TowerProperties.is_released(_id)
 
 # NOTE: tower.getElement() in JASS
 func get_element() -> Element.enm:

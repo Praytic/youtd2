@@ -24,7 +24,6 @@ enum CsvProperty {
 	REQUIRED_ELEMENT_LEVEL,
 	REQUIRED_WAVE_LEVEL,
 	ICON_ATLAS_NUM,
-	RELEASE,
 }
 
 
@@ -98,13 +97,6 @@ func get_tower_id_list_by_filter(tower_property: CsvProperty, filter_value: Stri
 
 func get_tier(tower_id: int) -> int:
 	return _get_property(tower_id, CsvProperty.TIER).to_int()
-
-
-func is_released(tower_id: int) -> bool:
-	if Settings.get_bool_setting(Settings.ENABLE_UNRELEASED_TOWERS):
-		return true
-
-	return _get_property(tower_id, CsvProperty.RELEASE).to_int() as bool
 
 
 func get_icon_atlas_num(tower_id: int) -> int:
