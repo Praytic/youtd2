@@ -18,7 +18,7 @@ var _tower: Tower
 #########################
 
 func _init(capacity: int, tower: Tower):
-	super(capacity)
+	set_capacity(capacity)
 	_tower = tower
 
 

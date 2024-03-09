@@ -3,8 +3,7 @@ extends PanelContainer
 
 
 # This UI element displays items which are currently in the
-# item stash. Note that adding/removing items from stash is
-# implemented by ItemStash class.
+# item stash.
 @export var _rarity_filter_container: VBoxContainer
 @export var _item_type_filter_container: VBoxContainer
 @export var _item_buttons_container: UnitButtonsContainer
@@ -27,11 +26,6 @@ var _item_button_list: Array[ItemButton] = []
 #########################
 
 func _ready():
-	_rarity_filter_container.filter_changed.connect(_on_item_stash_changed)
-	_item_type_filter_container.filter_changed.connect(_on_item_stash_changed)
-	ItemStash.items_changed.connect(_on_item_stash_changed)
-	_on_item_stash_changed()
-	
 	HighlightUI.register_target("item_stash", _item_buttons_container)
 	HighlightUI.register_target("item_placed_inside_tower", _item_buttons_container)
 	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
@@ -52,7 +46,6 @@ func _ready():
 func close():
 	if _menu_card.get_main_button().is_pressed():
 		_menu_card.get_main_button().set_pressed(false)
-		_update_resource_status_panels()
 
 
 #########################
@@ -70,19 +63,13 @@ func _add_item_button(item: Item, index: int):
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
 
 
-func _fill_item_buttons_container_with_empty_slots():
-	var items = _item_button_list.size()
-	_item_buttons_container.update_empty_slots(items)
-
-
-func _update_resource_status_panels():
-	var item_stash_container: ItemContainer = ItemStash.get_item_container()
-	var items_count: int = item_stash_container.get_item_list([], [ItemType.enm.REGULAR]).size()
-	var oils_count: int = item_stash_container.get_item_list([], [ItemType.enm.CONSUMABLE, ItemType.enm.OIL]).size()
-	var commons_count: int = item_stash_container.get_item_list([Rarity.enm.COMMON], []).size()
-	var uncommons_count: int = item_stash_container.get_item_list([Rarity.enm.UNCOMMON], []).size()
-	var rares_count: int = item_stash_container.get_item_list([Rarity.enm.RARE], []).size()
-	var uniques_count: int = item_stash_container.get_item_list([Rarity.enm.UNIQUE], []).size()
+func _update_resource_status_panels(all_item_list: Array[Item]):
+	var items_count: int = Utils.filter_item_list(all_item_list, [], [ItemType.enm.REGULAR]).size()
+	var oils_count: int = Utils.filter_item_list(all_item_list, [], [ItemType.enm.CONSUMABLE, ItemType.enm.OIL]).size()
+	var commons_count: int = Utils.filter_item_list(all_item_list, [Rarity.enm.COMMON], []).size()
+	var uncommons_count: int = Utils.filter_item_list(all_item_list, [Rarity.enm.UNCOMMON], []).size()
+	var rares_count: int = Utils.filter_item_list(all_item_list, [Rarity.enm.RARE], []).size()
+	var uniques_count: int = Utils.filter_item_list(all_item_list, [Rarity.enm.UNIQUE], []).size()
 	
 	_items_status_panel.set_count(items_count)
 	_oils_status_panel.set_count(oils_count)
@@ -103,6 +90,27 @@ func _update_horadric_cube_recipes(item_list: Array[Item]):
 		recipe_button.disabled = !autofill_is_possible
 
 
+func _update_button_visibility():
+	var rarity_filter: Array = _rarity_filter_container.get_filter()
+	var item_type_filter: Array = _item_type_filter_container.get_filter()
+
+	for item_button in _item_button_list:
+		var item: Item = item_button.get_item()
+		var rarity: Rarity.enm = item.get_rarity()
+		var item_type: ItemType.enm = item.get_item_type()
+		var rarity_match: bool = rarity_filter.has(rarity) || rarity_filter.is_empty()
+		var item_type_match: bool = item_type_filter.has(item_type) || item_type_filter.is_empty()
+		
+		item_button.visible = rarity_match && item_type_match
+
+	var visible_count: int = 0
+	for item_button in _item_button_list:
+		if item_button.visible:
+			visible_count += 1
+
+	_item_buttons_container.update_empty_slots(visible_count)
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -113,12 +121,7 @@ func _update_horadric_cube_recipes(item_list: Array[Item]):
 # approach would be to remove all buttons and then go
 # through the item list and add new buttons but that causes
 # perfomance issues.
-func _on_item_stash_changed():
-	var rarity_filter = _rarity_filter_container.get_filter()
-	var item_type_filter = _item_type_filter_container.get_filter()
-	var item_stash_container: ItemContainer = ItemStash.get_item_container()
-	var item_list: Array[Item] = item_stash_container.get_item_list(rarity_filter, item_type_filter)
-
+func set_items(item_list: Array[Item]):
 # 	Remove buttons for items which were removed from stash
 	var removed_button_list: Array[ItemButton] = []
 
@@ -145,9 +148,9 @@ func _on_item_stash_changed():
 
 	_prev_item_list = item_list.duplicate()
 	
-	_fill_item_buttons_container_with_empty_slots()
-	_update_resource_status_panels()
+	_update_resource_status_panels(item_list)
 	_update_horadric_cube_recipes(item_list)
+	_update_button_visibility()
 
 
 func _on_item_buttons_container_gui_input(event):
@@ -177,6 +180,14 @@ func _on_selected_backpacker_builder():
 
 func _on_close_button_pressed():
 	close()
+
+
+func _on_rarity_filter_container_filter_changed():
+	_update_button_visibility()
+
+
+func _on_item_type_filter_container_filter_changed():
+	_update_button_visibility()
 
 
 #########################

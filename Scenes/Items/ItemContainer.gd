@@ -9,22 +9,14 @@ signal items_changed()
 
 
 var _item_list: Array[Item] = []
-var _capacity: int
-
-
-#########################
-###     Built-in      ###
-#########################
-
-func _init(capacity: int):
-	_capacity = capacity
+@export var _capacity: int = 0
 
 
 #########################
 ###       Public      ###
 #########################
 
-func increase_capacity(new_capacity: int):
+func set_capacity(new_capacity: int):
 	if new_capacity < _capacity:
 		push_error("Tried to decrease capacity of item container!")
 
@@ -69,20 +61,10 @@ func remove_item(item: Item):
 	items_changed.emit()
 
 
-# NOTE: important to return a deep copy so that this list
-# can be correctly used in code which adds or removes items
-# from container.
 func get_item_list(rarity_filter: Array = [], type_filter: Array = []) -> Array[Item]:
-	var item_list: Array[Item] = []
+	var filtered_list: Array[Item] = Utils.filter_item_list(_item_list, rarity_filter, type_filter)
 
-	for item in _item_list.duplicate():
-		var rarity_ok: bool = rarity_filter.has(item.get_rarity()) || rarity_filter.is_empty()
-		var type_ok: bool = type_filter.has(item.get_item_type()) || type_filter.is_empty()
-
-		if rarity_ok && type_ok:
-			item_list.append(item)
-
-	return item_list
+	return filtered_list
 
 
 func get_item_count(rarity_filter: Array = [], type_filter: Array = []) -> int:

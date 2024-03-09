@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=18 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
+[ext_resource type="Script" path="res://Scenes/Items/ItemContainer.gd" id="4_l8y2o"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="5_pan23"]
 [ext_resource type="Shader" path="res://Resources/Shaders/FoggyCamera.gdshader" id="5_qgk1p"]
@@ -36,7 +37,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash")]
 process_mode = 3
 script = ExtResource("9")
 map_node = NodePath("Map")
@@ -47,12 +48,17 @@ _wave_spawner = NodePath("WaveSpawner")
 _tutorial_menu = NodePath("UI/TutorialMenu")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("Camera2D")
+_item_stash = NodePath("ItemStash")
 
 [node name="Player" type="Node" parent="."]
 script = ExtResource("6_y63oe")
 
 [node name="WaveSpawner" parent="." instance=ExtResource("5_pan23")]
 process_mode = 1
+
+[node name="ItemStash" type="Node" parent="."]
+script = ExtResource("4_l8y2o")
+_capacity = 1000
 
 [node name="Map" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
@@ -138,6 +144,7 @@ visible = false
 process_mode = 3
 visible = false
 
+[connection signal="items_changed" from="ItemStash" to="." method="_on_item_stash_items_changed"]
 [connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]

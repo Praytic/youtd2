@@ -58,6 +58,10 @@ func close_all_windows():
 	SelectUnit.set_selected_unit(null)
 
 
+func set_items(item_list: Array[Item]):
+	_item_stash_menu.set_items(item_list)
+
+
 #########################
 ###      Private      ###
 #########################

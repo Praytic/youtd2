@@ -1,6 +1,18 @@
 class_name UtilsStatic extends Node
 
 
+func filter_item_list(item_list: Array[Item], rarity_filter: Array = [], type_filter: Array = []) -> Array[Item]:
+	var filtered_list: Array = item_list.filter(
+		func(item: Item) -> bool:
+			var rarity_ok: bool = rarity_filter.has(item.get_rarity()) || rarity_filter.is_empty()
+			var type_ok: bool = type_filter.has(item.get_item_type()) || type_filter.is_empty()
+
+			return rarity_ok && type_ok
+	)
+
+	return filtered_list
+
+
 func add_object_to_world(object: Node):
 	var object_container: Node = get_tree().get_root().get_node_or_null("GameScene/ObjectContainer")
 	

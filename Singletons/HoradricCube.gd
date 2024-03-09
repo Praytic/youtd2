@@ -46,7 +46,8 @@ var _item_container: ItemContainer
 #########################
 
 func _ready():
-	_item_container = ItemContainer.new(CAPACITY)
+	_item_container = ItemContainer.new()
+	_item_container.set_capacity(CAPACITY)
 	add_child(_item_container)
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 
@@ -99,7 +100,7 @@ func transmute():
 
 
 func autofill_recipe(recipe: Recipe, rarity_filter: Array = []) -> bool:
-	var item_stash_container: ItemContainer = ItemStash.get_item_container()
+	var item_stash_container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
 
 # 	Return current cube contents to item stash
 	var current_contents: Array[Item] = _item_container.get_item_list()

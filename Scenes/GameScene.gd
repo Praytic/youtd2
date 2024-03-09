@@ -9,6 +9,7 @@ class_name GameScene extends Node
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
+@export var _item_stash: ItemContainer
 
 
 #########################
@@ -145,6 +146,8 @@ func _transition_from_pregame_settings_state():
 	var tutorial_enabled: bool = PregameSettings.get_tutorial_enabled()
 	
 	if tutorial_enabled:
+		_setup_items_for_tutorial()
+
 		Globals.set_game_state(Globals.GameState.TUTORIAL)
 		_tutorial_menu.show()
 	else:
@@ -183,7 +186,6 @@ func _reset_singletons():
 	GoldControl.reset()
 	HoradricCube.reset()
 	ItemMovement.reset()
-	ItemStash.reset()
 	ManualAttackTarget.reset()
 	MouseState.reset()
 	PortalLives.reset()
@@ -194,6 +196,13 @@ func _reset_singletons():
 	SFX.reset()
 	TowerDistribution.reset()
 	WaveLevel.reset()
+
+
+func _setup_items_for_tutorial():
+	var item: Item = Item.make(80)
+	var oil: Item = Item.make(1001)
+	_item_stash.add_item(item)
+	_item_stash.add_item(oil)
 
 
 #########################
@@ -226,3 +235,8 @@ func _on_settings_changed():
 
 func _on_pause_hud_restart_pressed():
 	get_tree().reload_current_scene()
+
+
+func _on_item_stash_items_changed():
+	var item_list: Array[Item] = _item_stash.get_item_list()
+	_hud.set_items(item_list)
