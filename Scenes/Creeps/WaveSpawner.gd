@@ -148,21 +148,13 @@ func _last_wave_was_started() -> bool:
 	return after_last_wave || game_over
 
 
-# Only use when OS.is_stdout_verbose() is true to reduce unnecessary computations
 func _print_creep_hp_overall(wave: Wave):
-	if !OS.is_stdout_verbose():
-		return
-	
-	var creep_hp_by_size: Dictionary = {}
-	
-	var creep_data_list = WaveSpawner._generate_creep_data_list(wave)
-	for creep_data in creep_data_list:
-		var creep: Creep = _creep_spawner.spawn_creep(creep_data)
-		creep_hp_by_size[creep.get_size()] = creep.get_overall_health()
-		creep.queue_free()
-	
-	for creep_size in creep_hp_by_size.keys():
-		print_verbose("%s's HP: %s" % [CreepSize.enm.keys()[creep_size], creep_hp_by_size[creep_size]])
+	var creep_size_list: Array = wave.get_creep_sizes()
+
+	for creep_size in creep_size_list:
+		var creep_health: float = CreepSpawner.get_creep_health(wave, creep_size)
+		var creep_size_string: String = CreepSize.convert_to_string(creep_size)
+		print_verbose("%s's HP: %s" % [creep_size_string, creep_health])
 
 
 #########################

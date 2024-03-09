@@ -152,8 +152,7 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 
 	var creep_armor: float = wave.get_base_armor()
 
-	var size_multiplier: float = CreepSize.health_multiplier_map[creep_size]
-	var creep_health: float = wave.get_base_hp() * size_multiplier
+	var creep_health: float = CreepSpawner.get_creep_health(wave, creep_size)
 
 	creep.set_path(wave.get_wave_path())
 	creep.set_creep_size(creep_size)
@@ -242,3 +241,15 @@ func _on_Timer_timeout():
 		print_verbose("Stop creep spawn. Queue is exhausted.")
 		_timer_between_creeps.stop()
 		all_creeps_spawned.emit()
+
+
+#########################
+###       Static      ###
+#########################
+
+
+static func get_creep_health(wave: Wave, creep_size: CreepSize.enm) -> float:
+	var size_multiplier: float = CreepSize.health_multiplier_map[creep_size]
+	var creep_health: float = wave.get_base_hp() * size_multiplier
+
+	return creep_health
