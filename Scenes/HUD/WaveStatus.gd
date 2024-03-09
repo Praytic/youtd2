@@ -7,7 +7,7 @@ extends VBoxContainer
 
 @export var _label: RichTextLabel
 @export var _stats_label: RichTextLabel
-@onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/Map/WaveSpawner")
+@onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/WaveSpawner")
 @export var _timer_label: RichTextLabel
 @export var _start_next_wave_button: Button
 

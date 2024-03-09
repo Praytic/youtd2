@@ -2,7 +2,7 @@ class_name UtilsStatic extends Node
 
 
 func add_object_to_world(object: Node):
-	var object_container: Node = get_tree().get_root().get_node("GameScene/Map/ObjectContainer")
+	var object_container: Node = get_tree().get_root().get_node("GameScene/ObjectContainer")
 	
 	if object_container == null:
 		push_error("add_object_to_world() failed because object container doesn't exist")
@@ -33,7 +33,7 @@ func make_rich_text_tooltip(for_text: String) -> RichTextLabel:
 
 # NOTE: point should be isometric
 func is_point_on_creep_path(point: Vector2) -> bool:
-	var creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/Map/CreepPathGround")
+	var creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/CreepPathGround")
 	var curve: Curve2D = creep_path_ground.curve
 
 	var min_distance: float = 10000.0

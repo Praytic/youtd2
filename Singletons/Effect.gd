@@ -31,7 +31,7 @@ func create_animated(effect_path: String, x: float, y: float, _z: float, _facing
 	var id: int = _create_internal(effect_path)
 	var effect: Node2D = _effect_map[id]
 	effect.position = Vector2(x, y)
-	var effects_container: Node = get_tree().get_root().get_node("GameScene/Map/EffectsContainer")
+	var effects_container: Node = get_tree().get_root().get_node("GameScene/EffectsContainer")
 	effects_container.add_child(effect)
 	effect.play()
 

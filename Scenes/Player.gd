@@ -4,7 +4,7 @@ class_name Player extends Node
 # multiplayer purposes. 
 
 
-@onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/Map/FloatingTextContainer")
+@onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/FloatingTextContainer")
 
 
 # TODO: not sure what the point of this f-n is. Leaving as
