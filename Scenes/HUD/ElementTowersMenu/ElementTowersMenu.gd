@@ -7,8 +7,8 @@ signal towers_changed()
 
 # Map of tower id's => tower buttons. Tower buttons are
 # "stacks" and may contain more than one tower.
-@onready var _tower_buttons: Dictionary = {}
-@onready var _element_icons: Dictionary = {
+var _tower_buttons: Dictionary = {}
+const _element_icons: Dictionary = {
 	Element.enm.ICE: preload("res://Resources/Textures/UI/Icons/ice_icon.tres"),
 	Element.enm.NATURE: preload("res://Resources/Textures/UI/Icons/nature_icon.tres"),
 	Element.enm.ASTRAL: preload("res://Resources/Textures/UI/Icons/astral_icon.tres"),

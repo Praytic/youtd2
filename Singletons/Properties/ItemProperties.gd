@@ -22,8 +22,8 @@ const ICON_FAMILIES_PER_PAGE = 66
 const MAX_ICONS_PER_FAMILY = 5
 const PROPERTIES_PATH = "res://Data/item_properties.csv"
 
-@onready var item_icons_m: Texture2D = preload("res://Assets/Items/item_icons_m.png")
-@onready var potion_icons_m: Texture2D = preload("res://Assets/Items/potion_icons_m.png")
+const item_icons_m: Texture2D = preload("res://Assets/Items/item_icons_m.png")
+const potion_icons_m: Texture2D = preload("res://Assets/Items/potion_icons_m.png")
 
 var _properties: Dictionary = {}
 

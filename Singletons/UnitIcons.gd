@@ -8,8 +8,8 @@ const ICON_SIZE = 128
 const TIER_ICON_SIZE = 64
 
 const _creep_icons: Texture2D = preload("res://Assets/Mobs/creep_icons_atlas.png")
-const _tier_icons_m = preload("res://Assets/Towers/tier_icons_m.png")
-const _tower_icons_m = preload("res://Assets/Towers/tower_icons_m.png")
+const _tier_icons_m: Texture2D = preload("res://Assets/Towers/tier_icons_m.png")
+const _tower_icons_m: Texture2D = preload("res://Assets/Towers/tower_icons_m.png")
 const _placeholder_tower_icon: Texture2D = preload("res://Resources/UI/PlaceholderTowerIcon.tres")
 
 

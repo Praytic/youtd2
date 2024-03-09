@@ -5,7 +5,7 @@ extends Node
 
 var _autocast: Autocast = null
 
-var _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
+const _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
 
 
 #########################
