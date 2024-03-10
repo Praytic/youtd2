@@ -1,8 +1,9 @@
-extends PanelContainer
+class_name BottomMenuBar extends PanelContainer
 
 
 @export var _tomes_status: ResourceStatusPanel
 @export var _gold_status: ResourceStatusPanel
+@export var _food_status: ResourceStatusPanel
 
 
 func _ready():
@@ -12,8 +13,16 @@ func _ready():
 	_gold_status.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("gold_status"))
 
 
-func _on_items_menu_gui_input(event):
-	var left_click: bool = event.is_action_released("left_click")
+func set_gold(gold: float):
+	var text: String = str(gold)
+	_gold_status.set_label_text(text)
 
-	if left_click:
-		EventBus.player_clicked_main_stash.emit()
+
+func set_tomes(tomes: int):
+	var text: String = str(tomes)
+	_tomes_status.set_label_text(text)
+
+
+func set_food(food: int, food_cap: int):
+	var text: String = "%d/%d" % [food, food_cap]
+	_food_status.set_label_text(text)

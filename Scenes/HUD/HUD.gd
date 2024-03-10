@@ -14,6 +14,7 @@ signal stop_wave()
 @export var _towers_menu_card: ButtonStatusCard
 @export var _items_menu_card: ButtonStatusCard
 @export var _unit_status_menu_card: ButtonStatusCard
+@export var _bottom_menu_bar: BottomMenuBar
 
 @onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _unit_menu]
 
@@ -70,6 +71,18 @@ func set_items_for_horadric_cube(item_list: Array[Item]):
 func set_towers(towers: Dictionary):
 	_elements_tower_menu.set_towers(towers)
 	_towers_menu_card.set_towers(towers)
+
+
+func set_gold(gold: float):
+	_bottom_menu_bar.set_gold(gold)
+
+
+func set_tomes(tomes: int):
+	_bottom_menu_bar.set_tomes(tomes)
+
+
+func set_food(food: int, food_cap: int):
+	_bottom_menu_bar.set_food(food, food_cap)
 
 
 #########################

@@ -201,15 +201,6 @@ func _on_CreepSpawner_all_creeps_spawned():
 func _on_wave_finished(wave: Wave):
 	print_verbose("Wave [%s] is finished." % wave)
 
-	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % wave.get_level())
-
-	var wave_level: int = wave.get_level()
-	GoldControl.add_income(wave_level)
-	KnowledgeTomesManager.add_income()
-
-	if PregameSettings.game_mode_is_random():
-		TowerDistribution.roll_towers(wave_level)
-
 	var any_wave_is_active: bool = false
 
 	for this_wave in _wave_list:

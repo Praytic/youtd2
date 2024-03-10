@@ -1,20 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://cc70ktmpmbjts"]
+[gd_scene load_steps=9 format=3 uid="uid://cc70ktmpmbjts"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_mggw6"]
 [ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/BottomMenuBar.gd" id="2_m57on"]
 [ext_resource type="StyleBox" uid="uid://dt873umx4sexx" path="res://Resources/Theme/BottomMenuBar/rect_container_top_menu.tres" id="3_i5jws"]
 [ext_resource type="PackedScene" uid="uid://1a6qmxkrspc8" path="res://Scenes/HUD/BottomMenuBar/ResourceStatusPanel.tscn" id="4_ajusi"]
-[ext_resource type="StyleBox" uid="uid://8o35dfhhk4km" path="res://Resources/Theme/BottomMenuBar/resource_status_panel.tres" id="5_gj5k2"]
-[ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/GoldStatusPanel.gd" id="6_itk7r"]
 [ext_resource type="Texture2D" uid="uid://bxqh2nddd7eni" path="res://Resources/Textures/UI/Icons/gold_icon.tres" id="7_bupor"]
-[ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/KnowledgeTomeStatusPanel.gd" id="8_7cxo5"]
 [ext_resource type="Texture2D" uid="uid://d1d4h6m0klgw1" path="res://Resources/Textures/UI/Icons/knowledge_tome_icon.tres" id="9_diaj5"]
-[ext_resource type="Script" path="res://Scenes/HUD/BottomMenuBar/FoodStatusPanel.gd" id="10_mr08r"]
 [ext_resource type="Texture2D" uid="uid://baig85lpi88u" path="res://Resources/Textures/UI/Icons/food_icon.tres" id="11_2rhur"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrkv0"]
 
-[node name="BottomMenuBar" type="PanelContainer" node_paths=PackedStringArray("_tomes_status", "_gold_status")]
+[node name="BottomMenuBar" type="PanelContainer" node_paths=PackedStringArray("_tomes_status", "_gold_status", "_food_status")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 73.0
@@ -24,8 +20,9 @@ mouse_force_pass_scroll_events = false
 theme = ExtResource("1_mggw6")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrkv0")
 script = ExtResource("2_m57on")
-_tomes_status = NodePath("HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/KnowledgeTomeStatusPanel")
-_gold_status = NodePath("HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/GoldStatusPanel")
+_tomes_status = NodePath("HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/TomesStatus")
+_gold_status = NodePath("HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/GoldStatus")
+_food_status = NodePath("HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu/FoodStatus")
 metadata/_edit_vertical_guides_ = [1280.0]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -61,26 +58,20 @@ size_flags_vertical = 4
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="GoldStatusPanel" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
+[node name="GoldStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("5_gj5k2")
-script = ExtResource("6_itk7r")
 icon_texture = ExtResource("7_bupor")
 default_label_text = "0"
 
-[node name="KnowledgeTomeStatusPanel" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
+[node name="TomesStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 custom_minimum_size = Vector2(160, 40)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("5_gj5k2")
-script = ExtResource("8_7cxo5")
 icon_texture = ExtResource("9_diaj5")
 default_label_text = "0"
 
-[node name="FoodStatusPanel" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
+[node name="FoodStatus" parent="HBoxContainer/MarginContainer/CenterMenu/MarginContainer/CenterMenu" instance=ExtResource("4_ajusi")]
 custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
-theme_override_styles/panel = ExtResource("5_gj5k2")
-script = ExtResource("10_mr08r")
 icon_texture = ExtResource("11_2rhur")
-default_label_text = "0/60"
+default_label_text = "0/55"

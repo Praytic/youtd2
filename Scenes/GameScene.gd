@@ -19,11 +19,21 @@ class_name GameScene extends Node
 
 func _ready():
 	print_verbose("GameScene has loaded.")
-	
+
 #	NOTE: resetting singletons here covers two cases:
 #	1. launching the game
 #	2. restarting the game
 	_reset_singletons()
+
+	EventBus.wave_finished.connect(_on_wave_finished)
+	GoldControl.changed.connect(_on_gold_changed)
+	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
+	FoodManager.changed.connect(_on_food_changed)
+	
+#	Load initial values
+	_on_gold_changed()
+	_on_tomes_changed()
+	_on_food_changed()
 
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
@@ -236,3 +246,29 @@ func _on_item_stash_horadric_stash_changed():
 func _on_tower_stash_changed():
 	var towers: Dictionary = _tower_stash.get_towers()
 	_hud.set_towers(towers)
+
+
+func _on_wave_finished(level: int):
+	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % level)
+
+	GoldControl.add_income(level)
+	KnowledgeTomesManager.add_income()
+
+	if PregameSettings.game_mode_is_random():
+		TowerDistribution.roll_towers(level)
+
+
+func _on_gold_changed():
+	var gold: float = GoldControl.get_gold()
+	_hud.set_gold(gold)
+
+
+func _on_tomes_changed():
+	var tomes: int = KnowledgeTomesManager.get_current()
+	_hud.set_tomes(tomes)
+
+
+func _on_food_changed():
+	var food: int = FoodManager.get_current_food()
+	var food_cap: int = FoodManager.get_food_cap()
+	_hud.set_food(food, food_cap)
