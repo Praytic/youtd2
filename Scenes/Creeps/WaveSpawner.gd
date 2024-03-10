@@ -188,7 +188,7 @@ func _on_wave_finished(wave: Wave):
 
 	var wave_level: int = wave.get_level()
 	GoldControl.add_income(wave_level)
-	KnowledgeTomesManager.add_knowledge_tomes()
+	KnowledgeTomesManager.add_income()
 
 	if PregameSettings.game_mode_is_random():
 		TowerDistribution.roll_towers(wave_level)

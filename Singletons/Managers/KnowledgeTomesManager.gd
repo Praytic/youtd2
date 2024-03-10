@@ -4,11 +4,10 @@ signal changed()
 
 
 const MAX_KNOWLEDGE_TOMES: int = 999999
-const INITIAL_KNOWLEDGE_TOMES_INCOME: int = 8
+const KNOWLEDGE_TOMES_INCOME: int = 8
 
 
 var _knowledge_tomes: int
-var _income: int
 
 
 #########################
@@ -16,14 +15,16 @@ var _income: int
 #########################
 
 func reset():
-	_income = INITIAL_KNOWLEDGE_TOMES_INCOME
-
 	var starting_tomes: int = Config.starting_tomes()
 	_set_knowledge_tomes(starting_tomes)
 
 
-func add_knowledge_tomes(value = _income):
+func add_knowledge_tomes(value: int):
 	_set_knowledge_tomes(_knowledge_tomes + value)
+
+
+func add_income():
+	add_knowledge_tomes(KNOWLEDGE_TOMES_INCOME)
 
 
 func spend(amount: int):
