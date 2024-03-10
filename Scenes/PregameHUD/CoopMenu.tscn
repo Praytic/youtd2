@@ -3,12 +3,14 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_yyusj"]
 [ext_resource type="Script" path="res://Scenes/PregameHUD/CoopMenu.gd" id="2_kpswb"]
 
-[node name="CoopMenu" type="VBoxContainer"]
+[node name="CoopMenu" type="VBoxContainer" node_paths=PackedStringArray("_room_id_field", "_join_room_button")]
 offset_right = 377.0
 offset_bottom = 235.0
 size_flags_vertical = 0
 theme = ExtResource("1_yyusj")
 script = ExtResource("2_kpswb")
+_room_id_field = NodePath("TypeRoomIdTextEdit")
+_join_room_button = NodePath("JoinRoomButton")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
@@ -33,5 +35,6 @@ layout_mode = 2
 focus_mode = 0
 text = "CREATE ROOM"
 
+[connection signal="text_changed" from="TypeRoomIdTextEdit" to="." method="_on_type_room_id_text_edit_text_changed"]
 [connection signal="pressed" from="JoinRoomButton" to="." method="_on_join_room_button_pressed"]
 [connection signal="pressed" from="CreateRoomButton" to="." method="_on_create_room_button_pressed"]

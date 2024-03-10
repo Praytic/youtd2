@@ -17,6 +17,7 @@ enum Tab {
 
 
 @export var _tab_container: TabContainer
+@export var _room_id_container: Container
 
 
 #########################
@@ -25,6 +26,7 @@ enum Tab {
 
 func _ready():
 	_tab_container.current_tab = Tab.PLAYER_MODE
+	Network.room_id_changed.connect(_on_room_id_changed)
 
 
 #########################
@@ -43,4 +45,8 @@ func _on_submenu_finished():
 			next_tab += 1
 			next_tab_control = _tab_container.get_tab_control(next_tab)
 		_tab_container.current_tab = next_tab
-		
+
+
+func _on_room_id_changed():
+	_room_id_container.get_node("TextEdit").text = str(Network.get_room_id())
+	_room_id_container.visible = true

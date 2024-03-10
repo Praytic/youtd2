@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1xny6jmxj5i6"]
+[gd_scene load_steps=12 format=3 uid="uid://d1xny6jmxj5i6"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_i3yfj"]
 [ext_resource type="Script" path="res://Scenes/PregameHUD/PregameHUD.gd" id="2_ljcwn"]
@@ -10,7 +10,11 @@
 [ext_resource type="PackedScene" uid="uid://bk4o75m1nr3cw" path="res://Scenes/PregameHUD/TutorialQuestionMenu.tscn" id="6_6h63j"]
 [ext_resource type="PackedScene" uid="uid://4dakdefm73rd" path="res://Scenes/PregameHUD/BuilderMenu.tscn" id="8_drc75"]
 
-[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container")]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p47kd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_em7ue"]
+
+[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_room_id_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +23,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_i3yfj")
 script = ExtResource("2_ljcwn")
-_tab_container = NodePath("TabContainer")
+_tab_container = NodePath("VBoxContainer/TabContainer")
+_room_id_container = NodePath("VBoxContainer/RoomIdContainer")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -30,52 +35,80 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.392157)
 
-[node name="TabContainer" type="TabContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -188.5
-offset_top = -117.5
-offset_right = 188.5
-offset_bottom = 117.5
+offset_left = -155.0
+offset_top = -109.0
+offset_right = 155.0
+offset_bottom = 109.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="RoomIdContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+alignment = 1
+
+[node name="RoomIdLabel" type="Label" parent="VBoxContainer/RoomIdContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 4
+text = "Room #"
+vertical_alignment = 2
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/RoomIdContainer"]
+custom_minimum_size = Vector2(80, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_p47kd")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_em7ue")
+text = "12345"
+placeholder_text = "12345"
+editable = false
+scroll_fit_content_height = true
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
 tabs_visible = false
 
-[node name="PlayerModeMenu" parent="TabContainer" instance=ExtResource("3_yn5jw")]
+[node name="PlayerModeMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("3_yn5jw")]
 layout_mode = 2
 
-[node name="CoopMenu" parent="TabContainer" instance=ExtResource("5_aems6")]
+[node name="CoopMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("5_aems6")]
 visible = false
 layout_mode = 2
 
-[node name="GameLengthMenu" parent="TabContainer" instance=ExtResource("4_ogsgu")]
+[node name="GameLengthMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("4_ogsgu")]
 visible = false
 layout_mode = 2
 
-[node name="GameModeMenu" parent="TabContainer" instance=ExtResource("5_w0t1q")]
+[node name="GameModeMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("5_w0t1q")]
 visible = false
 layout_mode = 2
 
-[node name="DifficultyMenu" parent="TabContainer" instance=ExtResource("3_rhl0k")]
+[node name="DifficultyMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("3_rhl0k")]
 visible = false
 layout_mode = 2
 
-[node name="BuilderMenu" parent="TabContainer" instance=ExtResource("8_drc75")]
+[node name="BuilderMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("8_drc75")]
 visible = false
 layout_mode = 2
 
-[node name="TutorialQuestionMenu" parent="TabContainer" instance=ExtResource("6_6h63j")]
+[node name="TutorialQuestionMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("6_6h63j")]
 visible = false
 layout_mode = 2
 
-[connection signal="finished" from="TabContainer/PlayerModeMenu" to="." method="_on_submenu_finished"]
-[connection signal="finished" from="TabContainer/CoopMenu" to="." method="_on_submenu_finished"]
-[connection signal="finished" from="TabContainer/GameLengthMenu" to="." method="_on_submenu_finished"]
-[connection signal="finished" from="TabContainer/GameModeMenu" to="." method="_on_submenu_finished"]
-[connection signal="finished" from="TabContainer/DifficultyMenu" to="." method="_on_submenu_finished"]
-[connection signal="finished" from="TabContainer/BuilderMenu" to="." method="_on_submenu_finished"]
-[connection signal="finished" from="TabContainer/TutorialQuestionMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="VBoxContainer/TabContainer/PlayerModeMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="VBoxContainer/TabContainer/CoopMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="VBoxContainer/TabContainer/GameLengthMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="VBoxContainer/TabContainer/GameModeMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="VBoxContainer/TabContainer/DifficultyMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="VBoxContainer/TabContainer/BuilderMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="VBoxContainer/TabContainer/TutorialQuestionMenu" to="." method="_on_submenu_finished"]
