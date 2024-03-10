@@ -2,9 +2,42 @@ class_name UnitButtonsContainer
 extends GridContainer
 
 
-# GridContainer which uses this script should have
-# all empty slots added to the node before it is ready.
-@onready var _empty_slots: Array = get_children()
+# This GrindContainer will show extra "empty slots" in the
+# cells which are not occupied by real buttons. The empty
+# slots are implemented by EmptyUnitButton. User of this
+# container should add however many EmptyUnitButtons they
+# need to be displayed.
+# 
+# For example, if you set column count to 4 and add 12
+# buttons you will get this:
+# No real buttons:
+# [ ] [ ] [ ] [ ]
+# [ ] [ ] [ ] [ ]
+# [ ] [ ] [ ] [ ]
+# 3 real buttons:
+# [x] [x] [x] [ ]
+# [ ] [ ] [ ] [ ]
+# [ ] [ ] [ ] [ ]
+# 5 real buttons:
+# [x] [x] [x] [x]
+# [x] [ ] [ ] [ ]
+# [ ] [ ] [ ] [ ]
+
+
+var _empty_slots: Array
+
+
+func _ready():
+	_empty_slots = []
+
+#	Collect empty buttons in a list. Note that empty_slots
+#	cannot be filled automatically like:
+#	@onready var _empty_slots: Array = get_children()
+#	Because items may be added to item stash menu before
+#	UnitButtonsContainer is ready.
+	for button in get_children():
+		if button is EmptyUnitButton:
+			_empty_slots.append(button)
 
 
 # Amount of visible empty slots depends on visible unit_buttons 
