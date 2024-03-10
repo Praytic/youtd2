@@ -33,6 +33,7 @@ func _ready():
 	EventBus.player_clicked_main_stash.connect(_on_player_clicked_main_stash)
 	EventBus.player_clicked_on_horadric_stash.connect(_on_player_clicked_horadric_stash)
 	EventBus.player_clicked_on_tower_inventory.connect(_on_player_clicked_tower_inventory)
+	EventBus.item_flew_to_item_stash.connect(_on_item_flew_to_item_stash)
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	
 	var test_item_list: Array = Config.test_item_list()
@@ -386,3 +387,6 @@ func _on_player_clicked_tower_inventory(tower: Tower):
 	var add_index: int = container.get_item_count()
 	_item_container_was_clicked(container, add_index)
 
+
+func _on_item_flew_to_item_stash(item: Item):
+	_main_stash.add_item(item)

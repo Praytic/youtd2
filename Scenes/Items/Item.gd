@@ -369,13 +369,10 @@ func _remove_from_tower():
 #########################
 
 func _on_flying_item_finished_flying():
-	var item_stash: ItemStash = get_tree().get_root().get_node("GameScene/ItemStash")
-	var main_stash_container: ItemContainer = item_stash.get_main_stash_container()
-	
-	var parent: Node = get_parent()
-	parent.remove_child(self)
-	parent.queue_free()
-	main_stash_container.add_item(self)
+	var flying_item: Node = get_parent()
+	flying_item.remove_child(self)
+	flying_item.queue_free()
+	EventBus.item_flew_to_item_stash.emit(self)
 
 
 #########################
