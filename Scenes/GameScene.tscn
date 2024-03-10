@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=19 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="5_pan23"]
 [ext_resource type="Shader" path="res://Resources/Shaders/FoggyCamera.gdshader" id="5_qgk1p"]
+[ext_resource type="PackedScene" uid="uid://bprw8bivb1mcc" path="res://Scenes/AudioPlayerPool.tscn" id="5_rin5y"]
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="6_y63oe"]
 [ext_resource type="Shader" path="res://Resources/Shaders/SaturationBurn.gdshader" id="7_gxbw6"]
 [ext_resource type="PackedScene" uid="uid://d1xny6jmxj5i6" path="res://Scenes/PregameHUD/PregameHUD.tscn" id="8_idpxe"]
@@ -58,6 +59,8 @@ process_mode = 1
 
 [node name="ItemStash" parent="." instance=ExtResource("13_hhrst")]
 process_mode = 1
+
+[node name="AudioPlayerPool" parent="." instance=ExtResource("5_rin5y")]
 
 [node name="Map" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true

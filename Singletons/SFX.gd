@@ -1,19 +1,14 @@
 extends Node
 
 
+# NOTE: don't need to reset loaded sfx because they are
+# Resources.
 var _loaded_sfx_map: Dictionary = {}
-var _2d_sfx_player_list: Array
-var _sfx_player_list: Array
 
 
 #########################
 ###       Public      ###
 #########################
-
-# NOTE: don't need to reset sfx because they are Resources
-func reset():
-	_2d_sfx_player_list = []
-	_sfx_player_list = []
 
 
 # NOTE: this f-n is non-positional. Current viewport
@@ -22,7 +17,11 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
-	var sfx_player: AudioStreamPlayer = _get_sfx_player()
+	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/AudioPlayerPool")
+	if audio_player_pool == null:
+		return
+
+	var sfx_player: AudioStreamPlayer = audio_player_pool.get_sfx_player()
 	sfx_player.pitch_scale = pitch_scale
 	sfx_player.volume_db = volume_db
 	var sfx_stream: AudioStream = _get_sfx(sfx_name)
@@ -42,7 +41,11 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0)
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
-	var sfx_player: AudioStreamPlayer2D = _get_2d_sfx_player()
+	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/AudioPlayerPool")
+	if audio_player_pool == null:
+		return
+
+	var sfx_player: AudioStreamPlayer2D = audio_player_pool.get_2d_sfx_player()
 	sfx_player.volume_db = volume_db
 	var sfx_stream: AudioStream = _get_sfx(sfx_name)
 
@@ -116,28 +119,3 @@ func _get_sfx(sfx_name: String) -> AudioStream:
 	return stream
 
 
-func _get_sfx_player() -> AudioStreamPlayer:
-	for sfx_player in _sfx_player_list:
-		if !sfx_player.playing:
-			return sfx_player
-
-	var new_sfx_player: AudioStreamPlayer = AudioStreamPlayer.new()
-	_sfx_player_list.append(new_sfx_player)
-	var game_scene: Node = get_tree().get_root().get_node("GameScene")
-	game_scene.add_child(new_sfx_player)
-
-	return new_sfx_player
-
-
-# This is a way to recycle existing players
-func _get_2d_sfx_player() -> AudioStreamPlayer2D:
-	for sfx_player in _2d_sfx_player_list:
-		if !sfx_player.playing:
-			return sfx_player
-
-	var new_sfx_player: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
-	_2d_sfx_player_list.append(new_sfx_player)
-	var game_scene: Node = get_tree().get_root().get_node("GameScene")
-	game_scene.add_child(new_sfx_player)
-
-	return new_sfx_player

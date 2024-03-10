@@ -189,7 +189,6 @@ func _reset_singletons():
 	SelectPointForCast.reset()
 	SelectTargetForCast.reset()
 	SelectUnit.reset()
-	SFX.reset()
 	TowerDistribution.reset()
 	WaveLevel.reset()
 
