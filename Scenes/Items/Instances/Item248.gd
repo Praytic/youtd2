@@ -30,7 +30,7 @@ func on_autocast(_event: Event):
 	elif rnd < 6:
 		rarity = 2
 
-	if i > 0 && GoldControl.get_gold() >= 500:
+	if i > 0 && get_player().get_gold() >= 500:
 		var random_item: int = ItemDropCalc.get_random_item_at_rarity_bounded(rarity, 14, 25)
 		
 		if random_item != 0:

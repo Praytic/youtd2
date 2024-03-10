@@ -106,6 +106,10 @@ func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 		display_floating_text(text, unit, color)
 
 
+func get_gold() -> float:
+	return GoldControl.get_gold()
+
+
 # NOTE: player.modifyIncomeRate in JASS
 func modify_income_rate(amount: float):
 	GoldControl.modify_income_rate(amount)

@@ -89,7 +89,7 @@ func on_tower_details() -> MultiboardValues:
 
 
 func get_current_gold_greed_damage() -> float:
-	var current_gold: float = GoldControl.get_gold()
+	var current_gold: float = get_player().get_gold()
 	var damage: float = _stats.gold_greed_value * pow(current_gold, 0.5)
 
 	return damage

@@ -90,7 +90,7 @@ func on_attack(_event: Event):
 	if tower.get_buff_of_type(drol_goldrush) == null:
 		CombatLog.log_ability(tower, null, "Goldrush")
 
-		var gold_amount: float = GoldControl.get_gold()
+		var gold_amount: float = get_player().get_gold()
 		drol_goldrush.apply_custom_timed(tower, tower, int(_stats.attackspeed_base + pow(gold_amount,0.5) / _stats.attackspeed_divisor), 5 + tower.get_level() * 0.1)
 
 
@@ -115,7 +115,7 @@ func on_create(preceding: Tower):
 
 func on_tower_details() -> MultiboardValues:
 	var tower: Tower = self
-	var gold_amount: float = GoldControl.get_gold()
+	var gold_amount: float = get_player().get_gold()
 	var excavation_value: int = 20 + int(pow(gold_amount, 0.5) / 5)
 	var gold_gained_text: String = Utils.format_float(tower.user_real, 2)
 	var goldrush_bonus_text: String = "%d%%" % excavation_value

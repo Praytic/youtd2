@@ -3,4 +3,4 @@ extends Item
 
 
 func on_consume():
-	GoldControl.modify_income_rate(0.10)
+	get_player().modify_income_rate(0.10)
