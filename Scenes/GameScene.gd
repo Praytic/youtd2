@@ -10,6 +10,7 @@ class_name GameScene extends Node
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
 @export var _item_stash: ItemStash
+@export var _tower_stash: TowerStash
 
 
 #########################
@@ -189,7 +190,6 @@ func _reset_singletons():
 	SelectPointForCast.reset()
 	SelectTargetForCast.reset()
 	SelectUnit.reset()
-	TowerDistribution.reset()
 	WaveLevel.reset()
 
 
@@ -233,3 +233,8 @@ func _on_item_stash_main_stash_changed():
 func _on_item_stash_horadric_stash_changed():
 	var item_list: Array[Item] = _item_stash.get_items_in_horadric_stash()
 	_hud.set_items_for_horadric_cube(item_list)
+
+
+func _on_tower_stash_changed():
+	var towers: Dictionary = _tower_stash.get_towers()
+	_hud.set_towers(towers)

@@ -176,6 +176,7 @@ theme_override_constants/margin_bottom = 15
 [node name="RollTowersButton" type="Button" parent="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 size_flags_vertical = 0
+tooltip_text = "Press to get a random set of starting towers.\\nYou can reroll if you don't like the initial towers\\nbut each time you will get less towers."
 focus_mode = 0
 text = "ROLL"
 script = ExtResource("6_66fav")
@@ -348,7 +349,6 @@ theme_type_variation = &"CircleButton"
 theme_override_font_sizes/font_size = 32
 text = " x "
 
-[connection signal="towers_changed" from="." to="." method="_on_towers_changed"]
 [connection signal="mouse_entered" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_mouse_entered"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
 [connection signal="pressed" from="MainContainer/MarginContainer/Panel/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer3/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]

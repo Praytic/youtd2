@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=20 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
 [ext_resource type="PackedScene" uid="uid://da13fj7bxtxaq" path="res://Scenes/Items/ItemStash.tscn" id="13_hhrst"]
+[ext_resource type="PackedScene" uid="uid://clk0cpjpixjsk" path="res://Scenes/Towers/TowerStash.tscn" id="15_fssku"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -38,7 +39,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash")]
 process_mode = 3
 script = ExtResource("9")
 map_node = NodePath("Map")
@@ -50,6 +51,7 @@ _tutorial_menu = NodePath("UI/TutorialMenu")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("Camera2D")
 _item_stash = NodePath("ItemStash")
+_tower_stash = NodePath("TowerStash")
 
 [node name="Player" type="Node" parent="."]
 script = ExtResource("6_y63oe")
@@ -59,6 +61,8 @@ process_mode = 1
 
 [node name="ItemStash" parent="." instance=ExtResource("13_hhrst")]
 process_mode = 1
+
+[node name="TowerStash" parent="." instance=ExtResource("15_fssku")]
 
 [node name="AudioPlayerPool" parent="." instance=ExtResource("5_rin5y")]
 
@@ -148,6 +152,7 @@ visible = false
 
 [connection signal="horadric_stash_changed" from="ItemStash" to="." method="_on_item_stash_horadric_stash_changed"]
 [connection signal="main_stash_changed" from="ItemStash" to="." method="_on_item_stash_main_stash_changed"]
+[connection signal="changed" from="TowerStash" to="." method="_on_tower_stash_changed"]
 [connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]

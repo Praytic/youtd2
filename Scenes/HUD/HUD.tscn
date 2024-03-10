@@ -203,18 +203,10 @@ _rares_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatu
 _uniques_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel")
 _menu_card = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard")
 
-[node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_towers_status_panel", "_ice_towers_status_panel", "_nature_towers_status_panel", "_fire_towers_status_panel", "_astral_towers_status_panel", "_darkness_towers_status_panel", "_iron_towers_status_panel", "_storm_towers_status_panel", "_menu_card") instance=ExtResource("11_gv2lk")]
+[node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_menu_card") instance=ExtResource("11_gv2lk")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
-_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/VBoxContainer/TowersCountPanel2")
-_ice_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/IceTowersCountPanel")
-_nature_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/NatureTowersCountPanel")
-_fire_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/FireTowersCountPanel")
-_astral_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/AstralTowersCountPanel")
-_darkness_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/DarknessTowersCountPanel")
-_iron_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/IronTowersCountPanel")
-_storm_towers_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard/PanelContainer/HBoxContainer/GridContainer/StormTowersCountPanel")
 _menu_card = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard")
 
 [node name="Bottom" type="HBoxContainer" parent="MarginContainer/All"]

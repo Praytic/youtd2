@@ -1,9 +1,9 @@
 extends Node
 
 
-# This class distributes random towers to players. This
-# happens after every wave and also at the start of the game
-# after player upgrades elements four times.
+# Generates random towers, based on current element levels.
+# This happens after every wave and also at the start of the
+# game when player rolls the first towers.
 
 # NOTE: this code is convoluted because it attempts to
 # accurately reproduce the algorithm from the original game.
@@ -13,16 +13,11 @@ extends Node
 # behavior.
 
 
-signal rolling_starting_towers()
-signal random_tower_distributed(tower_id)
-
-
 # Tower groups are lists of towers mapped by element and
 # rarity:
 # Element -> Rarity -> Array of tower id's
 var _tower_groups_all_tiers: Dictionary
 var _tower_groups_first_tier_only: Dictionary
-var _starting_roll_count: int
 
 
 #########################
@@ -38,44 +33,21 @@ func _ready():
 ###       Public      ###
 #########################
 
-func reset():
-	_starting_roll_count = 6
-
-
 # Called at the start of the game when the "roll towers"
 # button is pressed. Each call reduces the resulting amount
 # of towers by one. Returns whether can make any more rolls.
-func roll_starting_towers() -> bool:
-	if _starting_roll_count == 0:
-		return false
-
-	rolling_starting_towers.emit()
-
+func roll_starting_towers(tower_count: int) -> Array[int]:
 	var wave_level: int = 0
-	var tower_list: Array[int] = _generate_random_towers_with_count(wave_level, _starting_roll_count)
-	_add_towers_to_stash(tower_list)
-
-	_starting_roll_count -= 1
-
-	var can_roll_again: bool = _starting_roll_count > 1
-
-	return can_roll_again
+	var tower_list: Array[int] = _generate_random_towers_with_count(wave_level, tower_count)
+	
+	return tower_list
 
 
-func get_current_starting_tower_roll_amount() -> int:
-	return _starting_roll_count
-
-
-# Called after each wave. Adds random towers to tower stash.
-# 
-# NOTE: wave_level argument is used instead of current wave
-# level because we need to distribute towers when waves are
-# finished and waves may finish out of order. For example,
-# player can spawn wave 2 early after wave 1 is done
-# spawning but then finish wave 2 before wave 1.
-func roll_towers(wave_level: int):
+# Called after each wave.
+func roll_towers(wave_level: int) -> Array[int]:
 	var tower_list: Array[int] = _generate_random_towers(wave_level)
-	_add_towers_to_stash(tower_list)
+
+	return tower_list
 
 
 #########################
@@ -155,35 +127,6 @@ func _generate_random_towers_with_count(wave_level: int, count: int) -> Array[in
 			break
 
 	return tower_list
-
-
-# Adds towers to tower stash (BuildBar)
-func _add_towers_to_stash(tower_list: Array[int]):
-#	NOTE: BuildBar connects to random_tower_distributed()
-#	signal and will add towers.
-	for tower in tower_list:
-		random_tower_distributed.emit(tower)
-
-#	Add messages about new towers
-	Messages.add_normal("New towers were added to stash:")
-
-#	Sort tower list by element to group messages for same
-#	element together
-	tower_list.sort_custom(func(a, b): 
-		var element_a: int = TowerProperties.get_element(a)
-		var element_b: int = TowerProperties.get_element(b)
-		return element_a < element_b)
-
-	for tower in tower_list:
-		var element: Element.enm = TowerProperties.get_element(tower)
-		var element_string: String = Element.convert_to_colored_string(element)
-		var rarity: Rarity.enm = TowerProperties.get_rarity(tower)
-		var rarity_color: Color = Rarity.get_color(rarity)
-		var tower_name: String = TowerProperties.get_display_name(tower)
-		var tower_name_colored: String = Utils.get_colored_string(tower_name, rarity_color)
-		var message: String = "    %s: %s" % [element_string, tower_name_colored]
-
-		Messages.add_normal(message)
 
 
 # Returns list of elements with non-zero chances. Useful to

@@ -66,6 +66,11 @@ func set_items_for_horadric_cube(item_list: Array[Item]):
 	_item_stash_menu.set_items_for_horadric_cube(item_list)
 	
 
+func set_towers(towers: Dictionary):
+	_elements_tower_menu.set_towers(towers)
+	_towers_menu_card.set_towers(towers)
+
+
 #########################
 ###      Private      ###
 #########################
