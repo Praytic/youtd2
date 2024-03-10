@@ -281,6 +281,26 @@ func _process(delta: float):
 ###       Public      ###
 #########################
 
+
+func sell():
+	EventBus.tower_removed.emit(self)
+
+# 	Return tower items to item stash
+	var item_list: Array[Item] = get_items()
+
+	for item in item_list:
+		item.drop()
+		item.fly_to_stash(0.0)
+
+	var tower_id: int = get_id()
+	var sell_price: int = TowerProperties.get_sell_price(tower_id)
+	get_player().give_gold(sell_price, self, false, true)
+	
+	FoodManager.remove_tower(tower_id)
+
+	queue_free()
+
+
 # Composes range data which contains name, radius and color
 # for each range of tower. This includes attack range,
 # auras, extra abilities. Used by tower details and when

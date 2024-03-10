@@ -22,8 +22,8 @@ var _tower_count_for_next_roll: int = 6
 func _ready():
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	EventBus.player_requested_to_roll_towers.connect(_on_player_requested_to_roll_towers)
+	EventBus.tower_created.connect(_on_tower_created)
 	EventBus.wave_finished.connect(_on_wave_finished)
-	BuildTower.tower_built.connect(_on_tower_built)
 
 
 #########################
@@ -104,7 +104,7 @@ func _on_player_requested_to_roll_towers():
 	_tower_count_for_next_roll -= 1
 
 
-func _on_tower_built(tower: int):
+func _on_tower_created(tower: Tower):
 	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
 		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
 
@@ -113,7 +113,9 @@ func _on_tower_built(tower: int):
 	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
 		return
 
-	_remove_tower(tower)
+	var tower_id: int = tower.get_id()
+
+	_remove_tower(tower_id)
 
 
 # Distribute random towers when wave is finished

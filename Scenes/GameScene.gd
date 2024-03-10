@@ -175,7 +175,6 @@ func _transition_from_tutorial_state():
 func _reset_singletons():
 	FoodManager.reset()
 	KnowledgeTomesManager.reset()
-	BuildTower.reset()
 	CombatLog.reset()
 	Effect.reset()
 	ElapsedTimer.reset()

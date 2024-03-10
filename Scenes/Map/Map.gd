@@ -13,12 +13,55 @@ const BUILDABLE_PULSE_ALPHA_MIN = 0.1
 const BUILDABLE_PULSE_ALPHA_MAX = 0.5
 const BUILDABLE_PULSE_PERIOD = 1.0
 
+# List of offsets from tower center position which are used
+# to generate positions of quarter tiles.
+const QUARTER_OFFSET_LIST_NORMAL: Array[Vector2] = [
+	Constants.TILE_SIZE * Vector2(0, -0.25),
+	Constants.TILE_SIZE * Vector2(0, 0.25),
+	Constants.TILE_SIZE * Vector2(0.25, 0),
+	Constants.TILE_SIZE * Vector2(-0.25, 0),
+]
+
+# Alternative list for Maverick builder which doesn't allow
+# adjacent towers.
+const QUARTER_OFFSET_LIST_BIG: Array[Vector2] = [
+	Constants.TILE_SIZE * Vector2(0, 0.25),
+	Constants.TILE_SIZE * Vector2(0, -0.25),
+	Constants.TILE_SIZE * Vector2(0.25, 0),
+	Constants.TILE_SIZE * Vector2(-0.25, 0),
+
+	Constants.TILE_SIZE * Vector2(0.75, 0),
+	Constants.TILE_SIZE * Vector2(-0.75, 0),
+	Constants.TILE_SIZE * Vector2(0, 0.75),
+	Constants.TILE_SIZE * Vector2(0, -0.75),
+
+	Constants.TILE_SIZE * Vector2(0.75, 0),
+	Constants.TILE_SIZE * Vector2(-0.75, 0),
+	Constants.TILE_SIZE * Vector2(0, 0.75),
+	Constants.TILE_SIZE * Vector2(0, -0.75),
+
+	Constants.TILE_SIZE * Vector2(0.25, 0.5),
+	Constants.TILE_SIZE * Vector2(-0.25, 0.5),
+	Constants.TILE_SIZE * Vector2(0.25, -0.5),
+	Constants.TILE_SIZE * Vector2(-0.25, -0.5),
+
+	Constants.TILE_SIZE * Vector2(0.5, 0.25),
+	Constants.TILE_SIZE * Vector2(-0.5, 0.25),
+	Constants.TILE_SIZE * Vector2(0.5, -0.25),
+	Constants.TILE_SIZE * Vector2(-0.5, -0.25),
+]
+
+var _occupied_quarter_list: Array[Vector2] = []
+
 
 #########################
 ###     Built-in      ###
 #########################
 
 func _ready():
+	EventBus.tower_created.connect(_on_tower_created)
+	EventBus.tower_removed.connect(_on_tower_removed)
+
 	var camera: Camera2D = get_viewport().get_camera_2d()
 	var s = play_area.scale
 	var ss = play_area_shape.scale
@@ -135,7 +178,7 @@ func get_build_info_for_mouse_pos() -> Array:
 	
 	for i in range(0, 4):
 		var quarter_pos: Vector2 = quarter_list[i]
-		var quarter_pos_is_occupied: bool = BuildTower.quarter_is_occupied(quarter_pos)
+		var quarter_pos_is_occupied: bool = quarter_is_occupied(quarter_pos)
 
 		var local_pos: Vector2 = _buildable_area.to_local(quarter_pos)
 		var map_pos: Vector2 = _buildable_area.local_to_map(local_pos)
@@ -172,6 +215,37 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 	return tile_exists
 
 
+func quarter_is_occupied(pos: Vector2) -> bool:
+	var occupied: bool = _occupied_quarter_list.has(pos)
+
+	return occupied
+
+
+#########################
+###      Private      ###
+#########################
+
+func _get_positions_occupied_by_tower(tower: Tower) -> Array[Vector2]:
+#	NOTE: need to use visual position because tower's
+#	"position" is on 1st floor and occupied positions are
+#	tracked in terms of 2nd floor
+	var pos_list: Array[Vector2] = []
+	var visual_position: Vector2 = tower.position - Vector2(0, Constants.TILE_SIZE.y)
+
+	for offset in _get_quarter_offset_list():
+		var pos: Vector2 = visual_position + offset
+		pos_list.append(pos)
+
+	return pos_list
+
+
+func _get_quarter_offset_list() -> Array[Vector2]:
+	if Globals.get_builder_allows_adjacent_towers():
+		return QUARTER_OFFSET_LIST_NORMAL
+	else:
+		return QUARTER_OFFSET_LIST_BIG
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -179,3 +253,19 @@ func pos_is_on_ground(pos: Vector2) -> bool:
 func _on_mouse_state_changed():
 	_buildable_area.visible = MouseState.get_state() == MouseState.enm.BUILD_TOWER
 
+
+# When tower is sold, mark space which is occupied by tower.
+func _on_tower_created(tower: Tower):
+	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
+
+	for pos in occupied_list:
+		_occupied_quarter_list.append(pos)
+
+
+# When tower is sold, clear space which was used to be
+# occupied by tower
+func _on_tower_removed(tower: Tower):
+	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
+
+	for pos in occupied_list:
+		_occupied_quarter_list.erase(pos)

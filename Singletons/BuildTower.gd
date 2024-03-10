@@ -2,53 +2,8 @@ extends Node
 
 # Singleton that manages building towers
 
-signal tower_built(tower_id)
-
-
-# List of offsets from tower center position which are used
-# to generate positions of quarter tiles.
-const QUARTER_OFFSET_LIST_NORMAL: Array[Vector2] = [
-	Constants.TILE_SIZE * Vector2(0, -0.25),
-	Constants.TILE_SIZE * Vector2(0, 0.25),
-	Constants.TILE_SIZE * Vector2(0.25, 0),
-	Constants.TILE_SIZE * Vector2(-0.25, 0),
-]
-
-# Alternative list for Maverick builder which doesn't allow
-# adjacent towers.
-const QUARTER_OFFSET_LIST_BIG: Array[Vector2] = [
-	Constants.TILE_SIZE * Vector2(0, 0.25),
-	Constants.TILE_SIZE * Vector2(0, -0.25),
-	Constants.TILE_SIZE * Vector2(0.25, 0),
-	Constants.TILE_SIZE * Vector2(-0.25, 0),
-
-	Constants.TILE_SIZE * Vector2(0.75, 0),
-	Constants.TILE_SIZE * Vector2(-0.75, 0),
-	Constants.TILE_SIZE * Vector2(0, 0.75),
-	Constants.TILE_SIZE * Vector2(0, -0.75),
-
-	Constants.TILE_SIZE * Vector2(0.75, 0),
-	Constants.TILE_SIZE * Vector2(-0.75, 0),
-	Constants.TILE_SIZE * Vector2(0, 0.75),
-	Constants.TILE_SIZE * Vector2(0, -0.75),
-
-	Constants.TILE_SIZE * Vector2(0.25, 0.5),
-	Constants.TILE_SIZE * Vector2(-0.25, 0.5),
-	Constants.TILE_SIZE * Vector2(0.25, -0.5),
-	Constants.TILE_SIZE * Vector2(-0.25, -0.5),
-
-	Constants.TILE_SIZE * Vector2(0.5, 0.25),
-	Constants.TILE_SIZE * Vector2(-0.5, 0.25),
-	Constants.TILE_SIZE * Vector2(0.5, -0.25),
-	Constants.TILE_SIZE * Vector2(-0.5, -0.25),
-]
 
 var _tower_preview: TowerPreview = null
-
-
-# List of positions of quarter tiles which are occupied by
-# towers. Each tower occupies 4 quarter tiles.
-var _occupied_quarter_list: Array[Vector2] = []
 
 
 #########################
@@ -73,11 +28,6 @@ func _unhandled_input(event):
 #########################
 ###       Public      ###
 #########################
-
-func reset():
-	_tower_preview = null
-	_occupied_quarter_list.clear()
-
 
 func in_progress() -> bool:
 	return MouseState.get_state() == MouseState.enm.BUILD_TOWER
@@ -105,12 +55,6 @@ func cancel():
 	MouseState.set_state(MouseState.enm.NONE)
 
 	_tower_preview.queue_free()
-
-
-func quarter_is_occupied(position: Vector2) -> bool:
-	var occupied: bool = _occupied_quarter_list.has(position)
-
-	return occupied
 
 
 func tower_exists_on_position(position: Vector2) -> bool:
@@ -141,17 +85,6 @@ func add_error_about_resources(tower_id: int):
 		Messages.add_error("Not enough tomes.")
 	elif !enough_food:
 		Messages.add_error("Not enough food.")
-
-
-func clear_space_occupied_by_tower(tower: Tower):
-#	NOTE: need to subtract tile height because tower's
-#	position is on the ground and occupied spaces are on the
-#	2nd floor
-	var visual_position: Vector2 = tower.position - Vector2(0, Constants.TILE_SIZE.y)
-
-	for offset in _get_quarter_offset_list():
-		var pos: Vector2 = visual_position + offset
-		_occupied_quarter_list.erase(pos)
 
 
 #########################
@@ -201,6 +134,8 @@ func _try_to_build():
 
 
 func _transform_tower(new_tower_id: int, prev_tower: Tower):
+	EventBus.tower_removed.emit(prev_tower)
+
 	FoodManager.remove_tower(prev_tower.get_id())
 	FoodManager.add_tower(new_tower_id)
 
@@ -208,7 +143,6 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 	new_tower.position = prev_tower.position
 	new_tower._temp_preceding_tower = prev_tower
 	Utils.add_object_to_world(new_tower)
-	tower_built.emit(new_tower_id)
 
 #	Refund build cost for previous tower
 	var refund_value: int = _get_transform_refund(prev_tower.get_id(), new_tower_id)
@@ -226,6 +160,8 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 
 	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
 
+	EventBus.tower_created.emit(new_tower)
+
 	cancel()
 
 
@@ -236,7 +172,6 @@ func _build_tower(tower_id: int):
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	new_tower.position = build_position
 	Utils.add_object_to_world(new_tower)
-	tower_built.emit(tower_id)
 	FoodManager.add_tower(tower_id)
 
 	var build_cost: float = TowerProperties.get_cost(tower_id)
@@ -247,14 +182,7 @@ func _build_tower(tower_id: int):
 
 	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
 	
-	Globals.built_at_least_one_tower = true
-
-#	NOTE: use visual_position for quarters because we need
-#	2nd floor position. Visual position is on 2nd floor
-#	while build position is on 1st floor.
-	for offset in _get_quarter_offset_list():
-		var pos: Vector2 = visual_position + offset
-		_occupied_quarter_list.append(pos)
+	EventBus.tower_created.emit(new_tower)
 
 	cancel()
 
@@ -275,10 +203,3 @@ func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
 		transform_refund = floori(prev_cost * 0.75)
 
 	return transform_refund
-
-
-func _get_quarter_offset_list() -> Array[Vector2]:
-	if Globals.get_builder_allows_adjacent_towers():
-		return QUARTER_OFFSET_LIST_NORMAL
-	else:
-		return QUARTER_OFFSET_LIST_BIG

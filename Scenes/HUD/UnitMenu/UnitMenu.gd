@@ -455,24 +455,7 @@ func _on_sell_button_pressed():
 		_set_selling_for_real(true)
 		return
 
-	var tower_id: int = tower.get_id()
-	
-# 	Return tower items to storage
-	var item_list: Array[Item] = tower.get_items()
-
-	for item in item_list:
-		item.drop()
-		item.fly_to_stash(0.0)
-
-	BuildTower.clear_space_occupied_by_tower(tower)
-
-	var sell_price: int = TowerProperties.get_sell_price(tower_id)
-	tower.get_player().give_gold(sell_price, tower, false, true)
-	tower.queue_free()
-
-	SelectUnit.set_selected_unit(null)
-
-	FoodManager.remove_tower(tower_id)
+	tower.sell()
 
 
 func _on_info_button_pressed():

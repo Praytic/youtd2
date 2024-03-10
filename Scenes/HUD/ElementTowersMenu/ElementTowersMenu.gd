@@ -38,7 +38,7 @@ var _prev_tower_list: Array = []
 func _ready():
 	_elements_container.element_changed.connect(_on_element_changed)
 	WaveLevel.changed.connect(_on_wave_level_changed)
-	BuildTower.tower_built.connect(_on_tower_built)
+	EventBus.tower_created.connect(_on_tower_created)
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	ElementLevel.changed.connect(_on_element_level_changed)
 	KnowledgeTomesManager.changed.connect(_on_knowledge_tomes_changed)
@@ -192,7 +192,7 @@ func _on_element_changed():
 	_update_info_label()
 
 
-func _on_tower_built(_tower_id: int):
+func _on_tower_created(_tower: Tower):
 	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
 		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
 

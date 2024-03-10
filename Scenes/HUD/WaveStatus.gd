@@ -12,6 +12,7 @@ extends VBoxContainer
 @export var _start_next_wave_button: Button
 
 var _armor_hint_map: Dictionary
+var _built_at_least_one_tower: bool = false
 
 
 #########################
@@ -21,6 +22,7 @@ var _armor_hint_map: Dictionary
 func _ready():
 	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
 	EventBus.game_over.connect(_on_game_over)
+	EventBus.tower_created.connect(_on_tower_created)
 
 	_armor_hint_map = _generate_armor_hints()
 
@@ -199,7 +201,7 @@ func _on_game_over():
 
 
 func _on_start_next_wave_button_pressed():
-	if !Globals.built_at_least_one_tower:
+	if !_built_at_least_one_tower:
 		Messages.add_error("You have to build some towers before you can start a wave!")
 
 		return
@@ -207,3 +209,7 @@ func _on_start_next_wave_button_pressed():
 	var success: bool = _wave_spawner.force_start_next_wave()
 	if !success:
 		Messages.add_error("Can't start next wave, wave is still in progress.")
+
+
+func _on_tower_created(_tower: Tower):
+	_built_at_least_one_tower = true
