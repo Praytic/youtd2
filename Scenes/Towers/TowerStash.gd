@@ -117,7 +117,7 @@ func _on_tower_built(tower: int):
 
 
 # Distribute random towers when wave is finished
-func _on_wave_finished():
+func _on_wave_finished(_level: int):
 #	Towers are not distributed in build mode
 	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
 		return
