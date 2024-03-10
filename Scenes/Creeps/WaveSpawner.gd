@@ -13,6 +13,7 @@ signal generated_all_waves
 
 
 var _wave_list: Array[Wave] = []
+var _built_at_least_one_tower: bool = false
 
 
 @export var _timer_between_waves: Timer
@@ -25,6 +26,9 @@ var _wave_list: Array[Wave] = []
 #########################
 
 func _ready():
+	EventBus.tower_created.connect(_on_tower_created)
+	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
+
 	if Config.fast_waves_enabled():
 		TIME_BETWEEN_WAVES = 0.1
 
@@ -77,19 +81,32 @@ func start_initial_timer():
 	_timer_between_waves.start(TIME_BEFORE_FIRST_WAVE)
 
 
-func force_start_next_wave() -> bool:
+func _on_player_requested_next_wave():
+	if !_built_at_least_one_tower:
+		Messages.add_error("You have to build some towers before you can start a wave!")
+
+		return
+
+	if _last_wave_was_started():
+		Messages.add_error("Can't start next wave because the game is over.")
+
+		return
+
 	var current_wave: Wave = get_current_wave()
-	var before_first_wave: bool = WaveLevel.get_current() == 0
-	var current_wave_finished_spawning: bool = current_wave != null && current_wave.state != Wave.State.SPAWNING
-	var can_start_next_wave: bool = !_last_wave_was_started() && (before_first_wave || current_wave_finished_spawning)
+	if current_wave != null:
+		var current_wave_finished_spawning: bool = current_wave.state != Wave.State.SPAWNING
 
-	if can_start_next_wave:
-		_timer_between_waves.stop()
-		_start_next_wave()
+		if !current_wave_finished_spawning:
+			Messages.add_error("Can't start next wave because a wave is in progress.")
+			
+			return
 
-		return true
-	else:
-		return false
+	_timer_between_waves.stop()
+	_start_next_wave()
+
+
+func _on_tower_created(_tower: Tower):
+	_built_at_least_one_tower = true
 
 
 #########################
@@ -212,7 +229,6 @@ func _on_wave_finished(wave: Wave):
 #			Supress error and ignore it.
 			if _timer_between_waves.is_inside_tree():
 				_timer_between_waves.start(TIME_BETWEEN_WAVES)
-
 
 #########################
 ### Setters / Getters ###
