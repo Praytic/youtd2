@@ -53,4 +53,4 @@ func _on_items_container_gui_input(event):
 	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
-		EventBus.player_clicked_on_horadric_stash.emit()
+		EventBus.player_clicked_horadric_stash.emit()

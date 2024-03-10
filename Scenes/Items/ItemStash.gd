@@ -31,8 +31,8 @@ func _ready():
 	EventBus.player_clicked_item_in_main_stash.connect(_on_player_clicked_item_in_main_stash)
 	EventBus.player_clicked_item_in_horadric_stash.connect(_on_player_clicked_item_in_horadric_stash)
 	EventBus.player_clicked_main_stash.connect(_on_player_clicked_main_stash)
-	EventBus.player_clicked_on_horadric_stash.connect(_on_player_clicked_horadric_stash)
-	EventBus.player_clicked_on_tower_inventory.connect(_on_player_clicked_tower_inventory)
+	EventBus.player_clicked_horadric_stash.connect(_on_player_clicked_horadric_stash)
+	EventBus.player_clicked_tower_inventory.connect(_on_player_clicked_tower_inventory)
 	EventBus.item_flew_to_item_stash.connect(_on_item_flew_to_item_stash)
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	

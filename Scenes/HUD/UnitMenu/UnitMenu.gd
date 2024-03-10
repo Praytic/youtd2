@@ -543,7 +543,7 @@ func _on_items_container_gui_input(event):
 	var tower: Tower = get_selected_tower()
 
 	if left_click && tower != null:
-		EventBus.player_clicked_on_tower_inventory.emit()
+		EventBus.player_clicked_tower_inventory.emit()
 
 
 # When tower menu is closed, deselect the unit which will
