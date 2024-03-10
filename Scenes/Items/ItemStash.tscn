@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://da13fj7bxtxaq"]
+
+[ext_resource type="Script" path="res://Scenes/Items/ItemStash.gd" id="1_m60n8"]
+[ext_resource type="Script" path="res://Scenes/Items/ItemContainer.gd" id="2_csc1e"]
+
+[node name="ItemStash" type="Node" node_paths=PackedStringArray("_main_stash", "_horadric_stash")]
+script = ExtResource("1_m60n8")
+_main_stash = NodePath("MainStash")
+_horadric_stash = NodePath("HoradricStash")
+
+[node name="MainStash" type="Node" parent="."]
+script = ExtResource("2_csc1e")
+_capacity = 1000
+
+[node name="HoradricStash" type="Node" parent="."]
+script = ExtResource("2_csc1e")
+_capacity = 5
+
+[connection signal="items_changed" from="MainStash" to="." method="_on_main_stash_items_changed"]
+[connection signal="items_changed" from="HoradricStash" to="." method="_on_horadric_stash_items_changed"]

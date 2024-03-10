@@ -9,8 +9,7 @@ class_name GameScene extends Node
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
-@export var _item_stash: ItemContainer
-@export var _horadric_stash: ItemContainer
+@export var _item_stash: ItemStash
 
 
 #########################
@@ -24,9 +23,6 @@ func _ready():
 #	1. launching the game
 #	2. restarting the game
 	_reset_singletons()
-	
-	EventBus.player_requested_transmute.connect(_on_player_requested_transmute)
-	EventBus.player_requested_autofill.connect(_on_player_requested_autofill)
 
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
@@ -146,18 +142,10 @@ func _transition_from_pregame_settings_state():
 	Messages.add_normal("You can pause the game by pressing [color=GOLD]Esc[/color]")
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
-	
-	var test_item_list: Array = Config.test_item_list()
-
-	for item_id in test_item_list:
-		var item: Item = Item.make(item_id)
-		_item_stash.add_item(item)
 
 	var tutorial_enabled: bool = PregameSettings.get_tutorial_enabled()
 	
 	if tutorial_enabled:
-		_setup_items_for_tutorial()
-
 		Globals.set_game_state(Globals.GameState.TUTORIAL)
 		_tutorial_menu.show()
 	else:
@@ -207,13 +195,6 @@ func _reset_singletons():
 	WaveLevel.reset()
 
 
-func _setup_items_for_tutorial():
-	var item: Item = Item.make(80)
-	var oil: Item = Item.make(1001)
-	_item_stash.add_item(item)
-	_item_stash.add_item(oil)
-
-
 #########################
 ###     Callbacks     ###
 #########################
@@ -246,47 +227,11 @@ func _on_pause_hud_restart_pressed():
 	get_tree().reload_current_scene()
 
 
-func _on_item_stash_items_changed():
-	var item_list: Array[Item] = _item_stash.get_item_list()
+func _on_item_stash_main_stash_changed():
+	var item_list: Array[Item] = _item_stash.get_items_in_main_stash()
 	_hud.set_items(item_list)
 
 
-func _on_horadric_stash_items_changed():
-	var item_list: Array[Item] = _horadric_stash.get_item_list()
+func _on_item_stash_horadric_stash_changed():
+	var item_list: Array[Item] = _item_stash.get_items_in_horadric_stash()
 	_hud.set_items_for_horadric_cube(item_list)
-
-
-func _on_player_requested_transmute():
-	var item_list: Array[Item] = _horadric_stash.get_item_list()
-	var result_list: Array[Item] = HoradricCube.transmute(item_list)
-	
-	for item in item_list:
-		_horadric_stash.remove_item(item)
-	
-	for item in result_list:
-		_horadric_stash.add_item(item)
-
-
-func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
-# 	Return current cube contents to item stash. Need to do this first in all cases, doesn't matter if autofill suceeeds or fails later.
-	var horadric_items_initial: Array[Item] = _horadric_stash.get_item_list()
-	for item in horadric_items_initial:
-		_horadric_stash.remove_item(item)
-		_item_stash.add_item(item)
-
-#	Move items from item stash to cube, if there are enough
-#	items for the recipe
-	var item_list: Array[Item] = _item_stash.get_item_list()
-	var autofill_list: Array[Item] = HoradricCube.autofill_recipe(item_list, recipe, rarity_filter)
-	
-	var can_autofill: bool = !autofill_list.is_empty()
-	
-	if !can_autofill:
-		Messages.add_error("Not enough items for recipe!")
-		
-		return
-
-#	Move autofill items from item stash to horadric stash
-	for item in autofill_list:
-		_item_stash.remove_item(item)
-		_horadric_stash.add_item(item)

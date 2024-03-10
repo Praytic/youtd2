@@ -51,7 +51,8 @@ func item_was_clicked_in_tower_inventory(clicked_item: Item):
 	
 	if shift_click && !in_progress():
 		var tower_container: ItemContainer = tower.get_item_container()
-		var item_stash_container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
+		var item_stash: ItemStash = get_tree().get_root().get_node("GameScene/ItemStash")
+		var item_stash_container: ItemContainer = item_stash.get_main_stash_container()
 		tower_container.remove_item(clicked_item)
 		var add_index: int = 0
 		item_stash_container.add_item(clicked_item, add_index)
@@ -66,17 +67,18 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 
 	if shift_click && !in_progress():
-		var horadric_cube_container: ItemContainer = get_tree().get_root().get_node("GameScene/HoradricStash")
-		var item_stash_container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
+		var item_stash: ItemStash = get_tree().get_root().get_node("GameScene/ItemStash")
+		var item_stash_container: ItemContainer = item_stash.get_main_stash_container()
+		var horadric_stash_container: ItemContainer = item_stash.get_horadric_stash_container()
 		
-		if !horadric_cube_container.have_item_space():
+		if !horadric_stash_container.have_item_space():
 			Messages.add_error("No space for item")
 
 			return
 			
 		item_stash_container.remove_item(clicked_item)
-		var add_index: int = horadric_cube_container.get_item_count()
-		horadric_cube_container.add_item(clicked_item, add_index)
+		var add_index: int = horadric_stash_container.get_item_count()
+		horadric_stash_container.add_item(clicked_item, add_index)
 
 #		NOTE: this is needed to prevent the click getting
 #		passed to SelectUnit which closes the tower menu
@@ -84,25 +86,26 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 
 		return
 
-	var container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
-	_item_was_clicked_in_item_container(container, clicked_item)
+	var item_stash: ItemStash = get_tree().get_root().get_node("GameScene/ItemStash")
+	var item_stash_container: ItemContainer = item_stash.get_main_stash_container()
+	_item_was_clicked_in_item_container(item_stash_container, clicked_item)
 
 
 func item_was_clicked_in_horadric_cube(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 	
-	var horadric_cube_container: ItemContainer = get_tree().get_root().get_node("GameScene/HoradricStash")
+	var item_stash: ItemStash = get_tree().get_root().get_node("GameScene/ItemStash")
+	var item_stash_container: ItemContainer = item_stash.get_main_stash_container()
+	var horadric_stash_container: ItemContainer = item_stash.get_horadric_stash_container()
 	
 	if shift_click:
-		var item_stash_container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
-
-		horadric_cube_container.remove_item(clicked_item)
+		horadric_stash_container.remove_item(clicked_item)
 		var add_index: int = 0
 		item_stash_container.add_item(clicked_item, add_index)
 
 		return
 
-	_item_was_clicked_in_item_container(horadric_cube_container, clicked_item)
+	_item_was_clicked_in_item_container(horadric_stash_container, clicked_item)
 
 
 # NOTE: add item to item stash at position 0 so that if
@@ -111,15 +114,17 @@ func item_was_clicked_in_horadric_cube(clicked_item: Item):
 # item stash. Default scroll position for item stash
 # displays the left side.
 func item_stash_was_clicked():
-	var container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
+	var item_stash: ItemStash = get_tree().get_root().get_node("GameScene/ItemStash")
+	var item_stash_container: ItemContainer = item_stash.get_main_stash_container()
 	var add_index: int = 0
-	_item_container_was_clicked(container, add_index)
+	_item_container_was_clicked(item_stash_container, add_index)
 
 
 func horadric_menu_was_clicked():
-	var container: ItemContainer = get_tree().get_root().get_node("GameScene/HoradricStash")
-	var add_index: int = container.get_item_count()
-	_item_container_was_clicked(container, add_index)
+	var item_stash: ItemStash = get_tree().get_root().get_node("GameScene/ItemStash")
+	var horadric_stash_container: ItemContainer = item_stash.get_horadric_stash_container()
+	var add_index: int = horadric_stash_container.get_item_count()
+	_item_container_was_clicked(horadric_stash_container, add_index)
 
 
 func tower_was_clicked(tower: Tower):
@@ -145,7 +150,8 @@ func cancel():
 	if is_instance_valid(_source_container) && _source_container.have_item_space():
 		_source_container.add_item(_moved_item)
 	else:
-		var item_stash_container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
+		var item_stash: ItemStash = get_tree().get_root().get_node("GameScene/ItemStash")
+		var item_stash_container: ItemContainer = item_stash.get_main_stash_container()
 		item_stash_container.add_item(_moved_item)
 
 	_end_move_process()
