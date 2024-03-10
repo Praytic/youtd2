@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1xny6jmxj5i6"]
+[gd_scene load_steps=10 format=3 uid="uid://d1xny6jmxj5i6"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_i3yfj"]
 [ext_resource type="Script" path="res://Scenes/PregameHUD/PregameHUD.gd" id="2_ljcwn"]
 [ext_resource type="PackedScene" uid="uid://cfr6nyshcgv1h" path="res://Scenes/PregameHUD/DifficultyMenu.tscn" id="3_rhl0k"]
 [ext_resource type="PackedScene" uid="uid://cn0e2tvm4c2aq" path="res://Scenes/PregameHUD/PlayerModeMenu.tscn" id="3_yn5jw"]
 [ext_resource type="PackedScene" uid="uid://clr58gw5jy8bl" path="res://Scenes/PregameHUD/GameLengthMenu.tscn" id="4_ogsgu"]
+[ext_resource type="PackedScene" uid="uid://cy7lkmvb5nk3m" path="res://Scenes/PregameHUD/CoopMenu.tscn" id="5_aems6"]
 [ext_resource type="PackedScene" uid="uid://drfy31rct5o3k" path="res://Scenes/PregameHUD/GameModeMenu.tscn" id="5_w0t1q"]
 [ext_resource type="PackedScene" uid="uid://bk4o75m1nr3cw" path="res://Scenes/PregameHUD/TutorialQuestionMenu.tscn" id="6_6h63j"]
 [ext_resource type="PackedScene" uid="uid://4dakdefm73rd" path="res://Scenes/PregameHUD/BuilderMenu.tscn" id="8_drc75"]
@@ -47,6 +48,10 @@ tabs_visible = false
 [node name="PlayerModeMenu" parent="TabContainer" instance=ExtResource("3_yn5jw")]
 layout_mode = 2
 
+[node name="CoopMenu" parent="TabContainer" instance=ExtResource("5_aems6")]
+visible = false
+layout_mode = 2
+
 [node name="GameLengthMenu" parent="TabContainer" instance=ExtResource("4_ogsgu")]
 visible = false
 layout_mode = 2
@@ -68,6 +73,7 @@ visible = false
 layout_mode = 2
 
 [connection signal="finished" from="TabContainer/PlayerModeMenu" to="." method="_on_submenu_finished"]
+[connection signal="finished" from="TabContainer/CoopMenu" to="." method="_on_submenu_finished"]
 [connection signal="finished" from="TabContainer/GameLengthMenu" to="." method="_on_submenu_finished"]
 [connection signal="finished" from="TabContainer/GameModeMenu" to="." method="_on_submenu_finished"]
 [connection signal="finished" from="TabContainer/DifficultyMenu" to="." method="_on_submenu_finished"]

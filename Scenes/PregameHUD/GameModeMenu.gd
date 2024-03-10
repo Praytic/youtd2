@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends PregameTab
 
 
 signal finished()

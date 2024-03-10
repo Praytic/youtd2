@@ -1,4 +1,4 @@
-class_name BuilderMenu extends VBoxContainer
+class_name BuilderMenu extends PregameTab
 
 
 # NOTE: the buttons for this menu are created

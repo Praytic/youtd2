@@ -1,4 +1,4 @@
-class_name DifficultyMenu extends VBoxContainer
+class_name DifficultyMenu extends PregameTab
 
 
 signal finished()
