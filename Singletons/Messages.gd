@@ -14,7 +14,7 @@ const NORMAL_FADE_DURATION: float = 2.0
 # Adds an error message to the center of the screen. Note
 # that error messages are always colored red.
 func add_error(text: String):
-	var hud: HUD = get_tree().get_root().get_node_or_null("GameScene/UI/HUD1")
+	var hud: HUD = get_tree().get_root().get_node_or_null("GameScene/UI/HUD")
 
 	if hud == null:
 		push_warning("hud is null. You can ignore this warning during game restart.")
