@@ -108,7 +108,6 @@ func set_towers(towers: Dictionary):
 
 func _add_tower_button(tower_id: int, index: int):
 	var tower_button: TowerButton = TowerButton.make(tower_id)
-	tower_button.add_to_group("tower_button")
 	_button_list.append(tower_button)
 	_tower_buttons_container.add_child(tower_button)
 	_tower_buttons_container.move_child(tower_button, index)
@@ -259,32 +258,3 @@ func _on_wave_level_changed():
 
 func _on_roll_towers_button_pressed():
 	EventBus.player_requested_to_roll_towers.emit()
-
-
-#########################
-### Setters / Getters ###
-#########################
-
-func _get_insert_index_for_tower(tower_id: int) -> int:
-	var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
-	var index: int = 0
-	var tower_buttons: Array = get_tower_buttons()
-
-	for button in tower_buttons:
-		var this_tower_id: int = button.get_tower_id()
-		var this_rarity: Rarity.enm = TowerProperties.get_rarity(this_tower_id)
-
-		if this_rarity <= rarity:
-			break
-
-		index += 1
-
-	return index
-
-
-func get_tower_buttons() -> Array:
-	return get_tree().get_nodes_in_group("tower_button")
-
-
-func get_empty_slots() -> Array:
-	return get_tree().get_nodes_in_group("empty_slot")

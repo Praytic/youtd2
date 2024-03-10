@@ -49,8 +49,6 @@ func close():
 
 func _add_item_button(item: Item, index: int):
 	var item_button: ItemButton = ItemButton.make(item)
-	item_button.add_to_group("item_button")
-
 	_item_button_list.append(item_button)
 	_item_buttons_container.add_child(item_button)
 	_item_buttons_container.move_child(item_button, index)
@@ -174,8 +172,3 @@ func _on_rarity_filter_container_filter_changed():
 
 func _on_item_type_filter_container_filter_changed():
 	_load_current_filter()
-
-
-#########################
-### Setters / Getters ###
-#########################
