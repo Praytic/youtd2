@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dj7llpr0oenw7"]
+[gd_scene load_steps=11 format=3 uid="uid://dj7llpr0oenw7"]
 
 [ext_resource type="PackedScene" uid="uid://b4giw0t33nkpi" path="res://Scenes/HUD/ButtonStatusCard.tscn" id="1_od2y8"]
+[ext_resource type="Script" path="res://Scenes/HUD/ItemsStatusCard.gd" id="2_0sjkg"]
 [ext_resource type="PackedScene" uid="uid://ngr2je0iun8h" path="res://Scenes/HUD/BottomMenuBar/ShortResourceStatusPanel.tscn" id="2_nyu6g"]
 [ext_resource type="Texture2D" uid="uid://boxxhen27xatf" path="res://Resources/Textures/UI/Icons/items_icon.tres" id="3_eblou"]
 [ext_resource type="Texture2D" uid="uid://c50etdjubvudf" path="res://Resources/Textures/UI/Icons/oils_icon.tres" id="4_eovi7"]
@@ -16,7 +17,14 @@ unicode = 105
 [sub_resource type="Shortcut" id="Shortcut_4xrdp"]
 events = [SubResource("InputEventKey_8lii1")]
 
-[node name="ItemsStatusCard" node_paths=PackedStringArray("_short_resource_status_panels") instance=ExtResource("1_od2y8")]
+[node name="ItemsStatusCard" node_paths=PackedStringArray("_items_status_panel", "_oils_status_panel", "_commons_status_panel", "_uncommons_status_panel", "_rares_status_panel", "_uniques_status_panel", "_short_resource_status_panels") instance=ExtResource("1_od2y8")]
+script = ExtResource("2_0sjkg")
+_items_status_panel = NodePath("PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel")
+_oils_status_panel = NodePath("PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel")
+_commons_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/CommonsCountPanel")
+_uncommons_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel")
+_rares_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/RaresCountPanel")
+_uniques_status_panel = NodePath("PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel")
 _short_resource_status_panels = [NodePath("PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel"), NodePath("PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/CommonsCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/RaresCountPanel"), NodePath("PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel")]
 
 [node name="ItemsCountPanel" parent="PanelContainer/HBoxContainer/VBoxContainer" index="0" instance=ExtResource("2_nyu6g")]

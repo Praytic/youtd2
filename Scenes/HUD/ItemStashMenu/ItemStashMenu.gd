@@ -8,12 +8,6 @@ extends PanelContainer
 @export var _item_type_filter_container: VBoxContainer
 @export var _item_buttons_container: UnitButtonsContainer
 
-@export var _items_status_panel: ShortResourceStatusPanel
-@export var _oils_status_panel: ShortResourceStatusPanel
-@export var _commons_status_panel: ShortResourceStatusPanel
-@export var _uncommons_status_panel: ShortResourceStatusPanel
-@export var _rares_status_panel: ShortResourceStatusPanel
-@export var _uniques_status_panel: ShortResourceStatusPanel
 @export var _menu_card: ButtonStatusCard
 @export var _backpacker_recipes: GridContainer
 @export var _horadric_menu: HoradricMenu
@@ -62,22 +56,6 @@ func _add_item_button(item: Item, index: int):
 	_item_buttons_container.move_child(item_button, index)
 
 	item_button.pressed.connect(_on_item_button_pressed.bind(item_button))
-
-
-func _update_resource_status_panels(all_item_list: Array[Item]):
-	var items_count: int = Utils.filter_item_list(all_item_list, [], [ItemType.enm.REGULAR]).size()
-	var oils_count: int = Utils.filter_item_list(all_item_list, [], [ItemType.enm.CONSUMABLE, ItemType.enm.OIL]).size()
-	var commons_count: int = Utils.filter_item_list(all_item_list, [Rarity.enm.COMMON], []).size()
-	var uncommons_count: int = Utils.filter_item_list(all_item_list, [Rarity.enm.UNCOMMON], []).size()
-	var rares_count: int = Utils.filter_item_list(all_item_list, [Rarity.enm.RARE], []).size()
-	var uniques_count: int = Utils.filter_item_list(all_item_list, [Rarity.enm.UNIQUE], []).size()
-	
-	_items_status_panel.set_count(items_count)
-	_oils_status_panel.set_count(oils_count)
-	_commons_status_panel.set_count(commons_count)
-	_uncommons_status_panel.set_count(uncommons_count)
-	_rares_status_panel.set_count(rares_count)
-	_uniques_status_panel.set_count(uniques_count)
 
 
 func _load_current_filter():
@@ -154,7 +132,6 @@ func set_items(item_list: Array[Item]):
 
 	_prev_item_list = item_list.duplicate()
 	
-	_update_resource_status_panels(item_list)
 	_load_current_filter()
 
 

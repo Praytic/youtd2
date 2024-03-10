@@ -191,16 +191,10 @@ visible = false
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="ItemStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_items_status_panel", "_oils_status_panel", "_commons_status_panel", "_uncommons_status_panel", "_rares_status_panel", "_uniques_status_panel", "_menu_card") instance=ExtResource("11_5i6a2")]
+[node name="ItemStashMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_menu_card") instance=ExtResource("11_5i6a2")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
-_items_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/VBoxContainer/ItemsCountPanel")
-_oils_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/VBoxContainer/OilsCountPanel")
-_commons_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/CommonsCountPanel")
-_uncommons_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/UncommonsCountPanel")
-_rares_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/RaresCountPanel")
-_uniques_status_panel = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard/PanelContainer/HBoxContainer/GridContainer/UniquesCountPanel")
 _menu_card = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard")
 
 [node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_menu_card") instance=ExtResource("11_gv2lk")]
