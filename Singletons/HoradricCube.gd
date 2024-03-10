@@ -2,13 +2,11 @@ extends Node
 
 
 # NOTE: implements transmutation of items. The UI for
-# horadric cube is located in ItemStashMenu scene.
+# horadric cube is located in ItemStashMenu scene. Items are
+# stored inside ItemContainer which is child of GameScene.
 # 
 # Tests for some horadric functions can be found in
 # TestHoradricTool.gd
-
-
-signal items_changed()
 
 
 # NOTE: these values must match the id's in
@@ -38,92 +36,50 @@ const _bonus_mod_chance_map: Dictionary = {
 	LEVEL_MOD_SUPER_LUCKY: 10
 }
 
-var _item_container: ItemContainer
-
-
-#########################
-###     Built-in      ###
-#########################
-
-func _ready():
-	_item_container = ItemContainer.new()
-	_item_container.set_capacity(CAPACITY)
-	add_child(_item_container)
-	_item_container.items_changed.connect(_on_item_container_items_changed)
-
 
 #########################
 ###       Public      ###
 #########################
 
-func reset():
-	_item_container.clear()
-	
-
-func get_item_container() -> ItemContainer:
-	return _item_container
-
-
 func has_recipe_ingredients(recipe: Recipe, item_list: Array[Item]) -> bool:
 	return !_get_item_list_for_autofill(recipe, item_list).is_empty()
 
 
-func can_transmute() -> bool:
-	var item_list: Array[Item] = _item_container.get_item_list()
+func can_transmute(item_list: Array[Item]) -> bool:
 	var current_recipe: Recipe = _get_current_recipe(item_list)
 	var recipe_is_valid: bool = current_recipe != Recipe.NONE
 
 	return recipe_is_valid
 
 
-# Creates new item based on the recipe and adds it to the item container.
-# Returns the message with transmutation details to the caller.
-func transmute():
-	var item_list: Array[Item] = _item_container.get_item_list()
+# Creates new item(s) based on the recipe and adds it to the
+# item container. Returns the message with transmutation
+# details to the caller.
+func transmute(item_list: Array[Item]) -> Array[Item]:
 	var current_recipe: Recipe = _get_current_recipe(item_list)
 	
 	if current_recipe == Recipe.NONE:
-		return "Change the ingredients to match an existing recipe."
+		var empty_list: Array[Item] = []
+		return empty_list
 
 	var result_item_id_list: Array[int] = _get_result_item_for_recipe(current_recipe, item_list)
 
 	if result_item_id_list.is_empty():
 		push_error("Transmute failed to generate any items, this shouldn't happen.")
+		
+		var empty_list: Array[Item] = []
+		return empty_list
 
-		return "Something went wrong..."
+	var result_list: Array[Item] = Utils.item_id_list_to_item_list(result_item_id_list)
 
-	_remove_all_items()
-
-	for item_id in result_item_id_list:
-		var result_item: Item = Item.make(item_id)
-		_item_container.add_item(result_item)
+	return result_list
 
 
-func autofill_recipe(recipe: Recipe, rarity_filter: Array = []) -> bool:
-	var item_stash_container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
-
-# 	Return current cube contents to item stash
-	var current_contents: Array[Item] = _item_container.get_item_list()
-	for item in current_contents:
-		_item_container.remove_item(item)
-		item_stash_container.add_item(item)
-
-#	Move items from item stash to cube, if there are enough
-#	items for the recipe
-	var item_list: Array[Item] = item_stash_container.get_item_list(rarity_filter)
+func autofill_recipe(all_item_list: Array[Item], recipe: Recipe, rarity_filter: Array = []) -> Array[Item]:
+	var item_list: Array[Item] = Utils.filter_item_list(all_item_list, rarity_filter)
 	var autofill_list: Array[Item] = _get_item_list_for_autofill(recipe, item_list)
-	var can_autofill: bool = !autofill_list.is_empty()
-
-	if can_autofill:
-		for item in autofill_list:
-			item_stash_container.remove_item(item)
-			_item_container.add_item(item)
-
-		return true
-	else:
-		Messages.add_error("Not enough items for recipe!")
-
-		return false
+	
+	return autofill_list
 
 
 #########################
@@ -339,14 +295,6 @@ func _get_next_rarity(rarity: Rarity.enm) -> Rarity.enm:
 		return next_rarity
 
 
-func _remove_all_items():
-	var item_list: Array[Item] = _item_container.get_item_list()
-
-	for item in item_list:
-		_item_container.remove_item(item)
-		item.queue_free()
-
-
 func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 	if item_list.is_empty():
 		return 0
@@ -375,12 +323,3 @@ func _get_random_bonus_mod() -> int:
 	var bonus_mod: int = Utils.random_weighted_pick(_bonus_mod_chance_map)
 
 	return bonus_mod
-
-
-#########################
-###     Callbacks     ###
-#########################
-
-func _on_item_container_items_changed():
-	items_changed.emit()
-

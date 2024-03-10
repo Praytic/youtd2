@@ -66,7 +66,7 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 
 	if shift_click && !in_progress():
-		var horadric_cube_container: ItemContainer = HoradricCube.get_item_container()
+		var horadric_cube_container: ItemContainer = get_tree().get_root().get_node("GameScene/HoradricStash")
 		var item_stash_container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
 		
 		if !horadric_cube_container.have_item_space():
@@ -91,8 +91,9 @@ func item_was_clicked_in_item_stash(clicked_item: Item):
 func item_was_clicked_in_horadric_cube(clicked_item: Item):
 	var shift_click: bool = Input.is_action_pressed("shift")
 	
+	var horadric_cube_container: ItemContainer = get_tree().get_root().get_node("GameScene/HoradricStash")
+	
 	if shift_click:
-		var horadric_cube_container: ItemContainer = HoradricCube.get_item_container()
 		var item_stash_container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
 
 		horadric_cube_container.remove_item(clicked_item)
@@ -101,8 +102,7 @@ func item_was_clicked_in_horadric_cube(clicked_item: Item):
 
 		return
 
-	var container: ItemContainer = HoradricCube.get_item_container()
-	_item_was_clicked_in_item_container(container, clicked_item)
+	_item_was_clicked_in_item_container(horadric_cube_container, clicked_item)
 
 
 # NOTE: add item to item stash at position 0 so that if
@@ -117,7 +117,7 @@ func item_stash_was_clicked():
 
 
 func horadric_menu_was_clicked():
-	var container: ItemContainer = get_tree().get_root().get_node("GameScene/ItemStash")
+	var container: ItemContainer = get_tree().get_root().get_node("GameScene/HoradricStash")
 	var add_index: int = container.get_item_count()
 	_item_container_was_clicked(container, add_index)
 

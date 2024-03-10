@@ -62,6 +62,10 @@ func set_items(item_list: Array[Item]):
 	_item_stash_menu.set_items(item_list)
 
 
+func set_items_for_horadric_cube(item_list: Array[Item]):
+	_item_stash_menu.set_items_for_horadric_cube(item_list)
+	
+
 #########################
 ###      Private      ###
 #########################

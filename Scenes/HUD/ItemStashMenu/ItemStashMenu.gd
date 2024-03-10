@@ -16,6 +16,7 @@ extends PanelContainer
 @export var _uniques_status_panel: ShortResourceStatusPanel
 @export var _menu_card: ButtonStatusCard
 @export var _backpacker_recipes: GridContainer
+@export var _horadric_menu: HoradricMenu
 
 var _prev_item_list: Array[Item] = []
 var _item_button_list: Array[ItemButton] = []
@@ -79,20 +80,13 @@ func _update_resource_status_panels(all_item_list: Array[Item]):
 	_uniques_status_panel.set_count(uniques_count)
 
 
-func _update_horadric_cube_recipes(item_list: Array[Item]):
-	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
-	
-	for node in recipe_buttons:
-		var recipe_button: RecipeButton = node as RecipeButton
-		var recipe: HoradricCube.Recipe = recipe_button.recipe
-		var autofill_is_possible: bool = HoradricCube.has_recipe_ingredients(recipe, item_list)
-		
-		recipe_button.disabled = !autofill_is_possible
-
-
-func _update_button_visibility():
+func _load_current_filter():
+#	Show/hide item buttons depending on whether they match
+#	current filter
 	var rarity_filter: Array = _rarity_filter_container.get_filter()
 	var item_type_filter: Array = _item_type_filter_container.get_filter()
+
+	var visible_item_list: Array[Item] = []
 
 	for item_button in _item_button_list:
 		var item: Item = item_button.get_item()
@@ -100,15 +94,27 @@ func _update_button_visibility():
 		var item_type: ItemType.enm = item.get_item_type()
 		var rarity_match: bool = rarity_filter.has(rarity) || rarity_filter.is_empty()
 		var item_type_match: bool = item_type_filter.has(item_type) || item_type_filter.is_empty()
+		var filter_match: bool = rarity_match && item_type_match
 		
-		item_button.visible = rarity_match && item_type_match
+		item_button.visible = filter_match
 
-	var visible_count: int = 0
-	for item_button in _item_button_list:
-		if item_button.visible:
-			visible_count += 1
+		if filter_match:
+			visible_item_list.append(item)
+
+	var visible_count: int = visible_item_list.size()
 
 	_item_buttons_container.update_empty_slots(visible_count)
+
+#	Enable/disable recipe buttons based on currently visible
+#	item buttons
+	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
+
+	for node in recipe_buttons:
+		var recipe_button: RecipeButton = node as RecipeButton
+		var recipe: HoradricCube.Recipe = recipe_button.recipe
+		var autofill_is_possible: bool = HoradricCube.has_recipe_ingredients(recipe, visible_item_list)
+		
+		recipe_button.disabled = !autofill_is_possible
 
 
 #########################
@@ -149,8 +155,11 @@ func set_items(item_list: Array[Item]):
 	_prev_item_list = item_list.duplicate()
 	
 	_update_resource_status_panels(item_list)
-	_update_horadric_cube_recipes(item_list)
-	_update_button_visibility()
+	_load_current_filter()
+
+
+func set_items_for_horadric_cube(item_list: Array[Item]):
+	_horadric_menu.set_items(item_list)
 
 
 func _on_item_buttons_container_gui_input(event):
@@ -161,7 +170,7 @@ func _on_item_buttons_container_gui_input(event):
 
 
 func _on_transmute_button_pressed():
-	HoradricCube.transmute()
+	EventBus.player_requested_transmute.emit()
 
 
 func _on_item_button_pressed(item_button: ItemButton):
@@ -171,7 +180,7 @@ func _on_item_button_pressed(item_button: ItemButton):
 
 func _on_recipe_button_pressed(recipe: HoradricCube.Recipe):
 	var rarity_filter: Array = _rarity_filter_container.get_filter()
-	HoradricCube.autofill_recipe(recipe, rarity_filter)
+	EventBus.player_requested_autofill.emit(recipe, rarity_filter)
 
 
 func _on_selected_backpacker_builder():
@@ -183,11 +192,11 @@ func _on_close_button_pressed():
 
 
 func _on_rarity_filter_container_filter_changed():
-	_update_button_visibility()
+	_load_current_filter()
 
 
 func _on_item_type_filter_container_filter_changed():
-	_update_button_visibility()
+	_load_current_filter()
 
 
 #########################

@@ -37,7 +37,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_horadric_stash")]
 process_mode = 3
 script = ExtResource("9")
 map_node = NodePath("Map")
@@ -49,6 +49,7 @@ _tutorial_menu = NodePath("UI/TutorialMenu")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("Camera2D")
 _item_stash = NodePath("ItemStash")
+_horadric_stash = NodePath("HoradricStash")
 
 [node name="Player" type="Node" parent="."]
 script = ExtResource("6_y63oe")
@@ -59,6 +60,10 @@ process_mode = 1
 [node name="ItemStash" type="Node" parent="."]
 script = ExtResource("4_l8y2o")
 _capacity = 1000
+
+[node name="HoradricStash" type="Node" parent="."]
+script = ExtResource("4_l8y2o")
+_capacity = 5
 
 [node name="Map" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true
@@ -145,6 +150,7 @@ process_mode = 3
 visible = false
 
 [connection signal="items_changed" from="ItemStash" to="." method="_on_item_stash_items_changed"]
+[connection signal="items_changed" from="HoradricStash" to="." method="_on_horadric_stash_items_changed"]
 [connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]

@@ -11,3 +11,5 @@ signal game_over()
 # area, this signal should be emitted.
 signal highlight_target_ack(highlight_target: String)
 signal selected_backpacker_builder()
+signal player_requested_transmute()
+signal player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array)
