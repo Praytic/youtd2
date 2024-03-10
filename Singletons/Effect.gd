@@ -33,6 +33,8 @@ func create_animated(effect_path: String, x: float, y: float, _z: float, _facing
 	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/EffectsContainer")
 	
 	if effects_container == null:
+		push_warning("effects_container is null. You can ignore this warning during game restart.")
+
 		return 0
 
 	var id: int = _create_internal(effect_path)

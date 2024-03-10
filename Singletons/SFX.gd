@@ -19,6 +19,7 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 
 	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/AudioPlayerPool")
 	if audio_player_pool == null:
+		push_warning("audio_player_pool is null. You can ignore this warning during game restart.")
 		return
 
 	var sfx_player: AudioStreamPlayer = audio_player_pool.get_sfx_player()
@@ -43,6 +44,7 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0)
 
 	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/AudioPlayerPool")
 	if audio_player_pool == null:
+		push_warning("audio_player_pool is null. You can ignore this warning during game restart.")
 		return
 
 	var sfx_player: AudioStreamPlayer2D = audio_player_pool.get_2d_sfx_player()

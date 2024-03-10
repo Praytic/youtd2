@@ -17,6 +17,8 @@ func add_object_to_world(object: Node):
 	var object_container: Node = get_tree().get_root().get_node_or_null("GameScene/ObjectContainer")
 	
 	if object_container == null:
+		push_warning("object_container is null. You can ignore this warning during game restart.")
+		
 		return
 
 	object_container.add_child(object, true)
