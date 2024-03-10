@@ -86,7 +86,7 @@ func _unhandled_input(event: InputEvent):
 func _pause_the_game():
 #	Cancel any in progress mouse actions
 	BuildTower.cancel()
-	ItemMovement.cancel()
+	_item_stash.cancel_move()
 	SelectTargetForCast.cancel()
 
 	Globals.set_game_state(Globals.GameState.PAUSED)
@@ -182,7 +182,6 @@ func _reset_singletons():
 	GameTime.reset()
 	Globals.reset()
 	GoldControl.reset()
-	ItemMovement.reset()
 	ManualAttackTarget.reset()
 	MouseState.reset()
 	PortalLives.reset()

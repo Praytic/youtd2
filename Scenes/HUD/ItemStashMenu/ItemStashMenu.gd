@@ -166,7 +166,7 @@ func _on_item_buttons_container_gui_input(event):
 	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
-		ItemMovement.item_stash_was_clicked()
+		EventBus.player_clicked_main_stash.emit()
 
 
 func _on_transmute_button_pressed():
@@ -175,7 +175,7 @@ func _on_transmute_button_pressed():
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	ItemMovement.item_was_clicked_in_item_stash(item)
+	EventBus.player_clicked_item_in_main_stash.emit(item)
 
 
 func _on_recipe_button_pressed(recipe: HoradricCube.Recipe):

@@ -16,4 +16,4 @@ func _on_items_menu_gui_input(event):
 	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
-		ItemMovement.item_stash_was_clicked()
+		EventBus.player_clicked_main_stash.emit()

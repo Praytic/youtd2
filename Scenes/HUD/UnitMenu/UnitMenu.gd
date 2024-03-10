@@ -394,7 +394,7 @@ func _on_tower_items_changed(tower: Tower):
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	ItemMovement.item_was_clicked_in_tower_inventory(item)
+	EventBus.player_clicked_item_in_tower_inventory.emit(item)
 
 
 func _on_upgrade_button_pressed():
@@ -543,7 +543,7 @@ func _on_items_container_gui_input(event):
 	var tower: Tower = get_selected_tower()
 
 	if left_click && tower != null:
-		ItemMovement.tower_was_clicked(tower)
+		EventBus.player_clicked_on_tower_inventory.emit()
 
 
 # When tower menu is closed, deselect the unit which will

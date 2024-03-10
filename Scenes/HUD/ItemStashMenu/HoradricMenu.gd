@@ -46,11 +46,11 @@ func set_items(item_list: Array[Item]):
 
 func _on_item_button_pressed(item_button: ItemButton):
 	var item: Item = item_button.get_item()
-	ItemMovement.item_was_clicked_in_horadric_cube(item)
+	EventBus.player_clicked_item_in_horadric_stash.emit(item)
 
 
 func _on_items_container_gui_input(event):
 	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
-		ItemMovement.horadric_menu_was_clicked()
+		EventBus.player_clicked_on_horadric_stash.emit()
