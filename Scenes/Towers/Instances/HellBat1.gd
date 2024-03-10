@@ -161,7 +161,7 @@ func on_autocast(_event: Event):
 
 func time_is_night() -> bool:
 	var tower: Tower = self
-	var time: float = GameTime.get_time_of_day()
+	var time: float = Utils.get_time_of_day()
 	var out: bool = time >= 18.00 || time < 6.00 || tower.get_buff_of_type(dave_darkness) != null
 
 	return out

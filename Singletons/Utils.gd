@@ -1,6 +1,31 @@
 class_name UtilsStatic extends Node
 
 
+# NOTE: Game.getGameTime() in JASS 
+func get_time() -> float:
+	var game_time: Node = get_tree().get_root().get_node_or_null("GameScene/GameTime")
+
+	if game_time == null:
+		push_warning("game_time is null. You can ignore this warning during game restart.")
+
+		return 0.0
+	
+	var time: float = game_time.get_time()
+
+	return time
+
+
+# Returns current time of day in the game world, in hours.
+# Between 0.0 and 24.0.
+# NOTE: GetFloatGameState(GAME_STATE_TIME_OF_DAY) in JASS
+func get_time_of_day() -> float:
+	var irl_seconds: float = get_time()
+	var game_world_hours: float = Constants.INITIAL_TIME_OF_DAY + irl_seconds * Constants.IRL_SECONDS_TO_GAME_WORLD_HOURS
+	var time_of_day: float = fmod(game_world_hours, 24.0)
+
+	return time_of_day
+
+
 func filter_item_list(item_list: Array[Item], rarity_filter: Array = [], type_filter: Array = []) -> Array[Item]:
 	var filtered_list: Array = item_list.filter(
 		func(item: Item) -> bool:

@@ -180,7 +180,6 @@ func _reset_singletons():
 	Effect.reset()
 	ElapsedTimer.reset()
 	ElementLevel.reset()
-	GameTime.reset()
 	Globals.reset()
 	GoldControl.reset()
 	ManualAttackTarget.reset()

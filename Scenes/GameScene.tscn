@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=21 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
 [ext_resource type="PackedScene" uid="uid://da13fj7bxtxaq" path="res://Scenes/Items/ItemStash.tscn" id="13_hhrst"]
 [ext_resource type="PackedScene" uid="uid://clk0cpjpixjsk" path="res://Scenes/Towers/TowerStash.tscn" id="15_fssku"]
+[ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -65,6 +66,9 @@ process_mode = 1
 [node name="TowerStash" parent="." instance=ExtResource("15_fssku")]
 
 [node name="AudioPlayerPool" parent="." instance=ExtResource("5_rin5y")]
+
+[node name="GameTime" type="Node" parent="."]
+script = ExtResource("16_tame0")
 
 [node name="Map" parent="." instance=ExtResource("5")]
 unique_name_in_owner = true

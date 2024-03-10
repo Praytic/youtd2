@@ -72,7 +72,7 @@ func _ready():
 	super()
 
 	_initial_scale = scale
-	_spawn_time = GameTime.get_time()
+	_spawn_time = Utils.get_time()
 
 
 func _process(delta):
@@ -580,7 +580,7 @@ func set_color(color: Color):
 
 # Returns time in seconds passed since projectile spawned.
 func get_age() -> float:
-	var current_time: float = GameTime.get_time()
+	var current_time: float = Utils.get_time()
 	var age: float = current_time - _spawn_time
 
 	return age
