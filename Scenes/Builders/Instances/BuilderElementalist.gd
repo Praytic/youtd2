@@ -2,9 +2,12 @@ extends Builder
 
 
 func _init():
-	KnowledgeTomesManager.add_knowledge_tomes(65)
-	FoodManager.modify_food_cap(20)
 	WaveLevel.changed.connect(_on_wave_level_changed)
+
+
+func apply_to_player(player: Player):
+	player.add_tomes(65)
+	player.modify_food_cap(20)
 
 
 func _get_tower_modifier() -> Modifier:

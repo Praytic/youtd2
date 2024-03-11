@@ -10,8 +10,11 @@ extends Builder
 
 
 func _init():
-	FoodManager.modify_food_cap(-20)
 	Globals._builder_allows_adjacent_towers = false
+
+
+func apply_to_player(player: Player):
+	player.modify_food_cap(-20)
 
 
 func _get_tower_modifier() -> Modifier:

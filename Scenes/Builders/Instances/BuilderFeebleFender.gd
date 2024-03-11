@@ -7,9 +7,9 @@ extends Builder
 # player can buy minor stat perks, based on player level.
 
 
-func _init():
-	GoldControl.modify_income_rate(-0.20)
-	KnowledgeTomesManager.add_knowledge_tomes(-45)
+func apply_to_player(player: Player):
+	player.modify_income_rate(-0.20)
+	player.add_tomes(-45)
 
 
 func _get_tower_modifier() -> Modifier:

@@ -65,6 +65,10 @@ func apply_effects(unit: Unit):
 ###  Override methods ###
 #########################
 
+func apply_to_player(_player: Player):
+	pass
+
+
 func _get_tower_buff() -> BuffType:
 	return null
 

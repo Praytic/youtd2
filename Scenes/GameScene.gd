@@ -11,6 +11,7 @@ class_name GameScene extends Node
 @export var _camera: Camera2D
 @export var _item_stash: ItemStash
 @export var _tower_stash: TowerStash
+@export var _player: Player
 
 
 #########################
@@ -145,6 +146,8 @@ func _transition_from_pregame_settings_state():
 	var builder_instance: Builder = Builder.create_instance(builder_id)
 	add_child(builder_instance)
 	Globals._builder_instance = builder_instance
+
+	builder_instance.apply_to_player(_player)
 
 	PregameSettings.finalized.emit()
 

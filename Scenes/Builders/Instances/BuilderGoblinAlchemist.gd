@@ -1,12 +1,9 @@
 extends Builder
 
-# TODO: implement +3 extra cube recipes
-# TODO: only wield items that match tier rarity
 
-
-func _init():
-	GoldControl.modify_income_rate(0.15)
-	GoldControl.modify_interest_rate(0.02)
+func apply_to_player(player: Player):
+	player.modify_income_rate(0.15)
+	player.modify_interest_rate(0.02)
 
 
 func _get_tower_modifier() -> Modifier:

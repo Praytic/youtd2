@@ -40,7 +40,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player")]
 process_mode = 3
 script = ExtResource("9")
 map_node = NodePath("Map")
@@ -53,6 +53,7 @@ _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("Camera2D")
 _item_stash = NodePath("ItemStash")
 _tower_stash = NodePath("TowerStash")
+_player = NodePath("Player")
 
 [node name="Player" type="Node" parent="."]
 script = ExtResource("6_y63oe")
