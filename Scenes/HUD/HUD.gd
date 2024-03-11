@@ -15,6 +15,7 @@ signal stop_wave()
 @export var _items_menu_card: ButtonStatusCard
 @export var _unit_status_menu_card: ButtonStatusCard
 @export var _bottom_menu_bar: BottomMenuBar
+@export var _top_left_menu: TopLeftMenu
 
 @onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _unit_menu]
 
@@ -75,6 +76,7 @@ func set_towers(towers: Dictionary):
 
 func set_gold(gold: float):
 	_bottom_menu_bar.set_gold(gold)
+	_top_left_menu.set_gold(gold)
 
 
 func set_tomes(tomes: int):
@@ -83,6 +85,10 @@ func set_tomes(tomes: int):
 
 func set_food(food: int, food_cap: int):
 	_bottom_menu_bar.set_food(food, food_cap)
+
+
+func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, builder_id: int):
+	_top_left_menu.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
 
 
 #########################

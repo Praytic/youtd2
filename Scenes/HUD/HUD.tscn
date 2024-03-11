@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar/BottomMenuBar.tscn" id="15_ir4hq"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_tower_menu", "_item_stash_menu", "_unit_menu", "_towers_menu_card", "_items_menu_card", "_unit_status_menu_card", "_bottom_menu_bar")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_tower_menu", "_item_stash_menu", "_unit_menu", "_towers_menu_card", "_items_menu_card", "_unit_status_menu_card", "_bottom_menu_bar", "_top_left_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,6 +40,7 @@ _towers_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/Menu
 _items_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/ItemsStatusCard")
 _unit_status_menu_card = NodePath("MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard")
 _bottom_menu_bar = NodePath("MarginContainer/All/Bottom/BottomMenuBar")
+_top_left_menu = NodePath("MarginContainer/All/Center/CenterLeft/VBoxContainer/TopLeftMenu")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

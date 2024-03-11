@@ -21,22 +21,13 @@ class_name GameStats extends VBoxContainer
 @export var _most_kills_value: Label
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _process(_delta: float):
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 
-	var game_length_string: String = _get_game_length_string()
-
-	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
-	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
-
-	var difficulty: Difficulty.enm = PregameSettings.get_difficulty()
-	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
-	
-	var settings_string: String = "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
-	
-	var builder_id: int = PregameSettings.get_builder_id()
-	var builder_name: String = BuilderProperties.get_display_name(builder_id)
-	
 # 	TODO: load score value here when scoring is implemented
 	var score: int = 0
 	var score_string: String = TowerInfo.int_format(score)
@@ -48,9 +39,6 @@ func _process(_delta: float):
 
 	var total_damage: float = Globals.get_total_damage()
 	var total_damage_string: String = TowerInfo.int_format(total_damage)
-
-	var gold: float = GoldControl.get_gold()
-	var gold_string: String = Utils.format_float(gold, 2)
 
 	var most_damage_tower: Tower = _get_most_damage_tower(tower_list)
 	var most_damage_tower_name: String = ""
@@ -84,16 +72,10 @@ func _process(_delta: float):
 		var most_kills: float = most_kills_tower.get_kills()
 		most_kills_value = TowerInfo.int_format(most_kills)
 
-	_settings_label.clear()
-	_settings_label.append_text(settings_string)
-
-	_builder_label.text = builder_name
-
 	_score_label.text = score_string
 	_lives_label.text = lives_string
 	_level_label.text = wave_level_string
 	_total_damage_label.text = total_damage_string
-	_gold_label.text = gold_string
 
 	_most_damage_tower.text = most_damage_tower_name
 	_most_damage_value.text = most_damage_value
@@ -116,11 +98,39 @@ func _process(_delta: float):
 	_most_kills_tower.set("theme_override_colors/font_color", most_kills_color)
 
 
-func _get_game_length_string() -> String:
-	var game_length: int = PregameSettings.get_wave_count()
+#########################
+###       Public      ###
+#########################
+
+func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, builder_id: int):
+	var game_length_string: String = _get_game_length_string(wave_count)
+
+	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
+
+	var difficulty_string: String = Difficulty.convert_to_colored_string(difficulty)
+	
+	var settings_string: String = "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
+
+	var builder_name: String = BuilderProperties.get_display_name(builder_id)
+
+	_settings_label.text = settings_string
+	_builder_label.text = builder_name
+
+
+func set_gold(gold: float):
+	var gold_string: String = Utils.format_float(gold, 2)
+
+	_gold_label.text = gold_string
+
+
+#########################
+###      Private      ###
+#########################
+
+func _get_game_length_string(wave_count: int) -> String:
 	var game_length_string: String
 
-	match game_length:
+	match wave_count:
 		Constants.WAVE_COUNT_TRIAL: game_length_string = "Trial"
 		Constants.WAVE_COUNT_FULL: game_length_string = "Full"
 		Constants.WAVE_COUNT_NEVERENDING: game_length_string = "Neverending"

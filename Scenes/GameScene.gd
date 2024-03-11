@@ -149,13 +149,16 @@ func _transition_from_pregame_settings_state():
 	Globals._builder_instance = builder_instance
 
 	builder_instance.apply_to_player(_player)
-
-	PregameSettings.finalized.emit()
-
+	
 	var wave_count: int = PregameSettings.get_wave_count()
 	var difficulty: Difficulty.enm = PregameSettings.get_difficulty()
-	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
 	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
+	
+	_hud.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
+	
+	PregameSettings.finalized.emit()
+	
+	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
 	var game_mode_string: String = GameMode.convert_to_string(game_mode)
 
 	Messages.add_normal("Welcome to You TD 2!")
