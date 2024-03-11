@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1xny6jmxj5i6"]
+[gd_scene load_steps=10 format=3 uid="uid://d1xny6jmxj5i6"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_i3yfj"]
 [ext_resource type="Script" path="res://Scenes/PregameHUD/PregameHUD.gd" id="2_ljcwn"]
@@ -10,11 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bk4o75m1nr3cw" path="res://Scenes/PregameHUD/TutorialQuestionMenu.tscn" id="6_6h63j"]
 [ext_resource type="PackedScene" uid="uid://4dakdefm73rd" path="res://Scenes/PregameHUD/BuilderMenu.tscn" id="8_drc75"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p47kd"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_em7ue"]
-
-[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_room_id_container")]
+[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_host_details_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +20,7 @@ grow_vertical = 2
 theme = ExtResource("1_i3yfj")
 script = ExtResource("2_ljcwn")
 _tab_container = NodePath("VBoxContainer/TabContainer")
-_room_id_container = NodePath("VBoxContainer/RoomIdContainer")
+_host_details_label = NodePath("VBoxContainer/HostDetailsLabel")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -49,30 +45,13 @@ offset_bottom = 109.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RoomIdContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HostDetailsLabel" type="Label" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-alignment = 1
-
-[node name="RoomIdLabel" type="Label" parent="VBoxContainer/RoomIdContainer"]
-layout_mode = 2
 theme_override_constants/line_spacing = 4
-text = "Room #"
+text = "Host details"
+horizontal_alignment = 1
 vertical_alignment = 2
-
-[node name="TextEdit" type="TextEdit" parent="VBoxContainer/RoomIdContainer"]
-custom_minimum_size = Vector2(80, 2.08165e-12)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_readonly_color = Color(1, 1, 1, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_p47kd")
-theme_override_styles/read_only = SubResource("StyleBoxEmpty_em7ue")
-text = "12345"
-placeholder_text = "12345"
-editable = false
-scroll_fit_content_height = true
 
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2

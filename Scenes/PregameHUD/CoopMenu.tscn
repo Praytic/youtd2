@@ -3,14 +3,14 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_yyusj"]
 [ext_resource type="Script" path="res://Scenes/PregameHUD/CoopMenu.gd" id="2_kpswb"]
 
-[node name="CoopMenu" type="VBoxContainer" node_paths=PackedStringArray("_room_id_field", "_join_room_button")]
+[node name="CoopMenu" type="VBoxContainer" node_paths=PackedStringArray("_host_address_field", "_connect_button")]
 offset_right = 377.0
 offset_bottom = 235.0
 size_flags_vertical = 0
 theme = ExtResource("1_yyusj")
 script = ExtResource("2_kpswb")
-_room_id_field = NodePath("TypeRoomIdTextEdit")
-_join_room_button = NodePath("JoinRoomButton")
+_host_address_field = NodePath("HostAddressTextEdit")
+_connect_button = NodePath("ConnectButton")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
@@ -18,23 +18,23 @@ theme_type_variation = &"LabelLarge"
 text = "COOPERATIVE"
 horizontal_alignment = 1
 
-[node name="TypeRoomIdTextEdit" type="TextEdit" parent="."]
+[node name="HostAddressTextEdit" type="TextEdit" parent="."]
 layout_mode = 2
-placeholder_text = "TYPE ROOM ID"
+placeholder_text = "127.0.0.1:8910"
 highlight_current_line = true
 scroll_fit_content_height = true
 
-[node name="JoinRoomButton" type="Button" parent="."]
+[node name="ConnectButton" type="Button" parent="."]
 layout_mode = 2
 focus_mode = 0
 disabled = true
-text = "JOIN ROOM"
+text = "JOIN"
 
-[node name="CreateRoomButton" type="Button" parent="."]
+[node name="HostButton" type="Button" parent="."]
 layout_mode = 2
 focus_mode = 0
-text = "CREATE ROOM"
+text = "HOST"
 
-[connection signal="text_changed" from="TypeRoomIdTextEdit" to="." method="_on_type_room_id_text_edit_text_changed"]
-[connection signal="pressed" from="JoinRoomButton" to="." method="_on_join_room_button_pressed"]
-[connection signal="pressed" from="CreateRoomButton" to="." method="_on_create_room_button_pressed"]
+[connection signal="text_changed" from="HostAddressTextEdit" to="." method="_on_type_room_id_text_edit_text_changed"]
+[connection signal="pressed" from="ConnectButton" to="." method="_on_join_room_button_pressed"]
+[connection signal="pressed" from="HostButton" to="." method="_on_create_room_button_pressed"]

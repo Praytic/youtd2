@@ -4,18 +4,18 @@ extends PregameTab
 signal finished()
 
 
-@export var _room_id_field: TextEdit
-@export var _join_room_button: Button
+@export var _host_address_field: TextEdit
+@export var _connect_button: Button
 
 
 func _on_join_room_button_pressed():
-	var room_id: int = _room_id_field.text as int
-	Network.set_room_id(room_id)
+	var address_details: Array = _host_address_field.text.split(":")
+	Network.connect_to_server(address_details[0], address_details[1] as int)
 	finished.emit()
 
 
 func _on_create_room_button_pressed():
-	Network.generate_room_id()
+	Network.create_server()
 	finished.emit()
 
 
@@ -24,4 +24,4 @@ func meets_condition() -> bool:
 
 
 func _on_type_room_id_text_edit_text_changed():
-	_join_room_button.disabled = _room_id_field.text.length() == 0
+	_connect_button.disabled = _host_address_field.text.split(":", false).size() != 2
