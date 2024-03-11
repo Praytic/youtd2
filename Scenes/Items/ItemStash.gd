@@ -35,12 +35,6 @@ func _ready():
 	EventBus.player_clicked_tower_inventory.connect(_on_player_clicked_tower_inventory)
 	EventBus.item_flew_to_item_stash.connect(_on_item_flew_to_item_stash)
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
-	
-	var test_item_list: Array = Config.test_item_list()
-
-	for item_id in test_item_list:
-		var item: Item = Item.make(item_id)
-		_main_stash.add_item(item)
 
 
 func _unhandled_input(event: InputEvent):
@@ -93,12 +87,8 @@ func get_items_in_horadric_stash() -> Array[Item]:
 	return _horadric_stash.get_item_list()
 
 
-func get_main_stash_container() -> ItemContainer:
-	return _main_stash
-
-
-func get_horadric_stash_container() -> ItemContainer:
-	return _horadric_stash
+func add_item_to_main_stash(item: Item):
+	_main_stash.add_item(item)
 
 
 #########################

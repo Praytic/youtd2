@@ -67,6 +67,12 @@ func _ready():
 		print("Room code: %s" % room_code)
 		Globals.room_code = room_code
 
+	var test_item_list: Array = Config.test_item_list()
+
+	for item_id in test_item_list:
+		var item: Item = Item.make(item_id)
+		_item_stash.add_item_to_main_stash(item)
+
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 
 	if show_pregame_settings_menu:
