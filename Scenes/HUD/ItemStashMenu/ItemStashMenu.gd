@@ -83,8 +83,14 @@ func _load_current_filter():
 
 #	Enable/disable recipe buttons based on currently visible
 #	item buttons
-	var recipe_buttons: Array[Node]
+	var recipe_buttons: Array[Node] = []
 	
+#	NOTE: need to check if inside tree in case
+#	_load_current_filter() somehow gets called before item
+#	stash menu gets added to the tree. In that case,
+#	get_tree() will return null and we can't proceed.
+# 
+#	TODO: investigate this. Couldn't reproduce this issue.
 	if is_inside_tree():
 		recipe_buttons = get_tree().get_nodes_in_group("recipe_buttons")
 	
