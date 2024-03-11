@@ -83,8 +83,11 @@ func _load_current_filter():
 
 #	Enable/disable recipe buttons based on currently visible
 #	item buttons
-	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
-
+	var recipe_buttons: Array[Node]
+	
+	if is_inside_tree():
+		recipe_buttons = get_tree().get_nodes_in_group("recipe_buttons")
+	
 	for node in recipe_buttons:
 		var recipe_button: RecipeButton = node as RecipeButton
 		var recipe: HoradricCube.Recipe = recipe_button.recipe
