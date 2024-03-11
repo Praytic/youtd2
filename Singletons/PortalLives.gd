@@ -18,15 +18,8 @@ func get_lives_string() -> String:
 	return lives_string
 
 
-func deal_damage(damage: float):
-	if not Config.unlimited_portal_lives():
-		_portal_lives = max(0.0, _portal_lives - damage)
-
-	if _portal_lives == 0.0 && !Globals.game_over:
-		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
-		Globals.game_over = true
-		EventBus.game_over.emit()
-
-
 func modify_portal_lives(amount: float):
-	_portal_lives += amount
+	_portal_lives = max(0.0, _portal_lives + amount)
+
+	if Config.unlimited_portal_lives() && _portal_lives == 0:
+		_portal_lives = 1

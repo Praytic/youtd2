@@ -219,31 +219,11 @@ func _calculate_current_z_index() -> int:
 		return 0
 
 
-func _reach_portal():
-	var damage_to_portal = _get_damage_to_portal()
-	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
-	var damage_done: float = get_damage_done()
-	var damage_done_string: String = Utils.format_percent(damage_done, 2)
-	var size_string: String = CreepSize.convert_to_string(_size)
-
-	if _size == CreepSize.enm.BOSS:
-		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
-	else:
-		Messages.add_normal("Failed to kill a %s" % size_string.to_upper())		
-
-	if damage_to_portal > 0:
-		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
-
-	PortalLives.deal_damage(damage_to_portal)
-
-	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
-	queue_free()
-
-
 func _move(delta):
 	var path_is_over: bool = _current_path_index >= _path.get_curve().get_point_count()
 	if path_is_over:
-		_reach_portal()
+		EventBus.creep_reached_portal.emit(self)
+		queue_free()
 
 		return
 
@@ -277,7 +257,7 @@ func _get_current_movement_angle() -> float:
 	return top_down_angle_degrees
 
 
-func _get_damage_to_portal() -> float:
+func get_damage_to_portal() -> float:
 #	NOTE: final wave boss deals full damage to portal
 	var wave_count: int = PregameSettings.get_wave_count()
 	var is_final_wave: bool = _spawn_level == wave_count

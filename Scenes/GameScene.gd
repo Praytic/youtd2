@@ -27,6 +27,7 @@ func _ready():
 	_reset_singletons()
 
 	EventBus.wave_finished.connect(_on_wave_finished)
+	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
 	GoldControl.changed.connect(_on_gold_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
 	FoodManager.changed.connect(_on_food_changed)
@@ -281,3 +282,31 @@ func _on_food_changed():
 	var food: int = FoodManager.get_current_food()
 	var food_cap: int = FoodManager.get_food_cap()
 	_hud.set_food(food, food_cap)
+
+
+func _on_creep_reached_portal(creep: Creep):
+	var damage_to_portal = creep.get_damage_to_portal()
+	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
+	var damage_done: float = creep.get_damage_done()
+	var damage_done_string: String = Utils.format_percent(damage_done, 2)
+	var creep_size: CreepSize.enm = creep.get_size()
+	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
+
+	if creep_size == CreepSize.enm.BOSS:
+		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
+	else:
+		Messages.add_normal("Failed to kill a %s" % creep_size_string.to_upper())		
+
+	if damage_to_portal > 0:
+		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
+
+	_player.get_team().modify_lives(-damage_to_portal)
+
+	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
+
+	var out_of_lives: bool = _player.get_team().get_lives_percent() == 0
+	
+	if out_of_lives && !Globals.game_over:
+		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
+		Globals.game_over = true
+		EventBus.game_over.emit()
