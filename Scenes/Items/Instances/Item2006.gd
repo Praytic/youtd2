@@ -3,4 +3,4 @@ extends Item
 
 
 func on_consume():
-	KnowledgeTomesManager.add_knowledge_tomes(8)
+	get_player().add_tomes(8)

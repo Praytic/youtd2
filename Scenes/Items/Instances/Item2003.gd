@@ -3,4 +3,4 @@ extends Item
 
 
 func on_consume():
-	FoodManager.modify_food_cap(2)
+	get_player().modify_food_cap(2)
