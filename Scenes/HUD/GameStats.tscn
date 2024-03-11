@@ -3,28 +3,170 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_fcvcc"]
 [ext_resource type="Script" path="res://Scenes/HUD/GameStats.gd" id="2_yyjiq"]
 
-[node name="GameStats" type="VBoxContainer" node_paths=PackedStringArray("_label")]
+[node name="GameStats" type="VBoxContainer" node_paths=PackedStringArray("_settings_label", "_builder_label", "_score_label", "_lives_label", "_level_label", "_total_damage_label", "_gold_label", "_most_damage_tower", "_most_damage_value", "_best_hit_tower", "_best_hit_value", "_most_exp_tower", "_most_exp_value", "_most_kills_tower", "_most_kills_value")]
 offset_right = 621.0
 offset_bottom = 348.0
 size_flags_horizontal = 0
 size_flags_vertical = 2
 theme = ExtResource("1_fcvcc")
 script = ExtResource("2_yyjiq")
-_label = NodePath("RichTextLabel")
+_settings_label = NodePath("SettingsLabel")
+_builder_label = NodePath("GridContainer/BuilderLabel")
+_score_label = NodePath("GridContainer2/ScoreLabel")
+_lives_label = NodePath("GridContainer2/LivesLabel")
+_level_label = NodePath("GridContainer2/LevelLabel")
+_total_damage_label = NodePath("GridContainer2/TotalDamageLabel")
+_gold_label = NodePath("GridContainer2/GoldLabel")
+_most_damage_tower = NodePath("GridContainer3/MostDamageTower")
+_most_damage_value = NodePath("GridContainer3/MostDamageValue")
+_best_hit_tower = NodePath("GridContainer3/BestHitTower")
+_best_hit_value = NodePath("GridContainer3/BestHitValue")
+_most_exp_tower = NodePath("GridContainer3/MostExpTower")
+_most_exp_value = NodePath("GridContainer3/MostExpValue")
+_most_kills_tower = NodePath("GridContainer3/MostKillsTower")
+_most_kills_value = NodePath("GridContainer3/MostKillsValue")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="SettingsLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 2
 theme_override_constants/table_h_separation = 20
 bbcode_enabled = true
-text = "[color=GOLD]Neverending[/color], [color=GOLD]Build[/color], [color=4169e1ff]Beginner[/color]
- 
-[color=GOLD]Builder:[/color] Builder Name
- 
-[table=5][cell][color=GOLD]Score[/color][/cell][cell][color=GOLD]Lives[/color][/cell][cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Total damage[/color][/cell][cell][color=GOLD]Gold[/color][/cell][cell]0[/cell][cell]0%[/cell][cell]2[/cell][cell]0[/cell][cell]999999[/cell][/table] 
- 
-[color=GOLD]Best Towers:[/color]
-[table=3][cell]Most Damage:[/cell][cell][/cell][cell][/cell][cell]Best Hit:[/cell][cell][/cell][cell][/cell][cell]Most Exp:[/cell][cell][/cell][cell][/cell][cell]Most Kills:[/cell][cell][/cell][cell][/cell][/table]"
+text = "[color=GOLD]Neverending[/color], [color=GOLD]Build[/color], [color=4169e1ff]Beginner[/color]"
 fit_content = true
 autowrap_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+columns = 2
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "Builder:"
+
+[node name="BuilderLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Farseer"
+
+[node name="GridContainer2" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+columns = 5
+
+[node name="Label" type="Label" parent="GridContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.839216, 0, 1)
+text = "Score"
+
+[node name="Label2" type="Label" parent="GridContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "Lives"
+
+[node name="Label3" type="Label" parent="GridContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "Level"
+
+[node name="Label4" type="Label" parent="GridContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "Total damage"
+
+[node name="Label5" type="Label" parent="GridContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "Gold"
+
+[node name="ScoreLabel" type="Label" parent="GridContainer2"]
+layout_mode = 2
+text = "0
+"
+
+[node name="LivesLabel" type="Label" parent="GridContainer2"]
+layout_mode = 2
+text = "0%
+"
+
+[node name="LevelLabel" type="Label" parent="GridContainer2"]
+layout_mode = 2
+text = "2"
+
+[node name="TotalDamageLabel" type="Label" parent="GridContainer2"]
+layout_mode = 2
+text = "0
+"
+
+[node name="GoldLabel" type="Label" parent="GridContainer2"]
+layout_mode = 2
+text = "999999
+"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "Best Towers:"
+
+[node name="GridContainer3" type="GridContainer" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+columns = 3
+
+[node name="Label" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "Most damage:"
+
+[node name="MostDamageTower" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "Tiny Shrub"
+
+[node name="MostDamageValue" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "123
+"
+
+[node name="Label3" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "Best hit:"
+
+[node name="BestHitTower" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "Tiny Shrub
+"
+
+[node name="BestHitValue" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "123
+"
+
+[node name="Label5" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "Most exp:"
+
+[node name="MostExpTower" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "Tiny Shrub"
+
+[node name="MostExpValue" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "123
+"
+
+[node name="Label7" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "Most kills:"
+
+[node name="MostKillsTower" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "Tiny Shrub"
+
+[node name="MostKillsValue" type="Label" parent="GridContainer3"]
+layout_mode = 2
+text = "123
+"
+
+[node name="Spacer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
