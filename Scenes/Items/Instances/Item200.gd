@@ -91,7 +91,7 @@ func on_attack(event: Event):
 func on_create():
 	var itm: Item = self
 	itm.user_int = 0
-	itm.user_int2 = itm.get_player().get_level()
+	itm.user_int2 = itm.get_player().get_team().get_level()
 	itm.user_real = 0
 	itm.user_real2 = 0
 
@@ -124,7 +124,7 @@ func on_tower_details() -> MultiboardValues:
 
 func periodic(_event: Event):
 	var itm: Item = self
-	var level: int = itm.get_player().get_level()
+	var level: int = itm.get_player().get_team().get_level()
 
 	if itm.user_int2 < level:
 		itm.user_int = itm.user_int - (level - itm.user_int2)

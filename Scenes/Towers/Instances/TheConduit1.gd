@@ -166,7 +166,7 @@ func on_autocast(event: Event):
 	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.TOWERS), tower, 350)
-	var cast_damage: float = (400 + 8 * tower.get_level()) * tower.get_player().get_level()
+	var cast_damage: float = (400 + 8 * tower.get_level()) * tower.get_player().get_team().get_level()
 
 	while true:
 		var next: Unit = it.next()

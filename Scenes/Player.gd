@@ -40,13 +40,6 @@ func get_team() -> Team:
 	return _team
 
 
-# NOTE: player.getLevel() in JASS
-func get_level() -> int:
-	var level: int = WaveLevel.get_current()
-
-	return level
-
-
 # NOTE: player.displayFloatingTextX() in JASS
 func display_floating_text_x(text: String, unit: Unit, color: Color, velocity: float, fadepoint: float, time: float):
 	var floating_text = Globals.floating_text_scene.instantiate()

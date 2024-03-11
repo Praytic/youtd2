@@ -134,7 +134,7 @@ func tomy_owl_pt_on_hit(projectile: Projectile, target: Unit):
 
 	var aoe_range: float = 100 + 1 * tower.get_level()
 
-	var damage: float = _stats.energyball_dmg_base + min(_stats.energyball_dmg_exp_scale * tower.get_exp(), 150.0 * tower.get_player().get_level())
+	var damage: float = _stats.energyball_dmg_base + min(_stats.energyball_dmg_exp_scale * tower.get_exp(), 150.0 * tower.get_player().get_team().get_level())
 	var immune_damage_ratio: float = _stats.dmg_ratio_for_immune + _stats.dmg_ratio_for_immune_add * tower.get_level()
 	var aoe_damage: float
 	if !target.is_immune():

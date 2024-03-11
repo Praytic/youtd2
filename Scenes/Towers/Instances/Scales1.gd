@@ -126,13 +126,13 @@ func tower_init():
 
 func on_create(_preceding: Tower):
 	var tower: Tower = self
-	i_scale_level = tower.get_player().get_level()
+	i_scale_level = tower.get_player().get_team().get_level()
 
 
 func on_attack(_event: Event):
 	var tower: Tower = self
 
-	var i: int = tower.get_player().get_level()
+	var i: int = tower.get_player().get_team().get_level()
 	var i2: = i
 
 	if i > i_scale_level:

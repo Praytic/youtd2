@@ -6,7 +6,7 @@ class_name Team
 # work on it for multiplayer.
 
 
-# NOTE: getLivesPercent() in JASS
+# NOTE: Team.getLivesPercent() in JASS
 func get_lives_percent() -> float:
 	return PortalLives.get_current()
 
@@ -17,3 +17,8 @@ func get_lives_string() -> String:
 
 func modify_lives(amount: float):
 	PortalLives.modify_portal_lives(amount)
+
+
+# NOTE: Team.getLevel() in JASS
+func get_level() -> int:
+	return WaveLevel.get_level()

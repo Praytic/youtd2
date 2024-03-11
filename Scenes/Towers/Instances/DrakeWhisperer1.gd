@@ -294,7 +294,7 @@ func feeding(tower: Tower):
 # NOTE: "refreshBuff()" in original script
 func refresh_buff(tower: Tower, damage_dealt: float):
 	var versatile_buff: Buff = tower.get_buff_of_type(ely_drake_versatile_bt)
-	var max_damage: float = 200 * tower.get_player().get_level()
+	var max_damage: float = 200 * tower.get_player().get_team().get_level()
 
 	if damage_dealt <= 0:
 		return
