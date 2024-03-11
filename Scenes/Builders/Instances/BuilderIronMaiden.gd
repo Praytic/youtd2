@@ -2,8 +2,11 @@ extends Builder
 
 
 func _init():
-	PortalLives.modify_portal_lives(50)
 	WaveLevel.changed.connect(_on_wave_level_changed)
+
+
+func apply_to_player(player: Player):
+	player.get_team().modify_lives(50)
 
 
 func _on_wave_level_changed():

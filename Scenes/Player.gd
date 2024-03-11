@@ -9,6 +9,8 @@ signal tomes_changed()
 signal food_changed()
 
 
+var _team: Team = Team.new()
+
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/FloatingTextContainer")
 
 
@@ -34,8 +36,8 @@ func get_the_player() -> Player:
 
 
 # NOTE: player.getTeam() in JASS
-func get_team() -> Player:
-	return self
+func get_team() -> Team:
+	return _team
 
 
 # NOTE: player.getLevel() in JASS

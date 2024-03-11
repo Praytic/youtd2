@@ -164,7 +164,7 @@ func cedi_valor_wewillnotfall_bt_adjust_effect(buff: Buff):
 	var caster: Unit = buff.get_caster()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var current_bonus: float = buff.user_real
-	var new_bonus: float = (100 - PortalLives.get_current()) / 100.0 * (0.5 + 0.02 * caster.get_level())
+	var new_bonus: float = (100 - get_player().get_team().get_lives_percent()) / 100.0 * (0.5 + 0.02 * caster.get_level())
 	var delta: float = new_bonus - current_bonus
 
 	if delta != 0:
