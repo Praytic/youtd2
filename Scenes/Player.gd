@@ -4,8 +4,27 @@ class_name Player extends Node
 # multiplayer purposes. 
 
 
+signal gold_changed()
+signal tomes_changed()
+signal food_changed()
+
+
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/FloatingTextContainer")
 
+
+#########################
+###     Built-in      ###
+#########################
+
+func _ready():
+	GoldControl.changed.connect(_on_gold_control_changed)
+	KnowledgeTomesManager.changed.connect(_on_tomes_manager_changed)
+	FoodManager.changed.connect(_on_food_manager_changed)
+
+
+#########################
+###       Public      ###
+#########################
 
 # TODO: not sure what the point of this f-n is. Leaving as
 # is because it's used in original scripts.
@@ -110,6 +129,10 @@ func get_gold() -> float:
 	return GoldControl.get_gold()
 
 
+func get_gold_farmed() -> float:
+	return GoldControl.get_gold_farmed()
+
+
 # NOTE: player.modifyIncomeRate in JASS
 func modify_income_rate(amount: float):
 	GoldControl.modify_income_rate(amount)
@@ -120,9 +143,81 @@ func modify_interest_rate(amount: float):
 	GoldControl.modify_interest_rate(amount)
 
 
+func add_income(level: int):
+	GoldControl.add_income(level)
+
+
+func enough_gold_for_tower(tower_id: int) -> bool:
+	return GoldControl.enough_gold_for_tower(tower_id)
+
+
+func spend_gold(amount: float):
+	GoldControl.spend_gold(amount)
+
+
+func get_tomes() -> int:
+	return KnowledgeTomesManager.get_current()
+
+
+func add_tomes(amount: int):
+	KnowledgeTomesManager.add_knowledge_tomes(amount)
+
+
+func add_tome_income():
+	KnowledgeTomesManager.add_income()
+
+
+func spend_tomes(amount: int):
+	KnowledgeTomesManager.spend(amount)
+
+
+func enough_tomes_for_tower(tower_id: int) -> bool:
+	return KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
+
+
+func enough_food_for_tower(tower_id: int) -> bool:
+	return FoodManager.enough_food_for_tower(tower_id)
+
+
+func add_food_for_tower(tower_id: int):
+	FoodManager.add_tower(tower_id)
+
+
+func remove_food_for_tower(tower_id: int):
+	FoodManager.remove_tower(tower_id)
+
+
+func modify_food_cap(amount: int):
+	FoodManager.modify_food_cap(amount)
+
+
+func get_food() -> int:
+	return FoodManager.get_current_food()
+
+
+func get_food_cap() -> int:
+	return FoodManager.get_food_cap()
+
+
 # NOTE: player.getNumTowers in JASS
 func get_num_towers() -> int:
 	var tower_list: Array = get_tree().get_nodes_in_group("towers")
 	var num_towers: int = tower_list.size()
 
 	return num_towers
+
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_gold_control_changed():
+	gold_changed.emit()
+
+
+func _on_tomes_manager_changed():
+	tomes_changed.emit()
+
+
+func _on_food_manager_changed():
+	food_changed.emit()
