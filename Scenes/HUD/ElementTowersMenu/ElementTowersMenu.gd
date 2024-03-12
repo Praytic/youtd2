@@ -106,13 +106,6 @@ func set_towers(towers: Dictionary):
 	_update_button_visibility()
 
 
-func _add_tower_button(tower_id: int, index: int):
-	var tower_button: TowerButton = TowerButton.make(tower_id)
-	_button_list.append(tower_button)
-	_tower_buttons_container.add_child(tower_button)
-	_tower_buttons_container.move_child(tower_button, index)
-
-
 func close():
 	if _menu_card.get_main_button().is_pressed():
 		_menu_card.get_main_button().set_pressed(false)
@@ -121,6 +114,13 @@ func close():
 #########################
 ###      Private      ###
 #########################
+
+func _add_tower_button(tower_id: int, index: int):
+	var tower_button: TowerButton = TowerButton.make(tower_id)
+	_button_list.append(tower_button)
+	_tower_buttons_container.add_child(tower_button)
+	_tower_buttons_container.move_child(tower_button, index)
+
 
 func _update_button_visibility():
 	var current_element = _elements_container.get_element()

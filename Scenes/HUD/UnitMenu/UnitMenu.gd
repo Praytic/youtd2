@@ -60,16 +60,16 @@ func _ready():
 		_inventory_empty_slots.add_child(empty_slot_button)
 
 
-#########################
-###       Public      ###
-#########################
-
 func _process(_delta: float):
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 
 	if selected_unit != null:
 		_update_info_label(selected_unit)
 
+
+#########################
+###       Public      ###
+#########################
 
 func close():
 	SelectUnit.set_selected_unit(null)
@@ -98,7 +98,6 @@ func get_selected_creep() -> Creep:
 #########################
 ###      Private      ###
 #########################
-
 
 func _update_unit_icon(unit: Unit):
 	if unit is Tower:

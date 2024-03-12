@@ -43,6 +43,46 @@ func close():
 		_menu_card.get_main_button().set_pressed(false)
 
 
+# NOTE: need to update buttons selectively to minimuze the
+# amount of times buttons are created/destroyed and avoid
+# perfomance issues for large item counts. A simpler
+# approach would be to remove all buttons and then go
+# through the item list and add new buttons but that causes
+# perfomance issues.
+func set_items(item_list: Array[Item]):
+# 	Remove buttons for items which were removed from stash
+	var removed_button_list: Array[ItemButton] = []
+
+	for button in _item_button_list:
+		var item: Item = button.get_item()
+		var item_was_removed: bool = !item_list.has(item)
+
+		if item_was_removed:
+			removed_button_list.append(button)
+
+	for button in removed_button_list:
+		_item_buttons_container.remove_child(button)
+		button.queue_free()
+		_item_button_list.erase(button)
+
+# 	Add buttons for items which were added to stash
+#	NOTE: preserve the same order as in the stash
+	for i in range(0, item_list.size()):
+		var item: Item = item_list[i]
+		var item_was_added: bool = !_prev_item_list.has(item)
+
+		if item_was_added:
+			_add_item_button(item, i)
+
+	_prev_item_list = item_list.duplicate()
+	
+	_load_current_filter()
+
+
+func set_items_for_horadric_cube(item_list: Array[Item]):
+	_horadric_menu.set_items(item_list)
+
+
 #########################
 ###      Private      ###
 #########################
@@ -96,46 +136,6 @@ func _load_current_filter():
 #########################
 ###     Callbacks     ###
 #########################
-
-# NOTE: need to update buttons selectively to minimuze the
-# amount of times buttons are created/destroyed and avoid
-# perfomance issues for large item counts. A simpler
-# approach would be to remove all buttons and then go
-# through the item list and add new buttons but that causes
-# perfomance issues.
-func set_items(item_list: Array[Item]):
-# 	Remove buttons for items which were removed from stash
-	var removed_button_list: Array[ItemButton] = []
-
-	for button in _item_button_list:
-		var item: Item = button.get_item()
-		var item_was_removed: bool = !item_list.has(item)
-
-		if item_was_removed:
-			removed_button_list.append(button)
-
-	for button in removed_button_list:
-		_item_buttons_container.remove_child(button)
-		button.queue_free()
-		_item_button_list.erase(button)
-
-# 	Add buttons for items which were added to stash
-#	NOTE: preserve the same order as in the stash
-	for i in range(0, item_list.size()):
-		var item: Item = item_list[i]
-		var item_was_added: bool = !_prev_item_list.has(item)
-
-		if item_was_added:
-			_add_item_button(item, i)
-
-	_prev_item_list = item_list.duplicate()
-	
-	_load_current_filter()
-
-
-func set_items_for_horadric_cube(item_list: Array[Item]):
-	_horadric_menu.set_items(item_list)
-
 
 func _on_item_buttons_container_gui_input(event):
 	var left_click: bool = event.is_action_released("left_click")

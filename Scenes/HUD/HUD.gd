@@ -90,36 +90,9 @@ func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: 
 	_top_left_menu.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
 
 
-#########################
-###      Private      ###
-#########################
-
-func _update_menus_and_cards_visibility():
-	_elements_tower_menu.visible = _towers_menu_card.get_main_button().is_pressed()
-	_item_stash_menu.visible = _items_menu_card.get_main_button().is_pressed()
-	_unit_menu.visible = _unit_status_menu_card.get_main_button().is_pressed()
-
-	if _unit_menu.visible:
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-	elif _item_stash_menu.visible:
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-	elif _elements_tower_menu.visible:
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-	else:
-		# nothing is visible
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-
-
 func show_game_start_time():
 	_top_left_menu.show_game_start_time()
+
 
 func hide_game_start_time():
 	_top_left_menu.hide_game_start_time()
@@ -151,6 +124,34 @@ func load_player_stats(player_list: Array[Player]):
 
 func set_game_time(time: float):
 	_top_left_menu.set_game_time(time)
+
+
+#########################
+###      Private      ###
+#########################
+
+func _update_menus_and_cards_visibility():
+	_elements_tower_menu.visible = _towers_menu_card.get_main_button().is_pressed()
+	_item_stash_menu.visible = _items_menu_card.get_main_button().is_pressed()
+	_unit_menu.visible = _unit_status_menu_card.get_main_button().is_pressed()
+
+	if _unit_menu.visible:
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+	elif _item_stash_menu.visible:
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+	elif _elements_tower_menu.visible:
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
+		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
+	else:
+		# nothing is visible
+		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
+		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 
 
 #########################

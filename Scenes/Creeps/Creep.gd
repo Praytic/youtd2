@@ -101,6 +101,38 @@ func _process(delta):
 ###       Public      ###
 #########################
 
+func get_damage_to_portal() -> float:
+#	NOTE: final wave boss deals full damage to portal
+	var wave_count: int = PregameSettings.get_wave_count()
+	var is_final_wave: bool = _spawn_level == wave_count
+
+	if is_final_wave:
+		return 100.0
+
+	if _size == CreepSize.enm.CHALLENGE_MASS || _size == CreepSize.enm.CHALLENGE_BOSS:
+		return 0
+
+	var damage_done: float = get_damage_done()
+
+	var type_multiplier: float = CreepSize.get_portal_damage_multiplier(_size)
+
+	var damage_done_power: float
+	if _size == CreepSize.enm.BOSS:
+		damage_done_power = 4
+	else:
+		damage_done_power = 5
+
+	var damage_reduction_from_hp_ratio: float = (1 - pow(damage_done, damage_done_power))
+	var damage_to_portal: float = 2.5 * type_multiplier * damage_reduction_from_hp_ratio
+
+# 	NOTE: flock creeps deal half damage to portal
+	var has_flock_special: bool = WaveSpecial.creep_has_flock_special(self)
+	if has_flock_special:
+		damage_to_portal *= 0.5
+
+	return damage_to_portal
+
+
 func add_special_icon(special_icon: TextureRect):
 	_specials_icon_container.add_child(special_icon)
 
@@ -255,38 +287,6 @@ func _get_current_movement_angle() -> float:
 	var top_down_angle_degrees: float = rad_to_deg(top_down_angle_radians)
 
 	return top_down_angle_degrees
-
-
-func get_damage_to_portal() -> float:
-#	NOTE: final wave boss deals full damage to portal
-	var wave_count: int = PregameSettings.get_wave_count()
-	var is_final_wave: bool = _spawn_level == wave_count
-
-	if is_final_wave:
-		return 100.0
-
-	if _size == CreepSize.enm.CHALLENGE_MASS || _size == CreepSize.enm.CHALLENGE_BOSS:
-		return 0
-
-	var damage_done: float = get_damage_done()
-
-	var type_multiplier: float = CreepSize.get_portal_damage_multiplier(_size)
-
-	var damage_done_power: float
-	if _size == CreepSize.enm.BOSS:
-		damage_done_power = 4
-	else:
-		damage_done_power = 5
-
-	var damage_reduction_from_hp_ratio: float = (1 - pow(damage_done, damage_done_power))
-	var damage_to_portal: float = 2.5 * type_multiplier * damage_reduction_from_hp_ratio
-
-# 	NOTE: flock creeps deal half damage to portal
-	var has_flock_special: bool = WaveSpecial.creep_has_flock_special(self)
-	if has_flock_special:
-		damage_to_portal *= 0.5
-
-	return damage_to_portal
 
 
 func _get_creep_animation() -> String:

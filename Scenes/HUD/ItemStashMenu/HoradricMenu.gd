@@ -22,12 +22,8 @@ func _ready():
 
 
 #########################
-###     Callbacks     ###
+###       Public      ###
 #########################
-
-func _on_items_container_child_entered_tree(node):
-	node.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
-
 
 func set_items(item_list: Array[Item]):
 #	Clear current buttons
@@ -42,6 +38,13 @@ func set_items(item_list: Array[Item]):
 	
 	var can_transmute: bool = HoradricCube.can_transmute(item_list)
 	_transmute_button.set_disabled(!can_transmute)
+
+#########################
+###     Callbacks     ###
+#########################
+
+func _on_items_container_child_entered_tree(node):
+	node.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)
 
 
 func _on_item_button_pressed(item_button: ItemButton):

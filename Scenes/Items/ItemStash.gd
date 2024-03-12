@@ -56,7 +56,6 @@ func _unhandled_input(event: InputEvent):
 ###       Public      ###
 #########################
 
-
 func cancel_move():
 	if !_move_in_progress():
 		return
