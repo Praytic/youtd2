@@ -16,6 +16,7 @@ class_name GameScene extends Node
 @export var _next_wave_timer: Timer
 @export var _extreme_timer: Timer
 @export var _game_time: GameTime
+@export var _object_container: Node2D
 
 
 var _built_at_least_one_tower: bool = false
@@ -313,6 +314,16 @@ func _on_settings_changed():
 
 
 func _on_pause_hud_restart_pressed():
+#	NOTE: need to remove all units before restarting the
+#	game to avoid issues with creeps emitting tree_exit()
+#	signals, triggering wave_finished() signal and then
+#	accessing Messages while HUD was already removed from
+#	the tree.
+	while _object_container.get_child_count() > 0:
+		for child in _object_container.get_children():
+			_object_container.remove_child(child)
+			child.queue_free()
+	
 	get_tree().reload_current_scene()
 
 

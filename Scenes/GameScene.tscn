@@ -40,7 +40,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container")]
 process_mode = 3
 script = ExtResource("9")
 map_node = NodePath("World/Map")
@@ -58,6 +58,7 @@ _game_start_timer = NodePath("GameStartTimer")
 _next_wave_timer = NodePath("NextWaveTimer")
 _extreme_timer = NodePath("ExtremeTimer")
 _game_time = NodePath("GameTime")
+_object_container = NodePath("World/ObjectContainer")
 
 [node name="GameStartTimer" type="Timer" parent="."]
 process_mode = 1
