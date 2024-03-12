@@ -9,7 +9,7 @@ const POINT_COUNT: int = 100
 @export var radius: float
 @export var enable_floor_collisions: bool = true
 @export var color: Color
-@onready var _map = get_tree().get_root().get_node("GameScene/Map")
+@onready var _map = get_tree().get_root().get_node("GameScene/World/Map")
 
 # NOTE: y_offset is used by TowerPreview to draw range
 # indicator at an offset so that it's at same y coord as the

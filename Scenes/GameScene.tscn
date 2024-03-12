@@ -43,14 +43,14 @@ shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 [node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time")]
 process_mode = 3
 script = ExtResource("9")
-map_node = NodePath("Map")
+map_node = NodePath("World/Map")
 _pregame_hud = NodePath("UI/PregameHUD")
 _pause_hud = NodePath("UI/PauseHUD")
 _hud = NodePath("UI/HUD")
 _wave_spawner = NodePath("WaveSpawner")
 _tutorial_menu = NodePath("UI/TutorialMenu")
 _ui_canvas_layer = NodePath("UI")
-_camera = NodePath("Camera2D")
+_camera = NodePath("World/Camera2D")
 _item_stash = NodePath("ItemStash")
 _tower_stash = NodePath("TowerStash")
 _player = NodePath("Player")
@@ -86,11 +86,14 @@ process_mode = 1
 process_mode = 1
 script = ExtResource("16_tame0")
 
-[node name="Map" parent="." instance=ExtResource("5")]
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Map" parent="World" instance=ExtResource("5")]
 unique_name_in_owner = true
 process_mode = 1
 
-[node name="CreepPathGround" type="Path2D" parent="." groups=["wave_path"]]
+[node name="CreepPathGround" type="Path2D" parent="World" groups=["wave_path"]]
 process_mode = 1
 z_index = 999
 curve = SubResource("1")
@@ -103,27 +106,27 @@ z_points = {
 12: 30
 }
 
-[node name="CreepPathAir" type="Path2D" parent="." groups=["wave_path"]]
+[node name="CreepPathAir" type="Path2D" parent="World" groups=["wave_path"]]
 process_mode = 1
 z_index = 999
 curve = SubResource("Curve2D_72x3r")
 script = ExtResource("3_abrkq")
 is_air = true
 
-[node name="ObjectContainer" type="Node2D" parent="."]
+[node name="ObjectContainer" type="Node2D" parent="World"]
 process_mode = 1
 z_index = 10
 y_sort_enabled = true
 
-[node name="EffectsContainer" type="Node2D" parent="."]
+[node name="EffectsContainer" type="Node2D" parent="World"]
 process_mode = 1
 z_index = 100
 
-[node name="FloatingTextContainer" type="Node2D" parent="."]
+[node name="FloatingTextContainer" type="Node2D" parent="World"]
 process_mode = 1
 z_index = 1000
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="World"]
 unique_name_in_owner = true
 process_mode = 1
 z_index = 1000

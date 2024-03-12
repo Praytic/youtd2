@@ -30,7 +30,7 @@ func reset():
 # NOTE: effect must be an AnimatedSprite2D scene
 # NOTE: Effect.createAnimated() in JASS
 func create_animated(effect_path: String, x: float, y: float, _z: float, _facing: float) -> int:
-	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/EffectsContainer")
+	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
 	
 	if effects_container == null:
 		push_warning("effects_container is null. You can ignore this warning during game restart.")

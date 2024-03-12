@@ -220,7 +220,7 @@ func _can_start_moving() -> bool:
 # Return item to stash with a flying animation so player
 # understands what is happening.
 func _return_item_to_stash():
-	var map: Map = get_tree().get_root().get_node("GameScene/Map")
+	var map: Map = get_tree().get_root().get_node("GameScene/World/Map")
 	var drop_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 
 	remove_child(_moved_item)

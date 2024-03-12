@@ -2,7 +2,7 @@ class_name TowerPreview
 extends Node2D
 
 
-@onready var _map = get_tree().get_root().get_node("GameScene/Map")
+@onready var _map = get_tree().get_root().get_node("GameScene/World/Map")
 
 
 const opaque_red := Color(1, 0, 0, 0.5)

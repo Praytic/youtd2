@@ -11,7 +11,7 @@ signal food_changed()
 
 var _team: Team = Team.new()
 
-@onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/FloatingTextContainer")
+@onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/World/FloatingTextContainer")
 
 
 #########################

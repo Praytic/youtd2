@@ -39,7 +39,7 @@ func filter_item_list(item_list: Array[Item], rarity_filter: Array = [], type_fi
 
 
 func add_object_to_world(object: Node):
-	var object_container: Node = get_tree().get_root().get_node_or_null("GameScene/ObjectContainer")
+	var object_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/ObjectContainer")
 	
 	if object_container == null:
 		push_warning("object_container is null. You can ignore this warning during game restart.")
@@ -70,7 +70,7 @@ func make_rich_text_tooltip(for_text: String) -> RichTextLabel:
 
 # NOTE: point should be isometric
 func is_point_on_creep_path(point: Vector2) -> bool:
-	var creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/CreepPathGround")
+	var creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/World/CreepPathGround")
 	var curve: Curve2D = creep_path_ground.curve
 
 	var min_distance: float = 10000.0

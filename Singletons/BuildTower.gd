@@ -109,7 +109,7 @@ func _get_tower_at_position(visual_position: Vector2) -> Tower:
 
 func _try_to_build():
 	var tower_id: int = _tower_preview.tower_id
-	var map: Map = get_tree().get_root().get_node("GameScene/Map")
+	var map: Map = get_tree().get_root().get_node("GameScene/World/Map")
 	var can_build: bool = map.can_build_at_mouse_pos()
 	var can_transform: bool = map.can_transform_at_mouse_pos()
 	var mouse_pos: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
@@ -167,7 +167,7 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 
 func _build_tower(tower_id: int):
 	var new_tower: Tower = TowerManager.get_tower(tower_id)
-	var map: Map = get_tree().get_root().get_node("GameScene/Map")
+	var map: Map = get_tree().get_root().get_node("GameScene/World/Map")
 	var visual_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	new_tower.position = build_position

@@ -24,7 +24,7 @@ func _unhandled_input(event: InputEvent):
 	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
-		var map: Map = get_tree().get_root().get_node("GameScene/Map")
+		var map: Map = get_tree().get_root().get_node("GameScene/World/Map")
 		var target_pos: Vector2 = map.get_local_mouse_position()
 		var cast_success: bool = _autocast.do_cast_manually_finish_for_point(target_pos)
 
