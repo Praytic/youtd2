@@ -154,6 +154,10 @@ func set_lives(lives: float):
 	_top_left_menu.set_lives(lives)
 
 
+func set_total_damage(total_damage: float):
+	_wave_status.set_total_damage(total_damage)
+
+
 #########################
 ###     Callbacks     ###
 #########################

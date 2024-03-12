@@ -10,6 +10,7 @@ signal food_changed()
 
 
 var _team: Team = Team.new()
+var _total_damage: float = 0
 
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/World/FloatingTextContainer")
 
@@ -200,6 +201,14 @@ func get_num_towers() -> int:
 	var num_towers: int = tower_list.size()
 
 	return num_towers
+
+
+func add_to_total_damage(damage: float):
+	_total_damage += damage
+
+
+func get_total_damage() -> float:
+	return _total_damage
 
 
 #########################

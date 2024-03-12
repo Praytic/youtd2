@@ -98,6 +98,11 @@ func _ready():
 		_transition_from_pregame_settings_state()
 
 
+func _process(_delta: float):
+	var total_damage: float = _player.get_total_damage()
+	_hud.update_total_damage(total_damage)
+
+
 func _unhandled_input(event: InputEvent):
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
 	var cancel_consumed_by_mouse_action: bool = MouseState.get_state() != MouseState.enm.NONE

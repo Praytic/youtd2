@@ -878,7 +878,7 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 
 	CombatLog.log_damage(self, target, damage_source, damage, crit_count)
 
-	Globals.add_to_total_damage(damage)
+	get_player().add_to_total_damage(damage)
 
 	_add_floating_text_for_damage(damage, crit_count, damage_source, is_main_target, target)
 

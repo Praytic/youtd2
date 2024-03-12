@@ -32,7 +32,6 @@ const special_container: PackedScene = preload("res://Scenes/HUD/UnitMenu/Specia
 
 
 var game_over: bool
-var _total_damage: float
 var room_code: String
 var _game_state: GameState
 var _builder_instance: Builder
@@ -44,19 +43,10 @@ var _builder_allows_adjacent_towers: bool
 
 func reset():
 	game_over = false
-	_total_damage = 0
 	_builder_range_bonus = 0
 	_builder_tower_lvl_bonus = 0
 	_builder_item_slots_bonus = 0
 	_builder_allows_adjacent_towers = true
-
-
-func add_to_total_damage(amount: float):
-	_total_damage += amount
-
-
-func get_total_damage() -> float:
-	return _total_damage
 
 
 func set_game_state(value: GameState):
