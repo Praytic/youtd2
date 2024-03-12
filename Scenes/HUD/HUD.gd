@@ -76,7 +76,6 @@ func set_towers(towers: Dictionary):
 
 func set_gold(gold: float):
 	_bottom_menu_bar.set_gold(gold)
-	_top_left_menu.set_gold(gold)
 
 
 func set_tomes(tomes: int):
@@ -146,28 +145,12 @@ func disable_next_wave_button():
 	_top_left_menu.disable_next_wave_button()
 
 
-func set_level(level: int):
-	_top_left_menu.set_level(level)
-
-
-func set_lives(lives: float):
-	_top_left_menu.set_lives(lives)
-
-
-func set_total_damage(total_damage: float):
-	_top_left_menu.set_total_damage(total_damage)
+func load_player_stats(player_list: Array[Player]):
+	_top_left_menu.load_player_stats(player_list)
 
 
 func set_game_time(time: float):
 	_top_left_menu.set_game_time(time)
-
-
-func set_gold_farmed(gold_farmed: float):
-	_top_left_menu.set_gold_farmed(gold_farmed)
-
-
-func set_score(score: int):
-	_top_left_menu.set_score(score)
 
 
 #########################

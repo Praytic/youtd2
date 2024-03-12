@@ -42,7 +42,6 @@ func _ready():
 	GoldControl.changed.connect(_on_gold_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
 	FoodManager.changed.connect(_on_food_changed)
-	_player.get_team().lives_changed.connect(_on_lives_changed)
 	
 #	Load initial values
 	_on_gold_changed()
@@ -67,9 +66,6 @@ func _ready():
 			return
 		else:
 			push_error("config/run_prerender_tool is enabled by mistake. Skipping prerender because this is a Web build.")
-	
-	var initial_lives: float = _player.get_team().get_lives_percent()
-	_hud.set_lives(initial_lives)
 
 # 	NOTE: this is where normal gameplay starts
 	Settings.changed.connect(_on_settings_changed)
@@ -100,19 +96,11 @@ func _ready():
 
 # NOTE: these stats are constantly changing and might even change multiple times per frame so we need to update them in _process instead of via signals
 func _process(_delta: float):
-	var total_damage: float = _player.get_total_damage()
-	_hud.set_total_damage(total_damage)
+	_hud.load_player_stats([_player])
 
 	var game_time: float = Utils.get_time()
 	_hud.set_game_time(game_time)
 	
-	var gold_farmed: float = _player.get_gold_farmed()
-	_hud.set_gold_farmed(gold_farmed)
-
-#	TODO: load real score when it's implemented
-	var score: int = 0
-	_hud.set_score(score)
-
 
 func _unhandled_input(event: InputEvent):
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
@@ -271,8 +259,6 @@ func _start_next_wave():
 
 	_player.get_team().increment_level()
 	var level: int = _player.get_team().get_level()
-
-	_hud.set_level(level)
 
 	var next_waves: Array[Wave] = _get_next_5_waves()
 	_hud.show_wave_details(next_waves)
@@ -461,8 +447,3 @@ func _on_next_wave_timer_timeout():
 
 func _on_tower_created(_tower: Tower):
 	_built_at_least_one_tower = true
-
-
-func _on_lives_changed():
-	var lives: float = _player.get_team().get_lives_percent()
-	_hud.set_lives(lives)

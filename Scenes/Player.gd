@@ -29,6 +29,17 @@ func _ready():
 ###       Public      ###
 #########################
 
+
+# TODO: return actual name
+func get_player_name() -> String:
+	return "Player"
+
+
+# TODO: return actual score
+func get_score() -> int:
+	return 0
+
+
 # TODO: not sure what the point of this f-n is. Leaving as
 # is because it's used in original scripts.
 # NOTE: Item.getThePlayer() in JASS

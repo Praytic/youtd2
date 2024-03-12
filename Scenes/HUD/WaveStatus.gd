@@ -109,16 +109,6 @@ func show_wave_details(wave_list: Array[Wave]):
 	_label.append_text(text)
 
 
-func set_lives(lives: float):
-	var lives_string: String = Utils.format_percent(floori(lives) / 100.0, 2)
-	_lives_label.text = lives_string
-
-
-func set_total_damage(total_damage: float):
-	var total_damage_string: String = TowerInfo.int_format(floori(total_damage))
-	_total_damage_label.text = total_damage_string
-
-
 func set_game_time(time: float):
 	var time_hours: int = floori(time / 3600)
 	var time_minutes: int = floori((time - time_hours * 3600) / 60)
@@ -131,18 +121,30 @@ func set_game_time(time: float):
 	_game_time_label.text = time_string
 
 
-func set_score(score: int):
-	var score_string: String = TowerInfo.int_format(score)
-	_score_label.text = score_string
-
-
-func set_gold_farmed(gold_farmed: float):
+func load_player_stats(player_list: Array[Player]):
+	if player_list.is_empty():
+		return
+	
+#	TODO: when there are multiple players need to get the player which owns the current game client
+	var player: Player = player_list[0]
+	
+	var gold_farmed: float = player.get_gold()
 	var gold_farmed_string: String = TowerInfo.int_format(floori(gold_farmed))
 	_gold_farmed_label.text = gold_farmed_string
 
-
-func set_level(level: int):
+	var level: int = player.get_team().get_level()
 	_level_label.text = str(level)
+	
+	var total_damage: float = player.get_total_damage()
+	var total_damage_string: String = TowerInfo.int_format(floori(total_damage))
+	_total_damage_label.text = total_damage_string
+	
+	var lives_string: String = player.get_team().get_lives_string()
+	_lives_label.text = lives_string
+
+	var score: int = player.get_score()
+	var score_string: String = TowerInfo.int_format(score)
+	_score_label.text = score_string
 
 
 #########################

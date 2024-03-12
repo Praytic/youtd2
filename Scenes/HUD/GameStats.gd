@@ -5,11 +5,7 @@ class_name GameStats extends VBoxContainer
 
 @export var _builder_label: Label
 
-@export var _score_label: Label
-@export var _lives_label: Label
-@export var _level_label: Label
-@export var _total_damage_label: Label
-@export var _gold_label: Label
+@export var _player_stats_label: RichTextLabel
 
 @export var _most_damage_tower: Label
 @export var _most_damage_value: Label
@@ -100,29 +96,35 @@ func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: 
 	_builder_label.text = builder_name
 
 
-func set_gold(gold: float):
-	var gold_string: String = Utils.format_float(gold, 2)
+func load_player_stats(player_list: Array[Player]):
+	var text: String = ""
 
-	_gold_label.text = gold_string
+	text += "[table=6]"
+	text += "[cell][color=GOLD]Name[/color][/cell][cell][color=GOLD]Score[/color][/cell][cell][color=GOLD]Lives[/color][/cell][cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Total damage[/color][/cell][cell][color=GOLD]Gold[/color][/cell]"
 
+	for player in player_list:
+		var player_name: String = player.get_player_name()
 
-func set_level(level: int):
-	_level_label.text = str(level)
+		var score: int = player.get_score()
+		var score_string: String = TowerInfo.int_format(score)
 
+		var lives_string: String = player.get_team().get_lives_string()
 
-func set_score(score: int):
-	var score_string: String = TowerInfo.int_format(score)
-	_score_label.text = score_string
+		var wave_level: float = player.get_team().get_level()
+		var wave_level_string: String = str(wave_level)
 
+		var total_damage: float = player.get_total_damage()
+		var total_damage_string: String = TowerInfo.int_format(total_damage)
 
-func set_lives(lives: float):
-	var lives_string: String = Utils.format_percent(floori(lives) / 100.0, 2)
-	_lives_label.text = lives_string
+		var gold: float = player.get_gold()
+		var gold_string: String = Utils.format_float(gold, 2)
+		
+		text += "[cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell][cell]%s[/cell]" % [player_name, score_string, lives_string, wave_level_string, total_damage_string, gold_string]
 
-
-func set_total_damage(total_damage: float):
-	var total_damage_string: String = TowerInfo.int_format(total_damage)
-	_total_damage_label.text = total_damage_string
+	text += "[/table]"
+	
+	_player_stats_label.clear()
+	_player_stats_label.append_text(text)
 
 
 #########################

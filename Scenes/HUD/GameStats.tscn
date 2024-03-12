@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_fcvcc"]
 [ext_resource type="Script" path="res://Scenes/HUD/GameStats.gd" id="2_yyjiq"]
 
-[node name="GameStats" type="VBoxContainer" node_paths=PackedStringArray("_settings_label", "_builder_label", "_score_label", "_lives_label", "_level_label", "_total_damage_label", "_gold_label", "_most_damage_tower", "_most_damage_value", "_best_hit_tower", "_best_hit_value", "_most_exp_tower", "_most_exp_value", "_most_kills_tower", "_most_kills_value")]
+[node name="GameStats" type="VBoxContainer" node_paths=PackedStringArray("_settings_label", "_builder_label", "_player_stats_label", "_most_damage_tower", "_most_damage_value", "_best_hit_tower", "_best_hit_value", "_most_exp_tower", "_most_exp_value", "_most_kills_tower", "_most_kills_value")]
 offset_right = 621.0
 offset_bottom = 348.0
 size_flags_horizontal = 0
@@ -12,11 +12,7 @@ theme = ExtResource("1_fcvcc")
 script = ExtResource("2_yyjiq")
 _settings_label = NodePath("SettingsLabel")
 _builder_label = NodePath("GridContainer/BuilderLabel")
-_score_label = NodePath("GridContainer2/ScoreLabel")
-_lives_label = NodePath("GridContainer2/LivesLabel")
-_level_label = NodePath("GridContainer2/LevelLabel")
-_total_damage_label = NodePath("GridContainer2/TotalDamageLabel")
-_gold_label = NodePath("GridContainer2/GoldLabel")
+_player_stats_label = NodePath("PlayerStatsLabel")
 _most_damage_tower = NodePath("GridContainer3/MostDamageTower")
 _most_damage_value = NodePath("GridContainer3/MostDamageValue")
 _best_hit_tower = NodePath("GridContainer3/BestHitTower")
@@ -50,59 +46,13 @@ text = "Builder:"
 layout_mode = 2
 text = "Farseer"
 
-[node name="GridContainer2" type="GridContainer" parent="."]
+[node name="PlayerStatsLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
-theme_override_constants/h_separation = 20
-columns = 5
-
-[node name="Label" type="Label" parent="GridContainer2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.839216, 0, 1)
-text = "Score"
-
-[node name="Label2" type="Label" parent="GridContainer2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.84, 0, 1)
-text = "Lives"
-
-[node name="Label3" type="Label" parent="GridContainer2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.84, 0, 1)
-text = "Level"
-
-[node name="Label4" type="Label" parent="GridContainer2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.84, 0, 1)
-text = "Total damage"
-
-[node name="Label5" type="Label" parent="GridContainer2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.84, 0, 1)
-text = "Gold"
-
-[node name="ScoreLabel" type="Label" parent="GridContainer2"]
-layout_mode = 2
-text = "0
-"
-
-[node name="LivesLabel" type="Label" parent="GridContainer2"]
-layout_mode = 2
-text = "0%
-"
-
-[node name="LevelLabel" type="Label" parent="GridContainer2"]
-layout_mode = 2
-text = "2"
-
-[node name="TotalDamageLabel" type="Label" parent="GridContainer2"]
-layout_mode = 2
-text = "0
-"
-
-[node name="GoldLabel" type="Label" parent="GridContainer2"]
-layout_mode = 2
-text = "999999
-"
+theme_override_constants/table_h_separation = 20
+text = "Player stats go here"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
