@@ -252,6 +252,8 @@ func _start_next_wave():
 	_player.get_team().increment_level()
 	var level: int = _player.get_team().get_level()
 
+	_hud.update_level(level)
+
 	var next_waves: Array[Wave] = _get_next_5_waves()
 	_hud.show_wave_details(next_waves)
 	

@@ -34,9 +34,6 @@ func _process(_delta: float):
 
 	var lives_string: String = PortalLives.get_lives_string()
 
-	var wave_level: float = WaveLevel.get_current()
-	var wave_level_string: String = str(wave_level)
-
 	var total_damage: float = Globals.get_total_damage()
 	var total_damage_string: String = TowerInfo.int_format(total_damage)
 
@@ -74,7 +71,6 @@ func _process(_delta: float):
 
 	_score_label.text = score_string
 	_lives_label.text = lives_string
-	_level_label.text = wave_level_string
 	_total_damage_label.text = total_damage_string
 
 	_most_damage_tower.text = most_damage_tower_name
@@ -121,6 +117,10 @@ func set_gold(gold: float):
 	var gold_string: String = Utils.format_float(gold, 2)
 
 	_gold_label.text = gold_string
+
+
+func update_level(level: int):
+	_level_label.text = str(level)
 
 
 #########################

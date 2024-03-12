@@ -38,4 +38,7 @@ func show_wave_details(wave_list: Array[Wave]):
 
 func disable_next_wave_button():
 	_wave_status.disable_next_wave_button()
-	
+
+
+func update_level(level: int):
+	_game_stats.update_level(level)

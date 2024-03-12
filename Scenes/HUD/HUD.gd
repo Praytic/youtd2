@@ -146,6 +146,10 @@ func disable_next_wave_button():
 	_top_left_menu.disable_next_wave_button()
 
 
+func update_level(level: int):
+	_top_left_menu.update_level(level)
+
+
 #########################
 ###     Callbacks     ###
 #########################
