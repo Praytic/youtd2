@@ -11,14 +11,13 @@ unicode = 110
 [sub_resource type="Shortcut" id="Shortcut_u7iub"]
 events = [SubResource("InputEventKey_srlh2")]
 
-[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_start_game_button", "_start_next_wave_button", "_display_timer", "_level_label", "_game_start_time_container", "_game_start_time_label", "_next_wave_time_container", "_next_wave_time_label")]
+[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_start_game_button", "_start_next_wave_button", "_display_timer", "_level_label", "_game_start_time_container", "_game_start_time_label", "_next_wave_time_container", "_next_wave_time_label", "_score_label", "_lives_label", "_game_time_label", "_total_damage_label", "_gold_farmed_label")]
 custom_minimum_size = Vector2(650, 0)
 offset_right = 600.0
 offset_bottom = 134.0
 theme = ExtResource("1_3h6gw")
 script = ExtResource("2_fsc15")
 _label = NodePath("DetailsLabel")
-_stats_label = NodePath("HBoxContainer2/StatsLabel")
 _start_game_button = NodePath("HBoxContainer2/StartGameButton")
 _start_next_wave_button = NodePath("HBoxContainer2/StartNextWaveButton")
 _display_timer = NodePath("DisplayTimer")
@@ -27,6 +26,11 @@ _game_start_time_container = NodePath("HBoxContainer/GameStartTimeContainer")
 _game_start_time_label = NodePath("HBoxContainer/GameStartTimeContainer/GameStartTimeLabel")
 _next_wave_time_container = NodePath("HBoxContainer/NextWaveTimeContainer")
 _next_wave_time_label = NodePath("HBoxContainer/NextWaveTimeContainer/NextWaveTimeLabel")
+_score_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer/ScoreLabel")
+_lives_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer/LivesLabel")
+_game_time_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer/GameTimeLabel")
+_total_damage_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer2/TotalDamageLabel")
+_gold_farmed_label = NodePath("HBoxContainer2/VBoxContainer/HBoxContainer2/GoldFarmedLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -79,17 +83,59 @@ hint_underlined = false
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="StatsLabel" type="RichTextLabel" parent="HBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer2"]
 layout_mode = 2
-theme_override_constants/table_h_separation = 20
-bbcode_enabled = true
-text = " 
-[table=6][cell][color=GOLD]Score:[/color][/cell][cell]0[/cell][cell][color=GOLD]Lives:[/color][/cell][cell]0%[/cell][cell][color=GOLD]Game time:[/color][/cell][cell]03:07[/cell]
-[/table]
-[table=4][cell][color=GOLD]Total damage:[/color][/cell][cell]0[/cell][cell][color=GOLD]Gold Farmed:[/color][/cell][cell]0[/cell][/table]
-"
-fit_content = true
-autowrap_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "Score:"
+
+[node name="ScoreLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "11"
+
+[node name="Label2" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "    Lives:"
+
+[node name="LivesLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "11%"
+
+[node name="Label3" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "    Game time:"
+
+[node name="GameTimeLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "03:07"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "Total damage:"
+
+[node name="TotalDamageLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "11"
+
+[node name="Label5" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "    Gold farmed:"
+
+[node name="GoldFarmedLabel" type="Label" parent="HBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "11"
 
 [node name="StartGameButton" type="Button" parent="HBoxContainer2"]
 layout_mode = 2

@@ -41,6 +41,7 @@ func _ready():
 	GoldControl.changed.connect(_on_gold_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
 	FoodManager.changed.connect(_on_food_changed)
+	_player.get_team().lives_changed.connect(_on_lives_changed)
 	
 #	Load initial values
 	_on_gold_changed()
@@ -65,6 +66,9 @@ func _ready():
 			return
 		else:
 			push_error("config/run_prerender_tool is enabled by mistake. Skipping prerender because this is a Web build.")
+	
+	var initial_lives: float = _player.get_team().get_lives_percent()
+	_hud.set_lives(initial_lives)
 
 # 	NOTE: this is where normal gameplay starts
 	Settings.changed.connect(_on_settings_changed)
@@ -223,7 +227,6 @@ func _reset_singletons():
 	GoldControl.reset()
 	ManualAttackTarget.reset()
 	MouseState.reset()
-	PortalLives.reset()
 	PregameSettings.reset()
 	SelectPointForCast.reset()
 	SelectTargetForCast.reset()
@@ -429,3 +432,8 @@ func _on_next_wave_timer_timeout():
 
 func _on_tower_created(_tower: Tower):
 	_built_at_least_one_tower = true
+
+
+func _on_lives_changed():
+	var lives: float = _player.get_team().get_lives_percent()
+	_hud.set_lives(lives)

@@ -6,7 +6,6 @@ class_name WaveStatus extends VBoxContainer
 
 
 @export var _label: RichTextLabel
-@export var _stats_label: RichTextLabel
 @export var _start_game_button: Button
 @export var _start_next_wave_button: Button
 # NOTE: this timer is used only for display purposes. The timers which drive gameplay logic are located in GameScene.
@@ -16,6 +15,11 @@ class_name WaveStatus extends VBoxContainer
 @export var _game_start_time_label: Label
 @export var _next_wave_time_container: HBoxContainer
 @export var _next_wave_time_label: Label
+@export var _score_label: Label
+@export var _lives_label: Label
+@export var _game_time_label: Label
+@export var _total_damage_label: Label
+@export var _gold_farmed_label: Label
 
 var _armor_hint_map: Dictionary
 
@@ -41,6 +45,8 @@ func _process(_delta: float):
 		_game_start_time_label.text = time_string
 	elif _next_wave_time_container.visible:
 		_next_wave_time_label.text = time_string
+	
+	_update_stats()
 
 
 #########################
@@ -112,6 +118,11 @@ func show_wave_details(wave_list: Array[Wave]):
 	_label.append_text(text)
 
 
+func set_lives(lives: float):
+	var lives_string: String = Utils.format_percent(floori(lives) / 100.0, 2)
+	_lives_label.text = lives_string
+
+
 #########################
 ###      Private      ###
 #########################
@@ -170,12 +181,10 @@ func _get_time_string() -> String:
 ###     Callbacks     ###
 #########################
 
-func _on_update_stats_timer_timeout():
+func _update_stats():
 # 	TODO: load score value here when scoring is implemented
 	var score: int = 0
 	var score_string: String = TowerInfo.int_format(score)
-
-	var lives_string: String = PortalLives.get_lives_string()
 
 	var total_damage: float = Globals.get_total_damage()
 	var total_damage_string: String = TowerInfo.int_format(total_damage)
@@ -192,18 +201,11 @@ func _on_update_stats_timer_timeout():
 		game_time_string = "%02d:%02d:%02d" % [game_time_hours, game_time_minutes, game_time_seconds]
 	else:
 		game_time_string = "%02d:%02d" % [game_time_minutes, game_time_seconds]
-
-	var text: String = ""
-	text += " \n"
-	text += "[table=6]"
-	text += "[cell][color=GOLD]Score:[/color][/cell][cell]%s[/cell][cell][color=GOLD]Lives:[/color][/cell][cell]%s[/cell][cell][color=GOLD]Game time:[/color][/cell][cell]%s[/cell]\n" % [score_string, lives_string, game_time_string]
-	text += "[/table]\n"
-	text += "[table=4]"
-	text += "[cell][color=GOLD]Total damage:[/color][/cell][cell]%s[/cell][cell][color=GOLD]Gold Farmed:[/color][/cell][cell]%s[/cell]" % [total_damage_string, gold_farmed_string]
-	text += "[/table]\n"
-
-	_stats_label.clear()
-	_stats_label.append_text(text)
+	
+	_score_label.text = score_string
+	_game_time_label.text = game_time_string
+	_total_damage_label.text = total_damage_string
+	_gold_farmed_label.text = gold_farmed_string
 
 
 func _on_game_over():

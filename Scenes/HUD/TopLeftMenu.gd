@@ -42,3 +42,8 @@ func disable_next_wave_button():
 
 func update_level(level: int):
 	_game_stats.update_level(level)
+
+
+func set_lives(lives: float):
+	_wave_status.set_lives(lives)
+	_game_stats.set_lives(lives)

@@ -5,7 +5,8 @@ extends Control
 
 
 func _process(_delta: float):
-	var portal_lives: float = PortalLives.get_current()
-	var portal_lives_string: String = PortalLives.get_lives_string()
-	livesBar.value = max(portal_lives, 0)
+#	TODO: implement setter for lives and call it.
+#	Currently top left menu is not used.
+	var portal_lives_string: String = "placeholder (todo)"
+	livesBar.value = 11
 	livesBar.tooltip_text = "Lives left: %s" % portal_lives_string

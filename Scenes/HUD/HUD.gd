@@ -150,6 +150,10 @@ func update_level(level: int):
 	_top_left_menu.update_level(level)
 
 
+func set_lives(lives: float):
+	_top_left_menu.set_lives(lives)
+
+
 #########################
 ###     Callbacks     ###
 #########################
