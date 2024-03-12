@@ -32,9 +32,6 @@ func _process(_delta: float):
 	var score: int = 0
 	var score_string: String = TowerInfo.int_format(score)
 
-	var total_damage: float = Globals.get_total_damage()
-	var total_damage_string: String = TowerInfo.int_format(total_damage)
-
 	var most_damage_tower: Tower = _get_most_damage_tower(tower_list)
 	var most_damage_tower_name: String = ""
 	var most_damage_value: String = ""
@@ -68,7 +65,6 @@ func _process(_delta: float):
 		most_kills_value = TowerInfo.int_format(most_kills)
 
 	_score_label.text = score_string
-	_total_damage_label.text = total_damage_string
 
 	_most_damage_tower.text = most_damage_tower_name
 	_most_damage_value.text = most_damage_value
@@ -123,6 +119,11 @@ func update_level(level: int):
 func set_lives(lives: float):
 	var lives_string: String = Utils.format_percent(floori(lives) / 100.0, 2)
 	_lives_label.text = lives_string
+
+
+func set_total_damage(total_damage: float):
+	var total_damage_string: String = TowerInfo.int_format(total_damage)
+	_total_damage_label.text = total_damage_string
 
 
 #########################

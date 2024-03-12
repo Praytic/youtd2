@@ -98,9 +98,20 @@ func _ready():
 		_transition_from_pregame_settings_state()
 
 
+# NOTE: these stats are constantly changing and might even change multiple times per frame so we need to update them in _process instead of via signals
 func _process(_delta: float):
 	var total_damage: float = _player.get_total_damage()
-	_hud.update_total_damage(total_damage)
+	_hud.set_total_damage(total_damage)
+
+	var game_time: float = Utils.get_time()
+	_hud.set_game_time(game_time)
+	
+	var gold_farmed: float = _player.get_gold_farmed()
+	_hud.set_gold_farmed(gold_farmed)
+
+#	TODO: load real score when it's implemented
+	var score: int = 0
+	_hud.set_score(score)
 
 
 func _unhandled_input(event: InputEvent):
@@ -406,6 +417,8 @@ func _on_creep_reached_portal(creep: Creep):
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
 		Globals.game_over = true
 		EventBus.game_over.emit()
+
+		_hud.disable_next_wave_button()
 
 
 func _on_player_requested_start_game():

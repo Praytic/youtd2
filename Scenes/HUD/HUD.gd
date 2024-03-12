@@ -155,7 +155,19 @@ func set_lives(lives: float):
 
 
 func set_total_damage(total_damage: float):
-	_wave_status.set_total_damage(total_damage)
+	_top_left_menu.set_total_damage(total_damage)
+
+
+func set_game_time(time: float):
+	_top_left_menu.set_game_time(time)
+
+
+func set_gold_farmed(gold_farmed: float):
+	_top_left_menu.set_gold_farmed(gold_farmed)
+
+
+func set_score(score: int):
+	_top_left_menu.set_score(score)
 
 
 #########################

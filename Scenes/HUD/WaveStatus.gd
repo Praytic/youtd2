@@ -29,8 +29,6 @@ var _armor_hint_map: Dictionary
 #########################
 
 func _ready():
-	EventBus.game_over.connect(_on_game_over)
-
 	_armor_hint_map = _generate_armor_hints()
 
 #	NOTE: remove placeholder text, will be replaced by real
@@ -45,8 +43,6 @@ func _process(_delta: float):
 		_game_start_time_label.text = time_string
 	elif _next_wave_time_container.visible:
 		_next_wave_time_label.text = time_string
-	
-	_update_stats()
 
 
 #########################
@@ -123,6 +119,33 @@ func set_lives(lives: float):
 	_lives_label.text = lives_string
 
 
+func set_total_damage(total_damage: float):
+	var total_damage_string: String = TowerInfo.int_format(floori(total_damage))
+	_total_damage_label.text = total_damage_string
+
+
+func set_game_time(time: float):
+	var time_hours: int = floori(time / 3600)
+	var time_minutes: int = floori((time - time_hours * 3600) / 60)
+	var time_seconds: int = floori(time - time_hours * 3600 - time_minutes * 60)
+	var time_string: String
+	if time_hours > 0:
+		time_string = "%02d:%02d:%02d" % [time_hours, time_minutes, time_seconds]
+	else:
+		time_string = "%02d:%02d" % [time_minutes, time_seconds]
+	_game_time_label.text = time_string
+
+
+func set_score(score: int):
+	var score_string: String = TowerInfo.int_format(score)
+	_score_label.text = score_string
+
+
+func set_gold_farmed(gold_farmed: float):
+	var gold_farmed_string: String = TowerInfo.int_format(floori(gold_farmed))
+	_gold_farmed_label.text = gold_farmed_string
+
+
 #########################
 ###      Private      ###
 #########################
@@ -180,33 +203,6 @@ func _get_time_string() -> String:
 #########################
 ###     Callbacks     ###
 #########################
-
-func _update_stats():
-# 	TODO: load score value here when scoring is implemented
-	var score: int = 0
-	var score_string: String = TowerInfo.int_format(score)
-
-	var total_damage: float = Globals.get_total_damage()
-	var total_damage_string: String = TowerInfo.int_format(total_damage)
-
-	var gold_farmed: float = GoldControl.get_gold_farmed()
-	var gold_farmed_string: String = TowerInfo.int_format(floori(gold_farmed))
-
-	var game_time: float = Utils.get_time()
-	var game_time_hours: int = floori(game_time / 3600)
-	var game_time_minutes: int = floori((game_time - game_time_hours * 3600) / 60)
-	var game_time_seconds: int = floori(game_time - game_time_hours * 3600 - game_time_minutes * 60)
-	var game_time_string: String
-	if game_time_hours > 0:
-		game_time_string = "%02d:%02d:%02d" % [game_time_hours, game_time_minutes, game_time_seconds]
-	else:
-		game_time_string = "%02d:%02d" % [game_time_minutes, game_time_seconds]
-	
-	_score_label.text = score_string
-	_game_time_label.text = game_time_string
-	_total_damage_label.text = total_damage_string
-	_gold_farmed_label.text = gold_farmed_string
-
 
 func _on_game_over():
 	_start_next_wave_button.disabled = true

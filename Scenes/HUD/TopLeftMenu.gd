@@ -47,3 +47,20 @@ func update_level(level: int):
 func set_lives(lives: float):
 	_wave_status.set_lives(lives)
 	_game_stats.set_lives(lives)
+
+
+func set_total_damage(total_damage: float):
+	_wave_status.set_total_damage(total_damage)
+	_game_stats.set_total_damage(total_damage)
+
+
+func set_gold_farmed(gold_farmed: float):
+	_wave_status.set_gold_farmed(gold_farmed)
+
+
+func set_game_time(time: float):
+	_wave_status.set_game_time(time)
+
+
+func set_score(score: int):
+	_wave_status.set_score(score)
