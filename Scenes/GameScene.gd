@@ -179,6 +179,9 @@ func _transition_from_pregame_settings_state():
 
 	_wave_spawner.generate_waves(wave_count, difficulty)
 
+	var next_waves: Array[Wave] = _get_next_5_waves()
+	_hud.show_wave_details(next_waves)
+
 	var tutorial_enabled: bool = PregameSettings.get_tutorial_enabled()
 	
 	if tutorial_enabled:
@@ -267,7 +270,7 @@ func _get_next_5_waves() -> Array[Wave]:
 	var wave_list: Array[Wave] = []
 	var current_level: int = _player.get_team().get_level()
 	
-	for level in range(current_level, current_level + 5):
+	for level in range(current_level, current_level + 6):
 		var wave: Wave = _wave_spawner.get_wave(level)
 		
 		if wave != null:

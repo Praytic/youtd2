@@ -29,6 +29,10 @@ func _ready():
 
 	_armor_hint_map = _generate_armor_hints()
 
+#	NOTE: remove placeholder text, will be replaced by real
+#	text
+	show_wave_details([])
+
 
 func _process(_delta: float):
 	var time_string: String = _get_time_string()
