@@ -119,6 +119,33 @@ func _update_menus_and_cards_visibility():
 		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
 
 
+func show_game_start_time():
+	_top_left_menu.show_game_start_time()
+
+func hide_game_start_time():
+	_top_left_menu.hide_game_start_time()
+
+
+func show_next_wave_button():
+	_top_left_menu.show_next_wave_button()
+
+
+func show_next_wave_time(time: float):
+	_top_left_menu.show_next_wave_time(time)
+
+
+func hide_next_wave_time():
+	_top_left_menu.hide_next_wave_time()
+
+
+func show_wave_details(wave_list: Array[Wave]):
+	_top_left_menu.show_wave_details(wave_list)
+
+
+func disable_next_wave_button():
+	_top_left_menu.disable_next_wave_button()
+
+
 #########################
 ###     Callbacks     ###
 #########################

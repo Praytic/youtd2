@@ -21,4 +21,8 @@ func modify_lives(amount: float):
 
 # NOTE: Team.getLevel() in JASS
 func get_level() -> int:
-	return WaveLevel.get_level()
+	return WaveLevel.get_current()
+
+
+func increment_level():
+	WaveLevel.increase()

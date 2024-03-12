@@ -5,6 +5,7 @@ class_name GameTime extends Node
 
 
 var _current_game_time: float = 0.0
+var _enabled: bool = false
 
 
 #########################
@@ -12,15 +13,19 @@ var _current_game_time: float = 0.0
 #########################
 
 func _process(delta: float):
-	var need_to_record_game_time: bool = Globals.get_game_state() == Globals.GameState.PLAYING && WaveLevel.get_current() > 0
+	if !_enabled:
+		return
 
-	if need_to_record_game_time:
-		_current_game_time += delta
+	_current_game_time += delta
 
 
 #########################
 ###       Public      ###
 #########################
+
+func set_enabled(enabled: bool):
+	_enabled = enabled
+
 
 # Returns time in seconds since the game started. Starts
 # counting after first wave begins. Doesn't count time spent

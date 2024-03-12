@@ -7,10 +7,11 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hwtay"]
 
-[node name="TopLeftMenu" type="PanelContainer" node_paths=PackedStringArray("_game_stats")]
+[node name="TopLeftMenu" type="PanelContainer" node_paths=PackedStringArray("_wave_status", "_game_stats")]
 theme = ExtResource("1_lhpbt")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_hwtay")
 script = ExtResource("2_ijvc2")
+_wave_status = NodePath("TabContainer/Wave Status")
 _game_stats = NodePath("TabContainer/Game Stats")
 
 [node name="TabContainer" type="TabContainer" parent="."]

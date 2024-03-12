@@ -40,7 +40,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time")]
 process_mode = 3
 script = ExtResource("9")
 map_node = NodePath("Map")
@@ -54,6 +54,20 @@ _camera = NodePath("Camera2D")
 _item_stash = NodePath("ItemStash")
 _tower_stash = NodePath("TowerStash")
 _player = NodePath("Player")
+_game_start_timer = NodePath("GameStartTimer")
+_next_wave_timer = NodePath("NextWaveTimer")
+_extreme_timer = NodePath("ExtremeTimer")
+_game_time = NodePath("GameTime")
+
+[node name="GameStartTimer" type="Timer" parent="."]
+process_mode = 1
+one_shot = true
+
+[node name="NextWaveTimer" type="Timer" parent="."]
+process_mode = 1
+one_shot = true
+
+[node name="ExtremeTimer" type="Timer" parent="."]
 
 [node name="Player" type="Node" parent="."]
 script = ExtResource("6_y63oe")
@@ -69,6 +83,7 @@ process_mode = 1
 [node name="AudioPlayerPool" parent="." instance=ExtResource("5_rin5y")]
 
 [node name="GameTime" type="Node" parent="."]
+process_mode = 1
 script = ExtResource("16_tame0")
 
 [node name="Map" parent="." instance=ExtResource("5")]
@@ -155,6 +170,9 @@ visible = false
 process_mode = 3
 visible = false
 
+[connection signal="timeout" from="GameStartTimer" to="." method="_on_game_start_timer_timeout"]
+[connection signal="timeout" from="NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
+[connection signal="timeout" from="ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
 [connection signal="horadric_stash_changed" from="ItemStash" to="." method="_on_item_stash_horadric_stash_changed"]
 [connection signal="main_stash_changed" from="ItemStash" to="." method="_on_item_stash_main_stash_changed"]
 [connection signal="changed" from="TowerStash" to="." method="_on_tower_stash_changed"]

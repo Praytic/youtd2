@@ -2,9 +2,6 @@ class_name Wave
 extends Node
 
 
-signal finished
-
-
 enum State {
 	PENDING,
 	SPAWNING,
@@ -99,7 +96,6 @@ func _on_creep_tree_exited(creep: Creep):
 
 	if _alive_creep_list.is_empty() && state == Wave.State.SPAWNED:
 		state = Wave.State.FINISHED
-		finished.emit()
 		EventBus.wave_finished.emit(_level)
 
 

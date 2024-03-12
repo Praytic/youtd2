@@ -11,7 +11,7 @@ unicode = 110
 [sub_resource type="Shortcut" id="Shortcut_u7iub"]
 events = [SubResource("InputEventKey_srlh2")]
 
-[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_timer_label", "_start_next_wave_button")]
+[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_stats_label", "_start_game_button", "_start_next_wave_button", "_display_timer", "_level_label", "_game_start_time_container", "_game_start_time_label", "_next_wave_time_container", "_next_wave_time_label")]
 custom_minimum_size = Vector2(650, 0)
 offset_right = 600.0
 offset_bottom = 134.0
@@ -19,18 +19,52 @@ theme = ExtResource("1_3h6gw")
 script = ExtResource("2_fsc15")
 _label = NodePath("DetailsLabel")
 _stats_label = NodePath("HBoxContainer2/StatsLabel")
-_timer_label = NodePath("TimerLabel")
+_start_game_button = NodePath("HBoxContainer2/StartGameButton")
 _start_next_wave_button = NodePath("HBoxContainer2/StartNextWaveButton")
+_display_timer = NodePath("DisplayTimer")
+_level_label = NodePath("HBoxContainer/LevelLabel")
+_game_start_time_container = NodePath("HBoxContainer/GameStartTimeContainer")
+_game_start_time_label = NodePath("HBoxContainer/GameStartTimeContainer/GameStartTimeLabel")
+_next_wave_time_container = NodePath("HBoxContainer/NextWaveTimeContainer")
+_next_wave_time_label = NodePath("HBoxContainer/NextWaveTimeContainer/NextWaveTimeLabel")
 
-[node name="TimerLabel" type="RichTextLabel" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_constants/table_h_separation = 20
-bbcode_enabled = true
-text = "Wave [color=GOLD]2[/color]
-"
-fit_content = true
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Wave"
+
+[node name="LevelLabel" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "1"
+
+[node name="GameStartTimeContainer" type="HBoxContainer" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="HBoxContainer/GameStartTimeContainer"]
+layout_mode = 2
+text = "    Game starts in "
+
+[node name="GameStartTimeLabel" type="Label" parent="HBoxContainer/GameStartTimeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "00:00"
+
+[node name="NextWaveTimeContainer" type="HBoxContainer" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="HBoxContainer/NextWaveTimeContainer"]
+layout_mode = 2
+text = "    Next wave in "
+
+[node name="NextWaveTimeLabel" type="Label" parent="HBoxContainer/NextWaveTimeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0, 1)
+text = "00:00"
 
 [node name="DetailsLabel" type="RichTextLabel" parent="."]
 layout_mode = 2
@@ -57,7 +91,19 @@ text = "
 fit_content = true
 autowrap_mode = 0
 
+[node name="StartGameButton" type="Button" parent="HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+tooltip_text = "Start next wave (N)"
+focus_mode = 0
+theme_override_font_sizes/font_size = 25
+shortcut = SubResource("Shortcut_u7iub")
+shortcut_in_tooltip = false
+text = "Start game"
+
 [node name="StartNextWaveButton" type="Button" parent="HBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -68,8 +114,8 @@ shortcut = SubResource("Shortcut_u7iub")
 shortcut_in_tooltip = false
 text = "Next wave"
 
-[node name="UpdateStatsTimer" type="Timer" parent="."]
-autostart = true
+[node name="DisplayTimer" type="Timer" parent="."]
+one_shot = true
 
+[connection signal="pressed" from="HBoxContainer2/StartGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="HBoxContainer2/StartNextWaveButton" to="." method="_on_start_next_wave_button_pressed"]
-[connection signal="timeout" from="UpdateStatsTimer" to="." method="_on_update_stats_timer_timeout"]

@@ -1,38 +1,10 @@
 class_name WaveSpawner extends Node
 
 
-var TIME_BEFORE_FIRST_WAVE: float = 180.0
-var TIME_BETWEEN_WAVES: float = 15.0
-var EXTREME_DELAY_AFTER_PREV_WAVE: float = 10.0
-var EXTREME_DELAY_BEFORE_NEXT_WAVE: float = 25.0
-
-
-signal all_waves_started
-signal all_waves_cleared
-signal generated_all_waves
-
-
 var _wave_list: Array[Wave] = []
-var _built_at_least_one_tower: bool = false
+var _current_wave: Wave = null
 
-
-@export var _timer_between_waves: Timer
-@export var _extreme_timer: Timer
 @export var _creep_spawner: CreepSpawner
-
-
-#########################
-###     Built-in      ###
-#########################
-
-func _ready():
-	EventBus.tower_created.connect(_on_tower_created)
-	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
-
-	if Config.fast_waves_enabled():
-		TIME_BETWEEN_WAVES = 0.1
-
-	_timer_between_waves.set_autostart(false)
 
 
 #########################
@@ -66,74 +38,50 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		
 		_wave_list.append(wave)
 		
-		wave.finished.connect(_on_wave_finished.bind(wave))
- 
 		add_child(wave, true)
 
 	_creep_spawner.setup_background_load_queue(_wave_list)
 	
 	print_verbose("Waves have been initialized. Total waves: %s" % _wave_list.size())
 
-	generated_all_waves.emit()
 
-
-func start_initial_timer():
-	_timer_between_waves.start(TIME_BEFORE_FIRST_WAVE)
-
-
-func _on_player_requested_next_wave():
-	if !_built_at_least_one_tower:
-		Messages.add_error("You have to build some towers before you can start a wave!")
-
+func start_wave(level: int):
+	var wave: Wave = get_wave(level)
+	
+	if wave == null:
+		push_error("Failed to start wave #%d because it's null" % level)
+		
 		return
+	
+	wave.state = Wave.State.SPAWNING
 
-	if _last_wave_was_started():
-		Messages.add_error("Can't start next wave because the game is over.")
+	_current_wave = wave
 
-		return
+	var creep_data_list: Array[CreepData] = WaveSpawner._generate_creep_data_list(wave)
 
-	var current_wave: Wave = get_current_wave()
-	if current_wave != null:
-		var current_wave_finished_spawning: bool = current_wave.state != Wave.State.SPAWNING
-
-		if !current_wave_finished_spawning:
-			Messages.add_error("Can't start next wave because a wave is in progress.")
-			
-			return
-
-	_timer_between_waves.stop()
-	_start_next_wave()
+	for creep_data in creep_data_list:
+		_creep_spawner.queue_spawn_creep(creep_data)
+	
+	_add_message_about_wave(wave)
+	
+	print_verbose("Wave has started [%s]." % wave)
 
 
-func _on_tower_created(_tower: Tower):
-	_built_at_least_one_tower = true
+# NOTE: wave is considered in progress if it's spawning
+# creeps. If it has finished spawning creeps but creeps are
+# still alive, the wave is considered to not be in progress.
+func wave_is_in_progress() -> bool:
+	if _current_wave == null:
+		return false
+
+	var in_progress: bool = _current_wave.state == Wave.State.SPAWNING
+
+	return in_progress
 
 
 #########################
 ###      Private      ###
 #########################
-
-func _start_next_wave():
-	WaveLevel.increase()
-
-	var current_wave: Wave = get_current_wave()
-	current_wave.state = Wave.State.SPAWNING
-
-	var creep_data_list: Array[CreepData] = WaveSpawner._generate_creep_data_list(current_wave)
-
-	for creep_data in creep_data_list:
-		_creep_spawner.queue_spawn_creep(creep_data)
-	
-	_add_message_about_wave(current_wave)
-	
-	print_verbose("Wave has started [%s]." % current_wave)
-
-	if _last_wave_was_started():
-		all_waves_started.emit()
-	
-	_extreme_timer.stop()
-	_extreme_timer.start(EXTREME_DELAY_AFTER_PREV_WAVE)
-
 
 func _add_message_about_wave(wave: Wave):
 	var combination_string: String = wave.get_creep_combination_string()
@@ -157,14 +105,6 @@ func _add_message_about_wave(wave: Wave):
 		Messages.add_normal(special_string)
 
 
-func _last_wave_was_started() -> bool:
-	var wave_index: int = WaveLevel.get_current() - 1
-	var after_last_wave: bool = wave_index >= _wave_list.size()
-	var game_over: bool = Globals.game_over
-
-	return after_last_wave || game_over
-
-
 func _print_creep_hp_overall(wave: Wave):
 	var creep_size_list: Array = wave.get_creep_sizes()
 
@@ -178,59 +118,17 @@ func _print_creep_hp_overall(wave: Wave):
 ###     Callbacks     ###
 #########################
 
-func _on_extreme_timer_timeout():
-	if PregameSettings.get_difficulty() != Difficulty.enm.EXTREME:
-		return
-	
-	if _last_wave_was_started():
-		return
-	
-	_timer_between_waves.start(EXTREME_DELAY_BEFORE_NEXT_WAVE)
-
-
-func _on_Timer_timeout():
-	_start_next_wave()
-
-
 func _on_CreepSpawner_all_creeps_spawned():
-	var current_wave = get_current_wave()
-	current_wave.state = Wave.State.SPAWNED
-	print_verbose("Wave has been spawned [%s]." % current_wave)
+	if _current_wave == null:
+		return
 
+	_current_wave.state = Wave.State.SPAWNED
+	print_verbose("Wave has been spawned [%s]." % _current_wave)
 
-func _on_wave_finished(wave: Wave):
-	print_verbose("Wave [%s] is finished." % wave)
-
-	var any_wave_is_active: bool = false
-
-	for this_wave in _wave_list:
-		if this_wave.state == Wave.State.SPAWNING || this_wave.state == Wave.State.SPAWNED:
-			any_wave_is_active = true
-
-			break
-
-	if !any_wave_is_active:
-		if _last_wave_was_started():
-			all_waves_cleared.emit()
-		else:
-#			NOTE: need this check because when game is
-#			restarted there's a weird situation where
-#			_on_wave_finished() is called after
-#			_timer_between_waves is removed from tree.
-#			Supress error and ignore it.
-			if _timer_between_waves.is_inside_tree():
-				_timer_between_waves.start(TIME_BETWEEN_WAVES)
 
 #########################
 ### Setters / Getters ###
 #########################
-
-func get_current_wave() -> Wave:
-	var current_level: int = WaveLevel.get_current()
-	var current_wave: Wave = get_wave(current_level)
-
-	return current_wave
-
 
 func get_wave(level: int) -> Wave:
 	var index: int = level - 1
@@ -243,18 +141,6 @@ func get_wave(level: int) -> Wave:
 		return wave
 	else:
 		return null
-
-
-func get_time_left() -> float:
-	var time: float = _timer_between_waves.get_time_left()
-
-	return time
-
-
-func wave_is_in_progress() -> float:
-	var out: bool = _timer_between_waves.is_stopped()
-
-	return out
 
 
 #########################

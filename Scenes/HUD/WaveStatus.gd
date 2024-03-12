@@ -1,4 +1,4 @@
-extends VBoxContainer
+class_name WaveStatus extends VBoxContainer
 
 
 # Displays next wave level how much time is left before it
@@ -7,9 +7,15 @@ extends VBoxContainer
 
 @export var _label: RichTextLabel
 @export var _stats_label: RichTextLabel
-@onready var _wave_spawner: WaveSpawner = get_tree().get_root().get_node("GameScene/WaveSpawner")
-@export var _timer_label: RichTextLabel
+@export var _start_game_button: Button
 @export var _start_next_wave_button: Button
+# NOTE: this timer is used only for display purposes. The timers which drive gameplay logic are located in GameScene.
+@export var _display_timer: Timer
+@export var _level_label: Label
+@export var _game_start_time_container: HBoxContainer
+@export var _game_start_time_label: Label
+@export var _next_wave_time_container: HBoxContainer
+@export var _next_wave_time_label: Label
 
 var _armor_hint_map: Dictionary
 
@@ -19,74 +25,67 @@ var _armor_hint_map: Dictionary
 #########################
 
 func _ready():
-	_wave_spawner.all_waves_started.connect(_on_all_waves_started)
 	EventBus.game_over.connect(_on_game_over)
 
 	_armor_hint_map = _generate_armor_hints()
 
-	WaveLevel.changed.connect(_update_all_labels)
-	_wave_spawner.generated_all_waves.connect(_update_all_labels)
-
-	_update_all_labels()
-	_on_update_stats_timer_timeout()
-
 
 func _process(_delta: float):
-	_update_timer_label()
+	var time_string: String = _get_time_string()
+	
+	if _game_start_time_container.visible:
+		_game_start_time_label.text = time_string
+	elif _next_wave_time_container.visible:
+		_next_wave_time_label.text = time_string
 
 
 #########################
-###      Private      ###
+###      Public       ###
 #########################
 
-func _update_all_labels():
-	_update_timer_label()
-	_update_details_label()
+func show_game_start_time():
+	_display_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
+	_game_start_time_container.show()
 
 
-func _update_timer_label():
-	_timer_label.clear()
-
-	var current_wave_level: int = WaveLevel.get_current()
-
-	var text: String = ""
-
-	if _wave_spawner.wave_is_in_progress():
-		text += "Wave [color=GOLD]%d[/color]\n" % current_wave_level
-	else:
-		var next_wave_level: int = current_wave_level + 1
-		var wave_time: int = floor(_wave_spawner.get_time_left())
-		var wave_time_minutes: int = floor(wave_time / 60.0)
-		var wave_time_seconds: int = wave_time - wave_time_minutes * 60
-
-		text += "Wave [color=GOLD]%d[/color] in %02d:%02d\n" % [next_wave_level, wave_time_minutes, wave_time_seconds]
-
-	_timer_label.append_text(text)
+func hide_game_start_time():
+	_game_start_time_container.hide()
 
 
-func _update_details_label():
+func show_next_wave_button():
+	_start_game_button.hide()
+	_start_next_wave_button.show()
+
+
+func show_next_wave_time(time: float):
+	_display_timer.start(time)
+	_next_wave_time_container.show()
+
+
+func hide_next_wave_time():
+	_next_wave_time_container.hide()
+
+
+func disable_next_wave_button():
+	_start_next_wave_button.disabled = true
+
+
+func show_wave_details(wave_list: Array[Wave]):
 	_label.clear()
 	
 	var text: String = ""
-
-	var current_wave_level: int = WaveLevel.get_current()
+	
+	if !wave_list.is_empty():
+		var current_wave: Wave = wave_list[0]
+		var current_level = current_wave.get_level()
+		_level_label.text = str(current_level)
 
 	text += "[table=5]"
 
 	text += "[cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Size[/color][/cell][cell][color=GOLD]Race[/color][/cell][cell][color=GOLD]Armor[/color][/cell][cell][color=GOLD]Special[/color][/cell]"
 
-	var first_wave_index: int
-	if current_wave_level > 0:
-		first_wave_index = current_wave_level
-	else:
-		first_wave_index = 1
-
-	for level in range(first_wave_index, first_wave_index + 5):
-		var wave: Wave = _wave_spawner.get_wave(level)
-
-		if wave == null:
-			break
-
+	for wave in wave_list:
+		var level: int = wave.get_level()
 		var race: CreepCategory.enm = wave.get_race()
 		var race_string: String = CreepCategory.convert_to_colored_string(race)
 
@@ -108,6 +107,10 @@ func _update_details_label():
 
 	_label.append_text(text)
 
+
+#########################
+###      Private      ###
+#########################
 
 func _get_specials_description(wave: Wave) -> String:
 	var special_list: Array[int] = wave.get_specials()
@@ -150,6 +153,15 @@ func _generate_armor_hints() -> Dictionary:
 	return out
 
 
+func _get_time_string() -> String:
+	var time: int = floor(_display_timer.get_time_left())
+	var time_minutes: int = floor(time / 60.0)
+	var time_seconds: int = time - time_minutes * 60
+	var time_string: String = "%02d:%02d" % [time_minutes, time_seconds]
+	
+	return time_string
+
+
 #########################
 ###     Callbacks     ###
 #########################
@@ -190,13 +202,13 @@ func _on_update_stats_timer_timeout():
 	_stats_label.append_text(text)
 
 
-func _on_all_waves_started():
-	_start_next_wave_button.disabled = true
-
-
 func _on_game_over():
 	_start_next_wave_button.disabled = true
 
 
 func _on_start_next_wave_button_pressed():
 	EventBus.player_requested_next_wave.emit()
+
+
+func _on_start_game_button_pressed():
+	EventBus.player_requested_start_game.emit()

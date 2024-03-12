@@ -16,7 +16,7 @@ var _current_level: int
 #########################
 
 func reset():
-	_current_level = 0
+	_current_level = 1
 
 
 # Current level is the level of the last started wave.

@@ -12,6 +12,13 @@ class_name GameScene extends Node
 @export var _item_stash: ItemStash
 @export var _tower_stash: TowerStash
 @export var _player: Player
+@export var _game_start_timer: Timer
+@export var _next_wave_timer: Timer
+@export var _extreme_timer: Timer
+@export var _game_time: GameTime
+
+
+var _built_at_least_one_tower: bool = false
 
 
 #########################
@@ -28,6 +35,9 @@ func _ready():
 
 	EventBus.wave_finished.connect(_on_wave_finished)
 	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
+	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
+	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
+	EventBus.tower_created.connect(_on_tower_created)
 	GoldControl.changed.connect(_on_gold_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
 	FoodManager.changed.connect(_on_food_changed)
@@ -107,6 +117,7 @@ func _pause_the_game():
 	BuildTower.cancel()
 	_item_stash.cancel_move()
 	SelectTargetForCast.cancel()
+	_game_time.set_enabled(false)
 
 	Globals.set_game_state(Globals.GameState.PAUSED)
 	get_tree().set_pause(true)
@@ -117,6 +128,7 @@ func _unpause_the_game():
 	Globals.set_game_state(Globals.GameState.PLAYING)
 	get_tree().set_pause(false)
 	_pause_hud.hide()
+	_game_time.set_enabled(true)
 
 
 func _get_cmdline_value(key: String):
@@ -179,10 +191,12 @@ func _transition_from_pregame_settings_state():
 func _transition_from_tutorial_state():
 	Globals.set_game_state(Globals.GameState.PLAYING)
 	_tutorial_menu.queue_free()
-	_wave_spawner.start_initial_timer()
 
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
+	
+	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
+	_hud.show_game_start_time()
 
 #	NOTE: tower tests need to run after everything else has
 #	been initialized
@@ -211,7 +225,55 @@ func _reset_singletons():
 	SelectPointForCast.reset()
 	SelectTargetForCast.reset()
 	SelectUnit.reset()
-	WaveLevel.reset()
+
+
+func _start_game():
+	_game_start_timer.stop()
+	_hud.hide_game_start_time()
+	_hud.show_next_wave_button()
+
+	_wave_spawner.start_wave(1)
+	
+	if PregameSettings.get_difficulty() == Difficulty.enm.EXTREME:
+		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
+
+#	NOTE: start counting game time after first wave starts
+	_game_time.set_enabled(true)
+
+
+func _start_next_wave():
+	_extreme_timer.stop()
+	_next_wave_timer.stop()
+	_hud.hide_next_wave_time()
+
+	_player.get_team().increment_level()
+	var level: int = _player.get_team().get_level()
+
+	var next_waves: Array[Wave] = _get_next_5_waves()
+	_hud.show_wave_details(next_waves)
+	
+	_wave_spawner.start_wave(level)
+	
+	var started_last_wave: bool = level == PregameSettings.get_wave_count()
+	
+	if started_last_wave:
+		_hud.disable_next_wave_button()
+		
+	if !started_last_wave && PregameSettings.get_difficulty() == Difficulty.enm.EXTREME:
+		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
+
+
+func _get_next_5_waves() -> Array[Wave]:
+	var wave_list: Array[Wave] = []
+	var current_level: int = _player.get_team().get_level()
+	
+	for level in range(current_level, current_level + 5):
+		var wave: Wave = _wave_spawner.get_wave(level)
+		
+		if wave != null:
+			wave_list.append(wave)
+
+	return wave_list
 
 
 #########################
@@ -270,6 +332,10 @@ func _on_wave_finished(level: int):
 	if PregameSettings.game_mode_is_random():
 		TowerDistribution.roll_towers(level)
 
+	_extreme_timer.stop()
+	_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
+	_hud.show_next_wave_time(Constants.TIME_BETWEEN_WAVES)
+
 
 func _on_gold_changed():
 	var gold: float = GoldControl.get_gold()
@@ -313,3 +379,45 @@ func _on_creep_reached_portal(creep: Creep):
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
 		Globals.game_over = true
 		EventBus.game_over.emit()
+
+
+func _on_player_requested_start_game():
+	if !_built_at_least_one_tower:
+		Messages.add_error("You have to build some towers before you can start the game!")
+
+		return
+	
+	_game_start_timer.stop()
+	_start_game()
+
+
+func _on_game_start_timer_timeout():
+	_start_game()
+
+
+func _on_player_requested_next_wave():
+	if Globals.game_over:
+		Messages.add_error("Can't start next wave because the game is over.")
+
+		return
+
+	var wave_is_in_progress: bool = _wave_spawner.wave_is_in_progress()
+	if wave_is_in_progress:
+		Messages.add_error("Can't start next wave because a wave is in progress.")
+		
+		return
+	
+	_start_next_wave()
+
+
+func _on_extreme_timer_timeout():
+	_next_wave_timer.start(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
+	_hud.show_next_wave_time(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
+
+
+func _on_next_wave_timer_timeout():
+	_start_next_wave()
+
+
+func _on_tower_created(_tower: Tower):
+	_built_at_least_one_tower = true
