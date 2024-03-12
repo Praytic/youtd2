@@ -80,11 +80,6 @@ func show_wave_details(wave_list: Array[Wave]):
 	_label.clear()
 	
 	var text: String = ""
-	
-	if !wave_list.is_empty():
-		var current_wave: Wave = wave_list[0]
-		var current_level = current_wave.get_level()
-		_level_label.text = str(current_level)
 
 	text += "[table=5]"
 
@@ -144,6 +139,10 @@ func set_score(score: int):
 func set_gold_farmed(gold_farmed: float):
 	var gold_farmed_string: String = TowerInfo.int_format(floori(gold_farmed))
 	_gold_farmed_label.text = gold_farmed_string
+
+
+func set_level(level: int):
+	_level_label.text = str(level)
 
 
 #########################

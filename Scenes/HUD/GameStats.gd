@@ -28,10 +28,6 @@ class_name GameStats extends VBoxContainer
 func _process(_delta: float):
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 
-# 	TODO: load score value here when scoring is implemented
-	var score: int = 0
-	var score_string: String = TowerInfo.int_format(score)
-
 	var most_damage_tower: Tower = _get_most_damage_tower(tower_list)
 	var most_damage_tower_name: String = ""
 	var most_damage_value: String = ""
@@ -63,8 +59,6 @@ func _process(_delta: float):
 		most_kills_tower_name = most_kills_tower.get_display_name()
 		var most_kills: float = most_kills_tower.get_kills()
 		most_kills_value = TowerInfo.int_format(most_kills)
-
-	_score_label.text = score_string
 
 	_most_damage_tower.text = most_damage_tower_name
 	_most_damage_value.text = most_damage_value
@@ -112,8 +106,13 @@ func set_gold(gold: float):
 	_gold_label.text = gold_string
 
 
-func update_level(level: int):
+func set_level(level: int):
 	_level_label.text = str(level)
+
+
+func set_score(score: int):
+	var score_string: String = TowerInfo.int_format(score)
+	_score_label.text = score_string
 
 
 func set_lives(lives: float):
