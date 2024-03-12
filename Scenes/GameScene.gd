@@ -336,6 +336,9 @@ func _on_wave_finished(level: int):
 	_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
 	_hud.show_next_wave_time(Constants.TIME_BETWEEN_WAVES)
 
+	var builder: Builder = Globals.get_builder()
+	builder.apply_wave_finished_effect(_player)
+
 
 func _on_gold_changed():
 	var gold: float = GoldControl.get_gold()

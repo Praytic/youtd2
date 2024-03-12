@@ -69,6 +69,10 @@ func apply_to_player(_player: Player):
 	pass
 
 
+func apply_wave_finished_effect(_player: Player):
+	pass
+
+
 func _get_tower_buff() -> BuffType:
 	return null
 

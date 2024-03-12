@@ -1,10 +1,6 @@
 extends Builder
 
 
-func _init():
-	WaveLevel.changed.connect(_on_wave_level_changed)
-
-
 func apply_to_player(player: Player):
 	player.add_tomes(65)
 	player.modify_food_cap(20)
@@ -21,5 +17,5 @@ func _get_tower_modifier() -> Modifier:
 	return mod
 
 
-func _on_wave_level_changed():
-	KnowledgeTomesManager.add_knowledge_tomes(2)
+func apply_wave_finished_effect(player: Player):
+	player.add_tomes(2)
