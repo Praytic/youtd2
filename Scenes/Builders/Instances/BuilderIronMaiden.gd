@@ -6,7 +6,7 @@ func apply_to_player(player: Player):
 
 
 func apply_wave_finished_effect(player: Player):
-	var portal_lives: float = player.get_team().get_lives()
+	var portal_lives: float = player.get_team().get_lives_percent()
 
 # 	NOTE: the tooltip says 50% and 10%, but that is in
 # 	absolute terms without considering +50% to base lives
@@ -20,7 +20,7 @@ func apply_wave_finished_effect(player: Player):
 	else:
 		regen_amount = 0
 
-	player.get_team().modify_portal_lives(regen_amount)
+	player.get_team().modify_lives(regen_amount)
 
 # 	NOTE: original game doesn't have this message but I
 # 	thought that it would be useful to add it.
