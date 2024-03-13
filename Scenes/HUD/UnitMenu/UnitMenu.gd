@@ -45,11 +45,6 @@ func _ready():
 	
 	_on_selected_unit_changed(null)
 	
-	WaveLevel.changed.connect(_on_update_requirements_changed)
-	ElementLevel.changed.connect(_on_update_requirements_changed)
-	GoldControl.changed.connect(_on_update_requirements_changed)
-	KnowledgeTomesManager.changed.connect(_on_update_requirements_changed)
-	
 	_sell_button.pressed.connect(_on_sell_button_pressed)
 	_upgrade_button.pressed.connect(_on_upgrade_button_pressed)
 	_info_button.pressed.connect(_on_info_button_pressed)
@@ -77,6 +72,11 @@ func _process(_delta: float):
 # numbers.
 func set_player(player: Player):
 	_player = player
+
+	player.gold_changed.connect(_on_upgrade_requirements_changed)
+	player.tomes_changed.connect(_on_upgrade_requirements_changed)
+	player.element_level_changed.connect(_on_upgrade_requirements_changed)
+	player.get_team().level_changed.connect(_on_upgrade_requirements_changed)
 
 
 func close():
@@ -304,7 +304,7 @@ func _set_selling_for_real(value: bool):
 ###     Callbacks     ###
 #########################
 
-func _on_update_requirements_changed():
+func _on_upgrade_requirements_changed():
 	var tower = get_selected_tower()
 	if tower != null:
 		_update_upgrade_button(tower)

@@ -17,6 +17,8 @@ const PRESS_DURATION_TO_COMPLETE_RESEARCH = 1
 @export var _button_down_timer: Timer
 @export var _research_timer: Timer
 
+var _player: Player = null
+
 
 #########################
 ###     Built-in      ###
@@ -25,7 +27,6 @@ const PRESS_DURATION_TO_COMPLETE_RESEARCH = 1
 func _ready():
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
-	ElementLevel.changed.connect(_on_element_level_changed)
 	button_down.connect(_on_button_down)
 	button_up.connect(_on_button_up)
 	_button_down_timer.timeout.connect(_on_button_down_timeout)
@@ -35,7 +36,6 @@ func _ready():
 	_research_timer.wait_time = PRESS_DURATION_TO_COMPLETE_RESEARCH
 	
 	_on_mouse_exited()
-	_on_element_level_changed()
 
 
 func _process(_delta: float):
@@ -46,6 +46,11 @@ func _process(_delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func set_player(player: Player):
+	_player = player
+	_player.element_level_changed.connect(_on_element_level_changed)
+
 
 func set_towers_counter(value: int):
 	if value == 0:
@@ -59,8 +64,8 @@ func set_towers_counter(value: int):
 #########################
 
 func _is_able_to_research():
-	var can_afford: bool = ElementLevel.can_afford_research(element)
-	var current_level: int = ElementLevel.get_current(element)
+	var can_afford: bool = _player.can_afford_research(element)
+	var current_level: int = _player.get_element_level(element)
 	var reached_max_level: bool = current_level == ElementLevel.MAX_ELEMENT_LEVEL
 	var button_is_enabled: bool = can_afford && !reached_max_level
 
@@ -78,7 +83,7 @@ func _make_custom_tooltip(for_text: String) -> Object:
 #########################
 
 func _on_element_level_changed():
-	var curent_element_level = ElementLevel.get_current(element)
+	var curent_element_level = _player.get_element_level(element)
 	_texture_progress_bar.value = curent_element_level
 
 
@@ -86,7 +91,7 @@ func _on_mouse_entered():
 	_texture_progress_bar.show()
 	_counter_label.show()
 
-	var tooltip: String = RichTexts.get_research_text(element)
+	var tooltip: String = RichTexts.get_research_text(element, _player)
 	ButtonTooltip.show_tooltip(self, tooltip)
 
 
@@ -118,19 +123,7 @@ func _on_button_down_timeout():
 
 func _on_research_timer_timeout():
 	_research_timer.stop()
-	# Second check that after research_timer player still has
-	# tomes to research the element.
-	if _is_able_to_research():
-		var cost: int = ElementLevel.get_research_cost(element)
-		KnowledgeTomesManager.spend(cost)
-		ElementLevel.increment(element)
-		
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			_on_button_down_timeout()
-		else:
-			_research_element_progress_bar.hide()
-			_research_element_progress_bar.value = 0
-	# If player doesn't have enough tomes after research_timer,
-	# show same error message as after button_down_timer.
-	else:
-		Messages.add_error("Can't research this element. Not enough tomes.")
+	_research_element_progress_bar.hide()
+	_research_element_progress_bar.value = 0
+
+	EventBus.player_requested_to_research_element.emit(element)

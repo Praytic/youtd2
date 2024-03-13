@@ -1,15 +1,15 @@
 extends Node
 
 
-func get_research_text(element: Element.enm) -> String:
+func get_research_text(element: Element.enm, player: Player) -> String:
 	var text: String = ""
 	
 	var element_string: String = Element.convert_to_colored_string(element)
 	var flavor_text: String = Element.get_flavor_text(element)
 	var main_attack_types: String = Element.get_main_attack_types(element)
-	var research_level: String = get_research_level_label(element)
-	var cost: int = ElementLevel.get_research_cost(element)
-	var can_afford: bool = ElementLevel.can_afford_research(element)
+	var research_level: String = get_research_level_label(element, player)
+	var cost: int = player.get_research_cost(element)
+	var can_afford: bool = player.can_afford_research(element)
 	var cost_string: String = get_colored_requirement_number(cost, can_afford)
 
 	text += "Research %s level %s\n" % [element_string, research_level]
@@ -28,10 +28,10 @@ func get_research_text(element: Element.enm) -> String:
 	return text
 
 
-func get_research_level_label(element: Element.enm) -> String:
+func get_research_level_label(element: Element.enm, player: Player) -> String:
 	var text: String = ""
 	
-	var current_element_level = ElementLevel.get_current(element)
+	var current_element_level = player.get_element_level(element)
 	var max_element_level = ElementLevel.MAX_ELEMENT_LEVEL
 	if current_element_level >= max_element_level:
 		text += " [color=GOLD]MAX[/color] "

@@ -35,6 +35,8 @@ func set_player(player: Player):
 	for tab in tab_list:
 		tab.set_player(player)
 
+	_element_container.set_player(player)
+
 
 func set_towers(towers: Dictionary):
 	var tab_list: Array[ElementTowersTab] = _get_tab_list()

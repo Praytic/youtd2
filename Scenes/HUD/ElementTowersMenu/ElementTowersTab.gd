@@ -151,7 +151,7 @@ func _add_tower_button(tower_id: int, index: int):
 #########################
 
 func _on_upgrade_element_button_mouse_entered():
-	var tooltip: String = RichTexts.get_research_text(_element)
+	var tooltip: String = RichTexts.get_research_text(_element, _player)
 	ButtonTooltip.show_tooltip(_upgrade_button, tooltip)
 
 
