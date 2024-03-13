@@ -44,9 +44,9 @@ func _ready():
 	EventBus.player_requested_to_research_element.connect(_on_player_requested_to_research_element)
 	EventBus.player_requested_to_build_tower.connect(_on_player_requested_to_build_tower)
 	EventBus.player_requested_to_upgrade_tower.connect(_on_player_requested_to_upgrade_tower)
-	GoldControl.changed.connect(_on_gold_changed)
-	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
-	FoodManager.changed.connect(_on_food_changed)
+	_player.gold_changed.connect(_on_gold_changed)
+	_player.tomes_changed.connect(_on_tomes_changed)
+	_player.food_changed.connect(_on_food_changed)
 	
 #	Load initial values
 	_on_gold_changed()
@@ -138,9 +138,9 @@ func _unhandled_input(event: InputEvent):
 
 # Returns true if there are enough resources for tower
 func _enough_resources_for_tower(tower_id: int) -> bool:
-	var enough_gold: bool = GoldControl.enough_gold_for_tower(tower_id)
-	var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
-	var enough_food: bool = FoodManager.enough_food_for_tower(tower_id)
+	var enough_gold: bool = _player.enough_gold_for_tower(tower_id)
+	var enough_tomes: bool = _player.enough_tomes_for_tower(tower_id)
+	var enough_food: bool = _player.enough_food_for_tower(tower_id)
 	var enough_resources: bool = enough_gold && enough_tomes && enough_food
 
 	return enough_resources
@@ -183,8 +183,8 @@ func _try_to_build_tower():
 func _transform_tower(new_tower_id: int, prev_tower: Tower):
 	EventBus.tower_removed.emit(prev_tower)
 
-	FoodManager.remove_tower(prev_tower.get_id())
-	FoodManager.add_tower(new_tower_id)
+	_player.remove_food_for_tower(prev_tower.get_id())
+	_player.add_food_for_tower(new_tower_id)
 
 	var new_tower: Tower = TowerManager.get_tower(new_tower_id)
 	new_tower.position = prev_tower.position
@@ -197,7 +197,7 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 
 #	Spend build cost for new tower
 	var build_cost: float = TowerProperties.get_cost(new_tower_id)
-	GoldControl.spend_gold(build_cost)
+	_player.spend_gold(build_cost)
 
 # 	NOTE: don't modify tome count because transform is
 # 	enabled only in random modes and tome costs are 0 in
@@ -395,13 +395,10 @@ func _transition_from_tutorial_state():
 # TODO: move global state into nodes which are children of
 # GameScene so that it's automatically reset
 func _reset_singletons():
-	FoodManager.reset()
-	KnowledgeTomesManager.reset()
 	CombatLog.reset()
 	Effect.reset()
 	ElapsedTimer.reset()
 	Globals.reset()
-	GoldControl.reset()
 	ManualAttackTarget.reset()
 	MouseState.reset()
 	PregameSettings.reset()
@@ -519,8 +516,8 @@ func _on_tower_stash_changed():
 func _on_wave_finished(level: int):
 	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % level)
 
-	GoldControl.add_income(level)
-	KnowledgeTomesManager.add_income()
+	_player.add_income(level)
+	_player.add_tome_income()
 
 	if PregameSettings.game_mode_is_random():
 		_roll_towers_after_wave_finish()
@@ -534,18 +531,18 @@ func _on_wave_finished(level: int):
 
 
 func _on_gold_changed():
-	var gold: float = GoldControl.get_gold()
+	var gold: float = _player.get_gold()
 	_hud.set_gold(gold)
 
 
 func _on_tomes_changed():
-	var tomes: int = KnowledgeTomesManager.get_current()
+	var tomes: int = _player.get_tomes()
 	_hud.set_tomes(tomes)
 
 
 func _on_food_changed():
-	var food: int = FoodManager.get_current_food()
-	var food_cap: int = FoodManager.get_food_cap()
+	var food: int = _player.get_food()
+	var food_cap: int = _player.get_food_cap()
 	_hud.set_food(food, food_cap)
 
 

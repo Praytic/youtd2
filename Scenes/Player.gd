@@ -10,12 +10,28 @@ signal food_changed()
 
 
 const STARTING_ELEMENT_COST = 20
+const MAX_FOOD_CAP: int = 99
+const INITIAL_FOOD_CAP: int = 55
+const MAX_GOLD = 999999
+# NOTE: the interest gain max value comes from the JASS code
+# for original game
+const INTEREST_GAIN_MAX: int = 1000
+const MAX_KNOWLEDGE_TOMES: int = 999999
+const KNOWLEDGE_TOMES_INCOME: int = 8
 
 
 var _team: Team = Team.new()
 var _total_damage: float = 0
 var _tower_count_for_starting_roll: int = 6
 var _element_level_map: Dictionary = {}
+var _food: int = 0
+var _food_cap: int = INITIAL_FOOD_CAP
+var _income_rate: float = 1.0
+var _interest_rate: float = 0.05
+var _gold: float = Config.starting_gold()
+var _gold_farmed: float = 0
+var _tomes: int = Config.starting_tomes()
+
 
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/World/FloatingTextContainer")
 
@@ -25,10 +41,6 @@ var _element_level_map: Dictionary = {}
 #########################
 
 func _ready():
-	GoldControl.changed.connect(_on_gold_control_changed)
-	KnowledgeTomesManager.changed.connect(_on_tomes_manager_changed)
-	FoodManager.changed.connect(_on_food_manager_changed)
-
 	for element in Element.get_list():
 		_element_level_map[element] = 0
 
@@ -158,7 +170,7 @@ func display_small_floating_text(text: String, unit: Unit, color: Color, random_
 # get_player() when owner class is implemented
 # NOTE: player.giveGold() in JASS
 func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
-	GoldControl.add_gold(amount)
+	add_gold(amount)
 
 	if show_effect:
 		var effect: int = Effect.create_simple_at_unit("gold effect path", unit)
@@ -190,82 +202,131 @@ func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 		display_floating_text(text, unit, color)
 
 
-func add_gold(amount: float):
-	GoldControl.add_gold(amount)
+func add_gold(amount: float, source_is_income: bool = false):
+#	NOTE: gold framed should include only gold gained from
+#	creep kills or item/tower effects
+	if !source_is_income:
+		_gold_farmed += amount
+
+	var new_total: float = _gold + amount
+	_set_gold(new_total)
 
 
 func get_gold() -> float:
-	return GoldControl.get_gold()
+	return _gold
 
 
 func get_gold_farmed() -> float:
-	return GoldControl.get_gold_farmed()
+	return _gold_farmed
 
 
 # NOTE: player.modifyIncomeRate in JASS
 func modify_income_rate(amount: float):
-	GoldControl.modify_income_rate(amount)
+	_income_rate = _income_rate + amount
 
 
 # NOTE: player.modifyInterestRate in JASS
 func modify_interest_rate(amount: float):
-	GoldControl.modify_interest_rate(amount)
+	_interest_rate = _interest_rate + amount
 
 
 func add_income(level: int):
-	GoldControl.add_income(level)
+	var upkeep: int = floori((20 + level * 2) * _income_rate)
+	var current_gold: int = floori(_gold)
+	var interest: int = floori(min(current_gold * _interest_rate, INTEREST_GAIN_MAX))
+	var income: int = upkeep + interest
+	var source_is_income: bool = true
+	add_gold(income, source_is_income)
+
+	Messages.add_normal("Income: %d upkeep, %d interest." % [upkeep, interest])
 
 
 func enough_gold_for_tower(tower_id: int) -> bool:
-	return GoldControl.enough_gold_for_tower(tower_id)
+	var cost: float = TowerProperties.get_cost(tower_id)
+	var current_gold: float = get_gold()
+	var enough_gold: bool = cost <= current_gold
+
+	return enough_gold
 
 
 func spend_gold(amount: float):
-	GoldControl.spend_gold(amount)
+	var new_total: float = _gold - amount
+	_set_gold(new_total)
 
 
 func get_tomes() -> int:
-	return KnowledgeTomesManager.get_current()
+	return _tomes
 
 
 func add_tomes(amount: int):
-	KnowledgeTomesManager.add_knowledge_tomes(amount)
+	var new_tomes: int = _tomes + amount
+	_set_tomes(new_tomes)
 
 
 func add_tome_income():
-	KnowledgeTomesManager.add_income()
+	add_tomes(KNOWLEDGE_TOMES_INCOME)
 
 
 func spend_tomes(amount: int):
-	KnowledgeTomesManager.spend(amount)
+	var new_value: int = _tomes - amount
+	_set_tomes(new_value)
 
 
 func enough_tomes_for_tower(tower_id: int) -> bool:
-	return KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
+	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
+	var enough_tomes: bool = tome_cost <= _tomes
+
+	return enough_tomes
 
 
 func enough_food_for_tower(tower_id: int) -> bool:
-	return FoodManager.enough_food_for_tower(tower_id)
+	if Config.unlimited_food():
+		return true
+	
+	var food_cost: int = TowerProperties.get_food_cost(tower_id)
+	var food_after_add: int = _food + food_cost
+	var enough_food: bool = food_after_add <= _food_cap
+
+	return enough_food
 
 
 func add_food_for_tower(tower_id: int):
-	FoodManager.add_tower(tower_id)
+	var food_cost: int = TowerProperties.get_food_cost(tower_id)
+	var new_food: int = _food + food_cost
+
+	if new_food > _food_cap and not Config.unlimited_food():
+		push_error("Tried to change food above cap.")
+
+		return
+
+	_food = new_food
+	food_changed.emit()
 
 
 func remove_food_for_tower(tower_id: int):
-	FoodManager.remove_tower(tower_id)
+	var food_cost: int = TowerProperties.get_food_cost(tower_id)
+	var new_food: int = _food - food_cost
+	
+	if new_food < 0:
+		push_error("Tried to change food below 0.")
+
+		return
+	
+	_food = new_food
+	food_changed.emit()
 
 
 func modify_food_cap(amount: int):
-	FoodManager.modify_food_cap(amount)
+	_food_cap = clampi(_food_cap + amount, 0, MAX_FOOD_CAP)
+	food_changed.emit()
 
 
 func get_food() -> int:
-	return FoodManager.get_current_food()
+	return _food
 
 
 func get_food_cap() -> int:
-	return FoodManager.get_food_cap()
+	return _food_cap
 
 
 # NOTE: player.getNumTowers in JASS
@@ -282,6 +343,20 @@ func add_to_total_damage(damage: float):
 
 func get_total_damage() -> float:
 	return _total_damage
+
+
+#########################
+###      Private      ###
+#########################
+
+func _set_gold(value: float):
+	_gold = clampf(value, 0, MAX_GOLD)
+	gold_changed.emit()
+
+
+func _set_tomes(value):
+	_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
+	tomes_changed.emit()
 
 
 #########################
