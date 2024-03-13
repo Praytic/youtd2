@@ -114,22 +114,21 @@ func _unhandled_input(event: InputEvent):
 	var cancel_consumed_by_mouse_action: bool = MouseState.get_state() != MouseState.enm.NONE
 	var cancel_consumed_to_close_windows: bool = _hud.any_window_is_open()
 	var cancel_was_consumed: bool = cancel_consumed_by_mouse_action || cancel_consumed_to_close_windows
+	var left_click: bool = event.is_action_released("left_click")
 	
 	if cancel_pressed && cancel_consumed_to_close_windows:
 		_hud.close_all_windows()
 
-	if cancel_pressed && MouseState.get_state() == MouseState.enm.BUILD_TOWER:
-		_cancel_building_tower()
+	if MouseState.get_state() == MouseState.enm.BUILD_TOWER:
+		if cancel_pressed: 
+			_cancel_building_tower()
+		elif left_click:
+			_try_to_build_tower()
 	
 	if cancel_pressed && !cancel_was_consumed:
 		match Globals.get_game_state():
 			Globals.GameState.PLAYING: _pause_the_game()
 			Globals.GameState.PAUSED: _unpause_the_game()
-
-	var left_click: bool = event.is_action_released("left_click")
-
-	if left_click:
-		_try_to_build_tower()
 
 
 #########################
