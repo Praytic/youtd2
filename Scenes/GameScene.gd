@@ -21,6 +21,7 @@ class_name GameScene extends Node
 
 var _built_at_least_one_tower: bool = false
 var _tower_preview: TowerPreview = null
+var _prev_effect_id: int = 0
 
 
 #########################
@@ -115,7 +116,9 @@ func _unhandled_input(event: InputEvent):
 	var cancel_consumed_to_close_windows: bool = _hud.any_window_is_open()
 	var cancel_was_consumed: bool = cancel_consumed_by_mouse_action || cancel_consumed_to_close_windows
 	var left_click: bool = event.is_action_released("left_click")
-	
+	var right_click: bool = event.is_action_released("right_click")
+	var requested_manual_targeting: bool = right_click && MouseState.get_state() == MouseState.enm.NONE
+
 	if cancel_pressed && cancel_consumed_to_close_windows:
 		_hud.close_all_windows()
 
@@ -124,6 +127,11 @@ func _unhandled_input(event: InputEvent):
 			_cancel_building_tower()
 		elif left_click:
 			_try_to_build_tower()
+
+# 	NOTE: Can't do manual selection when mouse is busy with
+# 	some other action, for example moving items.
+	if requested_manual_targeting:
+		_do_manual_targetting()
 	
 	if cancel_pressed && !cancel_was_consumed:
 		match Globals.get_game_state():
@@ -134,6 +142,42 @@ func _unhandled_input(event: InputEvent):
 #########################
 ###      Private      ###
 #########################
+
+# Manual targeting forces towers to attack the clicked
+# target until it dies.
+# 
+# There are two scenario's:
+#
+# 1. If no tower is selected, then all towers will switch to
+#    the target.
+# 2. If a tower is selected, then only the selected tower
+#    will switch to the target.
+func _do_manual_targetting():
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+	var hovered_unit: Unit = SelectUnit.get_hovered_unit()
+
+	if !hovered_unit is Creep:
+		return
+
+	var hovered_creep: Creep = hovered_unit as Creep
+
+	var tower_list: Array[Tower]
+	if selected_unit is Tower:
+		var selected_tower: Tower = selected_unit as Tower
+		tower_list.append(selected_tower)
+	else:
+		tower_list = Utils.get_tower_list()
+
+	for tower in tower_list:
+		tower.force_attack_target(hovered_creep)
+
+#	NOTE: destroy prev effect so that there's only one arrow
+#	up at a time
+	Effect.destroy_effect(_prev_effect_id)
+	var effect: int = Effect.create_simple_on_unit("res://Scenes/Effects/TargetArrow.tscn", hovered_creep, Unit.BodyPart.HEAD)
+	Effect.set_lifetime(effect, 2.0)
+	_prev_effect_id = effect
+
 
 # Returns true if there are enough resources for tower
 func _enough_resources_for_tower(tower_id: int) -> bool:
@@ -398,7 +442,6 @@ func _reset_singletons():
 	Effect.reset()
 	ElapsedTimer.reset()
 	Globals.reset()
-	ManualAttackTarget.reset()
 	MouseState.reset()
 	PregameSettings.reset()
 	SelectPointForCast.reset()
