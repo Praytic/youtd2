@@ -49,7 +49,6 @@ func _process(_delta: float):
 
 func set_player(player: Player):
 	_player = player
-	_player.element_level_changed.connect(_on_element_level_changed)
 
 
 func set_towers_counter(value: int):
@@ -57,6 +56,10 @@ func set_towers_counter(value: int):
 		_counter_label.text = ""
 	else:
 		_counter_label.text = str(value)
+
+
+func set_element_level(level: int):
+	_texture_progress_bar.value = level
 
 
 #########################
@@ -81,11 +84,6 @@ func _make_custom_tooltip(for_text: String) -> Object:
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_element_level_changed():
-	var curent_element_level = _player.get_element_level(element)
-	_texture_progress_bar.value = curent_element_level
-
 
 func _on_mouse_entered():
 	_texture_progress_bar.show()

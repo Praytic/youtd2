@@ -31,6 +31,10 @@ func _ready():
 	mouse_entered.connect(_on_mouse_entered)
 	pressed.connect(_on_pressed)
 
+#	NOTE: start in locked state
+	disabled = true
+	_disabled_lock.show()
+
 
 #########################
 ###       Public      ###
@@ -41,9 +45,6 @@ func _ready():
 # numbers.
 func set_player(player: Player):
 	_player = player
-	_player.get_team().level_changed.connect(_on_wave_or_element_level_changed)
-	_player.element_level_changed.connect(_on_wave_or_element_level_changed)
-	_on_wave_or_element_level_changed()
 
 
 func get_tower_id() -> int:
@@ -57,22 +58,17 @@ func set_tower_id(value: int):
 func set_tier_icon(tower_id: int):
 	_tier_icon.texture = UnitIcons.get_tower_tier_icon(tower_id)
 
+
+# NOTE: this function uses saved reference to player because
+# requirements code needs to check all player resources
+func unlock():
+	_disabled_lock.hide()
+	disabled = false
+
+
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_wave_or_element_level_changed():
-	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id, _player) || Config.ignore_requirements()
-	set_disabled(!can_build)
-	if !can_build:
-		_disabled_lock.show()
-	else:
-		if Globals.get_game_state() == Globals.GameState.TUTORIAL:
-			HighlightUI.register_target("tower_stash_unlocked", self, true)
-			HighlightUI.register_target("tower_placed_on_map", self, true)
-			self.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash_unlocked"))
-		_disabled_lock.hide()
-
 
 func _on_mouse_entered():
 	var tooltip: String = RichTexts.get_tower_text(_tower_id, _player)

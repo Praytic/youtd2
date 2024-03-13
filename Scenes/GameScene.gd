@@ -274,6 +274,7 @@ func _start_game():
 	_game_start_timer.stop()
 	_hud.hide_game_start_time()
 	_hud.show_next_wave_button()
+	_hud.hide_roll_towers_button()
 
 	_wave_spawner.start_wave(1)
 	
@@ -287,21 +288,20 @@ func _start_game():
 func _start_next_wave():
 	_extreme_timer.stop()
 	_next_wave_timer.stop()
-	_hud.hide_next_wave_time()
 
 	_player.get_team().increment_level()
 	var level: int = _player.get_team().get_level()
 
+	_wave_spawner.start_wave(level)
+
+	_hud.hide_next_wave_time()
+	_hud.update_level(level)
 	var next_waves: Array[Wave] = _get_next_5_waves()
 	_hud.show_wave_details(next_waves)
-	
-	_wave_spawner.start_wave(level)
-	
 	var started_last_wave: bool = level == PregameSettings.get_wave_count()
-	
 	if started_last_wave:
 		_hud.disable_next_wave_button()
-		
+
 	if !started_last_wave && PregameSettings.get_difficulty() == Difficulty.enm.EXTREME:
 		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
 

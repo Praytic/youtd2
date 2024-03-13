@@ -7,7 +7,6 @@ class_name Player extends Node
 signal gold_changed()
 signal tomes_changed()
 signal food_changed()
-signal element_level_changed()
 
 
 const STARTING_ELEMENT_COST = 20
@@ -49,7 +48,6 @@ func decrement_tower_count_for_starting_roll():
 
 func increment_element_level(element: Element.enm):
 	_element_level_map[element] += 1
-	element_level_changed.emit()
 
 
 func get_element_level(element: Element.enm) -> int:

@@ -67,6 +67,14 @@ func _process(_delta: float):
 ###       Public      ###
 #########################
 
+func update_element_level(_element_levels: Dictionary):
+	_on_upgrade_requirements_changed()
+
+
+func update_level(_level: int):
+	_on_upgrade_requirements_changed()
+
+
 # NOTE: need to couple unit menu with player to implement
 # the feature of tooltips displaying red requirement
 # numbers.
@@ -75,8 +83,6 @@ func set_player(player: Player):
 
 	player.gold_changed.connect(_on_upgrade_requirements_changed)
 	player.tomes_changed.connect(_on_upgrade_requirements_changed)
-	player.element_level_changed.connect(_on_upgrade_requirements_changed)
-	player.get_team().level_changed.connect(_on_upgrade_requirements_changed)
 
 
 func close():

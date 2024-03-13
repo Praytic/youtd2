@@ -51,12 +51,19 @@ func _ready():
 ###       Public      ###
 #########################
 
+
+func update_level(level: int):
+	_unit_menu.update_level(level)
+	_elements_tower_menu.update_level()
+
+
 func hide_roll_towers_button():
 	_elements_tower_menu.hide_roll_towers_button()
 
 
 func update_element_level(element_levels: Dictionary):
 	_elements_tower_menu.update_element_level(element_levels)
+	_unit_menu.update_element_level(element_levels)
 
 
 func set_player(player: Player):

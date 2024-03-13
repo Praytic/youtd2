@@ -29,6 +29,13 @@ func set_player(player: Player):
 		button.set_player(player)
 
 
+func update_element_level(element_levels: Dictionary):
+	for button in get_children():
+		var element: Element.enm = button.element
+		var level: int = element_levels[element]
+		button.set_element_level(level)
+
+
 #########################
 ###     Callbacks     ###
 #########################

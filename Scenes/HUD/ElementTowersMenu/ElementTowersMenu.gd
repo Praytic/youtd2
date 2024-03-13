@@ -53,6 +53,8 @@ func update_element_level(element_levels: Dictionary):
 		var level: int = element_levels[element]
 		tab.set_element_level(level)
 
+	_element_container.update_element_level(element_levels)
+
 
 func close():
 	if _menu_card.get_main_button().is_pressed():

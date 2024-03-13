@@ -46,7 +46,6 @@ func hide_roll_towers_button():
 
 func set_player(player: Player):
 	_player = player
-	player.get_team().level_changed.connect(_on_wave_level_changed)
 
 
 func get_element() -> Element.enm:
@@ -60,6 +59,12 @@ func set_element_level(level: int):
 #	button is hovered.
 	_upgrade_button.hide()
 	_upgrade_button.show()
+
+	_unlock_tower_buttons_if_possible()
+
+
+func update_level(_level: int):
+	_unlock_tower_buttons_if_possible()
 
 
 func set_towers(towers: Dictionary):
@@ -121,10 +126,29 @@ func set_towers(towers: Dictionary):
 
 	_tower_buttons_container.update_empty_slots(_button_list.size())
 
+	_unlock_tower_buttons_if_possible()
+
 
 #########################
 ###      Private      ###
 #########################
+
+func _unlock_tower_buttons_if_possible():
+	for button in _button_list:
+		if !button.disabled:
+			continue
+
+		var tower_id: int = button.get_tower_id()
+		var can_build_tower: bool = TowerProperties.requirements_are_satisfied(tower_id, _player) || Config.ignore_requirements()
+
+		if can_build_tower:
+			button.unlock()
+
+			if Globals.get_game_state() == Globals.GameState.TUTORIAL:
+				HighlightUI.register_target("tower_stash_unlocked", self, true)
+				HighlightUI.register_target("tower_placed_on_map", self, true)
+				button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash_unlocked"))
+
 
 func _get_element_info_text() -> String:
 	var text: String = ""
@@ -157,14 +181,6 @@ func _on_upgrade_element_button_mouse_entered():
 
 func _on_upgrade_element_button_pressed():
 	EventBus.player_requested_to_research_element.emit(_element)
-
-
-func _on_wave_level_changed():
-	var new_wave_level: int = _player.get_team().get_level()
-	var start_first_wave: bool = new_wave_level == 1
-
-	if start_first_wave:
-		_roll_button.disabled = true
 
 
 func _on_roll_towers_button_pressed():

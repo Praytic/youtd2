@@ -7,7 +7,6 @@ class_name Team
 
 
 signal lives_changed()
-signal level_changed()
 
 
 var _lives: float = 100
@@ -43,4 +42,3 @@ func get_level() -> int:
 
 func increment_level():
 	_level += 1
-	level_changed.emit()
