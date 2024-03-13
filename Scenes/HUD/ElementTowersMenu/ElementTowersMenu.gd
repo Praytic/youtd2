@@ -45,6 +45,13 @@ func set_towers(towers: Dictionary):
 		tab.set_towers(towers)
 
 
+func update_level(level: int):
+	var tab_list: Array[ElementTowersTab] = _get_tab_list()
+
+	for tab in tab_list:
+		tab.update_level(level)
+
+
 func update_element_level(element_levels: Dictionary):
 	var tab_list: Array[ElementTowersTab] = _get_tab_list()
 

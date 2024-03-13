@@ -54,7 +54,7 @@ func _ready():
 
 func update_level(level: int):
 	_unit_menu.update_level(level)
-	_elements_tower_menu.update_level()
+	_elements_tower_menu.update_level(level)
 
 
 func hide_roll_towers_button():
