@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://b3grhp7bp5t54" path="res://Scenes/HUD/TopLeftMenu.tscn" id="10_agdn3"]
 [ext_resource type="Script" path="res://Scenes/HUD/HUD.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://ino0lr2m12uh" path="res://Scenes/HUD/ItemStashMenu/ItemStashMenu.tscn" id="11_5i6a2"]
-[ext_resource type="PackedScene" uid="uid://dvo433axo22w3" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersMenu.tscn" id="11_gv2lk"]
 [ext_resource type="Texture2D" uid="uid://butcq5anduco8" path="res://Resources/Textures/UI/portal_lives_round_bg.tres" id="11_hbwuy"]
 [ext_resource type="PackedScene" uid="uid://nl0pvhb4rasi" path="res://Scenes/HUD/ButtonTooltip.tscn" id="11_ka7k1"]
 [ext_resource type="Texture2D" uid="uid://b3s3mtb8efipi" path="res://Assets/UI/HUD/darkness_face.png" id="12_2mxp4"]
@@ -16,6 +15,7 @@
 [ext_resource type="Script" path="res://Scenes/HUD/AutocastTooltipContainer.gd" id="13_fj5t7"]
 [ext_resource type="Texture2D" uid="uid://mglwvt681k5r" path="res://Assets/UI/HUD/tranquility_face.png" id="13_n0pc1"]
 [ext_resource type="PackedScene" uid="uid://bx5csta8pr8j0" path="res://Scenes/HUD/CombatLogWindow.tscn" id="14_g64vx"]
+[ext_resource type="PackedScene" uid="uid://donslrrviy807" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersMenu.tscn" id="15_eivr8"]
 [ext_resource type="PackedScene" uid="uid://cc70ktmpmbjts" path="res://Scenes/HUD/BottomMenuBar/BottomMenuBar.tscn" id="15_ir4hq"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
@@ -199,10 +199,9 @@ layout_mode = 2
 size_flags_vertical = 0
 _menu_card = NodePath("../../../MenuCardsContainer/MenuCards/ItemsStatusCard")
 
-[node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_menu_card") instance=ExtResource("11_gv2lk")]
+[node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" node_paths=PackedStringArray("_menu_card") instance=ExtResource("15_eivr8")]
 visible = false
 layout_mode = 2
-size_flags_vertical = 0
 _menu_card = NodePath("../../../MenuCardsContainer/MenuCards/TowersStatusCard")
 
 [node name="Bottom" type="HBoxContainer" parent="MarginContainer/All"]
@@ -309,4 +308,4 @@ used_for_autocasts = true
 [connection signal="main_button_toggled" from="MarginContainer/All/Center/MenuCardsContainer/MenuCards/UnitStatusCard" to="." method="_on_main_button_toggled"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/UnitMenu" to="." method="_on_unit_menu_hidden"]
 [connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu" to="." method="_on_item_stash_menu_hidden"]
-[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu" to="." method="_on_element_towers_menu_hidden"]
+[connection signal="hidden" from="MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu" to="." method="_on_element_menu_hidden"]

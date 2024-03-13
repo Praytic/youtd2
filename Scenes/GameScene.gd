@@ -43,6 +43,7 @@ func _ready():
 	GoldControl.changed.connect(_on_gold_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
 	FoodManager.changed.connect(_on_food_changed)
+	_player.element_level_changed.connect(_on_element_level_changed)
 	
 #	Load initial values
 	_on_gold_changed()
@@ -503,3 +504,8 @@ func _on_player_requested_to_roll_towers():
 	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(_player, tower_count_for_roll)
 	_tower_stash.add_towers(rolled_towers)
 	_player.decrement_tower_count_for_starting_roll()
+
+
+func _on_element_level_changed():
+	var element_levels: Dictionary = _player.get_element_level_map()
+	_hud.update_element_level(element_levels)

@@ -29,6 +29,15 @@ const range_indicator_scene: PackedScene = preload("res://Scenes/Towers/RangeInd
 const button_with_rich_tooltip_scene: PackedScene = preload("res://Scenes/HUD/ButtonWithRichTooltip.tscn")
 const outline_shader: Material = preload("res://Resources/Shaders/GlowingOutline.material")
 const special_container: PackedScene = preload("res://Scenes/HUD/UnitMenu/SpecialContainer.tscn")
+const element_icons: Dictionary = {
+	Element.enm.ICE: preload("res://Resources/Textures/UI/Icons/ice_icon.tres"),
+	Element.enm.NATURE: preload("res://Resources/Textures/UI/Icons/nature_icon.tres"),
+	Element.enm.ASTRAL: preload("res://Resources/Textures/UI/Icons/astral_icon.tres"),
+	Element.enm.DARKNESS: preload("res://Resources/Textures/UI/Icons/darkness_icon.tres"),
+	Element.enm.FIRE: preload("res://Resources/Textures/UI/Icons/fire_icon.tres"),
+	Element.enm.IRON: preload("res://Resources/Textures/UI/Icons/iron_icon.tres"),
+	Element.enm.STORM: preload("res://Resources/Textures/UI/Icons/storm_icon.tres"),
+}
 
 
 var game_over: bool

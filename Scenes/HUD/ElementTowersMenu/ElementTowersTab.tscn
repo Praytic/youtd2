@@ -1,0 +1,317 @@
+[gd_scene load_steps=15 format=3 uid="uid://c4l81jcbkrtkr"]
+
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementTowersTab.gd" id="1_3yo77"]
+[ext_resource type="StyleBox" uid="uid://cwmhuo2ppjfx2" path="res://Resources/Theme/Common/rect_container_m.tres" id="1_rfpra"]
+[ext_resource type="Texture2D" uid="uid://bbkggrbwi3iy2" path="res://Assets/UI/HUD/misc5.png" id="2_jcxoy"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/UpgradeElementButton.gd" id="3_8uthh"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/RollTowersButton.gd" id="4_3ff1t"]
+[ext_resource type="Script" path="res://Scenes/HUD/UnitButtonsContainer.gd" id="5_hfrnb"]
+[ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="6_dlhb7"]
+[ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="7_ctjxb"]
+[ext_resource type="Script" path="res://Scenes/HUD/ElementTowersMenu/ElementLevelLabel.gd" id="8_dqm1p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0us4"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aok27"]
+atlas = ExtResource("2_jcxoy")
+region = Rect2(0, 256, 128, 128)
+
+[sub_resource type="InputEventKey" id="InputEventKey_gugyc"]
+device = -1
+physical_keycode = 69
+unicode = 101
+
+[sub_resource type="Shortcut" id="Shortcut_hvvrm"]
+events = [SubResource("InputEventKey_gugyc")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka8ya"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="ElementTowersTab" type="VBoxContainer" node_paths=PackedStringArray("_title_label", "_element_level_label", "_upgrade_button", "_roll_button", "_element_icon", "_tower_buttons_container", "_info_label")]
+script = ExtResource("1_3yo77")
+_title_label = NodePath("MarginContainer/MarginContainer/TitleLabel")
+_element_level_label = NodePath("MarginContainer2/MarginContainer2/VBoxContainer/ElementLevelLabel")
+_upgrade_button = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton")
+_roll_button = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer3/RollTowersButton")
+_element_icon = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/IconContainer/ElementIcon")
+_tower_buttons_container = NodePath("MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2")
+_info_label = NodePath("MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2/InfoLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_bottom = -34
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -90
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = ExtResource("1_rfpra")
+text = "ICE"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_top = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="InfoContainer" type="PanelContainer" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 280)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e0us4")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"InfoContainerLabel"
+theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+text = "Info"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="IconContainer" type="AspectRatioContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+alignment_vertical = 0
+
+[node name="ElementIcon" type="TextureRect" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer/IconContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = SubResource("AtlasTexture_aok27")
+expand_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+
+[node name="UpgradeElementButton" type="Button" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+tooltip_text = "Update element (E)"
+focus_mode = 0
+shortcut = SubResource("Shortcut_hvvrm")
+shortcut_in_tooltip = false
+text = "UPGRADE"
+script = ExtResource("3_8uthh")
+
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="RollTowersButton" type="Button" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+size_flags_vertical = 0
+tooltip_text = "Press to get a random set of starting towers.\\nYou can reroll if you don't like the initial towers\\nbut each time you will get less towers."
+focus_mode = 0
+text = "ROLL"
+script = ExtResource("4_3ff1t")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="InfoLabel" type="RichTextLabel" parent="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/italics_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 24
+theme_override_font_sizes/mono_font_size = 24
+bbcode_enabled = true
+text = "flavor text goes here"
+fit_content = true
+scroll_active = false
+
+[node name="Inventory" type="PanelContainer" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ka8ya")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"InfoContainerLabel"
+theme_override_colors/font_color = Color(0.945313, 0.945313, 0, 1)
+text = "Towers"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_bottom = -1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 390)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="TowerButtonsContainer2" type="GridContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+script = ExtResource("5_hfrnb")
+
+[node name="EmptyUnitButton1" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton12" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton11" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton4" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton5" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton6" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton7" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton8" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton9" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton10" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton2" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="EmptyUnitButton3" parent="MarginContainer2/MarginContainer/VBoxContainer/Inventory/MarginContainer2/VBoxContainer/MarginContainer/ScrollContainer/MarginContainer/TowerButtonsContainer2" instance=ExtResource("6_dlhb7")]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_constants/margin_left = -60
+theme_override_constants/margin_top = -60
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="ElementLevelLabel" type="Label" parent="MarginContainer2/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = ExtResource("7_ctjxb")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_dqm1p")
+
+[connection signal="mouse_entered" from="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_mouse_entered"]
+[connection signal="pressed" from="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer2/UpgradeElementButton" to="." method="_on_upgrade_element_button_pressed"]
+[connection signal="pressed" from="MarginContainer2/MarginContainer/VBoxContainer/InfoContainer/VBoxContainer/HBoxContainer/VBoxContainer/MarginContainer3/RollTowersButton" to="." method="_on_roll_towers_button_pressed"]

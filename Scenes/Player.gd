@@ -49,6 +49,10 @@ func get_element_level(element: Element.enm) -> int:
 	return ElementLevel.get_current(element)
 
 
+func get_element_level_map() -> Dictionary:
+	return ElementLevel.get_element_level_map()
+
+
 func get_research_cost(element: Element.enm) -> int:
 	return ElementLevel.get_research_cost(element)
 

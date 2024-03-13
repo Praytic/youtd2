@@ -42,6 +42,10 @@ func get_current(element: Element.enm) -> int:
 	return level
 
 
+func get_element_level_map() -> Dictionary:
+	return _element_level_map
+
+
 func get_max() -> int:
 	return MAX_ELEMENT_LEVEL
 

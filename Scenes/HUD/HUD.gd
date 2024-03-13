@@ -8,7 +8,7 @@ signal stop_wave()
 @export var _error_message_container: VBoxContainer
 @export var _normal_message_container: VBoxContainer
 @export var _game_over_label: RichTextLabel
-@export var _elements_tower_menu: Control
+@export var _elements_tower_menu: ElementTowersMenu
 @export var _item_stash_menu: Control
 @export var _unit_menu: Control
 @export var _towers_menu_card: ButtonStatusCard
@@ -50,6 +50,10 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func update_element_level(element_levels: Dictionary):
+	_elements_tower_menu.update_element_level(element_levels)
+
 
 func set_player(player: Player):
 	_unit_menu.set_player(player)
@@ -182,6 +186,10 @@ func _on_item_stash_menu_hidden():
 
 func _on_game_over():
 	_game_over_label.show()
+
+
+func _on_element_menu_hidden():
+	_update_menus_and_cards_visibility()
 
 
 #########################

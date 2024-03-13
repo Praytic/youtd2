@@ -1,5 +1,4 @@
-# ElementsContainer
-extends VBoxContainer
+class_name ElementsContainer extends VBoxContainer
 
 
 signal element_changed()
