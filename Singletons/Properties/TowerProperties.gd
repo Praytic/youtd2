@@ -425,6 +425,20 @@ func get_mana_regen(tower_id: int) -> int:
 	return mana_regen
 
 
+func get_upgrade_id_for_tower(tower_id: int) -> int:
+	var family_id: int = get_family(tower_id)
+	var family_list: Array = get_towers_in_family(family_id)
+	var next_tier: int = get_tier(tower_id) + 1
+
+	for id in family_list:
+		var this_tier: int = get_tier(id)
+
+		if this_tier == next_tier:
+			return id
+	
+	return -1
+
+
 #########################
 ###      Private      ###
 #########################

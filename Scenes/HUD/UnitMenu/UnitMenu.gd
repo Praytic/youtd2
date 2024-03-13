@@ -68,11 +68,11 @@ func _process(_delta: float):
 #########################
 
 func update_element_level(_element_levels: Dictionary):
-	_on_upgrade_requirements_changed()
+	_update_upgrade_button()
 
 
 func update_level(_level: int):
-	_on_upgrade_requirements_changed()
+	_update_upgrade_button()
 
 
 # NOTE: need to couple unit menu with player to implement
@@ -205,28 +205,19 @@ func _update_inventory_empty_slots(tower: Tower):
 		slot.visible = i < inventory_capacity
 
 
-func _get_upgrade_id_for_tower(tower: Tower) -> int:
-	var family_id: int = tower.get_family()
-	var family_list: Array = TowerProperties.get_towers_in_family(family_id)
-	var next_tier: int = tower.get_tier() + 1
+func _update_upgrade_button():
+	var tower: Tower = get_selected_tower()
 
-	for id in family_list:
-		var this_tier: int = TowerProperties.get_tier(id)
-
-		if this_tier == next_tier:
-			return id
+	if tower == null:
+		return
 	
-	return -1
-
-
-func _update_upgrade_button(tower: Tower):
-	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
+	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(tower.get_id())
 
 	var can_upgrade: bool
 	if upgrade_id != -1:
 		var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(upgrade_id, _player) || Config.ignore_requirements()
-		var enough_gold: bool = GoldControl.enough_gold_for_tower(upgrade_id)
-		var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(upgrade_id)
+		var enough_gold: bool = _player.enough_gold_for_tower(upgrade_id)
+		var enough_tomes: bool = _player.enough_tomes_for_tower(upgrade_id)
 		can_upgrade = requirements_are_satisfied && enough_gold && enough_tomes
 	else:
 		can_upgrade = false
@@ -311,9 +302,7 @@ func _set_selling_for_real(value: bool):
 #########################
 
 func _on_upgrade_requirements_changed():
-	var tower = get_selected_tower()
-	if tower != null:
-		_update_upgrade_button(tower)
+	_update_upgrade_button()
 
 
 func _on_items_box_container_child_entered_tree(node):
@@ -345,7 +334,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		tower.buff_list_changed.connect(_on_unit_buff_list_changed.bind(tower))
 		tower.level_up.connect(_on_unit_level_up)
 		_on_tower_items_changed(tower)
-		_update_upgrade_button(tower)
+		_update_upgrade_button()
 		_update_unit_name_label(tower)
 		_update_unit_level_label()
 		_on_unit_buff_list_changed(tower)
@@ -415,35 +404,7 @@ func _on_upgrade_button_pressed():
 	if tower == null:
 		return
 
-	var prev_id: int = tower.get_id()
-	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
-
-	if upgrade_id == -1:
-		print_debug("Failed to find upgrade id")
-
-		return
-
-	var enough_gold: bool = GoldControl.enough_gold_for_tower(upgrade_id)
-
-	if !enough_gold:
-		Messages.add_error("Not enough gold.")
-
-		return
-
-	var upgrade_tower: Tower = TowerManager.get_tower(upgrade_id)
-	upgrade_tower.position = tower.position
-	upgrade_tower._temp_preceding_tower = tower
-	Utils.add_object_to_world(upgrade_tower)
-	tower.queue_free()
-
-	SelectUnit.set_selected_unit(upgrade_tower)
-
-	var refund_for_prev_tier: float = TowerProperties.get_cost(prev_id)
-	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
-	GoldControl.add_gold(refund_for_prev_tier)
-	GoldControl.spend_gold(upgrade_cost)
-
-	_update_upgrade_button(upgrade_tower)
+	EventBus.player_requested_to_upgrade_tower.emit(tower)
 
 #	NOTE: hide and show upgrade button to trigger
 #	mouse_entered() signal to refresh the button tooltip.
@@ -525,7 +486,7 @@ func _on_unit_buff_list_changed(unit: Unit):
 
 func _on_tower_upgrade_button_mouse_entered():
 	var tower: Tower = SelectUnit.get_selected_unit() as Tower
-	var upgrade_id: int = _get_upgrade_id_for_tower(tower)
+	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(tower.get_id())
 
 	if upgrade_id == -1:
 		return

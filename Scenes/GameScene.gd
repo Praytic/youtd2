@@ -41,6 +41,7 @@ func _ready():
 	EventBus.tower_created.connect(_on_tower_created)
 	EventBus.player_requested_to_roll_towers.connect(_on_player_requested_to_roll_towers)
 	EventBus.player_requested_to_research_element.connect(_on_player_requested_to_research_element)
+	EventBus.player_requested_to_upgrade_tower.connect(_on_player_requested_to_upgrade_tower)
 	GoldControl.changed.connect(_on_gold_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
 	FoodManager.changed.connect(_on_food_changed)
@@ -530,3 +531,33 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 	var new_element_levels: Dictionary = _player.get_element_level_map()
 	_hud.update_element_level(new_element_levels)
+
+
+func _on_player_requested_to_upgrade_tower(tower: Tower):
+	var prev_id: int = tower.get_id()
+	var upgrade_id: int = TowerProperties.get_upgrade_id_for_tower(tower.get_id())
+
+	if upgrade_id == -1:
+		print_debug("Failed to find upgrade id")
+
+		return
+
+	var enough_gold: bool = _player.enough_gold_for_tower(upgrade_id)
+
+	if !enough_gold:
+		Messages.add_error("Not enough gold.")
+
+		return
+
+	var upgrade_tower: Tower = TowerManager.get_tower(upgrade_id)
+	upgrade_tower.position = tower.position
+	upgrade_tower._temp_preceding_tower = tower
+	Utils.add_object_to_world(upgrade_tower)
+	tower.queue_free()
+
+	SelectUnit.set_selected_unit(upgrade_tower)
+
+	var refund_for_prev_tier: float = TowerProperties.get_cost(prev_id)
+	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
+	_player.add_gold(refund_for_prev_tier)
+	_player.spend_gold(upgrade_cost)

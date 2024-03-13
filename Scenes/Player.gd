@@ -190,6 +190,10 @@ func give_gold(amount: float, unit: Unit, show_effect: bool, show_text: bool):
 		display_floating_text(text, unit, color)
 
 
+func add_gold(amount: float):
+	GoldControl.add_gold(amount)
+
+
 func get_gold() -> float:
 	return GoldControl.get_gold()
 
