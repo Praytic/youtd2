@@ -296,7 +296,7 @@ func sell():
 	var sell_price: int = TowerProperties.get_sell_price(tower_id)
 	get_player().give_gold(sell_price, self, false, true)
 	
-	FoodManager.remove_tower(tower_id)
+	get_player().remove_food_for_tower(tower_id)
 
 	queue_free()
 

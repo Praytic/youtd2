@@ -1,6 +1,29 @@
 class_name UtilsStatic extends Node
 
 
+func tower_exists_on_position(position: Vector2) -> bool:
+	var tower_at_position: Tower = get_tower_at_position(position)
+	var has_tower: bool = tower_at_position != null
+
+	return has_tower
+
+
+func get_tower_at_position(visual_position: Vector2) -> Tower:
+	var position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
+
+	var tower_node_list: Array = get_tree().get_nodes_in_group("towers")
+
+	for tower_node in tower_node_list:
+		var tower: Tower = tower_node as Tower
+		var this_position: Vector2 = tower.position
+		var position_match: bool = position.is_equal_approx(this_position)
+
+		if position_match:
+			return tower
+
+	return null
+
+
 # NOTE: Game.getGameTime() in JASS 
 func get_time() -> float:
 	var game_time: Node = get_tree().get_root().get_node_or_null("GameScene/GameTime")

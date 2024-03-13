@@ -195,7 +195,7 @@ func can_transform_at_mouse_pos() -> bool:
 		return false
 
 	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
-	var there_is_a_tower_under_mouse: bool = BuildTower.tower_exists_on_position(pos)
+	var there_is_a_tower_under_mouse: bool = Utils.tower_exists_on_position(pos)
 	var can_transform: bool = there_is_a_tower_under_mouse
 
 	return can_transform

@@ -76,12 +76,7 @@ func _on_mouse_entered():
 
 
 func _on_pressed():
-	var enough_resources: bool = BuildTower.enough_resources_for_tower(_tower_id)
-
-	if enough_resources:
-		BuildTower.start(_tower_id)
-	else:
-		BuildTower.add_error_about_resources(_tower_id)
+	EventBus.player_requested_to_build_tower.emit(_tower_id)
 
 
 #########################
