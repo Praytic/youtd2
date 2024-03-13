@@ -189,7 +189,7 @@ func get_animated_sprite_dimensions(sprite: AnimatedSprite2D, animation_name: St
 
 # NOTE: Game.getMaxLevel() in JASS
 func get_max_level() -> int:
-	return PregameSettings.get_wave_count()
+	return Globals.get_wave_count()
 
 
 func get_colored_string(string: String, color: Color) -> String:

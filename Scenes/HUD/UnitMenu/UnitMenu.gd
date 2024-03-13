@@ -226,7 +226,7 @@ func _update_upgrade_button():
 
 
 func _update_sell_tooltip(tower: Tower):
-	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
+	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var sell_ratio: float = GameMode.get_sell_ratio(game_mode)
 	var sell_ratio_string: String = Utils.format_percent(sell_ratio, 0)
 	var sell_price: int = TowerProperties.get_sell_price(tower.get_id())
@@ -349,7 +349,7 @@ func _on_selected_unit_changed(prev_unit: Unit):
 		
 		_inventory.show()
 		_tier_icon_texture.show()
-		var upgrade_button_should_be_visible: bool = PregameSettings.get_game_mode() == GameMode.enm.BUILD || PregameSettings.get_game_mode() == GameMode.enm.RANDOM_WITH_UPGRADES
+		var upgrade_button_should_be_visible: bool = Globals.get_game_mode() == GameMode.enm.BUILD || Globals.get_game_mode() == GameMode.enm.RANDOM_WITH_UPGRADES
 		_upgrade_button.set_visible(upgrade_button_should_be_visible)
 		_sell_button.show()
 		_creep_specials_container.hide()

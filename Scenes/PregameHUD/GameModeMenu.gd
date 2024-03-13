@@ -5,7 +5,7 @@ signal finished()
 
 
 func _on_generic_button_pressed(game_mode: GameMode.enm):
-	PregameSettings._game_mode = game_mode
+	Globals._game_mode = game_mode
 	finished.emit()
 
 

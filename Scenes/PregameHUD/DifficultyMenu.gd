@@ -5,7 +5,7 @@ signal finished()
 
 
 func _on_generic_button_pressed(difficulty: Difficulty.enm):
-	PregameSettings._difficulty = difficulty
+	Globals._difficulty = difficulty
 	finished.emit()
 
 

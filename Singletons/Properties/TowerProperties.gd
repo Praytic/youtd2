@@ -140,7 +140,7 @@ func get_cost(tower_id: int) -> int:
 
 
 func get_sell_price(tower_id: int) -> int:
-	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
+	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var sell_ratio: float = GameMode.get_sell_ratio(game_mode)
 	var cost: float = TowerProperties.get_cost(tower_id)
 	var sell_price: int = floori(cost * sell_ratio)
@@ -241,7 +241,7 @@ func get_required_wave_level(tower_id: int) -> int:
 	else:
 		required_wave = _get_required_wave_level_from_formula(tower_id)
 
-	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
+	if Globals.get_game_mode() == GameMode.enm.BUILD:
 		var rarity: Rarity.enm = TowerProperties.get_rarity(tower_id)
 		var min_required_wave: int = _min_required_wave_for_build_mode[rarity]
 		required_wave = max(required_wave, min_required_wave)
@@ -284,9 +284,9 @@ func requirements_are_satisfied(tower_id: int, player: Player) -> bool:
 # 
 #   For "totally random" mode, all towers come from tower
 #   distribution, so we can ignore requirements completely.
-	if PregameSettings.get_game_mode() == GameMode.enm.RANDOM_WITH_UPGRADES && tier == 1:
+	if Globals.get_game_mode() == GameMode.enm.RANDOM_WITH_UPGRADES && tier == 1:
 		return true
-	elif PregameSettings.get_game_mode() == GameMode.enm.TOTALLY_RANDOM:
+	elif Globals.get_game_mode() == GameMode.enm.TOTALLY_RANDOM:
 		return true
 
 	var out: bool = element_level_foo(tower_id, player) && wave_level_foo(tower_id, player)
@@ -324,7 +324,7 @@ func get_food_cost(tower_id: int) -> int:
 
 
 func get_tome_cost(tower_id: int) -> int:
-	if PregameSettings.game_mode_is_random():
+	if Globals.game_mode_is_random():
 		return 0
 
 	var tome_cost_map: Dictionary = {

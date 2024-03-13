@@ -103,7 +103,7 @@ func _process(delta):
 
 func get_damage_to_portal() -> float:
 #	NOTE: final wave boss deals full damage to portal
-	var wave_count: int = PregameSettings.get_wave_count()
+	var wave_count: int = Globals.get_wave_count()
 	var is_final_wave: bool = _spawn_level == wave_count
 
 	if is_final_wave:

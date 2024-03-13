@@ -5,7 +5,7 @@ signal finished()
 
 
 func _on_generic_button_pressed(tutorial_enabled: bool):
-	PregameSettings._tutorial_enabled = tutorial_enabled
+	Globals._tutorial_enabled = tutorial_enabled
 	finished.emit()
 
 

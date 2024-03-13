@@ -5,7 +5,7 @@ signal finished()
 
 
 func _on_generic_button_pressed(wave_count: int):
-	PregameSettings._wave_count = wave_count
+	Globals._wave_count = wave_count
 	finished.emit()
 
 

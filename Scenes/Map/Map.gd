@@ -191,7 +191,7 @@ func get_build_info_for_mouse_pos() -> Array:
 
 
 func can_transform_at_mouse_pos() -> bool:
-	if !PregameSettings.game_mode_allows_transform():
+	if !Globals.game_mode_allows_transform():
 		return false
 
 	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()

@@ -43,5 +43,5 @@ func _ready():
 	
 
 func _on_generic_button_pressed(builder_id: int):
-	PregameSettings._builder_id = builder_id
+	Globals._builder_id = builder_id
 	finished.emit()

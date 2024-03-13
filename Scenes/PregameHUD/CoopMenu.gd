@@ -20,7 +20,7 @@ func _on_create_room_button_pressed():
 
 
 func meets_condition() -> bool:
-	return PregameSettings._player_mode == PlayerMode.enm.COOP
+	return Globals._player_mode == PlayerMode.enm.COOP
 
 
 func _on_type_room_id_text_edit_text_changed():

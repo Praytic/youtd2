@@ -76,7 +76,7 @@ func _on_tower_created(tower: Tower):
 
 # 	In build mode towers are not "spent" when player builds
 # 	them
-	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
+	if Globals.get_game_mode() == GameMode.enm.BUILD:
 		return
 
 	var tower_id: int = tower.get_id()

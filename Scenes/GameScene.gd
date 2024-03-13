@@ -209,7 +209,7 @@ func _try_to_build_tower():
 
 	if !can_build && !can_transform:
 		var error: String
-		if attempting_to_transform && !PregameSettings.game_mode_allows_transform():
+		if attempting_to_transform && !Globals.game_mode_allows_transform():
 			error = "Can't transform towers in build mode."
 		else:
 			error = "Can't build here."
@@ -377,17 +377,17 @@ func _get_cmdline_value(key: String):
 func _transition_from_pregame_settings_state():
 	get_tree().set_pause(false)
 
-	var builder_id: int = PregameSettings.get_builder_id()
+	var builder_id: int = Globals.get_builder_id()
 	var builder_instance: Builder = Builder.create_instance(builder_id)
 	add_child(builder_instance)
 	Globals._builder_instance = builder_instance
 
 	builder_instance.apply_to_player(_player)
 	
-	var wave_count: int = PregameSettings.get_wave_count()
-	var difficulty: Difficulty.enm = PregameSettings.get_difficulty()
-	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
-	var tutorial_enabled: bool = PregameSettings.get_tutorial_enabled()
+	var wave_count: int = Globals.get_wave_count()
+	var difficulty: Difficulty.enm = Globals.get_difficulty()
+	var game_mode: GameMode.enm = Globals.get_game_mode()
+	var tutorial_enabled: bool = Globals.get_tutorial_enabled()
 	
 	_hud.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
 	
@@ -409,7 +409,7 @@ func _transition_from_pregame_settings_state():
 	var next_waves: Array[Wave] = _get_next_5_waves()
 	_hud.show_wave_details(next_waves)
 
-	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
+	if Globals.get_game_mode() == GameMode.enm.BUILD:
 		_hud.hide_roll_towers_button()
 
 	if tutorial_enabled:
@@ -444,9 +444,8 @@ func _reset_singletons():
 	CombatLog.reset()
 	Effect.reset()
 	ElapsedTimer.reset()
-	Globals.reset()
 	MouseState.reset()
-	PregameSettings.reset()
+	Globals.reset()
 	SelectPointForCast.reset()
 	SelectTargetForCast.reset()
 	SelectUnit.reset()
@@ -460,7 +459,7 @@ func _start_game():
 
 	_wave_spawner.start_wave(1)
 	
-	if PregameSettings.get_difficulty() == Difficulty.enm.EXTREME:
+	if Globals.get_difficulty() == Difficulty.enm.EXTREME:
 		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
 
 #	NOTE: start counting game time after first wave starts
@@ -480,11 +479,11 @@ func _start_next_wave():
 	_hud.update_level(level)
 	var next_waves: Array[Wave] = _get_next_5_waves()
 	_hud.show_wave_details(next_waves)
-	var started_last_wave: bool = level == PregameSettings.get_wave_count()
+	var started_last_wave: bool = level == Globals.get_wave_count()
 	if started_last_wave:
 		_hud.disable_next_wave_button()
 
-	if !started_last_wave && PregameSettings.get_difficulty() == Difficulty.enm.EXTREME:
+	if !started_last_wave && Globals.get_difficulty() == Difficulty.enm.EXTREME:
 		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
 
 
@@ -564,7 +563,7 @@ func _on_wave_finished(level: int):
 	_player.add_income(level)
 	_player.add_tome_income()
 
-	if PregameSettings.game_mode_is_random():
+	if Globals.game_mode_is_random():
 		_roll_towers_after_wave_finish()
 
 	_extreme_timer.stop()

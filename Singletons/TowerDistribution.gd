@@ -139,7 +139,7 @@ func _get_chance_for_element(player: Player, element: Element.enm) -> float:
 	var base: float = 0.0
 
 	var add: float
-	match PregameSettings.get_game_mode():
+	match Globals.get_game_mode():
 		GameMode.enm.RANDOM_WITH_UPGRADES: add = 0.075
 		GameMode.enm.TOTALLY_RANDOM: add = 0.1
 		_: add = 0.0
@@ -225,7 +225,7 @@ func _generate_random_tower_for_element(player: Player, element: Element.enm) ->
 	max_cost *= cost_multiplier_for_rarity
 
 	var group_map: Dictionary
-	match PregameSettings.get_game_mode():
+	match Globals.get_game_mode():
 		GameMode.enm.RANDOM_WITH_UPGRADES: group_map = _tower_groups_first_tier_only
 		GameMode.enm.TOTALLY_RANDOM: group_map = _tower_groups_all_tiers
 		_: group_map = {}
