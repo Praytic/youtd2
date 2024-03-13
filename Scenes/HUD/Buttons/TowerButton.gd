@@ -8,6 +8,9 @@ extends UnitButton
 @export var _tower_id: int: get = get_tower_id, set = set_tower_id
 
 
+var _player: Player = null
+
+
 #########################
 ###     Built-in      ###
 #########################
@@ -28,14 +31,20 @@ func _ready():
 	mouse_entered.connect(_on_mouse_entered)
 	pressed.connect(_on_pressed)
 
-	WaveLevel.changed.connect(_on_wave_or_element_level_changed)
-	ElementLevel.changed.connect(_on_wave_or_element_level_changed)
-	_on_wave_or_element_level_changed()
-
 
 #########################
 ###       Public      ###
 #########################
+
+# NOTE: need to couple tower button with player to implement
+# the feature of tooltips displaying red requirement
+# numbers.
+func set_player(player: Player):
+	_player = player
+	_player.get_team().level_changed.connect(_on_wave_or_element_level_changed)
+	_player.element_level_changed.connect(_on_wave_or_element_level_changed)
+	_on_wave_or_element_level_changed()
+
 
 func get_tower_id() -> int:
 	return _tower_id
@@ -53,7 +62,7 @@ func set_tier_icon(tower_id: int):
 #########################
 
 func _on_wave_or_element_level_changed():
-	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id) || Config.ignore_requirements()
+	var can_build: bool = TowerProperties.requirements_are_satisfied(_tower_id, _player) || Config.ignore_requirements()
 	set_disabled(!can_build)
 	if !can_build:
 		_disabled_lock.show()
@@ -66,7 +75,7 @@ func _on_wave_or_element_level_changed():
 
 
 func _on_mouse_entered():
-	var tooltip: String = RichTexts.get_tower_text(_tower_id)
+	var tooltip: String = RichTexts.get_tower_text(_tower_id, _player)
 	ButtonTooltip.show_tooltip(self, tooltip)
 
 

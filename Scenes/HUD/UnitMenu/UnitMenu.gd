@@ -30,6 +30,7 @@ const ITEMS_CONTAINER_BUTTON_SIZE = 82
 @export var _tower_specials_container: Container
 
 var _selling_for_real: bool = false
+var _player: Player = null
 
 
 #########################
@@ -70,6 +71,13 @@ func _process(_delta: float):
 #########################
 ###       Public      ###
 #########################
+
+# NOTE: need to couple unit menu with player to implement
+# the feature of tooltips displaying red requirement
+# numbers.
+func set_player(player: Player):
+	_player = player
+
 
 func close():
 	SelectUnit.set_selected_unit(null)
@@ -210,7 +218,7 @@ func _update_upgrade_button(tower: Tower):
 
 	var can_upgrade: bool
 	if upgrade_id != -1:
-		var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(upgrade_id) || Config.ignore_requirements()
+		var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(upgrade_id, _player) || Config.ignore_requirements()
 		var enough_gold: bool = GoldControl.enough_gold_for_tower(upgrade_id)
 		var enough_tomes: bool = KnowledgeTomesManager.enough_tomes_for_tower(upgrade_id)
 		can_upgrade = requirements_are_satisfied && enough_gold && enough_tomes
@@ -516,7 +524,7 @@ func _on_tower_upgrade_button_mouse_entered():
 	if upgrade_id == -1:
 		return
 
-	var tooltip: String = RichTexts.get_tower_text(upgrade_id)
+	var tooltip: String = RichTexts.get_tower_text(upgrade_id, _player)
 	ButtonTooltip.show_tooltip(_upgrade_button, tooltip)
 
 

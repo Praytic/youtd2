@@ -48,6 +48,8 @@ func _ready():
 	_on_gold_changed()
 	_on_tomes_changed()
 	_on_food_changed()
+	
+	_hud.set_player(_player)
 
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.

@@ -29,6 +29,7 @@ const _element_icons: Dictionary = {
 
 var _button_list: Array[TowerButton] = []
 var _prev_tower_list: Array = []
+var _player: Player = null
 
 
 #########################
@@ -37,7 +38,6 @@ var _prev_tower_list: Array = []
 
 func _ready():
 	_elements_container.element_changed.connect(_on_element_changed)
-	WaveLevel.changed.connect(_on_wave_level_changed)
 	EventBus.tower_created.connect(_on_tower_created)
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	ElementLevel.changed.connect(_on_element_level_changed)
@@ -52,6 +52,11 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_player(player: Player):
+	_player = player
+	player.get_team().level_changed.connect(_on_wave_level_changed)
+
 
 func set_towers(towers: Dictionary):
 	var tower_list: Array = towers.keys()
@@ -117,6 +122,7 @@ func close():
 
 func _add_tower_button(tower_id: int, index: int):
 	var tower_button: TowerButton = TowerButton.make(tower_id)
+	tower_button.set_player(_player)
 	_button_list.append(tower_button)
 	_tower_buttons_container.add_child(tower_button)
 	_tower_buttons_container.move_child(tower_button, index)
@@ -249,7 +255,7 @@ func _on_knowledge_tomes_changed():
 
 
 func _on_wave_level_changed():
-	var new_wave_level: int = WaveLevel.get_current()
+	var new_wave_level: int = _player.get_team().get_level()
 	var start_first_wave: bool = new_wave_level == 1
 
 	if start_first_wave:

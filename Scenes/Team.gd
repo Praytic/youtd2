@@ -7,6 +7,7 @@ class_name Team
 
 
 signal lives_changed()
+signal level_changed()
 
 
 var _lives: float = 100
@@ -39,3 +40,4 @@ func get_level() -> int:
 
 func increment_level():
 	WaveLevel.increase()
+	level_changed.emit()

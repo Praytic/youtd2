@@ -51,6 +51,11 @@ func _ready():
 ###       Public      ###
 #########################
 
+func set_player(player: Player):
+	_unit_menu.set_player(player)
+	_elements_tower_menu.set_player(player)
+
+
 func close_all_windows():
 	for window in _window_list:
 		window.close()

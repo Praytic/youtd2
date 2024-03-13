@@ -117,11 +117,11 @@ func get_tower_info(tower: Tower) -> String:
 	return text
 
 
-func get_tower_text(tower_id: int) -> String:
+func get_tower_text(tower_id: int, player: Player) -> String:
 	var text: String = ""
 
 	if Config.use_saved_tooltips():
-		text = get_generated_tower_tooltip_with_tower_requirements(tower_id)
+		text = get_generated_tower_tooltip_with_tower_requirements(tower_id, player)
 	else:
 		text = generate_tower_tooltip(tower_id)
 	
@@ -198,16 +198,16 @@ func generate_tower_tooltip(tower_id: int) -> String:
 # with no dynamic info such as colored wave/research requirements text. This
 # function combines cached tower description with such dynamic information
 # from get_tower_requirements_text.
-func get_generated_tower_tooltip_with_tower_requirements(tower_id: int) -> String:
+func get_generated_tower_tooltip_with_tower_requirements(tower_id: int, player: Player) -> String:
 	var generated_tooltip_text = TowerProperties.get_generated_tooltip(tower_id)
-	var requirements_text = get_tower_requirements_text(tower_id)
+	var requirements_text = get_tower_requirements_text(tower_id, player)
 	var display_name: String = TowerProperties.get_display_name(tower_id)
 	var gold_cost: int = TowerProperties.get_cost(tower_id)
 	var tome_cost: int = TowerProperties.get_tome_cost(tower_id)
 	var food_cost: int = TowerProperties.get_food_cost(tower_id)
-	var gold_cost_ok: bool = GoldControl.enough_gold_for_tower(tower_id)
-	var tome_cost_ok: bool = KnowledgeTomesManager.enough_tomes_for_tower(tower_id)
-	var food_cost_ok: bool = FoodManager.enough_food_for_tower(tower_id)
+	var gold_cost_ok: bool = player.enough_gold_for_tower(tower_id)
+	var tome_cost_ok: bool = player.enough_tomes_for_tower(tower_id)
+	var food_cost_ok: bool = player.enough_food_for_tower(tower_id)
 	var gold_cost_string: String = get_colored_requirement_number(gold_cost, gold_cost_ok)
 	var tome_cost_string: String = get_colored_requirement_number(tome_cost, tome_cost_ok)
 	var food_cost_string: String = get_colored_requirement_number(food_cost, food_cost_ok)
@@ -230,20 +230,20 @@ func get_generated_tower_tooltip_with_tower_requirements(tower_id: int) -> Strin
 	return text
 	
 
-func get_tower_requirements_text(tower_id: int) -> String:
+func get_tower_requirements_text(tower_id: int, player: Player) -> String:
 	var text: String = ""
 
-	var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(tower_id)
+	var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(tower_id, player)
 
 	if requirements_are_satisfied:
 		return ""
 
 	var required_wave_level: int = TowerProperties.get_required_wave_level(tower_id)
-	var wave_level_ok: bool = TowerProperties.wave_level_foo(tower_id)
+	var wave_level_ok: bool = TowerProperties.wave_level_foo(tower_id, player)
 	var wave_level_string: String = get_colored_requirement_number(required_wave_level, wave_level_ok)
 
 	var required_element_level: int = TowerProperties.get_required_element_level(tower_id)
-	var element_level_ok: bool = TowerProperties.element_level_foo(tower_id)
+	var element_level_ok: bool = TowerProperties.element_level_foo(tower_id, player)
 	var element_level_string: String = get_colored_requirement_number(required_element_level, element_level_ok)
 
 	var element: Element.enm = TowerProperties.get_element(tower_id)

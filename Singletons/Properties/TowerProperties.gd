@@ -249,24 +249,24 @@ func get_required_wave_level(tower_id: int) -> int:
 	return required_wave
 
 
-func wave_level_foo(tower_id: int) -> bool:
-	var wave_level: int = WaveLevel.get_current()
+func wave_level_foo(tower_id: int, player: Player) -> bool:
+	var wave_level: int = player.get_team().get_level()
 	var required_wave_level: int = TowerProperties.get_required_wave_level(tower_id)
 	var out: bool = wave_level >= required_wave_level
 
 	return out
 
 
-func element_level_foo(tower_id: int) -> bool:
+func element_level_foo(tower_id: int, player: Player) -> bool:
 	var required_element_level: int = TowerProperties.get_required_element_level(tower_id)
 	var element: Element.enm = get_element(tower_id)
-	var element_research_level: int = ElementLevel.get_current(element)
+	var element_research_level: int = player.get_element_level(element)
 	var out: bool = element_research_level >= required_element_level
 
 	return out
 
 
-func requirements_are_satisfied(tower_id: int) -> bool:
+func requirements_are_satisfied(tower_id: int, player: Player) -> bool:
 	if Config.ignore_upgrade_requirements():
 		return true
 
@@ -289,7 +289,7 @@ func requirements_are_satisfied(tower_id: int) -> bool:
 	elif PregameSettings.get_game_mode() == GameMode.enm.TOTALLY_RANDOM:
 		return true
 
-	var out: bool = element_level_foo(tower_id) && wave_level_foo(tower_id)
+	var out: bool = element_level_foo(tower_id, player) && wave_level_foo(tower_id, player)
 
 	return out
 
