@@ -205,10 +205,6 @@ func _get_time_string() -> String:
 ###     Callbacks     ###
 #########################
 
-func _on_game_over():
-	_start_next_wave_button.disabled = true
-
-
 func _on_start_next_wave_button_pressed():
 	EventBus.player_requested_next_wave.emit()
 

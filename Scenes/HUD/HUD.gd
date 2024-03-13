@@ -33,8 +33,6 @@ func _ready():
 	
 	SFX.connect_sfx_to_signal_in_group("res://Assets/SFX/menu_sound_5.wav", "pressed", "sfx_menu_click")
 
-	EventBus.game_over.connect(_on_game_over)
-	
 	# Tutorial setup
 	var towers_menu_button = _towers_menu_card.get_main_button()
 	HighlightUI.register_target("tower_stash_button", _towers_menu_card.get_main_button())
@@ -146,6 +144,10 @@ func set_game_time(time: float):
 	_top_left_menu.set_game_time(time)
 
 
+func show_game_over():
+	_game_over_label.show()
+
+
 #########################
 ###      Private      ###
 #########################
@@ -193,10 +195,6 @@ func _on_element_towers_menu_hidden():
 
 func _on_item_stash_menu_hidden():
 	_update_menus_and_cards_visibility()
-
-
-func _on_game_over():
-	_game_over_label.show()
 
 
 func _on_element_menu_hidden():

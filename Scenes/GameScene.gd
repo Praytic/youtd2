@@ -620,8 +620,11 @@ func _on_creep_reached_portal(creep: Creep):
 	if out_of_lives && !Globals.game_over:
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
 		Globals.game_over = true
-		EventBus.game_over.emit()
+		
+		_next_wave_timer.stop()
+		_extreme_timer.stop()
 
+		_hud.show_game_over()
 		_hud.disable_next_wave_button()
 
 
