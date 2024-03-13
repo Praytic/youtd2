@@ -40,10 +40,10 @@ func _ready():
 	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
 	EventBus.tower_created.connect(_on_tower_created)
 	EventBus.player_requested_to_roll_towers.connect(_on_player_requested_to_roll_towers)
+	EventBus.player_requested_to_research_element.connect(_on_player_requested_to_research_element)
 	GoldControl.changed.connect(_on_gold_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
 	FoodManager.changed.connect(_on_food_changed)
-	_player.element_level_changed.connect(_on_element_level_changed)
 	
 #	Load initial values
 	_on_gold_changed()
@@ -220,6 +220,9 @@ func _transition_from_pregame_settings_state():
 
 	var next_waves: Array[Wave] = _get_next_5_waves()
 	_hud.show_wave_details(next_waves)
+
+	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
+		_hud.hide_roll_towers_button()
 
 	var tutorial_enabled: bool = PregameSettings.get_tutorial_enabled()
 	
@@ -506,6 +509,25 @@ func _on_player_requested_to_roll_towers():
 	_player.decrement_tower_count_for_starting_roll()
 
 
-func _on_element_level_changed():
-	var element_levels: Dictionary = _player.get_element_level_map()
-	_hud.update_element_level(element_levels)
+func _on_player_requested_to_research_element(element: Element.enm):
+	var current_level: int = _player.get_element_level(element)
+	var element_at_max: bool = current_level == ElementLevel.MAX_ELEMENT_LEVEL
+
+	if element_at_max:
+		Messages.add_error("Can't research element. Element is at max level.")
+
+		return
+
+	var can_afford_research: bool = _player.can_afford_research(element)
+
+	if !can_afford_research:
+		Messages.add_error("Can't research element. You do not have enough tomes.")
+
+		return
+
+	var cost: int = _player.get_research_cost(element)
+	_player.spend_tomes(cost)
+	_player.increment_element_level(element)
+
+	var new_element_levels: Dictionary = _player.get_element_level_map()
+	_hud.update_element_level(new_element_levels)

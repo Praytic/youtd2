@@ -26,11 +26,7 @@ var _player: Player = null
 ###     Built-in      ###
 #########################
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	EventBus.tower_created.connect(_on_tower_created)
-	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
-
 	var element_name: String = Element.convert_to_string(_element)
 	_title_label.text = element_name.to_upper()
 
@@ -44,6 +40,10 @@ func _ready():
 ###       Public      ###
 #########################
 
+func hide_roll_towers_button():
+	_roll_button.hide()
+
+
 func set_player(player: Player):
 	_player = player
 	player.get_team().level_changed.connect(_on_wave_level_changed)
@@ -55,6 +55,11 @@ func get_element() -> Element.enm:
 
 func set_element_level(level: int):
 	_element_level_label.text = str(level)
+
+#	Hide and show button to refresh button tooltip if the
+#	button is hovered.
+	_upgrade_button.hide()
+	_upgrade_button.show()
 
 
 func set_towers(towers: Dictionary):
@@ -145,36 +150,13 @@ func _add_tower_button(tower_id: int, index: int):
 ###     Callbacks     ###
 #########################
 
-func _on_pregame_settings_finalized():
-	var game_mode_is_random: bool = PregameSettings.get_game_mode() != GameMode.enm.BUILD
-	_roll_button.visible = game_mode_is_random
-
-
-func _on_tower_created(_tower: Tower):
-	if PregameSettings.game_mode_is_random():
-		_roll_button.disabled = true
-
-
 func _on_upgrade_element_button_mouse_entered():
 	var tooltip: String = RichTexts.get_research_text(_element)
 	ButtonTooltip.show_tooltip(_upgrade_button, tooltip)
 
 
 func _on_upgrade_element_button_pressed():
-	if ElementLevel.is_able_to_research(_element):
-		var cost: int = ElementLevel.get_research_cost(_element)
-		KnowledgeTomesManager.spend(cost)
-		ElementLevel.increment(_element)
-		
-#		Hide and show button to refresh button tooltip.
-#		NOTE: can't call
-#		_on_upgrade_element_button_mouse_entered() directly
-#		here because it doesn't work right when button is
-#		pressed via shortcut.
-		_upgrade_button.hide()
-		_upgrade_button.show()
-	else:
-		Messages.add_error("Can't research this element. Not enough tomes.")
+	EventBus.player_requested_to_research_element.emit(_element)
 
 
 func _on_wave_level_changed():

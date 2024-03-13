@@ -51,6 +51,10 @@ func _ready():
 ###       Public      ###
 #########################
 
+func hide_roll_towers_button():
+	_elements_tower_menu.hide_roll_towers_button()
+
+
 func update_element_level(element_levels: Dictionary):
 	_elements_tower_menu.update_element_level(element_levels)
 
