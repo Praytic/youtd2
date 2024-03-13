@@ -7,11 +7,6 @@ extends Node
 # once and never changed after that.
 
 
-# Emitted when player has finished choosing pregame
-# settings. Settings values can be used after this point.
-signal finalized()
-
-
 var _wave_count: int
 var _game_mode: GameMode.enm
 var _player_mode: PlayerMode.enm

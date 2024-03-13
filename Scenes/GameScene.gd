@@ -387,10 +387,15 @@ func _transition_from_pregame_settings_state():
 	var wave_count: int = PregameSettings.get_wave_count()
 	var difficulty: Difficulty.enm = PregameSettings.get_difficulty()
 	var game_mode: GameMode.enm = PregameSettings.get_game_mode()
+	var tutorial_enabled: bool = PregameSettings.get_tutorial_enabled()
 	
 	_hud.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
 	
-	PregameSettings.finalized.emit()
+	if tutorial_enabled:
+		_item_stash.add_tutorial_items()
+
+	if game_mode == GameMode.enm.BUILD:
+		_tower_stash.add_all_towers()
 	
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
 	var game_mode_string: String = GameMode.convert_to_string(game_mode)
@@ -407,11 +412,9 @@ func _transition_from_pregame_settings_state():
 	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
 		_hud.hide_roll_towers_button()
 
-	var tutorial_enabled: bool = PregameSettings.get_tutorial_enabled()
-	
 	if tutorial_enabled:
 		Globals.set_game_state(Globals.GameState.TUTORIAL)
-		_tutorial_menu.show()
+		_tutorial_menu.start_tutorial(game_mode)
 	else:
 		_transition_from_tutorial_state()
 

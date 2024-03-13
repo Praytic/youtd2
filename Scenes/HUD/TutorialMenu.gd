@@ -41,7 +41,6 @@ var _current_section: int
 
 func _ready():
 	HighlightUI.highlight_target_ack.connect(_on_highlight_target_ack)
-	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 
 
 #########################
@@ -87,9 +86,9 @@ func _change_section(change_amount: int):
 ###     Callbacks     ###
 #########################
 
-func _on_pregame_settings_finalized():
+func start_tutorial(game_mode: GameMode.enm):
 	var tutorial_path: String
-	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
+	if game_mode == GameMode.enm.BUILD:
 		tutorial_path = TUTORIAL_BUILD_PATH
 	else:
 		tutorial_path = TUTORIAL_RANDOM_PATH
@@ -108,6 +107,7 @@ func _on_pregame_settings_finalized():
 	
 	_current_section = 0
 	_change_section(0)
+	show()
 
 
 func _on_close_button_pressed():

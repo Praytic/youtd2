@@ -19,7 +19,6 @@ var _tower_map: Dictionary = {}
 #########################
 
 func _ready():
-	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	EventBus.tower_created.connect(_on_tower_created)
 
 
@@ -66,19 +65,9 @@ func _remove_tower(tower: int):
 ###     Callbacks     ###
 #########################
 
-# If player selected build mode, add all towers of first
-# tier.
-func _on_pregame_settings_finalized():
-	if !PregameSettings.get_game_mode() == GameMode.enm.BUILD:
-		return
-
-	print_verbose("Build mode was chosen. Adding all towers to tower stash.")
-
+func add_all_towers():
 	var first_tier_towers: Array = TowerProperties.get_tower_id_list_by_filter(TowerProperties.CsvProperty.TIER, str(1))
-
 	add_towers(first_tier_towers)
-
-	print_verbose("Added all towers to tower stash.")
 
 
 func _on_tower_created(tower: Tower):

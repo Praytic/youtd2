@@ -34,7 +34,6 @@ func _ready():
 	EventBus.player_clicked_horadric_stash.connect(_on_player_clicked_horadric_stash)
 	EventBus.player_clicked_tower_inventory.connect(_on_player_clicked_tower_inventory)
 	EventBus.item_flew_to_item_stash.connect(_on_item_flew_to_item_stash)
-	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 
 
 func _unhandled_input(event: InputEvent):
@@ -251,14 +250,11 @@ func _check_consumable_into_tower_case(container: ItemContainer) -> bool:
 ###     Callbacks     ###
 #########################
 
-func _on_pregame_settings_finalized():
-	var tutorial_enabled: bool = PregameSettings.get_tutorial_enabled()
-		
-	if tutorial_enabled:
-		var item: Item = Item.make(80)
-		var oil: Item = Item.make(1001)
-		_main_stash.add_item(item)
-		_main_stash.add_item(oil)
+func add_tutorial_items():
+	var item: Item = Item.make(80)
+	var oil: Item = Item.make(1001)
+	_main_stash.add_item(item)
+	_main_stash.add_item(oil)
 
 
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
