@@ -260,7 +260,6 @@ func _reset_singletons():
 	CombatLog.reset()
 	Effect.reset()
 	ElapsedTimer.reset()
-	ElementLevel.reset()
 	Globals.reset()
 	GoldControl.reset()
 	ManualAttackTarget.reset()
@@ -511,7 +510,7 @@ func _on_player_requested_to_roll_towers():
 
 func _on_player_requested_to_research_element(element: Element.enm):
 	var current_level: int = _player.get_element_level(element)
-	var element_at_max: bool = current_level == ElementLevel.MAX_ELEMENT_LEVEL
+	var element_at_max: bool = current_level == Constants.MAX_ELEMENT_LEVEL
 
 	if element_at_max:
 		Messages.add_error("Can't research element. Element is at max level.")

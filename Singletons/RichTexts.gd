@@ -32,7 +32,7 @@ func get_research_level_label(element: Element.enm, player: Player) -> String:
 	var text: String = ""
 	
 	var current_element_level = player.get_element_level(element)
-	var max_element_level = ElementLevel.MAX_ELEMENT_LEVEL
+	var max_element_level = Constants.MAX_ELEMENT_LEVEL
 	if current_element_level >= max_element_level:
 		text += " [color=GOLD]MAX[/color] "
 	else:

@@ -10,9 +10,13 @@ signal food_changed()
 signal element_level_changed()
 
 
+const STARTING_ELEMENT_COST = 20
+
+
 var _team: Team = Team.new()
 var _total_damage: float = 0
 var _tower_count_for_starting_roll: int = 6
+var _element_level_map: Dictionary = {}
 
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/World/FloatingTextContainer")
 
@@ -25,7 +29,9 @@ func _ready():
 	GoldControl.changed.connect(_on_gold_control_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_manager_changed)
 	FoodManager.changed.connect(_on_food_manager_changed)
-	ElementLevel.changed.connect(_on_element_level_changed)
+
+	for element in Element.get_list():
+		_element_level_map[element] = 0
 
 
 #########################
@@ -42,31 +48,46 @@ func decrement_tower_count_for_starting_roll():
 
 
 func increment_element_level(element: Element.enm):
-	ElementLevel.increment(element)
+	_element_level_map[element] += 1
+	element_level_changed.emit()
 
 
 func get_element_level(element: Element.enm) -> int:
-	return ElementLevel.get_current(element)
+	var level: int = _element_level_map[element]
+	
+	return level
 
 
 func get_element_level_map() -> Dictionary:
-	return ElementLevel.get_element_level_map()
+	return _element_level_map
 
 
 func get_research_cost(element: Element.enm) -> int:
-	return ElementLevel.get_research_cost(element)
+	var level: int = get_element_level(element)
+	var cost: int = STARTING_ELEMENT_COST + level
+
+	return cost
 
 
 # Returns true if have enough tomes to research element.
 # Doesn't check whether element is at max level.
 func can_afford_research(element: Element.enm) -> bool:
-	return ElementLevel.can_afford_research(element)
+	var cost: int = get_research_cost(element)
+	var tome_count: int = get_tomes()
+	var can_afford: bool = tome_count >= cost
+
+	return can_afford
 
 
 # Returns true if player is able to research element. Checks
 # whether element is at max level.
 func is_able_to_research(element: Element.enm) -> bool:
-	return ElementLevel.is_able_to_research(element)
+	var can_afford: bool = can_afford_research(element)
+	var current_level: int = get_element_level(element)
+	var reached_max_level: bool = current_level == Constants.MAX_ELEMENT_LEVEL
+	var is_able: bool = can_afford && !reached_max_level
+
+	return is_able
 
 
 # TODO: return actual name
@@ -275,7 +296,3 @@ func _on_tomes_manager_changed():
 
 func _on_food_manager_changed():
 	food_changed.emit()
-
-
-func _on_element_level_changed():
-	element_level_changed.emit()
