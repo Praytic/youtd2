@@ -11,6 +11,7 @@ signal level_changed()
 
 
 var _lives: float = 100
+var _level: int = 1
 
 
 # NOTE: Team.getLivesPercent() in JASS
@@ -33,11 +34,13 @@ func modify_lives(amount: float):
 	lives_changed.emit()
 
 
+# Current level is the level of the last started wave.
+# Starts at 0 and becomes 1 when the first wave starts.
 # NOTE: Team.getLevel() in JASS
 func get_level() -> int:
-	return WaveLevel.get_current()
+	return _level
 
 
 func increment_level():
-	WaveLevel.increase()
+	_level += 1
 	level_changed.emit()
