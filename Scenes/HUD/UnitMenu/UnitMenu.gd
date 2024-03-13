@@ -61,6 +61,7 @@ func _process(_delta: float):
 
 	if selected_unit != null:
 		_update_info_label(selected_unit)
+		_update_upgrade_button()
 
 
 #########################
@@ -80,9 +81,6 @@ func update_level(_level: int):
 # numbers.
 func set_player(player: Player):
 	_player = player
-
-	player.gold_changed.connect(_on_upgrade_requirements_changed)
-	player.tomes_changed.connect(_on_upgrade_requirements_changed)
 
 
 func close():
@@ -300,10 +298,6 @@ func _set_selling_for_real(value: bool):
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_upgrade_requirements_changed():
-	_update_upgrade_button()
-
 
 func _on_items_box_container_child_entered_tree(node):
 	node.custom_minimum_size = Vector2(ITEMS_CONTAINER_BUTTON_SIZE, ITEMS_CONTAINER_BUTTON_SIZE)

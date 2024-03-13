@@ -46,14 +46,6 @@ func _ready():
 	EventBus.player_requested_to_build_tower.connect(_on_player_requested_to_build_tower)
 	EventBus.player_requested_to_upgrade_tower.connect(_on_player_requested_to_upgrade_tower)
 	EventBus.player_requested_to_sell_tower.connect(_on_player_requested_to_sell_tower)
-	_player.gold_changed.connect(_on_gold_changed)
-	_player.tomes_changed.connect(_on_tomes_changed)
-	_player.food_changed.connect(_on_food_changed)
-	
-#	Load initial values
-	_on_gold_changed()
-	_on_tomes_changed()
-	_on_food_changed()
 	
 	_hud.set_player(_player)
 
@@ -103,12 +95,24 @@ func _ready():
 		_transition_from_pregame_settings_state()
 
 
-# NOTE: these stats are constantly changing and might even change multiple times per frame so we need to update them in _process instead of via signals
+# NOTE: these stats are constantly changing and might even
+# change multiple times per frame so we need to update them
+# in _process instead of via signals
 func _process(_delta: float):
 	_hud.load_player_stats([_player])
 
 	var game_time: float = Utils.get_time()
 	_hud.set_game_time(game_time)
+
+	var gold: float = _player.get_gold()
+	_hud.set_gold(gold)
+
+	var tomes: int = _player.get_tomes()
+	_hud.set_tomes(tomes)
+
+	var food: int = _player.get_food()
+	var food_cap: int = _player.get_food_cap()
+	_hud.set_food(food, food_cap)
 	
 
 func _unhandled_input(event: InputEvent):
@@ -579,22 +583,6 @@ func _on_wave_finished(level: int):
 	builder.apply_wave_finished_effect(_player)
 
 
-func _on_gold_changed():
-	var gold: float = _player.get_gold()
-	_hud.set_gold(gold)
-
-
-func _on_tomes_changed():
-	var tomes: int = _player.get_tomes()
-	_hud.set_tomes(tomes)
-
-
-func _on_food_changed():
-	var food: int = _player.get_food()
-	var food_cap: int = _player.get_food_cap()
-	_hud.set_food(food, food_cap)
-
-
 func _on_creep_reached_portal(creep: Creep):
 	var damage_to_portal = creep.get_damage_to_portal()
 	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
@@ -620,7 +608,7 @@ func _on_creep_reached_portal(creep: Creep):
 	if out_of_lives && !Globals.game_over:
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
 		Globals.game_over = true
-		
+
 		_next_wave_timer.stop()
 		_extreme_timer.stop()
 

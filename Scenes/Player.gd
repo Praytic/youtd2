@@ -4,11 +4,6 @@ class_name Player extends Node
 # multiplayer purposes. 
 
 
-signal gold_changed()
-signal tomes_changed()
-signal food_changed()
-
-
 const STARTING_ELEMENT_COST = 20
 const MAX_FOOD_CAP: int = 99
 const INITIAL_FOOD_CAP: int = 55
@@ -300,7 +295,6 @@ func add_food_for_tower(tower_id: int):
 		return
 
 	_food = new_food
-	food_changed.emit()
 
 
 func remove_food_for_tower(tower_id: int):
@@ -313,12 +307,10 @@ func remove_food_for_tower(tower_id: int):
 		return
 	
 	_food = new_food
-	food_changed.emit()
 
 
 func modify_food_cap(amount: int):
 	_food_cap = clampi(_food_cap + amount, 0, MAX_FOOD_CAP)
-	food_changed.emit()
 
 
 func get_food() -> int:
@@ -351,25 +343,7 @@ func get_total_damage() -> float:
 
 func _set_gold(value: float):
 	_gold = clampf(value, 0, MAX_GOLD)
-	gold_changed.emit()
 
 
 func _set_tomes(value):
 	_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
-	tomes_changed.emit()
-
-
-#########################
-###     Callbacks     ###
-#########################
-
-func _on_gold_control_changed():
-	gold_changed.emit()
-
-
-func _on_tomes_manager_changed():
-	tomes_changed.emit()
-
-
-func _on_food_manager_changed():
-	food_changed.emit()

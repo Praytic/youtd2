@@ -6,9 +6,6 @@ class_name Team
 # work on it for multiplayer.
 
 
-signal lives_changed()
-
-
 var _lives: float = 100
 var _level: int = 1
 
@@ -29,8 +26,6 @@ func modify_lives(amount: float):
 
 	if Config.unlimited_portal_lives() && _lives == 0:
 		_lives = 1
-
-	lives_changed.emit()
 
 
 # Current level is the level of the last started wave.
