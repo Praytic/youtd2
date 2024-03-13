@@ -21,13 +21,8 @@ expand_margin_bottom = 2.0
 resource_local_to_scene = true
 bg_color = Color(0.176471, 0.960784, 0, 1)
 
-[node name="Creep" type="Node2D" node_paths=PackedStringArray("_visual", "_sprite", "_health_bar", "_selection_area", "_specials_icon_container")]
+[node name="Creep" type="Node2D"]
 script = ExtResource("1_pofyw")
-_visual = NodePath("Visual")
-_sprite = NodePath("Visual/Sprite")
-_health_bar = NodePath("Visual/HealthBar")
-_selection_area = NodePath("Visual/SelectionArea")
-_specials_icon_container = NodePath("Visual/SpecialsIconContainer")
 
 [node name="Visual" type="Node2D" parent="."]
 

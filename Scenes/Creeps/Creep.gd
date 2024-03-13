@@ -42,11 +42,15 @@ var _special_list: Array[int] = [] : set = set_special_list, get = get_special_l
 static var _id_max: int = 1
 var _id: int
 
-@export var _visual: Node2D
-@export var _sprite: AnimatedSprite2D
-@export var _health_bar: ProgressBar
-@export var _selection_area: Area2D
-@export var _specials_icon_container: HBoxContainer
+# NOTE: need to use @onready for these variables instead of
+# @export because export vars cause null errors in HTML5
+# build, for some reason.
+# TODO: figure out the reason for errors and fix them if possible.
+@onready var _visual = $Visual
+@onready var _sprite: AnimatedSprite2D = $Visual/Sprite
+@onready var _health_bar = $Visual/HealthBar
+@onready var _selection_area: Area2D = $Visual/SelectionArea
+@onready var _specials_icon_container: Container = $Visual/SpecialsIconContainer
 
 
 #########################
