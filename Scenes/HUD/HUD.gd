@@ -9,8 +9,8 @@ signal stop_wave()
 @export var _normal_message_container: VBoxContainer
 @export var _game_over_label: RichTextLabel
 @export var _elements_tower_menu: ElementTowersMenu
-@export var _item_stash_menu: Control
-@export var _unit_menu: Control
+@export var _item_stash_menu: ItemStashMenu
+@export var _unit_menu: UnitMenu
 @export var _towers_menu_card: ButtonStatusCard
 @export var _items_menu_card: ButtonStatusCard
 @export var _unit_status_menu_card: ButtonStatusCard

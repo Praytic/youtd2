@@ -1,5 +1,4 @@
-# ItemStashMenu
-extends PanelContainer
+class_name ItemStashMenu extends PanelContainer
 
 
 # This UI element displays items which are currently in the
