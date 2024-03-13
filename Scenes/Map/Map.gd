@@ -59,9 +59,6 @@ var _occupied_quarter_list: Array[Vector2] = []
 #########################
 
 func _ready():
-	EventBus.tower_created.connect(_on_tower_created)
-	EventBus.tower_removed.connect(_on_tower_removed)
-
 	var camera: Camera2D = get_viewport().get_camera_2d()
 	var s = play_area.scale
 	var ss = play_area_shape.scale
@@ -255,7 +252,7 @@ func _on_mouse_state_changed():
 
 
 # When tower is sold, mark space which is occupied by tower.
-func _on_tower_created(tower: Tower):
+func add_space_occupied_by_tower(tower: Tower):
 	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
 
 	for pos in occupied_list:
@@ -264,7 +261,7 @@ func _on_tower_created(tower: Tower):
 
 # When tower is sold, clear space which was used to be
 # occupied by tower
-func _on_tower_removed(tower: Tower):
+func clear_space_occupied_by_tower(tower: Tower):
 	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
 
 	for pos in occupied_list:

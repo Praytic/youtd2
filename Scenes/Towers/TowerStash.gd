@@ -15,14 +15,6 @@ var _tower_map: Dictionary = {}
 
 
 #########################
-###     Built-in      ###
-#########################
-
-func _ready():
-	EventBus.tower_created.connect(_on_tower_created)
-
-
-#########################
 ###       Public      ###
 #########################
 
@@ -45,11 +37,7 @@ func add_towers(tower_list: Array):
 	changed.emit()
 
 
-#########################
-###      Private      ###
-#########################
-
-func _remove_tower(tower: int):
+func remove_tower(tower: int):
 	if !_tower_map.has(tower):
 		return
 
@@ -68,17 +56,3 @@ func _remove_tower(tower: int):
 func add_all_towers():
 	var first_tier_towers: Array = TowerProperties.get_tower_id_list_by_filter(TowerProperties.CsvProperty.TIER, str(1))
 	add_towers(first_tier_towers)
-
-
-func _on_tower_created(tower: Tower):
-	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
-		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
-
-# 	In build mode towers are not "spent" when player builds
-# 	them
-	if Globals.get_game_mode() == GameMode.enm.BUILD:
-		return
-
-	var tower_id: int = tower.get_id()
-
-	_remove_tower(tower_id)

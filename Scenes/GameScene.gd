@@ -5,6 +5,7 @@ class_name GameScene extends Node
 @export var _pregame_hud: Control
 @export var _pause_hud: Control
 @export var _hud: HUD
+@export var _map: Map
 @export var _wave_spawner: WaveSpawner
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
@@ -40,11 +41,11 @@ func _ready():
 	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
 	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
-	EventBus.tower_created.connect(_on_tower_created)
 	EventBus.player_requested_to_roll_towers.connect(_on_player_requested_to_roll_towers)
 	EventBus.player_requested_to_research_element.connect(_on_player_requested_to_research_element)
 	EventBus.player_requested_to_build_tower.connect(_on_player_requested_to_build_tower)
 	EventBus.player_requested_to_upgrade_tower.connect(_on_player_requested_to_upgrade_tower)
+	EventBus.player_requested_to_sell_tower.connect(_on_player_requested_to_sell_tower)
 	_player.gold_changed.connect(_on_gold_changed)
 	_player.tomes_changed.connect(_on_tomes_changed)
 	_player.food_changed.connect(_on_food_changed)
@@ -224,8 +225,6 @@ func _try_to_build_tower():
 
 
 func _transform_tower(new_tower_id: int, prev_tower: Tower):
-	EventBus.tower_removed.emit(prev_tower)
-
 	_player.remove_food_for_tower(prev_tower.get_id())
 	_player.add_food_for_tower(new_tower_id)
 
@@ -250,8 +249,6 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower):
 
 	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
 
-	EventBus.tower_created.emit(new_tower)
-
 	_cancel_building_tower()
 
 
@@ -272,7 +269,15 @@ func _build_tower(tower_id: int):
 
 	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
 	
-	EventBus.tower_created.emit(new_tower)
+	_built_at_least_one_tower = true
+
+	if Globals.get_game_mode() != GameMode.enm.BUILD:
+		_tower_stash.remove_tower(tower_id)
+
+	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
+		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
+
+	_map.add_space_occupied_by_tower(new_tower)
 
 	_cancel_building_tower()
 
@@ -658,10 +663,6 @@ func _on_next_wave_timer_timeout():
 	_start_next_wave()
 
 
-func _on_tower_created(_tower: Tower):
-	_built_at_least_one_tower = true
-
-
 func _on_player_requested_to_roll_towers():
 	var researched_any_elements: bool = false
 	
@@ -761,3 +762,23 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
 	_player.add_gold(refund_for_prev_tier)
 	_player.spend_gold(upgrade_cost)
+
+
+func _on_player_requested_to_sell_tower(tower: Tower):
+	_map.clear_space_occupied_by_tower(tower)
+
+# 	Return tower items to item stash
+	var item_list: Array[Item] = tower.get_items()
+
+	for item in item_list:
+		item.drop()
+		item.fly_to_stash(0.0)
+
+	var tower_id: int = tower.get_id()
+	var sell_price: int = TowerProperties.get_sell_price(tower_id)
+	_player.give_gold(sell_price, tower, false, true)
+	_player.remove_food_for_tower(tower_id)
+
+	_map.clear_space_occupied_by_tower(tower)
+
+	tower.queue_free()

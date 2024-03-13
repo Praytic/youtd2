@@ -9,14 +9,6 @@ var _player: Player = null
 
 
 #########################
-###     Built-in      ###
-#########################
-
-func _ready():
-	EventBus.tower_created.connect(_on_tower_created)
-
-
-#########################
 ###       Public      ###
 #########################
 
@@ -109,16 +101,6 @@ func _get_tab(element: Element.enm) -> ElementTowersTab:
 
 func _on_close_button_pressed():
 	close()
-
-
-func _on_tower_created(_tower: Tower):
-	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
-		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
-
-	var tab_list: Array[ElementTowersTab] = _get_tab_list()
-
-	for tab in tab_list:
-		tab.hide_roll_towers_button()
 
 
 func _on_elements_container_element_changed():

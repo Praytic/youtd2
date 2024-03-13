@@ -427,9 +427,10 @@ func _on_sell_button_pressed():
 
 	if !_selling_for_real:
 		_set_selling_for_real(true)
+		
 		return
 
-	tower.sell()
+	EventBus.player_requested_to_sell_tower.emit(tower)
 
 
 func _on_info_button_pressed():
