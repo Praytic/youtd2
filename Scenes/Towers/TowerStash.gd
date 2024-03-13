@@ -12,7 +12,6 @@ signal changed()
 
 # Map of [tower_id -> available count]
 var _tower_map: Dictionary = {}
-var _tower_count_for_next_roll: int = 6
 
 
 #########################
@@ -21,7 +20,6 @@ var _tower_count_for_next_roll: int = 6
 
 func _ready():
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
-	EventBus.player_requested_to_roll_towers.connect(_on_player_requested_to_roll_towers)
 	EventBus.tower_created.connect(_on_tower_created)
 	EventBus.wave_finished.connect(_on_wave_finished)
 
@@ -34,11 +32,12 @@ func get_towers() -> Dictionary:
 	return _tower_map
 
 
-#########################
-###      Private      ###
-#########################
+func clear():
+	_tower_map.clear()
+	changed.emit()
 
-func _add_towers(tower_list: Array):
+
+func add_towers(tower_list: Array):
 	for tower in tower_list:
 		if !_tower_map.has(tower):
 			_tower_map[tower] = 0
@@ -47,6 +46,10 @@ func _add_towers(tower_list: Array):
 
 	changed.emit()
 
+
+#########################
+###      Private      ###
+#########################
 
 func _remove_tower(tower: int):
 	if !_tower_map.has(tower):
@@ -74,34 +77,9 @@ func _on_pregame_settings_finalized():
 
 	var first_tier_towers: Array = TowerProperties.get_tower_id_list_by_filter(TowerProperties.CsvProperty.TIER, str(1))
 
-	_add_towers(first_tier_towers)
+	add_towers(first_tier_towers)
 
 	print_verbose("Added all towers to tower stash.")
-
-
-func _on_player_requested_to_roll_towers():
-	var researched_any_elements: bool = false
-	
-	for element in Element.get_list():
-		var researched_element: bool = ElementLevel.get_current(element) > 0
-		if researched_element:
-			researched_any_elements = true
-	
-	if !researched_any_elements:
-		Messages.add_error("Cannot roll towers yet! You need to research at least one element.")
-	
-		return
-
-	if _tower_count_for_next_roll == 0:
-		Messages.add_error("You cannot reroll towers anymore.")
-	
-		return
-
-	_tower_map.clear()
-	
-	var rolled_towers: Array[int] = TowerDistribution.roll_starting_towers(_tower_count_for_next_roll)
-	_add_towers(rolled_towers)
-	_tower_count_for_next_roll -= 1
 
 
 func _on_tower_created(tower: Tower):
@@ -125,7 +103,7 @@ func _on_wave_finished(level: int):
 		return
 
 	var rolled_towers: Array[int] = TowerDistribution.roll_towers(level)
-	_add_towers(rolled_towers)
+	add_towers(rolled_towers)
 	
 #	Add messages about new towers
 	Messages.add_normal("New towers were added to stash:")

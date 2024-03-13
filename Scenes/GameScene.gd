@@ -20,6 +20,7 @@ class_name GameScene extends Node
 
 
 var _built_at_least_one_tower: bool = false
+var _tower_count_for_next_roll: int = 6
 
 
 #########################
@@ -39,6 +40,7 @@ func _ready():
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
 	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
 	EventBus.tower_created.connect(_on_tower_created)
+	EventBus.player_requested_to_roll_towers.connect(_on_player_requested_to_roll_towers)
 	GoldControl.changed.connect(_on_gold_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_changed)
 	FoodManager.changed.connect(_on_food_changed)
@@ -447,3 +449,28 @@ func _on_next_wave_timer_timeout():
 
 func _on_tower_created(_tower: Tower):
 	_built_at_least_one_tower = true
+
+
+func _on_player_requested_to_roll_towers():
+	var researched_any_elements: bool = false
+	
+	for element in Element.get_list():
+		var researched_element: bool = _player.get_element_level(element)
+		if researched_element:
+			researched_any_elements = true
+	
+	if !researched_any_elements:
+		Messages.add_error("Cannot roll towers yet! You need to research at least one element.")
+	
+		return
+
+	if _tower_count_for_next_roll == 0:
+		Messages.add_error("You cannot reroll towers anymore.")
+	
+		return
+
+	_tower_stash.clear()
+	
+	var rolled_towers: Array[int] = TowerDistribution.roll_starting_towers(_tower_count_for_next_roll)
+	_tower_stash.add_towers(rolled_towers)
+	_tower_count_for_next_roll -= 1
