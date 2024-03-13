@@ -7,6 +7,7 @@ class_name Player extends Node
 signal gold_changed()
 signal tomes_changed()
 signal food_changed()
+signal element_level_changed()
 
 
 var _team: Team = Team.new()
@@ -23,11 +24,35 @@ func _ready():
 	GoldControl.changed.connect(_on_gold_control_changed)
 	KnowledgeTomesManager.changed.connect(_on_tomes_manager_changed)
 	FoodManager.changed.connect(_on_food_manager_changed)
+	ElementLevel.changed.connect(_on_element_level_changed)
 
 
 #########################
 ###       Public      ###
 #########################
+
+func increment_element_level(element: Element.enm):
+	ElementLevel.increment(element)
+
+
+func get_element_level(element: Element.enm) -> int:
+	return ElementLevel.get_current(element)
+
+
+func get_research_cost(element: Element.enm) -> int:
+	return ElementLevel.get_research_cost(element)
+
+
+# Returns true if have enough tomes to research element.
+# Doesn't check whether element is at max level.
+func can_afford_research(element: Element.enm) -> bool:
+	return ElementLevel.can_afford_research(element)
+
+
+# Returns true if player is able to research element. Checks
+# whether element is at max level.
+func is_able_to_research(element: Element.enm) -> bool:
+	return ElementLevel.is_able_to_research(element)
 
 
 # TODO: return actual name
@@ -236,3 +261,7 @@ func _on_tomes_manager_changed():
 
 func _on_food_manager_changed():
 	food_changed.emit()
+
+
+func _on_element_level_changed():
+	element_level_changed.emit()

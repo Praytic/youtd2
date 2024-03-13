@@ -61,7 +61,7 @@ func set_towers_counter(value: int):
 func _is_able_to_research():
 	var can_afford: bool = ElementLevel.can_afford_research(element)
 	var current_level: int = ElementLevel.get_current(element)
-	var reached_max_level: bool = current_level == ElementLevel.get_max()
+	var reached_max_level: bool = current_level == ElementLevel.MAX_ELEMENT_LEVEL
 	var button_is_enabled: bool = can_afford && !reached_max_level
 
 	return button_is_enabled

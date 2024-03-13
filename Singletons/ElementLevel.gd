@@ -60,6 +60,8 @@ func can_afford_research(element: Element.enm) -> bool:
 
 	return can_afford
 
+
+# NOTE: the difference between 
 func is_able_to_research(element: Element.enm) -> bool:
 	var can_afford: bool = can_afford_research(element)
 	var current_level: int = get_current(element)
