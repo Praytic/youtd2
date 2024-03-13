@@ -20,7 +20,6 @@ class_name GameScene extends Node
 
 
 var _built_at_least_one_tower: bool = false
-var _tower_count_for_next_roll: int = 6
 
 
 #########################
@@ -122,6 +121,32 @@ func _unhandled_input(event: InputEvent):
 #########################
 ###      Private      ###
 #########################
+
+func _roll_towers_after_wave_finish():
+	var rolled_towers: Array[int] = TowerDistribution.roll_towers(_player)
+	_tower_stash.add_towers(rolled_towers)
+	
+#	Add messages about new towers
+	Messages.add_normal("New towers were added to stash:")
+
+#	Sort tower list by element to group messages for same
+#	element together
+	rolled_towers.sort_custom(func(a, b): 
+		var element_a: int = TowerProperties.get_element(a)
+		var element_b: int = TowerProperties.get_element(b)
+		return element_a < element_b)
+
+	for tower in rolled_towers:
+		var element: Element.enm = TowerProperties.get_element(tower)
+		var element_string: String = Element.convert_to_colored_string(element)
+		var rarity: Rarity.enm = TowerProperties.get_rarity(tower)
+		var rarity_color: Color = Rarity.get_color(rarity)
+		var tower_name: String = TowerProperties.get_display_name(tower)
+		var tower_name_colored: String = Utils.get_colored_string(tower_name, rarity_color)
+		var message: String = "    %s: %s" % [element_string, tower_name_colored]
+
+		Messages.add_normal(message)
+
 
 func _pause_the_game():
 #	Cancel any in progress mouse actions
@@ -353,7 +378,7 @@ func _on_wave_finished(level: int):
 	KnowledgeTomesManager.add_income()
 
 	if PregameSettings.game_mode_is_random():
-		TowerDistribution.roll_towers(level)
+		_roll_towers_after_wave_finish()
 
 	_extreme_timer.stop()
 	_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
@@ -464,13 +489,15 @@ func _on_player_requested_to_roll_towers():
 	
 		return
 
-	if _tower_count_for_next_roll == 0:
+	var tower_count_for_roll: int = _player.get_tower_count_for_starting_roll()
+
+	if tower_count_for_roll == 0:
 		Messages.add_error("You cannot reroll towers anymore.")
 	
 		return
 
 	_tower_stash.clear()
 	
-	var rolled_towers: Array[int] = TowerDistribution.roll_starting_towers(_tower_count_for_next_roll)
+	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(_player, tower_count_for_roll)
 	_tower_stash.add_towers(rolled_towers)
-	_tower_count_for_next_roll -= 1
+	_player.decrement_tower_count_for_starting_roll()

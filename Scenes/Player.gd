@@ -12,6 +12,7 @@ signal element_level_changed()
 
 var _team: Team = Team.new()
 var _total_damage: float = 0
+var _tower_count_for_starting_roll: int = 6
 
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/World/FloatingTextContainer")
 
@@ -30,6 +31,15 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+
+func get_tower_count_for_starting_roll() -> int:
+	return _tower_count_for_starting_roll
+
+
+func decrement_tower_count_for_starting_roll():
+	_tower_count_for_starting_roll = max(1, _tower_count_for_starting_roll - 1)
+
 
 func increment_element_level(element: Element.enm):
 	ElementLevel.increment(element)

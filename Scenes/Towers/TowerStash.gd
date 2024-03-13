@@ -21,7 +21,6 @@ var _tower_map: Dictionary = {}
 func _ready():
 	PregameSettings.finalized.connect(_on_pregame_settings_finalized)
 	EventBus.tower_created.connect(_on_tower_created)
-	EventBus.wave_finished.connect(_on_wave_finished)
 
 
 #########################
@@ -94,34 +93,3 @@ func _on_tower_created(tower: Tower):
 	var tower_id: int = tower.get_id()
 
 	_remove_tower(tower_id)
-
-
-# Distribute random towers when wave is finished
-func _on_wave_finished(level: int):
-#	Towers are not distributed in build mode
-	if PregameSettings.get_game_mode() == GameMode.enm.BUILD:
-		return
-
-	var rolled_towers: Array[int] = TowerDistribution.roll_towers(level)
-	add_towers(rolled_towers)
-	
-#	Add messages about new towers
-	Messages.add_normal("New towers were added to stash:")
-
-#	Sort tower list by element to group messages for same
-#	element together
-	rolled_towers.sort_custom(func(a, b): 
-		var element_a: int = TowerProperties.get_element(a)
-		var element_b: int = TowerProperties.get_element(b)
-		return element_a < element_b)
-
-	for tower in rolled_towers:
-		var element: Element.enm = TowerProperties.get_element(tower)
-		var element_string: String = Element.convert_to_colored_string(element)
-		var rarity: Rarity.enm = TowerProperties.get_rarity(tower)
-		var rarity_color: Color = Rarity.get_color(rarity)
-		var tower_name: String = TowerProperties.get_display_name(tower)
-		var tower_name_colored: String = Utils.get_colored_string(tower_name, rarity_color)
-		var message: String = "    %s: %s" % [element_string, tower_name_colored]
-
-		Messages.add_normal(message)

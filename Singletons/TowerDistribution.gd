@@ -33,19 +33,9 @@ func _ready():
 ###       Public      ###
 #########################
 
-# Called at the start of the game when the "roll towers"
-# button is pressed. Each call reduces the resulting amount
-# of towers by one. Returns whether can make any more rolls.
-func roll_starting_towers(tower_count: int) -> Array[int]:
-	var wave_level: int = 0
-	var tower_list: Array[int] = _generate_random_towers_with_count(wave_level, tower_count)
-	
-	return tower_list
-
-
 # Called after each wave.
-func roll_towers(wave_level: int) -> Array[int]:
-	var tower_list: Array[int] = _generate_random_towers(wave_level)
+func roll_towers(player: Player) -> Array[int]:
+	var tower_list: Array[int] = _generate_random_towers(player)
 
 	return tower_list
 
@@ -56,10 +46,10 @@ func roll_towers(wave_level: int) -> Array[int]:
 
 # Adds random towers. The amount will be at least one and
 # more towers will be added for higher wave levels.
-func _generate_random_towers(wave_level: int) -> Array[int]:
+func _generate_random_towers(player: Player) -> Array[int]:
 	var tower_list: Array[int] = []
 
-	var element_list: Array[Element.enm] = _get_possible_element_list()
+	var element_list: Array[Element.enm] = _get_possible_element_list(player)
 	element_list.shuffle()
 
 	if element_list.is_empty():
@@ -69,7 +59,7 @@ func _generate_random_towers(wave_level: int) -> Array[int]:
 #	likely to not result in any towers at low element
 #	levels.
 	for element in element_list:
-		var tower: int = _generate_random_tower_for_element(wave_level, element)
+		var tower: int = _generate_random_tower_for_element(player, element)
 
 		if tower != 0:
 			tower_list.append(tower)
@@ -78,16 +68,16 @@ func _generate_random_towers(wave_level: int) -> Array[int]:
 #	we roll 1 tower by brute force. This pass will happen
 #	for majority of early waves.
 	if tower_list.size() == 0:
-		tower_list = _generate_random_towers_with_count(wave_level, 1)
+		tower_list = generate_random_towers_with_count(player, 1)
 
 	return tower_list
 
 
 # Adds the given amount of towers.
-func _generate_random_towers_with_count(wave_level: int, count: int) -> Array[int]:
+func generate_random_towers_with_count(player: Player, count: int) -> Array[int]:
 	var tower_list: Array[int] = []
 
-	var element_list: Array[Element.enm] = _get_possible_element_list()
+	var element_list: Array[Element.enm] = _get_possible_element_list(player)
 	element_list.shuffle()
 
 	if element_list.is_empty():
@@ -109,7 +99,7 @@ func _generate_random_towers_with_count(wave_level: int, count: int) -> Array[in
 		var element: Element.enm = element_list.pop_front()
 		element_list.push_back(element)
 
-		var tower: int = _generate_random_tower_for_element(wave_level, element)
+		var tower: int = _generate_random_tower_for_element(player, element)
 
 		if tower != 0:
 			tower_list.append(tower)
@@ -131,11 +121,11 @@ func _generate_random_towers_with_count(wave_level: int, count: int) -> Array[in
 
 # Returns list of elements with non-zero chances. Useful to
 # reduce the amount of brute forcing.
-func _get_possible_element_list() -> Array[Element.enm]:
+func _get_possible_element_list(player: Player) -> Array[Element.enm]:
 	var element_list: Array[Element.enm] = []
 
 	for element in Element.get_list():
-		var chance_for_element: float = _get_chance_for_element(element)
+		var chance_for_element: float = _get_chance_for_element(player, element)
 
 		if chance_for_element > 0:
 			element_list.append(element)
@@ -145,7 +135,7 @@ func _get_possible_element_list() -> Array[Element.enm]:
 
 # Returns chance for rolling a tower of a given element.
 # Increasing element level increases this chance.
-func _get_chance_for_element(element: Element.enm) -> float:
+func _get_chance_for_element(player: Player, element: Element.enm) -> float:
 	var base: float = 0.0
 
 	var add: float
@@ -154,7 +144,7 @@ func _get_chance_for_element(element: Element.enm) -> float:
 		GameMode.enm.TOTALLY_RANDOM: add = 0.1
 		_: add = 0.0
 
-	var level: int = ElementLevel.get_current(element)
+	var level: int = player.get_element_level(element)
 	var chance: float = base + add * level
 
 	return chance
@@ -164,7 +154,7 @@ func _get_chance_for_element(element: Element.enm) -> float:
 # element and rarity. Is affected by current element level.
 # Increasing element level increases chances for all
 # rarities, except for common, which gets decreased.
-func _get_chance_for_group(element: Element.enm, rarity: Rarity.enm) -> float:
+func _get_chance_for_group(player: Player, element: Element.enm, rarity: Rarity.enm) -> float:
 	var base_map: Dictionary = {
 		Rarity.enm.COMMON: 0.76,
 		Rarity.enm.UNCOMMON: 0.18,
@@ -179,7 +169,7 @@ func _get_chance_for_group(element: Element.enm, rarity: Rarity.enm) -> float:
 		Rarity.enm.UNIQUE: 0.004,
 	}
 
-	var level: int = ElementLevel.get_current(element)
+	var level: int = player.get_element_level(element)
 	var base: float = base_map[rarity]
 	var add: float = add_map[rarity]
 	var chance: float = base + add * level
@@ -220,16 +210,16 @@ func _generate_tower_groups(first_tier_only: bool) -> Dictionary:
 
 
 # Returns 0 if failed to generate
-func _generate_random_tower_for_element(wave_level: int, element: Element.enm) -> int:
-	var chance_for_element: float = _get_chance_for_element(element)
+func _generate_random_tower_for_element(player: Player, element: Element.enm) -> int:
+	var chance_for_element: float = _get_chance_for_element(player, element)
 	
 	var roll_success: bool = Utils.rand_chance(chance_for_element)
 	if !roll_success:
 		return 0
 
-	var max_cost: float = _get_max_cost(wave_level, element)
+	var max_cost: float = _get_max_cost(player, element)
 
-	var rarity: Rarity.enm = _roll_rarity_for_element(element, max_cost)
+	var rarity: Rarity.enm = _roll_rarity_for_element(player, element, max_cost)
 
 	var cost_multiplier_for_rarity: float = _get_cost_multiplier_for_rarity(rarity)
 	max_cost *= cost_multiplier_for_rarity
@@ -257,7 +247,7 @@ func _generate_random_tower_for_element(wave_level: int, element: Element.enm) -
 			rarity = (rarity - 1) as Rarity.enm
 	
 	if group.is_empty():
-		push_error("Tower group is empty for:", wave_level, element, rarity)
+		push_error("Tower group is empty for:", player.get_team().get_level(), element, rarity)
 
 		return 0
 
@@ -282,10 +272,11 @@ func _generate_random_tower_for_element(wave_level: int, element: Element.enm) -
 # Returns max cost for rolling towers. All rolled towers
 # will be below this cost. Researching elements unlocks more
 # expensive towers.
-func _get_max_cost(wave_level: int, element: Element.enm) -> float:
+func _get_max_cost(player: Player, element: Element.enm) -> float:
+	var wave_level: int = player.get_team().get_level()
 	var max_cost: float = floorf(70 + wave_level * (5 + wave_level * 0.6))
 
-	var cost_multiplier: float = _get_cost_multiplier_for_element(element)
+	var cost_multiplier: float = _get_cost_multiplier_for_element(player, element)
 	max_cost = max_cost * cost_multiplier
 	
 	max_cost = floori(max_cost * randf_range(1.0, 1.1))
@@ -293,10 +284,10 @@ func _get_max_cost(wave_level: int, element: Element.enm) -> float:
 	return max_cost
 
 
-func _get_cost_multiplier_for_element(element: Element.enm) -> float:
+func _get_cost_multiplier_for_element(player: Player, element: Element.enm) -> float:
 	var base: float = 0.75
 	var add: float = 0.03
-	var level: int = ElementLevel.get_current(element)
+	var level: int = player.get_element_level(element)
 	var multiplier: float = base + add * level
 
 	return multiplier
@@ -306,7 +297,7 @@ func _get_cost_multiplier_for_element(element: Element.enm) -> float:
 # element level and max cost. Rarity will be picked so that
 # towers of rarity are below max cost. Researching elements
 # unlocks towers with higher rarity.
-func _roll_rarity_for_element(element: Element.enm, max_cost: float) -> Rarity.enm:
+func _roll_rarity_for_element(player: Player, element: Element.enm, max_cost: float) -> Rarity.enm:
 	var cost_threshold_map: Dictionary = {
 		Rarity.enm.COMMON: 0,
 		Rarity.enm.UNCOMMON: 0,
@@ -321,7 +312,7 @@ func _roll_rarity_for_element(element: Element.enm, max_cost: float) -> Rarity.e
 	var rarity_chance_map: Dictionary = {}
 
 	for rarity in rarity_list:
-		var chance: float = _get_chance_for_group(element, rarity)
+		var chance: float = _get_chance_for_group(player, element, rarity)
 		rarity_chance_map[rarity] = chance
 
 #	Remove rarities whose cost thresholds are above max cost
