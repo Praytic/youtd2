@@ -350,7 +350,6 @@ func _reset_singletons():
 	ElapsedTimer.reset()
 	MouseState.reset()
 	Globals.reset()
-	_select_unit.reset()
 
 
 func _start_game():
