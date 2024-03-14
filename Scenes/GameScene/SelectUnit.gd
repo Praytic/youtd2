@@ -1,20 +1,25 @@
-extends Node
+class_name SelectUnit extends Node
 
-# Singleton that implements logic for hovering and selecting
-# over units. Needed because only one unit may be hovered or
-# selected at a time.
+# Implements logic for hovering and selecting units. Needed
+# because only one unit may be hovered or selected at a
+# time.
 
 signal selected_unit_changed(prev_unit: Unit)
 
 
-var _units_under_mouse_list: Array[Unit]
-var _hovered_unit: Unit
-var _selected_unit: Unit
+var _units_under_mouse_list: Array[Unit] = []
+var _hovered_unit: Unit = null
+var _selected_unit: Unit = null
 
 
 #########################
 ###     Built-in      ###
 #########################
+
+func _ready():
+	EventBus.mouse_entered_unit.connect(_on_mouse_entered_unit)
+	EventBus.mouse_exited_unit.connect(_on_mouse_exited_unit)
+
 
 func _unhandled_input(event):
 # 	NOTE: Can't select when mouse is busy with some other
@@ -32,19 +37,6 @@ func _unhandled_input(event):
 #########################
 ###       Public      ###
 #########################
-
-func reset():
-	_units_under_mouse_list = []
-	_hovered_unit = null
-	_selected_unit = null
-	
-
-# Connect a unit to the selection system. Selection area
-# will be used to detect when the mouse is over the unit.
-func connect_unit(unit: Unit, selection_area: Area2D):
-	selection_area.mouse_entered.connect(_on_unit_mouse_entered.bind(unit))
-	selection_area.mouse_exited.connect(_on_unit_mouse_exited.bind(unit))
-
 
 func set_selected_unit(new_selected_unit: Unit):
 	var old_selected_unit: Unit = _selected_unit
@@ -91,14 +83,14 @@ func update_hovered_unit():
 ###     Callbacks     ###
 #########################
 
-func _on_unit_mouse_entered(unit: Unit):
+func _on_mouse_entered_unit(unit: Unit):
 	_units_under_mouse_list.append(unit)
 	if !unit.tree_exited.is_connected(_on_unit_tree_exited):
 		unit.tree_exited.connect(_on_unit_tree_exited.bind(unit))
 	update_hovered_unit()
 
 
-func _on_unit_mouse_exited(unit: Unit):
+func _on_mouse_exited_unit(unit: Unit):
 	_units_under_mouse_list.erase(unit)
 	update_hovered_unit()
 

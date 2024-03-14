@@ -209,7 +209,7 @@ func _ready():
 
 	on_create(_temp_preceding_tower)
 
-	SelectUnit.connect_unit(self, _tower_selection_area)
+	_setup_selection_signals(_tower_selection_area)
 
 # 	NOTE: tower scenes have two sprites: "Base" and
 # 	"Visual/Sprite2D". We use "Visual/Sprite2D" because that

@@ -1,4 +1,4 @@
-extends Button
+class_name BuffGroupButton extends Button
 
 
 signal buff_group_changed(group_number: int, mode: BuffGroup.Mode)
@@ -11,18 +11,12 @@ signal buff_group_changed(group_number: int, mode: BuffGroup.Mode)
 @onready var _buff_group_outgoing_icon: Texture2D = load("res://Resources/Textures/UI/Icons/buff_group_outgoing.tres")
 @onready var _buff_group_both_icon: Texture2D = load("res://Resources/Textures/UI/Icons/buff_group_both.tres")
 
-
-func _ready():
-	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
-	
+var _tower: Tower = null
 
 
-func _on_selected_unit_changed(_prev_unit: Unit):
-	if SelectUnit.get_selected_unit() is Tower:
-		show()
-		_update_visual()
-	else:
-		hide()
+func set_tower(tower: Tower):
+	_tower = tower
+	_update_visual()
 
 
 func _on_pressed():
@@ -33,18 +27,18 @@ func _on_pressed():
 func _next_buff_group_mode():
 	var previous_mode: BuffGroup.Mode = get_current_mode()
 	if previous_mode == BuffGroup.Mode.BOTH:
-		BuffGroup.remove_unit_from_buff_group(get_buff_group_number(), BuffGroup.Mode.INCOMING)
-		BuffGroup.remove_unit_from_buff_group(get_buff_group_number(), BuffGroup.Mode.OUTGOING)
+		BuffGroup.remove_unit_from_buff_group(_tower, get_buff_group_number(), BuffGroup.Mode.INCOMING)
+		BuffGroup.remove_unit_from_buff_group(_tower, get_buff_group_number(), BuffGroup.Mode.OUTGOING)
 	elif previous_mode != BuffGroup.Mode.NONE:
-		BuffGroup.remove_unit_from_buff_group(get_buff_group_number(), previous_mode)
+		BuffGroup.remove_unit_from_buff_group(_tower, get_buff_group_number(), previous_mode)
 	
 	var mode: BuffGroup.Mode = (previous_mode + 1) % BuffGroup.modes_list.size() as BuffGroup.Mode
 	
 	if mode == BuffGroup.Mode.BOTH:
-		BuffGroup.add_unit_to_buff_group(get_buff_group_number(), BuffGroup.Mode.INCOMING)
-		BuffGroup.add_unit_to_buff_group(get_buff_group_number(), BuffGroup.Mode.OUTGOING)
+		BuffGroup.add_unit_to_buff_group(_tower, get_buff_group_number(), BuffGroup.Mode.INCOMING)
+		BuffGroup.add_unit_to_buff_group(_tower, get_buff_group_number(), BuffGroup.Mode.OUTGOING)
 	elif mode != BuffGroup.Mode.NONE:
-		BuffGroup.add_unit_to_buff_group(get_buff_group_number(), mode)
+		BuffGroup.add_unit_to_buff_group(_tower, get_buff_group_number(), mode)
 
 
 func _update_visual():
@@ -64,10 +58,12 @@ func _update_visual():
 
 
 func get_current_mode() -> BuffGroup.Mode:
-	var current_unit: Unit = SelectUnit.get_selected_unit()
-	var current_unit_groups: Array = current_unit.get_buff_groups()
-	var current_buff_group_mode: BuffGroup.Mode = BuffGroup.Mode.NONE
+	if _tower == null:
+		return BuffGroup.Mode.NONE
 	
+	var current_unit_groups: Array = _tower.get_buff_groups()
+	var current_buff_group_mode: BuffGroup.Mode = BuffGroup.Mode.NONE
+
 	for group in current_unit_groups:
 		if BuffGroup.is_buff_group(group):
 			var group_mode: BuffGroup.Mode = BuffGroup.get_buff_group_mode(group)
@@ -78,7 +74,7 @@ func get_current_mode() -> BuffGroup.Mode:
 					break
 				else:
 					current_buff_group_mode = group_mode
-	
+
 	return current_buff_group_mode
 
 

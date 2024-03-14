@@ -26,10 +26,25 @@ const ITEMS_CONTAINER_BUTTON_SIZE: float = 82
 @export var _items_box_container: HBoxContainer
 @export var _buff_container: BuffContainer
 @export var _details: TowerDetails
+@export var _buff_group_button_1: BuffGroupButton
+@export var _buff_group_button_2: BuffGroupButton
+@export var _buff_group_button_3: BuffGroupButton
+@export var _buff_group_button_4: BuffGroupButton
+@export var _buff_group_button_5: BuffGroupButton
+@export var _buff_group_button_6: BuffGroupButton
 
 var _selling_for_real: bool = false
 var _player: Player = null
 var _tower: Tower = null
+
+@onready var _buff_group_button_list: Array[BuffGroupButton] = [
+	_buff_group_button_1,
+	_buff_group_button_2,
+	_buff_group_button_3,
+	_buff_group_button_4,
+	_buff_group_button_5,
+	_buff_group_button_6,
+]
 
 
 #########################
@@ -64,6 +79,9 @@ func set_tower(tower: Tower):
 	_tower = tower
 
 	_details.set_tower(tower)
+	
+	for button in _buff_group_button_list:
+		button.set_tower(tower)
 
 #	Reset all scroll positions when switching to a different unit
 	Utils.reset_scroll_container(_specials_scroll_container)

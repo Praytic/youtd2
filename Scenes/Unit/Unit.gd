@@ -644,6 +644,19 @@ func subtract_mana(amount: float, show_text: bool) -> float:
 ###      Private      ###
 #########################
 
+func _setup_selection_signals(selection_area: Area2D):
+	selection_area.mouse_entered.connect(_on_selection_area_mouse_entered)
+	selection_area.mouse_exited.connect(_on_selection_area_mouse_exited)
+
+
+func _on_selection_area_mouse_entered():
+	EventBus.mouse_entered_unit.emit(self)
+
+
+func _on_selection_area_mouse_exited():
+	EventBus.mouse_exited_unit.emit(self)
+
+
 func _modify_property_internal(mod_type: Modification.Type, value: float, direction: int):
 	var health_ratio: float = get_health_ratio()
 	var mana_ratio: float = get_mana_ratio()

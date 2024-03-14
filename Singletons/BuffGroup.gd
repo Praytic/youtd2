@@ -11,26 +11,18 @@ enum Mode {
 const modes_list = [Mode.NONE, Mode.OUTGOING, Mode.INCOMING, Mode.BOTH]
 
 
-func remove_unit_from_buff_group(group_number: int, mode: Mode):
-	var current_unit: Unit = SelectUnit.get_selected_unit()
-	if !current_unit is Tower:
-		return
-	
+func remove_unit_from_buff_group(tower: Tower, group_number: int, mode: Mode):
 	var calculated_group_name = get_buff_group_name(group_number, mode)
-	current_unit.get_buff_groups().erase(calculated_group_name)
+	tower.get_buff_groups().erase(calculated_group_name)
 	print_verbose("Removed unit [%s] from buff group [%s]. Unit groups are: %s" % \
-		[current_unit, calculated_group_name, current_unit.get_buff_groups()])
+		[tower, calculated_group_name, tower.get_buff_groups()])
 
 
-func add_unit_to_buff_group(group_number: int, mode: Mode):
-	var current_unit: Unit = SelectUnit.get_selected_unit()
-	if !current_unit is Tower:
-		return
-	
+func add_unit_to_buff_group(tower: Tower, group_number: int, mode: Mode):
 	var calculated_group_name: String = get_buff_group_name(group_number, mode)
-	current_unit.get_buff_groups().append(calculated_group_name)
+	tower.get_buff_groups().append(calculated_group_name)
 	print_verbose("Added unit [%s] to buff group [%s]. Unit groups are: %s" % \
-		[current_unit, calculated_group_name, current_unit.get_buff_groups()])
+		[tower, calculated_group_name, tower.get_buff_groups()])
 
 
 func get_buff_group_name(group_number: int, mode: Mode) -> String:

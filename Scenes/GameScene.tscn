@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=26 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bprw8bivb1mcc" path="res://Scenes/AudioPlayerPool.tscn" id="5_rin5y"]
 [ext_resource type="Script" path="res://Scenes/Player.gd" id="6_y63oe"]
 [ext_resource type="Shader" path="res://Resources/Shaders/SaturationBurn.gdshader" id="7_gxbw6"]
+[ext_resource type="Script" path="res://Scenes/GameScene/SelectUnit.gd" id="8_b8m2t"]
 [ext_resource type="PackedScene" uid="uid://d1xny6jmxj5i6" path="res://Scenes/PregameHUD/PregameHUD.tscn" id="8_idpxe"]
 [ext_resource type="Script" path="res://Scenes/GameScene/SelectPointForCast.gd" id="8_r0gm8"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
@@ -44,7 +45,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_horadric_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_tower_preview", "_select_point_for_cast", "_select_target_for_cast", "_move_item")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_horadric_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_tower_preview", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit")]
 process_mode = 3
 script = ExtResource("9")
 _pregame_hud = NodePath("UI/PregameHUD")
@@ -68,6 +69,7 @@ _tower_preview = NodePath("World/TowerPreview")
 _select_point_for_cast = NodePath("Gameplay/SelectPointForCast")
 _select_target_for_cast = NodePath("Gameplay/SelectTargetForCast")
 _move_item = NodePath("Gameplay/MoveItem")
+_select_unit = NodePath("Gameplay/SelectUnit")
 
 [node name="Gameplay" type="Node" parent="."]
 
@@ -102,6 +104,9 @@ process_mode = 1
 [node name="GameTime" type="Node" parent="Gameplay"]
 process_mode = 1
 script = ExtResource("16_tame0")
+
+[node name="SelectUnit" type="Node" parent="Gameplay"]
+script = ExtResource("8_b8m2t")
 
 [node name="SelectPointForCast" type="Node" parent="Gameplay"]
 script = ExtResource("8_r0gm8")

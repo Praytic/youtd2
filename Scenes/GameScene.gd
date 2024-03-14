@@ -22,6 +22,7 @@ class_name GameScene extends Node
 @export var _select_point_for_cast: SelectPointForCast
 @export var _select_target_for_cast: SelectTargetForCast
 @export var _move_item: MoveItem
+@export var _select_unit: SelectUnit
 
 
 var _prev_effect_id: int = 0
@@ -53,7 +54,7 @@ func _ready():
 	EventBus.player_requested_transmute.connect(_on_player_requested_transmute)
 	EventBus.player_requested_autofill.connect(_on_player_requested_autofill)
 
-	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
+	_select_unit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
 	_hud.set_player(_player)
 	_move_item.set_item_stashes(_item_stash, _horadric_stash)
@@ -128,9 +129,9 @@ func _unhandled_input(event: InputEvent):
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
 	var left_click: bool = event.is_action_released("left_click")
 	var right_click: bool = event.is_action_released("right_click")
-	var hovered_unit: Unit = SelectUnit.get_hovered_unit()
+	var hovered_unit: Unit = _select_unit.get_hovered_unit()
 	var hovered_tower: Tower = hovered_unit as Tower
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
+	var selected_unit: Unit = _select_unit.get_selected_unit()
 
 	if cancel_pressed:
 #		1. First, any ongoing actions are cancelled
@@ -142,7 +143,7 @@ func _unhandled_input(event: InputEvent):
 		elif _hud.any_window_is_open():
 			_hud.hide_all_windows()
 		elif selected_unit != null:
-			SelectUnit.set_selected_unit(null)
+			_select_unit.set_selected_unit(null)
 		else:
 			match Globals.get_game_state():
 				Globals.GameState.PLAYING: _pause_the_game()
@@ -151,7 +152,7 @@ func _unhandled_input(event: InputEvent):
 		match MouseState.get_state():
 			MouseState.enm.BUILD_TOWER: BuildTower.try_to_finish(_player, _tower_preview, _map, _tower_stash)
 			MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.finish(_map)
-			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish()
+			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish(hovered_unit)
 			MouseState.enm.MOVE_ITEM:
 				if hovered_tower != null:
 					_move_item.process_click_on_tower(hovered_tower)
@@ -186,8 +187,8 @@ func _cancel_current_mouse_action():
 # 2. If a tower is selected, then only the selected tower
 #    will switch to the target.
 func _do_manual_targetting():
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
-	var hovered_unit: Unit = SelectUnit.get_hovered_unit()
+	var selected_unit: Unit = _select_unit.get_selected_unit()
+	var hovered_unit: Unit = _select_unit.get_hovered_unit()
 
 	if !hovered_unit is Creep:
 		return
@@ -349,7 +350,7 @@ func _reset_singletons():
 	ElapsedTimer.reset()
 	MouseState.reset()
 	Globals.reset()
-	SelectUnit.reset()
+	_select_unit.reset()
 
 
 func _start_game():
@@ -626,7 +627,7 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 	Utils.add_object_to_world(upgrade_tower)
 	tower.queue_free()
 
-	SelectUnit.set_selected_unit(upgrade_tower)
+	_select_unit.set_selected_unit(upgrade_tower)
 
 	var refund_for_prev_tier: float = TowerProperties.get_cost(prev_id)
 	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
@@ -663,7 +664,7 @@ func _on_player_requested_to_select_target_for_autocast(autocast: Autocast):
 
 
 func _on_selected_unit_changed(_prev_unit: Unit):
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
+	var selected_unit: Unit = _select_unit.get_selected_unit()
 	_hud.set_menu_unit(selected_unit)
 
 

@@ -19,7 +19,7 @@ var _item: Item = null
 func _ready():
 	super()
 
-	SelectUnit.connect_unit(self, _selection_area)
+	_setup_selection_signals(_selection_area)
 	_set_visual_node(self)
 
 	selected.connect(_on_selected)

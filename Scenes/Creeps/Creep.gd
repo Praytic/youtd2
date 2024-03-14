@@ -75,7 +75,7 @@ func _ready():
 		var height: float = 2 * Constants.TILE_SIZE.y
 		_visual.position.y = -height
 	
-	SelectUnit.connect_unit(self, _selection_area)
+	_setup_selection_signals(_selection_area)
 	
 	_set_visual_node(_visual)
 	var outline_thickness: float = _get_outline_thickness()

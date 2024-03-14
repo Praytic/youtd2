@@ -12,11 +12,11 @@ const _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
 ###       Public      ###
 #########################
 
-func finish():
+func finish(hovered_unit: Unit):
 	if !_in_progress():
 		return
 
-	var target: Unit = SelectUnit.get_hovered_unit()
+	var target: Unit = hovered_unit
 
 	if target == null:
 		return
