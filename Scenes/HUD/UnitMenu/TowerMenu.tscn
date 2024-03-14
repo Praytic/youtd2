@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="4_5dyu5"]
 [ext_resource type="Texture2D" uid="uid://bxlxlgnldo7ci" path="res://Assets/Towers/tier_icons_m.png" id="5_i16l3"]
 [ext_resource type="PackedScene" uid="uid://8xsklkw4jhlw" path="res://Scenes/HUD/Buttons/EmptyUnitButton.tscn" id="7_75y5s"]
-[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/UnitMenu/TowerInfo.tscn" id="8_d7eye"]
+[ext_resource type="PackedScene" uid="uid://b6l4hi00yx7js" path="res://Scenes/HUD/UnitMenu/TowerDetails.tscn" id="7_xja40"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="10_hpsst"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="11_bilts"]
 [ext_resource type="Script" path="res://Scenes/HUD/Buttons/BuffGroupButton.gd" id="12_v3yi6"]
@@ -344,7 +344,7 @@ layout_mode = 2
 mouse_filter = 0
 horizontal_scroll_mode = 0
 
-[node name="TowerInfo" parent="MainContainer/MarginContainer/TabContainer/DetailsTab" instance=ExtResource("8_d7eye")]
+[node name="TowerDetails" parent="MainContainer/MarginContainer/TabContainer/DetailsTab" instance=ExtResource("7_xja40")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

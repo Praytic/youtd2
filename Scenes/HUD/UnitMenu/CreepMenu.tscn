@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://Scenes/HUD/UnitMenu/CreepMenu.gd" id="2_xfq0a"]
 [ext_resource type="Texture2D" uid="uid://dex1xjcdq1fv7" path="res://Resources/Textures/UI/rect_container_m.tres" id="3_n1ur4"]
 [ext_resource type="Texture2D" uid="uid://de76st4td7ff1" path="res://Assets/Towers/tower_icons_m.png" id="4_1hx62"]
+[ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://Scenes/HUD/UnitMenu/CreepDetails.tscn" id="6_wv2x8"]
 [ext_resource type="PackedScene" uid="uid://b1jo2a8vlvwlb" path="res://Scenes/HUD/UnitMenu/SpecialContainer.tscn" id="6_xgkmg"]
 [ext_resource type="PackedScene" uid="uid://7hnklay7gedu" path="res://Scenes/HUD/UnitMenu/BuffContainer.tscn" id="9_c7x85"]
-[ext_resource type="PackedScene" uid="uid://b1l5uiun5nhhx" path="res://Scenes/HUD/UnitMenu/CreepInfo.tscn" id="9_l6n8d"]
 [ext_resource type="StyleBox" uid="uid://c2wcu6a3ywhdl" path="res://Resources/Theme/UnitMenu/unit_level_label_normal.tres" id="10_nojfb"]
 [ext_resource type="Texture2D" uid="uid://60qc7jcvckhh" path="res://Assets/UI/HUD/misc3.png" id="11_swtuo"]
 
@@ -210,7 +210,7 @@ visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="CreepInfo" parent="MainContainer/MarginContainer/TabContainer/DetailsTab" instance=ExtResource("9_l6n8d")]
+[node name="CreepDetails" parent="MainContainer/MarginContainer/TabContainer/DetailsTab" instance=ExtResource("6_wv2x8")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MainContainer/MarginContainer"]
