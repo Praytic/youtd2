@@ -36,21 +36,6 @@ func _ready():
 	EventBus.item_flew_to_item_stash.connect(_on_item_flew_to_item_stash)
 
 
-func _unhandled_input(event: InputEvent):
-	var cancelled: bool = event.is_action_released("ui_cancel") || event.is_action_released("right_click")
-	var left_click: bool = event.is_action_released("left_click")
-	var hovered_unit: Unit = SelectUnit.get_hovered_unit()
-	var target_tower: Tower = hovered_unit as Tower
-
-	if cancelled:
-		cancel_move()
-	elif left_click && _move_in_progress():
-		if target_tower != null:
-			_on_player_clicked_tower_inventory(target_tower)
-		else:
-			_return_item_to_stash()
-
-
 #########################
 ###       Public      ###
 #########################
@@ -75,6 +60,10 @@ func cancel_move():
 		_main_stash.add_item(_moved_item)
 
 	_end_move_process()
+
+
+func process_click_on_tower(tower: Tower):
+	_on_player_clicked_tower_inventory(tower)
 
 
 func get_items_in_main_stash() -> Array[Item]:
@@ -217,7 +206,7 @@ func _can_start_moving() -> bool:
 
 # Return item to stash with a flying animation so player
 # understands what is happening.
-func _return_item_to_stash():
+func return_item_to_stash():
 	var map: Map = get_tree().get_root().get_node("GameScene/World/Map")
 	var drop_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 

@@ -121,6 +121,8 @@ func _unhandled_input(event: InputEvent):
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
 	var left_click: bool = event.is_action_released("left_click")
 	var right_click: bool = event.is_action_released("right_click")
+	var hovered_unit: Unit = SelectUnit.get_hovered_unit()
+	var hovered_tower: Tower = hovered_unit as Tower
 
 	if cancel_pressed:
 #		1. First, any ongoing actions are cancelled
@@ -128,9 +130,7 @@ func _unhandled_input(event: InputEvent):
 #		   are closed
 #		3. Finally, game is paused
 		if MouseState.get_state() != MouseState.enm.NONE:
-			BuildTower.cancel(_tower_preview)
-			_select_point_for_cast.cancel()
-			_select_target_for_cast.cancel()
+			_cancel_current_mouse_action()
 		elif _hud.any_window_is_open():
 			_hud.close_all_windows()
 		else:
@@ -142,16 +142,30 @@ func _unhandled_input(event: InputEvent):
 			MouseState.enm.BUILD_TOWER: BuildTower.try_to_finish(_player, _tower_preview, _map, _tower_stash)
 			MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.finish(_map)
 			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish()
+			MouseState.enm.MOVE_ITEM:
+				if hovered_tower != null:
+					_item_stash.process_click_on_tower(hovered_tower)
+				else:
+					_item_stash.return_item_to_stash()
 	elif right_click:
-# 		NOTE: Can't do manual selection when mouse is busy
-# 		with some other action, for example moving items.
-		if MouseState.get_state() == MouseState.enm.NONE:
+		if MouseState.get_state() != MouseState.enm.NONE:
+			_cancel_current_mouse_action()
+		else:
 			_do_manual_targetting()
 
 
 #########################
 ###      Private      ###
 #########################
+
+func _cancel_current_mouse_action():
+	match MouseState.get_state():
+		MouseState.enm.BUILD_TOWER: BuildTower.cancel(_tower_preview)
+		MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.cancel()
+		MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.cancel()
+		MouseState.enm.MOVE_ITEM:
+				_item_stash.cancel_move()
+
 
 # Manual targeting forces towers to attack the clicked
 # target until it dies.
@@ -216,7 +230,6 @@ func _roll_towers_after_wave_finish():
 
 
 func _pause_the_game():
-	_item_stash.cancel_move()
 	_game_time.set_enabled(false)
 
 	Globals.set_game_state(Globals.GameState.PAUSED)
