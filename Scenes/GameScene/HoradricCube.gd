@@ -1,4 +1,4 @@
-extends Node
+class_name HoradricCube extends Node
 
 
 # NOTE: implements transmutation of items. The UI for
@@ -41,12 +41,12 @@ const _bonus_mod_chance_map: Dictionary = {
 ###       Public      ###
 #########################
 
-func has_recipe_ingredients(recipe: Recipe, item_list: Array[Item]) -> bool:
+static func has_recipe_ingredients(recipe: Recipe, item_list: Array[Item]) -> bool:
 	return !_get_item_list_for_autofill(recipe, item_list).is_empty()
 
 
-func can_transmute(item_list: Array[Item]) -> bool:
-	var current_recipe: Recipe = _get_current_recipe(item_list)
+static func can_transmute(item_list: Array[Item]) -> bool:
+	var current_recipe: Recipe = HoradricCube._get_current_recipe(item_list)
 	var recipe_is_valid: bool = current_recipe != Recipe.NONE
 
 	return recipe_is_valid
@@ -55,14 +55,14 @@ func can_transmute(item_list: Array[Item]) -> bool:
 # Creates new item(s) based on the recipe and adds it to the
 # item container. Returns the message with transmutation
 # details to the caller.
-func transmute(item_list: Array[Item]) -> Array[Item]:
-	var current_recipe: Recipe = _get_current_recipe(item_list)
+static func transmute(item_list: Array[Item]) -> Array[Item]:
+	var current_recipe: Recipe = HoradricCube._get_current_recipe(item_list)
 	
 	if current_recipe == Recipe.NONE:
 		var empty_list: Array[Item] = []
 		return empty_list
 
-	var result_item_id_list: Array[int] = _get_result_item_for_recipe(current_recipe, item_list)
+	var result_item_id_list: Array[int] = HoradricCube._get_result_item_for_recipe(current_recipe, item_list)
 
 	if result_item_id_list.is_empty():
 		push_error("Transmute failed to generate any items, this shouldn't happen.")
@@ -75,9 +75,9 @@ func transmute(item_list: Array[Item]) -> Array[Item]:
 	return result_list
 
 
-func autofill_recipe(all_item_list: Array[Item], recipe: Recipe, rarity_filter: Array = []) -> Array[Item]:
+static func autofill_recipe(all_item_list: Array[Item], recipe: Recipe, rarity_filter: Array = []) -> Array[Item]:
 	var item_list: Array[Item] = Utils.filter_item_list(all_item_list, rarity_filter)
-	var autofill_list: Array[Item] = _get_item_list_for_autofill(recipe, item_list)
+	var autofill_list: Array[Item] = HoradricCube._get_item_list_for_autofill(recipe, item_list)
 	
 	return autofill_list
 
@@ -90,11 +90,11 @@ func autofill_recipe(all_item_list: Array[Item], recipe: Recipe, rarity_filter: 
 # which can be used for a recipe. Prioritizes items with
 # lowest rarity and level. Returns empty list if autofill
 # can't be performed.
-func _get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) -> Array[Item]:
+static func _get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) -> Array[Item]:
 	var current_rarity: Rarity.enm = Rarity.enm.COMMON
 
 	while current_rarity <= Rarity.enm.UNIQUE:
-		var result_list: Array[Item] = _get_item_list_for_autofill_for_rarity(recipe, item_list, current_rarity)
+		var result_list: Array[Item] = HoradricCube._get_item_list_for_autofill_for_rarity(recipe, item_list, current_rarity)
 
 		if !result_list.is_empty():
 			return result_list
@@ -104,7 +104,7 @@ func _get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) -> Arra
 	return []
 
 
-func _get_item_list_for_autofill_for_rarity(recipe: Recipe, item_list: Array[Item], rarity: Rarity.enm) -> Array[Item]:
+static func _get_item_list_for_autofill_for_rarity(recipe: Recipe, item_list: Array[Item], rarity: Rarity.enm) -> Array[Item]:
 	var rarity_change_from_recipe: int = RecipeProperties.get_rarity_change(recipe)
 	var result_rarity: int = rarity + rarity_change_from_recipe
 	var result_rarity_is_valid: bool = Rarity.enm.COMMON <= result_rarity && result_rarity <= Rarity.enm.UNIQUE
@@ -159,7 +159,7 @@ func _get_item_list_for_autofill_for_rarity(recipe: Recipe, item_list: Array[Ite
 # Returns recipe which matches the given item list. Do this
 # by getting an autofill list and checking if autofill list
 # is equal to input list.
-func _get_current_recipe(item_list: Array[Item]) -> Recipe:
+static func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	if item_list.is_empty():
 		return Recipe.NONE
 
@@ -168,7 +168,7 @@ func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	var recipe_list: Array = RecipeProperties.get_id_list()
 
 	for recipe in recipe_list:
-		var autofill_item_list: Array[Item] = _get_item_list_for_autofill(recipe, item_list)
+		var autofill_item_list: Array[Item] = HoradricCube._get_item_list_for_autofill(recipe, item_list)
 		var autofill_id_list: Array[int] = Utils.item_list_to_item_id_list(autofill_item_list)
 
 		var recipe_matches: bool = item_id_list == autofill_id_list
@@ -179,13 +179,13 @@ func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	return Recipe.NONE
 
 
-func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> Array[int]:
+static func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> Array[int]:
 	var rarity_change_from_recipe: int = RecipeProperties.get_rarity_change(recipe)
-	var ingredient_rarity: Rarity.enm = _get_ingredient_rarity(item_list)
+	var ingredient_rarity: Rarity.enm = HoradricCube._get_ingredient_rarity(item_list)
 	var result_rarity: Rarity.enm = (ingredient_rarity + rarity_change_from_recipe) as Rarity.enm
 	var result_item_type: Array[ItemType.enm] = RecipeProperties.get_result_item_type(recipe)
-	var avg_ingredient_level: int = _get_average_ingredient_level(item_list)
-	var random_bonus_mod: int = _get_random_bonus_mod()
+	var avg_ingredient_level: int = HoradricCube._get_average_ingredient_level(item_list)
+	var random_bonus_mod: int = HoradricCube._get_random_bonus_mod()
 	var lvl_min: int = avg_ingredient_level + RecipeProperties.get_lvl_bonus_min(recipe) + random_bonus_mod	
 	var lvl_max: int = avg_ingredient_level + RecipeProperties.get_lvl_bonus_max(recipe) + random_bonus_mod
 
@@ -204,10 +204,10 @@ func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> Arra
 
 	for i in range(0, result_count):
 		if recipe_is_oil_or_consumable:
-			var result_item: int = _get_transmuted_oil_or_consumable(item_list, result_rarity)
+			var result_item: int = HoradricCube._get_transmuted_oil_or_consumable(item_list, result_rarity)
 			result_item_list.append(result_item)
 		elif recipe_is_regular:
-			var result_item: int = _get_transmuted_item(item_list, result_rarity, lvl_min, lvl_max)
+			var result_item: int = HoradricCube._get_transmuted_item(item_list, result_rarity, lvl_min, lvl_max)
 			result_item_list.append(result_item)
 
 	var luck_message: String
@@ -223,7 +223,7 @@ func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> Arra
 	return result_item_list
 
 
-func _get_transmuted_oil_or_consumable(item_list: Array[Item], rarity: Rarity.enm) -> int:
+static func _get_transmuted_oil_or_consumable(item_list: Array[Item], rarity: Rarity.enm) -> int:
 	var oil_list: Array = ItemDropCalc.get_oil_and_consumables_list(rarity)
 
 # 	Remove ingredients from item pool so that trasmute result is different from ingredients
@@ -241,7 +241,7 @@ func _get_transmuted_oil_or_consumable(item_list: Array[Item], rarity: Rarity.en
 	return random_oil
 
 
-func _get_transmuted_item(ingredient_item_list: Array[Item], rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int:
+static func _get_transmuted_item(ingredient_item_list: Array[Item], rarity: Rarity.enm, lvl_min: int, lvl_max: int) -> int:
 	var current_lvl_min: int = lvl_min
 	var item_list: Array[int] = []
 	var loop_count: int = 0
@@ -276,7 +276,7 @@ func _get_transmuted_item(ingredient_item_list: Array[Item], rarity: Rarity.enm,
 	return random_item
 
 
-func _get_ingredient_rarity(item_list: Array[Item]) -> Rarity.enm:
+static func _get_ingredient_rarity(item_list: Array[Item]) -> Rarity.enm:
 	if item_list.is_empty():
 		return Rarity.enm.COMMON
 
@@ -286,16 +286,7 @@ func _get_ingredient_rarity(item_list: Array[Item]) -> Rarity.enm:
 	return rarity
 
 
-func _get_next_rarity(rarity: Rarity.enm) -> Rarity.enm:
-	if rarity == Rarity.enm.UNIQUE:
-		return rarity
-	else:
-		var next_rarity: Rarity.enm = (rarity + 1) as Rarity.enm
-
-		return next_rarity
-
-
-func _get_average_ingredient_level(item_list: Array[Item]) -> int:
+static func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 	if item_list.is_empty():
 		return 0
 
@@ -319,7 +310,7 @@ func _get_average_ingredient_level(item_list: Array[Item]) -> int:
 	return average_level
 
 
-func _get_random_bonus_mod() -> int:
+static func _get_random_bonus_mod() -> int:
 	var bonus_mod: int = Utils.random_weighted_pick(_bonus_mod_chance_map)
 
 	return bonus_mod
