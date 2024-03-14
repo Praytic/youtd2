@@ -1,7 +1,6 @@
 class_name GameScene extends Node
 
 
-@export var map_node: Node2D
 @export var _pregame_hud: Control
 @export var _pause_hud: Control
 @export var _hud: HUD
@@ -21,7 +20,6 @@ class_name GameScene extends Node
 @export var _tower_preview: TowerPreview
 
 
-var _built_at_least_one_tower: bool = false
 var _prev_effect_id: int = 0
 
 
@@ -58,7 +56,7 @@ func _ready():
 		var running_on_web: bool = OS.get_name() == "Web"
 
 		if !running_on_web:
-			PrerenderTool.run(self, _ui_canvas_layer, map_node)
+			PrerenderTool.run(self, _ui_canvas_layer, _map)
 			Globals.set_game_state(Globals.GameState.PREGAME)
 
 #			NOTE: do early return here so that the game is
@@ -129,9 +127,9 @@ func _unhandled_input(event: InputEvent):
 
 	if MouseState.get_state() == MouseState.enm.BUILD_TOWER:
 		if cancel_pressed: 
-			_cancel_building_tower()
+			BuildTower.cancel(_tower_preview)
 		elif left_click:
-			_try_to_build_tower()
+			BuildTower.try_to_finish(_player, _tower_preview, _map, _tower_stash)
 
 # 	NOTE: Can't do manual selection when mouse is busy with
 # 	some other action, for example moving items.
@@ -184,139 +182,6 @@ func _do_manual_targetting():
 	_prev_effect_id = effect
 
 
-# Returns true if there are enough resources for tower
-func _enough_resources_for_tower(tower_id: int) -> bool:
-	var enough_gold: bool = _player.enough_gold_for_tower(tower_id)
-	var enough_tomes: bool = _player.enough_tomes_for_tower(tower_id)
-	var enough_food: bool = _player.enough_food_for_tower(tower_id)
-	var enough_resources: bool = enough_gold && enough_tomes && enough_food
-
-	return enough_resources
-
-
-func _cancel_building_tower():
-	if MouseState.get_state() != MouseState.enm.BUILD_TOWER:
-		return
-
-	MouseState.set_state(MouseState.enm.NONE)
-	_tower_preview.hide()
-
-
-func _try_to_build_tower():
-	var tower_id: int = _tower_preview.get_tower_id()
-	var map: Map = get_tree().get_root().get_node("GameScene/World/Map")
-	var can_build: bool = map.can_build_at_mouse_pos()
-	var can_transform: bool = map.can_transform_at_mouse_pos()
-	var mouse_pos: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
-	var tower_under_mouse: Tower = Utils.get_tower_at_position(mouse_pos)
-	var attempting_to_transform: bool = tower_under_mouse != null
-	var enough_resources: bool = _enough_resources_for_tower(tower_id)
-
-	if !can_build && !can_transform:
-		var error: String
-		if attempting_to_transform && !Globals.game_mode_allows_transform():
-			error = "Can't transform towers in build mode."
-		else:
-			error = "Can't build here."
-
-		Messages.add_error(error)
-	elif !enough_resources:
-		_add_error_about_building_tower(tower_id)
-	elif can_transform:
-		_transform_tower(tower_id, tower_under_mouse)
-	else:
-		_build_tower(tower_id)
-
-
-func _transform_tower(new_tower_id: int, prev_tower: Tower):
-	_player.remove_food_for_tower(prev_tower.get_id())
-	_player.add_food_for_tower(new_tower_id)
-
-	var new_tower: Tower = TowerManager.get_tower(new_tower_id)
-	new_tower.position = prev_tower.position
-	new_tower._temp_preceding_tower = prev_tower
-	Utils.add_object_to_world(new_tower)
-
-#	Refund build cost for previous tower
-	var refund_value: int = _get_transform_refund(prev_tower.get_id(), new_tower_id)
-	prev_tower.get_player().give_gold(refund_value, prev_tower, false, true)
-
-#	Spend build cost for new tower
-	var build_cost: float = TowerProperties.get_cost(new_tower_id)
-	_player.spend_gold(build_cost)
-
-# 	NOTE: don't modify tome count because transform is
-# 	enabled only in random modes and tome costs are 0 in
-# 	random mode
-
-	prev_tower.queue_free()
-
-	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
-
-	_cancel_building_tower()
-
-
-func _build_tower(tower_id: int):
-	var new_tower: Tower = TowerManager.get_tower(tower_id)
-	var map: Map = get_tree().get_root().get_node("GameScene/World/Map")
-	var visual_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
-	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
-	new_tower.position = build_position
-	Utils.add_object_to_world(new_tower)
-	_player.add_food_for_tower(tower_id)
-
-	var build_cost: float = TowerProperties.get_cost(tower_id)
-	_player.spend_gold(build_cost)
-
-	var tomes_cost: int = TowerProperties.get_tome_cost(tower_id)
-	_player.spend_tomes(tomes_cost)
-
-	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
-	
-	_built_at_least_one_tower = true
-
-	if Globals.get_game_mode() != GameMode.enm.BUILD:
-		_tower_stash.remove_tower(tower_id)
-
-	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
-		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
-
-	_map.add_space_occupied_by_tower(new_tower)
-
-	_cancel_building_tower()
-
-
-# This is the value refunded when a tower is transformed
-# into another tower
-func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
-	var prev_cost: int = TowerProperties.get_cost(prev_tower_id)
-	var prev_family: int = TowerProperties.get_family(prev_tower_id)
-	var new_family: int = TowerProperties.get_family(new_tower_id)
-	var family_is_same: bool = prev_family == new_family
-
-	var transform_refund: int
-
-	if family_is_same:
-		transform_refund = floori(prev_cost * 1.0)
-	else:
-		transform_refund = floori(prev_cost * 0.75)
-
-	return transform_refund
-
-
-func _add_error_about_building_tower(tower_id: int):
-	var enough_gold: bool = _player.enough_gold_for_tower(tower_id)
-	var enough_tomes: bool = _player.enough_tomes_for_tower(tower_id)
-	var enough_food: bool = _player.enough_food_for_tower(tower_id)
-
-	if !enough_gold:
-		Messages.add_error("Not enough gold.")
-	elif !enough_tomes:
-		Messages.add_error("Not enough tomes.")
-	elif !enough_food:
-		Messages.add_error("Not enough food.")
-
-
 func _roll_towers_after_wave_finish():
 	var rolled_towers: Array[int] = TowerDistribution.roll_towers(_player)
 	_tower_stash.add_towers(rolled_towers)
@@ -345,7 +210,7 @@ func _roll_towers_after_wave_finish():
 
 func _pause_the_game():
 #	Cancel any in progress mouse actions
-	_cancel_building_tower()
+	BuildTower.cancel(_tower_preview)
 	_item_stash.cancel_move()
 	SelectTargetForCast.cancel()
 	_game_time.set_enabled(false)
@@ -617,7 +482,10 @@ func _on_creep_reached_portal(creep: Creep):
 
 
 func _on_player_requested_start_game():
-	if !_built_at_least_one_tower:
+	var tower_list: Array[Tower] = Utils.get_tower_list()
+	var built_at_least_one_tower: bool = !tower_list.is_empty()
+
+	if !built_at_least_one_tower:
 		Messages.add_error("You have to build some towers before you can start the game!")
 
 		return
@@ -706,21 +574,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
-	var enough_resources: bool = _enough_resources_for_tower(tower_id)
-
-	if !enough_resources:
-		_add_error_about_building_tower(tower_id)
-
-		return
-
-	var can_start_building: bool = MouseState.get_state() != MouseState.enm.NONE && MouseState.get_state() != MouseState.enm.BUILD_TOWER
-	if can_start_building:
-		return
-
-	MouseState.set_state(MouseState.enm.BUILD_TOWER)
-
-	_tower_preview.set_tower(tower_id)
-	_tower_preview.show()
+	BuildTower.start(tower_id, _player, _tower_preview)
 
 
 func _on_player_requested_to_upgrade_tower(tower: Tower):
