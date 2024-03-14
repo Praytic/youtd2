@@ -1,4 +1,4 @@
-class_name HoradricCube extends Node
+class_name HoradricCube extends Object
 
 
 # NOTE: implements transmutation of items. The UI for
@@ -41,6 +41,55 @@ const _bonus_mod_chance_map: Dictionary = {
 ###       Public      ###
 #########################
 
+static func autofill(recipe: HoradricCube.Recipe, rarity_filter: Array, item_stash: ItemContainer, horadric_stash: ItemContainer):
+# 	Return current cube contents to item stash. Need to do this first in all cases, doesn't matter if autofill suceeeds or fails later.
+	var horadric_items_initial: Array[Item] = horadric_stash.get_item_list()
+	for item in horadric_items_initial:
+		horadric_stash.remove_item(item)
+		item_stash.add_item(item)
+
+#	Move items from item stash to cube, if there are enough
+#	items for the recipe
+	var full_item_list: Array[Item] = item_stash.get_item_list()
+	var filtered_item_list: Array[Item] = Utils.filter_item_list(full_item_list, rarity_filter)
+	var autofill_list: Array[Item] = HoradricCube._get_item_list_for_autofill(recipe, filtered_item_list)
+	
+	var can_autofill: bool = !autofill_list.is_empty()
+	
+	if !can_autofill:
+		Messages.add_error("Not enough items for recipe!")
+		
+		return
+
+#	Move autofill items from item stash to horadric stash
+	for item in autofill_list:
+		item_stash.remove_item(item)
+		horadric_stash.add_item(item)
+
+
+static func transmute(horadric_stash: ItemContainer):
+	var item_list: Array[Item] = horadric_stash.get_item_list()
+	var current_recipe: Recipe = HoradricCube._get_current_recipe(item_list)
+	
+	if current_recipe == Recipe.NONE:
+		return
+
+	var result_item_id_list: Array[int] = HoradricCube._get_result_item_for_recipe(current_recipe, item_list)
+
+	if result_item_id_list.is_empty():
+		push_error("Transmute failed to generate any items, this shouldn't happen.")
+		
+		return
+
+	var result_list: Array[Item] = Utils.item_id_list_to_item_list(result_item_id_list)
+
+	for item in item_list:
+		horadric_stash.remove_item(item)
+	
+	for item in result_list:
+		horadric_stash.add_item(item)
+
+
 static func has_recipe_ingredients(recipe: Recipe, item_list: Array[Item]) -> bool:
 	return !_get_item_list_for_autofill(recipe, item_list).is_empty()
 
@@ -50,36 +99,6 @@ static func can_transmute(item_list: Array[Item]) -> bool:
 	var recipe_is_valid: bool = current_recipe != Recipe.NONE
 
 	return recipe_is_valid
-
-
-# Creates new item(s) based on the recipe and adds it to the
-# item container. Returns the message with transmutation
-# details to the caller.
-static func transmute(item_list: Array[Item]) -> Array[Item]:
-	var current_recipe: Recipe = HoradricCube._get_current_recipe(item_list)
-	
-	if current_recipe == Recipe.NONE:
-		var empty_list: Array[Item] = []
-		return empty_list
-
-	var result_item_id_list: Array[int] = HoradricCube._get_result_item_for_recipe(current_recipe, item_list)
-
-	if result_item_id_list.is_empty():
-		push_error("Transmute failed to generate any items, this shouldn't happen.")
-		
-		var empty_list: Array[Item] = []
-		return empty_list
-
-	var result_list: Array[Item] = Utils.item_id_list_to_item_list(result_item_id_list)
-
-	return result_list
-
-
-static func autofill_recipe(all_item_list: Array[Item], recipe: Recipe, rarity_filter: Array = []) -> Array[Item]:
-	var item_list: Array[Item] = Utils.filter_item_list(all_item_list, rarity_filter)
-	var autofill_list: Array[Item] = HoradricCube._get_item_list_for_autofill(recipe, item_list)
-	
-	return autofill_list
 
 
 #########################

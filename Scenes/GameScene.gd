@@ -49,6 +49,8 @@ func _ready():
 	EventBus.player_requested_to_sell_tower.connect(_on_player_requested_to_sell_tower)
 	EventBus.player_requested_to_select_point_for_autocast.connect(_on_player_requested_to_select_point_for_autocast)
 	EventBus.player_requested_to_select_target_for_autocast.connect(_on_player_requested_to_select_target_for_autocast)
+	EventBus.player_requested_transmute.connect(_on_player_requested_transmute)
+	EventBus.player_requested_autofill.connect(_on_player_requested_autofill)
 
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
@@ -659,3 +661,14 @@ func _on_player_requested_to_select_target_for_autocast(autocast: Autocast):
 func _on_selected_unit_changed(_prev_unit: Unit):
 	var selected_unit: Unit = SelectUnit.get_selected_unit()
 	_hud.set_menu_unit(selected_unit)
+
+
+func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
+	var item_stash: ItemContainer = _item_stash.get_main_container()
+	var horadric_stash: ItemContainer = _item_stash.get_horadric_container()
+	HoradricCube.autofill(recipe, rarity_filter, item_stash, horadric_stash)
+
+
+func _on_player_requested_transmute():
+	var horadric_stash: ItemContainer = _item_stash.get_horadric_container()
+	HoradricCube.transmute(horadric_stash)
