@@ -60,9 +60,13 @@ func set_menu_unit(unit: Unit):
 	elif unit is Tower:
 		var tower: Tower = unit as Tower
 		_tower_menu.set_tower(tower)
+		_tower_menu.show()
+		_creep_menu.hide()
 	elif unit is Creep:
 		var creep: Creep = unit as Creep
 		_creep_menu.set_creep(creep)
+		_creep_menu.show()
+		_tower_menu.hide()
 	
 	_unit_status_menu_card.set_unit(unit)
 	_unit_status_menu_card.visible = unit != null
