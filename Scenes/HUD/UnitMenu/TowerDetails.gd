@@ -70,13 +70,15 @@ class_name TowerDetails extends GridContainer
 # Details
 @export var _tower_details_label: RichTextLabel
 
+var _tower: Tower = null
+
 
 #########################
-###     Built-in      ###
+###       Public      ###
 #########################
 
-func _ready():
-	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
+func set_tower(tower: Tower):
+	_tower = tower
 
 
 #########################
@@ -84,90 +86,86 @@ func _ready():
 #########################
 
 func _update_text():
-	var selected_unit: Unit = SelectUnit.get_selected_unit()
-
-	if !selected_unit is Tower:
+	if _tower == null:
 		return
-
-	var tower: Tower = selected_unit as Tower
 
 #	NOTE: don't set tooltips for towers that haven't been
 #	added to scene tree yet because their _ready() functions
 #	haven't been called so they aren't setup completely.
 #	This can happen while hovering over tower build buttons.
-	if !tower.is_inside_tree():
+	if !_tower.is_inside_tree():
 		return
 
 #	Attack
-	var base_damage: int = tower.get_base_damage()
+	var base_damage: int = _tower.get_base_damage()
 	_base_damage.text = TowerDetails.int_format(base_damage)
 
-	var base_damage_bonus: float = tower.get_base_damage_bonus()
+	var base_damage_bonus: float = _tower.get_base_damage_bonus()
 	_base_damage_bonus.text = TowerDetails.int_format(base_damage_bonus)
 
-	var base_damage_bonus_perc: float = tower.get_base_damage_bonus_percent() - 1.0
+	var base_damage_bonus_perc: float = _tower.get_base_damage_bonus_percent() - 1.0
 	_base_damage_bonus_perc.text = _percent_signed_format(base_damage_bonus_perc)
 
-	var damage_add: float = tower.get_damage_add()
+	var damage_add: float = _tower.get_damage_add()
 	_damage_add.text = TowerDetails.int_format(damage_add)
 
-	var damage_add_perc: float = tower.get_damage_add_percent() - 1.0
+	var damage_add_perc: float = _tower.get_damage_add_percent() - 1.0
 	_damage_add_perc.text = _percent_signed_format(damage_add_perc)
 
-	var overall_damage: float = tower.get_overall_damage()
+	var overall_damage: float = _tower.get_overall_damage()
 	_overall_damage.text = TowerDetails.int_format(overall_damage)
 
-	var base_cooldown: float = tower.get_base_attackspeed()
+	var base_cooldown: float = _tower.get_base_attackspeed()
 	_base_cooldown.text = Utils.format_float(base_cooldown, 2)
 
-	var attackspeed: float = tower.get_attackspeed_modifier()
+	var attackspeed: float = _tower.get_attackspeed_modifier()
 	_attackspeed.text = Utils.format_percent(attackspeed, 0)
 
-	var overall_cooldown: float = tower.get_current_attackspeed()
+	var overall_cooldown: float = _tower.get_current_attackspeed()
 	_overall_cooldown.text = Utils.format_float(overall_cooldown, 2)
 
-	var overall_dps: float = tower.get_overall_dps()
+	var overall_dps: float = _tower.get_overall_dps()
 	_overall_dps.text = TowerDetails.int_format(overall_dps)
 
-	var crit_chance: float = tower.get_prop_atk_crit_chance()
+	var crit_chance: float = _tower.get_prop_atk_crit_chance()
 	_crit_chance.text = Utils.format_percent(crit_chance, 1)
 
-	var crit_damage: float = tower.get_prop_atk_crit_damage()
+	var crit_damage: float = _tower.get_prop_atk_crit_damage()
 	_crit_damage.text = _multiplier_format(crit_damage)
 
-	var multicrit: int = tower.get_prop_multicrit_count()
+	var multicrit: int = _tower.get_prop_multicrit_count()
 	_multicrit.text = TowerDetails.int_format(multicrit)
 
-	var dps_with_crit: float = tower.get_dps_with_crit()
+	var dps_with_crit: float = _tower.get_dps_with_crit()
 	_dps_with_crit.text = TowerDetails.int_format(dps_with_crit)
 
 #	Spells
-	var spell_damage: float = tower.get_prop_spell_damage_dealt()
+	var spell_damage: float = _tower.get_prop_spell_damage_dealt()
 	_spell_damage.text = Utils.format_percent(spell_damage, 0)
 	
-	var spell_crit_chance: float = tower.get_spell_crit_chance()
+	var spell_crit_chance: float = _tower.get_spell_crit_chance()
 	_spell_crit_chance.text = Utils.format_percent(spell_crit_chance, 1)
 
-	var spell_crit_damage: float = tower.get_spell_crit_damage()
+	var spell_crit_damage: float = _tower.get_spell_crit_damage()
 	_spell_crit_damage.text = _multiplier_format(spell_crit_damage)
 
 #	Veteran
-	var total_damage: float = tower.get_damage()
+	var total_damage: float = _tower.get_damage()
 	_total_damage.text = TowerDetails.int_format(total_damage)
 
-	var best_hit: float = tower.get_best_hit()
+	var best_hit: float = _tower.get_best_hit()
 	_best_hit.text = TowerDetails.int_format(best_hit)
 
-	var kills: float = tower.get_kills()
+	var kills: float = _tower.get_kills()
 	_kills.text = TowerDetails.int_format(kills)
 
-	var experience: float = tower.get_exp()
+	var experience: float = _tower.get_exp()
 	_experience.text = TowerDetails.int_format(experience)
 
-	var next_level: int = tower.get_level() + 1
+	var next_level: int = _tower.get_level() + 1
 	var exp_for_next_level: int = Experience.get_exp_for_level(next_level)
 	
-	if tower.reached_max_level():
+	if _tower.reached_max_level():
 		_level_x_at_left.text = "Max level reached!"
 		_level_x_at_right.text = ""
 	else:
@@ -175,86 +173,86 @@ func _update_text():
 		_level_x_at_right.text = TowerDetails.int_format(exp_for_next_level)
 
 # 	Mana
-	var base_mana: float = tower.get_base_mana()
+	var base_mana: float = _tower.get_base_mana()
 	_base_mana.text = TowerDetails.int_format(base_mana)
 
-	var mana_bonus: float = tower.get_base_mana_bonus()
+	var mana_bonus: float = _tower.get_base_mana_bonus()
 	_mana_bonus.text = TowerDetails.int_format(mana_bonus)
 
-	var mana_bonus_perc: float = tower.get_base_mana_bonus_percent() - 1.0
+	var mana_bonus_perc: float = _tower.get_base_mana_bonus_percent() - 1.0
 	_mana_bonus_perc.text = _percent_signed_format(mana_bonus_perc)
 
-	var overall_mana: float = tower.get_overall_mana()
+	var overall_mana: float = _tower.get_overall_mana()
 	_overall_mana.text = TowerDetails.int_format(overall_mana)
 
-	var base_mana_regen: float = tower.get_base_mana_regen()
+	var base_mana_regen: float = _tower.get_base_mana_regen()
 	_base_mana_regen.text = Utils.format_float(base_mana_regen, 1)
 
-	var mana_regen_bonus: float = tower.get_base_mana_regen_bonus()
+	var mana_regen_bonus: float = _tower.get_base_mana_regen_bonus()
 	_mana_regen_bonus.text = Utils.format_float(mana_regen_bonus, 1)
 
-	var mana_regen_bonus_perc: float = tower.get_base_mana_regen_bonus_percent() - 1.0
+	var mana_regen_bonus_perc: float = _tower.get_base_mana_regen_bonus_percent() - 1.0
 	_mana_regen_bonus_perc.text = _percent_signed_format(mana_regen_bonus_perc)
 
-	var overall_mana_regen: float = tower.get_overall_mana_regen()
+	var overall_mana_regen: float = _tower.get_overall_mana_regen()
 	_overall_mana_regen.text = Utils.format_float(overall_mana_regen, 1)
 
 #	Misc
-	var bounty_ratio: float = tower.get_prop_bounty_received()
+	var bounty_ratio: float = _tower.get_prop_bounty_received()
 	_bounty_ratio.text = Utils.format_percent(bounty_ratio, 0)
 
-	var exp_ratio: float = tower.get_prop_exp_received()
+	var exp_ratio: float = _tower.get_prop_exp_received()
 	_exp_ratio.text = Utils.format_percent(exp_ratio, 0)
 
-	var item_drop_ratio: float = tower.get_item_drop_ratio()
+	var item_drop_ratio: float = _tower.get_item_drop_ratio()
 	_item_drop_ratio.text = Utils.format_percent(item_drop_ratio, 0)
 
-	var item_quality_ratio: float = tower.get_item_quality_ratio()
+	var item_quality_ratio: float = _tower.get_item_quality_ratio()
 	_item_quality_ratio.text = Utils.format_percent(item_quality_ratio, 0)
 
-	var trigger_chances: float = tower.get_prop_trigger_chances()
+	var trigger_chances: float = _tower.get_prop_trigger_chances()
 	_trigger_chances.text = Utils.format_percent(trigger_chances, 0)
 
-	var buff_duration: float = tower.get_prop_buff_duration()
+	var buff_duration: float = _tower.get_prop_buff_duration()
 	_buff_duration.text = Utils.format_percent(buff_duration, 0)
 
-	var debuff_duration: float = tower.get_prop_debuff_duration()
+	var debuff_duration: float = _tower.get_prop_debuff_duration()
 	_debuff_duration.text = Utils.format_percent(debuff_duration, 0)
 
 #	Damage to race
-	var dmg_to_undead: float = tower.get_damage_to_undead()
+	var dmg_to_undead: float = _tower.get_damage_to_undead()
 	_dmg_to_undead.text = Utils.format_percent(dmg_to_undead, 0)
 
-	var dmg_to_magical: float = tower.get_damage_to_magic()
+	var dmg_to_magical: float = _tower.get_damage_to_magic()
 	_dmg_to_magical.text = Utils.format_percent(dmg_to_magical, 0)
 
-	var dmg_to_nature: float = tower.get_damage_to_nature()
+	var dmg_to_nature: float = _tower.get_damage_to_nature()
 	_dmg_to_nature.text = Utils.format_percent(dmg_to_nature, 0)
 
-	var dmg_to_orc: float = tower.get_damage_to_orc()
+	var dmg_to_orc: float = _tower.get_damage_to_orc()
 	_dmg_to_orc.text = Utils.format_percent(dmg_to_orc, 0)
 
-	var dmg_to_humanoid: float = tower.get_damage_to_humanoid()
+	var dmg_to_humanoid: float = _tower.get_damage_to_humanoid()
 	_dmg_to_humanoid.text = Utils.format_percent(dmg_to_humanoid, 0)
 
 #	Damage to size
-	var dmg_to_mass: float = tower.get_damage_to_mass()
+	var dmg_to_mass: float = _tower.get_damage_to_mass()
 	_dmg_to_mass.text = Utils.format_percent(dmg_to_mass, 0)
 
-	var dmg_to_normal: float = tower.get_damage_to_magic()
+	var dmg_to_normal: float = _tower.get_damage_to_magic()
 	_dmg_to_normal.text = Utils.format_percent(dmg_to_normal, 0)
 
-	var dmg_to_air: float = tower.get_damage_to_air()
+	var dmg_to_air: float = _tower.get_damage_to_air()
 	_dmg_to_air.text = Utils.format_percent(dmg_to_air, 0)
 
-	var dmg_to_champion: float = tower.get_damage_to_champion()
+	var dmg_to_champion: float = _tower.get_damage_to_champion()
 	_dmg_to_champion.text = Utils.format_percent(dmg_to_champion, 0)
 
-	var dmg_to_boss: float = tower.get_damage_to_boss()
+	var dmg_to_boss: float = _tower.get_damage_to_boss()
 	_dmg_to_boss.text = Utils.format_percent(dmg_to_boss, 0)
 
 #	Details
-	var tower_details_text: String = _generate_tower_details_text(tower)
+	var tower_details_text: String = _generate_tower_details_text(_tower)
 	_tower_details_label.clear()
 	_tower_details_label.append_text(tower_details_text)
 

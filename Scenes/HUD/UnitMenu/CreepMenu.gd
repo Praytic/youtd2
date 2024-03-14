@@ -41,6 +41,8 @@ func set_creep(creep: Creep):
 	var prev_creep: Creep = _creep
 	_creep = creep
 
+	_details.set_creep(creep)
+
 #	Reset all scroll positions when switching to a different unit
 	Utils.reset_scroll_container(_specials_scroll_container)
 	Utils.reset_scroll_container(_details_tab)

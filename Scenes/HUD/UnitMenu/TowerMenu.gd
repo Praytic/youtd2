@@ -63,6 +63,8 @@ func set_tower(tower: Tower):
 	var prev_tower: Tower = _tower
 	_tower = tower
 
+	_details.set_tower(tower)
+
 #	Reset all scroll positions when switching to a different unit
 	Utils.reset_scroll_container(_specials_scroll_container)
 	Utils.reset_scroll_container(_details_tab)
