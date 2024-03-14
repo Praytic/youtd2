@@ -72,8 +72,6 @@ func _ready():
 	print_verbose("Set camera limits to [lb: %s, lt: %s, ll: %s, lr: %s] and pos [%s]" \
 		% [camera.limit_bottom, camera.limit_top, camera.limit_left, camera.limit_right, pp])
 	
-	MouseState.mouse_state_changed.connect(_on_mouse_state_changed)
-
 #	Make buildable area pulse by tweening it's alpha between
 #	min and max
 	var buildable_area_tween = create_tween()
@@ -218,6 +216,10 @@ func quarter_is_occupied(pos: Vector2) -> bool:
 	return occupied
 
 
+func set_buildable_area_visible(is_visible: bool):
+	_buildable_area.visible = is_visible
+
+
 #########################
 ###      Private      ###
 #########################
@@ -246,10 +248,6 @@ func _get_quarter_offset_list() -> Array[Vector2]:
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_mouse_state_changed():
-	_buildable_area.visible = MouseState.get_state() == MouseState.enm.BUILD_TOWER
-
 
 # When tower is sold, mark space which is occupied by tower.
 func add_space_occupied_by_tower(tower: Tower):

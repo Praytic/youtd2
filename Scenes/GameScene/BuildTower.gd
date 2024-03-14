@@ -8,7 +8,7 @@ class_name BuildTower extends Object
 ###       Public      ###
 #########################
 
-static func start(tower_id: int, player: Player, tower_preview: TowerPreview):
+static func start(tower_id: int, player: Player, tower_preview: TowerPreview, map: Map):
 	var enough_resources: bool = BuildTower._enough_resources_for_tower(tower_id, player)
 
 	if !enough_resources:
@@ -24,6 +24,8 @@ static func start(tower_id: int, player: Player, tower_preview: TowerPreview):
 
 	tower_preview.set_tower(tower_id)
 	tower_preview.show()
+
+	map.set_buildable_area_visible(true)
 
 
 static func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map, tower_stash: TowerStash):
@@ -47,18 +49,19 @@ static func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map,
 		BuildTower._add_error_about_building_tower(tower_id, player)
 	elif can_transform:
 		BuildTower._transform_tower(tower_id, tower_under_mouse, player)
-		BuildTower.cancel(tower_preview)
+		BuildTower.cancel(tower_preview, map)
 	else:
 		BuildTower._build_tower(tower_id, player, map, tower_stash)
-		BuildTower.cancel(tower_preview)
+		BuildTower.cancel(tower_preview, map)
 
 
-static func cancel(tower_preview: TowerPreview):
+static func cancel(tower_preview: TowerPreview, map: Map):
 	if MouseState.get_state() != MouseState.enm.BUILD_TOWER:
 		return
 
 	MouseState.set_state(MouseState.enm.NONE)
 	tower_preview.hide()
+	map.set_buildable_area_visible(false)
 
 
 #########################

@@ -160,7 +160,7 @@ func _unhandled_input(event: InputEvent):
 
 func _cancel_current_mouse_action():
 	match MouseState.get_state():
-		MouseState.enm.BUILD_TOWER: BuildTower.cancel(_tower_preview)
+		MouseState.enm.BUILD_TOWER: BuildTower.cancel(_tower_preview, _map)
 		MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.cancel()
 		MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.cancel()
 		MouseState.enm.MOVE_ITEM:
@@ -589,7 +589,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
-	BuildTower.start(tower_id, _player, _tower_preview)
+	BuildTower.start(tower_id, _player, _tower_preview, _map)
 
 
 func _on_player_requested_to_upgrade_tower(tower: Tower):
