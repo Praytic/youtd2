@@ -18,10 +18,10 @@ class_name GameScene extends Node
 @export var _extreme_timer: Timer
 @export var _game_time: GameTime
 @export var _object_container: Node2D
+@export var _tower_preview: TowerPreview
 
 
 var _built_at_least_one_tower: bool = false
-var _tower_preview: TowerPreview = null
 var _prev_effect_id: int = 0
 
 
@@ -199,11 +199,11 @@ func _cancel_building_tower():
 		return
 
 	MouseState.set_state(MouseState.enm.NONE)
-	_tower_preview.queue_free()
+	_tower_preview.hide()
 
 
 func _try_to_build_tower():
-	var tower_id: int = _tower_preview.tower_id
+	var tower_id: int = _tower_preview.get_tower_id()
 	var map: Map = get_tree().get_root().get_node("GameScene/World/Map")
 	var can_build: bool = map.can_build_at_mouse_pos()
 	var can_transform: bool = map.can_transform_at_mouse_pos()
@@ -719,10 +719,8 @@ func _on_player_requested_to_build_tower(tower_id: int):
 
 	MouseState.set_state(MouseState.enm.BUILD_TOWER)
 
-	_tower_preview = Globals.tower_preview_scene.instantiate()
-	_tower_preview.tower_id = tower_id
-
-	add_child(_tower_preview)
+	_tower_preview.set_tower(tower_id)
+	_tower_preview.show()
 
 
 func _on_player_requested_to_upgrade_tower(tower: Tower):

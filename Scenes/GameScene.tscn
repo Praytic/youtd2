@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=22 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
+[ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="11_0qewd"]
 [ext_resource type="PackedScene" uid="uid://da13fj7bxtxaq" path="res://Scenes/Items/ItemStash.tscn" id="13_hhrst"]
 [ext_resource type="PackedScene" uid="uid://clk0cpjpixjsk" path="res://Scenes/Towers/TowerStash.tscn" id="15_fssku"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
@@ -40,7 +41,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("map_node", "_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_tower_preview")]
 process_mode = 3
 script = ExtResource("9")
 map_node = NodePath("World/Map")
@@ -60,6 +61,7 @@ _next_wave_timer = NodePath("NextWaveTimer")
 _extreme_timer = NodePath("ExtremeTimer")
 _game_time = NodePath("GameTime")
 _object_container = NodePath("World/ObjectContainer")
+_tower_preview = NodePath("World/TowerPreview")
 
 [node name="GameStartTimer" type="Timer" parent="."]
 process_mode = 1
@@ -138,6 +140,10 @@ limit_smoothed = true
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("1")
+
+[node name="TowerPreview" parent="World" instance=ExtResource("11_0qewd")]
+visible = false
+z_index = 100
 
 [node name="UI" type="CanvasLayer" parent="."]
 

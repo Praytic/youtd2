@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://Scenes/Towers/TowerPreview.gd" id="1"]
 
 [node name="TowerPreview" type="Node2D" node_paths=PackedStringArray("_pedestal_up", "_pedestal_right", "_pedestal_down", "_pedestal_left")]
-z_index = 100
 script = ExtResource("1")
 _pedestal_up = NodePath("Pedestal/PedestalUp")
 _pedestal_right = NodePath("Pedestal/PedestalRight")
@@ -11,7 +10,6 @@ _pedestal_down = NodePath("Pedestal/PedestalDown")
 _pedestal_left = NodePath("Pedestal/PedestalLeft")
 
 [node name="Pedestal" type="Node2D" parent="."]
-z_index = -100
 
 [node name="PedestalUp" type="Polygon2D" parent="Pedestal"]
 color = Color(1, 0, 0, 1)

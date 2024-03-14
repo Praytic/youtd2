@@ -9,8 +9,8 @@ const opaque_red := Color(1, 0, 0, 0.5)
 const opaque_green := Color(0, 1, 0, 0.5)
 const opaque_blue := Color(0, 0, 1, 0.5)
 
-var tower_id: int
-var _tower_instance: Node2D
+var _tower_id: int = 0
+var _tower_instance: Node2D = null
 
 @export var _pedestal_up: Polygon2D
 @export var _pedestal_right: Polygon2D
@@ -18,18 +18,32 @@ var _tower_instance: Node2D
 @export var _pedestal_left: Polygon2D
 
 
-func _ready():
+func set_tower(tower_id: int):
+	if _tower_instance != null:
+		remove_child(_tower_instance)
+		_tower_instance.queue_free()
+		_tower_instance = null
+	
+	_tower_id = tower_id
+	
 	var is_tower_preview: bool = true
 	_tower_instance = TowerManager.get_tower(tower_id, is_tower_preview)
+	add_child(_tower_instance)
+	
 #	NOTE: have to init stats because they are used inside
 #	Utils.setup_range_indicators().
 	_tower_instance.init_stats_and_specials()
-	add_child(_tower_instance)
-
 	Utils.setup_range_indicators(_tower_instance, self)
 
 
-func _physics_process(_delta):
+func get_tower_id() -> int:
+	return _tower_id
+
+
+func _physics_process(_delta: float):
+	if !visible || _tower_instance == null:
+		return
+	
 # 	Show tower preview under map normally, but make it stick
 # 	to tile position when mouse is hovered over a buildable
 # 	tile.

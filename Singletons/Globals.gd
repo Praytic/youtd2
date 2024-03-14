@@ -21,7 +21,6 @@ const blood_pool_scene: PackedScene = preload("res://Scenes/Creeps/CreepBloodPoo
 const flying_item_scene: PackedScene = preload("res://Scenes/HUD/FlyingItem.tscn")
 const autocast_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/AutocastButton.tscn")
 const autocast_scene: PackedScene = preload("res://Scenes/Towers/Autocast.tscn")
-const tower_preview_scene: PackedScene = preload("res://Scenes/Towers/TowerPreview.tscn")
 const placeholder_effect_scene: PackedScene = preload("res://Scenes/Effects/GenericMagic.tscn")
 const tower_actions_scene: PackedScene = preload("res://Scenes/HUD/TowerActions.tscn")
 const empty_slot_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/EmptyUnitButton.tscn")
