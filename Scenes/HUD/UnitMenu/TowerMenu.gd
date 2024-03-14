@@ -25,6 +25,7 @@ const ITEMS_CONTAINER_BUTTON_SIZE: float = 82
 @export var _inventory_empty_slots: HBoxContainer
 @export var _items_box_container: HBoxContainer
 @export var _buff_container: BuffContainer
+@export var _details: TowerDetails
 
 var _selling_for_real: bool = false
 var _player: Player = null

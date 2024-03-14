@@ -129,21 +129,21 @@ func load_player_stats(player_list: Array[Player]):
 	var player: Player = player_list[0]
 	
 	var gold_farmed: float = player.get_gold()
-	var gold_farmed_string: String = TowerInfo.int_format(floori(gold_farmed))
+	var gold_farmed_string: String = TowerDetails.int_format(floori(gold_farmed))
 	_gold_farmed_label.text = gold_farmed_string
 
 	var level: int = player.get_team().get_level()
 	_level_label.text = str(level)
 	
 	var total_damage: float = player.get_total_damage()
-	var total_damage_string: String = TowerInfo.int_format(floori(total_damage))
+	var total_damage_string: String = TowerDetails.int_format(floori(total_damage))
 	_total_damage_label.text = total_damage_string
 	
 	var lives_string: String = player.get_team().get_lives_string()
 	_lives_label.text = lives_string
 
 	var score: int = player.get_score()
-	var score_string: String = TowerInfo.int_format(score)
+	var score_string: String = TowerDetails.int_format(score)
 	_score_label.text = score_string
 
 

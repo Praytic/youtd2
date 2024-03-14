@@ -35,7 +35,7 @@ bg_color = Color(0, 0, 0, 1)
 atlas = ExtResource("11_swtuo")
 region = Rect2(256, 256, 128, 128)
 
-[node name="CreepMenu" type="PanelContainer" node_paths=PackedStringArray("_tab_container", "_creep_icon", "_title_label", "_level_label", "_info_label", "_details_tab", "_specials_scroll_container", "_special_list", "_buff_container")]
+[node name="CreepMenu" type="PanelContainer" node_paths=PackedStringArray("_tab_container", "_creep_icon", "_title_label", "_level_label", "_info_label", "_details_tab", "_specials_scroll_container", "_special_list", "_buff_container", "_details")]
 offset_right = 630.0
 offset_bottom = 890.0
 size_flags_horizontal = 8
@@ -53,6 +53,7 @@ _details_tab = NodePath("MainContainer/MarginContainer/TabContainer/DetailsTab")
 _specials_scroll_container = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/SpecialsScrollContainer")
 _special_list = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/SpecialsContainer/MarginContainer2/SpecialsScrollContainer/SpecialList")
 _buff_container = NodePath("MainContainer/MarginContainer3/BuffContainer")
+_details = NodePath("MainContainer/MarginContainer/TabContainer/DetailsTab/CreepDetails")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 layout_mode = 2

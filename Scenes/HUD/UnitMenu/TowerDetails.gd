@@ -1,4 +1,4 @@
-class_name TowerInfo extends GridContainer
+class_name TowerDetails extends GridContainer
 
 # Displays detailed information about the stats of the
 # currently selected tower. Can be toggled in unit menu by
@@ -100,22 +100,22 @@ func _update_text():
 
 #	Attack
 	var base_damage: int = tower.get_base_damage()
-	_base_damage.text = TowerInfo.int_format(base_damage)
+	_base_damage.text = TowerDetails.int_format(base_damage)
 
 	var base_damage_bonus: float = tower.get_base_damage_bonus()
-	_base_damage_bonus.text = TowerInfo.int_format(base_damage_bonus)
+	_base_damage_bonus.text = TowerDetails.int_format(base_damage_bonus)
 
 	var base_damage_bonus_perc: float = tower.get_base_damage_bonus_percent() - 1.0
 	_base_damage_bonus_perc.text = _percent_signed_format(base_damage_bonus_perc)
 
 	var damage_add: float = tower.get_damage_add()
-	_damage_add.text = TowerInfo.int_format(damage_add)
+	_damage_add.text = TowerDetails.int_format(damage_add)
 
 	var damage_add_perc: float = tower.get_damage_add_percent() - 1.0
 	_damage_add_perc.text = _percent_signed_format(damage_add_perc)
 
 	var overall_damage: float = tower.get_overall_damage()
-	_overall_damage.text = TowerInfo.int_format(overall_damage)
+	_overall_damage.text = TowerDetails.int_format(overall_damage)
 
 	var base_cooldown: float = tower.get_base_attackspeed()
 	_base_cooldown.text = Utils.format_float(base_cooldown, 2)
@@ -127,7 +127,7 @@ func _update_text():
 	_overall_cooldown.text = Utils.format_float(overall_cooldown, 2)
 
 	var overall_dps: float = tower.get_overall_dps()
-	_overall_dps.text = TowerInfo.int_format(overall_dps)
+	_overall_dps.text = TowerDetails.int_format(overall_dps)
 
 	var crit_chance: float = tower.get_prop_atk_crit_chance()
 	_crit_chance.text = Utils.format_percent(crit_chance, 1)
@@ -136,10 +136,10 @@ func _update_text():
 	_crit_damage.text = _multiplier_format(crit_damage)
 
 	var multicrit: int = tower.get_prop_multicrit_count()
-	_multicrit.text = TowerInfo.int_format(multicrit)
+	_multicrit.text = TowerDetails.int_format(multicrit)
 
 	var dps_with_crit: float = tower.get_dps_with_crit()
-	_dps_with_crit.text = TowerInfo.int_format(dps_with_crit)
+	_dps_with_crit.text = TowerDetails.int_format(dps_with_crit)
 
 #	Spells
 	var spell_damage: float = tower.get_prop_spell_damage_dealt()
@@ -153,16 +153,16 @@ func _update_text():
 
 #	Veteran
 	var total_damage: float = tower.get_damage()
-	_total_damage.text = TowerInfo.int_format(total_damage)
+	_total_damage.text = TowerDetails.int_format(total_damage)
 
 	var best_hit: float = tower.get_best_hit()
-	_best_hit.text = TowerInfo.int_format(best_hit)
+	_best_hit.text = TowerDetails.int_format(best_hit)
 
 	var kills: float = tower.get_kills()
-	_kills.text = TowerInfo.int_format(kills)
+	_kills.text = TowerDetails.int_format(kills)
 
 	var experience: float = tower.get_exp()
-	_experience.text = TowerInfo.int_format(experience)
+	_experience.text = TowerDetails.int_format(experience)
 
 	var next_level: int = tower.get_level() + 1
 	var exp_for_next_level: int = Experience.get_exp_for_level(next_level)
@@ -172,20 +172,20 @@ func _update_text():
 		_level_x_at_right.text = ""
 	else:
 		_level_x_at_left.text = "Level %s at" % str(next_level)
-		_level_x_at_right.text = TowerInfo.int_format(exp_for_next_level)
+		_level_x_at_right.text = TowerDetails.int_format(exp_for_next_level)
 
 # 	Mana
 	var base_mana: float = tower.get_base_mana()
-	_base_mana.text = TowerInfo.int_format(base_mana)
+	_base_mana.text = TowerDetails.int_format(base_mana)
 
 	var mana_bonus: float = tower.get_base_mana_bonus()
-	_mana_bonus.text = TowerInfo.int_format(mana_bonus)
+	_mana_bonus.text = TowerDetails.int_format(mana_bonus)
 
 	var mana_bonus_perc: float = tower.get_base_mana_bonus_percent() - 1.0
 	_mana_bonus_perc.text = _percent_signed_format(mana_bonus_perc)
 
 	var overall_mana: float = tower.get_overall_mana()
-	_overall_mana.text = TowerInfo.int_format(overall_mana)
+	_overall_mana.text = TowerDetails.int_format(overall_mana)
 
 	var base_mana_regen: float = tower.get_base_mana_regen()
 	_base_mana_regen.text = Utils.format_float(base_mana_regen, 1)

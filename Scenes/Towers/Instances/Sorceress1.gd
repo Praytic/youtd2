@@ -363,7 +363,7 @@ func on_autocast_remove(_event: Event):
 # to the screen.
 # 
 # In youtd2 engine onTowerDetails() is called repeatedly to
-# keep TowerInfo up to date.
+# keep TowerDetails up to date.
 # 
 # So I changed the script to display these stats in details.
 func on_tower_details() -> MultiboardValues:

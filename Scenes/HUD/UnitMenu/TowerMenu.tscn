@@ -71,7 +71,7 @@ margin = Rect2(10, 10, 20, 20)
 atlas = ExtResource("11_bilts")
 region = Rect2(0, 256, 128, 128)
 
-[node name="TowerMenu" type="PanelContainer" node_paths=PackedStringArray("_tab_container", "_tower_icon", "_tier_icon", "_title_label", "_level_label", "_info_label", "_specials_label", "_reset_sell_button_timer", "_upgrade_button", "_sell_button", "_details_tab", "_specials_scroll_container", "_inventory_empty_slots", "_items_box_container", "_buff_container")]
+[node name="TowerMenu" type="PanelContainer" node_paths=PackedStringArray("_tab_container", "_tower_icon", "_tier_icon", "_title_label", "_level_label", "_info_label", "_specials_label", "_reset_sell_button_timer", "_upgrade_button", "_sell_button", "_details_tab", "_specials_scroll_container", "_inventory_empty_slots", "_items_box_container", "_buff_container", "_details")]
 offset_right = 630.0
 offset_bottom = 890.0
 size_flags_horizontal = 8
@@ -95,6 +95,7 @@ _specials_scroll_container = NodePath("MainContainer/MarginContainer/TabContaine
 _inventory_empty_slots = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/InventoryEmptySlots")
 _items_box_container = NodePath("MainContainer/MarginContainer/TabContainer/MainTab/Inventory/MarginContainer2/ItemsContainer")
 _buff_container = NodePath("MainContainer/MarginContainer3/BuffContainer")
+_details = NodePath("MainContainer/MarginContainer/TabContainer/DetailsTab/TowerDetails")
 
 [node name="ResetSellButtonTimer" type="Timer" parent="."]
 

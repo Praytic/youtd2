@@ -15,6 +15,7 @@ enum Tabs {
 @export var _specials_scroll_container: ScrollContainer
 @export var _special_list: VBoxContainer
 @export var _buff_container: BuffContainer
+@export var _details: CreepDetails
 
 var _creep: Creep = null
 

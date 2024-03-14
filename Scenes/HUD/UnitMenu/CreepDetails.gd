@@ -1,4 +1,4 @@
-extends GridContainer
+class_name CreepDetails extends GridContainer
 
 
 # Movespeed

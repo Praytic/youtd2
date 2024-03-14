@@ -30,7 +30,7 @@ func _process(_delta: float):
 	if most_damage_tower != null:
 		most_damage_tower_name = most_damage_tower.get_display_name()
 		var most_damage: float = most_damage_tower.get_damage()
-		most_damage_value = TowerInfo.int_format(most_damage)
+		most_damage_value = TowerDetails.int_format(most_damage)
 
 	var tower_with_best_hit: Tower = _get_best_hit_tower(tower_list)
 	var best_hit_tower_name: String = ""
@@ -38,7 +38,7 @@ func _process(_delta: float):
 	if tower_with_best_hit != null:
 		best_hit_tower_name = tower_with_best_hit.get_display_name()
 		var best_hit: float = tower_with_best_hit.get_best_hit()
-		best_hit_value = TowerInfo.int_format(best_hit)
+		best_hit_value = TowerDetails.int_format(best_hit)
 
 	var most_exp_tower: Tower = _get_most_exp_tower(tower_list)
 	var most_exp_tower_name: String = ""
@@ -46,7 +46,7 @@ func _process(_delta: float):
 	if most_exp_tower != null:
 		most_exp_tower_name = most_exp_tower.get_display_name()
 		var most_exp: float = most_exp_tower.get_exp()
-		most_exp_value = TowerInfo.int_format(most_exp)
+		most_exp_value = TowerDetails.int_format(most_exp)
 
 	var most_kills_tower: Tower = _get_most_kills_tower(tower_list)
 	var most_kills_tower_name: String = ""
@@ -54,7 +54,7 @@ func _process(_delta: float):
 	if most_kills_tower != null:
 		most_kills_tower_name = most_kills_tower.get_display_name()
 		var most_kills: float = most_kills_tower.get_kills()
-		most_kills_value = TowerInfo.int_format(most_kills)
+		most_kills_value = TowerDetails.int_format(most_kills)
 
 	_most_damage_tower.text = most_damage_tower_name
 	_most_damage_value.text = most_damage_value
@@ -106,7 +106,7 @@ func load_player_stats(player_list: Array[Player]):
 		var player_name: String = player.get_player_name()
 
 		var score: int = player.get_score()
-		var score_string: String = TowerInfo.int_format(score)
+		var score_string: String = TowerDetails.int_format(score)
 
 		var lives_string: String = player.get_team().get_lives_string()
 
@@ -114,7 +114,7 @@ func load_player_stats(player_list: Array[Player]):
 		var wave_level_string: String = str(wave_level)
 
 		var total_damage: float = player.get_total_damage()
-		var total_damage_string: String = TowerInfo.int_format(total_damage)
+		var total_damage_string: String = TowerDetails.int_format(total_damage)
 
 		var gold: float = player.get_gold()
 		var gold_string: String = Utils.format_float(gold, 2)
