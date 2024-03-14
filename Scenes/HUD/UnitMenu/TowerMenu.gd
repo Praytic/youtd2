@@ -72,6 +72,10 @@ func set_tower(tower: Tower):
 		prev_tower.buff_list_changed.disconnect(_on_buff_list_changed)
 		prev_tower.level_up.disconnect(_on_tower_level_up)
 	
+#	NOTE: properties below are skipped if tower is null because they can't be loaded
+	if tower == null:
+		return
+	
 	tower.items_changed.connect(_on_tower_items_changed.bind(tower))
 	_on_tower_items_changed(tower)
 	

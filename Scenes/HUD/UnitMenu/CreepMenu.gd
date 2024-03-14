@@ -48,6 +48,10 @@ func set_creep(creep: Creep):
 	if prev_creep != null:
 		prev_creep.buff_list_changed.disconnect(_on_buff_list_changed)
 	
+#	NOTE: properties below are skipped if tower is null because they can't be loaded
+	if creep == null:
+		return
+	
 	creep.buff_list_changed.connect(_on_buff_list_changed.bind(creep))
 	_on_buff_list_changed(creep)
 

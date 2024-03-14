@@ -54,6 +54,16 @@ func _ready():
 # NOTE: the callback for set_pressed() which make tower menu
 # or creep menu visible.
 func set_menu_unit(unit: Unit):
+	if unit == null:
+		_tower_menu.set_tower(null)
+		_creep_menu.set_creep(null)
+	elif unit is Tower:
+		var tower: Tower = unit as Tower
+		_tower_menu.set_tower(tower)
+	elif unit is Creep:
+		var creep: Creep = unit as Creep
+		_creep_menu.set_creep(creep)
+	
 	_unit_status_menu_card.set_unit(unit)
 	_unit_status_menu_card.visible = unit != null
 	_unit_status_menu_card.get_main_button().set_pressed(unit != null)
