@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=25 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 [ext_resource type="Script" path="res://Scenes/GameScene/SelectTargetForCast.gd" id="9_14jv4"]
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
+[ext_resource type="Script" path="res://Scenes/GameScene/MoveItem.gd" id="10_qbku7"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
 [ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="11_0qewd"]
 [ext_resource type="PackedScene" uid="uid://da13fj7bxtxaq" path="res://Scenes/Items/ItemStash.tscn" id="13_hhrst"]
@@ -43,7 +44,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_tower_preview", "_select_point_for_cast", "_select_target_for_cast")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_tower_preview", "_select_point_for_cast", "_select_target_for_cast", "_move_item")]
 process_mode = 3
 script = ExtResource("9")
 _pregame_hud = NodePath("UI/PregameHUD")
@@ -65,6 +66,7 @@ _object_container = NodePath("World/ObjectContainer")
 _tower_preview = NodePath("World/TowerPreview")
 _select_point_for_cast = NodePath("SelectPointForCast")
 _select_target_for_cast = NodePath("SelectTargetForCast")
+_move_item = NodePath("MoveItem")
 
 [node name="GameStartTimer" type="Timer" parent="."]
 process_mode = 1
@@ -98,6 +100,9 @@ script = ExtResource("8_r0gm8")
 
 [node name="SelectTargetForCast" type="Node" parent="."]
 script = ExtResource("9_14jv4")
+
+[node name="MoveItem" type="Node" parent="."]
+script = ExtResource("10_qbku7")
 
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true

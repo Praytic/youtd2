@@ -20,6 +20,7 @@ class_name GameScene extends Node
 @export var _tower_preview: TowerPreview
 @export var _select_point_for_cast: SelectPointForCast
 @export var _select_target_for_cast: SelectTargetForCast
+@export var _move_item: MoveItem
 
 
 var _prev_effect_id: int = 0
@@ -48,8 +49,9 @@ func _ready():
 	EventBus.player_requested_to_sell_tower.connect(_on_player_requested_to_sell_tower)
 	EventBus.player_requested_to_select_point_for_autocast.connect(_on_player_requested_to_select_point_for_autocast)
 	EventBus.player_requested_to_select_target_for_autocast.connect(_on_player_requested_to_select_target_for_autocast)
-	
+
 	_hud.set_player(_player)
+	_move_item.set_item_stash(_item_stash)
 
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
@@ -144,9 +146,9 @@ func _unhandled_input(event: InputEvent):
 			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish()
 			MouseState.enm.MOVE_ITEM:
 				if hovered_tower != null:
-					_item_stash.process_click_on_tower(hovered_tower)
+					_move_item.process_click_on_tower(hovered_tower)
 				else:
-					_item_stash.return_item_to_stash()
+					_move_item.cancel_and_fly_item_to_stash(_map)
 	elif right_click:
 		if MouseState.get_state() != MouseState.enm.NONE:
 			_cancel_current_mouse_action()
@@ -163,8 +165,7 @@ func _cancel_current_mouse_action():
 		MouseState.enm.BUILD_TOWER: BuildTower.cancel(_tower_preview, _map)
 		MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.cancel()
 		MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.cancel()
-		MouseState.enm.MOVE_ITEM:
-				_item_stash.cancel_move()
+		MouseState.enm.MOVE_ITEM: _move_item.cancel()
 
 
 # Manual targeting forces towers to attack the clicked
@@ -648,4 +649,3 @@ func _on_player_requested_to_select_point_for_autocast(autocast: Autocast):
 
 func _on_player_requested_to_select_target_for_autocast(autocast: Autocast):
 	_select_target_for_cast.start(autocast)
-
