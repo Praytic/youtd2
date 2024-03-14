@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" path="res://Scenes/Towers/TowerPreview.gd" id="1"]
 
-[node name="TowerPreview" type="Node2D" node_paths=PackedStringArray("_pedestal_up", "_pedestal_right", "_pedestal_down", "_pedestal_left")]
+[node name="TowerPreview" type="Node2D" node_paths=PackedStringArray("_pedestal_up", "_pedestal_right", "_pedestal_down", "_pedestal_left", "_range_indicator_container")]
 script = ExtResource("1")
 _pedestal_up = NodePath("Pedestal/PedestalUp")
 _pedestal_right = NodePath("Pedestal/PedestalRight")
 _pedestal_down = NodePath("Pedestal/PedestalDown")
 _pedestal_left = NodePath("Pedestal/PedestalLeft")
+_range_indicator_container = NodePath("RangeIndicatorContainer")
 
 [node name="Pedestal" type="Node2D" parent="."]
 
@@ -26,3 +27,5 @@ polygon = PackedVector2Array(0, 0, 64, 32, 0, 64, -64, 32)
 [node name="PedestalLeft" type="Polygon2D" parent="Pedestal"]
 color = Color(1, 1, 0, 1)
 polygon = PackedVector2Array(0, 0, -64, 32, -128, 0, -64, -32)
+
+[node name="RangeIndicatorContainer" type="Node2D" parent="."]

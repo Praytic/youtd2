@@ -16,6 +16,7 @@ var _tower_instance: Node2D = null
 @export var _pedestal_right: Polygon2D
 @export var _pedestal_down: Polygon2D
 @export var _pedestal_left: Polygon2D
+@export var _range_indicator_container: Node2D
 
 
 func set_tower(tower_id: int):
@@ -23,6 +24,9 @@ func set_tower(tower_id: int):
 		remove_child(_tower_instance)
 		_tower_instance.queue_free()
 		_tower_instance = null
+		
+	for old_range_indicator in _range_indicator_container.get_children():
+		old_range_indicator.queue_free()
 	
 	_tower_id = tower_id
 	
@@ -33,7 +37,7 @@ func set_tower(tower_id: int):
 #	NOTE: have to init stats because they are used inside
 #	Utils.setup_range_indicators().
 	_tower_instance.init_stats_and_specials()
-	Utils.setup_range_indicators(_tower_instance, self)
+	Utils.setup_range_indicators(_tower_instance, _range_indicator_container)
 
 
 func get_tower_id() -> int:
