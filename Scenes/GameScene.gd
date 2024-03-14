@@ -9,7 +9,8 @@ class_name GameScene extends Node
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
-@export var _item_stash: ItemStash
+@export var _item_stash: ItemContainer
+@export var _horadric_stash: ItemContainer
 @export var _tower_stash: TowerStash
 @export var _player: Player
 @export var _game_start_timer: Timer
@@ -55,7 +56,7 @@ func _ready():
 	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
 	_hud.set_player(_player)
-	_move_item.set_item_stash(_item_stash)
+	_move_item.set_item_stashes(_item_stash, _horadric_stash)
 
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
@@ -93,7 +94,7 @@ func _ready():
 
 	for item_id in test_item_list:
 		var item: Item = Item.make(item_id)
-		_item_stash.add_item_to_main_stash(item)
+		_item_stash.add_item(item)
 
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 
@@ -291,7 +292,10 @@ func _transition_from_pregame_settings_state():
 	_hud.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
 	
 	if tutorial_enabled:
-		_item_stash.add_tutorial_items()
+		var tutorial_item: Item = Item.make(80)
+		var tutorial_oil: Item = Item.make(1001)
+		_item_stash.add_item(tutorial_item)
+		_item_stash.add_item(tutorial_oil)
 
 	if game_mode == GameMode.enm.BUILD:
 		_tower_stash.add_all_towers()
@@ -439,13 +443,13 @@ func _on_pause_hud_restart_pressed():
 	get_tree().reload_current_scene()
 
 
-func _on_item_stash_main_stash_changed():
-	var item_list: Array[Item] = _item_stash.get_items_in_main_stash()
+func _on_item_stash_items_changed():
+	var item_list: Array[Item] = _item_stash.get_item_list()
 	_hud.set_items(item_list)
 
 
-func _on_item_stash_horadric_stash_changed():
-	var item_list: Array[Item] = _item_stash.get_items_in_horadric_stash()
+func _on_horadric_stash_items_changed():
+	var item_list: Array[Item] = _horadric_stash.get_item_list()
 	_hud.set_items_for_horadric_cube(item_list)
 
 
@@ -664,11 +668,8 @@ func _on_selected_unit_changed(_prev_unit: Unit):
 
 
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
-	var item_stash: ItemContainer = _item_stash.get_main_container()
-	var horadric_stash: ItemContainer = _item_stash.get_horadric_container()
-	HoradricCube.autofill(recipe, rarity_filter, item_stash, horadric_stash)
+	HoradricCube.autofill(recipe, rarity_filter, _item_stash, _horadric_stash)
 
 
 func _on_player_requested_transmute():
-	var horadric_stash: ItemContainer = _item_stash.get_horadric_container()
-	HoradricCube.transmute(horadric_stash)
+	HoradricCube.transmute(_horadric_stash)

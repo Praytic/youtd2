@@ -11,8 +11,7 @@ class_name MoveItem extends Node
 # movement.
 var _source_container: ItemContainer = null
 var _moved_item: Item = null
-var _item_stash: ItemStash = null
-var _main_stash: ItemContainer = null
+var _item_stash: ItemContainer = null
 var _horadric_stash: ItemContainer = null
 
 
@@ -34,10 +33,9 @@ func _ready():
 ###       Public      ###
 #########################
 
-func set_item_stash(item_stash: ItemStash):
+func set_item_stashes(item_stash: ItemContainer, horadric_stash: ItemContainer):
 	_item_stash = item_stash
-	_main_stash = item_stash.get_main_container()
-	_horadric_stash = item_stash.get_horadric_container()
+	_horadric_stash = horadric_stash
 
 
 func cancel():
@@ -57,7 +55,7 @@ func cancel():
 	else:
 #		NOTE: in other cases, send item back to item stash
 #		because it has unlimited capacity.
-		_main_stash.add_item(_moved_item)
+		_item_stash.add_item(_moved_item)
 
 	_end_move_process()
 
@@ -237,7 +235,7 @@ func _on_player_clicked_item_in_tower_inventory(clicked_item: Item):
 		var tower_container: ItemContainer = tower.get_item_container()
 		tower_container.remove_item(clicked_item)
 		var add_index: int = 0
-		_main_stash.add_item(clicked_item, add_index)
+		_item_stash.add_item(clicked_item, add_index)
 		
 		return
 
@@ -254,7 +252,7 @@ func _on_player_clicked_item_in_main_stash(clicked_item: Item):
 
 			return
 			
-		_main_stash.remove_item(clicked_item)
+		_item_stash.remove_item(clicked_item)
 		var add_index: int = _horadric_stash.get_item_count()
 		_horadric_stash.add_item(clicked_item, add_index)
 
@@ -264,7 +262,7 @@ func _on_player_clicked_item_in_main_stash(clicked_item: Item):
 
 		return
 
-	_item_was_clicked_in_item_container(_main_stash, clicked_item)
+	_item_was_clicked_in_item_container(_item_stash, clicked_item)
 
 
 func _on_player_clicked_item_in_horadric_stash(clicked_item: Item):
@@ -273,7 +271,7 @@ func _on_player_clicked_item_in_horadric_stash(clicked_item: Item):
 	if shift_click:
 		_horadric_stash.remove_item(clicked_item)
 		var add_index: int = 0
-		_main_stash.add_item(clicked_item, add_index)
+		_item_stash.add_item(clicked_item, add_index)
 
 		return
 
@@ -287,7 +285,7 @@ func _on_player_clicked_item_in_horadric_stash(clicked_item: Item):
 # displays the left side.
 func _on_player_clicked_main_stash():
 	var add_index: int = 0
-	_item_container_was_clicked(_main_stash, add_index)
+	_item_container_was_clicked(_item_stash, add_index)
 
 
 func _on_player_clicked_horadric_stash():
@@ -302,4 +300,4 @@ func _on_player_clicked_tower_inventory(tower: Tower):
 
 
 func _on_item_flew_to_item_stash(item: Item):
-	_item_stash.add_item_to_main_stash(item)
+	_item_stash.add_item(item)
