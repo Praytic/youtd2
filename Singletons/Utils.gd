@@ -26,7 +26,7 @@ func get_tower_at_position(visual_position: Vector2) -> Tower:
 
 # NOTE: Game.getGameTime() in JASS 
 func get_time() -> float:
-	var game_time: Node = get_tree().get_root().get_node_or_null("GameScene/GameTime")
+	var game_time: Node = get_tree().get_root().get_node_or_null("GameScene/Gameplay/GameTime")
 
 	if game_time == null:
 		push_warning("game_time is null. You can ignore this warning during game restart.")

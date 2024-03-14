@@ -17,7 +17,7 @@ func play_sfx(sfx_name: String, volume_db: float = 0.0, pitch_scale: float = 1.0
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
-	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/AudioPlayerPool")
+	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/Gameplay/AudioPlayerPool")
 	if audio_player_pool == null:
 		push_warning("audio_player_pool is null. You can ignore this warning during game restart.")
 		return
@@ -42,7 +42,7 @@ func sfx_at_pos(sfx_name: String, sfx_position: Vector2, volume_db: float = 0.0)
 	if !Settings.get_bool_setting(Settings.ENABLE_SFX):
 		return
 
-	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/AudioPlayerPool")
+	var audio_player_pool: AudioPlayerPool = get_tree().get_root().get_node_or_null("GameScene/Gameplay/AudioPlayerPool")
 	if audio_player_pool == null:
 		push_warning("audio_player_pool is null. You can ignore this warning during game restart.")
 		return

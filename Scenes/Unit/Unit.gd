@@ -194,7 +194,7 @@ var _mod_value_map: Dictionary = {
 }
 
 
-@onready var _player: Player = get_tree().get_root().get_node("GameScene/Player")
+@onready var _player: Player = get_tree().get_root().get_node("GameScene/Gameplay/Player")
 
 
 #########################

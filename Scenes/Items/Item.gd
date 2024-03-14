@@ -49,7 +49,7 @@ var _inherited_periodic_timers: Dictionary = {}
 
 
 @onready var _hud: Control = get_tree().get_root().get_node("GameScene/UI/HUD")
-@onready var _owner: Player = get_tree().get_root().get_node("GameScene/Player")
+@onready var _owner: Player = get_tree().get_root().get_node("GameScene/Gameplay/Player")
 
 
 #########################

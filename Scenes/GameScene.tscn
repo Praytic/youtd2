@@ -51,63 +51,65 @@ _pregame_hud = NodePath("UI/PregameHUD")
 _pause_hud = NodePath("UI/PauseHUD")
 _hud = NodePath("UI/HUD")
 _map = NodePath("World/Map")
-_wave_spawner = NodePath("WaveSpawner")
+_wave_spawner = NodePath("Gameplay/WaveSpawner")
 _tutorial_menu = NodePath("UI/TutorialMenu")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("World/Camera2D")
-_item_stash = NodePath("Player/ItemStash")
-_horadric_stash = NodePath("Player/HoradricStash")
-_tower_stash = NodePath("TowerStash")
-_player = NodePath("Player")
-_game_start_timer = NodePath("GameStartTimer")
-_next_wave_timer = NodePath("NextWaveTimer")
-_extreme_timer = NodePath("ExtremeTimer")
-_game_time = NodePath("GameTime")
+_item_stash = NodePath("Gameplay/Player/ItemStash")
+_horadric_stash = NodePath("Gameplay/Player/HoradricStash")
+_tower_stash = NodePath("Gameplay/TowerStash")
+_player = NodePath("Gameplay/Player")
+_game_start_timer = NodePath("Gameplay/GameStartTimer")
+_next_wave_timer = NodePath("Gameplay/NextWaveTimer")
+_extreme_timer = NodePath("Gameplay/ExtremeTimer")
+_game_time = NodePath("Gameplay/GameTime")
 _object_container = NodePath("World/ObjectContainer")
 _tower_preview = NodePath("World/TowerPreview")
-_select_point_for_cast = NodePath("SelectPointForCast")
-_select_target_for_cast = NodePath("SelectTargetForCast")
-_move_item = NodePath("MoveItem")
+_select_point_for_cast = NodePath("Gameplay/SelectPointForCast")
+_select_target_for_cast = NodePath("Gameplay/SelectTargetForCast")
+_move_item = NodePath("Gameplay/MoveItem")
 
-[node name="GameStartTimer" type="Timer" parent="."]
+[node name="Gameplay" type="Node" parent="."]
+
+[node name="GameStartTimer" type="Timer" parent="Gameplay"]
 process_mode = 1
 one_shot = true
 
-[node name="NextWaveTimer" type="Timer" parent="."]
+[node name="NextWaveTimer" type="Timer" parent="Gameplay"]
 process_mode = 1
 one_shot = true
 
-[node name="ExtremeTimer" type="Timer" parent="."]
+[node name="ExtremeTimer" type="Timer" parent="Gameplay"]
 
-[node name="Player" type="Node" parent="."]
+[node name="Player" type="Node" parent="Gameplay"]
 script = ExtResource("6_y63oe")
 
-[node name="ItemStash" type="Node" parent="Player"]
+[node name="ItemStash" type="Node" parent="Gameplay/Player"]
 script = ExtResource("3_twxg6")
 _capacity = 1000
 
-[node name="HoradricStash" type="Node" parent="Player"]
+[node name="HoradricStash" type="Node" parent="Gameplay/Player"]
 script = ExtResource("3_twxg6")
 _capacity = 5
 
-[node name="WaveSpawner" parent="." instance=ExtResource("5_pan23")]
+[node name="WaveSpawner" parent="Gameplay" instance=ExtResource("5_pan23")]
 process_mode = 1
 
-[node name="TowerStash" parent="." instance=ExtResource("15_fssku")]
+[node name="TowerStash" parent="Gameplay" instance=ExtResource("15_fssku")]
 
-[node name="AudioPlayerPool" parent="." instance=ExtResource("5_rin5y")]
+[node name="AudioPlayerPool" parent="Gameplay" instance=ExtResource("5_rin5y")]
 
-[node name="GameTime" type="Node" parent="."]
+[node name="GameTime" type="Node" parent="Gameplay"]
 process_mode = 1
 script = ExtResource("16_tame0")
 
-[node name="SelectPointForCast" type="Node" parent="."]
+[node name="SelectPointForCast" type="Node" parent="Gameplay"]
 script = ExtResource("8_r0gm8")
 
-[node name="SelectTargetForCast" type="Node" parent="."]
+[node name="SelectTargetForCast" type="Node" parent="Gameplay"]
 script = ExtResource("9_14jv4")
 
-[node name="MoveItem" type="Node" parent="."]
+[node name="MoveItem" type="Node" parent="Gameplay"]
 script = ExtResource("10_qbku7")
 
 [node name="World" type="Node2D" parent="."]
@@ -201,12 +203,12 @@ visible = false
 process_mode = 3
 visible = false
 
-[connection signal="timeout" from="GameStartTimer" to="." method="_on_game_start_timer_timeout"]
-[connection signal="timeout" from="NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
-[connection signal="timeout" from="ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
-[connection signal="items_changed" from="Player/ItemStash" to="." method="_on_item_stash_items_changed"]
-[connection signal="items_changed" from="Player/HoradricStash" to="." method="_on_horadric_stash_items_changed"]
-[connection signal="changed" from="TowerStash" to="." method="_on_tower_stash_changed"]
+[connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
+[connection signal="timeout" from="Gameplay/NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
+[connection signal="timeout" from="Gameplay/ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
+[connection signal="items_changed" from="Gameplay/Player/ItemStash" to="." method="_on_item_stash_items_changed"]
+[connection signal="items_changed" from="Gameplay/Player/HoradricStash" to="." method="_on_horadric_stash_items_changed"]
+[connection signal="changed" from="Gameplay/TowerStash" to="." method="_on_tower_stash_changed"]
 [connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]
