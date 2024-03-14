@@ -7,7 +7,6 @@ class_name ItemStashMenu extends PanelContainer
 @export var _item_type_filter_container: VBoxContainer
 @export var _item_buttons_container: UnitButtonsContainer
 
-@export var _menu_card: ButtonStatusCard
 @export var _backpacker_recipes: GridContainer
 @export var _horadric_menu: HoradricMenu
 
@@ -36,11 +35,6 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
-
-func close():
-	if _menu_card.get_main_button().is_pressed():
-		_menu_card.get_main_button().set_pressed(false)
-
 
 # NOTE: need to update buttons selectively to minimuze the
 # amount of times buttons are created/destroyed and avoid
@@ -162,7 +156,7 @@ func _on_selected_backpacker_builder():
 
 
 func _on_close_button_pressed():
-	close()
+	hide()
 
 
 func _on_rarity_filter_container_filter_changed():

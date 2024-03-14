@@ -3,7 +3,7 @@ extends PanelContainer
 
 
 signal visibility_level_changed(old_visibility_level: VisibilityLevel, new_visibility_level: VisibilityLevel)
-signal main_button_toggled()
+signal main_button_toggled(toggled_on: bool)
 
 
 enum VisibilityLevel {
@@ -14,16 +14,24 @@ enum VisibilityLevel {
 }
 
 
-@export var _expand_button: Button : get = get_expand_button
+@export var _expand_button: Button
 @export var _hidable_status_panels: Array[Control]
 @export var _status_panels: Array[Control]
 @export var _panels_container: Control
 @export var _empty_container: Container
-@export var _main_button: Button : get = get_main_button
+@export var _main_button: Button
 @export var _short_resource_status_panels: Array[ShortResourceStatusPanel]
 
 
 var _visibility_level: VisibilityLevel = VisibilityLevel.ESSENTIALS
+
+
+func _ready():
+	var button_group: ButtonGroup = _main_button.get_button_group()
+	var button_list: Array[BaseButton] = button_group.get_buttons()
+
+	for button in button_list:
+		button.toggled.connect(_on_button_group_toggled)
 
 
 func _unhandled_input(event):
@@ -79,9 +87,32 @@ func get_main_button() -> Button:
 	return _main_button
 
 
-func get_expand_button() -> Button:
-	return _expand_button
+func collapse():
+	_main_button.set_pressed(false)
 
 
-func _on_main_button_toggled(_toggled_on: bool):
-	main_button_toggled.emit()
+# NOTE: button status cards are interconnected with each
+# other and need to react when any of their siblings
+# changes.
+func _on_button_group_toggled(_toggled_on: bool):
+	var any_button_is_pressed: bool = false
+	var button_group: ButtonGroup = _main_button.get_button_group()
+	
+	for button in button_group.get_buttons():
+		if button.is_pressed():
+			any_button_is_pressed = true
+
+			break
+
+	var this_button_is_pressed: bool = _main_button.is_pressed()
+
+	if this_button_is_pressed:
+		change_visibility_level(VisibilityLevel.MENU_OPENED)
+	elif any_button_is_pressed:
+		change_visibility_level(VisibilityLevel.MENU_CLOSED)
+	else:
+		change_visibility_level(VisibilityLevel.ESSENTIALS)
+
+
+func _on_main_button_toggled(toggled_on: bool):
+	main_button_toggled.emit(toggled_on)

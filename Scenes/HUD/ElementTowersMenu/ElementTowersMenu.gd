@@ -2,7 +2,6 @@ class_name ElementTowersMenu extends Control
 
 
 @export var _tab_container: TabContainer
-@export var _menu_card: ButtonStatusCard
 @export var _element_container: ElementsContainer
 
 var _player: Player = null
@@ -55,11 +54,6 @@ func update_element_level(element_levels: Dictionary):
 	_element_container.update_element_level(element_levels)
 
 
-func close():
-	if _menu_card.get_main_button().is_pressed():
-		_menu_card.get_main_button().set_pressed(false)
-
-
 #########################
 ###      Private      ###
 #########################
@@ -100,7 +94,7 @@ func _get_tab(element: Element.enm) -> ElementTowersTab:
 #########################
 
 func _on_close_button_pressed():
-	close()
+	hide()
 
 
 func _on_elements_container_element_changed():

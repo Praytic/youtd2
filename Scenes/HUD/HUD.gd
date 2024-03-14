@@ -10,14 +10,15 @@ signal stop_wave()
 @export var _game_over_label: RichTextLabel
 @export var _elements_tower_menu: ElementTowersMenu
 @export var _item_stash_menu: ItemStashMenu
-@export var _unit_menu: UnitMenu
 @export var _towers_menu_card: ButtonStatusCard
 @export var _items_menu_card: ButtonStatusCard
 @export var _unit_status_menu_card: ButtonStatusCard
 @export var _bottom_menu_bar: BottomMenuBar
 @export var _top_left_menu: TopLeftMenu
+@export var _creep_menu: CreepMenu
+@export var _tower_menu: TowerMenu
 
-@onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _unit_menu]
+@onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _tower_menu, _creep_menu]
 
 
 #########################
@@ -49,9 +50,16 @@ func _ready():
 ###       Public      ###
 #########################
 
+# Set tower or creep which should be displayed in unit menus
+# NOTE: the callback for set_pressed() which make tower menu
+# or creep menu visible.
+func set_menu_unit(unit: Unit):
+	_unit_status_menu_card.set_unit(unit)
+	_unit_status_menu_card.visible = unit != null
+	_unit_status_menu_card.get_main_button().set_pressed(unit != null)
+
 
 func update_level(level: int):
-	_unit_menu.update_level(level)
 	_elements_tower_menu.update_level(level)
 
 
@@ -61,21 +69,16 @@ func hide_roll_towers_button():
 
 func update_element_level(element_levels: Dictionary):
 	_elements_tower_menu.update_element_level(element_levels)
-	_unit_menu.update_element_level(element_levels)
 
 
 func set_player(player: Player):
-	_unit_menu.set_player(player)
+	_tower_menu.set_player(player)
 	_elements_tower_menu.set_player(player)
 
 
-func close_all_windows():
+func hide_all_windows():
 	for window in _window_list:
-		window.close()
-	
-#	NOTE: also deselect current unit because if the unit menu is closed, then there should be no unit selected
-#	NOTE: this method is called twice due to UnitMenu window `close()` method.
-	SelectUnit.set_selected_unit(null)
+		window.hide()
 
 
 func set_items(item_list: Array[Item]):
@@ -149,56 +152,23 @@ func show_game_over():
 
 
 #########################
-###      Private      ###
-#########################
-
-func _update_menus_and_cards_visibility():
-	_elements_tower_menu.visible = _towers_menu_card.get_main_button().is_pressed()
-	_item_stash_menu.visible = _items_menu_card.get_main_button().is_pressed()
-	_unit_menu.visible = _unit_status_menu_card.get_main_button().is_pressed()
-
-	if _unit_menu.visible:
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-	elif _item_stash_menu.visible:
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-	elif _elements_tower_menu.visible:
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_OPENED)
-		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.MENU_CLOSED)
-	else:
-		# nothing is visible
-		_towers_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-		_unit_status_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-		_items_menu_card.change_visibility_level(ButtonStatusCard.VisibilityLevel.ESSENTIALS)
-
-
-#########################
 ###     Callbacks     ###
 #########################
 
+func _on_creep_menu_hidden():
+	_unit_status_menu_card.collapse()
 
-func _on_main_button_toggled():
-	_update_menus_and_cards_visibility()
 
-
-func _on_unit_menu_hidden():
-	_update_menus_and_cards_visibility()
+func _on_tower_menu_hidden():
+	_unit_status_menu_card.collapse()
 
 
 func _on_element_towers_menu_hidden():
-	_update_menus_and_cards_visibility()
+	_towers_menu_card.collapse()
 
 
 func _on_item_stash_menu_hidden():
-	_update_menus_and_cards_visibility()
-
-
-func _on_element_menu_hidden():
-	_update_menus_and_cards_visibility()
+	_items_menu_card.collapse()
 
 
 #########################
@@ -223,3 +193,24 @@ func any_window_is_open() -> bool:
 			return true
 	
 	return false
+
+
+func _on_towers_status_card_main_button_toggled(toggled_on: bool):
+	_elements_tower_menu.visible = toggled_on
+
+
+func _on_items_status_card_main_button_toggled(toggled_on: bool):
+	_item_stash_menu.visible = toggled_on
+
+
+func _on_unit_status_card_main_button_toggled(toggled_on: bool):
+	if toggled_on:
+		var displayed_unit: Unit = _unit_status_menu_card.get_unit()
+		
+		if displayed_unit is Tower:
+			_tower_menu.show()
+		else:
+			_creep_menu.show()
+	else:
+		_tower_menu.hide()
+		_creep_menu.hide()

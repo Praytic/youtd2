@@ -50,6 +50,8 @@ func _ready():
 	EventBus.player_requested_to_select_point_for_autocast.connect(_on_player_requested_to_select_point_for_autocast)
 	EventBus.player_requested_to_select_target_for_autocast.connect(_on_player_requested_to_select_target_for_autocast)
 
+	SelectUnit.selected_unit_changed.connect(_on_selected_unit_changed)
+	
 	_hud.set_player(_player)
 	_move_item.set_item_stash(_item_stash)
 
@@ -125,16 +127,19 @@ func _unhandled_input(event: InputEvent):
 	var right_click: bool = event.is_action_released("right_click")
 	var hovered_unit: Unit = SelectUnit.get_hovered_unit()
 	var hovered_tower: Tower = hovered_unit as Tower
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
 
 	if cancel_pressed:
 #		1. First, any ongoing actions are cancelled
 #		2. Then, if there are no mouse actions, hud windows
-#		   are closed
+#		   are hidden
 #		3. Finally, game is paused
 		if MouseState.get_state() != MouseState.enm.NONE:
 			_cancel_current_mouse_action()
 		elif _hud.any_window_is_open():
-			_hud.close_all_windows()
+			_hud.hide_all_windows()
+		elif selected_unit != null:
+			SelectUnit.set_selected_unit(null)
 		else:
 			match Globals.get_game_state():
 				Globals.GameState.PLAYING: _pause_the_game()
@@ -649,3 +654,8 @@ func _on_player_requested_to_select_point_for_autocast(autocast: Autocast):
 
 func _on_player_requested_to_select_target_for_autocast(autocast: Autocast):
 	_select_target_for_cast.start(autocast)
+
+
+func _on_selected_unit_changed(_prev_unit: Unit):
+	var selected_unit: Unit = SelectUnit.get_selected_unit()
+	_hud.set_menu_unit(selected_unit)
