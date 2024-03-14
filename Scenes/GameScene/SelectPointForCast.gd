@@ -1,53 +1,36 @@
-extends Node
+class_name SelectPointForCast extends Node
 
 # Implements selection of point when player is casting a
 # tower ability manually, and autocast is POINT type
 
-var _autocast: Autocast
+var _autocast: Autocast = null
 
 const _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
-
-
-#########################
-###     Built-in      ###
-#########################
-
-func _unhandled_input(event: InputEvent):
-	if !_in_progress():
-		return
-
-	var cancelled: bool = event.is_action_released("ui_cancel") || event.is_action_released("right_click")
-
-	if cancelled:
-		cancel()
-
-	var left_click: bool = event.is_action_released("left_click")
-
-	if left_click:
-		var map: Map = get_tree().get_root().get_node("GameScene/World/Map")
-		var target_pos: Vector2 = map.get_local_mouse_position()
-		var cast_success: bool = _autocast.do_cast_manually_finish_for_point(target_pos)
-
-		if cast_success:
-			cancel()
-
-#		NOTE: need this so that the left click doesn't also
-#		select the target unit
-		get_viewport().set_input_as_handled()
 
 
 #########################
 ###       Public      ###
 #########################
 
-func reset():
-	_autocast = null
+func finish(map: Map):
+	if !_in_progress():
+		return
+
+	var target_pos: Vector2 = map.get_local_mouse_position()
+	var cast_success: bool = _autocast.do_cast_manually_finish_for_point(target_pos)
+
+	if cast_success:
+		cancel()
+
+#		NOTE: need this so that the left click doesn't also
+#		select the target unit
+		get_viewport().set_input_as_handled()
 
 
 func start(autocast: Autocast):
 	var can_start: bool = MouseState.get_state() == MouseState.enm.NONE || MouseState.get_state() == MouseState.enm.SELECT_POINT_FOR_CAST
 	if !can_start:
-		return false
+		return
 
 	cancel()
 	_autocast = autocast

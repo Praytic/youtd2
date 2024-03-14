@@ -1,58 +1,46 @@
-extends Node
+class_name SelectTargetForCast extends Node
 
 # Implements selection of target when player is casting a
 # tower ability manually.
 
-var _autocast: Autocast
+var _autocast: Autocast = null
 
 const _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
-
-
-#########################
-###     Built-in      ###
-#########################
-
-func _unhandled_input(event: InputEvent):
-	if !_in_progress():
-		return
-
-	var cancelled: bool = event.is_action_released("ui_cancel") || event.is_action_released("right_click")
-
-	if cancelled:
-		cancel()
-
-	var left_click: bool = event.is_action_released("left_click")
-	var target: Unit = SelectUnit.get_hovered_unit()
-
-	if left_click && target != null:
-		var target_is_ok: bool = _autocast.check_target_for_unit_autocast(target)
-		var target_error_message: String = _autocast.get_target_error_message(target)
-
-		if target_is_ok:
-			var cast_success: bool = _autocast.do_cast_manually_finish_for_manual_target(target)
-
-			if cast_success:
-				cancel()
-
-#			NOTE: need this so that the left click doesn't
-#			also select the target unit
-			get_viewport().set_input_as_handled()
-		else:
-			Messages.add_error(target_error_message)
 
 
 #########################
 ###       Public      ###
 #########################
 
-func reset():
-	_autocast = null
+func finish():
+	if !_in_progress():
+		return
+
+	var target: Unit = SelectUnit.get_hovered_unit()
+
+	if target == null:
+		return
+
+	var target_is_ok: bool = _autocast.check_target_for_unit_autocast(target)
+	var target_error_message: String = _autocast.get_target_error_message(target)
+
+	if target_is_ok:
+		var cast_success: bool = _autocast.do_cast_manually_finish_for_manual_target(target)
+
+		if cast_success:
+			cancel()
+
+#		NOTE: need this so that the left click doesn't
+#		also select the target unit
+		get_viewport().set_input_as_handled()
+	else:
+		Messages.add_error(target_error_message)
 
 
 func start(autocast: Autocast):
 	var can_start: bool = MouseState.get_state() == MouseState.enm.NONE || MouseState.get_state() == MouseState.enm.SELECT_TARGET_FOR_CAST
 	if !can_start:
-		return false
+		return
 
 	cancel()
 	_autocast = autocast

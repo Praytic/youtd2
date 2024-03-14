@@ -196,14 +196,14 @@ func do_cast_manually():
 #		to select point in world. The cast will finish when
 #		player selects a point and
 #		do_cast_manually_finish_for_point() is called.
-		SelectPointForCast.start(self)
+		EventBus.player_requested_to_select_point_for_autocast.emit(self)
 	else:
 #		NOTE: for manual cast on unit, need to exit this f-n
 #		to select target. The cast will finish when player
 #		selects a target and
 #		do_cast_manually_finish_for_manual_target() is
 #		called.
-		SelectTargetForCast.start(self)
+		EventBus.player_requested_to_select_target_for_autocast.emit(self)
 
 
 # Returns if cast was successful

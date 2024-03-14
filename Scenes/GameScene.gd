@@ -18,6 +18,8 @@ class_name GameScene extends Node
 @export var _game_time: GameTime
 @export var _object_container: Node2D
 @export var _tower_preview: TowerPreview
+@export var _select_point_for_cast: SelectPointForCast
+@export var _select_target_for_cast: SelectTargetForCast
 
 
 var _prev_effect_id: int = 0
@@ -44,6 +46,8 @@ func _ready():
 	EventBus.player_requested_to_build_tower.connect(_on_player_requested_to_build_tower)
 	EventBus.player_requested_to_upgrade_tower.connect(_on_player_requested_to_upgrade_tower)
 	EventBus.player_requested_to_sell_tower.connect(_on_player_requested_to_sell_tower)
+	EventBus.player_requested_to_select_point_for_autocast.connect(_on_player_requested_to_select_point_for_autocast)
+	EventBus.player_requested_to_select_target_for_autocast.connect(_on_player_requested_to_select_target_for_autocast)
 	
 	_hud.set_player(_player)
 
@@ -115,31 +119,34 @@ func _process(_delta: float):
 
 func _unhandled_input(event: InputEvent):
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
-	var cancel_consumed_by_mouse_action: bool = MouseState.get_state() != MouseState.enm.NONE
-	var cancel_consumed_to_close_windows: bool = _hud.any_window_is_open()
-	var cancel_was_consumed: bool = cancel_consumed_by_mouse_action || cancel_consumed_to_close_windows
 	var left_click: bool = event.is_action_released("left_click")
 	var right_click: bool = event.is_action_released("right_click")
-	var requested_manual_targeting: bool = right_click && MouseState.get_state() == MouseState.enm.NONE
 
-	if cancel_pressed && cancel_consumed_to_close_windows:
-		_hud.close_all_windows()
-
-	if MouseState.get_state() == MouseState.enm.BUILD_TOWER:
-		if cancel_pressed: 
+	if cancel_pressed:
+#		1. First, any ongoing actions are cancelled
+#		2. Then, if there are no mouse actions, hud windows
+#		   are closed
+#		3. Finally, game is paused
+		if MouseState.get_state() != MouseState.enm.NONE:
 			BuildTower.cancel(_tower_preview)
-		elif left_click:
-			BuildTower.try_to_finish(_player, _tower_preview, _map, _tower_stash)
-
-# 	NOTE: Can't do manual selection when mouse is busy with
-# 	some other action, for example moving items.
-	if requested_manual_targeting:
-		_do_manual_targetting()
-	
-	if cancel_pressed && !cancel_was_consumed:
-		match Globals.get_game_state():
-			Globals.GameState.PLAYING: _pause_the_game()
-			Globals.GameState.PAUSED: _unpause_the_game()
+			_select_point_for_cast.cancel()
+			_select_target_for_cast.cancel()
+		elif _hud.any_window_is_open():
+			_hud.close_all_windows()
+		else:
+			match Globals.get_game_state():
+				Globals.GameState.PLAYING: _pause_the_game()
+				Globals.GameState.PAUSED: _unpause_the_game()
+	elif left_click:
+		match MouseState.get_state():
+			MouseState.enm.BUILD_TOWER: BuildTower.try_to_finish(_player, _tower_preview, _map, _tower_stash)
+			MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.finish(_map)
+			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish()
+	elif right_click:
+# 		NOTE: Can't do manual selection when mouse is busy
+# 		with some other action, for example moving items.
+		if MouseState.get_state() == MouseState.enm.NONE:
+			_do_manual_targetting()
 
 
 #########################
@@ -209,10 +216,7 @@ func _roll_towers_after_wave_finish():
 
 
 func _pause_the_game():
-#	Cancel any in progress mouse actions
-	BuildTower.cancel(_tower_preview)
 	_item_stash.cancel_move()
-	SelectTargetForCast.cancel()
 	_game_time.set_enabled(false)
 
 	Globals.set_game_state(Globals.GameState.PAUSED)
@@ -320,8 +324,6 @@ func _reset_singletons():
 	ElapsedTimer.reset()
 	MouseState.reset()
 	Globals.reset()
-	SelectPointForCast.reset()
-	SelectTargetForCast.reset()
 	SelectUnit.reset()
 
 
@@ -625,3 +627,12 @@ func _on_player_requested_to_sell_tower(tower: Tower):
 	_map.clear_space_occupied_by_tower(tower)
 
 	tower.queue_free()
+
+
+func _on_player_requested_to_select_point_for_autocast(autocast: Autocast):
+	_select_point_for_cast.start(autocast)
+
+
+func _on_player_requested_to_select_target_for_autocast(autocast: Autocast):
+	_select_target_for_cast.start(autocast)
+
