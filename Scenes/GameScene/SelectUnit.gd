@@ -21,19 +21,6 @@ func _ready():
 	EventBus.mouse_exited_unit.connect(_on_mouse_exited_unit)
 
 
-func _unhandled_input(event):
-# 	NOTE: Can't select when mouse is busy with some other
-# 	action, for example moving items.
-	var can_select: bool = MouseState.get_state() == MouseState.enm.NONE
-	if !can_select:
-		return
-
-	var left_click: bool = event.is_action_released("left_click")
-
-	if left_click:
-		set_selected_unit(_hovered_unit)
-
-
 #########################
 ###       Public      ###
 #########################
