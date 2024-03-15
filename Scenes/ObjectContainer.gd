@@ -18,5 +18,3 @@ func _on_tower_entered_tree(tower: Tower):
 
 	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
 		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
-
-	_map.add_space_occupied_by_tower(tower)
