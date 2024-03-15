@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=27 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="11_0qewd"]
 [ext_resource type="PackedScene" uid="uid://clk0cpjpixjsk" path="res://Scenes/Towers/TowerStash.tscn" id="15_fssku"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
+[ext_resource type="Script" path="res://Scenes/UnitSpawner.gd" id="22_bcgip"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -208,6 +209,11 @@ visible = false
 process_mode = 3
 visible = false
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Scenes/Towers/Tower.tscn", "res://Scenes/Creeps/Instances/Creep.tscn", "res://Scenes/Towers/Instances/AbandonedPit1.tscn")
+spawn_path = NodePath("../World/ObjectContainer")
+script = ExtResource("22_bcgip")
+
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="timeout" from="Gameplay/NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
 [connection signal="timeout" from="Gameplay/ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
@@ -218,3 +224,5 @@ visible = false
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]
+[connection signal="despawned" from="MultiplayerSpawner" to="MultiplayerSpawner" method="_on_despawned"]
+[connection signal="spawned" from="MultiplayerSpawner" to="MultiplayerSpawner" method="_on_spawned"]

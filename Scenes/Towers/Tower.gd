@@ -30,7 +30,7 @@ const TOWER_SELECTION_VISUAL_SIZE: int = 128
 var TARGET_TYPE_GROUND_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_MASS + TargetType.SIZE_NORMAL + TargetType.SIZE_CHAMPION + TargetType.SIZE_BOSS)
 var TARGET_TYPE_AIR_ONLY: TargetType = TargetType.new(TargetType.CREEPS + TargetType.SIZE_AIR)
 
-var _id: int = 0
+@export var _id: int = 0
 var _stats: Dictionary
 var _splash_map: Dictionary = {}
 var _bounce_count_max: int = 0
