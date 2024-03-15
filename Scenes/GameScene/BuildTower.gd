@@ -4,13 +4,14 @@ class_name BuildTower extends Node
 # implement the process of building towers.
 
 @export var _mouse_state: MouseState
+@export var _map: Map
 
 
 #########################
 ###       Public      ###
 #########################
 
-func start(tower_id: int, player: Player, tower_preview: TowerPreview, map: Map):
+func start(tower_id: int, player: Player, tower_preview: TowerPreview):
 	var enough_resources: bool = _enough_resources_for_tower(tower_id, player)
 
 	if !enough_resources:
@@ -27,14 +28,14 @@ func start(tower_id: int, player: Player, tower_preview: TowerPreview, map: Map)
 	tower_preview.set_tower(tower_id)
 	tower_preview.show()
 
-	map.set_buildable_area_visible(true)
+	_map.set_buildable_area_visible(true)
 
 
-func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map, tower_stash: TowerStash):
+func try_to_finish(player: Player, tower_preview: TowerPreview, tower_stash: TowerStash):
 	var tower_id: int = tower_preview.get_tower_id()
-	var can_build: bool = map.can_build_at_mouse_pos()
-	var can_transform: bool = map.can_transform_at_mouse_pos()
-	var mouse_pos: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
+	var can_build: bool = _map.can_build_at_mouse_pos()
+	var can_transform: bool = _map.can_transform_at_mouse_pos()
+	var mouse_pos: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var tower_under_mouse: Tower = Utils.get_tower_at_position(mouse_pos)
 	var attempting_to_transform: bool = tower_under_mouse != null
 	var enough_resources: bool = _enough_resources_for_tower(tower_id, player)
@@ -51,19 +52,19 @@ func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map, tower_
 		_add_error_about_building_tower(tower_id, player)
 	elif can_transform:
 		_transform_tower(tower_id, tower_under_mouse, player)
-		cancel(tower_preview, map)
+		cancel(tower_preview)
 	else:
-		_build_tower(tower_id, map, player, tower_stash)
-		cancel(tower_preview, map)
+		_build_tower(tower_id, player, tower_stash)
+		cancel(tower_preview)
 
 
-func cancel(tower_preview: TowerPreview, map: Map):
+func cancel(tower_preview: TowerPreview):
 	if _mouse_state.get_state() != MouseState.enm.BUILD_TOWER:
 		return
 
 	_mouse_state.set_state(MouseState.enm.NONE)
 	tower_preview.hide()
-	map.set_buildable_area_visible(false)
+	_map.set_buildable_area_visible(false)
 
 
 #########################
@@ -92,14 +93,14 @@ func _add_error_about_building_tower(tower_id: int, player: Player):
 		Messages.add_error("Not enough food.")
 
 
-func _build_tower(tower_id: int, map: Map, player: Player, tower_stash: TowerStash):
-	var visual_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
+func _build_tower(tower_id: int, player: Player, tower_stash: TowerStash):
+	var visual_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	
 	if Network.peer != null:
-		Utils.add_tower_to_world.rpc(tower_id, build_position, player.get_id())
+		_add_tower_to_world.rpc(tower_id, build_position, player.get_id())
 	else:
-		Utils.add_tower_to_world(tower_id, build_position, player.get_id())
+		_add_tower_to_world(tower_id, build_position, player.get_id())
 	
 	player.add_food_for_tower(tower_id)
 	
@@ -116,6 +117,17 @@ func _build_tower(tower_id: int, map: Map, player: Player, tower_stash: TowerSta
 	
 	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
 		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
+
+
+@rpc("any_peer", "call_remote", "reliable")
+func _add_tower_to_world(tower_id: int, build_position: Vector2, player_id: int):
+	var new_tower: Tower = TowerManager.get_tower(tower_id)
+	new_tower.position = build_position
+	new_tower.set_player_id(player_id)
+	
+	_map.add_space_occupied_by_tower(new_tower)
+	
+	Utils.add_object_to_world(new_tower)
 
 
 func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):
