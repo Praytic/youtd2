@@ -5,13 +5,14 @@ class_name BuildTower extends Node
 
 @export var _mouse_state: MouseState
 @export var _map: Map
+@export var _tower_preview: TowerPreview
 
 
 #########################
 ###       Public      ###
 #########################
 
-func start(tower_id: int, player: Player, tower_preview: TowerPreview):
+func start(tower_id: int, player: Player):
 	var enough_resources: bool = _enough_resources_for_tower(tower_id, player)
 
 	if !enough_resources:
@@ -25,14 +26,14 @@ func start(tower_id: int, player: Player, tower_preview: TowerPreview):
 
 	_mouse_state.set_state(MouseState.enm.BUILD_TOWER)
 
-	tower_preview.set_tower(tower_id)
-	tower_preview.show()
+	_tower_preview.set_tower(tower_id)
+	_tower_preview.show()
 
 	_map.set_buildable_area_visible(true)
 
 
-func try_to_finish(player: Player, tower_preview: TowerPreview, tower_stash: TowerStash):
-	var tower_id: int = tower_preview.get_tower_id()
+func try_to_finish(player: Player, tower_stash: TowerStash):
+	var tower_id: int = _tower_preview.get_tower_id()
 	var can_build: bool = _map.can_build_at_mouse_pos()
 	var can_transform: bool = _map.can_transform_at_mouse_pos()
 	var mouse_pos: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
@@ -52,18 +53,18 @@ func try_to_finish(player: Player, tower_preview: TowerPreview, tower_stash: Tow
 		_add_error_about_building_tower(tower_id, player)
 	elif can_transform:
 		_transform_tower(tower_id, tower_under_mouse, player)
-		cancel(tower_preview)
+		cancel()
 	else:
 		_build_tower(tower_id, player, tower_stash)
-		cancel(tower_preview)
+		cancel()
 
 
-func cancel(tower_preview: TowerPreview):
+func cancel():
 	if _mouse_state.get_state() != MouseState.enm.BUILD_TOWER:
 		return
 
 	_mouse_state.set_state(MouseState.enm.NONE)
-	tower_preview.hide()
+	_tower_preview.hide()
 	_map.set_buildable_area_visible(false)
 
 

@@ -18,7 +18,6 @@ class_name GameScene extends Node
 @export var _extreme_timer: Timer
 @export var _game_time: GameTime
 @export var _object_container: Node2D
-@export var _tower_preview: TowerPreview
 @export var _select_point_for_cast: SelectPointForCast
 @export var _select_target_for_cast: SelectTargetForCast
 @export var _move_item: MoveItem
@@ -152,7 +151,7 @@ func _unhandled_input(event: InputEvent):
 				Globals.GameState.PAUSED: _unpause_the_game()
 	elif left_click:
 		match _mouse_state.get_state():
-			MouseState.enm.BUILD_TOWER: _build_tower.try_to_finish(_player, _tower_preview, _tower_stash)
+			MouseState.enm.BUILD_TOWER: _build_tower.try_to_finish(_player, _tower_stash)
 			MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.finish(_map)
 			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish(hovered_unit)
 			MouseState.enm.MOVE_ITEM:
@@ -177,7 +176,7 @@ func _unhandled_input(event: InputEvent):
 
 func _cancel_current_mouse_action():
 	match _mouse_state.get_state():
-		MouseState.enm.BUILD_TOWER: _build_tower.cancel(_tower_preview)
+		MouseState.enm.BUILD_TOWER: _build_tower.cancel()
 		MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.cancel()
 		MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.cancel()
 		MouseState.enm.MOVE_ITEM: _move_item.cancel()
@@ -606,7 +605,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
-	_build_tower.start(tower_id, _player, _tower_preview)
+	_build_tower.start(tower_id, _player)
 
 
 func _on_player_requested_to_upgrade_tower(tower: Tower):
