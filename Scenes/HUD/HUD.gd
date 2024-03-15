@@ -17,6 +17,8 @@ signal stop_wave()
 @export var _top_left_menu: TopLeftMenu
 @export var _creep_menu: CreepMenu
 @export var _tower_menu: TowerMenu
+@export var _host_player_label: Label
+@export var _second_player_label: Label
 
 @onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _tower_menu, _creep_menu]
 
@@ -44,6 +46,9 @@ func _ready():
 	var unit_status_menu_button = _unit_status_menu_card.get_main_button()
 	HighlightUI.register_target("unit_status_menu_button", _unit_status_menu_card.get_main_button())
 	unit_status_menu_button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("unit_status_menu_button"))
+	
+	multiplayer.peer_connected.connect(_on_peer_connected)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
 
 #########################
@@ -183,6 +188,15 @@ func _on_element_towers_menu_hidden():
 
 func _on_item_stash_menu_hidden():
 	_items_menu_card.collapse()
+
+
+func _on_peer_connected(id):
+	_host_player_label.text = "Player ID: %s" % multiplayer.get_unique_id()
+	_second_player_label.text = "Player ID: %s" % id
+
+
+func _on_peer_disconnected(_id):
+	_second_player_label.text = ""
 
 
 #########################

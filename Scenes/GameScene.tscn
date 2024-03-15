@@ -210,7 +210,7 @@ process_mode = 3
 visible = false
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Scenes/Towers/Tower.tscn", "res://Scenes/Creeps/Instances/Creep.tscn", "res://Scenes/Towers/Instances/AbandonedPit1.tscn")
+_spawnable_scenes = PackedStringArray("res://Scenes/Towers/Tower.tscn", "res://Scenes/Creeps/Instances/Creep.tscn", "res://Scenes/Towers/Instances/AbandonedPit1.tscn", "res://Scenes/Towers/Instances/AbandonedPit2.tscn")
 spawn_path = NodePath("../World/ObjectContainer")
 script = ExtResource("22_bcgip")
 
