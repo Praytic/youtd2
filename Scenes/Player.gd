@@ -100,6 +100,10 @@ func get_player_name() -> String:
 	return "Player"
 
 
+func get_id() -> int:
+	return multiplayer.get_unique_id()
+
+
 # TODO: return actual score
 func get_score() -> int:
 	return 0

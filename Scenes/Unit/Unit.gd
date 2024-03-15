@@ -196,6 +196,8 @@ var _mod_value_map: Dictionary = {
 
 @onready var _player: Player = get_tree().get_root().get_node("GameScene/Gameplay/Player")
 
+@export var _player_id: int
+
 
 #########################
 ###     Built-in      ###
@@ -1157,6 +1159,18 @@ func get_autocast_list() -> Array[Autocast]:
 # Node.get_owner() is a built-in godot f-n
 func get_player() -> Player:
 	return _player
+
+
+# NOTE: only used in PlayerMode.COOP mode to let the authority
+# peer know which tower belongs to which player.
+# Player ID can be only one of MultiplayerAPI.get_unique_id of
+# connected peers.
+func get_player_id() -> int:
+	return _player_id
+
+
+func set_player_id(id: int):
+	_player_id = id
 
 
 # NOTE: this is a stub, used in original tower scripts but

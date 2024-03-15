@@ -16,8 +16,12 @@ properties/0/sync = true
 properties/0/watch = false
 properties/1/path = NodePath(".:_id")
 properties/1/spawn = true
-properties/1/sync = true
+properties/1/sync = false
 properties/1/watch = false
+properties/2/path = NodePath(".:_player_id")
+properties/2/spawn = true
+properties/2/sync = false
+properties/2/watch = false
 
 [node name="Tower" type="Node2D"]
 script = ExtResource("2")
@@ -60,5 +64,3 @@ polygon = PackedVector2Array(-102, 6, 0, 56, 102, 6, 102, -96, 0, -147, -102, -9
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_3vb30")
-
-[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

@@ -73,9 +73,10 @@ func add_object_to_world(object: Node):
 
 
 @rpc("any_peer", "call_remote", "reliable")
-func add_tower_to_world(tower_id: int, build_position: Vector2):
+func add_tower_to_world(tower_id: int, build_position: Vector2, player_id: int):
 	var new_tower: Tower = TowerManager.get_tower(tower_id)
 	new_tower.position = build_position
+	new_tower.set_player_id(player_id)
 	add_object_to_world(new_tower)
 
 

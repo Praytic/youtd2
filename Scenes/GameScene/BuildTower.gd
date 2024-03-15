@@ -51,7 +51,7 @@ static func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map)
 		BuildTower._transform_tower(tower_id, tower_under_mouse, player)
 		BuildTower.cancel(tower_preview, map)
 	else:
-		BuildTower._build_tower(tower_id, map)
+		BuildTower._build_tower(tower_id, map, player)
 		BuildTower.cancel(tower_preview, map)
 
 
@@ -90,14 +90,21 @@ static func _add_error_about_building_tower(tower_id: int, player: Player):
 		Messages.add_error("Not enough food.")
 
 
-static func _build_tower(tower_id: int, map: Map):
+static func _build_tower(tower_id: int, map: Map, player: Player):
 	var visual_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	
 	if Network.peer != null:
-		Utils.add_tower_to_world.rpc(tower_id, build_position)
+		Utils.add_tower_to_world.rpc(tower_id, build_position, player.get_id())
 	else:
-		Utils.add_tower_to_world(tower_id, build_position)
+		Utils.add_tower_to_world(tower_id, build_position, player.get_id())
+	
+	var build_cost: float = TowerProperties.get_cost(tower_id)
+	var tomes_cost: int = TowerProperties.get_tome_cost(tower_id)
+	
+	player.add_food_for_tower(tower_id)
+	player.spend_gold(build_cost)
+	player.spend_tomes(tomes_cost)
 
 
 static func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):

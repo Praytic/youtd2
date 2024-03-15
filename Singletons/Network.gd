@@ -10,7 +10,7 @@ signal status_changed(text: String, error: bool)
 
 var _host_address_with_port: String : get = get_host_address_with_port
 
-var peer = null
+var peer: ENetMultiplayerPeer = null
 
 @onready var _game_scene: Node = get_tree().get_root().get_node("GameScene")
 
