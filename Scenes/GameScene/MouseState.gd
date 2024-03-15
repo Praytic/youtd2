@@ -1,11 +1,8 @@
-extends Node
+class_name MouseState extends Node
 
 # Central storage for current mouse state. Used for actions
 # which use the mouse and need to disable other actions
 # while the action is in progress.
-
-
-signal mouse_state_changed()
 
 
 enum enm {
@@ -25,7 +22,6 @@ func reset():
 
 func set_state(state: MouseState.enm):
 	_current_state = state
-	mouse_state_changed.emit()
 
 
 func get_state() -> MouseState.enm:

@@ -7,6 +7,8 @@ var _autocast: Autocast = null
 
 const _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
 
+@export var _mouse_state: MouseState
+
 
 #########################
 ###       Public      ###
@@ -38,13 +40,13 @@ func finish(hovered_unit: Unit):
 
 
 func start(autocast: Autocast):
-	var can_start: bool = MouseState.get_state() == MouseState.enm.NONE || MouseState.get_state() == MouseState.enm.SELECT_TARGET_FOR_CAST
+	var can_start: bool = _mouse_state.get_state() == MouseState.enm.NONE || _mouse_state.get_state() == MouseState.enm.SELECT_TARGET_FOR_CAST
 	if !can_start:
 		return
 
 	cancel()
 	_autocast = autocast
-	MouseState.set_state(MouseState.enm.SELECT_TARGET_FOR_CAST)
+	_mouse_state.set_state(MouseState.enm.SELECT_TARGET_FOR_CAST)
 	var hotspot: Vector2 = _cast_cursor.get_size() / 2
 	Input.set_custom_mouse_cursor(_cast_cursor, Input.CURSOR_ARROW, hotspot)
 
@@ -53,7 +55,7 @@ func cancel():
 	if !_in_progress():
 		return
 
-	MouseState.set_state(MouseState.enm.NONE)
+	_mouse_state.set_state(MouseState.enm.NONE)
 
 	_autocast = null
 
@@ -69,4 +71,4 @@ func cancel():
 #########################
 
 func _in_progress() -> bool:
-	return MouseState.get_state() == MouseState.enm.SELECT_TARGET_FOR_CAST
+	return _mouse_state.get_state() == MouseState.enm.SELECT_TARGET_FOR_CAST

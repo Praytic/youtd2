@@ -15,6 +15,9 @@ var _item_stash: ItemContainer = null
 var _horadric_stash: ItemContainer = null
 
 
+@export var _mouse_state: MouseState
+
+
 #########################
 ###     Built-in      ###
 #########################
@@ -85,7 +88,7 @@ func process_click_on_tower(tower: Tower):
 #########################
 
 func _move_in_progress() -> bool:
-	return MouseState.get_state() == MouseState.enm.MOVE_ITEM
+	return _mouse_state.get_state() == MouseState.enm.MOVE_ITEM
 
 
 # When an item is clicked in an item container, two possible results:
@@ -127,7 +130,7 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 
 	_moved_item = clicked_item
 	_source_container = container
-	MouseState.set_state(MouseState.enm.MOVE_ITEM)
+	_mouse_state.set_state(MouseState.enm.MOVE_ITEM)
 	
 	var item_cursor_icon: Texture2D = _get_item_cursor_icon(clicked_item)
 	var hotspot: Vector2 = item_cursor_icon.get_size() / 2
@@ -167,7 +170,7 @@ func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
 
 
 func _end_move_process():
-	MouseState.set_state(MouseState.enm.NONE)
+	_mouse_state.set_state(MouseState.enm.NONE)
 
 	_moved_item = null
 	_source_container = null
@@ -201,7 +204,7 @@ func _get_item_cursor_icon(item: Item) -> Texture2D:
 # item. Starting to move an item while another one is moved
 # already performs an item swap.
 func _can_start_moving() -> bool:
-	var can_start: bool = MouseState.get_state() == MouseState.enm.NONE || MouseState.get_state() == MouseState.enm.MOVE_ITEM
+	var can_start: bool = _mouse_state.get_state() == MouseState.enm.NONE || _mouse_state.get_state() == MouseState.enm.MOVE_ITEM
 
 	return can_start
 

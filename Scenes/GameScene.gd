@@ -23,6 +23,8 @@ class_name GameScene extends Node
 @export var _select_target_for_cast: SelectTargetForCast
 @export var _move_item: MoveItem
 @export var _select_unit: SelectUnit
+@export var _build_tower: BuildTower
+@export var _mouse_state: MouseState
 
 
 var _prev_effect_id: int = 0
@@ -138,7 +140,7 @@ func _unhandled_input(event: InputEvent):
 #		2. Then, if there are no mouse actions, hud windows
 #		   are hidden
 #		3. Finally, game is paused
-		if MouseState.get_state() != MouseState.enm.NONE:
+		if _mouse_state.get_state() != MouseState.enm.NONE:
 			_cancel_current_mouse_action()
 		elif _hud.any_window_is_open():
 			_hud.hide_all_windows()
@@ -149,8 +151,8 @@ func _unhandled_input(event: InputEvent):
 				Globals.GameState.PLAYING: _pause_the_game()
 				Globals.GameState.PAUSED: _unpause_the_game()
 	elif left_click:
-		match MouseState.get_state():
-			MouseState.enm.BUILD_TOWER: BuildTower.try_to_finish(_player, _tower_preview, _map, _tower_stash)
+		match _mouse_state.get_state():
+			MouseState.enm.BUILD_TOWER: _build_tower.try_to_finish(_player, _tower_preview, _map, _tower_stash)
 			MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.finish(_map)
 			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish(hovered_unit)
 			MouseState.enm.MOVE_ITEM:
@@ -163,7 +165,7 @@ func _unhandled_input(event: InputEvent):
 #				if clicked on nothing - deselect
 				_select_unit.set_selected_unit(hovered_unit)
 	elif right_click:
-		if MouseState.get_state() != MouseState.enm.NONE:
+		if _mouse_state.get_state() != MouseState.enm.NONE:
 			_cancel_current_mouse_action()
 		else:
 			_do_manual_targetting()
@@ -174,8 +176,8 @@ func _unhandled_input(event: InputEvent):
 #########################
 
 func _cancel_current_mouse_action():
-	match MouseState.get_state():
-		MouseState.enm.BUILD_TOWER: BuildTower.cancel(_tower_preview, _map)
+	match _mouse_state.get_state():
+		MouseState.enm.BUILD_TOWER: _build_tower.cancel(_tower_preview, _map)
 		MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.cancel()
 		MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.cancel()
 		MouseState.enm.MOVE_ITEM: _move_item.cancel()
@@ -352,7 +354,6 @@ func _reset_singletons():
 	CombatLog.reset()
 	Effect.reset()
 	ElapsedTimer.reset()
-	MouseState.reset()
 	Globals.reset()
 
 
@@ -605,7 +606,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
-	BuildTower.start(tower_id, _player, _tower_preview, _map)
+	_build_tower.start(tower_id, _player, _tower_preview, _map)
 
 
 func _on_player_requested_to_upgrade_tower(tower: Tower):

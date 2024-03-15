@@ -1,26 +1,28 @@
-class_name BuildTower extends RefCounted
+class_name BuildTower extends Node
 
 # Contains functions which are called by GameScene to
 # implement the process of building towers.
+
+@export var _mouse_state: MouseState
 
 
 #########################
 ###       Public      ###
 #########################
 
-static func start(tower_id: int, player: Player, tower_preview: TowerPreview, map: Map):
-	var enough_resources: bool = BuildTower._enough_resources_for_tower(tower_id, player)
+func start(tower_id: int, player: Player, tower_preview: TowerPreview, map: Map):
+	var enough_resources: bool = _enough_resources_for_tower(tower_id, player)
 
 	if !enough_resources:
-		BuildTower._add_error_about_building_tower(tower_id, player)
+		_add_error_about_building_tower(tower_id, player)
 
 		return
 
-	var can_start_building: bool = MouseState.get_state() != MouseState.enm.NONE && MouseState.get_state() != MouseState.enm.BUILD_TOWER
+	var can_start_building: bool = _mouse_state.get_state() != MouseState.enm.NONE && _mouse_state.get_state() != MouseState.enm.BUILD_TOWER
 	if can_start_building:
 		return
 
-	MouseState.set_state(MouseState.enm.BUILD_TOWER)
+	_mouse_state.set_state(MouseState.enm.BUILD_TOWER)
 
 	tower_preview.set_tower(tower_id)
 	tower_preview.show()
@@ -28,14 +30,14 @@ static func start(tower_id: int, player: Player, tower_preview: TowerPreview, ma
 	map.set_buildable_area_visible(true)
 
 
-static func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map, tower_stash: TowerStash):
+func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map, tower_stash: TowerStash):
 	var tower_id: int = tower_preview.get_tower_id()
 	var can_build: bool = map.can_build_at_mouse_pos()
 	var can_transform: bool = map.can_transform_at_mouse_pos()
 	var mouse_pos: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 	var tower_under_mouse: Tower = Utils.get_tower_at_position(mouse_pos)
 	var attempting_to_transform: bool = tower_under_mouse != null
-	var enough_resources: bool = BuildTower._enough_resources_for_tower(tower_id, player)
+	var enough_resources: bool = _enough_resources_for_tower(tower_id, player)
 
 	if !can_build && !can_transform:
 		var error: String
@@ -46,20 +48,20 @@ static func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map,
 
 		Messages.add_error(error)
 	elif !enough_resources:
-		BuildTower._add_error_about_building_tower(tower_id, player)
+		_add_error_about_building_tower(tower_id, player)
 	elif can_transform:
-		BuildTower._transform_tower(tower_id, tower_under_mouse, player)
-		BuildTower.cancel(tower_preview, map)
+		_transform_tower(tower_id, tower_under_mouse, player)
+		cancel(tower_preview, map)
 	else:
-		BuildTower._build_tower(tower_id, map, player, tower_stash)
-		BuildTower.cancel(tower_preview, map)
+		_build_tower(tower_id, map, player, tower_stash)
+		cancel(tower_preview, map)
 
 
-static func cancel(tower_preview: TowerPreview, map: Map):
-	if MouseState.get_state() != MouseState.enm.BUILD_TOWER:
+func cancel(tower_preview: TowerPreview, map: Map):
+	if _mouse_state.get_state() != MouseState.enm.BUILD_TOWER:
 		return
 
-	MouseState.set_state(MouseState.enm.NONE)
+	_mouse_state.set_state(MouseState.enm.NONE)
 	tower_preview.hide()
 	map.set_buildable_area_visible(false)
 
@@ -68,7 +70,7 @@ static func cancel(tower_preview: TowerPreview, map: Map):
 ###      Private      ###
 #########################
 
-static func _enough_resources_for_tower(tower_id: int, player: Player) -> bool:
+func _enough_resources_for_tower(tower_id: int, player: Player) -> bool:
 	var enough_gold: bool = player.enough_gold_for_tower(tower_id)
 	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
 	var enough_food: bool = player.enough_food_for_tower(tower_id)
@@ -77,7 +79,7 @@ static func _enough_resources_for_tower(tower_id: int, player: Player) -> bool:
 	return enough_resources
 
 
-static func _add_error_about_building_tower(tower_id: int, player: Player):
+func _add_error_about_building_tower(tower_id: int, player: Player):
 	var enough_gold: bool = player.enough_gold_for_tower(tower_id)
 	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
 	var enough_food: bool = player.enough_food_for_tower(tower_id)
@@ -90,7 +92,7 @@ static func _add_error_about_building_tower(tower_id: int, player: Player):
 		Messages.add_error("Not enough food.")
 
 
-static func _build_tower(tower_id: int, map: Map, player: Player, tower_stash: TowerStash):
+func _build_tower(tower_id: int, map: Map, player: Player, tower_stash: TowerStash):
 	var visual_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	
@@ -116,7 +118,7 @@ static func _build_tower(tower_id: int, map: Map, player: Player, tower_stash: T
 		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
 
 
-static func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):
+func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):
 	player.remove_food_for_tower(prev_tower.get_id())
 	player.add_food_for_tower(new_tower_id)
 
@@ -126,7 +128,7 @@ static func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Playe
 	Utils.add_object_to_world(new_tower)
 
 #	Refund build cost for previous tower
-	var refund_value: int = BuildTower._get_transform_refund(prev_tower.get_id(), new_tower_id)
+	var refund_value: int = _get_transform_refund(prev_tower.get_id(), new_tower_id)
 	prev_tower.get_player().give_gold(refund_value, prev_tower, false, true)
 
 #	Spend build cost for new tower
@@ -144,7 +146,7 @@ static func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Playe
 
 # This is the value refunded when a tower is transformed
 # into another tower
-static func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
+func _get_transform_refund(prev_tower_id: int, new_tower_id: int) -> int:
 	var prev_cost: int = TowerProperties.get_cost(prev_tower_id)
 	var prev_family: int = TowerProperties.get_family(prev_tower_id)
 	var new_family: int = TowerProperties.get_family(new_tower_id)
