@@ -98,10 +98,7 @@ func _build_tower(tower_id: int, player: Player, tower_stash: TowerStash):
 	var visual_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	
-	if Network.peer != null:
-		_add_tower_to_world.rpc(tower_id, build_position, player.get_id())
-	else:
-		_add_tower_to_world(tower_id, build_position, player.get_id())
+	_add_tower_to_world.rpc(tower_id, build_position, player.get_id())
 	
 	player.add_food_for_tower(tower_id)
 	
@@ -120,7 +117,7 @@ func _build_tower(tower_id: int, player: Player, tower_stash: TowerStash):
 		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
 
 
-@rpc("any_peer", "call_remote", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func _add_tower_to_world(tower_id: int, build_position: Vector2, player_id: int):
 	var new_tower: Tower = TowerManager.get_tower(tower_id)
 	new_tower.position = build_position
