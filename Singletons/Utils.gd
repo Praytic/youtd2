@@ -72,6 +72,13 @@ func add_object_to_world(object: Node):
 	object_container.add_child(object, true)
 
 
+@rpc("any_peer", "call_remote", "reliable")
+func add_tower_to_world(tower_id: int, build_position: Vector2):
+	var new_tower: Tower = TowerManager.get_tower(tower_id)
+	new_tower.position = build_position
+	add_object_to_world(new_tower)
+
+
 # TODO: currently, we assure that text fits inside the
 # richtextlabel tooltip by setting the minimum size. If all
 # lines in the text are shorter than the minimum size, there

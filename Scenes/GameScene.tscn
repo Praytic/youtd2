@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=28 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/MoveItem.gd" id="10_qbku7"]
 [ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
 [ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="11_0qewd"]
+[ext_resource type="Script" path="res://Scenes/ObjectContainer.gd" id="14_ecirc"]
 [ext_resource type="PackedScene" uid="uid://clk0cpjpixjsk" path="res://Scenes/Towers/TowerStash.tscn" id="15_fssku"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 [ext_resource type="Script" path="res://Scenes/UnitSpawner.gd" id="22_bcgip"]
@@ -145,10 +146,13 @@ curve = SubResource("Curve2D_72x3r")
 script = ExtResource("3_abrkq")
 is_air = true
 
-[node name="ObjectContainer" type="Node2D" parent="World"]
+[node name="ObjectContainer" type="Node2D" parent="World" node_paths=PackedStringArray("_tower_stash", "_map")]
 process_mode = 1
 z_index = 10
 y_sort_enabled = true
+script = ExtResource("14_ecirc")
+_tower_stash = NodePath("../../Gameplay/TowerStash")
+_map = NodePath("../Map")
 
 [node name="EffectsContainer" type="Node2D" parent="World"]
 process_mode = 1
@@ -220,6 +224,7 @@ script = ExtResource("22_bcgip")
 [connection signal="items_changed" from="Gameplay/Player/ItemStash" to="." method="_on_item_stash_items_changed"]
 [connection signal="items_changed" from="Gameplay/Player/HoradricStash" to="." method="_on_horadric_stash_items_changed"]
 [connection signal="changed" from="Gameplay/TowerStash" to="." method="_on_tower_stash_changed"]
+[connection signal="child_entered_tree" from="World/ObjectContainer" to="World/ObjectContainer" method="_on_child_entered_tree"]
 [connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]

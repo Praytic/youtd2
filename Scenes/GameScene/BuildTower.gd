@@ -28,7 +28,7 @@ static func start(tower_id: int, player: Player, tower_preview: TowerPreview, ma
 	map.set_buildable_area_visible(true)
 
 
-static func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map, tower_stash: TowerStash):
+static func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map):
 	var tower_id: int = tower_preview.get_tower_id()
 	var can_build: bool = map.can_build_at_mouse_pos()
 	var can_transform: bool = map.can_transform_at_mouse_pos()
@@ -51,7 +51,7 @@ static func try_to_finish(player: Player, tower_preview: TowerPreview, map: Map,
 		BuildTower._transform_tower(tower_id, tower_under_mouse, player)
 		BuildTower.cancel(tower_preview, map)
 	else:
-		BuildTower._build_tower(tower_id, player, map, tower_stash)
+		BuildTower._build_tower(tower_id, map)
 		BuildTower.cancel(tower_preview, map)
 
 
@@ -90,29 +90,14 @@ static func _add_error_about_building_tower(tower_id: int, player: Player):
 		Messages.add_error("Not enough food.")
 
 
-static func _build_tower(tower_id: int, player: Player, map: Map, tower_stash: TowerStash):
-	var new_tower: Tower = TowerManager.get_tower(tower_id)
+static func _build_tower(tower_id: int, map: Map):
 	var visual_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
-	new_tower.position = build_position
-	Utils.add_object_to_world(new_tower)
-	player.add_food_for_tower(tower_id)
-
-	var build_cost: float = TowerProperties.get_cost(tower_id)
-	player.spend_gold(build_cost)
-
-	var tomes_cost: int = TowerProperties.get_tome_cost(tower_id)
-	player.spend_tomes(tomes_cost)
-
-	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
 	
-	if Globals.get_game_mode() != GameMode.enm.BUILD:
-		tower_stash.remove_tower(tower_id)
-
-	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
-		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
-
-	map.add_space_occupied_by_tower(new_tower)
+	if Network.peer != null:
+		Utils.add_tower_to_world.rpc(tower_id, build_position)
+	else:
+		Utils.add_tower_to_world(tower_id, build_position)
 
 
 static func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):

@@ -235,6 +235,19 @@ func _ready():
 	
 	# Need to create instance only if Tower has active specials
 	_tower_actions.set_tower(self)
+	
+#	Update player resources
+	var player: Player = get_player()
+	var tower_id: int = get_id()
+	var build_cost: float = TowerProperties.get_cost(tower_id)
+	var tomes_cost: int = TowerProperties.get_tome_cost(tower_id)
+	
+	player.add_food_for_tower(tower_id)
+	player.spend_gold(build_cost)
+	player.spend_tomes(tomes_cost)
+
+#	Play build sound
+	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", self)
 
 
 # NOTE: need to do attack timing without Timer because Timer

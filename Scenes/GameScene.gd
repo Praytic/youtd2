@@ -150,7 +150,7 @@ func _unhandled_input(event: InputEvent):
 				Globals.GameState.PAUSED: _unpause_the_game()
 	elif left_click:
 		match MouseState.get_state():
-			MouseState.enm.BUILD_TOWER: BuildTower.try_to_finish(_player, _tower_preview, _map, _tower_stash)
+			MouseState.enm.BUILD_TOWER: BuildTower.try_to_finish(_player, _tower_preview, _map)
 			MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.finish(_map)
 			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish(hovered_unit)
 			MouseState.enm.MOVE_ITEM:
