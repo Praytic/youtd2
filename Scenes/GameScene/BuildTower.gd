@@ -1,4 +1,4 @@
-class_name BuildTower extends Object
+class_name BuildTower extends RefCounted
 
 # Contains functions which are called by GameScene to
 # implement the process of building towers.

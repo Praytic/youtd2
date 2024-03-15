@@ -1,4 +1,4 @@
-class_name HoradricCube extends Object
+class_name HoradricCube extends RefCounted
 
 
 # NOTE: implements transmutation of items. The UI for
