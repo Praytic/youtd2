@@ -160,7 +160,7 @@ func _unhandled_input(event: InputEvent):
 				if hovered_tower != null:
 					_move_item.process_click_on_tower(hovered_tower)
 				else:
-					_move_item.cancel_and_fly_item_to_stash(_map)
+					_move_item.process_click_on_nothing(_map)
 			MouseState.enm.NONE:
 #				NOTE: if clicked on unit, will selected that unit
 #				if clicked on nothing - deselect

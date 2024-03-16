@@ -46,31 +46,17 @@ func cancel():
 	if !_move_in_progress():
 		return
 
-	remove_child(_moved_item)
-
-# 	Return item back to where it was before we started
-# 	moving it.
-
-#	NOTE: need to check that source container is valid
-#	because it can become invalid if container was a tower
-#	inventory and the tower was sold.
-	if is_instance_valid(_source_container) && _source_container.have_item_space():
-		_source_container.add_item(_moved_item)
-	else:
-#		NOTE: in other cases, send item back to item stash
-#		because it has unlimited capacity.
-		_item_stash.add_item(_moved_item)
-
 	_end_move_process()
 
 
-# This version of cancel() will make the item fly to item
-# stash.
-func cancel_and_fly_item_to_stash(map: Map):
+# If player started moving an item and then clicked on
+# nothing, remove the item from source and make it fly back
+# to item stash.
+func process_click_on_nothing(map: Map):
 	if !_move_in_progress():
 		return
 
-	remove_child(_moved_item)
+	_remove_moved_item_from_source_container()
 
 	var drop_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
 	Item._create_item_drop(_moved_item, drop_position)
@@ -107,29 +93,13 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 	if _move_in_progress() && !_check_consumable_into_tower_case(container):
 		return
 
-#	If an item is currently getting moved, add it back to
-#	tower at the position of the clicked item
+#	If an item is currently getting moved, end move process
+#	for old item and start moving new item
 	if _move_in_progress():
-#		NOTE: save moved item because it gets reset to null
-#		by _end_move_process()
-		var prev_moved_item: Item = _moved_item
 		_end_move_process()
 
-#		NOTE: this code swaps items. Moved item gets added
-#		to tower inventory and the clicked item becomes the
-#		new moved item. Need to handle the case where
-#		inventory is full correctly, so must remove clicked
-#		item first before adding moved item.
-		var clicked_index: int = container.get_item_index(clicked_item)
-		container.remove_item(clicked_item)
-		remove_child(prev_moved_item)
-		container.add_item(prev_moved_item, clicked_index)
-	else:
-		container.remove_item(clicked_item)
-
-	add_child(clicked_item)
-
 	_moved_item = clicked_item
+	_moved_item.tree_exited.connect(_on_moved_item_tree_exited)
 	_source_container = container
 	_mouse_state.set_state(MouseState.enm.MOVE_ITEM)
 	
@@ -161,7 +131,7 @@ func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
 #	the player will see the item appear on the left side of
 #	the item stash. Default scroll position for item stash
 #	displays the left side.
-	remove_child(_moved_item)
+	_remove_moved_item_from_source_container()
 	container.add_item(_moved_item, add_index)
 	_end_move_process()
 
@@ -173,6 +143,8 @@ func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
 func _end_move_process():
 	_mouse_state.set_state(MouseState.enm.NONE)
 
+	if _moved_item.tree_exited.is_connected(_on_moved_item_tree_exited):
+		_moved_item.tree_exited.disconnect(_on_moved_item_tree_exited)
 	_moved_item = null
 	_source_container = null
 
@@ -225,6 +197,16 @@ func _check_consumable_into_tower_case(container: ItemContainer) -> bool:
 		Messages.add_error("Can't place consumables into towers")
 
 	return move_ok
+
+
+# NOTE: need to disconnect signal before removing to avoid
+# triggering _on_moved_item_tree_exited() callback when it's
+# not needed.
+func _remove_moved_item_from_source_container():
+	if _moved_item.tree_exited.is_connected(_on_moved_item_tree_exited):
+		_moved_item.tree_exited.disconnect(_on_moved_item_tree_exited)
+
+	_source_container.remove_item(_moved_item)
 
 
 #########################
@@ -305,3 +287,10 @@ func _on_player_clicked_tower_inventory(tower: Tower):
 
 func _on_item_flew_to_item_stash(item: Item):
 	_item_stash.add_item(item)
+
+
+# NOTE: this callback handles the case of needing to cancel
+# item move when item was removed from source container. For
+# example, if item was dropped from tower via code.
+func _on_moved_item_tree_exited():
+	cancel()
