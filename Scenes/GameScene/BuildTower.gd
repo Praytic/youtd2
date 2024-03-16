@@ -101,8 +101,7 @@ func _build_tower(tower_id: int, player: Player):
 	
 	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", build_position)
 	
-	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
-		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
+	HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
 	
 	_add_tower_to_world.rpc(tower_id, build_position, player.get_id())
 

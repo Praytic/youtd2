@@ -3,7 +3,6 @@ extends Node
 
 enum GameState {
 	PREGAME,
-	TUTORIAL,
 	PLAYING,
 	PAUSED,
 }

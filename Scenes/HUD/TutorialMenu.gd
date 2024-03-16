@@ -48,6 +48,12 @@ func _ready():
 #########################
 
 func _on_highlight_target_ack(highlight_target: String):
+#	NOTE: need to do nothing if tutorial menu is not visible
+#	because if player skips tutorial, highlight_target_ack()
+#	signal will still get emitted.
+	if !visible:
+		return
+
 	if _section_list[_current_section].highlight_target == highlight_target:
 		_change_section(1)
 

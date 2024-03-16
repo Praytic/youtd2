@@ -154,10 +154,9 @@ func _unlock_tower_buttons_if_possible():
 		if can_build_tower:
 			button.unlock()
 
-			if Globals.get_game_state() == Globals.GameState.TUTORIAL:
-				HighlightUI.register_target("tower_stash_unlocked", self, true)
-				HighlightUI.register_target("tower_placed_on_map", self, true)
-				button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash_unlocked"))
+			HighlightUI.register_target("tower_stash_unlocked", self, true)
+			HighlightUI.register_target("tower_placed_on_map", self, true)
+			button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash_unlocked"))
 
 
 func _get_element_info_text() -> String:

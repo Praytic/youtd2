@@ -350,15 +350,15 @@ func _transition_from_pregame_settings_state():
 		var item_stash: ItemContainer = local_player.get_item_stash()
 		item_stash.add_item(item)
 
+	Globals.set_game_state(Globals.GameState.PLAYING)
+
 	if tutorial_enabled:
-		Globals.set_game_state(Globals.GameState.TUTORIAL)
 		_tutorial_menu.start_tutorial(game_mode)
 	else:
 		_transition_from_tutorial_state()
 
 
 func _transition_from_tutorial_state():
-	Globals.set_game_state(Globals.GameState.PLAYING)
 	_tutorial_menu.queue_free()
 
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
