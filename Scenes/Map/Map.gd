@@ -90,7 +90,7 @@ func _ready():
 #	the real tilemap eating VRAM while being hidden.
 	if !Config.use_prerendered_background():
 		print_verbose("Using raw map (not prerendered)")
-		var background_map_scene: PackedScene = load("res://Scenes/BackgroundMap.tscn")
+		var background_map_scene: PackedScene = load("res://Scenes/Map/BackgroundMap.tscn")
 		var background_map = background_map_scene.instantiate()
 		_buildable_area.add_sibling(background_map)
 	else:
