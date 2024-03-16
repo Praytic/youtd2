@@ -16,14 +16,6 @@ const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 # will not drop.
 static var disabled_item_list: Array[int] = [140, 254]
 
-static var _item_drop_scene_map: Dictionary = {
-	"res://Scenes/Items/CommonItem.tscn": preload("res://Scenes/Items/CommonItem.tscn"),
-	"res://Scenes/Items/UncommonItem.tscn": preload("res://Scenes/Items/UncommonItem.tscn"),
-	"res://Scenes/Items/RareItem.tscn": preload("res://Scenes/Items/RareItem.tscn"),
-	"res://Scenes/Items/UniqueItem.tscn": preload("res://Scenes/Items/UniqueItem.tscn"),
-	"res://Scenes/Items/RedOil.tscn": preload("res://Scenes/Items/RedOil.tscn"),
-}
-
 
 var user_int: int = 0
 var user_int2: int = 0
@@ -272,7 +264,7 @@ func drop():
 
 	var carrier_container: ItemContainer = _carrier.get_item_container()
 	carrier_container.remove_item(self)
-	Item._create_item_drop(self, drop_pos)
+	ItemDrop.make(self, drop_pos)
 
 
 # Item starts flying to the stash and will get added to
@@ -411,7 +403,7 @@ func uses_charges() -> bool:
 # NOTE: Item.create() in JASS
 static func create(player: Player, item_id: int, position: Vector2) -> Item:
 	var item: Item = Item.make(item_id, player)
-	Item._create_item_drop(item, position)
+	ItemDrop.make(item, position)
 	
 	return item
 
@@ -440,25 +432,3 @@ static func get_item_script_path(item_id: int):
 	var path: String = "res://Scenes/Items/Instances/Item%d.gd" % item_id
 
 	return path
-
-
-static func _create_item_drop(item: Item, position: Vector2) -> ItemDrop:
-	var id: int = item.get_id()
-	var rarity: Rarity.enm = ItemProperties.get_rarity(id)
-	var rarity_string: String = Rarity.convert_to_string(rarity)
-	var item_drop_scene_path: String
-	if ItemProperties.get_is_oil(id):
-		item_drop_scene_path = "res://Scenes/Items/RedOil.tscn"
-	else:
-		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
-	var item_drop_scene = _item_drop_scene_map[item_drop_scene_path]
-	var item_drop: ItemDrop = item_drop_scene.instantiate()
-	item_drop.position = position
-	item_drop.visible = item._visible
-
-	item_drop.set_item(item)
-	item_drop.add_child(item)
-
-	Utils.add_object_to_world(item_drop)
-	
-	return item_drop
