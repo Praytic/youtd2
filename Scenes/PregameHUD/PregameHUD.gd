@@ -42,7 +42,7 @@ func _on_submenu_finished():
 		var next_tab: Tab = (_tab_container.current_tab + 1) as Tab
 		var next_tab_control: PregameTab = _tab_container.get_tab_control(next_tab)
 		while next_tab_control != null && !next_tab_control.meets_condition():
-			next_tab += 1
+			next_tab = (next_tab + 1) as Tab
 			next_tab_control = _tab_container.get_tab_control(next_tab)
 		_tab_container.current_tab = next_tab
 

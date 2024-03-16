@@ -216,8 +216,8 @@ func quarter_is_occupied(pos: Vector2) -> bool:
 	return occupied
 
 
-func set_buildable_area_visible(is_visible: bool):
-	_buildable_area.visible = is_visible
+func set_buildable_area_visible(value: bool):
+	_buildable_area.visible = value
 
 
 #########################
