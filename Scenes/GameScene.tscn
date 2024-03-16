@@ -213,7 +213,6 @@ visible = false
 [connection signal="horadric_stash_changed" from="Gameplay/Player" to="." method="_on_player_horadric_stash_changed"]
 [connection signal="item_stash_changed" from="Gameplay/Player" to="." method="_on_player_item_stash_changed"]
 [connection signal="tower_stash_changed" from="Gameplay/Player" to="." method="_on_player_tower_stash_changed"]
-[connection signal="child_entered_tree" from="World/ObjectContainer" to="World/ObjectContainer" method="_on_child_entered_tree"]
 [connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]
