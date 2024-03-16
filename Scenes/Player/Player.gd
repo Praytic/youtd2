@@ -118,7 +118,7 @@ func is_able_to_research(element: Element.enm) -> bool:
 
 # TODO: return actual name
 func get_player_name() -> String:
-	return "Player"
+	return str(_id)
 
 
 func get_id() -> int:

@@ -99,8 +99,8 @@ func _process(_delta: float):
 	if local_player == null:
 		return
 	
-#	TODO: pass list of all players, and separate arg for local player. Game stats needs to display stats for all players, not just for local player.
-	_hud.load_player_stats([local_player])
+	var all_players: Array[Player] = _player_container.get_all_players()
+	_hud.load_player_stats(local_player, all_players)
 
 	var game_time: float = Utils.get_time()
 	_hud.set_game_time(game_time)

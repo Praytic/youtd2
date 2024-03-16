@@ -41,8 +41,8 @@ func disable_next_wave_button():
 	_wave_status.disable_next_wave_button()
 
 
-func load_player_stats(player_list: Array[Player]):
-	_wave_status.load_player_stats(player_list)
+func load_player_stats(local_player: Player, player_list: Array[Player]):
+	_wave_status.load_player_stats(local_player)
 	_game_stats.load_player_stats(player_list)
 
 

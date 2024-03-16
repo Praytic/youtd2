@@ -42,3 +42,12 @@ func get_player(id: int) -> Player:
 	var player: Player = _player_map[id]
 
 	return player
+
+
+func get_all_players() -> Array[Player]:
+	var player_list: Array[Player] = []
+
+	for player in _player_map.values():
+		player_list.append(player)
+		
+	return player_list

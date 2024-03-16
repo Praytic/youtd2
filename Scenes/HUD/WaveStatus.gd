@@ -121,12 +121,8 @@ func set_game_time(time: float):
 	_game_time_label.text = time_string
 
 
-func load_player_stats(player_list: Array[Player]):
-	if player_list.is_empty():
-		return
-	
-#	TODO: when there are multiple players need to get the player which owns the current game client
-	var player: Player = player_list[0]
+func load_player_stats(local_player: Player):
+	var player: Player = local_player
 	
 	var gold_farmed: float = player.get_gold()
 	var gold_farmed_string: String = TowerDetails.int_format(floori(gold_farmed))

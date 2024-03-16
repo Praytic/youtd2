@@ -158,8 +158,8 @@ func disable_next_wave_button():
 	_top_left_menu.disable_next_wave_button()
 
 
-func load_player_stats(player_list: Array[Player]):
-	_top_left_menu.load_player_stats(player_list)
+func load_player_stats(local_player: Player, player_list: Array[Player]):
+	_top_left_menu.load_player_stats(local_player, player_list)
 
 
 func set_game_time(time: float):
