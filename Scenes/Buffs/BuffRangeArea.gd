@@ -44,7 +44,7 @@ func _on_timer_timeout():
 #########################
 
 static func make(radius: float, target_type: TargetType, handler: Callable) -> BuffRangeArea:
-	var buff_range_area: BuffRangeArea = Globals.buff_range_area_scene.instantiate()
+	var buff_range_area: BuffRangeArea = preload("res://Scenes/Buffs/BuffRangeArea.tscn").instantiate()
 	buff_range_area._radius = radius
 	buff_range_area._target_type = target_type
 	buff_range_area._handler = handler

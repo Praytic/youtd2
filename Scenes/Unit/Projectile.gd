@@ -390,7 +390,7 @@ func _start_interpolation_internal(target_unit: Unit, target_pos: Vector2, targe
 
 
 func _do_explosion_visual():
-	var explosion = Globals.explosion_scene.instantiate()
+	var explosion = preload("res://Scenes/Effects/Explosion.tscn").instantiate()
 	explosion.position = position
 	Utils.add_object_to_world(explosion)
 
@@ -700,7 +700,7 @@ static func create_bezier_interpolation_from_unit_to_unit(type: ProjectileType, 
 
 
 static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: float, crit_ratio: float, initial_pos: Vector2) -> Projectile:
-	var projectile: Projectile = Globals.projectile_scene.instantiate()
+	var projectile: Projectile = preload("res://Scenes/Unit/Projectile.tscn").instantiate()
 
 	projectile.set_speed(type._speed)
 	projectile._acceleration = type._acceleration

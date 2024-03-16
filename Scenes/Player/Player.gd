@@ -17,7 +17,7 @@ const MAX_GOLD = 999999
 const INTEREST_GAIN_MAX: int = 1000
 const MAX_KNOWLEDGE_TOMES: int = 999999
 const KNOWLEDGE_TOMES_INCOME: int = 8
-
+const _floating_text_scene: PackedScene = preload("res://Scenes/HUD/FloatingText.tscn")
 
 var _team: Team = Team.new()
 var _total_damage: float = 0
@@ -144,7 +144,7 @@ func get_team() -> Team:
 
 # NOTE: player.displayFloatingTextX() in JASS
 func display_floating_text_x(text: String, unit: Unit, color: Color, velocity: float, fadepoint: float, time: float):
-	var floating_text = Globals.floating_text_scene.instantiate()
+	var floating_text = _floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
 	floating_text.duration = time
@@ -156,7 +156,7 @@ func display_floating_text_x(text: String, unit: Unit, color: Color, velocity: f
 
 # NOTE: player.displayFloatingTextX2() in JASS
 func display_floating_text_x_2(text: String, unit: Unit, color: Color, velocity: float, fadepoint: float, time: float, _scale: float, random_offset: float):
-	var floating_text = Globals.floating_text_scene.instantiate()
+	var floating_text = _floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
 	floating_text.duration = time
@@ -169,7 +169,7 @@ func display_floating_text_x_2(text: String, unit: Unit, color: Color, velocity:
 
 # NOTE: player.displayFloatingText() in JASS
 func display_floating_text(text: String, unit: Unit, color: Color):
-	var floating_text = Globals.floating_text_scene.instantiate()
+	var floating_text = _floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
 	floating_text.position = unit.get_visual_position()
@@ -178,7 +178,7 @@ func display_floating_text(text: String, unit: Unit, color: Color):
 
 # NOTE: player.displaySmallFloatingText() in JASS
 func display_small_floating_text(text: String, unit: Unit, color: Color, random_offset: float):
-	var floating_text = Globals.floating_text_scene.instantiate()
+	var floating_text = _floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
 	floating_text.position = unit.get_visual_position()
@@ -391,7 +391,7 @@ func _on_tower_stash_changed():
 #########################
 
 static func make(id: int) -> Player:
-	var player: Player = Globals.player_scene.instantiate()
+	var player: Player = preload("res://Scenes/Player/Player.tscn").instantiate()
 	player._id = id
 
 	return player

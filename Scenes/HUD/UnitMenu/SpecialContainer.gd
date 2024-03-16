@@ -7,7 +7,7 @@ extends VBoxContainer
 @export var special_description_label: RichTextLabel 
 
 static func make(special_name: String, special_icon: TextureRect, special_description: String) -> SpecialContainer:
-	var special_container: SpecialContainer = Globals.special_container.instantiate()
+	var special_container: SpecialContainer = preload("res://Scenes/HUD/UnitMenu/SpecialContainer.tscn").instantiate()
 	special_container.special_name_label.text = special_name
 	special_container.special_description_label.text = special_description
 	special_icon.custom_minimum_size = Vector2(48, 48)

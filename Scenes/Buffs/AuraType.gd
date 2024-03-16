@@ -19,7 +19,7 @@ var _include_invisible: bool = false
 
 
 func make(caster: Unit) -> Aura:
-	var aura: Aura = Globals.aura_scene.instantiate()
+	var aura: Aura = preload("res://Scenes/Buffs/Aura.tscn").instantiate()
 	aura._aura_range = get_range()
 	aura._target_type = target_type
 	aura._target_self = target_self

@@ -3,4 +3,6 @@ extends Button
 
 
 static func make() -> EmptyUnitButton:
-	return Globals.empty_slot_button_scene.instantiate()
+	var button: EmptyUnitButton = preload("res://Scenes/HUD/Buttons/EmptyUnitButton.tscn").instantiate()
+
+	return button

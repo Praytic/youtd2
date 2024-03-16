@@ -378,7 +378,7 @@ func _on_death(_event: Event):
 		corpse.position = position
 		Utils.add_object_to_world(corpse)
 
-		var blood_pool: Node2D = Globals.blood_pool_scene.instantiate()
+		var blood_pool: Node2D = preload("res://Scenes/Creeps/CreepBloodPool.tscn").instantiate()
 		blood_pool.position = position
 		Utils.add_object_to_world(blood_pool)
 

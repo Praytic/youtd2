@@ -7,6 +7,16 @@ class_name ElementTowersTab extends VBoxContainer
 # Note that tabs load texts/icons for their assigned
 # elements automatically in _ready().
 
+const _element_icons: Dictionary = {
+	Element.enm.ICE: preload("res://Resources/Textures/UI/Icons/ice_icon.tres"),
+	Element.enm.NATURE: preload("res://Resources/Textures/UI/Icons/nature_icon.tres"),
+	Element.enm.ASTRAL: preload("res://Resources/Textures/UI/Icons/astral_icon.tres"),
+	Element.enm.DARKNESS: preload("res://Resources/Textures/UI/Icons/darkness_icon.tres"),
+	Element.enm.FIRE: preload("res://Resources/Textures/UI/Icons/fire_icon.tres"),
+	Element.enm.IRON: preload("res://Resources/Textures/UI/Icons/iron_icon.tres"),
+	Element.enm.STORM: preload("res://Resources/Textures/UI/Icons/storm_icon.tres"),
+}
+
 
 @export var _element: Element.enm
 @export var _title_label: Label
@@ -30,7 +40,7 @@ func _ready():
 	var element_name: String = Element.convert_to_string(_element)
 	_title_label.text = element_name.to_upper()
 
-	var element_icon: Texture2D = Globals.element_icons[_element]
+	var element_icon: Texture2D = _element_icons[_element]
 	_element_icon.texture = element_icon
 
 	_info_label.text = _get_element_info_text()
