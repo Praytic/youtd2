@@ -37,7 +37,7 @@ func _ready():
 # Copies sprite from creep and starts the death animation.
 # NOTE: need to copy original sprite's position and scale to
 # correctly display the same thing.
-func setup_sprite(creep_sprite: CreepSprite, death_animation: String):
+func _setup_sprite(creep_sprite: CreepSprite, death_animation: String):
 	_sprite.sprite_frames = creep_sprite.sprite_frames.duplicate()
 	_sprite.scale = creep_sprite.scale
 	_sprite.position = creep_sprite.position
@@ -63,3 +63,15 @@ func _on_fade_finished():
 # too early before death animation is finished.
 func _on_sprite_2d_animation_finished():
 	add_to_group("corpses")
+
+
+#########################
+###       Static      ###
+#########################
+
+static func make(player: Player, sprite: AnimatedSprite2D, death_animation: String) -> CreepCorpse:
+	var corpse: Node2D = Globals.corpse_scene.instantiate()
+	corpse.set_player(player)
+	corpse._setup_sprite(sprite, death_animation)
+
+	return corpse
