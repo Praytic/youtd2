@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1u2fghaw2oji"]
+[gd_scene load_steps=5 format=3 uid="uid://d1u2fghaw2oji"]
 
 [ext_resource type="Script" path="res://Scenes/Towers/Tower.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://bbq8xnlx68q72" path="res://Scenes/HUD/TowerActions.tscn" id="3_jgb58"]
@@ -8,20 +8,6 @@ bg_color = Color(0.0509804, 0.164706, 0.419608, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfdtb"]
 bg_color = Color(0.278431, 0.388235, 1, 1)
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3vb30"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/sync = true
-properties/0/watch = false
-properties/1/path = NodePath(".:_id")
-properties/1/spawn = true
-properties/1/sync = false
-properties/1/watch = false
-properties/2/path = NodePath(".:_player_id")
-properties/2/spawn = true
-properties/2/sync = false
-properties/2/watch = false
 
 [node name="Tower" type="Node2D"]
 script = ExtResource("2")
@@ -61,6 +47,3 @@ monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/TowerSelectionArea"]
 polygon = PackedVector2Array(-102, 6, 0, 56, 102, 6, 102, -96, 0, -147, -102, -96)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_3vb30")
