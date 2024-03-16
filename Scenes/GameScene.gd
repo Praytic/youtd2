@@ -25,6 +25,8 @@ class_name GameScene extends Node
 
 
 var _prev_effect_id: int = 0
+var _game_over: bool = false
+var _room_code: int = 0
 
 
 #########################
@@ -77,10 +79,9 @@ func _ready():
 	get_tree().set_pause(true)
 	
 	if OS.has_feature("dedicated_server") or DisplayServer.get_name() == "headless":
-		var room_code = _get_cmdline_value("room_code")
-		assert(room_code, "Room code wasn't provided with headless mode enabled.")
-		print("Room code: %s" % room_code)
-		Globals.room_code = room_code
+		_room_code = _get_cmdline_value("room_code")
+		assert(_room_code, "Room code wasn't provided with headless mode enabled.")
+		print("Room code: %s" % _room_code)
 
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 
@@ -546,9 +547,9 @@ func _on_creep_reached_portal(creep: Creep):
 
 	var out_of_lives: bool = local_player.get_team().get_lives_percent() == 0
 	
-	if out_of_lives && !Globals.game_over:
+	if out_of_lives && !_game_over:
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
-		Globals.game_over = true
+		_game_over = true
 
 		_next_wave_timer.stop()
 		_extreme_timer.stop()
@@ -575,7 +576,7 @@ func _on_game_start_timer_timeout():
 
 
 func _on_player_requested_next_wave():
-	if Globals.game_over:
+	if _game_over:
 		Messages.add_error("Can't start next wave because the game is over.")
 
 		return

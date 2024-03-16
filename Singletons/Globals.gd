@@ -9,8 +9,6 @@ enum GameState {
 }
 
 
-var game_over: bool
-var room_code: String
 var _game_state: GameState
 
 # Game settings
@@ -29,8 +27,6 @@ var _builder_allows_adjacent_towers: bool
 
 
 func reset():
-	game_over = false
-
 	_wave_count = Config.default_wave_count()
 	_game_mode = Config.default_game_mode()
 	_player_mode = Config.default_player_mode()
