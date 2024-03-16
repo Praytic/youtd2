@@ -99,8 +99,18 @@ func _build_tower(tower_id: int, player: Player):
 	var visual_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	
-	_add_tower_to_world.rpc(tower_id, build_position, player.get_id())
+	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", build_position)
 	
+	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
+		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
+	
+	_add_tower_to_world.rpc(tower_id, build_position, player.get_id())
+
+
+@rpc("any_peer", "call_local", "reliable")
+func _add_tower_to_world(tower_id: int, build_position: Vector2, player_id: int):
+	var player: Player = _player_container.get_player(player_id)
+
 	player.add_food_for_tower(tower_id)
 	
 	var build_cost: float = TowerProperties.get_cost(tower_id)
@@ -108,20 +118,11 @@ func _build_tower(tower_id: int, player: Player):
 	
 	var tomes_cost: int = TowerProperties.get_tome_cost(tower_id)
 	player.spend_tomes(tomes_cost)
-	
-	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", build_position)
-	
+
 	if Globals.get_game_mode() != GameMode.enm.BUILD:
 		var tower_stash: TowerStash = player.get_tower_stash()
 		tower_stash.remove_tower(tower_id)
-	
-	if Globals.get_game_state() == Globals.GameState.TUTORIAL:
-		HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
 
-
-@rpc("any_peer", "call_local", "reliable")
-func _add_tower_to_world(tower_id: int, build_position: Vector2, player_id: int):
-	var player: Player = _player_container.get_player(player_id)
 	var new_tower: Tower = TowerManager.get_tower(tower_id, player)
 	new_tower.position = build_position
 	
