@@ -1,25 +1,25 @@
 [gd_scene load_steps=4 format=3 uid="uid://cc5f84ah71fsh"]
 
-[ext_resource type="Script" path="res://Scenes/Player.gd" id="1_3uwan"]
-[ext_resource type="Script" path="res://Scenes/Items/ItemContainer.gd" id="2_wxxhl"]
-[ext_resource type="Script" path="res://Scenes/Towers/TowerStash.gd" id="3_et5du"]
+[ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_qsf5w"]
+[ext_resource type="Script" path="res://Scenes/Items/ItemContainer.gd" id="2_ietwb"]
+[ext_resource type="Script" path="res://Scenes/Player/TowerStash.gd" id="3_rmd8h"]
 
 [node name="Player" type="Node" node_paths=PackedStringArray("_item_stash", "_horadric_stash", "_tower_stash")]
-script = ExtResource("1_3uwan")
+script = ExtResource("1_qsf5w")
 _item_stash = NodePath("ItemStash")
 _horadric_stash = NodePath("HoradricStash")
 _tower_stash = NodePath("TowerStash")
 
 [node name="ItemStash" type="Node" parent="."]
-script = ExtResource("2_wxxhl")
+script = ExtResource("2_ietwb")
 _capacity = 1000
 
 [node name="HoradricStash" type="Node" parent="."]
-script = ExtResource("2_wxxhl")
+script = ExtResource("2_ietwb")
 _capacity = 5
 
 [node name="TowerStash" type="Node" parent="."]
-script = ExtResource("3_et5du")
+script = ExtResource("3_rmd8h")
 
 [connection signal="items_changed" from="ItemStash" to="." method="_on_item_stash_items_changed"]
 [connection signal="items_changed" from="HoradricStash" to="." method="_on_horadric_stash_items_changed"]
