@@ -28,6 +28,7 @@ enum GameState {
 @export var _build_tower: BuildTower
 @export var _mouse_state: MouseState
 @export var _tower_preview: TowerPreview
+@export var _horadric_cube: HoradricCube
 
 
 var _game_state: GameState = GameState.PREGAME
@@ -736,9 +737,9 @@ func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: A
 	var local_player: Player = _player_container.get_local_player()
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
-	HoradricCube.autofill(recipe, rarity_filter, item_stash, horadric_stash)
+	_horadric_cube.autofill(recipe, rarity_filter, item_stash, horadric_stash)
 
 
 func _on_player_requested_transmute():
 	var local_player: Player = _player_container.get_local_player()
-	HoradricCube.transmute(local_player)
+	_horadric_cube.transmute(local_player)

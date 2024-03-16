@@ -1,4 +1,4 @@
-class_name HoradricCube extends RefCounted
+class_name HoradricCube extends Node
 
 
 # NOTE: implements transmutation of items. The UI for
@@ -41,7 +41,7 @@ const _bonus_mod_chance_map: Dictionary = {
 ###       Public      ###
 #########################
 
-static func autofill(recipe: HoradricCube.Recipe, rarity_filter: Array, item_stash: ItemContainer, horadric_stash: ItemContainer):
+func autofill(recipe: HoradricCube.Recipe, rarity_filter: Array, item_stash: ItemContainer, horadric_stash: ItemContainer):
 # 	Return current cube contents to item stash. Need to do this first in all cases, doesn't matter if autofill suceeeds or fails later.
 	var horadric_items_initial: Array[Item] = horadric_stash.get_item_list()
 	for item in horadric_items_initial:
@@ -67,7 +67,7 @@ static func autofill(recipe: HoradricCube.Recipe, rarity_filter: Array, item_sta
 		horadric_stash.add_item(item)
 
 
-static func transmute(player: Player):
+func transmute(player: Player):
 	var horadric_stash: ItemContainer = player.get_horadric_stash()
 	var item_list: Array[Item] = horadric_stash.get_item_list()
 	var current_recipe: Recipe = HoradricCube._get_current_recipe(item_list)
