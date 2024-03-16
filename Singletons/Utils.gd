@@ -571,11 +571,11 @@ func get_aoe_damage(aoe_center: Vector2, target: Unit, radius: float, damage: fl
 		return damage
 
 
-func item_id_list_to_item_list(item_id_list: Array[int]) -> Array[Item]:
+func item_id_list_to_item_list(item_id_list: Array[int], player: Player) -> Array[Item]:
 	var item_list: Array[Item] = []
 
 	for item_id in item_id_list:
-		var item: Item = Item.make(item_id)
+		var item: Item = Item.make(item_id, player)
 		item_list.append(item)
 
 	return item_list

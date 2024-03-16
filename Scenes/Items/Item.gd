@@ -46,21 +46,22 @@ var _aura_carrier_buff: BuffType = BuffType.new("", 0, 0, true, self)
 var _triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 var _triggers_buff: Buff = null
 var _inherited_periodic_timers: Dictionary = {}
+var _player: Player = null
 
 
 @onready var _hud: Control = get_tree().get_root().get_node("GameScene/UI/HUD")
-@onready var _owner: Player = get_tree().get_root().get_node("GameScene/Gameplay/Player")
 
 
 #########################
 ###     Built-in      ###
 #########################
 
-func _init(id: int):
+func _init(id: int, player: Player):
 #	NOTE: fix "unused variable" warning
 	_is_oil_and_was_applied_already = _is_oil_and_was_applied_already
 
 	_id = id
+	_player = player
 	load_modifier(_modifier)
 	item_init()
 
@@ -200,12 +201,11 @@ func get_carrier() -> Tower:
 	return _carrier
 
 
-# NOTE: for now just returning the one single player
-# instance since multiplayer isn't implemented.
-# NOTE: item.getOwner() in JASS
+# NOTE: Need to change name to get_player() because
 # Node.get_owner() is a built-in godot f-n
+# NOTE: item.getOwner() in JASS
 func get_player() -> Player:
-	return _owner
+	return _player
 
 
 func get_display_name() -> String:
@@ -409,14 +409,14 @@ func uses_charges() -> bool:
 # Creates item on the ground. Item is stored inside an
 # ItemDrop object.
 # NOTE: Item.create() in JASS
-static func create(_player: Player, item_id: int, position: Vector2) -> Item:
-	var item: Item = Item.make(item_id)
+static func create(player: Player, item_id: int, position: Vector2) -> Item:
+	var item: Item = Item.make(item_id, player)
 	Item._create_item_drop(item, position)
 	
 	return item
 
 
-static func make(id: int) -> Item:
+static func make(id: int, player: Player) -> Item:
 	var item_script_path: String = get_item_script_path(id)
 	var script_exists: bool = ResourceLoader.exists(item_script_path)
 	
@@ -431,7 +431,7 @@ static func make(id: int) -> Item:
 	if item_script == null:
 		return null
 
-	var item: Item = item_script.new(id)
+	var item: Item = item_script.new(id, player)
 
 	return item
 

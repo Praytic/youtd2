@@ -107,6 +107,7 @@ var _autocast_list: Array[Autocast] = []
 var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
 var _buff_groups: Array[String] = []
+var _player: Player = null
 
 var _selection_indicator: Node = null
 var _selection_outline: Node = null
@@ -194,11 +195,6 @@ var _mod_value_map: Dictionary = {
 }
 
 
-@onready var _player: Player = get_tree().get_root().get_node("GameScene/Gameplay/Player")
-
-@export var _player_id: int
-
-
 #########################
 ###     Built-in      ###
 #########################
@@ -209,6 +205,9 @@ func _init():
 			push_error("No default value defined for modification type: ", mod_type)
 
 func _ready():
+	if _player == null:
+		push_error("Unit was not assigned a player. You must assign a player to unit before adding it to tree, using Unit.set_player().")
+
 	_target_bitmask = TargetType.make_unit_bitmask(self)
 
 	_selection_indicator = SelectionIndicator.new()
@@ -240,6 +239,10 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_player(player: Player):
+	_player = player
+
 
 # Removes the most recent buff. Returns true if there was a
 # buff to remove and false otherwise.
@@ -1159,18 +1162,6 @@ func get_autocast_list() -> Array[Autocast]:
 # Node.get_owner() is a built-in godot f-n
 func get_player() -> Player:
 	return _player
-
-
-# NOTE: only used in PlayerMode.COOP mode to let the authority
-# peer know which tower belongs to which player.
-# Player ID can be only one of MultiplayerAPI.get_unique_id of
-# connected peers.
-func get_player_id() -> int:
-	return _player_id
-
-
-func set_player_id(id: int):
-	_player_id = id
 
 
 # NOTE: this is a stub, used in original tower scripts but

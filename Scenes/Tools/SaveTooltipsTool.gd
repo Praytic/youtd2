@@ -14,7 +14,7 @@ class_name SaveTooltipsTool extends Node
 const RESULT_FILENAME: String = "Data/tower_tooltips.csv"
 
 
-static func run():
+static func run(player: Player):
 	print("Saving tooltips...")
 	
 	var tower_id_list: Array = TowerProperties.get_tower_id_list()
@@ -29,7 +29,7 @@ static func run():
 	result_file.store_csv_line(header_line)
 
 	for tower_id in tower_id_list:
-		var tooltip: String = RichTexts.generate_tower_tooltip(tower_id)
+		var tooltip: String = RichTexts.generate_tower_tooltip(tower_id, player)
 		var csv_line: Array[String] = [str(tower_id), tooltip]
 		result_file.store_csv_line(csv_line)
 	

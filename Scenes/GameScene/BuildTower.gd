@@ -6,6 +6,7 @@ class_name BuildTower extends Node
 @export var _mouse_state: MouseState
 @export var _map: Map
 @export var _tower_preview: TowerPreview
+@export var _player_container: PlayerContainer
 
 
 #########################
@@ -120,9 +121,9 @@ func _build_tower(tower_id: int, player: Player):
 
 @rpc("any_peer", "call_local", "reliable")
 func _add_tower_to_world(tower_id: int, build_position: Vector2, player_id: int):
-	var new_tower: Tower = TowerManager.get_tower(tower_id)
+	var player: Player = _player_container.get_player(player_id)
+	var new_tower: Tower = TowerManager.get_tower(tower_id, player)
 	new_tower.position = build_position
-	new_tower.set_player_id(player_id)
 	
 	_map.add_space_occupied_by_tower(new_tower)
 	
@@ -133,7 +134,7 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):
 	player.remove_food_for_tower(prev_tower.get_id())
 	player.add_food_for_tower(new_tower_id)
 
-	var new_tower: Tower = TowerManager.get_tower(new_tower_id)
+	var new_tower: Tower = TowerManager.get_tower(new_tower_id, player)
 	new_tower.position = prev_tower.position
 	new_tower._temp_preceding_tower = prev_tower
 	Utils.add_object_to_world(new_tower)

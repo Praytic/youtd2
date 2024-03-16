@@ -9,11 +9,7 @@ class_name GameScene extends Node
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
-# NOTE: this player instance is the "current player" - the
-# player which is using the current game client. In
-# multiplayer case, the game will create additional player
-# instances.
-@export var _player: Player
+@export var _player_container: PlayerContainer
 @export var _game_start_timer: Timer
 @export var _next_wave_timer: Timer
 @export var _extreme_timer: Timer
@@ -25,6 +21,7 @@ class_name GameScene extends Node
 @export var _select_unit: SelectUnit
 @export var _build_tower: BuildTower
 @export var _mouse_state: MouseState
+@export var _tower_preview: TowerPreview
 
 
 var _prev_effect_id: int = 0
@@ -57,14 +54,6 @@ func _ready():
 	EventBus.player_requested_autofill.connect(_on_player_requested_autofill)
 
 	_select_unit.selected_unit_changed.connect(_on_selected_unit_changed)
-	
-	_hud.set_player(_player)
-	_move_item.set_player(_player)
-
-#	NOTE: below are special tools which are not run during
-#	normal gameplay.
-	if Config.run_save_tooltips_tool():
-		SaveTooltipsTool.run()
 
 	if Config.run_prerender_tool():
 		var running_on_web: bool = OS.get_name() == "Web"
@@ -93,13 +82,6 @@ func _ready():
 		print("Room code: %s" % room_code)
 		Globals.room_code = room_code
 
-	var test_item_list: Array = Config.test_item_list()
-
-	for item_id in test_item_list:
-		var item: Item = Item.make(item_id)
-		var item_stash: ItemContainer = _player.get_item_stash()
-		item_stash.add_item(item)
-
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 
 	if show_pregame_settings_menu:
@@ -112,19 +94,25 @@ func _ready():
 # change multiple times per frame so we need to update them
 # in _process instead of via signals
 func _process(_delta: float):
-	_hud.load_player_stats([_player])
+	var local_player: Player = _player_container.get_local_player()
+	
+	if local_player == null:
+		return
+	
+#	TODO: pass list of all players, and separate arg for local player. Game stats needs to display stats for all players, not just for local player.
+	_hud.load_player_stats([local_player])
 
 	var game_time: float = Utils.get_time()
 	_hud.set_game_time(game_time)
 
-	var gold: float = _player.get_gold()
+	var gold: float = local_player.get_gold()
 	_hud.set_gold(gold)
 
-	var tomes: int = _player.get_tomes()
+	var tomes: int = local_player.get_tomes()
 	_hud.set_tomes(tomes)
 
-	var food: int = _player.get_food()
-	var food_cap: int = _player.get_food_cap()
+	var food: int = local_player.get_food()
+	var food_cap: int = local_player.get_food_cap()
 	_hud.set_food(food, food_cap)
 	
 
@@ -135,6 +123,10 @@ func _unhandled_input(event: InputEvent):
 	var hovered_unit: Unit = _select_unit.get_hovered_unit()
 	var hovered_tower: Tower = hovered_unit as Tower
 	var selected_unit: Unit = _select_unit.get_selected_unit()
+	var local_player: Player = _player_container.get_local_player()
+	
+	if local_player == null:
+		return
 
 	if cancel_pressed:
 #		1. First, any ongoing actions are cancelled
@@ -153,7 +145,7 @@ func _unhandled_input(event: InputEvent):
 				Globals.GameState.PAUSED: _unpause_the_game()
 	elif left_click:
 		match _mouse_state.get_state():
-			MouseState.enm.BUILD_TOWER: _build_tower.try_to_finish(_player)
+			MouseState.enm.BUILD_TOWER: _build_tower.try_to_finish(local_player)
 			MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.finish(_map)
 			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish(hovered_unit)
 			MouseState.enm.MOVE_ITEM:
@@ -222,8 +214,9 @@ func _do_manual_targetting():
 
 # TODO: fix for multiplayer. Add towers to tower stash using rpc.
 func _roll_towers_after_wave_finish():
-	var rolled_towers: Array[int] = TowerDistribution.roll_towers(_player)
-	var tower_stash: TowerStash = _player.get_tower_stash()
+	var local_player: Player = _player_container.get_local_player()
+	var rolled_towers: Array[int] = TowerDistribution.roll_towers(local_player)
+	var tower_stash: TowerStash = local_player.get_tower_stash()
 	tower_stash.add_towers(rolled_towers)
 	
 #	Add messages about new towers
@@ -287,12 +280,32 @@ func _get_cmdline_value(key: String):
 func _transition_from_pregame_settings_state():
 	get_tree().set_pause(false)
 
+#	Create local player and remote players
+	var local_peer_id: int = multiplayer.get_unique_id()
+	var local_player: Player = Player.make(local_peer_id)
+	_player_container.add_player(local_player)
+	print_verbose("Added local player with id: ", local_peer_id)
+	
+	var peer_id_list: PackedInt32Array = multiplayer.get_peers()
+	for peer_id in peer_id_list:
+		var remote_player: Player = Player.make(peer_id)
+		_player_container.add_player(remote_player)
+		print_verbose("Added remote player with id: ", peer_id)
+	
+	local_player.item_stash_changed.connect(_on_local_player_item_stash_changed)
+	local_player.horadric_stash_changed.connect(_on_local_player_horadric_stash_changed)
+	local_player.tower_stash_changed.connect(_on_local_player_tower_stash_changed)
+	_hud.set_player(local_player)
+	_move_item.set_player(local_player)
+	_wave_spawner.set_player(local_player)
+	_tower_preview.set_player(local_player)
+
 	var builder_id: int = Globals.get_builder_id()
 	var builder_instance: Builder = Builder.create_instance(builder_id)
 	add_child(builder_instance)
 	Globals._builder_instance = builder_instance
 
-	builder_instance.apply_to_player(_player)
+	builder_instance.apply_to_player(local_player)
 	
 	var wave_count: int = Globals.get_wave_count()
 	var difficulty: Difficulty.enm = Globals.get_difficulty()
@@ -304,15 +317,15 @@ func _transition_from_pregame_settings_state():
 # 	TODO: fix for multiplayer. I think tutorial should be
 # 	disabled in multiplayer case.
 	if tutorial_enabled:
-		var tutorial_item: Item = Item.make(80)
-		var tutorial_oil: Item = Item.make(1001)
-		var item_stash: ItemContainer = _player.get_item_stash()
+		var tutorial_item: Item = Item.make(80, local_player)
+		var tutorial_oil: Item = Item.make(1001, local_player)
+		var item_stash: ItemContainer = local_player.get_item_stash()
 		item_stash.add_item(tutorial_item)
 		item_stash.add_item(tutorial_oil)
 
 # 	TODO: fix for multiplayer. Add towers to tower stash via rpc call.
 	if game_mode == GameMode.enm.BUILD:
-		var tower_stash: TowerStash = _player.get_tower_stash()
+		var tower_stash: TowerStash = local_player.get_tower_stash()
 		tower_stash.add_all_towers()
 	
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
@@ -329,6 +342,12 @@ func _transition_from_pregame_settings_state():
 
 	if Globals.get_game_mode() == GameMode.enm.BUILD:
 		_hud.hide_roll_towers_button()
+
+	var test_item_list: Array = Config.test_item_list()
+	for item_id in test_item_list:
+		var item: Item = Item.make(item_id, local_player)
+		var item_stash: ItemContainer = local_player.get_item_stash()
+		item_stash.add_item(item)
 
 	if tutorial_enabled:
 		Globals.set_game_state(Globals.GameState.TUTORIAL)
@@ -347,13 +366,20 @@ func _transition_from_tutorial_state():
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
 	_hud.show_game_start_time()
 
+	var local_player: Player = _player_container.get_local_player()
+
+#	NOTE: below are special tools which are not run during
+#	normal gameplay.
+	if Config.run_save_tooltips_tool():
+		SaveTooltipsTool.run(local_player)
+
 #	NOTE: tower tests need to run after everything else has
 #	been initialized
 	if Config.run_test_towers_tool():
-		TestTowersTool.run(self)
+		TestTowersTool.run(self, local_player)
 
 	if Config.run_test_horadric_tool():
-		TestHoradricTool.run()
+		TestHoradricTool.run(local_player)
 
 
 # TODO: move global state into nodes which are children of
@@ -384,8 +410,9 @@ func _start_next_wave():
 	_extreme_timer.stop()
 	_next_wave_timer.stop()
 
-	_player.get_team().increment_level()
-	var level: int = _player.get_team().get_level()
+	var local_player: Player = _player_container.get_local_player()
+	local_player.get_team().increment_level()
+	var level: int = local_player.get_team().get_level()
 
 	_wave_spawner.start_wave(level)
 
@@ -403,7 +430,8 @@ func _start_next_wave():
 
 func _get_next_5_waves() -> Array[Wave]:
 	var wave_list: Array[Wave] = []
-	var current_level: int = _player.get_team().get_level()
+	var local_player: Player = _player_container.get_local_player()
+	var current_level: int = local_player.get_team().get_level()
 	
 	for level in range(current_level, current_level + 6):
 		var wave: Wave = _wave_spawner.get_wave(level)
@@ -456,29 +484,33 @@ func _on_pause_hud_restart_pressed():
 	get_tree().reload_current_scene()
 
 
-func _on_player_item_stash_changed():
-	var item_stash: ItemContainer = _player.get_item_stash()
+func _on_local_player_item_stash_changed():
+	var local_player: Player = _player_container.get_local_player()
+	var item_stash: ItemContainer = local_player.get_item_stash()
 	var item_list: Array[Item] = item_stash.get_item_list()
 	_hud.set_items(item_list)
 
 
-func _on_player_horadric_stash_changed():
-	var horadric_stash: ItemContainer = _player.get_horadric_stash()
+func _on_local_player_horadric_stash_changed():
+	var local_player: Player = _player_container.get_local_player()
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
 	var item_list: Array[Item] = horadric_stash.get_item_list()
 	_hud.set_items_for_horadric_cube(item_list)
 
 
-func _on_player_tower_stash_changed():
-	var tower_stash: TowerStash = _player.get_tower_stash()
+func _on_local_player_tower_stash_changed():
+	var local_player: Player = _player_container.get_local_player()
+	var tower_stash: TowerStash = local_player.get_tower_stash()
 	var towers: Dictionary = tower_stash.get_towers()
 	_hud.set_towers(towers)
 
 
 func _on_wave_finished(level: int):
 	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % level)
-
-	_player.add_income(level)
-	_player.add_tome_income()
+	
+	var local_player: Player = _player_container.get_local_player()
+	local_player.add_income(level)
+	local_player.add_tome_income()
 
 	if Globals.game_mode_is_random():
 		_roll_towers_after_wave_finish()
@@ -488,7 +520,7 @@ func _on_wave_finished(level: int):
 	_hud.show_next_wave_time(Constants.TIME_BETWEEN_WAVES)
 
 	var builder: Builder = Globals.get_builder()
-	builder.apply_wave_finished_effect(_player)
+	builder.apply_wave_finished_effect(local_player)
 
 
 func _on_creep_reached_portal(creep: Creep):
@@ -507,11 +539,12 @@ func _on_creep_reached_portal(creep: Creep):
 	if damage_to_portal > 0:
 		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
 
-	_player.get_team().modify_lives(-damage_to_portal)
+	var local_player: Player = _player_container.get_local_player()
+	local_player.get_team().modify_lives(-damage_to_portal)
 
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 
-	var out_of_lives: bool = _player.get_team().get_lives_percent() == 0
+	var out_of_lives: bool = local_player.get_team().get_lives_percent() == 0
 	
 	if out_of_lives && !Globals.game_over:
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
@@ -568,8 +601,10 @@ func _on_next_wave_timer_timeout():
 func _on_player_requested_to_roll_towers():
 	var researched_any_elements: bool = false
 	
+	var local_player: Player = _player_container.get_local_player()
+	
 	for element in Element.get_list():
-		var researched_element: bool = _player.get_element_level(element)
+		var researched_element: bool = local_player.get_element_level(element)
 		if researched_element:
 			researched_any_elements = true
 	
@@ -578,7 +613,7 @@ func _on_player_requested_to_roll_towers():
 	
 		return
 
-	var tower_count_for_roll: int = _player.get_tower_count_for_starting_roll()
+	var tower_count_for_roll: int = local_player.get_tower_count_for_starting_roll()
 
 	if tower_count_for_roll == 0:
 		Messages.add_error("You cannot reroll towers anymore.")
@@ -587,16 +622,17 @@ func _on_player_requested_to_roll_towers():
 	
 #	TODO: fix for multiplayer. Everything after this point
 #	should be inside rpc call.
-	var tower_stash: TowerStash = _player.get_tower_stash()
+	var tower_stash: TowerStash = local_player.get_tower_stash()
 	tower_stash.clear()
 	
-	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(_player, tower_count_for_roll)
+	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(local_player, tower_count_for_roll)
 	tower_stash.add_towers(rolled_towers)
-	_player.decrement_tower_count_for_starting_roll()
+	local_player.decrement_tower_count_for_starting_roll()
 
 
 func _on_player_requested_to_research_element(element: Element.enm):
-	var current_level: int = _player.get_element_level(element)
+	var local_player: Player = _player_container.get_local_player()
+	var current_level: int = local_player.get_element_level(element)
 	var element_at_max: bool = current_level == Constants.MAX_ELEMENT_LEVEL
 
 	if element_at_max:
@@ -604,23 +640,24 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 		return
 
-	var can_afford_research: bool = _player.can_afford_research(element)
+	var can_afford_research: bool = local_player.can_afford_research(element)
 
 	if !can_afford_research:
 		Messages.add_error("Can't research element. You do not have enough tomes.")
 
 		return
 
-	var cost: int = _player.get_research_cost(element)
-	_player.spend_tomes(cost)
-	_player.increment_element_level(element)
+	var cost: int = local_player.get_research_cost(element)
+	local_player.spend_tomes(cost)
+	local_player.increment_element_level(element)
 
-	var new_element_levels: Dictionary = _player.get_element_level_map()
+	var new_element_levels: Dictionary = local_player.get_element_level_map()
 	_hud.update_element_level(new_element_levels)
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
-	_build_tower.start(tower_id, _player)
+	var local_player: Player = _player_container.get_local_player()
+	_build_tower.start(tower_id, local_player)
 
 
 func _on_player_requested_to_upgrade_tower(tower: Tower):
@@ -632,14 +669,16 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 
 		return
 
-	var enough_gold: bool = _player.enough_gold_for_tower(upgrade_id)
+	var local_player: Player = _player_container.get_local_player()
+
+	var enough_gold: bool = local_player.enough_gold_for_tower(upgrade_id)
 
 	if !enough_gold:
 		Messages.add_error("Not enough gold.")
 
 		return
 
-	var upgrade_tower: Tower = TowerManager.get_tower(upgrade_id)
+	var upgrade_tower: Tower = TowerManager.get_tower(upgrade_id, local_player)
 	upgrade_tower.position = tower.position
 	upgrade_tower._temp_preceding_tower = tower
 	Utils.add_object_to_world(upgrade_tower)
@@ -649,8 +688,8 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 
 	var refund_for_prev_tier: float = TowerProperties.get_cost(prev_id)
 	var upgrade_cost: float = TowerProperties.get_cost(upgrade_id)
-	_player.add_gold(refund_for_prev_tier)
-	_player.spend_gold(upgrade_cost)
+	local_player.add_gold(refund_for_prev_tier)
+	local_player.spend_gold(upgrade_cost)
 
 
 func _on_player_requested_to_sell_tower(tower: Tower):
@@ -665,8 +704,9 @@ func _on_player_requested_to_sell_tower(tower: Tower):
 
 	var tower_id: int = tower.get_id()
 	var sell_price: int = TowerProperties.get_sell_price(tower_id)
-	_player.give_gold(sell_price, tower, false, true)
-	_player.remove_food_for_tower(tower_id)
+	var local_player: Player = _player_container.get_local_player()
+	local_player.give_gold(sell_price, tower, false, true)
+	local_player.remove_food_for_tower(tower_id)
 
 	_map.clear_space_occupied_by_tower(tower)
 
@@ -687,11 +727,12 @@ func _on_selected_unit_changed(_prev_unit: Unit):
 
 
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
-	var item_stash: ItemContainer = _player.get_item_stash()
-	var horadric_stash: ItemContainer = _player.get_horadric_stash()
+	var local_player: Player = _player_container.get_local_player()
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
 	HoradricCube.autofill(recipe, rarity_filter, item_stash, horadric_stash)
 
 
 func _on_player_requested_transmute():
-	var horadric_stash: ItemContainer = _player.get_horadric_stash()
-	HoradricCube.transmute(horadric_stash)
+	var local_player: Player = _player_container.get_local_player()
+	HoradricCube.transmute(local_player)

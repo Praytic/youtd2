@@ -11,6 +11,10 @@ var _current_wave: Wave = null
 ###       Public      ###
 #########################
 
+func set_player(player: Player):
+	_creep_spawner.set_player(player)
+
+
 func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	for wave_level in range(1, wave_count + 1):
 		var wave: Wave = Wave.new(wave_level, difficulty)

@@ -123,7 +123,7 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 	if Config.use_saved_tooltips():
 		text = get_generated_tower_tooltip_with_tower_requirements(tower_id, player)
 	else:
-		text = generate_tower_tooltip(tower_id)
+		text = generate_tower_tooltip(tower_id, player)
 	
 	return text
 
@@ -141,7 +141,7 @@ func get_tower_text(tower_id: int, player: Player) -> String:
 # requirements text and gold, tome and food costs. These
 # parts are prepended in
 # get_generated_tower_tooltip_with_tower_requirements().
-func generate_tower_tooltip(tower_id: int) -> String:
+func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 	var text: String = ""
 	
 	var description: String = TowerProperties.get_description(tower_id)
@@ -158,7 +158,7 @@ func generate_tower_tooltip(tower_id: int) -> String:
 # 	text is weird, but the alternatives are worse. Need to
 # 	call init_stats_and_specials() and tower_init() so that
 # 	tower initializes all the info needed for tooltips.
-	var tower: Tower = TowerManager.get_tower(tower_id)
+	var tower: Tower = TowerManager.get_tower(tower_id, player)
 	tower.init_stats_and_specials()
 	tower.tower_init()
 	var specials_text: String = tower.get_specials_tooltip_text()

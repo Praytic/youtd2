@@ -67,7 +67,8 @@ static func autofill(recipe: HoradricCube.Recipe, rarity_filter: Array, item_sta
 		horadric_stash.add_item(item)
 
 
-static func transmute(horadric_stash: ItemContainer):
+static func transmute(player: Player):
+	var horadric_stash: ItemContainer = player.get_horadric_stash()
 	var item_list: Array[Item] = horadric_stash.get_item_list()
 	var current_recipe: Recipe = HoradricCube._get_current_recipe(item_list)
 	
@@ -81,7 +82,7 @@ static func transmute(horadric_stash: ItemContainer):
 		
 		return
 
-	var result_list: Array[Item] = Utils.item_id_list_to_item_list(result_item_id_list)
+	var result_list: Array[Item] = Utils.item_id_list_to_item_list(result_item_id_list, player)
 
 	for item in item_list:
 		horadric_stash.remove_item(item)

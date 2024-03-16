@@ -18,6 +18,12 @@ var _tower_instance: Node2D = null
 @export var _pedestal_left: Polygon2D
 @export var _range_indicator_container: Node2D
 
+var _player: Player = null
+
+
+func set_player(player: Player):
+	_player = player
+
 
 func set_tower(tower_id: int):
 	if _tower_instance != null:
@@ -31,7 +37,7 @@ func set_tower(tower_id: int):
 	_tower_id = tower_id
 	
 	var is_tower_preview: bool = true
-	_tower_instance = TowerManager.get_tower(tower_id, is_tower_preview)
+	_tower_instance = TowerManager.get_tower(tower_id, _player, is_tower_preview)
 	add_child(_tower_instance)
 	
 #	NOTE: have to init stats because they are used inside

@@ -30,6 +30,7 @@ var _interest_rate: float = 0.05
 var _gold: float = Config.starting_gold()
 var _gold_farmed: float = 0
 var _tomes: int = Config.starting_tomes()
+var _id: int = -1
 
 
 @export var _item_stash: ItemContainer
@@ -121,7 +122,7 @@ func get_player_name() -> String:
 
 
 func get_id() -> int:
-	return multiplayer.get_unique_id()
+	return _id
 
 
 # TODO: return actual score
@@ -383,3 +384,14 @@ func _on_horadric_stash_items_changed():
 
 func _on_tower_stash_changed():
 	tower_stash_changed.emit()
+
+
+#########################
+###       Static      ###
+#########################
+
+static func make(id: int) -> Player:
+	var player: Player = Globals.player_scene.instantiate()
+	player._id = id
+
+	return player

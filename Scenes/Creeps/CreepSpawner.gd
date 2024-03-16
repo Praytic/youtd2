@@ -62,6 +62,7 @@ var _creep_scenes: Dictionary
 var _creep_spawn_queue: Array[CreepData]
 var _background_load_queue: Array[String] = []
 var _background_load_in_progress: bool = false
+var _player: Player = null
 
 @export var _timer_between_creeps: Timer
 
@@ -89,6 +90,11 @@ func _process(_delta: float):
 #########################
 ###       Public      ###
 #########################
+
+
+func set_player(player: Player):
+	_player = player
+
 
 # Go through all waves to get the order in which creep
 # scenes are used. Need this order to do background loading
@@ -154,6 +160,7 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 
 	var creep_health: float = CreepSpawner.get_creep_health(wave, creep_size)
 
+	creep.set_player(_player)
 	creep.set_path(wave.get_wave_path())
 	creep.set_creep_size(creep_size)
 	creep.set_armor_type(wave.get_armor_type())

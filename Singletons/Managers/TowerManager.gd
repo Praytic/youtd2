@@ -37,7 +37,7 @@ func _ready():
 # script for tower and attach to scene. Script name matches
 # with scene name so this can be done automatically instead
 # of having to do it by hand in scene editor.
-func get_tower(id: int, is_tower_preview: bool = false) -> Tower:
+func get_tower(id: int, player: Player, is_tower_preview: bool = false) -> Tower:
 	var loaded_already: bool = preloaded_towers.has(id)
 
 	if !loaded_already:
@@ -50,6 +50,7 @@ func get_tower(id: int, is_tower_preview: bool = false) -> Tower:
 	var tower_script: Variant = _get_tower_script(id)
 	tower.set_script(tower_script)
 	tower.set_id(id)
+	tower.set_player(player)
 
 	if is_tower_preview:
 		tower.set_is_tower_preview()

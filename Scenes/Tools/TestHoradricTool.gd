@@ -4,8 +4,11 @@ class_name TestHoradricTool extends Node
 # Enable by adding "config/run_test_horadric_tool=true" to
 # override.cfg
 
+static var _player: Player = null
 
-static func run():
+
+static func run(player: Player):
+	TestHoradricTool._player = player
 	test_get_item_list_for_autofill()
 	test_get_result_item_for_recipe()
 	TestTool.print_totals()
@@ -62,7 +65,7 @@ static func test_get_item_list_for_autofill():
 	var test_case_function: Callable = func(test_case: TestCase_get_item_list_for_autofill):
 		var recipe: HoradricCube.Recipe = test_case.recipe
 		var ingredient_list: Array[int] = test_case.ingredient_list
-		var ingredient_item_list: Array[Item] = Utils.item_id_list_to_item_list(ingredient_list)
+		var ingredient_item_list: Array[Item] = Utils.item_id_list_to_item_list(ingredient_list, _player)
 		var expected_result_list: Array[int] = test_case.expected_result_list
 		var actual_result_item_list: Array[Item] = HoradricCube._get_item_list_for_autofill(recipe, ingredient_item_list)
 		var actual_result_list: Array[int] = Utils.item_list_to_item_id_list(actual_result_item_list)
@@ -108,7 +111,7 @@ static func test_get_result_item_for_recipe():
 	var test_case_function: Callable = func(test_case: TestCase_get_result_item_for_recipe):
 		var recipe: HoradricCube.Recipe = test_case.recipe
 		var ingredient_id_list: Array[int] = test_case.ingredient_list
-		var ingredient_item_list: Array[Item] = Utils.item_id_list_to_item_list(ingredient_id_list)
+		var ingredient_item_list: Array[Item] = Utils.item_id_list_to_item_list(ingredient_id_list, _player)
 		var result_item_list: Array[int] = HoradricCube._get_result_item_for_recipe(recipe, ingredient_item_list)
 
 		var expected_result_count: int = test_case.expected_result_count

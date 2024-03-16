@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://cc5f84ah71fsh" path="res://Scenes/Player/Player.tscn" id="2_y1p6u"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
+[ext_resource type="Script" path="res://Scenes/GameScene/PlayerContainer.gd" id="3_ieclh"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="5_pan23"]
 [ext_resource type="Shader" path="res://Resources/Shaders/FoggyCamera.gdshader" id="5_qgk1p"]
@@ -45,7 +45,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_player_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview")]
 process_mode = 3
 script = ExtResource("9")
 _pregame_hud = NodePath("UI/PregameHUD")
@@ -56,7 +56,7 @@ _wave_spawner = NodePath("Gameplay/WaveSpawner")
 _tutorial_menu = NodePath("UI/TutorialMenu")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("World/Camera2D")
-_player = NodePath("Gameplay/Player")
+_player_container = NodePath("Gameplay/PlayerContainer")
 _game_start_timer = NodePath("Gameplay/GameStartTimer")
 _next_wave_timer = NodePath("Gameplay/NextWaveTimer")
 _extreme_timer = NodePath("Gameplay/ExtremeTimer")
@@ -68,6 +68,7 @@ _move_item = NodePath("Gameplay/MoveItem")
 _select_unit = NodePath("Gameplay/SelectUnit")
 _build_tower = NodePath("Gameplay/BuildTower")
 _mouse_state = NodePath("Gameplay/MouseState")
+_tower_preview = NodePath("World/TowerPreview")
 
 [node name="Gameplay" type="Node" parent="."]
 
@@ -81,7 +82,8 @@ one_shot = true
 
 [node name="ExtremeTimer" type="Timer" parent="Gameplay"]
 
-[node name="Player" parent="Gameplay" instance=ExtResource("2_y1p6u")]
+[node name="PlayerContainer" type="Node" parent="Gameplay"]
+script = ExtResource("3_ieclh")
 
 [node name="WaveSpawner" parent="Gameplay" instance=ExtResource("5_pan23")]
 process_mode = 1
@@ -107,11 +109,12 @@ _mouse_state = NodePath("../MouseState")
 script = ExtResource("10_qbku7")
 _mouse_state = NodePath("../MouseState")
 
-[node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_tower_preview")]
+[node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_tower_preview", "_player_container")]
 script = ExtResource("12_1xrfo")
 _mouse_state = NodePath("../MouseState")
 _map = NodePath("../../World/Map")
 _tower_preview = NodePath("../../World/TowerPreview")
+_player_container = NodePath("../PlayerContainer")
 
 [node name="MouseState" type="Node" parent="Gameplay"]
 script = ExtResource("12_mmgdj")
@@ -210,9 +213,6 @@ visible = false
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="timeout" from="Gameplay/NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
 [connection signal="timeout" from="Gameplay/ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
-[connection signal="horadric_stash_changed" from="Gameplay/Player" to="." method="_on_player_horadric_stash_changed"]
-[connection signal="item_stash_changed" from="Gameplay/Player" to="." method="_on_player_item_stash_changed"]
-[connection signal="tower_stash_changed" from="Gameplay/Player" to="." method="_on_player_tower_stash_changed"]
 [connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]

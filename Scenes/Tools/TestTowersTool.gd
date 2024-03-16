@@ -6,7 +6,7 @@ class_name TestTowersTool extends Node
 # require opening each tower script in editor.
 
 
-static func run(gamescene: Node):
+static func run(gamescene: Node, player: Player):
 	var scene_tree: SceneTree = gamescene.get_tree()
 	var tower_id_list: Array = TowerProperties.get_tower_id_list()
 
@@ -25,7 +25,7 @@ static func run(gamescene: Node):
 		await scene_tree.create_timer(0.01).timeout
 
 #		Test building tower
-		var tower: Tower = TowerManager.get_tower(tower_id)
+		var tower: Tower = TowerManager.get_tower(tower_id, player)
 		tower.position = Vector2(123, 123)
 		Utils.add_object_to_world(tower)
 		await scene_tree.create_timer(0.01).timeout

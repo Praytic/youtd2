@@ -28,6 +28,7 @@ const range_indicator_scene: PackedScene = preload("res://Scenes/Towers/RangeInd
 const button_with_rich_tooltip_scene: PackedScene = preload("res://Scenes/HUD/ButtonWithRichTooltip.tscn")
 const outline_shader: Material = preload("res://Resources/Shaders/GlowingOutline.material")
 const special_container: PackedScene = preload("res://Scenes/HUD/UnitMenu/SpecialContainer.tscn")
+const player_scene: PackedScene = preload("res://Scenes/Player/Player.tscn")
 const element_icons: Dictionary = {
 	Element.enm.ICE: preload("res://Resources/Textures/UI/Icons/ice_icon.tres"),
 	Element.enm.NATURE: preload("res://Resources/Textures/UI/Icons/nature_icon.tres"),
