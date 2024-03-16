@@ -154,6 +154,7 @@ func _unlock_tower_buttons_if_possible():
 		if can_build_tower:
 			button.unlock()
 
+			HighlightUI.register_target("tower_stash", self, true)
 			HighlightUI.register_target("tower_stash_unlocked", self, true)
 			HighlightUI.register_target("tower_placed_on_map", self, true)
 			button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash_unlocked"))
