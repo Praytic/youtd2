@@ -1,15 +1,6 @@
 extends Node
 
 
-enum GameState {
-	PREGAME,
-	PLAYING,
-	PAUSED,
-}
-
-
-var _game_state: GameState
-
 # Game settings
 var _wave_count: int
 var _game_mode: GameMode.enm
@@ -37,14 +28,6 @@ func reset():
 	_builder_tower_lvl_bonus = 0
 	_builder_item_slots_bonus = 0
 	_builder_allows_adjacent_towers = true
-
-
-func set_game_state(value: GameState):
-	_game_state = value
-
-
-func get_game_state() -> GameState:
-	return _game_state
 
 
 func get_builder() -> Builder:

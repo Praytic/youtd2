@@ -1,6 +1,12 @@
 class_name GameScene extends Node
 
 
+enum GameState {
+	PREGAME,
+	PLAYING,
+	PAUSED,
+}
+
 @export var _pregame_hud: Control
 @export var _pause_hud: Control
 @export var _hud: HUD
@@ -24,6 +30,7 @@ class_name GameScene extends Node
 @export var _tower_preview: TowerPreview
 
 
+var _game_state: GameState = GameState.PREGAME
 var _prev_effect_id: int = 0
 var _game_over: bool = false
 var _room_code: int = 0
@@ -62,7 +69,6 @@ func _ready():
 
 		if !running_on_web:
 			PrerenderTool.run(self, _ui_canvas_layer, _map)
-			Globals.set_game_state(Globals.GameState.PREGAME)
 
 #			NOTE: do early return here so that the game is
 #			not paused and we can take pictures of the map
@@ -75,7 +81,6 @@ func _ready():
 	Settings.changed.connect(_on_settings_changed)
 	_on_settings_changed()
 
-	Globals.set_game_state(Globals.GameState.PREGAME)
 	get_tree().set_pause(true)
 	
 	if OS.has_feature("dedicated_server") or DisplayServer.get_name() == "headless":
@@ -141,9 +146,9 @@ func _unhandled_input(event: InputEvent):
 		elif selected_unit != null:
 			_select_unit.set_selected_unit(null)
 		else:
-			match Globals.get_game_state():
-				Globals.GameState.PLAYING: _pause_the_game()
-				Globals.GameState.PAUSED: _unpause_the_game()
+			match _game_state:
+				GameState.PLAYING: _pause_the_game()
+				GameState.PAUSED: _unpause_the_game()
 	elif left_click:
 		match _mouse_state.get_state():
 			MouseState.enm.BUILD_TOWER: _build_tower.try_to_finish(local_player)
@@ -245,13 +250,13 @@ func _roll_towers_after_wave_finish():
 func _pause_the_game():
 	_game_time.set_enabled(false)
 
-	Globals.set_game_state(Globals.GameState.PAUSED)
+	_game_state = GameState.PAUSED
 	get_tree().set_pause(true)
 	_pause_hud.show()
 
 
 func _unpause_the_game():
-	Globals.set_game_state(Globals.GameState.PLAYING)
+	_game_state = GameState.PLAYING
 	get_tree().set_pause(false)
 	_pause_hud.hide()
 	_game_time.set_enabled(true)
@@ -350,7 +355,7 @@ func _transition_from_pregame_settings_state():
 		var item_stash: ItemContainer = local_player.get_item_stash()
 		item_stash.add_item(item)
 
-	Globals.set_game_state(Globals.GameState.PLAYING)
+	_game_state = GameState.PLAYING
 
 	if tutorial_enabled:
 		_tutorial_menu.start_tutorial(game_mode)
