@@ -1,7 +1,11 @@
 class_name Player extends Node
 
 # Class representing the player that owns towers. Used for
-# multiplayer purposes. 
+# multiplayer purposes.
+
+signal item_stash_changed()
+signal horadric_stash_changed()
+signal tower_stash_changed()
 
 
 const STARTING_ELEMENT_COST = 20
@@ -28,6 +32,10 @@ var _gold_farmed: float = 0
 var _tomes: int = Config.starting_tomes()
 
 
+@export var _item_stash: ItemContainer
+@export var _horadric_stash: ItemContainer
+@export var _tower_stash: TowerStash
+
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/World/FloatingTextContainer")
 
 
@@ -43,6 +51,18 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+
+func get_item_stash() -> ItemContainer:
+	return _item_stash
+
+
+func get_horadric_stash() -> ItemContainer:
+	return _horadric_stash
+
+
+func get_tower_stash() -> TowerStash:
+	return _tower_stash
 
 
 func get_tower_count_for_starting_roll() -> int:
@@ -351,3 +371,15 @@ func _set_gold(value: float):
 
 func _set_tomes(value):
 	_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
+
+
+func _on_item_stash_items_changed():
+	item_stash_changed.emit()
+
+
+func _on_horadric_stash_items_changed():
+	horadric_stash_changed.emit()
+
+
+func _on_tower_stash_changed():
+	tower_stash_changed.emit()

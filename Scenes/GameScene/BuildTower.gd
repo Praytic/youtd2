@@ -32,7 +32,7 @@ func start(tower_id: int, player: Player):
 	_map.set_buildable_area_visible(true)
 
 
-func try_to_finish(player: Player, tower_stash: TowerStash):
+func try_to_finish(player: Player):
 	var tower_id: int = _tower_preview.get_tower_id()
 	var can_build: bool = _map.can_build_at_mouse_pos()
 	var can_transform: bool = _map.can_transform_at_mouse_pos()
@@ -55,7 +55,7 @@ func try_to_finish(player: Player, tower_stash: TowerStash):
 		_transform_tower(tower_id, tower_under_mouse, player)
 		cancel()
 	else:
-		_build_tower(tower_id, player, tower_stash)
+		_build_tower(tower_id, player)
 		cancel()
 
 
@@ -94,7 +94,7 @@ func _add_error_about_building_tower(tower_id: int, player: Player):
 		Messages.add_error("Not enough food.")
 
 
-func _build_tower(tower_id: int, player: Player, tower_stash: TowerStash):
+func _build_tower(tower_id: int, player: Player):
 	var visual_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	
@@ -111,6 +111,7 @@ func _build_tower(tower_id: int, player: Player, tower_stash: TowerStash):
 	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", build_position)
 	
 	if Globals.get_game_mode() != GameMode.enm.BUILD:
+		var tower_stash: TowerStash = player.get_tower_stash()
 		tower_stash.remove_tower(tower_id)
 	
 	if Globals.get_game_state() == Globals.GameState.TUTORIAL:

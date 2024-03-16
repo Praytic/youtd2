@@ -1,14 +1,13 @@
-[gd_scene load_steps=28 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=26 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://cc5f84ah71fsh" path="res://Scenes/Player.tscn" id="2_y1p6u"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
-[ext_resource type="Script" path="res://Scenes/Items/ItemContainer.gd" id="3_twxg6"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="5_pan23"]
 [ext_resource type="Shader" path="res://Resources/Shaders/FoggyCamera.gdshader" id="5_qgk1p"]
 [ext_resource type="PackedScene" uid="uid://bprw8bivb1mcc" path="res://Scenes/AudioPlayerPool.tscn" id="5_rin5y"]
-[ext_resource type="Script" path="res://Scenes/Player.gd" id="6_y63oe"]
 [ext_resource type="Shader" path="res://Resources/Shaders/SaturationBurn.gdshader" id="7_gxbw6"]
 [ext_resource type="Script" path="res://Scenes/GameScene/SelectUnit.gd" id="8_b8m2t"]
 [ext_resource type="PackedScene" uid="uid://d1xny6jmxj5i6" path="res://Scenes/PregameHUD/PregameHUD.tscn" id="8_idpxe"]
@@ -21,7 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="11_0qewd"]
 [ext_resource type="Script" path="res://Scenes/GameScene/BuildTower.gd" id="12_1xrfo"]
 [ext_resource type="Script" path="res://Scenes/GameScene/MouseState.gd" id="12_mmgdj"]
-[ext_resource type="PackedScene" uid="uid://clk0cpjpixjsk" path="res://Scenes/Towers/TowerStash.tscn" id="15_fssku"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 
 [sub_resource type="Curve2D" id="1"]
@@ -47,7 +45,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_item_stash", "_horadric_stash", "_tower_stash", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_pregame_hud", "_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_player", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state")]
 process_mode = 3
 script = ExtResource("9")
 _pregame_hud = NodePath("UI/PregameHUD")
@@ -58,9 +56,6 @@ _wave_spawner = NodePath("Gameplay/WaveSpawner")
 _tutorial_menu = NodePath("UI/TutorialMenu")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("World/Camera2D")
-_item_stash = NodePath("Gameplay/Player/ItemStash")
-_horadric_stash = NodePath("Gameplay/Player/HoradricStash")
-_tower_stash = NodePath("Gameplay/Player/TowerStash")
 _player = NodePath("Gameplay/Player")
 _game_start_timer = NodePath("Gameplay/GameStartTimer")
 _next_wave_timer = NodePath("Gameplay/NextWaveTimer")
@@ -86,18 +81,7 @@ one_shot = true
 
 [node name="ExtremeTimer" type="Timer" parent="Gameplay"]
 
-[node name="Player" type="Node" parent="Gameplay"]
-script = ExtResource("6_y63oe")
-
-[node name="ItemStash" type="Node" parent="Gameplay/Player"]
-script = ExtResource("3_twxg6")
-_capacity = 1000
-
-[node name="HoradricStash" type="Node" parent="Gameplay/Player"]
-script = ExtResource("3_twxg6")
-_capacity = 5
-
-[node name="TowerStash" parent="Gameplay/Player" instance=ExtResource("15_fssku")]
+[node name="Player" parent="Gameplay" instance=ExtResource("2_y1p6u")]
 
 [node name="WaveSpawner" parent="Gameplay" instance=ExtResource("5_pan23")]
 process_mode = 1
@@ -226,9 +210,9 @@ visible = false
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="timeout" from="Gameplay/NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
 [connection signal="timeout" from="Gameplay/ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
-[connection signal="items_changed" from="Gameplay/Player/ItemStash" to="." method="_on_item_stash_items_changed"]
-[connection signal="items_changed" from="Gameplay/Player/HoradricStash" to="." method="_on_horadric_stash_items_changed"]
-[connection signal="changed" from="Gameplay/Player/TowerStash" to="." method="_on_tower_stash_changed"]
+[connection signal="horadric_stash_changed" from="Gameplay/Player" to="." method="_on_player_horadric_stash_changed"]
+[connection signal="item_stash_changed" from="Gameplay/Player" to="." method="_on_player_item_stash_changed"]
+[connection signal="tower_stash_changed" from="Gameplay/Player" to="." method="_on_player_tower_stash_changed"]
 [connection signal="child_entered_tree" from="World/ObjectContainer" to="World/ObjectContainer" method="_on_child_entered_tree"]
 [connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]

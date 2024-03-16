@@ -9,9 +9,10 @@ class_name GameScene extends Node
 @export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
-@export var _item_stash: ItemContainer
-@export var _horadric_stash: ItemContainer
-@export var _tower_stash: TowerStash
+# NOTE: this player instance is the "current player" - the
+# player which is using the current game client. In
+# multiplayer case, the game will create additional player
+# instances.
 @export var _player: Player
 @export var _game_start_timer: Timer
 @export var _next_wave_timer: Timer
@@ -58,7 +59,7 @@ func _ready():
 	_select_unit.selected_unit_changed.connect(_on_selected_unit_changed)
 	
 	_hud.set_player(_player)
-	_move_item.set_item_stashes(_item_stash, _horadric_stash)
+	_move_item.set_player(_player)
 
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
@@ -96,7 +97,8 @@ func _ready():
 
 	for item_id in test_item_list:
 		var item: Item = Item.make(item_id)
-		_item_stash.add_item(item)
+		var item_stash: ItemContainer = _player.get_item_stash()
+		item_stash.add_item(item)
 
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 
@@ -151,7 +153,7 @@ func _unhandled_input(event: InputEvent):
 				Globals.GameState.PAUSED: _unpause_the_game()
 	elif left_click:
 		match _mouse_state.get_state():
-			MouseState.enm.BUILD_TOWER: _build_tower.try_to_finish(_player, _tower_stash)
+			MouseState.enm.BUILD_TOWER: _build_tower.try_to_finish(_player)
 			MouseState.enm.SELECT_POINT_FOR_CAST: _select_point_for_cast.finish(_map)
 			MouseState.enm.SELECT_TARGET_FOR_CAST: _select_target_for_cast.finish(hovered_unit)
 			MouseState.enm.MOVE_ITEM:
@@ -218,9 +220,11 @@ func _do_manual_targetting():
 	_prev_effect_id = effect
 
 
+# TODO: fix for multiplayer. Add towers to tower stash using rpc.
 func _roll_towers_after_wave_finish():
 	var rolled_towers: Array[int] = TowerDistribution.roll_towers(_player)
-	_tower_stash.add_towers(rolled_towers)
+	var tower_stash: TowerStash = _player.get_tower_stash()
+	tower_stash.add_towers(rolled_towers)
 	
 #	Add messages about new towers
 	Messages.add_normal("New towers were added to stash:")
@@ -297,14 +301,19 @@ func _transition_from_pregame_settings_state():
 	
 	_hud.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
 	
+# 	TODO: fix for multiplayer. I think tutorial should be
+# 	disabled in multiplayer case.
 	if tutorial_enabled:
 		var tutorial_item: Item = Item.make(80)
 		var tutorial_oil: Item = Item.make(1001)
-		_item_stash.add_item(tutorial_item)
-		_item_stash.add_item(tutorial_oil)
+		var item_stash: ItemContainer = _player.get_item_stash()
+		item_stash.add_item(tutorial_item)
+		item_stash.add_item(tutorial_oil)
 
+# 	TODO: fix for multiplayer. Add towers to tower stash via rpc call.
 	if game_mode == GameMode.enm.BUILD:
-		_tower_stash.add_all_towers()
+		var tower_stash: TowerStash = _player.get_tower_stash()
+		tower_stash.add_all_towers()
 	
 	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
 	var game_mode_string: String = GameMode.convert_to_string(game_mode)
@@ -447,18 +456,21 @@ func _on_pause_hud_restart_pressed():
 	get_tree().reload_current_scene()
 
 
-func _on_item_stash_items_changed():
-	var item_list: Array[Item] = _item_stash.get_item_list()
+func _on_player_item_stash_changed():
+	var item_stash: ItemContainer = _player.get_item_stash()
+	var item_list: Array[Item] = item_stash.get_item_list()
 	_hud.set_items(item_list)
 
 
-func _on_horadric_stash_items_changed():
-	var item_list: Array[Item] = _horadric_stash.get_item_list()
+func _on_player_horadric_stash_changed():
+	var horadric_stash: ItemContainer = _player.get_horadric_stash()
+	var item_list: Array[Item] = horadric_stash.get_item_list()
 	_hud.set_items_for_horadric_cube(item_list)
 
 
-func _on_tower_stash_changed():
-	var towers: Dictionary = _tower_stash.get_towers()
+func _on_player_tower_stash_changed():
+	var tower_stash: TowerStash = _player.get_tower_stash()
+	var towers: Dictionary = tower_stash.get_towers()
 	_hud.set_towers(towers)
 
 
@@ -572,11 +584,14 @@ func _on_player_requested_to_roll_towers():
 		Messages.add_error("You cannot reroll towers anymore.")
 	
 		return
-
-	_tower_stash.clear()
+	
+#	TODO: fix for multiplayer. Everything after this point
+#	should be inside rpc call.
+	var tower_stash: TowerStash = _player.get_tower_stash()
+	tower_stash.clear()
 	
 	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(_player, tower_count_for_roll)
-	_tower_stash.add_towers(rolled_towers)
+	tower_stash.add_towers(rolled_towers)
 	_player.decrement_tower_count_for_starting_roll()
 
 
@@ -672,8 +687,11 @@ func _on_selected_unit_changed(_prev_unit: Unit):
 
 
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
-	HoradricCube.autofill(recipe, rarity_filter, _item_stash, _horadric_stash)
+	var item_stash: ItemContainer = _player.get_item_stash()
+	var horadric_stash: ItemContainer = _player.get_horadric_stash()
+	HoradricCube.autofill(recipe, rarity_filter, item_stash, horadric_stash)
 
 
 func _on_player_requested_transmute():
-	HoradricCube.transmute(_horadric_stash)
+	var horadric_stash: ItemContainer = _player.get_horadric_stash()
+	HoradricCube.transmute(horadric_stash)

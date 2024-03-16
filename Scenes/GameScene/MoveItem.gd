@@ -36,9 +36,10 @@ func _ready():
 ###       Public      ###
 #########################
 
-func set_item_stashes(item_stash: ItemContainer, horadric_stash: ItemContainer):
-	_item_stash = item_stash
-	_horadric_stash = horadric_stash
+# TODO: fix for multiplayer. Do item movement using rpc.
+func set_player(player: Player):
+	_item_stash = player.get_item_stash()
+	_horadric_stash = player.get_horadric_stash()
 
 
 func cancel():
