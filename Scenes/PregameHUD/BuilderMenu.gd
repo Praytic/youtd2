@@ -5,9 +5,6 @@ class_name BuilderMenu extends PregameTab
 # programmatically inside _ready().
 
 
-signal finished()
-
-
 @export var _beginner_container: VBoxContainer
 @export var _advanced_container: VBoxContainer
 @export var _specialist_container: VBoxContainer

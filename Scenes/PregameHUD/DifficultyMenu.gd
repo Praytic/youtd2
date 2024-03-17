@@ -1,9 +1,6 @@
 class_name DifficultyMenu extends PregameTab
 
 
-signal finished()
-
-
 func _on_generic_button_pressed(difficulty: Difficulty.enm):
 	Globals._difficulty = difficulty
 	finished.emit()

@@ -1,9 +1,6 @@
 extends PregameTab
 
 
-signal finished()
-
-
 func _on_generic_button_pressed(wave_count: int):
 	Globals._wave_count = wave_count
 	finished.emit()

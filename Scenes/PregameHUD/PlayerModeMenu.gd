@@ -1,9 +1,6 @@
 extends PregameTab
 
 
-signal finished()
-
-
 func _on_generic_button_pressed(player_mode: PlayerMode.enm):
 	Globals._player_mode = player_mode
 	finished.emit()

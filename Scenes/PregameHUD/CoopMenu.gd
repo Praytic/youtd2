@@ -1,9 +1,6 @@
 extends PregameTab
 
 
-signal finished()
-
-
 @export var _host_address_field: TextEdit
 @export var _address_error_label: Label
 
