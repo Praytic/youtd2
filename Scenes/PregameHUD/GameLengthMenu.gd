@@ -1,7 +1,7 @@
 class_name GameLengthMenu extends PregameTab
 
 
-var _game_length: int = Config.default_wave_count()
+var _game_length: int
 
 
 func get_game_length() -> int:

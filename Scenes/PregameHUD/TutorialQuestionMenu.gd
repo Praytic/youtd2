@@ -1,7 +1,7 @@
 class_name TutorialQuestionMenu extends PregameTab
 
 
-var _tutorial_enabled: bool = Config.default_tutorial_enabled()
+var _tutorial_enabled: bool
 
 
 func get_tutorial_enabled() -> bool:

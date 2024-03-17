@@ -7,12 +7,7 @@ enum GameState {
 	PAUSED,
 }
 
-# Default game server port. Can be any number between 1024 and 49151.
-# Not present on the list of registered or common ports as of December 2022:
-# https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
-const DEFAULT_PORT = 8910
 
-@export var _pregame_hud: Control
 @export var _pause_hud: Control
 @export var _hud: HUD
 @export var _map: Map
@@ -34,6 +29,7 @@ const DEFAULT_PORT = 8910
 @export var _mouse_state: MouseState
 @export var _tower_preview: TowerPreview
 @export var _horadric_cube: HoradricCube
+@export var _pregame_controller: PregameController
 
 
 var _game_state: GameState = GameState.PREGAME
@@ -57,15 +53,7 @@ func _ready():
 #	1. launching the game
 #	2. restarting the game
 	_reset_singletons()
-	
-	multiplayer.peer_connected.connect(_on_peer_connected)
-	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
-	multiplayer.connected_to_server.connect(_on_connected_to_server)
-	multiplayer.connection_failed.connect(_on_connection_failed)
-	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
-	EventBus.player_requested_to_host_room.connect(_on_player_requested_to_host_room)
-	EventBus.player_requested_to_join_room.connect(_on_player_requested_to_join_room)
 	EventBus.wave_finished.connect(_on_wave_finished)
 	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
@@ -105,20 +93,8 @@ func _ready():
 		_room_code = _get_cmdline_value("room_code")
 		assert(_room_code, "Room code wasn't provided with headless mode enabled.")
 		print("Room code: %s" % _room_code)
-
-	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
-
-	if show_pregame_settings_menu:
-		_pregame_hud.show()
-	else:
-#		Use default setting values when skipping pregame
-#		settings
-		var wave_count: int = Config.default_wave_count()
-		var difficulty: Difficulty.enm = Config.default_difficulty()
-		var game_mode: GameMode.enm = Config.default_game_mode()
-		_set_pregame_settings(wave_count, game_mode, difficulty)
-		
-		_transition_from_pregame_settings_state()
+	
+	_pregame_controller.start()
 
 
 # NOTE: these stats are constantly changing and might even
@@ -198,15 +174,6 @@ func _unhandled_input(event: InputEvent):
 #########################
 ###      Private      ###
 #########################
-
-# This function is used by host to set seeds on other peers
-# so everyone in network has same origing seed.
-@rpc("any_peer", "call_remote", "reliable")
-func _set_origin_rng_seed(origin_seed: int):
-	_origin_rng.seed = origin_seed
-	
-	print_verbose("Received origin seed from host: ", origin_seed)
-
 
 func _cancel_current_mouse_action():
 	match _mouse_state.get_state():
@@ -317,10 +284,10 @@ func _get_cmdline_value(key: String):
 	return cmdline_value
 
 
-func _transition_from_pregame_settings_state():
+func _on_pregame_controller_finished():
 	get_tree().set_pause(false)
 
-	var local_builder_id: int = _pregame_hud.get_builder_id()
+	var local_builder_id: int = _pregame_controller.get_builder_id()
 
 #	TODO: the current setup is incorrect for real game case.
 #	We set same seed for team and then that same seed is
@@ -364,7 +331,7 @@ func _transition_from_pregame_settings_state():
 
 	var wave_count: int = Globals.get_wave_count()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
-	var tutorial_enabled: bool = _pregame_hud.get_tutorial_enabled()
+	var tutorial_enabled: bool = _pregame_controller.get_tutorial_enabled()
 	
 	_hud.set_pregame_settings(wave_count, game_mode, _difficulty)
 
@@ -502,144 +469,26 @@ func _get_next_5_waves() -> Array[Wave]:
 
 
 @rpc("any_peer", "call_local", "reliable")
-func _set_pregame_settings(game_length: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
+func _set_pregame_settings(game_length: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
 	Globals._wave_count = game_length
 	Globals._game_mode = game_mode
 	_difficulty = difficulty
-
-	_pregame_hud.change_tab(PregameHUD.Tab.BUILDER)
+	
+# 	This function is used by host to set seeds on other peers
+# 	so everyone in network has same origing seed.
+	_origin_rng.seed = origin_seed
+	
+	if multiplayer.is_server():
+		print_verbose("Host set origin seed to: ", origin_seed)
+	else:
+		print_verbose("Peer received origin seed from host: ", origin_seed)
+	
+	_pregame_controller.go_to_builder_tab()
 
 
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_peer_connected(id: int):
-#	NOTE: need to check that server received this callback
-#	because peers also receive this callback when they
-#	connect. Only do stuff if server received callback.
-	if !multiplayer.is_server():
-		return
-
-	var origin_seed: int = _origin_rng.seed
-	_set_origin_rng_seed.rpc(origin_seed)
-
-	_pregame_hud.show_network_status("Player [%s] connected to this server." % id)
-
-
-func _on_peer_disconnected(id: int):
-	_pregame_hud.show_network_status("Player [%s] disconnected from this server." % id)
-
-
-func _on_connected_to_server():
-	_pregame_hud.show_network_status("Successfully connected to a server.")
-
-
-func _on_connection_failed():
-	_pregame_hud.show_network_status("Couldn't connect to a server.")
-
-
-func _on_server_disconnected():
-	_pregame_hud.show_network_status("Disconnected from a server.")
-
-
-func _on_pregame_hud_tab_finished():
-	var current_tab: PregameHUD.Tab = _pregame_hud.get_current_tab()
-	var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
-	
-	match current_tab:
-		PregameHUD.Tab.PLAYER_MODE:
-			match player_mode:
-				PlayerMode.enm.SINGLE: _pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
-				PlayerMode.enm.COOP: _pregame_hud.change_tab(PregameHUD.Tab.COOP_ROOM)
-				PlayerMode.enm.SERVER: push_error("unhandled case")
-		PregameHUD.Tab.COOP_ROOM:
-#			NOTE: do nothing for this case because advancement from this tab is handled in other callbacks.
-			return
-		PregameHUD.Tab.GAME_LENGTH: _pregame_hud.change_tab(PregameHUD.Tab.DISTRIBUTION)
-		PregameHUD.Tab.DISTRIBUTION: _pregame_hud.change_tab(PregameHUD.Tab.DIFFICULTY)
-		PregameHUD.Tab.DIFFICULTY:
-#			NOTE: in singleplayer case, this simply sets the
-#			settings locally. In multiplayer case, this will
-#			cause the host to broadcast game settings to
-#			peers.
-			var game_length: int = _pregame_hud.get_game_length()
-			var difficulty: Difficulty.enm = _pregame_hud.get_difficulty()
-			var game_mode: GameMode.enm = _pregame_hud.get_game_mode()
-			_set_pregame_settings.rpc(game_length, game_mode, difficulty)
-		PregameHUD.Tab.BUILDER: 
-#			NOTE: show tutorial tab only if singleplayer was selected
-			match player_mode:
-				PlayerMode.enm.SINGLE: _pregame_hud.change_tab(PregameHUD.Tab.TUTORIAL_QUESTION)
-				PlayerMode.enm.COOP:
-					_pregame_hud.hide()
-					_transition_from_pregame_settings_state()
-				PlayerMode.enm.SERVER: push_error("unhandled case")
-				
-			
-		PregameHUD.Tab.TUTORIAL_QUESTION:
-			_pregame_hud.hide()
-			_transition_from_pregame_settings_state()
-
-
-func _on_player_requested_to_host_room():
-#	NOTE: host randomizes their rng, other peers will
-#	receive this seed from host when connecting via
-#	_set_origin_rng_seed().
-	_origin_rng.randomize()
-	print_verbose("Generated origin seed on host: ", _origin_rng.seed)
-
-	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
-	# Maximum of 1 peer, since it's a 2-player co-op.
-	var create_server_error: Error = peer.create_server(DEFAULT_PORT, 1)
-	if create_server_error != OK:
-		# Is another server running?
-		var error_text: String = "Can't host, port [%s] in use." % DEFAULT_PORT
-		push_error(error_text)
-		_pregame_hud.show_network_status(error_text)
-
-		return
-
-	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
-	multiplayer.set_multiplayer_peer(peer)
-
-	_pregame_hud.show_network_status("Waiting for player...")
-	_pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
-
-
-func _on_player_requested_to_join_room():
-	var address_string: String = _pregame_hud.get_room_address()
-	
-#	TODO: check validity more thoroughly
-	var address_is_valid: bool = address_string.split(":", false).size() == 2
-	
-	if !address_is_valid:
-		_pregame_hud.show_address_error()
-		
-		return
-	
-	var address_details: Array = address_string.split(":")
-
-	var host_address: String = address_details[0]
-	var host_port: int = address_details[1].to_int()
-
-	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
-	var create_client_error: Error = peer.create_client(host_address, host_port)
-
-	if create_client_error != OK:
-		# Is another server running?
-		var error_text: String = "Failed to create client. Error:" % create_client_error
-		push_error(error_text)
-		_pregame_hud.show_network_status(error_text)
-
-		return
-
-	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
-	multiplayer.set_multiplayer_peer(peer)
-	
-	_pregame_hud.show_network_status("Connecting to [%s]..." % address_string)
-	_pregame_hud.change_tab(PregameHUD.Tab.WAITING_FOR_HOST)
-
 
 func _on_pause_hud_resume_pressed():
 	_unpause_the_game()
@@ -927,3 +776,23 @@ func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: A
 func _on_player_requested_transmute():
 	var local_player: Player = _player_container.get_local_player()
 	_horadric_cube.transmute(local_player)
+
+
+func _on_pregame_controller_selected_host_settings():
+#	NOTE: in singleplayer case, this simply sets the
+#	settings locally. In multiplayer case, this will
+#	cause the host to broadcast game settings to
+#	peers.
+	var game_length: int = _pregame_controller.get_game_length()
+	var difficulty: Difficulty.enm = _pregame_controller.get_difficulty()
+	var game_mode: GameMode.enm = _pregame_controller.get_game_mode()
+	
+#	NOTE: host randomizes their rng, other peers will
+#	receive this seed from host when connecting via
+#	_set_origin_rng_seed().
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.randomize()
+	var origin_seed: int = rng.seed
+	print_verbose("Generated origin seed on host: ", origin_seed)
+
+	_set_pregame_settings.rpc(game_length, game_mode, difficulty, origin_seed)

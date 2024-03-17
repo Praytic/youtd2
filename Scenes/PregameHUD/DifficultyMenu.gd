@@ -1,7 +1,7 @@
 class_name DifficultyMenu extends PregameTab
 
 
-var _difficulty: Difficulty.enm = Config.default_difficulty()
+var _difficulty: Difficulty.enm
 
 
 func get_difficulty() -> Difficulty.enm:

@@ -1,7 +1,7 @@
 class_name GameModeMenu extends PregameTab
 
 
-var _game_mode: GameMode.enm = Config.default_game_mode()
+var _game_mode: GameMode.enm
 
 
 func get_game_mode() -> GameMode.enm:

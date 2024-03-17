@@ -15,12 +15,6 @@ var _builder_id: int
 
 
 func _ready():
-#	NOTE: need to init builder id here instead of in var
-#	declaration because BuilderProperties is not ready
-#	during var declaration which makes default_builder_id()
-#	fails.
-	_builder_id = Config.default_builder_id()
-	
 	var builder_list: Array = BuilderProperties.get_id_list()
 	
 	for builder in builder_list:
