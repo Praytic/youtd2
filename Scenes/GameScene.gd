@@ -36,6 +36,9 @@ var _prev_effect_id: int = 0
 var _game_over: bool = false
 var _room_code: int = 0
 var _difficulty: Difficulty.enm = Config.default_difficulty()
+# This rng is used to create seeds for all other rng's and
+# to sync seeds between peers.
+var _origin_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 #########################
@@ -50,6 +53,8 @@ func _ready():
 #	2. restarting the game
 	_reset_singletons()
 	
+	multiplayer.peer_connected.connect(_on_peer_connected)
+
 	EventBus.player_requested_to_host_room.connect(_on_player_requested_to_host_room)
 	EventBus.player_requested_to_join_room.connect(_on_player_requested_to_join_room)
 	EventBus.wave_finished.connect(_on_wave_finished)
@@ -185,6 +190,15 @@ func _unhandled_input(event: InputEvent):
 ###      Private      ###
 #########################
 
+# This function is used by host to set seeds on other peers
+# so everyone in network has same origing seed.
+@rpc("any_peer", "call_remote", "reliable")
+func _set_origin_rng_seed(origin_seed: int):
+	_origin_rng.seed = origin_seed
+	
+	print_verbose("Received origin seed from host: ", origin_seed)
+
+
 func _cancel_current_mouse_action():
 	match _mouse_state.get_state():
 		MouseState.enm.BUILD_TOWER: _build_tower.cancel()
@@ -299,9 +313,19 @@ func _transition_from_pregame_settings_state():
 
 	var local_builder_id: int = _pregame_hud.get_builder_id()
 
+#	TODO: the current setup is incorrect for real game case.
+#	We set same seed for team and then that same seed is
+#	used to generate waves.
+#	In reality, each player should have their own wave
+#	spawner and each spawner should have different seed.
+#	So need to implement multiple wave spawners and use
+#	player seeds on them, not team seeds.
+	var team_seed: int = _origin_rng.randi()
+
 #	Create local player and remote players
 	var local_peer_id: int = multiplayer.get_unique_id()
 	var local_player: Player = Player.make(local_peer_id, local_builder_id)
+	local_player.set_seed(team_seed)
 	_player_container.add_player(local_player)
 	print_verbose("Added local player with id: ", local_peer_id)
 	
@@ -311,6 +335,7 @@ func _transition_from_pregame_settings_state():
 #		player. Remote players need to communicate which
 #		builder they selected.
 		var remote_player: Player = Player.make(peer_id, local_builder_id)
+		remote_player.set_seed(team_seed)
 		_player_container.add_player(remote_player)
 		print_verbose("Added remote player with id: ", peer_id)
 	
@@ -480,6 +505,13 @@ func _set_pregame_settings(game_length: int, game_mode: GameMode.enm, difficulty
 ###     Callbacks     ###
 #########################
 
+# As a host, share origin seed with other peers
+func _on_peer_connected(_id: int):
+	if multiplayer.is_server():
+		var origin_seed: int = _origin_rng.seed
+		_set_origin_rng_seed.rpc(origin_seed)
+
+
 func _on_pregame_hud_tab_finished():
 	var current_tab: PregameHUD.Tab = _pregame_hud.get_current_tab()
 	var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
@@ -521,6 +553,13 @@ func _on_pregame_hud_tab_finished():
 
 func _on_player_requested_to_host_room():
 	Network.create_server()
+
+#	NOTE: host randomizes their rng, other peers will
+#	receive this seed from host when connecting via
+#	_set_origin_rng_seed().
+	_origin_rng.randomize()
+	print_verbose("Generated origin seed on host: ", _origin_rng.seed)
+
 	_pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
 
 

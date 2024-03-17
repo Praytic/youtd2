@@ -6,18 +6,22 @@ var _current_wave: Wave = null
 
 @export var _creep_spawner: CreepSpawner
 
+var _player: Player
+
 
 #########################
 ###       Public      ###
 #########################
 
+
 func set_player(player: Player):
+	_player = player
 	_creep_spawner.set_player(player)
 
 
 func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 	for wave_level in range(1, wave_count + 1):
-		var wave: Wave = Wave.new(wave_level, difficulty)
+		var wave: Wave = Wave.new(wave_level, difficulty, _player)
 		
 		var creep_combination_string: String = wave.get_creep_combination_string()
 		print_verbose("Wave [%s] will have creeps [%s] of race [%s] and armor type [%s]" \

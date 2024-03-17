@@ -32,7 +32,7 @@ var _gold_farmed: float = 0
 var _tomes: int = Config.starting_tomes()
 var _id: int = -1
 var _builder: Builder = null
-
+var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -53,6 +53,14 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_seed(player_seed: int):
+	_rng.seed = player_seed
+
+
+func get_rng() -> RandomNumberGenerator:
+	return _rng
+
 
 func get_builder() -> Builder:
 	return _builder
