@@ -474,7 +474,16 @@ func _on_pregame_hud_tab_finished():
 		PregameHUD.Tab.GAME_LENGTH: _pregame_hud.change_tab(PregameHUD.Tab.DISTRIBUTION)
 		PregameHUD.Tab.DISTRIBUTION: _pregame_hud.change_tab(PregameHUD.Tab.DIFFICULTY)
 		PregameHUD.Tab.DIFFICULTY: _pregame_hud.change_tab(PregameHUD.Tab.BUILDER)
-		PregameHUD.Tab.BUILDER: _pregame_hud.change_tab(PregameHUD.Tab.TUTORIAL_QUESTION)
+		PregameHUD.Tab.BUILDER: 
+#			NOTE: show tutorial tab only if singleplayer was selected
+			var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
+
+			match player_mode:
+				PlayerMode.enm.SINGLE: _pregame_hud.change_tab(PregameHUD.Tab.TUTORIAL_QUESTION)
+				PlayerMode.enm.COOP: _pregame_hud.hide()
+				PlayerMode.enm.SERVER: push_error("unhandled case")
+				
+			
 		PregameHUD.Tab.TUTORIAL_QUESTION: _pregame_hud.hide()
 
 
