@@ -2,7 +2,7 @@ extends Builder
 
 
 func _init():
-	Globals._builder_range_bonus = 75
+	_range_bonus = 75
 
 
 func _get_tower_buff() -> BuffType:

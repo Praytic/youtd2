@@ -10,7 +10,7 @@ extends Builder
 
 
 func _init():
-	Globals._builder_allows_adjacent_towers = false
+	_allow_adjacent_towers = false
 
 
 func apply_to_player(player: Player):

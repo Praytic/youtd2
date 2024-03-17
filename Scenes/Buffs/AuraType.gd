@@ -20,7 +20,7 @@ var _include_invisible: bool = false
 
 func make(caster: Unit) -> Aura:
 	var aura: Aura = preload("res://Scenes/Buffs/Aura.tscn").instantiate()
-	aura._aura_range = get_range()
+	aura._aura_range = get_range(caster.get_player())
 	aura._target_type = target_type
 	aura._target_self = target_self
 	aura._level = level
@@ -35,12 +35,10 @@ func make(caster: Unit) -> Aura:
 	return aura
 
 
-# NOTE: need to apply bonus from Farseer builder here and
-# not anywhere later like in Aura.gd. If we apply this bonus
-# later, it will not be correctly displayed by aura range
-# indicator.
-func get_range() -> float:
-	var builder_range_bonus: float = Globals.get_builder_range_bonus()
-	var total_range: float = aura_range + builder_range_bonus
+func get_range(player: Player) -> float:
+	var original_range: float = aura_range
+	var builder: Builder = player.get_builder()
+	var builder_range_bonus: float = builder.get_range_bonus()
+	var total_range: float = original_range + builder_range_bonus
 
 	return total_range

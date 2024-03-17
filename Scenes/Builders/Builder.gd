@@ -14,6 +14,12 @@ var _creep_buff: BuffType
 var _tower_modifier: Modifier
 var _creep_modifier: Modifier
 
+var _allow_adjacent_towers: bool = true
+var _tower_lvl_bonus: int = 0
+var _range_bonus: float = 0.0
+var _item_slots_bonus: int = 0
+var _adds_extra_recipes: bool = false
+
 
 #########################
 ###     Built-in      ###
@@ -39,6 +45,26 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_allow_adjacent_towers() -> bool:
+	return _allow_adjacent_towers
+
+
+func get_tower_lvl_bonus() -> int:
+	return _tower_lvl_bonus
+
+
+func get_range_bonus() -> float:
+	return _range_bonus
+
+
+func get_item_slots_bonus() -> int:
+	return _item_slots_bonus
+
+
+func get_adds_extra_recipes() -> bool:
+	return _adds_extra_recipes
+
 
 func apply_effects(unit: Unit):
 	var buff: BuffType

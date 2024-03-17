@@ -166,7 +166,8 @@ func _ready():
 #		"fresh". When tower is transformed or upgraded, it
 #		inherits level of preceding tower and this builder
 #		lvl bonus can't be applied.
-		var tower_lvl_bonus: int = Globals.get_builder_tower_lvl_bonus()
+		var builder: Builder = get_player().get_builder()
+		var tower_lvl_bonus: int = builder.get_tower_lvl_bonus()
 
 		if tower_lvl_bonus > 0:
 			set_level(tower_lvl_bonus)
@@ -317,7 +318,7 @@ func get_range_data() -> Array[Tower.RangeData]:
 	for i in aura_list.size():
 		var aura: AuraType = aura_list[i]
 		var aura_name: String = "Aura %d" % (i + 1)
-		var aura_range: RangeData = RangeData.new(aura_name, aura.get_range(), aura.target_type)
+		var aura_range: RangeData = RangeData.new(aura_name, aura.get_range(get_player()), aura.target_type)
 		aura_range.color = get_next_range_color.call()
 		list.append(aura_range)
 
@@ -1209,7 +1210,13 @@ func get_best_hit() -> float:
 
 # NOTE: tower.getRange() in JASS
 func get_range() -> float:
-	return TowerProperties.get_range(_id)
+	var original_range: float = TowerProperties.get_range(_id)
+	var builder: Builder = get_player().get_builder()
+	var builder_range_bonus: float = builder.get_range_bonus()
+	var total_range: float = original_range + builder_range_bonus
+
+	return total_range
+
 
 # NOTE: tower.getRarity() in JASS
 func get_rarity() -> Rarity.enm:
@@ -1227,9 +1234,12 @@ func get_gold_cost() -> int:
 	return TowerProperties.get_cost(_id)
 
 func get_inventory_capacity() -> int:
-	var capacity: int = TowerProperties.get_inventory_capacity(_id)
+	var original_capacity: int = TowerProperties.get_inventory_capacity(_id)
+	var builder: Builder = get_player().get_builder()
+	var builder_item_slots_bonus: int = builder.get_item_slots_bonus()
+	var total_capacity: int = original_capacity + builder_item_slots_bonus
 
-	return capacity
+	return total_capacity
 
 func get_attack_enabled() -> bool:
 	return TowerProperties.get_attack_enabled(_id)

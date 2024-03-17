@@ -7,13 +7,7 @@ var _game_mode: GameMode.enm
 var _player_mode: PlayerMode.enm
 var _difficulty: Difficulty.enm
 var _tutorial_enabled: bool
-
 var _builder_id: int
-var _builder_instance: Builder
-var _builder_range_bonus: float
-var _builder_tower_lvl_bonus: int
-var _builder_item_slots_bonus: int
-var _builder_allows_adjacent_towers: bool
 
 
 func reset():
@@ -22,32 +16,7 @@ func reset():
 	_player_mode = Config.default_player_mode()
 	_difficulty = Config.default_difficulty()
 	_tutorial_enabled = Config.default_tutorial_enabled()
-
 	_builder_id = Config.default_builder_id()
-	_builder_range_bonus = 0
-	_builder_tower_lvl_bonus = 0
-	_builder_item_slots_bonus = 0
-	_builder_allows_adjacent_towers = true
-
-
-func get_builder() -> Builder:
-	return _builder_instance
-
-
-func get_builder_range_bonus() -> float:
-	return _builder_range_bonus
-
-
-func get_builder_tower_lvl_bonus() -> int:
-	return _builder_tower_lvl_bonus
-
-
-func get_builder_item_slots_bonus() -> int:
-	return _builder_item_slots_bonus
-
-
-func get_builder_allows_adjacent_towers() -> bool:
-	return _builder_allows_adjacent_towers
 
 
 func get_wave_count() -> int:

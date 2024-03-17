@@ -55,6 +55,10 @@ func _ready():
 ###       Public      ###
 #########################
 
+func enable_extra_recipes():
+	_item_stash_menu.enable_extra_recipes()
+
+
 # Set tower or creep which should be displayed in unit menus
 # NOTE: the callback for set_pressed() which make tower menu
 # or creep menu visible.

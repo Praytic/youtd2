@@ -287,18 +287,27 @@ func _get_cmdline_value(key: String):
 func _transition_from_pregame_settings_state():
 	get_tree().set_pause(false)
 
+	var local_builder_id: int = Globals.get_builder_id()
+
 #	Create local player and remote players
 	var local_peer_id: int = multiplayer.get_unique_id()
-	var local_player: Player = Player.make(local_peer_id)
+	var local_player: Player = Player.make(local_peer_id, local_builder_id)
 	_player_container.add_player(local_player)
 	print_verbose("Added local player with id: ", local_peer_id)
 	
 	var peer_id_list: PackedInt32Array = multiplayer.get_peers()
 	for peer_id in peer_id_list:
-		var remote_player: Player = Player.make(peer_id)
+#		TODO: use builder id which was selected by remote
+#		player. Remote players need to communicate which
+#		builder they selected.
+		var remote_player: Player = Player.make(peer_id, local_builder_id)
 		_player_container.add_player(remote_player)
 		print_verbose("Added remote player with id: ", peer_id)
 	
+	var local_builder: Builder = local_player.get_builder()
+	if local_builder.get_adds_extra_recipes():
+		_hud.enable_extra_recipes()
+
 	local_player.item_stash_changed.connect(_on_local_player_item_stash_changed)
 	local_player.horadric_stash_changed.connect(_on_local_player_horadric_stash_changed)
 	local_player.tower_stash_changed.connect(_on_local_player_tower_stash_changed)
@@ -307,19 +316,12 @@ func _transition_from_pregame_settings_state():
 	_wave_spawner.set_player(local_player)
 	_tower_preview.set_player(local_player)
 
-	var builder_id: int = Globals.get_builder_id()
-	var builder_instance: Builder = Builder.create_instance(builder_id)
-	add_child(builder_instance)
-	Globals._builder_instance = builder_instance
-
-	builder_instance.apply_to_player(local_player)
-	
 	var wave_count: int = Globals.get_wave_count()
 	var difficulty: Difficulty.enm = Globals.get_difficulty()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var tutorial_enabled: bool = Globals.get_tutorial_enabled()
 	
-	_hud.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
+	_hud.set_pregame_settings(wave_count, game_mode, difficulty, local_builder_id)
 	
 # 	TODO: fix for multiplayer. I think tutorial should be
 # 	disabled in multiplayer case.
@@ -526,8 +528,9 @@ func _on_wave_finished(level: int):
 	_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
 	_hud.show_next_wave_time(Constants.TIME_BETWEEN_WAVES)
 
-	var builder: Builder = Globals.get_builder()
-	builder.apply_wave_finished_effect(local_player)
+#	TODO: need to apply builder wave finished for all
+#	players
+	local_player.apply_builder_wave_finished_effect()
 
 
 func _on_creep_reached_portal(creep: Creep):

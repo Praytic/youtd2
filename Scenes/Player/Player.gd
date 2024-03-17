@@ -31,6 +31,7 @@ var _gold: float = Config.starting_gold()
 var _gold_farmed: float = 0
 var _tomes: int = Config.starting_tomes()
 var _id: int = -1
+var _builder: Builder = null
 
 
 @export var _item_stash: ItemContainer
@@ -52,6 +53,13 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_builder() -> Builder:
+	return _builder
+
+
+func apply_builder_wave_finished_effect():
+	_builder.apply_wave_finished_effect(self)
 
 
 func get_item_stash() -> ItemContainer:
@@ -390,8 +398,14 @@ func _on_tower_stash_changed():
 ###       Static      ###
 #########################
 
-static func make(id: int) -> Player:
+static func make(id: int, builder_id: int) -> Player:
 	var player: Player = preload("res://Scenes/Player/Player.tscn").instantiate()
+
+	var builder: Builder = Builder.create_instance(builder_id)
 	player._id = id
+	player._builder = builder
+	player.add_child(builder)
+
+	builder.apply_to_player(player)
 
 	return player

@@ -2,10 +2,8 @@ extends Builder
 
 
 func _init():
-    Globals._builder_item_slots_bonus = 2
-#   NOTE: ItemStashMenu will react to this signal and make
-#   backpacker recipe buttons visible.
-    EventBus.selected_backpacker_builder.emit()
+    _item_slots_bonus = 2
+    _adds_extra_recipes = true
 
 
 func _get_tower_modifier() -> Modifier:

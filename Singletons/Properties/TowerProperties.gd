@@ -202,17 +202,14 @@ func get_attack_type(tower_id: int) -> AttackType.enm:
 
 
 func get_range(tower_id: int) -> float:
-	var original_range: float = _get_property(tower_id, CsvProperty.ATTACK_RANGE).to_float()
+	var attack_range: float = _get_property(tower_id, CsvProperty.ATTACK_RANGE).to_float()
 
-	if original_range == 0.0:
+	if attack_range == 0.0:
 		push_error("Tower attack range must be greater than 0. Forcing value to 1.")
 
-		original_range = 1
+		attack_range = 1
 
-	var builder_range_bonus: float = Globals.get_builder_range_bonus()
-	var total_range: float = original_range + builder_range_bonus
-
-	return total_range
+	return attack_range
 
 
 func get_required_element_level(tower_id: int) -> int:
@@ -388,8 +385,6 @@ func get_inventory_capacity(tower_id: int) -> int:
 			result_capacity = clampi(capacity, min_capacity, max_capacity)
 
 			break
-
-	result_capacity += Globals.get_builder_item_slots_bonus()
 
 	result_capacity = min(result_capacity, Constants.INVENTORY_CAPACITY_MAX)
 

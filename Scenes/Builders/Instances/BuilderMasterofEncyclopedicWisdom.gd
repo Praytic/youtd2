@@ -2,7 +2,7 @@ extends Builder
 
 
 func _init():
-	Globals._builder_tower_lvl_bonus = 5
+	_tower_lvl_bonus = 5
 
 
 func _get_tower_modifier() -> Modifier:

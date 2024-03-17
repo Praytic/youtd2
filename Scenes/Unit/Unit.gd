@@ -223,7 +223,7 @@ func _ready():
 	add_child(regen_timer)
 	regen_timer.start()
 
-	var builder: Builder = Globals.get_builder()
+	var builder: Builder = get_player().get_builder()
 	builder.apply_effects(self)
 
 #	NOTE: add dummy sprite and selection outline, in case

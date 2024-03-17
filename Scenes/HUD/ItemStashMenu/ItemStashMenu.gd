@@ -23,8 +23,6 @@ func _ready():
 	HighlightUI.register_target("item_placed_inside_tower", _item_buttons_container)
 	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
 
-	EventBus.selected_backpacker_builder.connect(_on_selected_backpacker_builder)
-	
 	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
 	for node in recipe_buttons:
 		var recipe_button: RecipeButton = node as RecipeButton
@@ -151,7 +149,7 @@ func _on_recipe_button_pressed(recipe: HoradricCube.Recipe):
 	EventBus.player_requested_autofill.emit(recipe, rarity_filter)
 
 
-func _on_selected_backpacker_builder():
+func enable_extra_recipes():
 	_backpacker_recipes.show()
 
 

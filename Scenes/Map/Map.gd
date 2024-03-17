@@ -230,16 +230,18 @@ func _get_positions_occupied_by_tower(tower: Tower) -> Array[Vector2]:
 #	tracked in terms of 2nd floor
 	var pos_list: Array[Vector2] = []
 	var visual_position: Vector2 = tower.position - Vector2(0, Constants.TILE_SIZE.y)
+	var player: Player = tower.get_player()
+	var builder: Builder = player.get_builder()
 
-	for offset in _get_quarter_offset_list():
+	for offset in _get_quarter_offset_list(builder):
 		var pos: Vector2 = visual_position + offset
 		pos_list.append(pos)
 
 	return pos_list
 
 
-func _get_quarter_offset_list() -> Array[Vector2]:
-	if Globals.get_builder_allows_adjacent_towers():
+func _get_quarter_offset_list(builder: Builder) -> Array[Vector2]:
+	if builder.get_allow_adjacent_towers():
 		return QUARTER_OFFSET_LIST_NORMAL
 	else:
 		return QUARTER_OFFSET_LIST_BIG
