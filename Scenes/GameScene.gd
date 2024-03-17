@@ -414,6 +414,7 @@ func _reset_singletons():
 	Globals.reset()
 
 
+@rpc("any_peer", "call_local", "reliable")
 func _start_game():
 	_game_start_timer.stop()
 	_hud.hide_game_start_time()
@@ -429,6 +430,7 @@ func _start_game():
 	_game_time.set_enabled(true)
 
 
+@rpc("any_peer", "call_local", "reliable")
 func _start_next_wave():
 	_extreme_timer.stop()
 	_next_wave_timer.stop()
@@ -656,8 +658,7 @@ func _on_player_requested_start_game():
 
 		return
 	
-	_game_start_timer.stop()
-	_start_game()
+	_start_game.rpc()
 
 
 func _on_game_start_timer_timeout():
@@ -676,7 +677,7 @@ func _on_player_requested_next_wave():
 		
 		return
 	
-	_start_next_wave()
+	_start_next_wave.rpc()
 
 
 func _on_extreme_timer_timeout():
