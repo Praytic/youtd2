@@ -9,8 +9,8 @@ class_name TopLeftMenu extends PanelContainer
 ###       Public      ###
 #########################
 
-func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, builder_id: int):
-	_game_stats.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
+func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
+	_game_stats.set_pregame_settings(wave_count, game_mode, difficulty)
 
 
 func show_game_start_time():
@@ -48,3 +48,7 @@ func load_player_stats(local_player: Player, player_list: Array[Player]):
 
 func set_game_time(time: float):
 	_wave_status.set_game_time(time)
+
+
+func set_local_builder_name(builder_name: String):
+	_game_stats.set_local_builder_name(builder_name)

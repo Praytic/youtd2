@@ -81,7 +81,7 @@ func _process(_delta: float):
 ###       Public      ###
 #########################
 
-func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, builder_id: int):
+func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
 	var game_length_string: String = _get_game_length_string(wave_count)
 
 	var game_mode_string: String = GameMode.convert_to_display_string(game_mode).capitalize()
@@ -90,9 +90,10 @@ func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: 
 	
 	var settings_string: String = "[color=GOLD]%s[/color], [color=GOLD]%s[/color], %s\n" % [game_length_string, game_mode_string, difficulty_string]
 
-	var builder_name: String = BuilderProperties.get_display_name(builder_id)
-
 	_settings_label.text = settings_string
+
+
+func set_local_builder_name(builder_name: String):
 	_builder_label.text = builder_name
 
 

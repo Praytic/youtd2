@@ -315,6 +315,8 @@ func _transition_from_pregame_settings_state():
 		print_verbose("Added remote player with id: ", peer_id)
 	
 	var local_builder: Builder = local_player.get_builder()
+	var local_builder_name: String = local_builder.get_display_name()
+	_hud.set_local_builder_name(local_builder_name)
 	if local_builder.get_adds_extra_recipes():
 		_hud.enable_extra_recipes()
 
@@ -327,13 +329,11 @@ func _transition_from_pregame_settings_state():
 	_tower_preview.set_player(local_player)
 
 	var wave_count: int = Globals.get_wave_count()
-	var difficulty: Difficulty.enm = _pregame_hud.get_difficulty()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var tutorial_enabled: bool = _pregame_hud.get_tutorial_enabled()
 	
-	_difficulty = difficulty
-	_hud.set_pregame_settings(wave_count, game_mode, difficulty, local_builder_id)
-	
+	_hud.set_pregame_settings(wave_count, game_mode, _difficulty)
+
 # 	TODO: fix for multiplayer. I think tutorial should be
 # 	disabled in multiplayer case.
 	if tutorial_enabled:
@@ -348,14 +348,14 @@ func _transition_from_pregame_settings_state():
 		var tower_stash: TowerStash = local_player.get_tower_stash()
 		tower_stash.add_all_towers()
 	
-	var difficulty_string: String = Difficulty.convert_to_string(difficulty)
+	var difficulty_string: String = Difficulty.convert_to_string(_difficulty)
 	var game_mode_string: String = GameMode.convert_to_string(game_mode)
 
 	Messages.add_normal("Welcome to You TD 2!")
 	Messages.add_normal("Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
 	Messages.add_normal("You can pause the game by pressing [color=GOLD]Esc[/color]")
 
-	_wave_spawner.generate_waves(wave_count, difficulty)
+	_wave_spawner.generate_waves(wave_count, _difficulty)
 
 	var next_waves: Array[Wave] = _get_next_5_waves()
 	_hud.show_wave_details(next_waves)
@@ -496,7 +496,7 @@ func _on_pregame_hud_tab_finished():
 #			cause the host to broadcast game settings to
 #			peers.
 			var game_length: int = _pregame_hud.get_game_length()
-			var difficulty: Difficulty.enm = _difficulty
+			var difficulty: Difficulty.enm = _pregame_hud.get_difficulty()
 			var game_mode: GameMode.enm = _pregame_hud.get_game_mode()
 			_set_pregame_settings.rpc(game_length, game_mode, difficulty)
 		PregameHUD.Tab.BUILDER: 

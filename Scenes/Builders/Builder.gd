@@ -46,6 +46,12 @@ func _ready():
 ###       Public      ###
 #########################
 
+func get_display_name() -> String:
+	var display_name: String = BuilderProperties.get_display_name(_id)
+
+	return display_name
+
+
 func get_allow_adjacent_towers() -> bool:
 	return _allow_adjacent_towers
 

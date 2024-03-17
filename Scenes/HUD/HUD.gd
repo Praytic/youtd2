@@ -99,6 +99,10 @@ func set_player(player: Player):
 	_elements_tower_menu.set_player(player)
 
 
+func set_local_builder_name(builder_name: String):
+	_top_left_menu.set_local_builder_name(builder_name)
+
+
 func hide_all_windows():
 	for window in _window_list:
 		window.hide()
@@ -130,8 +134,8 @@ func set_food(food: int, food_cap: int):
 	_bottom_menu_bar.set_food(food, food_cap)
 
 
-func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, builder_id: int):
-	_top_left_menu.set_pregame_settings(wave_count, game_mode, difficulty, builder_id)
+func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
+	_top_left_menu.set_pregame_settings(wave_count, game_mode, difficulty)
 
 
 func show_game_start_time():
