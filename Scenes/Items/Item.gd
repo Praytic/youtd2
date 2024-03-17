@@ -264,7 +264,8 @@ func drop():
 
 	var carrier_container: ItemContainer = _carrier.get_item_container()
 	carrier_container.remove_item(self)
-	ItemDrop.make(self, drop_pos)
+	
+	Item.make_item_drop(self, drop_pos)
 
 
 # Item starts flying to the stash and will get added to
@@ -403,7 +404,7 @@ func uses_charges() -> bool:
 # NOTE: Item.create() in JASS
 static func create(player: Player, item_id: int, position: Vector2) -> Item:
 	var item: Item = Item.make(item_id, player)
-	ItemDrop.make(item, position)
+	Item.make_item_drop(item, position)
 	
 	return item
 
@@ -426,6 +427,44 @@ static func make(id: int, player: Player) -> Item:
 	var item: Item = item_script.new(id, player)
 
 	return item
+
+
+# NOTE: this function would be better placed in ItemDrop but
+# that causes problems, I think due to cyclic references.
+# You will get errors like "Bad address index" when an oil
+# drops or "X could not be resolved".
+# TODO: look into this deeper
+static func make_item_drop(item: Item, drop_pos: Vector2):
+	if item.get_parent() != null:
+		push_error("Item must be unparented before being added to ItemDrop.")
+		
+		return
+	
+	var item_drop_scene_map: Dictionary = {
+		"res://Scenes/Items/CommonItem.tscn": preload("res://Scenes/Items/CommonItem.tscn"),
+		"res://Scenes/Items/UncommonItem.tscn": preload("res://Scenes/Items/UncommonItem.tscn"),
+		"res://Scenes/Items/RareItem.tscn": preload("res://Scenes/Items/RareItem.tscn"),
+		"res://Scenes/Items/UniqueItem.tscn": preload("res://Scenes/Items/UniqueItem.tscn"),
+		"res://Scenes/Items/RedOil.tscn": preload("res://Scenes/Items/RedOil.tscn"),
+	}
+	
+	var item_id: int = item.get_id()
+	var rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
+	var rarity_string: String = Rarity.convert_to_string(rarity)
+	var item_drop_scene_path: String
+	if ItemProperties.get_is_oil(item_id):
+		item_drop_scene_path = "res://Scenes/Items/RedOil.tscn"
+	else:
+		item_drop_scene_path = "res://Scenes/Items/%sItem.tscn" % rarity_string.capitalize()
+	var item_drop_scene: PackedScene = item_drop_scene_map[item_drop_scene_path]
+	var item_drop: ItemDrop = item_drop_scene.instantiate()
+	item_drop.position = drop_pos
+	item_drop.visible = item._visible
+	item_drop.set_player(item.get_player())
+	item_drop._item = item
+	item_drop.add_child(item)
+
+	Utils.add_object_to_world(item_drop)
 
 
 static func get_item_script_path(item_id: int):
