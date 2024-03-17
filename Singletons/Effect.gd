@@ -11,7 +11,6 @@ extends Node
 # Disabling for now because at this point most effects won't
 # have scenes.
 const PRINT_INVALID_PATH_ERROR: bool = false
-const _placeholder_effect_scene: PackedScene = preload("res://Scenes/Effects/GenericMagic.tscn")
 
 # Map active effects to integer id's
 # 
@@ -210,7 +209,7 @@ func _create_internal(effect_path: String) -> int:
 	if effect_path_exists:
 		effect_scene = load(effect_path)
 	else:
-		effect_scene = _placeholder_effect_scene
+		effect_scene = Globals.placeholder_effect_scene
 
 		if PRINT_INVALID_PATH_ERROR:
 			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
@@ -221,7 +220,7 @@ func _create_internal(effect_path: String) -> int:
 		print_debug("Effect scene must be AnimatedSprite2D. Effect path with problem:", effect_path, ". Using placeholder effect.")
 
 		effect.queue_free()
-		effect = _placeholder_effect_scene.instantiate()
+		effect = Globals.placeholder_effect_scene.instantiate()
 
 	var id: int = _make_effect_id()
 	_effect_map[id] = effect

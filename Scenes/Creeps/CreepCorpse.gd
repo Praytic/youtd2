@@ -70,7 +70,7 @@ func _on_sprite_2d_animation_finished():
 #########################
 
 static func make(player: Player, sprite: AnimatedSprite2D, death_animation: String) -> CreepCorpse:
-	var corpse: CreepCorpse = preload("res://Scenes/Creeps/CreepCorpse.tscn").instantiate()
+	var corpse: Node2D = Globals.corpse_scene.instantiate()
 	corpse.set_player(player)
 	corpse._setup_sprite(sprite, death_animation)
 

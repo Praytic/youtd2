@@ -18,6 +18,6 @@ func set_tower(tower: Tower):
 	var autocast_list: Array[Autocast] = tower.get_autocast_list()
 
 	for autocast in autocast_list:
-		var autocast_button: AutocastButton = preload("res://Scenes/HUD/Buttons/AutocastButton.tscn").instantiate()
+		var autocast_button: AutocastButton = Globals.autocast_button_scene.instantiate()
 		autocast_button.set_autocast(autocast)
 		_autocasts_container.add_child(autocast_button)

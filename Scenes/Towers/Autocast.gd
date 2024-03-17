@@ -558,6 +558,6 @@ func get_target_error_message(target: Unit) -> String:
 #########################
 
 static func make() -> Autocast:
-	var autocast: Autocast = preload("res://Scenes/Towers/Autocast.tscn").instantiate()
+	var autocast: Autocast = Globals.autocast_scene.instantiate()
 
 	return autocast

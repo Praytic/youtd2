@@ -26,7 +26,7 @@ func _ready():
 		var display_name: String = BuilderProperties.get_display_name(builder)
 		var description: String = BuilderProperties.get_description(builder)
 		
-		var button: Button = preload("res://Scenes/HUD/ButtonWithRichTooltip.tscn").instantiate()
+		var button: Button = Globals.button_with_rich_tooltip_scene.instantiate()
 		button.text = display_name
 		button.tooltip_text = "%s\n \n%s" % [display_name, description]
 		button.pressed.connect(_on_generic_button_pressed.bind(builder))
