@@ -37,14 +37,12 @@ const element_icons: Dictionary = {
 var _wave_count: int
 var _game_mode: GameMode.enm
 var _player_mode: PlayerMode.enm
-var _difficulty: Difficulty.enm
 
 
 func reset():
 	_wave_count = Config.default_wave_count()
 	_game_mode = Config.default_game_mode()
 	_player_mode = Config.default_player_mode()
-	_difficulty = Config.default_difficulty()
 
 
 func get_wave_count() -> int:
@@ -57,10 +55,6 @@ func get_game_mode() -> GameMode.enm:
 
 func get_player_mode() -> PlayerMode.enm:
 	return _player_mode
-
-
-func get_difficulty() -> Difficulty.enm:
-	return _difficulty
 
 
 func game_mode_is_random() -> bool:

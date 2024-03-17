@@ -35,6 +35,7 @@ var _game_state: GameState = GameState.PREGAME
 var _prev_effect_id: int = 0
 var _game_over: bool = false
 var _room_code: int = 0
+var _difficulty: Difficulty.enm = Config.default_difficulty()
 
 
 #########################
@@ -326,10 +327,11 @@ func _transition_from_pregame_settings_state():
 	_tower_preview.set_player(local_player)
 
 	var wave_count: int = Globals.get_wave_count()
-	var difficulty: Difficulty.enm = Globals.get_difficulty()
+	var difficulty: Difficulty.enm = _pregame_hud.get_difficulty()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var tutorial_enabled: bool = _pregame_hud.get_tutorial_enabled()
 	
+	_difficulty = difficulty
 	_hud.set_pregame_settings(wave_count, game_mode, difficulty, local_builder_id)
 	
 # 	TODO: fix for multiplayer. I think tutorial should be
@@ -417,7 +419,7 @@ func _start_game():
 
 	_wave_spawner.start_wave(1)
 	
-	if Globals.get_difficulty() == Difficulty.enm.EXTREME:
+	if _difficulty == Difficulty.enm.EXTREME:
 		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
 
 #	NOTE: start counting game time after first wave starts
@@ -442,7 +444,7 @@ func _start_next_wave():
 	if started_last_wave:
 		_hud.disable_next_wave_button()
 
-	if !started_last_wave && Globals.get_difficulty() == Difficulty.enm.EXTREME:
+	if !started_last_wave && _difficulty == Difficulty.enm.EXTREME:
 		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
 
 
@@ -464,7 +466,7 @@ func _get_next_5_waves() -> Array[Wave]:
 func _set_pregame_settings(game_length: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
 	Globals._wave_count = game_length
 	Globals._game_mode = game_mode
-	Globals._difficulty = difficulty
+	_difficulty = difficulty
 
 	_pregame_hud.change_tab(PregameHUD.Tab.BUILDER)
 
@@ -494,7 +496,7 @@ func _on_pregame_hud_tab_finished():
 #			cause the host to broadcast game settings to
 #			peers.
 			var game_length: int = _pregame_hud.get_game_length()
-			var difficulty: Difficulty.enm = _pregame_hud.get_difficulty()
+			var difficulty: Difficulty.enm = _difficulty
 			var game_mode: GameMode.enm = _pregame_hud.get_game_mode()
 			_set_pregame_settings.rpc(game_length, game_mode, difficulty)
 		PregameHUD.Tab.BUILDER: 
