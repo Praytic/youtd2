@@ -289,7 +289,7 @@ func _get_cmdline_value(key: String):
 func _transition_from_pregame_settings_state():
 	get_tree().set_pause(false)
 
-	var local_builder_id: int = Globals.get_builder_id()
+	var local_builder_id: int = _pregame_hud.get_builder_id()
 
 #	Create local player and remote players
 	var local_peer_id: int = multiplayer.get_unique_id()

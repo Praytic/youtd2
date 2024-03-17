@@ -11,7 +11,16 @@ class_name BuilderMenu extends PregameTab
 @export var _hardcore_container: VBoxContainer
 
 
+var _builder_id: int
+
+
 func _ready():
+#	NOTE: need to init builder id here instead of in var
+#	declaration because BuilderProperties is not ready
+#	during var declaration which makes default_builder_id()
+#	fails.
+	_builder_id = Config.default_builder_id()
+	
 	var builder_list: Array = BuilderProperties.get_id_list()
 	
 	for builder in builder_list:
@@ -37,8 +46,11 @@ func _ready():
 			BuilderTier.enm.HARDCORE: container_for_button = _hardcore_container
 		
 		container_for_button.add_child(button)
-	
+
+
+func get_builder_id() -> int:
+	return _builder_id
 
 func _on_generic_button_pressed(builder_id: int):
-	Globals._builder_id = builder_id
+	_builder_id = builder_id
 	finished.emit()

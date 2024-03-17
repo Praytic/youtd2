@@ -27,6 +27,7 @@ enum Tab {
 @export var _game_length_menu: GameLengthMenu
 @export var _game_mode_menu: GameModeMenu
 @export var _difficulty_menu: DifficultyMenu
+@export var _builder_menu: BuilderMenu
 
 
 #########################
@@ -58,6 +59,10 @@ func get_game_mode() -> GameMode.enm:
 
 func get_difficulty() -> Difficulty.enm:
 	return _difficulty_menu.get_difficulty()
+
+
+func get_builder_id() -> int:
+	return _builder_menu.get_builder_id()
 
 
 func get_room_address() -> String:
