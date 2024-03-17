@@ -96,6 +96,13 @@ func _ready():
 	if show_pregame_settings_menu:
 		_pregame_hud.show()
 	else:
+#		Use default setting values when skipping pregame
+#		settings
+		var wave_count: int = Config.default_wave_count()
+		var difficulty: Difficulty.enm = Config.default_difficulty()
+		var game_mode: GameMode.enm = Config.default_game_mode()
+		_set_pregame_settings(wave_count, game_mode, difficulty)
+		
 		_transition_from_pregame_settings_state()
 
 
@@ -494,11 +501,15 @@ func _on_pregame_hud_tab_finished():
 #			NOTE: show tutorial tab only if singleplayer was selected
 			match player_mode:
 				PlayerMode.enm.SINGLE: _pregame_hud.change_tab(PregameHUD.Tab.TUTORIAL_QUESTION)
-				PlayerMode.enm.COOP: _pregame_hud.hide()
+				PlayerMode.enm.COOP:
+					_pregame_hud.hide()
+					_transition_from_pregame_settings_state()
 				PlayerMode.enm.SERVER: push_error("unhandled case")
 				
 			
-		PregameHUD.Tab.TUTORIAL_QUESTION: _pregame_hud.hide()
+		PregameHUD.Tab.TUTORIAL_QUESTION:
+			_pregame_hud.hide()
+			_transition_from_pregame_settings_state()
 
 
 func _on_player_requested_to_host_room():
@@ -525,10 +536,6 @@ func _on_player_requested_to_join_room():
 
 func _on_pause_hud_resume_pressed():
 	_unpause_the_game()
-
-
-func _on_pregame_hud_hidden():
-	_transition_from_pregame_settings_state()
 
 
 func _on_tutorial_menu_hidden():
