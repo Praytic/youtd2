@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://4dakdefm73rd" path="res://Scenes/PregameHUD/BuilderMenu.tscn" id="8_drc75"]
 [ext_resource type="PackedScene" uid="uid://bfesvqnocb2jg" path="res://Scenes/PregameHUD/WaitingForHostMenu.tscn" id="10_hnfvc"]
 
-[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_host_details_label", "_player_mode_menu", "_coop_menu")]
+[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_host_details_label", "_player_mode_menu", "_coop_menu", "_game_length_menu", "_game_mode_menu", "_difficulty_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,6 +24,9 @@ _tab_container = NodePath("VBoxContainer/TabContainer")
 _host_details_label = NodePath("VBoxContainer/HostDetailsLabel")
 _player_mode_menu = NodePath("VBoxContainer/TabContainer/PlayerModeMenu")
 _coop_menu = NodePath("VBoxContainer/TabContainer/CoopMenu")
+_game_length_menu = NodePath("VBoxContainer/TabContainer/GameLengthMenu")
+_game_mode_menu = NodePath("VBoxContainer/TabContainer/GameModeMenu")
+_difficulty_menu = NodePath("VBoxContainer/TabContainer/DifficultyMenu")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

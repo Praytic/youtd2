@@ -24,6 +24,9 @@ enum Tab {
 @export var _host_details_label: Label
 @export var _player_mode_menu: PlayerModeMenu
 @export var _coop_menu: CoopMenu
+@export var _game_length_menu: GameLengthMenu
+@export var _game_mode_menu: GameModeMenu
+@export var _difficulty_menu: DifficultyMenu
 
 
 #########################
@@ -43,6 +46,18 @@ func get_current_tab() -> PregameHUD.Tab:
 	var current_tab: PregameHUD.Tab = _tab_container.current_tab as PregameHUD.Tab
 	
 	return current_tab
+
+
+func get_game_length() -> int:
+	return _game_length_menu.get_game_length()
+
+
+func get_game_mode() -> GameMode.enm:
+	return _game_mode_menu.get_game_mode()
+
+
+func get_difficulty() -> Difficulty.enm:
+	return _difficulty_menu.get_difficulty()
 
 
 func get_room_address() -> String:

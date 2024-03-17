@@ -1,8 +1,15 @@
-extends PregameTab
+class_name GameLengthMenu extends PregameTab
+
+
+var _game_length: int = Config.default_wave_count()
+
+
+func get_game_length() -> int:
+	return _game_length
 
 
 func _on_generic_button_pressed(wave_count: int):
-	Globals._wave_count = wave_count
+	_game_length = wave_count
 	finished.emit()
 
 

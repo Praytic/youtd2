@@ -1,8 +1,15 @@
 class_name DifficultyMenu extends PregameTab
 
 
+var _difficulty: Difficulty.enm = Config.default_difficulty()
+
+
+func get_difficulty() -> Difficulty.enm:
+	return _difficulty
+
+
 func _on_generic_button_pressed(difficulty: Difficulty.enm):
-	Globals._difficulty = difficulty
+	_difficulty = difficulty
 	finished.emit()
 
 

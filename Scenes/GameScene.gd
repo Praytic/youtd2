@@ -453,17 +453,25 @@ func _get_next_5_waves() -> Array[Wave]:
 	return wave_list
 
 
+@rpc("any_peer", "call_local", "reliable")
+func _set_pregame_settings(game_length: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
+	Globals._wave_count = game_length
+	Globals._game_mode = game_mode
+	Globals._difficulty = difficulty
+
+	_pregame_hud.change_tab(PregameHUD.Tab.BUILDER)
+
+
 #########################
 ###     Callbacks     ###
 #########################
 
 func _on_pregame_hud_tab_finished():
 	var current_tab: PregameHUD.Tab = _pregame_hud.get_current_tab()
+	var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
 	
 	match current_tab:
 		PregameHUD.Tab.PLAYER_MODE:
-			var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
-			
 			match player_mode:
 				PlayerMode.enm.SINGLE: _pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
 				PlayerMode.enm.COOP: _pregame_hud.change_tab(PregameHUD.Tab.COOP_ROOM)
@@ -473,11 +481,17 @@ func _on_pregame_hud_tab_finished():
 			return
 		PregameHUD.Tab.GAME_LENGTH: _pregame_hud.change_tab(PregameHUD.Tab.DISTRIBUTION)
 		PregameHUD.Tab.DISTRIBUTION: _pregame_hud.change_tab(PregameHUD.Tab.DIFFICULTY)
-		PregameHUD.Tab.DIFFICULTY: _pregame_hud.change_tab(PregameHUD.Tab.BUILDER)
+		PregameHUD.Tab.DIFFICULTY:
+#			NOTE: in singleplayer case, this simply sets the
+#			settings locally. In multiplayer case, this will
+#			cause the host to broadcast game settings to
+#			peers.
+			var game_length: int = _pregame_hud.get_game_length()
+			var difficulty: Difficulty.enm = _pregame_hud.get_difficulty()
+			var game_mode: GameMode.enm = _pregame_hud.get_game_mode()
+			_set_pregame_settings.rpc(game_length, game_mode, difficulty)
 		PregameHUD.Tab.BUILDER: 
 #			NOTE: show tutorial tab only if singleplayer was selected
-			var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
-
 			match player_mode:
 				PlayerMode.enm.SINGLE: _pregame_hud.change_tab(PregameHUD.Tab.TUTORIAL_QUESTION)
 				PlayerMode.enm.COOP: _pregame_hud.hide()

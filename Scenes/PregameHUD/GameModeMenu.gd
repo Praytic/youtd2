@@ -1,8 +1,15 @@
-extends PregameTab
+class_name GameModeMenu extends PregameTab
+
+
+var _game_mode: GameMode.enm = Config.default_game_mode()
+
+
+func get_game_mode() -> GameMode.enm:
+	return _game_mode
 
 
 func _on_generic_button_pressed(game_mode: GameMode.enm):
-	Globals._game_mode = game_mode
+	_game_mode = game_mode
 	finished.emit()
 
 
