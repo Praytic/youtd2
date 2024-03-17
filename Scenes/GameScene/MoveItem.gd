@@ -59,7 +59,7 @@ func process_click_on_nothing(map: Map):
 	_remove_moved_item_from_source_container()
 
 	var drop_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
-	Item._create_item_drop(_moved_item, drop_position)
+	Item.make_item_drop(_moved_item, drop_position)
 	_moved_item.fly_to_stash(0.0)
 	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
 
