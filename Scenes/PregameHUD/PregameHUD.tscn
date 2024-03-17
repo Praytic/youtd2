@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bk4o75m1nr3cw" path="res://Scenes/PregameHUD/TutorialQuestionMenu.tscn" id="6_6h63j"]
 [ext_resource type="PackedScene" uid="uid://4dakdefm73rd" path="res://Scenes/PregameHUD/BuilderMenu.tscn" id="8_drc75"]
 
-[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_host_details_label", "_player_mode_menu")]
+[node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_host_details_label", "_player_mode_menu", "_coop_menu")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +22,7 @@ script = ExtResource("2_ljcwn")
 _tab_container = NodePath("VBoxContainer/TabContainer")
 _host_details_label = NodePath("VBoxContainer/HostDetailsLabel")
 _player_mode_menu = NodePath("VBoxContainer/TabContainer/PlayerModeMenu")
+_coop_menu = NodePath("VBoxContainer/TabContainer/CoopMenu")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

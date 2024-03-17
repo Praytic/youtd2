@@ -48,7 +48,9 @@ func _ready():
 #	1. launching the game
 #	2. restarting the game
 	_reset_singletons()
-
+	
+	EventBus.player_requested_to_host_room.connect(_on_player_requested_to_host_room)
+	EventBus.player_requested_to_join_room.connect(_on_player_requested_to_join_room)
 	EventBus.wave_finished.connect(_on_wave_finished)
 	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
@@ -454,6 +456,30 @@ func _get_next_5_waves() -> Array[Wave]:
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_player_requested_to_host_room():
+	Network.create_server()
+	_pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
+
+
+func _on_player_requested_to_join_room():
+	var address_string: String = _pregame_hud.get_room_address()
+	
+#	TODO: check validity more thoroughly
+	var address_is_valid: bool = address_string.split(":", false).size() == 2
+	
+	if !address_is_valid:
+		_pregame_hud.show_address_error()
+#		_address_error_label.show()
+		
+		return
+	
+	var address_details: Array = address_string.split(":")
+	Network.connect_to_server(address_details[0], address_details[1].to_int())
+	
+#	TODO: if player joins a room, they should change to "Waiting for host" tab, while host is choosing settings.
+	_pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
+
 
 func _on_pause_hud_resume_pressed():
 	_unpause_the_game()
