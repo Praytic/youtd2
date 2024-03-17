@@ -328,7 +328,7 @@ func _transition_from_pregame_settings_state():
 	var wave_count: int = Globals.get_wave_count()
 	var difficulty: Difficulty.enm = Globals.get_difficulty()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
-	var tutorial_enabled: bool = Globals.get_tutorial_enabled()
+	var tutorial_enabled: bool = _pregame_hud.get_tutorial_enabled()
 	
 	_hud.set_pregame_settings(wave_count, game_mode, difficulty, local_builder_id)
 	

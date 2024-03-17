@@ -1,8 +1,15 @@
-extends PregameTab
+class_name TutorialQuestionMenu extends PregameTab
+
+
+var _tutorial_enabled: bool = Config.default_tutorial_enabled()
+
+
+func get_tutorial_enabled() -> bool:
+	return _tutorial_enabled
 
 
 func _on_generic_button_pressed(tutorial_enabled: bool):
-	Globals._tutorial_enabled = tutorial_enabled
+	_tutorial_enabled = tutorial_enabled
 	finished.emit()
 
 

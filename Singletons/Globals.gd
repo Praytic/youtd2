@@ -38,7 +38,6 @@ var _wave_count: int
 var _game_mode: GameMode.enm
 var _player_mode: PlayerMode.enm
 var _difficulty: Difficulty.enm
-var _tutorial_enabled: bool
 
 
 func reset():
@@ -46,7 +45,6 @@ func reset():
 	_game_mode = Config.default_game_mode()
 	_player_mode = Config.default_player_mode()
 	_difficulty = Config.default_difficulty()
-	_tutorial_enabled = Config.default_tutorial_enabled()
 
 
 func get_wave_count() -> int:
@@ -63,10 +61,6 @@ func get_player_mode() -> PlayerMode.enm:
 
 func get_difficulty() -> Difficulty.enm:
 	return _difficulty
-
-
-func get_tutorial_enabled() -> bool:
-	return _tutorial_enabled
 
 
 func game_mode_is_random() -> bool:

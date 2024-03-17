@@ -28,6 +28,7 @@ enum Tab {
 @export var _game_mode_menu: GameModeMenu
 @export var _difficulty_menu: DifficultyMenu
 @export var _builder_menu: BuilderMenu
+@export var _tutorial_question_menu: TutorialQuestionMenu
 
 
 #########################
@@ -69,6 +70,10 @@ func get_room_address() -> String:
 	var room_address: String = _coop_menu.get_room_address()
 	
 	return room_address
+
+
+func get_tutorial_enabled() -> bool:
+	return _tutorial_question_menu.get_tutorial_enabled()
 
 
 func show_address_error():
