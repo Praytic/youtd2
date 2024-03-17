@@ -22,7 +22,3 @@ func _on_join_room_button_pressed():
 func _on_create_room_button_pressed():
 	Network.create_server()
 	finished.emit()
-
-
-func meets_condition() -> bool:
-	return Globals._player_mode == PlayerMode.enm.COOP

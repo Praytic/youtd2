@@ -1,4 +1,4 @@
-extends Control
+class_name PregameHUD extends Control
 
 # This HUD is shown when the game starts and blocks input to
 # the normal HUD. Once the player chooses all of the
@@ -18,6 +18,7 @@ enum Tab {
 
 @export var _tab_container: TabContainer
 @export var _host_details_label: Label
+@export var _player_mode_menu: PlayerModeMenu
 
 
 #########################
@@ -34,17 +35,23 @@ func _ready():
 #########################
 
 func _on_submenu_finished():
-	var is_last_tab: bool = _tab_container.current_tab == Tab.TUTORIAL_QUESTION
+	var current_tab: PregameTab = _tab_container.get_current_tab_control() as PregameTab
+	var current_tab_index: PregameHUD.Tab = current_tab.tab_index
 	
-	if is_last_tab:
-		hide()
-	else:
-		var next_tab: Tab = (_tab_container.current_tab + 1) as Tab
-		var next_tab_control: PregameTab = _tab_container.get_tab_control(next_tab)
-		while next_tab_control != null && !next_tab_control.meets_condition():
-			next_tab = (next_tab + 1) as Tab
-			next_tab_control = _tab_container.get_tab_control(next_tab)
-		_tab_container.current_tab = next_tab
+	match current_tab_index:
+		Tab.PLAYER_MODE:
+			var player_mode: PlayerMode.enm = _player_mode_menu.get_player_mode()
+			
+			match player_mode:
+				PlayerMode.enm.SINGLE: _tab_container.current_tab = Tab.GAME_LENGTH
+				PlayerMode.enm.COOP: _tab_container.current_tab = Tab.COOP_ROOM
+				PlayerMode.enm.SERVER: push_error("unhandled case")
+		Tab.COOP_ROOM: _tab_container.current_tab = Tab.GAME_LENGTH
+		Tab.GAME_LENGTH: _tab_container.current_tab = Tab.DISTRIBUTION
+		Tab.DISTRIBUTION: _tab_container.current_tab = Tab.DIFFICULTY
+		Tab.DIFFICULTY: _tab_container.current_tab = Tab.BUILDER
+		Tab.BUILDER: _tab_container.current_tab = Tab.TUTORIAL_QUESTION
+		Tab.TUTORIAL_QUESTION: hide()
 
 
 func _on_network_status_changed(text: String, _error: bool):

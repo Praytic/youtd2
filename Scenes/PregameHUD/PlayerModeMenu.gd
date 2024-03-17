@@ -1,8 +1,15 @@
-extends PregameTab
+class_name PlayerModeMenu extends PregameTab
+
+
+var _player_mode: PlayerMode.enm = PlayerMode.enm.SINGLE
+
+
+func get_player_mode() -> PlayerMode.enm:
+	return _player_mode
 
 
 func _on_generic_button_pressed(player_mode: PlayerMode.enm):
-	Globals._player_mode = player_mode
+	_player_mode = player_mode
 	finished.emit()
 
 

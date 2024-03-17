@@ -13,6 +13,7 @@ _beginner_container = NodePath("ScrollContainer/VBoxContainer/BeginnerContainer"
 _advanced_container = NodePath("ScrollContainer/VBoxContainer/AdvancedContainer")
 _specialist_container = NodePath("ScrollContainer/VBoxContainer/SpecialistContainer")
 _hardcore_container = NodePath("ScrollContainer/VBoxContainer/HardcoreContainer")
+tab_index = 5
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
