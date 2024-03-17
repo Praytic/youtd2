@@ -220,5 +220,6 @@ visible = false
 [connection signal="timeout" from="Gameplay/ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
 [connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
 [connection signal="hidden" from="UI/PregameHUD" to="." method="_on_pregame_hud_hidden"]
+[connection signal="tab_finished" from="UI/PregameHUD" to="." method="_on_pregame_hud_tab_finished"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]

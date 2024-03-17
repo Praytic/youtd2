@@ -5,6 +5,9 @@ class_name PregameHUD extends Control
 # settings, this hud gets hidden and the game starts.
 
 
+signal tab_finished()
+
+
 enum Tab {
 	PLAYER_MODE,
 	COOP_ROOM,
@@ -36,6 +39,12 @@ func _ready():
 ###       Public      ###
 #########################
 
+func get_current_tab() -> PregameHUD.Tab:
+	var current_tab: PregameHUD.Tab = _tab_container.current_tab as PregameHUD.Tab
+	
+	return current_tab
+
+
 func get_room_address() -> String:
 	var room_address: String = _coop_menu.get_room_address()
 	
@@ -50,28 +59,16 @@ func change_tab(tab: PregameHUD.Tab):
 	_tab_container.current_tab = tab
 
 
+func get_player_mode() -> PlayerMode.enm:
+	return _player_mode_menu.get_player_mode()
+
+
 #########################
 ###     Callbacks     ###
 #########################
 
 func _on_submenu_finished():
-	var current_tab: PregameTab = _tab_container.get_current_tab_control() as PregameTab
-	var current_tab_index: PregameHUD.Tab = current_tab.tab_index
-	
-	match current_tab_index:
-		Tab.PLAYER_MODE:
-			var player_mode: PlayerMode.enm = _player_mode_menu.get_player_mode()
-			
-			match player_mode:
-				PlayerMode.enm.SINGLE: change_tab(Tab.GAME_LENGTH)
-				PlayerMode.enm.COOP: change_tab(Tab.COOP_ROOM)
-				PlayerMode.enm.SERVER: push_error("unhandled case")
-		Tab.COOP_ROOM: change_tab(Tab.GAME_LENGTH)
-		Tab.GAME_LENGTH: change_tab(Tab.DISTRIBUTION)
-		Tab.DISTRIBUTION: change_tab(Tab.DIFFICULTY)
-		Tab.DIFFICULTY: change_tab(Tab.BUILDER)
-		Tab.BUILDER: change_tab(Tab.TUTORIAL_QUESTION)
-		Tab.TUTORIAL_QUESTION: hide()
+	tab_finished.emit()
 
 
 func _on_network_status_changed(text: String, _error: bool):

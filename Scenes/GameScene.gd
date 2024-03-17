@@ -457,6 +457,27 @@ func _get_next_5_waves() -> Array[Wave]:
 ###     Callbacks     ###
 #########################
 
+func _on_pregame_hud_tab_finished():
+	var current_tab: PregameHUD.Tab = _pregame_hud.get_current_tab()
+	
+	match current_tab:
+		PregameHUD.Tab.PLAYER_MODE:
+			var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
+			
+			match player_mode:
+				PlayerMode.enm.SINGLE: _pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
+				PlayerMode.enm.COOP: _pregame_hud.change_tab(PregameHUD.Tab.COOP_ROOM)
+				PlayerMode.enm.SERVER: push_error("unhandled case")
+		PregameHUD.Tab.COOP_ROOM:
+#			NOTE: do nothing for this case because advancement from this tab is handled in other callbacks.
+			return
+		PregameHUD.Tab.GAME_LENGTH: _pregame_hud.change_tab(PregameHUD.Tab.DISTRIBUTION)
+		PregameHUD.Tab.DISTRIBUTION: _pregame_hud.change_tab(PregameHUD.Tab.DIFFICULTY)
+		PregameHUD.Tab.DIFFICULTY: _pregame_hud.change_tab(PregameHUD.Tab.BUILDER)
+		PregameHUD.Tab.BUILDER: _pregame_hud.change_tab(PregameHUD.Tab.TUTORIAL_QUESTION)
+		PregameHUD.Tab.TUTORIAL_QUESTION: _pregame_hud.hide()
+
+
 func _on_player_requested_to_host_room():
 	Network.create_server()
 	_pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
