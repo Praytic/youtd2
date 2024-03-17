@@ -1,6 +1,8 @@
 extends Node
 
 
+# NOTE: need to preload scenes here to prevent cyclic
+# references.
 const item_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/ItemButton.tscn")
 const tower_button_scene: PackedScene = preload("res://Scenes/HUD/Buttons/TowerButton.tscn")
 const floating_text_scene: PackedScene = preload("res://Scenes/HUD/FloatingText.tscn")
