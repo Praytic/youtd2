@@ -37,12 +37,16 @@ enum Tab {
 
 func _ready():
 	_tab_container.current_tab = Tab.PLAYER_MODE
-	Network.status_changed.connect(_on_network_status_changed)
 
 
 #########################
 ###       Public      ###
 #########################
+
+func show_network_status(text: String):
+	_host_details_label.text = text
+	_host_details_label.visible = true
+
 
 func get_current_tab() -> PregameHUD.Tab:
 	var current_tab: PregameHUD.Tab = _tab_container.current_tab as PregameHUD.Tab
@@ -94,8 +98,3 @@ func get_player_mode() -> PlayerMode.enm:
 
 func _on_submenu_finished():
 	tab_finished.emit()
-
-
-func _on_network_status_changed(text: String, _error: bool):
-	_host_details_label.text = text
-	_host_details_label.visible = true

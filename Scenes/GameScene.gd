@@ -7,6 +7,11 @@ enum GameState {
 	PAUSED,
 }
 
+# Default game server port. Can be any number between 1024 and 49151.
+# Not present on the list of registered or common ports as of December 2022:
+# https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+const DEFAULT_PORT = 8910
+
 @export var _pregame_hud: Control
 @export var _pause_hud: Control
 @export var _hud: HUD
@@ -54,6 +59,10 @@ func _ready():
 	_reset_singletons()
 	
 	multiplayer.peer_connected.connect(_on_peer_connected)
+	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	multiplayer.connection_failed.connect(_on_connection_failed)
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 	EventBus.player_requested_to_host_room.connect(_on_player_requested_to_host_room)
 	EventBus.player_requested_to_join_room.connect(_on_player_requested_to_join_room)
@@ -505,11 +514,33 @@ func _set_pregame_settings(game_length: int, game_mode: GameMode.enm, difficulty
 ###     Callbacks     ###
 #########################
 
-# As a host, share origin seed with other peers
-func _on_peer_connected(_id: int):
-	if multiplayer.is_server():
-		var origin_seed: int = _origin_rng.seed
-		_set_origin_rng_seed.rpc(origin_seed)
+func _on_peer_connected(id: int):
+#	NOTE: need to check that server received this callback
+#	because peers also receive this callback when they
+#	connect. Only do stuff if server received callback.
+	if !multiplayer.is_server():
+		return
+
+	var origin_seed: int = _origin_rng.seed
+	_set_origin_rng_seed.rpc(origin_seed)
+
+	_pregame_hud.show_network_status("Player [%s] connected to this server." % id)
+
+
+func _on_peer_disconnected(id: int):
+	_pregame_hud.show_network_status("Player [%s] disconnected from this server." % id)
+
+
+func _on_connected_to_server():
+	_pregame_hud.show_network_status("Successfully connected to a server.")
+
+
+func _on_connection_failed():
+	_pregame_hud.show_network_status("Couldn't connect to a server.")
+
+
+func _on_server_disconnected():
+	_pregame_hud.show_network_status("Disconnected from a server.")
 
 
 func _on_pregame_hud_tab_finished():
@@ -552,14 +583,27 @@ func _on_pregame_hud_tab_finished():
 
 
 func _on_player_requested_to_host_room():
-	Network.create_server()
-
 #	NOTE: host randomizes their rng, other peers will
 #	receive this seed from host when connecting via
 #	_set_origin_rng_seed().
 	_origin_rng.randomize()
 	print_verbose("Generated origin seed on host: ", _origin_rng.seed)
 
+	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+	# Maximum of 1 peer, since it's a 2-player co-op.
+	var create_server_error: Error = peer.create_server(DEFAULT_PORT, 1)
+	if create_server_error != OK:
+		# Is another server running?
+		var error_text: String = "Can't host, port [%s] in use." % DEFAULT_PORT
+		push_error(error_text)
+		_pregame_hud.show_network_status(error_text)
+
+		return
+
+	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+	multiplayer.set_multiplayer_peer(peer)
+
+	_pregame_hud.show_network_status("Waiting for player...")
 	_pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
 
 
@@ -575,8 +619,25 @@ func _on_player_requested_to_join_room():
 		return
 	
 	var address_details: Array = address_string.split(":")
-	Network.connect_to_server(address_details[0], address_details[1].to_int())
+
+	var host_address: String = address_details[0]
+	var host_port: int = address_details[1].to_int()
+
+	var peer: ENetMultiplayerPeer = ENetMultiplayerPeer.new()
+	var create_client_error: Error = peer.create_client(host_address, host_port)
+
+	if create_client_error != OK:
+		# Is another server running?
+		var error_text: String = "Failed to create client. Error:" % create_client_error
+		push_error(error_text)
+		_pregame_hud.show_network_status(error_text)
+
+		return
+
+	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
+	multiplayer.set_multiplayer_peer(peer)
 	
+	_pregame_hud.show_network_status("Connecting to [%s]..." % address_string)
 	_pregame_hud.change_tab(PregameHUD.Tab.WAITING_FOR_HOST)
 
 
