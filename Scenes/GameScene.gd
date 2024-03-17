@@ -470,15 +470,13 @@ func _on_player_requested_to_join_room():
 	
 	if !address_is_valid:
 		_pregame_hud.show_address_error()
-#		_address_error_label.show()
 		
 		return
 	
 	var address_details: Array = address_string.split(":")
 	Network.connect_to_server(address_details[0], address_details[1].to_int())
 	
-#	TODO: if player joins a room, they should change to "Waiting for host" tab, while host is choosing settings.
-	_pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
+	_pregame_hud.change_tab(PregameHUD.Tab.WAITING_FOR_HOST)
 
 
 func _on_pause_hud_resume_pressed():
