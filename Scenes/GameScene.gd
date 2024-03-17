@@ -334,6 +334,9 @@ func _transition_from_pregame_settings_state():
 	
 	_hud.set_pregame_settings(wave_count, game_mode, _difficulty)
 
+	var upgrade_button_should_be_visible: bool = game_mode == GameMode.enm.BUILD || game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
+	_hud.set_upgrade_button_visible(upgrade_button_should_be_visible)
+
 # 	TODO: fix for multiplayer. I think tutorial should be
 # 	disabled in multiplayer case.
 	if tutorial_enabled:

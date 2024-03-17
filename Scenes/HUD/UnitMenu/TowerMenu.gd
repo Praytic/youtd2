@@ -67,6 +67,10 @@ func _process(_delta: float):
 ###       Public      ###
 #########################
 
+func set_upgrade_button_visible(value: bool):
+	_upgrade_button.visible = value
+
+
 # NOTE: need to couple unit menu with player to implement
 # the feature of tooltips displaying red requirement
 # numbers.
@@ -122,12 +126,6 @@ func set_tower(tower: Tower):
 	_tower_icon.texture = tower_icon
 	var tier_icon: Texture2D = UnitIcons.get_tower_tier_icon(tower.get_id())
 	_tier_icon.texture = tier_icon
-
-#	TODO: implement this in a different way. Add f-n
-#	hide_upgrade_button() and call it in GameScene if game
-#	mode doesn't support upgrading
-	var upgrade_button_should_be_visible: bool = Globals.get_game_mode() == GameMode.enm.BUILD || Globals.get_game_mode() == GameMode.enm.RANDOM_WITH_UPGRADES
-	_upgrade_button.set_visible(upgrade_button_should_be_visible)
 	
 	_set_selling_for_real(false)
 
