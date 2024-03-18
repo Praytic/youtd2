@@ -428,7 +428,6 @@ func _reset_singletons():
 	CombatLog.reset()
 	Effect.reset()
 	ElapsedTimer.reset()
-	Globals.reset()
 
 
 @rpc("any_peer", "call_local", "reliable")

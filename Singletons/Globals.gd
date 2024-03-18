@@ -1,14 +1,11 @@
 extends Node
 
 
-# Game settings
-var _wave_count: int
-var _game_mode: GameMode.enm
-
-
-func reset():
-	_wave_count = Config.default_wave_count()
-	_game_mode = Config.default_game_mode()
+# NOTE: these settings are selected during game start. If
+# they are accessed before that point, you will get these
+# placeholders.
+var _wave_count: int = 0
+var _game_mode: GameMode.enm = GameMode.enm.BUILD
 
 
 func get_wave_count() -> int:
