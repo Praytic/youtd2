@@ -7,29 +7,9 @@ extends Node
 # unit.
 
 
-# NOTE: Enable to check if any effects do not have scenes.
-# Disabling for now because at this point most effects won't
-# have scenes.
-const PRINT_INVALID_PATH_ERROR: bool = false
-
-# Map active effects to integer id's
-# 
-# NOTE: this is for compatibility with original tower script
-# API
-var _id_max: int
-var _effect_map: Dictionary
-var _free_id_list: Array
-
-
-func reset():
-	_id_max = 1
-	_effect_map = {}
-	_free_id_list = []
-
-
 # NOTE: effect must be an AnimatedSprite2D scene
 # NOTE: Effect.createAnimated() in JASS
-func create_animated(effect_path: String, x: float, y: float, _z: float, _facing: float) -> int:
+func create_animated(effect_path: String, x: float, y: float, z: float, facing: float) -> int:
 	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
 	
 	if effects_container == null:
@@ -37,11 +17,7 @@ func create_animated(effect_path: String, x: float, y: float, _z: float, _facing
 
 		return 0
 
-	var id: int = _create_internal(effect_path)
-	var effect: Node2D = _effect_map[id]
-	effect.position = Vector2(x, y)
-	effects_container.add_child(effect)
-	effect.play()
+	var id: int = effects_container.create_animated(effect_path, x, y, z, facing)
 
 	return id
 
@@ -62,18 +38,14 @@ func create_simple_at_unit(effect_path: String, unit: Unit) -> int:
 
 # NOTE: Effect.createSimpleOnUnit() in JASS
 func create_simple_on_unit(effect_path: String, unit: Unit, body_part: Unit.BodyPart) -> int:
-	var id: int = _create_internal(effect_path)
-	var effect: Node2D = _effect_map[id]
+	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
+	
+	if effects_container == null:
+		push_warning("effects_container is null. You can ignore this warning during game restart.")
 
-	var body_part_offset: Vector2 = unit.get_body_part_offset(body_part)
-	effect.offset += body_part_offset / effect.scale.y
+		return 0
 
-	var unit_visual: Node2D = unit.get_visual_node()
-	if unit_visual != null:
-		unit_visual.add_child(effect)
-		effect.play()
-	else:
-		push_error("Couldn't add effect to unit because unit_visual is null. Make sure that Unit._set_visual_node() is called before any possible effects.")
+	var id: int = effects_container.create_simple_on_unit(effect_path, unit, body_part)
 
 	return id
 
@@ -107,37 +79,35 @@ func create_colored(effect_path: String, x: float, y: float, z: float, facing: f
 
 # NOTE: effect.setScale() in JASS()
 func set_scale(effect_id: int, scale: float):
-	if !_effect_map.has(effect_id):
+	var effect: Node2D = _get_effect(effect_id)
+	if effect == null:
 		return
 
-	var effect = _effect_map[effect_id]
 	effect.scale = Vector2.ONE * scale
 
 
 func set_color(effect_id: int, color: Color):
-	if !_effect_map.has(effect_id):
+	var effect: Node2D = _get_effect(effect_id)
+	if effect == null:
 		return
 
-	var effect = _effect_map[effect_id]
 	effect.modulate = color
 
 
 # NOTE: effect.setLifetime() in JASS()
 func set_lifetime(effect_id: int, lifetime: float):
+	var effect: Node2D = _get_effect(effect_id)
+	if effect == null:
+		return
+
 	var timer: SceneTreeTimer = get_tree().create_timer(lifetime)
 	timer.timeout.connect(_on_lifetime_timer_timeout.bind(effect_id))
 
 
 # NOTE: effect.setAnimationSpeed() in JASS()
 func set_animation_speed(effect_id: int, speed: float):
-	if !_effect_map.has(effect_id):
-		return
-
-	var effect: Node2D = _effect_map[effect_id]
-
-	if !effect is AnimatedSprite2D:
-		push_error("Called set_animation_speed on effect which is not of type AnimatedSprite2D. Can't change speed in this case.")
-
+	var effect: Node2D = _get_effect(effect_id)
+	if effect == null:
 		return
 
 	var effect_sprite: AnimatedSprite2D = effect as AnimatedSprite2D
@@ -146,20 +116,11 @@ func set_animation_speed(effect_id: int, speed: float):
 
 # NOTE: Effect.destroy() and DestroyEffect() in JASS()
 func destroy_effect(effect_id: int):
-	if !_effect_map.has(effect_id):
+	var effect: Node2D = _get_effect(effect_id)
+	if effect == null:
 		return
 
-#	NOTE: effect instance may be invalid if effect was added
-#	as child of unit, that unit died, effect's lifetime
-#	timer timed out and called destroy_effect(). In such
-#	cases the effect instance is already free'd so we skip
-#	freeing it here.
-	if is_instance_valid(_effect_map[effect_id]):
-		var effect: Node2D = _effect_map[effect_id]
-		effect.queue_free()
-
-	_effect_map.erase(effect_id)
-	_free_id_list.append(effect_id)
+	effect.queue_free()
 
 
 # NOTE: Effect.destroy() and DestroyEffect() in JASS()
@@ -171,10 +132,9 @@ func destroy_effect(effect_id: int):
 # whether to destroy an effect immediately or after
 # animation has finished. All the scripts call the same f-n.
 func destroy_effect_after_its_over(effect_id: int):
-	if !_effect_map.has(effect_id):
+	var effect: Node2D = _get_effect(effect_id)
+	if effect == null:
 		return
-
-	var effect = _effect_map[effect_id]
 
 # 	NOTE: destroy effect after animation is finished so that
 # 	this function can be used to create an effect that is
@@ -190,10 +150,9 @@ func no_death_animation(_effect_id: int):
 
 
 func set_position(effect_id: int, position: Vector2):
-	if !_effect_map.has(effect_id):
+	var effect: Node2D = _get_effect(effect_id)
+	if effect == null:
 		return
-
-	var effect = _effect_map[effect_id]
 
 	effect.position = position
 
@@ -202,42 +161,17 @@ func set_position(effect_id: int, position: Vector2):
 ###      Private      ###
 #########################
 
-func _create_internal(effect_path: String) -> int:
-	var effect_path_exists: bool = ResourceLoader.exists(effect_path)
+func _get_effect(effect_id: int) -> Node2D:
+	var effects_container: Node = get_tree().get_root().get_node_or_null("GameScene/World/EffectsContainer")
+	
+	if effects_container == null:
+		push_warning("effects_container is null. You can ignore this warning during game restart.")
 
-	var effect_scene: PackedScene
-	if effect_path_exists:
-		effect_scene = load(effect_path)
-	else:
-		effect_scene = Preloads.placeholder_effect_scene
+		return null
 
-		if PRINT_INVALID_PATH_ERROR:
-			print_debug("Invalid effect path:", effect_path, ". Using placeholder effect.")
+	var effect: Node2D = effects_container.get_effect(effect_id)
 
-	var effect: Node2D = effect_scene.instantiate()
-
-	if !effect is AnimatedSprite2D:
-		print_debug("Effect scene must be AnimatedSprite2D. Effect path with problem:", effect_path, ". Using placeholder effect.")
-
-		effect.queue_free()
-		effect = Preloads.placeholder_effect_scene.instantiate()
-
-	var id: int = _make_effect_id()
-	_effect_map[id] = effect
-
-	return id
-
-
-func _make_effect_id() -> int:
-	if !_free_id_list.is_empty():
-		var id: int = _free_id_list.pop_back()
-
-		return id
-	else:
-		var id: int = _id_max
-		_id_max += 1
-
-		return id
+	return effect
 
 
 #########################

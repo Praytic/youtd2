@@ -51,11 +51,6 @@ var _tutorial_menu: TutorialMenu = null
 func _ready():
 	print_verbose("GameScene has loaded.")
 
-#	NOTE: resetting singletons here covers two cases:
-#	1. launching the game
-#	2. restarting the game
-	_reset_singletons()
-
 	EventBus.wave_finished.connect(_on_wave_finished)
 	EventBus.creep_got_killed.connect(_on_creep_got_killed)
 	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
@@ -420,12 +415,6 @@ func _transition_from_tutorial_state():
 
 	if Config.run_test_horadric_tool():
 		TestHoradricTool.run(local_player)
-
-
-# TODO: move global state into nodes which are children of
-# GameScene so that it's automatically reset
-func _reset_singletons():
-	Effect.reset()
 
 
 @rpc("any_peer", "call_local", "reliable")
