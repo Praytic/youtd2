@@ -41,6 +41,9 @@ static var _item_drop_roll_count: Dictionary = {
 	CreepSize.enm.AIR: 4,
 	CreepSize.enm.CHAMPION: 4,
 	CreepSize.enm.BOSS: 20,
+#	NOTE: these values were derived values from JASS code.
+# 	for challenge mass: 4 = WU[1] * 10 / 5 = 2 * 10 / 5
+# 	for challenge boss: 40 = WU[7] * 10 / 5 = 20 * 10 / 5
 	CreepSize.enm.CHALLENGE_MASS: 4,
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
@@ -51,7 +54,10 @@ static var _experience_map: Dictionary = {
 	CreepSize.enm.AIR: 4,
 	CreepSize.enm.CHAMPION: 4,
 	CreepSize.enm.BOSS: 20,
-	CreepSize.enm.CHALLENGE_MASS: 2,
+#	NOTE: these values were derived values from JASS code.
+# 	for challenge mass: 4 = 2 * WU[1] = 2 * 2
+# 	for challenge boss: 40 = 2 * WU[7] = 2 * 20
+	CreepSize.enm.CHALLENGE_MASS: 4,
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 
