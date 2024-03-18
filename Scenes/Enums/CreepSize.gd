@@ -48,6 +48,19 @@ static var _item_drop_roll_count: Dictionary = {
 	CreepSize.enm.CHALLENGE_BOSS: 40,
 }
 
+static var _score_multiplier: Dictionary = {
+	CreepSize.enm.MASS: 1,
+	CreepSize.enm.NORMAL: 2,
+	CreepSize.enm.AIR: 4,
+	CreepSize.enm.CHAMPION: 4,
+	CreepSize.enm.BOSS: 20,
+#	NOTE: these values were derived values from JASS code.
+# 	for challenge mass: 20 = WU[1] * 10 = 2 * 10
+# 	for challenge boss: 200 = WU[7] * 10 = 20 * 10
+	CreepSize.enm.CHALLENGE_MASS: 4,
+	CreepSize.enm.CHALLENGE_BOSS: 40,
+}
+
 static var _experience_map: Dictionary = {
 	CreepSize.enm.MASS: 1,
 	CreepSize.enm.NORMAL: 2,
@@ -126,6 +139,10 @@ static func convert_to_colored_string(type: CreepSize.enm) -> String:
 
 static func get_item_drop_roll_count(type: CreepSize.enm) -> int:
 	return _item_drop_roll_count[type]
+
+
+static func get_score_multiplier(type: CreepSize.enm) -> float:
+	return _score_multiplier[type]
 
 
 static func get_experience(type: CreepSize.enm) -> float:

@@ -106,8 +106,8 @@ func load_player_stats(player_list: Array[Player]):
 	for player in player_list:
 		var player_name: String = player.get_player_name()
 
-		var score: int = player.get_score()
-		var score_string: String = TowerDetails.int_format(score)
+		var score: float = player.get_score()
+		var score_string: String = TowerDetails.int_format(floori(score))
 
 		var lives_string: String = player.get_team().get_lives_string()
 

@@ -57,6 +57,7 @@ func _ready():
 	_reset_singletons()
 
 	EventBus.wave_finished.connect(_on_wave_finished)
+	EventBus.creep_got_killed.connect(_on_creep_got_killed)
 	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
 	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
@@ -582,6 +583,14 @@ func _on_wave_finished(level: int):
 	local_player.apply_builder_wave_finished_effect()
 
 
+func _on_creep_got_killed(creep: Creep):
+	var creep_score: float = creep.get_score(_difficulty, Globals.get_wave_count(), Globals.get_game_mode())
+
+	if creep_score > 0:
+		var player: Player = creep.get_player()
+		player.add_score(creep_score)
+
+
 func _on_creep_reached_portal(creep: Creep):
 	var damage_to_portal = creep.get_damage_to_portal()
 	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
@@ -589,6 +598,7 @@ func _on_creep_reached_portal(creep: Creep):
 	var damage_done_string: String = Utils.format_percent(damage_done, 2)
 	var creep_size: CreepSize.enm = creep.get_size()
 	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
+	var creep_score: float = creep.get_score(_difficulty, Globals.get_wave_count(), Globals.get_game_mode())
 
 	if creep_size == CreepSize.enm.BOSS:
 		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
@@ -597,6 +607,9 @@ func _on_creep_reached_portal(creep: Creep):
 
 	if damage_to_portal > 0:
 		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
+
+	if creep_score > 0:
+		creep.get_player().add_score(creep_score)
 
 	var local_player: Player = _player_container.get_local_player()
 	local_player.get_team().modify_lives(-damage_to_portal)

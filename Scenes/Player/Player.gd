@@ -33,6 +33,7 @@ var _tomes: int = Config.starting_tomes()
 var _id: int = -1
 var _builder: Builder = null
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var _score: float = 0.0
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -141,9 +142,12 @@ func get_id() -> int:
 	return _id
 
 
-# TODO: return actual score
-func get_score() -> int:
-	return 0
+func get_score() -> float:
+	return _score
+
+
+func add_score(amount: float):
+	_score += amount
 
 
 # TODO: not sure what the point of this f-n is. Leaving as

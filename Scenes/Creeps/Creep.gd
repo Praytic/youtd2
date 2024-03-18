@@ -105,6 +105,46 @@ func _process(delta):
 ###       Public      ###
 #########################
 
+# Returns score which will be granted by Creep.
+# Note that this value depends on creep health.
+# NOTE: this function is *mostly* correct. Some multipliers
+# may still be missing.
+# TODO: implement score multiplier which depends team count
+# or "owner gets bounty" setting. Couldn't understand how it
+# works last time I tried.
+func get_score(difficulty: Difficulty.enm, game_length: int, game_mode: GameMode.enm) -> float:
+	const difficulty_multiplier_map: Dictionary = {
+		Difficulty.enm.BEGINNER: 1.0,
+		Difficulty.enm.EASY: 2.0,
+		Difficulty.enm.MEDIUM: 3.0,
+		Difficulty.enm.HARD: 4.0,
+		Difficulty.enm.EXTREME: 5.0,
+	}
+	var difficulty_multiplier: float = difficulty_multiplier_map[difficulty]
+
+	const length_multiplier_map: Dictionary = {
+		Constants.WAVE_COUNT_TRIAL: 1.0,
+		Constants.WAVE_COUNT_FULL: 1.0,
+		Constants.WAVE_COUNT_NEVERENDING: 0.9,
+	}
+	var length_multiplier: float = length_multiplier_map[game_length]
+
+	const game_mode_multiplier_map: Dictionary = {
+		GameMode.enm.BUILD: 0.9,
+		GameMode.enm.RANDOM_WITH_UPGRADES: 1.0,
+		GameMode.enm.TOTALLY_RANDOM: 1.35,
+	}
+	var game_mode_multiplier: float = game_mode_multiplier_map[game_mode]
+
+	var settings_multiplier: float = difficulty_multiplier * length_multiplier * game_mode_multiplier
+
+	var damage_done: float = get_damage_done()
+	var size_multiplier: float = CreepSize.get_score_multiplier(_size)
+	var score: float = damage_done * (_spawn_level / 8 + 1) * settings_multiplier * size_multiplier
+	
+	return score
+
+
 func get_damage_to_portal() -> float:
 #	NOTE: final wave boss deals full damage to portal
 	var wave_count: int = Globals.get_wave_count()
@@ -365,6 +405,8 @@ func _on_health_changed():
 
 
 func _on_death(_event: Event):
+	EventBus.creep_got_killed.emit(self)
+
 # 	Death visual
 	var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/DeathExplode.tscn", self)
 	var effect_scale: float = max(_sprite_dimensions.x, _sprite_dimensions.y) / Constants.DEATH_EXPLODE_EFFECT_SIZE
