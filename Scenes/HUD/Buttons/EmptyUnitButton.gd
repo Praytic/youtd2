@@ -3,4 +3,4 @@ extends Button
 
 
 static func make() -> EmptyUnitButton:
-	return Globals.empty_slot_button_scene.instantiate()
+	return Preloads.empty_slot_button_scene.instantiate()

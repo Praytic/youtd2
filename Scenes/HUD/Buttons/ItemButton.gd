@@ -104,6 +104,6 @@ func _on_item_charges_changed():
 #########################
 
 static func make(item: Item) -> ItemButton:
-	var item_button: ItemButton = Globals.item_button_scene.instantiate()
+	var item_button: ItemButton = Preloads.item_button_scene.instantiate()
 	item_button.set_item(item)
 	return item_button

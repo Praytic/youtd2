@@ -231,7 +231,7 @@ func _ready():
 	_sprite_node = Sprite2D.new()
 	add_child(_sprite_node)
 	_selection_outline = Sprite2D.new()
-	var selection_shader: ShaderMaterial = Globals.outline_shader.duplicate()
+	var selection_shader: ShaderMaterial = Preloads.outline_shader.duplicate()
 	_selection_outline.set_material(selection_shader)
 	add_child(_selection_outline)
 
@@ -1036,7 +1036,7 @@ func _set_sprite_node(sprite_node: Node2D, outline_thickness: float):
 # 	NOTE: also duplicate the shader so that shader
 # 	parameters are individual to scenes.
 	var sprite_for_outline = sprite_node.duplicate()
-	var selection_shader: ShaderMaterial = Globals.outline_shader.duplicate()
+	var selection_shader: ShaderMaterial = Preloads.outline_shader.duplicate()
 	sprite_for_outline.set_material(selection_shader)
 	sprite_for_outline.get_material().set_shader_parameter("line_thickness", outline_thickness)
 

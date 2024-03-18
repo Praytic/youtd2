@@ -30,7 +30,7 @@ func _ready():
 	var element_name: String = Element.convert_to_string(_element)
 	_title_label.text = element_name.to_upper()
 
-	var element_icon: Texture2D = Globals.element_icons[_element]
+	var element_icon: Texture2D = Preloads.element_icons[_element]
 	_element_icon.texture = element_icon
 
 	_info_label.text = _get_element_info_text()

@@ -106,5 +106,5 @@ func _draw_circle_arc(center: Vector2, angle_from: float, angle_to: float):
 #########################
 
 static func make() -> RangeIndicator:
-	var range_indicator: RangeIndicator = Globals.range_indicator_scene.instantiate()
+	var range_indicator: RangeIndicator = Preloads.range_indicator_scene.instantiate()
 	return range_indicator

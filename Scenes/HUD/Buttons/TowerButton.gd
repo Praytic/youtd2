@@ -84,7 +84,7 @@ func _on_pressed():
 #########################
 
 static func make(tower_id: int):
-	var tower_button = Globals.tower_button_scene.instantiate()
+	var tower_button = Preloads.tower_button_scene.instantiate()
 	tower_button.set_tower_id(tower_id)
 	return tower_button
 

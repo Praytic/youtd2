@@ -17,7 +17,7 @@ static func run(gamescene: Node, player: Player):
 		print("(%d/%d) Testing tower %d %s" % [i + 1, tower_id_list.size(), tower_id, tower_name])
 
 #		Test tower preview
-		var tower_preview: TowerPreview = Globals.tower_preview_scene.instantiate()
+		var tower_preview: TowerPreview = Preloads.tower_preview_scene.instantiate()
 		tower_preview.tower_id = tower_id
 		gamescene.add_child(tower_preview)
 		await scene_tree.create_timer(0.01).timeout
