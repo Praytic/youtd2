@@ -17,12 +17,14 @@ signal finished()
 enum TutorialColumn {
 	TITLE = 0,
 	HIGHLIGHT_TARGET,
+	ADVANCE_ACTION,
 	TEXT,
 }
 
 class Section:
 	var title: String
 	var highlight_target: String
+	var advance_action: String
 	var text: String
 
 
@@ -43,7 +45,7 @@ func start(tutorial_menu: TutorialMenu, game_mode: GameMode.enm):
 	_tutorial_menu.player_pressed_next.connect(_on_player_pressed_next)
 	_tutorial_menu.player_pressed_back.connect(_on_player_pressed_back)
 	_tutorial_menu.player_pressed_close.connect(_on_player_pressed_close)
-	HighlightUI.highlight_target_ack.connect(_on_highlight_target_ack)
+	EventBus.player_performed_tutorial_advance_action.connect(_on_player_performed_tutorial_advance_action)
 	
 	var tutorial_path: String
 	if game_mode == GameMode.enm.BUILD:
@@ -55,16 +57,14 @@ func start(tutorial_menu: TutorialMenu, game_mode: GameMode.enm):
 	
 	_section_list = []
 	
-	print(_section_list)
-	
 	for csv_line in csv:
 		var section: Section = Section.new()
 		section.title = csv_line[TutorialColumn.TITLE]
 		section.highlight_target = csv_line[TutorialColumn.HIGHLIGHT_TARGET]
+		section.advance_action = csv_line[TutorialColumn.ADVANCE_ACTION]
 		section.text = csv_line[TutorialColumn.TEXT]
 
 		_section_list.append(section)
-	print(_section_list)
 	
 	_current_section = 0
 	_change_section(0)
@@ -123,6 +123,10 @@ func _on_player_pressed_close():
 	finished.emit()
 
 
-func _on_highlight_target_ack(highlight_target: String):
-	if _section_list[_current_section].highlight_target == highlight_target:
+func _on_player_performed_tutorial_advance_action(action_name: String):
+	var current_section: Section = _section_list[_current_section]
+	var advance_action_for_current_section: String = current_section.advance_action
+	var action_match: bool = action_name == advance_action_for_current_section
+
+	if action_match:
 		_change_section(1)

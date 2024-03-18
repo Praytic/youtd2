@@ -144,11 +144,6 @@ func _unlock_tower_buttons_if_possible():
 		if can_build_tower:
 			button.unlock()
 
-			HighlightUI.register_target("tower_stash", self, true)
-			HighlightUI.register_target("tower_stash_unlocked", self, true)
-			HighlightUI.register_target("tower_placed_on_map", self, true)
-			button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash_unlocked"))
-
 
 func _get_element_info_text() -> String:
 	var text: String = ""
@@ -168,6 +163,8 @@ func _add_tower_button(tower_id: int, index: int):
 	_button_list.append(tower_button)
 	_tower_buttons_container.add_child(tower_button)
 	_tower_buttons_container.move_child(tower_button, index)
+	HighlightUI.register_target("tower_button", tower_button, true)
+	tower_button.pressed.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("press_tower_button"))
 
 
 #########################

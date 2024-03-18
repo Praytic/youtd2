@@ -18,7 +18,7 @@ func _ready():
 	_items_container.child_entered_tree.connect(_on_items_container_child_entered_tree)
 	
 	HighlightUI.register_target("horadric_cube", self)
-	self.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("horadric_cube"))
+	self.mouse_entered.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("mouse_over_horadric_menu"))
 
 
 #########################

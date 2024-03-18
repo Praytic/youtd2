@@ -21,7 +21,7 @@ var _item_button_list: Array[ItemButton] = []
 func _ready():
 	HighlightUI.register_target("item_stash", _item_buttons_container)
 	HighlightUI.register_target("item_placed_inside_tower", _item_buttons_container)
-	_item_buttons_container.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash"))
+	_item_buttons_container.mouse_entered.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("mouse_over_item_stash"))
 
 	var recipe_buttons: Array[Node] = get_tree().get_nodes_in_group("recipe_buttons")
 	for node in recipe_buttons:

@@ -101,7 +101,7 @@ func _build_tower(tower_id: int, player: Player):
 	
 	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", build_position)
 	
-	HighlightUI.highlight_target_ack.emit("tower_placed_on_map")
+	EventBus.player_performed_tutorial_advance_action.emit("build_tower")
 	
 	_add_tower_to_world.rpc(tower_id, build_position, player.get_id())
 

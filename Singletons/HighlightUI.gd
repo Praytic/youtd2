@@ -6,10 +6,6 @@ extends Node
 # start_highlight() and stop_highlight() to highlight
 # registered targets.
 
-# When user does a specific action to acknowledge the highlighted
-# area, this signal should be emitted.
-signal highlight_target_ack(highlight_target: String)
-
 const HIGHLIGHT_PERIOD: float = 0.5
 
 var _target_map: Dictionary = {}

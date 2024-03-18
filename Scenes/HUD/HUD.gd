@@ -38,14 +38,14 @@ func _ready():
 
 	# Tutorial setup
 	var towers_menu_button = _towers_menu_card.get_main_button()
-	HighlightUI.register_target("tower_stash_button", _towers_menu_card.get_main_button())
-	towers_menu_button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("tower_stash_button"))
+	HighlightUI.register_target("tower_stash_button", towers_menu_button)
+	towers_menu_button.pressed.connect(func(): 	EventBus.player_performed_tutorial_advance_action.emit("press_tower_stash_button"))
 	var items_menu_button = _items_menu_card.get_main_button()
-	HighlightUI.register_target("item_stash_button", _items_menu_card.get_main_button())
-	items_menu_button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("item_stash_button"))
+	HighlightUI.register_target("item_stash_button", items_menu_button)
+	items_menu_button.pressed.connect(func(): 	EventBus.player_performed_tutorial_advance_action.emit("press_item_stash_button"))
 	var unit_status_menu_button = _unit_status_menu_card.get_main_button()
-	HighlightUI.register_target("unit_status_menu_button", _unit_status_menu_card.get_main_button())
-	unit_status_menu_button.pressed.connect(func(): HighlightUI.highlight_target_ack.emit("unit_status_menu_button"))
+	HighlightUI.register_target("unit_status_menu_button", unit_status_menu_button)
+	unit_status_menu_button.pressed.connect(func(): 	EventBus.player_performed_tutorial_advance_action.emit("press_unit_status_button"))
 	
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)

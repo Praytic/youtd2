@@ -801,7 +801,7 @@ func _on_target_death(_event: Event, target: Creep):
 
 func _on_item_container_items_changed():
 	items_changed.emit()
-	HighlightUI.highlight_target_ack.emit("item_placed_inside_tower")
+	EventBus.player_performed_tutorial_advance_action.emit("place_item_in_tower")
 
 
 func _on_mana_changed():

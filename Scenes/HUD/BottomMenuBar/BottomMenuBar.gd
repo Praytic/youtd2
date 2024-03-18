@@ -13,8 +13,8 @@ class_name BottomMenuBar extends PanelContainer
 func _ready():
 	HighlightUI.register_target("tomes_status", _tomes_status)
 	HighlightUI.register_target("gold_status", _gold_status)
-	_tomes_status.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("tomes_status"))
-	_gold_status.mouse_entered.connect(func(): HighlightUI.highlight_target_ack.emit("gold_status"))
+	_tomes_status.mouse_entered.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("mouse_over_tomes"))
+	_gold_status.mouse_entered.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("mouse_over_gold"))
 
 
 #########################
