@@ -1,6 +1,7 @@
 class_name TimerPool extends Node
 
-# Stores timers.
+
+# Stores timers used for Utils.create_timer().
 
 var _timer_list: Array = []
 
