@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=31 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/CombatLogStorage.gd" id="15_ff1in"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 [ext_resource type="Script" path="res://Scenes/Effects/EffectsContainer.gd" id="18_hqvt4"]
+[ext_resource type="Script" path="res://Scenes/GameScene/TimerPool.gd" id="26_2tqw6"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -134,6 +135,9 @@ script = ExtResource("14_14vo6")
 [node name="CombatLogStorage" type="Node" parent="Gameplay"]
 script = ExtResource("15_ff1in")
 
+[node name="TimerPool" type="Node" parent="Gameplay"]
+script = ExtResource("26_2tqw6")
+
 [node name="World" type="Node2D" parent="."]
 process_mode = 1
 y_sort_enabled = true
@@ -216,6 +220,9 @@ visible = false
 [node name="PauseHUD" parent="UI" instance=ExtResource("9_r46bb")]
 process_mode = 3
 visible = false
+
+[node name="TimerPool" type="Node" parent="."]
+script = ExtResource("26_2tqw6")
 
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="timeout" from="Gameplay/NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]

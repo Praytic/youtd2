@@ -1,6 +1,17 @@
 class_name UtilsStatic extends Node
 
 
+# NOTE: you must use this instead of
+# get_tree().create_timer() because timers created using
+# get_tree().create_timer() do not handle game pause and
+# game restart.
+func create_timer(duration: float) -> Timer:
+	var timer_pool: Node = get_tree().get_root().get_node_or_null("GameScene/Gameplay/TimerPool")
+	var timer: Timer = timer_pool.create_timer(duration)
+
+	return timer
+
+
 func tower_exists_on_position(position: Vector2) -> bool:
 	var tower_at_position: Tower = get_tower_at_position(position)
 	var has_tower: bool = tower_at_position != null

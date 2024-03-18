@@ -100,7 +100,7 @@ func set_lifetime(effect_id: int, lifetime: float):
 	if effect == null:
 		return
 
-	var timer: SceneTreeTimer = get_tree().create_timer(lifetime)
+	var timer: Timer = Utils.create_timer(lifetime)
 	timer.timeout.connect(_on_lifetime_timer_timeout.bind(effect_id))
 
 
