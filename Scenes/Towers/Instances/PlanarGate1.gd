@@ -147,12 +147,12 @@ func on_autocast(_event: Event):
 	var effect1: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect1, 0.5)
 
-	await get_tree().create_timer(0.3).timeout
+	await Utils.create_timer(0.3).timeout
 
 	var effect2: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect2, 0.5)
 	
-	await get_tree().create_timer(0.3).timeout
+	await Utils.create_timer(0.3).timeout
 	
 	var effect3: int = Effect.create_colored("VoodooAura.mdl", x, y, 0, 0, 5, Color8(1, 255, 255, 255))
 	Effect.set_lifetime(effect3, 0.5)

@@ -144,7 +144,7 @@ func on_damage(event: Event):
 		tower.user_real = tower.user_real - _stats.soul_chance_decrease
 		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, _stats.mod_attackspeed * multiplier)
 
-		await get_tree().create_timer(10.0 * multiplier).timeout
+		await Utils.create_timer(10.0 * multiplier).timeout
 
 		if is_instance_valid(tower) && tower.get_instance_id() == UID:
 			tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -_stats.mod_attackspeed * multiplier)

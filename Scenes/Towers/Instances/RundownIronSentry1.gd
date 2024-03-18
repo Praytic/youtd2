@@ -134,7 +134,7 @@ func on_unit_in_range(event: Event):
 			var alert_duration: float = _stats.alert_duration
 			glow_alert_bt.apply_custom_timed(tower, next, 0, alert_duration)
 
-	await get_tree().create_timer(_stats.awareness_duration).timeout
+	await Utils.create_timer(_stats.awareness_duration).timeout
 
 	if Utils.unit_is_valid(tower):
 		tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, -mod_damage_value)

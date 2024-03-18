@@ -144,7 +144,7 @@ func on_spell_target(event: Event):
 		buff.user_int += 1
 		buff.set_power(buff.get_power() + buff_level)
 
-	await get_tree().create_timer(stack_duration).timeout
+	await Utils.create_timer(stack_duration).timeout
 
 	if Utils.unit_is_valid(tower):
 		buff = tower.get_buff_of_type(boekie_channel_energy_bt)

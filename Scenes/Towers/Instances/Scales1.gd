@@ -189,7 +189,7 @@ func on_autocast(_event: Event):
 
 	lightmare_is_active = true
 
-	await get_tree().create_timer(10.0).timeout
+	await Utils.create_timer(10.0).timeout
 
 	lightmare_is_active = false
 

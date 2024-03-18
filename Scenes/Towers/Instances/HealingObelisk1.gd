@@ -53,7 +53,7 @@ func on_damage(event: Event):
 			if loop_count == 0:
 				break
 
-			await get_tree().create_timer(1.0).timeout
+			await Utils.create_timer(1.0).timeout
 
 			if Utils.unit_is_valid(tower) && Utils.unit_is_valid(target):
 				target.set_health(target.get_health() + healing)

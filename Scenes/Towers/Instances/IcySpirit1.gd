@@ -104,4 +104,4 @@ func on_attack(_event: Event):
 				boekie_icy_spirit_buff.apply(tower, target, 125 + level * 5)
 
 
-		await get_tree().create_timer(0.1).timeout
+		await Utils.create_timer(0.1).timeout

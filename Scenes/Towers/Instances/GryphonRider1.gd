@@ -270,4 +270,4 @@ func line_damage(origin_x: float, origin_y: float, direction: float):
 
 		damage *= dmg_multiplier
 		i += 1
-		await get_tree().create_timer(0.15).timeout
+		await Utils.create_timer(0.15).timeout

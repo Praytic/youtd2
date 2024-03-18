@@ -119,7 +119,7 @@ func on_autocast(_event: Event):
 	Effect.set_animation_speed(boom, 0.9)
 	Effect.set_lifetime(boom, 2.0)
 
-	await get_tree().create_timer(0.5).timeout
+	await Utils.create_timer(0.5).timeout
 
 	if Utils.unit_is_valid(tower):
 		var aoe_damage: float = 15 * lifeforce_stored * current_spawn_level

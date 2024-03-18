@@ -94,7 +94,7 @@ func on_attack(event: Event):
 
 	var devour_stack_duration: float = 6.0 * tower.get_prop_buff_duration()
 
-	await get_tree().create_timer(devour_stack_duration).timeout
+	await Utils.create_timer(devour_stack_duration).timeout
 
 	if !Utils.unit_is_valid(tower):
 		return
