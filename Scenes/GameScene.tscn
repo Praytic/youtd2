@@ -74,13 +74,12 @@ _pregame_controller = NodePath("Gameplay/PregameController")
 _ui_layer = NodePath("UI")
 
 [node name="Gameplay" type="Node" parent="."]
+process_mode = 1
 
 [node name="GameStartTimer" type="Timer" parent="Gameplay"]
-process_mode = 1
 one_shot = true
 
 [node name="NextWaveTimer" type="Timer" parent="Gameplay"]
-process_mode = 1
 one_shot = true
 
 [node name="ExtremeTimer" type="Timer" parent="Gameplay"]
@@ -89,12 +88,10 @@ one_shot = true
 script = ExtResource("3_ieclh")
 
 [node name="WaveSpawner" parent="Gameplay" instance=ExtResource("5_pan23")]
-process_mode = 1
 
 [node name="AudioPlayerPool" parent="Gameplay" instance=ExtResource("5_rin5y")]
 
 [node name="GameTime" type="Node" parent="Gameplay"]
-process_mode = 1
 script = ExtResource("16_tame0")
 
 [node name="SelectUnit" type="Node" parent="Gameplay"]
@@ -133,14 +130,13 @@ _pregame_hud = NodePath("../../UI/PregameHUD")
 script = ExtResource("14_14vo6")
 
 [node name="World" type="Node2D" parent="."]
+process_mode = 1
 y_sort_enabled = true
 
 [node name="Map" parent="World" instance=ExtResource("5")]
 unique_name_in_owner = true
-process_mode = 1
 
 [node name="CreepPathGround" type="Path2D" parent="World" groups=["wave_path"]]
-process_mode = 1
 z_index = 999
 curve = SubResource("1")
 script = ExtResource("3_abrkq")
@@ -153,28 +149,23 @@ z_points = {
 }
 
 [node name="CreepPathAir" type="Path2D" parent="World" groups=["wave_path"]]
-process_mode = 1
 z_index = 999
 curve = SubResource("Curve2D_72x3r")
 script = ExtResource("3_abrkq")
 is_air = true
 
 [node name="ObjectContainer" type="Node2D" parent="World"]
-process_mode = 1
 z_index = 10
 y_sort_enabled = true
 
 [node name="EffectsContainer" type="Node2D" parent="World"]
-process_mode = 1
 z_index = 100
 
 [node name="FloatingTextContainer" type="Node2D" parent="World"]
-process_mode = 1
 z_index = 1000
 
 [node name="Camera2D" type="Camera2D" parent="World"]
 unique_name_in_owner = true
-process_mode = 1
 z_index = 1000
 position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.31481, 0.5)
@@ -209,6 +200,7 @@ mouse_filter = 2
 
 [node name="HUD" parent="UI" instance=ExtResource("2")]
 unique_name_in_owner = true
+process_mode = 1
 size_flags_horizontal = 1
 mouse_filter = 2
 
