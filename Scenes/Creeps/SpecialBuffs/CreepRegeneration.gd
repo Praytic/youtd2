@@ -24,7 +24,7 @@ func on_create(event: Event):
 static func regen_special_on_create(event: Event, regen_ratio_map: Dictionary):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
-	var creep_size: CreepSize.enm = creep.get_size()
+	var creep_size: CreepSize.enm = creep.get_size_including_challenge_sizes()
 	var creep_hp: float = creep.get_overall_health()
 	var regen_ratio: float = regen_ratio_map[creep_size]
 	var regen_value: float = creep_hp * regen_ratio

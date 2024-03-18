@@ -932,7 +932,7 @@ func _killed_by_unit(caster: Unit):
 	var creep: Creep = self as Creep
 
 	if creep != null:
-		var creep_size: CreepSize.enm = creep.get_size()
+		var creep_size: CreepSize.enm = creep.get_size_including_challenge_sizes()
 		var item_drop_roll_count: int = CreepSize.get_item_drop_roll_count(creep_size)
 		
 		if Config.always_drop_items():
@@ -1087,7 +1087,7 @@ func _get_experience_for_target(target: Unit) -> float:
 
 	var tower: Unit = self
 	var creep: Creep = target as Creep
-	var creep_size: CreepSize.enm = creep.get_size()
+	var creep_size: CreepSize.enm = creep.get_size_including_challenge_sizes()
 	var experience_base: float = CreepSize.get_experience(creep_size)
 	var granted_mod: float = creep.get_prop_exp_granted()
 	var received_mod: float = tower.get_prop_exp_received()

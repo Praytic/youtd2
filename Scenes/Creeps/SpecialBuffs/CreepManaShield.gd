@@ -30,7 +30,7 @@ static func shield_effect(event: Event, spend_mana: bool):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
 
-	var creep_size: CreepSize.enm = creep.get_size()
+	var creep_size: CreepSize.enm = creep.get_size_including_challenge_sizes()
 	var shield_cost_max: float = _max_cost_map[creep_size]
 	var damage_ratio: float = Utils.divide_safe(event.damage, creep.get_overall_health())
 	var shield_cost: float = min(80 * damage_ratio, shield_cost_max)

@@ -398,7 +398,7 @@ func get_base_bounty_value() -> float:
 
 
 func get_log_name() -> String:
-	var size_name: String = CreepSize.convert_to_string(get_size())
+	var size_name: String = CreepSize.convert_to_string(_size)
 	var log_name: String = "%s-%d" % [size_name, _id]
 
 	return log_name
@@ -449,7 +449,19 @@ func get_unit_facing() -> float:
 func set_creep_size(value: CreepSize.enm) -> void:
 	_size = value
 
+# NOTE: this special function forces CHALLENGE_MASS and
+# CHALLENGE_BOSS to be treated as MASS and BOSS creeps. Use
+# get_size_including_challenge_sizes() to get the "real"
+# creep size.
 func get_size() -> CreepSize.enm:
+	if _size == CreepSize.enm.CHALLENGE_MASS:
+		return CreepSize.enm.MASS
+	elif _size == CreepSize.enm.CHALLENGE_BOSS:
+		return CreepSize.enm.BOSS
+	else:
+		return _size
+
+func get_size_including_challenge_sizes() -> CreepSize.enm:
 	return _size
 
 func set_category(value: CreepCategory.enm) -> void:

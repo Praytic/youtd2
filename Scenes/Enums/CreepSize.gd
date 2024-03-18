@@ -4,10 +4,10 @@ class_name CreepSize extends Node
 # NOTE: order is important to be able to compare
 enum enm {
 	MASS,
+	CHALLENGE_MASS,
 	NORMAL,
 	AIR,
 	CHAMPION,
-	CHALLENGE_MASS,
 	BOSS,
 	CHALLENGE_BOSS,
 }
@@ -151,6 +151,10 @@ static func convert_to_mod_dmg_type(category: CreepSize.enm) -> Modification.Typ
 		CreepSize.enm.CHAMPION: Modification.Type.MOD_DMG_TO_CHAMPION,
 		CreepSize.enm.BOSS: Modification.Type.MOD_DMG_TO_BOSS,
 		CreepSize.enm.AIR: Modification.Type.MOD_DMG_TO_AIR,
+#		NOTE: this code is actually redundant because
+#		creep.get_size() function already converts challenge
+#		sizes to "simple" sizes. Keeping it for
+#		completeness.
 		CreepSize.enm.CHALLENGE_MASS: Modification.Type.MOD_DMG_TO_MASS,
 		CreepSize.enm.CHALLENGE_BOSS: Modification.Type.MOD_DMG_TO_BOSS,
 	}

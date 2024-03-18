@@ -86,7 +86,7 @@ func tower_init():
 func on_unit_in_range(event: Event):
 	var tower: Tower = self
 	var creep: Unit = event.get_target()
-	var creep_size: CreepSize.enm = creep.get_size()
+	var creep_size: CreepSize.enm = creep.get_size_including_challenge_sizes()
 	var level: int = tower.get_level()
 	var buff: Buff = creep.get_buff_of_type(glow_trespasser_bt)
 
@@ -98,11 +98,11 @@ func on_unit_in_range(event: Event):
 #	specific int's. Do this mapping here instead.
 	var size_multiplier_map: Dictionary = {
 		CreepSize.enm.MASS: 1,
-		CreepSize.enm.NORMAL: 2,
-		CreepSize.enm.AIR: 3,
-		CreepSize.enm.CHAMPION: 4,
-		CreepSize.enm.CHALLENGE_MASS: 8,
-		CreepSize.enm.BOSS: 5,
+		CreepSize.enm.NORMAL: 3,
+		CreepSize.enm.AIR: 4,
+		CreepSize.enm.CHAMPION: 5,
+		CreepSize.enm.CHALLENGE_MASS: 2,
+		CreepSize.enm.BOSS: 6,
 		CreepSize.enm.CHALLENGE_BOSS: 8,
 	}
 	var size_multiplier: int = size_multiplier_map[creep_size]

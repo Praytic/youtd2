@@ -5,6 +5,12 @@ extends Tower
 # script it's done using PeriodicEvent. In this script it's
 # done using "storm_is_enabled" flag.
 
+# NOTE: original script has a bug where it defines special
+# values for challenge sizes in storm_mana_reduction_values
+# map but fails to use them because it uses creep.get_size()
+# which returns BOSS instead of CHALLENGE_BOSS. Fixed this
+# bug by calling creep.get_size_including_challenge_sizes().
+
 
 var natac_cloudy_temple_aura_bt: BuffType
 var natac_cloudy_temple_storm_bt: BuffType
@@ -242,7 +248,7 @@ func natac_cloudy_temple_storm_bt_on_damaged(event: Event):
 	var target: Creep = buff.get_buffed_unit()
 #	Calculate how much damage is really dealt
 	var dmg_taken: float = min(event.damage, target.get_health())
-	var target_size: CreepSize.enm = target.get_size()
+	var target_size: CreepSize.enm = target.get_size_including_challenge_sizes()
 	var mana_loss: float = dmg_taken * 0.1 * storm_mana_reduction_values[target_size]
 
 #	Remove mana from the tower according to the damage taken
