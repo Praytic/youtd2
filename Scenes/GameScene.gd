@@ -426,7 +426,6 @@ func _transition_from_tutorial_state():
 # GameScene so that it's automatically reset
 func _reset_singletons():
 	Effect.reset()
-	ElapsedTimer.reset()
 
 
 @rpc("any_peer", "call_local", "reliable")

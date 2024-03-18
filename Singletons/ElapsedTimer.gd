@@ -1,9 +1,9 @@
 extends Node
 
 
-# Measures elapsed time between two points in time. Use by
-# putting start() and end() calls around the code that you
-# want to measure.
+# Useful for debugging. Measures elapsed time between two
+# points in time. Use by putting start() and end() calls
+# around the code that you want to measure.
 
 
 var _elapsed_timer_map: Dictionary = {}
@@ -12,10 +12,6 @@ var _elapsed_timer_map: Dictionary = {}
 #########################
 ###       Public      ###
 #########################
-
-func reset():
-	_elapsed_timer_map.clear()
-
 
 func start(timer_name: String):
 	if _elapsed_timer_map.has(timer_name):
