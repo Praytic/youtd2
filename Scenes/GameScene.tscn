@@ -221,9 +221,6 @@ visible = false
 process_mode = 3
 visible = false
 
-[node name="TimerPool" type="Node" parent="."]
-script = ExtResource("26_2tqw6")
-
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="timeout" from="Gameplay/NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
 [connection signal="timeout" from="Gameplay/ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
