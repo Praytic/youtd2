@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=29 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/HoradricCube.gd" id="12_ymn7f"]
 [ext_resource type="Script" path="res://Scenes/GameScene/PregameController.gd" id="13_wwgsy"]
 [ext_resource type="Script" path="res://Scenes/GameScene/TutorialController.gd" id="14_14vo6"]
+[ext_resource type="Script" path="res://Scenes/GameScene/CombatLogStorage.gd" id="15_ff1in"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 
 [sub_resource type="Curve2D" id="1"]
@@ -128,6 +129,9 @@ _pregame_hud = NodePath("../../UI/PregameHUD")
 
 [node name="TutorialController" type="Node" parent="Gameplay"]
 script = ExtResource("14_14vo6")
+
+[node name="CombatLogStorage" type="Node" parent="Gameplay"]
+script = ExtResource("15_ff1in")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1

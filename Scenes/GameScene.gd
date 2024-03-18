@@ -425,7 +425,6 @@ func _transition_from_tutorial_state():
 # TODO: move global state into nodes which are children of
 # GameScene so that it's automatically reset
 func _reset_singletons():
-	CombatLog.reset()
 	Effect.reset()
 	ElapsedTimer.reset()
 

@@ -42,12 +42,20 @@ func _process(_delta: float):
 	if !visible:
 		return
 
+#	TODO: decouple CombatLogWindow from CombatLogStorage
+	var combat_log_storage: Node = get_tree().get_root().get_node_or_null("GameScene/Gameplay/CombatLogStorage")
+
+	if combat_log_storage == null:
+		push_warning("CombatLogStorage is null. You can ignore this warning during game restart.")
+
+		return
+
 	var text: String = ""
 
 	var displayed_min_index: int = _displayed_max_index - DISPLAYED_LINE_COUNT
 	
 	for i in range(displayed_min_index, _displayed_max_index):
-		var entry_string: String = CombatLog.get_entry_string(i)
+		var entry_string: String = combat_log_storage.get_entry_string(i)
 
 		if !entry_string.is_empty():
 			text += entry_string
@@ -69,21 +77,21 @@ func _process(_delta: float):
 	if up_is_pressed:
 #		Add +1 so that at least one line is displayed at any
 #		time
-		_displayed_max_index = max(CombatLog.get_min_index() + 1, _displayed_max_index - 1)
+		_displayed_max_index = max(combat_log_storage.get_min_index() + 1, _displayed_max_index - 1)
 	elif down_is_pressed:
-		_displayed_max_index = min(CombatLog.get_max_index(), _displayed_max_index + 1)
+		_displayed_max_index = min(combat_log_storage.get_max_index(), _displayed_max_index + 1)
 
-		var scrolled_to_bottom: bool = _displayed_max_index == CombatLog.get_max_index()
+		var scrolled_to_bottom: bool = _displayed_max_index == combat_log_storage.get_max_index()
 		if scrolled_to_bottom:
 			_auto_scroll_to_newest = true
 	elif _auto_scroll_to_newest:
-		_displayed_max_index = CombatLog.get_max_index()
+		_displayed_max_index = combat_log_storage.get_max_index()
 
 #	Current display position can go out of bounds while
 #	CombatLog erases messages which are too old. Move the
 #	index up in this case.
-	if _displayed_max_index < CombatLog.get_min_index():
-		_displayed_max_index = CombatLog.get_min_index() + 1
+	if _displayed_max_index < combat_log_storage.get_min_index():
+		_displayed_max_index = combat_log_storage.get_min_index() + 1
 
 
 #########################
@@ -100,7 +108,7 @@ func _on_auto_down_button_pressed():
 
 
 func _on_clear_button_pressed():
-	CombatLog.clear()
+	EventBus.player_requested_to_clear_combatlog.emit()
 
 
 func _on_drag_finished():
