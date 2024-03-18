@@ -16,12 +16,12 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/SelectTargetForCast.gd" id="9_14jv4"]
 [ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
 [ext_resource type="Script" path="res://Scenes/GameScene/MoveItem.gd" id="10_qbku7"]
-[ext_resource type="PackedScene" uid="uid://u1yl8rbswhtp" path="res://Scenes/HUD/TutorialMenu.tscn" id="10_x7sb7"]
 [ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="11_0qewd"]
 [ext_resource type="Script" path="res://Scenes/GameScene/BuildTower.gd" id="12_1xrfo"]
 [ext_resource type="Script" path="res://Scenes/GameScene/MouseState.gd" id="12_mmgdj"]
 [ext_resource type="Script" path="res://Scenes/GameScene/HoradricCube.gd" id="12_ymn7f"]
 [ext_resource type="Script" path="res://Scenes/GameScene/PregameController.gd" id="13_wwgsy"]
+[ext_resource type="Script" path="res://Scenes/GameScene/TutorialController.gd" id="14_14vo6"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 
 [sub_resource type="Curve2D" id="1"]
@@ -47,14 +47,13 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_pause_hud", "_hud", "_map", "_wave_spawner", "_tutorial_menu", "_ui_canvas_layer", "_camera", "_player_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_pregame_controller")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_pause_hud", "_hud", "_map", "_wave_spawner", "_ui_canvas_layer", "_camera", "_player_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_game_time", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_pregame_controller", "_ui_layer")]
 process_mode = 3
 script = ExtResource("9")
 _pause_hud = NodePath("UI/PauseHUD")
 _hud = NodePath("UI/HUD")
 _map = NodePath("World/Map")
 _wave_spawner = NodePath("Gameplay/WaveSpawner")
-_tutorial_menu = NodePath("UI/TutorialMenu")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("World/Camera2D")
 _player_container = NodePath("Gameplay/PlayerContainer")
@@ -72,6 +71,7 @@ _mouse_state = NodePath("Gameplay/MouseState")
 _tower_preview = NodePath("World/TowerPreview")
 _horadric_cube = NodePath("Gameplay/HoradricCube")
 _pregame_controller = NodePath("Gameplay/PregameController")
+_ui_layer = NodePath("UI")
 
 [node name="Gameplay" type="Node" parent="."]
 
@@ -128,6 +128,9 @@ script = ExtResource("12_ymn7f")
 [node name="PregameController" type="Node" parent="Gameplay" node_paths=PackedStringArray("_pregame_hud")]
 script = ExtResource("13_wwgsy")
 _pregame_hud = NodePath("../../UI/PregameHUD")
+
+[node name="TutorialController" type="Node" parent="Gameplay"]
+script = ExtResource("14_14vo6")
 
 [node name="World" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -186,10 +189,6 @@ z_index = 100
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="TutorialMenu" parent="UI" instance=ExtResource("10_x7sb7")]
-visible = false
-z_index = 2
-
 [node name="DesaturationFilter" type="ColorRect" parent="UI"]
 material = SubResource("ShaderMaterial_cij5r")
 anchors_preset = 15
@@ -225,7 +224,7 @@ visible = false
 [connection signal="timeout" from="Gameplay/ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
 [connection signal="finished" from="Gameplay/PregameController" to="." method="_on_pregame_controller_finished"]
 [connection signal="selected_host_settings" from="Gameplay/PregameController" to="." method="_on_pregame_controller_selected_host_settings"]
-[connection signal="hidden" from="UI/TutorialMenu" to="." method="_on_tutorial_menu_hidden"]
+[connection signal="finished" from="Gameplay/TutorialController" to="." method="_on_tutorial_controller_finished"]
 [connection signal="tab_finished" from="UI/PregameHUD" to="Gameplay/PregameController" method="_on_pregame_hud_tab_finished"]
 [connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]
 [connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]

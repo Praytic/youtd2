@@ -12,7 +12,6 @@ enum GameState {
 @export var _hud: HUD
 @export var _map: Map
 @export var _wave_spawner: WaveSpawner
-@export var _tutorial_menu: TutorialMenu
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
 @export var _player_container: PlayerContainer
@@ -30,6 +29,7 @@ enum GameState {
 @export var _tower_preview: TowerPreview
 @export var _horadric_cube: HoradricCube
 @export var _pregame_controller: PregameController
+@export var _ui_layer: CanvasLayer
 
 
 var _game_state: GameState = GameState.PREGAME
@@ -40,6 +40,8 @@ var _difficulty: Difficulty.enm = Config.default_difficulty()
 # This rng is used to create seeds for all other rng's and
 # to sync seeds between peers.
 var _origin_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var _tutorial_controller: TutorialController = null
+var _tutorial_menu: TutorialMenu = null
 
 
 #########################
@@ -376,14 +378,27 @@ func _on_pregame_controller_finished():
 	_game_state = GameState.PLAYING
 
 	if tutorial_enabled:
-		_tutorial_menu.start_tutorial(game_mode)
+		_start_tutorial(game_mode)
 	else:
 		_transition_from_tutorial_state()
 
 
-func _transition_from_tutorial_state():
-	_tutorial_menu.queue_free()
+func _start_tutorial(game_mode: GameMode.enm):
+	var tutorial_menu_scene: PackedScene = preload("res://Scenes/HUD/TutorialMenu.tscn")
+	_tutorial_menu = tutorial_menu_scene.instantiate()
+	
+#	NOTE: add tutorial below pause menu so that game can show the pause menu on top of tutorial
+	_ui_layer.add_child(_tutorial_menu)
+	var pause_menu_index: int = _pause_hud.get_index()
+	_ui_layer.move_child(_tutorial_menu, pause_menu_index)
+	
+	_tutorial_controller = TutorialController.new()
+	_tutorial_controller.finished.connect(_on_tutorial_controller_finished)
+	add_child(_tutorial_controller)
+	_tutorial_controller.start(_tutorial_menu, game_mode)
 
+
+func _transition_from_tutorial_state():
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
 	
@@ -494,7 +509,10 @@ func _on_pause_hud_resume_pressed():
 	_unpause_the_game()
 
 
-func _on_tutorial_menu_hidden():
+func _on_tutorial_controller_finished():
+	_tutorial_controller.queue_free()
+	_tutorial_menu.queue_free()
+	
 	_transition_from_tutorial_state()
 
 

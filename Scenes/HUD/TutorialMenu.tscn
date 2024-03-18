@@ -6,6 +6,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ekw2u"]
 
 [node name="TutorialMenu" type="PanelContainer" node_paths=PackedStringArray("_text_label", "_back_button", "_next_button")]
+process_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,11 +19,6 @@ script = ExtResource("2_a3117")
 _text_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/TextLabel")
 _back_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/BackButton")
 _next_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/NextButton")
-
-[node name="ShadowFilter" type="ColorRect" parent="."]
-layout_mode = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.392157)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(600, 500)
