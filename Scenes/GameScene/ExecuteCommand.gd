@@ -19,6 +19,7 @@ func execute(player_id: int, serialized_command: Dictionary):
 		Command.Type.RESEARCH_ELEMENT: _research_element(player_id, serialized_command)
 		Command.Type.ROLL_TOWERS: _roll_towers(player_id)
 		Command.Type.BUILD_TOWER: _build_tower(player_id, serialized_command)
+		Command.Type.SELL_TOWER: _sell_tower(serialized_command)
 
 
 #########################
@@ -80,3 +81,46 @@ func _build_tower(player_id: int, serialized_command: Dictionary):
 	_map.add_space_occupied_by_tower(new_tower)
 
 	Utils.add_object_to_world(new_tower)
+
+
+func _sell_tower(serialized_command: Dictionary):
+	var command: CommandSellTower = CommandSellTower.new(serialized_command)
+	var tower_unit_id: int = command.tower_unit_id
+
+	var tower: Tower = _get_tower_by_uid(tower_unit_id)
+
+	if tower == null:
+		push_error("Sell tower command failed")
+
+		return
+
+	_map.clear_space_occupied_by_tower(tower)
+
+# 	Return tower items to item stash
+	var item_list: Array[Item] = tower.get_items()
+
+	for item in item_list:
+		item.drop()
+		item.fly_to_stash(0.0)
+
+	var tower_id: int = tower.get_id()
+	var sell_price: int = TowerProperties.get_sell_price(tower_id)
+	var player: Player = tower.get_player()
+	player.give_gold(sell_price, tower, false, true)
+	player.remove_food_for_tower(tower_id)
+
+	_map.clear_space_occupied_by_tower(tower)
+
+	tower.queue_free()
+
+
+func _get_tower_by_uid(tower_unit_id: int) -> Tower:
+	var tower_list: Array[Tower] = Utils.get_tower_list()
+
+	for tower in tower_list:
+		if tower.get_uid() == tower_unit_id:
+			return tower
+
+	push_error("Failled to find tower with uid: ", tower_unit_id)
+
+	return null

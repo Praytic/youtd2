@@ -27,6 +27,7 @@ enum Field {
 	ELEMENT,
 	TOWER_ID,
 	POSITION,
+	TOWER_UNIT_ID,
 }
 
 enum Type {
@@ -35,6 +36,7 @@ enum Type {
 	RESEARCH_ELEMENT,
 	ROLL_TOWERS,
 	BUILD_TOWER,
+	SELL_TOWER,
 }
 
 

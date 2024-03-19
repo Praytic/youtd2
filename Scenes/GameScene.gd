@@ -810,24 +810,9 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 
 
 func _on_player_requested_to_sell_tower(tower: Tower):
-	_map.clear_space_occupied_by_tower(tower)
-
-# 	Return tower items to item stash
-	var item_list: Array[Item] = tower.get_items()
-
-	for item in item_list:
-		item.drop()
-		item.fly_to_stash(0.0)
-
-	var tower_id: int = tower.get_id()
-	var sell_price: int = TowerProperties.get_sell_price(tower_id)
-	var local_player: Player = _player_container.get_local_player()
-	local_player.give_gold(sell_price, tower, false, true)
-	local_player.remove_food_for_tower(tower_id)
-
-	_map.clear_space_occupied_by_tower(tower)
-
-	tower.queue_free()
+	var tower_unit_id: int = tower.get_uid()
+	var command: Command = CommandSellTower.make(tower_unit_id)
+	_command_storage.add_command(command)
 
 
 func _on_player_requested_to_select_point_for_autocast(autocast: Autocast):
