@@ -50,7 +50,7 @@ func get_tower_id() -> int:
 	return _tower_id
 
 
-func _physics_process(_delta: float):
+func _process(_delta: float):
 	if !visible || _tower_instance == null:
 		return
 	

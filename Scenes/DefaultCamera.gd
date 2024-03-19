@@ -28,7 +28,7 @@ func _ready():
 		zoom_sensitivity = 0.1
 
 
-func _physics_process(delta):
+func _process(delta):
 	var mouse_scroll_is_enabled: bool = Settings.get_bool_setting(Settings.ENABLE_MOUSE_SCROLL)
 	var speed_from_mouse: float = _get_cam_speed_from_setting(Settings.MOUSE_SCROLL)
 	var speed_from_keyboard: float = _get_cam_speed_from_setting(Settings.KEYBOARD_SCROLL)
