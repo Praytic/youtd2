@@ -32,6 +32,7 @@ var _gold_farmed: float = 0
 var _tomes: int = Config.starting_tomes()
 var _id: int = -1
 var _builder: Builder = null
+var _have_placeholder_builder: bool = true
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _score: float = 0.0
 
@@ -54,6 +55,25 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_builder(builder_id: int):
+	if !_have_placeholder_builder:
+		push_error("Player already has a builder. set_builder() should only be called once.")
+
+		return
+
+	if _builder != null:
+		remove_child(_builder)
+		_builder.queue_free()
+
+	var builder: Builder = Builder.create_instance(builder_id)
+	_builder = builder
+	add_child(builder)
+
+	builder.apply_to_player(self)
+
+	_have_placeholder_builder = false
+
 
 func set_seed(player_seed: int):
 	_rng.seed = player_seed
@@ -410,13 +430,14 @@ func _on_tower_stash_changed():
 ###       Static      ###
 #########################
 
-static func make(id: int, builder_id: int) -> Player:
+static func make(id: int) -> Player:
 	var player: Player = Preloads.player_scene.instantiate()
-	var builder: Builder = Builder.create_instance(builder_id)
 	player._id = id
-	player._builder = builder
-	player.add_child(builder)
 
-	builder.apply_to_player(player)
+#	Add base class Builder as placeholder until the real
+#	builder is assigned. This builder will have no effects.
+	var placeholder_builder: Builder = Builder.new()
+	player._builder = placeholder_builder
+	player.add_child(placeholder_builder)
 
 	return player

@@ -30,6 +30,7 @@ enum GameState {
 @export var _horadric_cube: HoradricCube
 @export var _pregame_controller: PregameController
 @export var _ui_layer: CanvasLayer
+@export var _pregame_hud: PregameHUD
 
 
 var _game_state: GameState = GameState.PREGAME
@@ -92,7 +93,20 @@ func _ready():
 		assert(_room_code, "Room code wasn't provided with headless mode enabled.")
 		print("Room code: %s" % _room_code)
 	
-	_pregame_controller.start()
+	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
+
+	if show_pregame_settings_menu:
+		_pregame_controller.start()
+	else:
+#		Use default setting values when skipping pregame
+#		settings
+		var wave_count: int = Config.default_game_length()
+		var difficulty: Difficulty.enm = Config.default_difficulty()
+		var game_mode: GameMode.enm = Config.default_game_mode()
+		var origin_seed: int = _generate_random_seed()
+		print_verbose("Generated origin seed locally: ", origin_seed)
+		
+		_transition_from_pregame.rpc(wave_count, game_mode, difficulty, origin_seed)
 
 
 # NOTE: these stats are constantly changing and might even
@@ -172,6 +186,14 @@ func _unhandled_input(event: InputEvent):
 #########################
 ###      Private      ###
 #########################
+
+func _generate_random_seed() -> int:
+	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.randomize()
+	var random_seed: int = rng.seed
+
+	return random_seed
+
 
 func _cancel_current_mouse_action():
 	match _mouse_state.get_state():
@@ -283,10 +305,42 @@ func _get_cmdline_value(key: String):
 
 
 func _on_pregame_controller_finished():
-	get_tree().set_pause(false)
+#	NOTE: in singleplayer case, this simply sets the
+#	settings locally. In multiplayer case, this will
+#	cause the host to broadcast game settings to
+#	peers.
+	var wave_count: int = _pregame_controller.get_game_length()
+	var difficulty: Difficulty.enm = _pregame_controller.get_difficulty()
+	var game_mode: GameMode.enm = _pregame_controller.get_game_mode()
+	
+#	NOTE: host randomizes their rng, other peers will
+#	receive this seed from host when connecting via
+#	_set_origin_rng_seed().
+	var origin_seed: int = _generate_random_seed()
+	print_verbose("Generated origin seed on host: ", origin_seed)
 
-	var local_builder_id: int = _pregame_controller.get_builder_id()
+	_transition_from_pregame.rpc(wave_count, game_mode, difficulty, origin_seed)
 
+
+# This is called when host is finished selecting all of the
+# pregame settings.
+@rpc("any_peer", "call_local", "reliable")
+func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
+	_pregame_hud.hide()
+	
+	Globals._wave_count = wave_count
+	Globals._game_mode = game_mode
+	_difficulty = difficulty
+	
+# 	This function is used by host to set seeds on other peers
+# 	so everyone in network has same origing seed.
+	_origin_rng.seed = origin_seed
+	
+	if multiplayer.is_server():
+		print_verbose("Host set origin seed to: ", origin_seed)
+	else:
+		print_verbose("Peer received origin seed from host: ", origin_seed)
+	
 #	TODO: the current setup is incorrect for real game case.
 #	We set same seed for team and then that same seed is
 #	used to generate waves.
@@ -298,7 +352,7 @@ func _on_pregame_controller_finished():
 
 #	Create local player and remote players
 	var local_peer_id: int = multiplayer.get_unique_id()
-	var local_player: Player = Player.make(local_peer_id, local_builder_id)
+	var local_player: Player = Player.make(local_peer_id)
 	local_player.set_seed(team_seed)
 	_player_container.add_player(local_player)
 	print_verbose("Added local player with id: ", local_peer_id)
@@ -308,17 +362,11 @@ func _on_pregame_controller_finished():
 #		TODO: use builder id which was selected by remote
 #		player. Remote players need to communicate which
 #		builder they selected.
-		var remote_player: Player = Player.make(peer_id, local_builder_id)
+		var remote_player: Player = Player.make(peer_id)
 		remote_player.set_seed(team_seed)
 		_player_container.add_player(remote_player)
 		print_verbose("Added remote player with id: ", peer_id)
 	
-	var local_builder: Builder = local_player.get_builder()
-	var local_builder_name: String = local_builder.get_display_name()
-	_hud.set_local_builder_name(local_builder_name)
-	if local_builder.get_adds_extra_recipes():
-		_hud.enable_extra_recipes()
-
 	local_player.item_stash_changed.connect(_on_local_player_item_stash_changed)
 	local_player.horadric_stash_changed.connect(_on_local_player_horadric_stash_changed)
 	local_player.tower_stash_changed.connect(_on_local_player_tower_stash_changed)
@@ -327,23 +375,8 @@ func _on_pregame_controller_finished():
 	_wave_spawner.set_player(local_player)
 	_tower_preview.set_player(local_player)
 
-	var wave_count: int = Globals.get_wave_count()
-	var game_mode: GameMode.enm = Globals.get_game_mode()
-	var tutorial_enabled: bool = _pregame_controller.get_tutorial_enabled()
-	
-	_hud.set_pregame_settings(wave_count, game_mode, _difficulty)
-
 	var upgrade_button_should_be_visible: bool = game_mode == GameMode.enm.BUILD || game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
 	_hud.set_upgrade_button_visible(upgrade_button_should_be_visible)
-
-# 	TODO: fix for multiplayer. I think tutorial should be
-# 	disabled in multiplayer case.
-	if tutorial_enabled:
-		var tutorial_item: Item = Item.make(80, local_player)
-		var tutorial_oil: Item = Item.make(1001, local_player)
-		var item_stash: ItemContainer = local_player.get_item_stash()
-		item_stash.add_item(tutorial_item)
-		item_stash.add_item(tutorial_oil)
 
 # 	TODO: fix for multiplayer. Add towers to tower stash via rpc call.
 	if game_mode == GameMode.enm.BUILD:
@@ -372,14 +405,64 @@ func _on_pregame_controller_finished():
 		item_stash.add_item(item)
 
 	_game_state = GameState.PLAYING
-
-	if tutorial_enabled:
-		_start_tutorial(game_mode)
+	
+	var skip_builder_menu: bool = !Config.show_pregame_settings_menu()
+	if skip_builder_menu:
+		var builder_id: int = Config.default_builder_id()
+		_set_builder_for_player.rpc(local_player.get_id(), builder_id)
 	else:
-		_transition_from_tutorial_state()
+		var builder_menu: BuilderMenu = preload("res://Scenes/PregameHUD/BuilderMenu.tscn").instantiate()
+		builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
+		
+#		NOTE: add builder menu below pause menu so that game
+#		can show the pause menu on top of tutorial
+		_ui_layer.add_child(builder_menu)
+		var pause_menu_index: int = _pause_hud.get_index()
+		_ui_layer.move_child(builder_menu, pause_menu_index)
+	
+	Messages.add_normal("The first wave will spawn in 3 minutes.")
+	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
+	
+	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
+	_hud.show_game_start_time()
+	
+	get_tree().set_pause(false)
+
+#	NOTE: below are special tools which are not run during
+#	normal gameplay.
+	if Config.run_save_tooltips_tool():
+		SaveTooltipsTool.run(local_player)
+
+#	NOTE: tower tests need to run after everything else has
+#	been initialized
+	if Config.run_test_towers_tool():
+		TestTowersTool.run(self, local_player)
+
+	if Config.run_test_horadric_tool():
+		TestHoradricTool.run(local_player)
+		
+	var show_pregame_settings: bool = Config.show_pregame_settings_menu()
+
+#	TODO: remove tutorial question from pregame settings.
+#	Always show tutorial, save flag if player finished or
+#	skipped the tutorial. Add setting to reset flag so
+#	player can do tutorial again.
+	if show_pregame_settings:
+		var tutorial_enabled: bool = _pregame_controller.get_tutorial_enabled()
+		
+		if tutorial_enabled:
+			_start_tutorial(game_mode)
 
 
 func _start_tutorial(game_mode: GameMode.enm):
+#	Add items for tutorial, to allow player to practice moving them.
+	var local_player: Player = _player_container.get_local_player()
+	var tutorial_item: Item = Item.make(80, local_player)
+	var tutorial_oil: Item = Item.make(1001, local_player)
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	item_stash.add_item(tutorial_item)
+	item_stash.add_item(tutorial_oil)
+		
 	var tutorial_menu_scene: PackedScene = preload("res://Scenes/HUD/TutorialMenu.tscn")
 	_tutorial_menu = tutorial_menu_scene.instantiate()
 	
@@ -394,27 +477,26 @@ func _start_tutorial(game_mode: GameMode.enm):
 	_tutorial_controller.start(_tutorial_menu, game_mode)
 
 
-func _transition_from_tutorial_state():
-	Messages.add_normal("The first wave will spawn in 3 minutes.")
-	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
+@rpc("any_peer", "call_local", "reliable")
+func _set_builder_for_player(player_id: int, builder_id: int):
+	var player: Player = _player_container.get_player(player_id)
 	
-	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
-	_hud.show_game_start_time()
+	if player == null:
+		push_error("player is null")
+		
+		return
+	
+	player.set_builder(builder_id)
 
 	var local_player: Player = _player_container.get_local_player()
 
-#	NOTE: below are special tools which are not run during
-#	normal gameplay.
-	if Config.run_save_tooltips_tool():
-		SaveTooltipsTool.run(local_player)
+	if player == local_player:
+		var local_builder: Builder = local_player.get_builder()
+		var local_builder_name: String = local_builder.get_display_name()
+		_hud.set_local_builder_name(local_builder_name)
 
-#	NOTE: tower tests need to run after everything else has
-#	been initialized
-	if Config.run_test_towers_tool():
-		TestTowersTool.run(self, local_player)
-
-	if Config.run_test_horadric_tool():
-		TestHoradricTool.run(local_player)
+		if local_builder.get_adds_extra_recipes():
+			_hud.enable_extra_recipes()
 
 
 @rpc("any_peer", "call_local", "reliable")
@@ -470,24 +552,6 @@ func _get_next_5_waves() -> Array[Wave]:
 	return wave_list
 
 
-@rpc("any_peer", "call_local", "reliable")
-func _set_pregame_settings(game_length: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
-	Globals._wave_count = game_length
-	Globals._game_mode = game_mode
-	_difficulty = difficulty
-	
-# 	This function is used by host to set seeds on other peers
-# 	so everyone in network has same origing seed.
-	_origin_rng.seed = origin_seed
-	
-	if multiplayer.is_server():
-		print_verbose("Host set origin seed to: ", origin_seed)
-	else:
-		print_verbose("Peer received origin seed from host: ", origin_seed)
-	
-	_pregame_controller.go_to_builder_tab()
-
-
 #########################
 ###     Callbacks     ###
 #########################
@@ -499,8 +563,6 @@ func _on_pause_hud_resume_pressed():
 func _on_tutorial_controller_finished():
 	_tutorial_controller.queue_free()
 	_tutorial_menu.queue_free()
-	
-	_transition_from_tutorial_state()
 
 
 func _on_settings_changed():
@@ -795,21 +857,8 @@ func _on_player_requested_transmute():
 	_horadric_cube.transmute(local_player)
 
 
-func _on_pregame_controller_selected_host_settings():
-#	NOTE: in singleplayer case, this simply sets the
-#	settings locally. In multiplayer case, this will
-#	cause the host to broadcast game settings to
-#	peers.
-	var game_length: int = _pregame_controller.get_game_length()
-	var difficulty: Difficulty.enm = _pregame_controller.get_difficulty()
-	var game_mode: GameMode.enm = _pregame_controller.get_game_mode()
-	
-#	NOTE: host randomizes their rng, other peers will
-#	receive this seed from host when connecting via
-#	_set_origin_rng_seed().
-	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.randomize()
-	var origin_seed: int = rng.seed
-	print_verbose("Generated origin seed on host: ", origin_seed)
-
-	_set_pregame_settings.rpc(game_length, game_mode, difficulty, origin_seed)
+func _on_builder_menu_finished(builder_menu: BuilderMenu):
+	var builder_id: int = builder_menu.get_builder_id()
+	builder_menu.queue_free()
+	var local_player: Player = _player_container.get_local_player()
+	_set_builder_for_player.rpc(local_player.get_id(), builder_id)

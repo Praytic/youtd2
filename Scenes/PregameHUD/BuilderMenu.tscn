@@ -3,62 +3,75 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_3giap"]
 [ext_resource type="Script" path="res://Scenes/PregameHUD/BuilderMenu.gd" id="2_rrrdq"]
 
-[node name="BuilderMenu" type="VBoxContainer" node_paths=PackedStringArray("_beginner_container", "_advanced_container", "_specialist_container", "_hardcore_container")]
+[node name="BuilderMenu" type="PanelContainer" node_paths=PackedStringArray("_beginner_container", "_advanced_container", "_specialist_container", "_hardcore_container")]
 custom_minimum_size = Vector2(0, 400)
-offset_right = 233.0
-offset_bottom = 400.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.5
+offset_top = -200.0
+offset_right = 132.5
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
 theme = ExtResource("1_3giap")
+theme_type_variation = &"CenterPanel"
 script = ExtResource("2_rrrdq")
-_beginner_container = NodePath("ScrollContainer/VBoxContainer/BeginnerContainer")
-_advanced_container = NodePath("ScrollContainer/VBoxContainer/AdvancedContainer")
-_specialist_container = NodePath("ScrollContainer/VBoxContainer/SpecialistContainer")
-_hardcore_container = NodePath("ScrollContainer/VBoxContainer/HardcoreContainer")
-tab_index = 5
+_beginner_container = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/BeginnerContainer")
+_advanced_container = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/AdvancedContainer")
+_specialist_container = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/SpecialistContainer")
+_hardcore_container = NodePath("VBoxContainer/ScrollContainer/VBoxContainer/HardcoreContainer")
 
-[node name="Label" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"LabelLarge"
 text = "Select Builder:"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="BeginnerContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="BeginnerContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/BeginnerContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/BeginnerContainer"]
 layout_mode = 2
 text = "Beginner"
 horizontal_alignment = 1
 
-[node name="AdvancedContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="AdvancedContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/AdvancedContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/AdvancedContainer"]
 layout_mode = 2
 text = "Advanced"
 horizontal_alignment = 1
 
-[node name="SpecialistContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="SpecialistContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/SpecialistContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/SpecialistContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Specialist
 "
 
-[node name="HardcoreContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+[node name="HardcoreContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HardcoreContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/HardcoreContainer"]
 layout_mode = 2
 text = "Hardcore"
 horizontal_alignment = 1

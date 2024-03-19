@@ -5,12 +5,8 @@ class_name PregameController extends Node
 # selecting game settings.
 
 
-# Emitted when player has selected game settings which are
-# specific to multiplayer host. These settings need to be
-# broadcasted to other peers.
-signal selected_host_settings()
 # Emitted when pregame menu is finished, player has selected
-# game settings and builder.
+# game settings.
 signal finished()
 
 # Default game server port. Can be any number between 1024
@@ -23,7 +19,6 @@ var _game_length: int
 var _difficulty: Difficulty.enm
 var _game_mode: GameMode.enm
 var _tutorial_enabled: bool
-var _builder_id: int
 
 @export var _pregame_hud: PregameHUD
 
@@ -47,27 +42,7 @@ func _ready():
 #########################
 
 func start():
-	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
-
-	if show_pregame_settings_menu:
-		_pregame_hud.show()
-	else:
-#		Use default setting values when skipping pregame
-#		settings
-		_game_length = Config.default_game_length()
-		_difficulty = Config.default_difficulty()
-		_game_mode = Config.default_game_mode()
-		_builder_id = Config.default_builder()
-		_tutorial_enabled = Config.default_tutorial_enabled()
-		
-		selected_host_settings.emit()
-		_finish()
-
-
-# NOTE: for host, this will just advance to next tab. For
-# peer, this will skip to builder tab.
-func go_to_builder_tab():
-	_pregame_hud.change_tab(PregameHUD.Tab.BUILDER)
+	_pregame_hud.show()
 
 
 func get_game_length() -> int:
@@ -82,10 +57,6 @@ func get_difficulty() -> Difficulty.enm:
 	return _difficulty
 
 
-func get_builder_id() -> int:
-	return _builder_id
-
-
 func get_tutorial_enabled() -> bool:
 	return _tutorial_enabled
 
@@ -95,7 +66,6 @@ func get_tutorial_enabled() -> bool:
 #########################
 
 func _finish():
-	_pregame_hud.hide()
 	finished.emit()
 	
 
@@ -126,9 +96,6 @@ func _on_pregame_hud_tab_finished():
 			_pregame_hud.change_tab(PregameHUD.Tab.DIFFICULTY)
 		PregameHUD.Tab.DIFFICULTY:
 			_difficulty = _pregame_hud.get_difficulty()
-			selected_host_settings.emit()
-		PregameHUD.Tab.BUILDER:
-			_builder_id = _pregame_hud.get_builder_id()
 
 #			NOTE: show tutorial tab only if singleplayer was
 #			selected

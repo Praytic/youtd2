@@ -1,8 +1,11 @@
-class_name BuilderMenu extends PregameTab
+class_name BuilderMenu extends PanelContainer
 
 
 # NOTE: the buttons for this menu are created
 # programmatically inside _ready().
+
+
+signal finished()
 
 
 @export var _beginner_container: VBoxContainer
