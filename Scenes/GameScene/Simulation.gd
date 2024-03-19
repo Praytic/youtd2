@@ -35,6 +35,7 @@ class_name Simulation extends Node
 # TODO: remove print() calls or change to print_verbose()
 
 
+var _tick_delta: float
 var _current_tick: int = 0
 var _broadcasted_commands_for_current_tick: bool = false
 
@@ -44,6 +45,18 @@ var _broadcasted_commands_for_current_tick: bool = false
 #########################
 ###     Built-in      ###
 #########################
+
+func _ready():
+	var tick_rate: int = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
+
+	if tick_rate != 30:
+		push_error("Physics tick rate got changed by accident. Must be 30 for multiplayer purposes.")
+
+#	NOTE: save this delta and use it instead of the one we
+#	get in _physics_process because we need all clients to
+#	use the same delta value.
+	_tick_delta = 1.0 / tick_rate
+
 
 # NOTE: using _physics_process() because it provides a
 # built-in way to do consistent tickrate, independent of
@@ -80,4 +93,7 @@ func _do_tick():
 # tick to other players
 
 func _update_state():
-	pass
+	var tower_list: Array[Tower] = Utils.get_tower_list()
+
+	for tower in tower_list:
+		tower.update(_tick_delta)
