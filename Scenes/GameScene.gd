@@ -440,18 +440,6 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 
 	if Config.run_test_horadric_tool():
 		TestHoradricTool.run(local_player)
-		
-	var show_pregame_settings: bool = Config.show_pregame_settings_menu()
-
-#	TODO: remove tutorial question from pregame settings.
-#	Always show tutorial, save flag if player finished or
-#	skipped the tutorial. Add setting to reset flag so
-#	player can do tutorial again.
-	if show_pregame_settings:
-		var tutorial_enabled: bool = _pregame_controller.get_tutorial_enabled()
-		
-		if tutorial_enabled:
-			_start_tutorial(game_mode)
 
 
 func _start_tutorial(game_mode: GameMode.enm):
@@ -561,6 +549,11 @@ func _on_pause_hud_resume_pressed():
 
 
 func _on_tutorial_controller_finished():
+#	NOTE: after player finishes the tutorial, we stop
+#	showing it on next game starts. Player can turn it back
+#	on in settings.
+	Settings.set_setting(Settings.SHOW_TUTORIAL_ON_START, false)
+
 	_tutorial_controller.queue_free()
 	_tutorial_menu.queue_free()
 
@@ -862,3 +855,10 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 	builder_menu.queue_free()
 	var local_player: Player = _player_container.get_local_player()
 	_set_builder_for_player.rpc(local_player.get_id(), builder_id)
+
+	var show_tutorial_on_start: bool = Settings.get_bool_setting(Settings.SHOW_TUTORIAL_ON_START)
+	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
+	var game_mode: GameMode.enm = Globals.get_game_mode()
+	
+	if show_tutorial_on_start && player_mode == PlayerMode.enm.SINGLE:
+		_start_tutorial(game_mode)

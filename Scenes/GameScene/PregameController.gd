@@ -15,10 +15,10 @@ signal finished()
 # https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
 const DEFAULT_PORT = 8910
 
+var _player_mode: PlayerMode.enm
 var _game_length: int
 var _difficulty: Difficulty.enm
 var _game_mode: GameMode.enm
-var _tutorial_enabled: bool
 
 @export var _pregame_hud: PregameHUD
 
@@ -45,6 +45,10 @@ func start():
 	_pregame_hud.show()
 
 
+func get_player_mode() -> PlayerMode.enm:
+	return _player_mode
+
+
 func get_game_length() -> int:
 	return _game_length
 
@@ -55,10 +59,6 @@ func get_game_mode() -> GameMode.enm:
 
 func get_difficulty() -> Difficulty.enm:
 	return _difficulty
-
-
-func get_tutorial_enabled() -> bool:
-	return _tutorial_enabled
 
 
 #########################
@@ -75,10 +75,11 @@ func _finish():
 
 func _on_pregame_hud_tab_finished():
 	var current_tab: PregameHUD.Tab = _pregame_hud.get_current_tab()
-	var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
 	
 	match current_tab:
 		PregameHUD.Tab.PLAYER_MODE:
+			var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
+			_player_mode = player_mode
 			match player_mode:
 				PlayerMode.enm.SINGLE: _pregame_hud.change_tab(PregameHUD.Tab.GAME_LENGTH)
 				PlayerMode.enm.COOP: _pregame_hud.change_tab(PregameHUD.Tab.COOP_ROOM)
@@ -96,16 +97,6 @@ func _on_pregame_hud_tab_finished():
 			_pregame_hud.change_tab(PregameHUD.Tab.DIFFICULTY)
 		PregameHUD.Tab.DIFFICULTY:
 			_difficulty = _pregame_hud.get_difficulty()
-
-#			NOTE: show tutorial tab only if singleplayer was
-#			selected
-			match player_mode:
-				PlayerMode.enm.SINGLE: _pregame_hud.change_tab(PregameHUD.Tab.TUTORIAL_QUESTION)
-				PlayerMode.enm.COOP: _finish()
-				PlayerMode.enm.SERVER: push_error("unhandled case")
-				
-		PregameHUD.Tab.TUTORIAL_QUESTION:
-			_tutorial_enabled = _pregame_hud.get_tutorial_enabled()
 			_finish()
 
 
