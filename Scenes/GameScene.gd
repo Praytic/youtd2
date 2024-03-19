@@ -741,15 +741,9 @@ func _on_player_requested_to_roll_towers():
 		Messages.add_error("You cannot reroll towers anymore.")
 	
 		return
-	
-#	TODO: fix for multiplayer. Everything after this point
-#	should be inside rpc call.
-	var tower_stash: TowerStash = local_player.get_tower_stash()
-	tower_stash.clear()
-	
-	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(local_player, tower_count_for_roll)
-	tower_stash.add_towers(rolled_towers)
-	local_player.decrement_tower_count_for_starting_roll()
+
+	var command: Command = Command.RollTowers.make()
+	_command_storage.add_command(command)
 
 
 func _on_player_requested_to_research_element(element: Element.enm):

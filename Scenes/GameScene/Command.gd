@@ -31,6 +31,7 @@ enum Type {
 	NONE,
 	IDLE,
 	RESEARCH_ELEMENT,
+	ROLL_TOWERS,
 }
 
 
@@ -66,6 +67,15 @@ class ResearchElement extends Command:
 		var command: Command = Command.new({
 			Command.Field.TYPE: Command.Type.RESEARCH_ELEMENT,
 			Command.Field.ELEMENT: element_arg,
+			})
+
+		return command
+
+
+class RollTowers extends Command:
+	static func make():
+		var command: Command = Command.new({
+			Command.Field.TYPE: Command.Type.ROLL_TOWERS,
 			})
 
 		return command
