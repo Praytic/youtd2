@@ -114,6 +114,13 @@ func default_difficulty() -> Difficulty.enm:
 
 	return difficulty
 
+
+func always_show_tutorial() -> bool:
+	var tutorial_enabled: bool = ProjectSettings.get_setting("application/config/always_show_tutorial") as bool
+
+	return tutorial_enabled
+
+
 # Enable to set random counters for item and tower buttons,
 # for testing purposes.
 func random_button_counters() -> bool:

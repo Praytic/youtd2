@@ -553,6 +553,7 @@ func _on_tutorial_controller_finished():
 #	showing it on next game starts. Player can turn it back
 #	on in settings.
 	Settings.set_setting(Settings.SHOW_TUTORIAL_ON_START, false)
+	Settings.flush()
 
 	_tutorial_controller.queue_free()
 	_tutorial_menu.queue_free()
@@ -859,6 +860,7 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 	var show_tutorial_on_start: bool = Settings.get_bool_setting(Settings.SHOW_TUTORIAL_ON_START)
 	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
+	var always_show_tutorial: bool = Config.always_show_tutorial()
 	
-	if show_tutorial_on_start && player_mode == PlayerMode.enm.SINGLE:
+	if (show_tutorial_on_start && player_mode == PlayerMode.enm.SINGLE) || always_show_tutorial:
 		_start_tutorial(game_mode)
