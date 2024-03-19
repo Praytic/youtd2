@@ -27,6 +27,7 @@ func execute(player_id: int, serialized_command: Dictionary):
 		Command.Type.SELL_TOWER: _sell_tower(serialized_command)
 		Command.Type.START_GAME: _start_game()
 		Command.Type.START_NEXT_WAVE: start_next_wave()
+		Command.Type.SELECT_BUILDER: _select_builder(player_id, serialized_command)
 
 
 #########################
@@ -163,6 +164,30 @@ func start_next_wave():
 
 	if !started_last_wave && Globals.get_difficulty() == Difficulty.enm.EXTREME:
 		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
+
+
+func _select_builder(player_id: int, serialized_command: Dictionary):
+	var command: CommandSelectBuilder = CommandSelectBuilder.new(serialized_command)
+	var builder_id: int = command.builder_id
+
+	var player: Player = _player_container.get_player(player_id)
+	
+	if player == null:
+		push_error("player is null")
+		
+		return
+	
+	player.set_builder(builder_id)
+
+	var local_player: Player = _player_container.get_local_player()
+
+	if player == local_player:
+		var local_builder: Builder = local_player.get_builder()
+		var local_builder_name: String = local_builder.get_display_name()
+		_hud.set_local_builder_name(local_builder_name)
+
+		if local_builder.get_adds_extra_recipes():
+			_hud.enable_extra_recipes()
 
 
 func _get_tower_by_uid(tower_unit_id: int) -> Tower:

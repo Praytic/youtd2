@@ -185,6 +185,11 @@ func _unhandled_input(event: InputEvent):
 ###      Private      ###
 #########################
 
+func _set_builder_for_local_player(builder_id: int):
+	var command: Command = CommandSelectBuilder.make(builder_id)
+	_command_storage.add_command(command)
+
+
 func _generate_random_seed() -> int:
 	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 	rng.randomize()
@@ -397,7 +402,7 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 	var skip_builder_menu: bool = !Config.show_pregame_settings_menu()
 	if skip_builder_menu:
 		var builder_id: int = Config.default_builder_id()
-		_set_builder_for_player.rpc(local_player.get_id(), builder_id)
+		_set_builder_for_local_player(builder_id)
 	else:
 		var builder_menu: BuilderMenu = preload("res://Scenes/PregameHUD/BuilderMenu.tscn").instantiate()
 		builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
@@ -459,28 +464,6 @@ func _start_tutorial(game_mode: GameMode.enm):
 	_tutorial_controller.finished.connect(_on_tutorial_controller_finished)
 	add_child(_tutorial_controller)
 	_tutorial_controller.start(_tutorial_menu, game_mode)
-
-
-@rpc("any_peer", "call_local", "reliable")
-func _set_builder_for_player(player_id: int, builder_id: int):
-	var player: Player = _player_container.get_player(player_id)
-	
-	if player == null:
-		push_error("player is null")
-		
-		return
-	
-	player.set_builder(builder_id)
-
-	var local_player: Player = _player_container.get_local_player()
-
-	if player == local_player:
-		var local_builder: Builder = local_player.get_builder()
-		var local_builder_name: String = local_builder.get_display_name()
-		_hud.set_local_builder_name(local_builder_name)
-
-		if local_builder.get_adds_extra_recipes():
-			_hud.enable_extra_recipes()
 
 
 func _get_next_5_waves() -> Array[Wave]:
@@ -798,8 +781,7 @@ func _on_player_requested_transmute():
 func _on_builder_menu_finished(builder_menu: BuilderMenu):
 	var builder_id: int = builder_menu.get_builder_id()
 	builder_menu.queue_free()
-	var local_player: Player = _player_container.get_local_player()
-	_set_builder_for_player.rpc(local_player.get_id(), builder_id)
+	_set_builder_for_local_player(builder_id)
 
 	var show_tutorial_on_start: bool = Settings.get_bool_setting(Settings.SHOW_TUTORIAL_ON_START)
 	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()

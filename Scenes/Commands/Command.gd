@@ -28,6 +28,7 @@ enum Field {
 	TOWER_ID,
 	POSITION,
 	TOWER_UNIT_ID,
+	BUILDER_ID,
 }
 
 enum Type {
@@ -39,6 +40,7 @@ enum Type {
 	SELL_TOWER,
 	START_GAME,
 	START_NEXT_WAVE,
+	SELECT_BUILDER,
 }
 
 
