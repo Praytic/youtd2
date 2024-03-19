@@ -31,6 +31,7 @@ enum GameState {
 @export var _pregame_controller: PregameController
 @export var _ui_layer: CanvasLayer
 @export var _pregame_hud: PregameHUD
+@export var _command_storage: CommandStorage
 
 
 var _game_state: GameState = GameState.PREGAME
@@ -85,7 +86,7 @@ func _ready():
 # 	NOTE: this is where normal gameplay starts
 	Settings.changed.connect(_on_settings_changed)
 	_on_settings_changed()
-
+	
 	get_tree().set_pause(true)
 	
 	if OS.has_feature("dedicated_server") or DisplayServer.get_name() == "headless":
@@ -426,6 +427,14 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
 	_hud.show_game_start_time()
 	
+#	NOTE: reduce command delay for multiplayer
+#	TODO: should really make the perceived latency good
+#	enough for both singleplayer and multiplayer to use the
+#	same delay
+	var player_count: int = _player_container.get_player_id_list().size()
+	if player_count == 1:
+		_command_storage.set_delay(CommandStorage.SINGLEPLAYER_COMMAND_DELAY)
+	
 	get_tree().set_pause(false)
 
 #	NOTE: below are special tools which are not run during
@@ -760,12 +769,13 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 		return
 
-	var cost: int = local_player.get_research_cost(element)
-	local_player.spend_tomes(cost)
-	local_player.increment_element_level(element)
+#	TODO: update hud to display new element level right
+#	here, even though element level will change later, when
+#	command is executed. Take into account max level.
+# 	This is to show immediate feedback to player.
 
-	var new_element_levels: Dictionary = local_player.get_element_level_map()
-	_hud.update_element_level(new_element_levels)
+	var command: Command = Command.ResearchElement.make(element)
+	_command_storage.add_command(command)
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
