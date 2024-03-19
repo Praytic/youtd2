@@ -32,13 +32,13 @@ enum GameState {
 @export var _ui_layer: CanvasLayer
 @export var _pregame_hud: PregameHUD
 @export var _command_storage: CommandStorage
+@export var _execute_command: ExecuteCommand
 
 
 var _game_state: GameState = GameState.PREGAME
 var _prev_effect_id: int = 0
 var _game_over: bool = false
 var _room_code: int = 0
-var _difficulty: Difficulty.enm = Config.default_difficulty()
 var _tutorial_controller: TutorialController = null
 var _tutorial_menu: TutorialMenu = null
 
@@ -328,7 +328,7 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 	
 	Globals._wave_count = wave_count
 	Globals._game_mode = game_mode
-	_difficulty = difficulty
+	Globals._difficulty = difficulty
 	
 # 	This function is used by host to set seeds on other peers
 # 	so everyone in network has same origing seed.
@@ -371,14 +371,14 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 		var tower_stash: TowerStash = local_player.get_tower_stash()
 		tower_stash.add_all_towers()
 	
-	var difficulty_string: String = Difficulty.convert_to_string(_difficulty)
+	var difficulty_string: String = Difficulty.convert_to_string(Globals.get_difficulty())
 	var game_mode_string: String = GameMode.convert_to_string(game_mode)
 
 	Messages.add_normal("Welcome to You TD 2!")
 	Messages.add_normal("Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
 	Messages.add_normal("You can pause the game by pressing [color=GOLD]Esc[/color]")
 
-	_wave_spawner.generate_waves(wave_count, _difficulty)
+	_wave_spawner.generate_waves(wave_count, difficulty)
 
 	var next_waves: Array[Wave] = _get_next_5_waves()
 	_hud.show_wave_details(next_waves)
@@ -483,45 +483,6 @@ func _set_builder_for_player(player_id: int, builder_id: int):
 			_hud.enable_extra_recipes()
 
 
-@rpc("any_peer", "call_local", "reliable")
-func _start_game():
-	_game_start_timer.stop()
-	_hud.hide_game_start_time()
-	_hud.show_next_wave_button()
-	_hud.hide_roll_towers_button()
-
-	_wave_spawner.start_wave(1)
-	
-	if _difficulty == Difficulty.enm.EXTREME:
-		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
-
-#	NOTE: start counting game time after first wave starts
-	_game_time.set_enabled(true)
-
-
-@rpc("any_peer", "call_local", "reliable")
-func _start_next_wave():
-	_extreme_timer.stop()
-	_next_wave_timer.stop()
-
-	var local_player: Player = _player_container.get_local_player()
-	local_player.get_team().increment_level()
-	var level: int = local_player.get_team().get_level()
-
-	_wave_spawner.start_wave(level)
-
-	_hud.hide_next_wave_time()
-	_hud.update_level(level)
-	var next_waves: Array[Wave] = _get_next_5_waves()
-	_hud.show_wave_details(next_waves)
-	var started_last_wave: bool = level == Globals.get_wave_count()
-	if started_last_wave:
-		_hud.disable_next_wave_button()
-
-	if !started_last_wave && _difficulty == Difficulty.enm.EXTREME:
-		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
-
-
 func _get_next_5_waves() -> Array[Wave]:
 	var wave_list: Array[Wave] = []
 	var local_player: Player = _player_container.get_local_player()
@@ -622,7 +583,7 @@ func _on_wave_finished(level: int):
 
 
 func _on_creep_got_killed(creep: Creep):
-	var creep_score: float = creep.get_score(_difficulty, Globals.get_wave_count(), Globals.get_game_mode())
+	var creep_score: float = creep.get_score(Globals.get_difficulty(), Globals.get_wave_count(), Globals.get_game_mode())
 
 	if creep_score > 0:
 		var player: Player = creep.get_player()
@@ -636,7 +597,7 @@ func _on_creep_reached_portal(creep: Creep):
 	var damage_done_string: String = Utils.format_percent(damage_done, 2)
 	var creep_size: CreepSize.enm = creep.get_size()
 	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
-	var creep_score: float = creep.get_score(_difficulty, Globals.get_wave_count(), Globals.get_game_mode())
+	var creep_score: float = creep.get_score(Globals.get_difficulty(), Globals.get_wave_count(), Globals.get_game_mode())
 
 	if creep_size == CreepSize.enm.BOSS:
 		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
@@ -675,12 +636,18 @@ func _on_player_requested_start_game():
 		Messages.add_error("You have to build some towers before you can start the game!")
 
 		return
-	
-	_start_game.rpc()
+
+#	NOTE: update UI immediately to reduce percieved latency
+	_hud.hide_game_start_time()
+	_hud.show_next_wave_button()
+	_hud.hide_roll_towers_button()
+
+	var command: Command = CommandStartGame.make()
+	_command_storage.add_command(command)
 
 
 func _on_game_start_timer_timeout():
-	_start_game()
+	_execute_command._start_game()
 
 
 func _on_player_requested_next_wave():
@@ -695,7 +662,8 @@ func _on_player_requested_next_wave():
 		
 		return
 	
-	_start_next_wave.rpc()
+	var command: Command = CommandStartNextWave.make()
+	_command_storage.add_command(command)
 
 
 func _on_extreme_timer_timeout():
@@ -704,7 +672,7 @@ func _on_extreme_timer_timeout():
 
 
 func _on_next_wave_timer_timeout():
-	_start_next_wave()
+	_execute_command.start_next_wave()
 
 
 func _on_player_requested_to_roll_towers():

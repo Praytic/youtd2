@@ -6,6 +6,7 @@ extends Node
 # placeholders.
 var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
+var _difficulty: Difficulty.enm = Difficulty.enm.EASY
 
 # NOTE: you must pick wisely, lest the universes diverge
 # forever. Simulation rng should be used for things which
@@ -21,6 +22,10 @@ func get_wave_count() -> int:
 
 func get_game_mode() -> GameMode.enm:
 	return _game_mode
+
+
+func get_difficulty() -> Difficulty.enm:
+	return _difficulty
 
 
 func game_mode_is_random() -> bool:
