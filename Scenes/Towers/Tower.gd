@@ -57,6 +57,9 @@ var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var _range_indicator_list: Array[RangeIndicator] = []
 var _is_tower_preview: bool = false
 
+static var _uid_max: int = 1
+var _uid: int = 0
+
 
 # NOTE: need to use @onready instead of @export because
 # Towers.get_tower() calls set_script() on towers which
@@ -85,6 +88,18 @@ func _ready():
 		return
 
 	super()
+
+#	TODO: currently, we create uid's for towers and creeps
+#	separately. Create them in one location - Unit_ready().
+#	There's currently an obstacle to that which is that
+#	uid's are used in multiplayer and they need to be
+#	synchronized. Tower preview breaks this synchronization
+#	because it creates a tower instance. Separate sprites
+#	out of tower subclasses so that tower preview can use
+#	only the sprite without creating a tower instance. After
+#	that, uid can be created in Unit._ready().
+	_uid = _uid_max
+	_uid_max += 1
 
 	_set_visual_node(_visual)
 	var outline_thickness: float = 6.0
@@ -283,6 +298,10 @@ func _process(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func get_uid() -> int:
+	return _uid
+
 
 # Composes range data which contains name, radius and color
 # for each range of tower. This includes attack range,

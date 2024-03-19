@@ -742,7 +742,7 @@ func _on_player_requested_to_roll_towers():
 	
 		return
 
-	var command: Command = Command.RollTowers.make()
+	var command: Command = CommandRollTowers.make()
 	_command_storage.add_command(command)
 
 
@@ -768,7 +768,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 #	command is executed. Take into account max level.
 # 	This is to show immediate feedback to player.
 
-	var command: Command = Command.ResearchElement.make(element)
+	var command: Command = CommandResearchElement.make(element)
 	_command_storage.add_command(command)
 
 

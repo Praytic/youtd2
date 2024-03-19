@@ -26,7 +26,7 @@ func execute(player_id: int, serialized_command: Dictionary):
 #########################
 
 func _research_element(player_id: int, serialized_command: Dictionary):
-	var command: Command.ResearchElement = Command.ResearchElement.new(serialized_command)
+	var command: CommandResearchElement = CommandResearchElement.new(serialized_command)
 	var element: Element.enm = command.element
 
 	var local_player: Player = _player_container.get_local_player()
@@ -56,7 +56,7 @@ func _roll_towers(player_id: int):
 # Need to add a temporary animation like a cloud of dust,
 # while the tower "builds".
 func _build_tower(player_id: int, serialized_command: Dictionary):
-	var command: Command.CommandBuildTower = Command.CommandBuildTower.new(serialized_command)
+	var command: CommandBuildTower = CommandBuildTower.new(serialized_command)
 	var tower_id: int = command.tower_id
 	var position: Vector2 = command.position
 

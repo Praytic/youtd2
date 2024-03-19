@@ -50,7 +50,7 @@ func broadcast_commands(tick: int):
 #	execution frame without an idle command from us, they
 #	will wait for us to catch up.
 	if _commands_for_current_tick.is_empty():
-		var idle_command: Command = Command.Idle.make()
+		var idle_command: Command = CommandIdle.make()
 		add_command(idle_command)
 	
 	var execute_tick: int = tick + _command_delay
