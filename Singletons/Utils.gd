@@ -527,6 +527,17 @@ func get_tower_list() -> Array[Tower]:
 	return tower_list
 
 
+func get_creep_list() -> Array[Creep]:
+	var tower_node_list: Array[Node] = get_tree().get_nodes_in_group("creeps")
+	var creep_list: Array[Creep] = []
+
+	for creep_node in tower_node_list:
+		var creep: Creep = creep_node as Creep
+		creep_list.append(creep)
+
+	return creep_list
+
+
 # Setup range indicators for tower attack, auras and extra
 # abilities.
 # NOTE: tower stats must be initialized before calling this

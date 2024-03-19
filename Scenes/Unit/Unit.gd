@@ -215,7 +215,7 @@ func _ready():
 	_selection_indicator.z_index = -1
 	add_child(_selection_indicator)
 	
-	var regen_timer: Timer = Timer.new()
+	var regen_timer: ManualTimer = ManualTimer.new()
 	regen_timer.one_shot = false
 	regen_timer.wait_time = REGEN_PERIOD
 	regen_timer.timeout.connect(_on_regen_timer_timeout)

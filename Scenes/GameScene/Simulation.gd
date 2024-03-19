@@ -93,7 +93,14 @@ func _do_tick():
 # tick to other players
 
 func _update_state():
-	var tower_list: Array[Tower] = Utils.get_tower_list()
+	var timer_list: Array = get_tree().get_nodes_in_group("manual_timers")
+	for timer in timer_list:
+		timer.update(_tick_delta)
+		
+	var creep_list: Array[Creep] = Utils.get_creep_list()
+	for creep in creep_list:
+		creep.update(_tick_delta)
 
+	var tower_list: Array[Tower] = Utils.get_tower_list()
 	for tower in tower_list:
 		tower.update(_tick_delta)

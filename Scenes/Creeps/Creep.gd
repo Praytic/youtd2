@@ -90,7 +90,7 @@ func _ready():
 	death.connect(_on_death)
 
 
-func _process(delta):
+func update(delta: float):
 	if !is_stunned():
 		_move(delta)
 
