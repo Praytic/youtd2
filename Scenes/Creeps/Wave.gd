@@ -57,14 +57,12 @@ var _creep_size: CreepSize.enm
 ### Code starts here  ###
 #########################
 
-func _init(level: int, difficulty: int, player: Player):
+func _init(level: int, difficulty: int):
 	_level = level
-	var rng: RandomNumberGenerator = player.get_rng()
-
-	_creep_size = Wave._generate_creep_size(_level, rng)
-	_race = Wave._generate_creep_race(_creep_size, rng)
-	_armor_type = Wave._get_random_armor_type(_level, _creep_size, rng)
-	_creep_combination = Wave._generate_creep_combination(_level, _creep_size, rng)
+	_creep_size = Wave._generate_creep_size(_level)
+	_race = Wave._generate_creep_race(_creep_size)
+	_armor_type = Wave._get_random_armor_type(_level, _creep_size)
+	_creep_combination = Wave._generate_creep_combination(_level, _creep_size)
 	var wave_has_champions: bool = _creep_combination.has(CreepSize.enm.CHAMPION)
 	_specials = WaveSpecial.get_random(_level, _creep_size, wave_has_champions)
 	_base_hp = Wave._calculate_base_hp(_level, difficulty, _armor_type)
@@ -329,7 +327,7 @@ static func _calculate_base_armor(level: int, difficulty: Difficulty.enm) -> flo
 	return base_armor
 
 
-static func _generate_creep_race(creep_size: CreepSize.enm, rng: RandomNumberGenerator) -> CreepCategory.enm:
+static func _generate_creep_race(creep_size: CreepSize.enm) -> CreepCategory.enm:
 	var override_creep_race_string: String = Config.override_creep_race()
 	if !override_creep_race_string.is_empty():
 		var override_creep_race: CreepCategory.enm = CreepCategory.from_string(override_creep_race_string)
@@ -349,13 +347,13 @@ static func _generate_creep_race(creep_size: CreepSize.enm, rng: RandomNumberGen
 		CreepCategory.enm.HUMANOID,
 	]
 
-	var random_race: CreepCategory.enm = Utils.pick_random(race_list, rng)
+	var random_race: CreepCategory.enm = Utils.pick_random(race_list, Globals.simulation_rng)
 
 	return random_race
 
 
 # TODO: handle final wave, should be final boss
-static func _generate_creep_size(level: int, rng: RandomNumberGenerator) -> CreepSize.enm:
+static func _generate_creep_size(level: int) -> CreepSize.enm:
 	var override_creep_size_string: String = Config.override_creep_size()
 	if !override_creep_size_string.is_empty():
 		var override_creep_size: CreepSize.enm = CreepSize.from_string(override_creep_size_string)
@@ -371,12 +369,12 @@ static func _generate_creep_size(level: int, rng: RandomNumberGenerator) -> Cree
 		else:
 			return CreepSize.enm.CHALLENGE_BOSS
 	else:
-		var random_regular_creep: CreepSize.enm = Utils.random_weighted_pick(_size_chances, rng)
+		var random_regular_creep: CreepSize.enm = Utils.random_weighted_pick(_size_chances, Globals.simulation_rng)
 
 		return random_regular_creep
 
 
-static func _get_random_armor_type(wave_level: int, creep_size: CreepSize.enm, rng: RandomNumberGenerator) -> ArmorType.enm:
+static func _get_random_armor_type(wave_level: int, creep_size: CreepSize.enm) -> ArmorType.enm:
 	var override_creep_armor_string: String = Config.override_creep_armor()
 	if !override_creep_armor_string.is_empty():
 		var override_creep_armor: ArmorType.enm = ArmorType.from_string(override_creep_armor_string)
@@ -397,10 +395,10 @@ static func _get_random_armor_type(wave_level: int, creep_size: CreepSize.enm, r
 
 	var can_spawn_sif: bool = wave_level >= 32
 
-	if can_spawn_sif && Utils.rand_chance(Constants.SIF_ARMOR_CHANCE, rng):
+	if can_spawn_sif && Utils.rand_chance(Constants.SIF_ARMOR_CHANCE, Globals.simulation_rng):
 		return ArmorType.enm.SIF
 	else:
-		var random_regular_armor: ArmorType.enm = Utils.pick_random(regular_armor_list, rng)
+		var random_regular_armor: ArmorType.enm = Utils.pick_random(regular_armor_list, Globals.simulation_rng)
 
 		return random_regular_armor
 
@@ -408,11 +406,11 @@ static func _get_random_armor_type(wave_level: int, creep_size: CreepSize.enm, r
 # Generates a creep combination. If wave contains champions,
 # then champions are inserted in regular intervals between
 # other creeps.
-static func _generate_creep_combination(wave_level: int, creep_size: CreepSize.enm, rng: RandomNumberGenerator) -> Array[CreepSize.enm]:
+static func _generate_creep_combination(wave_level: int, creep_size: CreepSize.enm) -> Array[CreepSize.enm]:
 	var combination: Array[CreepSize.enm] = []
 
 	var wave_capacity: int = 20 + wave_level / 40
-	var champion_count: int = _generate_champion_count(wave_level, creep_size, rng)
+	var champion_count: int = _generate_champion_count(wave_level, creep_size)
 	var champion_weight: int = int(CreepSize.get_experience(CreepSize.enm.CHAMPION))
 	var unit_weight: int = int(CreepSize.get_experience(creep_size))
 
@@ -447,14 +445,14 @@ static func _generate_creep_combination(wave_level: int, creep_size: CreepSize.e
 	return combination
 
 
-static func _generate_champion_count(wave_level: int, creep_size: CreepSize.enm, rng: RandomNumberGenerator) -> int:
+static func _generate_champion_count(wave_level: int, creep_size: CreepSize.enm) -> int:
 	var is_challenge: bool = CreepSize.is_challenge(creep_size)
 
 	if is_challenge:
 		return 0
 
 	var chance_of_champion_count: Dictionary = _champion_count_chances[creep_size]
-	var champion_count: int = Utils.random_weighted_pick(chance_of_champion_count, rng)
+	var champion_count: int = Utils.random_weighted_pick(chance_of_champion_count, Globals.simulation_rng)
 
 	if champion_count > 0:
 		champion_count = champion_count + int(wave_level / 120)

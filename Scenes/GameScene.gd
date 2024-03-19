@@ -39,9 +39,6 @@ var _prev_effect_id: int = 0
 var _game_over: bool = false
 var _room_code: int = 0
 var _difficulty: Difficulty.enm = Config.default_difficulty()
-# This rng is used to create seeds for all other rng's and
-# to sync seeds between peers.
-var _origin_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _tutorial_controller: TutorialController = null
 var _tutorial_menu: TutorialMenu = null
 
@@ -335,26 +332,16 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 	
 # 	This function is used by host to set seeds on other peers
 # 	so everyone in network has same origing seed.
-	_origin_rng.seed = origin_seed
+	Globals.simulation_rng.seed = origin_seed
 	
 	if multiplayer.is_server():
 		print_verbose("Host set origin seed to: ", origin_seed)
 	else:
 		print_verbose("Peer received origin seed from host: ", origin_seed)
-	
-#	TODO: the current setup is incorrect for real game case.
-#	We set same seed for team and then that same seed is
-#	used to generate waves.
-#	In reality, each player should have their own wave
-#	spawner and each spawner should have different seed.
-#	So need to implement multiple wave spawners and use
-#	player seeds on them, not team seeds.
-	var team_seed: int = _origin_rng.randi()
 
 #	Create local player and remote players
 	var local_peer_id: int = multiplayer.get_unique_id()
 	var local_player: Player = Player.make(local_peer_id)
-	local_player.set_seed(team_seed)
 	local_player.set_is_local_player(true)
 	_player_container.add_player(local_player)
 	print_verbose("Added local player with id: ", local_peer_id)
@@ -365,7 +352,6 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 #		player. Remote players need to communicate which
 #		builder they selected.
 		var remote_player: Player = Player.make(peer_id)
-		remote_player.set_seed(team_seed)
 		_player_container.add_player(remote_player)
 		print_verbose("Added remote player with id: ", peer_id)
 	

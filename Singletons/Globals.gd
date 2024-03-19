@@ -7,6 +7,13 @@ extends Node
 var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 
+# NOTE: you must pick wisely, lest the universes diverge
+# forever. Simulation rng should be used for things which
+# should be same in multiplayer. Visual rng should be used
+# for anything related to visual effects or SFX.
+var simulation_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var visual_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+
 
 func get_wave_count() -> int:
 	return _wave_count

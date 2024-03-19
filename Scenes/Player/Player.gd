@@ -33,7 +33,6 @@ var _tomes: int = Config.starting_tomes()
 var _id: int = -1
 var _builder: Builder = null
 var _have_placeholder_builder: bool = true
-var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _score: float = 0.0
 var _is_local_player: bool = false
 
@@ -78,14 +77,6 @@ func set_builder(builder_id: int):
 	builder.apply_to_player(self)
 
 	_have_placeholder_builder = false
-
-
-func set_seed(player_seed: int):
-	_rng.seed = player_seed
-
-
-func get_rng() -> RandomNumberGenerator:
-	return _rng
 
 
 func get_builder() -> Builder:
