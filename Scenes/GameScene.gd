@@ -355,6 +355,7 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 	var local_peer_id: int = multiplayer.get_unique_id()
 	var local_player: Player = Player.make(local_peer_id)
 	local_player.set_seed(team_seed)
+	local_player.set_is_local_player(true)
 	_player_container.add_player(local_player)
 	print_verbose("Added local player with id: ", local_peer_id)
 	

@@ -35,6 +35,7 @@ var _builder: Builder = null
 var _have_placeholder_builder: bool = true
 var _rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var _score: float = 0.0
+var _is_local_player: bool = false
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -55,6 +56,10 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func set_is_local_player(value: bool):
+	_is_local_player = value
+
 
 func set_builder(builder_id: int):
 	if !_have_placeholder_builder:
@@ -184,6 +189,9 @@ func get_team() -> Team:
 
 # NOTE: player.displayFloatingTextX() in JASS
 func display_floating_text_x(text: String, unit: Unit, color: Color, velocity: float, fadepoint: float, time: float):
+	if !_is_local_player:
+		return
+	
 	var floating_text = Preloads.floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
@@ -196,6 +204,9 @@ func display_floating_text_x(text: String, unit: Unit, color: Color, velocity: f
 
 # NOTE: player.displayFloatingTextX2() in JASS
 func display_floating_text_x_2(text: String, unit: Unit, color: Color, velocity: float, fadepoint: float, time: float, _scale: float, random_offset: float):
+	if !_is_local_player:
+		return
+
 	var floating_text = Preloads.floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
@@ -209,6 +220,9 @@ func display_floating_text_x_2(text: String, unit: Unit, color: Color, velocity:
 
 # NOTE: player.displayFloatingText() in JASS
 func display_floating_text(text: String, unit: Unit, color: Color):
+	if !_is_local_player:
+		return
+
 	var floating_text = Preloads.floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
@@ -218,6 +232,9 @@ func display_floating_text(text: String, unit: Unit, color: Color):
 
 # NOTE: player.displaySmallFloatingText() in JASS
 func display_small_floating_text(text: String, unit: Unit, color: Color, random_offset: float):
+	if !_is_local_player:
+		return
+
 	var floating_text = Preloads.floating_text_scene.instantiate()
 	floating_text.text = text
 	floating_text.color = color
