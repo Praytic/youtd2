@@ -143,3 +143,9 @@ func _on_slider_changed(_value: float):
 
 func _on_checkbox_pressed():
 	_set_dirty_state()
+
+
+# Load current settings when menu is opened. Need to do this because settings can get changed outside of this menu, in code.
+func _on_visibility_changed():
+	if visible:
+		_load_current_settings()
