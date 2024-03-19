@@ -6,7 +6,7 @@ class_name BuildTower extends Node
 @export var _mouse_state: MouseState
 @export var _map: Map
 @export var _tower_preview: TowerPreview
-@export var _player_container: PlayerContainer
+@export var _command_storage: CommandStorage
 
 
 #########################
@@ -56,7 +56,7 @@ func try_to_finish(player: Player):
 		_transform_tower(tower_id, tower_under_mouse, player)
 		cancel()
 	else:
-		_build_tower(tower_id, player)
+		_build_tower(tower_id)
 		cancel()
 
 
@@ -95,7 +95,7 @@ func _add_error_about_building_tower(tower_id: int, player: Player):
 		Messages.add_error("Not enough food.")
 
 
-func _build_tower(tower_id: int, player: Player):
+func _build_tower(tower_id: int):
 	var visual_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
 	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
 	
@@ -103,31 +103,8 @@ func _build_tower(tower_id: int, player: Player):
 	
 	EventBus.player_performed_tutorial_advance_action.emit("build_tower")
 	
-	_add_tower_to_world.rpc(tower_id, build_position, player.get_id())
-
-
-@rpc("any_peer", "call_local", "reliable")
-func _add_tower_to_world(tower_id: int, build_position: Vector2, player_id: int):
-	var player: Player = _player_container.get_player(player_id)
-
-	player.add_food_for_tower(tower_id)
-	
-	var build_cost: float = TowerProperties.get_cost(tower_id)
-	player.spend_gold(build_cost)
-	
-	var tomes_cost: int = TowerProperties.get_tome_cost(tower_id)
-	player.spend_tomes(tomes_cost)
-
-	if Globals.get_game_mode() != GameMode.enm.BUILD:
-		var tower_stash: TowerStash = player.get_tower_stash()
-		tower_stash.remove_tower(tower_id)
-
-	var new_tower: Tower = TowerManager.get_tower(tower_id, player)
-	new_tower.position = build_position
-	
-	_map.add_space_occupied_by_tower(new_tower)
-	
-	Utils.add_object_to_world(new_tower)
+	var command: Command = Command.CommandBuildTower.make(tower_id, build_position)
+	_command_storage.add_command(command)
 
 
 func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):
