@@ -21,6 +21,8 @@ const ICON_SIZE_M = 128
 const ICON_FAMILIES_PER_PAGE = 66
 const MAX_ICONS_PER_FAMILY = 5
 const PROPERTIES_PATH = "res://Data/item_properties.csv"
+# NOTE: this id needs to be updated if it's changed in csv
+const CONSUMABLE_CHICKEN_ID: int = 2003
 
 const item_icons_m: Texture2D = preload("res://Assets/Items/item_icons_m.png")
 const potion_icons_m: Texture2D = preload("res://Assets/Items/potion_icons_m.png")

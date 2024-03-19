@@ -254,17 +254,21 @@ func adjust_height(height_wc3: float, speed: float):
 # owns the lane on which the creep spawned. Currently, the
 # concept of "item being owned by a player" is not
 # implemented.
-func drop_item(caster: Tower, _use_creep_player: bool):
+func drop_item(caster: Tower, use_creep_player: bool):
 	var random_item: int = ItemDropCalc.get_random_item(caster, self)
 
 	if random_item == 0:
 		return
 
-	var item: Item = Item.create(caster.get_player(), random_item, position)
+	drop_item_by_id(caster, use_creep_player, random_item)
+
+
+func drop_item_by_id(caster: Tower, _use_creep_player: bool, item_id):
+	var item: Item = Item.create(caster.get_player(), item_id, position)
 	item.fly_to_stash(0.0)
 
-	var item_name: String = ItemProperties.get_item_name(random_item)
-	var item_rarity: Rarity.enm = ItemProperties.get_rarity(random_item)
+	var item_name: String = ItemProperties.get_item_name(item_id)
+	var item_rarity: Rarity.enm = ItemProperties.get_rarity(item_id)
 	var rarity_color: Color = Rarity.get_color(item_rarity)
 
 	caster.get_player().display_floating_text(item_name, self, rarity_color)
