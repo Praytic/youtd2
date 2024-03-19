@@ -30,6 +30,7 @@ const INTERFACE_SIZE_DICT: Dictionary = {
 	"Medium": 1.0,
 	"Large": 1.25
 }
+const SHOW_TUTORIAL_ON_START: String = "show_tutorial_on_start"
 
 
 var _cache: Dictionary = {}
@@ -44,6 +45,7 @@ var _default_value_map: Dictionary = {
 	COMBAT_LOG_X: 20.0,
 	COMBAT_LOG_Y: 600.0,
 	INTERFACE_SIZE: "Medium",
+	SHOW_TUTORIAL_ON_START: true,
 }
 
 
