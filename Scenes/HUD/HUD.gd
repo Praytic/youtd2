@@ -138,10 +138,6 @@ func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: 
 	_top_left_menu.set_pregame_settings(wave_count, game_mode, difficulty)
 
 
-func set_upgrade_button_visible(value: bool):
-	_tower_menu.set_upgrade_button_visible(value)
-
-
 func show_game_start_time():
 	_top_left_menu.show_game_start_time()
 

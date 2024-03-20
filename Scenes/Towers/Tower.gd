@@ -800,7 +800,14 @@ func _get_next_bounce_target(bounce_pos: Vector2, visited_list: Array[Unit]) -> 
 func _on_selected():
 	for indicator in _range_indicator_list:
 		indicator.show()
-	_tower_actions.show()
+
+	var tower_player_id: int = get_player().get_id()
+	var local_player_id: int = Globals.get_local_player_id()
+	var tower_belongs_to_local_player: bool = tower_player_id == local_player_id
+
+	if tower_belongs_to_local_player:
+		_tower_actions.show()
+
 
 func _on_unselected():
 	for indicator in _range_indicator_list:

@@ -343,6 +343,8 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 	_player_container.add_player(local_player)
 	print_verbose("Added local player with id: ", local_peer_id)
 	
+	Globals._local_player_id = local_player.get_id()
+
 	var peer_id_list: PackedInt32Array = multiplayer.get_peers()
 	for peer_id in peer_id_list:
 #		TODO: use builder id which was selected by remote
@@ -359,9 +361,6 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 	_move_item.set_player(local_player)
 	_wave_spawner.set_player(local_player)
 	_tower_preview.set_player(local_player)
-
-	var upgrade_button_should_be_visible: bool = game_mode == GameMode.enm.BUILD || game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
-	_hud.set_upgrade_button_visible(upgrade_button_should_be_visible)
 
 # 	TODO: fix for multiplayer. Add towers to tower stash via rpc call.
 	if game_mode == GameMode.enm.BUILD:

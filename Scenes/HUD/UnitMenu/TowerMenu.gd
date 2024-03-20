@@ -26,12 +26,14 @@ const ITEMS_CONTAINER_BUTTON_SIZE: float = 82
 @export var _items_box_container: HBoxContainer
 @export var _buff_container: BuffContainer
 @export var _details: TowerDetails
+@export var _buff_group_container: VBoxContainer
 @export var _buff_group_button_1: BuffGroupButton
 @export var _buff_group_button_2: BuffGroupButton
 @export var _buff_group_button_3: BuffGroupButton
 @export var _buff_group_button_4: BuffGroupButton
 @export var _buff_group_button_5: BuffGroupButton
 @export var _buff_group_button_6: BuffGroupButton
+@export var _inventory_panel: PanelContainer
 
 var _selling_for_real: bool = false
 var _player: Player = null
@@ -66,10 +68,6 @@ func _process(_delta: float):
 #########################
 ###       Public      ###
 #########################
-
-func set_upgrade_button_visible(value: bool):
-	_upgrade_button.visible = value
-
 
 # NOTE: need to couple unit menu with player to implement
 # the feature of tooltips displaying red requirement
@@ -128,6 +126,17 @@ func set_tower(tower: Tower):
 	_tier_icon.texture = tier_icon
 	
 	_set_selling_for_real(false)
+
+	var tower_player_id: int = tower.get_player().get_id()
+	var local_player_id: int = Globals.get_local_player_id()
+	var tower_belongs_to_local_player: bool = tower_player_id == local_player_id
+	
+	var game_mode: GameMode.enm = Globals.get_game_mode()
+	var upgrade_button_should_be_visible: bool = game_mode == GameMode.enm.BUILD || game_mode == GameMode.enm.RANDOM_WITH_UPGRADES
+	_upgrade_button.visible = upgrade_button_should_be_visible && tower_belongs_to_local_player
+	_sell_button.visible = tower_belongs_to_local_player
+	_buff_group_container.visible = tower_belongs_to_local_player
+	_inventory_panel.visible = tower_belongs_to_local_player
 
 
 #########################
