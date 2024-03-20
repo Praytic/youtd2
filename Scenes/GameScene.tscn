@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/SelectPointForCast.gd" id="8_r0gm8"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 [ext_resource type="Script" path="res://Scenes/GameScene/SelectTargetForCast.gd" id="9_14jv4"]
-[ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/PauseHUD.tscn" id="9_r46bb"]
+[ext_resource type="PackedScene" uid="uid://hiex318b5cvk" path="res://Scenes/PauseHUD/GameMenu.tscn" id="9_r46bb"]
 [ext_resource type="Script" path="res://Scenes/GameScene/MoveItem.gd" id="10_qbku7"]
 [ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="11_0qewd"]
 [ext_resource type="Script" path="res://Scenes/GameScene/BuildTower.gd" id="12_1xrfo"]
@@ -54,10 +54,10 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_pause_hud", "_hud", "_map", "_wave_spawner", "_ui_canvas_layer", "_camera", "_player_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_pregame_controller", "_ui_layer", "_pregame_hud", "_command_storage", "_execute_command")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_wave_spawner", "_ui_canvas_layer", "_camera", "_player_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_pregame_controller", "_ui_layer", "_pregame_hud", "_command_storage", "_execute_command")]
 process_mode = 3
 script = ExtResource("9")
-_pause_hud = NodePath("UI/PauseHUD")
+_game_menu = NodePath("UI/GameMenu")
 _hud = NodePath("UI/HUD")
 _map = NodePath("World/Map")
 _wave_spawner = NodePath("Gameplay/WaveSpawner")
@@ -247,7 +247,7 @@ mouse_filter = 2
 [node name="PregameHUD" parent="UI" instance=ExtResource("8_idpxe")]
 visible = false
 
-[node name="PauseHUD" parent="UI" instance=ExtResource("9_r46bb")]
+[node name="GameMenu" parent="UI" instance=ExtResource("9_r46bb")]
 process_mode = 3
 visible = false
 
@@ -257,5 +257,5 @@ visible = false
 [connection signal="finished" from="Gameplay/PregameController" to="." method="_on_pregame_controller_finished"]
 [connection signal="finished" from="Gameplay/TutorialController" to="." method="_on_tutorial_controller_finished"]
 [connection signal="tab_finished" from="UI/PregameHUD" to="Gameplay/PregameController" method="_on_pregame_hud_tab_finished"]
-[connection signal="restart_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_restart_pressed"]
-[connection signal="resume_pressed" from="UI/PauseHUD" to="." method="_on_pause_hud_resume_pressed"]
+[connection signal="close_pressed" from="UI/GameMenu" to="." method="_on_game_menu_close_pressed"]
+[connection signal="restart_pressed" from="UI/GameMenu" to="." method="_on_pause_hud_restart_pressed"]

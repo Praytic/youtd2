@@ -1,7 +1,7 @@
 class_name GameScene extends Node
 
 
-@export var _pause_hud: Control
+@export var _game_menu: Control
 @export var _hud: HUD
 @export var _map: Map
 @export var _wave_spawner: WaveSpawner
@@ -257,7 +257,7 @@ func _toggle_game_menu():
 	if !_completed_pregame:
 		return
 	
-	_pause_hud.visible = !_pause_hud.visible
+	_game_menu.visible = !_game_menu.visible
 
 #	TODO: store player mode outside pregame controller
 	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
@@ -384,11 +384,11 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 		var builder_menu: BuilderMenu = preload("res://Scenes/PregameHUD/BuilderMenu.tscn").instantiate()
 		builder_menu.finished.connect(_on_builder_menu_finished.bind(builder_menu))
 		
-#		NOTE: add builder menu below pause menu so that game
-#		can show the pause menu on top of tutorial
+#		NOTE: add builder menu below game menu so that game
+#		can show the game menu on top of tutorial
 		_ui_layer.add_child(builder_menu)
-		var pause_menu_index: int = _pause_hud.get_index()
-		_ui_layer.move_child(builder_menu, pause_menu_index)
+		var game_menu_index: int = _game_menu.get_index()
+		_ui_layer.move_child(builder_menu, game_menu_index)
 	
 	Messages.add_normal("The first wave will spawn in 3 minutes.")
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
@@ -433,10 +433,10 @@ func _start_tutorial(game_mode: GameMode.enm):
 	var tutorial_menu_scene: PackedScene = preload("res://Scenes/HUD/TutorialMenu.tscn")
 	_tutorial_menu = tutorial_menu_scene.instantiate()
 	
-#	NOTE: add tutorial below pause menu so that game can show the pause menu on top of tutorial
+#	NOTE: add tutorial below game menu so that game can show the game menu on top of tutorial
 	_ui_layer.add_child(_tutorial_menu)
-	var pause_menu_index: int = _pause_hud.get_index()
-	_ui_layer.move_child(_tutorial_menu, pause_menu_index)
+	var game_menu_index: int = _game_menu.get_index()
+	_ui_layer.move_child(_tutorial_menu, game_menu_index)
 	
 	_tutorial_controller = TutorialController.new()
 	_tutorial_controller.finished.connect(_on_tutorial_controller_finished)
@@ -462,7 +462,7 @@ func _get_next_5_waves() -> Array[Wave]:
 ###     Callbacks     ###
 #########################
 
-func _on_pause_hud_resume_pressed():
+func _on_game_menu_close_pressed():
 	_toggle_game_menu()
 
 
@@ -489,7 +489,7 @@ func _on_settings_changed():
 	_camera.update_zoom()
 
 
-func _on_pause_hud_restart_pressed():
+func _on_game_menu_restart_pressed():
 #	NOTE: need to remove all units before restarting the
 #	game to avoid issues with creeps emitting tree_exit()
 #	signals, triggering wave_finished() signal and then
