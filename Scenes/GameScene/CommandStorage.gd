@@ -54,13 +54,12 @@ func broadcast_commands(tick: int):
 		add_command(idle_command)
 	
 	var execute_tick: int = tick + _command_delay
-	var player_id: int = multiplayer.multiplayer_peer.get_unique_id()
 
 #	NOTE: need to duplicate array because in case of self
 #	rpc call, we want to save a copy, not a reference.
 #	Reference is cleared at the end of this function.
 	var commands_to_broadcast: Array = _commands_for_current_tick.duplicate()
-	_receive_broadcasted_commands.rpc(execute_tick, player_id, commands_to_broadcast)
+	_receive_broadcasted_commands.rpc(execute_tick, commands_to_broadcast)
 	_commands_for_current_tick.clear()
 
 
@@ -108,8 +107,10 @@ func check_if_received_commands_from_all_players(tick: int) -> bool:
 #########################
 
 @rpc("any_peer", "call_local", "reliable")
-func _receive_broadcasted_commands(execute_tick: int, player_id: int, command_list: Array):
+func _receive_broadcasted_commands(execute_tick: int, command_list: Array):
 	if !_all_commands.has(execute_tick):
 		_all_commands[execute_tick] = {}
+
+	var player_id: int = multiplayer.get_remote_sender_id()
 
 	_all_commands[execute_tick][player_id] = command_list
