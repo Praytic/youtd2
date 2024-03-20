@@ -547,13 +547,22 @@ func _on_wave_finished(level: int):
 	if Globals.game_mode_is_random():
 		_roll_towers_after_wave_finish()
 
-	_extreme_timer.stop()
-	_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
-	_hud.show_next_wave_time(Constants.TIME_BETWEEN_WAVES)
-
 #	TODO: need to apply builder wave finished for all
 #	players
 	local_player.apply_builder_wave_finished_effect()
+
+	_extreme_timer.stop()
+
+#	NOTE: need to check that *current* level was finished
+#	because waves can be finished out of ordered if they are
+#	force spawned by player.
+	var current_level: int = local_player.get_team().get_level()
+	var finished_current_level: bool = level == current_level
+	var finished_last_level: bool = level == Utils.get_max_level()
+
+	if finished_current_level && !finished_last_level:
+		_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
+		_hud.show_next_wave_time(Constants.TIME_BETWEEN_WAVES)
 
 
 func _on_creep_got_killed(creep: Creep):
