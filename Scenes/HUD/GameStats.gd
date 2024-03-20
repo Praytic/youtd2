@@ -103,6 +103,14 @@ func load_player_stats(player_list: Array[Player]):
 	text += "[table=6]"
 	text += "[cell][color=GOLD]Name[/color][/cell][cell][color=GOLD]Score[/color][/cell][cell][color=GOLD]Lives[/color][/cell][cell][color=GOLD]Level[/color][/cell][cell][color=GOLD]Total damage[/color][/cell][cell][color=GOLD]Gold[/color][/cell]"
 
+	player_list.sort_custom(
+		func(a, b) -> bool:
+			var id_a: int = a.get_id()
+			var id_b: int = b.get_id()
+			
+			return id_a < id_b
+	)
+
 	for player in player_list:
 		var player_name: String = player.get_player_name()
 
