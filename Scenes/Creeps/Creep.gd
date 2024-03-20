@@ -35,9 +35,11 @@ var _category: CreepCategory.enm : set = set_category, get = get_category
 var _armor_type: ArmorType.enm : set = set_armor_type, get = get_armor_type
 var _current_path_index: int = 0
 var _facing_angle: float = 0.0
-var _height_tween: Tween = null
 var _spawn_level: int
 var _special_list: Array[int] = [] : set = set_special_list, get = get_special_list
+var _current_height: float = 0.0
+var _target_height: float = 0.0
+var _height_change_speed: float = 0.0
 
 static var _id_max: int = 1
 var _id: int
@@ -72,8 +74,9 @@ func _ready():
 	health_changed.connect(_on_health_changed)
 
 	if _size == CreepSize.enm.AIR:
-		var height: float = 2 * Constants.TILE_SIZE.y
-		_visual.position.y = -height
+		_current_height = 2 * Constants.TILE_SIZE.y
+		_target_height = _current_height
+		_visual.position.y = -_current_height
 	
 	_setup_selection_signals(_selection_area)
 	
@@ -100,6 +103,16 @@ func update(delta: float):
 	var creep_animation: String = _get_creep_animation()
 	_sprite.play(creep_animation)
 	_selection_outline.play(creep_animation)
+
+	if _current_height != _target_height:
+		var height_change: float = _height_change_speed * delta
+
+		if _current_height < _target_height:
+			_current_height = max(_target_height, _current_height + height_change)
+		else:
+			_current_height = min(_target_height, _current_height - height_change)
+
+		_visual.position.y = -_current_height
 
 	z_index = _calculate_current_z_index()
 
@@ -214,7 +227,8 @@ func move_to_point(point: Vector2):
 
 
 # NOTE: creep.adjustHeight() in JASS
-func adjust_height(height_wc3: float, speed: float):
+# NOTE: can't use tween here because it causes desync.
+func adjust_height(height_wc3: float, speed_wc3: float):
 #	NOTE: can't create tween's while node is outside tree.
 #	If creep is outside tree then it's okay to do nothing
 #	because creep is about to get deleted anyway.
@@ -231,23 +245,10 @@ func adjust_height(height_wc3: float, speed: float):
 # 	NOTE: divide by two because in isometric world vertical
 # 	axis is squished
 	var height_pixels: float = Utils.to_pixels(height_wc3) / 2
+	var speed_pixels: float = Utils.to_pixels(speed_wc3) / 2
 
-#	If a tween is already running, complete it instantly
-#	before starting new one.
-	if _height_tween != null:
-		if _height_tween.is_running():
-			_height_tween.custom_step(HEIGHT_TWEEN_FAST_FORWARD_DELTA)
-
-		_height_tween.kill()
-		_height_tween = null
-
-	_height_tween = create_tween()
-
-	var duration: float = abs(Utils.divide_safe(height_pixels, speed, 1.0))
-
-	_height_tween.tween_property(_visual, "position",
-		Vector2(_visual.position.x, _visual.position.y - height_pixels),
-		duration).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+	_target_height += height_pixels
+	_height_change_speed = speed_pixels
 
 
 # NOTE: creep.dropItem() in JASS
