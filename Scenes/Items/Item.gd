@@ -9,6 +9,7 @@ signal charges_changed()
 signal consumed()
 
 
+const FLY_DURATION: float = 1.0
 const PRINT_SCRIPT_NOT_FOUND_ERROR: bool = false
 const FAILLBACK_SCRIPT: String = "res://Scenes/Items/Instances/Item105.gd"
 
@@ -284,16 +285,22 @@ func fly_to_stash(_mystery_float: float):
 	parent_item_drop.remove_child(self)
 	parent_item_drop.remove_from_game()
 
-	fly_to_stash_from_pos(item_drop_screen_pos)
+	var belongs_to_local_player: bool = _player.get_id() == Globals.get_local_player_id()
 
+	if belongs_to_local_player:
+		var flying_item: FlyingItem = FlyingItem.create(_id, item_drop_screen_pos)
+		flying_item.visible = _visible
+		_hud.add_child(flying_item)
 
-# Same as fly_to_stash() but can be used on unparented item
-func fly_to_stash_from_pos(screen_pos: Vector2):
-	var flying_item: FlyingItem = FlyingItem.create(_id, screen_pos)
-	flying_item.finished_flying.connect(_on_flying_item_finished_flying)
-	flying_item.add_child(self)
-	flying_item.visible = _visible
-	_hud.add_child(flying_item)
+#	NOTE: item stays inside item drop
+	set_visible(false)
+
+#	NOTE: fly duration has to be a constant value, doesn't
+#	matter if fly animation will finish earlier. This is to
+#	prevent multiplayer desync.
+	await Utils.create_timer(FLY_DURATION).timeout
+
+	EventBus.item_flew_to_item_stash.emit(self)
 
 
 # NOTE: this f-n only applies the effects. Use Item.pickup()
@@ -355,17 +362,6 @@ func _remove_from_tower():
 		timer.set_paused(true)
 
 	_carrier = null
-
-
-#########################
-###     Callbacks     ###
-#########################
-
-func _on_flying_item_finished_flying():
-	var flying_item: Node = get_parent()
-	flying_item.remove_child(self)
-	flying_item.queue_free()
-	EventBus.item_flew_to_item_stash.emit(self)
 
 
 #########################

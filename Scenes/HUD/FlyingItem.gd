@@ -3,11 +3,12 @@ class_name FlyingItem extends Control
 
 # Visual effect for item flying from the ground into item
 # stash. Has to be a Control because visual's position needs
-# to be unaffected by camera movement.
+# to be unaffected by camera movement. Note that item stays
+# inside an invisible item during flying.
 
-signal finished_flying()
+# NOTE: flying item doesn't affect game state so it's okay
+# to use tweens here.
 
-const ANIMATION_DURATION: float = 1.0
 
 var _item_id: int = 0
 
@@ -30,15 +31,15 @@ func _ready():
 	var pos_tween = create_tween()
 	pos_tween.tween_property(self, "position",
 		target_pos,
-		ANIMATION_DURATION).set_trans(Tween.TRANS_SINE)
+		Item.FLY_DURATION).set_trans(Tween.TRANS_SINE)
 
 	var scale_tween = create_tween()
 	scale_tween.tween_property(self, "scale",
 		Vector2(0, 0),
-		0.3 * ANIMATION_DURATION).set_delay(0.7 * ANIMATION_DURATION)
+		0.3 * Item.FLY_DURATION).set_delay(0.7 * Item.FLY_DURATION)
 
 	var finished_tween = create_tween()
-	finished_tween.tween_callback(_on_tween_finished).set_delay(ANIMATION_DURATION)
+	finished_tween.tween_callback(_on_tween_finished).set_delay(Item.FLY_DURATION)
 
 
 #########################
@@ -46,7 +47,7 @@ func _ready():
 #########################
 
 func _on_tween_finished():
-	finished_flying.emit()
+	queue_free()
 
 
 #########################

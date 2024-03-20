@@ -148,8 +148,11 @@ func _ready():
 			_item_container.add_item(oil_item)
 
 #		Remove items from preceding tower
+#		NOTE: need to use drop() and pickup() for consistent
+#		logic, instead of directly manipulating item
+#		containers.
 		for item in preceding_item_list:
-			_temp_preceding_tower.get_item_container().remove_item(item)
+			item.drop()
 
 #		NOTE: must set level and experience after removing
 #		items from preceding tower and before adding items
@@ -165,10 +168,9 @@ func _ready():
 #		any extra items to stash.
 		for item in preceding_item_list:
 			if have_item_space():
-				_item_container.add_item(item)
+				item.pickup(self)
 			else:
-				var tower_screen_pos: Vector2 = _visual.get_screen_transform().get_origin()
-				item.fly_to_stash_from_pos(tower_screen_pos)
+				item.fly_to_stash(0.0)
 
 		_kill_count = _temp_preceding_tower._kill_count
 		_best_hit = _temp_preceding_tower._best_hit
