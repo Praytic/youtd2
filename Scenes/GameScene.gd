@@ -1,13 +1,6 @@
 class_name GameScene extends Node
 
 
-enum GameState {
-	PREGAME,
-	PLAYING,
-	PAUSED,
-}
-
-
 @export var _pause_hud: Control
 @export var _hud: HUD
 @export var _map: Map
@@ -18,7 +11,6 @@ enum GameState {
 @export var _game_start_timer: ManualTimer
 @export var _next_wave_timer: ManualTimer
 @export var _extreme_timer: ManualTimer
-@export var _game_time: GameTime
 @export var _object_container: Node2D
 @export var _select_point_for_cast: SelectPointForCast
 @export var _select_target_for_cast: SelectTargetForCast
@@ -35,12 +27,12 @@ enum GameState {
 @export var _execute_command: ExecuteCommand
 
 
-var _game_state: GameState = GameState.PREGAME
 var _prev_effect_id: int = 0
 var _game_over: bool = false
 var _room_code: int = 0
 var _tutorial_controller: TutorialController = null
 var _tutorial_menu: TutorialMenu = null
+var _completed_pregame: bool = false
 
 
 #########################
@@ -157,9 +149,7 @@ func _unhandled_input(event: InputEvent):
 		elif selected_unit != null:
 			_select_unit.set_selected_unit(null)
 		else:
-			match _game_state:
-				GameState.PLAYING: _pause_the_game()
-				GameState.PAUSED: _unpause_the_game()
+			_toggle_game_menu()
 	elif left_click:
 		match _mouse_state.get_state():
 			MouseState.enm.BUILD_TOWER: _build_tower.try_to_finish(local_player)
@@ -263,19 +253,17 @@ func _roll_towers_after_wave_finish():
 		Messages.add_normal(message)
 
 
-func _pause_the_game():
-	_game_time.set_enabled(false)
+func _toggle_game_menu():
+	if !_completed_pregame:
+		return
+	
+	_pause_hud.visible = !_pause_hud.visible
 
-	_game_state = GameState.PAUSED
-	get_tree().set_pause(true)
-	_pause_hud.show()
-
-
-func _unpause_the_game():
-	_game_state = GameState.PLAYING
-	get_tree().set_pause(false)
-	_pause_hud.hide()
-	_game_time.set_enabled(true)
+#	TODO: store player mode outside pregame controller
+	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
+	if player_mode == PlayerMode.enm.SINGLE:
+		var tree: SceneTree = get_tree()
+		tree.paused = !tree.paused
 
 
 func _get_cmdline_value(key: String):
@@ -388,8 +376,6 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 		var item_stash: ItemContainer = local_player.get_item_stash()
 		item_stash.add_item(item)
 
-	_game_state = GameState.PLAYING
-	
 	var skip_builder_menu: bool = !Config.show_pregame_settings_menu()
 	if skip_builder_menu:
 		var builder_id: int = Config.default_builder_id()
@@ -419,6 +405,7 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 		_command_storage.set_delay(CommandStorage.SINGLEPLAYER_COMMAND_DELAY)
 	
 	get_tree().set_pause(false)
+	_completed_pregame = true
 
 #	NOTE: below are special tools which are not run during
 #	normal gameplay.
@@ -476,7 +463,7 @@ func _get_next_5_waves() -> Array[Wave]:
 #########################
 
 func _on_pause_hud_resume_pressed():
-	_unpause_the_game()
+	_toggle_game_menu()
 
 
 func _on_tutorial_controller_finished():
