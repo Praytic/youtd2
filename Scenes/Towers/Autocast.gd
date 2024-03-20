@@ -132,12 +132,12 @@ var _caster: Unit = null
 var _is_item_autocast: bool = false
 
 # Tracks how much time is left before ability can be used.
-@export var _cooldown_timer: Timer
+@export var _cooldown_timer: ManualTimer
 # While auto mode is enabled, this timer periodically
 # triggers an attempt to cast ability if all requirements
 # are met. While auto mode is disabled, this timer is
 # paused.
-@export var _auto_timer: Timer
+@export var _auto_timer: ManualTimer
 
 
 #########################

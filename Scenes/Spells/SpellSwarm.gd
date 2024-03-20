@@ -25,7 +25,7 @@ var _damage: float
 var _start_radius: float
 var _end_radius: float
 
-@export var _move_timer: Timer
+@export var _move_timer: ManualTimer
 
 
 func _ready():

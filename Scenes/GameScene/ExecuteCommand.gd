@@ -7,9 +7,9 @@ class_name ExecuteCommand extends Node
 @export var _player_container: PlayerContainer
 @export var _hud: HUD
 @export var _map: Map
-@export var _game_start_timer: Timer
-@export var _next_wave_timer: Timer
-@export var _extreme_timer: Timer
+@export var _game_start_timer: ManualTimer
+@export var _next_wave_timer: ManualTimer
+@export var _extreme_timer: ManualTimer
 @export var _wave_spawner: WaveSpawner
 @export var _game_time: GameTime
 

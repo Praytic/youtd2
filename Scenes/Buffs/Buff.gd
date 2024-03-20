@@ -22,7 +22,7 @@ var _time: float
 var _friendly: bool
 var _type: String
 var _stacking_group: String
-var _timer: Timer
+var _timer: ManualTimer
 # Map of Event.Type -> list of EventHandler's
 var event_handler_map: Dictionary = {}
 var _original_duration: float = 0.0
@@ -40,7 +40,7 @@ var _is_hidden: bool
 
 func _ready():
 	if _time > 0.0:
-		_timer = Timer.new()
+		_timer = ManualTimer.new()
 		add_child(_timer)
 		_timer.timeout.connect(_on_timer_timeout)
 
@@ -120,7 +120,7 @@ func _add_event_handler(event_type: Event.Type, handler: Callable):
 
 
 func _add_periodic_event(handler: Callable, period: float):
-	var timer: Timer
+	var timer: ManualTimer
 
 #	NOTE: inheriting periodic timers is a hack to to
 # 	preserve item cooldowns when item is removed from tower
@@ -131,7 +131,7 @@ func _add_periodic_event(handler: Callable, period: float):
 			timer.get_parent().remove_child(timer)
 			timer.set_paused(false)
 	else:
-		timer = Timer.new()
+		timer = ManualTimer.new()
 		timer.wait_time = period
 		timer.one_shot = false
 		timer.autostart = true
@@ -330,7 +330,7 @@ func _on_target_spell_targeted(event: Event):
 	_call_event_handler_list(Event.Type.SPELL_TARGET, event)
 
 
-func _on_periodic_event_timer_timeout(handler: Callable, timer: Timer):
+func _on_periodic_event_timer_timeout(handler: Callable, timer: ManualTimer):
 	if !_can_call_event_handlers():
 		return
 

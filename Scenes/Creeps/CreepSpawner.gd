@@ -64,7 +64,7 @@ var _background_load_queue: Array[String] = []
 var _background_load_in_progress: bool = false
 var _player: Player = null
 
-@export var _timer_between_creeps: Timer
+@export var _timer_between_creeps: ManualTimer
 
 
 #########################

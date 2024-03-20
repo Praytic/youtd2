@@ -110,7 +110,8 @@ func _change_buff_level_to_this_aura_level(buff: Buff):
 ###     Callbacks     ###
 #########################
 
-func _on_timer_timeout():
+
+func _on_manual_timer_timeout():
 	_remove_invalid_targets()
 
 	var units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _aura_range, _include_invisible)

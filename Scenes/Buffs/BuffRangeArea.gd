@@ -18,7 +18,7 @@ var _prev_units_in_range: Array = []
 ###     Callbacks     ###
 #########################
 
-func _on_timer_timeout():
+func _on_manual_timer_timeout():
 	var all_units_in_range: Array = Utils.get_units_in_range(_target_type, global_position, _radius)
 
 	var matching_units: Array = []

@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://b80b85lbixydk"]
+[gd_scene load_steps=3 format=3 uid="uid://b80b85lbixydk"]
 
 [ext_resource type="Script" path="res://Scenes/Creeps/CreepSpawner.gd" id="1"]
+[ext_resource type="Script" path="res://Scenes/ManualTimer.gd" id="2_wbil6"]
 
 [node name="CreepSpawner" type="Node" node_paths=PackedStringArray("_timer_between_creeps")]
 script = ExtResource("1")
-_timer_between_creeps = NodePath("Timer")
+_timer_between_creeps = NodePath("ManualTimer")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="ManualTimer" type="Node" parent="."]
+script = ExtResource("2_wbil6")
 one_shot = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="ManualTimer" to="." method="_on_Timer_timeout"]

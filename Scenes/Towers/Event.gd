@@ -32,7 +32,7 @@ var _is_spell_damage: bool = false
 # Timer belonging to a buff that triggered this event. Used
 # for cases where periodic event handler needs to modify
 # duration of periodic event.
-var _timer: Timer = null
+var _timer: ManualTimer = null
 var _autocast: Autocast = null
 var _is_level_up: bool = true
 

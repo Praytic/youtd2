@@ -12,7 +12,7 @@ var _lifetime: float = 0.0
 
 @export var _debug_sprite: Sprite2D
 @export var _debug_sprite_target: Sprite2D
-@export var _lifetime_timer: Timer
+@export var _lifetime_timer: ManualTimer
 
 
 #########################

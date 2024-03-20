@@ -15,9 +15,9 @@ enum GameState {
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
 @export var _player_container: PlayerContainer
-@export var _game_start_timer: Timer
-@export var _next_wave_timer: Timer
-@export var _extreme_timer: Timer
+@export var _game_start_timer: ManualTimer
+@export var _next_wave_timer: ManualTimer
+@export var _extreme_timer: ManualTimer
 @export var _game_time: GameTime
 @export var _object_container: Node2D
 @export var _select_point_for_cast: SelectPointForCast

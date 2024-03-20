@@ -50,7 +50,7 @@ var _expiration_handler: Callable = Callable()
 var _collision_history: Array[Unit] = []
 var _collision_enabled: bool = true
 var _periodic_enabled: bool = true
-var _periodic_timer: Timer = null
+var _periodic_timer: ManualTimer = null
 var _spawn_time: float
 
 var user_int: int = 0
@@ -61,7 +61,7 @@ var user_real2: float = 0.0
 var user_real3: float = 0.0
 
 
-@export var _lifetime_timer: Timer
+@export var _lifetime_timer: ManualTimer
 
 
 #########################
@@ -723,7 +723,7 @@ static func _create_internal(type: ProjectileType, caster: Unit, damage_ratio: f
 	var periodic_handler_is_defined: bool = type._periodic_handler.is_valid() && type._periodic_handler_period > 0
 	if periodic_handler_is_defined:
 		projectile._periodic_handler = type._periodic_handler
-		var timer: Timer = Timer.new()
+		var timer: ManualTimer = ManualTimer.new()
 		projectile._periodic_timer = timer
 		timer.wait_time = type._periodic_handler_period
 		timer.autostart = true

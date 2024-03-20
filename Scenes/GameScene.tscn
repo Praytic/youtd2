@@ -1,7 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
+[ext_resource type="Script" path="res://Scenes/ManualTimer.gd" id="2_hiplt"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
 [ext_resource type="Script" path="res://Scenes/GameScene/PlayerContainer.gd" id="3_ieclh"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="5"]
@@ -85,13 +86,17 @@ _execute_command = NodePath("Gameplay/ExecuteCommand")
 [node name="Gameplay" type="Node" parent="."]
 process_mode = 1
 
-[node name="GameStartTimer" type="Timer" parent="Gameplay"]
+[node name="GameStartTimer" type="Node" parent="Gameplay"]
+script = ExtResource("2_hiplt")
 one_shot = true
 
-[node name="NextWaveTimer" type="Timer" parent="Gameplay"]
+[node name="NextWaveTimer" type="Node" parent="Gameplay"]
+script = ExtResource("2_hiplt")
 one_shot = true
 
-[node name="ExtremeTimer" type="Timer" parent="Gameplay"]
+[node name="ExtremeTimer" type="Node" parent="Gameplay"]
+script = ExtResource("2_hiplt")
+one_shot = true
 
 [node name="PlayerContainer" type="Node" parent="Gameplay"]
 script = ExtResource("3_ieclh")

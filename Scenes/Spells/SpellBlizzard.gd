@@ -9,7 +9,7 @@ var _wave_count: int = 0
 var _completed_wave_count: int = 0
 
 @export var _particles: CPUParticles2D
-@export var _wave_timer: Timer
+@export var _wave_timer: ManualTimer
 
 
 # Called when the node enters the scene tree for the first time.

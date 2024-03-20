@@ -23,7 +23,7 @@ var _last_start_pos: Vector2 = Vector2.ZERO
 var _last_end_pos: Vector2 = Vector2.ZERO
 var _sprite: AnimatedSprite2D
 var _sprite_width: float
-var _lifetime_timer: Timer
+var _lifetime_timer: ManualTimer
 
 
 #########################
@@ -45,7 +45,7 @@ func _ready():
 
 	_sprite_width = _get_sprite_width()
 
-	_lifetime_timer = Timer.new()
+	_lifetime_timer = ManualTimer.new()
 	_lifetime_timer.timeout.connect(_on_lifetime_timer_timeout)
 	add_child(_lifetime_timer)
 	

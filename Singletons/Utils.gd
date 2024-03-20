@@ -5,9 +5,14 @@ class_name UtilsStatic extends Node
 # get_tree().create_timer() because timers created using
 # get_tree().create_timer() do not handle game pause and
 # game restart.
-func create_timer(duration: float) -> Timer:
+# 
+# NOTE: you must not use this for things which are not part
+# of the synchronized multiplayer simulation. If you
+# create_timer() for one player but not the others, you will
+# mess up the order of updating timers and cause desync.
+func create_timer(duration: float) -> ManualTimer:
 	var timer_pool: Node = get_tree().get_root().get_node_or_null("GameScene/Gameplay/TimerPool")
-	var timer: Timer = timer_pool.create_timer(duration)
+	var timer: ManualTimer = timer_pool.create_timer(duration)
 
 	return timer
 
