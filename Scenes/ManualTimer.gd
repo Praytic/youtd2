@@ -79,6 +79,9 @@ func stop():
 func update(delta: float):
 	if _stopped || paused:
 		return
+
+	if is_queued_for_deletion():
+		return
 	
 	time_left -= delta
 

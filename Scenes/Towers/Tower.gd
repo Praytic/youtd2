@@ -258,6 +258,9 @@ func update(delta: float):
 	if _is_tower_preview:
 		return
 
+	if is_queued_for_deletion():
+		return
+
 	var attack_enabled: bool = get_attack_enabled()
 	if !attack_enabled:
 		return
