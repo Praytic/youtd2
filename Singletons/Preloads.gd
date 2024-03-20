@@ -36,3 +36,15 @@ const element_icons: Dictionary = {
 	Element.enm.IRON: preload("res://Resources/Textures/UI/Icons/iron_icon.tres"),
 	Element.enm.STORM: preload("res://Resources/Textures/UI/Icons/storm_icon.tres"),
 }
+
+
+const creep_scenes: Dictionary = {
+	"OrcChampion": preload("res://Scenes/Creeps/Instances/Orc/OrcChampionCreep.tscn"),
+	"OrcAir": preload("res://Scenes/Creeps/Instances/Orc/OrcAirCreep.tscn"),
+	"OrcBoss": preload("res://Scenes/Creeps/Instances/Orc/OrcBossCreep.tscn"),
+	"OrcMass": preload("res://Scenes/Creeps/Instances/Orc/OrcMassCreep.tscn"),
+	"OrcNormal": preload("res://Scenes/Creeps/Instances/Orc/OrcNormalCreep.tscn"),
+	
+	"ChallengeBoss": preload("res://Scenes/Creeps/Instances/Challenge/ChallengeBossCreep.tscn"),
+	"ChallengeMass": preload("res://Scenes/Creeps/Instances/Challenge/ChallengeMassCreep.tscn"),
+}

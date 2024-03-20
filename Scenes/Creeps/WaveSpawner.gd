@@ -45,8 +45,6 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		
 		add_child(wave, true)
 
-	_creep_spawner.setup_background_load_queue(_wave_list)
-	
 	print_verbose("Waves have been initialized. Total waves: %s" % _wave_list.size())
 
 
