@@ -560,6 +560,9 @@ func _on_wave_finished(level: int):
 	var finished_current_level: bool = level == current_level
 	var finished_last_level: bool = level == Utils.get_max_level()
 
+	if finished_last_level:
+		_do_victory_effects()
+
 	if finished_current_level && !finished_last_level:
 		_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
 		_hud.show_next_wave_time(Constants.TIME_BETWEEN_WAVES)
@@ -790,3 +793,21 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 	
 	if (show_tutorial_on_start && player_mode == PlayerMode.enm.SINGLE) || always_show_tutorial:
 		_start_tutorial(game_mode)
+
+
+func _do_victory_effects():
+	for i in range(10):
+		var effect_count: int = 100 + i * 20
+		
+		for j in range(effect_count):
+			var x: float = randf_range(-4000, 4000)
+			var y: float = randf_range(-4000, 4000)
+			var scale: float = randf_range(5.0, 10.0)
+			var speed: float = randf_range(0.3, 1.0)
+
+			var effect: int = Effect.create_simple("placeholder path", x, y)
+			Effect.set_scale(effect, scale)
+			Effect.set_animation_speed(effect, speed)
+			Effect.destroy_effect_after_its_over(effect)
+
+		await Utils.create_timer(1.0).timeout
