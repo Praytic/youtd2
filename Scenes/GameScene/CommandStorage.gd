@@ -12,10 +12,10 @@ const MULTIPLAYER_COMMAND_DELAY: int = 6
 const SINGLEPLAYER_COMMAND_DELAY: int = 1
 
 
-# List of commands requested by local player during current
-# tick.
-var _commands_for_current_tick: Array = []
-# A map of [tick => [player_id => [list of commands]]]
+# This variable stores the command which was requested by
+# local player during current tick.
+var _local_command_for_current_tick: Command = null
+# A map of {tick => {player_id => command}}
 # Extends into the future, ticks older than current are
 # cleaned up.
 var _all_commands: Dictionary = {}
@@ -37,30 +37,30 @@ func set_delay(delay: int):
 
 # Adds a command for local player for current tick. This
 # command will be broadcasted to other players and executed
-# at some future tick.
+# at some future tick. Note that only one command is allowed
+# per tick. Any extra commands are discarded.
 func add_command(command: Command):
-	var serialized_command: Dictionary = command.serialize()
-	_commands_for_current_tick.append(serialized_command)
+	if _local_command_for_current_tick != null:
+		return
+
+	_local_command_for_current_tick = command
 
 
 func broadcast_commands(tick: int):
-#	If player didn't request any commands during this tick,
+#	If player didn't request a command during this tick,
 #	broadcast an "idle command" to let other players know
 #	that we're still connected. If other players arrive at
 #	execution frame without an idle command from us, they
 #	will wait for us to catch up.
-	if _commands_for_current_tick.is_empty():
+	if _local_command_for_current_tick == null:
 		var idle_command: Command = CommandIdle.make()
 		add_command(idle_command)
-	
+
 	var execute_tick: int = tick + _command_delay
 
-#	NOTE: need to duplicate array because in case of self
-#	rpc call, we want to save a copy, not a reference.
-#	Reference is cleared at the end of this function.
-	var commands_to_broadcast: Array = _commands_for_current_tick.duplicate()
-	_receive_broadcasted_commands.rpc(execute_tick, commands_to_broadcast)
-	_commands_for_current_tick.clear()
+	var serialized_command: Dictionary = _local_command_for_current_tick.serialize()
+	_receive_broadcasted_commands.rpc(execute_tick, serialized_command)
+	_local_command_for_current_tick = null
 
 
 func execute_commands(tick: int):
@@ -74,10 +74,8 @@ func execute_commands(tick: int):
 
 	var player_id_list: Array[int] = _player_container.get_player_id_list()
 	for player_id in player_id_list:
-		var player_commands: Array = commands_for_current_tick[player_id]
-		
-		for command in player_commands:
-			_execute_command.execute(player_id, command)
+		var serialized_command: Dictionary = commands_for_current_tick[player_id]
+		_execute_command.execute(player_id, serialized_command)
 
 	_all_commands.erase(tick)
 
@@ -107,10 +105,16 @@ func check_if_received_commands_from_all_players(tick: int) -> bool:
 #########################
 
 @rpc("any_peer", "call_local", "reliable")
-func _receive_broadcasted_commands(execute_tick: int, command_list: Array):
+func _receive_broadcasted_commands(execute_tick: int, command: Dictionary):
 	if !_all_commands.has(execute_tick):
 		_all_commands[execute_tick] = {}
-
+	
 	var player_id: int = multiplayer.get_remote_sender_id()
+	
+#	NOTE: if we receive more than one command from a player for same tick, then we consider 
+#	the sender to be misbehaving. Ignore such broadcasts.
+	var player_already_broadcasted_command_for_tick: bool = _all_commands[execute_tick].has(player_id)
+	if player_already_broadcasted_command_for_tick:
+		return
 
-	_all_commands[execute_tick][player_id] = command_list
+	_all_commands[execute_tick][player_id] = command
