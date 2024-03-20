@@ -252,8 +252,6 @@ func _ready():
 	# Need to create instance only if Tower has active specials
 	_tower_actions.set_tower(self)
 
-#	Play build sound
-	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", self)
 
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
