@@ -8,12 +8,14 @@ class_name ManualTimer extends Node
 
 signal timeout()
 
-var _time_left: float = 0.0
-@export var wait_time: float = 1.0
-@export var one_shot: bool = false
-@export var autostart: bool = false
+# NOTE: need all of these getsets to have same API as native
+# Timer
+var time_left: float = 0.0: get = get_time_left
+@export var wait_time: float = 1.0: get = get_wait_time, set = set_wait_time
+@export var one_shot: bool = false: get = is_one_shot, set = set_one_shot
+@export var autostart: bool = false: get = has_autostart, set = set_autostart
 var _stopped: bool = true
-var _paused: bool = false
+var paused: bool = false: get = is_paused, set = set_paused
 
 
 #########################
@@ -56,32 +58,32 @@ func is_one_shot() -> bool:
 
 
 func set_paused(value: bool):
-	_paused = value
+	paused = value
 
 
 func is_paused() -> bool:
-	return _paused
+	return paused
 
 
 func start(new_wait_time: float = wait_time):
 	wait_time = new_wait_time
-	_time_left = new_wait_time
+	time_left = new_wait_time
 	_stopped = false
 
 
 func stop():
-	_time_left = wait_time
+	time_left = wait_time
 	_stopped = true
 
 
 func update(delta: float):
-	if _stopped || _paused:
+	if _stopped || paused:
 		return
 	
-	_time_left -= delta
-	
+	time_left -= delta
+
 #	NOTE: need to use is_zero_approx() to handle floats being off from 0 by a small amount
-	var reached_timeout: bool = _time_left < 0.0 || is_zero_approx(_time_left)
+	var reached_timeout: bool = time_left < 0.0 || is_zero_approx(time_left)
 	
 	if reached_timeout:
 		timeout.emit()
@@ -89,7 +91,7 @@ func update(delta: float):
 		if one_shot:
 			_stopped = true
 		else:
-			_time_left = wait_time
+			time_left = wait_time
 
 
 func is_stopped() -> bool:
@@ -97,4 +99,4 @@ func is_stopped() -> bool:
 
 
 func get_time_left() -> float:
-	return _time_left
+	return time_left
