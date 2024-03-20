@@ -30,7 +30,6 @@ var _speed: float = 50
 var _acceleration: float = 0
 var _explode_on_hit: bool = true
 var _explode_on_expiration: bool = true
-const CONTACT_DISTANCE: int = 15
 var _initial_scale: Vector2
 var _tower_crit_count: int = 0
 var _tower_crit_ratio: float = 0.0
@@ -172,7 +171,15 @@ func _process_normal(delta: float):
 	position += move_vector_isometric
 
 	if _is_homing:
-		var reached_target = Isometric.vector_in_range(target_pos_isometric, position, CONTACT_DISTANCE)
+#		NOTE: contact distance prevents projectiles from
+#		going past the target position during a tick and
+#		rubber-banding.
+# 
+#		TODO: feel like there's a more correct way to do
+#		this, or at least a formula which results in a
+#		smaller but still correct contact distance.
+		var contact_distance: float = delta * _speed
+		var reached_target = Isometric.vector_in_range(target_pos_isometric, position, contact_distance)
 
 		if reached_target:
 #			NOTE: finished handler will get called even if
