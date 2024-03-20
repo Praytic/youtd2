@@ -97,6 +97,8 @@ func remove_buff():
 
 	_target._remove_buff_internal(self)
 
+	if is_inside_tree():
+		_target.remove_child(self)
 	queue_free()
 
 

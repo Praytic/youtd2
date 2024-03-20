@@ -122,7 +122,7 @@ func periodic(_event: Event):
 	var effect: int = Effect.add_special_effect("RaiseSkeleton.mdl", corpse.position.x, corpse.position.y)
 	Effect.destroy_effect_after_its_over(effect)
 
-	corpse.queue_free()
+	corpse.remove_from_game()
 
 	var active_buff: Buff = tower.get_buff_of_type(cedi_crypt_army_bt)
 	var new_buff_level: int

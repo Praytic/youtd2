@@ -728,7 +728,7 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 	upgrade_tower.position = tower.position
 	upgrade_tower._temp_preceding_tower = tower
 	Utils.add_object_to_world(upgrade_tower)
-	tower.queue_free()
+	tower.remove_from_game()
 
 	_select_unit.set_selected_unit(upgrade_tower)
 

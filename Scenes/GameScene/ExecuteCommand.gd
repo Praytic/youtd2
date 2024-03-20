@@ -119,7 +119,7 @@ func _sell_tower(serialized_command: Dictionary):
 
 	_map.clear_space_occupied_by_tower(tower)
 
-	tower.queue_free()
+	tower.remove_from_game()
 
 
 # TODO: start game only for one team

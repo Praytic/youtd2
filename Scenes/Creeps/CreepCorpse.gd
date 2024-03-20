@@ -51,7 +51,7 @@ func _setup_sprite(creep_sprite: CreepSprite, death_animation: String):
 
 
 func _on_fade_finished():
-	queue_free()
+	remove_from_game()
 
 
 # NOTE: need to add to group after animation is finished and

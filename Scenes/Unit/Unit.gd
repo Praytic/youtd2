@@ -239,6 +239,17 @@ func _ready():
 ###       Public      ###
 #########################
 
+# NOTE: you must call this instead of queue_free(), so that
+# tree_exited() signal is emitted immediately
+func remove_from_game():
+	var parent: Node = get_parent()
+
+	if parent != null && is_inside_tree():
+		parent.remove_child(self)
+
+	queue_free()
+
+
 func set_player(player: Player):
 	_player = player
 
@@ -936,7 +947,7 @@ func _killed_by_unit(caster: Unit):
 			if item_dropped:
 				creep.drop_item(caster, false)
 
-	queue_free()
+	remove_from_game()
 
 
 # Called when unit kills target unit

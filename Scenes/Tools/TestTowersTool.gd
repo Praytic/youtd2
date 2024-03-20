@@ -29,7 +29,7 @@ static func run(gamescene: Node, player: Player):
 		tower.position = Vector2(123, 123)
 		Utils.add_object_to_world(tower)
 		await scene_tree.create_timer(0.01).timeout
-		tower.queue_free()
+		tower.remove_from_game()
 		await scene_tree.create_timer(0.01).timeout
 
 		i += 1

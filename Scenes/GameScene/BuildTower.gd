@@ -128,7 +128,7 @@ func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):
 # 	enabled only in random modes and tome costs are 0 in
 # 	random mode
 
-	prev_tower.queue_free()
+	prev_tower.remove_from_game()
 
 	SFX.sfx_at_unit("res://Assets/SFX/build_tower.mp3", new_tower)
 

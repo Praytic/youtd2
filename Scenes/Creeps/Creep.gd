@@ -303,7 +303,7 @@ func _move(delta):
 	var path_is_over: bool = _current_path_index >= _path.get_curve().get_point_count()
 	if path_is_over:
 		EventBus.creep_reached_portal.emit(self)
-		queue_free()
+		remove_from_game()
 
 		return
 

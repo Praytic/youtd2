@@ -242,7 +242,6 @@ func _ready():
 
 	selected.connect(_on_selected)
 	unselected.connect(_on_unselected)
-	tree_exited.connect(_on_tree_exited)
 
 #	Hide range indicators at creation
 	_on_unselected()
@@ -296,6 +295,12 @@ func update(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func remove_from_game():
+	on_destruct()
+
+	super()
+
 
 func get_uid() -> int:
 	return _uid
@@ -813,10 +818,6 @@ func _on_unselected():
 	for indicator in _range_indicator_list:
 		indicator.hide()
 	_tower_actions.hide()
-
-
-func _on_tree_exited():
-	on_destruct()
 
 
 func _on_target_death(_event: Event, target: Creep):

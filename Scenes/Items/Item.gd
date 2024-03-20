@@ -242,7 +242,7 @@ func pickup(tower: Tower) -> bool:
 		return false
 
 	item_drop.remove_child(self)
-	item_drop.queue_free()
+	item_drop.remove_from_game()
 
 	var tower_container: ItemContainer = tower.get_item_container()
 	var slot_index: int = tower_container.get_item_count()
@@ -282,7 +282,7 @@ func fly_to_stash(_mystery_float: float):
 	var item_drop_screen_pos: Vector2 = parent_item_drop.get_screen_transform().get_origin()
 
 	parent_item_drop.remove_child(self)
-	parent_item_drop.queue_free()
+	parent_item_drop.remove_from_game()
 
 	fly_to_stash_from_pos(item_drop_screen_pos)
 

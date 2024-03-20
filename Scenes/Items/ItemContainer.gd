@@ -57,7 +57,8 @@ func remove_item(item: Item):
 
 	_item_list.erase(item)
 	item.consumed.disconnect(_on_item_consumed)
-	remove_child(item)
+	if item.is_inside_tree():
+		remove_child(item)
 	items_changed.emit()
 
 
@@ -96,6 +97,7 @@ func get_item_at_index(index: int) -> Item:
 
 func clear():
 	for item in _item_list:
+		remove_child(item)
 		item.queue_free()
 
 	_item_list.clear()	

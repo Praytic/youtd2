@@ -101,6 +101,11 @@ func set_lifetime(effect_id: int, lifetime: float):
 		return
 
 	var timer: ManualTimer = Utils.create_timer(lifetime)
+
+#	NOTE: Utils.create_timer() is pooled so need to disconnect in case we are reusing a timer
+	if timer.timeout.is_connected(_on_lifetime_timer_timeout):
+		timer.timeout.disconnect(_on_lifetime_timer_timeout)
+	
 	timer.timeout.connect(_on_lifetime_timer_timeout.bind(effect_id))
 
 
