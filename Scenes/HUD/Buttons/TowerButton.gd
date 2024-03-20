@@ -24,10 +24,6 @@ func _ready():
 	else:
 		_tier_icon.hide()
 	
-	# TODO: Just for testing
-	if Config.random_button_counters() && randi()%3 == 0:
-		set_count(randi_range(2, 20))
-	
 	mouse_entered.connect(_on_mouse_entered)
 	pressed.connect(_on_pressed)
 

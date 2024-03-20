@@ -347,7 +347,7 @@ static func _generate_creep_race(creep_size: CreepSize.enm) -> CreepCategory.enm
 		CreepCategory.enm.HUMANOID,
 	]
 
-	var random_race: CreepCategory.enm = Utils.pick_random(race_list, Globals.simulation_rng)
+	var random_race: CreepCategory.enm = race_list.pick_random()
 
 	return random_race
 
@@ -369,7 +369,7 @@ static func _generate_creep_size(level: int) -> CreepSize.enm:
 		else:
 			return CreepSize.enm.CHALLENGE_BOSS
 	else:
-		var random_regular_creep: CreepSize.enm = Utils.random_weighted_pick(_size_chances, Globals.simulation_rng)
+		var random_regular_creep: CreepSize.enm = Utils.random_weighted_pick(_size_chances)
 
 		return random_regular_creep
 
@@ -395,10 +395,10 @@ static func _get_random_armor_type(wave_level: int, creep_size: CreepSize.enm) -
 
 	var can_spawn_sif: bool = wave_level >= 32
 
-	if can_spawn_sif && Utils.rand_chance(Constants.SIF_ARMOR_CHANCE, Globals.simulation_rng):
+	if can_spawn_sif && Utils.rand_chance(Constants.SIF_ARMOR_CHANCE):
 		return ArmorType.enm.SIF
 	else:
-		var random_regular_armor: ArmorType.enm = Utils.pick_random(regular_armor_list, Globals.simulation_rng)
+		var random_regular_armor: ArmorType.enm = regular_armor_list.pick_random()
 
 		return random_regular_armor
 
@@ -452,7 +452,7 @@ static func _generate_champion_count(wave_level: int, creep_size: CreepSize.enm)
 		return 0
 
 	var chance_of_champion_count: Dictionary = _champion_count_chances[creep_size]
-	var champion_count: int = Utils.random_weighted_pick(chance_of_champion_count, Globals.simulation_rng)
+	var champion_count: int = Utils.random_weighted_pick(chance_of_champion_count)
 
 	if champion_count > 0:
 		champion_count = champion_count + int(wave_level / 120)

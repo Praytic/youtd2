@@ -8,11 +8,11 @@ var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
 
-# NOTE: you must pick wisely, lest the universes diverge
-# forever. Simulation rng should be used for things which
-# should be same in multiplayer. Visual rng should be used
-# for anything related to visual effects or SFX.
-var simulation_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+# NOTE: you must use visual_rng for any code which is
+# running only for local player. The global rng seed is
+# reserved for code which runs for all players, to ensure
+# determinism. A good example of where visual_rng should be
+# used is FloatingText.
 var visual_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 

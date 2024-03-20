@@ -1170,7 +1170,7 @@ func get_current_attack_damage_base(randomize_damage: bool = false) -> float:
 
 	var damage: float
 	if randomize_damage:
-		damage = Globals.simulation_rng.randf_range(damage_min, damage_max)
+		damage = randf_range(damage_min, damage_max)
 	else:
 		damage = floori((damage_min + damage_max) / 2)
 

@@ -101,7 +101,7 @@ func _ready():
 		var wave_count: int = Config.default_game_length()
 		var difficulty: Difficulty.enm = Config.default_difficulty()
 		var game_mode: GameMode.enm = Config.default_game_mode()
-		var origin_seed: int = _generate_random_seed()
+		var origin_seed: int = randi()
 		print_verbose("Generated origin seed locally: ", origin_seed)
 		
 		_transition_from_pregame.rpc(wave_count, game_mode, difficulty, origin_seed)
@@ -188,14 +188,6 @@ func _unhandled_input(event: InputEvent):
 func _set_builder_for_local_player(builder_id: int):
 	var command: Command = CommandSelectBuilder.make(builder_id)
 	_command_storage.add_command(command)
-
-
-func _generate_random_seed() -> int:
-	var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-	rng.randomize()
-	var random_seed: int = rng.seed
-
-	return random_seed
 
 
 func _cancel_current_mouse_action():
@@ -319,7 +311,7 @@ func _on_pregame_controller_finished():
 #	NOTE: host randomizes their rng, other peers will
 #	receive this seed from host when connecting via
 #	_set_origin_rng_seed().
-	var origin_seed: int = _generate_random_seed()
+	var origin_seed: int = randi()
 	print_verbose("Generated origin seed on host: ", origin_seed)
 
 	_transition_from_pregame.rpc(wave_count, game_mode, difficulty, origin_seed)
@@ -335,9 +327,9 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 	Globals._game_mode = game_mode
 	Globals._difficulty = difficulty
 	
-# 	This function is used by host to set seeds on other peers
-# 	so everyone in network has same origing seed.
-	Globals.simulation_rng.seed = origin_seed
+# 	Set the global seed so that rng on this game client is
+# 	the same as on all other clients.
+	seed(origin_seed)
 	
 	if multiplayer.is_server():
 		print_verbose("Host set origin seed to: ", origin_seed)
