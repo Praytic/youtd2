@@ -120,7 +120,7 @@ func apply_advanced(caster: Unit, target: Unit, level: int, power: int, time: fl
 
 	target._add_buff_internal(buff)
 
-	if target.is_dead():
+	if target.is_queued_for_deletion():
 		buff.remove_buff()
 
 	return buff

@@ -281,7 +281,7 @@ func random_weighted_pick(element_to_weight_map: Dictionary) -> Variant:
 # because in Gdscript you can't call functions on invalid
 # references - causes an error.
 func getUID(unit):
-	if is_instance_valid(unit) && !unit.is_dead():
+	if is_instance_valid(unit) && !unit.is_queued_for_deletion():
 		return unit.get_instance_id()
 	else:
 		return 0
@@ -290,11 +290,12 @@ func getUID(unit):
 # Use this in cases where script stores references to units
 # over a long time. Units may become invalid if they are
 # killed or sold or upgraded. Note that calling any methods,
-# including is_dead(), on an invalid unit will result in an
-# error. Didn't define type for argument on purpose because
-# argument can be an invalid instance without type.
+# including is_queued_for_deletion(), on an invalid unit
+# will result in an error. Didn't define type for argument
+# on purpose because argument can be an invalid instance
+# without type.
 func unit_is_valid(unit) -> bool:
-	var is_valid: bool = is_instance_valid(unit) && !unit.is_dead()
+	var is_valid: bool = is_instance_valid(unit) && !unit.is_queued_for_deletion()
 
 	return is_valid
 
@@ -348,7 +349,7 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 	for node in node_list:
 		var unit: Unit = node as Unit
 
-		if unit.is_dead():
+		if unit.is_queued_for_deletion():
 			continue
 
 		var type_match: bool = type.match(unit)

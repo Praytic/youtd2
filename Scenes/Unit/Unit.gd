@@ -79,7 +79,6 @@ var _bonus_crit_count_for_next_attack: int = 0
 var _bonus_crit_ratio_for_next_attack: float = 0.0
 var _bonus_crit_count_for_next_spell: int = 0
 
-var _is_dead: bool = false
 var _level: int = 0 : get = get_level, set = set_level
 var _buff_type_map: Dictionary
 var _friendly_buff_list: Array[Buff]
@@ -911,14 +910,6 @@ func _do_damage(target: Unit, damage_base: float, crit_ratio: float, damage_sour
 
 # Called when unit killed by caster unit
 func _killed_by_unit(caster: Unit):
-# 	NOTE: need to use explicit "is_dead" flag. Calling
-# 	queue_free() makes is_instance_valid(unit) return false
-# 	but that happens only at the end of the current frame.
-# 	Other signals/slots might fire before that point and
-# 	they need to know if the unit is dead to avoid
-# 	processing it.
-	_is_dead = true
-
 	var death_event: Event = Event.new(caster)
 	death.emit(death_event)
 
@@ -1224,10 +1215,6 @@ func set_level(new_level: int):
 #	NOTE: apply level change to modifiers
 	for modifier in _direct_modifier_list:
 		change_modifier_power(modifier, old_level, new_level)
-
-
-func is_dead() -> bool:
-	return _is_dead
 
 
 # NOTE: use this instead of regular Node2D.position for

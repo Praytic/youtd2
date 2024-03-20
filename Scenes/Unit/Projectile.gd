@@ -542,13 +542,14 @@ func set_homing_target(new_target: Unit):
 		old_target.death.disconnect(_on_target_death)
 
 	if new_target != null:
-#		NOTE: need to check for target death here because a
-#		projectile may be launched towards a dead target.
-#		For example if some other part of tower script
-#		killed the target right before projectile was
-#		created. In such cases, projectile will move to the
-#		position where target was during death.
-		if !new_target.is_dead():
+#		NOTE: need to check that target is not about to be
+#		deleted here because a projectile may be launched
+#		towards a dead target. For example if some other
+#		part of tower script killed the target right before
+#		projectile was created. In such cases, projectile
+#		will move to the position where target was during
+#		death.
+		if !new_target.is_queued_for_deletion():
 			if !new_target.death.is_connected(_on_target_death):
 				new_target.death.connect(_on_target_death)
 

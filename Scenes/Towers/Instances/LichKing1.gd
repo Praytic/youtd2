@@ -147,7 +147,7 @@ func natac_lich_aura_bt_on_cleanup(event: Event):
 	var damage: float = (Utils.get_time() - apply_time) * max_dps
 	damage += buff_stored_damage
 
-	if !target.is_dead():
+	if target.get_health() > 0:
 		if caster.stored_damage > 0:
 			caster.get_player().display_floating_text("Feel the Wrath!", caster, Color8(15, 15, 200))
 			var stored_damage_ratio: float = 0.5 + 0.04 * caster.get_level()
