@@ -8,7 +8,7 @@
 [sub_resource type="Gradient" id="Gradient_mbwhr"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Projectile" node_paths=PackedStringArray("_lifetime_timer") instance=ExtResource("1_80b6v")]
+[node name="Projectile" node_paths=PackedStringArray("_lifetime_timer") groups=["projectiles"] instance=ExtResource("1_80b6v")]
 z_index = 100
 script = ExtResource("2")
 _lifetime_timer = NodePath("LifetimeTimer")

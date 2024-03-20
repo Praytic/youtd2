@@ -75,7 +75,7 @@ func _ready():
 	_spawn_time = Utils.get_time()
 
 
-func _process(delta):
+func update(delta: float):
 	match _move_type:
 		MoveType.NORMAL: _process_normal(delta)
 		MoveType.INTERPOLATED: _process_interpolated(delta)

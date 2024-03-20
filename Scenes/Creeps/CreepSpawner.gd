@@ -79,6 +79,8 @@ func _ready():
 	regex_search.compile("^(?!\\.).*$")
 
 
+# NOTE: don't need to tie this to simulation ticks because
+# loading creep scenes doesn't need to be deterministic.
 func _process(_delta: float):
 	if !_background_load_queue.is_empty():
 		if _background_load_in_progress:

@@ -149,8 +149,9 @@ script = ExtResource("15_ff1in")
 [node name="TimerPool" type="Node" parent="Gameplay"]
 script = ExtResource("26_2tqw6")
 
-[node name="Simulation" parent="Gameplay" node_paths=PackedStringArray("_command_storage") instance=ExtResource("17_new70")]
+[node name="Simulation" parent="Gameplay" node_paths=PackedStringArray("_command_storage", "_game_time") instance=ExtResource("17_new70")]
 _command_storage = NodePath("../CommandStorage")
+_game_time = NodePath("../GameTime")
 
 [node name="ExecuteCommand" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_hud", "_map", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_wave_spawner", "_game_time")]
 script = ExtResource("18_vcbyc")

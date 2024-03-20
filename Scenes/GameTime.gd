@@ -12,7 +12,7 @@ var _enabled: bool = false
 ###     Built-in      ###
 #########################
 
-func _process(delta: float):
+func update(delta: float):
 	if !_enabled:
 		return
 

@@ -40,6 +40,7 @@ var _current_tick: int = 0
 var _broadcasted_commands_for_current_tick: bool = false
 
 @export var _command_storage: CommandStorage
+@export var _game_time: GameTime
 
 
 #########################
@@ -93,13 +94,19 @@ func _do_tick():
 # tick to other players
 
 func _update_state():
+	_game_time.update(_tick_delta)
+
 	var timer_list: Array = get_tree().get_nodes_in_group("manual_timers")
 	for timer in timer_list:
 		timer.update(_tick_delta)
-		
+	
 	var creep_list: Array[Creep] = Utils.get_creep_list()
 	for creep in creep_list:
 		creep.update(_tick_delta)
+
+	var projectile_list: Array = get_tree().get_nodes_in_group("projectiles")
+	for projectile in projectile_list:
+		projectile.update(_tick_delta)
 
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 	for tower in tower_list:
