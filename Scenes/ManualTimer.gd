@@ -82,8 +82,12 @@ func update(delta: float):
 	
 	time_left -= delta
 
-#	NOTE: need to use is_zero_approx() to handle floats being off from 0 by a small amount
-	var reached_timeout: bool = time_left < 0.0 || is_zero_approx(time_left)
+#	NOTE: need to use is_zero_approx() to handle floats
+#	being off from 0 by a small amount
+	if is_zero_approx(time_left):
+		time_left = 0
+	
+	var reached_timeout: bool = time_left <= 0 
 	
 	if reached_timeout:
 		timeout.emit()
