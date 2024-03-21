@@ -1,4 +1,4 @@
-class_name ExecuteCommand extends Node
+class_name ActionProcessor extends Node
 
 
 # Contains functions which execute actions. Used by Simulation.

@@ -24,7 +24,7 @@
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 [ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/Simulation.tscn" id="17_new70"]
 [ext_resource type="Script" path="res://Scenes/Effects/EffectsContainer.gd" id="18_hqvt4"]
-[ext_resource type="Script" path="res://Scenes/GameScene/ExecuteCommand.gd" id="18_vcbyc"]
+[ext_resource type="Script" path="res://Scenes/GameScene/ActionProcessor.gd" id="18_vcbyc"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ActionStorage.gd" id="19_8mf41"]
 [ext_resource type="Script" path="res://Scenes/GameScene/TimerPool.gd" id="26_2tqw6"]
 [ext_resource type="Script" path="res://Scenes/GameScene/TeamContainer.gd" id="28_j7eu2"]
@@ -52,7 +52,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_wave_spawner", "_ui_canvas_layer", "_camera", "_player_container", "_team_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_action_storage", "_execute_command")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_wave_spawner", "_ui_canvas_layer", "_camera", "_player_container", "_team_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_action_storage", "_action_processor")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -77,7 +77,7 @@ _tower_preview = NodePath("World/TowerPreview")
 _horadric_cube = NodePath("Gameplay/HoradricCube")
 _ui_layer = NodePath("UI")
 _action_storage = NodePath("Gameplay/ActionStorage")
-_execute_command = NodePath("Gameplay/ExecuteCommand")
+_action_processor = NodePath("Gameplay/ActionProcessor")
 
 [node name="Gameplay" type="Node" parent="."]
 process_mode = 1
@@ -145,7 +145,7 @@ script = ExtResource("26_2tqw6")
 _action_storage = NodePath("../ActionStorage")
 _game_time = NodePath("../GameTime")
 
-[node name="ExecuteCommand" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_hud", "_map", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_wave_spawner", "_game_time")]
+[node name="ActionProcessor" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_hud", "_map", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_wave_spawner", "_game_time")]
 script = ExtResource("18_vcbyc")
 _player_container = NodePath("../PlayerContainer")
 _hud = NodePath("../../UI/HUD")
@@ -156,10 +156,10 @@ _extreme_timer = NodePath("../ExtremeTimer")
 _wave_spawner = NodePath("../WaveSpawner")
 _game_time = NodePath("../GameTime")
 
-[node name="ActionStorage" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_execute_command")]
+[node name="ActionStorage" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_action_processor")]
 script = ExtResource("19_8mf41")
 _player_container = NodePath("../PlayerContainer")
-_execute_command = NodePath("../ExecuteCommand")
+_action_processor = NodePath("../ActionProcessor")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1

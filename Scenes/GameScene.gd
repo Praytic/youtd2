@@ -23,7 +23,7 @@ class_name GameScene extends Node
 @export var _horadric_cube: HoradricCube
 @export var _ui_layer: CanvasLayer
 @export var _action_storage: ActionStorage
-@export var _execute_command: ExecuteCommand
+@export var _action_processor: ActionProcessor
 
 
 var _prev_effect_id: int = 0
@@ -637,7 +637,7 @@ func _on_player_requested_start_game():
 
 
 func _on_game_start_timer_timeout():
-	_execute_command._start_game()
+	_action_processor._start_game()
 
 
 func _on_player_requested_next_wave():
@@ -664,7 +664,7 @@ func _on_extreme_timer_timeout():
 # TODO: create one next wave timer per team and start next wave for only the affected team
 func _on_next_wave_timer_timeout():
 	var local_player_id: int = Globals.get_local_player_id()
-	_execute_command.start_next_wave(local_player_id)
+	_action_processor.start_next_wave(local_player_id)
 
 
 func _on_player_requested_to_roll_towers():

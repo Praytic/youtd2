@@ -23,7 +23,7 @@ var _action_delay: int = MULTIPLAYER_ACTION_DELAY
 
 
 @export var _player_container: PlayerContainer
-@export var _execute_command: ExecuteCommand
+@export var _action_processor: ActionProcessor
 
 
 
@@ -75,7 +75,7 @@ func execute_actions(tick: int):
 	var player_id_list: Array[int] = _player_container.get_player_id_list()
 	for player_id in player_id_list:
 		var serialized_action: Dictionary = actions_for_current_tick[player_id]
-		_execute_command.execute(player_id, serialized_action)
+		_action_processor.execute(player_id, serialized_action)
 
 	_action_map.erase(tick)
 
