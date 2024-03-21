@@ -178,29 +178,27 @@ unique_name_in_owner = true
 [node name="PathContainer" type="Node2D" parent="World"]
 z_index = 999
 
-[node name="Ground1" type="Path2D" parent="World/PathContainer"]
+[node name="Ground0" type="Path2D" parent="World/PathContainer"]
 curve = SubResource("1")
 script = ExtResource("3_abrkq")
-index = 1
 
-[node name="Air1" type="Path2D" parent="World/PathContainer"]
+[node name="Air0" type="Path2D" parent="World/PathContainer"]
 curve = SubResource("Curve2D_72x3r")
 script = ExtResource("3_abrkq")
 is_air = true
-index = 1
 
-[node name="Ground2" type="Path2D" parent="World/PathContainer"]
+[node name="Ground1" type="Path2D" parent="World/PathContainer"]
 modulate = Color(1, 0, 1, 1)
 curve = SubResource("Curve2D_u40fb")
 script = ExtResource("3_abrkq")
-index = 2
+player_id = 1
 
-[node name="Air2" type="Path2D" parent="World/PathContainer"]
+[node name="Air1" type="Path2D" parent="World/PathContainer"]
 modulate = Color(1, 0, 1, 1)
 curve = SubResource("Curve2D_gtbgo")
 script = ExtResource("3_abrkq")
 is_air = true
-index = 2
+player_id = 1
 
 [node name="ObjectContainer" type="Node2D" parent="World"]
 z_index = 10

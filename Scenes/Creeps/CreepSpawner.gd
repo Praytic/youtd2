@@ -39,8 +39,7 @@ func set_player(player: Player):
 
 	var wave_path_list: Array = get_tree().get_nodes_in_group("wave_paths")
 	for path in wave_path_list:
-#		TODO: do real player match
-		var player_match: bool = path.index == 1
+		var player_match: bool = path.player_id == player.get_id()
 
 		if player_match:
 			if path.is_air:
