@@ -6,7 +6,7 @@ class_name BuildTower extends Node
 @export var _mouse_state: MouseState
 @export var _map: Map
 @export var _tower_preview: TowerPreview
-@export var _action_storage: ActionStorage
+@export var _simulation: Simulation
 
 
 #########################
@@ -104,7 +104,7 @@ func _build_tower(tower_id: int):
 	EventBus.player_performed_tutorial_advance_action.emit("build_tower")
 	
 	var action: Action = ActionBuildTower.make(tower_id, build_position)
-	_action_storage.add_action(action)
+	_simulation.add_action(action)
 
 
 func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):

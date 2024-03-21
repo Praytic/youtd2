@@ -6,12 +6,6 @@ class_name ActionStorage extends Node
 # player as well as other clients via RPC.
 
 
-# NOTE: 6 ticks at 30ticks/second = 200ms.
-# This amount needs to be big enough to account for latency.
-const MULTIPLAYER_ACTION_DELAY: int = 6
-const SINGLEPLAYER_ACTION_DELAY: int = 1
-
-
 # This variable stores the action which was requested by
 # local player during current tick.
 var _local_action_for_current_tick: Action = null
@@ -19,21 +13,11 @@ var _local_action_for_current_tick: Action = null
 # Extends into the future, ticks older than current are
 # cleaned up.
 var _action_map: Dictionary = {}
-var _action_delay: int = MULTIPLAYER_ACTION_DELAY
-
-
-@export var _player_container: PlayerContainer
-@export var _action_processor: ActionProcessor
-
 
 
 #########################
 ###       Public      ###
 #########################
-
-func set_delay(delay: int):
-	_action_delay = delay
-
 
 # Adds an action for local player for current tick. This
 # action will be broadcasted to other players and processed
@@ -46,6 +30,16 @@ func add_action(action: Action):
 	_local_action_for_current_tick = action
 
 
+func get_actions(tick: int) -> Dictionary:
+	var actions: Dictionary = _action_map[tick]
+	
+	return actions
+
+
+func clear_actions_for_tick(tick: int):
+	_action_map.erase(tick)
+
+
 func broadcast_actions(tick: int):
 #	If player didn't request a action during this tick,
 #	broadcast an "idle action" to let other players know
@@ -56,48 +50,9 @@ func broadcast_actions(tick: int):
 		var idle_action: Action = ActionIdle.make()
 		add_action(idle_action)
 
-	var process_tick: int = tick + _action_delay
-
 	var serialized_action: Dictionary = _local_action_for_current_tick.serialize()
-	_save_action.rpc(process_tick, serialized_action)
+	_save_action.rpc(tick, serialized_action)
 	_local_action_for_current_tick = null
-
-
-func process_actions(tick: int):
-#	NOTE: skip process actions at the start because
-#	during the initial delay period, there are no actions
-#	from players, not even idle.
-	if tick <= _action_delay:
-		return
-		
-	var actions_for_current_tick: Dictionary = _action_map[tick]
-
-	var player_id_list: Array[int] = _player_container.get_player_id_list()
-	for player_id in player_id_list:
-		var serialized_action: Dictionary = actions_for_current_tick[player_id]
-		_action_processor.process_action(player_id, serialized_action)
-
-	_action_map.erase(tick)
-
-
-func check_if_received_actions_from_all_players(tick: int) -> bool:
-#	NOTE: at the start of the game, we do not have a history
-#	of old actions to process, so do not process actions
-#	until we get to point where we have actions from other
-#	players.
-	if tick <= _action_delay:
-		return true
-	
-	var actions_for_current_tick: Dictionary = _action_map[tick]
-	
-	var received_actions_from_all_players: bool = true
-	var player_id_list: Array[int] = _player_container.get_player_id_list()
-	for player_id in player_id_list:
-		if !actions_for_current_tick.has(player_id):
-			print("no actions from player %d" % player_id)
-			received_actions_from_all_players = false
-	
-	return received_actions_from_all_players
 
 
 #########################

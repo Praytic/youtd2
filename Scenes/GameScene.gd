@@ -22,7 +22,7 @@ class_name GameScene extends Node
 @export var _tower_preview: TowerPreview
 @export var _horadric_cube: HoradricCube
 @export var _ui_layer: CanvasLayer
-@export var _action_storage: ActionStorage
+@export var _simulation: Simulation
 @export var _action_processor: ActionProcessor
 
 
@@ -187,7 +187,7 @@ func _unhandled_input(event: InputEvent):
 
 func _set_builder_for_local_player(builder_id: int):
 	var action: Action = ActionSelectBuilder.make(builder_id)
-	_action_storage.add_action(action)
+	_simulation.add_action(action)
 
 
 func _cancel_current_mouse_action():
@@ -419,7 +419,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 #	enough for both singleplayer and multiplayer to use the
 #	same delay.
 	if player_mode == PlayerMode.enm.SINGLE:
-		_action_storage.set_delay(ActionStorage.SINGLEPLAYER_ACTION_DELAY)
+		_simulation.set_delay(Simulation.SINGLEPLAYER_ACTION_DELAY)
 	
 	get_tree().set_pause(false)
 	_completed_pregame = true
@@ -633,7 +633,7 @@ func _on_player_requested_start_game():
 	_hud.hide_roll_towers_button()
 
 	var action: Action = ActionStartGame.make()
-	_action_storage.add_action(action)
+	_simulation.add_action(action)
 
 
 func _on_game_start_timer_timeout():
@@ -653,7 +653,7 @@ func _on_player_requested_next_wave():
 		return
 	
 	var action: Action = ActionStartNextWave.make()
-	_action_storage.add_action(action)
+	_simulation.add_action(action)
 
 
 func _on_extreme_timer_timeout():
@@ -690,7 +690,7 @@ func _on_player_requested_to_roll_towers():
 		return
 
 	var action: Action = ActionRollTowers.make()
-	_action_storage.add_action(action)
+	_simulation.add_action(action)
 
 
 func _on_player_requested_to_research_element(element: Element.enm):
@@ -716,7 +716,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 # 	This is to show immediate feedback to player.
 
 	var action: Action = ActionResearchElement.make(element)
-	_action_storage.add_action(action)
+	_simulation.add_action(action)
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
@@ -759,7 +759,7 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 func _on_player_requested_to_sell_tower(tower: Tower):
 	var tower_unit_id: int = tower.get_uid()
 	var action: Action = ActionSellTower.make(tower_unit_id)
-	_action_storage.add_action(action)
+	_simulation.add_action(action)
 
 
 func _on_player_requested_to_select_point_for_autocast(autocast: Autocast):
