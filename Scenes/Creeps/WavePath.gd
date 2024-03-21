@@ -2,8 +2,8 @@ extends Path2D
 
 
 @export var is_air: bool
-@export var player: int
 @export var z_points: Dictionary
+@export var index: int
 
 
 var default_z = 0

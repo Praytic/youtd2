@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=34 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -39,6 +39,18 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 2558, -2376, 0, 0, 0, 0, 1471, -1828, 0, 0, 0, 0, 1507, 261, 0, 0, 0, 0, -1537, 166, 0, 0, 0, 0, -1224, 1534, 0, 0, 0, 0, -3356, 2589)
 }
 point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_u40fb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3706, -390, 0, 0, 0, 0, 3203, -631, 0, 0, 0, 0, 516, 714, 0, 0, 0, 0, -1020, -55, 0, 0, 0, 0, -2048, 460, 0, 0, 0, 0, -489, 1212, 0, 0, 0, 0, -3369, 2656)
+}
+point_count = 7
+
+[sub_resource type="Curve2D" id="Curve2D_gtbgo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3711, -376, 0, 0, 0, 0, 3208, -601, 0, 0, 0, 0, 551, 735, 0, 0, 0, 0, -1024, -18, 0, 0, 0, 0, -1918, 460, 0, 0, 0, 0, -475, 1188, 0, 0, 0, 0, -3418, 2711)
+}
+point_count = 7
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cij5r"]
 shader = ExtResource("7_gxbw6")
@@ -163,8 +175,10 @@ y_sort_enabled = true
 [node name="Map" parent="World" instance=ExtResource("5")]
 unique_name_in_owner = true
 
-[node name="CreepPathGround" type="Path2D" parent="World" groups=["wave_path"]]
+[node name="PathContainer" type="Node2D" parent="World"]
 z_index = 999
+
+[node name="Ground1" type="Path2D" parent="World/PathContainer" groups=["wave_path"]]
 curve = SubResource("1")
 script = ExtResource("3_abrkq")
 z_points = {
@@ -174,12 +188,26 @@ z_points = {
 11: 30,
 12: 30
 }
+index = 1
 
-[node name="CreepPathAir" type="Path2D" parent="World" groups=["wave_path"]]
-z_index = 999
+[node name="Air1" type="Path2D" parent="World/PathContainer" groups=["wave_path"]]
 curve = SubResource("Curve2D_72x3r")
 script = ExtResource("3_abrkq")
 is_air = true
+index = 1
+
+[node name="Ground2" type="Path2D" parent="World/PathContainer"]
+modulate = Color(1, 0, 1, 1)
+curve = SubResource("Curve2D_u40fb")
+script = ExtResource("3_abrkq")
+index = 2
+
+[node name="Air2" type="Path2D" parent="World/PathContainer"]
+modulate = Color(1, 0, 1, 1)
+curve = SubResource("Curve2D_gtbgo")
+script = ExtResource("3_abrkq")
+is_air = true
+index = 2
 
 [node name="ObjectContainer" type="Node2D" parent="World"]
 z_index = 10

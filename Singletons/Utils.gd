@@ -108,8 +108,12 @@ func make_rich_text_tooltip(for_text: String) -> RichTextLabel:
 
 
 # NOTE: point should be isometric
+# TODO: fix this function to handle multiple players and
+# multiple paths. Should accept player arg of tower which
+# called this f-n. Then, find the path based on player.
+# Until then, returning false.
 func is_point_on_creep_path(point: Vector2) -> bool:
-	var creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/World/CreepPathGround")
+	var creep_path_ground: Path2D = get_tree().get_root().get_node("GameScene/World/PathContainer/Ground1")
 	var curve: Curve2D = creep_path_ground.curve
 
 	var min_distance: float = 10000.0
