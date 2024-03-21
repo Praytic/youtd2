@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=32 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bprw8bivb1mcc" path="res://Scenes/AudioPlayerPool.tscn" id="5_rin5y"]
 [ext_resource type="Shader" path="res://Resources/Shaders/SaturationBurn.gdshader" id="7_gxbw6"]
 [ext_resource type="Script" path="res://Scenes/GameScene/SelectUnit.gd" id="8_b8m2t"]
-[ext_resource type="PackedScene" uid="uid://d1xny6jmxj5i6" path="res://Scenes/PregameHUD/PregameHUD.tscn" id="8_idpxe"]
 [ext_resource type="Script" path="res://Scenes/GameScene/SelectPointForCast.gd" id="8_r0gm8"]
 [ext_resource type="Script" path="res://Scenes/GameScene.gd" id="9"]
 [ext_resource type="Script" path="res://Scenes/GameScene/SelectTargetForCast.gd" id="9_14jv4"]
@@ -21,8 +20,6 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/BuildTower.gd" id="12_1xrfo"]
 [ext_resource type="Script" path="res://Scenes/GameScene/MouseState.gd" id="12_mmgdj"]
 [ext_resource type="Script" path="res://Scenes/GameScene/HoradricCube.gd" id="12_ymn7f"]
-[ext_resource type="Script" path="res://Scenes/GameScene/PregameController.gd" id="13_wwgsy"]
-[ext_resource type="Script" path="res://Scenes/GameScene/TutorialController.gd" id="14_14vo6"]
 [ext_resource type="Script" path="res://Scenes/GameScene/CombatLogStorage.gd" id="15_ff1in"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 [ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/Simulation.tscn" id="17_new70"]
@@ -54,7 +51,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_wave_spawner", "_ui_canvas_layer", "_camera", "_player_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_pregame_controller", "_ui_layer", "_pregame_hud", "_command_storage", "_execute_command")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_wave_spawner", "_ui_canvas_layer", "_camera", "_player_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_command_storage", "_execute_command")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -76,9 +73,7 @@ _build_tower = NodePath("Gameplay/BuildTower")
 _mouse_state = NodePath("Gameplay/MouseState")
 _tower_preview = NodePath("World/TowerPreview")
 _horadric_cube = NodePath("Gameplay/HoradricCube")
-_pregame_controller = NodePath("Gameplay/PregameController")
 _ui_layer = NodePath("UI")
-_pregame_hud = NodePath("UI/PregameHUD")
 _command_storage = NodePath("Gameplay/CommandStorage")
 _execute_command = NodePath("Gameplay/ExecuteCommand")
 
@@ -134,13 +129,6 @@ script = ExtResource("12_mmgdj")
 
 [node name="HoradricCube" type="Node" parent="Gameplay"]
 script = ExtResource("12_ymn7f")
-
-[node name="PregameController" type="Node" parent="Gameplay" node_paths=PackedStringArray("_pregame_hud")]
-script = ExtResource("13_wwgsy")
-_pregame_hud = NodePath("../../UI/PregameHUD")
-
-[node name="TutorialController" type="Node" parent="Gameplay"]
-script = ExtResource("14_14vo6")
 
 [node name="CombatLogStorage" type="Node" parent="Gameplay"]
 script = ExtResource("15_ff1in")
@@ -244,9 +232,6 @@ process_mode = 1
 size_flags_horizontal = 1
 mouse_filter = 2
 
-[node name="PregameHUD" parent="UI" instance=ExtResource("8_idpxe")]
-visible = false
-
 [node name="GameMenu" parent="UI" instance=ExtResource("9_r46bb")]
 process_mode = 3
 visible = false
@@ -254,8 +239,5 @@ visible = false
 [connection signal="timeout" from="Gameplay/GameStartTimer" to="." method="_on_game_start_timer_timeout"]
 [connection signal="timeout" from="Gameplay/NextWaveTimer" to="." method="_on_next_wave_timer_timeout"]
 [connection signal="timeout" from="Gameplay/ExtremeTimer" to="." method="_on_extreme_timer_timeout"]
-[connection signal="finished" from="Gameplay/PregameController" to="." method="_on_pregame_controller_finished"]
-[connection signal="finished" from="Gameplay/TutorialController" to="." method="_on_tutorial_controller_finished"]
-[connection signal="tab_finished" from="UI/PregameHUD" to="Gameplay/PregameController" method="_on_pregame_hud_tab_finished"]
 [connection signal="close_pressed" from="UI/GameMenu" to="." method="_on_game_menu_close_pressed"]
 [connection signal="restart_pressed" from="UI/GameMenu" to="." method="_on_pause_hud_restart_pressed"]

@@ -20,9 +20,7 @@ class_name GameScene extends Node
 @export var _mouse_state: MouseState
 @export var _tower_preview: TowerPreview
 @export var _horadric_cube: HoradricCube
-@export var _pregame_controller: PregameController
 @export var _ui_layer: CanvasLayer
-@export var _pregame_hud: PregameHUD
 @export var _command_storage: CommandStorage
 @export var _execute_command: ExecuteCommand
 
@@ -30,6 +28,8 @@ class_name GameScene extends Node
 var _prev_effect_id: int = 0
 var _game_over: bool = false
 var _room_code: int = 0
+var _pregame_controller: PregameController = null
+var _pregame_hud: PregameHUD = null
 var _tutorial_controller: TutorialController = null
 var _tutorial_menu: TutorialMenu = null
 var _completed_pregame: bool = false
@@ -86,7 +86,15 @@ func _ready():
 	var show_pregame_settings_menu: bool = Config.show_pregame_settings_menu()
 
 	if show_pregame_settings_menu:
-		_pregame_controller.start()
+		var pregame_hud_scene: PackedScene = preload("res://Scenes/PregameHUD/PregameHUD.tscn")
+		_pregame_hud = pregame_hud_scene.instantiate()
+		_ui_layer.add_child(_pregame_hud)
+
+		_pregame_controller = PregameController.new()
+		_pregame_controller.finished.connect(_on_pregame_controller_finished)
+		add_child(_pregame_controller)
+
+		_pregame_controller.start(_pregame_hud)
 	else:
 #		Use default setting values when skipping pregame
 #		settings
@@ -310,7 +318,8 @@ func _on_pregame_controller_finished():
 # pregame settings.
 @rpc("any_peer", "call_local", "reliable")
 func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
-	_pregame_hud.hide()
+	_pregame_hud.queue_free()
+	_pregame_controller.queue_free()
 	
 	Globals._player_mode = player_mode
 	Globals._wave_count = wave_count

@@ -20,7 +20,7 @@ var _game_length: int
 var _difficulty: Difficulty.enm
 var _game_mode: GameMode.enm
 
-@export var _pregame_hud: PregameHUD
+var _pregame_hud: PregameHUD = null
 
 
 #########################
@@ -41,7 +41,9 @@ func _ready():
 ###       Public      ###
 #########################
 
-func start():
+func start(pregame_hud: PregameHUD):
+	_pregame_hud = pregame_hud
+	_pregame_hud.tab_finished.connect(_on_pregame_hud_tab_finished)
 	_pregame_hud.show()
 
 
