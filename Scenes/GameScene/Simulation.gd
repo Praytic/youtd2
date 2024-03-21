@@ -39,7 +39,7 @@ var _tick_delta: float
 var _current_tick: int = 0
 var _broadcasted_actions_for_current_tick: bool = false
 
-@export var _command_storage: CommandStorage
+@export var _action_storage: ActionStorage
 @export var _game_time: GameTime
 
 
@@ -68,10 +68,10 @@ func _physics_process(_delta: float):
 #	called multiple times without advancing current tick if
 #	some player is lagging.
 	if !_broadcasted_actions_for_current_tick:
-		_command_storage.broadcast_actions(_current_tick)
+		_action_storage.broadcast_actions(_current_tick)
 		_broadcasted_actions_for_current_tick = true
 
-	var received_actions_from_all_players: bool = _command_storage.check_if_received_actions_from_all_players(_current_tick)
+	var received_actions_from_all_players: bool = _action_storage.check_if_received_actions_from_all_players(_current_tick)
 
 	if received_actions_from_all_players:
 		_do_tick()
@@ -85,7 +85,7 @@ func _physics_process(_delta: float):
 #########################
 
 func _do_tick():
-	_command_storage.execute_actions(_current_tick)
+	_action_storage.execute_actions(_current_tick)
 	_update_state()
 	_current_tick += 1
 

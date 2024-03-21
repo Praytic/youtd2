@@ -1,4 +1,4 @@
-class_name CommandStorage extends Node
+class_name ActionStorage extends Node
 
 
 # Stores actions to be executed in the future, for the
