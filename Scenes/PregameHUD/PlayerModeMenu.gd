@@ -3,10 +3,31 @@ class_name PlayerModeMenu extends PregameTab
 
 var _player_mode: PlayerMode.enm
 
+@export var _coop_button: Button
+
+
+#########################
+###     Built-in      ###
+#########################
+
+# NOTE: disable coop button in released game builds because
+# multiplayer is not ready.
+func _ready():
+	_coop_button.disabled = !Config.enable_coop_button()
+
+
+#########################
+###       Public      ###
+#########################
 
 func get_player_mode() -> PlayerMode.enm:
 	return _player_mode
 
+
+
+#########################
+###     Callbacks     ###
+#########################
 
 func _on_generic_button_pressed(player_mode: PlayerMode.enm):
 	_player_mode = player_mode

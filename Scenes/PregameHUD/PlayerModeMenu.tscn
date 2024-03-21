@@ -3,12 +3,13 @@
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_ltps8"]
 [ext_resource type="Script" path="res://Scenes/PregameHUD/PlayerModeMenu.gd" id="2_s46t8"]
 
-[node name="PlayerModeMenu" type="VBoxContainer"]
+[node name="PlayerModeMenu" type="VBoxContainer" node_paths=PackedStringArray("_coop_button")]
 offset_right = 377.0
 offset_bottom = 235.0
 size_flags_vertical = 0
 theme = ExtResource("1_ltps8")
 script = ExtResource("2_s46t8")
+_coop_button = NodePath("CoopButton")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2

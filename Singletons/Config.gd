@@ -196,6 +196,9 @@ func unlimited_portal_lives() -> bool:
 func show_hidden_buffs() -> bool:
 	return ProjectSettings.get_setting("application/config/show_hidden_buffs") as bool
 
+func enable_coop_button() -> bool:
+	return ProjectSettings.get_setting("application/config/enable_coop_button") as bool
+
 func default_builder_id() -> int:
 	var builder_string: String = ProjectSettings.get_setting("application/config/default_builder") as String
 	var builder_id: int = BuilderProperties.string_to_id(builder_string)
