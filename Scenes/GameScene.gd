@@ -136,6 +136,9 @@ func _process(_delta: float):
 	
 
 func _unhandled_input(event: InputEvent):
+	if !_completed_pregame:
+		return
+
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
 	var left_click: bool = event.is_action_released("left_click")
 	var right_click: bool = event.is_action_released("right_click")
@@ -144,9 +147,6 @@ func _unhandled_input(event: InputEvent):
 	var selected_unit: Unit = _select_unit.get_selected_unit()
 	var local_player: Player = _player_container.get_local_player()
 	
-	if local_player == null:
-		return
-
 	if cancel_pressed:
 #		1. First, any ongoing actions are cancelled
 #		2. Then, if there are no mouse actions, hud windows
