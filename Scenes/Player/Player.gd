@@ -32,6 +32,7 @@ var _gold: float = Config.starting_gold()
 var _gold_farmed: float = 0
 var _tomes: int = Config.starting_tomes()
 var _id: int = -1
+var _peer_id: int = -1
 var _builder: Builder = null
 var _have_placeholder_builder: bool = true
 var _score: float = 0.0
@@ -152,6 +153,10 @@ func get_player_name() -> String:
 
 func get_id() -> int:
 	return _id
+
+
+func get_peer_id() -> int:
+	return _peer_id
 
 
 func get_score() -> float:

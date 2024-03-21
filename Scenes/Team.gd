@@ -16,9 +16,10 @@ var _player_list: Array[Player] = []
 ###       Public      ###
 #########################
 
-func create_player(player_id: int) -> Player:
+func create_player(player_id: int, peer_id: int) -> Player:
 	var player: Player = Preloads.player_scene.instantiate()
 	player._id = player_id
+	player._peer_id = peer_id
 	player._team = self
 
 	_player_list.append(player)

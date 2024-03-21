@@ -113,10 +113,10 @@ func _ready():
 # change multiple times per frame so we need to update them
 # in _process instead of via signals
 func _process(_delta: float):
-	var local_player: Player = _player_container.get_local_player()
-	
-	if local_player == null:
+	if !_completed_pregame:
 		return
+	
+	var local_player: Player = Globals.get_local_player()
 	
 	var all_players: Array[Player] = _player_container.get_all_players()
 	_hud.load_player_stats(local_player, all_players)
@@ -341,24 +341,24 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 #	TODO: assign teams to players based on team selection in lobby
 	var team: Team = Team.make(1)
 	_team_container.add_team(team)
-	
-	var local_player_id: int = multiplayer.get_unique_id()
 
 #	Create local player and remote players
-	var player_id_list: Array[int] = []
-	player_id_list.append(local_player_id)
-	var peer_id_list: PackedInt32Array = multiplayer.get_peers()
+	var peer_id_list: Array[int] = []
+	var local_peer_id: int = multiplayer.get_unique_id()
+	peer_id_list.append(local_peer_id)
+	var remote_peer_id_list: PackedInt32Array = multiplayer.get_peers()
+	for peer_id in remote_peer_id_list:
+		peer_id_list.append(peer_id)
+
+#	NOTE: create players in the order of peer id's to ensure determinism
+	peer_id_list.sort()
+	
 	for peer_id in peer_id_list:
-		player_id_list.append(peer_id)
-
-#	NOTE: sort player id list to ensure determinism
-	player_id_list.sort()
-
-	for player_id in player_id_list:
-		var player: Player = team.create_player(player_id)
+		var player_id: int = peer_id_list.find(peer_id)
+		var player: Player = team.create_player(player_id, peer_id)
 		_player_container.add_player(player)
 
-	var local_player: Player = _player_container.get_player(local_player_id)
+	var local_player: Player = _player_container.get_local_player()
 	Globals._local_player = local_player
 	
 	local_player.item_stash_changed.connect(_on_local_player_item_stash_changed)

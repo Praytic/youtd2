@@ -49,8 +49,11 @@ func broadcast_local_action(tick: int):
 		var idle_action: Action = ActionIdle.make()
 		add_action(idle_action)
 
+	var local_player: Player = Globals.get_local_player()
+	var local_player_id: int = local_player.get_id()
+
 	var serialized_action: Dictionary = _local_action_for_current_tick.serialize()
-	_save_action.rpc(tick, serialized_action)
+	_save_action.rpc(local_player_id, tick, serialized_action)
 	_local_action_for_current_tick = null
 
 
@@ -59,11 +62,9 @@ func broadcast_local_action(tick: int):
 #########################
 
 @rpc("any_peer", "call_local", "reliable")
-func _save_action(tick: int, action: Dictionary):
+func _save_action(player_id: int, tick: int, action: Dictionary):
 	if !_action_map.has(tick):
 		_action_map[tick] = {}
-	
-	var player_id: int = multiplayer.get_remote_sender_id()
 	
 #	NOTE: it's possible to receive an action broadcast
 #	multiple times for same tick if the network is waiting
