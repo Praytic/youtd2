@@ -44,7 +44,6 @@ const SINGLEPLAYER_ACTION_DELAY: int = 1
 var _tick_delta: float
 var _current_tick: int = 0
 var _action_delay: int = MULTIPLAYER_ACTION_DELAY
-var _broadcasted_actions_for_current_tick: bool = false
 var _action_storage: ActionStorage
 
 @export var _game_time: GameTime
@@ -75,22 +74,7 @@ func _ready():
 # built-in way to do consistent tickrate, independent of
 # framerate.
 func _physics_process(_delta: float):
-#	NOTE: need to broadcast actions from local player only
-#	once per tick. Note that _physics_process() may be
-#	called multiple times without advancing current tick if
-#	some player is lagging.
-	if !_broadcasted_actions_for_current_tick:
-		var tick_for_broadcast: int = _current_tick + _action_delay
-		_action_storage.broadcast_actions(tick_for_broadcast)
-		_broadcasted_actions_for_current_tick = true
-
-	var received_actions_from_all_players: bool = check_if_received_actions_from_all_players()
-
-	if received_actions_from_all_players:
-		_do_tick()
-		_broadcasted_actions_for_current_tick = false
-	else:
-		print("waiting for player actions")
+	_do_tick()
 
 
 #########################
@@ -110,6 +94,21 @@ func set_delay(delay: int):
 #########################
 
 func _do_tick():
+#	NOTE: continue broadcasting actions even if the tick is
+#	not advancing. The tick stops advancing if some player
+#	lags or disconnects so we need to keep broadcasting to
+#	ensure that players receive our actions when they
+#	reconnect.
+	var tick_for_broadcast: int = _current_tick + _action_delay
+	_action_storage.broadcast_local_action(tick_for_broadcast)
+
+	var received_actions_from_all_players: bool = check_if_received_actions_from_all_players()
+
+	if !received_actions_from_all_players:
+		print("waiting for player actions")
+
+		return
+
 	_process_actions()
 	_update_state()
 	_current_tick += 1

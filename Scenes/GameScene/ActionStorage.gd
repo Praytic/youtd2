@@ -40,11 +40,10 @@ func clear_actions_for_tick(tick: int):
 	_action_map.erase(tick)
 
 
-func broadcast_actions(tick: int):
-#	If player didn't request a action during this tick,
-#	broadcast an "idle action" to let other players know
-#	that we're still connected. If other players reach a
-#	tick where they didn't receive an action from us, they
+func broadcast_local_action(tick: int):
+#	NOTE: broadcast an "idle action to let other players
+#	know that we're still connected. If other players reach
+#	a tick where they didn't receive an action from us, they
 #	will wait for us to catch up.
 	if _local_action_for_current_tick == null:
 		var idle_action: Action = ActionIdle.make()
@@ -66,9 +65,10 @@ func _save_action(tick: int, action: Dictionary):
 	
 	var player_id: int = multiplayer.get_remote_sender_id()
 	
-#	NOTE: if we receive more than one action from a player
-#	for same tick, then we consider the sender to be
-#	misbehaving. Ignore such broadcasts.
+#	NOTE: it's possible to receive an action broadcast
+#	multiple times for same tick if the network is waiting
+#	for the lagging player. In such cases, keep the first
+#	broadcast and ignore duplicates.
 	var player_already_has_action_for_tick: bool = _action_map[tick].has(player_id)
 	if player_already_has_action_for_tick:
 		return
