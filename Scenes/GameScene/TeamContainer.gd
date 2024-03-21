@@ -17,6 +17,7 @@ func add_team(team: Team):
 # 	multiplayer
 	_team_id_list.append(team_id)
 	_team_id_list.sort()
+	add_child(team)
 
 
 func get_team(id: int) -> Team:

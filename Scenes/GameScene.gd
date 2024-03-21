@@ -339,7 +339,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 #	Create teams
 #	TODO: create an amount of teams which is appropriate for the amount of players
 #	TODO: assign teams to players based on team selection in lobby
-	var team: Team = Team.new(1)
+	var team: Team = Team.make(1)
 	_team_container.add_team(team)
 	
 #	Create local player and remote players

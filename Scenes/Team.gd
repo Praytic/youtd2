@@ -1,4 +1,4 @@
-class_name Team
+class_name Team extends Node
 
 # Represents player's team. Two players per team.
 
@@ -11,9 +11,9 @@ var _lives: float = 100
 var _level: int = 1
 
 
-func _init(id: int):
-	_id = id
-
+#########################
+###       Public      ###
+#########################
 
 func get_id() -> int:
 	return _id
@@ -46,3 +46,14 @@ func get_level() -> int:
 
 func increment_level():
 	_level += 1
+
+
+#########################
+###       Static      ###
+#########################
+
+static func make(id: int) -> Team:
+	var team: Team = Preloads.team_scene.instantiate()
+	team._id = id
+
+	return team
