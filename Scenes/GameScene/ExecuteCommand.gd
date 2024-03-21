@@ -26,7 +26,7 @@ func execute(player_id: int, serialized_command: Dictionary):
 		Command.Type.BUILD_TOWER: _build_tower(player_id, serialized_command)
 		Command.Type.SELL_TOWER: _sell_tower(serialized_command)
 		Command.Type.START_GAME: _start_game()
-		Command.Type.START_NEXT_WAVE: start_next_wave()
+		Command.Type.START_NEXT_WAVE: start_next_wave(player_id)
 		Command.Type.SELECT_BUILDER: _select_builder(player_id, serialized_command)
 
 
@@ -137,18 +137,16 @@ func _start_game():
 
 
 # TODO: start next wave only for one team
-func start_next_wave():
+func start_next_wave(player_id: int):
 	_extreme_timer.stop()
 	_next_wave_timer.stop()
+	
+	var player: Player = _player_container.get_player(player_id)
+	var team: Team = player.get_team()
 
-	var player_list: Array[Player] = _player_container.get_all_players()
+	team.increment_level()
 
-# 	TODO: increment level only for affected team
-	for player in player_list:
-		player.get_team().increment_level()
-
-	var local_player: Player = _player_container.get_local_player()
-	var level: int = local_player.get_team().get_level()
+	var level: int = team.get_level()
 
 	_wave_spawner.start_wave(level)
 

@@ -8,6 +8,7 @@ class_name GameScene extends Node
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
 @export var _player_container: PlayerContainer
+@export var _team_container: TeamContainer
 @export var _game_start_timer: ManualTimer
 @export var _next_wave_timer: ManualTimer
 @export var _extreme_timer: ManualTimer
@@ -334,10 +335,16 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 		print_verbose("Host set origin seed to: ", origin_seed)
 	else:
 		print_verbose("Peer received origin seed from host: ", origin_seed)
-
+		
+#	Create teams
+#	TODO: create an amount of teams which is appropriate for the amount of players
+#	TODO: assign teams to players based on team selection in lobby
+	var team: Team = Team.new(1)
+	_team_container.add_team(team)
+	
 #	Create local player and remote players
 	var local_peer_id: int = multiplayer.get_unique_id()
-	var local_player: Player = Player.make(local_peer_id)
+	var local_player: Player = Player.make(local_peer_id, team)
 	local_player.set_is_local_player(true)
 	_player_container.add_player(local_player)
 	print_verbose("Added local player with id: ", local_peer_id)
@@ -349,7 +356,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 #		TODO: use builder id which was selected by remote
 #		player. Remote players need to communicate which
 #		builder they selected.
-		var remote_player: Player = Player.make(peer_id)
+		var remote_player: Player = Player.make(peer_id, team)
 		_player_container.add_player(remote_player)
 		print_verbose("Added remote player with id: ", peer_id)
 	
@@ -654,8 +661,10 @@ func _on_extreme_timer_timeout():
 	_hud.show_next_wave_time(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
 
 
+# TODO: create one next wave timer per team and start next wave for only the affected team
 func _on_next_wave_timer_timeout():
-	_execute_command.start_next_wave()
+	var local_player_id: int = Globals.get_local_player_id()
+	_execute_command.start_next_wave(local_player_id)
 
 
 func _on_player_requested_to_roll_towers():

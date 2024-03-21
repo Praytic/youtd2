@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=33 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -27,6 +27,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/ExecuteCommand.gd" id="18_vcbyc"]
 [ext_resource type="Script" path="res://Scenes/GameScene/CommandStorage.gd" id="19_8mf41"]
 [ext_resource type="Script" path="res://Scenes/GameScene/TimerPool.gd" id="26_2tqw6"]
+[ext_resource type="Script" path="res://Scenes/GameScene/TeamContainer.gd" id="28_j7eu2"]
 
 [sub_resource type="Curve2D" id="1"]
 _data = {
@@ -51,7 +52,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_wave_spawner", "_ui_canvas_layer", "_camera", "_player_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_command_storage", "_execute_command")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_wave_spawner", "_ui_canvas_layer", "_camera", "_player_container", "_team_container", "_game_start_timer", "_next_wave_timer", "_extreme_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_command_storage", "_execute_command")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -61,6 +62,7 @@ _wave_spawner = NodePath("Gameplay/WaveSpawner")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("World/Camera2D")
 _player_container = NodePath("Gameplay/PlayerContainer")
+_team_container = NodePath("Gameplay/TeamContainer")
 _game_start_timer = NodePath("Gameplay/GameStartTimer")
 _next_wave_timer = NodePath("Gameplay/NextWaveTimer")
 _extreme_timer = NodePath("Gameplay/ExtremeTimer")
@@ -94,6 +96,9 @@ one_shot = true
 
 [node name="PlayerContainer" type="Node" parent="Gameplay"]
 script = ExtResource("3_ieclh")
+
+[node name="TeamContainer" type="Node" parent="Gameplay"]
+script = ExtResource("28_j7eu2")
 
 [node name="WaveSpawner" parent="Gameplay" instance=ExtResource("5_pan23")]
 

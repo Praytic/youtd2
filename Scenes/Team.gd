@@ -6,8 +6,17 @@ class_name Team
 # work on it for multiplayer.
 
 
+var _id: int = -1
 var _lives: float = 100
 var _level: int = 1
+
+
+func _init(id: int):
+	_id = id
+
+
+func get_id() -> int:
+	return _id
 
 
 # NOTE: Team.getLivesPercent() in JASS

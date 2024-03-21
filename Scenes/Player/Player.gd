@@ -19,7 +19,7 @@ const MAX_KNOWLEDGE_TOMES: int = 999999
 const KNOWLEDGE_TOMES_INCOME: int = 8
 
 
-var _team: Team = Team.new()
+var _team: Team = null
 var _total_damage: float = 0
 var _tower_count_for_starting_roll: int = 6
 var _element_level_map: Dictionary = {}
@@ -438,9 +438,10 @@ func _on_tower_stash_changed():
 ###       Static      ###
 #########################
 
-static func make(id: int) -> Player:
+static func make(id: int, team: Team) -> Player:
 	var player: Player = Preloads.player_scene.instantiate()
 	player._id = id
+	player._team = team
 
 #	Add base class Builder as placeholder until the real
 #	builder is assigned. This builder will have no effects.
