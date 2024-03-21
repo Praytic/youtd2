@@ -1,7 +1,7 @@
 class_name ActionProcessor extends Node
 
 
-# Contains functions which execute actions. Used by Simulation.
+# Contains functions which processes actions. Used by Simulation.
 
 
 @export var _player_container: PlayerContainer
@@ -14,7 +14,7 @@ class_name ActionProcessor extends Node
 @export var _game_time: GameTime
 
 
-func execute(player_id: int, serialized_action: Dictionary):
+func process_action(player_id: int, serialized_action: Dictionary):
 	var action: Action = Action.new(serialized_action)
 	
 	var action_type: Action.Type = action.type

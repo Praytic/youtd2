@@ -712,7 +712,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 #	TODO: update hud to display new element level right
 #	here, even though element level will change later, when
-#	action is executed. Take into account max level.
+#	action is processed. Take into account max level.
 # 	This is to show immediate feedback to player.
 
 	var action: Action = ActionResearchElement.make(element)

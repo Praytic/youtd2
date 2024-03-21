@@ -85,7 +85,7 @@ func _physics_process(_delta: float):
 #########################
 
 func _do_tick():
-	_action_storage.execute_actions(_current_tick)
+	_action_storage.process_actions(_current_tick)
 	_update_state()
 	_current_tick += 1
 

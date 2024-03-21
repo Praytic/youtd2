@@ -1,7 +1,7 @@
 class_name ActionStorage extends Node
 
 
-# Stores actions to be executed in the future, for the
+# Stores actions to be processed in the future, for the
 # purposes of multiplayer. Actions can come both from local
 # player as well as other clients via RPC.
 
@@ -36,7 +36,7 @@ func set_delay(delay: int):
 
 
 # Adds an action for local player for current tick. This
-# action will be broadcasted to other players and executed
+# action will be broadcasted to other players and processed
 # at some future tick. Note that only one action is allowed
 # per tick. Any extra actions are discarded.
 func add_action(action: Action):
@@ -49,22 +49,22 @@ func add_action(action: Action):
 func broadcast_actions(tick: int):
 #	If player didn't request a action during this tick,
 #	broadcast an "idle action" to let other players know
-#	that we're still connected. If other players arrive at
-#	execution frame without an idle action from us, they
+#	that we're still connected. If other players reach a
+#	tick where they didn't receive an action from us, they
 #	will wait for us to catch up.
 	if _local_action_for_current_tick == null:
 		var idle_action: Action = ActionIdle.make()
 		add_action(idle_action)
 
-	var execute_tick: int = tick + _action_delay
+	var process_tick: int = tick + _action_delay
 
 	var serialized_action: Dictionary = _local_action_for_current_tick.serialize()
-	_save_action.rpc(execute_tick, serialized_action)
+	_save_action.rpc(process_tick, serialized_action)
 	_local_action_for_current_tick = null
 
 
-func execute_actions(tick: int):
-#	NOTE: skip executing actions at the start because
+func process_actions(tick: int):
+#	NOTE: skip process actions at the start because
 #	during the initial delay period, there are no actions
 #	from players, not even idle.
 	if tick <= _action_delay:
@@ -75,7 +75,7 @@ func execute_actions(tick: int):
 	var player_id_list: Array[int] = _player_container.get_player_id_list()
 	for player_id in player_id_list:
 		var serialized_action: Dictionary = actions_for_current_tick[player_id]
-		_action_processor.execute(player_id, serialized_action)
+		_action_processor.process_action(player_id, serialized_action)
 
 	_action_map.erase(tick)
 
@@ -105,16 +105,17 @@ func check_if_received_actions_from_all_players(tick: int) -> bool:
 #########################
 
 @rpc("any_peer", "call_local", "reliable")
-func _save_action(execute_tick: int, action: Dictionary):
-	if !_action_map.has(execute_tick):
-		_action_map[execute_tick] = {}
+func _save_action(tick: int, action: Dictionary):
+	if !_action_map.has(tick):
+		_action_map[tick] = {}
 	
 	var player_id: int = multiplayer.get_remote_sender_id()
 	
-#	NOTE: if we receive more than one action from a player for same tick, then we consider 
-#	the sender to be misbehaving. Ignore such broadcasts.
-	var player_already_has_action_for_tick: bool = _action_map[execute_tick].has(player_id)
+#	NOTE: if we receive more than one action from a player
+#	for same tick, then we consider the sender to be
+#	misbehaving. Ignore such broadcasts.
+	var player_already_has_action_for_tick: bool = _action_map[tick].has(player_id)
 	if player_already_has_action_for_tick:
 		return
 
-	_action_map[execute_tick][player_id] = action
+	_action_map[tick][player_id] = action
