@@ -178,19 +178,12 @@ unique_name_in_owner = true
 [node name="PathContainer" type="Node2D" parent="World"]
 z_index = 999
 
-[node name="Ground1" type="Path2D" parent="World/PathContainer" groups=["wave_path"]]
+[node name="Ground1" type="Path2D" parent="World/PathContainer"]
 curve = SubResource("1")
 script = ExtResource("3_abrkq")
-z_points = {
-8: 30,
-9: 30,
-10: 30,
-11: 30,
-12: 30
-}
 index = 1
 
-[node name="Air1" type="Path2D" parent="World/PathContainer" groups=["wave_path"]]
+[node name="Air1" type="Path2D" parent="World/PathContainer"]
 curve = SubResource("Curve2D_72x3r")
 script = ExtResource("3_abrkq")
 is_air = true
