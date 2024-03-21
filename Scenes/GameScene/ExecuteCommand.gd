@@ -102,8 +102,6 @@ func _sell_tower(serialized_command: Dictionary):
 
 		return
 
-	_map.clear_space_occupied_by_tower(tower)
-
 # 	Return tower items to item stash
 	var item_list: Array[Item] = tower.get_items()
 
