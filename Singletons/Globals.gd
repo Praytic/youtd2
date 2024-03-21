@@ -4,6 +4,7 @@ extends Node
 # NOTE: these settings are selected during game start. If
 # they are accessed before that point, you will get these
 # placeholders.
+var _player_mode: PlayerMode.enm = PlayerMode.enm.SINGLE
 var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
@@ -15,6 +16,10 @@ var _local_player_id: int = -1
 # determinism. A good example of where visual_rng should be
 # used is FloatingText.
 var visual_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+
+
+func get_player_mode() -> PlayerMode.enm:
+	return _player_mode
 
 
 func get_wave_count() -> int:

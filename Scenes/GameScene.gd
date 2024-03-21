@@ -90,13 +90,14 @@ func _ready():
 	else:
 #		Use default setting values when skipping pregame
 #		settings
+		var player_mode: PlayerMode.enm = PlayerMode.enm.SINGLE
 		var wave_count: int = Config.default_game_length()
 		var difficulty: Difficulty.enm = Config.default_difficulty()
 		var game_mode: GameMode.enm = Config.default_game_mode()
 		var origin_seed: int = randi()
 		print_verbose("Generated origin seed locally: ", origin_seed)
 		
-		_transition_from_pregame.rpc(wave_count, game_mode, difficulty, origin_seed)
+		_transition_from_pregame.rpc(player_mode, wave_count, game_mode, difficulty, origin_seed)
 
 
 # NOTE: these stats are constantly changing and might even
@@ -259,8 +260,7 @@ func _toggle_game_menu():
 	
 	_game_menu.visible = !_game_menu.visible
 
-#	TODO: store player mode outside pregame controller
-	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	if player_mode == PlayerMode.enm.SINGLE:
 		var tree: SceneTree = get_tree()
 		tree.paused = !tree.paused
@@ -292,6 +292,7 @@ func _on_pregame_controller_finished():
 #	settings locally. In multiplayer case, this will
 #	cause the host to broadcast game settings to
 #	peers.
+	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
 	var wave_count: int = _pregame_controller.get_game_length()
 	var difficulty: Difficulty.enm = _pregame_controller.get_difficulty()
 	var game_mode: GameMode.enm = _pregame_controller.get_game_mode()
@@ -302,15 +303,16 @@ func _on_pregame_controller_finished():
 	var origin_seed: int = randi()
 	print_verbose("Generated origin seed on host: ", origin_seed)
 
-	_transition_from_pregame.rpc(wave_count, game_mode, difficulty, origin_seed)
+	_transition_from_pregame.rpc(player_mode, wave_count, game_mode, difficulty, origin_seed)
 
 
 # This is called when host is finished selecting all of the
 # pregame settings.
 @rpc("any_peer", "call_local", "reliable")
-func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
+func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm, origin_seed: int):
 	_pregame_hud.hide()
 	
+	Globals._player_mode = player_mode
 	Globals._wave_count = wave_count
 	Globals._game_mode = game_mode
 	Globals._difficulty = difficulty
@@ -396,12 +398,11 @@ func _transition_from_pregame(wave_count: int, game_mode: GameMode.enm, difficul
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
 	_hud.show_game_start_time()
 	
-#	NOTE: reduce command delay for multiplayer
+#	NOTE: reduce command delay for singleplayer
 #	TODO: should really make the perceived latency good
 #	enough for both singleplayer and multiplayer to use the
-#	same delay
-	var player_count: int = _player_container.get_player_id_list().size()
-	if player_count == 1:
+#	same delay.
+	if player_mode == PlayerMode.enm.SINGLE:
 		_command_storage.set_delay(CommandStorage.SINGLEPLAYER_COMMAND_DELAY)
 	
 	get_tree().set_pause(false)
@@ -774,7 +775,7 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 	_set_builder_for_local_player(builder_id)
 
 	var show_tutorial_on_start: bool = Settings.get_bool_setting(Settings.SHOW_TUTORIAL_ON_START)
-	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
+	var player_mode: PlayerMode.enm = Globals.get_player_mode()
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var always_show_tutorial: bool = Config.always_show_tutorial()
 	
