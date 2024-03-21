@@ -1,4 +1,4 @@
-class_name Command
+class_name Action
 
 
 # Wraps Dictionaries which need to be passed through RPC.
@@ -8,18 +8,18 @@ class_name Command
 # more error-prone. This wrapping method doesn't eliminate
 # all errors - it is still possible to get errors about
 # accessing invalid key of Dictionary if you pass a
-# Dictionary to Command constructor with mismatched type.
+# Dictionary to Action constructor with mismatched type.
 # 
-# Parameters -> Command:
-#     var command: Command = CommandFoo.make(bar, baz)
+# Parameters -> Action:
+#     var action: Action = ActionFoo.make(bar, baz)
 #
-# Command -> Dictionary:
-#     var serialized_command: Dictionary = command.serialize()
+# Action -> Dictionary:
+#     var serialized_action: Dictionary = action.serialize()
 # 
-# Dictionary -> Command:
-#     var command: CommandFoo = CommandFoo.new(serialized_command)
-#     var bar: Bar = command.bar
-#     var baz: Bar = command.baz
+# Dictionary -> Action:
+#     var action: ActionFoo = ActionFoo.new(serialized_action)
+#     var bar: Bar = action.bar
+#     var baz: Bar = action.baz
 
 
 enum Field {
@@ -45,9 +45,9 @@ enum Type {
 
 
 var _data: Dictionary
-var type: Command.Type:
+var type: Action.Type:
 	get:
-		return _data[Command.Field.TYPE]
+		return _data[Action.Field.TYPE]
 
 
 func _init(data: Dictionary):

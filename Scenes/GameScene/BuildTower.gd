@@ -103,8 +103,8 @@ func _build_tower(tower_id: int):
 	
 	EventBus.player_performed_tutorial_advance_action.emit("build_tower")
 	
-	var command: Command = CommandBuildTower.make(tower_id, build_position)
-	_command_storage.add_command(command)
+	var action: Action = ActionBuildTower.make(tower_id, build_position)
+	_command_storage.add_action(action)
 
 
 func _transform_tower(new_tower_id: int, prev_tower: Tower, player: Player):

@@ -1,14 +1,14 @@
-class_name CommandResearchElement extends Command
+class_name ActionResearchElement extends Action
 
 
 var element: Element.enm:
 	get:
-		return _data[Command.Field.ELEMENT]
+		return _data[Action.Field.ELEMENT]
 
 static func make(element_arg: Element.enm):
-	var command: Command = Command.new({
-		Command.Field.TYPE: Command.Type.RESEARCH_ELEMENT,
-		Command.Field.ELEMENT: element_arg,
+	var action: Action = Action.new({
+		Action.Field.TYPE: Action.Type.RESEARCH_ELEMENT,
+		Action.Field.ELEMENT: element_arg,
 		})
 
-	return command
+	return action

@@ -186,8 +186,8 @@ func _unhandled_input(event: InputEvent):
 #########################
 
 func _set_builder_for_local_player(builder_id: int):
-	var command: Command = CommandSelectBuilder.make(builder_id)
-	_command_storage.add_command(command)
+	var action: Action = ActionSelectBuilder.make(builder_id)
+	_command_storage.add_action(action)
 
 
 func _cancel_current_mouse_action():
@@ -414,12 +414,12 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
 	_hud.show_game_start_time()
 	
-#	NOTE: reduce command delay for singleplayer
+#	NOTE: reduce action delay for singleplayer
 #	TODO: should really make the perceived latency good
 #	enough for both singleplayer and multiplayer to use the
 #	same delay.
 	if player_mode == PlayerMode.enm.SINGLE:
-		_command_storage.set_delay(CommandStorage.SINGLEPLAYER_COMMAND_DELAY)
+		_command_storage.set_delay(CommandStorage.SINGLEPLAYER_ACTION_DELAY)
 	
 	get_tree().set_pause(false)
 	_completed_pregame = true
@@ -632,8 +632,8 @@ func _on_player_requested_start_game():
 	_hud.show_next_wave_button()
 	_hud.hide_roll_towers_button()
 
-	var command: Command = CommandStartGame.make()
-	_command_storage.add_command(command)
+	var action: Action = ActionStartGame.make()
+	_command_storage.add_action(action)
 
 
 func _on_game_start_timer_timeout():
@@ -652,8 +652,8 @@ func _on_player_requested_next_wave():
 		
 		return
 	
-	var command: Command = CommandStartNextWave.make()
-	_command_storage.add_command(command)
+	var action: Action = ActionStartNextWave.make()
+	_command_storage.add_action(action)
 
 
 func _on_extreme_timer_timeout():
@@ -689,8 +689,8 @@ func _on_player_requested_to_roll_towers():
 	
 		return
 
-	var command: Command = CommandRollTowers.make()
-	_command_storage.add_command(command)
+	var action: Action = ActionRollTowers.make()
+	_command_storage.add_action(action)
 
 
 func _on_player_requested_to_research_element(element: Element.enm):
@@ -712,11 +712,11 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 #	TODO: update hud to display new element level right
 #	here, even though element level will change later, when
-#	command is executed. Take into account max level.
+#	action is executed. Take into account max level.
 # 	This is to show immediate feedback to player.
 
-	var command: Command = CommandResearchElement.make(element)
-	_command_storage.add_command(command)
+	var action: Action = ActionResearchElement.make(element)
+	_command_storage.add_action(action)
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
@@ -758,8 +758,8 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 
 func _on_player_requested_to_sell_tower(tower: Tower):
 	var tower_unit_id: int = tower.get_uid()
-	var command: Command = CommandSellTower.make(tower_unit_id)
-	_command_storage.add_command(command)
+	var action: Action = ActionSellTower.make(tower_unit_id)
+	_command_storage.add_action(action)
 
 
 func _on_player_requested_to_select_point_for_autocast(autocast: Autocast):

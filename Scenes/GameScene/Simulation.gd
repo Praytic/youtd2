@@ -7,9 +7,9 @@ class_name Simulation extends Node
 # Simulation ticks 30 times per second (based on
 # physics_ticks_per_second config value).
 # 
-# Sends commands requested by local player to other players.
-# Receives commands requested by other players.
-# Executes commands at a delayed future tick.
+# Sends actions requested by local player to other players.
+# Receives actions requested by other players.
+# Executes actions at a delayed future tick.
 # 
 # Stops ticking if it detects that some player has
 # disconnected or is lagging.
@@ -23,9 +23,9 @@ class_name Simulation extends Node
 # tower scripts.
 
 # TODO: convert all player inputs which affect world state
-# to Commands.
+# to Actions.
 
-# TODO: adjust command delay dynamically based on observed
+# TODO: adjust action delay dynamically based on observed
 # latency. Do not adjust it constantly. A value should be
 # picked once and retained for the whole game duration.
 # Maybe increase it permanently if it's detected that
@@ -37,7 +37,7 @@ class_name Simulation extends Node
 
 var _tick_delta: float
 var _current_tick: int = 0
-var _broadcasted_commands_for_current_tick: bool = false
+var _broadcasted_actions_for_current_tick: bool = false
 
 @export var _command_storage: CommandStorage
 @export var _game_time: GameTime
@@ -63,21 +63,21 @@ func _ready():
 # built-in way to do consistent tickrate, independent of
 # framerate.
 func _physics_process(_delta: float):
-#	NOTE: need to broadcast commands from local player only
+#	NOTE: need to broadcast actions from local player only
 #	once per tick. Note that _physics_process() may be
 #	called multiple times without advancing current tick if
 #	some player is lagging.
-	if !_broadcasted_commands_for_current_tick:
-		_command_storage.broadcast_commands(_current_tick)
-		_broadcasted_commands_for_current_tick = true
+	if !_broadcasted_actions_for_current_tick:
+		_command_storage.broadcast_actions(_current_tick)
+		_broadcasted_actions_for_current_tick = true
 
-	var received_commands_from_all_players: bool = _command_storage.check_if_received_commands_from_all_players(_current_tick)
+	var received_actions_from_all_players: bool = _command_storage.check_if_received_actions_from_all_players(_current_tick)
 
-	if received_commands_from_all_players:
+	if received_actions_from_all_players:
 		_do_tick()
-		_broadcasted_commands_for_current_tick = false
+		_broadcasted_actions_for_current_tick = false
 	else:
-		print("waiting for player commands")
+		print("waiting for player actions")
 
 
 #########################
@@ -85,12 +85,12 @@ func _physics_process(_delta: float):
 #########################
 
 func _do_tick():
-	_command_storage.execute_commands(_current_tick)
+	_command_storage.execute_actions(_current_tick)
 	_update_state()
 	_current_tick += 1
 
 
-# Send commands requested by local player during current
+# Send actions requested by local player during current
 # tick to other players
 
 func _update_state():

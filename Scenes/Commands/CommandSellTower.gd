@@ -1,15 +1,15 @@
-class_name CommandSellTower extends Command
+class_name ActionSellTower extends Action
 
 
 var tower_unit_id: int:
 	get:
-		return _data[Command.Field.TOWER_UNIT_ID]
+		return _data[Action.Field.TOWER_UNIT_ID]
 
 
 static func make(tower_unit_id_arg: int):
-	var command: Command = Command.new({
-		Command.Field.TYPE: Command.Type.SELL_TOWER,
-		Command.Field.TOWER_UNIT_ID: tower_unit_id_arg,
+	var action: Action = Action.new({
+		Action.Field.TYPE: Action.Type.SELL_TOWER,
+		Action.Field.TOWER_UNIT_ID: tower_unit_id_arg,
 		})
 
-	return command
+	return action

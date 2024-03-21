@@ -1,7 +1,7 @@
 class_name ExecuteCommand extends Node
 
 
-# Contains functions which execute Commands. Used by Simulation.
+# Contains functions which execute actions. Used by Simulation.
 
 
 @export var _player_container: PlayerContainer
@@ -14,29 +14,29 @@ class_name ExecuteCommand extends Node
 @export var _game_time: GameTime
 
 
-func execute(player_id: int, serialized_command: Dictionary):
-	var command: Command = Command.new(serialized_command)
+func execute(player_id: int, serialized_action: Dictionary):
+	var action: Action = Action.new(serialized_action)
 	
-	var command_type: Command.Type = command.type
+	var action_type: Action.Type = action.type
 
-	match command_type:
-		Command.Type.IDLE: return
-		Command.Type.RESEARCH_ELEMENT: _research_element(player_id, serialized_command)
-		Command.Type.ROLL_TOWERS: _roll_towers(player_id)
-		Command.Type.BUILD_TOWER: _build_tower(player_id, serialized_command)
-		Command.Type.SELL_TOWER: _sell_tower(serialized_command)
-		Command.Type.START_GAME: _start_game()
-		Command.Type.START_NEXT_WAVE: start_next_wave(player_id)
-		Command.Type.SELECT_BUILDER: _select_builder(player_id, serialized_command)
+	match action_type:
+		Action.Type.IDLE: return
+		Action.Type.RESEARCH_ELEMENT: _research_element(player_id, serialized_action)
+		Action.Type.ROLL_TOWERS: _roll_towers(player_id)
+		Action.Type.BUILD_TOWER: _build_tower(player_id, serialized_action)
+		Action.Type.SELL_TOWER: _sell_tower(serialized_action)
+		Action.Type.START_GAME: _start_game()
+		Action.Type.START_NEXT_WAVE: start_next_wave(player_id)
+		Action.Type.SELECT_BUILDER: _select_builder(player_id, serialized_action)
 
 
 #########################
 ###       Public      ###
 #########################
 
-func _research_element(player_id: int, serialized_command: Dictionary):
-	var command: CommandResearchElement = CommandResearchElement.new(serialized_command)
-	var element: Element.enm = command.element
+func _research_element(player_id: int, serialized_action: Dictionary):
+	var action: ActionResearchElement = ActionResearchElement.new(serialized_action)
+	var element: Element.enm = action.element
 
 	var local_player: Player = _player_container.get_local_player()
 	var player: Player = _player_container.get_player(player_id)
@@ -61,13 +61,13 @@ func _roll_towers(player_id: int):
 	player.decrement_tower_count_for_starting_roll()
 
 
-# TODO: build tower command looks very bad with the delay.
+# TODO: build tower action looks very bad with the delay.
 # Need to add a temporary animation like a cloud of dust,
 # while the tower "builds".
-func _build_tower(player_id: int, serialized_command: Dictionary):
-	var command: CommandBuildTower = CommandBuildTower.new(serialized_command)
-	var tower_id: int = command.tower_id
-	var position: Vector2 = command.position
+func _build_tower(player_id: int, serialized_action: Dictionary):
+	var action: ActionBuildTower = ActionBuildTower.new(serialized_action)
+	var tower_id: int = action.tower_id
+	var position: Vector2 = action.position
 
 	var player: Player = _player_container.get_player(player_id)
 
@@ -91,14 +91,14 @@ func _build_tower(player_id: int, serialized_command: Dictionary):
 	Utils.add_object_to_world(new_tower)
 
 
-func _sell_tower(serialized_command: Dictionary):
-	var command: CommandSellTower = CommandSellTower.new(serialized_command)
-	var tower_unit_id: int = command.tower_unit_id
+func _sell_tower(serialized_action: Dictionary):
+	var action: ActionSellTower = ActionSellTower.new(serialized_action)
+	var tower_unit_id: int = action.tower_unit_id
 
 	var tower: Tower = _get_tower_by_uid(tower_unit_id)
 
 	if tower == null:
-		push_error("Sell tower command failed")
+		push_error("Sell tower action failed")
 
 		return
 
@@ -162,9 +162,9 @@ func start_next_wave(player_id: int):
 		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
 
 
-func _select_builder(player_id: int, serialized_command: Dictionary):
-	var command: CommandSelectBuilder = CommandSelectBuilder.new(serialized_command)
-	var builder_id: int = command.builder_id
+func _select_builder(player_id: int, serialized_action: Dictionary):
+	var action: ActionSelectBuilder = ActionSelectBuilder.new(serialized_action)
+	var builder_id: int = action.builder_id
 
 	var player: Player = _player_container.get_player(player_id)
 	

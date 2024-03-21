@@ -1,9 +1,9 @@
-class_name CommandStartNextWave extends Command
+class_name ActionStartNextWave extends Action
 
 
 static func make():
-	var command: Command = Command.new({
-		Command.Field.TYPE: Command.Type.START_NEXT_WAVE,
+	var action: Action = Action.new({
+		Action.Field.TYPE: Action.Type.START_NEXT_WAVE,
 		})
 
-	return command
+	return action

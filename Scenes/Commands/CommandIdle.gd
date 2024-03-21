@@ -1,9 +1,9 @@
-class_name CommandIdle extends Command
+class_name ActionIdle extends Action
 
 
 static func make():
-	var command: Command = Command.new({
-		Command.Field.TYPE: Command.Type.IDLE,
+	var action: Action = Action.new({
+		Action.Field.TYPE: Action.Type.IDLE,
 		})
 
-	return command
+	return action

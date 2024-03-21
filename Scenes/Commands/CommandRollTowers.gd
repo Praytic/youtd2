@@ -1,9 +1,9 @@
-class_name CommandRollTowers extends Command
+class_name ActionRollTowers extends Action
 
 
 static func make():
-	var command: Command = Command.new({
-		Command.Field.TYPE: Command.Type.ROLL_TOWERS,
+	var action: Action = Action.new({
+		Action.Field.TYPE: Action.Type.ROLL_TOWERS,
 		})
 
-	return command
+	return action
