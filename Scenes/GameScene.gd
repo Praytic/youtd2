@@ -118,7 +118,7 @@ func _process(_delta: float):
 	
 	var local_player: Player = Globals.get_local_player()
 	
-	var all_players: Array[Player] = _player_container.get_all_players()
+	var all_players: Array[Player] = _player_container.get_player_list()
 	_hud.load_player_stats(local_player, all_players)
 
 	var game_time: float = Utils.get_time()

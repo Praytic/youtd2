@@ -123,8 +123,9 @@ func _process_actions():
 	
 	var actions_for_current_tick: Dictionary = _action_storage.get_actions(_current_tick)
 
-	var player_id_list: Array[int] = _player_container.get_player_id_list()
-	for player_id in player_id_list:
+	var player_list: Array[Player] = _player_container.get_player_list()
+	for player in player_list:
+		var player_id: int = player.get_id()
 		var serialized_action: Dictionary = actions_for_current_tick[player_id]
 		_action_processor.process_action(player_id, serialized_action)
 
@@ -162,8 +163,10 @@ func check_if_received_actions_from_all_players() -> bool:
 	var actions_for_current_tick: Dictionary = _action_storage.get_actions(_current_tick)
 	
 	var received_actions_from_all_players: bool = true
-	var player_id_list: Array[int] = _player_container.get_player_id_list()
-	for player_id in player_id_list:
+	var player_list: Array[Player] = _player_container.get_player_list()
+	for player in player_list:
+		var player_id: int = player.get_id()
+		
 		if !actions_for_current_tick.has(player_id):
 			print("no actions from player %d" % player_id)
 			received_actions_from_all_players = false
