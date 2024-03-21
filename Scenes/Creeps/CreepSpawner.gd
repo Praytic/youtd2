@@ -14,6 +14,8 @@ const NORMAL_SPAWN_DELAY_SEC = 0.9
 
 var _creep_spawn_queue: Array[CreepData]
 var _player: Player = null
+var _ground_path: WavePath = null
+var _air_path: WavePath = null
 
 @export var _timer_between_creeps: ManualTimer
 
@@ -26,9 +28,6 @@ func _ready():
 	_timer_between_creeps.set_autostart(true)
 	_timer_between_creeps.set_one_shot(false)
 	
-	var regex_search = RegEx.new()
-	regex_search.compile("^(?!\\.).*$")
-
 
 #########################
 ###       Public      ###
@@ -37,6 +36,20 @@ func _ready():
 
 func set_player(player: Player):
 	_player = player
+
+	var wave_path_list: Array = get_tree().get_nodes_in_group("wave_paths")
+	for path in wave_path_list:
+#		TODO: do real player match
+		var player_match: bool = path.index == 1
+
+		if player_match:
+			if path.is_air:
+				_air_path = path
+			else:
+				_ground_path = path
+
+	if _air_path == null || _ground_path == null:
+		push_error("Failed to find paths for player %d, player index %d" % [player.get_id(), player.get_index()])
 
 
 func queue_spawn_creep(creep_data: CreepData):
@@ -73,8 +86,14 @@ func spawn_creep(creep_data: CreepData) -> Creep:
 
 	var creep_health: float = CreepSpawner.get_creep_health(wave, creep_size)
 
+	var path: WavePath
+	if creep_size == CreepSize.enm.AIR:
+		path = _air_path
+	else:
+		path = _ground_path
+	creep.set_path(path)
+
 	creep.set_player(_player)
-	creep.set_path(wave.get_wave_path())
 	creep.set_creep_size(creep_size)
 	creep.set_armor_type(wave.get_armor_type())
 	creep.set_category(wave.get_race())

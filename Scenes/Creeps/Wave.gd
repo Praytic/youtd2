@@ -41,16 +41,12 @@ var _alive_creep_list: Array[Creep] = []
 var _level: int
 var _race: CreepCategory.enm
 var _armor_type: ArmorType.enm
-var _wave_path: Path2D
 var state: int = Wave.State.PENDING
 var _specials: Array[int] = []
 var _base_hp: float = 0.0
 var _base_armor: float = 0.0
 var _creep_combination: Array[CreepSize.enm]
 var _creep_size: CreepSize.enm
-
-
-@onready var _wave_paths: Array = get_tree().get_nodes_in_group("wave_path")
 
 
 #########################
@@ -79,10 +75,6 @@ func _init(level: int, difficulty: int):
 
 func _ready():
 	set_name("Wave")
-
-# 	NOTE: need to init wave path here because wave can't get
-# 	wave paths until it's ready in the scene tree.
-	_wave_path = Wave._get_wave_path(0, _creep_size, _wave_paths)
 
 
 #########################
@@ -171,11 +163,6 @@ func get_creeps_spawn_delay() -> float:
 func is_bonus_wave() -> bool:
 	# TODO:
 	return false
-
-
-# Path of the creeps to follow toward the portal
-func get_wave_path() -> Path2D:
-	return _wave_path
 
 
 # Armor type of the creeps
@@ -458,22 +445,6 @@ static func _generate_champion_count(wave_level: int, creep_size: CreepSize.enm)
 		champion_count = champion_count + int(wave_level / 120)
 
 	return champion_count
-
-
-static func _get_wave_path(player: int, creep_size: CreepSize.enm, wave_paths: Array) -> Path2D:
-	for path in wave_paths:
-		var player_match: bool = path.player == player
-		var size_is_air: bool = creep_size == CreepSize.enm.AIR
-		var size_match: bool = path.is_air == size_is_air
-		var path_match: bool = player_match && size_match
-
-		if path_match:
-			return path
-
-	push_error("Could not find wave path for player [%s] and size [%s] in "  % [player, creep_size] \
-			+ "a group of paths [wave_path].")
-	
-	return null
 
 
 static func get_scene_name_for_creep_type(creep_size: CreepSize.enm, creep_race: CreepCategory.enm) -> String:
