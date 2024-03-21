@@ -355,7 +355,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	player_id_list.sort()
 
 	for player_id in player_id_list:
-		var player: Player = Player.make(player_id, team)
+		var player: Player = team.create_player(player_id)
 		_player_container.add_player(player)
 
 	var local_player: Player = _player_container.get_player(local_player_id)

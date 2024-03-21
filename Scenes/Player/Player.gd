@@ -1,7 +1,8 @@
 class_name Player extends Node
 
 # Class representing the player that owns towers. Used for
-# multiplayer purposes.
+# multiplayer purposes. Create players using
+# Team.create_player().
 
 signal item_stash_changed()
 signal horadric_stash_changed()
@@ -427,21 +428,3 @@ func _on_horadric_stash_items_changed():
 
 func _on_tower_stash_changed():
 	tower_stash_changed.emit()
-
-
-#########################
-###       Static      ###
-#########################
-
-static func make(id: int, team: Team) -> Player:
-	var player: Player = Preloads.player_scene.instantiate()
-	player._id = id
-	player._team = team
-
-#	Add base class Builder as placeholder until the real
-#	builder is assigned. This builder will have no effects.
-	var placeholder_builder: Builder = Builder.new()
-	player._builder = placeholder_builder
-	player.add_child(placeholder_builder)
-
-	return player

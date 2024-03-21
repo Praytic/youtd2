@@ -9,11 +9,28 @@ class_name Team extends Node
 var _id: int = -1
 var _lives: float = 100
 var _level: int = 1
+var _player_list: Array[Player] = []
 
 
 #########################
 ###       Public      ###
 #########################
+
+func create_player(player_id: int) -> Player:
+	var player: Player = Preloads.player_scene.instantiate()
+	player._id = player_id
+	player._team = self
+
+	_player_list.append(player)
+
+#	Add base class Builder as placeholder until the real
+#	builder is assigned. This builder will have no effects.
+	var placeholder_builder: Builder = Builder.new()
+	player._builder = placeholder_builder
+	player.add_child(placeholder_builder)
+
+	return player
+
 
 func get_id() -> int:
 	return _id
