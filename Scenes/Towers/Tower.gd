@@ -811,9 +811,7 @@ func _on_selected():
 	for indicator in _range_indicator_list:
 		indicator.show()
 
-	var tower_player_id: int = get_player().get_id()
-	var local_player_id: int = Globals.get_local_player_id()
-	var tower_belongs_to_local_player: bool = tower_player_id == local_player_id
+	var tower_belongs_to_local_player: bool = get_player() == Globals.get_local_player()
 
 	if tower_belongs_to_local_player:
 		_tower_actions.show()

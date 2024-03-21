@@ -285,7 +285,7 @@ func fly_to_stash(_mystery_float: float):
 	parent_item_drop.remove_child(self)
 	parent_item_drop.remove_from_game()
 
-	var belongs_to_local_player: bool = _player.get_id() == Globals.get_local_player_id()
+	var belongs_to_local_player: bool = get_player() == Globals.get_local_player()
 
 	if belongs_to_local_player:
 		var flying_item: FlyingItem = FlyingItem.create(_id, item_drop_screen_pos)

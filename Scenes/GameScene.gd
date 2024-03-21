@@ -342,23 +342,24 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	var team: Team = Team.make(1)
 	_team_container.add_team(team)
 	
-#	Create local player and remote players
-	var local_peer_id: int = multiplayer.get_unique_id()
-	var local_player: Player = Player.make(local_peer_id, team)
-	local_player.set_is_local_player(true)
-	_player_container.add_player(local_player)
-	print_verbose("Added local player with id: ", local_peer_id)
-	
-	Globals._local_player_id = local_player.get_id()
+	var local_player_id: int = multiplayer.get_unique_id()
 
+#	Create local player and remote players
+	var player_id_list: Array[int] = []
+	player_id_list.append(local_player_id)
 	var peer_id_list: PackedInt32Array = multiplayer.get_peers()
 	for peer_id in peer_id_list:
-#		TODO: use builder id which was selected by remote
-#		player. Remote players need to communicate which
-#		builder they selected.
-		var remote_player: Player = Player.make(peer_id, team)
-		_player_container.add_player(remote_player)
-		print_verbose("Added remote player with id: ", peer_id)
+		player_id_list.append(peer_id)
+
+#	NOTE: sort player id list to ensure determinism
+	player_id_list.sort()
+
+	for player_id in player_id_list:
+		var player: Player = Player.make(player_id, team)
+		_player_container.add_player(player)
+
+	var local_player: Player = _player_container.get_player(local_player_id)
+	Globals._local_player = local_player
 	
 	local_player.item_stash_changed.connect(_on_local_player_item_stash_changed)
 	local_player.horadric_stash_changed.connect(_on_local_player_horadric_stash_changed)
@@ -600,7 +601,7 @@ func _on_creep_reached_portal(creep: Creep):
 	if creep_score > 0:
 		creep.get_player().add_score(creep_score)
 
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = Globals.get_local_player()
 	local_player.get_team().modify_lives(-damage_to_portal)
 
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
@@ -663,7 +664,7 @@ func _on_extreme_timer_timeout():
 
 # TODO: create one next wave timer per team and start next wave for only the affected team
 func _on_next_wave_timer_timeout():
-	var local_player_id: int = Globals.get_local_player_id()
+	var local_player_id: int = Globals.get_local_player().get_id()
 	_action_processor.start_next_wave(local_player_id)
 
 

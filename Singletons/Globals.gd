@@ -8,7 +8,7 @@ var _player_mode: PlayerMode.enm = PlayerMode.enm.SINGLE
 var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
-var _local_player_id: int = -1
+var _local_player: Player = null
 
 # NOTE: you must use visual_rng for any code which is
 # running only for local player. The global rng seed is
@@ -34,8 +34,8 @@ func get_difficulty() -> Difficulty.enm:
 	return _difficulty
 
 
-func get_local_player_id() -> int:
-	return _local_player_id
+func get_local_player() -> Player:
+	return _local_player
 
 
 func game_mode_is_random() -> bool:
