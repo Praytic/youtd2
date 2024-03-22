@@ -21,7 +21,6 @@ class_name WaveStatus extends VBoxContainer
 
 var _armor_hint_map: Dictionary
 var _game_start_timer: ManualTimer = null
-var _next_wave_timer: ManualTimer = null
 
 
 #########################
@@ -37,8 +36,15 @@ func _ready():
 
 
 func _process(_delta: float):
-	var next_wave_time_string: String = _get_time_string(_next_wave_timer)
-	_next_wave_time_container.visible = !_next_wave_timer.is_stopped()
+	var local_player: Player = Globals.get_local_player()
+
+	if local_player == null:
+		return
+
+	var local_team: Team = local_player.get_team()
+	var next_wave_timer: ManualTimer = local_team.get_next_wave_timer()
+	var next_wave_time_string: String = _get_time_string(next_wave_timer)
+	_next_wave_time_container.visible = !next_wave_timer.is_stopped()
 	_next_wave_time_label.text = next_wave_time_string
 
 	var game_start_time_string: String = _get_time_string(_game_start_timer)
@@ -52,10 +58,6 @@ func _process(_delta: float):
 
 func set_game_start_timer(timer: ManualTimer):
 	_game_start_timer = timer
-
-
-func set_next_wave_timer(timer: ManualTimer):
-	_next_wave_timer = timer
 
 
 func show_next_wave_button():

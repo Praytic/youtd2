@@ -5,12 +5,10 @@ class_name ActionProcessor extends Node
 
 
 @export var _player_container: PlayerContainer
+@export var _team_container: TeamContainer
 @export var _hud: HUD
 @export var _map: Map
 @export var _game_start_timer: ManualTimer
-@export var _next_wave_timer: ManualTimer
-@export var _extreme_timer: ManualTimer
-@export var _wave_spawner: WaveSpawner
 @export var _game_time: GameTime
 
 
@@ -120,42 +118,30 @@ func _sell_tower(serialized_action: Dictionary):
 	tower.remove_from_game()
 
 
-# TODO: start game only for one team
 func _start_game():
 	_game_start_timer.stop()
 	_hud.show_next_wave_button()
 	_hud.hide_roll_towers_button()
-
-	_wave_spawner.start_wave(1)
 	
-	if Globals.get_difficulty() == Difficulty.enm.EXTREME:
-		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
-
+	var team_list: Array[Team] = _team_container.get_team_list()
+	for team in team_list:
+		team.start_first_wave()
+	
 #	NOTE: start counting game time after first wave starts
 	_game_time.set_enabled(true)
 
 
-# TODO: start next wave only for one team
+# TODO: reject action if reached last level
 func start_next_wave(player_id: int):
-	_extreme_timer.stop()
-	_next_wave_timer.stop()
-	
 	var player: Player = _player_container.get_player(player_id)
 	var team: Team = player.get_team()
-
-	team.increment_level()
-
-	var level: int = team.get_level()
-
-	_wave_spawner.start_wave(level)
-
-	_hud.update_level(level)
-	var next_waves: Array[Wave] = _get_next_5_waves()
+	team.start_next_wave()
+	
+	var local_player: Player = Globals.get_local_player()
+	var local_level: int = local_player.get_team().get_level()
+	_hud.update_level(local_level)
+	var next_waves: Array[Wave] = local_player.get_next_5_waves()
 	_hud.show_wave_details(next_waves)
-	var started_last_wave: bool = level == Globals.get_wave_count()
-
-	if !started_last_wave && Globals.get_difficulty() == Difficulty.enm.EXTREME:
-		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)
 
 
 func _select_builder(player_id: int, serialized_action: Dictionary):
@@ -192,18 +178,3 @@ func _get_tower_by_uid(tower_unit_id: int) -> Tower:
 	push_error("Failled to find tower with uid: ", tower_unit_id)
 
 	return null
-
-
-# TODO: fix duplication of this function here and in GameScene.gd
-func _get_next_5_waves() -> Array[Wave]:
-	var wave_list: Array[Wave] = []
-	var local_player: Player = _player_container.get_local_player()
-	var current_level: int = local_player.get_team().get_level()
-	
-	for level in range(current_level, current_level + 6):
-		var wave: Wave = _wave_spawner.get_wave(level)
-		
-		if wave != null:
-			wave_list.append(wave)
-
-	return wave_list

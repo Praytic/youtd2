@@ -103,10 +103,6 @@ func set_game_start_timer(timer: ManualTimer):
 	_top_left_menu.set_game_start_timer(timer)
 
 
-func set_next_wave_timer(timer: ManualTimer):
-	_top_left_menu.set_next_wave_timer(timer)
-
-
 func set_local_builder_name(builder_name: String):
 	_top_left_menu.set_local_builder_name(builder_name)
 

@@ -7,6 +7,7 @@ class_name Player extends Node
 signal item_stash_changed()
 signal horadric_stash_changed()
 signal tower_stash_changed()
+signal wave_finished(level: int)
 
 
 const STARTING_ELEMENT_COST = 20
@@ -40,6 +41,7 @@ var _score: float = 0.0
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
 @export var _tower_stash: TowerStash
+@export var _wave_spawner: WaveSpawner
 
 @onready var _floating_text_container: Node = get_tree().get_root().get_node("GameScene/World/FloatingTextContainer")
 
@@ -49,6 +51,9 @@ var _score: float = 0.0
 #########################
 
 func _ready():
+	_wave_spawner.set_player(self)
+	_wave_spawner.generate_waves()
+	
 	for element in Element.get_list():
 		_element_level_map[element] = 0
 
@@ -56,6 +61,22 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func generate_waves():
+	_wave_spawner.generate_waves()
+
+
+func start_wave(level: int):
+	_wave_spawner.start_wave(level)
+
+
+func wave_is_in_progress() -> bool:
+	return _wave_spawner.wave_is_in_progress()
+
+
+func current_wave_is_finished() -> bool:
+	return _wave_spawner.current_wave_is_finished()
+
 
 func set_builder(builder_id: int):
 	if !_have_placeholder_builder:
@@ -78,10 +99,6 @@ func set_builder(builder_id: int):
 
 func get_builder() -> Builder:
 	return _builder
-
-
-func apply_builder_wave_finished_effect():
-	_builder.apply_wave_finished_effect(self)
 
 
 func get_item_stash() -> ItemContainer:
@@ -411,6 +428,19 @@ func get_total_damage() -> float:
 	return _total_damage
 
 
+func get_next_5_waves() -> Array[Wave]:
+	var wave_list: Array[Wave] = []
+	var current_level: int = get_team().get_level()
+
+	for level in range(current_level, current_level + 6):
+		var wave: Wave = _wave_spawner.get_wave(level)
+
+		if wave != null:
+			wave_list.append(wave)
+
+	return wave_list
+
+
 #########################
 ###      Private      ###
 #########################
@@ -423,6 +453,32 @@ func _set_tomes(value):
 	_tomes = clampi(value, 0, MAX_KNOWLEDGE_TOMES)
 
 
+func _add_message_about_rolled_towers(rolled_towers: Array[int]):
+	Messages.add_normal("New towers were added to stash:")
+
+#	Sort tower list by element to group messages for same
+#	element together
+	rolled_towers.sort_custom(func(a, b): 
+		var element_a: int = TowerProperties.get_element(a)
+		var element_b: int = TowerProperties.get_element(b)
+		return element_a < element_b)
+
+	for tower in rolled_towers:
+		var element: Element.enm = TowerProperties.get_element(tower)
+		var element_string: String = Element.convert_to_colored_string(element)
+		var rarity: Rarity.enm = TowerProperties.get_rarity(tower)
+		var rarity_color: Color = Rarity.get_color(rarity)
+		var tower_name: String = TowerProperties.get_display_name(tower)
+		var tower_name_colored: String = Utils.get_colored_string(tower_name, rarity_color)
+		var message: String = "    %s: %s" % [element_string, tower_name_colored]
+
+		Messages.add_normal(message)
+
+
+#########################
+###     Callbacks     ###
+#########################
+
 func _on_item_stash_items_changed():
 	item_stash_changed.emit()
 
@@ -433,3 +489,20 @@ func _on_horadric_stash_items_changed():
 
 func _on_tower_stash_changed():
 	tower_stash_changed.emit()
+
+
+func _on_wave_spawner_wave_finished(level: int):
+	add_income(level)
+
+	add_tome_income()
+
+	_builder.apply_wave_finished_effect(self)
+
+	var rolled_towers: Array[int] = TowerDistribution.roll_towers(self)
+	_tower_stash.add_towers(rolled_towers)
+
+	if self == Globals.get_local_player():
+		Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % level)
+		_add_message_about_rolled_towers(rolled_towers)
+	
+	wave_finished.emit(level)

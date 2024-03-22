@@ -9,6 +9,8 @@ enum State {
 	FINISHED,
 }
 
+signal finished()
+
 
 const _size_chances: Dictionary = {
 	CreepSize.enm.MASS: 15,
@@ -86,7 +88,7 @@ func _on_creep_tree_exited(creep: Creep):
 
 	if _alive_creep_list.is_empty() && state == Wave.State.SPAWNED:
 		state = Wave.State.FINISHED
-		EventBus.wave_finished.emit(_level)
+		finished.emit()
 
 
 #########################

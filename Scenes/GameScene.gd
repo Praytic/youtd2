@@ -4,14 +4,11 @@ class_name GameScene extends Node
 @export var _game_menu: Control
 @export var _hud: HUD
 @export var _map: Map
-@export var _wave_spawner: WaveSpawner
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
 @export var _player_container: PlayerContainer
 @export var _team_container: TeamContainer
 @export var _game_start_timer: ManualTimer
-@export var _next_wave_timer: ManualTimer
-@export var _extreme_timer: ManualTimer
 @export var _object_container: Node2D
 @export var _select_point_for_cast: SelectPointForCast
 @export var _select_target_for_cast: SelectTargetForCast
@@ -44,9 +41,7 @@ func _ready():
 	print_verbose("GameScene has loaded.")
 
 	_hud.set_game_start_timer(_game_start_timer)
-	_hud.set_next_wave_timer(_next_wave_timer)
 
-	EventBus.wave_finished.connect(_on_wave_finished)
 	EventBus.creep_got_killed.connect(_on_creep_got_killed)
 	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
@@ -237,35 +232,6 @@ func _do_manual_targetting():
 	_prev_effect_id = effect
 
 
-# TODO: fix for multiplayer. Add towers to tower stash using rpc.
-func _roll_towers_after_wave_finish():
-	var local_player: Player = _player_container.get_local_player()
-	var rolled_towers: Array[int] = TowerDistribution.roll_towers(local_player)
-	var tower_stash: TowerStash = local_player.get_tower_stash()
-	tower_stash.add_towers(rolled_towers)
-	
-#	Add messages about new towers
-	Messages.add_normal("New towers were added to stash:")
-
-#	Sort tower list by element to group messages for same
-#	element together
-	rolled_towers.sort_custom(func(a, b): 
-		var element_a: int = TowerProperties.get_element(a)
-		var element_b: int = TowerProperties.get_element(b)
-		return element_a < element_b)
-
-	for tower in rolled_towers:
-		var element: Element.enm = TowerProperties.get_element(tower)
-		var element_string: String = Element.convert_to_colored_string(element)
-		var rarity: Rarity.enm = TowerProperties.get_rarity(tower)
-		var rarity_color: Color = Rarity.get_color(rarity)
-		var tower_name: String = TowerProperties.get_display_name(tower)
-		var tower_name_colored: String = Utils.get_colored_string(tower_name, rarity_color)
-		var message: String = "    %s: %s" % [element_string, tower_name_colored]
-
-		Messages.add_normal(message)
-
-
 func _toggle_game_menu():
 	if !_completed_pregame:
 		return
@@ -338,13 +304,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 		print_verbose("Host set origin seed to: ", origin_seed)
 	else:
 		print_verbose("Peer received origin seed from host: ", origin_seed)
-		
-#	Create teams
-#	TODO: create an amount of teams which is appropriate for the amount of players
-#	TODO: assign teams to players based on team selection in lobby
-	var team: Team = Team.make(1)
-	_team_container.add_team(team)
-
+	
 #	Create local player and remote players
 	var peer_id_list: Array[int] = []
 	var local_peer_id: int = multiplayer.get_unique_id()
@@ -356,9 +316,24 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 #	NOTE: create players in the order of peer id's to ensure determinism
 	peer_id_list.sort()
 	
+	if peer_id_list.size() > 2:
+		push_error("Too many players. Game supports at most 2.")
+
+		return
+	
+#	Create teams
+#	TODO: create an amount of teams which is appropriate for the amount of players and selected team mode
+	var team_count: int = peer_id_list.size()
+	for i in range(0, team_count):
+		var team: Team = Team.make(i)
+		_team_container.add_team(team)
+
+#	NOTE: assign one player per team. This is the same as "solo" mode in original game.
+#	TODO: implement different team modes and assign teams based on selected team mode
 	for peer_id in peer_id_list:
 		var player_id: int = peer_id_list.find(peer_id)
-		var player: Player = team.create_player(player_id, peer_id)
+		var team_for_player: Team = _team_container.get_team(player_id)
+		var player: Player = team_for_player.create_player(player_id, peer_id)
 		_player_container.add_player(player)
 
 	var local_player: Player = _player_container.get_local_player()
@@ -369,13 +344,14 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	local_player.tower_stash_changed.connect(_on_local_player_tower_stash_changed)
 	_hud.set_player(local_player)
 	_move_item.set_player(local_player)
-	_wave_spawner.set_player(local_player)
 	_tower_preview.set_player(local_player)
 
-# 	TODO: fix for multiplayer. Add towers to tower stash via rpc call.
+	var player_list: Array[Player] = _player_container.get_player_list()
+
 	if game_mode == GameMode.enm.BUILD:
-		var tower_stash: TowerStash = local_player.get_tower_stash()
-		tower_stash.add_all_towers()
+		for player in player_list:
+			var tower_stash: TowerStash = player.get_tower_stash()
+			tower_stash.add_all_towers()
 	
 	var difficulty_string: String = Difficulty.convert_to_string(Globals.get_difficulty())
 	var game_mode_string: String = GameMode.convert_to_string(game_mode)
@@ -384,9 +360,10 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	Messages.add_normal("Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
 	Messages.add_normal("You can pause the game by pressing [color=GOLD]Esc[/color]")
 
-	_wave_spawner.generate_waves(wave_count, difficulty)
+	for player in player_list:
+		player.generate_waves()
 
-	var next_waves: Array[Wave] = _get_next_5_waves()
+	var next_waves: Array[Wave] = local_player.get_next_5_waves()
 	_hud.show_wave_details(next_waves)
 
 	if Globals.get_game_mode() == GameMode.enm.BUILD:
@@ -464,20 +441,6 @@ func _start_tutorial(game_mode: GameMode.enm):
 	_tutorial_controller.start(_tutorial_menu, game_mode)
 
 
-func _get_next_5_waves() -> Array[Wave]:
-	var wave_list: Array[Wave] = []
-	var local_player: Player = _player_container.get_local_player()
-	var current_level: int = local_player.get_team().get_level()
-	
-	for level in range(current_level, current_level + 6):
-		var wave: Wave = _wave_spawner.get_wave(level)
-		
-		if wave != null:
-			wave_list.append(wave)
-
-	return wave_list
-
-
 #########################
 ###     Callbacks     ###
 #########################
@@ -544,36 +507,6 @@ func _on_local_player_tower_stash_changed():
 	_hud.set_towers(towers)
 
 
-func _on_wave_finished(level: int):
-	Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % level)
-	
-	var local_player: Player = _player_container.get_local_player()
-	local_player.add_income(level)
-	local_player.add_tome_income()
-
-	if Globals.game_mode_is_random():
-		_roll_towers_after_wave_finish()
-
-#	TODO: need to apply builder wave finished for all
-#	players
-	local_player.apply_builder_wave_finished_effect()
-
-	_extreme_timer.stop()
-
-#	NOTE: need to check that *current* level was finished
-#	because waves can be finished out of ordered if they are
-#	force spawned by player.
-	var current_level: int = local_player.get_team().get_level()
-	var finished_current_level: bool = level == current_level
-	var finished_last_level: bool = level == Utils.get_max_level()
-
-	if finished_last_level:
-		_do_victory_effects()
-
-	if finished_current_level && !finished_last_level:
-		_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
-
-
 func _on_creep_got_killed(creep: Creep):
 	var creep_score: float = creep.get_score(Globals.get_difficulty(), Globals.get_wave_count(), Globals.get_game_mode())
 
@@ -602,28 +535,31 @@ func _on_creep_reached_portal(creep: Creep):
 	if creep_score > 0:
 		creep.get_player().add_score(creep_score)
 
-	var local_player: Player = Globals.get_local_player()
-	local_player.get_team().modify_lives(-damage_to_portal)
+	var player: Player = creep.get_player()
+	player.get_team().modify_lives(-damage_to_portal)
 
 	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 
-	var out_of_lives: bool = local_player.get_team().get_lives_percent() == 0
-	
+	var out_of_lives: bool = player.get_team().get_lives_percent() == 0
+
+#	TODO: show game over only to affected team
+#	TODO: stop _next_wave_timer and _extreme_timer for affected team
 	if out_of_lives && !_game_over:
 		Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
 		_game_over = true
-
-		_next_wave_timer.stop()
-		_extreme_timer.stop()
 
 		_hud.show_game_over()
 
 
 func _on_player_requested_start_game():
+	var local_player_has_towers: bool = false
+	var local_player: Player = Globals.get_local_player()
 	var tower_list: Array[Tower] = Utils.get_tower_list()
-	var built_at_least_one_tower: bool = !tower_list.is_empty()
+	for tower in tower_list:
+		if tower.get_player() == local_player:
+			local_player_has_towers = true
 
-	if !built_at_least_one_tower:
+	if !local_player_has_towers:
 		Messages.add_error("You have to build some towers before you can start the game!")
 
 		return
@@ -641,8 +577,9 @@ func _on_player_requested_next_wave():
 		Messages.add_error("Can't start next wave because the game is over.")
 
 		return
-
-	var wave_is_in_progress: bool = _wave_spawner.wave_is_in_progress()
+	
+	var local_player: Player = Globals.get_local_player()
+	var wave_is_in_progress: bool = local_player.wave_is_in_progress()
 	if wave_is_in_progress:
 		Messages.add_error("Can't start next wave because a wave is in progress.")
 		
@@ -650,16 +587,6 @@ func _on_player_requested_next_wave():
 	
 	var action: Action = ActionStartNextWave.make()
 	_simulation.add_action(action)
-
-
-func _on_extreme_timer_timeout():
-	_next_wave_timer.start(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
-
-
-# TODO: create one next wave timer per team and start next wave for only the affected team
-func _on_next_wave_timer_timeout():
-	var local_player_id: int = Globals.get_local_player().get_id()
-	_action_processor.start_next_wave(local_player_id)
 
 
 func _on_player_requested_to_roll_towers():
@@ -794,21 +721,3 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 	
 	if (show_tutorial_on_start && player_mode == PlayerMode.enm.SINGLE) || always_show_tutorial:
 		_start_tutorial(game_mode)
-
-
-func _do_victory_effects():
-	for i in range(10):
-		var effect_count: int = 100 + i * 20
-		
-		for j in range(effect_count):
-			var x: float = randf_range(-4000, 4000)
-			var y: float = randf_range(-4000, 4000)
-			var scale: float = randf_range(5.0, 10.0)
-			var speed: float = randf_range(0.3, 1.0)
-
-			var effect: int = Effect.create_simple("placeholder path", x, y)
-			Effect.set_scale(effect, scale)
-			Effect.set_animation_speed(effect, speed)
-			Effect.destroy_effect_after_its_over(effect)
-
-		await Utils.create_timer(1.0).timeout

@@ -17,10 +17,6 @@ func set_game_start_timer(timer: ManualTimer):
 	_wave_status.set_game_start_timer(timer)
 
 
-func set_next_wave_timer(timer: ManualTimer):
-	_wave_status.set_next_wave_timer(timer)
-
-
 func show_next_wave_button():
 	_wave_status.show_next_wave_button()
 	

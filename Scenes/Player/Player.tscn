@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc5f84ah71fsh"]
+[gd_scene load_steps=5 format=3 uid="uid://cc5f84ah71fsh"]
 
 [ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_qsf5w"]
 [ext_resource type="Script" path="res://Scenes/Items/ItemContainer.gd" id="2_ietwb"]
 [ext_resource type="Script" path="res://Scenes/Player/TowerStash.gd" id="3_rmd8h"]
+[ext_resource type="PackedScene" uid="uid://bah0cloqblp5n" path="res://Scenes/Creeps/WaveSpawner.tscn" id="4_7cd82"]
 
-[node name="Player" type="Node" node_paths=PackedStringArray("_item_stash", "_horadric_stash", "_tower_stash")]
+[node name="Player" type="Node" node_paths=PackedStringArray("_item_stash", "_horadric_stash", "_tower_stash", "_wave_spawner")]
 script = ExtResource("1_qsf5w")
 _item_stash = NodePath("ItemStash")
 _horadric_stash = NodePath("HoradricStash")
 _tower_stash = NodePath("TowerStash")
+_wave_spawner = NodePath("WaveSpawner")
 
 [node name="ItemStash" type="Node" parent="."]
 script = ExtResource("2_ietwb")
@@ -21,6 +23,9 @@ _capacity = 5
 [node name="TowerStash" type="Node" parent="."]
 script = ExtResource("3_rmd8h")
 
+[node name="WaveSpawner" parent="." instance=ExtResource("4_7cd82")]
+
 [connection signal="items_changed" from="ItemStash" to="." method="_on_item_stash_items_changed"]
 [connection signal="items_changed" from="HoradricStash" to="." method="_on_horadric_stash_items_changed"]
 [connection signal="changed" from="TowerStash" to="." method="_on_tower_stash_changed"]
+[connection signal="wave_finished" from="WaveSpawner" to="." method="_on_wave_spawner_wave_finished"]

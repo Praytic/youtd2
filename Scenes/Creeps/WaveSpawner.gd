@@ -1,8 +1,12 @@
 class_name WaveSpawner extends Node
 
 
+signal wave_finished(level: int)
+
+
 var _wave_list: Array[Wave] = []
 var _current_wave: Wave = null
+var _player: Player = null
 
 @export var _creep_spawner: CreepSpawner
 
@@ -13,10 +17,14 @@ var _current_wave: Wave = null
 
 
 func set_player(player: Player):
+	_player = player
 	_creep_spawner.set_player(player)
 
 
-func generate_waves(wave_count: int, difficulty: Difficulty.enm):
+func generate_waves():
+	var wave_count: int = Globals.get_wave_count()
+	var difficulty: Difficulty.enm = Globals.get_difficulty()
+	
 	for wave_level in range(1, wave_count + 1):
 		var wave: Wave = Wave.new(wave_level, difficulty)
 		
@@ -42,6 +50,8 @@ func generate_waves(wave_count: int, difficulty: Difficulty.enm):
 		_print_creep_hp_overall(wave)
 		
 		_wave_list.append(wave)
+		
+		wave.finished.connect(_on_wave_finished.bind(wave))
 		
 		add_child(wave, true)
 
@@ -82,11 +92,23 @@ func wave_is_in_progress() -> bool:
 	return in_progress
 
 
+func current_wave_is_finished() -> bool:
+	if _current_wave == null:
+		return true
+
+	var is_finished: bool = _current_wave.state == Wave.State.FINISHED
+
+	return is_finished
+
+
 #########################
 ###      Private      ###
 #########################
 
 func _add_message_about_wave(wave: Wave):
+	if _player != Globals.get_local_player():
+		return
+	
 	var combination_string: String = wave.get_creep_combination_string()
 
 	var creep_race: CreepCategory.enm = wave.get_race()
@@ -127,6 +149,11 @@ func _on_CreepSpawner_all_creeps_spawned():
 
 	_current_wave.state = Wave.State.SPAWNED
 	print_verbose("Wave has been spawned [%s]." % _current_wave)
+
+
+func _on_wave_finished(wave: Wave):
+	var level: int = wave.get_level()
+	wave_finished.emit(level)
 
 
 #########################
