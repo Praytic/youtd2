@@ -306,7 +306,7 @@ func _calculate_current_z_index() -> int:
 func _move(delta):
 	var path_is_over: bool = _current_path_index >= _path.get_curve().get_point_count()
 	if path_is_over:
-		EventBus.creep_reached_portal.emit(self)
+		_deal_damage_to_portal()
 		remove_from_game()
 
 		return
@@ -323,6 +323,33 @@ func _move(delta):
 
 	var new_facing_angle: float = _get_current_movement_angle()
 	set_unit_facing(new_facing_angle)
+
+
+func _deal_damage_to_portal():
+	var damage_to_portal = get_damage_to_portal()
+	var damage_to_portal_string: String = Utils.format_percent(damage_to_portal / 100, 1)
+	var damage_done: float = get_damage_done()
+	var damage_done_string: String = Utils.format_percent(damage_done, 2)
+	var creep_size: CreepSize.enm = get_size()
+	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
+	var creep_score: float = get_score(Globals.get_difficulty(), Globals.get_wave_count(), Globals.get_game_mode())
+
+	if creep_size == CreepSize.enm.BOSS:
+		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
+	else:
+		Messages.add_normal("Failed to kill a %s" % creep_size_string.to_upper())		
+
+	if damage_to_portal > 0:
+		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
+
+	var player: Player = get_player()
+
+	if creep_score > 0:
+		player.add_score(creep_score)
+
+	player.get_team().modify_lives(-damage_to_portal)
+
+	SFX.play_sfx("res://Assets/SFX/Assets_SFX_hit_3.mp3")
 
 
 # Returns current movement angle, top down and in degrees

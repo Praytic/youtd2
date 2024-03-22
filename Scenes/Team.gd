@@ -5,11 +5,14 @@ class_name Team extends Node
 # NOTE: Currently team is barely implemented. Will need to
 # work on it for multiplayer.
 
+signal game_over()
+
 
 var _id: int = -1
 var _lives: float = 100
 var _level: int = 1
 var _player_list: Array[Player] = []
+var _did_game_over: bool = false
 
 @export var _next_wave_timer: ManualTimer
 @export var _extreme_timer: ManualTimer
@@ -72,12 +75,25 @@ func modify_lives(amount: float):
 	if Config.unlimited_portal_lives() && _lives == 0:
 		_lives = 1
 
+	var out_of_lives: bool = _lives <= 0
+
+	if out_of_lives && !_did_game_over:
+		_did_game_over = true
+		game_over.emit()
+
 
 # Current level is the level of the last started wave.
 # Starts at 0 and becomes 1 when the first wave starts.
 # NOTE: Team.getLevel() in JASS
 func get_level() -> int:
 	return _level
+
+
+func is_local() -> bool:
+	var local_player: Player = Globals.get_local_player()
+	var contains_local_player: bool = _player_list.has(local_player)
+
+	return contains_local_player
 
 
 #########################
