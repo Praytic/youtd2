@@ -326,7 +326,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	_tower_preview.set_player(local_player)
 
 	for player in player_list:
-		player.ready_changed.connect(_on_player_ready_changed)
+		player.voted_ready.connect(_on_player_voted_ready)
 	
 	if game_mode == GameMode.enm.BUILD:
 		for player in player_list:
@@ -665,7 +665,7 @@ func _on_local_team_game_over():
 	_hud.show_game_over()
 
 
-func _on_player_ready_changed():
+func _on_player_voted_ready():
 	var player_list: Array[Player] = _player_container.get_player_list()
 	
 	var not_ready_count: int = 0
