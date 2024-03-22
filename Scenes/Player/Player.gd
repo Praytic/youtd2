@@ -324,7 +324,7 @@ func add_income(level: int):
 	var source_is_income: bool = true
 	add_gold(income, source_is_income)
 
-	Messages.add_normal("Income: %d upkeep, %d interest." % [upkeep, interest])
+	Messages.add_normal(self, "Income: %d upkeep, %d interest." % [upkeep, interest])
 
 
 func enough_gold_for_tower(tower_id: int) -> bool:
@@ -454,7 +454,7 @@ func _set_tomes(value):
 
 
 func _add_message_about_rolled_towers(rolled_towers: Array[int]):
-	Messages.add_normal("New towers were added to stash:")
+	Messages.add_normal(self, "New towers were added to stash:")
 
 #	Sort tower list by element to group messages for same
 #	element together
@@ -472,7 +472,7 @@ func _add_message_about_rolled_towers(rolled_towers: Array[int]):
 		var tower_name_colored: String = Utils.get_colored_string(tower_name, rarity_color)
 		var message: String = "    %s: %s" % [element_string, tower_name_colored]
 
-		Messages.add_normal(message)
+		Messages.add_normal(self, message)
 
 
 #########################
@@ -502,7 +502,7 @@ func _on_wave_spawner_wave_finished(level: int):
 	_tower_stash.add_towers(rolled_towers)
 
 	if self == Globals.get_local_player():
-		Messages.add_normal("=== Level [color=GOLD]%d[/color] completed! ===" % level)
+		Messages.add_normal(self, "=== Level [color=GOLD]%d[/color] completed! ===" % level)
 		_add_message_about_rolled_towers(rolled_towers)
 	
 	wave_finished.emit(level)

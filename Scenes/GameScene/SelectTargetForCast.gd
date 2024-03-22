@@ -36,7 +36,7 @@ func finish(hovered_unit: Unit):
 #		also select the target unit
 		get_viewport().set_input_as_handled()
 	else:
-		Messages.add_error(target_error_message)
+		Messages.add_error(Globals.get_local_player(), target_error_message)
 
 
 func start(autocast: Autocast):

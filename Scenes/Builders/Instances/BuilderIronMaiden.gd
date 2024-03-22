@@ -26,4 +26,4 @@ func apply_wave_finished_effect(player: Player):
 # 	thought that it would be useful to add it.
 	if regen_amount != 0:
 		var regen_amount_string: String = Utils.format_percent(regen_amount / 100, 1)
-		Messages.add_normal("You gain %s lives thanks to the Iron Maiden." % regen_amount_string)
+		Messages.add_normal(player, "You gain %s lives thanks to the Iron Maiden." % regen_amount_string)

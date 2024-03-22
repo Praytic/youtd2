@@ -117,8 +117,8 @@ func _add_message_about_wave(wave: Wave):
 	var creep_armor: ArmorType.enm = wave.get_armor_type()
 	var armor_string: String = ArmorType.convert_to_colored_string(creep_armor)
 
-	Messages.add_normal("=== LEVEL [color=GOLD]%s[/color] ===" % wave.get_level())
-	Messages.add_normal("%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
+	Messages.add_normal(_player, "=== LEVEL [color=GOLD]%s[/color] ===" % wave.get_level())
+	Messages.add_normal(_player, "%s (Race: %s, Armor: %s)" % [combination_string, race_string, armor_string])
 
 	var special_list: Array[int] = wave.get_specials()
 
@@ -127,7 +127,7 @@ func _add_message_about_wave(wave: Wave):
 		var description: String = WaveSpecialProperties.get_description(special)
 		var special_string: String = "[color=BLUE]%s[/color] - %s" % [special_name, description]
 
-		Messages.add_normal(special_string)
+		Messages.add_normal(_player, special_string)
 
 
 func _print_creep_hp_overall(wave: Wave):

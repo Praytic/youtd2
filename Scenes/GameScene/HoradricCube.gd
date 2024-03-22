@@ -41,7 +41,7 @@ const _bonus_mod_chance_map: Dictionary = {
 ###       Public      ###
 #########################
 
-func autofill(recipe: HoradricCube.Recipe, rarity_filter: Array, item_stash: ItemContainer, horadric_stash: ItemContainer):
+func autofill(player: Player, recipe: HoradricCube.Recipe, rarity_filter: Array, item_stash: ItemContainer, horadric_stash: ItemContainer):
 # 	Return current cube contents to item stash. Need to do this first in all cases, doesn't matter if autofill suceeeds or fails later.
 	var horadric_items_initial: Array[Item] = horadric_stash.get_item_list()
 	for item in horadric_items_initial:
@@ -57,7 +57,7 @@ func autofill(recipe: HoradricCube.Recipe, rarity_filter: Array, item_stash: Ite
 	var can_autofill: bool = !autofill_list.is_empty()
 	
 	if !can_autofill:
-		Messages.add_error("Not enough items for recipe!")
+		Messages.add_error(player, "Not enough items for recipe!")
 		
 		return
 
@@ -75,7 +75,7 @@ func transmute(player: Player):
 	if current_recipe == Recipe.NONE:
 		return
 
-	var result_item_id_list: Array[int] = HoradricCube._get_result_item_for_recipe(current_recipe, item_list)
+	var result_item_id_list: Array[int] = HoradricCube._get_result_item_for_recipe(player, current_recipe, item_list)
 
 	if result_item_id_list.is_empty():
 		push_error("Transmute failed to generate any items, this shouldn't happen.")
@@ -199,7 +199,7 @@ static func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	return Recipe.NONE
 
 
-static func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) -> Array[int]:
+static func _get_result_item_for_recipe(player: Player, recipe: Recipe, item_list: Array[Item]) -> Array[int]:
 	var rarity_change_from_recipe: int = RecipeProperties.get_rarity_change(recipe)
 	var ingredient_rarity: Rarity.enm = HoradricCube._get_ingredient_rarity(item_list)
 	var result_rarity: Rarity.enm = (ingredient_rarity + rarity_change_from_recipe) as Rarity.enm
@@ -238,7 +238,7 @@ static func _get_result_item_for_recipe(recipe: Recipe, item_list: Array[Item]) 
 		LEVEL_MOD_SUPER_LUCKY: luck_message =  "Transmute was [color=GOLD]super lucky[/color]: [color=GOLD]+%d[/color] levels!" % random_bonus_mod
 
 	if !luck_message.is_empty():
-		Messages.add_normal(luck_message)
+		Messages.add_normal(player, luck_message)
 
 	return result_item_list
 

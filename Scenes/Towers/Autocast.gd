@@ -158,7 +158,8 @@ func _ready():
 
 func toggle_auto_mode():
 	if !can_use_auto_mode():
-		Messages.add_error("This ability cannot be casted automatically")
+		var player: Player = _caster.get_player()
+		Messages.add_error(player, "This ability cannot be casted automatically")
 
 		return
 
@@ -235,7 +236,8 @@ func do_cast_manually_finish_for_point(target_pos: Vector2) -> bool:
 	var in_range: float = Isometric.vector_in_range(_caster.position, target_pos, cast_range)
 
 	if !in_range:
-		Messages.add_error("Out of range")
+		var player: Player = _caster.get_player()
+		Messages.add_error(player, "Out of range")
 
 		return false
 
@@ -328,7 +330,8 @@ func _add_cast_error_message():
 	var cast_error: String = _get_cast_error()
 
 	if !cast_error.is_empty():
-		Messages.add_error(cast_error)
+		var player: Player = _caster.get_player()
+		Messages.add_error(player, cast_error)
 
 
 # Some autocast types are always manual

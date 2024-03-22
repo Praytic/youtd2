@@ -334,15 +334,15 @@ func _deal_damage_to_portal():
 	var creep_size_string: String = CreepSize.convert_to_string(creep_size)
 	var creep_score: float = get_score(Globals.get_difficulty(), Globals.get_wave_count(), Globals.get_game_mode())
 
+	var player: Player = get_player()
+	
 	if creep_size == CreepSize.enm.BOSS:
-		Messages.add_normal("Dealt %s damage to BOSS" % damage_done_string)
+		Messages.add_normal(player, "Dealt %s damage to BOSS" % damage_done_string)
 	else:
-		Messages.add_normal("Failed to kill a %s" % creep_size_string.to_upper())		
+		Messages.add_normal(player, "Failed to kill a %s" % creep_size_string.to_upper())		
 
 	if damage_to_portal > 0:
-		Messages.add_normal("You lose %s of your lives!" % damage_to_portal_string)
-
-	var player: Player = get_player()
+		Messages.add_normal(player, "You lose %s of your lives!" % damage_to_portal_string)
 
 	if creep_score > 0:
 		player.add_score(creep_score)

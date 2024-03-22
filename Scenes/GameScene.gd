@@ -358,9 +358,9 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	var difficulty_string: String = Difficulty.convert_to_string(Globals.get_difficulty())
 	var game_mode_string: String = GameMode.convert_to_string(game_mode)
 
-	Messages.add_normal("Welcome to You TD 2!")
-	Messages.add_normal("Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
-	Messages.add_normal("You can pause the game by pressing [color=GOLD]Esc[/color]")
+	Messages.add_normal(local_player, "Welcome to You TD 2!")
+	Messages.add_normal(local_player, "Game settings: [color=GOLD]%d[/color] waves, [color=GOLD]%s[/color] difficulty, [color=GOLD]%s[/color] mode." % [wave_count, difficulty_string, game_mode_string])
+	Messages.add_normal(local_player, "You can pause the game by pressing [color=GOLD]Esc[/color]")
 
 	for player in player_list:
 		player.generate_waves()
@@ -391,8 +391,8 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 		var game_menu_index: int = _game_menu.get_index()
 		_ui_layer.move_child(builder_menu, game_menu_index)
 	
-	Messages.add_normal("The first wave will spawn in 3 minutes.")
-	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
+	Messages.add_normal(local_player, "The first wave will spawn in 3 minutes.")
+	Messages.add_normal(local_player, "You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
 	
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
 	
@@ -526,7 +526,7 @@ func _on_player_requested_start_game():
 			local_player_has_towers = true
 
 	if !local_player_has_towers:
-		Messages.add_error("You have to build some towers before you can start the game!")
+		Messages.add_error(local_player, "You have to build some towers before you can start the game!")
 
 		return
 
@@ -539,15 +539,16 @@ func _on_game_start_timer_timeout():
 
 
 func _on_player_requested_next_wave():
+	var local_player: Player = Globals.get_local_player()
+
 	if _game_over:
-		Messages.add_error("Can't start next wave because the game is over.")
+		Messages.add_error(local_player, "Can't start next wave because the game is over.")
 
 		return
 	
-	var local_player: Player = Globals.get_local_player()
 	var wave_is_in_progress: bool = local_player.wave_is_in_progress()
 	if wave_is_in_progress:
-		Messages.add_error("Can't start next wave because a wave is in progress.")
+		Messages.add_error(local_player, "Can't start next wave because a wave is in progress.")
 		
 		return
 	
@@ -566,14 +567,14 @@ func _on_player_requested_to_roll_towers():
 			researched_any_elements = true
 	
 	if !researched_any_elements:
-		Messages.add_error("Cannot roll towers yet! You need to research at least one element.")
+		Messages.add_error(local_player, "Cannot roll towers yet! You need to research at least one element.")
 	
 		return
 
 	var tower_count_for_roll: int = local_player.get_tower_count_for_starting_roll()
 
 	if tower_count_for_roll == 0:
-		Messages.add_error("You cannot reroll towers anymore.")
+		Messages.add_error(local_player, "You cannot reroll towers anymore.")
 	
 		return
 
@@ -587,14 +588,14 @@ func _on_player_requested_to_research_element(element: Element.enm):
 	var element_at_max: bool = current_level == Constants.MAX_ELEMENT_LEVEL
 
 	if element_at_max:
-		Messages.add_error("Can't research element. Element is at max level.")
+		Messages.add_error(local_player, "Can't research element. Element is at max level.")
 
 		return
 
 	var can_afford_research: bool = local_player.can_afford_research(element)
 
 	if !can_afford_research:
-		Messages.add_error("Can't research element. You do not have enough tomes.")
+		Messages.add_error(local_player, "Can't research element. You do not have enough tomes.")
 
 		return
 
@@ -626,7 +627,7 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 	var enough_gold: bool = local_player.enough_gold_for_tower(upgrade_id)
 
 	if !enough_gold:
-		Messages.add_error("Not enough gold.")
+		Messages.add_error(local_player, "Not enough gold.")
 
 		return
 
@@ -667,7 +668,7 @@ func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: A
 	var local_player: Player = _player_container.get_local_player()
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
-	_horadric_cube.autofill(recipe, rarity_filter, item_stash, horadric_stash)
+	_horadric_cube.autofill(local_player, recipe, rarity_filter, item_stash, horadric_stash)
 
 
 func _on_player_requested_transmute():
@@ -690,5 +691,5 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 
 
 func _on_local_team_game_over():
-	Messages.add_normal("[color=RED]The portal has been destroyed! The game is over.[/color]")
+	Messages.add_normal(Globals.get_local_player(), "[color=RED]The portal has been destroyed! The game is over.[/color]")
 	_hud.show_game_over()

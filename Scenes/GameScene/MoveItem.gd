@@ -122,7 +122,7 @@ func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
 		return
 
 	if !container.can_add_item(_moved_item):
-		Messages.add_error("No space for item")
+		Messages.add_error(Globals.get_local_player(), "No space for item")
 
 		return
 
@@ -194,7 +194,7 @@ func _check_consumable_into_tower_case(container: ItemContainer) -> bool:
 	var move_ok: bool = !cant_move_consumable_to_tower
 
 	if !move_ok:
-		Messages.add_error("Can't place consumables into towers")
+		Messages.add_error(Globals.get_local_player(), "Can't place consumables into towers")
 
 	return move_ok
 
@@ -234,7 +234,7 @@ func _on_player_clicked_item_in_main_stash(clicked_item: Item):
 
 	if shift_click && !_move_in_progress():
 		if !_horadric_stash.have_item_space():
-			Messages.add_error("No space for item")
+			Messages.add_error(Globals.get_local_player(), "No space for item")
 
 			return
 			

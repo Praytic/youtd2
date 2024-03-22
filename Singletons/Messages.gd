@@ -1,7 +1,9 @@
 extends Node
 
-# Functions that display messages to the player.
-
+# Functions that display messages to the player. Messages
+# will be displayed only if player arg is equal to local
+# player. Pass null to player arg to display message to all
+# players.
 
 const ERROR_MESSAGE_MAX: int = 3
 const ERROR_DELAY_BEFORE_FADE_START: float = 2.0
@@ -13,7 +15,12 @@ const NORMAL_FADE_DURATION: float = 2.0
 
 # Adds an error message to the center of the screen. Note
 # that error messages are always colored red.
-func add_error(text: String):
+func add_error(player: Player, text: String):
+	var player_match: bool = player == Globals.get_local_player() || player == null
+	
+	if !player_match:
+		return
+
 	var hud: HUD = get_tree().get_root().get_node_or_null("GameScene/UI/HUD")
 
 	if hud == null:
@@ -55,7 +62,12 @@ func add_error(text: String):
 
 
 # Adds a normal message to the left side of the screen.
-func add_normal(text: String):
+func add_normal(player: Player, text: String):
+	var player_match: bool = player == Globals.get_local_player() || player == null
+
+	if !player_match:
+		return
+
 	var hud: HUD = get_tree().get_root().get_node_or_null("GameScene/UI/HUD")
 	
 	if hud == null:
