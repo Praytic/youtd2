@@ -17,6 +17,7 @@ signal camera_zoomed(zoom_value)
 
 var _zoom_multiplier: float = 1.0
 var _drag_origin: Vector2 = Vector2.INF
+var _keyboard_enabled: bool = true
 
 
 #########################
@@ -67,6 +68,9 @@ func _process(delta):
 		move_direction_from_keyboard += Vector2.UP
 	if Input.is_action_pressed("ui_down"):
 		move_direction_from_keyboard += Vector2.DOWN
+	
+	if !_keyboard_enabled:
+		move_direction_from_keyboard = Vector2.ZERO
 
 #	NOTE: keep different ways of moving the camera
 #	exclusive. Do not allow moving by keyboard and moving by
@@ -133,6 +137,11 @@ func _unhandled_input(event: InputEvent):
 #########################
 ###       Public      ###
 #########################
+
+# Enables/disables moving camera with keyboard
+func set_keyboard_enabled(value: bool):
+	_keyboard_enabled = value
+
 
 # NOTE: need to divide zoom by interface size because
 # interface size is implemented by changing Window's

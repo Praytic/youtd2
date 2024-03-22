@@ -20,7 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://c41f2x03lnjw6" path="res://Scenes/HUD/UnitMenu/TowerMenu.tscn" id="16_1o1mr"]
 [ext_resource type="PackedScene" uid="uid://i0b3uilwt2as" path="res://Scenes/HUD/BuildVersion.tscn" id="21_ko2ou"]
 
-[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_game_over_label", "_elements_tower_menu", "_item_stash_menu", "_towers_menu_card", "_items_menu_card", "_unit_status_menu_card", "_bottom_menu_bar", "_top_left_menu", "_creep_menu", "_tower_menu", "_host_player_label", "_second_player_label")]
+[node name="HUD" type="Control" node_paths=PackedStringArray("_error_message_container", "_normal_message_container", "_chat_message_container", "_game_over_label", "_elements_tower_menu", "_item_stash_menu", "_towers_menu_card", "_items_menu_card", "_unit_status_menu_card", "_bottom_menu_bar", "_top_left_menu", "_creep_menu", "_tower_menu", "_host_player_label", "_second_player_label", "_chat_line_edit")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,6 +33,7 @@ theme = ExtResource("1_xs0tv")
 script = ExtResource("11")
 _error_message_container = NodePath("MarginContainer2/ErrorMessageContainer")
 _normal_message_container = NodePath("MarginContainer/All/Center/CenterLeft/MarginContainer/NormalMessageContainer")
+_chat_message_container = NodePath("MarginContainer/All/Center/MarginContainer2/VBoxContainer/ChatMessageContainer")
 _game_over_label = NodePath("GameOverLabel")
 _elements_tower_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ElementTowersMenu")
 _item_stash_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/ItemStashMenu")
@@ -45,6 +46,7 @@ _creep_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer
 _tower_menu = NodePath("MarginContainer/All/Center/MarginContainer/HBoxContainer/TowerMenu")
 _host_player_label = NodePath("MarginContainer/All/Top/HBoxContainer/PlayerLabel1")
 _second_player_label = NodePath("MarginContainer/All/Top/HBoxContainer2/PlayerLabel2")
+_chat_line_edit = NodePath("MarginContainer/All/Center/MarginContainer2/VBoxContainer/ChatLineEdit")
 metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -145,7 +147,6 @@ mouse_filter = 2
 
 [node name="NormalMessageContainer" type="VBoxContainer" parent="MarginContainer/All/Center/CenterLeft/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 mouse_filter = 2
 
 [node name="MenuCardsContainer" type="Panel" parent="MarginContainer/All/Center"]
@@ -226,6 +227,37 @@ size_flags_vertical = 0
 [node name="ElementTowersMenu" parent="MarginContainer/All/Center/MarginContainer/HBoxContainer" instance=ExtResource("15_eivr8")]
 visible = false
 layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/All/Center"]
+custom_minimum_size = Vector2(1000, 400)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -400.0
+offset_right = 1000.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/All/Center/MarginContainer2"]
+layout_mode = 2
+
+[node name="ChatMessageContainer" type="VBoxContainer" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="ChatLineEdit" type="LineEdit" parent="MarginContainer/All/Center/MarginContainer2/VBoxContainer"]
+visible = false
+layout_mode = 2
+max_length = 200
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+caret_blink = true
 
 [node name="Bottom" type="HBoxContainer" parent="MarginContainer/All"]
 layout_mode = 2

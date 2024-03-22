@@ -4,9 +4,14 @@ class_name HUD extends Control
 signal start_wave(wave_index)
 signal stop_wave()
 
+const CHAT_MESSAGE_MAX: int = 10
+const CHAT_DELAY_BEFORE_FADE_START: float = 10.0
+const CHAT_FADE_DURATION: float = 2.0
+
 
 @export var _error_message_container: VBoxContainer
 @export var _normal_message_container: VBoxContainer
+@export var _chat_message_container: VBoxContainer
 @export var _game_over_label: RichTextLabel
 @export var _elements_tower_menu: ElementTowersMenu
 @export var _item_stash_menu: ItemStashMenu
@@ -19,6 +24,7 @@ signal stop_wave()
 @export var _tower_menu: TowerMenu
 @export var _host_player_label: Label
 @export var _second_player_label: Label
+@export var _chat_line_edit: LineEdit
 
 @onready var _window_list: Array = [_elements_tower_menu, _item_stash_menu, _tower_menu, _creep_menu]
 
@@ -54,6 +60,55 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func start_editing_chat():
+	_chat_line_edit.show()
+	_chat_line_edit.grab_focus()
+
+
+func finish_editing_chat():
+	_chat_line_edit.clear()
+	_chat_line_edit.hide()
+
+
+func editing_chat() -> bool:
+	return _chat_line_edit.visible
+
+
+func get_chat_edit_text() -> String:
+	var text: String = _chat_line_edit.text
+
+	return text
+
+
+func add_chat_message(message: String):
+	var local_player: Player = Globals.get_local_player()
+	var complete_message: String = "[player %d]: %s" % [local_player.get_id(), message]
+
+	var label: RichTextLabel = RichTextLabel.new()
+	label.append_text(complete_message)
+	label.fit_content = true
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.set_theme_type_variation("RichTextLabelLarge")
+
+	label.modulate = Color.WHITE
+	var modulate_tween: Tween = create_tween()
+	modulate_tween.tween_property(label, "modulate",
+		Color(label.modulate.r, label.modulate.g, label.modulate.b, 0),
+		CHAT_FADE_DURATION).set_delay(CHAT_DELAY_BEFORE_FADE_START)
+
+	_chat_message_container.add_child(label)
+
+	var label_count: int = _chat_message_container.get_children().size()
+	var reached_max: bool = label_count >= CHAT_MESSAGE_MAX + 1
+
+	if reached_max:
+		var child_list: Array = _chat_message_container.get_children()
+		var last_label: RichTextLabel = child_list.front()
+
+		_chat_message_container.remove_child(last_label)
+		last_label.queue_free()
+
 
 func enable_extra_recipes():
 	_item_stash_menu.enable_extra_recipes()

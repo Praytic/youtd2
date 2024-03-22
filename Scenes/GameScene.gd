@@ -111,6 +111,7 @@ func _unhandled_input(event: InputEvent):
 	if !_completed_pregame:
 		return
 
+	var enter_pressed: bool = event.is_action_released("ui_text_newline")
 	var cancel_pressed: bool = event.is_action_released("ui_cancel") || event.is_action_released("pause")
 	var left_click: bool = event.is_action_released("left_click")
 	var right_click: bool = event.is_action_released("right_click")
@@ -118,14 +119,22 @@ func _unhandled_input(event: InputEvent):
 	var hovered_tower: Tower = hovered_unit as Tower
 	var selected_unit: Unit = _select_unit.get_selected_unit()
 	var local_player: Player = _player_container.get_local_player()
+	var editing_chat: bool = _hud.editing_chat()
 	
-	if cancel_pressed:
+	if enter_pressed:
+		if !editing_chat:
+			_start_editing_chat()
+		else:
+			_submit_chat_message()
+	elif cancel_pressed:
 #		1. First, any ongoing actions are cancelled
 #		2. Then, if there are no mouse actions, hud windows
 #		   are hidden
 #		3. Finally, game is paused
 		if _mouse_state.get_state() != MouseState.enm.NONE:
 			_cancel_current_mouse_action()
+		elif editing_chat:
+			_finish_editing_chat()
 		elif _hud.any_window_is_open():
 			_hud.hide_all_windows()
 		elif selected_unit != null:
@@ -156,6 +165,22 @@ func _unhandled_input(event: InputEvent):
 #########################
 ###      Private      ###
 #########################
+
+func _start_editing_chat():
+	_hud.start_editing_chat()
+	_camera.set_keyboard_enabled(false)
+
+
+func _finish_editing_chat():
+	_hud.finish_editing_chat()
+	_camera.set_keyboard_enabled(true)
+
+
+func _submit_chat_message():
+	var chat_message: String = _hud.get_chat_edit_text()
+	_hud.add_chat_message(chat_message)
+	_finish_editing_chat()
+
 
 func _set_builder_for_local_player(builder_id: int):
 	var action: Action = ActionSelectBuilder.make(builder_id)
