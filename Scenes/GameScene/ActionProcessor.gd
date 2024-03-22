@@ -123,7 +123,6 @@ func _sell_tower(serialized_action: Dictionary):
 # TODO: start game only for one team
 func _start_game():
 	_game_start_timer.stop()
-	_hud.hide_game_start_time()
 	_hud.show_next_wave_button()
 	_hud.hide_roll_towers_button()
 
@@ -150,13 +149,10 @@ func start_next_wave(player_id: int):
 
 	_wave_spawner.start_wave(level)
 
-	_hud.hide_next_wave_time()
 	_hud.update_level(level)
 	var next_waves: Array[Wave] = _get_next_5_waves()
 	_hud.show_wave_details(next_waves)
 	var started_last_wave: bool = level == Globals.get_wave_count()
-	if started_last_wave:
-		_hud.disable_next_wave_button()
 
 	if !started_last_wave && Globals.get_difficulty() == Difficulty.enm.EXTREME:
 		_extreme_timer.start(Constants.EXTREME_DELAY_AFTER_PREV_WAVE)

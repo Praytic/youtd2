@@ -11,7 +11,7 @@ unicode = 110
 [sub_resource type="Shortcut" id="Shortcut_u7iub"]
 events = [SubResource("InputEventKey_srlh2")]
 
-[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_start_game_button", "_start_next_wave_button", "_display_timer", "_level_label", "_game_start_time_container", "_game_start_time_label", "_next_wave_time_container", "_next_wave_time_label", "_score_label", "_lives_label", "_game_time_label", "_total_damage_label", "_gold_farmed_label")]
+[node name="WaveStatus" type="VBoxContainer" node_paths=PackedStringArray("_label", "_start_game_button", "_start_next_wave_button", "_level_label", "_game_start_time_container", "_game_start_time_label", "_next_wave_time_container", "_next_wave_time_label", "_score_label", "_lives_label", "_game_time_label", "_total_damage_label", "_gold_farmed_label")]
 custom_minimum_size = Vector2(650, 0)
 offset_right = 600.0
 offset_bottom = 134.0
@@ -20,7 +20,6 @@ script = ExtResource("2_fsc15")
 _label = NodePath("DetailsLabel")
 _start_game_button = NodePath("HBoxContainer2/StartGameButton")
 _start_next_wave_button = NodePath("HBoxContainer2/StartNextWaveButton")
-_display_timer = NodePath("DisplayTimer")
 _level_label = NodePath("HBoxContainer/LevelLabel")
 _game_start_time_container = NodePath("HBoxContainer/GameStartTimeContainer")
 _game_start_time_label = NodePath("HBoxContainer/GameStartTimeContainer/GameStartTimeLabel")
@@ -159,9 +158,6 @@ theme_override_font_sizes/font_size = 25
 shortcut = SubResource("Shortcut_u7iub")
 shortcut_in_tooltip = false
 text = "Next wave"
-
-[node name="DisplayTimer" type="Timer" parent="."]
-one_shot = true
 
 [connection signal="pressed" from="HBoxContainer2/StartGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="HBoxContainer2/StartNextWaveButton" to="." method="_on_start_next_wave_button_pressed"]

@@ -43,6 +43,9 @@ var _completed_pregame: bool = false
 func _ready():
 	print_verbose("GameScene has loaded.")
 
+	_hud.set_game_start_timer(_game_start_timer)
+	_hud.set_next_wave_timer(_next_wave_timer)
+
 	EventBus.wave_finished.connect(_on_wave_finished)
 	EventBus.creep_got_killed.connect(_on_creep_got_killed)
 	EventBus.creep_reached_portal.connect(_on_creep_reached_portal)
@@ -413,7 +416,6 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	Messages.add_normal("You can start the first wave early by pressing on [color=GOLD]Start next wave[/color].")
 	
 	_game_start_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
-	_hud.show_game_start_time()
 	
 #	NOTE: reduce action delay for singleplayer
 #	TODO: should really make the perceived latency good
@@ -570,7 +572,6 @@ func _on_wave_finished(level: int):
 
 	if finished_current_level && !finished_last_level:
 		_next_wave_timer.start(Constants.TIME_BETWEEN_WAVES)
-		_hud.show_next_wave_time(Constants.TIME_BETWEEN_WAVES)
 
 
 func _on_creep_got_killed(creep: Creep):
@@ -616,7 +617,6 @@ func _on_creep_reached_portal(creep: Creep):
 		_extreme_timer.stop()
 
 		_hud.show_game_over()
-		_hud.disable_next_wave_button()
 
 
 func _on_player_requested_start_game():
@@ -627,11 +627,6 @@ func _on_player_requested_start_game():
 		Messages.add_error("You have to build some towers before you can start the game!")
 
 		return
-
-#	NOTE: update UI immediately to reduce percieved latency
-	_hud.hide_game_start_time()
-	_hud.show_next_wave_button()
-	_hud.hide_roll_towers_button()
 
 	var action: Action = ActionStartGame.make()
 	_simulation.add_action(action)
@@ -659,7 +654,6 @@ func _on_player_requested_next_wave():
 
 func _on_extreme_timer_timeout():
 	_next_wave_timer.start(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
-	_hud.show_next_wave_time(Constants.EXTREME_DELAY_BEFORE_NEXT_WAVE)
 
 
 # TODO: create one next wave timer per team and start next wave for only the affected team

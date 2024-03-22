@@ -99,6 +99,14 @@ func set_player(player: Player):
 	_elements_tower_menu.set_player(player)
 
 
+func set_game_start_timer(timer: ManualTimer):
+	_top_left_menu.set_game_start_timer(timer)
+
+
+func set_next_wave_timer(timer: ManualTimer):
+	_top_left_menu.set_next_wave_timer(timer)
+
+
 func set_local_builder_name(builder_name: String):
 	_top_left_menu.set_local_builder_name(builder_name)
 
@@ -138,32 +146,12 @@ func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: 
 	_top_left_menu.set_pregame_settings(wave_count, game_mode, difficulty)
 
 
-func show_game_start_time():
-	_top_left_menu.show_game_start_time()
-
-
-func hide_game_start_time():
-	_top_left_menu.hide_game_start_time()
-
-
 func show_next_wave_button():
 	_top_left_menu.show_next_wave_button()
 
 
-func show_next_wave_time(time: float):
-	_top_left_menu.show_next_wave_time(time)
-
-
-func hide_next_wave_time():
-	_top_left_menu.hide_next_wave_time()
-
-
 func show_wave_details(wave_list: Array[Wave]):
 	_top_left_menu.show_wave_details(wave_list)
-
-
-func disable_next_wave_button():
-	_top_left_menu.disable_next_wave_button()
 
 
 func load_player_stats(local_player: Player, player_list: Array[Player]):

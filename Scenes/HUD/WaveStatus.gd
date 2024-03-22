@@ -8,8 +8,6 @@ class_name WaveStatus extends VBoxContainer
 @export var _label: RichTextLabel
 @export var _start_game_button: Button
 @export var _start_next_wave_button: Button
-# NOTE: this timer is used only for display purposes. The timers which drive gameplay logic are located in GameScene.
-@export var _display_timer: Timer
 @export var _level_label: Label
 @export var _game_start_time_container: HBoxContainer
 @export var _game_start_time_label: Label
@@ -22,6 +20,8 @@ class_name WaveStatus extends VBoxContainer
 @export var _gold_farmed_label: Label
 
 var _armor_hint_map: Dictionary
+var _game_start_timer: ManualTimer = null
+var _next_wave_timer: ManualTimer = null
 
 
 #########################
@@ -37,43 +37,30 @@ func _ready():
 
 
 func _process(_delta: float):
-	var time_string: String = _get_time_string()
-	
-	if _game_start_time_container.visible:
-		_game_start_time_label.text = time_string
-	elif _next_wave_time_container.visible:
-		_next_wave_time_label.text = time_string
+	var next_wave_time_string: String = _get_time_string(_next_wave_timer)
+	_next_wave_time_container.visible = !_next_wave_timer.is_stopped()
+	_next_wave_time_label.text = next_wave_time_string
+
+	var game_start_time_string: String = _get_time_string(_game_start_timer)
+	_game_start_time_container.visible = !_game_start_timer.is_stopped()
+	_game_start_time_label.text = game_start_time_string
 
 
 #########################
 ###      Public       ###
 #########################
 
-func show_game_start_time():
-	_display_timer.start(Constants.TIME_BEFORE_FIRST_WAVE)
-	_game_start_time_container.show()
+func set_game_start_timer(timer: ManualTimer):
+	_game_start_timer = timer
 
 
-func hide_game_start_time():
-	_game_start_time_container.hide()
+func set_next_wave_timer(timer: ManualTimer):
+	_next_wave_timer = timer
 
 
 func show_next_wave_button():
 	_start_game_button.hide()
 	_start_next_wave_button.show()
-
-
-func show_next_wave_time(time: float):
-	_display_timer.start(time)
-	_next_wave_time_container.show()
-
-
-func hide_next_wave_time():
-	_next_wave_time_container.hide()
-
-
-func disable_next_wave_button():
-	_start_next_wave_button.disabled = true
 
 
 func show_wave_details(wave_list: Array[Wave]):
@@ -188,8 +175,8 @@ func _generate_armor_hints() -> Dictionary:
 	return out
 
 
-func _get_time_string() -> String:
-	var time: int = floor(_display_timer.get_time_left())
+func _get_time_string(timer: ManualTimer) -> String:
+	var time: int = floori(timer.get_time_left())
 	var time_minutes: int = floor(time / 60.0)
 	var time_seconds: int = time - time_minutes * 60
 	var time_string: String = "%02d:%02d" % [time_minutes, time_seconds]
