@@ -316,17 +316,6 @@ func modify_interest_rate(amount: float):
 	_interest_rate = _interest_rate + amount
 
 
-func add_income(level: int):
-	var upkeep: int = floori((20 + level * 2) * _income_rate)
-	var current_gold: int = floori(_gold)
-	var interest: int = floori(min(current_gold * _interest_rate, INTEREST_GAIN_MAX))
-	var income: int = upkeep + interest
-	var source_is_income: bool = true
-	add_gold(income, source_is_income)
-
-	Messages.add_normal(self, "Income: %d upkeep, %d interest." % [upkeep, interest])
-
-
 func enough_gold_for_tower(tower_id: int) -> bool:
 	var cost: float = TowerProperties.get_cost(tower_id)
 	var current_gold: float = get_gold()
@@ -347,10 +336,6 @@ func get_tomes() -> int:
 func add_tomes(amount: int):
 	var new_tomes: int = _tomes + amount
 	_set_tomes(new_tomes)
-
-
-func add_tome_income():
-	add_tomes(KNOWLEDGE_TOMES_INCOME)
 
 
 func spend_tomes(amount: int):
@@ -492,17 +477,22 @@ func _on_tower_stash_changed():
 
 
 func _on_wave_spawner_wave_finished(level: int):
-	add_income(level)
+	var upkeep: int = floori((20 + level * 2) * _income_rate)
+	var current_gold: int = floori(_gold)
+	var interest: int = floori(min(current_gold * _interest_rate, INTEREST_GAIN_MAX))
+	var income: int = upkeep + interest
+	var source_is_income: bool = true
+	add_gold(income, source_is_income)
 
-	add_tome_income()
+	add_tomes(KNOWLEDGE_TOMES_INCOME)
 
 	_builder.apply_wave_finished_effect(self)
 
 	var rolled_towers: Array[int] = TowerDistribution.roll_towers(self)
 	_tower_stash.add_towers(rolled_towers)
 
-	if self == Globals.get_local_player():
-		Messages.add_normal(self, "=== Level [color=GOLD]%d[/color] completed! ===" % level)
-		_add_message_about_rolled_towers(rolled_towers)
+	Messages.add_normal(self, "Income: %d upkeep, %d interest." % [upkeep, interest])
+	Messages.add_normal(self, "=== Level [color=GOLD]%d[/color] completed! ===" % level)
+	_add_message_about_rolled_towers(rolled_towers)
 	
 	wave_finished.emit(level)
