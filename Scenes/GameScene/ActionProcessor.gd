@@ -5,11 +5,8 @@ class_name ActionProcessor extends Node
 
 
 @export var _player_container: PlayerContainer
-@export var _team_container: TeamContainer
 @export var _hud: HUD
 @export var _map: Map
-@export var _game_start_timer: ManualTimer
-@export var _game_time: GameTime
 
 
 func process_action(player_id: int, serialized_action: Dictionary):
@@ -17,13 +14,15 @@ func process_action(player_id: int, serialized_action: Dictionary):
 	
 	var action_type: Action.Type = action.type
 
+	var player: Player = _player_container.get_player(player_id)
+
 	match action_type:
 		Action.Type.IDLE: return
 		Action.Type.RESEARCH_ELEMENT: _research_element(player_id, serialized_action)
 		Action.Type.ROLL_TOWERS: _roll_towers(player_id)
 		Action.Type.BUILD_TOWER: _build_tower(player_id, serialized_action)
 		Action.Type.SELL_TOWER: _sell_tower(serialized_action)
-		Action.Type.START_GAME: _start_game()
+		Action.Type.START_GAME: _vote_ready(player)
 		Action.Type.START_NEXT_WAVE: start_next_wave(player_id)
 		Action.Type.SELECT_BUILDER: _select_builder(player_id, serialized_action)
 
@@ -118,17 +117,11 @@ func _sell_tower(serialized_action: Dictionary):
 	tower.remove_from_game()
 
 
-func _start_game():
-	_game_start_timer.stop()
-	_hud.show_next_wave_button()
-	_hud.hide_roll_towers_button()
-	
-	var team_list: Array[Team] = _team_container.get_team_list()
-	for team in team_list:
-		team.start_first_wave()
-	
-#	NOTE: start counting game time after first wave starts
-	_game_time.set_enabled(true)
+func _vote_ready(player: Player):
+	if player.is_ready():
+		return
+
+	player.vote_ready()
 
 
 # TODO: reject action if reached last level

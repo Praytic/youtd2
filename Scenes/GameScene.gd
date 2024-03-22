@@ -20,7 +20,7 @@ class_name GameScene extends Node
 @export var _horadric_cube: HoradricCube
 @export var _ui_layer: CanvasLayer
 @export var _simulation: Simulation
-@export var _action_processor: ActionProcessor
+@export var _game_time: GameTime
 
 
 var _prev_effect_id: int = 0
@@ -325,6 +325,9 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	_move_item.set_player(local_player)
 	_tower_preview.set_player(local_player)
 
+	for player in player_list:
+		player.ready_changed.connect(_on_player_ready_changed)
+	
 	if game_mode == GameMode.enm.BUILD:
 		for player in player_list:
 			var tower_stash: TowerStash = player.get_tower_stash()
@@ -502,7 +505,7 @@ func _on_player_requested_start_game():
 
 
 func _on_game_start_timer_timeout():
-	_action_processor._start_game()
+	_start_game()
 
 
 func _on_player_requested_next_wave():
@@ -660,3 +663,33 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 func _on_local_team_game_over():
 	Messages.add_normal(Globals.get_local_player(), "[color=RED]The portal has been destroyed! The game is over.[/color]")
 	_hud.show_game_over()
+
+
+func _on_player_ready_changed():
+	var player_list: Array[Player] = _player_container.get_player_list()
+	
+	var not_ready_count: int = 0
+	for player in player_list:
+		if !player.is_ready():
+			not_ready_count += 1
+	
+	var all_players_are_ready: bool = not_ready_count == 0
+
+	if all_players_are_ready:
+		Messages.add_normal(null, "All players are ready, starting game.")
+		_start_game()
+	else:
+		Messages.add_normal(null, "Waiting for %d players to be ready." % not_ready_count)
+
+
+func _start_game():
+	_game_start_timer.stop()
+	_hud.show_next_wave_button()
+	_hud.hide_roll_towers_button()
+	
+	var team_list: Array[Team] = _team_container.get_team_list()
+	for team in team_list:
+		team.start_first_wave()
+	
+#	NOTE: start counting game time after first wave starts
+	_game_time.set_enabled(true)

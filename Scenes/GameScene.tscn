@@ -62,7 +62,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_player_container", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_simulation", "_action_processor")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_player_container", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_simulation", "_game_time")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -84,7 +84,7 @@ _tower_preview = NodePath("World/TowerPreview")
 _horadric_cube = NodePath("Gameplay/HoradricCube")
 _ui_layer = NodePath("UI")
 _simulation = NodePath("Gameplay/Simulation")
-_action_processor = NodePath("Gameplay/ActionProcessor")
+_game_time = NodePath("Gameplay/GameTime")
 
 [node name="Gameplay" type="Node" parent="."]
 process_mode = 1
@@ -143,14 +143,11 @@ _game_time = NodePath("../GameTime")
 _action_processor = NodePath("../ActionProcessor")
 _player_container = NodePath("../PlayerContainer")
 
-[node name="ActionProcessor" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_team_container", "_hud", "_map", "_game_start_timer", "_game_time")]
+[node name="ActionProcessor" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_hud", "_map")]
 script = ExtResource("18_vcbyc")
 _player_container = NodePath("../PlayerContainer")
-_team_container = NodePath("../TeamContainer")
 _hud = NodePath("../../UI/HUD")
 _map = NodePath("../../World/Map")
-_game_start_timer = NodePath("../GameStartTimer")
-_game_time = NodePath("../GameTime")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1

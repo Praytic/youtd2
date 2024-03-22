@@ -8,6 +8,7 @@ signal item_stash_changed()
 signal horadric_stash_changed()
 signal tower_stash_changed()
 signal wave_finished(level: int)
+signal voted_ready()
 
 
 const STARTING_ELEMENT_COST = 20
@@ -37,6 +38,7 @@ var _peer_id: int = -1
 var _builder: Builder = null
 var _have_placeholder_builder: bool = true
 var _score: float = 0.0
+var _is_ready: bool = false
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -61,6 +63,19 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func vote_ready():
+	if _is_ready:
+		return
+
+	_is_ready = true
+	Messages.add_normal(null, "Player %d is ready." % get_id())
+	voted_ready.emit()
+
+
+func is_ready() -> bool:
+	return _is_ready
+
 
 func generate_waves():
 	_wave_spawner.generate_waves()
