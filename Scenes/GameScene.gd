@@ -40,6 +40,8 @@ var _completed_pregame: bool = false
 func _ready():
 	print_verbose("GameScene has loaded.")
 
+	Globals.reset()
+
 	_hud.set_game_start_timer(_game_start_timer)
 
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
@@ -104,32 +106,6 @@ func _ready():
 		
 		_transition_from_pregame.rpc(player_mode, wave_count, game_mode, difficulty, origin_seed)
 
-
-# NOTE: these stats are constantly changing and might even
-# change multiple times per frame so we need to update them
-# in _process instead of via signals
-func _process(_delta: float):
-	if !_completed_pregame:
-		return
-	
-	var local_player: Player = Globals.get_local_player()
-	
-	var all_players: Array[Player] = _player_container.get_player_list()
-	_hud.load_player_stats(local_player, all_players)
-
-	var game_time: float = Utils.get_time()
-	_hud.set_game_time(game_time)
-
-	var gold: float = local_player.get_gold()
-	_hud.set_gold(gold)
-
-	var tomes: int = local_player.get_tomes()
-	_hud.set_tomes(tomes)
-
-	var food: int = local_player.get_food()
-	var food_cap: int = local_player.get_food_cap()
-	_hud.set_food(food, food_cap)
-	
 
 func _unhandled_input(event: InputEvent):
 	if !_completed_pregame:
@@ -336,7 +312,9 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 
 	var local_player: Player = _player_container.get_local_player()
 	var local_team: Team = local_player.get_team()
+	var player_list: Array[Player] = _player_container.get_player_list()
 	Globals._local_player = local_player
+	Globals._player_list = player_list
 
 	local_team.game_over.connect(_on_local_team_game_over)
 	
@@ -346,8 +324,6 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	_hud.set_player(local_player)
 	_move_item.set_player(local_player)
 	_tower_preview.set_player(local_player)
-
-	var player_list: Array[Player] = _player_container.get_player_list()
 
 	if game_mode == GameMode.enm.BUILD:
 		for player in player_list:

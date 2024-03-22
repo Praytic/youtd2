@@ -51,6 +51,26 @@ func _process(_delta: float):
 	_game_start_time_container.visible = !_game_start_timer.is_stopped()
 	_game_start_time_label.text = game_start_time_string
 
+	var gold_farmed: float = local_player.get_gold()
+	var gold_farmed_string: String = TowerDetails.int_format(floori(gold_farmed))
+	_gold_farmed_label.text = gold_farmed_string
+
+	var level: int = local_player.get_team().get_level()
+	_level_label.text = str(level)
+	
+	var total_damage: float = local_player.get_total_damage()
+	var total_damage_string: String = TowerDetails.int_format(floori(total_damage))
+	_total_damage_label.text = total_damage_string
+	
+	var lives_string: String = local_player.get_team().get_lives_string()
+	_lives_label.text = lives_string
+
+	var score: float = local_player.get_score()
+	var score_string: String = TowerDetails.int_format(floori(score))
+	_score_label.text = score_string
+	
+	_update_game_time()
+
 
 #########################
 ###      Public       ###
@@ -98,7 +118,8 @@ func show_wave_details(wave_list: Array[Wave]):
 	_label.append_text(text)
 
 
-func set_game_time(time: float):
+func _update_game_time():
+	var time: float = Utils.get_time()
 	var time_hours: int = floori(time / 3600)
 	var time_minutes: int = floori((time - time_hours * 3600) / 60)
 	var time_seconds: int = floori(time - time_hours * 3600 - time_minutes * 60)
@@ -108,28 +129,6 @@ func set_game_time(time: float):
 	else:
 		time_string = "%02d:%02d" % [time_minutes, time_seconds]
 	_game_time_label.text = time_string
-
-
-func load_player_stats(local_player: Player):
-	var player: Player = local_player
-	
-	var gold_farmed: float = player.get_gold()
-	var gold_farmed_string: String = TowerDetails.int_format(floori(gold_farmed))
-	_gold_farmed_label.text = gold_farmed_string
-
-	var level: int = player.get_team().get_level()
-	_level_label.text = str(level)
-	
-	var total_damage: float = player.get_total_damage()
-	var total_damage_string: String = TowerDetails.int_format(floori(total_damage))
-	_total_damage_label.text = total_damage_string
-	
-	var lives_string: String = player.get_team().get_lives_string()
-	_lives_label.text = lives_string
-
-	var score: float = player.get_score()
-	var score_string: String = TowerDetails.int_format(floori(score))
-	_score_label.text = score_string
 
 
 #########################

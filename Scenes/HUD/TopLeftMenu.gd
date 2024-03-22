@@ -25,14 +25,5 @@ func show_wave_details(wave_list: Array[Wave]):
 	_wave_status.show_wave_details(wave_list)
 
 
-func load_player_stats(local_player: Player, player_list: Array[Player]):
-	_wave_status.load_player_stats(local_player)
-	_game_stats.load_player_stats(player_list)
-
-
-func set_game_time(time: float):
-	_wave_status.set_game_time(time)
-
-
 func set_local_builder_name(builder_name: String):
 	_game_stats.set_local_builder_name(builder_name)

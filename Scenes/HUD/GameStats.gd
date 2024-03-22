@@ -76,6 +76,8 @@ func _process(_delta: float):
 	var most_kills_color: Color = _get_tower_color(most_kills_tower)
 	_most_kills_tower.set("theme_override_colors/font_color", most_kills_color)
 
+	_update_player_stats()
+
 
 #########################
 ###       Public      ###
@@ -97,7 +99,9 @@ func set_local_builder_name(builder_name: String):
 	_builder_label.text = builder_name
 
 
-func load_player_stats(player_list: Array[Player]):
+func _update_player_stats():
+	var player_list: Array[Player] = Globals.get_player_list()
+
 	var text: String = ""
 
 	text += "[table=6]"

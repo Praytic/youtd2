@@ -150,14 +150,6 @@ func show_wave_details(wave_list: Array[Wave]):
 	_top_left_menu.show_wave_details(wave_list)
 
 
-func load_player_stats(local_player: Player, player_list: Array[Player]):
-	_top_left_menu.load_player_stats(local_player, player_list)
-
-
-func set_game_time(time: float):
-	_top_left_menu.set_game_time(time)
-
-
 func show_game_over():
 	_game_over_label.show()
 

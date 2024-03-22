@@ -9,6 +9,7 @@ var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
 var _local_player: Player = null
+var _player_list: Array[Player] = []
 
 # NOTE: you must use visual_rng for any code which is
 # running only for local player. The global rng seed is
@@ -16,6 +17,11 @@ var _local_player: Player = null
 # determinism. A good example of where visual_rng should be
 # used is FloatingText.
 var visual_rng: RandomNumberGenerator = RandomNumberGenerator.new()
+
+
+func reset():
+	_local_player = null
+	_player_list = []
 
 
 func get_player_mode() -> PlayerMode.enm:
@@ -36,6 +42,10 @@ func get_difficulty() -> Difficulty.enm:
 
 func get_local_player() -> Player:
 	return _local_player
+
+
+func get_player_list() -> Array[Player]:
+	return _player_list
 
 
 func game_mode_is_random() -> bool:
