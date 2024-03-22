@@ -440,7 +440,11 @@ func _on_health_changed():
 
 
 func _on_death(_event: Event):
-	EventBus.creep_got_killed.emit(self)
+	var creep_score: float = get_score(Globals.get_difficulty(), Globals.get_wave_count(), Globals.get_game_mode())
+
+	if creep_score > 0:
+		var player: Player = get_player()
+		player.add_score(creep_score)
 
 # 	Death visual
 	var effect_id: int = Effect.create_simple_at_unit("res://Scenes/Effects/DeathExplode.tscn", self)

@@ -42,7 +42,6 @@ func _ready():
 
 	_hud.set_game_start_timer(_game_start_timer)
 
-	EventBus.creep_got_killed.connect(_on_creep_got_killed)
 	EventBus.player_requested_start_game.connect(_on_player_requested_start_game)
 	EventBus.player_requested_next_wave.connect(_on_player_requested_next_wave)
 	EventBus.player_requested_to_roll_towers.connect(_on_player_requested_to_roll_towers)
@@ -507,14 +506,6 @@ func _on_local_player_tower_stash_changed():
 	var tower_stash: TowerStash = local_player.get_tower_stash()
 	var towers: Dictionary = tower_stash.get_towers()
 	_hud.set_towers(towers)
-
-
-func _on_creep_got_killed(creep: Creep):
-	var creep_score: float = creep.get_score(Globals.get_difficulty(), Globals.get_wave_count(), Globals.get_game_mode())
-
-	if creep_score > 0:
-		var player: Player = creep.get_player()
-		player.add_score(creep_score)
 
 
 func _on_player_requested_start_game():
