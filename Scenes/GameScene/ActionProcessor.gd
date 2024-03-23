@@ -18,6 +18,7 @@ func process_action(player_id: int, serialized_action: Dictionary):
 
 	match action_type:
 		Action.Type.IDLE: return
+		Action.Type.CHAT: _chat(player_id, serialized_action)
 		Action.Type.RESEARCH_ELEMENT: _research_element(player_id, serialized_action)
 		Action.Type.ROLL_TOWERS: _roll_towers(player_id)
 		Action.Type.BUILD_TOWER: _build_tower(player_id, serialized_action)
@@ -30,6 +31,13 @@ func process_action(player_id: int, serialized_action: Dictionary):
 #########################
 ###       Public      ###
 #########################
+
+func _chat(player_id: int, serialized_action: Dictionary):
+	var action: ActionChat = ActionChat.new(serialized_action)
+	var chat_message: String = action.chat_message
+	
+	_hud.add_chat_message(player_id, chat_message)
+
 
 func _research_element(player_id: int, serialized_action: Dictionary):
 	var action: ActionResearchElement = ActionResearchElement.new(serialized_action)

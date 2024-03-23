@@ -178,8 +178,10 @@ func _finish_editing_chat():
 
 func _submit_chat_message():
 	var chat_message: String = _hud.get_chat_edit_text()
-	_hud.add_chat_message(chat_message)
 	_finish_editing_chat()
+
+	var chat_action: Action = ActionChat.make(chat_message)
+	_simulation.add_action(chat_action)
 
 
 func _set_builder_for_local_player(builder_id: int):
