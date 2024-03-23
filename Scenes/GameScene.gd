@@ -166,6 +166,39 @@ func _unhandled_input(event: InputEvent):
 ###      Private      ###
 #########################
 
+func _get_camera_origin_pos() -> Vector2:
+	var local_player: Player = Globals.get_local_player()
+	var local_player_id: int = local_player.get_id()
+	
+	var local_camera_origin: CameraOrigin = null
+	
+	var camera_origin_list: Array[Node] = get_tree().get_nodes_in_group("camera_origins")
+	
+	for node in camera_origin_list:
+		if !node is CameraOrigin:
+			push_error("Incorrect type in camera_origins group")
+			
+			continue
+		
+		var camera_origin: CameraOrigin = node as CameraOrigin
+		var player_id: int = camera_origin.player_id
+		var player_match: bool = player_id == local_player_id
+		
+		if player_match:
+			local_camera_origin = camera_origin
+			
+			break
+	
+	if local_camera_origin == null:
+		push_error("Failed to find local camera origin")
+		
+		return Vector2.ZERO
+	
+	var camera_origin_pos: Vector2 = local_camera_origin.position
+
+	return camera_origin_pos
+	
+
 func _start_editing_chat():
 	_hud.start_editing_chat()
 	_camera.set_keyboard_enabled(false)
@@ -408,6 +441,8 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	if player_mode == PlayerMode.enm.SINGLE:
 		_simulation.set_delay(Simulation.SINGLEPLAYER_ACTION_DELAY)
 	
+	_camera.position = _get_camera_origin_pos()
+
 	get_tree().set_pause(false)
 	_completed_pregame = true
 

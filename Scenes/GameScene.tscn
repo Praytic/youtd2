@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=36 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -26,6 +26,7 @@
 [ext_resource type="Script" path="res://Scenes/Effects/EffectsContainer.gd" id="18_hqvt4"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ActionProcessor.gd" id="18_vcbyc"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ChatCommands.gd" id="19_ldgwp"]
+[ext_resource type="Script" path="res://Scenes/Player/CameraOrigin.gd" id="22_0su8s"]
 [ext_resource type="Script" path="res://Scenes/GameScene/TimerPool.gd" id="26_2tqw6"]
 [ext_resource type="Script" path="res://Scenes/GameScene/TeamContainer.gd" id="28_j7eu2"]
 
@@ -190,6 +191,17 @@ modulate = Color(1, 0, 1, 1)
 curve = SubResource("Curve2D_gtbgo")
 script = ExtResource("3_abrkq")
 is_air = true
+player_id = 1
+
+[node name="CameraOriginContainer" type="Node2D" parent="World"]
+
+[node name="CameraOrigin0" type="Node2D" parent="World/CameraOriginContainer"]
+position = Vector2(900, -1300)
+script = ExtResource("22_0su8s")
+
+[node name="CameraOrigin1" type="Node2D" parent="World/CameraOriginContainer"]
+position = Vector2(1100, -1300)
+script = ExtResource("22_0su8s")
 player_id = 1
 
 [node name="ObjectContainer" type="Node2D" parent="World"]
