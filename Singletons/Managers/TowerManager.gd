@@ -45,10 +45,12 @@ func get_tower(id: int, player: Player, is_tower_preview: bool = false) -> Tower
 
 		preloaded_towers[id] = tower_scene
 	
-	var scene: PackedScene = preloaded_towers[id]
-	var tower: Tower = scene.instantiate()
+	var tower: Tower = Preloads.tower_scene.instantiate()
 	var tower_script: Variant = _get_tower_script(id)
 	tower.set_script(tower_script)
+	var scene: PackedScene = preloaded_towers[id]
+	var scene_instance = scene.instantiate()
+	tower.insert_sprite_scene(scene_instance)
 	tower.set_id(id)
 	tower.set_player(player)
 

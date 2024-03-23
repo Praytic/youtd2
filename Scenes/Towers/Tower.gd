@@ -78,7 +78,7 @@ var _uid: int = 0
 # rests export vars.
 @onready var _mana_bar: ProgressBar = $Visual/ManaBar
 @onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
-@onready var _sprite: Sprite2D = $Visual/Sprite2D
+var _sprite: Sprite2D = null
 @onready var _tower_actions: Control = $Visual/TowerActions
 @onready var _visual: Node2D = $Visual
 
@@ -319,6 +319,11 @@ func update(delta: float):
 #########################
 ###       Public      ###
 #########################
+
+func insert_sprite_scene(sprite: Sprite2D):
+	_sprite = sprite
+	$Visual.add_child(sprite)
+
 
 func remove_from_game():
 	on_destruct()
