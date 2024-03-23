@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/Simulation.tscn" id="17_new70"]
 [ext_resource type="Script" path="res://Scenes/Effects/EffectsContainer.gd" id="18_hqvt4"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ActionProcessor.gd" id="18_vcbyc"]
+[ext_resource type="Script" path="res://Scenes/GameScene/ChatCommands.gd" id="19_ldgwp"]
 [ext_resource type="Script" path="res://Scenes/GameScene/TimerPool.gd" id="26_2tqw6"]
 [ext_resource type="Script" path="res://Scenes/GameScene/TeamContainer.gd" id="28_j7eu2"]
 
@@ -148,11 +149,15 @@ _action_processor = NodePath("../ActionProcessor")
 script = ExtResource("17_0evig")
 _simulation = NodePath("../Simulation")
 
-[node name="ActionProcessor" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_hud", "_map")]
+[node name="ActionProcessor" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_hud", "_map", "_chat_commands")]
 script = ExtResource("18_vcbyc")
 _player_container = NodePath("../PlayerContainer")
 _hud = NodePath("../../UI/HUD")
 _map = NodePath("../../World/Map")
+_chat_commands = NodePath("../ChatCommands")
+
+[node name="ChatCommands" type="Node" parent="Gameplay"]
+script = ExtResource("19_ldgwp")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1

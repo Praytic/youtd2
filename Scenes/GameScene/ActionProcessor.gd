@@ -7,6 +7,7 @@ class_name ActionProcessor extends Node
 @export var _player_container: PlayerContainer
 @export var _hud: HUD
 @export var _map: Map
+@export var _chat_commands: ChatCommands
 
 
 func process_action(player_id: int, serialized_action: Dictionary):
@@ -34,9 +35,16 @@ func process_action(player_id: int, serialized_action: Dictionary):
 
 func _chat(player_id: int, serialized_action: Dictionary):
 	var action: ActionChat = ActionChat.new(serialized_action)
-	var chat_message: String = action.chat_message
+	var message: String = action.chat_message
 	
-	_hud.add_chat_message(player_id, chat_message)
+	var player: Player = _player_container.get_player(player_id)
+	
+	var is_chat_command: bool = !message.is_empty() && message[0] == "/"
+	
+	if is_chat_command:
+		_chat_commands.process_chat_message(player, message)
+	else:
+		_hud.add_chat_message(player_id, message)
 
 
 func _research_element(player_id: int, serialized_action: Dictionary):
