@@ -54,20 +54,22 @@ func _process(_delta: float):
 	if !visible || _tower_instance == null:
 		return
 	
+	var mouse_pos: Vector2 = get_global_mouse_position()
+
 # 	Show tower preview under map normally, but make it stick
 # 	to tile position when mouse is hovered over a buildable
 # 	tile.
-	var new_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
+	var new_position: Vector2 = _map.get_pos_on_tilemap_clamped(mouse_pos)
 	position = new_position
 
-	var can_transform: bool = _map.can_transform_at_mouse_pos()
+	var can_transform: bool = _map.can_transform_at_pos(mouse_pos)
 
 	if can_transform:
 		_tower_instance.modulate = opaque_blue
 	else:
 		_tower_instance.modulate = Color.WHITE
 
-	var build_info: Array = _map.get_build_info_for_mouse_pos()
+	var build_info: Array = _map.get_build_info_for_pos(mouse_pos)
 	var polygon_list: Array = [
 		_pedestal_up,
 		_pedestal_right,

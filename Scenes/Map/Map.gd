@@ -115,11 +115,11 @@ func get_play_area_pos() -> Vector2:
 	return play_area_shape.global_position
 
 
-func get_mouse_pos_on_tilemap_clamped() -> Vector2:
-	var world_pos: Vector2 = _buildable_area.get_local_mouse_position()
-	var map_pos: Vector2 = _buildable_area.local_to_map(world_pos)
-	var clamped_world_pos: Vector2 = _buildable_area.map_to_local(map_pos)
-	var clamped_global_pos: Vector2 = _buildable_area.to_global(clamped_world_pos)
+func get_pos_on_tilemap_clamped(global_pos: Vector2) -> Vector2:
+	var local_pos: Vector2 = _buildable_area.to_local(global_pos)
+	var map_pos: Vector2 = _buildable_area.local_to_map(local_pos)
+	var clamped_local_pos: Vector2 = _buildable_area.map_to_local(map_pos)
+	var clamped_global_pos: Vector2 = _buildable_area.to_global(clamped_local_pos)
 	var center: Vector2 = clamped_global_pos
 
 #	NOTE: after clamping, we also need to further modify
@@ -150,8 +150,8 @@ func get_mouse_pos_on_tilemap_clamped() -> Vector2:
 	return clamped_pos
 
 
-func can_build_at_mouse_pos() -> bool:
-	var build_info: Array = get_build_info_for_mouse_pos()
+func can_build_at_pos(global_pos: Vector2) -> bool:
+	var build_info: Array = get_build_info_for_pos(global_pos)
 	var can_build: bool = !build_info.has(false)
 
 	return can_build
@@ -160,8 +160,8 @@ func can_build_at_mouse_pos() -> bool:
 # Returns an array of 4 bools, one per quarter tile. True if
 # the quarter is buildable tile and is not occupied by a
 # tower. Order: [up, right, down, left]
-func get_build_info_for_mouse_pos() -> Array:
-	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
+func get_build_info_for_pos(global_pos: Vector2) -> Array:
+	var pos: Vector2 = get_pos_on_tilemap_clamped(global_pos)
 	var quarter_list: Array = [
 		pos + Constants.TILE_SIZE * Vector2(0, -0.25),
 		pos + Constants.TILE_SIZE * Vector2(0.25, 0),
@@ -185,11 +185,11 @@ func get_build_info_for_mouse_pos() -> Array:
 	return build_info
 
 
-func can_transform_at_mouse_pos() -> bool:
+func can_transform_at_pos(world_pos: Vector2) -> bool:
 	if !Globals.game_mode_allows_transform():
 		return false
 
-	var pos: Vector2 = get_mouse_pos_on_tilemap_clamped()
+	var pos: Vector2 = get_pos_on_tilemap_clamped(world_pos)
 	var there_is_a_tower_under_mouse: bool = Utils.tower_exists_on_position(pos)
 	var can_transform: bool = there_is_a_tower_under_mouse
 

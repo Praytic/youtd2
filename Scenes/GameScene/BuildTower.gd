@@ -14,10 +14,10 @@ class_name BuildTower extends Node
 #########################
 
 func start(tower_id: int, player: Player):
-	var enough_resources: bool = _enough_resources_for_tower(tower_id, player)
+	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
 
 	if !enough_resources:
-		_add_error_about_building_tower(tower_id, player)
+		BuildTower.add_error_about_building_tower(tower_id, player)
 
 		return
 
@@ -35,12 +35,13 @@ func start(tower_id: int, player: Player):
 
 func try_to_finish(player: Player):
 	var tower_id: int = _tower_preview.get_tower_id()
-	var can_build: bool = _map.can_build_at_mouse_pos()
-	var can_transform: bool = _map.can_transform_at_mouse_pos()
-	var mouse_pos: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
+	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
+	var mouse_pos_clamped_again: Vector2 = _map.get_pos_on_tilemap_clamped(mouse_pos)
+	var can_build: bool = _map.can_build_at_pos(mouse_pos)
+	var can_transform: bool = _map.can_transform_at_pos(mouse_pos)
 	var tower_under_mouse: Tower = Utils.get_tower_at_position(mouse_pos)
 	var attempting_to_transform: bool = tower_under_mouse != null
-	var enough_resources: bool = _enough_resources_for_tower(tower_id, player)
+	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
 
 	if !can_build && !can_transform:
 		var error: String
@@ -51,7 +52,7 @@ func try_to_finish(player: Player):
 
 		Messages.add_error(player, error)
 	elif !enough_resources:
-		_add_error_about_building_tower(tower_id, player)
+		BuildTower.add_error_about_building_tower(tower_id, player)
 	elif can_transform:
 		_transform_tower(tower_id, tower_under_mouse, player)
 		cancel()
@@ -73,7 +74,7 @@ func cancel():
 ###      Private      ###
 #########################
 
-func _enough_resources_for_tower(tower_id: int, player: Player) -> bool:
+static func enough_resources_for_tower(tower_id: int, player: Player) -> bool:
 	var enough_gold: bool = player.enough_gold_for_tower(tower_id)
 	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
 	var enough_food: bool = player.enough_food_for_tower(tower_id)
@@ -82,7 +83,7 @@ func _enough_resources_for_tower(tower_id: int, player: Player) -> bool:
 	return enough_resources
 
 
-func _add_error_about_building_tower(tower_id: int, player: Player):
+static func add_error_about_building_tower(tower_id: int, player: Player):
 	var enough_gold: bool = player.enough_gold_for_tower(tower_id)
 	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
 	var enough_food: bool = player.enough_food_for_tower(tower_id)
@@ -96,8 +97,8 @@ func _add_error_about_building_tower(tower_id: int, player: Player):
 
 
 func _build_tower(tower_id: int):
-	var visual_position: Vector2 = _map.get_mouse_pos_on_tilemap_clamped()
-	var build_position: Vector2 = visual_position + Vector2(0, Constants.TILE_SIZE.y)
+	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
+	var build_position: Vector2 = _map.get_pos_on_tilemap_clamped(mouse_pos)
 	
 	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", build_position)
 	

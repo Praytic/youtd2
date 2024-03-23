@@ -17,16 +17,21 @@ func process_action(player_id: int, serialized_action: Dictionary):
 
 	var player: Player = _player_container.get_player(player_id)
 
+	if player == null:
+		push_error("player is null")
+		
+		return
+
 	match action_type:
 		Action.Type.IDLE: return
 		Action.Type.CHAT: _chat(player, serialized_action)
-		Action.Type.BUILD_TOWER: _build_tower(player_id, serialized_action)
-		Action.Type.SELL_TOWER: _sell_tower(serialized_action)
-		Action.Type.SELECT_BUILDER: _select_builder(player_id, serialized_action)
+		Action.Type.BUILD_TOWER: _build_tower(player, serialized_action)
+		Action.Type.SELL_TOWER: _sell_tower(player, serialized_action)
+		Action.Type.SELECT_BUILDER: _select_builder(player, serialized_action)
 
 
 #########################
-###       Public      ###
+###      Private      ###
 #########################
 
 func _chat(player: Player, serialized_action: Dictionary):
@@ -44,12 +49,15 @@ func _chat(player: Player, serialized_action: Dictionary):
 # TODO: build tower action looks very bad with the delay.
 # Need to add a temporary animation like a cloud of dust,
 # while the tower "builds".
-func _build_tower(player_id: int, serialized_action: Dictionary):
+func _build_tower(player: Player, serialized_action: Dictionary):
 	var action: ActionBuildTower = ActionBuildTower.new(serialized_action)
 	var tower_id: int = action.tower_id
 	var position: Vector2 = action.position
 
-	var player: Player = _player_container.get_player(player_id)
+	var verify_ok: bool = _verify_build_tower(player, tower_id, position)
+
+	if !verify_ok:
+		return
 
 	player.add_food_for_tower(tower_id)
 	
@@ -64,14 +72,34 @@ func _build_tower(player_id: int, serialized_action: Dictionary):
 		tower_stash.remove_tower(tower_id)
 
 	var new_tower: Tower = TowerManager.get_tower(tower_id, player)
-	new_tower.position = position
+
+#	NOTE: need to add tile height to position because towers are built at ground floor
+	new_tower.position = position + Vector2(0, Constants.TILE_SIZE.y)
 	
 	_map.add_space_occupied_by_tower(new_tower)
 
 	Utils.add_object_to_world(new_tower)
 
 
-func _sell_tower(serialized_action: Dictionary):
+func _verify_build_tower(player: Player, tower_id: int, position: Vector2) -> bool:
+	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
+
+	if !enough_resources:
+		BuildTower.add_error_about_building_tower(tower_id, player)
+
+		return false
+
+	var can_build: bool = _map.can_build_at_pos(position)
+
+	if !can_build:
+		Messages.add_error(player, "Can't build here")
+
+		return false
+
+	return true
+
+
+func _sell_tower(player: Player, serialized_action: Dictionary):
 	var action: ActionSellTower = ActionSellTower.new(serialized_action)
 	var tower_unit_id: int = action.tower_unit_id
 
@@ -91,7 +119,6 @@ func _sell_tower(serialized_action: Dictionary):
 
 	var tower_id: int = tower.get_id()
 	var sell_price: int = TowerProperties.get_sell_price(tower_id)
-	var player: Player = tower.get_player()
 	player.give_gold(sell_price, tower, false, true)
 	player.remove_food_for_tower(tower_id)
 
@@ -100,16 +127,9 @@ func _sell_tower(serialized_action: Dictionary):
 	tower.remove_from_game()
 
 
-func _select_builder(player_id: int, serialized_action: Dictionary):
+func _select_builder(player: Player, serialized_action: Dictionary):
 	var action: ActionSelectBuilder = ActionSelectBuilder.new(serialized_action)
 	var builder_id: int = action.builder_id
-
-	var player: Player = _player_container.get_player(player_id)
-	
-	if player == null:
-		push_error("player is null")
-		
-		return
 	
 	player.set_builder(builder_id)
 
