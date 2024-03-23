@@ -7,12 +7,11 @@ class_name Simulation extends Node
 # Simulation ticks 30 times per second (based on
 # physics_ticks_per_second config value).
 # 
-# Sends actions requested by local player to other players.
-# Receives actions requested by other players.
-# Executes actions at a delayed future tick.
+# Peers send actions requested by local player to host.
+# Host combines all actions into timeslots and sends
+# timeslots to all peers.
 # 
-# Stops ticking if it detects that some player has
-# disconnected or is lagging.
+# Stops ticking if a timeslot is not ready for current tick.
 # 
 # The end result is that simulations for all players are
 # synchronized.
@@ -43,12 +42,19 @@ const SINGLEPLAYER_ACTION_DELAY: int = 1
 
 var _tick_delta: float
 var _current_tick: int = 0
-var _action_delay: int = MULTIPLAYER_ACTION_DELAY
-var _action_storage: ActionStorage
+var _action_delay: int
+var _sent_action_for_current_tick: bool = false
 
+# Map of timeslots which were received from host. This data
+# is discarded after being processed.
+# {tick -> timeslot}
+# timeslot = {player_id -> serialized action}
+var _timeslot_map: Dictionary = {}
+
+
+@export var _game_host: GameHost
 @export var _game_time: GameTime
 @export var _action_processor: ActionProcessor
-@export var _player_container: PlayerContainer
 
 
 #########################
@@ -56,8 +62,7 @@ var _action_storage: ActionStorage
 #########################
 
 func _ready():
-	_action_storage = ActionStorage.new()
-	add_child(_action_storage)
+	set_delay(MULTIPLAYER_ACTION_DELAY)
 	
 	var tick_rate: int = ProjectSettings.get_setting("physics/common/physics_ticks_per_second")
 
@@ -82,11 +87,30 @@ func _physics_process(_delta: float):
 #########################
 
 func add_action(action: Action):
-	_action_storage.add_action(action)
+	var process_tick: int = _current_tick + _action_delay
+	var local_player: Player = Globals.get_local_player()
+	var local_player_id: int = local_player.get_id()
+	var serialized_action: Dictionary = action.serialize()
+	_game_host.save_action.rpc_id(1, process_tick, local_player_id, serialized_action)
+
+	_sent_action_for_current_tick = true
 
 
 func set_delay(delay: int):
 	_action_delay = delay
+
+# 	Add dummy timeslots for initial ticks before the action
+# 	delay is reached. Need to do this to have valid data before real
+# 	actions from players start getting scheduled.
+	_timeslot_map.clear()
+	
+	for tick in range(0, delay):
+		_timeslot_map[tick] = {}
+
+
+@rpc("authority", "call_local", "reliable")
+func save_timeslot(tick: int, timeslot: Dictionary):
+	_timeslot_map[tick] = timeslot
 
 
 #########################
@@ -94,42 +118,37 @@ func set_delay(delay: int):
 #########################
 
 func _do_tick():
-#	NOTE: continue broadcasting actions even if the tick is
-#	not advancing. The tick stops advancing if some player
-#	lags or disconnects so we need to keep broadcasting to
-#	ensure that players receive our actions when they
-#	reconnect.
-	var tick_for_broadcast: int = _current_tick + _action_delay
-	_action_storage.broadcast_local_action(tick_for_broadcast)
+#	NOTE: if local player didn't do any action for current tick, send an idle action to the server for synchronization purposes.
+	if !_sent_action_for_current_tick:
+		var idle_action: Action = ActionIdle.make()
+		add_action(idle_action)
+	
+	var timeslot_is_ready: bool = _timeslot_map.has(_current_tick)
 
-	var received_actions_from_all_players: bool = check_if_received_actions_from_all_players()
-
-	if !received_actions_from_all_players:
+	if !timeslot_is_ready:
 		print("waiting for player actions")
 
 		return
 
-	_process_actions()
+	var timeslot: Dictionary = _timeslot_map[_current_tick]
+
+	_process_actions(timeslot)
 	_update_state()
+	_sent_action_for_current_tick = false
+	_timeslot_map.erase(_current_tick)
+
 	_current_tick += 1
 
 
-func _process_actions():
-#	NOTE: skip process actions at the start because
-#	during the initial delay period, there are no actions
-#	from players, not even idle.
-	if _current_tick <= _action_delay:
-		return
+func _process_actions(timeslot: Dictionary):
+	var player_id_list: Array = timeslot.keys()
 	
-	var actions_for_current_tick: Dictionary = _action_storage.get_actions(_current_tick)
-
-	var player_list: Array[Player] = _player_container.get_player_list()
-	for player in player_list:
-		var player_id: int = player.get_id()
-		var serialized_action: Dictionary = actions_for_current_tick[player_id]
+#	NOTE: need to sort id list to ensure determinism
+	player_id_list.sort()
+	
+	for player_id in player_id_list:
+		var serialized_action: Dictionary = timeslot[player_id]
 		_action_processor.process_action(player_id, serialized_action)
-
-	_action_storage.clear_actions_for_tick(_current_tick)
 
 
 func _update_state():
@@ -150,25 +169,3 @@ func _update_state():
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 	for tower in tower_list:
 		tower.update(_tick_delta)
-
-
-func check_if_received_actions_from_all_players() -> bool:
-#	NOTE: need to skip checking for actions during the first
-#	ticks when the game just started. During this period,
-#	players could not have sent actions because of the
-#	action delay.
-	if _current_tick <= _action_delay:
-		return true
-	
-	var actions_for_current_tick: Dictionary = _action_storage.get_actions(_current_tick)
-	
-	var received_actions_from_all_players: bool = true
-	var player_list: Array[Player] = _player_container.get_player_list()
-	for player in player_list:
-		var player_id: int = player.get_id()
-		
-		if !actions_for_current_tick.has(player_id):
-			print("no actions from player %d" % player_id)
-			received_actions_from_all_players = false
-	
-	return received_actions_from_all_players

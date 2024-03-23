@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=34 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/HoradricCube.gd" id="12_ymn7f"]
 [ext_resource type="Script" path="res://Scenes/GameScene/CombatLogStorage.gd" id="15_ff1in"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
+[ext_resource type="Script" path="res://Scenes/GameScene/GameHost.gd" id="17_0evig"]
 [ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/Simulation.tscn" id="17_new70"]
 [ext_resource type="Script" path="res://Scenes/Effects/EffectsContainer.gd" id="18_hqvt4"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ActionProcessor.gd" id="18_vcbyc"]
@@ -138,10 +139,14 @@ script = ExtResource("15_ff1in")
 [node name="TimerPool" type="Node" parent="Gameplay"]
 script = ExtResource("26_2tqw6")
 
-[node name="Simulation" parent="Gameplay" node_paths=PackedStringArray("_game_time", "_action_processor", "_player_container") instance=ExtResource("17_new70")]
+[node name="Simulation" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_action_processor") instance=ExtResource("17_new70")]
+_game_host = NodePath("../GameHost")
 _game_time = NodePath("../GameTime")
 _action_processor = NodePath("../ActionProcessor")
-_player_container = NodePath("../PlayerContainer")
+
+[node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_simulation")]
+script = ExtResource("17_0evig")
+_simulation = NodePath("../Simulation")
 
 [node name="ActionProcessor" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_hud", "_map")]
 script = ExtResource("18_vcbyc")
