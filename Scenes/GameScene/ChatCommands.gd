@@ -1,6 +1,7 @@
 class_name ChatCommands extends Node
 
-# Processes chat commands. All chat messages which start with "/" are treated as commands.
+# Processes chat commands. All chat messages which start
+# with "/" are treated as commands.
 
 
 const READY: String = "/ready"
@@ -25,6 +26,25 @@ func process_command(player: Player, command: String):
 		ChatCommands.START_NEXT_WAVE: _command_start_next_wave(player)
 		ChatCommands.ROLL_TOWERS: _command_roll_towers(player)
 		ChatCommands.RESEARCH_ELEMENT: _command_research_element(player, args)
+
+
+static func verify_research_element(player: Player, element) -> bool:
+	var current_level: int = player.get_element_level(element)
+	var element_at_max: bool = current_level == Constants.MAX_ELEMENT_LEVEL
+
+	if element_at_max:
+		Messages.add_error(player, "Can't research element. Element is at max level.")
+
+		return false
+
+	var can_afford_research: bool = player.can_afford_research(element)
+
+	if !can_afford_research:
+		Messages.add_error(player, "Can't research element. You do not have enough tomes.")
+
+		return false
+
+	return true
 
 
 static func make_action_research_element(element: Element.enm) -> Action:
@@ -82,6 +102,11 @@ func _command_research_element(player: Player, args: Array):
 		return
 
 	var element: Element.enm = Element.from_string(element_string)
+
+	var command_ok: bool = ChatCommands.verify_research_element(player, element)
+
+	if !command_ok:
+		return
 
 	var cost: int = player.get_research_cost(element)
 	player.spend_tomes(cost)

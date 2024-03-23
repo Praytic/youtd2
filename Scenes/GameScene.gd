@@ -580,26 +580,11 @@ func _on_player_requested_to_roll_towers():
 
 
 func _on_player_requested_to_research_element(element: Element.enm):
-	var local_player: Player = _player_container.get_local_player()
-	var current_level: int = local_player.get_element_level(element)
-	var element_at_max: bool = current_level == Constants.MAX_ELEMENT_LEVEL
+	var local_player: Player = Globals.get_local_player()
+	var can_request: bool = ChatCommands.verify_research_element(local_player, element)
 
-	if element_at_max:
-		Messages.add_error(local_player, "Can't research element. Element is at max level.")
-
+	if !can_request:
 		return
-
-	var can_afford_research: bool = local_player.can_afford_research(element)
-
-	if !can_afford_research:
-		Messages.add_error(local_player, "Can't research element. You do not have enough tomes.")
-
-		return
-
-#	TODO: update hud to display new element level right
-#	here, even though element level will change later, when
-#	action is processed. Take into account max level.
-# 	This is to show immediate feedback to player.
 
 	var action: Action = ChatCommands.make_action_research_element(element)
 	_simulation.add_action(action)
