@@ -107,6 +107,8 @@ var _aura_list: Array[Aura] = []
 var _target_bitmask: int = 0x0
 var _buff_groups: Array[String] = []
 var _player: Player = null
+static var _uid_max: int = 1
+var _uid: int = 0
 
 var _selection_indicator: Node = null
 var _selection_outline: Node = null
@@ -207,6 +209,9 @@ func _ready():
 	if _player == null:
 		push_error("Unit was not assigned a player. You must assign a player to unit before adding it to tree, using Unit.set_player().")
 
+	_uid = _uid_max
+	_uid_max += 1
+
 	_target_bitmask = TargetType.make_unit_bitmask(self)
 
 	_selection_indicator = SelectionIndicator.new()
@@ -238,6 +243,10 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_uid() -> int:
+	return _uid
+
 
 # NOTE: you must call this instead of queue_free(), so that
 # tree_exited() signal is emitted immediately

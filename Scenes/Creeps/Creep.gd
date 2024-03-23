@@ -41,8 +41,6 @@ var _current_height: float = 0.0
 var _target_height: float = 0.0
 var _height_change_speed: float = 0.0
 
-static var _id_max: int = 1
-var _id: int
 
 # NOTE: need to use @onready for these variables instead of
 # @export because export vars cause null errors in HTML5
@@ -61,9 +59,6 @@ var _id: int
 
 func _ready():
 	super()
-
-	_id = _id_max
-	_id_max += 1
 
 	add_to_group("creeps")
 	
@@ -480,7 +475,7 @@ func get_base_bounty_value() -> float:
 
 func get_log_name() -> String:
 	var size_name: String = CreepSize.convert_to_string(_size)
-	var log_name: String = "%s-%d" % [size_name, _id]
+	var log_name: String = "%s-%d" % [size_name, get_uid()]
 
 	return log_name
 

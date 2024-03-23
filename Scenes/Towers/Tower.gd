@@ -68,9 +68,6 @@ var _temp_preceding_tower: Tower = null
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var _range_indicator_list: Array[RangeIndicator] = []
 
-static var _uid_max: int = 1
-var _uid: int = 0
-
 
 # NOTE: need to use @onready instead of @export because
 # Tower.make() calls set_script() on towers which
@@ -88,18 +85,6 @@ var _sprite: Sprite2D = null
 
 func _ready():
 	super()
-
-#	TODO: currently, we create uid's for towers and creeps
-#	separately. Create them in one location - Unit_ready().
-#	There's currently an obstacle to that which is that
-#	uid's are used in multiplayer and they need to be
-#	synchronized. Tower preview breaks this synchronization
-#	because it creates a tower instance. Separate sprites
-#	out of tower subclasses so that tower preview can use
-#	only the sprite without creating a tower instance. After
-#	that, uid can be created in Unit._ready().
-	_uid = _uid_max
-	_uid_max += 1
 
 	_set_visual_node(_visual)
 	var outline_thickness: float = 6.0
@@ -314,10 +299,6 @@ func remove_from_game():
 	on_destruct()
 
 	super()
-
-
-func get_uid() -> int:
-	return _uid
 
 
 func force_attack_target(forced_target: Creep):
