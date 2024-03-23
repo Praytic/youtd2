@@ -52,9 +52,9 @@ func _chat(player: Player, serialized_action: Dictionary):
 func _build_tower(player: Player, serialized_action: Dictionary):
 	var action: ActionBuildTower = ActionBuildTower.new(serialized_action)
 	var tower_id: int = action.tower_id
-	var position: Vector2 = action.position
+	var mouse_pos: Vector2 = action.position
 
-	var verify_ok: bool = _verify_build_tower(player, tower_id, position)
+	var verify_ok: bool = _verify_build_tower(player, tower_id, mouse_pos)
 
 	if !verify_ok:
 		return
@@ -73,15 +73,17 @@ func _build_tower(player: Player, serialized_action: Dictionary):
 
 	var new_tower: Tower = Tower.make(tower_id, player)
 
-#	NOTE: need to add tile height to position because towers are built at ground floor
-	new_tower.position = position + Vector2(0, Constants.TILE_SIZE.y)
+#	NOTE: need to add tile height to position because towers
+#	are built at ground floor
+	var build_position: Vector2 = _map.get_pos_on_tilemap_clamped(mouse_pos)
+	new_tower.position = build_position + Vector2(0, Constants.TILE_SIZE.y)
 	
 	_map.add_space_occupied_by_tower(new_tower)
 
 	Utils.add_object_to_world(new_tower)
 
 
-func _verify_build_tower(player: Player, tower_id: int, position: Vector2) -> bool:
+func _verify_build_tower(player: Player, tower_id: int, mouse_pos: Vector2) -> bool:
 	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
 
 	if !enough_resources:
@@ -89,7 +91,7 @@ func _verify_build_tower(player: Player, tower_id: int, position: Vector2) -> bo
 
 		return false
 
-	var can_build: bool = _map.can_build_at_pos(position)
+	var can_build: bool = _map.can_build_at_pos(mouse_pos)
 
 	if !can_build:
 		Messages.add_error(player, "Can't build here")

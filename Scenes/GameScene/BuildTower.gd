@@ -97,13 +97,12 @@ static func add_error_about_building_tower(tower_id: int, player: Player):
 
 func _build_tower(tower_id: int):
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
-	var build_position: Vector2 = _map.get_pos_on_tilemap_clamped(mouse_pos)
 	
-	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", build_position)
+	SFX.sfx_at_pos("res://Assets/SFX/build_tower.mp3", mouse_pos)
 	
 	EventBus.player_performed_tutorial_advance_action.emit("build_tower")
 	
-	var action: Action = ActionBuildTower.make(tower_id, build_position)
+	var action: Action = ActionBuildTower.make(tower_id, mouse_pos)
 	_simulation.add_action(action)
 
 
