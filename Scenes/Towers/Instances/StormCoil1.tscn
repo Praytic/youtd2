@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvtdmff0kk6vv"]
+[gd_scene load_steps=2 format=3 uid="uid://cvtdmff0kk6vv"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_iyvjb"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/StormCoil1.gd" id="2_idvnx"]
 [ext_resource type="Texture2D" uid="uid://duitpxtfpunqg" path="res://Assets/Towers/Instances/storm_coil_atlas.png" id="3_11egx"]
 
-[node name="StormCoil" instance=ExtResource("1_iyvjb")]
-script = ExtResource("2_idvnx")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-3, -79)
 texture = ExtResource("3_11egx")

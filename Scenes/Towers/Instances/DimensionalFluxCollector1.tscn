@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7ox7hs48c74l"]
+[gd_scene load_steps=2 format=3 uid="uid://c7ox7hs48c74l"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_jglv0"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/DimensionalFluxCollector1.gd" id="2_t3tfm"]
 [ext_resource type="Texture2D" uid="uid://crwggswo538r8" path="res://Assets/Towers/Instances/dimensional_flux_collector_atlas.png" id="3_i7bbg"]
 
-[node name="DimensionalFluxCollector" instance=ExtResource("1_jglv0")]
-script = ExtResource("2_t3tfm")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -77)
 texture = ExtResource("3_i7bbg")

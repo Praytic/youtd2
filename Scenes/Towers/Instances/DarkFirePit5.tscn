@@ -1,16 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbdafn75wlqbk"]
+[gd_scene load_steps=3 format=3 uid="uid://dbdafn75wlqbk"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_kvnyg"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/DarkFirePit1.gd" id="2_31x6e"]
 [ext_resource type="Texture2D" uid="uid://bw1uvfjs4ippi" path="res://Assets/Towers/Instances/dark_fire_pit_atlas.png" id="3_flg28"]
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("3_flg28")
 region = Rect2(300, 300, 300, 300)
 
-[node name="DarkFirePit" instance=ExtResource("1_kvnyg")]
-script = ExtResource("2_31x6e")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-3, -80)
 texture = SubResource("2")

@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfjy2q3y4e142"]
+[gd_scene load_steps=3 format=3 uid="uid://cfjy2q3y4e142"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_wsv7q"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/TentacleSpawn1.gd" id="2_vy4e7"]
 [ext_resource type="Texture2D" uid="uid://1pqqjmja242i" path="res://Assets/Towers/Instances/tentacle_spawn_atlas.png" id="3_l6xny"]
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("3_l6xny")
 region = Rect2(300, 300, 300, 300)
 
-[node name="TentacleSpawn" instance=ExtResource("1_wsv7q")]
-script = ExtResource("2_vy4e7")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(3, -67)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("2")

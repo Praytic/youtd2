@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://h2gvrpx54opo"]
+[gd_scene load_steps=3 format=3 uid="uid://h2gvrpx54opo"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_qnccl"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/DarkBattery1.gd" id="2_pf380"]
 [ext_resource type="Texture2D" uid="uid://bmb2vqg78fw8k" path="res://Assets/Towers/Instances/dark_battery_atlas.png" id="3_xfrf1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2ksm"]
 atlas = ExtResource("3_xfrf1")
 region = Rect2(300, 0, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_qnccl")]
-script = ExtResource("2_pf380")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-1, -48)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_p2ksm")

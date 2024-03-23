@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfe8rusund3ow"]
+[gd_scene load_steps=2 format=3 uid="uid://bfe8rusund3ow"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_jfql1"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/LibraryofAlexandria1.gd" id="2_d86u1"]
 [ext_resource type="Texture2D" uid="uid://nrqrwpjghjh" path="res://Assets/Towers/Instances/library_of_alexandria_atlas.png" id="3_kn74u"]
 
-[node name="LibraryofAlexandria" instance=ExtResource("1_jfql1")]
-script = ExtResource("2_d86u1")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -74)
 texture = ExtResource("3_kn74u")

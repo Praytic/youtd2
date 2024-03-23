@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxtl3f5rqw0of"]
+[gd_scene load_steps=3 format=3 uid="uid://bxtl3f5rqw0of"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_ff37d"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/TrashHeap1.gd" id="2_5jpno"]
 [ext_resource type="Texture2D" uid="uid://i6yc0xaviwdg" path="res://Assets/Towers/Instances/trash_heap_atlas.png" id="3_cdotu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q32kx"]
 atlas = ExtResource("3_cdotu")
 region = Rect2(600, 300, 300, 300)
 
-[node name="TrashHeap" instance=ExtResource("1_ff37d")]
-script = ExtResource("2_5jpno")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-1, -73)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_q32kx")

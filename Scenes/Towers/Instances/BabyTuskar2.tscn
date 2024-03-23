@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://hoq65tf3jnly"]
+[gd_scene load_steps=3 format=3 uid="uid://hoq65tf3jnly"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_0yv0o"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/BabyTuskar1.gd" id="2_2j06f"]
 [ext_resource type="Texture2D" uid="uid://cnbvpfhbopryp" path="res://Assets/Towers/Instances/baby_tuskar_atlas.png" id="3_j0l4w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_j0l4w")
 region = Rect2(300, 0, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_0yv0o")]
-script = ExtResource("2_2j06f")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -62)
 scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")

@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnyosfcfjxueo"]
+[gd_scene load_steps=2 format=3 uid="uid://bnyosfcfjxueo"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_e3kry"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/GoblinStronghold1.gd" id="2_jy4ve"]
 [ext_resource type="Texture2D" uid="uid://n1vuoy1pj7lk" path="res://Assets/Towers/Instances/goblin_stronghold_atlas.png" id="3_fgmaa"]
 
-[node name="GoblinStronghold" instance=ExtResource("1_e3kry")]
-script = ExtResource("2_jy4ve")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(1, -79)
 texture = ExtResource("3_fgmaa")

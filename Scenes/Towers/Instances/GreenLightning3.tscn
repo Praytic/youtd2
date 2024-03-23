@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dvjf7holn5mrb"]
+[gd_scene load_steps=3 format=3 uid="uid://dvjf7holn5mrb"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_i5k1n"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/GreenLightning1.gd" id="2_ip3xd"]
 [ext_resource type="Texture2D" uid="uid://dftdali6n4s0l" path="res://Assets/Towers/Instances/green_lightning_atlas.png" id="3_3ikyp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
 atlas = ExtResource("3_3ikyp")
 region = Rect2(300, 0, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_i5k1n")]
-script = ExtResource("2_ip3xd")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-1, -57)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_d0cuo")

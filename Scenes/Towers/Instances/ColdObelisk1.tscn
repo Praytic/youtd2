@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://ba71hglh0f4mj"]
+[gd_scene load_steps=3 format=3 uid="uid://ba71hglh0f4mj"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_p2lst"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/ColdObelisk1.gd" id="2_gq5fm"]
 [ext_resource type="Texture2D" uid="uid://j8xmb8anqcwb" path="res://Assets/Towers/Instances/cold_obelisk_atlas.png" id="3_7audj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_7audj")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_p2lst")]
-script = ExtResource("2_gq5fm")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -65)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")

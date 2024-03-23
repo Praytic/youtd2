@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dse1y2kajabhb"]
+[gd_scene load_steps=3 format=3 uid="uid://dse1y2kajabhb"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_x68ln"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/InexperiencedHuntress1.gd" id="2_axx4u"]
 [ext_resource type="Texture2D" uid="uid://bchnnmm651l5b" path="res://Assets/Towers/Instances/inexperienced_huntress_atlas.png" id="3_eq64e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0cuo"]
 atlas = ExtResource("3_eq64e")
 region = Rect2(0, 0, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_x68ln")]
-script = ExtResource("2_axx4u")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-2, -61)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_d0cuo")

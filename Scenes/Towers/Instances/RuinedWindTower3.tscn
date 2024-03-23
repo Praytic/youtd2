@@ -1,16 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvubc27e1skfg"]
+[gd_scene load_steps=3 format=3 uid="uid://bvubc27e1skfg"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_b8kj3"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/RuinedWindTower1.gd" id="2_g72ro"]
 [ext_resource type="Texture2D" uid="uid://6ahcbxvckte0" path="res://Assets/Towers/Instances/ruined_wind_tower_atlas.png" id="3_ennre"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_ennre")
 region = Rect2(600, 0, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_b8kj3")]
-script = ExtResource("2_g72ro")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -78)
 texture = SubResource("AtlasTexture_lrt4k")

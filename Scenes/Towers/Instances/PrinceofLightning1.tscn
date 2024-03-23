@@ -1,13 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgs44jihq2aeq"]
+[gd_scene load_steps=2 format=3 uid="uid://cgs44jihq2aeq"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_g2spd"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/PrinceofLightning1.gd" id="2_cyxla"]
 [ext_resource type="Texture2D" uid="uid://cuyoenmvaj656" path="res://Assets/Towers/Instances/prince_of_lightning_atlas.png" id="3_xc0yw"]
 
-[node name="Tower" instance=ExtResource("1_g2spd")]
-script = ExtResource("2_cyxla")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -51)
 scale = Vector2(0.55, 0.55)
 texture = ExtResource("3_xc0yw")

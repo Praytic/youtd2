@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr87sy3gdolfn"]
+[gd_scene load_steps=2 format=3 uid="uid://dr87sy3gdolfn"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_16whf"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/GardenofEden1.gd" id="2_cucbv"]
 [ext_resource type="Texture2D" uid="uid://h2exbfsg83ce" path="res://Assets/Towers/Instances/garden_of_eden_atlas.png" id="3_rucq0"]
 
-[node name="GardenofEden" instance=ExtResource("1_16whf")]
-script = ExtResource("2_cucbv")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(5, -67)
 texture = ExtResource("3_rucq0")

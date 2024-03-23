@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cctuhq6fpciil"]
+[gd_scene load_steps=3 format=3 uid="uid://cctuhq6fpciil"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_qigyk"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/AreaRoaster1.gd" id="2_a88gb"]
 [ext_resource type="Texture2D" uid="uid://dyxuqeew0h17u" path="res://Assets/Towers/Instances/area_roster_atlas.png" id="3_s6bii"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_s6bii")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_qigyk")]
-script = ExtResource("2_a88gb")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -49)
 scale = Vector2(0.6, 0.6)
 texture = SubResource("AtlasTexture_lrt4k")

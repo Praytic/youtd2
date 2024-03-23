@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cirxcwhdqledj"]
+[gd_scene load_steps=2 format=3 uid="uid://cirxcwhdqledj"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_2emqm"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/LightningEye1.gd" id="2_qmcq5"]
 [ext_resource type="Texture2D" uid="uid://bc7ftjvw4ux7" path="res://Assets/Towers/Instances/lightning_eye_atlas.png" id="3_bhyl3"]
 
-[node name="LightningEye1" instance=ExtResource("1_2emqm")]
-script = ExtResource("2_qmcq5")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-3, -78)
 texture = ExtResource("3_bhyl3")

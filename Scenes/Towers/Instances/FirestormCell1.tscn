@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cp33hds7vro5a"]
+[gd_scene load_steps=3 format=3 uid="uid://cp33hds7vro5a"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_syik6"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/FirestormCell1.gd" id="2_bpbdl"]
 [ext_resource type="Texture2D" uid="uid://8ry103btafci" path="res://Assets/Towers/Instances/firestorm_cell_atlas.png" id="3_oe4ae"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_oe4ae")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_syik6")]
-script = ExtResource("2_bpbdl")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -47)
 scale = Vector2(0.65, 0.65)
 texture = SubResource("AtlasTexture_lrt4k")

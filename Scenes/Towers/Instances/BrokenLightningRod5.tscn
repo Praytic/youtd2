@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3f8n1se0fk1f"]
+[gd_scene load_steps=3 format=3 uid="uid://d3f8n1se0fk1f"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_5uxll"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/BrokenLightningRod1.gd" id="2_ui84l"]
 [ext_resource type="Texture2D" uid="uid://bs4dmjg6l4sh2" path="res://Assets/Towers/Instances/broken_lightning_rod_atlas.png" id="3_5aroc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_5aroc")
 region = Rect2(300, 300, 300, 300)
 
-[node name="BrokenLightningRod" instance=ExtResource("1_5uxll")]
-script = ExtResource("2_ui84l")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -67)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")

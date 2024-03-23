@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1ssw3mx2n8rx"]
+[gd_scene load_steps=3 format=3 uid="uid://b1ssw3mx2n8rx"]
 
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/RuinedSunPedestal1.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://du5ximg316i8c" path="res://Assets/Towers/Instances/ruined_sun_pedestal_atlas.png" id="2"]
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="3"]
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = ExtResource("2")
 region = Rect2(0, 0, 300, 300)
 
-[node name="RuinedSunPedestal" instance=ExtResource("3")]
-script = ExtResource("1")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(1, -60)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("1")

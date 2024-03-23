@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://mhocbrc8w4xs"]
+[gd_scene load_steps=3 format=3 uid="uid://mhocbrc8w4xs"]
 
 [ext_resource type="Texture2D" uid="uid://dur2pbmp5fprs" path="res://Assets/Towers/Instances/fiery_pebble_atlas.png" id="1"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/FieryPebble1.gd" id="2"]
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="3"]
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("1")
 region = Rect2(615, 357, 265, 243)
 
-[node name="FieryPebble" instance=ExtResource("3")]
-script = ExtResource("2")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(1, -40)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("2")

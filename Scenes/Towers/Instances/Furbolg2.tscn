@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cp6kh4vgr0rha"]
+[gd_scene load_steps=3 format=3 uid="uid://cp6kh4vgr0rha"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_3m30a"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/Furbolg1.gd" id="2_vd7es"]
 [ext_resource type="Texture2D" uid="uid://bkhwnofkidk1w" path="res://Assets/Towers/Instances/furbolg_atlas.png" id="3_gcshm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_gcshm")
 region = Rect2(300, 0, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_3m30a")]
-script = ExtResource("2_vd7es")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(3, -55)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")

@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqcgpjqbmh3jq"]
+[gd_scene load_steps=3 format=3 uid="uid://bqcgpjqbmh3jq"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_2tf5d"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/SewerConnection1.gd" id="2_kaw31"]
 [ext_resource type="Texture2D" uid="uid://dcn836v6c6ept" path="res://Assets/Towers/Instances/sewer_connection_atlas.png" id="3_uy6c1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_uy6c1")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="SewerConnection1" instance=ExtResource("1_2tf5d")]
-script = ExtResource("2_kaw31")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -58)
 scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")

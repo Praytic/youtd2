@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://d01jqs25c5w6m"]
+[gd_scene load_steps=3 format=3 uid="uid://d01jqs25c5w6m"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_7aobj"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/ChilledSpire1.gd" id="2_76phe"]
 [ext_resource type="Texture2D" uid="uid://q0esa2lbh4i5" path="res://Assets/Towers/Instances/chilled_spire_atlas.png" id="3_48k6w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_48k6w")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_7aobj")]
-script = ExtResource("2_76phe")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -48)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_lrt4k")

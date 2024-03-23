@@ -1,13 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://siwf1n8vwgcr"]
+[gd_scene load_steps=2 format=3 uid="uid://siwf1n8vwgcr"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_yqhvu"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/ServantoftheTwinFlames1.gd" id="2_efvm8"]
 [ext_resource type="Texture2D" uid="uid://cb3u5rc3baa0u" path="res://Assets/Towers/Instances/servant_of_the_twin_flames_atlas.png" id="3_li7rl"]
 
-[node name="ServantoftheTwinFlames" instance=ExtResource("1_yqhvu")]
-script = ExtResource("2_efvm8")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-6, -46)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("3_li7rl")

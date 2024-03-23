@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://by5sdmjw51d8d"]
+[gd_scene load_steps=3 format=3 uid="uid://by5sdmjw51d8d"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_rte6j"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/ParticleAccelerator1.gd" id="2_nrtgj"]
 [ext_resource type="Texture2D" uid="uid://ckfi8s7gcuw7g" path="res://Assets/Towers/Instances/particle_accelerator_atlas.png" id="3_fh1em"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_fh1em")
 region = Rect2(300, 0, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_rte6j")]
-script = ExtResource("2_nrtgj")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(3, -70)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")

@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://boq3c52bkwo3"]
+[gd_scene load_steps=3 format=3 uid="uid://boq3c52bkwo3"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_2e8vv"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/EssenceofFury1.gd" id="2_0w3ne"]
 [ext_resource type="Texture2D" uid="uid://f3st8sr8vo4o" path="res://Assets/Towers/Instances/essence_of_fury_atlas.png" id="3_inwwm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_inwwm")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_2e8vv")]
-script = ExtResource("2_0w3ne")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-1, -51)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")

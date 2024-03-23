@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://ugj5i3defmi4"]
+[gd_scene load_steps=3 format=3 uid="uid://ugj5i3defmi4"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_e383g"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/AshGeyser1.gd" id="2_xvm23"]
 [ext_resource type="Texture2D" uid="uid://p5xby1q5e2wy" path="res://Assets/Towers/Instances/ash_geyser_atlas.png" id="3_l2pix"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_l2pix")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_e383g")]
-script = ExtResource("2_xvm23")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -54)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")

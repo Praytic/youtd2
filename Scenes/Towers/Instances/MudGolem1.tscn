@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://chjgadsu4gtpj"]
+[gd_scene load_steps=2 format=3 uid="uid://chjgadsu4gtpj"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_7o4da"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/MudGolem1.gd" id="2_hx3cn"]
 [ext_resource type="Texture2D" uid="uid://4j6j58rd08gk" path="res://Assets/Towers/Instances/mud_golem_atlas.png" id="3_83c0f"]
 
-[node name="MudGolem" instance=ExtResource("1_7o4da")]
-script = ExtResource("2_hx3cn")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-2, -76)
 texture = ExtResource("3_83c0f")

@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://b0w8tgtlqlhyv"]
+[gd_scene load_steps=3 format=3 uid="uid://b0w8tgtlqlhyv"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_ge4p0"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/HealingObelisk1.gd" id="2_h3gml"]
 [ext_resource type="Texture2D" uid="uid://bx5e3dkbag8o0" path="res://Assets/Towers/Instances/healing_obelisk_atlas.png" id="3_e74as"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_e74as")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_ge4p0")]
-script = ExtResource("2_h3gml")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-5, -61)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_lrt4k")

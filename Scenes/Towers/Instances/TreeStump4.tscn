@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://yj4hysddt7l0"]
+[gd_scene load_steps=3 format=3 uid="uid://yj4hysddt7l0"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_w33nw"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/TreeStump1.gd" id="2_md1r5"]
 [ext_resource type="Texture2D" uid="uid://cjb5202et8paj" path="res://Assets/Towers/Instances/tree_stump_atlas.png" id="3_vwbe0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q32kx"]
 atlas = ExtResource("3_vwbe0")
 region = Rect2(2.08165e-12, 300, 300, 300)
 
-[node name="TreeStump" instance=ExtResource("1_w33nw")]
-script = ExtResource("2_md1r5")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-1, -64)
 scale = Vector2(0.85, 0.85)
 texture = SubResource("AtlasTexture_q32kx")

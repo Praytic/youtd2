@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhmt3trt5ndqe"]
+[gd_scene load_steps=2 format=3 uid="uid://dhmt3trt5ndqe"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_0a7t3"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/Zeus1.gd" id="2_8ym1w"]
 [ext_resource type="Texture2D" uid="uid://d1nekbsd31uqh" path="res://Assets/Towers/Instances/zeus_atlas.png" id="3_g2jxt"]
 
-[node name="Zeus" instance=ExtResource("1_0a7t3")]
-script = ExtResource("2_8ym1w")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-7, -72)
 texture = ExtResource("3_g2jxt")

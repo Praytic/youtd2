@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bo7jkxeq2ex0e"]
+[gd_scene load_steps=3 format=3 uid="uid://bo7jkxeq2ex0e"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_udbh3"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/RundownIronSentry1.gd" id="2_vscv3"]
 [ext_resource type="Texture2D" uid="uid://bk68pe1pb86w3" path="res://Assets/Towers/Instances/rundown_iron_sentry_atlas.png" id="3_1q551"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_1q551")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_udbh3")]
-script = ExtResource("2_vscv3")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -49)
 scale = Vector2(0.6, 0.6)
 texture = SubResource("AtlasTexture_lrt4k")

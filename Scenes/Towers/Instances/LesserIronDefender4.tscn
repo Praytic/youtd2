@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://h2mr85boefub"]
+[gd_scene load_steps=3 format=3 uid="uid://h2mr85boefub"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_7qfc7"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/LesserIronDefender1.gd" id="2_5ukvn"]
 [ext_resource type="Texture2D" uid="uid://cs087jbrfobab" path="res://Assets/Towers/Instances/lesser_defender.png" id="3_bactk"]
 
 [sub_resource type="AtlasTexture" id="2"]
 atlas = ExtResource("3_bactk")
 region = Rect2(2.08165e-12, 300, 300, 300)
 
-[node name="LesserIronDefender" instance=ExtResource("1_7qfc7")]
-script = ExtResource("2_5ukvn")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(6, -54)
 scale = Vector2(0.8, 0.8)
 texture = SubResource("2")

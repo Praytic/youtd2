@@ -1,12 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp618dl6mmm6v"]
+[gd_scene load_steps=2 format=3 uid="uid://cp618dl6mmm6v"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_uxpah"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/BronzeDragonRoost1.gd" id="2_obsgw"]
 [ext_resource type="Texture2D" uid="uid://pbp7ml04os8f" path="res://Assets/Towers/Instances/bronze_dragon_roost_atlas.png" id="3_cr7ks"]
 
-[node name="BronzeDragonRoost" instance=ExtResource("1_uxpah")]
-script = ExtResource("2_obsgw")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -73)
 texture = ExtResource("3_cr7ks")

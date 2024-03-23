@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://qewakcw1bsga"]
+[gd_scene load_steps=3 format=3 uid="uid://qewakcw1bsga"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_p5bmy"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/YoungNorthernTroll1.gd" id="2_dw3s5"]
 [ext_resource type="Texture2D" uid="uid://cjlw1qnsdnujh" path="res://Assets/Towers/Instances/young_northern_troll_atlas.png" id="3_ey7sn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_ey7sn")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_p5bmy")]
-script = ExtResource("2_dw3s5")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-3, -60)
 scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")

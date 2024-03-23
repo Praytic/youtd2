@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dccp0gjt2apf1"]
+[gd_scene load_steps=3 format=3 uid="uid://dccp0gjt2apf1"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_70tvt"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/BombTurret1.gd" id="2_p7w3q"]
 [ext_resource type="Texture2D" uid="uid://dr1sj5o00ug5e" path="res://Assets/Towers/Instances/bomb_turret_atlas.png" id="3_74wej"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_74wej")
 region = Rect2(2.08165e-12, 2.08165e-12, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_70tvt")]
-script = ExtResource("2_p7w3q")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-6, -57)
 scale = Vector2(0.75, 0.75)
 texture = SubResource("AtlasTexture_lrt4k")

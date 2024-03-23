@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://n4aj3ly8tutq"]
+[gd_scene load_steps=3 format=3 uid="uid://n4aj3ly8tutq"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_gb3ix"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/SacrificialLamb1.gd" id="2_dxiap"]
 [ext_resource type="Texture2D" uid="uid://bbdjh6eobghdn" path="res://Assets/Towers/Instances/sacrificial_lamb_atlas.png" id="3_gwihx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_voii6"]
 atlas = ExtResource("3_gwihx")
 region = Rect2(0, 0, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_gb3ix")]
-script = ExtResource("2_dxiap")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(-3, -43)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_voii6")

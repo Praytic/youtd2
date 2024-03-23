@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dk0iu43f1xd8v"]
+[gd_scene load_steps=3 format=3 uid="uid://dk0iu43f1xd8v"]
 
-[ext_resource type="PackedScene" uid="uid://d1u2fghaw2oji" path="res://Scenes/Towers/Tower.tscn" id="1_85mut"]
-[ext_resource type="Script" path="res://Scenes/Towers/Instances/Skink1.gd" id="2_glcqf"]
 [ext_resource type="Texture2D" uid="uid://cq1qnds6cgia6" path="res://Assets/Towers/Instances/skink_atlas.png" id="3_tgkp0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrt4k"]
 atlas = ExtResource("3_tgkp0")
 region = Rect2(0, 300, 300, 300)
 
-[node name="Tower" instance=ExtResource("1_85mut")]
-script = ExtResource("2_glcqf")
-
-[node name="Sprite2D" parent="Visual" index="0"]
+[node name="Sprite2D" type="Sprite2D"]
 position = Vector2(0, -57)
 scale = Vector2(0.7, 0.7)
 texture = SubResource("AtlasTexture_lrt4k")
