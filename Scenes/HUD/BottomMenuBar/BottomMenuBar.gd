@@ -17,20 +17,21 @@ func _ready():
 	_gold_status.mouse_entered.connect(func(): EventBus.player_performed_tutorial_advance_action.emit("mouse_over_gold"))
 
 
-#########################
-###       Public      ###
-#########################
+func _process(_delta: float):
+	var local_player: Player = Globals.get_local_player()
 
-func set_gold(gold: float):
-	var text: String = str(gold)
-	_gold_status.set_label_text(text)
+	if local_player == null:
+		return
 
+	var gold: float = local_player.get_gold()
+	var gold_string: String = str(floori(gold))
+	_gold_status.set_label_text(gold_string)
 
-func set_tomes(tomes: int):
-	var text: String = str(tomes)
-	_tomes_status.set_label_text(text)
+	var tomes: int = local_player.get_tomes()
+	var tomes_string: String = str(tomes)
+	_tomes_status.set_label_text(tomes_string)
 
-
-func set_food(food: int, food_cap: int):
-	var text: String = "%d/%d" % [food, food_cap]
-	_food_status.set_label_text(text)
+	var food: int = local_player.get_food()
+	var food_cap: int = local_player.get_food_cap()
+	var food_string: String = "%d/%d" % [food, food_cap]
+	_food_status.set_label_text(food_string)

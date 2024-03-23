@@ -51,7 +51,7 @@ func _process(_delta: float):
 	_game_start_time_container.visible = !_game_start_timer.is_stopped()
 	_game_start_time_label.text = game_start_time_string
 
-	var gold_farmed: float = local_player.get_gold()
+	var gold_farmed: float = local_player.get_gold_farmed()
 	var gold_farmed_string: String = TowerDetails.int_format(floori(gold_farmed))
 	_gold_farmed_label.text = gold_farmed_string
 

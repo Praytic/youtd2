@@ -18,7 +18,6 @@ const CHAT_FADE_DURATION: float = 2.0
 @export var _towers_menu_card: ButtonStatusCard
 @export var _items_menu_card: ButtonStatusCard
 @export var _unit_status_menu_card: ButtonStatusCard
-@export var _bottom_menu_bar: BottomMenuBar
 @export var _top_left_menu: TopLeftMenu
 @export var _creep_menu: CreepMenu
 @export var _tower_menu: TowerMenu
@@ -178,18 +177,6 @@ func set_items_for_horadric_cube(item_list: Array[Item]):
 func set_towers(towers: Dictionary):
 	_elements_tower_menu.set_towers(towers)
 	_towers_menu_card.set_towers(towers)
-
-
-func set_gold(gold: float):
-	_bottom_menu_bar.set_gold(gold)
-
-
-func set_tomes(tomes: int):
-	_bottom_menu_bar.set_tomes(tomes)
-
-
-func set_food(food: int, food_cap: int):
-	_bottom_menu_bar.set_food(food, food_cap)
 
 
 func set_pregame_settings(wave_count: int, game_mode: GameMode.enm, difficulty: Difficulty.enm):
