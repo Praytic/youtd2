@@ -36,7 +36,7 @@ func set_tower(tower_id: int):
 	
 	_tower_id = tower_id
 	
-	_tower_sprite = TowerManager.get_tower_sprite(tower_id)
+	_tower_sprite = TowerSprites.get_sprite(tower_id)
 	add_child(_tower_sprite)
 	
 	var range_data_list: Array[Tower.RangeData] = TowerProperties.get_range_data_list(tower_id)

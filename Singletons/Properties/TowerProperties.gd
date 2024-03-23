@@ -458,6 +458,23 @@ func get_range_data_list(tower_id: int) -> Array[Tower.RangeData]:
 	return range_data_list
 
 
+# Family name is the name of the first tier tower in the
+# family, with spaces removed. Used to construct filenames
+# for tower scenes and scripts.
+func get_family_name(tower_id: int) -> String:
+	var family_id: int = TowerProperties.get_family(tower_id)
+	var towers_in_family: Array = TowerProperties.get_towers_in_family(family_id)
+
+	if towers_in_family.is_empty():
+		return ""
+
+	var first_tier_id: int = towers_in_family.front()
+	var first_tier_name: String = TowerProperties.get_display_name(first_tier_id)
+	var family_name: String = first_tier_name.replace(" ", "")
+
+	return family_name
+
+
 #########################
 ###      Private      ###
 #########################
