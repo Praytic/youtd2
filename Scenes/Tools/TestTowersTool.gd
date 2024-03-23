@@ -18,7 +18,7 @@ static func run(gamescene: Node, player: Player):
 
 #		Test tower preview
 		var tower_preview: TowerPreview = Preloads.tower_preview_scene.instantiate()
-		tower_preview.tower_id = tower_id
+		tower_preview.set_tower(tower_id)
 		gamescene.add_child(tower_preview)
 		await scene_tree.create_timer(0.01).timeout
 		tower_preview.queue_free()
