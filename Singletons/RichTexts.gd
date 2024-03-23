@@ -117,17 +117,6 @@ func get_tower_info(tower: Tower) -> String:
 	return text
 
 
-func get_tower_text(tower_id: int, player: Player) -> String:
-	var text: String = ""
-
-	if Config.use_saved_tooltips():
-		text = get_generated_tower_tooltip_with_tower_requirements(tower_id, player)
-	else:
-		text = generate_tower_tooltip(tower_id, player)
-	
-	return text
-
-
 # NOTE: calling this function causes a lag spike so it
 # should not be used during runtime in production builds.
 # Lag spike happens because we need to create a temporary
@@ -156,16 +145,16 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 
 # 	NOTE: creating a tower instance just to get the tooltip
 # 	text is weird, but the alternatives are worse. Need to
-# 	call init_stats_and_specials() and tower_init() so that
-# 	tower initializes all the info needed for tooltips.
+# 	add tower to tree so that tower is fully initialized and
+# 	has all of the info needed for tooltip.
 	var tower: Tower = TowerManager.get_tower(tower_id, player)
-	tower.init_stats_and_specials()
-	tower.tower_init()
+	player.add_child(tower)
+	tower.queue_free()
+
 	var specials_text: String = tower.get_specials_tooltip_text()
 	specials_text = add_color_to_numbers(specials_text)
 	var extra_text: String = tower.get_ability_description_short()
 	extra_text = add_color_to_numbers(extra_text)
-	tower.queue_free()
 
 	text += "[color=LIGHT_BLUE]%s[/color]\n" % description
 	text += "[color=YELLOW]Author:[/color] %s\n" % author
@@ -198,7 +187,7 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 # with no dynamic info such as colored wave/research requirements text. This
 # function combines cached tower description with such dynamic information
 # from get_tower_requirements_text.
-func get_generated_tower_tooltip_with_tower_requirements(tower_id: int, player: Player) -> String:
+func get_tower_text(tower_id: int, player: Player) -> String:
 	var generated_tooltip_text = TowerProperties.get_generated_tooltip(tower_id)
 	var requirements_text = get_tower_requirements_text(tower_id, player)
 	var display_name: String = TowerProperties.get_display_name(tower_id)

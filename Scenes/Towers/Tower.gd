@@ -213,11 +213,17 @@ func _ready():
 	innate_modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0, Constants.INNATE_MOD_ATTACKSPEED_LEVEL_ADD)
 	add_modifier(innate_modifier)
 
-	init_stats_and_specials()
+# 	Load stats for current tier. Stats are defined in
+# 	subclass.
+	var tier: int = get_tier()
+	var tier_stats: Dictionary = get_tier_stats()
+	_stats = tier_stats[tier]
 
-#	NOTE: need to call load_triggers() after calling
-#	init_stats_and_specials() because stats must be
-#	available in load_triggers().
+	load_specials(_specials_modifier)
+	add_modifier(_specials_modifier)
+
+#	NOTE: need to call load_triggers() after loading stats
+#	because stats must be available in load_triggers().
 	var triggers_buff_type: BuffType = BuffType.new("", 0, 0, true, self)
 	triggers_buff_type.set_hidden()
 	triggers_buff_type.set_buff_tooltip("Triggers buff for tower")
@@ -322,20 +328,6 @@ func remove_from_game():
 
 func get_uid() -> int:
 	return _uid
-
-
-# NOTE: this function is extracted from _ready() so that it
-# can be called in RichTexts.gd when generating tower
-# tooltip.
-func init_stats_and_specials():
-# 	Load stats for current tier. Stats are defined in
-# 	subclass.
-	var tier: int = get_tier()
-	var tier_stats: Dictionary = get_tier_stats()
-	_stats = tier_stats[tier]
-
-	load_specials(_specials_modifier)
-	add_modifier(_specials_modifier)
 
 
 func force_attack_target(forced_target: Creep):
