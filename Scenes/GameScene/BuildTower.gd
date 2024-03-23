@@ -36,7 +36,6 @@ func start(tower_id: int, player: Player):
 func try_to_finish(player: Player):
 	var tower_id: int = _tower_preview.get_tower_id()
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
-	var mouse_pos_clamped_again: Vector2 = _map.get_pos_on_tilemap_clamped(mouse_pos)
 	var can_build: bool = _map.can_build_at_pos(mouse_pos)
 	var can_transform: bool = _map.can_transform_at_pos(mouse_pos)
 	var tower_under_mouse: Tower = Utils.get_tower_at_position(mouse_pos)
