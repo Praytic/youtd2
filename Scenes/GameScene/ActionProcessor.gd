@@ -71,7 +71,7 @@ func _build_tower(player: Player, serialized_action: Dictionary):
 		var tower_stash: TowerStash = player.get_tower_stash()
 		tower_stash.remove_tower(tower_id)
 
-	var new_tower: Tower = TowerManager.get_tower(tower_id, player)
+	var new_tower: Tower = Tower.make(tower_id, player)
 
 #	NOTE: need to add tile height to position because towers are built at ground floor
 	new_tower.position = position + Vector2(0, Constants.TILE_SIZE.y)

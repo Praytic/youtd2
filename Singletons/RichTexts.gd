@@ -147,7 +147,7 @@ func generate_tower_tooltip(tower_id: int, player: Player) -> String:
 # 	text is weird, but the alternatives are worse. Need to
 # 	add tower to tree so that tower is fully initialized and
 # 	has all of the info needed for tooltip.
-	var tower: Tower = TowerManager.get_tower(tower_id, player)
+	var tower: Tower = Tower.make(tower_id, player)
 	player.add_child(tower)
 	tower.queue_free()
 

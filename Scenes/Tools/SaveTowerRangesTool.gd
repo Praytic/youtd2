@@ -29,7 +29,7 @@ static func run(player: Player):
 	result_file.store_csv_line(header_line)
 
 	for tower_id in tower_id_list:
-		var tower: Tower = TowerManager.get_tower(tower_id, player)
+		var tower: Tower = Tower.make(tower_id, player)
 		player.add_child(tower)
 		var range_data_list: Array[Tower.RangeData] = SaveTowerRangesTool._get_range_data_from_tower(tower)
 

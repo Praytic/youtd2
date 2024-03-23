@@ -73,7 +73,7 @@ var _uid: int = 0
 
 
 # NOTE: need to use @onready instead of @export because
-# Towers.get_tower() calls set_script() on towers which
+# Tower.make() calls set_script() on towers which
 # rests export vars.
 @onready var _mana_bar: ProgressBar = $Visual/ManaBar
 @onready var _tower_selection_area: Area2D = $Visual/TowerSelectionArea
@@ -448,7 +448,6 @@ func get_ability_ranges() -> Array[Tower.RangeData]:
 #########################
 ###      Private      ###
 #########################
-
 
 func _do_damage_from_projectile(projectile: Projectile, target: Unit, damage: float, is_main_target: bool):
 	if target == null:
@@ -1213,3 +1212,44 @@ func get_inventory_capacity() -> int:
 
 func get_attack_enabled() -> bool:
 	return TowerProperties.get_attack_enabled(_id)
+
+
+#########################
+###       Static      ###
+#########################
+
+# Return new unique instance of the Tower by its ID. Get
+# script for tower and attach to scene. Script name matches
+# with scene name so this can be done automatically instead
+# of having to do it by hand in scene editor.
+static func make(id: int, player: Player) -> Tower:
+	var tower: Tower = Preloads.tower_scene.instantiate()
+	var tower_script: Variant = Tower._get_tower_script(id)
+	tower.set_script(tower_script)
+	var tower_sprite: Sprite2D = TowerSprites.get_sprite(id)
+	tower.insert_sprite_scene(tower_sprite)
+	tower.set_id(id)
+	tower.set_player(player)
+
+	return tower
+
+
+# Get tower script based on tower scene name.
+# Examples:
+# TinyShrub1.tscn -> TinyShrub1.gd
+# TinyShrub2.tscn -> TinyShrub1.gd
+# TinyShrub3.tscn -> TinyShrub1.gd
+# ...
+static func _get_tower_script(id: int) -> Variant:
+	var family_name: String = TowerProperties.get_family_name(id)
+	var script_path: String = "%s/%s1.gd" % [Constants.TOWERS_DIR, family_name]
+	
+	var script_exists: bool = ResourceLoader.exists(script_path)
+	if !script_exists:
+		push_error("No script found for id:", id, ". Tried at path:", script_path)
+		
+		return null
+
+	var script: Variant = load(script_path)
+
+	return script
