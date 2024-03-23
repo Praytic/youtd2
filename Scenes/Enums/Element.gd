@@ -69,6 +69,13 @@ static var _color_map: Dictionary = {
 }
 
 
+static func is_valid_string(string: String) -> bool:
+	var key = _string_map.find_key(string)
+	var is_valid: bool = key != null
+
+	return is_valid
+
+
 static func from_string(string: String) -> Element.enm:
 	var key = _string_map.find_key(string)
 	

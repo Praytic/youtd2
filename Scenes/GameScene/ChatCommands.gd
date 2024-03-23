@@ -6,6 +6,7 @@ class_name ChatCommands extends Node
 const READY: String = "/ready"
 const START_NEXT_WAVE: String = "/startnextwave"
 const ROLL_TOWERS: String = "/rolltowers"
+const RESEARCH_ELEMENT: String = "/research"
 
 @export var _hud: HUD
 
@@ -14,11 +15,24 @@ const ROLL_TOWERS: String = "/rolltowers"
 ###       Public      ###
 #########################
 
-func process_chat_message(player: Player, message: String):
-	match message:
+func process_command(player: Player, command: String):
+	var command_split: Array = command.split(" ")
+	var command_main: String = command_split[0]
+	var args: Array = command_split.slice(1)
+
+	match command_main:
 		ChatCommands.READY: _command_ready(player)
 		ChatCommands.START_NEXT_WAVE: _command_start_next_wave(player)
 		ChatCommands.ROLL_TOWERS: _command_roll_towers(player)
+		ChatCommands.RESEARCH_ELEMENT: _command_research_element(player, args)
+
+
+static func make_action_research_element(element: Element.enm) -> Action:
+	var element_string: String = Element.convert_to_string(element)
+	var message: String = "%s %s" % [RESEARCH_ELEMENT, element_string]
+	var action: Action = ActionChat.make(message)
+
+	return action
 
 
 #########################
@@ -50,3 +64,30 @@ func _command_roll_towers(player: Player):
 	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(player, tower_count_for_roll)
 	tower_stash.add_towers(rolled_towers)
 	player.decrement_tower_count_for_starting_roll()
+
+
+func _command_research_element(player: Player, args: Array):
+	if args.size() < 1:
+		Messages.add_error(player, "Missing element argument")
+
+		return
+
+	var element_string: String = args[0]
+
+	var element_is_valid: bool = Element.is_valid_string(element_string)
+
+	if !element_is_valid:
+		Messages.add_error(player, "Invalid element")
+
+		return
+
+	var element: Element.enm = Element.from_string(element_string)
+
+	var cost: int = player.get_research_cost(element)
+	player.spend_tomes(cost)
+	player.increment_element_level(element)
+	
+	var local_player: Player = Globals.get_local_player()
+	if player == local_player:
+		var new_element_levels: Dictionary = local_player.get_element_level_map()
+		_hud.update_element_level(new_element_levels)

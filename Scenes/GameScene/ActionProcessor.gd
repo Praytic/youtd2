@@ -20,7 +20,6 @@ func process_action(player_id: int, serialized_action: Dictionary):
 	match action_type:
 		Action.Type.IDLE: return
 		Action.Type.CHAT: _chat(player, serialized_action)
-		Action.Type.RESEARCH_ELEMENT: _research_element(player_id, serialized_action)
 		Action.Type.BUILD_TOWER: _build_tower(player_id, serialized_action)
 		Action.Type.SELL_TOWER: _sell_tower(serialized_action)
 		Action.Type.SELECT_BUILDER: _select_builder(player_id, serialized_action)
@@ -37,25 +36,9 @@ func _chat(player: Player, serialized_action: Dictionary):
 	var is_chat_command: bool = !message.is_empty() && message[0] == "/"
 	
 	if is_chat_command:
-		_chat_commands.process_chat_message(player, message)
+		_chat_commands.process_command(player, message)
 	else:
 		_hud.add_chat_message(player.get_id(), message)
-
-
-func _research_element(player_id: int, serialized_action: Dictionary):
-	var action: ActionResearchElement = ActionResearchElement.new(serialized_action)
-	var element: Element.enm = action.element
-
-	var local_player: Player = _player_container.get_local_player()
-	var player: Player = _player_container.get_player(player_id)
-
-	var cost: int = player.get_research_cost(element)
-	player.spend_tomes(cost)
-	player.increment_element_level(element)
-
-	if player == local_player:
-		var new_element_levels: Dictionary = local_player.get_element_level_map()
-		_hud.update_element_level(new_element_levels)
 
 
 # TODO: build tower action looks very bad with the delay.

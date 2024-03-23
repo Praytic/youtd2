@@ -601,7 +601,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 #	action is processed. Take into account max level.
 # 	This is to show immediate feedback to player.
 
-	var action: Action = ActionResearchElement.make(element)
+	var action: Action = ChatCommands.make_action_research_element(element)
 	_simulation.add_action(action)
 
 

@@ -25,7 +25,6 @@ class_name Action
 enum Field {
 	TYPE,
 	CHAT_MESSAGE,
-	ELEMENT,
 	TOWER_ID,
 	POSITION,
 	TOWER_UNIT_ID,
@@ -36,7 +35,6 @@ enum Type {
 	NONE,
 	IDLE,
 	CHAT,
-	RESEARCH_ELEMENT,
 	BUILD_TOWER,
 	SELL_TOWER,
 	SELECT_BUILDER,
