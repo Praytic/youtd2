@@ -37,27 +37,27 @@ func _ready():
 # script for tower and attach to scene. Script name matches
 # with scene name so this can be done automatically instead
 # of having to do it by hand in scene editor.
-func get_tower(id: int, player: Player, is_tower_preview: bool = false) -> Tower:
-	var loaded_already: bool = preloaded_towers.has(id)
-
-	if !loaded_already:
-		var tower_scene: PackedScene = _get_tower_scene(id)
-
-		preloaded_towers[id] = tower_scene
-	
+func get_tower(id: int, player: Player) -> Tower:
 	var tower: Tower = Preloads.tower_scene.instantiate()
 	var tower_script: Variant = _get_tower_script(id)
 	tower.set_script(tower_script)
-	var scene: PackedScene = preloaded_towers[id]
-	var scene_instance = scene.instantiate()
-	tower.insert_sprite_scene(scene_instance)
+	var tower_sprite: Sprite2D = get_tower_sprite(id)
+	tower.insert_sprite_scene(tower_sprite)
 	tower.set_id(id)
 	tower.set_player(player)
 
-	if is_tower_preview:
-		tower.set_is_tower_preview()
-
 	return tower
+
+
+func get_tower_sprite(id: int) -> Sprite2D:
+	if !preloaded_towers.has(id):
+		var sprite_scene: PackedScene = _get_tower_scene(id)
+		preloaded_towers[id] = sprite_scene
+
+	var sprite_scene: PackedScene = preloaded_towers[id]
+	var sprite: Sprite2D = sprite_scene.instantiate()
+
+	return sprite
 
 
 #########################

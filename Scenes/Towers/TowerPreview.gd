@@ -10,7 +10,7 @@ const opaque_green := Color(0, 1, 0, 0.5)
 const opaque_blue := Color(0, 0, 1, 0.5)
 
 var _tower_id: int = 0
-var _tower_instance: Node2D = null
+var _tower_sprite: Node2D = null
 
 @export var _pedestal_up: Polygon2D
 @export var _pedestal_right: Polygon2D
@@ -26,19 +26,18 @@ func set_player(player: Player):
 
 
 func set_tower(tower_id: int):
-	if _tower_instance != null:
-		remove_child(_tower_instance)
-		_tower_instance.queue_free()
-		_tower_instance = null
+	if _tower_sprite != null:
+		remove_child(_tower_sprite)
+		_tower_sprite.queue_free()
+		_tower_sprite = null
 		
 	for old_range_indicator in _range_indicator_container.get_children():
 		old_range_indicator.queue_free()
 	
 	_tower_id = tower_id
 	
-	var is_tower_preview: bool = true
-	_tower_instance = TowerManager.get_tower(tower_id, _player, is_tower_preview)
-	add_child(_tower_instance)
+	_tower_sprite = TowerManager.get_tower_sprite(tower_id)
+	add_child(_tower_sprite)
 	
 	var range_data_list: Array[Tower.RangeData] = TowerProperties.get_range_data_list(tower_id)
 	Utils.setup_range_indicators(range_data_list, _range_indicator_container, Globals.get_local_player())
@@ -49,7 +48,7 @@ func get_tower_id() -> int:
 
 
 func _process(_delta: float):
-	if !visible || _tower_instance == null:
+	if !visible || _tower_sprite == null:
 		return
 	
 	var mouse_pos: Vector2 = get_global_mouse_position()
@@ -63,9 +62,9 @@ func _process(_delta: float):
 	var can_transform: bool = _map.can_transform_at_pos(mouse_pos)
 
 	if can_transform:
-		_tower_instance.modulate = opaque_blue
+		_tower_sprite.modulate = opaque_blue
 	else:
-		_tower_instance.modulate = Color.WHITE
+		_tower_sprite.modulate = Color.WHITE
 
 	var build_info: Array = _map.get_build_info_for_pos(mouse_pos)
 	var polygon_list: Array = [

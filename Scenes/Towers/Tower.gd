@@ -67,7 +67,6 @@ var _temp_preceding_tower: Tower = null
 # for attacking.
 var _attack_target_type: TargetType = TargetType.new(TargetType.CREEPS)
 var _range_indicator_list: Array[RangeIndicator] = []
-var _is_tower_preview: bool = false
 
 static var _uid_max: int = 1
 var _uid: int = 0
@@ -88,17 +87,6 @@ var _sprite: Sprite2D = null
 #########################
 
 func _ready():
-#	If this tower is used for towerpreview, then exit early
-#	out of ready() so that no event handlers or auras are
-#	created so that the tower instance is inactive. Also,
-#	this early exit has to happen before adjusting positions
-#	of visuals so that tower preview is correctly drawn
-#	under mouse.
-	if _is_tower_preview:
-		_mana_bar.hide()
-
-		return
-
 	super()
 
 #	TODO: currently, we create uid's for towers and creeps
@@ -276,9 +264,6 @@ func _ready():
 # NOTE: need to do attack timing without Timer because Timer
 # doesn't handle short durations well (<0.5s)
 func update(delta: float):
-	if _is_tower_preview:
-		return
-
 	if is_queued_for_deletion():
 		return
 
@@ -961,12 +946,6 @@ func is_attacking() -> bool:
 	var attacking: bool = !_target_list.is_empty()
 
 	return attacking
-
-
-# Disables attacking or any other game interactions for the
-# tower. Must be called before add_child().
-func set_is_tower_preview():
-	_is_tower_preview = true
 
 
 # NOTE: tower.countFreeSlots() in JASS
