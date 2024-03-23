@@ -24,7 +24,6 @@ func process_action(player_id: int, serialized_action: Dictionary):
 		Action.Type.ROLL_TOWERS: _roll_towers(player_id)
 		Action.Type.BUILD_TOWER: _build_tower(player_id, serialized_action)
 		Action.Type.SELL_TOWER: _sell_tower(serialized_action)
-		Action.Type.START_NEXT_WAVE: start_next_wave(player_id)
 		Action.Type.SELECT_BUILDER: _select_builder(player_id, serialized_action)
 
 
@@ -128,19 +127,6 @@ func _sell_tower(serialized_action: Dictionary):
 	_map.clear_space_occupied_by_tower(tower)
 
 	tower.remove_from_game()
-
-
-# TODO: reject action if reached last level
-func start_next_wave(player_id: int):
-	var player: Player = _player_container.get_player(player_id)
-	var team: Team = player.get_team()
-	team.start_next_wave()
-	
-	var local_player: Player = Globals.get_local_player()
-	var local_level: int = local_player.get_team().get_level()
-	_hud.update_level(local_level)
-	var next_waves: Array[Wave] = local_player.get_next_5_waves()
-	_hud.show_wave_details(next_waves)
 
 
 func _select_builder(player_id: int, serialized_action: Dictionary):

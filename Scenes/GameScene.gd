@@ -549,7 +549,7 @@ func _on_player_requested_next_wave():
 		
 		return
 	
-	var action: Action = ActionStartNextWave.make()
+	var action: Action = ActionChat.make(ChatCommands.START_NEXT_WAVE)
 	_simulation.add_action(action)
 
 
