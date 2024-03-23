@@ -21,7 +21,6 @@ func process_action(player_id: int, serialized_action: Dictionary):
 		Action.Type.IDLE: return
 		Action.Type.CHAT: _chat(player, serialized_action)
 		Action.Type.RESEARCH_ELEMENT: _research_element(player_id, serialized_action)
-		Action.Type.ROLL_TOWERS: _roll_towers(player_id)
 		Action.Type.BUILD_TOWER: _build_tower(player_id, serialized_action)
 		Action.Type.SELL_TOWER: _sell_tower(serialized_action)
 		Action.Type.SELECT_BUILDER: _select_builder(player_id, serialized_action)
@@ -57,17 +56,6 @@ func _research_element(player_id: int, serialized_action: Dictionary):
 	if player == local_player:
 		var new_element_levels: Dictionary = local_player.get_element_level_map()
 		_hud.update_element_level(new_element_levels)
-
-
-func _roll_towers(player_id: int):
-	var player: Player = _player_container.get_player(player_id)
-	var tower_stash: TowerStash = player.get_tower_stash()
-	tower_stash.clear()
-	
-	var tower_count_for_roll: int = player.get_tower_count_for_starting_roll()
-	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(player, tower_count_for_roll)
-	tower_stash.add_towers(rolled_towers)
-	player.decrement_tower_count_for_starting_roll()
 
 
 # TODO: build tower action looks very bad with the delay.

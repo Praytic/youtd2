@@ -575,7 +575,7 @@ func _on_player_requested_to_roll_towers():
 	
 		return
 
-	var action: Action = ActionRollTowers.make()
+	var action: Action = ActionChat.make(ChatCommands.ROLL_TOWERS)
 	_simulation.add_action(action)
 
 
