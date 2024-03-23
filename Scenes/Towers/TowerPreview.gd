@@ -40,10 +40,8 @@ func set_tower(tower_id: int):
 	_tower_instance = TowerManager.get_tower(tower_id, _player, is_tower_preview)
 	add_child(_tower_instance)
 	
-#	NOTE: have to init stats because they are used inside
-#	Utils.setup_range_indicators().
-	_tower_instance.init_stats_and_specials()
-	Utils.setup_range_indicators(_tower_instance, _range_indicator_container)
+	var range_data_list: Array[Tower.RangeData] = TowerProperties.get_range_data_list(tower_id)
+	Utils.setup_range_indicators(range_data_list, _range_indicator_container, Globals.get_local_player())
 
 
 func get_tower_id() -> int:

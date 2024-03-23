@@ -187,6 +187,9 @@ func use_prerendered_background() -> bool:
 func run_save_tooltips_tool() -> bool:
 	return ProjectSettings.get_setting("application/config/run_save_tooltips_tool") as bool
 
+func run_save_ranges_tool() -> bool:
+	return ProjectSettings.get_setting("application/config/run_save_ranges_tool") as bool
+
 func use_saved_tooltips() -> bool:
 	return ProjectSettings.get_setting("application/config/use_saved_tooltips") as bool
 

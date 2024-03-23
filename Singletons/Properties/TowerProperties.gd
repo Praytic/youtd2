@@ -27,8 +27,18 @@ enum CsvProperty {
 }
 
 
+enum RangeColumn {
+	TOWER_ID,
+	NAME,
+	RADIUS,
+	TARGETS_CREEPS,
+	AFFECTED_BY_BUILDER,
+	COUNT
+}
+
 const PROPERTIES_PATH = "res://Data/tower_properties.csv"
 const TOWER_TOOLTIPS_PATH = "res://Data/tower_tooltips.csv"
+const TOWER_RANGES_PATH: String = "res://Data/tower_ranges.csv"
 
 
 var _min_required_wave_for_build_mode = {
@@ -40,6 +50,7 @@ var _min_required_wave_for_build_mode = {
 
 var _properties: Dictionary = {}
 var _tower_tooltips: Dictionary = {}
+var _tower_ranges: Dictionary = {}
 var _element_map: Dictionary = {}
 var _attack_type_map: Dictionary = {}
 var _rarity_map: Dictionary = {}
@@ -54,6 +65,8 @@ var _rarity_map: Dictionary = {}
 func _ready():
 	UtilsStatic.load_csv_properties(PROPERTIES_PATH, _properties, CsvProperty.ID)
 	UtilsStatic.load_csv_properties(TOWER_TOOLTIPS_PATH, _tower_tooltips, 0)
+
+	_tower_ranges = _load_tower_ranges_map()
 	
 	for tower_id in get_tower_id_list():
 		var element_string: String = _get_property(tower_id, CsvProperty.ELEMENT)
@@ -434,6 +447,17 @@ func get_upgrade_id_for_tower(tower_id: int) -> int:
 	return -1
 
 
+func get_range_data_list(tower_id: int) -> Array[Tower.RangeData]:
+	if !_tower_ranges.has(tower_id):
+		var empty_list: Array[Tower.RangeData] = []
+
+		return empty_list
+
+	var range_data_list: Array[Tower.RangeData] = _tower_ranges[tower_id]
+
+	return range_data_list
+
+
 #########################
 ###      Private      ###
 #########################
@@ -495,3 +519,54 @@ func _get_required_element_level_from_formula(tower_id: int) -> int:
 			return element_level
 
 	return 1
+
+
+# Create range data based on attack ranges and extra ranges
+# for abilities, defined in ranges csv
+func _load_tower_ranges_map() -> Dictionary:
+	var csv: Array[PackedStringArray] = UtilsStatic.load_csv(TOWER_RANGES_PATH)
+
+	var result: Dictionary = {}
+
+# 	Add attack ranges
+	var tower_id_list: Array = get_tower_id_list()
+	for tower_id in tower_id_list:
+		var empty_list: Array[Tower.RangeData] = []
+		result[tower_id] = empty_list
+		
+		var attack_enabled: bool = get_attack_enabled(tower_id)
+
+		if attack_enabled:
+			var attack_range: float = get_range(tower_id)
+			var range_data: Tower.RangeData = Tower.RangeData.new("Attack Range", attack_range)
+			range_data.targets_creeps = true
+			range_data.affected_by_builder = true
+			result[tower_id].append(range_data)
+
+# 	Add ability ranges
+	for csv_line in csv:
+		var properties: Dictionary = UtilsStatic.load_csv_line(csv_line)
+		var tower_id: int = properties[TowerProperties.RangeColumn.TOWER_ID].to_int()
+		var range_name: String = properties[TowerProperties.RangeColumn.NAME]
+		var radius: float = properties[TowerProperties.RangeColumn.RADIUS].to_float()
+		var targets_creeps_string: String = properties[TowerProperties.RangeColumn.TARGETS_CREEPS]
+		var targets_creeps: bool = targets_creeps_string == "TRUE"
+
+		var range_data: Tower.RangeData = Tower.RangeData.new(range_name, radius)
+		range_data.targets_creeps = targets_creeps
+
+		result[tower_id].append(range_data)
+
+#	Assign colors to tower ranges
+#	NOTE: avoid using any greenish colors to avoid confusion
+#	with selection circle.
+	var color_list: Array = [Color.AQUA, Color.ORANGE, Color.YELLOW, Color.PURPLE, Color.PINK, Color.RED, Color.LIGHT_BLUE]
+
+	for key in result.keys():
+		var color_index: int = 0
+		for range_data in result[key]:
+			var wrapped_color_index: int = wrapi(color_index, 0, color_list.size())
+			range_data.color = color_list[wrapped_color_index]
+			color_index += 1
+	
+	return result

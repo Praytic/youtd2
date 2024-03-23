@@ -415,6 +415,9 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 #	normal gameplay.
 	if Config.run_save_tooltips_tool():
 		SaveTooltipsTool.run(local_player)
+	
+	if Config.run_save_ranges_tool():
+		SaveTowerRangesTool.run(local_player)
 
 #	NOTE: tower tests need to run after everything else has
 #	been initialized

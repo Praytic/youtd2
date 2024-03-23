@@ -379,14 +379,15 @@ func _get_tower_details_text(tower: Tower) -> String:
 func _get_tower_ranges_text(tower: Tower) -> String:
 	var text: String = ""
 
-	var range_data_list: Array[Tower.RangeData] = tower.get_range_data()
+	var range_data_list: Array[Tower.RangeData] = TowerProperties.get_range_data_list(tower.get_id())
 
 	text += "[color=GOLD]Ranges:[/color]\n \n"
 
 	text += "[table=2]"
 
 	for range_data in range_data_list:
-		var radius_string: String = Utils.format_float(range_data.radius, 0)
+		var radius: float = range_data.get_radius_with_builder_bonus(tower.get_player())
+		var radius_string: String = Utils.format_float(radius, 0)
 		radius_string = Utils.get_colored_string(radius_string, range_data.color)
 
 		text += "[cell]%s:[/cell][cell]%s[/cell]\n" % [range_data.name, radius_string]

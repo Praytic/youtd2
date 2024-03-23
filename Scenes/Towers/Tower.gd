@@ -15,15 +15,27 @@ enum AttackStyle {
 # This class is used when displaying ranges in tower details
 # and when setting up range indicators.
 class RangeData:
-	var name: String
-	var radius: float
-	var target_type: TargetType
+	var name: String = "placeholder"
+	var radius: float = 100
+	var targets_creeps: bool = true
 	var color: Color = Color.WHITE
+	var affected_by_builder: bool = false
 
-	func _init(name_arg: String, radius_arg: float, target_type_arg: TargetType):
+	func _init(name_arg: String, radius_arg: float, target_type: TargetType = null):
 		name = name_arg
 		radius = radius_arg
-		target_type = target_type_arg
+		
+		if target_type != null:
+			var unit_type: TargetType.UnitType = target_type._unit_type
+			targets_creeps = unit_type == TargetType.UnitType.CREEPS
+
+
+	func get_radius_with_builder_bonus(player: Player):
+		var builder: Builder = player.get_builder()
+		var radius_bonus: float = builder.get_range_bonus()
+		var with_bonus: float = radius + radius_bonus
+
+		return with_bonus
 
 
 const TOWER_SELECTION_VISUAL_SIZE: int = 128
@@ -223,7 +235,8 @@ func _ready():
 
 #	NOTE: add aura range indicators to "visual" for correct
 #	positioning on y axis.
-	Utils.setup_range_indicators(self, _visual)
+	var range_data_list: Array[Tower.RangeData] = TowerProperties.get_range_data_list(get_id())
+	_range_indicator_list = Utils.setup_range_indicators(range_data_list, _visual, get_player())
 
 	on_create(_temp_preceding_tower)
 
@@ -309,53 +322,6 @@ func remove_from_game():
 
 func get_uid() -> int:
 	return _uid
-
-
-# Composes range data which contains name, radius and color
-# for each range of tower. This includes attack range,
-# auras, extra abilities. Used by tower details and when
-# setting up range indicators.
-# 
-# Each range is assigned a unique color. Attack range is
-# always same AQUA color, for consistency.
-func get_range_data() -> Array[Tower.RangeData]:
-	var list: Array[Tower.RangeData] = []
-
-#	NOTE: avoid using any greenish colors to avoid confusion
-#	with selection circle.
-	var free_color_list: Array = [Color.AQUA, Color.ORANGE, Color.YELLOW, Color.PURPLE, Color.PINK, Color.RED, Color.LIGHT_BLUE]
-
-	var get_next_range_color: Callable = func() -> Color:
-		if free_color_list.is_empty():
-			push_error("Ran out of range colors. Define more colors in free_color_list.")
-
-			return Color.WHITE
-
-		var new_color: Color = free_color_list.pop_front()
-
-		return new_color
-
-	var attack_range: RangeData = RangeData.new("Attack Range", get_range(), TargetType.new(TargetType.CREEPS))
-	attack_range.color = get_next_range_color.call()
-	if get_attack_enabled():
-		list.append(attack_range)
-
-	var aura_list: Array[AuraType] = get_aura_types()
-
-	for i in aura_list.size():
-		var aura: AuraType = aura_list[i]
-		var aura_name: String = "Aura %d" % (i + 1)
-		var aura_range: RangeData = RangeData.new(aura_name, aura.get_range(get_player()), aura.target_type)
-		aura_range.color = get_next_range_color.call()
-		list.append(aura_range)
-
-	var ability_list: Array[RangeData] = get_ability_ranges()
-
-	for ability_range in ability_list:
-		ability_range.color = get_next_range_color.call()
-		list.append(ability_range)
-
-	return list
 
 
 # NOTE: this function is extracted from _ready() so that it

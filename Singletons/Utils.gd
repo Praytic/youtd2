@@ -533,8 +533,8 @@ func get_creep_list() -> Array[Creep]:
 # Setup range indicators for tower attack, auras and extra
 # abilities.
 # NOTE: tower stats must be initialized before calling this
-func setup_range_indicators(tower: Tower, parent: Node2D):
-	var range_data_list: Array[Tower.RangeData] = tower.get_range_data()
+func setup_range_indicators(range_data_list: Array[Tower.RangeData], parent: Node2D, player: Player) -> Array[RangeIndicator]:
+	var indicator_list: Array[RangeIndicator] = []
 
 	var occupied_radius_list: Array = []
 
@@ -542,7 +542,7 @@ func setup_range_indicators(tower: Tower, parent: Node2D):
 #		NOTE: if there are multiple ranges with same radius,
 #		shift them slightly so that they don't get drawn on
 #		top of each other.
-		var indicator_radius: float = range_data.radius
+		var indicator_radius: float = range_data.get_radius_with_builder_bonus(player)
 
 		while occupied_radius_list.has(indicator_radius):
 			indicator_radius -= 10
@@ -554,16 +554,13 @@ func setup_range_indicators(tower: Tower, parent: Node2D):
 
 		occupied_radius_list.append(indicator_radius)
 
-		var target_type: TargetType = range_data.target_type
-		var unit_type: TargetType.UnitType = target_type._unit_type
-
 		var range_indicator: RangeIndicator = RangeIndicator.make()
 #		NOTE: enable floor collisions only for range
 #		indicators intended for creeps. For other range
 #		indicators, like tower auras, we should not do
 #		floor collisions because the range indicator may be
 #		fully located on the second floor.
-		range_indicator.enable_floor_collisions = unit_type == TargetType.UnitType.CREEPS
+		range_indicator.enable_floor_collisions = range_data.targets_creeps
 		range_indicator.set_radius(indicator_radius)
 		range_indicator.color = range_data.color
 
@@ -574,7 +571,7 @@ func setup_range_indicators(tower: Tower, parent: Node2D):
 #		one level lower, so that the indicator is "on the
 #		ground".
 		var y_offset: float
-		if unit_type == TargetType.UnitType.CREEPS:
+		if range_data.targets_creeps:
 			y_offset = Constants.TILE_SIZE.y
 		else:
 			y_offset = 0
@@ -582,7 +579,9 @@ func setup_range_indicators(tower: Tower, parent: Node2D):
 		range_indicator.y_offset = y_offset
 
 		parent.add_child(range_indicator)
-		tower._range_indicator_list.append(range_indicator)
+		indicator_list.append(range_indicator)
+
+	return indicator_list
 
 
 # Returns AoE damage dealt to unit, taking into account how
