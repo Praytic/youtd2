@@ -527,7 +527,7 @@ func _on_player_requested_start_game():
 
 		return
 
-	var action: Action = ActionStartGame.make()
+	var action: Action = ActionChat.make(ChatCommands.READY)
 	_simulation.add_action(action)
 
 

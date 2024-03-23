@@ -19,12 +19,11 @@ func process_action(player_id: int, serialized_action: Dictionary):
 
 	match action_type:
 		Action.Type.IDLE: return
-		Action.Type.CHAT: _chat(player_id, serialized_action)
+		Action.Type.CHAT: _chat(player, serialized_action)
 		Action.Type.RESEARCH_ELEMENT: _research_element(player_id, serialized_action)
 		Action.Type.ROLL_TOWERS: _roll_towers(player_id)
 		Action.Type.BUILD_TOWER: _build_tower(player_id, serialized_action)
 		Action.Type.SELL_TOWER: _sell_tower(serialized_action)
-		Action.Type.START_GAME: _vote_ready(player)
 		Action.Type.START_NEXT_WAVE: start_next_wave(player_id)
 		Action.Type.SELECT_BUILDER: _select_builder(player_id, serialized_action)
 
@@ -33,18 +32,16 @@ func process_action(player_id: int, serialized_action: Dictionary):
 ###       Public      ###
 #########################
 
-func _chat(player_id: int, serialized_action: Dictionary):
+func _chat(player: Player, serialized_action: Dictionary):
 	var action: ActionChat = ActionChat.new(serialized_action)
 	var message: String = action.chat_message
-	
-	var player: Player = _player_container.get_player(player_id)
 	
 	var is_chat_command: bool = !message.is_empty() && message[0] == "/"
 	
 	if is_chat_command:
 		_chat_commands.process_chat_message(player, message)
 	else:
-		_hud.add_chat_message(player_id, message)
+		_hud.add_chat_message(player.get_id(), message)
 
 
 func _research_element(player_id: int, serialized_action: Dictionary):
@@ -131,13 +128,6 @@ func _sell_tower(serialized_action: Dictionary):
 	_map.clear_space_occupied_by_tower(tower)
 
 	tower.remove_from_game()
-
-
-func _vote_ready(player: Player):
-	if player.is_ready():
-		return
-
-	player.vote_ready()
 
 
 # TODO: reject action if reached last level

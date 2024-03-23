@@ -3,11 +3,13 @@ class_name ChatCommands extends Node
 # Processes chat commands. All chat messages which start with "/" are treated as commands.
 
 
+const READY: String = "/ready"
+
+
+
 func process_chat_message(player: Player, message: String):
-	var command: String = message.substr(1)
-	
-	match command:
-		"ready": _command_ready(player)
+	match message:
+		ChatCommands.READY: _command_ready(player)
 
 
 func _command_ready(player: Player):
