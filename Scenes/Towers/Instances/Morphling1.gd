@@ -116,7 +116,7 @@ func tower_init():
 	dave_morph_damage_bt.set_buff_icon("@@1@@")
 	dave_morph_damage_bt.set_buff_tooltip("Morph: Might\nIncreases attack damage and reduces attack speed after each attack.")
 
-	dave_morph_speed_bt = BuffType.new("dave_morph_speed_bt", 5, 0, true, self)
+	dave_morph_speed_bt = BuffType.new("dave_morph_speed_bt", -1, 0, true, self)
 	var dave_morph_speed_bt_mod: Modifier = Modifier.new()
 	dave_morph_speed_bt_mod.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, -0.02)
 	dave_morph_speed_bt_mod.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.02)
