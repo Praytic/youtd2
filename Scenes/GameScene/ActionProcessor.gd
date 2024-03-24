@@ -34,6 +34,9 @@ func process_action(player_id: int, serialized_action: Dictionary):
 		Action.Type.MOVE_ITEM: _move_item(player, serialized_action)
 		Action.Type.AUTOFILL: _autofill(player, serialized_action)
 		Action.Type.TRANSMUTE: _transmute(player, serialized_action)
+		Action.Type.RESEARCH_ELEMENT: _research_element(player, serialized_action)
+		Action.Type.ROLL_TOWERS: _roll_towers(player, serialized_action)
+		Action.Type.START_NEXT_WAVE: _start_next_wave(player, serialized_action)
 
 
 #########################
@@ -298,3 +301,111 @@ func _autofill(player: Player, serialized_action: Dictionary):
 
 func _transmute(player: Player, _serialized_action: Dictionary):
 	HoradricCube.transmute(player)
+
+
+func _research_element(player: Player, serialized_action: Dictionary):
+	var action: ActionResearchElement = ActionResearchElement.new(serialized_action)
+	var element: Element.enm = action.element
+
+	var verify_ok: bool = ActionProcessor.verify_research_element(player, element)
+
+	if !verify_ok:
+		return
+
+	var cost: int = player.get_research_cost(element)
+	player.spend_tomes(cost)
+	player.increment_element_level(element)
+	
+	var local_player: Player = PlayerManager.get_local_player()
+	if player == local_player:
+		var new_element_levels: Dictionary = local_player.get_element_level_map()
+		_hud.update_element_level(new_element_levels)
+
+
+static func verify_research_element(player: Player, element: Element.enm) -> bool:
+	var current_level: int = player.get_element_level(element)
+	var element_at_max: bool = current_level == Constants.MAX_ELEMENT_LEVEL
+
+	if element_at_max:
+		Messages.add_error(player, "Can't research element. Element is at max level.")
+
+		return false
+
+	var can_afford_research: bool = player.can_afford_research(element)
+
+	if !can_afford_research:
+		Messages.add_error(player, "Can't research element. You do not have enough tomes.")
+
+		return false
+
+	return true
+
+
+func _roll_towers(player: Player, _serialized_action: Dictionary):
+	var verify_ok: bool = ActionProcessor.verify_roll_towers(player)
+
+	if !verify_ok:
+		return
+
+	var tower_stash: TowerStash = player.get_tower_stash()
+	tower_stash.clear()
+
+	var tower_count_for_roll: int = player.get_tower_count_for_starting_roll()
+	var rolled_towers: Array[int] = TowerDistribution.generate_random_towers_with_count(player, tower_count_for_roll)
+	tower_stash.add_towers(rolled_towers)
+	player.decrement_tower_count_for_starting_roll()
+
+
+static func verify_roll_towers(player: Player) -> bool:
+	var researched_any_elements: bool = false
+	for element in Element.get_list():
+		var researched_element: bool = player.get_element_level(element)
+		if researched_element:
+			researched_any_elements = true
+	
+	if !researched_any_elements:
+		Messages.add_error(player, "Cannot roll towers yet! You need to research at least one element.")
+	
+		return false
+
+	var tower_count_for_roll: int = player.get_tower_count_for_starting_roll()
+
+	if tower_count_for_roll <= 0:
+		Messages.add_error(player, "Can't roll anymore.")
+
+		return false
+
+	return true
+
+
+func _start_next_wave(player: Player, _serialized_action: Dictionary):
+	var verify_ok: bool = ActionProcessor.verify_start_next_wave(player)
+
+	if !verify_ok:
+		return
+
+	var team: Team = player.get_team()
+	team.start_next_wave()
+	
+	var local_player: Player = PlayerManager.get_local_player()
+	var local_level: int = local_player.get_team().get_level()
+	_hud.update_level(local_level)
+	var next_waves: Array[Wave] = local_player.get_next_5_waves()
+	_hud.show_wave_details(next_waves)
+
+
+static func verify_start_next_wave(player: Player) -> bool:
+	var game_over: bool = player.get_team().is_game_over()
+	if game_over:
+		Messages.add_error(player, "Can't start next wave because the game is over.")
+
+		return false
+	
+	var wave_is_in_progress: bool = player.wave_is_in_progress()
+	if wave_is_in_progress:
+		Messages.add_error(player, "Can't start next wave because a wave is in progress.")
+		
+		return false
+
+	return true
+	

@@ -148,9 +148,8 @@ _hud = NodePath("../../UI/HUD")
 _map = NodePath("../../World/Map")
 _chat_commands = NodePath("../ChatCommands")
 
-[node name="ChatCommands" type="Node" parent="Gameplay" node_paths=PackedStringArray("_hud")]
+[node name="ChatCommands" type="Node" parent="Gameplay"]
 script = ExtResource("19_ldgwp")
-_hud = NodePath("../../UI/HUD")
 
 [node name="World" type="Node2D" parent="."]
 process_mode = 1

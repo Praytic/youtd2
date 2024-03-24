@@ -12,7 +12,7 @@ var _id: int = -1
 var _lives: float = 100
 var _level: int = 1
 var _player_list: Array[Player] = []
-var _did_game_over: bool = false
+var _is_game_over: bool = false
 
 @export var _next_wave_timer: ManualTimer
 @export var _extreme_timer: ManualTimer
@@ -21,6 +21,10 @@ var _did_game_over: bool = false
 #########################
 ###       Public      ###
 #########################
+
+func is_game_over() -> bool:
+	return _is_game_over
+
 
 func get_next_wave_timer() -> ManualTimer:
 	return _next_wave_timer
@@ -77,8 +81,8 @@ func modify_lives(amount: float):
 
 	var out_of_lives: bool = _lives <= 0
 
-	if out_of_lives && !_did_game_over:
-		_did_game_over = true
+	if out_of_lives && !_is_game_over:
+		_is_game_over = true
 		game_over.emit()
 
 

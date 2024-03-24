@@ -22,7 +22,6 @@ class_name GameScene extends Node
 
 
 var _prev_effect_id: int = 0
-var _game_over: bool = false
 var _room_code: int = 0
 var _pregame_controller: PregameController = null
 var _pregame_hud: PregameHUD = null
@@ -591,55 +590,36 @@ func _on_game_start_timer_timeout():
 func _on_player_requested_next_wave():
 	var local_player: Player = PlayerManager.get_local_player()
 
-	if _game_over:
-		Messages.add_error(local_player, "Can't start next wave because the game is over.")
+	var verify_ok: bool = ActionProcessor.verify_start_next_wave(local_player)
 
+	if !verify_ok:
 		return
-	
-	var wave_is_in_progress: bool = local_player.wave_is_in_progress()
-	if wave_is_in_progress:
-		Messages.add_error(local_player, "Can't start next wave because a wave is in progress.")
-		
-		return
-	
-	var action: Action = ActionChat.make(ChatCommands.START_NEXT_WAVE)
+
+	var action: Action = ActionStartNextWave.make()
 	_simulation.add_action(action)
 
 
 func _on_player_requested_to_roll_towers():
-	var researched_any_elements: bool = false
-	
 	var local_player: Player = PlayerManager.get_local_player()
 	
-	for element in Element.get_list():
-		var researched_element: bool = local_player.get_element_level(element)
-		if researched_element:
-			researched_any_elements = true
-	
-	if !researched_any_elements:
-		Messages.add_error(local_player, "Cannot roll towers yet! You need to research at least one element.")
-	
+	var verify_ok: bool = ActionProcessor.verify_roll_towers(local_player)
+
+	if !verify_ok:
 		return
 
-	var tower_count_for_roll: int = local_player.get_tower_count_for_starting_roll()
-
-	if tower_count_for_roll == 0:
-		Messages.add_error(local_player, "You cannot reroll towers anymore.")
-	
-		return
-
-	var action: Action = ActionChat.make(ChatCommands.ROLL_TOWERS)
+	var action: Action = ActionRollTowers.make()
 	_simulation.add_action(action)
 
 
 func _on_player_requested_to_research_element(element: Element.enm):
 	var local_player: Player = PlayerManager.get_local_player()
-	var can_request: bool = ChatCommands.verify_research_element(local_player, element)
+	
+	var verify_ok: bool = ActionProcessor.verify_research_element(local_player, element)
 
-	if !can_request:
+	if !verify_ok:
 		return
 
-	var action: Action = ChatCommands.make_action_research_element(element)
+	var action: Action = ActionResearchElement.make(element)
 	_simulation.add_action(action)
 
 
