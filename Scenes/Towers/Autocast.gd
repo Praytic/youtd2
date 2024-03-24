@@ -139,6 +139,9 @@ var _is_item_autocast: bool = false
 # paused.
 @export var _auto_timer: ManualTimer
 
+static var _uid_max: int = 1
+var _uid: int = 0
+
 
 #########################
 ###     Built-in      ###
@@ -148,6 +151,11 @@ func _ready():
 	_cooldown_timer.wait_time = cooldown
 	_cooldown_timer.one_shot = true
 
+	_uid = _uid_max
+	Autocast._uid_max += 1
+
+	add_to_group("autocasts")
+
 	if !can_use_auto_mode():
 		_auto_timer.set_paused(true)
 
@@ -156,13 +164,11 @@ func _ready():
 ###       Public      ###
 #########################
 
+func get_uid() -> int:
+	return _uid
+
+
 func toggle_auto_mode():
-	if !can_use_auto_mode():
-		var player: Player = _caster.get_player()
-		Messages.add_error(player, "This ability cannot be casted automatically")
-
-		return
-
 	var new_paused_value: bool = !_auto_timer.is_paused()
 	_auto_timer.set_paused(new_paused_value)
 
@@ -512,6 +518,13 @@ func set_caster(caster: Unit):
 
 func get_caster() -> Unit:
 	return _caster
+
+
+func get_autocast_index() -> int:
+	var autocast_list: Array[Autocast] = _caster.get_autocast_list()
+	var index: int = autocast_list.find(self)
+
+	return index
 
 
 # NOTE: autocast.getCooldown() in JASS

@@ -55,6 +55,7 @@ func _ready():
 	EventBus.player_requested_to_select_target_for_autocast.connect(_on_player_requested_to_select_target_for_autocast)
 	EventBus.player_requested_transmute.connect(_on_player_requested_transmute)
 	EventBus.player_requested_autofill.connect(_on_player_requested_autofill)
+	EventBus.player_requested_toggle_for_autocast.connect(_on_player_requested_toggle_for_autocast)
 
 	_select_unit.selected_unit_changed.connect(_on_selected_unit_changed)
 
@@ -730,6 +731,21 @@ func _on_player_voted_ready():
 		_start_game()
 	else:
 		Messages.add_normal(null, "Waiting for %d players to be ready." % not_ready_count)
+
+
+func _on_player_requested_toggle_for_autocast(autocast: Autocast):
+	var local_player: Player = Globals.get_local_player()
+	var can_use_auto: bool = autocast.can_use_auto_mode()
+
+	if !can_use_auto:
+		Messages.add_error(local_player, "This ability cannot be casted automatically")
+
+		return
+
+	var autocast_uid: int = autocast.get_uid()
+
+	var action: Action = ActionToggleAutocast.make(autocast_uid)
+	_simulation.add_action(action)
 
 
 func _start_game():

@@ -28,6 +28,7 @@ func process_action(player_id: int, serialized_action: Dictionary):
 		Action.Type.BUILD_TOWER: _build_tower(player, serialized_action)
 		Action.Type.SELL_TOWER: _sell_tower(player, serialized_action)
 		Action.Type.SELECT_BUILDER: _select_builder(player, serialized_action)
+		Action.Type.TOGGLE_AUTOCAST: _toggle_autocast(player, serialized_action)
 
 
 #########################
@@ -146,6 +147,20 @@ func _select_builder(player: Player, serialized_action: Dictionary):
 			_hud.enable_extra_recipes()
 
 
+func _toggle_autocast(player: Player, serialized_action: Dictionary):
+	var action: ActionToggleAutocast = ActionToggleAutocast.new(serialized_action)
+	var autocast_uid: int = action.autocast_uid
+
+	var autocast: Autocast = _get_autocast_by_uid(autocast_uid)
+
+	if autocast == null:
+		Messages.add_error(player, "Failed to toggle autocast.")
+
+		return
+
+	autocast.toggle_auto_mode()
+
+
 func _get_tower_by_uid(tower_unit_id: int) -> Tower:
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 
@@ -154,5 +169,17 @@ func _get_tower_by_uid(tower_unit_id: int) -> Tower:
 			return tower
 
 	push_error("Failled to find tower with uid: ", tower_unit_id)
+
+	return null
+
+
+func _get_autocast_by_uid(uid: int) -> Autocast:
+	var autocast_node_list: Array[Node] = get_tree().get_nodes_in_group("autocasts")
+
+	for autocast in autocast_node_list:
+		if autocast.get_uid() == uid:
+			return autocast as Autocast
+
+	push_error("Failled to find autocast with uid: ", uid)
 
 	return null

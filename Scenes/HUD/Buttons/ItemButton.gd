@@ -46,7 +46,7 @@ func _gui_input(event):
 	if shift_right_click:
 		var autocast: Autocast = _item.get_autocast()
 		if autocast != null:
-			autocast.toggle_auto_mode()
+			EventBus.player_requested_toggle_for_autocast.emit(autocast)
 	elif pressed_right_click:
 		var autocast: Autocast = _item.get_autocast()
 		if autocast != null:

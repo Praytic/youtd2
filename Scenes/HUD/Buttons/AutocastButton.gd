@@ -31,7 +31,7 @@ func _gui_input(event):
 	var pressed_right_click: bool = event.is_action_released("right_click")
 
 	if pressed_right_click:
-		_autocast.toggle_auto_mode()
+		EventBus.player_requested_toggle_for_autocast.emit(_autocast)
 
 
 #########################
