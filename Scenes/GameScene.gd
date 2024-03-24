@@ -21,7 +21,6 @@ class_name GameScene extends Node
 @export var _game_time: GameTime
 
 
-var _prev_effect_id: int = 0
 var _room_code: int = 0
 var _pregame_controller: PregameController = null
 var _pregame_hud: PregameHUD = null
@@ -160,7 +159,7 @@ func _unhandled_input(event: InputEvent):
 		if _mouse_state.get_state() != MouseState.enm.NONE:
 			_cancel_current_mouse_action()
 		else:
-			_do_manual_targetting()
+			_do_focus_target()
 
 
 #########################
@@ -259,16 +258,9 @@ func _cancel_current_mouse_action():
 		MouseState.enm.MOVE_ITEM: _move_item.cancel()
 
 
-# Manual targeting forces towers to attack the clicked
-# target until it dies.
-# 
-# There are two scenario's:
-#
-# 1. If no tower is selected, then all towers will switch to
-#    the target.
-# 2. If a tower is selected, then only the selected tower
-#    will switch to the target.
-func _do_manual_targetting():
+# Focus targeting forces towers to attack the clicked target
+# until it dies.
+func _do_focus_target():
 	var selected_unit: Unit = _select_unit.get_selected_unit()
 	var hovered_unit: Unit = _select_unit.get_hovered_unit()
 
@@ -276,23 +268,18 @@ func _do_manual_targetting():
 		return
 
 	var hovered_creep: Creep = hovered_unit as Creep
+	var target_uid: int = hovered_creep.get_uid()
 
-	var tower_list: Array[Tower]
-	if selected_unit is Tower:
-		var selected_tower: Tower = selected_unit as Tower
-		tower_list.append(selected_tower)
+	var selected_tower: Tower = selected_unit as Tower
+	var selected_tower_belongs_to_local_player: bool = selected_tower.get_player() == PlayerManager.get_local_player()
+	var selected_tower_uid: int
+	if selected_tower != null && selected_tower_belongs_to_local_player:
+		selected_tower_uid = selected_tower.get_uid()
 	else:
-		tower_list = Utils.get_tower_list()
+		selected_tower_uid = 0
 
-	for tower in tower_list:
-		tower.force_attack_target(hovered_creep)
-
-#	NOTE: destroy prev effect so that there's only one arrow
-#	up at a time
-	Effect.destroy_effect(_prev_effect_id)
-	var effect: int = Effect.create_simple_on_unit("res://Scenes/Effects/TargetArrow.tscn", hovered_creep, Unit.BodyPart.HEAD)
-	Effect.set_lifetime(effect, 2.0)
-	_prev_effect_id = effect
+	var action: Action = ActionFocusTarget.make(target_uid, selected_tower_uid)
+	_simulation.add_action(action)
 
 
 func _toggle_game_menu():

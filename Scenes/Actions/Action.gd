@@ -45,6 +45,7 @@ enum Type {
 	ROLL_TOWERS,
 	START_NEXT_WAVE,
 	AUTOCAST,
+	FOCUS_TARGET,
 }
 
 

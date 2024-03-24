@@ -39,6 +39,7 @@ var _builder: Builder = null
 var _have_placeholder_builder: bool = true
 var _score: float = 0.0
 var _is_ready: bool = false
+var _focus_target_effect_id: int = 0
 
 @export var _item_stash: ItemContainer
 @export var _horadric_stash: ItemContainer
@@ -63,6 +64,15 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+# NOTE: destroy prev effect so that there's only one arrow
+# up at a time
+func create_focus_target_effect(target: Unit):
+	Effect.destroy_effect(_focus_target_effect_id)
+	var effect: int = Effect.create_simple_on_unit("res://Scenes/Effects/TargetArrow.tscn", target, Unit.BodyPart.HEAD)
+	Effect.set_lifetime(effect, 2.0)
+	_focus_target_effect_id = effect
+
 
 func vote_ready():
 	if _is_ready:
