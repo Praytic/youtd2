@@ -290,11 +290,6 @@ func update(delta: float):
 ###       Public      ###
 #########################
 
-func insert_sprite_scene(sprite: Sprite2D):
-	_sprite = sprite
-	$Visual.add_child(sprite)
-
-
 func remove_from_game():
 	on_destruct()
 
@@ -1208,7 +1203,17 @@ static func make(id: int, player: Player) -> Tower:
 	var tower_script: Variant = Tower._get_tower_script(id)
 	tower.set_script(tower_script)
 	var tower_sprite: Sprite2D = TowerSprites.get_sprite(id)
-	tower.insert_sprite_scene(tower_sprite)
+	var visual_node: Node2D = tower.get_node("Visual")
+	
+	if visual_node == null:
+		push_error("visual node is null")
+		
+		return null
+
+	visual_node.add_child(tower_sprite)
+	visual_node.move_child(tower_sprite, 0)
+	tower._sprite = tower_sprite
+
 	tower.set_id(id)
 	tower.set_player(player)
 

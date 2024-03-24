@@ -22,9 +22,15 @@ polygon = PackedVector2Array(0, -128, 128, 0, 0, 128, -128, 0)
 [node name="Visual" type="Node2D" parent="."]
 z_index = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="Visual"]
+[node name="TowerSelectionArea" type="Area2D" parent="Visual"]
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/TowerSelectionArea"]
+polygon = PackedVector2Array(-102, 6, 0, 56, 102, 6, 102, -96, 0, -147, -102, -96)
 
 [node name="ManaBar" type="ProgressBar" parent="Visual"]
+editor_description = "NOTE: z index is 1 because Unit.gd sets z index of outline to 1"
 z_index = 1
 offset_left = -75.0
 offset_right = 75.0
@@ -36,14 +42,9 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="TowerActions" parent="Visual" instance=ExtResource("3_jgb58")]
+editor_description = "NOTE: z index is 1 because Unit.gd sets z index of outline to 1"
+z_index = 1
 offset_left = -73.0
 offset_top = -295.0
 offset_right = -73.0
 offset_bottom = -295.0
-
-[node name="TowerSelectionArea" type="Area2D" parent="Visual"]
-monitoring = false
-monitorable = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Visual/TowerSelectionArea"]
-polygon = PackedVector2Array(-102, 6, 0, 56, 102, 6, 102, -96, 0, -147, -102, -96)
