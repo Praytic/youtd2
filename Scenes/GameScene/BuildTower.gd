@@ -36,9 +36,10 @@ func start(tower_id: int, player: Player):
 func try_to_finish(player: Player):
 	var tower_id: int = _tower_preview.get_tower_id()
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
+	var clamped_pos: Vector2 = _map.get_pos_on_tilemap_clamped(mouse_pos)
 	var can_build: bool = _map.can_build_at_pos(mouse_pos)
 	var can_transform: bool = _map.can_transform_at_pos(mouse_pos)
-	var tower_under_mouse: Tower = Utils.get_tower_at_position(mouse_pos)
+	var tower_under_mouse: Tower = Utils.get_tower_at_position(clamped_pos)
 	var attempting_to_transform: bool = tower_under_mouse != null
 	var enough_resources: bool = BuildTower.enough_resources_for_tower(tower_id, player)
 
@@ -69,10 +70,6 @@ func cancel():
 	_map.set_buildable_area_visible(false)
 
 
-#########################
-###      Private      ###
-#########################
-
 static func enough_resources_for_tower(tower_id: int, player: Player) -> bool:
 	var enough_gold: bool = player.enough_gold_for_tower(tower_id)
 	var enough_tomes: bool = player.enough_tomes_for_tower(tower_id)
@@ -94,6 +91,10 @@ static func add_error_about_building_tower(tower_id: int, player: Player):
 	elif !enough_food:
 		Messages.add_error(player, "Not enough food.")
 
+
+#########################
+###      Private      ###
+#########################
 
 func _build_tower(tower_id: int):
 	var mouse_pos: Vector2 = _tower_preview.get_global_mouse_position()
