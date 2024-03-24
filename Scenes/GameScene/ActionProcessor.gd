@@ -29,6 +29,8 @@ func process_action(player_id: int, serialized_action: Dictionary):
 		Action.Type.SELECT_BUILDER: _select_builder(player, serialized_action)
 		Action.Type.TOGGLE_AUTOCAST: _toggle_autocast(player, serialized_action)
 		Action.Type.CONSUME_ITEM: _consume_item(player, serialized_action)
+		Action.Type.DROP_ITEM: _drop_item(player, serialized_action)
+		Action.Type.MOVE_ITEM: _move_item(player, serialized_action)
 
 
 #########################
@@ -176,3 +178,45 @@ func _consume_item(player: Player, serialized_action: Dictionary):
 		return
 
 	item.consume()
+
+
+func _drop_item(player: Player, serialized_action: Dictionary):
+	var action: ActionDropItem = ActionDropItem.new(serialized_action)
+	var item_uid: int = action.item_uid
+	var position: Vector2 = action.position
+	var src_item_container_uid: int = action.src_item_container_uid
+
+	var item: Item = GroupManager.get_by_uid("items", item_uid)
+	var src_item_container: ItemContainer = GroupManager.get_by_uid("item_containers", src_item_container_uid)
+
+	if item == null || src_item_container == null:
+		Messages.add_error(player, "Failed to drop item.")
+
+		return
+
+	src_item_container.remove_item(item)
+
+	Item.make_item_drop(item, position)
+	item.fly_to_stash(0.0)
+
+
+func _move_item(player: Player, serialized_action: Dictionary):
+	var action: ActionMoveItem = ActionMoveItem.new(serialized_action)
+	var item_uid: int = action.item_uid
+	var src_item_container_uid: int = action.src_item_container_uid
+	var dest_item_container_uid: int = action.dest_item_container_uid
+
+	var item: Item = GroupManager.get_by_uid("items", item_uid)
+	var src_item_container: ItemContainer = GroupManager.get_by_uid("item_containers", src_item_container_uid)
+	var dest_item_container: ItemContainer = GroupManager.get_by_uid("item_containers", dest_item_container_uid)
+
+	if item == null || src_item_container == null || dest_item_container == null:
+		Messages.add_error(player, "Failed to drop item.")
+
+		return
+
+	if !MoveItem.verify_move(player, item, dest_item_container):
+		return
+
+	src_item_container.remove_item(item)
+	dest_item_container.add_item(item)

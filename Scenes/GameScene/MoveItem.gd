@@ -11,11 +11,11 @@ class_name MoveItem extends Node
 # movement.
 var _source_container: ItemContainer = null
 var _moved_item: Item = null
-var _item_stash: ItemContainer = null
-var _horadric_stash: ItemContainer = null
 
 
 @export var _mouse_state: MouseState
+@export var _map: Map
+@export var _simulation: Simulation
 
 
 #########################
@@ -36,12 +36,6 @@ func _ready():
 ###       Public      ###
 #########################
 
-# TODO: fix for multiplayer. Do item movement using rpc.
-func set_player(player: Player):
-	_item_stash = player.get_item_stash()
-	_horadric_stash = player.get_horadric_stash()
-
-
 func cancel():
 	if !_move_in_progress():
 		return
@@ -52,18 +46,20 @@ func cancel():
 # If player started moving an item and then clicked on
 # nothing, remove the item from source and make it fly back
 # to item stash.
-func process_click_on_nothing(map: Map):
+func process_click_on_nothing():
 	if !_move_in_progress():
 		return
 
-	_remove_moved_item_from_source_container()
-
-	var drop_position: Vector2 = map.get_mouse_pos_on_tilemap_clamped()
-	Item.make_item_drop(_moved_item, drop_position)
-	_moved_item.fly_to_stash(0.0)
-	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
+	var item_uid: int = _moved_item.get_uid()
+	var drop_pos: Vector2 = _map.get_global_mouse_position()
+	var src_container_uid: int = _source_container.get_uid()
 
 	_end_move_process()
+
+	var action: Action = ActionDropItem.make(item_uid, drop_pos, src_container_uid)
+	_simulation.add_action(action)
+	
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
 
 
 func process_click_on_tower(tower: Tower):
@@ -74,6 +70,38 @@ func process_click_on_tower(tower: Tower):
 ###      Private      ###
 #########################
 
+func _add_move_action(item: Item, src_item_container: ItemContainer, dest_item_container: ItemContainer) -> bool:
+	var local_player: Player = PlayerManager.get_local_player()
+	
+	if !MoveItem.verify_move(local_player, item, dest_item_container):
+		return false
+
+	var item_uid: int = item.get_uid()
+	var src_container_uid: int = src_item_container.get_uid()
+	var dest_container_uid: int = dest_item_container.get_uid()
+
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
+
+	var action: Action = ActionMoveItem.make(item_uid, src_container_uid, dest_container_uid)
+	_simulation.add_action(action)
+
+	return true
+
+
+func _get_local_item_stash() -> ItemContainer:
+	var local_player: Player = PlayerManager.get_local_player()
+	var local_item_stash: ItemContainer = local_player.get_item_stash()
+
+	return local_item_stash
+
+
+func _get_local_horadric_stash() -> ItemContainer:
+	var local_player: Player = PlayerManager.get_local_player()
+	var local_horadric_stash: ItemContainer = local_player.get_horadric_stash()
+
+	return local_horadric_stash
+
+
 func _move_in_progress() -> bool:
 	return _mouse_state.get_state() == MouseState.enm.MOVE_ITEM
 
@@ -83,16 +111,12 @@ func _move_in_progress() -> bool:
 # 1. If no item is currently being moved, then we start
 #    moving the clicked item.
 # 
-# 2. If an item is currently being moved, then we swap the
-#    items. We put the old moved item in the container and
-#    start moving the clicked item.
+# 2. If an item is currently being moved, then we stop moving the old
+#    item and start moving the clicked item.
 func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item: Item):
 	if !_can_start_moving():
 		return
-
-	if _move_in_progress() && !_check_consumable_into_tower_case(container):
-		return
-
+	
 #	If an item is currently getting moved, end move process
 #	for old item and start moving new item
 	if _move_in_progress():
@@ -114,30 +138,15 @@ func _item_was_clicked_in_item_container(container: ItemContainer, clicked_item:
 
 # When an item container is clicked, we add the currently
 # moved item to that container.
-func _item_container_was_clicked(container: ItemContainer, add_index: int = 0):
+func _item_container_was_clicked(container: ItemContainer):
 	if !_move_in_progress():
 		return
 
-	if !_check_consumable_into_tower_case(container):
-		return
+	var success: bool = _add_move_action(_moved_item, _source_container, container)
 
-	if !container.can_add_item(_moved_item):
-		Messages.add_error(PlayerManager.get_local_player(), "No space for item")
-
-		return
-
-#	NOTE: add item to container at position 0 so that if
-#	there are many items and item stash is in scroll mode,
-#	the player will see the item appear on the left side of
-#	the item stash. Default scroll position for item stash
-#	displays the left side.
-	_remove_moved_item_from_source_container()
-	container.add_item(_moved_item, add_index)
-	_end_move_process()
-
-	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
-
-	get_viewport().set_input_as_handled()
+	if success:
+		_end_move_process()
+		get_viewport().set_input_as_handled()
 
 
 func _end_move_process():
@@ -186,27 +195,25 @@ func _can_start_moving() -> bool:
 # container because container belongs to tower and item is
 # consumable. Also adds an error messages if needed.
 # Returns true if can move.
-func _check_consumable_into_tower_case(container: ItemContainer) -> bool:
-	if _moved_item == null:
+static func verify_move(player: Player, item: Item, dest_container: ItemContainer) -> bool:
+	if item == null:
 		return true
 
-	var cant_move_consumable_to_tower: bool = _moved_item.is_consumable() && container is TowerItemContainer
-	var move_ok: bool = !cant_move_consumable_to_tower
+	var dest_has_space: bool = dest_container.have_item_space()
 
-	if !move_ok:
-		Messages.add_error(PlayerManager.get_local_player(), "Can't place consumables into towers")
+	if !dest_has_space:
+		Messages.add_error(player, "No space for item")
 
-	return move_ok
+		return false
 
+	var trying_to_move_consumable_to_tower: bool = item.is_consumable() && dest_container is TowerItemContainer
 
-# NOTE: need to disconnect signal before removing to avoid
-# triggering _on_moved_item_tree_exited() callback when it's
-# not needed.
-func _remove_moved_item_from_source_container():
-	if _moved_item.tree_exited.is_connected(_on_moved_item_tree_exited):
-		_moved_item.tree_exited.disconnect(_on_moved_item_tree_exited)
+	if trying_to_move_consumable_to_tower:
+		Messages.add_error(player, "Can't place consumables into towers")
+		
+		return false
 
-	_source_container.remove_item(_moved_item)
+	return true
 
 
 #########################
@@ -214,54 +221,60 @@ func _remove_moved_item_from_source_container():
 #########################
 
 func _on_player_clicked_item_in_tower_inventory(clicked_item: Item):
+	var item_belongs_to_local_player: bool = clicked_item.get_player() == PlayerManager.get_local_player()
+
+	if !item_belongs_to_local_player:
+		return
+
 	var shift_click: bool = Input.is_action_pressed("shift")
 	var tower: Tower = clicked_item.get_carrier()
 	
 	if shift_click && !_move_in_progress():
+		var local_item_stash: ItemContainer = _get_local_item_stash()
 		var tower_container: ItemContainer = tower.get_item_container()
-		tower_container.remove_item(clicked_item)
-		var add_index: int = 0
-		_item_stash.add_item(clicked_item, add_index)
-		
-		return
-
-	var container: ItemContainer = tower.get_item_container()
-	_item_was_clicked_in_item_container(container, clicked_item)
+		_add_move_action(clicked_item, tower_container, local_item_stash)
+	else:
+		var container: ItemContainer = tower.get_item_container()
+		_item_was_clicked_in_item_container(container, clicked_item)
 
 
 func _on_player_clicked_item_in_main_stash(clicked_item: Item):
+	var item_belongs_to_local_player: bool = clicked_item.get_player() == PlayerManager.get_local_player()
+
+	if !item_belongs_to_local_player:
+		return
+
 	var shift_click: bool = Input.is_action_pressed("shift")
 
-	if shift_click && !_move_in_progress():
-		if !_horadric_stash.have_item_space():
-			Messages.add_error(PlayerManager.get_local_player(), "No space for item")
+	var local_item_stash: ItemContainer = _get_local_item_stash()
+	var local_horadric_stash: ItemContainer = _get_local_horadric_stash()
 
-			return
-			
-		_item_stash.remove_item(clicked_item)
-		var add_index: int = _horadric_stash.get_item_count()
-		_horadric_stash.add_item(clicked_item, add_index)
+	if shift_click && !_move_in_progress():
+		var success: bool = _add_move_action(clicked_item, local_item_stash, local_horadric_stash)
 
 #		NOTE: this is needed to prevent the click getting
 #		passed to SelectUnit which closes the tower menu
-		get_viewport().set_input_as_handled()
-
-		return
-
-	_item_was_clicked_in_item_container(_item_stash, clicked_item)
+		if success:
+			get_viewport().set_input_as_handled()
+	else:
+		_item_was_clicked_in_item_container(local_item_stash, clicked_item)
 
 
 func _on_player_clicked_item_in_horadric_stash(clicked_item: Item):
-	var shift_click: bool = Input.is_action_pressed("shift")
-	
-	if shift_click:
-		_horadric_stash.remove_item(clicked_item)
-		var add_index: int = 0
-		_item_stash.add_item(clicked_item, add_index)
+	var item_belongs_to_local_player: bool = clicked_item.get_player() == PlayerManager.get_local_player()
 
+	if !item_belongs_to_local_player:
 		return
 
-	_item_was_clicked_in_item_container(_horadric_stash, clicked_item)
+	var shift_click: bool = Input.is_action_pressed("shift")
+	
+	var local_item_stash: ItemContainer = _get_local_item_stash()
+	var local_horadric_stash: ItemContainer = _get_local_horadric_stash()
+	
+	if shift_click:
+		_add_move_action(clicked_item, local_horadric_stash, local_item_stash)
+	else:
+		_item_was_clicked_in_item_container(local_horadric_stash, clicked_item)
 
 
 # NOTE: add item to item stash at position 0 so that if
@@ -270,23 +283,29 @@ func _on_player_clicked_item_in_horadric_stash(clicked_item: Item):
 # item stash. Default scroll position for item stash
 # displays the left side.
 func _on_player_clicked_main_stash():
-	var add_index: int = 0
-	_item_container_was_clicked(_item_stash, add_index)
+	var local_item_stash: ItemContainer = _get_local_item_stash()
+	_item_container_was_clicked(local_item_stash)
 
 
 func _on_player_clicked_horadric_stash():
-	var add_index: int = _horadric_stash.get_item_count()
-	_item_container_was_clicked(_horadric_stash, add_index)
+	var local_horadric_stash: ItemContainer = _get_local_horadric_stash()
+	_item_container_was_clicked(local_horadric_stash)
 
 
 func _on_player_clicked_tower_inventory(tower: Tower):
+	var tower_belongs_to_local_player: bool = tower.get_player() == PlayerManager.get_local_player()
+
+	if !tower_belongs_to_local_player:
+		return
+
 	var container: ItemContainer = tower.get_item_container()
-	var add_index: int = container.get_item_count()
-	_item_container_was_clicked(container, add_index)
+	_item_container_was_clicked(container)
 
 
 func _on_item_flew_to_item_stash(item: Item):
-	_item_stash.add_item(item)
+	var player: Player = item.get_player()
+	var item_stash: ItemContainer = player.get_item_stash()
+	item_stash.add_item(item)
 
 
 # NOTE: this callback handles the case of needing to cancel

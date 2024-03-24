@@ -113,9 +113,11 @@ _mouse_state = NodePath("../MouseState")
 script = ExtResource("9_14jv4")
 _mouse_state = NodePath("../MouseState")
 
-[node name="MoveItem" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state")]
+[node name="MoveItem" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_simulation")]
 script = ExtResource("10_qbku7")
 _mouse_state = NodePath("../MouseState")
+_map = NodePath("../../World/Map")
+_simulation = NodePath("../Simulation")
 
 [node name="BuildTower" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_tower_preview", "_simulation")]
 script = ExtResource("12_1xrfo")

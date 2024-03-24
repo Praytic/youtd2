@@ -11,10 +11,27 @@ signal items_changed()
 var _item_list: Array[Item] = []
 @export var _capacity: int = 0
 
+static var _uid_max: int = 1
+var _uid: int = 0
+
+
+#########################
+###     Built-in      ###
+#########################
+
+func _ready():
+	_uid = _uid_max
+	ItemContainer._uid_max += 1
+	GroupManager.add("item_containers", self, get_uid())
+
 
 #########################
 ###       Public      ###
 #########################
+
+func get_uid() -> int:
+	return _uid
+
 
 func set_capacity(new_capacity: int):
 	if new_capacity < _capacity:

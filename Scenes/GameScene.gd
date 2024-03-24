@@ -154,7 +154,7 @@ func _unhandled_input(event: InputEvent):
 				if hovered_tower != null:
 					_move_item.process_click_on_tower(hovered_tower)
 				else:
-					_move_item.process_click_on_nothing(_map)
+					_move_item.process_click_on_nothing()
 			MouseState.enm.NONE:
 #				NOTE: if clicked on unit, will selected that unit
 #				if clicked on nothing - deselect
@@ -396,7 +396,6 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	local_player.horadric_stash_changed.connect(_on_local_player_horadric_stash_changed)
 	local_player.tower_stash_changed.connect(_on_local_player_tower_stash_changed)
 	_hud.set_player(local_player)
-	_move_item.set_player(local_player)
 	_tower_preview.set_player(local_player)
 	
 	var player_list: Array[Player] = PlayerManager.get_player_list()
@@ -426,10 +425,11 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 		_hud.hide_roll_towers_button()
 
 	var test_item_list: Array = Config.test_item_list()
-	for item_id in test_item_list:
-		var item: Item = Item.make(item_id, local_player)
-		var item_stash: ItemContainer = local_player.get_item_stash()
-		item_stash.add_item(item)
+	for player in player_list:
+		for item_id in test_item_list:
+			var item: Item = Item.make(item_id, player)
+			var item_stash: ItemContainer = player.get_item_stash()
+			item_stash.add_item(item)
 
 	var skip_builder_menu: bool = !Config.show_pregame_settings_menu()
 	if skip_builder_menu:
@@ -753,6 +753,11 @@ func _on_player_right_clicked_autocast(autocast: Autocast):
 
 
 func _on_player_right_clicked_item(item: Item):
+	var item_belongs_to_local_player: bool = item.get_player() == PlayerManager.get_local_player()
+
+	if !item_belongs_to_local_player:
+		return
+	
 	var autocast: Autocast = item.get_autocast()
 
 	if autocast != null:
@@ -764,6 +769,11 @@ func _on_player_right_clicked_item(item: Item):
 
 
 func _on_player_shift_right_clicked_item(item: Item):
+	var item_belongs_to_local_player: bool = item.get_player() == PlayerManager.get_local_player()
+
+	if !item_belongs_to_local_player:
+		return
+
 	var autocast: Autocast = item.get_autocast()
 
 	if autocast != null:

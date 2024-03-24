@@ -33,7 +33,6 @@ const ITEMS_CONTAINER_BUTTON_SIZE: float = 82
 @export var _buff_group_button_4: BuffGroupButton
 @export var _buff_group_button_5: BuffGroupButton
 @export var _buff_group_button_6: BuffGroupButton
-@export var _inventory_panel: PanelContainer
 
 var _selling_for_real: bool = false
 var _player: Player = null
@@ -134,7 +133,6 @@ func set_tower(tower: Tower):
 	_upgrade_button.visible = upgrade_button_should_be_visible && tower_belongs_to_local_player
 	_sell_button.visible = tower_belongs_to_local_player
 	_buff_group_container.visible = tower_belongs_to_local_player
-	_inventory_panel.visible = tower_belongs_to_local_player
 
 
 #########################
@@ -315,7 +313,7 @@ func _on_items_container_gui_input(event):
 	var left_click: bool = event.is_action_released("left_click")
 
 	if left_click:
-		EventBus.player_clicked_tower_inventory.emit()
+		EventBus.player_clicked_tower_inventory.emit(_tower)
 
 
 # When tower menu is closed, deselect the unit which will
