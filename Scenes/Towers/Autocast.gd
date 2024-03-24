@@ -179,79 +179,10 @@ func auto_mode_is_enabled() -> bool:
 	return is_enabled
 
 
-# This is called when player triggers autocast by pressing
-# on the item or autocast button.
-func do_cast_manually():
-	if !_can_cast():
-		_add_cast_error_message()
-
-		return
-
-#	NOTE: immediate autocasts do not have targets even when
-#	manually casted
-# 
-#	NOTE: for other autocast types we switch to selecting
-#	the target. The cast will finish when player selects a
-#	target and do_cast_manually_finish_for_manual_target()
-#	is called.
-	if _type_is_immediate():
-
-		var target: Unit = null
-		_do_cast(target)
-	elif _type_is_point():
-#		NOTE: for manual cast on unit, need to exit this f-n
-#		to select point in world. The cast will finish when
-#		player selects a point and
-#		do_cast_manually_finish_for_point() is called.
-		EventBus.player_requested_to_select_point_for_autocast.emit(self)
-	else:
-#		NOTE: for manual cast on unit, need to exit this f-n
-#		to select target. The cast will finish when player
-#		selects a target and
-#		do_cast_manually_finish_for_manual_target() is
-#		called.
-		EventBus.player_requested_to_select_target_for_autocast.emit(self)
-
-
-# Returns if cast was successful
-func do_cast_manually_finish_for_manual_target(target: Unit) -> bool:
-#	NOTE: while player was selecting a target, conditions
-#	for cast may have changed. For example tower's mana may
-#	have been drained. So we need to check if we can cast
-#	again.
-	if !_can_cast():
-		_add_cast_error_message()
-
-		return false
-
-	_do_cast(target)
-
-	return true
-
-
-func do_cast_manually_finish_for_point(target_pos: Vector2) -> bool:
-#	NOTE: while player was selecting a target, conditions
-#	for cast may have changed. For example tower's mana may
-#	have been drained. So we need to check if we can cast
-#	again.
-	if !_can_cast():
-		_add_cast_error_message()
-
-		return false
-
-	var in_range: float = Isometric.vector_in_range(_caster.position, target_pos, cast_range)
-
-	if !in_range:
-		var player: Player = _caster.get_player()
-		Messages.add_error(player, "Out of range")
-
-		return false
-
+func do_cast_at_pos(target_pos: Vector2):
 	_target_pos = target_pos
 	var target: Unit = null
-	_do_cast(target)
-
-	return true
+	do_cast(target)
 
 
 func check_target_for_unit_autocast(target: Unit) -> bool:
@@ -271,7 +202,7 @@ func check_target_for_unit_autocast(target: Unit) -> bool:
 
 
 # NOTE: target arg may be null if autocast is immediate
-func _do_cast(target: Unit):
+func do_cast(target: Unit):
 	CombatLog.log_autocast(_caster, target, self)
 
 	_caster.subtract_mana(mana_cost, false)
@@ -310,7 +241,13 @@ func _make_autocast_event(target: Unit) -> Event:
 	return event
 
 
-func _can_cast() -> bool:
+func target_pos_is_in_range(target_pos: Vector2) -> bool:
+	var in_range: float = Isometric.vector_in_range(_caster.position, target_pos, cast_range)
+
+	return in_range
+
+
+func can_cast() -> bool:
 	if _caster == null:
 		return false
 
@@ -327,12 +264,12 @@ func _can_cast() -> bool:
 	var enough_mana: bool = _caster.get_mana() >= mana_cost
 	var silenced: bool = _caster.is_silenced()
 	var stunned: bool = _caster.is_stunned()
-	var can_cast: bool = !on_cooldown && enough_mana && !silenced && !stunned
+	var result: bool = !on_cooldown && enough_mana && !silenced && !stunned
 
-	return can_cast
+	return result
 
 
-func _add_cast_error_message():
+func add_cast_error_message():
 	var cast_error: String = _get_cast_error()
 
 	if !cast_error.is_empty():
@@ -347,11 +284,11 @@ func can_use_auto_mode() -> bool:
 	return can_use
 
 
-func _type_is_immediate() -> bool:
+func type_is_immediate() -> bool:
 	return _immediate_type_list.has(autocast_type)
 
 
-func _type_is_point() -> bool:
+func type_is_point() -> bool:
 	return _point_type_list.has(autocast_type)
 
 
@@ -403,7 +340,7 @@ func _get_target_for_auto_mode() -> Unit:
 		return _get_target_for_buff_autocast()
 	elif _type_is_unit():
 		return _get_target_for_unit_autocast()
-	elif _type_is_immediate():
+	elif type_is_immediate():
 #		Immediate autocasts have no target
 		return null
 	else:
@@ -489,7 +426,7 @@ func _get_cast_error() -> String:
 #########################
 
 func _on_auto_timer_timeout():
-	if !_can_cast():
+	if !can_cast():
 		return
 
 	var cant_cast_because_zero_charges: bool = item_owner != null && item_owner.get_charges() == 0 && dont_cast_at_zero_charges
@@ -502,10 +439,10 @@ func _on_auto_timer_timeout():
 #	NOTE: no error message here like in manual case becase
 #	this is the auto case and adding an error message here
 #	would cause spam
-	if target == null && !_type_is_immediate():
+	if target == null && !type_is_immediate():
 		return
 
-	_do_cast(target)
+	do_cast(target)
 
 
 #########################

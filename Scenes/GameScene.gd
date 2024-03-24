@@ -50,8 +50,7 @@ func _ready():
 	EventBus.player_requested_to_build_tower.connect(_on_player_requested_to_build_tower)
 	EventBus.player_requested_to_upgrade_tower.connect(_on_player_requested_to_upgrade_tower)
 	EventBus.player_requested_to_sell_tower.connect(_on_player_requested_to_sell_tower)
-	EventBus.player_requested_to_select_point_for_autocast.connect(_on_player_requested_to_select_point_for_autocast)
-	EventBus.player_requested_to_select_target_for_autocast.connect(_on_player_requested_to_select_target_for_autocast)
+	EventBus.player_clicked_autocast.connect(_on_player_clicked_autocast)
 	EventBus.player_requested_transmute.connect(_on_player_requested_transmute)
 	EventBus.player_requested_autofill.connect(_on_player_requested_autofill)
 	EventBus.player_right_clicked_autocast.connect(_on_player_right_clicked_autocast)
@@ -666,12 +665,24 @@ func _on_player_requested_to_sell_tower(tower: Tower):
 	_simulation.add_action(action)
 
 
-func _on_player_requested_to_select_point_for_autocast(autocast: Autocast):
-	_select_point_for_cast.start(autocast)
+func _on_player_clicked_autocast(autocast: Autocast):
+	if !autocast.can_cast():
+		autocast.add_cast_error_message()
 
+		return
 
-func _on_player_requested_to_select_target_for_autocast(autocast: Autocast):
-	_select_target_for_cast.start(autocast)
+#	NOTE: immediate autocasts do not have targets. For other
+#	autocast types we switch to selecting the target. The
+#	cast will finish when player selects a target and
+#	SelectTargetForCast.finish() or
+#	SelectPointForCast.finish() gets called.
+	if autocast.type_is_immediate():
+		var target: Unit = null
+		autocast.do_cast(target)
+	elif autocast.type_is_point():
+		_select_point_for_cast.start(autocast)
+	else:
+		_select_target_for_cast.start(autocast)
 
 
 func _on_selected_unit_changed(_prev_unit: Unit):
@@ -742,7 +753,7 @@ func _on_player_right_clicked_item(item: Item):
 	var autocast: Autocast = item.get_autocast()
 
 	if autocast != null:
-		autocast.do_cast_manually()
+		_on_player_clicked_autocast(autocast)
 	elif item.is_consumable():
 		var item_uid: int = item.get_uid()
 		var action: Action = ActionConsumeItem.make(item_uid)

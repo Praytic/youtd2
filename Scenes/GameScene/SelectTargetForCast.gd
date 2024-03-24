@@ -26,17 +26,20 @@ func finish(hovered_unit: Unit):
 	var target_is_ok: bool = _autocast.check_target_for_unit_autocast(target)
 	var target_error_message: String = _autocast.get_target_error_message(target)
 
-	if target_is_ok:
-		var cast_success: bool = _autocast.do_cast_manually_finish_for_manual_target(target)
-
-		if cast_success:
-			cancel()
-
-#		NOTE: need this so that the left click doesn't
-#		also select the target unit
-		get_viewport().set_input_as_handled()
-	else:
+	if !target_is_ok:
 		Messages.add_error(PlayerManager.get_local_player(), target_error_message)
+
+		return
+		
+	var can_cast: bool = _autocast.can_cast()
+
+	if !can_cast:
+		_autocast.add_cast_error_message()
+
+		return
+
+	_autocast.do_cast(target)
+	cancel()
 
 
 func start(autocast: Autocast):

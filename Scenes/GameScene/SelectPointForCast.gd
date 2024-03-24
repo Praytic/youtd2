@@ -19,14 +19,21 @@ func finish(map: Map):
 		return
 
 	var target_pos: Vector2 = map.get_local_mouse_position()
-	var cast_success: bool = _autocast.do_cast_manually_finish_for_point(target_pos)
 
-	if cast_success:
-		cancel()
+	var can_cast: bool = _autocast.can_cast()
+	if !can_cast:
+		_autocast.add_cast_error_message()
 
-#		NOTE: need this so that the left click doesn't also
-#		select the target unit
-		get_viewport().set_input_as_handled()
+		return
+
+	var in_range: bool = _autocast.target_pos_is_in_range(target_pos)
+	if !in_range:
+		Messages.add_error(Globals.get_local_player(), "Out of range")
+
+		return
+
+	_autocast.do_cast_at_pos(target_pos)
+	cancel()
 
 
 func start(autocast: Autocast):

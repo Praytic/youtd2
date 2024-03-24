@@ -52,4 +52,4 @@ func _on_mouse_entered():
 
 
 func _on_pressed():
-	_autocast.do_cast_manually()
+	EventBus.player_clicked_autocast.emit(_autocast)
