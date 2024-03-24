@@ -1,5 +1,5 @@
 class_name Tower
-extends Building
+extends Unit
 
 
 signal items_changed()
@@ -221,11 +221,6 @@ func _ready():
 
 	_setup_selection_signals(_tower_selection_area)
 
-# 	NOTE: tower scenes have two sprites: "Base" and
-# 	"Visual/Sprite2D". We use "Visual/Sprite2D" because that
-# 	is the actual sprite. "Base" is a vestigial thing
-# 	inherited from Building.tscn and is currently invisible
-# 	and unused.
 	var sprite_dimensions: Vector2 = Utils.get_sprite_dimensions(_sprite)
 	_set_unit_dimensions(sprite_dimensions)
 
