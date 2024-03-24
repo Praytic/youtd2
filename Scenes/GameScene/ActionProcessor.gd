@@ -28,6 +28,7 @@ func process_action(player_id: int, serialized_action: Dictionary):
 		Action.Type.SELL_TOWER: _sell_tower(player, serialized_action)
 		Action.Type.SELECT_BUILDER: _select_builder(player, serialized_action)
 		Action.Type.TOGGLE_AUTOCAST: _toggle_autocast(player, serialized_action)
+		Action.Type.CONSUME_ITEM: _consume_item(player, serialized_action)
 
 
 #########################
@@ -160,6 +161,20 @@ func _toggle_autocast(player: Player, serialized_action: Dictionary):
 	autocast.toggle_auto_mode()
 
 
+func _consume_item(player: Player, serialized_action: Dictionary):
+	var action: ActionConsumeItem = ActionConsumeItem.new(serialized_action)
+	var item_uid: int = action.item_uid
+
+	var item: Item = _get_item_by_uid(item_uid)
+
+	if item == null:
+		Messages.add_error(player, "Failed to toggle item.")
+
+		return
+
+	item.consume()
+
+
 func _get_tower_by_uid(tower_unit_id: int) -> Tower:
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 
@@ -180,5 +195,17 @@ func _get_autocast_by_uid(uid: int) -> Autocast:
 			return autocast as Autocast
 
 	push_error("Failled to find autocast with uid: ", uid)
+
+	return null
+
+
+func _get_item_by_uid(uid: int) -> Item:
+	var item_node_list: Array[Node] = get_tree().get_nodes_in_group("items")
+
+	for item in item_node_list:
+		if item.get_uid() == uid:
+			return item as Item
+
+	push_error("Failled to find item with uid: ", uid)
 
 	return null

@@ -41,6 +41,8 @@ var _triggers_buff: Buff = null
 var _inherited_periodic_timers: Dictionary = {}
 var _player: Player = null
 
+static var _uid_max: int = 1
+var _uid: int = 0
 
 @onready var _hud: Control = get_tree().get_root().get_node("GameScene/UI/HUD")
 
@@ -52,6 +54,10 @@ var _player: Player = null
 func _init(id: int, player: Player):
 #	NOTE: fix "unused variable" warning
 	_is_oil_and_was_applied_already = _is_oil_and_was_applied_already
+
+	_uid = _uid_max
+	Item._uid_max += 1
+	add_to_group("items")
 
 	_id = id
 	_player = player
@@ -78,6 +84,10 @@ func _ready():
 #########################
 ###       Public      ###
 #########################
+
+func get_uid() -> int:
+	return _uid
+
 
 func add_aura(aura: AuraType):
 	_aura_carrier_buff.add_aura(aura)

@@ -757,7 +757,9 @@ func _on_player_right_clicked_item(item: Item):
 	if autocast != null:
 		autocast.do_cast_manually()
 	elif item.is_consumable():
-		item.consume()
+		var item_uid: int = item.get_uid()
+		var action: Action = ActionConsumeItem.make(item_uid)
+		_simulation.add_action(action)
 
 
 func _on_player_shift_right_clicked_item(item: Item):
