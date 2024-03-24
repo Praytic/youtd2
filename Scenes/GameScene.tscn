@@ -102,13 +102,15 @@ script = ExtResource("16_tame0")
 [node name="SelectUnit" type="Node" parent="Gameplay"]
 script = ExtResource("8_b8m2t")
 
-[node name="SelectPointForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state")]
+[node name="SelectPointForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_simulation")]
 script = ExtResource("8_r0gm8")
 _mouse_state = NodePath("../MouseState")
+_simulation = NodePath("../Simulation")
 
-[node name="SelectTargetForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state")]
+[node name="SelectTargetForCast" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_simulation")]
 script = ExtResource("9_14jv4")
 _mouse_state = NodePath("../MouseState")
+_simulation = NodePath("../Simulation")
 
 [node name="MoveItem" type="Node" parent="Gameplay" node_paths=PackedStringArray("_mouse_state", "_map", "_simulation")]
 script = ExtResource("10_qbku7")

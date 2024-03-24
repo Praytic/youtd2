@@ -8,6 +8,7 @@ var _autocast: Autocast = null
 const _cast_cursor: Texture2D = preload("res://Assets/UI/HUD/cast_cursor.png")
 
 @export var _mouse_state: MouseState
+@export var _simulation: Simulation
 
 
 #########################
@@ -38,7 +39,12 @@ func finish(hovered_unit: Unit):
 
 		return
 
-	_autocast.do_cast(target)
+	var autocast_uid: int = _autocast.get_uid()
+	var target_uid: int = target.get_uid()
+	var target_pos: Vector2 = Vector2.ZERO
+	var action: Action = ActionAutocast.make(autocast_uid, target_uid, target_pos)
+	_simulation.add_action(action)
+
 	cancel()
 
 

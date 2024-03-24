@@ -179,6 +179,7 @@ func _process_action(player_id: int, action: Dictionary):
 		Action.Type.RESEARCH_ELEMENT: ActionResearchElement.execute(action, player, _hud)
 		Action.Type.ROLL_TOWERS: ActionRollTowers.execute(action, player)
 		Action.Type.START_NEXT_WAVE: ActionStartNextWave.execute(action, player, _hud)
+		Action.Type.AUTOCAST: ActionAutocast.execute(action, player)
 
 
 func _update_state():

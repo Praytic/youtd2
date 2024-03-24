@@ -671,14 +671,18 @@ func _on_player_clicked_autocast(autocast: Autocast):
 
 		return
 
+	var autocast_uid: int = autocast.get_uid()
+
 #	NOTE: immediate autocasts do not have targets. For other
 #	autocast types we switch to selecting the target. The
 #	cast will finish when player selects a target and
 #	SelectTargetForCast.finish() or
 #	SelectPointForCast.finish() gets called.
 	if autocast.type_is_immediate():
-		var target: Unit = null
-		autocast.do_cast(target)
+		var target_uid: int = 0
+		var target_pos: Vector2 = Vector2.ZERO
+		var action: Action = ActionAutocast.make(autocast_uid, target_uid, target_pos)
+		_simulation.add_action(action)
 	elif autocast.type_is_point():
 		_select_point_for_cast.start(autocast)
 	else:

@@ -211,6 +211,7 @@ func _ready():
 
 	_uid = _uid_max
 	_uid_max += 1
+	GroupManager.add("units", self, get_uid())
 
 	_target_bitmask = TargetType.make_unit_bitmask(self)
 
