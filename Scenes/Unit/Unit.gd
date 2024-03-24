@@ -1176,6 +1176,12 @@ func get_player() -> Player:
 	return _player
 
 
+func belongs_to_local_player() -> bool:
+	var result: bool = _player == PlayerManager.get_local_player()
+	
+	return result
+
+
 # NOTE: this is a stub, used in original tower scripts but
 # not needed in godot engine.
 # NOTE: unit.setAnimationByIndex() in JASS

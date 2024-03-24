@@ -126,7 +126,7 @@ func set_tower(tower: Tower):
 	
 	_set_selling_for_real(false)
 
-	var tower_belongs_to_local_player: bool = tower.get_player() == PlayerManager.get_local_player()
+	var tower_belongs_to_local_player: bool = tower.belongs_to_local_player()
 	
 	var game_mode: GameMode.enm = Globals.get_game_mode()
 	var upgrade_button_should_be_visible: bool = game_mode == GameMode.enm.BUILD || game_mode == GameMode.enm.RANDOM_WITH_UPGRADES

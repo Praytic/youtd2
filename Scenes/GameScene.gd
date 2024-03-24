@@ -271,9 +271,8 @@ func _do_focus_target():
 	var target_uid: int = hovered_creep.get_uid()
 
 	var selected_tower: Tower = selected_unit as Tower
-	var selected_tower_belongs_to_local_player: bool = selected_tower.get_player() == PlayerManager.get_local_player()
 	var selected_tower_uid: int
-	if selected_tower != null && selected_tower_belongs_to_local_player:
+	if selected_tower != null && selected_tower.belongs_to_local_player():
 		selected_tower_uid = selected_tower.get_uid()
 	else:
 		selected_tower_uid = 0
@@ -749,9 +748,7 @@ func _on_player_right_clicked_autocast(autocast: Autocast):
 
 
 func _on_player_right_clicked_item(item: Item):
-	var item_belongs_to_local_player: bool = item.get_player() == PlayerManager.get_local_player()
-
-	if !item_belongs_to_local_player:
+	if !item.belongs_to_local_player():
 		return
 	
 	var autocast: Autocast = item.get_autocast()
@@ -765,9 +762,7 @@ func _on_player_right_clicked_item(item: Item):
 
 
 func _on_player_shift_right_clicked_item(item: Item):
-	var item_belongs_to_local_player: bool = item.get_player() == PlayerManager.get_local_player()
-
-	if !item_belongs_to_local_player:
+	if !item.belongs_to_local_player():
 		return
 
 	var autocast: Autocast = item.get_autocast()

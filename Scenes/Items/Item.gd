@@ -211,6 +211,12 @@ func get_player() -> Player:
 	return _player
 
 
+func belongs_to_local_player() -> bool:
+	var result: bool = _player == PlayerManager.get_local_player()
+	
+	return result
+
+
 func get_display_name() -> String:
 	var display_name: String = ItemProperties.get_display_name(_id)
 
@@ -294,9 +300,7 @@ func fly_to_stash(_mystery_float: float):
 	parent_item_drop.remove_child(self)
 	parent_item_drop.remove_from_game()
 
-	var belongs_to_local_player: bool = get_player() == PlayerManager.get_local_player()
-
-	if belongs_to_local_player:
+	if belongs_to_local_player():
 		var flying_item: FlyingItem = FlyingItem.create(_id, item_drop_screen_pos)
 		flying_item.visible = _visible
 		_hud.add_child(flying_item)

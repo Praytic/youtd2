@@ -729,9 +729,7 @@ func _on_selected():
 	for indicator in _range_indicator_list:
 		indicator.show()
 
-	var tower_belongs_to_local_player: bool = get_player() == PlayerManager.get_local_player()
-
-	if tower_belongs_to_local_player:
+	if belongs_to_local_player():
 		_tower_actions.show()
 
 

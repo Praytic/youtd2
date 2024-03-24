@@ -197,9 +197,7 @@ func _can_start_moving() -> bool:
 #########################
 
 func _on_player_clicked_item_in_tower_inventory(clicked_item: Item):
-	var item_belongs_to_local_player: bool = clicked_item.get_player() == PlayerManager.get_local_player()
-
-	if !item_belongs_to_local_player:
+	if !clicked_item.belongs_to_local_player():
 		return
 
 	var shift_click: bool = Input.is_action_pressed("shift")
@@ -215,9 +213,7 @@ func _on_player_clicked_item_in_tower_inventory(clicked_item: Item):
 
 
 func _on_player_clicked_item_in_main_stash(clicked_item: Item):
-	var item_belongs_to_local_player: bool = clicked_item.get_player() == PlayerManager.get_local_player()
-
-	if !item_belongs_to_local_player:
+	if !clicked_item.belongs_to_local_player():
 		return
 
 	var shift_click: bool = Input.is_action_pressed("shift")
@@ -237,9 +233,7 @@ func _on_player_clicked_item_in_main_stash(clicked_item: Item):
 
 
 func _on_player_clicked_item_in_horadric_stash(clicked_item: Item):
-	var item_belongs_to_local_player: bool = clicked_item.get_player() == PlayerManager.get_local_player()
-
-	if !item_belongs_to_local_player:
+	if !clicked_item.belongs_to_local_player():
 		return
 
 	var shift_click: bool = Input.is_action_pressed("shift")
@@ -269,9 +263,7 @@ func _on_player_clicked_horadric_stash():
 
 
 func _on_player_clicked_tower_inventory(tower: Tower):
-	var tower_belongs_to_local_player: bool = tower.get_player() == PlayerManager.get_local_player()
-
-	if !tower_belongs_to_local_player:
+	if !tower.belongs_to_local_player():
 		return
 
 	var container: ItemContainer = tower.get_item_container()
