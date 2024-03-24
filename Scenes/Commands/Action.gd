@@ -27,7 +27,7 @@ enum Field {
 	CHAT_MESSAGE,
 	TOWER_ID,
 	POSITION,
-	TOWER_UNIT_ID,
+	UID,
 	BUILDER_ID,
 }
 
