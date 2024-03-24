@@ -49,6 +49,16 @@ func remove_tower(tower: int):
 	changed.emit()
 
 
+func has_tower(tower: int) -> bool:
+	if !_tower_map.has(tower):
+		return false
+
+	var count: int = _tower_map[tower]
+	var count_is_enough: bool = count > 0
+
+	return count_is_enough
+
+
 #########################
 ###     Callbacks     ###
 #########################

@@ -1,7 +1,7 @@
-class_name ActionIdle extends Action
+class_name ActionIdle
 
 
-static func make():
+static func make() -> Action:
 	var action: Action = Action.new({
 		Action.Field.TYPE: Action.Type.IDLE,
 		})

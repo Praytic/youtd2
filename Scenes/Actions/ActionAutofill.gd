@@ -1,17 +1,7 @@
-class_name ActionAutofill extends Action
+class_name ActionAutofill
 
 
-var recipe: HoradricCube.Recipe:
-	get:
-		return _data[Action.Field.AUTOFILL_RECIPE]
-
-
-var rarity_filter: Array:
-	get:
-		return _data[Action.Field.AUTOFILL_RARITY_FILTER]
-
-
-static func make(recipe_arg: HoradricCube.Recipe, rarity_filter_arg: Array):
+static func make(recipe_arg: HoradricCube.Recipe, rarity_filter_arg: Array) -> Action:
 	var action: Action = Action.new({
 		Action.Field.TYPE: Action.Type.AUTOFILL,
 		Action.Field.AUTOFILL_RECIPE: recipe_arg,
@@ -19,3 +9,10 @@ static func make(recipe_arg: HoradricCube.Recipe, rarity_filter_arg: Array):
 		})
 
 	return action
+
+
+static func execute(action: Dictionary, player: Player):
+	var recipe: HoradricCube.Recipe = action[Action.Field.AUTOFILL_RECIPE]
+	var rarity_filter: Array = action[Action.Field.AUTOFILL_RARITY_FILTER]
+
+	HoradricCube.autofill(player, recipe, rarity_filter)

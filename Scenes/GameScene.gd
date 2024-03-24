@@ -590,7 +590,7 @@ func _on_game_start_timer_timeout():
 func _on_player_requested_next_wave():
 	var local_player: Player = PlayerManager.get_local_player()
 
-	var verify_ok: bool = ActionProcessor.verify_start_next_wave(local_player)
+	var verify_ok: bool = ActionStartNextWave.verify(local_player)
 
 	if !verify_ok:
 		return
@@ -602,7 +602,7 @@ func _on_player_requested_next_wave():
 func _on_player_requested_to_roll_towers():
 	var local_player: Player = PlayerManager.get_local_player()
 	
-	var verify_ok: bool = ActionProcessor.verify_roll_towers(local_player)
+	var verify_ok: bool = ActionRollTowers.verify(local_player)
 
 	if !verify_ok:
 		return
@@ -614,7 +614,7 @@ func _on_player_requested_to_roll_towers():
 func _on_player_requested_to_research_element(element: Element.enm):
 	var local_player: Player = PlayerManager.get_local_player()
 	
-	var verify_ok: bool = ActionProcessor.verify_research_element(local_player, element)
+	var verify_ok: bool = ActionResearchElement.verify(local_player, element)
 
 	if !verify_ok:
 		return
