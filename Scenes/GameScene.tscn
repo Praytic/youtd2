@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=34 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://db0630tccvc2i" path="res://Scenes/Towers/TowerPreview.tscn" id="11_0qewd"]
 [ext_resource type="Script" path="res://Scenes/GameScene/BuildTower.gd" id="12_1xrfo"]
 [ext_resource type="Script" path="res://Scenes/GameScene/MouseState.gd" id="12_mmgdj"]
-[ext_resource type="Script" path="res://Scenes/GameScene/HoradricCube.gd" id="12_ymn7f"]
 [ext_resource type="Script" path="res://Scenes/GameScene/CombatLogStorage.gd" id="15_ff1in"]
 [ext_resource type="Script" path="res://Scenes/GameTime.gd" id="16_tame0"]
 [ext_resource type="Script" path="res://Scenes/GameScene/GameHost.gd" id="17_0evig"]
@@ -64,7 +63,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_simulation", "_game_time")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_ui_layer", "_simulation", "_game_time")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -82,7 +81,6 @@ _select_unit = NodePath("Gameplay/SelectUnit")
 _build_tower = NodePath("Gameplay/BuildTower")
 _mouse_state = NodePath("Gameplay/MouseState")
 _tower_preview = NodePath("World/TowerPreview")
-_horadric_cube = NodePath("Gameplay/HoradricCube")
 _ui_layer = NodePath("UI")
 _simulation = NodePath("Gameplay/Simulation")
 _game_time = NodePath("Gameplay/GameTime")
@@ -128,9 +126,6 @@ _simulation = NodePath("../Simulation")
 
 [node name="MouseState" type="Node" parent="Gameplay"]
 script = ExtResource("12_mmgdj")
-
-[node name="HoradricCube" type="Node" parent="Gameplay"]
-script = ExtResource("12_ymn7f")
 
 [node name="CombatLogStorage" type="Node" parent="Gameplay"]
 script = ExtResource("15_ff1in")

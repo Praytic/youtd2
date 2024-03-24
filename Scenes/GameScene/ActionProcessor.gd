@@ -31,6 +31,8 @@ func process_action(player_id: int, serialized_action: Dictionary):
 		Action.Type.CONSUME_ITEM: _consume_item(player, serialized_action)
 		Action.Type.DROP_ITEM: _drop_item(player, serialized_action)
 		Action.Type.MOVE_ITEM: _move_item(player, serialized_action)
+		Action.Type.AUTOFILL: _autofill(player, serialized_action)
+		Action.Type.TRANSMUTE: _transmute(player, serialized_action)
 
 
 #########################
@@ -220,3 +222,15 @@ func _move_item(player: Player, serialized_action: Dictionary):
 
 	src_item_container.remove_item(item)
 	dest_item_container.add_item(item)
+
+
+func _autofill(player: Player, serialized_action: Dictionary):
+	var action: ActionAutofill = ActionAutofill.new(serialized_action)
+	var recipe: HoradricCube.Recipe = action.recipe
+	var rarity_filter: Array = action.rarity_filter
+
+	HoradricCube.autofill(player, recipe, rarity_filter)
+
+
+func _transmute(player: Player, _serialized_action: Dictionary):
+	HoradricCube.transmute(player)

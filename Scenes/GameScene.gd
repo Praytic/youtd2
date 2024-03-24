@@ -16,7 +16,6 @@ class_name GameScene extends Node
 @export var _build_tower: BuildTower
 @export var _mouse_state: MouseState
 @export var _tower_preview: TowerPreview
-@export var _horadric_cube: HoradricCube
 @export var _ui_layer: CanvasLayer
 @export var _simulation: Simulation
 @export var _game_time: GameTime
@@ -701,15 +700,17 @@ func _on_selected_unit_changed(_prev_unit: Unit):
 
 
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
-	var local_player: Player = PlayerManager.get_local_player()
-	var item_stash: ItemContainer = local_player.get_item_stash()
-	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
-	_horadric_cube.autofill(local_player, recipe, rarity_filter, item_stash, horadric_stash)
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
+	
+	var action: Action = ActionAutofill.make(recipe, rarity_filter)
+	_simulation.add_action(action)
 
 
 func _on_player_requested_transmute():
-	var local_player: Player = PlayerManager.get_local_player()
-	_horadric_cube.transmute(local_player)
+	SFX.play_sfx("res://Assets/SFX/move_item.mp3", -10.0)
+	
+	var action: Action = ActionTransmute.make()
+	_simulation.add_action(action)
 
 
 func _on_builder_menu_finished(builder_menu: BuilderMenu):
