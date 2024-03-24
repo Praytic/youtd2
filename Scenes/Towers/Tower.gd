@@ -113,7 +113,7 @@ func _ready():
 	add_child(_item_container)
 	_item_container.items_changed.connect(_on_item_container_items_changed)
 
-	add_to_group("towers")
+	GroupManager.add("towers", self, get_uid())
 
 	mana_changed.connect(_on_mana_changed)
 	_on_mana_changed()

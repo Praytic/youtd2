@@ -41,6 +41,7 @@ func _ready():
 
 	Globals.reset()
 	PlayerManager.reset()
+	GroupManager.reset()
 
 	_hud.set_game_start_timer(_game_start_timer)
 

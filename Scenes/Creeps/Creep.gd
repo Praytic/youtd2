@@ -60,7 +60,7 @@ var _height_change_speed: float = 0.0
 func _ready():
 	super()
 
-	add_to_group("creeps")
+	GroupManager.add("creeps", self, get_uid())
 	
 	var max_health = get_overall_health()
 	_health_bar.set_max(max_health)

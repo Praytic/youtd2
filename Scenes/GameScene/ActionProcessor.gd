@@ -104,9 +104,10 @@ func _verify_build_tower(player: Player, tower_id: int, mouse_pos: Vector2) -> b
 
 func _sell_tower(player: Player, serialized_action: Dictionary):
 	var action: ActionSellTower = ActionSellTower.new(serialized_action)
-	var tower_unit_id: int = action.tower_unit_id
+	var tower_uid: int = action.tower_unit_id
 
-	var tower: Tower = _get_tower_by_uid(tower_unit_id)
+	var tower_node: Node = GroupManager.get_by_uid("towers", tower_uid)
+	var tower: Tower = tower_node as Tower
 
 	if tower == null:
 		push_error("Sell tower action failed")
@@ -151,7 +152,8 @@ func _toggle_autocast(player: Player, serialized_action: Dictionary):
 	var action: ActionToggleAutocast = ActionToggleAutocast.new(serialized_action)
 	var autocast_uid: int = action.autocast_uid
 
-	var autocast: Autocast = _get_autocast_by_uid(autocast_uid)
+	var autocast_node: Node = GroupManager.get_by_uid("autocasts", autocast_uid)
+	var autocast: Autocast = autocast_node as Autocast
 
 	if autocast == null:
 		Messages.add_error(player, "Failed to toggle autocast.")
@@ -165,7 +167,8 @@ func _consume_item(player: Player, serialized_action: Dictionary):
 	var action: ActionConsumeItem = ActionConsumeItem.new(serialized_action)
 	var item_uid: int = action.item_uid
 
-	var item: Item = _get_item_by_uid(item_uid)
+	var item_node: Node = GroupManager.get_by_uid("items", item_uid)
+	var item: Item = item_node as Item
 
 	if item == null:
 		Messages.add_error(player, "Failed to toggle item.")
@@ -173,39 +176,3 @@ func _consume_item(player: Player, serialized_action: Dictionary):
 		return
 
 	item.consume()
-
-
-func _get_tower_by_uid(tower_unit_id: int) -> Tower:
-	var tower_list: Array[Tower] = Utils.get_tower_list()
-
-	for tower in tower_list:
-		if tower.get_uid() == tower_unit_id:
-			return tower
-
-	push_error("Failled to find tower with uid: ", tower_unit_id)
-
-	return null
-
-
-func _get_autocast_by_uid(uid: int) -> Autocast:
-	var autocast_node_list: Array[Node] = get_tree().get_nodes_in_group("autocasts")
-
-	for autocast in autocast_node_list:
-		if autocast.get_uid() == uid:
-			return autocast as Autocast
-
-	push_error("Failled to find autocast with uid: ", uid)
-
-	return null
-
-
-func _get_item_by_uid(uid: int) -> Item:
-	var item_node_list: Array[Node] = get_tree().get_nodes_in_group("items")
-
-	for item in item_node_list:
-		if item.get_uid() == uid:
-			return item as Item
-
-	push_error("Failled to find item with uid: ", uid)
-
-	return null

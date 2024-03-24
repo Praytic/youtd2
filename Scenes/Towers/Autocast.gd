@@ -154,7 +154,7 @@ func _ready():
 	_uid = _uid_max
 	Autocast._uid_max += 1
 
-	add_to_group("autocasts")
+	GroupManager.add("autocasts", self, get_uid())
 
 	if !can_use_auto_mode():
 		_auto_timer.set_paused(true)
