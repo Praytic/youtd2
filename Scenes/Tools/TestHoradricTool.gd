@@ -113,7 +113,7 @@ static func test_get_result_item_for_recipe():
 		var ingredient_id_list: Array[int] = test_case.ingredient_list
 		var ingredient_item_list: Array[Item] = Utils.item_id_list_to_item_list(ingredient_id_list, _player)
 		var player: Player = null
-		var result_item_list: Array[int] = HoradricCube._get_result_item_for_recipe(player, recipe, ingredient_item_list)
+		var result_item_list: Array[int] = HoradricCube.get_result_item_for_recipe(player, recipe, ingredient_item_list)
 
 		var expected_result_count: int = test_case.expected_result_count
 		var actual_result_count: int = result_item_list.size()

@@ -167,6 +167,19 @@ func _unhandled_input(event: InputEvent):
 ###      Private      ###
 #########################
 
+func _start_game():
+	_game_start_timer.stop()
+	_hud.show_next_wave_button()
+	_hud.hide_roll_towers_button()
+	
+	var team_list: Array[Team] = _team_container.get_team_list()
+	for team in team_list:
+		team.start_first_wave()
+	
+#	NOTE: start counting game time after first wave starts
+	_game_time.set_enabled(true)
+
+
 func _toggle_autocast(autocast: Autocast):
 	var local_player: Player = PlayerManager.get_local_player()
 	var can_use_auto: bool = autocast.can_use_auto_mode()
@@ -313,25 +326,6 @@ func _get_cmdline_value(key: String):
 			cmdline_value = arguments.get(key)
 	
 	return cmdline_value
-
-
-func _on_pregame_controller_finished():
-#	NOTE: in singleplayer case, this simply sets the
-#	settings locally. In multiplayer case, this will
-#	cause the host to broadcast game settings to
-#	peers.
-	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
-	var wave_count: int = _pregame_controller.get_game_length()
-	var difficulty: Difficulty.enm = _pregame_controller.get_difficulty()
-	var game_mode: GameMode.enm = _pregame_controller.get_game_mode()
-	
-#	NOTE: host randomizes their rng, other peers will
-#	receive this seed from host when connecting via
-#	_set_origin_rng_seed().
-	var origin_seed: int = randi()
-	print_verbose("Generated origin seed on host: ", origin_seed)
-
-	_transition_from_pregame.rpc(player_mode, wave_count, game_mode, difficulty, origin_seed)
 
 
 # This is called when host is finished selecting all of the
@@ -502,6 +496,25 @@ func _start_tutorial(game_mode: GameMode.enm):
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_pregame_controller_finished():
+#	NOTE: in singleplayer case, this simply sets the
+#	settings locally. In multiplayer case, this will
+#	cause the host to broadcast game settings to
+#	peers.
+	var player_mode: PlayerMode.enm = _pregame_controller.get_player_mode()
+	var wave_count: int = _pregame_controller.get_game_length()
+	var difficulty: Difficulty.enm = _pregame_controller.get_difficulty()
+	var game_mode: GameMode.enm = _pregame_controller.get_game_mode()
+	
+#	NOTE: host randomizes their rng, other peers will
+#	receive this seed from host when connecting via
+#	_set_origin_rng_seed().
+	var origin_seed: int = randi()
+	print_verbose("Generated origin seed on host: ", origin_seed)
+
+	_transition_from_pregame.rpc(player_mode, wave_count, game_mode, difficulty, origin_seed)
+
 
 func _on_game_menu_close_pressed():
 	_toggle_game_menu()
@@ -774,16 +787,3 @@ func _on_player_shift_right_clicked_item(item: Item):
 
 	if autocast != null:
 		_toggle_autocast(autocast)
-
-
-func _start_game():
-	_game_start_timer.stop()
-	_hud.show_next_wave_button()
-	_hud.hide_roll_towers_button()
-	
-	var team_list: Array[Team] = _team_container.get_team_list()
-	for team in team_list:
-		team.start_first_wave()
-	
-#	NOTE: start counting game time after first wave starts
-	_game_time.set_enabled(true)

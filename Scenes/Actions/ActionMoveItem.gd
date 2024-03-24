@@ -26,8 +26,34 @@ static func execute(action: Dictionary, player: Player):
 
 		return
 
-	if !MoveItem.verify_move(player, item, dest_item_container):
+	var verify_ok: bool = ActionMoveItem.verify(player, item, dest_item_container)
+	if !verify_ok:
 		return
 
 	src_item_container.remove_item(item)
 	dest_item_container.add_item(item)
+
+
+# Checks if currently moved item can't be placed into
+# container because container belongs to tower and item is
+# consumable. Also adds an error messages if needed.
+# Returns true if can move.
+static func verify(player: Player, item: Item, dest_container: ItemContainer) -> bool:
+	if item == null:
+		return true
+
+	var dest_has_space: bool = dest_container.have_item_space()
+
+	if !dest_has_space:
+		Messages.add_error(player, "No space for item")
+
+		return false
+
+	var trying_to_move_consumable_to_tower: bool = item.is_consumable() && dest_container is TowerItemContainer
+
+	if trying_to_move_consumable_to_tower:
+		Messages.add_error(player, "Can't place consumables into towers")
+		
+		return false
+
+	return true

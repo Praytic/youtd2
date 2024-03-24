@@ -220,6 +220,23 @@ func set_buildable_area_visible(value: bool):
 	_buildable_area.visible = value
 
 
+# When tower is sold, mark space which is occupied by tower.
+func add_space_occupied_by_tower(tower: Tower):
+	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
+
+	for pos in occupied_list:
+		_occupied_quarter_list.append(pos)
+
+
+# When tower is sold, clear space which was used to be
+# occupied by tower
+func clear_space_occupied_by_tower(tower: Tower):
+	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
+
+	for pos in occupied_list:
+		_occupied_quarter_list.erase(pos)
+
+
 #########################
 ###      Private      ###
 #########################
@@ -245,24 +262,3 @@ func _get_quarter_offset_list(builder: Builder) -> Array[Vector2]:
 		return QUARTER_OFFSET_LIST_NORMAL
 	else:
 		return QUARTER_OFFSET_LIST_BIG
-
-
-#########################
-###     Callbacks     ###
-#########################
-
-# When tower is sold, mark space which is occupied by tower.
-func add_space_occupied_by_tower(tower: Tower):
-	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
-
-	for pos in occupied_list:
-		_occupied_quarter_list.append(pos)
-
-
-# When tower is sold, clear space which was used to be
-# occupied by tower
-func clear_space_occupied_by_tower(tower: Tower):
-	var occupied_list: Array[Vector2] = _get_positions_occupied_by_tower(tower)
-
-	for pos in occupied_list:
-		_occupied_quarter_list.erase(pos)

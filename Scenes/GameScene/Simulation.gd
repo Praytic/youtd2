@@ -21,9 +21,6 @@ class_name Simulation extends Node
 # attack timers, unit regen timers, "await" timers called in
 # tower scripts.
 
-# TODO: convert all player inputs which affect world state
-# to Actions.
-
 # TODO: adjust action delay dynamically based on observed
 # latency. Do not adjust it constantly. A value should be
 # picked once and retained for the whole game duration.

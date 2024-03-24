@@ -73,7 +73,8 @@ func process_click_on_tower(tower: Tower):
 func _add_move_action(item: Item, src_item_container: ItemContainer, dest_item_container: ItemContainer) -> bool:
 	var local_player: Player = PlayerManager.get_local_player()
 	
-	if !MoveItem.verify_move(local_player, item, dest_item_container):
+	var verify_ok: bool = ActionMoveItem.verify(local_player, item, dest_item_container)
+	if !verify_ok:
 		return false
 
 	var item_uid: int = item.get_uid()
@@ -189,31 +190,6 @@ func _can_start_moving() -> bool:
 	var can_start: bool = _mouse_state.get_state() == MouseState.enm.NONE || _mouse_state.get_state() == MouseState.enm.MOVE_ITEM
 
 	return can_start
-
-
-# Checks if currently moved item can't be placed into
-# container because container belongs to tower and item is
-# consumable. Also adds an error messages if needed.
-# Returns true if can move.
-static func verify_move(player: Player, item: Item, dest_container: ItemContainer) -> bool:
-	if item == null:
-		return true
-
-	var dest_has_space: bool = dest_container.have_item_space()
-
-	if !dest_has_space:
-		Messages.add_error(player, "No space for item")
-
-		return false
-
-	var trying_to_move_consumable_to_tower: bool = item.is_consumable() && dest_container is TowerItemContainer
-
-	if trying_to_move_consumable_to_tower:
-		Messages.add_error(player, "Can't place consumables into towers")
-		
-		return false
-
-	return true
 
 
 #########################

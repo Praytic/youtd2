@@ -51,9 +51,17 @@ enum Type {
 var _data: Dictionary
 
 
+#########################
+###     Built-in      ###
+#########################
+
 func _init(data: Dictionary):
 	_data = data
 
+
+#########################
+###       Public      ###
+#########################
 
 func serialize() -> Dictionary:
 	return _data

@@ -20,7 +20,7 @@ static func execute(_action: Dictionary, player: Player):
 
 		return
 
-	var result_item_id_list: Array[int] = HoradricCube._get_result_item_for_recipe(player, current_recipe, item_list)
+	var result_item_id_list: Array[int] = HoradricCube.get_result_item_for_recipe(player, current_recipe, item_list)
 	var generated_items: bool = !result_item_id_list.is_empty()
 
 	if !generated_items:

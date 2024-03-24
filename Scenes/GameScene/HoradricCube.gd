@@ -52,10 +52,6 @@ static func can_transmute(item_list: Array[Item]) -> bool:
 	return recipe_is_valid
 
 
-#########################
-###      Private      ###
-#########################
-
 # Returns list of filtered items from the provided item_list,
 # which can be used for a recipe. Prioritizes items with
 # lowest rarity and level. Returns empty list if autofill
@@ -149,7 +145,7 @@ static func get_current_recipe(item_list: Array[Item]) -> Recipe:
 	return Recipe.NONE
 
 
-static func _get_result_item_for_recipe(player: Player, recipe: Recipe, item_list: Array[Item]) -> Array[int]:
+static func get_result_item_for_recipe(player: Player, recipe: Recipe, item_list: Array[Item]) -> Array[int]:
 	var rarity_change_from_recipe: int = RecipeProperties.get_rarity_change(recipe)
 	var ingredient_rarity: Rarity.enm = HoradricCube._get_ingredient_rarity(item_list)
 	var result_rarity: Rarity.enm = (ingredient_rarity + rarity_change_from_recipe) as Rarity.enm
@@ -192,6 +188,10 @@ static func _get_result_item_for_recipe(player: Player, recipe: Recipe, item_lis
 
 	return result_item_list
 
+
+#########################
+###      Private      ###
+#########################
 
 static func _get_transmuted_oil_or_consumable(item_list: Array[Item], rarity: Rarity.enm) -> int:
 	var oil_list: Array = ItemDropCalc.get_oil_and_consumables_list(rarity)

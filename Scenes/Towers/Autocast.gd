@@ -185,22 +185,6 @@ func do_cast_at_pos(target_pos: Vector2):
 	do_cast(target)
 
 
-func check_target_for_unit_autocast(target: Unit) -> bool:
-	if target == null:
-		return false
-
-	var target_is_in_range: bool = _get_target_is_in_range(target)
-	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
-	var target_is_ok: bool = target_is_in_range && target_type_is_valid
-
-	return target_is_ok
-
-
-#########################
-###      Private      ###
-#########################
-
-
 # NOTE: target arg may be null if autocast is immediate
 func do_cast(target: Unit):
 	CombatLog.log_autocast(_caster, target, self)
@@ -234,11 +218,15 @@ func do_cast(target: Unit):
 		Effect.destroy_effect_after_its_over(effect)
 
 
-func _make_autocast_event(target: Unit) -> Event:
-	var event: Event = Event.new(target)
-	event._autocast = self
+func check_target_for_unit_autocast(target: Unit) -> bool:
+	if target == null:
+		return false
 
-	return event
+	var target_is_in_range: bool = _get_target_is_in_range(target)
+	var target_type_is_valid = _get_target_type_is_valid_for_manual_cast(target)
+	var target_is_ok: bool = target_is_in_range && target_type_is_valid
+
+	return target_is_ok
 
 
 func target_pos_is_in_range(target_pos: Vector2) -> bool:
@@ -255,7 +243,7 @@ func can_cast() -> bool:
 # 	starting a cast while tower is not attacking. For
 # 	example, player needs to be able to start the cast to
 # 	pick the target before tower starts attacking.
-	var cant_cast_because_not_attacking: bool = auto_mode_is_enabled() && _type_is_offensive() && !_caster.is_attacking()
+	var cant_cast_because_not_attacking: bool = auto_mode_is_enabled() && type_is_offensive() && !_caster.is_attacking()
 
 	if cant_cast_because_not_attacking:
 		return false
@@ -269,19 +257,19 @@ func can_cast() -> bool:
 	return result
 
 
+# Some autocast types are always manual
+func can_use_auto_mode() -> bool:
+	var can_use: bool = _types_that_can_use_auto_mode.has(autocast_type)
+
+	return can_use
+
+
 func add_cast_error_message():
 	var cast_error: String = _get_cast_error()
 
 	if !cast_error.is_empty():
 		var player: Player = _caster.get_player()
 		Messages.add_error(player, cast_error)
-
-
-# Some autocast types are always manual
-func can_use_auto_mode() -> bool:
-	var can_use: bool = _types_that_can_use_auto_mode.has(autocast_type)
-
-	return can_use
 
 
 func type_is_immediate() -> bool:
@@ -292,16 +280,27 @@ func type_is_point() -> bool:
 	return _point_type_list.has(autocast_type)
 
 
-func _type_is_buff() -> bool:
+func type_is_buff() -> bool:
 	return _buff_type_list.has(autocast_type)
 
 
-func _type_is_offensive() -> bool:
+func type_is_offensive() -> bool:
 	return _offensive_type_list.has(autocast_type)
 
 
-func _type_is_unit() -> bool:
+func type_is_unit() -> bool:
 	return _unit_type_list.has(autocast_type)
+
+
+#########################
+###      Private      ###
+#########################
+
+func _make_autocast_event(target: Unit) -> Event:
+	var event: Event = Event.new(target)
+	event._autocast = self
+
+	return event
 
 
 func _get_target_is_in_range(target: Unit) -> bool:
@@ -336,9 +335,9 @@ func _get_target_type_for_manual_cast() -> TargetType:
 
 
 func _get_target_for_auto_mode() -> Unit:
-	if _type_is_buff():
+	if type_is_buff():
 		return _get_target_for_buff_autocast()
-	elif _type_is_unit():
+	elif type_is_unit():
 		return _get_target_for_unit_autocast()
 	elif type_is_immediate():
 #		Immediate autocasts have no target
