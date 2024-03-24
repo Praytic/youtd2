@@ -41,65 +41,12 @@ const _bonus_mod_chance_map: Dictionary = {
 ###       Public      ###
 #########################
 
-static func autofill(player: Player, recipe: HoradricCube.Recipe, rarity_filter: Array):
-	var item_stash: ItemContainer = player.get_item_stash()
-	var horadric_stash: ItemContainer = player.get_horadric_stash()
-
-# 	Return current cube contents to item stash. Need to do this first in all cases, doesn't matter if autofill suceeeds or fails later.
-	var horadric_items_initial: Array[Item] = horadric_stash.get_item_list()
-	for item in horadric_items_initial:
-		horadric_stash.remove_item(item)
-		item_stash.add_item(item)
-
-#	Move items from item stash to cube, if there are enough
-#	items for the recipe
-	var full_item_list: Array[Item] = item_stash.get_item_list()
-	var filtered_item_list: Array[Item] = Utils.filter_item_list(full_item_list, rarity_filter)
-	var autofill_list: Array[Item] = HoradricCube._get_item_list_for_autofill(recipe, filtered_item_list)
-	
-	var can_autofill: bool = !autofill_list.is_empty()
-	
-	if !can_autofill:
-		Messages.add_error(player, "Not enough items for recipe!")
-		
-		return
-
-#	Move autofill items from item stash to horadric stash
-	for item in autofill_list:
-		item_stash.remove_item(item)
-		horadric_stash.add_item(item)
-
-
-static func transmute(player: Player):
-	var horadric_stash: ItemContainer = player.get_horadric_stash()
-	var item_list: Array[Item] = horadric_stash.get_item_list()
-	var current_recipe: Recipe = HoradricCube._get_current_recipe(item_list)
-	
-	if current_recipe == Recipe.NONE:
-		return
-
-	var result_item_id_list: Array[int] = HoradricCube._get_result_item_for_recipe(player, current_recipe, item_list)
-
-	if result_item_id_list.is_empty():
-		push_error("Transmute failed to generate any items, this shouldn't happen.")
-		
-		return
-
-	var result_list: Array[Item] = Utils.item_id_list_to_item_list(result_item_id_list, player)
-
-	for item in item_list:
-		horadric_stash.remove_item(item)
-	
-	for item in result_list:
-		horadric_stash.add_item(item)
-
-
 static func has_recipe_ingredients(recipe: Recipe, item_list: Array[Item]) -> bool:
-	return !_get_item_list_for_autofill(recipe, item_list).is_empty()
+	return !get_item_list_for_autofill(recipe, item_list).is_empty()
 
 
 static func can_transmute(item_list: Array[Item]) -> bool:
-	var current_recipe: Recipe = HoradricCube._get_current_recipe(item_list)
+	var current_recipe: Recipe = HoradricCube.get_current_recipe(item_list)
 	var recipe_is_valid: bool = current_recipe != Recipe.NONE
 
 	return recipe_is_valid
@@ -113,11 +60,11 @@ static func can_transmute(item_list: Array[Item]) -> bool:
 # which can be used for a recipe. Prioritizes items with
 # lowest rarity and level. Returns empty list if autofill
 # can't be performed.
-static func _get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) -> Array[Item]:
+static func get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) -> Array[Item]:
 	var current_rarity: Rarity.enm = Rarity.enm.COMMON
 
 	while current_rarity <= Rarity.enm.UNIQUE:
-		var result_list: Array[Item] = HoradricCube._get_item_list_for_autofill_for_rarity(recipe, item_list, current_rarity)
+		var result_list: Array[Item] = HoradricCube.get_item_list_for_autofill_for_rarity(recipe, item_list, current_rarity)
 
 		if !result_list.is_empty():
 			return result_list
@@ -127,7 +74,7 @@ static func _get_item_list_for_autofill(recipe: Recipe, item_list: Array[Item]) 
 	return []
 
 
-static func _get_item_list_for_autofill_for_rarity(recipe: Recipe, item_list: Array[Item], rarity: Rarity.enm) -> Array[Item]:
+static func get_item_list_for_autofill_for_rarity(recipe: Recipe, item_list: Array[Item], rarity: Rarity.enm) -> Array[Item]:
 	var rarity_change_from_recipe: int = RecipeProperties.get_rarity_change(recipe)
 	var result_rarity: int = rarity + rarity_change_from_recipe
 	var result_rarity_is_valid: bool = Rarity.enm.COMMON <= result_rarity && result_rarity <= Rarity.enm.UNIQUE
@@ -182,7 +129,7 @@ static func _get_item_list_for_autofill_for_rarity(recipe: Recipe, item_list: Ar
 # Returns recipe which matches the given item list. Do this
 # by getting an autofill list and checking if autofill list
 # is equal to input list.
-static func _get_current_recipe(item_list: Array[Item]) -> Recipe:
+static func get_current_recipe(item_list: Array[Item]) -> Recipe:
 	if item_list.is_empty():
 		return Recipe.NONE
 
@@ -191,7 +138,7 @@ static func _get_current_recipe(item_list: Array[Item]) -> Recipe:
 	var recipe_list: Array = RecipeProperties.get_id_list()
 
 	for recipe in recipe_list:
-		var autofill_item_list: Array[Item] = HoradricCube._get_item_list_for_autofill(recipe, item_list)
+		var autofill_item_list: Array[Item] = HoradricCube.get_item_list_for_autofill(recipe, item_list)
 		var autofill_id_list: Array[int] = Utils.item_list_to_item_id_list(autofill_item_list)
 
 		var recipe_matches: bool = item_id_list == autofill_id_list
