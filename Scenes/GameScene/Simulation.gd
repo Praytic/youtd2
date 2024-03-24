@@ -54,7 +54,9 @@ var _timeslot_map: Dictionary = {}
 
 @export var _game_host: GameHost
 @export var _game_time: GameTime
-@export var _action_processor: ActionProcessor
+@export var _hud: HUD
+@export var _map: Map
+@export var _chat_commands: ChatCommands
 
 
 #########################
@@ -147,8 +149,36 @@ func _process_actions(timeslot: Dictionary):
 	player_id_list.sort()
 	
 	for player_id in player_id_list:
-		var serialized_action: Dictionary = timeslot[player_id]
-		_action_processor.process_action(player_id, serialized_action)
+		var action: Dictionary = timeslot[player_id]
+		_process_action(player_id, action)
+
+
+func _process_action(player_id: int, action: Dictionary):
+	var player: Player = PlayerManager.get_player(player_id)
+
+	if player == null:
+		push_error("player is null")
+		
+		return
+
+	var action_type: Action.Type = action[Action.Field.TYPE]
+
+	match action_type:
+		Action.Type.IDLE: return
+		Action.Type.CHAT: ActionChat.execute(action, player, _hud, _chat_commands)
+		Action.Type.BUILD_TOWER: ActionBuildTower.execute(action, player, _map)
+		Action.Type.TRANSFORM_TOWER: ActionTransformTower.execute(action, player, _map)
+		Action.Type.SELL_TOWER: ActionSellTower.execute(action, player, _map)
+		Action.Type.SELECT_BUILDER: ActionSelectBuilder.execute(action, player, _hud)
+		Action.Type.TOGGLE_AUTOCAST: ActionToggleAutocast.execute(action, player)
+		Action.Type.CONSUME_ITEM: ActionConsumeItem.execute(action, player)
+		Action.Type.DROP_ITEM: ActionDropItem.execute(action, player)
+		Action.Type.MOVE_ITEM: ActionMoveItem.execute(action, player)
+		Action.Type.AUTOFILL: ActionAutofill.execute(action, player)
+		Action.Type.TRANSMUTE: ActionTransmute.execute(action, player)
+		Action.Type.RESEARCH_ELEMENT: ActionResearchElement.execute(action, player, _hud)
+		Action.Type.ROLL_TOWERS: ActionRollTowers.execute(action, player)
+		Action.Type.START_NEXT_WAVE: ActionStartNextWave.execute(action, player, _hud)
 
 
 func _update_state():

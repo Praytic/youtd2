@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=33 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
@@ -22,7 +22,6 @@
 [ext_resource type="Script" path="res://Scenes/GameScene/GameHost.gd" id="17_0evig"]
 [ext_resource type="PackedScene" uid="uid://dp2tmdi8ms5qo" path="res://Scenes/GameScene/Simulation.tscn" id="17_new70"]
 [ext_resource type="Script" path="res://Scenes/Effects/EffectsContainer.gd" id="18_hqvt4"]
-[ext_resource type="Script" path="res://Scenes/GameScene/ActionProcessor.gd" id="18_vcbyc"]
 [ext_resource type="Script" path="res://Scenes/GameScene/ChatCommands.gd" id="19_ldgwp"]
 [ext_resource type="Script" path="res://Scenes/Player/CameraOrigin.gd" id="22_0su8s"]
 [ext_resource type="Script" path="res://Scenes/GameScene/TimerPool.gd" id="26_2tqw6"]
@@ -133,20 +132,16 @@ script = ExtResource("15_ff1in")
 [node name="TimerPool" type="Node" parent="Gameplay"]
 script = ExtResource("26_2tqw6")
 
-[node name="Simulation" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_action_processor") instance=ExtResource("17_new70")]
+[node name="Simulation" parent="Gameplay" node_paths=PackedStringArray("_game_host", "_game_time", "_hud", "_map", "_chat_commands") instance=ExtResource("17_new70")]
 _game_host = NodePath("../GameHost")
 _game_time = NodePath("../GameTime")
-_action_processor = NodePath("../ActionProcessor")
+_hud = NodePath("../../UI/HUD")
+_map = NodePath("../../World/Map")
+_chat_commands = NodePath("../ChatCommands")
 
 [node name="GameHost" type="Node" parent="Gameplay" node_paths=PackedStringArray("_simulation")]
 script = ExtResource("17_0evig")
 _simulation = NodePath("../Simulation")
-
-[node name="ActionProcessor" type="Node" parent="Gameplay" node_paths=PackedStringArray("_hud", "_map", "_chat_commands")]
-script = ExtResource("18_vcbyc")
-_hud = NodePath("../../UI/HUD")
-_map = NodePath("../../World/Map")
-_chat_commands = NodePath("../ChatCommands")
 
 [node name="ChatCommands" type="Node" parent="Gameplay"]
 script = ExtResource("19_ldgwp")
