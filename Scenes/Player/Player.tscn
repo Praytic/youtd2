@@ -15,6 +15,7 @@ _wave_spawner = NodePath("WaveSpawner")
 [node name="ItemStash" type="Node" parent="."]
 script = ExtResource("2_ietwb")
 _capacity = 1000
+_add_items_to_beginning = true
 
 [node name="HoradricStash" type="Node" parent="."]
 script = ExtResource("2_ietwb")

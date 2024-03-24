@@ -256,8 +256,7 @@ func pickup(tower: Tower) -> bool:
 	item_drop.remove_from_game()
 
 	var tower_container: ItemContainer = tower.get_item_container()
-	var slot_index: int = tower_container.get_item_count()
-	tower_container.add_item(self, slot_index)
+	tower_container.add_item(self)
 	
 	return true
 
