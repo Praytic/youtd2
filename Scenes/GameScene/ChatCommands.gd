@@ -69,7 +69,7 @@ func _command_start_next_wave(player: Player):
 	var team: Team = player.get_team()
 	team.start_next_wave()
 	
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var local_level: int = local_player.get_team().get_level()
 	_hud.update_level(local_level)
 	var next_waves: Array[Wave] = local_player.get_next_5_waves()
@@ -112,7 +112,7 @@ func _command_research_element(player: Player, args: Array):
 	player.spend_tomes(cost)
 	player.increment_element_level(element)
 	
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	if player == local_player:
 		var new_element_levels: Dictionary = local_player.get_element_level_map()
 		_hud.update_element_level(new_element_levels)

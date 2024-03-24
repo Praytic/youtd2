@@ -18,7 +18,7 @@ func _ready():
 
 
 func _process(_delta: float):
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 
 	if local_player == null:
 		return

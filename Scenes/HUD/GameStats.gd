@@ -100,7 +100,7 @@ func set_local_builder_name(builder_name: String):
 
 
 func _update_player_stats():
-	var player_list: Array[Player] = Globals.get_player_list()
+	var player_list: Array[Player] = PlayerManager.get_player_list()
 
 	var text: String = ""
 

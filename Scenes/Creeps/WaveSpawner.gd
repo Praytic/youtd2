@@ -106,7 +106,7 @@ func current_wave_is_finished() -> bool:
 #########################
 
 func _add_message_about_wave(wave: Wave):
-	if _player != Globals.get_local_player():
+	if _player != PlayerManager.get_local_player():
 		return
 	
 	var combination_string: String = wave.get_creep_combination_string()

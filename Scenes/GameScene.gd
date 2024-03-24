@@ -6,7 +6,6 @@ class_name GameScene extends Node
 @export var _map: Map
 @export var _ui_canvas_layer: CanvasLayer
 @export var _camera: Camera2D
-@export var _player_container: PlayerContainer
 @export var _team_container: TeamContainer
 @export var _game_start_timer: ManualTimer
 @export var _object_container: Node2D
@@ -41,6 +40,7 @@ func _ready():
 	print_verbose("GameScene has loaded.")
 
 	Globals.reset()
+	PlayerManager.reset()
 
 	_hud.set_game_start_timer(_game_start_timer)
 
@@ -119,7 +119,7 @@ func _unhandled_input(event: InputEvent):
 	var hovered_unit: Unit = _select_unit.get_hovered_unit()
 	var hovered_tower: Tower = hovered_unit as Tower
 	var selected_unit: Unit = _select_unit.get_selected_unit()
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var editing_chat: bool = _hud.editing_chat()
 	
 	if enter_pressed:
@@ -168,7 +168,7 @@ func _unhandled_input(event: InputEvent):
 #########################
 
 func _get_camera_origin_pos() -> Vector2:
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var local_player_id: int = local_player.get_id()
 	
 	var local_camera_origin: CameraOrigin = null
@@ -363,20 +363,15 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 		var team: Team = Team.make(i)
 		_team_container.add_team(team)
 
-#	NOTE: assign one player per team. This is the same as "solo" mode in original game.
 #	TODO: implement different team modes and assign teams based on selected team mode
 	for peer_id in peer_id_list:
 		var player_id: int = peer_id_list.find(peer_id)
 		var team_for_player: Team = _team_container.get_team(player_id)
 		var player: Player = team_for_player.create_player(player_id, peer_id)
-		_player_container.add_player(player)
+		PlayerManager.add_player(player)
 
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var local_team: Team = local_player.get_team()
-	var player_list: Array[Player] = _player_container.get_player_list()
-	Globals._local_player = local_player
-	Globals._player_list = player_list
-
 	local_team.game_over.connect(_on_local_team_game_over)
 	
 	local_player.item_stash_changed.connect(_on_local_player_item_stash_changed)
@@ -385,6 +380,8 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	_hud.set_player(local_player)
 	_move_item.set_player(local_player)
 	_tower_preview.set_player(local_player)
+	
+	var player_list: Array[Player] = PlayerManager.get_player_list()
 
 	for player in player_list:
 		player.voted_ready.connect(_on_player_voted_ready)
@@ -466,7 +463,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 
 func _start_tutorial(game_mode: GameMode.enm):
 #	Add items for tutorial, to allow player to practice moving them.
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var tutorial_item: Item = Item.make(80, local_player)
 	var tutorial_oil: Item = Item.make(1001, local_player)
 	var item_stash: ItemContainer = local_player.get_item_stash()
@@ -533,21 +530,21 @@ func _on_game_menu_restart_pressed():
 
 
 func _on_local_player_item_stash_changed():
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	var item_list: Array[Item] = item_stash.get_item_list()
 	_hud.set_items(item_list)
 
 
 func _on_local_player_horadric_stash_changed():
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
 	var item_list: Array[Item] = horadric_stash.get_item_list()
 	_hud.set_items_for_horadric_cube(item_list)
 
 
 func _on_local_player_tower_stash_changed():
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var tower_stash: TowerStash = local_player.get_tower_stash()
 	var towers: Dictionary = tower_stash.get_towers()
 	_hud.set_towers(towers)
@@ -555,7 +552,7 @@ func _on_local_player_tower_stash_changed():
 
 func _on_player_requested_start_game():
 	var local_player_has_towers: bool = false
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var tower_list: Array[Tower] = Utils.get_tower_list()
 	for tower in tower_list:
 		if tower.get_player() == local_player:
@@ -575,7 +572,7 @@ func _on_game_start_timer_timeout():
 
 
 func _on_player_requested_next_wave():
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 
 	if _game_over:
 		Messages.add_error(local_player, "Can't start next wave because the game is over.")
@@ -595,7 +592,7 @@ func _on_player_requested_next_wave():
 func _on_player_requested_to_roll_towers():
 	var researched_any_elements: bool = false
 	
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	
 	for element in Element.get_list():
 		var researched_element: bool = local_player.get_element_level(element)
@@ -619,7 +616,7 @@ func _on_player_requested_to_roll_towers():
 
 
 func _on_player_requested_to_research_element(element: Element.enm):
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var can_request: bool = ChatCommands.verify_research_element(local_player, element)
 
 	if !can_request:
@@ -630,7 +627,7 @@ func _on_player_requested_to_research_element(element: Element.enm):
 
 
 func _on_player_requested_to_build_tower(tower_id: int):
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	_build_tower.start(tower_id, local_player)
 
 
@@ -643,7 +640,7 @@ func _on_player_requested_to_upgrade_tower(tower: Tower):
 
 		return
 
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 
 	var enough_gold: bool = local_player.enough_gold_for_tower(upgrade_id)
 
@@ -686,14 +683,14 @@ func _on_selected_unit_changed(_prev_unit: Unit):
 
 
 func _on_player_requested_autofill(recipe: HoradricCube.Recipe, rarity_filter: Array):
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var item_stash: ItemContainer = local_player.get_item_stash()
 	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
 	_horadric_cube.autofill(local_player, recipe, rarity_filter, item_stash, horadric_stash)
 
 
 func _on_player_requested_transmute():
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	_horadric_cube.transmute(local_player)
 
 
@@ -712,12 +709,12 @@ func _on_builder_menu_finished(builder_menu: BuilderMenu):
 
 
 func _on_local_team_game_over():
-	Messages.add_normal(Globals.get_local_player(), "[color=RED]The portal has been destroyed! The game is over.[/color]")
+	Messages.add_normal(PlayerManager.get_local_player(), "[color=RED]The portal has been destroyed! The game is over.[/color]")
 	_hud.show_game_over()
 
 
 func _on_player_voted_ready():
-	var player_list: Array[Player] = _player_container.get_player_list()
+	var player_list: Array[Player] = PlayerManager.get_player_list()
 	
 	var not_ready_count: int = 0
 	for player in player_list:
@@ -734,7 +731,7 @@ func _on_player_voted_ready():
 
 
 func _on_player_requested_toggle_for_autocast(autocast: Autocast):
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var can_use_auto: bool = autocast.can_use_auto_mode()
 
 	if !can_use_auto:

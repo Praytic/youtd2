@@ -116,7 +116,7 @@ func _on_button_down_timeout():
 			_research_element_progress_bar.show()
 			_research_timer.start()
 		else:
-			Messages.add_error(Globals.get_local_player(), "Can't research this element. Not enough tomes.")
+			Messages.add_error(PlayerManager.get_local_player(), "Can't research this element. Not enough tomes.")
 
 
 func _on_research_timer_timeout():

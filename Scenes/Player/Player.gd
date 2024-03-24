@@ -213,7 +213,7 @@ func get_team() -> Team:
 
 # NOTE: player.displayFloatingTextX() in JASS
 func display_floating_text_x(text: String, unit: Unit, color: Color, velocity: float, fadepoint: float, time: float):
-	if self != Globals.get_local_player():
+	if self != PlayerManager.get_local_player():
 		return
 	
 	var floating_text = Preloads.floating_text_scene.instantiate()
@@ -228,7 +228,7 @@ func display_floating_text_x(text: String, unit: Unit, color: Color, velocity: f
 
 # NOTE: player.displayFloatingTextX2() in JASS
 func display_floating_text_x_2(text: String, unit: Unit, color: Color, velocity: float, fadepoint: float, time: float, _scale: float, random_offset: float):
-	if self != Globals.get_local_player():
+	if self != PlayerManager.get_local_player():
 		return
 
 	var floating_text = Preloads.floating_text_scene.instantiate()
@@ -244,7 +244,7 @@ func display_floating_text_x_2(text: String, unit: Unit, color: Color, velocity:
 
 # NOTE: player.displayFloatingText() in JASS
 func display_floating_text(text: String, unit: Unit, color: Color):
-	if self != Globals.get_local_player():
+	if self != PlayerManager.get_local_player():
 		return
 
 	var floating_text = Preloads.floating_text_scene.instantiate()
@@ -256,7 +256,7 @@ func display_floating_text(text: String, unit: Unit, color: Color):
 
 # NOTE: player.displaySmallFloatingText() in JASS
 func display_small_floating_text(text: String, unit: Unit, color: Color, random_offset: float):
-	if self != Globals.get_local_player():
+	if self != PlayerManager.get_local_player():
 		return
 
 	var floating_text = Preloads.floating_text_scene.instantiate()

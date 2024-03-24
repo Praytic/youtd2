@@ -1,10 +1,9 @@
-[gd_scene load_steps=36 format=3 uid="uid://ccr6p41srpf4p"]
+[gd_scene load_steps=35 format=3 uid="uid://ccr6p41srpf4p"]
 
 [ext_resource type="Script" path="res://Scenes/DefaultCamera.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://cngv1rgplre2c" path="res://Scenes/HUD/HUD.tscn" id="2"]
 [ext_resource type="Script" path="res://Scenes/ManualTimer.gd" id="2_hiplt"]
 [ext_resource type="Script" path="res://Scenes/Creeps/WavePath.gd" id="3_abrkq"]
-[ext_resource type="Script" path="res://Scenes/GameScene/PlayerContainer.gd" id="3_ieclh"]
 [ext_resource type="PackedScene" uid="uid://bjvafnsglmpin" path="res://Scenes/Map/Map.tscn" id="5"]
 [ext_resource type="Shader" path="res://Resources/Shaders/FoggyCamera.gdshader" id="5_qgk1p"]
 [ext_resource type="PackedScene" uid="uid://bprw8bivb1mcc" path="res://Scenes/AudioPlayerPool.tscn" id="5_rin5y"]
@@ -65,7 +64,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_player_container", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_simulation", "_game_time")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_horadric_cube", "_ui_layer", "_simulation", "_game_time")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -73,7 +72,6 @@ _hud = NodePath("UI/HUD")
 _map = NodePath("World/Map")
 _ui_canvas_layer = NodePath("UI")
 _camera = NodePath("World/Camera2D")
-_player_container = NodePath("Gameplay/PlayerContainer")
 _team_container = NodePath("Gameplay/TeamContainer")
 _game_start_timer = NodePath("Gameplay/GameStartTimer")
 _object_container = NodePath("World/ObjectContainer")
@@ -95,9 +93,6 @@ process_mode = 1
 [node name="GameStartTimer" type="Node" parent="Gameplay"]
 script = ExtResource("2_hiplt")
 one_shot = true
-
-[node name="PlayerContainer" type="Node" parent="Gameplay"]
-script = ExtResource("3_ieclh")
 
 [node name="TeamContainer" type="Node" parent="Gameplay"]
 script = ExtResource("28_j7eu2")
@@ -150,9 +145,8 @@ _action_processor = NodePath("../ActionProcessor")
 script = ExtResource("17_0evig")
 _simulation = NodePath("../Simulation")
 
-[node name="ActionProcessor" type="Node" parent="Gameplay" node_paths=PackedStringArray("_player_container", "_hud", "_map", "_chat_commands")]
+[node name="ActionProcessor" type="Node" parent="Gameplay" node_paths=PackedStringArray("_hud", "_map", "_chat_commands")]
 script = ExtResource("18_vcbyc")
-_player_container = NodePath("../PlayerContainer")
 _hud = NodePath("../../UI/HUD")
 _map = NodePath("../../World/Map")
 _chat_commands = NodePath("../ChatCommands")

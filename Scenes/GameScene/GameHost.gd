@@ -37,7 +37,7 @@ func save_action(tick: int, player_id: int, serialized_action: Dictionary):
 
 	_timeslot_map[tick][player_id] = serialized_action
 	
-	var player_list: Array[Player] = Globals.get_player_list()
+	var player_list: Array[Player] = PlayerManager.get_player_list()
 	var player_count: int = player_list.size()
 	var timeslot_has_actions_for_all_players: bool = _timeslot_map[tick].size() == player_count
 	

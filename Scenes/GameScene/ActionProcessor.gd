@@ -4,7 +4,6 @@ class_name ActionProcessor extends Node
 # Contains functions which processes actions. Used by Simulation.
 
 
-@export var _player_container: PlayerContainer
 @export var _hud: HUD
 @export var _map: Map
 @export var _chat_commands: ChatCommands
@@ -15,7 +14,7 @@ func process_action(player_id: int, serialized_action: Dictionary):
 	
 	var action_type: Action.Type = action.type
 
-	var player: Player = _player_container.get_player(player_id)
+	var player: Player = PlayerManager.get_player(player_id)
 
 	if player == null:
 		push_error("player is null")
@@ -136,7 +135,7 @@ func _select_builder(player: Player, serialized_action: Dictionary):
 	
 	player.set_builder(builder_id)
 
-	var local_player: Player = _player_container.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 
 	if player == local_player:
 		var local_builder: Builder = local_player.get_builder()

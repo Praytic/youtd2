@@ -88,7 +88,7 @@ func _physics_process(_delta: float):
 
 func add_action(action: Action):
 	var process_tick: int = _current_tick + _action_delay
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var local_player_id: int = local_player.get_id()
 	var serialized_action: Dictionary = action.serialize()
 	_game_host.save_action.rpc_id(1, process_tick, local_player_id, serialized_action)

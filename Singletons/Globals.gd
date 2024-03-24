@@ -8,8 +8,6 @@ var _player_mode: PlayerMode.enm = PlayerMode.enm.SINGLE
 var _wave_count: int = 0
 var _game_mode: GameMode.enm = GameMode.enm.BUILD
 var _difficulty: Difficulty.enm = Difficulty.enm.EASY
-var _local_player: Player = null
-var _player_list: Array[Player] = []
 
 # NOTE: you must use visual_rng for any code which is
 # running only for local player. The global rng seed is
@@ -19,9 +17,10 @@ var _player_list: Array[Player] = []
 var visual_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
+# NOTE: current variables don't need to be reset. If you add
+# some variable which needs to be reset, reset it here.
 func reset():
-	_local_player = null
-	_player_list = []
+	pass
 
 
 func get_player_mode() -> PlayerMode.enm:
@@ -38,14 +37,6 @@ func get_game_mode() -> GameMode.enm:
 
 func get_difficulty() -> Difficulty.enm:
 	return _difficulty
-
-
-func get_local_player() -> Player:
-	return _local_player
-
-
-func get_player_list() -> Array[Player]:
-	return _player_list
 
 
 func game_mode_is_random() -> bool:

@@ -16,7 +16,7 @@ const NORMAL_FADE_DURATION: float = 2.0
 # Adds an error message to the center of the screen. Note
 # that error messages are always colored red.
 func add_error(player: Player, text: String):
-	var player_match: bool = player == Globals.get_local_player() || player == null
+	var player_match: bool = player == PlayerManager.get_local_player() || player == null
 	
 	if !player_match:
 		return
@@ -63,7 +63,7 @@ func add_error(player: Player, text: String):
 
 # Adds a normal message to the left side of the screen.
 func add_normal(player: Player, text: String):
-	var player_match: bool = player == Globals.get_local_player() || player == null
+	var player_match: bool = player == PlayerManager.get_local_player() || player == null
 
 	if !player_match:
 		return

@@ -90,7 +90,7 @@ func get_level() -> int:
 
 
 func is_local() -> bool:
-	var local_player: Player = Globals.get_local_player()
+	var local_player: Player = PlayerManager.get_local_player()
 	var contains_local_player: bool = _player_list.has(local_player)
 
 	return contains_local_player
