@@ -85,7 +85,12 @@ func get_username(id: String = "", name_if_unknown := "UnknownPlayer") -> String
 ## If a profile existed, this will update the username.
 ## If the username is unchanged from its previous state, nothing will happen.
 func set_own_username(new_username: String) -> void:
+	W4GD.mapper.add_table("Profile", Profile)
+	W4GD.mapper.done()
 	var profile = Profile.new()
 	profile.username = new_username
-	await W4GD.mapper.create(profile)
+	var res = await W4GD.mapper.create(profile)
+	if not res:
+		push_error("Player profile creation failed for username: %s" % new_username)
+		return
 	EventBus.player_authenticated.emit()
