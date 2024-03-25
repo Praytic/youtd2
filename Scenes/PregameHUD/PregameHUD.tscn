@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1xny6jmxj5i6"]
+[gd_scene load_steps=10 format=3 uid="uid://d1xny6jmxj5i6"]
 
 [ext_resource type="Theme" uid="uid://bql5sxaowafw3" path="res://Resources/Theme/wc3_theme.tres" id="1_i3yfj"]
 [ext_resource type="Script" path="res://Scenes/PregameHUD/PregameHUD.gd" id="2_ljcwn"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://clr58gw5jy8bl" path="res://Scenes/PregameHUD/GameLengthMenu.tscn" id="4_ogsgu"]
 [ext_resource type="PackedScene" uid="uid://cy7lkmvb5nk3m" path="res://Scenes/PregameHUD/CoopMenu.tscn" id="5_aems6"]
 [ext_resource type="PackedScene" uid="uid://drfy31rct5o3k" path="res://Scenes/PregameHUD/GameModeMenu.tscn" id="5_w0t1q"]
+[ext_resource type="PackedScene" uid="uid://p3dp5y01hnon" path="res://Scenes/PregameHUD/AuthMenu.tscn" id="9_hm563"]
 [ext_resource type="PackedScene" uid="uid://bfesvqnocb2jg" path="res://Scenes/PregameHUD/WaitingForHostMenu.tscn" id="10_hnfvc"]
 
 [node name="PregameHUD" type="Control" node_paths=PackedStringArray("_tab_container", "_host_details_label", "_player_mode_menu", "_coop_menu", "_game_length_menu", "_game_mode_menu", "_difficulty_menu")]
@@ -57,11 +58,23 @@ text = "Host details"
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="AuthDetailsLabel" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/line_spacing = 4
+text = "Auth details"
+horizontal_alignment = 1
+vertical_alignment = 2
+
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 tabs_visible = false
 
+[node name="AuthMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("9_hm563")]
+layout_mode = 2
+
 [node name="PlayerModeMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("3_yn5jw")]
+visible = false
 layout_mode = 2
 
 [node name="CoopMenu" parent="VBoxContainer/TabContainer" instance=ExtResource("5_aems6")]
@@ -84,6 +97,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[connection signal="finished" from="VBoxContainer/TabContainer/AuthMenu" to="." method="_on_submenu_finished"]
 [connection signal="finished" from="VBoxContainer/TabContainer/PlayerModeMenu" to="." method="_on_submenu_finished"]
 [connection signal="finished" from="VBoxContainer/TabContainer/CoopMenu" to="." method="_on_submenu_finished"]
 [connection signal="finished" from="VBoxContainer/TabContainer/GameLengthMenu" to="." method="_on_submenu_finished"]

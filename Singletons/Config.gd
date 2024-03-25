@@ -207,3 +207,6 @@ func default_builder_id() -> int:
 	var builder_id: int = BuilderProperties.string_to_id(builder_string)
 
 	return builder_id
+
+func enable_auth() -> bool:
+	return ProjectSettings.get_setting("application/config/enable_auth") as bool

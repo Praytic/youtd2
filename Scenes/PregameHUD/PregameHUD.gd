@@ -9,6 +9,7 @@ signal tab_finished()
 
 
 enum Tab {
+	AUTH,
 	PLAYER_MODE,
 	COOP_ROOM,
 	GAME_LENGTH,
@@ -20,6 +21,7 @@ enum Tab {
 
 @export var _tab_container: TabContainer
 @export var _host_details_label: Label
+@export var _auth_details_label: Label
 @export var _player_mode_menu: PlayerModeMenu
 @export var _coop_menu: CoopMenu
 @export var _game_length_menu: GameLengthMenu
@@ -32,7 +34,10 @@ enum Tab {
 #########################
 
 func _ready():
-	_tab_container.current_tab = Tab.PLAYER_MODE
+	if Config.enable_auth():
+		_tab_container.current_tab = Tab.AUTH
+	else:
+		_tab_container.current_tab = Tab.PLAYER_MODE
 
 
 #########################

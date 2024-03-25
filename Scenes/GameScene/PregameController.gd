@@ -79,6 +79,8 @@ func _on_pregame_hud_tab_finished():
 	var current_tab: PregameHUD.Tab = _pregame_hud.get_current_tab()
 	
 	match current_tab:
+		PregameHUD.Tab.AUTH:
+			_pregame_hud.change_tab(PregameHUD.Tab.PLAYER_MODE)
 		PregameHUD.Tab.PLAYER_MODE:
 			var player_mode: PlayerMode.enm = _pregame_hud.get_player_mode()
 			_player_mode = player_mode

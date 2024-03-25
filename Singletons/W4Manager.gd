@@ -18,8 +18,11 @@ func login() -> bool:
 	# We check for errors; if there's any, we store the error message.
 	if login_result.is_error():
 		last_error = login_result.as_error().message
+		EventBus.login_failed.emit()
 		return false
-	return true
+	else:
+		EventBus.login_succeeded.emit()
+		return true
 
 
 ## Represents a player's profile as stored in the database.
@@ -46,7 +49,7 @@ class Profile:
 
 ## Appends custom types and tables to the mapper so it can be used throughout
 ## the application. Run this once before using any database call.
-static func setup_mapper(mapper) -> void:
+func setup_mapper(mapper) -> void:
 	mapper.add_table("Profile", Profile)
 	mapper.done()
 
@@ -57,7 +60,7 @@ static func setup_mapper(mapper) -> void:
 ## created.
 ## If the table already exists, it will be dropped first and recreated from
 ## scratch.
-static func run_static(sdk) -> void:
+func run_static(sdk) -> void:
 	setup_mapper(sdk.mapper)
 	var okay = await sdk.mapper.init_db()
 	print("Created DB: %s" % okay)
@@ -66,7 +69,7 @@ static func run_static(sdk) -> void:
 ## Returns a username for a given user id.
 ##
 ## Returns name_if_unknown if the player was not found.
-static func get_username(id: String, name_if_unknown := "UnknownPlayer") -> String:
+func get_username(id: String, name_if_unknown := "UnknownPlayer") -> String:
 	var profile: Profile = await W4GD.mapper.get_by_id(Profile, id)
 	if profile == null:
 		return name_if_unknown
@@ -79,12 +82,10 @@ static func get_username(id: String, name_if_unknown := "UnknownPlayer") -> Stri
 ## will create a new one.
 ## If a profile existed, this will update the username.
 ## If the username is unchanged from its previous state, nothing will happen.
-static func set_own_username(new_username: String) -> void:
+func set_own_username(new_username: String) -> void:
 	var profile: Profile = await W4GD.mapper.get_by_id(Profile, W4GD.get_identity().get_uid())
 	if profile == null:
 		profile = Profile.new()
 		profile.username = new_username
 		await W4GD.mapper.create(profile)
-	elif profile.username != new_username:
-		profile.username = new_username
-		await W4GD.mapper.update(profile)
+	EventBus.player_authenticated.emit(profile)
