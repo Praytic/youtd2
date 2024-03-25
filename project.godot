@@ -94,6 +94,7 @@ UnitIcons="*res://Singletons/UnitIcons.gd"
 TowerSprites="*res://Singletons/TowerSprites.gd"
 PlayerManager="*res://Singletons/PlayerManager.gd"
 GroupManager="*res://Singletons/GroupManager.gd"
+W4GD="*res://addons/w4gd/w4gd.gd"
 
 [debug]
 
@@ -113,7 +114,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/w4gd/plugin/plugin.cfg")
 
 [gui]
 
