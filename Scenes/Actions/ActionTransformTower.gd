@@ -42,9 +42,8 @@ static func execute(action: Dictionary, player: Player, map: Map):
 	player.remove_food_for_tower(prev_tower.get_id())
 	player.add_food_for_tower(new_tower_id)
 
-	var new_tower: Tower = Tower.make(new_tower_id, player)
+	var new_tower: Tower = Tower.make(new_tower_id, player, prev_tower)
 	new_tower.position = prev_tower.position
-	new_tower._temp_preceding_tower = prev_tower
 	Utils.add_object_to_world(new_tower)
 
 #	Refund build cost for previous tower

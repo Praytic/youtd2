@@ -1190,7 +1190,7 @@ func get_attack_enabled() -> bool:
 # script for tower and attach to scene. Script name matches
 # with scene name so this can be done automatically instead
 # of having to do it by hand in scene editor.
-static func make(id: int, player: Player) -> Tower:
+static func make(id: int, player: Player, preceding_tower: Tower = null) -> Tower:
 	var tower: Tower = Preloads.tower_scene.instantiate()
 	var tower_script: Variant = Tower._get_tower_script(id)
 	tower.set_script(tower_script)
@@ -1205,6 +1205,8 @@ static func make(id: int, player: Player) -> Tower:
 	visual_node.add_child(tower_sprite)
 	visual_node.move_child(tower_sprite, 0)
 	tower._sprite = tower_sprite
+	
+	tower._temp_preceding_tower = preceding_tower
 
 	tower.set_id(id)
 	tower.set_player(player)
