@@ -185,9 +185,8 @@ func is_able_to_research(element: Element.enm) -> bool:
 	return is_able
 
 
-# TODO: return actual name
 func get_player_name() -> String:
-	return str(_id)
+	return W4Manager.current_username
 
 
 func get_id() -> int:

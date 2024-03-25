@@ -1,13 +1,18 @@
 extends Node
 
 
-# If there was an error in the last server request, we will save the error message here.
-var last_error := ""
+signal last_request_status_updated(status_message: String, is_error: bool)
+signal auth_state_changed()
 
-# This will return true if there was an error in our last server request.
-var has_error := false:
-	get:
-		return last_error != ""
+enum State {
+	UNAUTHENTICATED,
+	LOGGED_IN,
+	AUTHENTICATED,
+}
+
+
+var current_state: State = State.UNAUTHENTICATED : set = set_current_state
+var current_username: String = "UnknownPlayer"
 
 
 func _ready():
@@ -15,18 +20,14 @@ func _ready():
 
 
 func login() -> bool:
-	# In case there was an error previously, we clear it.
-	last_error = ""
 	# We make an authentication request to W4 Cloud and wait for the result.
 	var login_result = await W4GD.auth.login_device_auto().async()
 	# We check for errors; if there's any, we store the error message.
 	if login_result.is_error():
-		last_error = login_result.as_error().message
-		EventBus.login_failed.emit()
-		return false
+		return _update_status(login_result.as_error().message, true)
 	else:
-		EventBus.login_succeeded.emit()
-		return true
+		set_current_state(State.LOGGED_IN)
+		return _update_status("Successfully logged in.")
 
 
 ## Represents a player's profile as stored in the database.
@@ -86,12 +87,51 @@ func get_username(id: String = "", name_if_unknown := "UnknownPlayer") -> String
 ##
 ## If there was no profile associated with the currently logged-in user, this
 ## will create a new one.
-## If a profile existed, this will update the username.
+## If a profile existed, this will produce a soft error.
 ## If the username is unchanged from its previous state, nothing will happen.
-func set_own_username(new_username: String) -> void:
-	var profile = Profile.new()
-	profile.username = new_username
-	var res = await W4GD.mapper.create(profile)
-	if not res:
-		push_error("Player profile creation failed for username: %s" % new_username)
-		return
+func set_own_username(username: String, is_new: bool) -> bool:
+	if current_state == State.AUTHENTICATED:
+		push_error("Attempted to change username while being authenticated.")
+		return false
+	
+	if current_state == State.UNAUTHENTICATED:
+		push_error("Device is not yet registered in W4Cloud. You should log in first.")
+		return false
+	
+	var possible_profile = await get_username()
+	
+#	Player should log in with the existing profile
+	if is_new && possible_profile != "UnknownPlayer":
+		return _update_status("You already have a profile. Try to log in as: %s." % possible_profile, true)
+	
+#	Player should have valid new username
+	if !_validate_username(username):
+		return _update_status("Please enter valid username." % possible_profile, true)
+	
+#	Create new profile for a player if none exists in the database
+	if is_new:
+		var profile = Profile.new()
+		profile.username = username
+		var res = await W4GD.mapper.create(profile)
+		if not res:
+			return _update_status("Player profile creation failed for username: %s" % username, true)
+	
+	set_current_state(State.AUTHENTICATED)
+	current_username = username
+	return _update_status("Player name: %s" % username)
+
+
+func _validate_username(username: String) -> bool:
+	return username != "UnknownPlayer"
+
+
+func _update_status(message: String = "", is_error: bool = false) -> bool:
+	if is_error:
+		push_error(message)
+	last_request_status_updated.emit(message, is_error)
+	return !is_error
+
+
+func set_current_state(state: State):
+	current_state = state
+	auth_state_changed.emit()

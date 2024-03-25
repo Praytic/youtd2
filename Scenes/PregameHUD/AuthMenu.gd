@@ -18,6 +18,8 @@ func _ready():
 		get_tree().get_root().get_node("W4GD").queue_free()
 		return
 	await W4Manager.login()
+	W4Manager.last_request_status_updated.connect(_on_last_request_status_updated)
+	W4Manager.auth_state_changed.connect(_on_auth_state_changed)
 
 
 #########################
@@ -32,17 +34,25 @@ func get_player_name() -> String:
 ###     Callbacks     ###
 #########################
 
-func _on_generic_button_pressed():
-	if W4Manager.has_error:
-		_info_message_label.text = W4Manager.last_error
+func _on_auth_state_changed():
+	var current_state = W4Manager.current_state
+	if current_state == W4Manager.State.AUTHENTICATED:
+		await Utils.create_timer(1.0).timeout
+		finished.emit()
+
+
+func _on_last_request_status_updated(message: String, is_error: bool):
+	if is_error:
+		_info_message_label.text = message
 		_info_message_label.color = Color.ORANGE_RED
-	finished.emit()
+	else:
+		_info_message_label.text = message
+		_info_message_label.color = Color.WHITE_SMOKE
 
 
 func _on_log_in_button_pressed():
-	_on_generic_button_pressed()
+	await W4Manager.set_own_username(_player_name_text_edit.text, false)
 
 
 func _on_create_account_button_pressed():
-	await W4Manager.set_own_username(_player_name_text_edit.text)
-	_on_generic_button_pressed()
+	await W4Manager.set_own_username(_player_name_text_edit.text, true)
