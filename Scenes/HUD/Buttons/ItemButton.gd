@@ -4,7 +4,7 @@ extends UnitButton
 
 const ICON_SIZE_M = 128
 
-var _item: Item : set = set_item, get = get_item
+var _item: Item
 
 @export var _cooldown_indicator: CooldownIndicator
 @export var _auto_mode_indicator: AutoModeIndicator
@@ -35,6 +35,7 @@ func _ready():
 	_cooldown_indicator.set_visible(_show_cooldown_indicator)
 	_auto_mode_indicator.set_visible(_show_auto_mode_indicator)
 
+	_item.charges_changed.connect(_on_item_charges_changed)
 	_on_item_charges_changed()
 
 
@@ -69,11 +70,6 @@ func get_item() -> Item:
 	return _item
 
 
-func set_item(value: Item):
-	_item = value
-	_item.charges_changed.connect(_on_item_charges_changed)
-
-
 #########################
 ###     Callbacks     ###
 #########################
@@ -98,5 +94,6 @@ func _on_item_charges_changed():
 
 static func make(item: Item) -> ItemButton:
 	var item_button: ItemButton = Preloads.item_button_scene.instantiate()
-	item_button.set_item(item)
+	item_button._item = item
+
 	return item_button
