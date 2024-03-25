@@ -747,6 +747,12 @@ func _on_player_shift_right_clicked_item(item: Item):
 
 
 func _on_player_clicked_tower_buff_group(tower: Tower, buff_group: int):
+	if !tower.belongs_to_local_player():
+		return
+
+	var tower_uid: int = tower.get_uid()
 	var current_mode: BuffGroup.Mode = tower.get_buff_group_mode(buff_group)
 	var new_mode: BuffGroup.Mode = wrapi(current_mode + 1, BuffGroup.Mode.NONE, BuffGroup.Mode.BOTH + 1) as BuffGroup.Mode
-	tower.set_buff_group_mode(buff_group, new_mode)
+	
+	var action: Action = ActionChangeBuffgroup.make(tower_uid, buff_group, new_mode)
+	_simulation.add_action(action)

@@ -178,6 +178,7 @@ func _process_action(player_id: int, action: Dictionary):
 		Action.Type.START_NEXT_WAVE: ActionStartNextWave.execute(action, player, _hud)
 		Action.Type.AUTOCAST: ActionAutocast.execute(action, player)
 		Action.Type.FOCUS_TARGET: ActionFocusTarget.execute(action, player)
+		Action.Type.CHANGE_BUFFGROUP: ActionChangeBuffgroup.execute(action, player)
 
 
 func _update_state():
