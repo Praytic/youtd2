@@ -324,13 +324,14 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 	if type == null:
 		return []
 
-	var node_list: Array[Node] = []
+	var group_name: String
+	match type.get_unit_type():
+		TargetType.UnitType.TOWERS: group_name = "towers"
+		TargetType.UnitType.PLAYER_TOWERS: group_name = "towers"
+		TargetType.UnitType.CREEPS: group_name = "creeps"
+		TargetType.UnitType.CORPSES: group_name = "corpses"
 
-	match type._unit_type:
-		TargetType.UnitType.TOWERS: node_list = get_tree().get_nodes_in_group("towers")
-		TargetType.UnitType.PLAYER_TOWERS: node_list = get_tree().get_nodes_in_group("towers")
-		TargetType.UnitType.CREEPS: node_list = get_tree().get_nodes_in_group("creeps")
-		TargetType.UnitType.CORPSES: node_list = get_tree().get_nodes_in_group("corpses")
+	var node_list: Array[Node] = get_tree().get_nodes_in_group(group_name)
 
 #	NOTE: in original youtd, auras and abilities which
 #	affect towers in range are extended by half a tile so
@@ -342,7 +343,7 @@ func get_units_in_range_PIXELS(type: TargetType, center: Vector2, radius: float,
 # 
 #	Note that this doesn't apply to creeps - in that case,
 #	the default distance to unit position is used.
-	var target_is_tower: bool = type._unit_type == TargetType.UnitType.TOWERS
+	var target_is_tower: bool = type.get_unit_type() == TargetType.UnitType.TOWERS
 	if target_is_tower:
 		radius += Constants.TILE_SIZE_PIXELS / 2
 

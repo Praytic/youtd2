@@ -364,7 +364,7 @@ func _get_target_for_buff_autocast() -> Unit:
 
 # 	NOTE: should not filter targets by buff groups if
 # 	targets are creeps. Buff groups is a feature only for towers
-	var autocast_targets_towers: bool = target_type != null && (target_type._unit_type == TargetType.UnitType.TOWERS || target_type._unit_type == TargetType.UnitType.PLAYER_TOWERS)
+	var autocast_targets_towers: bool = target_type != null && (target_type.get_unit_type() == TargetType.UnitType.TOWERS || target_type.get_unit_type() == TargetType.UnitType.PLAYER_TOWERS)
 	if autocast_targets_towers:
 		unit_list = _filter_target_units_for_caster_buff_group(_caster, unit_list)
 	

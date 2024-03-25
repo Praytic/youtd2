@@ -136,6 +136,10 @@ func match(unit: Unit) -> bool:
 	return is_match
 
 
+func get_unit_type() -> TargetType.UnitType:
+	return _unit_type
+
+
 #########################
 ###       Static      ###
 #########################

@@ -26,8 +26,7 @@ class RangeData:
 		radius = radius_arg
 		
 		if target_type != null:
-			var unit_type: TargetType.UnitType = target_type._unit_type
-			targets_creeps = unit_type == TargetType.UnitType.CREEPS
+			targets_creeps = target_type.get_unit_type() == TargetType.UnitType.CREEPS
 
 
 	func get_radius_with_builder_bonus(player: Player):
