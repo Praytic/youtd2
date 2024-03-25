@@ -46,8 +46,8 @@ func get_autocast_description() -> String:
 	return text
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Golden Influence", 400, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Golden Influence", 400, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

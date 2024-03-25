@@ -42,8 +42,8 @@ func get_autocast_description_short() -> String:
 	return text
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Snake Charm", 200, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Snake Charm", 200, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

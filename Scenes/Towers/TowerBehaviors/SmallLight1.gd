@@ -59,8 +59,8 @@ func load_specials(_modifier: Modifier):
 	magical_sight.apply_to_unit_permanent(tower, tower, 0)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Magical Sight", _stats.magical_sight_range, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Magical Sight", _stats.magical_sight_range, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

@@ -48,8 +48,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Nova Storm", 900, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Nova Storm", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

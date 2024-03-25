@@ -55,8 +55,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_unit_comes_in_range(on_unit_in_range, 800, TargetType.new(TargetType.CREEPS))
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Valor's Light", 800, TargetType.new(TargetType.CREEPS)), Tower.RangeData.new("Valor's Light", 400, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Valor's Light", 800, TargetType.new(TargetType.CREEPS)), RangeData.new("Valor's Light", 400, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

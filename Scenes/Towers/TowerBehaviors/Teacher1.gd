@@ -97,8 +97,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_EXP_RECEIVED, _stats.exp_received, 0)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Knowledge", 600, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Knowledge", 600, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

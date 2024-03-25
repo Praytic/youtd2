@@ -61,8 +61,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 1.0)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Dimensional Link", 800, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Dimensional Monitor", 2000, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Dimensional Link", 800, TargetType.new(TargetType.TOWERS)), RangeData.new("Dimensional Monitor", 2000, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

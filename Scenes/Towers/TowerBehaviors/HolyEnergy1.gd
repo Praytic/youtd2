@@ -79,8 +79,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.0, 0.01)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Sunlight Burst", 1000, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Sunlight Burst", 1000, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

@@ -78,8 +78,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.0, 0.01)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Energy Aura", 900, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Energy Aura", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

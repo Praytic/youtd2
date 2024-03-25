@@ -94,8 +94,8 @@ func load_specials(_modifier: Modifier):
 	tower.set_attack_style_bounce(2, 0.25)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Sparks", 500, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Sparks", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

@@ -79,8 +79,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.25, 0.05)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Unleash Attack", 1200, TargetType.new(TargetType.CREEPS)), Tower.RangeData.new("Unleash Buff", 350, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Unleash Attack", 1200, TargetType.new(TargetType.CREEPS)), RangeData.new("Unleash Buff", 350, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

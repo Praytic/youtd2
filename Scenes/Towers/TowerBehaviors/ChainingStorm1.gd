@@ -59,8 +59,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Strong Wind", 900, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Strong Wind", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

@@ -46,8 +46,8 @@ func load_triggers(triggers_buff_type: BuffType):
 	triggers_buff_type.add_periodic_event(on_periodic, 2)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Activate Trap", 950, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Activate Trap", 950, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

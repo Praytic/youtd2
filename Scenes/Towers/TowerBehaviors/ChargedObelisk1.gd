@@ -47,8 +47,8 @@ func get_autocast_description_short() -> String:
 	return text
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Electric Field", 1000, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Electric Field", 1000, TargetType.new(TargetType.CREEPS))]
 
 
 func load_triggers(triggers: BuffType):

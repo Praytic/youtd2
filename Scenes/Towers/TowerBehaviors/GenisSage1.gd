@@ -81,8 +81,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 7.0)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Magic Boost", 350, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Magic Boost", 350, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

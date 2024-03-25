@@ -63,8 +63,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN_PERC, 0.0, 0.04)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Divine Teachings", 500, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Divine Knowledge", 500, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Divine Teachings", 500, TargetType.new(TargetType.TOWERS)), RangeData.new("Divine Knowledge", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

@@ -47,8 +47,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.10, 0.0)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Freezing Gust", 800, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Freezing Gust", 800, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

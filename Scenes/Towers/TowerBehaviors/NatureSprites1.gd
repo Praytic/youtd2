@@ -174,8 +174,8 @@ func sprite_hit(_P: Projectile, target: Unit):
 	dave_gift.apply(tower, target, tower.get_level())
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Nature's Gift", 500, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Nature's Gift", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

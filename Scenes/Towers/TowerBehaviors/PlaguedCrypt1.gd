@@ -56,8 +56,8 @@ func load_specials(_modifier: Modifier):
 		})
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Army of the Damned", 1150, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Army of the Damned", 1150, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

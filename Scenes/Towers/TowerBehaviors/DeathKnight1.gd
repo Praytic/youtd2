@@ -65,8 +65,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA, 0.0, 2.0)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Will of the Undying", 200, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Withering Presence", 900, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Will of the Undying", 200, TargetType.new(TargetType.TOWERS)), RangeData.new("Withering Presence", 900, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

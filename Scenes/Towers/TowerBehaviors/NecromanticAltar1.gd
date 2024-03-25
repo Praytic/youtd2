@@ -40,8 +40,8 @@ func get_autocast_description_short() -> String:
 	return text
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Soul Revenge", 875, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Soul Revenge", 875, TargetType.new(TargetType.CREEPS))]
 
 
 func tower_init():

@@ -66,8 +66,8 @@ func load_specials(_modifier: Modifier):
 	tower.set_attack_style_splash({325: 0.5})
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Attraction", 500, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Attraction", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

@@ -64,8 +64,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_periodic_event(periodic, 5)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Corpse Explosion", 1000, TargetType.new(TargetType.CREEPS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Corpse Explosion", 1000, TargetType.new(TargetType.CREEPS))]
 
 
 func burst_fire(chance: float, target: Creep):

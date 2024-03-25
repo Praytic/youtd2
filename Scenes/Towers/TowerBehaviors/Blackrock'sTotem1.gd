@@ -65,8 +65,8 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Shamanic Totem", 500, TargetType.new(TargetType.TOWERS)), Tower.RangeData.new("Fighter Totem", 500, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Shamanic Totem", 500, TargetType.new(TargetType.TOWERS)), RangeData.new("Fighter Totem", 500, TargetType.new(TargetType.TOWERS))]
 
 
 func tower_init():

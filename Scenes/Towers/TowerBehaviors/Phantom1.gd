@@ -46,8 +46,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.00, 0.1)
 
 
-func get_ability_ranges() -> Array[Tower.RangeData]:
-	return [Tower.RangeData.new("Wind Shear", 300, TargetType.new(TargetType.TOWERS))]
+func get_ability_ranges() -> Array[RangeData]:
+	return [RangeData.new("Wind Shear", 300, TargetType.new(TargetType.TOWERS))]
 
 
 func phantom_attack(event: Event):
