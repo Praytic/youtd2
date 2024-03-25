@@ -147,9 +147,15 @@ func update_element_level(element_levels: Dictionary):
 	_elements_tower_menu.update_element_level(element_levels)
 
 
-func set_player(player: Player):
-	_tower_menu.set_player(player)
-	_elements_tower_menu.set_player(player)
+func connect_to_local_player(local_player: Player):
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	item_stash.items_changed.connect(_on_local_player_item_stash_changed)
+
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
+	horadric_stash.items_changed.connect(_on_local_player_horadric_stash_changed)
+
+	var tower_stash: TowerStash = local_player.get_tower_stash()
+	tower_stash.changed.connect(_on_local_player_tower_stash_changed)
 
 
 func set_game_start_timer(timer: ManualTimer):
@@ -198,6 +204,30 @@ func show_game_over():
 #########################
 ###     Callbacks     ###
 #########################
+
+func _on_local_player_item_stash_changed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var item_stash: ItemContainer = local_player.get_item_stash()
+	var item_list: Array[Item] = item_stash.get_item_list()
+	
+	_item_stash_menu.set_items(item_list)
+
+
+func _on_local_player_horadric_stash_changed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
+	var item_list: Array[Item] = horadric_stash.get_item_list()
+	
+	_item_stash_menu.set_items_for_horadric_cube(item_list)
+
+
+func _on_local_player_tower_stash_changed():
+	var local_player: Player = PlayerManager.get_local_player()
+	var tower_stash: TowerStash = local_player.get_tower_stash()
+	var towers: Dictionary = tower_stash.get_towers()
+	
+	_elements_tower_menu.set_towers(towers)
+
 
 func _on_creep_menu_hidden():
 	_unit_status_menu_card.collapse()

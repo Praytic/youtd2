@@ -8,9 +8,6 @@ extends UnitButton
 @export var _tower_id: int: get = get_tower_id, set = set_tower_id
 
 
-var _player: Player = null
-
-
 #########################
 ###     Built-in      ###
 #########################
@@ -36,13 +33,6 @@ func _ready():
 ###       Public      ###
 #########################
 
-# NOTE: need to couple tower button with player to implement
-# the feature of tooltips displaying red requirement
-# numbers.
-func set_player(player: Player):
-	_player = player
-
-
 func get_tower_id() -> int:
 	return _tower_id
 
@@ -55,8 +45,6 @@ func set_tier_icon(tower_id: int):
 	_tier_icon.texture = UnitIcons.get_tower_tier_icon(tower_id)
 
 
-# NOTE: this function uses saved reference to player because
-# requirements code needs to check all player resources
 func unlock():
 	_disabled_lock.hide()
 	disabled = false
@@ -67,7 +55,8 @@ func unlock():
 #########################
 
 func _on_mouse_entered():
-	var tooltip: String = RichTexts.get_tower_text(_tower_id, _player)
+	var local_player: Player = PlayerManager.get_local_player()
+	var tooltip: String = RichTexts.get_tower_text(_tower_id, local_player)
 	ButtonTooltip.show_tooltip(self, tooltip)
 
 

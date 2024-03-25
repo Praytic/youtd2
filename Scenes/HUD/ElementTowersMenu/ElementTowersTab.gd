@@ -19,7 +19,6 @@ class_name ElementTowersTab extends VBoxContainer
 
 var _button_list: Array[TowerButton] = []
 var _prev_tower_list: Array = []
-var _player: Player = null
 
 
 #########################
@@ -42,10 +41,6 @@ func _ready():
 
 func hide_roll_towers_button():
 	_roll_button.hide()
-
-
-func set_player(player: Player):
-	_player = player
 
 
 func get_element() -> Element.enm:
@@ -139,7 +134,8 @@ func _unlock_tower_buttons_if_possible():
 			continue
 
 		var tower_id: int = button.get_tower_id()
-		var can_build_tower: bool = TowerProperties.requirements_are_satisfied(tower_id, _player) || Config.ignore_requirements()
+		var local_player: Player = PlayerManager.get_local_player()
+		var can_build_tower: bool = TowerProperties.requirements_are_satisfied(tower_id, local_player) || Config.ignore_requirements()
 
 		if can_build_tower:
 			button.unlock()
@@ -159,7 +155,6 @@ func _get_element_info_text() -> String:
 
 func _add_tower_button(tower_id: int, index: int):
 	var tower_button: TowerButton = TowerButton.make(tower_id)
-	tower_button.set_player(_player)
 	_button_list.append(tower_button)
 	_tower_buttons_container.add_child(tower_button)
 	_tower_buttons_container.move_child(tower_button, index)
@@ -172,7 +167,8 @@ func _add_tower_button(tower_id: int, index: int):
 #########################
 
 func _on_upgrade_element_button_mouse_entered():
-	var tooltip: String = RichTexts.get_research_text(_element, _player)
+	var local_player: Player = PlayerManager.get_local_player()
+	var tooltip: String = RichTexts.get_research_text(_element, local_player)
 	ButtonTooltip.show_tooltip(_upgrade_button, tooltip)
 
 

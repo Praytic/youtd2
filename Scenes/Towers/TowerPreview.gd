@@ -18,12 +18,6 @@ var _tower_sprite: Node2D = null
 @export var _pedestal_left: Polygon2D
 @export var _range_indicator_container: Node2D
 
-var _player: Player = null
-
-
-func set_player(player: Player):
-	_player = player
-
 
 func set_tower(tower_id: int):
 	if _tower_sprite != null:
@@ -40,7 +34,8 @@ func set_tower(tower_id: int):
 	add_child(_tower_sprite)
 	
 	var range_data_list: Array[Tower.RangeData] = TowerProperties.get_range_data_list(tower_id)
-	Utils.setup_range_indicators(range_data_list, _range_indicator_container, PlayerManager.get_local_player())
+	var local_player: Player = PlayerManager.get_local_player()
+	Utils.setup_range_indicators(range_data_list, _range_indicator_container, local_player)
 
 
 func get_tower_id() -> int:

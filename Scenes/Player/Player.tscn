@@ -26,7 +26,4 @@ script = ExtResource("3_rmd8h")
 
 [node name="WaveSpawner" parent="." instance=ExtResource("4_7cd82")]
 
-[connection signal="items_changed" from="ItemStash" to="." method="_on_item_stash_items_changed"]
-[connection signal="items_changed" from="HoradricStash" to="." method="_on_horadric_stash_items_changed"]
-[connection signal="changed" from="TowerStash" to="." method="_on_tower_stash_changed"]
 [connection signal="wave_finished" from="WaveSpawner" to="." method="_on_wave_spawner_wave_finished"]

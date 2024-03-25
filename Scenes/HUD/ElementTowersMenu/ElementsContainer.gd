@@ -24,11 +24,6 @@ func get_element() -> Element.enm:
 	return _current_element
 
 
-func set_player(player: Player):
-	for button in get_children():
-		button.set_player(player)
-
-
 func update_element_level(element_levels: Dictionary):
 	for button in get_children():
 		var element: Element.enm = button.element

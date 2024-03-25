@@ -15,7 +15,6 @@ class_name GameScene extends Node
 @export var _select_unit: SelectUnit
 @export var _build_tower: BuildTower
 @export var _mouse_state: MouseState
-@export var _tower_preview: TowerPreview
 @export var _ui_layer: CanvasLayer
 @export var _simulation: Simulation
 @export var _game_time: GameTime
@@ -369,11 +368,7 @@ func _transition_from_pregame(player_mode: PlayerMode.enm, wave_count: int, game
 	var local_team: Team = local_player.get_team()
 	local_team.game_over.connect(_on_local_team_game_over)
 	
-	local_player.item_stash_changed.connect(_on_local_player_item_stash_changed)
-	local_player.horadric_stash_changed.connect(_on_local_player_horadric_stash_changed)
-	local_player.tower_stash_changed.connect(_on_local_player_tower_stash_changed)
-	_hud.set_player(local_player)
-	_tower_preview.set_player(local_player)
+	_hud.connect_to_local_player(local_player)
 	
 	var player_list: Array[Player] = PlayerManager.get_player_list()
 
@@ -541,27 +536,6 @@ func _on_game_menu_restart_pressed():
 			child.queue_free()
 	
 	get_tree().reload_current_scene()
-
-
-func _on_local_player_item_stash_changed():
-	var local_player: Player = PlayerManager.get_local_player()
-	var item_stash: ItemContainer = local_player.get_item_stash()
-	var item_list: Array[Item] = item_stash.get_item_list()
-	_hud.set_items(item_list)
-
-
-func _on_local_player_horadric_stash_changed():
-	var local_player: Player = PlayerManager.get_local_player()
-	var horadric_stash: ItemContainer = local_player.get_horadric_stash()
-	var item_list: Array[Item] = horadric_stash.get_item_list()
-	_hud.set_items_for_horadric_cube(item_list)
-
-
-func _on_local_player_tower_stash_changed():
-	var local_player: Player = PlayerManager.get_local_player()
-	var tower_stash: TowerStash = local_player.get_tower_stash()
-	var towers: Dictionary = tower_stash.get_towers()
-	_hud.set_towers(towers)
 
 
 func _on_player_requested_start_game():

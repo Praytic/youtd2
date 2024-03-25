@@ -17,8 +17,6 @@ const PRESS_DURATION_TO_COMPLETE_RESEARCH = 1
 @export var _button_down_timer: Timer
 @export var _research_timer: Timer
 
-var _player: Player = null
-
 
 #########################
 ###     Built-in      ###
@@ -47,10 +45,6 @@ func _process(_delta: float):
 ###       Public      ###
 #########################
 
-func set_player(player: Player):
-	_player = player
-
-
 func set_towers_counter(value: int):
 	if value == 0:
 		_counter_label.text = ""
@@ -67,8 +61,9 @@ func set_element_level(level: int):
 #########################
 
 func _is_able_to_research():
-	var can_afford: bool = _player.can_afford_research(element)
-	var current_level: int = _player.get_element_level(element)
+	var local_player: Player = PlayerManager.get_local_player()
+	var can_afford: bool = local_player.can_afford_research(element)
+	var current_level: int = local_player.get_element_level(element)
 	var reached_max_level: bool = current_level == Constants.MAX_ELEMENT_LEVEL
 	var button_is_enabled: bool = can_afford && !reached_max_level
 
@@ -89,7 +84,8 @@ func _on_mouse_entered():
 	_texture_progress_bar.show()
 	_counter_label.show()
 
-	var tooltip: String = RichTexts.get_research_text(element, _player)
+	var local_player: Player = PlayerManager.get_local_player()
+	var tooltip: String = RichTexts.get_research_text(element, local_player)
 	ButtonTooltip.show_tooltip(self, tooltip)
 
 
@@ -116,7 +112,8 @@ func _on_button_down_timeout():
 			_research_element_progress_bar.show()
 			_research_timer.start()
 		else:
-			Messages.add_error(PlayerManager.get_local_player(), "Can't research this element. Not enough tomes.")
+			var local_player: Player = PlayerManager.get_local_player()
+			Messages.add_error(local_player, "Can't research this element. Not enough tomes.")
 
 
 func _on_research_timer_timeout():

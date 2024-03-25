@@ -4,9 +4,6 @@ class_name Player extends Node
 # multiplayer purposes. Create players using
 # Team.create_player().
 
-signal item_stash_changed()
-signal horadric_stash_changed()
-signal tower_stash_changed()
 signal wave_finished(level: int)
 signal voted_ready()
 
@@ -488,17 +485,6 @@ func _add_message_about_rolled_towers(rolled_towers: Array[int]):
 #########################
 ###     Callbacks     ###
 #########################
-
-func _on_item_stash_items_changed():
-	item_stash_changed.emit()
-
-
-func _on_horadric_stash_items_changed():
-	horadric_stash_changed.emit()
-
-
-func _on_tower_stash_changed():
-	tower_stash_changed.emit()
 
 
 func _on_wave_spawner_wave_finished(level: int):

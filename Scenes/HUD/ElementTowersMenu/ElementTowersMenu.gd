@@ -4,8 +4,6 @@ class_name ElementTowersMenu extends Control
 @export var _tab_container: TabContainer
 @export var _element_container: ElementsContainer
 
-var _player: Player = null
-
 
 #########################
 ###       Public      ###
@@ -16,17 +14,6 @@ func hide_roll_towers_button():
 
 	for tab in tab_list:
 		tab.hide_roll_towers_button()
-
-
-func set_player(player: Player):
-	_player = player
-
-	var tab_list: Array[ElementTowersTab] = _get_tab_list()
-
-	for tab in tab_list:
-		tab.set_player(player)
-
-	_element_container.set_player(player)
 
 
 func set_towers(towers: Dictionary):

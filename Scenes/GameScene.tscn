@@ -62,7 +62,7 @@ shader_parameter/vignette_intensity = 0.299
 shader_parameter/vignette_opacity = 0.742
 shader_parameter/vignette_rgb = Color(0, 0, 0.129412, 1)
 
-[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_tower_preview", "_ui_layer", "_simulation", "_game_time")]
+[node name="GameScene" type="Node" node_paths=PackedStringArray("_game_menu", "_hud", "_map", "_ui_canvas_layer", "_camera", "_team_container", "_game_start_timer", "_object_container", "_select_point_for_cast", "_select_target_for_cast", "_move_item", "_select_unit", "_build_tower", "_mouse_state", "_ui_layer", "_simulation", "_game_time")]
 process_mode = 3
 script = ExtResource("9")
 _game_menu = NodePath("UI/GameMenu")
@@ -79,7 +79,6 @@ _move_item = NodePath("Gameplay/MoveItem")
 _select_unit = NodePath("Gameplay/SelectUnit")
 _build_tower = NodePath("Gameplay/BuildTower")
 _mouse_state = NodePath("Gameplay/MouseState")
-_tower_preview = NodePath("World/TowerPreview")
 _ui_layer = NodePath("UI")
 _simulation = NodePath("Gameplay/Simulation")
 _game_time = NodePath("Gameplay/GameTime")

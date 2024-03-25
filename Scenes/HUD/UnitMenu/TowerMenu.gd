@@ -35,7 +35,6 @@ const ITEMS_CONTAINER_BUTTON_SIZE: float = 82
 @export var _buff_group_button_6: BuffGroupButton
 
 var _selling_for_real: bool = false
-var _player: Player = null
 var _tower: Tower = null
 
 @onready var _buff_group_button_list: Array[BuffGroupButton] = [
@@ -67,13 +66,6 @@ func _process(_delta: float):
 #########################
 ###       Public      ###
 #########################
-
-# NOTE: need to couple unit menu with player to implement
-# the feature of tooltips displaying red requirement
-# numbers.
-func set_player(player: Player):
-	_player = player
-
 
 func set_tower(tower: Tower):
 	var prev_tower: Tower = _tower
@@ -184,9 +176,10 @@ func _update_upgrade_button():
 
 	var can_upgrade: bool
 	if upgrade_id != -1:
-		var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(upgrade_id, _player) || Config.ignore_requirements()
-		var enough_gold: bool = _player.enough_gold_for_tower(upgrade_id)
-		var enough_tomes: bool = _player.enough_tomes_for_tower(upgrade_id)
+		var local_player: Player = PlayerManager.get_local_player()
+		var requirements_are_satisfied: bool = TowerProperties.requirements_are_satisfied(upgrade_id, local_player) || Config.ignore_requirements()
+		var enough_gold: bool = local_player.enough_gold_for_tower(upgrade_id)
+		var enough_tomes: bool = local_player.enough_tomes_for_tower(upgrade_id)
 		can_upgrade = requirements_are_satisfied && enough_gold && enough_tomes
 	else:
 		can_upgrade = false
@@ -305,7 +298,8 @@ func _on_upgrade_button_mouse_entered():
 	if upgrade_id == -1:
 		return
 
-	var tooltip: String = RichTexts.get_tower_text(upgrade_id, _player)
+	var local_player: Player = PlayerManager.get_local_player()
+	var tooltip: String = RichTexts.get_tower_text(upgrade_id, local_player)
 	ButtonTooltip.show_tooltip(_upgrade_button, tooltip)
 
 
