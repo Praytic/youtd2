@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: implemented falling hammer projectile differently
@@ -81,7 +81,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	set_attack_ground_only()
+	tower.set_attack_ground_only()
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_ADD_PERC, 0.0, 0.08)
 
 
@@ -121,11 +121,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	Projectile.create_linear_interpolation_from_unit_to_unit(stormbolt_pt, tower, 1.0, 1.0, tower, target, 0.15, true)
 
@@ -135,7 +134,6 @@ func on_damage(event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 
 	var hammer_pos: Vector2 = target.position
@@ -163,8 +161,6 @@ func on_autocast(event: Event):
 
 
 func stormbolt_pt_on_hit(p: Projectile, target: Unit):
-	var tower: Tower = p.get_caster()
-	
 	if target != null:
 		var stormbolt_damage: float = tower.get_current_attack_damage_with_bonus()
 		deal_damage(target, stormbolt_damage)
@@ -173,7 +169,6 @@ func stormbolt_pt_on_hit(p: Projectile, target: Unit):
 
 
 func hammer_pt_on_expiration(p: Projectile):
-	var tower: Tower = p.get_caster()
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), p.get_x(), p.get_y(), 600.0)
 	var hammer_damage: float = p.user_real
 
@@ -188,7 +183,6 @@ func hammer_pt_on_expiration(p: Projectile):
 
 
 func deal_damage(target: Unit, damage: float):
-	var tower: Tower = self
 	var spell: float = target.get_prop_spell_damage_received()
 	var phys: float = target.get_prop_atk_damage_received()
 	var r: float = 0.0
@@ -237,7 +231,6 @@ func deal_damage(target: Unit, damage: float):
 
 
 func line_damage(origin_x: float, origin_y: float, direction: float):
-	var tower: Tower = self
 	var distance: float = 128.0
 	var damage: float = tower.get_current_attack_damage_with_bonus()
 	var i: int = 0

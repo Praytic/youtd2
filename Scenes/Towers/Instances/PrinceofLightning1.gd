@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var prince_of_lightning_bt: BuffType
@@ -62,7 +62,7 @@ func load_triggers(triggers: BuffType):
 # spell crit chance = yes
 # spell crit chance add = no
 func load_specials(modifier: Modifier):
-	set_attack_style_bounce(5, 0.30)
+	tower.set_attack_style_bounce(5, 0.30)
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0375, _stats.mod_spell_crit_add)
 
 
@@ -92,7 +92,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var strike_chance: float = _stats.strike_chance + STRIKE_CHANCE_ADD * tower.get_level()
 	var strike_damage: float = _stats.strike_damage + _stats.strike_damage_add * tower.get_level()

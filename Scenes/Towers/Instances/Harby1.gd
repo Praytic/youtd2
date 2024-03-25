@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var glow_harby_aura_bt: BuffType
@@ -96,8 +96,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
-
 	var damage: float = (6 + 0.1 * tower.get_level()) * tower.get_mana()
 	var creep: Creep = event.get_target()
 
@@ -125,12 +123,10 @@ func on_attack(event: Event):
 
 
 func on_kill(_event: Event):
-	var tower: Tower = self
 	tower.add_mana(1)
 
 
 func on_spell_targeted(_event: Event):
-	var tower: Tower = self
 	glow_harby_awaken_bt.apply(tower, tower, 0)
 
 
@@ -138,7 +134,6 @@ func on_create(preceding_tower: Tower):
 	if preceding_tower == null:
 		return
 
-	var tower: Tower = self
 	var preceding_kills: int = preceding_tower.get_kills()
 	# AddUnitAnimationProperties(tower.getUnit(), "stand alternate", false)
 	tower.add_mana(preceding_kills)
@@ -185,7 +180,6 @@ func arcane_mana_replenish(target: Tower):
 
 
 func glow_harby_awaken_bt_on_create(_event: Event):
-	var tower: Tower = self
 	SFX.sfx_at_unit("PolyMorphDoneGround.mdl", tower)
 	SFX.sfx_at_unit("ObsidianStatueCrumble2.mdl", tower)
 	# AddUnitAnimationProperties(u, "stand alternate", true)
@@ -197,7 +191,6 @@ func glow_harby_awaken_bt_on_create(_event: Event):
 
 
 func glow_harby_awaken_bt_on_cleanup(_event: Event):
-	var tower: Tower = self
 	SFX.sfx_at_unit("PolyMorphDoneGround.mdl", tower)
 	# AddUnitAnimationProperties(u, "stand alternate", false)
 	# SetUnitFlyHeight(u, 40, 2000)

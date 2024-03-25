@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var bronze_dragon_bt: BuffType
@@ -33,7 +33,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_bounce(6, 0.10)
+	tower.set_attack_style_bounce(6, 0.10)
 
 
 func tower_init():
@@ -51,7 +51,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var chance: float = 0.1 + 0.004 * tower.get_level()
 
 	if !tower.calc_chance(chance):

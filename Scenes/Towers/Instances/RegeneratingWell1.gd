@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var regen_well_bt: BuffType
@@ -97,7 +97,7 @@ func tower_init():
 	autocast.buff_type = regen_well_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -117,7 +117,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var towers_in_range: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 500)
 	var mana_gain_ratio: float = _stats.replenish_mana + _stats.replenish_mana_add * tower.get_level()
 

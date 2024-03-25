@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:

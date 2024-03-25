@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: the autocast target_self in original script is set
@@ -63,7 +63,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_splash({325: 0.5})
+	tower.set_attack_style_splash({325: 0.5})
 
 
 func get_ability_ranges() -> Array[Tower.RangeData]:
@@ -103,17 +103,15 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	sir_totem_torture_bt.apply(tower, target, tower.get_level())
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 500)
 	var number: int = 4 + int(tower.get_level() / 5)
 
@@ -129,7 +127,6 @@ func on_autocast(_event: Event):
 
 
 func sir_totem_pt_on_hit(projectile: Projectile, _target: Unit):
-	var tower: Tower = projectile.get_caster()
 	tower.do_spell_damage_aoe(projectile.position.x, projectile.position.y, 220, projectile.user_int, tower.calc_spell_crit_no_bonus(), 0)
 	SFX.sfx_at_pos("DoomDeath.mdl", projectile.position)
 
@@ -151,7 +148,6 @@ func sir_totem_attraction_bt_on_spell_casted(event: Event):
 
 func release_meteor(buff: Buff, triggered_by_attack: bool):
 	var buffed: Tower = buff.get_buffed_unit()
-	var tower: Tower = buff.get_caster()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(buffed, TargetType.new(TargetType.CREEPS), 1000)
 	var result: Unit = it.next_random()
 	var level: int = tower.get_level()

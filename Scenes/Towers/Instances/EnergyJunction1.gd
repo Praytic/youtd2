@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original function removed all buffs made by this
@@ -45,7 +45,7 @@ func get_autocast_description_short() -> String:
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_air_only()
+	tower.set_attack_air_only()
 
 
 func get_ability_ranges() -> Array[Tower.RangeData]:
@@ -54,7 +54,6 @@ func get_ability_ranges() -> Array[Tower.RangeData]:
 
 func junction_on_create(event: Event):
 	var b: Buff = event.get_buff()
-	var tower: Tower = b.get_caster()
 	var buffee: Tower = b.get_buffed_unit()
 
 	b.user_int = 0
@@ -119,11 +118,10 @@ func tower_init():
 	autocast.buff_type = sir_junction_buff
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 500
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 # 	base attackspeed boost
 	tower.user_real = _stats.attackspeed
 # 	attackspeed boost add

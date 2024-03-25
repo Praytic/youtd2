@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # Original script has a typo. The third tier makes duration
@@ -82,21 +82,17 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.2):
 		return
 
 	if tower.get_buff_of_type(drol_goldrush) == null:
 		CombatLog.log_ability(tower, null, "Goldrush")
 
-		var gold_amount: float = get_player().get_gold()
+		var gold_amount: float = tower.get_player().get_gold()
 		drol_goldrush.apply_custom_timed(tower, tower, int(_stats.attackspeed_base + pow(gold_amount,0.5) / _stats.attackspeed_divisor), 5 + tower.get_level() * 0.1)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	var gold_bonus = _stats.goldrush_gold + tower.get_level() * _stats.goldrush_gold_add
 
 	if event.is_main_target() && tower.get_buff_of_type(drol_goldrush) != null:
@@ -105,8 +101,6 @@ func on_damage(event: Event):
 
 
 func on_create(preceding: Tower):
-	var tower: Tower = self
-
 	if preceding != null && preceding.get_family() == tower.get_family():
 		tower.user_real = preceding.user_real
 	else:
@@ -114,8 +108,7 @@ func on_create(preceding: Tower):
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
-	var gold_amount: float = get_player().get_gold()
+	var gold_amount: float = tower.get_player().get_gold()
 	var excavation_value: int = 20 + int(pow(gold_amount, 0.5) / 5)
 	var gold_gained_text: String = Utils.format_float(tower.user_real, 2)
 	var goldrush_bonus_text: String = "%d%%" % excavation_value
@@ -127,7 +120,6 @@ func on_tower_details() -> MultiboardValues:
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var gold_bonus: float = _stats.excavation_gold + tower.get_level() * _stats.excavation_gold_add
 
 	var target_effect: int = Effect.create_scaled("AncientProtectorMissile.mdl", tower.get_visual_x(), tower.get_visual_y(), 0, 0, 5)

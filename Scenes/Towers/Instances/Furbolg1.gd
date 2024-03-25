@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var gex_rage_buff: BuffType
@@ -86,8 +86,6 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(_stats.trigger_chance):
 		return
 

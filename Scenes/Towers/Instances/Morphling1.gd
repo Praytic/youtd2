@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed description of "Morphling Strike". It now
@@ -169,7 +169,7 @@ func tower_init():
 	autocast_might.buff_type = dave_morph_damage_bt
 	autocast_might.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_might.handler = on_autocast_might
-	add_autocast(autocast_might)
+	tower.add_autocast(autocast_might)
 
 	var autocast_swiftness: Autocast = Autocast.make()
 	autocast_swiftness.title = "Morph: Swiftness"
@@ -189,7 +189,7 @@ func tower_init():
 	autocast_swiftness.buff_type = dave_morph_speed_bt
 	autocast_swiftness.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_swiftness.handler = on_autocast_swiftness
-	add_autocast(autocast_swiftness)
+	tower.add_autocast(autocast_swiftness)
 
 	var autocast_adapt: Autocast = Autocast.make()
 	autocast_adapt.title = "Adapt"
@@ -209,11 +209,10 @@ func tower_init():
 	autocast_adapt.buff_type = dave_morph_adapt_bt
 	autocast_adapt.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_adapt.handler = on_autocast_adapt
-	add_autocast(autocast_adapt)
+	tower.add_autocast(autocast_adapt)
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var damage_buff: Buff = tower.get_buff_of_type(dave_morph_damage_bt)
 	var speed_buff: Buff = tower.get_buff_of_type(dave_morph_speed_bt)
 	var adapt_buff: Buff = tower.get_buff_of_type(dave_morph_adapt_bt)
@@ -226,7 +225,6 @@ func on_attack(_event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var morphling_strike_chance: float = 0.2 + 0.006 * tower.get_level()
 
 	if !tower.calc_chance(morphling_strike_chance):
@@ -255,7 +253,7 @@ func on_damage(event: Event):
 			evolve_count += 1
 
 	if pt != null:
-		CombatLog.log_ability(self, event.get_target(), "Morphling Strike")
+		CombatLog.log_ability(tower, event.get_target(), "Morphling Strike")
 		
 		var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 900)
 
@@ -277,7 +275,6 @@ func on_damage(event: Event):
 
 
 func on_autocast_might(_event: Event):
-	var tower: Tower = self
 	var speed_buff: Buff = tower.get_buff_of_type(dave_morph_speed_bt)
 	var damage_buff: Buff = tower.get_buff_of_type(dave_morph_damage_bt)
 
@@ -289,7 +286,6 @@ func on_autocast_might(_event: Event):
 
 
 func on_autocast_swiftness(_event: Event):
-	var tower: Tower = self
 	var speed_buff: Buff = tower.get_buff_of_type(dave_morph_speed_bt)
 	var damage_buff: Buff = tower.get_buff_of_type(dave_morph_damage_bt)
 
@@ -301,7 +297,6 @@ func on_autocast_swiftness(_event: Event):
 
 
 func on_autocast_adapt(_event: Event):
-	var tower: Tower = self
 	var adapt_buff: Buff = tower.get_buff_of_type(dave_morph_adapt_bt)
 
 	if adapt_buff == null:
@@ -311,7 +306,6 @@ func on_autocast_adapt(_event: Event):
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
 	var damage_buff: Buff = tower.get_buff_of_type(dave_morph_damage_bt)
 	var speed_buff: Buff = tower.get_buff_of_type(dave_morph_speed_bt)
 
@@ -335,7 +329,6 @@ func speed_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var damage: float = 2000 + 60 * level
 
@@ -348,7 +341,6 @@ func damage_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var damage: float = 2000 + 60 * level
 
@@ -359,7 +351,6 @@ func damage_pt_on_hit(_p: Projectile, target: Unit):
 # NOTE: "dot()" in original script
 func dave_morph_dot_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = self
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var level: int = tower.get_level()
 	var damage: float = tower.get_current_attack_damage_with_bonus() * (0.25 + 0.008 * level)

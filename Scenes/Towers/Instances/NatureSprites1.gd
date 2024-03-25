@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: in original game there's a discrepancy between value
@@ -85,7 +85,6 @@ func get_autocast_description_short() -> String:
 func gift_create(event: Event):
 	var B: Buff = event.get_buff()
 	var target: Tower = B.get_buffed_unit()
-	var tower: Tower = B.get_caster()
 	var elem: int = target.get_category()
 	var relem
 	var level: int = B.get_level()
@@ -168,11 +167,10 @@ func effect_clean(event: Event):
 		Effect.destroy_effect(B.user_int3)
 
 
-func sprite_hit(P: Projectile, target: Unit):
+func sprite_hit(_P: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = P.get_caster()
 	dave_gift.apply(tower, target, tower.get_level())
 
 
@@ -209,11 +207,10 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 500
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var p: Projectile
 	p = Projectile.create_from_unit_to_unit(dave_sprite, tower, 0, 0, tower, event.get_target(), true, false, false)
 	p.setScale(_stats.projectile_scale)
@@ -222,6 +219,5 @@ func on_autocast(event: Event):
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 #	Member buff strength modifier
 	tower.user_real = _stats.buff_strength

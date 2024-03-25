@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var hs_bloodlust_buff: BuffType
@@ -112,7 +112,7 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 500
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -129,7 +129,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var buff_level: int = _stats.bloodlust_level + _stats.bloodlust_level_add * level
 	var buff_duration: float = BLOODLUST_DURATION + BLOODLUST_DURATION_ADD * level
@@ -140,10 +139,10 @@ func on_autocast(event: Event):
 func bloody_exp_aura_on_damage(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
-	var tower: Tower = buff.get_buffed_unit()
+	var buffed_tower: Tower = buff.get_buffed_unit()
 	var max_level_for_gain: int = _stats.bloody_experience_level_cap + caster.get_level() / 5
 
-	if event.get_number_of_crits() > 0 && (tower.get_level() < max_level_for_gain || tower == caster):
-		var exp_gained: float = BLOODY_EXPERIENCE_EXP_GAIN * tower.get_base_attackspeed() * (800.0 / tower.get_range())
-		tower.add_exp(exp_gained)
+	if event.get_number_of_crits() > 0 && (buffed_tower.get_level() < max_level_for_gain || buffed_tower == caster):
+		var exp_gained: float = BLOODY_EXPERIENCE_EXP_GAIN * buffed_tower.get_base_attackspeed() * (800.0 / buffed_tower.get_range())
+		buffed_tower.add_exp(exp_gained)
 

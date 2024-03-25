@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -41,8 +41,6 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	if !tower.calc_chance(_stats.chance_base + tower.get_level() * _stats.chance_add):
 		return
 

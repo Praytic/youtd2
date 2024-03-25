@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script makes the roots projectiles make
@@ -150,7 +150,7 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -168,7 +168,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var leaf_storm_chance: float = 0.15 + 0.006 * tower.get_level()
 	var damage_ratio: float = 700 + 30 * tower.get_level()
@@ -182,13 +181,11 @@ func on_damage(event: Event):
 
 
 func on_unit_in_range(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	cenarius_thorned_bt.apply(tower, target, tower.get_level())
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var angle: float = rad_to_deg((target.global_position - tower.global_position).angle())
 
@@ -211,7 +208,6 @@ func cenarius_entangle_bt_periodic(event: Event):
 	caster.do_spell_damage(target, damage, caster.calc_spell_crit_no_bonus())
 
 
-func cenarius_leaf_storm_st_on_damage(event: Event, dummy_unit: DummyUnit):
-	var tower: Tower = dummy_unit.get_caster()
+func cenarius_leaf_storm_st_on_damage(event: Event, _dummy_unit: DummyUnit):
 	var target: Unit = event.get_target()
 	cenarius_leaf_storm_bt.apply(tower, target, tower.get_level())

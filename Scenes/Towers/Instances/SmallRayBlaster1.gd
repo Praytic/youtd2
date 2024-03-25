@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var mOck_ray_blaster: BuffType
@@ -56,6 +56,4 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	mOck_ray_blaster.apply_custom_timed(tower, event.get_target(), _stats.value + _stats.value_add * tower.get_level(), _stats.duration + tower.get_level() * 0.1)

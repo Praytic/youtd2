@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_firestar_burn_bt: BuffType
@@ -43,7 +43,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_target_count(14)
+	tower.set_target_count(14)
 
 
 func tower_init():
@@ -61,7 +61,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var target: Unit = event.get_target()
 	var buff: Buff = target.get_buff_of_type(cedi_firestar_burn_bt)
@@ -86,11 +85,10 @@ func on_damage(event: Event):
 	Projectile.create_from_unit_to_unit(firestar_pt, tower, 1.0, 1.0, tower, target, true, false, false)
 
 
-func firestar_pt_on_hit(p: Projectile, target: Unit):
+func firestar_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	var level: int = tower.get_level()
 	var buff: Buff = target.get_buff_of_type(cedi_firestar_burn_bt)
 	var buff_power: int = 0
@@ -118,7 +116,6 @@ func cedi_firestar_burn_bt_on_refresh(event: Event):
 
 func cedi_firestar_burn_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var creep: Unit = buff.get_buffed_unit()
 	var damage_multiplier: float = buff.user_real
 

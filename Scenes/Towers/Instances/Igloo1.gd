@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_igloo_buff: BuffType
@@ -78,7 +78,6 @@ func tower_init():
 
 
 func on_unit_in_range(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var lvl: int = tower.get_level()
 

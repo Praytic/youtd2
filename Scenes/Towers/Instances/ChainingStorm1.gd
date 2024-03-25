@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var stern_chaining_aura_bt: BuffType
@@ -90,7 +90,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var lvl: int = tower.get_level()
 	var x: float = target.get_x()

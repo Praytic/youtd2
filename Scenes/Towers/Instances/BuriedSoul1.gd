@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_cripple: BuffType
@@ -75,8 +75,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
-
 	var lvl: int = tower.get_level()
 	var creep: Creep = event.get_target()
 

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: reworked JASS script. Instead of storing buff
@@ -68,7 +68,7 @@ func get_ability_ranges() -> Array[Tower.RangeData]:
 	return [Tower.RangeData.new("Corpse Explosion", 1000, TargetType.new(TargetType.CREEPS))]
 
 
-func burst_fire(tower: Tower, chance: float, target: Creep):
+func burst_fire(chance: float, target: Creep):
 	var num_shots: int = 0
 
 	while true:
@@ -82,11 +82,10 @@ func burst_fire(tower: Tower, chance: float, target: Creep):
 	CombatLog.log_ability(tower, null, "Critical Mass %d" % num_shots)
 
 
-func top_crypt_ball_on_hit(p: Projectile, creep: Unit):
+func top_crypt_ball_on_hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	tower.do_attack_damage(creep, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit(0, 0, 0))
 
 
@@ -107,19 +106,15 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.3 + 0.003 * tower.get_level()):
 		return
 
 	var chance: float = _stats.critical_mass_chance + 0.006 * tower.get_level()
-	burst_fire(tower, chance, event.get_target())
+	burst_fire(chance, event.get_target())
 
 
 # NOTE: this f-n is named "fire()" in JASS script
 func periodic(_event: Event):
-	var tower: Tower = self
-
 	var corpses_in_range: Iterate = Iterate.over_corpses_in_range(tower, tower.get_x(), tower.get_y(), 1000)
 
 	var target_corpse: Unit = null

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var library_aura_bt: BuffType
@@ -100,7 +100,7 @@ func tower_init():
 	autocast.buff_type = library_autocast_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -117,7 +117,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var lvl: int = tower.get_level()
 	var towers_in_range: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 500)
 	var random_tower: Tower = towers_in_range.next_random()
@@ -130,7 +129,6 @@ func periodic(_event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	tower.add_exp(2)
 	library_autocast_bt.apply(tower, target, tower.get_level())

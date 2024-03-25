@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var multiboard: MultiboardValues
@@ -58,7 +58,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	set_attack_style_splash({400: 0.25})
+	tower.set_attack_style_splash({400: 0.25})
 	modifier.add_modification(Modification.Type.MOD_ARMOR, 0.0, 0.0)
 	modifier.add_modification(Modification.Type.MOD_DAMAGE_BASE_PERC, 0.0, 0.10)
 
@@ -108,7 +108,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Creep = event.get_target()
 	var wrath_chance: float = 0.20 + 0.004 * tower.get_level()
 
@@ -135,13 +134,11 @@ func on_tower_details() -> MultiboardValues:
 
 
 func on_unit_in_range(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	iaman_ymir_blood_bt.apply(tower, target, tower.get_level())
 
 
 func get_wrath_damage() -> float:
-	var tower: Tower = self
 	var wrath_damage: float = tower.get_current_attack_damage_with_bonus() * (0.10 + 0.006 * tower.get_level())
 
 	return wrath_damage

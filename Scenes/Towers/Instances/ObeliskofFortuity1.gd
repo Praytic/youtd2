@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -39,8 +39,6 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	if tower.calc_bad_chance(_stats.miss_chance_base - tower.get_level() * 0.006):
 		CombatLog.log_ability(tower, event.get_target(), "Warming Up")
 		event.damage = 0

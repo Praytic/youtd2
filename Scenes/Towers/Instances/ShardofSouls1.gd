@@ -1,4 +1,4 @@
-class_name ShardofSouls1 extends Tower
+class_name ShardofSouls1 extends TowerBehavior
 
 
 # NOTE: original script uses linked list to track which
@@ -99,11 +99,10 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 1000
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var current_target: Unit = event.get_target()
 	var counter: int = 0

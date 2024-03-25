@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var billy_snowball: ProjectileType
@@ -85,7 +85,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var u: Unit = event.get_target()
 	var facing_delta: float
 	var unit_to_tower_vector: float = rad_to_deg(atan2(tower.get_y() - u.get_y(), tower.get_x() - u.get_x()))

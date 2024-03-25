@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var multiboard: MultiboardValues
@@ -51,7 +51,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var chance: float = 0.30 + 0.004 * tower.get_level()
 
@@ -64,12 +63,10 @@ func on_damage(event: Event):
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 	tower.user_real = 0
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
 	var damage_gained: String = Utils.format_percent(tower.user_real, 0)
 	multiboard.set_value(0, damage_gained)
 
@@ -79,7 +76,6 @@ func on_tower_details() -> MultiboardValues:
 func boekie_nerubian_queen_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
-	var tower: Unit = buff.get_caster()
 	var level: int = buff.get_level()
 	var damage: float = 500 + 100 * level
 	var mod_armor: float = -(0.02 + 0.0008 * level)
@@ -91,7 +87,6 @@ func boekie_nerubian_queen_bt_periodic(event: Event):
 func boekie_nerubian_queen_bt_on_death(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Unit = buff.get_buffed_unit()
-	var tower: Tower = buff.get_caster()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), creep, 500)
 
 	var old_host_effect: int = Effect.create_simple("UndeadBloodCryptFiend.mdl", creep.get_visual_x(), creep.get_visual_y())

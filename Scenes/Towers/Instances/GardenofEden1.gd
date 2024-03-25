@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var multiboard: MultiboardValues
@@ -72,11 +72,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	current_spawn_level = target.get_spawn_level()
 	var damage: float = lifeforce_stored * 2 * current_spawn_level
@@ -85,7 +84,6 @@ func on_attack(event: Event):
 
 
 func on_kill(event: Event):
-	var tower: Tower = self
 	var target: Creep = event.get_target()
 	var category: CreepCategory.enm = target.get_category() as CreepCategory.enm
 	var can_store_lifeforce: bool = lifeforce_stored < 5 + tower.get_level() && (category == CreepCategory.enm.NATURE || category == CreepCategory.enm.ORC || category == CreepCategory.enm.HUMANOID)
@@ -98,7 +96,6 @@ func on_kill(event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var x: float = tower.get_visual_x()
 	var y: float = tower.get_visual_y()
 

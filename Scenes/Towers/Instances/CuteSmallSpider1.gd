@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 # NOTE: in original an EventTypeList is used to add
 # "on_damage" event handler. Changed script to add handler
@@ -61,8 +61,6 @@ func D1000_Spider_Damage(event: Event):
 
 
 func hit(event: Event):
-	var tower: Tower = self
-
 	var target: Unit = event.get_target()
 	var b: Buff = target.get_buff_of_type(D1000_Spider_Poison)
 	var level: int = tower.get_level()
@@ -102,8 +100,6 @@ func tower_init():
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
-
 	tower.user_int = _stats.damage
 	tower.user_real = _stats.damage_add
 	tower.user_int2 = _stats.max_damage

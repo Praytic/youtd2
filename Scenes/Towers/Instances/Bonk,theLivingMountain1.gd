@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cb_stun: BuffType
@@ -61,7 +61,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	set_attack_style_splash({100: 1.0})
+	tower.set_attack_style_splash({100: 1.0})
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.25, 0.005)
 
 
@@ -88,7 +88,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var chance: float = 0.25
 	var enough_grow_count_for_landslide: bool = grow_count >= 20
@@ -113,7 +112,6 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var crush_damage: float = 5000 + 250 * level + 50 * grow_count
@@ -146,7 +144,6 @@ func on_tower_details() -> MultiboardValues:
 	return multiboard
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var reached_max_growth: bool = grow_count >= 160
 
@@ -165,11 +162,10 @@ func periodic(_event: Event):
 	# tower.setScale(0.35 + grow_count * 0.0025)
 
 
-func rock_pt_on_hit(projectile: Projectile, creep: Unit):
+func rock_pt_on_hit(_projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = projectile.get_caster()
 	var damage: float = 700 + 50 * tower.get_level() + 15 * grow_count
 
 	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())

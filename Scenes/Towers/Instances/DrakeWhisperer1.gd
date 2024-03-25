@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed error in original script where drake
@@ -146,7 +146,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var unleash_chance: float = 0.125 + 0.003 * tower.get_level()
 
@@ -163,8 +162,6 @@ func on_attack(event: Event):
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
-
 	var blue_drake: Drake = Drake.new()
 	var green_drake: Drake = Drake.new()
 	var red_drake: Drake = Drake.new()
@@ -204,9 +201,7 @@ func on_destruct():
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
-
-	feeding(tower)
+	feeding()
 
 
 # NOTE: "allDrakesBusy()" in original script
@@ -247,7 +242,7 @@ func launch_random_drakeling(target: Unit):
 
 
 # NOTE: "feeding()" in original script
-func feeding(tower: Tower):
+func feeding():
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 1000)
 	var feed_two_chance: float = 0.15 + 0.004 * tower.get_level()
 
@@ -292,7 +287,7 @@ func feeding(tower: Tower):
 
 
 # NOTE: "refreshBuff()" in original script
-func refresh_buff(tower: Tower, damage_dealt: float):
+func refresh_buff(damage_dealt: float):
 	var versatile_buff: Buff = tower.get_buff_of_type(ely_drake_versatile_bt)
 	var max_damage: float = 200 * tower.get_player().get_team().get_level()
 
@@ -317,7 +312,7 @@ func refresh_buff(tower: Tower, damage_dealt: float):
 
 
 # NOTE: "spreadBuff()" in original script
-func spread_buff(tower: Tower):
+func spread_buff():
 	var versatile_buff: Buff = tower.get_buff_of_type(ely_drake_versatile_bt)
 
 	if versatile_buff == null:
@@ -337,7 +332,6 @@ func spread_buff(tower: Tower):
 
 # NOTE: "blueDrakeHit()" in original script
 func blue_drake_on_hit(p: Projectile, _target: Unit):
-	var tower: Tower = p.get_caster()
 	var damage_before: float = tower.get_overall_damage()
 
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), p.get_x(), p.get_y(), 125)
@@ -361,16 +355,15 @@ func blue_drake_on_hit(p: Projectile, _target: Unit):
 
 	var damage_after: float = tower.get_overall_damage()
 	var damage_dealt: float = damage_after - damage_before
-	refresh_buff(tower, damage_dealt)
+	refresh_buff(damage_dealt)
 
 
 # NOTE: "greenDrakeHit()" in original script
-func green_drake_on_hit(p: Projectile, target: Unit):
-	var tower: Tower = p.get_caster()
+func green_drake_on_hit(_p: Projectile, target: Unit):
 	var damage_before: float = tower.get_overall_damage()
 
 	if target == null:
-		spread_buff(tower)
+		spread_buff()
 
 		return
 
@@ -378,14 +371,12 @@ func green_drake_on_hit(p: Projectile, target: Unit):
 
 	var damage_after: float = tower.get_overall_damage()
 	var damage_dealt: float = damage_after - damage_before
-	refresh_buff(tower, damage_dealt)	
-	spread_buff(tower)
+	refresh_buff(damage_dealt)	
+	spread_buff()
 
 
 # NOTE: "redDrakeHit()" in original script
-func red_drake_on_hit(p: Projectile, target: Unit):
-	var tower: Tower = p.get_caster()
-
+func red_drake_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
@@ -431,8 +422,6 @@ func generic_drake_pt_on_hit(p: Projectile, target: Unit):
 
 # NOTE: "bronzeDrakeTick()" in original script
 func bronze_drake_pt_periodic(p: Projectile):
-	var tower: Tower = p.get_caster()
-
 	if p.get_age() > 2:
 		var color: Color = Color8(255, 255, 255, 255 - int((p.get_age() - 2) / (3 - 2)) * 255)
 		p.set_color(color)
@@ -471,8 +460,7 @@ func bronze_drake_pt_periodic(p: Projectile):
 
 
 # NOTE: "onBronzeDrakeHit()" in original script
-func bronze_drake_attack_pt_on_hit(p: Projectile, target: Unit):
-	var tower: Tower = p.get_caster()
+func bronze_drake_attack_pt_on_hit(_p: Projectile, target: Unit):
 	var damage_before: float = tower.get_overall_damage()
 
 	if target == null:
@@ -483,7 +471,7 @@ func bronze_drake_attack_pt_on_hit(p: Projectile, target: Unit):
 
 	var damage_after: float = tower.get_overall_damage()
 	var damage_dealt: float = damage_after - damage_before
-	refresh_buff(tower, damage_dealt)
+	refresh_buff(damage_dealt)
 
 
 # NOTE: "resetPosition()" in original script

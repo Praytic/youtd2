@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script uses a built-in "laser" ability. Had
@@ -104,7 +104,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var projectile_count: int = 3 + level / 5
 	var x: float = tower.get_visual_x()
@@ -125,7 +124,6 @@ func on_attack(_event: Event):
 
 
 func on_kill(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var creep: Creep = event.get_target()
 	var x: float = creep.get_x()

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 class Summoner:
@@ -121,7 +121,7 @@ func tower_init():
 	autocast_recreation.buff_type = null
 	autocast_recreation.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_recreation.handler = on_autocast_recreation
-	add_autocast(autocast_recreation)
+	tower.add_autocast(autocast_recreation)
 
 	var autocast_corruption: Autocast = Autocast.make()
 	autocast_corruption.title = "Corruption Field"
@@ -141,7 +141,7 @@ func tower_init():
 	autocast_corruption.buff_type = null
 	autocast_corruption.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_corruption.handler = on_autocast_corruption
-	add_autocast(autocast_corruption)
+	tower.add_autocast(autocast_corruption)
 
 
 func on_destruct():
@@ -152,7 +152,6 @@ func on_destruct():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var aoe_dmg: float = 3000 + 100 * tower.get_level()
 
 	if !can_teleport:
@@ -213,7 +212,6 @@ func on_kill(_event: Event):
 
 
 func on_autocast_recreation(event: Event):
-	var tower: Tower = self
 	var autocast: Autocast = event.get_autocast_type()
 	var last_pos: Vector2 = sum.to_pos
 	sum.to_pos = autocast.get_target_pos()
@@ -231,7 +229,6 @@ func on_autocast_recreation(event: Event):
 
 
 func on_autocast_corruption(event: Event):
-	var tower: Tower = self
 	var autocast: Autocast = event.get_autocast_type()
 
 	if !recreation_field_exists:
@@ -260,7 +257,6 @@ func on_tower_details() -> MultiboardValues:
 
 
 func it_kill():
-	var tower: Tower = self
 	var mod: float = 0.001 + 0.0001 * tower.get_level()
 
 	if sum.size < 10.0:

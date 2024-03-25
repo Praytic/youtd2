@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var Troll_blizzardslow: BuffType
@@ -55,8 +55,6 @@ func load_specials(modifier: Modifier):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
-
 	var u: Unit = event.get_target()
 	Troll_blizzard_st.point_cast_from_caster_on_point(tower, u.position.x, u.position.y, 1.00 + int(tower.get_level()) * _stats.damage_ratio_add, tower.calc_spell_crit_no_bonus())
 
@@ -102,7 +100,7 @@ func tower_init():
 	autocast.auto_range = 900
 	autocast.handler = on_autocast
 
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 	Troll_blizzard_st.data.blizzard.damage = _stats.blizzard_damage
 	Troll_blizzard_st.data.blizzard.radius = _stats.blizzard_radius

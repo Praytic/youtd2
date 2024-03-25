@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var poussix_blackrock_physique_bt: BuffType
@@ -109,11 +109,10 @@ func tower_init():
 	autocast.buff_type = poussix_blackrock_damage_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var chance: float = 0.15 + 0.002 * level
 
@@ -134,7 +133,6 @@ func on_attack(_event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var target: Creep = event.get_target()
 	var target_is_boss: bool = target.get_size() >= CreepSize.enm.BOSS

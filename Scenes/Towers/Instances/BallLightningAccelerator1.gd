@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var tomy_energetic_weapon_pt: ProjectileType
@@ -116,11 +116,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var angle: float = atan2(target.get_y() - tower.get_y(), target.get_x() - tower.get_x())
 	var mana: float = tower.get_mana()
@@ -135,7 +134,6 @@ func on_attack(event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var lvl: int = tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 1000)
 	var tower_count: int = 0

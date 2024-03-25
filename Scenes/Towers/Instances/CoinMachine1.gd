@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_coin_machine_bt: BuffType
@@ -75,11 +75,10 @@ func tower_init():
 	autocast.buff_type = boekie_coin_machine_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var buff_level: int = int((_stats.mod_bounty_gain + MOD_BOUNTY_GAIN_ADD * level) * 1000)
 	var buff_duration: float = _stats.buff_duration + BUFF_DURATION_ADD * level
@@ -88,10 +87,8 @@ func on_autocast(event: Event):
 
 
 func on_create(_preceding: Tower):
-	var tower: Tower = self
 	tower.get_player().modify_income_rate(_stats.mod_income)
 
 
 func on_destruct():
-	var tower: Tower = self
 	tower.get_player().modify_income_rate(-_stats.mod_income)

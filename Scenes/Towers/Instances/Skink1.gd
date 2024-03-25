@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: added aura levels which scale with posion damage.
@@ -104,7 +104,5 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
-
 	tower.user_real = _stats.dmg
 	tower.user_real2 = _stats.dmg_add

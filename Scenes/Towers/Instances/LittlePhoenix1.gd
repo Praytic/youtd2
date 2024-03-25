@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var tomy_phoenix_pt: ProjectileType
@@ -82,8 +82,6 @@ func tomy_phoenix_attack_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = self
-	
 	_apply_phoenix_fire_buff(target)
 
 	tower.do_attack_damage(target, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit(0, 0, 0))
@@ -94,7 +92,6 @@ func phoenix_fire_buff_on_purge(_event: Event):
 
 
 func phoenix_fire_buff_on_cleanup(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var buff: Buff = event.get_buff()
 	var power: int = buff.get_power()
@@ -145,11 +142,10 @@ func tower_init():
 	autocast.target_type = null
 	autocast.auto_range = 0
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var main_target: Unit = event.get_target()
 #	NOTE: subtract 1 from target_count because the normal
 #	attack performed by tower is part of that count
@@ -181,7 +177,6 @@ func on_damage(event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 3000)
 
 	while it.count() > 0:
@@ -194,7 +189,6 @@ func on_autocast(_event: Event):
 
 
 func _apply_phoenix_fire_buff(target: Unit):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var armor_loss: float = _stats.mod_armor + _stats.mod_armor_add * level
 	var buff: Buff = target.get_buff_of_type(tomy_phoenix_fire_buff)

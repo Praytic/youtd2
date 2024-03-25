@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: rewrote script a bit. Instead of enabling/disabling
@@ -81,15 +81,12 @@ func get_ability_ranges() -> Array[Tower.RangeData]:
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
-
 	tower.set_mana(tower.get_mana() + 100)
 	_battery_overload_is_active = true
 
 
 func debuff_on_damaged(event: Event):
 	var b: Buff = event.get_buff()
-	var tower: Tower = b.get_caster()
 
 	if tower.calc_chance(0.2 + b.get_power() * 0.003):
 		CombatLog.log_ability(tower, b.get_buffed_unit(), "Electrify Effect")
@@ -99,11 +96,10 @@ func debuff_on_damaged(event: Event):
 		tower.get_player().display_small_floating_text(damage_text, b.get_buffed_unit(), Color8(128, 255, 255), 20)
 
 
-func hit(p: Projectile, creep: Unit):
+func hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
 	tolleder_storm_bat.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
 
@@ -136,17 +132,15 @@ func tower_init():
 	autocast.target_type = null
 	autocast.auto_range = 800
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var tower_level: int = tower.get_level()
 	tolleder_storm_bat.apply_custom_power(tower, event.get_target(), int(1000 * (_stats.damage_increase + _stats.damage_increase_add * tower_level) * (0.2 + 0.003 * tower_level)), tower_level).user_real = _stats.damage_increase + _stats.damage_increase_add * tower_level + 1
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 	tower.user_int = 0
 	tower.set_mana(0)
 
@@ -154,8 +148,6 @@ func on_create(_preceding_tower: Tower):
 func periodic(_event: Event):
 	if !_battery_overload_is_active:
 		return
-
-	var tower: Tower = self
 
 	if tower.get_mana() > 10:
 		var in_range: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 1200)

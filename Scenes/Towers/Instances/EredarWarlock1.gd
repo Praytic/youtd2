@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cb_stun: BuffType
@@ -30,7 +30,7 @@ func get_ability_description() -> String:
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+%s spell damage\n" % bolt_damage_add
 
-	if get_tier() == 2:
+	if tower.get_tier() == 2:
 		text += " \n"
 		text += "[color=GOLD]Slow Decay - Aura[/color]\n"
 		text += "Non Boss units in 750 range around the Eredar Diabolist with less then 5.5% of their healthpoints will be killed.\n"
@@ -47,7 +47,7 @@ func get_ability_description_short() -> String:
 	text += "[color=GOLD]Shadowbolt Wave[/color]\n"
 	text += "Has a chance to release a wave of shadowbolts.\n"
 
-	if get_tier() == 2:
+	if tower.get_tier() == 2:
 		text += " \n"
 		text += "[color=GOLD]Slow Decay - Aura[/color]\n"
 		text += "Eredar Diabolist will instantly kill all low health creeps in range.\n"
@@ -117,12 +117,12 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
 #	NOTE: only tier 2 of this family has the aura
-	if get_tier() == 1:
+	if tower.get_tier() == 1:
 		return []
 
 	var aura: AuraType = AuraType.new()
@@ -139,15 +139,12 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Tower = event.get_target()
 	sir_eredar_siphon_bt.apply(tower, target, 1)
 	roll_for_shadow_wave()
 
 
 func roll_for_shadow_wave():
-	var tower: Tower = self
-
 	var wave_chance: float
 	if last_autocast_triggered_bolt_wave:
 		wave_chance = 0.20
@@ -225,7 +222,6 @@ func sir_eredar_aura_bt_periodic(event: Event):
 
 
 func wave_shadowbolt_pt_on_expire(projectile: Projectile):
-	var tower: Tower = projectile.get_caster()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 1000)
 
 	if it.count() != 0:
@@ -233,10 +229,9 @@ func wave_shadowbolt_pt_on_expire(projectile: Projectile):
 		Projectile.create_from_point_to_unit(attack_shadowbolt_pt, tower, 1.0, 1.0, projectile.position, random_creep, true, false, false)
 
 
-func attack_shadowbolt_pt_on_hit(p: Projectile, target: Unit):
+func attack_shadowbolt_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	var damage: float = _stats.bolt_damage + _stats.bolt_damage_add * tower.get_level()
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())

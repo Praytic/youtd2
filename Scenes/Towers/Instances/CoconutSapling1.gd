@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script uses ProjectileType.enablePhysics()
@@ -78,7 +78,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 
 	var cast_count: int = 0

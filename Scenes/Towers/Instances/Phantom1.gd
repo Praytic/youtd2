@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var drol_phantomBuff: BuffType
@@ -116,10 +116,8 @@ func tower_init():
 	autocast.auto_range = 300
 	autocast.handler = on_autocast
 
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
-
 	drol_phantomBuff.apply_custom_timed(tower, event.get_target(), tower.get_level() + _stats.buff_level, 5.0 + tower.get_level() * 0.1).user_real = tower.get_level() * _stats.user_real_add + _stats.user_real_base

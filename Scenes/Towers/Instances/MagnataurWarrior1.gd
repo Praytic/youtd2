@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 var cb_stun: BuffType
 
@@ -47,8 +47,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(_stats.on_damage_chance):
 		return
 

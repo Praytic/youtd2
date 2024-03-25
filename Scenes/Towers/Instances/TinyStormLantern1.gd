@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: added more checks for validity of units
@@ -45,15 +45,14 @@ func load_triggers(triggers: BuffType):
 
 
 
-func hit(p: Projectile, creep: Unit):
+func hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	tower.do_attack_damage(creep, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit(0, 0, 0))
 
 
-func new_attack(tower: Tower, num_shots: int, creep: Creep):
+func new_attack(num_shots: int, creep: Creep):
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), creep, 300)
 	var next: Creep
 
@@ -85,8 +84,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.2 + 0.01 * tower.get_level()):
 		return
 
@@ -101,4 +98,4 @@ func on_attack(event: Event):
 	elif twr_level >= 15:
 		num_shots = num_shots + 1
 
-	new_attack(tower, num_shots, creep)
+	new_attack(num_shots, creep)

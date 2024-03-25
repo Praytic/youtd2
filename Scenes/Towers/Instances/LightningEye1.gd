@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var mock_eye_aura_bt: BuffType
@@ -71,7 +71,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var creep: Creep = event.get_target()
 	var creep_health: float = creep.get_health()
 	var tower_mana: float = tower.get_mana()
@@ -87,8 +86,6 @@ func on_attack(event: Event):
 
 
 func mock_eye_aura_bt_on_damage(event: Event):
-	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var target: Unit = event.get_target()
 	var damage_multiplier: float = 1.2 + 0.01 * tower.get_level()
 

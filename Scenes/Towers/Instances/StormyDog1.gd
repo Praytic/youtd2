@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_stormdog: BuffType
@@ -62,8 +62,6 @@ func tower_init():
 
 
 func on_damage(_event: Event):
-	var tower: Unit = self
-
 	if !tower.calc_chance(0.3):
 		return
 

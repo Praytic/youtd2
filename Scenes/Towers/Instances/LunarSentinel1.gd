@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_moonp_buff: BuffType
@@ -67,7 +67,7 @@ func tower_init():
 	autocast.auto_range = 1200
 	autocast.handler = on_autocast
 
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 	cb_stun = CbStun.new("lunar_sentinel_stun", 0, 0, false, self)
 
@@ -81,8 +81,6 @@ func tower_init():
 
 
 func on_autocast(event: Event):
-	var tower = self
-
 	var level: int = tower.get_level()
 	var target: Unit = event.get_target()
 

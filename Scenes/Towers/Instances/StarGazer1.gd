@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -36,7 +36,6 @@ func load_triggers(triggers: BuffType):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 
 	if creep.is_immune():

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var Chainlightning_st: SpellType
@@ -61,8 +61,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.195 + tower.get_level() * 0.0025):
 		return
 
@@ -72,7 +70,5 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	var creep: Unit = event.get_target()
 	tower.do_spell_damage(creep, _stats.on_attack_damage * (1 + tower.get_level() * 0.02), tower.calc_spell_crit_no_bonus())

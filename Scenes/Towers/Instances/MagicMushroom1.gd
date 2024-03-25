@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var drol_mushroom_trance_bt: BuffType
@@ -108,11 +108,10 @@ func tower_init():
 	autocast.buff_type = drol_mushroom_trance_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 
 	if !fungus_strike_activated || !event.is_main_target():
@@ -140,7 +139,6 @@ func on_tower_details() -> MultiboardValues:
 
 
 func periodic(event: Event):
-	var tower: Tower = self
 	var lvl: int = tower.get_level()
 
 	if !tower.calc_chance(0.4):
@@ -169,7 +167,6 @@ func periodic(event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	fungus_strike_activated = true
 

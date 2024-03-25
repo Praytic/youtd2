@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_focus_freezing_bt: BuffType
@@ -43,7 +43,7 @@ func get_autocast_description_short() -> String:
 
 
 func load_specials(modifier: Modifier):
-	set_attack_air_only()
+	tower.set_attack_air_only()
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_AIR, 0.10, 0.0)
 
 
@@ -84,7 +84,7 @@ func tower_init():
 	autocast.buff_type = sir_focus_freezing_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = Callable()
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -108,7 +108,6 @@ func gust_on_create(event: Event):
 
 func gust_periodic(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
 	var multiplier: float = 0.5 + 0.008 * tower.get_level()
 	var dmg_to_air: float = target.get_damage_to_size(CreepSize.enm.AIR)

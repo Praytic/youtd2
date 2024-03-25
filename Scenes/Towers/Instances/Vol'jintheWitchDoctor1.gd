@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: time constants have been divided by 25 to account
@@ -128,11 +128,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var ward_chance: float = 0.18 + 0.0028 * level
@@ -176,7 +175,6 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var purged_count: int = 0
 	var purify_is_on_cd: bool = tower.time_for_next_purify > Utils.get_time()
@@ -207,8 +205,6 @@ func on_damage(event: Event):
 
 
 func on_create(_preceding: Tower):
-	var tower: Tower = self
-
 	var ward_offsets: Array = [
 		Vector2(38, -53),
 		Vector2(-43, -45),
@@ -240,8 +236,6 @@ func on_destruct():
 # NOTE: original script saves targets in a list. This is
 # unsafe. Used Iterate directly instead.
 func periodic(event: Event):
-	var tower: Tower = self
-
 	if first_periodic_event:
 		periodic_is_enabled = false
 
@@ -302,7 +296,6 @@ func periodic(event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), tower, 800)
 
 	while true:
@@ -315,11 +308,10 @@ func on_autocast(_event: Event):
 
 
 # NOTE: "voljin_hit()" in original script
-func voljin_pt_on_hit(p: Projectile, target: Unit):
+func voljin_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	var damage: float = tower.get_current_attack_damage_with_bonus() * (0.2 + 0.002 * tower.get_level())
 
 	tower.do_attack_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
@@ -347,7 +339,6 @@ func sir_voljin_maledict_bt_on_damaged(event: Event):
 # NOTE: "expireEvent()" in original script
 func sir_voljin_maledict_bt_on_expire(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var collected_damage: float = buff.user_real
 	var stack_count: float = buff.get_level()
@@ -361,7 +352,6 @@ func sir_voljin_maledict_bt_on_expire(event: Event):
 # NOTE: "purgeEvent()" in original script
 func sir_voljin_maledict_bt_on_purge(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var collected_damage: float = buff.user_real
 	var stack_count: float = buff.get_level()

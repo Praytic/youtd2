@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var mc_slow: BuffType
@@ -41,7 +41,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	set_attack_style_splash({_stats.splash_radius: 0.35})
+	tower.set_attack_style_splash({_stats.splash_radius: 0.35})
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, 0.45, 0.02)
 
@@ -56,7 +56,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var s: int = int((_stats.slow_power + tower.get_level() * _stats.slow_power_add) * 10)
 
 	mc_slow.apply_custom_timed(tower, event.get_target(), s, 4)

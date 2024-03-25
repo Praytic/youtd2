@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_ability_description() -> String:
@@ -24,8 +24,6 @@ func load_triggers(triggers: BuffType):
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
 	var itm: Item
 	var i: int = 1
 

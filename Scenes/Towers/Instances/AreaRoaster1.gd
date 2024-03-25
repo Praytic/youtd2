@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_area_rooster: BuffType
@@ -43,7 +43,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_target_count(4)
+	tower.set_target_count(4)
 
 
 func sir_area_damage(event: Event):
@@ -65,7 +65,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var buffyourno: Buff = event.get_target().get_buff_of_type(sir_area_rooster)
 
 	if buffyourno != null:

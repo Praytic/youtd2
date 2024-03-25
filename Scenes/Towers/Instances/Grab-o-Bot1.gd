@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_bot_grapple_bt: BuffType
@@ -46,7 +46,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_splash({
+	tower.set_attack_style_splash({
 		75: 1.00,
 		100: 0.66,
 		125: 0.33,
@@ -80,11 +80,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var grapple_chance: float = 0.08 + 0.0032 * tower.get_level()
 
@@ -103,7 +102,6 @@ func on_attack(event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var shock_damage: float = 1250 + 185 * tower.get_level()
 

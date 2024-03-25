@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var Poisoned_heart: BuffType
@@ -41,7 +41,7 @@ func get_ability_description_short() -> String:
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_bounce(_stats.bounce_count, 0.0)
+	tower.set_attack_style_bounce(_stats.bounce_count, 0.0)
 
 
 func load_triggers(triggers: BuffType):
@@ -52,7 +52,6 @@ func deal_damage(event: Event):
 	var b: Buff = event.get_buff()
 
 	var creep: Unit = b.get_buffed_unit()
-	var tower: Tower = b.get_caster()
 	tower.do_spell_damage(creep, b.user_real, tower.calc_spell_crit_no_bonus())
 
 
@@ -66,8 +65,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	var creep: Unit = event.get_target()
 
 	Poisoned_heart.apply_custom_timed(tower, creep, tower.get_level(), 6 + tower.get_level() * _stats.poison_duration_add).user_real = _stats.poison_damage + _stats.poison_damage_add * tower.get_level()

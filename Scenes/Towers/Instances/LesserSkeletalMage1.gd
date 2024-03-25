@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed bug in original script where buff was lasting
@@ -42,7 +42,6 @@ func get_dark_curse_description_short() -> String:
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var lvl: int = tower.get_level()
 	var buff_duration: float = 5 + 0.1 * lvl
 	boekie_amp_damage.apply_custom_timed(tower, event.get_target(), _stats.buff_level + 6 * lvl, buff_duration)
@@ -75,4 +74,4 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 900
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)

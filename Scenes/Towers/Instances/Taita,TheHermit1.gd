@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: this tower will deal 0 damage if frost bolt hits a
@@ -79,7 +79,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var speed: float = Constants.DEFAULT_MOVE_SPEED
 	var current_speed: float = creep.get_current_movespeed()
@@ -94,7 +93,6 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var buff: Buff = target.get_buff_of_type(dave_taita_touch_bt)
 	var buff_level: int = 0
@@ -110,17 +108,15 @@ func on_damage(event: Event):
 
 
 func on_kill(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 
 	dave_taita_blood_bt.apply(tower, tower, level)
 
 
-func frostbolt_pt_on_hit(p: Projectile, creep: Unit):
+func frostbolt_pt_on_hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	var level: int = tower.get_level()
 	var buff: Buff = creep.get_buff_of_type(dave_taita_touch_bt)
 

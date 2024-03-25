@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed error in original script where "Time Field"
@@ -105,7 +105,7 @@ func tower_init():
 	autocast.buff_type = maj_manip_field_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -123,29 +123,24 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_create(_preceding: Tower):
-	var tower: Tower = self
-	tower.exp_exchanged = 0
+	exp_exchanged = 0
 
 
 func on_destruct():
-	var tower: Tower = self
-	tower.add_exp_flat(tower.exp_exchanged)
+	tower.add_exp_flat(exp_exchanged)
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
-	var exp_exchanged_string: String = str(tower.exp_exchanged)
+	var exp_exchanged_string: String = str(exp_exchanged)
 	multiboard.set_value(0, exp_exchanged_string)
 
 	return multiboard
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
-
 	if tower.get_exp() >= 700:
 		tower.remove_exp_flat(50)
-		tower.exp_exchanged += 50
+		exp_exchanged += 50
 		tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, 0.05)
 		# TODO: implement Unit.BodyPart.OVERHEAD
 		# SFX.sfx_on_unit("CharmTarget.mdl", tower, Unit.BodyPart.OVERHEAD)
@@ -155,7 +150,6 @@ func periodic(_event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	maj_manip_field_bt.apply(tower, tower, tower.get_level())
 
 

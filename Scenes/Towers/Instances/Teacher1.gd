@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var limfa_teacherboard: MultiboardValues
@@ -55,7 +55,7 @@ func hit(p: Projectile, result: Unit):
 			t.user_real2 = t.user_real2 + p.user_real * result.get_prop_exp_received()
 
 
-func teacher_attack(tower: Tower, xp: float):
+func teacher_attack(xp: float):
 	var in_range: Iterate
 	var result: Unit
 	var pt: ProjectileType
@@ -117,15 +117,12 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
-	teacher_attack(tower, _stats.exp_teach)
-	set_animation_by_index(tower, 3)
+	teacher_attack(_stats.exp_teach)
+	tower.set_animation_by_index(tower, 3)
 
 
 func on_create(preceding_tower: Tower):
 	var preceding: Tower = preceding_tower
-	var tower: Tower = self
 
 	if preceding != null && preceding.get_family() == tower.get_family():
 		tower.user_real2 = preceding.user_real2
@@ -134,7 +131,5 @@ func on_create(preceding_tower: Tower):
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower = self
-
 	limfa_teacherboard.set_value(0, Utils.format_float(tower.user_real2, 1))
 	return limfa_teacherboard

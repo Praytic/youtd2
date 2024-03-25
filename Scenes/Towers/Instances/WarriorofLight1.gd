@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var shockwave_st: SpellType
@@ -98,7 +98,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var shockwave_chance: float = _stats.shockwave_chance + _stats.shockwave_chance_add * level

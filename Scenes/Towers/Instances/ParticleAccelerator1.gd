@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var red_terror_values: MultiboardValues
@@ -53,7 +53,6 @@ func load_triggers(triggers: BuffType):
 
 
 func update_effect_speed():
-	var tower: Tower = self
 	var effect_id: int = tower.user_int2
 	var new_speed: float = 0.5 + tower.user_real / 2
 	Effect.set_animation_speed(effect_id, new_speed)
@@ -67,7 +66,6 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var lvl: int = tower.get_level()
 	var modify_value: float = _stats.mod_value + MOD_VALUE_ADD * lvl
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, modify_value)
@@ -77,7 +75,6 @@ func on_attack(_event: Event):
 
 
 func on_kill(event: Event):
-	var tower: Tower = self
 	SFX.sfx_at_unit("feralspiritdone.mdl", event.get_target())
 	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, -tower.user_real)
 	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -tower.user_real)
@@ -87,7 +84,6 @@ func on_kill(event: Event):
 
 
 func on_create(_preceding: Tower):
-	var tower: Tower = self
 	var effect: int = Effect.create_animated_scaled("SpiritLinkTarget.mdl", tower.get_visual_x(), tower.get_visual_y(), 8, 0, 1.5)
 	tower.user_int2 = effect
 	tower.user_real = 0
@@ -95,12 +91,10 @@ func on_create(_preceding: Tower):
 
 
 func on_destruct():
-	var tower: Tower = self
 	Effect.destroy_effect(tower.user_int2)
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
 	red_terror_values.set_value(0, Utils.format_float(tower.user_real * 100, 1))
 
 	return red_terror_values

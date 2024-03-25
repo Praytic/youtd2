@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var drol_slow: BuffType
@@ -68,7 +68,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_bounce(4, 0.3)
+	tower.set_attack_style_bounce(4, 0.3)
 
 
 func tower_init():
@@ -106,7 +106,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var level: int = tower.get_level()
 

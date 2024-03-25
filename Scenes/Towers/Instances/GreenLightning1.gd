@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var drol_surge: BuffType
@@ -83,7 +83,6 @@ func load_specials(modifier: Modifier):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	tower.user_int = 5 + tower.get_level() / 5
 	drol_surge.apply(tower, tower, tower.get_level() + _stats.drol_surge_level_bonus)
 
@@ -125,11 +124,10 @@ func tower_init():
 	autocast.target_type = null
 	autocast.auto_range = 1200
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var mana: float = tower.get_mana()
 
 	tower.set_mana(mana + 4 * tower.get_base_mana_regen_bonus_percent())
@@ -139,8 +137,6 @@ func on_attack(_event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.125 + 0.005 * tower.get_level()):
 		return
 
@@ -157,6 +153,5 @@ func on_damage(event: Event):
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 	tower.user_real = 0.0
 	tower.user_int = 0

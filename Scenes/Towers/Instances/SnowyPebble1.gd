@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -13,6 +13,6 @@ func get_tier_stats() -> Dictionary:
 
 
 func load_specials(modifier: Modifier):
-	set_attack_style_splash({600: 0.1})
+	tower.set_attack_style_splash({600: 0.1})
 	
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, _stats.dmg_to_mass, _stats.dmg_to_mass_add)

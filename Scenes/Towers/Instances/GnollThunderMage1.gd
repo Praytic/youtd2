@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var multiboard: MultiboardValues
@@ -63,11 +63,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var lvl: int = tower.get_level()
 
@@ -117,7 +116,6 @@ func on_tower_details() -> MultiboardValues:
 
 
 func get_current_thunder_shock_damage() -> float:
-	var tower: Tower = self
 	var base_damage: float = _stats.base_damage + _stats.base_damage_add * tower.get_level()
 	var damage_per_tower: float = _stats.damage_per_tower + _stats.damage_per_tower_add * tower.get_level()
 	var tower_count: int = tower.get_player().get_num_towers()

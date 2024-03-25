@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var glow_alert_bt: BuffType
@@ -84,7 +84,6 @@ func tower_init():
 
 
 func on_unit_in_range(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var creep_size: CreepSize.enm = creep.get_size_including_challenge_sizes()
 	var level: int = tower.get_level()

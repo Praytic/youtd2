@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed bug in original script. The buffs which tower
@@ -88,8 +88,6 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
 #	Spellfire
 	var lvl: int = tower.get_level()
 	var buff_level_multiplier: float = (_stats.spellfire_ratio + _stats.spellfire_ratio_add * lvl) * 100

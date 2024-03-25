@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 # NOTE: too many differences between tiers. Had to make
 # separate code paths for each tier.
@@ -16,7 +16,7 @@ var kel_slow: BuffType
 
 
 func get_ability_description() -> String:
-	match get_tier():
+	match tower.get_tier():
 		1: return get_ability_description_1()
 		2: return get_ability_description_2()
 		3: return get_ability_description_3()
@@ -135,7 +135,7 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	match get_tier():
+	match tower.get_tier():
 		1: return on_attack_1(event)
 		2: return on_attack_2(event)
 		3: return on_attack_3(event)
@@ -145,7 +145,6 @@ func on_attack(event: Event):
 
 
 func on_attack_1(event: Event):
-	var tower: Tower = self
 	var random_spell_id = randi_range(1, 3)
 	var c: Creep = event.get_target()
 	var u: Unit
@@ -174,7 +173,6 @@ func on_attack_1(event: Event):
 			
 
 func on_attack_2(event: Event):
-	var tower: Tower = self
 	var random_spell_id = randi_range(1, 5)
 	var c: Creep = event.get_target()
 	var u: Unit
@@ -208,7 +206,6 @@ func on_attack_2(event: Event):
 		tower.do_spell_damage_aoe_unit(c, 250, 250 + tower.get_level() * 8, tower.calc_spell_crit_no_bonus(), 0)
 
 func on_attack_3(event: Event):
-	var tower: Tower = self
 	var random_spell_id = randi_range(1, 10)
 	var c: Creep = event.get_target()
 	var u: Unit
@@ -261,7 +258,6 @@ func on_attack_3(event: Event):
 
 
 func on_attack_4(event: Event):
-	var tower: Tower = self
 	var random_spell_id = randi_range(1, 10)
 	var c: Creep = event.get_target()
 	var u: Unit
@@ -343,7 +339,6 @@ func on_attack_4(event: Event):
 
 
 func on_create(_preceding: Tower):
-	var tower: Tower = self
 #	Stores how many consecutive times last spell was cast
 	tower.user_int = 0
 #	Stores which spell was last cast

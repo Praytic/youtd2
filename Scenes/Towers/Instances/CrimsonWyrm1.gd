@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed bug in original script. Tower details
@@ -65,12 +65,11 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 
 #	check if 0 attacks remain till fireballs
-	if tower.fireball_cd > 0:
-		tower.fireball_cd -= 1
+	if fireball_cd > 0:
+		fireball_cd -= 1
 	else:
 #		setting minimum number of attacks before next fireballs
 		if level == 25:
@@ -90,7 +89,6 @@ func on_attack(_event: Event):
 
 
 func on_kill(event: Event):
-	var tower: Tower = self
 	var creep: Creep = event.get_target()
 	var value: float = 0.75 * creep.get_base_bounty_value() * creep.get_prop_bounty_granted() * tower.get_prop_bounty_received()
 	var hoard_size: float = 90000
@@ -107,14 +105,12 @@ func on_kill(event: Event):
 
 
 func on_create(preceding: Tower):
-	var tower: Tower = self
-
 #	Somebody might replace this tower with this tower
 	if preceding != null && preceding.get_family() == tower.get_family():
 		sir_update(preceding.gold_hoard)
 
 #	Mediocre cd for first wave of fireballs
-	tower.fireball_cd = 9
+	fireball_cd = 9
 
 
 func on_tower_details() -> MultiboardValues:
@@ -130,8 +126,6 @@ func on_tower_details() -> MultiboardValues:
 
 
 func sir_update(new_gold: float):
-	var tower: Tower = self
-
 	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE_PERC, -tower.gold_hoard / 5000)
 	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -tower.gold_hoard / 5000)
 	tower.gold_hoard += new_gold
@@ -140,7 +134,6 @@ func sir_update(new_gold: float):
 
 
 func wyrm_pt_on_hit(p: Projectile, _target: Unit):
-	var tower: Tower = p.get_caster()
 	var level: int = tower.get_level()
 
 	var crit_mod: float
@@ -158,7 +151,6 @@ func wyrm_pt_on_hit(p: Projectile, _target: Unit):
 
 
 func release_fireballs(fireball_count: int):
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 950)
 	var last_target: Unit = null
 
@@ -188,4 +180,4 @@ func release_fireballs(fireball_count: int):
 				p.setScale(2.0)
 		else:
 # 			Shoot remaining balls during next attack
-			tower.fireball_cd = 0
+			fireball_cd = 0

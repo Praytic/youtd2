@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_drake_aura: BuffType
@@ -61,15 +61,15 @@ func load_specials(modifier: Modifier):
 
 func drake_aura_manaburn(event: Event):
 	var b: Buff = event.get_buff()
-	var tower: Tower = b.get_buffed_unit()
+	var buffed_tower: Unit = b.get_buffed_unit()
 	var target: Unit = event.get_target()
 	var caster: Unit = b.get_caster()
 	var mana_drained: float
-	var speed: float = tower.get_base_attackspeed() * 800 / tower.get_range()
+	var speed: float = buffed_tower.get_base_attackspeed() * 800 / buffed_tower.get_range()
 
 	if target.get_mana() > 0 && caster.subtract_mana(caster.user_real * speed, false) > 0:
 		mana_drained = target.subtract_mana(b.get_level() / 100.0 * speed, true)
-		tower.do_spell_damage(target, mana_drained * b.get_power(), tower.calc_spell_crit_no_bonus())
+		buffed_tower.do_spell_damage(target, mana_drained * b.get_power(), buffed_tower.calc_spell_crit_no_bonus())
 		SFX.sfx_at_unit("DeathandDecayDamage.dml", target)
 
 
@@ -94,8 +94,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.28 + 0.0048 * tower.get_level()):
 		return
 
@@ -107,5 +105,4 @@ func on_damage(event: Event):
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 	tower.user_real = _stats.aura_mana_cost

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: made made changes to original script but overall
@@ -139,7 +139,6 @@ func on_damage(event: Event):
 	if bonus_levels_in_progress:
 		return
 	
-	var tower: Tower = self
 	var creep: Creep = event.get_target()
 	var creep_category: CreepCategory.enm = creep.get_category() as CreepCategory.enm
 	var chance: float = 0.25 + 0.01 * tower.get_level()
@@ -171,8 +170,6 @@ func periodic(_event: Event):
 
 
 func xeno_manage_bonuses(is_type_change: bool, current_bonus: int):
-	var tower: Tower = self
-
 # 	NOTE: ignore challenge creeps
 	if current_creep_category == CreepCategory.enm.CHALLENGE:
 		return
@@ -195,8 +192,6 @@ func xeno_manage_bonuses(is_type_change: bool, current_bonus: int):
 
 
 func xeno_buff_towers(is_type_change: bool):
-	var tower: Tower = self
-
 # 	NOTE: ignore challenge creeps
 	if current_creep_category == CreepCategory.enm.CHALLENGE:
 		return

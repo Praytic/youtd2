@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script does weird things with putting
@@ -101,7 +101,7 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.PLAYER_TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -126,7 +126,6 @@ func on_destruct():
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var buff_on_new_target: Buff = target.get_buff_of_type(cedi_flux_link_bt)
 
@@ -156,7 +155,6 @@ func on_tower_details() -> MultiboardValues:
 
 
 func periodic(event: Event):
-	var tower: Tower = self
 	var attackspeed: float = tower.get_current_attackspeed()
 
 	event.enable_advanced(attackspeed, false)
@@ -180,7 +178,7 @@ func periodic(event: Event):
 		return
 
 	if linked_for_10_sec && !logged_link_ability:
-		CombatLog.log_ability(self, null, "Link damage active")
+		CombatLog.log_ability(tower, null, "Link damage active")
 		logged_link_ability = true
 
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 800)
@@ -191,11 +189,10 @@ func periodic(event: Event):
 
 
 # NOTE: "ProjHit()" in original script
-func flux_pt_on_hit(p: Projectile, target: Unit):
+func flux_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	var damage: float = get_dps_from_link()
 	tower.do_custom_attack_damage(target, damage, tower.calc_attack_multicrit_no_bonus(), AttackType.enm.ENERGY)
 
@@ -229,8 +226,6 @@ func cedi_flux_aura_bt_on_cleanup(_event: Event):
 func get_dps_from_link() -> float:
 	if link_time <= 0.0:
 		return 0.0
-
-	var tower: Tower = self
 
 	var spell_dps_by_linked_tower: float = spell_damage_by_linked_tower / link_time
 	var multiplier: float = 0.25 + 0.01 * tower.get_level()

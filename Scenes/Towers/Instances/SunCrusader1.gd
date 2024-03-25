@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: changed buff types a bit. In original script they
@@ -81,8 +81,8 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	set_attack_ground_only()
-	set_attack_style_bounce(5, 0.1)
+	tower.set_attack_ground_only()
+	tower.set_attack_style_bounce(5, 0.1)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, _stats.mod_dmg_to_undead, 0.0)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0, 1)
 
@@ -114,12 +114,10 @@ func tower_init():
 	autocast.mana_cost = 10
 	autocast.buff_type = cedi_crusader_buff
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(BLESSED_WEAPON_CHANCE):
 		return
 
@@ -135,7 +133,6 @@ func on_damage(event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var buff_level: int = _stats.for_the_god_level + _stats.for_the_god_level_add * level
 	var buff_duration: float = FOR_THE_GOD_DURATION + FOR_THE_GOD_DURATION_ADD * level

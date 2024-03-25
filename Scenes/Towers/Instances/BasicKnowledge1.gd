@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -36,5 +36,4 @@ func load_triggers(triggers: BuffType):
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	tower.add_exp(_stats.exp)

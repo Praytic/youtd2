@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -12,4 +12,4 @@ func get_tier_stats() -> Dictionary:
 
 
 func load_specials(_modifier: Modifier):
-	set_target_count(_stats.target_count_max)
+	tower.set_target_count(_stats.target_count_max)

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var multiboard: MultiboardValues
@@ -59,7 +59,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var transmute_chance: float = _stats.transmute_chance + TRANSMUTE_CHANCE_ADD * tower.get_level()
 	var gold_greed_damage: float = get_current_gold_greed_damage()
@@ -89,7 +88,7 @@ func on_tower_details() -> MultiboardValues:
 
 
 func get_current_gold_greed_damage() -> float:
-	var current_gold: float = get_player().get_gold()
+	var current_gold: float = tower.get_player().get_gold()
 	var damage: float = _stats.gold_greed_value * pow(current_gold, 0.5)
 
 	return damage

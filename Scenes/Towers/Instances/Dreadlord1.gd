@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script sets level of buff to 1 for some
@@ -99,11 +99,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var damage: float = (1 + 0.04 * tower.get_level()) * tower.get_overall_mana()
 	var mana: float = tower.get_mana()
@@ -116,7 +115,6 @@ func on_damage(event: Event):
 
 
 func on_kill(_event: Event):
-	var tower: Tower = self
 	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.005)
 	tower.user_real2 += 0.005
 
@@ -126,7 +124,6 @@ func on_kill(_event: Event):
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
 	var attackspeed_bonus: String = Utils.format_percent(tower.user_real2, 1)
 	var mana_bonus: String = str(int(tower.user_real * 1000))
 	multiboard.set_value(0, attackspeed_bonus)
@@ -136,5 +133,4 @@ func on_tower_details() -> MultiboardValues:
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	poussix_dreadlord_bt.apply(tower, tower, tower.get_level())

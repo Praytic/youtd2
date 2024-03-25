@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script appears to have a bug where it
@@ -79,7 +79,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var target: Creep = event.get_target()
 	var target_is_boss: bool = target.get_size() >= CreepSize.enm.BOSS
@@ -139,14 +138,12 @@ func on_damage(event: Event):
 func mock_rift_aura_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Creep = buff.get_buffed_unit()
-	var tower: Tower = buff.get_caster()
 	var damage: float = creep.get_current_movespeed() * (2.0 + 0.16 * tower.get_level())
 
 	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
 
 
 func move_creep_back(creep: Unit):
-	var tower: Tower = self
 	var facing: float = creep.get_unit_facing()
 	var facing_reversed: float = facing - 180
 	var teleport_offset_top_down: Vector2 = Vector2(175 + tower.get_level(), 0).rotated(deg_to_rad(facing_reversed))

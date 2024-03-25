@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # TODO: original script calls display_small_floating_text on
@@ -112,8 +112,6 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	var tower_level: int = tower.get_level()
 	var target: Unit = event.get_target()
 	var level: float = _stats.bonus_damage + tower_level * _stats.bonus_damage_add

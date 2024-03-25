@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_altar_entangle_bt: BuffType
@@ -56,9 +56,9 @@ func get_aura_types() -> Array[AuraType]:
 func boekie_altar_gift_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
 	var caster: Tower = buff.get_caster()
-	var tower: Tower = buff.get_buffed_unit()
+	var buffed_tower: Tower = buff.get_buffed_unit()
 	var target: Creep = event.get_target()
-	var entangle_chance: float = (0.10 + 0.002 * caster.get_level()) * tower.get_base_attackspeed()
+	var entangle_chance: float = (0.10 + 0.002 * caster.get_level()) * buffed_tower.get_base_attackspeed()
 	var target_is_boss: bool = target.get_size() >= CreepSize.enm.BOSS
 	var target_is_air: bool = target.get_size() == CreepSize.enm.AIR
 
@@ -68,7 +68,7 @@ func boekie_altar_gift_bt_on_attack(event: Event):
 	if target_is_boss || target_is_air:
 		return
 
-	CombatLog.log_ability(tower, target, "Sacred Altar Entangle")
+	CombatLog.log_ability(caster, target, "Sacred Altar Entangle")
 
 	boekie_altar_entangle_bt.apply(caster, target, caster.get_level())
 

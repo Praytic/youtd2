@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_monolith_chaos_bt: BuffType
@@ -48,7 +48,6 @@ func tower_init():
 
 
 func on_unit_in_range(event: Event, ):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var chaos_chance: float = 0.45 + 0.004 * level

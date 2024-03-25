@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_frost_glacier: BuffType
@@ -60,8 +60,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	var creep: Unit = event.get_target()
 
 	sir_frost_glacier.apply_custom_timed(tower, creep, _stats.slow_value * (1 + tower.get_level() / 20.0), 3)
@@ -79,6 +77,4 @@ func on_damage(event: Event):
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
-
 	tower.user_real = _stats.damage_and_stun_chance

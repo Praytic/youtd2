@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cb_stun: BuffType
@@ -99,7 +99,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var facing: float = rad_to_deg(atan2(target.get_y() - tower.get_y(), target.get_x() - tower.get_x()))
 	var wave_chance: float = 0.15 + 0.006 * tower.get_level()
@@ -114,7 +113,6 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var lvl: int = tower.get_level()
 	var target: Unit = event.get_target()
 	var splash_chance: float = 0.20 + 0.004 * lvl

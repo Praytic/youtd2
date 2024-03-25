@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_stim_bt: BuffType
@@ -119,11 +119,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var grenade_chance: float = _stats.grenade_chance + _stats.grenade_chance_add * tower.get_level()
 
 	if !tower.calc_chance(grenade_chance):
@@ -137,13 +136,11 @@ func on_damage(event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	boekie_stim_bt.apply(tower, tower, level)
 
 
 func boekie_shard_on_collide(projectile: Projectile, target: Unit):
-	var tower: Tower = projectile.get_caster()
 	var level: int = tower.get_level()
 	var buff: Buff = target.get_buff_of_type(boekie_grenade_bt)
 
@@ -160,7 +157,6 @@ func boekie_shard_on_collide(projectile: Projectile, target: Unit):
 
 
 func boekie_shard_on_expiration(projectile: Projectile):
-	var tower: Tower = projectile.get_caster()
 	var CONE_WIDTH: float = 120
 	var num_projectiles: float = _stats.grenade_count
 	var angle: float = projectile.get_direction() - CONE_WIDTH / 2

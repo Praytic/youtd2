@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: the way this tower works is that the player cycles
@@ -198,7 +198,7 @@ func tower_init():
 	autocast_choose.buff_type = null
 	autocast_choose.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_choose.handler = on_autocast_choose
-	add_autocast(autocast_choose)
+	tower.add_autocast(autocast_choose)
 
 	var autocast_add: Autocast = Autocast.make()
 	autocast_add.title = "Add Modification"
@@ -218,7 +218,7 @@ func tower_init():
 	autocast_add.buff_type = null
 	autocast_add.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_add.handler = on_autocast_add
-	add_autocast(autocast_add)
+	tower.add_autocast(autocast_add)
 
 	var autocast_remove: Autocast = Autocast.make()
 	autocast_remove.title = "Remove Modification"
@@ -238,11 +238,10 @@ func tower_init():
 	autocast_remove.buff_type = null
 	autocast_remove.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_remove.handler = on_autocast_remove
-	add_autocast(autocast_remove)
+	tower.add_autocast(autocast_remove)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var p: Projectile = Projectile.create_from_unit_to_unit(missile_pt, tower, 1.0, 1.0, tower, target, false, true, false)
 	p.set_collision_parameters(data.aoe, TargetType.new(TargetType.CREEPS))
@@ -264,15 +263,12 @@ func on_level_up(event: Event):
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 	data = Data.new()
 	data.dmg += 2 * tower.get_level()
 	current_missile_mod = MissileMod.SLOW
 
 
 func on_autocast_choose(_event: Event):
-	var tower: Tower = self
-
 	current_missile_mod = (current_missile_mod + 1) as MissileMod
 	if current_missile_mod >= MissileMod.COUNT:
 		current_missile_mod = 0 as MissileMod
@@ -282,7 +278,6 @@ func on_autocast_choose(_event: Event):
 
 
 func on_autocast_add(_event: Event):
-	var tower: Tower = self
 	var dmg_before: int = data.dmg
 	
 	match current_missile_mod:
@@ -320,7 +315,6 @@ func on_autocast_add(_event: Event):
 
 func on_autocast_remove(_event: Event):
 	var dmg_before: int = data.dmg
-	var tower: Tower = self
 
 	match current_missile_mod:
 		MissileMod.SLOW:
@@ -389,8 +383,7 @@ func on_tower_details() -> MultiboardValues:
 
 
 # NOTE: "coll()" in original script
-func missile_pt_on_collision(p: Projectile, target: Unit):
-	var tower: Tower = p.get_caster()
+func missile_pt_on_collision(_p: Projectile, target: Unit):
 	var silence_chance: float = 0.50
 
 	if data.slow > 0:

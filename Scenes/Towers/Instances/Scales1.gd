@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_scales_electrify_bt: BuffType
@@ -121,17 +121,14 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_create(_preceding: Tower):
-	var tower: Tower = self
 	i_scale_level = tower.get_player().get_team().get_level()
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
 	var i: int = tower.get_player().get_team().get_level()
 	var i2: = i
 
@@ -147,7 +144,6 @@ func on_attack(_event: Event):
 
 
 func on_damage_for_electrify(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var electrify_chance: float = 0.2 + 0.008 * level
@@ -160,16 +156,13 @@ func on_damage_for_electrify(event: Event):
 
 
 func on_damage_for_overcharge(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 
-	overcharge_damage(tower, target, level)
+	overcharge_damage(target, level)
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
-
 	if !lightmare_is_active:
 		return
 
@@ -183,7 +176,6 @@ func periodic(_event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var effect: int = Effect.create_scaled("CloudOfFog.mdl", tower.get_visual_x(), tower.get_visual_y(), 300, 0, 5)
 	Effect.set_lifetime(effect, 10.0)
 
@@ -213,15 +205,14 @@ func on_tower_details() -> MultiboardValues:
 
 
 # NOTE: "overchargeA()" in original script
-func mock_eye_glare_st_on_damage(event: Event, dummy: SpellDummy):
-	var tower: Tower = dummy.get_caster()
+func mock_eye_glare_st_on_damage(event: Event, _dummy: SpellDummy):
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 
-	overcharge_damage(tower, target, level)
+	overcharge_damage(target, level)
 
 
-func overcharge_damage(tower: Tower, target: Unit, level: int):
+func overcharge_damage(target: Unit, level: int):
 	var i: int = 0
 	var damage: float = 900 + 36 * level
 
@@ -247,7 +238,6 @@ func overcharge_damage(tower: Tower, target: Unit, level: int):
 # NOTE: "elec()" in original script
 func cedi_scales_electrify_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 225)
 	var damage: float = 900 + 36 * tower.get_level()
@@ -260,4 +250,4 @@ func cedi_scales_electrify_bt_periodic(event: Event):
 
 		if next != target:
 			tower.do_spell_damage(next, damage, tower.calc_spell_crit_no_bonus())
-			overcharge_damage(tower, next, tower.get_level())
+			overcharge_damage(next, tower.get_level())

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # Changed original script by adding apply_soul_bonus() to
@@ -8,7 +8,6 @@ extends Tower
 
 
 var natac_hall_of_souls_bt: BuffType
-var accumulated_soul_damage: float = 0.0
 
 
 func get_tier_stats() -> Dictionary:
@@ -73,14 +72,16 @@ func get_aura_types() -> Array[AuraType]:
 
 # Carry over soul damage from previous tier
 func on_create(preceding: Tower):
-	var tower: Tower = self
-	
+	tower.user_int = _stats.soul_experience
+	tower.user_real = _stats.soul_damage
+	tower.user_real2 = _stats.soul_damage_add
+
 	if preceding != null && preceding.get_family() == tower.get_family():
-		var soul_bonus: float = preceding.accumulated_soul_damage
-		tower.accumulated_soul_damage = soul_bonus
+		var soul_bonus: float = preceding.user_real3
+		tower.user_real3 = soul_bonus
 		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD, soul_bonus)
 	else:
-		tower.accumulated_soul_damage = 0.0
+		tower.user_real3 = 0.0
 
 
 func bt_on_create(event: Event):
@@ -100,21 +101,25 @@ func bt_on_death(event: Event):
 	SFX.sfx_at_unit("AIsoTarget.mdl", target)
 
 	while true:
-		var tower: Unit = it.next()
+		var next: Unit = it.next()
 
-		if tower == null:
+		if next == null:
 			break
 
-		if tower.get_family() == buff.user_int:
-			tower.apply_soul_bonus()
+		if next.get_family() == buff.user_int:
+			apply_soul_bonus(next)
 
 
-func apply_soul_bonus():
-	var tower: Tower = self
+func apply_soul_bonus(target: Unit):
+	var stat_soul_experience: int = target.user_int
+	var stat_soul_damage: float = target.user_real
+	var stat_soul_damage_add: float = target.user_real2
 
-	var soul_damage: float = _stats.soul_damage + _stats.soul_damage_add * tower.get_level()
-	var soul_experience: float = _stats.soul_experience
+#	NOTE: can't use "_stats" here because target may be
+#	another "Hall of Souls" tower with a different tier.
+	var soul_damage: float = stat_soul_damage + stat_soul_damage_add * target.get_level()
+	var soul_experience: float = stat_soul_experience
 
-	tower.modify_property(Modification.Type.MOD_DAMAGE_ADD, soul_damage)
-	tower.add_exp(soul_experience)
-	tower.accumulated_soul_damage += soul_damage
+	target.modify_property(Modification.Type.MOD_DAMAGE_ADD, soul_damage)
+	target.add_exp(soul_experience)
+	target.user_real3 += soul_damage

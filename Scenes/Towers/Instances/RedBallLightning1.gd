@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var red_ball_lightning_bt: BuffType
@@ -63,7 +63,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_bounce(_stats.bounce_count, 0.60)
+	tower.set_attack_style_bounce(_stats.bounce_count, 0.60)
 
 
 func tower_init():
@@ -92,7 +92,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var shock_chance: float = SHOCK_CHANCE + SHOCK_CHANCE_ADD * tower.get_level()
 	var shock_damage: float = _stats.shock_damage + _stats.shock_damage_add * tower.get_level()

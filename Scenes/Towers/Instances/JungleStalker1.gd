@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_rage_buff: BuffType
@@ -78,15 +78,12 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	if event.is_attack_damage_critical() && tower.user_real <= _stats.feral_dmg_max:
 		tower.user_real += _stats.feral_dmg_gain
 		tower.modify_property(Modification.Type.MOD_DAMAGE_ADD_PERC, _stats.feral_dmg_gain)
 
 
 func on_kill(_event: Event):
-	var tower: Tower = self
 	var lvl: int = tower.get_level()
 	var buff_level: int = lvl + _stats.rage_buff_level_base
 	var buff_duration: float = _stats.bloodthirst_duration + BLOODTHIRST_DURATION_ADD * lvl
@@ -98,8 +95,6 @@ func on_kill(_event: Event):
 
 
 func on_create(preceding: Tower):
-	var tower: Tower = self
-
 	if preceding != null && preceding.get_family() == tower.get_family():
 		var damage_bonus: float = preceding.user_real
 		tower.user_real = damage_bonus
@@ -109,7 +104,6 @@ func on_create(preceding: Tower):
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
 	var damage_bonus: String = Utils.format_percent(tower.user_real, 1)
 
 	boekie_jungle_stalker_mb.set_value(0, damage_bonus)

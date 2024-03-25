@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_boar_proj: ProjectileType
@@ -113,11 +113,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = null
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var chance: float = _stats.occasional_quillspray_chance + _stats.occasional_quillspray_chance_add * level
 
@@ -133,11 +132,10 @@ func on_autocast(_event: Event):
 	do_quillspray_series()
 
 
-func on_projectile_hit(projectile: Projectile, creep: Unit):
+func on_projectile_hit(_projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = projectile.get_caster()
 	var active_buff: Buff = creep.get_buff_of_type(sir_boar_debuff)
 	var buff_level: int
 	if active_buff != null:
@@ -153,26 +151,25 @@ func on_projectile_hit(projectile: Projectile, creep: Unit):
 
 
 func do_quillspray_series():
-	var tower: Tower = self
 	var level: int = tower.get_level()
 
-	quillspray(tower, 1350)
+	quillspray(1350)
 
 	if level == 25:
 		if tower.calc_chance(_stats.triple_chance):
 			CombatLog.log_ability(tower, null, "Tripple Quillspray")
-			quillspray(tower, 1500)
-			quillspray(tower, 1700)
+			quillspray(1500)
+			quillspray(1700)
 		else:
 			CombatLog.log_ability(tower, null, "Double Quillspray")
-			quillspray(tower, 1500)
+			quillspray(1500)
 	elif level > 15:
 		if tower.calc_chance(_stats.double_chance):
 			CombatLog.log_ability(tower, null, "Double Quillspray")
-			quillspray(tower, 1500)
+			quillspray(1500)
 
 
-func quillspray(tower: Tower, speed: float):
+func quillspray(speed: float):
 	var creeps_in_range: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), QUILLSPRAY_RANGE)
 
 	while true:

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_frozen_well_aura_bt: BuffType
@@ -40,7 +40,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_splash({
+	tower.set_attack_style_splash({
 		150: 1.0,
 		625: 0.2
 		})
@@ -76,5 +76,4 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	boekie_freezing_mist_bt.apply(tower, event.get_target(), tower.get_level())

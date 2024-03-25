@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_dutch_panic_bt: BuffType
@@ -126,11 +126,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_create(_preceding: Tower):
-	var tower: Tower = self
 	dutchman = Projectile.create_from_unit_to_unit(dutchman_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, tower, true, true, false)
 	dutchman.set_color(Color8(100, 100, 100, 180))
 	dutchman.setScale(1.0)
@@ -153,7 +152,6 @@ func on_damage(event: Event):
 
 
 func on_kill(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var lvl: int = tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 300)
@@ -182,9 +180,7 @@ func on_tower_details() -> MultiboardValues:
 
 
 # NOTEL "Periodic()" in original script
-func dutchman_pt_periodic(p: Projectile):
-	var tower: Unit = p.get_caster()
-
+func dutchman_pt_periodic(_p: Projectile):
 	if current_target == null || !Utils.unit_is_valid(current_target):
 		current_target = tower
 		dutchman.set_homing_target(tower)
@@ -222,7 +218,6 @@ func cannonball_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = self
 	var damage: float = tower.get_current_attack_damage_with_bonus()
 	tower.do_attack_damage_aoe_unit(target, 250, damage, tower.calc_attack_multicrit_no_bonus(), 0)
 
@@ -241,7 +236,6 @@ func soulstorm_pt_on_collision(p: Projectile, target: Unit):
 
 # NOTE: "Storm()" in original script
 func do_soulstorm():
-	var tower: Tower = self
 	var shoot_pos: Vector2 = dutchman.position
 
 	if soul_count >= 2:
@@ -259,7 +253,6 @@ func soul_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = self
 	var damage: float = 14000 + 1400 * tower.get_level()
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
@@ -267,7 +260,6 @@ func soul_pt_on_hit(_p: Projectile, target: Unit):
 
 # NOTE: "NAttackFunc()" in original script
 func shoot_cannonball():
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), dutchman.get_x(), dutchman.get_y(), 800)
 	var next: Unit = it.next_random()
 
@@ -283,7 +275,6 @@ func shoot_soul():
 	if soul_count < 1:
 		return
 
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), dutchman.get_x(), dutchman.get_y(), 1200)
 
 	while true:

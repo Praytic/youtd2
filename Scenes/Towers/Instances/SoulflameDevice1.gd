@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: the fact that this tower hits 8 creeps is stated in
@@ -81,7 +81,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	set_target_count(8)
+	tower.set_target_count(8)
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, -0.40, 0.01)
 
@@ -133,7 +133,7 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -151,7 +151,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var soulfire_chance: float = 0.2 + 0.004 * tower.get_level()
 
@@ -162,8 +161,6 @@ func on_damage(event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
-
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.TOWERS), tower, 350)
 
 	while true:
@@ -191,13 +188,13 @@ func ash_soulflame_aura_bt_on_create(event: Event):
 
 func ash_soulflame_aura_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
-	var buffed_unit: Tower = buff.get_buffed_unit()
+	var buffed_tower: Tower = buff.get_buffed_unit()
 
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
-	buffed_unit.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
-	buffed_unit.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
+	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
 
 
 func ash_soulflame_aura_bt_periodic(event: Event):
@@ -206,16 +203,16 @@ func ash_soulflame_aura_bt_periodic(event: Event):
 
 
 func ash_soulflame_aura_bt_update(buff: Buff):
-	var buffed_unit: Tower = buff.get_buffed_unit()
+	var buffed_tower: Tower = buff.get_buffed_unit()
 	var caster: Unit = buff.get_caster()
 	var caster_level: int = caster.get_level()
 	var caster_level_factor: float = 0.5 + 0.02 * caster_level
 
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
-	buffed_unit.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
-	buffed_unit.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
+	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
 
 	var spell_crit_chance_innate: float = Constants.INNATE_MOD_SPELL_CRIT_CHANCE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_CHANCE_LEVEL_ADD
 	var spell_crit_dmg_innate: float = Constants.INNATE_MOD_SPELL_CRIT_DAMAGE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_DAMAGE_LEVEL_ADD
@@ -227,16 +224,15 @@ func ash_soulflame_aura_bt_update(buff: Buff):
 	buff.user_int = int((caster.get_base_attackspeed() - attackspeed_innate) * caster_level_factor * 1000.0)
 	buff.user_int2 = int((caster.get_prop_trigger_chances() - 1.0) * caster_level_factor * 1000.0)
 
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, buff.user_real2)
-	buffed_unit.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, buff.user_real3)
-	buffed_unit.modify_property(Modification.Type.MOD_ATTACKSPEED, buff.user_int / 1000.0)
-	buffed_unit.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, buff.user_real2)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, buff.user_real3)
+	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, buff.user_int / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)
 
 
 func ash_soulflame_soulfire_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var power: int = buff.get_power()
 	var damage: float = (1000 + 40 * tower.get_level()) * power
@@ -247,7 +243,6 @@ func ash_soulflame_soulfire_bt_periodic(event: Event):
 func ash_soulflame_soulfire_bt_on_death(event: Event):
 	var buff: Buff = event.get_buff()
 	var buffed_unit: Unit = buff.get_buffed_unit()
-	var tower: Tower = buff.get_caster()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), buffed_unit, 200)
 
 	var effect: int = Effect.create_simple_at_unit("DeathCoilSpecialArt.mdl", buffed_unit)
@@ -270,14 +265,12 @@ func ash_soulflame_soulfire_bt_on_death(event: Event):
 
 
 func ashbringer_consumption_missile(target: Unit):
-	var tower: Tower = self
 	var destination_pos: Vector2 = tower.get_visual_position()
 
 	Projectile.create_from_unit_to_point(soulflame_pt, target, 0, 0, target, destination_pos, false, true)
 
 
 func ashbringer_soulfire_apply(target: Unit, power_gain: int):
-	var tower: Tower = self
 	var b: Buff = target.get_buff_of_type(ash_soulflame_soulfire_bt)
 
 	if power_gain < 1:

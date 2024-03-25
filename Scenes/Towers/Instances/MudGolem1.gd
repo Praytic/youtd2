@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_golem_aura_bt: BuffType
@@ -46,7 +46,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_ground_only()
+	tower.set_attack_ground_only()
 
 
 func tower_init():
@@ -78,14 +78,13 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(_event: Event):
-	CombatLog.log_ability(self, null, "Ground Smash")
+	CombatLog.log_ability(tower, null, "Ground Smash")
 
 	smash()
 
 
 func sir_golem_aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var buffed_tower: Tower = buff.get_buffed_unit()
 	var ground_smash_chance: float = (0.03 + 0.0004 * tower.get_level()) * buffed_tower.get_base_attackspeed()
 
@@ -98,7 +97,6 @@ func sir_golem_aura_bt_on_attack(event: Event):
 
 
 func smash():
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var smash_damage: float = (4300 + 230 * level) * tower.get_prop_spell_damage_dealt()
 

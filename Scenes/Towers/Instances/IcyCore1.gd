@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var gex_icy_core_bt: BuffType

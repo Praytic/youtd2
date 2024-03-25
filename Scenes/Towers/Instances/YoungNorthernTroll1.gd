@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 var cb_stun: BuffType
 var dave_fatigue_bt: BuffType
@@ -89,7 +89,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var level: int = tower.get_level()
 
@@ -106,7 +105,6 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Creep = event.get_target()
 	var level: int = tower.get_level()
 	var base_speed: float = creep.get_base_movespeed()
@@ -124,7 +122,6 @@ func on_projectile_hit(projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower = projectile.get_caster()
 	var purged_count: int = 0
 	var damage: float = tower.get_current_attack_damage_with_bonus()
 

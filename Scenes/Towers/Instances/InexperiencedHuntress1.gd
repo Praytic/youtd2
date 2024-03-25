@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_shadow_glaive_bt: BuffType
@@ -74,7 +74,7 @@ func load_triggers(triggers: BuffType):
 # include innate stats
 func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_ATTACKSPEED, 0.0, 0.024)
-	set_attack_style_bounce(4, 0.25)
+	tower.set_attack_style_bounce(4, 0.25)
 
 
 func tower_init():
@@ -87,7 +87,6 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var buff: Buff = tower.get_buff_of_type(cedi_shadow_glaive_bt)
 	var crit_damage_multiply: float = 1.0 + _stats.shadow_glaive_crit_bonus + _stats.shadow_glaive_crit_bonus_add * tower.get_level()
 	var shadow_glaive_chance: float = SHADOW_GLAIVE_CHANCE + SHADOW_GLAIVE_CHANCE_ADD * tower.get_level()
@@ -105,7 +104,6 @@ func on_attack(_event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var star_glaive_chance: float = STAR_GLAIVE_CHANCE + STAR_GLAIVE_CHANCE_ADD * tower.get_level()
 	var stair_glaive_damage: float = event.damage * (_stats.star_glaive_dmg_ratio + STAR_GLAIVE_DMG_RATIO_ADD * tower.get_level())
 

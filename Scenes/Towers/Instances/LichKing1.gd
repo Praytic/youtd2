@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script multiplies game time delta by 0.04,
@@ -84,7 +84,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	natac_lich_icy_curse_bt.apply(tower, target, level)

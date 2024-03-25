@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var dave_knight_will_positive_bt: BuffType
@@ -112,11 +112,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var mana: float = tower.get_mana()
 	var max_mana: float = tower.get_overall_mana()
@@ -128,7 +127,6 @@ func on_damage(event: Event):
 
 
 func on_kill(_event: Event):
-	var tower: Tower = self
 	var max_mana: float = tower.get_overall_mana()
 	var mana_gain: float = max_mana * 0.05
 
@@ -136,7 +134,6 @@ func on_kill(_event: Event):
 
 
 func on_unit_in_range(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var withering_presence_chance: float = 0.15 + 0.004 * level
@@ -150,7 +147,6 @@ func on_unit_in_range(event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 200)
 	var mana: float = tower.get_mana()

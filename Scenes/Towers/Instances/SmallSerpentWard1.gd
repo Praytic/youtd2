@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_serpent_buff: BuffType
@@ -75,12 +75,10 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.auto_range = 200
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
-
 	if tower.get_level() < 25:
 		sir_serpent_buff.apply_advanced(tower, event.get_target(), _stats.buff_level + tower.get_level(), _stats.buff_power + tower.get_level() * _stats.buff_power_add, 5)
 	else:

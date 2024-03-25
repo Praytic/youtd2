@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sternbogen_broken_wind: BuffType
@@ -58,8 +58,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Unit = self
-
 	var target: Unit = event.get_target()
 	var damage: float = _stats.cyclone_damage + _stats.cyclone_damage_add * tower.get_level()
 	var b: Buff

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # TODO: need to implement visual. Currently using
@@ -49,7 +49,6 @@ func tower_init():
 # NOTE: implemented this slightly differently than original
 # script. Using "await" instead of timer.
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var attack_count: int = 10 + 2 / 5 * tower.get_level()
 	var time_between_attacks: float = tower.get_current_attackspeed() / attack_count
@@ -91,10 +90,10 @@ func on_attack(event: Event):
 		if target == null:
 			return
 
-		damage(tower, target)
+		damage(target)
 
 
-func damage(tower: Tower, target: Unit):
+func damage(target: Unit):
 	var the_range: float = 80
 	var angle: float = deg_to_rad(randf_range(0, 360))
 	var x: float = target.get_x() + cos(angle) * the_range
@@ -125,9 +124,9 @@ func damage(tower: Tower, target: Unit):
 
 func khan_omni_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = event.get_target()
+	var caster: Tower = event.get_target()
 
-	if tower.get_attack_type() != AttackType.enm.PHYSICAL:
+	if caster.get_attack_type() != AttackType.enm.PHYSICAL:
 		return
 
 	if event.is_spell_damage():

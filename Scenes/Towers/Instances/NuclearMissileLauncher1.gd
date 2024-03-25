@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script implemented progress bar as text
@@ -18,8 +18,8 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_ground_only()
-	set_attack_style_splash({
+	tower.set_attack_ground_only()
+	tower.set_attack_style_splash({
 		400: 1.00,
 		500: 0.75,
 		600: 0.50,
@@ -41,11 +41,10 @@ func on_create(_preceding_tower: Tower):
 	_progress_bar.position.x = -75
 	_progress_bar.show_percentage = false
 	_progress_bar.modulate = Color.RED
-	_visual.add_child(_progress_bar)
+	tower._visual.add_child(_progress_bar)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	natac_nuclear_target_bt.apply(tower, target, tower.get_level())
 
@@ -74,7 +73,6 @@ func on_damage(event: Event):
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var remaining_cd: float = tower.get_remaining_cooldown()
 	var attackspeed: float = tower.get_current_attackspeed()
 	var cd_ratio: float = 1.0 - remaining_cd / attackspeed

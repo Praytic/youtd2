@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var drol_fireDot: BuffType
@@ -44,7 +44,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func load_specials(modifier: Modifier):
-	set_attack_style_splash({175: 0.30})
+	tower.set_attack_style_splash({175: 0.30})
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NORMAL, 0.20, 0.004)
 
@@ -67,8 +67,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-	
 	if !tower.calc_chance(0.3):
 		return
 

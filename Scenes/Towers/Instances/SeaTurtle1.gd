@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -59,20 +59,17 @@ func load_specials(modifier: Modifier):
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var mana_gain: float = max(_stats.mana_per_attack, (_stats.mana_per_attack + _stats.mana_per_attack_add * tower.get_level()) * tower.get_base_mana_regen_bonus_percent())
 
 	tower.add_mana(mana_gain)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var damage: float = tower.get_mana()
 	tower.do_attack_damage(creep, damage, tower.calc_attack_multicrit_no_bonus())
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var mana_loss: float = tower.get_mana() * MANA_LOSS_PER_SEC
 	tower.subtract_mana(mana_loss, false)

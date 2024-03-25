@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script uses "acidbomb" cast for the acid
@@ -109,7 +109,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var acid_skull_chance: float = 0.25 + 0.004 * tower.get_level()
 
@@ -122,7 +121,6 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var soulsteal_chance: float = 0.125 + 0.001 * tower.get_level()
 
@@ -138,7 +136,6 @@ func acid_skull_pt_on_hit(_projectile: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 225)
 
 	while true:

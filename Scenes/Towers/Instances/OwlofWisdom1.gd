@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var tomy_owl_pt: ProjectileType
@@ -88,7 +88,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Creep = event.get_target()
 	var chance: float = 0.25 + 0.004 * tower.get_level()
 
@@ -101,12 +100,10 @@ func on_attack(event: Event):
 
 
 func on_create(_preceding: Tower):
-	var tower: Tower = self
 	tower.user_int = 1
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var chance: float = 0.10 + 0.002 * tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 900)
 
@@ -122,15 +119,12 @@ func periodic(_event: Event):
 
 
 func tomy_energyball_start(target: Creep):
-	var tower: Tower = self
 	Projectile.create_from_unit_to_unit(tomy_owl_pt, tower, 0, 0, tower, target, true, false, false)
 
 
 func tomy_owl_pt_on_hit(projectile: Projectile, target: Unit):
 	if target == null:
 		return
-
-	var tower: Tower = self
 
 	var aoe_range: float = 100 + 1 * tower.get_level()
 

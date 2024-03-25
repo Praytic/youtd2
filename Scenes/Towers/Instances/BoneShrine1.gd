@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_bone_debuff: BuffType
@@ -47,7 +47,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var existing_buff: Buff = event.get_target().get_buff_of_type(sir_bone_debuff)
 	var buff_level: int
 	if existing_buff != null:

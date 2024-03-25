@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cb_silence: BuffType
@@ -141,7 +141,7 @@ func tower_init():
 	autocast_concussive.buff_type = dave_concussive_tower_bt
 	autocast_concussive.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_concussive.handler = on_autocast_concussive
-	add_autocast(autocast_concussive)
+	tower.add_autocast(autocast_concussive)
 
 	var autocast_acid: Autocast = Autocast.make()
 	autocast_acid.title = "Acid Bombs"
@@ -161,7 +161,7 @@ func tower_init():
 	autocast_acid.buff_type = dave_acid_tower_bt
 	autocast_acid.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_acid.handler = on_autocast_acid
-	add_autocast(autocast_acid)
+	tower.add_autocast(autocast_acid)
 
 	var autocast_smoke: Autocast = Autocast.make()
 	autocast_smoke.title = "Smoke Bombs"
@@ -181,11 +181,10 @@ func tower_init():
 	autocast_smoke.buff_type = dave_smoke_tower_bt
 	autocast_smoke.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_smoke.handler = on_autocast_smoke
-	add_autocast(autocast_smoke)
+	tower.add_autocast(autocast_smoke)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var main_target: Unit = event.get_target()
 	var is_concussive: bool = tower.get_buff_of_type(dave_concussive_tower_bt) != null
@@ -239,8 +238,6 @@ func on_autocast_smoke(_event: Event):
 
 
 func switch_bomb_type(new_bomb_bt: BuffType):
-	var tower: Tower = self
-
 # 	Remove current bomb
 	var bomb_bt_list: Array[BuffType] = [
 		dave_concussive_tower_bt,

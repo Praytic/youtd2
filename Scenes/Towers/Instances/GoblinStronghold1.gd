@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed bug in original script. If robot ability
@@ -123,7 +123,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 #	NOTE: it's the same chance value for all 3 abilities
@@ -172,7 +171,6 @@ func cedi_goblin_sapper_pt_on_hit(projectile: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = projectile.get_caster()
 	var level: int = tower.get_level()
 	var sapper_damage: float = randi_range(1350, 7650) + 180 * level
 	var slow_buff_level: int = randi_range(250, 450) + 6 * level
@@ -198,11 +196,10 @@ func cedi_goblin_sapper_pt_on_hit(projectile: Projectile, target: Unit):
 		cedi_goblin_sapper_bt.apply(tower, next, slow_buff_level)
 
 
-func cedi_goblin_robot_pt_on_hit(projectile: Projectile, target: Unit):
+func cedi_goblin_robot_pt_on_hit(_projectile: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = projectile.get_caster()
 	var level: int = tower.get_level()
 	var buff_level: int = randi_range(100, 400) + 6 * level
 
@@ -215,11 +212,10 @@ func cedi_goblin_robot_pt_on_hit(projectile: Projectile, target: Unit):
 	tower.get_player().display_small_floating_text(floating_text, target, Color8(100, 255, 100), 40)
 
 
-func cedi_goblin_emitter_pt_on_hit(projectile: Projectile, target: Unit):
+func cedi_goblin_emitter_pt_on_hit(_projectile: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = projectile.get_caster()
 	var level: int = tower.get_level()
 	var buff_level: int = randi_range(300, 600) + 6 * level
 

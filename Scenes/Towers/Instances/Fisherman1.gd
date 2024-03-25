@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var fisherman_dps_boost_bt: BuffType
@@ -84,7 +84,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 
 	if current_attack_target != target.get_instance_id():
@@ -116,7 +115,6 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	fisherman_slow_bt.apply(tower, target, level)
@@ -138,7 +136,6 @@ func fisherman_slow_bt_on_create(event: Event):
 func fisherman_slow_bt_on_expire(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
-	var tower: Tower = buff.get_caster()
 	var lvl: int = tower.get_level()
 	var movespeed_for_strangle: float = 120 + 2.4 * lvl
 	var net_start_time: float = buff.user_real
@@ -164,7 +161,6 @@ func fisherman_slow_bt_on_expire(event: Event):
 
 
 func fresh_fish():
-	var tower: Tower = self
 	var buff_level: int = int(1000 * tower.get_current_attack_damage_with_bonus() / tower.get_current_attackspeed() * (0.15 + 0.004 * tower.get_level()))
 	var duration: float = 5.0 + 0.1 * tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 500)

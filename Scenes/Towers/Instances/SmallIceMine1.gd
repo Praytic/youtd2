@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var maj_ice_nova_slow: BuffType
@@ -56,8 +56,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.2 + tower.get_level() * 0.004):
 		return
 

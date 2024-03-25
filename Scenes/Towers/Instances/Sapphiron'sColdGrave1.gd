@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_sapphiron_bt: BuffType
@@ -52,7 +52,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 
 	var p: Projectile = Projectile.create_from_unit_to_unit(shard_pt, tower, 1.0, tower.calc_spell_crit_no_bonus(), tower, target, false, true, false)
@@ -63,7 +62,6 @@ func on_damage(event: Event):
 func shard_pt_on_expiration(p: Projectile):
 	var splits_remaining: int = p.user_int
 	var angle: float = p.get_direction()
-	var tower: Unit = p.get_caster()
 
 	if splits_remaining > 0:
 		splits_remaining -= 1

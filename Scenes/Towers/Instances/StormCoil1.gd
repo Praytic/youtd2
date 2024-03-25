@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_stormcoil_surge_bt: BuffType
@@ -95,7 +95,7 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -113,7 +113,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var distance_to_target: float = Isometric.vector_distance_to(tower.position, target.position)
 	var damage: float = distance_to_target * 12.0 * tower.get_current_attack_damage_with_bonus() / tower.get_base_damage()
@@ -126,7 +125,6 @@ func on_damage(event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var duration: float = 4.0 + 0.1 * tower.get_level()
 
@@ -138,7 +136,6 @@ func on_autocast(event: Event):
 func sir_stormcoil_surge_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
-	var tower: Tower = buff.get_caster()
 	var surge_pos: Vector2 = Vector2(buff.user_real, buff.user_real2)
 	var distance_to_target: float = Isometric.vector_distance_to(surge_pos, target.position)
 	var damage: float = 4 * distance_to_target * (1 + 0.02 * tower.get_level())
@@ -150,7 +147,6 @@ func sir_stormcoil_surge_bt_periodic(event: Event):
 
 func sir_stormcoil_aura_bt_on_damaged(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
 	var distance_to_target: float = Isometric.vector_distance_to(tower.position, target.position)
 	var damage_multiplier: float = 1.0 + distance_to_target * (0.00020 + 0.000006 * tower.get_level())

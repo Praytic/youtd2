@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: weird thing about Sacrifice ability. The description
@@ -153,11 +153,10 @@ func tower_init():
 	autocast.buff_type = dave_sacrifice_target_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var chance: float = BLOODSPILL_CHANCE + _stats.bloodspill_chance_add * level
 	var blood_altar_buff: Buff = tower.get_buff_of_type(dave_blood_altar_bt)
@@ -194,7 +193,6 @@ func on_attack(_event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Tower = event.get_target()
 	var same_family: bool = tower.get_family() == target.get_family()
 	var active_buff: Buff = target.get_buff_of_type(dave_sacrifice_target_bt)
@@ -216,6 +214,6 @@ func on_autocast(event: Event):
 
 func dave_sacrifice_target_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_buffed_unit()
+	var buffed_tower: Tower = buff.get_buffed_unit()
 	var mod_dps_add_value: float = buff.user_real
-	tower.modify_property(Modification.Type.MOD_DPS_ADD, -mod_dps_add_value)
+	buffed_tower.modify_property(Modification.Type.MOD_DPS_ADD, -mod_dps_add_value)

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_extract_exp_bt: BuffType
@@ -117,11 +117,10 @@ func tower_init():
 	autocast.buff_type = boekie_extract_exp_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_spell_target(event: Event):
-	var tower: Tower = self
 	var caster: Unit = event.get_target()
 	var buff: Buff = tower.get_buff_of_type(boekie_channel_energy_bt)
 	var tower_level: int = tower.get_level()
@@ -160,7 +159,6 @@ func on_spell_target(event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var buff: Buff = boekie_extract_exp_bt.apply(tower, event.get_target(), level)
 	var extraction_count: int = EXTRACT_COUNT + EXTRACT_COUNT_ADD * level
@@ -168,7 +166,6 @@ func on_autocast(event: Event):
 
 
 func boekie_extract_exp_bt_on_damaged(event: Event):
-	var tower: Tower = self
 	var buff: Buff = event.get_buff()
 	var exp_gain: float = _stats.extract_exp + buff.get_level() * _stats.extract_exp_add
 	var extract_count: int = buff.user_int

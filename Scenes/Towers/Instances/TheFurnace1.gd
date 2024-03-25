@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script implements "attacks random target"
@@ -81,7 +81,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_splash({300: 1.0})
+	tower.set_attack_style_splash({300: 1.0})
 
 
 func get_ability_ranges() -> Array[Tower.RangeData]:
@@ -126,7 +126,7 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -144,13 +144,12 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var iterator: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), tower.get_range())
 	var random_unit: Unit = iterator.next_random()
 
 	tower.add_mana_perc(0.01)
 
-	issue_target_order("attack", random_unit)
+	tower.issue_target_order("attack", random_unit)
 
 
 func on_damage(event: Event):
@@ -159,15 +158,11 @@ func on_damage(event: Event):
 
 
 func on_kill(_event: Event):
-	var tower: Tower = self
-
 	tower.modify_property(Modification.Type.MOD_MANA, 10)
 	tower.add_mana_perc(0.04)
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
-
 	var damagecast: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), tower, 1000)
 	var buffcast: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.TOWERS), tower, 350)
 	var tower_mana: float = tower.get_mana()
@@ -203,7 +198,6 @@ func on_autocast(_event: Event):
 
 
 func ashbringer_linger_apply(target: Unit):
-	var tower: Tower = self
 	var buff: Buff = target.get_buff_of_type(ashbringer_linger_bt)
 	
 	var power: int = 0
@@ -217,7 +211,6 @@ func ashbringer_linger_apply(target: Unit):
 
 func ashbringer_linger_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
 	var power: int = buff.get_power()
 	var damage: float = (100 + 2 * tower.get_level()) * power

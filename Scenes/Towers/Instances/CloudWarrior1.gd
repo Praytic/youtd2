@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: replaced (creep.getUID() == cid) with
@@ -45,16 +45,14 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_bounce(2, 0.0)
+	tower.set_attack_style_bounce(2, 0.0)
 
 
 func on_create(_preceding_tower: Tower):
-	user_int = 0
+	tower.user_int = 0
 	
 
 func on_damage(event: Event):
-	var tower: Unit = self
-
 	if !tower.calc_chance(0.3):
 		return
 

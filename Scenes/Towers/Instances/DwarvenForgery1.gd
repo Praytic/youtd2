@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var dwarven_forgery_aura_bt: BuffType

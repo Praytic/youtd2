@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script did the "Aqua Edge" spell by casting
@@ -113,7 +113,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var aqua_edge_chance: float = 0.20 + 0.006 * level
@@ -149,7 +148,6 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var spread_chance: float = 0.10 + 0.002 * level
@@ -186,7 +184,6 @@ func on_damage(event: Event):
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var magic_boost_chance: float = 0.3
 
@@ -214,7 +211,6 @@ func periodic(_event: Event):
 
 
 func speedcast():
-	var tower: Tower = self
 	var speedcast_chance: float = 0.15
 
 	if !tower.calc_chance(speedcast_chance):

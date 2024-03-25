@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cb_silence: BuffType
@@ -95,7 +95,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 
 	if tower.get_mana() < 40:
@@ -131,7 +130,6 @@ func on_damage(event: Event):
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 800)
 	var duration: float = 2.0 + 0.04 * tower.get_level()
 
@@ -146,16 +144,11 @@ func periodic(_event: Event):
 		cb_silence.apply_only_timed(tower, next, duration)
 
 
-# func on_autocast(event: Event):
-# 	var tower: Tower = self
-
-
 # NOTE: "glaive_hit()" in original script
-func glaive_pt_on_hit(p: Projectile, target: Unit):
+func glaive_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	var damage: float = tower.get_current_attack_damage_with_bonus()
 	var silenced_damage_multiplier: float = get_silenced_damage_multiplier()
 
@@ -170,7 +163,6 @@ func glaive_pt_on_hit(p: Projectile, target: Unit):
 # NOTE: "silence()" in original script
 func mock_nortrom_aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var buffed_unit: Unit = buff.get_buffed_unit()
 	var target: Creep = event.get_target()
 	var silence_chance: float = (0.03 + 0.0008 * tower.get_level()) * buffed_unit.get_base_attackspeed()
@@ -188,7 +180,6 @@ func mock_nortrom_aura_bt_on_attack(event: Event):
 
 
 func get_silenced_damage_multiplier() -> float:
-	var tower: Tower = self
 	var multiplier: float = 1.2 + 0.032 * tower.get_level()
 
 	return multiplier

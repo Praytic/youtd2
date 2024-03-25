@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var lunar_emitter_bt: BuffType
@@ -40,7 +40,7 @@ func get_ability_description_short() -> String:
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_splash({
+	tower.set_attack_style_splash({
 		50: 1.0,
 		350: 0.4,
 		})

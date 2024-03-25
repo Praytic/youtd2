@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_crypt_plague_bt: BuffType
@@ -48,8 +48,8 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_ground_only()
-	set_attack_style_splash({
+	tower.set_attack_ground_only()
+	tower.set_attack_style_splash({
 		25: 1.00,
 		50: 0.40,
 		150: 0.25,
@@ -87,14 +87,12 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	cedi_crypt_plague_bt.apply(tower, target, level)
 
 
 func on_tower_details():
-	var tower: Tower = self
 	var army_buff: Buff = tower.get_buff_of_type(cedi_crypt_army_bt)
 	var army_buff_level: int
 	if army_buff != null:
@@ -112,7 +110,6 @@ func on_tower_details():
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_corpses_in_range(tower, tower.get_x(), tower.get_y(), 1150)
 	var corpse: Unit = it.next_corpse()
 
@@ -167,7 +164,6 @@ func cedi_crypt_plague_on_refresh(event: Event):
 
 func cedi_crypt_plague_periodic_damage(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Unit = buff.get_caster()
 	var target: Unit = buff.get_buffed_unit()
 	var level: int = tower.get_level()
 	var damage_increase_multiplier: int = buff.user_int
@@ -182,7 +178,6 @@ func cedi_crypt_plague_periodic_damage(event: Event):
 # we will start doing real plague spreads.
 func cedi_crypt_plague_periodic_spread(event: Event):
 	var plague_buff: Buff = event.get_buff()
-	var tower: Tower = plague_buff.get_caster()
 	var target: Unit = plague_buff.get_buffed_unit()
 	var level: int = tower.get_level()
 	var first_periodic_call: int = plague_buff.user_int2
@@ -210,7 +205,6 @@ func cedi_crypt_plague_periodic_spread(event: Event):
 # NOTE: plague spread time gets smaller as the level of army
 # buff increases
 func get_plague_spread_time():
-	var tower: Tower = self
 	var army_buff: Buff = tower.get_buff_of_type(cedi_crypt_army_bt)
 	var army_buff_level: int
 	if army_buff == null:

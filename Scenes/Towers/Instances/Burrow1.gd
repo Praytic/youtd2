@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -39,8 +39,6 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	var cur_ratio: float = _stats.armor_ignored + _stats.armor_ignored_add * tower.get_level()
 	var s_dmg: float = event.damage
 	var damage_base: float = event.damage

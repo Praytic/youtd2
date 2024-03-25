@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_coals_buff : BuffType
@@ -59,7 +59,5 @@ func tower_init():
 
 
 func on_kill(_event: Event):
-	var tower: Tower = self
-
 	var lvl: int = tower.get_level()
 	boekie_coals_buff.apply_custom_timed(tower, tower, lvl * 3, _stats.duration + 0.05 * lvl)

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var slow_debuff: BuffType
@@ -69,7 +69,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_target_count(3)
+	tower.set_target_count(3)
 
 
 func tower_init():
@@ -85,7 +85,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var creep: Unit = event.get_target()
 	var slow_duration: float = _stats.slow_duration + SLOW_DURATION_ADD * level
@@ -102,14 +101,10 @@ func on_damage(event: Event):
 
 
 func on_level_up(_event: Event):
-	var tower: Tower = self
-
 	if tower.get_level() == 15:
-		set_target_count(4)
+		tower.set_target_count(4)
 
 
 func on_create(_preceding: Tower):
-	var tower: Tower = self
-
 	if tower.get_level() >= 15:
-		set_target_count(4)
+		tower.set_target_count(4)

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var ashbringer_firestorm_buff: BuffType
@@ -43,7 +43,7 @@ func load_triggers(triggers: BuffType):
 	triggers.add_event_on_attack(on_attack)
 
 
-func ashbringer_firestorm_damage(tower: Tower, creep: Unit):
+func ashbringer_firestorm_damage(creep: Unit):
 	var effect: int = Effect.create_scaled("DoomDeath.mdl", creep.position.x, creep.position.y, 0, 0, 5)
 	Effect.destroy_effect_after_its_over(effect)
 	tower.do_spell_damage_aoe_unit(creep, 300, _stats.firestorm_damage + (_stats.firestorm_damage_add * tower.get_level()), tower.calc_spell_crit_no_bonus(), 0.0)
@@ -51,7 +51,6 @@ func ashbringer_firestorm_damage(tower: Tower, creep: Unit):
 
 func ashbringer_firestorm_periodic(event: Event):
 	var b: Buff = event.get_buff()
-	var tower: Tower = b.get_caster()
 	var target: Unit = b.get_buffed_unit()
 	b.user_int = b.user_int - 1
 	if b.user_int <= 0:
@@ -59,7 +58,7 @@ func ashbringer_firestorm_periodic(event: Event):
 #		kill the buff carrier, and removing buff after the
 #		carrier is dead causes double free
 		b.remove_buff()
-	ashbringer_firestorm_damage(tower, target)
+	ashbringer_firestorm_damage(target)
 
 
 func ashbringer_firestorm_setint(event: Event):
@@ -69,7 +68,6 @@ func ashbringer_firestorm_setint(event: Event):
 
 func firestorm(event: Event):
 	var b: Buff = event.get_buff()
-	var tower: Tower = b.get_caster() 
 	var creep: Creep = b.get_buffed_unit() 
 	var effect: int = Effect.create_scaled("DoomDeath.mdl", creep.position.x, creep.position.y, 0, 0, 5)
 	Effect.destroy_effect_after_its_over(effect)
@@ -85,8 +83,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(_stats.firestorm_chance + _stats.firestorm_chance_add * tower.get_level()):
 		return
 
@@ -98,7 +94,7 @@ func on_attack(event: Event):
 	CombatLog.log_ability(tower, creep, "Firestorm")
 
 	if b != null:
-		ashbringer_firestorm_damage(tower, creep)
+		ashbringer_firestorm_damage(creep)
 		i = b.get_power() + 2
 		b.set_power(i)
 		b.user_int = i

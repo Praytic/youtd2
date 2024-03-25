@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var militia_axe: ProjectileType
@@ -48,11 +48,9 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_NATURE, 0.20, _stats.dmg_to_nature_add)
 
 
-func militia_axe_hit(p: Projectile, target: Unit):
+func militia_axe_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
-
-	var tower: Tower = p.get_caster()
 
 	if tower.calc_bad_chance(0.33 - _stats.miss_chance_add * tower.get_level()):
 		tower.get_player().display_floating_text_x("Miss", tower, Color8(255, 0, 0, 255), 0.05, 0.0, 2.0)
@@ -66,8 +64,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
-
 	var attacks: int = 2
 	var add: bool = false
 	var maintarget: Unit = event.get_target()
@@ -113,17 +109,13 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	if tower.calc_bad_chance(0.33 - _stats.miss_chance_add * tower.get_level()):
 		event.damage = 0
 		tower.get_player().display_floating_text_x("Miss", tower, Color8(255, 0, 0, 255), 0.05, 0.0, 2.0)
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
-
 # 	Save the family member (1 = first member)
-	tower.user_int = get_tier()
+	tower.user_int = tower.get_tier()
 # 	Used to save the buff (double linked list)
 	tower.user_int2 = 0

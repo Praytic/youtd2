@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed two bugs which were present in original script.
@@ -70,7 +70,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var creep: Creep = event.get_target()
 	var already_has_buff: bool = creep.get_buff_of_type(sir_frost) != null

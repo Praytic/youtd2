@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: the original script sets "timeLevelAdd" parameter
@@ -55,15 +55,11 @@ func tower_init():
 
 
 func on_create(_preceding_tower: Tower):
-	var tower = self
-
 	#	base entangle dps
 	tower.user_int = _stats.base_entangle_dps
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	if !tower.calc_chance(0.125 + tower.get_level() * 0.002):
 		return
 

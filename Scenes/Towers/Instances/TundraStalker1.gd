@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var drol_tundraStalker: BuffType
@@ -68,8 +68,6 @@ func get_ability_ranges() -> Array[Tower.RangeData]:
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
-
 	if tower.user_real < _stats.frenzy_max_bonus:
 		tower.user_real = tower.user_real + 0.005
 		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, 0.005)
@@ -123,12 +121,10 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 850
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_create(preceding: Tower):
-	var tower: Tower = self
-
 	if preceding != null && preceding.get_family() == tower.get_family():
 		tower.user_real = preceding.user_real
 		tower.modify_property(Modification.Type.MOD_ATTACKSPEED, preceding.user_real)
@@ -137,7 +133,6 @@ func on_create(preceding: Tower):
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
 	var speed_bonus_text: String = Utils.format_percent(tower.user_real, 1)
 	drol_tundraStalkerValues.set_value(0, speed_bonus_text)
 

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script used a weird method of storing and
@@ -154,11 +154,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var icy_bombardment_chance: float = 0.15 + 0.004 * tower.get_level()
 
@@ -170,7 +169,6 @@ func on_attack(event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Creep = event.get_target()
 	var damage: float = event.damage
 	var icicle_chance: float = 0.15 + 0.004 * tower.get_level()
@@ -195,7 +193,6 @@ func on_destruct():
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Creep = event.get_target()
 	var tower_mana: float = tower.get_mana()
 	var duration: float = tower_mana / (150 - tower.get_level())
@@ -214,7 +211,6 @@ func on_autocast(event: Event):
 # don't need to clean up it's effect or remove it from
 # icicle list because that setup was never performed for it.
 func ashbringer_icicle_fire_single(target: Unit):
-	var tower: Tower = self
 	var start_pos: Vector2 = tower.get_visual_position()
 	
 	CombatLog.log_ability(tower, target, "Fire single Icicle")
@@ -231,7 +227,6 @@ func ashbringer_icicle_fire_single(target: Unit):
 # fashion. Position of new icicle = position of prev icicle
 # slightly rotated.
 func ashbringer_icicle_store():
-	var tower: Tower = self
 	var icicle_count_max: int = get_icicle_count_max()
 
 	CombatLog.log_ability(tower, null, "Store Icicle - %d" % icicle_list.size())
@@ -300,7 +295,6 @@ func ashbringer_icicle_create(target: Unit):
 
 
 func ashbringer_frostburn_damage(target: Unit, damage: float):
-	var tower: Tower = self
 	var dot_inc = 1.0 + 0.01 * tower.get_level()
 
 	tower.do_attack_damage(target, damage * 0.5, tower.calc_attack_multicrit_no_bonus())
@@ -316,7 +310,6 @@ func ashbringer_frostburn_damage(target: Unit, damage: float):
 
 
 func ashbringer_frostburn_bt_periodic(event: Event):
-	var tower: Tower = self
 	var buff: Buff = event.get_buff()
 	var target: Creep = buff.get_buffed_unit()
 	var remaining: float = buff.get_remaining_duration()
@@ -334,7 +327,6 @@ func icicle_missile_pt_on_hit(_p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Tower = self
 	var damage: float = (3000 + 80 * tower.get_level()) * (1.0 + 0.02 * fired_icicle_count)
 
 	ashbringer_frostburn_damage(target, damage)
@@ -345,8 +337,6 @@ func ashbringer_icicle_fire_all(target: Unit):
 #	function is running are fired instantly. Icicles may be
 #	created because of ON_DAMAGE event.
 	fire_all_in_progress = true
-
-	var tower: Tower = self
 
 	CombatLog.log_ability(tower, target, "Fire all Icicles - %d" % icicle_list.size())
 
@@ -373,7 +363,6 @@ func ashbringer_icicle_fire_all(target: Unit):
 
 
 func ashbringer_icy_bombardment(target: Unit):
-	var tower: Tower = self
 	var chance: float = 0.3 + 0.004 * tower.get_level()
 	var shot_count: int = 0
 	var target_pos: Vector2 = target.position
@@ -395,7 +384,6 @@ func ashbringer_icy_bombardment(target: Unit):
 
 
 func bombardment_pt_on_hit(p: Projectile):
-	var tower: Tower = self
 	var launch_x: float = p.user_real
 	var launch_y: float = p.user_real2
 	var it: Iterate = Iterate.over_units_in_range_of(tower, TargetType.new(TargetType.CREEPS), launch_x, launch_y, 200)
@@ -416,15 +404,15 @@ func bombardment_pt_on_hit(p: Projectile):
 
 func ashbringer_ebonfrost_shatter_bt_on_create(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
+	var caster: Tower = buff.get_caster()
 	var target: Creep = buff.get_buffed_unit()
 
-	cb_stun.apply_only_timed(tower, target, buff.get_remaining_duration())
+	cb_stun.apply_only_timed(caster, target, buff.get_remaining_duration())
 	ashbringer_icicle_fire_all(target)
 
 
 func get_icicle_count_max() -> int:
-	var bonus_from_lvls: int = floori(get_level() / 5) 
+	var bonus_from_lvls: int = floori(tower.get_level() / 5) 
 	var count: int = ICICLE_MAX_BASE + bonus_from_lvls
 
 	return count

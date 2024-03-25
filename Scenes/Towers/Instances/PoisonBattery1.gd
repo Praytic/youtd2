@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: rewrote script a bit. Instead of enabling/disabling
@@ -83,23 +83,19 @@ func get_ability_ranges() -> Array[Tower.RangeData]:
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
-
 	tower.set_mana(tower.get_mana() + 100)
 	_battery_overload_is_active = true
 
 
 func damage_periodic(event: Event):
 	var b: Buff = event.get_buff()
-	var tower: Tower = b.get_caster()
 	tower.do_spell_damage(b.get_buffed_unit(), b.get_power() * _stats.poison_damage_add + _stats.poison_damage, tower.calc_spell_crit_no_bonus())
 
 
-func hit(p: Projectile, creep: Unit):
+func hit(_p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	tower.do_spell_damage(creep, tower.get_level() * _stats.projectile_damage_add + _stats.projectile_damage, tower.calc_spell_crit_no_bonus())
 	poison_battery_poison.apply_custom_power(tower, creep, _stats.debuff_level_add * tower.get_level() + _stats.debuff_level, tower.get_level())
 
@@ -136,16 +132,14 @@ func tower_init():
 	autocast.target_type = null
 	autocast.auto_range = 800
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	poison_battery_poison.apply(tower, event.get_target(), tower.get_level())
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 	tower.user_int = 0
 	tower.set_mana(0)
 
@@ -153,8 +147,6 @@ func on_create(_preceding_tower: Tower):
 func periodic(_event: Event):
 	if !_battery_overload_is_active:
 		return
-
-	var tower: Tower = self
 
 	if tower.get_mana() > 10:
 		var in_range: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 1200)

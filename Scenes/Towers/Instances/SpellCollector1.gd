@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script has a bug where if multiple towers
@@ -110,7 +110,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var chance: float = BARRAGE_CHANCE + BARRAGE_CHANCE_ADD * tower.get_level()
 	var missile_crit_chance: float = _stats.missile_crit_chance + _stats.missile_crit_chance_add * tower.get_level()
@@ -144,7 +143,6 @@ func on_attack(event: Event):
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
 	var buff: Buff = tower.get_buff_of_type(cedi_spell_missile_stacks_bt)
 	var lvl: int = 0
 

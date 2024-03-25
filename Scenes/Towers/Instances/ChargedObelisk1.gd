@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cb_stun: BuffType
@@ -88,11 +88,10 @@ func tower_init():
 	autocast.buff_type = boekie_charged_obelisk_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var lvl: int = tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 1000)
 	var random_creep: Unit = it.next_random()
@@ -109,7 +108,6 @@ func on_attack(_event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	boekie_charged_obelisk_bt.apply(tower, event.get_target(), tower.get_level() * 6)
 
 

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -38,8 +38,6 @@ func load_specials(modifier: Modifier):
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
 	var mana: float = tower.get_mana()
 
 	if mana < 1:

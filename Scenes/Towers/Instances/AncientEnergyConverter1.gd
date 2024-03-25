@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 # TODO: the visual for chain lightning is a bit incorrect.
 # It should start from projectile, instead it starts from
@@ -33,7 +33,7 @@ func get_autocast_description_short() -> String:
 
 
 func load_specials(modifier: Modifier):
-	set_attack_style_bounce(3, 0.70)
+	tower.set_attack_style_bounce(3, 0.70)
 	modifier.add_modification(Modification.Type.MOD_MANA, 0, 25)
 
 
@@ -67,11 +67,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var projectile_count: int = 3 + level / 5
 	var x: float = tower.get_visual_x()
@@ -86,7 +85,6 @@ func on_autocast(_event: Event):
 
 
 func orb_pt_periodic(p: Projectile):
-	var tower: Tower = self
 	var lightning_chance: float = 0.25
 
 	if !tower.calc_chance(lightning_chance):
@@ -100,6 +98,5 @@ func orb_pt_periodic(p: Projectile):
 
 
 func lightning_st_on_damage(event: Event, _dummy_unit: DummyUnit):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	cb_stun.apply_only_timed(tower, target, 0.8)

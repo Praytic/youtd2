@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: reworked original script. Origin script uses
@@ -76,7 +76,6 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var hellfire_chance: float = 0.25 + 0.002 * level
 
@@ -94,7 +93,6 @@ func on_attack(_event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 
@@ -104,7 +102,6 @@ func on_damage(event: Event):
 func liquid_fire_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
-	var tower: Tower = buff.get_caster()
 	var damage: float = 500 + 50 * buff.get_level()
 
 	tower.do_spell_damage(target, damage, tower.calc_spell_crit_no_bonus())
@@ -116,7 +113,6 @@ func liquid_fire_periodic(event: Event):
 # target count and we need to take care to work well
 # together with them.
 func hellfire_on_create(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var buff: Buff = event.get_buff()
 
@@ -134,7 +130,6 @@ func hellfire_on_create(event: Event):
 
 
 func hellfire_on_cleanup(event: Event):
-	var tower: Tower = self
 	var buff: Buff = event.get_buff()
 	var target_count_bonus: int = buff.user_int
 

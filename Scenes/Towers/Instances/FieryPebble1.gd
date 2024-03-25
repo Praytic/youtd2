@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 func get_tier_stats() -> Dictionary:
 	return {
@@ -12,4 +12,4 @@ func get_tier_stats() -> Dictionary:
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_splash({_stats.splash_radius: 0.25})
+	tower.set_attack_style_splash({_stats.splash_radius: 0.25})

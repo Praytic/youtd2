@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_timevault_aura_bt: BuffType
@@ -61,7 +61,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Creep = event.get_target()
 	var target_is_boss: bool = creep.get_size() >= CreepSize.enm.BOSS
 	var chance_for_boss: float = 0.20 + 0.005 * tower.get_level()

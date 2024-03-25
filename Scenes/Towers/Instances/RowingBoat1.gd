@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var natac_treasureSeeker_Buff: BuffType
@@ -48,8 +48,8 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_ground_only()
-	set_attack_style_splash({
+	tower.set_attack_ground_only()
+	tower.set_attack_style_splash({
 		25: 1.0,
 		150: 0.4,
 		250: 0.1,
@@ -83,8 +83,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
 # 	The gold, that will be granted to the player on this attack 
 	var gold_granted: float = _stats.plunder_amount
 #	Set the statistics
@@ -93,7 +91,6 @@ func on_attack(_event: Event):
 
 
 func on_create(preceding_tower: Tower):
-	var tower: Tower = self
 	var parent: Tower = preceding_tower
 
 # 	Total gold, earned by this towers pirates ability 
@@ -104,7 +101,6 @@ func on_create(preceding_tower: Tower):
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
 	var gold_plundered_text: String = Utils.format_float(tower.user_real, 2)
 	natac_pirates_MultiboardValue.set_value(0, gold_plundered_text)
 	

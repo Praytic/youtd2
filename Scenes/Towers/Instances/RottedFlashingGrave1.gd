@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 # NOTE: modified this script because the original did a
 # bunch of unnecessary things.
@@ -30,11 +30,8 @@ func load_specials(modifier: Modifier):
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MAGIC, 0.10, 0.01)
 
 
-func on_attack(event: Event):
-	var b: Buff = event.get_buff()
-
-	var tower: Tower = b.get_caster()
+func on_attack(_event: Event):
 	var iterator: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), tower.get_range())
 	var random_unit: Unit = iterator.next_random()
 
-	issue_target_order("attack", random_unit)
+	tower.issue_target_order("attack", random_unit)

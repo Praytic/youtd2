@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cassim_slow: BuffType
@@ -55,8 +55,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	var lvl: int = tower.get_level()
 	var slow: int = int((_stats.slow_base + lvl * _stats.slow_add) * 1000)
 	var dur: int = int(_stats.duration_base + lvl * _stats.duration_add)

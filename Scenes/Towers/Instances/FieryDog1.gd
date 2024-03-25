@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_helldog: BuffType
@@ -63,8 +63,6 @@ func tower_init():
 
 
 func on_damage(_event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.3):
 		return
 

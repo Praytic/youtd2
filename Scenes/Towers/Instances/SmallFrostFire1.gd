@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 # NOTE: some stats are multiplied by 1000
 
@@ -66,7 +66,7 @@ func tower_init():
 	autocast.target_self = false
 	autocast.handler = on_autocast
 
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 	var slow: Modifier = Modifier.new()
 	slow.add_modification(Modification.Type.MOD_MOVESPEED, 0, -0.001)
@@ -77,8 +77,6 @@ func tower_init():
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
-
 	var targ: Unit = event.get_target()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), targ, 250)
 	var next: Unit

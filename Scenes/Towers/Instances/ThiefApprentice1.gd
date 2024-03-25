@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var m0ck_thief_multiboard: MultiboardValues
@@ -62,14 +62,11 @@ func tower_init():
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
-	
 	tower.user_real = 0.0
 	tower.user_int = _stats.gold
 
 
 func on_tower_details() -> MultiboardValues:
-	var tower: Tower = self
 	var gold_stolen_text: String = Utils.format_float(tower.user_real, 0)
 	m0ck_thief_multiboard.set_value(0, gold_stolen_text)
 	
@@ -77,8 +74,6 @@ func on_tower_details() -> MultiboardValues:
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	if !tower.calc_chance(0.1 + tower.get_level() * 0.004):
 		return
 	
@@ -87,8 +82,7 @@ func on_damage(event: Event):
 	Projectile.create_linear_interpolation_from_unit_to_unit(mOck_steal, tower, 0, 0, event.get_target(), tower, 0, true)
 
 
-func steal(p: Projectile, _creep: Unit):
-	var tower = p.get_caster()
+func steal(_p: Projectile, _creep: Unit):
 	var gold_granted: float = (tower.user_int * (tower.get_level() * tower.user_int * 0.04)) / 10
 	tower.get_player().give_gold(gold_granted, tower, false, true)
 	tower.user_real = tower.user_real + gold_granted

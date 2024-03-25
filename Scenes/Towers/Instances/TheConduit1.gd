@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: "Conduit" ability is exactly the same as "Evil
@@ -74,7 +74,7 @@ func load_triggers(triggers: BuffType):
 # spell crit damage = yes
 # spell crit damage add = no
 func load_specials(modifier: Modifier):
-	set_target_count(10)
+	tower.set_target_count(10)
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_CHANCE, 0.0375, 0.005)
 	modifier.add_modification(Modification.Type.MOD_SPELL_CRIT_DAMAGE, 0.25, 0.05)
 
@@ -123,7 +123,7 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -141,7 +141,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var absorb_energy_chance: float = 0.1 + 0.002 * tower.get_level()
 
 #	NOTE: in original script, damage was set to 0 only when
@@ -163,7 +162,6 @@ func on_damage(event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.TOWERS), tower, 350)
 	var cast_damage: float = (400 + 8 * tower.get_level()) * tower.get_player().get_team().get_level()
@@ -203,13 +201,13 @@ func ash_conduit_unleash_bt_on_create(event: Event):
 # NOTE: "ashbringer_conduit_cleanup()" in original script
 func ash_conduit_unleash_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_buffed_unit()
+	var buffed_tower: Unit = buff.get_buffed_unit()
 	
-	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
-	tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
-	tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
-	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
-	tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
+	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
 
 
 # NOTE: "ashbringer_conduit_update()" in original script
@@ -220,16 +218,16 @@ func ash_conduit_unleash_bt_periodic(event: Event):
 
 
 func ash_conduit_unleash_bt_update(buff: Buff):
-	var tower: Tower = buff.get_buffed_unit()
+	var buffed_tower: Tower = buff.get_buffed_unit()
 	var caster: Tower = buff.get_caster()
 	var caster_level: int = caster.get_level()
 	var caster_level_factor: float = 0.5 + 0.02 * caster_level
 
-	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
-	tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
-	tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
-	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
-	tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, -buff.user_real)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, -buff.user_real2)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, -buff.user_real3)
+	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, -buff.user_int / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, -buff.user_int2 / 1000.0)
 
 	var spell_crit_chance_innate: float = Constants.INNATE_MOD_SPELL_CRIT_CHANCE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_CHANCE_LEVEL_ADD
 	var spell_crit_dmg_innate: float = Constants.INNATE_MOD_SPELL_CRIT_DAMAGE - caster_level * Constants.INNATE_MOD_SPELL_CRIT_DAMAGE_LEVEL_ADD
@@ -241,8 +239,8 @@ func ash_conduit_unleash_bt_update(buff: Buff):
 	buff.user_int = int((caster.get_base_attackspeed() - attackspeed_innate) * caster_level_factor * 1000.0)
 	buff.user_int2 = int((caster.get_prop_trigger_chances() - 1.0) * caster_level_factor * 1000.0)
 
-	tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)
-	tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, buff.user_real2)
-	tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, buff.user_real3)
-	tower.modify_property(Modification.Type.MOD_ATTACKSPEED, buff.user_int / 1000.0)
-	tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_DAMAGE_DEALT, buff.user_real)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_CHANCE, buff.user_real2)
+	buffed_tower.modify_property(Modification.Type.MOD_SPELL_CRIT_DAMAGE, buff.user_real3)
+	buffed_tower.modify_property(Modification.Type.MOD_ATTACKSPEED, buff.user_int / 1000.0)
+	buffed_tower.modify_property(Modification.Type.MOD_TRIGGER_CHANCES, buff.user_int2 / 1000.0)

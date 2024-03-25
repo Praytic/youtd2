@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: changed the script a bit. Original script
@@ -63,8 +63,6 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.25 + 0.005 * tower.get_level()):
 		return
 

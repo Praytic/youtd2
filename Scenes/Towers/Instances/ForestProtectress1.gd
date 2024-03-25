@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script has a bug where slow debuff is
@@ -95,7 +95,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var wrath_damage: float = (0.5 + 0.02 * tower.get_level()) * tower.get_current_attack_damage_with_bonus()
 	var wrath_chance: float = 0.05 * seconds_since_last_attack
@@ -103,7 +102,7 @@ func on_damage(event: Event):
 	if !tower.calc_chance(wrath_chance):
 		return
 
-	CombatLog.log_ability(self, target, "Protectress's Wrath")
+	CombatLog.log_ability(tower, target, "Protectress's Wrath")
 
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 250)
 	SFX.sfx_at_unit("NECancelDeath.mdl", target)
@@ -124,7 +123,6 @@ func on_damage(event: Event):
 
 
 func periodic(event: Event):
-	var tower: Tower = self
 	var bonus_add: float = 0.18 + 0.01 * tower.get_level()
 	var updated_period: float = tower.get_current_attackspeed() / 2.2
 
@@ -143,20 +141,20 @@ func periodic(event: Event):
 
 func cedi_protectress_aura_bt_on_attack(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Unit = buff.get_buffed_unit()
+	var buffed_tower: Unit = buff.get_buffed_unit()
 	var creep: Unit = event.get_target()
 	var caster: Unit = buff.get_caster()
 	var prev_bonus: float = buff.user_real
 	var new_bonus: float = creep.get_health_ratio() * (0.25 + 0.01 * caster.get_level())
 
-	tower.modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -prev_bonus)
-	tower.modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, new_bonus)
+	buffed_tower.modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -prev_bonus)
+	buffed_tower.modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, new_bonus)
 
 	buff.user_real = new_bonus
 
 
 func cedi_protectress_aura_bt_on_cleanup(event: Event):
 	var buff: Buff = event.get_buff()
-	var target: Unit = buff.get_buffed_unit()
+	var buffed_tower: Unit = buff.get_buffed_unit()
 	var applied_bonus: float = buff.user_real
-	target.modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -applied_bonus)
+	buffed_tower.modify_property(Modification.Type.MOD_ATK_CRIT_CHANCE, -applied_bonus)

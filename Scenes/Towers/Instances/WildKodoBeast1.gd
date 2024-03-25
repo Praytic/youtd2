@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_kodo_aura_bt: BuffType
@@ -76,7 +76,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var chance: float = 0.06 + 0.001 * level
@@ -105,6 +104,5 @@ func on_attack(event: Event):
 
 func sir_kodo_aura_bt_on_refresh(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var new_power: int = (100 + 2 * tower.get_level()) * tower.devour_count
 	buff.set_power(new_power)

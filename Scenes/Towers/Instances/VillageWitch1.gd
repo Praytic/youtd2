@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_love_potion: BuffType
@@ -75,7 +75,6 @@ func load_specials(modifier: Modifier):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var projectile: Projectile = Projectile.create_from_unit_to_unit(cedi_love_missile, tower, 1.00, tower.calc_spell_crit_no_bonus(), tower, event.get_target(), true, false, false)
 	projectile.user_int = _stats.item_chance + tower.get_level() * 3
 
@@ -84,7 +83,6 @@ func cedi_love(p: Projectile, target: Unit):
 	if target == null:
 		return
 
-	var tower: Unit = p.get_caster()
 	cedi_love_potion.apply(tower, target, p.user_int)
 
 func tower_init():
@@ -121,11 +119,10 @@ func tower_init():
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.auto_range = 1100
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var multiplier: float = 1.00
 	var UID: int = tower.get_instance_id()
 
@@ -152,5 +149,4 @@ func on_damage(event: Event):
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 	tower.user_real = _stats.soul_chance

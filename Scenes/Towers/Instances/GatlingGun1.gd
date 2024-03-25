@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: changed how gatling fire is enabled. Using a bool
@@ -80,7 +80,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var projectile_count_max: int = int(tower.get_current_attackspeed() / 0.1)
 	var dmg_ratio: float = 1.0
@@ -119,7 +118,6 @@ func on_attack(event: Event):
 
 
 func on_unit_in_range(_event: Event):
-	var tower: Tower = self
 	var tower_level: int = tower.get_level()
 	var buff_level: int = 1
 	var buff: Buff = tower.get_buff_of_type(boekie_gatling_bt)
@@ -134,8 +132,6 @@ func on_unit_in_range(_event: Event):
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
-
 	if !gatling_fire_enabled:
 		return
 
@@ -159,7 +155,6 @@ func ball_pt_on_hit(projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = projectile.get_caster()
 	var explode_chance: float = 0.10 + 0.003 * tower.get_level()
 	var exploded: bool = tower.calc_chance(explode_chance)
 	var damage: float = projectile.user_real * tower.get_current_attack_damage_with_bonus()

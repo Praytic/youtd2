@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var drol_tentacleDot: BuffType
@@ -65,7 +65,6 @@ func drol_tentacleDamage(event: Event):
 
 
 func on_damage(event: Event):
-	var tower = self
 	var target: Unit = event.get_target()
 
 	if !tower.calc_chance(0.25 + tower.get_level() * 0.01):

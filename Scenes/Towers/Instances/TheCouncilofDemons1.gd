@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script has a bug where the projectile
@@ -128,7 +128,7 @@ func tower_init():
 	autocast.buff_type = dave_council_darkness_bt
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -146,7 +146,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var maledict_chance: float = 0.2 + 0.004 * level
@@ -160,7 +159,6 @@ func on_damage(event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	dave_council_darkness_bt.apply(tower, target, level)
@@ -168,7 +166,6 @@ func on_autocast(event: Event):
 
 func dave_council_aura_bt_on_spell_casted(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var target: Unit = event.get_target()
 	var caster: Tower = buff.get_buffed_unit()
 	var goldcost: float = caster.get_gold_cost()
@@ -190,14 +187,12 @@ func dave_council_pt_on_hit(p: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = p.get_caster()
 	var projectile_damage: float = p.user_real
 	tower.do_spell_damage(creep, projectile_damage, tower.calc_spell_crit_no_bonus())
 
 
 func dave_council_maledict_on_spell_targeted(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var caster: Tower = event.get_target()
 	var target: Unit = buff.get_buffed_unit()
 	var gold: float = caster.get_gold_cost()
@@ -213,8 +208,6 @@ func dave_council_maledict_on_spell_targeted(event: Event):
 
 
 func dave_council_darkness_periodic(event: Event):
-	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var target: Unit = event.get_target()
 	var level: int = tower.get_level()
 	var damage: float = 1000 + 40 * level
@@ -233,7 +226,6 @@ func dave_council_darkness_on_damaged(event: Event):
 
 func dave_council_darkness_on_expire(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var level: int = tower.get_level()
 	var target: Unit = buff.get_buffed_unit()
 	var stored_damage: float = buff.user_real

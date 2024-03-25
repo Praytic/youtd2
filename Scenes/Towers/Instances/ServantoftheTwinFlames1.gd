@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script appears to have a bug. Twin
@@ -111,7 +111,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var attack_crit_chance: float = tower.get_prop_atk_crit_chance()
 	var spell_crit_chance: float = tower.get_spell_crit_chance()
@@ -174,7 +173,6 @@ func on_damage(event: Event):
 	if !event.is_attack_damage_critical():
 		return
 
-	var tower: Tower = self
 	var physical_buff: Buff = tower.get_buff_of_type(dave_physical_bt)
 	var spell_buff: Buff = tower.get_buff_of_type(dave_spell_bt)
 	var attack_crit_chance: float = tower.get_prop_atk_crit_chance()
@@ -210,7 +208,6 @@ func dave_red_pt_on_hit(_projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = self
 	var damage: float = get_flame_damage()
 	tower.do_attack_damage(creep, damage, tower.calc_attack_multicrit_no_bonus())
 
@@ -219,14 +216,11 @@ func dave_green_pt_on_hit(_projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = self
 	var damage: float = get_flame_damage()
 	tower.do_spell_damage(creep, damage, tower.calc_spell_crit_no_bonus())
 
 
 func get_flame_count_for_pulse() -> int:
-	var tower: Tower = self
-
 	var flame_count: int
 	if tower.get_level() < 15:
 		flame_count = 8
@@ -240,7 +234,6 @@ func get_flame_count_for_pulse() -> int:
 
 
 func get_flame_damage() -> float:
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var current_attack_damage: float = tower.get_current_attack_damage_with_bonus()
 	var damage_ratio: float = _stats.flame_dmg_ratio + _stats.flame_dmg_ratio_add * level
@@ -250,7 +243,6 @@ func get_flame_damage() -> float:
 
 
 func get_pulse_damage() -> float:
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var current_attack_damage: float = tower.get_current_attack_damage_with_bonus()
 	var damage_ratio: float = _stats.pulse_dmg_ratio + _stats.pulse_dmg_ratio_add * level

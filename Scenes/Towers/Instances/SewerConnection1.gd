@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var D1000_Toxic_vapor: BuffType
@@ -61,8 +61,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.3):
 		return
 

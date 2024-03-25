@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var maj_planar_eruption_bt: BuffType
@@ -86,11 +86,10 @@ func tower_init():
 	autocast.buff_type = maj_planar_eruption_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var ignore_falcon_count_max_chance: float = 0.20
 	var ignore_falcon_count_max: bool = tower.calc_chance(ignore_falcon_count_max_chance)
 
@@ -101,7 +100,7 @@ func on_attack(event: Event):
 
 	var target: Unit = event.get_target()
 
-	CombatLog.log_ability(self, target, "Planeshift")
+	CombatLog.log_ability(tower, target, "Planeshift")
 
 	var crits: int = event.get_number_of_crits()
 	var cur_dmg: float = tower.get_current_attack_damage_with_bonus()
@@ -138,7 +137,6 @@ func on_damage(event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var x: float = tower.get_visual_x()
 	var y: float = tower.get_visual_y()
 
@@ -166,8 +164,6 @@ func on_autocast(_event: Event):
 # p.userReal3 = damage to deal
 # NOTE: "bounce()" in original script
 func bouncing_pt_on_hit(p: Projectile, target: Unit):
-	var tower: Tower = p.get_caster()
-
 	if target == null:
 		return
 

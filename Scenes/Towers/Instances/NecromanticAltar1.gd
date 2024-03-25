@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: simplified original script because it didn't use
@@ -63,11 +63,10 @@ func tower_init():
 	autocast.target_type = null
 	autocast.auto_range = 875
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var lvl: int = tower.get_level()
 	var iterate: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 875)
 	var next: Unit

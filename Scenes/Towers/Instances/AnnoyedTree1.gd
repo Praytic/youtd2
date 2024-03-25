@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_tree_rock: ProjectileType
@@ -44,7 +44,6 @@ func load_triggers(triggers: BuffType):
 
 
 func rock_hit(p: Projectile, _target: Unit):
-	var tower: Tower = self
 	p.do_spell_damage_pb_aoe(_stats.rock_range, _stats.damage + _stats.damage_add * tower.get_level(), 0)
 	var effect: int = Effect.add_special_effect("ImpaleTargetDust.mdl", p.position.x, p.position.y)
 	Effect.destroy_effect_after_its_over(effect)
@@ -56,8 +55,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(0.3 + 0.06 * tower.get_level()):
 		return
 

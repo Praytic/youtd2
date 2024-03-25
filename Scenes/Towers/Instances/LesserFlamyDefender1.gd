@@ -1,3 +1,3 @@
-extends Tower
+extends TowerBehavior
 
 # NOTE: no special effects

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cassim_armor: BuffType
@@ -47,7 +47,7 @@ func load_specials(modifier: Modifier):
 		125: _stats.splash_125_damage,
 		225: _stats.splash_225_damage,
 	}
-	set_attack_style_splash(splash_map)
+	tower.set_attack_style_splash(splash_map)
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_UNDEAD, 0.15, 0.0)
 
@@ -64,8 +64,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	var lvl: int = tower.get_level()
 	var creep: Unit = event.get_target()
 	var size_factor: float = 1.0

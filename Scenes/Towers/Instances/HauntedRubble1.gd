@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var velex_slow: BuffType
@@ -56,7 +56,6 @@ func tower_init():
 
 
 func on_attack(event: Event):
-	var tower: Unit = self
 	var creep: Unit = event.get_target()
 	var size: int = creep.get_size()
 	var calc: bool

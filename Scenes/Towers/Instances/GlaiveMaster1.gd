@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: for some reason, youtd website shows the "Glaivesaw"
@@ -96,7 +96,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_bounce(2, 0.0)
+	tower.set_attack_style_bounce(2, 0.0)
 
 
 func get_ability_ranges() -> Array[Tower.RangeData]:
@@ -134,11 +134,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var bounder_chance: float = 0.15 + 0.006 * tower.get_level()
 
 	if !tower.calc_chance(bounder_chance):
@@ -148,7 +147,6 @@ func on_attack(_event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var storm_chance: float = 0.05 + 0.002 * tower.get_level()
 
@@ -162,7 +160,6 @@ func on_damage(event: Event):
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var damage: float = (0.5 + 0.01 * tower.get_level()) * tower.get_current_attack_damage_with_bonus()
 
 	for glaivesaw in glaivesaw_list:
@@ -208,7 +205,6 @@ func on_autocast(event: Event):
 
 
 func ashbringer_lacerate_damage(target: Unit, damage: float, crit: float):
-	var tower: Tower = self
 	var dot_inc: float = 1.0 + 0.01 * tower.get_level()
 	var dot_damage: float = 0.5 * damage * dot_inc * crit
 
@@ -226,7 +222,6 @@ func ashbringer_lacerate_damage(target: Unit, damage: float, crit: float):
 
 
 func ashbringer_lacerate_bt_periodic(event: Event):
-	var tower: Tower = self
 	var buff: Buff = event.get_buff()
 	var target: Unit = buff.get_buffed_unit()
 	var remaining: float = buff.get_remaining_duration()
@@ -248,8 +243,6 @@ func ashbringer_lacerate_bt_periodic(event: Event):
 
 
 func ashbringer_bounder_throw():
-	var tower: Tower = self
-
 	if glaivesaw_list.is_empty():
 		return
 
@@ -268,7 +261,6 @@ func ashbringer_bounder_throw():
 
 
 func bounder_pt_on_collision(p: Projectile, target: Unit):
-	var tower: Tower = self
 	var damage: float = p.user_real
 	ashbringer_lacerate_damage(target, damage, tower.calc_attack_multicrit_no_bonus())
 
@@ -302,7 +294,6 @@ func bounder_pt_on_finished(p: Projectile, _target: Unit):
 
 
 func ashbringer_storm_throw(target: Unit):
-	var tower: Tower = self
 	CombatLog.log_ability(tower, target, "Glaive Storm")
 	var p: Projectile = Projectile.create_bezier_interpolation_from_unit_to_unit(storm_pt, tower, 1, 1, tower, target, 0, 0.3, 0.17, true)
 	
@@ -317,8 +308,6 @@ func ashbringer_storm_throw(target: Unit):
 
 
 func storm_pt_on_finished(p: Projectile, creep: Unit):
-	var tower: Tower = self
-
 	var moving_to_target: int = p.user_int
 	var bounce_count: int = p.user_int2
 	var tower_x: float = p.user_real2

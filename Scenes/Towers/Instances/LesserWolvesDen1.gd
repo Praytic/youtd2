@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var speed_aura: BuffType

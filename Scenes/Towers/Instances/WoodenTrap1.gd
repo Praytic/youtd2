@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cb_stun: BuffType
@@ -55,14 +55,12 @@ func tower_init():
 
 
 func on_periodic(event: Event):
-	var tower = self
-	
 	CombatLog.log_ability(tower, null, "Activate Trap")
 
-	trap(event, tower, _stats.cooldown, _stats.base_damage, _stats.damage_add, _stats.stun_duration, _stats.max_targets)
+	trap(event, _stats.cooldown, _stats.base_damage, _stats.damage_add, _stats.stun_duration, _stats.max_targets)
 
 
-func trap(event: Event, tower, cooldown: float, base_damage: float, damage_add: float, stun_duration: float, max_targets: int):
+func trap(event: Event, cooldown: float, base_damage: float, damage_add: float, stun_duration: float, max_targets: int):
 	var lvl: int = tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 950)
 	var next: Unit = it.next_random()

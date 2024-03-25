@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: this script uses chain lightning cast weirdly. It
@@ -95,8 +95,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	var main_target: Unit = event.get_target()
 	var chance_per_stack = 0.01 + 0.0002 * tower.get_level()
 	var mana: float = tower.get_mana()
@@ -151,7 +149,6 @@ func on_damage(event: Event):
 
 
 func ashbringer_attraction_apply(target: Unit, stacks: int):
-	var tower: Tower = self
 	var i: int
 
 	if stacks < 1:
@@ -172,7 +169,6 @@ func ashbringer_attraction_apply(target: Unit, stacks: int):
 # NOTE: "ashbringer_attraction_ondeath()" in original script
 func ash_arcanestorm_attraction_bt_on_death(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = self
 	var target: Unit = buff.get_buffed_unit()
 	var it_range: float = 500 + 10 * tower.get_level()
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, it_range)
@@ -212,7 +208,6 @@ func ash_arcanestorm_attraction_bt_on_death(event: Event):
 
 
 func ashbringer_surge_start(target: Unit, mana: float):
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of_unit(tower, TargetType.new(TargetType.CREEPS), target, 750)
 	var damage: float = tower.get_current_attack_damage_with_bonus() * (2.0 + 0.04 * tower.get_level()) * (1 + 0.01 * mana)
 	var chance_per_stack: float = 0.01 + 0.0002 * tower.get_level()

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sternbogen_holy_buff: BuffType
@@ -56,7 +56,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 func load_specials(_modifier: Modifier):
 	magical_sight = MagicalSightBuff.new("holy_light_magical_sight", _stats.magical_sight_range, self)
-	magical_sight.apply_to_unit_permanent(self, self, 0)
+	magical_sight.apply_to_unit_permanent(tower, tower, 0)
 
 
 func get_ability_ranges() -> Array[Tower.RangeData]:
@@ -74,8 +74,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	var creep = event.get_target()
 #	0.001 Basic Bonus
 	var bufflevel: int = _stats.mod_value + _stats.mod_value_add * tower.get_level()

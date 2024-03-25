@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var boekie_dragon_sorcerer_bt: BuffType
@@ -62,4 +62,4 @@ func tower_init():
 	autocast.buff_type = boekie_dragon_sorcerer_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = Callable()
-	add_autocast(autocast)
+	tower.add_autocast(autocast)

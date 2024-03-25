@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var storm_zealot_fury: BuffType
@@ -108,7 +108,6 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var b: Buff
 	var u: Tower
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), 175.0)
@@ -177,7 +176,6 @@ func on_attack(_event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Creep = event.get_target()
 	var phase_wound: Buff = target.get_buff_of_type(storm_zealot_wound)
 	var damage_base: float = event.damage

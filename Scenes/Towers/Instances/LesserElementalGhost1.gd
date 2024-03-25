@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var tomy_ElementalWrath: BuffType
@@ -64,8 +64,6 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
-
 	if !tower.calc_chance(_stats.elemental_wrath_chance):
 		return
 
@@ -76,8 +74,6 @@ func on_attack(_event: Event):
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
-
 	var target: Creep = event.get_target()
 	var immune: bool = target.is_immune()
 	var sif: bool = target.get_armor_type() == ArmorType.enm.SIF

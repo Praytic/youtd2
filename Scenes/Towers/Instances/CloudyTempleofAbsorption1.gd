@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: changed how storm is enabled/disabled. In original
@@ -135,7 +135,7 @@ func tower_init():
 	autocast1.buff_type = null
 	autocast1.target_type = TargetType.new(TargetType.TOWERS)
 	autocast1.handler = on_autocast_cloud_thunderstorm
-	add_autocast(autocast1)
+	tower.add_autocast(autocast1)
 
 	var autocast2: Autocast = Autocast.make()
 	autocast2.title = "Adjust Autocast Threshold"
@@ -155,7 +155,7 @@ func tower_init():
 	autocast2.buff_type = null
 	autocast2.target_type = TargetType.new(TargetType.TOWERS)
 	autocast2.handler = on_autocast_adjust_threshold
-	add_autocast(autocast2)
+	tower.add_autocast(autocast2)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -177,8 +177,6 @@ func on_autocast_cloud_thunderstorm(_event: Event):
 
 
 func on_autocast_adjust_threshold(_event: Event):
-	var tower: Tower = self
-
 	threshold_for_cloudy_thunderstorm_autocast += 0.1
 	if threshold_for_cloudy_thunderstorm_autocast > 1.0:
 		threshold_for_cloudy_thunderstorm_autocast = 0.0
@@ -200,7 +198,6 @@ func on_destruct():
 
 
 func on_unit_in_range(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 
 	if !storm_is_enabled && !target.is_immune():
@@ -211,7 +208,6 @@ func on_unit_in_range(event: Event):
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var mana: float = tower.get_mana()
 
 #	The next strike will be realeased, if
@@ -258,8 +254,6 @@ func natac_cloudy_temple_storm_bt_on_damaged(event: Event):
 
 
 func enable_storm():
-	var tower: Tower = self
-	
 	if storm_is_enabled:
 		return
 
@@ -286,21 +280,21 @@ func natac_cloudy_temple_aura_bt_on_damaged(event: Event):
 		mana_ball.user_real = redundant_damage
 
 
-func natac_cloudy_temple_pt_on_hit(projectile: Projectile, tower: Unit):
-	if tower == null || !Utils.unit_is_valid(tower):
+func natac_cloudy_temple_pt_on_hit(projectile: Projectile, target: Unit):
+	if target == null || !Utils.unit_is_valid(target):
 		return
 
-	var max_mana: float = tower.get_overall_mana()
-	var current_mana: float = tower.get_mana()
+	var max_mana: float = target.get_overall_mana()
+	var current_mana: float = target.get_mana()
 	var redundant_damage: float = projectile.user_real
-	var granted_mana: float = redundant_damage * (1.0 + 0.05 * tower.get_level())
+	var granted_mana: float = redundant_damage * (1.0 + 0.05 * target.get_level())
 
 	if granted_mana > 0:
-		tower.add_mana(granted_mana)
+		target.add_mana(granted_mana)
 
 	var actual_granted_mana: float = min(max_mana - current_mana, granted_mana)
 	var floating_text: String = "+%s" % str(int(actual_granted_mana))
-	tower.get_player().display_small_floating_text(floating_text, tower, Color8(0, 0, 255), 40)
+	target.get_player().display_small_floating_text(floating_text, target, Color8(0, 0, 255), 40)
 
 	var mana_is_full: bool = current_mana + granted_mana >= max_mana
 

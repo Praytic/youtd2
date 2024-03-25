@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script did thunder by enabling periodic
@@ -94,11 +94,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var damage: float = 500 + 20 * tower.get_level()
 
@@ -107,7 +106,6 @@ func on_damage(event: Event):
 
 
 func on_kill(_event: Event):
-	var tower: Tower = self
 	tower.add_mana_perc(0.05)
 
 
@@ -118,7 +116,6 @@ func on_destruct():
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
 	var bolt_damage: float = 2500 + 125 * tower.get_level()
 
 	if !thunder_is_enabled:
@@ -150,8 +147,6 @@ func periodic(_event: Event):
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
-
 	bolt_count = 20 + int(0.2 * tower.get_level())
 
 	if thunder_effect == 0:

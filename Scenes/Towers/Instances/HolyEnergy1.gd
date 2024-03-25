@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed bug in original script where glimmer aura's
@@ -73,7 +73,7 @@ func get_autocast_description_short() -> String:
 
 
 func load_specials(modifier: Modifier):
-	set_target_count(3)
+	tower.set_target_count(3)
 
 	modifier.add_modification(Modification.Type.MOD_MANA_REGEN, 0.0, 0.1)
 	modifier.add_modification(Modification.Type.MOD_BUFF_DURATION, 0.0, 0.01)
@@ -112,7 +112,7 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = null
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -129,7 +129,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_autocast(_event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var creeps: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), SUNLIGHT_RANGE)
 	var towers: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.TOWERS), SUNLIGHT_RANGE)

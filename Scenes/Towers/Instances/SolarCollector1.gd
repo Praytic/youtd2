@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cb_stun: BuffType
@@ -92,11 +92,10 @@ func tower_init():
 	autocast.buff_type = null
 	autocast.target_type = TargetType.new(TargetType.CREEPS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var creep: Unit = event.get_target()
 	var creep_size: CreepSize.enm = creep.get_size()
 	var damage: float = _stats.release_energy_dmg + _stats.release_energy_dmg_add * tower.get_level()
@@ -114,7 +113,6 @@ func on_autocast(event: Event):
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var mana: float = tower.get_mana()
 
 	if mana < _stats.attack_mana_cost:

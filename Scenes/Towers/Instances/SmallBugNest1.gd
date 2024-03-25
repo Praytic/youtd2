@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -38,8 +38,6 @@ func load_triggers(triggers: BuffType):
 
 
 func on_kill(_event: Event):
-	var tower: Tower = self
-
 	CombatLog.log_ability(tower, null, "Create Bug #%d" % (tower.user_int + 1))
 
 	tower.modify_property(Modification.Type.MOD_DAMAGE_BASE, max(_stats.bug_dmg - tower.user_int / _stats.production_for_decrease, 1))
@@ -47,7 +45,6 @@ func on_kill(_event: Event):
 
 
 func on_create(preceding_tower: Tower):
-	var tower: Tower = self
 	var prev: Tower = preceding_tower
 	var N: int
 	var mults: int

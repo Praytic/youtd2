@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var sir_frost_furbolg: BuffType
@@ -41,7 +41,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_splash({300: 0.35})
+	tower.set_attack_style_splash({300: 0.35})
 
 
 func on_cleanup(event: Event):
@@ -69,7 +69,6 @@ func tower_init():
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var power: int = 30
 	tower.user_int = min(tower.user_int + 1, 10)
 
@@ -83,5 +82,4 @@ func on_attack(_event: Event):
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 	tower.user_int = 0

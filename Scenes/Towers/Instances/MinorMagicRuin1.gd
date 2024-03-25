@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var drol_magic_ruin: BuffType
@@ -55,6 +55,4 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	drol_magic_ruin.apply_custom_timed(tower, event.get_target(), tower.get_level(), 5 + tower.get_level() * 0.2)

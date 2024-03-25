@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cassim_wyrm_slow_bt: BuffType
@@ -34,7 +34,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_splash({550: 0.20})
+	tower.set_attack_style_splash({550: 0.20})
 
 
 func tower_init():
@@ -50,7 +50,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var level: int = tower.get_level()
 	var target: Creep = event.get_target()
 	var slow_chance: float = 0.25 + 0.01 * level

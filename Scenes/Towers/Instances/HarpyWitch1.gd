@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: fixed bug in original script, where twister debuff
@@ -91,7 +91,7 @@ func load_triggers(triggers: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_bounce(2, 0.25)
+	tower.set_attack_style_bounce(2, 0.25)
 
 
 func get_ability_ranges() -> Array[Tower.RangeData]:
@@ -135,11 +135,10 @@ func tower_init():
 	autocast.buff_type = twister_bt
 	autocast.target_type = TargetType.new(TargetType.TOWERS)
 	autocast.handler = on_autocast
-	add_autocast(autocast)
+	tower.add_autocast(autocast)
 
 
 func on_attack(_event: Event):
-	var tower: Tower = self
 	var it: Iterate = Iterate.over_units_in_range_of_caster(tower, TargetType.new(TargetType.CREEPS), 1000)
 	var twister_chance: float = _stats.twister_chance + _stats.twister_chance_add * tower.get_level()
 	var tornado_count: int = _stats.twister_tornado_count
@@ -164,18 +163,16 @@ func on_attack(_event: Event):
 
 
 func on_autocast(event: Event):
-	var tower: Tower = self
 	var target: Tower = event.get_target()
 	var buff_level: int = _stats.sparks_level_base + _stats.sparks_level_multiply * tower.get_level()
 	var buff_duration: float = SPARKS_DURATION + SPARKS_DURATION_ADD * tower.get_level()
 	sparks_bt.apply_custom_timed(tower, target, buff_level, buff_duration)
 
 
-func harpy_missile_on_hit(projectile: Projectile, creep: Unit):
+func harpy_missile_on_hit(_projectile: Projectile, creep: Unit):
 	if creep == null:
 		return
 
-	var tower: Tower = projectile.get_caster()
 	var buff_level: int = _stats.twister_level_base + _stats.twister_level_multiply * tower.get_level()
 	tower.do_attack_damage(creep, tower.get_current_attack_damage_with_bonus(), tower.calc_attack_multicrit_no_bonus())
 	twister_bt.apply(tower, creep, buff_level)

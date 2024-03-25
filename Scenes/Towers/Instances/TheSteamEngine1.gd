@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_steam_stun: BuffType
@@ -97,7 +97,7 @@ func tower_init():
 	autocast_speed_up.buff_type = null
 	autocast_speed_up.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_speed_up.handler = on_autocast_speed_up
-	add_autocast(autocast_speed_up)
+	tower.add_autocast(autocast_speed_up)
 
 	var autocast_speed_down: Autocast = Autocast.make()
 	autocast_speed_down.title = "Speed Down"
@@ -117,7 +117,7 @@ func tower_init():
 	autocast_speed_down.buff_type = null
 	autocast_speed_down.target_type = TargetType.new(TargetType.TOWERS)
 	autocast_speed_down.handler = on_autocast_speed_down
-	add_autocast(autocast_speed_down)
+	tower.add_autocast(autocast_speed_down)
 
 
 func get_aura_types() -> Array[AuraType]:
@@ -135,7 +135,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_create(_preceding_tower: Tower):
-	var tower: Tower = self
 	permanent_effect_id = Effect.create_animated_scaled("FireTrapUp.mdl", tower.get_visual_x() - 4, tower.get_visual_y() + 41, 75, 0, 0.55)
 	engine_update_anims()
 
@@ -145,8 +144,6 @@ func on_destruct():
 
 
 func periodic(_event: Event):
-	var tower: Tower = self
-
 	var triggered_deactivate: bool = power_level > 0 &&  tower.get_mana() <= 1.0
 
 	if !triggered_deactivate:
@@ -159,10 +156,6 @@ func periodic(_event: Event):
 	engine_update_anims()
 	tower.get_player().display_floating_text("Power Level: 0", tower, Color8(50, 150, 100))
 	cedi_steam_stun.apply_only_timed(tower, tower, 120)
-
-
-# func on_autocast(event: Event):
-# 	var tower: Tower = self
 
 
 func on_tower_details() -> MultiboardValues:
@@ -178,7 +171,6 @@ func on_tower_details() -> MultiboardValues:
 # NOTE: engine_UpdateAnims() in original script
 func engine_update_anims():
 	pass
-	# var tower: Tower = self
 	# SetUnitTimeScale(tower, power_level / 10.0)
 	# permanent_effect_id.set_animation_speed(0.5 + power_level / 20.0)
 	# permanent_effect_id.set_scale(power_level / 20.0)
@@ -189,7 +181,6 @@ func engine_update_anims():
 # negative. More towers = more mana spent.
 # NOTE: engine_UpdateManaUse() in original script
 func engine_update_mana_use():
-	var tower: Tower = self
 	var new_mana_degen: float = power_level * sqrt(powered_tower_count) * 10 / 100.0
 	var degen_delta: float = current_mana_degen - new_mana_degen
 	tower.modify_property(Modification.Type.MOD_MANA_REGEN_PERC, degen_delta)
@@ -253,8 +244,6 @@ func cedi_steam_bt_on_cleanup(event: Event):
 
 
 func on_autocast_speed_up(_event: Event):
-	var tower: Tower = self
-
 	if power_level >= 50:
 		return
 	
@@ -267,8 +256,6 @@ func on_autocast_speed_up(_event: Event):
 
 
 func on_autocast_speed_down(_event: Event):
-	var tower: Tower = self
-
 	if power_level <= 0:
 		return
 

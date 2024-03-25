@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var kricz_volcano_bt: BuffType
@@ -82,7 +82,6 @@ func get_aura_types() -> Array[AuraType]:
 
 
 func on_attack(event: Event):
-	var tower: Tower = self
 	var target: Unit = event.get_target()
 	var lvl: int = tower.get_level()
 	var aoe_radius: float = 300 + 5 * lvl
@@ -102,7 +101,6 @@ func on_attack(event: Event):
 func lava_pt_on_cleanup(p: Projectile):
 	var aoe_radius: float = p.user_real
 	var aoe_damage: float = p.user_real2
-	var tower: Unit = p.get_caster()
 	var effect: int = Effect.add_special_effect("NeutralBuildingExplosion", p.get_x(), p.get_y())
 	Effect.destroy_effect_after_its_over(effect)
 	tower.do_spell_damage_aoe(p.get_x(), p.get_y(), aoe_radius, aoe_damage, tower.calc_spell_crit_no_bonus(), 0.25)
@@ -111,7 +109,6 @@ func lava_pt_on_cleanup(p: Projectile):
 func kricz_volcano_bt_periodic(event: Event):
 	var buff: Buff = event.get_buff()
 	var creep: Creep = buff.get_buffed_unit()
-	var tower: Tower = buff.get_caster()
 	var life: float = creep.get_health()
 	var dmg: float = life * 0.03 * tower.get_damage_to_category(creep.get_category())
 
@@ -126,7 +123,6 @@ func kricz_volcano_bt_periodic(event: Event):
 
 func kricz_volcano_bt_on_death(event: Event):
 	var buff: Buff = event.get_buff()
-	var tower: Tower = buff.get_caster()
 	var creep: Creep = buff.get_buffed_unit()
 	var heat_stroke_chance: float = 0.40
 	var aoe_radius: float = 300

@@ -1,5 +1,5 @@
 class_name SmallCactus1
-extends Tower
+extends TowerBehavior
 
 
 func get_tier_stats() -> Dictionary:
@@ -15,7 +15,7 @@ func get_tier_stats() -> Dictionary:
 
 func load_specials(modifier: Modifier):
 #	NOTE: splash values are the same for all tiers
-	set_attack_style_splash({320: 0.5})
+	tower.set_attack_style_splash({320: 0.5})
 
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_MASS, _stats.value, _stats.value_add)
 	modifier.add_modification(Modification.Type.MOD_DMG_TO_HUMANOID, _stats.value, _stats.value_add)

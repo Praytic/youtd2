@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 # NOTE: original script appears to be completely broken? It
@@ -57,7 +57,6 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower: Tower = self
 	var chance: float = 0.5 + 0.004 * tower.get_level()
 
 	if !tower.calc_chance(chance):

@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var velex_dmg_aura: BuffType

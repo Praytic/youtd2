@@ -1,4 +1,4 @@
-extends Tower
+extends TowerBehavior
 
 
 var cedi_acidarmor: BuffType
@@ -46,7 +46,7 @@ func load_triggers(triggers_buff_type: BuffType):
 
 
 func load_specials(_modifier: Modifier):
-	set_attack_style_bounce(3, 0.15)
+	tower.set_attack_style_bounce(3, 0.15)
 
 
 func tower_init():
@@ -60,6 +60,4 @@ func tower_init():
 
 
 func on_damage(event: Event):
-	var tower = self
-
 	cedi_acidarmor.apply_custom_timed(tower, event.get_target(), _stats.armor_base + tower.get_level() * _stats.armor_add, 3.0 + 0.12 * tower.get_level())
