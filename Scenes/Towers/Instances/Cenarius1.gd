@@ -33,7 +33,7 @@ func get_ability_description() -> String:
 	text += " \n"
 
 	text += "[color=GOLD]Thorned![/color]\n"
-	text += "When a unit comes in 950 range to this tower it recieves the thorned debuff. The debuff lasts 3 seconds and increases the damage taken from nature towers by 30%.\n"
+	text += "When a unit comes in 950 range to this tower it receives the thorned debuff. The debuff lasts 3 seconds and increases the damage taken from nature towers by 30%.\n"
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "+0.06 seconds duration\n"
@@ -58,7 +58,7 @@ func get_ability_description_short() -> String:
 	text += " \n"
 
 	text += "[color=GOLD]Thorned![/color]\n"
-	text += "When a unit comes in range it recieves the thorned debuff. The debuff increases the damage taken from nature towers.\n"
+	text += "When a unit comes in range it receives the thorned debuff. The debuff increases the damage taken from nature towers.\n"
 	text += " \n"
 
 	text += "[color=GOLD]Tranquility - Aura[/color]\n"

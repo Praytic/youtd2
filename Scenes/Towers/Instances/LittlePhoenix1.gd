@@ -53,7 +53,7 @@ func get_autocast_description() -> String:
 
 	var text: String = ""
 
-	text += "When Phoenixfire expires, it erupts and deals %s elemental damage per armor point the creep is missing in %s range around its target. Additionally the target regains only %s of its armor. Creeps further away recieve less damage. This ability can be cast to make Phoenixfire expire immediately.\n" % [erupt_damage, erupt_range, armor_regain]
+	text += "When Phoenixfire expires, it erupts and deals %s elemental damage per armor point the creep is missing in %s range around its target. Additionally the target regains only %s of its armor. Creeps further away receive less damage. This ability can be cast to make Phoenixfire expire immediately.\n" % [erupt_damage, erupt_range, armor_regain]
 	text += " \n"
 	text += "[color=ORANGE]Level Bonus:[/color]\n"
 	text += "-%s armor regain\n" % armor_regain_add
