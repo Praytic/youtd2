@@ -1,0 +1,155 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwl865fwo1sdn"]
+
+[ext_resource type="Script" path="res://addons/w4gd/plugin/w4_server_uploader.gd" id="1_cyk6x"]
+
+[node name="W4ServerUploader" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cyk6x")
+
+[node name="ServiceKeyDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "Enter your service key to continue"
+position = Vector2i(0, 36)
+size = Vector2i(500, 88)
+
+[node name="GridContainer" type="GridContainer" parent="ServiceKeyDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 492.0
+offset_bottom = 39.0
+columns = 2
+
+[node name="ServiceKeyLabel" type="Label" parent="ServiceKeyDialog/GridContainer"]
+layout_mode = 2
+text = "Service Key:"
+
+[node name="ServiceKeyField" type="LineEdit" parent="ServiceKeyDialog/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="UploadDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "Export & Upload Server to W4 Cloud..."
+position = Vector2i(0, 36)
+size = Vector2i(400, 200)
+ok_button_text = "Export & Upload"
+dialog_hide_on_ok = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UploadDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 392.0
+offset_bottom = 151.0
+
+[node name="GridContainer" type="GridContainer" parent="UploadDialog/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 5
+columns = 2
+
+[node name="ExportPresetLabel" type="Label" parent="UploadDialog/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Export Preset:"
+
+[node name="ExportPresetField" type="OptionButton" parent="UploadDialog/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 1
+selected = 0
+popup/item_0/text = "Server"
+popup/item_0/id = 0
+
+[node name="Spacer1" type="Control" parent="UploadDialog/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="DebugBuildField" type="CheckBox" parent="UploadDialog/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+button_pressed = true
+text = "Export With Debug"
+
+[node name="BuildNameLabel" type="Label" parent="UploadDialog/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Build Name:"
+
+[node name="BuildNameField" type="LineEdit" parent="UploadDialog/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FleetLabel" type="Label" parent="UploadDialog/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fleet:"
+
+[node name="FleetField" type="OptionButton" parent="UploadDialog/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ErrorDialog" type="AcceptDialog" parent="UploadDialog"]
+unique_name_in_owner = true
+size = Vector2i(416, 287)
+popup_window = true
+dialog_autowrap = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UploadDialog/ErrorDialog"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ErrorMessage" type="Label" parent="UploadDialog/ErrorDialog/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ERROR"
+
+[node name="ErrorDetails" type="TextEdit" parent="UploadDialog/ErrorDialog/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Error details"
+editable = false
+
+[node name="ProgressWindow" type="PopupPanel" parent="UploadDialog"]
+unique_name_in_owner = true
+title = "Server Upload"
+size = Vector2i(600, 95)
+exclusive = true
+borderless = false
+unfocusable = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UploadDialog/ProgressWindow"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 596.0
+offset_bottom = 91.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UploadDialog/ProgressWindow/MarginContainer"]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="UploadDialog/ProgressWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ProgressMessage" type="Label" parent="UploadDialog/ProgressWindow/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+text = "Progress"
+horizontal_alignment = 1
+
+[connection signal="confirmed" from="ServiceKeyDialog" to="." method="_on_service_key_dialog_confirmed"]
+[connection signal="confirmed" from="UploadDialog" to="." method="_on_upload_dialog_confirmed"]

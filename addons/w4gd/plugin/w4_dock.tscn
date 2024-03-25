@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://bvxorbn44t3rk"]
+
+[node name="W4" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Settings" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Settings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Settings/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Database Settings"
+
+[node name="ProfilesButton" type="OptionButton" parent="VBoxContainer/Settings/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "default"
+popup/item_0/id = 0
+popup/item_1/text = "internal"
+popup/item_1/id = 1
+
+[node name="SettingsTree" type="Tree" parent="VBoxContainer/Settings"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+hide_root = true
+
+[node name="Run" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Run"]
+layout_mode = 2
+
+[node name="RunButton" type="Button" parent="VBoxContainer/Run/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Run"
+
+[node name="ScriptLineEdit" type="LineEdit" parent="VBoxContainer/Run/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "res://backend/scripts/create_db.gd"
+
+[node name="ScriptPickerButton" type="Button" parent="VBoxContainer/Run/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DeleteConfirm" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "Delete Profile"
+
+[node name="ScriptPicker" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+
+[node name="RunConfirm" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+title = "Run Script"
+position = Vector2i(0, 36)
+size = Vector2i(200, 118)
+ok_button_text = "Run"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RunConfirm"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 69.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RunConfirm/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="RunConfirm/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Service Key:"
+
+[node name="ServiceKeyLineEdit" type="LineEdit" parent="RunConfirm/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="RunConfirmDetails" type="Label" parent="RunConfirm/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="ErrorDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true

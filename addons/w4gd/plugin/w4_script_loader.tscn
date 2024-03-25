@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp7u317xgv231"]
+
+[sub_resource type="GDScript" id="GDScript_t6y1h"]
+script/source = "extends Node
+
+var runner = null
+
+func _ready():
+	# Instance and load our runner
+	runner = load(scene_file_path.get_base_dir() + \"/w4_runner_node.gd\").new()
+	add_child(runner)
+
+	# Add message capture
+	if EngineDebugger.is_active():
+		EngineDebugger.register_message_capture(\"w4\", _debugger_message)
+		EngineDebugger.send_message(\"w4:ready\", [])
+
+
+func _debugger_message(message, data) -> bool:
+	if message != \"run\" or data.size() != 2 or typeof(data[0]) != TYPE_STRING or typeof(data[1]) != TYPE_DICTIONARY:
+		push_error(\"Invalid message '%s' received. Data: %s\" % [message, data])
+		return false
+	runner.debug(\"Running %s with config %s\" % [data[0], data[1]])
+	runner.run(data[0], data[1])
+	return true
+"
+
+[node name="Runner" type="Node"]
+script = SubResource("GDScript_t6y1h")
